@@ -2,7 +2,6 @@
 layout: default
 title: Security patching & updating
 nav_order: 30
-parent: Migration Assistant for OpenSearch
 permalink: /migration-assistant/security-patching-and-updating/
 ---
 

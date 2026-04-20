@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Create or update mappings
-parent: Index APIs
-nav_order: 105
+parent: Index settings and mappings
+grand_parent: Index APIs
+nav_order: 30
 redirect_from:
   - /opensearch/rest-api/index-apis/put-mapping/
   - /opensearch/rest-api/index-apis/update-mapping/
@@ -20,8 +21,8 @@ You can't use this operation to update mappings that already map to existing dat
 ## Endpoints
 
 ```json
-PUT /<target-index>/_mapping
-PUT /<target-index1>,<target-index2>/_mapping
+PUT /{target-index}/_mapping
+PUT /{target-index1},{target-index2}/_mapping
 ```
 
 
@@ -30,8 +31,8 @@ PUT /<target-index1>,<target-index2>/_mapping
 The only required path parameter is the index with which to associate the mapping. If you don't specify an index, you will get an error. You can specify a single index, or multiple indexes separated by a comma as follows:
 
 ```json
-PUT /<target-index>/_mapping
-PUT /<target-index1>,<target-index2>/_mapping
+PUT /{target-index}/_mapping
+PUT /{target-index1},{target-index2}/_mapping
 ```
 
 ## Query parameters
@@ -46,12 +47,12 @@ The following table defines the put mapping query parameters:
 
 Parameter | Data type | Description
 :--- | :--- | :---
-allow_no_indices | Boolean | Whether to ignore wildcards that don’t match any indexes. Default is `true`.
-expand_wildcards | String | Expands wildcard expressions to different indexes. Combine multiple values with commas. Available values are `all` (match all indexes), `open` (match open indexes), `closed` (match closed indexes), `hidden` (match hidden indexes), and `none` (do not accept wildcard expressions), which must be used with `open`, `closed`, or both. Default is `open`.
-ignore_unavailable | Boolean | If true, OpenSearch does not include missing or closed indexes in the response.
-cluster_manager_timeout | Time | How long to wait for a connection to the cluster manager node. Default is `30s`.
-timeout | Time | How long to wait for the response to return. Default is `30s`.
-write_index_only | Boolean | Whether OpenSearch should apply mapping updates only to the write index.
+`allow_no_indices` | Boolean | Whether to ignore wildcards that don’t match any indexes. Default is `true`.
+`expand_wildcards` | String | Expands wildcard expressions to different indexes. Combine multiple values with commas. Available values are `all` (match all indexes), `open` (match open indexes), `closed` (match closed indexes), `hidden` (match hidden indexes), and `none` (do not accept wildcard expressions), which must be used with `open`, `closed`, or both. Default is `open`.
+`ignore_unavailable` | Boolean | If true, OpenSearch does not include missing or closed indexes in the response.
+`cluster_manager_timeout` | Time | How long to wait for a connection to the cluster manager node. Default is `30s`.
+`timeout` | Time | How long to wait for the response to return. Default is `30s`.
+`write_index_only` | Boolean | Whether OpenSearch should apply mapping updates only to the write index.
 
 ## Request body fields
 

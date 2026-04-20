@@ -3,7 +3,7 @@ layout: default
 title: Metrics reference
 nav_order: 25
 has_children: true
-parent: OpenSearch Benchmark Reference
+parent: Reference
 redirect_from:
   - /benchmark/metrics/index/
   - /benchmark/reference/metrics/

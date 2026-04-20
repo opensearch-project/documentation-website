@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Blocks
-parent: Index APIs
+parent: Index blocks and allocation
+grand_parent: Index APIs
 nav_order: 10
 ---
 
@@ -15,7 +16,7 @@ For example, adding a `write` block through the API ensures that all index shard
 ## Endpoints
 
 ```json
-PUT /<index>/_block/<block>
+PUT /{index}/_block/{block}
 ```
 
 ## Path parameters

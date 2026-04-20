@@ -24,12 +24,13 @@ The full-text query types shown in this section use the standard analyzer, which
 The following table lists all full-text query types.
 
 Query type | Description
-:--- | :--- 
-[`intervals`]({{site.url}}{{site.baseurl}}/query-dsl/full-text/intervals/) | Allows fine-grained control of the matching terms' proximity and order. 
+:--- | :---
 [`match`]({{site.url}}{{site.baseurl}}/query-dsl/full-text/match/) | The default full-text query, which can be used for fuzzy matching and phrase or proximity searches.
-[`match_bool_prefix`]({{site.url}}{{site.baseurl}}/query-dsl/full-text/match-bool-prefix/) | Creates a [Boolean query]({{site.url}}{{site.baseurl}}/query-dsl/compound/bool/) that matches all terms in any position, treating the last term as a prefix.
 [`match_phrase`]({{site.url}}{{site.baseurl}}/query-dsl/full-text/match-phrase/) | Similar to the `match` query but matches a whole phrase up to a configurable slop.
 [`match_phrase_prefix`]({{site.url}}{{site.baseurl}}/query-dsl/full-text/match-phrase-prefix/) | Similar to the `match_phrase` query but matches terms as a whole phrase, treating the last term as a prefix.
+[`match_bool_prefix`]({{site.url}}{{site.baseurl}}/query-dsl/full-text/match-bool-prefix/) | Creates a [Boolean query]({{site.url}}{{site.baseurl}}/query-dsl/compound/bool/) that matches all terms in any position, treating the last term as a prefix.
 [`multi_match`]({{site.url}}{{site.baseurl}}/query-dsl/full-text/multi-match/) | Similar to the `match` query but is used on multiple fields.
-[`query_string`]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/) | Uses a strict syntax to specify Boolean conditions and multi-field search within a single query string. 
-[`simple_query_string`]({{site.url}}{{site.baseurl}}/query-dsl/full-text/simple-query-string/) | A simpler, less strict version of `query_string` query. 
+[`combined_fields`]({{site.url}}{{site.baseurl}}/query-dsl/full-text/combined-fields/) | Treats multiple text fields as a single field for better relevance scoring using BM25F.
+[`simple_query_string`]({{site.url}}{{site.baseurl}}/query-dsl/full-text/simple-query-string/) | A simpler, less strict version of `query_string` query.
+[`query_string`]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/) | Uses a strict syntax to specify Boolean conditions and multi-field search within a single query string.
+[`intervals`]({{site.url}}{{site.baseurl}}/query-dsl/full-text/intervals/) | Allows fine-grained control of the matching terms' proximity and order. 

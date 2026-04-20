@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Trace Analytics
+title: Trace analytics
 nav_order: 40
 has_children: true
 has_toc: false
@@ -10,18 +10,21 @@ redirect_from:
   - /observing-your-data/trace/
 ---
 
-# Trace Analytics
+# Trace analytics
 
-Trace Analytics provides a way to ingest and visualize [OpenTelemetry](https://opentelemetry.io/) data in OpenSearch. This data can help you find and fix performance problems in distributed applications.
+For a more integrated monitoring experience that combines service topology, RED metrics, and in-context correlations, see [Application Performance Monitoring]({{site.url}}{{site.baseurl}}/observing-your-data/apm/index/).
+{: .note}
+
+Trace analytics provides a way to ingest and visualize [OpenTelemetry](https://opentelemetry.io/) data in OpenSearch. This data can help you find and fix performance problems in distributed applications.
 
 A single operation, such as a user choosing a button, can trigger an extended series of events. The frontend might call a backend service, which calls another service, which queries a database, processes the data, and sends it to the original service, which sends a confirmation to the frontend.
 
-Trace Analytics can help you visualize this flow of events and identify performance problems, as shown in the following image.
+Trace analytics can help you visualize this flow of events and identify performance problems, as shown in the following image.
 
 ![Detailed trace view]({{site.url}}{{site.baseurl}}/images/ta-trace.png)
 
-## Trace Analytics with Jaeger data
+## Trace analytics with Jaeger data
 
-Trace Analytics supports Jaeger trace data in the OpenSearch Observability plugin. If you use OpenSearch as the backend for Jaeger trace data, you can use the built-in Trace Analytics capabilities.
+Trace analytics supports Jaeger trace data in the OpenSearch Observability plugin. If you use OpenSearch as the backend for Jaeger trace data, you can use the built-in Trace analytics capabilities.
 
-To set up your environment to use Trace Analytics, see [Analyze Jaeger trace data]({{site.url}}{{site.baseurl}}/observability-plugin/trace/trace-analytics-jaeger/).
+To set up your environment to use Trace analytics, see [Analyze Jaeger trace data]({{site.url}}{{site.baseurl}}/observability-plugin/trace/trace-analytics-jaeger/).

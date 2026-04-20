@@ -141,6 +141,15 @@ No response exists for this command. To confirm that the setting was deleted, us
 For a complete list of secure settings that can be configured using `opensearch-keystore`, refer to [(Advanced) Using encrypted password settings for SSL]({{site.url}}{{site.baseurl}}/security/configuration/tls/#advanced-using-encrypted-password-settings-for-ssl).
 {: .note}
 
+### Upgrading the keystore
+
+The following command upgrades the keystore format to the latest version:
+
+```bash
+./bin/opensearch-keystore upgrade
+```
+{% include copy.html %}
+
 ## Keystore entries as OpenSearch settings
 
-After a setting has been added to a keystore, it is implicitly added to the OpenSearch configuration as if it were another entry in `opensearch.yml`. To modify a keystore entry use `./bin/opensearch-keystore upgrade <setting>`. To remove an entry, use `./bin/opensearch-keystore remove <setting>`.
+After a setting has been added to a keystore, it is implicitly added to the OpenSearch configuration as if it were another entry in `opensearch.yml`.

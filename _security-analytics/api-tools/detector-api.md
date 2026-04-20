@@ -221,7 +221,7 @@ POST _plugins/_security_analytics/detectors
 The Update Detector API can be used to update a detector definition. It requires the detector ID to specify the detector.
 
 ```json
-PUT /_plugins/_security_analytics/detectors/<detector_Id>
+PUT /_plugins/_security_analytics/detectors/{detector_Id}
 ```
 
 ### Request body fields

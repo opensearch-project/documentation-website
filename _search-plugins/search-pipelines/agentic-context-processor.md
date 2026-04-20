@@ -98,7 +98,7 @@ The response contains the steps taken by the agent to translate the query, the m
 }
 ```
 
-## Related pages
+## Related documentation
 
 - [Agentic search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/index/)
 - [Agentic query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/agentic/)

@@ -12,7 +12,7 @@ redirect_from:
 **Introduced 2.17**
 {: .label .label-purple}
 
-For low-memory environments, OpenSearch provides _disk-based vector search_, which significantly reduces the operational costs for vector workloads. Disk-based vector search uses [binary quantization]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/binary-quantization/), compressing vectors and thereby reducing the memory requirements. This memory optimization provides large memory savings at the cost of slightly increased search latency while still maintaining strong recall.
+For low-memory environments, OpenSearch provides _disk-based vector search_, which significantly reduces the operational costs for vector workloads. Disk-based vector search supports [scalar quantization]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/faiss-scalar-quantization/) (the default quantization type starting with OpenSearch 3.6) and [binary quantization]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/binary-quantization/) to compress vectors and reduce memory requirements. This memory optimization provides large memory savings at the cost of slightly increased search latency while still maintaining strong recall.
 
 To use disk-based vector search, set the [`mode`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-memory-optimized/#vector-workload-modes) parameter to `on_disk` for your vector field type. This parameter will configure your index to use secondary storage. For more information about disk-based search parameters, see [Memory-optimized vectors]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-memory-optimized/).
 
@@ -136,7 +136,7 @@ POST _bulk
 
 ## Search
 
-Search is also performed in the same way as in other index configurations. The key difference is that, by default, the `oversample_factor` of the rescore parameter is set to `3.0` (unless you override the `compression_level`). For more information, see [Rescoring quantized results to full precision]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-memory-optimized/#rescoring-quantized-results-to-full-precision). To perform vector search on a disk-optimized index, provide the search vector:
+Search is also performed in the same way as in other index configurations. The key difference is that, by default, the `oversample_factor` of the rescore parameter is set to `2.0` (unless you override the `compression_level`). For more information, see [Rescoring quantized results to full precision]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-memory-optimized/#rescoring-quantized-results-to-full-precision). To perform vector search on a disk-optimized index, provide the search vector:
 
 ```json
 GET my-vector-index/_search

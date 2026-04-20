@@ -2,7 +2,7 @@
 layout: default
 title: Concurrent segment search
 parent: Improving search performance
-nav_order: 53
+nav_order: 20
 ---
 
 # Concurrent segment search
@@ -58,7 +58,7 @@ PUT _cluster/settings
 To enable concurrent segment search for all search requests on a particular index, specify the index name in the endpoint:
 
 ```json
-PUT <index-name>/_settings
+PUT {index-name}/_settings
 {
     "index.search.concurrent_segment_search.mode": "all"
 }
@@ -79,7 +79,7 @@ PUT _cluster/settings
 To enable concurrent segment search for a particular index, specify the index name in the endpoint:
 
 ```json
-PUT <index-name>/_settings
+PUT {index-name}/_settings
 {
     "index.search.concurrent_segment_search.enabled": true
 }
@@ -105,7 +105,7 @@ PUT _cluster/settings
 
 To disable the old setting for a particular index, specify the index name in the endpoint:
 ```json
-PUT <index-name>/_settings
+PUT {index-name}/_settings
 {
     "index.search.concurrent_segment_search.enabled": null
 }
@@ -150,7 +150,7 @@ PUT _cluster/settings
 To configure the slice count for a particular index, specify the index name in the endpoint: 
 
 ```json
-PUT <index-name>/_settings
+PUT {index-name}/_settings
 {
     "index.search.concurrent.max_slice_count": 2
 }

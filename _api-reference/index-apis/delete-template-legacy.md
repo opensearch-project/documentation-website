@@ -2,11 +2,14 @@
 
 layout: default
 title: Delete template (deprecated)
-parent: Index APIs
-nav_order: 65
+parent: Index templates
+grand_parent: Index APIs
+nav_order: 110
 ---
 
 # Delete template
+**Introduced 1.0**
+{: .label .label-purple }
 
 The Delete Template API has been deprecated. Use the new [Delete Index Template]({{site.url}}{{site.baseurl}}/api-reference/index-apis/delete-index-template/) API.
 {: .warning}
@@ -17,7 +20,7 @@ The delete template API operation deletes an index template created using the le
 ## Endpoints
 
 ```json
-DELETE /_template/<template-name>
+DELETE /_template/{template-name}
 ```
 
 ## Path parameters

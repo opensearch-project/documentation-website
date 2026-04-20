@@ -1,7 +1,7 @@
 ---
 layout: default
 title: List shards
-parent: List API
+parent: List APIs
 nav_order: 20
 ---
 
@@ -15,7 +15,7 @@ The list shards operation outputs, in a paginated format, the state of all prima
 
 ```json
 GET _list/shards
-GET _list/shards/<index>
+GET _list/shards/{index}
 ```
 
 ## Query parameters
@@ -41,7 +41,7 @@ When using the `next_token` path parameter, use the token produced by the respon
 To get information for all the indexes and shards, use the following query and keep specifying the `next_token` as received from response until its `null`:
 
 ```json
-GET _list/shards/<index>?v&next_token=token
+GET _list/shards/{index}?v&next_token=token
 ```
 
 To limit the information to a specific index, add the index name after your query, as shown in the following example and keep specifying the `next_token` as received from response until its `null`:

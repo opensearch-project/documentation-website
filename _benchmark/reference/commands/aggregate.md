@@ -1,9 +1,9 @@
 ---
 layout: default
 title: aggregate
-nav_order: 85
+nav_order: 10
 parent: Command reference
-grand_parent: OpenSearch Benchmark Reference
+grand_parent: Reference
 redirect_from:
   - /benchmark/commands/aggregate/
 ---

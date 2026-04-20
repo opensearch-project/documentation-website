@@ -19,10 +19,10 @@ The `multi_terms` aggregation does consume more memory than a `terms` aggregatio
 
 Parameter | Description
 :--- | :---
-multi_terms | Indicates a multi-terms aggregation that gathers buckets of documents together based on criteria specified by multiple terms.
-size | Specifies the number of buckets to return. Default is 10.
-order | Indicates the order to sort the buckets. By default, buckets are ordered according to document count per bucket. If the buckets contain the same document count, then `order` can be explicitly set to the term value instead of document count. (e.g., set `order` to "max-cpu").
-doc_count | Specifies the number of documents to be returned in each bucket. By default, the top 10 terms are returned.
+`multi_terms` | Indicates a multi-terms aggregation that gathers buckets of documents together based on criteria specified by multiple terms.
+`size` | Specifies the number of buckets to return. Default is 10.
+`order` | Indicates the order to sort the buckets. By default, buckets are ordered according to document count per bucket. If the buckets contain the same document count, then `order` can be explicitly set to the term value instead of document count. (e.g., set `order` to "max-cpu").
+`doc_count` | Specifies the number of documents to be returned in each bucket. By default, the top 10 terms are returned.
 
 #### Example request
 

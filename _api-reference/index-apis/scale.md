@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Scale
-parent: Index APIs
-nav_order: 130
+parent: Index operations
+grand_parent: Index APIs
+nav_order: 80
 ---
 
 # Scale API
@@ -19,7 +20,7 @@ If you are using the Security plugin, you must have the `manage index` privilege
 ## Endpoints
 
 ```json
-POST /<index>/_scale
+POST /{index}/_scale
 ```
 
 ## Path parameters

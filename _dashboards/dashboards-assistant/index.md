@@ -1,7 +1,7 @@
 ---
 layout: default
 title: OpenSearch Assistant for OpenSearch Dashboards
-nav_order: 3
+nav_order: 150
 has_children: true
 has_toc: false
 redirect_from:
@@ -58,7 +58,7 @@ For information about configuring OpenSearch Assistant through the REST API, see
 
 ## Using OpenSearch Assistant in OpenSearch Dashboards
 
-The following tutorials guide you through using OpenSearch Assistant in OpenSearch Dashboards. OpenSearch Assistant can be viewed in full frame or in the sidebar. The default view is in the right sidebar. To view the assistant in the left sidebar or in full frame, select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/frame-icon.png" class="inline-icon" alt="frame icon"/>{:/} icon in the toolbar and choose the preferred option. 
+The following tutorials guide you through using OpenSearch Assistant in OpenSearch Dashboards. OpenSearch Assistant can be viewed in full frame or in the sidebar. The default view is in the right sidebar. To view the assistant in the left sidebar or in full frame, select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/frame-icon.png" class="inline-icon" alt="frame icon"/>{:/} (frame) icon in the toolbar and choose the preferred option. 
 
 ### Start a conversation
 
@@ -142,7 +142,7 @@ For information about additional Dashboards Assistant capabilities, see the foll
 - [Generating anomaly detector suggestions]({{site.url}}{{site.baseurl}}/dashboards/dashboards-assistant/suggest-anomaly-detector/)
 - [Generating visualizations from text]({{site.url}}{{site.baseurl}}/dashboards/dashboards-assistant/text-to-visualization/)
 
-## Related articles
+## Related documentation
 
 - [Getting started guide for OpenSearch Assistant in OpenSearch Dashboards](https://github.com/opensearch-project/dashboards-assistant/blob/main/GETTING_STARTED_GUIDE.md)
 - [OpenSearch Assistant configuration through the REST API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/opensearch-assistant/)

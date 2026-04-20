@@ -41,7 +41,7 @@ OpenSearch responds with a task ID for the model registration and deployment tas
 }
 ```
 
-You can monitor the status of the task by calling the Tasks API:
+You can monitor the status of the task by calling the [Get ML Task API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/):
 
 ```json
 GET _plugins/_ml/tasks/M_9KY40Bk4MTqirc5lP8
@@ -219,8 +219,8 @@ The following table lists all tool parameters that are available when registerin
 Parameter	| Type | Required/Optional | Description	
 :--- | :--- | :--- | :---
 `model_id` | String | Required | The model ID of the model to use at search time.
-`index` | String | Required | The index to search.
-`embedding_field` | String | Required | When the model encodes raw text documents, the encoding result is saved in a field. Specify this field as the `embedding_field`. Neural search matches documents to the query by calculating the similarity score between the query text and the text in the document's `embedding_field`.
+`index` | String | Required | The index to search. This value can also be provided at runtime by the LLM; runtime values take precedence over registered defaults.
+`embedding_field` | String | Required | When the model encodes raw text documents, the encoding result is saved in a field. Specify this field as the `embedding_field`. Neural search matches documents to the query by calculating the similarity score between the query text and the text in the document's `embedding_field`. This value can also be provided at runtime by the LLM; runtime values take precedence over registered defaults.
 `source_field` | String | Required | The document field or fields to return. You can provide a list of multiple fields as an array of strings, for example, `["field1", "field2"]`.
 `input` | String | Required for flow agent | Runtime input sourced from flow agent parameters. If using a large language model (LLM), this field is populated with the LLM response.
 `doc_size` | Integer | Optional | The number of documents to fetch. Default is `2`.

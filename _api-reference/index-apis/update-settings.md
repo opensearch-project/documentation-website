@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Update settings
-parent: Index APIs
-nav_order: 165
+parent: Index settings and mappings
+grand_parent: Index APIs
+nav_order: 20
 redirect_from:
   - /opensearch/rest-api/index-apis/update-settings/
 ---
@@ -19,7 +20,7 @@ Aside from the static and dynamic index settings, you can also update individual
 ## Endpoints
 
 ```json
-PUT /<index>/_settings
+PUT /{index}/_settings
 ```
 
 ## Path parameters
@@ -34,11 +35,11 @@ All update settings parameters are optional.
 
 Parameter | Data type | Description
 :--- | :--- | :---
-allow_no_indices | Boolean | Whether to ignore wildcards that don’t match any indexes. Default is `true`.
-expand_wildcards | String | Expands wildcard expressions to different indexes. Combine multiple values with commas. Available values are `all` (match all indexes), `open` (match open indexes), `closed` (match closed indexes), `hidden` (match hidden indexes), and `none` (do not accept wildcard expressions), which must be used with `open`, `closed`, or both. Default is `open`.
-cluster_manager_timeout | Time | How long to wait for a connection to the cluster manager node. Default is `30s`.
-preserve_existing | Boolean | Whether to preserve existing index settings. Default is `false`.
-timeout | Time | How long to wait for a connection to return. Default is `30s`.
+`allow_no_indices` | Boolean | Whether to ignore wildcards that don’t match any indexes. Default is `true`.
+`expand_wildcards` | String | Expands wildcard expressions to different indexes. Combine multiple values with commas. Available values are `all` (match all indexes), `open` (match open indexes), `closed` (match closed indexes), `hidden` (match hidden indexes), and `none` (do not accept wildcard expressions), which must be used with `open`, `closed`, or both. Default is `open`.
+`cluster_manager_timeout` | Time | How long to wait for a connection to the cluster manager node. Default is `30s`.
+`preserve_existing` | Boolean | Whether to preserve existing index settings. Default is `false`.
+`timeout` | Time | How long to wait for a connection to return. Default is `30s`.
 
 ## Request body
 

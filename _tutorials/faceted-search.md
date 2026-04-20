@@ -1973,7 +1973,7 @@ The response contains only `Clothing` products:
 Similarly, you can aggregate the `Clothing>Shirts` category by specifying `"category_path": "Clothing>Shirts"` in the `prefix` query. Your application code can then strip prefixes to provide a cleaner display (for example, change `Clothing>Shirts` to `Shirts`) if necessary. OpenSearch does the heavy lifting (tokenizing and aggregating), while your application code handles the display formatting by stripping prefixes based on hierarchy level.
 
 
-## Related articles
+## Related documentation
 
 - [Mappings and field types]({{site.url}}{{site.baseurl}}/mappings/)
 - [Supported field types]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/)

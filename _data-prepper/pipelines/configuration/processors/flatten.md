@@ -84,6 +84,7 @@ Use the `remove_processed_fields` option when flattening all of an event's neste
         remove_processed_fields: true
 ...
 ```
+{% include copy.html %}
 
 For example, when the input event contains the following nested objects:
 
@@ -140,6 +141,7 @@ Use the `exclude_keys` option to prevent specific keys from being flattened in t
         exclude_keys: ["key2"]
 ...
 ```
+{% include copy.html %}
 
 For example, when the input event contains the following nested objects:
 
@@ -199,6 +201,7 @@ Use the `remove_list_indices` option to convert the fields from the source map i
         remove_list_indices: true
 ...
 ```
+{% include copy.html %}
 
 For example, when the input event contains the following nested objects:
 

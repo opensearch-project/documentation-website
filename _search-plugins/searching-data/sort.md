@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Sort results
-parent: Search options
+parent: Customizing search results
 nav_order: 30
 redirect_from:
   - /opensearch/search/sort/
@@ -35,6 +35,7 @@ GET shakespeare/_search
   ]
 }
 ```
+{% include copy-curl.html %}
 
 The results are sorted by `line_id` in descending order:
 
@@ -258,6 +259,7 @@ GET shakespeare/_search
   ]
 }
 ```
+{% include copy-curl.html %}
 
 You can continue to sort by any number of field values to get the results in just the right order. It doesn’t have to be a numerical value&mdash;you can also sort by date or timestamp fields:
 
@@ -270,6 +272,7 @@ You can continue to sort by any number of field values to get the results in jus
     }
   ]
 ```
+{% include copy-curl.html %}
 
 A text field that is analyzed cannot be used to sort documents, because the inverted index only contains the individual tokenized terms and not the entire string. So you cannot sort by the `play_name`, for example.
 
@@ -294,6 +297,7 @@ GET shakespeare/_search
   ]
 }
 ```
+{% include copy-curl.html %}
 
 The results are sorted by the `play_name` field in alphabetical order.
 
@@ -331,6 +335,7 @@ GET shakespeare/_search
   ]
 }
 ```
+{% include copy-curl.html %}
 
 ## Sort mode
 
@@ -348,17 +353,21 @@ PUT students/_doc/1
    "name": "John Doe",
    "grades": [70, 90]
 }
+```
+{% include copy-curl.html %}
 
+```json
 PUT students/_doc/2
 {
    "name": "Mary Major",
    "grades": [80, 100]
 }
 ```
+{% include copy-curl.html %}
 
 Sort all students by highest grade average using the `avg` mode:
 
-```
+```json
 GET students/_search
 {
    "query" : {
@@ -369,6 +378,7 @@ GET students/_search
    ]
 }
 ```
+{% include copy-curl.html %}
 
 The response contains students sorted by `grades` in descending order:
 
@@ -442,6 +452,7 @@ PUT students
   }
 }
 ```
+{% include copy-curl.html %}
 
 Index two documents with nested fields:
 
@@ -453,7 +464,10 @@ PUT students/_doc/1
      "grades": [70, 90]
    }
 }
+```
+{% include copy-curl.html %}
 
+```json
 PUT students/_doc/2
 {
   "name": "Mary Major",
@@ -462,6 +476,7 @@ PUT students/_doc/2
   }
 }
 ```
+{% include copy-curl.html %}
 
 When sorting by grade average, provide the path to the nested field:
 
@@ -483,6 +498,7 @@ GET students/_search
  ]
 }
 ```
+{% include copy-curl.html %}
 
 ## Handling missing values
 
@@ -496,12 +512,16 @@ PUT students/_doc/1
    "name": "John Doe",
    "average": 80
 }
+```
+{% include copy-curl.html %}
 
+```json
 PUT students/_doc/2
 {
    "name": "Mary Major"
 }
 ```
+{% include copy-curl.html %}
 
 Sort the documents, ordering the document with a missing field first:
 
@@ -521,6 +541,7 @@ GET students/_search
   ]
 }
 ```
+{% include copy-curl.html %}
 
 The response lists document 2 first:
 
@@ -582,6 +603,7 @@ PUT students/_doc/1
    "average": 80
 }
 ```
+{% include copy-curl.html %}
 
 Index a document that does not contain an `average` field in the second index:
 
@@ -591,6 +613,7 @@ PUT students_no_map/_doc/2
    "name": "Mary Major"
 }
 ```
+{% include copy-curl.html %}
 
 Search for all documents in both indexes and sort them by the `average` field:
 
@@ -609,6 +632,7 @@ GET students*/_search
   ]
 }
 ```
+{% include copy-curl.html %}
 
 By default, the second index produces an error because the `average` field is not mapped:
 
@@ -677,6 +701,7 @@ GET students*/_search
   ]
 }
 ```
+{% include copy-curl.html %}
 
 The response contains both documents:
 
@@ -745,34 +770,55 @@ GET students/_search
   "track_scores": true
 }
 ```
+{% include copy-curl.html %}
 
-## Sorting by geo distance
+## Sorting by geodistance
 
 You can sort documents by `_geo_distance`. The following parameters are supported.
 
 Parameter | Description
 :--- | :---
-distance_type | Specifies the method of computing the distance. Valid values are `arc` and `plane`. The `plane` method is faster but less accurate for long distances or close to the poles. Default is `arc`.
-mode | Specifies how to handle a field with several geopoints. By default, documents are sorted by the shortest distance when the sort order is ascending and by the longest distance when the sort order is descending. Valid values are `min`, `max`, `median`, and `avg`.
-unit | Specifies the units used to compute sort values. Default is meters (`m`).
-ignore_unmapped | Specifies how to treat an unmapped field. Set `ignore_unmapped` to `true` to ignore unmapped fields. Default is `false` (produce an error when encountering an unmapped field).
+`distance_type` | Specifies the method of computing the distance. Valid values are `arc` and `plane`. The `plane` method is faster but less accurate for long distances or close to the poles. Default is `arc`.
+`mode` | Specifies how to handle a field with several geopoints. By default, documents are sorted by the shortest distance when the sort order is ascending and by the longest distance when the sort order is descending. Valid values are `min`, `max`, `median`, and `avg`.
+`unit` | Specifies the units used to compute sort values. Default is meters (`m`).
+`ignore_unmapped` | Specifies how to treat an unmapped field. Set `ignore_unmapped` to `true` to ignore unmapped fields. Default is `false` (produce an error when encountering an unmapped field).
 
 The `_geo_distance` parameter does not support `missing_values`. The distance is always considered to be `infinity` when a document does not contain the field used for computing distance.
 {: .note}
 
-For example, index two documents with geopoints:
+For example, create an index and map the `point` field as a `geo_point`:
+
+```json
+PUT testindex1
+{
+  "mappings": {
+    "properties": {
+      "point": {
+        "type": "geo_point"
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+Index two documents containing geopoints:
 
 ```json
 PUT testindex1/_doc/1
 {
   "point": [74.00, 40.71] 
 }
+```
+{% include copy-curl.html %}
 
+```json
 PUT testindex1/_doc/2
 {
   "point": [73.77, -69.63] 
 }
 ```
+{% include copy-curl.html %}
 
 Search for all documents and sort them by the distance from the provided point:
 
@@ -796,6 +842,7 @@ GET testindex1/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 The response contains the sorted documents:
 
@@ -874,6 +921,7 @@ GET testindex1/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 For each document, the sorting distance is calculated as the minimum, maximum, or average (as specified by the `mode`) of the distances from all points provided in the search to all points in the document.
 

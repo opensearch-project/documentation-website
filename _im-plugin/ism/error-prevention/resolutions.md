@@ -24,7 +24,7 @@ Resolutions of errors for each validation rule action are listed in the followin
 To confirm that the index is a write index, run the following request:
 
 ```bash
-GET <index>/_alias?pretty
+GET {index}/_alias?pretty
 ```
 
 If the response does not contain `"is_write_index"` : true, the index is not a write index. The following example confirms that the index is a write index:
@@ -44,7 +44,7 @@ If the response does not contain `"is_write_index"` : true, the index is not a w
 To set the index as a write index, run the following request:
 
 ```bash
-PUT <index>
+PUT {index}
 {
   "aliases": {
     "<index_alias>" : {
@@ -77,7 +77,7 @@ POST _aliases
 In the event that skipping a rollover action occurs, run the following request:
 
 ```bash
- GET <target_index>/_settings?pretty
+ GET {target_index}/_settings?pretty
 ```
 
 If you receive the response in the first example, you can reset it by running the request in the second example:
@@ -91,7 +91,7 @@ If you receive the response in the first example, you can reset it by running th
 ```
 
 ```bash
-PUT <target_index>/_settings
+PUT {target_index}/_settings
 {
     "index": {
       "index_state_management.rollover_skip": false
@@ -145,7 +145,7 @@ PUT _cluster/settings
 To check whether there is a shard limit for an index, run the following request:
 
 ```bash
-GET <index>/_settings/index.routing-
+GET {index}/_settings/index.routing-
 ```
 
 If the response contains the setting in the first example, increase its value or set it to `-1` for unlimited shards, as shown in the second example:
@@ -161,7 +161,7 @@ If the response contains the setting in the first example, increase its value or
 ```
 
 ```bash
-PUT <index>/_settings
+PUT {index}/_settings
 {"index.routing.allocation.total_shards_per_node":-1}
 ```
 
@@ -182,7 +182,7 @@ To prevent the issue from reoccurring, it is better to reduce the usage of the d
 Remove `-index.blocks.read_only_allow_delete-` by running the following request:
 
 ```bash
-PUT <index>/_settings
+PUT {index}/_settings
 {
     "index.blocks.read_only_allow_delete": null
 }
@@ -227,3 +227,15 @@ PUT _cluster/settings
     }
 }
 ```
+
+## Remote store is not enabled
+
+The `search_only` action requires remote store to be enabled on the cluster. Remote store must be enabled at cluster creation time and cannot be enabled on an existing cluster. For more information, see [Remote-backed storage]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/index/).
+
+## Segment replication is not enabled
+
+The `search_only` action requires segment replication to be enabled for the index. Segment replication must be configured at index creation time. For more information, see [Segment replication]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/segment-replication/).
+
+## No search replicas configured
+
+The `search_only` action requires at least one search replica. For more information about configuring search replicas, see [Separate index and search workloads]({{site.url}}{{site.baseurl}}/tuning-your-cluster/separate-index-and-search-workloads/).

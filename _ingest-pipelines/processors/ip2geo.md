@@ -168,6 +168,11 @@ The following table lists the required and optional parameters for the `ip2geo` 
 | `ignore_missing` | Optional | Specifies whether the processor should ignore documents that do not contain the specified field. If set to `true`, the processor does not modify the document if the field does not exist or is `null`. Default is `false`. |
 | `properties` | Optional | The field that controls which properties are added to `target_field` from `datasource`. Default is all the fields in `datasource`. |
 | `target_field` | Optional | The field containing the geographical information retrieved from the data source. Default is `ip2geo`. |
+| `description` | Optional | A brief description of the processor. |
+| `if` | Optional | A condition for running the processor. |
+| `ignore_failure` | Optional | Specifies whether the processor continues execution even if it encounters errors. If set to `true`, failures are ignored. Default is `false`. |
+| `on_failure` | Optional | A list of processors to run if the processor fails. |
+| `tag` | Optional | An identifier tag for the processor. Useful for debugging in order to distinguish between processors of the same type. |
 
 ## Using the processor
 

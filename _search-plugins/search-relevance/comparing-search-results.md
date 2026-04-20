@@ -3,8 +3,7 @@ layout: default
 title: Comparing search results
 nav_order: 11
 parent: Search Relevance Workbench
-grand_parent: Search relevance
-has_children: true
+grand_parent: Optimizing search quality
 ---
 
 # Comparing search results

@@ -20,10 +20,7 @@ The following resources provide important guidance regarding contributions to th
 
 ## Points of contact
 
-If you encounter problems or have questions when contributing to the documentation, these people can help:
-
-- [kolchfa-aws](https://github.com/kolchfa-aws)
-- [natebower](https://github.com/natebower)
+If you encounter problems or have questions when contributing to the documentation, please contact [kolchfa-aws](https://github.com/kolchfa-aws).
 
 ## Code of conduct
 

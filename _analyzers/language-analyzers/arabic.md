@@ -95,9 +95,9 @@ PUT /arabic-index
           "tokenizer": "standard",
           "filter": [
             "lowercase",
-            "arabic_normalization",
             "decimal_digit",
             "arabic_stop",
+            "arabic_normalization",
             "arabic_keywords",
             "arabic_stemmer"
           ]

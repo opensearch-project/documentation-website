@@ -1,18 +1,21 @@
 ---
 layout: default
 title: Resolve index
-parent: Index APIs
-nav_order: 120
+parent: Core index APIs
+grand_parent: Index APIs
+nav_order: 70
 ---
 
 # Resolve Index API
+**Introduced 1.0**
+{: .label .label-purple }
 
 The Resolve Index API helps you understand how OpenSearch resolves aliases, data streams, and concrete indexes that match a specified name or wildcard expression.
 
 ## Endpoints
 
 ```json
-GET /_resolve/index/<name>
+GET /_resolve/index/{name}
 ```
 
 ## Path parameters

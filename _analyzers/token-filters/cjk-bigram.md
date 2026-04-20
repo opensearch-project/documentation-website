@@ -12,9 +12,9 @@ The `cjk_bigram` token filter is designed specifically for processing East Asian
 
 ## Parameters
 
-The `cjk_bigram` token filter can be configured with two parameters: `ignore_scripts`and `output_unigrams`.
+The `cjk_bigram` token filter can be configured with two parameters: `ignored_scripts` and `output_unigrams`.
 
-### `ignore_scripts`
+### ignored_scripts
 
 The `cjk-bigram` token filter ignores all non-CJK scripts (writing systems like Latin or Cyrillic) and tokenizes only CJK text into bigrams. Use this option to specify CJK scripts to be ignored. This option takes the following valid values:
 
@@ -29,7 +29,7 @@ The `cjk-bigram` token filter ignores all non-CJK scripts (writing systems like 
     Katakana is mainly used for foreign loanwords, onomatopoeia, scientific names, and certain Japanese words.
 
 
-### `output_unigrams`
+### output_unigrams
 
 This option, when set to `true`, outputs both unigrams (single characters) and bigrams. Default is `false`.
 

@@ -1,19 +1,22 @@
 ---
 layout: default
 title: Create or update index template
-parent: Index APIs
-nav_order: 35
+parent: Index templates
+grand_parent: Index APIs
+nav_order: 10
 ---
 
 # Create Or Update Index Template API
+**Introduced 1.0**
+{: .label .label-purple }
 
 You can use the Create or Update Index Template API to create indexes with predefined mappings and settings as well as update existing index templates.
 
 ## Endpoints
 
 ```json
-PUT _index_template/<template-name>
-POST _index_template/<template-name>
+PUT _index_template/{template-name}
+POST _index_template/{template-name}
 ```
 
 ## Path parameters

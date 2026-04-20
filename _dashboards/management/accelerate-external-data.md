@@ -22,7 +22,7 @@ For comprehensive guidance on each indexing process, see the [Flint Index Refere
 
 To get started with accelerating query performance, perform the following steps:
 
-1. Go to **OpenSearch Dashboards** > **Query Workbench** and select your data source from the **Data sources** dropdown menu.
+1. Go to **OpenSearch Plugins** > **Query Workbench** and select your data source from the **Data sources** dropdown menu.
 2. From the navigation menu, select a database.
 3. View the results in the table and confirm that you have the correct data.
 4. Create an OpenSearch index by following these steps:
@@ -77,7 +77,7 @@ OpenSearch creates a new index from the covering index data. You can use this ne
 
 1. For **Index name**, enter a valid index name. Note that each table can have multiple covering indexes.
 2. Choose a **Refresh type**. By default, OpenSearch automatically refreshes the index. Otherwise, you must manually trigger a refresh using a REFRESH statement.
-3. Enter a **Checkpoint location**, which is a path for refresh job checkpoints. The location must be a path in a file system compatible with the Hadoop Distributed File System (HDFS). For more information, see [Starting streaming queries](https://spark.apache.org/docs/3.5.1/structured-streaming-programming-guide.html#starting-streaming-queries).
+3. Enter a **Checkpoint location**, which is a path for refresh job checkpoints. The location must be a path in a file system compatible with the Hadoop Distributed File System (HDFS). For more information, see [Starting streaming queries](https://spark.apache.org/docs/latest/streaming/apis-on-dataframes-and-datasets.html#starting-streaming-queries).
 4. Define the covering index fields by selecting **(add fields here)** under **Covering index definition**. 
 5. Select **Create acceleration** to apply your covering index settings.
 6. View the covering index query details and then click **Run**. OpenSearch adds your index to the left navigation pane.

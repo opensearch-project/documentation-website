@@ -17,10 +17,10 @@ The following table describes the options you can use to configure the `aggregat
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
-identification_keys | Yes | List | An unordered list by which to group events. Events with the same values as these keys are put into the same group. If an event does not contain one of the `identification_keys`, then the value of that key is considered to be equal to `null`. At least one identification_key is required (for example, `["sourceIp", "destinationIp", "port"]`).
-action | Yes | AggregateAction | The action to be performed on each group. One of the [available aggregate actions](#available-aggregate-actions) must be provided, or you can create custom aggregate actions. `remove_duplicates` and `put_all` are the available actions. For more information, see [Creating New Aggregate Actions](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/aggregate-processor#creating-new-aggregate-actions).
-group_duration | No | String | The amount of time that a group should exist before it is concluded automatically. Supports ISO_8601 notation strings ("PT20.345S", "PT15M", etc.) as well as simple notation for seconds (`"60s"`) and milliseconds (`"1500ms"`). Default value is `180s`.
-local_mode | No | Boolean | When `local_mode` is set to `true`, the aggregation is performed locally on each OpenSearch Data Prepper node instead of forwarding events to a specific node based on the `identification_keys` using a hash function. Default is `false`.
+`identification_keys` | Yes | List | An unordered list by which to group events. Events with the same values as these keys are put into the same group. If an event does not contain one of the `identification_keys`, then the value of that key is considered to be equal to `null`. At least one identification_key is required (for example, `["sourceIp", "destinationIp", "port"]`).
+`action` | Yes | AggregateAction | The action to be performed on each group. One of the [available aggregate actions](#available-aggregate-actions) must be provided, or you can create custom aggregate actions. `remove_duplicates` and `put_all` are the available actions. For more information, see [Creating New Aggregate Actions](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/aggregate-processor#creating-new-aggregate-actions).
+`group_duration` | No | String | The amount of time that a group should exist before it is concluded automatically. Supports ISO_8601 notation strings ("PT20.345S", "PT15M", etc.) as well as simple notation for seconds (`"60s"`) and milliseconds (`"1500ms"`). Default value is `180s`.
+`local_mode` | No | Boolean | When `local_mode` is set to `true`, the aggregation is performed locally on each OpenSearch Data Prepper node instead of forwarding events to a specific node based on the `identification_keys` using a hash function. Default is `false`.
 
 ## Available aggregate actions
 
@@ -38,7 +38,7 @@ The `remove_duplicates` action processes the first event for a group immediately
 
 The `put_all` action combines events belonging to the same group by overwriting existing keys and adding new keys, similarly to the Java `Map.putAll`. The action drops all events that make up the combined event. For example, when using `identification_keys: ["sourceIp", "destination_ip"]`, the `put_all` action processes the following three events:
 
-```
+```json
 { "sourceIp": "127.0.0.1", "destinationIp": "192.168.0.1", "status": 200 }
 { "sourceIp": "127.0.0.1", "destinationIp": "192.168.0.1", "bytes": 1000 }
 { "sourceIp": "127.0.0.1", "destinationIp": "192.168.0.1", "http_verb": "GET" }
@@ -46,7 +46,7 @@ The `put_all` action combines events belonging to the same group by overwriting 
 
 Then the action combines the events into one. The pipeline then uses the following combined event:
 
-```
+```json
 { "sourceIp": "127.0.0.1", "destinationIp": "192.168.0.1", "status": 200, "bytes": 1000, "http_verb": "GET" }
 ```
 
@@ -93,7 +93,7 @@ You can customize the processor with the following configuration options:
 
 For example, when using `identification_keys: ["sourceIp", "destination_ip", "request"]`, `key: latency`, and `buckets: [0.0, 0.25, 0.5]`, the `histogram` action processes the following events:
 
-```
+```json
 { "sourceIp": "127.0.0.1", "destinationIp": "192.168.0.1", "request" : "/index.html", "latency": 0.2 }
 { "sourceIp": "127.0.0.1", "destinationIp": "192.168.0.1", "request" : "/index.html", "latency": 0.55}
 { "sourceIp": "127.0.0.1", "destinationIp": "192.168.0.1", "request" : "/index.html", "latency": 0.25 }
@@ -139,7 +139,7 @@ You can set the percentage of events using the `percent` configuration, which in
 
 For example, if percent is set to `50`, the action tries to process the following events in the one-second interval:
 
-```
+```json
 { "sourceIp": "127.0.0.1", "destinationIp": "192.168.0.1", "bytes": 2500 }
 { "sourceIp": "127.0.0.1", "destinationIp": "192.168.0.1", "bytes": 500 }
 { "sourceIp": "127.0.0.1", "destinationIp": "192.168.0.1", "bytes": 1000 }
@@ -148,7 +148,7 @@ For example, if percent is set to `50`, the action tries to process the followin
 
 The pipeline processes 50% of the events, drops the other events, and does not generate a new event:
 
-```
+```json
 { "sourceIp": "127.0.0.1", "destinationIp": "192.168.0.1", "bytes": 500 }
 { "sourceIp": "127.0.0.1", "destinationIp": "192.168.0.1", "bytes": 3100 }
 ```

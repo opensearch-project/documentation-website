@@ -1,18 +1,21 @@
 ---
 layout: default
 title: Get index template
-parent: Index APIs
-nav_order: 85
+parent: Index templates
+grand_parent: Index APIs
+nav_order: 30
 ---
 
 # Get Index Template API
+**Introduced 1.0**
+{: .label .label-purple }
 
 The Get Index Template API returns information about one or more index templates.
 
 ## Endpoints
 
 ```json
-GET /_index_template/<template-name>
+GET /_index_template/{template-name}
 ```
 
 ## Query parameters

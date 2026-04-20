@@ -79,9 +79,9 @@ The following section describes more advanced OpenSearch concepts.
 The lifecycle of an update operation consists of the following steps:
 
 1. An update is received by a primary shard and is written to the shard's transaction log ([translog](#translog)). The translog is flushed to disk (followed by an fsync) before the update is acknowledged. This guarantees durability.
-1. The update is also passed to the Lucene index writer, which adds it to an in-memory buffer.
-1. On a [refresh operation](#refresh), the Lucene index writer flushes the in-memory buffers to disk (with each buffer becoming a new Lucene segment), and a new index reader is opened over the resulting segment files. The updates are now visible for search.
-1. On a [flush operation](#flush), the shard fsyncs the Lucene segments. Because the segment files are a durable representation of the updates, the translog is no longer needed to provide durability, so the updates can be purged from the translog.
+1. The update is also passed to the Lucene index writer, which adds it to an in-memory buffer using appendable data structures (such as hash maps).
+1. On a [refresh operation](#refresh), the Lucene index writer converts the in-memory data structures (which store data in insertion order) into sorted, searchable data structures and writes them to disk as new Lucene segments. A new index reader is opened over the resulting segment files, making the updates visible for search. This is sometimes called a "soft commit" because the data is written to disk but not yet durably persisted.
+1. On a [flush operation](#flush), the shard fsyncs the Lucene segments to ensure durable persistence. Because the segment files now provide a durable representation of the updates, the translog is no longer needed for durability, so the updates can be purged from the translog.
 
 ### Translog
 
@@ -89,7 +89,7 @@ An indexing or bulk call responds when the documents have been written to the tr
 
 ### Refresh
 
-Periodically, OpenSearch performs a _refresh_ operation, which writes the documents from the in-memory Lucene index to files. These files are not guaranteed to be durable because an `fsync` is not performed. A refresh makes documents available for search.
+Periodically, OpenSearch performs a _refresh_ operation, which converts the in-memory appendable data structures into sorted, searchable data structures and writes them to segment files on disk. These files are not guaranteed to be durable because an `fsync` is not performed. A refresh makes documents available for search. This is sometimes called a "soft commit" because the data is written to disk but not yet durably persisted.
 
 ### Flush
 

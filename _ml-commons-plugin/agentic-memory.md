@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Agentic memory
-nav_order: 60
+parent: Memory and context
+nav_order: 10
 ---
 
 # Agentic memory
@@ -19,8 +20,16 @@ Using agentic memory, you can build AI agents that can do the following:
 - Track agent execution traces for debugging and analysis
 - Organize information across different users, sessions, or agent instances
 
-Currently, agentic memory is designed for integration with external agent frameworks like LangChain and LangGraph. OpenSearch's internal [agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/) cannot interact with agentic memory.
-{: .note}
+Agentic memory is designed for integration with both OpenSearch's internal [agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/) and external agent frameworks like LangChain and LangGraph.
+
+>   **Important**:
+>   
+>   The agentic memory capability in OpenSearch is provided as a framework that enables you to build and manage memory for AI agents. As the administrator or owner of a memory container, you are responsible for the configuration, management, and security of your implementation.
+> You are responsible for the following:
+>   - Data access control: Implement and enforce all necessary data access controls for the conversation data stored within the memory container. This includes, but is not limited to, configuring appropriate index-level permissions, document-level security (DLS), or other mechanisms to restrict access. This responsibility is especially critical when the use_system_index option is set to false, because data will be stored in a standard index that requires explicit permission management.
+>   - Custom system prompt management: If you choose to use a customized system prompt instead of the default, you are responsible for the content, management, and behavior of that prompt. OpenSearch is not responsible for the outputs or interactions resulting from user-defined system prompts.
+>   Failure to properly configure and secure your agentic memory implementation may result in unauthorized data access, data leakage, or unintended agent behavior.
+{: .warning}
 
 ## Memory containers
 
@@ -81,7 +90,7 @@ When adding memories, you can specify different payload types:
 To add a conversation memory with inference, send the following request:
 
 ```json
-POST /_plugins/_ml/memory_containers/<container_id>/memories
+POST /_plugins/_ml/memory_containers/{container_id}/memories
 {
   "messages": [
     {
@@ -116,7 +125,7 @@ POST /_plugins/_ml/memory_containers/<container_id>/memories
 To add agent state data, send the following request:
 
 ```json
-POST /_plugins/_ml/memory_containers/<container_id>/memories
+POST /_plugins/_ml/memory_containers/{container_id}/memories
 {
   "structured_data": {
     "agent_state": "researching",
@@ -157,7 +166,7 @@ _Namespaces_ organize memories within containers by grouping them with identifie
 To search memories by namespace, send the following request:
 
 ```json
-GET /_plugins/_ml/memory_containers/<container_id>/memories/long-term/_search
+GET /_plugins/_ml/memory_containers/{container_id}/memories/long-term/_search
 {
   "query": {
     "bool": {
@@ -212,6 +221,45 @@ To implement agentic memory in your agents:
 4. **[Update memories]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/update-memory/)** as conversations evolve.
 
 For detailed API documentation, see [Agentic Memory APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/).
+
+## Inspecting memory data (OpenSearch agents)
+
+After executing OpenSearch agents configured with agentic memory, you can inspect session and trace data using the [Get Memory API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/get-memory/) or [Search Memory API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/search-memory/):
+
+1. Retrieve the session by `memory_id`:
+
+```json
+GET /_plugins/_ml/memory_containers/{memory_container_id}/memories/sessions/{memory_id}
+```
+{% include copy-curl.html %}
+
+2. Retrieve a message by interaction ID (`parent_interaction_id` from the agent execution output):
+
+```json
+GET /_plugins/_ml/memory_containers/{memory_container_id}/memories/working/{interaction_id}
+```
+{% include copy-curl.html %}
+
+3. Get full working-memory trace data for a session using `namespace.session_id = <memory_id>`:
+
+```json
+GET /_plugins/_ml/memory_containers/{memory_container_id}/memories/working/_search
+{
+  "query": {
+    "match": {
+      "namespace.session_id": "<memory_id>"
+    }
+  },
+  "sort": [
+    {
+      "created_time": {
+        "order": "asc"
+      }
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
 
 ## Next steps
 

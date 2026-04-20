@@ -1,11 +1,14 @@
 ---
 layout: default
 title: Put template (deprecated)
-parent: Index APIs
-nav_order: 107
+parent: Index templates
+grand_parent: Index APIs
+nav_order: 80
 ---
 
 # Put template
+**Introduced 1.0**
+{: .label .label-purple }
 
 The Put Template API has been deprecated. Use the new [Create or Update Index Template]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index-template/) API.
 {: .warning}
@@ -15,7 +18,7 @@ The put template API operation is used to create or update an index template. Te
 ## Endpoints
 
 ```json
-PUT /_template/<template-name>
+PUT /_template/{template-name}
 ```
 
 ## Path parameters

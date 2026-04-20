@@ -113,14 +113,14 @@ POST /_plugins/_ml/models/_register?deploy=true
 ```
 {% include copy-curl.html %}
 
-Registering a model is an asynchronous task. OpenSearch returns a task ID for this task. Check the status of the task by using the Tasks API:
+Registering a model is an asynchronous task. OpenSearch returns a task ID for this task. Check the status of the task by using the [Get ML Task API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/):
 
 ```json
-GET /_plugins/_ml/tasks/<task_id>
+GET /_plugins/_ml/tasks/{task_id}
 ```
 {% include copy-curl.html %}
 
-Once the task is complete, the task state will change to `COMPLETED` and the Tasks API response will contain a model ID for the registered model. Note the model ID; you'll use it in the following steps.
+Once the task is complete, the task state will change to `COMPLETED` and the ML Tasks API response will contain a model ID for the registered model. Note the model ID; you'll use it in the following steps.
 
 ### Step 2: Create an ingest pipeline 
 {:.no_toc} 
@@ -147,7 +147,7 @@ PUT _ingest/pipeline/nlp-index-pipeline
 Test the ingest pipeline:
 
 ```json
-POST /_plugins/_ml/_predict/text_embedding/<model_id>
+POST /_plugins/_ml/_predict/text_embedding/{model_id}
 {
   "text_docs":[ "what does the package contain?"],
   "return_number": true,
@@ -1115,14 +1115,14 @@ GET /neural_search_pqa/_search
 Undeploy the model:
 
 ```json
-POST /_plugins/_ml/models/<model_id>/_undeploy
+POST /_plugins/_ml/models/{model_id}/_undeploy
 ```
 {% include copy-curl.html %}
 
 Delete the model:
 
 ```json
-DELETE /_plugins/_ml/models/<model_id>
+DELETE /_plugins/_ml/models/{model_id}
 ```
 {% include copy-curl.html %}
 

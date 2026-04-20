@@ -120,4 +120,45 @@ Parameter | Description
 [`null_value`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/index#null-value) | A  value to be used in place of `null`. Must be of the same type as the field. If this parameter is not specified, the field is treated as missing when its value is `null`. Default is `null`.
 `store` | A Boolean value that specifies whether the field value should be stored and can be retrieved separately from the _source field. Default is `false`. 
 
+## Derived source
 
+When an index uses [derived source]({{site.url}}{{site.baseurl}}/field-types/metadata-fields/source/#derived-source), OpenSearch may sort IP address values and remove duplicates in multi-value IP fields during source reconstruction.
+
+Create an index that enables derived source and configures an `ip` field:
+
+```json
+PUT sample-index1
+{
+  "settings": {
+    "index": {
+      "derived_source": {
+        "enabled": true
+      }
+    }
+  },
+  "mappings": {
+    "properties": {
+      "ip": {
+        "type": "ip"
+      }
+    }
+  }
+}
+```
+
+Index a document with multiple IP addresses, including duplicates, into the index:
+
+```json
+PUT sample-index1/_doc/1
+{
+  "ip": ["10.16.0.1", "192.168.0.1", "10.16.0.1", "2001:0db8:85a3:0000:0000:8a2e:0370:7334"]
+}
+```
+
+After OpenSearch reconstructs `_source`, the derived `_source` removes duplicates and sorts the values:
+
+```json
+{
+  "ip": ["10.16.0.1", "192.168.0.1", "2001:0db8:85a3:0000:0000:8a2e:0370:7334"]
+}
+```

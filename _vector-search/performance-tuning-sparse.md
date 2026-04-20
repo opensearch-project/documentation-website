@@ -50,11 +50,11 @@ In addition to tuning the preceding parameters, you can employ the following opt
 
 ### Building clusters
 
-Index building can benefit from using multiple threads. You can adjust the number of threads used for cluster building by specifying the `knn.algo_param.index_thread_qty` setting (by default, `1`). For information about updating this setting, see [Vector search settings]({{site.url}}{{site.baseurl}}/vector-search/settings/). Using a higher `knn.algo_param.index_thread_qty` can reduce force merge time when neural sparse ANN search is enabled, though it also consumes more system resources.
+Index building can benefit from using multiple threads. You can adjust the number of threads used for cluster building by specifying the `neural_search.sparse.algo_param.index_thread_qty` setting (by default, `1`). For information about updating this setting, see [Vector search settings]({{site.url}}{{site.baseurl}}/vector-search/settings/#cluster-settings-2). Using a higher `neural_search.sparse.algo_param.index_thread_qty` can reduce force merge time when neural sparse ANN search is enabled, though it also consumes more system resources.
 
 ### Querying after a cold start
 
-After rebooting OpenSearch, the cache is empty, so the first several hundred queries may experience high latency. To address this "cold start" issue, you can use the [Warmup API]({{site.url}}{{site.baseurl}}/vector-search/api/knn/#warmup-operation). This API loads data from disk into cache, ensuring optimal performance for subsequent queries. You can also use the [Clear Cache API]({{site.url}}{{site.baseurl}}/vector-search/api/knn/#k-nn-clear-cache) to free up memory when needed.
+After rebooting OpenSearch, the cache is empty, so the first several hundred queries may experience high latency. To address this "cold start" issue, you can use the [Warmup API]({{site.url}}{{site.baseurl}}/vector-search/api/neural/#warm-up). This API loads data from disk into cache, ensuring optimal performance for subsequent queries. You can also use the [Clear Cache API]({{site.url}}{{site.baseurl}}/vector-search/api/neural/#clear-cache) to free up memory when needed.
 
 ### Force merging segments
 

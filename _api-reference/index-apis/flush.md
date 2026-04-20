@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Flush
-parent: Index APIs
-nav_order: 75
+parent: Index operations
+grand_parent: Index APIs
+nav_order: 30
 ---
 
 # Flush API

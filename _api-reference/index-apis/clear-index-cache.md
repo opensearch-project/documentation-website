@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Clear cache
-parent: Index APIs
-nav_order: 15
+parent: Index operations
+grand_parent: Index APIs
+nav_order: 10
 ---
 
 # Clear Cache API
@@ -18,7 +19,7 @@ If you use the Security plugin, you must have the `manage index` privileges.
 ## Endpoints
 
 ```json
-POST /<target>/_cache/clear
+POST /{target}/_cache/clear
 ```
 
 ## Path parameters

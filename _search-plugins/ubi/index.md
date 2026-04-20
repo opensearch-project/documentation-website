@@ -1,8 +1,9 @@
 ---
 layout: default
 title: User Behavior Insights
+parent: Optimizing search quality
 has_children: true
-nav_order: 90
+nav_order: 10
 redirect_from:
   - /search-plugins/ubi/
 ---
@@ -37,7 +38,7 @@ Advanced features in OpenSearch, such as the [Search Relevance Workbench]({{site
     <td>
       <h2>Tutorials</h2>
       <ul>    
-        <li><a href="{{site.url}}{{site.baseurl}}/search-plugins/ubi/ubi-aws-managed-services-tutorial/">Learn to use AWS OpenSearch Ingestion</a> pipelines for gathering UBI query and event data.</li>        
+        <li><a href="{{site.url}}{{site.baseurl}}/search-plugins/ubi/ubi-aws-managed-services-tutorial/">Learn to use Amazon OpenSearch Ingestion</a> pipelines for gathering UBI-formatted data in Amazon OpenSearch Service.</li>        
         <li><a href="{{site.url}}{{site.baseurl}}/search-plugins/ubi/ubi-dashboard-tutorial/">Learn to create custom dashboards</a> for visualizing UBI data.</li>    
         <li> Based on <a href="https://github.com/o19s/chorus-opensearch-edition">Chorus for OpenSearch</a> demo:
           <ul>

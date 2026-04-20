@@ -1,7 +1,7 @@
 ---
 layout: default
 title: List indices 
-parent: List API
+parent: List APIs
 nav_order: 25
 has_children: false
 ---
@@ -20,7 +20,7 @@ The list indices operation provides the following index information in a paginat
 
 ```json
 GET _list/indices
-GET _list/indices/<index>
+GET _list/indices/{index}
 ```
 
 ## Query parameters
@@ -47,7 +47,7 @@ When using the `next_token` path parameter, use the token produced by the respon
 To get information for all the indexes, use the following query and keep specifying the `next_token` as received from response until its `null`:
 
 ```json
-GET _list/indices/<index>?v&next_token=token
+GET _list/indices/{index}?v&next_token=token
 ```
 
 

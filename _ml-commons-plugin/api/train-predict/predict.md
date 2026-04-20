@@ -15,7 +15,7 @@ For information about user access for this API, see [Model access control consid
 ## Endpoints
 
 ```json
-POST /_plugins/_ml/_predict/<algorithm_name>/<model_id>
+POST /_plugins/_ml/_predict/{algorithm_name}/{model_id}
 ```
 
 ## Request body fields
@@ -33,7 +33,7 @@ For externally hosted models, the actual input fields depend on the model's conn
 ## Example request
 
 ```json
-POST /_plugins/_ml/_predict/kmeans/<model-id>
+POST /_plugins/_ml/_predict/kmeans/{model-id}
 {
     "input_query": {
         "_source": ["petal_length_in_cm", "petal_width_in_cm"],

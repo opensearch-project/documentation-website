@@ -28,16 +28,16 @@ OpenSearch Dashboards is the default visualization tool for data in OpenSearch. 
     **x64**
     ```bash
     # Install the x64 package using yum.
-    sudo yum install opensearch-dashboards-{{site.opensearch_version}}-linux-x64.rpm
+    sudo yum install opensearch-dashboards-{{site.opensearch_dashboards_version}}-linux-x64.rpm
     # Install the x64 package using rpm.
-    sudo rpm -ivh opensearch-dashboards-{{site.opensearch_version}}-linux-x64.rpm
+    sudo rpm -ivh opensearch-dashboards-{{site.opensearch_dashboards_version}}-linux-x64.rpm
     ```
     **arm64**
     ```bash
     # Install the arm64 package using yum.
-    sudo yum install opensearch-dashboards-{{site.opensearch_version}}-linux-arm64.rpm
+    sudo yum install opensearch-dashboards-{{site.opensearch_dashboards_version}}-linux-arm64.rpm
     # Install the arm64 package using rpm.
-    sudo rpm -ivh opensearch-dashboards-{{site.opensearch_version}}-linux-arm64.rpm
+    sudo rpm -ivh opensearch-dashboards-{{site.opensearch_dashboards_version}}-linux-arm64.rpm
     ```
 1. After the installation succeeds, enable OpenSearch Dashboards as a service.
     ```bash
@@ -79,7 +79,7 @@ YUM, the primary package management tool for Red Hat-based operating systems, al
    ```
    - To install a specific version of OpenSearch Dashboards:
    ```bash
-   sudo yum install 'opensearch-dashboards-{{site.opensearch_version}}'
+   sudo yum install 'opensearch-dashboards-{{site.opensearch_dashboards_version}}'
    ```
 1. During installation, the installer will present you with the GPG key fingerprint. Verify that the information matches the following:
    ```bash
@@ -103,7 +103,7 @@ Download the RPM package for the desired upgrade version directly from the [Open
 Navigate to the directory containing the distribution and run the following command:
 
 ```bash
-rpm -Uvh opensearch-dashboards-{{site.opensearch_version}}-linux-x64.rpm
+rpm -Uvh opensearch-dashboards-{{site.opensearch_dashboards_version}}-linux-x64.rpm
 ```
 {% include copy.html %}
 

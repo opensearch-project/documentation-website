@@ -103,11 +103,15 @@ PUT /articles-optimized
 {
   "mappings": {
     "properties": {
-      "title": {
+      "name": {
         "type": "text",
         "term_vector": "with_positions_offsets"
       },
-      "content": {
+      "alias": {
+        "type": "text",
+        "term_vector": "with_positions_offsets"
+      },
+      "quote": {
         "type": "text",
         "term_vector": "with_positions_offsets"
       }

@@ -32,9 +32,9 @@ To disable statistics collection, set the cluster setting to `false`. When disab
 
 ```json
 GET /_plugins/_neural/stats
-GET /_plugins/_neural/stats/<stats>
-GET /_plugins/_neural/<nodes>/stats
-GET /_plugins/_neural/<nodes>/stats/<stats>
+GET /_plugins/_neural/stats/{stats}
+GET /_plugins/_neural/{nodes}/stats
+GET /_plugins/_neural/{nodes}/stats/{stats}
 ```
 
 ### Path parameters
@@ -435,7 +435,7 @@ This API operation only works with sparse indexes (indexes created with `index.s
 ### Endpoints
 
 ```json
-POST /_plugins/_neural/warmup/<index>
+POST /_plugins/_neural/warmup/{index}
 ```
 
 ### Path parameters
@@ -455,7 +455,7 @@ POST /_plugins/_neural/warmup/index1,index2,index3
 ```
 {% include copy-curl.html %}
 
-You can use the warm up API operation with index patterns to clear one or more indexes that match a specified pattern from the cache:
+You can use the warm up API operation with index patterns to load one or more indexes that match a specified pattern into the cache:
 
 ```json
 POST /_plugins/_neural/warmup/index*
@@ -478,7 +478,7 @@ The API call returns results only after the warm up operation finishes or the re
 
 If the request times out, then the operation continues on the cluster. 
 
-To monitor the warm up operation, use the OpenSearch Tasks API:
+To monitor the warm up operation, use the [Tasks API]({{site.url}}{{site.baseurl}}/api-reference/tasks/):
 
 ```json
 GET /_tasks
@@ -521,7 +521,7 @@ This API operation only works with sparse indexes (indexes created with `index.s
 ### Endpoints
 
 ```json
-POST /_plugins/_neural/clear_cache/<index>
+POST /_plugins/_neural/clear_cache/{index}
 ```
 
 ### Path parameters
@@ -566,7 +566,7 @@ The API call returns results only after the clear cache operation finishes or th
 
 If the request times out, the operation continues running in the cluster.
 
-To monitor the progress of the clear cache operation, use the OpenSearch Tasks API:
+To monitor the progress of the clear cache operation, use the [Tasks API]({{site.url}}{{site.baseurl}}/api-reference/tasks/):
 
 ```json
 GET /_tasks

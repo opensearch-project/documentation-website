@@ -9,7 +9,7 @@ redirect_from:
   - /clients/index/
 ---
 
-# OpenSearch language clients
+# ![Clients icon]({{site.url}}{{site.baseurl}}/images/icons/OpenSearch-Clients-Icon.avif){: .heading-icon} OpenSearch language clients
 
 OpenSearch provides clients in JavaScript, Python, Ruby, Java, PHP, .NET, Go, Hadoop, and Rust.
 
@@ -39,7 +39,7 @@ OpenSearch provides clients for the following programming languages and platform
 * **Rust**
   * [OpenSearch Rust client]({{site.url}}{{site.baseurl}}/clients/rust/)
 * **Hadoop**
-  * [OpenSearch Hadoop client](https://github.com/opensearch-project/opensearch-hadoop) 
+  * [Hadoop connector (Apache Spark, Apache Hive, and Hadoop MapReduce)]({{site.url}}{{site.baseurl}}/clients/hadoop/)
 
 
 ## Legacy clients

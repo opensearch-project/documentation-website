@@ -63,6 +63,6 @@ The following limitations apply to system-generated processors:
 
 - OpenSearch supports only **one system-generated processor per processor type and execution stage** for a given search request. Since each processor type (request and response) can run at two execution stages (before or after user-defined processors), a single search request can include multiple system-generated processors, as long as they are of different types or run at different execution stages. This limitation ensures deterministic execution order and predictable behavior.
 
-## Related pages
+## Related documentation
 
 - [Vector search with MMR reranking]({{site.url}}{{site.baseurl}}/vector-search/specialized-operations/vector-search-mmr/)

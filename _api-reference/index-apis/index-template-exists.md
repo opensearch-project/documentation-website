@@ -1,18 +1,21 @@
 ---
 layout: default
 title: Index template exists
-parent: Index APIs
-nav_order: 98
+parent: Index templates
+grand_parent: Index APIs
+nav_order: 40
 ---
 
 # Index template exists
+**Introduced 1.0**
+{: .label .label-purple }
 
 The index template exists API operation is used to verify whether an index template exists.
 
 ## Endpoints
 
 ```json
-HEAD /_index_template/<template-name>
+HEAD /_index_template/{template-name}
 ```
 
 ## Path parameters

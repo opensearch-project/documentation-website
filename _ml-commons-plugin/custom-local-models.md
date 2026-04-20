@@ -3,7 +3,7 @@ layout: default
 title: Custom models
 parent: Using ML models within OpenSearch
 grand_parent: Integrating ML models
-nav_order: 120
+nav_order: 20
 ---
 
 # Custom local models
@@ -73,6 +73,9 @@ PUT _cluster/settings
 }
 ```
 {% include copy-curl.html %}
+
+When registering a model from a URL, make sure the source is trusted. Loading models from untrusted sources can pose security risks. For more information, see [PyTorch security guidelines for untrusted models](https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models).
+{: .warning}
 
 ## Step 1: Register a model group
 
@@ -214,7 +217,7 @@ The response contains the task ID that you can use to check the status of the de
 }
 ```
 
-As in the previous step, check the status of the operation by calling the Tasks API:
+As in the previous step, check the status of the operation by calling the [Get ML Task API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/):
 
 ```bash
 GET /_plugins/_ml/tasks/vVePb4kBJ1eYAeTM7ljG
@@ -350,14 +353,14 @@ POST /_plugins/_ml/models/_register
 Then send a request to deploy the model:
 
 ```json
-POST _plugins/_ml/models/<model_id>/_deploy
+POST _plugins/_ml/models/{model_id}/_deploy
 ```
 {% include copy-curl.html %}
 
 To test a question answering model, send the following request. It requires a `question` and the relevant `context` from which the answer will be generated:
 
 ```json
-POST /_plugins/_ml/_predict/question_answering/<model_id>
+POST /_plugins/_ml/_predict/question_answering/{model_id}
 {
   "question": "Where do I live?"
   "context": "My name is John. I live in New York"

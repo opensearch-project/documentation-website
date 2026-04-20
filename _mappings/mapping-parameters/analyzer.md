@@ -229,7 +229,7 @@ Term-level queries use the `search_analyzer`, which tokenizes the text and remov
 ```
 
 
-## Related articles
+## Related documentation
 
 - [Text analysis]({{site.url}}{{site.baseurl}}/analyzers/)
 - [Search analyzers]({{site.url}}{{site.baseurl}}/analyzers/search-analyzers/)

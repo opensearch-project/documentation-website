@@ -3,7 +3,7 @@ layout: default
 title: Pretrained models
 parent: Using ML models within OpenSearch
 grand_parent: Integrating ML models
-nav_order: 120
+nav_order: 10
 ---
 
 # OpenSearch-provided pretrained models
@@ -23,7 +23,10 @@ Running local models on the CentOS 7 operating system is not supported. Moreover
 
 Sentence transformer models map sentences and paragraphs across a dimensional dense vector space. The number of vectors depends on the type of model. You can use these models for use cases such as clustering or semantic search.
 
-The following table provides a list of sentence transformer models and artifact links you can use to download them. Note that you must prefix the model name with `huggingface/`, as shown in the **Model name** column. 
+The following table provides a list of sentence transformer models and artifact links you can use to download them. Note that you must prefix the model name with `huggingface/`, as shown in the **Model name** column.
+
+**Token limits and truncation**: Text embedding models have maximum token limits (typically 512 tokens for BERT-based models). When a document exceeds this limit, the model automatically truncates the text, and the truncated content is not represented in the embeddings. This can significantly impact search relevance because documents may not be returned in search results if the relevant content was truncated. To avoid this issue, split long documents into smaller chunks before generating embeddings. 
+{: .warning}
 
 | Model name | Version | Vector dimensions | Auto-truncation | TorchScript artifact | ONNX artifact |
 |:---|:---|:---|:---|:---|:---|
@@ -172,7 +175,7 @@ OpenSearch returns the task ID of the register operation:
 }
 ```
 
-To check the status of the operation, provide the task ID to the [Tasks API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/):
+To check the status of the operation, provide the task ID to the [Get ML Task API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/):
 
 ```bash
 GET /_plugins/_ml/tasks/cVeMb4kBJ1eYAeTMFFgj
@@ -218,7 +221,7 @@ The response contains the task ID that you can use to check the status of the de
 }
 ```
 
-As in the previous step, check the status of the operation by calling the Tasks API:
+As in the previous step, check the status of the operation by calling the [Get ML Task API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/):
 
 ```bash
 GET /_plugins/_ml/tasks/vVePb4kBJ1eYAeTM7ljG
@@ -367,7 +370,7 @@ The response contains the token IDs and their corresponding token weights:
 For a cross-encoder model, send the following request:
 
 ```json
-POST _plugins/_ml/models/<model_id>/_predict
+POST _plugins/_ml/models/{model_id}/_predict
 {
     "query_text": "today is sunny",
     "text_docs": [

@@ -81,6 +81,6 @@ processor:
 ```
 {% include copy.html %}
 
-## Related pages
+## Related documentation
 
 - [OTLP source]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/otlp-source/)

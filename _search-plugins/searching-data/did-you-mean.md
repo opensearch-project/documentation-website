@@ -1,8 +1,8 @@
 ---
 layout: default
 title: Did-you-mean
-parent: Search options
-nav_order: 70
+parent: Customizing search results
+nav_order: 90
 redirect_from:
   - /opensearch/search/did-you-mean/
 ---
@@ -202,18 +202,18 @@ You can specify the following options to the term suggester.
 Option | Description
 :--- | :---
 field | The field from which to source suggestions. Required. Can be set for each suggestion or globally.
-analyzer | The analyzer with which to analyze the input text. Defaults to the analyzer configured for the `field`.
-size | The maximum number of suggestions to return for each token in the input text.
-sort | Specifies how suggestions should be sorted in the response. Valid values are:<br>- `score`: Sort by similarity score, then document frequency, and then the term itself.<br>- `frequency`: Sort by document frequency, then similarity score, and then the term itself.
-suggest_mode | The suggest mode specifies the terms for which suggestions should be included in the response. Valid values are:<br>- `missing`: Return suggestions only for input terms that have zero occurrences in the specified field of the index. This check is field specific: if a term appears in other fields but not in the targeted field, it is still considered missing. Note that this mode does not consider term frequency across the entire index---only the specified field. <br>- `popular`: Return suggestions only if they occur in the documents more frequently than in the original input text.<br> - `always`: Always return suggestions for each term in the input text.<br>Default is `missing`.
-max_edits | The maximum edit distance for suggestions. Valid values are in the [1, 2] range. Default is 2.
-prefix_length | An integer that specifies the minimum length the matched prefix must be to start returning suggestions. If the prefix of `prefix_length` is not matched, but the search term is still within the edit distance, no suggestions are returned. Default is 1. Higher values improve spellcheck performance because misspellings don’t tend to occur in the beginning of words.
-min_word_length | The minimum length a suggestion must be in order to be included in the response. Default is 4.
-shard_size | The maximum number of candidate suggestions to obtain from each shard. After all candidate suggestions are considered, the top `shard_size` suggestions are returned. Default is equal to the `size` value. Shard-level document frequencies may not be exact because terms may reside in different shards. If `shard_size` is larger than `size`, the document frequencies for suggestions are more accurate, at the cost of decreased performance. 
-max_inspections | The multiplication factor for `shard_size`. The maximum number of candidate suggestions OpenSearch inspects to find suggestions is calculated as `shard_size` multiplied by `max_inspection`. May improve accuracy at the cost of decreased performance. Default is 5.
-min_doc_freq | The minimum number or percentage of documents in which a suggestion should appear for it to be returned. May improve accuracy by returning only suggestions with high shard-level document frequencies. Valid values are integers that represent the document frequency or floats in the [0, 1] range that represent the percentage of documents. Default is 0 (feature disabled). 
-max_term_freq | The maximum number of documents in which a suggestion should appear in order for it to be returned. Valid values are integers that represent the document frequency or floats in the [0, 1] range that represent the percentage of documents. Default is 0.01. Excluding high-frequency terms improves spellcheck performance because high-frequency terms are usually spelled correctly. Uses shard-level document frequencies.
-string_distance | The edit distance algorithm to use to determine similarity. Valid values are:<br>- `internal`: The default algorithm that is based on the [Damerau-Levenshtein algorithm](https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance) but is highly optimized for comparing edit distances for terms in the index.<br> - `damerau_levenshtein`: The edit distance algorithm based on the [Damerau-Levenshtein algorithm](https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance). <br>- `levenshtein`: The edit distance algorithm based on the [Levenshtein edit distance algorithm](https://en.wikipedia.org/wiki/Levenshtein_distance).<br> - `jaro_winkler`: The edit distance algorithm based on the [Jaro-Winkler algorithm](https://en.wikipedia.org/wiki/Jaro%E2%80%93Winkler_distance).<br> - `ngram`: The edit distance algorithm based on character n-grams.
+`analyzer` | The analyzer with which to analyze the input text. Defaults to the analyzer configured for the `field`.
+`size` | The maximum number of suggestions to return for each token in the input text.
+`sort` | Specifies how suggestions should be sorted in the response. Valid values are:<br>- `score`: Sort by similarity score, then document frequency, and then the term itself.<br>- `frequency`: Sort by document frequency, then similarity score, and then the term itself.
+`suggest_mode` | The suggest mode specifies the terms for which suggestions should be included in the response. Valid values are:<br>- `missing`: Return suggestions only for input terms that have zero occurrences in the specified field of the index. This check is field specific: if a term appears in other fields but not in the targeted field, it is still considered missing. Note that this mode does not consider term frequency across the entire index---only the specified field. <br>- `popular`: Return suggestions only if they occur in the documents more frequently than in the original input text.<br> - `always`: Always return suggestions for each term in the input text.<br>Default is `missing`.
+`max_edits` | The maximum edit distance for suggestions. Valid values are in the [1, 2] range. Default is 2.
+`prefix_length` | An integer that specifies the minimum length the matched prefix must be to start returning suggestions. If the prefix of `prefix_length` is not matched, but the search term is still within the edit distance, no suggestions are returned. Default is 1. Higher values improve spellcheck performance because misspellings don’t tend to occur in the beginning of words.
+`min_word_length` | The minimum length a suggestion must be in order to be included in the response. Default is 4.
+`shard_size` | The maximum number of candidate suggestions to obtain from each shard. After all candidate suggestions are considered, the top `shard_size` suggestions are returned. Default is equal to the `size` value. Shard-level document frequencies may not be exact because terms may reside in different shards. If `shard_size` is larger than `size`, the document frequencies for suggestions are more accurate, at the cost of decreased performance. 
+`max_inspections` | The multiplication factor for `shard_size`. The maximum number of candidate suggestions OpenSearch inspects to find suggestions is calculated as `shard_size` multiplied by `max_inspection`. May improve accuracy at the cost of decreased performance. Default is 5.
+`min_doc_freq` | The minimum number or percentage of documents in which a suggestion should appear for it to be returned. May improve accuracy by returning only suggestions with high shard-level document frequencies. Valid values are integers that represent the document frequency or floats in the [0, 1] range that represent the percentage of documents. Default is 0 (feature disabled). 
+`max_term_freq` | The maximum number of documents in which a suggestion should appear in order for it to be returned. Valid values are integers that represent the document frequency or floats in the [0, 1] range that represent the percentage of documents. Default is 0.01. Excluding high-frequency terms improves spellcheck performance because high-frequency terms are usually spelled correctly. Uses shard-level document frequencies.
+`string_distance` | The edit distance algorithm to use to determine similarity. Valid values are:<br>- `internal`: The default algorithm that is based on the [Damerau-Levenshtein algorithm](https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance) but is highly optimized for comparing edit distances for terms in the index.<br> - `damerau_levenshtein`: The edit distance algorithm based on the [Damerau-Levenshtein algorithm](https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance). <br>- `levenshtein`: The edit distance algorithm based on the [Levenshtein edit distance algorithm](https://en.wikipedia.org/wiki/Levenshtein_distance).<br> - `jaro_winkler`: The edit distance algorithm based on the [Jaro-Winkler algorithm](https://en.wikipedia.org/wiki/Jaro%E2%80%93Winkler_distance).<br> - `ngram`: The edit distance algorithm based on character n-grams.
 
 ## Phrase suggester
 
@@ -399,20 +399,20 @@ You can specify the following options to the phrase suggester.
 Option | Description
 :--- | :---
 field | The field to use for n-gram lookups. The phrase suggester uses this field to calculate suggestion scores. Required.
-gram_size | The maximum size `n` of the n-grams (shingles) in the field. If the field does not contain n-grams (shingles), omit this option or set it to 1. If the field uses a shingle filter, and `gram_size` is not set, `gram_size` is set to `max_shingle_size`.
-real_word_error_likelihood | The probability that a term is misspelled, even if it exists in the dictionary. Default is 0.95 (5% of the words in the dictionary are misspelled).
-confidence | The confidence level is a float factor that is multiplied by the input phrase's score to calculate a threshold score for other suggestions. Only suggestions with higher scores than the threshold are returned. A confidence level of 1.0 will only return suggestions that score higher than the input phrase. If `confidence` is set to 0, the top `size` candidates are returned. Default is 1.
-max_errors | The maximum number or percentage of the terms that can be erroneous (spelled incorrectly) in order to return a suggestion. Valid values are integers that represent the number of terms or floats in the (0, 1) range that represent the percentage of the terms. Default is 1 (return only suggestions with at most one misspelled term). Setting this value to a high number can decrease performance. We recommend setting `max_errors` to a low number like 1 or 2 to reduce the time spent in suggest calls relative to the time spent in query execution.
-separator | The separator for the terms in the bigram field. Defaults to the space character.
-size | The number of candidate suggestions to generate for each query term. Specifying a higher value can result in terms with higher edit distances being returned. Default is 5.
-analyzer | The analyzer with which to analyze the suggestion text. Defaults to the analyzer configured for the `field`.
-shard_size | The maximum number of candidate suggestions to obtain from each shard. After all candidate suggestions are considered, the top `shard_size` suggestions are returned. Default is 5.
+`gram_size` | The maximum size `n` of the n-grams (shingles) in the field. If the field does not contain n-grams (shingles), omit this option or set it to 1. If the field uses a shingle filter, and `gram_size` is not set, `gram_size` is set to `max_shingle_size`.
+`real_word_error_likelihood` | The probability that a term is misspelled, even if it exists in the dictionary. Default is 0.95 (5% of the words in the dictionary are misspelled).
+`confidence` | The confidence level is a float factor that is multiplied by the input phrase's score to calculate a threshold score for other suggestions. Only suggestions with higher scores than the threshold are returned. A confidence level of 1.0 will only return suggestions that score higher than the input phrase. If `confidence` is set to 0, the top `size` candidates are returned. Default is 1.
+`max_errors` | The maximum number or percentage of the terms that can be erroneous (spelled incorrectly) in order to return a suggestion. Valid values are integers that represent the number of terms or floats in the (0, 1) range that represent the percentage of the terms. Default is 1 (return only suggestions with at most one misspelled term). Setting this value to a high number can decrease performance. We recommend setting `max_errors` to a low number like 1 or 2 to reduce the time spent in suggest calls relative to the time spent in query execution.
+`separator` | The separator for the terms in the bigram field. Defaults to the space character.
+`size` | The number of candidate suggestions to generate for each query term. Specifying a higher value can result in terms with higher edit distances being returned. Default is 5.
+`analyzer` | The analyzer with which to analyze the suggestion text. Defaults to the analyzer configured for the `field`.
+`shard_size` | The maximum number of candidate suggestions to obtain from each shard. After all candidate suggestions are considered, the top `shard_size` suggestions are returned. Default is 5.
 [collate](#collate-field)| Used to prune suggestions for which there are no matching documents in the index.
-collate.query | Specifies a query against which suggestions are checked to prune the suggestions for which there are no matching documents in the index.
-collate.prune | Specifies whether to return all suggestions. If `prune` is set to `false`, only those suggestions that have matching documents are returned. If `prune` is set to `true`, all suggestions are returned; each suggestion has an additional `collate_match` field that is `true` if the suggestion has matching documents and is `false` otherwise. Default is `false`.
-highlight | Configures suggestion highlighting. Both `pre_tag` and `post_tag` values are required. 
-highlight.pre_tag | The starting tag for highlighting. 
-highlight.post_tag | The ending tag for highlighting.
+`collate.query` | Specifies a query against which suggestions are checked to prune the suggestions for which there are no matching documents in the index.
+`collate.prune` | Specifies whether to return all suggestions. If `prune` is set to `false`, only those suggestions that have matching documents are returned. If `prune` is set to `true`, all suggestions are returned; each suggestion has an additional `collate_match` field that is `true` if the suggestion has matching documents and is `false` otherwise. Default is `false`.
+`highlight` | Configures suggestion highlighting. Both `pre_tag` and `post_tag` values are required. 
+`highlight.pre_tag` | The starting tag for highlighting. 
+`highlight.post_tag` | The ending tag for highlighting.
 [smoothing](#smoothing-models) | Smoothing model to balance the weight of the shingles that exist in the index frequently with the weight of the shingles that exist in the index infrequently.
 
 
@@ -498,10 +498,10 @@ The following smoothing models are supported.
 
 Model | Description
 :--- | :---
-stupid_backoff | Backs off to lower-order n-gram models if the higher-order n-gram count is 0 and multiplies the lower-order n-gram model by a constant factor (`discount`). This is the default smoothing model.
-stupid.backoff.discount | The factor by which to multiply the lower-order n-gram model. Optional. Default is 0.4.
-laplace | Uses additive smoothing, adding a constant `alpha` to all counts to balance weights.
-laplace.alpha | The constant added to all counts to balance weights, typically 1.0 or smaller. Optional. Default is 0.5.
+`stupid_backoff` | Backs off to lower-order n-gram models if the higher-order n-gram count is 0 and multiplies the lower-order n-gram model by a constant factor (`discount`). This is the default smoothing model.
+`stupid.backoff.discount` | The factor by which to multiply the lower-order n-gram model. Optional. Default is 0.4.
+`laplace` | Uses additive smoothing, adding a constant `alpha` to all counts to balance weights.
+`laplace.alpha` | The constant added to all counts to balance weights, typically 1.0 or smaller. Optional. Default is 0.5.
 
 By default, OpenSearch uses the Stupid Backoff model&mdash;a simple algorithm that starts with the shingles of the highest order and takes lower-order shingles if higher-order shingles are not found. For example, if you set up the phrase suggester to have 3-grams, 2-grams, and 1-grams, the Stupid Backoff model first inspects the 3-grams. If there are no 3-grams, it inspects 2-grams but multiplies the score by the `discount` factor. If there are no 2-grams, it inspects 1-grams but again multiplies the score by the `discount` factor. The Stupid Backoff model works well in most cases. If you need to choose the Laplace smoothing model, specify it in the `smoothing` parameter:
 
@@ -558,13 +558,13 @@ You can specify the following direct generator options.
 Option | Description
 :--- | :---
 field | The field from which to source suggestions. Required. Can be set for each suggestion or globally.
-size | The maximum number of suggestions to return for each token in the input text.
-suggest_mode | The suggest mode specifies the terms for which suggestions generated on each shard should be included. The suggest mode is applied to suggestions for each shard and is not checked when combining suggestions from different shards. Therefore, if the suggest mode is `missing`, suggestions will be returned if the term is missing from one shard but exists on another shard. Valid values are:<br>- `missing`: Return suggestions only for the input text terms that are not in the shard. <br>- `popular`: Return suggestions only if they occur in the documents more frequently than in the original input text on the shard.<br>- `always`: Always return suggestions.<br>Default is `missing`.
-max_edits | The maximum edit distance for suggestions. Valid values are in the [1, 2] range. Default is 2.
-prefix_length | An integer that specifies the minimum length the matched prefix must be to start returning suggestions. If the prefix of `prefix_length` is not matched but the search term is still within the edit distance, no suggestions are returned. Default is 1. Higher values improve spellcheck performance because misspellings don’t tend to occur in the beginning of words.
-min_word_length | The minimum length a suggestion must be in order to be included. Default is 4.
-max_inspections | The multiplication factor for `shard_size`. The maximum number of candidate suggestions OpenSearch inspects to find suggestions is calculated as `shard_size` multiplied by `max_inspection`. May improve accuracy at the cost of decreased performance. Default is 5.
-min_doc_freq | The minimum number or percentage of documents in which a suggestion should appear in order for it to be returned. May improve accuracy by returning only suggestions with high shard-level document frequencies. Valid values are integers that represent the document frequency or floats in the [0, 1] range that represent the percentage of documents. Default is 0 (feature disabled). 
-max_term_freq | The maximum number of documents in which a suggestion should appear in order for it to be returned. Valid values are integers that represent the document frequency or floats in the [0, 1] range that represent the percentage of documents. Default is 0.01. Excluding high-frequency terms improves spellcheck performance because high-frequency terms are usually spelled correctly. Uses shard-level document frequencies.
-pre_filter | An analyzer that is applied to each input text token passed to the generator before a suggestion is generated. 
-post_filter | An analyzer that is applied to each generated suggestion before it is passed to the phrase scorer. 
+`size` | The maximum number of suggestions to return for each token in the input text.
+`suggest_mode` | The suggest mode specifies the terms for which suggestions generated on each shard should be included. The suggest mode is applied to suggestions for each shard and is not checked when combining suggestions from different shards. Therefore, if the suggest mode is `missing`, suggestions will be returned if the term is missing from one shard but exists on another shard. Valid values are:<br>- `missing`: Return suggestions only for the input text terms that are not in the shard. <br>- `popular`: Return suggestions only if they occur in the documents more frequently than in the original input text on the shard.<br>- `always`: Always return suggestions.<br>Default is `missing`.
+`max_edits` | The maximum edit distance for suggestions. Valid values are in the [1, 2] range. Default is 2.
+`prefix_length` | An integer that specifies the minimum length the matched prefix must be to start returning suggestions. If the prefix of `prefix_length` is not matched but the search term is still within the edit distance, no suggestions are returned. Default is 1. Higher values improve spellcheck performance because misspellings don’t tend to occur in the beginning of words.
+`min_word_length` | The minimum length a suggestion must be in order to be included. Default is 4.
+`max_inspections` | The multiplication factor for `shard_size`. The maximum number of candidate suggestions OpenSearch inspects to find suggestions is calculated as `shard_size` multiplied by `max_inspection`. May improve accuracy at the cost of decreased performance. Default is 5.
+`min_doc_freq` | The minimum number or percentage of documents in which a suggestion should appear in order for it to be returned. May improve accuracy by returning only suggestions with high shard-level document frequencies. Valid values are integers that represent the document frequency or floats in the [0, 1] range that represent the percentage of documents. Default is 0 (feature disabled). 
+`max_term_freq` | The maximum number of documents in which a suggestion should appear in order for it to be returned. Valid values are integers that represent the document frequency or floats in the [0, 1] range that represent the percentage of documents. Default is 0.01. Excluding high-frequency terms improves spellcheck performance because high-frequency terms are usually spelled correctly. Uses shard-level document frequencies.
+`pre_filter` | An analyzer that is applied to each input text token passed to the generator before a suggestion is generated. 
+`post_filter` | An analyzer that is applied to each generated suggestion before it is passed to the phrase scorer. 

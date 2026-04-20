@@ -36,7 +36,7 @@ Alerting visualizations are displayed as time-series charts that give you a snap
 
 Keep in mind the following requirements when setting up or creating alerting visualizations. The visualization:
 
-- Must be a [Vizlib line chart](https://community.vizlib.com/support/solutions/articles/35000107262-vizlib-line-chart-introduction)
+- Must be a [Vizlib line chart](https://docs-vizlib.insightsoftware.com/hc/en-us/articles/39676102755341-Line-Chart-Overview)
 - Must contain at least a Y-axis metric aggregation
 - Must not have non-Y-axis metric aggregation types
 - Must use the date histogram aggregation type for the X-axis bucket
@@ -83,8 +83,8 @@ Once you've created or associated alerting monitors, verify that the monitor is 
 3. Select the ellipsis icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/ellipsis-icon.png" class="inline-icon" alt="ellipsis icon"/>{:/}), then **Alerting** > **Associated monitors**.
 4. Choose an alerting monitor from the list. Information such as history, alerts, and associated visualizations is shown within the visualization panel.
 5. Unlink or edit a monitor. 
-   1. Unlink a monitor from the visualization by selecting the link icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/link-icon.png" class="inline-icon" alt="link icon"/>{:/}) under **Actions**. This only unlinks the monitor from the visualization; it does not delete the monitor.
-   2. Edit the monitor's metrics by selecting the edit icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/edit-icon.png" class="inline-icon" alt="edit icon"/>{:/}).
+   1. Unlink a monitor from the visualization by selecting the link icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/link-icon.png" class="inline-icon" alt="link icon"/>{:/}) under **Actions**. This only unlinks the monitor from the visualization; it does not delete the monitor.
+   2. Edit the monitor's metrics by selecting the edit icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/edit-icon.png" class="inline-icon" alt="edit icon"/>{:/}).
 
 ## Next steps
 

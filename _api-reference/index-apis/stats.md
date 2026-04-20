@@ -1,8 +1,9 @@
 ---
 layout: default
-title: Stats
-parent: Index APIs
-nav_order: 155
+title: Index stats
+parent: Index operations
+grand_parent: Index APIs
+nav_order: 120
 ---
 
 # Index Stats API 
@@ -18,9 +19,9 @@ When a shard moves to a different node, the shard-level statistics for the shard
 
 ```json
 GET /_stats
-GET /_stats/<metric>
-GET /<index_ids>/_stats
-GET /<index_ids>/_stats/<metric>
+GET /_stats/{metric}
+GET /{index_ids}/_stats
+GET /{index_ids}/_stats/{metric}
 ```
 
 ## Path parameters
@@ -30,7 +31,7 @@ The following table lists the available path parameters. All path parameters are
 | Parameter | Data type | Description |
 | :--- | :--- | :--- |
 | `<index_ids>` | String | A comma-separated list of indexes, data streams, or index aliases used to filter results. Supports wildcard expressions. Defaults to `_all` (`*`).
-`<metric>` | String | A comma-separated list of metric groups that will be included in the response. For valid values, see [Metrics](#metrics). Defaults to all metrics. |
+`metric` | String | A comma-separated list of metric groups that will be included in the response. For valid values, see [Metrics](#metrics). Defaults to all metrics. |
 
 ### Metrics
 

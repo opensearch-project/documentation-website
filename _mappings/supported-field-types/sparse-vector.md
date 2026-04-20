@@ -1,10 +1,9 @@
 ---
 layout: default
 title: Sparse vector
-nav_order: 25
+nav_order: 92
 has_children: false
-parent: Vector field types
-grand_parent: Supported field types
+parent: Supported field types
 redirect_from:
   - /field-types/supported-field-types/sparse-vector/
 ---
@@ -52,19 +51,19 @@ PUT sparse-vector-index
   "settings": {
     "index": {
       "sparse": true
-    },
-    "mappings": {
-      "properties": {
-        "sparse_embedding": {
-          "type": "sparse_vector",
-          "method": {
-            "name": "seismic",
-            "parameters": {
-              "n_postings": 300,
-              "cluster_ratio": 0.1,
-              "summary_prune_ratio": 0.4,
-              "approximate_threshold": 1000000
-            }
+    }
+  },
+  "mappings": {
+    "properties": {
+      "sparse_embedding": {
+        "type": "sparse_vector",
+        "method": {
+          "name": "seismic",
+          "parameters": {
+            "n_postings": 300,
+            "cluster_ratio": 0.1,
+            "summary_prune_ratio": 0.4,
+            "approximate_threshold": 1000000
           }
         }
       }
@@ -162,7 +161,7 @@ GET sparse-vector-index/_search
 ```
 {% include copy-curl.html %}
 
-## Related pages
+## Related documentation
 
 - [Neural sparse ANN search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/)
 - [Neural sparse query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/neural-sparse/)

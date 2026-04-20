@@ -41,6 +41,20 @@ If you need to delete a snapshot, be sure to use the OpenSearch API rather than 
 
 Before you can take a snapshot, you have to "register" a snapshot repository. A snapshot repository is just a storage location: a shared file system, Amazon Simple Storage Service (Amazon S3), Hadoop Distributed File System (HDFS), or Azure Storage.
 
+### Node-level repository settings
+
+The following node-level settings control repository behavior globally across all repositories of their respective types. These settings are configured in `opensearch.yml` and require a cluster restart to modify.
+
+#### File system repository settings
+
+- `repositories.fs.chunk_size` (Static, byte unit): Sets the default chunk size for file system repositories when storing large blobs. This setting determines how large blob files are split into smaller chunks during storage. Larger chunk sizes can improve performance for sequential access but may increase memory usage and network transfer overhead. This setting serves as a fallback when chunk size is not explicitly specified in repository settings. Default is unlimited (no chunking). Minimum is `5` bytes.
+
+#### URL repository settings
+
+- `repositories.url.allowed_urls` (Static, list): Specifies a list of URL patterns that are allowed for URL repository access. This security setting restricts which URLs can be used when creating URL repositories, preventing access to unauthorized or internal network resources. URL patterns support wildcards (e.g., `http://snapshot.example.com/*`). When empty (default), no URL repositories are permitted unless a path.repo is configured. This setting helps prevent server-side request forgery (SSRF) attacks. Default is `[]` (empty list).
+
+- `repositories.url.supported_protocols` (Static, list): Defines which URL protocols are supported for URL repositories. This setting controls which protocol schemes (such as HTTP, HTTPS, or FTP) can be used when accessing URL repositories. Limiting supported protocols helps enhance security by preventing access through potentially insecure or unintended protocols. Default is `["http", "https", "ftp", "file", "jar"]`.
+
 
 ### Shared file system
 
@@ -445,14 +459,14 @@ You specify two pieces of information when you create a snapshot:
 The following snapshot includes all indexes and the cluster state:
 
 ```json
-PUT /_snapshot/my-repository/1
+PUT /_snapshot/my-repository/snapshot-1
 ```
 {% include copy-curl.html %}
 
 You can also add a request body to include or exclude certain indexes or specify other settings:
 
 ```json
-PUT /_snapshot/my-repository/2
+PUT /_snapshot/my-repository/snapshot-2
 {
   "indices": "opensearch-dashboards*,my-index*,-my-index-2016",
   "ignore_unavailable": true,
@@ -467,10 +481,10 @@ For more information, see [Create Snapshot API]({{site.url}}{{site.baseurl}}/api
 If you request the snapshot immediately after taking it, you might see something like this:
 
 ```json
-GET /_snapshot/my-repository/2
+GET /_snapshot/my-repository/snapshot-2
 {
   "snapshots": [{
-    "snapshot": "2",
+    "snapshot": "snapshot-2",
     "version": "6.5.4",
     "indices": [
       "opensearch_dashboards_sample_data_ecommerce",
@@ -491,7 +505,7 @@ For more information, see [Get Snapshot API]({{site.url}}{{site.baseurl}}/api-re
 Note that the snapshot is still in progress. If you want to wait for the snapshot to finish before continuing, add the `wait_for_completion` parameter to your request. Snapshots can take a while to complete, so consider whether or not this option fits your use case:
 
 ```
-PUT _snapshot/my-repository/3?wait_for_completion=true
+PUT _snapshot/my-repository/snapshot-3?wait_for_completion=true
 ```
 {% include copy-curl.html %}
 
@@ -500,7 +514,7 @@ Snapshots have the following states:
 State | Description
 :--- | :---
 SUCCESS | The snapshot successfully stored all shards.
-IN_PROGRESS | The snapshot is currently running.
+`IN_PROGRESS` | The snapshot is currently running.
 PARTIAL | At least one shard failed to store successfully. Can only occur if you set `partial` to `true` when taking the snapshot.
 FAILED | The snapshot encountered an error and stored no data.
 INCOMPATIBLE | The snapshot is incompatible with the version of OpenSearch running on this cluster. See [Conflicts and compatibility](#conflicts-and-compatibility).
@@ -532,14 +546,14 @@ GET /_snapshot/my-repository/_all
 Then restore a snapshot:
 
 ```
-POST /_snapshot/my-repository/2/_restore
+POST /_snapshot/my-repository/snapshot-2/_restore
 ```
 {% include copy-curl.html %}
 
 Just like when taking a snapshot, you can add a request body to include or exclude certain indexes or specify some other settings:
 
 ```json
-POST /_snapshot/my-repository/2/_restore
+POST /_snapshot/my-repository/snapshot-2/_restore
 {
   "indices": "opensearch-dashboards*,my-index*",
   "ignore_unavailable": true,
@@ -559,6 +573,106 @@ POST /_snapshot/my-repository/2/_restore
 {% include copy-curl.html %}
 
 For more information, see [Restore Snapshot API]({{site.url}}{{site.baseurl}}/api-reference/snapshots/restore-snapshot/).
+
+### Restoring snapshots across remote-backed clusters
+
+When using remote-backed storage, OpenSearch automatically backs up index segments and translogs to remote repositories (typically, Amazon S3). If you're restoring snapshots between clusters that **both use remote-backed storage** with different remote store repositories, you must specify the source cluster's remote store repositories.
+
+This procedure applies only to clusters with remote-backed storage enabled. For standard OpenSearch clusters without remote-backed storage, use the standard snapshot restore process without these additional parameters.
+{: .note}
+
+The following procedure restores a snapshot from Cluster A to Cluster B, where both clusters use remote-backed storage with different Amazon S3 repositories.
+
+#### Prerequisites
+
+Before you start, ensure that you have fulfilled the following prerequisites:
+
+- Both clusters are running the same OpenSearch version.
+- You have obtained the Amazon S3 bucket names, base paths, AWS Key Management Service (KMS) key Amazon Resource Names (ARNs), and domain ARNs from the source cluster's remote store configuration.
+
+#### Steps
+
+To restore a snapshot from the source cluster to the target cluster, complete the following steps:
+
+1. Register the source cluster's snapshot repository on the target cluster as read-only:
+
+   ```json
+   PUT /_snapshot/source-cluster-snapshots
+   {
+     "type": "s3",
+     "settings": {
+       "bucket": "source-snapshot-bucket",
+       "base_path": "snapshots",
+       "region": "us-east-1",
+       "readonly": true
+     }
+   }
+   ```
+   {% include copy-curl.html %}
+
+2. Register the source cluster's remote segment repository on the target cluster as read-only:
+
+   ```json
+   PUT /_snapshot/source-remote-segment-repo
+   {
+     "type": "s3",
+     "settings": {
+       "bucket": "source-segment-bucket",
+       "base_path": "remote-store/segments",
+       "region": "us-east-1",
+       "amazon_es_kms_enc_ctx": "domainARN=arn:aws:es:us-east-1:123456789012:domain/source-cluster",
+       "amazon_es_kms_key_arn": "arn:aws:kms:us-east-1:123456789012:key/abcd1234-56ef-78gh-90ij-klmnopqrstuv",
+       "amazon_es_encryption": "true",
+       "remote_store_index_shallow_copy": "true",
+       "readonly": true
+     }
+   }
+   ```
+   {% include copy-curl.html %}
+
+3. Register the source cluster's remote translog repository on the target cluster as read-only:
+
+   ```json
+   PUT /_snapshot/source-remote-translog-repo
+   {
+     "type": "s3",
+     "settings": {
+       "bucket": "source-translog-bucket",
+       "base_path": "remote-store/translogs",
+       "region": "us-east-1",
+       "amazon_es_kms_enc_ctx": "domainARN=arn:aws:es:us-east-1:123456789012:domain/source-cluster",
+       "amazon_es_kms_key_arn": "arn:aws:kms:us-east-1:123456789012:key/abcd1234-56ef-78gh-90ij-klmnopqrstuv",
+       "amazon_es_encryption": "true",
+       "remote_store_index_shallow_copy": "true",
+       "readonly": true
+     }
+   }
+   ```
+   {% include copy-curl.html %}
+
+4. Verify that you can list snapshots in the source snapshot repository:
+
+   ```json
+   GET /_snapshot/source-cluster-snapshots/_all
+   ```
+   {% include copy-curl.html %}
+
+5. Restore the snapshot, specifying both the source segment and translog repositories:
+
+   ```json
+   POST /_snapshot/source-cluster-snapshots/snapshot-1/_restore
+   {
+     "indices": "my-index",
+     "source_remote_store_repository": "source-remote-segment-repo",
+     "source_remote_translog_repository": "source-remote-translog-repo"
+   }
+   ```
+   {% include copy-curl.html %}
+
+The target cluster will restore the index from the snapshot repository and configure the restored indexes to read their remote segments and translogs from the source cluster's remote store repositories.
+
+If you encounter index name collisions during restore, use the `rename_pattern` and `rename_replacement` parameters to rename the indexes, or delete the conflicting indexes before restoring.
+{: .tip}
 
 ### Conflicts and compatibility
 
@@ -588,7 +702,7 @@ If you're using the Security plugin, snapshots have some additional restrictions
 If a snapshot contains a global state, you must exclude it when performing the restore. If your snapshot also contains the `.opendistro_security` index, either exclude it or list all the other indexes you want to include:
 
 ```json
-POST /_snapshot/my-repository/3/_restore
+POST /_snapshot/my-repository/snapshot-3/_restore
 {
   "indices": "-.opendistro_security",
   "include_global_state": false
@@ -599,7 +713,7 @@ POST /_snapshot/my-repository/3/_restore
 The `.opendistro_security` index contains sensitive data, so we recommend excluding it when you take a snapshot. If you do need to restore the index from a snapshot, you must include an admin certificate in the request:
 
 ```bash
-curl -k --cert ./kirk.pem --key ./kirk-key.pem -XPOST 'https://localhost:9200/_snapshot/my-repository/3/_restore?pretty'
+curl -k --cert ./kirk.pem --key ./kirk-key.pem -XPOST 'https://localhost:9200/_snapshot/my-repository/snapshot-3/_restore?pretty'
 ```
 {% include copy-curl.html %}
 
@@ -610,6 +724,6 @@ We strongly recommend against restoring `.opendistro_security` using an admin ce
 
 For index codec considerations, see [Index codecs]({{site.url}}{{site.baseurl}}/im-plugin/index-codecs/#snapshots).
 
-## Related articles
+## Related documentation
 
 - [Snapshot APIs]({{site.url}}{{site.baseurl}}/api-reference/snapshots/)
