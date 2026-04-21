@@ -18,7 +18,7 @@ The post template API operation is used to create or update an index template. T
 ## Endpoints
 
 ```json
-POST /_template/<template-name>
+POST /_template/{template-name}
 ```
 
 ## Path parameters

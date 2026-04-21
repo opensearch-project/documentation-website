@@ -23,7 +23,7 @@ When the Security plugin is enabled, all memories exist in a `private` security 
 
 ```json
 POST /_plugins/_ml/memory/
-PUT /_plugins/_ml/memory/<memory_id>
+PUT /_plugins/_ml/memory/{memory_id}
 ```
 
 ## Path parameters

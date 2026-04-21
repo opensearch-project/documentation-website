@@ -370,7 +370,7 @@ The response contains the token IDs and their corresponding token weights:
 For a cross-encoder model, send the following request:
 
 ```json
-POST _plugins/_ml/models/<model_id>/_predict
+POST _plugins/_ml/models/{model_id}/_predict
 {
     "query_text": "today is sunny",
     "text_docs": [

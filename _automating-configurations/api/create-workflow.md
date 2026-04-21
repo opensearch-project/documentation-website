@@ -29,7 +29,7 @@ You can only update a complete workflow if it has not yet been provisioned.
 
 ```json
 POST /_plugins/_flow_framework/workflow
-PUT /_plugins/_flow_framework/workflow/<workflow_id>
+PUT /_plugins/_flow_framework/workflow/{workflow_id}
 ```
 
 ## Path parameters
@@ -61,7 +61,7 @@ POST /_plugins/_flow_framework/workflow?validation=none
 In a workflow that has not been provisioned, you can update fields other than the `workflows` field. For example, you can update the `name` and `description` fields as follows:
 
 ```json
-PUT /_plugins/_flow_framework/workflow/<workflow_id>?update_fields=true
+PUT /_plugins/_flow_framework/workflow/{workflow_id}?update_fields=true
 {
   "name": "new-template-name",
   "description": "A new description for the existing template"
@@ -75,7 +75,7 @@ You cannot specify both the `provision` and `update_fields` parameters at the sa
 If a workflow has been provisioned, you can update and reprovision the full template:
 
 ```json
-PUT /_plugins/_flow_framework/workflow/<workflow_id>?reprovision=true
+PUT /_plugins/_flow_framework/workflow/{workflow_id}?reprovision=true
 {
   <updated complete template>
 }
@@ -92,7 +92,7 @@ POST /_plugins/_flow_framework/workflow/?provision=true&wait_for_completion_time
 {% include copy-curl.html %}
 
 ```json
-PUT /_plugins/_flow_framework/workflow/<workflow_id>/?reprovision=true&wait_for_completion_timeout=2s
+PUT /_plugins/_flow_framework/workflow/{workflow_id}/?reprovision=true&wait_for_completion_timeout=2s
 ```
 {% include copy-curl.html %}
 
@@ -105,7 +105,7 @@ For example, the following request provisions a workflow and waits for up to 2 s
 You can create and provision a workflow using a [workflow template]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-templates/) as follows:
 
 ```json
-POST /_plugins/_flow_framework/workflow?use_case=<use_case>&provision=true
+POST /_plugins/_flow_framework/workflow?use_case={use_case}&provision=true
 {
     "create_connector.credential.key" : "<YOUR API KEY>"
 }

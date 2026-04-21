@@ -22,8 +22,8 @@ To learn how to set rate limits at the model level for all users, see [Update Mo
 ## Endpoints
 
 ```json
-POST /_plugins/_ml/controllers/<model_id>
-PUT /_plugins/_ml/controllers/<model_id>
+POST /_plugins/_ml/controllers/{model_id}
+PUT /_plugins/_ml/controllers/{model_id}
 ```
 {% include copy-curl.html %}
 

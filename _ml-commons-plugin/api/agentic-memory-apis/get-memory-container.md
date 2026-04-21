@@ -16,7 +16,7 @@ Use this API to retrieve a memory container by its ID.
 ## Endpoints
 
 ```json
-GET /_plugins/_ml/memory_containers/<memory_container_id>
+GET /_plugins/_ml/memory_containers/{memory_container_id}
 ```
 
 ## Example request

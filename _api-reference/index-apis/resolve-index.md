@@ -15,7 +15,7 @@ The Resolve Index API helps you understand how OpenSearch resolves aliases, data
 ## Endpoints
 
 ```json
-GET /_resolve/index/<name>
+GET /_resolve/index/{name}
 ```
 
 ## Path parameters
