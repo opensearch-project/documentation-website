@@ -30,6 +30,9 @@ This guide assumes that you are comfortable working from the Linux command line 
    sudo dpkg -i opensearch-dashboards-{{site.opensearch_dashboards_version}}-linux-x64.deb
    # arm64
    sudo dpkg -i opensearch-dashboards-{{site.opensearch_dashboards_version}}-linux-arm64.deb
+
+   # For new installations of OpenSearch Dashboards 3.7 and later, you can use the following environment variable to fine-tune security dashboards plugin behavior:
+   # DISABLE_SECURITY_DASHBOARDS_PLUGIN=true
    ```
    {% include copy.html %}
 
@@ -135,6 +138,9 @@ APT, the primary package management tool for Debian–based operating systems, a
    - Unless otherwise indicated, the latest available version of OpenSearch Dashboards is installed.
    ```bash
    sudo apt-get install opensearch-dashboards
+
+   # For new installations of OpenSearch Dashboards 3.7 and later, you can use the following environment variable to fine-tune security dashboards plugin behavior:
+   # DISABLE_SECURITY_DASHBOARDS_PLUGIN=true
    ```
    {% include copy.html %}
 
@@ -142,6 +148,9 @@ APT, the primary package management tool for Debian–based operating systems, a
    ```bash
    # Specify the version manually using opensearch=<version>
    sudo apt-get install opensearch-dashboards={{site.opensearch_dashboards_version}}
+
+   # For new installations of OpenSearch Dashboards 3.7 and later, you can use the following environment variable to fine-tune security dashboards plugin behavior:
+   # DISABLE_SECURITY_DASHBOARDS_PLUGIN=true
    ```
    {% include copy.html %}
 

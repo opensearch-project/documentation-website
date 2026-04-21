@@ -31,6 +31,9 @@ OpenSearch Dashboards is the default visualization tool for data in OpenSearch. 
     sudo yum install opensearch-dashboards-{{site.opensearch_dashboards_version}}-linux-x64.rpm
     # Install the x64 package using rpm.
     sudo rpm -ivh opensearch-dashboards-{{site.opensearch_dashboards_version}}-linux-x64.rpm
+
+    # For new installations of OpenSearch Dashboards 3.7 and later, you can use the following environment variable to fine-tune security dashboards plugin behavior:
+    # DISABLE_SECURITY_DASHBOARDS_PLUGIN=true
     ```
     **arm64**
     ```bash
@@ -38,6 +41,9 @@ OpenSearch Dashboards is the default visualization tool for data in OpenSearch. 
     sudo yum install opensearch-dashboards-{{site.opensearch_dashboards_version}}-linux-arm64.rpm
     # Install the arm64 package using rpm.
     sudo rpm -ivh opensearch-dashboards-{{site.opensearch_dashboards_version}}-linux-arm64.rpm
+
+    # For new installations of OpenSearch Dashboards 3.7 and later, you can use the following environment variable to fine-tune security dashboards plugin behavior:
+    # DISABLE_SECURITY_DASHBOARDS_PLUGIN=true
     ```
 1. After the installation succeeds, enable OpenSearch Dashboards as a service.
     ```bash
@@ -76,10 +82,16 @@ YUM, the primary package management tool for Red Hat-based operating systems, al
    - Unless otherwise indicated, the highest minor version of OpenSearch installs.
    ```bash
    sudo yum install opensearch-dashboards
+
+   # For new installations of OpenSearch Dashboards 3.7 and later, you can use the following environment variable to fine-tune security dashboards plugin behavior:
+   # DISABLE_SECURITY_DASHBOARDS_PLUGIN=true
    ```
    - To install a specific version of OpenSearch Dashboards:
    ```bash
    sudo yum install 'opensearch-dashboards-{{site.opensearch_dashboards_version}}'
+
+   # For new installations of OpenSearch Dashboards 3.7 and later, you can use the following environment variable to fine-tune security dashboards plugin behavior:
+   # DISABLE_SECURITY_DASHBOARDS_PLUGIN=true
    ```
 1. During installation, the installer will present you with the GPG key fingerprint. Verify that the information matches the following:
    ```bash
