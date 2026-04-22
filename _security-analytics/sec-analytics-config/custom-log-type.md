@@ -3,6 +3,7 @@ layout: default
 title: Creating custom log types
 parent: Setting up Security Analytics
 nav_order: 18
+canonical_url: https://docs.opensearch.org/latest/security-analytics/sec-analytics-config/log-types/
 ---
 
 
