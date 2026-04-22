@@ -233,10 +233,13 @@ The following flow chart outlines the Faiss algorithm.
 ![Faiss algorithm for filtering]({{site.url}}{{site.baseurl}}/images/faiss-algorithm.jpg)
 
 ### Disabling the exact search fallback
-Introduced 3.5
+**Introduced 3.5**
 {: .label .label-purple }
 
-When a Faiss efficient filtered ANN search returns fewer than `k` results (R < k) while more than `k` documents match the filter (P >= k), the algorithm falls back to an exact search over the filtered document IDs to ensure that `k` results are returned. For latency-sensitive workloads where returning fewer than `k` results is acceptable, you can disable this fallback by setting the `index.knn.faiss.efficient_filter.disable_exact_search` index setting to `true`. When this setting is enabled, the search returns only the approximate results without performing the additional exact search. For more information about this setting, see [Vector search settings]({{site.url}}{{site.baseurl}}/vector-search/settings/).
+When a Faiss efficient-filtered ANN search returns fewer than `k` results (R < k) even though more than `k` documents match the filter (P ≥ k), the algorithm falls back to an exact search over the filtered document IDs to ensure that `k` results are returned.
+
+For latency-sensitive workloads in which fewer than `k` results are acceptable, you can disable this fallback by setting the `index.knn.faiss.efficient_filter.disable_exact_search` index setting to `true`. When this setting is enabled, the search returns only approximate results and skips the additional exact search.
+ For more information about this setting, see [Vector search settings]({{site.url}}{{site.baseurl}}/vector-search/settings/).
 
 ## Using a Faiss efficient filter
 
