@@ -3,16 +3,24 @@ layout: default
 title: Hybrid search memory
 parent: Agentic memory APIs
 grand_parent: ML Commons APIs
-nav_order: 56
+nav_order: 70
 ---
 
 # Hybrid search memory API
 **Introduced 3.6**
 {: .label .label-purple }
 
-Use this API to search long-term memories using a combination of BM25 keyword matching and neural vector search. This is useful when your query benefits from both exact keyword precision and semantic understanding.
+Use this API to search long-term memories using a combination of BM25 keyword matching and semantic search. This is useful when your query benefits from both exact keyword precision and semantic understanding.
 
-The memory container must have an embedding model and at least one [memory strategy]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agentic-memory/#memory-processing-strategies) configured. This API requires the [neural-search plugin]({{site.url}}{{site.baseurl}}/search-plugins/neural-search/) to be installed.
+Hybrid search combines two search methods in a single query:
+
+1. **BM25 keyword search**: A `match` query on the `memory` field for exact keyword matching.
+2. **Neural vector search**: A `neural` query (or `neural_sparse` for `SPARSE_ENCODING` models) on the `memory_embedding` field for semantic similarity.
+
+Results are combined using an inline normalization processor pipeline using `min_max` normalization and `arithmetic_mean` combination. The `bm25_weight` and `neural_weight` parameters control the relative importance of each search method. No preconfigured search pipeline is required.
+
+The memory container must have an embedding model and at least one [memory strategy]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agentic-memory/#memory-processing-strategies) configured. 
+{: .note}
 
 ## Endpoints
 
@@ -35,14 +43,14 @@ The following table lists the available request fields.
 
 | Field | Data type | Required/Optional | Default | Description |
 | :--- | :--- | :--- | :--- | :--- |
-| `query` | String | Required | N/A | Plain text search query used for both BM25 keyword matching and neural vector search. |
-| `k` | Integer | Optional | 10 | The number of results to return. Valid values are 1–10,000. |
+| `query` | String | Required | N/A | A natural language search query used for both BM25 keyword matching and semantic search.  |
+| `k` | Integer | Optional | 10 | The number of results to return. Valid values are `1`–`10000`, inclusive. |
 | `namespace` | Object | Optional | N/A | Filters results by namespace fields. For example, `{"user_id": "alice"}`. |
 | `tags` | Object | Optional | N/A | Filters results by tag fields. For example, `{"topic": "food"}`. |
 | `min_score` | Float | Optional | N/A | The minimum relevance score threshold. Results below this score are excluded. |
 | `filter` | Object | Optional | N/A | An additional [Query DSL]({{site.url}}{{site.baseurl}}/query-dsl/) filter applied alongside the hybrid query. |
-| `bm25_weight` | Float | Optional | 0.5 | The weight for the BM25 keyword search component. Valid values are 0.0–1.0. Must sum to 1.0 with `neural_weight`. |
-| `neural_weight` | Float | Optional | 0.5 | The weight for the neural vector search component. Valid values are 0.0–1.0. Must sum to 1.0 with `bm25_weight`. |
+| `bm25_weight` | Float | Optional | 0.5 | The weight for the BM25 keyword search component. Valid values are `0.0`–`1.0`. The sum of `bm25_weight` and `neural_weight` must equal `1.0`. |
+| `neural_weight` | Float | Optional | 0.5 | The weight for the neural vector search component. Valid values are `0.0`–`1.0`. The sum of `bm25_weight` and `neural_weight` must equal `1.0`. |
 
 ## Example request: Basic hybrid search
 
@@ -58,9 +66,9 @@ POST /_plugins/_ml/memory_containers/HudqiJkB1SltqOcZusVU/memories/long-term/_hy
 ```
 {% include copy-curl.html %}
 
-## Example request: With custom weights
+## Example request: Custom weights
 
-You can tune the balance between keyword and semantic search per request. Setting `neural_weight` higher prioritizes semantic similarity, while setting `bm25_weight` higher prioritizes exact keyword matches.
+You can adjust the balance between keyword and semantic search for each request. Increasing `neural_weight` prioritizes semantic similarity, while increasing `bm25_weight` higher prioritizes exact keyword matches:
 
 ```json
 POST /_plugins/_ml/memory_containers/HudqiJkB1SltqOcZusVU/memories/long-term/_hybrid_search
@@ -76,7 +84,7 @@ POST /_plugins/_ml/memory_containers/HudqiJkB1SltqOcZusVU/memories/long-term/_hy
 ```
 {% include copy-curl.html %}
 
-## Example request: With minimum score and tags filter
+## Example request: Minimum score and tags filter
 
 ```json
 POST /_plugins/_ml/memory_containers/HudqiJkB1SltqOcZusVU/memories/long-term/_hybrid_search
@@ -154,11 +162,6 @@ The response uses the standard OpenSearch search response format. For field desc
 
 The `memory_embedding` field is excluded from the response.
 
-## How hybrid search works
+## Related documentation
 
-Hybrid search combines two search methods in a single query:
-
-1. **BM25 keyword search**: A `match` query on the `memory` field for exact keyword matching.
-2. **Neural vector search**: A `neural` query (or `neural_sparse` for `SPARSE_ENCODING` models) on the `memory_embedding` field for semantic similarity.
-
-Results are combined using an inline normalization processor pipeline with `min_max` normalization and `arithmetic_mean` combination. The `bm25_weight` and `neural_weight` parameters control the relative importance of each search method. No pre-created search pipeline is required.
+- [Hybrid search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/)

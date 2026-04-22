@@ -3,16 +3,17 @@ layout: default
 title: Semantic search memory
 parent: Agentic memory APIs
 grand_parent: ML Commons APIs
-nav_order: 55
+nav_order: 60
 ---
 
-# Semantic search memory API
+# Semantic Search Memory API
 **Introduced 3.6**
 {: .label .label-purple }
 
-Use this API to search long-term memories using natural language queries. OpenSearch automatically generates embeddings from your query text and performs vector similarity search against stored memory embeddings. This eliminates the need to manually construct k-NN queries with pre-generated embeddings.
+Use this API to search long-term memories using natural language queries. OpenSearch automatically generates embeddings from your query text and performs vector similarity search against stored memory embeddings. This eliminates the need to manually construct k-NN queries with pregenerated embeddings.
 
 The memory container must have an embedding model and at least one [memory strategy]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agentic-memory/#memory-processing-strategies) configured.
+{: .note}
 
 ## Endpoints
 
@@ -35,7 +36,7 @@ The following table lists the available request fields.
 
 | Field | Data type | Required/Optional | Default | Description |
 | :--- | :--- | :--- | :--- | :--- |
-| `query` | String | Required | N/A | Plain text search query. OpenSearch generates the embedding automatically using the container's configured embedding model. |
+| `query` | String | Required | N/A | A natural language search query. OpenSearch generates the embedding automatically using the memory container's configured embedding model. |
 | `k` | Integer | Optional | 10 | The number of results to return. Valid values are 1–10,000. |
 | `namespace` | Object | Optional | N/A | Filters results by namespace fields. For example, `{"user_id": "alice"}`. |
 | `tags` | Object | Optional | N/A | Filters results by tag fields. For example, `{"topic": "food"}`. |
@@ -56,7 +57,7 @@ POST /_plugins/_ml/memory_containers/HudqiJkB1SltqOcZusVU/memories/long-term/_se
 ```
 {% include copy-curl.html %}
 
-## Example request: With minimum score and tags filter
+## Example request: Minimum score and tags filter
 
 ```json
 POST /_plugins/_ml/memory_containers/HudqiJkB1SltqOcZusVU/memories/long-term/_semantic_search
@@ -74,7 +75,7 @@ POST /_plugins/_ml/memory_containers/HudqiJkB1SltqOcZusVU/memories/long-term/_se
 ```
 {% include copy-curl.html %}
 
-## Example request: With Query DSL filter
+## Example request: Query DSL filter
 
 ```json
 POST /_plugins/_ml/memory_containers/HudqiJkB1SltqOcZusVU/memories/long-term/_semantic_search
@@ -163,3 +164,7 @@ The response uses the standard OpenSearch search response format. Each hit in th
 | `last_updated_time` | Long | The timestamp when the memory was last updated. |
 
 The `memory_embedding` field is excluded from the response.
+
+## Related documentation
+
+- [Semantic search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/semantic-search/)
