@@ -104,11 +104,11 @@ There are three main aggregation types:
 
 Metric aggregations calculate statistics on numeric field values:
 
-- [`avg`]({{site.url}}{{site.baseurl}}/aggregations/metric/avg/) -- Calculate average values.
+- [`avg`]({{site.url}}{{site.baseurl}}/aggregations/metric/average/) -- Calculate average values.
 - [`cardinality`]({{site.url}}{{site.baseurl}}/aggregations/metric/cardinality/) -- Count unique values.
 - [`extended_stats`]({{site.url}}{{site.baseurl}}/aggregations/metric/extended-stats/) -- Get comprehensive statistics including standard deviation.
-- [`max`]({{site.url}}{{site.baseurl}}/aggregations/metric/max/) -- Find maximum values.
-- [`min`]({{site.url}}{{site.baseurl}}/aggregations/metric/min/) -- Find minimum values.
+- [`max`]({{site.url}}{{site.baseurl}}/aggregations/metric/maximum/) -- Find maximum values.
+- [`min`]({{site.url}}{{site.baseurl}}/aggregations/metric/minimum/) -- Find minimum values.
 - [`percentile`]({{site.url}}{{site.baseurl}}/aggregations/metric/percentile/) -- Calculate percentiles (for example, median, 95th percentile).
 - [`stats`]({{site.url}}{{site.baseurl}}/aggregations/metric/stats/) -- Get basic statistics (`count`, `sum`, `min`, `max`, and `avg`).
 - [`sum`]({{site.url}}{{site.baseurl}}/aggregations/metric/sum/) -- Calculate sum of values.
@@ -350,7 +350,7 @@ PUT products
 ```
 {% include copy-curl.html %}
 
-For more information about mappings, see [Mappings]({{site.url}}{{site.baseurl}}/mapping/).
+For more information about mappings, see [Mappings]({{site.url}}{{site.baseurl}}/mappings/).
 
 ## Limitations
 
