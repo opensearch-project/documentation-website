@@ -24,15 +24,23 @@ This guide assumes that you are comfortable working from the Linux command line 
 ## Installing OpenSearch Dashboards from a package
 
 1. Download the Debian package for the desired version directly from the [OpenSearch downloads page](https://opensearch.org/downloads.html){:target='\_blank'}. The Debian package can be downloaded for both **x64** and **arm64** architectures.
-1. From the CLI, install using `dpkg`:
-   ```bash
-   # x64
-   sudo dpkg -i opensearch-dashboards-{{site.opensearch_dashboards_version}}-linux-x64.deb
-   # arm64
-   sudo dpkg -i opensearch-dashboards-{{site.opensearch_dashboards_version}}-linux-arm64.deb
+1. From the CLI, install using `dpkg`.
 
-   # For new installations of OpenSearch Dashboards 3.7 and later, you can use the following environment variable to fine-tune security dashboards plugin behavior:
-   # DISABLE_SECURITY_DASHBOARDS_PLUGIN=true
+   x64:
+   ```bash
+   sudo dpkg -i opensearch-dashboards-{{site.opensearch_dashboards_version}}-linux-x64.deb
+   ```
+   {% include copy.html %}
+
+   arm64:
+   ```bash
+   sudo dpkg -i opensearch-dashboards-{{site.opensearch_dashboards_version}}-linux-arm64.deb
+   ```
+   {% include copy.html %}
+
+   For new installations of OpenSearch Dashboards 3.7 and later, you can use the following environment variable to control the Security Dashboards plugin behavior:
+   ```bash
+   DISABLE_SECURITY_DASHBOARDS_PLUGIN=true
    ```
    {% include copy.html %}
 
@@ -135,22 +143,15 @@ APT, the primary package management tool for Debian–based operating systems, a
    {% include copy.html %}
 
 1. Choose the version of OpenSearch Dashboards you want to install:
-   - Unless otherwise indicated, the latest available version of OpenSearch Dashboards is installed.
+   - Unless otherwise indicated, the latest available version of OpenSearch Dashboards is installed:
    ```bash
    sudo apt-get install opensearch-dashboards
-
-   # For new installations of OpenSearch Dashboards 3.7 and later, you can use the following environment variable to fine-tune security dashboards plugin behavior:
-   # DISABLE_SECURITY_DASHBOARDS_PLUGIN=true
    ```
    {% include copy.html %}
 
-   - To install a specific version of OpenSearch Dashboards, pass a version number after the package name.
+   - To install a specific version of OpenSearch Dashboards, pass a version number after the package name:
    ```bash
-   # Specify the version manually using opensearch=<version>
    sudo apt-get install opensearch-dashboards={{site.opensearch_dashboards_version}}
-
-   # For new installations of OpenSearch Dashboards 3.7 and later, you can use the following environment variable to fine-tune security dashboards plugin behavior:
-   # DISABLE_SECURITY_DASHBOARDS_PLUGIN=true
    ```
    {% include copy.html %}
 
@@ -182,9 +183,8 @@ By default, OpenSearch Dashboards, like OpenSearch, binds to `localhost` when yo
     ```
     {% include copy.html %}
 
-1. Specify a network interface that OpenSearch Dashboards should bind to:
+1. Specify a network interface that OpenSearch Dashboards should bind to. Use `0.0.0.0` to bind to any available interface:
     ```bash
-    # Use 0.0.0.0 to bind to any available interface.
     server.host: 0.0.0.0
     ```
     {% include copy.html %}
