@@ -236,4 +236,8 @@ The Update Configuration API allows you to directly modify the Security plugin's
 
 ## Enabling this API
 
-By default, this API is disabled for security reasons. To enable it, you need to:
+By default, this API is disabled for security reasons. To enable it, you need to add the following line to `opensearch.yml`:
+
+```yml
+plugins.security.unsupported.restapi.allow_securityconfig_modification: true
+```
