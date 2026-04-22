@@ -9,14 +9,23 @@ jobs:
     runs-on: ubuntu-latest
     if: |
       github.repository == 'opensearch-project/documentation-website' &&
-      ${{ !startsWith(github.event.pull_request.head.ref, 'main') }} &&
-      ${{ !startsWith(github.event.pull_request.head.ref, '1.') }} &&
-      ${{ !startsWith(github.event.pull_request.head.ref, '2.') }} &&
-      ${{ !startsWith(github.event.pull_request.head.ref, 'version/') }}
+      github.event.pull_request.merged == true &&
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      !startsWith(github.event.pull_request.head.ref, 'main') &&
+      !startsWith(github.event.pull_request.head.ref, '1.') &&
+      !startsWith(github.event.pull_request.head.ref, '2.') &&
+      !startsWith(github.event.pull_request.head.ref, 'version/')
     steps:
-      - name: Echo remove branch
-        run: echo Removing ${{github.event.pull_request.head.ref}}
       - name: Delete merged branch
-        uses: SvanBoxel/delete-merged-branch@main
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const branchName = context.payload.pull_request.head.ref;
+            console.log(`Deleting branch: ${branchName}`);
+
+            await github.rest.git.deleteRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: `heads/${branchName}`
+            });
