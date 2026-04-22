@@ -153,7 +153,7 @@ This pattern is common in the vectorsearch workload for optional fields:
 }
 ```
 
-The `{%- endif %}` (with the dash) strips trailing whitespace, keeping the JSON output clean.
+The `{% raw %}{%- endif %}{% endraw %}` (with the dash) strips trailing whitespace, keeping the JSON output clean.
 
 #### Version-based conditionals
 
