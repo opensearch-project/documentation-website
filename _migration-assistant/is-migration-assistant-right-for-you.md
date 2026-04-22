@@ -46,7 +46,7 @@ The following matrix shows which source versions can be directly migrated to whi
 |:---------|:-------|:-------|
 | Self-managed (on-premises) | ✓ | ✓ |
 | Amazon OpenSearch Service | ✓ | ✓ |
-| Amazon OpenSearch Serverless | ✗ | ✓ |
+| [Amazon OpenSearch Serverless]({{site.url}}{{site.baseurl}}/migration-assistant/amazon-opensearch-serverless/) | ✗ | ✓ |
 | Third-party cloud providers | ✓ | ✓ |
 | AWS EC2 | ✓ | ✓ |
 | Apache Solr (SolrCloud/Standalone) | ✓ | ✗ |

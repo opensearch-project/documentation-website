@@ -195,5 +195,6 @@ SolrReader automatically translates these Solr field types:
 ## See also
 
 - [Solr migration overview]({{site.url}}{{site.baseurl}}/migration-assistant/solr-migration/)
+- [Solr backfill guide]({{site.url}}{{site.baseurl}}/migration-assistant/solr-migration/solr-backfill-guide/) — Step-by-step S3 backup setup and workflow configuration for Solr
 - [Running the Transform Proxy]({{site.url}}{{site.baseurl}}/migration-assistant/solr-migration/running-the-transform-proxy/)
 - [Supported migration paths]({{site.url}}{{site.baseurl}}/migration-assistant/is-migration-assistant-right-for-you/)

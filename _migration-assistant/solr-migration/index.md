@@ -21,7 +21,7 @@ This page describes how to migrate from Apache Solr 8.x to OpenSearch 3.x using 
 
 Unlike Elasticsearch — which shares a common Lucene data format and similar REST API with OpenSearch — Solr uses its own HTTP API (`/solr/{collection}/select`), schema format (`schema.xml`), and query syntax. Solr migrations require two specialized components:
 
-1. **SolrReader** — Reads Solr backup data and translates Solr schemas to OpenSearch mappings
+1. **SolrReader** — Reads Solr backup data and translates Solr schemas to OpenSearch mappings. See [Solr backfill guide]({{site.url}}{{site.baseurl}}/migration-assistant/solr-migration/solr-backfill-guide/) for step-by-step S3 backup setup and workflow configuration.
 2. **Transformation Shim** — A real-time HTTP proxy that translates Solr API requests to OpenSearch and back. See [Running the Transform Proxy]({{site.url}}{{site.baseurl}}/migration-assistant/solr-migration/running-the-transform-proxy/) for supported features, operating modes, and validation.
 
 ## Migration phases
