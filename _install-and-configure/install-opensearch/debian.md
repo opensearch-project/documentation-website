@@ -40,7 +40,7 @@ This guide assumes that you are comfortable working from the Linux command line 
 1. From the CLI, install the package using `dpkg`.
 
    For new installations of OpenSearch 3.7 and later, you can use the following installation-time environment variables to control the Security plugin behavior:
-   * `DISABLE_INSTALL_DEMO_CONFIG=true` -- Prevents the installer from setting up demo security configuration (certificates, users, and roles). Use this for production installations where you will configure security manually.
+   * `DISABLE_INSTALL_DEMO_CONFIG=true` -- Prevents the installer from setting up demo security configuration (certificates, users, and roles). Use this for installations where you will configure security manually.
    * `DISABLE_SECURITY_PLUGIN=true` -- Disables the Security plugin entirely. Only use this for testing or development environments where security is not required.
 
    To use these environment variables, add them before the installation command with the `env` keyword:
