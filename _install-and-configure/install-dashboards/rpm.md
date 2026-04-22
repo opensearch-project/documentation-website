@@ -24,33 +24,60 @@ OpenSearch Dashboards is the default visualization tool for data in OpenSearch. 
     ```bash
     sudo rpm --import https://artifacts.opensearch.org/publickeys/opensearch-release.pgp
     ```
+    {% include copy.html %}
+
 1. From the command line interface (CLI), you can install the package with `rpm` or `yum`.
+
     **x64**
+
+    Install the x64 package using yum:
     ```bash
-    # Install the x64 package using yum.
     sudo yum install opensearch-dashboards-{{site.opensearch_dashboards_version}}-linux-x64.rpm
-    # Install the x64 package using rpm.
+    ```
+    {% include copy.html %}
+
+    Install the x64 package using rpm:
+    ```bash
     sudo rpm -ivh opensearch-dashboards-{{site.opensearch_dashboards_version}}-linux-x64.rpm
     ```
+    {% include copy.html %}
+
     **arm64**
+
+    Install the arm64 package using yum:
     ```bash
-    # Install the arm64 package using yum.
     sudo yum install opensearch-dashboards-{{site.opensearch_dashboards_version}}-linux-arm64.rpm
-    # Install the arm64 package using rpm.
+    ```
+    {% include copy.html %}
+
+    Install the arm64 package using rpm:
+    ```bash
     sudo rpm -ivh opensearch-dashboards-{{site.opensearch_dashboards_version}}-linux-arm64.rpm
     ```
-1. After the installation succeeds, enable OpenSearch Dashboards as a service.
+    {% include copy.html %}
+
+    For new installations of OpenSearch Dashboards 3.7 and later, you can use the following environment variable to control Security Dashboards plugin behavior:
+    ```bash
+    DISABLE_SECURITY_DASHBOARDS_PLUGIN=true
+    ```
+    {% include copy.html %}
+1. After the installation succeeds, enable OpenSearch Dashboards as a service:
     ```bash
     sudo systemctl enable opensearch-dashboards
     ```
-1. Start OpenSearch Dashboards.
+    {% include copy.html %}
+
+1. Start OpenSearch Dashboards:
     ```bash
     sudo systemctl start opensearch-dashboards
     ```
-1. Verify that OpenSearch Dashboards launched correctly.
+    {% include copy.html %}
+
+1. Verify that OpenSearch Dashboards launched correctly:
     ```bash
     sudo systemctl status opensearch-dashboards
     ```
+    {% include copy.html %}
 
 ## Install OpenSearch Dashboards from a local YUM repository
 
@@ -60,36 +87,51 @@ YUM, the primary package management tool for Red Hat-based operating systems, al
    ```bash
    sudo curl -SL https://artifacts.opensearch.org/releases/bundle/opensearch-dashboards/{{major_version_mask}}/opensearch-dashboards-{{major_version_mask}}.repo -o /etc/yum.repos.d/opensearch-dashboards-{{major_version_mask}}.repo
    ```
-1. Verify that the repository was created successfully.
+   {% include copy.html %}
+
+1. Verify that the repository was created successfully:
     ```bash
     sudo yum repolist
     ```
+    {% include copy.html %}
+
 1. Clean your YUM cache, to ensure a smooth installation:
    ```bash
    sudo yum clean all
    ```
+   {% include copy.html %}
+
 1. With the repository file downloaded, list all available versions of OpenSearch-Dashboards:
    ```bash
    sudo yum list opensearch-dashboards --showduplicates
    ```
-1. Choose the version of OpenSearch Dashboards you want to install: 
-   - Unless otherwise indicated, the highest minor version of OpenSearch installs.
+   {% include copy.html %}
+
+1. Choose the version of OpenSearch Dashboards you want to install:
+   - Unless otherwise indicated, the highest minor version of OpenSearch installs:
    ```bash
    sudo yum install opensearch-dashboards
    ```
+   {% include copy.html %}
+
    - To install a specific version of OpenSearch Dashboards:
    ```bash
    sudo yum install 'opensearch-dashboards-{{site.opensearch_dashboards_version}}'
    ```
+   {% include copy.html %}
+
 1. During installation, the installer will present you with the GPG key fingerprint. Verify that the information matches the following:
    ```bash
    Fingerprint: A8B2 D9E0 4CD5 1FEF 6AA2 DB53 BA81 D999 8119 1457
    ```
+   {% include copy.html %}
+
     - If correct, enter `yes` or `y`. The OpenSearch installation continues.
-1. Once complete, you can run OpenSearch Dashboards.
+1. Once complete, you can run OpenSearch Dashboards:
     ```bash
     sudo systemctl start opensearch-dashboards
     ```
+    {% include copy.html %}
 
 ## Upgrade to a newer version
 
