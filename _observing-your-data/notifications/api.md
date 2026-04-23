@@ -140,39 +140,42 @@ To filter the notification configuration types this request returns, you can ref
 
 Parameter	| Description
 :--- | :---
-config_id | Specifies the channel identifier.
-config_id_list | Specifies a comma-separated list of channel IDs.
-from_index | The starting index to search from.
-max_items | The maximum amount of items to return in your request.
-sort_order | Specifies the direction to sort results in. Valid options are `asc` and `desc`.
-sort_field | Field to sort results with.
-last_updated_time_ms | The Unix time in milliseconds of when the channel was last updated.
-created_time_ms | The Unix time in milliseconds of when the channel was created.
-is_enabled | Indicates whether the channel is enabled.
-config_type | The channel type. Valid values are `sns`, `slack`, `chime`, `webhook`, `smtp_account`, `ses_account`, `email_group`, `email`, and `microsoft_teams`.
+`config_id` | Specifies the channel identifier.
+`config_id_list` | Specifies a comma-separated list of channel IDs.
+`from_index` | The starting index to search from.
+`max_items` | The maximum amount of items to return in your request.
+`sort_order` | Specifies the direction to sort results in. Valid options are `asc` and `desc`.
+`sort_field` | Field to sort results with.
+`last_updated_time_ms` | The Unix time in milliseconds of when the channel was last updated.
+`created_time_ms` | The Unix time in milliseconds of when the channel was created.
+`is_enabled` | Indicates whether the channel is enabled.
+`config_type` | The channel type. Valid values are `sns`, `slack`, `chime`, `webhook`, `smtp_account`, `ses_account`, `email_group`, `email`, and `microsoft_teams`.
 name | The channel name.
 description	| The channel description.
-email.email_account_id | The sender email addresses the channel uses.
-email.email_group_id_list | The email groups the channel uses.
-email.recipient_list | The channel recipient list.
-email_group.recipient_list | The channel list of email recipient groups.
-smtp_account.method | The email encryption method.
-slack.url	| The Slack channel URL.
-chime.url	| The Amazon Chime connection URL.
-webhook.url	| The webhook URL.
-smtp_account.host	| The domain of the SMTP account.
-smtp_account.from_address	| The email account's sender address.
-smtp_account.method | The SMTP account's encryption method.
-sns.topic_arn	| The Amazon Simple Notification Service (SNS) topic's ARN.
-sns.role_arn | The Amazon SNS topic's role ARN.
-ses_account.region | The Amazon Simple Email Service (SES) account's AWS Region.
-ses_account.role_arn | The Amazon SES account's role ARN.
-ses_account.from_address | The Amazon SES account's sender email address.
-microsoft_teams.url | The Microsoft Teams webhook URL.
+`email.email_account_id` | The sender email addresses the channel uses.
+`email.email_group_id_list` | The email groups the channel uses.
+`email.recipient_list` | The channel recipient list.
+`email_group.recipient_list` | The channel list of email recipient groups.
+`smtp_account.method` | The email encryption method.
+`slack.url`	| The Slack channel URL.
+`chime.url`	| The Amazon Chime connection URL.
+`webhook.url`	| The webhook URL.
+`smtp_account.host`	| The domain of the SMTP account.
+`smtp_account.from_address`	| The email account's sender address.
+`smtp_account.method` | The SMTP account's encryption method.
+`sns.topic_arn`	| The Amazon Simple Notification Service (SNS) topic's ARN.
+`sns.role_arn` | The Amazon SNS topic's role ARN.
+`ses_account.region` | The Amazon Simple Email Service (SES) account's AWS Region.
+`ses_account.role_arn` | The Amazon SES account's role ARN.
+`ses_account.from_address` | The Amazon SES account's sender email address.
+`microsoft_teams.url` | The Microsoft Teams webhook URL.
 
 ## Create channel configuration
 
 To create a notification channel configuration, send a POST request to the `configs` resource.
+
+**Note:** If you specify a `config_id` that already exists, the request will fail with a 409 Conflict error. In this case, either choose a different `config_id` or use the [Update channel configuration](#update-channel-configuration) API with a PUT request to modify the existing channel. If you omit the `config_id`, OpenSearch will generate one automatically.
+{: .note}
 
 #### Example request
 
@@ -197,12 +200,12 @@ The create channel API operation accepts the following fields in its request bod
 
 Field |	Data type |	Description |	Required
 :--- | :--- | :--- | :---
-config_id | String | The configuration's custom ID. | No
-config | Object |	Contains all relevant information, such as channel name, configuration type, and plugin source. |	Yes
+`config_id` | String | The configuration's custom ID. | No
+`config` | Object |	Contains all relevant information, such as channel name, configuration type, and plugin source. |	Yes
 name | String |	Name of the channel. | Yes
 description |	String | The channel's description. | No
-config_type |	String | The destination of your notification. Valid options are `sns`, `slack`, `chime`, `webhook`, `smtp_account`, `ses_account`, `email_group`, `email`, and `microsoft_teams`. | Yes
-is_enabled | Boolean | Indicates whether the channel is enabled for sending and receiving notifications. Default is `true`.	| No
+`config_type` |	String | The destination of your notification. Valid options are `sns`, `slack`, `chime`, `webhook`, `smtp_account`, `ses_account`, `email_group`, `email`, and `microsoft_teams`. | Yes
+`is_enabled` | Boolean | Indicates whether the channel is enabled for sending and receiving notifications. Default is `true`.	| No
 
 The create channel operation accepts multiple `config_types` as possible notification destinations, so follow the format for your preferred `config_type`.
 
@@ -293,7 +296,7 @@ To get a channel configuration by `config_id`, send a GET request and specify th
 #### Example request
 
 ```json
-GET _plugins/_notifications/configs/<config_id>
+GET _plugins/_notifications/configs/{config_id}
 ```
 
 #### Example response
@@ -325,12 +328,15 @@ GET _plugins/_notifications/configs/<config_id>
 
 ## Update channel configuration
 
-To update a channel configuration, send a POST request to the `configs` resource and specify the channel's `config_id` as a path parameter. Specify the new configuration details in the request body.
+To update an existing channel configuration, send a PUT request to the `configs` resource and specify the channel's `config_id` as a path parameter. Specify the new configuration details in the request body.
+
+**Note**: The PUT method only updates existing configurations. To create a new channel, use the [Create channel configuration](#create-channel-configuration) API with a POST request. If you try to use PUT with a nonexistent `config_id`, the request will fail.
+{: .note}
 
 #### Example request
 
 ```json
-PUT _plugins/_notifications/configs/<config_id>
+PUT _plugins/_notifications/configs/{config_id}
 {
   "config": {
     "name": "Slack Channel",
@@ -360,7 +366,7 @@ To delete a channel configuration, send a DELETE request to the `configs` resour
 #### Example request
 
 ```json
-DELETE /_plugins/_notifications/configs/<config_id>
+DELETE /_plugins/_notifications/configs/{config_id}
 ```
 
 #### Example response
@@ -378,7 +384,7 @@ You can also submit a comma-separated list of channel IDs you want to delete, an
 #### Example request
 
 ```json
-DELETE /_plugins/_notifications/configs/?config_id_list=<config_id1>,<config_id2>,<config_id3>...
+DELETE /_plugins/_notifications/configs/?config_id_list={config_id1},{config_id2},{config_id3}...
 ```
 
 #### Example response
@@ -401,7 +407,7 @@ To send a test notification, send a GET request to `/feature/test/` and specify 
 #### Example request
 
 ```json
-GET _plugins/_notifications/feature/test/<config_id>
+GET _plugins/_notifications/feature/test/{config_id}
 ```
 
 #### Example response

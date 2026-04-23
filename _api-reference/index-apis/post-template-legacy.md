@@ -7,6 +7,8 @@ nav_order: 70
 ---
 
 # Post template
+**Introduced 1.0**
+{: .label .label-purple }
 
 The Post Template API has been deprecated. Use the new [Create or Update Index Template]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index-template/) API.
 {: .warning}
@@ -16,7 +18,7 @@ The post template API operation is used to create or update an index template. T
 ## Endpoints
 
 ```json
-POST /_template/<template-name>
+POST /_template/{template-name}
 ```
 
 ## Path parameters

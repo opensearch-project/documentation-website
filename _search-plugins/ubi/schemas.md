@@ -2,8 +2,11 @@
 layout: default
 title: UBI index schemas
 parent: User Behavior Insights
+grand_parent: Optimizing search quality
 has_children: false
 nav_order: 5
+redirect_from:
+  - /search-plugins/ubi/data-structures/
 ---
 
 # UBI index schemas

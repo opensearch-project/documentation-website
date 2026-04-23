@@ -7,6 +7,8 @@ nav_order: 90
 ---
 
 # Get template
+**Introduced 1.0**
+{: .label .label-purple }
 
 The Get Template API has been deprecated. Use the new [Get Index Template]({{site.url}}{{site.baseurl}}/api-reference/index-apis/get-index-template/) API.
 {: .warning}
@@ -17,7 +19,7 @@ The get template API operation is used to retrieve one or more index templates c
 
 ```json
 GET /_template
-GET /_template/<template-name>
+GET /_template/{template-name}
 ```
 
 ## Path parameters

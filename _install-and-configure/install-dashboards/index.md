@@ -35,11 +35,13 @@ Other Chromium-based browsers might work, as well. Internet Explorer and Microso
 
 OpenSearch Dashboards requires the Node.js runtime binary to run. One is included in the distribution packages available from the [OpenSearch downloads page](https://opensearch.org/downloads.html){:target='\_blank'}.
 
-OpenSearch Dashboards 2.8.0 and newer can use Node.js versions 14, 16, and 18. The distribution packages for OpenSearch Dashboards 2.10.0 and newer include Node.js 18 and 14 (for backward compatibility). 
+OpenSearch Dashboards versions 2.8 through 2.19 support Node.js 14, 16, and 18. Distribution packages for versions 2.10 through 2.19 include Node.js 18 and Node.js 14 (for backward compatibility).
+
+OpenSearch Dashboards versions 3.0 through 3.4 include Node.js 20. Versions 3.5 and later include Node.js 22.
 
 To use a Node.js runtime binary other than the ones included in the distribution packages, follow these steps:
 
-1. Download and install [Node.js](https://nodejs.org/en/download){:target='\_blank'}; the compatible versions are `>=14.20.1 <19`.
+1. Download and install [Node.js](https://nodejs.org/en/download){:target='\_blank'}; the compatible versions are `>=14.20.1 <23`.
 2. Set the installation path to the `NODE_HOME` or `NODE_OSD_HOME` environment variables.
    
     - On UNIX, if Node.js is installed to `/usr/local/nodejs` and the runtime binary is `/usr/local/nodejs/bin/node`:
@@ -47,11 +49,11 @@ To use a Node.js runtime binary other than the ones included in the distribution
     export NODE_HOME=/usr/local/nodejs
    ```
 
-    - If Node.js is installed using NVM and the runtime binary is `/Users/user/.nvm/versions/node/v18.19.0/bin/node`:
+    - If Node.js is installed using NVM and the runtime binary is `/Users/user/.nvm/versions/node/v22.22.0/bin/node`:
    ```bash
-   export NODE_HOME=/Users/user/.nvm/versions/node/v18.19.0
+   export NODE_HOME=/Users/user/.nvm/versions/node/v22.22.0
    # or, if NODE_HOME is used for something else:
-   export NODE_OSD_HOME=/Users/user/.nvm/versions/node/v18.19.0
+   export NODE_OSD_HOME=/Users/user/.nvm/versions/node/v22.22.0
    ```
 
     - On Windows, if Node.js is installed to `C:\Program Files\nodejs` and the runtime binary is `C:\Program Files\nodejs\node.exe`:

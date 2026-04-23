@@ -1,9 +1,9 @@
 ---
 layout: default
 title: Reranking search results
-parent: Search relevance
+parent: Optimizing search quality
 has_children: true
-nav_order: 65
+nav_order: 50
 ---
 
 # Reranking search results
@@ -18,6 +18,10 @@ You can rerank results in the following ways:
 - [By a document field]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/rerank-by-field/)
 - [By a field using a cross-encoder]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/rerank-by-field-cross-encoder/)
 - [By a field using a late interaction model]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/rerank-by-field-late-interaction/)
+
+## Reranking in agentic search
+
+If you're using agentic search, see [Reranking agentic search results]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/rerank-agentic-search-results/) for information about reranking search results within agentic search pipelines.
 
 ## Using rerank and normalization processors together
 

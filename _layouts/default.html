@@ -50,7 +50,7 @@ layout: table_wrappers
 
   <main>
     <div id="main-header"></div>
-    <div class="side-bar">
+    <div class="side-bar sidebar-container">
       <div class="site-header">
         <a href="{{site.latesturl}}/" id="menu-button" class="site-button">
           Documentation <svg viewBox="0 0 24 24" class="icon"><use xlink:href="#svg-grid"></use></svg>
@@ -148,7 +148,7 @@ layout: table_wrappers
         </nav>
     </div>
     <div class="main">
-      <div id="main-content-wrap" class="main-content-wrap">
+      <div id="main-content-wrap" class="main-content-wrap content-container">
         {% unless page.url == "/" %}
           {%- comment -%}Check if this is a collection index page{%- endcomment -%}
           {% assign is_collection_index = false %}
@@ -257,7 +257,7 @@ layout: table_wrappers
             {% endif %}
           {% endunless %}
         {% endunless %}
-        <div id="main-content" class="main-content" role="main">
+        <div id="main-content" class="main-content content-container" role="main">
           {% if page.section == "opensearch" %}
             {% if site.doc_version == "supported" %}
               <p class="supported-version-warning">You're viewing version {{site.opensearch_major_minor_version}} of the OpenSearch documentation. For the latest version, see the <a href="{% if page.url contains '404' %}{{ site.url }}{{ site.latesturl }}/about/{% else %}{{ site.url }}{{ site.latesturl }}{{ page.url }}{% endif %}">current documentation</a>. For information about OpenSearch version maintenance, see <a href="https://opensearch.org/releases.html">Release Schedule and Maintenance Policy</a>.</p>
@@ -355,5 +355,6 @@ layout: table_wrappers
   <script src="{{ '/assets/js/copy-button.js' | relative_url }}"></script>
   <script src="{{ '/assets/js/nav-scroll.js' | relative_url }}"></script>
   <script src="{{ '/assets/js/listener.js' | relative_url }}"></script>
+  <script src="{{ '/assets/js/theme-toggle.js' | relative_url }}"></script>
 </body>
 </html>

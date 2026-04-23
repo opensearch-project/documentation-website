@@ -51,7 +51,10 @@ You can use the following options in the `streams` array.
 Option | Required | Type | Description
 :--- |:---------| :--- | :---
 `stream_name` | Yes      | String | Defines the name of each Kinesis data stream.
-`initial_position` | No       | String | Sets the `initial_position` to determine at what point the `kinesis` source starts reading stream records. Use `LATEST` to start from the most recent record or `EARLIEST` to start from the beginning of the stream. Default is `LATEST`.
+`initial_position` | No       | String | Sets the `initial_position` to control where the `kinesis` source begins reading stream records. Use `LATEST` to start from the most recent record, `EARLIEST` to read from the beginning of the stream, or `AT_TIMESTAMP` to start from a specific timestamp. Default is `LATEST`.
+`initial_timestamp`| No       | String | Specifies the timestamp from which to begin reading stream records. The value must follow the [[ISO LocalDateTime](https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html#ISO_LOCAL_DATE_TIME)](https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html#ISO_LOCAL_DATE_TIME) format and be provided in the UTC time zone (for example, `2023-01-23T10:00:00`). When `initial_position` is set to `AT_TIMESTAMP`, you must specify either `initial_timestamp` or `range`.
+`range` | No  | String | Specifies how far back from the current time to begin reading Kinesis data stream records. Supports ISO-8601 duration strings (such as `PT20.345S` or `PT15M`) as well as shorthand notation for seconds (`60s`) and milliseconds (`1600ms`). For example, `PT12H` starts reading records from 12 hours before the pipeline started. When `initial_position` is set to `AT_TIMESTAMP`, you must specify either `initial_timestamp` or `range`.
+
 `checkpoint_interval` | No       | Duration | Configure the `checkpoint_interval` to periodically checkpoint Kinesis data streams and avoid duplication of record processing. Default is `PT2M`.
 `compression` | No | String  | Specifies the compression format. To decompress records added by a [CloudWatch Logs Subscription Filter](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/SubscriptionFilters.html) to Kinesis, use the `gzip` compression format.
 

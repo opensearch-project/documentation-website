@@ -3,16 +3,13 @@ layout: default
 title: Pull-based ingestion management
 parent: Pull-based ingestion
 grand_parent: Document APIs
-has_children: true
+has_children: false
 nav_order: 10
 ---
 
 # Pull-based Ingestion Management API
 **Introduced 3.0**
 {: .label .label-purple }
-
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).    
-{: .warning}
 
 OpenSearch provides the following APIs to manage pull-based ingestion.
 
@@ -23,7 +20,7 @@ Pauses ingestion for one or more indexes. When paused, OpenSearch stops consumin
 ### Endpoint
 
 ```json
-POST /<index>/ingestion/_pause
+POST /{index}/ingestion/_pause
 ```
 
 ### Path parameters
@@ -76,7 +73,7 @@ As part of the resume operation, you can optionally reset the stream consumer to
 ### Endpoint
 
 ```json
-POST /<index>/ingestion/_resume
+POST /{index}/ingestion/_resume
 ```
 
 ### Path parameters
@@ -193,7 +190,7 @@ Returns the current ingestion state for one or more indexes. This API supports p
 ### Endpoint
 
 ```json
-GET /<index>/ingestion/_state
+GET /{index}/ingestion/_state
 ```
 
 ### Path parameters

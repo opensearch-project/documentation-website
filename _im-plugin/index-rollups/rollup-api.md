@@ -28,8 +28,8 @@ You must provide the `seq_no` and `primary_term` parameters.
 #### Request
 
 ```json
-PUT _plugins/_rollup/jobs/<rollup_id> // Create
-PUT _plugins/_rollup/jobs/<rollup_id>?if_seq_no=1&if_primary_term=1 // Update
+PUT _plugins/_rollup/jobs/{rollup_id} // Create
+PUT _plugins/_rollup/jobs/{rollup_id}?if_seq_no=1&if_primary_term=1 // Update
 {
   "rollup": {
     "source_index": "nyc-taxi-data",
@@ -201,7 +201,7 @@ Returns all information about an index rollup job based on the `rollup_id`.
 #### Request
 
 ```json
-GET _plugins/_rollup/jobs/<rollup_id>
+GET _plugins/_rollup/jobs/{rollup_id}
 ```
 
 
@@ -228,7 +228,7 @@ Deletes an index rollup job based on the `rollup_id`.
 #### Request
 
 ```json
-DELETE _plugins/_rollup/jobs/<rollup_id>
+DELETE _plugins/_rollup/jobs/{rollup_id}
 ```
 
 #### Example response
@@ -249,8 +249,8 @@ Start or stop an index rollup job.
 #### Request
 
 ```json
-POST _plugins/_rollup/jobs/<rollup_id>/_start
-POST _plugins/_rollup/jobs/<rollup_id>/_stop
+POST _plugins/_rollup/jobs/{rollup_id}/_start
+POST _plugins/_rollup/jobs/{rollup_id}/_stop
 ```
 
 
@@ -267,35 +267,71 @@ POST _plugins/_rollup/jobs/<rollup_id>/_stop
 Introduced 1.0
 {: .label .label-purple }
 
-Returns detailed metadata information about the index rollup job and its current progress.
+Returns metadata information about the index rollup job.
 
 #### Request
 
 ```json
-GET _plugins/_rollup/jobs/<rollup_id>/_explain
+GET _plugins/_rollup/jobs/{rollup_id}/_explain
 ```
 
 
-#### Example response
+#### Example response: Job not yet executed
+
+When the rollup job has not yet executed, both fields return `null`:
 
 ```json
 {
   "example_rollup": {
-    "rollup_id": "example_rollup",
-    "last_updated_time": 1602014281,
-    "continuous": {
-      "next_window_start_time": 1602055591,
-      "next_window_end_time": 1602075591
-    },
-    "status": "running",
-    "failure_reason": null,
-    "stats": {
-      "pages_processed": 342,
-      "documents_processed": 489359,
-      "rollups_indexed": 3420,
-      "index_time_in_ms": 30495,
-      "search_time_in_ms": 584922
+    "metadata_id": null,
+    "rollup_metadata": null
+  }
+}
+```
+
+#### Example response: Job executed
+
+After the rollup job executes at least once, the response includes detailed metadata and statistics:
+
+```json
+{
+  "example_rollup": {
+    "metadata_id": "GtWGlZwBm3bOohSSvi2r",
+    "rollup_metadata": {
+      "rollup_id": "example_rollup",
+      "last_updated_time": 1772035161995,
+      "status": "finished",
+      "failure_reason": null,
+      "stats": {
+        "pages_processed": 2,
+        "documents_processed": 3,
+        "rollups_indexed": 3,
+        "index_time_in_millis": 28,
+        "search_time_in_millis": 46
+      }
     }
   }
 }
 ```
+
+For continuous rollup jobs, the `rollup_metadata` object may include additional fields such as `next_window_start_time` and `next_window_end_time` to indicate the time window for the next scheduled execution.
+{: .note}
+
+#### Response fields
+
+The response contains the rollup job ID as the key, with the following fields:
+
+Field | Description
+:--- | :---
+`metadata_id` | The document ID of the rollup metadata stored in the system index. Returns `null` if the rollup job has not yet executed.
+`rollup_metadata` | Metadata about the rollup job execution. Returns `null` if the rollup job has not yet executed. When populated, contains the following nested fields.
+`rollup_metadata.rollup_id` | The ID of the rollup job.
+`rollup_metadata.last_updated_time` | The timestamp (in milliseconds since epoch) when the rollup job was last updated.
+`rollup_metadata.status` | The current status of the rollup job. Possible values are `init` (job is initializing), `started` (job is currently executing), `finished` (job completed successfully), `failed` (job encountered an error), `stopped` (job was stopped), or `retry` (job is retrying after a failure).
+`rollup_metadata.failure_reason` | The reason for failure if the job failed. Returns `null` if the job succeeded.
+`rollup_metadata.stats` | Statistics about the rollup job execution.
+`rollup_metadata.stats.pages_processed` | The number of pages processed during the rollup.
+`rollup_metadata.stats.documents_processed` | The total number of documents processed during the rollup.
+`rollup_metadata.stats.rollups_indexed` | The number of rollup documents created and indexed.
+`rollup_metadata.stats.index_time_in_millis` | The time spent indexing rollup documents, in milliseconds.
+`rollup_metadata.stats.search_time_in_millis` | The time spent searching source documents, in milliseconds.

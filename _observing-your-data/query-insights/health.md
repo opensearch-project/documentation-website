@@ -139,3 +139,4 @@ Field | Description
 `EXPORTER_FAIL_TO_CLOSE_EXCEPTION` | The number of failures that occur when closing the exporter.
 `READER_FAIL_TO_CLOSE_EXCEPTION` | The number of failures that occur when closing the reader.
 `TOP_N_QUERIES_USAGE_COUNT` | The number of times the Top N Queries API is used.
+`TOP_N_QUERIES_SOURCE_TRUNCATION` | The number of times a query source was truncated due to size limit.

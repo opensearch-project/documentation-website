@@ -747,7 +747,7 @@ When updating a monitor, you can optionally include `seq_no` and `primary_term` 
 
 #### Example request
 ```json
-PUT _plugins/_alerting/monitors/<monitor_id>
+PUT _plugins/_alerting/monitors/{monitor_id}
 {
   "type": "monitor",
   "name": "test-monitor",
@@ -799,7 +799,7 @@ PUT _plugins/_alerting/monitors/<monitor_id>
   "last_update_time": 1551466639295
 }
 
-PUT _plugins/_alerting/monitors/<monitor_id>?if_seq_no=3&if_primary_term=1
+PUT _plugins/_alerting/monitors/{monitor_id}?if_seq_no=3&if_primary_term=1
 {
   "type": "monitor",
   "name": "test-monitor",
@@ -931,7 +931,7 @@ Retrieve the details of a specific monitor using the following request.
 
 #### Example request
 ```
-GET _plugins/_alerting/monitors/<monitor_id>
+GET _plugins/_alerting/monitors/{monitor_id}
 ```
 {% include copy-curl.html %}
 
@@ -1014,9 +1014,9 @@ Returns statistics about the alerting feature. Use `_plugins/_alerting/stats` to
 #### Example request
 ```json
 GET _plugins/_alerting/stats
-GET _plugins/_alerting/stats/<metric>
-GET _plugins/_alerting/<node-id>/stats
-GET _plugins/_alerting/<node-id>/stats/<metric>
+GET _plugins/_alerting/stats/{metric}
+GET _plugins/_alerting/{node-id}/stats
+GET _plugins/_alerting/{node-id}/stats/{metric}
 ```
 {% include copy-curl.html %}
 
@@ -1210,7 +1210,7 @@ Delete a monitor using the following request.
 
 #### Example request
 ```
-DELETE _plugins/_alerting/monitors/<monitor_id>
+DELETE _plugins/_alerting/monitors/{monitor_id}
 ```
 {% include copy-curl.html %}
 
@@ -1357,7 +1357,7 @@ You can add the optional `?dryrun=true` parameter to the URL to show the results
 
 #### Example request
 ```json
-POST _plugins/_alerting/monitors/<monitor_id>/_execute
+POST _plugins/_alerting/monitors/{monitor_id}/_execute
 ```
 {% include copy-curl.html %}
 
@@ -1491,7 +1491,7 @@ GET _plugins/_alerting/monitors/alerts
 
 #### Example request
 ```json
-POST _plugins/_alerting/monitors/<monitor-id>/_acknowledge/alerts
+POST _plugins/_alerting/monitors/{monitor-id}/_acknowledge/alerts
 {
   "alerts": ["eQURa3gBKo1jAh6qUo49"]
 }
@@ -1613,7 +1613,7 @@ When updating a destination, you can optionally include `seq_no` and `primary_te
 
 #### Example request
 ```json
-PUT _plugins/_alerting/destinations/<destination-id>
+PUT _plugins/_alerting/destinations/{destination-id}
 {
   "name": "my-updated-destination",
   "type": "slack",
@@ -1622,7 +1622,7 @@ PUT _plugins/_alerting/destinations/<destination-id>
   }
 }
 
-PUT _plugins/_alerting/destinations/<destination-id>?if_seq_no=3&if_primary_term=1
+PUT _plugins/_alerting/destinations/{destination-id}?if_seq_no=3&if_primary_term=1
 {
   "name": "my-updated-destination",
   "type": "slack",
@@ -1669,7 +1669,7 @@ Retrieve one destination using the following request.
 
 #### Example request
 ```json
-GET _plugins/_alerting/destinations/<destination-id>
+GET _plugins/_alerting/destinations/{destination-id}
 ```
 {% include copy-curl.html %}
 
@@ -1775,7 +1775,7 @@ Remove a specific destination from the alerting system using the following reque
 
 #### Example request
 ```
-DELETE _plugins/_alerting/destinations/<destination-id>
+DELETE _plugins/_alerting/destinations/{destination-id}
 ```
 {% include copy-curl.html %}
 
@@ -1861,7 +1861,7 @@ When updating an email account, you can optionally include `seq_no` and `primary
 
 #### Example request
 ```json
-PUT _plugins/_alerting/destinations/email_accounts/<email_account_id>
+PUT _plugins/_alerting/destinations/email_accounts/{email_account_id}
 {
   "name": "example_account",
   "email": "example@email.com",
@@ -1870,7 +1870,7 @@ PUT _plugins/_alerting/destinations/email_accounts/<email_account_id>
   "method": "ssl"
 }
 
-PUT _plugins/_alerting/destinations/email_accounts/<email_account_id>?if_seq_no=18&if_primary_term=2
+PUT _plugins/_alerting/destinations/email_accounts/{email_account_id}?if_seq_no=18&if_primary_term=2
 {
   "name": "example_account",
   "email": "example@email.com",
@@ -1915,7 +1915,7 @@ Retrieve the details of a specific email account configured for alerting purpose
 
 #### Example request
 ```json
-GET _plugins/_alerting/destinations/email_accounts/<email_account_id>
+GET _plugins/_alerting/destinations/email_accounts/{email_account_id}
 {
   "name": "example_account",
   "email": "example@email.com",
@@ -1960,7 +1960,7 @@ Remove an existing email account configuration from the alerting system using th
 
 #### Example request
 ```
-DELETE _plugins/_alerting/destinations/email_accounts/<email_account_id>
+DELETE _plugins/_alerting/destinations/email_accounts/{email_account_id}
 ```
 {% include copy-curl.html %}
 
@@ -2121,7 +2121,7 @@ When updating an email group, you can optionally include `seq_no` and `primary_t
 
 #### Example request
 ```json
-PUT _plugins/_alerting/destinations/email_groups/<email_group_id>
+PUT _plugins/_alerting/destinations/email_groups/{email_group_id}
 {
   "name": "example_email_group",
   "emails": [{
@@ -2129,7 +2129,7 @@ PUT _plugins/_alerting/destinations/email_groups/<email_group_id>
   }]
 }
 
-PUT _plugins/_alerting/destinations/email_groups/<email_group_id>?if_seq_no=16&if_primary_term=2
+PUT _plugins/_alerting/destinations/email_groups/{email_group_id}?if_seq_no=16&if_primary_term=2
 {
   "name": "example_email_group",
   "emails": [{
@@ -2174,7 +2174,7 @@ Retrieve the details of a specific email group destination using the following r
 
 #### Example request
 ```json
-GET _plugins/_alerting/destinations/email_groups/<email_group_id>
+GET _plugins/_alerting/destinations/email_groups/{email_group_id}
 {
   "name": "example_email_group",
   "emails": [{
@@ -2219,7 +2219,7 @@ Remove an existing email group from the list of destinations for alerts using th
 
 #### Example request
 ```
-DELETE _plugins/_alerting/destinations/email_groups/<email_group_id>
+DELETE _plugins/_alerting/destinations/email_groups/{email_group_id}
 ```
 {% include copy-curl.html %}
 
@@ -2334,7 +2334,7 @@ Add comments to a specific alert, providing additional context or notes related 
 
 #### Example request
 ```json
-POST _plugins/_alerting/comments/<alert-id>
+POST _plugins/_alerting/comments/{alert-id}
 {
   "content": "sample comment"
 }
@@ -2375,7 +2375,7 @@ Modify the content of a previously added comment associated with an alert using 
 #### Example request
 
 ```json
-PUT _plugins/_alerting/comments/<comment-id>
+PUT _plugins/_alerting/comments/{comment-id}
 {
   "content": "sample updated comment"
 }
@@ -2495,7 +2495,7 @@ Remove a specific comment associated with an alert using the following request.
 
 #### Example request
 ```json
-DELETE _plugins/_alerting/comments/<comment-id>
+DELETE _plugins/_alerting/comments/{comment-id}
 ```
 {% include copy-curl.html %}
 

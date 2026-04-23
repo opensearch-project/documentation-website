@@ -2,7 +2,7 @@
 layout: default
 title: Supported algorithms 
 has_children: false
-nav_order: 125
+nav_order: 100
 ---
 
 # Supported algorithms
@@ -673,7 +673,7 @@ To use the metrics correlation algorithm, include the following parameters.
 
 | Parameter | Type | Description | Default value |
 |---|---|---|---|
-metrics | Array | A list of metrics within the time series that can be correlated to anomalous behavior | N/A
+`metrics` | Array | A list of metrics within the time series that can be correlated to anomalous behavior | N/A
 
 ### Input
 

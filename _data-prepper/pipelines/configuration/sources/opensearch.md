@@ -84,11 +84,11 @@ The `opensearch` source can be configured with Amazon OpenSearch Serverless by s
 
 ## Using metadata
 
-When the `opensource` source constructs OpenSearch Data Prepper events from documents, the document index is stored in the `EventMetadata` with `opensearch-index` as the key, and the `document_id` is stored in the `EventMetadata` with the `opensearch-document_id` as the key.
+When the `opensource` source constructs OpenSearch Data Prepper events from documents, the document index is stored in the `EventMetadata` with `opensearch-index` as the key, and the `document_id` is stored in the `EventMetadata` with the `opensearch-document_id` as the key. The document version is stored in the metadata as `opensearch_document_version`.
 
 You can reference this metadata in your pipeline configuration as needed. For example, you can use the `opensearch-document_id` to prevent duplicates in sinks that support document updates, such as the `opensearch` sink. You can also use the original document metadata for conditional routing.
 
-The following example pipeline configuration sends events to an `opensearch` sink and uses the same index and `document_id` from the source cluster as in the destination cluster to prevent duplicate documents:
+The following example pipeline configuration sends events to an `opensearch` sink and uses the same index, `document_id`, and `document_version` from the source cluster as in the destination cluster to prevent duplicate documents:
 
 
 ```yaml
@@ -103,6 +103,8 @@ opensearch-migration-pipeline:
         hosts: [ "https://sink-cluster:9200" ]
         username: "username"
         password: "password"
+        document_version_type: external
+        document_version: "${getMetadata(\"opensearch_document_version\")}"
         document_id: "${getMetadata(\"opensearch-document_id\")}"
         index: "${getMetadata(\"opensearch-index\"}"
 ```

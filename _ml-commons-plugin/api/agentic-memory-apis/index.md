@@ -4,7 +4,7 @@ title: Agentic memory APIs
 parent: ML Commons APIs
 has_children: true
 has_toc: false
-nav_order: 40
+nav_order: 35
 redirect_from: 
   - /ml-commons-plugin/api/agentic-memory-apis/
 ---
@@ -45,3 +45,5 @@ OpenSearch supports the following memory APIs:
 - [Update memory]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/update-memory/)
 - [Delete memory]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/delete-memory/)
 - [Search memory]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/search-memory/)
+- [Semantic search memory]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/semantic-search-memory/)
+- [Hybrid search memory]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/hybrid-search-memory/)

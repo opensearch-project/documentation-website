@@ -7,6 +7,8 @@ nav_order: 100
 ---
 
 # Template exists
+**Introduced 1.0**
+{: .label .label-purple }
 
 The Template Exists API has been deprecated. Use the new [Index Template Exists]({{site.url}}{{site.baseurl}}/api-reference/index-apis/index-template-exists/) API.
 {: .warning}
@@ -16,7 +18,7 @@ The template exists API operation is used to verify whether one or more index te
 ## Endpoints
 
 ```json
-HEAD /_template/<template-name>
+HEAD /_template/{template-name}
 ```
 
 ## Path parameters

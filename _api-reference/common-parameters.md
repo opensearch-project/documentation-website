@@ -22,7 +22,7 @@ The following request requires response values to be in human-readable format:
 
 ```json
 
-GET <index_name>/_search?human=true
+GET {index_name}/_search?human=true
 ```
 
 ## Pretty result
@@ -35,7 +35,7 @@ The following request requires the response to be displayed in pretty JSON forma
 
 ```json
 
-GET <index_name>/_search?pretty=true
+GET {index_name}/_search?pretty=true
 ```
 
 ## Content type
@@ -75,7 +75,7 @@ The following request sets `error_trace` to `true` so that the response returns 
 
 ```json
 
-GET <index_name>/_search?error_trace=true
+GET {index_name}/_search?error_trace=true
 ```
 
 ## Filtered responses
@@ -88,7 +88,7 @@ The following request specifies filters to limit the fields returned in the resp
 
 ```json
 
-GET _search?filter_path=<field_name>.*,-<field_name>
+GET _search?filter_path={field_name}.*,-{field_name}
 ```
 
 ## Units
@@ -133,7 +133,23 @@ You can specify an opaque identifier for any request using the `X-Opaque-Id` hea
 
 The following request adds an opaque ID to the request:
 
-```json
+```bash
 curl -H "X-Opaque-Id: my-curl-client-1" -XGET localhost:9200/_tasks
+```
+{% include copy.html %}
+
+## `X-Request-Id` header
+
+You can specify a unique identifier for a search request using the `X-Request-Id` header. This identifier is used to track individual search requests and can be referenced in logs, such as slow logs, for troubleshooting and analysis. The value must be a 32-character hexadecimal string. 
+
+#### Example request
+
+The following request adds a request ID to a search request:
+
+```bash
+curl -X GET "http://localhost:9200/_search" \
+  -H "Content-Type: application/json" \
+  -H "X-Request-Id: 19d538d7c42d09240be001d1e4ff6201" \
+  -d '{"query": {"match_all": {}}}'
 ```
 {% include copy.html %}

@@ -7,6 +7,8 @@ nav_order: 50
 ---
 
 # Simulate Index Templates API
+**Introduced 1.0**
+{: .label .label-purple }
 
 You can use the Simulate Index Template API to preview how index templates will be applied to an index or simulate an index template before creating it.
 
@@ -14,8 +16,8 @@ You can use the Simulate Index Template API to preview how index templates will 
 
 ```json
 POST /_index_template/_simulate
-POST /_index_template/_simulate/<template_name>
-POST /_index_template/_simulate_index/<index_name>
+POST /_index_template/_simulate/{template_name}
+POST /_index_template/_simulate_index/{index_name}
 ```
 
 ## Path parameters

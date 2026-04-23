@@ -74,7 +74,7 @@ The following parameters are common to all method definitions.
 
 Mapping parameter | Required | Default | Updatable | Description
 :--- | :--- | :--- | :--- | :---
-`name` | Yes | N/A | No | The nearest neighbor method. Valid values are `hnsw` and `ivf`. Not every engine combination supports each of the methods. For a list of supported methods, see the section for a specific engine.
+`name` | Yes | N/A | No | The nearest neighbor method. Valid values are `hnsw`, `ivf`, and `flat`. Not every engine combination supports each of the methods. For a list of supported methods, see the section for a specific engine.
 `space_type` | No | `l2` | No | The vector space used to calculate the distance between vectors. Valid values are `l1`, `l2`, `linf`, `cosinesimil`, `innerproduct`, `hamming`, and `hammingbit`. Not every method/engine combination supports each of the spaces. For a list of supported spaces, see the section for a specific engine. Note: This value can also be specified at the top level of the mapping. For more information, see [Spaces]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-spaces/).
 `engine` | No | `faiss`  | No | The approximate k-NN library to use for indexing and search. Valid values are `faiss`, `lucene`, and `nmslib` (deprecated).
 `parameters` | No | `null` | No | The parameters used for the nearest neighbor method. For more information, see the section for a specific engine.
@@ -90,6 +90,7 @@ The Lucene engine supports the following method.
 Method name | Requires training | Supported spaces 
 :--- | :--- |:---
 [`hnsw`](#hnsw-parameters) | No | `l2`, `cosinesimil`, `innerproduct` (supported in OpenSearch 2.13 and later) 
+[`flat`](#flat-parameters) | No | `l2`, `cosinesimil`, `innerproduct` (supported in OpenSearch 3.6 and later) 
 
 #### HNSW parameters
 
@@ -119,6 +120,20 @@ An index created in OpenSearch version 2.11 or earlier will still use the previo
 }
 ```
 
+#### Flat parameters
+
+The `flat` method does not support any parameters.
+
+For more information, see [Exact search using scalar quantization]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/exact-search-scalar-quantization/).
+
+### Example configuration
+
+```json
+"method": {
+    "name": "flat"
+}
+```
+
 ## Faiss engine
 
 The Faiss engine provides advanced vector indexing capabilities with support for multiple methods and encoding options to optimize memory usage and search performance.
@@ -132,6 +147,8 @@ Method name | Requires training | Supported spaces
 [`hnsw`](#hnsw-parameters-1) | No | `l2`, `innerproduct` (not available when [PQ](#pq-parameters) is used), `hamming`, and `cosinesimil` (supported in OpenSearch 2.19 and later).
 [`ivf`](#ivf-parameters) | Yes | `l2`, `innerproduct`, `hamming` (supported for binary vectors in OpenSearch version 2.16 and later. For more information, see [Binary k-NN vectors]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-memory-optimized#binary-vectors), `cosinesimil` (supported in OpenSearch 2.19 and later).
 
+When using `cosinesimil` with the Faiss engine, vectors are automatically normalized to unit length during indexing because Faiss uses inner product on normalized vectors internally. As a result, stored vector values will differ from input values.
+{: .important}
 
 #### HNSW parameters
 
@@ -173,7 +190,7 @@ Encoder name | Requires training | Description
 :--- | :--- | :---
 `flat` (Default) | No | Encode vectors as floating-point arrays. This encoding does not reduce memory footprint.
 [`pq`](#pq-parameters) | Yes | An abbreviation for _product quantization_, PQ is a lossy compression technique that uses clustering to encode a vector into a fixed byte size, with the goal of minimizing the drop in k-NN search accuracy. At a high level, vectors are separated into `m` subvectors, and then each subvector is represented by a `code_size` code obtained from a code book produced during training. For more information about product quantization, see [this blog post](https://medium.com/dotstar/understanding-faiss-part-2-79d90b1e5388).
-[`sq`](#sq-parameters) | No | An abbreviation for _scalar quantization_. Starting with OpenSearch version 2.13, you can use the `sq` encoder to quantize 32-bit floating-point vectors into 16-bit floats. In version 2.13, the built-in `sq` encoder is the SQFP16 Faiss encoder. The encoder reduces memory footprint with a minimal loss of precision and improves performance by using SIMD optimization (using AVX2 on x86 architecture or Neon on ARM64 architecture). For more information, see [Faiss scalar quantization]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/faiss-16-bit-quantization/).
+[`sq`](#sq-parameters) | No | An abbreviation for _scalar quantization_. Starting with OpenSearch version 2.13, you can use the `sq` encoder to quantize 32-bit floating-point vectors into 16-bit floats. In version 2.13, the built-in `sq` encoder is the SQFP16 Faiss encoder. The encoder reduces memory footprint with a minimal loss of precision and improves performance by using SIMD optimization (using AVX2 on x86 architecture or Neon on ARM64 architecture). For more information, see [Faiss scalar quantization]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/faiss-scalar-quantization/).
 
 #### PQ parameters
 
@@ -192,11 +209,12 @@ The `hnsw` method supports the `pq` encoder for OpenSearch version 2.10 and late
 The `sq` encoder supports the following parameters.
 
 Parameter name | Required | Default | Updatable | Description
-:--- | :--- | :-- | :--- | :---
-`type` | No | `fp16` | No |  The type of scalar quantization to be used to encode 32-bit float vectors into the corresponding type. As of OpenSearch 2.13, only the `fp16` encoder type is supported. For the `fp16` encoder, vector values must be in the [-65504.0, 65504.0] range. 
-`clip` | No | `false` | No | If `true`, then any vector values outside of the supported range for the specified vector type are rounded so that they are within the range. If `false`, then the request is rejected if any vector values are outside of the supported range. Setting `clip` to `true` may decrease recall.
+:--- |:---------|:--------| :--- | :---
+`type` | No       | `fp16`  | No |  The type of scalar quantization to be used to encode 32-bit float vectors into the corresponding type. Supported only for 16-bit quantization. Currently, only the `fp16` encoder type is supported. For the `fp16` encoder, vector values must be in the [-65504.0, 65504.0] range. 
+`clip` | No       | `false` | No | Supported only for 16-bit quantization. If `true`, any vector values outside of the supported range for the specified vector type are rounded so that they are within the range. If `false`, the request is rejected if any vector values are outside of the supported range. Setting `clip` to `true` may decrease recall.
+`bits` | Yes      | `1`     | No | The number of bits used to quantize each 32-bit floating-point vector dimension. Valid values are `1` and `16`. Required starting from OpenSearch 3.6.
 
-For more information and examples, see [Using Faiss scalar quantization]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/faiss-16-bit-quantization/).
+For more information and examples, see [Using Faiss scalar quantization]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/faiss-scalar-quantization/).
 
 ### SIMD optimization 
 
@@ -279,7 +297,7 @@ The following example uses the `hnsw` method without specifying an encoder (by d
 }
 ```
 
-The following example uses the `ivf` method with an `sq` encoder of type `fp16`:
+The following example demonstrates configuring the `ivf` method with an `sq` encoder using 16-bit quantization and clipping disabled:
 
 ```json
 "method": {
@@ -289,7 +307,7 @@ The following example uses the `ivf` method with an `sq` encoder of type `fp16`:
     "encoder": {
       "name": "sq",
       "parameters": {
-        "type": "fp16",
+        "bits": 16,
         "clip": false
       }
     },
@@ -298,7 +316,7 @@ The following example uses the `ivf` method with an `sq` encoder of type `fp16`:
 }
 ```
 
-The following example uses the `hnsw` method with an `sq` encoder of type `fp16` with `clip` enabled:
+The following example demonstrates configuring the `hnsw` method with an `sq` encoder using 1-bit quantization:
 
 ```json
 "method": {
@@ -308,7 +326,26 @@ The following example uses the `hnsw` method with an `sq` encoder of type `fp16`
     "encoder": {
       "name": "sq",
       "parameters": {
-        "type": "fp16",
+        "bits": 1
+      }
+    },
+    "ef_construction": 512,
+    "m": 16
+  }
+}
+```
+
+The following example demonstrates configuring the `hnsw` method with an `sq` encoder using 16-bit quantization and clipping enabled:
+
+```json
+"method": {
+  "name":"hnsw",
+  "engine":"faiss",
+  "parameters":{
+    "encoder": {
+      "name": "sq",
+      "parameters": {
+        "bits": 16,
         "clip": true
       }  
     },    
@@ -369,7 +406,7 @@ If you want to use less memory and increase indexing speed as compared to HNSW w
 
 If memory is a concern, consider adding a PQ encoder to your HNSW or IVF index. Because PQ is a lossy encoding, query quality will drop.
 
-You can reduce the memory footprint by a factor of 2, with a minimal loss in search quality, by using the [`fp_16` encoder]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/faiss-16-bit-quantization/). If your vector dimensions are within the [-128, 127] byte range, we recommend using the [byte quantizer]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-memory-optimized/#byte-vectors) to reduce the memory footprint by a factor of 4. To learn more about vector quantization options, see [k-NN vector quantization]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/knn-vector-quantization/). 
+You can reduce the memory footprint by a factor of 2, with a minimal loss in search quality, by using the [`fp_16` encoder]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/faiss-scalar-quantization/#16-bit-quantization). If your vector dimensions are within the [-128, 127] byte range, we recommend using the [byte quantizer]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-memory-optimized/#byte-vectors) to reduce the memory footprint by a factor of 4. To learn more about vector quantization options, see [k-NN vector quantization]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/knn-vector-quantization/). 
 
 ## Engine recommendations
 

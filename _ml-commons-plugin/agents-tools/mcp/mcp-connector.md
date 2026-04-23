@@ -164,7 +164,7 @@ The response contains the model ID:
 }
 ```
 
-To check the status of the operation, provide the task ID to the [Tasks API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/). Once the registration is complete, the task `state` changes to `COMPLETED`.
+To check the status of the operation, provide the task ID to the [Get ML Task API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/). Once the registration is complete, the task `state` changes to `COMPLETED`.
 
 ## Step 3: Register an agent for accessing MCP tools
 
@@ -231,7 +231,7 @@ The response contains the agent ID:
 Invoke the registered agent by calling the Execute Agent API and providing a user question:
 
 ```json
-POST /_plugins/_ml/agents/<Agent_ID>/_execute
+POST /_plugins/_ml/agents/{Agent_ID}/_execute
 {
   "parameters": {
     "question": "Any weather alerts in Washington",

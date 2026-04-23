@@ -14,7 +14,7 @@ Introduced 1.0
 Performance Analyzer uses a single HTTP method and URI for most requests:
 
 ```
-GET <endpoint>:9600/_plugins/_performanceanalyzer/metrics
+GET {endpoint}:9600/_plugins/_performanceanalyzer/metrics
 ```
 
 Note the use of port 9600. Provide parameters for metrics, aggregations, dimensions, and nodes (optional):

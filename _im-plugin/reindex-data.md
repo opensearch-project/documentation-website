@@ -15,6 +15,22 @@ With the `reindex` operation, you can copy all or a subset of documents that you
 Reindexing can be an expensive operation depending on the size of your source index. We recommend you disable replicas in your destination index by setting `number_of_replicas` to `0` and re-enable them once the reindex process is complete.
 {: .note }
 
+For a complete API reference with all parameters and advanced options, see the [Reindex Documents API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/reindex/).
+{: .note}
+
+## How reindex works
+
+The reindex operation performs the following steps:
+
+1. **Reads documents from the source index**: OpenSearch retrieves documents from the `_source` field of the source index.
+2. **Processes the documents**: Optionally applies any specified query filters, scripts, or ingest pipelines to transform the data.
+3. **Writes to the destination index**: Indexes the processed documents into the destination index using the destination index's current mappings and settings.
+
+Note the following considerations:
+
+- The reindex operation reads from the `_source` field and ignores any `stored_fields` configuration. If `_source` is disabled in your source index, the reindex operation will fail. Ensure that `_source` is enabled for all documents you want to reindex.
+- Documents are indexed according to the destination index's mappings, not the source index's mappings. Create your destination index with the desired mappings before reindexing.
+
 ---
 
 #### Table of contents
@@ -91,10 +107,11 @@ Options | Valid values | Description | Required
 `socket_timeout` | Time Unit | The wait time for socket reads (default 30s). | No
 `connect_timeout` | Time Unit | The wait time for remote connection timeouts (default 30s). | No
 
-The following table lists the retry policy cluster settings.
+The following table lists the remote reindexing cluster settings.
 
 Setting | Description | Default value
-:--- | :--- 
+:--- | :---
+`reindex.remote.allowlist` | Specifies the allow list of remote hosts from which data can be reindexed. This security setting prevents unauthorized remote reindexing by restricting which remote OpenSearch or Elasticsearch clusters can be used as sources. Each entry should be in the format `host:port`. When this list is empty (default), remote reindexing is disabled for security. | `[]` (empty list: remote reindexing disabled)
 `reindex.remote.retry.initial_backoff` | The initial backoff time for retries. Subsequent retries will follow exponential backoff based on the initial backoff time. | 500 ms
 `reindex.remote.retry.max_count` | The maximum number of retry attempts. | 15
 
@@ -243,7 +260,7 @@ To update the data in your current index itself without copying it to a differen
 The `update_by_query` operation is `POST` operation that you can perform on a single index at a time.
 
 ```json
-POST <index_name>/_update_by_query
+POST {index_name}/_update_by_query
 ```
 
 If you run this command with no parameters, it increments the version number for all documents in the index.

@@ -133,7 +133,11 @@ POST /_plugins/_ml/models/_register
 
 ## Step 4: Create an agent
 
-Create a conversational agent with the `QueryPlannerTool` (required). You can add other tools as needed:
+Create a `conversational` agent with the `QueryPlannerTool` (required). You can add other tools as needed. 
+
+### Create an agent with a conversation index memory
+
+The following example creates a `conversational` agent that uses a `conversation_index` memory:
 
 ```json
 POST /_plugins/_ml/agents/_register
@@ -150,6 +154,40 @@ POST /_plugins/_ml/agents/_register
   },
   "memory": {
     "type": "conversation_index"
+  },
+  "parameters": {
+    "_llm_interface": "openai/v1/chat/completions"
+  },
+  "tools": [
+    {
+      "type": "QueryPlanningTool"
+    }
+  ],
+  "app_type": "os_chat"
+}
+```
+{% include copy-curl.html %}
+
+### Create an agent with an agentic memory
+
+To save memories and interactions, you can configure your agent to use [agentic memory]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agentic-memory/). For more information, see [Using agentic memory]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agentic-memory/). The following example creates a `conversational` agent that uses an `agentic_memory` memory: 
+
+```json
+POST /_plugins/_ml/agents/_register
+{
+  "name": "GPT 5 Agent for Agentic Search",
+  "type": "conversational",
+  "description": "Use this for Agentic Search",
+  "llm": {
+    "model_id": <Model ID from Step 3>,
+    "parameters": {
+      "max_iteration": 15,
+      "embedding_model_id": "<Provide if you want to do neural search>"
+    }
+  },
+  "memory": {
+    "type": "agentic_memory",
+    "memory_container_id": <Memory Container ID>
   },
   "parameters": {
     "_llm_interface": "openai/v1/chat/completions"
@@ -252,6 +290,10 @@ After setting up basic agentic search, you can enhance your implementation with 
 - [Connect external MCP servers]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/mcp-server/) -- Extend agentic search with external tools and data sources through Model Context Protocol (MCP) servers for enhanced functionality and real-time information access.
 
 - [Build agentic search flows]({{site.url}}{{site.baseurl}}/vector-search/ai-search/building-agentic-search-flows/) -- Configure agents and execute agentic search using AI search flows in OpenSearch Dashboards. 
+
+- [Rerank agentic search results]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/rerank-agentic-search-results/) -- Add a rerank search response processor to your agentic search pipeline to futher rerank search results.
+
+- [Use agentic memory]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agentic-memory/) -- Configure agentic search to save memories and interactions using memory containers, enabling persistent context across conversations.
 
 ## Next steps
 

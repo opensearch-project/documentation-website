@@ -14,7 +14,7 @@ Retrieves information about a snapshot.
 ## Endpoints
 
 ```json
-GET _snapshot/<repository>/<snapshot>/
+GET _snapshot/{repository}/{snapshot}/
 ```
 
 ## Path parameters

@@ -77,7 +77,7 @@ While the API endpoint states a point of entry to a resource, the path parameter
 In the following example, the resource is `scroll` and its path parameter is `<scroll_id>`:
 
 ```json
-GET _search/scroll/<scroll_id>
+GET _search/scroll/{scroll_id}
 ```
 
 Introduce what the path parameters can do at a high level. Provide a table with parameter names and descriptions. Include a table with the following columns:

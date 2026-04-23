@@ -2,7 +2,7 @@
 layout: default
 title: ML Commons cluster settings
 has_children: false
-nav_order: 140
+nav_order: 120
 ---
 
 # ML cluster settings
@@ -166,6 +166,9 @@ plugins.ml_commons.max_deploy_model_tasks_per_node: 10
 ## Register models using URLs
 
 This setting gives you the ability to register models using a URL. By default, ML Commons only allows registration of [pretrained]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/) models from the OpenSearch model repository.
+
+When registering a model from a URL, make sure the source is trusted. Loading models from untrusted sources can pose security risks. For more information, see [PyTorch security guidelines for untrusted models](https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models).
+{: .warning}
 
 ### Setting
 
