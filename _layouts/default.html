@@ -57,11 +57,19 @@ layout: table_wrappers
         </a>
       </div>
       <nav role="navigation" aria-label="Main" id="site-nav" class="site-nav">        
+        {%- comment -%}
+          Resolve the section's canonical URL.
+          Sections default to "/<section>/" unless the section's defaults block in
+          _config.yml sets an explicit "section-url" (e.g. migration-assistant-classic
+          lives at /classic/migration-assistant/, not /migration-assistant-classic/).
+        {%- endcomment -%}
+        {%- capture default_section_href -%}/{{ page.section }}/{%- endcapture -%}
+        {%- assign section_href = page.section-url | default: default_section_href -%}
         <div class="version-wrapper" id="version-panel">
           {% if page.section == "opensearch" %}
             <a href="{{site.url}}{{site.baseurl}}/about/" class="site-category">{{ page.section-name }}</a>
           {% else %}
-            <a href="{{site.url}}{{site.baseurl}}/{{ page.section}}/" class="site-category">{{ page.section-name }}</a>
+            <a href="{{site.url}}{{site.baseurl}}{{ section_href }}" class="site-category">{{ page.section-name }}</a>
           {% endif %}
           
           <a href="{{site.url}}{{site.latesturl}}/" class="back-link">&#x2190; Back to docs home</a>
@@ -176,9 +184,9 @@ layout: table_wrappers
                       </li>
                     {% endif %}
                   {% else %}
-                    {%- comment -%}For non-OpenSearch collections, use section name{%- endcomment -%}
+                    {%- comment -%}For non-OpenSearch collections, use section-url (if defined) or section name{%- endcomment -%}
                     <li class="breadcrumb-nav-list-item">
-                      <a href="{{ page.section | prepend: '/' | append: '/' | relative_url }}">{{ page.section-name }}</a>
+                      <a href="{{ section_href | relative_url }}">{{ page.section-name }}</a>
                     </li>
                   {% endif %}
                 {% endif %}

@@ -290,6 +290,7 @@ defaults:
     values:
       section: "migration-assistant-classic"
       section-name: "Migration Assistant (Classic)"
+      section-url: "/classic/migration-assistant/"
 
 # Enable or disable the site search
 # By default, just-the-docs enables its JSON file-based search. We also have an OpenSearch-driven search functionality.
