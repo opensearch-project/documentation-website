@@ -5,6 +5,7 @@ nav_order: 20
 parent: Workload management
 grand_parent: Availability and recovery
 redirect_from:
+  - /tuning-your-cluster/availability-and-recovery/workload-management/workload-group-lifecycle-api/
   - /tuning-your-cluster/availability-and-recovery/workload-management/workload-groups/
 ---
 
