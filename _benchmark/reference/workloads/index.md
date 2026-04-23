@@ -5,6 +5,7 @@ nav_order: 60
 parent: OpenSearch Benchmark Reference
 has_children: true
 redirect_from:
+  - /benchmark/workloads/
   - /benchmark/workloads/index/
   - /benchmark/reference/workloads/
 ---
