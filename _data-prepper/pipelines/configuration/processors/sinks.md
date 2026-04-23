@@ -4,6 +4,7 @@ title: service_map_stateful
 parent: sinks
 grand_parent: Pipelines
 nav_order: 45
+canonical_url: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/sinks/sinks/
 ---
 
 # Sinks
