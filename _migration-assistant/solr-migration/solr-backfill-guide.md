@@ -10,6 +10,21 @@ permalink: /migration-assistant/solr-migration/solr-backfill-guide/
 
 This page walks through migrating documents from Apache Solr 8.x to OpenSearch using the snapshot-based backfill workflow. For the overall Solr migration architecture (including the Transformation Shim for query traffic), see [Solr migration overview]({{site.url}}{{site.baseurl}}/migration-assistant/solr-migration/).
 
+## SolrCloud vs. standalone Solr
+
+Migration Assistant supports both deployment modes and auto-detects which you're running (it probes the Collections API first, falls back to Core Admin). The customer-side prerequisites differ in a few places — this table summarizes; individual steps below call out mode-specific instructions.
+
+| Aspect | SolrCloud | Standalone Solr |
+|:-------|:----------|:----------------|
+| Backup unit | Collection | Core |
+| Solr backup API MA calls | `admin/collections?action=BACKUP` | `/solr/<core>/replication?command=backup` |
+| Poll API MA calls | `admin/collections?action=REQUESTSTATUS` | `/solr/<core>/replication?command=details` |
+| Where `solr.xml` lives | ZooKeeper | Filesystem (typically `/var/solr/data/solr.xml`) |
+| Restart scope | Roll every node in the cluster | Restart the single Solr node |
+| MA workflow arg | `solrCollections: [name1, name2]` | Same field, value is core names |
+
+S3 plugin install (step 1), `solr.xml` contents (step 2), `SOLR_OPTS` (step 3), and IAM (step 4) are **identical** in both modes. Only step 5 (how `solr.xml` is published and how nodes are restarted) differs.
+
 ## Who does what
 
 The snapshot is produced by **your Solr cluster** (Solr's own S3 backup plugin writes the backup files to S3) and consumed by **Migration Assistant** (reads those files and bulk-indexes into OpenSearch). Migration Assistant cannot reach into your Solr cluster to install plugins or change its configuration — those steps are yours. All customer-side prerequisites must be in place before you run the `create snapshot` step of the workflow.
@@ -17,11 +32,11 @@ The snapshot is produced by **your Solr cluster** (Solr's own S3 backup plugin w
 | Responsibility | Owner | When |
 |:---------------|:------|:-----|
 | Install the Solr S3 backup plugin on every Solr node | You | Before running Migration Assistant |
-| Configure `solr.xml` with an `<backup>` repository and upload to ZooKeeper | You | Before running Migration Assistant |
-| Restart every Solr node so it picks up the new `solr.xml` | You | Before running Migration Assistant |
+| Configure `solr.xml` with an `<backup>` repository and publish it (ZooKeeper for SolrCloud, filesystem for standalone) | You | Before running Migration Assistant |
+| Restart Solr so it picks up the new `solr.xml` (every node for SolrCloud, the single node for standalone) | You | Before running Migration Assistant |
 | Create the S3 bucket and grant Solr `PutObject` / `GetObject` / `ListBucket` | You | Before running Migration Assistant |
 | Grant the Migration Assistant pods read access to the same bucket | You | During deployment |
-| Trigger `BACKUP` on every collection, poll async status, create S3 directory markers | Migration Assistant (`create snapshot`) | Workflow step |
+| Trigger `BACKUP` on every collection (SolrCloud) or core (standalone) and poll until complete. For SolrCloud, also create the S3 directory markers Solr's `S3BackupRepository` checks for. | Migration Assistant (`create snapshot`) | Workflow step |
 | Read the backup from S3, translate schemas, bulk-index into OpenSearch | Migration Assistant (metadata + RFS) | Workflow step |
 
 ## Customer prerequisites (Solr side)
@@ -131,7 +146,11 @@ The Solr process uses the [default AWS credential provider chain](https://docs.a
 
 Solr writes backups incrementally, so `PutObject` plus `GetObject`/`ListBucket` are all required — Solr reads the previous backup's metadata to decide which Lucene segments to re-upload. `DeleteObject` is only needed if you use the `DELETE_BACKUP` or `maxNumBackup` cleanup features.
 
-### 5. Upload `solr.xml` to ZooKeeper and restart every Solr node
+### 5. Publish `solr.xml` and restart Solr
+
+How you publish `solr.xml` depends on your deployment mode. The contents from step 2 are identical in both cases.
+
+**SolrCloud**
 
 In SolrCloud mode, `solr.xml` lives in ZooKeeper. Upload the edited file and then roll the nodes so each picks up the new `<backup>` section:
 
@@ -141,9 +160,21 @@ In SolrCloud mode, `solr.xml` lives in ZooKeeper. Upload the edited file and the
 ```
 {% include copy.html %}
 
+**Standalone Solr**
+
+Place the edited `solr.xml` on the filesystem (in the Docker image this is `/var/solr/data/solr.xml` — not `/opt/solr/server/solr/solr.xml`, which is silently ignored when Solr starts with `-Dsolr.solr.home=/var/solr/data`) and restart:
+
+```bash
+cp <path-to-new-solr.xml> /var/solr/data/solr.xml
+/opt/solr/bin/solr restart -force
+```
+{% include copy.html %}
+
 ### Verify the repository before running Migration Assistant
 
-Pick any existing collection and run a throwaway backup. If this succeeds, Migration Assistant will work; if this fails, no amount of workflow tweaking will fix it — the problem is on the Solr side and must be resolved first.
+Run a throwaway backup through your Solr deployment. If this succeeds, Migration Assistant will work; if this fails, no amount of workflow tweaking will fix it — the problem is on the Solr side and must be resolved first.
+
+**SolrCloud — Collections API**
 
 ```bash
 # Trigger an async backup of one collection to a throwaway location.
@@ -160,6 +191,20 @@ curl "http://<solr-host>:8983/solr/admin/collections?action=REQUESTSTATUS\
 If `REQUESTSTATUS` returns `state=failed`, **read the whole JSON response**, not just `status.msg`. The useful error is at the top level (for example, under `exception.msg` or `response.*`); `status.msg` only says `"found [preflight-1] in failed tasks"`. Common root causes: the plugin jar was not copied in step 1, the bucket doesn't exist, or the IAM identity from step 4 can't reach it.
 
 Once verified, clean up: `action=DELETE_BACKUP&name=preflight&location=/preflight-check&purge=true&repository=s3`.
+
+**Standalone Solr — replication handler**
+
+```bash
+# Trigger a backup of one core.
+curl "http://<solr-host>:8983/solr/<CORE_NAME>/replication\
+?command=backup&repository=s3&location=/preflight-check&name=preflight&wt=json"
+
+# Poll until status=success (the same endpoint returns the latest backup status).
+curl "http://<solr-host>:8983/solr/<CORE_NAME>/replication?command=details&wt=json"
+```
+{% include copy.html %}
+
+Look for `details.backup.status = "success"`. If it says `"failed"` or `"exception"`, the adjacent `details.backup.exception` field has the real error. Same root causes apply as for SolrCloud.
 
 ## Migration Assistant prerequisites
 
@@ -232,11 +277,13 @@ Both CreateSnapshot (write) and RFS (read) use the same `s3RepoPathUri`, so they
 
 ### What Migration Assistant does when you run `create snapshot`
 
-1. Detects whether the source is SolrCloud (Collections API) or standalone (replication API).
-2. For SolrCloud, auto-discovers collections via `admin/collections?action=LIST` (you can override with `--solr-collections`).
-3. Creates S3 directory markers at `<subpath>/` and `<subpath>/<snapshotName>/` (zero-byte objects with `content-type: application/x-directory`). Solr's `S3BackupRepository` `HeadObject`-checks these paths before accepting a backup.
-4. Calls `admin/collections?action=BACKUP` once per collection, using `location=<subpath>/<snapshotName>` and `name=<collection>` so each collection lands under a shared snapshot directory.
-5. Polls `REQUESTSTATUS` per collection until all complete.
+1. **Detects the deployment mode** by probing the SolrCloud Collections API; falls back to standalone Core Admin on failure.
+2. **Auto-discovers the backup units** — collections in SolrCloud (via `admin/collections?action=LIST`), cores in standalone (via `admin/cores?action=STATUS`). Override with the `solrCollections` workflow field in either mode.
+3. **Creates S3 directory markers** at `<subpath>/` and `<subpath>/<snapshotName>/` (zero-byte objects with `content-type: application/x-directory`). Solr's `S3BackupRepository` `HeadObject`-checks these paths before accepting a backup. **SolrCloud only** — Migration Assistant does not create these markers in standalone mode today; if you hit a `specified location` failure there, pre-create the subpath yourself (`aws s3api put-object --bucket <bucket> --key <subpath>/ --content-type application/x-directory`) and rerun. Standalone Solr + S3 is a less-trodden path than SolrCloud + S3 — see Troubleshooting.
+4. **Calls Solr's backup API** once per collection or core:
+   - SolrCloud: `admin/collections?action=BACKUP&name=<collection>&location=<subpath>/<snapshotName>&repository=s3&async=...` — asynchronous.
+   - Standalone: `/solr/<core>/replication?command=backup&name=<snapshotName>&location=<subpath>&repository=s3` — synchronous dispatch, asynchronous execution.
+5. **Polls for completion** — `REQUESTSTATUS` per async id (SolrCloud) or `replication?command=details` per core (standalone) — until every unit reports `completed` / `success` or fails.
 
 Steps 3–5 only work because steps 1–5 of [Customer prerequisites](#customer-prerequisites-solr-side) are in place.
 
@@ -263,23 +310,24 @@ console clusters cat-indices --refresh
 | Symptom | Cause | Fix |
 |:--------|:------|:----|
 | `ClassNotFoundException: org.apache.solr.s3.S3BackupRepository` in Solr logs | Plugin jar not copied from `/opt/solr/dist/` into `sharedLib` | Redo [step 1](#1-install-the-s3-backup-plugin-on-every-solr-node) on every node, restart |
-| `Repository default-s3 not found` | `<backup>` block missing from `solr.xml` in ZK, or nodes not restarted | Redo [step 5](#5-upload-solrxml-to-zookeeper-and-restart-every-solr-node) |
+| `Repository default-s3 not found` | `<backup>` block missing from the running `solr.xml` (wrong file, wrong mount path, or nodes not restarted after upload) | Redo [step 5](#5-publish-solrxml-and-restart-solr) |
 | `specified location s3:///...` (triple slash) | Solr couldn't `HeadObject` the directory marker | Usually a permissions issue — check [step 4](#4-grant-solr-permission-to-write-to-s3) |
 | S3 `AccessDenied` in Solr logs | IAM identity on the Solr node can't write the bucket | Fix IAM in [step 4](#4-grant-solr-permission-to-write-to-s3); confirm with `aws s3 ls` from the Solr node |
-| Empty or terse `status.msg="found [...] in failed tasks"` | Async task failed; real error is elsewhere in the response | Pull the full `REQUESTSTATUS` JSON, look at the top-level `exception.msg` / `response.*` fields |
+| (SolrCloud only) Empty or terse `status.msg="found [...] in failed tasks"` | Async task failed; real error is elsewhere in the response | Pull the full `REQUESTSTATUS` JSON and look at the top-level `exception.msg` / `response.*` fields |
+| (Standalone only) `details.backup.status` = `failed` or `exception` | Core-level backup failed | Read `details.backup.exception` in the `replication?command=details` response — this holds the real error |
 
 ### Metadata migration finds 0 items
 
 Common causes:
 - Wrong `s3RepoPathUri` — bucket matches but the subpath doesn't match where Solr actually wrote.
-- Snapshot didn't complete — check `REQUESTSTATUS` for every collection.
+- Snapshot didn't finish — check `REQUESTSTATUS` for every collection (SolrCloud) or `replication?command=details` on every core (standalone).
 - Wrong snapshot name referenced in `snapshotMigrationConfigs`.
 
 ### RFS migrates fewer documents than expected
 
 1. Verify the backup contains all shards:
    ```bash
-   aws s3 ls s3://<bucket>/<subpath>/<snapshot>/<collection>/shard_backup_metadata/
+   aws s3 ls s3://<bucket>/<subpath>/<snapshot>/<collection-or-core>/shard_backup_metadata/
    ```
 2. Each shard should have a `md_shardN_0.json` file (or `md_shardN_<N>.json` for successive backups — Migration Assistant picks the highest N).
 3. Check the coordinator for work item status via `workflow manage`.
