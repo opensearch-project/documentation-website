@@ -1,13 +1,13 @@
 ---
 layout: default
-title: Visualization tool reference
+title: Visualization tool
 parent: Building data visualizations
-nav_order: 5
+nav_order: 15
 redirect_from:
   - /dashboards/get-started/time-filter/
 ---
 
-# Visualization tool reference
+# Visualization tool
 
 The _visualization tool_ is the rightmost panel in the Visualize application. It contains two or more tabs depending on the type of visualization being worked on.
 
@@ -43,7 +43,7 @@ A typical **Metrics** tab is shown in the following image.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/viz-tools-metrics.png" alt="Visualization tools Metrics and axes settings" width="78%">
 
-Like the **Data** tab, contents of the **Metrics and axes** (Or **Options**) tab depends on the visualization type as well as the specifics of the data that you've selected. Options vary widely, but generally fall into the following categories. This is not an exhaustive list:
+Like the **Data** tab, contents of the **Metrics and axes** (or **Options**) tab depends on the visualization type as well as the specifics of the data that you've selected. Options vary widely, but generally fall into the following categories. This is not an exhaustive list:
 
 
 ### Metrics options
@@ -85,7 +85,7 @@ The **Panel settings** tab controls panel-wide display options such as the follo
 
 ## Legend colors
 
-The legend shows the color key in charts where range, categorica, or text variables are represented by colors.
+The legend shows the color key in charts where range, categorical, or text variables are represented by colors.
 
 You can use the legend to change the colors of a graphical element. To change a color do the following:
 

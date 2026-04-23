@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Visualization reference
+title: Visualizations reference
 parent: Building data visualizations
 nav_order: 100
 has_children: false

@@ -2,7 +2,7 @@
 layout: default
 title: Using maps 
 grand_parent: Building data visualizations
-parent: Coordinate and region maps
+parent: Using coordinate and region maps 
 nav_order: 10
 redirect_from:
   - /dashboards/maps-plugin/
@@ -15,12 +15,12 @@ With OpenSearch Dashboards, you can create maps to visualize your geographical d
 
 ## Creating a new map
 
-You can create a new map from the **Maps** or **Visualize** workflows by performing the following steps: 
+You can create a new map from the **Maps** or **Visualize** workflows by performing the following steps:
 
 - To create a new map from the **Maps** workflow, perform the following steps:
 
-  1. On the top menu bar, go to **OpenSearch Plugins > Maps**. 
-  1. Choose the **Create map** button. 
+  1. On the top menu bar, go to **OpenSearch Plugins > Maps**.
+  1. Choose the **Create map** button.
 
 - To create a new map from the **Visualize** workflow, perform the following steps:
 

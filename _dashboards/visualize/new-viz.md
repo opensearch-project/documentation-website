@@ -35,4 +35,4 @@ To create a new visualization of any type:
 
 ## Next steps
 
-See the instructions for the [visualization type]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/#understanding-the-visualization-types-in-opensearch-dashboards) you want to build.
+See the instructions for the [visualization type]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/#visualization-types) you want to build.
