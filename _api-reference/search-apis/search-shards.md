@@ -3,6 +3,7 @@ layout: default
 title: Search shards
 parent: Search APIs
 nav_order: 85
+canonical_url: https://docs.opensearch.org/latest/api-reference/search-apis/search-shards/
 ---
 
 # Search shards API

@@ -3,6 +3,7 @@ layout: default
 title: Derivative
 parent: Pipeline aggregations
 nav_order: 70
+canonical_url: https://docs.opensearch.org/latest/aggregations/pipeline/derivative/
 ---
 
 # Derivative aggregations

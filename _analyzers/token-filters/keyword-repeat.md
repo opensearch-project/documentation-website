@@ -3,6 +3,7 @@ layout: default
 title: Keyword repeat
 parent: Token filters
 nav_order: 210
+canonical_url: https://docs.opensearch.org/latest/analyzers/token-filters/keyword-repeat/
 ---
 
 # Keyword repeat token filter

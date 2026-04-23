@@ -4,6 +4,7 @@ title: Catalan
 parent: Language analyzers
 grand_parent: Analyzers
 nav_order: 70
+canonical_url: https://docs.opensearch.org/latest/analyzers/language-analyzers/catalan/
 ---
 
 # Catalan analyzer

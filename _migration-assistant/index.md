@@ -24,6 +24,7 @@ tutorial_cards:
   - heading: "Migration console"
     description: "Use CLI commands provided by the migration console to orchestrate and monitor your migration process."
     link: "/migration-console/"
+canonical_url: https://docs.opensearch.org/latest/migration-assistant/
 ---
 
 # Migration Assistant for OpenSearch

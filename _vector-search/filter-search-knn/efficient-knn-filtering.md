@@ -3,6 +3,7 @@ layout: default
 title: Efficient k-NN filtering
 parent: Filtering data
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/vector-search/filter-search-knn/efficient-knn-filtering/
 ---
 
 # Efficient k-NN filtering
