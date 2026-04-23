@@ -32,7 +32,7 @@ The following components make up the **Visualize** UI.
 - The _filter_ tool (C) contains frequently used commands and shortcuts. See [Using the filter tool]({{site.url}}{{site.baseurl}}/dashboards/discover/filter-tool/).
 - The **Visualize** _application panel_ shows the following elements:
   - (D) The visualization.
-  - The _visualization tools_ panel (E) contains all the controls to select and configure the visualization. Its contents depend on the type of the visualization. See the [visualization tool reference]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-tool-ref/).
+  - The _visualization tools_ panel (E) contains all the controls to select and configure the visualization. Its contents depend on the type of the visualization. See [Visualization tool]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-tool-ref/).
 
 
 ## Prerequisites
@@ -104,6 +104,6 @@ Data types | Visualization types
 
 ## Next steps
 
-- Read more about different types of visualizations, their uses, and their technical details. See the [Visualization reference]({{site.url}}{{site.baseurl}}/visualize/viz-ref/).
+- Read more about different types of visualizations, their uses, and their technical details. See the [Visualizations reference]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-ref/).
 
 - Once you have some visualizations of your data, assemble them into a dashboard. See [Creating dashboards]({{site.url}}{{site.baseurl}}/dashboards/dashboard/).
