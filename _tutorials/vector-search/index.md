@@ -26,6 +26,7 @@ other:
   - heading: "Using semantic highlighting"
     description: "Learn how to highlight the most semantically relevant sentences in the results"
     link: "/tutorials/vector-search/semantic-highlighting-tutorial/"
+canonical_url: https://docs.opensearch.org/latest/tutorials/vector-search/
 ---
 
 # Vector search tutorials

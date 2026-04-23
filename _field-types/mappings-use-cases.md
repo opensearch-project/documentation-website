@@ -4,6 +4,7 @@ title: Mappings use cases
 parent: Mappings and fields types
 nav_order: 5
 nav_exclude: true
+canonical_url: https://docs.opensearch.org/latest/field-types/mappings-use-cases/
 ---
 
 # Mappings use cases

@@ -4,6 +4,7 @@ title: Handling breaking changes in field types
 nav_order: 60
 parent: Planning your migration
 grand_parent: Migration phases
+canonical_url: https://docs.opensearch.org/latest/migration-assistant/migration-phases/planning-your-migration/handling-field-type-breaking-changes/
 ---
 
 # Handling breaking changes in field types

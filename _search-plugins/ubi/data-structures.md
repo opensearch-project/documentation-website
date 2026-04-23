@@ -4,6 +4,7 @@ title: UBI client data structures
 parent: User Behavior Insights
 has_children: false
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/search-plugins/ubi/data-structures/
 ---
 
 # UBI client data structures

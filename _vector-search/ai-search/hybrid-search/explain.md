@@ -5,6 +5,7 @@ parent: Hybrid search
 grand_parent: AI search
 has_children: false
 nav_order: 70
+canonical_url: https://docs.opensearch.org/latest/vector-search/ai-search/hybrid-search/explain/
 ---
 
 # Hybrid search explain

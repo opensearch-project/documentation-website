@@ -5,6 +5,7 @@ nav_order: 10
 parent: Overview
 redirect_from:
   - /migration-assistant/is-migration-assistant-right-for-you/
+canonical_url: https://docs.opensearch.org/latest/migration-assistant/overview/is-migration-assistant-right-for-you/
 ---
 
 # Is Migration Assistant right for you?

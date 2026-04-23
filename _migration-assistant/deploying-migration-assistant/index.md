@@ -6,6 +6,7 @@ has_children: true
 permalink: /deploying-migration-assistant/
 redirect-from:
    - /deploying-migration-assistant/index/
+canonical_url: https://docs.opensearch.org/latest/migration-assistant/deploying-migration-assistant/
 ---
 
 # Deploying Migration Assistant

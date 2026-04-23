@@ -5,6 +5,7 @@ has_children: false
 parent: Search processors
 grand_parent: Search pipelines
 nav_order: 117
+canonical_url: https://docs.opensearch.org/latest/search-plugins/search-pipelines/score-ranker-processor/
 ---
 
 # Score ranker processor

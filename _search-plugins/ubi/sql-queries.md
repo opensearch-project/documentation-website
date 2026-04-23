@@ -4,6 +4,7 @@ title: Sample UBI SQL queries
 parent: User Behavior Insights
 has_children: false
 nav_order: 20
+canonical_url: https://docs.opensearch.org/latest/search-plugins/ubi/sql-queries/
 ---
 
 # Sample UBI SQL queries

@@ -3,6 +3,7 @@ layout: default
 title: CJK bigram
 parent: Token filters
 nav_order: 30
+canonical_url: https://docs.opensearch.org/latest/analyzers/token-filters/cjk-bigram/
 ---
 
 # CJK bigram token filter

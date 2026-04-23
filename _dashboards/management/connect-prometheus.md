@@ -3,6 +3,7 @@ layout: default
 title: Connecting Prometheus to OpenSearch
 parent: Data sources
 nav_order: 20
+canonical_url: https://docs.opensearch.org/latest/dashboards/management/connect-prometheus/
 ---
 
 # Connecting Prometheus to OpenSearch

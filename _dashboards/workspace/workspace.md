@@ -3,6 +3,7 @@ layout: default
 title: Workspace for OpenSearch Dashboards
 nav_order: 110
 has_children: true
+canonical_url: https://docs.opensearch.org/latest/dashboards/workspace/workspace/
 ---
 
 # Workspace for OpenSearch Dashboards

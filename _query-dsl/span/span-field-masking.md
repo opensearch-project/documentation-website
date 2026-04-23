@@ -4,6 +4,7 @@ title: Span field masking
 parent: Span queries
 grand_parent: Query DSL
 nav_order: 20
+canonical_url: https://docs.opensearch.org/latest/query-dsl/span/span-field-masking/
 ---
 
 # Span field masking query

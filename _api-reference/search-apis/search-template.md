@@ -7,6 +7,7 @@ redirect_from:
   - /opensearch/search-template/
   - /search-plugins/search-template/
   - /api-reference/search-template/
+canonical_url: https://docs.opensearch.org/latest/api-reference/search-apis/search-template/
 ---
 
 # Search templates

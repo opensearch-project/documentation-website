@@ -2,6 +2,7 @@
 layout: default
 title: Searching data
 nav_order: 35
+canonical_url: https://docs.opensearch.org/latest/vector-search/searching-data/
 ---
 
 # Searching vector data

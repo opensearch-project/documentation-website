@@ -5,6 +5,7 @@ parent: Search APIs
 nav_order: 100
 redirect_from:
   - /api-reference/msearch-template/
+canonical_url: https://docs.opensearch.org/latest/api-reference/search-apis/msearch-template/
 ---
 
 # Multi-search template 

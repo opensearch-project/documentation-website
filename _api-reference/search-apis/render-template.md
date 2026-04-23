@@ -5,6 +5,7 @@ parent: Search APIs
 nav_order: 82
 redirect_from:
   - /api-reference/render-template/
+canonical_url: https://docs.opensearch.org/latest/api-reference/search-apis/render-template/
 ---
 
 # Render template 

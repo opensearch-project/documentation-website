@@ -3,6 +3,7 @@ layout: default
 title: Architecture
 nav_order: 15
 parent: Overview
+canonical_url: https://docs.opensearch.org/latest/migration-assistant/overview/architecture/
 ---
 
 # Architecture

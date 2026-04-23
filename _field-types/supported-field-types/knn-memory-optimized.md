@@ -4,6 +4,7 @@ title: Memory-optimized vectors
 parent: k-NN vector
 grand_parent: Supported field types
 nav_order: 30
+canonical_url: https://docs.opensearch.org/latest/field-types/supported-field-types/knn-memory-optimized/
 ---
 
 # Memory-optimized vectors

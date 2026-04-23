@@ -6,6 +6,7 @@ nav_order: 10
 redirect_from:
   - /upgrade-to/snapshot-migrate/
   - /migration-assistant/getting-started-with-data-migration/
+canonical_url: https://docs.opensearch.org/latest/migration-assistant/deploying-migration-assistant/getting-started-data-migration/
 ---
 
 # Getting started with data migration

@@ -6,6 +6,7 @@ has_children: true
 permalink: /migration-console/
 redirect_from: 
   - /migration-console/index/
+canonical_url: https://docs.opensearch.org/latest/migration-assistant/migration-console/
 ---
 
 # Migration console

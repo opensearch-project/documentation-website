@@ -4,6 +4,7 @@ title: Rule Lifecycle API
 nav_order: 20
 parent: Rule based autotagging
 grand_parent: Availability and recovery
+canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/availability-and-recovery/rule-based-autotagging/rule-lifecycle-api/
 ---
 
 # Rule Lifecycle API
