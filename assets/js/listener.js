@@ -161,13 +161,13 @@ function openPlayground(button) {
     // Remove trailing semicolons
     query = query.replace(/;\s*$/, '');
 
-    const baseUrl = 'https://observability.playground.opensearch.org/w/19jD-R/app/explore/logs/#/';
+    const baseUrl = 'https://observability.playground.opensearch.org/w/AYexAG/app/explore/logs/#/';
 
     // The hash params are parsed as RISON by the app.
     // Encode query with encodeURIComponent so all special chars are safe inside RISON quotes.
     const encodedQuery = encodeURIComponent(query).replace(/'/g, "!'");
 
-    const qParam = `(dataset:(id:d1f424b0-2655-11f1-8baa-d5b726b04d73,timeFieldName:time,title:'logs-otel-v1*',type:INDEX_PATTERN),language:PPL,query:'${encodedQuery}')`;
+    const qParam = `(dataset:(id:'6766d4f0-3869-11f1-b2f2-5f6bda0002a3',timeFieldName:time,title:'logs-otel-v1*',type:INDEX_PATTERN),language:PPL,query:'${encodedQuery}')`;
     const gParam = `(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-6h,to:now))`;
     const aParam = `(legacy:(columns:!(body,severityText,resource.attributes.service.name),interval:auto,isDirty:!f,sort:!()),tab:(logs:(),patterns:(usingRegexPatterns:!f)),ui:(activeTabId:logs,showHistogram:!t))`;
 

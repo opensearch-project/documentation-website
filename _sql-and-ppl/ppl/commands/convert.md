@@ -42,7 +42,7 @@ The `convert` command supports the following parameters.
 
 The following query converts the `balance` field to a number using the `auto()` function:
 
-```ppl
+```sql
 source=accounts
 | convert auto(balance)
 | fields account_number, balance
@@ -62,7 +62,7 @@ The query returns the following results:
 
 The following query converts a field containing comma-separated numbers:
 
-```ppl
+```sql
 source=accounts
 | eval price='1,234'
 | convert num(price)
@@ -80,7 +80,7 @@ The query returns the following results:
 
 The following query converts memory size strings to kilobytes:
 
-```ppl
+```sql
 source=system_metrics
 | eval memory='100m'
 | convert memk(memory)
