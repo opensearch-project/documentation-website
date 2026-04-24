@@ -1,15 +1,13 @@
 ---
 layout: default
-title: Amazon OpenSearch Serverless
+title: Migrate to OpenSearch Serverless
 nav_order: 55
 permalink: /migration-assistant/amazon-opensearch-serverless/
 ---
 
-# Amazon OpenSearch Serverless
+# Migrate to OpenSearch Serverless
 
-Migration Assistant supports Amazon OpenSearch Serverless (AOSS) collections as a migration target. All three migration types are supported: metadata migration, document backfill, and capture and replay.
-
-**Supported source versions:** Elasticsearch 1.x–8.x, OpenSearch 1.x–2.x.
+If your target is an Amazon OpenSearch Serverless collection, this page is for you. Serverless works as a target for every source Migration Assistant supports — self-managed Elasticsearch 1.x–8.x, OpenSearch 1.x–2.x, Amazon OpenSearch Service, and Apache Solr 8.x (backfill only). The migration steps are the same as migrating to any other OpenSearch target — follow your source's playbook and plug in the Serverless-specific target configuration from this page.
 
 ## Collection types
 
@@ -115,3 +113,9 @@ Set the target cluster:
 {% include copy.html %}
 
 Then follow the standard workflow: [Workflow CLI getting started]({{site.url}}{{site.baseurl}}/migration-assistant/workflow-cli/getting-started/).
+
+## Per-source playbooks
+
+- **Self-managed / third-party ES or OpenSearch** — See [ES 6.8 → OpenSearch Kubernetes playbook]({{site.url}}{{site.baseurl}}/migration-assistant/playbook-elasticsearch-6-8-to-opensearch-3-kubernetes/), then swap the target cluster config for the AOSS snippet above.
+- **Amazon OpenSearch Service / legacy ES Service** — See [OpenSearch Service → Serverless playbook]({{site.url}}{{site.baseurl}}/migration-assistant/playbook-amazon-opensearch-service-to-serverless/).
+- **Apache Solr** — See [Solr 8 → OpenSearch playbook]({{site.url}}{{site.baseurl}}/migration-assistant/playbook-solr-8-to-opensearch-3/), then swap the target cluster config for the AOSS snippet above.
