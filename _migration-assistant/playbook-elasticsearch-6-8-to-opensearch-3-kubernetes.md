@@ -13,6 +13,9 @@ This playbook assumes **Migration Assistant is already running** on a Kubernetes
 
 Your combination must appear in the [migration paths]({{site.url}}{{site.baseurl}}/migration-assistant/is-migration-assistant-right-for-you/) matrix (Elasticsearch 6.x → OpenSearch 3.x is supported). Review [Assessment]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/assessment/) for breaking changes.
 
+Targeting Amazon OpenSearch Serverless instead? All steps on this page apply identically. The only differences are the target endpoint and `authConfig.sigv4.service` value (`aoss` instead of `es`), plus a one-time AOSS data access policy. See [Migrate to OpenSearch Serverless]({{site.url}}{{site.baseurl}}/migration-assistant/amazon-opensearch-serverless/) for the target config, then return here.
+{: .tip }
+
 ## 2. Elasticsearch 6.x and mapping types
 
 Elasticsearch 6.x can still use **multiple mapping types per index**. OpenSearch 3.x does not support that model. Metadata migration **removes type wrappers** and may require you to declare how to handle multi-type indexes and templates.

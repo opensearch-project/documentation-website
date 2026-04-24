@@ -21,6 +21,9 @@ Solr migrations differ from Elasticsearch migrations because Solr uses a differe
 
 See [Solr migration overview]({{site.url}}{{site.baseurl}}/migration-assistant/solr-migration/) and [Running the Transform Proxy]({{site.url}}{{site.baseurl}}/migration-assistant/solr-migration/running-the-transform-proxy/) for details.
 
+Targeting Amazon OpenSearch Serverless instead? All steps on this page apply identically. The only differences are the target endpoint and `authConfig.sigv4.service` value (`aoss` instead of `es`), plus a one-time AOSS data access policy. See [Migrate to OpenSearch Serverless]({{site.url}}{{site.baseurl}}/migration-assistant/amazon-opensearch-serverless/) for the target config, then return here.
+{: .tip }
+
 ## 2. Create a Solr backup
 
 **SolrCloud:**
