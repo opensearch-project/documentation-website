@@ -247,7 +247,7 @@ To create the area chart:
 
 1. Now assume that you're interested in flight cancellations. You can limit the heat map display to only cancelled flights.
 
-   You can filter the data using the [filter tool]({{site.url}}{{site.baseurl}}/_dashboards/discover/filter-tool), but if the visualization is in a dashboard this filters the data for other visualizations as well. The following procedure limits the data only for this current visualization.
+   You can filter the data using the [filter tool]({{site.url}}{{site.baseurl}}/dashboards/discover/filter-tool), but if the visualization is in a dashboard this filters the data for other visualizations as well. The following procedure limits the data only for this current visualization.
    {: .note}
 
 1. In the Buckets panel, select Add.
@@ -269,7 +269,7 @@ To create the area chart:
 
    The visualization shows cancellations mapped to origin and destination weather combinations as shown in the following image. It shows that no cancellations occurred when the weather was good at both ends of the flight.
 
-   <img src="{{site.url}}{{site.baseurl}}/images/dashboards/cancellation-heat-map.png" width="85%"  alt="Flight cancellation heat map"/>
+   <img src="{{site.url}}{{site.baseurl}}/images/dashboards/example-heatmap-cancellation.png" width="85%"  alt="Flight cancellation heat map"/>
 
 1. Save the visualization as described in [Saving a data visualization]({{site.url}}{{site.baseurl}}/dashboards/visualize/saving-a-viz/).
 
