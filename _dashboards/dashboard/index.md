@@ -13,10 +13,8 @@ You can use the **Dashboards** application in OpenSearch Dashboards to build a p
 
 >This documentation uses the following terms:
 >- _OpenSearch Dashboards_: The web UI for OpenSearch.
->- _Dashboards_: The The application within OpenSearch Dashboards for creating dashboards. See [Creating dashboards]({{site.url}}{{site.baseurl}}/dashboards/dashboard/).
->- **Dashboards** (bold): The Dashboards UI, as displayed in [Navigating the UI](#navigating-the-ui).
->- _dashboard_ (lowercase): An individual collection of data visualizations created in the Dashboards application.
-{: .note}
+>- **Dashboards** application: The application within OpenSearch Dashboards for creating dashboards.
+>- _dashboard_ (lowercase): An individual collection of data visualizations created in the **Dashboards** application.{: .note}
 
 Use the following tutorials to learn to create a dashboard using the **Dashboards** application and the OpenSearch sample data. The sample datasets have existing sample visualizations that you can use for the dashboard, or you can create your own visualizations. The tutorials demonstrate how to do both.
 
@@ -55,7 +53,7 @@ Before using the **Dashboards** tool, ensure that you:
 
 ## Creating a dashboard and adding an existing visualization
 
-To create a dashboard and add a sample visualization:
+To create a dashboard and add a sample visualization, follow these steps:
 
 1. In the navigation panel, select **OpenSearch Dashboards > Dashboards**.
 
@@ -75,7 +73,7 @@ You've created the following dashboard with a single panel, which you'll continu
 
 ## Creating visualizations
 
-To create a new visualization and save it to the dashboard:
+To create a new visualization and save it to the dashboard, follow these steps:
 
 1. From the **Dashboards** toolbar, choose **Create new**.
 
@@ -95,7 +93,7 @@ The **Dashboards** application saves the gauge chart visualization and adds it t
 
 ## Adding subsequent panels
 
-To the dashboard from the preceding steps, add an existing visualization to the dashboard:
+To add an existing visualization to the dashboard from the preceding steps, follow these steps:
 
 1. From the dashboard toolbar, choose **Add**.
 
@@ -109,13 +107,13 @@ The **Dashboards** application adds an area chart visualization to the dashboard
 
 ## Saving a dashboard
 
-When you've finalized your dashboard, save it. To save a new dashboard:
+When you've finalized your dashboard, save it. To save a new dashboard, follow these steps:
 
 1. In the **Dashboards** toolbar, choose **Save**.
 
 1. In the **Save dashboard** window, enter a **Title**.
 
-1. (Optional) enter a **Description**.
+1. (Optional) Enter a **Description**.
 
 1. (Optional) To save the time filter to the dashboard, select **Store time with dashboard**.
 
@@ -136,7 +134,7 @@ To customize the panels:
 
 - Choose the list icon in the panel's lower left corner.
 
-To change a color in the panel legend:
+To change a color in the panel legend, follow these steps:
 
 1. From the visualization legend, select a category.
 
@@ -147,7 +145,7 @@ To change a color in the panel legend:
     The color change is only saved for the current panel and dashboard and doesn't affect the saved visualization.
     {: .note}
 
-To change the color of the panel legend in the visualization:
+To change the color of the panel legend in the visualization, follow these steps:
 
 1. Choose the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/gear-icon.png" class="inline-icon" alt="gear icon"/>{:/} (gear) icon on the area chart panel.
 
@@ -163,42 +161,52 @@ To change the color of the panel legend in the visualization:
 
     This color change affects the saved visualization and any dashboard that links to the visualization.
 
-To display, hide, or customize the panel title:
+To display, hide, or customize the panel title, follow these steps:
 
 1. Choose the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/gear-icon.png" class="inline-icon" alt="gear icon"/>{:/} (gear) icon on the area chart panel.
 
-2. From the **Options** window, select **Edit panel title**.
-3. From the **Customize panel**, enter a title under **Panel title** or toggle the **Show panel title** to hide the title.
-4. Choose **Save**.
+1. From the **Options** window, select **Edit panel title**.
+
+1. From the **Customize panel**, enter a title under **Panel title** or toggle the **Show panel title** to hide the title.
+
+1. Choose **Save**.
 
 Changing panel titles only affects the particular panel on the particular dashboard and won't affect any other panel containing that same visualization or any other dashboard.
 {: .note}
 
 ## Arranging panels
 
-To organize panels, arrange them side by side, or resize them, you can use these options:
+To organize panels, arrange them side by side, or resize them, use the following procedures.
 
-To move a panel:
+### Moving a panel
+
+To move a panel, follow these steps:
 
 1. Select and hold the panel title or the top of the panel.
 
 1. Drag the panel to the new location.
 
-To resize a panel:
+### Resizing a panel
+
+To resize a panel, follow these steps:
 
 1. Choose the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/resize-icon.png" class="inline-icon" alt="resize icon"/>{:/} (resize) icon icon in the panel's lower-right corner.
 
-2. Drag to the new dimensions.
+1. Drag to the new dimensions.
 
-To view a panel in full screen mode:
+### Viewing a panel in full screen mode
 
-1. Choose the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/gear-icon.png" class="inline-icon" alt="gear icon"/>{:/} (gear) icon on the area chart panel or vertical ellipsis (⋮) at the top right of the panel.
+To view a panel in full screen mode, follow these steps:
+
+1. Choose the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/gear-icon.png" class="inline-icon" alt="gear icon"/>{:/} (gear) icon on the area chart panel or vertical ellipsis (⋮) at the upper right of the panel.
 
 1. Select {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/maximize-icon.png" class="inline-icon" alt="maximize icon"/>{:/} (maximize) **Maximize panel**.
 
-To minimize the a panel in full screen mode:
+### Minimizing a panel in full screen mode
 
-1. Choose the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/gear-icon.png" class="inline-icon" alt="gear icon"/>{:/} (gear) icon on the area chart panel or vertical ellipsis (⋮) at the top right of the panel.
+To minimize the a panel in full screen mode, follow these steps:
+
+1. Choose the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/gear-icon.png" class="inline-icon" alt="gear icon"/>{:/} (gear) icon on the area chart panel or vertical ellipsis (⋮) at the upper right of the panel.
 
 1. Select {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/minimize-icon.png" class="inline-icon" alt="minimize icon"/>{:/} (minimize) **Minimize**.
 
