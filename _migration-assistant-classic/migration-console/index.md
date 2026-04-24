@@ -6,11 +6,7 @@ nav_exclude: false
 has_children: true
 has_toc: false
 permalink: /classic/migration-assistant/migration-console/
-redirect_from: 
-  - /migration-assistant/migration-console/index/
-  - /migration-console/
 ---
-<p class="classic-version-warning">You're viewing the <strong>classic</strong> version of Migration Assistant documentation (ECS/CDK-based). For the latest Kubernetes-based version, see the <a href="/latest/migration-assistant/">current documentation</a>.</p>
 
 # Migration console
 

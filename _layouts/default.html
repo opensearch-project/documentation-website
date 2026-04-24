@@ -275,6 +275,9 @@ layout: table_wrappers
               <p class="unsupported-version-warning">You're viewing version {{site.opensearch_major_minor_version}} of the OpenSearch documentation. This version is no longer maintained. For the latest version, see the <a href="{% if page.url contains '404' %}{{ site.url }}{{ site.latesturl }}/about/{% else %}{{ site.url }}{{ site.latesturl }}{{ page.url }}{% endif %}">current documentation</a>. For information about OpenSearch version maintenance, see <a href="https://opensearch.org/releases.html">Release Schedule and Maintenance Policy</a>.</p>
             {% endif %}
           {% endif %}
+          {% if page.section == "migration-assistant-classic" %}
+            <p class="supported-version-warning">You're viewing the <strong>classic</strong> version of Migration Assistant documentation (ECS/CDK-based). For the latest Kubernetes-based version, see the <a href="{{ site.url }}{{ site.baseurl }}/migration-assistant/">current documentation</a>.</p>
+          {% endif %}
           {% if site.heading_anchors != false %}
             {% include vendor/anchor_headings.html html=content beforeHeading="true" anchorBody="<svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><use xlink:href=\"#svg-link\"></use></svg>" anchorClass="anchor-heading" anchorAttrs="aria-labelledby=\"%html_id%\"" %}
           {% else %}

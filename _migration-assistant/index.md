@@ -27,7 +27,7 @@ items:
     link: "/migration-assistant/workflow-cli/"
 ---
 
-# Migration Assistant for OpenSearch
+# ![Migration Assistant icon]({{site.url}}{{site.baseurl}}/images/icons/MigrationUpgrade_Color_Icon.svg){: .heading-icon} Migration Assistant for OpenSearch
 
 Migration Assistant is a Kubernetes-native tool for migrating data, metadata, and query traffic from Elasticsearch, OpenSearch, and Apache Solr clusters to OpenSearch. It uses a workflow-driven approach with declarative YAML configuration to orchestrate migrations.
 

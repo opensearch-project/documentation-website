@@ -6,7 +6,6 @@ nav_order: 4
 parent: Deploy
 permalink: /classic/migration-assistant/migration-phases/deploy/verifying-live-capture-components/
 ---
-<p class="classic-version-warning">You're viewing the <strong>classic</strong> version of Migration Assistant documentation (ECS/CDK-based). For the latest Kubernetes-based version, see the <a href="/latest/migration-assistant/">current documentation</a>.</p>
 
 # Verifying live capture components
 

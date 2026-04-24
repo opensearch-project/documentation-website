@@ -5,11 +5,7 @@ parent: Live traffic migration
 grand_parent: Migration phases
 nav_order: 110
 permalink: /classic/migration-assistant/migration-phases/live-traffic-migration/switching-traffic-from-the-source-cluster/
-redirect_from:
-  - /migration-assistant/migration-phases/switching-traffic-from-the-source-cluster/
-  - /migration-phases/switching-traffic-from-the-source-cluster/
 ---
-<p class="classic-version-warning">You're viewing the <strong>classic</strong> version of Migration Assistant documentation (ECS/CDK-based). For the latest Kubernetes-based version, see the <a href="/latest/migration-assistant/">current documentation</a>.</p>
 
 # Switching traffic from the source cluster
 

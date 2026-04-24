@@ -4,7 +4,6 @@ title: Security patching & updating
 nav_order: 30
 permalink: /classic/migration-assistant/security-patching-and-updating/
 ---
-<p class="classic-version-warning">You're viewing the <strong>classic</strong> version of Migration Assistant documentation (ECS/CDK-based). For the latest Kubernetes-based version, see the <a href="/latest/migration-assistant/">current documentation</a>.</p>
 
 # Security patching and updating
 

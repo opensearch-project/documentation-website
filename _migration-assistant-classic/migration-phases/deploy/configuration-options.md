@@ -5,12 +5,7 @@ nav_order: 1
 grand_parent: Migration phases
 parent: Deploy
 permalink: /classic/migration-assistant/migration-phases/deploy/configuration-options/
-redirect_from:
-  - /migration-assistant/migration-phases/deploying-migration-assistant/configuration-options/
-  - /deploying-migration-assistant/configuration-options/
-  - /migration-assistant/deploying-migration-assistant/configuration-options/
 ---
-<p class="classic-version-warning">You're viewing the <strong>classic</strong> version of Migration Assistant documentation (ECS/CDK-based). For the latest Kubernetes-based version, see the <a href="/latest/migration-assistant/">current documentation</a>.</p>
 
 # Configuration options
 

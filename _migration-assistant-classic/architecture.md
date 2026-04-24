@@ -4,7 +4,6 @@ title: Architecture
 nav_order: 15
 permalink: /classic/migration-assistant/architecture/
 ---
-<p class="classic-version-warning">You're viewing the <strong>classic</strong> version of Migration Assistant documentation (ECS/CDK-based). For the latest Kubernetes-based version, see the <a href="/latest/migration-assistant/">current documentation</a>.</p>
 
 # Architecture
 

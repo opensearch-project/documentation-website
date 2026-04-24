@@ -7,7 +7,11 @@ permalink: /migration-assistant/troubleshooting/
 
 # Troubleshooting
 
+This page covers common issues you may encounter when running Migration Assistant and how to resolve them.
+
 ## Connectivity issues
+
+If the Migration Console cannot reach the source or target cluster, start with a connectivity check.
 
 ### Diagnosis
 
@@ -43,6 +47,8 @@ kubectl exec -it migration-console-0 -n ma -- nslookup <cluster-endpoint>
 
 ## Authentication failures
 
+Authentication errors typically surface as 401 or 403 responses from the source or target cluster.
+
 ### Basic auth
 
 Verify the secret exists and has correct keys:
@@ -76,6 +82,8 @@ If the target is a **Serverless collection** and bulk or search fails with **403
 
 ## Workflow failures
 
+If a workflow step fails or hangs, check the workflow status and output logs first.
+
 ### Diagnosis
 
 ```bash
@@ -102,6 +110,8 @@ workflow output --follow
 - **Memory pressure**: RFS workers may OOM if documents are very large — check pod resource limits
 
 ## Pod issues
+
+Migration Assistant runs as Kubernetes pods. If pods are not running as expected, use `kubectl` to inspect their state.
 
 ### Pods not starting
 
@@ -132,6 +142,8 @@ Pending pods often indicate insufficient CPU, memory, or node capacity.
 
 ## Performance issues
 
+If migration is running but slower than expected, check the following areas.
+
 ### Slow backfill
 
 - **Check RFS worker count**: More workers increase parallelism. Since RFS reads from S3 (not the source cluster), adding workers has no impact on the source.
@@ -151,6 +163,8 @@ Pending pods often indicate insufficient CPU, memory, or node capacity.
 4. Create a [new issue](https://github.com/opensearch-project/opensearch-migrations/issues/new/choose) with your Migration Assistant version (`console --version`), Kubernetes version, source/target versions, and error logs
 
 ## Known issues
+
+The following are known issues with workarounds.
 
 ### `console` and `workflow` commands not in PATH
 

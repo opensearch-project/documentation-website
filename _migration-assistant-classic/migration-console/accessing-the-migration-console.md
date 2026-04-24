@@ -4,10 +4,7 @@ title: Accessing the migration console
 nav_order: 1
 parent: Migration console
 permalink: /classic/migration-assistant/migration-console/accessing-the-migration-console/
-redirect_from:
-  - /migration-console/accessing-the-migration-console/
 ---
-<p class="classic-version-warning">You're viewing the <strong>classic</strong> version of Migration Assistant documentation (ECS/CDK-based). For the latest Kubernetes-based version, see the <a href="/latest/migration-assistant/">current documentation</a>.</p>
 
 # Accessing the migration console
 
