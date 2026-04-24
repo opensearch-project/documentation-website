@@ -38,7 +38,7 @@ The following components make up the search bar.
 
 The current query language, OpenSearch Dashboards Query Language (DQL) or Query String Query Language (Lucene), is displayed at the right side of the **Search** box.
 
-To switch between DQL and query string query language:
+To switch between DQL and query string query language, follow these steps:
 
 1. Choose the query language selector (displaying the current query language).
 
@@ -52,7 +52,7 @@ To switch between DQL and query string query language:
 
 ## Filtering based on a query
 
-To filter using the **Search** box:
+To filter using the **Search** box, follow these steps:
 
 1. Enter a filter criterion in the **Search** box. For example, using DQL against the OpenSearch [Ecommerce] sample data, enter `sales_by_category is "Men's Clothing"`.
 
@@ -64,11 +64,11 @@ To filter using the **Search** box:
 
    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/refresh-button.png" alt="Refresh button"  width="100">
 
-   The **Results** list is updated to reflect filtering by the query.
+   The **Results** table is updated to reflect filtering by the query.
 
 ## Editing a filter query
 
-To change the query:
+To change the query, follow these steps:
 
 1. Edit the filter criterion in the **Search** box. For example, to change the DQL query in the previous example, change the query to `sales_by_category is "Women's Clothing"`.
 
@@ -76,17 +76,17 @@ To change the query:
 
    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/refresh-button.png" alt="Refresh button"  width="100">
 
-   The **Results** list is updated to reflect the altered query.
+   The **Results** table is updated to reflect the altered query.
 
 ## Saving a query
 
 Use this procedure to save any combination of:
 
-- The DQL or Lucene query
-- The filters
-- The time filter
+- The DQL or Lucene query.
+- The filters.
+- The time filter.
 
-To save a query:
+To save a query, follow these steps:
 
 1. Select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/save-icon.png" class="inline-icon" alt="save icon"/>{:/} (save) icon.
 
@@ -108,7 +108,7 @@ There does not have to be a query in the **Search** box. You can use this proced
 
 ## Loading a saved search
 
-To load a saved search, do the following:
+To load a saved search, follow these steps:
 
 1. Select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/save-icon.png" class="inline-icon" alt="save icon"/>{:/} (save) icon.
 
@@ -119,7 +119,7 @@ To load a saved search, do the following:
 
 ## Editing a query
 
-To change an existing query:
+To change an existing query, follow these steps:
 
 1. Select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/save-icon.png" class="inline-icon" alt="save icon"/>{:/} (save) icon.
 
@@ -127,7 +127,7 @@ To change an existing query:
 
 1. Filter the data using the search query, filters, and time filter you want to update a query to.
 
-1.Again select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/save-icon.png" class="inline-icon" alt="save icon"/>{:/} (save) icon. The current saved query is checked in the list.
+1. Again select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/save-icon.png" class="inline-icon" alt="save icon"/>{:/} (save) icon. The current saved query is checked in the list.
 
 1. Select **Save changes**.
 
@@ -137,6 +137,8 @@ To change an existing query:
 
 
 ## Deleting a query
+
+To delete a query, follow these steps:
 
 1. Select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/save-icon.png" class="inline-icon" alt="save icon"/>{:/} (save) icon.
 

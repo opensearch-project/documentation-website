@@ -9,7 +9,7 @@ has_toc: false
 
 # Building utility visualizations
 
-Utility visualizations don't display data, but support other data visualizations in the context of a [dasboard]({{site.url}}{{site.baseurl}}/dashboards/dashboard/). Utility visualizations include the following visualizations:
+Utility visualizations don't display data, but support other data visualizations in the context of a [dashboard]({{site.url}}{{site.baseurl}}/dashboards/dashboard/). Utility visualizations include the following visualizations:
 
 **Markdown** | **Control**
 [<img src="{{site.url}}{{site.baseurl}}/images/icons/vis-markdown-icon.png" width="90" height="90" alt=" icon">](#building-a-markdown-visualization) | [<img src="{{site.url}}{{site.baseurl}}/images/icons/vis-controls-icon.png" width="90" height="90" alt=" icon">](#building-a-control-visualization)

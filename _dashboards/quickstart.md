@@ -34,7 +34,7 @@ Once the OpenSearch and OpenSearch Dashboards processes are running, view the Op
 
 - [https://playground.opensearch.org/app/home#/](https://playground.opensearch.org/app/home#/) for the OpenSearch Playground.
 
-- `http://localhost:5601/app/home#/` (without the Security plugin) or `https://localhost:5601/app/home#/` (with the Security plugin) for a local installation.
+- [http://localhost:5601/app/home#/](http://localhost:5601/app/home#/) (without the Security plugin) or [https://localhost:5601/app/home#/](https://localhost:5601/app/home#/) (with the Security plugin) for a local installation.
 
 The OpenSearch Dashboards default view is shown in the following image.
 
@@ -49,24 +49,24 @@ To enlarge the main page panel, you can undock and hide the navigation panel.
 
 #### Undocking and hiding the navigation panel
 
-To undock and hide the navigation panel:
+To undock and hide the navigation panel, follow these steps:
 
-1. Select {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/nav-docked-icon.png" class="inline-icon" alt="docked icon"/>{:/} (docked) **Undock navigation** at the bottom of the navigation panel.
+1. Select {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/nav-docked-icon.png" class="inline-icon" alt="docked icon"/>{:/} (dock) **Undock navigation** at the bottom of the navigation panel.
 
 1. Select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/menu-icon.png" class="inline-icon" alt="menu icon"/>{:/} (menu) icon or {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/cross-icon.png" class="inline-icon" alt="cross icon"/>{:/} (cross) to the right of the menu.
 
 #### Unhiding and docking the navigation panel
 
-To unhide and dock the navigation panel:
+To unhide and dock the navigation panel, follow these steps:
 
 1. Select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/menu-icon.png" class="inline-icon" alt="menu icon"/>{:/} (menu) icon.
 
-1. Select {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/nav-undocked-icon.png" class="inline-icon" alt="undocked icon"/>{:/} (undocked) **Dock navigation** at the bottom of the navigation panel.
+1. Select {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/nav-undocked-icon.png" class="inline-icon" alt="undocked icon"/>{:/} (undock) **Dock navigation** at the bottom of the navigation panel.
 
 
 ## Adding sample data
 
-If you've installed a local OpenSearch Dashboards instance, add one or more sample datasets:
+If you've installed a local OpenSearch Dashboards instance, add one or more sample datasets by following these steps:
 
 1. On the OpenSearch Dashboards home page, choose **Add sample data**. Or on any page, choose {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/add-data-icon.png" class="inline-icon" alt="add-data icon"/>{:/} (add data) **Add data** from the upper-right toolbar.
 
@@ -104,7 +104,7 @@ Follow these steps to use the **Discover** tool:
 
     Results are shown for US-bound flights delayed by 60 minutes or more.
 
-1. Filter data by selecting {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/plus-icon.png" class="inline-icon" alt="plus icon"/>{:/} (plus) **Add filter** from the DQL **search bar** and then selecting a **Field**, **Operator**, and **Value** from the dropdown lists in the **Edit Filter** pop-up window. For example, select `FlightDelayType`, **is**, and **Weather Delay**.
+1. Filter data by selecting {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/plus-icon.png" class="inline-icon" alt="plus icon"/>{:/} (plus) **Add filter** from the DQL **search bar** and then selecting a **Field**, **Operator**, and **Value** from the dropdown lists in the **Edit Filter** popover. For example, select `FlightDelayType`, **is**, and **Weather Delay**.
 
 1. Select **Save**.
 
