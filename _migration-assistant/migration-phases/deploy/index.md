@@ -7,8 +7,9 @@ has_children: true
 has_toc: true
 permalink: /migration-assistant/migration-phases/deploy/
 redirect_from:
-  - /deploying-migration-assistant/
+  - /migration-assistant/deploying-migration-assistant/
   - /migration-assistant/getting-started-with-data-migration/
+  - /deploying-migration-assistant/
 ---
 
 # Deploy

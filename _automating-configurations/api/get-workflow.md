@@ -12,7 +12,7 @@ The Get Workflow API retrieves the workflow template.
 ## Endpoints
 
 ```json
-GET /_plugins/_flow_framework/workflow/<workflow_id>
+GET /_plugins/_flow_framework/workflow/{workflow_id}
 ```
 
 ## Path parameters

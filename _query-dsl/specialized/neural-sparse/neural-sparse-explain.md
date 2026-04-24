@@ -18,8 +18,8 @@ You can provide the `explain` parameter to understand how scores are calculated 
 You can provide the `explain` parameter in a URL when running a neural sparse ANN query using the following syntax:
 
 ```json
-GET <index>/_search?explain=true
-POST <index>/_search?explain=true
+GET {index}/_search?explain=true
+POST {index}/_search?explain=true
 ```
 
 The `explain` parameter works for the following types of neural sparse ANN search:

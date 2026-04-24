@@ -17,7 +17,7 @@ The Job Scheduler uses a distributed locking mechanism to ensure that only one i
 
 ```json
 GET /_plugins/_job_scheduler/api/locks
-GET /_plugins/_job_scheduler/api/locks/<lock_id>
+GET /_plugins/_job_scheduler/api/locks/{lock_id}
 ```
 
 ## Path parameters

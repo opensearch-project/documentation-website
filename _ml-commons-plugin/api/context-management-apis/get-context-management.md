@@ -15,7 +15,7 @@ Use this API to retrieve a context management configuration by its name.
 ## Endpoints
 
 ```json
-GET /_plugins/_ml/context_management/<context_management_name>
+GET /_plugins/_ml/context_management/{context_management_name}
 ```
 
 ## Path parameters

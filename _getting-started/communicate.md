@@ -83,7 +83,7 @@ In the following sections, and in most of the OpenSearch documentation, requests
 To add a JSON document to an OpenSearch index (that is, to _index_ a document), you send an HTTP request with the following header:
 
 ```json
-PUT /<index-name>/_doc/<document-id>
+PUT /{index-name}/_doc/{document-id}
 ```
 
 For example, to index a document representing a student, send the following request:

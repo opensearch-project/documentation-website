@@ -323,11 +323,11 @@ flag to the `sltr` query that is the target of feature score logging, as shown i
 You can use the Stats API to retrieve the plugin's overall status and statistics. To do this, send the following request:
 
 ```json
-GET /_ltr/_stats
+GET /_plugins/_ltr/stats
 ```
 {% include copy-curl.html %}
 
-The response includes information about the cluster, configured stores, and cache statistics for various plugin components:
+The response includes information about the cluster, configured stores, cache statistics for various plugin components, and request counts:
 
 ```json
 {
@@ -370,7 +370,9 @@ The response includes information about the cluster, configured stores, and cach
                "entry_count":0,
                "memory_usage_in_bytes":0
             }
-         }
+         },
+         "request_total_count": 0,
+         "request_error_count": 0
       }
    }
 }
@@ -380,15 +382,25 @@ The response includes information about the cluster, configured stores, and cach
 You can use filters to retrieve a single statistic by sending the following request:
 
 ```json
-GET /_ltr/_stats/{stat}
+GET /_plugins/_ltr/stats/{stat}
 ```
 {% include copy-curl.html %}
+
+The following table lists the available `stat` values.
+
+Stat | Description
+:--- | :---
+`stores` | Information about configured feature stores.
+`status` | The overall plugin status.
+`cache` | Per-node cache statistics for various plugin components (features, feature sets, and models).
+`request_total_count` | Per-node counter of the number of LTR queries executed.
+`request_error_count` | Per-node counter of the number of LTR queries that failed.
 
 You can limit the information to a single node in the cluster by sending the following requests:
 
 ```json
-GET /_ltr/_stats/nodes/{nodeId}
-GET /_ltr/_stats/{stat}/nodes/{nodeId}
+GET /_plugins/_ltr/{nodeId}/stats
+GET /_plugins/_ltr/{nodeId}/stats/{stat}
 ```
 {% include copy-curl.html %}
 

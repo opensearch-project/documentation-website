@@ -17,10 +17,10 @@ The search API operation lets you search your cluster for data.
 ## Endpoints
 
 ```json
-GET /<index>/_search
+GET /{index}/_search
 GET /_search
 
-POST /<index>/_search
+POST /{index}/_search
 POST /_search
 ```
 
@@ -95,27 +95,27 @@ All fields are optional.
 
 Field | Type | Description
 :--- | :--- | :---
-aggs | Object | In the optional `aggs` parameter, you can define any number of aggregations. Each aggregation is defined by its name and one of the types of aggregations that OpenSearch supports. For more information, see [Aggregations]({{site.url}}{{site.baseurl}}/aggregations/).
-docvalue_fields | Array of objects | The fields that OpenSearch should return using their docvalue forms. Specify a format to return results in a certain format, such as date and time.
-fields | Array | The fields to search for in the request. Specify a format to return results in a certain format, such as date and time.
-explain | String | Whether to return details about how OpenSearch computed the document's score. Default is `false`.
-from | Integer | The starting index to search from. Default is 0.
-include_named_queries_score | Boolean | Whether to return scores for named queries.
-indices_boost | Array of objects | Boosts the`_score` of documents from specific indexes. Each entry specifies an index and a boost factor in the format `<index>: <boost-multiplier>`. A boost greater than `1.0` increases the score, while a boost between `0` and `1.0` decreases it.
-min_score | Integer | Specify a score threshold to return only documents above the threshold.
-query | Object | The [DSL query]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index/) to use in the request.
-seq_no_primary_term | Boolean | Whether to return sequence number and primary term of the last operation of each document hit.
-size | Integer | How many results to return. Default is 10.
-sort | Array of objects or strings | Specifies how to sort the results. Can be a field name, an object with field and sort options, or an array of these. See [Sorting results]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/sort/).
-_source | | Whether to include the `_source` field in the response.
-stats | String | Value to associate with the request for additional logging.
-suggest_field | String | The field used for suggestions. Use with `suggest_text` and, optionally, `suggest_mode` or `suggest_size`. |
-suggest_mode | String | The mode to use when searching. Valid values are `always` (provide suggestions based on the terms in `suggest_text`), `popular` (provide suggestions occurring in more documents on the shard than the search term), and `missing` (provide suggestions for terms not on the shard). Requires `suggest_field` and `suggest_text`. |
-suggest_size | Integer | The number of suggestions to return. Requires `suggest_field` and `suggest_text`. |
-suggest_text | String | The input text for which OpenSearch should return suggestions. Requires `suggest_field` and `suggest_text`. |
-terminate_after | Integer | The maximum number of matching documents (hits) OpenSearch should process before terminating the request. Default is 0.
-timeout | Time | How long to wait for a response. Default is no timeout.
-version | Boolean | Whether to include the document version in the response.
+`aggs` | Object | In the optional `aggs` parameter, you can define any number of aggregations. Each aggregation is defined by its name and one of the types of aggregations that OpenSearch supports. For more information, see [Aggregations]({{site.url}}{{site.baseurl}}/aggregations/).
+`docvalue_fields` | Array of objects | The fields that OpenSearch should return using their docvalue forms. Specify a format to return results in a certain format, such as date and time.
+`fields` | Array | The fields to search for in the request. Specify a format to return results in a certain format, such as date and time.
+`explain` | String | Whether to return details about how OpenSearch computed the document's score. Default is `false`.
+`from` | Integer | The starting index to search from. Default is 0.
+`include_named_queries_score` | Boolean | Whether to return scores for named queries.
+`indices_boost` | Array of objects | Boosts the`_score` of documents from specific indexes. Each entry specifies an index and a boost factor in the format `<index>: <boost-multiplier>`. A boost greater than `1.0` increases the score, while a boost between `0` and `1.0` decreases it.
+`min_score` | Integer | Specify a score threshold to return only documents above the threshold.
+`query` | Object | The [DSL query]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index/) to use in the request.
+`seq_no_primary_term` | Boolean | Whether to return sequence number and primary term of the last operation of each document hit.
+`size` | Integer | How many results to return. Default is 10.
+`sort` | Array of objects or strings | Specifies how to sort the results. Can be a field name, an object with field and sort options, or an array of these. See [Sorting results]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/sort/).
+`_source` | | Whether to include the `_source` field in the response.
+`stats` | String | Value to associate with the request for additional logging.
+`suggest_field` | String | The field used for suggestions. Use with `suggest_text` and, optionally, `suggest_mode` or `suggest_size`. |
+`suggest_mode` | String | The mode to use when searching. Valid values are `always` (provide suggestions based on the terms in `suggest_text`), `popular` (provide suggestions occurring in more documents on the shard than the search term), and `missing` (provide suggestions for terms not on the shard). Requires `suggest_field` and `suggest_text`. |
+`suggest_size` | Integer | The number of suggestions to return. Requires `suggest_field` and `suggest_text`. |
+`suggest_text` | String | The input text for which OpenSearch should return suggestions. Requires `suggest_field` and `suggest_text`. |
+`terminate_after` | Integer | The maximum number of matching documents (hits) OpenSearch should process before terminating the request. Default is 0.
+`timeout` | Time | How long to wait for a response. Default is no timeout.
+`version` | Boolean | Whether to include the document version in the response.
 
 ## Example request
 

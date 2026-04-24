@@ -7,6 +7,7 @@ has_toc: false
 nav_exclude: true
 permalink: /migration-assistant/
 redirect_from:
+  - /migration-assistant/overview/
   - /migration-assistant/index/
 
 items:
