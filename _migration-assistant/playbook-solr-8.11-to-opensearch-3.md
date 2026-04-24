@@ -1,13 +1,16 @@
 ---
 layout: default
-title: "Playbook: Apache Solr 8.x → OpenSearch 3.x"
-nav_order: 82
-permalink: /migration-assistant/playbook-solr-8-to-opensearch-3/
+title: "Apache Solr 8.11 → OpenSearch 3.5"
+nav_order: 3
+parent: Playbooks
+permalink: /migration-assistant/playbook-solr-8.11-to-opensearch-3/
+redirect_from:
+  - /migration-assistant/playbook-solr-8-to-opensearch-3/
 ---
 
-# Playbook: Apache Solr 8.x → OpenSearch 3.x
+# Playbook: Apache Solr 8.11 → OpenSearch 3.5
 
-This playbook assumes **Migration Assistant is already deployed** on Kubernetes or Amazon EKS. It covers the end-to-end process for migrating from Apache Solr 8.x to OpenSearch 3.x, including document backfill and query compatibility validation using the Transformation Shim.
+This playbook assumes **Migration Assistant is already deployed** on Kubernetes or Amazon EKS. It covers the end-to-end process for migrating from Apache Solr 8.11 to OpenSearch 3.5, including document backfill and query compatibility validation using the Transformation Shim.
 
 Solr migrations support **backfill only** — Capture and Replay is not supported for Solr sources.
 {: .warning }
@@ -21,7 +24,7 @@ Solr migrations differ from Elasticsearch migrations because Solr uses a differe
 
 See [Solr migration overview]({{site.url}}{{site.baseurl}}/migration-assistant/solr-migration/) and [Running the Transform Proxy]({{site.url}}{{site.baseurl}}/migration-assistant/solr-migration/running-the-transform-proxy/) for details.
 
-Targeting Amazon OpenSearch Serverless instead? All steps on this page apply identically. The only differences are the target endpoint and `authConfig.sigv4.service` value (`aoss` instead of `es`), plus a one-time AOSS data access policy. See [Migrate to OpenSearch Serverless]({{site.url}}{{site.baseurl}}/migration-assistant/amazon-opensearch-serverless/) for the target config, then return here.
+> **Targeting Amazon OpenSearch Serverless instead?** This playbook still applies end-to-end. The only differences are the target endpoint and `authConfig.sigv4.service` value (`aoss` instead of `es`), plus a one-time AOSS data access policy. See [Migrate to OpenSearch Serverless]({{site.url}}{{site.baseurl}}/migration-assistant/amazon-opensearch-serverless/) for the target config, then return here.
 {: .tip }
 
 ## 2. Create a Solr backup
@@ -61,7 +64,7 @@ workflow configure edit
 ```
 {% include copy.html %}
 
-Set the source as your Solr backup location and the target as your OpenSearch 3.x cluster. The schema translation (Solr field types → OpenSearch mappings) is handled automatically by SolrReader.
+Set the source as your Solr backup location and the target as your OpenSearch 3.5 cluster. The schema translation (Solr field types → OpenSearch mappings) is handled automatically by SolrReader.
 
 ## 4. Sample workflow configuration
 

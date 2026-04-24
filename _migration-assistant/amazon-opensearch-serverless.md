@@ -9,6 +9,14 @@ permalink: /migration-assistant/amazon-opensearch-serverless/
 
 If your target is an Amazon OpenSearch Serverless collection, this page is for you. Serverless works as a target for every source Migration Assistant supports — self-managed Elasticsearch 1.x–8.x, OpenSearch 1.x–2.x, Amazon OpenSearch Service, and Apache Solr 8.x (backfill only). The migration steps are the same as migrating to any other OpenSearch target — follow your source's playbook and plug in the Serverless-specific target configuration from this page.
 
+| Source | Backfill | Capture and Replay |
+|:-------|:--------:|:------------------:|
+| Self-managed Elasticsearch 5.x–8.x | ✓ | ✓ |
+| Self-managed Elasticsearch 1.x–2.x | ✓ | ✗ (not supported on this source version) |
+| OpenSearch 1.x–2.x | ✓ | ✓ |
+| Amazon OpenSearch Service / legacy Elasticsearch Service | ✓ | ✓ |
+| Apache Solr 8.x | ✓ | ✗ (Solr does not support C&R) |
+
 ## Collection types
 
 AOSS collections come in three types. Migration Assistant auto-detects the collection type and adjusts behavior accordingly.
@@ -116,6 +124,6 @@ Then follow the standard workflow: [Workflow CLI getting started]({{site.url}}{{
 
 ## Per-source playbooks
 
-- **Self-managed / third-party ES or OpenSearch** — See [ES 6.8 → OpenSearch Kubernetes playbook]({{site.url}}{{site.baseurl}}/migration-assistant/playbook-elasticsearch-6-8-to-opensearch-3-kubernetes/), then swap the target cluster config for the AOSS snippet above.
-- **Amazon OpenSearch Service / legacy ES Service** — See [OpenSearch Service → Serverless playbook]({{site.url}}{{site.baseurl}}/migration-assistant/playbook-amazon-opensearch-service-to-serverless/).
-- **Apache Solr** — See [Solr 8 → OpenSearch playbook]({{site.url}}{{site.baseurl}}/migration-assistant/playbook-solr-8-to-opensearch-3/), then swap the target cluster config for the AOSS snippet above.
+- **Self-managed / third-party Elasticsearch or OpenSearch** — Follow the [Elasticsearch 6.8 → OpenSearch 3.5 playbook]({{site.url}}{{site.baseurl}}/migration-assistant/playbook-elasticsearch-6-8-to-opensearch-3/), then replace the target cluster block with the AOSS snippet above.
+- **Amazon OpenSearch Service / legacy Elasticsearch Service** — Follow the [Amazon OpenSearch Service → Amazon OpenSearch Serverless playbook]({{site.url}}{{site.baseurl}}/migration-assistant/playbook-amazon-opensearch-service-to-serverless/).
+- **Apache Solr** — Follow the [Apache Solr 8.11 → OpenSearch 3.5 playbook]({{site.url}}{{site.baseurl}}/migration-assistant/playbook-solr-8.11-to-opensearch-3/), then replace the target cluster block with the AOSS snippet above.

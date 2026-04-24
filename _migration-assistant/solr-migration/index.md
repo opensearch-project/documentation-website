@@ -9,13 +9,13 @@ permalink: /migration-assistant/solr-migration/
 
 # Solr migration
 
-This page describes how to migrate from Apache Solr 8.x to OpenSearch 3.x using Migration Assistant. Solr migrations use a different architecture than Elasticsearch migrations because Solr and OpenSearch have fundamentally different HTTP APIs, query syntax, and schema formats.
+This page describes how to migrate from Apache Solr 8.x to OpenSearch 3.5 using Migration Assistant. Solr migrations use a different architecture than Elasticsearch migrations because Solr and OpenSearch have fundamentally different HTTP APIs, query syntax, and schema formats.
 
 ## Supported versions
 
 | Source | Target |
 |:-------|:-------|
-| Apache Solr 8.x (SolrCloud or Standalone) | OpenSearch 3.x |
+| Apache Solr 8.x (SolrCloud or Standalone) | OpenSearch 3.5 |
 
 ## What makes Solr migrations different
 

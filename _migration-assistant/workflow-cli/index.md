@@ -150,6 +150,6 @@ The schema includes Strimzi Kafka CRD definitions when built against a live clus
 
 | Topic | Link |
 |:------|:-----|
-| Cross-version (ES 6.8 → OpenSearch 3.x on Kubernetes) | [Playbook]({{site.url}}{{site.baseurl}}/migration-assistant/playbook-elasticsearch-6-8-to-opensearch-3-kubernetes/) |
+| Cross-version (Elasticsearch 6.8 → OpenSearch 3.5) | [Playbook]({{site.url}}{{site.baseurl}}/migration-assistant/playbook-elasticsearch-6-8-to-opensearch-3/) |
 | Managed domain → OpenSearch Serverless | [Playbook]({{site.url}}{{site.baseurl}}/migration-assistant/playbook-amazon-opensearch-service-to-serverless/) |
 | Step-by-step configuration | [Getting started]({{site.url}}{{site.baseurl}}/migration-assistant/workflow-cli/getting-started/) |

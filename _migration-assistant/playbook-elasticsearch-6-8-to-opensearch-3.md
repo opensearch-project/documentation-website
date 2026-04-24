@@ -1,31 +1,34 @@
 ---
 layout: default
-title: "Playbook: Elasticsearch 6.8 → OpenSearch 3.x (Kubernetes)"
-nav_order: 80
-permalink: /migration-assistant/playbook-elasticsearch-6-8-to-opensearch-3-kubernetes/
+title: "Elasticsearch 6.8 → OpenSearch 3.5"
+nav_order: 1
+parent: Playbooks
+permalink: /migration-assistant/playbook-elasticsearch-6-8-to-opensearch-3/
+redirect_from:
+  - /migration-assistant/playbook-elasticsearch-6-8-to-opensearch-3-kubernetes/
 ---
 
-# Playbook: Elasticsearch 6.8 → OpenSearch 3.x on Kubernetes
+# Playbook: Elasticsearch 6.8 → OpenSearch 3.5
 
-This playbook assumes **Migration Assistant is already running** on a Kubernetes or EKS cluster and that **source and target clusters already exist** (provisioning those clusters is out of scope here). It focuses on workflow configuration and operational steps for a common path: **self-managed Elasticsearch 6.8** to **OpenSearch 3.x**.
+This playbook assumes **Migration Assistant is already running** on a Kubernetes or EKS cluster and that **source and target clusters already exist** (provisioning those clusters is out of scope here). It focuses on workflow configuration and operational steps for a common path: **self-managed Elasticsearch 6.8** to **OpenSearch 3.5**.
 
 ## 1. Confirm the migration path
 
-Your combination must appear in the [migration paths]({{site.url}}{{site.baseurl}}/migration-assistant/is-migration-assistant-right-for-you/) matrix (Elasticsearch 6.x → OpenSearch 3.x is supported). Review [Assessment]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/assessment/) for breaking changes.
+Your combination must appear in the [migration paths]({{site.url}}{{site.baseurl}}/migration-assistant/is-migration-assistant-right-for-you/) matrix (Elasticsearch 6.x → OpenSearch 3.5 is supported). Review [Assessment]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/assessment/) for breaking changes.
 
-Targeting Amazon OpenSearch Serverless instead? All steps on this page apply identically. The only differences are the target endpoint and `authConfig.sigv4.service` value (`aoss` instead of `es`), plus a one-time AOSS data access policy. See [Migrate to OpenSearch Serverless]({{site.url}}{{site.baseurl}}/migration-assistant/amazon-opensearch-serverless/) for the target config, then return here.
+> **Targeting Amazon OpenSearch Serverless instead?** This playbook still applies end-to-end. The only differences are the target endpoint and `authConfig.sigv4.service` value (`aoss` instead of `es`), plus a one-time AOSS data access policy. See [Migrate to OpenSearch Serverless]({{site.url}}{{site.baseurl}}/migration-assistant/amazon-opensearch-serverless/) for the target config, then return here.
 {: .tip }
 
 ## 2. Elasticsearch 6.x and mapping types
 
-Elasticsearch 6.x can still use **multiple mapping types per index**. OpenSearch 3.x does not support that model. Metadata migration **removes type wrappers** and may require you to declare how to handle multi-type indexes and templates.
+Elasticsearch 6.x can still use **multiple mapping types per index**. OpenSearch 3.5 does not support that model. Metadata migration **removes type wrappers** and may require you to declare how to handle multi-type indexes and templates.
 
 - Read [Deprecation of mapping types](https://www.elastic.co/guide/en/elasticsearch/reference/7.17/removal-of-types.html) and the Metadata Migration discussion in the [opensearch-migrations MetadataMigration README](https://github.com/opensearch-project/opensearch-migrations/blob/main/MetadataMigration/README.md#deprecation-of-mapping-types).
 - Use `workflow configure sample` and `workflow configure edit` on your Migration Console to see the **exact** metadata migration fields for your release (for example, options related to multi-type behavior). Do not copy stale field names from generic examples if your sample schema differs.
 
 ## 3. Cluster `version` strings in workflow JSON
 
-Use values that match what your Workflow CLI / config processor expects for the installed release. Internal tests use forms such as **`ES 6.8`** for the source and a comparable **OpenSearch** label for the target (for example **`OS 3.0`** or the precise string shown in `workflow configure sample`). Always align with **`workflow configure sample`** output for your build.
+Use values that match what your Workflow CLI / config processor expects for the installed release. Internal tests use forms such as **`ES 6.8`** for the source and a comparable **OpenSearch** label for the target (for example **`OS 3.5`** or the precise string shown in `workflow configure sample`). Always align with **`workflow configure sample`** output for your build.
 
 ## 4. Snapshot repository (S3)
 
@@ -47,7 +50,7 @@ For your environment:
 
 ## 6. Sample workflow configuration
 
-The following is a complete workflow configuration for an ES 6.8 → OpenSearch 3.x migration with both backfill and live traffic capture and replay (CDC). Always start from `workflow configure sample --load` on your Migration Console and adjust — do not copy this verbatim if your schema version differs.
+The following is a complete workflow configuration for an ES 6.8 → OpenSearch 3.5 migration with both backfill and live traffic capture and replay (CDC). Always start from `workflow configure sample --load` on your Migration Console and adjust — do not copy this verbatim if your schema version differs.
 
 ### Backfill only
 
