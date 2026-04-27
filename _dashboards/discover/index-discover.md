@@ -194,7 +194,7 @@ To visualize a data field, follow these steps:
    See [Building data visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/) to learn how to edit the visualization display.
 
 
-## Export data
+## Exporting data
 
 You can export data from the **Results** table to a CSV file or copy a JSON object representing a single document.
 

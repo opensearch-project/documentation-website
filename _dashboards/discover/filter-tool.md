@@ -92,7 +92,7 @@ To enable a disabled filter, follow these steps:
 
 ## Pinning a filter
 
-You can pin a filter so that it applies to all the applications in OpenSearch Dashboards (Discover, Dashboards, and Visibility). To pin a filter, follow these steps:
+You can pin a filter so that it applies to all the applications in OpenSearch Dashboards (Discover, Dashboards, and Visualize). To pin a filter, follow these steps:
 
 1. Select the filter in the filter list.
 
@@ -141,7 +141,7 @@ To negate all filter expressions so that all included documents are excluded and
 
 1. In the **Filters** pulldown, select **Invert inclusion**.
 
-   Exclusion filters have **NOT** appended to their title, as shown below. Inverting inclusion a second time removes the **NOT** modifier.
+   Exclusion filters have **NOT** appended to their title, as shown following. Inverting inclusion a second time removes the **NOT** modifier.
    
    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/excluded-filter.png" alt="Exclusion filter"  width="36%">
 

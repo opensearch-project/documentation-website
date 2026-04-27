@@ -126,7 +126,7 @@ With [**Dashboards**]({{site.url}}{{site.baseurl}}/dashboards/dashboard/index/),
 
 Follow these steps to use the application:
 
-1. From the navigation , select **OpenSearch Dashboards** > **Dashboards**. The panel displays a list of existing dashboards.
+1. From the navigation panel, select **OpenSearch Dashboards** > **Dashboards**. The panel displays a list of existing dashboards.
 
 1. In the search toolbar, search for and select **[Flights] Global Flight Dashboard**.
 

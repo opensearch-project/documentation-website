@@ -22,7 +22,7 @@ Instructions for each follow.
 
 You can create a visualization containing static, formatted text using Markdown.
 
-The  Markdown visualization displays no data. Use it to present titles, labels, and explanatory text in dashboards.
+The Markdown visualization displays no data. Use it to present titles, labels, and explanatory text in dashboards.
 
 To create a Markdown visualization:
 
@@ -53,7 +53,7 @@ A control visualization contains one or more of the following:
 
 Use a control visualization to enable users to filter data within a dashboard.
 
-Many vizualizations have data selection filtering built in. Use controls with visualizations that don't already offer data selection or to enhance the data selection capability of an existing visualization.
+Many visualizations have data selection filtering built in. Use controls with visualizations that don't already offer data selection or to enhance the data selection capability of an existing visualization.
 {: .note}
 
 To build a control visualization:
