@@ -17,7 +17,7 @@ This page describes how to use **Discover** to:
 - [Choose data fields to view](#choosing-data-fields).
 - [Examine details of a document](#examining-a-document).
 - [Visualize data fields](#visualizing-data-fields).
-- [Export data to a CSV file](#export-data).
+- [Export data to a CSV file](#exporting-data).
 - [Set alerts](#setting-alerts).
 
 
