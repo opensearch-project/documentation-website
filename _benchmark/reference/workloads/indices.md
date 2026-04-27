@@ -2,7 +2,7 @@
 layout: default
 title: indices
 parent: Workload reference
-grand_parent: OpenSearch Benchmark Reference
+grand_parent: Reference
 nav_order: 65
 redirect_from:
   - /benchmark/workloads/indices/

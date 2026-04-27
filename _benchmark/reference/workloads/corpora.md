@@ -2,7 +2,7 @@
 layout: default
 title: corpora
 parent: Workload reference
-grand_parent: OpenSearch Benchmark Reference
+grand_parent: Reference
 nav_order: 70
 redirect_from:
   - /benchmark/workloads/corpora/
