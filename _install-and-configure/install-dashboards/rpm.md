@@ -40,6 +40,10 @@ OpenSearch Dashboards is the default visualization tool for data in OpenSearch. 
     # Install the arm64 package using rpm.
     sudo rpm -ivh opensearch-dashboards-{{site.opensearch_version}}-linux-arm64.rpm
     ```
+    For new installations of OpenSearch Dashboards 2.19.6 and later, you can use the following environment variable to control Security Dashboards plugin behavior:
+    ```bash
+    DISABLE_SECURITY_DASHBOARDS_PLUGIN=true
+    ```
 1. After the installation succeeds, enable OpenSearch Dashboards as a service.
     ```bash
     sudo systemctl enable opensearch-dashboards
