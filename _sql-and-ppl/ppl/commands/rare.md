@@ -3,7 +3,7 @@ layout: default
 title: rare
 parent: Commands
 grand_parent: PPL
-nav_order: 29
+nav_order: 35
 canonical_url: https://docs.opensearch.org/latest/sql-and-ppl/ppl/commands/rare/
 ---
 
@@ -33,116 +33,129 @@ The `rare` command supports the following parameters.
 | --- | --- | --- |
 | `<field-list>` | Required | A comma-delimited list of field names. |
 | `<by-clause>` | Optional | One or more fields to group the results by. |
-| `rare-options` | Optional | Additional options for controlling output: <br> - `showcount`: Whether to create a field in the output containing the frequency count for each combination of values. Default is `true`. <br> - `countfield`: The name of the field that contains the count. Default is `count`. <br> - `usenull`: Whether to output null values. Default is the value of `plugins.ppl.syntax.legacy.preferred`. |  
-  
+| `rare-options` | Optional | Additional options for controlling output: <br> - `showcount`: Whether to create a field in the output containing the frequency count for each combination of values. Default is `true`. <br> - `countfield`: The name of the field that contains the count. Default is `count`. <br> - `usenull`: Whether to output null values. Default is the value of `plugins.ppl.syntax.legacy.preferred`. |
 
-## Example 1: Find the least common values without showing counts
+## Example 1: Finding the least common values without showing counts
 
-The following query uses the `rare` command with `showcount=false` to find the least common gender without displaying frequency counts:
-  
+The following query uses `showcount=false` to find the least common severity levels without displaying frequency counts:
+
 ```sql
-source=accounts
-| rare showcount=false gender
+source=otellogs
+| rare showcount=false severityText
 ```
 {% include copy.html %}
-  
+{% include try-in-playground.html %}
+
 The query returns the following results:
-  
-| gender |
+
+| severityText |
 | --- |
-| F |
-| M |
-  
+| DEBUG |
+| WARN |
+| INFO |
+| ERROR |
 
-## Example 2: Find the least common values grouped by field
+## Example 2: Finding the least common values grouped by field
 
-The following query uses the `rare` command with a `by` clause to find the least common age values grouped by gender:
-  
-```sql
-source=accounts
-| rare showcount=false age by gender
-```
-{% include copy.html %}
-  
-The query returns the following results:
-  
-| gender | age |
-| --- | --- |
-| F | 28 |
-| M | 32 |
-| M | 33 |
-| M | 36 |
-  
-
-## Example 3: Find the least common values with frequency counts
-
-The following query uses the `rare` command with default settings to find the least common gender values and display their frequency counts:
-  
-```sql
-source=accounts
-| rare gender
-```
-{% include copy.html %}
-  
-The query returns the following results:
-  
-| gender | count |
-| --- | --- |
-| F | 1 |
-| M | 3 |
-  
-
-## Example 4: Customize the count field name
-
-The following query uses the `rare` command with the `countfield` parameter to specify a custom name for the frequency count field:
-  
-```sql
-source=accounts
-| rare countfield='cnt' gender
-```
-{% include copy.html %}
-  
-The query returns the following results:
-  
-| gender | cnt |
-| --- | --- |
-| F | 1 |
-| M | 3 |
-  
-
-## Example 5: Specify null value handling
-
-The following query uses the `rare` command with `usenull=false` to exclude null values from the results:
+The following query finds the least common severity levels grouped by service:
 
 ```sql
-source=accounts
-| rare usenull=false email
+source=otellogs
+| rare showcount=false severityText by `resource.attributes.service.name`
 ```
 {% include copy.html %}
-  
+{% include try-in-playground.html %}
+
 The query returns the following results:
-  
-| email | count |
+
+| resource.attributes.service.name | severityText |
 | --- | --- |
-| amberduke@pyrami.com | 1 |
-| daleadams@boink.com | 1 |
-| hattiebond@netagy.com | 1 |
+| product-catalog | DEBUG |
+| product-catalog | ERROR |
+| product-catalog | WARN |
+| frontend-proxy | ERROR |
+| frontend-proxy | WARN |
+| recommendation | ERROR |
+| payment | ERROR |
+| checkout | INFO |
+| checkout | ERROR |
+| cart | INFO |
+| cart | DEBUG |
+| frontend | INFO |
+
+## Example 3: Finding the least common values with frequency counts
+
+The following query finds the least common severity levels with their frequency counts:
+
+```sql
+source=otellogs
+| rare severityText
+```
+{% include copy.html %}
+{% include try-in-playground.html %}
+
+The query returns the following results:
+
+| severityText | count |
+| --- | --- |
+| DEBUG | 3 |
+| WARN | 4 |
+| INFO | 6 |
+| ERROR | 7 |
+
+## Example 4: Customizing the count field name
+
+The following query uses `countfield` to specify a custom name for the frequency count field:
+
+```sql
+source=otellogs
+| rare countfield='cnt' severityText
+```
+{% include copy.html %}
+{% include try-in-playground.html %}
+
+The query returns the following results:
+
+| severityText | cnt |
+| --- | --- |
+| DEBUG | 3 |
+| WARN | 4 |
+| INFO | 6 |
+| ERROR | 7 |
+
+## Example 5: Specifying null value handling
+
+The following query uses `usenull=false` to exclude null values:
+
+```sql
+source=otellogs
+| rare usenull=false instrumentationScope.name
+```
+{% include copy.html %}
+{% include try-in-playground.html %}
+
+The query returns the following results:
+
+| instrumentationScope.name | count |
+| --- | --- |
+| Microsoft.Extensions.Hosting | 1 |
+| go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc | 1 |
+| @opentelemetry/instrumentation-http | 2 |
 
 The following query uses `usenull=true` to include null values in the results:
 
 ```sql
-source=accounts
-| rare usenull=true email
+source=otellogs
+| rare usenull=true instrumentationScope.name
 ```
 {% include copy.html %}
-  
-The query returns the following results:
-  
-| email | count |
-| --- | --- |
-| null | 1 |
-| amberduke@pyrami.com | 1 |
-| daleadams@boink.com | 1 |
-| hattiebond@netagy.com | 1 |
-  
+{% include try-in-playground.html %}
 
+The query returns the following results:
+
+| instrumentationScope.name | count |
+| --- | --- |
+| Microsoft.Extensions.Hosting | 1 |
+| go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc | 1 |
+| @opentelemetry/instrumentation-http | 2 |
+| null | 16 |

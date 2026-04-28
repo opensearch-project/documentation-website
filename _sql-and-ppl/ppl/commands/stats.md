@@ -3,7 +3,7 @@ layout: default
 title: stats
 parent: Commands
 grand_parent: PPL
-nav_order: 39
+nav_order: 45
 canonical_url: https://docs.opensearch.org/latest/sql-and-ppl/ppl/commands/stats/
 ---
 
@@ -61,307 +61,226 @@ The `stats` command supports the following aggregation functions:
   
 For detailed documentation of each function, see [Aggregation Functions]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/functions/aggregations/).
 
-## Example 1: Calculate the count of events  
+## Example 1: Calculating the count of events  
 
-The following query calculates the count of events in the `accounts` index:
+The following query counts the total number of log entries, a basic health check for log ingestion:
   
 ```sql
-source=accounts
-| stats count()
+source=otellogs
+| stats count() as total_logs
 ```
 {% include copy.html %}
+{% include try-in-playground.html %}
   
 The query returns the following results:
   
-| count() |
+| total_logs |
 | --- |
-| 4 |
+| 20 |
   
 
-## Example 2: Calculate the average of a field  
+## Example 2: Calculating the average of a field  
 
-The following query calculates the average age for all accounts:
+The following query calculates the average severity number across all logs. A rising average over time may indicate increasing system instability:
   
 ```sql
-source=accounts
-| stats avg(age)
+source=otellogs
+| stats avg(severityNumber) as avg_severity
 ```
 {% include copy.html %}
+{% include try-in-playground.html %}
   
 The query returns the following results:
 
-| avg(age) |
+| avg_severity |
 | --- |
-| 32.25 |
+| 12.0 |
   
 
-## Example 3: Calculate the average of a field by group  
+## Example 3: Calculating the count by group  
 
-The following query calculates the average age for all accounts, grouped by gender:
+The following query counts logs by severity level, giving you a breakdown of your system's health at a glance:
   
 ```sql
-source=accounts
-| stats avg(age) by gender
+source=otellogs
+| stats count() as log_count by severityText
+| sort - log_count
 ```
 {% include copy.html %}
+{% include try-in-playground.html %}
   
 The query returns the following results:
   
-| avg(age) | gender |
+| log_count | severityText |
 | --- | --- |
-| 28.0 | F |
-| 33.666666666666664 | M |
+| 7 | ERROR |
+| 6 | INFO |
+| 4 | WARN |
+| 3 | DEBUG |
   
 
-## Example 4: Calculate the average, sum, and count of a field by group  
+## Example 4: Calculating multiple aggregations by group  
 
-The following query calculates the average age, sum of ages, and count of events for all accounts, grouped by gender:
+The following query calculates the total log count and severity range per service, helping you identify which services are most active and most problematic:
   
 ```sql
-source=accounts
-| stats avg(age), sum(age), count() by gender
+source=otellogs
+| stats count() as total, min(severityNumber) as min_sev, max(severityNumber) as max_sev by `resource.attributes.service.name`
+| sort - total
+| head 5
 ```
 {% include copy.html %}
+{% include try-in-playground.html %}
   
 The query returns the following results:
   
-| avg(age) | sum(age) | count() | gender |
+| total | min_sev | max_sev | resource.attributes.service.name |
 | --- | --- | --- | --- |
-| 28.0 | 28 | 1 | F |
-| 33.666666666666664 | 101 | 3 | M |
+| 4 | 9 | 9 | frontend |
+| 4 | 5 | 17 | product-catalog |
+| 3 | 5 | 9 | cart |
+| 3 | 9 | 17 | checkout |
+| 3 | 13 | 17 | frontend-proxy |
   
 
-## Example 5: Calculate the maximum of a field  
+## Example 5: Calculating the count by a span  
 
-The following query calculates the maximum age for all accounts:
+The following query groups logs into severity buckets of 10, showing the distribution across low (0-9), medium (10-19), and high (20+) severity ranges:
   
 ```sql
-source=accounts
-| stats max(age)
+source=otellogs
+| stats count() as log_count by span(severityNumber, 10)
 ```
 {% include copy.html %}
+{% include try-in-playground.html %}
   
 The query returns the following results:
   
-| max(age) |
-| --- |
-| 36 |
-  
-
-## Example 6: Calculate the maximum and minimum of a field by group  
-
-The following query calculates the maximum and minimum ages for all accounts, grouped by gender:
-  
-```sql
-source=accounts
-| stats max(age), min(age) by gender
-```
-{% include copy.html %}
-  
-The query returns the following results:
-  
-| max(age) | min(age) | gender |
-| --- | --- | --- |
-| 28 | 28 | F |
-| 36 | 32 | M |
-  
-
-## Example 7: Calculate the distinct count of a field  
-
-To retrieve the count of distinct values of a field, you can use the `DISTINCT_COUNT` (or `DC`) function instead of `COUNT`. The following query calculates both the count and the distinct count of the `gender` field for all accounts:
-  
-```sql
-source=accounts
-| stats count(gender), distinct_count(gender)
-```
-{% include copy.html %}
-  
-The query returns the following results:
-  
-| count(gender) | distinct_count(gender) |
+| log_count | span(severityNumber,10) |
 | --- | --- |
-| 4 | 2 |
+| 9 | 0 |
+| 11 | 10 |
   
 
-## Example 8: Calculate the count by a span  
+## Example 6: Calculating the count by a field and span  
 
-The following query retrieves the count of `age` values grouped into 10-year intervals:
+The following query counts logs by severity level within severity number ranges, showing how severity text maps to numeric ranges:
   
 ```sql
-source=accounts
-| stats count(age) by span(age, 10) as age_span
+source=otellogs
+| stats count() as cnt by span(severityNumber, 10) as sev_range, severityText
+| sort sev_range
 ```
 {% include copy.html %}
+{% include try-in-playground.html %}
   
 The query returns the following results:
   
-| count(age) | age_span |
-| --- | --- |
-| 1 | 20 |
-| 3 | 30 |
-  
-
-## Example 9: Calculate the count by a gender and span  
-
-The following query retrieves the count of `age` grouped into 5-year intervals and broken down by `gender`:
-  
-```sql
-source=accounts
-| stats count() as cnt by span(age, 5) as age_span, gender
-```
-{% include copy.html %}
-  
-The query returns the following results:
-  
-| cnt | age_span | gender |
+| cnt | sev_range | severityText |
 | --- | --- | --- |
-| 1 | 25 | F |
-| 2 | 30 | M |
-| 1 | 35 | M |
+| 3 | 0 | DEBUG |
+| 6 | 0 | INFO |
+| 7 | 10 | ERROR |
+| 4 | 10 | WARN |
   
-The `span` expression is always treated as the first grouping key, regardless of its position in the `by` clause:
+
+## Example 7: Calculating the distinct count of a field  
+
+The following query counts the total and distinct number of services reporting logs, useful for verifying all expected services are reporting:
   
 ```sql
-source=accounts
-| stats count() as cnt by gender, span(age, 5) as age_span
+source=otellogs
+| stats count(`resource.attributes.service.name`) as total_entries, distinct_count(`resource.attributes.service.name`) as unique_services
 ```
 {% include copy.html %}
+{% include try-in-playground.html %}
   
 The query returns the following results:
   
-| cnt | age_span | gender |
-| --- | --- | --- |
-| 1 | 25 | F |
-| 2 | 30 | M |
-| 1 | 35 | M |
-  
-
-## Example 10: Count and retrieve an email list by gender and age span
-
-The following query calculates the count of `age` values grouped into 5-year intervals as well as by `gender` and also returns a list of up to 5 emails for each group:
-
-```sql
-source=accounts
-| stats count() as cnt, take(email, 5) by span(age, 5) as age_span, gender
-```
-{% include copy.html %}
-  
-The query returns the following results:
-  
-| cnt | take(email, 5) | age_span | gender |
-| --- | --- | --- | --- |
-| 1 | [] | 25 | F |
-| 2 | [amberduke@pyrami.com,daleadams@boink.com] | 30 | M |
-| 1 | [hattiebond@netagy.com] | 35 | M |
-  
-
-## Example 11: Calculate the percentile of a field  
-
-The following query calculates the 90th percentile of `age` for all accounts:
-  
-```sql
-source=accounts
-| stats percentile(age, 90)
-```
-{% include copy.html %}
-  
-The query returns the following results:
-  
-| percentile(age, 90) |
-| --- |
-| 36 |
-  
-
-## Example 12: Calculate the percentile of a field by group  
-
-The following query calculates the 90th percentile of `age` for all accounts, grouped by `gender`:
-  
-```sql
-source=accounts
-| stats percentile(age, 90) by gender
-```
-{% include copy.html %}
-  
-The query returns the following results:
-  
-| percentile(age, 90) | gender |
+| total_entries | unique_services |
 | --- | --- |
-| 28 | F |
-| 36 | M |
+| 20 | 7 |
   
 
-## Example 13: Calculate the percentile by a gender and span  
+## Example 8: Collecting unique values using VALUES by group  
 
-The following query calculates the 90th percentile of `age`, grouped into 10-year intervals as well as by `gender`:
+The following query collects the unique service names for each severity level, useful for quickly seeing which services are affected at each level:
   
 ```sql
-source=accounts
-| stats percentile(age, 90) as p90 by span(age, 10) as age_span, gender
+source=otellogs
+| stats values(`resource.attributes.service.name`) as services by severityText
+| sort severityText
 ```
 {% include copy.html %}
+{% include try-in-playground.html %}
   
 The query returns the following results:
   
-| p90 | age_span | gender |
-| --- | --- | --- |
-| 28 | 20 | F |
-| 36 | 30 | M |
-  
-
-## Example 14: Collect all values in a field using LIST  
-
-The following query collects all `firstname` values, preserving duplicates and order:
-  
-```sql
-source=accounts
-| stats list(firstname)
-```
-{% include copy.html %}
-  
-The query returns the following results:
-  
-| list(firstname) |
-| --- |
-| [Amber,Hattie,Nanette,Dale] |
-  
-
-## Example 15: Ignore a null bucket
-
-The following query excludes null values from grouping by setting `bucket_nullable=false`:
-
-```sql
-source=accounts
-| stats bucket_nullable=false count() as cnt by email
-```
-{% include copy.html %}
-  
-The query returns the following results:
-  
-| cnt | email |
+| services | severityText |
 | --- | --- |
-| 1 | amberduke@pyrami.com |
-| 1 | daleadams@boink.com |
-| 1 | hattiebond@netagy.com |
+| [cart,product-catalog] | DEBUG |
+| [checkout,frontend-proxy,payment,product-catalog,recommendation] | ERROR |
+| [cart,checkout,frontend] | INFO |
+| [frontend-proxy,product-catalog] | WARN |
   
 
-## Example 16: Collect unique values in a field using VALUES  
+## Example 9: Calculating the percentile of a field  
 
-The following query collects all unique `firstname` values, sorted lexicographically with duplicates removed:
+The following query calculates the 90th percentile of severity numbers, helping you understand the severity distribution:
   
 ```sql
-source=accounts
-| stats values(firstname)
+source=otellogs
+| stats percentile(severityNumber, 90) as p90_severity
 ```
 {% include copy.html %}
+{% include try-in-playground.html %}
   
 The query returns the following results:
   
-| values(firstname) |
+| p90_severity |
 | --- |
-| [Amber,Dale,Hattie,Nanette] |
+| 17 |
   
 
-## Example 17: Date span grouping with null handling  
+## Example 10: Collecting unique values using VALUES  
+
+The following query collects all unique severity levels present in the logs:
+  
+```sql
+source=otellogs
+| stats values(severityText) as severity_levels
+```
+{% include copy.html %}
+{% include try-in-playground.html %}
+  
+The query returns the following results:
+  
+| severity_levels |
+| --- |
+| [DEBUG,ERROR,INFO,WARN] |
+  
+
+## Example 11: Ignoring a null bucket
+
+The following query excludes null values from grouping by setting `bucket_nullable=false`, useful when you only want to see services that have a defined namespace:
+
+```sql
+source=otellogs
+| stats bucket_nullable=false count() as cnt by instrumentationScope.name
+```
+{% include copy.html %}
+{% include try-in-playground.html %}
+  
+The query returns the following results:
+  
+| cnt | instrumentationScope.name |
+| --- | --- |
+| 2 | @opentelemetry/instrumentation-http |
+| 1 | Microsoft.Extensions.Hosting |
+| 1 | go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc |
+  
+
+## Example 12: Date span grouping with null handling  
 
 The following example uses this sample index data:
 
@@ -419,7 +338,7 @@ The query returns the following results:
 | 1 | 2025-01-01 | 2 |
   
 
-## Example 18: Calculate the count by the implicit @timestamp field  
+## Example 13: Calculating the count by the implicit @timestamp field  
 
 If you omit the `field` parameter in the `span` function, it automatically uses the implicit `@timestamp` field:
   
@@ -453,7 +372,6 @@ source=hits
 ```
 {% include copy.html %}
 
-
 This query is translated into a `terms` aggregation in OpenSearch with `"order": { "_count": "desc" }`. For fields with high cardinality, some buckets may be discarded, so the results may only be approximate.
 
 ### Sorting by doc_count in ascending order may produce inaccurate results
@@ -469,6 +387,5 @@ source=hits
 | head 10
 ```
 {% include copy.html %}
-
 
 A globally rare term might not appear as rare on every shard or could be entirely absent from some shard results. Conversely, a term that is infrequent on one shard might be common on another. In both cases, shard-level approximations can cause rare terms to be missed, leading to inaccurate overall results.

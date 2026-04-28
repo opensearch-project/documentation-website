@@ -3,7 +3,7 @@ layout: default
 title: fillnull
 parent: Commands
 grand_parent: PPL
-nav_order: 17
+nav_order: 19
 canonical_url: https://docs.opensearch.org/latest/sql-and-ppl/ppl/commands/fillnull/
 ---
 
@@ -40,131 +40,63 @@ The `fillnull` command supports the following parameters.
 | `<field>` | Required (with `using` syntax) | The name of the field to which a specific replacement value is applied. |
 | `<field-list>` | Optional | A list of fields in which null values are replaced. You can specify the list as comma-delimited (using `with` or `using` syntax) or space-delimited (using `value=` syntax). By default, all fields are processed. |
 
-## Example 1: Replace null values in a single field with a specified value
+## Example 1: Replacing null values with different values per field
 
-The following query replaces null values in the `email` field with `\<not found\>`:
-  
+The following query fills in missing instrumentation scope names with a default value:
+
 ```sql
-source=accounts
-| fields email, employer
-| fillnull with '<not found>' in email
+source=otellogs
+| where severityText IN ('ERROR', 'WARN')
+| fields severityText, `resource.attributes.service.name`, instrumentationScope.name
+| fillnull using instrumentationScope.name = 'unknown'
+| sort `resource.attributes.service.name`
 ```
 {% include copy.html %}
-  
+{% include try-in-playground.html %}
+
 The query returns the following results:
-  
-| email | employer |
-| --- | --- |
-| amberduke@pyrami.com | Pyrami |
-| hattiebond@netagy.com | Netagy |
-| \<not found\> | Quility |
-| daleadams@boink.com | null |
-  
 
-## Example 2: Replace null values in multiple fields with a specified value  
+| severityText | resource.attributes.service.name | instrumentationScope.name |
+| --- | --- | --- |
+| ERROR | checkout | unknown |
+| ERROR | checkout | unknown |
+| ERROR | frontend-proxy | unknown |
+| WARN | frontend-proxy | unknown |
+| WARN | frontend-proxy | unknown |
+| ERROR | payment | @opentelemetry/instrumentation-http |
+| ERROR | payment | unknown |
+| WARN | product-catalog | go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc |
+| WARN | product-catalog | unknown |
+| ERROR | product-catalog | unknown |
+| ERROR | recommendation | unknown |
 
-The following query replaces null values in both the `email` and `employer` fields with `\<not found\>`:
-  
+
+## Example 2: Replacing null values using value= syntax
+
+The following query uses the `value=` syntax to fill null instrumentation scope names, helping identify uninstrumented services:
+
 ```sql
-source=accounts
-| fields email, employer
-| fillnull with '<not found>' in email, employer
+source=otellogs
+| where severityText = 'ERROR'
+| fields severityText, `resource.attributes.service.name`, instrumentationScope.name
+| fillnull value='unknown' instrumentationScope.name
+| sort `resource.attributes.service.name`
 ```
 {% include copy.html %}
-  
+{% include try-in-playground.html %}
+
 The query returns the following results:
-  
-| email | employer |
-| --- | --- |
-| amberduke@pyrami.com | Pyrami |
-| hattiebond@netagy.com | Netagy |
-| \<not found\> | Quility |
-| daleadams@boink.com | \<not found\> |
-  
 
-## Example 3: Replace null values in all fields with a specified value  
+| severityText | resource.attributes.service.name | instrumentationScope.name |
+| --- | --- | --- |
+| ERROR | checkout | unknown |
+| ERROR | checkout | unknown |
+| ERROR | frontend-proxy | unknown |
+| ERROR | payment | @opentelemetry/instrumentation-http |
+| ERROR | payment | unknown |
+| ERROR | product-catalog | unknown |
+| ERROR | recommendation | unknown |
 
-The following query replaces null values in all fields when no `field-list` is specified:
-  
-```sql
-source=accounts
-| fields email, employer
-| fillnull with '<not found>'
-```
-{% include copy.html %}
-  
-The query returns the following results:
-  
-| email | employer |
-| --- | --- |
-| amberduke@pyrami.com | Pyrami |
-| hattiebond@netagy.com | Netagy |
-| \<not found\> | Quility |
-| daleadams@boink.com | \<not found\> |
-  
-
-## Example 4: Replace null values in multiple fields with different specified values  
-
-The following query shows how to use the `fillnull` command with different replacement values for multiple fields using the `using` syntax:
-  
-```sql
-source=accounts
-| fields email, employer
-| fillnull using email = '<not found>', employer = '<no employer>'
-```
-{% include copy.html %}
-  
-The query returns the following results:
-  
-| email | employer |
-| --- | --- |
-| amberduke@pyrami.com | Pyrami |
-| hattiebond@netagy.com | Netagy |
-| \<not found\> | Quility |
-| daleadams@boink.com | \<no employer\> |
-  
-
-## Example 5: Replace null values in specific fields using the value= syntax
-
-The following query shows how to use the `fillnull` command with the `value=` syntax to replace null values in specific fields:
-  
-```sql
-source=accounts
-| fields email, employer
-| fillnull value="<not found>" email employer
-```
-{% include copy.html %}
-  
-The query returns the following results:
-  
-| email | employer |
-| --- | --- |
-| amberduke@pyrami.com | Pyrami |
-| hattiebond@netagy.com | Netagy |
-| \<not found\> | Quility |
-| daleadams@boink.com | \<not found\> |
-  
-
-## Example 6: Replace null values in all fields using the value= syntax
-
-When no `field-list` is specified, the replacement applies to all fields in the result:
-  
-```sql
-source=accounts
-| fields email, employer
-| fillnull value='<not found>'
-```
-{% include copy.html %}
-  
-The query returns the following results:
-  
-| email | employer |
-| --- | --- |
-| amberduke@pyrami.com | Pyrami |
-| hattiebond@netagy.com | Netagy |
-| \<not found\> | Quility |
-| daleadams@boink.com | \<not found\> |
-  
 
 ## Limitations
 
@@ -178,4 +110,3 @@ The `fillnull` command has the following limitations:
       source=accounts | fillnull value=0 firstname, age
       # ERROR: fillnull failed: replacement value type INTEGER is not compatible with field 'firstname' (type: VARCHAR). The replacement value type must match the field type.
     ```
-  

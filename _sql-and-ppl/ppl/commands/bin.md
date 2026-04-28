@@ -76,41 +76,46 @@ The `bin` command has the following special handling for certain parameter types
 * The `aligntime` parameter applies only to time spans shorter than a day (excluding daily or monthly spans).
 * The `start` and `end` parameters expand the range (they never reduce it) and affect bin width calculations.
 
-## Example 1: Basic numeric span  
+## Example 1: Response time distribution from logs
 
 ```sql
-source=accounts
-| bin age span=10
-| fields age, account_number
-| head 3
+source=otellogs
+| rex field=body "(?<duration>\d+)ms"
+| bin duration span=100
+| stats count() as request_count by duration
+| sort duration
 ```
 {% include copy.html %}
-  
+{% include try-in-playground.html %}
+
 The query returns the following results:
-  
-| age | account_number |
+
+| request_count | duration |
 | --- | --- |
-| 30-40 | 1 |
-| 30-40 | 6 |
-| 20-30 | 13 |
+| 17 | null |
+| 1 | 0-100 |
+| 1 | 30000-30100 |
+| 1 | 3200-3300 |
   
 
-## Example 2: Large numeric span  
+## Example 2: Severity level distribution
 
 ```sql
-source=accounts
-| bin balance span=25000
-| fields balance
-| head 2
+source=otellogs
+| bin severityNumber span=5
+| stats count() as log_count by severityNumber
+| sort severityNumber
 ```
 {% include copy.html %}
-  
+{% include try-in-playground.html %}
+
 The query returns the following results:
-  
-| balance |
-| --- |
-| 25000-50000 |
-| 0-25000 |
+
+| log_count | severityNumber |
+| --- | --- |
+| 4 | 10-15 |
+| 7 | 15-20 |
+| 9 | 5-10 |
   
 
 ## Example 3: Logarithmic span (log10)  
@@ -169,21 +174,26 @@ The query returns the following results:
 | 9000-10000 |
   
 
-## Example 6: Low bin count  
+## Example 6: Log volume distribution with bins parameter
 
 ```sql
-source=accounts
-| bin age bins=2
-| fields age
-| head 1
+source=otellogs
+| stats count() as volume by `resource.attributes.service.name`
+| bin volume bins=4
+| stats count() as service_count by volume
+| sort volume
 ```
 {% include copy.html %}
-  
+{% include try-in-playground.html %}
+
 The query returns the following results:
-  
-| age |
-| --- |
-| 30-40 |
+
+| service_count | volume |
+| --- | --- |
+| 1 | 1-2 |
+| 1 | 2-3 |
+| 3 | 3-4 |
+| 2 | 4-5 |
   
 
 ## Example 7: High bin count  

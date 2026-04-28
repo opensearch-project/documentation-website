@@ -3,8 +3,8 @@ layout: default
 title: show datasources
 parent: Commands
 grand_parent: PPL
-nav_order: 36
-canonical_url: https://docs.opensearch.org/latest/sql-and-ppl/ppl/commands/showdatasources/
+nav_order: 42
+canonical_url: https://docs.opensearch.org/latest/sql-and-ppl/ppl/commands/show datasources/
 ---
 
 # show datasources
@@ -24,7 +24,7 @@ show datasources
 
 The `show datasources` command takes no parameters.  
 
-## Example 1: Fetch all Prometheus data sources
+## Example 1: Fetching all Prometheus data sources
 
 The following query fetches all Prometheus data sources:
   

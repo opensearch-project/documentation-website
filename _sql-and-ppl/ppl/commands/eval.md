@@ -3,7 +3,7 @@ layout: default
 title: eval
 parent: Commands
 grand_parent: PPL
-nav_order: 12
+nav_order: 13
 canonical_url: https://docs.opensearch.org/latest/sql-and-ppl/ppl/commands/eval/
 ---
 
@@ -12,6 +12,8 @@ canonical_url: https://docs.opensearch.org/latest/sql-and-ppl/ppl/commands/eval/
 The `eval` command evaluates the specified expression and appends the result of the evaluation to the search results.
 
 The `eval` command processes data after documents are retrieved from the shards. This means that `eval` cannot be used to filter documents before they are returned. Use a `where` clause for filtering. Additionally, because `eval` computations are performed on the coordinating node rather than distributed across data nodes, performance may be slower for large result sets.
+
+The `eval` command is not rewritten to [query domain-specific language (DSL)]({{site.url}}{{site.baseurl}}/query-dsl/). It is only executed on the coordinating node.
 {: .note}
 
 ## Syntax
@@ -32,106 +34,77 @@ The `eval` command supports the following parameters.
 | `<expression>` | Required | The expression to evaluate. |  
   
 
-## Example 1: Create a new field  
+## Example 1: Classifying logs by severity tier  
 
-The following query creates a new `doubleAge` field for each document:
+The following query creates an `is_critical` field that classifies each log as critical or non-critical based on severity, useful for building alert rules:
   
 ```sql
-source=accounts
-| eval doubleAge = age * 2
-| fields age, doubleAge
+source=otellogs
+| eval is_critical = IF(severityNumber >= 17, 'yes', 'no')
+| dedup severityText
+| sort severityNumber
+| fields severityText, is_critical
 ```
 {% include copy.html %}
+{% include try-in-playground.html %}
   
 The query returns the following results:
   
-| age | doubleAge |
+| severityText | is_critical |
 | --- | --- |
-| 32 | 64 |
-| 36 | 72 |
-| 28 | 56 |
-| 33 | 66 |
+| DEBUG | no |
+| INFO | no |
+| WARN | no |
+| ERROR | yes |
   
 
-## Example 2: Override an existing field  
+## Example 2: Finding untraced errors  
 
-The following query overrides the `age` field by adding `1` to its value:
+The following query creates two boolean fields to identify error logs and whether they have distributed tracing context. Untraced errors are harder to debug because you can't follow the request across services:
   
 ```sql
-source=accounts
-| eval age = age + 1
-| fields age
+source=otellogs
+| eval is_error = severityNumber >= 17, is_traced = LENGTH(traceId) > 0
+| where is_error = true
+| sort `resource.attributes.service.name`
+| fields `resource.attributes.service.name`, is_error, is_traced
 ```
 {% include copy.html %}
+{% include try-in-playground.html %}
   
 The query returns the following results:
   
-| age |
+| resource.attributes.service.name | is_error | is_traced |
+| --- | --- | --- |
+| checkout | True | True |
+| checkout | True | False |
+| frontend-proxy | True | True |
+| payment | True | True |
+| payment | True | False |
+| product-catalog | True | False |
+| recommendation | True | True |
+  
+
+## Example 3: Building a standardized log line  
+
+The following query prepends the severity level to the log body, creating a standardized format for export or alerting:
+  
+```sql
+source=otellogs
+| where severityText IN ('ERROR', 'WARN')
+| eval formatted = '[' + severityText + '] ' + body
+| sort severityNumber, `resource.attributes.service.name`
+| fields formatted
+| head 3
+```
+{% include copy.html %}
+{% include try-in-playground.html %}
+  
+The query returns the following results:
+  
+| formatted |
 | --- |
-| 33 |
-| 37 |
-| 29 |
-| 34 |
+| [WARN] SSL certificate for api.example.com expires in 14 days |
+| [WARN] Rate limit threshold reached: 450/500 requests per minute for API key ending in ...abc789 |
+| [WARN] Slow query detected: SELECT \* FROM products WHERE category = 'electronics' took 3200ms |
   
-
-## Example 3: Create a new field using a field defined in eval
-
-The following query creates a new field based on another field defined in the same `eval` expression. In this example, the new `ddAge` field is calculated by multiplying the `doubleAge` field by `2`. The `doubleAge` field itself is defined earlier in the `eval` command:
-  
-```sql
-source=accounts
-| eval doubleAge = age * 2, ddAge = doubleAge * 2
-| fields age, doubleAge, ddAge
-```
-{% include copy.html %}
-  
-The query returns the following results:
-  
-| age | doubleAge | ddAge |
-| --- | --- | --- |
-| 32 | 64 | 128 |
-| 36 | 72 | 144 |
-| 28 | 56 | 112 |
-| 33 | 66 | 132 |
-  
-
-## Example 4: String concatenation  
-
-The following query uses the `+` operator for string concatenation. You can concatenate string literals and field values as follows:
-  
-```sql
-source=accounts 
-| eval greeting = 'Hello ' + firstname 
-| fields firstname, greeting
-```
-{% include copy.html %}
-  
-The query returns the following results:
-  
-| firstname | greeting |
-| --- | --- |
-| Amber | Hello Amber |
-| Hattie | Hello Hattie |
-| Nanette | Hello Nanette |
-| Dale | Hello Dale |
-  
-
-## Example 5: Multiple string concatenation with type casting  
-
-The following query performs multiple concatenation operations, including type casting from numeric values to strings:
-  
-```sql
-source=accounts | eval full_info = 'Name: ' + firstname + ', Age: ' + CAST(age AS STRING) | fields firstname, age, full_info
-```
-{% include copy.html %}
-  
-The query returns the following results:
-  
-| firstname | age | full_info |
-| --- | --- | --- |
-| Amber | 32 | Name: Amber, Age: 32 |
-| Hattie | 36 | Name: Hattie, Age: 36 |
-| Nanette | 28 | Name: Nanette, Age: 28 |
-| Dale | 33 | Name: Dale, Age: 33 |
-  
-
