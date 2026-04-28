@@ -66,6 +66,7 @@ module Jekyll::LinkChecker
     'www.cloudflare.com', # 403s on bots
     'platform.openai.com', # 403s on bots
     'openai.com', # 403s on bots
+    'opensourceconnections.com', # 403s on bots
     'mvnrepository.com', # 403s on bots
     'www.intel.com', # 403s on bots
     'wordnet.princeton.edu', # 403s on bots
