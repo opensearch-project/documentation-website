@@ -8,7 +8,7 @@ nav_order: 17
 
 # fieldformat
 
-The `fieldformat` command sets a field to the result of a specified expression and appends the evaluated field to the search results. This command is an alias of [`eval`]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/eval/).
+The `fieldformat` command sets a field to the result of a specified expression and appends the evaluated field to the search results. This command is an alias of [`eval`]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/commands/eval/).
 
 It also supports string concatenation using the dot (`.`) operator, allowing you to append strings to expressions.
 
@@ -81,4 +81,4 @@ The query returns the following results:
   
 ## Related commands
 
-- [`eval`]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/eval/)
+- [`eval`]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/commands/eval/)

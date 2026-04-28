@@ -10,7 +10,7 @@ nav_order: 32
 
 The `nomv` command converts a multivalue (array) field into a single-value string field by joining all array elements with newline characters (`\n`). This operation is performed in place, replacing the original field with its joined string representation.
 
-The field must be an array type. For scalar fields, use the [`array()`]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/functions/collection/#array) function to convert the value into an array first.
+The field must be an array type. For scalar fields, use the [`array()`]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/functions/collection/#array) function to convert the value into an array first.
 {: .note}
 
 ## Syntax
@@ -60,7 +60,7 @@ The query returns the following results:
 The `nomv` command has the following limitations:
 
 - The `nomv` command is only available when the Apache Calcite query engine is enabled.
-- The newline delimiter (`\n`) is fixed and cannot be customized. For custom delimiters, use the [`mvjoin`]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/functions/collection/#mvjoin) function directly in an [`eval`]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/eval/) expression.
+- The newline delimiter (`\n`) is fixed and cannot be customized. For custom delimiters, use the [`mvjoin`]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/functions/collection/#mvjoin) function directly in an [`eval`]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/commands/eval/) expression.
 - `NULL` values within the array are automatically filtered out and do not appear in the output.
 
 ## Related commands
