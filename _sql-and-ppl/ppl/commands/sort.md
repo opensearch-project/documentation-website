@@ -3,12 +3,13 @@ layout: default
 title: sort
 parent: Commands
 grand_parent: PPL
-nav_order: 37
+nav_order: 43
 ---
 
 # sort
 
 The `sort` command sorts the search results by the specified fields.
+
 
 ## Syntax
 
@@ -41,156 +42,175 @@ The `sort` command supports the following parameters.
 | `[+|-]` | Optional | **Prefix notation only.** The plus sign (`+`) specifies ascending order, and the minus sign (`-`) specifies descending order. Default is ascending order. |
 | `[asc|desc|a|d]` | Optional | **Suffix notation only.** Specifies the sort order: `asc`/`a` for ascending, `desc`/`d` for descending. Default is ascending order. |
 
-## Example 1: Sort by one field
+## Example 1: Sorting by one field
 
-The following query sorts all documents by the `age` field in ascending order. By default, the sort command returns all results, which is equivalent to specifying `sort 0 age`:
+The following query sorts logs by severity number in ascending order, showing the least severe entries first:
 
 ```sql
-source=accounts
-| sort age
-| fields account_number, age
+source=otellogs
+| sort severityNumber
+| fields severityText, severityNumber, `resource.attributes.service.name`
+| head 4
 ```
 {% include copy.html %}
+{% include try-in-playground.html %}
 
 The query returns the following results:
 
-| account_number | age |
-| --- | --- |
-| 13 | 28 |
-| 1 | 32 |
-| 18 | 33 |
-| 6 | 36 |
+| severityText | severityNumber | resource.attributes.service.name |
+| --- | --- | --- |
+| DEBUG | 5 | cart |
+| DEBUG | 5 | product-catalog |
+| DEBUG | 5 | cart |
+| INFO | 9 | frontend |
 
 
-## Example 2: Sort by one field in descending order
+## Example 2: Sorting by one field in descending order
 
-The following query sorts all documents by the `age` field in descending order. You can use either prefix notation (`- age`) or suffix notation (`age desc`):
+The following query sorts logs by severity in descending order to surface the most critical issues first. You can use either prefix notation (`- severityNumber`) or suffix notation (`severityNumber desc`):
 
 ```sql
-source=accounts
-| sort - age
-| fields account_number, age
+source=otellogs
+| dedup severityText
+| sort - severityNumber
+| fields severityText, severityNumber
 ```
 {% include copy.html %}
+{% include try-in-playground.html %}
 
 This query is equivalent to the following query:
 
 ```sql
-source=accounts
-| sort age desc
-| fields account_number, age
+source=otellogs
+| dedup severityText
+| sort severityNumber desc
+| fields severityText, severityNumber
 ```
 {% include copy.html %}
+{% include try-in-playground.html %}
 
 The query returns the following results:
 
-| account_number | age |
+| severityText | severityNumber |
 | --- | --- |
-| 6 | 36 |
-| 18 | 33 |
-| 1 | 32 |
-| 13 | 28 |
+| ERROR | 17 |
+| WARN | 13 |
+| INFO | 9 |
+| DEBUG | 5 |
 
 
-## Example 3: Sort by multiple fields in prefix notation
+## Example 3: Sorting by multiple fields
 
-The following query uses prefix notation to sort all documents by the `gender` field in ascending order and the `age` field in descending order:
+The following query sorts errors by severity descending and service name ascending, so the most critical issues appear first and services are alphabetical within each severity level. You can use either prefix notation (`+`/`-`) or suffix notation (`asc`/`desc`):
   
 ```sql
-source=accounts
-| sort + gender, - age
-| fields account_number, gender, age
+source=otellogs
+| dedup severityText, `resource.attributes.service.name`
+| sort + severityNumber, - `resource.attributes.service.name`
+| fields severityText, severityNumber, `resource.attributes.service.name`
+| head 5
 ```
 {% include copy.html %}
+{% include try-in-playground.html %}
   
 The query returns the following results:
   
-| account_number | gender | age |
+| severityText | severityNumber | resource.attributes.service.name |
 | --- | --- | --- |
-| 13 | F | 28 |
-| 6 | M | 36 |
-| 18 | M | 33 |
-| 1 | M | 32 |
-  
+| DEBUG | 5 | product-catalog |
+| DEBUG | 5 | cart |
+| INFO | 9 | frontend |
+| INFO | 9 | checkout |
+| INFO | 9 | cart |
 
-## Example 4: Sort by multiple fields in suffix notation
+The equivalent query using suffix notation is:
 
-The following query uses suffix notation to sort all documents by the `gender` field in ascending order and the `age` field in descending order:
-  
 ```sql
-source=accounts
-| sort gender asc, age desc
-| fields account_number, gender, age
+source=otellogs
+| dedup severityText, `resource.attributes.service.name`
+| sort severityNumber asc, `resource.attributes.service.name` desc
+| fields severityText, severityNumber, `resource.attributes.service.name`
+| head 5
 ```
 {% include copy.html %}
-  
+{% include try-in-playground.html %}
+
 The query returns the following results:
-  
-| account_number | gender | age |
+
+| severityText | severityNumber | resource.attributes.service.name |
 | --- | --- | --- |
-| 13 | F | 28 |
-| 6 | M | 36 |
-| 18 | M | 33 |
-| 1 | M | 32 |
+| DEBUG | 5 | product-catalog |
+| DEBUG | 5 | cart |
+| INFO | 9 | frontend |
+| INFO | 9 | checkout |
+| INFO | 9 | cart |
   
 
-## Example 5: Sort fields with null values
+## Example 4: Sorting fields with null values
 
-The default ascending order lists null values first. The following query sorts the `employer` field in the default order:
+The default ascending order lists null values first. The following query sorts by the `instrumentationScope.name` field, showing that logs without instrumentation metadata appear before instrumented ones:
   
 ```sql
-source=accounts
-| sort employer
-| fields employer
+source=otellogs
+| sort instrumentationScope.name
+| fields instrumentationScope.name, severityText
+| head 6
 ```
 {% include copy.html %}
+{% include try-in-playground.html %}
   
 The query returns the following results:
   
-| employer |
-| --- |
-| null |
-| Netagy |
-| Pyrami |
-| Quility |
-  
-
-## Example 6: Specify the number of sorted documents to return  
-
-The following query sorts all documents and returns two documents:
-  
-```sql
-source=accounts
-| sort 2 age
-| fields account_number, age
-```
-{% include copy.html %}
-  
-The query returns the following results:
-  
-| account_number | age |
+| instrumentationScope.name | severityText |
 | --- | --- |
-| 13 | 28 |
-| 1 | 32 |
+| null | DEBUG |
+| null | ERROR |
+| null | INFO |
+| null | ERROR |
+| null | WARN |
+| null | INFO |
   
 
-## Example 7: Sort by specifying field type
+## Example 6: Specifying the number of sorted documents to return  
 
-The following query uses the `sort` command with `str()` to sort numeric values lexicographically:
-
+The following query sorts all logs by severity and returns only the 3 least severe entries:
+  
 ```sql
-source=accounts
-| sort str(account_number)
-| fields account_number
+source=otellogs
+| sort 3 severityNumber
+| fields severityText, severityNumber
 ```
 {% include copy.html %}
+{% include try-in-playground.html %}
   
 The query returns the following results:
   
-| account_number |
-| --- |
-| 1 |
-| 13 |
-| 18 |
-| 6 |
+| severityText | severityNumber |
+| --- | --- |
+| DEBUG | 5 |
+| DEBUG | 5 |
+| DEBUG | 5 |
+  
+
+## Example 7: Sorting by specifying field type
+
+The following query uses `str()` to sort severity numbers lexicographically instead of numerically. Notice that `5` and `9` appear after `21` because string sorting compares character by character:
+
+```sql
+source=otellogs
+| dedup severityText
+| sort str(severityNumber)
+| fields severityText, severityNumber
+```
+{% include copy.html %}
+{% include try-in-playground.html %}
+  
+The query returns the following results:
+  
+| severityText | severityNumber |
+| --- | --- |
+| WARN | 13 |
+| ERROR | 17 |
+| DEBUG | 5 |
+| INFO | 9 |
   

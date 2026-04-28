@@ -3,7 +3,7 @@ layout: default
 title: subquery
 parent: Commands
 grand_parent: PPL
-nav_order: 41
+nav_order: 47
 ---
 
 # subquery

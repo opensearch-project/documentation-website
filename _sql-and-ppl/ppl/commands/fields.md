@@ -3,7 +3,7 @@ layout: default
 title: fields
 parent: Commands
 grand_parent: PPL
-nav_order: 16
+nav_order: 18
 ---
 
 # fields
@@ -28,199 +28,178 @@ The `fields` command supports the following parameters.
 | `[+|-]` | Optional | If the plus sign (`+`) is used, only the fields specified in the `field-list` are included. If the minus sign (`-`) is used, all fields specified in the `field-list` are excluded. Default is `+`. |
   
 
-## Example 1: Select specified fields from the search result
+## Example 1: Selecting the fields you need for triage
 
-The following query shows how to retrieve the `account_number`, `firstname`, and `lastname` fields from the search results:
+The following query selects specific fields from the search results:
   
 ```sql
-source=accounts
-| fields account_number, firstname, lastname
+source=otellogs
+| where severityText IN ('ERROR', 'WARN')
+| sort severityNumber, `resource.attributes.service.name`
+| fields severityText, `resource.attributes.service.name`, body
+| head 3
 ```
 {% include copy.html %}
+{% include try-in-playground.html %}
   
 The query returns the following results:
   
-| account_number | firstname | lastname |
+| severityText | resource.attributes.service.name | body |
 | --- | --- | --- |
-| 1 | Amber | Duke |
-| 6 | Hattie | Bond |
-| 13 | Nanette | Bates |
-| 18 | Dale | Adams |
+| WARN | frontend-proxy | SSL certificate for api.example.com expires in 14 days |
+| WARN | frontend-proxy | Rate limit threshold reached: 450/500 requests per minute for API key ending in ...abc789 |
+| WARN | product-catalog | Slow query detected: SELECT \* FROM products WHERE category = 'electronics' took 3200ms |
   
 
-## Example 2: Remove specified fields from the search results 
+## Example 2: Removing noisy fields from results 
 
-The following query shows how to remove the `account_number` field from the search results:
+The following query removes the raw `body` field after extracting what you need, keeping the output clean:
   
 ```sql
-source=accounts
-| fields account_number, firstname, lastname
-| fields - account_number
+source=otellogs
+| where severityText IN ('ERROR', 'WARN')
+| sort severityNumber, `resource.attributes.service.name`
+| fields severityText, `resource.attributes.service.name`, severityNumber, body
+| fields - body, severityNumber
+| head 3
 ```
 {% include copy.html %}
+{% include try-in-playground.html %}
   
 The query returns the following results:
   
-| firstname | lastname |
+| severityText | resource.attributes.service.name |
 | --- | --- |
-| Amber | Duke |
-| Hattie | Bond |
-| Nanette | Bates |
-| Dale | Adams |
+| WARN | frontend-proxy |
+| WARN | frontend-proxy |
+| WARN | product-catalog |
   
 
-## Example 3: Space-delimited field selection  
+## Example 3: Selecting all severity-related fields with a prefix wildcard
 
-Fields can be specified using spaces instead of commas, providing a more concise syntax:
+When you're not sure of the exact field names, use wildcards to grab all fields starting with a common prefix. This selects both `severityText` and `severityNumber`:
   
 ```sql
-source=accounts
-| fields firstname lastname age
+source=otellogs
+| where severityText IN ('ERROR', 'WARN')
+| sort severityNumber, `resource.attributes.service.name`
+| fields severity*
+| head 3
 ```
 {% include copy.html %}
+{% include try-in-playground.html %}
   
 The query returns the following results:
   
-| firstname | lastname | age |
+| severityText | severityNumber |
+| --- | --- |
+| WARN | 13 |
+| WARN | 13 |
+| WARN | 13 |
+  
+
+## Example 4: Selecting trace correlation fields with a suffix wildcard
+
+The following query grabs all fields ending with `Id`, useful for pulling trace correlation identifiers when debugging distributed requests:
+  
+```sql
+source=otellogs
+| where LENGTH(traceId) > 0
+| fields *Id
+| head 3
+```
+{% include copy.html %}
+{% include try-in-playground.html %}
+  
+The query returns the following results:
+  
+| spanId | traceId |
+| --- | --- |
+| span0001 | abcd1234efgh5678 |
+| span0002 | abcd1234efgh5678 |
+| span0003 | abcd1234efgh5678 |
+  
+
+## Example 5: Combining explicit fields with wildcards
+
+The following query selects specific fields alongside wildcard-matched fields. This grabs the severity text plus all trace identifiers in one query:
+  
+```sql
+source=otellogs
+| where LENGTH(traceId) > 0
+| fields severityText, *Id
+| head 3
+```
+{% include copy.html %}
+{% include try-in-playground.html %}
+  
+The query returns the following results:
+  
+| severityText | spanId | traceId |
 | --- | --- | --- |
-| Amber | Duke | 32 |
-| Hattie | Bond | 36 |
-| Nanette | Bates | 28 |
-| Dale | Adams | 33 |
+| INFO | span0001 | abcd1234efgh5678 |
+| INFO | span0002 | abcd1234efgh5678 |
+| WARN | span0003 | abcd1234efgh5678 |
   
 
-## Example 4: Prefix wildcard pattern  
+## Example 6: Removing trace fields with wildcard exclusion
 
-The following query selects fields starting with a pattern using prefix wildcards:
+The following query strips all identifier fields from the output, useful when you want the log content without the tracing metadata:
   
 ```sql
-source=accounts
-| fields account*
-```
-{% include copy.html %}
-  
-The query returns the following results:
-  
-| account_number |
-| --- |
-| 1 |
-| 6 |
-| 13 |
-| 18 |
-  
-
-## Example 5: Suffix wildcard pattern  
-
-The following query selects fields ending with a pattern using suffix wildcards:
-  
-```sql
-source=accounts
-| fields *name
-```
-{% include copy.html %}
-  
-The query returns the following results:
-  
-| firstname | lastname |
-| --- | --- |
-| Amber | Duke |
-| Hattie | Bond |
-| Nanette | Bates |
-| Dale | Adams |
-  
-
-## Example 6: Wildcard pattern matching  
-
-The following query selects fields containing a pattern using `contains` wildcards:
-  
-```sql
-source=accounts
-| fields *a*
+source=otellogs
+| where severityText = 'ERROR'
+| sort `resource.attributes.service.name`
+| fields - *Id
 | head 1
 ```
 {% include copy.html %}
+{% include try-in-playground.html %}
   
 The query returns the following results:
   
-| account_number | firstname | address | balance | state | age | email | lastname |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | Amber | 880 Holmes Lane | 39225 | IL | 32 | amberduke@pyrami.com | Duke |
-  
+| @timestamp | instrumentationScope | severityText | resource | flags | attributes | droppedAttributesCount | severityNumber | time | body |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 2024-02-01 09:15:00 | {} | ERROR | {'attributes': {'service': {'name': 'checkout'}, 'host': {'name': 'checkout-8b4c2d-jp5r7'}}, 'droppedAttributesCount': 0} | 0 | {} | 0 | 17 | 2024-02-01 09:15:00 | NullPointerException in CheckoutService.placeOrder at line 142 |
 
-## Example 7: Mixed delimiter syntax  
-
-The following query combines spaces and commas for flexible field specification:
-  
-```sql
-source=accounts
-| fields firstname, account* *name
-```
-{% include copy.html %}
-  
-The query returns the following results:
-  
-| firstname | account_number | lastname |
-| --- | --- | --- |
-| Amber | 1 | Duke |
-| Hattie | 6 | Bond |
-| Nanette | 13 | Bates |
-| Dale | 18 | Adams |
-  
-
-## Example 8: Field deduplication  
+## Example 7: Deduplicating fields
 
 The following query automatically prevents duplicate columns when wildcards expand to already specified fields:
-  
+
 ```sql
-source=accounts
-| fields firstname, *name
+source=otellogs
+| fields severityText, severity*
+| head 3
 ```
 {% include copy.html %}
-  
-The query returns the following results. Even though `firstname` is explicitly specified and also matches `*name`, it appears only once because of automatic deduplication:
-  
-| firstname | lastname |
+{% include try-in-playground.html %}
+
+The query returns the following results. Even though `severityText` is explicitly specified and also matches `severity*`, it appears only once because of automatic deduplication:
+
+| severityText | severityNumber |
 | --- | --- |
-| Amber | Duke |
-| Hattie | Bond |
-| Nanette | Bates |
-| Dale | Adams |
+| INFO | 9 |
+| INFO | 9 |
+| WARN | 13 |
 
-## Example 9: Full wildcard selection  
+## Example 8: Selecting all fields  
 
-The following query selects all available fields using `*` or `` `*` ``. This expression selects all fields defined in the index schema, including fields that may contain null values. The `*` wildcard selects fields based on the index schema, not on the data content, so fields with null values are included in the result set. Use backticks (`` `*` ``) if the plain `*` does not return all expected fields:
+The following query selects all fields defined in the index schema using `` `*` ``. Fields with null values are included in the result set:
   
 ```sql
-source=accounts
+source=otellogs
+| where severityText = 'WARN'
 | fields `*`
 | head 1
 ```
 {% include copy.html %}
+{% include try-in-playground.html %}
   
 The query returns the following results:
   
-| account_number | firstname | address | balance | gender | city | employer | state | age | email | lastname |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | Amber | 880 Holmes Lane | 39225 | M | Brogan | Pyrami | IL | 32 | amberduke@pyrami.com | Duke |
-
-## Example 10: Wildcard exclusion  
-
-The following query removes fields using wildcard patterns containing the minus (`-`) operator:
-  
-```sql
-source=accounts
-| fields - *name
-```
-{% include copy.html %}
-  
-The query returns the following results:
-  
-| account_number | address | balance | gender | city | employer | state | age | email |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | 880 Holmes Lane | 39225 | M | Brogan | Pyrami | IL | 32 | amberduke@pyrami.com |
-| 6 | 671 Bristol Street | 5686 | M | Dante | Netagy | TN | 36 | hattiebond@netagy.com |
-| 13 | 789 Madison Street | 32838 | F | Nogal | Quility | VA | 28 | null |
-| 18 | 467 Hutchinson Court | 4180 | M | Orick | null | MD | 33 | daleadams@boink.com |
+| spanId | traceId | @timestamp | instrumentationScope | severityText | resource | flags | attributes | droppedAttributesCount | severityNumber | time | body |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| span0003 | abcd1234efgh5678 | 2024-02-01 09:12:00 | {'name': 'go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc', 'droppedAttributesCount': 0, 'version': '0.49.0'} | WARN | {'attributes': {'service': {'name': 'product-catalog'}, 'host': {'name': 'productcatalog-7c9d-zn4p2'}}, 'droppedAttributesCount': 0} | 0 | {} | 0 | 13 | 2024-02-01 09:12:00 | Slow query detected: SELECT \* FROM products WHERE category = 'electronics' took 3200ms |
   
 
 ## Related documentation 

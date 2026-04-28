@@ -3,7 +3,7 @@ layout: default
 title: join
 parent: Commands
 grand_parent: PPL
-nav_order: 22
+nav_order: 25
 ---
 
 # join
@@ -84,7 +84,7 @@ The extended `join` syntax supports the following parameters.
 | `type` | Optional | The join type when using extended syntax. Valid values are `left`, `outer` (same as `left`), `semi`, `anti`, and performance-sensitive types (`right`, `full`, and `cross`). Default is `inner`. |
 | `<join-field-list>` | Optional | A list of fields used to build the join criteria. These fields must exist in both datasets. If not specified, all fields common to both datasets are used as join keys. |
 | `overwrite` | Optional | Applicable only when `join-field-list` is specified. Specifies whether fields from the right dataset with duplicate names should replace corresponding fields in the main search results. Default is `true`. |
-| `max` | Optional | The maximum number of subsearch results to join with each row in the main search. Default is `0` (unlimited). |
+| `max` | Optional | The maximum number of subsearch results to join with each row in the main search. Default is `0` (unlimited) when plugins.ppl.syntax.legacy.preferred is `true`. When the setting is `false` the default value is `1`. |
 | `left` | Optional | An alias for the left dataset (typically a subsearch) used to avoid ambiguous field names. Specify as `left = <leftAlias>`. |
 | `right` | Optional | An alias for the right dataset (typically, a subsearch) used to avoid ambiguous field names. Specify as `right = <rightAlias>`. |
   
@@ -105,7 +105,7 @@ PUT /_plugins/_query/settings
 ```
 {% include copy-curl.html %}
 
-## Example 1: Join two indexes  
+## Example 1: Joining two indexes  
 
 The following query uses the basic `join` syntax to join two indexes:
   
@@ -127,7 +127,7 @@ The query returns the following results:
 | 100000.0 | 70 | England |
   
 
-## Example 2: Join with a subsearch  
+## Example 2: Joining with a subsearch  
 
 The following query combines a dataset with a subsearch using the basic `join` syntax:
   
@@ -152,7 +152,7 @@ The query returns the following results:
 | 100000.0 | 70 | England |
   
 
-## Example 3: Join using a field list  
+## Example 3: Joining using a field list  
 
 The following query uses the extended syntax and specifies a list of fields for the join criteria:
   
@@ -177,7 +177,7 @@ The query returns the following results:
 | 100000.0 | 70 | England |
   
 
-## Example 4: Join with additional options  
+## Example 4: Joining with additional options  
 
 The following query uses the extended syntax and optional parameters for more control over the join operation:
   
