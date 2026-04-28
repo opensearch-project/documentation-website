@@ -26,6 +26,10 @@ This guide assumes that you are comfortable working from the Linux command line 
    # arm64
    sudo dpkg -i opensearch-dashboards-{{site.opensearch_version}}-linux-arm64.deb
    ```
+   For new installations of OpenSearch Dashboards 2.19.6 and later, you can use the following environment variable to control the Security Dashboards plugin behavior:
+   ```bash
+   DISABLE_SECURITY_DASHBOARDS_PLUGIN=true
+   ```
 1. After the installation completes, reload the systemd manager configuration.
     ```bash
     sudo systemctl daemon-reload
