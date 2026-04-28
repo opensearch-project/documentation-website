@@ -3,8 +3,6 @@ layout: default
 title: Visualization tool
 parent: Building data visualizations
 nav_order: 15
-redirect_from:
-  - /dashboards/get-started/time-filter/
 ---
 
 # Visualization tool
@@ -50,8 +48,8 @@ Like the **Data** tab, contents of the **Metrics and axes** (or **Options**) tab
 
 Metrics or display options include:
 
-- The form factor of the graphic, such as Circle vs. Arc for gauges; or Line/Bar/Area chart types
-- Visualization-specific options, such as Stacked vs. Normal (superimposed) area charts
+- The form factor of the graphic, such as Circle or Arc for gauges; or Line/Bar/Area chart types
+- Visualization-specific options, such as Stacked or Normal (superimposed) area charts
 - Whether to display lines and dots in line graphs, line width, and line style (such as straight or smoothed)
 - Range widths
 - Color schemas (for heat maps, for example)

@@ -11,8 +11,8 @@ has_toc: false
 You can use the **Visualize** application in **OpenSearch Dashboards** to present data graphically.
 
 >This documentation uses the following terms:
->- Visualize: the OpenSearch Dashboards application for creating vizualizations.
->- **Visualize** (bold): The Visualize UI, as dislayed in [Navigating the Visualize UI](#navigating-the-visualize-ui).
+>- Visualize: the OpenSearch Dashboards application for creating visualizations.
+>- **Visualize** (bold): The Visualize UI, as displayed in [Navigating the Visualize UI](#navigating-the-visualize-ui).
 >- A _data visualization_ or _visualization_ is a single pane in the UI containing a graph, chart, or other visual representation of data. The term can also refer to the visual data representation itself.
 >- A _dashboard_ is a collection of data visualizations. See [Creating dashboards]({{site.url}}{{site.baseurl}}/dashboards/dashboard/).
 {: .note}
@@ -31,7 +31,7 @@ The following components make up the **Visualize** UI.
 - The _time filter_ (B) provides a graphical interface for selecting data values and ranges. See [Using the time filter]({{site.url}}{{site.baseurl}}/dashboards/discover/time-filter/).
 - The _filter_ tool (C) contains frequently used commands and shortcuts. See [Using the filter tool]({{site.url}}{{site.baseurl}}/dashboards/discover/filter-tool/).
 - The **Visualize** _application panel_ shows the following elements:
-  - (D) The visualization.
+  - The visualization panel (D) displays the visualization.
   - The _visualization tools_ panel (E) contains all the controls to select and configure the visualization. Its contents depend on the type of the visualization. See [Visualization tool]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-tool-ref/).
 
 
@@ -39,7 +39,7 @@ The following components make up the **Visualize** UI.
 
 Before using the **Visualize** tool, ensure that you:
 
-- [Install OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards).
+- [Install OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/).
 
 - Add sample data or import your own data into OpenSearch. To learn about adding sample datasets, see [Adding sample data]({{site.url}}{{site.baseurl}}/dashboards/quickstart/#adding-sample-data). To learn about importing your own data, see [Managing indexes]({{site.url}}{{site.baseurl}}/im-plugin/index/).
 
@@ -73,7 +73,7 @@ The procedure for building a visualization follows the same pattern in most case
 
    1. Adjust display parameters such as grids, colors, legends, and so on.
 
-1. [Save the visualization]({{site.url}}{{site.baseurl}}/dashboards/visualize/saving-a-viz).
+1. [Save the visualization]({{site.url}}{{site.baseurl}}/dashboards/visualize/saving-a-viz/).
 
 To begin immediately with creating specific visualization types, choose a visualization type from the summary table in [Visualization types](#visualization-types) to go to a tutorial or procedure.
 

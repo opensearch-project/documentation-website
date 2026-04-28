@@ -144,7 +144,7 @@ To create the area chart:
 
 1. Select **Update** to reflect these parameters in the graph.
 
-   The visualization shows the counts of cancelled vs. uncancelled flights superimposed on the timeline as show in the following image.
+   The visualization shows the counts of cancelled and uncancelled flights superimposed on the timeline as show in the following image.
 
    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/example-area-normal-count.png" width="85%"  alt="Aggregation-based area chart"/>
 
@@ -170,7 +170,7 @@ To create the area chart:
 
 ## Building a heat map
 
-A heat map displays values represented as a color or saturation gradient on a two-dimensional grid, effectively rendering a three-dimensional data display. The X and Y dimensions can be the same, as in a spatial heat map; or different, for example months vs. years in a record of average temperature at a location (thus separating the cyclic and trend data for the site).
+A heat map displays values represented as a color or saturation gradient on a two-dimensional grid, effectively rendering a three-dimensional data display. The X and Y dimensions can be the same, as in a spatial heat map; or different, for example months against years in a record of average temperature at a location (thus separating the cyclic and trend data for the site).
 
 In this tutorial, you'll use the OpenSearch sample flight data to create a visualization of flight delays for permutations of origin and destination weather descriptors.
 

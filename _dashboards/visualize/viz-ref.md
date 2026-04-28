@@ -13,7 +13,7 @@ has_toc: false
 
 A _data visualization_ or _visualization_ is a single panel in the OpenSearch UI containing a graph, chart, or other visual representation of data. OpenSearch Dashboards provides visualization tools that help you build visualizations to explore data patterns, monitor system performance, and create dashboards that drive informed decision-making.
 
-_Visualize_ is the OpenSearch Dashboards application for creating vizualizations. When displayed in bold, **Visualize** refers to the UI application, as dislayed in [Navigating the Visualize UI]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/#navigating-the-visualize-ui).
+_Visualize_ is the OpenSearch Dashboards application for creating visualizations. When displayed in bold, **Visualize** refers to the UI application, as dislayed in [Navigating the Visualize UI]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/#navigating-the-visualize-ui).
 
 >This documentation uses the following additional terms:
 >- An _index pattern_ is a view into one or more indexes in OpenSearch. See the following topic, [Understanding index patterns in OpenSearch](#understanding-index-patterns-in-opensearch). When discussing visualizations, the terms _data set_ or _data source_ refer to the data exposed by a single index pattern.
