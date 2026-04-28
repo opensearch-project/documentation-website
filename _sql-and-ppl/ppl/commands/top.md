@@ -3,7 +3,7 @@ layout: default
 title: top
 parent: Commands
 grand_parent: PPL
-nav_order: 44
+nav_order: 50
 canonical_url: https://docs.opensearch.org/latest/sql-and-ppl/ppl/commands/top/
 ---
 
@@ -33,125 +33,139 @@ The `top` command supports the following parameters.
 | `<field-list>` | Required | A comma-delimited list of field names.  |
 | `<by-clause>` | Optional | One or more fields to group the results by. |
 
-## Example 1: Display counts in the default count column
+## Example 1: Displaying counts in the default count column
 
-The following query finds the most common gender values:
+The following query finds the most common severity levels:
 
 ```sql
-source=accounts
-| top gender
+source=otellogs
+| top severityText
 ```
 {% include copy.html %}
+{% include try-in-playground.html %}
 
 By default, the `top` command automatically includes a `count` column showing the frequency of each value:
 
-| gender | count |
+| severityText | count |
 | --- | --- |
-| M | 3 |
-| F | 1 |
+| ERROR | 7 |
+| INFO | 6 |
+| WARN | 4 |
+| DEBUG | 3 |
 
-
-## Example 2: Find the most common values without the count display
+## Example 2: Finding the most common values without the count display
 
 The following query uses `showcount=false` to hide the `count` column in the results:
 
 ```sql
-source=accounts
-| top showcount=false gender
+source=otellogs
+| top showcount=false severityText
 ```
 {% include copy.html %}
+{% include try-in-playground.html %}
 
 The query returns the following results:
 
-| gender |
+| severityText |
 | --- |
-| M |
-| F |
+| ERROR |
+| INFO |
+| WARN |
+| DEBUG |
 
-## Example 3: Rename the count column
+## Example 3: Renaming the count column
 
 The following query uses the `countfield` parameter to specify a custom name (`cnt`) for the count column instead of the default `count`:
   
 ```sql
-source=accounts
-| top countfield='cnt' gender
+source=otellogs
+| top countfield='cnt' severityText
 ```
 {% include copy.html %}
+{% include try-in-playground.html %}
   
 The query returns the following results:
   
-| gender | cnt |
+| severityText | cnt |
 | --- | --- |
-| M | 3 |
-| F | 1 |
-  
-## Example 4: Limit the number of returned results
+| ERROR | 7 |
+| INFO | 6 |
+| WARN | 4 |
+| DEBUG | 3 |
 
-The following query returns the top 1 most common gender value:
+## Example 4: Limiting the number of returned results
+
+The following query returns the top 1 most common severity level:
 
 ```sql
-source=accounts
-| top 1 showcount=false gender
+source=otellogs
+| top 1 showcount=false severityText
 ```
 {% include copy.html %}
+{% include try-in-playground.html %}
 
 The query returns the following results:
 
-| gender |
+| severityText |
 | --- |
-| M |
+| ERROR |
 
+## Example 5: Grouping the results
 
-## Example 5: Group the results
-
-The following query uses the `by` clause to find the most common age within each gender group and show it separately for each gender:
+The following query finds the most common severity level within each service:
 
 ```sql
-source=accounts
-| top 1 showcount=false age by gender
+source=otellogs
+| top 1 showcount=false severityText by `resource.attributes.service.name`
 ```
 {% include copy.html %}
+{% include try-in-playground.html %}
 
 The query returns the following results:
 
-| gender | age |
+| resource.attributes.service.name | severityText |
 | --- | --- |
-| F | 28 |
-| M | 32 |
+| product-catalog | WARN |
+| frontend-proxy | WARN |
+| recommendation | ERROR |
+| payment | ERROR |
+| checkout | ERROR |
+| cart | DEBUG |
+| frontend | INFO |
 
-## Example 6: Specify null value handling
+## Example 6: Specifying null value handling
 
 The following query specifies `usenull=false` to exclude null values:
 
 ```sql
-source=accounts
-| top usenull=false email
+source=otellogs
+| top usenull=false instrumentationScope.name
 ```
 {% include copy.html %}
+{% include try-in-playground.html %}
   
 The query returns the following results:
   
-| email | count |
+| instrumentationScope.name | count |
 | --- | --- |
-| amberduke@pyrami.com | 1 |
-| daleadams@boink.com | 1 |
-| hattiebond@netagy.com | 1 |
+| @opentelemetry/instrumentation-http | 2 |
+| Microsoft.Extensions.Hosting | 1 |
+| go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc | 1 |
 
 The following query specifies `usenull=true` to include null values in the results:
 
 ```sql
-source=accounts
-| top usenull=true email
+source=otellogs
+| top usenull=true instrumentationScope.name
 ```
 {% include copy.html %}
+{% include try-in-playground.html %}
   
 The query returns the following results:
   
-| email | count |
+| instrumentationScope.name | count |
 | --- | --- |
-| null | 1 |
-| amberduke@pyrami.com | 1 |
-| daleadams@boink.com | 1 |
-| hattiebond@netagy.com | 1 |
-  
-
+| null | 16 |
+| @opentelemetry/instrumentation-http | 2 |
+| Microsoft.Extensions.Hosting | 1 |
+| go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc | 1 |

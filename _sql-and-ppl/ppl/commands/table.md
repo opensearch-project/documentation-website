@@ -3,7 +3,7 @@ layout: default
 title: table
 parent: Commands
 grand_parent: PPL
-nav_order: 42
+nav_order: 48
 canonical_url: https://docs.opensearch.org/latest/sql-and-ppl/ppl/commands/table/
 ---
 
@@ -30,22 +30,25 @@ The `table` command supports the following parameters.
 
 ## Example: Basic table command usage  
 
-The following query shows basic field selection using the `table` command:
+The following query builds a quick incident summary table showing severity, service, and the log message for recent errors:
   
 ```sql
-source=accounts
-| table firstname lastname age
+source=otellogs
+| where severityText IN ('ERROR', 'WARN')
+| sort - severityNumber, `resource.attributes.service.name`
+| table severityText `resource.attributes.service.name` body
+| head 3
 ```
 {% include copy.html %}
+{% include try-in-playground.html %}
   
 The query returns the following results:
   
-| firstname | lastname | age |
+| severityText | resource.attributes.service.name | body |
 | --- | --- | --- |
-| Amber | Duke | 32 |
-| Hattie | Bond | 36 |
-| Nanette | Bates | 28 |
-| Dale | Adams | 33 |
+| ERROR | checkout | NullPointerException in CheckoutService.placeOrder at line 142 |
+| ERROR | checkout | Kafka producer delivery failed: message too large for topic order-events (max 1048576 bytes) |
+| ERROR | frontend-proxy | [2024-02-01T09:20:00.456Z] "POST /api/checkout HTTP/1.1" 503 - 0 30000 checkout-8d4f7b-mk2p9 |
   
 
 ## Related documentation 
