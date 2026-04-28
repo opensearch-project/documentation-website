@@ -3,6 +3,7 @@ layout: default
 title: Metrics
 nav_order: 25
 has_children: true
+canonical_url: https://docs.opensearch.org/latest/benchmark/metrics/
 ---
 
 # Metrics

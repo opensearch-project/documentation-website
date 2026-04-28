@@ -3,6 +3,7 @@ layout: default
 title: Workload reference
 nav_order: 60
 has_children: true
+canonical_url: https://docs.opensearch.org/latest/benchmark/workloads/
 ---
 
 # OpenSearch Benchmark workload reference
