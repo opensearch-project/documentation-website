@@ -8,9 +8,9 @@ nav_order: 32
 
 # nomv
 
-The `nomv` command converts a multivalue (array) field into a single-value string field by joining all array elements with newline characters (`\n`). This operation is performed in-place, replacing the original field with its joined string representation.
+The `nomv` command converts a multivalue (array) field into a single-value string field by joining all array elements with newline characters (`\n`). This operation is performed in place, replacing the original field with its joined string representation.
 
-The field must be an array type. For scalar fields, use the `array()` function to create an array first.
+The field must be an array type. For scalar fields, use the [`array()`]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/functions/collection/#array) function to convert the value into an array first.
 {: .note}
 
 ## Syntax
@@ -29,9 +29,9 @@ The `nomv` command supports the following parameters.
 | --- | --- | --- |
 | `<field>` | Required | The name of the field whose multivalue content should be converted to a single-value string. |
 
-## Example 1: Convert a collected list to a single-value string
+## Example: Convert a collected list to a single-value string
 
-The following query collects all service names that reported errors into an array, then converts it to a string:
+The following query collects all service names into an array. It then filters to include only services that reported errors and converts the array into a string:
 
 ```sql
 source=otellogs
@@ -59,11 +59,11 @@ The query returns the following results:
 
 The `nomv` command has the following limitations:
 
-- The `nomv` command is only available when the Calcite query engine is enabled.
-- The newline delimiter (`\n`) is fixed and cannot be customized. For custom delimiters, use the `mvjoin` function directly in an `eval` expression.
+- The `nomv` command is only available when the Apache Calcite query engine is enabled.
+- The newline delimiter (`\n`) is fixed and cannot be customized. For custom delimiters, use the [`mvjoin`]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/functions/collection/#mvjoin) function directly in an [`eval`]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/eval/) expression.
 - `NULL` values within the array are automatically filtered out and do not appear in the output.
 
 ## Related commands
 
-- [`mvcombine`]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/commands/mvcombine/) -- Combines multiple rows into a single row with multivalue fields
-- [`mvexpand`]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/commands/mvexpand/) -- Expands multivalue fields into separate rows
+- [`mvcombine`]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/commands/mvcombine/) -- Combines multiple rows into a single row with multivalue fields.
+- [`mvexpand`]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/commands/mvexpand/) -- Expands multivalue fields into separate rows.

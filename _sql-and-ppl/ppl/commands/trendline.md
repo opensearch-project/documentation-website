@@ -31,7 +31,7 @@ The `trendline` command supports the following parameters.
 | `<field>` | Required | The field for which the moving average is calculated. |
 | `<alias>` | Optional | The name of the resulting column containing the moving average. Default is the `<field>` name with `_trendline` appended. |
 
-## Example 1: Track whether severity is escalating over time
+## Example 1: Tracking whether severity is escalating over time
 
 The following query calculates a 3-point simple moving average of `severityNumber`:
   
@@ -57,7 +57,7 @@ The query returns the following results:
 | ERROR | 17 | 13.0 |
   
 
-## Example 2: Use weighted moving average for recent-biased trends
+## Example 2: Using weighted moving average for recent-biased trends
 
 The following query calculates a weighted moving average, which gives more weight to recent values:
   

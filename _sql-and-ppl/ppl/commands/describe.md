@@ -28,7 +28,7 @@ The `describe` command supports the following parameters.
 | `<data-source>` | Optional | The data source to use. Default is the OpenSearch `datasource`. |
 | `<schema>` | Optional | The schema to use. Default is the default schema. |
 
-## Example 1: Fetch all metadata  
+## Example 1: Fetching all metadata  
 
 This example describes the `accounts` index:
   
@@ -54,7 +54,7 @@ The query returns the following results:
 | docTestCluster | null | accounts | lastname | null | string | null | null | null | 10 | 2 | null | null | null | null | null | 10 |  | null | null | null | null | NO |  |
   
 
-## Example 2: Fetch metadata with a condition and filter  
+## Example 2: Fetching metadata with a condition and filter  
 
 This example retrieves columns of the type `bigint` from the `accounts` index:
   
@@ -74,7 +74,7 @@ The query returns the following results:
 | age |
   
 <!-- temporarily commented out because the admin section is not ported
-## Example 3: Fetch table metadata for a Prometheus data source
+## Example 3: Fetching table metadata for a Prometheus data source
 
 See [Fetch metadata for table in Prometheus datasource]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/admin/datasources/) for more context.
 

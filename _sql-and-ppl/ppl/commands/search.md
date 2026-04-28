@@ -137,7 +137,7 @@ Consider the following performance optimizations when working with different fie
 Cross-cluster search lets any node in a cluster execute search requests against other clusters. Refer to [Cross-Cluster Search]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/admin/cross_cluster_search/) for configuration.
 -->
 
-## Example 1: Fetch all data
+## Example 1: Fetching all data
 
 Retrieve all documents from an index:
 
@@ -157,7 +157,7 @@ The query returns the following results:
 | span0003 | abcd1234efgh5678 | 2024-02-01 09:12:00 | {'name': 'go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc', 'droppedAttributesCount': 0, 'version': '0.49.0'} | WARN | {'attributes': {'service': {'name': 'product-catalog'}, 'host': {'name': 'productcatalog-7c9d-zn4p2'}}, 'droppedAttributesCount': 0} | 0 | {} | 0 | 13 | 2024-02-01 09:12:00 | Slow query detected: SELECT \* FROM products WHERE category = 'electronics' took 3200ms |
 
 
-## Example 2: Text search
+## Example 2: Searching text
 
 For basic text search, use an unquoted single term:
   
@@ -302,7 +302,7 @@ The preceding expression is evaluated as `(severityText="ERROR" OR severityText=
 | ERROR | 17 |
 | ERROR | 17 |
 
-## Example 4: NOT compared to != semantics
+## Example 4: Comparing NOT with != semantics
 
 Both `!=` and `NOT` operators find documents in which the field value is not equal to the specified value. However, the `!=` operator excludes documents containing null or missing fields, while the `NOT` operator includes them. The following queries show this difference using `instrumentationScope.name`, which is null for most records.
 
@@ -345,7 +345,7 @@ The query returns the following results:
 | null |
 | null |
 
-## Example 5: Range queries
+## Example 5: Querying ranges
 
 Use comparison operators (`>,` `<,` `>=` and `<=`) to filter numeric and date fields within specific ranges. Range queries are particularly useful for filtering by age, price, timestamps, or any numeric metrics:
 
@@ -368,7 +368,7 @@ The query returns the following results:
 
 
 
-## Example 6: Wildcards
+## Example 6: Using wildcards
 
 The following queries demonstrate wildcard pattern matching. In wildcard patterns, `*` matches zero or more characters, while `?` matches exactly one character.
 
@@ -517,7 +517,7 @@ The query returns the following results:
 | Database primary node unreachable: connection refused to db-primary-01:5432 | product-catalog |
 | Kafka producer delivery failed: message too large for topic order-events (max 1048576 bytes) | checkout |
 
-## Example 9: Complex expressions  
+## Example 9: Using complex expressions  
 
 To create sophisticated search queries, combine multiple conditions using Boolean operators and parentheses:
   
@@ -538,7 +538,7 @@ The query returns the following results:
 | ERROR |
 | ERROR |
 
-## Example 10: Time modifiers  
+## Example 10: Using time modifiers  
 
 Time modifiers filter search results by time range using the implicit `@timestamp` field. They support various time formats for precise temporal filtering.
 

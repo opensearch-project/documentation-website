@@ -50,7 +50,7 @@ You can set the `max_match` limit in the `plugins.ppl.rex.max_match.limit` clust
 {: .note}
 
 
-## Example 1: Extract service name and error type from log messages  
+## Example 1: Extracting service name and error type from log messages  
 
 The following query extracts the error type from Java exception log messages. Non-matching rows return `null` for the extracted field:
   
@@ -73,7 +73,7 @@ The query returns the following results:
 | Out of memory: Java heap space - shutting down pod payment-6f8d4b-ht7q3 | null |
   
 
-## Example 2: Extract multiple words using max_match  
+## Example 2: Extracting multiple words using max_match  
 
 The following query uses the `rex` command with the `max_match` parameter to extract multiple words from the `body` field. The extracted field is returned as an array of strings:
   
@@ -96,7 +96,7 @@ The query returns the following results:
 | Rate limit threshold reached: 450/500 requests per minute for API key ending in ...abc789 | [Rate,limit,threshold] |
   
 
-## Example 3: Replace text using sed mode  
+## Example 3: Replacing text using sed mode  
 
 The following query uses `sed` mode to mask IP addresses in log messages for privacy compliance:
 
@@ -115,7 +115,7 @@ The query returns the following results:
 | --- |
 | User U300 authenticated via OAuth2 from xxx.xxx.xxx.xxx |
 
-## Example 4: Track match positions using offset_field  
+## Example 4: Tracking match positions using offset_field  
 
 The following query tracks the character positions where matches occur, useful for highlighting matches in a UI:
   

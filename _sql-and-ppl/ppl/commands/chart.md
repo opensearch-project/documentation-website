@@ -60,7 +60,7 @@ The query returns the following results:
 | 20 |
   
 
-## Example 2: Group by a single field  
+## Example 2: Grouping by a single field  
 
 This example counts logs by severity level, useful for a severity distribution pie chart:
   

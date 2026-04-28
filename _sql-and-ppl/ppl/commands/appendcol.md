@@ -28,7 +28,7 @@ The `appendcol` command supports the following parameters.
 | `override` | Optional | Specifies whether the results of the main search should be overwritten when column names conflict. Default is `false`. |
   
 
-## Example 1: Append a different aggregation alongside existing results
+## Example 1: Appending a different aggregation alongside existing results
 
 This example shows log counts per service alongside error counts per service. Because both queries group by service name in the same sort order, the rows align correctly:
 
@@ -54,7 +54,7 @@ The query returns the following results:
 | product-catalog | 4 | null |
 | recommendation | 1 | null |
 
-## Example 2: Append multiple subsearch results
+## Example 2: Appending multiple subsearch results
 
 The following query chains multiple `appendcol` commands to add summary statistics alongside detail rows. The first appendcol adds the total error count, and the second adds the number of affected services:
 
@@ -79,7 +79,7 @@ The query returns the following results:
 | frontend-proxy | ERROR | [2024-02-01T09:20:00.456Z] "POST /api/checkout HTTP/1.1" 503 - 0 30000 checkout-8d4f7b-mk2p9 | null | null |
 | payment | ERROR | Payment failed: connection timeout to payment gateway after 30000ms | null | null |
 
-## Example 3: Resolve column name conflicts using the override parameter
+## Example 3: Resolving column name conflicts using the override parameter
 
 When the main search and subsearch share a column name, `override=true` replaces the main search values with the subsearch values. In this example, both produce a column named `agg` -- the main search uses it for total log counts, the subsearch for error-only counts. With override, the error counts replace the totals:
 

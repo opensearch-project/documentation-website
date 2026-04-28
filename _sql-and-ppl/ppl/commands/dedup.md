@@ -31,7 +31,7 @@ The `dedup` command supports the following parameters.
 | `consecutive` | Optional | When set to `true`, removes only consecutive duplicate documents. Default is `false`. Requires the legacy SQL engine (`plugins.calcite.enabled=false`). |
   
 
-## Example 1: Remove duplicates based on a single field  
+## Example 1: Removing duplicates based on a single field  
 
 The following query deduplicates by service name to get one sample error per service, giving you a quick view of what's failing across your system:
   
@@ -56,7 +56,7 @@ The query returns the following results:
 | recommendation | ERROR | Failed to process recommendation request: invalid product ID from 203.0.113.50 |
   
 
-## Example 2: Retain multiple duplicate documents  
+## Example 2: Retaining multiple duplicate documents  
 
 The following query keeps up to two logs per severity level, giving you a broader sample of each level to understand the variety of issues:
   
@@ -82,7 +82,7 @@ The query returns the following results:
 | WARN | 13 |
   
 
-## Example 3: Handle documents with empty field values  
+## Example 3: Handling documents with empty field values  
 
 The following query deduplicates by instrumentation scope name to see which OTel SDKs are reporting. By default, records with null values are dropped:
   
@@ -123,7 +123,7 @@ The query returns the following results:
 | go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc |
   
 
-## Example 4: Deduplicate consecutive documents  
+## Example 4: Deduplicating consecutive documents  
 
 The following query removes duplicate consecutive documents. When logs are sorted by severity, this shows the transitions between severity levels, helping you see the pattern of escalation:
   

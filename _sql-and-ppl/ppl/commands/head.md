@@ -31,7 +31,7 @@ The `head` command supports the following parameters.
 | `<offset>` | Optional | The number of results to skip (used with the `from` keyword). Must be an integer. Default is `0`. |
   
 
-## Example 1: Retrieve the first set of results using the default size 
+## Example 1: Retrieving the first set of results using the default size 
 
 The following query retrieves the most recent errors, limited to the default 10 results. This is a common first step when investigating an incident:
   
@@ -61,7 +61,7 @@ The query returns the following results:
 | WARN | product-catalog | Slow query detected: SELECT \* FROM products WHERE category = 'electronics' took 3200ms |
   
 
-## Example 2: Retrieve a specified number of results  
+## Example 2: Retrieving a specified number of results  
 
 The following query returns the top 3 most critical log entries for a quick severity check:
   
@@ -84,7 +84,7 @@ The query returns the following results:
 | ERROR | frontend-proxy | [2024-02-01T09:20:00.456Z] "POST /api/checkout HTTP/1.1" 503 - 0 30000 checkout-8d4f7b-mk2p9 |
   
 
-## Example 3: Retrieve the first N results after an offset M
+## Example 3: Retrieving the first N results after an offset M
 
 The following query skips the 2 most critical entries and returns the next 3, useful for paging through results after reviewing the top issues:
   

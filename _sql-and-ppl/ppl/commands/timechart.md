@@ -164,7 +164,7 @@ The query returns the following results:
 | 2024-02-01 09:15:00 | product-catalog | 3 |
   
 
-## Example 4: Exclude the OTHER category
+## Example 4: Excluding the OTHER category
 
 The following query shows only the top 2 services without an OTHER bucket by setting useother=false:
 
@@ -228,7 +228,7 @@ The query returns the following results:
 | 2024-02-01 09:00:00 | 7 |
   
 
-## Example 7: Use limit=0 with count() to show all values  
+## Example 7: Using limit=0 with count() to show all values  
 
 This example uses the `events_many_hosts` dataset, which contains 11 distinct hosts.
 
@@ -256,7 +256,7 @@ All 11 hosts are returned as separate rows without an `OTHER` category:
 | 2024-07-01 00:00:00 | web-10 | 1 |
 | 2024-07-01 00:00:00 | web-11 | 1 |
 
-## Example 8: Use useother=false with the count() function  
+## Example 8: Using useother=false with the count() function  
 
 The following query limits the results to the top 10 hosts without creating an `OTHER` category by setting `useother=false`:
   
@@ -282,7 +282,7 @@ The query returns the following results:
 | 2024-07-01 00:00:00 | web-10 | 1 |
   
 
-## Example 9: Use the limit parameter with the useother parameter and the avg() function  
+## Example 9: Using the limit parameter with the useother parameter and the avg() function  
 
 The following query displays the top 3 hosts based on average `cpu_usage` per hour. All remaining hosts are grouped into an `OTHER` category (by default, `useother=true`):
   
@@ -338,7 +338,7 @@ The `events_null` dataset contains one entry without a `host` value. Because the
 | 2024-07-01 00:00:00 | web-02 | 2 |
   
 
-## Example 11: Calculate the per-second packet rate  
+## Example 11: Calculating the per-second packet rate  
 
 The following query calculates the per-second packet rate for network traffic data using the `per_second()` function:
   

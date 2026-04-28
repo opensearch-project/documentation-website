@@ -29,7 +29,7 @@ The `appendpipe` command supports the following parameters.
 | `<subpipeline>` | Required | A list of commands applied to the search results produced by the commands that precede the `appendpipe` command. |
   
 
-## Example 1: Append a total row to aggregated results  
+## Example 1: Appending a total row to aggregated results  
 
 The following query counts logs by severity level, then appends a total row. This is useful for building summary reports that include both breakdowns and totals:
   
@@ -54,7 +54,7 @@ The query returns the following results:
 | null | null | 20 |
   
 
-## Example 2: Append summary statistics to detail rows  
+## Example 2: Appending summary statistics to detail rows  
 
 The following query shows error counts per service, then appends the overall average error count across all services:
   

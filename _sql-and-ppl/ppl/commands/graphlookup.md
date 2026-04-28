@@ -6,9 +6,22 @@ grand_parent: PPL
 nav_order: 21
 ---
 
-# graphLookup (Experimental)
+# graphLookup
 
-The `graphLookup` command performs recursive graph traversal on a collection using a breadth-first search (BFS) algorithm. It searches for documents matching a start value and recursively traverses connections between documents based on specified fields. This is useful for hierarchical data like organizational charts, social networks, or routing graphs.
+This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).
+{: .warning}
+
+The `graphLookup` command performs recursive graph traversal on a collection using a breadth-first search (BFS) algorithm. It finds documents matching a starting value and recursively traverses relationships between documents based on specified fields. This is useful for hierarchical data such as organizational charts, social networks, or routing graphs.
+
+The `graphLookup` command performs a breadth-first search (BFS) traversal:
+
+1. For each source document, extract the value of `start`
+2. Query the lookup index to find documents in which `toField` matches the start value
+3. Add matched documents to the result array
+4. Extract `fromField` values from matched documents to continue traversal
+5. Repeat steps 2-4 until no new documents are found or `maxDepth` is reached
+
+For bidirectional traversal (`<->`), the algorithm also follows edges in the reverse direction by additionally matching `fromField` values.
 
 ## Syntax
 
@@ -37,46 +50,29 @@ The `graphLookup` command supports the following parameters.
 | Parameter | Required/Optional | Description |
 |---|---|---|
 | `<lookupIndex>` | Required | The name of the index to perform the graph traversal on. Can be the same as the source index for self-referential graphs. |
-| `start=<startField>` | Required | The field in the source documents whose value is used to initiate the recursive search. The value of this field is matched against `toField` in the lookup index. Supports both single values and array values as starting points. |
-| `edge=<fromField><operator><toField>` | Required | Defines the traversal path between nodes, specifying the connection fields and the direction of traversal. See [Edge Sub-parameters](#edge-sub-parameters). |
-| `maxDepth=<maxDepth>` | Optional | The maximum recursion depth (number of hops). Default is `0`. A value of `0` returns only direct connections to the start values. A value of `1` returns the initial matches plus one additional recursive step, and so on. |
-| `depthField=<depthField>` | Optional | The name of the field added to each traversed document to indicate its recursion depth. If not specified, no depth field is added. Depth starts at `0` for the first level of matches. |
-| `supportArray=(true \| false)` | Optional | When `true`, disables early visited-node filter pushdown to OpenSearch. Default is `false`. Set to `true` when `fromField` or `toField` contains array values to ensure correct traversal behavior. See [Array Field Handling](#array-field-handling) for details. |
-| `batchMode=(true \| false)` | Optional | When `true`, collects all start values from all source rows and performs a single unified BFS traversal. Default is `false`. The output changes to two arrays: `[Array<sourceRows>, Array<lookupResults>]`. See [Batch Mode](#batch-mode) for details. |
-| `usePIT=(true \| false)` | Optional | When `true`, enables Point In Time (PIT) search for the lookup index, allowing paginated retrieval of complete results without the `max_result_window` size limit. Default is `false`. See [PIT Search](#pit-search) for details. |
-| `filter=(<condition>)` | Optional | A filter condition that restricts which lookup index documents participate in the graph traversal. Only documents matching the condition are considered as candidates during BFS. Parentheses around the condition are required. Example: `filter=(status = 'active' AND age > 18)`. |
-| `as <outputField>` | Required | The name of the output array field that will contain all documents discovered during the graph traversal. |
+| `start=<startField>` | Required | The field in the source documents whose value is used to initiate the recursive search. The value is matched against `toField` in the lookup index. Supports both single values and arrays. |
+| `edge=<fromField><operator><toField>` | Required | Defines the traversal path between nodes, specifying how documents are connected and the direction of traversal. See [Edge parameters](#edge-parameters). |
+| `maxDepth=<maxDepth>` | Optional | The maximum recursion depth (number of hops). Default is `0`. A value of `0` returns only direct connections; higher values expand traversal accordingly. |
+| `depthField=<depthField>` | Optional | The name of the field added to each result document to indicate recursion depth. If omitted, no depth information is added. Depth starts at `0` for the first level. |
+| `supportArray=(true \| false)` | Optional | When `true`, disables early visited-node filter pushdown to OpenSearch. Default is `false`. Enable when `fromField` or `toField` contains array values to ensure correct traversal behavior. See [Array Field Handling](#array-field-handling). |
+| `batchMode=(true \| false)` | Optional | When `true`, collects all start values and performs a single unified BFS traversal. Default is `false`. Output becomes two arrays: `[Array<sourceRows>, Array<lookupResults>]`. See [Batch Mode](#batch-mode). |
+| `usePIT=(true \| false)` | Optional | When `true`, enables Point In Time (PIT) search for the lookup index, allowing complete paginated traversal beyond the `max_result_window` limit. Default is `false`. See [PIT Search](#pit-search). |
+| `filter=(<condition>)` | Optional | A filter condition that restricts which lookup index documents participate in traversal. Only matching documents are considered during BFS. Parentheses are required. Example: `filter=(status = 'active' AND age > 18)`. |
+| `as <outputField>` | Required | The name of the output field that stores all documents discovered during traversal. |
 
-### Edge Sub-parameters
+### Edge parameters
 
-The `edge` parameter uses the syntax `edge=<fromField><operator><toField>` and consists of three components:
+The `edge` parameter uses the syntax `edge=<fromField><operator><toField>` and consists of the following components.
 
 | Component | Description |
 |---|---|
-| `fromField` | The field in the lookup index documents used for recursion. After a document is matched, the value of this field is used to find the next set of connected documents. Supports both single values and array values. |
-| `toField` | The field in the lookup index documents to match against. Documents where `toField` equals the current traversal value are included in the results. |
-| `operator` | Specifies the direction of traversal. `-->` performs a **unidirectional** traversal from `fromField` to `toField` only. `<->` performs a **bidirectional** traversal between `fromField` and `toField`. |
+| `fromField` | The field in the lookup index documents used as the source of traversal. After a document is matched, the value of this field is used to find the next set of connected documents. Supports both single values and arrays. |
+| `toField` | The field in the lookup index documents used for matching. Documents in which `toField` equals the current traversal value are included in the results. |
+| `operator` | Specifies the direction of traversal:<br>- `-->` performs a **unidirectional** traversal from `fromField` to `toField` only (for example, `edge=reportsTo-->name` traverses from `reportsTo` to `name` in one direction only).<br>- `<->` performs a **bidirectional** traversal between `fromField` and `toField` (for example, `edge=reportsTo<->name` traverses between `reportsTo` and `name` in both directions). |
 
-**Examples:**
+## Example 1: Traversing an employee hierarchy
 
-- **Unidirectional:** `edge=reportsTo-->name` — traverses from `reportsTo` to `name` in one direction only.
-- **Bidirectional:** `edge=reportsTo<->name` — traverses between `reportsTo` and `name` in both directions.
-
-## How It Works
-
-The `graphLookup` command performs a breadth-first search (BFS) traversal:
-
-1. For each source document, extract the value of `start`
-2. Query the lookup index to find documents where `toField` matches the start value
-3. Add matched documents to the result array
-4. Extract `fromField` values from matched documents to continue traversal
-5. Repeat steps 2-4 until no new documents are found or `maxDepth` is reached
-
-For bidirectional traversal (`<->`), the algorithm also follows edges in the reverse direction by additionally matching `fromField` values.
-
-## Example 1: Employee Hierarchy Traversal
-
-Given an `employees` index with the following documents:
+Consider an `employees` index containing the following documents.
 
 | id | name | reportsTo |
 |----|------|-----------|
@@ -109,11 +105,11 @@ The query returns the following results:
 | Asya | Ron | 5 | [{name:Ron, reportsTo:Andrew, id:3}] |
 | Dan | Andrew | 6 | [{name:Andrew, reportsTo:null, id:4}] |
 
-Each element in the `reportingHierarchy` array is a struct with named fields from the lookup index. For Dev, the traversal starts with `reportsTo="Eliot"`, finds the Eliot record, and returns it in the `reportingHierarchy` array.
+Each element in the `reportingHierarchy` array is a `struct` containing named fields from the lookup index. For the employee named `Dev`, the traversal starts with `reportsTo="Eliot"`, finds the record for `Eliot`, and includes it in the `reportingHierarchy` array.
 
-## Example 2: Employee Hierarchy with Depth Tracking
+## Example 2: Adding depth tracking
 
-The following query adds a depth field to track how many levels each manager is from the employee:
+The following query adds a `depthField` named `level` to track the number of levels each manager is from the employee:
 
 ```sql
 source = employees
@@ -136,11 +132,11 @@ The query returns the following results:
 | Asya | Ron | 5 | [{name:Ron, reportsTo:Andrew, id:3, level:0}] |
 | Dan | Andrew | 6 | [{name:Andrew, reportsTo:null, id:4, level:0}] |
 
-The depth field `level` is added to each struct in the result array. A value of `0` indicates the first level of matches.
+The `level` field is added to each struct in the result array. A value of `0` indicates the first level of matches.
 
-## Example 3: Limited Depth Traversal
+## Example 3: Limiting the traversal depth
 
-The following query limits traversal to 2 levels using `maxDepth=1`:
+The following query limits traversal to two levels using `maxDepth=1` (depth `0` and `1`):
 
 ```sql
 source = employees
@@ -163,11 +159,9 @@ The query returns the following results:
 | Asya | Ron | 5 | [{name:Ron, reportsTo:Andrew, id:3}, {name:Andrew, reportsTo:null, id:4}] |
 | Dan | Andrew | 6 | [{name:Andrew, reportsTo:null, id:4}] |
 
-With `maxDepth=1`, the traversal goes two levels deep (depth 0 and depth 1).
+## Example 4: Finding reachable airports
 
-## Example 4: Airport Connections Graph
-
-Given an `airports` index with the following documents:
+Consider an `airports` index containing the following documents.
 
 | airport | connects |
 |---------|----------|
@@ -177,7 +171,7 @@ Given an `airports` index with the following documents:
 | PWM | [BOS, LHR] |
 | LHR | [PWM] |
 
-The following query finds reachable airports from each airport:
+The following query finds all airports reachable from each airport:
 
 ```sql
 source = airports
@@ -198,9 +192,11 @@ The query returns the following results:
 | PWM | [BOS, LHR] | [{airport:PWM, connects:[BOS, LHR]}] |
 | LHR | [PWM] | [{airport:LHR, connects:[PWM]}] |
 
-## Example 5: Cross-Index Graph Lookup
+## Example 5: Using different source and lookup indexes
 
-The `graphLookup` command can use different source and lookup indexes. Given a `travelers` index:
+The `graphLookup` command can use different source and lookup indexes. 
+
+Consider a `travelers` index containing the following documents.
 
 | name | nearestAirport |
 |------|----------------|
@@ -227,7 +223,7 @@ The query returns the following results:
 | Eliot | JFK | [{airport:JFK, connects:[BOS, ORD]}] |
 | Jeff | BOS | [{airport:BOS, connects:[JFK, PWM]}] |
 
-## Example 6: Bidirectional Traversal
+## Example 6: Traversing the graph bidirectionally
 
 The following query performs bidirectional traversal to find both managers and colleagues who share the same manager:
 
@@ -247,29 +243,27 @@ The query returns the following results:
 | --- | --- | --- | --- |
 | Ron | Andrew | 3 | [{name:Ron, reportsTo:Andrew, id:3}, {name:Andrew, reportsTo:null, id:4}, {name:Dan, reportsTo:Andrew, id:6}] |
 
-With bidirectional traversal, Ron's connections include:
-- His own record (Ron reports to Andrew)
-- His manager (Andrew)
-- His peer (Dan, who also reports to Andrew)
+With bidirectional traversal, Ron's connections include the following records:
 
-## Batch Mode
+- His own record (Ron reports to Andrew).
+- His manager (Andrew).
+- His peer (Dan, who also reports to Andrew).
 
-When `batchMode=true`, the `graphLookup` command collects all start values from all source rows and performs a single unified BFS traversal instead of separate traversals per row.
+## Batch mode
 
-### Output Format Change
-
-In batch mode, the output is a **single row** with two arrays:
-- First array: All source rows collected
-- Second array: All lookup results from the unified BFS traversal
-
-### When to Use Batch Mode
+When `batchMode=true`, the `graphLookup` command collects all start values from all source rows and performs a single unified BFS traversal instead of traversing each row separately.
 
 Use `batchMode=true` when:
-- You want to find all nodes reachable from **any** of the source start values
-- You need a global view of the graph connectivity from multiple starting points
-- You want to avoid duplicate traversals when multiple source rows share overlapping paths
 
-### Example
+- You want to find all nodes reachable from **any** of the source start values.
+- You need a global view of the graph connectivity from multiple starting points.
+- You want to avoid duplicate traversals when multiple source rows share overlapping paths.
+
+In batch mode, the output is a **single row** containing two arrays:
+1. All source rows collected.
+2. All lookup results from the unified BFS traversal.
+
+The following query finds all reachable airports from each traveler's nearest airport:
 
 ```sql
 source = travelers
@@ -282,7 +276,8 @@ source = travelers
 ```
 {% include copy.html %}
 
-**Normal mode** (default): Each traveler gets their own list of reachable airports
+**Standard mode** (default): Each traveler is assigned a list of reachable airports:
+
 ```text
 | name  | nearestAirport | reachableAirports                    |
 |-------|----------------|--------------------------------------|
@@ -290,31 +285,31 @@ source = travelers
 | Jeff  | BOS            | [{airport:BOS, connects:[JFK, PWM]}] |
 ```
 
-**Batch mode**: A single row with all travelers and all reachable airports combined
+**Batch mode**: All travelers and all reachable airports are combined into a single result:
+
 ```text
 | travelers                                                          | reachableAirports                                           |
 |--------------------------------------------------------------------|-------------------------------------------------------------|
 | [{name:Dev, nearestAirport:JFK}, {name:Jeff, nearestAirport:BOS}] | [{airport:JFK, connects:[BOS, ORD]}, {airport:BOS, ...}]   |
 ```
 
-## Array Field Handling
+## Array fields
 
-When the `fromField` or `toField` contains array values, you should set `supportArray=true` to ensure correct traversal behavior.
+When the `fromField` or `toField` contains array values, set `supportArray=true` to ensure correct traversal behavior.
 
 ## PIT Search
 
-By default, each level of BFS traversal limits the number of returned documents to the `max_result_window` setting of the lookup index (typically 10,000). This avoids the overhead of PIT (Point In Time) search but may return incomplete results when a single traversal level matches more documents than the limit.
+By default, each level of BFS traversal limits the number of returned documents to the `max_result_window` setting of the lookup index (typically, 10,000). This avoids the overhead of Point In Time (PIT) search but may return incomplete results when a single traversal level matches more documents than the limit.
 
-When `usePIT=true`, this limit is removed and the lookup table uses PIT-based pagination, which ensures all matching documents are retrieved at each traversal level. This provides complete and accurate results at the cost of additional search overhead.
-
-### When to Use PIT Search
+When `usePIT=true`, this limit is removed and the lookup table uses PIT-based pagination, which ensures that all matching documents are retrieved at each traversal level. This provides complete and accurate results at the cost of additional search overhead.
 
 Use `usePIT=true` when:
-- The graph has high-degree nodes where a single traversal level may match more than `max_result_window` documents
-- Result completeness is more important than query performance
-- You observe incomplete or missing results with the default setting
 
-### Example
+- The graph contains high-degree nodes for which a single traversal level may return more than `max_result_window` documents.
+- Result completeness is more important than query performance.
+- You observe incomplete or missing results with the default setting.
+
+The following query enables PIT search to ensure complete traversal results:
 
 ```sql
 source = employees
@@ -326,11 +321,9 @@ source = employees
 ```
 {% include copy.html %}
 
-## Filtered Graph Traversal
+## Filtered graph traversal
 
-The `filter` parameter restricts which documents in the lookup table are considered during the BFS traversal. Only documents matching the filter condition participate as candidates at each traversal level.
-
-### Example
+The `filter` parameter restricts the documents in the lookup index that are considered during BFS traversal. Only documents matching the filter condition are included as candidates at each traversal level.
 
 The following query traverses only active employees in the reporting hierarchy:
 
@@ -344,9 +337,11 @@ source = employees
 ```
 {% include copy.html %}
 
-The filter is applied at the OpenSearch query level, so it combines efficiently with the BFS traversal queries. At each BFS level, the query sent to OpenSearch is effectively: `bool { filter: [user_filter, bfs_terms_query] }`.
+The filter is applied at the OpenSearch query level, so it combines efficiently with the BFS traversal queries. At each BFS level, the query sent to OpenSearch is  `bool { filter: [user_filter, bfs_terms_query] }`.
 
 ## Limitations
 
-- The source input, which provides the starting point for the traversal, has a limitation of 100 documents to avoid performance issues.
-- When `usePIT=false` (default), each level of traversal search returns documents up to the `max_result_window` of the lookup index, which may result in incomplete data. Set `usePIT=true` to retrieve complete results.
+Note the following limitations of the `graphLookup` command:
+
+- The source input, which provides the starting points for traversal, is limited to 100 documents to avoid performance issues.
+- When `usePIT=false` (default), each traversal level returns up to the `max_result_window` of the lookup index, which may result in incomplete results. Set `usePIT=true` to retrieve complete results.

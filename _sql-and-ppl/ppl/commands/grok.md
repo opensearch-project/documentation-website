@@ -28,7 +28,7 @@ The `grok` command supports the following parameters.
 | `<pattern>` | Required | The Grok pattern used to extract new fields from the specified text field. If a new field name already exists, it overwrites the original field. |  
   
 
-## Example 1: Parse Apache access logs  
+## Example 1: Parsing Apache access logs  
 
 The following query parses raw Apache access logs using the built-in `COMMONAPACHELOG` grok pattern:
   
@@ -48,7 +48,7 @@ The query returns the following results:
 | 118.223.210.105 - - [28/Sep/2022:10:15:57 -0700] "PATCH /strategize/out-of-the-box HTTP/1.0" 401 27439 | 28/Sep/2022:10:15:57 -0700 | 401 | 27439 |
 | 210.204.15.104 - - [28/Sep/2022:10:15:57 -0700] "POST /users HTTP/1.1" 301 9481 | 28/Sep/2022:10:15:57 -0700 | 301 | 9481 |
 
-## Example 2: Extract fields from Envoy access logs
+## Example 2: Extracting fields from Envoy access logs
 
 The following query parses Envoy access log entries, extracting the HTTP method, path, and status code:
 
@@ -68,7 +68,7 @@ The query returns the following results:
 | GET | /api/products | 200 |
 | POST | /api/checkout | 503 |
 
-## Example 3: Extract durations from log messages
+## Example 3: Extracting durations from log messages
 
 The following query uses grok to extract numeric durations from log messages:
 

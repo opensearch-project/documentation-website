@@ -83,7 +83,7 @@ The `eventstats` command supports the following aggregation functions:
 
 For detailed documentation of each function, see [Functions]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/functions/aggregations/).  
 
-## Example 1: Enrich logs with per-service counts  
+## Example 1: Enriching logs with per-service counts  
 
 The following query adds the total log count for each service to every log entry, letting you see how active each service is alongside individual log details:
   
@@ -107,7 +107,7 @@ The query returns the following results:
 | ERROR | frontend-proxy | 3 | [2024-02-01T09:20:00.456Z] "POST /api/checkout HTTP/1.1" 503 - 0 30000 checkout-8d4f7b-mk2p9 |
   
 
-## Example 2: Calculate severity statistics by group  
+## Example 2: Calculating severity statistics by group  
 
 The following query adds the average severity and error count per service to each log entry:
   

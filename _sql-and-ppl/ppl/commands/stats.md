@@ -60,7 +60,7 @@ The `stats` command supports the following aggregation functions:
   
 For detailed documentation of each function, see [Aggregation Functions]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/functions/aggregations/).
 
-## Example 1: Calculate the count of events  
+## Example 1: Calculating the count of events  
 
 The following query counts the total number of log entries, a basic health check for log ingestion:
   
@@ -78,7 +78,7 @@ The query returns the following results:
 | 20 |
   
 
-## Example 2: Calculate the average of a field  
+## Example 2: Calculating the average of a field  
 
 The following query calculates the average severity number across all logs. A rising average over time may indicate increasing system instability:
   
@@ -96,7 +96,7 @@ The query returns the following results:
 | 12.0 |
   
 
-## Example 3: Calculate the count by group  
+## Example 3: Calculating the count by group  
 
 The following query counts logs by severity level, giving you a breakdown of your system's health at a glance:
   
@@ -118,7 +118,7 @@ The query returns the following results:
 | 3 | DEBUG |
   
 
-## Example 4: Calculate multiple aggregations by group  
+## Example 4: Calculating multiple aggregations by group  
 
 The following query calculates the total log count and severity range per service, helping you identify which services are most active and most problematic:
   
@@ -142,7 +142,7 @@ The query returns the following results:
 | 3 | 13 | 17 | frontend-proxy |
   
 
-## Example 5: Calculate the count by a span  
+## Example 5: Calculating the count by a span  
 
 The following query groups logs into severity buckets of 10, showing the distribution across low (0-9), medium (10-19), and high (20+) severity ranges:
   
@@ -161,7 +161,7 @@ The query returns the following results:
 | 11 | 10 |
   
 
-## Example 6: Calculate the count by a field and span  
+## Example 6: Calculating the count by a field and span  
 
 The following query counts logs by severity level within severity number ranges, showing how severity text maps to numeric ranges:
   
@@ -183,7 +183,7 @@ The query returns the following results:
 | 4 | 10 | WARN |
   
 
-## Example 7: Calculate the distinct count of a field  
+## Example 7: Calculating the distinct count of a field  
 
 The following query counts the total and distinct number of services reporting logs, useful for verifying all expected services are reporting:
   
@@ -201,7 +201,7 @@ The query returns the following results:
 | 20 | 7 |
   
 
-## Example 8: Collect unique values using VALUES by group  
+## Example 8: Collecting unique values using VALUES by group  
 
 The following query collects the unique service names for each severity level, useful for quickly seeing which services are affected at each level:
   
@@ -223,7 +223,7 @@ The query returns the following results:
 | [frontend-proxy,product-catalog] | WARN |
   
 
-## Example 9: Calculate the percentile of a field  
+## Example 9: Calculating the percentile of a field  
 
 The following query calculates the 90th percentile of severity numbers, helping you understand the severity distribution:
   
@@ -241,7 +241,7 @@ The query returns the following results:
 | 17 |
   
 
-## Example 10: Collect unique values using VALUES  
+## Example 10: Collecting unique values using VALUES  
 
 The following query collects all unique severity levels present in the logs:
   
@@ -259,7 +259,7 @@ The query returns the following results:
 | [DEBUG,ERROR,INFO,WARN] |
   
 
-## Example 11: Ignore a null bucket
+## Example 11: Ignoring a null bucket
 
 The following query excludes null values from grouping by setting `bucket_nullable=false`, useful when you only want to see services that have a defined namespace:
 
@@ -337,7 +337,7 @@ The query returns the following results:
 | 1 | 2025-01-01 | 2 |
   
 
-## Example 13: Calculate the count by the implicit @timestamp field  
+## Example 13: Calculating the count by the implicit @timestamp field  
 
 If you omit the `field` parameter in the `span` function, it automatically uses the implicit `@timestamp` field:
   

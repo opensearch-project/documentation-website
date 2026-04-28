@@ -5,21 +5,31 @@ parent: Commands
 grand_parent: PPL
 nav_order: 51
 ---
+
 # transpose
 
-The `transpose` command outputs the requested number of rows as columns, effectively transposing each result row into a corresponding column of field values.
+The `transpose` command outputs the requested number of rows as columns, converting each result row into a corresponding column of field values.
 
 ## Syntax
 
+The `transpose` command has the following syntax:
+
+```sql
 transpose [int] [column_name=<string>]
+```
 
-* number-of-rows: optional. The number of rows to transform into columns. Default value is 5. Maximum allowed is 10000.
-* column_name: optional. The name of the first column to use when transposing rows. This column holds the field names.
+## Parameters
 
+The `transpose` command supports the following parameters.
 
-## Example 1: Transpose severity breakdown
+| Parameter | Required/Optional | Description |
+|---|---|---|
+| `<int>` | Optional | The number of rows to transform into columns. Default is `5`. Maximum is `10000`. |
+| `column_name=<string>` | Optional | The name of the first column to use when transposing rows. This column holds the field names. |
 
-The following query transposes a severity breakdown into a columnar format, useful for creating compact summary views:
+## Example 1: Transposing a severity breakdown
+
+The following query transposes a severity breakdown into a columnar format. This is useful for creating compact summary views:
 
 ```sql
 source=otellogs
@@ -30,16 +40,16 @@ source=otellogs
 {% include copy.html %}
 {% include try-in-playground.html %}
 
-Expected output:
+The query returns the following results:
 
 | column | row 1 | row 2 | row 3 | row 4 | row 5 |
 | --- | --- | --- | --- | --- | --- |
 | log_count | 3 | 7 | 6 | 4 | null |
 | severityText | DEBUG | ERROR | INFO | WARN | null |
 
-## Example 2: Transpose with a limited number of rows
+## Example 2: Transposing a limited number of rows
 
-The following query transposes only the first 3 severity levels:
+The following query transposes only the first three severity levels:
 
 ```sql
 source=otellogs
@@ -50,7 +60,7 @@ source=otellogs
 {% include copy.html %}
 {% include try-in-playground.html %}
 
-Expected output:
+The query returns the following results:
 
 | column | row 1 | row 2 | row 3 |
 | --- | --- | --- | --- |
@@ -59,4 +69,4 @@ Expected output:
 
 ## Limitations
 
-The `transpose` command transforms up to a number of rows specified and if not enough rows found, it shows those transposed rows as null columns. 
+The `transpose` command converts a specified number of rows into columns. If fewer rows are available, the missing values are represented as `null` columns.

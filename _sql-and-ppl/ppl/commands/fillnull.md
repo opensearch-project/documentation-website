@@ -39,7 +39,7 @@ The `fillnull` command supports the following parameters.
 | `<field>` | Required (with `using` syntax) | The name of the field to which a specific replacement value is applied. |
 | `<field-list>` | Optional | A list of fields in which null values are replaced. You can specify the list as comma-delimited (using `with` or `using` syntax) or space-delimited (using `value=` syntax). By default, all fields are processed. |
 
-## Example 1: Replace null values with different values per field
+## Example 1: Replacing null values with different values per field
 
 The following query fills in missing instrumentation scope names with a default value:
 
@@ -70,7 +70,7 @@ The query returns the following results:
 | ERROR | recommendation | unknown |
 
 
-## Example 2: Replace null values using value= syntax
+## Example 2: Replacing null values using value= syntax
 
 The following query uses the `value=` syntax to fill null instrumentation scope names, helping identify uninstrumented services:
 

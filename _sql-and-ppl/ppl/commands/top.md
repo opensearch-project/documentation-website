@@ -32,7 +32,7 @@ The `top` command supports the following parameters.
 | `<field-list>` | Required | A comma-delimited list of field names.  |
 | `<by-clause>` | Optional | One or more fields to group the results by. |
 
-## Example 1: Display counts in the default count column
+## Example 1: Displaying counts in the default count column
 
 The following query finds the most common severity levels:
 
@@ -52,7 +52,7 @@ By default, the `top` command automatically includes a `count` column showing th
 | WARN | 4 |
 | DEBUG | 3 |
 
-## Example 2: Find the most common values without the count display
+## Example 2: Finding the most common values without the count display
 
 The following query uses `showcount=false` to hide the `count` column in the results:
 
@@ -72,7 +72,7 @@ The query returns the following results:
 | WARN |
 | DEBUG |
 
-## Example 3: Rename the count column
+## Example 3: Renaming the count column
 
 The following query uses the `countfield` parameter to specify a custom name (`cnt`) for the count column instead of the default `count`:
   
@@ -92,7 +92,7 @@ The query returns the following results:
 | WARN | 4 |
 | DEBUG | 3 |
 
-## Example 4: Limit the number of returned results
+## Example 4: Limiting the number of returned results
 
 The following query returns the top 1 most common severity level:
 
@@ -109,7 +109,7 @@ The query returns the following results:
 | --- |
 | ERROR |
 
-## Example 5: Group the results
+## Example 5: Grouping the results
 
 The following query finds the most common severity level within each service:
 
@@ -132,7 +132,7 @@ The query returns the following results:
 | cart | DEBUG |
 | frontend | INFO |
 
-## Example 6: Specify null value handling
+## Example 6: Specifying null value handling
 
 The following query specifies `usenull=false` to exclude null values:
 

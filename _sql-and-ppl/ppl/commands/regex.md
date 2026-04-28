@@ -40,7 +40,7 @@ The `regex` command supports the following parameters.
 | `<field>` | Required | The field name to match against. |
 | `<pattern>` | Required | The regular expression pattern to match. Supports [Java regular expression syntax](https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html). |
 
-## Example 1: Find logs matching a pattern  
+## Example 1: Finding logs matching a pattern  
 
 The following query finds error logs mentioning connection timeouts:
   
@@ -60,7 +60,7 @@ The query returns the following results:
 | ERROR | payment | Payment failed: connection timeout to payment gateway after 30000ms |
   
 
-## Example 2: Exclude logs matching a pattern  
+## Example 2: Excluding logs matching a pattern  
 
 The following query finds all errors except those related to timeouts:
   
@@ -83,7 +83,7 @@ The query returns the following results:
 | ERROR | frontend-proxy | [2024-02-01T09:20:00.456Z] "POST /api/checkout HTTP/1.1" 503 - 0 30000 checkout-8d4f7b-mk2p9 |
   
 
-## Example 3: Filter by service name pattern  
+## Example 3: Filtering by service name pattern  
 
 The following query finds warning logs from services whose names end with "catalog":
   

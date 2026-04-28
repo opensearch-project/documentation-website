@@ -34,7 +34,7 @@ The `addtotals` command supports the following parameters.
 | `label` | Optional | The text that appears in the summary row (last row) to identify the computed totals. When used with `labelfield`, this text is placed in the specified field in the summary row. Default is `Total`. Applicable when `col=true`. This parameter has no effect when the `labelfield` and `fieldname` parameters specify the same field name. |
 | `fieldname` | Optional | The field used to store row totals. Applicable when `row=true`. |
 
-## Example 1: Add column totals
+## Example 1: Adding column totals
 
 The following query counts errors and warnings per service, then adds a column total row showing the grand totals:
 
@@ -61,7 +61,7 @@ The query returns the following results:
 | recommendation | 1 | 0 | 1 |
 | Total | 7 | 4 | null |
 
-## Example 2: Add row totals
+## Example 2: Adding row totals
 
 The following query counts errors and warnings separately per service, then adds a row total showing the combined count of actionable issues per service:
 

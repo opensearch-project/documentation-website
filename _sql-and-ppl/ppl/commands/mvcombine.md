@@ -10,7 +10,7 @@ nav_order: 30
 
 The `mvcombine` command groups rows that are identical across all fields except a specified target field, and combines the values of that target field into a multivalue (array) field.
 
-Rows are grouped by all fields currently in the pipeline except the target field. Rows where the target field is missing or null do not contribute a value to the combined multivalue output.
+Rows are grouped by all fields currently in the pipeline except the target field. Rows in which the target field is missing or `null` are excluded from the combined multivalue output.
 {: .note}
 
 ## Syntax
@@ -29,7 +29,7 @@ The `mvcombine` command supports the following parameters.
 | --- | --- | --- |
 | `<field>` | Required | The name of the field whose values are combined into a multivalue field. |
 
-## Example 1: Basic mvcombine
+## Example 1: Using basic mvcombine
 
 The following query collapses rows into a single row and combines `packets_str` into a multivalue field:
 
@@ -47,7 +47,7 @@ The query returns the following results:
 | --- | --- | --- | --- |
 | 10.0.0.1 | 100 | t1 | [10,20,30] |
 
-## Example 2: Multiple groups
+## Example 2: Combining multiple groups
 
 The following query produces one output row per group key:
 
@@ -86,15 +86,17 @@ The query returns the following results:
 | --- | --- | --- | --- |
 | 10.0.0.3 | 300 | t3 | [5] |
 
-## Example 4: Error when field does not exist
+## Example 4: Missing fields
 
-If the specified field does not exist in the current schema, `mvcombine` returns an error:
+The following query attempts to combine values for a field that does not exist in the current schema:
 
 ```sql
 source=mvcombine_data
 | mvcombine does_not_exist
 ```
 {% include copy.html %}
+
+The query returns the following error:
 
 ```text
 {'reason': 'Invalid Query', 'details': 'Field [does_not_exist] not found.', 'type': 'IllegalArgumentException'}
