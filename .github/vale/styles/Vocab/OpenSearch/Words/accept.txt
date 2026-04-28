@@ -86,6 +86,7 @@ Levenshtein
 [Pp]arallelization
 pebibyte
 p\d{2}
+pprof
 [Pp]erformant
 [Pp]laintext
 [Pp]luggable
