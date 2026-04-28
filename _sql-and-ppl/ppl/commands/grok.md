@@ -3,7 +3,7 @@ layout: default
 title: grok
 parent: Commands
 grand_parent: PPL
-nav_order: 19
+nav_order: 22
 ---
 
 # grok
@@ -28,51 +28,9 @@ The `grok` command supports the following parameters.
 | `<pattern>` | Required | The Grok pattern used to extract new fields from the specified text field. If a new field name already exists, it overwrites the original field. |  
   
 
-## Example 1: Create a new field
+## Example 1: Parsing Apache access logs  
 
-The following query shows how to use the `grok` command to create a new field, `host`, for each document. The `host` field captures the hostname following `@` in the `email` field. Parsing a null field returns an empty string:
-  
-```sql
-source=accounts
-| grok email '.+@%{HOSTNAME:host}'
-| fields email, host
-```
-{% include copy.html %}
-  
-The query returns the following results:
-  
-| email | host |
-| --- | --- |
-| amberduke@pyrami.com | pyrami.com |
-| hattiebond@netagy.com | netagy.com |
-| null |  |
-| daleadams@boink.com | boink.com |
-  
-
-## Example 2: Override an existing field
-
-The following query shows how to use the `grok` command to override the existing `address` field, removing the street number:
-  
-```sql
-source=accounts
-| grok address '%{NUMBER} %{GREEDYDATA:address}'
-| fields address
-```
-{% include copy.html %}
-  
-The query returns the following results:
-  
-| address |
-| --- |
-| Holmes Lane |
-| Bristol Street |
-| Madison Street |
-| Hutchinson Court |
-  
-
-## Example 3: Using grok to parse logs  
-
-The following query parses raw logs:
+The following query parses raw Apache access logs using the built-in `COMMONAPACHELOG` grok pattern:
   
 ```sql
 source=apache
@@ -89,7 +47,48 @@ The query returns the following results:
 | 127.45.152.6 - pouros8756 [28/Sep/2022:10:15:57 -0700] "GET /architectures/convergence/niches/mindshare HTTP/1.0" 100 28722 | 28/Sep/2022:10:15:57 -0700 | 100 | 28722 |
 | 118.223.210.105 - - [28/Sep/2022:10:15:57 -0700] "PATCH /strategize/out-of-the-box HTTP/1.0" 401 27439 | 28/Sep/2022:10:15:57 -0700 | 401 | 27439 |
 | 210.204.15.104 - - [28/Sep/2022:10:15:57 -0700] "POST /users HTTP/1.1" 301 9481 | 28/Sep/2022:10:15:57 -0700 | 301 | 9481 |
-  
+
+## Example 2: Extracting fields from Envoy access logs
+
+The following query parses Envoy access log entries, extracting the HTTP method, path, and status code:
+
+```sql
+source=otellogs
+| where LIKE(body, '%HTTP/1.1%')
+| grok body '\[%{DATA:ts}\] \"%{WORD:method} %{DATA:path} HTTP/%{DATA:ver}\" %{POSINT:status}'
+| fields method, path, status
+```
+{% include copy.html %}
+{% include try-in-playground.html %}
+
+The query returns the following results:
+
+| method | path | status |
+| --- | --- | --- |
+| GET | /api/products | 200 |
+| POST | /api/checkout | 503 |
+
+## Example 3: Extracting durations from log messages
+
+The following query uses grok to extract numeric durations from log messages:
+
+```sql
+source=otellogs
+| where LIKE(body, '%ms%')
+| grok body '%{NUMBER:duration}ms'
+| fields body, duration
+| head 3
+```
+{% include copy.html %}
+{% include try-in-playground.html %}
+
+The query returns the following results:
+
+| body | duration |
+| --- | --- |
+| Slow query detected: SELECT \* FROM products WHERE category = 'electronics' took 3200ms | 3200 |
+| Payment failed: connection timeout to payment gateway after 30000ms | 30000 |
+| gRPC call /ProductCatalogService/GetProduct completed in 12ms | 12 |
 
 ## Limitations
 

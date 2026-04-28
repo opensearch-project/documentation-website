@@ -85,6 +85,7 @@ OpenSearch Assistant Toolkit
 OpenSearch Benchmark
 OpenSearch Dashboards
 OpenSearch Flow
+OpenSearch Kubernetes Operator
 OpenSearch Playground
 OpenSearch Project
 OpenSearch Service
