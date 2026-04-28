@@ -7,7 +7,7 @@
     function getStoredTheme() {
       try {
         return localStorage.getItem(THEME_KEY);
-      } 
+      }
       catch (e) {
         return null;
       }
@@ -31,12 +31,16 @@
     const theme = getPreferredTheme();
     if (theme === DARK_THEME) {
       document.documentElement.setAttribute('data-skin', 'dark');
-    } 
+    }
     else {
       document.documentElement.removeAttribute('data-skin');
     }
   })();
 </script>
+
+{% if site.doc_version != "latest" %}
+<meta name="robots" content="noindex, follow">
+{% endif %}
 
 {% if site.anchor_links != nil %}
   <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
