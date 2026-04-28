@@ -1,3 +1,7 @@
+{% if site.doc_version != "latest" %}
+<meta name="robots" content="noindex, follow">
+{% endif %}
+
 {% if site.anchor_links != nil %}
   <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
 {% endif %}
