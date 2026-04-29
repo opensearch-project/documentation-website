@@ -119,6 +119,8 @@ Disable multi-tenancy in `opensearch_dashboards.yml`:
 ```yaml
 opensearch_security.multitenancy.enabled: false
 ```
+{% include copy.html %}
+
 
 ### OpenSearch
    
