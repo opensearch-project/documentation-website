@@ -15,7 +15,7 @@ This guide walks you through installing the [OpenSearch MCP Server](https://gith
 
 - A running OpenSearch cluster reachable from the machine running the server.
 - Credentials for that cluster (basic auth or mTLS certificates for self-managed clusters).
-- Python 3.10 or later, plus one of:
+- Python 3.11 or later, plus one of:
   - [`uv`](https://docs.astral.sh/uv/getting-started/installation/) (recommended) — lets you run the server with `uvx` without a local install, or
   - `pip` if you prefer to install the package into a Python environment.
 
@@ -126,6 +126,9 @@ For a local development cluster started without security (for example, `docker r
 }
 ```
 {% include copy.html %}
+
+The examples above use default credentials for local development. Never use default credentials in production.
+{: .warning}
 
 ## Step 3: Try a query
 
@@ -249,7 +252,8 @@ If you prefer a simpler single-agent setup without the graph abstraction:
 import asyncio
 from langchain_mcp_adapters.client import MultiServerMCPClient
 from langchain_openai import ChatOpenAI
-from langchain.agents import AgentType, initialize_agent
+from langchain.agents import create_tool_calling_agent, AgentExecutor
+from langchain_core.prompts import ChatPromptTemplate
 
 async def main():
     async with MultiServerMCPClient({
@@ -268,14 +272,15 @@ async def main():
         tools = mcp_client.get_tools()
 
         llm = ChatOpenAI(model="gpt-4o")
-        agent = initialize_agent(
-            tools=tools,
-            llm=llm,
-            agent=AgentType.OPENAI_FUNCTIONS,
-            verbose=True,
-        )
+        prompt = ChatPromptTemplate.from_messages([
+            ("system", "You are a helpful assistant with access to OpenSearch tools."),
+            ("human", "{input}"),
+            ("placeholder", "{agent_scratchpad}"),
+        ])
+        agent = create_tool_calling_agent(llm, tools, prompt)
+        agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True)
 
-        await agent.ainvoke({"input": "How many documents are in the 'orders' index?"})
+        await agent_executor.ainvoke({"input": "How many documents are in the 'orders' index?"})
 
 asyncio.run(main())
 ```
@@ -328,7 +333,7 @@ For the full authentication reference including IAM and AWS credential options, 
 | Transport | When to use | How to start |
 |-----------|-------------|--------------|
 | `stdio` (default) | Coding assistants (Claude Desktop, Cursor, Kiro). The client launches the server as a child process. | Configured via `mcp.json` — no manual start needed. |
-| `stream` (SSE + HTTP streaming) | Agent frameworks (Strands, LangGraph, LangChain) and remote/shared deployments. | `python -m mcp_server_opensearch --transport stream` |
+| `stream` (streamable-http) | Agent frameworks (Strands, LangGraph, LangChain) and remote/shared deployments. | `python -m mcp_server_opensearch --transport stream` |
 
 The streaming transport binds to `0.0.0.0:9900` by default. Override with `--host` and `--port`.
 

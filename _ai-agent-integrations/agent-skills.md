@@ -2,14 +2,14 @@
 layout: default
 title: Agent skills
 nav_order: 20
-has_children: false
+has_children: true
 redirect_from:
   - /ml-commons-plugin/agents-tools/agent-skills/
 ---
 
 # Agent skills
 
-[OpenSearch Agent Skills](https://github.com/opensearch-project/opensearch-agent-skills) are packaged playbooks that teach AI coding assistants how to work with OpenSearch. Each skill bundles instructions, reference material, and executable scripts so that a single natural-language request — for example, *"build a semantic search app with OpenSearch"* — produces working code, configured indexes, and runnable tests.
+[OpenSearch Agent Skills](https://github.com/opensearch-project/opensearch-agent-skills) are packaged workflows that teach AI coding assistants how to work with OpenSearch. Each skill bundles instructions, reference material, and executable scripts so that a single natural-language request — for example, *"build a semantic search app with OpenSearch"* — produces working code, configured indexes, and runnable tests.
 
 Skills follow the [Agent Skills specification](https://agentskills.io/specification) and work with any compatible client, including Claude Code, Cursor, and Kiro.
 
