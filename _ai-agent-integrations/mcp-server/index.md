@@ -12,7 +12,7 @@ redirect_from:
 
 # OpenSearch MCP Server
 
-The [OpenSearch MCP Server](https://github.com/opensearch-project/opensearch-mcp-server-py) is an open-source [Model Context Protocol (MCP)](https://modelcontextprotocol.io/introduction) server that exposes OpenSearch to AI assistants like Claude Desktop, Cursor, Amazon Q Developer CLI, and any MCP-compatible client. Once connected, an AI assistant can search indexes, read mappings, inspect cluster health, and run other operations by calling OpenSearch APIs through MCP tools instead of generating raw REST calls.
+The [OpenSearch MCP Server](https://github.com/opensearch-project/opensearch-mcp-server-py) is an open-source [Model Context Protocol (MCP)](https://modelcontextprotocol.io/introduction) server that exposes OpenSearch to AI assistants like Claude Desktop, Cursor, Kiro, and any MCP-compatible client. Once connected, an AI assistant can search indexes, read mappings, inspect cluster health, and run other operations by calling OpenSearch APIs through MCP tools instead of generating raw REST calls.
 
 OpenSearch also has an in-cluster MCP connector that lets an OpenSearch agent call tools on an external MCP server — that's a separate feature of the ML Commons plugin. See [Using MCP tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/mcp/).
 {: .note}
@@ -28,7 +28,7 @@ Use the OpenSearch MCP Server when you want to:
 
 ## Key features
 
-- **MCP-standard interface.** Works out of the box with any client that supports MCP, including Claude Desktop, Cursor, Kiro, and Amazon Q Developer CLI.
+- **MCP-standard interface.** Works out of the box with any client that supports MCP, including Claude Desktop, Cursor, and Kiro.
 - **Built-in tools.** Ships with tools for common operations such as listing indexes, retrieving mappings, running search queries, checking cluster health, and counting documents. Additional tool categories (search relevance, skills-based analysis) can be enabled as needed.
 - **Multiple transports.** Supports standard input/output (`stdio`) for local desktop clients and a streaming transport (Server-Sent Events and HTTP streaming) for remote deployments.
 - **Flexible authentication.** Basic auth, AWS IAM roles, AWS profile credentials, header-based auth, mutual TLS (mTLS), and anonymous access are all supported.

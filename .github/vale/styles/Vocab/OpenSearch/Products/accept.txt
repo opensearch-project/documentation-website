@@ -7,7 +7,6 @@ Amazon OpenSearch Service
 Amazon Bedrock
 Amazon Kinesis
 Amazon SageMaker
-Amazon Q Developer CLI
 AWS Secrets Manager
 Ansible
 Anthropic Claude

@@ -13,7 +13,7 @@ redirect_from:
 
 External AI agents and coding assistants can connect to OpenSearch in several ways. This section covers the open-source projects that live outside the cluster and plug OpenSearch into the broader AI-agent ecosystem:
 
-- **[OpenSearch MCP Server]({{site.url}}{{site.baseurl}}/ai-agent-integrations/mcp-server/)** — A [Model Context Protocol (MCP)](https://modelcontextprotocol.io/introduction) server that exposes OpenSearch to MCP-compatible clients such as Claude Desktop, Cursor, Kiro, and Amazon Q Developer CLI. The AI client makes natural-language requests; the server translates them into OpenSearch REST calls.
+- **[OpenSearch MCP Server]({{site.url}}{{site.baseurl}}/ai-agent-integrations/mcp-server/)** — A [Model Context Protocol (MCP)](https://modelcontextprotocol.io/introduction) server that exposes OpenSearch to MCP-compatible clients such as Claude Desktop, Cursor, and Kiro. The AI client makes natural-language requests; the server translates them into OpenSearch REST calls.
 - **[Agent skills]({{site.url}}{{site.baseurl}}/ai-agent-integrations/agent-skills/)** — Installable skill bundles that teach AI coding assistants how to build search apps, analyze logs and traces, and deploy to AWS. Skills run inside the assistant and follow the [Agent Skills specification](https://agentskills.io/specification); no server is required.
 
 ## Where to look for other agent capabilities
