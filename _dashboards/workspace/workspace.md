@@ -118,6 +118,8 @@ Disable multi-tenancy in `opensearch_dashboards.yml`:
 
 ```yaml
 opensearch_security.multitenancy.enabled: false
+```
+
 ### OpenSearch
    
 Multi-tenancy in the OpenSearch Security plugin is enabled by default. To disable it, update the Security plugin `config.yml` file and apply the configuration using the `securityadmin.sh` script:
