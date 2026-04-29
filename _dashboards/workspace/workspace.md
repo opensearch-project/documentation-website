@@ -110,7 +110,7 @@ uiSettings:
 ```
 {% include copy.html %}
 
-If your cluster has the Security plugin installed, then multi-tenancy must be disabled to avoid conflicts with similar workspaces:
+If your cluster has the Security plugin installed, then multi-tenancy must be disabled to avoid conflicts with similar workspaces.
 
 ### OpenSearch Dashboards
 
