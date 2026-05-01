@@ -14,6 +14,8 @@ Migration Assistant addresses key limitations in traditional migration approache
 
 Migration Assistant also supports live traffic replication, enabling zero-downtime migrations. This makes it a strong fit for environments where minimizing service disruption is critical.
 
+Migration Assistant also supports migrating from Apache Solr 8.x to OpenSearch 3.x. Solr migrations use a different architecture than Elasticsearch migrations — a Transformation Shim translates Solr HTTP API requests to OpenSearch in real time, and SolrReader extracts documents from Solr backups. For details, see [Migrating from Apache Solr]({{site.url}}{{site.baseurl}}/migration-assistant/solr-migration/).
+
 ## Supported migration paths
 
 The following matrix shows which source versions can be directly migrated to which OpenSearch target versions:

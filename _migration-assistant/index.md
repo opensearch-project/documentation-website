@@ -27,7 +27,7 @@ items:
 
 # ![Migration Assistant icon]({{site.url}}{{site.baseurl}}/images/icons/MigrationUpgrade_Color_Icon.svg){: .heading-icon} Migration Assistant for OpenSearch
 
-Migration Assistant for OpenSearch helps you successfully perform an end-to-end, zero-downtime upgrade and migration to OpenSearch. There are three aspects of a migration that must be understood:
+Migration Assistant for OpenSearch helps you successfully perform an end-to-end, zero-downtime upgrade and migration to OpenSearch from Elasticsearch, OpenSearch, or Apache Solr. There are three aspects of a migration that must be understood:
 
 - **Metadata migration**: Migrate cluster metadata, such as index settings, aliases, and templates.
 - **Backfill migration**: Migrate existing or historical data from a source to a target cluster.
