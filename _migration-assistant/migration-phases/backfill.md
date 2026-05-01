@@ -6,163 +6,118 @@ parent: Migration phases
 permalink: /migration-assistant/migration-phases/backfill/
 redirect_from:
   - /migration-phases/backfill/
+  - /migration-assistant/migration-phases/create-snapshot/
+  - /migration-phases/create-snapshot/
 ---
 
-# Using backfill
+# Backfill
 
-After the [metadata]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/) for your cluster has been migrated, you can use Capture Proxy data replication and snapshots to backfill your data into the next cluster.
+After [migrating metadata]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/), use the backfill workflow to migrate documents from your source cluster to the target using snapshot-based reindexing (RFS).
 
-## Migrate documents with RFS
+## The backfill process
 
-You can now use RFS to migrate documents from your original cluster:
+1. **Snapshot** — Create a point-in-time snapshot of source indexes
+2. **Register** — Make the snapshot accessible to the migration tooling
+3. **Metadata** — Transfer index mappings, settings, and templates to the target
+4. **RFS Load** — Reindex documents from the snapshot to the target cluster
+5. **Cleanup** — Remove temporary coordination state
 
-### Starting the backfill
+Each phase completes before the next begins. Approval gates between phases let you verify progress before continuing.
 
-To start the migration from RFS, start a `backfill` using the following command:
+## Running a backfill
 
-```bash
-console backfill start
-```
-{% include copy.html %}
+### Configure and submit
 
-The status will be `Running` even if all the shards have been migrated.
-
-### Scaling up the fleet
-
-_(Optional)_ To speed up the migration, increase the number of documents processed simultaneously by using the following command:
+Configure your migration using the Workflow CLI:
 
 ```bash
-console backfill scale <NUM_WORKERS>
+workflow configure sample --load
+workflow configure edit
+workflow submit
 ```
 {% include copy.html %}
 
-To speed up the transfer, you can scale the number of workers. It may take a few minutes for these additional workers to come online. The following command will update the worker fleet to a size of 10:
-
-```shell
-console backfill scale 5
-```
-{% include copy.html %}
-
-We recommend slowly scaling up the fleet while monitoring the health metrics of the target cluster to avoid oversaturating it. [Amazon OpenSearch Service domains](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/monitoring.html) provide a number of metrics and logs that can be used for this monitoring.
-
-### Monitoring the backfill
-
-To check the status of the documentation backfill, use the following command:
+### Monitor progress
 
 ```bash
-console backfill status
+# Interactive TUI (recommended)
+workflow manage
+
+# Check status
+workflow status
+
+# Stream logs
+workflow output --follow
 ```
 {% include copy.html %}
 
-Use the following command to perform detailed monitoring of the backfill process:
+### Handle approvals
+
+When a step shows `⟳`, approve it to continue:
 
 ```bash
-console backfill status --deep-check
+workflow approve <STEP_NAME>
 ```
 {% include copy.html %}
 
-You should receive the following output:
+## Index allowlist syntax
 
-```json
-BackfillStatus.RUNNING
-Running=9
-Pending=1
-Desired=10
-Shards total: 62
-Shards completed: 46
-Shards incomplete: 16
-Shards in progress: 11
-Shards unclaimed: 5
-```
+Allowlist entries are matched as exact literal strings by default. Use the `regex:` prefix for pattern matching:
 
-Logs and metrics are available in Amazon CloudWatch in the `OpenSearchMigrations` log group.
+| Entry | Matches |
+|:------|:--------|
+| `my-index` | Only "my-index" (exact match) |
+| `regex:.*` | All indexes (regex wildcard) |
+| `regex:logs-.*` | "logs-app", "logs-web", etc. |
 
-If you need to stop the backfill process, use the following command:
+Using `*` does not work as a wildcard. Use `regex:.*` instead.
+{: .warning }
+
+## Using existing snapshots
+
+If you already have a snapshot, reference it in your configuration instead of creating a new one by setting `externallyManagedSnapshot`. See `workflow configure sample` for the exact field path.
+
+## Verification
+
+After the workflow completes:
 
 ```bash
-console backfill stop
+# Compare document counts
+console clusters curl source -- "/_cat/indices?v"
+console clusters curl target -- "/_cat/indices?v"
+
+# Check specific indexes
+console clusters curl target -- "/<index>/_count"
 ```
 {% include copy.html %}
 
-### Pausing the migration
+## Parallelism and performance
 
-To pause a migration, use the following command:
+RFS runs multiple workers in parallel, each reading shard data directly from the snapshot in S3. Because workers read from object storage — not the source cluster — scaling up workers has **zero impact on the source cluster**. The only constraint is the target cluster's indexing capacity and available Kubernetes resources.
 
-```shell
-console backfill pause
-```
+| Factor | Impact |
+|:-------|:-------|
+| Total data volume | Primary factor in migration duration |
+| Number of primary shards | Determines maximum parallelism (1 worker per shard) |
+| Target cluster capacity | Indexing throughput is usually the bottleneck |
+| Worker count | More workers = more parallel shards processed |
 
-This will stop all existing workers from running while leaving the backfill operation in a state from which it can be restarted. When you want to restart the migration, perform one of the following actions:
+Start with defaults and increase if the target cluster has headroom.
 
-- Run `console backfill start`.
-- Scale up the worker count by running `console backfill scale <worker_count>`.
+## Error recovery
 
-### Stopping the migration
+RFS tracks progress at the shard level. If a backfill fails partway through:
 
-Completing the backfill process requires manually stopping the migration. Stopping the migration shuts down all workers and cleans up all metadata used to track and coordinate the migration. Once the status checks report that your data has been completely migrated, you can stop the migration with the following command:
+- Completed shards are recorded in the coordination index
+- Resubmitting resumes from the last checkpoint
+- Already-migrated documents are not re-processed
 
-```shell
-console backfill stop
-```
-{% include copy.html %}
-
-Migration Assistant should return the following response:
-
-```shell
-Backfill stopped successfully.
-Service migration-aws-integ-reindex-from-snapshot set to 0 desired count. Currently 0 running and 5 pending.
-Archiving the working state of the backfill operation...
-RFS Workers are still running, waiting for them to complete...
-Backfill working state archived to: /shared-logs-output/migration-console-default/backfill_working_state/working_state_backup_20241115174822.json
-```
-
-You cannot restart a stopped migration. Instead, you can pause the backfill process using `console backfill pause`.
-
-### Amazon CloudWatch metrics and dashboard
-
-Migration Assistant creates an Amazon CloudWatch dashboard, named `MigrationAssistant_ReindexFromSnapshot_Dashboard`, that you can use to visualize the health and performance of the backfill process. It combines the metrics for the backfill workers and, for those migrating to Amazon OpenSearch Service, the target cluster.
-
-You can find the backfill dashboard in the CloudWatch console based on the AWS Region in which you have deployed Migration Assistant. The metric graphs for your target cluster will be blank until you select the OpenSearch domain you're migrating to from the dropdown menu at the top of the dashboard.
-
-## Validating the backfill
-
-After the backfill is complete and the workers have stopped, examine the contents of your cluster using the [Refresh API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/refresh/) and the [Flush API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/flush/). The following example uses the console CLI with the Refresh API to check the backfill status:
-
-```shell
-console clusters cat-indices --refresh
-```
-{% include copy.html %}
-
-This will display the number of documents in each of the indexes in the target cluster, as shown in the following example response:
-
-```shell
-SOURCE CLUSTER
-health status index                uuid                   pri rep docs.count docs.deleted store.size pri.store.size
-green  open   my-index             -DqPQDrATw25hhe5Ss34bQ   1   0          3            0     12.7kb         12.7kb
-
-TARGET CLUSTER
-health status index                     uuid                   pri rep docs.count docs.deleted store.size pri.store.size
-green  open   .opensearch-observability 8HOComzdSlSWCwqWIOGRbQ   1   1          0            0       416b           208b
-green  open   .plugins-ml-config        9tld-PCJToSUsMiyDhlyhQ   5   1          1            0      9.5kb          4.7kb
-green  open   my-index                  bGfGtYoeSU6U6p8leR5NAQ   1   0          3            0      5.5kb          5.5kb
-green  open   .migrations_working_state lopd47ReQ9OEhw4ZuJGZOg   1   1          2            0     18.6kb          6.4kb
-green  open   .kibana_1
-```
-
-You can run additional queries against the target cluster to mimic your production workflow and closely examine the results.
-
-## Verify that all documents were migrated
-
-Use the following query in CloudWatch Logs Insights to identify failed documents:
-
-```bash
-fields @message
-| filter @message like "Bulk request succeeded, but some operations failed."
-| sort @timestamp desc
-| limit 10000
-```
-{% include copy.html %}
-
-If any failed documents are identified, you can index the failed documents directly as opposed to using RFS.
+| Symptom | Likely cause | Resolution |
+|:--------|:-------------|:-----------|
+| Snapshot creation fails | S3 permissions, missing IAM role | Check `s3RoleArn` for AWS managed sources |
+| Metadata migration fails | Version incompatibility | Review [Is Migration Assistant right for you?]({{site.url}}{{site.baseurl}}/migration-assistant/is-migration-assistant-right-for-you/) |
+| RFS stalls | Target cluster overloaded | Reduce parallelism, check cluster health |
+| Authentication errors | Invalid credentials | Verify Kubernetes secrets exist and contain correct values |
+| Document-level errors (mapper_parsing, etc.) | Incompatible field types or mappings | Configure `allowedDocExceptionTypes` in `documentBackfillConfig` to skip known-safe errors. Unlike the replayer's `nonRetryableDocExceptionTypes` (which still counts errors as failures), RFS's `allowedDocExceptionTypes` treats matching errors as successes. |
 
 {% include migration-phase-navigation.html %}
