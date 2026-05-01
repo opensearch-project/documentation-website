@@ -110,9 +110,31 @@ uiSettings:
 ```
 {% include copy.html %}
 
-If your cluster has the Security plugin installed, then multi-tenancy must be disabled to avoid conflicts with similar workspaces:
+If your cluster has the Security plugin installed, then multi-tenancy must be disabled to avoid conflicts with similar workspaces.
+
+### OpenSearch Dashboards
+
+Disable multi-tenancy in `opensearch_dashboards.yml`:
 
 ```yaml
 opensearch_security.multitenancy.enabled: false
+```
+{% include copy.html %}
+
+
+### OpenSearch
+   
+Multi-tenancy in the OpenSearch Security plugin is enabled by default. To disable it, update the Security plugin `config.yml` file and apply the configuration using the `securityadmin.sh` script:
+
+```yaml
+_meta:
+  type: "config"
+  config_version: 2
+
+config:
+  dynamic:
+    kibana:
+      multitenancy_enabled: false
+...
 ```
 {% include copy.html %}
