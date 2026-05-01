@@ -129,3 +129,5 @@ plugins.security.audit.config.log4j.level: INFO
 ```
 
 By default, the Security plugin uses the logger name `audit` and logs the events on `INFO` level. Audit events are stored in JSON format.
+
+For clusters with many indices, you can use the `plugins.security.audit.config.log4j.maximum_index_characters_per_message` setting to split log messages and prevent the `audit_trace_indices` and `audit_trace_resolved_indices` fields from exceeding the desired maximum index name characters per message. This can help keep maximum log message size down to better fit in your logging pipeline. Split messages will include a new `audit_split_message_id` UUID field to link split messages together. The setting defaults to `2,147,483,647` so no splitting will be performed.
