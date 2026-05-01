@@ -75,6 +75,26 @@ DELETE /_plugins/_ml/memory_containers/HudqiJkB1SltqOcZusVU/memories/history/eMx
 }
 ```
 
+### Error responses
+
+If you attempt to delete a memory from a container that doesn't exist, OpenSearch returns a 404 Not Found error:
+
+```json
+{
+  "error": {
+    "root_cause": [
+      {
+        "type": "status_exception",
+        "reason": "Memory container not found"
+      }
+    ],
+    "type": "status_exception",
+    "reason": "Memory container not found"
+  },
+  "status": 404
+}
+```
+
 ### Response fields
 
 The following table lists all response body fields.

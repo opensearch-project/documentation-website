@@ -46,6 +46,26 @@ DELETE /_plugins/_ml/models/MzcIJX8BA7mbufL6DOwl
 }
 ```
 
+## Error responses
+
+If you attempt to delete a model that doesn't exist, OpenSearch returns a 404 Not Found error:
+
+```json
+{
+  "error": {
+    "root_cause": [
+      {
+        "type": "status_exception",
+        "reason": "Failed to find model"
+      }
+    ],
+    "type": "status_exception",
+    "reason": "Failed to find model"
+  },
+  "status": 404
+}
+```
+
 ## Safely deleting a model
 Introduced 2.19
 {: .label .label-purple }
