@@ -94,7 +94,7 @@ Traffic Replayer retrieves traffic from Kafka and updates its commit cursor afte
 
 Traffic Replayer sends requests in the same order that they were received from each connection to the source. However, relative timing between different connections is not guaranteed. For example:
 
-- **Scenario**: Two connections exist:one sends a PUT request every minute, and the other sends a GET request every second.
+- **Scenario**: Two connections exist: one sends a PUT request every minute, and the other sends a GET request every second.
 - **Behavior**: Traffic Replayer will maintain the sequence within each connection, but the relative timing between the connections (PUTs and GETs) is not preserved.
 
 Assume that a source cluster responds to requests (GETs and PUTs) within 100 ms:
@@ -178,6 +178,33 @@ Each log entry is a newline-delimited JSON object, containing information about 
 
 These logs contain the contents of all requests, including authorization headers and the contents of all HTTP messages. Ensure that access to the migration environment is restricted, as these logs serve as a source of truth for determining what happened in both the source and target clusters. Response times for the source refer to the amount of time between the proxy sending the end of a request and receiving the response. While response times for the target are recorded in the same manner, keep in mind that the locations of the capture proxy, Traffic Replayer, and target may differ and that these logs do not account for the client's location.
 {: .note}
+
+## Troubleshooting
+
+### Health check requests failing with 403s then passing with 200s
+
+If you're seeing source requests that fail with 403 errors but then pass with 200 responses, you can configure the capture proxy to ignore these requests. These are typically health check requests that may fail authentication on the source cluster but succeed on the target cluster. You can ignore these requests by adding the following to the captureProxyExtraArgs configuration option and redeploying Migration Assistant:
+
+```bash
+--suppressCaptureForHeaderMatch user-agent .*ELB-HealthChecker.*
+```
+
+### No replayed traffic
+
+If your dashboard shows a high 'time to catchup' metric (for example, more than 24 hours), this indicates that Traffic Replayer has large gaps of no traffic that will still be visible during playback. The speedup factor will only increase wall clock time by that factor, so even large gaps in traffic are preserved during replay.
+
+To resolve this issue, clear the captured traffic and restart:
+
+```bash
+# Stop the capture proxy
+console replay stop
+
+# Clear Kafka topics (this removes all captured data)
+console kafka delete-topic
+
+# Restart traffic capture
+console replay start
+```
 
 
 ### Example log entry
