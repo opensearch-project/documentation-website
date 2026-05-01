@@ -3,7 +3,7 @@ layout: default
 title: multisearch
 parent: Commands
 grand_parent: PPL
-nav_order: 26
+nav_order: 29
 ---
 
 # multisearch
@@ -48,56 +48,69 @@ The `multisearch` command supports the following parameters.
 | `<subsearchN>` | Required | At least two subsearches are required. Each subsearch must be enclosed in square brackets and start with the `search` keyword (`[search source=index | <commands>]`). All PPL commands are supported within subsearches. |
 | `<result-processing>` | Optional | Commands applied to the merged results after the multisearch operation (for example, `stats`, `sort`, or `head`). |  
 
-## Example 1: Combining age groups for demographic analysis
+## Example 1: Comparing errors with debug logs
 
-This example demonstrates how to merge customers from different age segments into a unified dataset. It combines `young` and `adult` customers into a single result set and adds categorization labels for further analysis:
+This example merges error logs with debug logs side by side. This is useful when investigating whether debug-level logs from the same services provide clues about the root cause of errors:
   
 ```sql
-| multisearch [search source=accounts
-| where age < 30
-| eval age_group = "young"
-| fields firstname, age, age_group] [search source=accounts
-| where age >= 30
-| eval age_group = "adult"
-| fields firstname, age, age_group]
-| sort age
+| multisearch [search source=otellogs
+| where severityText = 'ERROR'
+| eval env = 'errors'
+| fields env, `resource.attributes.service.name`, body] [search source=otellogs
+| where severityText = 'DEBUG'
+| eval env = 'debug'
+| fields env, `resource.attributes.service.name`, body]
+| sort env, `resource.attributes.service.name`
 ```
 {% include copy.html %}
   
 The query returns the following results:
   
-| firstname | age | age_group |
+| env | resource.attributes.service.name | body |
 | --- | --- | --- |
-| Nanette | 28 | young |
-| Amber | 32 | adult |
-| Dale | 33 | adult |
-| Hattie | 36 | adult |
+| debug | cart | Cache miss for key user:session:U200 in Valkey cluster |
+| debug | cart | Valkey SETEX user:session:U300 3600 - session refreshed |
+| debug | product-catalog | gRPC call /ProductCatalogService/GetProduct completed in 12ms |
+| errors | checkout | NullPointerException in CheckoutService.placeOrder at line 142 |
+| errors | checkout | Kafka producer delivery failed: message too large for topic order-events (max 1048576 bytes) |
+| errors | frontend-proxy | [2024-02-01T09:20:00.456Z] "POST /api/checkout HTTP/1.1" 503 - 0 30000 checkout-8d4f7b-mk2p9 |
+| errors | payment | Payment failed: connection timeout to payment gateway after 30000ms |
+| errors | payment | Out of memory: Java heap space - shutting down pod payment-6f8d4b-ht7q3 |
+| errors | product-catalog | Database primary node unreachable: connection refused to db-primary-01:5432 |
+| errors | recommendation | Failed to process recommendation request: invalid product ID from 203.0.113.50 |
   
 
-## Example 2: Segmenting accounts by balance tier
+## Example 2: Segmenting logs by severity tier
 
-This example demonstrates how to create account segments based on balance thresholds for comparative analysis. It separates `high_balance` accounts from `regular` accounts and labels them for easy comparison:
+This example separates critical and non-critical logs for comparative analysis:
   
 ```sql
-| multisearch [search source=accounts
-| where balance > 20000
-| eval query_type = "high_balance"
-| fields firstname, balance, query_type] [search source=accounts
-| where balance > 0 AND balance <= 20000
-| eval query_type = "regular"
-| fields firstname, balance, query_type]
-| sort balance desc
+| multisearch [search source=otellogs
+| where severityNumber >= 17
+| eval tier = "critical"
+| fields severityText, severityNumber, tier] [search source=otellogs
+| where severityNumber < 17 AND severityNumber >= 13
+| eval tier = "warning"
+| fields severityText, severityNumber, tier]
+| sort - severityNumber
 ```
 {% include copy.html %}
   
 The query returns the following results:
   
-| firstname | balance | query_type |
+| severityText | severityNumber | tier |
 | --- | --- | --- |
-| Amber | 39225 | high_balance |
-| Nanette | 32838 | high_balance |
-| Hattie | 5686 | regular |
-| Dale | 4180 | regular |
+| ERROR | 17 | critical |
+| ERROR | 17 | critical |
+| ERROR | 17 | critical |
+| ERROR | 17 | critical |
+| ERROR | 17 | critical |
+| ERROR | 17 | critical |
+| ERROR | 17 | critical |
+| WARN | 13 | warning |
+| WARN | 13 | warning |
+| WARN | 13 | warning |
+| WARN | 13 | warning |
   
 
 ## Example 3: Merging time-series data from multiple sources
@@ -129,24 +142,26 @@ The query returns the following results:
 This example demonstrates how `multisearch` handles schema differences when subsearches return different fields. When one subsearch includes a field that others don't have, missing values are automatically filled with null values:
   
 ```sql
-| multisearch [search source=accounts
-| where age < 30
-| eval young_flag = "yes"
-| fields firstname, age, young_flag] [search source=accounts
-| where age >= 30
-| fields firstname, age]
-| sort age
+| multisearch [search source=otellogs
+| where severityText = 'ERROR'
+| eval needs_page = "yes"
+| fields severityText, `resource.attributes.service.name`, needs_page] [search source=otellogs
+| where severityText = 'WARN'
+| fields severityText, `resource.attributes.service.name`]
+| sort `resource.attributes.service.name`
+| head 5
 ```
 {% include copy.html %}
   
 The query returns the following results:
   
-| firstname | age | young_flag |
+| severityText | resource.attributes.service.name | needs_page |
 | --- | --- | --- |
-| Nanette | 28 | yes |
-| Amber | 32 | null |
-| Dale | 33 | null |
-| Hattie | 36 | null |
+| ERROR | checkout | yes |
+| ERROR | checkout | yes |
+| ERROR | frontend-proxy | yes |
+| WARN | frontend-proxy | null |
+| WARN | frontend-proxy | null |
   
 
 ## Limitations
