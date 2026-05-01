@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Creating dashboards
-nav_order: 30
+nav_order: 40
 has_children: false
 redirect_from:
   - /dashboards/dashboard/
@@ -46,9 +46,6 @@ Before using the **Dashboards** tool, ensure that you:
 - [Install OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards).
 
 - Add sample data or import your own data into OpenSearch. To learn about adding sample datasets, see [Adding sample data]({{site.url}}{{site.baseurl}}/dashboards/quickstart/#adding-sample-data). To learn about importing your own data, see [Managing indexes]({{site.url}}{{site.baseurl}}/im-plugin/index/).
-
-The tutorials on this page use the [**Sample eCommerce data**](https://playground.opensearch.org/app/home#/tutorial_directory) dataset.
-{: .tip}
 
 - Know how to use the [search bar]({{site.url}}{{site.baseurl}}/dashboards/discover/search-bar/) and the [time filter]({{site.url}}{{site.baseurl}}/dashboards/discover/time-filter/).
 

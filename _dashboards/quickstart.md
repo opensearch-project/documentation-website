@@ -66,7 +66,7 @@ To unhide and dock the navigation panel, follow these steps:
 
 ## Adding sample data
 
-If you've installed a local OpenSearch Dashboards instance, add one or more sample datasets, follow these steps:
+If you've installed a local OpenSearch Dashboards instance, add one or more sample datasets by following these steps:
 
 1. On the OpenSearch Dashboards home page, choose **Add sample data**. Or on any page, choose {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/add-data-icon.png" class="inline-icon" alt="add-data icon"/>{:/} (add data) **Add data** from the upper-right toolbar.
 

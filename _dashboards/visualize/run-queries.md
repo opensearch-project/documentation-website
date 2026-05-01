@@ -11,7 +11,7 @@ redirect_from:
 
 # Running queries in the Dev Tools console
 
-You can use the OpenSearch Dev Tools console to send queries to OpenSearch. 
+You can use the OpenSearch Dev Tools console to send queries to OpenSearch.
 
 ## Navigating to the console
 

@@ -1,9 +1,9 @@
 ---
 layout: default
-title: Coordinate and region maps
+title: Using coordinate and region maps 
 parent: Building data visualizations
 has_children: true
-nav_order: 15
+nav_order: 50
 redirect_from:
   - /dashboards/geojson-regionmaps/
 ---
