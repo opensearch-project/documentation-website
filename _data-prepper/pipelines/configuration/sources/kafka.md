@@ -347,8 +347,8 @@ confluent-pipeline:
       schema:
         type: confluent
         registry_url: https://psrc-xxxxx.us-east-1.aws.confluent.cloud
-        api_key: "${{aws_secrets:schema-secret:schema_registry_api_key}}"
-        api_secret: "${{aws_secrets:schema-secret:schema_registry_api_secret}}"
+        api_key: "{% raw %}${{aws_secrets:schema-secret:schema_registry_api_key}}{% endraw %}"
+        api_secret: "{% raw %}${{aws_secrets:schema-secret:schema_registry_api_secret}}{% endraw %}"
         basic_auth_credentials_source: USER_INFO
   sink:
     - opensearch:
