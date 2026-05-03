@@ -9,108 +9,56 @@ permalink: /migration-assistant/migration-phases/migrate-metadata/transform-flat
 
 # Transform flattened fields to flat_object
 
-This guide explains how Migration Assistant automatically transforms the `flattened` field type during migration to OpenSearch.
+Migration Assistant can automatically convert Elasticsearch `flattened` fields into OpenSearch `flat_object` fields during metadata migration.
 
-## Overview
+## When this applies
 
-The `flattened` field type was introduced in Elasticsearch 7.3 as an X-Pack feature. It allows you to store an entire JSON object as a single field value, which can be useful for objects with a large or unknown number of unique keys.
+This transformation matters when:
 
-When migrating to OpenSearch 2.7 or later, Migration Assistant automatically converts `flattened` field types to OpenSearch's equivalent `flat_object` type. This transformation requires no configuration or user intervention.
+- the source contains `flattened` mappings
+- the target supports `flat_object`
 
-To determine whether an Elasticsearch cluster uses `flattened` field types, make a call to your source cluster's `GET /_mapping` API. In the migration console, run `console clusters curl source_cluster "/_mapping"`. If you see `"type":"flattened"`, then this transformation is applicable and these fields will be automatically transformed during migration.
+If the target does not support the equivalent field behavior you need, plan a custom transformation instead.
 
-## Compatibility
+## What the workflow does automatically
 
-The `flattened` to `flat_object` field type transformation applies to:
-- **Source clusters**: Elasticsearch 7.3+
-- **Target clusters**: OpenSearch 2.7+
-- **Automatic conversion**: No configuration required during metadata
+During metadata migration, built-in transformations detect `flattened` field definitions and rewrite them to `flat_object`.
 
-## Automatic migration
+That means most users do not need to configure anything manually.
 
-When migrating to OpenSearch 2.7 or later, Migration Assistant automatically detects `flattened` field types and converts them to `flat_object` fields. During the migration process, you'll see this transformation in the output:
+## How to check whether your source uses `flattened`
 
+```bash
+console clusters curl source -- "/_mapping"
 ```
-Transformations:
-   flattened to flat_object:
-      Convert field data type flattened to OpenSearch flat_object
+{% include copy.html %}
+
+If the source mapping contains `"type":"flattened"`, this compatibility path may apply.
+
+## What to validate after migration
+
+After the metadata phase, verify that the target mappings look the way you expect:
+
+```bash
+console clusters curl target -- "/your-index/_mapping"
+workflow output
 ```
+{% include copy.html %}
 
-### Example transformation
+## When automatic conversion is not enough
 
-<table style="border-collapse: collapse; border: 1px solid #ddd;">
-  <thead>
-    <tr>
-      <th style="border: 1px solid #ddd; padding: 8px;">Source field type</th>
-      <th style="border: 1px solid #ddd; padding: 8px;">Target field type</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="border: 1px solid #ddd; padding: 8px;">
-        <pre><code>{
-  "properties": {
-    "labels": {
-      "type": "flattened"
-    },
-    "title": {
-      "type": "text"
-    }
-  }
-}</code></pre>
-      </td>
-      <td style="border: 1px solid #ddd; padding: 8px;">
-        <pre><code>{
-  "properties": {
-    "labels": {
-      "type": "flat_object"
-    },
-    "title": {
-      "type": "text"
-    }
-  }
-}</code></pre>
-      </td>
-    </tr>
-  </tbody>
-</table>
+Use a custom metadata transformer if:
 
-## Transformation behavior across versions
+- the target version does not support the field behavior you need
+- you want to convert `flattened` into a different target type
+- you need additional property cleanup beyond the built-in transformation
 
-Migration Assistant automatically converts all `flattened` fields to `flat_object` fields. No additional configuration is required.
+## What to watch for in the application
 
-If you're migrating to OpenSearch versions earlier than 2.7, indexes containing `flattened` field types will fail to migrate. You have several options:
+Even when the mapping conversion succeeds, validate:
 
-1. **Upgrade target cluster**: Upgrade your target OpenSearch cluster to version 2.7 or later to support the automatic conversion.
+- representative queries
+- aggregations
+- dashboards or visualizations that depend on the field
 
-2. **Custom transformation**: Use the [field type transformation framework]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/handling-field-type-breaking-changes/) to convert `flattened` to another supported type (for example, `object` or `nested`).
-
-## Differences between flattened and flat_object
-
-While `flat_object` in OpenSearch provides similar functionality to Elasticsearch's `flattened` type, there are some minor differences:
-
-- **Query syntax**: Both support dot notation for accessing nested fields.
-- **Performance**: Similar performance characteristics for indexing and searching.
-- **Storage**: Both store the entire object as a single Lucene field.
-- **Limitations**: Both have similar limitations on aggregations and sorting.
-
-## Troubleshooting
-
-If you encounter issues with `flattened` field migration:
-
-1. **Verify target version** -- Ensure your target OpenSearch cluster is running version 2.7 or later.
-
-2. **Check migration logs** -- Review the detailed migration logs for any warnings or errors:
-   ```bash
-   cat /shared-logs-output/migration-console-default/*/metadata/*.log
-   ```
-
-3. **Validate mappings** -- After migration, verify that the field types have been correctly converted:
-   ```bash
-   GET /your-index/_mapping
-   ```
-
-## Related documentation
-
-- [Transform field types documentation]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/handling-field-type-breaking-changes/) -- Configure custom field type transformations.
-- [flat_object field type documentation]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/flat-object/) -- Learn about flat_object field type.
+The migration is only successful if the target behavior still matches what the application expects.

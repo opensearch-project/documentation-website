@@ -8,68 +8,99 @@ permalink: /migration-assistant/migration-phases/reroute-source-to-proxy/
 
 # Reroute client traffic to the capture proxy
 
-This page is only relevant if you are using Capture and Replay for a zero-downtime migration. If you are only performing a backfill migration, skip this step.
+This page only applies to zero-downtime migrations that use capture and replay.
 {: .note }
 
-Capture must begin **before** metadata migration and backfill so that no writes are lost during the migration window. The capture proxy records all traffic to Kafka while forwarding requests to the source cluster as normal.
+Capture must start before snapshot backfill if you want to preserve writes that happen during the migration window.
 
-## How capture works on Kubernetes
+## What the workflow creates
 
-When you include a `traffic` section in your workflow configuration, the workflow deploys a capture proxy fleet as a Kubernetes Deployment with a Kubernetes Service fronting it. Client traffic is routed to the proxy's Service, which forwards requests to the source cluster while simultaneously recording them to Kafka (managed by Strimzi).
+When your workflow includes a `traffic.proxies` section, Migration Assistant creates:
 
-Unlike the classic ECS deployment (which uses an Application Load Balancer), the EKS deployment exposes the capture proxy via a Kubernetes Service. On EKS, this is typically backed by a Network Load Balancer via a `LoadBalancer`-type Service.
+- capture proxy pods
+- a Kubernetes Service in front of those pods
+- Kafka wiring so captured traffic can be replayed later
 
-## Routing traffic to the capture proxy
+Client traffic is sent to the proxy Service. The proxy forwards requests to the source cluster and records them for later replay.
 
-After submitting a workflow with `traffic.proxies` configured, the capture proxy pods and Service are created automatically. To route client traffic:
+## What changes on Kubernetes and EKS
 
-1. Get the capture proxy Service endpoint:
+The migration engine is the same on both platforms. The practical difference is how the Service is exposed and integrated into your environment.
 
-   ```bash
-   kubectl get svc -n ma -l migrations.opensearch.org/task=captureProxy
-   ```
-   {% include copy.html %}
+- On **generic Kubernetes**, you provide the networking pattern that gets clients to the proxy Service.
+- On **Amazon EKS**, the Service can be backed by AWS load-balancer infrastructure, and the bootstrap path handles more of the platform wiring for you.
 
-2. Update your client configuration, DNS, or load balancer to point to the capture proxy Service endpoint instead of the source cluster directly.
+## Configure the proxy in the workflow
 
-3. Verify traffic is flowing through the proxy by checking Kafka topic records from the Migration Console:
+Always start from the current sample:
 
-   ```bash
-   console clusters curl source -- "/_cat/count?v"
-   ```
-   {% include copy.html %}
+```bash
+workflow configure sample --load
+workflow configure edit
+```
+{% include copy.html %}
 
-## Host header configuration
+In the proxy configuration, important fields include:
 
-If your source cluster uses `Host` header routing (common with Elastic Cloud and hosted Elasticsearch services), configure the proxy to override the `Host` header. In your workflow configuration under `traffic.proxies.<name>.proxyConfig`:
+- `listenPort`
+- `podReplicas`
+- `internetFacing` when you need external exposure on EKS
+- `tls`
+- `setHeader`
+
+## TLS behavior
+
+The proxy is secure by default. If you do not configure TLS explicitly, the workflow provisions a self-signed certificate for the proxy.
+
+If you intentionally want plaintext HTTP, set the proxy TLS mode to `plaintext`.
+
+## Host and header overrides
+
+If your source uses host-based routing, add a static header in the proxy configuration.
+
+Use the `setHeader` field with entries in `Header-Name: value` format, for example:
 
 ```json
 {
-  "setHeaders": ["Host <your-source-domain>"]
+  "setHeader": ["Host: source.example.com"]
 }
 ```
 {% include copy.html %}
 
-The `Host` header value should be the domain name only — no protocol (`https://`) or port.
+## Find the proxy endpoint
 
-## Verifying capture
-
-From the Migration Console, verify that traffic is being captured:
+After you submit the workflow, inspect the Services in the `ma` namespace and identify the one created for the proxy:
 
 ```bash
-# Check workflow status — the proxy step should show as Running
-workflow status
+kubectl get svc -n ma
+```
+{% include copy.html %}
 
-# Monitor via TUI
+Then update your application, DNS, or load balancer to send traffic to that proxy endpoint instead of directly to the source.
+
+## Verify capture before moving on
+
+Before you proceed to metadata migration and backfill, confirm that:
+
+- the proxy pods are running
+- the Service is reachable
+- application traffic is flowing through the proxy
+- the workflow shows the traffic components as healthy
+
+Useful commands:
+
+```bash
+workflow status
 workflow manage
 ```
 {% include copy.html %}
 
-## Next steps
+## What happens next
 
-Once traffic is flowing through the capture proxy, proceed to:
-1. [Migrate metadata]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/)
-2. [Backfill]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/backfill/)
-3. [Replay captured traffic]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/replay-captured-traffic/)
+Once capture is live, keep traffic flowing through the proxy while you:
+
+1. migrate metadata
+2. backfill historical documents
+3. replay the captured traffic to catch the target up
 
 {% include migration-phase-navigation.html %}

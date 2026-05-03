@@ -12,71 +12,91 @@ redirect_from:
 
 # Replay captured traffic
 
-This page is only relevant if you are using Capture and Replay for a zero-downtime migration. If you are only performing a backfill migration, skip this step.
+This page only applies to zero-downtime migrations that use capture and replay.
 {: .note }
 
-After metadata migration and document backfill are complete, the Traffic Replayer reads captured traffic from Kafka and replays it against the target cluster. This closes the gap between the snapshot point-in-time and the current state of the source.
+Replay is the step that closes the time gap between the snapshot used for backfill and the current state of the source system.
 
-## When to start replay
+## When replay should start
 
-Start the replayer **after** backfill completes. If you configured `dependsOnSnapshotMigrations` in your replayer config, the workflow handles this sequencing automatically — the replayer waits for the specified snapshot migrations to finish before starting.
+Replay should begin only after the dependent snapshot migration has completed. In the workflow model, this is normally expressed with:
 
-If replay starts before backfill completes, delete operations captured during the backfill window may execute before the corresponding documents are migrated, causing data inconsistency.
+```text
+dependsOnSnapshotMigrations
+```
 
-## How replay works on Kubernetes
+That dependency is important. Starting replay too early can cause ordering problems between historical backfill and live change processing.
 
-The replayer runs as a Kubernetes Deployment managed by the workflow. It:
+## What replay does
 
-1. Reads captured traffic from the Kafka topic associated with the capture proxy
-2. Reconstructs HTTP requests from the captured byte streams
-3. Applies request transformations (auth headers, index names) as configured
-4. Sends requests to the target cluster
-5. Tracks Kafka consumer offsets for resumability
+The traffic replayer:
 
-## Monitoring replay
+1. reads captured traffic from Kafka
+2. reconstructs requests
+3. applies replay-time transformations and auth behavior
+4. sends the requests to the target cluster
+5. advances Kafka offsets so replay can resume safely
+
+## Key replay settings
+
+Important workflow settings include:
+
+- `podReplicas`
+- `speedupFactor`
+- `dependsOnSnapshotMigrations`
+- `nonRetryableDocExceptionTypes`
+
+`speedupFactor` controls how quickly replay tries to catch up relative to the original traffic timeline. For example, `2.0` means twice real-time.
+
+`nonRetryableDocExceptionTypes` is different from RFS `allowedDocExceptionTypes`. These replay errors are still counted as failures in the output, but they are not retried because they are expected to fail deterministically.
+
+## What catch-up time depends on
+
+Replay duration is mostly a function of:
+
+- how much traffic was captured during backfill
+- how fast the target can process that traffic
+- the `speedupFactor` you configure
+
+In other words, replay time is not fixed. It depends on backlog and throughput.
+
+## Monitor replay
+
+Use the interactive workflow view whenever possible:
 
 ```bash
-# Interactive TUI — watch replayer progress
 workflow manage
+```
+{% include copy.html %}
 
-# Check workflow status
+Useful supporting commands:
+
+```bash
 workflow status
-
-# Stream replayer logs
 workflow output --follow
 ```
 {% include copy.html %}
 
-## Configuration options
+## What to validate before cutover
 
-The replayer is configured in `traffic.replayers.<name>.replayerConfig` in your workflow YAML. Key options:
+Do not switch traffic just because the replayer is running. Validate that:
 
-| Option | Description |
-|:-------|:------------|
-| `podReplicas` | Number of replayer pods (scale for throughput) |
-| `speedupFactor` | Replay faster than real-time to catch up (e.g., `2.0` = 2x speed) |
-| `nonRetryableDocExceptionTypes` | Document errors to skip retrying (e.g., `mapper_parsing_exception`) |
+- replay has reached the live edge
+- document counts are directionally correct
+- representative queries behave correctly on the target
+- target-side errors are understood and acceptable
 
-Run `workflow configure sample` for the full list of options.
-
-## Verifying replay completion
-
-The replayer catches up when it reaches the live edge of the Kafka topic. At that point, the target cluster is synchronized with the source. Verify:
+Useful checks:
 
 ```bash
-# Compare document counts
 console clusters curl source -- "/_cat/indices?v"
 console clusters curl target -- "/_cat/indices?v"
-
-# Run representative queries against both
 console clusters curl target -- "/my-index/_search" --json '{"query":{"match_all":{}},"size":5}'
 ```
 {% include copy.html %}
 
-## Next steps
+## What happens next
 
-Once the target is caught up and verified:
-1. [Switch traffic to the target]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/switch-traffic-to-target/)
-2. [Remove migration infrastructure]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/remove-migration-infrastructure/)
+Once replay is caught up and the target is validated, move to the cutover step and keep the source available until the rollback window has passed.
 
 {% include migration-phase-navigation.html %}

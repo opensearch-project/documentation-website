@@ -12,142 +12,56 @@ redirect_from:
 
 # Transform field types
 
-{: .note }
-These transformations may not apply to your use case, but the framework for creating a transformation is designed to handle mutations, data enrichments, and other modifications when modifying workloads or moving them to a new target.
+Migration Assistant already knows how to handle several common field-type compatibility problems during metadata migration. This page explains when the built-in transformations are enough and when you need a custom transformer.
 
-This guide explains how to use Migration Assistant to transform field types that are deprecated or incompatible during a migration to OpenSearch.
+## Start with the built-in transformations
 
-Field types define how data is stored and queried in an index. Each field in a document is mapped to a data type, which determines how it is indexed and what operations can be performed on it.
+Before you build custom logic, check whether the migration is already covered by the built-in metadata transformations:
 
-For example, the following index mapping for a library's book collection defines three fields, each with a different type:
+- `string` to `text` and `keyword`
+- `flattened` to `flat_object`
+- `dense_vector` to `knn_vector`
+- additional vector compatibility adjustments for newer OpenSearch and Serverless targets
 
-```json
-GET /library-books/_mappings
-{
-  "library-books": {
-    "mappings": {
-      "properties": {
-        "title":          { "type": "text" },
-        "publishedDate":  { "type": "date" },
-        "pageCount":      { "type": "integer" }
-      }
-    }
-  }
-}
-```
+For many migrations, that is enough.
 
-For more information, see [Mappings and field types]({{site.url}}{{site.baseurl}}/mappings/).
+## When to create a custom field-type transformer
 
-## Configure item transformations
+Use a custom transformer only when:
 
-You can customize how field types are transformed during metadata and data migrations by supplying a transformation configuration file using the following steps:
+- the built-in rules do not match your target behavior
+- your application requires a specific field rewrite
+- you need to remove or adjust mapping properties in a way the defaults do not cover
 
-1. Open the Migration Assistant console.
-2. Create a JavaScript file to define your transformation logic using the following command:
+## How custom transformers fit into the workflow model
 
-   ```bash
-   vim /shared-logs-output/field-type-converter.js
-   ```
-   {% include copy.html %}
+In the current workflow model, custom metadata transformations are configured through metadata migration settings such as:
 
-3. Write any JavaScript rules that perform the desired field type conversions. For an example of how the rules can be implemented, see the [example `field-type-converter.js` implementation](#example-field-type-converterjs-implementation).
-4. Create a transformation descriptor file using the following command:
+- `transformerConfig`
+- `transformerConfigBase64`
+- `transformerConfigFile`
 
-   ```bash
-   vim /shared-logs-output/transformation.json
-   ```
-   {% include copy.html %}
+Start with:
 
-5. Add a reference to your JavaScript file in `transformation.json`.
-6. Run the metadata migration and supply the transformation configuration using a command similar to the following:
-
-   ```bash
-   console metadata migrate \
-     --transformer-config-file /shared-logs-output/transformation.json
-   ```
-   {% include copy.html %}
-
-### Example `field-type-converter.js` implementation
-
-The following script demonstrates how to perform common field type conversions, including:
-
-* Replacing the deprecated `string` type with `text`.
-* Converting `flattened` to `flat_object` and removing the `index` property if present.
-
-
-```javascript
-function main(context) {
-  const rules = [
-    {
-      when: { type: "string" },
-      set: { type: "text" }
-    },
-    {
-      when: { type: "flattened" },
-      set: { type: "flat_object" },
-      remove: ["index"]
-    }
-  ];
-
-  function applyRules(node, rules) {
-    if (Array.isArray(node)) {
-      node.forEach((child) => applyRules(child, rules));
-    } else if (node instanceof Map) {
-      for (const { when, set, remove = [] } of rules) {
-        const matches = Object.entries(when).every(([k, v]) => node.get(k) === v);
-        if (matches) {
-          Object.entries(set).every(([k, v]) => node.set(k, v));
-          remove.forEach((key) => node.delete(key));
-        }
-      }
-      for (const child of node.values()) {
-        applyRules(child, rules);
-      }
-    } else if (node && typeof node === "object") {
-      for (const { when, set, remove = [] } of rules) {
-        const matches = Object.entries(when).every(([k, v]) => node[k] === v);
-        if (matches) {
-          Object.assign(node, set);
-          remove.forEach((key) => delete node[key]);
-        }
-      }
-      Object.values(node).forEach((child) => applyRules(child, rules));
-    }
-  }
-
-  return (doc) => {
-    if (doc && doc.type && doc.name && doc.body) {
-      applyRules(doc, rules);
-    }
-    return doc;
-  };
-}
-(() => main)();
+```bash
+workflow configure sample --load
+workflow configure edit
 ```
 {% include copy.html %}
 
-The script contains the following elements:
+If you use `transformerConfigFile`, the file must exist inside the container environment. That is an expert path and usually means mounting the file or baking it into the image.
 
-1. The `rules` array defines transformation logic:
+## Example custom transformer pattern
 
-   * `when`: Key-value conditions to match on a node
-   * `set`: Key-value pairs to apply when the `when` clause matches
-   * `remove` (optional): Keys to delete from the node when matched
+Advanced users can supply a JavaScript-based metadata transformer through `JsonJSTransformerProvider`.
 
-2. The `applyRules` function recursively traverses the input:
+Typical use cases include:
 
-   * Arrays are recursively processed element by element.
-   * `Map` objects are matched and mutated using the defined rules.
-   * Plain objects are checked for matches and transformed accordingly.
+- replacing deprecated field types
+- removing incompatible mapping properties
+- normalizing field definitions before they reach the target
 
-3. The `main` function returns a transformation function that:
-
-   * Applies the rules to each document.
-   * Returns the modified document for migration or replay.
-
-### Example `transformation.json`
-
-The following JSON file references your transformation script and initializes the JavaScript engine with your custom rules:
+## Example transformation descriptor
 
 ```json
 [
@@ -161,6 +75,25 @@ The following JSON file references your transformation script and initializes th
 ```
 {% include copy.html %}
 
-## Summary
+## Workflow guidance
 
-By using a transformation configuration, you can rewrite deprecated or incompatible field types during metadata migration or data replay. This ensures that your target OpenSearch cluster only receives compatible mappings—even if the source cluster includes outdated types like `string` or features like `flattened` that need conversion.
+Treat custom transformers as a last-mile compatibility tool, not as the starting point for every migration.
+
+The safest sequence is:
+
+1. run assessment
+2. inspect the built-in transformation pages
+3. configure a pilot workflow
+4. add a custom transformer only if the pilot shows you need one
+
+## Validate the transformed metadata
+
+After the metadata phase runs, verify the target mappings:
+
+```bash
+console clusters curl target -- "/my-index/_mapping"
+workflow output
+```
+{% include copy.html %}
+
+If a custom transformer changes field names or semantics, validate application queries before proceeding to full backfill or cutover.

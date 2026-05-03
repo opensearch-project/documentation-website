@@ -10,49 +10,66 @@ redirect_from:
 
 # Switch traffic to the target
 
-This page is only relevant if you are using Capture and Replay for a zero-downtime migration. If you are only performing a backfill migration, skip this step.
+This page only applies to zero-downtime migrations that use capture and replay.
 {: .note }
 
-After the source and target clusters are synchronized, redirect client traffic from the capture proxy to the target cluster.
+Switching traffic is the cutover step. By this point, capture has already protected writes during backfill, replay has caught the target up, and validation should already be complete.
 
-## Prerequisites
+## Cutover checklist
 
-Before switching:
+Before you switch:
 
-- The replayer has caught up to the live edge of the Kafka topic
-- Document counts match between source and target
-- Representative queries return expected results on the target
-- The target cluster is healthy and ready to accept production traffic
+- replay has reached the live edge
+- the target cluster is healthy
+- representative application queries work on the target
+- the application team is ready to move traffic
+- the rollback path is still available
 
-## Switching traffic
+## How to cut over
 
-On Kubernetes, the capture proxy is exposed via a Kubernetes Service. To switch traffic:
+The exact mechanism depends on your environment, but the principle is always the same:
 
-1. Update your DNS record, load balancer target, or application connection string to point directly to the target cluster instead of the capture proxy Service.
+1. stop pointing clients at the capture proxy
+2. point clients directly at the target cluster
+3. watch the target closely during the first production traffic window
 
-2. If using an external load balancer (NLB, ALB, or DNS-based routing), update the target group or backend to point to the target cluster endpoint.
+In practice, that usually means updating:
 
-3. Monitor the target cluster to confirm it is handling traffic correctly:
+- a DNS record
+- a load balancer backend
+- an application connection string
+- or a service-discovery entry
 
-   ```bash
-   console clusters curl target -- "/_cluster/health"
-   console clusters curl target -- "/_cat/indices?v"
-   ```
-   {% include copy.html %}
+## Validate immediately after cutover
 
-## Fallback
+Right after you switch, check:
 
-If issues arise after switching:
+- cluster health
+- basic index visibility
+- representative application behavior
 
-1. Revert DNS or load balancer configuration to point back to the capture proxy (which still forwards to the source cluster)
-2. The source cluster has all its original data — no data is lost by reverting
-3. Investigate and resolve the issue before attempting the switch again
+Useful commands:
 
-Keep the source cluster available as a fallback for 24–72 hours after switching.
+```bash
+console clusters curl target -- "/_cluster/health"
+console clusters curl target -- "/_cat/indices?v"
+```
+{% include copy.html %}
 
-## Next steps
+## Keep the rollback path open
 
-Once confident in the target cluster:
-1. [Remove migration infrastructure]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/remove-migration-infrastructure/)
+Do not immediately tear down the source or the migration infrastructure.
+
+If you need to fall back:
+
+1. point clients back to the previous route
+2. investigate the target-side issue
+3. decide whether to resume replay, rerun the migration, or retry cutover later
+
+Keep the source available until the application team is comfortable that the target is stable under real production traffic.
+
+## What happens next
+
+After the rollback window has passed, remove migration infrastructure and clean up any temporary resources.
 
 {% include migration-phase-navigation.html %}

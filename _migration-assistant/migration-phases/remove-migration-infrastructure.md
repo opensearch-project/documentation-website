@@ -12,11 +12,18 @@ redirect_from:
 
 # Removing migration infrastructure
 
-After a migration is complete, remove Migration Assistant resources from your cluster.
+Cleanup should happen last, not immediately after the first successful run.
 
-## Kubernetes deployment
+Wait until:
 
-Remove the Helm release and persistent volumes:
+- production traffic has been stable on the target
+- you no longer need the source for rollback
+- you no longer need replay or comparison checks
+- any snapshot artifacts you want to keep have been retained intentionally
+
+## Generic Kubernetes cleanup
+
+To remove the Helm deployment and persistent volumes:
 
 ```bash
 helm uninstall -n ma ma
@@ -25,24 +32,29 @@ kubectl delete namespace ma
 ```
 {% include copy.html %}
 
-## Amazon EKS deployment
+## Amazon EKS cleanup
 
-Remove the Helm release, then delete the CloudFormation stack:
+If you used the EKS bootstrap path, clean up the Helm release and then the CloudFormation stack:
 
 ```bash
-# Remove Helm release
 helm uninstall -n ma ma
 kubectl -n ma delete pvc --all
-
-# Delete CloudFormation stack
 aws cloudformation delete-stack --stack-name <STACK_NAME>
 aws cloudformation wait stack-delete-complete --stack-name <STACK_NAME>
 ```
 {% include copy.html %}
 
-The CloudFormation stack deletion removes the EKS cluster, ECR registry, IAM roles, and networking resources.
+This removes the EKS platform resources created by the solution stack.
 
-The S3 bucket created for snapshots (`migrations-default-<ACCOUNT_ID>-<STAGE>-<REGION>`) is not automatically deleted. Remove it manually if no longer needed.
+## Check snapshot and artifact retention first
+
+Be deliberate about S3 cleanup. The default migrations bucket is often still useful for:
+
+- audit and rollback investigation
+- preserving snapshots
+- comparing post-cutover behavior
+
+Delete it only after you are certain you no longer need the contents.
 {: .warning }
 
 {% include migration-phase-navigation.html %}

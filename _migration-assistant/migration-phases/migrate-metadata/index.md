@@ -14,165 +14,116 @@ redirect_from:
 
 # Migrate metadata
 
-Metadata migration transfers index settings, mappings, templates, component templates, and aliases from the source cluster to the target. In Migration Assistant 3.0, metadata migration runs as an automated step within the workflow — you configure it in your workflow YAML and the workflow engine handles execution.
+Metadata migration moves the target cluster into a shape that can accept the incoming data and traffic. It handles mappings, templates, aliases, and other index-level definitions before document backfill or replay becomes meaningful.
 
-## How it works
+In the workflow model, metadata migration is not a separate manual tool run. It is a configured phase inside the migration workflow.
 
-When you include `metadataMigrationConfig` in your workflow configuration, the workflow executes two steps automatically:
+## How the workflow handles metadata
 
-1. **evaluateMetadata** — Scans the source snapshot, applies filtering and transformations, and produces a list of items that will be migrated. This is a dry run — nothing is written to the target.
-2. **migrateMetadata** — Applies the evaluated items to the target cluster. Items that already exist on the target are skipped.
+When `metadataMigrationConfig` is present, the workflow runs two logical steps:
 
-If `skipApprovals` is `false` (the default), the workflow pauses between evaluate and migrate for your approval. Use `workflow manage` or `workflow approve` to continue.
+1. `evaluateMetadata`
+2. `migrateMetadata`
 
-## Configuration
+The first step evaluates what would be applied. The second step writes those changes to the target. If approvals are enabled, the workflow can pause between these steps so you can inspect the result before continuing.
 
-Metadata migration is configured inside `metadataMigrationConfig` in your workflow YAML. Run `workflow configure sample` on the Migration Console to see all available options for your version.
+## What metadata migration is responsible for
 
-Key options:
+Metadata migration can handle:
 
-| Option | Description |
-|:-------|:------------|
-| `indexAllowlist` | List of indexes to migrate (regex supported with `regex:` prefix) |
-| `indexTemplateAllowlist` | List of index templates to migrate |
-| `componentTemplateAllowlist` | List of component templates to migrate |
-| `multiTypeBehavior` | How to handle ES 6.x multi-type indexes: `NONE`, `UNION`, or `SPLIT` |
-| `allowLooseVersionMatching` | Allow migration across version gaps with best-effort compatibility |
+- index settings
+- index mappings
+- legacy and composable templates
+- component templates
+- aliases
 
-### Example configuration
+It does not automatically migrate everything around the cluster. Plan separate work for security configuration, ISM or ILM policies, ingest pipelines, dashboards or Kibana objects, and other environment-specific assets.
 
-```json
-{
-  "metadataMigrationConfig": {
-    "indexAllowlist": ["products", "users", "regex:logs-.*"],
-    "multiTypeBehavior": "UNION"
-  }
-}
+## Built-in transformations you get automatically
+
+The current metadata migration path already includes built-in transformations for several common compatibility issues, including:
+
+- `string` to `text` and `keyword`
+- `flattened` to `flat_object`
+- `dense_vector` to `knn_vector`
+- additional vector compatibility transformations for newer OpenSearch and Serverless targets
+
+If your migration needs more than the built-ins, advanced users can also supply custom metadata transformers through `transformerConfig`, `transformerConfigBase64`, or `transformerConfigFile`.
+
+## Important configuration fields
+
+Useful metadata settings include:
+
+- `indexAllowlist`
+- `indexTemplateAllowlist`
+- `componentTemplateAllowlist`
+- `multiTypeBehavior`
+- `allowLooseVersionMatching`
+- `transformerConfig*`
+
+Use the version-matched sample from your console to see the exact structure for your installed release:
+
+```bash
+workflow configure sample --load
+workflow configure edit
 ```
 {% include copy.html %}
 
-This is placed inside the `migrations` array in your workflow configuration. See [Workflow CLI getting started]({{site.url}}{{site.baseurl}}/migration-assistant/workflow-cli/getting-started/) for the full configuration structure.
+## Index filtering behavior
 
-## Monitoring metadata migration
+The metadata `indexAllowlist` is evaluated after the snapshot has already been taken. It supports:
+
+- exact index names
+- regex patterns prefixed with `regex:`
+
+This is different from the snapshot creation allowlist, which uses the source cluster's own snapshot multi-index expression syntax.
+
+## Multi-type handling
+
+If your migration involves older Elasticsearch data sets with multi-type mappings, set `multiTypeBehavior` intentionally:
+
+- `NONE` to fail when multi-type data is encountered
+- `UNION` to merge types into one mapping
+- `SPLIT` to route types into separate indexes
+
+Do not guess here. Pilot it first on a small subset if multi-type behavior matters to your application.
+
+## Validate metadata before continuing
+
+After metadata migration runs, verify the target before moving to full backfill or cutover:
 
 ```bash
-# Interactive TUI — watch the evaluateMetadata and migrateMetadata steps
-workflow manage
-
-# Check status
-workflow status
-
-# View logs for metadata steps
-workflow output
-```
-{% include copy.html %}
-
-## Metadata verification
-
-After metadata migration completes, verify the results before proceeding to document backfill:
-
-```bash
-# Check indexes on the target
 console clusters curl target -- "/_cat/indices?v"
-
-# Check templates
 console clusters curl target -- "/_cat/templates?v"
-
-# Check aliases
 console clusters curl target -- "/_cat/aliases?v"
-
-# Check a specific index mapping
 console clusters curl target -- "/my-index/_mapping"
 ```
 {% include copy.html %}
 
-## What gets migrated
+## Monitor and troubleshoot
 
-| Component | Migrated |
-|:----------|:---------|
-| Index settings (shards, replicas, analyzers) | ✓ |
-| Index mappings (field types, dynamic templates) | ✓ |
-| Index templates (legacy) | ✓ |
-| Composable index templates | ✓ |
-| Component templates | ✓ |
-| Aliases | ✓ |
-| ISM/ILM policies | ✗ — Recreate manually |
-| Security configuration | ✗ — Configure separately |
-| Ingest pipelines | ✗ — Recreate manually |
-
-## Troubleshooting
-
-### Viewing metadata migration logs
-
-If a metadata step fails, check the workflow output:
+Use the workflow tools rather than raw pod paths whenever possible:
 
 ```bash
+workflow manage
+workflow status
 workflow output
 ```
 {% include copy.html %}
 
-For detailed logs, use the interactive TUI:
+If metadata migration fails, the usual causes are:
 
-```bash
-workflow manage
-```
-{% include copy.html %}
+- incompatible mappings or settings
+- missing transformations
+- unsupported target-side features
+- authentication or connectivity issues to the target
 
-### Warnings and errors
+## Related guides
 
-When encountering `WARN` or `ERROR` in the output, they will be accompanied by a short message, such as `WARN - my_index already exists`. Items that already exist on the target are skipped — this is expected behavior when resubmitting a workflow.
-
-### OpenSearch running in compatibility mode
-
-If you see an error about being unable to update an ES 7.10.2 cluster, compatibility mode may be enabled on the OpenSearch target. Disable it to continue. See [Enable compatibility mode](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/rename.html#rename-upgrade).
-
-### Breaking change compatibility
-
-Metadata migration transforms data from the source version to the target version. Some features may not be supported across version gaps. When encountering a compatibility issue, [search existing issues](https://github.com/opensearch-project/opensearch-migrations/issues) or [create a new issue](https://github.com/opensearch-project/opensearch-migrations/issues/new/choose).
-
-For information about handling specific field type compatibility issues, see:
-- [Transform type mappings]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/handling-type-mapping-deprecation/) — Handle deprecated mapping types from Elasticsearch 6.x.
-- [Transform field types]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/handling-field-type-breaking-changes/) — Configure custom field type transformations.
-- [Transform `flattened` to `flat_object` fields]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/transform-flattened-flat-object/) — Automatically transform `flattened` to `flat_object` fields.
-- [Transform `string` to `text`/`keyword` fields]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/transform-string-text-keyword/) — Automatically transform `string` to `text`/`keyword` fields.
-- [Transform `dense_vector` to `knn_vector` fields]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/transform-dense-vector-knn-vector/) — Automatically transform `dense_vector` to `knn_vector` fields.
-
-#### Deprecation of mapping types
-
-In Elasticsearch 6.8 the mapping types feature was discontinued in Elasticsearch 7.0+, which creates complexity when migrating to newer versions. Metadata migration handles this by removing the type mapping and restructuring the template or index properties.
-
-**Example starting state with mapping type foo (ES 6):**
-
-```json
-{
-  "mappings": [
-    {
-      "foo": {
-        "properties": {
-          "field1": { "type": "text" },
-          "field2": { "type": "keyword" }
-        }
-      }
-    }
-  ]
-}
-```
-{% include copy.html %}
-
-**Example ending state with foo removed (ES 7+/OpenSearch):**
-
-```json
-{
-  "mappings": {
-    "properties": {
-      "field1": { "type": "text" },
-      "field2": { "type": "keyword" }
-    }
-  }
-}
-```
-{% include copy.html %}
-
-Configure `multiTypeBehavior` in your `metadataMigrationConfig` to control how multi-type indexes are handled: `NONE` (fail), `UNION` (merge types), or `SPLIT` (separate indexes).
+- [Transform type mappings]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/handling-type-mapping-deprecation/)
+- [Transform field types]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/handling-field-type-breaking-changes/)
+- [Transform `flattened` to `flat_object`]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/transform-flattened-flat-object/)
+- [Transform `string` to `text` and `keyword`]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/transform-string-text-keyword/)
+- [Transform `dense_vector` to `knn_vector`]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/transform-dense-vector-knn-vector/)
 
 {% include migration-phase-navigation.html %}

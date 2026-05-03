@@ -12,112 +12,141 @@ redirect_from:
 
 # Backfill
 
-After [migrating metadata]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/), use the backfill workflow to migrate documents from your source cluster to the target using snapshot-based reindexing (RFS).
+Backfill is the document-migration phase of a snapshot workflow. Migration Assistant creates or reuses a source snapshot, migrates metadata, and then uses Reindex-from-Snapshot (RFS) to load documents into the target.
 
-## The backfill process
+The key idea is simple: RFS reads shard data from the snapshot, not from the live source cluster API. That is why it scales well and keeps steady pressure off the source cluster during the document phase.
 
-1. **Snapshot** — Create a point-in-time snapshot of source indexes
-2. **Register** — Make the snapshot accessible to the migration tooling
-3. **Metadata** — Transfer index mappings, settings, and templates to the target
-4. **RFS Load** — Reindex documents from the snapshot to the target cluster
-5. **Cleanup** — Remove temporary coordination state
+## What happens during backfill
 
-Each phase completes before the next begins. Approval gates between phases let you verify progress before continuing.
+A typical snapshot migration includes:
 
-## Running a backfill
+1. Create a snapshot, or reference an existing snapshot
+2. Evaluate metadata
+3. Migrate metadata
+4. Run document backfill with RFS
+5. Validate the target before cutover or replay
 
-### Configure and submit
+You do not run these as unrelated commands. You define them in one workflow and let the platform orchestrate them.
 
-Configure your migration using the Workflow CLI:
+## Start with a pilot
+
+Backfill is safest when you run a small pilot first.
+
+Use a limited snapshot scope or a small metadata and RFS allowlist so you can prove:
+
+- snapshot creation works
+- source S3 access works
+- mappings migrate cleanly
+- target indexing capacity is sufficient
+- document-level failures are understood before you scale up
+
+## Configure the workflow
+
+Always start from the version-matched sample:
 
 ```bash
 workflow configure sample --load
 workflow configure edit
-workflow submit
 ```
 {% include copy.html %}
 
-### Monitor progress
+Then configure the snapshot migration section for your source, target, and snapshot repository.
+
+## Understand the three different allowlists
+
+This is one of the easiest places to make mistakes.
+
+### Snapshot allowlist
+
+The snapshot creation allowlist is evaluated by the source cluster when the snapshot is created. It uses the source cluster's native multi-index expression syntax such as:
+
+- `logs-*`
+- `orders-2024-*`
+- `-*-archive`
+
+This is **not** regex syntax.
+
+### Metadata allowlist
+
+The metadata allowlist is evaluated after the snapshot exists. It supports exact names and `regex:` patterns such as:
+
+- `orders`
+- `regex:logs-.*`
+
+### RFS allowlist
+
+The RFS allowlist is also evaluated after the snapshot exists and uses the same exact-name or `regex:` pattern format.
+
+If an index is excluded at the snapshot layer, downstream stages cannot bring it back.
+{: .warning }
+
+## Using an existing snapshot
+
+If you already created the snapshot outside the workflow, configure:
+
+```text
+snapshotConfig.snapshotNameConfig.externallyManagedSnapshotName
+```
+
+Use `workflow configure sample --load` to confirm the exact structure for your installed version.
+
+## Run and monitor the workflow
 
 ```bash
-# Interactive TUI (recommended)
+workflow submit
 workflow manage
+```
+{% include copy.html %}
 
-# Check status
+Useful supporting commands:
+
+```bash
 workflow status
-
-# Stream logs
 workflow output --follow
 ```
 {% include copy.html %}
 
-### Handle approvals
+## What to approve
 
-When a step shows `⟳`, approve it to continue:
+If approvals are enabled, expect manual checkpoints around metadata and backfill transitions. Approve only after you have checked the logs or validation output you care about.
 
 ```bash
 workflow approve <STEP_NAME>
 ```
 {% include copy.html %}
 
-## Index allowlist syntax
+## Performance model
 
-Allowlist entries are matched as exact literal strings by default. Use the `regex:` prefix for pattern matching:
+RFS scales mainly with:
 
-| Entry | Matches |
-|:------|:--------|
-| `my-index` | Only "my-index" (exact match) |
-| `regex:.*` | All indexes (regex wildcard) |
-| `regex:logs-.*` | "logs-app", "logs-web", etc. |
+- total data volume
+- number of primary shards
+- available Kubernetes resources
+- target cluster ingest capacity
 
-Using `*` does not work as a wildcard. Use `regex:.*` instead.
-{: .warning }
+Because RFS reads from snapshot storage, increasing worker count does not add live read load to the source cluster. It mostly changes how hard you drive the target cluster.
 
-## Using existing snapshots
+## Common tuning and recovery options
 
-If you already have a snapshot, reference it in your configuration instead of creating a new one by setting `externallyManagedSnapshot`. See `workflow configure sample` for the exact field path.
+Useful RFS settings include:
 
-## Verification
+- `podReplicas` for parallelism
+- `maxShardSizeBytes` for ephemeral-storage sizing
+- `allowedDocExceptionTypes` for document-level errors you intentionally want to treat as successful
 
-After the workflow completes:
+`allowedDocExceptionTypes` is powerful and should be used carefully. Matching errors are accepted as successes, not just ignored for retry purposes.
+
+## Validate after backfill
+
+After the workflow completes, compare the source and target:
 
 ```bash
-# Compare document counts
 console clusters curl source -- "/_cat/indices?v"
 console clusters curl target -- "/_cat/indices?v"
-
-# Check specific indexes
 console clusters curl target -- "/<index>/_count"
 ```
 {% include copy.html %}
 
-## Parallelism and performance
-
-RFS runs multiple workers in parallel, each reading shard data directly from the snapshot in S3. Because workers read from object storage — not the source cluster — scaling up workers has **zero impact on the source cluster**. The only constraint is the target cluster's indexing capacity and available Kubernetes resources.
-
-| Factor | Impact |
-|:-------|:-------|
-| Total data volume | Primary factor in migration duration |
-| Number of primary shards | Determines maximum parallelism (1 worker per shard) |
-| Target cluster capacity | Indexing throughput is usually the bottleneck |
-| Worker count | More workers = more parallel shards processed |
-
-Start with defaults and increase if the target cluster has headroom.
-
-## Error recovery
-
-RFS tracks progress at the shard level. If a backfill fails partway through:
-
-- Completed shards are recorded in the coordination index
-- Resubmitting resumes from the last checkpoint
-- Already-migrated documents are not re-processed
-
-| Symptom | Likely cause | Resolution |
-|:--------|:-------------|:-----------|
-| Snapshot creation fails | S3 permissions, missing IAM role | Check `s3RoleArn` for AWS managed sources |
-| Metadata migration fails | Version incompatibility | Review [Is Migration Assistant right for you?]({{site.url}}{{site.baseurl}}/migration-assistant/is-migration-assistant-right-for-you/) |
-| RFS stalls | Target cluster overloaded | Reduce parallelism, check cluster health |
-| Authentication errors | Invalid credentials | Verify Kubernetes secrets exist and contain correct values |
-| Document-level errors (mapper_parsing, etc.) | Incompatible field types or mappings | Configure `allowedDocExceptionTypes` in `documentBackfillConfig` to skip known-safe errors. Unlike the replayer's `nonRetryableDocExceptionTypes` (which still counts errors as failures), RFS's `allowedDocExceptionTypes` treats matching errors as successes. |
+If you are doing zero-downtime migration, backfill validation happens before replay becomes the final synchronization step.
 
 {% include migration-phase-navigation.html %}
