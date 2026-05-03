@@ -10,9 +10,16 @@ redirect_from:
 
 # Is Migration Assistant right for you?
 
-Whether Migration Assistant is right for you depends on your upgrade path, infrastructure complexity, and operational goals. This page helps you evaluate whether Migration Assistant fits your use case.
+Whether Migration Assistant is right for you depends on your migration path, downtime target, and how much platform work you want to own yourself.
 
-Migration Assistant addresses key limitations in traditional migration approaches. For example, if you're upgrading across multiple major versions — such as from Elasticsearch 6.8 to OpenSearch 2.19 — you can use Migration Assistant to complete the process in a single step. Other methods, like rolling upgrades or snapshot restoration, require upgrading through each major version and often reindexing at every stage.
+Migration Assistant is designed for customers who want a **workflow-driven migration platform** rather than a one-off upgrade procedure. It is especially useful when:
+
+- you need to migrate across one or more major versions in a single step,
+- you want to validate the target before cutover,
+- you need a repeatable backfill process with retries and checkpointing,
+- or you want a zero-downtime option through capture and replay.
+
+Compared with traditional upgrade methods, Migration Assistant reduces the amount of manual coordination required between snapshot creation, metadata changes, backfill, validation, and cutover.
 
 ## Supported migration paths
 
@@ -55,8 +62,10 @@ The following matrix shows which source versions can be directly migrated to whi
 
 Migration Assistant runs on Kubernetes and can be deployed to:
 
-- **Amazon EKS** (recommended for production) with CloudFormation and the bootstrap script
-- **Any Kubernetes cluster** (minikube, kind, GKE, AKS, self-managed) using Helm charts
+- **Amazon EKS** for the recommended AWS production path with bootstrap automation, pod identity, image mirroring, snapshot helpers, and CloudWatch integration
+- **Any Kubernetes cluster** when you already operate your own Kubernetes platform or you are evaluating locally
+
+The migration engine is the same in both cases. The difference is how much of the surrounding platform is prepared for you.
 
 ## Component support
 
@@ -85,6 +94,8 @@ Use this checklist to determine whether Migration Assistant is the right fit:
 - Are you looking for tooling to migrate index settings and other metadata?
 - Do you need a high-performance backfill solution with pause, resume, and checkpoint recovery?
 - Are you migrating from Apache Solr and need query compatibility validation?
+
+Use Amazon EKS if you also want the deployment tooling to prepare the AWS environment around the migration.
 
 If you answered "yes" to most of these questions, Migration Assistant is likely the right solution.
 

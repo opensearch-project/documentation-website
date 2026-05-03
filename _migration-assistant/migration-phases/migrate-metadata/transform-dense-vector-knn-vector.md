@@ -3,7 +3,7 @@ layout: default
 title: Transform dense_vector fields to knn_vector
 nav_order: 5
 parent: Migrate metadata
-grand_parent: Migration phases
+grand_parent: Migration workflows
 permalink: /migration-assistant/migration-phases/migrate-metadata/transform-dense-vector-knn-vector/
 ---
 

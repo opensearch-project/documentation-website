@@ -2,7 +2,7 @@
 layout: default
 title: Removing Migration Assistant
 nav_order: 9
-parent: Migration phases
+parent: Migration workflows
 permalink: /migration-assistant/migration-phases/remove-migration-infrastructure/
 redirect_from:
   - /migration-assistant/migration-phases/removing-migration-infrastructure/

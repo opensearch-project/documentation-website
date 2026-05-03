@@ -2,7 +2,7 @@
 layout: default
 title: Switch traffic to the target
 nav_order: 8
-parent: Migration phases
+parent: Migration workflows
 permalink: /migration-assistant/migration-phases/switch-traffic-to-target/
 redirect_from:
   - /migration-assistant/migration-phases/reroute-traffic-from-capture-proxy-to-target/

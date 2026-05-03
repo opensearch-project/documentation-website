@@ -2,7 +2,7 @@
 layout: default
 title: Migrate metadata
 nav_order: 5
-parent: Migration phases
+parent: Migration workflows
 has_children: true
 has_toc: true
 permalink: /migration-assistant/migration-phases/migrate-metadata/

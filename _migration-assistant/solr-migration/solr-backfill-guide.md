@@ -208,7 +208,7 @@ Look for `details.backup.status = "success"`. If it says `"failed"` or `"excepti
 
 ## Migration Assistant prerequisites
 
-- Migration Assistant deployed to Kubernetes or EKS (see [Deploying to Kubernetes]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-kubernetes/) or [Deploying to EKS]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-eks/)).
+- Migration Assistant deployed to Kubernetes or EKS (see [Deploy on Kubernetes]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-kubernetes/) or [Deploy on Amazon EKS]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-eks/)).
 - The Migration Console pod and the RFS worker pods must have **read** access to the backup bucket: `s3:GetObject` and `s3:ListBucket`. If Solr and Migration Assistant run in different AWS accounts or different VPCs, confirm routing (VPC endpoints, bucket policy) before starting.
 - The bucket you configured in Solr's `solr.xml` (`s3.bucket.name`) and the bucket referenced in the workflow config (`s3RepoPathUri`) must be the **same bucket** — Migration Assistant reads exactly where Solr wrote.
 

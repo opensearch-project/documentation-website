@@ -2,7 +2,7 @@
 layout: default
 title: Replay captured traffic
 nav_order: 7
-parent: Migration phases
+parent: Migration workflows
 permalink: /migration-assistant/migration-phases/replay-captured-traffic/
 redirect_from:
   - /migration-assistant/migration-phases/live-traffic-migration/using-traffic-replayer/

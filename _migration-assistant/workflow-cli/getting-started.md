@@ -8,248 +8,186 @@ permalink: /migration-assistant/workflow-cli/getting-started/
 
 # Getting started with the Workflow CLI
 
-This guide walks you through configuring and running your first OpenSearch migration using the Workflow CLI.
+This guide shows the shortest safe path to your first migration. The goal is simple: load the right schema for your version, prove connectivity, run a small pilot, and only then run the full workflow.
 
-## Prerequisites
+## Before you start
 
-- Migration Console accessible on your Kubernetes cluster (see [Deploy]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/))
-- Source and target clusters accessible from the cluster
-- S3 bucket for snapshots (or persistent volume)
+Make sure all of the following are true:
+
+- Migration Assistant is already deployed on Kubernetes or Amazon EKS
+- the source and target clusters are reachable from the cluster
+- snapshot storage is ready if you plan to run backfill
+- any basic-auth secrets you need can be created in the `ma` namespace
 
 ## Step 1: Access the Migration Console
 
 ```bash
-# For EKS deployments
-aws eks update-kubeconfig --region <REGION> --name migration-eks-cluster-<STAGE>-<REGION>
-
-# Connect to the Migration Console pod
 kubectl exec -it migration-console-0 -n ma -- /bin/bash
 ```
 {% include copy.html %}
 
-## Step 2: Check your version
+If you are using EKS from a new shell, refresh your kubeconfig first:
+
+```bash
+aws eks update-kubeconfig --region <REGION> --name migration-eks-cluster-<STAGE>-<REGION>
+```
+{% include copy.html %}
+
+## Step 2: Confirm the installed version
 
 ```bash
 console --version
 ```
 {% include copy.html %}
 
-## Step 3: Load the sample configuration
+This matters because the workflow schema can change by release.
 
-Use the sample configuration as your starting point. This ensures you're working with the correct schema for your installed version:
+## Step 3: Load the version-matched sample
 
 ```bash
 workflow configure sample --load
 ```
 {% include copy.html %}
 
-## Step 4: Edit the configuration
+This gives you the safest starting point for your current version.
+
+## Step 4: Edit the workflow configuration
 
 ```bash
 workflow configure edit
 ```
 {% include copy.html %}
 
-Customize the loaded sample for your environment:
+Fill in the fields that describe your migration:
 
-- Set source and target cluster endpoints
-- Configure authentication
-- Set snapshot repository location
-- Define which indexes to migrate
+- source endpoint, version, and authentication
+- target endpoint and authentication
+- snapshot repository details if you are running backfill
+- the migration pattern you actually want: backfill only, capture and replay only, or both
 
-View your changes:
+Do not start by editing every possible field. Start with the minimum required fields for your path.
+{: .note }
 
-```bash
-workflow configure view
-```
-{% include copy.html %}
-
-## Step 5: Create Kubernetes secrets
-
-Cluster credentials are stored as Kubernetes secrets:
+## Step 5: Create secrets if you use basic auth
 
 ```bash
-# Source cluster credentials
 kubectl create secret generic source-credentials \
-  --from-literal=username=<USERNAME> \
-  --from-literal=password=<PASSWORD> \
+  --from-literal=username=<SOURCE_USER> \
+  --from-literal=password=<SOURCE_PASSWORD> \
   -n ma
 ```
 {% include copy.html %}
 
 ```bash
-# Target cluster credentials
 kubectl create secret generic target-credentials \
-  --from-literal=username=<USERNAME> \
-  --from-literal=password=<PASSWORD> \
+  --from-literal=username=<TARGET_USER> \
+  --from-literal=password=<TARGET_PASSWORD> \
   -n ma
 ```
 {% include copy.html %}
 
-Reference these secret names in your configuration under `authConfig.basic.secretName`.
+Reference those names in `authConfig.basic.secretName`.
 
-### Authentication options
+## Step 6: Verify connectivity before you submit anything
 
-| Method | Use case |
-|:-------|:---------|
-| `basic` | Username/password via Kubernetes secret |
-| `sigv4` | AWS SigV4 for Amazon OpenSearch Service (`service: es`) or Serverless (`service: aoss`) |
-| `mtls` | Mutual TLS with client certificates |
+```bash
+console clusters connection-check
+```
+{% include copy.html %}
 
-## Step 6: Submit the workflow
+If you want a direct API check, run:
+
+```bash
+console clusters curl source -- "/"
+console clusters curl target -- "/"
+```
+{% include copy.html %}
+
+If these checks fail, stop and fix connectivity or authentication first. Do not start a workflow yet.
+
+## Step 7: Verify AWS identity if you use SigV4
+
+If your source or target uses Amazon OpenSearch Service or OpenSearch Serverless:
+
+- on EKS, verify that pod identity is working from the console pod
+- on generic Kubernetes, make sure AWS credentials will exist for both the console pod and the workflow executor pods
+
+Quick console check:
+
+```bash
+aws sts get-caller-identity
+```
+{% include copy.html %}
+
+If `console clusters connection-check` works in the console but the workflow later fails with 401 or 403, the usual cause is that only the console pod has credentials and the workflow executor pods do not.
+{: .warning }
+
+## Step 8: Run a pilot migration first
+
+Use a small allowlist or a representative subset before you attempt the full migration. This is the easiest way to catch mapping issues, auth issues, and throughput problems early.
 
 ```bash
 workflow submit
-```
-{% include copy.html %}
-
-This prints the workflow name and returns immediately — the workflow runs asynchronously.
-
-## Step 7: Monitor progress
-
-### Using the interactive TUI (recommended)
-
-```bash
 workflow manage
 ```
 {% include copy.html %}
 
-The TUI lets you watch progress, view logs, and approve steps all in one interface.
+Use `workflow manage` to watch the run and approve any gated steps.
 
-### Using status commands
+## Step 9: Validate the pilot
 
-```bash
-workflow status
-```
-{% include copy.html %}
-
-## Step 8: Handle approvals
-
-When a step shows `⟳`, it's waiting for your approval to proceed:
+Check counts and basic behavior on the target before you expand scope:
 
 ```bash
-# Approve via TUI
-workflow manage
-
-# Or approve directly
-workflow approve <STEP_NAME>
-```
-{% include copy.html %}
-
-## Step 9: Verify the migration
-
-After the workflow completes, verify the migration:
-
-```bash
-# Check document counts on source
 console clusters curl source -- "/_cat/indices?v"
-
-# Check document counts on target
 console clusters curl target -- "/_cat/indices?v"
 ```
 {% include copy.html %}
 
-## Step 10: Handle failures
+If you are migrating applications with live traffic, also validate representative queries against the target.
 
-If a step shows `✗` (Failed):
+## Step 10: Run the real migration
 
-1. Check logs:
-   ```bash
-   workflow output
-   ```
-
-2. Fix the configuration if needed:
-   ```bash
-   workflow configure edit
-   ```
-
-3. Resubmit the workflow:
-   ```bash
-   workflow submit
-   ```
-
-RFS checkpoints allow document backfill to resume from where it left off.
-
-## Quick reference
+After the pilot succeeds, widen the configuration to the full index set and submit again.
 
 ```bash
-console --version                 # Check installed version
-workflow configure sample         # View configuration schema
-workflow configure sample --load  # Load sample as starting point
-workflow configure edit           # Edit configuration
-workflow configure view           # Show configuration
-workflow submit                   # Submit workflow (async)
-workflow manage                   # Interactive TUI
-workflow status                   # Show workflow status
-workflow approve <STEP>           # Approve a blocked step
-workflow stop                     # Stop a running workflow
-workflow output                   # View workflow logs
-```
-
-## Example configuration
-
-The following is a minimal working configuration for migrating from Elasticsearch 7.10 to OpenSearch, tested end-to-end:
-
-```json
-{
-  "skipApprovals": true,
-  "sourceClusters": {
-    "source": {
-      "endpoint": "http://<SOURCE_HOST>:9200",
-      "allowInsecure": true,
-      "version": "ES 7.10",
-      "authConfig": {
-        "basic": {
-          "secretName": "source-credentials"
-        }
-      },
-      "snapshotRepos": {
-        "migration-repo": {
-          "awsRegion": "us-east-2",
-          "s3RepoPathUri": "s3://<BUCKET_NAME>/snapshots"
-        }
-      }
-    }
-  },
-  "targetClusters": {
-    "target": {
-      "endpoint": "http://<TARGET_HOST>:9200",
-      "allowInsecure": true,
-      "authConfig": {
-        "basic": {
-          "secretName": "target-credentials"
-        }
-      }
-    }
-  },
-  "migrationConfigs": [
-    {
-      "fromSource": "source",
-      "toTarget": "target",
-      "snapshotExtractAndLoadConfigs": [
-        {
-          "createSnapshotConfig": {},
-          "snapshotConfig": {
-            "snapshotNameConfig": {
-              "snapshotNamePrefix": "migration"
-            },
-            "repoName": "migration-repo"
-          },
-          "migrations": [
-            {
-              "metadataMigrationConfig": {},
-              "documentBackfillConfig": {
-                "podReplicas": 2
-              }
-            }
-          ]
-        }
-      ]
-    }
-  ]
-}
+workflow configure edit
+workflow submit
+workflow manage
 ```
 {% include copy.html %}
 
-`createSnapshotConfig` is required even if empty — omitting it causes a validation error. The `migrations` array is also required inside `snapshotExtractAndLoadConfigs`. `authConfig.basic.secretName` must match the Kubernetes secret you created (`source-credentials` / `target-credentials` above, or the names from `workflow configure sample --load` on your cluster).
-{: .warning }
+## Step 11: Use logs if anything fails
+
+```bash
+workflow status
+workflow output
+workflow output --follow
+```
+{% include copy.html %}
+
+If you need to fix the config and try again:
+
+```bash
+workflow configure edit
+workflow submit
+```
+{% include copy.html %}
+
+## Quick command sequence
+
+```bash
+kubectl exec -it migration-console-0 -n ma -- /bin/bash
+console --version
+workflow configure sample --load
+workflow configure edit
+console clusters connection-check
+workflow submit
+workflow manage
+```
+{% include copy.html %}
+
+## What to do next
+
+- Use a [playbook]({{site.url}}{{site.baseurl}}/migration-assistant/playbooks/) if you want an opinionated migration path.
+- Read [Troubleshooting]({{site.url}}{{site.baseurl}}/migration-assistant/troubleshooting/) if connectivity, auth, or workflow steps fail.

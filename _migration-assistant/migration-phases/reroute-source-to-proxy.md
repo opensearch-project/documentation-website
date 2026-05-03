@@ -2,7 +2,7 @@
 layout: default
 title: Reroute client traffic to capture proxy
 nav_order: 3
-parent: Migration phases
+parent: Migration workflows
 permalink: /migration-assistant/migration-phases/reroute-source-to-proxy/
 ---
 

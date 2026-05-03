@@ -7,15 +7,49 @@ permalink: /migration-assistant/troubleshooting/
 
 # Troubleshooting
 
-This page covers common issues you may encounter when running Migration Assistant and how to resolve them.
+Start with the simplest question: is this a deployment problem, an authentication problem, or a workflow problem?
 
-## Connectivity issues
+These commands give you the fastest first signal:
 
-If the Migration Console cannot reach the source or target cluster, start with a connectivity check.
+```bash
+console --version
+console clusters connection-check
+workflow status
+workflow output
+kubectl get pods -n ma
+```
+{% include copy.html %}
 
-### Diagnosis
+## If the platform itself is not healthy
 
-Test connectivity from the Migration Console:
+### Pods are not starting
+
+```bash
+kubectl describe pod <POD_NAME> -n ma
+kubectl logs <POD_NAME> -n ma
+```
+{% include copy.html %}
+
+Common causes:
+
+- image pull failures because the chart was installed without valid `images.*` overrides
+- missing secrets
+- insufficient permissions
+- pending pods caused by missing capacity or a broken StorageClass
+
+### Pods are pending
+
+```bash
+kubectl get events -n ma --sort-by='.lastTimestamp'
+kubectl describe node <NODE_NAME>
+```
+{% include copy.html %}
+
+On generic Kubernetes, this often means your cluster does not have enough CPU, memory, or storage. On EKS, it can also mean your node group or Karpenter setup needs attention.
+
+## If connectivity checks fail
+
+Start from the Migration Console:
 
 ```bash
 console clusters connection-check
@@ -26,65 +60,82 @@ console clusters curl target -- "/"
 
 ### Common causes
 
-**Security groups (EKS deployments)**: Source and target cluster security groups must allow inbound traffic from the EKS cluster security group.
+- source or target security groups do not allow traffic from the EKS cluster
+- DNS does not resolve from inside the cluster
+- the endpoint is wrong
+- TLS verification fails and `allowInsecure` is not set for a self-signed environment
+
+Quick DNS test from the console pod:
 
 ```bash
-aws eks describe-cluster --name migration-eks-cluster-<STAGE>-<REGION> \
-  --query "cluster.resourcesVpcConfig.clusterSecurityGroupId" --output text
+kubectl exec -it migration-console-0 -n ma -- nslookup <CLUSTER_ENDPOINT>
 ```
 {% include copy.html %}
 
-Add an inbound rule to your source/target cluster security group allowing traffic from the EKS cluster security group on port 443 or 9200.
+## If authentication fails
 
-**DNS resolution**: Verify the cluster endpoint resolves from the Migration Console:
-
-```bash
-kubectl exec -it migration-console-0 -n ma -- nslookup <cluster-endpoint>
-```
-{% include copy.html %}
-
-**TLS/certificate issues**: If using self-signed certificates, set `allowInsecure: true` in your cluster configuration.
-
-## Authentication failures
-
-Authentication errors typically surface as 401 or 403 responses from the source or target cluster.
+Authentication issues usually show up as `401`, `403`, or "connection check passed from the console but workflow failed later."
 
 ### Basic auth
 
-Verify the secret exists and has correct keys:
+Verify that the secret exists in the `ma` namespace and contains the expected keys:
 
 ```bash
-kubectl get secret <secret-name> -n ma
-kubectl get secret <secret-name> -n ma -o jsonpath='{.data}' | jq 'keys'
+kubectl get secret <SECRET_NAME> -n ma
+kubectl get secret <SECRET_NAME> -n ma -o jsonpath='{.data}' | jq 'keys'
 ```
 {% include copy.html %}
 
-### SigV4 (AWS IAM)
+Your workflow config must point to that same secret name in `authConfig.basic.secretName`.
 
-Verify IAM role association and pod identity:
+### SigV4 on Amazon EKS
+
+EKS is designed to make this easy. The solution stack associates IAM roles with the service accounts used by the console pod and the workflow executor pods.
+
+Check the identity inside the console pod:
 
 ```bash
-kubectl describe serviceaccount migration-console -n ma | grep -A5 "Annotations"
 kubectl exec -it migration-console-0 -n ma -- aws sts get-caller-identity
 ```
 {% include copy.html %}
 
-Use `es` for Amazon OpenSearch Service, `aoss` for OpenSearch Serverless.
+If the target is Amazon OpenSearch Service with fine-grained access control, make sure the relevant IAM role is mapped with sufficient permissions on the domain.
+
+Use `es` as the SigV4 service for Amazon OpenSearch Service domains and `aoss` for OpenSearch Serverless collections.
 {: .note }
 
-### OpenSearch Serverless 403 or empty permissions
+### SigV4 on generic Kubernetes
 
-If the target is a **Serverless collection** and bulk or search fails with **403** or authorization errors:
+This is the most common source of confusion.
 
-- Confirm the Migration Console pod’s IAM role is allowed in the collection **data access policy** (principal ARN).
-- Confirm the workflow target `endpoint` is the **collection** URL (`*.aoss.amazonaws.com`) and `authConfig.sigv4.service` is **`aoss`** (not `es`).
-- See [Amazon OpenSearch Service → Serverless playbook]({{site.url}}{{site.baseurl}}/migration-assistant/playbook-amazon-opensearch-service-to-serverless/).
+Generic Kubernetes does not automatically create AWS pod identity for Migration Assistant. That means:
 
-## Workflow failures
+- the `migration-console-access-role` pod needs credentials for console commands
+- the `argo-workflow-executor` pods need credentials for the real migration steps
 
-If a workflow step fails or hangs, check the workflow status and output logs first.
+If the console can authenticate but the workflow fails later, the problem is usually that only the console pod has credentials.
 
-### Diagnosis
+The developer-oriented local AWS credential mount is not a production credential strategy.
+{: .warning }
+
+### Service account name mismatch
+
+The console pod does not run under a service account named `migration-console`. The chart uses `migration-console-access-role`.
+
+If you are inspecting service accounts or troubleshooting identity, check:
+
+```bash
+kubectl get serviceaccount -n ma
+kubectl describe serviceaccount migration-console-access-role -n ma
+kubectl describe serviceaccount argo-workflow-executor -n ma
+```
+{% include copy.html %}
+
+### mTLS
+
+Do not plan around mTLS unless you have validated it in the exact version you are running. The workflow path is centered on basic auth and SigV4.
+
+## If the workflow fails after submission
 
 ```bash
 workflow status
@@ -93,144 +144,7 @@ workflow output --follow
 ```
 {% include copy.html %}
 
-### Snapshot creation failures
-
-- **S3 permissions**: Verify the snapshot role has `s3:PutObject`, `s3:GetObject`, `s3:ListBucket` on the bucket
-- **Repository not registered**: Check source cluster logs if registration fails
-
-### Metadata migration failures
-
-- **Version incompatibility**: Some index settings don't transfer between major versions
-- **Field type conflicts**: Target cluster may reject mappings with incompatible field types
-
-### Document backfill failures
-
-- **Target cluster capacity**: Ensure target cluster has sufficient disk space and indexing capacity
-- **Mapping conflicts**: If indexes already exist on target with different mappings, delete conflicting indexes
-- **Memory pressure**: RFS workers may OOM if documents are very large — check pod resource limits
-
-## Pod issues
-
-Migration Assistant runs as Kubernetes pods. If pods are not running as expected, use `kubectl` to inspect their state.
-
-### Pods not starting
-
-```bash
-kubectl describe pod <pod-name> -n ma
-kubectl logs <pod-name> -n ma
-```
-{% include copy.html %}
-
-### CrashLoopBackOff
-
-```bash
-kubectl logs <pod-name> -n ma --previous
-```
-{% include copy.html %}
-
-Common causes: invalid configuration, missing secrets, insufficient permissions.
-
-### Pending pods
-
-```bash
-kubectl describe nodes | grep -A5 "Allocated resources"
-kubectl get events -n ma --sort-by='.lastTimestamp'
-```
-{% include copy.html %}
-
-Pending pods often indicate insufficient CPU, memory, or node capacity.
-
-## Performance issues
-
-If migration is running but slower than expected, check the following areas.
-
-### Slow backfill
-
-- **Check RFS worker count**: More workers increase parallelism. Since RFS reads from S3 (not the source cluster), adding workers has no impact on the source.
-- **Monitor target cluster**: Check indexing rate, CPU/memory utilization, and rejected indexing requests.
-- **S3 read throughput**: Ensure the snapshot S3 bucket is in the same region as the migration workers.
-
-### Slow snapshots
-
-- **Source cluster load**: Snapshot creation competes with production traffic. Consider running during low-traffic periods.
-- **Snapshot size**: Initial snapshots are full; subsequent snapshots are incremental and faster.
-
-## Getting additional help
-
-1. Enable verbose logging: `workflow -v status`
-2. Collect diagnostics: `workflow status`, `workflow output`, `kubectl describe pods -n ma`
-3. Search [GitHub Issues](https://github.com/opensearch-project/opensearch-migrations/issues)
-4. Create a [new issue](https://github.com/opensearch-project/opensearch-migrations/issues/new/choose) with your Migration Assistant version (`console --version`), Kubernetes version, source/target versions, and error logs
-
-## Known issues
-
-The following are known issues with workarounds.
-
-### `console` and `workflow` commands not in PATH
-
-On some Migration Console versions, the `console` and `workflow` commands are installed in `/.venv/bin/` and may not be in the default `PATH`. If you get "command not found":
-
-```bash
-export PATH="/.venv/bin:$PATH"
-# Or run directly:
-/.venv/bin/console --version
-/.venv/bin/workflow configure sample
-```
-{% include copy.html %}
-
-### macOS: `tac` command not found in bootstrap script
-
-The `aws-bootstrap.sh` script uses `tac` (a Linux utility) which is not available on macOS. If you see `tac: command not found`, install GNU coreutils:
-
-```bash
-brew install coreutils
-```
-{% include copy.html %}
-
-Alternatively, run the bootstrap script from AWS CloudShell (Linux-based) or a Linux machine.
-
-### Minikube: Helm install fails with ImagePullBackOff
-
-Direct `helm install` on minikube fails because Migration Assistant container images are not published to a public registry. Use the `localTesting.sh` script instead, which builds images from source and pushes them to a local registry inside minikube.
-
-### Gradle build failures with configuration cache
-
-When building from source, the Gradle build may fail with configuration cache errors, particularly for the `trafficReplayer:jib` task. Workaround:
-
-```bash
-./gradlew :buildImages:buildImagesToRegistry --no-configuration-cache
-```
-{% include copy.html %}
-
-### EKS: CloudFormation stack already exists
-
-If you see `ResourceExistenceCheck` errors when deploying CloudFormation, a stack with the same name already exists. Either:
-- Use a different `--stack-name`
-- Delete the existing stack first: `aws cloudformation delete-stack --stack-name <NAME>`
-- Use `--skip-cfn-deploy` to bootstrap an existing cluster
-
-### Snapshot creation fails with exit code 1
-
-If the `createSnapshot` workflow step fails immediately, the most common cause is that the source Elasticsearch cluster does not have the `repository-s3` plugin installed. Verify:
-
-```bash
-curl http://<SOURCE_HOST>:9200/_cat/plugins?v
-```
-{% include copy.html %}
-
-If the plugin is missing, install it on the source cluster:
-
-```bash
-/usr/share/elasticsearch/bin/elasticsearch-plugin install --batch repository-s3
-systemctl restart elasticsearch
-```
-{% include copy.html %}
-
-The source cluster also needs IAM permissions to write to the S3 snapshot bucket. For EC2-hosted Elasticsearch, attach an IAM role with `s3:PutObject`, `s3:GetObject`, and `s3:ListBucket` permissions.
-
-### Workflow already exists error
-
-If you see `workflows.argoproj.io "migration-workflow" already exists` when submitting, delete the old workflow first:
+### Workflow already exists
 
 ```bash
 kubectl delete workflow migration-workflow -n ma
@@ -238,24 +152,80 @@ workflow submit
 ```
 {% include copy.html %}
 
-### Config validation errors
+### Approval gate is blocking progress
 
-The workflow configuration schema has required fields that are not obvious from the sample:
-
-- `createSnapshotConfig` is **required** even if empty (`{}`)
-- `migrations` array is **required** inside `snapshotExtractAndLoadConfigs`
-- `snapshotNameConfig` must contain either `snapshotNamePrefix` or `externallyManagedSnapshot`
-
-If you see `Error while safely parsing the transformed workflow`, check these fields. Run `workflow configure sample` to see the full schema with all required fields.
-
-### EC2 instances stop between sessions
-
-If your source or target EC2 instances stop (due to spot termination, session timeout, etc.), you'll need to restart them and update your workflow configuration with the new private IPs:
+Open the interactive UI:
 
 ```bash
-aws ec2 start-instances --instance-ids <INSTANCE_ID>
-aws ec2 describe-instances --instance-ids <INSTANCE_ID> --query "Reservations[0].Instances[0].PrivateIpAddress"
+workflow manage
 ```
 {% include copy.html %}
 
-Then update your workflow configuration with `workflow configure edit`.
+Or approve the step directly:
+
+```bash
+workflow approve <STEP_NAME>
+```
+{% include copy.html %}
+
+## If snapshot creation fails
+
+The most common cause for Elasticsearch sources is a missing `repository-s3` plugin.
+
+Check the source cluster:
+
+```bash
+curl http://<SOURCE_HOST>:9200/_cat/plugins?v
+```
+{% include copy.html %}
+
+Also verify:
+
+- the source cluster can write to the snapshot bucket
+- the repository is registered correctly
+- the bucket region and path match the workflow config
+
+## If metadata migration fails
+
+Common causes:
+
+- incompatible mappings across major versions
+- Elasticsearch 6.x mapping-type cleanup issues
+- target-side settings rejected by the newer version
+
+Use a pilot allowlist first so these failures show up on a small slice of data instead of the whole cluster.
+
+## If document backfill is too slow or unstable
+
+Check:
+
+- target cluster ingest capacity
+- available disk space on the target
+- RFS worker replica count
+- pod memory limits for large documents
+
+Backfill reads from snapshots, so adding RFS workers does not increase load on the source cluster. It mainly changes how quickly the target is driven.
+
+## If `console` or `workflow` is not in `PATH`
+
+Some console images install the binaries under `/.venv/bin`.
+
+```bash
+export PATH="/.venv/bin:$PATH"
+/.venv/bin/console --version
+/.venv/bin/workflow configure sample
+```
+{% include copy.html %}
+
+## If you need more data to debug
+
+Collect:
+
+- `console --version`
+- `workflow status`
+- `workflow output`
+- `kubectl describe pods -n ma`
+- source and target version numbers
+- exact authentication mode in use
+
+If you open a GitHub issue, include whether you are running on generic Kubernetes or EKS, because that changes the likely root cause for identity and platform issues.

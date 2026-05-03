@@ -12,61 +12,54 @@ redirect_from:
 
 items:
   - heading: "Is Migration Assistant right for you?"
-    description: "Evaluate whether Migration Assistant fits your migration path and use case."
+    description: "Decide whether Migration Assistant fits your migration path, downtime target, and operational model."
     link: "/migration-assistant/is-migration-assistant-right-for-you/"
-  - heading: "Supported migration paths"
-    description: "Check supported source and target versions and playbooks."
-    link: "/migration-assistant/is-migration-assistant-right-for-you/"
-  - heading: "Architecture"
-    description: "Understand the Kubernetes-native architecture and components."
-    link: "/migration-assistant/architecture/"
-  - heading: "Deploy"
-    description: "Deploy Migration Assistant on Kubernetes or Amazon EKS."
+  - heading: "Why Kubernetes and EKS?"
+    description: "Understand the philosophy behind the new Migration Assistant and why Amazon EKS is the recommended AWS production path."
+    link: "/migration-assistant/why-kubernetes-and-eks/"
+  - heading: "Choose your deployment"
+    description: "See when to use generic Kubernetes and when Amazon EKS gives you more out of the box."
     link: "/migration-assistant/migration-phases/deploy/"
-  - heading: "Run your migration"
-    description: "Configure and execute migrations using the Workflow CLI."
+  - heading: "How migrations run"
+    description: "Learn the workflow-driven lifecycle for backfill, capture and replay, validation, and cutover."
+    link: "/migration-assistant/migration-phases/"
+  - heading: "Run a migration"
+    description: "Use the Workflow CLI as the day-to-day interface for configuring, submitting, and managing migrations."
     link: "/migration-assistant/workflow-cli/"
+  - heading: "Use a playbook"
+    description: "Follow path-specific guides for common source and target combinations."
+    link: "/migration-assistant/playbooks/"
 ---
 
 # ![Migration Assistant icon]({{site.url}}{{site.baseurl}}/images/icons/MigrationUpgrade_Color_Icon.svg){: .heading-icon} Migration Assistant for OpenSearch
 
-Migration Assistant is a Kubernetes-native tool for migrating data, metadata, and query traffic from Elasticsearch, OpenSearch, and Apache Solr clusters to OpenSearch. It uses a workflow-driven approach with declarative YAML configuration to orchestrate migrations.
+Migration Assistant is the Kubernetes-native migration platform for moving data, metadata, and live traffic from Elasticsearch, OpenSearch, and Apache Solr to OpenSearch.
 
-Migration Assistant runs on any Kubernetes distribution — including minikube, kind, Amazon EKS, GKE, AKS, and self-managed clusters. For production workloads at scale, Amazon EKS is the recommended deployment target.
+The key change from the classic Migration Assistant is the operating model:
 
-Looking for the classic ECS-based documentation? See the [classic Migration Assistant documentation]({{site.url}}{{site.baseurl}}/classic/migration-assistant/).
+- You define the migration in workflow configuration.
+- Migration Assistant runs the work on Kubernetes.
+- You use the Migration Console and Workflow CLI to submit, observe, approve, validate, and cut over.
+
+Migration Assistant runs on any Kubernetes distribution, but **Amazon EKS is the recommended production path on AWS** because it supplies the AWS identity, image, snapshot, and observability integrations that customers typically need for a real migration.
+
+## What customers get
+
+- **One migration model** for backfill-only migrations and zero-downtime migrations.
+- **Repeatable workflows** instead of one-off infrastructure choreography.
+- **Low source-cluster impact** through snapshot-based backfill with Reindex-from-Snapshot (RFS).
+- **Operational checkpoints** through approval gates, logs, status views, and validation steps.
+- **A practical AWS path** on EKS that removes a large amount of surrounding platform work.
+
+## Start here
+
+1. [Decide whether Migration Assistant is the right tool]({{site.url}}{{site.baseurl}}/migration-assistant/is-migration-assistant-right-for-you/).
+2. [Understand why the product moved to Kubernetes and why EKS is recommended on AWS]({{site.url}}{{site.baseurl}}/migration-assistant/why-kubernetes-and-eks/).
+3. [Choose your deployment path]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/).
+4. [Learn how a migration runs]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/).
+5. [Use the Workflow CLI]({{site.url}}{{site.baseurl}}/migration-assistant/workflow-cli/) and then [pick a playbook]({{site.url}}{{site.baseurl}}/migration-assistant/playbooks/).
+
+Looking for the older ECS deployment model? See the [classic Migration Assistant documentation]({{site.url}}{{site.baseurl}}/classic/migration-assistant/).
 {: .note }
-
-## Key capabilities
-
-| Capability | Description |
-|:-----------|:------------|
-| **Metadata migration** | Migrate index templates, component templates, index settings, and aliases |
-| **Document backfill** | Migrate existing documents using snapshot-based reindexing (RFS) |
-| **Capture and Replay** | Record live traffic and replay it on the target for zero-downtime migration |
-| **Version compatibility** | Migrate from Elasticsearch 1.x–8.x and OpenSearch 1.x–2.x to OpenSearch |
-| **Solr migration** | Migrate from Apache Solr 8.x with automatic schema translation and query proxying |
-| **Kubernetes-native** | Runs on any Kubernetes cluster with Helm charts and the Workflow CLI |
-
-## Getting started
-
-### 1. Check your migration path
-
-Review [Is Migration Assistant right for you?]({{site.url}}{{site.baseurl}}/migration-assistant/is-migration-assistant-right-for-you/) to verify your source and target versions are supported.
-
-### 2. Deploy Migration Assistant
-
-Choose your deployment option:
-
-- [Deploy on Kubernetes]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-kubernetes/) — Generic Kubernetes deployment using Helm
-- [Deploy on Amazon EKS]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-eks/) — AWS EKS with CloudFormation and the bootstrap script
-
-### 3. Configure and run your migration
-
-Use the [Workflow CLI]({{site.url}}{{site.baseurl}}/migration-assistant/workflow-cli/) to configure, submit, and monitor your migration.
-
-### 4. Migrating from Apache Solr?
-
-See the [Solr migration guide]({{site.url}}{{site.baseurl}}/migration-assistant/solr-migration/) for the Solr-specific migration approach.
 
 {% include list.html list_items=page.items %}

@@ -3,7 +3,7 @@ layout: default
 title: Transform flattened fields to flat_object
 nav_order: 3
 parent: Migrate metadata
-grand_parent: Migration phases
+grand_parent: Migration workflows
 permalink: /migration-assistant/migration-phases/migrate-metadata/transform-flattened-flat-object/
 ---
 

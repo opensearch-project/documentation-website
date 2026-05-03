@@ -3,7 +3,7 @@ layout: default
 title: Transform field types
 nav_order: 2
 parent: Migrate metadata
-grand_parent: Migration phases
+grand_parent: Migration workflows
 permalink: /migration-assistant/migration-phases/migrate-metadata/handling-field-type-breaking-changes/
 redirect_from:
   - /migration-assistant/migration-phases/assessment/handling-field-type-breaking-changes/

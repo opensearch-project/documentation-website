@@ -27,13 +27,20 @@ Use the **collection endpoint** from the OpenSearch Serverless console (not the 
 
 Both clusters use **IAM SigV4** signing. In workflow JSON, set `authConfig.sigv4` with the correct **`region`** and **`service`** (`es` vs `aoss`) for each cluster. See also the steering examples in [workflow.md](https://github.com/opensearch-project/opensearch-migrations/blob/main/kiro-cli/kiro-cli-config/steering/workflow.md) in the opensearch-migrations repo.
 
-## 2. Migration Console identity (IRSA)
+## 2. Migration identity on EKS
 
-The Migration Console pod must use an **IAM role** (usually via EKS **IRSA**) that can:
+On Amazon EKS, Migration Assistant uses **pod identity** for the console pod and workflow executor pods. The IAM roles associated with those service accounts must be able to:
 
 - Call the **source domain** APIs (snapshot create, cluster read) as allowed by your domain access policy.
 - Call **OpenSearch Serverless** data APIs on the **target collection** (see AWS documentation for data access policies and principal ARNs).
-- **Read/write S3** used for snapshots if your setup expects the console or snapshot role to assume S3 access (align with how the EKS stack created `migrations-default-s3-config`).
+- **Read/write S3** used for snapshots if your setup expects the workflow to access snapshot artifacts (align with how the EKS stack created `migrations-default-s3-config`).
+
+In practice, the important distinction is:
+
+- the `migration-console-access-role` pod needs enough access for console-side checks and AWS lookups
+- the `argo-workflow-executor` pods need enough access for the actual migration work
+
+If you are not on EKS, you must provide the equivalent AWS credentials to both places yourself.
 
 Verify from the pod:
 

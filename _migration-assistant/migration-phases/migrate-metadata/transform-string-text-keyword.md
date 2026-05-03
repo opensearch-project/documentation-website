@@ -3,7 +3,7 @@ layout: default
 title: Transform string fields to text/keyword
 nav_order: 4
 parent: Migrate metadata
-grand_parent: Migration phases
+grand_parent: Migration workflows
 permalink: /migration-assistant/migration-phases/migrate-metadata/transform-string-text-keyword/
 ---
 

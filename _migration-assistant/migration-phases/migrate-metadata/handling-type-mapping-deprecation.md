@@ -3,7 +3,7 @@ layout: default
 title: Transform type mappings
 nav_order: 1
 parent: Migrate metadata
-grand_parent: Migration phases
+grand_parent: Migration workflows
 permalink: /migration-assistant/migration-phases/migrate-metadata/handling-type-mapping-deprecation/
 redirect_from:
   - /migration-assistant/migration-phases/assessment/handling-type-mapping-deprecation/

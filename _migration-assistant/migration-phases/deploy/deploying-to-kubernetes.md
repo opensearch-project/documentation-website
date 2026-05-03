@@ -1,35 +1,47 @@
 ---
 layout: default
-title: Deploying to Kubernetes
+title: Deploy on Kubernetes
 nav_order: 1
-grand_parent: Migration phases
-parent: Deploy
+grand_parent: Migration workflows
+parent: Choose your deployment
 permalink: /migration-assistant/migration-phases/deploy/deploying-to-kubernetes/
 ---
 
-# Deploying to Kubernetes
+# Deploy on Kubernetes
 
-This guide covers deploying Migration Assistant to a generic Kubernetes cluster using Helm charts. For AWS EKS deployment, see [Deploying to EKS]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-eks/).
+Use this path when you already operate your own Kubernetes platform, you are evaluating Migration Assistant locally, or you are deploying outside AWS. You get the same migration engine, workflow model, and console experience as EKS. The difference is that **you provide the surrounding platform pieces yourself**.
+
+If you are on AWS and want the recommended production path, use [Deploy on Amazon EKS]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-eks/).
+
+## When this path makes sense
+
+- You already run a self-managed Kubernetes platform and are comfortable owning cluster identity, storage, logging, and registry access.
+- You are testing locally with `minikube` or `kind`.
+- Your migration is not centered on AWS-managed services.
+
+## What you are responsible for
+
+On generic Kubernetes, Migration Assistant does **not** automatically provision or wire:
+
+- AWS pod identity for SigV4-authenticated source or target clusters
+- private image mirroring for isolated networks
+- default snapshot bucket and IAM helpers
+- CloudWatch dashboards and AWS-native logging integration
+- AWS-tuned storage classes and autoscaling node pools
+
+That is the main difference from the EKS path. The workflow engine is the same.
 
 ## Prerequisites
 
-- **Kubernetes cluster**: Version 1.24 or later (minikube, kind, or any distribution)
-- **Helm 3**: [Install Helm](https://helm.sh/docs/intro/install/)
-- **kubectl**: [Install kubectl](https://kubernetes.io/docs/tasks/tools/) and configure it to access your cluster
-- **Docker**: Required if building images from source or using minikube
-- **Network access**: Connectivity from the cluster to source and target clusters
-- **Persistent storage**: StorageClass with dynamic provisioning
+- Kubernetes 1.24 or later
+- `kubectl` configured for your cluster
+- Helm 3 installed
+- network connectivity from the cluster to the source and target clusters
+- a StorageClass with dynamic provisioning
 
-## Quick start with minikube
+## Local evaluation with Minikube
 
-For local testing and development, minikube provides the fastest path. The `localTesting.sh` script automates the full setup: starting minikube, building container images from source, and installing the Helm chart with test clusters.
-
-### Prerequisites
-
-- [minikube](https://minikube.sigs.k8s.io/docs/start/) installed
-- [Docker](https://docs.docker.com/engine/install/) running
-- Java Development Kit (JDK) 11–17
-- At least 8 CPUs and 12 GB memory available for Docker
+For local testing, use the repository's helper script. This is the fastest way to experience the workflow model before preparing a production platform.
 
 ### Step 1: Clone the repository
 
@@ -46,72 +58,50 @@ cd opensearch-migrations/deployment/k8s
 ```
 {% include copy.html %}
 
-This script:
-1. Starts minikube with adequate resources
-2. Sets up a local container registry inside minikube
-3. Builds all Migration Assistant container images from source using Gradle and BuildKit
-4. Installs the Migration Assistant Helm chart
-5. Deploys test source (Elasticsearch) and target (OpenSearch) clusters
+The script starts Minikube, builds the container images, installs the Helm chart, and deploys test source and target clusters. Use this path for learning and validation, not as a production blueprint.
 
-The initial build takes 10–20 minutes depending on your machine. Subsequent runs are faster due to caching.
+## Production deployment on generic Kubernetes
 
-Building from source requires a JDK and may encounter Gradle configuration cache issues. If the build fails, try running with `--no-configuration-cache` or check the [Troubleshooting]({{site.url}}{{site.baseurl}}/migration-assistant/troubleshooting/) page.
-{: .note }
+### Step 1: Decide how your cluster will pull images
 
-### Step 3: Access the Migration Console
+Migration Assistant can run on any conformant Kubernetes cluster, but published installs still need explicit image settings. The chart's default short repository names are not directly pullable.
 
-```bash
-kubectl -n ma exec --stdin --tty migration-console-0 -- /bin/bash
-```
-{% include copy.html %}
+Choose one of these patterns:
 
-## Production Kubernetes deployment
+- Pull from Amazon Public ECR by overriding `images.*.repository` and `images.*.tag`
+- Mirror the release images into your own registry and point the chart at that registry
+- If you are on AWS and want image mirroring automated for you, use the EKS bootstrap path instead
 
-For production deployments on vanilla Kubernetes (not EKS), you need Migration Assistant images in a registry your cluster can reach. Typical options:
-
-- **Amazon Public ECR** — use the same `public.ecr.aws/opensearchproject/...` repositories and release tag as in [Step 3](#step-3-install-the-helm-chart) (nodes need outbound access to pull from Public ECR)
-- **Build from source** with `localTesting.sh` (or `aws-bootstrap.sh --build-images`) and push to your private registry, then point `images.*.repository` / `tag` at that registry
-- **Amazon EKS bootstrap** — automates chart install, optional image mirroring to private ECR, IAM, and CloudWatch (see [Deploying to EKS]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-eks/))
-
-For most AWS production deployments, the EKS path is the least error-prone because it aligns versions across the chart, images, and dashboards.
-{: .note }
-
-### Step 1: Create the namespace
+### Step 2: Create the namespace
 
 ```bash
 kubectl create namespace ma
 ```
 {% include copy.html %}
 
-### Step 2: Create authentication secrets
+### Step 3: Create Kubernetes secrets if you use basic auth
 
-Create Kubernetes secrets for cluster authentication before deploying.
-
-**Basic authentication:**
+Basic auth is configured the same way on Kubernetes and EKS: store credentials in Kubernetes secrets and reference those secret names in the workflow config.
 
 ```bash
 kubectl create secret generic source-credentials \
-  --from-literal=username=<user> \
-  --from-literal=password=<pass> \
+  --from-literal=username=<SOURCE_USER> \
+  --from-literal=password=<SOURCE_PASSWORD> \
   -n ma
 ```
 {% include copy.html %}
-
-**mTLS authentication:**
 
 ```bash
-kubectl create secret generic source-mtls \
-  --from-file=client.crt=<path-to-cert> \
-  --from-file=client.key=<path-to-key> \
+kubectl create secret generic target-credentials \
+  --from-literal=username=<TARGET_USER> \
+  --from-literal=password=<TARGET_PASSWORD> \
   -n ma
 ```
 {% include copy.html %}
 
-### Step 3: Install the Helm chart
+### Step 4: Install the Helm chart
 
-The chart’s default `values.yaml` uses short image repository names (`migrations/...`). Those names are **not** pullable on their own — published installs point Migration Assistant images at **Amazon Public ECR** under `public.ecr.aws/opensearchproject/`, matching what the [EKS bootstrap script](https://github.com/opensearch-project/opensearch-migrations/blob/main/deployment/k8s/aws/aws-bootstrap.sh) applies. Without overriding `images.*`, pods typically fail with `ImagePullBackOff`.
-
-Use a [GitHub release tag](https://github.com/opensearch-project/opensearch-migrations/releases) for `<VERSION>` (for example `2.1.0` or the tag you deploy). Your cluster must be able to reach `public.ecr.aws` (or mirror these images into your own registry).
+Use a released version tag for `<VERSION>`.
 
 ```bash
 git clone https://github.com/opensearch-project/opensearch-migrations
@@ -131,73 +121,54 @@ helm install ma -n ma charts/aggregates/migrationAssistantWithArgo --create-name
 ```
 {% include copy.html %}
 
-For air-gapped clusters, mirror these images (and dependent charts) into a private registry; the EKS bootstrap script’s `--push-all-images-to-private-ecr` path automates that on AWS.
+If your nodes cannot reach public registries, mirror the images into a private registry first.
 {: .note }
 
-### Step 4: Verify deployment
+### Step 5: Verify the platform is running
 
 ```bash
 kubectl get pods -n ma
 ```
 {% include copy.html %}
 
-Expected output:
+You should see the Migration Console, the Argo workflow controller, and the Argo server in `Running` state.
 
-```
-NAME                                    READY   STATUS    RESTARTS   AGE
-argo-workflows-server-xxxxxxxxx-xxxxx   1/1     Running   0          5m
-argo-workflows-workflow-controller-xx   1/1     Running   0          5m
-migration-console-0                     1/1     Running   0          5m
-```
-
-### Step 5: Access the Migration Console
+### Step 6: Access the Migration Console
 
 ```bash
 kubectl exec -it migration-console-0 -n ma -- /bin/bash
 ```
 {% include copy.html %}
 
-## Authentication configuration
+From here, the experience matches EKS: load the sample config for your version, edit it, run a pilot, then run the real workflow.
 
-Configure authentication in your workflow configuration. Run `workflow configure sample` on the Migration Console to see the exact schema for your installed version.
+## Authentication on generic Kubernetes
 
-| Type | Use case | Secret requirements |
-|:-----|:---------|:--------------------|
-| Basic | Username/password auth | Secret with `username` and `password` keys |
-| SigV4 | AWS managed OpenSearch | IAM role (no secret needed) |
-| mTLS | Certificate-based auth | Secret with `client.crt` and `client.key` |
+### Basic auth
 
-## Network requirements
+Basic auth works the same way as EKS. Put the credentials in a Kubernetes secret and reference the secret name in `authConfig.basic.secretName`.
 
-| From | To | Port | Purpose |
-|:-----|:---|:-----|:--------|
-| Migration Console | Source cluster | 9200/443 | Source cluster access |
-| Migration Console | Target cluster | 9200/443 | Target cluster access |
-| Migration Console | Snapshot storage | 443 | S3/snapshot repository |
-| Workflow pods | Source cluster | 9200/443 | Migration operations |
-| Workflow pods | Target cluster | 9200/443 | Migration operations |
+### SigV4 for Amazon OpenSearch Service or Serverless
 
-## Cleanup
+SigV4 is supported by the workflow configuration, but **generic Kubernetes does not automatically create AWS pod identity for you**.
 
-To remove the Migration Assistant Helm deployment and its volumes:
+If your source or target uses Amazon OpenSearch Service or OpenSearch Serverless, you must make AWS credentials available to:
 
-```bash
-helm uninstall -n ma ma
-kubectl -n ma delete pvc --all
-```
-{% include copy.html %}
+- the `migration-console-access-role` pod, which runs CLI commands such as `console clusters connection-check`
+- the `argo-workflow-executor` workflow pods, which perform the actual migration steps
 
-To remove the minikube cluster (if using minikube):
+This is the biggest operational difference from EKS. On EKS, pod identity is wired for you. On generic Kubernetes, you must solve credential injection yourself.
 
-```bash
-cd deployment/k8s
-./minikubeLocal.sh --delete
-```
-{% include copy.html %}
+The chart includes a developer-oriented Kyverno policy that can mount local AWS credentials for certain pods, but that is not a production identity strategy.
+{: .warning }
 
-## Next steps
+If you are on AWS and want SigV4 to work without building your own credential plumbing, use [Deploy on Amazon EKS]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-eks/).
 
-1. [Workflow CLI overview]({{site.url}}{{site.baseurl}}/migration-assistant/workflow-cli/) — Learn about the Workflow CLI concepts
-2. [Workflow CLI getting started]({{site.url}}{{site.baseurl}}/migration-assistant/workflow-cli/getting-started/) — Run your first migration
+## What to do next
+
+1. Open the Migration Console and run `console --version`.
+2. Load the sample workflow with `workflow configure sample --load`.
+3. Run `console clusters connection-check` before submitting a workflow.
+4. Start with [Workflow CLI getting started]({{site.url}}{{site.baseurl}}/migration-assistant/workflow-cli/getting-started/).
 
 {% include migration-phase-navigation.html %}

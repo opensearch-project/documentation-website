@@ -1,44 +1,41 @@
 ---
 layout: default
-title: Deploying to EKS
+title: Deploy on Amazon EKS
 nav_order: 2
-grand_parent: Migration phases
-parent: Deploy
+grand_parent: Migration workflows
+parent: Choose your deployment
 permalink: /migration-assistant/migration-phases/deploy/deploying-to-eks/
 ---
 
-# Deploying to Amazon EKS
+# Deploy on Amazon EKS
 
-This guide covers deploying Migration Assistant to Amazon Elastic Kubernetes Service (EKS) using CloudFormation and the bootstrap script.
+This is the recommended production path for AWS customers. You get the same Migration Assistant engine and workflows as generic Kubernetes, but the EKS tooling removes much of the AWS platform work that otherwise slows migrations down.
 
-For generic Kubernetes deployment, see [Deploying to Kubernetes]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-kubernetes/).
+In practice, EKS is not about changing how migrations run. It is about making the migration **easier to deploy, easier to secure, and easier to operate**.
+
+## What EKS gives you
+
+The bootstrap path prepares AWS infrastructure around the workflow engine, including:
+
+- EKS cluster deployment into a new or existing VPC
+- pod identity for the Migration Console and workflow pods
+- image mirroring and VPC endpoint support for isolated subnets
+- default S3 bucket and snapshot-role helpers
+- CloudWatch logging and dashboards
+- AWS-aware storage and node-pool defaults
+
+If you are migrating to or from Amazon OpenSearch Service, this is usually the shortest path to a working production setup.
 
 ## Prerequisites
 
-- **AWS account** with appropriate permissions
-- **One of the following**:
-  - **AWS CloudShell** (recommended) — pre-configured terminal environment
-  - **Local terminal** with [AWS CLI 2.x](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) and [kubectl](https://kubernetes.io/docs/tasks/tools/) installed
+- an AWS account with permissions for CloudFormation, EKS, IAM, EC2, ECR, S3, CloudWatch, and related services
+- either AWS CloudShell or a local terminal with AWS CLI v2, `kubectl`, and Helm installed
 
-## Understanding STAGE
+## Understand the deployment label
 
-Throughout this guide, `<STAGE>` refers to a user-chosen deployment label (for example, `dev`, `staging`, `prod`). This label:
-- Distinguishes multiple deployments in the same account/region
-- Appears in resource names: `migration-eks-cluster-<STAGE>-<REGION>`
-- Is set using the `--stage` flag in the bootstrap script (defaults to `dev`)
+Throughout this guide, `<STAGE>` is a short label such as `dev`, `staging`, or `prod`. It is used in cluster and resource names so you can keep multiple deployments separate.
 
-## Installation
-
-### Step 1: Access AWS CloudShell
-
-Open AWS CloudShell from the AWS Console using the account and identity for the deployment.
-
-Alternatively, run from any terminal with AWS CLI and kubectl installed with credentials loaded.
-{: .note }
-
-### Step 2: Download and run the bootstrap script
-
-Download the bootstrap script from the latest release:
+## Step 1: Download the bootstrap script
 
 ```bash
 curl -sL -o aws-bootstrap.sh \
@@ -47,7 +44,11 @@ curl -sL -o aws-bootstrap.sh \
 ```
 {% include copy.html %}
 
-**Deploy with a new VPC:**
+Run `./aws-bootstrap.sh --help` if you want to inspect the available options before deploying.
+
+## Step 2: Deploy into a new or existing VPC
+
+### New VPC
 
 ```bash
 ./aws-bootstrap.sh \
@@ -58,7 +59,7 @@ curl -sL -o aws-bootstrap.sh \
 ```
 {% include copy.html %}
 
-**Deploy into an existing VPC:**
+### Existing VPC
 
 ```bash
 ./aws-bootstrap.sh \
@@ -71,14 +72,9 @@ curl -sL -o aws-bootstrap.sh \
 ```
 {% include copy.html %}
 
-Run `./aws-bootstrap.sh --help` for the full list of options.
+When the script finishes, it has already installed the Helm chart and configured the core platform pieces.
 
-The script deploys an EKS cluster via CloudFormation, installs the Helm chart, and configures CloudWatch dashboards.
-{: .note }
-
-### Step 3: Verify deployment
-
-After the bootstrap script completes:
+## Step 3: Verify the deployment
 
 ```bash
 aws eks update-kubeconfig --region <REGION> --name migration-eks-cluster-<STAGE>-<REGION>
@@ -86,25 +82,63 @@ kubectl get pods -n ma
 ```
 {% include copy.html %}
 
-Expected output:
+You should see the Migration Console, the Argo workflow controller, and the Argo server in `Running` state.
 
-```
-NAME                                    READY   STATUS    RESTARTS   AGE
-argo-workflows-server-xxxxxxxxx-xxxxx   1/1     Running   0          5m
-argo-workflows-workflow-controller-xx   1/1     Running   0          5m
-migration-console-0                     1/1     Running   0          5m
-```
-
-### Step 4: Access the Migration Console
+## Step 4: Access the Migration Console
 
 ```bash
 kubectl exec -it migration-console-0 -n ma -- /bin/bash
 ```
 {% include copy.html %}
 
-## Isolated and air-gapped networks
+Once you are in the console, the migration flow is the same as any other deployment: check the version, load the sample config, run a pilot, validate, and then run the full migration.
 
-For subnets without internet access, the bootstrap script can mirror all required container images and Helm charts to your private ECR registry:
+## Step 5: Use the AWS helpers the deployment created for you
+
+The EKS path usually gives you a default snapshot bucket and related configuration so you do not have to build this wiring manually.
+
+### Default S3 bucket
+
+The deployment creates a default S3 bucket for migration artifacts and snapshots:
+
+```text
+s3://migrations-default-<ACCOUNT_ID>-<STAGE>-<REGION>
+```
+
+### Snapshot role output
+
+If your workflow needs a snapshot role ARN, look it up from the CloudFormation outputs:
+
+```bash
+aws cloudformation describe-stacks \
+  --stack-name <YOUR_STACK_NAME> \
+  --query "Stacks[0].Outputs[?contains(OutputKey,'MigrationsExportString')].OutputValue" \
+  --output text
+```
+{% include copy.html %}
+
+## Authentication on EKS
+
+### Basic auth
+
+Basic auth works the same way as generic Kubernetes: create Kubernetes secrets and reference them in `authConfig.basic.secretName`.
+
+### SigV4
+
+This is where EKS changes the customer experience the most.
+
+For SigV4-authenticated sources or targets, the solution stack associates IAM roles with the service accounts used by:
+
+- the `migration-console-access-role` pod
+- the `argo-workflow-executor` workflow pods
+
+That means the console and the migration jobs can authenticate to Amazon OpenSearch Service and other AWS services without you manually distributing long-lived AWS credentials.
+
+This is one of the main reasons EKS is the recommended AWS production path.
+
+## Private or isolated networks
+
+If your subnets do not have direct internet access, use the bootstrap options that mirror images into private ECR and create the required VPC endpoints:
 
 ```bash
 ./aws-bootstrap.sh \
@@ -119,81 +153,45 @@ For subnets without internet access, the bootstrap script can mirror all require
 ```
 {% include copy.html %}
 
-The `--push-all-images-to-private-ecr` flag mirrors ~50 images and 11 Helm charts to ECR. The `--create-vpc-endpoints` flag creates the required VPC endpoints (ECR, S3, CloudWatch Logs, EFS, STS, EKS Auth).
+## Recovery if bootstrap fails
 
-## Snapshot configuration
-
-When migrating from Amazon OpenSearch Service or Amazon Elasticsearch Service, you need the S3 bucket URI and snapshot role ARN for your workflow configuration.
-
-### Default S3 bucket
-
-The EKS deployment automatically creates an S3 bucket and mounts it read-only on the Migration Console at `/s3/artifacts`:
-
-```
-s3://migrations-default-<ACCOUNT_ID>-<STAGE>-<REGION>
-```
-
-### Snapshot role ARN
-
-Find the snapshot role created by CloudFormation:
+If CloudFormation fails, check the stack status first:
 
 ```bash
-aws cloudformation describe-stacks \
-  --stack-name <YOUR_STACK_NAME> \
-  --query "Stacks[0].Outputs[?contains(OutputKey,'MigrationsExportString')].OutputValue" \
-  --output text
+aws cloudformation describe-stacks --stack-name <STACK_NAME> --query "Stacks[0].StackStatus"
 ```
 {% include copy.html %}
 
-Use these values in your workflow configuration. Run `workflow configure sample` on the Migration Console to see the exact fields.
-
-## Error recovery
-
-If the bootstrap script fails:
-
-1. **Check CloudFormation status**:
-   ```bash
-   aws cloudformation describe-stacks --stack-name <STACK_NAME> --query "Stacks[0].StackStatus"
-   ```
-
-2. **For stack failures** (ROLLBACK_COMPLETE or CREATE_FAILED):
-   ```bash
-   aws cloudformation delete-stack --stack-name <STACK_NAME>
-   aws cloudformation wait stack-delete-complete --stack-name <STACK_NAME>
-   ```
-   Then re-run the bootstrap script.
-
-3. **For Helm failures** (CloudFormation succeeded but Helm failed):
-   ```bash
-   ./aws-bootstrap.sh --skip-cfn-deploy --stage <STAGE> --region <REGION>
-   ```
-
-## Reconnecting to the Migration Console
+If the stack is stuck in `ROLLBACK_COMPLETE` or `CREATE_FAILED`, delete it and rerun the bootstrap script:
 
 ```bash
-aws eks update-kubeconfig --region <REGION> --name migration-eks-cluster-<STAGE>-<REGION>
-kubectl exec -it migration-console-0 -n ma -- /bin/bash
-```
-{% include copy.html %}
-
-## Cleanup
-
-To remove the EKS deployment:
-
-```bash
-# Remove Helm release
-helm uninstall -n ma ma
-kubectl -n ma delete pvc --all
-
-# Delete CloudFormation stack
 aws cloudformation delete-stack --stack-name <STACK_NAME>
 aws cloudformation wait stack-delete-complete --stack-name <STACK_NAME>
 ```
 {% include copy.html %}
 
-## Next steps
+If CloudFormation succeeded but the Helm portion failed, rerun only the bootstrap's cluster-side steps:
 
-1. [Workflow CLI overview]({{site.url}}{{site.baseurl}}/migration-assistant/workflow-cli/) — Learn about the Workflow CLI concepts
-2. [Workflow CLI getting started]({{site.url}}{{site.baseurl}}/migration-assistant/workflow-cli/getting-started/) — Run your first migration
+```bash
+./aws-bootstrap.sh --skip-cfn-deploy --stage <STAGE> --region <REGION>
+```
+{% include copy.html %}
+
+## Cleanup
+
+```bash
+helm uninstall -n ma ma
+kubectl -n ma delete pvc --all
+aws cloudformation delete-stack --stack-name <STACK_NAME>
+aws cloudformation wait stack-delete-complete --stack-name <STACK_NAME>
+```
+{% include copy.html %}
+
+## What to do next
+
+1. Open the Migration Console and run `console --version`.
+2. Load the sample workflow with `workflow configure sample --load`.
+3. Run `console clusters connection-check`.
+4. Continue with [Workflow CLI getting started]({{site.url}}{{site.baseurl}}/migration-assistant/workflow-cli/getting-started/).
 
 {% include migration-phase-navigation.html %}

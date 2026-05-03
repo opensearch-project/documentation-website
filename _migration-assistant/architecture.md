@@ -9,24 +9,47 @@ redirect_from:
 
 # Architecture
 
-Migration Assistant runs on Kubernetes and uses the Workflow CLI to orchestrate migrations. Under the hood, workflows are executed by [Argo Workflows](https://argoproj.github.io/workflows/), but you interact exclusively through the Workflow CLI — not Argo directly. The architecture works equivalently on any Kubernetes distribution, including minikube, kind, Amazon EKS, GKE, AKS, and self-managed clusters.
+Migration Assistant is built around a simple operating model:
 
-The following diagram illustrates a typical deployment on Amazon EKS. Other Kubernetes distributions follow the same logical layout with different networking and IAM details.
+1. You describe the migration in workflow configuration.
+2. The Workflow CLI submits that configuration to Kubernetes.
+3. Kubernetes and Argo Workflows create the pods and services required for each phase.
+4. You observe progress, approve gated steps, validate results, and cut over.
+
+Under the hood, workflows are executed by [Argo Workflows](https://argoproj.github.io/workflows/), but customers operate Migration Assistant through the Migration Console and Workflow CLI rather than through Argo directly.
+
+The following diagram illustrates a typical deployment on Amazon EKS. Other Kubernetes distributions follow the same logical migration model, but EKS adds AWS-specific identity, networking, image, and observability integrations.
 
 ![Migration Assistant Architecture on EKS]({{site.url}}{{site.baseurl}}/images/migration-assistant/eks-architecture.svg)
 
-## Core components
+## How to think about the system
+
+Migration Assistant has two layers:
+
+- A **control plane** that manages migration workflows.
+- A **data plane** that performs the actual snapshot, metadata, backfill, capture, and replay work.
+
+This is the philosophy behind the new architecture: **the migration should be described once and executed as platform-managed workloads, not hand-operated infrastructure.**
+
+## Control plane
 
 | Component | Description |
 |:----------|:------------|
-| **Migration Console** | A Kubernetes pod providing the CLI interface for configuring, submitting, and monitoring migrations |
-| **Workflow CLI** | Command-line tool within the Migration Console for defining migrations in YAML and submitting them as workflows |
-| **Workflow Engine** | Orchestrates migration tasks with parallel execution, retry logic, and approval gates (powered by Argo Workflows internally) |
-| **Reindex-from-Snapshot (RFS)** | High-performance document migration engine that reads directly from Lucene segment files in snapshots |
-| **Capture Proxy** | Records live traffic to Kafka for zero-downtime migrations |
-| **Traffic Replayer** | Replays captured traffic against the target cluster |
-| **Strimzi** | Kubernetes operator for managing Kafka clusters used by Capture and Replay |
-| **Prometheus and Grafana** | Monitoring and dashboards for migration progress |
+| **Migration Console** | The pod where you run `console` and `workflow` commands |
+| **Workflow CLI** | The customer-facing interface for configuration, submission, approval, and status |
+| **Argo Workflows** | The workflow engine that sequences tasks, retries failures, and tracks state |
+| **Kubernetes** | The platform that schedules pods, creates services, manages secrets, and cleans up resources |
+
+## Data plane
+
+| Component | Description |
+|:----------|:------------|
+| **Reindex-from-Snapshot (RFS)** | High-performance backfill engine that reads Lucene segments from snapshots instead of reading documents through the source cluster API |
+| **Metadata migration** | Transfers index settings, mappings, templates, and aliases |
+| **Capture Proxy** | Records live traffic to Kafka during zero-downtime migrations |
+| **Traffic Replayer** | Replays captured traffic against the target cluster to catch it up |
+| **Strimzi** | Manages Kafka for capture and replay workflows |
+| **Observability stack** | Prometheus-compatible metrics, logs, and dashboards; on EKS this extends into CloudWatch |
 
 ## Migration process overview
 
@@ -50,7 +73,7 @@ After the backfill completes, the Traffic Replayer reads captured traffic from K
 
 ### Step 5: Validate and compare
 
-The performance and behavior of traffic routed to the source and target clusters are analyzed by reviewing logs, metrics, and document counts. Use `console clusters curl` to run comparison queries against both clusters. Prometheus and Grafana dashboards (or Amazon CloudWatch on EKS) provide operational metrics.
+The performance and behavior of traffic routed to the source and target clusters are analyzed by reviewing logs, metrics, and document counts. Use `console clusters curl` to run comparison queries against both clusters. On generic Kubernetes this usually means your cluster logging and metrics stack; on EKS the bootstrap path also wires in CloudWatch dashboards and logs.
 
 ### Step 6: Redirect traffic and decommission
 
@@ -61,9 +84,10 @@ After confirming the target cluster's functionality meets expectations, redirect
 ### Workflow failures
 
 If a workflow step fails:
-1. Check the error with `workflow status` and `workflow output`
-2. Fix the underlying issue (connectivity, permissions, configuration)
-3. Use `workflow retry` to retry the failed step
+
+1. Check the error with `workflow status` and `workflow output`.
+2. Fix the underlying issue such as connectivity, permissions, or configuration.
+3. Retry or resubmit from the workflow model instead of patching pods manually.
 
 ### RFS backfill resumption
 
@@ -84,11 +108,14 @@ RFS takes a fundamentally different approach from traditional migration tools. I
 
 This means: **zero ongoing source load**, **no version compatibility limit** (works across any supported gap), **massive parallelism** (one worker per shard), and **full resumability** (failed shards are retried without restarting).
 
-### Workflow Engine
+## Why EKS is emphasized in this architecture
 
-The workflow engine orchestrates the migration process:
-- **Workflow templates**: Pre-built templates for migration scenarios
-- **Parallel execution**: Run multiple migration tasks simultaneously
-- **Retry logic**: Automatic retry on transient failures
-- **Approval gates**: Human checkpoints before critical operations
-- **Progress tracking**: Visual workflow status and step completion
+The architecture works on any Kubernetes cluster, but the EKS path is emphasized because it gives AWS customers more of the required platform pieces by default:
+
+- pod identity for AWS access,
+- image mirroring for private environments,
+- CloudWatch integration,
+- snapshot bucket and role helpers,
+- and AWS-aware node and storage defaults.
+
+That is why the documentation shows the EKS diagram first: not because the product only works there, but because it is the clearest example of the full platform story.
