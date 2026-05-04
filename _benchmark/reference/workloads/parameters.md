@@ -1,20 +1,18 @@
 ---
 layout: default
 title: Workload parameters
-nav_order: 15
+nav_order: 150
 parent: Workload reference
 grand_parent: Reference
 ---
 
 # Workload parameters
 
-Workload parameters let you customize a workload's behavior without editing the workload files directly. You can control settings like bulk size, number of shards, index name, and search configuration by passing parameters at runtime.
+Workload parameters let you customize workload behavior without editing the workload files directly. You can control settings such as bulk size, number of shards, index name, and search configuration by passing parameters at runtime.
 
-## How parameters work
+OpenSearch Benchmark workloads use [Jinja2](https://jinja.palletsprojects.com/) templates. When you pass parameters using the `--workload-params` flag, OpenSearch Benchmark injects them into the workload JSON files before execution.
 
-OpenSearch Benchmark workloads use [Jinja2](https://jinja.palletsprojects.com/) templates. When you pass parameters via the `--workload-params` flag, Benchmark injects them into the workload's JSON files before execution.
-
-For example, a workload's `index.json` might contain:
+For example, a workload's `index.json` might contain the following settings:
 
 ```json
 {
@@ -25,15 +23,15 @@ For example, a workload's `index.json` might contain:
 }
 ```
 
-When you run a benchmark with `--workload-params='{"number_of_shards": 3}'`, Benchmark replaces `{% raw %}{{ number_of_shards | default(1) }}{% endraw %}` with `3`. Parameters you don't override use their default values.
+When you run a benchmark with `--workload-params='{"number_of_shards": 3}'`, OpenSearch Benchmark replaces `{% raw %}{{ number_of_shards | default(1) }}{% endraw %}` with `3`. Parameters you don't override use their default values.
 
 ## Passing parameters
 
-You can pass parameters in three ways:
+You can pass parameters in the following ways.
 
 ### JSON file (recommended for many parameters)
 
-Create a JSON file with your parameters:
+Create a JSON file containing your parameters:
 
 ```json
 {
@@ -43,12 +41,14 @@ Create a JSON file with your parameters:
   "target_index_name": "my_index"
 }
 ```
+{% include copy.html %}
 
-Then reference it:
+Then reference it as follows:
 
 ```bash
 opensearch-benchmark run --workload=geonames --workload-params=my-params.json
 ```
+{% include copy.html %}
 
 ### Inline JSON
 
@@ -57,73 +57,77 @@ Pass parameters directly on the command line:
 ```bash
 opensearch-benchmark run --workload=geonames --workload-params='{"number_of_shards": 3, "bulk_size": 5000}'
 ```
+{% include copy.html %}
 
 ### Comma-separated key-value pairs
 
-For simple values:
+Use the following format to pass key-value pairs:
 
 ```bash
 opensearch-benchmark run --workload=geonames --workload-params="number_of_shards:3,bulk_size:5000"
 ```
+{% include copy.html %}
 
+The comma-separated format only supports string values. Use JSON file or inline JSON for numbers, Boolean values, or nested objects.
 {: .note}
-The comma-separated format only supports string values. Use JSON file or inline JSON for numbers, booleans, or nested objects.
 
 ## Parameter precedence
 
-When the same parameter is defined in multiple places, OpenSearch Benchmark applies them in the following order (highest priority first):
+When the same parameter is defined in multiple sources, OpenSearch Benchmark applies them in the following order (highest priority first):
 
-1. **`--workload-params`** (CLI flag) --- overrides everything
-2. **Workload defaults** --- `{% raw %}{{ var | default(value) }}{% endraw %}` in the workload files
-3. **Undefined** --- if no default is set and the parameter isn't provided, Benchmark raises a template rendering error
+1. **`--workload-params`** (CLI flag): Overrides all other values.
+1. **Workload template defaults**: Default values specified in `{% raw %}{{ var | default(value) }}{% endraw %}` expressions in the workload JSON files (for example, `{% raw %}{{ number_of_shards | default(1) }}{% endraw %}`).
+1. **Undefined**: If no default is specified and the parameter is not provided, OpenSearch Benchmark raises a template rendering error.
 
 ## Template syntax
 
-Workload files use Jinja2 template syntax. The most common patterns are:
+This section describes the most common template patterns used in workload files.
 
 ### Variable with a default value
 
-```
+Use the `default` filter to specify a fallback value when a parameter is not provided. For example, if `bulk_size` is not provided in `--workload-params`, the expression evaluates to `5000`:
+
+```json
 {% raw %}{{ bulk_size | default(5000) }}{% endraw %}
 ```
-
-If `bulk_size` is not provided via `--workload-params`, it renders as `5000`.
+{% include copy.html %}
 
 ### Boolean values
 
-Use the `tojson` filter for booleans to ensure correct JSON output:
+Use the `tojson` filter for Boolean values to ensure correct JSON output. For example, the following expression evaluates to `false` (without quotation marks), not `"false"`:
 
-```
+```json
 {% raw %}{{ query_cache_enabled | default(false) | tojson }}{% endraw %}
 ```
-
-This renders as `false` (without quotes), not `"false"`.
+{% include copy.html %}
 
 ### String values
 
-Wrap string variables in quotes:
+Wrap string variables in quotation marks:
 
-```
+```json
 {% raw %}"{{ conflicts | default('random') }}"{% endraw %}
 ```
+{% include copy.html %}
 
 ### Conditional sections
 
-Use `{% raw %}{% if %}{% endraw %}` blocks to include or exclude sections based on whether a parameter is defined or its value.
+Use `{% raw %}{% if %}{% endraw %}` blocks to include or exclude sections based on whether a parameter is defined or on the parameter value.
 
 #### Including a field only when defined
+
+The following template conditionally includes the `target-throughput` field. If `target_throughput` is not provided using `--workload-params`, the entire field is omitted from the rendered output:
 
 ```json
 {% raw %}{% if target_throughput is defined %}
 "target-throughput": {{ target_throughput }},
 {% endif %}{% endraw %}
 ```
-
-If `target_throughput` is not passed via `--workload-params`, the entire block is omitted from the rendered output.
+{% include copy.html %}
 
 #### If/else for alternative values
 
-Use `{% raw %}{% else %}{% endraw %}` to provide a fallback:
+Use `{% raw %}{% else %}{% endraw %}` to provide a fallback. For example, if `use_zstd` is set to `true` in `--workload-params`, the rendered output sets the `source-file` parameter to `documents.json.zst`. Otherwise, it sets the `source-file` to `documents.json.bz2`:
 
 ```json
 {% raw %}{% if use_zstd %}
@@ -132,12 +136,11 @@ Use `{% raw %}{% else %}{% endraw %}` to provide a fallback:
 "source-file": "documents.json.bz2",
 {% endif %}{% endraw %}
 ```
-
-Running with `--workload-params='{"use_zstd": true}'` selects the zstd file; otherwise, it defaults to bz2.
+{% include copy.html %}
 
 #### Conditionally adding index fields
 
-This pattern is common in the vectorsearch workload for optional fields:
+This pattern is commonly used to define optional fields in `vectorsearch` workload templates. The `{% raw %}{%- endif %}{% endraw %}` (with the dash) trims trailing whitespace and newline characters, preventing empty lines from appearing and avoiding invalid JSON formatting (such as trailing commas or misaligned structure):
 
 ```json
 "properties": {
@@ -152,12 +155,11 @@ This pattern is common in the vectorsearch workload for optional fields:
   }
 }
 ```
-
-The `{% raw %}{%- endif %}{% endraw %}` (with the dash) strips trailing whitespace, keeping the JSON output clean.
+{% include copy.html %}
 
 #### Version-based conditionals
 
-Some workloads adapt their behavior based on `distribution_version`, which OpenSearch Benchmark sets automatically based on the target cluster:
+Some workloads adapt their behavior based on `distribution_version`, which OpenSearch Benchmark sets automatically according to the target cluster. This pattern allows a single workload to support multiple OpenSearch versions by conditionally including version-specific operations or settings:
 
 ```json
 {% raw %}{% if distribution_version is not defined %}
@@ -168,12 +170,11 @@ Some workloads adapt their behavior based on `distribution_version`, which OpenS
   {# Include features available in 2.19.1+ #}
 {% endif %}{% endraw %}
 ```
-
-This pattern lets a single workload support multiple OpenSearch versions by conditionally including version-specific operations or settings.
+{% include copy.html %}
 
 #### For loops
 
-Use `{% raw %}{% for %}{% endraw %}` to generate repeated structures:
+Use `{% raw %}{% for %}{% endraw %}` loops to generate repeated structures:
 
 ```json
 {% raw %}{% for i in range(1, 101) %}
@@ -184,28 +185,31 @@ Use `{% raw %}{% for %}{% endraw %}` to generate repeated structures:
 },
 {% endfor %}{% endraw %}
 ```
+{% include copy.html %}
 
 ### Integer conversion
 
 Use the `int` filter when a parameter must be an integer:
 
-```
+```json
 {% raw %}{{ target_index_dimension | default(768) | int }}{% endraw %}
 ```
+{% include copy.html %}
 
 ### Including external files
 
-Workloads are typically split across multiple files for readability. The `{% raw %}{{ benchmark.collect }}{% endraw %}` helper inlines content from other JSON files at render time.
+Workloads are typically organized into multiple files for readability. The `{% raw %}{{ benchmark.collect }}{% endraw %}` helper composes a single workload definition from multiple JSON files at render time.
 
 #### Importing the helper
 
 Every `workload.json` that uses `benchmark.collect` must import it at the top of the file:
 
-```
+```json
 {% raw %}{% import "benchmark.helpers" as benchmark with context %}{% endraw %}
 ```
+{% include copy.html %}
 
-The `with context` clause ensures that all workload parameters are available inside the included files.
+The `with context` clause ensures that all workload parameters are available in the included files.
 
 #### Collecting operations and test procedures
 
@@ -226,12 +230,13 @@ A typical `workload.json` delegates its operations and test procedures to separa
   ]
 }
 ```
+{% include copy.html %}
 
-The `parts` argument accepts glob patterns. `operations/*.json` collects all JSON files in the `operations/` directory and inlines their content, separated by commas. This keeps the main `workload.json` short while the actual operation and test procedure definitions live in their own files.
+The `parts` argument accepts glob patterns. The pattern `operations/*.json` matches all JSON files in the `operations/` directory and includes their contents, separated by commas. This keeps the main `workload.json` concise while the operation and test procedure definitions are defined in separate files.
 
 #### Composing schedules from shared parts
 
-Test procedures can reuse common schedule fragments. For example, the vectorsearch workload has shared schedules under `test_procedures/common/`:
+Test procedures can reuse common schedule fragments. For example, the `vectorsearch` workload has shared schedules under `test_procedures/common/`:
 
 ```
 test_procedures/
@@ -242,6 +247,7 @@ test_procedures/
     vespa-search-only-schedule.json
   default.json
 ```
+{% include copy.html %}
 
 A test procedure in `default.json` composes its schedule from these parts:
 
@@ -256,8 +262,9 @@ A test procedure in `default.json` composes its schedule from these parts:
   ]
 }
 ```
+{% include copy.html %}
 
-Each collected file contains one or more schedule entries. Parameters like `{% raw %}{{ target_index_name }}{% endraw %}` inside those files resolve from the same `--workload-params` you pass on the command line, because the `with context` import propagates all parameters into included files.
+Each collected file contains one or more schedule entries. Parameters such as `{% raw %}{{ target_index_name }}{% endraw %}` in those files are resolved from the same `--workload-params` passed on the command line because the `with context` import propagates all parameters to the included files.
 
 #### Index body files
 
@@ -271,6 +278,7 @@ The `body` field in an index definition references a separate JSON file for mapp
   }
 ]
 ```
+{% include copy.html %}
 
 The `index.json` file is a Jinja2 template like any other workload file, so it can use parameters:
 
@@ -282,67 +290,69 @@ The `index.json` file is a Jinja2 template like any other workload file, so it c
   "mappings": { ... }
 }
 ```
+{% include copy.html %}
 
 ## Discovering available parameters
 
-To see which parameters a workload supports, use the `info` command:
+To view the parameters supported by a workload, use the `info` command. This command lists the workload's test procedures along with their configurable parameters and default values:
 
 ```bash
 opensearch-benchmark info --workload=geonames
 ```
+{% include copy.html %}
 
-This lists the workload's test procedures and their configurable parameters with default values.
+You can also inspect the workload source directly. Parameters appear as `{% raw %}{{ variable_name | default(value) }}{% endraw %}` in workload JSON files. The main workload files are the following:
 
-You can also inspect the workload source directly. Parameters appear as `{% raw %}{{ variable_name | default(value) }}{% endraw %}` in the workload's JSON files. The main files to check are:
-
-- `workload.json` --- top-level workload definition
-- `index.json` --- index settings and mappings
-- `test_procedures/default.json` --- test procedure schedules
-- `_operations/default.json` --- operation definitions
+- `workload.json` -- The top-level workload definition.
+- `index.json` -- The index settings and mappings.
+- `test_procedures/default.json` -- The test procedure schedules.
+- `_operations/default.json` -- The operation definitions.
 
 ## Common parameters
 
-The following parameters are supported by most official workloads:
+The following parameters are supported by most official workloads.
 
-| Parameter | Description | Typical default |
+| Parameter | Description | Default |
 |-----------|-------------|-----------------|
-| `number_of_shards` | Primary shard count for created indices | `1` |
-| `number_of_replicas` | Replica count for created indices | `0` |
-| `bulk_size` | Number of documents per bulk request | `5000` or `10000` |
-| `bulk_indexing_clients` | Number of concurrent bulk indexing clients | `8` |
-| `ingest_percentage` | Percentage of the document corpus to ingest | `100` |
-| `target_throughput` | Target operations per second per client | Unthrottled |
-| `search_clients` | Number of concurrent search clients | `1` |
-| `cluster_health` | Required cluster health before proceeding | `green` |
-| `source_enabled` | Whether to store `_source` field | `true` |
+| `number_of_shards` | The primary shard count for created indexes. | `1` |
+| `number_of_replicas` | The replica count for created indexes. | `0` |
+| `bulk_size` | The number of documents per bulk request. | `5000` or `10000` |
+| `bulk_indexing_clients` | The number of concurrent bulk indexing clients. | `8` |
+| `ingest_percentage` | The percentage of the document corpus to ingest. | `100` |
+| `target_throughput` | The target number of operations per second per client. | Unthrottled |
+| `search_clients` | The number of concurrent search clients. | `1` |
+| `cluster_health` | The required cluster health status before proceeding. | `green` |
+| `source_enabled` | Whether to store the `_source` field. | `true` |
 
-## Vectorsearch workload parameters
+## Vector search workload parameters
 
-The `vectorsearch` workload supports additional parameters for vector search benchmarking:
+The `vectorsearch` workload supports additional parameters for vector search benchmarking.
 
 | Parameter | Description | Default |
 |-----------|-------------|---------|
-| `target_index_name` | Name of the vector index | `target_index` |
-| `target_field_name` | Name of the vector field | `target_field` |
-| `target_index_dimension` | Vector dimensions | `768` |
-| `target_index_space_type` | Distance metric (`l2`, `innerproduct`, `cosinesimil`) | varies |
-| `target_index_body` | Path to index settings file | `indices/faiss-index.json` |
-| `target_index_bulk_size` | Documents per bulk request | `500` |
-| `target_index_bulk_index_data_set_format` | Corpus format (`hdf5`, `bigann`) | `hdf5` |
-| `target_index_bulk_index_data_set_corpus` | Corpus name (e.g., `cohere-1m`) | varies |
-| `target_index_bulk_indexing_clients` | Concurrent indexing clients | `10` |
-| `target_index_max_num_segments` | Segments after force-merge | `1` |
-| `hnsw_ef_construction` | HNSW graph build-time exploration factor | `256` |
-| `hnsw_ef_search` | HNSW search-time exploration factor | `256` |
-| `query_k` | Number of nearest neighbors to retrieve | `100` |
-| `query_count` | Number of queries to run (`-1` for all) | `-1` |
-| `query_data_set_format` | Query vector format | `hdf5` |
-| `query_data_set_corpus` | Query vector corpus name | varies |
-| `search_clients` | Concurrent search clients | `1` |
-| `neighbors_data_set_corpus` | Ground truth neighbors corpus for recall | varies |
-| `neighbors_data_set_format` | Neighbors dataset format | `hdf5` |
+| `target_index_name` | The vector index name. | `target_index` |
+| `target_field_name` | The vector field name.| `target_field` |
+| `target_index_dimension` | The number of vector dimensions. | `768` |
+| `target_index_space_type` | The distance metric. Valid values are `l2`, `innerproduct`, and `cosinesimil`. | Varies |
+| `target_index_body` | The path to index settings file. | `indices/faiss-index.json` |
+| `target_index_bulk_size` | The number of documents per bulk request. | `500` |
+| `target_index_bulk_index_data_set_format` | The corpus format. Valid values are `hdf5` and `bigann`. | `hdf5` |
+| `target_index_bulk_index_data_set_corpus` | The corpus name (for example, `cohere-1m`). | Varies |
+| `target_index_bulk_indexing_clients` | The number of concurrent indexing clients. | `10` |
+| `target_index_max_num_segments` | The number of segments after force merge. | `1` |
+| `hnsw_ef_construction` | The HNSW graph build-time exploration factor. | `256` |
+| `hnsw_ef_search` | The HNSW search-time exploration factor. | `256` |
+| `query_k` | The number of nearest neighbors to retrieve. | `100` |
+| `query_count` | The number of queries to run. Use `-1` for all queries. | `-1` |
+| `query_data_set_format` | The query vector format. | `hdf5` |
+| `query_data_set_corpus` | The query vector corpus name. | Varies |
+| `search_clients` | The number of concurrent search clients. | `1` |
+| `neighbors_data_set_corpus` | The ground-truth neighbors corpus used for recall evaluation.| Varies |
+| `neighbors_data_set_format` | The neighbors dataset format. | `hdf5` |
 
-### Example vectorsearch params file
+### Example vector search parameter file
+
+The following example shows a complete parameter file for a `vectorsearch` workload:
 
 ```json
 {
@@ -369,8 +379,9 @@ The `vectorsearch` workload supports additional parameters for vector search ben
   "neighbors_data_set_format": "hdf5"
 }
 ```
+{% include copy.html %}
 
-Save this as `params.json` and run:
+To use this parameter file, save it as `params.json` and run the benchmark with the `--workload-params` flag:
 
 ```bash
 opensearch-benchmark run \
@@ -379,3 +390,4 @@ opensearch-benchmark run \
   --workload-params=params.json \
   --target-hosts=localhost:9200
 ```
+{% include copy.html %}
