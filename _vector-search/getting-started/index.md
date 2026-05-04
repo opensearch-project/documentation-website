@@ -71,7 +71,6 @@ This guide includes API request examples that you can run in several ways:
 
 - **OpenSearch Dashboards Dev Tools console** (recommended): Open OpenSearch Dashboards at `http://localhost:5601`, select **Dev Tools** in the upper-right corner, and paste the request. Select the request and choose the play button. For more information, see [Running queries in the console]({{site.url}}{{site.baseurl}}/dashboards/visualize/run-queries/).
 - **cURL**: Use the **Copy as cURL** button next to each code example to copy the request in cURL format, then paste and run it in your terminal.
-- **API clients**: Use tools like Postman or Insomnia by pasting the endpoint and request body.
 
 ## Step 1: Create a vector index
 
