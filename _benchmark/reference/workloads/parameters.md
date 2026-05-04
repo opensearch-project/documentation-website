@@ -344,7 +344,7 @@ The `vectorsearch` workload supports additional parameters for vector search ben
 | `hnsw_ef_search` | The HNSW search-time exploration factor. | `256` |
 | `query_k` | The number of nearest neighbors to retrieve. | `100` |
 | `query_count` | The number of queries to run. Use `-1` for all queries. | `-1` |
-| `query_data_set_format` | The query vector format. | `hdf5` |
+| `query_data_set_format` | The query vector format. Valid values are `hdf5` and `bigann`. | `hdf5` |
 | `query_data_set_corpus` | The query vector corpus name. | Varies |
 | `search_clients` | The number of concurrent search clients. | `1` |
 | `neighbors_data_set_corpus` | The ground-truth neighbors corpus used for recall evaluation.| Varies |
