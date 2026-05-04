@@ -147,11 +147,12 @@ GET /my_index/_search
   "query": {
     "match_all": {}
   },
-  "fields": {
-    "date": {
+  "fields": [
+    {
+      "field": "date",
       "format": "yyyy-MM-dd"
     }
-  },
+  ],
   "_source": false
 }
 ```
