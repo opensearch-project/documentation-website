@@ -402,6 +402,6 @@ After OpenSearch reconstructs `_source`, all dates are in the `strict_date_time_
 
 ```json
 {
-  "date": ["2025-09-22T00:34:00.000Z", "2025-09-22T01:34:00.000Z", "2025-09-22T01:34:00.000Z"]
+  "date": ["1970-01-21T08:28:24Z", "2025-09-22T00:34:00Z", "2025-09-22T01:34:20Z"]
 }
 ```
