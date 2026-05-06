@@ -86,10 +86,12 @@ The `node-stats` device supports the following parameters:
 
 The `recovery-stats` telemetry device regularly calls the [CAT Recovery API]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-recovery/) and records one metrics document per shard.
 
-This telemetry device supports the following parameters:
+The `recovery-stats` telemetry device supports the following parameters.
 
-- `searchable-snapshots-stats-indices` A string with the index pattern, or list of index patterns, that searchable snapshots stats should additionally be collected from. If unset, only cluster-level stats will be collected. Default is `None`.
-- `searchable-snapshots-stats-sample-interval`: A positive number greater than zero denoting the sampling interval in seconds. Default is `1`.
+| Parameter | Data type | Description |
+| :--- | :--- | :--- |
+| `recovery-stats-indices` | String or JSON object | Specifies the indexes from which to collect recovery statistics. Valid values are:<br>- A string that specifies an index pattern. <br>- A JSON object that maps cluster names to index patterns when `--target-hosts` is used to define multiple clusters. <br><br>If not set, recovery statistics are collected for all indexes. Default is `None`. |
+| `recovery-stats-sample-interval` | Number | A positive number denoting the sampling interval, in seconds. Default is `1`. |
 
 <!-- vale off -->
 ## shard-stats
