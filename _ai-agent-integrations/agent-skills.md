@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Agent skills
+parent: AI agent integrations
 nav_order: 20
 has_children: true
 redirect_from:
@@ -82,7 +83,7 @@ npx skills add opensearch-project/opensearch-agent-skills --list
 
 After installing, start a conversation with your AI assistant and describe what you want. The assistant loads the skill's `SKILL.md` instructions and follows them. An MCP server is not required — the skill runs entirely inside the client.
 
-### Example: building a semantic search app
+### Example: Building a semantic search app
 
 The following walkthrough shows what a session with the `opensearch-launchpad` skill looks like.
 
@@ -126,7 +127,7 @@ Loaded 4,675 documents into the `ecommerce` index. Now, which search strategy wo
 
 **Assistant:** Good choice for e-commerce — hybrid search balances exact keyword matches (product names, SKUs) with semantic understanding (intent, synonyms). Here's the plan:
 
-- Embedding model: `amazon/titan-embed-text-v1` (via ML Commons)
+- Embedding model: `amazon/titan-embed-text-v1` (using ML Commons)
 - Index: `ecommerce-hybrid` with both `text` and `embedding` fields
 - Search pipeline: normalization processor combining BM25 and k-NN scores
 

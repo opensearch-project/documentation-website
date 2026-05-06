@@ -1,6 +1,7 @@
 ---
 layout: default
 title: OpenSearch MCP Server
+parent: AI agent integrations
 nav_order: 10
 has_children: true
 has_toc: false
@@ -49,7 +50,7 @@ The AI client speaks MCP. The server translates MCP tool calls into OpenSearch R
 
 ## Built-in tools at a glance
 
-Core tools are enabled by default. Additional categories can be toggled on through environment variables or the multi-cluster config file.
+Core tools are enabled by default. Additional categories can be toggled on through environment variables or the multi-cluster config file. The following table lists the tool categories.
 
 | Category | Default | Example tools |
 |----------|---------|---------------|

@@ -2,6 +2,7 @@
 layout: default
 title: Getting started with the OpenSearch MCP Server
 parent: OpenSearch MCP Server
+grand_parent: AI agent integrations
 nav_order: 10
 redirect_from:
   - /ml-commons-plugin/agents-tools/mcp-server/getting-started/
@@ -14,7 +15,7 @@ This guide walks you through installing the [OpenSearch MCP Server](https://gith
 ## Prerequisites
 
 - A running OpenSearch cluster reachable from the machine running the server.
-- Credentials for that cluster (basic auth or mTLS certificates for self-managed clusters).
+- Credentials for that cluster (basic auth or mutual TLS (mTLS) certificates for self-managed clusters).
 - Python 3.11 or later, plus one of:
   - [`uv`](https://docs.astral.sh/uv/getting-started/installation/) (recommended) — lets you run the server with `uvx` without a local install, or
   - `pip` if you prefer to install the package into a Python environment.
@@ -127,7 +128,7 @@ For a local development cluster started without security (for example, `docker r
 ```
 {% include copy.html %}
 
-The examples above use default credentials for local development. Never use default credentials in production.
+The preceding examples use default credentials for local development. Never use default credentials in production.
 {: .warning}
 
 ## Step 3: Try a query
@@ -140,11 +141,11 @@ The AI selects `ListIndexTool`, the server calls `_cat/indices`, and the result 
 
 ## Agent framework integrations
 
-For programmatic use — building pipelines, chatbots, or automated workflows — you can connect the MCP server to an agent framework. The examples below use **stdio transport**, which means the framework launches the MCP server as a subprocess automatically. No separate server process needs to be started or managed.
+For programmatic use — building pipelines, chatbots, or automated workflows — you can connect the MCP server to an agent framework. The following examples use **stdio transport**, which means the framework launches the MCP server as a subprocess automatically. No separate server process needs to be started or managed.
 
 ### Strands Agents
 
-[Strands Agents](https://strandsagents.com/) is an open-source Python SDK for building AI agents. It connects to MCP servers using the `MCPClient` class. Using stdio transport means the framework launches the MCP server as a subprocess — no separate server process to start or manage.
+[Strands Agents](https://strandsagents.com/) is an open-source Python SDK for building AI agents. It connects to MCP servers using the `MCPClient` class. With stdio transport, the framework launches the MCP server as a subprocess — no separate server process to start or manage.
 
 Install the required packages:
 
@@ -158,7 +159,7 @@ from mcp import StdioServerParameters
 from strands import Agent
 from strands.tools.mcp import MCPClient
 
-# The framework launches the MCP server as a subprocess via stdio.
+# The framework launches the MCP server as a subprocess using stdio.
 # No separate server process needed.
 mcp_client = MCPClient(lambda: StdioServerParameters(
     command="uvx",
@@ -328,7 +329,7 @@ The server checks authentication methods in this order:
 
 For the full authentication reference including IAM and AWS credential options, see the [User Guide](https://github.com/opensearch-project/opensearch-mcp-server-py/blob/main/USER_GUIDE.md#authentication).
 
-## Transports: stdio vs. streaming
+## Transports: Stdio and streaming
 
 | Transport | When to use | How to start |
 |-----------|-------------|--------------|
@@ -341,7 +342,7 @@ The streaming transport binds to `0.0.0.0:9900` by default. Override with `--hos
 
 - **Client shows no tools after connecting.** Check the client's MCP logs to confirm the server launched. Verify `OPENSEARCH_URL` is reachable with a plain `curl http://localhost:9200`.
 - **`Connection refused` on localhost.** Always include the port explicitly: `http://localhost:9200`. The server does not default to port 9200 when the port is omitted from the URL.
-- **Framework can't connect to the streaming server.** Confirm the server is running (`curl http://localhost:9900/mcp`) and that the URL in your framework config matches exactly, including the `/mcp` path for Streamable HTTP.
+- **Framework can't connect to the streaming server.** Confirm the server is running (`curl http://localhost:9900/mcp`) and that the URL in your framework config matches exactly, including the `/mcp` path for streamable-http.
 - **The model picks the wrong cluster in multi mode.** Add a system prompt listing the available cluster names and their purposes.
 
 ## Next steps

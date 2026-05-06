@@ -2,7 +2,7 @@
 layout: default
 title: AI agent integrations
 nav_order: 1
-has_children: false
+has_children: true
 nav_exclude: true
 permalink: /ai-agent-integrations/
 redirect_from:
@@ -24,7 +24,7 @@ OpenSearch also has agent capabilities configured *inside* the cluster through t
 - **Tools** such as `VectorDBTool`, `ListIndexTool`, and `PPLTool` that OpenSearch agents can use.
 - **[Using MCP tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/mcp/)** — The in-cluster MCP connector that lets an OpenSearch agent call tools hosted on an *external* MCP server.
 
-If you're trying to decide where to look:
+If you're trying to decide where to look.
 
 | You want to... | Go to |
 |-|-|
