@@ -1,56 +1,43 @@
 ---
 layout: default
 title: OpenSearch MCP Server
-parent: AI agent integrations
 nav_order: 10
 has_children: true
 has_toc: false
 redirect_from:
   - /ai-agent-integrations/mcp-server/
-  - /ml-commons-plugin/agents-tools/mcp-server/
-  - /ml-commons-plugin/agents-tools/mcp-server/index/
 ---
 
 # OpenSearch MCP Server
 
-The [OpenSearch MCP Server](https://github.com/opensearch-project/opensearch-mcp-server-py) is an open-source [Model Context Protocol (MCP)](https://modelcontextprotocol.io/introduction) server that exposes OpenSearch to AI assistants like Claude Desktop, Cursor, Kiro, and any MCP-compatible client. Once connected, an AI assistant can search indexes, read mappings, inspect cluster health, and run other operations by calling OpenSearch APIs through MCP tools instead of generating raw REST calls.
+The [OpenSearch MCP Server](https://github.com/opensearch-project/opensearch-mcp-server-py) is an open-source [Model Context Protocol (MCP)](https://modelcontextprotocol.io/introduction) server that exposes OpenSearch to AI assistants such as Claude Desktop, Cursor, Kiro, or any other MCP-compatible client. Once connected, an AI assistant can search indexes, read mappings, inspect cluster health, and run other operations by calling OpenSearch APIs using MCP tools instead of generating raw REST requests.
 
-OpenSearch also has an in-cluster MCP connector that lets an OpenSearch agent call tools on an external MCP server — that's a separate feature of the ML Commons plugin. See [Using MCP tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/mcp/).
+OpenSearch also provides an in-cluster MCP connector that lets an OpenSearch agent call tools hosted on an external MCP server. For more information, see [Using MCP tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/mcp/).
 {: .note}
-
-## When to use it
 
 Use the OpenSearch MCP Server when you want to:
 
 - Let AI assistants query and explore your OpenSearch clusters in natural language.
-- Build internal AI tools (chatbots, observability copilots, data assistants) without hand-writing an OpenSearch client layer.
-- Connect to multiple clusters (for example, `dev`, `staging`, `production`) from a single assistant session.
-- Plug OpenSearch into agent frameworks such as LangChain or LangGraph using a standard protocol.
+- Build internal AI tools (chatbots, observability copilots, or data assistants) without implementing an OpenSearch client layer.
+- Connect to multiple clusters (for example, `dev`, `staging`, or `production`) from a single assistant session.
+- Integrate OpenSearch with agent frameworks such as LangChain or LangGraph using a standard protocol.
 
-## Key features
+The OpenSearch MCP Server provides the following capabilities:
 
-- **MCP-standard interface.** Works out of the box with any client that supports MCP, including Claude Desktop, Cursor, and Kiro.
-- **Built-in tools.** Ships with tools for common operations such as listing indexes, retrieving mappings, running search queries, checking cluster health, and counting documents. Additional tool categories (search relevance, skills-based analysis) can be enabled as needed.
-- **Multiple transports.** Supports standard input/output (`stdio`) for local desktop clients and a streaming transport (Server-Sent Events and HTTP streaming) for remote deployments.
-- **Flexible authentication.** Basic auth, AWS IAM roles, AWS profile credentials, header-based auth, mutual TLS (mTLS), and anonymous access are all supported.
-- **Single and multi-cluster modes.** Connect to one cluster using environment variables, or define many clusters in a YAML config and let the AI pick the right one per request.
-- **Amazon OpenSearch Service and Serverless.** Works with both self-managed OpenSearch and AWS-managed offerings, including OpenSearch Serverless collections.
+- MCP interface: Supports any MCP-compatible client, including Claude Desktop, Cursor, and Kiro.
+- Tools: Includes tools for listing indexes, retrieving mappings, running search queries, checking cluster health, and counting documents. Additional tool categories (search relevance and skills-based analysis) can be enabled as needed.
+- Transport options: Supports standard input/output (`stdio`) for local desktop clients and streaming transport (Server-Sent Events and HTTP streaming) for remote deployments.
+- Authentication: Supports basic authentication, AWS IAM roles, AWS profile credentials, header-based authentication, mutual TLS (mTLS), and anonymous access.
+- Cluster configuration: Supports single-cluster mode using environment variables or multi-cluster mode using a YAML configuration file.
+- Service compatibility: Works with self-managed OpenSearch, Amazon OpenSearch Service, and Amazon OpenSearch Serverless collections.
 
-## How it fits together
+The server receives MCP tool calls from the AI client, translates them into OpenSearch REST API calls, and returns structured results, as shown in the following diagram.
 
-```
-┌──────────────────────┐   MCP      ┌──────────────────────┐   REST     ┌──────────────────┐
-│ AI client            │ ◄─────────►│ OpenSearch MCP       │ ◄─────────►│ OpenSearch       │
-│ (Claude, Cursor, Q,  │  (stdio /  │ Server               │  (HTTPS +  │ cluster(s)       │
-│  Kiro, LangChain...) │   stream)  │ (Python)             │   auth)    │                  │
-└──────────────────────┘            └──────────────────────┘            └──────────────────┘
-```
+![Diagram showing the flow from AI client to OpenSearch MCP Server to OpenSearch cluster]({{site.url}}{{site.baseurl}}/images/ai-agent-integrations/mcp-server.png)
 
-The AI client speaks MCP. The server translates MCP tool calls into OpenSearch REST API calls and returns structured results back to the model.
+## Built-in tools
 
-## Built-in tools at a glance
-
-Core tools are enabled by default. Additional categories can be toggled on through environment variables or the multi-cluster config file. The following table lists the tool categories.
+Core tools are enabled by default. You can enable additional tool categories using environment variables or the multi-cluster configuration file. The following table lists the tool categories.
 
 | Category | Default | Example tools |
 |----------|---------|---------------|
@@ -61,13 +48,11 @@ Core tools are enabled by default. Additional categories can be toggled on throu
 
 For the full list and per-tool parameters, see the [opensearch-mcp-server-py README](https://github.com/opensearch-project/opensearch-mcp-server-py#available-tools).
 
-## Get started
-
-To install the server and connect it to your AI client, see [Getting started with the OpenSearch MCP Server]({{site.url}}{{site.baseurl}}/ai-agent-integrations/mcp-server/getting-started/).
-
 ## Next steps
 
-- [Getting started with the OpenSearch MCP Server]({{site.url}}{{site.baseurl}}/ai-agent-integrations/mcp-server/getting-started/)
-- [opensearch-mcp-server-py on GitHub](https://github.com/opensearch-project/opensearch-mcp-server-py)
-- [Full user guide in the source repo](https://github.com/opensearch-project/opensearch-mcp-server-py/blob/main/USER_GUIDE.md)
-- [Model Context Protocol specification](https://modelcontextprotocol.io/introduction)
+- To install the server and connect it to your AI client, see [Using the OpenSearch MCP Server]({{site.url}}{{site.baseurl}}/ai-agent-integrations/mcp-server/using/).
+
+## Related documentation
+
+- [opensearch-mcp-server-py](https://github.com/opensearch-project/opensearch-mcp-server-py) -- Source repository on GitHub.
+- [Model Context Protocol specification](https://modelcontextprotocol.io/introduction) -- MCP protocol specification.

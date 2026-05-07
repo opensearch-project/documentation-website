@@ -1,58 +1,59 @@
 ---
 layout: default
 title: Agent skills
-parent: AI agent integrations
 nav_order: 20
-has_children: true
-redirect_from:
-  - /ml-commons-plugin/agents-tools/agent-skills/
 ---
 
 # Agent skills
 
-[OpenSearch Agent Skills](https://github.com/opensearch-project/opensearch-agent-skills) are packaged workflows that teach AI coding assistants how to work with OpenSearch. Each skill bundles instructions, reference material, and executable scripts so that a single natural-language request — for example, *"build a semantic search app with OpenSearch"* — produces working code, configured indexes, and runnable tests.
+Building applications using OpenSearch typically involves multiple steps: starting a cluster, designing an index mapping, choosing a search strategy, ingesting data, writing queries, and evaluating results. Without guidance, an AI assistant must infer each step independently, which can lead to inconsistent results and repeated requests for clarification.
+
+[OpenSearch agent skills](https://github.com/opensearch-project/opensearch-agent-skills) are packaged workflows that teach AI coding assistants how to work with OpenSearch. Each skill bundles instructions, reference material, and executable scripts. You can ask a natural-language question (for example, *"build a semantic search app with OpenSearch"*) and receive working code, configured indexes, and runnable tests.
 
 Skills follow the [Agent Skills specification](https://agentskills.io/specification) and work with any compatible client, including Claude Code, Cursor, and Kiro.
 
-## Why use agent skills
+Agent skills have the following characteristics:
 
-Building with OpenSearch typically involves multiple steps: starting a cluster, designing an index mapping, choosing a search strategy, ingesting data, writing queries, and evaluating results. Without guidance, an AI assistant has to figure out each step from scratch, which leads to inconsistent results and back-and-forth clarification.
-
-Agent skills solve this by giving the assistant a proven, opinionated workflow for each task. Instead of generating ad-hoc commands, the assistant follows a structured sequence — asking the right questions, running the right scripts, and producing a working result. The benefits include:
-
-- **Faster time to working code.** A skill compresses hours of trial-and-error into a single conversation. The assistant knows which embedding models work well with OpenSearch, how to set up a hybrid search pipeline, and how to launch a UI to test results — without you having to explain any of it.
-- **Consistent, repeatable outcomes.** Skills encode best practices directly. Every run of `opensearch-launchpad` produces an index with the right mappings, a search pipeline with the right processors, and sample queries that actually work.
-- **No server required.** Skills run entirely inside the AI client. There is no MCP server to deploy or maintain — the assistant reads the skill's instructions and executes the bundled scripts directly on your machine.
-- **Works alongside the MCP server.** If you also have the [OpenSearch MCP Server]({{site.url}}{{site.baseurl}}/ai-agent-integrations/mcp-server/) configured, the assistant can follow the skill's workflow *and* make live API calls to inspect cluster state, verify mappings, or run test queries — all in the same session.
-- **Extensible.** Skills are plain Markdown files. You can fork the repository, add your own skill for a custom workflow, and share it with your team.
+- Skills provide structured workflows that include embedding model selection, search pipeline configuration, and testing procedures.
+- Each skill follows a consistent implementation pattern, producing the same index mappings, search pipeline processors, and query templates.
+- Skills run inside the AI client. The assistant reads the skill instructions and executes bundled scripts on your local machine.
+- Skills can be used alongside the [OpenSearch MCP Server]({{site.url}}{{site.baseurl}}/ai-agent-integrations/mcp-server/). When both are configured, the assistant can follow the skill workflow and make direct API calls to inspect cluster state or verify configurations.
+- Skills are Markdown files that can be modified or extended for custom workflows.
 
 ## Available skills
 
-| Category | Skill | What it does |
-|----------|-------|--------------|
-| Search | [`opensearch-launchpad`](https://github.com/opensearch-project/opensearch-agent-skills/tree/main/skills/opensearch-skills/search/opensearch-launchpad) | Builds search apps from scratch — BM25, semantic, hybrid, and agentic search |
-| Observability | [`log-analytics`](https://github.com/opensearch-project/opensearch-agent-skills/tree/main/skills/opensearch-skills/observability/log-analytics) | Queries and analyzes logs with PPL, including error patterns and anomaly detection |
-| Observability | [`trace-analytics`](https://github.com/opensearch-project/opensearch-agent-skills/tree/main/skills/opensearch-skills/observability/trace-analytics) | Investigates distributed traces — slow spans, service maps, agent invocations |
-| Cloud | [`aws-setup`](https://github.com/opensearch-project/opensearch-agent-skills/tree/main/skills/opensearch-skills/cloud/aws-setup) | Deploys to Amazon OpenSearch Service or OpenSearch Serverless |
+The following table lists the available skills.
 
-New skills are added over time. See the [source repository](https://github.com/opensearch-project/opensearch-agent-skills) for the current list.
+| Category | Skill | Function |
+|----------|-------|--------------|
+| Search | [`opensearch-launchpad`](https://github.com/opensearch-project/opensearch-agent-skills/tree/main/skills/opensearch-skills/search/opensearch-launchpad) | Builds search applications, such as BM25, semantic, hybrid, and agentic search. |
+| Observability | [`log-analytics`](https://github.com/opensearch-project/opensearch-agent-skills/tree/main/skills/opensearch-skills/observability/log-analytics) | Uses PPL to query and analyze logs, identify error patterns, and detect anomalies. |
+| Observability | [`trace-analytics`](https://github.com/opensearch-project/opensearch-agent-skills/tree/main/skills/opensearch-skills/observability/trace-analytics) | Investigates distributed traces, including slow spans, service maps, and agent invocations. |
+| Cloud | [`aws-setup`](https://github.com/opensearch-project/opensearch-agent-skills/tree/main/skills/opensearch-skills/cloud/aws-setup) | Deploys OpenSearch to Amazon OpenSearch Service or Amazon OpenSearch Serverless. |
+
+For a complete skill list, see the [skills repository](https://github.com/opensearch-project/opensearch-agent-skills).
 
 ## Prerequisites
 
-- Python 3.11 or later and [`uv`](https://docs.astral.sh/uv/getting-started/installation/).
-- Docker, running locally. Skills use Docker to spin up OpenSearch for local experimentation.
-- AWS credentials, if you plan to use `aws-setup` to deploy to Amazon OpenSearch Service or Serverless.
+Before using agent skills, ensure that you have the following components:
 
-## Install
+- Python 3.11 or later.
+- [`uv`](https://docs.astral.sh/uv/getting-started/installation/).
+- Docker installed and running locally. Skills use Docker to launch OpenSearch for local experimentation.
+- AWS credentials, if you plan to use `aws-setup` to deploy OpenSearch to Amazon OpenSearch Service or Amazon OpenSearch Serverless.
 
-Skills are installed with the [`npx skills`](https://agentskills.io) CLI. Install the full collection:
+## Installing skills
+
+Use the [`npx skills`](https://agentskills.io) command to install skills. 
+
+To install all skills, run the following command:
 
 ```bash
 npx skills add opensearch-project/opensearch-agent-skills
 ```
 {% include copy.html %}
 
-Or install a single skill:
+To install a single skill, run the following command:
 
 ```bash
 npx skills add opensearch-project/opensearch-agent-skills@opensearch-launchpad --full-depth
@@ -62,34 +63,28 @@ npx skills add opensearch-project/opensearch-agent-skills@aws-setup --full-depth
 ```
 {% include copy.html %}
 
-### Install options
+### Installation options
 
-```bash
-# Install to a specific agent
-npx skills add opensearch-project/opensearch-agent-skills -a claude-code
+The following table lists the available installation options.
 
-# Install globally, so the skill is available to every project
-npx skills add opensearch-project/opensearch-agent-skills -g
+| Option | Description | Example |
+| :--- | :--- | :--- |
+| `-a <agent>` | Installs skills for a specific agent. For a list of supported agents, see [agentskills.io](https://agentskills.io/). | `npx skills add opensearch-project/opensearch-agent-skills -a claude-code` |
+| `-g` | Installs skills globally so they are available for every project. | `npx skills add opensearch-project/opensearch-agent-skills -g` |
+| `--all` | Installs skills for every detected agent. | `npx skills add opensearch-project/opensearch-agent-skills --all` |
+| `--list` | Lists the available skills before installing. | `npx skills add opensearch-project/opensearch-agent-skills --list` |
 
-# Install to every detected agent
-npx skills add opensearch-project/opensearch-agent-skills --all
+## Using a skill
 
-# List the available skills before choosing what to install
-npx skills add opensearch-project/opensearch-agent-skills --list
-```
-{% include copy.html %}
+After installing a skill, start a conversation with your AI assistant and describe your request. The assistant loads the skill's `SKILL.md` instructions and follows them. An MCP server is not required; the skill runs entirely inside the client.
 
-## Use a skill
+### Example: Building a semantic search application
 
-After installing, start a conversation with your AI assistant and describe what you want. The assistant loads the skill's `SKILL.md` instructions and follows them. An MCP server is not required — the skill runs entirely inside the client.
+The following walkthrough demonstrates a session using the `opensearch-launchpad` skill.
 
-### Example: Building a semantic search app
+**User**: I want to build a semantic search app with OpenSearch.
 
-The following walkthrough shows what a session with the `opensearch-launchpad` skill looks like.
-
-**You:** I want to build a semantic search app with OpenSearch.
-
-**Assistant:** I'll help you build a semantic search application. Let me start by checking if you have a running OpenSearch cluster.
+**Assistant**: I'll help you build a semantic search application. Let me start by checking if you have a running OpenSearch cluster.
 
 ```bash
 uv run python scripts/opensearch_ops.py preflight-check
@@ -105,9 +100,9 @@ OpenSearch is running at `http://localhost:9200`. What data do you want to searc
 
 ---
 
-**You:** Use the sample e-commerce dataset.
+**User**: Use the sample e-commerce dataset.
 
-**Assistant:** Loading the sample dataset:
+**Assistant**: Loading the sample dataset:
 
 ```bash
 uv run python scripts/opensearch_ops.py load-sample --dataset ecommerce
@@ -115,17 +110,17 @@ uv run python scripts/opensearch_ops.py load-sample --dataset ecommerce
 
 Loaded 4,675 documents into the `ecommerce` index. Now, which search strategy would you like?
 
-1. **BM25** — keyword search, fast, no ML required
-2. **Dense vector** — semantic search using text embeddings
-3. **Neural sparse** — semantic search using learned sparse representations
-4. **Hybrid** — combines keyword and semantic scoring
-5. **Agentic** — LLM-driven multi-step retrieval (requires OpenSearch 3.2+)
+1. BM25 — keyword search, fast, no ML required
+2. Dense vector — semantic search using text embeddings
+3. Neural sparse — semantic search using learned sparse representations
+4. Hybrid — combines keyword and semantic scoring
+5. Agentic — LLM-driven multi-step retrieval (requires OpenSearch 3.2+)
 
 ---
 
-**You:** Hybrid search.
+**User**: Hybrid search.
 
-**Assistant:** Good choice for e-commerce — hybrid search balances exact keyword matches (product names, SKUs) with semantic understanding (intent, synonyms). Here's the plan:
+**Assistant**: Good choice for e-commerce — hybrid search balances exact keyword matches (product names, SKUs) with semantic understanding (intent, synonyms). Here's the plan:
 
 - Embedding model: `amazon/titan-embed-text-v1` (using ML Commons)
 - Index: `ecommerce-hybrid` with both `text` and `embedding` fields
@@ -135,9 +130,9 @@ Shall I proceed?
 
 ---
 
-**You:** Yes.
+**User**: Yes.
 
-**Assistant:** Setting up the hybrid search pipeline:
+**Assistant**: Setting up the hybrid search pipeline:
 
 ```bash
 uv run python scripts/opensearch_ops.py setup-index \
@@ -158,12 +153,16 @@ Your search app is live at `http://127.0.0.1:8765`. Try a query like *"comfortab
 
 ### Other skill examples
 
-- **Log analytics** — *"Find the top 5 error patterns in my logs over the last 24 hours."* The `log-analytics` skill generates PPL queries, runs them against your logs index, and summarizes the patterns.
-- **Trace analytics** — *"Show me the slowest spans for the checkout service."* The `trace-analytics` skill queries the traces index for high-latency spans and renders a service map summary.
+The following examples demonstrate other available skills:
 
-### Using skills alongside the MCP server
+- Log analytics: *"Find the top 5 error patterns in my logs over the last 24 hours."* The `log-analytics` skill generates PPL queries, runs them against your logs index, and summarizes the patterns.
+- Trace analytics: *"Show me the slowest spans for the checkout service."* The `trace-analytics` skill queries the traces index for high-latency spans and renders a service map summary.
 
-Skills and the MCP server work well together. The `opensearch-launchpad` skill's `SKILL.md` includes an optional MCP server config block that you can add to your client to give the assistant direct API access during the session:
+### Using skills with the MCP server
+
+Skills are designed to work in conjunction with the MCP server. When using a skill with the MCP server configured, the assistant can follow the skill's structured workflow and make live API calls to inspect index state, run test queries, or verify mappings without leaving the conversation.
+
+The `opensearch-launchpad` skill's `SKILL.md` includes an optional MCP server configuration block. You can add this block to your client configuration in order to provide the assistant with direct API access during the session:
 
 ```json
 {
@@ -183,11 +182,9 @@ Skills and the MCP server work well together. The `opensearch-launchpad` skill's
 ```
 {% include copy.html %}
 
-With both active, the assistant can follow the skill's structured workflow *and* make live API calls to inspect index state, run test queries, or verify mappings without leaving the conversation.
+## Related documentation
 
-## Next steps
-
-- [opensearch-agent-skills on GitHub](https://github.com/opensearch-project/opensearch-agent-skills)
-- [Agent Skills specification](https://agentskills.io/specification)
-- [OpenSearch MCP Server]({{site.url}}{{site.baseurl}}/ai-agent-integrations/mcp-server/) — for direct API access from an AI client
-- [Using MCP tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/mcp/) — to call external MCP servers from an OpenSearch agent
+- [`opensearch-agent-skills`](https://github.com/opensearch-project/opensearch-agent-skills) -- Agent skills repository on GitHub.
+- [Agent Skills specification](https://agentskills.io/specification) -- Specification documentation.
+- [OpenSearch MCP Server]({{site.url}}{{site.baseurl}}/ai-agent-integrations/mcp-server/) -- Direct API access from an AI client.
+- [Using MCP tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/mcp/) -- External MCP server integration from OpenSearch agents.
