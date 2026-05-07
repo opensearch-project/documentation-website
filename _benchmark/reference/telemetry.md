@@ -3,11 +3,22 @@ layout: default
 title: Telemetry devices
 nav_order: 45
 parent: Reference
+redirect_from:
+  - /benchmark/user-guide/understanding-results/telemetry/
 ---
 
 # Telemetry devices
 
-Telemetry devices give you additional insights on benchmark results. To view a list of the available telemetry devices, use the command `opensearch-benchmark list telemetry`. 
+Telemetry devices provide additional insights for benchmarking results.
+
+Telemetry results do not appear in the summary report. To visualize them, ingest the data into OpenSearch and visualize the data in OpenSearch Dashboards. 
+
+To view a list of the available telemetry devices, use the `opensearch-benchmark list telemetry` command. After you've selected a supported telemetry device, you can activate the device when running a test by providing the `--telemetry` command flag. For example, to use the `jfr` device with the `geonames` workload, run the following command:
+
+```json
+opensearch-benchmark workload --workload=geonames --telemetry=jfr
+```
+{% include copy-curl.html %}
 
 All telemetry devices with a `--stats` can be used with clusters not provisioned by OpenSearch Benchmark. These devices are referred to as **Runtime level telemetry devices**. Alternatively, **Setup level telemetry devices** encompass devices that can only be used when OpenSearch Benchmark provisions a cluster. 
 
