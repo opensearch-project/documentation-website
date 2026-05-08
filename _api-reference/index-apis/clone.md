@@ -234,7 +234,7 @@ response = client.indices.clone(
 
 ## Example response
 
-OpenSearch returns the following response when the clone request is successful:
+OpenSearch returns the following response when the clone request is successful. The `index` field contains the name of the target index that was created:
 
 ```json
 {
