@@ -122,17 +122,10 @@ When you use the `flat_settings=true` query parameter, settings are returned in 
 
 ## Response body fields
 
-The response contains a separate object for each index, where the key is the index name. Each index object contains the following fields.
+The response contains a separate object for each index, for which the key is the index name. Each index object contains the following fields.
 
 Field | Data type | Description
 :--- | :--- | :---
 `aliases` | Object | Index aliases associated with the index. Each key is an alias name, and each value is an alias configuration object. For more information, see [Index aliases]({{site.url}}{{site.baseurl}}/im-plugin/index-alias/).
 `mappings` | Object | Field mappings for documents in the index. Defines the data type and properties for each field. For more information, see [Mappings]({{site.url}}{{site.baseurl}}/field-types/).
 `settings` | Object | Index settings that control index behavior, such as the number of shards and replicas. For more information, see [Index settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/).
-`settings.index.replication` | Object | Replication settings for the index. The `type` field specifies the replication strategy: `DOCUMENT` for document replication (default) or `SEGMENT` for segment replication. For more information, see [Segment replication]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/segment-replication/index/).
-`settings.index.creation_date` | String | The Unix epoch time (in milliseconds) when the index was created.
-`settings.index.number_of_shards` | String | The number of primary shards in the index.
-`settings.index.number_of_replicas` | String | The number of replica shards for each primary shard.
-`settings.index.uuid` | String | The universally unique identifier (UUID) for the index.
-`settings.index.version.created` | String | The OpenSearch version number when the index was created.
-`settings.index.provided_name` | String | The name of the index as provided when it was created.
