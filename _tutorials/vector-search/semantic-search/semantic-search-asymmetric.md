@@ -251,9 +251,9 @@ The response contains the generated embeddings:
 
 Now you'll run semantic search using the `semantic` field type.
 
-## Step 7.1: Create an index with a semantic field
+## Step 7.1: Create an index containing a semantic field
 
-Create an index with a `semantic` field that references the deployed asymmetric model. OpenSearch automatically generates embeddings during ingestion and search using the specified model:
+Create an index containing a `semantic` field that references the deployed asymmetric model. OpenSearch automatically generates embeddings during ingestion and search using the specified model:
 
 ```json
 PUT nyc_facts
@@ -276,7 +276,7 @@ PUT nyc_facts
 ```
 {% include copy-curl.html %}
 
-Replace `your_model_id` with the model ID from Step 4. Because the model is configured with `passage_prefix` and `query_prefix`, the `semantic` field automatically applies the appropriate prefix when generating embeddings for documents (passage) and queries (query).
+Replace `your_model_id` with the model ID from Step 4. Because the model is configured with `passage_prefix` and `query_prefix`, the `semantic` field automatically applies the appropriate prefix when generating embeddings for documents (`passage` content type) and queries (`query` content type).
 
 ### Step 7.2: Ingest data
 
