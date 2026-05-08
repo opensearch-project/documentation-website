@@ -34,12 +34,12 @@ The following table lists the available path parameters. All path parameters are
 
 Parameter | Data type | Description
 :--- | :--- | :---
-`<target-index>` | String | The name of the index to retrieve settings from. You can specify a single index name, a comma-separated list of index names, or a wildcard expression. Use `_all` or `*` to retrieve settings from all indexes in the cluster.
-`<setting>` | String | The name of a specific setting to retrieve. When specified, the response includes only the requested setting instead of all settings.
+`target-index` | String | The name of the index to retrieve settings from. You can specify a single index name, a comma-separated list of index names, or a wildcard expression. Use `_all` or `*` to retrieve settings from all indexes in the cluster.
+`setting` | String | The name of a specific setting to retrieve. When specified, the response includes only the requested setting instead of all settings.
 
 ## Query parameters
 
-All query parameters are optional.
+The following table lists the available query parameters. All query parameters are optional.
 
 Parameter | Data type | Description
 :--- | :--- | :---
