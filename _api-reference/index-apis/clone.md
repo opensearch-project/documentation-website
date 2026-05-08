@@ -20,6 +20,12 @@ Use this API in the following scenarios:
 - Testing configuration changes on a cloned copy while preserving the original index.
 - Duplicating an index for parallel processing workflows with different settings or aliases.
 
+The clone operation follows a three-step process to efficiently duplicate index data:
+
+1. OpenSearch creates a target index with the same definition as the source index, including mappings and settings.
+2. The system creates hard links from the source index segments to the target index. If the file system does not support hard linking, OpenSearch copies all segments to the target index, which requires more time and disk space.
+3. OpenSearch recovers the target index as if it were a closed index that has been reopened, making it available for use.
+
 ## Prerequisites
 
 Before cloning an index, you must prepare the source index by marking it as read-only and ensuring the cluster is healthy:
@@ -67,13 +73,7 @@ response = client.indices.put_settings(
     python=step1_python %}
 <!-- spec_insert_end -->
 
-## How cloning works
 
-The clone operation follows a three-step process to efficiently duplicate index data:
-
-1. OpenSearch creates the target index with the same definition as the source index, including mappings and settings.
-2. The system creates hard links from the source index segments to the target index. If the file system does not support hard linking, OpenSearch copies all segments to the target index, which requires more time and disk space.
-3. OpenSearch recovers the target index as if it were a closed index that has been reopened, making it available for use.
 
 <!-- spec_insert_start
 api: indices.clone
@@ -106,39 +106,26 @@ OpenSearch indexes have the following naming restrictions:
 
   `:`, `"`, `*`, `+`, `/`, `\`, `|`, `?`, `#`, `>`, or `<`
 
-<!-- spec_insert_start
-api: indices.clone
-component: path_parameters
--->
 ## Path parameters
 
 The following table lists the available path parameters.
 
 | Parameter | Required | Data type | Description |
 | :--- | :--- | :--- | :--- |
-| `index` | **Required** | String | Name of the source index to clone. |
-| `target` | **Required** | String | Name of the target index to create. |
+| `index` | **Required** | String | The name of the source index to clone. |
+| `target` | **Required** | String | The name of the target index to create. |
 
-<!-- spec_insert_end -->
-
-<!-- spec_insert_start
-api: indices.clone
-component: query_parameters
--->
 ## Query parameters
 
 The following table lists the available query parameters. All query parameters are optional.
 
 | Parameter | Data type | Description | Default |
 | :--- | :--- | :--- | :--- |
-| `cluster_manager_timeout` | String | Operation timeout for connection to cluster-manager node. | N/A |
-| `task_execution_timeout` | String | Explicit task execution timeout, only useful when `wait_for_completion` is false, defaults to `1h`. | N/A |
-| `timeout` | String | Period to wait for a response. If no response is received before the timeout expires, the request fails and returns an error. | N/A |
-| `wait_for_active_shards` | Integer or String or NULL or String | The number of shard copies that must be active before proceeding with the operation. Set to `all` or any positive integer up to the total number of shards in the index (`number_of_replicas+1`). <br> Valid values are: <br> - `all`: Wait for all shards to be active. | N/A |
-| `wait_for_completion` | Boolean | Should this request wait until the operation has completed before returning. | `true` |
-| `master_timeout` <br> _DEPRECATED_ | String | _(Deprecated since 2.0: To promote inclusive language, use `cluster_manager_timeout` instead.)_ Period to wait for a connection to the cluster-manager node. If no response is received before the timeout expires, the request fails and returns an error. | N/A |
-
-<!-- spec_insert_end -->
+| `cluster_manager_timeout` | String | The amount of time to wait for a connection to the cluster manager node. | `30s` |
+| `task_execution_timeout` | String | The amount of time to wait for the task to complete. Only applicable when `wait_for_completion` is set to `false`. | `1h` |
+| `timeout` | String | The amount of time to wait for a response. If no response is received before the timeout expires, the request fails and returns an error. | `30s` |
+| `wait_for_active_shards` | String | The number of active shard copies required for the operation to proceed. Specify `all` or any positive integer up to the total number of shards in the index (`number_of_replicas+1`). | `1` (only the primary shard) |
+| `wait_for_completion` | Boolean | Specifies whether to wait for the operation to complete before returning a response. | `true` |
 
 ## Request body fields
 
@@ -266,7 +253,7 @@ The following table lists all response body fields.
 Field | Data type | Description
 :--- | :--- | :---
 `acknowledged` | Boolean | Indicates whether the clone request was received by the cluster. A value of `true` means the request was received.
-`shards_acknowledged` | Boolean | Indicates whether the requisite number of shard copies were started for the target index before the operation timed out. A value of `true` means the correct number of shard copies were started. A value of `false` means that the operation timed out before the required number of shard copies were started.
+`shards_acknowledged` | Boolean | Indicates whether the number of shard copies specified by the `wait_for_active_shards` setting became active before the operation timed out. A value of `true` means the target number of shard copies became active. A value of `false` means that the operation timed out before the target number of shard copies became active.
 `index` | String | The name of the newly created target index.
 
 ## Monitoring the cloning process
