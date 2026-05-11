@@ -10,7 +10,7 @@ redirect_from:
   - /opensearch/rest-api/update-mapping/
 ---
 
-# Create or Update Mappings API
+# Create or Update Index Mappings API
 **Introduced 1.0**
 {: .label .label-purple }
 
@@ -116,7 +116,7 @@ response = client.indices.put_mapping(
     python=step1_python %}
 <!-- spec_insert_end -->
 
-You can verify the mapping was applied by using the [Get Mapping]({{site.url}}{{site.baseurl}}/api-reference/index-apis/get-mapping/) API:
+You can verify the mapping was applied by using the [Get Mappings API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/get-mapping/):
 
 ```json
 GET /products/_mapping
@@ -284,7 +284,7 @@ GET /products/_mapping
 
 ## Example: Adding multi-fields to an existing field
 
-[Multi-fields]({{site.url}}{{site.baseurl}}/field-types/mapping-parameters/multi-fields/) allow you to index the same field in different ways. For instance, a `text` field used for full-text search can also have a `keyword` sub-field for sorting or aggregations. The following example adds a `product_name.keyword` sub-field with `ignore_above` set to `256`, enabling exact-match filtering and sorting on product names:
+[Multi-fields]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/fields/) allow you to index the same field in different ways. For instance, a `text` field used for full-text search can also have a `keyword` sub-field for sorting or aggregations. The following example adds a `product_name.keyword` sub-field with `ignore_above` set to `256`, enabling exact-match filtering and sorting on product names:
 
 <!-- spec_insert_start
 component: example_code
