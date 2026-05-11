@@ -16,7 +16,7 @@ redirect_from:
 
 Use this API to introduce new fields into an existing index or modify the search settings of existing fields. This operation lets you evolve your index schema without recreating the index from scratch.
 
-You cannot use this operation to change the mapping or field type of a field that already contains indexed data. Modifying an existing field's type risks making previously indexed data incompatible with the new mapping. If you need to change the type of an existing field, create a new index with the desired mappings and then use the [Reindex]({{site.url}}{{site.baseurl}}/api-reference/document-apis/reindex/) operation to copy documents from the original index. To avoid downtime during reindexing, you can use [aliases]({{site.url}}{{site.baseurl}}/opensearch/index-alias/).
+You cannot use this operation to change the mapping or field type of a field that already contains indexed data. Modifying an existing field's type risks making previously indexed data incompatible with the new mapping. If you need to change the type of an existing field, create a new index with the desired mappings and then use the [Reindex]({{site.url}}{{site.baseurl}}/api-reference/document-apis/reindex/) operation to copy documents from the original index. To avoid downtime during reindexing, you can use [aliases]({{site.url}}{{site.baseurl}}/opensearch/index-alias/). For more information, see [Changing the type of an existing field](#example-changing-the-type-of-an-existing-field).
 
 <!-- spec_insert_start
 api: indices.put_mapping
