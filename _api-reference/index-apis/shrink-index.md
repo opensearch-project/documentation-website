@@ -20,8 +20,8 @@ The target index's primary shard count must be a factor of the source index's pr
 
 Before you can shrink an index, it must meet the following conditions:
 
-- The index must be read-only.
-- A copy of every shard in the index (either primary or replica) must reside on the same node.
+- The index must be read-only. To make the index read-only, set the [dynamic index-level index setting]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/#dynamic-index-level-index-settings) `index.blocks.write` to `true`.
+- A copy of every shard in the index (either primary or replica) must reside on the same node. You can use [shard allocation filtering]({{site.url}}{{site.baseurl}}/api-reference/index-apis/shard-allocation/) to move shards to the same node.
 - The cluster health status must be green.
 
 Additionally, the shrink operation enforces the following constraints:
@@ -31,7 +31,6 @@ Additionally, the shrink operation enforces the following constraints:
 - The number of primary shards in the target index must be a factor of the source index's primary shard count.
 - The source index must not contain more than 2,147,483,519 documents across all shards that will be merged into a single target shard, because this is the maximum number of documents a single Lucene shard can hold.
 - The node handling the shrink process must have sufficient free disk space to accommodate a second copy of the existing index.
-{: .important}
 
 The following request satisfies the first three conditions by routing all shards to a single node and blocking write operations:
 
@@ -57,6 +56,14 @@ The shrink operation performs three steps:
 1. Creates a new target index that has the same definition as the source index but contains fewer primary shards.
 1. Creates hard links from source index segments to the target index. When the file system does not support hard links, segments are physically copied into the new index, which is a much more time-consuming process.
 1. Recovers the target index using the same process applied when reopening a closed index.
+
+When creating the target index, remember that OpenSearch index names have the following restrictions:
+
+- All letters must be lowercase.
+- Index names can't begin with underscores (`_`) or hyphens (`-`).
+- Index names can't contain spaces, commas, or the following characters:
+
+  `:`, `"`, `*`, `+`, `/`, `\`, `|`, `?`, `#`, `>`, or `<`
 
 <!-- spec_insert_start
 api: indices.shrink
