@@ -8,23 +8,25 @@ redirect_from:
  - /api-reference/multi-search/
 ---
 
-# Multi-search API
+# Multi-Search API
 **Introduced 1.0**
 {: .label .label-purple }
 
 As the name suggests, the multi-search operation lets you bundle multiple search requests into a single request. OpenSearch then executes the searches in parallel, so you get back the response more quickly compared to sending one request per search. OpenSearch executes each search independently, so the failure of one doesn't affect the others.
 
 
+<!-- spec_insert_start
+api: msearch
+component: endpoints
+-->
 ## Endpoints
-
-The Multi-Search API uses the following paths:
-
+```json
+GET  /_msearch
+POST /_msearch
+GET  /{index}/_msearch
+POST /{index}/_msearch
 ```
-GET _msearch
-GET {index}/_msearch
-POST _msearch
-POST {index}/_msearch
-```
+<!-- spec_insert_end -->
 
 When you omit the `{index}` path parameter, the request runs against all indexes. Specifying an index in the path sets the default target for any searches whose metadata line does not include an `index` field.
 
