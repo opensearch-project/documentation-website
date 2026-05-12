@@ -17,7 +17,7 @@ As the name suggests, the multi-search operation lets you bundle multiple search
 
 ## Endpoints
 
-The Multi-search API uses the following paths:
+The Multi-Search API uses the following paths:
 
 ```
 GET _msearch
@@ -25,6 +25,8 @@ GET {index}/_msearch
 POST _msearch
 POST {index}/_msearch
 ```
+
+When you omit the `{index}` path parameter, the request runs against all indexes. Specifying an index in the path sets the default target for any searches whose metadata line does not include an `index` field.
 
 
 ## Query parameters and metadata options
@@ -43,6 +45,7 @@ Parameter | Type | Description | Supported in metadata line
 `max_concurrent_shard_requests` | Integer | Maximum number of concurrent shard requests that each search executes per node. Default is 5. Higher values can improve performance, but risk overloading the cluster. | No
 `pre_filter_shard_size` | Integer | A threshold that triggers a pre-filter round trip to eliminate shards that cannot match the query (for example, because a date range filter falls outside the shard's bounds). When unspecified, the pre-filter phase runs if the request targets more than 128 shards, targets a read-only index, or sorts on an indexed field. Default is `128`. | No
 `rest_total_hits_as_int` | String | Whether the `hits.total` property is returned as an integer (`true`) or an object (`false`). Default is `false`. | No
+`routing` | String | Comma-separated custom routing values used to route all searches in the request to specific shards. To set routing for individual searches, use the `routing` option in the metadata line instead. | No
 `search_type` | String | Affects relevance score. Valid options are `query_then_fetch` and `dfs_query_then_fetch`. `query_then_fetch` scores documents using term and document frequencies for the shard (faster, less accurate), whereas `dfs_query_then_fetch` uses term and document frequencies across all shards (slower, more accurate). Default is `query_then_fetch`. | Yes
 `typed_keys` | Boolean | Whether to prefix aggregation names with their internal types in the response. Default is `false`. | No
 
@@ -56,7 +59,7 @@ Option | Type | Description
 `index` | String, string array | If you don't specify an index or multiple indexes as part of the URL (or want to override the URL value for an individual search), you can include it here. Examples include `"logs-*"` and `["my-store", "sample_data_ecommerce"]`.
 `preference` | String | The nodes or shards that you'd like to perform the search. This setting can be useful for testing, but in most situations, the default behavior provides the best search latencies. Options include `_local`, `_only_local`, `_prefer_nodes`, `_only_nodes`, and `_shards`. These last three options accept a list of nodes or shards. Examples include `"_only_nodes:data-node1,data-node2"` and `"_shards:0,1`.
 `request_cache` | Boolean | Whether to cache results, which can improve latency for repeat searches. Default is to use the `index.requests.cache.enable` setting for the index (which defaults to `true` for new indexes).
-`routing` | String | Comma-separated custom routing values, for example, `"routing": "value1,value2,value3"`.
+`routing` | String | Comma-separated custom routing values, for example, `"routing": "value1,value2,value3"`. Unlike `routing` at the query parameter level, which applies to all searches in the request, this option targets routing for an individual search only.
 
 ## Request body
 
@@ -195,7 +198,7 @@ GET _msearch/template
 
 ### Example: Stored templates
 
-You can also reference pre-registered templates by ID. First, create a stored template:
+You can also reference pre-registered templates by ID. First, create the stored templates:
 
 ```json
 POST _scripts/product_search_template
@@ -216,14 +219,35 @@ POST _scripts/product_search_template
 ```
 {% include copy-curl.html %}
 
-Then use the stored template in a multi-search request:
+```json
+POST _scripts/price_range_template
+{
+  "script": {
+    "lang": "mustache",
+    "source": {
+      "query": {
+        "range": {
+          "price": {
+            "gte": "{{min_price}}",
+            "lte": "{{max_price}}"
+          }
+        }
+      },
+      "size": "{{result_count}}"
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+Then use the stored templates in a multi-search request:
 
 ```json
 GET _msearch/template
 {"index": "products"}
 {"id": "product_search_template", "params": {"query_text": "bluetooth speaker", "result_count": "5"}}
 {"index": "products"}
-{"id": "product_search_template", "params": {"query_text": "noise cancelling", "result_count": "3"}}
+{"id": "price_range_template", "params": {"min_price": "20", "max_price": "100", "result_count": "3"}}
 
 ```
 
