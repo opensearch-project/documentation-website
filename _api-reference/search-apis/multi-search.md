@@ -28,7 +28,7 @@ POST /{index}/_msearch
 ```
 <!-- spec_insert_end -->
 
-When you omit the `{index}` path parameter, the request runs against all indexes. Specifying an index in the path sets the default target for any searches whose metadata line does not include an `index` field.
+Specifying an index in the path sets the default target for any searches whose metadata line does not include an `index` field. If you omit the path parameter and a search's metadata line also does not specify an `index`, the search runs against all indexes.
 
 
 ## Query parameters and metadata options
