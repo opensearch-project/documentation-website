@@ -122,6 +122,7 @@ The following table lists the available path parameters.
 | :--- | :--- | :--- | :--- |
 | `attributes` | Object | Required | Defines the workspace attributes. |
 | `permissions` | Object | Optional | Specifies the permissions for the workspace. |
+| `settings` | Object | Optional | Specifies the settings for the workspace. |
 
 #### Example request
 
