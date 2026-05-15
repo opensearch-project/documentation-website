@@ -214,50 +214,7 @@ Look for `details.backup.status = "success"`. If it says `"failed"` or `"excepti
 
 ## Workflow configuration
 
-Migration Assistant validates the workflow against a schema generated at install time. Always start from the version-matched sample (`workflow configure sample --load`) instead of writing config from memory or copying from older docs — the schema names and shapes change between releases. The following example mirrors the sample shipped with the current release.
-
-```yaml
-sourceClusters:
-  solr-source:
-    endpoint: "http://<solr-host>:8983"
-    allowInsecure: true
-    version: "SOLR 9.7.0"      # SOLR 8.x.x or SOLR 9.x.x — must match the running cluster
-    snapshotInfo:
-      repos:
-        default-s3:
-          awsRegion: "us-west-2"
-          s3RepoPathUri: "s3://<bucket-name>/<optional-subpath>"
-      snapshots:
-        source-solr-snap:
-          config:
-            createSnapshotConfig: {}
-          repoName: "default-s3"
-
-targetClusters:
-  target:
-    endpoint: "https://<opensearch-endpoint>"
-    version: "OS 2.19.0"
-    allowInsecure: false
-    authConfig:
-      sigv4:
-        service: "es"          # use "aoss" if the target is OpenSearch Serverless
-        region: "us-west-2"
-
-snapshotMigrationConfigs:
-  - fromSource: "solr-source"
-    toTarget: "target"
-    perSnapshotConfig:
-      source-solr-snap:
-        - metadataMigrationConfig:
-            skipEvaluateApproval: true
-            skipMigrateApproval: true
-          documentBackfillConfig:
-            podReplicas: 4
-            maxConnections: 10
-            documentsPerBulkRequest: 1000
-            maxShardSizeBytes: 80000000000
-```
-{% include copy.html %}
+Migration Assistant validates the workflow against a schema generated at install time. Always start from the version-matched sample (`workflow configure sample --load`) instead of writing config from memory or copying from older docs — the schema names and shapes change between releases.
 
 ### Key configuration fields
 
