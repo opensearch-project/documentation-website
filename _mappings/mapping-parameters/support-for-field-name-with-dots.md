@@ -54,13 +54,13 @@ When `disable_objects` is set to `true`:
 
 ## Example: Index-level configuration
 
-Enable flat dotted field semantics for an entire index by setting `index.mapping.disable_objects` in the index settings:
+Enable flat dotted field semantics for an entire index by setting `disable_objects` at the top level of the mappings definition:
 
 ```json
 PUT /metrics-index
 {
-  "settings": {
-    "index.mapping.disable_objects": true
+  "mappings": {
+    "disable_objects": true
   }
 }
 ```
@@ -240,7 +240,7 @@ The `disable_objects` parameter can be set at multiple levels. When multiple lev
 
 1. Field-level
 2. Object-level
-3. Index-level (`index.mapping.disable_objects`)
+3. Top-level mapping definition (`"mappings": { "disable_objects": true }`)
 4. Global default (`false`)
 
 ---
