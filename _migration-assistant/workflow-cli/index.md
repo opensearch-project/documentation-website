@@ -58,20 +58,12 @@ The `console` CLI groups operations by component. The `workflow` CLI orchestrate
 | `console clusters curl target /_search -X POST --json '{"query":{"match_all":{}}}'` | POST with a JSON body |
 | `console clusters clear-indexes --cluster target --acknowledge-risk` | **Destructive** — deletes all indexes on the named cluster |
 
-#### Snapshot, metadata, backfill, replay
+#### Metrics and Kafka
 
 | Group | Commands |
 |:------|:---------|
-| `console snapshot` | `create`, `status`, `delete`, `unregister-repo` |
-| `console metadata` | `migrate`, `evaluate` |
-| `console backfill` | `describe`, `start`, `pause`, `stop`, `scale`, `status` |
-| `console replay` | `describe`, `start`, `stop`, `scale`, `status` |
 | `console metrics` | `list`, `get-data` |
 | `console kafka` | `create-topic`, `list-topics`, `delete-topic`, `describe-consumer-group`, `list-consumer-groups`, `describe-topic-records` |
-| `console tuples` | Inspect captured request/response tuples (used during Capture and Replay validation) |
-
-The workflow path drives `metadata`, `backfill`, and `replay` automatically. Reach for the equivalent `console` command only when you want to inspect state or work around a specific failure (for example, to call `console snapshot status` while a long-running snapshot is in progress, or `console metrics get-data` to compare per-Replayer counters).
-{: .note }
 
 ### Configuration commands
 

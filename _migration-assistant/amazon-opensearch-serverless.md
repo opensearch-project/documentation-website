@@ -7,14 +7,14 @@ permalink: /migration-assistant/amazon-opensearch-serverless/
 
 # Migrate to OpenSearch Serverless
 
-If your target is an Amazon OpenSearch Serverless collection, this page is for you. Serverless works as a target for every source Migration Assistant supports — self-managed Elasticsearch 1.x–8.x, OpenSearch 1.x–2.x, Amazon OpenSearch Service, and Apache Solr 6.x–9.x (backfill only). The migration steps are the same as migrating to any other OpenSearch target — follow your source's playbook and plug in the Serverless-specific target configuration from this page.
+If your target is an Amazon OpenSearch Serverless collection, this page is for you. Serverless works as a target for every source Migration Assistant supports — Elasticsearch 1.x–8.x, OpenSearch 1.x–2.x, Amazon OpenSearch Service, and Apache Solr 6.x–9.x (backfill only). The migration steps are the same as migrating to any other OpenSearch target — follow your source's playbook and plug in the Serverless-specific target configuration from this page.
 
 | Source | Backfill | Capture and Replay |
 |:-------|:--------:|:------------------:|
 | Self-managed Elasticsearch 5.x–8.x | ✓ | ✓ |
-| Self-managed Elasticsearch 1.x–2.x | ✓ | ✗ (not supported on this source version) |
+| Elasticsearch 1.x–2.x | ✓ | ✗ (not supported on this source version) |
 | OpenSearch 1.x–2.x | ✓ | ✓ |
-| Amazon OpenSearch Service or legacy Elasticsearch Service | ✓ | ✓ |
+| Amazon OpenSearch Service or legacy Elasticsearch Service (3.x+) | ✓ | ✓ |
 | Apache Solr 6.x–9.x | ✓ | ✗ (Solr does not support C&R) |
 
 ## Collection types
