@@ -125,3 +125,14 @@ Winlogbeat
 XGBoost
 Zipf
 Zstandard
+Solr
+SolrCloud
+kubectl
+Strimzi
+Karpenter
+Kyverno
+Migration Console
+Workflow CLI
+Argo
+Argo Workflows
+AWS Signature Version 4

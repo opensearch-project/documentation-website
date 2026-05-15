@@ -3,7 +3,7 @@ layout: default
 title: Transform type mappings
 nav_order: 1
 parent: Migrate metadata
-grand_parent: Migration phases
+grand_parent: Migration workflows
 permalink: /migration-assistant/migration-phases/migrate-metadata/handling-type-mapping-deprecation/
 redirect_from:
   - /migration-assistant/migration-phases/assessment/handling-type-mapping-deprecation/
@@ -12,315 +12,90 @@ redirect_from:
 
 # Transform type mappings
 
-{: .note }
-These transformations may not apply to your use case, but the framework for creating a transformation is designed to handle mutations, data enrichments, and other modifications when modifying workloads or moving them to a new target.
+This page explains how to handle deprecated Elasticsearch mapping types when they appear in data you are migrating to modern OpenSearch targets.
 
-This guide provides solutions for managing the deprecation of the type mapping functionality when migrating from Elasticsearch 6.x or earlier to OpenSearch.
+## Why this matters
 
-In versions of Elasticsearch prior to 6.x, an index could contain multiple types, each with its own mapping. These types allowed you to store and query different kinds of documents—such as books and movies—in a single index. For example, both `book` and `movie` types could have a shared field like `title`, while each had additional fields specific to that type.
+Older Elasticsearch data sets could contain multiple mapping types per index. Modern OpenSearch expects a single mapping model. If your snapshot contains older multi-type definitions, you need to decide how Migration Assistant should interpret them.
 
-Newer versions of Elasticsearch and OpenSearch no longer support multiple mapping types. Each index now supports only a single mapping type. During migration, you must define how to transform or restructure data that used multiple types. The following example shows multiple mapping types:
+## The main choice: Fail, merge, or split
 
+Use `metadataMigrationConfig.multiTypeBehavior` to control what happens when multi-type mappings are encountered:
 
-```json
-GET /library/_mappings
-{
-  "library": {
-    "mappings": {
-      "book": {
-        "properties": {
-          "title":      { "type": "text" },
-          "pageCount":  { "type": "integer" }
-        }
-      },
-      "movie": {
-        "properties": {
-          "title":      { "type": "text" },
-          "runTime":    { "type": "integer" }
-        }
-      }
-    }
-  }
-}
+- `NONE`: fail and make you handle the issue explicitly
+- `UNION`: merge the types into one mapping
+- `SPLIT`: route types into separate indexes
+
+These choices have application-level consequences. `UNION` is simpler operationally, while `SPLIT` may preserve clearer semantics at the cost of index-name changes.
+
+## When to use each option
+
+The following sections describe when each option is appropriate.
+
+### `NONE`
+
+Use this when you want the migration to stop rather than make an implicit decision for you.
+
+### `UNION`
+
+Use this when the types are compatible enough to coexist under one merged mapping and your application can live with one target index.
+
+### `SPLIT`
+
+Use this when different types should become different target indexes, or when merging them would create field conflicts or confusing application behavior.
+
+## Workflow-first guidance
+
+Do not reach for old manual transformer commands first. In the current workflow model, start by:
+
+```bash
+workflow configure sample --load
+workflow configure edit
 ```
+{% include copy.html %}
 
-For more information, see the [official Elasticsearch documentation on the removal of mapping types](https://www.elastic.co/guide/en/elasticsearch/reference/7.10/removal-of-types.html). 
+Set `multiTypeBehavior`, run a pilot, and validate the resulting target mappings and index layout before migrating the full dataset.
 
-## Using the type mapping transformer
+## Example outcome
 
-To address type mapping deprecation, use the `TypeMappingsSanitizationTransformer`. This transformer can modify data, including metadata, documents, and requests, so that the previously mapped data can be used in OpenSearch. To use the mapping transformer:
-
-1. Navigate to the bootstrap box and open the `cdk.context.json` file with Vim.
-2. Add or update the key `reindexFromSnapshotExtraArgs` to include `--doc-transformer-config-file /shared-logs-output/transformation.json`.
-3. Add or update the key `trafficReplayerExtraArgs` to include `--transformer-config-file /shared-logs-output/transformation.json`.
-4. Deploy Migration Assistant.
-5. Navigate to the Migration Assistant console.
-6. Create a file named `/shared-logs-output/transformation.json`.
-7. Add your transformation configuration to the file. For configuration options, see [Configuration options](#configuration-options).
-8. When running the metadata migration, run the configuration with the transformer using the command `console metadata migrate --transformer-config-file /shared-logs-output/transformation.json`.
-
-Whenever the transformation configuration is updated, the backfill and replayer tools need to be stopped and restarted in order to apply the changes. Any previously migrated data and metadata may need to be cleared in order to avoid an inconsistent state.
-
-### Configuration options
-
-The `TypeMappingsSanitizationTransformer` supports several strategies for managing type mappings:
-
-1. **Route different types to separate indexes**: Split different types into their own indexes.
-2. **Merge all types into one index**: Combine multiple types into a single index.
-3. **Drop specific types**: Selectively migrate only specific types.
-4. **Keep the original structure**: Maintain the same index name while conforming to the new type standards.
-
-### Type mapping transformer configuration schema
-
-The type mapping transformer uses the following configuration options.
-
-| **Field**  | **Type** | **Required** | **Description** | 
-| :--- | :--- | :--- | :--- |
-| `staticMappings`   | `object` | No   | A map of `{ indexName: { typeName: targetIndex } }` used to **statically** route specific types. <br/><br/> For any **index** listed on this page, types **not** included in its object are **dropped** (no data or requests are migrated for those omitted types).   |
-| `regexMappings`    | `array`  | No   | A list of **regex-based** rules for **dynamic** routing of source index/type names to a target index. <br/><br/> Each element in this array is itself an object with `sourceIndexPattern`, `sourceTypePattern`, and `targetIndexPattern` fields. <br/><br/> For information about the **default value**, see [Defaults](#Defaults). |
-| `sourceProperties` | `object` | Yes  | Additional **metadata** about the source (for example, its Elasticsearch/OpenSearch version). Must include at least `"version"` with `"major"` and `"minor"` fields.   |
-
-The following example JSON configuration provides a transformation schema:
-
-<details markdown="block">
-<summary>Example JSON Configuration</summary>
+A legacy source might contain a mapping like:
 
 ```json
 {
-  "TypeMappingSanitizationTransformerProvider": {
-    "staticMappings": {
-      "{index-name-1}": {
-        "{type-name-1}": "{target-index-name-1}",
-        "{type-name-2}": "{target-index-name-2}"
+  "mappings": {
+    "book": {
+      "properties": {
+        "title": { "type": "text" }
       }
     },
-    "regexMappings": [
-      {
-        "sourceIndexPattern": "{source-index-pattern}",
-        "sourceTypePattern": "{source-type-pattern}",
-        "targetIndexPattern": "{target-index-pattern}"
-      }
-    ],
-    "sourceProperties": {
-      "version": {
-        "major": "NUMBER",
-        "minor": "NUMBER"
+    "movie": {
+      "properties": {
+        "title": { "type": "text" }
       }
     }
   }
 }
 ```
-{% include copy.html %}
 
-</details>
+After migration, that data cannot remain in this exact shape on a modern target. The workflow must either merge or split the result according to your chosen strategy.
 
-## Example configurations
+## When custom type transformers are still useful
 
-The following example configurations show you how to use the transformer for different mapping type scenarios.
+If the built-in `multiTypeBehavior` choices are not enough, advanced users can still supply custom transformer configuration through the metadata migration settings.
 
-### Route different types to separate indexes
+That is an expert path. Use it when:
 
-If you have an index `activity` with types `user` and `post` that you want to split into separate indexes, use the following configuration:
+- the target index naming must follow a specific pattern
+- only selected types should migrate
+- you need different routing logic than the built-in workflow choices
 
-```json
-[
-  {
-    "TypeMappingSanitizationTransformerProvider": {
-      "staticMappings": {
-        "activity": {
-          "user": "new_users",
-          "post": "new_posts"
-        }
-      },
-      "sourceProperties": {
-        "version": {
-          "major": 6,
-          "minor": 8
-        }
-      }
-    }
-  }
-]
-```
-{% include copy.html %}
+## Validate the result
 
-This transformer will perform the following:
+After the pilot metadata run, check:
 
-- Route documents with type `user` to the `new_users` index.
-- Route documents with type `post` to the `new_posts` index.
+- resulting target index names
+- field conflicts introduced by merges
+- alias and template behavior
+- application queries that assume a specific index layout
 
-### Merge all types into one index
-
-To merge all types into one index, use the following configuration:
-
-```json
-[
-  {
-    "TypeMappingSanitizationTransformerProvider": {
-      "staticMappings": {
-        "activity": {
-          "user": "activity",
-          "post": "activity"
-        }
-      },
-      "sourceProperties": {
-        "version": {
-          "major": 6,
-          "minor": 8
-        }
-      }
-    }
-  }
-]
-```
-{% include copy.html %}
-
-### Drop specific types
-
-To migrate only the `user` type within the `activity` index and drop all documents/requests with types not directly specified, use the following configuration:
-
-```json
-[
-  {
-    "TypeMappingSanitizationTransformerProvider": {
-      "staticMappings": {
-        "activity": {
-          "user": "users_only"
-        }
-      },
-      "sourceProperties": {
-        "version": {
-          "major": 6,
-          "minor": 8
-        }
-      }
-    }
-  }
-]
-```
-{% include copy.html %}
-
-This configuration only migrates documents of type `user` and ignores other document types in the `activity` index.
-
-### Keep the original structure
-
-To migrate only specific types and keep the original structure, use the following configuration:
-
-```json
-[
-  {
-    "TypeMappingSanitizationTransformerProvider": {
-      "regexMappings": [
-        {
-          "sourceIndexPattern": "(.*)",
-          "sourceTypePattern": ".*",
-          "targetIndexPattern": "$1"
-        }
-      ],
-      "sourceProperties": {
-        "version": {
-          "major": 6,
-          "minor": 8
-        }
-      }
-    }
-  }
-]
-```
-{% include copy.html %}
-
-This is equivalent to the strategy of merging all types into one index but also uses a pattern-based routing strategy.
-
-### Combining multiple strategies
-
-You can combine both static and regex-based mappings to manage different indexes or patterns in a single migration. For example, you might have one index that must use `staticMappings` and another that uses `regexMappings` to route all types by pattern.
-
-For each document, request, or metadata item (processed individually for bulk requests), the following steps are performed:
-
-1. The index is checked to determine whether it matches an entry in the static mappings.
-   - If matched, the type is checked against the index component of the static mappings entry.
-     - If the type matches, the mapping is applied, and the resulting index includes the value of the type key.
-     - If the type doesn't match, the request/document/metadata is dropped and not migrated.
-2. If the index is not matched in the static mappings, the index-type combination is checked against each item in the regex mappings list, in order from first to last. If a match is found, the mapping is applied, the resulting index includes the value of the type key, and no further regex matching is performed.
-3. Any request, document, or metadata that doesn't match the preceding cases is dropped, and the documents they contain are not migrated.
-
-The following example demonstrates how to combine static and regex-based mappings for different indexes:
-
-```json
-[
-  {
-    "TypeMappingSanitizationTransformerProvider": {
-      "staticMappings": {
-        "activity": {
-          "user": "users_activity",
-          "post": "posts_activity"
-        },
-        "logs": {
-          "error": "logs_error",
-          "info": "logs_info"
-        }
-      },
-      "regexMappings": [
-        {
-          "sourceIndexPattern": "orders.*",
-          "sourceTypePattern": ".*",
-          "targetIndexPattern": "all_orders"
-        }
-      ],
-      "sourceProperties": {
-        "version": {
-          "major": 6,
-          "minor": 8
-        }
-      }
-    }
-  }
-]
-```
-{% include copy.html %}
-
-### Defaults
-
-When the `regexMappings` key is missing from the transformation configuration, `regexMappings` will default to the following:
-
-```json
-{
-  "regexMappings": [
-    {
-      "sourceIndexPattern": "(.+)",
-      "sourceTypePattern": "_doc",
-      "targetIndexPattern": "$1"
-    },
-    {
-      "sourceIndexPattern": "(.+)",
-      "sourceTypePattern": "(.+)",
-      "targetIndexPattern": "$1_$2"
-    }
-  ]
-}
-```
-{% include copy.html %}
-
-This has the effect of retaining the index name for indexes created in Elasticsearch 6.x or later while combining the type and index name for indexes created in Elasticsearch 5.x. If you want to retain the index name for indexes created in Elasticsearch 5.x, use the `staticMappings` option or override the type mappings using the `regexMappings` option.
-
-## Limitations
-
-When using the transformer, remember the following limitations.
-
-### Traffic Replayer
-
-For the Traffic Replayer, **only a subset** of requests that include types is supported. These requests are listed in the following table.
-
-| **Operation** | **HTTP method(s)** | **Endpoint**   | **Description**  |
-| :--- | :--- | :--- | :--- |
-| **Index (by ID)**  | PUT/POST           | `/{index}/{type}/{id}`  | Create or update a single document with an explicit ID.   |
-| **Index (auto ID)**          | PUT/POST           | `/{index}/{type}/`      | Create a single document for which the ID is automatically generated.  |
-| **Get Document**             | GET                | `/{index}/{type}/{id}`  | Retrieve a document by ID.  |
-| **Bulk Index/Update/Delete** | PUT/POST           | `/_bulk`                | Perform multiple create/update/delete operations in a single request. |
-| **Bulk Index/Update/Delete** | PUT/POST           | `/{index}/_bulk`        | Perform multiple create/update/delete operations in a single request with default index assignment.                                                                                                                                                 |
-| **Bulk Index/Update/Delete** | PUT/POST           | `/{index}/{type}/_bulk` | Perform multiple create/update/delete operations in a single request with default index and type assignment.                                                                                                                                        |
-| **Create/Update Index**      | PUT/POST           | `/{index}`              | Create or update an index. <br/><br/> **Split** behavior is not supported in the Traffic Replayer. See [this GitHub issue](https://github.com/opensearch-project/opensearch-migrations/issues/1305) to provide feedback or to vote on this feature. |
-
-### Reindex-From-Shapshot
-
-For `Reindex-From-Snapshot,` indexes created in Elasticsearch 6.x or later will use `_doc` as the type for all documents, even if a different type was specified in Elasticsearch 6.
+If this transformation changes index names or field semantics, your client configuration may need to change too.
