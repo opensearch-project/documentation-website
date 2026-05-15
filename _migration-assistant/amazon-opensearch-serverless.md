@@ -14,7 +14,7 @@ If your target is an Amazon OpenSearch Serverless collection, this page is for y
 | Self-managed Elasticsearch 5.x–8.x | ✓ | ✓ |
 | Elasticsearch 1.x–2.x | ✓ | ✗ (not supported on this source version) |
 | OpenSearch 1.x–2.x | ✓ | ✓ |
-| Amazon OpenSearch Service or legacy Elasticsearch Service (3.x+) | ✓ | ✓ |
+| Amazon OpenSearch Service or legacy Elasticsearch Service (5.x+) | ✓ | ✓ |
 | Apache Solr 6.x–9.x | ✓ | ✗ (Solr does not support C&R) |
 
 ## Collection types
