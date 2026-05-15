@@ -1,111 +1,106 @@
 ---
 layout: default
-title: Reroute client traffic
+title: Reroute client traffic to capture proxy
 nav_order: 3
-parent: Migration phases
+parent: Migration workflows
 permalink: /migration-assistant/migration-phases/reroute-source-to-proxy/
 ---
 
-# Reroute client traffic to the Traffic Capture Proxy
+# Reroute client traffic to the capture proxy
 
-**Note**: This page is only relevant if you are using Capture and Replay to avoid downtime during a migration. If you are only performing backfill migration, you can skip this step.
-{: .note}
+This page only applies to zero-downtime migrations that use Capture and Replay.
+{: .note }
 
-## Capture Proxy data replication
+Capture must start before snapshot backfill if you want to preserve writes that happen during the migration window.
 
-If you're interested in capturing live traffic during your migration, Migration Assistant includes an Application Load Balancer for routing traffic to the Capture Proxy and target cluster. Upstream client traffic must be routed through the Capture Proxy in order to replay the requests later. Before using the Capture Proxy, remember the following:
+## What the workflow creates
 
-* The layer upstream from the Application Load Balancer is compatible with the certificate for the Application Load Balancer listener, whether it's for clients or a Network Load Balancer. The `albAcmCertArn` in the `cdk.context.json` may need to be provided to ensure that clients trust the Application Load Balancer certificate.
-* If a Network Load Balancer is used directly upstream of the Application Load Balancer, it must use a TLS listener.
-* Upstream resources and security groups must allow network access to the Migration Assistant Application Load Balancer.
+When your workflow includes a `traffic.proxies` section, Migration Assistant creates:
 
-To set up the Capture Proxy, go to the AWS Management Console and navigate to **EC2 > Load Balancers > Migration Assistant Application Load Balancer**. Copy the Application Load Balancer URL. With the URL copied, you can use one of the following options.
+- capture proxy pods
+- a Kubernetes Service in front of those pods
+- Kafka wiring so captured traffic can be replayed later
 
+Client traffic is sent to the proxy Service. The proxy forwards requests to the source cluster and records them for later replay.
 
+## What changes on Kubernetes and EKS
 
-### If you are using **Network Load Balancer → Application Load Balancer → Cluster**
+The migration engine is the same on both platforms. The practical difference is how the Service is exposed and integrated into your environment.
 
-1. Ensure that ingress is provided directly to the Application Load Balancer for the Capture Proxy.
-2. Create a target group for the Migration Assistant Application Load Balancer on port `9200` and set the health check to `HTTPS`.
-3. Associate this target group with your existing Network Load Balancer on a new listener for testing.
-4. Verify that the health check is successful and perform smoke testing with some clients through the new listener port.
-5. Once you are ready to migrate all clients, detach the Migration Assistant Application Load Balancer target group from the testing Network Load Balancer listener and modify the existing Network Load Balancer listener to direct traffic to this target group.
-6. Now client requests will be routed through the proxy (once they establish a new connection). Verify the application metrics.
+- On **generic Kubernetes**, you provide the networking pattern that gets clients to the proxy Service.
+- On **Amazon EKS**, the Service can be backed by AWS load-balancer infrastructure, and the bootstrap path handles more of the platform wiring for you.
 
-### If you are using **Network Load Balancer → Cluster**
+## Configure the proxy in the workflow
 
-If you do not want to modify application logic, add an Application Load Balancer in front of your cluster and follow the **Network Load Balancer → Application Load Balancer → Cluster** steps. Otherwise:
-
-1. Create a target group for the Application Load Balancer on port `9200` and set the health check to `HTTPS`.
-2. Associate this target group with your existing Network Load Balancer on a new listener.
-3. Verify that the health check is successful, and perform smoke testing with some clients through the new listener port.
-4. Once you are ready to migrate all clients, deploy a change so that clients hit the new listener.
-   
-
-### If you are **not using a Network Load Balancer**
-
-If you're only using backfill as your migration technique, make a client/DNS change to route clients to the Migration Assistant Application Load Balancer on port `9200`.
-
-
-### Apache Kafka connection
-
-After you have routed the client based on your use case, test adding records against HTTP requests using the following steps.
-
-In the migration console, run the following command:
+Always start from the current sample:
 
 ```bash
-console kafka describe-topic-records
+workflow configure sample --load
+workflow configure edit
 ```
 {% include copy.html %}
-   
-Note the records in the logging topic.
-   
-After a short period, re-execute the same command again and compare the increased number of records against the expected HTTP requests.
 
-## Troubleshooting
+In the proxy configuration, important fields include:
 
-The following sections may be helpful in diagnosing common issues.
+- `listenPort`
+- `podReplicas`
+- `internetFacing` when you need external exposure on EKS
+- `tls`
+- `setHeader`
 
-### Host header routing configuration
+## TLS behavior
 
-Some systems, such as Elastic Cloud and other hosted Elasticsearch services, use the `Host` header for routing traffic to the appropriate cluster. When using the Capture Proxy with these systems, you must configure the proxy to override the `Host` header with your source cluster's domain name. If not configured correctly, clients might send a `Host` header that points to the proxy's address instead of the original domain, which can disrupt routing and authentication.
+The proxy is secure by default. If you do not configure TLS explicitly, the workflow provisions a self-signed certificate for the proxy.
 
-**Important**: This configuration is required for Elastic Cloud deployments and any system that uses `Host` header routing. If this setting is improperly configured, requests will fail in the Elastic Cloud with an error response similar to `{"ok":false,"message":"Unknown resource."}` or will be incorrectly routed in other systems.
-{: .important}
+If you intentionally want plaintext HTTP, set the proxy TLS mode to `plaintext`.
 
-To configure the `Host` header, add the `captureProxyExtraArgs` parameter to your `cdk.context.json` file:
+## Host and header overrides
+
+If your source uses host-based routing, add a static header in the proxy configuration.
+
+Use the `setHeader` field with entries in `Header-Name: value` format, for example:
 
 ```json
 {
-  "captureProxyExtraArgs": "--setHeader Host <domain-host-without-protocol>"
+  "setHeader": ["Host: source.example.com"]
 }
 ```
 {% include copy.html %}
 
-For example, if your Elastic Cloud domain is `https://my-cluster.es.us-east-1.aws.example.com`, configure `captureProxyExtraArgs` as follows:
+## Find the proxy endpoint
 
-```json
-{
-  "captureProxyExtraArgs": "--setHeader Host my-cluster.es.us-east-1.aws.example.com"
-}
-```
-{% include copy.html %}
-
-**Tip**: The `Host` header value should include only the domain name without the protocol (`https://`) or port number.
-{: .tip}
-
-#### Validating the configuration
-
-Before routing production traffic using the Capture Proxy, validate that the proxy is correctly configured by sending test requests directly to it. You can use cURL to verify the connection:
+After you submit the workflow, inspect the Services in the `ma` namespace and identify the one created for the proxy:
 
 ```bash
-curl -k https://<capture-proxy-endpoint>:9200/
+kubectl get svc -n ma
 ```
 {% include copy.html %}
 
-If the `Host` header configuration is correct, you should receive a successful or authentication failure response from your source cluster. If you receive an error similar to `{"ok":false,"message":"Unknown resource."}`, verify that:
-- The `captureProxyExtraArgs` parameter is correctly set in your `cdk.context.json`.
-- The `Host` header value matches your source cluster's domain exactly.
-- You have redeployed the Capture Proxy service after making configuration changes.
+Then update your application, DNS, or load balancer to send traffic to that proxy endpoint instead of directly to the source.
+
+## Verify capture before moving on
+
+Before you proceed to metadata migration and backfill, confirm that:
+
+- the proxy pods are running
+- the Service is reachable
+- application traffic is flowing through the proxy
+- the workflow shows the traffic components as healthy
+
+Useful commands:
+
+```bash
+workflow status
+workflow manage
+```
+{% include copy.html %}
+
+## What happens next
+
+Once capture is live, keep traffic flowing through the proxy while you:
+
+1. migrate metadata
+2. backfill historical documents
+3. replay the captured traffic to catch the target up
 
 {% include migration-phase-navigation.html %}

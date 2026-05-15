@@ -2,7 +2,7 @@
 layout: default
 title: Assessment
 nav_order: 1
-parent: Migration phases
+parent: Migration workflows
 has_children: false
 has_toc: false
 permalink: /migration-assistant/migration-phases/assessment/
@@ -13,12 +13,22 @@ redirect_from:
 
 # Assessment
 
-The goal of Migration Assistant is to streamline the process of migrating from one location or version of Elasticsearch/OpenSearch to another. However, completing a migration sometimes requires resolving client compatibility issues before they can communicate directly with the target cluster.
+Assessment is where you decide whether your migration should be simple, staged, or zero-downtime. The goal is not to memorize every breaking change. The goal is to identify the issues that will affect your workflow configuration, your cutover plan, and your application behavior before you start moving data.
 
+## What to answer before you migrate
 
-## Understanding breaking changes
+Make sure you can answer these questions first:
 
-Before performing any upgrade or migration, you should review any breaking changes that might exist between versions because there may be changes required in order for clients to connect to the new cluster. Use the following tool by selecting the versions in your migration path. The tool will respond with any breaking changes you should note when migrating:
+- Is your source and target path supported?
+- Do you need planned downtime, or do you need Capture and Replay?
+- Can the source create snapshots, and can Migration Assistant read them?
+- What authentication model will be used for source and target?
+- Are there mapping or field transformations you already know you need?
+- Which components will need separate manual migration, such as security, ILM or ISM, pipelines, or dashboards?
+
+## Use the breaking changes tool first
+
+Before you build the workflow, review the breaking changes for your source and target versions. Use the selector that follows.to narrow the changes that matter for your migration path.
 
 <link rel="stylesheet" href="{{site.url}}{{site.baseurl}}/migration-assistant/assets/css/breaking-changes-selector.css">
 
@@ -55,19 +65,47 @@ Before performing any upgrade or migration, you should review any breaking chang
 
 <script type="module" src="{{site.url}}{{site.baseurl}}/migration-assistant/assets/js/breaking-changes-index.js"></script>
 
-## Impact of data transformations
+## Think in terms of migration risk
 
-Any time you apply a transformation to your data, such as changing index names, modifying field names or field mappings, or splitting indexes with type mappings, these changes might need to be reflected in your client configurations. For example, if your clients are reliant on specific index or field names, you must ensure that their queries are updated accordingly.
+Most migration risk falls into four buckets:
 
-We recommend running production-like queries against the target cluster before switching over actual production traffic. This helps verify that the client can communicate with the target cluster, locate the necessary indexes and fields, and retrieve the expected results.
+- **Application compatibility**: queries, aggregations, index names, aliases, or field names may need to change
+- **Metadata compatibility**: mappings, templates, and settings may need transformations
+- **Data movement**: snapshots, source S3 access, target ingest throughput, and large shards may affect runtime
+- **Operational cutover**: you need to decide whether a write pause is acceptable or whether Capture and Replay is required
 
-For complex migrations involving multiple transformations or breaking changes, we highly recommend performing a trial migration with representative, non-production data (such as in a staging environment) to fully test client compatibility with the target cluster.
+## Decide whether you need transformations
 
-## Supported transformations
+Migration Assistant already includes built-in metadata transformations for several common compatibility issues. Start by checking whether your migration falls into one of these categories:
 
-The following is a list of transformations that are included in Migration Assistant. They can be enabled, combined, and configured to customize a migration for your use case. Depending on your use case and the type of transformation, a transformation may have to be added to Capture-and-Replay, Metadata Migration Tool, or Reindex-from-Snapshot. To request additional Migration Assistant transformations, create a GitHub issue [in the OpenSearch migrations repository](https://github.com/opensearch-project/opensearch-migrations/issues).
+- [Transform type mappings]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/handling-type-mapping-deprecation/)
+- [Transform field types]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/handling-field-type-breaking-changes/)
+- [Transform `flattened` fields to `flat_object`]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/transform-flattened-flat-object/)
+- [Transform `string` fields to `text` and `keyword`]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/transform-string-text-keyword/)
+- [Transform `dense_vector` fields to `knn_vector`]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/transform-dense-vector-knn-vector/)
 
-- [Managing type mapping deprecation]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/handling-type-mapping-deprecation/)
-- [Handling breaking changes in field types]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/handling-field-type-breaking-changes/)
+## Validate the application, not only the cluster
+
+A migration is only finished when the application behaves correctly on the target.
+
+Before cutover, plan to validate:
+
+- representative reads and writes
+- dashboards or saved searches that depend on mappings
+- aggregations or sorts that depend on exact field behavior
+- any client-side assumptions about aliases, index names, or field names
+
+If you are using custom transformations, always run a pilot first.
+
+## Platform questions matter too
+
+If you are on AWS, decide early whether you want to own the platform details yourself or let EKS handle more of them.
+
+- Use **generic Kubernetes** when you already operate your own Kubernetes platform and are comfortable wiring AWS identity, images, storage, and observability yourself.
+- Use **Amazon EKS** when you want the recommended AWS production path with bootstrap automation, pod identity, snapshot helpers, and CloudWatch integration.
+
+## Recommended next step
+
+After assessment, the next best step is to choose the deployment path and then build a small pilot workflow.
 
 {% include migration-phase-navigation.html %}
