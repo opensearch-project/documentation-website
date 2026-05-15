@@ -268,4 +268,4 @@ Collect:
 - source and target version numbers
 - exact authentication mode in use
 
-If you open a GitHub issue, include whether you are running on generic Kubernetes or EKS, because that changes the likely root cause for identity and platform issues.
+If you [open a GitHub issue](https://github.com/opensearch-project/opensearch-migrations/issues), include whether you are running on generic Kubernetes or EKS, because that changes the likely root cause for identity and platform issues.
