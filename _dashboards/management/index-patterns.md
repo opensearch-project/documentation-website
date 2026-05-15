@@ -7,9 +7,12 @@ nav_order: 10
 
 # Index patterns
 
-Index patterns are essential for accessing OpenSearch data. An _index pattern_ references one or more indexes, data streams, or index aliases. For example, an index pattern can point you to your log data from yesterday or all indexes that contain that data. 
+Index patterns are essential for accessing OpenSearch data. An _index pattern_ references one or more indexes, data streams, or index aliases. For example, an index pattern can point you to your log data from yesterday or all indexes that contain that data.
 
-If you store data in multiple indexes, creating an index pattern enables your visualizations to retrieve data from all indexes that match the index pattern. You need to create index patterns to define how data is retrieved and fields are formatted so that you can query, search, and display data. 
+If you store data in multiple indexes, creating an index pattern enables your visualizations to retrieve data from all indexes that match the index pattern. You need to create index patterns to define how data is retrieved and fields are formatted so that you can query, search, and display data.
+
+Index patterns and aliases seem similar in that they both provide a way to reference multiple indexes. However, they serve different purposes. Index patterns reference indexes, as well as data streams _and_ aliases, in order to perform searches and other data operations. Aliases exist to enable index management. See [Aliases]({{site.url}}{{site.baseurl}}/im-plugin/aliases/index/).
+{: .important}
 
 
 

@@ -722,7 +722,7 @@ We strongly recommend against restoring `.opendistro_security` using an admin ce
 
 ## Index codec considerations
 
-For index codec considerations, see [Index codecs]({{site.url}}{{site.baseurl}}/im-plugin/index-codecs/#snapshots).
+For index codec considerations, see [Index codecs]({{site.url}}{{site.baseurl}}/im-plugin/index-other/index-codecs/#snapshots).
 
 ## Related documentation
 

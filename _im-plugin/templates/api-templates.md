@@ -1,7 +1,8 @@
 ---
 layout: default
-title: Index templates
-nav_order: 2
+title: Templates API
+parent: Index templates
+nav_order: 30
 redirect_from:
   - /opensearch/index-templates/
 ---
@@ -10,7 +11,7 @@ redirect_from:
 
 Index templates let you initialize new indexes with predefined mappings and settings. For example, if you continuously index log data, you can define an index template so that all of these indexes have the same number of shards and replicas.
 
-### Create a template
+## Create a template
 
 To create an index template, use a PUT or POST request:
 
@@ -102,7 +103,7 @@ Any additional indexes that match this pattern---`logs-2020-01-02`, `logs-2020-0
 
 Index patterns cannot contain any of the following characters: `:`, `"`, `+`, `/`, `\`, `|`, `?`, `#`, `>`, and `<`.
 
-### Retrieve a template
+## Retrieve a template
 
 To list all index templates:
 
@@ -129,13 +130,13 @@ To check if a specific template exists:
 HEAD _index_template/{name}
 ```
 
-### Configure multiple templates
+## Configure multiple templates
 
 You can create multiple index templates for your indexes. If the index name matches more than one template, OpenSearch takes the mappings and settings from the template with the highest priority and applies it to the index.
 
 For example, say you have the following two templates that both match the `logs-2020-01-02` index and there’s a conflict in the `number_of_shards` field:
 
-#### Template 1
+### Template 1
 
 ```json
 PUT _index_template/template-01
@@ -153,7 +154,7 @@ PUT _index_template/template-01
 }
 ```
 
-#### Template 2
+### Template 2
 
 ```json
 PUT _index_template/template-02
@@ -172,7 +173,7 @@ PUT _index_template/template-02
 
 Because `template-02` has a higher `priority` value, it takes precedence over `template-01` . The `logs-2020-01-02` index would have the `number_of_shards` value as 3 and the `number_of_replicas` as the default value 1.
 
-### Delete a template
+## Delete a template
 
 You can delete an index template using its name:
 
@@ -180,7 +181,7 @@ You can delete an index template using its name:
 DELETE _index_template/daily_logs
 ```
 
-## Composable index templates
+# Composable index templates
 
 Managing multiple index templates has the following challenges:
 
@@ -194,11 +195,11 @@ You can combine component templates to compose an index template.
 Settings and mappings that you specify directly in the [create index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/) request override any settings or mappings specified in an index template and its component templates.
 {: .note }
 
-### Create a component template
+## Create a component template
 
 Let's define two component templates⁠---`component_template_1` and `component_template_2`:
 
-#### Component template 1
+### Component template 1
 
 ```json
 PUT _component_template/component_template_1
@@ -215,7 +216,7 @@ PUT _component_template/component_template_1
 }
 ```
 
-#### Component template 2
+### Component template 2
 
 ```json
 PUT _component_template/component_template_2
@@ -232,7 +233,7 @@ PUT _component_template/component_template_2
 }
 ```
 
-### Use component templates to create an index template
+## Use component templates to create an index template
 
 When creating index templates, you need to include the component templates in a `composed_of` list.
 
@@ -283,7 +284,7 @@ PUT logs-2020-01-01
 GET logs-2020-01-01
 ```
 
-#### Example response
+### Example response
 
 ```json
 {
@@ -325,7 +326,7 @@ GET logs-2020-01-01
 ```
 
 
-## Index template options
+# Index template options
 
 You can specify the following template options:
 

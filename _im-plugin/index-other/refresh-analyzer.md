@@ -1,7 +1,9 @@
 ---
 layout: default
 title: Refresh search analyzer
-nav_order: 35
+parent: Other components
+grand_parent: Managing indexes
+nav_order: 20
 has_toc: false
 redirect_from: 
   - /query-dsl/analyzers/refresh-analyzer/

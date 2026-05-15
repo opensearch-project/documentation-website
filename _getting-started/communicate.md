@@ -7,7 +7,11 @@ description: "Learn how to communicate with OpenSearch using the REST API to ind
 
 # Communicate with OpenSearch
 
-You can communicate with OpenSearch using the REST API or one of the OpenSearch language clients. This page introduces the OpenSearch REST API. If you need to communicate with OpenSearch in your programming language, see the [Clients]({{site.url}}{{site.baseurl}}/clients/) section for a list of available clients.
+You can communicate with OpenSearch using the REST API, one of the OpenSearch language clients, or the OpenSearch Dashboards web interface. This page introduces the OpenSearch REST API. 
+
+To communicate with OpenSearch in your programming language, see the [Clients]({{site.url}}{{site.baseurl}}/clients/) section for a list of available clients.
+
+To use the OpenSearch Dashboards web interface, see [OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/).
 
 ## OpenSearch REST API
 
@@ -101,7 +105,9 @@ PUT /students/_doc/1
 
 Once you send the preceding request, OpenSearch creates an index called `students` and stores the ingested document in the index. If you don't provide an ID for your document, OpenSearch generates a document ID. In the preceding request, the document ID is specified as the student ID (`1`).
 
-To learn more about indexing, see [Managing indexes]({{site.url}}{{site.baseurl}}/im-plugin/).
+To learn more about how to index documents, see [Ingest your data into OpenSearch]({{site.url}}{{site.baseurl}}/getting-started/ingest-data/).
+
+To learn how to manage indexes, see [Managing indexes]({{site.url}}{{site.baseurl}}/im-plugin/).
 
 ## Dynamic mapping
 

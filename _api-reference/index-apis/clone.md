@@ -136,7 +136,7 @@ Field | Data type | Description
 `settings` | Object | Configuration options for the target index. For a list of index settings, see [Index settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/). Optional.
 `settings.index.number_of_shards` | Integer | The number of primary shards in the target index. This value must equal the number of primary shards in the source index. Optional. Default is the same as the source index.
 `settings.index.number_of_replicas` | Integer | The number of replica shards for each primary shard in the target index. Optional. Default is the same as the source index.
-`aliases` | Object | Index aliases to apply to the target index. Each key is an alias name, and the value is an alias configuration object. For more information, see [Index aliases]({{site.url}}{{site.baseurl}}/im-plugin/index-alias/). Optional.
+`aliases` | Object | Index aliases to apply to the target index. Each key is an alias name, and the value is an alias configuration object. For more information, see [Index aliases]({{site.url}}{{site.baseurl}}/im-plugin/aliases/index/). Optional.
 
 **Note**: You cannot specify mappings in the clone request. The mappings from the source index are automatically used for the target index.
 {: .note}

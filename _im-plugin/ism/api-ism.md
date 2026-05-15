@@ -2,10 +2,10 @@
 layout: default
 title: ISM API
 parent: Index State Management
-nav_order: 20
+nav_order: 40
 ---
 
-# ISM API
+# Index state management with the API
 
 Use the index state management operations to programmatically work with policies and managed indexes.
 
@@ -177,7 +177,7 @@ Don't use the broad `*` wildcard, and instead add a prefix, such as `my-logs*`, 
 
 Updates a policy. Use the `seq_no` and `primary_term` parameters to update an existing policy. If these numbers don't match the existing policy or the policy doesn't exist, ISM throws an error.
 
-It's possible that the policy currently applied to your index isn't the most up-to-date policy available. To see what policy is currently applied to your index, see [Explain index]({{site.url}}{{site.baseurl}}/im-plugin/ism/api/#explain-index). To get the most up-to-date version of a policy, see [Get policy]({{site.url}}{{site.baseurl}}/im-plugin/ism/api/#get-policy).
+It's possible that the policy currently applied to your index isn't the most up-to-date policy available. To see what policy is currently applied to your index, see [Explain index]({{site.url}}{{site.baseurl}}/im-plugin/ism/api-ism/#explain-index). To get the most up-to-date version of a policy, see [Get policy]({{site.url}}{{site.baseurl}}/im-plugin/ism/api-ism/#get-policy).
 
 #### Example request
 
@@ -624,7 +624,7 @@ GET _plugins/_ism/explain/index_1
 }
 ```
 
-Optionally, you can add the `show_policy` parameter to your request's path to get the policy that is currently applied to your index, which is useful for seeing whether the policy applied to your index is the latest one. To get the most up-to-date policy, see [Get Policy API]({{site.url}}{{site.baseurl}}/im-plugin/ism/api/#get-policy).
+Optionally, you can add the `show_policy` parameter to your request's path to get the policy that is currently applied to your index, which is useful for seeing whether the policy applied to your index is the latest one. To get the most up-to-date policy, see [Get Policy API]({{site.url}}{{site.baseurl}}/im-plugin/ism/api-ism/#get-policy).
 
 #### Example request
 

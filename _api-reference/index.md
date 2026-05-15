@@ -48,8 +48,8 @@ OpenSearch supports the following REST APIs:
 - [Count]({{site.url}}{{site.baseurl}}/api-reference/count/)
 - [Cross-cluster replication API]({{site.url}}{{site.baseurl}}/tuning-your-cluster/replication-plugin/api/)
 - [Explain]({{site.url}}{{site.baseurl}}/api-reference/explain/)
-- [Index rollups API]({{site.url}}{{site.baseurl}}/im-plugin/index-rollups/rollup-api/)
-- [Index state management API]({{site.url}}{{site.baseurl}}/im-plugin/ism/api/)
+- [Index rollups API]({{site.url}}{{site.baseurl}}/im-plugin/index-rollups/api-rollup/)
+- [Index state management API]({{site.url}}{{site.baseurl}}/im-plugin/ism/api-ism/)
 - [ISM error prevention API]({{site.url}}{{site.baseurl}}/im-plugin/ism/error-prevention/api/)
 - [Job Scheduler APIs]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/job-scheduler/index/#job-scheduler-apis)
 - [Vector search API]({{site.url}}{{site.baseurl}}/vector-search/api/)
@@ -59,7 +59,7 @@ OpenSearch supports the following REST APIs:
 - [Performance Analyzer API]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/pa/api/)
 - [Point in Time API]({{site.url}}{{site.baseurl}}/search-plugins/point-in-time-api/)
 - [Ranking evaluation]({{site.url}}{{site.baseurl}}/api-reference/rank-eval/)
-- [Refresh search analyzer]({{site.url}}{{site.baseurl}}/im-plugin/refresh-analyzer/)
+- [Refresh search analyzer]({{site.url}}{{site.baseurl}}/im-plugin/index-other/refresh-analyzer/)
 - [Remote cluster information]({{site.url}}{{site.baseurl}}/api-reference/remote-info/)
 - [Root cause analysis API]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/pa/rca/api/)
 - [Snapshot management API]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/sm-api/)
@@ -69,7 +69,7 @@ OpenSearch supports the following REST APIs:
 - [Security Analytics APIs]({{site.url}}{{site.baseurl}}/security-analytics/api-tools/index/)
 - [Stats API]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/stats-api/)
 - [Tasks]({{site.url}}{{site.baseurl}}/api-reference/tasks/)
-- [Transforms API]({{site.url}}{{site.baseurl}}/im-plugin/index-transforms/transforms-apis/)
+- [Transforms API]({{site.url}}{{site.baseurl}}/im-plugin/index-transforms/api-transform/)
 - [Hot reload TLS certificates]({{site.url}}{{site.baseurl}}/security/configuration/tls/#hot-reloading-tls-certificates)
 
 ## gRPC APIs

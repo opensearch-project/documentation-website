@@ -121,7 +121,7 @@ The following table lists the available request body fields. All fields are opti
 
 ## Index codec considerations
 
-For index codec considerations, see [Index codecs]({{site.url}}{{site.baseurl}}/im-plugin/index-codecs/#splits-and-shrinks).
+For index codec considerations, see [Index codecs]({{site.url}}{{site.baseurl}}/im-plugin/index-other/index-codecs/#splits-and-shrinks).
 
 ## Example: Splitting an index
 
