@@ -67,7 +67,7 @@ Parameter | Type | Description
 `_source` | String or Boolean | Controls the `_source` field provided in the response. Valid values are `true` (return the document source), `false` (do not return the document source) and `<string>` (the field or fields in the source to return, provided as a list or wildcard pattern). Examples: `GET test-index/_search?_source=false&size=1`, `GET test-index/_search?_source=titl*&size=1`, `GET test-index/_search?_source=title,description&size=1`. |
 `_source_excludes` | List | A comma-separated list of source fields to exclude from the response. If the `_source` parameter is `false`, this parameter is ignored. Example: `GET test-index/_search?_source_excludes=title&size=1`. |
 `_source_includes` | List | A comma-separated list of source fields to include in the response. If the `_source` parameter is `false`, this parameter is ignored. Example: `GET test-index/_search?_source_includes=title&size=1`. |
-`stats` | String | A value to associate with the request for additional logging. Example: `GET test-index/_search?stats=doc`. |
+`stats` | String | A comma-separated list of [search stats groups](#search-stats-groups) to associate with the request. Example: `GET test-index/_search?stats=group1`. |
 `stored_fields` | List | Whether the GET operation should retrieve fields stored in the index. Default is `false`. Example: `GET test-index-stored/_search?stored_fields=note&size=1`. |
 `terminate_after` | Integer | The maximum number of matching documents (hits) OpenSearch should process before terminating the request. Default is `0` (no maximum). Example: `GET test-index/_search?terminate_after=1&size=10`. |
 `timeout` | Time | How long the operation should wait for a response from active shards. Default is `1m` (1 minute). Example: `GET test-index/_search?timeout=10ms`. |
@@ -109,7 +109,7 @@ Field | Type | Description
 `size` | Integer | How many results to return. Default is 10.
 `sort` | Array of objects or strings | Specifies how to sort the results. Can be a field name, an object with field and sort options, or an array of these. See [Sorting results]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/sort/).
 `_source` | | Whether to include the `_source` field in the response.
-`stats` | String | Value to associate with the request for additional logging.
+`stats` | Array of strings | A list of [search stats groups](#search-stats-groups) to associate with the request.
 `suggest_field` | String | The field used for suggestions. Use with `suggest_text` and, optionally, `suggest_mode` or `suggest_size`. |
 `suggest_mode` | String | The mode to use when searching. Valid values are `always` (provide suggestions based on the terms in `suggest_text`), `popular` (provide suggestions occurring in more documents on the shard than the search term), and `missing` (provide suggestions for terms not on the shard). Requires `suggest_field` and `suggest_text`. |
 `suggest_size` | Integer | The number of suggestions to return. Requires `suggest_field` and `suggest_text`. |
@@ -117,6 +117,37 @@ Field | Type | Description
 `terminate_after` | Integer | The maximum number of matching documents (hits) OpenSearch should process before terminating the request. Default is 0.
 `timeout` | Time | How long to wait for a response. Default is no timeout.
 `version` | Boolean | Whether to include the document version in the response.
+
+### Search stats groups
+
+You can associate a search request with one or more stats groups by specifying group names in the `stats` field of the request body or as a query parameter. OpenSearch maintains per-group search statistics that you can retrieve using the [Index Stats API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/stats/#specific-search-groups).
+
+The following example associates a search request with two groups:
+
+```json
+POST /my-index/_search
+{
+  "query": {
+    "match_all": {}
+  },
+  "stats": ["group1", "group2"]
+}
+```
+{% include copy-curl.html %}
+
+To retrieve search statistics for specific groups, use the `groups` query parameter of the Index Stats API:
+
+```json
+GET /my-index/_stats/search?groups=group1,group2
+```
+{% include copy-curl.html %}
+
+To return statistics for all groups, use `_all`:
+
+```json
+GET /my-index/_stats/search?groups=_all
+```
+{% include copy-curl.html %}
 
 ## Example request
 
