@@ -321,3 +321,4 @@ Parameter | Description
 
 - Learn about [joining queries]({{site.url}}{{site.baseurl}}/query-dsl/joining/) on nested fields.
 - Learn about [retrieving inner hits]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/inner-hits/).
+- Learn about the [disable objects]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/disable-objects/) mapping parameter.
