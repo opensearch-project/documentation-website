@@ -32,10 +32,10 @@ When Migration Assistant runs on Kubernetes, users get:
 - **Repeatable execution**: the same workflow can be run again after configuration changes or environment changes.
 - **Short-lived migration workers**: backfill, replay, validation, and support components run as pods instead of as permanently managed services.
 - **Better failure handling**: Kubernetes and Argo Workflows can restart work, preserve status, and make failures visible in a consistent way.
-- **Clear separation of concerns**: the customer defines the migration, while the platform handles pod scheduling, service wiring, logs, and resource lifecycle.
+- **Clear separation of concerns**: the user defines the migration, while the platform handles pod scheduling, service wiring, logs, and resource lifecycle.
 - **Portability**: the same migration engine can run on local development clusters, self-managed Kubernetes, or Amazon EKS.
 
-This is the core philosophy behind the transition: **Migration Assistant should feel like a workflow product, not like a pile of infrastructure that the customer has to manually coordinate.**
+This is the core philosophy behind the transition: **Migration Assistant should feel like a workflow product, not like a pile of infrastructure that the user has to manually coordinate.**
 
 ## Why deploy infrastructure for a migration
 Production migrations are long-running, stateful operations — not one-shot commands. The infrastructure that Migration Assistant deploys exists to handle the realities of moving data at scale:
@@ -51,9 +51,9 @@ For small datasets where restarting from scratch is acceptable, a simpler approa
 
 ## Why Amazon EKS is the recommended AWS path
 
-If you are on AWS and want a production deployment, Amazon EKS is the path that gives customers the most value with the least platform work.
+If you are on AWS and want a production deployment, Amazon EKS is the path that gives users the most value with the least platform work.
 
-The EKS path does more than "run Kubernetes on AWS." It gives customers a ready-made operating model for Migration Assistant on AWS:
+The EKS path does more than "run Kubernetes on AWS." It gives users a ready-made operating model for Migration Assistant on AWS:
 
 - **Bootstrap automation**: deploy into a new VPC or an existing VPC with the bootstrap script.
 - **AWS identity wiring**: pod identity is set up for the service accounts that need AWS access.
@@ -62,7 +62,7 @@ The EKS path does more than "run Kubernetes on AWS." It gives customers a ready-
 - **AWS-native observability**: logs, metrics, and CloudWatch dashboards are integrated into the deployment.
 - **AWS-aware scheduling defaults**: Karpenter node pools and EBS-backed storage defaults are prewired for the platform.
 
-For AWS customers, that means less time building supporting infrastructure and more time validating the migration itself.
+For AWS users, that means less time building supporting infrastructure and more time validating the migration itself.
 
 ## When generic Kubernetes is the right choice
 
@@ -87,7 +87,7 @@ The new Migration Assistant docs are organized around this idea:
 
 That is why the new documentation emphasizes:
 
-- customer outcomes,
+- user outcomes,
 - deployment choice,
 - workflow-driven operations,
 - and path-specific playbooks.

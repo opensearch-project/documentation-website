@@ -220,7 +220,7 @@ Migration Assistant validates the workflow against a schema generated at install
 
 | Field | Description |
 |:------|:------------|
-| `sourceClusters.<name>.version` | Must match the regex `^SOLR [89](\.[0-9]+)+$` — for example `SOLR 8.11.4` or `SOLR 9.7.0`. |
+| `sourceClusters.<name>.version` | Must match the regex `^SOLR [6-9](\.[0-9]+)+$` — for example `SOLR 6.6.6`, `SOLR 7.7.3`, `SOLR 8.11.4`, or `SOLR 9.7.0`. |
 | `sourceClusters.<name>.snapshotInfo.repos.<repoName>.s3RepoPathUri` | Full S3 URI: `s3://bucket` or `s3://bucket/subpath`. The bucket must match `s3.bucket.name` in `solr.xml`. The subpath is passed as the `location` parameter to Solr's `BACKUP` API. |
 | `sourceClusters.<name>.snapshotInfo.snapshots.<snapshotName>.repoName` | Must match the repository `name` attribute in `solr.xml`. |
 | `targetClusters.<name>.authConfig.sigv4.service` | `es` for Amazon OpenSearch Service, `aoss` for OpenSearch Serverless. |

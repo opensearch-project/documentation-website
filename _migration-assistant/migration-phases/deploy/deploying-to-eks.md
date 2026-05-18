@@ -9,7 +9,7 @@ permalink: /migration-assistant/migration-phases/deploy/deploying-to-eks/
 
 # Deploy on Amazon EKS
 
-This is the recommended production path for AWS customers. You get the same Migration Assistant engine and workflows as generic Kubernetes, but the EKS tooling removes much of the AWS platform work that otherwise slows migrations down.
+This is the recommended production path for AWS users. You get the same Migration Assistant engine and workflows as generic Kubernetes, but the EKS tooling removes much of the AWS platform work that otherwise slows migrations down.
 
 In practice, EKS is not about changing how migrations run. It is about making the migration **easier to deploy, easier to secure, and easier to operate**.
 
@@ -104,7 +104,7 @@ This step shows how to deploy Migration Assistant into either a new VPC or an ex
 ```
 {% include copy.html %}
 
-Pinning a version makes the deployment reproducible. Customers and CI runs that need to deploy the same artifacts again should always pass `--version`.
+Pinning a version makes the deployment reproducible. Users and CI runs that need to deploy the same artifacts again should always pass `--version`.
 {: .note }
 
 ### Existing VPC
@@ -179,7 +179,7 @@ Basic auth works the same way as generic Kubernetes: create Kubernetes secrets a
 
 ### Authenticate with AWS Signature Version 4
 
-This is where EKS changes the customer experience the most.
+This is where EKS changes the user experience the most.
 
 For AWS Signature Version 4-authenticated sources or targets, the EKS stack uses [IAM Roles for Service Accounts (IRSA)](https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html) to give two sets of pods an AWS identity:
 

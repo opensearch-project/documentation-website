@@ -35,7 +35,7 @@ items:
 
 Migration Assistant is the Kubernetes-native migration platform for moving data, metadata, and live traffic from Elasticsearch, OpenSearch, and Apache Solr to OpenSearch.
 
-The key change from the classic Migration Assistant is the operating model:
+The Migration Assistant operating model is:
 
 - You define the migration in workflow configuration.
 - Migration Assistant runs the work on Kubernetes.
@@ -43,9 +43,11 @@ The key change from the classic Migration Assistant is the operating model:
 
 Migration Assistant runs on any Kubernetes distribution, but **Amazon EKS is the recommended production path on AWS** because it supplies the AWS identity, image, snapshot, and observability integrations that users typically need for a real migration.
 
+If you used the older ECS/CDK-based Migration Assistant, see [What changed from the classic version](#what-changed-from-the-classic-version) below.
+
 ## What users get
 
-- **One migration model** for backfill-only migrations (snapshot-based, planned downtime) and zero-downtime migrations (with live traffic Capture and Replay).
+- **One migration model** for snapshot-based migrations with planned downtime (called *backfill-only*) and zero-downtime migrations that use live-traffic Capture and Replay.
 - **Repeatable workflows** instead of one-off infrastructure choreography.
 - **Low source-cluster impact** through snapshot-based backfill with [Reindex-from-Snapshot (RFS)]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/backfill/).
 - **Operational checkpoints** through approval gates, logs, status views, and validation steps.
@@ -55,11 +57,22 @@ Migration Assistant runs on any Kubernetes distribution, but **Amazon EKS is the
 
 1. [Decide whether Migration Assistant is the right tool]({{site.url}}{{site.baseurl}}/migration-assistant/is-migration-assistant-right-for-you/).
 2. [Understand why the product moved to Kubernetes and why EKS is recommended on AWS]({{site.url}}{{site.baseurl}}/migration-assistant/why-kubernetes-and-eks/).
-3. [Choose your deployment path]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/).
-4. [Learn how a migration runs]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/).
-5. [Use the Workflow CLI]({{site.url}}{{site.baseurl}}/migration-assistant/workflow-cli/) and then [pick a playbook]({{site.url}}{{site.baseurl}}/migration-assistant/playbooks/).
+3. [Assess your migration]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/assessment/) — review breaking changes, downtime constraints, and required transformations.
+4. [Choose your deployment path]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/).
+5. [Learn how a migration runs]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/).
+6. [Use the Workflow CLI]({{site.url}}{{site.baseurl}}/migration-assistant/workflow-cli/) and then [pick a playbook]({{site.url}}{{site.baseurl}}/migration-assistant/playbooks/).
 
 Looking for the older ECS deployment model? See the [classic Migration Assistant documentation]({{site.url}}{{site.baseurl}}/classic/migration-assistant/).
 {: .note }
+
+## What changed from the classic version
+
+If you previously used the ECS/CDK-based Migration Assistant, the operating model is different in this version:
+
+- The migration is defined in workflow configuration instead of long-lived infrastructure stacks.
+- Migration Assistant runs the work on Kubernetes (Amazon EKS is the recommended AWS path).
+- Day-to-day operations happen through the Migration Console and Workflow CLI rather than through ad-hoc scripts.
+
+For background on the rationale, see [Why Kubernetes and EKS]({{site.url}}{{site.baseurl}}/migration-assistant/why-kubernetes-and-eks/).
 
 {% include list.html list_items=page.items %}

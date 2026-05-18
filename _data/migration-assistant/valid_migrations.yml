@@ -33,7 +33,19 @@ migration_paths:
     targets:
       - "OpenSearch 2.x"
       - "OpenSearch 3.x"
+  - source: "Apache Solr 6.x"
+    targets:
+      - "OpenSearch 3.x"
+    backfill_only: true
+  - source: "Apache Solr 7.x"
+    targets:
+      - "OpenSearch 3.x"
+    backfill_only: true
   - source: "Apache Solr 8.x"
+    targets:
+      - "OpenSearch 3.x"
+    backfill_only: true
+  - source: "Apache Solr 9.x"
     targets:
       - "OpenSearch 3.x"
     backfill_only: true

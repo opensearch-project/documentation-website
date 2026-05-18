@@ -108,7 +108,33 @@ workflow output --follow
 
 ## What to approve
 
-If approvals are enabled, expect manual checkpoints around metadata and backfill transitions. Approve only after you have checked the logs or validation output you care about.
+If approvals are enabled, the workflow pauses at meaningful checkpoints so you can validate before continuing. Typical gates include:
+
+- **After `evaluateMetadata`** — Migration Assistant has computed what mappings, templates, and settings it would apply. Review the evaluator output and decide whether the planned changes are safe before letting `migrateMetadata` write them to the target.
+- **After `migrateMetadata`** — Metadata has been written to the target. Inspect the target with the commands below before backfill writes documents.
+- **Before document backfill starts** — Last chance to verify counts, allowlists, and target capacity before RFS pods start indexing.
+- **After RFS completes** — Compare source and target document counts and spot-check a few queries before unblocking the rest of the workflow (cutover, replay, or teardown).
+
+Things to check while a gate is open:
+
+```bash
+# What did metadata migration write?
+console clusters curl target /_cat/indexes?v
+console clusters curl target /_cat/templates?v
+console clusters curl target /_cat/aliases?v
+console clusters curl target /<index>/_mapping
+
+# How is RFS progressing?
+workflow status --live-status
+workflow output --follow
+
+# Does a sample of the target look right?
+console clusters curl target /<index>/_count
+console clusters curl target /<index>/_search?size=5&pretty
+```
+{% include copy.html %}
+
+The easiest way to drive approvals is interactively from `workflow manage` — the TUI shows pending gates next to their step output and lets you approve them in place without typing step names. The CLI form is below for scripts and CI:
 
 ```bash
 workflow approve <STEP_NAME>
