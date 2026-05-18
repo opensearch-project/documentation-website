@@ -246,3 +246,7 @@ PUT /test-index/
 {% include copy-curl.html %}
 
 Because `issue.number` is not part of the flat object, you can use it to aggregate and sort documents.
+
+## Related documentation
+
+- [Disable objects]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/disable-objects/)
