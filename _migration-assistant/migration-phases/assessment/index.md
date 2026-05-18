@@ -13,14 +13,20 @@ redirect_from:
 
 # Assessment
 
-Assessment is where you decide whether your migration should be simple, staged, or zero-downtime. The goal is not to memorize every breaking change. The goal is to identify the issues that will affect your workflow configuration, your cutover plan, and your application behavior before you start moving data.
+Assessment is where you decide whether your migration should be **simple**, **staged**, or **zero-downtime**. The goal is not to memorize every breaking change. The goal is to identify the issues that will affect your workflow configuration, your cutover plan, and your application behavior before you start moving data.
+
+The three migration shapes look like this:
+
+- **Simple** — One snapshot-based backfill from source to target. You can plan a write pause, you only need to migrate document data and basic metadata, and there are no breaking changes that require transformations. Lowest operational complexity.
+- **Staged** — Multi-phase migration where you migrate metadata first, validate, then run backfill, and possibly migrate components in batches. Use this when you have many indexes, complex mappings, or breaking changes that need transformations or pilot validation.
+- **Zero-downtime** — Capture and Replay alongside backfill. Live writes are captured from the source through a proxy, buffered in Kafka, and replayed against the target after backfill catches up. Use this only when planned downtime is not acceptable.
 
 ## What to answer before you migrate
 
 Make sure you can answer these questions first:
 
 - Is your source and target path supported?
-- Do you need planned downtime, or do you need Capture and Replay?
+- Can you accept planned downtime, or do you need Capture and Replay?
 - Can the source create snapshots, and can Migration Assistant read them?
 - What authentication model will be used for source and target?
 - Are there mapping or field transformations you already know you need?
@@ -28,7 +34,7 @@ Make sure you can answer these questions first:
 
 ## Use the breaking changes tool first
 
-Before you build the workflow, review the breaking changes for your source and target versions. Use the selector that follows.to narrow the changes that matter for your migration path.
+Before you build the workflow, review the breaking changes for your source and target versions. Use the selector that follows to narrow the changes that matter for your migration path.
 
 <link rel="stylesheet" href="{{site.url}}{{site.baseurl}}/migration-assistant/assets/css/breaking-changes-selector.css">
 

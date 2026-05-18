@@ -61,7 +61,7 @@ Useful metadata settings include:
 - `allowLooseVersionMatching`
 - `transformerConfig*`
 
-Use the version-matched sample from your console to see the exact structure for your installed release:
+Use the version-matched sample from your console to see the exact structure for your installed release. (*Version-matched* means the schema corresponds to the Migration Assistant version actually installed in your console pod — `workflow configure sample --load` reads the schema from `/root/.workflowUser.schema.json` on that pod, so the loaded sample always has the fields that release supports.)
 
 ```bash
 workflow configure sample --load

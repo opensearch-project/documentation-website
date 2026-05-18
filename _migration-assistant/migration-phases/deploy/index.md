@@ -17,6 +17,7 @@ redirect_from:
 Migration Assistant always runs on Kubernetes. The real decision is **how much of the surrounding platform you want the tooling to prepare for you**.
 
 ## Which path should you choose
+
 | Path | Best when | What you get |
 |:-----|:----------|:-------------|
 | [Deploy on Kubernetes]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-kubernetes/) | You already operate a Kubernetes platform, you are not on AWS, or you are evaluating locally | The core Migration Assistant engine and workflow model, with you supplying the platform integrations |
@@ -39,7 +40,7 @@ Source and target cluster configuration is handled dynamically through the Workf
 
 ## Why EKS is recommended on AWS
 
-For AWS customers, EKS is the recommended path because it removes a large amount of non-migration work:
+For AWS users, EKS is the recommended path because it removes a large amount of non-migration work:
 
 - cluster and VPC bootstrap,
 - pod identity for AWS API access,
@@ -48,7 +49,7 @@ For AWS customers, EKS is the recommended path because it removes a large amount
 - CloudWatch dashboards and logging,
 - and AWS-aware storage and node-pool defaults.
 
-That lets customers spend more time validating the migration and less time building the platform around it.
+That lets users spend more time validating the migration and less time building the platform around it.
 
 ## Prerequisites
 

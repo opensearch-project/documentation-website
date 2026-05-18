@@ -26,6 +26,9 @@ kubectl exec -it migration-console-0 -n ma -- /bin/bash
 ```
 {% include copy.html %}
 
+`ma` is the default Migration Assistant namespace used by the Helm chart and the bootstrap script. If you installed Migration Assistant into a different namespace (`--namespace <name>` on the bootstrap script, or `helm install -n <name>`), substitute that name everywhere this guide uses `-n ma`.
+{: .note }
+
 If you are using EKS from a new shell, refresh your kubeconfig first:
 
 ```bash
@@ -49,7 +52,7 @@ workflow configure sample --load
 ```
 {% include copy.html %}
 
-This gives you the safest starting point for your current version.
+This is the safest starting point for your current version. `sample --load` reads the workflow schema for the Migration Assistant release installed in your console pod (`/root/.workflowUser.schema.json`) and writes a starter configuration that already has the right field shape for that release. Treat it as your initial config — you'll fill in real values in the next step.
 
 ## Step 4: Edit the workflow configuration
 

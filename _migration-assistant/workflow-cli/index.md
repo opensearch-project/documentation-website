@@ -11,11 +11,11 @@ permalink: /migration-assistant/workflow-cli/
 
 The Workflow CLI is the operator interface for Migration Assistant. It gives you a simple, repeatable way to run migrations without manually stitching together individual infrastructure commands.
 
-Argo Workflows is the control plane under the hood. The Workflow CLI is the part you interact with.
+Under the hood, Migration Assistant runs each migration as an [Argo Workflows](https://argo-workflows.readthedocs.io/en/latest/) job — Argo is a Kubernetes-native workflow engine that schedules each step (snapshot, metadata migration, backfill, replay, validation) as a pod and tracks its status. You don't need to know Argo to operate Migration Assistant; the Workflow CLI is the layer you actually interact with.
 
 ## Why this model exists
 
-Migration Assistant is designed around a Kubernetes and Argo workflow philosophy:
+Migration Assistant is designed around a Kubernetes and workflow-based philosophy:
 
 - describe the migration once instead of typing one-off commands
 - let the platform orchestrate long-running steps
@@ -52,8 +52,8 @@ The `console` CLI groups operations by component. The `workflow` CLI orchestrate
 |:--------|:---------------|
 | `console --version` | Confirms which schema and behavior your console is running |
 | `console clusters connection-check` | Verifies the console can reach and authenticate to source and target clusters |
-| `console clusters connection-check --cluster source\|target\|proxy` | Restricts the check to one cluster |
-| `console clusters cat-indexes [--refresh] [--cluster source\|target\|proxy]` | Lists indexes on one or both clusters |
+| `console clusters connection-check --cluster source&#124;target&#124;proxy` | Restricts the check to one cluster |
+| `console clusters cat-indexes [--refresh] [--cluster source&#124;target&#124;proxy]` | Lists indexes on one or both clusters |
 | `console clusters curl source /_cat/indexes?v` | Issues a direct API request against the named cluster (path is positional) |
 | `console clusters curl target /_search -X POST --json '{"query":{"match_all":{}}}'` | POST with a JSON body |
 | `console clusters clear-indexes --cluster target --acknowledge-risk` | **Destructive** — deletes all indexes on the named cluster |
@@ -97,7 +97,7 @@ The `console` CLI groups operations by component. The `workflow` CLI orchestrate
 
 ## Use the workflow manage command as the primary interface
 
-Use `workflow manage` whenever possible. It is the easiest way to understand what the workflow is doing.
+`workflow manage` is a **terminal user interface (TUI)** — a full-screen interactive console that runs in your shell. Use it whenever possible. It is the easiest way to understand what the workflow is doing.
 
 It lets you:
 
