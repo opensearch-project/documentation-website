@@ -4,9 +4,6 @@ on:
     types:
       - closed
 
-permissions:
-  contents: write
-
 jobs:
   delete-branch:
     runs-on: ubuntu-latest

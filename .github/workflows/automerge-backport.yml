@@ -8,9 +8,6 @@ on:
     types:
       - completed
   status: {}
-permissions:
-  contents: write
-  pull-requests: write
 
 jobs:
   automerge-backport:
