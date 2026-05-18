@@ -71,7 +71,7 @@ Parameter | Data type | Description
 `completion_fields` | String | A comma-separated list or wildcard expression specifying fields to include in field-level `completion` statistics.
 `fielddata_fields` | String | A comma-separated list or wildcard expression specifying fields to include in field-level `fielddata` statistics.
 `forbid_closed_indices` | Boolean | Specifies not to collect statistics for closed indexes. Default is `true`.
-`groups` | String | A comma-separated list of search groups to include in the `search` statistics.
+`groups` | String | A comma-separated list of search groups to include in the `search` statistics. Search groups are custom labels assigned to search requests using the `stats` parameter of the [Search API]({{site.url}}{{site.baseurl}}/api-reference/search-apis/search/#search-stats-groups). Use `_all` to return statistics for all groups.
 `level` | String | Specifies the level used to aggregate statistics. Valid values are: <br> - `cluster`: Cluster-level statistics. <br> - `indices`: Index-level statistics. <br> - `shards`: Shard-level statistics. <br> Default is `indices`.
 `include_segment_file_sizes` | Boolean | Specifies whether to report the aggregated disk usage of each Lucene index file. Only applies to `segments` statistics. Default is `false`.
 `include_unloaded_segments` | Boolean | Specifies whether to include information from segments that are not loaded into memory. Default is `false`.
