@@ -84,7 +84,7 @@ To create a vertical bar visualization, follow these steps:
 
    As shown in the following image, the chart shows the average delay for each weather type at the flight origin. The greatest average delay was for `Damaging Wind`.
 
-      <img src="{{site.url}}{{site.baseurl}}/images/dashboards/example-bar-chart-flight-delay.png" width="85%"  alt="Aggregation-based area chart"/>
+      <img src="{{site.url}}{{site.baseurl}}/images/dashboards/example-bar-chart-flight-delay.png" width="85%"  alt="Example bar chart"/>
 
 
 1. Save the visualization as described in [Saving a data visualization]({{site.url}}{{site.baseurl}}/dashboards/visualize/saving-a-viz/).
@@ -145,7 +145,7 @@ To create the area chart, follow these steps:
 
    The visualization shows the counts of cancelled and uncancelled flights superimposed on the timeline as show in the following image.
 
-   <img src="{{site.url}}{{site.baseurl}}/images/dashboards/example-area-normal-count.png" width="85%"  alt="Aggregation-based area chart"/>
+   <img src="{{site.url}}{{site.baseurl}}/images/dashboards/example-area-normal-count.png" width="85%"  alt="Example superimposed area chart"/>
 
    Note the following:
 
@@ -162,7 +162,7 @@ To create the area chart, follow these steps:
 
    The visualization changes to show the cancelled and uncancelled flight counts stacked rather than superimposed, as shown in the following image.
 
-   <img src="{{site.url}}{{site.baseurl}}/images/dashboards/example-area-stacked-count.png" width="85%"  alt="Aggregation-based area chart"/>
+   <img src="{{site.url}}{{site.baseurl}}/images/dashboards/example-area-stacked-count.png" width="85%"  alt="Example stacked area chart"/>
 
 1. Save the visualization as described in [Saving a data visualization]({{site.url}}{{site.baseurl}}/dashboards/visualize/saving-a-viz/).
 
@@ -237,7 +237,7 @@ To create a heat map, follow these steps:
 
    The visualization shows average flight delay mapped to origin and destination weather combinations as shown in the following image.
 
-   <img src="{{site.url}}{{site.baseurl}}/images/dashboards/example-heatmap-flight-delay.png" width="85%"  alt="Aggregation-based area chart"/>
+   <img src="{{site.url}}{{site.baseurl}}/images/dashboards/example-heatmap-flight-delay.png" width="85%"  alt="Flight delay heat map"/>
 
    Note the following:
 
@@ -344,7 +344,7 @@ To create the line graph, follow these steps:
 
    The average ticket price is displayed per weekday value in seven different lines as shown in the following image. The average ticket price for weekday value keys 5 and 6 are significantly higher across most flight distances. Unfortunately, the data does not provide a key as to which two weekdays these are.
 
-      <img src="{{site.url}}{{site.baseurl}}/images/dashboards/example-line-cost-vs-distance.png" width="85%"  alt="Aggregation-based area chart"/>
+      <img src="{{site.url}}{{site.baseurl}}/images/dashboards/example-line-cost-vs-distance.png" width="85%"  alt="Cost vs. distance line graph"/>
 
 1. Save the visualization as described in [Saving a data visualization]({{site.url}}{{site.baseurl}}/dashboards/visualize/saving-a-viz/).
 

@@ -146,7 +146,7 @@ Multi-dimensional visualizations display multiple variables of any type. Use the
 
 ### Bar charts (vertical and horizontal)
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/bar-chart-1.png" width="40%"  alt="Aggregation-based area chart"/> <img src="{{site.url}}{{site.baseurl}}/images/dashboards/bar-horizontal-1.png" width="40%"  alt="Aggregation-based area chart"/>
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/bar-chart-1.png" width="40%"  alt="Example vertical bar chart"/> <img src="{{site.url}}{{site.baseurl}}/images/dashboards/bar-horizontal-1.png" width="40%"  alt="Example h    rizontal bar chart"/>
 
 Bar charts compare values across categories, ranges, or time ranges by representing values as proportional bar lengths.
 
@@ -176,7 +176,7 @@ Line charts are the core of time-based dashboards, with other visualizations pro
 
 ### Area charts
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/area-chart-1.png" width="40%"  alt="Aggregation-based area chart"/>
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/area-chart-1.png" width="40%"  alt="Example stacked area chart"/>
 
 Area charts combine the trend-revealing capabilities of line charts with visual emphasis on volume or accumulation, making them particularly effective for showing how individual components contribute to totals over time. Chart areas can be stacked to show relative contribution or superimposed to compare absolute values.
 
@@ -260,7 +260,7 @@ Markdown visualizations provide titles, instructions, and explanations in dashbo
 
 ### Controls
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/controls-1.png" width="40%"  alt="Aggregation-based area chart"/>
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/controls-1.png" width="40%"  alt="Example control visualization"/>
 
 Controls enable you to dynamically modify the data displayed in dashboard visualizations by providing the ability to interactively filter data and adjust parameters.
 

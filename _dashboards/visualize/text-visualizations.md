@@ -106,7 +106,7 @@ To build a tag cloud visualization, follow these steps:
 
    The visualization panel displays the carriers (airlines) as shown in the following image. The relative font size of each carrier represents the relative magnitude of the metric, in this case the number of unique destinations named in the data.
 
-   <img src="{{site.url}}{{site.baseurl}}/images/dashboards/example-tagcloud-carrier-destinations.png" width="60%"  alt="Aggregation-based area chart"/>
+   <img src="{{site.url}}{{site.baseurl}}/images/dashboards/example-tagcloud-carrier-destinations.png" width="60%"  alt="Example tag cloud"/>
 
 1. Save the visualization as described in [Saving a data visualization]({{site.url}}{{site.baseurl}}/dashboards/visualize/saving-a-viz/).
 
