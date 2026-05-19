@@ -58,7 +58,6 @@ To create a vertical bar visualization, follow these steps:
 
 1. From the **Add bucket** drop-down, select **X-axis**.
 
-1. In the **Add bucket** drop-down, select **X-axis** to bucket the data by vertical column.
 
 1. In the **Aggregation** drop-down, select an aggregation type for the rows.
 
@@ -92,7 +91,7 @@ To create a vertical bar visualization, follow these steps:
 
 ## Building an area chart
 
-An area chart is a line chart with the area below the line shaded with a color. Multiple buckets can be stacked to show relative proportions of an running absolute value of the variable. Or, you can superimpose buckets or even different variables to compare within x-axis buckets or time values.
+An area chart is a line chart with the area below the line shaded with a color. Multiple buckets can be stacked to show relative proportions of a running absolute value of the variable. Or, you can superimpose buckets or even different variables to compare within x-axis buckets or time values.
 
 In this tutorial, you'll use the OpenSearch sample flight data to create a visualization of the top five logs for flights delayed for every three hours over the last seven days.
 
@@ -108,7 +107,7 @@ To create the area chart, follow these steps:
 
 1. In the **Aggregation** box, select the aggregation you want to display.
 
-   For this tutorial, select `Count`. Note that the `Count` metric there is no Field selection. This is because `Count` denotes the number of documents, not a field value.
+   For this tutorial, select `Count`. Note that for the `Count` metric there is no Field selection. This is because `Count` denotes the number of documents, not a field value.
 
 1. (Optional) To replace the raw field name in the visualization, enter an alternative name for the data field in the **Custom label** box.
 
@@ -242,12 +241,12 @@ To create a heat map, follow these steps:
 
    Note the following:
 
-   - The heat map data is organized into four quadrants, corresponding to the four combinations of "good" (Cloudy, Rain, Clear, Sunny) and "bad" (Hail, Heavy Fog, Damaging Wind, Thunder & Lightening) weather conditions at the destination and origin. This is coincidental, but the interaction pattern is pronounced enough that it's visible if you order one or both buckets differently.
-   - The longest delays occurred when the weather was good at both the origin and destination. The shortest delays occurred occurred when the weather was bad at both locations.
+   - The heat map data is organized into four quadrants, corresponding to the four combinations of "good" (Cloudy, Rain, Clear, Sunny) and "bad" (Hail, Heavy Fog, Damaging Wind, Thunder & Lightning) weather conditions at the destination and origin. This is coincidental, but the interaction pattern is pronounced enough that it's visible if you order one or both buckets differently.
+   - The longest delays occurred when the weather was good at both the origin and destination. The shortest delays occurred when the weather was bad at both locations.
 
 1. Now assume that you're interested in flight cancellations. You can limit the heat map display to only cancelled flights.
 
-   You can filter the data using the [filter tool]({{site.url}}{{site.baseurl}}/dashboards/discover/filter-tool), but if the visualization is in a dashboard this filters the data for other visualizations as well. The following procedure limits the data only for this current visualization.
+   You can filter the data using the [filter tool]({{site.url}}{{site.baseurl}}/dashboards/discover/filter-tool/), but if the visualization is in a dashboard this filters the data for other visualizations as well. The following procedure limits the data only for this current visualization.
    {: .note}
 
 1. In the Buckets panel, select Add.
@@ -319,7 +318,7 @@ To create the line graph, follow these steps:
 
 1. In the Field drop-down, select a field for the row buckets.
 
-   For this example, select the text value `DistanceKilometers`.
+   For this example, select the numeric field `DistanceKilometers`.
 
 1. Select **Update** in the lower right of the visualization tool to redraw the visualization.
 
@@ -327,7 +326,7 @@ To create the line graph, follow these steps:
 
 1. in the **Buckets** panel, select **Add**.
 
-1. In the **Add bucket** drop-down, select **Split series** to bucket the data by vertical column.
+1. In the **Add sub-buckets** drop-down, select **Split series** to create a separate line for each term.
 
 1. In the **Sub aggregation** drop-down, select an aggregation type for the rows.
 
@@ -335,7 +334,7 @@ To create the line graph, follow these steps:
 
 1. In the **Field** drop-down, select an aggregation type for the rows.
 
-   For this example, select `Day of week`.
+   For this example, select `dayOfWeek`.
 
 1. In the **Order by** box, select `Alphabetical`.
 
