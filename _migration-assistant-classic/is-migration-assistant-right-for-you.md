@@ -16,13 +16,15 @@ Migration Assistant also supports live traffic replication, enabling zero-downti
 
 The following matrix shows which source versions can be directly migrated to which OpenSearch target versions:
 
-<!-- Migration matrix rendering logic retained -->
-{% comment %}First, collect all unique target versions{% endcomment %}
+<!-- Migration matrix rendering logic — excludes Solr (not supported in classic) -->
+{% comment %}First, collect all unique target versions (excluding Solr sources){% endcomment %}
 {% assign all_targets = "" | split: "" %}
 {% for path in site.data.migration-assistant.valid_migrations.migration_paths %}
-  {% for target in path.targets %}
-    {% assign all_targets = all_targets | push: target %}
-  {% endfor %}
+  {% unless path.source contains "Solr" %}
+    {% for target in path.targets %}
+      {% assign all_targets = all_targets | push: target %}
+    {% endfor %}
+  {% endunless %}
 {% endfor %}
 {% assign unique_targets = all_targets | uniq | sort %}
 
@@ -37,6 +39,7 @@ The following matrix shows which source versions can be directly migrated to whi
   </thead>
   <tbody>
     {% for path in site.data.migration-assistant.valid_migrations.migration_paths %}
+    {% unless path.source contains "Solr" %}
     <tr>
       <th style="border: 1px solid #ddd; padding: 8px;">{{ path.source }}</th>
       {% for target_version in unique_targets %}
@@ -45,6 +48,7 @@ The following matrix shows which source versions can be directly migrated to whi
       </td>
       {% endfor %}
     </tr>
+    {% endunless %}
     {% endfor %}
   </tbody>
 </table>
