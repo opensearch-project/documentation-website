@@ -334,7 +334,7 @@ To create the line graph, follow these steps:
 
 1. In the **Field** drop-down, select an aggregation type for the rows.
 
-   For this example, select `Day of week`.
+   For this example, select `dayOfWeek`.
 
 1. In the **Order by** box, select `Alphabetical`.
 
