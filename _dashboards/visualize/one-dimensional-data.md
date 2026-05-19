@@ -174,7 +174,7 @@ To create a pie chart visualization, follow these steps:
 
 1. Select **Update** in the lower right of the visualization tool to view the pie chart in the display panel.
 
-   The gauge displays a value `12,932`, presented again as a single-value annular pie chart.
+   The pie chart displays a value `12,932`, presented again as a single-value annular pie chart.
 
 1. To visualize the composition of the field by different conditions, bucket the data.
 
