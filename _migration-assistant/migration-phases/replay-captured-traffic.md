@@ -78,7 +78,7 @@ Useful supporting commands:
 
 ```bash
 workflow status
-workflow output --follow
+workflow log all --follow
 ```
 {% include copy.html %}
 
@@ -94,7 +94,7 @@ Do not switch traffic only because the Replayer is running. Validate that:
 Useful checks:
 
 ```bash
-console clusters cat-indexes
+console clusters cat-indices
 console clusters curl target /my-index/_search --json '{"query":{"match_all":{}},"size":5}'
 ```
 {% include copy.html %}

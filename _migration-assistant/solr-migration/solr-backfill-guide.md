@@ -275,7 +275,7 @@ If a previous run is still on the cluster, `workflow submit` automatically stops
 ### Verify document counts
 
 ```bash
-console clusters cat-indexes --refresh
+console clusters cat-indices --refresh
 ```
 {% include copy.html %}
 

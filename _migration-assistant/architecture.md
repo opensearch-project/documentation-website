@@ -87,7 +87,7 @@ This section covers common error recovery symptoms and resolutions.
 
 If a workflow step fails:
 
-1. Check the error with `workflow status` and `workflow output`.
+1. Check the error with `workflow status` and `workflow log all`.
 2. Fix the underlying issue such as connectivity, permissions, or configuration.
 3. Retry or resubmit from the workflow model instead of patching pods manually.
 

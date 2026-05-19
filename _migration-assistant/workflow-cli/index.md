@@ -53,7 +53,7 @@ The `console` CLI groups operations by component. The `workflow` CLI orchestrate
 | `console --version` | Confirms which schema and behavior your console is running |
 | `console clusters connection-check` | Verifies the console can reach and authenticate to source and target clusters |
 | `console clusters connection-check --cluster source&#124;target&#124;proxy` | Restricts the check to one cluster |
-| `console clusters cat-indexes [--refresh] [--cluster source&#124;target&#124;proxy]` | Lists indexes on one or both clusters |
+| `console clusters cat-indices [--refresh] [--cluster source&#124;target&#124;proxy]` | Lists indexes on one or both clusters |
 | `console clusters curl source /_cat/indexes?v` | Issues a direct API request against the named cluster (path is positional) |
 | `console clusters curl target /_search -X POST --json '{"query":{"match_all":{}}}'` | POST with a JSON body |
 | `console clusters clear-indexes --cluster target --acknowledge-risk` | **Destructive** — deletes all indexes on the named cluster |
@@ -86,10 +86,10 @@ The `console` CLI groups operations by component. The `workflow` CLI orchestrate
 | `workflow status` | Shows the current workflow tree in a non-interactive form |
 | `workflow status --all` | Shows running and completed workflows |
 | `workflow status --live-status` | Adds live snapshot/backfill status checks per node |
-| `workflow output` | Shows logs across workflow pods (uses pod labels to find them) |
-| `workflow output --follow` | Streams logs live (uses `stern` under the hood) |
-| `workflow output -l source=src,target=tgt` | Filters by label selector |
-| `workflow approve <PATTERN> [<PATTERN> ...]` | Approves pending gates that match exact names or globs (for example `*.evaluateMetadata`) |
+| `workflow log all` | Shows logs across workflow pods (uses pod labels to find them) |
+| `workflow log all --follow` | Streams logs live (uses `stern` under the hood) |
+| `workflow log filter -l source=src,target=tgt` | Filters by label selector |
+| `workflow approve step <PATTERN> [<PATTERN> ...]` | Approves pending gates that match exact names or globs (for example `*.evaluateMetadata`) |
 | `workflow reset` | Lists migration CRDs and lets you delete them safely. Use this instead of `kubectl delete workflow ...` |
 | `workflow reset --all` | Deletes all migration CRDs (capture proxies are protected by default — add `--include-proxies` to remove them too) |
 | `workflow reset <NAME> --cascade` | Deletes a specific resource and its dependents |
@@ -114,7 +114,7 @@ Typical approval points include transitions after metadata work, backfill milest
 
 ```bash
 workflow manage
-workflow approve <STEP_NAME>
+workflow approve step <STEP_NAME>
 ```
 {% include copy.html %}
 

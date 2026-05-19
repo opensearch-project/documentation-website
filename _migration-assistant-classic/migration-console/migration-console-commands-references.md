@@ -23,12 +23,12 @@ console clusters connection-check
 ```
 {% include copy.html %}
 
-### Run `cat-indexes`
+### Run `cat-indices`
 
-Runs the `cat-indexes` API on the cluster.
+Runs the `cat-indices` API on the cluster.
 
 ```sh
-console clusters cat-indexes
+console clusters cat-indices
 ```
 {% include copy.html %}
 

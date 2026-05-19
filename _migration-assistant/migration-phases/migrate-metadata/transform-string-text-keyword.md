@@ -41,7 +41,7 @@ After metadata migration, verify the target mapping:
 
 ```bash
 console clusters curl target /your-index/_mapping
-workflow output
+workflow show
 ```
 {% include copy.html %}
 
