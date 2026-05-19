@@ -12,7 +12,7 @@ has_toc: false
 Utility visualizations don't display data, but support other data visualizations in the context of a [dashboard]({{site.url}}{{site.baseurl}}/dashboards/dashboard/). Utility visualizations include the following visualizations:
 
 **Markdown** | **Control**
-[<img src="{{site.url}}{{site.baseurl}}/images/icons/vis-markdown-icon.png" width="90" height="90" alt=" icon">](#building-a-markdown-visualization) | [<img src="{{site.url}}{{site.baseurl}}/images/icons/vis-controls-icon.png" width="90" height="90" alt=" icon">](#building-a-control-visualization)
+[<img src="{{site.url}}{{site.baseurl}}/images/icons/vis-markdown-icon.png" width="90" height="90" alt="Markdown icon">](#building-a-markdown-visualization) | [<img src="{{site.url}}{{site.baseurl}}/images/icons/vis-controls-icon.png" width="90" height="90" alt="Controls icon">](#building-a-control-visualization)
 Display static text. | One of:<br/>- **Range slider**: Define minimum and maximum values.<br/>**Options list**: Choose distinct values.
 
 Instructions for each follow.

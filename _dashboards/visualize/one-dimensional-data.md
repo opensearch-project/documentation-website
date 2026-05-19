@@ -12,7 +12,7 @@ has_toc: false
 One-dimensional visualizations display one bucketed data field. One-dimensional visualizations include the following visualizations:
 
 | **Gauge** and **Goal** | **Pie chart** |
-| [<img src="{{site.url}}{{site.baseurl}}/images/icons/vis-gauge-icon.png" width="90" height="90" alt=" icon">](#building-a-gauge-visualization) [<img src="{{site.url}}{{site.baseurl}}/images/icons/vis-goal-icon.png" width="90" height="90" alt=" icon">](#building-a-gauge-visualization) | [<img src="{{site.url}}{{site.baseurl}}/images/icons/vis-pie-icon.png" width="90" height="90" alt=" icon">](#building-a-pie-chart) |
+| [<img src="{{site.url}}{{site.baseurl}}/images/icons/vis-gauge-icon.png" width="90" height="90" alt="Gauge icon">](#building-a-gauge-visualization) [<img src="{{site.url}}{{site.baseurl}}/images/icons/vis-goal-icon.png" width="90" height="90" alt="Goal icon">](#building-a-gauge-visualization) | [<img src="{{site.url}}{{site.baseurl}}/images/icons/vis-pie-icon.png" width="90" height="90" alt="Pie chart icon">](#building-a-pie-chart) |
 | Display a speedometer-like gauge. | Display a pie chart. |
 
 Instructions for each follow.

@@ -17,7 +17,7 @@ To create a new visualization of any type, follow these steps:
 
    The application displays the **New Visualization** dialog as shown in the following image.
 
-   <img src="{{site.url}}{{site.baseurl}}/images/dashboards/new-viz-dialog.png" width="100%" alt=" icon">
+   <img src="{{site.url}}{{site.baseurl}}/images/dashboards/new-viz-dialog.png" width="100%" alt="New visualization dialog">
 
 1. In the **New Visualization** dialog, select the type of visualization by choosing its icon.
 
