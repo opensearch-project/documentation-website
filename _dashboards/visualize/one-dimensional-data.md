@@ -89,7 +89,7 @@ To create a gauge visualization, follow these steps:
 
 ## Building a goal visualization
 
-The  Goal visualization displays a value in a speedometer-like gauge. The shows a the value as a proportion of a predefined goal. The visualization also displays the metric, either as an absolute value or as a percentage of the goal.
+The Goal visualization displays a value in a speedometer-like gauge. It shows the value as a proportion of a predefined goal. The visualization also displays the metric, either as an absolute value or as a percentage of the goal.
 
 The visualization can show a single value or multiple bucketed values. If bucketed, the goal is the same for all buckets.
 
