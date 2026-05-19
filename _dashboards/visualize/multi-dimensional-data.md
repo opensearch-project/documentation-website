@@ -318,7 +318,7 @@ To create the line graph, follow these steps:
 
 1. In the Field drop-down, select a field for the row buckets.
 
-   For this example, select the text value `DistanceKilometers`.
+   For this example, select the numeric field `DistanceKilometers`.
 
 1. Select **Update** in the lower right of the visualization tool to redraw the visualization.
 
