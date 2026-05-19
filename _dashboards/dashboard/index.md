@@ -44,7 +44,7 @@ The following components make up the **Dashboards** UI.
 
 Before using the **Dashboards** tool, ensure that you:
 
-- Install OpenSearch Dashboards. See [Installing OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards).
+- Install OpenSearch Dashboards. See [Installing OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/).
 
   The Dashboards examples and tutorials assume you're using an existing installation of OpenSearch Dashboards. You can also do the tutorials using preinstalled sample data in the [OpenSearch Playground](https://playground.opensearch.org/app/home#/). You cannot save your changes in OpenSearch Playground.
   {: .note}
@@ -60,12 +60,12 @@ Before using the **Dashboards** tool, ensure that you:
 
 The procedure for creating a dashboard is as follows:
 
-1. Open a dashboard. You can start with a new (empty) dashboard, modify an an existing dashboard, or clone an existing dashboard as a starting point for a similar dashboard. See [Opening a dashboard]({{site.url}}{{site.baseurl}}/dashboards/dashboard/opening-a-dashboard/).
+1. Open a dashboard. You can start with a new (empty) dashboard, modify an existing dashboard, or clone an existing dashboard as a starting point for a similar dashboard. See [Opening a dashboard]({{site.url}}{{site.baseurl}}/dashboards/dashboard/opening-a-dashboard/).
 
 1. Ensure that the data filters include the data you want to work on. This typically, but not always, means setting the time filter to include a range of timestamps. See [Selecting a time range]({{site.url}}{{site.baseurl}}/dashboards/discover/time-filter/#selecting-a-time-range).
 
    OpenSearch applications, including Dashboards, Visualize, and Discover, apply filters to all data in the application. The filter is applied to all index patterns used in the dashboard. For example, a time filter applied to a log monitoring dashboard selects the documents from all log visualizations on that dashboard, even if they include documents from different index patterns. See [Index patterns]({{site.url}}{{site.baseurl}}/dashboards/management/index-patterns/).
-   {: note}
+   {: .note}
 
 1. Add panels to the dashboard. You can select saved panels or create new visualization within the **Dashboards** application. See [Adding a visualization to a dashboard]({{site.url}}{{site.baseurl}}/dashboards/dashboard/adding-a-viz/).
 

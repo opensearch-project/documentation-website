@@ -15,7 +15,7 @@ Manage dashboards in OpenSearch Dashboards from the **Dashboards** application m
 You can do the following:
 
 - [Save a dashboard](#saving-a-dashboard).
-- Create and edit a dashboard. See [Opening a dashboard]({{site.url}}{{site.baseurl}}/dashboards/dashboard/opening-a-dashboard).
+- Create and edit a dashboard. See [Opening a dashboard]({{site.url}}{{site.baseurl}}/dashboards/dashboard/opening-a-dashboard/).
 - [Export a dashboard to a file](#exporting-a-dashboard).
 - [Delete dashboards](#deleting-dashboards).
 
@@ -43,7 +43,7 @@ To save a new dashboard, follow these steps:
 
 You can save a dashboard at any time.
 
-To save an existing dashboartd:
+To save an existing dashboard:
 
 1. Select **Save** in the upper right of the **Create** panel.
 

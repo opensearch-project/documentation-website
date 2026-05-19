@@ -42,7 +42,7 @@ Before starting this tutorial, ensure that you:
 
 - Familiarize yourself with the **Dashboards** UI. See [Navigating the UI]({{site.url}}{{site.baseurl}}/dashboards/dashboard/#navigating-the-ui).
 
-- [Install OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards).
+- [Install OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/).
 
    You can instead complete this tutorial online on the [OpenSearch Playground](https://playground.opensearch.org/app/home#). You cannot save your work on the OpenSearch Playground site. Also, the interface looks different because the OpenSearch Playground uses the [New Home Page interface]({{site.url}}{{site.baseurl}}/dashboards/navigating-ui/#the-new-home-page-interface), but functionality is the same in all other important respects. OpenSearch Playground already contains all sample data.
    {: .note}
@@ -80,7 +80,7 @@ To add a saved visualization to the dashboard, follow these steps:
 
 1. Use the [time filter]({{site.url}}{{site.baseurl}}/dashboards/discover/time-filter/) to select `Last 2 years` as the time window as shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/dash-tut-time-2-years.png" alt="Discover app default page" width="40%">
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/dash-tut-time-2-years.png" alt="Time filter set to Last 2 years" width="40%">
 
 1. Drag-select the narrow band of data from the area chart as shown in the following image.
 
@@ -156,7 +156,7 @@ You can organize a dashboard by resizing and rearranging panels. Move and resize
 1. Drag the panel to the top of the application panel.
 
    The Sales by Category panel automatically swaps places with the Markdown panel as you move it up.
-
+1. Select and hold the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/resize-icon.png" class="inline-icon" alt="resize icon"/>{:/} (resize) icon in the panel's lower-right corner.
 Select and hold the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/resize-icon.png" class="inline-icon" alt="resize icon"/>{:/} (resize) icon in the panel's lower-right corner.
 
 1. Drag to make the panel longer and narrower so that it serves as a banner across the entire upper part of the dashboard.

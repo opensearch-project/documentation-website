@@ -45,7 +45,7 @@ To clone a dashboard, follow these steps:
 
 ## Editing an existing dashboard
 
-To clone a dashboard, follow these steps:
+To edit an existing dashboard, follow these steps:
 
 1. In the [navigation panel]({{site.url}}{{site.baseurl}}/dashboards/navigating-ui/#navigating-opensearch-dashboards), select **OpenSearch Dashboards** > **Dashboards**.
 

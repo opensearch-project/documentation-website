@@ -53,11 +53,11 @@ You can view a single visualization panel in full screen mode and then return to
 
 To view a panel in full screen mode, follow these steps:
 
-1. Choose the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/gear-icon.png" class="inline-icon" alt="gear icon"/>{:/} (gear) icon on the area chart panel or vertical ellipsis (⋮) at the upper right of the panel.
+1. Choose the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/gear-icon.png" class="inline-icon" alt="gear icon"/>{:/} (gear) icon or the vertical ellipsis (⋮) at the upper right of the panel.
 
 1. In the **Options** drop-down, select {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/maximize-icon.png" class="inline-icon" alt="maximize icon"/>{:/} (maximize) **Maximize panel**.
 
-   You might need to select {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/more-icon.png" class="inline-icon" alt="gear icon"/>{:/} (more) **More**, then select {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/maximize-icon.png" class="inline-icon" alt="maximize icon"/>{:/} (maximize) **Maximize panel**.
+   You might need to select {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/more-icon.png" class="inline-icon" alt="more icon"/>{:/} (more) **More**, then select {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/maximize-icon.png" class="inline-icon" alt="maximize icon"/>{:/} (maximize) **Maximize panel**.
    {: .note}
 
 
@@ -65,11 +65,11 @@ To view a panel in full screen mode, follow these steps:
 
 To reduce a panel from full screen mode, follow these steps:
 
-1. Choose the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/gear-icon.png" class="inline-icon" alt="gear icon"/>{:/} (gear) icon on the area chart panel or vertical ellipsis (⋮) at the upper right of the panel.
+1. Choose the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/gear-icon.png" class="inline-icon" alt="gear icon"/>{:/} (gear) icon or the vertical ellipsis (⋮) at the upper right of the panel.
 
 1. Select {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/minimize-icon.png" class="inline-icon" alt="minimize icon"/>{:/} (minimize) **Minimize**.
 
-   You might need to select {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/more-icon.png" class="inline-icon" alt="gear icon"/>{:/} (more) **More**, then select {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/minimize-icon.png" class="inline-icon" alt="minimize icon"/>{:/} (minimize) **Minimize**.
+   You might need to select {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/more-icon.png" class="inline-icon" alt="more icon"/>{:/} (more) **More**, then select {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/minimize-icon.png" class="inline-icon" alt="minimize icon"/>{:/} (minimize) **Minimize**.
    {: .note}
 
 
@@ -107,7 +107,7 @@ To change a color in the visualization, follow these steps:
 
 To display, hide, or customize the panel title, follow these steps:
 
-1. Choose the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/gear-icon.png" class="inline-icon" alt="gear icon"/>{:/} (gear) icon on the area chart panel.
+1. Choose the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/gear-icon.png" class="inline-icon" alt="gear icon"/>{:/} (gear) icon.
 
 1. From the **Options** window, select **Edit panel title**.
 

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Adding a visualization to a dashbaord
+title: Adding a visualization to a dashboard
 parent: Creating dashboards
 nav_order: 20
 has_children: false
@@ -28,12 +28,12 @@ To create a new visualization in a dashboard, follow these steps:
 
 1. From the **New Visualization** window, choose a visualization type.
 
-1. In the **New Metric/Choose a source** dialog, select an index pattern.
+1. In the **New _\<type\>_/Choose a source** dialog, select an index pattern.
 
    Rather than a source selection dialog at this point, advanced visualization tools like Maps and VisBuilder have source selection built into the tool.
    {: .note}
 
-1. The Dashboards application displays the default (count) visualization in the Visualize app.
+1. The Dashboards application opens the Visualize editor and displays the default (count) visualization.
 
 <!-- Edit the visualization as described in [Building visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/#building-visualizations). -->
    

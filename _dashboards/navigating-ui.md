@@ -39,10 +39,10 @@ The following image shows the default landing page for OpenSearch Dashboards.
 Introduced 2.18.0
 {: .label .label-purple }
 
-OpenSearch Dashboards offers an alternative to the the default UI called the New Home Page interface. The functionality is roughly equivalent between the two UIs, with the following differences:
+OpenSearch Dashboards offers an alternative to the default UI called the New Home Page interface. The functionality is roughly equivalent between the two UIs, with the following differences:
 
 - The New Home Page interface centers on workflows that use the Workspace feature.
-- The arrangement of menu trees and navigation is different in the two intefaces, including the organization of the navigation panel.
+- The arrangement of menu trees and navigation is different in the two interfaces, including the organization of the navigation panel.
 - The look and feel is different in the New Home Page interface.
 - The New Home Page interface is reachable using an option flag. The flag is available in the OpenSearch Dashboards setup menu. See [Using the OpenSearch Dashboards setup menu](#using-the-opensearch-dashboards-setup-menu).
 
@@ -58,7 +58,7 @@ The default navigation panel | The New Home Page navigation panel
 :--: | :--:
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/os-nav-panel.png" alt="OpenSearch navigation panel"  width="60%"> | <img src="{{site.url}}{{site.baseurl}}/images/dashboards/os-new-nav-panel.png" alt="New OpenSearch navigation panel"  width="57%">
 
-- The _menu icon_ (A) hides and reveals the navigation panel. To enlarge the application panel, you can [hide] and [unhide] the navigation panel.
+- The _menu icon_ (A) hides and reveals the navigation panel. To enlarge the application panel, you can [hide](#hiding-the-navigation-panel) and [unhide](#unhiding-the-navigation-panel) the navigation panel.
 - **Discover** (B) opens the Discover application in the main panel. See [Exploring data with Discover]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/).
 - **Dashboards** (C) opens the Dashboards application in the main panel. See [Creating dashboards]({{site.url}}{{site.baseurl}}/dashboards/dashboard/).
 - **Visualize** (D) opens the Visualize application in the main panel. See [Building data visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/).
