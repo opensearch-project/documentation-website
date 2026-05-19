@@ -91,7 +91,7 @@ To create a vertical bar visualization, follow these steps:
 
 ## Building an area chart
 
-An area chart is a line chart with the area below the line shaded with a color. Multiple buckets can be stacked to show relative proportions of an running absolute value of the variable. Or, you can superimpose buckets or even different variables to compare within x-axis buckets or time values.
+An area chart is a line chart with the area below the line shaded with a color. Multiple buckets can be stacked to show relative proportions of a running absolute value of the variable. Or, you can superimpose buckets or even different variables to compare within x-axis buckets or time values.
 
 In this tutorial, you'll use the OpenSearch sample flight data to create a visualization of the top five logs for flights delayed for every three hours over the last seven days.
 
