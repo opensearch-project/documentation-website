@@ -54,7 +54,7 @@ To create a gauge visualization, follow these steps:
    If your visualization displays a different value, make sure that your [time filter]({{site.url}}{{site.baseurl}}/dashboards/discover/time-filter/) window is large enough to encompass all the sample flight data.
    {: .note}
 
-1. Now that you have some idea of the range of the data, change the ranges so that the displayed value.
+1. Now that you have some idea of the magnitude of the data, change the display range so that the displayed value falls within it.
 
    1. Select the **Options** tab.
 
