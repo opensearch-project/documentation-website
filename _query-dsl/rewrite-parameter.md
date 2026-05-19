@@ -46,7 +46,7 @@ All Boolean-based rewrites, such as `scoring_boolean`, `constant_score_boolean`,
 indices.query.bool.max_clause_count
 ```
 
-This setting controls the maximum number of allowed Boolean `should` clauses (default: `1024`). If your query expands to a number of terms greater than this limit, it is rejected with a `too_many_clauses` error. 
+This setting controls the maximum number of allowed Boolean `should` clauses (default: `1024`). If your query expands to a number of clauses greater than this limit, it is rejected with a `too_many_clauses` error returned as a HTTP 400 Bad Request response. Similarly, if your query _and all its children cumulatively_ expands to a total number of clauses greater than this limit, it is rejected with a `too_many_nested_clauses` error returned as a HTTP 400 Bad Request response.
 
 For example, a wildcard, such as "error*", might expand to hundreds or thousands of matching terms, which could include "error", "errors", "error_log", "error404", and others. Each of these terms turns into a separate `term` query. If the number of terms exceeds the `indices.query.bool.max_clause_count` limit, the query fails:
 
