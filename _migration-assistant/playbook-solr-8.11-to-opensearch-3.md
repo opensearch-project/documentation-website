@@ -163,7 +163,7 @@ The workflow will:
 
 ```bash
 # Check document counts on target
-console clusters cat-indexes
+console clusters cat-indices
 
 # Verify a specific collection
 console clusters curl target /<collection>/_count

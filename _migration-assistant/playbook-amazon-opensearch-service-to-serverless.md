@@ -720,10 +720,10 @@ When the workflow pauses at an approval gate (shown as `⟳`), review the output
 
 ```bash
 # Approve metadata evaluation
-workflow approve "*.evaluatemetadata"
+workflow approve step "*.evaluatemetadata"
 
 # Approve metadata migration
-workflow approve "*.migratemetadata"
+workflow approve step "*.migratemetadata"
 ```
 {% include copy.html %}
 
@@ -887,8 +887,8 @@ The capture proxy forwards all requests to the source domain and simultaneously 
 #### Approve gates
 
 ```bash
-workflow approve "*.evaluatemetadata"
-workflow approve "*.migratemetadata"
+workflow approve step "*.evaluatemetadata"
+workflow approve step "*.migratemetadata"
 ```
 {% include copy.html %}
 
@@ -1236,8 +1236,8 @@ kubectl exec -it migration-console-0 -n ma -- /bin/bash
 | `workflow submit` | Submit the workflow |
 | `workflow manage` | Interactive TUI for monitoring and approvals |
 | `workflow status` | Show workflow progress |
-| `workflow approve <step>` | Approve a blocked step |
-| `workflow output` | View workflow logs |
+| `workflow approve step <step>` | Approve a blocked step |
+| `workflow log all` | View workflow logs |
 
 ---
 

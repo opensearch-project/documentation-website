@@ -62,7 +62,7 @@ The flags that follows.cover the cases most community users hit. The script alwa
 | | `--subnet-ids <id1,id2>` | Comma-separated subnets in different AZs (with `--deploy-import-vpc-cfn`) |
 | **Versioning** | `--version <tag>` | Pin to a published GitHub release tag. Find tags at [the GitHub releases page](https://github.com/opensearch-project/opensearch-migrations/releases). Use this for reproducible deployments. |
 | | `--build` | Build all artifacts from source (requires a repo checkout). Mutually exclusive with `--version` |
-| **Networking** | `--create-vpc-endpoints` | Create the seven VPC endpoints needed for isolated subnets (S3, ECR API, ECR Docker, CloudWatch Logs, EFS, STS, EKS Auth) |
+| **Networking** | `--create-vpc-endpoints` | Create the five VPC endpoints needed for isolated subnets (S3, ECR API, ECR Docker, CloudWatch Logs, EFS) |
 | | `--use-public-images` | Skip mirroring images into private ECR. Use only when the cluster has internet access and you do not want a private mirror |
 | | `--ma-images-source <registry>` | Copy MA images from another ECR registry. Useful when images were built on a separate cluster with internet access |
 | **Access** | `--eks-access-principal-arn <arn>` | Grant a CI role or teammate cluster-admin access. Combine with `--skip-cfn-deploy --skip-console-exec` to grant access without redeploying |
@@ -100,7 +100,7 @@ This step shows how to deploy Migration Assistant into either a new VPC or an ex
   --stack-name MA \
   --stage prod \
   --region us-east-2 \
-  --version 3.0.1
+  --version 3.2.1
 ```
 {% include copy.html %}
 
@@ -203,11 +203,13 @@ If your subnets do not have direct internet access, the bootstrap script mirrors
   --vpc-id vpc-xxx \
   --subnet-ids subnet-aaa,subnet-bbb \
   --region us-east-1 \
-  --version 3.0.1
+  --version 3.2.1
 ```
 {% include copy.html %}
 
-The mirroring step runs from your machine (which has internet), copies the release images and Helm charts to ECR, then the EKS cluster pulls everything through VPC endpoints. The endpoints created are: ECR API, ECR Docker, S3, CloudWatch Logs, EFS, STS, and EKS Auth.
+The mirroring step runs from your machine (which has internet), copies the release images and Helm charts to ECR, then the EKS cluster pulls everything through VPC endpoints. The endpoints created are: S3, ECR API, ECR Docker, CloudWatch Logs, and EFS.
+
+If your deployment also requires STS or EKS Auth endpoints (for example, for IRSA or EKS Pod Identity), create those separately before running the bootstrap script.
 
 If you prefer to manage VPC endpoints with another tool, omit `--create-vpc-endpoints`. The script still mirrors images and uses your existing endpoints.
 

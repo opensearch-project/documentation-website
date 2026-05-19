@@ -92,7 +92,7 @@ After the metadata phase runs, verify the target mappings:
 
 ```bash
 console clusters curl target /my-index/_mapping
-workflow output
+workflow show
 ```
 {% include copy.html %}
 

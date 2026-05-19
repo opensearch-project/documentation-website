@@ -617,8 +617,8 @@ workflow manage
 Use `workflow manage` as the primary interface. If approvals appear, validate the output and approve them there, or use the CLI directly:
 
 ```bash
-workflow approve "*.evaluateMetadata"
-workflow approve "*.migrateMetadata"
+workflow approve step "*.evaluateMetadata"
+workflow approve step "*.migrateMetadata"
 ```
 {% include copy.html %}
 

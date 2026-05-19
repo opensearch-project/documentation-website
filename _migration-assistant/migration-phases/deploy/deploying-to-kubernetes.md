@@ -56,7 +56,7 @@ The Migration Assistant images are large (multiple GB total). The script will fa
 ### Step 1: Clone a release tag
 
 ```bash
-git clone --branch 3.0.1 https://github.com/opensearch-project/opensearch-migrations
+git clone --branch 3.2.1 https://github.com/opensearch-project/opensearch-migrations
 cd opensearch-migrations/deployment/k8s
 ```
 {% include copy.html %}
@@ -103,7 +103,7 @@ cd opensearch-migrations/deployment/k8s
 ```
 {% include copy.html %}
 
-For example, `--branch 3.0.1` pins to that release. Building or installing from `main` is not recommended for community users.
+For example, `--branch 3.2.1` pins to that release. Building or installing from `main` is not recommended for community users.
 
 ### Step 3: Create the namespace
 

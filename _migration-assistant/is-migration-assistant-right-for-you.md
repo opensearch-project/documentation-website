@@ -46,7 +46,7 @@ The following matrix shows which source versions can be directly migrated to whi
 
 ### Version-specific notes
 
-**Elasticsearch 6.x**: Requires handling for multiple mapping types per index. Configure `multiTypeBehavior` in your migration config. Run `workflow configure edit` to see available options.
+**Elasticsearch 6.x**: Elasticsearch 6.x generally uses single-type indices, but upgraded or legacy datasets may still contain mappings that need type-handling decisions. Run metadata evaluation first; set `multiTypeBehavior` only if the evaluation reports multi-type mapping issues.
 
 **Elasticsearch 8.x**: Supported with compatibility handling for post-fork features. Some 8.x-specific features may not have OpenSearch equivalents. Test metadata migration first.
 

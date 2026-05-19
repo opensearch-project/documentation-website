@@ -152,7 +152,7 @@ Use `workflow manage` to watch the run and approve any gated steps.
 Check counts and basic behavior on the target before you expand scope:
 
 ```bash
-console clusters cat-indexes
+console clusters cat-indices
 console clusters curl target /<index>/_count
 console clusters curl target /<index>/_search?size=5&pretty
 ```
@@ -175,8 +175,8 @@ workflow manage
 
 ```bash
 workflow status
-workflow output
-workflow output --follow
+workflow log all
+workflow log all --follow
 ```
 {% include copy.html %}
 

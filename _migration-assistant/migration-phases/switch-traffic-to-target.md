@@ -52,7 +52,7 @@ Useful commands:
 
 ```bash
 console clusters curl target /_cluster/health
-console clusters cat-indexes --cluster target
+console clusters cat-indices --cluster target
 ```
 {% include copy.html %}
 

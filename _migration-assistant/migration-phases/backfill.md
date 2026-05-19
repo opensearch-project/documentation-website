@@ -102,7 +102,7 @@ Useful supporting commands:
 
 ```bash
 workflow status
-workflow output --follow
+workflow log all --follow
 ```
 {% include copy.html %}
 
@@ -126,7 +126,7 @@ console clusters curl target /<index>/_mapping
 
 # How is RFS progressing?
 workflow status --live-status
-workflow output --follow
+workflow log all --follow
 
 # Does a sample of the target look right?
 console clusters curl target /<index>/_count
@@ -137,7 +137,7 @@ console clusters curl target /<index>/_search?size=5&pretty
 The easiest way to drive approvals is interactively from `workflow manage` — the TUI shows pending gates next to their step output and lets you approve them in place without typing step names. The CLI form is below for scripts and CI:
 
 ```bash
-workflow approve <STEP_NAME>
+workflow approve step <STEP_NAME>
 ```
 {% include copy.html %}
 
@@ -160,9 +160,9 @@ Useful RFS settings include:
 - `maxConnections` — bulk-indexer concurrency to the target
 - `documentsPerBulkRequest` — bulk batch size
 - `maxShardSizeBytes` — maximum supported shard size (default 80 GiB). Larger shards must be reduced before backfill (force-merge or split).
-- `initialLeaseDuration` — ISO-8601 duration each worker holds a shard lease before re-acquisition (default `PT10M`)
+- `initialLeaseDuration` — ISO-8601 duration each worker holds a shard lease before re-acquisition (default `PT1H`)
 - `allowedDocExceptionTypes` — list of exception class names from the target's response that should be **counted as success** for that document instead of retried. Use sparingly; a matching error is treated as a successful migration of that document.
-- `allowLooseVersionMatching` — bypass the strict source/target version compatibility check (defaults to true for legacy sources, false for modern ones)
+- `allowLooseVersionMatching` — bypass the strict source/target version compatibility check (default `true`)
 
 `allowedDocExceptionTypes` and the Replayer's `nonRetryableDocExceptionTypes` are **not the same**. RFS treats matching exceptions as success; the Replayer treats them as deterministic failures that should not be retried. Map them to your target's actual error class names — see [Replay captured traffic]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/replay-captured-traffic/) for the replay side.
 {: .warning }
@@ -172,7 +172,7 @@ Useful RFS settings include:
 After the workflow completes, compare the source and target:
 
 ```bash
-console clusters cat-indexes
+console clusters cat-indices
 console clusters curl target /<index>/_count
 ```
 {% include copy.html %}

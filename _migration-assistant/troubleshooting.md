@@ -15,7 +15,7 @@ These commands give you the fastest first signal:
 console --version
 console clusters connection-check
 workflow status
-workflow output
+workflow log all
 kubectl get pods -n ma
 ```
 {% include copy.html %}
@@ -174,8 +174,8 @@ Do not plan around mTLS unless you have validated it in the exact version you ar
 
 ```bash
 workflow status
-workflow output
-workflow output --follow
+workflow log all
+workflow log all --follow
 ```
 {% include copy.html %}
 
@@ -204,7 +204,7 @@ workflow manage
 Or approve the step directly:
 
 ```bash
-workflow approve <STEP_NAME>
+workflow approve step <STEP_NAME>
 ```
 {% include copy.html %}
 
@@ -263,7 +263,7 @@ Collect:
 
 - `console --version`
 - `workflow status`
-- `workflow output`
+- `workflow log all`
 - `kubectl describe pods -n ma`
 - source and target version numbers
 - exact authentication mode in use

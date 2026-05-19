@@ -107,7 +107,7 @@ Use the workflow tools rather than raw pod paths whenever possible:
 ```bash
 workflow manage
 workflow status
-workflow output
+workflow log all
 ```
 {% include copy.html %}
 
