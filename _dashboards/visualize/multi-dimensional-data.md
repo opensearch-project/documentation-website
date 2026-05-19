@@ -326,7 +326,7 @@ To create the line graph, follow these steps:
 
 1. in the **Buckets** panel, select **Add**.
 
-1. In the **Add bucket** drop-down, select **Split series** to bucket the data by vertical column.
+1. In the **Add sub-buckets** drop-down, select **Split series** to create a separate line for each term.
 
 1. In the **Sub aggregation** drop-down, select an aggregation type for the rows.
 
