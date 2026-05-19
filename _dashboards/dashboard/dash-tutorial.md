@@ -19,28 +19,11 @@ You can use the **Dashboards** application in OpenSearch Dashboards to build a p
 Use the following tutorial to learn to create a dashboard using the **Dashboards** application and the OpenSearch sample data. The sample datasets have existing sample visualizations that you can use for the dashboard, or you can create your own visualizations. The tutorials demonstrate how to do both.
 
 
-## Navigating the UI
-
-The following components make up the **Dashboards** UI.
-
-![Dashboards user interface]({{site.url}}{{site.baseurl}}/images/dashboards/dashboard-UI.png)
-
-- The _navigation panel_ (A) on the left contains the OpenSearch Dashboards applications.
-- The _search_ bar (B) enables selection of data using a query language search.
-- The _filter_ (C) provides a graphical interface for selecting data values and ranges.
-- The _toolbar_ (D) contains frequently used commands and shortcuts.
-- The _time filter_ (E) enables selection of data based on a time and date range.
-- The _panel_ (F) displays the dashboard. You can add existing visualizations, create new ones, and save the dashboard's configuration.
-
-The following tutorials assume you're either using your existing installation of OpenSearch Dashboards or using the [OpenSearch Playground](https://playground.opensearch.org/app/home#/). Depending on which one you use, certain capabilities may not be available. For example, sample datasets may not be included in your existing installation, and saving a dashboard isn't an option in the OpenSearch Playground.
-{: .note}
-
-
 ## Prerequisites
 
 Before starting this tutorial, ensure that you:
 
-- Familiarize yourself with the **Dashboards** UI. See [Navigating the UI]({{site.url}}{{site.baseurl}}/dashboards/dashboard/#navigating-the-ui).
+- Familiarize yourself with the **Dashboards** UI. See [Navigating the UI]({{site.url}}{{site.baseurl}}/dashboards/dashboard/index/#navigating-the-ui).
 
 - [Install OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/).
 
@@ -64,7 +47,7 @@ To create a new dashboard, follow these steps:
 
 1. | In the default navigation panel | In the New Home Page navigation panel |
    | :-- | :-- |
-   | - In the Dashboards panel, select **Create** >.<br/>- From the drop-down, select **Dashboard**. | From the application menu, select **Create Dashboard**. |
+   | - In the Dashboards panel, select **Create**.<br/>- From the drop-down, select **Dashboard**. | From the application menu, select **Create Dashboard**. |
 
 ## Adding an existing visualization
 
@@ -129,7 +112,7 @@ To create a new visualization in **Dashboards**, follow these steps:
 
    The **Dashboards** application saves the metric visualization and adds it to the dashboard as shown in the following image.
 
-   <img src="{{site.url}}{{site.baseurl}}/images/dashboards/dash-tut-combined.png" alt="Sales by category area visualization"  width="100%">
+   <img src="{{site.url}}{{site.baseurl}}/images/dashboards/dash-tut-combined.png" alt="Dashboard with two panels"  width="100%">
 
 
 ## Adding subsequent panels

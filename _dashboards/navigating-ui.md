@@ -70,7 +70,7 @@ To hide the navigation panel, follow these steps:
 
 1. | In the default navigation panel | In the New Home Page navigation panel |
    | :-- | :-- |
-   | - Select {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/nav-docked-icon.png" class="inline-icon" alt="docked icon"/>{:/} (dock) **Undock navigation** at the bottom of the navigation panel.<br/>- Select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/menu-icon.png" class="inline-icon" alt="menu icon"/>{:/} (menu) icon or {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/cross-icon.png" class="inline-icon" alt="cross icon"/>{:/} (cross) to the right of the menu. | - Select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/nav-collapse-icon.png" class="navigation collapse icon" alt="docked icon"/>{:/} (collapse navigation) icon. |
+   | - Select {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/nav-docked-icon.png" class="inline-icon" alt="docked icon"/>{:/} (dock) **Undock navigation** at the bottom of the navigation panel.<br/>- Select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/menu-icon.png" class="inline-icon" alt="menu icon"/>{:/} (menu) icon or {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/cross-icon.png" class="inline-icon" alt="cross icon"/>{:/} (cross) to the right of the menu. | - Select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/nav-collapse-icon.png" class="inline icon" alt="docked icon"/>{:/} (collapse navigation) icon. |
 
 ### Unhiding the navigation panel
 

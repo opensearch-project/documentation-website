@@ -31,7 +31,7 @@ This page describes how to use **Dashboards** to create, modify, and save dashbo
 
 The following components make up the **Dashboards** UI.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/dashboard-UI-blank-callouts.png" alt="Discover app default page">
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/dashboard-UI-blank-callouts.png" alt="Dashboards app default page">
 
 - The _application menu_ (A) contains application options. This menu is context-sensitive and is different for other applications.
 - The _search_ bar (B) enables selection of data using a query language search.
