@@ -91,7 +91,7 @@ Place metric visualizations in prominent dashboard positions to display key or s
 
 ### Tag clouds
 
-<img src="{{site.url}}{{site.baseurl}}/images/word-cloud-1.png" width="40%"  alt="Tag cloud"/>
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/word-cloud-1.png" width="40%"  alt="Tag cloud"/>
 
 Tag clouds (also called word clouds) visualize text frequency or other attributes of categorical variables by transforming numerical data into visual weight.
 
@@ -112,7 +112,7 @@ One-dimensional visualizations display single variables or metrics, showing dist
 
 ### Pie charts
 
-<img src="{{site.url}}{{site.baseurl}}/images/pie-1.png" width="40%"  alt="Pie chart"/>
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/pie-1.png" width="40%"  alt="Pie chart"/>
 
 Pie charts display parts-to-whole relationships, showing the contribution of individual categories to a total.
 
@@ -161,7 +161,7 @@ Bar charts are a primary analytical tool in dashboards, often supporting drill-d
 
 ### Line charts
 
-<img src="{{site.url}}{{site.baseurl}}/images/line-1.png" width="40%"  alt="Line graph"/>
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/line-1.png" width="40%"  alt="Line graph"/>
 
 Line charts track changes in continuous variables, showing trends, patterns, and relationships over time series and ordered independent variables.
 
@@ -227,7 +227,7 @@ Coordinate maps provide spatial context in dashboards, enabling users to select 
 
 ### Region maps
 
-<img src="{{site.url}}{{site.baseurl}}/images/map-1.png" width="40%"  alt="Region map"/>
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/map-1.png" width="40%"  alt="Region map"/>
 
 Region maps show data aggregated by geographic regions (for example, countries, states, or counties) using color intensity or pattern variations to represent values across predefined geographic boundaries.
 
