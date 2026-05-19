@@ -246,7 +246,7 @@ To create a heat map, follow these steps:
 
 1. Now assume that you're interested in flight cancellations. You can limit the heat map display to only cancelled flights.
 
-   You can filter the data using the [filter tool]({{site.url}}{{site.baseurl}}/dashboards/discover/filter-tool), but if the visualization is in a dashboard this filters the data for other visualizations as well. The following procedure limits the data only for this current visualization.
+   You can filter the data using the [filter tool]({{site.url}}{{site.baseurl}}/dashboards/discover/filter-tool/), but if the visualization is in a dashboard this filters the data for other visualizations as well. The following procedure limits the data only for this current visualization.
    {: .note}
 
 1. In the Buckets panel, select Add.
