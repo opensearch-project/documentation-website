@@ -241,7 +241,7 @@ To create a heat map, follow these steps:
 
    Note the following:
 
-   - The heat map data is organized into four quadrants, corresponding to the four combinations of "good" (Cloudy, Rain, Clear, Sunny) and "bad" (Hail, Heavy Fog, Damaging Wind, Thunder & Lightening) weather conditions at the destination and origin. This is coincidental, but the interaction pattern is pronounced enough that it's visible if you order one or both buckets differently.
+   - The heat map data is organized into four quadrants, corresponding to the four combinations of "good" (Cloudy, Rain, Clear, Sunny) and "bad" (Hail, Heavy Fog, Damaging Wind, Thunder & Lightning) weather conditions at the destination and origin. This is coincidental, but the interaction pattern is pronounced enough that it's visible if you order one or both buckets differently.
    - The longest delays occurred when the weather was good at both the origin and destination. The shortest delays occurred occurred when the weather was bad at both locations.
 
 1. Now assume that you're interested in flight cancellations. You can limit the heat map display to only cancelled flights.
