@@ -107,7 +107,7 @@ To create the area chart, follow these steps:
 
 1. In the **Aggregation** box, select the aggregation you want to display.
 
-   For this tutorial, select `Count`. Note that the `Count` metric there is no Field selection. This is because `Count` denotes the number of documents, not a field value.
+   For this tutorial, select `Count`. Note that for the `Count` metric there is no Field selection. This is because `Count` denotes the number of documents, not a field value.
 
 1. (Optional) To replace the raw field name in the visualization, enter an alternative name for the data field in the **Custom label** box.
 
