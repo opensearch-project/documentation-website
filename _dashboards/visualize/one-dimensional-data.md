@@ -134,7 +134,7 @@ To create a goal visualization, follow these steps:
    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/example-goal-total-km.png" alt="Visualize application" width="60%">
 
 
-   1. (Optional) Combine Gauge and Goal displays by adding a scale as described in [Building a guage visualization](#building-a-gauge-visualization).
+   1. (Optional) Combine Gauge and Goal displays by adding a scale as described in [Building a gauge visualization](#building-a-gauge-visualization).
 
 1. Save the visualization as described in [Saving a data visualization]({{site.url}}{{site.baseurl}}/dashboards/visualize/saving-a-viz/).
 
