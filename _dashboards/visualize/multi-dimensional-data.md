@@ -58,7 +58,6 @@ To create a vertical bar visualization, follow these steps:
 
 1. From the **Add bucket** drop-down, select **X-axis**.
 
-1. In the **Add bucket** drop-down, select **X-axis** to bucket the data by vertical column.
 
 1. In the **Aggregation** drop-down, select an aggregation type for the rows.
 
