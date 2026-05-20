@@ -15,13 +15,11 @@ Apache Kafka
 Auditbeat
 AWS Cloud
 Capture and Replay
-Claude Desktop
 Cohere Command
 Cohere Embed
 Cohere Embed English
 Cohere Embed Multilingual
 Cognito
-Cursor
 Dashboards Query Language
 Data Prepper
 Debian
@@ -57,11 +55,8 @@ Keycloak
 Kerberos
 Kibana
 Kinesis
-Kiro
 Kubernetes
 Lambda
-LangChain
-LangGraph
 Langflow
 Linux
 Log4j
@@ -110,7 +105,6 @@ RPM Package Manager
 Ruby
 Search Relevance Workbench
 Simple Schema for Observability
-Strands Agents
 Tableau
 Textract
 Titan
@@ -125,14 +119,3 @@ Winlogbeat
 XGBoost
 Zipf
 Zstandard
-Solr
-SolrCloud
-kubectl
-Strimzi
-Karpenter
-Kyverno
-Migration Console
-Workflow CLI
-Argo
-Argo Workflows
-AWS Signature Version 4
