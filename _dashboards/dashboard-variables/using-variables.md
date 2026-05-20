@@ -11,7 +11,7 @@ This page covers how to use dashboard variables in the dashboard.
 
 ## Variable syntax
 
-Dashboard variables can be referenced in queries using two syntaxes:
+Dashboard variables can be referenced in queries using two syntax options:
 
 ### Simple syntax
 
@@ -23,7 +23,7 @@ source=logs | where service='$service' | stats count() by region
 
 ### Braced syntax
 
-Use `${variableName}` when the variable name is followed by other characters without whitespace:
+Use `${variableName}` when the variable name is followed by other characters without white space:
 
 ```sql
 source = logs | where ${env}_level = "error"
@@ -117,7 +117,7 @@ source=metrics | stats avg(response_time) by service
 
 When a variable allows multiple selections, values are automatically formatted based on the query language:
 
-| Query Language | String Values | Number/Boolean Values |
+| Query language | String values | Number/Boolean values |
 |----------------|---------------|----------------------|
 | PPL | `('value1', 'value2')` | `(123, 456)` |
 | PromQL | `(value1\|value2)` | `(value1\|value2)` |
@@ -175,7 +175,7 @@ Variables can serve as filtering conditions within your visualizations. Instead 
 
    <img src="{{site.url}}{{site.baseurl}}/images/dashboard-variables/filter_case_3.gif" alt="filter case 3">
    
-### Interactive Metric Selection control visualizations
+### Interactive metric selection control visualizations
 Variables can serve as metric components, acting as dynamic metric conditions within your visualizations. Embed variables into queries to parameterize which metrics to calculate or display.
 
 1. Creating a custom type variable named `log_metric` with `memory` and `bytes` options in the dashboard

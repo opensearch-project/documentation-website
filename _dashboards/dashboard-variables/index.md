@@ -26,13 +26,15 @@ With dashboard variables, you can:
 
 ## Key concepts
 
+Here are the essential variable concepts you need to know.
+
 ### Variable types
 
 OpenSearch Dashboards supports two types of variables:
 
 **Query variables**: Options are dynamically fetched from a data source using a PPL or PromQL query. Use Query variables when values change over time or depend on underlying data, such as service names from logs or available regions from metrics.
 
-**Custom variables**: Options are manually defined as a static list. Use Custom variables for predefined categories like environment types (dev, staging, prod) or fixed status codes.
+**Custom variables**: Options are manually defined as a static list. Use Custom variables for predefined categories like environment types (`dev`, `staging`, `prod`) or fixed status codes.
 
 ### Variable syntax
 
