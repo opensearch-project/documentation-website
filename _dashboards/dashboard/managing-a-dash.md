@@ -65,6 +65,13 @@ To save an existing dashboard:
 
 ## Exporting a dashboard
 
+You can export a dashboard to a PDF file or PNG image file.
+
+Exporting a dashboard is a Reporting feature. You must have the Reporting plugin active to export a file.
+{: .note}
+
+See [Reporting using OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/reporting/report-dashboard-index) for more information about reporting.
+
 1. Select **Reporting** from the application menu.
 
 1. From the drop-down menu, select **Download PDF** or **Download PNG**.
