@@ -57,6 +57,33 @@ With all three valid authentication types specified, the sign-in window appears 
 
 <img src="{{site.url}}{{site.baseurl}}/images/Security/TwoOptionWithoutLogo.png" alt="All three authentication types specified in the sign-in window" width="350">
 
+## Configuring a default redirect authentication type
+
+When multiple authentication types are enabled, you can configure one of the redirect-based authentication types (SAML or OpenID Connect) to be used for automatic redirection by default. This is useful when you want most users to authenticate through an IdP while still allowing alternative sign-in methods.
+
+To configure a default redirect authentication type, add the `opensearch_security.auth.default_redirect_auth_type` setting to the `opensearch_dashboards.yml` file:
+
+```yml
+opensearch_security.auth.type: ["basicauth","saml"]
+opensearch_security.auth.multiple_auth_enabled: true
+opensearch_security.auth.default_redirect_auth_type: "saml"
+```
+
+With this configuration, unauthenticated users are automatically redirected to the SAML IdP for authentication instead of being shown the Dashboards login page.
+
+The `default_redirect_auth_type` value must be either `saml` or `openid` and must also be included in the `opensearch_security.auth.type` array.
+{: .note }
+
+### Bypassing automatic redirection
+
+When a default redirect authentication type is configured, you can bypass the automatic redirection and force the login page to display by appending `?auto_login=false` to the Dashboards URL. For example:
+
+```
+https://<dashboards-host>:5601/app/dashboards?auto_login=false
+```
+
+This is useful for administrators who need to sign in with basic authentication (for example, as a cluster admin) when the default redirect is configured for SAML or OpenID Connect.
+
 ## Customizing the sign-in environment
 
 In addition to the essential sign-in settings for each authentication type, you can configure additional settings in the `opensearch_dashboards.yml` file to customize the sign-in window so that it clearly represents the options that are available. For example, you can replace the label on the sign-in button with the name and icon of the IdP. Refer to the settings and descriptions that follow.
@@ -111,6 +138,7 @@ opensearch_security.readonly_mode.roles: ["<role_for_read_only>"]
 # Settings that enable multiple option authentication in the sign-in window #
 opensearch_security.auth.multiple_auth_enabled: true
 opensearch_security.auth.type: ["basicauth","openid"]
+opensearch_security.auth.default_redirect_auth_type: "openid"
 
 # Basic authentication customization #
 opensearch_security.ui.basicauth.login.brandimage: <path/to/OSlogo.png>
