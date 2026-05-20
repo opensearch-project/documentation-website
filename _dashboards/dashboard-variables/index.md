@@ -114,11 +114,11 @@ Follow these steps to add your first variable to a dashboard:
 6. Reference the variable in your visualization editor query by using `$variableName` syntax and save the visualization.
 7. Test the variable by changing its value in the variables bar.
 
-For detailed instructions, see [Managing dashboard variables]({{site.url}}{{site.baseurl}}/dashboards/dashboard-variables/variable-management/).
+For detailed instructions, see [Managing dashboard variables]({{site.url}}{{site.baseurl}}/dashboards/dashboard-variables/variable_management/).
 
 ---
 
 ## Next steps
 
-- [Managing dashboard variables]({{site.url}}{{site.baseurl}}/dashboards/dashboard-variables/variable-management/) - Learn how to create, edit, and organize variables
+- [Managing dashboard variables]({{site.url}}{{site.baseurl}}/dashboards/dashboard-variables/variable_management/) - Learn how to create, edit, and organize variables
 - [Using variables in queries and visualization editors]({{site.url}}{{site.baseurl}}/dashboards/dashboard-variables/using-variables/) - Learn how to reference variables in different contexts
