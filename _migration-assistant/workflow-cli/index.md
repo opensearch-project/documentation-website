@@ -48,15 +48,20 @@ The `console` CLI groups operations by component. The `workflow` CLI orchestrate
 
 #### Cluster inspection
 
-| Command | Why you use it |
-|:--------|:---------------|
-| `console --version` | Confirms which schema and behavior your console is running |
-| `console clusters connection-check` | Verifies the console can reach and authenticate to source and target clusters |
-| `console clusters connection-check --cluster source&#124;target&#124;proxy` | Restricts the check to one cluster |
-| `console clusters cat-indices [--refresh] [--cluster source&#124;target&#124;proxy]` | Lists indexes on one or both clusters |
-| `console clusters curl source /_cat/indexes?v` | Issues a direct API request against the named cluster (path is positional) |
-| `console clusters curl target /_search -X POST --json '{"query":{"match_all":{}}}'` | POST with a JSON body |
-| `console clusters clear-indexes --cluster target --acknowledge-risk` | **Destructive** — deletes all indexes on the named cluster |
+<table>
+<thead>
+<tr><th>Command</th><th>Why you use it</th></tr>
+</thead>
+<tbody>
+<tr><td><code>console --version</code></td><td>Confirms which schema and behavior your console is running</td></tr>
+<tr><td><code>console clusters connection-check</code></td><td>Verifies the console can reach and authenticate to source and target clusters</td></tr>
+<tr><td><code>console clusters connection-check --cluster source|target|proxy</code></td><td>Restricts the check to one cluster</td></tr>
+<tr><td><code>console clusters cat-indices [--refresh] [--cluster source|target|proxy]</code></td><td>Lists indexes on one or both clusters</td></tr>
+<tr><td><code>console clusters curl source /_cat/indexes?v</code></td><td>Issues a direct API request against the named cluster (path is positional)</td></tr>
+<tr><td><code>console clusters curl target /_search -X POST --json '{"query":{"match_all":{}}}'</code></td><td>POST with a JSON body</td></tr>
+<tr><td><code>console clusters clear-indexes --cluster target --acknowledge-risk</code></td><td><strong>Destructive</strong> — deletes all indexes on the named cluster</td></tr>
+</tbody>
+</table>
 
 #### Metrics and Kafka
 
@@ -78,22 +83,27 @@ The `console` CLI groups operations by component. The `workflow` CLI orchestrate
 
 ### Execution and monitoring commands
 
-| Command | Why you use it |
-|:--------|:---------------|
-| `workflow submit` | Starts the migration workflow (auto-stops and replaces an existing one with the same name) |
-| `workflow submit --wait --timeout 300` | Submits and blocks until the workflow completes or the timeout is reached |
-| `workflow manage` | Primary day-to-day interface for monitoring, approvals, and logs (interactive TUI) |
-| `workflow status` | Shows the current workflow tree in a non-interactive form |
-| `workflow status --all` | Shows running and completed workflows |
-| `workflow status --live-status` | Adds live snapshot/backfill status checks per node |
-| `workflow log all` | Shows logs across workflow pods (uses pod labels to find them) |
-| `workflow log all --follow` | Streams logs live (uses `stern` under the hood) |
-| `workflow log filter -l source=src,target=tgt` | Filters by label selector |
-| `workflow approve step <PATTERN> [<PATTERN> ...]` | Approves pending gates that match exact names or globs (for example `*.evaluateMetadata`) |
-| `workflow reset` | Lists migration CRDs and lets you delete them safely. Use this instead of `kubectl delete workflow ...` |
-| `workflow reset --all` | Deletes all migration CRDs (capture proxies are protected by default — add `--include-proxies` to remove them too) |
-| `workflow reset <NAME> --cascade` | Deletes a specific resource and its dependents |
-| `workflow util completions <bash\|zsh\|fish>` | Generates a shell completion script |
+<table>
+<thead>
+<tr><th>Command</th><th>Why you use it</th></tr>
+</thead>
+<tbody>
+<tr><td><code>workflow submit</code></td><td>Starts the migration workflow (auto-stops and replaces an existing one with the same name)</td></tr>
+<tr><td><code>workflow submit --wait --timeout 300</code></td><td>Submits and blocks until the workflow completes or the timeout is reached</td></tr>
+<tr><td><code>workflow manage</code></td><td>Primary day-to-day interface for monitoring, approvals, and logs (interactive TUI)</td></tr>
+<tr><td><code>workflow status</code></td><td>Shows the current workflow tree in a non-interactive form</td></tr>
+<tr><td><code>workflow status --all</code></td><td>Shows running and completed workflows</td></tr>
+<tr><td><code>workflow status --live-status</code></td><td>Adds live snapshot/backfill status checks per node</td></tr>
+<tr><td><code>workflow log all</code></td><td>Shows logs across workflow pods (uses pod labels to find them)</td></tr>
+<tr><td><code>workflow log all --follow</code></td><td>Streams logs live (uses <code>stern</code> under the hood)</td></tr>
+<tr><td><code>workflow log filter -l source=src,target=tgt</code></td><td>Filters by label selector</td></tr>
+<tr><td><code>workflow approve step &lt;PATTERN&gt; [&lt;PATTERN&gt; ...]</code></td><td>Approves pending gates that match exact names or globs (for example <code>*.evaluateMetadata</code>)</td></tr>
+<tr><td><code>workflow reset</code></td><td>Lists migration CRDs and lets you delete them safely. Use this instead of <code>kubectl delete workflow ...</code></td></tr>
+<tr><td><code>workflow reset --all</code></td><td>Deletes all migration CRDs (capture proxies are protected by default — add <code>--include-proxies</code> to remove them too)</td></tr>
+<tr><td><code>workflow reset &lt;NAME&gt; --cascade</code></td><td>Deletes a specific resource and its dependents</td></tr>
+<tr><td><code>workflow util completions &lt;bash|zsh|fish&gt;</code></td><td>Generates a shell completion script</td></tr>
+</tbody>
+</table>
 
 ## Use the workflow manage command as the primary interface
 
