@@ -5,4 +5,4 @@ level: warning
 action:
   name: replace
 swap:
-  'OpenSearch or operating system': OS
+  'OS': OpenSearch or operating system
