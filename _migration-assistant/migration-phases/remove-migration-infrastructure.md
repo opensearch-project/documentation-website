@@ -2,33 +2,59 @@
 layout: default
 title: Removing Migration Assistant
 nav_order: 9
-parent: Migration phases
+parent: Migration workflows
 permalink: /migration-assistant/migration-phases/remove-migration-infrastructure/
 redirect_from:
   - /migration-assistant/migration-phases/removing-migration-infrastructure/
-canonical_url: https://docs.opensearch.org/latest/migration-assistant/migration-phases/remove-migration-infrastructure/
+  - /migration-phases/removing-migration-infrastructure/
+
 ---
 
 # Removing migration infrastructure
 
-After a migration is complete, you should remove all resources except for the target cluster and, optionally, your Amazon CloudWatch logs and Traffic Replayer logs.
+Do not remove migration infrastructure immediately after a successful migration.
 
-To remove the AWS Cloud Development Kit (AWS CDK) stack(s) created during a deployment, run the following command within the CDK directory:
+Before proceeding with removal, confirm the following:
 
-```bash  
-cd deployment/cdk/opensearch-service-migration
-cdk destroy "*" --c contextId=<CONTEXT_ID>
+- Production traffic has been stable on the target.
+- You no longer need the source for rollback.
+- You no longer need replay or comparison checks.
+- Any snapshot artifacts you want to keep have been retained intentionally.
+
+## Generic Kubernetes removal
+
+To remove the Helm deployment and persistent volumes, run the following commands:
+
+```bash
+helm uninstall -n ma ma
+kubectl -n ma delete pvc --all
+kubectl delete namespace ma
 ```
 {% include copy.html %}
 
-Follow the instructions on the command line to remove the deployed resources from your AWS account.
+## Amazon EKS removal
 
-You can also use the AWS Management Console to remove Migration Assistant resources and confirm that they are no longer present in the account.
+If you used the EKS bootstrap path, remove the Helm release and then the CloudFormation stack:
 
-## Uninstalling Migration Assistant for OpenSearch
+```bash
+helm uninstall -n ma ma
+kubectl -n ma delete pvc --all
+aws cloudformation delete-stack --stack-name <STACK_NAME>
+aws cloudformation wait stack-delete-complete --stack-name <STACK_NAME>
+```
+{% include copy.html %}
 
-You can uninstall Migration Assistant for OpenSearch Service from the AWS Management Console or by using the AWS Command Line Interface (AWS CLI). Manually remove the contents of the Amazon Simple Storage Service (Amazon S3) bucket that matches the syntax `cdk-<unique id>-assets-<account id>-<region>`, the bucket created by Migration Assistant. Migration Assistant for OpenSearch does not automatically delete S3 buckets. 
+This removes the EKS platform resources created by the solution stack.
 
-To delete the stored data and the AWS CloudFormation stacks created by Migration Assistant, see [Uninstall the solution](https://docs.aws.amazon.com/solutions/latest/migration-assistant-for-amazon-opensearch-service/uninstall-the-solution.html) in the Amazon OpenSearch Service documentation.
+## Snapshot and artifact retention
+
+Be deliberate about S3 removal. The default migrations bucket is often still useful for:
+
+- Audit and rollback investigation
+- Preserving snapshots
+- Comparing post-cutover behavior
+
+Delete the bucket only after you are certain you no longer need its contents.
+{: .warning }
 
 {% include migration-phase-navigation.html %}

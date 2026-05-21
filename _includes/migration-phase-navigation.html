@@ -113,17 +113,16 @@ It uses the migration scenarios data to determine the flow and relationships.
   {%- endif -%}
 {%- endfor -%}
 
-{%- comment -%}Remove duplicates from next_phase_info{%- endcomment -%}
+{%- comment -%}Remove duplicates from next_phase_info — dedup by URL so when every scenario goes to the same next phase, we show one link instead of repeating it per scenario{%- endcomment -%}
 {%- assign unique_next_phases = '' | split: '' -%}
 {%- for phase_data in next_phase_info -%}
   {%- assign phase_parts = phase_data | split: '|' -%}
   {%- assign phase_url = phase_parts[0] -%}
-  {%- assign scenario_title = phase_parts[2] -%}
   {%- assign is_duplicate = false -%}
   
   {%- for unique_phase_data in unique_next_phases -%}
     {%- assign unique_parts = unique_phase_data | split: '|' -%}
-    {%- if unique_parts[0] == phase_url and unique_parts[2] == scenario_title -%}
+    {%- if unique_parts[0] == phase_url -%}
       {%- assign is_duplicate = true -%}
       {%- break -%}
     {%- endif -%}
@@ -156,7 +155,7 @@ The previous phase depends on your migration scenario:
 {% for phase_data in unique_prev_phases -%}
 {%- assign phase_parts = phase_data | split: '|' %}
 {%- assign clean_prev_url = phase_parts[0] | replace: '{{site.url}}{{site.baseurl}}', '' -%}
-- **{{ phase_parts[2] }}** (Step {{ phase_parts[3] }}): [{{ phase_parts[1] }}]({{ site.url }}{{ site.baseurl }}{{ clean_prev_url }})
+- **{{ phase_parts[2] }}**: [{{ phase_parts[1] }}]({{ site.url }}{{ site.baseurl }}{{ clean_prev_url }})
 {% endfor %}
 {%- endif %}
 {%- endif %}
@@ -184,7 +183,7 @@ The next phase depends on your migration scenario:
 {% for phase_data in unique_next_phases -%}
 {%- assign phase_parts = phase_data | split: '|' %}
 {%- assign clean_next_url = phase_parts[0] | replace: '{{site.url}}{{site.baseurl}}', '' -%}
-- **{{ phase_parts[2] }}** (Step {{ phase_parts[3] }}): [{{ phase_parts[1] }}]({{ site.url }}{{ site.baseurl }}{{ clean_next_url }})
+- **{{ phase_parts[2] }}**: [{{ phase_parts[1] }}]({{ site.url }}{{ site.baseurl }}{{ clean_next_url }})
 {% endfor %}
 
 For a complete overview of all migration phases, see [Migration phases]({{ site.url }}{{ site.baseurl }}/migration-assistant/migration-phases/).
