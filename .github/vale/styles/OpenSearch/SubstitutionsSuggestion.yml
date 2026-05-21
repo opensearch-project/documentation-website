@@ -23,13 +23,9 @@ swap:
   'get': receive, obtain, or retrieve
   'gets': receives, returns, or retrieves
   'getting': retrieving or obtaining
-  'gives': provides
-  'go live': deploy to production
-  'go-to': primary or recommended
   'handle': manage, process, or resolve
   'handles': manages, processes, or resolves
   'handling': managing, processing, or resolving
-  'hook up': connect or integrate
   'it is recommended': we recommend
   'kick off': start or initiate
   'leverage': use
@@ -45,7 +41,7 @@ swap:
   'plug in': integrate or use
   'plug into': integrate with
   'plumbing': configuration or infrastructure
-  'point at': reference
+  'point to': reference
   'pull in': import or retrieve
   'push back': postpone
   'read in': ingest or parse
