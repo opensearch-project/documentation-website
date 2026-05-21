@@ -1,16 +1,16 @@
 ---
 layout: default
-title: List API Tokens
+title: List API Keys
 grand_parent: Security APIs
-parent: API Token APIs
+parent: API Key APIs
 nav_order: 20
 ---
 
-# List API Tokens
+# List API Keys
 **Introduced 3.7**
 {: .label .label-purple }
 
-Returns all API tokens, including active, expired, and revoked tokens.
+Returns all API keys, including active, expired, and revoked keys.
 
 ## Endpoints
 
@@ -57,15 +57,15 @@ GET /_plugins/_security/api/apitokens
 
 ## Response body fields
 
-Each token object contains the following fields.
+Each key object contains the following fields.
 
 | Property | Data type | Description |
 | :--- | :--- | :--- |
-| `id` | String | The unique identifier for the token. |
-| `name` | String | The token name. |
+| `id` | String | The unique identifier for the key. |
+| `name` | String | The key name. |
 | `iat` | Long | Issued-at timestamp in epoch milliseconds. |
 | `expires_at` | Long | Expiration timestamp in epoch milliseconds. |
-| `cluster_permissions` | Array of strings | Cluster-level permissions granted to the token. |
-| `index_permissions` | Array of objects | Index-level permissions granted to the token. |
-| `revoked_at` | Long | Revocation timestamp in epoch milliseconds. Present only if the token has been revoked. |
-| `created_by` | String | The user who created the token. |
+| `cluster_permissions` | Array of strings | Cluster-level permissions granted to the key. |
+| `index_permissions` | Array of objects | Index-level permissions granted to the key. |
+| `revoked_at` | Long | Revocation timestamp in epoch milliseconds. Present only if the key has been revoked. |
+| `created_by` | String | The user who created the key. |

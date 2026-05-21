@@ -1,16 +1,16 @@
 ---
 layout: default
-title: Create API Token
+title: Create API Key
 grand_parent: Security APIs
-parent: API Token APIs
+parent: API Key APIs
 nav_order: 10
 ---
 
-# Create API Token
+# Create API Key
 **Introduced 3.7**
 {: .label .label-purple }
 
-Creates a new API token with the specified permissions and duration.
+Creates a new API key with the specified permissions and duration.
 
 ## Endpoints
 
@@ -24,7 +24,7 @@ The request body is **required**. It is a JSON object with the following fields.
 
 | Property | Required | Data type | Description |
 | :--- | :--- | :--- | :--- |
-| `name` | **Required** | String | A unique name for the token. Must match `[a-zA-Z0-9_-]+`. |
+| `name` | **Required** | String | A unique name for the key. Must match `[a-zA-Z0-9_-]+`. |
 | `cluster_permissions` | Optional | Array of strings | Cluster-level permissions or action groups. Default is `[]`. |
 | `index_permissions` | Optional | Array of objects | Index-level permissions. Default is `[]`. |
 | `index_permissions.index_pattern` | **Required** | Array of strings | Index patterns this permission applies to (e.g., `["logs-*"]`). |
@@ -64,5 +64,5 @@ The `token` value is returned only once. Store it securely — it cannot be retr
 
 | Property | Data type | Description |
 | :--- | :--- | :--- |
-| `id` | String | The unique identifier for the token (used for revocation). |
+| `id` | String | The unique identifier for the key (used for revocation). |
 | `token` | String | The plaintext token to use in the `Authorization: ApiKey <token>` header. |
