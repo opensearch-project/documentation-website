@@ -88,14 +88,14 @@ Option | Required | Type    | Description
 
 ### `otel_traces` codec
 
-The `otel_traces` codec parses each Kinesis data stream record as an OpenTelemetry trace record and creates a Data Prepper Span event for each span record.
+The `otel_traces` codec parses each Kinesis data stream record as an OpenTelemetry trace record and creates a Data Prepper span event for each span record.
 
 You can use the following options to configure the `otel_traces` codec.
 
 Option | Required | Type    | Description
 :--- | :--- |:--------| :---
-`format` | No | String | Specifies the format of the OpenTelemetry traces. Valid options are `json` and `protobuf`. Default is `json`.
-`otel_format` | No | String | Specifies the output format of the decoded spans. Valid options are `opensearch` and `otel`. Default is `opensearch`.
+`format` | No | String | Specifies the format of the OpenTelemetry traces. Valid values are `json` and `protobuf`. Default is `json`.
+`otel_format` | No | String | Specifies the output format of the decoded spans. Valid values are `opensearch` and `otel`. Default is `opensearch`.
 `length_prefixed_encoding` | No | Boolean | Specifies whether the length precedes the data in protobuf format. Default is `false`.
 
 ### polling
