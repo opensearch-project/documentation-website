@@ -279,7 +279,7 @@ layout: table_wrappers
             <p class="supported-version-warning">You're viewing the <strong>classic</strong> version of Migration Assistant documentation (ECS/CDK-based). For the latest Kubernetes-based version, see the <a href="{{ site.url }}{{ site.baseurl }}/migration-assistant/">current documentation</a>.</p>
           {% endif %}
           {% if page.section == "migration-assistant" %}
-            <p class="supported-version-warning">You're viewing the <strong>current</strong> version of Migration Assistant documentation (Kubernetes/EKS-based). For the classic ECS/CDK-based version, see the <a href="{{ site.url }}{{ site.baseurl }}/classic/migration-assistant/">classic documentation</a>.</p>
+            <p class="migration-assistant-version-banner">You're viewing the <strong>current</strong> version of Migration Assistant documentation (Kubernetes/EKS-based). For the classic ECS/CDK-based version, see the <a href="{{ site.url }}{{ site.baseurl }}/classic/migration-assistant/">classic documentation</a>.</p>
           {% endif %}
           {% if site.heading_anchors != false %}
             {% include vendor/anchor_headings.html html=content beforeHeading="true" anchorBody="<svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><use xlink:href=\"#svg-link\"></use></svg>" anchorClass="anchor-heading" anchorAttrs="aria-labelledby=\"%html_id%\"" %}

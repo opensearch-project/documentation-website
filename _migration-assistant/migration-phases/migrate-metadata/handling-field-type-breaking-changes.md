@@ -12,36 +12,32 @@ redirect_from:
 
 # Transform field types
 
-Migration Assistant already knows how to handle several common field-type compatibility problems during metadata migration. This page explains when the built-in transformations are enough and when you need a custom transformer.
+Migration Assistant resolves several common field-type compatibility problems during metadata migration automatically. The following sections describe when the built-in transformations are sufficient and when you need a custom transformer.
 
-## Start with the built-in transformations
+## Built-in transformations
 
-Before you build custom logic, check whether the migration is already covered by the built-in metadata transformations:
+Before you build custom logic, verify whether the migration is already covered by the built-in metadata transformations:
 
 - `string` to `text` and `keyword`
 - `flattened` to `flat_object`
 - `dense_vector` to `knn_vector`
-- additional vector compatibility adjustments for newer OpenSearch and Serverless targets
+- Additional vector compatibility adjustments for newer OpenSearch and Serverless targets.
 
-For many migrations, that is enough.
-
-## When to create a custom field-type transformer
+## Custom field type transformer
 
 Use a custom transformer only when:
 
-- the built-in rules do not match your target behavior
-- your application requires a specific field rewrite
-- you need to remove or adjust mapping properties in a way the defaults do not cover
+- The built-in rules do not match your target behavior.
+- Your application requires a specific field rewrite.
+- You need to remove or adjust mapping properties in a way the defaults do not cover.
 
-## How custom transformers fit into the workflow model
-
-In the current workflow model, custom metadata transformations are configured through metadata migration settings such as:
+Custom metadata transformations are configured through the following metadata migration settings:
 
 - `transformerConfig`
 - `transformerConfigBase64`
 - `transformerConfigFile`
 
-Start with:
+To configure a custom transformer, load the sample configuration and edit the workflow:
 
 ```bash
 workflow configure sample --load
@@ -49,19 +45,19 @@ workflow configure edit
 ```
 {% include copy.html %}
 
-If you use `transformerConfigFile`, the file must exist inside the container environment. That is an expert path and usually means mounting the file or baking it into the image.
+Configuring `transformerConfigFile` requires additional setup and is intended for advanced use cases: the file must be accessible inside the Migration Console container. You can mount it as a Kubernetes volume or include it in a custom container image.
 
-## Example custom transformer pattern
+### JavaScript-based transformer
 
-Advanced users can supply a JavaScript-based metadata transformer through `JsonJSTransformerProvider`.
+You can supply a JavaScript-based metadata transformer through `JsonJSTransformerProvider`. Typical use cases include:
 
-Typical use cases include:
+- Replacing deprecated field types
+- Removing incompatible mapping properties
+- Normalizing field definitions before they reach the target.
 
-- replacing deprecated field types
-- removing incompatible mapping properties
-- normalizing field definitions before they reach the target
+### Example configuration
 
-## Example transformation descriptor
+The following example shows a transformer descriptor that references a JavaScript file:
 
 ```json
 [
@@ -75,16 +71,14 @@ Typical use cases include:
 ```
 {% include copy.html %}
 
-## Workflow guidance
+## Recommended sequence
 
-Treat custom transformers as a last-mile compatibility tool, not as the starting point for every migration.
+Use custom transformers only after verifying that the built-in transformations do not cover your requirements. Follow this sequence:
 
-The safest sequence is:
-
-1. run assessment
-2. inspect the built-in transformation pages
-3. configure a pilot workflow
-4. add a custom transformer only if the pilot shows you need one
+1. Run the assessment.
+2. Inspect the built-in transformation pages.
+3. Configure a pilot workflow.
+4. Add a custom transformer only if the pilot workflow results require one.
 
 ## Validate the transformed metadata
 

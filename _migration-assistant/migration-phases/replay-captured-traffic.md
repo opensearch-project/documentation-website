@@ -12,12 +12,12 @@ redirect_from:
 
 # Replay captured traffic
 
-This page only applies to zero-downtime migrations that use Capture and Replay.
+The following information applies only to zero-downtime migrations that use Capture and Replay.
 {: .note }
 
 Replay is the step that closes the time gap between the snapshot used for backfill and the current state of the source system.
 
-## When replay should start
+## Replay start conditions
 
 Replay should begin only after the dependent snapshot migration has completed. In the workflow model, this is normally expressed with:
 
@@ -27,43 +27,39 @@ dependsOnSnapshotMigrations
 
 That dependency is important. Starting replay too early can cause ordering problems between historical backfill and live change processing.
 
-## What replay does
+## Replay process
 
-The Traffic Replayer:
+The Traffic Replayer performs the following steps:
 
-1. reads captured traffic from Kafka
-2. reconstructs requests
-3. applies replay-time transformations and auth behavior
-4. sends the requests to the target cluster
-5. advances Kafka offsets so replay can resume safely
+1. Reads captured traffic from Kafka.
+2. Reconstructs requests.
+3. Applies replay-time transformations and authentication.
+4. Sends the requests to the target cluster.
+5. Advances Kafka offsets so replay can resume safely.
 
 ## Key replay settings
 
-Important workflow settings include:
+The following table describes the key replay workflow settings.
 
-- `podReplicas`
-- `speedupFactor` — default `1.1`. `2.0` means twice the original traffic timeline.
-- `removeAuthHeader` — strips the captured `Authorization` header before replaying. Useful when the captured traffic carries credentials that would not be valid against the target.
-- `authHeaderOverride` — replaces the captured `Authorization` header with a static value.
-- `dependsOnSnapshotMigrations`
-- `nonRetryableDocExceptionTypes`
+| Setting | Description | Default |
+|:--------|:------------|:--------|
+| `podReplicas` | The number of Replayer pods running in parallel. | N/A |
+| `speedupFactor` | Controls how quickly replay catches up relative to the original traffic timeline. A value of `2.0` replays at twice the original rate. | `1.1` |
+| `removeAuthHeader` | Strips the captured `Authorization` header before replaying. Use when the captured traffic carries credentials that are not valid against the target. | N/A |
+| `authHeaderOverride` | Replaces the captured `Authorization` header with a static value. | N/A |
+| `dependsOnSnapshotMigrations` | Specifies which snapshot migration must complete before replay begins. | N/A |
+| `nonRetryableDocExceptionTypes` | A list of exception class names that are counted as failures but not retried because they are expected to fail deterministically. This setting differs from the RFS `allowedDocExceptionTypes`, which treats matching exceptions as success. | N/A |
 
-`speedupFactor` controls how quickly replay tries to catch up relative to the original traffic timeline.
-
-`nonRetryableDocExceptionTypes` is different from RFS `allowedDocExceptionTypes`. These replay errors are still counted as failures in the output, but they are not retried because they are expected to fail deterministically.
-
-Setting both `replayerConfig.removeAuthHeader: true` and an `authConfig` block on the same target is rejected by the schema. Pick one — either rely on the target's `authConfig` (the Replayer applies it for you) or strip the captured header. Setting both causes a dual-auth startup crash.
+Do not set both `replayerConfig.removeAuthHeader: true` and an `authConfig` block on the same target. The schema rejects this combination. Either rely on the target's `authConfig` (the Replayer applies it automatically) or strip the captured header.
 {: .warning }
 
-## What catch-up time depends on
+## Factors affecting replay duration
 
-Replay duration is mostly a function of:
+Replay duration depends on the following factors:
 
-- how much traffic was captured during backfill
-- how fast the target can process that traffic
-- the `speedupFactor` you configure
-
-In other words, replay time is not fixed. It depends on backlog and throughput.
+- The volume of traffic captured during backfill.
+- The target cluster's processing throughput.
+- The `speedupFactor` value in your configuration.
 
 ## Monitor replay
 
@@ -74,7 +70,7 @@ workflow manage
 ```
 {% include copy.html %}
 
-Useful supporting commands:
+The following commands provide additional monitoring information:
 
 ```bash
 workflow status
@@ -82,16 +78,16 @@ workflow log all --follow
 ```
 {% include copy.html %}
 
-## What to validate before cutover
+## Pre-cutover validation
 
-Do not switch traffic only because the Replayer is running. Validate that:
+Do not switch traffic only because the Replayer is running. Before proceeding, confirm the following:
 
-- replay has reached the live edge
-- document counts are directionally correct
-- representative queries behave correctly on the target
-- target-side errors are understood and acceptable
+- Replay has reached the live edge.
+- Document counts are directionally correct.
+- Representative queries behave correctly on the target.
+- Target-side errors are understood and acceptable.
 
-Useful checks:
+The following commands help validate the target state:
 
 ```bash
 console clusters cat-indices
@@ -99,8 +95,6 @@ console clusters curl target /my-index/_search --json '{"query":{"match_all":{}}
 ```
 {% include copy.html %}
 
-## What happens next
-
-Once replay is caught up and the target is validated, move to the cutover step and keep the source available until the rollback window has passed.
+After replay reaches the live edge and validation passes, proceed to switch traffic. Keep the source available until the rollback window has passed.
 
 {% include migration-phase-navigation.html %}

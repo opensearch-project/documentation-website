@@ -9,24 +9,20 @@ permalink: /migration-assistant/migration-phases/migrate-metadata/transform-stri
 
 # Transform string fields to text/keyword
 
-Migration Assistant automatically converts legacy Elasticsearch `string` fields into modern `text` or `keyword` mappings during metadata migration.
+Older Elasticsearch versions used `string` as the primary text field type. Modern Elasticsearch and OpenSearch use `text` and `keyword` instead. Migration Assistant automatically converts legacy `string` fields into modern `text` or `keyword` mappings during metadata migration.
 
-## Why this exists
-
-Older Elasticsearch versions used `string` as the primary text field type. Modern Elasticsearch and OpenSearch use `text` and `keyword` instead.
-
-That means old mappings need to be rewritten before the target can accept them cleanly.
-
-## What the built-in transformation does
+## Built-in transformation behavior
 
 Migration Assistant chooses the target field type based on how the original `string` field was configured:
 
-- analyzed string behavior becomes `text`
-- non-analyzed or exact-match string behavior becomes `keyword`
+- Analyzed string behavior becomes `text`.
+- Non-analyzed or exact-match string behavior becomes `keyword`.
 
 The transformation also removes or normalizes incompatible legacy mapping properties where needed.
 
-## How to check whether your source uses `string`
+## Identifying string fields
+
+To verify whether your source uses `string` fields, run the following command:
 
 ```bash
 console clusters curl source /_mapping
@@ -35,7 +31,7 @@ console clusters curl source /_mapping
 
 If the source mapping contains `"type":"string"`, this built-in transformation may apply.
 
-## What to validate after migration
+## Post-migration validation
 
 After metadata migration, verify the target mapping:
 
@@ -47,17 +43,16 @@ workflow show
 
 Then validate the application behavior that depends on those fields, especially:
 
-- term queries
-- aggregations
-- sorting
-- case-sensitive exact-match logic
+- Term queries
+- Aggregations
+- Sorting
+- Case-sensitive exact-match logic
 
-## When to use a custom transformer instead
+## Custom transformer
 
-Use a custom field-type transformer if the built-in `string` conversion is not enough for your application semantics, for example if:
+Use a custom field type transformer if the built-in `string` conversion is not enough for your application semantics, for example if:
 
-- you need custom multi-field behavior
-- you want field renaming at the same time
-- you need special cleanup of field properties
+- You need custom multi-field behavior.
+- You want field renaming at the same time.
+- You need special cleanup of field properties.
 
-For most migrations, the built-in conversion is the right starting point.

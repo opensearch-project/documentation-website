@@ -10,56 +10,57 @@ redirect_from:
 
 # Playbook: Apache Solr 8.x or 9.x → OpenSearch 3.x
 
-This playbook assumes Migration Assistant is already deployed on Kubernetes or Amazon EKS. If it is not, see [Choose your deployment]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/) first. The playbook covers the end-to-end process for migrating from Apache Solr 8.x or 9.x to OpenSearch 3.x using snapshot-based document backfill.
+This playbook assumes Migration Assistant is already deployed on Kubernetes or Amazon Elastic Kubernetes Service (Amazon EKS). To learn how to deploy Migration Assistant, see [Choose your deployment]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/). The playbook describes the end-to-end process for migrating from Apache Solr 8.x or 9.x to OpenSearch 3.x using snapshot-based document backfill.
 
-The example commands and config snippets target SolrCloud 8.11 against OpenSearch 3.x, but the same workflow applies to standalone Solr and to Solr 6.x–9.x — only the version string changes (for example, `SOLR 8.11.0` or `SOLR 9.7.0`).
+The example commands and configuration snippets target SolrCloud 8.11 against OpenSearch 3.x, but the same workflow applies to standalone Solr and to Solr 6.x--9.x---only the version string changes (for example, `SOLR 8.11.0` or `SOLR 9.7.0`).
 {: .note }
 
-Solr migrations support **backfill only** — Capture and Replay is not supported for Solr sources. If you need to migrate live traffic, plan a write pause around the backfill window.
+Solr migrations support **backfill only**---Capture and Replay is not supported for Solr sources. If your application requires continuous writes during migration, pause writes to the source cluster for the duration of the backfill.
 {: .note }
 
-## 1. Understand the Solr migration architecture
+## Solr migration architecture
 
-Solr migrations differ from Elasticsearch migrations because Solr uses a different HTTP API, schema format (`schema.xml`), and query syntax. A specialized component handles this:
+Solr migrations differ from Elasticsearch migrations because Solr uses a different HTTP API, schema format (`schema.xml`), and query syntax. Migration Assistant uses a specialized component called SolrReader to read Solr backup data (Lucene segment files), translate `schema.xml` field types to OpenSearch mappings, and bulk-index documents. For more information, see [Solr migration overview]({{site.url}}{{site.baseurl}}/migration-assistant/solr-migration/).
 
-- **SolrReader** — Reads Solr backup data (Lucene segment files), translates `schema.xml` field types to OpenSearch mappings, and bulk-indexes documents
-
-See [Solr migration overview]({{site.url}}{{site.baseurl}}/migration-assistant/solr-migration/) for details.
-
-> **Targeting Amazon OpenSearch Serverless instead?** This playbook still applies end-to-end. The only differences are the target endpoint and `authConfig.sigv4.service` value (`aoss` instead of `es`), plus a one-time AOSS data access policy. See [Migrate to OpenSearch Serverless]({{site.url}}{{site.baseurl}}/migration-assistant/amazon-opensearch-serverless/) for the target config, then return here.
+If your target is Amazon OpenSearch Serverless, this playbook still applies. The only differences are the target endpoint, the `authConfig.sigv4.service` value (`aoss` instead of `es`), and a one-time data access policy configuration. For the Serverless-specific target configuration, see [Migrate to OpenSearch Serverless]({{site.url}}{{site.baseurl}}/migration-assistant/amazon-opensearch-serverless/).
 {: .tip }
 
-## 2. Create a Solr backup
+## Step 1: Create a Solr backup
 
-Migration Assistant reads from Solr's native backup format. Use Solr's backup API for both SolrCloud and standalone — never copy data files from a running Solr installation, because segment merges or in-flight commits can corrupt the resulting backup.
+Migration Assistant reads from Solr's native backup format. Use Solr's backup API for both SolrCloud and standalone. Do not copy data files from a running Solr installation because segment merges or pending commits can corrupt the resulting backup.
 
-For SolrCloud, the backup target must be a shared file system mounted at the same path on every node, or an [`S3BackupRepository`](https://solr.apache.org/guide/solr/latest/deployment-guide/backup-restore.html#s3backuprepository). See [Apache Solr — SolrCloud backup/restore requirements](https://solr.apache.org/guide/solr/latest/deployment-guide/backup-restore.html#solrcloud-clusters) for the cluster-wide constraints.
+For SolrCloud, the backup target must be a shared file system mounted at the same path on every node, or an [`S3BackupRepository`](https://solr.apache.org/guide/solr/latest/deployment-guide/backup-restore.html#s3backuprepository). For cluster-wide constraints, see [Apache Solr---SolrCloud backup/restore requirements](https://solr.apache.org/guide/solr/latest/deployment-guide/backup-restore.html#solrcloud-clusters).
 {: .note }
 
-If you want to skip the local-or-shared-FS step entirely and have Solr write the backup directly to S3, configure Solr's `S3BackupRepository` and follow the [Solr backfill guide]({{site.url}}{{site.baseurl}}/migration-assistant/solr-migration/solr-backfill-guide/) instead — Migration Assistant will read the backup from S3 in place.
+Alternatively, you can configure Solr to write backups directly to Amazon Simple Storage Service (Amazon S3) using `S3BackupRepository`, which eliminates the need for a shared filesystem. For this approach, see the [Solr backfill guide]({{site.url}}{{site.baseurl}}/migration-assistant/solr-migration/solr-backfill-guide/).
+{: .tip }
 
-**SolrCloud (Collections API):**
+#### SolrCloud
+
+To create a backup in SolrCloud, run the following command:
 
 ```bash
 curl "http://<SOLR_HOST>:<SOLR_PORT>/solr/admin/collections?action=BACKUP&name=my-backup&collection=<COLLECTION>&location=/path/to/shared-backup"
 ```
 {% include copy.html %}
 
-Poll until the async task reports `completed`:
+To check the backup status, poll the request status API until it reports `completed`:
 
 ```bash
 curl "http://<SOLR_HOST>:<SOLR_PORT>/solr/admin/collections?action=REQUESTSTATUS&requestid=<REQUEST_ID>"
 ```
 {% include copy.html %}
 
-**Standalone Solr (Replication handler):**
+#### Standalone Solr
+
+For standalone Solr, use the replication handler to create a backup:
 
 ```bash
 curl "http://<SOLR_HOST>:<SOLR_PORT>/solr/<CORE>/replication?command=backup&name=my-backup&location=/path/to/backup"
 ```
 {% include copy.html %}
 
-Confirm the backup finished by checking `details.backup.status` in the response:
+To verify that the backup completed, query the replication details and confirm that `details.backup.status` returns `success`:
 
 ```bash
 curl "http://<SOLR_HOST>:<SOLR_PORT>/solr/<CORE>/replication?command=details"
@@ -73,7 +74,7 @@ aws s3 sync /path/to/backup/ s3://<BUCKET>/solr-backup/
 ```
 {% include copy.html %}
 
-## 3. Configure the workflow
+## Step 2: Configure the workflow
 
 Connect to the Migration Console and load the sample configuration:
 
@@ -86,7 +87,9 @@ workflow configure edit
 
 Set the source as your Solr backup location and the target as your OpenSearch 3.5 cluster. The schema translation (Solr field types → OpenSearch mappings) is handled automatically by SolrReader.
 
-## 4. Sample workflow configuration
+### Sample workflow configuration
+
+The following example shows a workflow configuration for migrating a Solr source to OpenSearch:
 
 ```json
 {
@@ -146,7 +149,9 @@ Set the source as your Solr backup location and the target as your OpenSearch 3.
 Always verify field names against `workflow configure sample` for your installed version.
 {: .note }
 
-## 5. Submit and monitor
+## Step 3: Submit and monitor the workflow
+
+Submit the workflow and open the monitoring interface:
 
 ```bash
 workflow submit
@@ -154,12 +159,15 @@ workflow manage    # Interactive TUI (Terminal User Interface)
 ```
 {% include copy.html %}
 
-The workflow will:
-1. Read the Solr backup data
-2. Translate `schema.xml` field types to OpenSearch mappings
-3. Bulk-index documents into the target
+The workflow performs the following steps:
 
-## 6. Verify the migration
+1. Reads the Solr backup data.
+2. Translates `schema.xml` field types to OpenSearch mappings.
+3. Bulk-indexes documents into the target.
+
+## Step 4: Verify the migration
+
+Run the following commands to verify document counts and query results:
 
 ```bash
 # Check document counts on target
@@ -173,9 +181,9 @@ console clusters curl target /<collection>/_search --json '{"query":{"match_all"
 ```
 {% include copy.html %}
 
-## 7. Schema translation reference
+## Schema translation reference
 
-SolrReader automatically translates these Solr field types:
+SolrReader automatically translates the following Solr field types.
 
 | Solr field type | OpenSearch mapping |
 |:----------------|:-------------------|
@@ -188,13 +196,14 @@ SolrReader automatically translates these Solr field types:
 | `solr.BoolField` | `boolean` |
 | `solr.DatePointField` | `date` |
 
-## 8. If you get stuck
+## Troubleshooting
 
-- [Troubleshooting]({{site.url}}{{site.baseurl}}/migration-assistant/troubleshooting/)
-- Start with a single collection to isolate issues before migrating all data
+If you encounter issues, see [Troubleshooting]({{site.url}}{{site.baseurl}}/migration-assistant/troubleshooting/). To isolate problems, start with a single collection before migrating all data.
 
-## See also
+## Related documentation
+
+For more information, see the following resources:
 
 - [Solr migration overview]({{site.url}}{{site.baseurl}}/migration-assistant/solr-migration/)
-- [Solr backfill guide]({{site.url}}{{site.baseurl}}/migration-assistant/solr-migration/solr-backfill-guide/) — Step-by-step S3 backup setup and workflow configuration for Solr
+- [Solr backfill guide]({{site.url}}{{site.baseurl}}/migration-assistant/solr-migration/solr-backfill-guide/) -- Step-by-step Amazon S3 backup configuration and workflow configuration for Solr.
 - [Supported migration paths]({{site.url}}{{site.baseurl}}/migration-assistant/is-migration-assistant-right-for-you/)

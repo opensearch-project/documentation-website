@@ -12,18 +12,18 @@ redirect_from:
 
 # Removing migration infrastructure
 
-Cleanup should happen last, not immediately after the first successful run.
+Do not remove migration infrastructure immediately after a successful migration.
 
-Wait until:
+Before proceeding with removal, confirm the following:
 
-- production traffic has been stable on the target
-- you no longer need the source for rollback
-- you no longer need replay or comparison checks
-- any snapshot artifacts you want to keep have been retained intentionally
+- Production traffic has been stable on the target.
+- You no longer need the source for rollback.
+- You no longer need replay or comparison checks.
+- Any snapshot artifacts you want to keep have been retained intentionally.
 
-## Generic Kubernetes cleanup
+## Generic Kubernetes removal
 
-To remove the Helm deployment and persistent volumes:
+To remove the Helm deployment and persistent volumes, run the following commands:
 
 ```bash
 helm uninstall -n ma ma
@@ -32,9 +32,9 @@ kubectl delete namespace ma
 ```
 {% include copy.html %}
 
-## Amazon EKS cleanup
+## Amazon EKS removal
 
-If you used the EKS bootstrap path, clean up the Helm release and then the CloudFormation stack:
+If you used the EKS bootstrap path, remove the Helm release and then the CloudFormation stack:
 
 ```bash
 helm uninstall -n ma ma
@@ -46,15 +46,15 @@ aws cloudformation wait stack-delete-complete --stack-name <STACK_NAME>
 
 This removes the EKS platform resources created by the solution stack.
 
-## Check snapshot and artifact retention first
+## Snapshot and artifact retention
 
-Be deliberate about S3 cleanup. The default migrations bucket is often still useful for:
+Be deliberate about S3 removal. The default migrations bucket is often still useful for:
 
-- audit and rollback investigation
-- preserving snapshots
-- comparing post-cutover behavior
+- Audit and rollback investigation
+- Preserving snapshots
+- Comparing post-cutover behavior
 
-Delete it only after you are certain you no longer need the contents.
+Delete the bucket only after you are certain you no longer need its contents.
 {: .warning }
 
 {% include migration-phase-navigation.html %}

@@ -9,35 +9,26 @@ permalink: /migration-assistant/migration-phases/migrate-metadata/transform-flat
 
 # Transform flattened fields to flat_object
 
-Migration Assistant can automatically convert Elasticsearch `flattened` fields into OpenSearch `flat_object` fields during metadata migration.
+Migration Assistant automatically converts Elasticsearch `flattened` fields into OpenSearch `flat_object` fields during metadata migration when the source contains `flattened` mappings and the target supports `flat_object`. If the target does not support the equivalent field behavior you need, plan a custom transformation instead.
 
-## When this applies
+## Built-in transformation behavior
 
-This transformation matters when:
+During metadata migration, built-in transformations detect `flattened` field definitions and rewrite them to `flat_object` automatically. No manual configuration is required.
 
-- the source contains `flattened` mappings
-- the target supports `flat_object`
+## Identifying flattened fields
 
-If the target does not support the equivalent field behavior you need, plan a custom transformation instead.
-
-## What the workflow does automatically
-
-During metadata migration, built-in transformations detect `flattened` field definitions and rewrite them to `flat_object`.
-
-That means most users do not need to configure anything manually.
-
-## How to check whether your source uses `flattened`
+To verify whether your source uses `flattened` fields, run the following command:
 
 ```bash
 console clusters curl source /_mapping
 ```
 {% include copy.html %}
 
-If the source mapping contains `"type":"flattened"`, this compatibility path may apply.
+If the response contains `"type":"flattened"`, the automatic transformation applies during metadata migration.
 
-## What to validate after migration
+## Post-migration validation
 
-After the metadata phase, verify that the target mappings look the way you expect:
+After the metadata phase, verify that the target mappings are correct:
 
 ```bash
 console clusters curl target /your-index/_mapping
@@ -45,20 +36,16 @@ workflow show
 ```
 {% include copy.html %}
 
-## When automatic conversion is not enough
+Also validate the following against the target:
+
+- Representative queries
+- Aggregations
+- Dashboards or visualizations that depend on the field.
+
+## Custom transformer
 
 Use a custom metadata transformer if:
 
-- the target version does not support the field behavior you need
-- you want to convert `flattened` into a different target type
-- you need additional property cleanup beyond the built-in transformation
-
-## What to watch for in the application
-
-Even when the mapping conversion succeeds, validate:
-
-- representative queries
-- aggregations
-- dashboards or visualizations that depend on the field
-
-The migration is only successful if the target behavior still matches what the application expects.
+- The target version does not support the field behavior you need.
+- You want to convert `flattened` into a different target type.
+- You need additional property cleanup beyond the built-in transformation.

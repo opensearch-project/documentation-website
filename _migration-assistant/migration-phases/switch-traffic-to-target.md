@@ -10,45 +10,45 @@ redirect_from:
 
 # Switch traffic to the target
 
-This page only applies to zero-downtime migrations that use Capture and Replay.
+The following information applies only to zero-downtime migrations that use Capture and Replay.
 {: .note }
 
 Switching traffic is the cutover step. By this point, capture has already protected writes during backfill, replay has caught the target up, and validation should already be complete.
 
 ## Cutover checklist
 
-Before you switch:
+Before you switch traffic, confirm the following:
 
-- replay has reached the live edge
-- the target cluster is healthy
-- representative application queries work on the target
-- the application team is ready to move traffic
-- the rollback path is still available
+- Replay has reached the live edge.
+- The target cluster is healthy.
+- Representative application queries work on the target.
+- The application team is ready to move traffic.
+- The rollback path is still available.
 
-## How to cut over
+## Switching traffic
 
-The exact mechanism depends on your environment, but the principle is always the same:
+The exact mechanism depends on your environment, but the process is the same:
 
-1. stop pointing clients at the capture proxy
-2. point clients directly at the target cluster
-3. watch the target closely during the first production traffic window
+1. Redirect clients away from the capture proxy.
+2. Point clients directly at the target cluster.
+3. Monitor the target closely during the first production traffic window.
 
 In practice, that usually means updating:
 
-- a DNS record
-- a load balancer backend
-- an application connection string
-- or a service-discovery entry
+- A DNS record
+- A load balancer backend
+- An application connection string
+- A service-discovery entry
 
-## Validate immediately after cutover
+## Validate the target after switching traffic
 
-Right after you switch, check:
+Immediately after switching traffic, verify the following:
 
-- cluster health
-- basic index visibility
-- representative application behavior
+- Cluster health
+- Basic index visibility
+- Representative application behavior
 
-Useful commands:
+The following commands help validate the target:
 
 ```bash
 console clusters curl target /_cluster/health
@@ -56,20 +56,14 @@ console clusters cat-indices --cluster target
 ```
 {% include copy.html %}
 
-## Keep the rollback path open
+## Maintaining rollback capability
 
-Do not immediately tear down the source or the migration infrastructure.
+Do not remove the source cluster or the migration infrastructure immediately after switching traffic. If you need to revert to the source, perform the following steps:
 
-If you need to fall back:
+1. Redirect clients back to the previous route.
+2. Investigate the target-side issue.
+3. Decide whether to resume replay, rerun the migration, or retry the switch later.
 
-1. point clients back to the previous route
-2. investigate the target-side issue
-3. decide whether to resume replay, rerun the migration, or retry cutover later
-
-Keep the source available until the application team is comfortable that the target is stable under real production traffic.
-
-## What happens next
-
-After the rollback window has passed, remove migration infrastructure and clean up any temporary resources.
+Keep the source available until you confirm that the target is stable under production traffic. After the rollback window has passed, remove migration infrastructure and any temporary resources.
 
 {% include migration-phase-navigation.html %}

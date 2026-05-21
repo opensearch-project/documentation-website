@@ -9,23 +9,21 @@ permalink: /migration-assistant/migration-phases/migrate-metadata/transform-dens
 
 # Transform dense_vector fields to knn_vector
 
-Migration Assistant can automatically convert Elasticsearch `dense_vector` mappings into OpenSearch `knn_vector` mappings during metadata migration.
+Migration Assistant can automatically convert Elasticsearch `dense_vector` mappings into OpenSearch `knn_vector` mappings during metadata migration. The target mapping must be valid for the OpenSearch k-NN model, and the application may need query changes after migration.
 
-## Why this matters
-
-Vector fields are not only a rename problem. The target mapping needs to be valid for the OpenSearch k-NN model and the application may need query changes after migration.
-
-## What the built-in transformation does
+## Built-in transformation behavior
 
 The metadata migration path can:
 
-- convert `dense_vector` to `knn_vector`
-- translate vector dimensions and related settings
-- prepare the target mapping for OpenSearch vector search
+- Convert `dense_vector` to `knn_vector`.
+- Translate vector dimensions and related settings.
+- Prepare the target mapping for OpenSearch vector search.
 
 Depending on the target, additional vector compatibility transforms may also apply, including Serverless-specific adjustments.
 
-## How to check whether your source uses `dense_vector`
+## Identifying dense_vector fields
+
+To verify whether your source uses `dense_vector` fields, run the following command:
 
 ```bash
 console clusters curl source /_mapping
@@ -34,9 +32,9 @@ console clusters curl source /_mapping
 
 If the source mapping contains `"type":"dense_vector"`, inspect those indexes carefully during assessment and pilot validation.
 
-## What to validate after metadata migration
+## Post-migration validation
 
-Check the target mapping:
+Verify the target mapping:
 
 ```bash
 console clusters curl target /your-index/_mapping
@@ -44,18 +42,16 @@ workflow show
 ```
 {% include copy.html %}
 
-Also validate that the target cluster supports the vector-search features you intend to use.
+Additionally, validate that the target cluster supports the vector search features you intend to use.
 
 ## Application impact
 
-Even when the mapping migration succeeds, query behavior may still need to change. Validate the search layer carefully if your application currently relies on Elasticsearch vector-query patterns.
+Even when the mapping migration succeeds, query behavior may still need to change. Validate the search layer carefully if your application currently relies on Elasticsearch vector query patterns.
 
-## When extra work may be required
+## Additional considerations
 
-Pay special attention when:
+Run a pilot migration with representative queries before cutover in the following cases:
 
-- the target is OpenSearch Serverless
-- the target version has vector-engine compatibility constraints
-- the application relies on specific vector-query syntax or ranking behavior
-
-These are good cases for a pilot migration with representative queries before cutover.
+- The target is OpenSearch Serverless.
+- The target version has vector-engine compatibility constraints.
+- The application relies on specific vector query syntax or ranking behavior.

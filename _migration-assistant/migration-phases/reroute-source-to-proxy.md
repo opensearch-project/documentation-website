@@ -8,27 +8,27 @@ permalink: /migration-assistant/migration-phases/reroute-source-to-proxy/
 
 # Reroute client traffic to the capture proxy
 
-This page only applies to zero-downtime migrations that use Capture and Replay.
+The following information applies only to zero-downtime migrations that use Capture and Replay.
 {: .note }
 
 Capture must start before snapshot backfill if you want to preserve writes that happen during the migration window.
 
-## What the workflow creates
+## Workflow-created resources
 
 When your workflow includes a `traffic.proxies` section, Migration Assistant creates:
 
-- capture proxy pods
-- a Kubernetes Service in front of those pods
-- Kafka wiring so captured traffic can be replayed later
+- Capture proxy pods.
+- A Kubernetes Service resource in front of those pods.
+- Apache Kafka configuration so captured traffic can be replayed later.
 
-Client traffic is sent to the proxy Service. The proxy forwards requests to the source cluster and records them for later replay.
+Client traffic is sent to the proxy Kubernetes Service. The proxy forwards requests to the source cluster and records them for later replay.
 
-## What changes on Kubernetes and EKS
+## Kubernetes and EKS compared
 
-The migration engine is the same on both platforms. The practical difference is how the Service is exposed and integrated into your environment.
+The migration engine is the same on both Kubernetes and Amazon Elastic Kubernetes Service (EKS) platforms. The practical difference is how the Kubernetes Service is exposed and integrated into your environment:
 
-- On **generic Kubernetes**, you provide the networking pattern that gets clients to the proxy Service.
-- On **Amazon EKS**, the Service can be backed by AWS load-balancer infrastructure, and the bootstrap path handles more of the platform wiring for you.
+- On **generic Kubernetes**, you provide the networking pattern that routes clients to the proxy Kubernetes Service.
+- On **Amazon EKS**, the Kubernetes Service can be backed by AWS load-balancer infrastructure, and the bootstrap path automates more of the platform configuration.
 
 ## Configure the proxy in the workflow
 
@@ -44,7 +44,7 @@ In the proxy configuration, important fields include:
 
 - `listenPort`
 - `podReplicas`
-- `internetFacing` when you need external exposure on EKS
+- `internetFacing` when you need external exposure on EKS.
 - `tls`
 - `setHeader`
 
@@ -52,7 +52,7 @@ In the proxy configuration, important fields include:
 
 The proxy is secure by default. If you do not configure TLS explicitly, the workflow provisions a self-signed certificate for the proxy.
 
-If you intentionally want plaintext HTTP, set the proxy TLS mode to `plaintext`.
+If you intentionally want plain text HTTP, set the proxy TLS mode to `plaintext`.
 
 ## Host and header overrides
 
@@ -78,14 +78,14 @@ kubectl get svc -n ma
 
 Then update your application, DNS, or load balancer to send traffic to that proxy endpoint instead of directly to the source.
 
-## Verify capture before moving on
+## Verify capture before proceeding
 
 Before you proceed to metadata migration and backfill, confirm that:
 
-- the proxy pods are running
-- the Service is reachable
-- application traffic is flowing through the proxy
-- the workflow shows the traffic components as healthy
+- The proxy pods are running.
+- The Kubernetes Service is reachable.
+- Application traffic is flowing through the proxy.
+- The workflow shows the traffic components as healthy.
 
 Useful commands:
 
@@ -95,12 +95,12 @@ workflow manage
 ```
 {% include copy.html %}
 
-## What happens next
+## Next steps
 
-Once capture is live, keep traffic flowing through the proxy while you:
+Once capture is live, keep traffic flowing through the proxy while you perform the following steps:
 
-1. migrate metadata
-2. backfill historical documents
-3. replay the captured traffic to catch the target up
+1. Migrate metadata
+2. Backfill historical documents
+3. Replay the captured traffic to catch the target up
 
 {% include migration-phase-navigation.html %}

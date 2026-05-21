@@ -13,7 +13,7 @@ redirect_from:
 
 # Migration workflows
 
-Migration Assistant is workflow-driven. You do not run a migration by manually chaining together unrelated commands. You choose a migration pattern, configure it once, run a pilot, validate the result, and then execute the real cutover.
+Migration Assistant is workflow-driven. You choose a migration pattern, configure it once, run a pilot, validate the result, and then execute the cutover.
 
 ## Common lifecycle
 
@@ -22,15 +22,15 @@ Most migrations follow the same lifecycle:
 1. **Assess** compatibility, unsupported components, and downtime needs.
 2. **Deploy** Migration Assistant on Kubernetes or Amazon EKS.
 3. **Configure** the workflow from the sample for your installed version.
-4. **Run a pilot** on a small allowlist.
-5. **Submit the real workflow** and monitor it through the Workflow CLI.
+4. **Run a pilot** on a small allow list.
+5. **Submit the full workflow** and monitor it through the Workflow CLI.
 6. **Approve** gated transitions only after validation.
 7. **Cut over** to the target.
 8. **Remove infrastructure** only after the rollback window has passed.
 
 ## Scenario 1: Backfill only
 
-Best for clusters where you can tolerate a brief write freeze or where writes can be paused and replayed from an external queue.
+Best for clusters where you can tolerate a brief write freeze or where writes can be paused and replayed from an external queue. The following diagram shows the workflow:
 
 ```
 Snapshot source → Migrate metadata → Backfill documents → Verify → Switch traffic
@@ -38,7 +38,7 @@ Snapshot source → Migrate metadata → Backfill documents → Verify → Switc
 
 ## Scenario 2: Capture and Replay only
 
-Best when the data is small enough that live replay alone can synchronize the target, or when you want to replay traffic against multiple target clusters to compare results.
+Best when the data is small enough that live replay alone can synchronize the target, or when you want to replay traffic against multiple target clusters to compare results. The following diagram shows the workflow:
 
 ```
 Reroute traffic to capture proxy → Migrate metadata → Replay traffic → Verify → Switch traffic to target
@@ -46,13 +46,15 @@ Reroute traffic to capture proxy → Migrate metadata → Replay traffic → Ver
 
 ## Scenario 3: Backfill + Capture and Replay (zero-downtime)
 
-The most comprehensive approach. Capture begins first so no writes are lost, then backfill brings over historical data, then replay catches the target up to real-time.
+Capture begins first so no writes are lost, then backfill brings over historical data, then replay catches the target up to real-time. The following diagram shows the workflow:
 
 ```
 Reroute traffic to capture proxy → Snapshot source → Migrate metadata → Backfill documents → Replay captured traffic → Verify → Switch traffic to target
 ```
 
 ## Phase overview
+
+The following table describes each phase of the migration workflow.
 
 | Phase | Description | Guide |
 |:------|:------------|:------|
@@ -63,23 +65,25 @@ Reroute traffic to capture proxy → Snapshot source → Migrate metadata → Ba
 | [Backfill]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/backfill/) | Migrate documents using snapshot-based reindexing (RFS) | Workflow CLI |
 | [Replay captured traffic]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/replay-captured-traffic/) | Replay recorded traffic to catch the target up to real-time | Capture and Replay only |
 | [Switch traffic to the target]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/switch-traffic-to-target/) | Redirect clients from capture proxy to the target cluster | Capture and Replay only |
-| [Remove infrastructure]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/remove-migration-infrastructure/) | Clean up Migration Assistant resources | Helm/CloudFormation |
+| [Remove infrastructure]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/remove-migration-infrastructure/) | Remove Migration Assistant resources | Helm/CloudFormation |
 
-## What Migration Assistant does not migrate automatically
+## Components not migrated automatically
 
-Plan separate work for:
+Migration Assistant does not migrate the following components automatically. You must migrate them separately:
 
-- security configuration,
-- ISM or ILM policies,
-- ingest pipelines,
-- Dashboards or Kibana saved objects,
-- data streams,
-- and cluster-level tuning.
+- Security configuration
+- ISM or ILM policies
+- Ingest pipelines
+- Dashboards or Kibana saved objects
+- Data streams
+- Cluster-level tuning
 
-## What to do next
+## Next steps
 
-- Start with [Choose your deployment]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/) if the platform is not running yet.
-- Go to [Workflow CLI]({{site.url}}{{site.baseurl}}/migration-assistant/workflow-cli/) if you want the operating model.
-- Go to [Playbooks]({{site.url}}{{site.baseurl}}/migration-assistant/playbooks/) if you already know your source and target path.
+For more information, see the following resources:
+
+- If Migration Assistant is not deployed yet, see [Choose your deployment]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/).
+- If you need to configure and submit workflows, see [Workflow CLI]({{site.url}}{{site.baseurl}}/migration-assistant/workflow-cli/).
+- If you already know your source and target combination, see [Playbooks]({{site.url}}{{site.baseurl}}/migration-assistant/playbooks/).
 
 {% include migration-phase-navigation.html %}

@@ -14,20 +14,22 @@ redirect_from:
 
 # Choose your deployment
 
-Migration Assistant always runs on Kubernetes. The real decision is **how much of the surrounding platform you want the tooling to prepare for you**.
+Migration Assistant always runs on Kubernetes. The primary decision is how much platform configuration you want the tooling to automate.
 
-## Which path should you choose
+## Deployment types
 
-| Path | Best when | What you get |
+The following table compares the two deployment types.
+
+| Type | Best when | Included |
 |:-----|:----------|:-------------|
 | [Deploy on Kubernetes]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-kubernetes/) | You already operate a Kubernetes platform, you are not on AWS, or you are evaluating locally | The core Migration Assistant engine and workflow model, with you supplying the platform integrations |
-| [Deploy on Amazon EKS]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-eks/) | You are on AWS and want the recommended production path | The same engine plus AWS bootstrap automation, pod identity, image mirroring, snapshot helpers, and CloudWatch integration |
+| [Deploy on Amazon Elastic Kubernetes Service (EKS)]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-eks/) | You are on AWS and want the recommended production path | The same engine plus AWS bootstrap automation, pod identity, image mirroring, snapshot helpers, and CloudWatch integration |
 
 Both paths install the same Migration Assistant Helm chart. The difference is how much of the surrounding environment is prepared for you.
 
-## What the platform always deploys
+## Default components
 
-The Migration Assistant Helm chart installs:
+The following table describes the components that the Migration Assistant Helm chart installs.
 
 | Component | Purpose |
 |:----------|:--------|
@@ -38,27 +40,27 @@ The Migration Assistant Helm chart installs:
 
 Source and target cluster configuration is handled dynamically through the Workflow CLI, not through large Helm value files.
 
-## Why EKS is recommended on AWS
+## Why Amazon EKS is recommended on AWS
 
-For AWS users, EKS is the recommended path because it removes a large amount of non-migration work:
+On AWS, Amazon EKS is the recommended path because it removes a large amount of non-migration work:
 
-- cluster and VPC bootstrap,
-- pod identity for AWS API access,
-- private image support for isolated subnets,
-- snapshot bucket and role helpers,
-- CloudWatch dashboards and logging,
-- and AWS-aware storage and node-pool defaults.
+- Cluster and VPC bootstrap.
+- Pod identity for AWS API access.
+- Private image support for isolated subnets.
+- Snapshot bucket and role helpers.
+- CloudWatch dashboards and logging.
+- AWS-aware storage and node-pool defaults.
 
-That lets users spend more time validating the migration and less time building the platform around it.
+This approach reduces platform configuration effort and allows you to focus on validating the migration.
 
 ## Prerequisites
 
 All deployment paths require:
 
-- **Kubernetes cluster**: Version 1.24 or later
+- **Kubernetes cluster**: Version 1.24 or later.
 - **Helm 3**: Installed and configured
-- **kubectl**: Configured to access your cluster
-- **Network access**: Connectivity from the cluster to source and target clusters
+- **`kubectl`**: Configured to access your cluster.
+- **Network access**: Connectivity from the cluster to source and target clusters.
 
 Use [Deploy on Kubernetes]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-kubernetes/) if you are bringing your own Kubernetes platform.
 
