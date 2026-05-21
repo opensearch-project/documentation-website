@@ -87,6 +87,18 @@ Option | Required | Type    | Description
 `skip_lines` | No | Integer | Sets the number of lines to skip before creating events. You can use this configuration to skip common header rows. Default is `0`.
 `header_destination` | No | String  | Defines a key value to assign to the header line of the stream event. If this option is specified, then each event will contain a `header_destination` field.
 
+### `otel_traces` codec
+
+The `otel_traces` codec parses each Kinesis data stream record as an OpenTelemetry trace record and creates a Data Prepper span event for each span record.
+
+You can use the following options to configure the `otel_traces` codec.
+
+Option | Required | Type    | Description
+:--- | :--- |:--------| :---
+`format` | No | String | Specifies the format of the OpenTelemetry traces. Valid values are `json` and `protobuf`. Default is `json`.
+`otel_format` | No | String | Specifies the output format of the decoded spans. Valid values are `opensearch` and `otel`. Default is `opensearch`.
+`length_prefixed_encoding` | No | Boolean | Specifies whether the length precedes the data in protobuf format. Default is `false`.
+
 ### polling
 
 When the `consumer_strategy` is set to `polling`, the `kinesis` source uses a polling-based approach to read records from the Kinesis data streams, instead of the default `fan-out` approach.
