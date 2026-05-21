@@ -7,10 +7,72 @@ action:
 swap:
   'app server': application server
   'as well as': and
+  'bring up': start or launch
+  'build out': expand or implement
+  'catch up': synchronize with
+  'clean up': remove or normalize
+  'cleans up': removes or normalizes
+  'cleaning up': removing or normalizing
+  'deal with': process or resolve
   'due to': because of
+  'fall back': revert
+  'figure out': determine or identify
+  'fire up': start or launch
+  'flesh out': elaborate or define
+  'from scratch': manually, from the beginning, or without a template
+  'get': receive, obtain, or retrieve
+  'gets': receives, returns, or retrieves
+  'getting': retrieving or obtaining
+  'gives': provides
+  'go live': deploy to production
+  'go-to': primary or recommended
+  'handle': manage, process, or resolve
+  'handles': manages, processes, or resolves
+  'handling': managing, processing, or resolving
+  'hook up': connect or integrate
   'it is recommended': we recommend
+  'kick off': start or initiate
   'leverage': use
   'life cycle': lifecycle
+  'lives': is located
+  'look into': investigate
+  'looks like this': appears as follows
   'navigate in': navigate to
+  'one-off': single-use or ad-hoc
+  'out of the box': by default, natively, or is built-in
+  'out-of-the-box': default, native, or built-in
+  'picks up': loads or detects
+  'plug in': integrate or use
+  'plug into': integrate with
+  'plumbing': configuration or infrastructure
+  'point at': reference
+  'pull in': import or retrieve
+  'push back': postpone
+  'read in': ingest or parse
+  'roll out': deploy or release
+  'scale up': scale or increase capacity
+  'see': view
+  'set up': configure or initialize
+  'sets up': configures or initializes
+  'setting up': configuring or initializing
+  'show up': appear
+  'shut down': stop or terminate
+  'slow down': delay, reduce throughput, or increase latency
+  'slows down': delays or reduces throughput
+  'speed up': accelerate
+  'spin up': provision or start
+  'spins up': provisions or starts
+  'split up': divide or partition
+  'start here': getting started
+  'stitching together': chaining or combining
+  'tear down': remove or decommission
+  'teardown': removal or decommission
+  'under the hood': internally
+  'walks you through': describes or explains
+  'wire up': connect or configure
+  'wires up': connects or configures
+  'wiring': configuration or networking
   'wish|desire': want
-  
+  'work around': mitigate or bypass
+  'workaround': mitigation or alternative approach
+  'works with': supports, integrates with, or is compatible with
