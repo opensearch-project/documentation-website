@@ -31,6 +31,7 @@ Add a single value to the setting when only one authentication type is needed.
 ```yml
 opensearch_security.auth.type: "openid"
 ```
+{% include copy.html %}
 
 For multiple authentication options, add values to the setting as an array separated by commas. As a reminder, Dashboards currently supports a combination of basic authentication, OpenID Connect, and SAML as a valid set of values. In the setting, these values are expressed as `"basicauth"`, `"openid"`, and `"saml"`.
 
@@ -38,16 +39,19 @@ For multiple authentication options, add values to the setting as an array separ
 opensearch_security.auth.type: ["basicauth","openid"]
 opensearch_security.auth.multiple_auth_enabled: true
 ```
+{% include copy.html %}
 
 ```yml
 opensearch_security.auth.type: ["basicauth","saml"]
 opensearch_security.auth.multiple_auth_enabled: true
 ```
+{% include copy.html %}
 
 ```yml
 opensearch_security.auth.type: ["basicauth","saml","openid"]
 opensearch_security.auth.multiple_auth_enabled: true
 ```
+{% include copy.html %}
 
 When the `opensearch_security.auth.type` setting contains `basicauth` and one other authentication type, the sign-in window appears as in the following example.
 
@@ -59,7 +63,7 @@ With all three valid authentication types specified, the sign-in window appears 
 
 ## Configuring a default redirect authentication type
 
-When multiple authentication types are enabled, you can configure one of the redirect-based authentication types (SAML or OpenID Connect) to be used for automatic redirection by default. This is useful when you want most users to authenticate through an IdP while still allowing alternative sign-in methods.
+When multiple authentication types are enabled, you can configure one of the redirect-based authentication types (SAML or OpenID Connect) to be used for automatic redirection by default. This is useful when you want most users to authenticate through an IdP while still allowing alternative authentication methods.
 
 To configure a default redirect authentication type, add the `opensearch_security.auth.default_redirect_auth_type` setting to the `opensearch_dashboards.yml` file:
 
@@ -68,21 +72,22 @@ opensearch_security.auth.type: ["basicauth","saml"]
 opensearch_security.auth.multiple_auth_enabled: true
 opensearch_security.auth.default_redirect_auth_type: "saml"
 ```
+{% include copy.html %}
 
-With this configuration, unauthenticated users are automatically redirected to the SAML IdP for authentication instead of being shown the Dashboards login page.
+With this configuration, unauthenticated users are automatically redirected to the SAML IdP for authentication instead of being shown the OpenSearch Dashboards login page.
 
 The `default_redirect_auth_type` value must be either `saml` or `openid` and must also be included in the `opensearch_security.auth.type` array.
 {: .note }
 
 ### Bypassing automatic redirection
 
-When a default redirect authentication type is configured, you can bypass the automatic redirection and force the login page to display by appending `?auto_login=false` to the Dashboards URL. For example:
+When a default redirect authentication type is configured, you can bypass the automatic redirection and display the login page instead by appending `?auto_login=false` to the OpenSearch Dashboards URL. For example:
 
 ```
 https://<dashboards-host>:5601/app/dashboards?auto_login=false
 ```
 
-This is useful for administrators who need to sign in with basic authentication (for example, as a cluster admin) when the default redirect is configured for SAML or OpenID Connect.
+This is useful for administrators who need to authenticate using basic authentication (for example, as a cluster administrator) when the default redirect is configured to use SAML or OpenID Connect.
 
 ## Customizing the sign-in environment
 
@@ -158,3 +163,4 @@ opensearch_security.openid.connect_url: <"OIDC connect URL">
 opensearch_security.openid.client_id: <Client ID>
 opensearch_security.openid.client_secret: <Client secret>
 ```
+{% include copy.html %}
