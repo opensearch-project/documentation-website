@@ -2,7 +2,7 @@
 layout: default
 title: Migrate metadata
 nav_order: 5
-parent: Migration phases
+parent: Migration workflows
 has_children: true
 has_toc: true
 permalink: /migration-assistant/migration-phases/migrate-metadata/
@@ -15,207 +15,108 @@ canonical_url: https://docs.opensearch.org/latest/migration-assistant/migration-
 
 # Migrate metadata
 
-Metadata migration involves creating a snapshot of your cluster and then migrating the metadata from the snapshot using the migration console.
+Metadata migration moves the target cluster into a shape that can accept the incoming data and traffic. It processes mappings, templates, aliases, and other index-level definitions before document backfill or replay becomes meaningful.
 
-This tool gathers information from a source cluster through a snapshot or through HTTP requests against the source cluster. These snapshots are fully compatible with the backfill process for `Reindex-From-Snapshot` (RFS) scenarios.
+In the workflow model, metadata migration is a configured phase inside the migration workflow.
 
-After collecting information on the source cluster, comparisons are made against the target cluster. If running a migration, any metadata items that do not already exist will be created on the target cluster.
+## Metadata workflow steps
 
-## Command arguments
+When `metadataMigrationConfig` is present, the workflow runs two logical steps:
 
-For the following commands, to identify all valid arguments, please run with `--help`.
+1. `evaluateMetadata`
+2. `migrateMetadata`
 
-```shell
-console metadata evaluate --help
-```
-{% include copy.html %}
+The first step evaluates what would be applied. The second step writes those changes to the target. If approvals are enabled, the workflow can pause between these steps so you can inspect the result before continuing.
 
-Based on the migration console deployment options, a number of commands will be pre-populated. To view them, run console with verbosity:
+## Metadata migration scope
 
-```shell
-console -v metadata migrate --help
-```
-{% include copy.html %}
+Metadata migration can process:
 
-You should receive a response similar to the following:
+- Index settings
+- Index mappings
+- Legacy and composable templates
+- Component templates
+- Aliases
 
-```shell
-(.venv) bash-5.2# console -v metadata migrate --help
-INFO:console_link.cli:Logging set to INFO
-.
-.
-.
-INFO:console_link.models.metadata:Migrating metadata with command: /root/metadataMigration/bin/MetadataMigration --otel-collector-endpoint http://otel-collector:4317 migrate --snapshot-name snapshot_2023_01_01 --target-host https://opensearchtarget:9200 --min-replicas 0 --file-system-repo-path /snapshot/test-console --target-username admin --target-password ******** --target-insecure --help
-.
-.
-.
-```
+It does not automatically migrate everything around the cluster. Plan separate work for security configuration, ISM or ILM policies, ingest pipelines, dashboards or Kibana objects, and other environment-specific assets.
 
+## Built-in transformations
 
-## Using the evaluate command
+The current metadata migration path already includes built-in transformations for several common compatibility issues, including:
 
-By scanning the contents of the source cluster, applying filtering, and applying modifications a list of all items that will be migrated will be created.  Any items not seen in this output will not be migrated onto the target cluster if the migrate command was to be run.  This is a safety check before making modifications on the target cluster.
+- `string` to `text` and `keyword`
+- `flattened` to `flat_object`
+- `dense_vector` to `knn_vector`
+- Additional vector compatibility transformations for newer OpenSearch and Serverless targets.
 
-```shell
-console metadata evaluate [...]
-```
-{% include copy.html %}
+If your migration needs more than the built-ins, you can also supply custom metadata transformers through `transformerConfig`, `transformerConfigBase64`, or `transformerConfigFile`.
 
-You should receive a response similar to the following:
+## Important configuration fields
+
+Useful metadata settings include:
+
+- `indexAllowlist`
+- `indexTemplateAllowlist`
+- `componentTemplateAllowlist`
+- `multiTypeBehavior`
+- `allowLooseVersionMatching`
+- `transformerConfig*`
+
+Use the version-matched sample from your console to see the exact structure for your installed release. (*Version-matched* means the schema corresponds to the Migration Assistant version installed in your console pod---`workflow configure sample --load` reads the schema from `/root/.workflowUser.schema.json` on that pod, so the loaded sample always has the fields that release supports.) To load and edit the sample, run the following commands:
 
 ```bash
-Starting Metadata Evaluation
-Clusters:
-   Source:
-      Remote Cluster: OpenSearch 1.3.16 ConnectionContext(uri=http://localhost:33039, protocol=HTTP, insecure=false, compressionSupported=false)
-
-   Target:
-      Remote Cluster: OpenSearch 2.14.0 ConnectionContext(uri=http://localhost:33037, protocol=HTTP, insecure=false, compressionSupported=false)
-
-
-Migration Candidates:
-   Index Templates:
-      simple_index_template
-
-   Component Templates:
-      simple_component_template
-
-   Indexes:
-      blog_2023, movies_2023
-
-   Aliases:
-      alias1, movies-alias
-
-
-Results:
-   0 issue(s) detected
-```
-
-
-## Using the migrate command
-
-Running through the same data as the evaluate command all of the migrated items will be applied onto the target cluster.  If re-run multiple times items that were previously migrated will not be recreated.  If any items do need to be re-migrated, please delete them from the target cluster and then rerun the evaluate then migrate commands to ensure the desired changes are made.
-
-```shell
-console metadata migrate [...]
+workflow configure sample --load
+workflow configure edit
 ```
 {% include copy.html %}
 
-You should receive a response similar to the following:
+## Index filtering behavior
 
-```shell
-Starting Metadata Migration
+The metadata `indexAllowlist` is evaluated after the snapshot has already been taken. It supports:
 
-Clusters:
-   Source:
-      Snapshot: OpenSearch 1.3.16 FileSystemRepo(repoRootDir=/tmp/junit10626813752669559861)
+- Exact index names
+- Regex patterns prefixed with `regex:`
 
-   Target:
-      Remote Cluster: OpenSearch 2.14.0 ConnectionContext(uri=http://localhost:33042, protocol=HTTP, insecure=false, compressionSupported=false)
+This is different from the snapshot creation allow list, which uses the source cluster's own snapshot multi-index expression syntax.
 
+## Multi-type behavior
 
-Migrated Items:
-   Index Templates:
-      simple_index_template
+If your migration involves older Elasticsearch data sets with multi-type mappings, set `multiTypeBehavior` intentionally:
 
-   Component Templates:
-      simple_component_template
+- `NONE` to fail when multi-type data is encountered.
+- `UNION` to merge types into one mapping
+- `SPLIT` to route types into separate indexes.
 
-   Indexes:
-      blog_2023, movies_2023
+Do not guess here. Pilot it first on a small subset if multi-type behavior matters to your application.
 
-   Aliases:
-      alias1, movies-alias
+## Validate metadata before continuing
 
+After metadata migration runs, verify the target before moving to full backfill or cutover:
 
-Results:
-   0 issue(s) detected
-```
-
-
-## Metadata verification process
-
-Before moving on to additional migration steps, we recommend confirming details of your cluster.  Depending on your configuration, this could be checking the sharding strategy or making sure index mappings are correctly defined by ingesting a test document.
-
-## Troubleshooting
-
-Use these instructions to help troubleshoot the following issues.
-
-### Accessing detailed logs
-
-Metadata migration creates a detailed log file that includes low level tracing information for troubleshooting. For each execution of the program a log file is created inside a shared volume on the migration console named `shared-logs-output` the following command will list all log files, one for each run of the command.
-
-```shell
-ls -al /shared-logs-output/migration-console-default/*/metadata/
+```bash
+console clusters curl target /_cat/indices?v
+console clusters curl target /_cat/templates?v
+console clusters curl target /_cat/aliases?v
+console clusters curl target /my-index/_mapping
 ```
 {% include copy.html %}
 
-To inspect the file within the console `cat`, `tail` and `grep` commands line tools.  By looking for warnings, errors and exceptions in this log file can help understand the source of failures, or at the very least be useful for creating issues in this project.
+## Monitor and troubleshoot
 
-```shell
-tail /shared-logs-output/migration-console-default/*/metadata/*.log
+Use the workflow tools rather than raw pod paths whenever possible:
+
+```bash
+workflow manage
+workflow status
+workflow log all
 ```
 {% include copy.html %}
 
-### Warnings and errors
+If metadata migration fails, the usual causes are:
 
-When encountering `WARN` or `ERROR` elements in the response, they will be accompanied by a short message, such as `WARN - my_index already exists`. More information can be found in the detailed logs associated with the warning or error.
-
-### OpenSearch running in compatibility mode
-
-There might be an error about being unable to update an ES 7.10.2 cluster, this can occur when compatibility mode has been enabled on an OpenSearch cluster disable it to continue, see [Enable compatibility mode](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/rename.html#rename-upgrade).
-
-
-### Breaking change compatibility
-
-Metadata migration requires modifying data from the source to the target versions to recreate items. Sometimes these features are no longer supported and have been removed from the target version. Sometimes these features are not available in the target version, which is especially true when downgrading. While this tool is meant to make this process easier, it is not exhaustive in its support. When encountering a compatibility issue or an important feature gap for your migration, [search the issues and comment on the existing issue](https://github.com/opensearch-project/opensearch-migrations/issues) or [create a new](https://github.com/opensearch-project/opensearch-migrations/issues/new/choose) issue if one cannot be found.
-
-For information about handling specific field type compatibility issues, see:
-- [Transform type mappings]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/handling-type-mapping-deprecation/) -- Handle deprecated mapping types from Elasticsearch 6.x.
-- [Transform field types]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/handling-field-type-breaking-changes/) -- Configure custom field type transformations.
-- [Transform `flattened` to `flat_object` fields]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/transform-flattened-flat-object/) -- Automatically transform `flattened` to `flat_object` fields.
-- [Transform `string` to `text`/`keyword` fields]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/transform-string-text-keyword/) -- Automatically transform `string` to `text`/`keyword` fields.
-- [Transform `dense_vector` to `knn_vector` fields]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/transform-dense-vector-knn-vector/) -- Automatically transform `dense_vector` to `knn_vector` fields.
-
-#### Deprecation of Mapping Types
-
-In Elasticsearch 6.8 the mapping types feature was discontinued in Elasticsearch 7.0+ which has created complexity in migrating to newer versions of Elasticsearch and OpenSearch, [learn more](https://www.elastic.co/guide/en/elasticsearch/reference/7.17/removal-of-types.html) ↗.
-
-As Metadata migration supports migrating from ES 6.8 on to the latest versions of OpenSearch this scenario is handled by removing the type mapping types and restructuring the template or index properties.  Note that, at the time of this writing multiple type mappings are not supported, [tracking task](https://opensearch.atlassian.net/browse/MIGRATIONS-1778) ↗.
-
-
-**Example starting state with mapping type foo (ES 6):**
-
-```json
-{
-  "mappings": [
-    {
-      "foo": {
-        "properties": {
-          "field1": { "type": "text" },
-          "field2": { "type": "keyword" }
-        }
-      }
-    }
-  ]
-}
-```
-{% include copy.html %}
-
-**Example ending state with foo removed (ES 7):**
-
-```json
-{
-  "mappings": {
-    "properties": {
-      "field1": { "type": "text" },
-      "field2": { "type": "keyword" },
-    }
-  }
-}
-```
-{% include copy.html %}
-
-For additional technical details, [view the mapping type removal source code](https://github.com/opensearch-project/opensearch-migrations/blob/main/transformation/src/main/java/org/opensearch/migrations/transformation/rules/IndexMappingTypeRemoval.java).
+- Incompatible mappings or settings
+- Missing transformations
+- Unsupported target-side features
+- Authentication or connectivity issues to the target.
 
 {% include migration-phase-navigation.html %}

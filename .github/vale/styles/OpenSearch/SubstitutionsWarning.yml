@@ -1,0 +1,12 @@
+extends: substitution
+message: "Use '%s' instead of '%s'."
+ignorecase: true
+level: warning
+action:
+  name: replace
+swap:
+  'async': asynchronous
+  'auth': authentication
+  'config': configuration
+  'customer': (use second person 'you' instead)
+  'customers': (use second person 'you' instead)
