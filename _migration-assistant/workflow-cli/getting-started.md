@@ -61,14 +61,26 @@ workflow configure edit
 ```
 {% include copy.html %}
 
+This command opens the workflow configuration file in your terminal editor (`$EDITOR`, defaults to `vi`). When you save and exit, the CLI validates the YAML against the workflow schema and prompts you to fix any errors or save anyway.
+
 Fill in the fields that describe your migration:
 
-- source endpoint, version, and authentication
-- target endpoint and authentication
-- snapshot repository details if you are running backfill
-- the migration pattern you actually want: backfill only, Capture and Replay only, or both
+- **`sourceClusters.<name>.endpoint`** — HTTP(S) URL of the source cluster (for example, `https://my-es-cluster:9200`)
+- **`sourceClusters.<name>.version`** — engine and version string (for example, `ES 7.10.2`, `OS 2.11.0`, or `SOLR 8.11.2`)
+- **`sourceClusters.<name>.authConfig`** — authentication: `basic` (with `secretName`) or `sigv4` (with `region` and `service`)
+- **`targetClusters.<name>.endpoint`** — HTTP(S) URL of the target cluster (required)
+- **`targetClusters.<name>.authConfig`** — authentication for the target (same options as source)
+- **`sourceClusters.<name>.snapshotInfo`** — S3 repository and snapshot configuration (required for backfill)
+- **Migration pattern** — determined by which top-level sections you include:
+  - **Backfill only**: include `snapshotMigrationConfigs` (no `traffic` section)
+  - **Capture and Replay only**: include `traffic` with `proxies` and `replayers` (no `snapshotMigrationConfigs`)
+  - **Both**: include both `snapshotMigrationConfigs` and `traffic`
 
-Do not start by editing every possible field. Start with the minimum required fields for your path.
+The minimum required fields for a backfill-only migration are:
+
+- `sourceClusters` — at least one entry with `version` and `snapshotInfo` (containing a repo and snapshot configuration)
+- `targetClusters` — at least one entry with `endpoint`
+- `snapshotMigrationConfigs` — at least one entry with `fromSource`, `toTarget`, and `perSnapshotConfig`
 {: .note }
 
 ## Step 5: Create secrets if you use basic auth
