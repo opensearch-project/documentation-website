@@ -317,6 +317,10 @@ When `include_token_usage` is set to `true`, the response includes detailed toke
 The `conversational_v2` agent automatically includes token usage in its response format through the `metrics` field and does not require this parameter. For details, see [The `conversational_v2` agent response format](#the-conversational_v2-agent-response-format).
 {: .note}
 
+### Limiting token usage
+
+To limit total token consumption for one agent execution, set `parameters.max_tokens` to a positive integer. OpenSearch treats this value as an agent-level budget for direct agent-runner LLM calls and plan-execute-reflect sub-agent executions. Before each covered LLM call, the agent runner caps the outgoing model request to the remaining budget while preserving any lower per-call model limit. The remaining budget is applied to the provider-specific output-token field, such as `max_tokens` for generic or OpenAI requests, `maxTokens` for Amazon Bedrock Converse requests, and `maxOutputTokens` for Google Gemini requests. If reported token usage exhausts the budget, the agent stops instead of making another covered LLM call; when a stop reason is returned, it is `budget_exhausted`. Token limiting does not require `include_token_usage` to be `true`; that parameter controls only whether detailed usage metrics are returned in the response. Omitting `max_tokens` leaves the execution unlimited; invalid, zero, or negative values are rejected. LLM calls made internally by tools, such as `AgentTool` or `MLModelTool`, are outside this budget.
+
 ### Example request: Regular registration
 **Introduced 3.6**
 {: .label .label-purple }

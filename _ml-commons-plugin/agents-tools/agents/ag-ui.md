@@ -238,6 +238,10 @@ AG-UI agents support token usage tracking, which provides detailed metrics about
 
 For AG-UI agents, token usage tracking is enabled during agent registration by setting `"include_token_usage": true` in the `parameters` field. This applies to both the unified registration method (new interface) and the regular registration method (old interface). Once the agent is registered, this setting cannot be changed during agent execution, it must be set at registration time.
 
+### Limiting token usage
+
+To limit total token consumption for one AG-UI agent execution, set `parameters.max_tokens` to a positive integer. OpenSearch treats this value as an agent-level budget for the agent runner's LLM calls in the streaming run. Before each covered LLM call, the runner caps the outgoing model request to the remaining budget while preserving any lower per-call model limit; when reported usage exhausts the budget, the agent stops instead of making another covered LLM call. Token limiting does not require `include_token_usage` to be `true`; that parameter controls only whether detailed usage metrics are returned in the response. Omitting `max_tokens` leaves the execution unlimited; invalid, zero, or negative values are rejected. LLM calls made internally by tools, such as `AgentTool` or `MLModelTool`, are outside this budget.
+
 ### Enabling token usage tracking during registration (unified method)
 
 To enable token usage tracking for an AG-UI agent using the unified registration method, include the `include_token_usage` parameter in the `parameters` field during registration:
