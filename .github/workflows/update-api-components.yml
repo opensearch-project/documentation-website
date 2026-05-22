@@ -11,7 +11,7 @@ jobs:
       contents: write
       pull-requests: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
         with:
           submodules: recursive
           fetch-depth: 0
@@ -23,7 +23,7 @@ jobs:
           git config --global user.name "opensearch-trigger-bot[bot]"
           git config --global user.email "98922864+opensearch-trigger-bot[bot]@users.noreply.github.com"
 
-      - uses: ruby/setup-ruby@v1
+      - uses: ruby/setup-ruby@afeafc3d1ab54a631816aba4c914a0081c12ff2f # v1
         with: 
           ruby-version: '3.4.5'
 
@@ -38,13 +38,13 @@ jobs:
 
       - name: GitHub App token
         id: github_app_token
-        uses: tibdex/github-app-token@v2.1.0
+        uses: tibdex/github-app-token@3beb63f4bd073e61482598c45c71c1019b59b73a # v2.1.0
         with:
           app_id: ${{ secrets.APP_ID }}
           private_key: ${{ secrets.APP_PRIVATE_KEY }}
 
       - name: Create pull request
-        uses: peter-evans/create-pull-request@v6
+        uses: peter-evans/create-pull-request@c5a7806660adbe173f04e3e038b0ccdcd758773c # v6
         with:
           token: ${{ steps.github_app_token.outputs.token }}
           commit-message: "Updated API components to reflect the latest OpenSearch API spec (${{ env.date }})"
