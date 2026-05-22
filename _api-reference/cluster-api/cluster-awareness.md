@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Cluster routing and awareness
-nav_order: 50
+nav_order: 48
 parent: Cluster APIs
 has_children: false
 redirect_from:
@@ -81,10 +81,10 @@ For more information about OpenSearch settings, see [Configuring OpenSearch]({{s
 ## Endpoints
 
 ```json
-PUT /_cluster/routing/awareness/<attribute>/weights
-GET /_cluster/routing/awareness/<attribute>/weights?local
-GET /_cluster/routing/awareness/<attribute>/weights
-DELETE /_cluster/routing/awareness/<attribute>/weights
+PUT /_cluster/routing/awareness/{attribute}/weights
+GET /_cluster/routing/awareness/{attribute}/weights?local
+GET /_cluster/routing/awareness/{attribute}/weights
+DELETE /_cluster/routing/awareness/{attribute}/weights
 ```
 
 ## Path parameters
@@ -93,7 +93,7 @@ The following table lists the available path parameters. All path parameters are
 
 Parameter | Data type | Description
 :--- | :--- | :---
-`<attribute>` | String | The name of the configured awareness attribute (for example, `zone`). The attribute specified in the path determines which awareness attribute the weights apply to.
+`attribute` | String | The name of the configured awareness attribute (for example, `zone`). The attribute specified in the path determines which awareness attribute the weights apply to.
 
 ## Query parameters
 

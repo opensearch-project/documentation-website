@@ -2,9 +2,10 @@
 layout: default
 title: Workload reference
 nav_order: 60
-parent: OpenSearch Benchmark Reference
+parent: Reference
 has_children: true
 redirect_from:
+  - /benchmark/workloads/
   - /benchmark/workloads/index/
   - /benchmark/reference/workloads/
 ---

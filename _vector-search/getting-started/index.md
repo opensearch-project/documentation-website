@@ -65,6 +65,13 @@ For more information, see [Installation quickstart]({{site.url}}{{site.baseurl}}
 
 </details>
 
+## Running API requests
+
+This guide includes API request examples that you can run in several ways:
+
+- **OpenSearch Dashboards Dev Tools console** (recommended): Open OpenSearch Dashboards at `http://localhost:5601`, select **Dev Tools** in the upper-right corner, and paste the request. Select the request and choose the play button. For more information, see [Running queries in the console]({{site.url}}{{site.baseurl}}/dashboards/visualize/run-queries/).
+- **cURL**: Use the **Copy as cURL** button next to each code example to copy the request in cURL format, then paste and run it in your terminal.
+
 ## Step 1: Create a vector index
 
 First, create an index that will store sample hotel data. To signal to OpenSearch that this is a vector index, set `index.knn` to `true`. You'll store the vectors in a vector field named `location`. The vectors you'll ingest will be two-dimensional, and the distance between vectors will be calculated using the [Euclidean `l2` similarity metric]({{site.url}}{{site.baseurl}}/vector-search/getting-started/vector-search-basics/#calculating-similarity):

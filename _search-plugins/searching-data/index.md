@@ -48,10 +48,3 @@ Enhance user queries in real-time to improve search accuracy and user experience
 
 - [Autocomplete functionality]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/autocomplete/): Suggest phrases as the user types.
 - [Did-you-mean functionality]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/did-you-mean/): Check spelling of phrases as the user types.
-
-## Query enhancement
-
-Enhance user queries in real-time to improve search accuracy and user experience:
-
-- [Autocomplete functionality]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/autocomplete/): Suggest phrases as the user types.
-- [Did-you-mean functionality]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/did-you-mean/): Check spelling of phrases as the user types.

@@ -22,7 +22,7 @@ For comprehensive guidance on each indexing process, see the [Flint Index Refere
 
 To get started with accelerating query performance, perform the following steps:
 
-1. Go to **OpenSearch Dashboards** > **Query Workbench** and select your data source from the **Data sources** dropdown menu.
+1. Go to **OpenSearch Plugins** > **Query Workbench** and select your data source from the **Data sources** dropdown menu.
 2. From the navigation menu, select a database.
 3. View the results in the table and confirm that you have the correct data.
 4. Create an OpenSearch index by following these steps:

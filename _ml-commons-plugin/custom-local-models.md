@@ -74,6 +74,9 @@ PUT _cluster/settings
 ```
 {% include copy-curl.html %}
 
+When registering a model from a URL, make sure the source is trusted. Loading models from untrusted sources can pose security risks. For more information, see [PyTorch security guidelines for untrusted models](https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models).
+{: .warning}
+
 ## Step 1: Register a model group
 
 To register a model, you have the following options:
@@ -350,14 +353,14 @@ POST /_plugins/_ml/models/_register
 Then send a request to deploy the model:
 
 ```json
-POST _plugins/_ml/models/<model_id>/_deploy
+POST _plugins/_ml/models/{model_id}/_deploy
 ```
 {% include copy-curl.html %}
 
 To test a question answering model, send the following request. It requires a `question` and the relevant `context` from which the answer will be generated:
 
 ```json
-POST /_plugins/_ml/_predict/question_answering/<model_id>
+POST /_plugins/_ml/_predict/question_answering/{model_id}
 {
   "question": "Where do I live?"
   "context": "My name is John. I live in New York"

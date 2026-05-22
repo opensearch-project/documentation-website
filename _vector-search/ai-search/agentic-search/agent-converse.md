@@ -13,6 +13,44 @@ Conversational agents provide advanced agentic search capabilities with detailed
 
 This guide demonstrates how to configure conversational agents with multiple tools and use their advanced features for complex search scenarios. 
 
+There are two ways to configure agentic search with a conversational agent:
+
+- [**Automated workflow**](#automated-workflow) (Recommended for quick setup): Automatically create all agentic search resources except the index using a single API call.
+- [**Manual setup**](#manual-setup) (Recommended for custom configurations): Manually configure each component for greater flexibility and control.
+
+## Automated workflow
+
+OpenSearch provides a [workflow template]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-templates#agentic-search-with-a-conversational-agent) that automatically creates an Amazon Bedrock connector, a remote chat model, a `QueryPlanningTool`, `ListIndexTool`, `IndexMappingTool`, a conversational agent with conversation memory, and a search pipeline. Review the workflow template [defaults](https://github.com/opensearch-project/flow-framework/blob/main/src/main/resources/defaults/agentic-search-with-conversational-agent-defaults.json) to determine whether you need to update any of the parameters. To create the default agentic search workflow with a conversational agent, send the following request:
+
+```json
+POST /_plugins/_flow_framework/workflow?use_case=agentic_search_with_conversational_agent&provision=true
+{
+  "create_connector.credential.access_key": "<your-aws-access-key>",
+  "create_connector.credential.secret_key": "<your-aws-secret-key>",
+  "create_connector.credential.session_token": "<your-aws-session-token>"
+}
+```
+{% include copy-curl.html %}
+
+OpenSearch responds with a workflow ID for the created workflow:
+
+```json
+{
+  "workflow_id" : "abc123"
+}
+```
+
+To check the workflow status, send the following request:
+
+```json
+GET /_plugins/_flow_framework/workflow/abc123/_status
+```
+{% include copy-curl.html %}
+
+Once the workflow completes, the `state` changes to `COMPLETED`. The workflow creates the agentic search resources but does not create an index. You can query any existing index using the provisioned search pipeline. For an example query, see [Step 6](#step-6-run-an-agentic-search).
+
+## Manual setup
+
 ## Step 1: Create a product index
 
 Create a sample index with product data that includes various attributes like name, price, color, and category:
@@ -65,7 +103,7 @@ POST _bulk
 
 Review the [model configuration]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agent-customization/#model-configuration) and choose a model to use.
 
-Here we register a GPT model that will be used by both the conversational agent and the `QueryPlanningTool`:
+The following example registers a GPT model that will be used by both the conversational agent and the `QueryPlanningTool`:
 
 ```json
 POST /_plugins/_ml/models/_register
@@ -98,6 +136,7 @@ POST /_plugins/_ml/models/_register
     }
 }
 ```
+{% include copy-curl.html %}
 
 ## Step 4: Register an agent
 

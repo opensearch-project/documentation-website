@@ -553,7 +553,7 @@ OpenSearch is a community-driven, open-source search and analytics suite derived
 
 **OpenSearch Dashboards**
 
-The default visualization tool for data in OpenSearch. On first appearance, use the full name. *Dashboards* may be used on subsequent appearances.
+The default visualization tool for data in OpenSearch. Use the full name *OpenSearch Dashboards* on all appearances.
 
 open source (n.), open-source (adj.)
 

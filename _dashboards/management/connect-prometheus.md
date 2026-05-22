@@ -46,7 +46,7 @@ To modify a data source connection, follow these steps:
 
 ## Delete a data source connection
 
-To delete the data source connection, select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/trash-can-icon.png" class="inline-icon" alt="delete icon"/>{:/} icon.
+To delete the data source connection, select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/trash-can-icon.png" class="inline-icon" alt="delete icon"/>{:/} (delete) icon.
 
 ## Create an index pattern
 

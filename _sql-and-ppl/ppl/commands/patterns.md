@@ -3,7 +3,7 @@ layout: default
 title: patterns
 parent: Commands
 grand_parent: PPL
-nav_order: 28
+nav_order: 34
 ---
 
 # patterns
@@ -97,25 +97,27 @@ PUT _cluster/settings
 
 The following are examples of using the `simple_pattern` method.
 
-### Example 1: Create a new field
+### Example 1: Extract patterns from log messages
 
-The following query extracts patterns from the `email` field for each document. If the `email` field is `null`, the command returns an empty string:
+The following query extracts patterns from error log messages, replacing variable parts with `<*>` placeholders:
   
 ```sql
-source=accounts
-| patterns email method=simple_pattern
-| fields email, patterns_field
+source=otellogs
+| where severityText = 'ERROR'
+| patterns body method=simple_pattern
+| fields body, patterns_field
+| head 3
 ```
 {% include copy.html %}
+{% include try-in-playground.html %}
   
 The query returns the following results:
   
-| email | patterns_field |
+| body | patterns_field |
 | --- | --- |
-| amberduke@pyrami.com | \<\*\>@\<\*\>.\<\*\> |
-| hattiebond@netagy.com | \<\*\>@\<\*\>.\<\*\> |
-| null |  |
-| daleadams@boink.com | \<\*\>@\<\*\>.\<\*\> |
+| Payment failed: connection timeout to payment gateway after 30000ms | \<\*\> \<\*\>: \<\*\> \<\*\> \<\*\> \<\*\> \<\*\> \<\*\> \<\*\> |
+| NullPointerException in CheckoutService.placeOrder at line 142 | \<\*\> \<\*\> \<\*\>.\<\*\> \<\*\> \<\*\> \<\*\> |
+| Out of memory: Java heap space - shutting down pod payment-6f8d4b-ht7q3 | \<\*\> \<\*\> \<\*\>: \<\*\> \<\*\> \<\*\> - \<\*\> \<\*\> \<\*\> \<\*\>-\<\*\>-\<\*\> |
   
 
 ### Example 2: Extract log patterns

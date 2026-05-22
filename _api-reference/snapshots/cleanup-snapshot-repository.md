@@ -14,7 +14,7 @@ The Cleanup Snapshot Repository API clears a snapshot repository of data no long
 ## Endpoints
 
 ```json
-POST /_snapshot/<repository>/_cleanup
+POST /_snapshot/{repository}/_cleanup
 ```
 
 

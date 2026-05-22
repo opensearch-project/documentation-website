@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Notifications
-nav_order: 150
+nav_order: 140
 has_children: true
 redirect_from:
   - /notifications-plugin/
@@ -12,6 +12,12 @@ redirect_from:
 # Notifications
 
 The Notifications plugin provides a central location for all of your notifications from OpenSearch plugins. Using the plugin, you can configure which communication service you want to use and see relevant statistics and troubleshooting information. Currently, the Alerting and ISM plugins have integrated with the Notifications plugin.
+
+## Installation
+
+The Notifications plugin is bundled with all standard OpenSearch distributions and does not require separate installation. If you're using the minimal distribution of OpenSearch, you can install the plugin manually. For more information about managing plugins, see [Installing plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/).
+
+## Configuring notifications
 
 You can use either OpenSearch Dashboards or the REST API to configure notifications. Dashboards offers a more organized way of selecting a channel type and selecting which OpenSearch plugin sources you want to use, whereas the REST API lets you programmatically define your notification channels for better versioning and reuse later on.
 

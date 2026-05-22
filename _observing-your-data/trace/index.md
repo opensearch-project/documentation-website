@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Trace analytics
-nav_order: 70
+nav_order: 40
 has_children: true
 has_toc: false
 redirect_from:
@@ -11,6 +11,9 @@ redirect_from:
 ---
 
 # Trace analytics
+
+For a more integrated monitoring experience that combines service topology, RED metrics, and in-context correlations, see [Application Performance Monitoring]({{site.url}}{{site.baseurl}}/observing-your-data/apm/index/).
+{: .note}
 
 Trace analytics provides a way to ingest and visualize [OpenTelemetry](https://opentelemetry.io/) data in OpenSearch. This data can help you find and fix performance problems in distributed applications.
 

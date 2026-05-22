@@ -32,7 +32,7 @@ The following example demonstrates using a search pipeline with a `score-ranker-
 The following request creates a search pipeline containing a `score-ranker-processor` that uses the `rrf` combination technique:
 
 ```json
-PUT /_search/pipeline/<rrf-pipeline>
+PUT /_search/pipeline/{rrf-pipeline}
 {
   "description": "Post processor for hybrid RRF search",
   "phase_results_processors": [
@@ -52,7 +52,7 @@ PUT /_search/pipeline/<rrf-pipeline>
 Apply a custom `rank-constant` parameter in the search pipeline created in the previous section. The default value of `rank-constant` is 60. In the following example, `rank-constant` is set to 40:
 
 ```json
-PUT /_search/pipeline/<rrf-pipeline>
+PUT /_search/pipeline/{rrf-pipeline}
 {
   "description": "Post processor for hybrid RRF search",
   "phase_results_processors": [
@@ -71,7 +71,7 @@ PUT /_search/pipeline/<rrf-pipeline>
 Apply custom `weights` to each subquery when combing search results using the `rrf` technique. By default, each subquery is given an equal weight of 1. In the following example, subquery 1 has a weight of 0.7, and subquery 2 has a weight of 0.3:
 
 ```json
-PUT /_search/pipeline/<rrf-pipeline>
+PUT /_search/pipeline/{rrf-pipeline}
 {
   "description": "Post processor for hybrid RRF search",
   "phase_results_processors": [

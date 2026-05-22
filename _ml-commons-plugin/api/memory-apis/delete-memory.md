@@ -18,7 +18,7 @@ When the Security plugin is enabled, all memories exist in a `private` security 
 ## Endpoints
 
 ```json
-DELETE /_plugins/_ml/memory/<memory_id>
+DELETE /_plugins/_ml/memory/{memory_id}
 ```
 
 ## Path parameters

@@ -18,22 +18,22 @@ Creates a snapshot within an existing repository.
 ## Endpoints
 
 ```json
-PUT /_snapshot/<repository>/<snapshot>
-POST /_snapshot/<repository>/<snapshot>
+PUT /_snapshot/{repository}/{snapshot}
+POST /_snapshot/{repository}/{snapshot}
 ```
 
 ## Path parameters
 
 Parameter | Data type | Description
 :--- | :--- | :---
-repository | String | Repository name to store the snapshot. |
-snapshot | String | Name of Snapshot to create. |
+`repository` | String | Repository name to store the snapshot. |
+`snapshot` | String | Name of Snapshot to create. |
 
 ## Query parameters
 
 Parameter | Data type | Description
 :--- | :--- | :---
-wait_for_completion | Boolean |  Whether to wait for snapshot creation to complete before continuing. If you include this parameter, the snapshot definition is returned after completion. |
+`wait_for_completion` | Boolean |  Whether to wait for snapshot creation to complete before continuing. If you include this parameter, the snapshot definition is returned after completion. |
 
 ## Request body fields
 
@@ -191,7 +191,7 @@ The snapshot definition is returned.
 | end_time | string | Date/time when the snapshot creation process ended. |
 | end_time_in_millis | long | Time (in milliseconds) when the snapshot creation process ended. |
 | duration_in_millis | long | Total time (in milliseconds) that the snapshot creation process lasted. |
-| failures | array | Failures, if any, that occured during snapshot creation. |
+| failures | array | Failures, if any, that occurred during snapshot creation. |
 | shards | object | Total number of shards created along with number of successful and failed shards. |
 | state | string | Snapshot status. Possible values: `IN_PROGRESS`, `SUCCESS`, `FAILED`, `PARTIAL`. |
 | remote_store_index_shallow_copy | Boolean | Whether the snapshots of the remote store indexes is captured as a shallow copy. Default is `false`. |

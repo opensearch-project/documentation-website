@@ -16,7 +16,7 @@ Use the following request to delete a pipeline.
 To delete a specific pipeline, pass the pipeline ID as a parameter:
 
 ```json
-DELETE /_ingest/pipeline/<pipeline-id>
+DELETE /_ingest/pipeline/{pipeline-id}
 ```
 {% include copy-curl.html %}
 

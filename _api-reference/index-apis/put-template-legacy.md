@@ -18,7 +18,7 @@ The put template API operation is used to create or update an index template. Te
 ## Endpoints
 
 ```json
-PUT /_template/<template-name>
+PUT /_template/{template-name}
 ```
 
 ## Path parameters

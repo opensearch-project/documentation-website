@@ -29,7 +29,7 @@ For more information regarding the list of available tools, see [Tools]({{site.u
 ## Endpoint
 
 ```json
-POST /_plugins/_ml/tools/_execute/<tool_name>
+POST /_plugins/_ml/tools/_execute/{tool_name}
 ```
 
 The `<tool_name>` parameter refers to the predefined tool type name, such as `PPLTool`, `SearchIndexTool`, or `VectorDBTool`,---not a custom tool name that you define.

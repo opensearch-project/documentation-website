@@ -37,24 +37,42 @@ This guide assumes that you are comfortable working from the Linux command line 
 ### Install OpenSearch from a package
 
 1. Download the Debian package for the desired version directly from the [OpenSearch downloads page](https://opensearch.org/downloads.html){:target='\_blank'}. The Debian package can be downloaded for both **x64** and **arm64** architectures.
-1. From the CLI, install the package using `dpkg`:
+1. From the CLI, install the package using `dpkg`.
+
+   For new installations of OpenSearch 3.7 and later, you can use the following installation-time environment variables to control the Security plugin behavior:
+   * `DISABLE_INSTALL_DEMO_CONFIG=true` -- Prevents the installer from setting up demo security configuration (certificates, users, and roles). Use this for installations where you will configure security manually.
+   * `DISABLE_SECURITY_PLUGIN=true` -- Disables the Security plugin entirely. Only use this for testing or development environments where security is not required.
+
+   To use these environment variables, add them before the installation command with the `env` keyword:
+   ```bash
+   sudo env DISABLE_INSTALL_DEMO_CONFIG=true dpkg -i opensearch-{{site.opensearch_version}}-linux-x64.deb
+   ```
+   {% include copy.html %}
 
    For new installations of OpenSearch 2.12 and later, you must define a custom admin password in order to set up a demo security configuration. Use one of the following commands to define a custom admin password:
-   ```bash
-   # x64
-   sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password> dpkg -i opensearch-{{site.opensearch_version}}-linux-x64.deb
 
-   # arm64
+   x64:
+   ```bash
+   sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password> dpkg -i opensearch-{{site.opensearch_version}}-linux-x64.deb
+   ```
+   {% include copy.html %}
+
+   arm64:
+   ```bash
    sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password> dpkg -i opensearch-{{site.opensearch_version}}-linux-arm64.deb
    ```
    {% include copy.html %}
 
-   Use the following command for OpenSearch versions 2.11 and earlier:
-   ```bash
-   # x64
-   sudo dpkg -i opensearch-<version>-linux-x64.deb
+   Use the following commands for OpenSearch versions 2.11 and earlier.
 
-   # arm64
+   x64:
+   ```bash
+   sudo dpkg -i opensearch-<version>-linux-x64.deb
+   ```
+   {% include copy.html %}
+
+   arm64:
+   ```bash
    sudo dpkg -i opensearch-<version>-linux-arm64.deb
    ```
    {% include copy.html %}
@@ -153,32 +171,31 @@ APT, the primary package management tool for Debian–based operating systems, a
    ```
    {% include copy.html %}
 
-1. Choose the version of OpenSearch you want to install: 
+1. Choose the version of OpenSearch you want to install:
    - Unless otherwise indicated, the latest available version of OpenSearch is installed.
 
-   ```bash
-   # For new installations of OpenSearch 2.12 and later, you must define a custom admin password in order to set up a demo security configuration.
-   # Use one of the following commands to define a custom admin password:
-   sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password> apt-get install opensearch
-   ```
-   {% include copy.html %}
+     For new installations of OpenSearch 2.12 and later, you must define a custom admin password in order to set up a demo security configuration:
+     ```bash
+     sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password> apt-get install opensearch
+     ```
+     {% include copy.html %}
 
-   For more information, see the [password requirements]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/#password-requirements).
-   {: .note}
+     For more information, see the [password requirements]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/#password-requirements).
+     {: .note}
 
-   - To install a specific version of OpenSearch:
+   - To install a specific version of OpenSearch.
 
-   ```bash
-   # Specify the version manually using opensearch=<version>
+     For new installations of OpenSearch 2.12 and later, you must define a custom admin password in order to set up a demo security configuration:
+     ```bash
+     sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password> apt-get install opensearch={{site.opensearch_version}}
+     ```
+     {% include copy.html %}
 
-   # For new installations of OpenSearch 2.12 and later, you must define a custom admin password in order to set up a demo security configuration.
-   # Use one of the following commands to define a custom admin password:
-   sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password> apt-get install opensearch={{site.opensearch_version}}
-
-   # Use the following command for OpenSearch versions 2.11 and earlier:
-   sudo apt-get install opensearch=<version>
-   ```
-   {% include copy.html %}
+     Use the following command for OpenSearch versions 2.11 and earlier:
+     ```bash
+     sudo apt-get install opensearch=<version>
+     ```
+     {% include copy.html %}
 
 1. If the installation succeeds, it means APT has validated that the repository metadata was signed with a trusted GPG key. To manually confirm that the key you imported matches the official OpenSearch release key, execute the following command:
 
@@ -301,27 +318,34 @@ Before modifying any configuration files, it's always a good idea to save a back
    ```
    {% include copy.html %}
 
-1. Replace the content with the following lines:
+1. Replace the content with the following lines.
 
+   Path to directory where to store the data (separate multiple locations by comma):
    ```yaml
-   # Path to directory where to store the data (separate multiple locations by comma):
    path.data: /var/lib/opensearch
+   ```
+   {% include copy.html %}
 
-   # Path to log files:
+   Path to log files:
+   ```yaml
    path.logs: /var/log/opensearch
+   ```
+   {% include copy.html %}
 
-   # Bind OpenSearch to the correct network interface. Use 0.0.0.0
-   # to include all available interfaces or specify an IP address
-   # assigned to a specific interface.
+   Bind OpenSearch to the correct network interface. Use 0.0.0.0 to include all available interfaces or specify an IP address assigned to a specific interface:
+   ```yaml
    network.host: 0.0.0.0
+   ```
+   {% include copy.html %}
 
-   # Unless you have already configured a cluster, you should set
-   # discovery.type to single-node, or the bootstrap checks will
-   # fail when you try to start the service.
+   Unless you have already configured a cluster, you should set discovery.type to single-node, or the bootstrap checks will fail when you try to start the service:
+   ```yaml
    discovery.type: single-node
+   ```
+   {% include copy.html %}
 
-   # If you previously disabled the Security plugin in opensearch.yml,
-   # be sure to re-enable it. Otherwise you can skip this setting.
+   If you previously disabled the Security plugin in opensearch.yml, be sure to re-enable it. Otherwise you can skip this setting:
+   ```yaml
    plugins.security.disabled: false
    ```
    {% include copy.html %}
@@ -359,54 +383,74 @@ TLS certificates provide additional security for your cluster by allowing client
    ```
    {% include copy.html %}
 
-1. Generate a root certificate. This is what you will use to sign your other certificates:
+1. Generate a root certificate. This is what you will use to sign your other certificates.
 
+   Create a private key for the root certificate:
    ```bash
-   # Create a private key for the root certificate
    sudo openssl genrsa -out /etc/opensearch/root-ca-key.pem 2048
+   ```
+   {% include copy.html %}
 
-   # Use the private key to create a self-signed root certificate. Be sure to
-   # replace the arguments passed to -subj so they reflect your specific host.
+   Use the private key to create a self-signed root certificate. Be sure to replace the arguments passed to -subj so they reflect your specific host:
+   ```bash
    sudo openssl req -new -x509 -sha256 -key /etc/opensearch/root-ca-key.pem -subj "/C=CA/ST=ONTARIO/L=TORONTO/O=ORG/OU=UNIT/CN=ROOT" -out /etc/opensearch/root-ca.pem -days 730
    ```
    {% include copy.html %}
 
-1. Next, create the admin certificate. This certificate is used to gain elevated rights for performing administrative tasks relating to the Security plugin:
+1. Next, create the admin certificate. This certificate is used to gain elevated rights for performing administrative tasks relating to the Security plugin.
 
+   Create a private key for the admin certificate:
    ```bash
-   # Create a private key for the admin certificate.
    sudo openssl genrsa -out /etc/opensearch/admin-key-temp.pem 2048
+   ```
+   {% include copy.html %}
 
-   # Convert the private key to PKCS#8.
+   Convert the private key to PKCS#8:
+   ```bash
    sudo openssl pkcs8 -inform PEM -outform PEM -in /etc/opensearch/admin-key-temp.pem -topk8 -nocrypt -v1 PBE-SHA1-3DES -out /etc/opensearch/admin-key.pem
-   
-   # Create the certficiate signing request (CSR). A common name (CN) of "A" is acceptable because this certificate is
-   # used for authenticating elevated access and is not tied to a host.
+   ```
+   {% include copy.html %}
+
+   Create the certificate signing request (CSR). A common name (CN) of "A" is acceptable because this certificate is used for authenticating elevated access and is not tied to a host:
+   ```bash
    sudo openssl req -new -key /etc/opensearch/admin-key.pem -subj "/C=CA/ST=ONTARIO/L=TORONTO/O=ORG/OU=UNIT/CN=A" -out /etc/opensearch/admin.csr
-   
-   # Sign the admin certificate with the root certificate and private key you created earlier.
+   ```
+   {% include copy.html %}
+
+   Sign the admin certificate with the root certificate and private key you created earlier:
+   ```bash
    sudo openssl x509 -req -in /etc/opensearch/admin.csr -CA /etc/opensearch/root-ca.pem -CAkey /etc/opensearch/root-ca-key.pem -CAcreateserial -sha256 -out /etc/opensearch/admin.pem -days 730
    ```
    {% include copy.html %}
 
-1. Create a certificate for the node being configured:
+1. Create a certificate for the node being configured.
 
+   Create a private key for the node certificate:
    ```bash
-   # Create a private key for the node certificate.
    sudo openssl genrsa -out /etc/opensearch/node1-key-temp.pem 2048
-   
-   # Convert the private key to PKCS#8.
-   sudo openssl pkcs8 -inform PEM -outform PEM -in /etc/opensearch/node1-key-temp.pem -topk8 -nocrypt -v1 PBE-SHA1-3DES -out /etc/opensearch/node1-key.pem
+   ```
+   {% include copy.html %}
 
-   # Create the CSR and replace the arguments passed to -subj so they reflect your specific host.
-   # The CN should match a DNS A record for the host-do not use the hostname.
+   Convert the private key to PKCS#8:
+   ```bash
+   sudo openssl pkcs8 -inform PEM -outform PEM -in /etc/opensearch/node1-key-temp.pem -topk8 -nocrypt -v1 PBE-SHA1-3DES -out /etc/opensearch/node1-key.pem
+   ```
+   {% include copy.html %}
+
+   Create the CSR and replace the arguments passed to -subj so they reflect your specific host. The CN should match a DNS A record for the host-do not use the hostname:
+   ```bash
    sudo openssl req -new -key /etc/opensearch/node1-key.pem -subj "/C=CA/ST=ONTARIO/L=TORONTO/O=ORG/OU=UNIT/CN=node1.dns.a-record" -out /etc/opensearch/node1.csr
-   
-   # Create an extension file that defines a SAN DNS name for the host. This
-   # should match the DNS A record of the host.
+   ```
+   {% include copy.html %}
+
+   Create an extension file that defines a SAN DNS name for the host. This should match the DNS A record of the host:
+   ```bash
    sudo sh -c 'echo subjectAltName=DNS:node1.dns.a-record > /etc/opensearch/node1.ext'
-   
-   # Sign the node certificate with the root certificate and private key that you created earlier.
+   ```
+   {% include copy.html %}
+
+   Sign the node certificate with the root certificate and private key that you created earlier:
+   ```bash
    sudo openssl x509 -req -in /etc/opensearch/node1.csr -CA /etc/opensearch/root-ca.pem -CAkey /etc/opensearch/root-ca-key.pem -CAcreateserial -sha256 -out /etc/opensearch/node1.pem -days 730 -extfile /etc/opensearch/node1.ext
    ```
    {% include copy.html %}
@@ -425,13 +469,9 @@ TLS certificates provide additional security for your cluster by allowing client
    ```
    {% include copy.html %}
 
-1. Add these certificates to `/etc/opensearch/opensearch.yml` as described in [Generate Certificates]({{site.url}}{{site.baseurl}}/security-plugin/configuration/generate-certificates/#add-distinguished-names-to-opensearchyml). Advanced users might also choose to append the settings using the following script:
-
+1. Add these certificates to `/etc/opensearch/opensearch.yml` as described in [Generate Certificates]({{site.url}}{{site.baseurl}}/security-plugin/configuration/generate-certificates/#add-distinguished-names-to-opensearchyml). Advanced users might also choose to append the settings using the following script. Before running this script, make sure to replace the CN in the node's distinguished name with a real DNS A record:
    ```bash
    #! /bin/bash
-
-   # Before running this script, make sure to replace the CN in the 
-   # node's distinguished name with a real DNS A record.
 
    echo "plugins.security.ssl.transport.pemcert_filepath: /etc/opensearch/node1.pem" | sudo tee -a /etc/opensearch/opensearch.yml
    echo "plugins.security.ssl.transport.pemkey_filepath: /etc/opensearch/node1-key.pem" | sudo tee -a /etc/opensearch/opensearch.yml
@@ -452,13 +492,16 @@ TLS certificates provide additional security for your cluster by allowing client
    ```
    {% include copy.html %}
 
-1. (Optional) Add trust for the self-signed root certificate:
+1. (Optional) Add trust for the self-signed root certificate.
 
+   Copy the root certificate to the correct directory:
    ```bash
-   # Copy the root certificate to the correct directory
    sudo install -m 0644 /etc/opensearch/root-ca.pem /usr/local/share/ca-certificates/root-ca.crt
-   
-   # Add trust
+   ```
+   {% include copy.html %}
+
+   Add trust:
+   ```bash
    sudo update-ca-certificates
    ```
    {% include copy.html %}
@@ -477,8 +520,8 @@ Users are defined and authenticated by OpenSearch in a variety of ways. One meth
 1. Run `hash.sh` to generate a new password.
    - This script will fail if a path to the JDK has not been defined.
 
+      Example output if a JDK isn't found:
       ```text
-      # Example output if a JDK isn't found...
       $ ./hash.sh
       **************************************************************************
       ** This tool will be deprecated in the next major release of OpenSearch **
@@ -488,9 +531,9 @@ Users are defined and authenticated by OpenSearch in a variety of ways. One meth
       WARNING: nor OPENSEARCH_JAVA_HOME nor JAVA_HOME is set, will use
       ./hash.sh: line 35: java: command not found
       ```
+      {% include copy.html %}
 
    - Declare an environment variable when you invoke the script in order to avoid issues:
-
       ```bash
       OPENSEARCH_JAVA_HOME=/usr/share/opensearch/jdk ./hash.sh
       ```
@@ -540,24 +583,19 @@ Users are defined and authenticated by OpenSearch in a variety of ways. One meth
 Now that TLS certificates are installed and demo users were removed or assigned new passwords, the last step is to apply the configuration changes. This last configuration step requires invoking `securityadmin.sh` while OpenSearch is running on the host.
 
 1. OpenSearch must be running for `securityadmin.sh` to apply changes. If you made changes to `opensearch.yml`, restart OpenSearch:
-
    ```bash
    sudo systemctl restart opensearch
    ```
    {% include copy.html %}
 
 1. Navigate to the directory containing `securityadmin.sh`:
-
    ```bash
-   # Change to the correct directory
    cd /usr/share/opensearch/plugins/opensearch-security/tools
    ```
    {% include copy.html %}
 
-1. Invoke the script. See [Apply changes using securityadmin.sh]({{site.url}}{{site.baseurl}}/security-plugin/configuration/security-admin/) for definitions of the arguments you must pass:
-
+1. Invoke the script. See [Apply changes using securityadmin.sh]({{site.url}}{{site.baseurl}}/security-plugin/configuration/security-admin/) for definitions of the arguments you must pass. You can omit the environment variable if you declared this in your $PATH:
    ```bash
-   # You can omit the environment variable if you declared this in your $PATH.
    sudo OPENSEARCH_JAVA_HOME=/usr/share/opensearch/jdk ./securityadmin.sh -cd /etc/opensearch/opensearch-security/ -cacert /etc/opensearch/root-ca.pem -cert /etc/opensearch/admin.pem -key /etc/opensearch/admin-key.pem -icl -nhnv
    ```
    {% include copy.html %}

@@ -13,7 +13,7 @@ Use the following request to delete a pipeline.
 To delete a specific search pipeline, pass the pipeline ID as a parameter:
 
 ```json
-DELETE /_search/pipeline/<pipeline-id>
+DELETE /_search/pipeline/{pipeline-id}
 ```
 {% include copy-curl.html %}
 

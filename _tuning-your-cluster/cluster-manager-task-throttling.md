@@ -43,7 +43,7 @@ The `cluster_manager.throttling.thresholds` object contains the following fields
 
 Field name | Description
 :--- | :---
-`<task-type>` | The task type. For a list of valid task types, see [supported task types and default thresholds](#supported-task-types-and-default-thresholds).
+`task-type` | The task type. For a list of valid task types, see [supported task types and default thresholds](#supported-task-types-and-default-thresholds).
 `<task-type>.value` | The maximum number of tasks of the `task-type` type in the cluster manager's pending task queue. <br> For default thresholds for each task type, see [Supported task types and default thresholds](#supported-task-types-and-default-thresholds).
 
 ## Supported task types and default thresholds

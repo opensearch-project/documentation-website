@@ -5,6 +5,7 @@ nav_order: 25
 has_children: true
 parent: Reference
 redirect_from:
+  - /benchmark/metrics/
   - /benchmark/metrics/index/
   - /benchmark/reference/metrics/
 ---

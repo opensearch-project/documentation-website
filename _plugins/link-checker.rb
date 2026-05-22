@@ -66,6 +66,7 @@ module Jekyll::LinkChecker
     'www.cloudflare.com', # 403s on bots
     'platform.openai.com', # 403s on bots
     'openai.com', # 403s on bots
+    'opensourceconnections.com', # 403s on bots
     'mvnrepository.com', # 403s on bots
     'www.intel.com', # 403s on bots
     'wordnet.princeton.edu', # 403s on bots
@@ -76,6 +77,7 @@ module Jekyll::LinkChecker
     'www.base64decode.org', # 403s on bots
     'docs.docker.com', # 403s on bots,
     'docs-vizlib.insightsoftware.com', # 403s on bots,
+    'www.javadoc.io', # 522s on bots (Cloudflare)
     'medium.com', # 403s on bots
     'www.iso.org', # 403s on bots
     'elastic.co', # 406s on bots

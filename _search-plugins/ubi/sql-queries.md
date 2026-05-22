@@ -74,23 +74,23 @@ Message|Total
 |---|---|
 User Behavior Insights|127
 best Laptop|78
-camera|21
-backpack|17
-briefcase|14
-camcorder|11
-cabinet|9
-bed|9
-box|8
-bottle|8
-calculator|8
-armchair|7
-bench|7
-blackberry|6
-bathroom|6
+`camera`|21
+`backpack`|17
+`briefcase`|14
+`camcorder`|11
+`cabinet`|9
+`bed`|9
+`box`|8
+`bottle`|8
+`calculator`|8
+`armchair`|7
+`bench`|7
+`blackberry`|6
+`bathroom`|6
 User Behavior Insights Mac|5
 best Laptop Dell|5
 User Behavior Insights VTech|5
-ayoolaolafenwa|5
+`ayoolaolafenwa`|5
 User Behavior Insights Dell|4
 best Laptop Vaddio|4
 agrega modelos intuitivas|4
@@ -113,21 +113,21 @@ order by Total desc
 
 The results include a distribution across actions, as shown in the following table.
 
-action_name|Total
+`action_name`|Total
 |---|---|
-on_search|5425
-brand_filter|3634
-global_click|3571
-view_search_results|3565
-product_sort|3558
-type_filter|3505
-product_hover|820
-item_click|708
-purchase|407
-declined_product|402
-add_to_cart|373
-page_exit|142
-user_feedback|123
+`on_search`|5425
+`brand_filter`|3634
+`global_click`|3571
+`view_search_results`|3565
+`product_sort`|3558
+`type_filter`|3505
+`product_hover`|820
+`item_click`|708
+`purchase`|407
+`declined_product`|402
+`add_to_cart`|373
+`page_exit`|142
+`user_feedback`|123
 404_redirect|123
 
 The following query shows the distribution of margins across user actions:
@@ -146,22 +146,22 @@ order by average_cost desc
 
 The results include actions and the distribution across average costs and margins, as shown in the following table.
 
-action_name|total|average_cost|average_margin
+`action_name`|total|average_cost|average_margin
 ---|---|---|---
-declined_product|395|8457.12|6190.96
-item_click|690|7789.40|5862.70
-add_to_cart|374|6470.22|4617.09
-purchase|358|5933.83|5110.69
-global_click|3555||
-product_sort|3711||
-product_hover|779||
-page_exit|107||
-on_search|5438||
-brand_filter|3722||
-user_feedback|120||
+`declined_product`|395|8457.12|6190.96
+`item_click`|690|7789.40|5862.70
+`add_to_cart`|374|6470.22|4617.09
+`purchase`|358|5933.83|5110.69
+`global_click`|3555||
+`product_sort`|3711||
+`product_hover`|779||
+`page_exit`|107||
+`on_search`|5438||
+`brand_filter`|3722||
+`user_feedback`|120||
 404_redirect|110||
-view_search_results|3639||
-type_filter|3691||
+`view_search_results`|3639||
+`type_filter`|3691||
 
 ## Sample search journey
 
@@ -175,9 +175,9 @@ from ubi_queries where query_id = '7ae52966-4fd4-4ab1-8152-0fd0b52bdadf'
 
 The following table shows the results of the preceding query.
 
-client_id|query_id|user_query|query_response_hit_ids|query_response_id|timestamp
+`client_id`|query_id|user_query|query_response_hit_ids|query_response_id|timestamp
 ---|---|---|---|---|---
-a15f1ef3-6bc6-4959-9b83-6699a4d29845|7ae52966-4fd4-4ab1-8152-0fd0b52bdadf|notebook|0882780391659|6e92c90c-1eee-4dd6-b820-c522fd4126f3|2024-06-04 19:02:45.728
+`a15f1ef3-6bc6-4959-9b83-6699a4d29845`|7ae52966-4fd4-4ab1-8152-0fd0b52bdadf|notebook|0882780391659|6e92c90c-1eee-4dd6-b820-c522fd4126f3|2024-06-04 19:02:45.728
 
 The `query` field in `query_id` has the following nested structure:
 
@@ -231,13 +231,13 @@ order by timestamp
 
 The results include all events associated with the user's query, as shown in the following table.
 
-application|query_id|action_name|message_type|message|client_id|timestamp
+`application`|query_id|action_name|message_type|message|client_id|timestamp
 ---|---|---|---|---|---|---
-ubi-demo|7ae52966-4fd4-4ab1-8152-0fd0b52bdadf|on_search|QUERY|notebook|a15f1ef3-6bc6-4959-9b83-6699a4d29845|2024-06-04 19:02:45.777
-ubi-demo|7ae52966-4fd4-4ab1-8152-0fd0b52bdadf|product_hover|INFO|orquesta soluciones uno-a-uno|a15f1ef3-6bc6-4959-9b83-6699a4d29845|2024-06-04 19:02:45.816
-ubi-demo|7ae52966-4fd4-4ab1-8152-0fd0b52bdadf|item_click|INFO|innova relaciones centrado al usuario|a15f1ef3-6bc6-4959-9b83-6699a4d29845|2024-06-04 19:02:45.86
-ubi-demo|7ae52966-4fd4-4ab1-8152-0fd0b52bdadf|add_to_cart|CONVERSION|engineer B2B platforms|a15f1ef3-6bc6-4959-9b83-6699a4d29845|2024-06-04 19:02:45.905
-ubi-demo|7ae52966-4fd4-4ab1-8152-0fd0b52bdadf|purchase|CONVERSION|Purchase item 0884420136132|a15f1ef3-6bc6-4959-9b83-6699a4d29845|2024-06-04 19:02:45.913
+`ubi-demo`|7ae52966-4fd4-4ab1-8152-0fd0b52bdadf|on_search|QUERY|notebook|a15f1ef3-6bc6-4959-9b83-6699a4d29845|2024-06-04 19:02:45.777
+`ubi-demo`|7ae52966-4fd4-4ab1-8152-0fd0b52bdadf|product_hover|INFO|orquesta soluciones uno-a-uno|a15f1ef3-6bc6-4959-9b83-6699a4d29845|2024-06-04 19:02:45.816
+`ubi-demo`|7ae52966-4fd4-4ab1-8152-0fd0b52bdadf|item_click|INFO|innova relaciones centrado al usuario|a15f1ef3-6bc6-4959-9b83-6699a4d29845|2024-06-04 19:02:45.86
+`ubi-demo`|7ae52966-4fd4-4ab1-8152-0fd0b52bdadf|add_to_cart|CONVERSION|engineer B2B platforms|a15f1ef3-6bc6-4959-9b83-6699a4d29845|2024-06-04 19:02:45.905
+`ubi-demo`|7ae52966-4fd4-4ab1-8152-0fd0b52bdadf|purchase|CONVERSION|Purchase item 0884420136132|a15f1ef3-6bc6-4959-9b83-6699a4d29845|2024-06-04 19:02:45.913
 
 <!-- vale on -->
 
@@ -261,51 +261,51 @@ order by query_id, timestamp
 The results are truncated to show a sample of sessions, as shown in the following table.
 
 
-application|event_attributes.session_id|query_id|action_name|message_type|event_attributes.dwell_time|event_attributes.object.object_id|event_attributes.object.description|timestamp
+`application`|event_attributes.session_id|query_id|action_name|message_type|event_attributes.dwell_time|event_attributes.object.object_id|event_attributes.object.description|timestamp
 ---|---|---|---|---|---|---|---|---
-ubi-demo|00731779-e290-4709-8af7-d495ae42bf48|0254a9b7-1d83-4083-aa46-e12dff86ec98|on_search|QUERY|46.6398|||2024-06-04 19:06:36.239
-ubi-demo|00731779-e290-4709-8af7-d495ae42bf48|0254a9b7-1d83-4083-aa46-e12dff86ec98|product_hover|INFO|53.681877|0065030834155|USB 2.0 S-Video and Composite Video Capture Cable|2024-06-04 19:06:36.284
-ubi-demo|00731779-e290-4709-8af7-d495ae42bf48|0254a9b7-1d83-4083-aa46-e12dff86ec98|item_click|INFO|40.699997|0065030834155|USB 2.0 S-Video and Composite Video Capture Cable|2024-06-04 19:06:36.334
-ubi-demo|00731779-e290-4709-8af7-d495ae42bf48|0254a9b7-1d83-4083-aa46-e12dff86ec98|declined_product|REJECT|5.0539055|0065030834155|USB 2.0 S-Video and Composite Video Capture Cable|2024-06-04 19:06:36.373
-ubi-demo|844ca4b5-b6f8-4f7b-a5ec-7f6d95788e0b|0cf185be-91a8-49cf-9401-92ad079ce43b|on_search|QUERY|26.422775|||2024-06-04 19:04:40.832
-ubi-demo|844ca4b5-b6f8-4f7b-a5ec-7f6d95788e0b|0cf185be-91a8-49cf-9401-92ad079ce43b|on_search|QUERY|17.1094|||2024-06-04 19:04:40.837
-ubi-demo|844ca4b5-b6f8-4f7b-a5ec-7f6d95788e0b|0cf185be-91a8-49cf-9401-92ad079ce43b|brand_filter|FILTER|40.090374|OBJECT-6c91da98-387b-45cb-8275-e90d1ea8bc54|supplier_name|2024-06-04 19:04:40.852
-ubi-demo|844ca4b5-b6f8-4f7b-a5ec-7f6d95788e0b|0cf185be-91a8-49cf-9401-92ad079ce43b|type_filter|INFO|37.658962|OBJECT-32d9bb39-b17d-4611-82c1-5aaa14368060|filter_product_type|2024-06-04 19:04:40.856
-ubi-demo|844ca4b5-b6f8-4f7b-a5ec-7f6d95788e0b|0cf185be-91a8-49cf-9401-92ad079ce43b|product_sort|SORT|3.6380951|||2024-06-04 19:04:40.923
-ubi-demo|844ca4b5-b6f8-4f7b-a5ec-7f6d95788e0b|0cf185be-91a8-49cf-9401-92ad079ce43b|view_search_results|INFO|46.436115|||2024-06-04 19:04:40.942
-ubi-demo|844ca4b5-b6f8-4f7b-a5ec-7f6d95788e0b|0cf185be-91a8-49cf-9401-92ad079ce43b|view_search_results|INFO|46.436115|||2024-06-04 19:04:40.959
-ubi-demo|844ca4b5-b6f8-4f7b-a5ec-7f6d95788e0b|0cf185be-91a8-49cf-9401-92ad079ce43b|type_filter|INFO|37.658962|OBJECT-32d9bb39-b17d-4611-82c1-5aaa14368060|filter_product_type|2024-06-04 19:04:40.972
-ubi-demo|844ca4b5-b6f8-4f7b-a5ec-7f6d95788e0b|0cf185be-91a8-49cf-9401-92ad079ce43b|brand_filter|FILTER|40.090374|OBJECT-6c91da98-387b-45cb-8275-e90d1ea8bc54|supplier_name|2024-06-04 19:04:40.997
-ubi-demo|844ca4b5-b6f8-4f7b-a5ec-7f6d95788e0b|0cf185be-91a8-49cf-9401-92ad079ce43b|type_filter|INFO|37.658962|OBJECT-32d9bb39-b17d-4611-82c1-5aaa14368060|filter_product_type|2024-06-04 19:04:41.006
-ubi-demo|844ca4b5-b6f8-4f7b-a5ec-7f6d95788e0b|0cf185be-91a8-49cf-9401-92ad079ce43b|product_sort|SORT|3.6380951|||2024-06-04 19:04:41.031
-ubi-demo|844ca4b5-b6f8-4f7b-a5ec-7f6d95788e0b|0cf185be-91a8-49cf-9401-92ad079ce43b|product_sort|SORT|3.6380951|||2024-06-04 19:04:41.091
-ubi-demo|844ca4b5-b6f8-4f7b-a5ec-7f6d95788e0b|0cf185be-91a8-49cf-9401-92ad079ce43b|type_filter|INFO|37.658962|OBJECT-32d9bb39-b17d-4611-82c1-5aaa14368060|filter_product_type|2024-06-04 19:04:41.164
-ubi-demo|844ca4b5-b6f8-4f7b-a5ec-7f6d95788e0b|0cf185be-91a8-49cf-9401-92ad079ce43b|brand_filter|FILTER|40.090374|OBJECT-6c91da98-387b-45cb-8275-e90d1ea8bc54|supplier_name|2024-06-04 19:04:41.171
-ubi-demo|844ca4b5-b6f8-4f7b-a5ec-7f6d95788e0b|0cf185be-91a8-49cf-9401-92ad079ce43b|view_search_results|INFO|46.436115|||2024-06-04 19:04:41.179
-ubi-demo|844ca4b5-b6f8-4f7b-a5ec-7f6d95788e0b|0cf185be-91a8-49cf-9401-92ad079ce43b|global_click|INFO|42.45651|OBJECT-d350cc2d-b979-4aca-bd73-71709832940f|(96, 127)|2024-06-04 19:04:41.224
-ubi-demo|844ca4b5-b6f8-4f7b-a5ec-7f6d95788e0b|0cf185be-91a8-49cf-9401-92ad079ce43b|view_search_results|INFO|46.436115|||2024-06-04 19:04:41.24
-ubi-demo|844ca4b5-b6f8-4f7b-a5ec-7f6d95788e0b|0cf185be-91a8-49cf-9401-92ad079ce43b|view_search_results|INFO|46.436115|||2024-06-04 19:04:41.285
-ubi-demo|844ca4b5-b6f8-4f7b-a5ec-7f6d95788e0b|0cf185be-91a8-49cf-9401-92ad079ce43b|global_click|INFO|42.45651|OBJECT-d350cc2d-b979-4aca-bd73-71709832940f|(96, 127)|2024-06-04 19:04:41.328
-ubi-demo|33bd0ee2-60b7-4c25-b62c-1aa1580da73c|2071e273-513f-46be-b835-89f452095053|on_search|QUERY|52.721157|||2024-06-04 19:03:50.8
-ubi-demo|33bd0ee2-60b7-4c25-b62c-1aa1580da73c|2071e273-513f-46be-b835-89f452095053|view_search_results|INFO|26.600422|||2024-06-04 19:03:50.802
-ubi-demo|33bd0ee2-60b7-4c25-b62c-1aa1580da73c|2071e273-513f-46be-b835-89f452095053|product_sort|SORT|14.839713|||2024-06-04 19:03:50.875
-ubi-demo|33bd0ee2-60b7-4c25-b62c-1aa1580da73c|2071e273-513f-46be-b835-89f452095053|brand_filter|FILTER|20.876852|OBJECT-6c91da98-387b-45cb-8275-e90d1ea8bc54|supplier_name|2024-06-04 19:03:50.927
-ubi-demo|33bd0ee2-60b7-4c25-b62c-1aa1580da73c|2071e273-513f-46be-b835-89f452095053|type_filter|INFO|15.212905|OBJECT-32d9bb39-b17d-4611-82c1-5aaa14368060|filter_product_type|2024-06-04 19:03:50.997
-ubi-demo|33bd0ee2-60b7-4c25-b62c-1aa1580da73c|2071e273-513f-46be-b835-89f452095053|view_search_results|INFO|26.600422|||2024-06-04 19:03:51.033
-ubi-demo|33bd0ee2-60b7-4c25-b62c-1aa1580da73c|2071e273-513f-46be-b835-89f452095053|global_click|INFO|11.710514|OBJECT-d350cc2d-b979-4aca-bd73-71709832940f|(96, 127)|2024-06-04 19:03:51.108
-ubi-demo|33bd0ee2-60b7-4c25-b62c-1aa1580da73c|2071e273-513f-46be-b835-89f452095053|product_sort|SORT|14.839713|||2024-06-04 19:03:51.144
-ubi-demo|33bd0ee2-60b7-4c25-b62c-1aa1580da73c|2071e273-513f-46be-b835-89f452095053|global_click|INFO|11.710514|OBJECT-d350cc2d-b979-4aca-bd73-71709832940f|(96, 127)|2024-06-04 19:03:51.17
-ubi-demo|33bd0ee2-60b7-4c25-b62c-1aa1580da73c|2071e273-513f-46be-b835-89f452095053|brand_filter|FILTER|20.876852|OBJECT-6c91da98-387b-45cb-8275-e90d1ea8bc54|supplier_name|2024-06-04 19:03:51.205
-ubi-demo|33bd0ee2-60b7-4c25-b62c-1aa1580da73c|2071e273-513f-46be-b835-89f452095053|type_filter|INFO|15.212905|OBJECT-32d9bb39-b17d-4611-82c1-5aaa14368060|filter_product_type|2024-06-04 19:03:51.228
-ubi-demo|33bd0ee2-60b7-4c25-b62c-1aa1580da73c|2071e273-513f-46be-b835-89f452095053|product_sort|SORT|14.839713|||2024-06-04 19:03:51.232
-ubi-demo|33bd0ee2-60b7-4c25-b62c-1aa1580da73c|2071e273-513f-46be-b835-89f452095053|type_filter|INFO|15.212905|OBJECT-32d9bb39-b17d-4611-82c1-5aaa14368060|filter_product_type|2024-06-04 19:03:51.292
-ubi-demo|33bd0ee2-60b7-4c25-b62c-1aa1580da73c|2071e273-513f-46be-b835-89f452095053|type_filter|INFO|15.212905|OBJECT-32d9bb39-b17d-4611-82c1-5aaa14368060|filter_product_type|2024-06-04 19:03:51.301
-ubi-demo|33bd0ee2-60b7-4c25-b62c-1aa1580da73c|23f0149a-13ae-4977-8dc9-ef61c449c140|on_search|QUERY|16.93674|||2024-06-04 19:03:50.62
-ubi-demo|33bd0ee2-60b7-4c25-b62c-1aa1580da73c|23f0149a-13ae-4977-8dc9-ef61c449c140|global_click|INFO|25.897957|OBJECT-d350cc2d-b979-4aca-bd73-71709832940f|(96, 127)|2024-06-04 19:03:50.624
-ubi-demo|33bd0ee2-60b7-4c25-b62c-1aa1580da73c|23f0149a-13ae-4977-8dc9-ef61c449c140|product_sort|SORT|44.345097|||2024-06-04 19:03:50.688
-ubi-demo|33bd0ee2-60b7-4c25-b62c-1aa1580da73c|23f0149a-13ae-4977-8dc9-ef61c449c140|brand_filter|FILTER|19.54417|OBJECT-6c91da98-387b-45cb-8275-e90d1ea8bc54|supplier_name|2024-06-04 19:03:50.696
-ubi-demo|33bd0ee2-60b7-4c25-b62c-1aa1580da73c|23f0149a-13ae-4977-8dc9-ef61c449c140|type_filter|INFO|48.79312|OBJECT-32d9bb39-b17d-4611-82c1-5aaa14368060|filter_product_type|2024-06-04 19:03:50.74
-ubi-demo|33bd0ee2-60b7-4c25-b62c-1aa1580da73c|23f0149a-13ae-4977-8dc9-ef61c449c140|brand_filter|FILTER|19.54417|OBJECT-6c91da98-387b-45cb-8275-e90d1ea8bc54|supplier_name|2024-06-04 19:03:50.802
+`ubi-demo`|00731779-e290-4709-8af7-d495ae42bf48|0254a9b7-1d83-4083-aa46-e12dff86ec98|on_search|QUERY|46.6398|||2024-06-04 19:06:36.239
+`ubi-demo`|00731779-e290-4709-8af7-d495ae42bf48|0254a9b7-1d83-4083-aa46-e12dff86ec98|product_hover|INFO|53.681877|0065030834155|USB 2.0 S-Video and Composite Video Capture Cable|2024-06-04 19:06:36.284
+`ubi-demo`|00731779-e290-4709-8af7-d495ae42bf48|0254a9b7-1d83-4083-aa46-e12dff86ec98|item_click|INFO|40.699997|0065030834155|USB 2.0 S-Video and Composite Video Capture Cable|2024-06-04 19:06:36.334
+`ubi-demo`|00731779-e290-4709-8af7-d495ae42bf48|0254a9b7-1d83-4083-aa46-e12dff86ec98|declined_product|REJECT|5.0539055|0065030834155|USB 2.0 S-Video and Composite Video Capture Cable|2024-06-04 19:06:36.373
+`ubi-demo`|844ca4b5-b6f8-4f7b-a5ec-7f6d95788e0b|0cf185be-91a8-49cf-9401-92ad079ce43b|on_search|QUERY|26.422775|||2024-06-04 19:04:40.832
+`ubi-demo`|844ca4b5-b6f8-4f7b-a5ec-7f6d95788e0b|0cf185be-91a8-49cf-9401-92ad079ce43b|on_search|QUERY|17.1094|||2024-06-04 19:04:40.837
+`ubi-demo`|844ca4b5-b6f8-4f7b-a5ec-7f6d95788e0b|0cf185be-91a8-49cf-9401-92ad079ce43b|brand_filter|FILTER|40.090374|OBJECT-6c91da98-387b-45cb-8275-e90d1ea8bc54|supplier_name|2024-06-04 19:04:40.852
+`ubi-demo`|844ca4b5-b6f8-4f7b-a5ec-7f6d95788e0b|0cf185be-91a8-49cf-9401-92ad079ce43b|type_filter|INFO|37.658962|OBJECT-32d9bb39-b17d-4611-82c1-5aaa14368060|filter_product_type|2024-06-04 19:04:40.856
+`ubi-demo`|844ca4b5-b6f8-4f7b-a5ec-7f6d95788e0b|0cf185be-91a8-49cf-9401-92ad079ce43b|product_sort|SORT|3.6380951|||2024-06-04 19:04:40.923
+`ubi-demo`|844ca4b5-b6f8-4f7b-a5ec-7f6d95788e0b|0cf185be-91a8-49cf-9401-92ad079ce43b|view_search_results|INFO|46.436115|||2024-06-04 19:04:40.942
+`ubi-demo`|844ca4b5-b6f8-4f7b-a5ec-7f6d95788e0b|0cf185be-91a8-49cf-9401-92ad079ce43b|view_search_results|INFO|46.436115|||2024-06-04 19:04:40.959
+`ubi-demo`|844ca4b5-b6f8-4f7b-a5ec-7f6d95788e0b|0cf185be-91a8-49cf-9401-92ad079ce43b|type_filter|INFO|37.658962|OBJECT-32d9bb39-b17d-4611-82c1-5aaa14368060|filter_product_type|2024-06-04 19:04:40.972
+`ubi-demo`|844ca4b5-b6f8-4f7b-a5ec-7f6d95788e0b|0cf185be-91a8-49cf-9401-92ad079ce43b|brand_filter|FILTER|40.090374|OBJECT-6c91da98-387b-45cb-8275-e90d1ea8bc54|supplier_name|2024-06-04 19:04:40.997
+`ubi-demo`|844ca4b5-b6f8-4f7b-a5ec-7f6d95788e0b|0cf185be-91a8-49cf-9401-92ad079ce43b|type_filter|INFO|37.658962|OBJECT-32d9bb39-b17d-4611-82c1-5aaa14368060|filter_product_type|2024-06-04 19:04:41.006
+`ubi-demo`|844ca4b5-b6f8-4f7b-a5ec-7f6d95788e0b|0cf185be-91a8-49cf-9401-92ad079ce43b|product_sort|SORT|3.6380951|||2024-06-04 19:04:41.031
+`ubi-demo`|844ca4b5-b6f8-4f7b-a5ec-7f6d95788e0b|0cf185be-91a8-49cf-9401-92ad079ce43b|product_sort|SORT|3.6380951|||2024-06-04 19:04:41.091
+`ubi-demo`|844ca4b5-b6f8-4f7b-a5ec-7f6d95788e0b|0cf185be-91a8-49cf-9401-92ad079ce43b|type_filter|INFO|37.658962|OBJECT-32d9bb39-b17d-4611-82c1-5aaa14368060|filter_product_type|2024-06-04 19:04:41.164
+`ubi-demo`|844ca4b5-b6f8-4f7b-a5ec-7f6d95788e0b|0cf185be-91a8-49cf-9401-92ad079ce43b|brand_filter|FILTER|40.090374|OBJECT-6c91da98-387b-45cb-8275-e90d1ea8bc54|supplier_name|2024-06-04 19:04:41.171
+`ubi-demo`|844ca4b5-b6f8-4f7b-a5ec-7f6d95788e0b|0cf185be-91a8-49cf-9401-92ad079ce43b|view_search_results|INFO|46.436115|||2024-06-04 19:04:41.179
+`ubi-demo`|844ca4b5-b6f8-4f7b-a5ec-7f6d95788e0b|0cf185be-91a8-49cf-9401-92ad079ce43b|global_click|INFO|42.45651|OBJECT-d350cc2d-b979-4aca-bd73-71709832940f|(96, 127)|2024-06-04 19:04:41.224
+`ubi-demo`|844ca4b5-b6f8-4f7b-a5ec-7f6d95788e0b|0cf185be-91a8-49cf-9401-92ad079ce43b|view_search_results|INFO|46.436115|||2024-06-04 19:04:41.24
+`ubi-demo`|844ca4b5-b6f8-4f7b-a5ec-7f6d95788e0b|0cf185be-91a8-49cf-9401-92ad079ce43b|view_search_results|INFO|46.436115|||2024-06-04 19:04:41.285
+`ubi-demo`|844ca4b5-b6f8-4f7b-a5ec-7f6d95788e0b|0cf185be-91a8-49cf-9401-92ad079ce43b|global_click|INFO|42.45651|OBJECT-d350cc2d-b979-4aca-bd73-71709832940f|(96, 127)|2024-06-04 19:04:41.328
+`ubi-demo`|33bd0ee2-60b7-4c25-b62c-1aa1580da73c|2071e273-513f-46be-b835-89f452095053|on_search|QUERY|52.721157|||2024-06-04 19:03:50.8
+`ubi-demo`|33bd0ee2-60b7-4c25-b62c-1aa1580da73c|2071e273-513f-46be-b835-89f452095053|view_search_results|INFO|26.600422|||2024-06-04 19:03:50.802
+`ubi-demo`|33bd0ee2-60b7-4c25-b62c-1aa1580da73c|2071e273-513f-46be-b835-89f452095053|product_sort|SORT|14.839713|||2024-06-04 19:03:50.875
+`ubi-demo`|33bd0ee2-60b7-4c25-b62c-1aa1580da73c|2071e273-513f-46be-b835-89f452095053|brand_filter|FILTER|20.876852|OBJECT-6c91da98-387b-45cb-8275-e90d1ea8bc54|supplier_name|2024-06-04 19:03:50.927
+`ubi-demo`|33bd0ee2-60b7-4c25-b62c-1aa1580da73c|2071e273-513f-46be-b835-89f452095053|type_filter|INFO|15.212905|OBJECT-32d9bb39-b17d-4611-82c1-5aaa14368060|filter_product_type|2024-06-04 19:03:50.997
+`ubi-demo`|33bd0ee2-60b7-4c25-b62c-1aa1580da73c|2071e273-513f-46be-b835-89f452095053|view_search_results|INFO|26.600422|||2024-06-04 19:03:51.033
+`ubi-demo`|33bd0ee2-60b7-4c25-b62c-1aa1580da73c|2071e273-513f-46be-b835-89f452095053|global_click|INFO|11.710514|OBJECT-d350cc2d-b979-4aca-bd73-71709832940f|(96, 127)|2024-06-04 19:03:51.108
+`ubi-demo`|33bd0ee2-60b7-4c25-b62c-1aa1580da73c|2071e273-513f-46be-b835-89f452095053|product_sort|SORT|14.839713|||2024-06-04 19:03:51.144
+`ubi-demo`|33bd0ee2-60b7-4c25-b62c-1aa1580da73c|2071e273-513f-46be-b835-89f452095053|global_click|INFO|11.710514|OBJECT-d350cc2d-b979-4aca-bd73-71709832940f|(96, 127)|2024-06-04 19:03:51.17
+`ubi-demo`|33bd0ee2-60b7-4c25-b62c-1aa1580da73c|2071e273-513f-46be-b835-89f452095053|brand_filter|FILTER|20.876852|OBJECT-6c91da98-387b-45cb-8275-e90d1ea8bc54|supplier_name|2024-06-04 19:03:51.205
+`ubi-demo`|33bd0ee2-60b7-4c25-b62c-1aa1580da73c|2071e273-513f-46be-b835-89f452095053|type_filter|INFO|15.212905|OBJECT-32d9bb39-b17d-4611-82c1-5aaa14368060|filter_product_type|2024-06-04 19:03:51.228
+`ubi-demo`|33bd0ee2-60b7-4c25-b62c-1aa1580da73c|2071e273-513f-46be-b835-89f452095053|product_sort|SORT|14.839713|||2024-06-04 19:03:51.232
+`ubi-demo`|33bd0ee2-60b7-4c25-b62c-1aa1580da73c|2071e273-513f-46be-b835-89f452095053|type_filter|INFO|15.212905|OBJECT-32d9bb39-b17d-4611-82c1-5aaa14368060|filter_product_type|2024-06-04 19:03:51.292
+`ubi-demo`|33bd0ee2-60b7-4c25-b62c-1aa1580da73c|2071e273-513f-46be-b835-89f452095053|type_filter|INFO|15.212905|OBJECT-32d9bb39-b17d-4611-82c1-5aaa14368060|filter_product_type|2024-06-04 19:03:51.301
+`ubi-demo`|33bd0ee2-60b7-4c25-b62c-1aa1580da73c|23f0149a-13ae-4977-8dc9-ef61c449c140|on_search|QUERY|16.93674|||2024-06-04 19:03:50.62
+`ubi-demo`|33bd0ee2-60b7-4c25-b62c-1aa1580da73c|23f0149a-13ae-4977-8dc9-ef61c449c140|global_click|INFO|25.897957|OBJECT-d350cc2d-b979-4aca-bd73-71709832940f|(96, 127)|2024-06-04 19:03:50.624
+`ubi-demo`|33bd0ee2-60b7-4c25-b62c-1aa1580da73c|23f0149a-13ae-4977-8dc9-ef61c449c140|product_sort|SORT|44.345097|||2024-06-04 19:03:50.688
+`ubi-demo`|33bd0ee2-60b7-4c25-b62c-1aa1580da73c|23f0149a-13ae-4977-8dc9-ef61c449c140|brand_filter|FILTER|19.54417|OBJECT-6c91da98-387b-45cb-8275-e90d1ea8bc54|supplier_name|2024-06-04 19:03:50.696
+`ubi-demo`|33bd0ee2-60b7-4c25-b62c-1aa1580da73c|23f0149a-13ae-4977-8dc9-ef61c449c140|type_filter|INFO|48.79312|OBJECT-32d9bb39-b17d-4611-82c1-5aaa14368060|filter_product_type|2024-06-04 19:03:50.74
+`ubi-demo`|33bd0ee2-60b7-4c25-b62c-1aa1580da73c|23f0149a-13ae-4977-8dc9-ef61c449c140|brand_filter|FILTER|19.54417|OBJECT-6c91da98-387b-45cb-8275-e90d1ea8bc54|supplier_name|2024-06-04 19:03:50.802
 
 
 ## List user sessions for users who logged out without submitting any queries
@@ -325,7 +325,7 @@ order by EventTotal desc
 
 The following table shows the client ID, session ID, and that there was 1 event,`logout`. 
 
-client_id|session_id|EventTotal
+`client_id`|session_id|EventTotal
 ---|---|---
 100_15c182f2-05db-4f4f-814f-46dc0de6b9ea|1c36712c-44b8-4fdd-8f0d-fdfeab5bd794_1290|1
 175_e5f262f1-0db3-4948-b349-c5b95ff31259|816f94d6-8966-4a8b-8984-a2641d5865b2_2251|1
@@ -362,7 +362,7 @@ order by EventTotal desc
 
 The following table shows user client IDs and the number of logouts without any queries.
 
-client_id|EventTotal
+`client_id`|EventTotal
 ---|---
 87_5a6e1f8c-4936-4184-a24d-beddd05c9274|8
 127_829a4246-930a-4b24-8165-caa07ee3fa47|7

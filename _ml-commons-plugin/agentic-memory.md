@@ -90,7 +90,7 @@ When adding memories, you can specify different payload types:
 To add a conversation memory with inference, send the following request:
 
 ```json
-POST /_plugins/_ml/memory_containers/<container_id>/memories
+POST /_plugins/_ml/memory_containers/{container_id}/memories
 {
   "messages": [
     {
@@ -125,7 +125,7 @@ POST /_plugins/_ml/memory_containers/<container_id>/memories
 To add agent state data, send the following request:
 
 ```json
-POST /_plugins/_ml/memory_containers/<container_id>/memories
+POST /_plugins/_ml/memory_containers/{container_id}/memories
 {
   "structured_data": {
     "agent_state": "researching",
@@ -166,7 +166,7 @@ _Namespaces_ organize memories within containers by grouping them with identifie
 To search memories by namespace, send the following request:
 
 ```json
-GET /_plugins/_ml/memory_containers/<container_id>/memories/long-term/_search
+GET /_plugins/_ml/memory_containers/{container_id}/memories/long-term/_search
 {
   "query": {
     "bool": {
@@ -229,21 +229,21 @@ After executing OpenSearch agents configured with agentic memory, you can inspec
 1. Retrieve the session by `memory_id`:
 
 ```json
-GET /_plugins/_ml/memory_containers/<memory_container_id>/memories/sessions/<memory_id>
+GET /_plugins/_ml/memory_containers/{memory_container_id}/memories/sessions/{memory_id}
 ```
 {% include copy-curl.html %}
 
 2. Retrieve a message by interaction ID (`parent_interaction_id` from the agent execution output):
 
 ```json
-GET /_plugins/_ml/memory_containers/<memory_container_id>/memories/working/<interaction_id>
+GET /_plugins/_ml/memory_containers/{memory_container_id}/memories/working/{interaction_id}
 ```
 {% include copy-curl.html %}
 
 3. Get full working-memory trace data for a session using `namespace.session_id = <memory_id>`:
 
 ```json
-GET /_plugins/_ml/memory_containers/<memory_container_id>/memories/working/_search
+GET /_plugins/_ml/memory_containers/{memory_container_id}/memories/working/_search
 {
   "query": {
     "match": {

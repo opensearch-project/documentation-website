@@ -15,7 +15,7 @@ You can retrieve agent information using the `agent_id`.
 ## Endpoints
 
 ```json
-GET /_plugins/_ml/agents/<agent_id>
+GET /_plugins/_ml/agents/{agent_id}
 ```
 
 ## Path parameters

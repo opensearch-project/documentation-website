@@ -14,12 +14,12 @@ Audit logs can take up quite a bit of space, so the Security plugin offers sever
 
 Setting | Description
 :--- | :---
-debug | Outputs to stdout. Useful for testing and debugging.
-internal_opensearch | Writes to an audit index on the current OpenSearch cluster.
-internal_opensearch_data_stream | Writes to an audit log data stream on the current OpenSearch cluster.
-external_opensearch | Writes to an audit index on a remote OpenSearch cluster.
-webhook | Sends events to an arbitrary HTTP endpoint.
-log4j | Writes the events to a Log4j logger. You can use any Log4j [appender](https://logging.apache.org/log4j/2.x/manual/appenders.html), such as SNMP, JDBC, Cassandra, and Kafka.
+`debug` | Outputs to stdout. Useful for testing and debugging.
+`internal_opensearch` | Writes to an audit index on the current OpenSearch cluster.
+`internal_opensearch_data_stream` | Writes to an audit log data stream on the current OpenSearch cluster.
+`external_opensearch` | Writes to an audit index on a remote OpenSearch cluster.
+`webhook` | Sends events to an arbitrary HTTP endpoint.
+`log4j` | Writes the events to a Log4j logger. You can use any Log4j [appender](https://logging.apache.org/log4j/2.x/manual/appenders.html), such as SNMP, JDBC, Cassandra, and Kafka.
 
 You configure the output location in `opensearch.yml`:
 
@@ -129,3 +129,5 @@ plugins.security.audit.config.log4j.level: INFO
 ```
 
 By default, the Security plugin uses the logger name `audit` and logs the events on `INFO` level. Audit events are stored in JSON format.
+
+For clusters with many indexes, you can use the `plugins.security.audit.config.log4j.maximum_index_characters_per_message` setting to split log messages. This prevents the `audit_trace_indices` and `audit_trace_resolved_indices` fields from exceeding the configured maximum number of index-name characters per message and reduces log message size for your logging pipeline. Split messages include an `audit_split_message_id` UUID field that links related message fragments. The setting defaults to 2,147,483,647 (no splitting).

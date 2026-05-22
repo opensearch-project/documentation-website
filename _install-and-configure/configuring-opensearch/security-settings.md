@@ -381,7 +381,9 @@ The Security plugin supports the following transport layer security settings:
 
 - `plugins.security.ssl.http.crl.disable_crldp` (Static): Disables CRL endpoints in certificates. Default is `false` (CRL endpoints are enabled).
 
-- `plugins.security.ssl.allow_client_initiated_renegotiation` (Static): Enables or disables client renegotiation. Default is `false` (client initiated renegotiation is not allowed). 
+- `plugins.security.ssl.allow_client_initiated_renegotiation` (Static): Enables or disables client renegotiation. Default is `false` (client initiated renegotiation is not allowed).
+
+- `plugins.security_config.ssl_dual_mode_enabled` (Static): Enables dual-mode SSL, allowing a node to accept both encrypted (TLS) and non-encrypted traffic on the transport layer. When set to `true`, nodes can communicate with other nodes using either SSL or non-SSL connections. This setting is designed for transitional scenarios, such as migrating a cluster from having security disabled to having security enabled through a rolling restart process. This setting should not be used indefinitely in production environments. Use it only temporarily during the migration, and disable it once all nodes in the cluster are using the same security configuration. Default is `false`.
 
 ## Security plugin settings examples
 

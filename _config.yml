@@ -6,10 +6,10 @@ latesturl: "/latest" # The subpath of the latest version. Used for non-version-s
 url: "https://docs.opensearch.org" # the base hostname & protocol for your site, e.g. http://example.com
 permalink: /:path/
 
-opensearch_version: '3.5.0'
-opensearch_dashboards_version: '3.5.0'
-opensearch_major_minor_version: '3.5'
-lucene_version: '10_3_2'
+opensearch_version: '3.6.0'
+opensearch_dashboards_version: '3.6.0'
+opensearch_major_minor_version: '3.6'
+lucene_version: '10_4_0'
 
 # Build settings
 markdown: kramdown
@@ -97,6 +97,9 @@ collections:
   migration-assistant:
     permalink: /:collection/:path/
     output: true
+  migration-assistant-classic:
+    permalink: /classic/migration-assistant/:path/
+    output: true
   tools:
     permalink: /:collection/:path/
     output: true
@@ -131,6 +134,9 @@ collections:
     permalink: /:collection/:path/
     output: true
   tutorials:
+    permalink: /:collection/:path/
+    output: true
+  ai-agent-integrations:
     permalink: /:collection/:path/
     output: true
 
@@ -194,6 +200,9 @@ opensearch_collection:
     ml-commons-plugin:
       name: Machine learning
       nav_fold: true
+    ai-agent-integrations:
+      name: AI agent integrations
+      nav_fold: true
     automating-configurations:
       name: Automating configurations
       nav_fold: true
@@ -230,6 +239,12 @@ migration_assistant_collection:
   collections:
     migration-assistant:
         name: Migration Assistant for OpenSearch
+        nav_fold: true
+
+migration_assistant_classic_collection:
+  collections:
+    migration-assistant-classic:
+        name: "Migration Assistant (Classic)"
         nav_fold: true
 
 benchmark_collection:
@@ -277,6 +292,13 @@ defaults:
     values:
       section: "migration-assistant"
       section-name: "Migration Assistant for OpenSearch"
+  -
+    scope:
+      path: "_migration-assistant-classic"
+    values:
+      section: "migration-assistant-classic"
+      section-name: "Migration Assistant (Classic)"
+      section-url: "/classic/migration-assistant/"
 
 # Enable or disable the site search
 # By default, just-the-docs enables its JSON file-based search. We also have an OpenSearch-driven search functionality.

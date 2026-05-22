@@ -18,6 +18,8 @@ OpenSearch offers the following features to help you optimize search quality:
 
 - **[Search Relevance Workbench]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/using-search-relevance-workbench/)**: A comprehensive suite of tools for experimenting with and improving search relevance through query comparison, result evaluation, and A/B testing.
 
+- **[Relevance agent]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/relevance-agent/)**: A specialized agent designed to continuously improve search relevance. 
+
 - **[Query rewriting]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/query-rewriting/)**: Transform user queries to improve search accuracy and handle synonyms, misspellings, and other query variations.
 
 - **[Learning to Rank (LTR)]({{site.url}}{{site.baseurl}}/search-plugins/ltr/)**: Use machine learning models trained on behavioral data to improve the ranking of search results.

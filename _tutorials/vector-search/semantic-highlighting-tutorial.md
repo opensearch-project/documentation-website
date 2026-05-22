@@ -30,6 +30,9 @@ PUT _cluster/settings
 ```
 {% include copy-curl.html %}
 
+When registering a model from a URL, make sure the source is trusted. Loading models from untrusted sources can pose security risks. For more information, see [PyTorch security guidelines for untrusted models](https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models).
+{: .warning}
+
 This example uses a simple setup with no dedicated ML nodes and allows running a model on a non-ML node. On clusters with dedicated ML nodes, specify `"only_run_on_ml_node": "true"` for improved performance. For more information, see [ML Commons cluster settings]({{site.url}}{{site.baseurl}}/ml-commons-plugin/cluster-settings/).
 
 ## Step 1: Create an index
@@ -90,7 +93,7 @@ POST /_plugins/_ml/models/_register?deploy=true
 This API returns a `task_id` for the deployment operation. Use the [Get ML Task API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/) to monitor the deployment status:
 
 ```json
-GET /_plugins/_ml/tasks/<your-task-id>
+GET /_plugins/_ml/tasks/{your-task-id}
 ```
 {% include copy-curl.html %}
 

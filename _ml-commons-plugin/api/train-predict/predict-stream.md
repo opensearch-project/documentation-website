@@ -22,7 +22,7 @@ This API currently supports the following remote model types:
 ## Endpoint
 
 ```json
-POST /_plugins/_ml/models/<model_id>/_predict/stream
+POST /_plugins/_ml/models/{model_id}/_predict/stream
 ```
 
 ## Prerequisites
@@ -191,7 +191,7 @@ To use the Predict Stream API, you must include the `_llm_interface` parameter t
 For OpenAI Chat Completion, send the following request:
 
 ```json
-POST /_plugins/_ml/models/<model_id>/_predict/stream
+POST /_plugins/_ml/models/{model_id}/_predict/stream
 {
   "parameters": {
     "messages": [
@@ -213,7 +213,7 @@ POST /_plugins/_ml/models/<model_id>/_predict/stream
 For Amazon Bedrock Converse Stream, send the following request:
 
 ```json
-POST /_plugins/_ml/models/<model_id>/_predict/stream
+POST /_plugins/_ml/models/{model_id}/_predict/stream
 {
   "parameters": {
     "inputs": "Can you summarize Prince Hamlet of William Shakespeare in around 1000 words?",

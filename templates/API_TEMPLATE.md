@@ -15,7 +15,7 @@ The Example API ... (descriptive sentence about what this API does).
 
 ```json
 POST /_example/endpoint/
-POST /_example/endpoint/<path_parameter>
+POST /_example/endpoint/{path_parameter}
 ```
 
 ## Path parameters

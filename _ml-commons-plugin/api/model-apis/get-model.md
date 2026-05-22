@@ -15,7 +15,7 @@ For information about user access for this API, see [Model access control consid
 ## Endpoints
 
 ```json
-GET /_plugins/_ml/models/<model_id>
+GET /_plugins/_ml/models/{model_id}
 ```
 
 ## Path parameters

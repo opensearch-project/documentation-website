@@ -541,7 +541,7 @@ Returns all information about a detector based on the `detector_id`.
 #### Request
 
 ```json
-GET _plugins/_anomaly_detection/detectors/<detectorId>
+GET _plugins/_anomaly_detection/detectors/{detectorId}
 ```
 
 #### Example response
@@ -638,7 +638,7 @@ Use `job=true` to get real-time analysis task information.
 #### Request
 
 ```json
-GET _plugins/_anomaly_detection/detectors/<detectorId>?job=true
+GET _plugins/_anomaly_detection/detectors/{detectorId}?job=true
 ```
 
 #### Example response
@@ -758,7 +758,7 @@ Use `task=true` to get information for both real-time and historical analysis ta
 #### Request
 
 ```json
-GET _plugins/_anomaly_detection/detectors/<detectorId>?task=true
+GET _plugins/_anomaly_detection/detectors/{detectorId}?task=true
 ```
 
 #### Example response
@@ -1052,7 +1052,7 @@ You can't update a category field.
 #### Request
 
 ```json
-PUT _plugins/_anomaly_detection/detectors/<detectorId>
+PUT _plugins/_anomaly_detection/detectors/{detectorId}
 {
   "name": "test-detector",
   "description": "Test update detector",
@@ -1196,7 +1196,7 @@ To delete a detector, you need to first stop both real-time detection and histor
 #### Request
 
 ```json
-DELETE _plugins/_anomaly_detection/detectors/<detectorId>
+DELETE _plugins/_anomaly_detection/detectors/{detectorId}
 ```
 
 #### Example response
@@ -1660,7 +1660,7 @@ To start a real-time detector job:
 #### Request
 
 ```json
-POST _plugins/_anomaly_detection/detectors/<detectorId>/_start
+POST _plugins/_anomaly_detection/detectors/{detectorId}/_start
 ```
 
 #### Example response
@@ -1679,7 +1679,7 @@ The `_id` represents the real-time job ID, which is the same as the detector ID.
 To start historical analysis:
 
 ```json
-POST _plugins/_anomaly_detection/detectors/<detectorId>/_start
+POST _plugins/_anomaly_detection/detectors/{detectorId}/_start
 {
   "start_time": 1633048868000,
   "end_time": 1633394468000
@@ -1712,7 +1712,7 @@ To stop a real-time detector job:
 #### Request
 
 ```json
-POST _plugins/_anomaly_detection/detectors/<detectorId>/_stop
+POST _plugins/_anomaly_detection/detectors/{detectorId}/_stop
 ```
 
 #### Example response
@@ -1732,7 +1732,7 @@ Introduced 1.1
 {: .label .label-purple }
 
 ```json
-POST _plugins/_anomaly_detection/detectors/<detectorId>/_stop?historical=true
+POST _plugins/_anomaly_detection/detectors/{detectorId}/_stop?historical=true
 ```
 
 #### Example response
@@ -2182,19 +2182,19 @@ You have the following search options:
 - To search both the custom result index and default result index, you can either add the custom result index to the search API:
 
   ```json
-  POST _plugins/_anomaly_detection/detectors/results/_search/<custom_result_index>
+  POST _plugins/_anomaly_detection/detectors/results/_search/{custom_result_index}
   ```
 
   Or, add the custom result index and set the `only_query_custom_result_index` parameter to `false`:
 
   ```json
-  POST _plugins/_anomaly_detection/detectors/results/_search/<custom_result_index>?only_query_custom_result_index=false
+  POST _plugins/_anomaly_detection/detectors/results/_search/{custom_result_index}?only_query_custom_result_index=false
   ```
 
 - To search only the custom result index, add the custom result index to the search API and set the `only_query_custom_result_index` parameter to `true`:
 
   ```json
-  POST _plugins/_anomaly_detection/detectors/results/_search/<custom_result_index>?only_query_custom_result_index=true
+  POST _plugins/_anomaly_detection/detectors/results/_search/{custom_result_index}?only_query_custom_result_index=true
   ```
 
 The following example searches anomaly results for grade greater than 0 for real-time analysis:
@@ -2450,7 +2450,7 @@ You can pass a `historical` boolean parameter to specify whether you want to ana
 #### Request
 
 ```json
-GET _plugins/_anomaly_detection/detectors/<detectorId>/results/_topAnomalies?historical=false
+GET _plugins/_anomaly_detection/detectors/{detectorId}/results/_topAnomalies?historical=false
 {
   "size": 3,
   "category_field": [
@@ -2627,7 +2627,7 @@ To get all stats for a specific node:
 #### Request
 
 ```json
-GET _plugins/_anomaly_detection/<nodeId>/stats
+GET _plugins/_anomaly_detection/{nodeId}/stats
 ```
 
 To get specific stats for a node:
@@ -2635,7 +2635,7 @@ To get specific stats for a node:
 #### Request
 
 ```json
-GET _plugins/_anomaly_detection/<nodeId>/stats/<stat>
+GET _plugins/_anomaly_detection/{nodeId}/stats/{stat}
 ```
 
 For example, to get the `ad_execute_request_count` value for node `SWD7ihu9TaaW1zKwFZNVNg`:
@@ -2661,7 +2661,7 @@ To get a specific type of stats:
 #### Request
 
 ```json
-GET _plugins/_anomaly_detection/stats/<stat>
+GET _plugins/_anomaly_detection/stats/{stat}
 ```
 
 For example:
@@ -2703,23 +2703,23 @@ It also helps track the initialization percentage, the required shingles, and th
 #### Request
 
 ```json
-GET _plugins/_anomaly_detection/detectors/<detectorId>/_profile/
-GET _plugins/_anomaly_detection/detectors/<detectorId>/_profile?_all=true
-GET _plugins/_anomaly_detection/detectors/<detectorId>/_profile/<type>
-GET _plugins/_anomaly_detection/detectors/<detectorId>/_profile/<type1>,<type2>
+GET _plugins/_anomaly_detection/detectors/{detectorId}/_profile/
+GET _plugins/_anomaly_detection/detectors/{detectorId}/_profile?_all=true
+GET _plugins/_anomaly_detection/detectors/{detectorId}/_profile/{type}
+GET _plugins/_anomaly_detection/detectors/{detectorId}/_profile/{type1},{type2}
 ```
 
 #### Sample Responses
 
 ```json
-GET _plugins/_anomaly_detection/detectors/<detectorId>/_profile
+GET _plugins/_anomaly_detection/detectors/{detectorId}/_profile
 
 {
   "state": "DISABLED",
   "error": "Stopped detector: AD models memory usage exceeds our limit."
 }
 
-GET _plugins/_anomaly_detection/detectors/<detectorId>/_profile?_all=true&pretty
+GET _plugins/_anomaly_detection/detectors/{detectorId}/_profile?_all=true&pretty
 
 {
   "state": "RUNNING",
@@ -2883,7 +2883,7 @@ GET _plugins/_anomaly_detection/detectors/<detectorId>/_profile?_all=true&pretty
   "model_count": 32
 }
 
-GET _plugins/_anomaly_detection/detectors/<detectorId>/_profile/total_size_in_bytes
+GET _plugins/_anomaly_detection/detectors/{detectorId}/_profile/total_size_in_bytes
 
 {
   "total_size_in_bytes": 13369344
@@ -3029,7 +3029,7 @@ If there are no anomaly results for an entity, either the entity doesn't have an
 #### Request
 
 ```json
-GET _plugins/_anomaly_detection/detectors/<detectorId>/_profile?_all=true
+GET _plugins/_anomaly_detection/detectors/{detectorId}/_profile?_all=true
 {
   "entity": [
     {
@@ -3065,8 +3065,8 @@ Specifying `_all` is an expensive operation for multi-category high cardinality 
 #### Request
 
 ```json
-GET _plugins/_anomaly_detection/detectors/<detectorId>/_profile?_all
-GET _plugins/_anomaly_detection/detectors/<detectorId>/_profile/ad_task
+GET _plugins/_anomaly_detection/detectors/{detectorId}/_profile?_all
+GET _plugins/_anomaly_detection/detectors/{detectorId}/_profile/ad_task
 ```
 
 #### Sample Responses

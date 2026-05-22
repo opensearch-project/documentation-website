@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Anomaly detection
-nav_order: 130
+nav_order: 120
 has_children: true
 redirect_from:
   - /monitoring-plugins/ad/

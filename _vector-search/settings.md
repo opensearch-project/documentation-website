@@ -41,6 +41,7 @@ Setting | Static/Dynamic | Default | Description
 `index.knn.algo_param.ef_search` | Dynamic | `100`   | `ef` (or `efSearch`) represents the size of the dynamic list for the nearest neighbors used during a search. Higher `ef` values lead to a more accurate but slower search. `ef` cannot be set to a value lower than the number of queried nearest neighbors, `k`. `ef` can take any value between `k` and the size of the dataset. 
 `index.knn.advanced.approximate_threshold` | Dynamic | `0` | The number of vectors that a segment must have before creating specialized data structures for ANN search. Set to `-1` to disable building vector data structures and to `0` to always build them.
 `index.knn.advanced.filtered_exact_search_threshold`| Dynamic | None    | The filtered ID threshold value used to switch to exact search during filtered ANN search. If the number of filtered IDs in a segment is lower than this setting's value, then exact search will be performed on the filtered IDs.
+`index.knn.faiss.efficient_filter.disable_exact_search` | Dynamic | `false` | When `true`, disables the exact search fallback that occurs when a Faiss efficient-filtered approximate nearest neighbor (ANN) search returns fewer than `k` results. For more information, see [Disabling the exact search fallback]({{site.url}}{{site.baseurl}}/vector-search/filter-search-knn/efficient-knn-filtering/#disabling-the-exact-search-fallback).
 `index.knn.derived_source.enabled` | Static | `true` | Prevents vectors from being stored in `_source`, reducing disk usage for vector indexes.
 `index.knn.memory_optimized_search` | Static | `false` | Enables memory-optimized search on an index.
 
@@ -120,4 +121,4 @@ The following Neural Search plugin settings apply at the index level:
 
 <p id="hybrid-collapse-docs-per-group"></p>
 
-- `index.neural_search.hybrid_collapse_docs_per_group_per_subquery` (Dynamic, integer): Controls how many documents are stored per group per subquery. By default, the value is set to the `size` parameter specified in the query. Lower values prioritize latency, while higher values increase recall. Valid values are `0`--`1000`, inclusive. A value of `0` uses the `size` parameter from the query, not zero documents.
+- `index.neural_search.hybrid_collapse_docs_per_group_per_subquery` (_Deprecated_):  This setting is deprecated and no longer has any impact. The number of documents returned is controlled entirely by the `size` parameter.

@@ -314,7 +314,7 @@ Retrieves a forecaster and (optionally) its most recent tasks.
 ### Endpoints
 
 ```
-GET _plugins/_forecast/forecasters/<forecaster_id>[?task=(true|false)]
+GET _plugins/_forecast/forecasters/{forecaster_id}[?task=(true|false)]
 ```
 
 ### Example request: Include tasks
@@ -342,7 +342,7 @@ Any change that affects the model, such as modifying the `category_field`, `resu
 ### Endpoints
 
 ```
-PUT _plugins/_forecast/forecasters/<forecaster_id>
+PUT _plugins/_forecast/forecasters/{forecaster_id}
 ```
 
 
@@ -470,7 +470,7 @@ Deletes a forecaster configuration. You must stop any associated real-time or ru
 ### Endpoint
 
 ```http
-DELETE _plugins/_forecast/forecasters/<forecaster_id>
+DELETE _plugins/_forecast/forecasters/{forecaster_id}
 ```
 
 ### Example request: Delete a forecaster
@@ -494,7 +494,7 @@ Begins real-time forecasting for a forecaster.
 ### Endpoints
 
 ```http
-POST _plugins/_forecast/forecasters/<forecaster_id>/_start
+POST _plugins/_forecast/forecasters/{forecaster_id}/_start
 ```
 
 ### Example request: Start a forecaster job
@@ -523,7 +523,7 @@ Stops real-time forecasting for a forecaster.
 
 ### Endpoints
 ```http
-POST _plugins/_forecast/forecasters/<forecaster_id>/_stop
+POST _plugins/_forecast/forecasters/{forecaster_id}/_stop
 ```
 
 ### Example request: Stop a forecaster job
@@ -547,7 +547,7 @@ Runs backtesting (historical) forecasting. It cannot run while a real-time job i
 
 ### Endpoint
 ```http
-POST _plugins/_forecast/forecasters/<forecaster_id>/_run_once
+POST _plugins/_forecast/forecasters/{forecaster_id}/_run_once
 ```
 
 ### Example request: Run a backtesting forecast
@@ -555,7 +555,7 @@ POST _plugins/_forecast/forecasters/<forecaster_id>/_run_once
 The following request starts a run-once forecast analysis for the specified forecaster:
 
 ```bash
-POST _plugins/_forecast/forecasters/<forecaster_id>/_run_once
+POST _plugins/_forecast/forecasters/{forecaster_id}/_run_once
 ```
 {% include copy-curl.html %}
 
@@ -841,7 +841,7 @@ Returns the *top‑k* entities for a given timestamp range, based on built‑in 
 ### Endpoint
 
 ```http
-POST _plugins/_forecast/forecasters/<forecaster_id>/results/_topForecasts
+POST _plugins/_forecast/forecasters/{forecaster_id}/results/_topForecasts
 ```
 
 ### Query parameters
@@ -1063,7 +1063,7 @@ Returns execution-time state such as initialization progress, per-entity model m
 ### Endpoints
 
 ```http
-GET _plugins/_forecast/forecasters/<forecaster_id>/_profile[/<type1>,<type2>][?_all=true]
+GET _plugins/_forecast/forecasters/{forecaster_id}/_profile[/{type1},{type2}][?_all=true]
 ```
 
 You can retrieve specific profile types or request all available types using the `_all` query parameter.
@@ -1142,8 +1142,8 @@ Returns cluster-level or node-level statistics, including the number of forecast
 
 ```http
 GET _plugins/_forecast/stats
-GET _plugins/_forecast/<node_id>/stats
-GET _plugins/_forecast/stats/<stat_name>
+GET _plugins/_forecast/{node_id}/stats
+GET _plugins/_forecast/stats/{stat_name}
 ```
 
 ### Example request: Retrieve all statistics
@@ -1231,7 +1231,7 @@ Returns a single integer representing the total number of forecaster configurati
 ### Endpoints
 ```http
 GET _plugins/_forecast/forecasters/count
-GET _plugins/_forecast/forecasters/match?name=<forecaster_name>
+GET _plugins/_forecast/forecasters/match?name={forecaster_name}
 ```
 
 ### Example request: Count forecasters

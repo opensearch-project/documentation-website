@@ -97,6 +97,85 @@ Separately, the `shard_min_doc_count` parameter is used to filter out the unique
 
 When using concurrent segment search, the `shard_min_doc_count` parameter is not applied to each segment slice. For more information, see the [related GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/11847).
 
+## Filtering values to a subset
+
+You can use the `include` and `exclude` parameters to filter the term values that appear in the aggregation buckets. When both parameters are specified, `include` is evaluated first and then `exclude` is applied to the result.
+
+### Regular expression filtering
+
+Both `include` and `exclude` parameters accept a regular expression string in Lucene's [regular expression syntax]({{site.url}}{{site.baseurl}}/query-dsl/regex-syntax/):
+
+```json
+GET /opensearch_dashboards_sample_data_logs/_search
+{
+  "size": 0,
+  "aggs": {
+    "success_codes": {
+      "terms": {
+        "field": "response.keyword",
+        "include": "2.*",
+        "exclude": "204"
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+By default, the maximum regex string length is 1000 characters. You can change this limit using the `index.max_regex_length` index setting. For more information, see [Index settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/).
+
+### Exact value filtering
+
+Both `include` and `exclude` parameters accept arrays of exact values:
+
+```json
+GET /opensearch_dashboards_sample_data_logs/_search
+{
+  "size": 0,
+  "aggs": {
+    "specific_codes": {
+      "terms": {
+        "field": "response.keyword",
+        "include": ["200", "404", "503"]
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+The `include` and `exclude` parameters must use the same format: either regex strings or arrays of exact values.
+
+## Paginating through all terms
+
+When a field contains too many unique terms to retrieve in a single request, you can use partition-based filtering to retrieve all terms by sending multiple requests. Terms are assigned to partitions using a hash function, so the distribution is approximately even. 
+
+To retrieve all unique terms, send a number of requests equal to `num_partitions`. Specify `partition` and `num_partitions` in the `include` parameter. For each request, keep `num_partitions` the same and increment `partition` from `0` to `num_partitions - 1`:
+
+```json
+GET /opensearch_dashboards_sample_data_logs/_search
+{
+  "size": 0,
+  "aggs": {
+    "partitioned_terms": {
+      "terms": {
+        "field": "response.keyword",
+        "size": 10000,
+        "include": {
+          "partition": 0,
+          "num_partitions": 5
+        }
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+The `include` parameter can use only one format per request: a regex string, an array of values, or a `partition` object. Thus, you cannot combine filtering (regex- or array-based) with partition-based retrieval. When using partition-based retrieval, the `exclude` parameter is not supported.
+{: .note}
+
+
 ## Collect mode
 
 There are two collect modes available: `depth_first` and `breadth_first`. The `depth_first` collection mode expands all branches of the aggregation tree in a depth-first manner and only performs pruning after the expansion is complete. 

@@ -38,7 +38,7 @@ The following table lists the available request fields.
 Field | Data type | Required/Optional | Agent type | Description
 :---  | :--- | :--- | :--- | :---
 `name`| String | Required | All | The agent name. |
-`type` | String | Required | All | The agent type. Valid values are [`flow`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/flow/), [`conversational_flow`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/conversational-flow/), [`conversational`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/conversational/), [`plan_execute_and_reflect`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/plan-execute-reflect/), and [`ag_ui`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/ag-ui/). For more information, see [Agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/). |
+`type` | String | Required | All | The agent type. Valid values are [`flow`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/flow/), [`conversational_flow`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/conversational-flow/), [`conversational`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/conversational/#the-conversational-agent-v1), [`conversational_v2`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/conversational/#the-conversational_v2-agent-with-full-multimodal-support), [`plan_execute_and_reflect`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/plan-execute-reflect/), and [`ag_ui`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/ag-ui/). For more information, see [Agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/). |
 `description` | String | Optional| All | A description of the agent. |
 `tools` | Array | Optional | All | A list of tools for the agent to execute. 
 `app_type` | String | Optional | All | Specifies an optional agent category. You can then perform operations on all agents in the category. For example, you can delete all messages for RAG agents.
@@ -329,7 +329,7 @@ The following table lists the available request fields for unified agent registr
 | Field | Data type | Required/Optional | Description |
 | :--- | :--- | :--- | :--- |
 | `name` | String | Required | The agent name. |
-| `type` | String | Required | The agent type. Supported values: `conversational`, `plan_execute_and_reflect`, `AG_UI`. |
+| `type` | String | Required | The agent type. Supported values: `conversational`, `conversational_v2`, `plan_execute_and_reflect`, and `AG_UI`. |
 | `description` | String | Optional | A description of the agent. |
 | `model` | Object | Required | Configuration for the LLM model using the unified registration method. Replaces the regular `llm` object and automatically creates model resources. |
 | `model.model_id` | String | Required | The provider's model identifier. For Amazon Bedrock, use the full model ID (for example, `us.anthropic.claude-3-7-sonnet-20250219-v1:0`). For Google Gemini, use the model name (for example, `gemini-2.5-pro`). For OpenAI, use model names like `gpt-4`. |
@@ -339,7 +339,7 @@ The following table lists the available request fields for unified agent registr
 | `model.credential.secret_key` | String | Required (Amazon Bedrock) | AWS secret key for Amazon Bedrock models. |
 | `model.credential.session_token` | String | Optional (Amazon Bedrock) | AWS session token for Amazon Bedrock models when using temporary credentials. |
 | `model.credential.openai_api_key` | String | Required (OpenAI) | API key for OpenAI models. |
-| `model.credential.api_key` | String | Required (Google Gemini) | API key for Google Gemini models. |
+| `model.credential.gemini_api_key` | String | Required (Google Gemini) | The API key for Google Gemini models. |
 | `model.model_parameters` | Object | Optional | Model-specific parameters and configuration. |
 | `model.model_parameters.system_prompt` | String | Optional | The system prompt that defines the agent's role and behavior. |
 | `model.model_parameters.temperature` | Float | Optional | Controls randomness in model responses (0.0 to 1.0). Default varies by model. |
@@ -420,7 +420,7 @@ POST /_plugins/_ml/agents/_register
     "model_id": "gemini-2.5-pro",
     "model_provider": "gemini/v1beta/generatecontent",
     "credential": {
-      "api_key": "YOUR_GEMINI_API_KEY"
+      "gemini_api_key": "YOUR_GEMINI_API_KEY"
     },
     "model_parameters": {
       "system_prompt": "You are an expert data analyst with access to OpenSearch indices."

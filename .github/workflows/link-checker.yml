@@ -3,6 +3,9 @@ on:
   workflow_dispatch:
   schedule:
     - cron: "30 11 * * 0"
+permissions:
+  issues: write
+
 jobs:
   link-checker:
     if: github.repository == 'opensearch-project/documentation-website'

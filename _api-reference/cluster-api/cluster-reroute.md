@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Cluster reroute
-nav_order: 46
+nav_order: 47
 parent: Cluster APIs
 has_children: false
 ---

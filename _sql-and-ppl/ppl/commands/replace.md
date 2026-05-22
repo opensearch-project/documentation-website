@@ -3,7 +3,7 @@ layout: default
 title: replace
 parent: Commands
 grand_parent: PPL
-nav_order: 32
+nav_order: 38
 ---
 
 # replace
@@ -28,55 +28,67 @@ The `replace` command supports the following parameters.
 | `<replacement>` | Required | The text to use as the replacement. |
 | `<field-name>` | Required | One or more fields to which the replacement should be applied. |
 
-## Example 1: Replace text in one field  
+## Example 1: Replacing text in one field  
 
 The following query replaces text in one field:
   
 ```sql
-source=accounts
-| replace "IL" WITH "Illinois" IN state
-| fields state
+source=otellogs
+| replace "product-catalog" WITH "product catalog" IN `resource.attributes.service.name`
+| fields `resource.attributes.service.name`, severityText
+| head 5
 ```
 {% include copy.html %}
+{% include try-in-playground.html %}
   
 The query returns the following results:
   
-| state |
-| --- |
-| Illinois |
-| TN |
-| VA |
-| MD |
+| resource.attributes.service.name | severityText |
+| --- | --- |
+| frontend | INFO |
+| cart | INFO |
+| product catalog | WARN |
+| payment | ERROR |
+| cart | DEBUG |
   
 
-## Example 2: Replace text in multiple fields  
+## Example 2: Replacing text in multiple fields  
 
 The following query replaces text in multiple fields:
   
 ```sql
-source=accounts
-| replace "IL" WITH "Illinois" IN state, address
-| fields state, address
+source=otellogs
+| replace "ERROR" WITH "Error", "WARN" WITH "Warning" IN severityText
+| fields severityText, `resource.attributes.service.name`
+| head 5
 ```
 {% include copy.html %}
+{% include try-in-playground.html %}
   
 The query returns the following results:
   
-| state | address |
+| severityText | resource.attributes.service.name |
 | --- | --- |
-| Illinois | 880 Holmes Lane |
-| TN | 671 Bristol Street |
-| VA | 789 Madison Street |
-| MD | 467 Hutchinson Court |
+| INFO | frontend |
+| INFO | cart |
+| Warning | product-catalog |
+| Error | payment |
+| DEBUG | cart |
   
 
-## Example 3: Use the replace command in a pipeline
+## Example 3: Using the replace command in a pipeline
 
 The following query uses the `replace` command with other commands in a query pipeline:
   
 ```sql
-source=accounts
-| replace "IL" WITH "Illinois" IN state
+source=otellogs
+| where severityText = 'ERROR'
+| replace "frontend-proxy" WITH "frontend proxy" IN `resource.attributes.service.name`
+| fields `resource.attributes.service.name`, body
+| head 3
+```
+{% include copy.html %}
+{% include try-in-playground.html %}
 | where age > 30
 | fields state, age
 ```
@@ -84,14 +96,19 @@ source=accounts
   
 The query returns the following results:
   
-| state | age |
-| --- | --- |
-| Illinois | 32 |
-| TN | 36 |
-| MD | 33 |
+```text
+fetched rows / total rows = 3/3
++----------------------------------+-------------------------------------------------------------------------+
+| resource.attributes.service.name | body                                                                    |
+|----------------------------------+-------------------------------------------------------------------------|
+| payment                          | Payment failed: connection timeout to payment gateway after 30000ms     |
+| checkout                         | NullPointerException in CheckoutService.placeOrder at line 142          |
+| payment                          | Out of memory: Java heap space - shutting down pod payment-6f8d4b-ht7q3 |
++----------------------------------+-------------------------------------------------------------------------+
+```
   
 
-## Example 4: Replace text using multiple pattern-replacement pairs
+## Example 4: Replacing text using multiple pattern-replacement pairs
 
 The following query uses the `replace` command with multiple pattern and replacement pairs in a single replace command. The replacements are applied sequentially:
   
@@ -104,12 +121,17 @@ source=accounts
   
 The query returns the following results:
   
-| state |
-| --- |
-| Illinois |
+```text
+fetched rows / total rows = 4/4
++-----------+
+| state     |
+|-----------|
+| Illinois  |
 | Tennessee |
-| VA |
-| MD |
+| VA        |
+| MD        |
++-----------+
+```
   
 
 ## Example 5: Pattern matching using LIKE
@@ -126,9 +148,14 @@ source=accounts
   
 The query returns the following results:
   
-| address | state | gender | age | city |
-| --- | --- | --- | --- | --- |
-| 880 HOLMES Lane | IL | M | 32 | Brogan |
+```text
+fetched rows / total rows = 1/1
++-----------------+-------+--------+-----+--------+
+| address         | state | gender | age | city   |
+|-----------------+-------+--------+-----+--------|
+| 880 HOLMES Lane | IL    | M      | 32  | Brogan |
++-----------------+-------+--------+-----+--------+
+```
   
 
 ## Example 6: Wildcard suffix matching  
@@ -144,12 +171,17 @@ source=accounts
   
 The query returns the following results:
   
-| state |
-| --- |
+```text
+fetched rows / total rows = 4/4
++----------+
+| state    |
+|----------|
 | Illinois |
-| TN |
-| VA |
-| MD |
+| TN       |
+| VA       |
+| MD       |
++----------+
+```
   
 
 ## Example 7: Wildcard prefix matching  
@@ -165,12 +197,17 @@ source=accounts
   
 The query returns the following results:
   
-| state |
-| --- |
+```text
+fetched rows / total rows = 4/4
++----------+
+| state    |
+|----------|
 | Illinois |
-| TN |
-| VA |
-| MD |
+| TN       |
+| VA       |
+| MD       |
++----------+
+```
   
 
 ## Example 8: Wildcard capture and substitution  
@@ -186,15 +223,20 @@ source=accounts
   
 The query returns the following results:
   
-| address |
-| --- |
-| Lane 880 Holmes |
-| 671 Bristol Street |
-| 789 Madison Street |
+```text
+fetched rows / total rows = 4/4
++----------------------+
+| address              |
+|----------------------|
+| Lane 880 Holmes      |
+| 671 Bristol Street   |
+| 789 Madison Street   |
 | 467 Hutchinson Court |
++----------------------+
+```
   
 
-## Example 9: Multiple wildcards for pattern transformation  
+## Example 9: Transforming patterns with multiple wildcards  
 
 The following query uses multiple wildcards to transform patterns. Each wildcard in the replacement is substituted with the corresponding captured value:
   
@@ -207,15 +249,20 @@ source=accounts
   
 The query returns the following results:
   
-| address |
-| --- |
-| 880_Holmes Lane |
-| 671_Bristol Street |
-| 789_Madison Street |
+```text
+fetched rows / total rows = 4/4
++----------------------+
+| address              |
+|----------------------|
+| 880_Holmes Lane      |
+| 671_Bristol Street   |
+| 789_Madison Street   |
 | 467_Hutchinson Court |
++----------------------+
+```
   
 
-## Example 10: Replace any match with a fixed value  
+## Example 10: Replacing any match with a fixed value  
 
 The following query shows that when the replacement contains zero wildcards, all matching values are replaced with the literal replacement string:
   
@@ -228,12 +275,17 @@ source=accounts
   
 The query returns the following results:
   
-| state |
-| --- |
+```text
+fetched rows / total rows = 4/4
++----------+
+| state    |
+|----------|
 | Illinois |
-| TN |
-| VA |
-| MD |
+| TN       |
+| VA       |
+| MD       |
++----------+
+```
   
 
 ## Example 11: Matching literal asterisks  
@@ -250,14 +302,19 @@ source=accounts
   
 The query returns the following results:
   
-| note |
-| --- |
+```text
+fetched rows / total rows = 4/4
++------------+
+| note       |
+|------------|
 | DISCOUNTED |
 | DISCOUNTED |
 | DISCOUNTED |
 | DISCOUNTED |
++------------+
+```
 
-## Example 12: Replace text with literal asterisk symbols  
+## Example 12: Replacing text with literal asterisk symbols  
 
 The following query shows how to insert literal asterisk symbols into text while using wildcards to preserve other parts of the pattern:
   
@@ -271,12 +328,17 @@ source=accounts
   
 The query returns the following results:
   
-| label |
-| --- |
-| \*123.txt |
-| \*123.txt |
-| \*123.txt |
-| \*123.txt |
+```text
+fetched rows / total rows = 4/4
++----------+
+| label    |
+|----------|
+| *123.txt |
+| *123.txt |
+| *123.txt |
+| *123.txt |
++----------+
+```
   
 
 ## Limitations

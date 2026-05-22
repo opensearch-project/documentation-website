@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Cluster information
-nav_order: 65
+nav_order: 45
 parent: Cluster APIs
 has_children: false
 ---

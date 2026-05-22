@@ -26,7 +26,7 @@ The following table lists all available request fields.
 
 Field | Data type | Required/Optional | Description
 :--- | :--- | :--- | :---
-`<rerank_type>` | Object | Required | The rerank type for document reranking. Valid values are `ml-opensearch` and `by_field`.
+`rerank_type` | Object | Required | The rerank type for document reranking. Valid values are `ml-opensearch` and `by_field`.
 `context` | Object |  Required for the `ml_opensearch` rerank type. Optional and does not affect the results for the `by_field` rerank type. | Provides the `rerank` processor with information necessary for reranking at query time. 
 `tag` | String | Optional | The processor's identifier.
 `description` | String | Optional | A description of the processor.

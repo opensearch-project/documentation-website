@@ -185,7 +185,7 @@ You can configure the client authentication mode by using the following setting:
 
 Name | Description
 :--- | :---
-plugins.security.ssl.http.clientauth_mode | The TLS client authentication mode to use. Can be one of `NONE`, `OPTIONAL` (default) or `REQUIRE`. Optional.
+`plugins.security.ssl.http.clientauth_mode` | The TLS client authentication mode to use. Can be one of `NONE`, `OPTIONAL` (default) or `REQUIRE`. Optional.
 
 
 ## (Advanced) Enabled ciphers and protocols

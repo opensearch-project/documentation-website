@@ -22,7 +22,7 @@ The `POST` method creates a new monitor. The `PUT` method updates a monitor.
 
 ```json
 POST _plugins/_security_analytics/threat_intel/monitors
-PUT _plugins/_security_analytics/threat_intel/monitors/<monitor_id>
+PUT _plugins/_security_analytics/threat_intel/monitors/{monitor_id}
 ```
 
 ### Request body fields
@@ -210,7 +210,7 @@ Deletes an existing threat intelligence monitor.
 ### Endpoints
 
 ```json
-DELETE /_plugins/_security_analytics/threat_intel/monitors/<monitor_id>
+DELETE /_plugins/_security_analytics/threat_intel/monitors/{monitor_id}
 ```
 
 ### Example request

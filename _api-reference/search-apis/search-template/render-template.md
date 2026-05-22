@@ -20,8 +20,8 @@ The Render Template API previews the final query generated from a [search templa
 ```json
 GET /_render/template
 POST /_render/template
-GET /_render/template/<id>
-POST /_render/template/<id>
+GET /_render/template/{id}
+POST /_render/template/{id}
 ```
 
 ## Path parameters
