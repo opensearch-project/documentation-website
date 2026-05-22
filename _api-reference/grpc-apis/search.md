@@ -553,7 +553,7 @@ A geodistance query returns documents with geopoints that are within a specified
 | `validation_method` | `optional` [`GeoValidationMethod`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.4.0/protos/schemas/common.proto#L3360) | The validation method. Valid values are `IGNORE_MALFORMED`, `COERCE`, and `STRICT`. Default is `STRICT`. |
 | `ignore_unmapped` | `optional bool` | Set to `true` to ignore an unmapped field and not match any documents. Default is `false`. |
 | `unit` | `optional` [`DistanceUnit`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.4.0/protos/schemas/common.proto#L3485) | The unit of distance measurement. |
-| `location` | `map<string, `[`GeoLocation`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.4.0/protos/schemas/common.proto#L1215)`>` | A map of field names to geolocations specifying the center point. |
+| `location` | `map<string, `[`GeoLocation`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.4.0/protos/schemas/common.proto#L1215)`>` | A map of field names to `geolocations` specifying the center point. |
 
 ### Specialized query fields
 
