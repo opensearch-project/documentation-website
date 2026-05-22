@@ -13,9 +13,7 @@ lucene_version: '10_4_0'
 
 # Build settings
 markdown: kramdown
-#remote_theme: benbalter/retlab
-#remote_theme: pmarsceill/just-the-docs@v0.3.3
-theme: just-the-docs
+remote_theme: pmarsceill/just-the-docs@v0.3.3
 
 # Kramdown settings
 kramdown:
