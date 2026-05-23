@@ -797,11 +797,7 @@ The source documents are returned as bytes. Use Base64 decoding to read the `_so
 | `terminated_early` | `bool` | Whether the query was terminated early. |
 | `aggregations` | `map<string, `[`Aggregate`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.4.0/protos/schemas/common.proto#L2914)`>` | Aggregation results returned with the search response. |
 
-### Aggregation response fields
-
-The `aggregations` field in `SearchResponse` returns named aggregation results keyed by aggregation name.
-
-#### Aggregate fields
+### Aggregate fields
 
 The [`Aggregate`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.4.0/protos/schemas/common.proto#L2914) message represents a single aggregation result and accepts the following fields.
 
