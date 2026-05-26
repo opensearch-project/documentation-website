@@ -101,6 +101,7 @@ OpenSearch provides tools for detecting issues and sending notifications:
 - [Alerting]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/) -- Create monitors that query your data on a schedule, define triggers for alert conditions, and execute actions when alerts fire.
 - [Anomaly detection]({{site.url}}{{site.baseurl}}/observing-your-data/ad/) -- Automatically detect anomalies in your time-series data using machine learning with the Random Cut Forest (RCF) algorithm.
 - [Forecasting]({{site.url}}{{site.baseurl}}/observing-your-data/forecast/) -- Predict future values in your time-series data using the RCF model to anticipate threshold breaches before they occur.
+- [Service level objectives]({{site.url}}{{site.baseurl}}/observing-your-data/slo/) -- Define availability and latency targets for your services and track error budgets and burn rates against a Prometheus-compatible ruler (experimental).
 - [Notifications]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/) -- Configure channels for sending alerts through Slack, email, Amazon SNS, webhooks, and other communication services.
 
 ---
