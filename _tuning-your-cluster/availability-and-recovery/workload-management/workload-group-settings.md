@@ -18,7 +18,7 @@ OpenSearch behavior is normally controlled by cluster-wide defaults and per-requ
 
 - **Tenant-specific guardrails**: Apply stricter limits to noisy or untrusted tenants while keeping generous defaults for others, all without touching cluster settings.
 - **No client cooperation required**: Limits travel with the workload group, so they apply to every request routed to the group regardless of which client sent it.
-- **Optional override of request parameters**: A workload group can be configured to take precedence over aggressive request-level values, protecting the cluster from runaway queries without rejecting them outright.
+- **Optional override of request parameters**: A workload group can be configured to take precedence over lenient request-level values, protecting the cluster from runaway queries without rejecting them outright.
 - **Centralized policy**: All guardrails for a tenant live in one place alongside the group's `resource_limits` and `resiliency_mode`.
 
 ## Supported settings
@@ -29,11 +29,11 @@ Each workload group setting accepts the same value range as the underlying reque
 
 | Setting | Type | Description | Equivalent request parameter | Equivalent cluster setting |
 | :--- | :--- | :--- | :--- | :--- |
-| `search.default_search_timeout` | Time | Hard upper bound on search execution time. Applied only when the request does not already specify a `timeout`. Accepts a [time unit]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#time-units) value, for example, `30s` or `1m`. | [`timeout`]({{site.url}}{{site.baseurl}}/api-reference/search-apis/search/) | [`search.default_search_timeout`]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/search-settings/) |
-| `search.cancel_after_time_interval` | Time | Time after which a search request is automatically canceled. Helps prevent runaway queries from consuming resources indefinitely. Accepts a time unit value. | [`cancel_after_time_interval`]({{site.url}}{{site.baseurl}}/api-reference/search-apis/search/) | [`search.cancel_after_time_interval`]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/search-settings/) |
+| `search.default_search_timeout` | Time | Per-shard limit on query execution. When a shard exceeds the limit, it stops collecting hits and returns its current results to the coordinating node, which may produce partial results. | [`timeout`]({{site.url}}{{site.baseurl}}/api-reference/search-apis/search/) | [`search.default_search_timeout`]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/search-settings/) |
+| `search.cancel_after_time_interval` | Time | Coordinating-node-level deadline for the entire search request. When the interval is reached, the request and all associated tasks are canceled and the client receives an error rather than partial results. | [`cancel_after_time_interval`]({{site.url}}{{site.baseurl}}/api-reference/search-apis/search/) | [`search.cancel_after_time_interval`]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/search-settings/) |
 | `search.max_concurrent_shard_requests` | Integer | Maximum number of concurrent shard-level requests a single search may issue per node. Limits search fan-out. | [`max_concurrent_shard_requests`]({{site.url}}{{site.baseurl}}/api-reference/search-apis/search/) | -- |
-| `search.batched_reduce_size` | Integer | Number of shard results reduced at a time on the coordinating node. Lower values reduce coordinator heap pressure for high–shard-count searches. | [`batched_reduce_size`]({{site.url}}{{site.baseurl}}/api-reference/search-apis/search/) | -- |
-| `search.max_buckets` | Integer | Maximum number of aggregation buckets a request in this group may produce. Guards against excessive memory use from wide aggregations. When set, this value always takes precedence over the cluster-wide `search.max_buckets` setting. | -- | [`search.max_buckets`]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/search-settings/) |
+| `search.batched_reduce_size` | Integer | Number of shard results combined into one batch on the coordinating node before the final reduce. Lower values reduce coordinator memory usage when a search spans many shards. | [`batched_reduce_size`]({{site.url}}{{site.baseurl}}/api-reference/search-apis/search/) | -- |
+| `search.max_buckets` | Integer | Maximum number of aggregation buckets allowed in a single response. Guards against excessive memory use from large aggregations. | -- | [`search.max_buckets`]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/search-settings/) |
 | `override_request_values` | Boolean | Whether the workload group's settings take precedence over values supplied on the request. Default is `false`. See [Precedence](#precedence). | -- | -- |
 
 ### Precedence

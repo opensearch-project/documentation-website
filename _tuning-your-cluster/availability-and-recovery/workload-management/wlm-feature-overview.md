@@ -29,7 +29,7 @@ Then restart your cluster. For more information, see [Installing plugins]({{site
 
 ## Workload groups
 
-A _workload group_ is a logical grouping of tasks with defined resource limits. System administrators can dynamically manage workload groups using the Workload Management APIs. These workload groups can be used to create search requests with resource limits. You can also define group-specific settings, such as timeouts and concurrency limits, that are applied automatically to every request routed to the group. For more information, see [Workload groups]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/workload-management/workload-groups/) and [Workload group settings]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/workload-management/workload-group-settings/).
+A _workload group_ is a logical grouping of tasks with defined resource limits. System administrators can dynamically manage workload groups using the Workload Management APIs. These workload groups can be used to create search requests with resource limits. You can also define group-specific settings that are applied automatically to every request routed to the group. For more information, see [Workload groups]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/workload-management/workload-groups/) and [Workload group settings]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/workload-management/workload-group-settings/).
 
 The following example request adds a workload group named `analytics`:
 
