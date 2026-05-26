@@ -583,9 +583,7 @@ A hybrid query combines relevance scores from multiple queries into one score fo
 
 ### AggregationContainer fields
 
-`AggregationContainer` is the entry point for the aggregation types currently supported by the gRPC Search API.
-
-**Exactly one** of the following fields must be provided in each `AggregationContainer` message.
+`AggregationContainer` defines the aggregation to run. Specify exactly one of the following fields in each `AggregationContainer` message.
 
 Currently, the gRPC Search API supports only the following aggregation types: `max`, `min`, and `terms`.
 {: .note}
@@ -595,9 +593,9 @@ The [`AggregationContainer`](https://github.com/opensearch-project/opensearch-pr
 | Field | Protobuf type | Description |
 | :---- | :---- | :---- |
 | `meta` | [`ObjectMap`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.4.0/protos/schemas/common.proto#L3550) | Optional custom metadata attached to the aggregation. |
-| `max` | [`MaxAggregation`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.4.0/protos/schemas/common.proto#L3006) | A max metric aggregation. Must be the only aggregation type set. |
-| `min` | [`MinAggregation`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.4.0/protos/schemas/common.proto#L3020) | A min metric aggregation. Must be the only aggregation type set. |
-| `terms_aggregation` | [`TermsAggregation`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.4.0/protos/schemas/common.proto#L3084) | A bucket aggregation that groups documents by term values. Must be the only aggregation type set. |
+| `max` | [`MaxAggregation`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.4.0/protos/schemas/common.proto#L3006) | A [`max`]({{site.url}}{{site.baseurl}}/aggregations/metric/maximum/) metric aggregation. Must be the only aggregation type set. |
+| `min` | [`MinAggregation`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.4.0/protos/schemas/common.proto#L3020) | A [`min`]({{site.url}}{{site.baseurl}}/aggregations/metric/minimum/) metric aggregation. Must be the only aggregation type set. |
+| `terms_aggregation` | [`TermsAggregation`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.4.0/protos/schemas/common.proto#L3084) | A [`terms`]({{site.url}}{{site.baseurl}}/aggregations/bucket/terms/) bucket aggregation that groups documents by term values. Must be the only aggregation type set. |
 
 ### Common message values
 
@@ -773,6 +771,9 @@ A `match_none` query matches none of the documents:
 {% include copy.html %}
 
 ## Response fields
+
+The gRPC Search API returns the following response fields.
+
 ### SearchResponse fields
 
 The following table lists the supported fields for the [`SearchResponse`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.4.0/protos/schemas/common.proto#L262) message.
@@ -803,13 +804,13 @@ The [`Aggregate`](https://github.com/opensearch-project/opensearch-protobufs/blo
 
 | Field | Protobuf type | Description |
 | :---- | :---- | :---- |
-| `dterms` | [`DoubleTermsAggregate`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.4.0/protos/schemas/common.proto#L2945) | A terms aggregation whose bucket keys are doubles. |
-| `lterms` | [`LongTermsAggregate`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.4.0/protos/schemas/common.proto#L2971) | A terms aggregation whose bucket keys are signed longs. |
-| `max` | [`SingleMetricAggregateBase`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.4.0/protos/schemas/common.proto#L3034) | The result of a max aggregation. |
-| `min` | [`SingleMetricAggregateBase`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.4.0/protos/schemas/common.proto#L3034) | The result of a min aggregation. |
-| `sterms` | [`StringTermsAggregate`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.4.0/protos/schemas/common.proto#L3060) | A terms aggregation whose bucket keys are strings. |
-| `ulterms` | [`UnsignedLongTermsAggregate`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.4.0/protos/schemas/common.proto#L3173) | A terms aggregation whose bucket keys are unsigned longs. |
-| `umterms` | [`UnmappedTermsAggregate`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.4.0/protos/schemas/common.proto#L3161) | A terms aggregation result for unmapped fields. |
+| `dterms` | [`DoubleTermsAggregate`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.4.0/protos/schemas/common.proto#L2945) | A `terms` aggregation with double-valued bucket keys. |
+| `lterms` | [`LongTermsAggregate`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.4.0/protos/schemas/common.proto#L2971) | A `terms` aggregation with signed-long bucket keys. |
+| `max` | [`SingleMetricAggregateBase`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.4.0/protos/schemas/common.proto#L3034) | The result of a `max` aggregation. |
+| `min` | [`SingleMetricAggregateBase`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.4.0/protos/schemas/common.proto#L3034) | The result of a `min` aggregation. |
+| `sterms` | [`StringTermsAggregate`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.4.0/protos/schemas/common.proto#L3060) | A `terms` aggregation with string bucket keys. |
+| `ulterms` | [`UnsignedLongTermsAggregate`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.4.0/protos/schemas/common.proto#L3173) | A `terms` aggregation with unsigned-long bucket keys. |
+| `umterms` | [`UnmappedTermsAggregate`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.4.0/protos/schemas/common.proto#L3161) | A `terms` aggregation result for unmapped fields. |
 
 ### HitsMetadata fields
 
