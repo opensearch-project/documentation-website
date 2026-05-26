@@ -13,7 +13,7 @@ jobs:
 
     steps:
       - name: Comment PR with checklist
-        uses: peter-evans/create-or-update-comment@v3
+        uses: peter-evans/create-or-update-comment@23ff15729ef2fc348714a3bb66d2f655ca9066f2 # v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           issue-number: ${{ github.event.pull_request.number }}
@@ -25,7 +25,7 @@ jobs:
             **When you're ready for doc review, tag the assignee of this PR**. The doc reviewer may push edits to the PR directly or leave comments and editorial suggestions for you to address (let us know in a comment if you have a preference). The doc reviewer will arrange for an editorial review.
 
       - name: Auto assign PR to repo owner
-        uses: actions/github-script@v6
+        uses: actions/github-script@d7906e4ad0b1822421a7e6a35d5ca353c962f410 # v6
         with:
           script: |
             let assignee = context.payload.pull_request.user.login;
