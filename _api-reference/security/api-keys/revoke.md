@@ -1,16 +1,22 @@
 ---
 layout: default
-title: Revoke API Key
+title: Revoke an API key
 grand_parent: Security APIs
 parent: API Key APIs
 nav_order: 30
 ---
 
-# Revoke API Key
+# Revoke an API Key API
 **Introduced 3.7**
 {: .label .label-purple }
 
-Revokes an API key, making it immediately unusable for authentication. This is a soft delete — the key remains visible in list responses with a `revoked_at` timestamp.
+Revokes an API key, making it immediately unusable for authentication. This is a soft delete: the key remains visible in list responses with a `revoked_at` timestamp.
+
+Note the following behavior when revoking API keys:
+
+- Revocation is synchronous: the key is broadcasted as invalid to all nodes before the response is returned.
+- Revoked keys cannot be reactivated.
+- The key name cannot be reused after revocation.
 
 ## Endpoints
 
@@ -20,13 +26,15 @@ DELETE /_plugins/_security/api/apitokens/{id}
 
 ## Path parameters
 
-| Parameter | Required | Data type | Description |
-| :--- | :--- | :--- | :--- |
-| `id` | **Required** | String | The unique identifier of the key to revoke. |
+The following table lists the available path parameters.
+
+| Parameter | Data type | Description |
+| :--- | :--- | :--- |
+| `id` | String | The unique identifier of the key to revoke. Required. |
 
 ## Example request
 
-```bash
+```json
 DELETE /_plugins/_security/api/apitokens/DjxGIp4BkXkgMZpmeGvx
 ```
 
@@ -38,8 +46,4 @@ DELETE /_plugins/_security/api/apitokens/DjxGIp4BkXkgMZpmeGvx
 }
 ```
 
-## Notes
 
-- Revocation is synchronous — the key is broadcast as invalid to all nodes before the response is returned.
-- Revoked keys cannot be reactivated.
-- The key name cannot be reused after revocation.

@@ -1,12 +1,12 @@
 ---
 layout: default
-title: List API Keys
+title: List API keys
 grand_parent: Security APIs
 parent: API Key APIs
 nav_order: 20
 ---
 
-# List API Keys
+# List API Keys API
 **Introduced 3.7**
 {: .label .label-purple }
 
@@ -20,7 +20,7 @@ GET /_plugins/_security/api/apitokens
 
 ## Example request
 
-```bash
+```json
 GET /_plugins/_security/api/apitokens
 ```
 
@@ -57,15 +57,15 @@ GET /_plugins/_security/api/apitokens
 
 ## Response body fields
 
-Each key object contains the following fields.
+The following table lists all response body fields.
 
-| Property | Data type | Description |
+| Field | Data type | Description |
 | :--- | :--- | :--- |
 | `id` | String | The unique identifier for the key. |
 | `name` | String | The key name. |
-| `iat` | Long | Issued-at timestamp in epoch milliseconds. |
-| `expires_at` | Long | Expiration timestamp in epoch milliseconds. |
-| `cluster_permissions` | Array of strings | Cluster-level permissions granted to the key. |
-| `index_permissions` | Array of objects | Index-level permissions granted to the key. |
-| `revoked_at` | Long | Revocation timestamp in epoch milliseconds. Present only if the key has been revoked. |
+| `iat` | Long | The issued-at timestamp, in epoch milliseconds. |
+| `expires_at` | Long | The expiration timestamp, in epoch milliseconds. |
+| `cluster_permissions` | Array of strings | The cluster-level permissions granted to the key. |
+| `index_permissions` | Array of objects | The index-level permissions granted to the key. |
+| `revoked_at` | Long | The revocation timestamp, in epoch milliseconds. Present only if the key has been revoked. |
 | `created_by` | String | The user who created the key. |

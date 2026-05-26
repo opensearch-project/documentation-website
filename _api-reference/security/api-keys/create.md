@@ -1,12 +1,12 @@
 ---
 layout: default
-title: Create API Key
+title: Create an API key
 grand_parent: Security APIs
 parent: API Key APIs
 nav_order: 10
 ---
 
-# Create API Key
+# Create an API Key API
 **Introduced 3.7**
 {: .label .label-purple }
 
@@ -20,20 +20,20 @@ POST /_plugins/_security/api/apitokens
 
 ## Request body fields
 
-The request body is **required**. It is a JSON object with the following fields.
+The request body is required. The following table lists the available request body fields.
 
-| Property | Required | Data type | Description |
-| :--- | :--- | :--- | :--- |
-| `name` | **Required** | String | A unique name for the key. Must match `[a-zA-Z0-9_-]+`. |
-| `cluster_permissions` | Optional | Array of strings | Cluster-level permissions or action groups. Default is `[]`. |
-| `index_permissions` | Optional | Array of objects | Index-level permissions. Default is `[]`. |
-| `index_permissions.index_pattern` | **Required** | Array of strings | Index patterns this permission applies to (e.g., `["logs-*"]`). |
-| `index_permissions.allowed_actions` | **Required** | Array of strings | Actions or action groups allowed on the matching indices. |
-| `duration_seconds` | Optional | Long | Token validity duration in seconds. Maximum is configured by `max_duration_seconds` (default 7,776,000 = 90 days). If omitted, defaults to the maximum. |
+| Field | Data type | Description |
+| :--- | :--- | :--- |
+| `name` | String | A unique name for the key. Must match `[a-zA-Z0-9_-]+`. Required. |
+| `cluster_permissions` | Array of strings | Cluster-level permissions or action groups. Optional. Default is `[]`. |
+| `index_permissions` | Array of objects | Index-level permissions. Optional. Default is `[]`. |
+| `index_permissions.index_pattern` | Array of strings | The index patterns to which this permission applies (for example, `["logs-*"]`). Required. |
+| `index_permissions.allowed_actions` | Array of strings | Actions or action groups allowed for the matching indexes. Required. |
+| `duration_seconds` | Long | The amount of time the token is valid, in seconds. The maximum for this value is configured in `max_duration_seconds` (default is 7,776,000 = 90 days). If omitted, defaults to the `max_duration_seconds`. Optional. |
 
 ## Example request
 
-```bash
+```json
 POST /_plugins/_security/api/apitokens
 {
   "name": "my-pipeline-key",
@@ -57,12 +57,14 @@ POST /_plugins/_security/api/apitokens
 }
 ```
 
+The `token` value is returned only once and cannot be retrieved again. Store it securely.
 {: .warning }
-The `token` value is returned only once. Store it securely — it cannot be retrieved again.
 
 ## Response body fields
 
-| Property | Data type | Description |
+The following table lists all response body fields.
+
+| Field | Data type | Description |
 | :--- | :--- | :--- |
 | `id` | String | The unique identifier for the key (used for revocation). |
-| `token` | String | The plaintext token to use in the `Authorization: ApiKey <token>` header. |
+| `token` | String | The plain-text token to use in the `Authorization: ApiKey <token>` header. |
