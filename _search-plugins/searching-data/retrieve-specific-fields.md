@@ -256,6 +256,157 @@ The response contains the `author` and `publication_date` fields:
 }
 ```
 <!-- vale off -->
+### Retrieving vector fields using docvalue_fields
+<!-- vale on -->
+**Introduced 3.7**
+{: .label .label-purple }
+
+Use `docvalue_fields` to retrieve `knn_vector` fields directly from doc values, which avoids reading and parsing the full `_source`. This provides faster retrieval of vectors in the search response.
+
+This feature supports all vector data types (`float`, `byte`, and `binary`), all compression levels, and all k-NN engines (Lucene, Faiss, and NMSLIB). You can use it on existing indexes without reindexing.
+{: .note}
+
+For performance tuning guidance, see [Retrieve vectors using doc values]({{site.url}}{{site.baseurl}}/vector-search/performance-tuning-search/#retrieve-vectors-using-doc-values).
+
+The following output formats are supported:
+
+| Format | Description |
+| :--- | :--- |
+| `binary` (default) | Returns vectors as base64-encoded little-endian byte strings. Provides approximately 2x throughput improvement over the `array` format for JSON transport and reduces response payload size by 30–40%. |
+| `array` | Returns vectors as JSON numeric arrays. |
+
+The following example demonstrates how to retrieve a vector field using `docvalue_fields`.
+
+1. Create an index with a `knn_vector` field:
+
+    ```json
+    PUT /my_vector_index
+    {
+      "settings": {
+        "index.knn": true
+      },
+      "mappings": {
+        "properties": {
+          "my_vector": {
+            "type": "knn_vector",
+            "dimension": 4
+          },
+          "title": {
+            "type": "text"
+          }
+        }
+      }
+    }
+    ```
+    {% include copy-curl.html %}
+
+2. Index a document:
+
+    ```json
+    POST /my_vector_index/_doc/1
+    {
+      "my_vector": [1.0, 2.0, 3.0, 4.0],
+      "title": "Sample document"
+    }
+    ```
+    {% include copy-curl.html %}
+
+3. Retrieve the vector using `docvalue_fields` with the default `binary` format:
+
+    ```json
+    POST /my_vector_index/_search
+    {
+      "_source": false,
+      "docvalue_fields": ["my_vector"],
+      "query": {
+        "knn": {
+          "my_vector": {
+            "vector": [1.0, 2.0, 3.0, 4.0],
+            "k": 5
+          }
+        }
+      }
+    }
+    ```
+    {% include copy-curl.html %}
+
+    The response returns the vector as a base64-encoded string:
+
+    ```json
+    {
+      "hits": {
+        "hits": [
+          {
+            "_id": "1",
+            "_score": 1.0,
+            "fields": {
+              "my_vector": ["AACAPwAAAEAAAEBAAACAQA=="]
+            }
+          }
+        ]
+      }
+    }
+    ```
+
+4. To retrieve the vector as a JSON numeric array, specify the `array` format:
+
+    ```json
+    POST /my_vector_index/_search
+    {
+      "_source": false,
+      "docvalue_fields": [{"field": "my_vector", "format": "array"}],
+      "query": {
+        "knn": {
+          "my_vector": {
+            "vector": [1.0, 2.0, 3.0, 4.0],
+            "k": 5
+          }
+        }
+      }
+    }
+    ```
+    {% include copy-curl.html %}
+
+    The response returns the vector as a numeric array:
+
+    ```json
+    {
+      "hits": {
+        "hits": [
+          {
+            "_id": "1",
+            "_score": 1.0,
+            "fields": {
+              "my_vector": [[1.0, 2.0, 3.0, 4.0]]
+            }
+          }
+        ]
+      }
+    }
+    ```
+
+To retrieve other document fields from `_source` while getting vectors through doc values, exclude the vector field from `_source`:
+
+```json
+POST /my_vector_index/_search
+{
+  "_source": {
+    "excludes": ["my_vector"]
+  },
+  "docvalue_fields": [{"field": "my_vector", "format": "array"}],
+  "query": {
+    "knn": {
+      "my_vector": {
+        "vector": [1.0, 2.0, 3.0, 4.0],
+        "k": 5
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+<!-- vale off -->
 ### Using docvalue_fields with nested objects
 <!-- vale on -->
 In OpenSearch, if you want to retrieve doc values for nested objects, you cannot directly use the `docvalue_fields` parameter because it will return an empty array. Instead, you should use the `inner_hits` parameter with its own `docvalue_fields` property, as shown in the following example.

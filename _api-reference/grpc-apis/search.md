@@ -85,7 +85,7 @@ The [`SearchRequestBody`](https://github.com/opensearch-project/opensearch-proto
 | `highlight` | [`Highlight`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.4.0/protos/schemas/common.proto#L1727) | Highlights matched terms in the result snippets. |
 | `track_total_hits` | [`TrackHits`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.4.0/protos/schemas/common.proto#L252) | Whether to return the total hit count. |
 | `indices_boost` | `map<string, float>` | **Deprecated.** Use `indices_boost_2` instead. |
-| `docvalue_fields` | `repeated` [`FieldAndFormat`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.4.0/protos/schemas/common.proto#L1964) | The fields returned using doc values. Optionally, this field can be formatted for readability. |
+| `docvalue_fields` | `repeated` [`FieldAndFormat`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.4.0/protos/schemas/common.proto#L1964) | The fields returned using `doc_values`. Optionally, this field can be formatted for readability. For `knn_vector` fields, the supported formats are `binary` (default, returns base64-encoded vectors) and `array` (returns JSON numeric arrays). For more information, see [Retrieving vector fields using `docvalue_fields`]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/retrieve-specific-fields/#retrieving-vector-fields-using-docvalue_fields). |
 | `min_score` | `float` | The minimum score required in order for a document to be included in the results. |
 | `post_filter` | [`QueryContainer`](#querycontainer-fields) | Filters hits after aggregations are applied. |
 | `profile` | `bool` | Enables profiling to analyze query performance. |
