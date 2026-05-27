@@ -528,8 +528,8 @@ PUT /_plugins/_search_relevance/judgments
   "name": "Binary LLM Judgment",
   "type": "LLM_JUDGMENT",
   "modelId": "MODEL_ID_HERE",
-  "querySetId": "electronics_queries_id",
-  "searchConfigurationList": ["baseline_config_id"],
+  "querySetId": "QUERY_SET_ID_HERE",
+  "searchConfigurationList": ["SEARCH_CONFIGURATION_ID_HERE"],
   "llmJudgmentRatingType": "RELEVANT_IRRELEVANT",
   "promptTemplate": "Determine if these search results {% raw %}{{hits}}{% endraw %} are relevant or irrelevant for the query '{% raw %}{{queryText}}{% endraw %}'. Consider exact matches and semantic relevance."
 }
