@@ -274,9 +274,9 @@ PUT _cluster/settings
 ```
 {% include copy-curl.html %}
 
-Then set `ext.semantic_highlighting_batch` to `true` at the request level. This enables batch inference for every `type: semantic` highlight field in the request:
+Then set `ext.semantic_highlighting_batch` to `true` at the request level. This enables batch inference for every highlight field configured as `type: semantic` in the request.
 
-Example 1: top-level field:
+The following example enables batch semantic highlighting for a top-level field:
 
 ```json
 POST /neural-search-index/_search
@@ -310,7 +310,7 @@ POST /neural-search-index/_search
 ```
 {% include copy-curl.html %}
 
-Example 2: field inside `inner_hits`:
+The following example enables batch semantic highlighting for a field inside `inner_hits`:
 
 ```json
 POST /neural-search-index/_search
@@ -372,8 +372,8 @@ Option | Description
 `phrase_limit` | The number of matching phrases in a document that are considered. Limits the number of phrases to be analyzed by the `fvh` highlighter in order to avoid consuming a lot of memory. If `matched_fields` are used, `phrase_limit` specifies the number of phrases for each matched field. A higher `phrase_limit` leads to increased query time and more memory consumption. Valid only for the `fvh` highlighter. Default is 256.
 `max_analyzer_offset` | Specifies the maximum number of characters to be analyzed by a highlight request. The remaining text will not be processed. If the text to be highlighted exceeds this offset, then an empty highlight is returned. The maximum number of characters that will be analyzed for a highlight request is defined by `index.highlight.max_analyzed_offset`. When this limit is reached, an error is returned. Set the `max_analyzer_offset` to a lower value than `index.highlight.max_analyzed_offset` to avoid the error.
 `options` | A global object containing highlighter-specific options.
-`options.max_inference_batch_size` | Specifies the maximum number of documents to include in each inference request to the model server when using batch inference mode. If the number of documents to process exceeds this value, the documents will be processed iteratively in batches of this size. Default is `100`. Valid only for the `semantic` highlighter when batch inference mode is enabled.
-`options.model_id` | The ID of the deployed ML model to use for highlighting. Required for the `semantic` highlighter. When batch inference mode is enabled, the model must be an externally hosted model with batch processing capabilities.
+`options.max_inference_batch_size` | Specifies the maximum number of documents to include in each inference request to the model server when using batch inference mode. If the number of documents to process exceeds this value, the documents are processed iteratively in batches of this size. Default is `100`. Valid only for the `semantic` highlighter when batch inference mode is enabled.
+`options.model_id` | The ID of the deployed ML model to use for highlighting. Required for the `semantic` highlighter. When batch inference mode is enabled, the model must be an externally hosted model with batch processing capabilities. See [Connecting to externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/).
 
 The unified highlighter's sentence scanner splits sentences larger than `fragment_size` at the first word boundary after `fragment_size` is reached. To return whole sentences without splitting them, set `fragment_size` to 0.
 {: .note}
@@ -1141,4 +1141,4 @@ Note the following limitations:
 
 - When extracting terms to highlight, highlighters don't reflect the Boolean logic of a query. Therefore, for some complex Boolean queries, such as nested Boolean queries and queries using `minimum_should_match`, OpenSearch may highlight terms that don't correspond to query matches.
 - The `fvh` highlighter does not support span queries.
-- The `semantic` highlighter requires a deployed ML model specified by `model_id` in the `highlight.options`. It does not use traditional offset methods (postings, term vectors) and relies solely on model inference. For batch inference mode, you must use an externally hosted model with batch processing capabilities.
+- The `semantic` highlighter requires a deployed ML model specified by `model_id` in the `highlight.options`. It does not use traditional offset methods (postings and term vectors) and relies solely on model inference. For batch inference mode, you must use an externally hosted model with batch processing capabilities.
