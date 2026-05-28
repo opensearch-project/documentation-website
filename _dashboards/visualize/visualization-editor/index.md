@@ -7,6 +7,9 @@ has_children: true
 has_toc: false
 ---
 
+Note this feature requires to enable [workspace]({{site.url}}{{site.baseurl}}/dashboards/workspace/) and the new discover experience with explore.enabled: true.
+{: .important}
+
 # Visualization editor
 
 The visualization editor is a query-driven visualization tool available at **Explore** > **Visualization editor** (`/app/visualization-editor`). Unlike the traditional Visualize application that uses aggregation-based configurations, the visualization editor lets you write PPL (Piped Processing Language) queries and map query results directly to chart fields.
@@ -27,17 +30,17 @@ The visualization editor is a query-driven visualization tool available at **Exp
 
 ## Chart types
 
-| Chart type | Best for |
-| --- | --- |
-| [Line chart]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/line-chart/) | Trends over time, comparing multiple series, correlating metrics |
-| [Area chart]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/area-chart/) | Volume over time, comparing category contributions, stacked totals |
-| [Pie chart]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/pie-chart/) | Proportions, part-to-whole relationships, categorical breakdowns |
-| [Bar chart]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/bar-chart/) | Comparing categories, ranking items, grouped comparisons, thresholds |
-| [Gauge]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/gauge-chart/) | Single KPI against targets, threshold monitoring |
-| [Bar gauge]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/bar-gauge-chart/) | Progress toward a goal, comparing multiple KPIs side by side |
-| [Heatmap]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/heatmap-chart/) | Density patterns, two-dimensional distributions, time-based intensity |
-| [Scatter]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/scatter-chart/) | Correlations between variables, outlier detection, group comparisons |
-| [State timeline]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/state-timeline-chart/) | Service status over time, alert progression, state transitions |
+| Chart type                                                                                                     | Best for                                                              |
+| -------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| [Line chart]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/line-chart/)               | Trends over time, comparing multiple series, correlating metrics      |
+| [Area chart]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/area-chart/)               | Volume over time, comparing category contributions, stacked totals    |
+| [Pie chart]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/pie-chart/)                 | Proportions, part-to-whole relationships, categorical breakdowns      |
+| [Bar chart]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/bar-chart/)                 | Comparing categories, ranking items, grouped comparisons, thresholds  |
+| [Gauge]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/gauge-chart/)                   | Single KPI against targets, threshold monitoring                      |
+| [Bar gauge]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/bar-gauge-chart/)           | Progress toward a goal, comparing multiple KPIs side by side          |
+| [Heatmap]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/heatmap-chart/)               | Density patterns, two-dimensional distributions, time-based intensity |
+| [Scatter]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/scatter-chart/)               | Correlations between variables, outlier detection, group comparisons  |
+| [State timeline]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/state-timeline-chart/) | Service status over time, alert progression, state transitions        |
 
 ## Next steps
 
