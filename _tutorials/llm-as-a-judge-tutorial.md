@@ -18,7 +18,7 @@ For this tutorial, you need an API key for an external LLM provider (OpenAI, Ama
 Using an external LLM incurs API costs based on the number of queries and results evaluated.
 {: .note}
 
-First, enable the Search Relevance Workbench and configure the following settings:
+Enable the Search Relevance Workbench and configure the following settings:
 
 ```json
 PUT /_cluster/settings
