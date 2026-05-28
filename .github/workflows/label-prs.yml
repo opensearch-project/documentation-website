@@ -13,7 +13,7 @@ jobs:
     steps:
       - name: Label draft PR as "In progress"
         if: github.event.pull_request.draft == true
-        uses: actions/github-script@v7
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
@@ -37,7 +37,7 @@ jobs:
 
       - name: Label non-draft PR as "Tech review"
         if: github.event.pull_request.draft == false
-        uses: actions/github-script@v7
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |

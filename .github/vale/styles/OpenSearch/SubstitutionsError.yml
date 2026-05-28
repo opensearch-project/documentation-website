@@ -5,6 +5,9 @@ level: error
 action:
   name: replace
 swap:
+  'AOSS': Amazon OpenSearch Serverless
+  'allowlist': allow list
+  'autoscaling': auto scaling
   'command-line interface': command line interface
   'data are': data is
   'data set': dataset
@@ -54,4 +57,3 @@ swap:
   'web site': website
   'whitespace': white space
   'user interface \(UI\)': UI
-  'judgement': judgment
