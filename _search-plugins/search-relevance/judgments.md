@@ -11,28 +11,201 @@ canonical_url: https://docs.opensearch.org/latest/search-plugins/search-relevanc
 # Judgments
 
 A judgment is a relevance rating assigned to a specific document in the context of a particular query. Multiple judgments are grouped together into judgment lists.
-Typically, judgments are categorized into two types---implicit and explicit:
+Typically, judgments are categorized as two types---implicit and explicit:
 
-* Implicit judgments are ratings that were derived from user behavior (for example, what did the user see and select after searching?)
-* Explicit judgments were traditionally made by humans, but large language models (LLMs) are increasingly being used to perform this task.
+- Implicit judgments are ratings derived from user behavior (for example, what did the user see and select after searching?).
+- Humans have traditionally produced explicit judgments, but large language models (LLMs) are increasingly used for this task.
 
-Search Relevance Workbench supports all types of judgments:
+Search Relevance Workbench (SRW) supports all types of judgments:
 
-* Generating implicit judgments based on data that adheres to the User Behavior Insights (UBI) schema specification.
-* Using LLMs to generate judgments by connecting OpenSearch to an API or an internally or externally hosted model.
-* Importing externally created judgments.
+- Using LLMs as automated judges (an approach known as LLM-as-a-Judge) to generate judgments by evaluating search results using a prompt.
+- Generating implicit judgments based on data that adheres to the User Behavior Insights (UBI) schema specification.
+- Importing judgments that were collected using a process outside of SRW.
 
-## Explicit judgments
+## Using LLM-as-a-Judge
 
-Search Relevance Workbench offers two ways to integrate explicit judgments:
-* Importing judgments that were collected using a process outside of OpenSearch
-* AI-assisted judgments that use LLMs
+Generate explicit judgments with an LLM in SRW when you don't have human annotators available, or you need to scale up the number of judgments beyond what humans can provide.
 
-### Importing judgments
+For step-by-step instructions, see [Using LLM-as-a-Judge for search relevance]({{site.url}}{{site.baseurl}}/tutorials/llm-as-a-judge-tutorial/).
 
-You may already have external processes for generating judgments. Regardless of the judgment type or the way it was generated, you can import it into Search Relevance Workbench.
+### Prerequisites
 
-#### Example request
+To use LLM-as-a-Judge, configure the following components:
+
+- A connector to an LLM to use for generating the judgments. For more information, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/).
+- A query set: Together with the `size` parameter, the query set defines the scope for generating judgments. For each query, the top k documents are retrieved from the specified index, in which k is defined by the `size` parameter.
+- A search configuration: A search configuration defines how documents are retrieved for use in query-document pairs.
+
+The AI-assisted judgment process consists of the following steps:
+
+- For each query, the top k documents are retrieved using the defined search configuration, which includes the index information. The query and each document from the result list create a query-document pair.
+- The LLM is then called with a predefined prompt to generate a judgment for each query-document pair.
+- All generated judgments are stored in the judgments cache index for reuse in future experiments.
+
+To create a judgment list, provide the model ID of the LLM, an available query set, and a created search configuration.
+
+The following example uses a generic prompt template with a scale of 0.0 to 1.0. To reduce the volume of data sent to the LLM (and therefore the cost), use the `contextFields` parameter to specify which fields from each result to include:
+
+```json
+PUT _plugins/_search_relevance/judgments
+{
+    "name":"AI-assisted judgment list",
+    "description": "Uses GPT-3.5-turbo to evaluate product search results",
+    "type":"LLM_JUDGMENT",
+    "modelId":"N8AE1osB0jLkkocYjz7D",
+    "querySetId":"5f0115ad-94b9-403a-912f-3e762870ccf6",
+    "searchConfigurationList":["2f90d4fd-bd5e-450f-95bb-eabe4a740bd1"],
+    "size":5,
+    "contextFields": ["title", "description", "category"],
+    "llmJudgmentRatingType": "SCORE0_1",
+    "promptTemplate": "Rate the relevance of these search results {% raw %}{{hits}}{% endraw %} for the query '{% raw %}{{queryText}}{% endraw %}' on a scale of 0-1, where 0 is completely irrelevant and 1 is perfectly relevant. Consider the product title, description, and category."
+}
+```
+{% include copy-curl.html %}
+
+### Request body fields
+
+The following table lists the parameters for creating LLM-based judgments.
+
+| Parameter | Data type | Description |
+| :--- | :--- | :--- |
+| `name` | String | The name of the judgment list. |
+| `description` | String | Optional. A description of the judgment list. |
+| `type` | String | Set to `LLM_JUDGMENT`. |
+| `modelId` | String | The ID of the deployed machine learning (ML) model to use for generating judgments. Must be a remote model connected to an external LLM service. |
+| `querySetId` | String | The ID of the query set containing the queries to evaluate. |
+| `searchConfigurationList` | Array of strings | The list of search configuration IDs to use for retrieving documents to evaluate. |
+| `size` | Integer | The number of top documents to retrieve and evaluate for each query. Default is `10`. |
+| `tokenLimit` | Integer | The maximum number of tokens to send to the LLM in a single request. Used to batch documents when the total content exceeds this limit. Default is `4,000`. |
+| `contextFields` | Array of strings | Optional. Specifies which document fields to include when sending content to the LLM. If not specified, the entire document source is sent. Use this parameter to reduce costs and focus the LLM on relevant fields. |
+| `ignoreFailure` | Boolean | Whether to continue processing other documents if the LLM fails to generate a judgment for some documents. Default is `false`. |
+| `llmJudgmentRatingType` | String | The type of rating scale to use. Valid values are `SCORE0_1` (numeric scale 0--1) and `RELEVANT_IRRELEVANT` (binary relevant/irrelevant). Use `SCORE0_1` for graded relevance metrics such as NDCG. Use `RELEVANT_IRRELEVANT` for binary metrics such as precision and recall. |
+| `promptTemplate` | String | Optional. A custom prompt template for the LLM. Supports {% raw %}`{{queryText}}`{% endraw %} and {% raw %}`{{hits}}`{% endraw %} placeholders. If not provided, the default template is used. |
+| `overwriteCache` | Boolean | Whether to overwrite existing cached judgments for the same query-document pairs. Default is `false` (reuse cached judgments). |
+
+### Custom prompt templates
+
+You can customize the prompt template to focus on specific aspects of relevance:
+
+```json
+PUT /_plugins/_search_relevance/judgments
+{
+  "name": "Custom Prompt Judgment",
+  "type": "LLM_JUDGMENT",
+  "modelId": "MODEL_ID_HERE",
+  "querySetId": "QUERY_SET_ID_HERE",
+  "searchConfigurationList": ["SEARCH_CONFIGURATION_ID_HERE"],
+  "promptTemplate": "As an e-commerce search expert, evaluate how well these products {% raw %}{{hits}}{% endraw %} match the user's search for '{% raw %}{{queryText}}{% endraw %}'. Consider product relevance, brand reputation, and price competitiveness. Rate each result from 0-1.",
+  "llmJudgmentRatingType": "SCORE0_1"
+}
+```
+{% include copy-curl.html %}
+
+### Binary relevance judgments
+
+For simpler relevance assessment, you can use binary (relevant/irrelevant) judgments:
+
+```json
+PUT /_plugins/_search_relevance/judgments
+{
+  "name": "Binary LLM Judgment",
+  "type": "LLM_JUDGMENT",
+  "modelId": "MODEL_ID_HERE",
+  "querySetId": "QUERY_SET_ID_HERE",
+  "searchConfigurationList": ["SEARCH_CONFIGURATION_ID_HERE"],
+  "llmJudgmentRatingType": "RELEVANT_IRRELEVANT",
+  "promptTemplate": "Determine if these search results {% raw %}{{hits}}{% endraw %} are relevant or irrelevant for the query '{% raw %}{{queryText}}{% endraw %}'. Consider exact matches and semantic relevance."
+}
+```
+{% include copy-curl.html %}
+
+### Using different LLM providers
+
+You can adapt the connector configuration for other providers.
+
+#### Amazon Bedrock example
+
+The following example creates a connector for Amazon Bedrock:
+
+```json
+POST /_plugins/_ml/connectors/_create
+{
+  "name": "Amazon Bedrock Connector",
+  "description": "Connector to Amazon Bedrock",
+  "version": "1",
+  "protocol": "aws_sigv4",
+  "parameters": {
+    "region": "us-east-1",
+    "service_name": "bedrock",
+    "model": "anthropic.claude-v2"
+  },
+  "credential": {
+    "access_key": "YOUR_ACCESS_KEY",
+    "secret_key": "YOUR_SECRET_KEY"
+  },
+  "actions": [
+    {
+      "action_type": "predict",
+      "method": "POST",
+      "url": "https://bedrock-runtime.${parameters.region}.amazonaws.com/model/${parameters.model}/invoke",
+      "request_body": "{ \"prompt\": \"${parameters.messages}\", \"max_tokens_to_sample\": 300 }"
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+## Implicit judgments
+
+Implicit judgments are derived from past user interactions. SRW supports the Clicks Over Expected Clicks (COEC) click model, which uses *impression* and *click* signals to calculate judgments.
+
+Input data must follow the [UBI index schemas]({{site.url}}{{site.baseurl}}/search-plugins/ubi/schemas/). COEC uses every event in the `ubi_events` index with an `action_name` of `impression` or `click`.
+
+COEC calculates an expected click-through rate (CTR) for each rank by dividing the total number of clicks by the total number of impressions observed at that rank, based on all events in `ubi_events`. This ratio represents the expected CTR for that position.
+
+For each document displayed in a hit list after a query, the average CTR at that rank serves as the expected value for the query-document pair. COEC calculates the actual CTR for the query-document pair and divides it by this expected rank-based CTR. Consequently, query-document pairs with a higher CTR than the average for that rank have a judgment value greater than 1. Conversely, if the CTR is lower than average, the judgment value is lower than 1.
+
+Depending on the tracking implementation, multiple clicks for a single query can be recorded in the `ubi_events` index. Consequently, the average CTR can sometimes exceed 1 (or 100%).
+{: .note}
+
+For query-document observations that occur at different positions, all impressions and clicks are assumed to have occurred at the lowest (best) position. This aggregation approach biases the final judgment toward lower values, reflecting the common trend that higher-ranked results typically receive higher CTRs.
+{: .note}
+
+### Example request
+
+The following example creates an implicit judgment list using the COEC click model:
+
+```json
+PUT _plugins/_search_relevance/judgments
+{
+  "name": "Implicit Judgments",
+  "clickModel": "coec",
+  "type": "UBI_JUDGMENT",
+  "maxRank": 20
+}
+```
+{% include copy-curl.html %}
+
+### Request body fields
+
+The following table lists the parameters for creating implicit judgments.
+
+| Parameter | Data type | Description |
+| :--- | :--- | :--- |
+| `name` | String | The name of the judgment list. |
+| `clickModel` | String | The model used to calculate implicit judgments. Only `coec` (Clicks Over Expected Clicks) is supported. |
+| `type` | String | Set to `UBI_JUDGMENT`. |
+| `maxRank` | Integer | The maximum rank to consider when including events in the judgment calculation. |
+| `startDate` | Date | An optional starting date from which behavioral data events are considered for implicit judgment generation. The format is `yyyy-MM-dd`. |
+| `endDate` | Date | An optional end date until which behavioral data events are considered for implicit judgment generation. The format is `yyyy-MM-dd`. |
+
+## Importing judgments
+
+You may already have external processes for generating judgments. Regardless of the judgment type or the way they were generated, you can import them into SRW.
+
+### Example request
+
+The following example imports a set of judgments for two queries:
 
 ```json
 PUT _plugins/_search_relevance/judgments
@@ -96,94 +269,24 @@ PUT _plugins/_search_relevance/judgments
 ```
 {% include copy-curl.html %}
 
-#### Request body fields
+### Request body fields
 
-The process of importing judgments supports the following parameters.
+The following table lists the parameters for importing judgments.
 
-Parameter | Data type | Description
-`name` | String | The name of the judgment list.
-`description` | String | An optional description of the judgment list.
-`type` | String | Set to `IMPORT_JUDGMENT`.
-`judgmentRatings` | Array | A list of JSON objects containing the judgments. Judgments are grouped by query, each containing a nested map in which document IDs (`docId`) serve as keys and their floating-point ratings serve as values.
-
-### Creating AI-assisted judgments
-
-If you want to use judgments in your experimentation process but do not have a team of humans or the user behavior data to calculate judgments based on interactions, you can use an LLM in Search Relevance Workbench to generate judgments.
-#### Prerequisites
-
-To use AI-assisted judgment generation, ensure that you have configured the following components:
-
-* A connector to an LLM to use for generating the judgments. For more information, see [Creating connectors for third-party ML platforms]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/).
-* A query set: Together with the `size` parameter, the query set defines the scope for generating judgments. For each query, the top k documents are retrieved from the specified index, where k is defined in the `size` parameter.
-* A search configuration: A search configuration defines how documents are retrieved for use in query/document pairs.
-
-The AI-assisted judgment process works as follows:
-- For each query, the top k documents are retrieved using the defined search configuration, which includes the index information. The query and each document from the result list create a query/document pair.
-- Each query and document pair forms a query/document pair.
-- The LLM is then called with a predefined prompt (stored as a static variable in the backend) to generate a judgment for each query/document pair.
-- All generated judgments are stored in the judgments index for reuse in future experiments.
-
-To create a judgment list, provide the model ID of the LLM, an available query set, and a created search configuration:
-
-
-```json
-PUT _plugins/_search_relevance/judgments
-{
-    "name":"AI-assisted judgment list",
-    "type":"LLM_JUDGMENT",
-    "querySetId":"5f0115ad-94b9-403a-912f-3e762870ccf6",
-    "searchConfigurationList":["2f90d4fd-bd5e-450f-95bb-eabe4a740bd1"],
-    "size":5,
-    "modelId":"N8AE1osB0jLkkocYjz7D",
-    "contextFields":[]
-}
-```
-{% include copy-curl.html %}
-
-## Implicit judgments
-
-Implicit judgments are derived from user interactions. Several models use signals from user behavior to calculate these judgments. One such model is Clicks Over Expected Clicks (COEC), a click model implemented in Search Relevance Workbench.
-The data used to derive relevance labels is based on past user behavior. The data follows the [User Behavior Insights schema specification]({{site.url}}{{site.baseurl}}/search-plugins/ubi/schemas/). The two key interaction types for implicit judgments are *impressions* and *clicks* that occur after a user query. In practice, this means that all events in the `ubi_events` index with an `impression` or `click` recorded in the `action_name` field are used to model implicit judgments.
-COEC calculates an expected click-through rate (CTR) for each rank. It does this by dividing the total number of clicks by the total number of impressions observed at that rank, based on all events in `ubi_events`. This ratio represents the expected CTR for that position.
-
-For each document displayed in a hit list after a query, the average CTR at that rank serves as the expected value for the query/document pair. COEC calculates the actual CTR for the query/document pair and divides it by this expected rank-based CTR. This means that query/document pairs with a higher CTR than the average for that rank will have a judgment value greater than 1. Conversely, if the CTR is lower than average, the judgment value will be lower than 1.
-
-Note that depending on the tracking implementation, multiple clicks for a single query can be recorded in the `ubi_events` index. As a result, the average CTR can sometimes exceed 1 (or 100%).
-For query-document observations that occur at different positions, all impressions and clicks are assumed to have occurred at the lowest (best) position. This approach biases the final judgment toward lower values, reflecting the common trend that higher-ranked results typically receive higher CTRs.
-{: .note}
-
-#### Example request
-
-```json
-PUT _plugins/_search_relevance/judgments
-{
-  "name": "Implicit Judgements",
-  "clickModel": "coec",
-  "type": "UBI_JUDGMENT",
-  "maxRank": 20
-}
-```
-{% include copy-curl.html %}
-
-#### Request body fields
-
-The process of creating implicit judgments supports the following parameters.
-
-Parameter | Data type | Description
-`name` | String | The name of the judgment list.
-`clickModel` | String | The model used to calculate implicit judgments. Only `coec` (Clicks Over Expected Clicks) is supported.
-`type` | String | Set to `UBI_JUDGMENT`.
-`maxRank` | Integer | The maximum rank to consider when including events in the judgment calculation.
-`startDate` | Date | The optional starting date from which behavioral data events are considered for implicit judgment generation. The format is`yyyy-MM-dd`.
-`endDate` | Date | The optional end date until which behavioral data events are considered for implicit judgment generation. The format is`yyyy-MM-dd`.
+| Parameter | Data type | Description |
+| :--- | :--- | :--- |
+| `name` | String | The name of the judgment list. |
+| `description` | String | An optional description of the judgment list. |
+| `type` | String | Set to `IMPORT_JUDGMENT`. |
+| `judgmentRatings` | Array | A list of JSON objects containing the judgments. Judgments are grouped by query, each containing a nested map in which document IDs (`docId`) serve as keys and their floating-point ratings serve as values. |
 
 ## Managing judgment lists
 
 You can retrieve or delete judgment lists using the following APIs.
 
-### View a judgment list
+### Viewing a judgment list
 
-You can retrieve a judgment list using the judgment list ID.
+Retrieve a judgment list by its ID.
 
 #### Endpoint
 
@@ -191,7 +294,7 @@ You can retrieve a judgment list using the judgment list ID.
 GET _plugins/_search_relevance/judgments/{judgment_list_id}
 ```
 
-### Path parameters
+#### Path parameters
 
 The following table lists the available path parameters.
 
@@ -302,9 +405,9 @@ GET _plugins/_search_relevance/judgments/b54f791a-3b02-49cb-a06c-46ab650b2ade
 
 </details>
 
-### Delete a judgment list
+### Deleting a judgment list
 
-You can delete a judgment list using the judgment list ID.
+Delete a judgment list by its ID.
 
 #### Endpoint
 
@@ -338,9 +441,9 @@ DELETE _plugins/_search_relevance/judgments/b54f791a-3b02-49cb-a06c-46ab650b2ade
 }
 ```
 
-### Search for a judgment list
+### Searching for a judgment list
 
-You can search for available judgment lists using query DSL. By default, the `judgmentRatings.ratings` data is not returned. To include the `judgmentRatings.ratings` data, specify the `_source` field in the query.
+Search for judgment lists using query domain-specific language (DSL). The response excludes `judgmentRatings.ratings` by default; to include it, specify the `_source` field in the query.
 
 #### Endpoints
 
@@ -349,9 +452,9 @@ GET _plugins/_search_relevance/judgments/_search
 POST _plugins/_search_relevance/judgments/_search
 ```
 
-#### Example request: 
+#### Example request
 
-Search for judgment lists that include the exact query `red dress`:
+The following example searches for judgment lists that include the exact query `red dress`:
 
 ```json
 GET _plugins/_search_relevance/judgments/_search
@@ -414,3 +517,7 @@ GET _plugins/_search_relevance/judgments/_search
   }
 }
 ```
+
+## Related documentation
+
+- [Automate search relevance evaluation using LLMs]({{site.url}}{{site.baseurl}}/tutorials/llm-as-a-judge-tutorial/)

@@ -9,13 +9,14 @@ permalink: /tutorials/
 redirect_from:
   - /ml-commons-plugin/tutorials/
   - /ml-commons-plugin/tutorials/index/
-cards:
+getting_started_cards:
   - heading: "Searching data 101"
     description: "Learn the fundamentals of search and explore OpenSearch query languages and types" 
     link: "/getting-started/search-data/" 
   - heading: "OpenSearch Dashboards"
     description: "Start visualizing your data with interactive dashboards and powerful analytics tools"
     link: "/dashboards/quickstart/"
+tutorial_cards:
   - heading: "Vector search"
     description: "Implement similarity search using vectors and enhance results with AI capabilities" 
     link: "/tutorials/vector-search/"
@@ -28,12 +29,24 @@ cards:
   - heading: "Faceted search"
     description: "Build filterable search experiences for applications like e-commerce or location search" 
     link: "/tutorials/faceted-search/"
+  - heading: "LLM-as-a-Judge"
+    description: "Automate search relevance evaluation using LLMs" 
+    link: "/tutorials/llm-as-a-judge-tutorial/"
 canonical_url: https://docs.opensearch.org/latest/tutorials/
 ---
 
 # Tutorials
 
-Follow our step-by-step tutorials to learn how to use OpenSearch features.
+Follow step-by-step tutorials to learn how to use OpenSearch features.
 
-{% include cards.html cards=page.cards %}
+## Getting started
 
+Learn the basics of searching and visualizing data in OpenSearch.
+
+{% include cards.html cards=page.getting_started_cards %}
+
+## Building search features using OpenSearch
+
+Implement specific search features end to end.
+
+{% include cards.html cards=page.tutorial_cards %}
