@@ -37,7 +37,7 @@ OpenSearch supports the following search settings:
 
 - `search.max_open_scroll_context` (Dynamic, integer): A node-level setting that specifies the maximum number of open scroll contexts for the node. Default is `500`.
 
-- `search.request_stats_enabled` (Dynamic, Boolean): Turns on node-level collection of phase-timing statistics from the perspective of the coordinator node. The request-level statistics keep track of how long (in total) search requests spend in each of the different search phases. You can retrieve these counters using the [Nodes Stats API]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-stats/). Default is `false`.
+- `search.request_stats_enabled` (Dynamic, Boolean): Turns on node-level collection of phase-timing statistics from the perspective of the coordinating node. The request-level statistics keep track of how long (in total) search requests spend in each of the different search phases. You can retrieve these counters using the [Nodes Stats API]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-stats/). Default is `false`.
 
 - `search.highlight.term_vector_multi_value` (Static, Boolean): Specifies to highlight snippets across values of a multi-valued field. Default is `true`.
 

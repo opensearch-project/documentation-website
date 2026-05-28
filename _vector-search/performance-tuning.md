@@ -12,7 +12,7 @@ redirect_from:
 This topic provides performance tuning recommendations for improving indexing and search performance for approximate k-NN (ANN) search. At a high level, k-NN works according to these principles:
 * Vector indexes are created per `knn_vector` field/Lucene segment pair.
 * Queries execute sequentially on segments in the shard (as with any other OpenSearch query).
-* The coordinator node selects the final `size` neighbors from the neighbors returned by each shard.
+* The coordinating node selects the final `size` neighbors from the neighbors returned by each shard.
 
 The following sections provide recommendations regarding comparing ANN to exact k-NN with a scoring script.
 

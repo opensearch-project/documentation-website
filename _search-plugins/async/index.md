@@ -262,5 +262,5 @@ Options | Description
 `search_failed` | The number of asynchronous search requests that completed with a failed response.
 `persisted` | The number of asynchronous search requests whose final result successfully persisted in the cluster.
 `persist_failed` | The number of asynchronous search requests whose final result failed to persist in the cluster.
-`running_current` | The number of asynchronous search requests that are running on a given coordinator node.
+`running_current` | The number of asynchronous search requests that are running on a given coordinating node.
 `cancelled` | The number of asynchronous search requests that were canceled while the search was running.

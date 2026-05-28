@@ -133,8 +133,8 @@ GET /_insights/live_queries?wlmGroupId=DEFAULT_WORKLOAD_GROUP
 The preceding response shows a single live query:
 
 - The top-level fields (`id`, `status`, `start_time`, `total_latency_millis`, `total_cpu_nanos`, `total_memory_bytes`) provide a summary of the entire search request. The `total_*` metrics are aggregated across the coordinator task and all shard tasks, giving you a single view of the query's overall resource consumption.
-- The `coordinator_task` object describes the task on the coordinator node that received the search request and is orchestrating the query across shards. In this example, the coordinator node (`troGHNGUShqDj3wK_K5ZIw`) has been running for approximately 13.9 seconds and has consumed 305,000 nanoseconds of CPU time and 2,048 bytes of memory. The `description` field includes the target indexes, search type, and the full query source.
-- The `shard_tasks` array lists the individual shard-level tasks spawned by the coordinator node. Each shard task runs on a specific data node and executes a phase of the search (for example, `search[phase/query]`). In this example, one shard task is running on node `Y6eBnbdISPO6XaVfxCBRgg`, consuming 100,000 nanoseconds of CPU and 1,056 bytes of memory. A query that spans multiple shards or data nodes will have multiple entries in this array.
+- The `coordinator_task` object describes the task on the coordinating node that received the search request and is orchestrating the query across shards. In this example, the coordinating node (`troGHNGUShqDj3wK_K5ZIw`) has been running for approximately 13.9 seconds and has consumed 305,000 nanoseconds of CPU time and 2,048 bytes of memory. The `description` field includes the target indexes, search type, and the full query source.
+- The `shard_tasks` array lists the individual shard-level tasks spawned by the coordinating node. Each shard task runs on a specific data node and executes a phase of the search (for example, `search[phase/query]`). In this example, one shard task is running on node `Y6eBnbdISPO6XaVfxCBRgg`, consuming 100,000 nanoseconds of CPU and 1,056 bytes of memory. A query that spans multiple shards or data nodes will have multiple entries in this array.
 
 When `use_finished_cache=true` is specified, the response also includes a `finished_queries` array:
 
@@ -191,7 +191,7 @@ The following table lists the fields in each object in the `live_queries` array.
 
 | Field | Data type | Description |
 | :--- | :--- | :--- |
-| `id` | String | The unique identifier of the search request (the coordinator node task ID in `nodeId:taskId` format). |
+| `id` | String | The unique identifier of the search request (the coordinating node task ID in `nodeId:taskId` format). |
 | `status` | String | The current status of the query. Valid values are `running` or `cancelled`. |
 | `start_time` | Long | The time at which the query started, in milliseconds since the epoch. |
 | `wlm_group_id` | String | The workload management group ID associated with the query. Only present if the query belongs to a workload group. |
@@ -227,7 +227,7 @@ When `use_finished_cache=true` is specified, the `finished_queries` array contai
 | `id` | String | The live query identifier (in `nodeId:taskId` format) for correlation with live queries. |
 | `top_n_id` | String | The UUID linking this record to the corresponding top N query record. May be `null` if the query did not qualify as a top N query. |
 | `status` | String | The completion status of the query (for example, `completed`). |
-| `node_id` | String | The coordinator node ID. |
+| `node_id` | String | The coordinating node ID. |
 | `source` | Object | The query source body. |
 | `indices` | Array | The list of indexes targeted by the query. |
 | `search_type` | String | The search execution type (for example, `query_then_fetch`). |
