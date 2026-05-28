@@ -81,9 +81,15 @@ PUT _plugins/_search_relevance/experiments
 
 The hybrid search optimization experiment runs different evaluations based on the search configuration. The following parameters and parameter values are taken into account:
 
-* Two normalization techniques: `l2` and `min_max`.
+**Score-based variants**:
+
+* Three normalization techniques: `l2`, `min_max`, and `z_score`. (`z_score` is only paired with `arithmetic_mean`.)
 * Three combination techniques: `arithmetic_mean`, `harmonic_mean`, `geometric_mean`.
 * The lexical and neural search weights, which are values ranging from `0.0` to `1.0` in 0.1 increments.
+
+**Rank-based variants**:
+
+* The `rrf` (Reciprocal Rank Fusion) combination technique, evaluated with `rank_constant` values of `1`, `5`, `10`, `20`, and `60`.
 
 Every query in the query set is executed for all different parameter combinations, and the results are evaluated by using the judgment list.
 
