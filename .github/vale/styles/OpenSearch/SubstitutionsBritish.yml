@@ -5,6 +5,7 @@ level: error
 action:
   name: replace
 swap:
+  'acknowledgement': acknowledgment
   'analyse': analyze
   'authorise': authorize
   'behaviour': behavior
