@@ -8,17 +8,35 @@ swap:
   'app server': application server
   'as well as': and
   'bring up': start or launch
+  'brings up': starts or launches
+  'bringing up': starting or launching
   'build out': expand or implement
+  'builds out': expands or implements
+  'building out': expanding or implementing
   'catch up': synchronize with
+  'catches up': synchronizes with
+  'catching up': synchronizing with
   'clean up': remove or normalize
   'cleans up': removes or normalizes
   'cleaning up': removing or normalizing
   'deal with': process or resolve
+  'deals with': processes or resolves
+  'dealing with': processing or resolving
   'due to': because of
   'fall back': revert
+  'fall back to': default to
+  'falls back': reverts
+  'falls back to': defaults to
+  'falling back': reverting
   'figure out': determine or identify
+  'figures out': determines or identifies
+  'figuring out': determining or identifying
   'fire up': start or launch
+  'fires up': starts or launches
+  'firing up': starting or launching
   'flesh out': elaborate or define
+  'fleshes out': elaborates or defines
+  'fleshing out': elaborating or defining
   'from scratch': manually, from the beginning, or without a template
   'get': receive, obtain, or retrieve
   'gets': receives, returns, or retrieves
@@ -28,47 +46,100 @@ swap:
   'handling': managing, processing, or resolving
   'it is recommended': we recommend
   'kick off': start or initiate
+  'kicks off': starts or initiates
+  'kicking off': starting or initiating
+  'know about': detect or recognize
+  'knows about': detects or recognizes
   'leverage': use
   'life cycle': lifecycle
+  'live in': are located in
   'lives': is located
+  'lives in': is located in
   'look into': investigate
+  'looks into': investigates
+  'looking into': investigating
   'looks like this': appears as follows
   'navigate in': navigate to
   'one-off': single-use or ad-hoc
   'out of the box': by default, natively, or is built-in
   'out-of-the-box': default, native, or built-in
+  'pick up': load or detect
   'picks up': loads or detects
+  'picking up': loading or detecting
   'plug in': integrate or use
+  'plugs in': integrates or uses
+  'plugging in': integrating or using
   'plug into': integrate with
+  'plugs into': integrates with
   'plumbing': configuration or infrastructure
   'point to': reference
+  'points to': references
+  'pointing to': referencing
   'pull in': import or retrieve
+  'pulls in': imports or retrieves
+  'pulling in': importing or retrieving
   'push back': postpone
+  'pushes back': postpones
+  'pushing back': postponing
   'read in': ingest or parse
+  'reads in': ingests or parses
+  'reading in': ingesting or parsing
   'roll out': deploy or release
+  'rolls out': deploys or releases
+  'rolling out': deploying or releasing
   'scale up': scale or increase capacity
+  'scales up': scales or increases capacity
+  'scaling up': scaling or increasing capacity
   'see': view
+  'sees': detects or finds
   'set up': configure or initialize
   'sets up': configures or initializes
   'setting up': configuring or initializing
   'show up': appear
+  'shows up': appears
+  'showing up': appearing
   'shut down': stop or terminate
+  'shuts down': stops or terminates
+  'shutting down': stopping or terminating
   'slow down': delay, reduce throughput, or increase latency
   'slows down': delays or reduces throughput
+  'slowing down': delaying or reducing throughput
   'speed up': accelerate
+  'speeds up': accelerates
+  'speeding up': accelerating
   'spin up': provision or start
   'spins up': provisions or starts
+  'spinning up': provisioning or starting
   'split up': divide or partition
+  'splits up': divides or partitions
+  'splitting up': dividing or partitioning
   'start here': getting started
   'stitching together': chaining or combining
+  'talk to': communicate with or connect to
+  'talks to': communicates with or connects to
+  'talking to': communicating with or connecting to
+  'touching': modifying or changing
   'tear down': remove or decommission
+  'tears down': removes or decommissions
+  'tearing down': removing or decommissioning
   'teardown': removal or decommission
+  'tell': instruct or configure
+  'tells': instructs or configures
+  'telling': instructing or configuring
+  'think': evaluate or determine
+  'thinks': evaluates or determines
+  'thinking': evaluating or determining
   'under the hood': internally
   'walks you through': describes or explains
+  'want': require or expect
+  'wants': requires or expects
   'wire up': connect or configure
   'wires up': connects or configures
+  'wiring up': connecting or configuring
   'wiring': configuration or networking
   'wish|desire': want
   'work around': mitigate or bypass
+  'works around': mitigates or bypasses
+  'working around': mitigating or bypassing
   'workaround': mitigation or alternative approach
   'works with': supports, integrates with, or is compatible with

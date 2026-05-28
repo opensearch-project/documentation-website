@@ -9,6 +9,8 @@ swap:
   'allowlist': allow list
   'autoscaling': auto scaling
   'command-line interface': command line interface
+  'coordinator node': coordinating node
+  'coordinator nodes': coordinating nodes
   'data are': data is
   'data set': dataset
   'for information on': for information about
