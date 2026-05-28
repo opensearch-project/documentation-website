@@ -1,56 +1,24 @@
 ---
 layout: default
-title: Getting started with LLM-as-a-Judge for search relevance evaluation
+title: LLM-as-a-Judge
 has_children: false
-parent: Search Relevance Workbench
-nav_order: 4
-steps:
-  - heading: "Set up ML Commons and create an external LLM connector"
-    link: "/tutorials/llm-as-a-judge-tutorial/#step-1-set-up-ml-commons-and-create-an-external-llm-connector"
-  - heading: "Create a simple search index with sample data"
-    link: "/tutorials/llm-as-a-judge-tutorial/#step-2-create-a-simple-search-index-with-sample-data"
-  - heading: "Create search configurations"
-    link: "/tutorials/llm-as-a-judge-tutorial/#step-3-create-search-configuration-baseline"
-  - heading: "Create a query set"
-    link: "/tutorials/llm-as-a-judge-tutorial/#step-4-create-a-query-set"
-  - heading: "Generate LLM judgments"
-    link: "/tutorials/llm-as-a-judge-tutorial/#step-5-generate-llm-judgments"
-  - heading: "Run experiments with LLM judgments"
-    link: "/tutorials/llm-as-a-judge-tutorial/#step-6-run-experiments-with-llm-judgments"
+nav_order: 70
 ---
 
-# Getting started with LLM-as-a-Judge for search relevance evaluation
+# Using LLM-as-a-Judge for search relevance
 
-LLM-as-a-Judge is a technique that leverages large language models to automatically evaluate search result relevance, providing a scalable and consistent approach to search quality assessment.
+LLM-as-a-Judge is a technique that uses large language models (LLMs) to automatically evaluate search result relevance. Manually annotating search results is time-consuming and inconsistent across annotators. LLM-as-a-Judge automates this process, enabling frequent and repeatable evaluation of search quality.
 
-In this tutorial, you'll learn how to:
-
-- **Set up external LLM integration**: Connect OpenSearch to external LLM providers like OpenAI, AWS Bedrock, or others.
-- **Generate automated judgments**: Use an LLM to evaluate search result relevance without manual annotation.
-
-You will then be ready to [run an experiment to evaluate search quality]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/evaluate-search-quality/#creating-a-pointwise-experiment) using the LLM-generated judgments.
-
-## OpenSearch components for LLM-as-a-Judge
-
-In this tutorial, you'll use the following OpenSearch components:
-
-- [ML Commons plugin]({{site.url}}{{site.baseurl}}/ml-commons-plugin/index/) for LLM integration
-- [Search Relevance Workbench]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/using-search-relevance-workbench/) for evaluation workflows
-- [Remote model connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/) for external LLM APIs
-- [Search configuration]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/search-configurations/) for defining search strategies
-- [Query set]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/query-sets/) for organizing test queries
-- [Judgments]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/judgments/) for storing relevance assessments
-- [Experiments]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/experiments/) for evaluating search quality
+After completing this tutorial, you can [run an experiment to evaluate search quality]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/evaluate-search-quality/#creating-a-pointwise-experiment) using the LLM-generated judgments.
 
 ## Prerequisites
 
-For this tutorial, you'll need:
+For this tutorial, you need an API key for an external LLM provider (OpenAI, Amazon Bedrock).
 
-- OpenSearch 3.5 or newer with the Search Relevance Workbench plugin installed
-- ML Commons plugin installed and configured
-- An API key for an external LLM provider (OpenAI, AWS Bedrock)
+Using an external LLM incurs API costs based on the number of queries and results evaluated.
+{: .note}
 
-First, enable the Search Relevance Workbench and configure ML Commons:
+First, enable the Search Relevance Workbench and configure the following settings:
 
 ```json
 PUT /_cluster/settings
@@ -65,23 +33,9 @@ PUT /_cluster/settings
 ```
 {% include copy-curl.html %}
 
-## Tutorial
+### Step 1: Configure a model
 
-This tutorial consists of the following steps:
-
-{% include list.html list_items=page.steps%}
-
-You can follow this tutorial by using your command line or the OpenSearch Dashboards [Dev Tools console]({{site.url}}{{site.baseurl}}/dashboards/dev-tools/run-queries/).
-
-Some steps in the tutorial contain optional <span>Test it</span>{: .text-delta} sections. You can confirm that the step completed successfully by running the requests in these sections.
-
-### Step 1: Set up ML Commons and create an external LLM connector
-
-First, you'll create a connector to an external LLM service. This tutorial uses OpenAI's GPT models, but you can adapt it for other providers like AWS Bedrock.
-
-#### Step 1(a): Create an ML connector
-
-Create a connector to OpenAI's chat completion API. Replace `YOUR_API_KEY` with your actual OpenAI API key:
+First, create a connector to an externally hosted LLM. This tutorial uses OpenAI, but you can adapt it for other providers such as Amazon Bedrock. Replace `YOUR_API_KEY` with your OpenAI API key:
 
 ```json
 POST /_plugins/_ml/connectors/_create
@@ -113,19 +67,7 @@ POST /_plugins/_ml/connectors/_create
 ```
 {% include copy-curl.html %}
 
-The response contains the connector ID:
-
-```json
-{
-  "connector_id": "abc123def456"
-}
-```
-
-You will use the returned `connector_id` in the next step.
-
-#### Step 1(b): Register and deploy the model
-
-Register and deploy the connector as a remote model:
+Then register and deploy the model. Replace `{connector_id}` with the ID returned in the previous response:
 
 ```json
 POST /_plugins/_ml/models/_register?deploy=true
@@ -133,105 +75,34 @@ POST /_plugins/_ml/models/_register?deploy=true
   "name": "openai_gpt-3.5-turbo",
   "function_name": "remote",
   "description": "External LLM model via OpenAI",
-  "connector_id": "abc123def456"
+  "connector_id": "{connector_id}"
 }
 ```
 {% include copy-curl.html %}
 
-Registering a model is an asynchronous task. OpenSearch sends back a task ID for this task:
+This is an asynchronous operation. To verify the task status, use the [Get ML task]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/) API. Once the state is `COMPLETED`, OpenSearch returns the `model_id` you'll use in the following steps.
 
-```json
-{
-  "task_id": "aFeif4oB5Vm0Tdw8yoN7",
-  "status": "CREATED"
-}
-```
+### Step 2: Create a search index
 
-You can check the status of the task by using the [Get ML Task API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/):
-
-```json
-GET /_plugins/_ml/tasks/aFeif4oB5Vm0Tdw8yoN7
-```
-
-OpenSearch saves the registered model in the model index. Deploying a model creates a model instance and caches the model in memory. 
-
-Once the task is complete, the task state changes to `COMPLETED` and the [Get ML Task API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/) response contains the `model_id` for the deployed model (which is different from the initial `task_id`):
-
-```json
-{
-  "model_id": "DQmk2ZwBqLOthQZKMqU-",
-  "task_type": "REGISTER_MODEL",
-  "function_name": "REMOTE",
-  "state": "COMPLETED",
-  "worker_node": [
-    "rbmK-mMDQfecqr41sOjEsA"
-  ],
-  "create_time": 1773177942532,
-  "last_update_time": 1773177942677,
-  "is_async": false
-}
-```
-
-You'll need the `model_id` in order to use the deployed model for several of the following steps.
-
-{% include copy-curl.html %}
-
-<details markdown="block">
-  <summary>
-    Test it
-  </summary>
-  {: .text-delta}
-
-Test the model connection:
-
-```json
-POST /_plugins/_ml/models/MODEL_ID_HERE/_predict
-{
-  "parameters": {
-    "messages": "[{\"role\": \"user\", \"content\": \"Say hello in one word\"}]"
-  }
-}
-```
-{% include copy-curl.html %}
-
-You should receive a response from the LLM.
-</details>
-
-### Step 2: Create a simple search index with sample data
-
-Now you'll create a simple index with product data for testing search relevance.
-
-#### Step 2(a): Create the index
+Create a `products` index:
 
 ```json
 PUT /products
 {
   "mappings": {
     "properties": {
-      "title": {
-        "type": "text"
-      },
-      "description": {
-        "type": "text"
-      },
-      "category": {
-        "type": "keyword"
-      },
-      "brand": {
-        "type": "keyword"
-      },
-      "price": {
-        "type": "float"
-      }
+      "title": { "type": "text" },
+      "description": { "type": "text" },
+      "category": { "type": "keyword" },
+      "brand": { "type": "keyword" },
+      "price": { "type": "float" }
     }
   }
 }
 ```
 {% include copy-curl.html %}
 
-#### Step 2(b): Index sample documents
-
-Add sample product documents using the bulk API:
+Index example documents into the index:
 
 ```json
 POST /products/_bulk
@@ -246,31 +117,11 @@ POST /products/_bulk
 {"index":{"_id":"5"}}
 {"title":"Dell Gaming Monitor 27-inch","description":"High refresh rate gaming monitor with G-Sync support","category":"Computers","brand":"Dell","price":399.99}
 ```
-
 {% include copy-curl.html %}
 
-<details markdown="block">
-  <summary>
-    Test it
-  </summary>
-  {: .text-delta}
+### Step 3: Create a search configuration
 
-Verify the documents were indexed:
-
-```json
-GET /products/_search
-{
-  "query": {
-    "match_all": {}
-  }
-}
-```
-{% include copy-curl.html %}
-</details>
-
-### Step 3: Create search configuration "baseline"
-
-Search configuration defines a search strategy to evaluate using the LLM-as-a-Judge judgments.
+A _search configuration_ defines a search strategy to evaluate. The `%SearchText%` placeholder is replaced with each query from the query set during evaluation:
 
 ```json
 PUT /_plugins/_search_relevance/search_configurations
@@ -282,37 +133,9 @@ PUT /_plugins/_search_relevance/search_configurations
 ```
 {% include copy-curl.html %}
 
-The response contains the search configuration ID:
-
-```json
-{
-  "search_configuration_id": "baseline_config_id"
-}
-```
-
-<details markdown="block">
-  <summary>
-    Test it
-  </summary>
-  {: .text-delta}
-
-List all search configurations:
-
-```json
-GET _plugins/_search_relevance/search_configurations/_search
-{
-  "query":
-  {
-    "match_all": {}
-  }
-}
-```
-{% include copy-curl.html %}
-</details>
-
 ### Step 4: Create a query set
 
-Query sets contain the test queries you'll use for evaluation.
+Create a query set containing test queries for evaluation:
 
 ```json
 PUT /_plugins/_search_relevance/query_sets
@@ -329,38 +152,9 @@ PUT /_plugins/_search_relevance/query_sets
 ```
 {% include copy-curl.html %}
 
-The response contains the query set ID:
-
-```json
-{
-  "query_set_id": "electronics_queries_id"
-}
-```
-
-<details markdown="block">
-  <summary>
-    Test it
-  </summary>
-  {: .text-delta}
-
-Verify the query set was created:
-
-```json
-GET /_plugins/_search_relevance/query_sets/_search
-{
-  "query": {
-    "match": {
-      "name": "Electronics Queries"
-    }
-  }
-}
-```
-{% include copy-curl.html %}
-</details>
-
 ### Step 5: Generate LLM judgments
 
-Now you'll create an LLM judgment that uses your deployed model to evaluate search results.
+Create an LLM judgment that uses your deployed model to evaluate search results. Replace `{model_id}`, `{query_set_id}`, and `{search_configuration_id}` with the IDs returned in previous steps:
 
 ```json
 PUT /_plugins/_search_relevance/judgments
@@ -368,9 +162,9 @@ PUT /_plugins/_search_relevance/judgments
   "name": "LLM Judgment via OpenAI",
   "description": "Uses GPT-3.5-turbo to evaluate product search results",
   "type": "LLM_JUDGMENT",
-  "modelId": "MODEL_ID_HERE",
-  "querySetId": "QUERY_SET_ID_HERE",
-  "searchConfigurationList": ["SEARCH_CONFIGURATION_ID_HERE"],
+  "modelId": "{model_id}",
+  "querySetId": "{query_set_id}",
+  "searchConfigurationList": ["{search_configuration_id}"],
   "size": 10,
   "tokenLimit": 4000,
   "contextFields": ["title", "description", "category"],
@@ -382,121 +176,23 @@ PUT /_plugins/_search_relevance/judgments
 ```
 {% include copy-curl.html %}
 
-The response contains the judgment ID:
+For a description of all request body parameters, see [Judgments]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/judgments/#request-body-fields).
+
+The judgment process runs asynchronously. To verify the status, retrieve the judgment by its ID:
 
 ```json
-{
-  "judgment_id": "LLM_JUDGMENT_ID"
-}
-```
-
-The LLM judgment process runs asynchronously. Wait a few moments for the judgments to be generated, then check the status:
-
-```json
-GET /search-relevance-judgment/_doc/LLM_JUDGMENT_ID
+GET /search-relevance-judgment/_doc/{judgment_id}
 ```
 {% include copy-curl.html %}
 
-You can see the judgments and how they were arrived at:
+When the `status` field is `COMPLETED`, the `judgmentRatings` array contains the generated relevance scores for each query-document pair.
 
-```json
-{
-  "_index": "search-relevance-judgment",
-  "_id": "d6f73218-ad6b-408f-b6ab-186a47b27e87",
-  "_version": 2,
-  "_seq_no": 10,
-  "_primary_term": 1,
-  "found": true,
-  "_source": {
-    "id": "d6f73218-ad6b-408f-b6ab-186a47b27e87",
-    "timestamp": "2026-03-10T21:37:13.837Z",
-    "name": "LLM Judgment via OpenAI",
-    "status": "COMPLETED",
-    "type": "LLM_JUDGMENT",
-    "metadata": {
-      "contextFields": [
-        "title",
-        "description",
-        "category"
-      ],
-      "ignoreFailure": false,
-      "llmJudgmentRatingType": "SCORE0_1",
-      "size": 10,
-      "modelId": "DQmk2ZwBqLOthQZKMqU-",
-      "overwriteCache": false,
-      "searchConfigurationList": [
-        "0fa1fedb-4bcb-469d-9fcb-2a5cd6709e1d"
-      ],
-      "tokenLimit": 4000,
-      "promptTemplate": "Rate the relevance of these search results {% raw %}{{hits}}{% endraw %} for the query '{% raw %}{{queryText}}{% endraw %}' on a scale of 0-1, where 0 is completely irrelevant and 1 is perfectly relevant. Consider the product title, description, and category.",
-      "querySetId": "4c6bf6f4-c2e4-4c76-a668-82de11d14846"
-    },
-    "judgmentRatings": [
-      {
-        "query": "smart tv",
-        "ratings": [
-          {
-            "docId": "1",
-            "rating": "0.9"
-          },
-          {
-            "docId": "2",
-            "rating": "0.8"
-          }
-        ]
-      },
-      {
-        "query": "laptop computer",
-        "ratings": [
-          {
-            "docId": "4",
-            "rating": "0.9"
-          }
-        ]
-      },
-      {
-        "query": "wireless headphones",
-        "ratings": [
-          {
-            "docId": "3",
-            "rating": "1.0"
-          }
-        ]
-      }
-    ]
-  }
-}
-```
+## Next steps
 
+You are now ready to [run an experiment to evaluate search quality]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/evaluate-search-quality/#creating-a-pointwise-experiment) with the LLM-generated judgments. The search configuration and query set that you created during this tutorial can serve as inputs for your first evaluation.
 
-<details markdown="block">
-  <summary>
-    Test it
-  </summary>
-  {: .text-delta}
+## Related documentation
 
-Check the judgment cache to see the individual generated ratings:
-
-```json
-GET /.plugins-search-relevance-judgment-cache/_search
-{
-  "size": 5,
-  "query": {
-    "match_all": {}
-  }
-}
-```
-{% include copy-curl.html %}
-
-You should see documents with ratings between 0 and 1 generated by the LLM.
-</details>
-
-### Step 6: Run experiments with LLM judgments
-
-Congratulations, you are now ready to [run an experiment to evaluate search quality]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/evaluate-search-quality/#creating-a-pointwise-experiment) using the LLM-generated judgments that you have created. The search configuration and query set that you created during this tutorial can be used as part of running your first evaluation using the new judgment list.
-
-## Further reading
-
-- Learn more about [Search Relevance Workbench]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/using-search-relevance-workbench/)
-- Learn about customizing your prompt and other [advanced features]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/judgments/#using-llm-as-a-judge)
-- Explore [ML Commons remote models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/)
+- [Search Relevance Workbench]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/using-search-relevance-workbench/)
+- [Using LLM-as-a-Judge]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/judgments/#using-llm-as-a-judge)
+- [Connecting to externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/)
