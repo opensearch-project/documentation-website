@@ -13,7 +13,7 @@ The `spath` command extracts fields from structured JSON data. It operates in tw
 - **Path-based mode**: When `path` is specified, extracts a single value at the given JSON path.
 - **Auto-extract mode** (experimental): When `path` is omitted, extracts all fields from the JSON into a map.
 
-The `spath` command is not executed on OpenSearch data nodes. It extracts fields from data after it has been returned to the coordinator node, which is slow on large datasets. We recommend indexing fields needed for filtering directly instead of using `spath` to filter nested fields.
+The `spath` command is not executed on OpenSearch data nodes. It extracts fields from data after it has been returned to the coordinating node, which is slow on large datasets. We recommend indexing fields needed for filtering directly instead of using `spath` to filter nested fields.
 {: .note}
 
 ## Syntax
