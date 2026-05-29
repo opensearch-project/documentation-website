@@ -38,3 +38,11 @@ To work, the token filter must have an `updateable` flag of `true`:
   }
 }
 ```
+
+## Query parameters
+
+The following table lists the supported query parameters.
+
+Parameter | Data type | Description
+:--- | :--- | :---
+`reload_cached_resources` | Boolean | When set to `true`, in-place reloads cached resources for token filters that load files from disk (for example, the [`hunspell`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/hunspell/) filter's dictionary files). When `false` (the default), analyzer factories are rebuilt but cached resources are reused. **Introduced 3.7.**
