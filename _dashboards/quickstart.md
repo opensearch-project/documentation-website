@@ -38,7 +38,7 @@ Once the OpenSearch and OpenSearch Dashboards processes are running, view the Op
 
 The OpenSearch Dashboards default view is shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/home-page-nav.png" alt="OpenSearch Dashboards interface default view" width="700">
+![OpenSearch Dashboards interface default view]({{site.url}}{{site.baseurl}}/images/dashboards/home-page-nav.png){: width="700" }
 
 The demonstrations on this page use the [**Sample flight data**](https://playground.opensearch.org/app/home#/tutorial_directory) dataset. If you've installed a local OpenSearch Dashboards instance, [access OpenSearch Dashboards](#accessing-opensearch-dashboards) and add the sample data as described in [Adding sample data](#adding-sample-data).
 {: .tip}
@@ -74,7 +74,7 @@ If you've installed a local OpenSearch Dashboards instance, add one or more samp
 
     The following image shows the available sample datasets.
 
-    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/add-sample.png" alt="Adding sample data window" width="700">
+    ![Adding sample data window]({{site.url}}{{site.baseurl}}/images/dashboards/add-sample.png){: width="700" }
 
 
 ## Using the Discover tool
@@ -110,7 +110,7 @@ Follow these steps to use the **Discover** tool:
 
     The resulting view is shown in the following image.
 
-    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/opensearch-dashboards-discover.png" alt="Discover output of steps 1 through 6" width="700">
+    ![Discover output of steps 1 through 6]({{site.url}}{{site.baseurl}}/images/dashboards/opensearch-dashboards-discover.png){: width="700" }
 
 
 ## Using the Dashboards application
@@ -146,7 +146,7 @@ Follow these steps to use the application:
 
     The resulting view is shown in the following image.
 
-    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/add-dash-panel.png" alt="Add panel view" width="700">
+    ![Add panel view]({{site.url}}{{site.baseurl}}/images/dashboards/add-dash-panel.png){: width="700" }
 
 For information about visualization types, see [Building data visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/). For information about using dashboards and visualizations in **Observability**, see [Observability]({{site.url}}{{site.baseurl}}/observing-your-data/).
 {: .tip}
@@ -179,7 +179,7 @@ Alternatively, you can use the dashboard toolbar to apply filters:
 
     The resulting view is shown in the following image.
 
-    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/filter-data-dash.png" alt="Dashboards tutorial panel view" width="700">
+    ![Dashboards tutorial panel view]({{site.url}}{{site.baseurl}}/images/dashboards/filter-data-dash.png){: width="700" }
 
 
 ## Next steps

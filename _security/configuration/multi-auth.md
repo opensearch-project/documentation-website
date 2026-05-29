@@ -51,17 +51,17 @@ opensearch_security.auth.multiple_auth_enabled: true
 
 When the `opensearch_security.auth.type` setting contains `basicauth` and one other authentication type, the sign-in window appears as in the following example.
 
-<img src="{{site.url}}{{site.baseurl}}/images/Security/OneOptionWithoutLogo.png" alt="Basic authentication and one other type in the sign-in window" width="350">
+![Basic authentication and one other type in the sign-in window]({{site.url}}{{site.baseurl}}/images/Security/OneOptionWithoutLogo.png){: width="350" }
 
 With all three valid authentication types specified, the sign-in window appears as in the following example.
 
-<img src="{{site.url}}{{site.baseurl}}/images/Security/TwoOptionWithoutLogo.png" alt="All three authentication types specified in the sign-in window" width="350">
+![All three authentication types specified in the sign-in window]({{site.url}}{{site.baseurl}}/images/Security/TwoOptionWithoutLogo.png){: width="350" }
 
 ## Customizing the sign-in environment
 
 In addition to the essential sign-in settings for each authentication type, you can configure additional settings in the `opensearch_dashboards.yml` file to customize the sign-in window so that it clearly represents the options that are available. For example, you can replace the label on the sign-in button with the name and icon of the IdP. Refer to the settings and descriptions that follow.
 
-<img src="{{site.url}}{{site.baseurl}}/images/Security/TwoOptionWithLogo.png" alt="Multi-option sign-in window with with some customization" width="350">
+![Multi-option sign-in window with with some customization]({{site.url}}{{site.baseurl}}/images/Security/TwoOptionWithLogo.png){: width="350" }
 
 ### Basic authentication settings
 
