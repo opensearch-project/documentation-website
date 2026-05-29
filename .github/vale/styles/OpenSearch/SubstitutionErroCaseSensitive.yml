@@ -1,8 +1,0 @@
-extends: substitution
-message: "Use '%s' instead of '%s'. Note the correct capitalization."
-ignorecase: false
-level: error
-action:
-  name: replace
-swap:
-  'Retrieval-Augmented Generation': retrieval-augmented generation

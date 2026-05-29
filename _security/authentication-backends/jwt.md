@@ -20,7 +20,7 @@ JSON Web Tokens (JWTs) are JSON-based access tokens that assert one or more clai
 1. The service verifies the token and grants or denies access.
 1. With granted access, the user has access until the expiration time of the token. The expiration time is typically set by the issuer in the token's payload.
 
-A JWT is self-contained in the sense that it carries within it all of the information necessary to verify a user. The tokens are base64-encoded, signed JSON objects.
+A JWT is self-contained in the sense that it carries within it all of the information necessary to verify a user. The tokens are Base64 encoded, signed JSON objects.
 
 
 ## JWT elements
@@ -69,7 +69,7 @@ The following example shows these JSON properties as name-value pairs:
 
 ### Signature
 
-The issuer of the token generates the token's signature by applying a cryptographic hash function to the base64-encoded header and payload. The client receiving the JWT decrypts and validates this signature in the final step of transmission.
+The issuer of the token generates the token's signature by applying a cryptographic hash function to the Base64-encoded header and payload. The client receiving the JWT decrypts and validates this signature in the final step of transmission.
 
 These three parts---header, payload, and signature---are concatenated using periods to form a complete JWT:
 
@@ -131,7 +131,7 @@ Because JWTs are self-contained and the user is authenticated at the HTTP level,
 
 ### Symmetric key algorithms: HMAC
 
-Hash-based message authentication codes (HMACs) are a group of algorithms that provide a way of signing messages by means of a shared key. The key is shared between the authentication server and the Security plugin. It must be configured as a base64-encoded value in the `signing_key` setting:
+Hash-based message authentication codes (HMACs) are a group of algorithms that provide a way of signing messages by means of a shared key. The key is shared between the authentication server and the Security plugin. It must be configured as a Base64-encoded value in the `signing_key` setting:
 
 ```yml
 jwt_auth_domain:
@@ -148,7 +148,7 @@ RSA and ECDSA are asymmetric encryption and digital signature algorithms that us
 
 Because you cannot issue new tokens with the public key---and because you can make valid assumptions about the creator of the token---RSA and ECDSA are considered to be more secure than HMAC.
 
-To use RS256, you need to configure only the (non-base64-encoded) public RSA key as the `signing_key` in the JWT configuration:
+To use RS256, you need to configure only the (non-Base64-encoded) public RSA key as the `signing_key` in the JWT configuration:
 
 ```yml
 jwt_auth_domain:
