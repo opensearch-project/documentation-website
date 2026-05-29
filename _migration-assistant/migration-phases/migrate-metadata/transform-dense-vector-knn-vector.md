@@ -19,7 +19,7 @@ The metadata migration path can:
 - Translate vector dimensions and related settings.
 - Prepare the target mapping for OpenSearch vector search.
 
-Depending on the target, additional vector compatibility transforms may also apply, including Serverless-specific adjustments.
+Depending on the target, additional vector compatibility transforms may also apply, including Serverless NextGen-specific adjustments.
 
 ## Identifying dense_vector fields
 
@@ -52,6 +52,6 @@ Even when the mapping migration succeeds, query behavior may still need to chang
 
 Run a pilot migration with representative queries before cutover in the following cases:
 
-- The target is OpenSearch Serverless.
+- The target is Amazon OpenSearch Serverless NextGen.
 - The target version has vector-engine compatibility constraints.
 - The application relies on specific vector query syntax or ranking behavior.

@@ -109,7 +109,7 @@ kubectl exec -it migration-console-0 -n ma -- aws sts get-caller-identity
 
 If the target is Amazon OpenSearch Service with fine-grained access control, make sure the relevant IAM role is mapped with sufficient permissions on the domain.
 
-Use `es` as the AWS Signature Version 4 service for Amazon OpenSearch Service domains and `aoss` for Amazon OpenSearch Serverless collections.
+Use `es` as the AWS Signature Version 4 service for Amazon OpenSearch Service domains and `aoss` for Amazon OpenSearch Serverless NextGen collections.
 {: .note }
 
 ### Authenticate using AWS Signature Version 4 on generic Kubernetes

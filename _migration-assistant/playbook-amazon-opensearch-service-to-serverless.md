@@ -1,16 +1,16 @@
 ---
 layout: default
-title: "Amazon OpenSearch Service → Amazon OpenSearch Serverless"
+title: "Amazon OpenSearch Service → Amazon OpenSearch Serverless NextGen"
 nav_order: 2
 parent: Playbooks
 permalink: /migration-assistant/playbook-amazon-opensearch-service-to-serverless/
 ---
 
-# Playbook: Amazon OpenSearch Service to Amazon OpenSearch Serverless (vector search)
+# Playbook: Amazon OpenSearch Service to Amazon OpenSearch Serverless NextGen (vector search)
 
-This playbook describes migrating an Amazon OpenSearch Service domain running Elasticsearch 7.10 to an Amazon OpenSearch Serverless vector search collection using Migration Assistant. 
+This playbook describes migrating an Amazon OpenSearch Service domain running Elasticsearch 7.10 to an Amazon OpenSearch Serverless NextGen vector search collection using Migration Assistant. 
 
-OpenSearch Serverless with the `VECTORSEARCH` collection type provides the following benefits:
+Amazon OpenSearch Serverless NextGen with the `VECTORSEARCH` collection type provides the following benefits:
 
 - **No cluster management** -- No nodes to size, patch, or scale. AWS manages capacity automatically.
 - **Built-in vector engine** -- Designed for k-NN search, semantic search, and retrieval-augmented generation (RAG) workloads.
@@ -18,14 +18,14 @@ OpenSearch Serverless with the `VECTORSEARCH` collection type provides the follo
 - **Automatic scaling** -- Scales indexing and search capacity independently based on demand.
 - **Built-in encryption and access control** -- Encryption at rest, in transit, and fine-grained data access policies without managing security plugins.
 
-If you are running vector or k-NN workloads on an Amazon OpenSearch Service domain, Serverless eliminates the need to manually select and scale instance types for vector workloads, which are memory- and compute-intensive.
+If you are running vector or k-NN workloads on an Amazon OpenSearch Service domain, Serverless NextGen eliminates the need to manually select and scale instance types for vector workloads, which are memory- and compute-intensive.
 {: .note }
 
-## OpenSearch Service compared to OpenSearch Serverless
+## OpenSearch Service compared to OpenSearch Serverless NextGen
 
-The following table lists key differences between Amazon OpenSearch Service and OpenSearch Serverless.
+The following table lists key differences between Amazon OpenSearch Service and OpenSearch Serverless NextGen.
 
-| Feature | Amazon OpenSearch Service | OpenSearch Serverless |
+| Feature | Amazon OpenSearch Service | OpenSearch Serverless NextGen |
 |:---------|:---------------------------|:----------------------|
 | Cluster settings | Full `_cluster/settings` API | Not supported |
 | Snapshot/restore | Supported | Not supported (use Migration Assistant backfill) |
@@ -51,7 +51,7 @@ The following table lists the example values used in this playbook.
 | Region | `us-east-2` |
 | AWS Identity and Access Management (IAM) role | Admin |
 | Source | Amazon OpenSearch Service domain (`my-source-domain`, Elasticsearch 7.10) |
-| Target | Amazon OpenSearch Serverless collection (`my-target-collection`, VECTORSEARCH) |
+| Target | Amazon OpenSearch Serverless NextGen collection (`my-target-collection`, VECTORSEARCH) |
 | Deployment | "Launch into existing virtual private cloud (VPC)" CloudFormation template |
 | Stage | `dev` |
 
@@ -64,7 +64,7 @@ The following table provides approximate durations for each phase of the migrati
 
 | Phase | Duration |
 |-------|----------|
-| Prerequisites (Amazon OpenSearch Serverless collection, policies, IAM, VPC peering) | 15--20 min |
+| Prerequisites (Amazon OpenSearch Serverless NextGen collection, collection group, policies, IAM, VPC peering) | 15--20 min |
 | Step 3: Deploy Migration Assistant (CloudFormation + Helm) | 15--25 min |
 | Steps 4--9: Configure and test connectivity | 5--10 min |
 | Step 10: Pilot migration (small index) | 15--20 min |
@@ -111,7 +111,7 @@ Expected output:
 
 ### Target collection requirements
 
-The target OpenSearch Serverless collection must be configured as follows:
+The target Amazon OpenSearch Serverless NextGen collection must be configured as follows:
 
 - **Type** -- `VECTORSEARCH` for this playbook. For other workloads, use `SEARCH` or `TIMESERIES`.
 - **Encryption policy** -- At least one encryption policy covering the collection.
@@ -224,7 +224,20 @@ aws opensearchserverless create-access-policy \
 ```
 {% include copy.html %}
 
-### Step 4: Create the collection
+### Step 4: Create the collection group
+
+NextGen collections must belong to a collection group. To create one, run the following command:
+
+```bash
+aws opensearchserverless create-collection-group \
+  --region us-east-2 \
+  --name vector-search-group \
+  --generation NEXTGEN \
+  --standby-replicas ENABLED
+```
+{% include copy.html %}
+
+### Step 5: Create the collection
 
 To create the collection, run the following command:
 
@@ -232,7 +245,8 @@ To create the collection, run the following command:
 aws opensearchserverless create-collection \
   --region us-east-2 \
   --name my-target-collection \
-  --type VECTORSEARCH
+  --type VECTORSEARCH \
+  --collection-group-name vector-search-group
 ```
 {% include copy.html %}
 
@@ -250,10 +264,10 @@ watch -n 10 "aws opensearchserverless batch-get-collection \
 When `Status` shows `ACTIVE`, record the endpoint. The following example shows the expected output for this playbook:
 
 ```
-https://3nbrhts7rv9jxatilz9e.us-east-2.aoss.amazonaws.com
+https://3nbrhts7rv9jxatilz9e.aoss.us-east-2.on.aws
 ```
 
-### Step 5: Verify that you can reach the collection
+### Step 6: Verify that you can reach the collection
 
 If you do not have `awscurl` installed, install it by running the following command: 
 
@@ -266,7 +280,7 @@ To verify that you can reach the collection, run the following command:
 
 ```bash
 awscurl --service aoss --region us-east-2 \
-  "https://3nbrhts7rv9jxatilz9e.us-east-2.aoss.amazonaws.com/"
+  "https://3nbrhts7rv9jxatilz9e.aoss.us-east-2.on.aws/"
 ```
 {% include copy.html %}
 
@@ -285,7 +299,7 @@ For a planned downtime migration, follow these steps:
 3. Migrate metadata.
 4. Backfill documents.
 5. Validate the target.
-6. Point clients to the Serverless collection endpoint.
+6. Point clients to the Serverless NextGen collection endpoint.
 
 If you are unsure which approach to select, use planned downtime because it involves fewer components and lower risk.
 {: .note }
@@ -301,7 +315,7 @@ For a zero-downtime migration, follow these steps:
 5. Backfill documents.
 6. Replay captured traffic until the target catches up.
 7. Validate the target.
-8. Switch clients to the Serverless collection endpoint.
+8. Switch clients to the Serverless NextGen collection endpoint.
 
 If you choose this option, your clients must send **explicit document IDs** for index and update operations. If your application depends on autogenerated IDs, do not use Capture and Replay.
 {: .warning }
@@ -427,9 +441,9 @@ The default Amazon Simple Storage Service (Amazon S3) bucket is `s3://migrations
 
 After deployment, grant the Migration Assistant IAM role access to both the source and target by completing the following steps.
 
-### Step 1: Update the OpenSearch Serverless data access policy
+### Step 1: Update the Amazon OpenSearch Serverless NextGen data access policy
 
-After deploying Migration Assistant, add the `migrations-role` and `snapshot-role` to the OpenSearch Serverless data access policy:
+After deploying Migration Assistant, add the `migrations-role` and `snapshot-role` to the Amazon OpenSearch Serverless NextGen data access policy:
 
 ```bash
 # Get the current policy version
@@ -539,7 +553,7 @@ aws ec2 authorize-security-group-ingress \
 ```
 {% include copy.html %}
 
-The target is an OpenSearch Serverless collection with public network access, so no security group rule is needed for the target. If you configured VPC access for the collection, add an inbound rule to the collection's VPC endpoint security group as well.
+The target is an Amazon OpenSearch Serverless NextGen collection with public network access, so no security group rule is needed for the target. If you configured VPC access for the collection, add an inbound rule to the collection's VPC endpoint security group as well.
 {: .note }
 
 
@@ -642,7 +656,7 @@ Replace the workflow configuration file contents with the following configuratio
   },
   "targetClusters": {
     "target": {
-      "endpoint": "https://3nbrhts7rv9jxatilz9e.us-east-2.aoss.amazonaws.com",
+      "endpoint": "https://3nbrhts7rv9jxatilz9e.aoss.us-east-2.on.aws",
       "allowInsecure": false,
       "authConfig": {
         "sigv4": {
@@ -677,7 +691,7 @@ Replace the workflow configuration file contents with the following configuratio
 The following are key differences from domain-to-domain migrations:
 
 - **Source** uses `sigv4` with `service: "es"`: Amazon OpenSearch Service uses IAM authentication rather than basic authentication.
-- **Target** uses `sigv4` with `service: "aoss"`: OpenSearch Serverless requires the `aoss` service name for AWS Signature Version 4 signing.
+- **Target** uses `sigv4` with `service: "aoss"`: Amazon OpenSearch Serverless NextGen requires the `aoss` service name for AWS Signature Version 4 signing.
 - **`s3RoleArn`** is required: Amazon OpenSearch Service needs an IAM role to write snapshots to Amazon S3 (unlike self-managed Elasticsearch which uses keystore credentials).
 - **No `multiTypeBehavior`**: Elasticsearch 7.10 already uses single-type indexes, so no type mapping transformation is needed.
 
@@ -707,7 +721,7 @@ If the source returns a connection timeout, verify the following:
 
 If the target returns 403, verify the following:
 
-1. The OpenSearch Serverless data access policy includes the Migration Assistant migrations role.
+1. The Amazon OpenSearch Serverless NextGen data access policy includes the Migration Assistant migrations role.
 2. The network policy allows access from the Migration Assistant pods.
 
 To test connectivity manually, run the following commands:
@@ -824,8 +838,8 @@ For a planned downtime migration, follow these steps:
    ```
    {% include copy.html %}
 
-5. Review components that Migration Assistant does not migrate (ISM or ILM policies, ingest pipelines, dashboards, cluster settings). OpenSearch Serverless does not support these features. Determine whether your workload requires alternatives before proceeding.
-6. Point clients to the Serverless collection endpoint: `https://3nbrhts7rv9jxatilz9e.us-east-2.aoss.amazonaws.com`.
+5. Review components that Migration Assistant does not migrate (ISM or ILM policies, ingest pipelines, dashboards, cluster settings). Amazon OpenSearch Serverless NextGen does not support these features. Determine whether your workload requires alternatives before proceeding.
+6. Point clients to the Serverless NextGen collection endpoint: `https://3nbrhts7rv9jxatilz9e.aoss.us-east-2.on.aws`.
 7. Update client authentication from basic authentication or IAM AWS Signature Version 4 with `service: es` to IAM AWS Signature Version 4 with `service: aoss`.
 
 ### Zero-downtime path
@@ -957,10 +971,10 @@ When the replay is complete, document counts on the target should match the sour
 
 #### Step 7: Switch traffic to the target
 
-When replay is complete and validation confirms the target is correct, switch your application clients from the capture proxy to the Serverless collection endpoint directly:
+When replay is complete and validation confirms the target is correct, switch your application clients from the capture proxy to the Serverless NextGen collection endpoint directly:
 
 ```
-https://3nbrhts7rv9jxatilz9e.us-east-2.aoss.amazonaws.com
+https://3nbrhts7rv9jxatilz9e.aoss.us-east-2.on.aws
 ```
 
 Update your client's AWS Signature Version 4 signing from `service: es` to `service: aoss`.
@@ -975,7 +989,7 @@ Do not delete the source domain immediately after cutover. Keep it available for
 
 Before removing Migration Assistant, confirm all of the following:
 
-1. All client traffic is pointing directly at the Serverless collection and no longer at the capture proxy.
+1. All client traffic is pointing directly at the Serverless NextGen collection and no longer at the capture proxy.
 2. The capture proxy and Replayer are no longer needed.
 3. You have kept the source domain available as a fallback for at least 24--72 hours.
 4. The target collection is healthy and application error rates are normal.
@@ -1004,7 +1018,7 @@ aws cloudformation wait stack-delete-complete --region us-east-2 --stack-name MA
 ```
 {% include copy.html %}
 
-This deletes the Amazon EKS cluster, Amazon ECR repository, IAM roles, and VPC endpoints created by Migration Assistant. It does **not** delete the source domain, the Serverless collection, or the Amazon S3 snapshot bucket.
+This deletes the Amazon EKS cluster, Amazon ECR repository, IAM roles, and VPC endpoints created by Migration Assistant. It does **not** delete the source domain, the Serverless NextGen collection, or the Amazon S3 snapshot bucket.
 
 ### Step 3 (Optional): Delete the snapshot bucket
 
@@ -1015,7 +1029,7 @@ aws s3 rb s3://migrations-default-111122223333-dev-us-east-2 --force
 ```
 {% include copy.html %}
 
-### Step 4 (Optional): Delete the OpenSearch Serverless collection
+### Step 4 (Optional): Delete the Amazon OpenSearch Serverless NextGen collection
 
 If you created the collection for testing and no longer need it, run the following command:
 
@@ -1125,7 +1139,7 @@ The following are common issues and their resolutions.
 
 ### Target returns 403 forbidden
 
-The Migration Assistant IAM role is not included in the OpenSearch Serverless data access policy. Update the policy:
+The Migration Assistant IAM role is not included in the Amazon OpenSearch Serverless NextGen data access policy. Update the policy:
 
 ```bash
 POLICY_VERSION=$(aws opensearchserverless get-access-policy \
@@ -1224,13 +1238,13 @@ workflow submit
 ```
 {% include copy.html %}
 
-### OpenSearch Serverless errors
+### Amazon OpenSearch Serverless NextGen errors
 
-The following errors are specific to OpenSearch Serverless targets.
+The following errors are specific to Amazon OpenSearch Serverless NextGen targets.
 
 #### Index not found exception on the target
 
-OpenSearch Serverless does not support the `_cluster/settings` API or automatic index creation through templates in the same way as Amazon OpenSearch Service. Verify that metadata migration completed successfully before backfill:
+Amazon OpenSearch Serverless NextGen does not support the `_cluster/settings` API or automatic index creation through templates in the same way as Amazon OpenSearch Service. Verify that metadata migration completed successfully before backfill:
 
 ```bash
 console clusters curl target /_cat/indices?v
@@ -1239,11 +1253,11 @@ console clusters curl target /_cat/indices?v
 
 #### Security exception with a permissions error
 
-The OpenSearch Serverless data access policy is missing permissions. Ensure that the policy includes both collection- and index-level permissions for the Migration Assistant role.
+The Amazon OpenSearch Serverless NextGen data access policy is missing permissions. Ensure that the policy includes both collection- and index-level permissions for the Migration Assistant role.
 
 #### Bulk indexing returns 413: Request too large
 
-OpenSearch Serverless has a 10-MB request payload limit. If your documents are large, reduce the bulk batch size in the workflow configuration:
+Amazon OpenSearch Serverless NextGen has a 10-MB request payload limit. If your documents are large, reduce the bulk batch size in the workflow configuration:
 
 ```json
 "documentBackfillConfig": {
@@ -1260,7 +1274,7 @@ OpenSearch Serverless has a 10-MB request payload limit. If your documents are l
 For more information, see the following resources:
 
 - [Is Migration Assistant right for you?]({{site.url}}{{site.baseurl}}/migration-assistant/is-migration-assistant-right-for-you/)
-- [Migrate to OpenSearch Serverless]({{site.url}}{{site.baseurl}}/migration-assistant/amazon-opensearch-serverless/)
+- [Migrate to OpenSearch Serverless NextGen]({{site.url}}{{site.baseurl}}/migration-assistant/amazon-opensearch-serverless/)
 - [Deploying to EKS]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-eks/)
 - [Using the Workflow CLI]({{site.url}}{{site.baseurl}}/migration-assistant/workflow-cli/getting-started/)
 - [Backfill]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/backfill/)

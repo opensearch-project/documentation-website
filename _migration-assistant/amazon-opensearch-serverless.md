@@ -1,13 +1,13 @@
 ---
 layout: default
-title: Migrate to OpenSearch Serverless
+title: Migrate to OpenSearch Serverless NextGen
 nav_order: 55
 permalink: /migration-assistant/amazon-opensearch-serverless/
 ---
 
-# Migrate to OpenSearch Serverless
+# Migrate to OpenSearch Serverless NextGen
 
-If your target is an Amazon OpenSearch Serverless collection, Serverless works as a target for every source Migration Assistant supports: Elasticsearch 1.x--2.x, OpenSearch 1.x--2.x, Amazon OpenSearch Service, and Apache Solr 6.x--9.x (backfill only). The migration steps are the same as for any other OpenSearch target. Follow your source's playbook and use the Serverless-specific target configuration from this page.
+If your target is an Amazon OpenSearch Serverless NextGen collection, Serverless NextGen works as a target for every source Migration Assistant supports: Elasticsearch 1.x--2.x, OpenSearch 1.x--2.x, Amazon OpenSearch Service, and Apache Solr 6.x--9.x (backfill only). The migration steps are the same as for any other OpenSearch target. Follow your source's playbook and use the Serverless NextGen target configuration from this page.
 
 | Source | Backfill | Capture and Replay |
 |:-------|:--------:|:------------------:|
@@ -19,7 +19,7 @@ If your target is an Amazon OpenSearch Serverless collection, Serverless works a
 
 ## Collection types
 
-Amazon OpenSearch Serverless supports the following collection types. Migration Assistant auto-detects the collection type and adjusts behavior accordingly.
+Amazon OpenSearch Serverless NextGen supports the following collection types at launch. Migration Assistant auto-detects the collection type and adjusts behavior accordingly.
 
 | Collection type | Document IDs |
 |:---------------|:------------|
@@ -29,11 +29,11 @@ Amazon OpenSearch Serverless supports the following collection types. Migration 
 
 If your source data relies on specific document IDs (for example, for lookups or deduplication), use a `SEARCH` collection.
 
-When migrating to a `VECTORSEARCH` collection, `knn_vector` field mappings are automatically converted to Faiss HNSW for Serverless compatibility, and `model_id` references are removed (Serverless does not support training APIs).
+When migrating to a `VECTORSEARCH` collection, `knn_vector` field mappings are automatically converted to Faiss HNSW for Serverless NextGen compatibility, and `model_id` references are removed (Amazon OpenSearch Serverless NextGen does not support training APIs).
 
 ## Connecting your collection to Migration Assistant
 
-Migration Assistant requires the following configuration to access your OpenSearch Serverless collection:
+Migration Assistant requires the following configuration to access your Amazon OpenSearch Serverless NextGen collection:
 
 1. The migration IAM role must have `aoss:APIAccessAll` in its IAM policy (the Amazon Elastic Kubernetes Service (EKS) deployment handles this automatically).
 2. The migration IAM role must be listed as a `Principal` in your collection's data access policy (you must configure this).
@@ -94,7 +94,7 @@ If your collection already has a data access policy, use `update-access-policy` 
 
 ### Step 3: Configure the workflow
 
-Configure your OpenSearch Serverless collection as the target in your workflow configuration. The key difference from a managed OpenSearch Service target is `service: aoss` (instead of `service: es`):
+Configure your Amazon OpenSearch Serverless NextGen collection as the target in your workflow configuration. The key difference from a managed OpenSearch Service target is `service: aoss` (instead of `service: es`):
 
 ```bash
 workflow configure edit
@@ -107,7 +107,7 @@ Set the target cluster:
 {
   "targetClusters": {
     "target": {
-      "endpoint": "https://<collection-id>.<region>.aoss.amazonaws.com",
+      "endpoint": "https://<collection-id>.aoss.<region>.on.aws",
       "authConfig": {
         "sigv4": {
           "region": "<region>",
@@ -126,6 +126,6 @@ Then follow the steps in [Using the Workflow CLI]({{site.url}}{{site.baseurl}}/m
 
 Choose the playbook for your source type:
 
-- **Self-managed/third-party Elasticsearch or OpenSearch** -- Follow the [Elasticsearch 6.8 → OpenSearch 3.5 playbook]({{site.url}}{{site.baseurl}}/migration-assistant/playbook-elasticsearch-6-8-to-opensearch-3/), then replace the target cluster block with the preceding OpenSearch Serverless configuration.
-- **Amazon OpenSearch Service/legacy Elasticsearch Service** -- Follow the [Amazon OpenSearch Service → Amazon OpenSearch Serverless playbook]({{site.url}}{{site.baseurl}}/migration-assistant/playbook-amazon-opensearch-service-to-serverless/).
-- **Apache Solr** -- Follow the [Apache Solr 8.11 → OpenSearch 3.5 playbook]({{site.url}}{{site.baseurl}}/migration-assistant/playbook-solr-8.11-to-opensearch-3/), then replace the target cluster block with the preceding OpenSearch Serverless configuration.
+- **Self-managed/third-party Elasticsearch or OpenSearch** -- Follow the [Elasticsearch 6.8 → OpenSearch 3.5 playbook]({{site.url}}{{site.baseurl}}/migration-assistant/playbook-elasticsearch-6-8-to-opensearch-3/), then replace the target cluster block with the preceding Serverless NextGen configuration.
+- **Amazon OpenSearch Service/legacy Elasticsearch Service** -- Follow the [Amazon OpenSearch Service → Amazon OpenSearch Serverless NextGen playbook]({{site.url}}{{site.baseurl}}/migration-assistant/playbook-amazon-opensearch-service-to-serverless/).
+- **Apache Solr** -- Follow the [Apache Solr 8.11 → OpenSearch 3.5 playbook]({{site.url}}{{site.baseurl}}/migration-assistant/playbook-solr-8.11-to-opensearch-3/), then replace the target cluster block with the preceding Serverless NextGen configuration.
