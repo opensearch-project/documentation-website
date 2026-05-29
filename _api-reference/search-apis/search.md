@@ -96,7 +96,7 @@ All fields are optional.
 Field | Type | Description
 :--- | :--- | :---
 `aggs` | Object | In the optional `aggs` parameter, you can define any number of aggregations. Each aggregation is defined by its name and one of the types of aggregations that OpenSearch supports. For more information, see [Aggregations]({{site.url}}{{site.baseurl}}/aggregations/).
-`docvalue_fields` | Array of objects | The fields to return in their `doc_values` form. You can include a format for the returned values (for example, a date format). For `knn_vector` fields, supported formats are `binary` (default, base64-encoded) and `array` (JSON numeric arrays). For more information, see [Retrieving vector fields using `docvalue_fields`]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/retrieve-specific-fields/#retrieving-vector-fields-using-docvalue_fields).
+`docvalue_fields` | Array of objects | The fields to return in their `doc_values` form. You can include a format for the returned values (for example, a date format). For `knn_vector` fields, supported formats are `binary` (default, Base64-encoded) and `array` (JSON numeric arrays). For more information, see [Retrieving vector fields using `docvalue_fields`]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/retrieve-specific-fields/#retrieving-vector-fields-using-docvalue_fields).
 `fields` | Array | The fields to search for in the request. Specify a format to return results in a certain format, such as date and time.
 `explain` | String | Whether to return details about how OpenSearch computed the document's score. Default is `false`.
 `from` | Integer | The starting index to search from. Default is 0.
