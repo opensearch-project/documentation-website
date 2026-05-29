@@ -67,4 +67,4 @@ Annotations are markers that can be added to time-series visualizations. Follow 
 
 The visualization automatically updates to display your annotations, as shown in the following image.
 
-  <img src="{{site.url}}{{site.baseurl}}/images/dashboards/tsvb-with-annotations.png" alt="TSVB visualization with annotations" width="700"/>
+  ![TSVB visualization with annotations]({{site.url}}{{site.baseurl}}/images/dashboards/tsvb-with-annotations.png){: width="700" }

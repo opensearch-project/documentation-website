@@ -17,7 +17,7 @@ Data Prepper polls the Amazon SQS queue for S3 event notifications. When Data Pr
 
 The following diagram shows the overall architecture of the components involved.
 
-<img src="{{site.url}}{{site.baseurl}}/images/data-prepper/s3-source/s3-architecture.jpg" alt="S3 source architecture">{: .img-fluid}
+![S3 source architecture]({{site.url}}{{site.baseurl}}/images/data-prepper/s3-source/s3-architecture.jpg)
 
 The component data flow is as follows:
 
@@ -33,7 +33,7 @@ Data Prepper supports reading data from S3 using the [`s3` source]({{site.url}}{
 
 The following diagram shows a conceptual outline of a Data Prepper pipeline reading from S3.
 
-<img src="{{site.url}}{{site.baseurl}}/images/data-prepper/s3-source/s3-pipeline.jpg" alt="S3 source architecture">{: .img-fluid}
+![S3 source architecture]({{site.url}}{{site.baseurl}}/images/data-prepper/s3-source/s3-pipeline.jpg)
 
 ## Prerequisites
 
@@ -97,7 +97,7 @@ The following two options can be used to handle S3 object processing errors:
 
 The following diagram shows the system architecture when using SQS with DLQ.
 
-<img src="{{site.url}}{{site.baseurl}}/images/data-prepper/s3-source/s3-architecture-dlq.jpg" alt="S3 source architecture with dlq">{: .img-fluid}
+![S3 source architecture with dlq]({{site.url}}{{site.baseurl}}/images/data-prepper/s3-source/s3-architecture-dlq.jpg)
 
 To use an SQS dead-letter queue, perform the following steps:
 

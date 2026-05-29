@@ -31,7 +31,7 @@ To enable the feature:
 
 To access ML functionality in OpenSearch Dashboards, select **OpenSearch plugins** > **Machine Learning**.
 
-<img src="{{site.url}}{{site.baseurl}}/images/ml/ml-dashboard/ml-dashboard.png" alt="Machine Learning section in OpenSearch dashboards">
+![Machine Learning section in OpenSearch dashboards]({{site.url}}{{site.baseurl}}/images/ml/ml-dashboard/ml-dashboard.png)
 
 In the Machine Learning section, you now have access to the **Deployed models** dashboard.
 
@@ -39,7 +39,7 @@ In the Machine Learning section, you now have access to the **Deployed models** 
 
 The deployed models dashboard gives admins the ability to check the status of any models stored inside your OpenSearch cluster. 
 
-<img src="{{site.url}}{{site.baseurl}}/images/ml/ml-dashboard/deployed-models.png" alt="The deployed models view.">
+![The deployed models view.]({{site.url}}{{site.baseurl}}/images/ml/ml-dashboard/deployed-models.png)
 
 The dashboard includes the following information about the model:
 
@@ -53,7 +53,7 @@ The dashboard includes the following information about the model:
 
 As of OpenSearch 2.6, the only action available is **View Status Details**, shown in the following image. 
 
-<img src="{{site.url}}{{site.baseurl}}/images/ml/ml-dashboard/view-status-details.png" alt="You can view status details under actions.">
+![You can view status details under actions.]({{site.url}}{{site.baseurl}}/images/ml/ml-dashboard/view-status-details.png)
 
 When selected, the Status Details panel appears.
 
@@ -64,7 +64,7 @@ The panel provides the following details inside the panel:
 
 A list of nodes gives you a view of each node the model is running on, including each node’s **Node ID** and status, as shown in the following image. This is useful if you want to use the node's **Node ID** to determine why a node is unresponsive.
 
-<img src="{{site.url}}{{site.baseurl}}/images/ml/ml-dashboard/model-node-details.png" alt="The status of each node running the model.">
+![The status of each node running the model.]({{site.url}}{{site.baseurl}}/images/ml/ml-dashboard/model-node-details.png)
 
 ## Next steps
 
