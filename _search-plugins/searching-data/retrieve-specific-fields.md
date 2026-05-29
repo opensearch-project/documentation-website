@@ -159,9 +159,11 @@ GET /my_index/_search
 {% include copy-curl.html %}
 
 Additionally, you can use [most fields]({{site.url}}{{site.baseurl}}/query-dsl/full-text/multi-match/#most-fields) and [field aliases]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/alias/) in the `fields` parameter because it queries both the document `_source` and `_mappings` of the index.
+
 <!-- vale off -->
 ## Searching with docvalue_fields
 <!-- vale on -->
+
 To retrieve specific fields from the index, you can also use the `docvalue_fields` parameter. This parameter works slightly differently as compared to the `fields` parameter. It retrieves information from doc values rather than from the `_source` field, which is more efficient for fields that are not analyzed, like keyword, date, and numeric fields. Doc values have a columnar storage format optimized for efficient sorting and aggregations. It stores the values on disk in a way that is easy to read. When you use `docvalue_fields`, OpenSearch reads the values directly from this optimized storage format. It is useful for retrieving values of fields that are primarily used for sorting, aggregations, and for use in scripts.
 
 The following example demonstrates how to use the `docvalue_fields` parameter.
@@ -261,21 +263,20 @@ The response contains the `author` and `publication_date` fields:
 **Introduced 3.7**
 {: .label .label-purple }
 
-Use `docvalue_fields` to retrieve `knn_vector` fields directly from doc values, which avoids reading and parsing the full `_source`. This provides faster retrieval of vectors in the search response.
+You can retrieve `knn_vector` fields using `docvalue_fields` instead of the `_source`. This is faster because OpenSearch reads the vector directly from `doc_values` rather than parsing the full `_source` document.
 
-This feature supports all vector data types (`float`, `byte`, and `binary`), all compression levels, and all k-NN engines (Lucene, Faiss, and NMSLIB). You can use it on existing indexes without reindexing.
-{: .note}
+Retrieving `knn_vector` fields from `doc_values` supports all vector data types (`float`, `byte`, and `binary`), all compression levels, and all k-NN engines (Lucene, Faiss, and NMSLIB). You can use it on existing indexes without reindexing.
 
 For performance tuning guidance, see [Retrieve vectors using doc values]({{site.url}}{{site.baseurl}}/vector-search/performance-tuning-search/#retrieve-vectors-using-doc-values).
 
-The following output formats are supported:
+The following output formats are supported.
 
 | Format | Description |
 | :--- | :--- |
-| `binary` (default) | Returns vectors as base64-encoded little-endian byte strings. Provides approximately 2x throughput improvement over the `array` format for JSON transport and reduces response payload size by 30–40%. |
+| `binary` (Default) | Returns vectors as Base64-encoded little-endian byte strings. Provides approximately 2x throughput improvement over the `array` format for JSON transport and reduces response payload size by 30--40%. |
 | `array` | Returns vectors as JSON numeric arrays. |
 
-The following example demonstrates how to retrieve a vector field using `docvalue_fields`.
+To retrieve a vector field using `docvalue_fields`, follow these steps:
 
 1. Create an index with a `knn_vector` field:
 
@@ -311,7 +312,7 @@ The following example demonstrates how to retrieve a vector field using `docvalu
     ```
     {% include copy-curl.html %}
 
-3. Retrieve the vector using `docvalue_fields` with the default `binary` format:
+3. Retrieve the vector using `docvalue_fields` using the default `binary` format:
 
     ```json
     POST /my_vector_index/_search
@@ -330,7 +331,7 @@ The following example demonstrates how to retrieve a vector field using `docvalu
     ```
     {% include copy-curl.html %}
 
-    The response returns the vector as a base64-encoded string:
+    The response returns the vector as a Base64-encoded string:
 
     ```json
     {
@@ -385,7 +386,7 @@ The following example demonstrates how to retrieve a vector field using `docvalu
     }
     ```
 
-To retrieve other document fields from `_source` while getting vectors through doc values, exclude the vector field from `_source`:
+To retrieve other document fields from the `_source` while retrieving vectors using `doc_values`, exclude the vector field from the `_source`:
 
 ```json
 POST /my_vector_index/_search
@@ -409,6 +410,7 @@ POST /my_vector_index/_search
 <!-- vale off -->
 ### Using docvalue_fields with nested objects
 <!-- vale on -->
+
 In OpenSearch, if you want to retrieve doc values for nested objects, you cannot directly use the `docvalue_fields` parameter because it will return an empty array. Instead, you should use the `inner_hits` parameter with its own `docvalue_fields` property, as shown in the following example.
 
 1. Define the index mappings:
