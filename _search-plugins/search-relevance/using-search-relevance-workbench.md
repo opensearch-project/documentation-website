@@ -314,20 +314,20 @@ In this example, you'll create the same experiment and review its results.
 
 In the left navigation pane, select **OpenSearch Plugins** > **Search Relevance** and then select **Query Set Comparison**, as shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/search-relevance-workbench/select_query_set_comparison.png" alt="Select Query Set Comparison Experiment"/>{: .img-fluid }
+![Select Query Set Comparison Experiment]({{site.url}}{{site.baseurl}}/images/search-relevance-workbench/select_query_set_comparison.png)
 
 Select the query set you created (`TVs`) and the search configurations (`my_production_config`, `title_boost`), and then select **Start Evaluation**, as shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/search-relevance-workbench/query_set_comparison_experiment_definition.png" alt="Define Query Set Comparison Experiment"/>{: .img-fluid }
+![Define Query Set Comparison Experiment]({{site.url}}{{site.baseurl}}/images/search-relevance-workbench/query_set_comparison_experiment_definition.png)
 
 You are automatically directed to the experiment overview table, shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/search-relevance-workbench/experiment_table_overview.png" alt="Experiment Overview Table"/>{: .img-fluid }
+![Experiment Overview Table]({{site.url}}{{site.baseurl}}/images/search-relevance-workbench/experiment_table_overview.png)
 
 To review the results, select the topmost (most recent) experiment. The experiment view page shows three elements:
 1. The experiment parameters.
 2. The aggregate metrics resulting from the experiment, shown in the following image.
-<img src="{{site.url}}{{site.baseurl}}/images/search-relevance-workbench/aggregate_metrics_comparison_experiment.png" alt="Aggregate Metrics for Comparison Experiment"/>{: .img-fluid }
+![Aggregate Metrics for Comparison Experiment]({{site.url}}{{site.baseurl}}/images/search-relevance-workbench/aggregate_metrics_comparison_experiment.png)
 3. The individual metrics per query.
 
 To visually assess the differences between two result sets, select a query event.

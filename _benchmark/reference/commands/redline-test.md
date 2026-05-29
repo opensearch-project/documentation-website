@@ -21,7 +21,7 @@ When the `--redline-test` flag is used, OpenSearch Benchmark performs the follow
 
 The following images provides a visual overview of the redline testing architecture.
 
-<img src="{{site.url}}{{site.baseurl}}/images/benchmark/osb-actor-system.png" alt="Redline Overview" width="600">
+![Redline Overview]({{site.url}}{{site.baseurl}}/images/benchmark/osb-actor-system.png){: width="600" }
 
 
 ## Usage

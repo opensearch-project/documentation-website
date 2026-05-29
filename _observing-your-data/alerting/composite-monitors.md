@@ -571,7 +571,7 @@ Begin by navigating to the **Create monitor** page in OpenSearch Dashboards: **A
 
 To use the visual editor for defining a workflow and trigger conditions, select the **Visual editor** radio button in the **Monitor defining method** section. This is shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/alerting/vis-editor.png" alt="Selecting the Visual editor" width="50%">
+![Selecting the Visual editor]({{site.url}}{{site.baseurl}}/images/alerting/vis-editor.png){: width="50%" }
 
 To finish creating a composite monitor in the visual editor, follow these steps:
 
@@ -591,7 +591,7 @@ To finish creating a composite monitor in the visual editor, follow these steps:
 1. Define a trigger or triggers for the composite monitor. In the **Triggers** section, select **Add trigger**. Add a trigger name, then define the trigger conditions.
     * Use the **Select delegate monitor** label to open the pop-up window shown in the following image.
     
-    <img src="{{site.url}}{{site.baseurl}}/images/alerting/trigger1.png" alt="This pop-up window shows options for selecting a delegate monitor and trigger condition operator" width="50%">
+    ![This pop-up window shows options for selecting a delegate monitor and trigger condition operator]({{site.url}}{{site.baseurl}}/images/alerting/trigger1.png){: width="50%" }
     
     * Use the **Select delegate monitor** dropdown list to select a delegate monitor from those defined in the previous step. For the first delegate monitor, you can select NOT as the operator if you prefer. After the monitor is populated in the field, you can use the trash can icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/alerting/trash-can-icon.png" class="inline-icon" alt="trash can icon"/>{:/}) to the right of the list to remove the monitor if needed.
     * Select the plus sign ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/alerting/plus-sign-icon.png" class="inline-icon" alt="plus sign"/>{:/}) to the right of the first monitor to select a second delegate monitor. After selecting a second monitor, select one of the operators `AND`, `OR`, `AND NOT`, or `OR NOT` to apply the condition between the two monitors. After the operator is applied, you can select the operator to open the pop-up window again and change the selection.
@@ -609,7 +609,7 @@ To finish creating a composite monitor in the visual editor, follow these steps:
 
 To use the extraction query editor for defining a workflow and triggers, select the **Extraction query editor** radio button in the **Monitor defining method** section. This is shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/alerting/extract-q-editor.png" alt="Selecting the Extraction query editor" width="50%">
+![Selecting the Extraction query editor]({{site.url}}{{site.baseurl}}/images/alerting/extract-q-editor.png){: width="50%" }
 
 The extraction query editor follows the same general steps as the visual editor, but it allows you to build the composite monitor workflow and alert triggers using extractions from the API query. This provides you with the ability to create more advanced configurations not supported by the visual editor. The following sections provide examples of content for each of these two fields. All other steps for composite monitor creation are the same as in those for the visual editor.
 
@@ -652,7 +652,7 @@ After a composite monitor is created, it appears in the list of monitors on the 
 
 For composite monitors, The **Alerts** section of the details window includes the **Actions** column, which includes the view details icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/view-monitor-icon.png" class="inline-icon" alt="view monitor icon"/>{:/}). The following image shows the **Actions** column as the last column to the right. 
 
-<img src="{{site.url}}{{site.baseurl}}/images/alerting/comp-details-alerts.png" alt="Alerts section of the monitor details window" width="75%">
+![Alerts section of the monitor details window]({{site.url}}{{site.baseurl}}/images/alerting/comp-details-alerts.png){: width="75%" }
 
 Select this icon to open the **Alert details** window. This window shows you all of the audit alerts that were part of the execution that generated the chained alert and includes the delegate monitor that generated the audit alert. Select the **X** in the upper-right corner of the window to close **Alert details**.
 
