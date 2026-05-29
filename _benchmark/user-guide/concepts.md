@@ -43,7 +43,7 @@ At the end of each test, OpenSearch Benchmark produces a table that summarizes t
 
 The following diagram illustrates how each component of the table is measured during the lifecycle of a request involving the OpenSearch cluster, the OpenSearch client, and OpenSearch Benchmark.
 
-![]({{site.url}}{{site.baseurl}}/images/benchmark/concepts-diagram.png)
+![Diagram showing how service time, latency, and throughput are measured during the lifecycle of a request]({{site.url}}{{site.baseurl}}/images/benchmark/concepts-diagram.png)
 
 ### Differences between OpenSearch Benchmark and a traditional client-server system
 
@@ -73,7 +73,7 @@ OpenSearch Benchmark does not have insight into how long OpenSearch takes to pro
 
 OpenSearch Benchmark measures *service time*, which is the amount of time between when the `opensearch-py` client sends a request to and receives a response from the OpenSearch cluster. Unlike the traditional definition of service time, the OpenSearch Benchmark definition includes overhead, such as network latency, load balancer overhead, or deserialization/serialization. The following image shows the differences between the traditional definition and the OpenSearch Benchmark definition.
 
-![]({{site.url}}{{site.baseurl}}/images/benchmark/service-time.png)
+![Comparison of traditional service time definition versus OpenSearch Benchmark service time definition]({{site.url}}{{site.baseurl}}/images/benchmark/service-time.png)
 
 ### Latency
 
