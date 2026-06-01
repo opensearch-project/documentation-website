@@ -303,7 +303,23 @@ curl -XPOST -k -H 'Content-Type: application/json' -u 'admin:<custom-admin-passw
 
 When replication resumes, the follower index picks up any changes that were made to the leader index while replication was paused.
 
-Note that you can't resume replication after it's been paused for more than 12 hours. You must [stop replication]({{site.url}}{{site.baseurl}}/replication-plugin/api/#stop-replication), delete the follower index, and restart replication of the leader.
+Note that you can't resume replication after it's been paused for more than 12 hours. You must either use [force resume]({{site.url}}{{site.baseurl}}/replication-plugin/api/#force-resume) to restore from a snapshot, or [stop replication]({{site.url}}{{site.baseurl}}/replication-plugin/api/#stop-replication), delete the follower index, and restart replication of the leader.
+
+### Force resume after retention lease expiry
+
+If replication has been paused for more than 12 hours, the retention lease on the leader cluster expires. A normal resume request will fail with an error indicating that the retention lease doesn't exist. In this case, use the `force_resume` parameter:
+
+```bash
+curl -XPOST -k -H 'Content-Type: application/json' -u 'admin:<custom-admin-password>' 'https://localhost:9200/_plugins/_replication/follower-01/_resume?pretty' -d '
+{
+   "force_resume": true
+}'
+```
+
+This triggers a snapshot bootstrap: the plugin acquires new retention leases on the leader, deletes the follower index, and restores it from a snapshot of the leader. Once the restore completes, normal translog-based replication resumes automatically.
+
+The follower index is temporarily unavailable during the snapshot restore. Plan accordingly for production workloads.
+{: .warning }
 
 ## Stop replication
 

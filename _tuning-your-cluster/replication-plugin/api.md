@@ -86,7 +86,7 @@ POST /_plugins/_replication/{follower-index}/_pause
 {}
 ```
 
-You can't resume replication after it's been paused for more than 12 hours. You must [stop replication]({{site.url}}{{site.baseurl}}/replication-plugin/api/#stop-replication), delete the follower index, and restart replication of the leader.
+You can't resume replication after it's been paused for more than 12 hours. You must either use [force resume]({{site.url}}{{site.baseurl}}/replication-plugin/api/#force-resume) to restore from a snapshot, or [stop replication]({{site.url}}{{site.baseurl}}/replication-plugin/api/#stop-replication), delete the follower index, and restart replication of the leader.
 
 #### Example response
 
@@ -108,6 +108,33 @@ Resumes replication of the leader index. Send this request to the follower clust
 POST /_plugins/_replication/{follower-index}/_resume
 {}
 ```
+
+#### Force resume
+
+If replication has been paused for more than 12 hours, the retention lease on the leader expires and a normal resume is no longer possible. You can use the `force_resume` parameter to restore the follower index from a snapshot of the leader and re-establish replication:
+
+```json
+POST /_plugins/_replication/{follower-index}/_resume
+{
+   "force_resume": true
+}
+```
+
+Specify the following options:
+
+Options | Description | Type | Required
+:--- | :--- |:--- |:--- |
+`force_resume` | When set to `true`, performs a snapshot bootstrap of the follower index from the leader when retention leases have expired. Defaults to `false`. | `boolean` | No
+
+When `force_resume` is `true` and the retention lease has expired, the plugin performs the following steps:
+
+1. Acquires new retention leases on the leader to prevent further translog pruning.
+2. Deletes the existing follower index.
+3. Restores the follower index from a snapshot of the leader.
+4. Resumes normal translog-based replication.
+
+If the retention lease still exists (pause was less than 12 hours), a normal resume is performed regardless of the `force_resume` flag.
+{: .note }
 
 #### Example response
 
