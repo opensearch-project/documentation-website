@@ -23,9 +23,9 @@ If you are running vector or k-NN workloads on an Amazon OpenSearch Service doma
 
 ## OpenSearch Service compared to OpenSearch Serverless NextGen
 
-The following table lists key differences between Amazon OpenSearch Service and OpenSearch Serverless NextGen.
+The following table lists key differences between Amazon OpenSearch Service and Amazon OpenSearch Serverless NextGen.
 
-| Feature | Amazon OpenSearch Service | OpenSearch Serverless NextGen |
+| Feature | Amazon OpenSearch Service | Amazon OpenSearch Serverless NextGen |
 |:---------|:---------------------------|:----------------------|
 | Cluster settings | Full `_cluster/settings` API | Not supported |
 | Snapshot/restore | Supported | Not supported (use Migration Assistant backfill) |

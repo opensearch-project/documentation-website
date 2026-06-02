@@ -3,6 +3,7 @@ Adoptium
 AI21 Labs Jurassic
 Amazon
 Amazon OpenSearch Serverless
+Amazon OpenSearch Serverless NextGen
 Amazon OpenSearch Service
 Amazon Bedrock
 Amazon Kinesis

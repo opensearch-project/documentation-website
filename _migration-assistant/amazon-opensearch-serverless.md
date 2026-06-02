@@ -19,7 +19,7 @@ If your target is an Amazon OpenSearch Serverless NextGen collection, Serverless
 
 ## Collection types
 
-Amazon OpenSearch Serverless NextGen supports the following collection types at launch. Migration Assistant auto-detects the collection type and adjusts behavior accordingly.
+Amazon OpenSearch Serverless NextGen supports the following collection types. Migration Assistant auto-detects the collection type and adjusts behavior accordingly.
 
 | Collection type | Document IDs |
 |:---------------|:------------|
