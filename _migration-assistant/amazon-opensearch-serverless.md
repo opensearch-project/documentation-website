@@ -24,7 +24,7 @@ Amazon OpenSearch Serverless NextGen supports the following collection types. Mi
 | Collection type | Document IDs |
 |:---------------|:------------|
 | `SEARCH` | Preserves source document IDs |
-| `TIMESERIES` | Server-generated IDs (source IDs not preserved) |
+| `TIMESERIES` | Server-generated IDs (source IDs not preserved). Not supported on NextGen at launch (available with Classic). |
 | `VECTORSEARCH` | Server-generated IDs (source IDs not preserved) |
 
 If your source data relies on specific document IDs (for example, for lookups or deduplication), use a `SEARCH` collection.

@@ -113,7 +113,7 @@ Expected output:
 
 The target Amazon OpenSearch Serverless NextGen collection must be configured as follows:
 
-- **Type** -- `VECTORSEARCH` for this playbook. For other workloads, use `SEARCH` or `TIMESERIES`.
+- **Type** -- `VECTORSEARCH` for this playbook. For other workloads, use `SEARCH`. `TIMESERIES` is not supported on NextGen at launch (available with Classic).
 - **Encryption policy** -- At least one encryption policy covering the collection.
 - **Network policy** -- Public or VPC access depending on your requirements.
 - **Data access policy** -- Grants the Migration Assistant IAM role full index read and write access.
