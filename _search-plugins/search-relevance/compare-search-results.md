@@ -70,7 +70,7 @@ The following example query boosts the `title` field in the search results:
 
 The following example screen shows a search for the word "cup" in the `description` and `item_name` fields with and without boosting the `item_name`.
 
-<img src="{{site.url}}{{site.baseurl}}/images/search_relevance.png" alt="Compare search results"/>{: .img-fluid }
+![Compare search results]({{site.url}}{{site.baseurl}}/images/search_relevance.png)
 
 If a result in Result 1 appears in Result 2, the `Up` and `Down` indicators below the result number signify how many positions the result moved up or down compared to the same result in Result 2. In this example, the document with the ID 2 is `Up 1` position in Result 2 compared to Result 1 and `Down 1` position in Result 1 compared to Result 2.
 
@@ -102,7 +102,7 @@ You cannot save a given comparison for future use, so Compare Search Results is 
 
 To use Search Relevance Workbench, follow steps 1--4. The displayed results and the options for viewing the differences are shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/search-relevance-workbench/comparing_search_results.png" alt="Compare search results"/>{: .img-fluid }
+![Compare search results]({{site.url}}{{site.baseurl}}/images/search-relevance-workbench/comparing_search_results.png)
 
 The top section provides a summary of the results: how many of the retrieved results are unique to the query on the left, how many are unique to the query on the right, and how many are part of both queries?
 
@@ -136,7 +136,7 @@ To compare search results with reranked results in OpenSearch Dashboards, enter 
 
 The following example demonstrates searching for the text "snacking nuts" in the `abo` index. The documents in the index contain snack descriptions in the `bullet_point` array.
 
-<img src="{{site.url}}{{site.baseurl}}/images/kendra_query.png" alt="OpenSearch Intelligent Ranking query"/>{: .img-fluid }
+![OpenSearch Intelligent Ranking query]({{site.url}}{{site.baseurl}}/images/kendra_query.png)
 
 1. Enter `snacking nuts` in the search bar.
 1. Enter the following query, which searches the `bullet_point` field for the search text "snacking nuts", in **Query 1**:

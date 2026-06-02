@@ -216,4 +216,4 @@ To view alert insights in OpenSearch Dashboards, use the following steps:
 
 1. From the query language dropdown list, select **PPL**. You will see the generated data summary after the query text, as shown in the following image.
 
-    <img src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/data-summary.png" alt="data summary">
+    ![data summary]({{site.url}}{{site.baseurl}}/images/dashboards-assistant/data-summary.png)

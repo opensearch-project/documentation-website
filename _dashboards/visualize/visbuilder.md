@@ -15,7 +15,7 @@ You can use the VisBuilder visualization type in OpenSearch Dashboards to create
 * The flexibility to change visualization types and index patterns quickly.
 * The ability to easily navigate between multiple screens.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/vis-builder-2.png" alt="VisBuilder new visualization start page">
+![VisBuilder new visualization start page]({{site.url}}{{site.baseurl}}/images/dashboards/vis-builder-2.png)
 
 ## Try VisBuilder in the OpenSearch Dashboards playground
 
@@ -31,10 +31,10 @@ Follow these steps to create a new visualization using VisBuilder in your enviro
 
 1. From the top menu, select **Visualize > Create visualization > VisBuilder**.
 
-   <img src="{{site.url}}{{site.baseurl}}/images/dashboards/vis-builder-1.png" alt="Select the VisBuilder visualization type" width="550">  
+   ![Select the VisBuilder visualization type]({{site.url}}{{site.baseurl}}/images/dashboards/vis-builder-1.png){: width="550" }  
 
 1. Drag and drop field names from the left column into the **Configuration** panel to generate a visualization.
 
 Here’s an example visualization. Your visualization will look different depending on your data and the fields you select.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/drag-drop-generated-viz.png" alt="Visualization generated using sample data">
+![Visualization generated using sample data]({{site.url}}{{site.baseurl}}/images/dashboards/drag-drop-generated-viz.png)

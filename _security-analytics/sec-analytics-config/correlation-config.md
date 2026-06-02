@@ -16,25 +16,25 @@ Having at least two data sources in the rule configuration is the basis for maki
 
 1. Begin by selecting **Security Analytics** in the OpenSearch Dashboards main menu. Then select **Correlation rules** from the Security Analytics menu on the left side of the screen. The **Correlation rules** page is displayed, as shown in the following image.
    
-   <img src="{{site.url}}{{site.baseurl}}/images/Security/sec-analytics/create-corr-rule.png" alt="The correlation rules page" width="85%">
+   ![The correlation rules page]({{site.url}}{{site.baseurl}}/images/Security/sec-analytics/create-corr-rule.png){: width="85%" }
 
 1. Select **Create correlation rule**. The **Create correlation rule** window opens.
 1. In the **Correlation rule details** field, enter a name for the rule, as shown in the following image.
   
-   <img src="{{site.url}}{{site.baseurl}}/images/Security/sec-analytics/corr-rule-config1.png" alt="The correlation rule name" width="50%">
+   ![The correlation rule name]({{site.url}}{{site.baseurl}}/images/Security/sec-analytics/corr-rule-config1.png){: width="50%" }
 
 1. The **Correlation queries** field contains two dropdown lists. In the **Select index** dropdown list, specify an index or index pattern for the data source. In the **Log type** dropdown list, specify the log type associated with the index, as shown in the following image.
   
-   <img src="{{site.url}}{{site.baseurl}}/images/Security/sec-analytics/corr-rule-config2.png" alt="The data source and log type for the query" width="45%">
+   ![The data source and log type for the query]({{site.url}}{{site.baseurl}}/images/Security/sec-analytics/corr-rule-config2.png){: width="45%" }
   
 1. In the **Field** dropdown list, specify a log field. In the **Field value** text box, enter a value for the field, as shown in the following image.
   
-   <img src="{{site.url}}{{site.baseurl}}/images/Security/sec-analytics/corr-rule-config3.png" alt="The field and field value for the query" width="45%">
+   ![The field and field value for the query]({{site.url}}{{site.baseurl}}/images/Security/sec-analytics/corr-rule-config3.png){: width="45%" }
 
 1. To add more fields to the query, select **Add field**.    
 1. After configuring the first query, repeat the previous step to configure a second query. You can select **Add query** at the bottom of the window to add more queries for the rule, as shown in the following image.
   
-   <img src="{{site.url}}{{site.baseurl}}/images/Security/sec-analytics/corr-rule-config4.png" alt="A second query for the correlation rule" width="50%">
+   ![A second query for the correlation rule]({{site.url}}{{site.baseurl}}/images/Security/sec-analytics/corr-rule-config4.png){: width="50%" }
 
 1. Once the rule is complete, select **Create correlation rule** in the lower-right corner of the window. OpenSearch creates a new rule, the screen returns to the **Correlation rules** window, and the new rule appears in the table of correlation rules. To edit the rule, select the rule name in the **Name** column. The **Edit correlation rule** window opens.
 

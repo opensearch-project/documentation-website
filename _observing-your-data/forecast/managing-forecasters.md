@@ -42,7 +42,7 @@ A forecaster (that is, the underlying forecasting job) can be in any of the foll
 
 The following diagram illustrates the relationships and transitions between states.
 
-<img src="{{site.url}}{{site.baseurl}}/images/forecast/state.png" alt="Forecast state diagram" width="1600" height="1600">
+![Forecast state diagram]({{site.url}}{{site.baseurl}}/images/forecast/state.png){: width="1600" height="1600" }
 
 ## Find and filter forecasters
 
