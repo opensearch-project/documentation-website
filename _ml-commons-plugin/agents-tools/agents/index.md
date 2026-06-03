@@ -108,7 +108,7 @@ POST /_plugins/_ml/agents/_register
     "model_id": "gpt-4",
     "model_provider": "openai/v1/chat/completions",
     "credential": {
-      "openai_key": "sk-your-api-key"
+      "openai_api_key": "sk-your-api-key"
     },
     "parameters": {
       "max_tokens": 1000,
