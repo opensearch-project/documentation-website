@@ -1,17 +1,17 @@
 ---
 layout: default
-title: Using dashboard variables in the dashboard
+title: Using dashboard variables
 parent: Dashboard variables
 nav_order: 20
 ---
 
-# Using dashboard variables in the dashboard
+# Using dashboard variables
 
-This page covers how to use dashboard variables in the dashboard.
+You can reference dashboard variables in queries and visualization editors to create dynamic, interactive dashboards.
 
 ## Variable syntax
 
-Dashboard variables can be referenced in queries using two syntax options:
+Dashboard variables can be referenced in queries using the following syntax options.
 
 ### Simple syntax
 
@@ -20,6 +20,7 @@ Use `$variableName` for most cases:
 ```sql
 source=logs | where service='$service' | stats count() by region
 ```
+{% include copy.html %}
 
 ### Braced syntax
 
@@ -28,86 +29,99 @@ Use `${variableName}` when the variable name is followed by other characters wit
 ```sql
 source = logs | where ${env}_level = "error"
 ```
+{% include copy.html %}
 
-The braced syntax ensures the variable name is properly delimited. Without braces, `$env_level` would look for a variable named `env_level` instead of `env`.
+Braced syntax ensures that the variable name is properly delimited. Without braces, `$env_level` is interpreted as a variable named `env_level` instead of `env`.
 
----
+## Using variables in queries
 
-## Using variables in query
+Dashboard variables support Piped Processing Language (PPL) and Prometheus Query Language (PromQL). The following examples use PPL.
 
-Dashboard variables work with PPL, PromQL and any future query languages. Take PPL as an example:
+#### Single-value variable for filtering
 
-### PPL (Piped Processing Language)
-
-**Single-value variable for filtering**:
+The following query filters logs by a single-value variable:
 
 ```sql
 source=logs | where service='$service' | stats count() by status_code
 ```
+{% include copy.html %}
 
-When `service` is set to `api`, the executed query becomes:
+When `service` is set to `api`, the query resolves to:
 
 ```sql
 source=logs | where service='api' | stats count() by status_code
 ```
 
-**Multi-value variable for filtering**:
+#### Multi-value variable for filtering
+
+The following query filters logs by a multi-value variable:
 
 ```sql
 source=logs | where region IN $region | stats count() by service
 ```
+{% include copy.html %}
 
-When `region` has multiple values selected (`us-east`, `us-west`), the executed query becomes:
+When `region` has multiple values selected (`us-east`, `us-west`), the query resolves to:
 
 ```sql
 source=logs | where region IN ('us-east', 'us-west') | stats count() by service
 ```
 
-**Multi-value with numbers**:
+#### Multi-value with numbers
 
-When a Query variable's options are detected as numbers or booleans, multi-values are formatted without quotes:
+When a query variable's options are detected as numeric or Boolean values, multi-values are formatted without quotes:
 
 ```sql
 source=logs | where status_code IN $status | stats count()
 ```
+{% include copy.html %}
 
-Becomes:
+When `status` has multiple numeric values selected, the query resolves to:
 
 ```sql
 source=logs | where status_code IN (200, 404, 500) | stats count()
 ```
 
-**Variable for grouping dimension**:
+#### Variable for grouping dimension
+
+The following query uses a variable to control the grouping dimension:
 
 ```sql
 source=logs | stats count() by `$group_by`
 ```
+{% include copy.html %}
 
-When `group_by` is set to `region`, the query becomes:
+When `group_by` is set to `region`, the query resolves to:
 
 ```sql
 source=logs | stats count() by region
 ```
 
-**Variable for time interval**:
+#### Variable for time interval
+
+The following query uses a variable to control the time interval:
 
 ```sql
 source=logs | stats count() by span(timestamp, $interval)
 ```
+{% include copy.html %}
 
-When `interval` is set to `5m`, the query becomes:
+When `interval` is set to `5m`, the query resolves to:
 
 ```sql
 source=logs | stats count() by span(timestamp, 5m)
 ```
 
-**Variable for metric calculation**:
+#### Variable for metric calculation
+
+The following query uses a variable to control which metric is calculated:
 
 ```sql
 source=metrics | stats avg($metric) by service
 ```
+{% include copy.html %}
 
-When `metric` is set to `response_time`, the query becomes:
+When `metric` is set to `response_time`, the query resolves to:
 
 ```sql
 source=metrics | stats avg(response_time) by service
@@ -115,169 +129,208 @@ source=metrics | stats avg(response_time) by service
 
 ### Multi-value variable formatting
 
-When a variable allows multiple selections, values are automatically formatted based on the query language:
+When a variable allows multiple selections, values are automatically formatted based on the query language.
 
-| Query language | String values | Number/Boolean values |
-|----------------|---------------|----------------------|
-| PPL | `('value1', 'value2')` | `(123, 456)` |
-| PromQL | `(value1\|value2)` | `(value1\|value2)` |
-| Other | `value1, value2` | `value1, value2` |
+<table>
+  <thead>
+    <tr>
+      <th>Query language</th>
+      <th>String values</th>
+      <th>Numeric or Boolean values</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>PPL</td>
+      <td><code>('value1', 'value2')</code></td>
+      <td><code>(123, 456)</code></td>
+    </tr>
+    <tr>
+      <td>PromQL</td>
+      <td><code>(value1|value2)</code></td>
+      <td><code>(value1|value2)</code></td>
+    </tr>
+    <tr>
+      <td>Other</td>
+      <td><code>value1, value2</code></td>
+      <td><code>value1, value2</code></td>
+    </tr>
+  </tbody>
+</table>
 
-The formatting happens automatically during query interpolation. You don't need to handle the formatting yourself.
-
-### Autocomplete support
+### Autocomplete suggestions
 
 Query editors in OpenSearch Dashboards provide autocomplete suggestions for dashboard variables.
 
-1. In the query editor, type `$`.
-2. A dropdown appears showing all available dashboard variables.
-3. Select a variable from the list or continue typing to filter.
-4. Press Enter or Tab to insert the variable.
+1. In the query editor, type `$`. A dropdown appears showing all available dashboard variables.
+1. Select a variable from the list or continue typing to filter, as shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboard-variables/variable_autocomplete.png" alt="variables autocomplete">
+   ![Query editor showing autocomplete dropdown with available dashboard variables]({{site.url}}{{site.baseurl}}/images/dashboard-variables/variable_autocomplete.png)
+1. Press Enter or Tab to insert the variable.
 
-### Query interpolation
+## Using variables in visualizations
 
-Query interpolation is the process of replacing variable placeholders with their actual values before executing a query.
+Dashboard variables integrate with the OpenSearch Dashboards visualization editor, which provides full support for dashboard variables when editing visualizations from a dashboard.
 
-**How interpolation works:**
+### Filtering by a variable value
 
-1. When a visualization is rendered, the original query text is preserved with variable placeholders (for example, `source=logs | where service=$service`).
-2. Before executing the query, the interpolation service detects variable references using the pattern `$variableName` or `${variableName}`.
-3. Each placeholder is replaced with the variable's current value.
-4. The interpolated query is sent to the data source for execution.
-
-This process is automatic and transparent. You write queries with variable placeholders, and they are executed with actual values.
-
-
-## Using dashboard variables in dashboard
-
-Dashboard variables integrate with OpenSearch Dashboards visualization editor which provides full support for dashboard variables when editing visualizations from a dashboard.
-
-### Filter selected visualizations
 Variables can serve as filtering conditions within your visualizations. Instead of applying filters to entire dashboards, embed variables directly into PPL queries to create targeted filtering for specific panels.
 
-1. Creating a query type variable named `machine_os` by a PPL query in a new dashboard
+To filter a visualization by a variable value, follow these steps:
 
-   <img src="{{site.url}}{{site.baseurl}}/images/dashboard-variables/filter_case_1.png" alt="filter case 1">
+1. Create a `machine_os` variable:
+   1. In your Observability workspace, select **Dashboards** in the left navigation.
+   1. Open an existing dashboard or select **Create** > **Dashboard** to create a new dashboard. If creating a new dashboard, save it first by entering a title and selecting **Save**.
+   1. At the top of the dashboard, select **Add variable**.
+   1. In the **Name**, enter `machine_os`. In the **Type**, select **Query**. In the **Options Query**, select `opensearch_dashboards_sample_data_logs`. In the query box, enter the following query:
+   
+      ```sql
+      | FIELDS `machine.os`
+      ```
+      {% include copy.html %}
+   1. Select **Preview** and make sure that you see values such as `win 8`, `ios`, and `win xp` in the **Preview of values**. Then select **Add variable** to save.
 
-2. Creating a new visualization editor with the `${machine_os}` variable, save and return to the dashboard
 
-   <img src="{{site.url}}{{site.baseurl}}/images/dashboard-variables/filter_case_2.png" alt="filter case 2">
-
-   Visualization editor query:
+1. Filter by a variable value:
+   1. Open a new visualization editor by selecting **Create new** in the dashboard and then selecting **Add visualization**. 
+   1. In the time filter, select **Last 30 days**.
+   1. In the query box, enter the following query:
 
    ```sql
    | WHERE `machine.os` = '${machine_os}' | STATS avg(memory) BY span(`@timestamp`, 1d) 
    ```
+   {% include copy.html %}
 
-3. Change the `machine_os` options and you can see the visualization change
+   To filter the visualization by `machine_os` values, select the value in the `machine_os` dropdown list (for example, select `win 8`), as shown in the following image.
 
-   <img src="{{site.url}}{{site.baseurl}}/images/dashboard-variables/filter_case_3.gif" alt="filter case 3">
+   ![Visualization editor showing average memory over time filtered by machine_os set to win 8]({{site.url}}{{site.baseurl}}/images/dashboard-variables/filter_case_variable.png)
    
-### Interactive metric selection control visualizations
-Variables can serve as metric components, acting as dynamic metric conditions within your visualizations. Embed variables into queries to parameterize which metrics to calculate or display.
+### Selecting a metric dynamically
 
-1. Creating a custom type variable named `log_metric` with `memory` and `bytes` options in the dashboard
+Use a variable to control which field is used in an aggregation. This lets you switch between metrics (for example, `memory` and `bytes`) without editing the query.
 
-   <img src="{{site.url}}{{site.baseurl}}/images/dashboard-variables/metrics_case_1.png" alt="metrics case 1">
+To select a metric dynamically, follow these steps:
 
-2. Creating a new visualization editor with the `${log_metric}` variable, save and return to the dashboard
+1. Create a `log_metric` variable:
+   1. In your Observability workspace, select **Dashboards** in the left navigation.
+   1. Open an existing dashboard or select **Create** > **Dashboard** to create a new dashboard. If creating a new dashboard, save it first by entering a title and selecting **Save**.
+   1. At the top of the dashboard, select **Add variable**.
+   1. In the **Name**, enter `log_metric`. In the **Type**, select **Custom**. In the **Custom options**, enter `memory` and press **Enter** to add. Then enter `bytes` and press **Enter** to add. 
+   1. Select **Add variable** to save.
 
-   <img src="{{site.url}}{{site.baseurl}}/images/dashboard-variables/metrics_case_2.png" alt="metrics case 2">
+1. Use the variable in a visualization:
+   1. Open a new visualization editor by selecting **Create new** in the dashboard and then selecting **Add visualization**. 
+   1. In the time filter, select **Last 30 days**.
+   1. In the query box, enter the following query:
 
-   Visualization editor query:
+      ```sql
+      source=opensearch_dashboards_sample_data_logs
+      | stats avg($log_metric) as avg_${log_metric} by span(`timestamp`, 1h) as timestamp, response
+      ```
+      {% include copy.html %}
 
-   ```sql
-   source=opensearch_dashboards_sample_data_logs
-   | stats avg($log_metric) as avg_${log_metric} by span(`timestamp`, 1h) as timestamp, response
-   ```
+   To switch between metrics, select a value in the `log_metric` dropdown list (for example, select `memory` or `bytes`).
 
-3. Change the `log_metric` options and you can see the visualization change
+   ![Visualization editor showing average memory over time with the log_metric variable set to memory]({{site.url}}{{site.baseurl}}/images/dashboard-variables/metrics_case_variable.png)
 
-   <img src="{{site.url}}{{site.baseurl}}/images/dashboard-variables/metrics_case_3.gif" alt="metrics case 3">
+### Changing time intervals dynamically
 
-### Time interval control visualizations
-Variables can serve as time interval components, acting as span conditions within your visualizations. Embed variables into your queries to dynamically control time bucketing and aggregation intervals.
+Use a variable to let dashboard viewers switch between time aggregation intervals (for example, `1h`, `6h`, or `1d`) without editing the query.
 
-1. Creating a custom type variable named `Interval` with `1d`, `12h`, `6h` and `1h` options in the dashboard
+To change time intervals dynamically, follow these steps:
 
-   <img src="{{site.url}}{{site.baseurl}}/images/dashboard-variables/interval_case_1.png" alt="interval case 1">
+1. Create an `interval` variable:
+   1. In your Observability workspace, select **Dashboards** in the left navigation.
+   1. Open an existing dashboard or select **Create** > **Dashboard** to create a new dashboard. If creating a new dashboard, save it first by entering a title and selecting **Save**.
+   1. At the top of the dashboard, select **Add variable**.
+   1. In the **Name**, enter `interval`. In the **Type**, select **Custom**. In the **Custom options**, enter `1d` and press **Enter** to add. Repeat for `12h`, `6h`, and `1h`.
+   1. Select **Add variable** to save.
 
-2. Creating a new visualization editor with the `${Interval}` variable, save and return to the dashboard
+1. Use the variable in a visualization:
+   1. Open a new visualization editor by selecting **Create new** in the dashboard and then selecting **Add visualization**.
+   1. In the time filter, select **Last 30 days**.
+   1. In the query box, enter the following query:
 
-   <img src="{{site.url}}{{site.baseurl}}/images/dashboard-variables/interval_case_2.png" alt="interval case 2">
+      ```sql
+      source=opensearch_dashboards_sample_data_logs | stats AVG(`bytes`) as avg_bytes, MAX(`bytes`) as max_bytes by span(`timestamp`, $interval)
+      ```
+      {% include copy.html %}
 
-   Visualization editor query:
+   To switch between intervals, select a value in the `interval` dropdown list (for example, select `6h`) and select **Update**. The visualization reflects the selected time bucketing, as shown in the following image.
 
-   ```sql
-   source=opensearch_dashboards_sample_data_logs
-   | stats AVG(`bytes`) as avg_bytes, MAX(`bytes`) as max_bytes by span(`timestamp`, $Interval)
-   ```
+   ![Visualization editor showing avg_bytes and max_bytes over time with the interval variable set to 1d]({{site.url}}{{site.baseurl}}/images/dashboard-variables/interval_case_variable.png)
 
-3. Change the `Interval` options and you can see the visualization change
+### Changing aggregation functions dynamically
 
-   <img src="{{site.url}}{{site.baseurl}}/images/dashboard-variables/interval_case_3.gif" alt="interval case 3">
+Use a variable to let dashboard viewers switch between aggregation functions (for example, `avg`, `max`, or `min`) without editing the query.
 
-### Dynamic aggregation functions control visualizations
-Variables can serve as aggregation functions, acting as dynamic STATS conditions within your visualizations. Embed variables into queries to parameterize which statistical operations to perform on your data.
+To change aggregation functions dynamically, follow these steps:
 
-1. Creating a custom type variable named `function` with `max`, `min` and `avg` options in the dashboard
+1. Create a `function` variable:
+   1. In your Observability workspace, select **Dashboards** in the left navigation.
+   1. Open an existing dashboard or select **Create** > **Dashboard** to create a new dashboard. If creating a new dashboard, save it first by entering a title and selecting **Save**.
+   1. At the top of the dashboard, select **Add variable**.
+   1. In the **Name**, enter `function`. In the **Type**, select **Custom**. In the **Custom options**, enter `avg` and press **Enter** to add. Repeat for `max` and `min`.
+   1. Select **Add variable** to save.
 
-   <img src="{{site.url}}{{site.baseurl}}/images/dashboard-variables/function_case_1.png" alt="function case 1">
+1. Use the variable in a visualization:
+   1. Open a new visualization editor by selecting **Create new** in the dashboard and then selecting **Add visualization**.
+   1. In the time filter, select **Last 30 days**.
+   1. In the query box, enter the following query:
 
-2. Creating a new visualization editor with the `${function}` variable, save and return to the dashboard
+      ```sql
+      | STATS ${function}(memory) BY span(`@timestamp`, 1d)
+      ```
+      {% include copy.html %}
 
-   <img src="{{site.url}}{{site.baseurl}}/images/dashboard-variables/function_case_2.png" alt="function case 2">
+   To switch between functions, select a value in the `function` dropdown list (for example, select `max`) and select **Update**. The visualization reflects the selected aggregation function, as shown in the following image.
 
-   Visualization editor query:
+   ![Visualization editor showing average memory over time with the function variable set to avg]({{site.url}}{{site.baseurl}}/images/dashboard-variables/function_case_variable.png)
 
-   ```sql
-   | WHERE `machine.os` = '${machine_os}' | STATS ${function}(memory) BY span(`@timestamp`, 1d) 
-   ```
+## Cascading and cross-panel variables
 
-3. Change the `function` options and you can see the visualization change
-
-   <img src="{{site.url}}{{site.baseurl}}/images/dashboard-variables/function_case_3.gif" alt="function case 3">
-
-## Advanced use cases
+The following sections describe advanced variable use cases.
 
 ### Cascading variables
 
-Create dependent variables where one variable filters the options of another.
+Create dependent variables for which one variable filters the options of another. For example, select a region first, then select from services available in that region.
 
-**Example**: Select a region first, then select from services available in that region.
+Create a `region` variable:
 
-1. Create a `region` variable:
-   ```sql
-   source=logs | dedup region | fields region
-   ```
+```sql
+source=logs | dedup region | fields region
+```
+{% include copy.html %}
 
-2. Create a `service` variable that references `region`:
-   ```sql
-   source=logs | where region='$region' | dedup service | fields service
-   ```
+Create a `service` variable that references `region`:
+
+```sql
+source=logs | where region='$region' | dedup service | fields service
+```
+{% include copy.html %}
 
 When the `region` value changes, the `service` variable automatically refreshes its options to show only services in the selected region.
 
 ### Cross-panel filtering
 
-Use a single variable to filter multiple visualizations simultaneously.
+Use a single variable to filter multiple visualizations simultaneously. For example, create a `service` variable and reference it in multiple visualization editors.
 
-**Example**: Create a `service` variable and reference it in multiple visualization editors:
+Visualization editor 1 (request count by service):
 
-**Visualization editor 1** - Request count by service:
 ```sql
 source=logs | where service='$service' | stats count() by status_code
 ```
+{% include copy.html %}
 
-**Visualization editor 2** - Response time by service:
+Visualization editor 2 (response time by service):
+
 ```sql
 source=metrics | where service='$service' | stats avg(response_time)
 ```
+{% include copy.html %}
 
 Changing the `service` variable value updates both visualization editors at once.
 
 ## Next steps
 
-- [Creating dashboards]({{site.url}}{{site.baseurl}}/dashboards/dashboard/) - Learn more about dashboard features
+- [Creating dashboards]({{site.url}}{{site.baseurl}}/dashboards/dashboard/)
