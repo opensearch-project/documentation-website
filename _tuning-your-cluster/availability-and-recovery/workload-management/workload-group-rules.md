@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Workload group rules
-nav_order: 30
+nav_order: 25
 parent: Workload management
 grand_parent: Availability and recovery
 redirect_from:

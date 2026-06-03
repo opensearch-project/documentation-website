@@ -16,7 +16,7 @@ When defined, a search pipeline is an ordered list of search processors that is 
 
 ![Search processor diagram]({{site.url}}{{site.baseurl}}/images/search-pipelines.png)
 
-Both request and response processing for the pipeline are performed on the coordinator node, so there is no shard-level processing.
+Both request and response processing for the pipeline are performed on the coordinating node, so there is no shard-level processing.
 {: .note}
 
 ## Search processors

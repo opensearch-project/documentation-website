@@ -18,7 +18,7 @@ Token graphs use this information to build a graph structure of token relationsh
 
 The following diagram depicts the relationship between `position` and `positionLength` when using [`synonym_graph`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/synonym-graph/). The "NYC" token is assigned a `position` of `0` and a `positionLength` of `3`.
 
-<img src="{{site.url}}{{site.baseurl}}/images/nyc-token-graph.png" alt="token graph" width="700">
+![token graph]({{site.url}}{{site.baseurl}}/images/nyc-token-graph.png){: width="700" }
 
 ## Using token graphs during indexing and querying
 
@@ -198,4 +198,4 @@ To better understand the difference between graph-aware token filters and standa
 
 A hit occurs when using the graph-aware token filter because during the [`match_phrase`]({{site.url}}{{site.baseurl}}/query-dsl/full-text/match-phrase/) query, an additional subquery is generated using the token graph. The following diagram illustrates the token graph created by the graph-aware token filter.
 
-<img src="{{site.url}}{{site.baseurl}}/images/ssd-token-graph.png" alt="token graph" width="700">
+![token graph]({{site.url}}{{site.baseurl}}/images/ssd-token-graph.png){: width="700" }

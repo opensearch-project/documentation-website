@@ -11,7 +11,7 @@ nav_order: 20
 The `ingest-attachment` plugin enables OpenSearch to extract content and other information from files using the Apache text extraction library [Tika](https://tika.apache.org/).
 Supported document formats include PPT, PDF, RTF, ODF, and many more Tika ([Supported Document Formats](https://tika.apache.org/2.9.2/formats.html)).
 
-The input field must be a base64-encoded binary.
+The input field must be a Base64-encoded binary.
 
 ## Installing the plugin
 
@@ -25,7 +25,7 @@ Install the `ingest-attachment` plugin using the following command:
 
 | Name | Required | Default | Description |
 | :--- | :--- | :--- | :--- |
-| `field` | Yes | N/A | The field from which to get the base64-encoded binary. |
+| `field` | Yes | N/A | The field from which to get the Base64-encoded binary. |
 | `target_field` | No | Attachment | The field that stores the attachment information. |
 | `properties` | No | All properties | An array of properties that should be stored. Can be `content`, `language`, `date`, `title`, `author`, `keywords`, `content_type`, or `content_length`. |
 | `indexed_chars` | No | `100_000` | The number of characters used for extraction to prevent fields from becoming too large. Use `-1` for no limit. |

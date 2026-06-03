@@ -15,7 +15,7 @@ When using Data Prepper as a server-side component to collect trace data, you ca
 
 The following flowchart illustrates the trace analytics workflow, from running OpenTelemetry Collector to using OpenSearch Dashboards for visualization.
 
-<img src="{{site.url}}{{site.baseurl}}/images/data-prepper/trace-analytics/trace-analytics-components.jpg" alt="Trace analytics component overview">{: .img-fluid}
+![Trace analytics component overview]({{site.url}}{{site.baseurl}}/images/data-prepper/trace-analytics/trace-analytics-components.jpg)
 
 To monitor trace analytics, you need to set up the following components in your service environment:
 - Add **instrumentation** to your application so it can generate telemetry data and send it to an OpenTelemetry collector.
@@ -27,7 +27,7 @@ To monitor trace analytics, you need to set up the following components in your 
 
 To monitor trace analytics in Data Prepper, we provide three pipelines: `entry-pipeline`, `raw-trace-pipeline`, and `service-map-pipeline`. The following image provides an overview of how the pipelines work together to monitor trace analytics. 
 
-<img src="{{site.url}}{{site.baseurl}}/images/data-prepper/trace-analytics/trace-analytics-pipeline.jpg" alt="Trace analytics pipeline overview">{: .img-fluid}
+![Trace analytics pipeline overview]({{site.url}}{{site.baseurl}}/images/data-prepper/trace-analytics/trace-analytics-pipeline.jpg)
 
 
 ### OpenTelemetry trace source

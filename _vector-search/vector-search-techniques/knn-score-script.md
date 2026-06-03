@@ -104,7 +104,7 @@ All parameters are required.
   This script is part of the k-NN plugin and isn't available at the standard `_scripts` path. A GET request to  `_cluster/state/metadata` doesn't return it, either.
 
 - `field` is the field that contains your vector data.
-- `query_value` is the point you want to find the nearest neighbors for. For the Euclidean and cosine similarity spaces, the value must be an array of floats that matches the dimension set in the field's mapping. For Hamming bit distance, this value can be either of type signed long or a base64-encoded string (for the long and binary field types, respectively).
+- `query_value` is the point you want to find the nearest neighbors for. For the Euclidean and cosine similarity spaces, the value must be an array of floats that matches the dimension set in the field's mapping. For Hamming bit distance, this value can be either of type signed long or a Base64-encoded string (for the long and binary field types, respectively).
 - `space_type` corresponds to the distance function. For more information, see [Spaces]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-spaces/).
 
 The [post filter example in the approximate approach]({{site.url}}{{site.baseurl}}/vector-search/filter-search-knn/) shows a search that returns fewer than `k` results. If you want to avoid this, the scoring script method lets you essentially invert the order of events. In other words, you can filter the set of documents on which to execute the k-NN search.
@@ -183,7 +183,7 @@ GET my-knn-index-2/_search
 ## Getting started with the scoring script for binary data
 
 The k-NN scoring script also allows you to run k-NN search on your binary data with the Hamming distance space.
-In order to use Hamming distance, the field of interest must have either a `binary` or `long` field type. If you're using `binary` type, the data must be a base64-encoded string.
+In order to use Hamming distance, the field of interest must have either a `binary` or `long` field type. If you're using `binary` type, the data must be a Base64-encoded string.
 
 This example shows how to use the Hamming distance space with a `binary` field type:
 

@@ -307,7 +307,7 @@ Introduced 2.1
 
 Provides the enabled/disabled status and the metadata for all policies specified. Multiple policy names are separated with `,`. You can also specify desired policies with a wildcard pattern. 
 
-<img src="{{site.url}}{{site.baseurl}}/images/sm-state-machine.png" alt="SM State Machine" width="150" style="float: left; margin-right: 15px;"/>
+![SM State Machine]({{site.url}}{{site.baseurl}}/images/sm-state-machine.png){: width="150" style="float: left; margin-right: 15px;" }
 
 SM uses a state machine for snapshot creation and deletion. The image on the left shows one execution period of the creation workflow, from the CREATION_START state to the CREATION_FINISHED state. Deletion workflow follows the same pattern as creation workflow. 
 

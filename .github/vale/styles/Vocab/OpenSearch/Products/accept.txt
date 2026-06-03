@@ -14,7 +14,9 @@ Apache HttpClient 5 Transport
 Apache Kafka
 Auditbeat
 AWS Cloud
+AWS Signature Version 4
 Capture and Replay
+Claude Code
 Claude Desktop
 Cohere Command
 Cohere Embed
@@ -53,16 +55,18 @@ Jaeger
 Jaeger HotROD
 JSON
 JSON Web Token
+Karpenter
 Keycloak
 Kerberos
 Kibana
 Kinesis
 Kiro
 Kubernetes
+Kyverno
 Lambda
 LangChain
-LangGraph
 Langflow
+LangGraph
 Linux
 Log4j
 Logstash
@@ -72,6 +76,7 @@ Metadata-Migration-Tool
 Metricbeat
 Microsoft Power BI
 Migration Assistant
+Migration Console
 Minikube
 Nagios
 Okta
@@ -110,7 +115,10 @@ RPM Package Manager
 Ruby
 Search Relevance Workbench
 Simple Schema for Observability
+Solr
+SolrCloud
 Strands Agents
+Strimzi
 Tableau
 Textract
 Titan
@@ -121,6 +129,7 @@ Traffic Capture Proxy
 Traffic Replayer
 Tribuo
 VisBuilder
+Workflow CLI
 Winlogbeat
 XGBoost
 Zipf

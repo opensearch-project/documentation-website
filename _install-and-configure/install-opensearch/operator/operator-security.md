@@ -105,7 +105,7 @@ spec:
 
 The namespace of the `OpenSearchUser` must be the namespace the OpenSearch cluster itself is deployed in.
 
-A secret called `sample-user-password` must exist in the `default` namespace with the base64-encoded password in the `password` key.
+A secret called `sample-user-password` must exist in the `default` namespace with the Base64-encoded password in the `password` key.
 {: .note}
 
 You can also store multiple user passwords in the same secret. To do this, create a secret in which each key equals a user name and the value is the user password. Otherwise, changes in the secret do not trigger user reconciliation.
