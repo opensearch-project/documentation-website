@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Coordinate and region maps
-parent: Visualize application
+parent: Building visualizations visuallylication
 grand_parent: Building data visualizations
 has_children: true
 nav_order: 15

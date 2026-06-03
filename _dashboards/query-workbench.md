@@ -2,7 +2,7 @@
 layout: default
 title: Using Query Workbench
 parent: Exploring data
-nav_order: 30
+nav_order: 20
 redirect_from:
   - /search-plugins/sql/workbench/
 ---

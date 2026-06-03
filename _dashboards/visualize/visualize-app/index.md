@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Visualize application
+title: Building visualizations visually
 parent: Building data visualizations
 nav_order: 10
 has_children: true
@@ -10,13 +10,13 @@ redirect_from:
   - /dashboards/visualize/viz-index/
 ---
 
-# Visualize application
+# Building visualizations visually
 
-The Visualize application uses a point-and-click interface to create data visualizations from aggregations. To open the Visualize application, select **Visualize** from the left navigation menu.
+The **Visualize** application uses a point-and-click interface to create data visualizations from aggregations. To open the **Visualize** application, select **Visualize** from the left navigation menu.
 
 ## Visualization types
 
-The Visualize application supports the following visualization types.
+The **Visualize** application supports the following visualization types.
 
 ### Area charts
 

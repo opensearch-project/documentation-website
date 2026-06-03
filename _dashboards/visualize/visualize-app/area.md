@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Area charts
-parent: Visualize application
+parent: Building visualizations visuallylication
 grand_parent: Building data visualizations
 nav_order: 5
 redirect_from:

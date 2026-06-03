@@ -2,6 +2,7 @@
 layout: default
 title: Using dashboard variables
 parent: Dashboard variables
+grand_parent: Creating dashboards
 nav_order: 20
 ---
 

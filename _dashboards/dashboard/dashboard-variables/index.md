@@ -2,7 +2,9 @@
 layout: default
 title: Dashboard variables
 has_children: true
-nav_order: 75
+has_toc: false
+nav_order: 10
+parent: Creating dashboards
 redirect_from:
   - /dashboards/dashboard-variables/
 ---
@@ -11,9 +13,9 @@ redirect_from:
 **Introduced 3.7.0**
 {: .label .label-purple }
 
-Using dashboard variables, you can create interactive, dynamic dashboards by defining reusable values that can be referenced in visualization queries. Variables can be used for filters, metrics, dimensions, intervals, fields, aggregations, and any other query parameter, eliminating the need to manually edit queries.
+Dashboard variables are reusable values that you can reference in [visualization editor]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/) queries. Use variables for filters, metrics, dimensions, intervals, fields, aggregations, and any other query parameter, eliminating the need to manually edit PPL or PromQL queries when switching between data views.
 
-Dashboard variables are available in **Observability** workspaces only. To use dashboard variables, create an Observability workspace if you don't already have one.
+Dashboard variables are available in **Observability** workspaces only. To use dashboard variables, create an Observability workspace if you don't already have one. For more information, see [Workspace for OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/workspace/).
 {: .note}
 
 Use dashboard variables to:
@@ -102,7 +104,7 @@ For more information, see [Create a workspace]({{site.url}}{{site.baseurl}}/dash
 
 The `extension` variable now appears at the top of the dashboard with a dropdown.
 
-For more information, see [Managing dashboard variables]({{site.url}}{{site.baseurl}}/dashboards/dashboard-variables/managing-variables/).
+For more information, see [Managing dashboard variables]({{site.url}}{{site.baseurl}}/dashboards/dashboard/dashboard-variables/managing-variables/).
 
 ### Step 4: Use the variable in a visualization
 
@@ -127,7 +129,7 @@ When you change the `extension` value in the dropdown, the visualization automat
 If no results appear, expand the time range (for example, **Last 90 days**) using the [time filter]({{site.url}}{{site.baseurl}}/dashboards/discover/time-filter/) in the upper-right corner.
 {: .tip}
 
-For more information, see [Using dashboard variables]({{site.url}}{{site.baseurl}}/dashboards/dashboard-variables/using-variables/).
+For more information, see [Using dashboard variables]({{site.url}}{{site.baseurl}}/dashboards/dashboard/dashboard-variables/using-variables/).
 
 ## Variable storage
 
@@ -159,3 +161,10 @@ Current variable values are also synchronized to the dashboard URL so that you c
 - Share dashboards with specific filter values preselected.
 - Bookmark dashboards with desired variable states.
 - Persist variable selections across page refreshes.
+
+## Related documentation
+
+- [Managing dashboard variables]({{site.url}}{{site.baseurl}}/dashboards/dashboard/dashboard-variables/managing-variables/)
+- [Using dashboard variables]({{site.url}}{{site.baseurl}}/dashboards/dashboard/dashboard-variables/using-variables/)
+- [Building visualizations using queries]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/)
+- [Workspace for OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/workspace/)

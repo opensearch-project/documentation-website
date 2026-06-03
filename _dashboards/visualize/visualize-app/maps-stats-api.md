@@ -2,7 +2,7 @@
 layout: default
 title: Maps Stats API
 nav_order: 20
-grand_parent: Visualize application
+grand_parent: Building visualizations visuallylication
 parent: Coordinate and region maps 
 has_children: false
 redirect_from:

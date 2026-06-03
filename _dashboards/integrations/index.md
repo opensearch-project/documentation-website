@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Integrations in OpenSearch Dashboards
-nav_order: 135
+nav_order: 110
 has_children: false
 redirect_from:
   - /integrations/

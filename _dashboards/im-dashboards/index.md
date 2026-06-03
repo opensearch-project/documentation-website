@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Index Management
+title: Index management
 nav_order: 80
 has_children: true
 redirect_from:
@@ -8,7 +8,7 @@ redirect_from:
   - /dashboards/im-dashboards/
 ---
 
-# Index Management
+# Index management
 Introduced 2.5
 {: .label .label-purple }
 
@@ -18,7 +18,7 @@ An example of the interface is shown in the following image.
 
 ![Index Management user interface]({{site.url}}{{site.baseurl}}/images/dashboards/index-management-UI.png)
 
-## Get started with Index Management using Dashboards
+## Get started with Index management using Dashboards
 
 **Step 1: Open Index Management** 
 

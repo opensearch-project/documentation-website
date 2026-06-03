@@ -1,17 +1,17 @@
 ---
 layout: default
-title: Visualization editor
+title: Building visualizations using queries
 parent: Building data visualizations
-nav_order: 75
+nav_order: 20
 has_children: true
 has_toc: false
 redirect_from:
   - /dashboards/visualize/visualization-editor/
 ---
 
-# Visualization editor
+# Building visualizations using queries
 
-The visualization editor enables you to write Piped Processing Language (PPL) queries and map query results directly to chart fields. Unlike the **Visualize** application that uses aggregation-based configurations, the visualization editor automatically maps query result fields to chart axes and supports progressive refinement through dimensions, multiple metrics, and dual axes.
+The visualization editor enables you to write Piped Processing Language (PPL) or Prometheus Query Language (PromQL) queries and map query results directly to chart fields. Unlike the **Visualize** application that uses aggregation-based configurations, the visualization editor automatically maps query result fields to chart axes and supports progressive refinement through dimensions, multiple metrics, and dual axes.
 
 ## Prerequisites
 
@@ -41,16 +41,22 @@ The visualization editor requires a workspace. To create a workspace, follow the
 
 For more information, see [Workspaces]({{site.url}}{{site.baseurl}}/dashboards/workspace/).
 
-### Step 3: Create an index pattern
+### Step 3: Configure a data source
 
-The visualization editor requires a time-based index pattern associated with your workspace. To create an index pattern, follow these steps. For more information, see [Index patterns]({{site.url}}{{site.baseurl}}/dashboards/management/index-patterns/).
+The visualization editor requires a dataset associated with your workspace:
 
-1. Inside your workspace, go to **Index patterns** (under **Management**).
-2. Select **Create index pattern**.
-3. Enter the index name (for example, `opensearch_dashboards_sample_data_logs`).
-4. Select **Next step**.
-5. Select a time field (for example, `@timestamp`).
-6. Select **Create index pattern**.
+- For PPL, configure an index pattern:
+
+    1. Inside your workspace, go to **Index patterns** (under **Management**).
+    2. Select **Create index pattern**.
+    3. Enter the index name (for example, `opensearch_dashboards_sample_data_logs`).
+    4. Select **Next step**.
+    5. Select a time field (for example, `@timestamp`).
+    6. Select **Create index pattern**.
+
+For more information, see [Index patterns]({{site.url}}{{site.baseurl}}/dashboards/management/index-patterns/).
+
+- For PromQL (Prometheus data source), configure a Prometheus data source connection for your workspace. For more information, see [Connecting Prometheus to OpenSearch]({{site.url}}{{site.baseurl}}/dashboards/management/connect-prometheus/).
 
 ### Step 4 (Optional): Install sample data 
 
@@ -93,6 +99,12 @@ To create a visualization, follow these steps:
 1. Select **Update** or press **Enter** to run the query.
 1. The editor automatically selects a chart type and maps fields to axes based on your query results. To change the chart type, use the **Visualization type** dropdown.
 1. To customize the field mapping, use the **Fields** panel.
+
+## Using dashboard variables
+
+You can use dashboard variables to create dynamic, interactive visualizations. Variables let you switch between filter values, metrics, time intervals, and aggregation functions without editing the query. Reference variables in your PPL or PromQL queries using `$variableName` or `${variableName}` syntax.
+
+For more information, see [Dashboard variables]({{site.url}}{{site.baseurl}}/dashboards/dashboard/dashboard-variables/).
 
 ## Saving a visualization
 
@@ -155,4 +167,11 @@ The X-axis and Y-axis share the same configuration options. Each axis can be ind
 | **Show labels** | When enabled, shows category labels along the axis. |
 | **Alignment** | Controls the rotation of axis labels. **Horizontal** (0°), **Vertical** (90°), or **Angled** (45°). |
 | **Truncate after** | Sets the maximum character length for axis labels before truncation. |
+
+## Related documentation
+
+- [Dashboard variables]({{site.url}}{{site.baseurl}}/dashboards/dashboard/dashboard-variables/)
+- [Creating dashboards]({{site.url}}{{site.baseurl}}/dashboards/dashboard/)
+- [Index patterns]({{site.url}}{{site.baseurl}}/dashboards/management/index-patterns/)
+- [Connecting Prometheus to OpenSearch]({{site.url}}{{site.baseurl}}/dashboards/management/connect-prometheus/)
 

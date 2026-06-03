@@ -2,6 +2,7 @@
 layout: default
 title: Managing dashboard variables
 parent: Dashboard variables
+grand_parent: Creating dashboards
 nav_order: 10
 ---
 
@@ -13,10 +14,10 @@ You can create, edit, delete, organize, and view dashboard variables from within
 
 Before you start, ensure that you have met the following prerequisites:
 
-- Dashboard variables are [enabled]({{site.url}}{{site.baseurl}}/dashboards/dashboard-variables/#enabling-dashboard-variables) in your `opensearch_dashboards.yml` file.
+- Dashboard variables are [enabled]({{site.url}}{{site.baseurl}}/dashboards/dashboard/dashboard-variables/#enabling-dashboard-variables) in your `opensearch_dashboards.yml` file.
 - You have an [Observability workspace]({{site.url}}{{site.baseurl}}/dashboards/workspace/create-workspace/) set up.
 
-For the complete setup, see [Creating and using dashboard variables]({{site.url}}{{site.baseurl}}/dashboards/dashboard-variables/#creating-and-using-dashboard-variables).
+For the complete setup, see [Creating and using dashboard variables]({{site.url}}{{site.baseurl}}/dashboards/dashboard/dashboard-variables/#creating-and-using-dashboard-variables).
 
 ## Creating a variable
 
@@ -31,7 +32,7 @@ To create a new variable, follow these steps:
      - **Name** (required): The identifier used to reference the variable in queries using `$variableName` or `${variableName}` syntax.
      - **Label** (optional): A display name shown at the top of the dashboard.
      - **Description** (optional): Additional context about the variable's purpose.
-     - **Type** (required): Select **Query** or **Custom**. For more information about variable types, see [Variable types]({{site.url}}{{site.baseurl}}/dashboards/dashboard-variables/#variable-types).
+     - **Type** (required): Select **Query** or **Custom**. For more information about variable types, see [Variable types]({{site.url}}{{site.baseurl}}/dashboards/dashboard/dashboard-variables/#variable-types).
    - **Query type configuration** (for query type variables):
      - **Options Query**: Define a query to fetch variable options dynamically.
        - If needed, update the default language (PPL) to PromQL using the language toggle.
@@ -154,4 +155,4 @@ Keep the following considerations in mind:
 
 ## Next steps
 
-- [Using dashboard variables]({{site.url}}{{site.baseurl}}/dashboards/dashboard-variables/using-variables/)
+- [Using dashboard variables]({{site.url}}{{site.baseurl}}/dashboards/dashboard/dashboard-variables/using-variables/)

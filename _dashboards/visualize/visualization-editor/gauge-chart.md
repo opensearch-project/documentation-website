@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Gauge chart
-parent: Visualization editor
+parent: Building visualizations using queries
 grand_parent: Building data visualizations
 nav_order: 25
 ---

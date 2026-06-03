@@ -2,7 +2,7 @@
 layout: default
 title: Dev Tools
 parent: Exploring data
-nav_order: 40
+nav_order: 30
 redirect_from:
   - /dashboards/run-queries/
   - /dashboards/dev-tools/run-queries/

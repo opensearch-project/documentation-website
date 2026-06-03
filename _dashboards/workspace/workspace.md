@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Workspace for OpenSearch Dashboards
-nav_order: 110
+nav_order: 70
 has_children: true
 ---
 

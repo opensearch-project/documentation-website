@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Timeline
-parent: Visualize application
+parent: Building visualizations visuallylication
 grand_parent: Building data visualizations
 nav_order: 45
 redirect_from:

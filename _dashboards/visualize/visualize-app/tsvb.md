@@ -1,7 +1,7 @@
 ---
 layout: default
 title: TSVB
-parent: Visualize application
+parent: Building visualizations visuallylication
 grand_parent: Building data visualizations
 nav_order: 47
 redirect_from:

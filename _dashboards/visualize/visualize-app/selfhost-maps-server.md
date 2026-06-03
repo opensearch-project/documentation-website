@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Using self-hosted map servers
-grand_parent: Visualize application
+grand_parent: Building visualizations visuallylication
 parent: Coordinate and region maps
 nav_order: 40
 redirect_from:

@@ -1,15 +1,15 @@
 ---
 layout: default
-title: Dashboards Management
+title: Dashboards management
 nav_order: 100
 has_children: true
 ---
 
-# Dashboards Management
+# Dashboards management
 Introduced 2.10
 {: .label .label-purple }
 
-**Dashboards Management** is the central hub for managing and customizing OpenSearch data directly within OpenSearch Dashboards. 
+**Dashboards management** is the central hub for managing and customizing OpenSearch data directly within OpenSearch Dashboards. 
 
 OpenSearch and OpenSearch Dashboards permissions govern access to individual features. If you do not have the appropriate access permissions, consult your administrator.
 {: .warning}

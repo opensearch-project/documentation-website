@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Using maps 
-grand_parent: Visualize application
+grand_parent: Building visualizations visuallylication
 parent: Coordinate and region maps
 nav_order: 10
 redirect_from:
