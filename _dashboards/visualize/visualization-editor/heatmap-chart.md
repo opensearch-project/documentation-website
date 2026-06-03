@@ -1,141 +1,113 @@
 ---
 layout: default
-title: Heatmap
+title: Heatmap chart
 parent: Visualization editor
 grand_parent: Building data visualizations
-nav_order: 70
+nav_order: 30
 ---
 
-# Heatmap
+# Heatmap chart
 
-A heatmap uses color to represent the magnitude of values in a dataset. Each cell in the map corresponds to a combination of two dimensions, with the cell's color intensity reflecting the value associated with that combination. Use a heatmap when you want to:
+A heatmap uses color to represent the magnitude of values in a dataset. Each cell in the map corresponds to a combination of two dimensions, with the cell's color intensity reflecting the value associated with that combination.
 
-- **Identify hotspots or anomalies**: Spot clusters of high or low values in sensor readings, network activity, or error rates.
-- **Visualize system performance**: Compare metrics across multiple servers, patterns, or service components in a single view.
-  
-## Field selection
+## Creating a heatmap
 
-The heatmap uses the following field mappings:
+The following examples build on each other, starting with a basic heatmap and adding complexity. Before you begin, complete the [prerequisites]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/#prerequisites).
+
+### Basic heatmap
+
+Start with a query that aggregates a numeric metric by two categorical fields:
+
+```sql
+source = opensearch_dashboards_sample_data_flights | where FlightDelay = true | stats avg(FlightDelayMin) as avg_delay by OriginWeather, DestWeather
+```
+{% include copy.html %}
+
+After running this query, select **Heatmap** as the chart type. The fields are mapped as follows:
+
+- The **X-Axis** displays the `OriginWeather` field.
+- The **Y-Axis** displays the `DestWeather` field.
+- The **Value** displays the `avg_delay` field.
+
+The result is a grid of colored cells where each cell represents the average flight delay minutes for a specific origin-destination weather combination. Darker cells indicate higher values, as shown in the following image.
+
+![Basic heatmap showing average flight delay minutes by weather conditions]({{site.url}}{{site.baseurl}}/images/dashboards/visualization-editor/heatmap/heatmap-initial.png){: width="100%" }
+
+### Customizing the color schema and scale
+
+To better distinguish between values, change the color settings:
+
+1. In the **Heatmap** section, change **Color schema** to a different palette (for example, **Yellow to Orange**) to improve contrast.
+2. Enable **Scale to data bounds** to map the color range to the actual min and max of your data rather than calculated bounds.
+3. Change **Max number of colors** to increase or decrease the granularity of color bins, as shown in the following image.
+
+![Heatmap with customized color schema and scale]({{site.url}}{{site.baseurl}}/images/dashboards/visualization-editor/heatmap/heatmap-custom-colors.png){: width="100%" }
+
+### Enabling labels
+
+To display the numeric value inside each cell, enable **Show labels**. If cells are narrow, enable **Rotate** to angle the labels for better readability, as shown in the following image.
+
+![Heatmap with value labels displayed in cells]({{site.url}}{{site.baseurl}}/images/dashboards/visualization-editor/heatmap/heatmap-with-labels.png){: width="100%" }
+
+## Configuring a heatmap
+
+You can configure the following settings in the configuration panel.
+
+### Fields
+
+In the **Fields** section, configure the fields displayed on each axis.
 
 | Field | Description |
 | --- | --- |
-| **X-Axis** | A categorical field displayed along the horizontal axis. Each unique value becomes a column in the heatmap grid. |
-| **Y-Axis** | A categorical field displayed along the vertical axis. Each unique value becomes a row in the heatmap grid. |
-| **Value** | A numeric field whose magnitude determines the color intensity of each cell. Each cell represents the intersection of one X-Axis category and one Y-Axis category. |
+| **X-Axis** | Select a categorical field to display along the horizontal axis. Each unique value becomes a column in the heatmap grid. |
+| **Y-Axis** | Select a categorical field to display along the vertical axis. Each unique value becomes a row in the heatmap grid. |
+| **Value** | Select a numeric field whose magnitude determines the color intensity of each cell. Each cell represents the intersection of one X-Axis category and one Y-Axis category. |
 
-## Heatmap settings
+### Split
 
-The following settings let you customize the appearance and behavior of the heatmap.
+In the **Split by** dropdown list, select a field to split the chart into separate elements by value.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/visualization-editor/heatmap/heatmap-style-option.png" alt="Heatmap settings panel" width="400">
 
-| Setting | Options | Description |
-| --- | --- | --- |
-| **Use threshold colors** | On/Off | When enabled, cell colors are determined by threshold ranges rather than the selected color schema. |
-| **Color schema** | Greens, Blues, Reds, Greys, Green to Blue, Yellow to Orange | Controls the color theme used to represent value across cells. |
-| **Reverse schema** | On/Off | When enabled, the color mapping is inverted: higher values are represented with lighter colors, and lower values with darker colors. |
-| **Color scale** | Linear, Log, Sqrt | Defines how data values are mapped to colors. |
-| **Scale to data bounds** | On/Off | When enabled, calculates the minimum and maximum values from the dataset and maps the color scale accordingly. |
-| **Percentage mode** | On/Off | When enabled, values are converted to percentages and the color scale is normalized between 0 and 1. |
-| **Max number of colors** | Number | Controls the maximum number of discrete color bins used in the color scale. |
-| **Show labels** | On/Off | When enabled, displays the numeric value as a label inside each cell. |
+### Heatmap
 
-### Label options
-
-The following settings are available when **Show labels** is enabled:
-
-| Setting | Options | Description |
-| --- | --- | --- |
-| **Rotate** | On/Off | When enabled, rotates the value labels by 45 degrees for better readability in narrow cells. |
-| **Overwrite automatic color** | On/Off | When enabled, allows you to set a custom label color. |
-| **Color** | Hex color value | Sets the custom label color when **Overwrite automatic color** is enabled. |
-
-### Thresholds
-
-A threshold represents a limit that, when met or exceeded by a data value, is reflected visually through its color. To learn more, refer to [thresholds setting]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/style-options/thresholds-setting/).
+Use the following settings to customize the appearance of the heatmap.
 
 | Setting | Description |
 | --- | --- |
-| **Base color** | The color applied to values below the first threshold. The base threshold is always present and cannot be deleted, but its color can be changed. |
-| **Threshold values** | Define one or more threshold breakpoints. Each threshold specifies a numeric value and a color. |
+| **Use threshold colors** | When enabled, cell colors are determined by threshold ranges rather than the selected color schema. |
+| **Color schema** | Controls the color theme used to represent values across cells. Supported values: **Greens**, **Blues**, **Reds**, **Greys**, **Green to Blue**, **Yellow to Orange**. |
+| **Reverse schema** | When enabled, the color mapping is inverted: higher values are represented with lighter colors, and lower values with darker colors. |
+| **Color scale** | Defines how data values are mapped to colors. Supported values: **Linear**, **Log**, **Sqrt**. |
+| **Scale to data bounds** | When enabled, calculates the minimum and maximum values from the dataset and maps the color scale accordingly. |
+| **Percentage mode** | When enabled, values are converted to percentages and the color scale is normalized between 0 and 1. |
+| **Max number of colors** | Controls the maximum number of discrete color bins used in the color scale. |
+| **Show labels** | When enabled, displays the numeric value as a label inside each cell. |
+
+The following settings are available when **Show labels** is enabled.
+
+| Setting | Description |
+| --- | --- |
+| **Rotate** | When enabled, rotates the value labels by 45 degrees for better readability in narrow cells. |
+| **Overwrite automatic color** | When enabled, sets a custom label color. |
+| **Color** | Sets the custom label color when **Overwrite automatic color** is enabled. |
+
+### Thresholds
+
+For information about configuring thresholds, see [Thresholds]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/thresholds-setting/).
 
 ### Axes
 
-The X-axis and Y-axis share the same configuration options. Each axis can be independently customized.
-
-| Setting | Options | Description |
-| --- | --- | --- |
-| **Show axis** | On/Off | Toggle whether the axis is displayed. |
-| **Title** | Free text | A custom label for the axis. |
-| **Position** | X-axis: Top, Bottom / Y-axis: Left, Right | Controls the placement of the axis relative to the chart. |
-| **Show grid lines** | On/Off | When enabled, displays grid lines extending from the axis into the chart area. |
-| **Show labels** | On/Off | When enabled, displays category labels along the axis. |
-| **Label alignment** | Horizontal, Vertical, Angled | Controls the rotation of axis labels. Horizontal (0°), Vertical (90°), or Angled (45°). |
-| **Truncate after** | Number | Sets the maximum character length for axis labels before they are truncated. |
+The X-axis and Y-axis share the same configuration options. For more information, see [Axes]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/#axes).
 
 ### Legend
 
 The legend summarizes the visual color encodings used in the chart.
 
-| Setting | Options | Description |
-| --- | --- | --- |
-| **Show legend** | On/Off | Toggle whether the legend is displayed. |
-| **Position** | Left, Right, Top, Bottom | Controls where the legend appears relative to the chart. |
+| Setting | Description |
+| --- | --- |
+| **Show legend** | Shows or hides the legend. |
+| **Position** | Controls where the legend appears relative to the chart. Supported values: **Left**, **Right**, **Top**, **Bottom**. |
 
 ### Tooltip
 
-| Setting | Options | Description |
-| --- | --- | --- |
-| **Tooltip mode** | All, Hidden | Controls tooltip visibility. **All** shows a tooltip with value details on hover. **Hidden** disables tooltips. |
-
-## Tutorial: Building heatmaps
-
-This tutorial walks you through heatmap configurations using sample data. The examples use the sample flights index with fields such as `OriginWeather`, `DestWeather`, and `AvgTicketPrice`.
-
-### Prerequisites
-
-- A running OpenSearch Dashboards instance.
-- An index with categorical and numeric data (this tutorial uses the sample flights index).
-
-### Step 1: Basic heatmap
-
-Start with a query that aggregates a numeric metric by two categorical fields.
-
-**Query:**
-
-```sql
-source= <index> | where FlightDelay = true | stats avg(FlightDelayMin) as avg_delay by OriginWeather, DestWeather
-```
-
-After running this query, select **Heatmap** as the chart type. The fields are mapped as follows:
-
-- `OriginWeather` is mapped to the **X-Axis**.
-- `DestWeather` is mapped to the **Y-Axis**.
-- `avg_delay` is mapped to the **Value**.
-
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/visualization-editor/heatmap/heatmap-fields.png" alt="Heatmap field mapping panel" width="400">
-
-The result is a grid of colored cells where each cell represents the average flight delay minutes for a specific origin-destination weather combination. Darker cells indicate higher values.
-
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/visualization-editor/heatmap/heatmap-initial.png" alt="Basic heatmap showing average flight delay minutes by weather conditions" width="100%">
-
-### Step 2: Customizing the color schema and scale
-
-To better distinguish between values, change the color settings:
-
-1. In the **Heatmap** section, change **Color schema** to a different palette (for example, Yellow to Orange) to improve contrast.
-2. Enable **Scale to data bounds** to map the color range to the actual min and max of your data rather than calculated bounds.
-3. Adjust **Max number of colors** to increase or decrease the granularity of color bins.
-
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/visualization-editor/heatmap/heatmap-custom-colors.png" alt="Heatmap with customized color schema and scale" width="100%">
-
-### Step 3: Enabling labels
-
-For precise value reading, enable **Show labels** to display the numeric value inside each cell. If cells are narrow, enable **Rotate** to angle the labels for better readability.
-
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/visualization-editor/heatmap/heatmap-with-labels.png" alt="Heatmap with value labels displayed in cells" width="100%">
-
-## Next steps
-
-- Explore other chart types available in the [visualization editor]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/).
-- Add your visualization to a [dashboard]({{site.url}}{{site.baseurl}}/dashboards/dashboard/).
+Toggle the **Show tooltip** selector to enable or disable tooltips.

@@ -29,6 +29,7 @@ Boolean
 Dev
 [Dd]iscoverability
 Distro
+[Dd]onut
 [Dd]ownvote(s|d)?
 [Dd]uplicative
 [Ee]gress
@@ -49,6 +50,7 @@ Gantt
 gibibyte
 gRPC
 [Hh]ashmap
+[Hh]eatmaps?
 [Hh]ostname
 [Hh]yperparameters
 [Ii]mpactful
@@ -132,6 +134,7 @@ pprof
 [Ss]ignificand
 [Ss]napshott(ed|ing)
 stdout
+[Ss]tackable
 [Ss]temmers?
 [Ss]ubaggregation
 [Ss]ubcalculation

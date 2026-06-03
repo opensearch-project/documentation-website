@@ -5,51 +5,154 @@ parent: Building data visualizations
 nav_order: 75
 has_children: true
 has_toc: false
+redirect_from:
+  - /dashboards/visualize/visualization-editor/
 ---
-
-Note this feature requires to enable [workspace]({{site.url}}{{site.baseurl}}/dashboards/workspace/) and the new discover experience with explore.enabled: true.
-{: .important}
 
 # Visualization editor
 
-The visualization editor is a query-driven visualization tool available at **Explore** > **Visualization editor** (`/app/visualization-editor`). Unlike the traditional Visualize application that uses aggregation-based configurations, the visualization editor lets you write PPL (Piped Processing Language) queries and map query results directly to chart fields.
+The visualization editor enables you to write Piped Processing Language (PPL) queries and map query results directly to chart fields. Unlike the **Visualize** application that uses aggregation-based configurations, the visualization editor automatically maps query result fields to chart axes and supports progressive refinement through dimensions, multiple metrics, and dual axes.
 
-## Key features
+## Prerequisites
 
-- **Query-driven**: Write PPL queries to shape your data, then map result fields to chart axes.
-- **Auto field mapping**: When your query results match a chart type's expected structure, fields are mapped automatically.
-- **Multiple chart types**: Supports line charts, bar charts, and other visualization types.
-- **Progressive configuration**: Start with a simple query and refine the visualization by adding dimensions, multiple metrics, or dual axes.
+Before using the visualization editor, complete the following setup steps.
 
-## Workflow
+### Step 1: Enable required settings
 
-1. Write a PPL query in the query bar.
-2. The system automatically suggests a chart type based on the shape of your query results (for example, one date field and one numeric field suggests a line chart). You can override the suggestion if needed.
-3. Query result fields are automatically mapped to chart axes. You can adjust the mapping in the **Fields** panel.
-4. Customize the chart appearance using chart-specific settings.
+Add the following settings to your `opensearch_dashboards.yml` file:
+
+```yaml
+workspace.enabled: true
+explore.enabled: true
+```
+{% include copy.html %}
+
+After updating the configuration file, restart OpenSearch Dashboards for the changes to take effect.
+
+### Step 2: Create a workspace
+
+The visualization editor requires a workspace. To create a workspace, follow these steps:
+
+1. Navigate to the OpenSearch Dashboards home page.
+2. Select **Create workspace**.
+3. Enter a workspace name.
+4. Select the **Analytics (all features)** use case.
+5. Select **Create workspace**.
+
+For more information, see [Workspaces]({{site.url}}{{site.baseurl}}/dashboards/workspace/).
+
+### Step 3: Create an index pattern
+
+The visualization editor requires a time-based index pattern associated with your workspace. To create an index pattern, follow these steps. For more information, see [Index patterns]({{site.url}}{{site.baseurl}}/dashboards/management/index-patterns/).
+
+1. Inside your workspace, go to **Index patterns** (under **Management**).
+2. Select **Create index pattern**.
+3. Enter the index name (for example, `opensearch_dashboards_sample_data_logs`).
+4. Select **Next step**.
+5. Select a time field (for example, `@timestamp`).
+6. Select **Create index pattern**.
+
+### Step 4 (Optional): Install sample data 
+
+The examples in this documentation use the OpenSearch Dashboards sample datasets. To install the sample datasets, follow these steps:
+
+1. On the OpenSearch Dashboards home page, select **Add sample data**.
+2. Select **Add data** for the datasets you want to use (for example, **Sample web logs** or **Sample flight data**).
+
+For more information, see [Adding sample data]({{site.url}}{{site.baseurl}}/dashboards/quickstart/#adding-sample-data).
+
+## Navigating the visualization editor UI
+
+The following image shows the visualization editor interface.
+
+![Visualization editor interface with callouts]({{site.url}}{{site.baseurl}}/images/dashboards/visualization-editor/visualization-editor-overview.png){: width="100%" }
+
+- The _time filter_ (A) selects the time range for query results.
+- The _Update button_ (B) runs or refreshes the query.
+- The _query editor_ (C) is where you write PPL queries.
+- The _Saved queries_ dropdown (D) saves and loads reusable queries.
+- The _configuration panel_ (E) contains the chart type selector, field mappings, and style settings.
+
+## Creating a visualization
+
+To open the visualization editor, use one of the following methods:
+
+- From the left navigation menu, select **Explorer** > **Logs**, then select the **Visualization** tab.
+- From a dashboard, select the add panel icon, then select **Add visualization**.
+
+To create a visualization, follow these steps:
+
+1. Select a dataset from the dataset selector in the query bar (for example, **opensearch_dashboards_sample_data_logs**).
+1. Write a PPL query in the query editor. For example, the following query counts log events per hour:
+
+   ```sql
+   source = opensearch_dashboards_sample_data_logs | stats count() by SPAN(@timestamp, 1h)
+   ```
+   {% include copy.html %}
+
+1. Select **Update** or press **Enter** to run the query.
+1. The editor automatically selects a chart type and maps fields to axes based on your query results. To change the chart type, use the **Visualization type** dropdown.
+1. To customize the field mapping, use the **Fields** panel.
+
+## Saving a visualization
+
+To save a visualization, select **Save** (or **Save and back** if you opened the editor from a dashboard). Enter a name for the visualization and select **Save**.
+
+If you opened the visualization editor from a dashboard, the visualization is automatically added to that dashboard after saving. If you created the visualization from **Explorer** > **Logs**, save it first, then add it to a dashboard manually.
+
+## Saving and reusing queries
+
+To save a PPL query for reuse, select **Saved queries** > **Save query**. In the dialog, configure the following options.
+
+| Option | Description |
+| --- | --- |
+| **Save as new query** | When selected, saves the query as a new entry rather than overwriting an existing one. |
+| **Name** | A name for the saved query. |
+| **Description** | An optional description of the query. |
+| **Include filters** | When enabled, saves the currently applied filters along with the query. |
+| **Include time filter** | When enabled, saves the current time range along with the query. |
+
+Select **Save changes** to save the query.
+
+To load a previously saved query, select **Saved queries** > **Open query**, then select a query from the list and select the **Open query** button. The saved query is loaded into the query editor.
 
 ## Chart types
 
-| Chart type                                                                                                     | Best for                                                              |
-| -------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- |
-| [Line chart]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/line-chart/)               | Trends over time, comparing multiple series, correlating metrics      |
-| [Area chart]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/area-chart/)               | Volume over time, comparing category contributions, stacked totals    |
-| [Pie chart]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/pie-chart/)                 | Proportions, part-to-whole relationships, categorical breakdowns      |
-| [Bar chart]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/bar-chart/)                 | Comparing categories, ranking items, grouped comparisons, thresholds  |
-| [Gauge]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/gauge-chart/)                   | Single KPI against targets, threshold monitoring                      |
-| [Bar gauge]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/bar-gauge-chart/)           | Progress toward a goal, comparing multiple KPIs side by side          |
-| [Heatmap]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/heatmap-chart/)               | Density patterns, two-dimensional distributions, time-based intensity |
-| [Scatter]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/scatter-chart/)               | Correlations between variables, outlier detection, group comparisons  |
-| [State timeline]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/state-timeline-chart/) | Service status over time, alert progression, state transitions        |
+The following table lists the supported chart types and their expected data shapes.
 
-## Next steps
+| Chart type | Data shape |
+| :--- | :--- |
+| [Area chart]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/area-chart/) | One date field + one or more numeric fields (supports stacking) |
+| [Bar chart]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/bar-chart/) | One or more categorical or date fields + one or more numeric fields |
+| [Bar gauge chart]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/bar-gauge-chart/) | One or more numeric fields (single values) |
+| [Gauge chart]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/gauge-chart/) | One numeric field (single value) |
+| [Heatmap chart]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/heatmap-chart/) | Two categorical or date fields + one numeric field |
+| [Histogram chart]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/histogram-chart/) | One numeric field (distribution) |
+| [Line chart]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/line-chart/) | One date field + one or more numeric fields |
+| [Metric chart]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/metric-chart/) | One numeric field (single value) |
+| [Pie chart]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/pie-chart/) | One categorical field + one numeric field |
+| [Scatter chart]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/scatter-chart/) | Two or more numeric fields |
+| [State timeline chart]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/state-timeline-chart/) | One date field + one categorical field (state values) |
+| [Table chart]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/table-chart/) | Any combination of fields (displays raw data) |
 
-- [Build a line chart]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/line-chart/) using the visualization editor.
-- [Build an area chart]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/area-chart/) using the visualization editor.
-- [Build a pie chart]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/pie-chart/) using the visualization editor.
-- [Build a bar chart]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/bar-chart/) using the visualization editor.
-- [Build a gauge chart]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/gauge-chart/) using the visualization editor.
-- [Build a bar gauge chart]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/bar-gauge-chart/) using the visualization editor.
-- [Build a heatmap chart]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/heatmap-chart/) using the visualization editor.
-- [Build a scatter chart]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/scatter-chart/) using the visualization editor.
-- [Build a state timeline chart]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/state-timeline-chart/) using the visualization editor.
+## Chart configuration
+
+The following shared chart configuration options are available across multiple chart types:
+
+- [Thresholds]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/thresholds-setting/) -- Define color-coded boundaries that indicate when values cross important limits.
+- [Value calculations]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/value-calculations/) -- Choose how a series of values is reduced to a single number for display.
+
+### Axes 
+
+The X-axis and Y-axis share the same configuration options. Each axis can be independently customized.
+
+| Setting | Description |
+| --- | --- |
+| **Show axis** | Shows or hides the axis. |
+| **Title** | A custom label for the axis. |
+| **Position** | Controls the placement of the axis relative to the chart. Supported values: X-axis: **Top**, **Bottom**/Y-axis: **Left**, **Right**. |
+| **Show grid lines** | When enabled, shows grid lines extending from the axis into the chart area. |
+| **Show labels** | When enabled, shows category labels along the axis. |
+| **Alignment** | Controls the rotation of axis labels. **Horizontal** (0°), **Vertical** (90°), or **Angled** (45°). |
+| **Truncate after** | Sets the maximum character length for axis labels before truncation. |
+

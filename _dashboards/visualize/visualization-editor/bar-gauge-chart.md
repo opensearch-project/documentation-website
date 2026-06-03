@@ -1,101 +1,38 @@
 ---
 layout: default
-title: Bar gauge
+title: Bar gauge chart
 parent: Visualization editor
 grand_parent: Building data visualizations
-nav_order: 60
+nav_order: 20
 ---
 
-# Bar gauge
+# Bar gauge chart
 
-A bar gauge displays numeric values as horizontal or vertical bars against a scale, reducing each field to a single value. While similar to a bar chart, a bar gauge is better suited for comparing values against defined thresholds. Use a bar gauge when you want to:
+A bar gauge chart displays numeric values as horizontal or vertical bars against a scale, reducing each field to a single value. Unlike a bar chart, a bar gauge chart is designed for comparing values against defined thresholds.
 
-- **Compare values across categories**: Display how different groups compare on the same scale after reducing each series to a single value.
-- **Highlight threshold violations**: Use color-coded thresholds to indicate which categories fall within normal, warning, or critical ranges.
+## Creating a bar gauge chart
 
-## Field selection
+The following examples build on each other, starting with a basic chart and adding complexity. Before you begin, complete the [prerequisites]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/#prerequisites).
 
-The bar gauge uses the following field mappings:
+### Basic bar gauge chart
 
-| Field | Description |
-| --- | --- |
-| **X-Axis** | Either the categorical field (category labels) or the numerical field (bar values), depending on orientation. When X is categorical and Y is numerical, bars are rendered horizontally. When X is numerical and Y is categorical, bars are rendered vertically. |
-| **Y-Axis** | The complementary field to the X-Axis. If X is a category, Y provides the numeric values (and vice versa). |
-
-## Bar gauge settings
-
-The following settings let you customize the appearance and behavior of the bar gauge.
-
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/visualization-editor/bar-gauge/bar-gauge-style-option.png" alt="Basic bar gauge showing count by operating system" width="400">
-
-| Setting | Options | Description |
-| --- | --- | --- |
-| **Display style** | Gradient, Stack, Basic | Controls how the bar fill is rendered. **Gradient** fills the bar with a smooth color gradient generated from thresholds. **Stack** shows distinct colored segments for each threshold range. **Basic** fills the bar with a single solid color from the matching threshold. |
-| **Value display** | Value Color, Text Color, Hidden | Controls how the numeric value label is colored. **Value Color** colors the text with the mapped threshold. **Text Color** uses the default text color. **Hidden** hides the value entirely. |
-| **Show unfilled area** | On/Off | When enabled, displays a grey background behind the filled portion of each bar, making it easier to see the remaining distance to the maximum. |
-
-### Value options
-
-| Setting | Options | Description |
-| --- | --- | --- |
-| **Calculation** | Last \*, Last, First \*, First, Min, Max, Mean, Median, Variance, Count, Distinct count, Total | Determines how multiple data points for the same category are reduced to a single value. To learn more, refer to [value calculations]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/style-options/value-calculations/). |
-
-### Thresholds
-
-A threshold represents a limit that, when met or exceeded by a data value, is reflected visually through its color. To learn more, refer to [thresholds setting]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/style-options/thresholds-setting/).
-
-| Setting | Description |
-| --- | --- |
-| **Base color** | The color applied to values below the first threshold. The base threshold is always present and cannot be deleted, but its color can be changed. |
-| **Threshold values** | Define one or more threshold breakpoints. Each threshold specifies a numeric value and a color. |
-
-### Standard options
-
-Min and max controls define the scale boundaries and work together with thresholds. When left empty, they are calculated automatically.
-
-| Setting | Description |
-| --- | --- |
-| **Min** | The lower bound of the bar gauge scale. When the min value falls within a threshold range, it acts as a cutoff — only the portion of the range above the min is considered. If min is below all thresholds, the base color creates a base threshold starting at the min value. |
-| **Max** | The upper bound of the bar gauge scale. Thresholds above this value are not applied. |
-| **Unit** | An optional unit label applied to the displayed value. |
-
-### Tooltip
-
-| Setting | Options | Description |
-| --- | --- | --- |
-| **Tooltip mode** | All, Hidden | Controls tooltip visibility. **All** shows a tooltip with value details on hover. **Hidden** disables tooltips. |
-
-## Tutorial: Building bar gauge
-
-This tutorial walks you through bar gauge configurations using sample data. The examples use the sample web logs index with fields `machine.os` and `bytes`.
-
-### Prerequisites
-
-- A running OpenSearch Dashboards instance.
-- An index with categorical and numeric data. (this tutorial uses a sample web log with a field such as `machine.os`,`bytes`)
-
-### Step 1: Basic bar gauge with category breakdown
-
-Start with a query that groups a numeric metric by a categorical field.
-
-**Query:**
+Start with a query that groups a numeric metric by a categorical field:
 
 ```sql
-source = <index> | stats avg(bytes) by machine.os
+source = opensearch_dashboards_sample_data_logs | stats avg(bytes) by machine.os
 ```
+{% include copy.html %}
 
 After running this query, select **Bar Gauge** as the chart type. The fields are mapped as follows:
 
-- `machine.os` is mapped to the **X-Axis** (categorical).
-- `avg(bytes)` is mapped to the **Y-Axis** (numerical).
+- The **X-Axis** displays the `machine.os` field (categorical).
+- The **Y-Axis** displays the `avg(bytes)` field (numerical).
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/visualization-editor/bar-gauge/bar-gauge-fields.png" alt="Basic bar gauge showing average bytes by operating system" width="400">
+The result is a set of vertical bars, one for each operating system, showing the average bytes for each. The **Show unfilled area** toggle is enabled by default, displaying a grey background behind each bar to indicate the remaining distance to the maximum, as shown in the following image.
 
-The result is a set of vertical bars, one for each operating system, showing the average bytes for each. The **Show unfilled area** toggle is enabled by default, displaying a grey background behind each bar to indicate the remaining distance to the maximum.
+![Basic bar gauge showing average bytes by operating system]({{site.url}}{{site.baseurl}}/images/dashboards/visualization-editor/bar-gauge/bar-gauge-initial.png){: width="100%" }
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/visualization-editor/bar-gauge/bar-gauge-initial.png" alt="Basic bar gauge showing average bytes by operating system" width="100%">
-
-### Step 2: Adding thresholds and display styles
+### Adding thresholds and display styles
 
 Open the **Thresholds** section and define breakpoints to color-code the bars. For example:
 
@@ -105,19 +42,63 @@ Open the **Thresholds** section and define breakpoints to color-code the bars. F
 
 Then in the **Bar Gauge** section, switch the **Display style** to see different visual treatments:
 
-**Gradient** — Each bar fills with a smooth color transition through the thresholds it passes.
+**Gradient**---Each bar fills with a smooth color transition through the thresholds it passes, as shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/visualization-editor/bar-gauge/bar-gauge-gradient.png" alt="Basic bar gauge showing average bytes by operating system" width="100%">
+![Bar gauge with gradient display style]({{site.url}}{{site.baseurl}}/images/dashboards/visualization-editor/bar-gauge/bar-gauge-gradient.png){: width="100%" }
 
-**Stack** — Each bar is divided into distinct colored segments at threshold boundaries.
+**Stack**---Each bar is divided into distinct colored segments at threshold boundaries, as shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/visualization-editor/bar-gauge/bar-gauge-stack.png" alt="Bar gauge with stack display style" width="100%">
+![Bar gauge with stack display style]({{site.url}}{{site.baseurl}}/images/dashboards/visualization-editor/bar-gauge/bar-gauge-stack.png){: width="100%" }
 
-**Basic** — Each bar uses a single solid color based on the highest threshold value the value reaches.
+**Basic**---Each bar uses a single solid color based on the highest threshold the value reaches, as shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/visualization-editor/bar-gauge/bar-gauge-basic.png" alt="Bar gauge with basic display style" width="100%">
+![Bar gauge with basic display style]({{site.url}}{{site.baseurl}}/images/dashboards/visualization-editor/bar-gauge/bar-gauge-basic.png){: width="100%" }
 
-## Next steps
+## Configuring a bar gauge chart
 
-- Explore other chart types available in the [visualization editor]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/).
-- Add your visualization to a [dashboard]({{site.url}}{{site.baseurl}}/dashboards/dashboard/).
+You can configure the following settings in the configuration panel.
+
+### Fields
+
+In the **Fields** section, configure the fields displayed on each axis.
+
+| Field | Description |
+| --- | --- |
+| **X-Axis** | Select a categorical field (for category labels) or a numerical field (for bar values). |
+| **Y-Axis** | Select the complementary field. If X-Axis is categorical, select a numeric field for Y-Axis (and the other way around). |
+
+### Split
+
+In the **Split by** dropdown list, select a field to split the chart into separate elements by value.
+
+### Value options
+
+| Setting | Description |
+| --- | --- |
+| **Calculation** | Determines how multiple data points for the same category are reduced to a single value. Supported values: **Last \***, **Last**, **First \***, **First**, **Min**, **Max**, **Mean**, **Median**, **Variance**, **Count**, **Distinct count**, **Total**. For more information, see [Value calculations]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/value-calculations/). |
+
+### Thresholds
+
+For information about configuring thresholds, see [Thresholds]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/thresholds-setting/).
+
+### Standard options
+
+**Min** and **Max** controls define the scale boundaries and interact with thresholds. When left empty, they are calculated automatically.
+
+| Setting | Description |
+| --- | --- |
+| **Min** | The lower bound of the bar gauge scale. When the min value falls within a threshold range, it acts as a cutoff---only the portion of the range above the min applies. If min is below all thresholds, the base color creates a base threshold starting at the min value. |
+| **Max** | The upper bound of the bar gauge scale. Thresholds above this value are not applied. |
+| **Unit** | An optional unit label applied to the displayed value. |
+
+### Bar gauge
+
+| Setting | Description |
+| --- | --- |
+| **Display style** | Controls how the bar fill is rendered. **Gradient** fills the bar with a smooth color gradient generated from thresholds. **Stack** shows distinct colored segments for each threshold range. **Basic** fills the bar with a single solid color from the matching threshold. |
+| **Value display** | Controls how the numeric value label is colored. **Value Color** colors the text with the mapped threshold. **Text Color** uses the default text color. **Hidden** hides the value entirely. |
+| **Show unfilled area** | When enabled, displays a grey background behind the filled portion of each bar, making it easier to see the remaining distance to the maximum. |
+
+### Tooltip
+
+Toggle the **Show tooltip** selector to enable or disable tooltips.

@@ -3,83 +3,88 @@ layout: default
 title: Pie chart
 parent: Visualization editor
 grand_parent: Building data visualizations
-nav_order: 30
+nav_order: 50
 ---
 
 # Pie chart
 
-A pie chart displays data as proportional slices of a circle, making it ideal for visualizing part-to-whole relationships. Use a pie chart when you want to:
+A pie chart displays data as proportional slices of a circle, making it ideal for visualizing part-to-whole relationships.
 
-- **Show proportions**: Display how individual categories contribute to a total (for example, traffic share by carrier).
-- **Compare relative sizes**: Quickly identify which categories dominate and which are minor.
-- **Summarize categorical breakdowns**: Present a simple, at-a-glance overview of category distribution.
+## Creating a pie chart
 
-## Field selection
+The following examples build on each other, starting with a basic chart and adding customization. Before you begin, complete the [prerequisites]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/#prerequisites).
 
-The pie chart uses the following field mappings:
+### Basic pie chart
 
-| Field | Description |
-| --- | --- |
-| **Size** | A numeric field that determines the size of each slice. For example, `count()` makes each slice proportional to the number of events in that category. |
-| **Color** | A categorical field that splits the data into individual slices, each rendered in a different color. For example, use a `Carrier` field to display a slice for each airline. |
-
-## Pie chart settings
-
-The following settings let you customize the appearance of the pie chart.
-
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/visualization-editor/pie-chart-settings.png" alt="Pie chart settings panel" width="400">
-
-| Setting | Options | Description |
-| --- | --- | --- |
-| **Show as** | Pie, Donut | Controls whether the chart renders as a full pie or a donut (ring) shape. Donut is the default. |
-| **Show values** | On/Off | When enabled, displays the numeric value for each slice on the chart. |
-| **Show labels** | On/Off | When enabled, displays the category label for each slice on the chart. |
-| **Truncate after** | Number (pixels) | Sets the maximum width in pixels for labels before they are truncated. Only visible when **Show labels** is enabled. |
-
-## Tutorial: Building a pie chart
-
-This tutorial walks you through building a pie chart and customizing its appearance.
-
-### Prerequisites
-
-- A running OpenSearch Dashboards instance.
-- An index with categorical data (this tutorial uses a sample flights index with a `Carrier` field).
-
-### Step 1: Basic pie chart
-
-Start with a simple aggregation query that counts events by category.
-
-**Query:**
+Start with an aggregation query that counts events by category:
 
 ```sql
-source = <index> | stats count() by Carrier
+source = opensearch_dashboards_sample_data_flights | stats count() by Carrier
 ```
+{% include copy.html %}
 
 After running this query, the visualization editor maps the fields automatically:
 
-- `count()` is mapped to **Size**.
-- `Carrier` is mapped to **Color**.
+- The **Size** displays the `count()` field.
+- The **Color** displays the `Carrier` field.
 
-The default rendering is a donut chart. Each airline carrier is represented by a colored slice proportional to its event count.
+The default rendering is a **Donut** chart. Each airline carrier appears as a colored slice proportional to its event count, as shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/visualization-editor/pie-chart-donut-result.png" alt="Donut chart showing count by carrier" width="100%">
+![Donut chart showing count by carrier]({{site.url}}{{site.baseurl}}/images/dashboards/visualization-editor/pie-chart-donut-result.png){: width="100%" }
 
-### Step 2: Customizing the pie chart
+### Customizing the pie chart
 
-Open the **Pie** settings panel and adjust the configuration:
+Open the **Pie** settings panel and configure the following options:
 
-1. Change **Show as** from Donut to **Pie** to render a full circle without a center hole.
+1. Change **Show as** from **Donut** to **Pie** to render a full circle without a center hole.
 2. Enable **Show values** to display the count on each slice.
 3. Enable **Show labels** to display the carrier name alongside each slice.
-4. Set **Truncate after** to `300` to allow longer label text.
+4. Set **Truncate after** to `300` for longer label text, as shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/visualization-editor/pie-chart-settings-custom.png" alt="Pie chart settings with Pie mode, show values, and show labels enabled" width="400">
+![Pie chart settings with Pie mode, show values, and show labels enabled]({{site.url}}{{site.baseurl}}/images/dashboards/visualization-editor/pie-chart-settings-custom.png){: width="400" }
 
-The result is a full pie chart with both category labels and numeric values displayed on each slice.
+The result is a full pie chart with both category labels and numeric values displayed on each slice, as shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/visualization-editor/pie-chart-labels-result.png" alt="Pie chart with labels and values shown" width="100%">
+![Pie chart with labels and values shown]({{site.url}}{{site.baseurl}}/images/dashboards/visualization-editor/pie-chart-labels-result.png){: width="100%" }
 
-## Next steps
+## Configuring a pie chart
 
-- Explore other chart types available in the [visualization editor]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/).
-- Add your visualization to a [dashboard]({{site.url}}{{site.baseurl}}/dashboards/dashboard/).
+You can configure the following settings in the configuration panel.
+
+### Fields
+
+In the **Fields** section, configure the data fields.
+
+| Field | Description |
+| --- | --- |
+| **Size** | Select a numeric field that determines the size of each slice. For example, `count()` makes each slice proportional to the number of events in that category. |
+| **Color** | Select a categorical field that splits the data into individual slices, each rendered in a different color. For example, use a `Carrier` field to display a slice for each airline. |
+
+### Split
+
+In the **Split by** dropdown list, select a field to split the chart into separate elements by value.
+
+
+### Pie
+
+The following table describes the pie chart settings.
+
+| Setting | Description |
+| --- | --- |
+| **Show as** | Controls whether the chart renders as a full pie or a **Donut** (ring) shape. **Donut** is the default. |
+| **Show values** | When enabled, shows the numeric value for each slice on the chart. |
+| **Show labels** | When enabled, shows the category label for each slice on the chart. |
+| **Truncate after** | Sets the maximum width in pixels for labels before truncation. Only visible when **Show labels** is enabled. |
+
+### Legend
+
+The legend summarizes the visual color encodings used in the chart.
+
+| Setting | Description |
+| --- | --- |
+| **Show legend** | Shows or hides the legend. |
+| **Position** | Controls where the legend appears relative to the chart. Supported values: **Left**, **Right**, **Top**, **Bottom**. |
+
+### Tooltip
+
+Toggle the **Show tooltip** selector to enable or disable tooltips.
