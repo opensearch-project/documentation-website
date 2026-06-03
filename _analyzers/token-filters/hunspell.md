@@ -63,7 +63,7 @@ PUT /my_index
 ```
 {% include copy-curl.html %}
 
-## Custom dictionary loading with ref_path
+## Custom dictionary loading
 
 When you specify a `ref_path` parameter, dictionaries are loaded from a custom directory instead of the default directory. This is useful when you need multiple independent dictionary sets for the same locale, for example, when different indexes require different custom dictionaries.
 
@@ -148,67 +148,61 @@ PUT /index_legal
 {% include copy-curl.html %}
 
 ## Hot-reloading Hunspell dictionaries
-
 **Introduced 3.7**
 {: .label .label-purple }
 
-You can update Hunspell dictionaries at runtime without restarting the node by setting the `updateable` parameter to `true` on the filter and then calling the [Refresh search analyzer]({{site.url}}{{site.baseurl}}/im-plugin/refresh-analyzer/) API with the `reload_cached_resources` query parameter.
+You can update Hunspell dictionaries at runtime without restarting the node. To enable this, set the `updateable` parameter to `true` on the Hunspell token filter. This registers the filter in search-time analysis mode, so it can only be used at search time (for example, in a `search_analyzer`), not at index time.
 
-When `updateable` is `true`, the filter is registered in search-time analysis mode, which allows in-place reloading of cached dictionary resources. The filter can then only be used at search time (for example, in a `search_analyzer`), not at index time.
+To hot-reload a Hunspell dictionary, follow these steps:
 
-The hot-reload workflow is as follows:
-
-1. Replace the `.aff` and `.dic` files on disk on every node that holds a shard for the index.
-2. Send a request to the Refresh search analyzer API with `reload_cached_resources=true`:
+1. Configure the Hunspell token filter with `updateable` set to `true`. The following example creates an index that uses a hot-reloadable Hunspell filter as a `search_analyzer`:
 
    ```json
-   POST /_plugins/_refresh_search_analyzers/<index or alias or wildcard>?reload_cached_resources=true
+   PUT /my_index
+   {
+     "settings": {
+       "analysis": {
+         "filter": {
+           "my_reloadable_hunspell": {
+             "type": "hunspell",
+             "ref_path": "analyzers/my-dict",
+             "locale": "en_US",
+             "updateable": true
+           }
+         },
+         "analyzer": {
+           "my_search_analyzer": {
+             "type": "custom",
+             "tokenizer": "standard",
+             "filter": [
+               "lowercase",
+               "my_reloadable_hunspell"
+             ]
+           }
+         }
+       }
+     },
+     "mappings": {
+       "properties": {
+         "content": {
+           "type": "text",
+           "analyzer": "standard",
+           "search_analyzer": "my_search_analyzer"
+         }
+       }
+     }
+   }
    ```
    {% include copy-curl.html %}
 
-When `reload_cached_resources` is `false` (the default), the API rebuilds analyzer factories but reuses the previously cached Hunspell dictionary. Set the parameter to `true` to force the dictionary to be reloaded from disk.
+1. Replace the `.aff` and `.dic` files on disk on every node that holds a shard for the index.
 
-The following example creates an index that uses a hot-reloadable Hunspell filter as a `search_analyzer`:
+1. Call the [Refresh Search Analyzer API]({{site.url}}{{site.baseurl}}/im-plugin/refresh-analyzer/). When `reload_cached_resources` is `false` (the default), the API rebuilds analyzer factories but reuses the previously cached Hunspell dictionary. Specify `reload_cached_resources=true` to force the dictionary to be reloaded from disk:
 
-```json
-PUT /my_index
-{
-  "settings": {
-    "analysis": {
-      "filter": {
-        "my_reloadable_hunspell": {
-          "type": "hunspell",
-          "ref_path": "analyzers/my-dict",
-          "locale": "en_US",
-          "updateable": true
-        }
-      },
-      "analyzer": {
-        "my_search_analyzer": {
-          "type": "custom",
-          "tokenizer": "standard",
-          "filter": [
-            "lowercase",
-            "my_reloadable_hunspell"
-          ]
-        }
-      }
-    }
-  },
-  "mappings": {
-    "properties": {
-      "content": {
-        "type": "text",
-        "analyzer": "standard",
-        "search_analyzer": "my_search_analyzer"
-      }
-    }
-  }
-}
-```
-{% include copy-curl.html %}
-
-For more information about the Refresh search analyzer API, see [Refresh search analyzer]({{site.url}}{{site.baseurl}}/im-plugin/refresh-analyzer/).
+   ```json
+   POST /_plugins/_refresh_search_analyzers/my_index?reload_cached_resources=true
+   ```
+   {% include copy-curl.html %}
 
 ## Generated tokens
 
