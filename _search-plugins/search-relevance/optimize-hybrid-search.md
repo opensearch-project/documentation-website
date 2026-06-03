@@ -79,21 +79,15 @@ PUT _plugins/_search_relevance/experiments
 
 ## Experimentation process
 
-The hybrid search optimization experiment runs different evaluations based on the search configuration. The following parameters and parameter values are taken into account:
+The hybrid search optimization experiment evaluates all combinations of the following parameter variants for each query in the query set and scores the results against the judgment list:
 
-**Score-based variants**:
+- Score-based variants:
+  - Normalization techniques: `l2`, `min_max`, and `z_score`. The `z_score` technique can be combined only with `arithmetic_mean` because of a [normalization processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/normalization-processor/#request-body-fields) restriction.
+  - Combination techniques: `arithmetic_mean`, `harmonic_mean`, and `geometric_mean`.
+  - Lexical and neural search weights ranging from `0.0` to `1.0`, in `0.1` increments.
 
-* Three normalization techniques: `l2`, `min_max`, and `z_score`.
-* Three combination techniques: `arithmetic_mean`, `harmonic_mean`, `geometric_mean`.
-* The lexical and neural search weights, which are values ranging from `0.0` to `1.0` in 0.1 increments.
-
-Note that `z_score` is paired only with `arithmetic_mean` due to a [normalization-processor](https://docs.opensearch.org/latest/search-plugins/search-pipelines/normalization-processor/#request-body-fields) restriction.
-
-**Rank-based variants**:
-
-* The `rrf` ([Reciprocal Rank Fusion](https://docs.opensearch.org/latest/search-plugins/search-pipelines/score-ranker-processor/)) combination technique, evaluated with `rank_constant` values of `1`, `5`, `10`, `20`, and `60`. RRF variants use the default equal weights across sub-queries.
-
-Every query in the query set is executed for all different parameter combinations, and the results are evaluated by using the judgment list.
+- Rank-based variants:
+  - The `rrf` ([Reciprocal Rank Fusion (RRF)]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/score-ranker-processor/)) combination technique, evaluated using `rank_constant` values of `1`, `5`, `10`, `20`, and `60`. RRF variants use equal weights in all subqueries.
 
 ## Evaluating the results
 
