@@ -841,6 +841,158 @@ POST _plugins/_ism/explain/data-*
 
 ---
 
+## Simulate policy
+Introduced 3.7
+
+{: .label .label-purple }
+
+Previews how a policy would apply to one or more indexes without making any changes. For each index, the response shows the current state, the next action to execute, the evaluation of every transition condition, and which state the index would move to next. This is useful for validating a policy before attaching it or for debugging why an index is not transitioning as expected.
+
+Exactly one of `policy_id` or `policy` must be provided.
+
+#### Endpoints
+
+```
+POST _plugins/_ism/simulate
+```
+
+#### Request body fields
+
+| Field | Type | Required | Description |
+|:------|:-----|:---------|:------------|
+| `policy_id` | String | Conditional | The ID of a stored ISM policy to simulate. Required when `policy` is not provided. |
+| `policy` | Object | Conditional | An inline policy definition to simulate without saving it. Required when `policy_id` is not provided. |
+| `indices` | Array of strings | Yes | The index names or wildcard patterns to simulate against. Wildcard patterns are expanded to matching concrete indexes. Patterns that match no indexes are silently ignored. Concrete index names that do not exist return an error in the per-index result. |
+
+#### Example request: Simulate a stored policy
+
+```json
+POST _plugins/_ism/simulate
+{
+  "policy_id": "my-lifecycle-policy",
+  "indices": ["logs-2024-01-*", "logs-2024-02-01"]
+}
+```
+{% include copy-curl.html %}
+
+#### Example request: Simulate an inline policy
+
+```json
+POST _plugins/_ism/simulate
+{
+  "policy": {
+    "description": "hot-warm lifecycle",
+    "default_state": "hot",
+    "states": [
+      {
+        "name": "hot",
+        "actions": [],
+        "transitions": [
+          {
+            "state_name": "warm",
+            "conditions": { "min_index_age": "7d" }
+          }
+        ]
+      },
+      { "name": "warm", "actions": [], "transitions": [] }
+    ]
+  },
+  "indices": ["my-index"]
+}
+```
+{% include copy-curl.html %}
+
+#### Response body fields
+
+The response contains a `simulate_results` array with one entry per index.
+
+| Field | Type | Description |
+|:------|:-----|:------------|
+| `index_name` | String | The name of the index. |
+| `index_uuid` | String | The UUID of the index. `null` when the index was not found. |
+| `policy_id` | String | The ID of the policy used for simulation. Empty string for inline policies. |
+| `is_managed` | Boolean | Whether the index is currently managed by ISM. |
+| `current_state` | String | The state the index is currently in, or would start in for unmanaged indexes. Omitted when `error` is present. |
+| `current_action` | String | The action that would execute next in the current state. Omitted when `error` is present. |
+| `transition_evaluation` | Array | Per-transition condition evaluations. Present only when the index is in the transition phase (no pending actions). Omitted when `error` is present. |
+| `next_state` | String | The state the index would transition to (first met condition). `null` if no condition is met. Omitted when `error` is present. |
+| `error` | String | An index-level error message, such as when the index does not exist. When present, all other fields except `index_name`, `index_uuid`, `policy_id`, and `is_managed` are omitted. |
+
+Each object in `transition_evaluation` contains the following fields.
+
+| Field | Type | Description |
+|:------|:-----|:------------|
+| `state_name` | String | The target state this transition would move the index to. |
+| `condition_met` | Boolean | Whether the transition condition is currently satisfied. |
+| `condition_type` | String | The kind of condition being evaluated (for example, `min_index_age`, `min_doc_count`, `min_size`). `unconditional` for transitions with no conditions. |
+| `current_value` | String | Human-readable current value of the metric being checked (for example, `"3d 4h"`). Absent for unconditional transitions. |
+| `required_value` | String | Human-readable threshold required by the condition (for example, `"7d"`). Absent for unconditional transitions. |
+
+#### Example response
+
+```json
+{
+  "simulate_results": [
+    {
+      "index_name": "logs-2024-01-15",
+      "index_uuid": "gCFlS_zcTdih8xyxf3jQ-A",
+      "policy_id": "my-lifecycle-policy",
+      "is_managed": false,
+      "current_state": "hot",
+      "current_action": "transition",
+      "transition_evaluation": [
+        {
+          "state_name": "warm",
+          "condition_met": true,
+          "condition_type": "min_index_age",
+          "current_value": "10d",
+          "required_value": "7d"
+        }
+      ],
+      "next_state": "warm"
+    },
+    {
+      "index_name": "logs-2024-02-01",
+      "index_uuid": "LmJgKNatQZWHQu-qIHlcJw",
+      "policy_id": "my-lifecycle-policy",
+      "is_managed": false,
+      "current_state": "hot",
+      "current_action": "transition",
+      "transition_evaluation": [
+        {
+          "state_name": "warm",
+          "condition_met": false,
+          "condition_type": "min_index_age",
+          "current_value": "3d 2h",
+          "required_value": "7d"
+        }
+      ],
+      "next_state": null
+    }
+  ]
+}
+```
+
+#### Example response: Index not found
+
+When a concrete index name does not exist in the cluster, the result contains an `error` field instead of state information.
+
+```json
+{
+  "simulate_results": [
+    {
+      "index_name": "nonexistent-index",
+      "index_uuid": null,
+      "policy_id": "my-lifecycle-policy",
+      "is_managed": false,
+      "error": "Index 'nonexistent-index' not found in cluster"
+    }
+  ]
+}
+```
+
+---
+
 ## Delete policy
 Introduced 1.0
 {: .label .label-purple }
