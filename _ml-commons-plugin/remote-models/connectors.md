@@ -312,6 +312,118 @@ PUT /_plugins/_ml/connectors/{connector_id}
 ```
 {% include copy-curl.html %}
 
+## Dynamic header substitution
+**Introduced 3.7**
+{: .label .label-purple }
+
+By default, connector headers are resolved once at connector creation time. Dynamic connector headers allow you to use `${parameters.*}` placeholders in header values so that per-request values are substituted at prediction time. This is useful for passing request-scoped metadata such as transaction IDs, correlation IDs, or trace tokens to the remote model endpoint.
+
+### Configuration
+
+Define the header with a `${parameters.*}` placeholder in the connector's `actions[].headers` field. You can optionally set a default value for the parameter in the top-level `parameters` field:
+
+```json
+POST /_plugins/_ml/connectors/_create
+{
+  "name": "My connector",
+  "description": "Connector with dynamic headers",
+  "version": 1,
+  "protocol": "http",
+  "parameters": {
+    "endpoint": "api.example.com",
+    "request_id": "default-request-id"
+  },
+  "credential": {
+    "api_key": "test-api-key"
+  },
+  "actions": [{
+    "action_type": "predict",
+    "method": "POST",
+    "url": "https://${parameters.endpoint}/predict",
+    "headers": {
+      "Authorization": "${credential.api_key}",
+      "X-Test-Request-Id": "${parameters.request_id}"
+    },
+    "request_body": "{ \"input\": \"${parameters.input}\" }"
+  }]
+}
+```
+{% include copy-curl.html %}
+
+At prediction time, pass the runtime value in the `parameters` field of the `_predict` request:
+
+```json
+POST /_plugins/_ml/models/{model_id}/_predict
+{
+  "parameters": {
+    "request_id": "request-123",
+    "input": "hello world"
+  }
+}
+```
+{% include copy-curl.html %}
+
+The resulting HTTP request to the remote endpoint includes the substituted header:
+
+```
+POST https://api.example.com/predict
+Authorization: test-api-key
+X-Test-Request-Id: request-123
+```
+
+If no runtime value is provided and no default is set in the connector's `parameters` field, the prediction request is rejected with a 400 error:
+
+```json
+{
+  "error": {
+    "root_cause": [
+      {
+        "type": "illegal_argument_exception",
+        "reason": "Header 'request_id' contains unresolved placeholder. Required parameter is missing."
+      }
+    ],
+    "type": "illegal_argument_exception",
+    "reason": "Header 'request_id' contains unresolved placeholder. Required parameter is missing."
+  },
+  "status": 400
+}
+```
+
+To provide a fallback, define a default value for the parameter in the connector's `parameters` field. If a default is set and no runtime value is provided, the default is used.
+
+### Security restrictions
+
+The following headers cannot use `${parameters.*}` placeholders. Using them returns a 400 error at connector creation or update time. Use `${credential.*}` for auth headers instead.
+
+**Credential headers**
+- `Authorization`
+- `Proxy-Authorization`
+- `Cookie`
+- `X-API-Key`
+- `X-Auth-Token`
+- `X-Auth-Header`
+
+**IP and host spoofing headers**
+- `Host`
+- `X-Forwarded-Host`
+- `X-Forwarded-Server`
+- `X-Forwarded-For`
+- `Forwarded`
+- `X-Real-IP`
+- `X-Client-IP`
+- `CF-Connecting-IP`
+- `True-Client-IP`
+- `X-Originating-IP`
+
+### Runtime validation
+
+At prediction time, substituted header values are validated before the request is sent:
+
+- **CRLF injection:** Header values containing `\r` or `\n` characters are rejected to prevent HTTP response splitting.
+- **Control characters:** Values containing control characters (`0x00–0x1F`, except tab) are rejected.
+- **Per-header size limit:** Each individual header value must not exceed 8 KB.
+- **Total headers size limit:** The combined size of all headers must not exceed 64 KB.
+
 ## Next steps
 
 - For a full list of connector blueprints provided by OpenSearch, see [Supported connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/supported-connectors/).
