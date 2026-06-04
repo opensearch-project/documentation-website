@@ -3,14 +3,14 @@ layout: default
 title: Dashboard variables
 has_children: true
 has_toc: false
-nav_order: 10
-parent: Creating dashboards
+nav_order: 100
+parent: Creating visualizations using queries
 redirect_from:
-  - /dashboards/dashboard-variables/
+  - /dashboards/visualize/visualization-editor/dashboard-variables/
 ---
 
 # Dashboard variables
-**Introduced 3.7.0**
+**Introduced 3.7**
 {: .label .label-purple }
 
 Dashboard variables are reusable values that you can reference in [visualization editor]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/) queries. Use variables for filters, metrics, dimensions, intervals, fields, aggregations, and any other query parameter, eliminating the need to manually edit PPL or PromQL queries when switching between data views.
@@ -104,7 +104,7 @@ For more information, see [Create a workspace]({{site.url}}{{site.baseurl}}/dash
 
 The `extension` variable now appears at the top of the dashboard with a dropdown.
 
-For more information, see [Managing dashboard variables]({{site.url}}{{site.baseurl}}/dashboards/dashboard/dashboard-variables/managing-variables/).
+For more information, see [Managing dashboard variables]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/dashboard-variables/managing-variables/).
 
 ### Step 4: Use the variable in a visualization
 
@@ -129,7 +129,7 @@ When you change the `extension` value in the dropdown, the visualization automat
 If no results appear, expand the time range (for example, **Last 90 days**) using the [time filter]({{site.url}}{{site.baseurl}}/dashboards/discover/time-filter/) in the upper-right corner.
 {: .tip}
 
-For more information, see [Using dashboard variables]({{site.url}}{{site.baseurl}}/dashboards/dashboard/dashboard-variables/using-variables/).
+For more information, see [Using dashboard variables]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/dashboard-variables/using-variables/).
 
 ## Variable storage
 
@@ -164,7 +164,7 @@ Current variable values are also synchronized to the dashboard URL so that you c
 
 ## Related documentation
 
-- [Managing dashboard variables]({{site.url}}{{site.baseurl}}/dashboards/dashboard/dashboard-variables/managing-variables/)
-- [Using dashboard variables]({{site.url}}{{site.baseurl}}/dashboards/dashboard/dashboard-variables/using-variables/)
-- [Building visualizations using queries]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/)
+- [Managing dashboard variables]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/dashboard-variables/managing-variables/)
+- [Using dashboard variables]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/dashboard-variables/using-variables/)
+- [Creating visualizations using queries]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/)
 - [Workspace for OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/workspace/)

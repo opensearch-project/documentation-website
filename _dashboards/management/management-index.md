@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Dashboards management
-nav_order: 100
+nav_order: 120
 has_children: true
 ---
 

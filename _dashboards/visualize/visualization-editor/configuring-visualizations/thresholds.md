@@ -1,9 +1,9 @@
 ---
 layout: default
 title: Thresholds
-parent: Building visualizations using queries
-grand_parent: Building data visualizations
-nav_order: 100
+parent: Configuring visualizations
+grand_parent: Creating visualizations using queries
+nav_order: 10
 ---
 
 # Thresholds

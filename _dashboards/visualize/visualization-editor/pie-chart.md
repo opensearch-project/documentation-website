@@ -1,8 +1,7 @@
 ---
 layout: default
 title: Pie chart
-parent: Building visualizations using queries
-grand_parent: Building data visualizations
+parent: Creating visualizations using queries
 nav_order: 50
 ---
 
@@ -62,7 +61,7 @@ In the **Fields** section, configure the data fields.
 
 ### Split
 
-In the **Split by** dropdown list, select a field to split the chart into separate elements by value.
+In the **Split by** dropdown list, select a field to split the chart into separate elements by value. For more information, see [Split]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/configuring-visualizations/#split).
 
 
 ### Pie

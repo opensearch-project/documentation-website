@@ -1,7 +1,7 @@
 ---
 layout: default
 title: OpenSearch Assistant for OpenSearch Dashboards
-nav_order: 120
+nav_order: 140
 has_children: true
 has_toc: false
 redirect_from:

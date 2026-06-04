@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Index management
-nav_order: 80
+nav_order: 100
 has_children: true
 redirect_from:
   - /dashboards/admin-ui-index/

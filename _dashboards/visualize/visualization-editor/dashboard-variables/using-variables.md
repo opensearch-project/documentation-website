@@ -2,19 +2,19 @@
 layout: default
 title: Using dashboard variables
 parent: Dashboard variables
-grand_parent: Creating dashboards
+grand_parent: Creating visualizations using queries
 nav_order: 20
 ---
 
 # Using dashboard variables
 
-You can reference dashboard variables in queries and visualization editors to create dynamic, interactive dashboards.
+You can reference dashboard variables in queries in the visualization editor to create dynamic, interactive dashboards.
 
 ## Variable syntax
 
 Dashboard variables can be referenced in queries using the following syntax options.
 
-### Simple syntax
+### Basic syntax
 
 Use `$variableName` for most cases:
 

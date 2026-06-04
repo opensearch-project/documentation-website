@@ -1,8 +1,7 @@
 ---
 layout: default
 title: Bar gauge chart
-parent: Building visualizations using queries
-grand_parent: Building data visualizations
+parent: Creating visualizations using queries
 nav_order: 20
 ---
 
@@ -69,17 +68,17 @@ In the **Fields** section, configure the fields displayed on each axis.
 
 ### Split
 
-In the **Split by** dropdown list, select a field to split the chart into separate elements by value.
+In the **Split by** dropdown list, select a field to split the chart into separate elements by value. For more information, see [Split]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/configuring-visualizations/#split).
 
 ### Value options
 
 | Setting | Description |
 | --- | --- |
-| **Calculation** | Determines how multiple data points for the same category are reduced to a single value. Supported values: **Last \***, **Last**, **First \***, **First**, **Min**, **Max**, **Mean**, **Median**, **Variance**, **Count**, **Distinct count**, **Total**. For more information, see [Value calculations]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/value-calculations/). |
+| **Calculation** | Determines how multiple data points for the same category are reduced to a single value. Supported values: **Last \***, **Last**, **First \***, **First**, **Min**, **Max**, **Mean**, **Median**, **Variance**, **Count**, **Distinct count**, **Total**. For more information, see [Value calculations]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/configuring-visualizations/value-calculations/). |
 
 ### Thresholds
 
-For information about configuring thresholds, see [Thresholds]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/thresholds-setting/).
+For information about configuring thresholds, see [Thresholds]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/configuring-visualizations/thresholds/).
 
 ### Standard options
 

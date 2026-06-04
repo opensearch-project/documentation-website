@@ -1,12 +1,11 @@
 ---
 layout: default
-title: Heatmap chart
-parent: Building visualizations using queries
-grand_parent: Building data visualizations
+title: Heatmap
+parent: Creating visualizations using queries
 nav_order: 30
 ---
 
-# Heatmap chart
+# Heatmap
 
 A heatmap uses color to represent the magnitude of values in a dataset. Each cell in the map corresponds to a combination of two dimensions, with the cell's color intensity reflecting the value associated with that combination.
 
@@ -65,7 +64,7 @@ In the **Fields** section, configure the fields displayed on each axis.
 
 ### Split
 
-In the **Split by** dropdown list, select a field to split the chart into separate elements by value.
+In the **Split by** dropdown list, select a field to split the chart into separate elements by value. For more information, see [Split]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/configuring-visualizations/#split).
 
 
 ### Heatmap
@@ -93,11 +92,11 @@ The following settings are available when **Show labels** is enabled.
 
 ### Thresholds
 
-For information about configuring thresholds, see [Thresholds]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/thresholds-setting/).
+For information about configuring thresholds, see [Thresholds]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/configuring-visualizations/thresholds/).
 
 ### Axes
 
-The X-axis and Y-axis share the same configuration options. For more information, see [Axes]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/#axes).
+The X-axis and Y-axis share the same configuration options. For more information, see [Axes]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/configuring-visualizations/#axes).
 
 ### Legend
 

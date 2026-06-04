@@ -1,8 +1,8 @@
 ---
 layout: default
 title: Creating dashboards
-nav_order: 40
-has_children: true
+nav_order: 60
+has_children: false
 redirect_from:
   - /dashboards/dashboard/
 ---

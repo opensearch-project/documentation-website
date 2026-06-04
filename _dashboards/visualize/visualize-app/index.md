@@ -1,8 +1,7 @@
 ---
 layout: default
-title: Building visualizations visually
-parent: Building data visualizations
-nav_order: 10
+title: Creating visualizations in the Visualize application
+nav_order: 40
 has_children: true
 has_toc: false
 redirect_from:
@@ -10,7 +9,7 @@ redirect_from:
   - /dashboards/visualize/viz-index/
 ---
 
-# Building visualizations visually
+# Creating visualizations in the Visualize application
 
 The **Visualize** application uses a point-and-click interface to create data visualizations from aggregations. To open the **Visualize** application, select **Visualize** from the left navigation menu.
 

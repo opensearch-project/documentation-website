@@ -1,7 +1,7 @@
 ---
 layout: default
 title: VisBuilder
-parent: Building visualizations visuallylication
+parent: Creating visualizations in the Visualize application
 grand_parent: Building data visualizations
 nav_order: 100
 redirect_from:

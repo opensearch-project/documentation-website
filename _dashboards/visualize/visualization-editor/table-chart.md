@@ -1,12 +1,11 @@
 ---
 layout: default
-title: Table chart
-parent: Building visualizations using queries
-grand_parent: Building data visualizations
+title: Table
+parent: Creating visualizations using queries
 nav_order: 65
 ---
 
-# Table chart
+# Table
 
 A table chart displays query results in a tabular format with rows and columns, making it ideal for viewing raw data or summary statistics.
 
@@ -42,7 +41,7 @@ You can configure the following settings in the configuration panel.
 
 ### Threshold
 
-For information about configuring thresholds, see [Thresholds]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/thresholds-setting/).
+For information about configuring thresholds, see [Thresholds]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/configuring-visualizations/thresholds/).
 
 ### Table footer
 

@@ -1,8 +1,7 @@
 ---
 layout: default
 title: Area chart
-parent: Building visualizations using queries
-grand_parent: Building data visualizations
+parent: Creating visualizations using queries
 nav_order: 10
 ---
 
@@ -63,15 +62,15 @@ In the **Fields** section, configure the fields displayed on each axis.
 
 ### Split
 
-In the **Split by** dropdown list, select a field to split the chart into separate elements by value.
+In the **Split by** dropdown list, select a field to split the chart into separate elements by value. For more information, see [Split]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/configuring-visualizations/#split).
 
 ### Thresholds
 
-For information about configuring thresholds, see [Thresholds]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/thresholds-setting/).
+For information about configuring thresholds, see [Thresholds]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/configuring-visualizations/thresholds/).
 
 ### Axes
 
-The X-axis and Y-axis share the same configuration options. For more information, see [Axes]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/#axes).
+The X-axis and Y-axis share the same configuration options. For more information, see [Axes]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/configuring-visualizations/#axes).
 
 ### Tooltip
 

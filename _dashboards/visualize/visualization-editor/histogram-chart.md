@@ -1,12 +1,11 @@
 ---
 layout: default
-title: Histogram chart
-parent: Building visualizations using queries
-grand_parent: Building data visualizations
+title: Histogram
+parent: Creating visualizations using queries
 nav_order: 35
 ---
 
-# Histogram chart
+# Histogram
 
 A histogram chart displays the distribution of a numeric field by grouping values into bins (buckets) and showing the count of values in each bin as vertical bars.
 
@@ -46,7 +45,7 @@ In the **Fields** section, configure the fields displayed on each axis.
 
 ### Split
 
-In the **Split by** dropdown list, select a field to split the chart into separate elements by value.
+In the **Split by** dropdown list, select a field to split the chart into separate elements by value. For more information, see [Split]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/configuring-visualizations/#split).
 
 ### Bucket
 
@@ -59,11 +58,11 @@ The following settings control how data is grouped into bins.
 
 ### Thresholds
 
-For information about configuring thresholds, see [Thresholds]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/thresholds-setting/).
+For information about configuring thresholds, see [Thresholds]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/configuring-visualizations/thresholds/).
 
 ### Axes
 
-The X-axis and Y-axis share the same configuration options. For more information, see [Axes]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/#axes).
+The X-axis and Y-axis share the same configuration options. For more information, see [Axes]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/configuring-visualizations/#axes).
 
 ### Histogram
 

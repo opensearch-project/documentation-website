@@ -1,9 +1,9 @@
 ---
 layout: default
 title: Value calculations
-parent: Building visualizations using queries
-grand_parent: Building data visualizations
-nav_order: 110
+parent: Configuring visualizations
+grand_parent: Creating visualizations using queries
+nav_order: 20
 ---
 
 # Value calculations

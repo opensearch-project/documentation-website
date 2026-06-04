@@ -1,12 +1,11 @@
 ---
 layout: default
-title: Scatter chart
-parent: Building visualizations using queries
-grand_parent: Building data visualizations
+title: Scatter plot
+parent: Creating visualizations using queries
 nav_order: 55
 ---
 
-# Scatter chart
+# Scatter plot
 
 A scatter chart visualizes relationships between two numerical variables. Each point on the chart represents an observation from the dataset, with its position determined by the values of the two variables. You can split data by a categorical field to compare how different groups distribute across the same dimensions.
 
@@ -38,7 +37,7 @@ To apply thresholds, enable **Use threshold colors** in the **Scatter** section.
 
 ![Scatter chart with threshold at 6000 highlighting long-distance flights]({{site.url}}{{site.baseurl}}/images/dashboards/visualization-editor/scatter/scatter-with-threshold.png){: width="100%" }
 
-For more information, see [Thresholds]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/thresholds-setting/).
+For more information, see [Thresholds]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/configuring-visualizations/thresholds/).
 
 ### Adding a color dimension
 
@@ -86,7 +85,7 @@ In the **Fields** section, configure the fields displayed on each axis.
 
 ### Split
 
-In the **Split by** dropdown list, select a field to split the chart into separate elements by value.
+In the **Split by** dropdown list, select a field to split the chart into separate elements by value. For more information, see [Split]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/configuring-visualizations/#split).
 
 ### Scatter
 
@@ -101,11 +100,11 @@ Use the following settings to customize the appearance and behavior of the scatt
 
 ### Thresholds
 
-For information about configuring thresholds, see [Thresholds]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/thresholds-setting/).
+For information about configuring thresholds, see [Thresholds]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/configuring-visualizations/thresholds/).
 
 ### Axes
 
-The X-axis and Y-axis share the same configuration options. For more information, see [Axes]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/#axes).
+The X-axis and Y-axis share the same configuration options. For more information, see [Axes]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/configuring-visualizations/#axes).
 
 ### Legend
 

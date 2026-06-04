@@ -1,12 +1,11 @@
 ---
 layout: default
-title: State timeline chart
-parent: Building visualizations using queries
-grand_parent: Building data visualizations
+title: State timeline
+parent: Creating visualizations using queries
 nav_order: 60
 ---
 
-# State timeline chart
+# State timeline
 
 A state timeline displays a series of horizontal bars that represent state changes over time. Each bar, known as a state region, represents a specific state, and its length indicates the duration of that state.
 
@@ -96,7 +95,7 @@ In the **Fields** section, configure the fields displayed on each axis.
 
 ### Split
 
-In the **Split by** dropdown list, select a field to split the chart into separate elements by value.
+In the **Split by** dropdown list, select a field to split the chart into separate elements by value. For more information, see [Split]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/configuring-visualizations/#split).
 
 ### Value mappings
 
@@ -118,11 +117,11 @@ For a complete example, see [Applying value mappings](#applying-value-mappings).
 
 ### Thresholds
 
-For information about configuring thresholds, see [Thresholds]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/thresholds-setting/).
+For information about configuring thresholds, see [Thresholds]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/configuring-visualizations/thresholds/).
 
 ### Axes
 
-The X-axis and Y-axis share the same configuration options. For more information, see [Axes]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/#axes).
+The X-axis and Y-axis share the same configuration options. For more information, see [Axes]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/configuring-visualizations/#axes).
 
 ### State timeline
 

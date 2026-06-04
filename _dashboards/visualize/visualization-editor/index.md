@@ -1,17 +1,16 @@
 ---
 layout: default
-title: Building visualizations using queries
-parent: Building data visualizations
-nav_order: 20
+title: Creating visualizations using queries
+nav_order: 50
 has_children: true
 has_toc: false
 redirect_from:
   - /dashboards/visualize/visualization-editor/
 ---
 
-# Building visualizations using queries
+# Creating visualizations using queries
 
-The visualization editor enables you to write Piped Processing Language (PPL) or Prometheus Query Language (PromQL) queries and map query results directly to chart fields. Unlike the **Visualize** application that uses aggregation-based configurations, the visualization editor automatically maps query result fields to chart axes and supports progressive refinement through dimensions, multiple metrics, and dual axes.
+The _visualization editor_ lets you create visualizations by writing [Piped Processing Language (PPL)]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/) or Prometheus Query Language (PromQL) queries. The editor automatically maps query result fields to chart axes and suggests a chart type based on the shape of your data. To open the visualization editor from a dashboard, select **Create new** > **Add visualization**.
 
 ## Prerequisites
 
@@ -89,10 +88,17 @@ To open the visualization editor, use one of the following methods:
 To create a visualization, follow these steps:
 
 1. Select a dataset from the dataset selector in the query bar (for example, **opensearch_dashboards_sample_data_logs**).
-1. Write a PPL query in the query editor. For example, the following query counts log events per hour:
+1. Write a PPL query in the query editor. If you selected a dataset, start the query with a pipe character (`|`). Otherwise, specify the source explicitly using `source =`. For example, the following query counts log events per hour:
 
    ```sql
    source = opensearch_dashboards_sample_data_logs | stats count() by SPAN(@timestamp, 1h)
+   ```
+   {% include copy.html %}
+
+   If `opensearch_dashboards_sample_data_logs` is already selected as the dataset, you can omit the `source`:
+
+   ```sql
+   | stats count() by SPAN(@timestamp, 1h)
    ```
    {% include copy.html %}
 
@@ -104,7 +110,7 @@ To create a visualization, follow these steps:
 
 You can use dashboard variables to create dynamic, interactive visualizations. Variables let you switch between filter values, metrics, time intervals, and aggregation functions without editing the query. Reference variables in your PPL or PromQL queries using `$variableName` or `${variableName}` syntax.
 
-For more information, see [Dashboard variables]({{site.url}}{{site.baseurl}}/dashboards/dashboard/dashboard-variables/).
+For more information, see [Dashboard variables]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/dashboard-variables/).
 
 ## Saving a visualization
 
@@ -128,9 +134,9 @@ Select **Save changes** to save the query.
 
 To load a previously saved query, select **Saved queries** > **Open query**, then select a query from the list and select the **Open query** button. The saved query is loaded into the query editor.
 
-## Chart types
+## Visualization types
 
-The following table lists the supported chart types and their expected data shapes.
+The following table lists the supported visualization types and their expected data shapes.
 
 | Chart type | Data shape |
 | :--- | :--- |
@@ -138,39 +144,23 @@ The following table lists the supported chart types and their expected data shap
 | [Bar chart]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/bar-chart/) | One or more categorical or date fields + one or more numeric fields |
 | [Bar gauge chart]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/bar-gauge-chart/) | One or more numeric fields (single values) |
 | [Gauge chart]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/gauge-chart/) | One numeric field (single value) |
-| [Heatmap chart]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/heatmap-chart/) | Two categorical or date fields + one numeric field |
-| [Histogram chart]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/histogram-chart/) | One numeric field (distribution) |
+| [Heatmap]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/heatmap-chart/) | Two categorical or date fields + one numeric field |
+| [Histogram]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/histogram-chart/) | One numeric field (distribution) |
 | [Line chart]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/line-chart/) | One date field + one or more numeric fields |
 | [Metric chart]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/metric-chart/) | One numeric field (single value) |
 | [Pie chart]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/pie-chart/) | One categorical field + one numeric field |
-| [Scatter chart]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/scatter-chart/) | Two or more numeric fields |
-| [State timeline chart]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/state-timeline-chart/) | One date field + one categorical field (state values) |
-| [Table chart]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/table-chart/) | Any combination of fields (displays raw data) |
+| [Scatter plot]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/scatter-chart/) | Two or more numeric fields |
+| [State timeline]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/state-timeline-chart/) | One date field + one categorical field (state values) |
+| [Table]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/table-chart/) | Any combination of fields (displays raw data) |
 
-## Chart configuration
+## Configuring visualizations
 
-The following shared chart configuration options are available across multiple chart types:
-
-- [Thresholds]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/thresholds-setting/) -- Define color-coded boundaries that indicate when values cross important limits.
-- [Value calculations]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/value-calculations/) -- Choose how a series of values is reduced to a single number for display.
-
-### Axes 
-
-The X-axis and Y-axis share the same configuration options. Each axis can be independently customized.
-
-| Setting | Description |
-| --- | --- |
-| **Show axis** | Shows or hides the axis. |
-| **Title** | A custom label for the axis. |
-| **Position** | Controls the placement of the axis relative to the chart. Supported values: X-axis: **Top**, **Bottom**/Y-axis: **Left**, **Right**. |
-| **Show grid lines** | When enabled, shows grid lines extending from the axis into the chart area. |
-| **Show labels** | When enabled, shows category labels along the axis. |
-| **Alignment** | Controls the rotation of axis labels. **Horizontal** (0°), **Vertical** (90°), or **Angled** (45°). |
-| **Truncate after** | Sets the maximum character length for axis labels before truncation. |
+Shared configuration options (fields, split, axes, tooltip, legend, thresholds, and more) apply across multiple visualization types. For details, see [Configuring visualizations in the visualization editor]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/configuring-visualizations/).
 
 ## Related documentation
 
-- [Dashboard variables]({{site.url}}{{site.baseurl}}/dashboards/dashboard/dashboard-variables/)
+- [PPL]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/)
+- [Dashboard variables]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/dashboard-variables/)
 - [Creating dashboards]({{site.url}}{{site.baseurl}}/dashboards/dashboard/)
 - [Index patterns]({{site.url}}{{site.baseurl}}/dashboards/management/index-patterns/)
 - [Connecting Prometheus to OpenSearch]({{site.url}}{{site.baseurl}}/dashboards/management/connect-prometheus/)
