@@ -79,7 +79,7 @@ Each SLO is bound to a single data source, which must be a registered `DirectQue
 
 The SLI definition determines what data the ruler must be able to query:
 
-- **Availability and latency-threshold SLIs** require the named Prometheus counter or histogram metric to be present in the configured backend. APM service templates assume span-derived RED metrics produced by [OpenSearch Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/); OpenTelemetry (OTel) semantic-convention templates assume the corresponding HTTP, RPC, database client, messaging, or generative AI metrics.
+- **Availability and latency-threshold SLIs** require the named Prometheus counter or histogram metric to be present in the configured backend. Application Performance Monitoring (APM) service templates expect span-derived Rate, Error, Duration (RED) metrics produced by [OpenSearch Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/). OpenTelemetry (OTel) semantic convention templates expect the corresponding HTTP, RPC, database client, messaging, or generative AI metrics.
 - **Custom SLIs** require your PromQL expression to evaluate successfully against the backend.
 
 ## Accessing SLOs
