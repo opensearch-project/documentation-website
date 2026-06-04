@@ -1,8 +1,9 @@
 ---
 layout: default
-title: Alerting dashboards and visualizations 
+title: Alerting dashboards and visualizations
 parent: Alerting
 nav_order: 50
+has_children: true
 ---
 
 # Alerting dashboards and visualizations
