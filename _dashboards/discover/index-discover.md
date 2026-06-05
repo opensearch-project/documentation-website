@@ -2,7 +2,7 @@
 layout: default
 title: Exploring data with Discover
 parent: Exploring data
-nav_order: 20
+nav_order: 10
 has_children: true
 ---
 
