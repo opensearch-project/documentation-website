@@ -316,11 +316,11 @@ PUT /_plugins/_ml/connectors/{connector_id}
 **Introduced 3.7**
 {: .label .label-purple }
 
-By default, connector headers are resolved once at connector creation time. Dynamic connector headers allow you to use `${parameters.*}` placeholders in header values so that per-request values are substituted at prediction time. This is useful for passing request-scoped metadata such as transaction IDs, correlation IDs, or trace tokens to the remote model endpoint.
+By default, connector headers are resolved once at connector creation time. Dynamic connector headers allow you to use `${parameters.*}` placeholders in header values so that per-request values are substituted at prediction time. This is useful for passing request-scoped metadata such as transaction IDs, correlation IDs, or trace tokens to the eternally hosted model endpoint.
 
-### Configuration
+### Configuring dynamic headers
 
-Define the header with a `${parameters.*}` placeholder in the connector's `actions[].headers` field. You can optionally set a default value for the parameter in the top-level `parameters` field:
+To configure a dynamic header, define the header with a `${parameters.*}` placeholder in the connector's `actions[].headers` field. You can optionally set a default value for the parameter in the top-level `parameters` field:
 
 ```json
 POST /_plugins/_ml/connectors/_create
@@ -365,64 +365,46 @@ POST /_plugins/_ml/models/{model_id}/_predict
 
 The resulting HTTP request to the remote endpoint includes the substituted header:
 
-```
+```json
 POST https://api.example.com/predict
 Authorization: test-api-key
 X-Test-Request-Id: request-123
 ```
 
-If no runtime value is provided and no default is set in the connector's `parameters` field, the prediction request is rejected with a 400 error:
-
-```json
-{
-  "error": {
-    "root_cause": [
-      {
-        "type": "illegal_argument_exception",
-        "reason": "Header 'request_id' contains unresolved placeholder. Required parameter is missing."
-      }
-    ],
-    "type": "illegal_argument_exception",
-    "reason": "Header 'request_id' contains unresolved placeholder. Required parameter is missing."
-  },
-  "status": 400
-}
-```
-
-To provide a fallback, define a default value for the parameter in the connector's `parameters` field. If a default is set and no runtime value is provided, the default is used.
+If no runtime value is provided and no default is set in the connector's `parameters` field, the prediction request is rejected with a 400 error. To avoid this, define a default value for the parameter in the connector's `parameters` field. If no runtime value is provided, the default value is used.
 
 ### Security restrictions
 
-The following headers cannot use `${parameters.*}` placeholders. Using them returns a 400 error at connector creation or update time. Use `${credential.*}` for auth headers instead.
+The following headers cannot contain `${parameters.*}` placeholders. Using them returns a 400 error at connector creation or update time. Use `${credential.*}` for auth headers instead:
 
-**Credential headers**
-- `Authorization`
-- `Proxy-Authorization`
-- `Cookie`
-- `X-API-Key`
-- `X-Auth-Token`
-- `X-Auth-Header`
+- Credential headers:
+  - `Authorization`
+  - `Proxy-Authorization`
+  - `Cookie`
+  - `X-API-Key`
+  - `X-Auth-Token`
+  - `X-Auth-Header`
 
-**IP and host spoofing headers**
-- `Host`
-- `X-Forwarded-Host`
-- `X-Forwarded-Server`
-- `X-Forwarded-For`
-- `Forwarded`
-- `X-Real-IP`
-- `X-Client-IP`
-- `CF-Connecting-IP`
-- `True-Client-IP`
-- `X-Originating-IP`
+- IP and host spoofing headers:
+  - `Host`
+  - `X-Forwarded-Host`
+  - `X-Forwarded-Server`
+  - `X-Forwarded-For`
+  - `Forwarded`
+  - `X-Real-IP`
+  - `X-Client-IP`
+  - `CF-Connecting-IP`
+  - `True-Client-IP`
+  - `X-Originating-IP`
 
 ### Runtime validation
 
 At prediction time, substituted header values are validated before the request is sent:
 
-- **CRLF injection:** Header values containing `\r` or `\n` characters are rejected to prevent HTTP response splitting.
-- **Control characters:** Values containing control characters (`0x00–0x1F`, except tab) are rejected.
-- **Per-header size limit:** Each individual header value must not exceed 8 KB.
-- **Total headers size limit:** The combined size of all headers must not exceed 64 KB.
+- Header values containing `\r` or `\n` characters are rejected to prevent HTTP response splitting.
+- Values containing control characters (`0x00–0x1F`, except tab) are rejected.
+- Each individual header value must not exceed 8 KB.
+- The combined size of all headers must not exceed 64 KB.
 
 ## Next steps
 
