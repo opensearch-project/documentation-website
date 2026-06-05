@@ -16,7 +16,7 @@ A conversational agent uses a large language model (LLM) and a set of supplement
 
 OpenSearch provides two types of conversational agents:
 
-- **[The `conversational_v2` agent](#the-conversational_v2-agent-with-full-multimodal-support)** (OpenSearch 3.6 and later, experimental): An enhanced agent with built-in multimodal support through a standardized interface. Requires the [unified registration method]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/#unified-registration-method) and [agentic memory]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agentic-memory/).
+- **[The `conversational_v2` agent](#the-conversational_v2-agent-with-full-multimodal-support)** (OpenSearch 3.6 and later): An enhanced agent with built-in multimodal support through a standardized interface. Requires the [unified registration method]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/#unified-registration-method) and [agentic memory]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agentic-memory/).
 
 - **[The `conversational` agent (v1)](#the-conversational-agent-v1)** (OpenSearch 2.13 and later): Supports both the [unified registration method]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/#unified-registration-method) (plain text input only) and the [regular registration method]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/#regular-registration-method) (connector-dependent capabilities). Supports both `conversation_index` and `agentic_memory` memory types.
 
@@ -24,8 +24,8 @@ OpenSearch provides two types of conversational agents:
 **Introduced 3.6**
 {: .label .label-purple }
 
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/ml-commons/issues/4552).
-{: .warning}
+**Generally available 3.7**
+{: .label .label-green }
 
 A `conversational_v2` agent extends the `conversational` agent by providing built-in multimodal support through the [unified registration method]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/#unified-registration-method), without requiring custom connector configuration. Unlike `conversational` agents, which accept only plain text input when using the unified registration method, the `conversational_v2` agents support the following input formats:
 
