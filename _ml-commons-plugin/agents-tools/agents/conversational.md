@@ -24,9 +24,6 @@ OpenSearch provides two types of conversational agents:
 **Introduced 3.6**
 {: .label .label-purple }
 
-**Generally available 3.7**
-{: .label .label-green }
-
 A `conversational_v2` agent extends the `conversational` agent by providing built-in multimodal support through the [unified registration method]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/#unified-registration-method), without requiring custom connector configuration. Unlike `conversational` agents, which accept only plain text input when using the unified registration method, the `conversational_v2` agents support the following input formats:
 
 - **Plain text**: A simple string input.

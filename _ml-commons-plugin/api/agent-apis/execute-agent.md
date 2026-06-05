@@ -103,9 +103,6 @@ The following table lists the base response fields for agent execution.
 **Introduced 3.5**
 {: .label .label-purple }
 
-**Generally available 3.7**
-{: .label .label-green }
-
 For agents created using the [unified registration method]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/#unified-registration-method), use the `input` field. The supported input formats depend on the agent type:
 
 - **`conversational` and other V1 agent types**: Support plain text input only.

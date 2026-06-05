@@ -22,7 +22,7 @@ Agents may be of the following types:
 
 For more information about agents, see [Agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/).
 
-Starting with OpenSearch 3.5, you can use the [unified registration method]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/#unified-registration-method) to register agents with automated connector and model creation. This method supports Amazon Bedrock Converse, Google Gemini, and OpenAI models and requires the `plugins.ml_commons.unified_agent_api_enabled` cluster setting to be enabled.
+You can use the [unified registration method]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/#unified-registration-method) to register agents with automated connector and model creation. This method supports Amazon Bedrock Converse, Google Gemini, and OpenAI models and requires the `plugins.ml_commons.unified_agent_api_enabled` cluster setting to be enabled.
 {: .note}
 
 ## Endpoints
@@ -315,9 +315,6 @@ OpenSearch responds with an agent ID that you can use to refer to the agent:
 ## Unified agent registration
 **Introduced 3.5**
 {: .label .label-purple }
-
-**Generally available 3.7**
-{: .label .label-green }
 
 The unified registration method streamlines agent creation by automatically handling connector and model setup in a single API call. This method supports the Amazon Bedrock Converse API with Anthropic Claude models, Google Gemini models, and OpenAI models.
 
