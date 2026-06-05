@@ -62,10 +62,6 @@ The SLO feature is available within an Observability [workspace]({{site.url}}{{s
 4. Select the **Observability** use case.
 5. Select **Create workspace**.
 
-### OpenSearch plugins
-
-The [SQL plugin](https://github.com/opensearch-project/sql) (`opensearch-sql`) must be installed on the cluster. SLOs read from and write to the Prometheus-compatible ruler through the DirectQuery resource proxy provided by the SQL plugin, so the Prometheus features will not work without it.
-
 ### Prometheus-compatible ruler
 
 SLOs deploy recording and alerting rules to a Prometheus-compatible ruler (Cortex or Grafana Mimir) through the `DirectQuery` resource proxy. The ruler must support the following API endpoints:
