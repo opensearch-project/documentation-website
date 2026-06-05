@@ -103,9 +103,6 @@ The following table lists the base response fields for agent execution.
 **Introduced 3.5**
 {: .label .label-purple }
 
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).
-{: .warning}
-
 For agents created using the [unified registration method]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/#unified-registration-method), use the `input` field. The supported input formats depend on the agent type:
 
 - **`conversational` and other V1 agent types**: Support plain text input only.
