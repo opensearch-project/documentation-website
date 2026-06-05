@@ -178,7 +178,7 @@ Each connector must specify the following parameters in the `parameters.mcp_conn
 |:--- |:--- |:--- |:--- |
 | `mcp_connector_id` | String | Yes | The connector ID of the MCP connector. | 
 | `tool_filters` | Array | No | An array of Java-style regular expressions that specify which tools from the MCP server to make available to the agent. A tool will be included if it matches at least one of the regular expressions in the array. If omitted or set to an empty array, all tools exposed by the connector will be available. Use the `^` or `$` anchors or literal strings to precisely match tool names. For example, `^get_forecast` matches any tool starting with "get_forecast", while `search_indices` matches only "search_indices".|
-| `tool_descriptions` | Array | No | An array of objects that override MCP tool descriptions presented to the LLM. Each object contains one tool name as the key and the replacement description as the string value. Overrides apply only to tools that are included after `tool_filters` are evaluated. Entries for tools that do not exist on the connector, are excluded by `tool_filters`, or use blank, null, or non-string values are ignored. If the same tool name appears in multiple objects, the last value is used. Available in OpenSearch 3.7 and later. |
+| `tool_descriptions` | Array | No | An array of objects that override the tool descriptions sent to the LLM. Each object maps a tool name (key) to a replacement description (string value). Only tools that pass the `tool_filters` evaluation can be overridden. Entries are ignored if the tool does not exist on the connector, is excluded by `tool_filters`, or has a blank, null, or non-string value. If the same tool name appears in multiple objects, the last value wins. |
 
 In this example, you'll register a conversational agent using the connector ID created in Step 1. The MCP server has two tools available (`get_alerts` and `get_forecasts`), but only the `get_alerts` tool will be included in the agent's configuration because it matches the specified regex pattern `^get_alerts$`:
 
@@ -231,7 +231,7 @@ The response contains the agent ID:
 **Introduced 3.7**
 {: .label .label-purple }
 
-MCP servers provide each tool with a description that helps the LLM decide when to call it. You can replace those descriptions at the connector level using `tool_descriptions` without changing the MCP server. This is useful when the server-provided text is too generic, uses internal naming, or does not match your agent's domain vocabulary.
+Each MCP tool includes a description that helps the LLM decide when to call it. To replace a tool's description without modifying the MCP server, use the `tool_descriptions` parameter. This is useful when the server-provided description is too generic, uses internal naming, or does not match your agent's domain vocabulary.
 
 Each entry in `tool_descriptions` must be a JSON object with a single key–value pair: the MCP tool name and the override description string. You can specify multiple overrides by adding multiple objects to the array.
 
@@ -276,7 +276,7 @@ POST /_plugins/_ml/agents/_register
 ```
 {% include copy-curl.html %}
 
-To override descriptions for multiple tools without applying `tool_filters`, omit `tool_filters` or set it to an empty array so all connector tools remain available:
+To override descriptions for multiple tools without applying `tool_filters`, omit the `tool_filters` parameter or set it to an empty array so that all connector tools remain available:
 
 ```json
 "mcp_connectors": [
@@ -290,7 +290,7 @@ To override descriptions for multiple tools without applying `tool_filters`, omi
 ]
 ```
 
-Overrides for tool names that are not exposed by the connector, or that `tool_filters` excludes, have no effect. The agent continues to use the MCP server's original description for any tool without a valid override.
+Overrides for tool names that are not exposed by the connector or that `tool_filters` excludes have no effect. The agent continues to use the MCP server's original description for any tool without a valid override.
 
 ## Step 4: Run the agent
 
