@@ -106,32 +106,23 @@ These attributes can be referenced in processors and sinks using the `getMetadat
 
 ## Response format
 
-The source returns a JSON response compatible with the OpenSearch Bulk API format:
+On success, the source returns a JSON response with an empty `items` array. Sample:
 
 ```json
 {
-  "took": 0,
+  "took": 5,
   "errors": false,
-  "items": [
-    {
-      "index": {
-        "_index": "my-index",
-        "_id": "1",
-        "_version": 1,
-        "result": "created",
-        "status": 201,
-        "_seq_no": 0,
-        "_primary_term": 1,
-        "_shards": {
-          "total": 1,
-          "successful": 1,
-          "failed": 0
-        }
-      }
-    }
-  ]
+  "items": []
 }
 ```
+
+| Field | Description |
+|-------|-------------|
+| `took` | Actual processing time in milliseconds (measured from request receipt to buffer write completion). |
+| `errors` | `false` when all data is successfully written to the buffer. |
+| `items` | Always an empty array. Because Data Prepper buffers documents for downstream processing rather than indexing them directly, per-item results are not available at request time. |
+
+This response format is verified to work with the RestHighLevelClient 1.3.x.
 
 ## Response status codes
 
