@@ -19,11 +19,27 @@ You can use the **Dashboards** application in OpenSearch Dashboards to build a p
 Use the following tutorial to learn to create a dashboard using the **Dashboards** application and the OpenSearch sample data. The sample datasets have existing sample visualizations that you can use for the dashboard, or you can create your own visualizations. The tutorials demonstrate how to do both.
 
 
+## Navigating the UI
+
+The following components make up the **Dashboards** UI.
+
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/dashboard-UI-blank-callouts.png" alt="Discover app default page">
+
+- The _application menu_ (A) contains application options. This menu is context-sensitive and is different for other applications.
+- The _search_ bar (B) enables selection of data using a query language search.
+- The _time filter_ (C) enables selection of data based on a time and date range.
+- The _filter_ (D) provides a graphical interface for selecting data values and ranges.
+- The _application panel_ (E) displays the dashboard, which contains visualization and search panels.
+
+The following tutorials assume you're either using your existing installation of OpenSearch Dashboards or using the [OpenSearch Playground](https://playground.opensearch.org/app/home#/). Depending on which one you use, certain capabilities may not be available. For example, sample datasets may not be included in your existing installation, and saving a dashboard isn't an option in the OpenSearch Playground.
+{: .note}
+
+
 ## Prerequisites
 
 Before starting this tutorial, ensure that you:
 
-- Familiarize yourself with the **Dashboards** UI. See [Navigating the UI]({{site.url}}{{site.baseurl}}/dashboards/dashboard/index/#navigating-the-ui).
+- Familiarize yourself with the OpenSearch Dashboards web-based interface. See [Navigating OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/navigating-ui/#navigating-opensearch-dashboards) (Note the _navigation panel_ to the left of the application panel.) See also [Navigating the UI]({{site.url}}{{site.baseurl}}/dashboards/dashboard/index/#navigating-the-ui) which is replicated on this page for convenience.
 
 - [Install OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/).
 
@@ -112,7 +128,7 @@ To create a new visualization in **Dashboards**, follow these steps:
 
    The **Dashboards** application saves the metric visualization and adds it to the dashboard as shown in the following image.
 
-   <img src="{{site.url}}{{site.baseurl}}/images/dashboards/dash-tut-combined.png" alt="Dashboard with two panels"  width="100%">
+   <img src="{{site.url}}{{site.baseurl}}/images/dashboards/dash-tut-combined.png" alt="Dashboard with Sales by Category and Order Count metric panels"  width="100%">
 
 
 ## Adding subsequent panels
