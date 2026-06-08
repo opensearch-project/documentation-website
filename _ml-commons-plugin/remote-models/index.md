@@ -112,7 +112,7 @@ To learn more about model groups, see [Model access control]({{site.url}}{{site.
 
 ## Step 2: Create a connector
 
-You can create a standalone connector that can be reused for multiple models. Alternatively, you can specify a connector when creating a model so that it can be used only for that model. For more information and example connectors, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/).
+You can create a standalone connector that can be reused by multiple model registrations in OpenSearch that share the same external endpoint and configuration. Alternatively, you can specify a connector when creating a model so that it can be used only for that model. For more information and example connectors, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/).
 
 If you're using Amazon OpenSearch Service, the process for creating connectors differs. For more information, see [Creating connectors in Amazon OpenSearch Service](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/ml-amazon-connector.html).
 {: .note}

@@ -157,3 +157,7 @@ Value | Description
 
 Inner objects inherit the `dynamic` parameter value from their parent unless they declare their own `dynamic` parameter value.
 {: .note }
+
+## Related documentation
+
+- [Disable objects]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/disable-objects/)

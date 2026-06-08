@@ -103,7 +103,7 @@ GET testindex/_search
 
 The following image depicts the example. Both the point and the polygon are within the bounding envelope.
 
-<img src="{{site.url}}{{site.baseurl}}/images/xy_query.png" alt="xy shape query" width="250">
+![xy shape query]({{site.url}}{{site.baseurl}}/images/xy_query.png){: width="250" }
 
 
 The response contains both documents:
@@ -416,7 +416,7 @@ xy point only supports the default `INTERSECTS` spatial relation, so you don't n
 
 The following image depicts the example. Points 1 and 2 are within the circle, and point 3 is outside the circle.
 
-<img src="{{site.url}}{{site.baseurl}}/images/xy_query_point.png" alt="xy point query" width="300">
+![xy point query]({{site.url}}{{site.baseurl}}/images/xy_query_point.png){: width="300" }
 
 The response returns documents 1 and 2:
 

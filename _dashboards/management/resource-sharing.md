@@ -1,8 +1,8 @@
 ---
 layout: default
 title: Resource access management
-parent: Dashboards Management
-nav_order: 55
+parent: Dashboards management
+nav_order: 30
 ---
 
 # Resource access management

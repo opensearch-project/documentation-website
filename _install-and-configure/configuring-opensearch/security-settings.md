@@ -207,17 +207,17 @@ The Security plugin supports the following audit log settings:
 
 - `plugins.security.audit.config.pemkey_filepath` (Static): The `/config` relative file path to the Privacy Enhanced Mail (PEM) key used for audit logging.
 
-- `plugins.security.audit.config.pemkey_content` (Static): The base64-encoded content of the PEM key used for audit logging. This is an alternative to `...config.pemkey_filepath`.
+- `plugins.security.audit.config.pemkey_content` (Static): The Base64-encoded content of the PEM key used for audit logging. This is an alternative to `...config.pemkey_filepath`.
 
 - `plugins.security.audit.config.pemkey_password` (Static): Password for the PEM-formatted private key used by the client.
 
 - `plugins.security.audit.config.pemcert_filepath` (Static): The `/config` relative file path to the PEM certificate used for audit logging.
 
-- `plugins.security.audit.config.pemcert_content` (Static): The base64-encoded content of the PEM certificate used for audit logging. This is an alternative to specifying the file path with `...config.pemcert_filepath`.
+- `plugins.security.audit.config.pemcert_content` (Static): The Base64-encoded content of the PEM certificate used for audit logging. This is an alternative to specifying the file path with `...config.pemcert_filepath`.
 
 - `plugins.security.audit.config.pemtrustedcas_filepath` (Static): The `/config` relative filepath to trusted root certificate authority.
 
-- `plugins.security.audit.config.pemtrustedcas_content` (Static): The base64-encoded content of the root certificate authority. This is an alternative to `...config.pemtrustedcas_filepath`.
+- `plugins.security.audit.config.pemtrustedcas_content` (Static): The Base64-encoded content of the root certificate authority. This is an alternative to `...config.pemtrustedcas_filepath`.
 
 - `plugins.security.audit.config.webhook.url` (Static): The webhook URL.
 
@@ -227,7 +227,7 @@ The Security plugin supports the following audit log settings:
 
 - `plugins.security.audit.config.webhook.ssl.pemtrustedcas_filepath` (Static): The `/config` relative file path to trusted certificate authority against which webhook requests are verified.
 
-- `plugins.security.audit.config.webhook.ssl.pemtrustedcas_content` (Static): The base64-encoded content of the certificate authority used to verify webhook requests. This is an alternative to `...config.pemtrustedcas_filepath`.
+- `plugins.security.audit.config.webhook.ssl.pemtrustedcas_content` (Static): The Base64-encoded content of the certificate authority used to verify webhook requests. This is an alternative to `...config.pemtrustedcas_filepath`.
 
 - `plugins.security.audit.config.log4j.logger_name` (Static): A custom name for the Log4j logger.
 

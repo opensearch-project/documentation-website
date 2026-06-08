@@ -31,6 +31,7 @@ Add a single value to the setting when only one authentication type is needed.
 ```yml
 opensearch_security.auth.type: "openid"
 ```
+{% include copy.html %}
 
 For multiple authentication options, add values to the setting as an array separated by commas. As a reminder, Dashboards currently supports a combination of basic authentication, OpenID Connect, and SAML as a valid set of values. In the setting, these values are expressed as `"basicauth"`, `"openid"`, and `"saml"`.
 
@@ -38,30 +39,61 @@ For multiple authentication options, add values to the setting as an array separ
 opensearch_security.auth.type: ["basicauth","openid"]
 opensearch_security.auth.multiple_auth_enabled: true
 ```
+{% include copy.html %}
 
 ```yml
 opensearch_security.auth.type: ["basicauth","saml"]
 opensearch_security.auth.multiple_auth_enabled: true
 ```
+{% include copy.html %}
 
 ```yml
 opensearch_security.auth.type: ["basicauth","saml","openid"]
 opensearch_security.auth.multiple_auth_enabled: true
 ```
+{% include copy.html %}
 
 When the `opensearch_security.auth.type` setting contains `basicauth` and one other authentication type, the sign-in window appears as in the following example.
 
-<img src="{{site.url}}{{site.baseurl}}/images/Security/OneOptionWithoutLogo.png" alt="Basic authentication and one other type in the sign-in window" width="350">
+![Basic authentication and one other type in the sign-in window]({{site.url}}{{site.baseurl}}/images/Security/OneOptionWithoutLogo.png){: width="350" }
 
 With all three valid authentication types specified, the sign-in window appears as in the following example.
 
-<img src="{{site.url}}{{site.baseurl}}/images/Security/TwoOptionWithoutLogo.png" alt="All three authentication types specified in the sign-in window" width="350">
+![All three authentication types specified in the sign-in window]({{site.url}}{{site.baseurl}}/images/Security/TwoOptionWithoutLogo.png){: width="350" }
+
+## Configuring a default redirect authentication type
+
+When multiple authentication types are enabled, you can configure one of the redirect-based authentication types (SAML or OpenID Connect) to be used for automatic redirection by default. This is useful when you want most users to authenticate through an IdP while still allowing alternative authentication methods.
+
+To configure a default redirect authentication type, add the `opensearch_security.auth.default_redirect_auth_type` setting to the `opensearch_dashboards.yml` file:
+
+```yml
+opensearch_security.auth.type: ["basicauth","saml"]
+opensearch_security.auth.multiple_auth_enabled: true
+opensearch_security.auth.default_redirect_auth_type: "saml"
+```
+{% include copy.html %}
+
+With this configuration, unauthenticated users are automatically redirected to the SAML IdP for authentication instead of being shown the OpenSearch Dashboards login page.
+
+The `default_redirect_auth_type` value must be either `saml` or `openid` and must also be included in the `opensearch_security.auth.type` array.
+{: .note }
+
+### Bypassing automatic redirection
+
+When a default redirect authentication type is configured, you can bypass the automatic redirection and display the login page instead by appending `?auto_login=false` to the OpenSearch Dashboards URL. For example:
+
+```
+https://<dashboards-host>:5601/app/dashboards?auto_login=false
+```
+
+This is useful for administrators who need to authenticate using basic authentication (for example, as a cluster administrator) when the default redirect is configured to use SAML or OpenID Connect.
 
 ## Customizing the sign-in environment
 
 In addition to the essential sign-in settings for each authentication type, you can configure additional settings in the `opensearch_dashboards.yml` file to customize the sign-in window so that it clearly represents the options that are available. For example, you can replace the label on the sign-in button with the name and icon of the IdP. Refer to the settings and descriptions that follow.
 
-<img src="{{site.url}}{{site.baseurl}}/images/Security/TwoOptionWithLogo.png" alt="Multi-option sign-in window with with some customization" width="350">
+![Multi-option sign-in window with with some customization]({{site.url}}{{site.baseurl}}/images/Security/TwoOptionWithLogo.png){: width="350" }
 
 ### Basic authentication settings
 
@@ -111,6 +143,7 @@ opensearch_security.readonly_mode.roles: ["<role_for_read_only>"]
 # Settings that enable multiple option authentication in the sign-in window #
 opensearch_security.auth.multiple_auth_enabled: true
 opensearch_security.auth.type: ["basicauth","openid"]
+opensearch_security.auth.default_redirect_auth_type: "openid"
 
 # Basic authentication customization #
 opensearch_security.ui.basicauth.login.brandimage: <path/to/OSlogo.png>
@@ -130,3 +163,4 @@ opensearch_security.openid.connect_url: <"OIDC connect URL">
 opensearch_security.openid.client_id: <Client ID>
 opensearch_security.openid.client_secret: <Client secret>
 ```
+{% include copy.html %}

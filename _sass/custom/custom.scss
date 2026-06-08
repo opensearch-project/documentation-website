@@ -226,10 +226,18 @@ img {
     border-left: 5px solid var(--callout-warning-border);
     background-color: var(--callout-warning-bg);
   }
+  @else if $version == 'current' {
+    border-left: 5px solid var(--callout-tip-border);
+    background-color: var(--callout-tip-bg);
+  }
 }
 
 .supported-version-warning {
   @include version-warning('supported');
+}
+
+.migration-assistant-version-banner {
+  @include version-warning('current');
 }
 
 .unsupported-version-warning {

@@ -69,7 +69,7 @@ A _star node_ (marked as `*` in the following diagram) aggregates all values for
 
 The following diagram shows a star-tree index created for this example and three example query paths. In the diagram, notice that each branch corresponds to a dimension (`status` and `port`). Some nodes contain precomputed aggregation values (for example, `Sum(size)`), allowing OpenSearch to skip unnecessary calculations at query time.
 
-<img src="{{site.url}}{{site.baseurl}}/images/star-tree-index.png" alt="A star-tree index containing two dimensions and two metrics">
+![A star-tree index containing two dimensions and two metrics]({{site.url}}{{site.baseurl}}/images/star-tree-index.png)
 
 The colored arrows show three query examples:
 

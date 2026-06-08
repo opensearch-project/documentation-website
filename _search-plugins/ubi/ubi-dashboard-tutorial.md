@@ -39,7 +39,7 @@ After you select **Create index pattern**, a list of indexes in your OpenSearch 
 You can group indexes into the same data source for your dashboard using wildcards. For this tutorial you'll combine the query and event stores into the `ubi_*` pattern.
 
 OpenSearch Dashboards prompts you to filter on any `date` field in your schema so that you can look at things like trending queries over the last 15 minutes. However, for your first dashboard, select **I don't want to use the time filter**, as shown in the following image.
-<img src="{{site.url}}{{site.baseurl}}/images/ubi/index_pattern3.png" alt="Index Patterns" width="400"/>
+![Index Patterns]({{site.url}}{{site.baseurl}}/images/ubi/index_pattern3.png){: width="400" }
 
 
 After selecting **Create index pattern**, you're ready to start building a dashboard that displays the UBI store data.
