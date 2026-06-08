@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Custom branding
-nav_order: 130
+parent: Settings and administration
+nav_order: 40
 ---
 
 # Custom branding

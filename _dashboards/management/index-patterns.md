@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Index patterns
-parent: Dashboards Management
+parent: Connecting data sources
 nav_order: 10
 ---
 
