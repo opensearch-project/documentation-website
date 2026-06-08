@@ -55,6 +55,7 @@ PUT _plugins/_rollup/jobs/{rollup_id}?if_seq_no=1&if_primary_term=1 // Update
       "example_rollup_index_all"
     ],
     "continuous": false,
+    "routing_field": "PULocationID",
     "dimensions": [
       {
         "date_histogram": {
@@ -117,6 +118,7 @@ Options | Description                                                           
 `page_size` | Specify the number of buckets to paginate at a time during rollup.                                                                                                                                                                                                                                                                                                      | Number | Yes
 `delay` | The number of milliseconds to delay execution of the index rollup job.                                                                                                                                                                                                                                                                                                  | Long | No
 `dimensions` | Specify aggregations to create dimensions for the roll up time window. Supported groups are `terms`, `histogram`, and `date_histogram`. For more information, see [Bucket Aggregations]({{site.url}}{{site.baseurl}}/opensearch/bucket-agg).                                                                                                                            | Array | Yes
+`routing_field` | The `source_field` of a `terms` dimension to use for routing rolled up documents on the target index. When set, each rolled up document is indexed using that dimension's value as its routing value, so routing-based searches on the target index are directed to the correct shard. Without it, rolled up documents are distributed across the target index's shards by document ID, so searches that specify a `routing` value may return no results. The value must match the `source_field` of one of the `terms` dimensions defined in `dimensions`. This setting is immutable and cannot be changed when updating an existing rollup job. Available in OpenSearch 3.7 and later. | String | No
 `metrics` | Specify a list of objects that represent the fields and metrics that you want to calculate. Supported metrics are `sum`, `max`, `min`, `value_count` and `avg`. For more information, see [Metric Aggregations]({{site.url}}{{site.baseurl}}/opensearch/metric-agg).                                                                                                    | Array | No
 
 
@@ -149,6 +151,7 @@ Options | Description                                                           
     "page_size": 200,
     "delay": 0,
     "continuous": false,
+    "routing_field": "PULocationID",
     "dimensions": [
       {
         "date_histogram": {
