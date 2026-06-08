@@ -38,5 +38,5 @@ The VisBuilder tool provides drag-and-drop visualization creation. See [VisBuild
 
 The Timeline visualization builder is a legacy tool that uses a descriptive query language to define time-based visualizations.
 
-For new time-based visualizations, we recommend using [TSVB]({{site.url}}{{site.baseurl}}/dashboards/visualize/tsvb/).
+For new time-based visualizations, we recommend using [TSVB]({{site.url}}{{site.baseurl}}/dashboards/visualize/tsvb/) or [Vega]({{site.url}}{{site.baseurl}}/dashboards/visualize/vega/).
 {: .note}

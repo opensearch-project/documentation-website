@@ -12,6 +12,7 @@ has_toc: false
 Text visualizations display data using words and numbers rather than graphical elements. These elements provide detail and can also help make key data stand out on a [dashboard]({{site.url}}{{site.baseurl}}/dashboards/dashboard/). Text visualizations include the following:
 
 | **Metric** | **Tag cloud** | **Data table** |
+| --- | --- | --- |
 | [<img src="{{site.url}}{{site.baseurl}}/images/icons/vis-metric-icon.png" width="90" height="90" alt="Metric icon">](#building-a-metric-visualization) | [<img src="{{site.url}}{{site.baseurl}}/images/icons/vis-tagcloud-icon.png" width="90" height="90" alt="Tag Cloud icon">](#building-a-tag-cloud) | [<img src="{{site.url}}{{site.baseurl}}/images/icons/vis-datatable-icon.png" width="90" height="90" alt="Data Table icon">](#building-a-data-table) |
 | Display a single data field. | Display a word cloud, attaching magnitudes to terms. | Display any type of data in a table. |
 

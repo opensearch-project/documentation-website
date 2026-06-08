@@ -23,7 +23,13 @@ To create a new visualization of any type, follow these steps:
 
    All visualization types except the following require that you choose an index pattern from the **New (type)/Choose a source** dialog to serve as a data source (the dialog displays the visualization _(type)_ in the dialog title):
 
-   Controls, Maps, Markdown, PPL, TSVB, Timeline, Vega, and VisBuilder. Choosing data sources for these visualizations is described elsewhere.
+   - **Controls** do not require a data source.
+   - **Markdown** anotations do not require a data source.
+   - **PPL** is still available through the Visualization application, but is intended for creating visualizations of Observability data. See [Event Analytics]({{site.url}}{{site.baseurl}}/observing-your-data/event-analytics/).
+   - **TSVB**: For information about creating TSVB visualizations, see [TSVB]({{site.url}}{{site.baseurl}}/dashboards/visualize/tsvb/). 
+   - **Timeline** is a legacy visualization. We recommend using [TSVB]({{site.url}}{{site.baseurl}}/dashboards/visualize/tsvb/) or [Vega]({{site.url}}{{site.baseurl}}/dashboards/visualize/vega/) instead for time-series visualizations.
+   - **Vega**: For information about creating Vega visualizations, see [Vega]({{site.url}}{{site.baseurl}}/dashboards/visualize/vega/). 
+   - **Visbuilder**: For information about creating VisBuiilder visualizations, see [VisBuilder]({{site.url}}{{site.baseurl}}/dashboards/visualize/visbuilder/).
 
 1. In the **New (type)/Choose a source** dialog, choose an index pattern from the list.
 

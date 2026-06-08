@@ -14,6 +14,7 @@ Multi-dimensional visualizations display one or more data fields as a function o
 Multi-dimensional visualizations include the following visualizations:
 
 | **Bar** | **Area** | **Heat map** | **Line** |
+| --- | --- | --- | --- |
 | [<img src="{{site.url}}{{site.baseurl}}/images/icons/vis-vertbar-icon.png" width="90" height="90" alt="Vertical bar icon"><br/><img src="{{site.url}}{{site.baseurl}}/images/icons/vis-horizbar-icon.png" width="90" height="90" alt="Horizontal bar icon">](#building-a-bar-chart) | [<img src="{{site.url}}{{site.baseurl}}/images/icons/vis-area-icon.png" width="90" height="90" alt="Area chart Area icon">](#building-an-area-chart) | [<img src="{{site.url}}{{site.baseurl}}/images/icons/vis-heatmap-icon.png" width="90" height="90" alt="Heatmap icon">](#building-a-heat-map) |[<img src="{{site.url}}{{site.baseurl}}/images/icons/vis-line-icon.png" width="90" height="90" alt="Line chart icon">](#building-a-line-graph) |
 | Display a bar graph or histogram. | Display an area graph. | Display a heatmap, a two-dimensional grid with a third dimension represented as color gradations. | Display an X-Y plot, showing a function or relation with points connected by straight or smoothed lines. |
 

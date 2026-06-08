@@ -281,6 +281,9 @@ Controls enable interactive dashboards, making data exploration more flexible.
 OpenSearch Dashboards includes several specialized tools that provide capabilities for specific analytical scenarios or advanced use cases.
 
 ### TSVB
+Introduced 2.14
+{: .label .label-purple }
+
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/TSVB-1.png" width="40%"  alt="TSVB timeline"/>
 
@@ -345,6 +348,11 @@ Timeline visualizations focus on time-based analysis, providing time-series anal
 #### When to use timeline visualizations
 
 Timeline visualizations reveal event clustering and time-based correlation that you might miss with standard chart types. Use timeline visualizations for exclusively time-based data analysis, particularly for revealing temporal patterns and event sequences.
+
+The Timeline visualization builder is a legacy tool that uses a descriptive query language to define time-based visualizations.
+
+For new time-based visualizations, we recommend using [TSVB]({{site.url}}{{site.baseurl}}/dashboards/visualize/tsvb/) or [Vega]({{site.url}}{{site.baseurl}}/dashboards/visualize/vega/).
+{: .note}
 
 
 #### Timelines on dashboards
