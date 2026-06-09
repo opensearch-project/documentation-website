@@ -19,30 +19,52 @@ To use the `scroll` operation, add a `scroll` parameter to the request header wi
 Because search contexts consume a lot of memory, we suggest you don't use the `scroll` operation for frequent user queries. Instead, use the `sort` parameter with the `search_after` parameter to scroll responses for user queries.
 {: .note }
 
-## Endpoints
+Note the following performance considerations:
 
+- For the most efficient scrolling when you don't need relevance scoring, sort by `_doc`. This disables scoring and returns documents in their natural index order, which is the fastest way to iterate over all documents in an index.
+- Only the initial search response includes aggregation results. Subsequent scroll requests return only the next batch of hits.
+- Each open scroll context prevents segment merging on the associated shards and consumes file handles and heap memory. Close scroll contexts as soon as you no longer need them.
+- The maximum number of open scroll contexts is controlled by the `search.max_open_scroll_context` cluster setting, which defaults to 500.
+
+<!-- spec_insert_start
+api: scroll
+component: endpoints
+-->
+## Endpoints
 ```json
-GET _search/scroll
-POST _search/scroll
-GET _search/scroll/{scroll-id}
-POST _search/scroll/{scroll-id}
+GET  /_search/scroll
+POST /_search/scroll
+GET  /_search/scroll/{scroll_id}
+POST /_search/scroll/{scroll_id}
 ```
+<!-- spec_insert_end -->
 
 ## Path parameters
 
-Parameter | Type | Description
-:--- | :--- | :---
-`scroll_id` | String | The scroll ID for the search.
+The following table lists the available path parameters. All path parameters are optional.
+
+| Parameter | Data type | Description |
+| :--- | :--- | :--- |
+| `scroll_id` | String | The scroll ID for the search. We recommend specifying the scroll ID in the request body instead because scroll IDs can be very long. |
 
 ## Query parameters
 
-All scroll parameters are optional.
+The following table lists the available query parameters. All query parameters are optional.
 
-Parameter | Type | Description
-:--- | :--- | :---
-`scroll` | Time | Specifies the amount of time the search context is maintained.
-`scroll_id` | String | The scroll ID for the search.
-`rest_total_hits_as_int` | Boolean | Whether the `hits.total` property is returned as an integer (`true`) or an object (`false`). Default is `false`.
+| Parameter | Data type | Description | Default |
+| :--- | :--- | :--- | :--- |
+| `scroll` | String | The amount of time to extend the search context. This value overrides the duration set in the original search request's `scroll` parameter. Cannot exceed the `search.max_keep_alive` cluster setting. | None |
+| `scroll_id` | String | The scroll ID for the search. We recommend specifying the scroll ID in the request body instead of as a query parameter because scroll IDs can be very long. | None |
+| `rest_total_hits_as_int` | Boolean | Whether the `hits.total` property is returned as an integer (`true`) or an object (`false`). | `false` |
+
+## Request body fields
+
+The following table lists the available request body fields.
+
+| Field | Data type | Description |
+| :--- | :--- | :--- |
+| `scroll` | String | The amount of time to extend the search context for the next scroll request. If both the query parameter and request body field are specified, the query parameter takes precedence. |
+| `scroll_id` | String | Required. The scroll ID returned by the initial search request or the previous scroll request. |
 
 ## Example request
 
@@ -215,8 +237,7 @@ response = client.search(
     python=step1_python %}
 <!-- spec_insert_end -->
 
-With a single scroll ID, you get back 10 results.
-You can have up to 10 IDs.
+Each slice produces its own independent scroll ID. With `"max": 10`, you initiate 10 separate scroll operations (IDs 0 through 9), each returning a distinct subset of the data. You then scroll each slice independently until all slices are exhausted. The number of slices is limited by the `index.max_slices_per_scroll` setting, which defaults to `1024`.
 
 ### Step 3: Close the scroll context
 
@@ -270,9 +291,14 @@ response = client.clear_scroll(
     python=step1_python %}
 <!-- spec_insert_end -->
 
-The `scroll` operation corresponds to a specific timestamp. It doesn't consider documents added after that timestamp as potential results.
+Results from a scrolling search reflect the state of the index at the time of the initial search request. Documents indexed or modified after the scroll was initiated do not appear in scroll results, even if they match the query.
+{: .important}
 
 ## Example response
+
+The scroll operation returns the same response structure as the search API, including `_scroll_id`, `hits`, `_shards`, and timing information.
+
+The clear scroll operation returns the following response:
 
 ```json
 {
@@ -280,6 +306,25 @@ The `scroll` operation corresponds to a specific timestamp. It doesn't consider 
   "num_freed": 1
 }
 ```
+
+## Response body fields
+
+The following table lists the response body fields for the scroll operation.
+
+| Field | Data type | Description |
+| :--- | :--- | :--- |
+| `_scroll_id` | String | The scroll ID to use for the next scroll request. This value may change between requests, so always use the most recently returned ID. |
+| `took` | Integer | The time, in milliseconds, that the request took to complete. |
+| `timed_out` | Boolean | Whether the request timed out before completing. |
+| `_shards` | Object | Information about the shards involved, including `total`, `successful`, `skipped`, and `failed` counts. |
+| `hits` | Object | The search results, including the `total` hit count and the array of matching documents. When scrolling is complete, `hits.hits` is an empty array. |
+
+The following table lists the response body fields for the clear scroll operation.
+
+| Field | Data type | Description |
+| :--- | :--- | :--- |
+| `succeeded` | Boolean | Whether the scroll context was successfully released. |
+| `num_freed` | Integer | The number of scroll contexts that were freed. |
 
 ## Related documentation
 

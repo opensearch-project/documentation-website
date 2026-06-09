@@ -50,14 +50,14 @@ After enabling the feature you can start the new cluster and then launch Dashboa
 
 Select the **Tenant** dropdown arrow to display the list of tenants available to the user. You can select multiple tenants while the menu is open. Each time you select a tenant in the menu, the list of saved objects is filtered by that tenant and any others with a check mark beside their name.
 
-<img src="{{site.url}}{{site.baseurl}}/images/Security/Tenant_column.png" alt="Dashboards Saved Objects view with emphasis on Tenants column" width="500">
+![Dashboards Saved Objects view with emphasis on Tenants column]({{site.url}}{{site.baseurl}}/images/Security/Tenant_column.png){: width="500" }
    
 After you finish specifying tenants, select anywhere outside the menu to collapse it. 
 * The Title column displays the names of the available saved objects. 
 * The Tenant column displays the tenants associated with the saved objects. 
 * Also, the number of tenants selected for filtering is shown in a red box beside the Tenant dropdown menu label.
 
-<img src="{{site.url}}{{site.baseurl}}/images/Security/ten-filter-results.png" alt="Dashboards Saved Objects tenant filtering" width="700">
+![Dashboards Saved Objects tenant filtering]({{site.url}}{{site.baseurl}}/images/Security/ten-filter-results.png){: width="700" }
 
 Use the **Type** dropdown menu to filter saved objects by type. The behavior of the **Type** dropdown menu is the same as the behavior of the **Tenant** dropdown menu.
 
@@ -67,10 +67,10 @@ After identifying a saved object that you would like to work with, follow these 
 
 1. Note the tenant associated with the object in the Tenant column.
 1. In the upper-right corner of the window, open the user menu and select **Switch tenants**.
-<br><img src="{{site.url}}{{site.baseurl}}/images/Security/switch_tenant.png" alt="Switching tenants in the user menu" width="425">
+   ![Switching tenants in the user menu]({{site.url}}{{site.baseurl}}/images/Security/switch_tenant.png){: width="425" }
 1. In the **Select your tenant** window, choose either the Global or Private option, or one of the custom tenant options, to specify the correct tenant. Select the **Confirm** button. The tenant becomes active and is displayed in the user menu.
 1. After the tenant is active, you can use the controls in the Actions column to work with saved objects associated with the tenant.
-<img src="{{site.url}}{{site.baseurl}}/images/Security/actions.png" alt="Actions column controls" width="700">
+![Actions column controls]({{site.url}}{{site.baseurl}}/images/Security/actions.png){: width="700" }
 
 When a tenant is not active, you cannot use the Actions column controls to work with its associated objects. To work with those objects, follow the preceding steps to make the tenant active.
 {: .note }

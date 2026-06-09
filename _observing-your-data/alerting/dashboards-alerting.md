@@ -1,8 +1,9 @@
 ---
 layout: default
-title: Alerting dashboards and visualizations 
+title: Alerting dashboards and visualizations
 parent: Alerting
 nav_order: 50
+has_children: true
 ---
 
 # Alerting dashboards and visualizations
@@ -17,7 +18,7 @@ Create, manage, and take action on your alerts in a single, consolidated view an
 
 The following image gives you a snapshot of the Dashboard interface. 
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/alerting-dashboard.png" alt="Example alerting visualization" width="800" height="800">
+![Example alerting visualization]({{site.url}}{{site.baseurl}}/images/dashboards/alerting-dashboard.png){: width="800" height="800" }
 
 ## Getting started 
 
@@ -60,7 +61,7 @@ To create an alerting monitor:
 
 An example of these steps is shown in the following screenshot.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/create-monitor-menu.png" alt="Create monitor interface" width="400" height="400">
+![Create monitor interface]({{site.url}}{{site.baseurl}}/images/dashboards/create-monitor-menu.png){: width="400" height="400" }
 
 ## Associating monitors
 

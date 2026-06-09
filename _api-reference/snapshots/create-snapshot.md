@@ -191,7 +191,7 @@ The snapshot definition is returned.
 | end_time | string | Date/time when the snapshot creation process ended. |
 | end_time_in_millis | long | Time (in milliseconds) when the snapshot creation process ended. |
 | duration_in_millis | long | Total time (in milliseconds) that the snapshot creation process lasted. |
-| failures | array | Failures, if any, that occured during snapshot creation. |
+| failures | array | Failures, if any, that occurred during snapshot creation. |
 | shards | object | Total number of shards created along with number of successful and failed shards. |
 | state | string | Snapshot status. Possible values: `IN_PROGRESS`, `SUCCESS`, `FAILED`, `PARTIAL`. |
 | remote_store_index_shallow_copy | Boolean | Whether the snapshots of the remote store indexes is captured as a shallow copy. Default is `false`. |

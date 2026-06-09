@@ -92,3 +92,14 @@ GET /my-index/_search
 {% include copy-curl.html %}
 
 For more information, see [Retrieve specific fields]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/retrieve-specific-fields/).
+
+## Retrieve vectors using doc values
+**Introduced 3.7**
+{: .label .label-purple }
+
+Use `docvalue_fields` to retrieve vector fields directly from on-disk columnar storage, which avoids reading and parsing the full `_source` document. This approach is significantly faster when retrieving a large number of vectors in a single search request.
+
+For best performance, exclude the vector field from the `_source` by using `_source.excludes` or by setting `_source` to `false`. This ensures that OpenSearch reads vectors only from `doc_values` and does not redundantly decompress them from the stored `_source`.
+{: .tip}
+
+For supported formats and examples, see [Retrieving vector fields using `docvalue_fields`]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/retrieve-specific-fields/#retrieving-vector-fields-using-docvalue_fields).

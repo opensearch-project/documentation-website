@@ -127,7 +127,7 @@ In the preceding query, `k` represents the number of neighbors returned by the s
 
 For the NMSLIB and Faiss engines, `k` represents the maximum number of documents returned for all segments of a shard. For the Lucene engine, `k` represents the number of documents returned for a shard. The maximum value of `k` is 10,000.
 
-For any engine, each shard returns `size` results to the coordinator node. Thus, the total number of results that the coordinator node receives is `size * number of shards`. After the coordinator node consolidates the results received from all nodes, the query returns the top `size` results.
+For any engine, each shard returns `size` results to the coordinating node. Thus, the total number of results that the coordinating node receives is `size * number of shards`. After the coordinating node consolidates the results received from all nodes, the query returns the top `size` results.
 
 The following table provides examples of the number of results returned by various engines in several scenarios. For these examples, assume that the number of documents contained in the segments and shards is sufficient to return the number of results specified in the table.
 

@@ -1,12 +1,12 @@
 ---
 layout: default
-title: Snapshot Management
-nav_order: 90
+title: Snapshot management
+nav_order: 110
 redirect_from:
   - /dashboards/admin-ui-index/sm-dashboards/
 ---
 
-# Snapshot Management
+# Snapshot management
 
 [Snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/index/) are backups of a cluster’s indexes and state. The state includes cluster settings, node information, index metadata (mappings, settings, templates), and shard allocation. The Snapshot Management (SM) interface in OpenSearch Dashboards provides a unified solution for taking and restoring snapshots.
 
@@ -132,7 +132,7 @@ The **Delete** button [deletes]({{site.url}}{{site.baseurl}}/api-reference/snaps
 1. From the OpenSearch Dashboards main menu, select **Management** > **Snapshot Management**.
 1. In the left panel, under **Snapshot Management**, select **Snapshots**. The **Snapshots** tab is selected by default.
 1. Select the checkbox next to the snapshot you want to restore. An example is shown in the following image:
-    <img src="{{site.url}}{{site.baseurl}}/images/restore-snapshot/restore-snapshot-main.png" alt="Snapshots">{: .img-fluid}
+    ![Snapshots]({{site.url}}{{site.baseurl}}/images/restore-snapshot/restore-snapshot-main.png)
 
     {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/star-icon.png" class="inline-icon" alt="star icon"/>{:/} **Note:** You can only restore snapshots with the status of `Success` or `Partial`. The status of the snapshot is displayed in the **Snapshot status** column.
     {: .note purple}
@@ -140,7 +140,7 @@ The **Delete** button [deletes]({{site.url}}{{site.baseurl}}/api-reference/snaps
 
     The **Restore snapshot** flyout lists the snapshot name and status. To view the list of indexes in the snapshot, select the number under **Indices** (for example, `27` in the following image). This number represents the number of indexes in the snapshot.
 
-    <img src="{{site.url}}{{site.baseurl}}/images/restore-snapshot/restore-snapshot.png" alt="Restore Snapshot" width="450">
+    ![Restore Snapshot]({{site.url}}{{site.baseurl}}/images/restore-snapshot/restore-snapshot.png){: width="450" }
 
     For more information about the options in the **Restore snapshot** flyout, see [Restore snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore#restore-snapshots).
 
@@ -156,7 +156,7 @@ The **Delete** button [deletes]({{site.url}}{{site.baseurl}}/api-reference/snaps
 
     The examples in the following image set `index.number_of_replicas` to `0`, `index.auto_expand_replicas` to `true`, and `index.refresh_interval` and `index.max_script_fields` to the cluster default values for all newly restored indexes.
 
-    <img src="{{site.url}}{{site.baseurl}}/images/restore-snapshot/restore-snapshot-custom.png" alt="Custom settings" width="450">
+    ![Custom settings]({{site.url}}{{site.baseurl}}/images/restore-snapshot/restore-snapshot-custom.png){: width="450" }
 
     For more information about index settings, see [Index settings]({{site.url}}{{site.baseurl}}/im-plugin/index-settings/).
 
@@ -165,7 +165,7 @@ The **Delete** button [deletes]({{site.url}}{{site.baseurl}}/api-reference/snaps
     After choosing the options, select the **Restore snapshot** button.
 1. (Optional) To monitor the restore progress, select **View restore activities** in the confirmation dialog. You can also monitor the restore progress at any time by selecting the **Restore activities in progress** tab, as shown in the following image.
 
-    <img src="{{site.url}}{{site.baseurl}}/images/restore-snapshot/restore-snapshot-activities.png" alt="Restore Activities">{: .img-fluid}
+    ![Restore Activities]({{site.url}}{{site.baseurl}}/images/restore-snapshot/restore-snapshot-activities.png)
 
     You can view the percentage of the job that has been completed in the **Status** column. Once the snapshot restore is complete, the **Status** changes to `Completed (100%)`.
 
@@ -173,8 +173,8 @@ The **Delete** button [deletes]({{site.url}}{{site.baseurl}}/api-reference/snaps
     {: .note purple}
     To view the status of each index being restored, select the link in the **Indices being restored** column (in the preceding image, the `27 Indices` link). The **Indices being restored** flyout (shown in the following image) displays each index and its restore status.
 
-    <img src="{{site.url}}{{site.baseurl}}/images/restore-snapshot/restore-snapshot-indices.png" alt="Restore Indices">{: .img-fluid}
+    ![Restore Indices]({{site.url}}{{site.baseurl}}/images/restore-snapshot/restore-snapshot-indices.png)
 
  After the restore operation is complete, the restored indexes are listed in the **Indices** panel. To view the indexes, in the left panel, under **Index Management**, choose **Indices**.
 
-<img src="{{site.url}}{{site.baseurl}}/images/restore-snapshot/restore-snapshot-indices-panel.png" alt="View Indices">{: .img-fluid}
+![View Indices]({{site.url}}{{site.baseurl}}/images/restore-snapshot/restore-snapshot-indices-panel.png)
