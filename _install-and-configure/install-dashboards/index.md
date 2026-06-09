@@ -49,11 +49,11 @@ To use a Node.js runtime binary other than the ones included in the distribution
     export NODE_HOME=/usr/local/nodejs
    ```
 
-    - If Node.js is installed using NVM and the runtime binary is `/Users/user/.nvm/versions/node/v22.22.0/bin/node`:
+    - If Node.js is installed using NVM and the runtime binary is `/Users/user/.nvm/versions/node/v22.22.3/bin/node`:
    ```bash
-   export NODE_HOME=/Users/user/.nvm/versions/node/v22.22.0
+   export NODE_HOME=/Users/user/.nvm/versions/node/v22.22.3
    # or, if NODE_HOME is used for something else:
-   export NODE_OSD_HOME=/Users/user/.nvm/versions/node/v22.22.0
+   export NODE_OSD_HOME=/Users/user/.nvm/versions/node/v22.22.3
    ```
 
     - On Windows, if Node.js is installed to `C:\Program Files\nodejs` and the runtime binary is `C:\Program Files\nodejs\node.exe`:
