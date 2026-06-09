@@ -5,6 +5,7 @@ parent: Live traffic migration
 grand_parent: Migration phases
 nav_order: 110
 permalink: /classic/migration-assistant/migration-phases/live-traffic-migration/switching-traffic-from-the-source-cluster/
+canonical_url: https://docs.opensearch.org/latest/migration-assistant-classic/migration-phases/live-traffic-migration/switching-traffic-from-the-source-cluster/
 ---
 
 # Switching traffic from the source cluster

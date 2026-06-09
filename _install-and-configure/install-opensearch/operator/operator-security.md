@@ -4,6 +4,7 @@ title: User and role management
 parent: OpenSearch Kubernetes Operator
 grand_parent: Installing OpenSearch
 nav_order: 60
+canonical_url: https://docs.opensearch.org/latest/install-and-configure/install-opensearch/operator/operator-security/
 ---
 
 # User and role management

@@ -29,6 +29,7 @@ items:
   - heading: "Use a playbook"
     description: "Follow path-specific guides for common source and target combinations."
     link: "/migration-assistant/playbooks/"
+canonical_url: https://docs.opensearch.org/latest/migration-assistant/
 ---
 
 # ![Migration Assistant icon]({{site.url}}{{site.baseurl}}/images/icons/MigrationUpgrade_Color_Icon.svg){: .heading-icon} Migration Assistant for OpenSearch

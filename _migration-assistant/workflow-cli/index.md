@@ -5,6 +5,7 @@ nav_order: 50
 has_children: true
 has_toc: false
 permalink: /migration-assistant/workflow-cli/
+canonical_url: https://docs.opensearch.org/latest/migration-assistant/workflow-cli/
 ---
 
 # Workflow CLI

@@ -6,6 +6,7 @@ parent: Migration phases
 has_children: true
 has_toc: true
 permalink: /classic/migration-assistant/migration-phases/migrate-metadata/
+canonical_url: https://docs.opensearch.org/latest/migration-assistant-classic/migration-phases/migrate-metadata/
 ---
 
 # Migrate metadata
