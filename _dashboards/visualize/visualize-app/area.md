@@ -1,63 +1,145 @@
 ---
 layout: default
 title: Area charts
-parent: Creating visualizations in the Visualize application
+parent: Visualize application
 grand_parent: Building data visualizations
 nav_order: 5
 redirect_from:
   - /dashboards/visualize/area/
 ---
 
-# Using area charts
+# Area charts
 
-An area chart is a line chart with the area between the line and the axis shaded with a color, and is a primary visualization type used to display time series data. You can create area charts in Dashboards using the Area visualization type or using the Time Series Visual Builder (TSVB), Vega, or VisBuilder visualization tools. For this tutorial, you'll use the Area visualization type.
+An area chart displays data as a filled region between a line and the axis. Area charts are ideal for visualizing volume over time and for comparing how multiple categories contribute to a total when stacked.
 
-![Demonstration of the area chart tutorial steps]({{site.url}}{{site.baseurl}}/images/dashboards/area-tutorial.gif)
+## Creating an area chart
 
-# Try it: Create a simple aggregation-based area chart
+The following examples use the **Sample flight data** dataset and build on each other. Before you begin, complete the [prerequisites]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/#prerequisites).
 
-In this tutorial you'll create a simple area chart using sample data and aggregations in OpenSearch Dashboards by connecting to [http://localhost:5601](http://localhost:5601) from a browser.
+### Basic area chart
 
-You have several aggregation options in Dashboards, and the choice influences your analysis. The use cases for aggregations vary from analyzing data in real time to using Dashboards to create a visualization dashboard. If you need an overview of aggregations in OpenSearch, see [Aggregations]({{site.url}}{{site.baseurl}}/opensearch/aggregations/) before starting this tutorial.
+To create an area chart that shows flight count over time, follow these steps:
 
-Make sure you have [installed the latest version of Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/) and added the sample data before continuing with this tutorial. _This tutorial uses Dashboards version 2.4.1_.
-{: .note}
+1. In the **New Visualization** dialog, select **Area**, then select your index pattern (for example, **opensearch_dashboards_sample_data_flights**).
+2. Set the time filter to **Last 7 days** and select **Update**.
+3. Under **Buckets**, select **Add** > **X-axis**.
+4. Set **Aggregation** to **Date Histogram** and **Field** to **timestamp**.
+5. Select **Update**.
 
-## Set up the area chart
+The result is a single filled area showing the total flight count per time interval.
 
-1. Access Dashboards by connecting to [http://localhost:5601](http://localhost:5601) from a browser.
-1. Select **Visualize** from the menu and then select **Create visualization**.
-1. Select **Area** from the window.
-1. Select **opensearch_dashboards_sample_data_flights** in the **New Area/Choose a source** window.
-1. Select the calendar icon and set the time filter to **Last 7 days**.
-1. Select **Update**.
+### Stacked area chart
 
-## Add aggregations to the area chart
+Add a sub-bucket to split the data into stacked series by category:
 
-Continuing with the area chart created in the preceding steps, you'll create a visualization that displays the top five logs for flights delayed for every three hours over the last seven days:
+1. Under **Buckets**, select **Add** > **Split series**.
+2. Set **Sub aggregation** to **Terms** and **Field** to **OriginWeather**.
+3. Set **Size** to `5` for the top five weather conditions.
+4. Select **Update**.
 
-1. Add a **Metrics** aggregation.
-   1. Under **Metrics**, select the **Aggregation** dropdown list and choose **Average** and then select the **Field** dropdown list and choose **FlightDelayMin**.
-   1. Under **Metrics**, select **Add** to add another Y-axis aggregation. 
-   1. Select the **Aggregation** dropdown list and choose **Max** and then select the **Field** dropdown list and choose **FlightDelayMin**.
-1. Add a **Buckets** aggregation.
-   1. Select **Add** to open the **Add Bucket** window and then select **X-axis**.
-   2. From the **Aggregation** dropdown list, select **Date Histogram**. 
-   3. From the **Field** dropdown list, select **timestamp**. 
-   4. Select **Update**. 
-2. Add a sub-aggregation.
-   1. Select **Add** to open the **Add Sub-Buckets** window and then select **Split series**.
-   2. From the **Sub aggregation** dropdown list, select **Terms**.
-   3. From the **Field** dropdown list, select **FlightDelay**.
-   4. Select **Update** to reflect these parameters in the graph.  
+The chart now shows a stacked area for each weather condition, making it easy to see how each contributes to the total flight volume.
 
-You've now created the following aggregation-based area chart.
+### Multiple metrics
 
-![Resulting aggregation-based area chart]({{site.url}}{{site.baseurl}}/images/area-aggregation-tutorial.png)
+Add a second Y-axis metric to compare different measurements:
 
-# Related links
+1. Under **Metrics**, select **Add**.
+2. Set **Aggregation** to **Average** and **Field** to **AvgTicketPrice**.
+3. Select **Update**.
 
-- [Visualize]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/)
-- [Visualization types in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/)
-- [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/)
-- [Aggregations]({{site.url}}{{site.baseurl}}/opensearch/aggregations/)
+The chart now overlays the average ticket price on top of the count, plotted on the same axis. To give the second metric its own scale, assign it to a separate Y-axis in the **Metrics & axes** tab.
+
+## Configuring an area chart
+
+The area chart editor has three configuration tabs.
+
+### Data tab
+
+The **Data** tab defines what data is displayed.
+
+#### Metrics
+
+Metrics define the Y-axis values. Each metric computes an aggregation over the documents in each bucket.
+
+| Setting | Description |
+| :--- | :--- |
+| **Aggregation** | The aggregation function. Supported values: **Count**, **Average**, **Sum**, **Min**, **Max**, **Unique Count**, **Median**, **Percentiles**, **Percentile Ranks**, **Top Hit**, **Standard Deviation**. |
+| **Field** | The numeric field to aggregate (not required for **Count**). |
+
+Select **Add** to plot multiple metrics on the same chart.
+
+#### Buckets
+
+Buckets define how data is grouped.
+
+| Bucket type | Description |
+| :--- | :--- |
+| **X-axis** | Groups data along the horizontal axis. Typically uses a **Date Histogram** for time-based data or a **Histogram** for numeric ranges. |
+| **Split series** | Splits the data into multiple stacked (or overlaid) areas by the values of a field. Uses **Terms**, **Filters**, or other bucket aggregations. |
+| **Split chart** | Creates separate chart panels for each bucket value (small multiples). Can split in rows or columns. |
+
+### Metrics & axes tab
+
+The **Metrics & axes** tab controls how each metric is rendered and how the axes are configured.
+
+#### Series settings
+
+Each metric series has the following options.
+
+| Setting | Description |
+| :--- | :--- |
+| **Value axis** | The Y-axis this series is plotted against. Select **New axis** to create a secondary Y-axis. |
+| **Chart type** | Overrides the chart type for this series. Supported values: **Line**, **Area**, **Bar**. |
+| **Mode** | Controls stacking behavior. **Stacked** layers areas on top of each other. **Normal** overlaps areas. |
+| **Line mode** | Controls line interpolation. **Straight** draws direct segments. **Smoothed** applies a curve. **Stepped** creates a staircase pattern. |
+
+#### Y-axes
+
+Each Y-axis has the following options.
+
+| Setting | Description |
+| :--- | :--- |
+| **Position** | Where the axis appears. Supported values: **Left**, **Right**. |
+| **Mode** | Controls the Y-axis scale mode. **Normal** displays raw values. **Percentage** normalizes stacked areas to 100%. **Wiggle** and **Silhouette** are stream graph layout variants. |
+| **Scale type** | Determines the scale. Supported values: **Linear**, **Log**, **Square root**. |
+| **Show** | Shows or hides the axis line and labels. |
+| **Labels** | Controls label rotation. Supported values: **Horizontal**, **Vertical**, **Angled**. |
+
+#### X-axis
+
+| Setting | Description |
+| :--- | :--- |
+| **Position** | Where the axis appears. Supported values: **Top**, **Bottom**. |
+| **Show** | Shows or hides the axis line and labels. |
+| **Filter labels** | When enabled, overlapping labels are automatically hidden. |
+| **Align** | Controls label rotation. Supported values: **Horizontal**, **Vertical**, **Angled**. |
+| **Truncate** | Sets the maximum pixel width for labels before truncation. |
+
+### Panel settings tab
+
+The **Panel settings** tab controls the overall chart appearance.
+
+#### Settings
+
+| Setting | Description |
+| :--- | :--- |
+| **Legend position** | Where the legend appears. Supported values: **Top**, **Left**, **Right**, **Bottom**. |
+| **Show tooltip** | When enabled, displays values on hover. |
+| **Order buckets by sum** | When enabled, orders split series by their total value rather than alphabetically. |
+
+#### Grid
+
+| Setting | Description |
+| :--- | :--- |
+| **Show X-axis lines** | When enabled, displays vertical grid lines at each X-axis tick. |
+| **Y-axis lines** | Select a Y-axis to display horizontal grid lines, or **Don't show** to hide them. |
+
+#### Threshold line
+
+| Setting | Description |
+| :--- | :--- |
+| **Show threshold line** | When enabled, draws a horizontal reference line at a specified value. |
+| **Threshold value** | The Y-axis value at which the line is drawn. |
+| **Line width** | The thickness of the threshold line in pixels. |
+| **Line style** | The line style. Supported values: **Full** (solid), **Dashed**, **Dot-dashed**. |
+| **Line color** | The color of the threshold line. |

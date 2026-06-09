@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Configuring a Web Map Service (WMS)
-grand_parent: Creating visualizations in the Visualize application
+grand_parent: Visualize application
 parent: Coordinate and region maps
 nav_order: 30
 redirect_from:

@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Building visualizations with other tools
-parent: Building data visualizations
+parent: Visualize application
+grand_parent: Building data visualizations
 nav_order: 70
 has_children: true
 has_toc: false

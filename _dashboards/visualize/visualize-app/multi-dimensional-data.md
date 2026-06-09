@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Building multi-dimensional visualizations
-parent: Building data visualizations
+parent: Visualize application
+grand_parent: Building data visualizations
 nav_order: 40
 has_children: false
 has_toc: false

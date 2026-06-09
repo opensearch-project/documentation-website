@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Creating a new visualization
-parent: Building data visualizations
+parent: Visualize application
+grand_parent: Building data visualizations
 nav_order: 10
 ---
 

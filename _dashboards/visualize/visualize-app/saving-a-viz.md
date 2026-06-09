@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Saving a data visualization
-parent: Building data visualizations
+parent: Visualize application
+grand_parent: Building data visualizations
 nav_order: 80
 ---
 

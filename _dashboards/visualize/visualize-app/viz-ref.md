@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Visualizations reference
-parent: Building data visualizations
+parent: Visualize application
+grand_parent: Building data visualizations
 nav_order: 100
 has_children: false
 has_toc: false
