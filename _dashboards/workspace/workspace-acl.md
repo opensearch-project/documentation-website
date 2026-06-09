@@ -84,6 +84,27 @@ Access to collaborator management is limited to admins. The **Collaborators** fe
 - **Read and write:** Allows viewing and editing of assets within the workspace.
 - **Admin:** Provides full access, including viewing and editing of assets within the workspace and updating workspace metadata, such as name, description, data sources, and collaborators.
 
+#### Permission modes
+
+When you assign collaborators through the UI, access levels are applied automatically. When you set collaborators directly through the [Workspaces APIs]({{site.url}}{{site.baseurl}}/dashboards/workspace/apis/), each access level corresponds to a specific combination of *permission modes*. Permission modes fall into two independent dimensions:
+
+| Permission mode | Applies to | Description |
+| :--- | :--- | :--- |
+| `read` | The workspace itself | The principal can open and view the workspace. |
+| `write` | The workspace itself | The principal can manage the workspace itself: edit its name, description, and settings, manage collaborators, and associate data sources. |
+| `library_read` | The saved objects (assets) inside the workspace | The principal can view assets such as dashboards, visualizations, and index patterns. |
+| `library_write` | The saved objects (assets) inside the workspace | The principal can create, edit, and delete assets inside the workspace. |
+
+Each access level requires one mode from each dimension:
+
+| Access level | Required permission modes |
+| :--- | :--- |
+| Read only | `library_read` + `read` |
+| Read and write | `library_write` + `read` |
+| Admin | `library_write` + `write` |
+
+A partial combination (for example, only `read` without `library_read`) does not grant coherent access, and the principal will not appear as a collaborator.
+
 From the **Collaborators** page, you can by collaborator ID and filter results by collaborator type and access level.
 
 ### Adding collaborators
