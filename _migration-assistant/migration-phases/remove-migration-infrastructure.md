@@ -8,6 +8,7 @@ redirect_from:
   - /migration-assistant/migration-phases/removing-migration-infrastructure/
   - /migration-phases/removing-migration-infrastructure/
 
+canonical_url: https://docs.opensearch.org/latest/migration-assistant/migration-phases/remove-migration-infrastructure/
 ---
 
 # Removing migration infrastructure

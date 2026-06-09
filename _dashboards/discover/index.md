@@ -3,6 +3,7 @@ layout: default
 title: Exploring data
 nav_order: 20
 has_children: true
+canonical_url: https://docs.opensearch.org/latest/dashboards/discover/
 ---
 
 # Exploring data

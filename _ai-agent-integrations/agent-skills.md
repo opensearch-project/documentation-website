@@ -2,6 +2,7 @@
 layout: default
 title: Agent skills
 nav_order: 20
+canonical_url: https://docs.opensearch.org/latest/ai-agent-integrations/agent-skills/
 ---
 
 # Agent skills

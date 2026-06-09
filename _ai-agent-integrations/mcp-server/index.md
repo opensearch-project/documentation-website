@@ -6,6 +6,7 @@ has_children: true
 has_toc: false
 redirect_from:
   - /ai-agent-integrations/mcp-server/
+canonical_url: https://docs.opensearch.org/latest/ai-agent-integrations/mcp-server/
 ---
 
 # OpenSearch MCP Server

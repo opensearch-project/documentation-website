@@ -4,6 +4,7 @@ title: Kubernetes deployment customization
 parent: OpenSearch Kubernetes Operator
 grand_parent: Installing OpenSearch
 nav_order: 40
+canonical_url: https://docs.opensearch.org/latest/install-and-configure/install-opensearch/operator/operator-kubernetes-custom/
 ---
 
 # Kubernetes deployment customization

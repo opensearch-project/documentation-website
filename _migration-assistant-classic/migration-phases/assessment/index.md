@@ -6,6 +6,7 @@ parent: Migration phases
 has_children: false
 has_toc: false
 permalink: /classic/migration-assistant/migration-phases/assessment/
+canonical_url: https://docs.opensearch.org/latest/migration-assistant-classic/migration-phases/assessment/
 ---
 
 # Assessment

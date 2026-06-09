@@ -3,6 +3,7 @@ layout: default
 title: Key components
 nav_order: 20
 permalink: /classic/migration-assistant/key-components/
+canonical_url: https://docs.opensearch.org/latest/migration-assistant-classic/key-components/
 ---
 
 # Key components 
