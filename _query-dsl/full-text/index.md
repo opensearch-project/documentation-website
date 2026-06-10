@@ -17,7 +17,7 @@ This page lists all full-text query types and common options. There are many opt
 
 OpenSearch uses the Apache Lucene search library, which provides highly efficient data structures and algorithms for ingesting, indexing, searching, and aggregating data.
 
-To learn more about search query classes, see [Lucene query JavaDocs](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/search/Query.html).
+To learn more about search query classes, see [Lucene query JavaDocs](https://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/search/Query.html).
 
 The full-text query types shown in this section use the standard analyzer, which analyzes text automatically when the query is submitted.
 
