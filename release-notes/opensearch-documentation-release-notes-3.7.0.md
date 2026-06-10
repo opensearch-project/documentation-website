@@ -8,7 +8,6 @@ The OpenSearch 3.7.0 documentation includes the following additions and updates.
 - Move unified agent interface and conversational_v2 to GA in 3.7 [#12502](https://github.com/opensearch-project/documentation-website/pull/12502)
 - Add ML dynamic header support doc [#12499](https://github.com/opensearch-project/documentation-website/pull/12499)
 - [DOC] Add ISM Simulate Policy API documentation [#12495](https://github.com/opensearch-project/documentation-website/pull/12495)
-- [DOC] Add documentation of tool description override in MCP connector [#12494](https://github.com/opensearch-project/documentation-website/pull/12494)
 - Document Hunspell hot-reload and ref_path refactor for 3.7 [#12486](https://github.com/opensearch-project/documentation-website/pull/12486)
 - Document z_score normalization and rrf combination in Hybrid Optimizer [#12483](https://github.com/opensearch-project/documentation-website/pull/12483)
 - Add documentation for visualization editor [#12475](https://github.com/opensearch-project/documentation-website/pull/12475)
