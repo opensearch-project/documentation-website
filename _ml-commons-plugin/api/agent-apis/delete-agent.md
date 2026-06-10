@@ -43,9 +43,9 @@ DELETE /_plugins/_ml/agents/MzcIJX8BA7mbufL6DOwl
 }
 ```
 
-## Error responses
+## Error response
 
-If you attempt to delete an agent that doesn't exist, OpenSearch returns a 404 Not Found error:
+If you attempt to delete an agent that doesn't exist, OpenSearch returns a 404 error:
 
 ```json
 {
@@ -53,11 +53,11 @@ If you attempt to delete an agent that doesn't exist, OpenSearch returns a 404 N
     "root_cause": [
       {
         "type": "status_exception",
-        "reason": "Failed to get agent index"
+        "reason": "Fail to find ml agent"
       }
     ],
     "type": "status_exception",
-    "reason": "Failed to get agent index"
+    "reason": "Fail to find ml agent"
   },
   "status": 404
 }

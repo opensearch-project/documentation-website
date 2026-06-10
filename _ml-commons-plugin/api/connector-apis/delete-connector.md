@@ -41,22 +41,23 @@ DELETE /_plugins/_ml/connectors/KsAo1YsB0jLkkocY6j4U
 }
 ```
 
-## Error responses
+## Error response
 
-If you attempt to delete a connector that doesn't exist, OpenSearch returns a 404 Not Found error:
+If you attempt to delete a connector that doesn't exist, OpenSearch returns a 200 response with `"result": "not_found"` rather than an error:
 
 ```json
 {
-  "error": {
-    "root_cause": [
-      {
-        "type": "status_exception",
-        "reason": "Failed to find connector"
-      }
-    ],
-    "type": "status_exception",
-    "reason": "Failed to find connector"
+  "_index": ".plugins-ml-connector",
+  "_id": "nonexistent-connector-id",
+  "_version": 1,
+  "result": "not_found",
+  "forced_refresh": true,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "failed": 0
   },
-  "status": 404
+  "_seq_no": 1,
+  "_primary_term": 1
 }
 ```

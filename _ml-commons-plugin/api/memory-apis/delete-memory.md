@@ -44,14 +44,22 @@ DELETE /_plugins/_ml/memory/MzcIJX8BA7mbufL6DOwl
 }
 ```
 
-## Response for non-existent memories
+## Error response
 
-The delete memory operation is idempotent. If you attempt to delete a memory that doesn't exist, the operation still returns success:
+If you attempt to delete a memory that doesn't exist, OpenSearch returns a 404 error:
 
 ```json
 {
-  "success": true
+  "error": {
+    "root_cause": [
+      {
+        "type": "resource_not_found_exception",
+        "reason": "Memory [MzcIJX8BA7mbufL6DOwl] not found"
+      }
+    ],
+    "type": "resource_not_found_exception",
+    "reason": "Memory [MzcIJX8BA7mbufL6DOwl] not found"
+  },
+  "status": 404
 }
 ```
-
-This behavior allows delete operations to be safely retried without causing errors.
