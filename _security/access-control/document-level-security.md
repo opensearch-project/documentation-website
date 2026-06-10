@@ -132,6 +132,22 @@ Term | Replaced with
 `${user.securityRoles}` | A comma-separated, quoted list of user security roles. 
 `${attr.<TYPE>.<NAME>}` | An attribute with name `<NAME>` defined for a user. `<TYPE>` is `internal`, `jwt`, `proxy` or `ldap`
 
+If a variable does not exist then an error will be thrown.
+
+### Fallback values
+
+Introduced 3.7.0
+{: .label .label-purple }
+
+If it is unclear whether a variable is present then a fallback value can be specified, which can either be a constant
+value or another variable.
+
+Example where the `notexists` attribute doesn't exist and `attr1` is set to `foo`:
+
+ Term                                           | Replaced with
+:-----------------------------------------------|:--------------
+ `${attr.proxy.notexists:-bar}`                 | "bar"
+ `${attr.proxy.notexists:-${attr.proxy.attr1}}` | "foo"
 
 ## Attribute-based security
 
