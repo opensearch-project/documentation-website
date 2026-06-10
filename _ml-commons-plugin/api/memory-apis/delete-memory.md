@@ -44,7 +44,7 @@ DELETE /_plugins/_ml/memory/MzcIJX8BA7mbufL6DOwl
 }
 ```
 
-## Error response
+## Error responses
 
 If you attempt to delete a memory that doesn't exist, OpenSearch returns a 404 error:
 

@@ -41,7 +41,7 @@ DELETE /_plugins/_ml/connectors/KsAo1YsB0jLkkocY6j4U
 }
 ```
 
-## Error response
+## Error responses
 
 If you attempt to delete a connector that doesn't exist, OpenSearch returns a 200 response with `"result": "not_found"` rather than an error:
 

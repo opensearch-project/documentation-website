@@ -43,7 +43,7 @@ DELETE /_plugins/_ml/agents/MzcIJX8BA7mbufL6DOwl
 }
 ```
 
-## Error response
+## Error responses
 
 If you attempt to delete an agent that doesn't exist, OpenSearch returns a 404 error:
 
