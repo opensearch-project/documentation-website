@@ -344,10 +344,8 @@ The following table lists the available request fields for unified agent registr
 | `model.model_parameters.max_tokens` | Integer | Optional | The maximum number of tokens in the model response. Default varies by model. |
 | `parameters` | Object | Optional | Additional agent parameters for controlling behavior. |
 | `parameters.max_iteration` | Integer | Optional | The maximum number of reasoning iterations the agent can perform. Default is 10. |
-| `parameters.mcp_connectors` | Array | Optional | An array of Model Context Protocol (MCP) connector configurations that extend agent capabilities. See [Connecting to an external MCP server]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/mcp/mcp-connector/#step-3-register-an-agent-for-accessing-mcp-tools). |
+| `parameters.mcp_connectors` | Array | Optional | Array of Model Context Protocol (MCP) connector configurations that extend agent capabilities. |
 | `parameters.mcp_connectors[].mcp_connector_id` | String | Required | The ID of a registered MCP connector. |
-| `parameters.mcp_connectors[].tool_filters` | Array | Optional | Java regular expressions that specify the MCP tools available to the agent. |
-| `parameters.mcp_connectors[].tool_descriptions` | Array | Optional | Objects that override MCP tool descriptions presented to the LLM. |
 | `tools` | Array | Optional | Array of tools available to the agent. For supported tools, see [Tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/). |
 | `memory` | Object | Optional | Configuration for conversation memory storage. |
 | `memory.type` | String | Optional | The memory storage type. Supported values: `conversation_index`, `agentic_memory`. |
