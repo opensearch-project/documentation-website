@@ -144,8 +144,8 @@ In the following examples, the `notexists` attribute is not defined and `attr1` 
 
  Term                                           | Replacement
 :-----------------------------------------------|:--------------
- `${attr.proxy.notexists:-bar}`                 | "bar"
- `${attr.proxy.notexists:-${attr.proxy.attr1}}` | "foo"
+ `${attr.proxy.notexists:-bar}`                 | `bar`
+ `${attr.proxy.notexists:-${attr.proxy.attr1}}` | `foo`
 
 ## Attribute-based security
 
