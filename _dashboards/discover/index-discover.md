@@ -121,7 +121,7 @@ Some tools for changing the time interval are demonstrated in the previous examp
 You can filter documents by entering a query string in the search bar using one of two query languages.
 
 - [Dashboards Query Language (DQL)]({{site.url}}{{site.baseurl}}/dashboards/discover/dql/) is the default query language in the search bar and is available only in **Dashboards**.
-- [Query string query language (Lucene)]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/) is based on the [Apache Lucene](https://lucene.apache.org/core/2_9_4/queryparsersyntax.html) query language.
+- [Query string query language (Lucene)]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/) is based on the [Apache Lucene](https://lucene.apache.org/core/{{site.lucene_version}}/queryparsersyntax.html) query language.
 
 To filter documents using the search bar, see [Using the search bar]({{site.url}}{{site.baseurl}}/dashboards/discover/search-bar/).
 

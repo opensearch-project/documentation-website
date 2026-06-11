@@ -194,6 +194,8 @@ The following example response shows a successful API call:
 
 #### Example request with permissions object
 
+When a request includes a `permissions` object, each user or group must be assigned the set of permission modes required for the desired access level. For example, read-only access requires both the `library_read` and `read` permission modes:
+
 ```json
 curl -k -u admin:admin \
   -H 'osd-xsrf: true' \
@@ -203,22 +205,17 @@ curl -k -u admin:admin \
     "attributes": {},
     "settings": {
       "permissions": {
-        "library_write": { "groups": ["obs-admins"] },
-        "read": { "groups": ["obs-users"] }
+        "library_write": { "users": ["obs-admin-user"] },
+        "write": { "users": ["obs-admin-user"] },
+        "library_read": { "groups": ["obs-read-users"] },
+        "read": { "groups": ["obs-read-users"] }
       }
     }
   }'
 ```
 {% include copy.html %}
 
-The following example response shows a successful API call:
-
-```json
-{
-    "success": true,
-    "result": true
-}
-```
+For a complete list of permission modes and the access levels they provide, see [Defining workspace collaborators]({{site.url}}{{site.baseurl}}/dashboards/workspace/workspace-acl/#defining-workspace-collaborators).
 
 ## Delete Workspaces API
 
