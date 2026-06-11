@@ -252,7 +252,7 @@ To insert a closed collapsible block, omit the `open` state:
 
 Collapsible blocks are useful for long responses and for the Table of Contents at the beginning of a page.
 
-To insert a collapsible Table of Contents, use the following markup:
+To insert a collapsible Table of contents, use the following markup:
 
 ````html
 <details markdown="block">
