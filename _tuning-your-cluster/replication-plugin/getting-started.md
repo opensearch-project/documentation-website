@@ -214,7 +214,7 @@ curl -XPUT -k -H 'Content-Type: application/json' -u 'admin:<custom-admin-passwo
 If the Security plugin is disabled, omit the `use_roles` parameter. If it's enabled, however, you must specify the leader and follower cluster roles that OpenSearch will use to authenticate the request. This example uses `all_access` for simplicity, but we recommend creating a replication user on each cluster and [mapping it accordingly]({{site.url}}{{site.baseurl}}/replication-plugin/permissions/#map-the-leader-and-follower-cluster-roles).
 {: .tip }
 
-This command creates an identical read-only index named `follower-01` on the follower cluster that continuously stays updated with changes to the `leader-01` index on the leader cluster. Starting replication creates a follower index from scratch -- you can't convert an existing index to a follower index. 
+This command creates an identical read-only index named `follower-01` on the follower cluster that continuously stays updated with changes to the `leader-01` index on the leader cluster. Starting replication creates a new follower index---you can't convert an existing index to a follower index. 
 
 ## Confirm replication
 
@@ -264,7 +264,7 @@ curl -XGET -k -u 'admin:<custom-admin-password>' 'https://localhost:9200/followe
   }]
 }
 ```
-### `.replication-metadata-store` index
+### The `.replication-metadata-store` index
 
 The `.replication-metadata-store` index is a persistent data store for replication-related metadata and auto-follow rules inside of a cluster. It stores the replication metadata of each index being replicated from the leader cluster to the follower cluster.
 
@@ -303,23 +303,7 @@ curl -XPOST -k -H 'Content-Type: application/json' -u 'admin:<custom-admin-passw
 
 When replication resumes, the follower index picks up any changes that were made to the leader index while replication was paused.
 
-Note that you can't resume replication after it's been paused for more than 12 hours. You must either use [force resume]({{site.url}}{{site.baseurl}}/replication-plugin/api/#force-resume) to restore from a snapshot, or [stop replication]({{site.url}}{{site.baseurl}}/replication-plugin/api/#stop-replication), delete the follower index, and restart replication of the leader.
-
-### Force resume after retention lease expiry
-
-If replication has been paused for more than 12 hours, the retention lease on the leader cluster expires. A normal resume request will fail with an error indicating that the retention lease doesn't exist. In this case, use the `force_resume` parameter:
-
-```bash
-curl -XPOST -k -H 'Content-Type: application/json' -u 'admin:<custom-admin-password>' 'https://localhost:9200/_plugins/_replication/follower-01/_resume?pretty' -d '
-{
-   "force_resume": true
-}'
-```
-
-This triggers a snapshot bootstrap: the plugin acquires new retention leases on the leader, deletes the follower index, and restores it from a snapshot of the leader. Once the restore completes, normal translog-based replication resumes automatically.
-
-The follower index is temporarily unavailable during the snapshot restore. Plan accordingly for production workloads.
-{: .warning }
+You can't resume replication after it's been paused longer than the retention lease period because the retention lease expires. To recover, use force-resume, which restores the follower index from a snapshot of the leader. For more information, see [Force-resume replication]({{site.url}}{{site.baseurl}}/tuning-your-cluster/replication-plugin/force-resume/).
 
 ## Stop replication
 

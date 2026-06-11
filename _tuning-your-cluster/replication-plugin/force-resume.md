@@ -1,126 +1,42 @@
 ---
 layout: default
-title: Force resume
+title: Force-resume
 nav_order: 25
 parent: Cross-cluster replication
-redirect_from:
-  - /replication-plugin/force-resume/
 ---
 
-# Force resume replication
+# Force-resume replication
+**Introduced 3.8**
+{: .label .label-purple }
 
-When cross-cluster replication is paused for longer than the retention lease duration (12 hours by default), the leader cluster's translog no longer retains the operations needed by the follower. A normal resume request fails because the retention lease has expired. The force resume feature resolves this by internally stopping replication, deleting the follower index, and restarting replication from scratch — triggering a snapshot bootstrap from the leader — all in a single API call.
 
-## When to use force resume
+When cross-cluster replication is paused for longer than the retention lease duration (controlled by the `index.soft_deletes.retention_lease.period` setting on the leader index, which defaults to 12 hours), the leader cluster's translog no longer retains the operations needed by the follower. A normal resume request fails because the retention lease has expired. You can use the `force_resume` parameter when sending a resume request to restore the follower index from a snapshot of the leader and reestablish replication. This eliminates the need to manually stop the existing replication, delete the follower index, and start replication from the beginning.
 
-Use force resume in the following scenarios:
+Force-resuming replication follows these steps:
 
-- Replication was paused for more than 12 hours (or the configured retention lease duration) and a normal resume fails.
-- The retention lease expired due to extended network partitions or cluster maintenance.
-- You want to avoid the manual process of stopping replication, deleting the follower index, and restarting replication from scratch.
+1. Validate that the replication is currently in a `PAUSED` state and that the retention lease has expired (making a normal resume impossible). If the retention lease has not expired, the `force_resume` flag is ignored and replication resumes normally.
+1. Stop replication by calling the existing stop replication action, which deletes replication metadata and removes the index block and the replication task.
+1. Delete the follower index so it can be restored from a snapshot.
+1. Start replication using the original connection alias and leader index configuration. This triggers a snapshot restore from the leader cluster and acquires new retention leases during the restore process.
+1. Resume translog-based replication after the restore completes. Shard replication tasks start and use the newly acquired retention leases to replicate ongoing operations from the leader.
 
-Without force resume, recovering from an expired retention lease requires you to:
+Force-resume uses the original replication permissions and does not require reconfiguration. All operations are logged for auditing.
+{: .note}
 
-1. Stop the existing replication.
-2. Delete the follower index.
-3. Start replication from scratch.
+## Force-resume workflow
 
-Force resume automates this process in a single API call while preserving the replication configuration.
+The following example demonstrates a complete force-resume workflow.
 
-## How it works
+### Step 1: Verify the replication status
 
-When you send a resume request with `force_resume` set to `true` and the retention lease has expired, the plugin performs the following steps:
-
-1. **Validates the paused state** — Confirms that the replication is currently in a `PAUSED` state and that the retention lease has expired (making a normal resume impossible).
-2. **Stops replication** — Internally calls the existing stop replication action, which cleans up replication metadata, removes the index block, and deregisters the replication task.
-3. **Deletes the follower index** — Removes the existing follower index so it can be restored from a snapshot.
-4. **Starts replication** — Internally calls the existing start replication action using the original connection alias and leader index configuration. This triggers a snapshot restore from the leader cluster via `RemoteClusterRepository`, which also acquires new retention leases during the restore process.
-5. **Resumes translog-based replication** — After the restore completes, shard replication tasks start and use the newly acquired retention leases to replicate ongoing operations from the leader.
-
-The following diagram illustrates the force resume flow:
-
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                        Follower Cluster                          │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                  │
-│  1. User sends POST /_resume with force_resume=true              │
-│                         │                                        │
-│                         ▼                                        │
-│  2. Validate PAUSED state + retention lease expired              │
-│                         │                                        │
-│                         ▼                                        │
-│  3. Stop replication (cleanup metadata, remove block)            │
-│                         │                                        │
-│                         ▼                                        │
-│  4. Delete follower index                                        │
-│                         │                                        │
-│                         ▼                                        │
-│  5. Start replication (reuses original connection config)        │
-│                         │                                        │
-│                         ▼                                        │
-│  6. Snapshot restore from leader (acquires retention leases)     │
-│                         │                                        │
-│                         ▼                                        │
-│  7. Normal translog-based replication resumes                    │
-│                                                                  │
-└─────────────────────────────────────────────────────────────────┘
-```
-
-## API
-
-Send this request to the follower cluster.
-
-### Request
+Confirm that replication is paused and identify the reason for the pause:
 
 ```json
-POST /_plugins/_replication/{follower-index}/_resume
-{
-   "force_resume": true
-}
+GET /_plugins/_replication/follower-01/_status
 ```
+{% include copy-curl.html %}
 
-### Parameters
-
-The following table lists the available request body parameters.
-
-Parameter | Description | Type | Required | Default
-:--- | :--- |:--- |:--- |:---
-`force_resume` | When `true`, performs a full stop-delete-start cycle to restore the follower index from the leader if the retention lease has expired. When `false` or omitted, a normal resume is attempted. | `boolean` | No | `false`
-
-### Example response
-
-```json
-{
-   "acknowledged": true
-}
-```
-
-### Error responses
-
-The following table describes common error responses.
-
-Status code | Error | Description
-:--- | :--- | :---
-404 | `Retention lease doesn't exist. Use force_resume=true to restore from snapshot.` | The retention lease has expired and `force_resume` was not set to `true`. Retry the request with `"force_resume": true`.
-400 | Replication is not in PAUSED state | Force resume can only be used when replication is paused. Check the replication status first.
-500 | Failed to stop replication | The internal stop operation failed. Verify cluster health and retry.
-500 | Failed to delete follower index | The follower index could not be deleted after stopping replication. Manual cleanup may be required.
-500 | Failed to start replication | The internal start operation failed after the follower was deleted. You may need to manually start replication again.
-
-## Usage example
-
-The following example demonstrates a complete force resume workflow.
-
-### Step 1: Check replication status
-
-First, confirm that replication is paused and identify the reason:
-
-```bash
-curl -XGET -k -u 'admin:<custom-admin-password>' 'https://localhost:9200/_plugins/_replication/follower-01/_status?pretty'
-```
-
-Response:
+For example, the following response shows that replication is in a user-initiated paused state:
 
 ```json
 {
@@ -132,15 +48,17 @@ Response:
 }
 ```
 
-### Step 2: Attempt a normal resume
+### Step 2: Attempt resuming replication normally
 
-Try a normal resume first:
+Try to resume replication normally:
 
-```bash
-curl -XPOST -k -H 'Content-Type: application/json' -u 'admin:<custom-admin-password>' 'https://localhost:9200/_plugins/_replication/follower-01/_resume?pretty' -d '{}'
+```json
+POST /_plugins/_replication/follower-01/_resume
+{}
 ```
+{% include copy-curl.html %}
 
-If the retention lease has expired, you receive an error:
+If the retention lease has expired, you receive the following error:
 
 ```json
 {
@@ -156,34 +74,29 @@ If the retention lease has expired, you receive an error:
 }
 ```
 
-### Step 3: Force resume
+### Step 3: Use force-resume
 
-Use force resume to restore from a snapshot:
-
-```bash
-curl -XPOST -k -H 'Content-Type: application/json' -u 'admin:<custom-admin-password>' 'https://localhost:9200/_plugins/_replication/follower-01/_resume?pretty' -d '
-{
-   "force_resume": true
-}'
-```
-
-Response:
+Use force-resume to restore the follower index from a snapshot:
 
 ```json
+POST /_plugins/_replication/follower-01/_resume
 {
-   "acknowledged": true
+   "force_resume": true
 }
 ```
+{% include copy-curl.html %}
 
-### Step 4: Monitor progress
 
-After force resume is initiated, the follower index is temporarily unavailable while the snapshot restore is in progress. Monitor the status:
+### Step 4: Monitor the resume progress
 
-```bash
-curl -XGET -k -u 'admin:<custom-admin-password>' 'https://localhost:9200/_plugins/_replication/follower-01/_status?pretty'
+After force-resume is initiated, the follower index is temporarily unavailable while the snapshot restore is in progress. To monitor its status, send the following request:
+
+```json
+GET /_plugins/_replication/follower-01/_status
 ```
+{% include copy-curl.html %}
 
-During the restore:
+During the snapshot restore, the `status` is `RESTORING`:
 
 ```json
 {
@@ -195,7 +108,7 @@ During the restore:
 }
 ```
 
-After the restore completes:
+After the restore completes, the `status` changes to `SYNCING`:
 
 ```json
 {
@@ -212,43 +125,24 @@ After the restore completes:
 }
 ```
 
-## Behavior details
+## Failure recovery
 
-### Retention lease handling
+The following list describes the expected behavior if a failure occurs at any stage during force-resume:
 
-During the force resume process, retention leases are acquired by `RemoteClusterRepository` as part of the snapshot restore phase. This is the same mechanism used when starting replication for the first time. The leases ensure that the leader retains translog operations from the restore point forward, allowing the follower to catch up with any writes that occurred during the restore.
-
-### Interaction with the `force_resume` flag
-
-The following table describes the behavior based on the state of the retention lease and the `force_resume` flag.
-
-Retention lease state | `force_resume` value | Behavior
-:--- | :--- | :---
-Exists (valid) | `false` or omitted | Normal resume. Translog-based replication continues from where it left off.
-Exists (valid) | `true` | Normal resume. The flag is ignored because the lease is still valid and a normal resume can proceed.
-Expired | `false` or omitted | Request fails with a `404` error suggesting the use of `force_resume=true`.
-Expired | `true` | Stop-delete-start cycle is triggered. The follower index is restored from the leader via snapshot.
-
-### Failure recovery
-
-Force resume internally executes stop, delete, and start as sequential steps. If a failure occurs at any stage:
-
-- **If stop fails** — The operation is aborted and the follower remains in a `PAUSED` state. No changes are made. You can retry force resume.
-- **If delete fails after stop** — Replication has been stopped but the follower index still exists. You can manually delete the index and start replication, or retry force resume.
-- **If start fails after delete** — The follower index has been deleted and replication metadata has been cleaned up. You need to manually start replication using the standard start replication API with the original connection alias and leader index.
-- **If the snapshot restore fails** — The replication task transitions to a failed state and auto-pauses. You can retry force resume.
-
-### Concurrent requests
-
-Only one resume or force resume operation can run at a time for a given index. If a second request is sent while a force resume is in progress, it is rejected.
+- If stop fails, the operation is aborted and the follower remains in a `PAUSED` state. No changes are made. You can retry force-resume.
+- If delete fails after stop, replication has been stopped but the follower index still exists. You can manually delete the index and start replication, or retry force-resume.
+- If start fails after delete, the follower index has been deleted and replication metadata has been removed. You need to manually start replication using the standard start replication API with the original connection alias and leader index.
+- If the snapshot restore fails, the replication task transitions to a failed state and auto-pauses. You can retry force-resume.
 
 ## Limitations
 
-- **Follower index unavailability** — During the force resume process, the follower index is deleted and restored. It is completely unavailable for search queries during this time. The duration depends on the index size and network bandwidth between clusters.
-- **No partial restore** — Force resume restores the entire index. There is no option to restore only specific shards.
-- **Fresh start** — After force resume, replication checkpoints start from zero. The follower index is a fresh copy of the leader at the time of the snapshot restore.
-- **Non-atomic operation** — Because force resume internally performs stop, delete, and start as separate steps, a failure between steps may require manual intervention (see [Failure recovery](#failure-recovery)).
+Note the following limitations:
 
-## Security
+- During the force-resume process, the follower index is deleted and restored. It is unavailable for search queries during this time. The duration depends on the index size and network bandwidth between clusters.
+- Force-resume restores the entire index. There is no option to restore only specific shards.
+- After force-resume, the follower index is a fresh copy of the leader at the time of the snapshot restore, and replication continues from that point forward.
+- Only one resume or force-resume operation can run at a time for a given index. A second request sent while force-resume is in progress is rejected.
 
-Force resume reuses the security context from the original replication configuration. The internal start operation uses `isAutoFollowRequest=true` to skip redundant setup checks, since the user already had the required permissions when replication was originally configured. All force resume operations are logged for audit purposes.
+## Related documentation
+
+- For the API reference, including the request syntax and parameters, see [Resume replication]({{site.url}}{{site.baseurl}}/tuning-your-cluster/replication-plugin/api/#resume-replication).
