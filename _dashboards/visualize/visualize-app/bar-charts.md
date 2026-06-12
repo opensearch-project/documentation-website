@@ -48,7 +48,7 @@ To create a bar chart, follow these steps:
 
 ## Configuring a bar chart
 
-Bar charts share the same configuration tabs as other aggregation-based visualizations. For information about each tab, see [Configuring visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/configuring-viz/).
+Bar charts share the same configuration tabs as other aggregation-based visualizations. For information about each tab, see [Configuring visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/configuring-viz/).
 
 ### Data tab
 

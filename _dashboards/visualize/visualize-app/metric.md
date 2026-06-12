@@ -40,7 +40,7 @@ To create a metric visualization, follow these steps:
 
 ## Configuring a metric visualization
 
-For information about general visualization configuration, see [Configuring visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/configuring-viz/).
+For information about general visualization configuration, see [Configuring visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/configuring-viz/).
 
 ## Next steps
 

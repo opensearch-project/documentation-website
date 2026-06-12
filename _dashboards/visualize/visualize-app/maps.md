@@ -272,4 +272,4 @@ Once you've opened a dashboard, you can add a new or existing map to it.
 ## Related documentation
 
 - [Maps Stats API]({{site.url}}{{site.baseurl}}/dashboards/visualize/maps-stats-api/)
-- [Configuring maps]({{site.url}}{{site.baseurl}}/dashboards/visualize/configuring-maps/)
+- [Configuring maps]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/configuring-maps/)

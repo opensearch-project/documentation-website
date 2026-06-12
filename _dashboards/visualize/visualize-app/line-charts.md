@@ -51,7 +51,7 @@ To create a line chart, follow these steps:
 
 ## Configuring a line chart
 
-For information about general visualization configuration, see [Configuring visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/configuring-viz/).
+For information about general visualization configuration, see [Configuring visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/configuring-viz/).
 
 ### Metrics & axes tab
 

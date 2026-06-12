@@ -68,7 +68,7 @@ To limit the heat map to specific conditions (for example, only cancelled flight
 
 ## Configuring a heat map
 
-For information about general visualization configuration, see [Configuring visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/configuring-viz/).
+For information about general visualization configuration, see [Configuring visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/configuring-viz/).
 
 ### Options tab
 

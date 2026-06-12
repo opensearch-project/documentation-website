@@ -28,12 +28,15 @@ When you select **Create new** in a dashboard (or **Create new visualization** i
 
 The following table compares the two approaches. *Italicized* visualization types are unique to that approach.
 
+If you're getting started, use the **Visualize** application to build visualizations visually---it's available by default in all installations. Building visualizations using queries requires additional configuration and PPL or PromQL knowledge.
+{: .tip}
+
 | | Creating visualizations in the Visualize application | Creating visualizations using queries |
 | :--- | :--- | :--- |
 | **Entry point** | In the **Create new** dialog, select a chart type (Area, Line, Pie, and others) | In the **Create new** dialog, select **Add visualization** |
 | **Configuration** | Configure metrics and buckets using point-and-click panels. Use DQL in the search bar to filter data. | Write Piped Processing Language (PPL) or Prometheus Query Language (PromQL) queries to define the data. The editor automatically suggests a chart type. |
 | **Visualization types** | - Area<br>- Bar<br>- *Coordinate map*<br>- *Data table*<br>- Gauge<br>- Heatmap<br>- Line<br>- *Metric*<br>- Pie<br>- *Region map*<br>- *Tag cloud*<br>- *Timeline*<br>- *TSVB*<br>- *Vega*<br>- *VisBuilder* | - Area<br>- Bar<br>- *Bar gauge*<br>- Gauge<br>- Heatmap<br>- Line<br>- Pie<br>- *Scatter*<br>- *State timeline* |
-| **Prerequisites** | None (available by default) | Requires `workspace.enabled: true` and `explore.enabled: true` in `opensearch_dashboards.yml` |
+| **Prerequisites** | None (available by default in all installations) | Requires `workspace.enabled: true` and `explore.enabled: true` in `opensearch_dashboards.yml`. If these settings are not enabled by your administrator, the visualization editor is not available. |
 | **Best for** | Aggregation-based analysis without writing queries | Query-driven exploration where you need precise control over data shaping |
 | **Application** | [**Visualize** application]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/) | [Visualization editor]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/) |
 

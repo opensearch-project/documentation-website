@@ -54,7 +54,15 @@ The following image shows the main components of the **Visualize** application.
 - The _time filter_ (B) provides a graphical interface for selecting data values and ranges.  See [Using the time filter]({{site.url}}{{site.baseurl}}/dashboards/discover/time-filter/).
 - The _filter tool_ (C) contains frequently used commands and shortcuts. See [Using the filter tool]({{site.url}}{{site.baseurl}}/dashboards/discover/filter-tool/).
 - The _visualization panel_ (D) displays the visualization.
-- The _configuration panel_ (E) contains all the controls to select and configure the visualization. Its contents depend on the visualization type. See [Configuring visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/configuring-viz/).
+- The _configuration panel_ (E) contains all the controls to select and configure the visualization. Its contents depend on the visualization type. See [Configuring visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/configuring-viz/).
+
+## Key terms
+
+The configuration panel uses the following terms:
+
+- An _index pattern_ is a view into one or more indexes in OpenSearch. The terms _data set_ and _data source_ refer to the data exposed by a single index pattern. For more information, see [Index patterns]({{site.url}}{{site.baseurl}}/dashboards/management/index-patterns/).
+- A _field_ is a typed value contained in a data set, the equivalent of a table column in a relational database.
+- A _bucket_ is a grouping of field values based on an aggregation. Buckets can be categorical (based on text values), range-based (user-defined numeric ranges), histogram-based (automatically sized numeric intervals), or time-based (segments of a timestamp field).
 
 ## Creating a visualization
 
@@ -79,7 +87,7 @@ To create a visualization, follow these steps:
    If the visualization shows no data, or a count different than expected, verify that the [search bar]({{site.url}}{{site.baseurl}}/dashboards/discover/search-bar/), [filter tool]({{site.url}}{{site.baseurl}}/dashboards/discover/filter-tool/), and especially the [time filter]({{site.url}}{{site.baseurl}}/dashboards/discover/time-filter/) are not filtering out the missing documents.
    {: .tip}
 
-1. Configure the visualization. For more information, see [Configuring visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/configuring-viz/) or the individual visualization type pages. For a complete example, see [Try it: Create a line chart with sample data](#try-it-create-a-line-chart-with-sample-data).
+1. Configure the visualization. For more information, see [Configuring visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/configuring-viz/) or the individual visualization type pages. For a complete example, see [Try it: Create a line chart with sample data](#try-it-create-a-line-chart-with-sample-data).
 
 ## Other ways to start creating a visualization
 
@@ -178,7 +186,6 @@ The visualization is saved and appears in the **Visualizations** list. To add it
 
 - For help choosing a visualization type, see [Choosing a visualization type]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/viz-types/). 
 - To learn about adding visualizations to dashboards, see [Creating dashboards]({{site.url}}{{site.baseurl}}/dashboards/dashboard/).
-- To learn about key concepts, see [Visualization terminology]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/viz-ref/).
 - Many of the visualization UI elements and tools are identical among the visualization types, so familiarity with one type will help you create others. To take a methodical tutorial approach, starting with basic visualization elements and building on previous learning, try these tutorials in order:
   1. [Markdown visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/markdown/)
   1. [Metric visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/metric/)

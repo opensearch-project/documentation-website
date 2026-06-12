@@ -41,7 +41,7 @@ The map displays markers at flight origin locations, with marker size proportion
 
 ## Configuring a coordinate map
 
-For information about general visualization configuration, see [Configuring visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/configuring-viz/).
+For information about general visualization configuration, see [Configuring visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/configuring-viz/).
 
 ### Options tab
 
@@ -54,7 +54,7 @@ For information about general visualization configuration, see [Configuring visu
 
 ## Related documentation
 
-- [Configuring maps]({{site.url}}{{site.baseurl}}/dashboards/visualize/configuring-maps/)
+- [Configuring maps]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/configuring-maps/)
 
 ## Next steps
 
