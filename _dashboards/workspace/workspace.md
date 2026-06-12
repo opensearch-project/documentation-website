@@ -1,19 +1,19 @@
 ---
 layout: default
-title: Workspace for OpenSearch Dashboards
+title: Workspaces
 nav_order: 90
 has_children: true
 ---
 
-# Workspace for OpenSearch Dashboards
+# Workspaces
 **Introduced 2.18**
 {: .label .label-purple }
 
-The Workspace feature in OpenSearch Dashboards enables you to tailor your environment with use-case-specific configurations. For example, you can create dedicated workspaces for observability scenarios, allowing you to focus on relevant functionalities. Additionally, the Workspace feature enables organization of visual assets, such as dashboards and visualizations, within a workspace with isolated storage.
+Workspaces enable you to tailor your environment with use-case-specific configurations. For example, you can create dedicated workspaces for observability scenarios, allowing you to focus on relevant functionalities. Additionally, you can organize visual assets, such as dashboards and visualizations, within a workspace with isolated storage.
 
 ## Workspace data model
 
-The Workspace data model is defined by the following structure: 
+The workspace data model is defined by the following structure: 
 
 ```typescript
 interface Workspace {
@@ -27,7 +27,7 @@ interface Workspace {
 ```
 {% include copy.html %}
 
-The Workspace data model is composed of the following key attributes:
+The workspace data model is composed of the following key attributes:
 
 - `id`: String type; unique ID for each each workspace.
 - `name`: String type; designates the name of the workspace.
@@ -36,9 +36,9 @@ The Workspace data model is composed of the following key attributes:
 
 ---
 
-#### Example Workspace object
+#### Example workspace object
 
-The following object shows a typical Workspace configuration:
+The following object shows a typical workspace configuration:
 
 ```typescript
 {
@@ -98,7 +98,7 @@ Not all saved objects in OpenSearch Dashboards are associated with a workspace. 
 
 This dual approach allows OpenSearch Dashboards to balance granular, context-specific customization with overall system consistency. 
 
-## Enabling the Workspace feature
+## Enabling workspaces
 
 In your `opensearch_dashboards.yml` file, set the following option:
 

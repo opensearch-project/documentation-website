@@ -1,8 +1,8 @@
 ---
 layout: default
 title: Using self-hosted map servers
-grand_parent: Visualize application
-parent: Coordinate and region maps
+parent: Configuring maps
+grand_parent: Creating visualizations in the Visualize application
 nav_order: 40
 redirect_from:
   - /dashboards/visualize/selfhost-maps-server/
@@ -11,7 +11,7 @@ redirect_from:
 
 # Using self-hosted map servers
 
-The self-host maps server for OpenSearch Dashboards allows users to access the default maps service in air-gapped environments. OpenSearch-compatible map URLs include a map manifest with map tiles and vectors, the map tiles, and the map vectors.
+The self-host maps server for OpenSearch Dashboards provides access to the default maps service in air-gapped environments. OpenSearch-compatible map URLs include a map manifest with map tiles and vectors, the map tiles, and the map vectors.
 
 The following sections provide steps for setting up and using the self-host maps server with OpenSearch Dashboards.
 
@@ -36,7 +36,7 @@ Create a Docker volume to hold the tiles set:
 
 Download the tiles set from the OpenSearch maps service. Two planet tiles sets are available based on the desired zoom level:
 
-- Zoom Level 8 (https://maps.opensearch.org/offline/planet-osm-default-z0-z8.tar.gz)
+- Zoom level 8 (https://maps.opensearch.org/offline/planet-osm-default-z0-z8.tar.gz)
 - Zoom level 10 (https://maps.opensearch.org/offline/planet-osm-default-z0-z10.tar.gz)
 
 The planet tiles set for zoom level 10 (2 GB compressed/6.8 GB uncompressed) is approximately 10 times larger than the set for zoom level 8 (225 MB compressed/519 MB uncompressed).
@@ -76,9 +76,6 @@ docker run \
     opensearch/opensearch-maps-server \
     run
 ```
-To access the tiles set, open the URLs in a browser on the host or use the `curl` command `curl http://localhost:8080/manifest.json`. 
-
-
 Confirm the server is running by opening each of the following links in a browser on your host or with a `curl` command (for example, `curl http://localhost:8080/manifest.json`).
 
 * Map manifest URL: `http://localhost:8080/manifest.json`
@@ -108,4 +105,5 @@ Tiles are generated per [Terms of Use for Natural Earth vector map data](https:/
 ## Related documentation
 
 * [Configuring a Web Map Service (WMS)]({{site.url}}{{site.baseurl}}/dashboards/visualize/maptiles/)
-* [Using coordinate and region maps]({{site.url}}{{site.baseurl}}/dashboards/visualize/geojson-regionmaps/)
+* [Coordinate maps]({{site.url}}{{site.baseurl}}/dashboards/visualize/coordinate-maps/)
+* [Region maps]({{site.url}}{{site.baseurl}}/dashboards/visualize/region-maps/)

@@ -1,53 +1,80 @@
 ---
 layout: default
 title: Area charts
-parent: Visualize application
-grand_parent: Building data visualizations
-nav_order: 5
+parent: Creating visualizations in the Visualize application
+nav_order: 30
 redirect_from:
   - /dashboards/visualize/area/
 ---
 
 # Area charts
 
-An area chart displays data as a filled region between a line and the axis. Area charts are ideal for visualizing volume over time and for comparing how multiple categories contribute to a total when stacked.
+An area chart is a line chart with the area below the line shaded with a color. You can stack multiple buckets to show relative proportions of a running absolute value of the variable, or superimpose buckets or different variables to compare within x-axis buckets or time values.
+
+## When to use area charts
+
+Use area charts to show both trend patterns and proportional relationships simultaneously. They reveal contribution patterns, showing which components drive overall totals and when those patterns change.
 
 ## Creating an area chart
 
-The following examples use the **Sample flight data** dataset and build on each other. Before you begin, complete the [prerequisites]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/#prerequisites).
-
-### Basic area chart
+The examples on this page use the **Sample flight data** dataset and build on each other. Before you begin, complete the [prerequisites]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/#prerequisites).
+{: .note}
 
 To create an area chart that shows flight count over time, follow these steps:
 
 1. In the **New Visualization** dialog, select **Area**, then select your index pattern (for example, **opensearch_dashboards_sample_data_flights**).
-2. Set the time filter to **Last 7 days** and select **Update**.
+2. Under **Metrics**, expand **Y-axis Count** and set **Aggregation** to **Count**.
+
+   For the `Count` metric there is no Field selection because `Count` denotes the number of documents, not a field value.
+
 3. Under **Buckets**, select **Add** > **X-axis**.
 4. Set **Aggregation** to **Date Histogram** and **Field** to **timestamp**.
+
+   The timestamp field is the only date-time field available in the sample flight data.
+   {: .note}
+
 5. Select **Update**.
 
-The result is a single filled area showing the total flight count per time interval.
+   The chart generates a jagged time-series plot of the document count for an automatically determined bucket size (for example, one day).
+
+6. Drag-select the portion of the chart containing the data. Leave a margin on either side of the data so as not to cut any data off.
+
+   The data expands to fill the entire width of the graph. Since there's more room, the auto-calculated bucket size decreases to 12 hours.
+
+7. Under **Buckets**, select **Add** > **Split series**.
+8. Set **Sub aggregation** to **Terms** and **Field** to **Cancelled**.
+9. Select **Update**.
+
+   The chart shows the counts of cancelled and uncancelled flights superimposed on the timeline, as shown in the following image.
+
+   ![Area chart with flight cancellation status overlaid]({{site.url}}{{site.baseurl}}/images/dashboards/example-area-normal-count.png)
+
+   Note the following:
+   - The count of cancelled (`Cancelled = true`) and uncancelled flights are superimposed on the graph. The cancelled flight count seems to average about 10% of the uncancelled flights.
+   - The flight count is cyclic over time, with a one-day dip every week.
 
 ### Stacked area chart
 
-Add a sub-bucket to split the data into stacked series by category:
+By default, split series are overlaid (Normal mode). To stack the areas on top of each other so they show the total volume:
 
-1. Under **Buckets**, select **Add** > **Split series**.
-2. Set **Sub aggregation** to **Terms** and **Field** to **OriginWeather**.
-3. Set **Size** to `5` for the top five weather conditions.
+1. Select the **Metrics & axes** tab.
+2. Under **Metrics**, expand the **Count** series.
+3. Change **Mode** from **Normal** to **Stacked**.
 4. Select **Update**.
 
-The chart now shows a stacked area for each weather condition, making it easy to see how each contributes to the total flight volume.
+The areas are now stacked, showing both individual category volumes and the combined total, as shown in the following image.
+
+![Stacked area chart showing flight cancellation status]({{site.url}}{{site.baseurl}}/images/dashboards/example-area-stacked-count.png)
 
 ### Multiple metrics
 
-Add a second Y-axis metric to compare different measurements:
+Add a second Y-axis metric to compare different measurements on the same chart:
 
 1. Under **Metrics**, select **Add**.
 2. Set **Aggregation** to **Average** and **Field** to **AvgTicketPrice**.
 3. Select **Update**.
 
-The chart now overlays the average ticket price on top of the count, plotted on the same axis. To give the second metric its own scale, assign it to a separate Y-axis in the **Metrics & axes** tab.
+The chart now overlays the average ticket price on top of the count. To give the second metric its own scale, go to the **Metrics & axes** tab, expand the new metric, and assign it to a new value axis.
 
 ## Configuring an area chart
 
@@ -143,3 +170,8 @@ The **Panel settings** tab controls the overall chart appearance.
 | **Line width** | The thickness of the threshold line in pixels. |
 | **Line style** | The line style. Supported values: **Full** (solid), **Dashed**, **Dot-dashed**. |
 | **Line color** | The color of the threshold line. |
+
+## Next steps
+
+- To choose a different visualization type, see [Choosing a visualization type]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/viz-types/).
+- To add this visualization to a dashboard, see [Creating dashboards]({{site.url}}{{site.baseurl}}/dashboards/dashboard/).

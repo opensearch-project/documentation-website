@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Visualize application
+title: Creating visualizations in the Visualize application
 nav_order: 40
 has_children: true
 has_toc: false
@@ -9,20 +9,25 @@ redirect_from:
   - /dashboards/visualize/viz-index/
 ---
 
-# Visualize application
+# Creating visualizations in the Visualize application
 
 The **Visualize** application uses a point-and-click interface to create data visualizations from aggregations. You select a visualization type, configure metrics and buckets, and adjust display settings to build charts, tables, maps, and other visual representations of your data.
 
 ## Prerequisites
 
-Before creating a visualization, ensure the following setup is complete.
+The following background knowledge is helpful:
+
+- Familiarity with OpenSearch [documents]({{site.url}}{{site.baseurl}}/getting-started/intro/#document) and [indexes]({{site.url}}{{site.baseurl}}/getting-started/intro/#index).
+- Familiarity with the **[Discover]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/)** application for exploring data.
+
+Before creating a visualization, complete the following setup steps.
 
 ### Install sample data (optional)
 
-The examples in this documentation use the OpenSearch Dashboards sample datasets. To install sample data, follow these steps:
+The examples in this documentation use the **Sample flight data** dataset. To install sample data, follow these steps:
 
 1. On the OpenSearch Dashboards home page, select **Add sample data**.
-2. Select **Add data** for the datasets you want to use (for example, **Sample flight data** or **Sample web logs**).
+2. In the **Sample flight data** panel, select **Add data**.
 
 For more information, see [Adding sample data]({{site.url}}{{site.baseurl}}/dashboards/quickstart/#adding-sample-data).
 
@@ -32,54 +37,150 @@ The **Visualize** application requires an index pattern. To create an index patt
 
 1. Go to **Index patterns** (under **Management**).
 2. Select **Create index pattern**.
-3. Enter the index name (for example, `opensearch_dashboards_sample_data_flights`).
+3. Enter the index name.
 4. Select **Next step**.
-5. Select a time field (for example, `timestamp`).
+5. Select a time field.
 6. Select **Create index pattern**.
 
 For more information, see [Index patterns]({{site.url}}{{site.baseurl}}/dashboards/management/index-patterns/).
 
-## Creating a new visualization
+## Navigating the Visualize UI
 
-How you access the **Visualize** application depends on whether workspaces are enabled.
+The following image shows the main components of the **Visualize** application.
 
-**With workspaces enabled** (default in OpenSearch 2.18 and later):
+![Visualize application interface]({{site.url}}{{site.baseurl}}/images/dashboards/viz-app-panel-callouts.png)
 
-1. From the OpenSearch Dashboards home page, select a workspace (for example, an **Analytics** workspace).
-2. In the left navigation menu, expand **Visualize and report** and select **Visualizations**.
-3. Select **Create new visualization**.
+- The _search bar_ (A) enables selection of data using a query language search. See [Using the search bar]({{site.url}}{{site.baseurl}}/dashboards/discover/search-bar/).
+- The _time filter_ (B) provides a graphical interface for selecting data values and ranges.  See [Using the time filter]({{site.url}}{{site.baseurl}}/dashboards/discover/time-filter/).
+- The _filter tool_ (C) contains frequently used commands and shortcuts. See [Using the filter tool]({{site.url}}{{site.baseurl}}/dashboards/discover/filter-tool/).
+- The _visualization panel_ (D) displays the visualization.
+- The _configuration panel_ (E) contains all the controls to select and configure the visualization. Its contents depend on the visualization type. See [Configuring visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/configuring-viz/).
 
-**Without workspaces** (classic navigation):
+## Creating a visualization
 
-1. From the left navigation menu, select **Visualize**.
-2. Select **Create visualization**.
+To create a visualization, follow these steps:
 
-Both paths open a dialog where you select a visualization type and a data source (index pattern or saved search).
+1. In the left navigation menu, select **OpenSearch Dashboards** > **Visualize**.
 
-## Visualization types
+   The application displays the **Visualizations** list, a table of saved visualizations.
 
-The **Visualize** application supports the following visualization types.
+1. In the upper-right corner, select **Create visualization**.
 
-| Visualization type | Description |
-| :--- | :--- |
-| [Area chart]({{site.url}}{{site.baseurl}}/dashboards/visualize/area/) | Displays data as a filled region between a line and the axis. Use for showing volume over time or comparing stacked categories. |
-| Vertical bar chart | Compares categorical data as vertical bars. Use for ranking or comparing values across categories. |
-| Horizontal bar chart | Compares categorical data as horizontal bars. Use when category labels are long or numerous. |
-| Controls | Adds interactive filter panels (dropdown lists or range sliders) to a dashboard. |
-| Coordinate map | Plots geographic data points on a map using latitude and longitude coordinates. For more information, see [Coordinate and region maps]({{site.url}}{{site.baseurl}}/dashboards/visualize/geojson-regionmaps/). |
-| Data table | Displays raw or aggregated data in tabular form. |
-| Gauge | Displays a single value on a gauge dial relative to a goal. |
-| Goal | Displays a single value on a progress bar relative to a target. |
-| Heat map | Uses color intensity to represent values across two categorical dimensions. |
-| Line chart | Plots data points connected by lines. Use for visualizing trends and changes over time. |
-| Maps | Provides an interactive map with multiple layer types. For more information, see [Using maps]({{site.url}}{{site.baseurl}}/dashboards/visualize/maps/). |
-| Markdown | Renders Markdown text alongside data visualizations for context and instructions. |
-| Metric | Displays a single numeric value prominently. Use for KPIs and summary statistics. |
-| Pie chart | Displays proportional data as slices of a circle. Use for part-to-whole comparisons. |
-| PPL | Creates visualizations by entering PPL queries directly. |
-| Region map | Colors geographic regions (countries, states) by aggregated value. For more information, see [Coordinate and region maps]({{site.url}}{{site.baseurl}}/dashboards/visualize/geojson-regionmaps/). |
-| Tag cloud | Displays words sized by frequency or another metric. |
-| Timeline | Uses a text-based expression syntax to create time-series visualizations. |
-| [TSVB]({{site.url}}{{site.baseurl}}/dashboards/visualize/tsvb/) | Creates detailed time-series visualizations with support for Area, Line, Metric, Gauge, Markdown, and Data Table types. |
-| [Vega]({{site.url}}{{site.baseurl}}/dashboards/visualize/vega/) | Uses the Vega and Vega-Lite declarative grammars for custom visualizations. |
-| [VisBuilder]({{site.url}}{{site.baseurl}}/dashboards/visualize/visbuilder/) | A drag-and-drop tool for creating visualizations without selecting a chart type in advance. |
+   The application displays the **New Visualization** dialog, as shown in the following image.
+
+   ![New visualization dialog]({{site.url}}{{site.baseurl}}/images/dashboards/new-viz-dialog.png){: width=500 }
+
+1. Select a visualization type by choosing its icon. For help choosing a type, see [Choosing a visualization type]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/viz-types/).
+
+1. If prompted, select an index pattern in the **Choose a source** dialog. Not all visualization types display this dialog. For examples of creating each visualization type, see the individual visualization type pages.
+   
+   The default visualization shows a single value, the document count, for the current data set.
+
+   If the visualization shows no data, or a count different than expected, verify that the [search bar]({{site.url}}{{site.baseurl}}/dashboards/discover/search-bar/), [filter tool]({{site.url}}{{site.baseurl}}/dashboards/discover/filter-tool/), and especially the [time filter]({{site.url}}{{site.baseurl}}/dashboards/discover/time-filter/) are not filtering out the missing documents.
+   {: .tip}
+
+1. Configure the visualization. For more information, see [Configuring visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/configuring-viz/) or the individual visualization type pages. For a complete example, see [Try it: Create a line chart with sample data](#try-it-create-a-line-chart-with-sample-data).
+
+## Other ways to start creating a visualization
+
+In addition to the **Visualize** application, you can start creating a new visualization from the following locations:
+
+- To create a visualization from a [workspace]({{site.url}}{{site.baseurl}}/dashboards/workspace/) (if workspaces are enabled), follow these steps:
+
+    1. On the home page, select or create a [workspace]({{site.url}}{{site.baseurl}}/dashboards/workspace/).
+    1. In the left navigation menu, expand **Visualize and report** and select **Visualizations**.
+    1. Select **Create new visualization**.
+
+- To create a visualization from a dashboard, follow these steps:
+
+    1. In the left navigation menu, select **OpenSearch Dashboards** > **Dashboards**.
+    1. Open an existing dashboard or create a new one.
+    1. Select **Edit**.
+    1. Select **Create new** in the toolbar, or select **Add** (or the plus icon) and then select **Create new** in the **Add panels** dialog.
+
+    When you create a visualization from a dashboard, it is automatically added to that dashboard when you save.
+    {: .note}
+
+## Saving a visualization
+
+Your visualization remains in the **Visualize** application if you leave the application. However, if you select the **Visualize** application again without saving the visualization, changes to the visualization are lost. We recommend always saving your visualization before you leave the **Visualize** application.
+{: .warning}
+
+### Saving a new visualization
+
+To save a new visualization, follow these steps:
+
+1. Select **Save** in the upper right of the **Create** panel.
+
+   The application displays the **Save visualization** dialog.
+
+1. Enter a title for the visualization in the **Title** box.
+
+1. (Optional) Enter a **Description**.
+
+1. Select **Save**.
+
+### Saving an existing visualization
+
+You can save a visualization at any time, as often as you like.
+
+To save an existing visualization, follow these steps:
+
+1. Select **Save** in the upper right of the **Create** panel.
+
+   If you have previously saved the visualization, the **Save visualization** **Title** box contains the visualization title.
+
+1. (Optional) To change the visualization name, enter a new title for the visualization in the **Title** box.
+
+1. (Optional) Update the **Description**.
+
+1. (Optional) To leave the saved visualization in its current state and save the changes as a new visualization, select **Save as new visualization**.
+
+   Saving an existing visualization without selecting **Save as new visualization** overwrites the previous state of the visualization, even if you've renamed the visualization.
+   {: .warning}
+
+1. To save the current changes, select the **Save** button.
+
+## Adding a visualization to a dashboard
+
+To add a saved visualization to a dashboard, follow these steps:
+
+1. Open a [dashboard]({{site.url}}{{site.baseurl}}/dashboards/dashboard/).
+1. Select **Edit**.
+1. Select **Add** or the plus icon in the toolbar. If prompted, select **From library**.
+1. Select the saved visualization from the list.
+
+The visualization appears as a panel on the dashboard. You can resize, reposition, and configure it alongside other panels.
+
+## Try it: Create a line chart with sample data
+
+This example walks through the complete workflow using a line chart that shows flight count over time.
+
+1. [Install sample data](#install-sample-data-optional): Select **Add data** for **Sample flight data**.
+2. [Create an index pattern](#create-an-index-pattern): Enter `opensearch_dashboards_sample_data_flights` as the index name and select `timestamp` as the time field.
+3. In the **Visualize** application, select **Create visualization**.
+4. In the **New Visualization** dialog, select **Line**.
+5. In the **Choose a source** dialog, select **opensearch_dashboards_sample_data_flights**.
+6. Set the time filter to **Last 7 days**.
+7. Under **Buckets**, select **Add** > **X-axis**.
+8. Set **Aggregation** to **Date Histogram** and **Field** to **timestamp**.
+9. Select **Update**. The chart displays flight count per time interval, as shown in the following image.
+
+   ![Line chart showing flight count over time]({{site.url}}{{site.baseurl}}/images/dashboards/visualize-app-line-chart-example.png)
+
+10. From the toolbar, select **Save**.
+11. In the **Save visualization** dialog, enter `Flight count over time` as the title.
+12. Select **Save**.
+
+The visualization is saved and appears in the **Visualizations** list. To add it to a dashboard, see [Adding a visualization to a dashboard](#adding-a-visualization-to-a-dashboard).
+
+## Next steps
+
+- For help choosing a visualization type, see [Choosing a visualization type]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/viz-types/). 
+- To learn about adding visualizations to dashboards, see [Creating dashboards]({{site.url}}{{site.baseurl}}/dashboards/dashboard/).
+- To learn about key concepts, see [Visualization terminology]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/viz-ref/).
+- Many of the visualization UI elements and tools are identical among the visualization types, so familiarity with one type will help you create others. To take a methodical tutorial approach, starting with basic visualization elements and building on previous learning, try these tutorials in order:
+  1. [Markdown visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/markdown/)
+  1. [Metric visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/metric/)
+  1. [Data tables]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/data-table/)
+  1. [Bar charts]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/bar-charts/)

@@ -20,10 +20,25 @@ This page describes how to use **Discover** to:
 - [Export data to a CSV file](#exporting-data).
 - [Set alerts](#setting-alerts).
 
+## Prerequisites
+
+Before using the **Discover** tool, ensure that you:
+
+- [Install OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards).
+
+- Add sample data or import your own data into OpenSearch. To learn about adding sample datasets, see [Adding sample data]({{site.url}}{{site.baseurl}}/dashboards/quickstart/#adding-sample-data). To learn about importing your own data, see [Managing indexes]({{site.url}}{{site.baseurl}}/im-plugin/index/).
+
+- Understand OpenSearch [documents]({{site.url}}{{site.baseurl}}/getting-started/intro/#document) and [indexes]({{site.url}}{{site.baseurl}}/getting-started/intro/#index).
+
+- Know how to use the various filter tools:
+  - [time filter]({{site.url}}{{site.baseurl}}/dashboards/discover/time-filter/)
+  - [search bar]({{site.url}}{{site.baseurl}}/dashboards/discover/search-bar/)
+  - [filter tool]({{site.url}}{{site.baseurl}}/dashboards/discover/filter-tool/)
+  - [field-select tool]({{site.url}}{{site.baseurl}}/dashboards/discover/field-select/)
 
 ## Navigating the Discover UI
 
-The following components make up the **Discover** application UI.
+The following image shows the main components of the **Discover** application.
 
 ![Discover app default page]({{site.url}}{{site.baseurl}}/images/dashboards/discover-app-panel-callouts.png)
 
@@ -42,23 +57,6 @@ The following components make up the **Discover** application UI.
 
   The time filter interval defaults to **Last 15 minutes**. To change the time filter interval, [Expand the time range]({{site.url}}{{site.baseurl}}/dashboards/discover/time-filter/#selecting-a-time-range) to include data.
   {: .note}
-
-
-## Prerequisites
-
-Before using the **Discover** tool, ensure that you:
-
-- [Install OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards).
-
-- Add sample data or import your own data into OpenSearch. To learn about adding sample datasets, see [Adding sample data]({{site.url}}{{site.baseurl}}/dashboards/quickstart/#adding-sample-data). To learn about importing your own data, see [Managing indexes]({{site.url}}{{site.baseurl}}/im-plugin/index/).
-
-- Understand OpenSearch [documents]({{site.url}}{{site.baseurl}}/getting-started/intro/#document) and [indexes]({{site.url}}{{site.baseurl}}/getting-started/intro/#index).
-
-- Know how to use the various filter tools:
-  - [time filter]({{site.url}}{{site.baseurl}}/dashboards/discover/time-filter/)
-  - [search bar]({{site.url}}{{site.baseurl}}/dashboards/discover/search-bar/)
-  - [filter tool]({{site.url}}{{site.baseurl}}/dashboards/discover/filter-tool/)
-  - [field-select tool]({{site.url}}{{site.baseurl}}/dashboards/discover/field-select/)
 
 ## Viewing the Results table
 
@@ -232,3 +230,4 @@ To copy a JSON representation of a document, follow these steps:
 You can set thresholds for data values and then set alerts to notify you when your data exceeds your thresholds.
 
 To learn about creating and managing alerts, see [Alerting dashboards and visualizations]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/dashboards-alerting/).
+

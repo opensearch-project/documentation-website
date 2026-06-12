@@ -68,7 +68,7 @@ For more information, see [Adding sample data]({{site.url}}{{site.baseurl}}/dash
 
 ## Navigating the visualization editor UI
 
-The following image shows the visualization editor interface.
+The following image shows the main components of the visualization editor.
 
 ![Visualization editor interface with callouts]({{site.url}}{{site.baseurl}}/images/dashboards/visualization-editor/visualization-editor-overview.png){: width="100%" }
 

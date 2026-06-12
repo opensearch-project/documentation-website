@@ -1,22 +1,31 @@
 ---
 layout: default
-title: Vega
-parent: Visualize application
-grand_parent: Building data visualizations
-nav_order: 50
+title: Vega visualizations
+parent: Creating visualizations in the Visualize application
+nav_order: 180
 redirect_from:
   - /dashboards/visualize/vega/
 ---
 
-# Vega
+# Vega visualizations
 
-[Vega](https://vega.github.io/vega/) and [Vega-Lite](https://vega.github.io/vega-lite/) are open-source, declarative language visualization tools that you can use to create custom data visualizations with your OpenSearch data and [Vega data](https://vega.github.io/vega/docs/data/). These tools are ideal for advanced users comfortable with writing OpenSearch queries directly. Enable the `vis_type_vega` plugin in your `opensearch_dashboards.yml` file to write your [Vega specifications](https://vega.github.io/vega/docs/specification/) in either JSON or [HJSON](https://hjson.github.io/) format or to specify one or more OpenSearch queries in your Vega specification. By default, the plugin is set to `true`. 
+[Vega](https://vega.github.io/vega/) and [Vega-Lite](https://vega.github.io/vega-lite/) are open-source, declarative language visualization tools that you can use to create custom data visualizations with your OpenSearch data and [Vega data](https://vega.github.io/vega/docs/data/). These tools are ideal for advanced users comfortable with writing OpenSearch queries directly. You define data sources inline within your Vega specification. 
+
+## When to use Vega visualizations
+
+Use Vega visualizations when you need visualization types or analytical capabilities not available in standard OpenSearch visualization types, including advanced statistical analysis, custom interactive behaviors, and specialized analytical techniques.
+
+## Enabling Vega visualizations
+
+Vega visualizations are enabled by default. Write your [Vega specifications](https://vega.github.io/vega/docs/specification/) in JSON or [Hjson](https://hjson.github.io/) format. You can specify one or more OpenSearch queries within a specification. 
+
+To disable Vega visualizations, set `vis_type_vega.enabled` to `false` in your `opensearch_dashboards.yml` file. 
 
 ## Creating Vega visualizations from multiple data sources
 Introduced 2.13
 {: .label .label-purple }
 
-Before proceeding, ensure that the following configuration settings are enabled in the `config/opensearch_dasboards.yaml` file. For configuration details, refer to the `vis_type_vega` [README](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/src/plugins/vis_type_vega/README.md).
+Before proceeding, ensure that the following configuration settings are enabled in the `config/opensearch_dashboards.yaml` file. For configuration details, refer to the `vis_type_vega` [README](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/src/plugins/vis_type_vega/README.md).
 
 ```
 data_source.enabled: true
@@ -131,10 +140,15 @@ By default, queries use data from the local cluster. You can assign individual `
   }
 }
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 ## Additional resources
 
 The following resources provide additional information about Vega visualizations in OpenSearch Dashboards:
 
 - [Improving ease of use in OpenSearch Dashboards with Vega visualizations](https://opensearch.org/blog/Improving-Dashboards-usability-with-Vega/)
+
+## Next steps
+
+- To choose a different visualization type, see [Choosing a visualization type]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/viz-types/).
+- To add this visualization to a dashboard, see [Creating dashboards]({{site.url}}{{site.baseurl}}/dashboards/dashboard/).

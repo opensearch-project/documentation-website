@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Getting started with workspaces
-parent: Workspace for OpenSearch Dashboards
+parent: Workspaces
 nav_order: 0
 redirect_from:
   - /dashboards/workspace/

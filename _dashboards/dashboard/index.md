@@ -22,23 +22,6 @@ Use the following tutorials to learn to create a dashboard using the **Dashboard
 This OpenSearch Playground [dashboard example](https://playground.opensearch.org/app/dashboards#/view/722b74f0-b882-11e8-a6d9-e546fe2bba5f?_g=(filters:!(),refreshInterval:(pause:!f,value:900000),time:(from:now-7d,to:now))&_a=(description:'Analyze%20mock%20eCommerce%20orders%20and%20revenue',filters:!(),fullScreenMode:!f,options:(hidePanelTitles:!f,useMargins:!t),query:(language:kuery,query:''),timeRestore:!t,title:'%5BeCommerce%5D%20Revenue%20Dashboard',viewMode:view)) comprises several of the visualizations available in OpenSearch Dashboards.
 {: .note}
 
-## Navigating the UI
-
-The following components make up the **Dashboards** UI.
-
-![Dashboards user interface]({{site.url}}{{site.baseurl}}/images/dashboards/dashboard-UI.png)
-
-- The _navigation panel_ (A) on the left contains the OpenSearch Dashboards applications.
-- The _search_ bar (B) enables selection of data using a query language search.
-- The _filter_ (C) provides a graphical interface for selecting data values and ranges.
-- The _toolbar_ (D) contains frequently used commands and shortcuts.
-- The _time filter_ (E) enables selection of data based on a time and date range.
-- The _panel_ (F) displays the dashboard. You can add existing visualizations, create new ones, and save the dashboard's configuration.
-
-The following tutorials assume you're either using your existing installation of OpenSearch Dashboards or using the [OpenSearch Playground](https://playground.opensearch.org/app/home#/). Depending on which one you use, certain capabilities may not be available. For example, sample datasets may not be included in your existing installation, and saving a dashboard isn't an option in the OpenSearch Playground.
-{: .note}
-
-
 ## Prerequisites
 
 Before using the **Dashboards** tool, ensure that you:
@@ -54,6 +37,21 @@ The tutorials on this page use the [**Sample eCommerce data**](https://playgroun
 
 - Understand OpenSearch [documents]({{site.url}}{{site.baseurl}}/getting-started/intro/#document) and [indexes]({{site.url}}{{site.baseurl}}/getting-started/intro/#index).
 
+## Navigating the Dashboards UI
+
+The following image shows the main components of the **Dashboards** application.
+
+![Dashboards user interface]({{site.url}}{{site.baseurl}}/images/dashboards/dashboard-UI.png)
+
+- The _navigation panel_ (A) on the left contains the OpenSearch Dashboards applications.
+- The _search_ bar (B) enables selection of data using a query language search.
+- The _filter_ (C) provides a graphical interface for selecting data values and ranges.
+- The _toolbar_ (D) contains frequently used commands and shortcuts.
+- The _time filter_ (E) enables selection of data based on a time and date range.
+- The _panel_ (F) displays the dashboard. You can add existing visualizations, create new ones, and save the dashboard's configuration.
+
+The following tutorials assume you're either using your existing installation of OpenSearch Dashboards or using the [OpenSearch Playground](https://playground.opensearch.org/app/home#/). Depending on which one you use, certain capabilities may not be available. For example, sample datasets may not be included in your existing installation, and saving a dashboard isn't an option in the OpenSearch Playground.
+{: .note}
 
 ## Creating a dashboard and adding an existing visualization
 
@@ -217,3 +215,4 @@ To minimize a panel in full screen mode, follow these steps:
 The following image shows an example of a customized dashboard created by using this tutorial.
 
 ![Customized dashboard with panels arranged side by side and without legends]({{site.url}}{{site.baseurl}}/images/dashboards/dashboard-customized.png)
+

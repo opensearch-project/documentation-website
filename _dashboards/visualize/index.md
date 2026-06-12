@@ -12,6 +12,16 @@ By visualizing your data, you can translate complex, high-volume, or numerical d
 
 OpenSearch Dashboards provides two approaches for creating data visualizations: building visualizations visually and building visualizations using queries. Both produce charts that you can save and add to dashboards.
 
+## Terminology
+
+This documentation uses the following terms:
+
+>This documentation uses the following terms:
+>- **Visualize** (bold): the OpenSearch Dashboards application for creating visualizations.
+>- A _data visualization_ or _visualization_ is a single pane in the UI containing a graph, chart, or other visual representation of data. The term can also refer to the visual data representation itself.
+>- A _dashboard_ is a collection of data visualizations. See [Creating dashboards]({{site.url}}{{site.baseurl}}/dashboards/dashboard/).
+{: .note}
+
 ## Choosing a visualization approach
 
 When you select **Create new** in a dashboard (or **Create new visualization** in the **Visualize** app), a dialog presents the available visualization types. The first option, **Add visualization**, opens the query-based visualization editor. All other options (such as **Area**, **Line**, or **Pie**) open the visual point-and-click tool.
@@ -39,7 +49,11 @@ For more information, see [Creating visualizations in the Visualize application]
 
 The visualization editor lets you write PPL or PromQL queries and map query results directly to chart fields. The editor automatically suggests a chart type based on the shape of your query results and maps fields to axes, as shown in the following image. This approach supports [dashboard variables]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/dashboard-variables/) for interactive filtering.
 
-![Visualization editor showing a multi-line chart built from a PPL query with dashboard variables]({{site.url}}{{site.baseurl}}/images/dashboards/visualization-editor-example.png)
+![Visualization editor showing a multi-line chart built from a PPL query with dashboard variables]({{site.url}}{{site.baseurl}}/images/dashboards/visualization-editor/visualization-editor-example.png)
 
 For more information, see [Creating visualizations using queries]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/).
 
+## Related documentation
+
+- [Exploring data with Discover]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/)
+- [Creating dashboards]({{site.url}}{{site.baseurl}}/dashboards/dashboard/)
