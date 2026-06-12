@@ -43,3 +43,23 @@ DELETE /_plugins/_ml/memory/MzcIJX8BA7mbufL6DOwl
   "success": true
 }
 ```
+
+## Error responses
+
+If you attempt to delete a memory that doesn't exist, OpenSearch returns a 404 error:
+
+```json
+{
+  "error": {
+    "root_cause": [
+      {
+        "type": "resource_not_found_exception",
+        "reason": "Memory [MzcIJX8BA7mbufL6DOwl] not found"
+      }
+    ],
+    "type": "resource_not_found_exception",
+    "reason": "Memory [MzcIJX8BA7mbufL6DOwl] not found"
+  },
+  "status": 404
+}
+```
