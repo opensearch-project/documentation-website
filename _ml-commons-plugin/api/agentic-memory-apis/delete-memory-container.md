@@ -73,6 +73,26 @@ DELETE /_plugins/_ml/memory_containers/SdjmmpgBOh0h20Y9kWuN?delete_memories=sess
 }
 ```
 
+## Error responses
+
+If you attempt to delete a memory container that doesn't exist, OpenSearch returns a 404 Not Found error:
+
+```json
+{
+  "error": {
+    "root_cause": [
+      {
+        "type": "status_exception",
+        "reason": "Memory container not found"
+      }
+    ],
+    "type": "status_exception",
+    "reason": "Memory container not found"
+  },
+  "status": 404
+}
+```
+
 ## Response fields
 
 The following table lists all response body fields.
