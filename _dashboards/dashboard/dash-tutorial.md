@@ -2,66 +2,36 @@
 layout: default
 title: Dashboard tutorial
 parent: Creating dashboards
-nav_order: 50
+nav_order: 5
 has_children: false
 ---
 
-# Tutorial: creating a dashboard
+# Tutorial: Creating a dashboard
 
 You can use the **Dashboards** application in OpenSearch Dashboards to build a page containing multiple visual representations of your data.
 
->This documentation uses the following terms:
->- _OpenSearch Dashboards_: The web UI for OpenSearch.
->- **Dashboards** application: The application within OpenSearch Dashboards for creating dashboards.
->- _dashboard_ (lowercase): An individual collection of data visualizations created in the **Dashboards** application.
-{: .note}
-
 Use the following tutorial to learn to create a dashboard using the **Dashboards** application and the OpenSearch sample data. The sample datasets have existing sample visualizations that you can use for the dashboard, or you can create your own visualizations. The tutorials demonstrate how to do both.
 
-
-## Navigating the UI
-
-The following components make up the **Dashboards** UI.
-
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/dashboard-UI-blank-callouts.png" alt="Discover app default page">
-
-- The _application menu_ (A) contains application options. This menu is context-sensitive and is different for other applications.
-- The _search_ bar (B) enables selection of data using a query language search.
-- The _time filter_ (C) enables selection of data based on a time and date range.
-- The _filter_ (D) provides a graphical interface for selecting data values and ranges.
-- The _application panel_ (E) displays the dashboard, which contains visualization and search panels.
-
-The following tutorials assume you're either using your existing installation of OpenSearch Dashboards or using the [OpenSearch Playground](https://playground.opensearch.org/app/home#/). Depending on which one you use, certain capabilities may not be available. For example, sample datasets may not be included in your existing installation, and saving a dashboard isn't an option in the OpenSearch Playground.
-{: .note}
-
+For an overview of the Dashboards UI, see [Navigating the Dashboards UI]({{site.url}}{{site.baseurl}}/dashboards/dashboard/#navigating-the-dashboards-ui).
 
 ## Prerequisites
 
-Before starting this tutorial, ensure that you:
+The tutorials on this page use the [**Sample eCommerce data**](https://playground.opensearch.org/app/home#/tutorial_directory) dataset that is already installed in [OpenSearch Playground](https://playground.opensearch.org/app/home#/).
 
-- Familiarize yourself with the OpenSearch Dashboards web-based interface. See [Navigating OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/navigating-ui/#navigating-opensearch-dashboards) (Note the _navigation panel_ to the left of the application panel.) See also [Navigating the UI]({{site.url}}{{site.baseurl}}/dashboards/dashboard/index/#navigating-the-ui) which is replicated on this page for convenience.
+If you're using a local installation of OpenSearch Dashboards and haven't added sample data yet, see [Prepare your data]({{site.url}}{{site.baseurl}}/dashboards/getting-started/data-setup/#option-a-use-sample-data-recommended-for-getting-started).
 
-- [Install OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/).
-
-   You can instead complete this tutorial online on the [OpenSearch Playground](https://playground.opensearch.org/app/home#). You cannot save your work on the OpenSearch Playground site. Also, the interface looks different because the OpenSearch Playground uses the [New Home Page interface]({{site.url}}{{site.baseurl}}/dashboards/navigating-ui/#the-new-home-page-interface), but functionality is the same in all other important respects. OpenSearch Playground already contains all sample data.
-   {: .note}
-
-- Add sample data or import your own data into OpenSearch. To learn about adding sample datasets, see [Adding sample data]({{site.url}}{{site.baseurl}}/dashboards/quickstart/#adding-sample-data). To learn about importing your own data, see [Managing indexes]({{site.url}}{{site.baseurl}}/im-plugin/index/).
-
-- Know how to use the [search bar]({{site.url}}{{site.baseurl}}/dashboards/discover/search-bar/) and the [time filter]({{site.url}}{{site.baseurl}}/dashboards/discover/time-filter/).
-
-- Understand OpenSearch [documents]({{site.url}}{{site.baseurl}}/getting-started/intro/#document) and [indexes]({{site.url}}{{site.baseurl}}/getting-started/intro/#index).
-
+The following tutorials assume you're either using your existing installation of OpenSearch Dashboards or using the [OpenSearch Playground](https://playground.opensearch.org/app/home#/). Depending on which one you use, certain capabilities may not be available. For example, sample datasets may not be included in your existing installation, and saving a dashboard isn't an option in the OpenSearch Playground.
+{: .note}
 
 ## Creating a dashboard
 
 To create a new dashboard, follow these steps:
 
-1. | In the default navigation panel | In the New Home Page navigation panel |
+1. | In classic navigation | In workspaces navigation |
    | :-- | :-- |
    | - Select **OpenSearch Dashboards** > **Dashboards**.<br/>- Select **Dashboards**. | Select **Dashboards**. |
 
-1. | In the default navigation panel | In the New Home Page navigation panel |
+1. | In classic navigation | In workspaces navigation |
    | :-- | :-- |
    | - In the Dashboards panel, select **Create**.<br/>- From the drop-down, select **Dashboard**. | From the application menu, select **Create Dashboard**. |
 
@@ -156,7 +126,6 @@ You can organize a dashboard by resizing and rearranging panels. Move and resize
 
    The Sales by Category panel automatically swaps places with the Markdown panel as you move it up.
 1. Select and hold the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/resize-icon.png" class="inline-icon" alt="resize icon"/>{:/} (resize) icon in the panel's lower-right corner.
-Select and hold the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/resize-icon.png" class="inline-icon" alt="resize icon"/>{:/} (resize) icon in the panel's lower-right corner.
 
 1. Drag to make the panel longer and narrower so that it serves as a banner across the entire upper part of the dashboard.
 

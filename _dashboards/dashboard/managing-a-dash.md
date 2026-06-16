@@ -76,7 +76,7 @@ This feature requires the Reporting plugin. See [Reporting using OpenSearch Dash
 
 1. From the drop-down menu, select **Download PDF** or **Download PNG**.
 
-   The application brings up the **Generating report** dialog. The report can take several seconds to generate.
+   The application displays the **Generating report** dialog. The report can take several seconds to generate.
 
 1. The report opens in your browser or downloads, depending on your browser preference.
 

@@ -8,21 +8,20 @@ has_children: false
 # Using OpenSearch Dashboards
 
 
-OpenSearch Dashboards is the web UI for [OpenSearch]({{site.url}}{{site.baseurl}}/getting-started/intro/). You can use OpenSearch Dashboards to perform most tasks you can do with the OpenSearch APIs. Among other things, you can use OpenSearch Dashboards to:
+OpenSearch Dashboards is the web UI for [OpenSearch]({{site.url}}{{site.baseurl}}/getting-started/intro/). It lets you perform most tasks available through the OpenSearch APIs, including:
 
-- Create indexes and populate them with data.
-- Connect data sources to OpenSearch.
-- Use visual filter tools or one of four different query languages to explore data.
-- Create and save data visualizations and dashboards.
-- Send requests to the OpenSearch REST API directly without using cURL. See [Running queries in the Dev Tools console]({{site.url}}{{site.baseurl}}/dashboards/visualize/run-queries/).
+- Creating indexes and populate them with data.
+- Connecting data sources to OpenSearch.
+- Using visual filter tools or one of four different query languages to explore data.
+- Creating and saving data visualizations and dashboards.
 
-The following instructions are not comprehensive. There is often more than one way to do something in the interface; to open an application, for example. In most such cases we document only one way to accomplish the task. In general, because the navigation panel is always available, we recommend using it to access applications and features in OpenSearch Dashboards.
+The navigation panel is always available and is the primary way to access applications and features in OpenSearch Dashboards.
 
 ## Navigating OpenSearch Dashboards
 
 The following image shows the default landing page for OpenSearch Dashboards.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/osd-homepage.png" alt="OpenSearch Dashboards"  width="100%">
+![OpenSearch Dashboards home page]({{site.url}}{{site.baseurl}}/images/dashboards/osd-homepage.png)
 
 - The _header bar_ (A) contains the following elements from left to right:
   - {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/menu-icon.png" class="inline-icon" alt="menu icon"/>{:/} (menu) The menu icon.
@@ -35,8 +34,7 @@ The following image shows the default landing page for OpenSearch Dashboards.
 
 
 ### Workspaces navigation
-
-Introduced 2.18.0
+**Introduced 2.18.0**
 {: .label .label-purple }
 
 OpenSearch Dashboards offers an alternative navigation mode called workspaces navigation. The functionality is roughly equivalent between the two modes, with the following differences:

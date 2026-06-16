@@ -52,7 +52,7 @@ To add a visualization or search to a dashboard, follow these steps:
 
 1. In the application menu, select **Add**.
 
-   The application brings up the **Add panels** dialog.
+   The application displays the **Add panels** dialog.
 
 1. (Optional) In the **Search** box, enter a term to filter the list of panels.
 

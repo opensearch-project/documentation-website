@@ -29,7 +29,7 @@ To resize a panel, follow these steps:
 
 1. Drag to the new dimensions.
 
-   Other panels will move out of the way to accommodate the new panel size.
+   Other panels move out of the way to accommodate the new panel size.
 
 
 ### Moving a panel
@@ -42,7 +42,7 @@ To move a panel, follow these steps:
 
 1. Drag the panel to the new location.
 
-   Other panels will move out of the way to accommodate the new panel location.
+   Other panels move out of the way to accommodate the new panel location.
 
 ## Using full screen mode
 
@@ -55,7 +55,7 @@ To view a panel in full screen mode, follow these steps:
 
 1. Choose the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/more-icon.png" class="inline-icon" alt="ellipses icon"/>{:/} (ellipses) icon at the upper right of the panel.
 
-   The {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/more-icon.png" class="inline-icon" alt="ellipses icon"/>{:/} (ellipses) icon is visible only when you mouse over the visualization panel.
+   The {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/more-icon.png" class="inline-icon" alt="ellipses icon"/>{:/} (ellipses) icon is visible only when you point to the visualization panel.
    {: .note}
 
 1. In the **Options** drop-down, select {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/maximize-icon.png" class="inline-icon" alt="maximize icon"/>{:/} (maximize) **Maximize panel**.
@@ -67,7 +67,7 @@ To reduce a panel from full screen mode, follow these steps:
 
 1. Choose the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/more-icon.png" class="inline-icon" alt="ellipses icon"/>{:/} (ellipses) icon at the upper right of the panel.
 
-   The {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/more-icon.png" class="inline-icon" alt="ellipses icon"/>{:/} (ellipses) icon is visible only when you mouse over the visualization panel.
+   The {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/more-icon.png" class="inline-icon" alt="ellipses icon"/>{:/} (ellipses) icon is visible only when you point to the visualization panel.
    {: .note}
 
 1. Select {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/minimize-icon.png" class="inline-icon" alt="minimize icon"/>{:/} (minimize) **Minimize**.
