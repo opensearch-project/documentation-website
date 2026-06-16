@@ -21,9 +21,6 @@ Dashboards typically contain visualizations, but can also contain searches.
 
 A dashboard shows one or more panels, usually arranged to support a business goal such as operations, decision support, or observability. A dashboard can contain any number of panels, subject only to display and legibility constraints.
 
-This page describes how to use **Dashboards** to create, modify, and save dashboards.
-
-
 ## Prerequisites
 
 The tutorials on this page use the [**Sample eCommerce data**](https://playground.opensearch.org/app/home#/tutorial_directory) dataset that is already installed in [OpenSearch Playground](https://playground.opensearch.org/app/home#/).

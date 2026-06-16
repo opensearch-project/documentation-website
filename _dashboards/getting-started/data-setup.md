@@ -58,7 +58,7 @@ For more information, see [Index patterns]({{site.url}}{{site.baseurl}}/dashboar
 ## Further reading
 
 - For more information about index patterns, see [Index patterns]({{site.url}}{{site.baseurl}}/dashboards/management/index-patterns/).
-- [Connecting data sources](({{site.url}}{{site.baseurl}}/dashboards/management/data-sources/)).
+- [Connecting data sources]({{site.url}}{{site.baseurl}}/dashboards/management/data-sources/).
 
 ## Next steps
 
