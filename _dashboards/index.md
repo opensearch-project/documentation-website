@@ -13,19 +13,13 @@ redirect_from:
 
 OpenSearch Dashboards is the web UI for [OpenSearch]({{site.url}}{{site.baseurl}}/getting-started/intro/). You can use OpenSearch Dashboards to perform most tasks you can do with the OpenSearch APIs. You can also create visualizations and data dashboards with OpenSearch Dashboards.
 
->This documentation uses the following terms:
->- _OpenSearch Dashboards_: The web UI for OpenSearch.
->- **Dashboards** application: The application within OpenSearch Dashboards for creating dashboards. See [Creating dashboards]({{site.url}}{{site.baseurl}}/dashboards/dashboard/).
->- _dashboard_ (lowercase): An individual collection of data visualizations created in the **Dashboards** application.
-{: .note}
-
 ## Getting started
 
 The following table provides resources for getting started with OpenSearch Dashboards.
 
 To learn more about | Go to
 :------------------- | :-----
-Exploring OpenSearch Dashboards features | [OpenSearch Dashboards quickstart guide]({{site.url}}{{site.baseurl}}/dashboards/quickstart/)
+An introduction to OpenSearch Dashboards | [Getting started]({{site.url}}{{site.baseurl}}/dashboards/getting-started/)
 Viewing a web-based, read-only OpenSearch Dashboards instance | [The OpenSearch Playground](https://playground.opensearch.org/app/home#/)
 The OpenSearch Dashboards visualization tool | [Using OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/navigating-ui/)
 Installing and configuring an OpenSearch Dashboards instance or Docker image | [Installing OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards)<br/>and<br/>[Configuring OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-dashboards/)
@@ -47,7 +41,7 @@ The following table provides resources for creating data visualizations and dash
 
 To learn more about   |  Go to
 :-------------------   | :-----
-Visualizing data | [Building data visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/)
+Visualizing data | [Building data visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/)
 Creating a data dashboard | [Creating dashboards]({{site.url}}{{site.baseurl}}/dashboards/dashboard/)
 
 

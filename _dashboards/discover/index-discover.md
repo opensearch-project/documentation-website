@@ -4,26 +4,27 @@ title: Exploring data with Discover
 parent: Exploring data
 nav_order: 10
 has_children: true
+has_toc: false
 ---
 
 # Exploring data with Discover
 
 You can use the **Discover** application in **OpenSearch Dashboards** to explore and visualize your data in OpenSearch.
 
-This page describes how to use **Discover** to:
+## Prerequisites
 
-- [View data](#viewing-the-results-table).
-- [Filter data](#filtering-documents).
-- [Choose data fields to view](#choosing-data-fields).
-- [Examine details of a document](#examining-a-document).
-- [Visualize data fields](#visualizing-data-fields).
-- [Export data to a CSV file](#export-data).
-- [Set alerts](#setting-alerts).
+The examples on this page use the [**Sample flight data**](https://playground.opensearch.org/app/home#/tutorial_directory) dataset that is already installed in [OpenSearch Playground](https://playground.opensearch.org/app/home#/).
 
+If you've installed a local OpenSearch Dashboards instance, add the sample data by following these steps:
+
+1. On the OpenSearch Dashboards home page, select **Add sample data**.
+2. In the **Sample flight data** panel, select **Add data**.
+
+For more information, see [Adding sample data]({{site.url}}{{site.baseurl}}/dashboards/getting-started/data-setup/#add-sample-data).
 
 ## Navigating the Discover UI
 
-The following components make up the **Discover** application UI.
+The following image shows the main components of the **Discover** application.
 
 ![Discover app default page]({{site.url}}{{site.baseurl}}/images/dashboards/discover-app-panel-callouts.png)
 
@@ -42,23 +43,6 @@ The following components make up the **Discover** application UI.
 
   The time filter interval defaults to **Last 15 minutes**. To change the time filter interval, [Expand the time range]({{site.url}}{{site.baseurl}}/dashboards/discover/time-filter/#selecting-a-time-range) to include data.
   {: .note}
-
-
-## Prerequisites
-
-Before using the **Discover** tool, ensure that you:
-
-- [Install OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards).
-
-- Add sample data or import your own data into OpenSearch. To learn about adding sample datasets, see [Adding sample data]({{site.url}}{{site.baseurl}}/dashboards/quickstart/#adding-sample-data). To learn about importing your own data, see [Managing indexes]({{site.url}}{{site.baseurl}}/im-plugin/index/).
-
-- Understand OpenSearch [documents]({{site.url}}{{site.baseurl}}/getting-started/intro/#document) and [indexes]({{site.url}}{{site.baseurl}}/getting-started/intro/#index).
-
-- Know how to use the various filter tools:
-  - [time filter]({{site.url}}{{site.baseurl}}/dashboards/discover/time-filter/)
-  - [search bar]({{site.url}}{{site.baseurl}}/dashboards/discover/search-bar/)
-  - [filter tool]({{site.url}}{{site.baseurl}}/dashboards/discover/filter-tool/)
-  - [field-select tool]({{site.url}}{{site.baseurl}}/dashboards/discover/field-select/)
 
 ## Viewing the Results table
 
@@ -121,7 +105,7 @@ Some tools for changing the time interval are demonstrated in the previous examp
 You can filter documents by entering a query string in the search bar using one of two query languages.
 
 - [Dashboards Query Language (DQL)]({{site.url}}{{site.baseurl}}/dashboards/discover/dql/) is the default query language in the search bar and is available only in **Dashboards**.
-- [Query string query language (Lucene)]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/) is based on the [Apache Lucene](https://lucene.apache.org/core/2_9_4/queryparsersyntax.html) query language.
+- [Query string query language (Lucene)]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/) is based on the [Apache Lucene](https://lucene.apache.org/core/{{site.lucene_version}}/queryparsersyntax.html) query language.
 
 To filter documents using the search bar, see [Using the search bar]({{site.url}}{{site.baseurl}}/dashboards/discover/search-bar/).
 
@@ -191,10 +175,10 @@ To visualize a data field, follow these steps:
 
 1. From the **Top 5 values** popover, select the **Visualize** button. The display changes to the **Visualize** application, showing a default visualization of the selected field.
 
-   See [Building data visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/) to learn how to edit the visualization display.
+   See [Building data visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/) to learn how to edit the visualization display.
 
 
-## Export data
+## Exporting data
 
 You can export data from the **Results** table to a CSV file or copy a JSON object representing a single document.
 
@@ -232,3 +216,4 @@ To copy a JSON representation of a document, follow these steps:
 You can set thresholds for data values and then set alerts to notify you when your data exceeds your thresholds.
 
 To learn about creating and managing alerts, see [Alerting dashboards and visualizations]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/dashboards-alerting/).
+

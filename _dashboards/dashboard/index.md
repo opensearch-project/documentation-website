@@ -11,13 +11,7 @@ redirect_from:
 
 You can use the **Dashboards** application in OpenSearch Dashboards to build a dashboard, a page containing multiple panels showing different views of your data.
 
->This documentation uses the following terms:
->- _OpenSearch Dashboards_: The web UI for OpenSearch.
->- **Dashboards** application: The application within OpenSearch Dashboards for creating dashboards.
->- _dashboard_ (lowercase): An individual collection of data visualizations created in the **Dashboards** application.
->- A _data visualization_ or _visualization_ is a single pane in the UI containing a graph, chart, or other visual representation of data.
->- A _search_ is a panel containing a saved data set constructed in the Discover application.
->- A _panel_ is a pane in a dashboard that contains a single visualization or search.
+For terminology definitions, see [Concepts]({{site.url}}{{site.baseurl}}/dashboards/getting-started/concepts/).
 {: .note}
 
 Dashboards typically contain visualizations, but can also contain searches.
@@ -27,9 +21,20 @@ A dashboard shows one or more panels, usually arranged to support a business goa
 This page describes how to use **Dashboards** to create, modify, and save dashboards.
 
 
-## Navigating the UI
+## Prerequisites
 
-The following components make up the **Dashboards** UI.
+The tutorials on this page use the [**Sample eCommerce data**](https://playground.opensearch.org/app/home#/tutorial_directory) dataset that is already installed in [OpenSearch Playground](https://playground.opensearch.org/app/home#/).
+
+If you've installed a local OpenSearch Dashboards instance, add the sample data by following these steps:
+
+1. On the OpenSearch Dashboards home page, select **Add sample data**.
+2. In the **Sample eCommerce data** panel, select **Add data**.
+
+For more information, see [Adding sample data]({{site.url}}{{site.baseurl}}/dashboards/getting-started/data-setup/#add-sample-data).
+
+## Navigating the Dashboards UI
+
+The following image shows the main components of the **Dashboards** application.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/dashboard-UI-blank-callouts.png" alt="Dashboards app default page">
 
@@ -39,24 +44,7 @@ The following components make up the **Dashboards** UI.
 - The _filter_ (D) provides a graphical interface for selecting data values and ranges.
 - The _application panel_ (E) displays the dashboard, which contains visualization and search panels.
 
-
-## Prerequisites
-
-Before using the **Dashboards** tool, ensure that you:
-
-- Install OpenSearch Dashboards. See [Installing OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/).
-
-  The Dashboards examples and tutorials assume you're using an existing installation of OpenSearch Dashboards. You can also do the tutorials using preinstalled sample data in the [OpenSearch Playground](https://playground.opensearch.org/app/home#/). You cannot save your changes in OpenSearch Playground.
-  {: .note}
-
-- Add sample data or import your own data into OpenSearch. To learn about adding sample datasets, see [Adding sample data]({{site.url}}{{site.baseurl}}/dashboards/quickstart/#adding-sample-data). To learn about importing your own data, see [Managing indexes]({{site.url}}{{site.baseurl}}/im-plugin/index/).
-
-- Know how to use the [search bar]({{site.url}}{{site.baseurl}}/dashboards/discover/search-bar/), [filter tool]({{site.url}}{{site.baseurl}}/dashboards/discover/filter-tool/), and [time filter]({{site.url}}{{site.baseurl}}/dashboards/discover/time-filter/).
-
-- Understand OpenSearch [documents]({{site.url}}{{site.baseurl}}/getting-started/intro/#document) and [indexes]({{site.url}}{{site.baseurl}}/getting-started/intro/#index).
-
-
-## Creating a dashboard
+## Creating a dashboard and adding an existing visualization
 
 The procedure for creating a dashboard is as follows:
 
@@ -78,4 +66,143 @@ The procedure for creating a dashboard is as follows:
 
 - Learn to create a dashboard using sample data by taking the tutorial. See [Tutorial: creating a dashboard]({{site.url}}{{site.baseurl}}/dashboards/dashboard/dash-tutorial/).
 
-- Create a dashboard for real-time data using OpenSearch Dashboard's observability features. See [Observability]({{site.url}}{{site.baseurl}}/observing-your-data/).
+To create a new visualization and save it to the dashboard, follow these steps:
+
+1. From the **Dashboards** toolbar, choose **Create new**.
+
+1. From the **New Visualization** window, choose **Gauge**.
+
+1. Select the index pattern **opensearch_dashboards_sample_data_ecommerce**.
+
+1. From the toolbar, choose **Save**.
+
+1. In the **Save visualization** dialog, enter a title for the visualization. For example, the title for the gauge chart panel is [eCommerce] Orders.
+
+1. Choose **Save and return**.
+
+The **Dashboards** application saves the gauge chart visualization and adds it to the dashboard as shown in the following image.
+
+![Dashboard showing visualizations combined in a single view]({{site.url}}{{site.baseurl}}/images/dashboards/dashboard-combined.png)
+
+## Adding subsequent panels
+
+To add an existing visualization to the dashboard from the preceding steps, follow these steps:
+
+1. From the dashboard toolbar, choose **Add**.
+
+1. From the **Add panels** dialog, choose **[eCommerce] Sales by Category**.
+
+1. Choose the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/cross-icon.png" class="inline-icon" alt="cross icon"/>{:/} (cross) icon to close the dialog.
+
+The **Dashboards** application adds an area chart visualization to the dashboard, as shown in the following image.
+
+![Adding another panel to the dashboard]({{site.url}}{{site.baseurl}}/images/dashboards/dashboard-adding-panels.png)
+
+## Saving a dashboard
+
+When you've finalized your dashboard, save it. To save a new dashboard, follow these steps:
+
+1. In the **Dashboards** toolbar, choose **Save**.
+
+1. In the **Save dashboard** window, enter a **Title**.
+
+1. (Optional) Enter a **Description**.
+
+1. (Optional) To save the time filter to the dashboard, select **Store time with dashboard**.
+
+1. Choose **Save**.
+
+
+## Customizing the look of a panel
+
+You can customize details of a visualization panel such as colors and legend text.
+
+To customize the panels:
+
+- In the **Dashboards** toolbar, choose **Edit**.
+
+  The button changes to **Create new** to indicate that **Dashboards** is in edit mode.
+
+  Displaying a legend can give readers more information, while hiding a legend can give the panel a cleaner look. To display or hide the panel legend:
+
+- Choose the list icon in the panel's lower left corner.
+
+To change a color in the panel legend, follow these steps:
+
+1. From the visualization legend, select a category.
+
+1. From the flyout, select a color.
+
+    The area chart updates with your change.
+
+    The color change is only saved for the current panel and dashboard and doesn't affect the saved visualization.
+    {: .note}
+
+To change the color of the panel legend in the visualization, follow these steps:
+
+1. Choose the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/gear-icon.png" class="inline-icon" alt="gear icon"/>{:/} (gear) icon on the area chart panel.
+
+1. From the **Options** menu, select **Edit visualization**.
+
+1. From the visualization legend, select a category.
+
+1. From the flyout, select a color.
+
+    The area chart updates with your change.
+
+1. From the **Visualize** toolbar, select **Save and return**.
+
+    This color change affects the saved visualization and any dashboard that links to the visualization.
+
+To display, hide, or customize the panel title, follow these steps:
+
+1. Choose the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/gear-icon.png" class="inline-icon" alt="gear icon"/>{:/} (gear) icon on the area chart panel.
+
+1. From the **Options** window, select **Edit panel title**.
+
+1. From the **Customize panel**, enter a title under **Panel title** or toggle the **Show panel title** to hide the title.
+
+1. Choose **Save**.
+
+Changing panel titles only affects the particular panel on the particular dashboard and won't affect any other panel containing that same visualization or any other dashboard.
+{: .note}
+
+## Arranging panels
+
+To organize panels, arrange them side by side, or resize them, use the following procedures.
+
+### Moving a panel
+
+To move a panel, follow these steps:
+
+1. Select and hold the panel title or the top of the panel.
+
+1. Drag the panel to the new location.
+
+### Resizing a panel
+
+To resize a panel, follow these steps:
+
+1. Choose the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/resize-icon.png" class="inline-icon" alt="resize icon"/>{:/} (resize) icon in the panel's lower-right corner.
+
+1. Drag to the new dimensions.
+
+### Viewing a panel in full screen mode
+
+To view a panel in full screen mode, follow these steps:
+
+1. Choose the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/gear-icon.png" class="inline-icon" alt="gear icon"/>{:/} (gear) icon on the area chart panel or vertical ellipsis (⋮) at the upper right of the panel.
+
+1. Select {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/maximize-icon.png" class="inline-icon" alt="maximize icon"/>{:/} (maximize) **Maximize panel**.
+
+### Minimizing a panel in full screen mode
+
+To minimize a panel in full screen mode, follow these steps:
+
+1. Choose the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/gear-icon.png" class="inline-icon" alt="gear icon"/>{:/} (gear) icon on the area chart panel or vertical ellipsis (⋮) at the upper right of the panel.
+
+1. Select {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/minimize-icon.png" class="inline-icon" alt="minimize icon"/>{:/} (minimize) **Minimize**.
+
+The following image shows an example of a customized dashboard created by using this tutorial.
+
+![Customized dashboard with panels arranged side by side and without legends]({{site.url}}{{site.baseurl}}/images/dashboards/dashboard-customized.png)

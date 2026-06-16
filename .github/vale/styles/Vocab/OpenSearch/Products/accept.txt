@@ -28,6 +28,7 @@ Dashboards Query Language
 Data Prepper
 Debian
 Dev Tools
+Discover
 Docker
 Docker Compose
 Dockerfile
@@ -129,6 +130,7 @@ Traffic Capture Proxy
 Traffic Replayer
 Tribuo
 VisBuilder
+Visualize
 Workflow CLI
 Winlogbeat
 XGBoost
