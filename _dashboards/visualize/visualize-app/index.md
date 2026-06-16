@@ -15,34 +15,16 @@ The **Visualize** application uses a point-and-click interface to create data vi
 
 ## Prerequisites
 
-The following background knowledge is helpful:
+The examples on this page use the [**Sample flight data**](https://playground.opensearch.org/app/home#/tutorial_directory) dataset that is already installed in [OpenSearch Playground](https://playground.opensearch.org/app/home#/).
 
-- Familiarity with OpenSearch [documents]({{site.url}}{{site.baseurl}}/getting-started/intro/#document) and [indexes]({{site.url}}{{site.baseurl}}/getting-started/intro/#index).
-- Familiarity with the **[Discover]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/)** application for exploring data.
-
-Before creating a visualization, complete the following setup steps.
-
-### Install sample data (optional)
-
-The examples in this documentation use the **Sample flight data** dataset. To install sample data, follow these steps:
+If you've installed a local OpenSearch Dashboards instance, add the sample data by following these steps:
 
 1. On the OpenSearch Dashboards home page, select **Add sample data**.
 2. In the **Sample flight data** panel, select **Add data**.
 
-For more information, see [Adding sample data]({{site.url}}{{site.baseurl}}/dashboards/quickstart/#adding-sample-data).
+For more information, see [Adding sample data]({{site.url}}{{site.baseurl}}/dashboards/getting-started/data-setup/#add-sample-data).
 
-### Create an index pattern
-
-The **Visualize** application requires an index pattern. To create an index pattern, follow these steps:
-
-1. Go to **Index patterns** (under **Management**).
-2. Select **Create index pattern**.
-3. Enter the index name.
-4. Select **Next step**.
-5. Select a time field.
-6. Select **Create index pattern**.
-
-For more information, see [Index patterns]({{site.url}}{{site.baseurl}}/dashboards/management/index-patterns/).
+To use your own data, you need an index pattern. See [Setting up your data]({{site.url}}{{site.baseurl}}/dashboards/getting-started/data-setup/).
 
 ## Navigating the Visualize UI
 
@@ -55,14 +37,6 @@ The following image shows the main components of the **Visualize** application.
 - The _filter tool_ (C) contains frequently used commands and shortcuts. See [Using the filter tool]({{site.url}}{{site.baseurl}}/dashboards/discover/filter-tool/).
 - The _visualization panel_ (D) displays the visualization.
 - The _configuration panel_ (E) contains all the controls to select and configure the visualization. Its contents depend on the visualization type. See [Configuring visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/configuring-viz/).
-
-## Key terms
-
-The configuration panel uses the following terms:
-
-- An _index pattern_ is a view into one or more indexes in OpenSearch. The terms _data set_ and _data source_ refer to the data exposed by a single index pattern. For more information, see [Index patterns]({{site.url}}{{site.baseurl}}/dashboards/management/index-patterns/).
-- A _field_ is a typed value contained in a data set, the equivalent of a table column in a relational database.
-- A _bucket_ is a grouping of field values based on an aggregation. Buckets can be categorical (based on text values), range-based (user-defined numeric ranges), histogram-based (automatically sized numeric intervals), or time-based (segments of a timestamp field).
 
 ## Creating a visualization
 
@@ -87,7 +61,7 @@ To create a visualization, follow these steps:
    If the visualization shows no data, or a count different than expected, verify that the [search bar]({{site.url}}{{site.baseurl}}/dashboards/discover/search-bar/), [filter tool]({{site.url}}{{site.baseurl}}/dashboards/discover/filter-tool/), and especially the [time filter]({{site.url}}{{site.baseurl}}/dashboards/discover/time-filter/) are not filtering out the missing documents.
    {: .tip}
 
-1. Configure the visualization. For more information, see [Configuring visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/configuring-viz/) or the individual visualization type pages. For a complete example, see [Try it: Create a line chart with sample data](#try-it-create-a-line-chart-with-sample-data).
+1. Configure the visualization. For more information, see [Configuring visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/configuring-viz/) or the individual visualization type pages. For a complete example, see [Explore the Visualize application]({{site.url}}{{site.baseurl}}/dashboards/getting-started/explore-visualize/).
 
 ## Other ways to start creating a visualization
 
@@ -160,27 +134,9 @@ To add a saved visualization to a dashboard, follow these steps:
 
 The visualization appears as a panel on the dashboard. You can resize, reposition, and configure it alongside other panels.
 
-## Try it: Create a line chart with sample data
+## Try it
 
-This example walks through the complete workflow using a line chart that shows flight count over time.
-
-1. [Install sample data](#install-sample-data-optional): Select **Add data** for **Sample flight data**.
-2. [Create an index pattern](#create-an-index-pattern): Enter `opensearch_dashboards_sample_data_flights` as the index name and select `timestamp` as the time field.
-3. In the **Visualize** application, select **Create visualization**.
-4. In the **New Visualization** dialog, select **Line**.
-5. In the **Choose a source** dialog, select **opensearch_dashboards_sample_data_flights**.
-6. Set the time filter to **Last 7 days**.
-7. Under **Buckets**, select **Add** > **X-axis**.
-8. Set **Aggregation** to **Date Histogram** and **Field** to **timestamp**.
-9. Select **Update**. The chart displays flight count per time interval, as shown in the following image.
-
-   ![Line chart showing flight count over time]({{site.url}}{{site.baseurl}}/images/dashboards/visualize-app-line-chart-example.png)
-
-10. From the toolbar, select **Save**.
-11. In the **Save visualization** dialog, enter `Flight count over time` as the title.
-12. Select **Save**.
-
-The visualization is saved and appears in the **Visualizations** list. To add it to a dashboard, see [Adding a visualization to a dashboard](#adding-a-visualization-to-a-dashboard).
+For a hands-on walkthrough of creating a line chart with sample data, see [Explore the Visualize application]({{site.url}}{{site.baseurl}}/dashboards/getting-started/explore-visualize/).
 
 ## Next steps
 

@@ -15,7 +15,7 @@ getting_started_cards:
     link: "/getting-started/search-data/" 
   - heading: "OpenSearch Dashboards"
     description: "Start visualizing your data with interactive dashboards and powerful analytics tools"
-    link: "/dashboards/quickstart/"
+    link: "/dashboards/getting-started/"
 tutorial_cards:
   - heading: "Vector search"
     description: "Implement similarity search using vectors and enhance results with AI capabilities" 

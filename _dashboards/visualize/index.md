@@ -4,6 +4,8 @@ title: Building data visualizations
 nav_order: 30
 has_children: false
 has_toc: false
+redirect_from:
+  - /dashboards/visualize/
 ---
 
 # Building data visualizations
@@ -11,16 +13,6 @@ has_toc: false
 By visualizing your data, you can translate complex, high-volume, or numerical data into a visual representation that is easier to process. OpenSearch Dashboards provides data visualization tools to improve and automate the visual communication process. 
 
 OpenSearch Dashboards provides two approaches for creating data visualizations: building visualizations visually and building visualizations using queries. Both produce charts that you can save and add to dashboards.
-
-## Terminology
-
-This documentation uses the following terms:
-
->This documentation uses the following terms:
->- **Visualize** (bold): the OpenSearch Dashboards application for creating visualizations.
->- A _data visualization_ or _visualization_ is a single pane in the UI containing a graph, chart, or other visual representation of data. The term can also refer to the visual data representation itself.
->- A _dashboard_ is a collection of data visualizations. See [Creating dashboards]({{site.url}}{{site.baseurl}}/dashboards/dashboard/).
-{: .note}
 
 ## Choosing a visualization approach
 

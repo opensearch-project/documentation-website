@@ -11,10 +11,7 @@ redirect_from:
 
 You can use the **Dashboards** application in OpenSearch Dashboards to build a page containing multiple visual representations of your data.
 
->This documentation uses the following terms:
->- _OpenSearch Dashboards_: The web UI for OpenSearch.
->- **Dashboards** application: The application within OpenSearch Dashboards for creating dashboards.
->- _dashboard_ (lowercase): An individual collection of data visualizations created in the **Dashboards** application.
+For terminology definitions, see [Concepts]({{site.url}}{{site.baseurl}}/dashboards/getting-started/concepts/).
 {: .note}
 
 Use the following tutorials to learn to create a dashboard using the **Dashboards** application and the OpenSearch sample data. The sample datasets have existing sample visualizations that you can use for the dashboard, or you can create your own visualizations. The tutorials demonstrate how to do both.
@@ -24,18 +21,14 @@ This OpenSearch Playground [dashboard example](https://playground.opensearch.org
 
 ## Prerequisites
 
-Before using the **Dashboards** tool, ensure that you:
+The tutorials on this page use the [**Sample eCommerce data**](https://playground.opensearch.org/app/home#/tutorial_directory) dataset that is already installed in [OpenSearch Playground](https://playground.opensearch.org/app/home#/).
 
-- [Install OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards).
+If you've installed a local OpenSearch Dashboards instance, add the sample data by following these steps:
 
-- Add sample data or import your own data into OpenSearch. To learn about adding sample datasets, see [Adding sample data]({{site.url}}{{site.baseurl}}/dashboards/quickstart/#adding-sample-data). To learn about importing your own data, see [Managing indexes]({{site.url}}{{site.baseurl}}/im-plugin/index/).
+1. On the OpenSearch Dashboards home page, select **Add sample data**.
+2. In the **Sample eCommerce data** panel, select **Add data**.
 
-The tutorials on this page use the [**Sample eCommerce data**](https://playground.opensearch.org/app/home#/tutorial_directory) dataset.
-{: .tip}
-
-- Know how to use the [search bar]({{site.url}}{{site.baseurl}}/dashboards/discover/search-bar/) and the [time filter]({{site.url}}{{site.baseurl}}/dashboards/discover/time-filter/).
-
-- Understand OpenSearch [documents]({{site.url}}{{site.baseurl}}/getting-started/intro/#document) and [indexes]({{site.url}}{{site.baseurl}}/getting-started/intro/#index).
+For more information, see [Adding sample data]({{site.url}}{{site.baseurl}}/dashboards/getting-started/data-setup/#add-sample-data).
 
 ## Navigating the Dashboards UI
 

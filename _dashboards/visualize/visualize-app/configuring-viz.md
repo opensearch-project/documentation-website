@@ -9,7 +9,9 @@ redirect_from:
 
 # Configuring visualizations
 
-The configuration panel is on the right side of the **Visualize** application. It contains two or more tabs depending on the type of visualization being edited:
+The configuration panel is on the right side of the **Visualize** application. It contains two or more tabs depending on the type of visualization being edited. For terminology definitions, see [Concepts]({{site.url}}{{site.baseurl}}/dashboards/getting-started/concepts/).
+
+The configuration panel contains the following tabs:
 
 - The **Data** tab enables the addition of metrics and data buckets to the visualization.
 - The **Metrics and axes** tab controls display options such as how to display axes, labels, and scales; text display and alignment, and visualization-specific options. This tab is labeled **Options** for some visualization types.

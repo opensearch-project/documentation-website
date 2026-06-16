@@ -10,7 +10,7 @@ redirect_from:
 
 # Using the search bar
 
-The same search bar is at the top of the [Discover]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/), [Dashboard]({{site.url}}{{site.baseurl}}/dashboards/dashboard/index/), and [Visualize]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/) applications. Use it to filter the data displayed in those applications.
+The same search bar is at the top of the [Discover]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/), [Dashboard]({{site.url}}{{site.baseurl}}/dashboards/dashboard/index/), and [Visualize]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/) applications. Use it to filter the data displayed in those applications.
 
 In the search bar, you do text-based searches using either of two languages:
 

@@ -66,6 +66,10 @@ This page defines key terms and concepts related to OpenSearch.
 - [***Relevance score***]({{site.url}}{{site.baseurl}}/getting-started/intro/#relevance): A number indicating how well a document matches a query.
 - [***Aggregation***]({{site.url}}{{site.baseurl}}/aggregations/): A way to analyze and summarize data based on a search query.
 
+## OpenSearch Dashboards concepts
+
+See [OpenSearch Dashboards concepts]({{site.url}}{{site.baseurl}}/dashboards/getting-started/concepts/).
+
 ## Vector search concepts
 
 See [Vector search concepts]({{site.url}}{{site.baseurl}}/vector-search/getting-started/concepts/).

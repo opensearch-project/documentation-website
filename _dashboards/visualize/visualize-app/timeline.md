@@ -26,7 +26,7 @@ Use **Timeline** for exclusively time-based data analysis, particularly for reve
 Before creating a timeline visualization, ensure that you have the following:
 
 - An OpenSearch Dashboards instance running and accessible.
-- Sample data loaded or a time-series index available. The examples in this document use the e-commerce sample dataset. To learn about adding sample datasets, see [Adding sample data]({{site.url}}{{site.baseurl}}/dashboards/quickstart/#adding-sample-data).
+- Sample data loaded or a time-series index available. The examples in this document use the e-commerce sample dataset. To learn about adding sample datasets, see [Adding sample data]({{site.url}}{{site.baseurl}}/dashboards/getting-started/data-setup/#add-sample-data).
 
 ## Creating a timeline visualization
 

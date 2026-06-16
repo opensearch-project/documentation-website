@@ -4,37 +4,23 @@ title: Exploring data with Discover
 parent: Exploring data
 nav_order: 10
 has_children: true
+has_toc: false
 ---
 
 # Exploring data with Discover
 
 You can use the **Discover** application in **OpenSearch Dashboards** to explore and visualize your data in OpenSearch.
 
-This page describes how to use **Discover** to:
-
-- [View data](#viewing-the-results-table).
-- [Filter data](#filtering-documents).
-- [Choose data fields to view](#choosing-data-fields).
-- [Examine details of a document](#examining-a-document).
-- [Visualize data fields](#visualizing-data-fields).
-- [Export data to a CSV file](#exporting-data).
-- [Set alerts](#setting-alerts).
-
 ## Prerequisites
 
-Before using the **Discover** tool, ensure that you:
+The examples on this page use the [**Sample flight data**](https://playground.opensearch.org/app/home#/tutorial_directory) dataset that is already installed in [OpenSearch Playground](https://playground.opensearch.org/app/home#/).
 
-- [Install OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards).
+If you've installed a local OpenSearch Dashboards instance, add the sample data by following these steps:
 
-- Add sample data or import your own data into OpenSearch. To learn about adding sample datasets, see [Adding sample data]({{site.url}}{{site.baseurl}}/dashboards/quickstart/#adding-sample-data). To learn about importing your own data, see [Managing indexes]({{site.url}}{{site.baseurl}}/im-plugin/index/).
+1. On the OpenSearch Dashboards home page, select **Add sample data**.
+2. In the **Sample flight data** panel, select **Add data**.
 
-- Understand OpenSearch [documents]({{site.url}}{{site.baseurl}}/getting-started/intro/#document) and [indexes]({{site.url}}{{site.baseurl}}/getting-started/intro/#index).
-
-- Know how to use the various filter tools:
-  - [time filter]({{site.url}}{{site.baseurl}}/dashboards/discover/time-filter/)
-  - [search bar]({{site.url}}{{site.baseurl}}/dashboards/discover/search-bar/)
-  - [filter tool]({{site.url}}{{site.baseurl}}/dashboards/discover/filter-tool/)
-  - [field-select tool]({{site.url}}{{site.baseurl}}/dashboards/discover/field-select/)
+For more information, see [Adding sample data]({{site.url}}{{site.baseurl}}/dashboards/getting-started/data-setup/#add-sample-data).
 
 ## Navigating the Discover UI
 
@@ -189,7 +175,7 @@ To visualize a data field, follow these steps:
 
 1. From the **Top 5 values** popover, select the **Visualize** button. The display changes to the **Visualize** application, showing a default visualization of the selected field.
 
-   See [Building data visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/) to learn how to edit the visualization display.
+   See [Building data visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/) to learn how to edit the visualization display.
 
 
 ## Exporting data

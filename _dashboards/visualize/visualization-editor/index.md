@@ -38,7 +38,7 @@ The visualization editor requires a workspace. To create a workspace, follow the
 4. Select the **Analytics (all features)** use case.
 5. Select **Create workspace**.
 
-For more information, see [Workspaces]({{site.url}}{{site.baseurl}}/dashboards/workspace/).
+For more information, see [Create a workspace]({{site.url}}{{site.baseurl}}/dashboards/workspace/create-workspace/).
 
 ### Step 3: Configure a data source
 
@@ -61,10 +61,10 @@ For more information, see [Index patterns]({{site.url}}{{site.baseurl}}/dashboar
 
 The examples in this documentation use the OpenSearch Dashboards sample datasets. To install the sample datasets, follow these steps:
 
-1. On the OpenSearch Dashboards home page, select **Add sample data**.
-2. Select **Add data** for the datasets you want to use (for example, **Sample web logs** or **Sample flight data**).
+1. In the left navigation panel, expand **Manage workspace** and select **Sample data**.
+1. Select the **Add data** button in the **Sample log data** tile and any others that you want to add. The examples in this section use the sample log data.
 
-For more information, see [Adding sample data]({{site.url}}{{site.baseurl}}/dashboards/quickstart/#adding-sample-data).
+For more information, see [Adding sample data]({{site.url}}{{site.baseurl}}/dashboards/getting-started/data-setup/#add-sample-data).
 
 ## Navigating the visualization editor UI
 

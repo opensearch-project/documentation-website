@@ -116,3 +116,5 @@ If your cluster has the Security plugin installed, then multi-tenancy must be di
 opensearch_security.multitenancy.enabled: false
 ```
 {% include copy.html %}
+
+After updating the configuration file, restart OpenSearch Dashboards for the changes to take effect.
