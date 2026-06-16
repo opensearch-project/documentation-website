@@ -10,7 +10,7 @@ redirect_from:
 
 # Using the search bar
 
-The same search bar is at the top of the [Discover]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/), [Dashboard]({{site.url}}{{site.baseurl}}/dashboards/dashboard/index/), and [Visualize]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/) applications. Use it to filter the data displayed in those applications.
+The same search bar is at the top of the [Discover]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/), [Dashboard]({{site.url}}{{site.baseurl}}/dashboards/dashboard/index/), and [Visualize]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/) applications. Use it to filter the data displayed in those applications.
 
 In the search bar, you do text-based searches using either of two languages:
 
@@ -54,7 +54,7 @@ To switch between DQL and query string query language, follow these steps:
 
 To filter using the **Search** box, follow these steps:
 
-1. Enter a filter criterion in the **Search** box. For example, using DQL against the OpenSearch [Ecommerce] sample data, enter `category is Men's Clothing`.
+1. Enter a filter criterion in the **Search** box. For example, using DQL against the OpenSearch [Ecommerce] sample data, enter `category: "Men's Clothing"`.
 
    For information about querying in DQL, see [Dashboards Query Language (DQL)]({{site.url}}{{site.baseurl}}/dashboards/discover/dql/).
 

@@ -1,18 +1,23 @@
 ---
 layout: default
-title: Using maps 
-grand_parent: Creating visualizations in the Visualize application
-parent: Coordinate and region maps
-nav_order: 10
+title: Maps application
+parent: Creating visualizations in the Visualize application
+has_children: true
+has_toc: false
+nav_order: 105
 redirect_from:
   - /dashboards/visualize/maps/
   - /dashboards/maps-plugin/
   - /dashboards/maps/
 ---
 
-# Using maps 
+# Maps application 
 
-With OpenSearch Dashboards, you can create maps to visualize your geographical data. OpenSearch lets you construct map visualizations with multiple layers, combining data across different indexes. You can build each layer from a different index pattern. Additionally, you can configure maps to show specific data at different zoom levels. OpenSearch maps are powered by the OpenSearch maps service, which uses vector tiles to render maps. 
+The **Maps** application creates map visualizations with multiple layers, combining data across different indexes. You can build each layer from a different index pattern and configure maps to show specific data at different zoom levels. OpenSearch maps are powered by the OpenSearch maps service, which uses vector tiles to render maps. 
+
+## When to use the Maps application
+
+Use the Maps application when you need multi-layer geographic visualizations that combine data from different indexes, filtering by geographic shapes, custom basemaps, tooltips, or labels. For simpler single-layer geographic visualizations, consider [coordinate maps]({{site.url}}{{site.baseurl}}/dashboards/visualize/coordinate-maps/) or [region maps]({{site.url}}{{site.baseurl}}/dashboards/visualize/region-maps/).
 
 ## Creating a new map
 
@@ -33,7 +38,7 @@ You can now see the default OpenSearch basemap.
 
 To examine the **Default map** layer configuration, in the **Layers** panel on the upper left of the map, select **Default map**, as shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/maps/maps-default.png" alt="Default map" width="900">
+![Default map]({{site.url}}{{site.baseurl}}/images/maps/maps-default.png){: width="900" }
 
 To hide the **Layers** panel, select the collapse (arrow) icon in the panel's upper-right corner.
 {: .tip}
@@ -50,7 +55,7 @@ To change the default map settings, select **Default map** in the **Layers** pan
 
 To add a layer to the map, in the **Layers** panel, select the **Add layer** button. The **Add layer** dialog is shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/maps/add-layer.png" alt="Add layer" width="450">
+![Add layer]({{site.url}}{{site.baseurl}}/images/maps/add-layer.png){: width="450" }
 
 You can add **base layers** or **data layers** to the map:
 
@@ -66,11 +71,11 @@ OpenSearch supports Web Map Service (WMS) or Tile Map Service (TMS) custom maps.
 1. From the **Add layer** dialog, select **Base layer > Custom map**.
     Follow the next steps in the **New layer** dialog, which is shown in the following image.
 
-    <img src="{{site.url}}{{site.baseurl}}/images/maps/custom-map.png" alt="Add custom map">
+    ![Add custom map]({{site.url}}{{site.baseurl}}/images/maps/custom-map.png)
 
 1. In the **Custom type** dropdown list, select **Tile Map Service (TMS)**. 
 1. Enter the TMS URL.
-1. (Optional) In **TMS attribution**, enter a TMS attribution for the basemap. For example, if you're using a custom basemap, enter the custom map name. This name will be displayed in the lower-right corner of the map.
+1. (Optional) In **TMS attribution**, enter a TMS attribution for the basemap. For example, if you're using a custom basemap, enter the custom map name. This name is displayed in the lower-right corner of the map.
 1. Select the **Settings** tab to edit the layer settings.
 1. Enter the layer name in **Name**.
 1. (Optional) Enter the layer description in **Description**.
@@ -104,7 +109,7 @@ Add a document layer as follows:
 
 You should see the flight destination data, as in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/maps/new-layer.png" alt="Flight destination map">
+![Flight destination map]({{site.url}}{{site.baseurl}}/images/maps/new-layer.png)
 
 ## Filtering data
 
@@ -140,7 +145,7 @@ You can filter your data globally by drawing [shapes]({{site.url}}{{site.baseurl
   - For a rectangle, select any starting point on the map (this point becomes a rectangle vertex). Then hover (do not drag) to another point on the map and select it (this point becomes the opposite vertex).  
   - For a polygon, select any starting point on the map (this point becomes a polygon vertex) and hover (do not drag) to each subsequent vertex and select that point. Finally, make sure to select the starting point again to close the polygon, as shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/maps/draw-shape.png" alt="Drawing a polygon on a map">
+![Drawing a polygon on a map]({{site.url}}{{site.baseurl}}/images/maps/draw-shape.png)
 
 ### Disabling the shape filter for a map layer
 
@@ -170,11 +175,11 @@ Document layers show geopoint and geoshape document fields as locations on the m
 
 To view tooltips, hover over the geographical point you're interested in. One tooltip can display many data points. For example, in the **Flight destination** layer there are multiple flights for a single destination city. To paginate over the flights, select the city you're interested in and use the arrows in the tooltip, as shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/maps/tooltip.png" alt="Flight destination tooltip" width="450">
+![Flight destination tooltip]({{site.url}}{{site.baseurl}}/images/maps/tooltip.png){: width="450" }
 
 If a point on the map contains data from multiple layers, one tooltip can display data from multiple layers. To see all layers, select **All layers**. To choose a particular layer, select the layer name in the tooltip layer selection panel, as shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/maps/layer-selection-panel.png" alt="Tooltip with a layer selection panel" width="450">
+![Tooltip with a layer selection panel]({{site.url}}{{site.baseurl}}/images/maps/layer-selection-panel.png){: width="450" }
 
 ## Adding labels to layers
 
@@ -190,7 +195,7 @@ Adding a label to a layer lets you visualize additional data on the map. For exa
 
 The label with the origin weather is visible on the map and also added to the tooltips, as shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/maps/label.png" alt="Label based on field type added to map and tooltips" width="450">
+![Label based on field type added to map and tooltips]({{site.url}}{{site.baseurl}}/images/maps/label.png){: width="450" }
 
 ## Reordering, hiding, and deleting layers
 
@@ -210,7 +215,7 @@ If you want to visualize a real-time dataset, after adding layers to the map, pe
 1. Under **Refresh every**, select or enter the refresh interval (for example, 1 second).
 1. Select the **Start** button.
 
-<img src="{{site.url}}{{site.baseurl}}/images/maps/refresh.png" alt="Refreshing a map" width="450">
+![Refreshing a map]({{site.url}}{{site.baseurl}}/images/maps/refresh.png){: width="450" }
 
 ## Saving a map
 
@@ -263,3 +268,8 @@ Once you've opened a dashboard, you can add a new or existing map to it.
 1. Edit the map.
 1. In the upper-right corner, choose the **Save** button.
 1. In the **Save map** dialog, choose the **Save and return** button.
+
+## Related documentation
+
+- [Maps Stats API]({{site.url}}{{site.baseurl}}/dashboards/visualize/maps-stats-api/)
+- [Configuring maps]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/configuring-maps/)

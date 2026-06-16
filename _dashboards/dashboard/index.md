@@ -11,10 +11,7 @@ redirect_from:
 
 You can use the **Dashboards** application in OpenSearch Dashboards to build a page containing multiple visual representations of your data.
 
->This documentation uses the following terms:
->- _OpenSearch Dashboards_: The web UI for OpenSearch.
->- **Dashboards** application: The application within OpenSearch Dashboards for creating dashboards.
->- _dashboard_ (lowercase): An individual collection of data visualizations created in the **Dashboards** application.
+For terminology definitions, see [Concepts]({{site.url}}{{site.baseurl}}/dashboards/getting-started/concepts/).
 {: .note}
 
 Use the following tutorials to learn to create a dashboard using the **Dashboards** application and the OpenSearch sample data. The sample datasets have existing sample visualizations that you can use for the dashboard, or you can create your own visualizations. The tutorials demonstrate how to do both.
@@ -22,9 +19,20 @@ Use the following tutorials to learn to create a dashboard using the **Dashboard
 This OpenSearch Playground [dashboard example](https://playground.opensearch.org/app/dashboards#/view/722b74f0-b882-11e8-a6d9-e546fe2bba5f?_g=(filters:!(),refreshInterval:(pause:!f,value:900000),time:(from:now-7d,to:now))&_a=(description:'Analyze%20mock%20eCommerce%20orders%20and%20revenue',filters:!(),fullScreenMode:!f,options:(hidePanelTitles:!f,useMargins:!t),query:(language:kuery,query:''),timeRestore:!t,title:'%5BeCommerce%5D%20Revenue%20Dashboard',viewMode:view)) comprises several of the visualizations available in OpenSearch Dashboards.
 {: .note}
 
-## Navigating the UI
+## Prerequisites
 
-The following components make up the **Dashboards** UI.
+The tutorials on this page use the [**Sample eCommerce data**](https://playground.opensearch.org/app/home#/tutorial_directory) dataset that is already installed in [OpenSearch Playground](https://playground.opensearch.org/app/home#/).
+
+If you've installed a local OpenSearch Dashboards instance, add the sample data by following these steps:
+
+1. On the OpenSearch Dashboards home page, select **Add sample data**.
+2. In the **Sample eCommerce data** panel, select **Add data**.
+
+For more information, see [Adding sample data]({{site.url}}{{site.baseurl}}/dashboards/getting-started/data-setup/#add-sample-data).
+
+## Navigating the Dashboards UI
+
+The following image shows the main components of the **Dashboards** application.
 
 ![Dashboards user interface]({{site.url}}{{site.baseurl}}/images/dashboards/dashboard-UI.png)
 
@@ -37,23 +45,6 @@ The following components make up the **Dashboards** UI.
 
 The following tutorials assume you're either using your existing installation of OpenSearch Dashboards or using the [OpenSearch Playground](https://playground.opensearch.org/app/home#/). Depending on which one you use, certain capabilities may not be available. For example, sample datasets may not be included in your existing installation, and saving a dashboard isn't an option in the OpenSearch Playground.
 {: .note}
-
-
-## Prerequisites
-
-Before using the **Dashboards** tool, ensure that you:
-
-- [Install OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards).
-
-- Add sample data or import your own data into OpenSearch. To learn about adding sample datasets, see [Adding sample data]({{site.url}}{{site.baseurl}}/dashboards/quickstart/#adding-sample-data). To learn about importing your own data, see [Managing indexes]({{site.url}}{{site.baseurl}}/im-plugin/index/).
-
-The tutorials on this page use the [**Sample eCommerce data**](https://playground.opensearch.org/app/home#/tutorial_directory) dataset.
-{: .tip}
-
-- Know how to use the [search bar]({{site.url}}{{site.baseurl}}/dashboards/discover/search-bar/) and the [time filter]({{site.url}}{{site.baseurl}}/dashboards/discover/time-filter/).
-
-- Understand OpenSearch [documents]({{site.url}}{{site.baseurl}}/getting-started/intro/#document) and [indexes]({{site.url}}{{site.baseurl}}/getting-started/intro/#index).
-
 
 ## Creating a dashboard and adding an existing visualization
 
@@ -217,3 +208,4 @@ To minimize a panel in full screen mode, follow these steps:
 The following image shows an example of a customized dashboard created by using this tutorial.
 
 ![Customized dashboard with panels arranged side by side and without legends]({{site.url}}{{site.baseurl}}/images/dashboards/dashboard-customized.png)
+

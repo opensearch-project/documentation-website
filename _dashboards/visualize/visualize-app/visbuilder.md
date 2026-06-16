@@ -2,8 +2,7 @@
 layout: default
 title: VisBuilder
 parent: Creating visualizations in the Visualize application
-grand_parent: Building data visualizations
-nav_order: 100
+nav_order: 190
 redirect_from:
   - /dashboards/visualize/visbuilder/
   - /dashboards/drag-drop-wizard/
@@ -11,32 +10,37 @@ redirect_from:
 
 # VisBuilder
 
-You can use the VisBuilder visualization type in OpenSearch Dashboards to create data visualizations by using a drag-and-drop gesture. With VisBuilder you have:
+VisBuilder provides drag-and-drop visualization creation in OpenSearch Dashboards. With VisBuilder you have:
 
 * An immediate view of your data without the need to preselect the visualization output.
 * The flexibility to change visualization types and index patterns quickly.
 * The ability to easily navigate between multiple screens.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/vis-builder-2.png" alt="VisBuilder new visualization start page">
+## When to use VisBuilder
 
-## Try VisBuilder in the OpenSearch Dashboards playground
+Use VisBuilder for rapid exploration of data relationships through an intuitive drag-and-drop interface, reducing the time required to test hypotheses and explore data patterns without needing query language knowledge.
 
-You can try VisBuilder without installing OpenSearch locally by using [OpenSearch Dashboards Playground](https://playground.opensearch.org/app/vis-builder#/). VisBuilder is enabled by default.
+## Creating a visualization using VisBuilder
 
-## Try VisBuilder locally
+The examples on this page use the **Sample flight data** dataset. Before you begin, complete the [prerequisites]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/#prerequisites).
+{: .note}
 
-Follow these steps to create a new visualization using VisBuilder in your environment:
+To create a visualization using VisBuilder, follow these steps:
 
-1. Open Dashboards:
-    - If you're not running the Security plugin, go to http://localhost:5601.
-    - If you're running the Security plugin, go to https://localhost:5601 and log in with your username and password (default is `admin/admin`).
+1. In the **New Visualization** dialog, select **VisBuilder**, as shown in the following image.
 
-1. From the top menu, select **Visualize > Create visualization > VisBuilder**.
+   ![VisBuilder new visualization start page]({{site.url}}{{site.baseurl}}/images/dashboards/vis-builder-2.png)
+2. From the **Data Source** dropdown, select **opensearch_dashboards_sample_data_flights**.
+3. In the **Configuration** panel, add fields to the chart by dragging them from the field list on the left or by selecting the **+** icon in each section:
+   - **Y-axis**: Select the **+** icon, set **Aggregation** to **Average**, and set **Field** to **AvgTicketPrice**.
+   - **X-axis**: Select the **+** icon, set **Aggregation** to **Terms**, set **Field** to **Carrier**, and set **Order** to **Descending**.
+   - **Split series**: Select the **+** icon, set **Aggregation** to **Terms**, and set **Field** to **FlightDelay**.
 
-   <img src="{{site.url}}{{site.baseurl}}/images/dashboards/vis-builder-1.png" alt="Select the VisBuilder visualization type" width="550">  
+The chart updates automatically as you add fields. The **Split series** field divides each bar into color-coded subgroups. In this example, `FlightDelay` has two values (`true` and `false`), so each carrier shows two bars---one for delayed flights and one for non-delayed flights---in different colors, as shown in the following image.
 
-1. Drag and drop field names from the left column into the **Configuration** panel to generate a visualization.
+![VisBuilder bar chart showing average ticket price by carrier split by flight delay]({{site.url}}{{site.baseurl}}/images/dashboards/visbuilder-example.png)
 
-Here’s an example visualization. Your visualization will look different depending on your data and the fields you select.
+## Next steps
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/drag-drop-generated-viz.png" alt="Visualization generated using sample data">
+- To choose a different visualization type, see [Choosing a visualization type]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/viz-types/).
+- To add this visualization to a dashboard, see [Creating dashboards]({{site.url}}{{site.baseurl}}/dashboards/dashboard/).
