@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Manage workspaces
-parent: Workspace for OpenSearch Dashboards
+parent: Workspaces
 nav_order: 2
 ---
 
