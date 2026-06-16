@@ -1,30 +1,33 @@
 ---
 layout: default
-title: TSVB
+title: TSVB visualizations
 parent: Creating visualizations in the Visualize application
-grand_parent: Building data visualizations
-nav_order: 47
+nav_order: 170
 redirect_from:
   - /dashboards/visualize/tsvb/
 ---
 
-# TSVB
+# TSVB visualizations
 
-The Time-Series Visual Builder (TSVB) is a powerful data visualization tool in OpenSearch Dashboards that allows you to create detailed time-series visualizations. One of its key features is the ability to add annotations or markers at specific time points based on index data. This feature is particularly useful for making connections between multiple indexes and building visualizations that display data over time, such as flight status, delays by type, and more. TSVB currently supports the following visualization types: Area, Line, Metric, Gauge, Markdown, and Data Table.
+The Time-Series Visual Builder (TSVB) is a data visualization tool in OpenSearch Dashboards for creating detailed time-series visualizations. TSVB supports adding annotations or markers at specific time points based on index data, making connections between multiple indexes, and building visualizations that display data over time. TSVB supports the following visualization types: Area, Line, Metric, Gauge, Markdown, and Data Table.
+
+## When to use TSVB visualizations
+
+Use TSVB visualizations for time-series analysis that goes beyond basic chart capabilities, including advanced mathematical functions, multiple metric comparisons, and sophisticated temporal analysis.
 
 ## Creating TSVB visualizations from multiple data sources
 Introduced 2.14
 {: .label .label-purple }
 
-Before proceeding, ensure that the following configuration settings are enabled in the `config/opensearch_dasboards.yaml` file:
+Before proceeding, ensure that the following configuration settings are enabled in the `config/opensearch_dashboards.yaml` file:
 
 ```yaml
 data_source.enabled: true
 vis_type_timeseries.enabled: true
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
-Once you have configured [multiple data sources]({{site.url}}{{site.baseurl}}/dashboards/management/multi-data-sources/) in OpenSearch Dashboards, you can use Vega to query those data sources. The following GIF shows the process of creating TSVB visualizations in OpenSearch Dashboards.
+Once you have configured [multiple data sources]({{site.url}}{{site.baseurl}}/dashboards/management/multi-data-sources/) in OpenSearch Dashboards, you can use TSVB to query those data sources. The following GIF shows the process of creating TSVB visualizations in OpenSearch Dashboards.
 
 ![Process of creating TSVB visualizations in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/images/dashboards/configure-tsvb.gif)
 
@@ -70,4 +73,9 @@ Annotations are markers that can be added to time-series visualizations. Follow 
 
 The visualization automatically updates to display your annotations, as shown in the following image.
 
-  <img src="{{site.url}}{{site.baseurl}}/images/dashboards/tsvb-with-annotations.png" alt="TSVB visualization with annotations" width="700"/>
+  ![TSVB visualization with annotations]({{site.url}}{{site.baseurl}}/images/dashboards/tsvb-with-annotations.png){: width="700" }
+
+## Next steps
+
+- To choose a different visualization type, see [Choosing a visualization type]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/viz-types/).
+- To add this visualization to a dashboard, see [Creating dashboards]({{site.url}}{{site.baseurl}}/dashboards/dashboard/).

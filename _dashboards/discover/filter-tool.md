@@ -8,7 +8,7 @@ nav_order: 30
 
 # Using the filter tool
 
-The filter tool is at the top of the [Discover]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/) and [Dashboard]({{site.url}}{{site.baseurl}}/dashboards/dashboard/index/) and [Visualize]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/) applications, directly below the **[Search]({{site.url}}{{site.baseurl}}/dashboards/discover/search-bar/)** bar. Use it to add and remove discrete filters to the data displayed in those applications.
+The filter tool is at the top of the [Discover]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/) and [Dashboard]({{site.url}}{{site.baseurl}}/dashboards/dashboard/index/) and [Visualize]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/) applications, directly below the **[Search]({{site.url}}{{site.baseurl}}/dashboards/discover/search-bar/)** bar. Use it to add and remove discrete filters to the data displayed in those applications.
 
  You can create any number of filters. Filters are listed in the filter display between the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/funnel-icon.png" class="inline-icon" alt="filter menu icon"/>{:/} (funnel) icon and the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/add-filter-icon.png" class="inline-icon" alt="add filter icon"/>{:/} (circle-plus) **Add filter** control.
 

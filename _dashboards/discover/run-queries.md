@@ -2,7 +2,7 @@
 layout: default
 title: Dev Tools
 parent: Exploring data
-nav_order: 30
+nav_order: 20
 redirect_from:
   - /dashboards/run-queries/
   - /dashboards/dev-tools/run-queries/
@@ -12,28 +12,28 @@ redirect_from:
 
 # Running queries in the Dev Tools console
 
-You can use the OpenSearch Dev Tools console to send queries to OpenSearch. 
+You can use the OpenSearch Dev Tools console to send [Query DSL]({{site.url}}{{site.baseurl}}/query-dsl/) queries to OpenSearch.
 
 ## Navigating to the console
 
 To open the console, select **Dev Tools** on the main OpenSearch Dashboards page:
 
-<img src="{{site.url}}{{site.baseurl}}/images/dev-tools/dev-tools-main.png" alt="Dev Tools console from main page">{: .img-fluid }
+![Dev Tools console from main page]({{site.url}}{{site.baseurl}}/images/dev-tools/dev-tools-main.png)
 
 You can open the console from any other page by navigating to the main menu and selecting **Management** > **Dev Tools**.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dev-tools/dev-tools-left.png" width=200 alt="Dev Tools console from all pages">
+![Dev Tools console from all pages]({{site.url}}{{site.baseurl}}/images/dev-tools/dev-tools-left.png){: width="200" }
 
 ## Writing queries
 
 Write your queries in the editor pane on the left side of the console:
 
-<img src="{{site.url}}{{site.baseurl}}/images/dev-tools/dev-tools-request.png" alt="Request pane">{: .img-fluid }
+![Request pane]({{site.url}}{{site.baseurl}}/images/dev-tools/dev-tools-request.png)
 
 You can collapse and expand parts of your query by selecting the small triangles next to the line numbers.
 {: .tip}
 
-The Dev Tools console supports all OpenSearch REST API operations, including search queries, index management, and cluster operations. You can use [Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/) to build queries that:
+The Dev Tools console supports all OpenSearch REST API operations, including search queries, index management, and cluster operations. You can use Query DSL to build queries that:
 
 - **Search for documents**: Use `match`, `term`, `range`, and other query types to search your data.
 - **Get all results**: Use `match_all` queries to retrieve all documents from an index.
@@ -41,46 +41,15 @@ The Dev Tools console supports all OpenSearch REST API operations, including sea
 - **Aggregate data**: Use aggregations to compute metrics, statistics, and summaries of your data.
 - **Filter results**: Combine queries with filters to narrow down search results.
 
-For example, to count all documents in an index, send the following request:
-
-```json
-GET my-index/_count
-```
-{% include copy-curl.html %}
-
-To retrieve all documents, send the following request:
-
-```json
-GET my-index/_search
-{
-  "query": {
-    "match_all": {}
-  }
-}
-```
-{% include copy-curl.html %}
-
-For a complete list of query types and capabilities, see [Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/).
-
-You can import or export queries by selecting **Import** or **Export** from the top menu. 
-
-### Comments
-
-Use `#` at the beginning of a line to write single-line comments.
-
-### Autocomplete
-
-OpenSearch provides autocomplete suggestions for fields, indexes and their aliases, and templates. To configure autocomplete preferences, update them in [Console Settings](#updating-the-console-settings).
-
 ## Sending the request 
 
 To send a query to OpenSearch, select the query by placing the cursor anywhere in the query text. Then choose the play icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dev-tools/play-icon.png" class="inline-icon" alt="play icon"/>{:/}) on the upper right of the request or press `Ctrl/Cmd+Enter`:
 
-<img src="{{site.url}}{{site.baseurl}}/images/dev-tools/dev-tools-send.png" alt="Send request">
+![Send request]({{site.url}}{{site.baseurl}}/images/dev-tools/dev-tools-send.png)
 
 OpenSearch displays the response in the response pane on the right side of the console:
 
-<img src="{{site.url}}{{site.baseurl}}/images/dev-tools/dev-tools-response.png" alt="Response pane">{: .img-fluid }
+![Response pane]({{site.url}}{{site.baseurl}}/images/dev-tools/dev-tools-response.png)
 
 When submitting long-running operations (such as reindexing or snapshot creation) to OpenSearch, you can make the request asynchronous by providing the `wait_for_completion=false` query parameter. If this parameter is not specified, the request runs synchronously. In that case, if the operation exceeds the OpenSearch request timeout value, the client might send a new request, which can lead to unexpected behavior. If the API does not support asynchronous execution through query parameters, consider using cURL to run the request directly.
 {: .note}
@@ -121,7 +90,7 @@ If you paste a `curl` command directly into the console, the command is automati
 
 To import a query in cURL format, select the query, select the wrench icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dev-tools/wrench-icon.png" class="inline-icon" alt="wrench icon"/>{:/}), and choose **Copy as cURL**:
 
-<img src="{{site.url}}{{site.baseurl}}/images/dev-tools/dev-tools-tools.png" alt="Console tools">
+![Console tools]({{site.url}}{{site.baseurl}}/images/dev-tools/dev-tools-tools.png)
 
 ## Using triple quotation marks in queries
 
@@ -178,7 +147,7 @@ To clear the history, select **Clear**.
 
 To update your preferences, select **Settings** from the top menu:
 
-<img src="{{site.url}}{{site.baseurl}}/images/dev-tools/dev-tools-settings.png" width=400 alt="Settings">
+![Settings]({{site.url}}{{site.baseurl}}/images/dev-tools/dev-tools-settings.png){: width="400" }
 
 ## Using keyboard shortcuts
 

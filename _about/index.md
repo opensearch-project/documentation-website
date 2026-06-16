@@ -70,7 +70,7 @@ getting_started:
     image_alt: "OpenSearch Core icon"
   - heading: "Get started with OpenSearch Dashboards"
     description: "Learn about OpenSearch Dashboards applications and tools used to visualize data"
-    link: "/dashboards/quickstart/"
+    link: "/dashboards/getting-started/"
     image: "/images/icons/OpenSearch-Dashboards.png"
     image_alt: "OpenSearch Dashboards icon"
   - heading: "Get started with vector search"

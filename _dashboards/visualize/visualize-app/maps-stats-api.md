@@ -3,7 +3,7 @@ layout: default
 title: Maps Stats API
 nav_order: 20
 grand_parent: Creating visualizations in the Visualize application
-parent: Coordinate and region maps 
+parent: Maps application
 has_children: false
 redirect_from:
   - /dashboards/visualize/maps-stats-api/
@@ -20,7 +20,7 @@ When you create and save a [map]({{site.url}}{{site.baseurl}}/dashboards/visuali
 You can access the Maps Stats API by providing its URL address in the following format:
 
 ```
-<opensearch-dashboards-endpoint-address>/api/maps-dashboards/stats
+{opensearch-dashboards-endpoint-address}/api/maps-dashboards/stats
 ```
 
 The OpenSearch Dashboards endpoint address may contain a port number if it is specified in the OpenSearch configuration file. The specific URL format depends on the type of OpenSearch deployment and the network environment in which it is hosted.

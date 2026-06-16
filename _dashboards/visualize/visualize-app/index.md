@@ -11,116 +11,139 @@ redirect_from:
 
 # Creating visualizations in the Visualize application
 
-The **Visualize** application uses a point-and-click interface to create data visualizations from aggregations. To open the **Visualize** application, select **Visualize** from the left navigation menu.
+The **Visualize** application uses a point-and-click interface to create data visualizations from aggregations. You select a visualization type, configure metrics and buckets, and adjust display settings to build charts, tables, maps, and other visual representations of your data.
 
-## Visualization types
+## Prerequisites
 
-The **Visualize** application supports the following visualization types.
+The examples on this page use the [**Sample flight data**](https://playground.opensearch.org/app/home#/tutorial_directory) dataset that is already installed in [OpenSearch Playground](https://playground.opensearch.org/app/home#/).
 
-### Area charts
+If you've installed a local OpenSearch Dashboards instance, add the sample data by following these steps:
 
-Area charts depict changes over time, and they are commonly used to show trends. For more information, see [Area charts]({{site.url}}{{site.baseurl}}/dashboards/visualize/area/).
+1. On the OpenSearch Dashboards home page, select **Add sample data**.
+2. In the **Sample flight data** panel, select **Add data**.
 
-![Example area chart in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/images/dashboards/area-chart-1.png){: width="600" }
+For more information, see [Adding sample data]({{site.url}}{{site.baseurl}}/dashboards/getting-started/data-setup/#add-sample-data).
 
-### Bar charts
+To use your own data, you need an index pattern. See [Setting up your data]({{site.url}}{{site.baseurl}}/dashboards/getting-started/data-setup/).
 
-Bar charts (vertical or horizontal) compare categorical data and depict changes of a variable over a period of time.
+## Navigating the Visualize UI
 
-Vertical bar chart             |  Horizontal bar chart
-:-------------------------:|:-------------------------:
-![Example vertical bar chart in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/images/dashboards/bar-chart-1.png){: width="300" }  |  ![Example horizontal bar chart in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/images/dashboards/bar-horizontal-1.png){: width="300" }
+The following image shows the main components of the **Visualize** application.
 
-### Controls
+![Visualize application interface]({{site.url}}{{site.baseurl}}/images/dashboards/viz-app-panel-callouts.png)
 
-Controls is a panel added to a dashboard to filter data. You can create two types of controls: **Options list** (a dropdown that filters by a terms aggregation, such as `machine.os.keyword`) and **Range slider** (filters within specified value ranges, such as `hour_of_day`).
+- The _search bar_ (A) enables selection of data using a query language search. See [Using the search bar]({{site.url}}{{site.baseurl}}/dashboards/discover/search-bar/).
+- The _time filter_ (B) provides a graphical interface for selecting data values and ranges.  See [Using the time filter]({{site.url}}{{site.baseurl}}/dashboards/discover/time-filter/).
+- The _filter tool_ (C) contains frequently used commands and shortcuts. See [Using the filter tool]({{site.url}}{{site.baseurl}}/dashboards/discover/filter-tool/).
+- The _visualization panel_ (D) displays the visualization.
+- The _configuration panel_ (E) contains all the controls to select and configure the visualization. Its contents depend on the visualization type. See [Configuring visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/configuring-viz/).
 
-![Example visualization using controls to filter data in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/images/dashboards/controls-1.png){: width="600" }
+## Creating a visualization
 
-### Data tables
+To create a visualization, follow these steps:
 
-Data tables show your raw data in tabular form.
+1. In the left navigation menu, select **OpenSearch Dashboards** > **Visualize**.
 
-![Example data table in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/images/data-table-1.png){: width="600" }
+   The application displays the **Visualizations** list, a table of saved visualizations.
 
-### Gauge charts
+1. In the upper-right corner, select **Create visualization**.
 
-Gauge charts display how much there is of a measured value, optionally in relation to a benchmark or goal.
+   The application displays the **New Visualization** dialog, as shown in the following image.
 
-![Example gauge chart in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/images/dashboards/gauge-1.png){: width="400" }
+   ![New visualization dialog]({{site.url}}{{site.baseurl}}/images/dashboards/new-viz-dialog.png){: width=500 }
 
-### Heat maps
+1. Select a visualization type by choosing its icon. For help choosing a type, see [Choosing a visualization type]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/viz-types/).
 
-A heat map displays the distribution of numerical data over time using colors to differentiate where values fall in a range.
+1. If prompted, select an index pattern in the **Choose a source** dialog. Not all visualization types display this dialog. For examples of creating each visualization type, see the individual visualization type pages.
+   
+   The default visualization shows a single value, the document count, for the current data set.
 
-![Example heat map in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/images/dashboards/heat-map-1.png){: width="600" }
+   If the visualization shows no data, or a count different than expected, verify that the [search bar]({{site.url}}{{site.baseurl}}/dashboards/discover/search-bar/), [filter tool]({{site.url}}{{site.baseurl}}/dashboards/discover/filter-tool/), and especially the [time filter]({{site.url}}{{site.baseurl}}/dashboards/discover/time-filter/) are not filtering out the missing documents.
+   {: .tip}
 
-### Line charts
+1. Configure the visualization. For more information, see [Configuring visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/configuring-viz/) or the individual visualization type pages. For a complete example, see [Explore the Visualize application]({{site.url}}{{site.baseurl}}/dashboards/getting-started/explore-visualize/).
 
-Line charts compare changes in measured values over a period of time, such as gross sales by month.
+## Other ways to start creating a visualization
 
-![Example line graph in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/images/line-1.png){: width="600" }
+In addition to the **Visualize** application, you can start creating a new visualization from the following locations:
 
-### Maps
+- To create a visualization from a [workspace]({{site.url}}{{site.baseurl}}/dashboards/workspace/) (if workspaces are enabled), follow these steps:
 
-You can create two types of maps in Dashboards: Coordinate maps and Region maps. Coordinate maps show the difference between data values for each location by size. Region maps show the difference between data values for each location by varying shades of color. For more information, see [Maps]({{site.url}}{{site.baseurl}}/dashboards/visualize/maps/).
+    1. On the home page, select or create a [workspace]({{site.url}}{{site.baseurl}}/dashboards/workspace/).
+    1. In the left navigation menu, expand **Visualize and report** and select **Visualizations**.
+    1. Select **Create new visualization**.
 
-#### Coordinate maps
+- To create a visualization from a dashboard, follow these steps:
 
-Coordinate maps show location-based data on a map. Use coordinate maps to visualize GPS data (latitude and longitude coordinates) on a map. For information about OpenSearch-supported coordinate field types, see [Geographic field types]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-shape/) and [Cartesian field types]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/xy/).
+    1. In the left navigation menu, select **OpenSearch Dashboards** > **Dashboards**.
+    1. Open an existing dashboard or create a new one.
+    1. Select **Edit**.
+    1. Select **Create new** in the toolbar, or select **Add** (or the plus icon) and then select **Create new** in the **Add panels** dialog.
 
-![Example coordinate map in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/images/dashboards/coordinate-1.png){: width="600" }
+    When you create a visualization from a dashboard, it is automatically added to that dashboard when you save.
+    {: .note}
 
-#### Region maps
+## Saving a visualization
 
-Region maps show patterns and trends across geographic locations. A region map is one of the basemaps in Dashboards. For more information, see [Coordinate and region maps]({{site.url}}{{site.baseurl}}/dashboards/visualize/geojson-regionmaps/).
+Your visualization remains in the **Visualize** application if you leave the application. However, if you select the **Visualize** application again without saving the visualization, changes to the visualization are lost. We recommend always saving your visualization before you leave the **Visualize** application.
+{: .warning}
 
-![Example region map in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/images/map-1.png){: width="600" }
+### Saving a new visualization
 
-### Markdown
+To save a new visualization, follow these steps:
 
-Markdown displays information and instructions alongside your data visualizations.
+1. Select **Save** in the upper right of the **Create** panel.
 
-![Example Markdown visualization in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/images/dashboards/markdown.png){: width="600" }
+   The application displays the **Save visualization** dialog.
 
-### Metric values
+1. Enter a title for the visualization in the **Title** box.
 
-Metric values compare values in different measures, such as actual sales compared to sales goals.
+1. (Optional) Enter a **Description**.
 
-![Example metric chart in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/images/dashboards/metric-chart-1.png){: width="400" }
+1. Select **Save**.
 
-### Pie charts
+### Saving an existing visualization
 
-Pie charts compare values for items in a dimension, such as a percentage of a total amount.
+You can save a visualization at any time, as often as you like.
 
-![Example pie chart in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/images/pie-1.png){: width="600" }
+To save an existing visualization, follow these steps:
 
-### Tag cloud
+1. Select **Save** in the upper right of the **Create** panel.
 
-Tag clouds display how often a word is used in relation to other words in a dataset.
+   If you have previously saved the visualization, the **Save visualization** **Title** box contains the visualization title.
 
-![Example tag cloud in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/images/word-cloud-1.png){: width="600" }
+1. (Optional) To change the visualization name, enter a new title for the visualization in the **Title** box.
 
-### TSVB
+1. (Optional) Update the **Description**.
 
-The Time-Series Visual Builder (TSVB) creates detailed time-series visualizations. It supports Area, Line, Metric, Gauge, Markdown, and Data Table visualization types. For more information, see [TSVB]({{site.url}}{{site.baseurl}}/dashboards/visualize/tsvb/).
+1. (Optional) To leave the saved visualization in its current state and save the changes as a new visualization, select **Save as new visualization**.
 
-![Example TSVB in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/images/dashboards/TSVB-1.png){: width="600" }
+   Saving an existing visualization without selecting **Save as new visualization** overwrites the previous state of the visualization, even if you've renamed the visualization.
+   {: .warning}
 
-### Timeline
+1. To save the current changes, select the **Save** button.
 
-Timeline uses a text-based expression syntax to create time-series visualizations. For more information, see [Timeline]({{site.url}}{{site.baseurl}}/dashboards/visualize/timeline/).
+## Adding a visualization to a dashboard
 
-![Example Timeline in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/images/dashboards/timeline-1.png){: width="600" }
+To add a saved visualization to a dashboard, follow these steps:
 
-### VisBuilder
+1. Open a [dashboard]({{site.url}}{{site.baseurl}}/dashboards/dashboard/).
+1. Select **Edit**.
+1. Select **Add** or the plus icon in the toolbar. If prompted, select **From library**.
+1. Select the saved visualization from the list.
 
-VisBuilder is a drag-and-drop tool that provides an immediate view of your data without the need to preselect the data source or visualization type. It supports Area, Bar, Line, Metric, and Data Table types. For more information, see [VisBuilder]({{site.url}}{{site.baseurl}}/dashboards/visualize/visbuilder/).
+The visualization appears as a panel on the dashboard. You can resize, reposition, and configure it alongside other panels.
 
-![Example VisBuilder in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/images/dashboards/vis-builder-2.png){: width="600" }
+## Try it
 
-### Vega
+For a hands-on walkthrough of creating a line chart with sample data, see [Explore the Visualize application]({{site.url}}{{site.baseurl}}/dashboards/getting-started/explore-visualize/).
 
-[Vega](https://vega.github.io/vega/) and [Vega-Lite](https://vega.github.io/vega-lite/) are declarative visualization grammars for creating custom visualizations using any chart type. For more information, see [Vega]({{site.url}}{{site.baseurl}}/dashboards/visualize/vega/).
+## Next steps
 
-![Example Vega visualization in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/images/dashboards/vega-1.png){: width="600" }
+- For help choosing a visualization type, see [Choosing a visualization type]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/viz-types/). 
+- To learn about adding visualizations to dashboards, see [Creating dashboards]({{site.url}}{{site.baseurl}}/dashboards/dashboard/).
+- Many of the visualization UI elements and tools are identical among the visualization types, so familiarity with one type will help you create others. To take a methodical tutorial approach, starting with basic visualization elements and building on previous learning, try these tutorials in order:
+  1. [Markdown visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/markdown/)
+  1. [Metric visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/metric/)
+  1. [Data tables]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/data-table/)
+  1. [Bar charts]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/bar-charts/)
