@@ -252,6 +252,19 @@ To insert a closed collapsible block, omit the `open` state:
 
 Collapsible blocks are useful for long responses and for the Table of Contents at the beginning of a page.
 
+To insert a collapsible Table of contents, use the following markup:
+
+````html
+<details markdown="block">
+  <summary>
+    Table of contents
+  </summary>
+  {: .text-delta }
+- TOC
+{:toc}
+</details>
+````
+
 ## Dashes
 
 Use one dash for hyphens, two for en dashes, and three for em dashes:
@@ -284,16 +297,16 @@ Markdown images are responsive by default. To insert a Markdown image, use the `
 
 Markdown uses the image’s actual width to render it. It sets the maximum image width to the width of the main body panel.
 
-If you want to specify the image width or another style, use HTML syntax:
+If you want to specify the image width, use Kramdown's inline attribute syntax after the image:
 
 ```
-<img src="{{site.url}}{{site.baseurl}}/images/brand.png" alt="OS branding" width="700"/>
+![OS branding]({{site.url}}{{site.baseurl}}/images/brand.png){: width="700" }
 ```
 
 You can specify width as a hard-coded number of pixels, as in the preceding example, or as a percentage of the parent width:
 
 ```
-<img src="{{site.url}}{{site.baseurl}}/images/brand.png" alt="OS branding" width="70%"/>
+![OS branding]({{site.url}}{{site.baseurl}}/images/brand.png){: width="70%" }
 ```
 
 To stretch the image to fit the width of the main body panel, use width=“100%”.

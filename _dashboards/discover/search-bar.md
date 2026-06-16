@@ -16,7 +16,7 @@ In the search bar, you do text-based searches using either of two languages:
 
 - [Dashboards Query Language (DQL)]({{site.url}}{{site.baseurl}}/dashboards/discover/dql/): A basic query language with nested field queries.
 
-- [Query string query language (Lucene)]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/): A query language based on the [Apache Lucene](https://lucene.apache.org/core/2_9_4/queryparsersyntax.html) query language. 
+- [Query string query language (Lucene)]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/): A query language based on the [Apache Lucene](https://lucene.apache.org/core/{{site.lucene_version}}/queryparsersyntax.html) query language. 
 
 The terms _Query string query language_ and _Lucene_ are used interchangeably in the documentation and UI.  
 {: .note}
@@ -26,7 +26,7 @@ Query string query language and DQL support different features. For example, DQL
 
 ## Navigating the search bar
 
-   <img src="{{site.url}}{{site.baseurl}}/images/dashboards/search-bar-callouts.png" alt="Search bar interface">
+   ![Search bar interface]({{site.url}}{{site.baseurl}}/images/dashboards/search-bar-callouts.png)
 
 The following components make up the search bar.
 
@@ -47,7 +47,7 @@ To switch between DQL and query string query language, follow these steps:
    If **OpenSearch Dashboard Query Language** (DQL) is turned **off**, the query language is set to OpenSearch Dashboards Query Language, and the query language selector displays **Lucene**.
    {: .note}
 
-   <img src="{{site.url}}{{site.baseurl}}/images/dashboards/discover-lucene-syntax.png" alt="Using query string syntax in OpenSearch Dashboards Discover"  width="97%">
+   ![Using query string syntax in OpenSearch Dashboards Discover]({{site.url}}{{site.baseurl}}/images/dashboards/discover-lucene-syntax.png){: width="97%" }
 
 
 ## Filtering based on a query
@@ -62,7 +62,7 @@ To filter using the **Search** box, follow these steps:
 
 1. Select **Refresh**.
 
-   <img src="{{site.url}}{{site.baseurl}}/images/dashboards/refresh-button.png" alt="Refresh button"  width="100">
+   ![Refresh button]({{site.url}}{{site.baseurl}}/images/dashboards/refresh-button.png){: width="100" }
 
    The **Results** table is updated to reflect filtering by the query.
 
@@ -74,7 +74,7 @@ To change the query, follow these steps:
 
 1. Select **Refresh**.
 
-   <img src="{{site.url}}{{site.baseurl}}/images/dashboards/refresh-button.png" alt="Refresh button"  width="100">
+   ![Refresh button]({{site.url}}{{site.baseurl}}/images/dashboards/refresh-button.png){: width="100" }
 
    The **Results** table is updated to reflect the altered query.
 

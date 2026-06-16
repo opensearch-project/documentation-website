@@ -264,23 +264,23 @@ To generate visualizations from text in OpenSearch Dashboards, use the following
 
 1. In the **New Visualization** dialog, select **Natural language**, as shown in the following image.
 
-    <img width="800px" src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/t2viz-start.png" alt="Create a visualization by selecting natural language">
+    ![Create a visualization by selecting natural language]({{site.url}}{{site.baseurl}}/images/dashboards-assistant/t2viz-start.png){: width="800px" }
 
 1. From the data sources dropdown list, select a data source, as shown in the following image. 
 
-    <img src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/t2viz-select-data-source.png" alt="Create a visualization by selecting natural language">
+    ![Create a visualization by selecting natural language]({{site.url}}{{site.baseurl}}/images/dashboards-assistant/t2viz-select-data-source.png)
 
 1. In the text box on the upper right, enter a question using natural language. A new visualization is generated, as shown in the following image.
 
-    <img src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/t2viz-ask-question.png" alt="Create a visualization by selecting natural language">
+    ![Create a visualization by selecting natural language]({{site.url}}{{site.baseurl}}/images/dashboards-assistant/t2viz-ask-question.png)
 
 1. To modify the generated visualization, select **Edit visual**. In the **Edit visual** dialog, enter the desired modifications and then select **Apply**, as shown in the following image.
 
-    <img src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/t2viz-edit-visual.png" alt="Create a visualization by selecting natural language">
+    ![Create a visualization by selecting natural language]({{site.url}}{{site.baseurl}}/images/dashboards-assistant/t2viz-edit-visual.png)
 
     The visualization is updated, as shown in the following image.
 
-    <img src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/t2viz-edit-visual-response.png" alt="Create a visualization by selecting natural language">
+    ![Create a visualization by selecting natural language]({{site.url}}{{site.baseurl}}/images/dashboards-assistant/t2viz-edit-visual-response.png)
 
 
 

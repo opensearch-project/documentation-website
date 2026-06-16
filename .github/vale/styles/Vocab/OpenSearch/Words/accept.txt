@@ -1,5 +1,6 @@
 [Aa]gentic
 [Aa]nonymization
+[Aa]utogenerated?
 [Aa]utomapping
 [Aa]utopopulate
 [Bb]ackoff
@@ -12,6 +13,7 @@ Boolean
 [Cc]allout
 [Cc]hatbots?
 [Cc]odec
+[Cc]utover
 [Cc]omposable
 [Cc]onfig
 [Cc]ron
@@ -27,6 +29,7 @@ Boolean
 Dev
 [Dd]iscoverability
 Distro
+[Dd]onut
 [Dd]ownvote(s|d)?
 [Dd]uplicative
 [Ee]gress
@@ -47,6 +50,7 @@ Gantt
 gibibyte
 gRPC
 [Hh]ashmap
+[Hh]eatmaps?
 [Hh]ostname
 [Hh]yperparameters
 [Ii]mpactful
@@ -108,6 +112,8 @@ pprof
 [Qq]uantiz(e|ation|ing|er)
 [Rr]ebalance
 [Rr]ebalancing
+[Rr]eimplemented
+[Rr]outable
 [Rr]edownload
 [Rr]eenable
 [Rr]eindex
@@ -121,18 +127,22 @@ pprof
 [Rr]ollout
 [Rr]ollup
 [Rr]unbooks?
+[Ss]andbox(es|ed|ing)?
 [Ss]harding
 [Ss]erverless
 [Ss]harding
 [Ss]ignificand
 [Ss]napshott(ed|ing)
 stdout
+[Ss]tackable
 [Ss]temmers?
 [Ss]ubaggregation
 [Ss]ubcalculation
 [Ss]ubcollectors?
 [Ss]ubcommands?
 [Ss]ubfield
+[Ss]ubnets?
+[Ss]ubpath
 [Ss]ubquer(y|ies)
 [Ss]ubstrings?
 [Ss]ubtag

@@ -2,7 +2,7 @@
 layout: default
 title: Exploring data with Discover
 parent: Exploring data
-nav_order: 20
+nav_order: 10
 has_children: true
 ---
 
@@ -25,7 +25,7 @@ This page describes how to use **Discover** to:
 
 The following components make up the **Discover** application UI.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/discover-app-panel-callouts.png" alt="Discover app default page">
+![Discover app default page]({{site.url}}{{site.baseurl}}/images/dashboards/discover-app-panel-callouts.png)
 
 - The _application menu_ (A) provides options for creating and saving Discover filters settings.
 - The _field select_ tool (B) determines which fields display in the **Discover** application panel. See [Using the field select tool]({{site.url}}{{site.baseurl}}/dashboards/discover/field-select/).
@@ -80,11 +80,11 @@ To display documents in the **Discover** application, follow these steps:
 
    The following image shows the resulting display in the Discover app.
 
-   <img src="{{site.url}}{{site.baseurl}}/images/dashboards/discover-display-flight-data-3-mo.png" alt="Discover interface showing search of flight sample data for last 90 days"  width="95%">
+   ![Discover interface showing search of flight sample data for last 90 days]({{site.url}}{{site.baseurl}}/images/dashboards/discover-display-flight-data-3-mo.png){: width="95%" }
 
 1. Drag-select the narrow band of data from the timestamp histogram as shown in the following image.
 
-   <img src="{{site.url}}{{site.baseurl}}/images/dashboards/discover-drag-select.png" alt="Discover interface showing drag-select"  width="95%">
+   ![Discover interface showing drag-select]({{site.url}}{{site.baseurl}}/images/dashboards/discover-drag-select.png){: width="95%" }
 
    The data adjusts to span the width of the data display, and the scale adjusts automatically.
 
@@ -95,7 +95,7 @@ To display documents in the **Discover** application, follow these steps:
 
    The resulting view should look like the following image.
 
-   <img src="{{site.url}}{{site.baseurl}}/images/dashboards/discover-display-flight-data-adjusted.png" alt="Discover interface showing flight sample data scaled to display width"  width="95%">
+   ![Discover interface showing flight sample data scaled to display width]({{site.url}}{{site.baseurl}}/images/dashboards/discover-display-flight-data-adjusted.png){: width="95%" }
 
 
 ## Filtering documents
@@ -121,7 +121,7 @@ Some tools for changing the time interval are demonstrated in the previous examp
 You can filter documents by entering a query string in the search bar using one of two query languages.
 
 - [Dashboards Query Language (DQL)]({{site.url}}{{site.baseurl}}/dashboards/discover/dql/) is the default query language in the search bar and is available only in **Dashboards**.
-- [Query string query language (Lucene)]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/) is based on the [Apache Lucene](https://lucene.apache.org/core/2_9_4/queryparsersyntax.html) query language.
+- [Query string query language (Lucene)]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/) is based on the [Apache Lucene](https://lucene.apache.org/core/{{site.lucene_version}}/queryparsersyntax.html) query language.
 
 To filter documents using the search bar, see [Using the search bar]({{site.url}}{{site.baseurl}}/dashboards/discover/search-bar/).
 
@@ -141,7 +141,7 @@ To use the filter tool, see [Using the filter tool]({{site.url}}{{site.baseurl}}
 
 For example, using the _flights_ sample data, use the filter tool to enter the following filter:
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/filter-cancelled-true.png" alt="A data filter"  width="100">
+![A data filter]({{site.url}}{{site.baseurl}}/images/dashboards/filter-cancelled-true.png){: width="100" }
 
 
 ## Choosing data fields
@@ -187,7 +187,7 @@ To visualize a data field, follow these steps:
 
    The **Top 5 views popover** displays as shown in the following image.
    
-   <img src="{{site.url}}{{site.baseurl}}/images/dashboards/top-5-values.png" alt="top 5 values popover" width="51%"/>
+   ![top 5 values popover]({{site.url}}{{site.baseurl}}/images/dashboards/top-5-values.png){: width="51%" }
 
 1. From the **Top 5 values** popover, select the **Visualize** button. The display changes to the **Visualize** application, showing a default visualization of the selected field.
 

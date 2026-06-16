@@ -79,27 +79,29 @@ PUT _plugins/_search_relevance/experiments
 
 ## Experimentation process
 
-The hybrid search optimization experiment runs different evaluations based on the search configuration. The following parameters and parameter values are taken into account:
+The hybrid search optimization experiment evaluates all combinations of the following parameter variants for each query in the query set and scores the results against the judgment list:
 
-* Two normalization techniques: `l2` and `min_max`.
-* Three combination techniques: `arithmetic_mean`, `harmonic_mean`, `geometric_mean`.
-* The lexical and neural search weights, which are values ranging from `0.0` to `1.0` in 0.1 increments.
+- Score-based variants:
+  - Normalization techniques: `l2`, `min_max`, and `z_score`. The `z_score` technique can be combined only with `arithmetic_mean` because of a [normalization processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/normalization-processor/#request-body-fields) restriction.
+  - Combination techniques: `arithmetic_mean`, `harmonic_mean`, and `geometric_mean`.
+  - Lexical and neural search weights ranging from `0.0` to `1.0`, in `0.1` increments.
 
-Every query in the query set is executed for all different parameter combinations, and the results are evaluated by using the judgment list.
+- Rank-based variants:
+  - The `rrf` ([Reciprocal Rank Fusion (RRF)]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/score-ranker-processor/)) combination technique, evaluated using `rank_constant` values of `1`, `5`, `10`, `20`, and `60`. RRF variants use equal weights in all subqueries.
 
 ## Evaluating the results
 
 The results for each evaluation are stored. You can view the results in OpenSearch Dashboards by selecting the corresponding experiment in the overview of past experiments, as shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/search-relevance-workbench/experiment_overview_hybrid_search_optimization.png" alt="Compare search results"/>{: .img-fluid }
+![Compare search results]({{site.url}}{{site.baseurl}}/images/search-relevance-workbench/experiment_overview_hybrid_search_optimization.png)
 
 All executed queries and their calculated search metrics are displayed, as shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/search-relevance-workbench/hybrid_search_optimization_query_overview.png" alt="Compare search results"/>{: .img-fluid }
+![Compare search results]({{site.url}}{{site.baseurl}}/images/search-relevance-workbench/hybrid_search_optimization_query_overview.png)
 
 To view query variants, select one of the queries, as shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/search-relevance-workbench/hybrid_search_optimization_variant_parameters.png" alt="Compare search results"/>{: .img-fluid }
+![Compare search results]({{site.url}}{{site.baseurl}}/images/search-relevance-workbench/hybrid_search_optimization_variant_parameters.png)
 
 You can also retrieve this information by using the following SQL search statement and providing your `experimentId`:
 

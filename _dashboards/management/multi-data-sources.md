@@ -1,8 +1,8 @@
 ---
 layout: default
 title: Configuring and using multiple data sources
-parent: Data sources
-nav_order: 10
+parent: Connecting data sources
+nav_order: 20
 redirect_from:
   - /dashboards/discover/multi-data-sources/
 ---
@@ -11,7 +11,7 @@ redirect_from:
 
 You can ingest, process, and analyze data from multiple data sources in OpenSearch Dashboards. You configure the data sources under **Dashboards Management** > **Data sources**. This interface is shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/data_sources_management.png" alt="Dashboards Management data sources main screen" width="700">
+![Dashboards Management data sources main screen]({{site.url}}{{site.baseurl}}/images/dashboards/data_sources_management.png){: width="700" }
 
 ## Getting started
 
@@ -29,7 +29,7 @@ To use multiple data sources, you must enable the `data_source.enabled` setting.
 3. Restart the OpenSearch Dashboards container.
 4. Verify that the configuration settings were configured properly by connecting to OpenSearch Dashboards and viewing the **Dashboards Management** navigation menu. **Data sources** appears in the sidebar. You'll see a view similar to the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/data_sources_management.png" alt="Data sources in sidebar within Dashboards Management" width="700">
+![Data sources in sidebar within Dashboards Management]({{site.url}}{{site.baseurl}}/images/dashboards/data_sources_management.png){: width="700" }
 
 ### Step 2: Create a new data source connection
 
@@ -71,7 +71,7 @@ To create a new data source connection:
 
 A data source connection interface is shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/data_source_connection.png" alt="Data source connection screen" width="700">
+![Data source connection screen]({{site.url}}{{site.baseurl}}/images/dashboards/data_source_connection.png){: width="700" }
 
 ### Selecting multiple data sources through the Dev Tools console
 
@@ -79,7 +79,7 @@ Alternatively, you can select multiple data sources through the [Dev Tools]({{si
 
 Watch the following 10-second video to see it in action.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/multidata-dev-tools.gif" alt="Multiple data sources in Dev Tools demo">{: .img-fluid}
+![Multiple data sources in Dev Tools demo]({{site.url}}{{site.baseurl}}/images/dashboards/multidata-dev-tools.gif)
 
 To select a data source through the Dev Tools console, follow these steps:
 
@@ -102,7 +102,7 @@ To select a data source through the Dev Tools console, follow these steps:
 
 To upload saved objects from connected data sources to a dashboard with multiple data sources, export them as an NDJSON file from the data source's **Saved object management** page. Then upload the file to the dashboard's **Saved object management** page. This method can simplify the transfer of saved objects between dashboards. The following 20-second video shows this feature in action.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/import_saved_objects_with_file_upload.gif" alt="Multiple data sources in Saved object management">{: .img-fluid}
+![Multiple data sources in Saved object management]({{site.url}}{{site.baseurl}}/images/dashboards/import_saved_objects_with_file_upload.gif)
 
 ### Importing saved objects from a connected data source
 
@@ -137,7 +137,7 @@ data_source.authTypes:
 
 The following demo shows this process.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/multidata-hide-show-auth.gif" alt="Multiple data sources hide and show authentication">{: .img-fluid}
+![Multiple data sources hide and show authentication]({{site.url}}{{site.baseurl}}/images/dashboards/multidata-hide-show-auth.gif)
 
 ## Showing or hiding the local cluster
 Introduced 2.13
@@ -152,7 +152,7 @@ data_source.hideLocalCluster: true
 
 The following demo shows this process.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/multidata-hide-localcluster.gif" alt="Multiple data sources hide local cluster">{: .img-fluid}
+![Multiple data sources hide local cluster]({{site.url}}{{site.baseurl}}/images/dashboards/multidata-hide-localcluster.gif)
 
 ---
 
@@ -172,11 +172,11 @@ When you set `data_source.enabled:true`, you can view and select data sources an
 
 The following GIF illustrates these steps.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/ism_mds1.gif" alt="Multiple data sources in ISM list page"/>
+![Multiple data sources in ISM list page]({{site.url}}{{site.baseurl}}/images/dashboards/ism_mds1.gif)
 
 To perform operations on a specific index within a data source, select the individual index from the list. To create a new index, select the **Create Index** button, which opens a form. Enter the required information and select the **Create** button. The index is created within the selected data source. The following GIF illustrates these steps.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/ism_mds2.gif" alt="Multiple data sources in ISM create page"/>
+![Multiple data sources in ISM create page]({{site.url}}{{site.baseurl}}/images/dashboards/ism_mds2.gif)
 
 ### Anomaly detection
 
@@ -188,7 +188,7 @@ When you set `data_source.enabled:true`, you can create or view detectors associ
 
 The following GIF illustrates these steps.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/ad_mds1.gif" alt="Multiple data sources in Anomaly Detection dashboard page"/>
+![Multiple data sources in Anomaly Detection dashboard page]({{site.url}}{{site.baseurl}}/images/dashboards/ad_mds1.gif)
 
 You can edit the data source's associated detectors on the **Detectors** tab under the left side bar. 
 
@@ -199,7 +199,7 @@ You can edit the data source's associated detectors on the **Detectors** tab und
 
 The following GIF illustrates these steps.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/ad_mds2.gif" alt="Multiple data sources in Anomaly Detection detector page"/>
+![Multiple data sources in Anomaly Detection detector page]({{site.url}}{{site.baseurl}}/images/dashboards/ad_mds2.gif)
 
 ### Security
 
@@ -212,7 +212,7 @@ When you set `data_source.enabled:true`, you can view and manage roles for each 
 
 The following GIF illustrates these steps.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/security_mds1.gif" alt="Multiple data sources in Security plugin"/>
+![Multiple data sources in Security plugin]({{site.url}}{{site.baseurl}}/images/dashboards/security_mds1.gif)
 
 ### Maps
 
@@ -228,7 +228,7 @@ When you set `data_source.enabled:true`, you can view all available data sources
 
 The following GIF illustrates these steps.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/maps_mds1.gif" alt="Multiple data sources in Maps plugin"/>
+![Multiple data sources in Maps plugin]({{site.url}}{{site.baseurl}}/images/dashboards/maps_mds1.gif)
 
 ### Machine learning
 
@@ -240,7 +240,7 @@ When you set `data_source.enabled:true`, you can view and manage machine learnin
 
 The following GIF illustrates these steps.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/ml_mds1.gif" alt="Multiple data sources in Machine Learning Plugin"/>
+![Multiple data sources in Machine Learning Plugin]({{site.url}}{{site.baseurl}}/images/dashboards/ml_mds1.gif)
 
 ### Notifications
 
@@ -254,7 +254,7 @@ When you set `data_source.enabled:true`, you can view and manage notification ch
 
 The following GIF illustrates these steps.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/notification_mds1.gif" alt="Multiple data sources in Notification plugin"/>
+![Multiple data sources in Notification plugin]({{site.url}}{{site.baseurl}}/images/dashboards/notification_mds1.gif)
 
 ### Search relevance
 
@@ -267,7 +267,7 @@ When you set `data_source.enabled:true`, you can compare search results across i
 
 The following GIF illustrates these steps.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/searchrelevance_mds1.gif" alt="Multiple data sources in Search Relevance plugin"/>
+![Multiple data sources in Search Relevance plugin]({{site.url}}{{site.baseurl}}/images/dashboards/searchrelevance_mds1.gif)
 
 ### Security analytics
 Introduced 2.15
@@ -282,7 +282,7 @@ When you set `data_source.enabled:true`, you can view and manage security analyt
 
 The following GIF illustrates these steps.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/mds_sa_detection_rules_view.gif" alt="Multiple data sources in Security analytics list page"/>
+![Multiple data sources in Security analytics list page]({{site.url}}{{site.baseurl}}/images/dashboards/mds_sa_detection_rules_view.gif)
 
 1. Navigate to **OpenSearch Plugins** > **Security analytics** under the main menu.
 2. Select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/database-icon.png" class="inline-icon" alt="database icon"/>{:/} icon and choose a data source from the dropdown menu.
@@ -292,7 +292,7 @@ The following GIF illustrates these steps.
 
 The following GIF illustrates these steps.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/mds_sa_detection_rules_create.gif" alt="Multiple data sources in Security analytics create page"/>
+![Multiple data sources in Security analytics create page]({{site.url}}{{site.baseurl}}/images/dashboards/mds_sa_detection_rules_create.gif)
 
 ### Alerting
 Introduced 2.15
@@ -306,7 +306,7 @@ When you set `data_source.enabled:true`, you can you can view and manage alertin
 
 The following GIF illustrates these steps.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/mds_monitor_view.gif" alt="Multiple data sources in Alerting list page"/>
+![Multiple data sources in Alerting list page]({{site.url}}{{site.baseurl}}/images/dashboards/mds_monitor_view.gif)
 
 To create a new monitor, select **Create monitor**. Fill out the form and select **Create**. The monitor is created within the selected data source.
 
@@ -321,7 +321,7 @@ To manage data source monitors from within **Dashboards**:
 
 The following GIF illustrates these steps.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/mds_feature_anywhere_view_alerting.gif" alt="Multiple data sources with Feature anywhere associated monitor"/>
+![Multiple data sources with Feature anywhere associated monitor]({{site.url}}{{site.baseurl}}/images/dashboards/mds_feature_anywhere_view_alerting.gif)
 
 To associate a monitor with a data source: 
 
@@ -332,7 +332,7 @@ To associate a monitor with a data source:
 
 The following GIF illustrates these steps.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/mds_feature_anywhere_create_alerting.gif" alt="Multiple data sources with Feature anywhere add associated monitor"/>
+![Multiple data sources with Feature anywhere add associated monitor]({{site.url}}{{site.baseurl}}/images/dashboards/mds_feature_anywhere_create_alerting.gif)
 
 ---
 

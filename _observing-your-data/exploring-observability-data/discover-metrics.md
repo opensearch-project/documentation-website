@@ -11,7 +11,7 @@ parent: Using Discover for observability
 
 The **Metrics** page in OpenSearch Dashboards provides a dedicated interface for discovering, querying, and visualizing time-series metric data. This page, shown in the following image, is optimized for working with Prometheus metrics using PromQL.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/prometheus.png" alt="Metrics page interface" width="700">
+![Metrics page interface]({{site.url}}{{site.baseurl}}/images/dashboards/prometheus.png){: width="700" }
 
 The **Metrics** page is available in observability workspaces. To access the **Metrics** page, navigate to an **Observability** workspace. Then, in the left navigation, expand **Discover** and select **Metrics**.
 

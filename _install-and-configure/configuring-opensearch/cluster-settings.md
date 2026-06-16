@@ -193,6 +193,8 @@ OpenSearch supports the following cluster-level shard, block, and task settings:
 
 - `cluster.max_shards_per_node` (Integer): Limits the total number of primary and replica shards for the cluster. The limit is calculated as follows: `cluster.max_shards_per_node` multiplied by the number of non-frozen data nodes. Shards for closed indexes do not count toward this limit. Default is `1000`. 
 
+- `cluster.max_remote_capable_shards_per_node` (Integer): Limits the total number of primary and replica shards for the cluster used by warm role nodes. The limit is calculated as `cluster.max_remote_capable_shards_per_node` multiplied by the number of warm data nodes. This setting is useful for controlling the total number of shards for searchable snapshots. Default is `1000`. 
+
 - `cluster.persistent_tasks.allocation.enable` (String): Enables or disables allocation for persistent tasks.   
 
     Valid values are: 

@@ -3,11 +3,22 @@ layout: default
 title: Telemetry devices
 nav_order: 45
 parent: Reference
+redirect_from:
+  - /benchmark/user-guide/understanding-results/telemetry/
 ---
 
 # Telemetry devices
 
-Telemetry devices give you additional insights on benchmark results. To view a list of the available telemetry devices, use the command `opensearch-benchmark list telemetry`. 
+Telemetry devices provide additional insights for benchmarking results.
+
+Telemetry results do not appear in the summary report. To visualize them, ingest the data into OpenSearch and visualize the data in OpenSearch Dashboards. 
+
+To view a list of the available telemetry devices, use the `opensearch-benchmark list telemetry` command. After you've selected a supported telemetry device, you can activate the device when running a test by providing the `--telemetry` command flag. For example, to use the `jfr` device with the `geonames` workload, run the following command:
+
+```json
+opensearch-benchmark workload --workload=geonames --telemetry=jfr
+```
+{% include copy-curl.html %}
 
 All telemetry devices with a `--stats` can be used with clusters not provisioned by OpenSearch Benchmark. These devices are referred to as **Runtime level telemetry devices**. Alternatively, **Setup level telemetry devices** encompass devices that can only be used when OpenSearch Benchmark provisions a cluster. 
 
@@ -86,10 +97,12 @@ The `node-stats` device supports the following parameters:
 
 The `recovery-stats` telemetry device regularly calls the [CAT Recovery API]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-recovery/) and records one metrics document per shard.
 
-This telemetry device supports the following parameters:
+The `recovery-stats` telemetry device supports the following parameters.
 
-- `searchable-snapshots-stats-indices` A string with the index pattern, or list of index patterns, that searchable snapshots stats should additionally be collected from. If unset, only cluster-level stats will be collected. Default is `None`.
-- `searchable-snapshots-stats-sample-interval`: A positive number greater than zero denoting the sampling interval in seconds. Default is `1`.
+| Parameter | Data type | Description |
+| :--- | :--- | :--- |
+| `recovery-stats-indices` | String or JSON object | Specifies the indexes from which to collect recovery statistics. Valid values are:<br>- A string that specifies an index pattern. <br>- A JSON object that maps cluster names to index patterns when `--target-hosts` is used to define multiple clusters. <br><br>If not set, recovery statistics are collected for all indexes. Default is `None`. |
+| `recovery-stats-sample-interval` | Number | A positive number denoting the sampling interval, in seconds. Default is `1`. |
 
 <!-- vale off -->
 ## shard-stats

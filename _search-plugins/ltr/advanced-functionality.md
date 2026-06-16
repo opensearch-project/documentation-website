@@ -68,14 +68,14 @@ This adds the `titleSearch` feature to the next ordinal position within the `my_
 
 ## Derived features
 
-Derived features are those that build upon other features. These can be expressed as [Lucene expressions](http://lucene.apache.org/core/7_1_0/expressions/index.html?org/apache/lucene/expressions/js/package-summary.html) and are identified by the `"template_language": "derived_expression"`. 
+Derived features are those that build upon other features. These can be expressed as [Lucene expressions](http://lucene.apache.org/core/{{site.lucene_version}}/expressions/index.html?org/apache/lucene/expressions/js/package-summary.html) and are identified by the `"template_language": "derived_expression"`. 
 
 Additionally, derived features can accept query-time variables of type [`Number`](https://docs.oracle.com/javase/8/docs/api/java/lang/Number.html), as described in [Creating feature sets]({{site.url}}{{site.baseurl}}/search-plugins/ltr/working-with-features#creating-feature-sets).
 
 ### Script features
 
 Script features are a type of [derived feature](#derived-features). These features have access to the `feature_vector`, but they are implemented as native or Painless OpenSearch scripts rather than as [Lucene
-expressions](http://lucene.apache.org/core/7_1_0/expressions/index.html?org/apache/lucene/expressions/js/package-summary.html). 
+expressions](http://lucene.apache.org/core/{{site.lucene_version}}/expressions/index.html?org/apache/lucene/expressions/js/package-summary.html). 
 
 To identify these features, set the `"template_language": "script_feature""`. The custom script can access the `feature_vector` through the [Java Map](https://docs.oracle.com/javase/8/docs/api/java/util/Map.html), as described in [Create a feature set]({{site.url}}{{site.baseurl}}/search-plugins/ltr/working-with-features#creating-feature-sets).
 

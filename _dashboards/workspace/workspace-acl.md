@@ -9,7 +9,7 @@ nav_order: 3
 **Introduced 2.18**
 {: .label .label-purple }
 
-Workspace access control lists (ACLs) manage authorization for saved objects `AuthZ(Authorization)` while enabling [Security in OpenSearch]({{site.url}}{{site.baseurl}}/security/) for `AuthN(Authentication)`.
+Workspace access control lists (ACLs) manage authorization for saved objects while relying on the [Security plugin]({{site.url}}{{site.baseurl}}/security/) for authentication.
 
 ## Personas
 
@@ -78,13 +78,32 @@ Admin-restricted operations include the following:
 
 ## Defining workspace collaborators
 
-Access to collaborator management is limited to admins. The **Collaborators** feature is only available when permission control is enabled. For instructions on activating permission control, see [Enabling permission control](#enabling-permission-control). The access levels include the following:
+Access to collaborator management is limited to admins. The **Collaborators** feature is only available when permission control is enabled. For instructions on activating permission control, see [Enabling permission control](#enabling-permission-control). Access levels include the following:
 
 - **Read only:** Grants permission to view the workspace and its assets.
 - **Read and write:** Allows viewing and editing of assets within the workspace.
 - **Admin:** Provides full access, including viewing and editing of assets within the workspace and updating workspace metadata, such as name, description, data sources, and collaborators.
 
-From the **Collaborators** page, you can by collaborator ID and filter results by collaborator type and access level.
+#### Permission modes
+
+When you assign collaborators through the UI, access levels are applied automatically. When you assign collaborators through the [Workspaces APIs]({{site.url}}{{site.baseurl}}/dashboards/workspace/apis/), each access level corresponds to a specific combination of permission modes. The following table describes the available permission modes.
+
+| Permission mode | Target | Description |
+| :--- | :--- | :--- |
+| `read` | The workspace itself | The principal can open and view the workspace. |
+| `write` | The workspace itself | The principal can manage the workspace itself: edit its name, description, and settings, manage collaborators, and associate data sources. |
+| `library_read` | The saved objects (assets) in the workspace | The principal can view assets such as dashboards, visualizations, and index patterns. |
+| `library_write` | The saved objects (assets) in the workspace | The principal can create, edit, and delete assets in the workspace. |
+
+Each access level requires one permission mode for the workspace and one permission mode for the workspace's assets, as listed in the following table. If a user or group is assigned only a partial combination of permission modes (for example, `read` without `library_read`), that user or group does not appear as a collaborator.
+
+| Access level | Required permission modes |
+| :--- | :--- |
+| Read only | `library_read` + `read` |
+| Read and write | `library_write` + `read` |
+| Admin | `library_write` + `write` |
+
+From the **Collaborators** page, you can search by collaborator ID and filter results by collaborator type and access level.
 
 ### Adding collaborators
 
@@ -106,11 +125,11 @@ To add groups, follow these steps:
 1. Select the **Add Groups** button to open the modal. The modal displays one empty `Group ID` field by default.
 2. Choose an access level: **Read only**, **Read and write**, or **Admin**.
 3. Use **Add another group** to add multiple groups. Do not use duplicate or existing `Group ID` fields to avoid errors.
-4. Resolve any errors before finalizing. Successfully added users appear in the collaborators table.
+4. Resolve any errors before finalizing. Successfully added groups appear in the collaborators table.
 
 ### Modifying access levels
 
-You can modify collaborators access levels after adding them to the collaborators table if you have the required permissions. Collaborators can be assigned any access level. However, if all **Admin** collaborators are changed to lower access levels, then only admins can manage workspace collaboration.
+You can modify collaborators' access levels after adding them to the collaborators table if you have the required permissions. Collaborators can be assigned any access level. However, if all **Admin** collaborators are changed to lower access levels, then only admins can manage workspace collaboration.
 
 #### Modifying individual access levels
 
@@ -160,8 +179,7 @@ When permission control is enabled, workspace administrators can set one of the 
 * **Anyone can view:** Grants **Read only** permissions to all workspace users, allowing them to view workspace assets. 
 * **Anyone can edit:** Grants **Read and write** permissions to all users, allowing them to view, create, and update workspace assets.
 
-Collaborators are granted higher permissions when their individual access level differs from that set in the workspace settings. For example, if workspace privacy is set to "Anyone can edit", any collaborator with read-only access will also be able to edit workspace assets.
-Users at the collaborator level are granted additional permissions even when their access level differs from that of the workspace.
+Collaborators receive whichever permission is higher: their individual access level or the workspace-wide privacy setting. For example, if workspace privacy is set to "Anyone can edit", a collaborator with read-only access can also edit workspace assets.
 You can set up workspace privacy on the **Create workspace** page as a **Dashboard admin**. You can also modify it on the **Collaborators** or **Workspace details** pages as a **Workspace admin** or **Dashboard admin**.
 
 ### Setting up workspace privacy during workspace creation
@@ -169,7 +187,7 @@ You can set up workspace privacy on the **Create workspace** page as a **Dashboa
 Use the following steps to change workspace privacy settings when creating a new workspace:
 
 1. Choose the desired access level from the **Set up privacy** panel. 
-2. _Optional_ Decide whether to add collaborators after workspace creation by selecting the **Add collaborators after workspace creation.** checkbox.
+2. (Optional) Select the **Add collaborators after workspace creation** checkbox to add collaborators later.
 3. Select **Create workspace** to create the workspace.
 
 ### Modifying workspace privacy on the **Collaborators** page

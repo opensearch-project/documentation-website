@@ -2,7 +2,7 @@
 layout: default
 title: Query and visualize Amazon S3 data  
 parent: Connecting Amazon S3 to OpenSearch
-grand_parent: Data sources
+grand_parent: Connecting data sources
 nav_order: 10
 has_children: false
 ---

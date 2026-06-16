@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Indexes
-parent: Index Management
+parent: Index management
 nav_order: 16
 redirect_from:
   - /dashboards/admin-ui-index/index-management/
@@ -87,7 +87,7 @@ You might want to perform an index rollover after a certain amount of time or ru
 
 To apply a policy, select the index to which you want to apply the policy from the **Indices** list under **Index Management**. Then select the **Actions** button and select **Apply policy** from the dropdown list as shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/admin-ui-index/apply-policy.PNG" alt="User interface showing apply policy prompt">
+![User interface showing apply policy prompt]({{site.url}}{{site.baseurl}}/images/admin-ui-index/apply-policy.PNG)
 
 ### Closing an index
 
@@ -107,7 +107,7 @@ The [reindex]({{site.url}}{{site.baseurl}}/api-reference/document-apis/reindex/)
 
 To reindex an index, select the index from the **Indices** list under **Index Management**. Then select the **Actions** button and select **Reindex** from the dropdown list as shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/admin-ui-index/reindex-expanded.png" alt="User interface showing reindex prompt">
+![User interface showing reindex prompt]({{site.url}}{{site.baseurl}}/images/admin-ui-index/reindex-expanded.png)
 
 ### Shrinking an index
 
@@ -115,7 +115,7 @@ The [shrink]({{site.url}}{{site.baseurl}}/api-reference/index-apis/shrink-index/
 
 To shrink an index, select the index you want to shrink from the **Indices** list under **Index Management**. Then choose the **Actions** button and choose **Shrink** from the dropdown list as shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/admin-ui-index/shrink.png" alt="User interface showing shrink prompt">
+![User interface showing shrink prompt]({{site.url}}{{site.baseurl}}/images/admin-ui-index/shrink.png)
 
 ### Splitting an index
 
@@ -123,7 +123,7 @@ The [split index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/split/) 
 
 To split an index, select the index you want to split from the **Indices** list under **Index Management**. Then choose the **Actions** button and choose **Split** from the dropdown list as shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/admin-ui-index/split-expanded.png" alt="User interface showing split page">
+![User interface showing split page]({{site.url}}{{site.baseurl}}/images/admin-ui-index/split-expanded.png)
 
 ### Refreshing an index
 
@@ -163,7 +163,7 @@ To delete an index, select the index you want to delete from the **Indices** lis
 
 [Index templates]({{site.url}}{{site.baseurl}}/opensearch/index-templates/) let you initialize new indexes with predefined mappings and settings. For example, if you continuously index log data, you can define an index template so that all of the indexes have the same number of shards and replicas as shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/admin-ui-index/templates.PNG" alt="User interface showing Templates page">
+![User interface showing Templates page]({{site.url}}{{site.baseurl}}/images/admin-ui-index/templates.PNG)
 
 ### Creating a template
 
@@ -182,7 +182,7 @@ Next, define the template:
 1. Add fields and objects for your index mapping using either the visual editor or the JSON editor.
 1. Under **Advanced Settings** you can specify advanced index settings with a comma-delimited list as shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/admin-ui-index/create-template-expanded.png" alt="User interface showing Create Template page">
+![User interface showing Create Template page]({{site.url}}{{site.baseurl}}/images/admin-ui-index/create-template-expanded.png)
 
 ### Editing a template
 
@@ -196,7 +196,7 @@ To delete a template, select the template you want to delete from the list of te
 
 An alias is a virtual index name that can point to one or more indexes. If your data is spread across multiple indexes, rather than keeping track of which indexes to query, you can create an alias and query it instead as shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/admin-ui-index/aliases.PNG" alt="User interface showing Alias page">
+![User interface showing Alias page]({{site.url}}{{site.baseurl}}/images/admin-ui-index/aliases.PNG)
 
 ### Creating an alias
 
@@ -207,7 +207,7 @@ To create an alias, perform the following steps:
 3. Enter the index, or index patterns, to be included in the alias.
 4. Choose **Create alias** as shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/admin-ui-index/create-alias.PNG" alt="User interface showing create Alias page">
+![User interface showing create Alias page]({{site.url}}{{site.baseurl}}/images/admin-ui-index/create-alias.PNG)
 
 ### Editing an alias
 
