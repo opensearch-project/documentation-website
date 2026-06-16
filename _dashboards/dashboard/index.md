@@ -67,4 +67,6 @@ The procedure for creating a dashboard is as follows:
 
 ## Next steps
 
-- Learn to create a dashboard using sample data by taking the tutorial. See [Tutorial: creating a dashboard]({{site.url}}{{site.baseurl}}/dashboards/dashboard/dash-tutorial/).
+- For a quick introduction to viewing and filtering dashboards, see [Explore the Dashboards application]({{site.url}}{{site.baseurl}}/dashboards/getting-started/explore-dashboards/). 
+
+- For a comprehensive end-to-end tutorial, see [Tutorial: Creating a dashboard]({{site.url}}{{site.baseurl}}/dashboards/dashboard/dash-tutorial/).
