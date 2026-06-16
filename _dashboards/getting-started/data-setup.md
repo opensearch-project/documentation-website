@@ -55,6 +55,11 @@ To create an index pattern, follow these steps:
 
 For more information, see [Index patterns]({{site.url}}{{site.baseurl}}/dashboards/management/index-patterns/).
 
+## Further reading
+
+- For more information about index patterns, see [Index patterns]({{site.url}}{{site.baseurl}}/dashboards/management/index-patterns/).
+- [Connecting data sources]({{site.url}}{{site.baseurl}}/dashboards/management/data-sources/).
+
 ## Next steps
 
 - Learn about each application in [Learn about main applications and query languages]({{site.url}}{{site.baseurl}}/dashboards/getting-started/learn-dashboards/).

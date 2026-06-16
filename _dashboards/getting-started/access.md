@@ -51,25 +51,9 @@ The following image shows the left navigation within an example Analytics worksp
 1. Explore the Visualize application.
 1. Run queries in OpenSearch Dashboards.
 
-### Hiding the navigation panel
+## Further reading
 
-To enlarge the main page panel, you can undock and hide the navigation panel.
-
-#### Undocking and hiding the navigation panel
-
-To undock and hide the navigation panel, follow these steps:
-
-1. Select {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/nav-docked-icon.png" class="inline-icon" alt="docked icon"/>{:/} (dock) **Undock navigation** at the bottom of the navigation panel.
-
-1. Select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/menu-icon.png" class="inline-icon" alt="menu icon"/>{:/} (menu) icon or {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/cross-icon.png" class="inline-icon" alt="cross icon"/>{:/} (cross) to the right of the menu.
-
-#### Unhiding and docking the navigation panel
-
-To unhide and dock the navigation panel, follow these steps:
-
-1. Select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/menu-icon.png" class="inline-icon" alt="menu icon"/>{:/} (menu) icon.
-
-1. Select {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/nav-undocked-icon.png" class="inline-icon" alt="undocked icon"/>{:/} (undock) **Dock navigation** at the bottom of the navigation panel.
+- For a detailed user interface reference, see [Using OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/navigating-ui/).
 
 ## Next steps
 

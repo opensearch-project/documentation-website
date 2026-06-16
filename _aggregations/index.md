@@ -274,7 +274,7 @@ You can also pair your aggregations with search queries to narrow down the data 
 
 ## Using aggregations
 
-You can use aggregations through the OpenSearch API or through the OpenSearch Dashboards UI.
+You can use aggregations through the OpenSearch API or through OpenSearch Dashboards.
 
 ### Using the aggregations API
 
