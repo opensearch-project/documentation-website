@@ -1,19 +1,24 @@
 ---
 layout: default
-title: Timeline
+title: Timeline visualizations
 parent: Creating visualizations in the Visualize application
-grand_parent: Building data visualizations
-nav_order: 45
+nav_order: 160
 redirect_from:
   - /dashboards/visualize/timeline/
 ---
 
-# Timeline
+# Timeline visualizations
 
-Timeline is an expression-based data visualization tool in OpenSearch Dashboards that you can use to create time-series visualizations using a simple expression language. Unlike other visualization types that use a graphical interface, Timeline uses a text-based expression syntax to define data sources, transformations, and display options. With this syntax, you can compare multiple time series, apply mathematical functions, and overlay data from different time periods.
+**Timeline** is an expression-based data visualization tool in OpenSearch Dashboards that you can use to create time-series visualizations using a simple expression language. Unlike other visualization types that use a graphical interface, **Timeline** uses a text-based expression syntax to define data sources, transformations, and display options. With this syntax, you can compare multiple time series, apply mathematical functions, and overlay data from different time periods.
 
+## When to use timeline visualizations
 
-Timeline is best suited for scenarios where you need expression-based control over your visualizations, such as comparing data across time periods using offsets, applying mathematical transformations to series, or combining multiple data sources on a single chart.
+Use **Timeline** for exclusively time-based data analysis, particularly for revealing temporal patterns and event sequences using its expression syntax.
+
+**Timeline** is a legacy visualization tool. For new time-based visualizations, consider using [TSVB]({{site.url}}{{site.baseurl}}/dashboards/visualize/tsvb/) or [Vega]({{site.url}}{{site.baseurl}}/dashboards/visualize/vega/).
+{: .note}
+
+**Timeline** is best suited for scenarios where you need expression-based control over your visualizations, such as comparing data across time periods using offsets, applying mathematical transformations to series, or combining multiple data sources on a single chart.
 {: .tip}
 
 ## Prerequisites
@@ -21,7 +26,7 @@ Timeline is best suited for scenarios where you need expression-based control ov
 Before creating a timeline visualization, ensure that you have the following:
 
 - An OpenSearch Dashboards instance running and accessible.
-- Sample data loaded or a time-series index available. The examples in this document use the e-commerce sample dataset. To learn about adding sample datasets, see [Adding sample data]({{site.url}}{{site.baseurl}}/dashboards/quickstart/#adding-sample-data).
+- Sample data loaded or a time-series index available. The examples in this document use the e-commerce sample dataset. To learn about adding sample datasets, see [Adding sample data]({{site.url}}{{site.baseurl}}/dashboards/getting-started/data-setup/#add-sample-data).
 
 ## Creating a timeline visualization
 
@@ -521,3 +526,8 @@ The following expression forecasts order count using Holt-Winters smoothing:
 .opensearch(index=opensearch_dashboards_sample_data_ecommerce, timefield=order_date).holt(alpha=0.5, beta=0.5).label("Forecast").color(#E53935)
 ```
 {% include copy.html %}
+
+## Next steps
+
+- To choose a different visualization type, see [Choosing a visualization type]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/viz-types/).
+- To add this visualization to a dashboard, see [Creating dashboards]({{site.url}}{{site.baseurl}}/dashboards/dashboard/).

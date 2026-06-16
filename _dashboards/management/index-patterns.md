@@ -60,5 +60,5 @@ Once the index pattern has been created, you can view the mapping of the matchin
 
 ## Next steps
 
-- [Understand your data through visuals]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/).
+- [Understand your data through visuals]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/).
 - [Dig into your data]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/).

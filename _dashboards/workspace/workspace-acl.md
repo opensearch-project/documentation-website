@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Workspace access control lists
-parent: Workspace for OpenSearch Dashboards
+parent: Workspaces
 nav_order: 3
 ---
 

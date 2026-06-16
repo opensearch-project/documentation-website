@@ -1,8 +1,8 @@
 ---
 layout: default
 title: Configuring a Web Map Service (WMS)
+parent: Configuring maps
 grand_parent: Creating visualizations in the Visualize application
-parent: Coordinate and region maps
 nav_order: 30
 redirect_from:
   - /dashboards/visualize/maptiles/
@@ -23,7 +23,7 @@ The Open Geospatial Consortium (OGC) Web Map Service (WMS) specification is an i
    ```json
    {
      "enabled": true,
-     "url": "<wms-map-server-url>",
+     "url": "{wms-map-server-url}",
      "options": {
        "format": "image/png",
        "transparent": true
