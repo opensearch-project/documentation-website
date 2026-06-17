@@ -49,6 +49,7 @@
 {%- assign current_url = page.url -%}
 {%- assign current_parent = page.parent -%}
 {%- assign current_grand_parent = page.grand_parent -%}
+{%- assign current_grand_grand_parent = page.grand_grand_parent -%}
 
 <ul 
   role="tree" 
@@ -63,7 +64,7 @@
       {%- comment -%}Optimized ancestor checking{%- endcomment -%}
       {%- assign is_ancestor = false -%}
       {%- if current_collection == include.key -%}
-        {%- if current_url == node.url or current_parent == node.title or current_grand_parent == node.title -%}
+        {%- if current_url == node.url or current_parent == node.title or current_grand_parent == node.title or current_grand_grand_parent == node.title -%}
           {%- assign is_ancestor = true -%}
         {%- endif -%}
       {%- endif -%}
@@ -92,7 +93,7 @@
           {%- for child in children_list -%}
             {%- unless child.nav_exclude -%}
             {%- assign child_is_ancestor = false -%}
-            {%- if current_url == child.url or current_parent == child.title -%}
+            {%- if current_url == child.url or current_parent == child.title or current_grand_parent == child.title or current_grand_grand_parent == child.title -%}
               {%- assign child_is_ancestor = true -%}
             {%- endif -%}
             <li role="none" class="nav-list-item{% if child_is_ancestor %} active{% endif %}">
@@ -119,7 +120,7 @@
                 {%- for grand_child in grand_children_list -%}
                   {%- unless grand_child.nav_exclude -%}
                   {%- assign grand_child_is_ancestor = false -%}
-                  {%- if current_url == grand_child.url or current_parent == grand_child.title -%}
+                  {%- if current_url == grand_child.url or current_parent == grand_child.title or current_grand_parent == grand_child.title -%}
                     {%- assign grand_child_is_ancestor = true -%}
                   {%- endif -%}
                   <li role="none" class="nav-list-item{% if grand_child_is_ancestor %} active{% endif %}">
@@ -140,17 +141,49 @@
                       class="nav-list-link{% if current_url == grand_child.url %} active{% endif %}"
                     >{{ grand_child.title }}</a>
                     {%- if grand_child.has_children -%}
-                      {%- assign great_grand_children_list = pages_list | where: "parent", grand_child.title -%}
+                      {%- assign great_grand_children_list = pages_list | where: "parent", grand_child.title | where: "grand_parent", child.title -%}
                       <ul role="tree" class="nav-list" id="{{ nested_nested_nested_owned_tree_id }}">
                       {%- for great_grand_child in great_grand_children_list -%}
                         {%- unless great_grand_child.nav_exclude -%}
-                        <li role="none" class="nav-list-item {% if current_url == great_grand_child.url %} active{% endif %}">
+                        {%- assign nested_nested_nested_nested_owned_tree_id = nested_nested_nested_owned_tree_id | append: "_" | append: forloop.index | append: "_" | append: great_grand_child.title | append: "_navitems" | replace: " ", "_" -%}
+                        {%- assign great_grand_child_is_ancestor = false -%}
+                        {%- if current_url == great_grand_child.url or current_parent == great_grand_child.title -%}
+                          {%- assign great_grand_child_is_ancestor = true -%}
+                        {%- endif -%}
+                        <li role="none" class="nav-list-item{% if great_grand_child_is_ancestor %} active{% endif %}">
+                          {%- if great_grand_child.has_children -%}
+                            <a
+                              role="treeitem"
+                              aria-owns="{{ nested_nested_nested_nested_owned_tree_id }}"
+                              {%- if current_url == great_grand_child.url -%}aria-current="page"{%- endif -%}
+                              href="#"
+                              class="nav-list-expander"
+                            ><svg viewBox="0 0 24 24"><use xlink:href="#svg-arrow-right"></use></svg></a>
+                          {%- endif -%}
                           <a
                             role="treeitem"
+                            {%- if great_grand_child.has_children -%}aria-owns="{{ nested_nested_nested_nested_owned_tree_id }}"{%- endif -%}
                             {%- if current_url == great_grand_child.url -%}aria-current="page"{%- endif -%}
-                            href="{{ great_grand_child.url | absolute_url }}" 
+                            href="{{ great_grand_child.url | absolute_url }}"
                             class="nav-list-link{% if current_url == great_grand_child.url %} active{% endif %}"
                           >{{ great_grand_child.title }}</a>
+                          {%- if great_grand_child.has_children -%}
+                            {%- assign great_great_grand_children_list = pages_list | where: "parent", great_grand_child.title | where: "grand_parent", grand_child.title -%}
+                            <ul role="tree" class="nav-list" id="{{ nested_nested_nested_nested_owned_tree_id }}">
+                            {%- for great_great_grand_child in great_great_grand_children_list -%}
+                              {%- unless great_great_grand_child.nav_exclude -%}
+                              <li role="none" class="nav-list-item{% if current_url == great_great_grand_child.url %} active{% endif %}">
+                                <a
+                                  role="treeitem"
+                                  {%- if current_url == great_great_grand_child.url -%}aria-current="page"{%- endif -%}
+                                  href="{{ great_great_grand_child.url | absolute_url }}"
+                                  class="nav-list-link{% if current_url == great_great_grand_child.url %} active{% endif %}"
+                                >{{ great_great_grand_child.title }}</a>
+                              </li>
+                              {%- endunless -%}
+                            {%- endfor -%}
+                            </ul>
+                          {%- endif -%}
                         </li>
                         {%- endunless -%}
                       {%- endfor -%}

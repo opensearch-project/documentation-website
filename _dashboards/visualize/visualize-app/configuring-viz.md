@@ -2,6 +2,7 @@
 layout: default
 title: Configuring visualizations
 parent: Creating visualizations in the Visualize application
+grand_parent: Building data visualizations
 nav_order: 200
 redirect_from:
   - /dashboards/visualize/viz-tool-ref/
