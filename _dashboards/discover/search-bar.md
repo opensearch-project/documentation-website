@@ -16,7 +16,7 @@ In the search bar, you do text-based searches using either of two languages:
 
 - [Dashboards Query Language (DQL)]({{site.url}}{{site.baseurl}}/dashboards/discover/dql/): A basic query language with nested field queries.
 
-- [Query string query language (Lucene)]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/): A query language based on the [Apache Lucene](https://lucene.apache.org/core/{{site.lucene_version}}/queryparsersyntax.html) query language. 
+- [Query string query language (Lucene)]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/): A query language based on the [Apache Lucene](https://lucene.apache.org/core/{{site.lucene_version}}/queryparser/org/apache/lucene/queryparser/classic/package-summary.html#package.description) query language. 
 
 The terms _Query string query language_ and _Lucene_ are used interchangeably in the documentation and UI.  
 {: .note}
