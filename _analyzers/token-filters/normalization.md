@@ -11,15 +11,15 @@ The `normalization` token filter is designed to adjust and simplify text in a wa
 
 The following `normalization` token filters are available:
 
-- [arabic_normalization](https://lucene.apache.org/core/{{site.lucene_version}}/analyzers-common/org/apache/lucene/analysis/ar/ArabicNormalizer.html)
-- [german_normalization](https://lucene.apache.org/core/{{site.lucene_version}}/analyzers-common/org/apache/lucene/analysis/de/GermanNormalizationFilter.html)
-- [hindi_normalization](https://lucene.apache.org/core/{{site.lucene_version}}/analyzers-common/org/apache/lucene/analysis/hi/HindiNormalizer.html)
-- [indic_normalization](https://lucene.apache.org/core/{{site.lucene_version}}/analyzers-common/org/apache/lucene/analysis/in/IndicNormalizer.html)
-- [sorani_normalization](https://lucene.apache.org/core/{{site.lucene_version}}/analyzers-common/org/apache/lucene/analysis/ckb/SoraniNormalizer.html)
-- [persian_normalization](https://lucene.apache.org/core/{{site.lucene_version}}/analyzers-common/org/apache/lucene/analysis/fa/PersianNormalizer.html)
-- [scandinavian_normalization](https://lucene.apache.org/core/{{site.lucene_version}}/analyzers-common/org/apache/lucene/analysis/miscellaneous/ScandinavianNormalizationFilter.html)
-- [scandinavian_folding](https://lucene.apache.org/core/{{site.lucene_version}}/analyzers-common/org/apache/lucene/analysis/miscellaneous/ScandinavianFoldingFilter.html)
-- [serbian_normalization](https://lucene.apache.org/core/{{site.lucene_version}}/analyzers-common/org/apache/lucene/analysis/sr/SerbianNormalizationFilter.html)
+- [arabic_normalization](https://lucene.apache.org/core/{{site.lucene_version}}/analysis/common/org/apache/lucene/analysis/ar/ArabicNormalizationFilter.html)
+- [german_normalization](https://lucene.apache.org/core/{{site.lucene_version}}/analysis/common/org/apache/lucene/analysis/de/GermanNormalizationFilter.html)
+- [hindi_normalization](https://lucene.apache.org/core/{{site.lucene_version}}/analysis/common/org/apache/lucene/analysis/hi/HindiNormalizationFilter.html)
+- [indic_normalization](https://lucene.apache.org/core/{{site.lucene_version}}/analysis/common/org/apache/lucene/analysis/in/IndicNormalizationFilter.html)
+- [sorani_normalization](https://lucene.apache.org/core/{{site.lucene_version}}/analysis/common/org/apache/lucene/analysis/ckb/SoraniNormalizationFilter.html)
+- [persian_normalization](https://lucene.apache.org/core/{{site.lucene_version}}/analysis/common/org/apache/lucene/analysis/fa/PersianNormalizationFilter.html)
+- [scandinavian_normalization](https://lucene.apache.org/core/{{site.lucene_version}}/analysis/common/org/apache/lucene/analysis/miscellaneous/ScandinavianNormalizationFilter.html)
+- [scandinavian_folding](https://lucene.apache.org/core/{{site.lucene_version}}/analysis/common/org/apache/lucene/analysis/miscellaneous/ScandinavianFoldingFilter.html)
+- [serbian_normalization](https://lucene.apache.org/core/{{site.lucene_version}}/analysis/common/org/apache/lucene/analysis/sr/SerbianNormalizationFilter.html)
 
 
 ## Example

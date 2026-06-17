@@ -20,7 +20,7 @@ Query string query has a strict syntax and returns an error in case of invalid s
 
 ## Query string syntax
 
-Query string syntax is based on [Apache Lucene query syntax](https://lucene.apache.org/core/{{site.lucene_version}}/queryparsersyntax.html).
+Query string syntax is based on [Apache Lucene query syntax](https://lucene.apache.org/core/{{site.lucene_version}}/queryparser/org/apache/lucene/queryparser/classic/package-summary.html#package.description).
 
 You can use query string syntax in the following cases:
 
