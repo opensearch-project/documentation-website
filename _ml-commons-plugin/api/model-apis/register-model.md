@@ -143,7 +143,7 @@ You can further customize a pretrained sentence transformer model's post-process
 
 | Field | Data type | Description |
 | :--- | :--- | :--- |
-| `pooling_mode` | String | The post-process model output, either `mean`, `mean_sqrt_len`, `max`, `weightedmean`, or `cls`.|
+| `pooling_mode` | String | The post-process model output, either `mean`, `mean_sqrt_len`, `max`, `weightedmean`, `cls`, `lasttoken`, or `none`. Use `lasttoken` for decoder-only models (for example, Qwen3-Embedding), for which the final non-padding token captures cumulative context through causal attention. Use `none` for models that already provide pre-pooled output (such as `sentence_embedding` or `pooler_output`) to skip additional pooling.|
 | `normalize_result` | Boolean | When set to `true`, normalizes the model output in order to scale to a standard range for the model. |
 
 ## Example request: Custom model
