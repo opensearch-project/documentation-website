@@ -3,7 +3,7 @@ layout: default
 title: Maps Stats API
 nav_order: 20
 grand_parent: Creating visualizations in the Visualize application
-grand_grand_parent: Building data visualizations
+great_grand_parent: Building data visualizations
 parent: Maps application
 has_children: false
 redirect_from:

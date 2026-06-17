@@ -202,8 +202,8 @@ layout: table_wrappers
 
                   {%- comment -%}Collect ancestor titles (deepest ancestor first){%- endcomment -%}
                   {%- assign breadcrumb_titles = "" | split: "" -%}
-                  {%- if page.grand_grand_parent -%}
-                    {%- assign breadcrumb_titles = breadcrumb_titles | push: page.grand_grand_parent -%}
+                  {%- if page.great_grand_parent -%}
+                    {%- assign breadcrumb_titles = breadcrumb_titles | push: page.great_grand_parent -%}
                   {%- endif -%}
                   {%- if page.grand_parent -%}
                     {%- assign breadcrumb_titles = breadcrumb_titles | push: page.grand_parent -%}
