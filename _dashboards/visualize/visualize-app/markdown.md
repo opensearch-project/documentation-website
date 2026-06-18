@@ -2,6 +2,7 @@
 layout: default
 title: Markdown visualizations
 parent: Creating visualizations in the Visualize application
+grand_parent: Building data visualizations
 nav_order: 110
 redirect_from:
   - /dashboards/visualize/markdown/

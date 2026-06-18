@@ -2,6 +2,7 @@
 layout: default
 title: Coordinate maps
 parent: Creating visualizations in the Visualize application
+grand_parent: Building data visualizations
 nav_order: 55
 redirect_from:
   - /dashboards/visualize/coordinate-maps/

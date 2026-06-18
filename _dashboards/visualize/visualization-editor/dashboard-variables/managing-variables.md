@@ -3,6 +3,7 @@ layout: default
 title: Managing dashboard variables
 parent: Dashboard variables
 grand_parent: Creating visualizations using queries
+great_grand_parent: Building data visualizations
 nav_order: 10
 ---
 
