@@ -138,14 +138,14 @@ You can also build the `opensearch-<VERSION>.tgz` file manually:
   $ kubectl get pods --namespace=default -l app.kubernetes.io/component=opensearch-cluster-master -w
   ```
 
-To make sure your OpenSearch pod is up and running, run the following command:
+To make sure your OpenSearch pods are up and running, run the following command:
 
 ```bash
-$ kubectl get pods
+$ kubectl get pods --namespace=default -w
 ```
 {% include copy.html %}
 
-The response lists the running containers:
+Wait until all pods show `1/1` in the `READY` column and `Running` in the `STATUS` column:
 
 ```bash
 NAME                                                  READY   STATUS    RESTARTS   AGE
@@ -154,17 +154,45 @@ opensearch-cluster-master-1                           1/1     Running   0       
 opensearch-cluster-master-2                           1/1     Running   0          3m56s
 ```
 
-To access the OpenSearch shell:
+Once all pods are ready, you can verify that OpenSearch is running. Use one of the following methods.
+
+### Port forwarding from your local machine
+
+To access OpenSearch from your local machine, set up port forwarding from the OpenSearch service:
+
+```bash
+$ kubectl port-forward svc/opensearch-cluster-master 9200:9200
+```
+{% include copy.html %}
+
+Leave this command running and open a separate terminal session. Then send a request to verify that OpenSearch is running:
+
+```bash
+$ curl -XGET https://localhost:9200 -u 'admin:<custom-admin-password>' --insecure
+```
+{% include copy.html %}
+
+### Exec into the pod
+
+Alternatively, you can access the OpenSearch shell directly:
 
 ```bash
 $ kubectl exec -it opensearch-cluster-master-0 -- /bin/bash
 ```
 {% include copy.html %}
 
-You can send requests to the pod to verify that OpenSearch is up and running:
+Then send a request from inside the pod:
+
+```bash
+$ curl -XGET https://localhost:9200 -u 'admin:<custom-admin-password>' --insecure
+```
+{% include copy.html %}
+
+### Expected response
+
+The following is an example response:
 
 ```json
-$ curl -XGET https://localhost:9200 -u 'admin:<custom-admin-password>' --insecure
 {
   "name" : "opensearch-cluster-master-0",
   "cluster_name" : "opensearch-cluster",
@@ -184,6 +212,9 @@ $ curl -XGET https://localhost:9200 -u 'admin:<custom-admin-password>' --insecur
 }
 ```
 
+If you receive an `OpenSearch Security not initialized` error, the cluster is still starting up. Wait a few minutes for all nodes to fully initialize and form the cluster, then try the request again.
+{: .note }
+
 ## Uninstall using Helm
 
 To identify the OpenSearch deployment that you want to delete:
@@ -195,7 +226,7 @@ $ helm list
 
 The reponse lists the current Helm deployments:
 
-```
+```bash
 NAME                   	NAMESPACE	REVISION	UPDATED                            	STATUS  	CHART           	APP VERSION
 opensearch-3-1754992026	default  	1       	2025-08-12 10:47:06.02703 +0100 IST	deployed	opensearch-3.1.0	3.1.0      
 ```
@@ -207,4 +238,4 @@ helm delete opensearch-3-1754992026
 ```
 {% include copy.html %}
 
-For instructions on how to to install OpenSearch Dashboards, see [Helm to install OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/install/helm/).
+For instructions to install OpenSearch Dashboards, see [Helm to install OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/install/helm/).
