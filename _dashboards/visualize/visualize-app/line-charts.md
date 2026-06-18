@@ -2,6 +2,7 @@
 layout: default
 title: Line charts
 parent: Creating visualizations in the Visualize application
+grand_parent: Building data visualizations
 nav_order: 100
 redirect_from:
   - /dashboards/visualize/line-charts/

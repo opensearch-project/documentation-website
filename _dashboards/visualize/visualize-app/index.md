@@ -2,6 +2,8 @@
 layout: default
 title: Creating visualizations in the Visualize application
 nav_order: 40
+parent: Building data visualizations
+grand_parent: OpenSearch Dashboards
 has_children: true
 has_toc: false
 redirect_from:

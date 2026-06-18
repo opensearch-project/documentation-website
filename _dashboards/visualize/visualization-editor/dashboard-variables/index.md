@@ -5,6 +5,7 @@ has_children: true
 has_toc: false
 nav_order: 100
 parent: Creating visualizations using queries
+grand_parent: Building data visualizations
 redirect_from:
   - /dashboards/visualize/visualization-editor/dashboard-variables/
 ---

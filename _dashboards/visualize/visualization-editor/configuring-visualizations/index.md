@@ -2,6 +2,7 @@
 layout: default
 title: Configuring visualizations
 parent: Creating visualizations using queries
+grand_parent: Building data visualizations
 nav_order: 90
 has_children: true
 has_toc: false

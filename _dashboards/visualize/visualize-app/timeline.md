@@ -2,6 +2,7 @@
 layout: default
 title: Timeline visualizations
 parent: Creating visualizations in the Visualize application
+grand_parent: Building data visualizations
 nav_order: 160
 redirect_from:
   - /dashboards/visualize/timeline/
