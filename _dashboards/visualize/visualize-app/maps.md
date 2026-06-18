@@ -2,6 +2,7 @@
 layout: default
 title: Maps application
 parent: Creating visualizations in the Visualize application
+grand_parent: Building data visualizations
 has_children: true
 has_toc: false
 nav_order: 105

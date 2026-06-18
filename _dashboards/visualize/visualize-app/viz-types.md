@@ -2,6 +2,7 @@
 layout: default
 title: Choosing a visualization type
 parent: Creating visualizations in the Visualize application
+grand_parent: Building data visualizations
 nav_order: 5
 has_toc: false
 redirect_from:
