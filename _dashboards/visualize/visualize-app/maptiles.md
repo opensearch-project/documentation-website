@@ -3,6 +3,7 @@ layout: default
 title: Configuring a Web Map Service (WMS)
 parent: Configuring maps
 grand_parent: Creating visualizations in the Visualize application
+great_grand_parent: Building data visualizations
 nav_order: 30
 redirect_from:
   - /dashboards/visualize/maptiles/

@@ -2,6 +2,7 @@
 layout: default
 title: Bar charts
 parent: Creating visualizations in the Visualize application
+grand_parent: Building data visualizations
 nav_order: 40
 redirect_from:
   - /dashboards/visualize/bar-charts/

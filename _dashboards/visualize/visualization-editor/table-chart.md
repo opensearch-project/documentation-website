@@ -2,6 +2,7 @@
 layout: default
 title: Table
 parent: Creating visualizations using queries
+grand_parent: Building data visualizations
 nav_order: 65
 ---
 

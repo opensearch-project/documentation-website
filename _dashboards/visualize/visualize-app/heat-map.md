@@ -2,6 +2,7 @@
 layout: default
 title: Heat maps
 parent: Creating visualizations in the Visualize application
+grand_parent: Building data visualizations
 nav_order: 90
 redirect_from:
   - /dashboards/visualize/heat-map/

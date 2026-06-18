@@ -2,6 +2,7 @@
 layout: default
 title: Tag clouds
 parent: Creating visualizations in the Visualize application
+grand_parent: Building data visualizations
 nav_order: 150
 redirect_from:
   - /dashboards/visualize/tag-cloud/

@@ -2,6 +2,7 @@
 layout: default
 title: Line chart
 parent: Creating visualizations using queries
+grand_parent: Building data visualizations
 nav_order: 40
 ---
 

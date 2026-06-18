@@ -2,6 +2,7 @@
 layout: default
 title: Goal visualizations
 parent: Creating visualizations in the Visualize application
+grand_parent: Building data visualizations
 nav_order: 80
 redirect_from:
   - /dashboards/visualize/goal/
