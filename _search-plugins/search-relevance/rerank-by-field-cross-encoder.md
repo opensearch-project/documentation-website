@@ -8,7 +8,7 @@ nav_order: 30
 ---
 
 # Reranking by a field using an externally hosted cross-encoder model
-Introduced 2.18
+**Introduced 2.18**
 {: .label .label-purple }
 
 In this tutorial, you'll learn how to use a cross-encoder model hosted on Amazon SageMaker to rerank search results and improve search relevance. 

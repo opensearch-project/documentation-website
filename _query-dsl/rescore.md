@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Rescore
-nav_order: 99
+nav_order: 90
 ---
 
 # Rescore

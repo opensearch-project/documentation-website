@@ -8,7 +8,7 @@ has_children: false
 ---
 
 # Monitoring search quality
-Introduced 3.4
+**Introduced 3.4**
 {: .label .label-purple }
 
 Search quality is not static. Even if your ranking algorithms remain unchanged, the indexed data evolves, signals such as popularity and recency fluctuate, and user queries shift over time.
