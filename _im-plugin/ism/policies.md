@@ -558,10 +558,10 @@ The `allocation` operation has the following parameters:
 
 Parameter | Description | Type | Required
 :--- | :--- |:--- |:---
-`require` | Allocate the index to a node with a specified attribute. | String | Yes
-`include` | Allocate the index to a node with any of the specified attributes. | String | Yes
-`exclude` | Don't allocate the index to a node with any of the specified attributes. | String | Yes
-`wait_for` | Wait for the policy to execute before allocating the index to a node with a specified attribute. | String | Yes
+`require` | Allocate the index to a node with a specified attribute. | object | Yes
+`include` | Allocate the index to a node with any of the specified attributes. | object | Yes
+`exclude` | Don't allocate the index to a node with any of the specified attributes. | object | Yes
+`wait_for` | Wait for the policy to execute before allocating the index to a node with a specified attribute. | boolean | Yes
 
 ```json
 "actions": [
