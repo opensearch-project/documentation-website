@@ -33,6 +33,7 @@ Because the `top_hits` aggregation returns standard search hits, the following p
 
 - [Highlighting]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/highlight/)
 - [Explain]({{site.url}}{{site.baseurl}}/api-reference/search-apis/explain/)
+- [Named queries]({{site.url}}{{site.baseurl}}/query-dsl/named-queries/)
 - [Source filtering]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/retrieve-specific-fields/#using-source-filtering)
 - [Stored fields]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/retrieve-specific-fields/#searching-with-stored_fields)
 - [Script fields]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/retrieve-specific-fields/#using-scripted-fields)
@@ -566,6 +567,8 @@ The `_nested` field identifies the array field (`reviews`) and the zero-based po
 When `_source` is requested for a nested hit, only the source of the nested object is returned rather than the entire parent document source. Stored fields defined on the nested object level are also accessible through `top_hits` when it resides inside a `nested` or `reverse_nested` aggregation.
 
 Only nested hits contain the `_nested` field. Regular (non-nested) hits do not include this field.
+
+The `_nested` field can also serve as a reference for locating the nested object within the original source when `_source` is disabled on the index.
 
 For mappings that contain multiple levels of nested object types, the `_nested` information can be hierarchical. The following snippet shows a nested hit that resides at the first position of `nested_grand_child_field`, which is itself within the second position of `nested_child_field`:
 
