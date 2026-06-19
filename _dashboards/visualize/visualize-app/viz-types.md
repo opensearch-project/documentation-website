@@ -1,15 +1,16 @@
 ---
 layout: default
-title: Choosing a visualization type
+title: Visualization types
 parent: Creating visualizations in the Visualize application
 grand_parent: Building data visualizations
 nav_order: 5
+has_children: true
 has_toc: false
 redirect_from:
   - /dashboards/visualize/viz-types/
 ---
 
-# Choosing a visualization type
+# Visualization types
 
 The **Visualize** application supports the following visualization types, grouped by category. Each description includes guidance describing when the visualization type is most effective. For more information, see the individual visualization type pages.
 

@@ -42,7 +42,8 @@ The visualization is saved and appears in the **Visualizations** list.
 
 ## Further reading
 
-For the full Visualize reference, see [Creating visualizations in the Visualize application]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/).
+- For the full Visualize reference, see [Creating visualizations in the Visualize application]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/).
+- For a hands-on tutorial, see [Creating aggregation-based visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/aggregation-based-viz/).
 
 ## Next steps
 
