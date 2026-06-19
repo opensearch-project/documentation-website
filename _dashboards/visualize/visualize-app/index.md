@@ -54,7 +54,7 @@ To create a visualization, follow these steps:
 
    ![New visualization dialog]({{site.url}}{{site.baseurl}}/images/dashboards/new-viz-dialog.png){: width=500 }
 
-1. Select a visualization type by choosing its icon. For help choosing a type, see [Choosing a visualization type]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/viz-types/).
+1. Select a visualization type by choosing its icon. For help choosing a type, see [Visualization types]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/viz-types/).
 
 1. If prompted, select an index pattern in the **Choose a source** dialog. Not all visualization types display this dialog. For examples of creating each visualization type, see the individual visualization type pages.
    
@@ -142,10 +142,6 @@ For a hands-on walkthrough of creating a line chart with sample data, see [Explo
 
 ## Next steps
 
-- For help choosing a visualization type, see [Choosing a visualization type]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/viz-types/). 
+- To learn how to create various visualizations using sample data, see [Creating aggregation-based visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/aggregation-based-viz/).
+- For help choosing a visualization type, see [Visualization types]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/viz-types/). 
 - To learn about adding visualizations to dashboards, see [Creating dashboards]({{site.url}}{{site.baseurl}}/dashboards/dashboard/).
-- Many of the visualization UI elements and tools are identical among the visualization types, so familiarity with one type will help you create others. To take a methodical tutorial approach, starting with basic visualization elements and building on previous learning, try these tutorials in order:
-  1. [Markdown visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/markdown/)
-  1. [Metric visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/metric/)
-  1. [Data tables]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/data-table/)
-  1. [Bar charts]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/bar-charts/)
