@@ -12,7 +12,7 @@ redirect_from:
 
 Specialized queries provide advanced scoring, filtering, and utility functions beyond standard full-text and term queries.
 
-For AI and vector search queries (k-NN, Neural, Neural sparse, Agentic, Template), see [AI and vector search queries]({{site.url}}{{site.baseurl}}/query-dsl/specialized/ai-vector-search/).
+For AI and vector search queries (k-NN, Neural, Neural sparse, Agentic, Template), see [AI and vector search queries]({{site.url}}{{site.baseurl}}/query-dsl/ai-vector-search/).
 
 | Query type | Description |
 | :--- | :--- |
