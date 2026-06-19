@@ -53,7 +53,7 @@ Definitions let you generate reports on a periodic schedule.
 
 You can delete report definitions from OpenSearch Dashboards or by using the API. Deleting a report definition does not delete previously generated reports.
 
-Generated reports cannot be deleted individually. To manage report storage, see [Managing report storage](#managing-report-storage).
+Generated reports cannot be deleted individually. 
 {: .note}
 
 ### Deleting from OpenSearch Dashboards
