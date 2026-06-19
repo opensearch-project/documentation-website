@@ -8,7 +8,7 @@ nav_order: 20
 ---
 
 # Reranking search results by a field
-Introduced 2.18
+**Introduced 2.18**
 {: .label .label-purple }
 
 You can use a `by_field` rerank type to rerank search results by a document field. Reranking search results by a field is useful if a model has already run and produced a numerical score for your documents or if a previous search response processor was applied and you want to rerank documents differently based on an aggregated field.

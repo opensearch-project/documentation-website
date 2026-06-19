@@ -1,7 +1,7 @@
 ---
 layout: default
 title: k-NN
-parent: Specialized queries
+parent: AI and vector search queries
 has_children: true
 nav_order: 15
 redirect_from:

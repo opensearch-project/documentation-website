@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Match all queries
-nav_order: 65
+nav_order: 20
 ---
 
 # Match all queries
