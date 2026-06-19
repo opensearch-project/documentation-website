@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Scatter plot
-parent: Creating visualizations using queries
-grand_parent: Building data visualizations
+parent: Visualization types
+grand_parent: Creating visualizations using queries
+great_grand_parent: Building data visualizations
 nav_order: 55
 ---
 
