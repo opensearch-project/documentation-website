@@ -2,7 +2,7 @@
 layout: default
 title: Nested
 parent: Joining queries
-nav_order: 30
+nav_order: 5
 ---
 
 # Nested query

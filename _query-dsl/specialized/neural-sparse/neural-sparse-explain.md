@@ -2,7 +2,7 @@
 layout: default
 title: Neural sparse ANN explain
 parent: Neural sparse
-grand_parent: Specialized queries
+grand_parent: AI and vector search queries
 nav_order: 10
 ---
 
