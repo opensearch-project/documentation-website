@@ -11,7 +11,7 @@ redirect_from:
 
 You can use OpenSearch Dashboards to create PNG, PDF, and CSV reports. To create reports, you must have the correct permissions. For a summary of the predefined roles and the permissions they grant, see the [Security plugin]({{site.url}}{{site.baseurl}}/security/access-control/users-roles#predefined-roles).
 
-The Reporting feature uses two concepts:
+Reporting uses two concepts:
 
 - A **report definition** is a saved configuration that specifies which dashboard, visualization, or saved search to capture, the file format (PDF, PNG, or CSV), the time range, and an optional schedule. You can reuse a report definition to generate reports on demand or on a recurring schedule.
 - A **report** is the generated output file (PDF, PNG, or CSV) produced from a report definition or a one-time download.
