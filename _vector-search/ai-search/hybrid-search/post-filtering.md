@@ -18,6 +18,8 @@ The `post_filter` clause is applied after the search results have been retrieved
 Post-filtering does not impact document relevance scores or aggregation results.
 {: .note}
 
+To filter all subqueries during query execution instead of filtering the final results, use a common filter. For more information, see [Hybrid search with pre-filtering]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/pre-filtering/).
+
 ## Example
 
 The following example request combines two query clauses---a `term` query and a `match` query---and contains a `post_filter`:
