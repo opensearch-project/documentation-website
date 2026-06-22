@@ -70,7 +70,7 @@ Parameter | Description | Type | Required | Default
 `timeout` |  The timeout period for the action. Accepts time units for minutes, hours, and days. | `time unit` | No | -
 `retry` | The retry configuration for the action. | `object` | No | Specific to action
 
-The `retry` operation has the following parameters:
+The `retry` operation has the following parameters.
 
 Parameter | Description | Type | Required | Default
 :--- | :--- |:--- |:--- |
@@ -396,7 +396,7 @@ Parameter | Description | Type
 
 Back up your cluster’s indexes and state. For more information about snapshots, see [Take and restore snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore).
 
-The `snapshot` operation has the following parameters:
+The `snapshot` operation has the following parameters.
 
 Parameter | Description | Type | Required | Default
 :--- | :--- |:--- |:--- |
@@ -533,7 +533,7 @@ The following policy moves indexes older than 30 days to searchable snapshots wi
 
 Set the priority for the index in a specific state. Unallocated shards of indexes are recovered in the order of their priority, whenever possible. The indexes with higher priority values are recovered first followed by the indexes with lower priority values.
 
-The `index_priority` operation has the following parameter:
+The `index_priority` operation has the following parameter.
 
 Parameter | Description | Type | Required | Default
 :--- | :--- |:--- |:--- |:---
@@ -554,14 +554,14 @@ Parameter | Description | Type | Required | Default
 Allocate the index to a node with a specific attribute set [like this]({{site.url}}{{site.baseurl}}/opensearch/cluster/#advanced-step-7-set-up-a-hot-warm-architecture).
 For example, setting `require` to `warm` moves your data only to "warm" nodes.
 
-The `allocation` operation has the following parameters:
+The `allocation` operation has the following parameters. At least one of `require`, `include`, or `exclude` must be specified.
 
 Parameter | Description | Type | Required
 :--- | :--- |:--- |:---
-`require` | Allocate the index to a node with a specified attribute. | String | Yes
-`include` | Allocate the index to a node with any of the specified attributes. | String | Yes
-`exclude` | Don't allocate the index to a node with any of the specified attributes. | String | Yes
-`wait_for` | Wait for the policy to execute before allocating the index to a node with a specified attribute. | String | Yes
+`require` | Allocate the index to a node with a specified attribute. | Object | No
+`include` | Allocate the index to a node with any of the specified attributes. | Object | No
+`exclude` | Don't allocate the index to a node with any of the specified attributes. | Object | No
+`wait_for` | Wait for the policy to execute before allocating the index to a node with a specified attribute. | Boolean | No. Default is `false`.
 
 ```json
 "actions": [
@@ -776,7 +776,7 @@ Parameter | Description | Type | Required
 `state_name` |  The name of the state to transition to if the conditions are met. | String | Yes
 `conditions` |  List the conditions for the transition. | `list` | Yes
 
-The `conditions` object has the following parameters:
+The `conditions` object has the following parameters.
 
 Parameter | Description | Type | Required
 :--- | :--- |:--- |:--- |
