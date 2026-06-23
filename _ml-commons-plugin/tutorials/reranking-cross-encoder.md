@@ -4,6 +4,9 @@ title: Reranking with the MS MARCO cross-encoder
 parent: Tutorials
 nav_order: 35
 canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/tutorials/reranking-cross-encoder/
+redirect_from:
+  - /tutorials/reranking/reranking-cross-encoder/
+  - /vector-search/tutorials/reranking/reranking-cross-encoder/
 ---
 
 # Reranking search results using the MS MARCO cross-encoder model

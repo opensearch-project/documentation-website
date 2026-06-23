@@ -4,6 +4,9 @@ title: Using Amazon Bedrock guardrails
 parent: Tutorials
 nav_order: 25
 canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/tutorials/bedrock-guardrails/
+redirect_from:
+  - /tutorials/gen-ai/model-controls/bedrock-guardrails/
+  - /vector-search/tutorials/model-controls/bedrock-guardrails/
 ---
 
 # Using Amazon Bedrock guardrails 

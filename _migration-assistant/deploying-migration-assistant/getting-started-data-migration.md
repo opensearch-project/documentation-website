@@ -7,6 +7,8 @@ redirect_from:
   - /upgrade-to/upgrade-to/
   - /upgrade-to/snapshot-migrate/
   - /migration-assistant/getting-started-with-data-migration/
+  - /migration-assistant/migration-phases/migrate-metadata/
+  - /migration-phases/migrating-metadata/
 canonical_url: https://docs.opensearch.org/latest/migration-assistant/deploying-migration-assistant/getting-started-data-migration/
 ---
 
