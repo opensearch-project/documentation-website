@@ -6,6 +6,8 @@ parent: k-NN search
 has_children: false
 has_math: true
 canonical_url: https://docs.opensearch.org/latest/search-plugins/knn/painless-functions/
+redirect_from:
+  - /vector-search/vector-search-techniques/painless-functions/
 ---
 
 # k-NN Painless Scripting extensions

@@ -4,6 +4,8 @@ title: Understanding benchmark results
 nav_order: 22
 parent: User guide
 canonical_url: https://docs.opensearch.org/latest/benchmark/user-guide/understanding-results/
+redirect_from:
+  - /benchmark/user-guide/understanding-results/index/
 ---
 
 

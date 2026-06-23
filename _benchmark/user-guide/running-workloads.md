@@ -4,6 +4,8 @@ title: Running a workload
 nav_order: 9
 parent: User guide
 canonical_url: https://docs.opensearch.org/latest/benchmark/user-guide/running-workloads/
+redirect_from:
+  - /benchmark/user-guide/working-with-workloads/running-workloads/
 ---
 
 # Running a workload

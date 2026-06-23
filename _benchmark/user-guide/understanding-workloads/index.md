@@ -5,6 +5,8 @@ nav_order: 7
 parent: User guide
 has_children: true
 canonical_url: https://docs.opensearch.org/latest/benchmark/user-guide/understanding-workloads/index/
+redirect_from:
+  - /benchmark/user-guide/understanding-workloads/
 ---
 
 # Understanding workloads

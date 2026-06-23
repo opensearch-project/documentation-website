@@ -5,6 +5,9 @@ nav_order: 22
 has_children: false
 has_toc: false
 canonical_url: https://docs.opensearch.org/latest/search-plugins/vector-search/
+redirect_from:
+  - /vector-search/
+  - /vector-search/index/
 ---
 
 # Vector search

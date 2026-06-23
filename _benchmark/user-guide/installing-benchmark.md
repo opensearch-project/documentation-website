@@ -5,6 +5,7 @@ nav_order: 5
 parent: User guide
 redirect_from:
   - /benchmark/installing-benchmark/
+  - /benchmark/user-guide/install-and-configure/installing-benchmark/
 canonical_url: https://docs.opensearch.org/latest/benchmark/user-guide/installing-benchmark/
 ---
 

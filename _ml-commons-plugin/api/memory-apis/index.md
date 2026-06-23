@@ -7,6 +7,8 @@ has_toc: false
 nav_order: 28
 redirect_from: /ml-commons-plugin/api/memory-apis/
 canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/api/memory-apis/index/
+redirect_from:
+  - /ml-commons-plugin/api/memory-apis/
 ---
 
 # Memory APIs

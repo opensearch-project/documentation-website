@@ -5,6 +5,8 @@ parent: Neural sparse search
 nav_order: 20
 has_children: false
 canonical_url: https://docs.opensearch.org/latest/search-plugins/neural-sparse-with-raw-vectors/
+redirect_from:
+  - /vector-search/ai-search/neural-sparse-with-raw-vectors/
 ---
 
 # Using raw vectors for neural sparse search
