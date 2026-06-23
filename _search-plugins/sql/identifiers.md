@@ -5,6 +5,8 @@ parent: SQL and PPL
 nav_order: 6
 redirect_from:
   - /search-plugins/ppl/identifiers/
+  - /observability-plugin/ppl/identifiers/
+  - /sql-and-ppl/identifiers/
 canonical_url: https://docs.opensearch.org/latest/search-plugins/sql/identifiers/
 ---
 
