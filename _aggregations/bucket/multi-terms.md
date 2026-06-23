@@ -10,143 +10,173 @@ redirect_from:
 
 # Multi-terms aggregations
 
-Similar to the `terms` bucket aggregation, you can also search for multiple terms using the `multi_terms` aggregation. Multi-terms aggregations are useful when you need to sort by document count, or when you need to sort by a metric aggregation on a composite key and get the top `n` results. For example, you could search for a specific number of documents (e.g., 1000) and the number of servers per location that show CPU usage greater than 90%. The top number of results would be returned for this multi-term query.
+The `multi_terms` aggregation creates buckets based on the combination of values from multiple fields. Each bucket represents a unique composite key, and documents are grouped by matching all specified term values simultaneously. This is useful when you need to find the top combinations ranked by document count or by a metric subaggregation.
 
-The `multi_terms` aggregation does consume more memory than a `terms` aggregation, so its performance might be slower.
-{: .tip }
+The `multi_terms` aggregation consumes more memory than a single `terms` aggregation because it builds composite keys across multiple fields.
+{: .note}
 
-## Multi-terms aggregation parameters
+## Parameters
 
-Parameter | Description
-:--- | :---
-`multi_terms` | Indicates a multi-terms aggregation that gathers buckets of documents together based on criteria specified by multiple terms.
-`size` | Specifies the number of buckets to return. Default is 10.
-`order` | Indicates the order to sort the buckets. By default, buckets are ordered according to document count per bucket. If the buckets contain the same document count, then `order` can be explicitly set to the term value instead of document count. (e.g., set `order` to "max-cpu").
-`doc_count` | Specifies the number of documents to be returned in each bucket. By default, the top 10 terms are returned.
+The `multi_terms` aggregation takes the following parameters.
 
-#### Example request
+| Parameter | Required/Optional | Data type | Description |
+| :--- | :--- | :--- | :--- |
+| `terms` | Required | Array | A list of term definitions. Each entry requires a `field` (and optionally `missing` to handle documents lacking the field). |
+| `size` | Optional | Integer | The number of composite buckets to return. Default is `10`. |
+| `shard_size` | Optional | Integer | The number of candidate buckets collected from each shard. Higher values improve accuracy at the cost of memory. Must be greater than or equal to `size`. Default is higher than `size` to improve accuracy. |
+| `min_doc_count` | Optional | Integer | The minimum document count required for a bucket to appear in the response. Default is `1`. |
+| `order` | Optional | Object | Controls how buckets are sorted. Accepts `_count`, `_key`, or the name of a subaggregation metric. Default is `{"_count": "desc"}`. |
+| `show_term_doc_count_error` | Optional | Boolean | When `true`, includes an error estimate for each term's document count. Default is `false`. |
+
+## Example: Grouping by multiple fields
+
+The following example identifies the most popular product categories for each gender by grouping orders on both `customer_gender` and `category` simultaneously. This query reveals the gender-category pairs htat generate the most orders:
 
 ```json
-GET sample-index100/_search
+GET /opensearch_dashboards_sample_data_ecommerce/_search
 {
-  "size": 0, 
+  "size": 0,
   "aggs": {
-    "hot": {
+    "gender_category": {
       "multi_terms": {
-        "terms": [{
-          "field": "region" 
-        },{
-          "field": "host" 
-        }],
-        "order": [{
-          "max-cpu": "desc"
-        },{
-          "max-memory": "desc"
-        }]
-      },
-      "aggs": {
-        "max-cpu": { "max": { "field": "cpu" } },
-        "max-memory": { "max": { "field": "memory" } }
-      }      
+        "terms": [
+          { "field": "customer_gender" },
+          { "field": "category.keyword" }
+        ],
+        "size": 5
+      }
     }
   }
 }
 ```
 {% include copy-curl.html %}
 
-#### Example response
+The response contains composite key buckets ordered by descending document count:
 
 ```json
 {
-  "took": 118,
-  "timed_out": false,
-  "_shards": {
-    "total": 1,
-    "successful": 1,
-    "skipped": 0,
-    "failed": 0
-  },
-  "hits": {
-    "total": {
-      "value": 8,
-      "relation": "eq"
-    },
-    "max_score": null,
-    "hits": []
-  },
+  ...
   "aggregations": {
-    "multi-terms": {
+    "gender_category": {
       "doc_count_error_upper_bound": 0,
-      "sum_other_doc_count": 0,
+      "sum_other_doc_count": 756,
       "buckets": [
         {
           "key": [
-            "dub",
-            "h1"
+            "MALE",
+            "Men's Clothing"
           ],
-          "key_as_string": "dub|h1",
-          "doc_count": 2,
-          "max-cpu": {
-            "value": 90.0
-          },
-          "max-memory": {
-            "value": 50.0
+          "key_as_string": "MALE|Men's Clothing",
+          "doc_count": 1963
+        },
+        {
+          "key": [
+            "FEMALE",
+            "Women's Clothing"
+          ],
+          "key_as_string": "FEMALE|Women's Clothing",
+          "doc_count": 1903
+        },
+        {
+          "key": [
+            "FEMALE",
+            "Women's Shoes"
+          ],
+          "key_as_string": "FEMALE|Women's Shoes",
+          "doc_count": 1136
+        },
+        {
+          "key": [
+            "MALE",
+            "Men's Shoes"
+          ],
+          "key_as_string": "MALE|Men's Shoes",
+          "doc_count": 921
+        },
+        {
+          "key": [
+            "FEMALE",
+            "Women's Accessories"
+          ],
+          "key_as_string": "FEMALE|Women's Accessories",
+          "doc_count": 730
+        }
+      ]
+    }
+  }
+}
+```
+
+## Example: Ordering by a subaggregation metric
+
+The following example finds the gender-category combinations that produce the highest average order values:
+
+```json
+GET /opensearch_dashboards_sample_data_ecommerce/_search
+{
+  "size": 0,
+  "aggs": {
+    "gender_category": {
+      "multi_terms": {
+        "terms": [
+          { "field": "customer_gender" },
+          { "field": "category.keyword" }
+        ],
+        "size": 3,
+        "order": { "avg_price": "desc" }
+      },
+      "aggs": {
+        "avg_price": {
+          "avg": { "field": "taxful_total_price" }
+        }
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+The response ranks buckets by the `avg_price` subaggregation rather than document count:
+
+```json
+{
+  ...
+  "aggregations": {
+    "gender_category": {
+      "doc_count_error_upper_bound": 0,
+      "sum_other_doc_count": 5252,
+      "buckets": [
+        {
+          "key": [
+            "MALE",
+            "Women's Accessories"
+          ],
+          "key_as_string": "MALE|Women's Accessories",
+          "doc_count": 100,
+          "avg_price": {
+            "value": 101.21328125
           }
         },
         {
           "key": [
-            "dub1",
-            "h1"
+            "MALE",
+            "Men's Shoes"
           ],
-          "key_as_string": "dub|h1",
-          "doc_count": 2,
-          "max-cpu": {
-            "value": 90.0
-          },
-          "max-memory": {
-            "value": 40.0
+          "key_as_string": "MALE|Men's Shoes",
+          "doc_count": 921,
+          "avg_price": {
+            "value": 97.41267983170466
           }
         },
         {
           "key": [
-            "dub",
-            "h2"
+            "FEMALE",
+            "Women's Shoes"
           ],
-          "key_as_string": "dub|h2",
-          "doc_count": 2,
-          "max-cpu": {
-            "value": 70.0
-          },
-          "max-memory": {
-            "value": 90.0
-          }
-        },
-        {
-          "key": [
-            "iad",
-            "h2"
-          ],
-          "key_as_string": "iad|h2",
-          "doc_count": 2,
-          "max-cpu": {
-            "value": 50.0
-          },
-          "max-memory": {
-            "value": 50.0
-          }
-        },
-        {
-          "key": [
-            "iad",
-            "h1"
-          ],
-          "key_as_string": "iad|h1",
-          "doc_count": 2,
-          "max-cpu": {
-            "value": 15.0
-          },
-          "max-memory": {
-            "value": 20.0
+          "key_as_string": "FEMALE|Women's Shoes",
+          "doc_count": 1136,
+          "avg_price": {
+            "value": 92.8513836927817
           }
         }
       ]
@@ -154,3 +184,16 @@ GET sample-index100/_search
   }
 }
 ```
+
+## Response body fields
+
+The following table lists the response body fields.
+
+| Field | Data type | Description |
+| :--- | :--- | :--- |
+| `doc_count_error_upper_bound` | Integer | The maximum potential error in document counts for any bucket not included in the response. |
+| `sum_other_doc_count` | Integer | The total document count of all buckets that did not make it into the top `size` results. |
+| `buckets` | Array | The composite key buckets, sorted according to `order`. |
+| `buckets.key` | Array | An array of values representing the composite key for this bucket, in the same order as the `terms` list. |
+| `buckets.key_as_string` | String | The composite key formatted as a pipe-delimited string. |
+| `buckets.doc_count` | Integer | The number of documents matching this key combination. |
