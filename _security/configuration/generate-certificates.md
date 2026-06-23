@@ -4,6 +4,8 @@ title: Generating self-signed certificates
 parent: Configuration
 nav_order: 20
 canonical_url: https://docs.opensearch.org/latest/security/configuration/generate-certificates/
+redirect_from:
+  - /security-plugin/configuration/generate-certificates/
 ---
 
 # Generating self-signed certificates

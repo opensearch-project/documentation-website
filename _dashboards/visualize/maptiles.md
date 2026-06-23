@@ -5,6 +5,9 @@ grand_parent: Building data visualizations
 parent: Using coordinate and region maps
 nav_order: 5
 canonical_url: https://docs.opensearch.org/latest/dashboards/visualize/maptiles/
+redirect_from:
+  - /dashboards/maptiles/
+  - /dashboards/visualize/visualize-app/maptiles/
 ---
 
 {%- comment -%}The `/docs/opensearch-dashboards/maptiles/` redirect is specifically to support the UI links in OpenSearch Dashboards 1.0.0.{%- endcomment -%}

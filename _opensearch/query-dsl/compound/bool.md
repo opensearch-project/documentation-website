@@ -5,6 +5,10 @@ parent: Compound queries
 grand_parent: Query DSL
 nav_order: 10
 canonical_url: https://docs.opensearch.org/latest/query-dsl/compound/bool/
+redirect_from:
+  - /opensearch/query-dsl/bool/
+  - /query-dsl/compound/bool/
+  - /query-dsl/query-dsl/compound/bool/
 ---
 
 # Boolean queries

@@ -5,6 +5,10 @@ nav_order: 58
 has_children: false
 parent: Point in Time
 canonical_url: https://docs.opensearch.org/latest/search-plugins/searching-data/point-in-time-api/
+redirect_from:
+  - /api-reference/search-apis/point-in-time-api/
+  - /search-plugins/point-in-time-api/
+  - /search-plugins/searching-data/point-in-time-api/
 ---
 
 # Point in Time API

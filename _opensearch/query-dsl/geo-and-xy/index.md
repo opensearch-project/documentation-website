@@ -5,6 +5,11 @@ parent: Query DSL
 has_children: true
 nav_order: 50
 canonical_url: https://docs.opensearch.org/latest/query-dsl/geo-and-xy/index/
+redirect_from:
+  - /query-dsl/geo-and-xy/
+  - /query-dsl/geo-and-xy/index/
+  - /query-dsl/query-dsl/geo-and-xy/
+  - /query-dsl/query-dsl/geo-and-xy/index/
 ---
 
 # Geographic and xy queries

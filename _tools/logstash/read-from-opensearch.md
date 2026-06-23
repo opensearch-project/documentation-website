@@ -4,6 +4,8 @@ title: Read from OpenSearch
 parent: Logstash
 nav_order: 220
 canonical_url: https://docs.opensearch.org/latest/tools/logstash/read-from-opensearch/
+redirect_from:
+  - /clients/logstash/read-from-opensearch/
 ---
 
 # Read from OpenSearch

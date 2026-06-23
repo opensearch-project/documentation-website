@@ -6,6 +6,8 @@ parent: CAT API
 nav_order: 30
 has_children: false
 canonical_url: https://docs.opensearch.org/latest/api-reference/cat/cat-cluster_manager/
+redirect_from:
+  - /opensearch/rest-api/cat/cat-master/
 ---
 
 # CAT cluster_manager
