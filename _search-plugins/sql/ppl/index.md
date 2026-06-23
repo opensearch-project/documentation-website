@@ -14,6 +14,8 @@ redirect_from:
   - /search-plugins/ppl/protocol/
   - /search-plugins/sql/ppl/index/
   - /observability-plugin/ppl/index/
+  - /sql-and-ppl/ppl/
+  - /sql-and-ppl/ppl/index/
 canonical_url: https://docs.opensearch.org/latest/search-plugins/sql/ppl/index/
 ---
 

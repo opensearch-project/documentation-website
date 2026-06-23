@@ -3,6 +3,8 @@ layout: default
 title: Text chunking
 nav_order: 65
 canonical_url: https://docs.opensearch.org/latest/search-plugins/text-chunking/
+redirect_from:
+  - /vector-search/ingesting-data/text-chunking/
 ---
 
 # Text chunking

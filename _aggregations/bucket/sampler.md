@@ -6,6 +6,7 @@ grand_parent: Aggregations
 nav_order: 170
 redirect_from:
   - /query-dsl/aggregations/bucket/diversified-sampler/
+  - /query-dsl/aggregations/bucket/sampler/
 canonical_url: https://docs.opensearch.org/latest/aggregations/bucket/sampler/
 ---
 

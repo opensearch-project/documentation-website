@@ -7,6 +7,8 @@ grand_parent: Search methods
 has_children: false
 has_math: true
 canonical_url: https://docs.opensearch.org/latest/search-plugins/knn/nested-search-knn/
+redirect_from:
+  - /vector-search/specialized-operations/nested-search-knn/
 ---
 
 # k-NN search with nested fields

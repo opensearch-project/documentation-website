@@ -4,6 +4,8 @@ title: Using Vega
 parent: Building data visualizations
 nav_order: 45
 canonical_url: https://docs.opensearch.org/latest/dashboards/visualize/vega/
+redirect_from:
+  - /dashboards/visualize/visualize-app/vega/
 ---
 
 # Using Vega
