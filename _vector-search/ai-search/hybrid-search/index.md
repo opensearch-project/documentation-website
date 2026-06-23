@@ -349,6 +349,18 @@ The response contains the matching documents:
 ```
 {% include copy-curl.html %}
 
+## Filtering data
+
+Hybrid search supports two approaches to filtering: **pre-filtering** and **post-filtering**. Use the following guidance to decide which option fits your use case.
+
+| | Pre-filtering | Post-filtering |
+| :--- | :--- | :--- |
+| **What it does** | Removes documents before they are scored --- subqueries only see documents that pass the filter | Removes documents after all scoring is complete --- subqueries still score every document |
+| **How to use** | Add a top-level `filter` to the `hybrid` query | Add a `post_filter` to the search request |
+| **When to use** | To improve performance and relevance by excluding irrelevant documents before scoring | To narrow displayed results without affecting scoring or aggregation counts |
+
+For details on each approach, see [Hybrid search with pre-filtering]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/pre-filtering/) and [Hybrid search with post-filtering]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/post-filtering/).
+
 ## Next steps
 
 - Explore our [tutorials]({{site.url}}{{site.baseurl}}/vector-search/tutorials/) to learn how to build AI search applications. 
