@@ -6,6 +6,7 @@ nav_order: 55
 redirect_from:
   - /clients/k8s-operator/
   - /tools/k8s-operator/
+  - /install-and-configure/install-opensearch/operator/index/
 canonical_url: https://docs.opensearch.org/latest/install-and-configure/install-opensearch/operator/
 ---
 
