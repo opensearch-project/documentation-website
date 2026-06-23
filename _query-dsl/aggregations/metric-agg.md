@@ -6,6 +6,9 @@ nav_order: 2
 permalink: /aggregations/metric-agg/
 redirect_from:
   - /opensearch/metric-agg/
+  - /aggregations/metric/
+  - /aggregations/metric/index/
+  - /query-dsl/aggregations/metric/
 canonical_url: https://docs.opensearch.org/latest/aggregations/metric/index/
 ---
 

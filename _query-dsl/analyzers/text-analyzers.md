@@ -6,6 +6,8 @@ has_children: true
 permalink: /analyzers/text-analyzers/
 redirect_from: 
   - /opensearch/query-dsl/text-analyzers/
+  - /analyzers/
+  - /analyzers/index/
 canonical_url: https://docs.opensearch.org/latest/analyzers/
 ---
 

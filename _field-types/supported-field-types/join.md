@@ -7,6 +7,8 @@ parent: Object field types
 grand_parent: Supported field types
 redirect_from:
   - /opensearch/supported-field-types/join/
+  - /field-types/join/
+  - /mappings/supported-field-types/join/
 canonical_url: https://docs.opensearch.org/latest/field-types/supported-field-types/join/
 ---
 

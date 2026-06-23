@@ -6,6 +6,7 @@ parent: Cluster APIs
 has_children: false
 redirect_from:
   - /api-reference/cluster-awareness/
+  - /opensearch/rest-api/cluster-awareness/
 canonical_url: https://docs.opensearch.org/latest/api-reference/cluster-api/cluster-awareness/
 ---
 

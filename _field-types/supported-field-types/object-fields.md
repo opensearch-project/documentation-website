@@ -7,6 +7,8 @@ has_toc: false
 parent: Supported field types
 redirect_from:
   - /opensearch/supported-field-types/object-fields/
+  - /field-types/object-fields/
+  - /mappings/supported-field-types/object-fields/
 canonical_url: https://docs.opensearch.org/latest/field-types/supported-field-types/object-fields/
 ---
 

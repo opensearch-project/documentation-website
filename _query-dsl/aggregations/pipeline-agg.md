@@ -6,6 +6,10 @@ nav_order: 5
 permalink: /aggregations/pipeline-agg/
 has_children: false
 canonical_url: https://docs.opensearch.org/latest/aggregations/pipeline-agg/
+redirect_from:
+  - /aggregations/pipeline/
+  - /aggregations/pipeline/index/
+  - /opensearch/pipeline-agg/
 ---
 
 # Pipeline aggregations

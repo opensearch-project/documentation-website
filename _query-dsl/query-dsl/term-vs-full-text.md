@@ -5,6 +5,8 @@ parent: Query DSL
 permalink: /query-dsl/term-vs-full-text/
 nav_order: 10
 canonical_url: https://docs.opensearch.org/latest/query-dsl/term-vs-full-text/
+redirect_from:
+  - /opensearch/query-dsl/term-vs-full-text/
 ---
 
 # Term-level and full-text queries compared
