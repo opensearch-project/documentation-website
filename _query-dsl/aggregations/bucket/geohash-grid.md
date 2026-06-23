@@ -5,6 +5,8 @@ parent: Bucket aggregations
 grand_parent: Aggregations
 nav_order: 80
 canonical_url: https://docs.opensearch.org/latest/aggregations/bucket/geohash-grid/
+redirect_from:
+  - /aggregations/bucket/geohash-grid/
 ---
 
 # Geohash grid aggregations

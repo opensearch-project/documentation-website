@@ -4,6 +4,8 @@ title: Minimum should match
 parent: Query DSL
 nav_order: 70
 canonical_url: https://docs.opensearch.org/latest/query-dsl/minimum-should-match/
+redirect_from:
+  - /query-dsl/minimum-should-match/
 ---
 
 # Minimum should match 

@@ -5,6 +5,8 @@ parent: Bucket aggregations
 grand_parent: Aggregations
 nav_order: 120
 canonical_url: https://docs.opensearch.org/latest/aggregations/bucket/missing/
+redirect_from:
+  - /aggregations/bucket/missing/
 ---
 
 # Missing aggregations

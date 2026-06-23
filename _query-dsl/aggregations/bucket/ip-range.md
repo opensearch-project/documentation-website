@@ -5,6 +5,8 @@ parent: Bucket aggregations
 grand_parent: Aggregations
 nav_order: 110
 canonical_url: https://docs.opensearch.org/latest/aggregations/bucket/ip-range/
+redirect_from:
+  - /aggregations/bucket/ip-range/
 ---
 
 # IP range aggregations

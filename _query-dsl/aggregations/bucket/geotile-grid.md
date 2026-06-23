@@ -5,6 +5,8 @@ parent: Bucket aggregations
 grand_parent: Aggregations
 nav_order: 87
 canonical_url: https://docs.opensearch.org/latest/aggregations/bucket/geotile-grid/
+redirect_from:
+  - /aggregations/bucket/geotile-grid/
 ---
 
 # Geotile grid aggregations

@@ -5,6 +5,8 @@ parent: Bucket aggregations
 grand_parent: Aggregations
 nav_order: 20
 canonical_url: https://docs.opensearch.org/latest/aggregations/bucket/date-histogram/
+redirect_from:
+  - /aggregations/bucket/date-histogram/
 ---
 
 # Date histogram aggregations

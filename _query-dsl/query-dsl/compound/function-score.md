@@ -6,6 +6,8 @@ grand_parent: Query DSL
 nav_order: 60
 has_math: true
 canonical_url: https://docs.opensearch.org/latest/query-dsl/compound/function-score/
+redirect_from:
+  - /query-dsl/compound/function-score/
 ---
 
 # Function score queries
