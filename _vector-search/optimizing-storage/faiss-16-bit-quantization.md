@@ -7,6 +7,8 @@ nav_order: 20
 has_children: false
 has_math: true
 canonical_url: https://docs.opensearch.org/latest/vector-search/optimizing-storage/faiss-16-bit-quantization/
+redirect_from:
+  - /vector-search/optimizing-storage/faiss-scalar-quantization/
 ---
 
 # Faiss 16-bit scalar quantization 

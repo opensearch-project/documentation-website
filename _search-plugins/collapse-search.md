@@ -4,6 +4,8 @@ title: Collapse search results
 parent: Searching data
 nav_order: 40
 canonical_url: https://docs.opensearch.org/latest/search-plugins/collapse-search/
+redirect_from:
+  - /search-plugins/searching-data/collapse-search/
 ---
 
 # Collapse search results

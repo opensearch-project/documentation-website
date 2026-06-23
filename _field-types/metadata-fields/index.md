@@ -8,6 +8,7 @@ canonical_url: https://docs.opensearch.org/latest/field-types/metadata-fields/in
 redirect_from:
   - /mappings/metadata-fields/index/
   - /mappings/metadata-fields/
+  - /field-types/metadata-fields/
 ---
 
 # Metadata fields

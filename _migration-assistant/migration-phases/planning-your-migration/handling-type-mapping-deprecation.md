@@ -5,6 +5,9 @@ nav_order: 60
 parent: Planning your migration
 grand_parent: Migration phases
 canonical_url: https://docs.opensearch.org/latest/migration-assistant/migration-phases/planning-your-migration/handling-type-mapping-deprecation/
+redirect_from:
+  - /migration-assistant/migration-phases/assessment/handling-type-mapping-deprecation/
+  - /migration-assistant/migration-phases/migrate-metadata/handling-type-mapping-deprecation/
 ---
 
 # Managing type mapping deprecation

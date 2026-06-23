@@ -5,6 +5,8 @@ parent: Processors
 grand_parent: Pipelines
 nav_order: 65
 canonical_url: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/processors/mutate-event/
+redirect_from:
+  - /data-prepper/pipelines/configuration/processors/
 ---
 
 # Mutate event processors
