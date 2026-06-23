@@ -8,6 +8,8 @@ redirect_from:
   - /aggregations/geohexgrid/
   - /query-dsl/aggregations/geohexgrid/
   - /query-dsl/aggregations/bucket/geohex-grid/
+  - /opensearch/geohexgrid-agg/
+  - /query-dsl/aggregations/geohexgrid-agg/
 canonical_url: https://docs.opensearch.org/latest/aggregations/bucket/geohex-grid/
 ---
 

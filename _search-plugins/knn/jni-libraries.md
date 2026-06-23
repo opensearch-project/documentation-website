@@ -7,6 +7,7 @@ grand_parent: Search methods
 has_children: false
 redirect_from:
  - /search-plugins/knn/jni-library/
+  - /vector-search/api/knn/
 canonical_url: https://docs.opensearch.org/latest/search-plugins/knn/jni-libraries/
 ---
 

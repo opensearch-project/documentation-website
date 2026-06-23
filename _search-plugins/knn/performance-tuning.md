@@ -5,6 +5,8 @@ parent: k-NN search
 grand_parent: Search methods
 nav_order: 45
 canonical_url: https://docs.opensearch.org/latest/search-plugins/knn/performance-tuning/
+redirect_from:
+  - /vector-search/performance-tuning/
 ---
 
 # Performance tuning
