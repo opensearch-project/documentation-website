@@ -48,6 +48,7 @@ swap:
   'sample response': example response
   'stacktrace': stack trace
   'stand-alone': standalone
+  'sub-aggregation': subaggregation
   'timeframe': time frame
   'time series data': time-series data
   'time stamp': timestamp
