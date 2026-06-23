@@ -144,4 +144,4 @@ The number of buckets grows quadratically with the number of filters. For `N` fi
 
 ## Related documentation
 
-- For a complete example of rendering adjacency matrix results as a network graph in OpenSearch Dashboards, see [Creating a Vega visualization]({{site.url}}{{site.baseurl}}/dashboards/visualize/vega/#creating-a-vega-visualizatino).
+- For a complete example of rendering adjacency matrix results as a network graph in OpenSearch Dashboards, see [Creating a Vega visualization]({{site.url}}{{site.baseurl}}/dashboards/visualize/vega/#creating-a-vega-visualization).
