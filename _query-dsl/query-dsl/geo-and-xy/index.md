@@ -7,6 +7,8 @@ nav_order: 50
 permalink: /query-dsl/geo-and-xy/
 redirect_from:
    - /opensearch/query-dsl/geo-and-xy/index/
+  - /query-dsl/geo-and-xy/index/
+  - /query-dsl/query-dsl/geo-and-xy/
 canonical_url: https://docs.opensearch.org/latest/query-dsl/geo-and-xy/index/
 ---
 

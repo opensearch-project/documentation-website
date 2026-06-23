@@ -6,6 +6,10 @@ grand_parent: SQL and PPL
 nav_order: 2
 redirect_from:
  - /search-plugins/ppl/commands/
+  - /observability-plugin/ppl/commands/
+  - /search-plugins/ppl/functions/
+  - /sql-and-ppl/ppl/commands/index/
+  - /sql-and-ppl/ppl/functions/
 canonical_url: https://docs.opensearch.org/latest/search-plugins/sql/ppl/functions/
 ---
 

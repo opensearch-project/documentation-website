@@ -6,6 +6,9 @@ has_children: false
 parent: Object field types
 grand_parent: Supported field types
 canonical_url: https://docs.opensearch.org/latest/field-types/supported-field-types/flat-object/
+redirect_from:
+  - /field-types/flat-object/
+  - /mappings/supported-field-types/flat-object/
 ---
 
 # Flat object field type
