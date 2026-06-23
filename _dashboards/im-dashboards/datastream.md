@@ -5,7 +5,6 @@ parent: Index management
 nav_order: 20
 redirect_from:
   - /dashboards/admin-ui-index/datastream/
-  - /opensearch/data-streams/
 ---
 
 # Data streams
