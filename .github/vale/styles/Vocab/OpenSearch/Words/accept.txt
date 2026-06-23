@@ -21,8 +21,8 @@ Boolean
 [Dd]ashboarding
 [Dd]atagram
 [Dd]eallocate
-[Dd]eduplicates?
-[Dd]eduplication
+[Dd]eduplicate[sd]?
+[Dd]eduplicat(ion|ing)
 [Dd]eprovision(s|ed|ing)?
 [Dd]eserialize
 [Dd]eserialization
