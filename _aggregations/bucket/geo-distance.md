@@ -9,105 +9,41 @@ redirect_from:
 
 # Geodistance aggregations
 
-The `geo_distance` aggregation groups documents into concentric circles based on distances from an origin `geo_point` field.
-It's the same as the `range` aggregation, except that it works on geo locations.
+The `geo_distance` aggregation groups documents into distance-based rings around a central point. Each range defines a ring, and documents are placed into buckets based on how far their `geo_point` field value is from the specified origin. This is conceptually similar to the [`range` aggregation]({{site.url}}{{site.baseurl}}/aggregations/bucket/range/) but operates on geographic coordinates rather than numeric values.
 
-For example, you can use the `geo_distance` aggregation to find all pizza places within 1 km of you. The search results are limited to the 1 km radius specified by you, but you can add another result found within 2 km.
+The target field must be mapped as `geo_point`. If a document's geo_point field contains multiple values, all distances are evaluated and the document is bucketed accordingly.
 
-You can only use the `geo_distance` aggregation on fields mapped as `geo_point`.
+## Parameters
 
-A point is a single geographical coordinate, such as your current location shown by your smart-phone. A point in OpenSearch is represented as follows:
+The `geo_distance` aggregation takes the following parameters.
 
-```json
-{
-  "location": {
-    "type": "point",
-    "coordinates": {
-      "lat": 83.76,
-      "lon": -81.2
-    }
-  }
-}
-```
+| Parameter | Required/Optional | Data type | Description |
+| :--- | :--- | :--- | :--- |
+| `field` | Required | String | The `geo_point` field to compute distances from. |
+| `origin` | Required | Object, String, or Array | The center point from which distances are measured. Accepts object format (`{"lat": 40.71, "lon": -74.00}`), string format (`"40.71, -74.00"`), or GeoJSON array format (`[-74.00, 40.71]`). |
+| `ranges` | Required | Array | A list of distance ranges defining the buckets. Each range can include `from`, `to`, and optionally `key`. |
+| `unit` | Optional | String | The unit for distance values in `ranges`. Default is `m` (meters). Valid values: `m`, `km`, `mi`, `yd`, `in`, `cm`, `mm`. |
+| `distance_type` | Optional | String | The algorithm used to compute distances. <br>Valid values are:<br> - `arc`: Computes distances using the full spherical geometry of the Earth. Most accurate but slowest. <br> - `plane`: Projects coordinates onto a flat plane and computes Euclidean distances. Fastest but least accurate. Only suitable for small geographic areas (approximately 5 km or less). <br><br>Default is `arc`.  |
+| `keyed` | Optional | Boolean | When `true`, returns buckets as an object keyed by range name instead of an array. Default is `false`. |
 
-You can also specify the latitude and longitude as an array `[-81.20, 83.76]` or as a string `"83.76, -81.20"`
+## Example: Basic distance rings
 
-This table lists the relevant fields of a `geo_distance` aggregation:
-
-Field | Description | Required
-:--- | :--- |:---
-`field` |  Specify the geopoint field that you want to work on. | Yes
-`origin` |  Specify the geopoint that's used to compute the distances from. | Yes
-`ranges`  |  Specify a list of ranges to collect documents based on their distance from the target point. | Yes
-`unit` |  Define the units used in the `ranges` array. The `unit` defaults to `m` (meters), but you can switch to other units like `km` (kilometers), `mi` (miles), `in` (inches), `yd` (yards), `cm` (centimeters), and `mm` (millimeters).  | No
-`distance_type` | Specify how OpenSearch calculates the distance. The default is `sloppy_arc` (faster but less accurate), but can also be set to `arc` (slower but most accurate) or `plane` (fastest but least accurate). Because of high error margins, use `plane` only for small geographic areas. | No
-
-The syntax is as follows:
+The following example groups ecommerce orders into three distance rings around New York City, measured in miles:
 
 ```json
-{
-  "aggs": {
-    "aggregation_name": {
-      "geo_distance": {
-        "field": "field_1",
-        "origin": "x, y",
-        "ranges": [
-          {
-            "to": "value_1"
-          },
-          {
-            "from": "value_2",
-            "to": "value_3"
-          },
-          {
-            "from": "value_4"
-          }
-        ]
-      }
-    }
-  }
-}
-```
-
-This example forms buckets from the following distances from a `geo-point` field:
-
-- Fewer than 10 km
-- From 10 to 20 km
-- From 20 to 50 km
-- From 50 to 100 km
-- Above 100 km
-
-```json
-GET opensearch_dashboards_sample_data_logs/_search
+GET /opensearch_dashboards_sample_data_ecommerce/_search
 {
   "size": 0,
   "aggs": {
-    "position": {
+    "distance_from_nyc": {
       "geo_distance": {
-        "field": "geo.coordinates",
-        "origin": {
-          "lat": 83.76,
-          "lon": -81.2
-        },
+        "field": "geoip.location",
+        "origin": "40.7128, -74.0060",
+        "unit": "mi",
         "ranges": [
-          {
-            "to": 10
-          },
-          {
-            "from": 10,
-            "to": 20
-          },
-          {
-            "from": 20,
-            "to": 50
-          },
-          {
-            "from": 50,
-            "to": 100
-          },
-          {
-            "from": 100
-          }
+          { "to": 50 },
+          { "from": 50, "to": 500 },
+          { "from": 500 }
         ]
       }
     }
@@ -116,44 +52,87 @@ GET opensearch_dashboards_sample_data_logs/_search
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example: Keyed response with custom range names
+
+Setting `keyed` to `true` returns buckets as an object instead of an array. You can assign custom names to each range using the `key` property:
 
 ```json
-...
-"aggregations" : {
-  "position" : {
-    "buckets" : [
-      {
-        "key" : "*-10.0",
-        "from" : 0.0,
-        "to" : 10.0,
-        "doc_count" : 0
-      },
-      {
-        "key" : "10.0-20.0",
-        "from" : 10.0,
-        "to" : 20.0,
-        "doc_count" : 0
-      },
-      {
-        "key" : "20.0-50.0",
-        "from" : 20.0,
-        "to" : 50.0,
-        "doc_count" : 0
-      },
-      {
-        "key" : "50.0-100.0",
-        "from" : 50.0,
-        "to" : 100.0,
-        "doc_count" : 0
-      },
-      {
-        "key" : "100.0-*",
-        "from" : 100.0,
-        "doc_count" : 14074
+GET /opensearch_dashboards_sample_data_ecommerce/_search
+{
+  "size": 0,
+  "aggs": {
+    "distance_from_nyc": {
+      "geo_distance": {
+        "field": "geoip.location",
+        "origin": "40.7128, -74.0060",
+        "unit": "mi",
+        "keyed": true,
+        "ranges": [
+          { "to": 50, "key": "local" },
+          { "from": 50, "to": 500, "key": "domestic" },
+          { "from": 500, "key": "international" }
+        ]
       }
-    ]
+    }
   }
- }
 }
 ```
+{% include copy-curl.html %}
+
+## Example response
+
+The following response corresponds to the keyed example:
+
+```json
+{
+  "took": 18,
+  "timed_out": false,
+  "terminated_early": true,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 4675,
+      "relation": "eq"
+    },
+    "max_score": null,
+    "hits": []
+  },
+  "aggregations": {
+    "distance_from_nyc": {
+      "buckets": {
+        "local": {
+          "from": 0.0,
+          "to": 50.0,
+          "doc_count": 896
+        },
+        "domestic": {
+          "from": 50.0,
+          "to": 500.0,
+          "doc_count": 0
+        },
+        "international": {
+          "from": 500.0,
+          "doc_count": 3779
+        }
+      }
+    }
+  }
+}
+```
+
+## Response body fields
+
+The following table lists the response body fields.
+
+| Field | Data type | Description |
+| :--- | :--- | :--- |
+| `buckets` | Array or Object | The distance buckets. Returned as an array by default, or as an object when `keyed` is `true`. |
+| `buckets.key` | String | The auto-generated range label (for example, `*-500.0` or `500.0-3000.0`), or a custom key if specified. |
+| `buckets.from` | Double | The lower bound of the distance range, in the specified `unit`. |
+| `buckets.to` | Double | The upper bound of the distance range, in the specified `unit`. |
+| `buckets.doc_count` | Integer | The number of documents falling within this distance range. |
