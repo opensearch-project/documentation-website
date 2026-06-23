@@ -4,6 +4,8 @@ title: SQL CLI
 parent: SQL
 nav_order: 2
 canonical_url: https://docs.opensearch.org/latest/search-plugins/sql/cli/
+redirect_from:
+  - /sql-and-ppl/cli/
 ---
 
 # SQL CLI

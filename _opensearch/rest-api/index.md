@@ -5,6 +5,8 @@ nav_order: 99
 has_children: true
 redirect_from:
   - /opensearch/rest-api/
+  - /api-reference/
+  - /api-reference/index/
 canonical_url: https://docs.opensearch.org/latest/api-reference/
 ---
 

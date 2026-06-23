@@ -5,6 +5,12 @@ parent: Aggregations
 nav_order: 2
 has_children: false
 canonical_url: https://docs.opensearch.org/latest/aggregations/bucket/index/
+redirect_from:
+  - /aggregations/bucket-agg/
+  - /aggregations/bucket/
+  - /aggregations/bucket/index/
+  - /query-dsl/aggregations/bucket-agg/
+  - /query-dsl/aggregations/bucket/
 ---
 
 # Bucket aggregations

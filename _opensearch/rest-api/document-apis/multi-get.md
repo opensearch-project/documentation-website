@@ -5,6 +5,8 @@ parent: Document APIs
 grand_parent: REST API reference
 nav_order: 30
 canonical_url: https://docs.opensearch.org/latest/api-reference/document-apis/multi-get/
+redirect_from:
+  - /api-reference/document-apis/multi-get/
 ---
 
 # Multi-get documents

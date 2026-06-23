@@ -6,6 +6,8 @@ grand_parent: REST API reference
 nav_order: 75
 has_children: false
 canonical_url: https://docs.opensearch.org/latest/api-reference/cat/cat-thread-pool/
+redirect_from:
+  - /api-reference/cat/cat-thread-pool/
 ---
 
 # cat thread pool

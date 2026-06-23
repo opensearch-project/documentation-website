@@ -4,6 +4,8 @@ title: Proxy-based authentication
 parent: Configuration
 nav_order: 40
 canonical_url: https://docs.opensearch.org/latest/security/authentication-backends/proxy/
+redirect_from:
+  - /security/authentication-backends/proxy/
 ---
 
 # Proxy-based authentication

@@ -3,6 +3,8 @@ layout: default
 title: Reporting
 nav_order: 20
 canonical_url: https://docs.opensearch.org/latest/reporting/report-dashboard-index/
+redirect_from:
+  - /reporting/report-dashboard-index/
 ---
 
 

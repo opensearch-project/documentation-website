@@ -4,6 +4,8 @@ title: Helm
 parent: Install OpenSearch Dashboards
 nav_order: 35
 canonical_url: https://docs.opensearch.org/latest/install-and-configure/install-dashboards/helm/
+redirect_from:
+  - /install-and-configure/install-dashboards/helm/
 ---
 
 # Run OpenSearch Dashboards using Helm

@@ -4,6 +4,9 @@ title: Functions
 parent: SQL
 nav_order: 10
 canonical_url: https://docs.opensearch.org/latest/search-plugins/sql/functions/
+redirect_from:
+  - /search-plugins/sql/sql/functions/
+  - /sql-and-ppl/sql/functions/
 ---
 
 # Functions

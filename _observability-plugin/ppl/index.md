@@ -6,6 +6,14 @@ has_children: true
 has_toc: false
 redirect_from:
   - /search-plugins/ppl/
+  - /observability-plugin/ppl/
+  - /search-plugins/ppl/endpoint/
+  - /search-plugins/ppl/index/
+  - /search-plugins/ppl/protocol/
+  - /search-plugins/sql/ppl/
+  - /search-plugins/sql/ppl/index/
+  - /sql-and-ppl/ppl/
+  - /sql-and-ppl/ppl/index/
 canonical_url: https://docs.opensearch.org/latest/search-plugins/sql/ppl/index/
 ---
 

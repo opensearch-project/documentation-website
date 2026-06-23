@@ -4,6 +4,9 @@ title: Explain
 parent: REST API reference
 nav_order: 140
 canonical_url: https://docs.opensearch.org/latest/api-reference/explain/
+redirect_from:
+  - /api-reference/explain/
+  - /api-reference/search-apis/explain/
 ---
 
 # Explain

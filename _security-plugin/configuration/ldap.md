@@ -4,6 +4,9 @@ title: Active Directory and LDAP
 parent: Configuration
 nav_order: 30
 canonical_url: https://docs.opensearch.org/latest/security/authentication-backends/ldap/
+redirect_from:
+  - /security/authentication-backends/ldap/
+  - /security/configuration/ldap/
 ---
 
 # Active Directory and LDAP

@@ -5,6 +5,8 @@ parent: Index APIs
 grand_parent: REST API reference
 nav_order: 120
 canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/update-settings/
+redirect_from:
+  - /api-reference/index-apis/update-settings/
 ---
 
 # Update settings

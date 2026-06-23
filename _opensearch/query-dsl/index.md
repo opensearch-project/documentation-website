@@ -6,6 +6,9 @@ has_children: true
 redirect_from:
   - /opensearch/query-dsl/
   - /docs/opensearch/query-dsl/
+  - /query-dsl/
+  - /query-dsl/index/
+  - /query-dsl/query-dsl/
 canonical_url: https://docs.opensearch.org/latest/query-dsl/
 ---
 

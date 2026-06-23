@@ -4,6 +4,9 @@ title: Cluster stats
 parent: REST API reference
 nav_order: 65
 canonical_url: https://docs.opensearch.org/latest/api-reference/cluster-api/cluster-stats/
+redirect_from:
+  - /api-reference/cluster-api/cluster-stats/
+  - /api-reference/cluster-stats/
 ---
 
 # Cluster stats

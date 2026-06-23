@@ -6,6 +6,8 @@ has_children: false
 redirect_from:
   - /observability-plugin/
   - /observability-plugin/
+  - /observing-your-data/
+  - /observing-your-data/index/
 canonical_url: https://docs.opensearch.org/latest/observing-your-data/
 ---
 

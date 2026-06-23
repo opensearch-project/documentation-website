@@ -6,6 +6,8 @@ has_children: true
 nav_order: 3
 redirect_from:
   - /opensearch/rest-api/index-apis/
+  - /api-reference/index-apis/
+  - /api-reference/index-apis/index/
 canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/index/
 ---
 

@@ -5,6 +5,9 @@ parent: Ingest APIs
 grand_parent: REST API reference
 nav_order: 10
 canonical_url: https://docs.opensearch.org/latest/ingest-pipelines/get-ingest/
+redirect_from:
+  - /api-reference/ingest-apis/get-ingest/
+  - /ingest-pipelines/get-ingest/
 ---
 
 ## Get ingest pipeline

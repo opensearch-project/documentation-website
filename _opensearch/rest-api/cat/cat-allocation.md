@@ -6,6 +6,8 @@ grand_parent: REST API reference
 nav_order: 5
 has_children: false
 canonical_url: https://docs.opensearch.org/latest/api-reference/cat/cat-allocation/
+redirect_from:
+  - /api-reference/cat/cat-allocation/
 ---
 
 # cat allocation
