@@ -23,6 +23,158 @@ Vega visualizations are enabled by default. Write your [Vega specifications](htt
 
 To disable Vega visualizations, set `vis_type_vega.enabled` to `false` in your `opensearch_dashboards.yml` file. 
 
+## Creating a Vega visualization
+
+The examples on this page use the **Sample e-commerce data** dataset. To learn about adding sample datasets, see [Adding sample data]({{site.url}}{{site.baseurl}}/dashboards/getting-started/data-setup/#add-sample-data).
+{: .note}
+
+The following example creates a network graph that visualizes relationships between product manufacturers in the sample e-commerce dataset. It uses the [`adjacency_matrix` aggregation]({{site.url}}{{site.baseurl}}/aggregations/bucket/adjacency-matrix/) to determine how frequently products from different manufacturers appear together in the same orders.
+
+To create a Vega visualization for this aggregation, follow these steps:
+
+1. From the menu on the left, select **Visualize**.
+2. Select **Create Visualization** and then select **Vega**.
+3. Replace the default spec with the following and then select **Update**:
+
+```json
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "description": "Network graph from adjacency matrix aggregation",
+  "autosize": "none",
+  "width": 500,
+  "height": 400,
+  "padding": 50,
+
+  "data": [
+    {
+      "name": "raw",
+      "url": {
+        "index": "opensearch_dashboards_sample_data_ecommerce",
+        "body": {
+          "size": 0,
+          "aggs": {
+            "interactions": {
+              "adjacency_matrix": {
+                "filters": {
+                  "Low Tide Media": {"match": {"manufacturer.keyword": "Low Tide Media"}},
+                  "Elitelligence": {"match": {"manufacturer.keyword": "Elitelligence"}},
+                  "Oceanavigations": {"match": {"manufacturer.keyword": "Oceanavigations"}}
+                }
+              }
+            }
+          }
+        }
+      },
+      "format": {"property": "aggregations.interactions.buckets"}
+    },
+    {
+      "name": "nodes",
+      "source": "raw",
+      "transform": [
+        {"type": "filter", "expr": "indexof(datum.key, '&') === -1"},
+        {"type": "window", "ops": ["row_number"], "as": ["index"]},
+        {"type": "formula", "as": "x", "expr": "250 + 150 * cos(2 * PI * (datum.index - 1) / 3)"},
+        {"type": "formula", "as": "y", "expr": "200 + 150 * sin(2 * PI * (datum.index - 1) / 3)"}
+      ]
+    },
+    {
+      "name": "edges",
+      "source": "raw",
+      "transform": [
+        {"type": "filter", "expr": "indexof(datum.key, '&') !== -1"},
+        {"type": "formula", "as": "source", "expr": "split(datum.key, '&')[0]"},
+        {"type": "formula", "as": "target", "expr": "split(datum.key, '&')[1]"},
+        {"type": "lookup", "from": "nodes", "key": "key", "fields": ["source"], "as": ["sourceNode"]},
+        {"type": "lookup", "from": "nodes", "key": "key", "fields": ["target"], "as": ["targetNode"]}
+      ]
+    }
+  ],
+
+  "scales": [
+    {
+      "name": "nodeSize",
+      "type": "linear",
+      "domain": {"data": "nodes", "field": "doc_count"},
+      "range": [400, 2000]
+    },
+    {
+      "name": "linkWidth",
+      "type": "linear",
+      "domain": {"data": "edges", "field": "doc_count"},
+      "range": [2, 8]
+    }
+  ],
+
+  "marks": [
+    {
+      "type": "rule",
+      "from": {"data": "edges"},
+      "encode": {
+        "enter": {
+          "x": {"field": "sourceNode.x"},
+          "y": {"field": "sourceNode.y"},
+          "x2": {"field": "targetNode.x"},
+          "y2": {"field": "targetNode.y"},
+          "stroke": {"value": "#888"},
+          "strokeWidth": {"scale": "linkWidth", "field": "doc_count"},
+          "strokeOpacity": {"value": 0.6}
+        }
+      }
+    },
+    {
+      "type": "text",
+      "from": {"data": "edges"},
+      "encode": {
+        "enter": {
+          "x": {"signal": "(datum.sourceNode.x + datum.targetNode.x) / 2"},
+          "y": {"signal": "(datum.sourceNode.y + datum.targetNode.y) / 2"},
+          "text": {"signal": "datum.doc_count"},
+          "align": {"value": "center"},
+          "baseline": {"value": "middle"},
+          "fontSize": {"value": 11},
+          "fill": {"value": "#555"}
+        }
+      }
+    },
+    {
+      "type": "symbol",
+      "from": {"data": "nodes"},
+      "encode": {
+        "enter": {
+          "x": {"field": "x"},
+          "y": {"field": "y"},
+          "size": {"scale": "nodeSize", "field": "doc_count"},
+          "fill": {"value": "#4C78A8"},
+          "stroke": {"value": "#fff"},
+          "strokeWidth": {"value": 2},
+          "tooltip": {"signal": "datum.key + ': ' + datum.doc_count + ' docs'"}
+        }
+      }
+    },
+    {
+      "type": "text",
+      "from": {"data": "nodes"},
+      "encode": {
+        "enter": {
+          "x": {"field": "x"},
+          "y": {"field": "y"},
+          "dy": {"value": -30},
+          "text": {"field": "key"},
+          "align": {"value": "center"},
+          "fontSize": {"value": 12},
+          "fontWeight": {"value": "bold"}
+        }
+      }
+    }
+  ]
+}
+```
+{% include copy.html %}
+
+The following image shows the resulting network graph. Node size represents the document count for each manufacturer, and edge thickness represents the number of orders containing products from both manufacturers.
+
+![Adjacency matrix network graph visualization in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/images/dashboards/adjacency-graph.png)
+
 ## Creating Vega visualizations from multiple data sources
 Introduced 2.13
 {: .label .label-purple }
