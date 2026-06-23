@@ -5,6 +5,9 @@ parent: Geographic and xy queries
 grand_parent: Query DSL
 nav_order: 10
 canonical_url: https://docs.opensearch.org/latest/query-dsl/geo-and-xy/geo-bounding-box/
+redirect_from:
+  - /query-dsl/geo-and-xy/geo-bounding-box/
+  - /query-dsl/query-dsl/geo-and-xy/geo-bounding-box/
 ---
 
 # Geo-bounding box queries

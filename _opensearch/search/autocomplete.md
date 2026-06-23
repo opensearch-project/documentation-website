@@ -4,6 +4,8 @@ title: Autocomplete
 parent: Searching data
 nav_order: 24
 canonical_url: https://docs.opensearch.org/latest/field-types/supported-field-types/autocomplete/
+redirect_from:
+  - /search-plugins/searching-data/autocomplete/
 ---
 
 # Autocomplete functionality

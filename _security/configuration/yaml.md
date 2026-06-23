@@ -4,6 +4,8 @@ title: Modifying the YAML files
 parent: Configuration
 nav_order: 10
 canonical_url: https://docs.opensearch.org/latest/security/configuration/yaml/
+redirect_from:
+  - /security-plugin/configuration/yaml/
 ---
 
 # Modifying the YAML files

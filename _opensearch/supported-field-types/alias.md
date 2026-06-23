@@ -5,6 +5,10 @@ nav_order: 10
 has_children: false
 parent: Supported field types
 canonical_url: https://docs.opensearch.org/latest/field-types/supported-field-types/alias/
+redirect_from:
+  - /field-types/alias/
+  - /field-types/supported-field-types/alias/
+  - /mappings/supported-field-types/alias/
 ---
 
 # Alias field type

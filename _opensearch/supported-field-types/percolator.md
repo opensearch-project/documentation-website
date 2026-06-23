@@ -5,6 +5,10 @@ nav_order: 65
 has_children: false
 parent: Supported field types
 canonical_url: https://docs.opensearch.org/latest/field-types/supported-field-types/percolator/
+redirect_from:
+  - /field-types/percolator/
+  - /field-types/supported-field-types/percolator/
+  - /mappings/supported-field-types/percolator/
 ---
 
 # Percolator field type

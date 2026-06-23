@@ -4,6 +4,8 @@ title: Setting the time filter
 parent: Exploring data with Discover
 nav_order: 10
 canonical_url: https://docs.opensearch.org/latest/dashboards/discover/time-filter/
+redirect_from:
+  - /dashboards/get-started/time-filter/
 ---
 
 # Setting the time filter

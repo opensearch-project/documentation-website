@@ -4,6 +4,11 @@ title: Text analyzers
 parent: Query DSL
 nav_order: 75
 canonical_url: https://docs.opensearch.org/latest/analyzers/
+redirect_from:
+  - /analyzers/
+  - /analyzers/index/
+  - /analyzers/text-analyzers/
+  - /query-dsl/analyzers/text-analyzers/
 ---
 
 
