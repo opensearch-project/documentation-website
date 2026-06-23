@@ -4,6 +4,8 @@ title: Ansible playbook
 parent: Install OpenSearch
 nav_order: 60
 canonical_url: https://docs.opensearch.org/latest/install-and-configure/install-opensearch/ansible/
+redirect_from:
+  - /install-and-configure/install-opensearch/ansible/
 ---
 
 # Ansible playbook

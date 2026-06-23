@@ -5,6 +5,8 @@ nav_order: 1
 has_children: false
 redirect_from:
   - /replication-plugin/
+  - /tuning-your-cluster/replication-plugin/
+  - /tuning-your-cluster/replication-plugin/index/
 canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/replication-plugin/index/
 ---
 

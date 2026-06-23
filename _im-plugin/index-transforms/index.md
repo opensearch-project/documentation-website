@@ -6,6 +6,8 @@ has_children: true
 redirect_from: /im-plugin/index-transforms/
 has_toc: false
 canonical_url: https://docs.opensearch.org/latest/im-plugin/index-transforms/index/
+redirect_from:
+  - /im-plugin/index-transforms/
 ---
 
 # Index transforms

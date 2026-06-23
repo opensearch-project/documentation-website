@@ -3,6 +3,10 @@ layout: default
 title: Cluster formation
 nav_order: 7
 canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/
+redirect_from:
+  - /tuning-your-cluster/
+  - /tuning-your-cluster/cluster/
+  - /tuning-your-cluster/index/
 ---
 
 # Cluster formation

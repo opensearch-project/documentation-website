@@ -3,6 +3,8 @@ layout: default
 title: Permissions
 nav_order: 30
 canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/replication-plugin/permissions/
+redirect_from:
+  - /tuning-your-cluster/replication-plugin/permissions/
 ---
 
 # Cross-cluster replication permissions

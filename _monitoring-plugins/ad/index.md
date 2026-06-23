@@ -5,6 +5,8 @@ nav_order: 46
 has_children: true
 redirect_from:
   - /monitoring-plugins/ad/
+  - /observing-your-data/ad/
+  - /observing-your-data/ad/index/
 canonical_url: https://docs.opensearch.org/latest/observing-your-data/ad/index/
 ---
 

@@ -4,6 +4,9 @@ title: Scroll
 parent: REST API reference
 nav_order: 120
 canonical_url: https://docs.opensearch.org/latest/api-reference/scroll/
+redirect_from:
+  - /api-reference/scroll/
+  - /api-reference/search-apis/scroll/
 ---
 
 # Scroll

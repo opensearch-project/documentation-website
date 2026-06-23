@@ -3,6 +3,8 @@ layout: default
 title: Reindex data
 nav_order: 16
 canonical_url: https://docs.opensearch.org/latest/im-plugin/reindex-data/
+redirect_from:
+  - /api-reference/document-apis/reindex/
 ---
 
 # Reindex data

@@ -5,6 +5,12 @@ parent: Aggregations
 nav_order: 1
 has_children: false
 canonical_url: https://docs.opensearch.org/latest/aggregations/metric/index/
+redirect_from:
+  - /aggregations/metric-agg/
+  - /aggregations/metric/
+  - /aggregations/metric/index/
+  - /query-dsl/aggregations/metric-agg/
+  - /query-dsl/aggregations/metric/
 ---
 
 # Metric aggregations

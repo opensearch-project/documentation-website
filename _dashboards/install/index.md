@@ -5,6 +5,9 @@ nav_order: 1
 has_children: true
 redirect_from:
   - /dashboards/install/
+  - /dashboards/compatibility/
+  - /install-and-configure/install-dashboards/
+  - /install-and-configure/install-dashboards/index/
 canonical_url: https://docs.opensearch.org/latest/install-and-configure/install-dashboards/index/
 ---
 

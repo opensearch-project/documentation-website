@@ -5,6 +5,8 @@ parent: Document APIs
 grand_parent: REST API reference
 nav_order: 40
 canonical_url: https://docs.opensearch.org/latest/api-reference/document-apis/delete-by-query/
+redirect_from:
+  - /api-reference/document-apis/delete-by-query/
 ---
 
 # Delete by query

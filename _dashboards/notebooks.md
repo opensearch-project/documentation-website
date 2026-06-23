@@ -5,6 +5,9 @@ nav_order: 50
 redirect_from: /notebooks/
 has_children: false
 canonical_url: https://docs.opensearch.org/latest/observing-your-data/notebooks/
+redirect_from:
+  - /observability-plugin/notebooks/
+  - /observing-your-data/notebooks/
 ---
 
 # Notebooks
