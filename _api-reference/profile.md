@@ -3,6 +3,8 @@ layout: default
 title: Profile
 nav_order: 55
 canonical_url: https://docs.opensearch.org/latest/api-reference/profile/
+redirect_from:
+  - /api-reference/search-apis/profile/
 ---
 
 # Profile

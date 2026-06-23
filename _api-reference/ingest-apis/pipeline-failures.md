@@ -5,6 +5,8 @@ parent: Ingest pipelines
 grand_parent: Ingest APIs
 nav_order: 15
 canonical_url: https://docs.opensearch.org/latest/ingest-pipelines/pipeline-failures/
+redirect_from:
+  - /ingest-pipelines/pipeline-failures/
 ---
 
 # Handling pipeline failures

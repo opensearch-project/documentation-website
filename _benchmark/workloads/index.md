@@ -4,6 +4,10 @@ title: Workload reference
 nav_order: 60
 has_children: true
 canonical_url: https://docs.opensearch.org/latest/benchmark/workloads/
+redirect_from:
+  - /benchmark/reference/workloads/
+  - /benchmark/reference/workloads/index/
+  - /benchmark/workloads/
 ---
 
 # OpenSearch Benchmark workload reference

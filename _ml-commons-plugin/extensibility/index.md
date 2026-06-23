@@ -4,6 +4,9 @@ title: ML extensibility
 has_children: true
 nav_order: 60
 canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/remote-models/index/
+redirect_from:
+  - /ml-commons-plugin/remote-models/
+  - /ml-commons-plugin/remote-models/index/
 ---
 
 # ML extensibility
