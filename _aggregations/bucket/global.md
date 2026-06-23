@@ -9,12 +9,17 @@ redirect_from:
 
 # Global aggregations
 
-The `global` aggregations lets you break out of the aggregation context of a filter aggregation. Even if you have included a filter query that narrows down a set of documents, the `global` aggregation aggregates on all documents as if the filter query wasn't there. It ignores the `filter` aggregation and implicitly assumes the `match_all` query.
+The `global` aggregation creates a single bucket containing all documents in the index, regardless of the search query. Subaggregations nested inside `global` operate on the full document set, allowing you to compare filtered metrics against overall metrics in the same request.
 
-The following example returns the `avg` value of the `taxful_total_price` field from all documents in the index:
+The `global` aggregation can only be placed as a top-level aggregation. Nesting it inside another bucket aggregation has no effect.
+{: .note}
+
+## Example
+
+The following example computes two averages in a single request: one scoped to the query (orders under $50) and one across all documents using the `global` aggregation:
 
 ```json
-GET opensearch_dashboards_sample_data_ecommerce/_search
+GET /opensearch_dashboards_sample_data_ecommerce/_search
 {
   "size": 0,
   "query": {
@@ -34,25 +39,57 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
           }
         }
       }
+    },
+    "filtered_avg": {
+      "avg": {
+        "field": "taxful_total_price"
+      }
     }
   }
 }
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 ```json
-...
-"aggregations" : {
-  "total_avg_amount" : {
-    "doc_count" : 4675,
-    "avg_price" : {
-      "value" : 75.05542864304813
+{
+  "took": 19,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 1633,
+      "relation": "eq"
+    },
+    "max_score": null,
+    "hits": []
+  },
+  "aggregations": {
+    "total_avg_amount": {
+      "doc_count": 4675,
+      "avg_price": {
+        "value": 75.05542864304813
+      }
+    },
+    "filtered_avg": {
+      "value": 38.363175998928355
     }
   }
- }
 }
 ```
 
-You can see that the average value for the `taxful_total_price` field is 75.05 and not the 38.36 as seen in the [`filter` example]({{site.url}}{{site.baseurl}}/aggregations/bucket/filter/#example-response) when the query matched.
+The `total_avg_amount` aggregation reports the average across all 4,675 documents ($75.06), while `filtered_avg` reports the average only for the 1,633 documents matching the query ($38.36).
+
+## Response body fields
+
+The following table lists the response body fields.
+
+| Field | Data type | Description |
+| :--- | :--- | :--- |
+| `doc_count` | Integer | The total number of documents in the index, independent of the search query. |
