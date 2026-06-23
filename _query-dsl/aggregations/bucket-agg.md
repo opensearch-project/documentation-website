@@ -6,6 +6,9 @@ permalink: /aggregations/bucket-agg/
 nav_order: 3
 redirect_from:
   - /opensearch/bucket-agg/
+  - /aggregations/bucket/
+  - /aggregations/bucket/index/
+  - /query-dsl/aggregations/bucket/
 canonical_url: https://docs.opensearch.org/latest/aggregations/bucket/index/
 ---
 

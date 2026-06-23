@@ -5,6 +5,8 @@ nav_order: 35
 parent: Creating reports with the Reporting CLI
 
 canonical_url: https://docs.opensearch.org/latest/reporting/rep-cli-env-var/
+redirect_from:
+  - /reporting/rep-cli-env-var/
 ---
 
 # Using environment variables with the Reporting CLI

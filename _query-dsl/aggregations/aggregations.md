@@ -6,6 +6,8 @@ nav_order: 5
 permalink: /aggregations/
 redirect_from:
   - /opensearch/aggregations/
+  - /aggregations/index/
+  - /query-dsl/aggregations/
 canonical_url: https://docs.opensearch.org/latest/aggregations/
 ---
 

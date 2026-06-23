@@ -6,6 +6,8 @@ parent: Using coordinate and region maps
 nav_order: 5
 redirect_from:
   - /dashboards/maps/
+  - /dashboards/maps-plugin/
+  - /dashboards/visualize/visualize-app/maps/
 canonical_url: https://docs.opensearch.org/latest/dashboards/visualize/maps/
 ---
 

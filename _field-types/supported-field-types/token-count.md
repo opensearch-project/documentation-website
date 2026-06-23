@@ -7,6 +7,8 @@ parent: String field types
 grand_parent: Supported field types
 redirect_from:
   - /opensearch/supported-field-types/token-count/
+  - /field-types/token-count/
+  - /mappings/supported-field-types/token-count/
 canonical_url: https://docs.opensearch.org/latest/field-types/supported-field-types/token-count/
 ---
 

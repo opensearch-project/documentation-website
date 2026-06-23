@@ -4,6 +4,9 @@ title: Simulate an ingest pipeline
 parent: Ingest APIs
 nav_order: 13
 canonical_url: https://docs.opensearch.org/latest/ingest-pipelines/simulate-ingest/
+redirect_from:
+  - /ingest-pipelines/simulate-ingest/
+  - /opensearch/rest-api/ingest-apis/simulate-ingest/
 ---
 
 # Simulate a pipeline

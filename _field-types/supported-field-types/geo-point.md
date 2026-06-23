@@ -7,6 +7,8 @@ parent: Geographic field types
 grand_parent: Supported field types
 redirect_from:
   - /opensearch/supported-field-types/geo-point/
+  - /field-types/geo-point/
+  - /mappings/supported-field-types/geo-point/
 canonical_url: https://docs.opensearch.org/latest/field-types/supported-field-types/geo-point/
 ---
 

@@ -5,6 +5,8 @@ nav_order: 10
 parent: Creating reports with the Reporting CLI
 
 canonical_url: https://docs.opensearch.org/latest/reporting/rep-cli-install/
+redirect_from:
+  - /reporting/rep-cli-install/
 ---
 
 # Downloading and installing the Reporting CLI tool

@@ -5,6 +5,7 @@ parent: Index APIs
 nav_order: 1
 redirect_from:
  - /opensearch/rest-api/index-apis/create-index/
+  - /opensearch/rest-api/create-index/
 canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/create-index/
 ---
 

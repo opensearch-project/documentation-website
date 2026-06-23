@@ -4,6 +4,11 @@ title: Mapping
 nav_order: 13
 redirect_from: 
   - /opensearch/mappings/
+  - /field-types/
+  - /field-types/index/
+  - /field-types/mappings-use-cases/
+  - /mappings/
+  - /mappings/index/
 canonical_url: https://docs.opensearch.org/latest/field-types/
 ---
 
