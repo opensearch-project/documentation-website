@@ -246,7 +246,7 @@ To configuring data export and retention, use the **Query insights export and da
 
 The **Remote repository exporter settings** panel lets you export top N query insights data to a remote Amazon Simple Storage Service (Amazon S3) repository for cheaper, long-term storage. This exporter operates independently of the local exporter and data retention settings and appears below them on the configuration page. Because it's independent, you can run the remote repository exporter alongside the local index exporter, exporting data to both destinations at the same time.
 
-The remote repository exporter requires the [`repository-s3` plugin]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/#amazon-s3) to be installed on the cluster. If the plugin isn't installed, the panel displays a callout titled **The repository-s3 plugin is not installed** with a link to the setup guide. To set up the exporter, install the plugin on all nodes (which requires restarting each node) and configure your AWS credentials in the OpenSearch keystore.
+The remote repository exporter requires the [`repository-s3` plugin]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/#amazon-s3) to be installed on the cluster. To set up the exporter, follow the plugin installation instructions.
 
 #### Registering an S3 repository
 
@@ -261,7 +261,7 @@ Before you can enable the exporter, you must register at least one S3 repository
 
 After the repository is registered, it becomes available for selection in the **Repository** dropdown menu.
 
-If your AWS credentials, AWS Region, or bucket aren't configured correctly, registration fails with a descriptive error, such as a missing credentials, missing Region, access denied, or nonexistent bucket message.
+If your AWS credentials, AWS Region, or bucket aren't configured correctly, registration fails with a descriptive error message.
 {: .note}
 
 #### Enabling the remote exporter
@@ -270,9 +270,9 @@ To enable the remote repository exporter, use the following steps:
 
 1. Toggle the **Enabled** setting to turn the remote repository exporter on.
 2. From the **Repository** dropdown menu, select a registered S3 repository.
-3. In the **Path** field, specify a path within the repository for organizing exported files. The default is `query-insights`.
+3. In the **Path** field, specify a path within the repository for organizing exported files. The default is `query-insights`. This is separate from the **Base path** set during registration, which defines where the repository stores its data in the bucket.
 4. Select **Save**.
-5. In the **Statuses for remote exporter** panel, confirm that the **Remote Exporter** status is **Enabled**.
+5. In the **Statuses for remote exporter** panel, confirm that the remote exporter status is **Enabled**.
 
 ### Configuration best practices
 
