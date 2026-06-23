@@ -5,6 +5,8 @@ nav_order: 75
 has_children: true
 has_toc: false
 canonical_url: https://docs.opensearch.org/latest/api-reference/search-apis/index/
+redirect_from:
+  - /api-reference/search-apis/
 ---
 
 # Search APIs

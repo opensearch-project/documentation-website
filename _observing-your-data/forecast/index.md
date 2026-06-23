@@ -4,6 +4,8 @@ title: Forecasting
 nav_order: 81
 has_children: true
 canonical_url: https://docs.opensearch.org/latest/observing-your-data/forecast/index/
+redirect_from:
+  - /observing-your-data/forecast/
 ---
 
 # Forecasting

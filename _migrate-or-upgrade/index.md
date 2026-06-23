@@ -11,6 +11,7 @@ redirect_from:
   - /upgrade-to/index/
   - /upgrade-to/
   - /upgrade-to/upgrade-to/
+  - /install-and-configure/upgrade-opensearch/index/
 nav_exclude: true
 canonical_url: https://docs.opensearch.org/latest/upgrade-or-migrate/
 ---

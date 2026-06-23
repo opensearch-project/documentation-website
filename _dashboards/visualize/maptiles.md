@@ -6,6 +6,7 @@ parent: Coordinate and region maps
 nav_order: 30
 redirect_from:
   - /dashboards/maptiles/
+  - /dashboards/visualize/visualize-app/maptiles/
 canonical_url: https://docs.opensearch.org/latest/dashboards/visualize/maptiles/
 ---
 

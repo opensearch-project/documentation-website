@@ -7,6 +7,8 @@ nav_order: 40
 has_children: false
 has_toc: false
 canonical_url: https://docs.opensearch.org/latest/field-types/mapping-parameters/enabled/
+redirect_from:
+  - /mappings/mapping-parameters/enabled/
 ---
 
 # Enabled

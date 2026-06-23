@@ -6,6 +6,7 @@ nav_order: 5
 redirect_from: 
  - /opensearch/rest-api/alias/
  - /api-reference/alias/
+  - /api-reference/alias/aliases-api/
 canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/alias/
 ---
 

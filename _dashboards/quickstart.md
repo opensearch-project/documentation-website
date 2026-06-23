@@ -6,6 +6,9 @@ has_children: false
 redirect_from:
   - /dashboards/get-started/quickstart-dashboards/
   - /dashboards/quickstart-dashboards/
+  - /dashboards/browser-compatibility/
+  - /dashboards/getting-started/
+  - /dashboards/getting-started/index/
 canonical_url: https://docs.opensearch.org/latest/dashboards/quickstart/
 ---
 

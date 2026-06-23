@@ -4,6 +4,8 @@ title: Semantic
 nav_order: 20
 parent: Supported field types
 canonical_url: https://docs.opensearch.org/latest/field-types/supported-field-types/semantic/
+redirect_from:
+  - /mappings/supported-field-types/semantic/
 ---
 
 # Semantic field type
