@@ -3,6 +3,8 @@ layout: default
 title: Index aliases
 nav_order: 12
 canonical_url: https://docs.opensearch.org/latest/im-plugin/index-alias/
+redirect_from:
+  - /im-plugin/index-alias/
 ---
 
 # Index aliases

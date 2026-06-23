@@ -4,6 +4,10 @@ title: Create or update mappings
 parent: Index APIs
 nav_order: 220
 canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/put-mapping/
+redirect_from:
+  - /opensearch/rest-api/index-apis/put-mapping/
+  - /opensearch/rest-api/index-apis/update-mapping/
+  - /opensearch/rest-api/update-mapping/
 ---
 
 # Create or update mappings

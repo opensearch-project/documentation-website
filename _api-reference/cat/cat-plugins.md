@@ -6,6 +6,8 @@ parent: CAT API
 nav_order: 50
 has_children: false
 canonical_url: https://docs.opensearch.org/latest/api-reference/cat/cat-plugins/
+redirect_from:
+  - /opensearch/rest-api/cat/cat-plugins/
 ---
 
 # CAT plugins

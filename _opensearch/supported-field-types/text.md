@@ -6,6 +6,10 @@ has_children: false
 parent: String field types
 grand_parent: Supported field types
 canonical_url: https://docs.opensearch.org/latest/field-types/supported-field-types/text/
+redirect_from:
+  - /field-types/supported-field-types/text/
+  - /field-types/text/
+  - /mappings/supported-field-types/text/
 ---
 
 # Text field type

@@ -5,6 +5,9 @@ parent: SQL
 grand_parent: SQL and PPL
 nav_order: 6
 canonical_url: https://docs.opensearch.org/latest/search-plugins/sql/sql/complex/
+redirect_from:
+  - /search-plugins/sql/complex/
+  - /sql-and-ppl/sql/complex/
 ---
 
 # Complex queries

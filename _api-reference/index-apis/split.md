@@ -4,6 +4,8 @@ title: Split index
 parent: Index APIs
 nav_order: 80
 canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/split/
+redirect_from:
+  - /opensearch/rest-api/index-apis/split/
 ---
 
 # Split index

@@ -8,6 +8,8 @@ redirect_from:
   - /opensearch/install/compatibility/
   - /opensearch/install/important-settings/
   - /install-and-configure/index/
+  - /install-and-configure/install-opensearch/
+  - /opensearch/install/index/
 canonical_url: https://docs.opensearch.org/latest/install-and-configure/install-opensearch/index/
 ---
 
