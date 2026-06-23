@@ -4,6 +4,8 @@ title: System indexes
 parent: Configuration
 nav_order: 4
 canonical_url: https://docs.opensearch.org/latest/security/configuration/system-indices/
+redirect_from:
+  - /security-plugin/configuration/system-indices/
 ---
 
 # System indexes

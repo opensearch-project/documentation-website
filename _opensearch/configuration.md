@@ -3,6 +3,9 @@ layout: default
 title: Configuring OpenSearch
 nav_order: 10
 canonical_url: https://docs.opensearch.org/latest/install-and-configure/configuring-opensearch/index/
+redirect_from:
+  - /install-and-configure/configuring-opensearch/
+  - /install-and-configure/configuring-opensearch/index/
 ---
 
 # Configuring OpenSearch

@@ -7,6 +7,8 @@ has_children: false
 grand_parent: Availability and Recovery
 redirect_from: 
   - /opensearch/snapshots/snapshot-restore/
+  - /availability-and-recovery/snapshots/snapshot-restore/
+  - /opensearch/snapshot-restore/
 canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/
 ---
 

@@ -6,6 +6,10 @@ has_children: false
 parent: Autocomplete field types
 grand_parent: Supported field types
 canonical_url: https://docs.opensearch.org/latest/field-types/supported-field-types/search-as-you-type/
+redirect_from:
+  - /field-types/search-as-you-type/
+  - /field-types/supported-field-types/search-as-you-type/
+  - /mappings/supported-field-types/search-as-you-type/
 ---
 
 # Search-as-you-type field type
