@@ -7,6 +7,8 @@ nav_order: 190
 has_children: false
 has_toc: false
 canonical_url: https://docs.opensearch.org/latest/field-types/mapping-parameters/term-vector/
+redirect_from:
+  - /mappings/mapping-parameters/term-vector/
 ---
 
 # Term vector

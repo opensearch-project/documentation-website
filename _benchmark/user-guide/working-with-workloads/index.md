@@ -6,6 +6,8 @@ parent: User guide
 has_toc: false
 has_children: true
 canonical_url: https://docs.opensearch.org/latest/benchmark/user-guide/working-with-workloads/
+redirect_from:
+  - /benchmark/user-guide/working-with-workloads/
 ---
 
 # Working with workloads

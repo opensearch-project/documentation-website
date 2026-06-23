@@ -4,6 +4,8 @@ title: Architecture
 nav_order: 15
 parent: Overview
 canonical_url: https://docs.opensearch.org/latest/migration-assistant/overview/architecture/
+redirect_from:
+  - /migration-assistant/architecture/
 ---
 
 # Architecture

@@ -5,6 +5,8 @@ parent: PPL
 grand_parent: SQL and PPL
 nav_order: 3
 canonical_url: https://docs.opensearch.org/latest/search-plugins/sql/ppl/subsearch/
+redirect_from:
+  - /sql-and-ppl/ppl/subsearch/
 ---
 
 # subsearch

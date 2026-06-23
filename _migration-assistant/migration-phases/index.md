@@ -7,6 +7,8 @@ has_toc: false
 permalink: /migration-phases/
 redirect_from: 
   - /migration-phases/index/
+  - /migration-assistant/migration-phases/
+  - /migration-assistant/overview/migration-phases/
 canonical_url: https://docs.opensearch.org/latest/migration-assistant/migration-phases/
 ---
 

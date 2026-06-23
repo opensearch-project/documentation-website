@@ -4,6 +4,8 @@ title: Getting started with workspaces
 parent: Workspace for OpenSearch Dashboards
 nav_order: 0
 canonical_url: https://docs.opensearch.org/latest/dashboards/workspace/
+redirect_from:
+  - /dashboards/workspace/
 ---
 
 # Getting started with workspaces
