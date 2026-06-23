@@ -7,6 +7,9 @@ permalink: /migration-assistant/migration-phases/replay-captured-traffic/
 redirect_from: 
   - /migration-assistant/migration-phases/using-traffic-replayer/
   - /migration-phases/using-traffic-replayer/
+  - /migration-assistant/migration-phases/live-traffic-migration/using-traffic-Replayer/
+  - /migration-assistant/migration-phases/using-traffic-Replayer/
+  - /migration-phases/using-traffic-Replayer/
 canonical_url: https://docs.opensearch.org/latest/migration-assistant/migration-phases/replay-captured-traffic/
 ---
 
