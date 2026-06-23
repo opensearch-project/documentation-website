@@ -4,6 +4,9 @@ title: OpenSearch Dashboards plugin
 parent: Trace analytics
 nav_order: 50
 canonical_url: https://docs.opensearch.org/latest/observing-your-data/trace/ta-dashboards/
+redirect_from:
+  - /observability-plugin/trace/ta-dashboards/
+  - /observing-your-data/trace/ta-dashboards/
 ---
 
 # Trace Analytics OpenSearch Dashboards plugin

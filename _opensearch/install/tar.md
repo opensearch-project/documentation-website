@@ -4,6 +4,8 @@ title: Tarball
 parent: Install OpenSearch
 nav_order: 50
 canonical_url: https://docs.opensearch.org/latest/install-and-configure/install-opensearch/tar/
+redirect_from:
+  - /install-and-configure/install-opensearch/tar/
 ---
 
 # Tarball

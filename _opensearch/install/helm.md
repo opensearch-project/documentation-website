@@ -4,6 +4,8 @@ title: Helm
 parent: Install OpenSearch
 nav_order: 6
 canonical_url: https://docs.opensearch.org/latest/install-and-configure/install-opensearch/helm/
+redirect_from:
+  - /install-and-configure/install-opensearch/helm/
 ---
 
 # Run OpenSearch using Helm

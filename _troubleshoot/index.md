@@ -5,6 +5,8 @@ nav_order: 1
 has_toc: false
 redirect_from: /troubleshoot/
 canonical_url: https://docs.opensearch.org/latest/troubleshoot/
+redirect_from:
+  - /troubleshoot/
 ---
 
 # Common issues

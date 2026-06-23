@@ -6,6 +6,8 @@ has_children: true
 has_toc: true
 redirect_from:
   - /clients/logstash/
+  - /tools/logstash/
+  - /tools/logstash/index/
 canonical_url: https://docs.opensearch.org/latest/tools/logstash/index/
 ---
 

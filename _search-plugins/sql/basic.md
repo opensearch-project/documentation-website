@@ -4,6 +4,9 @@ title: Basic Queries
 parent: SQL
 nav_order: 5
 canonical_url: https://docs.opensearch.org/latest/search-plugins/sql/sql/basic/
+redirect_from:
+  - /search-plugins/sql/sql/basic/
+  - /sql-and-ppl/sql/basic/
 ---
 
 

@@ -6,6 +6,9 @@ has_children: true
 has_toc: false
 redirect_from:
   - /monitoring-plugins/trace/
+  - /observability-plugin/trace/index/
+  - /observing-your-data/trace/
+  - /observing-your-data/trace/index/
 canonical_url: https://docs.opensearch.org/latest/observing-your-data/trace/index/
 ---
 

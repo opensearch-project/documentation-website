@@ -4,6 +4,11 @@ title: Aggregations
 nav_order: 14
 has_children: true
 canonical_url: https://docs.opensearch.org/latest/aggregations/
+redirect_from:
+  - /aggregations/
+  - /aggregations/index/
+  - /query-dsl/aggregations/
+  - /query-dsl/aggregations/aggregations/
 ---
 
 # Aggregations

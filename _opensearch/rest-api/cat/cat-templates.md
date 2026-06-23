@@ -6,6 +6,8 @@ grand_parent: REST API reference
 nav_order: 70
 has_children: false
 canonical_url: https://docs.opensearch.org/latest/api-reference/cat/cat-templates/
+redirect_from:
+  - /api-reference/cat/cat-templates/
 ---
 
 # cat templates

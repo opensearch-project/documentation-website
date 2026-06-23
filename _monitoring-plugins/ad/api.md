@@ -4,6 +4,8 @@ title: Anomaly detection API
 parent: Anomaly detection
 nav_order: 1
 canonical_url: https://docs.opensearch.org/latest/observing-your-data/ad/api/
+redirect_from:
+  - /observing-your-data/ad/api/
 ---
 
 # Anomaly detection API

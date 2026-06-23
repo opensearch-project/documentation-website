@@ -6,6 +6,8 @@ grand_parent: REST API reference
 nav_order: 30
 has_children: false
 canonical_url: https://docs.opensearch.org/latest/api-reference/cat/cat-cluster_manager/
+redirect_from:
+  - /api-reference/cat/cat-cluster_manager/
 ---
 
 # cat master

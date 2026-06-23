@@ -4,6 +4,8 @@ title: Document-level security
 parent: Access control
 nav_order: 10
 canonical_url: https://docs.opensearch.org/latest/security/access-control/document-level-security/
+redirect_from:
+  - /security/access-control/document-level-security/
 ---
 
 # Document-level security

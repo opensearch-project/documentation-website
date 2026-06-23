@@ -4,6 +4,9 @@ title: SAML
 parent: Configuration
 nav_order: 31
 canonical_url: https://docs.opensearch.org/latest/security/authentication-backends/saml/
+redirect_from:
+  - /security/authentication-backends/saml/
+  - /security/configuration/saml/
 ---
 
 # SAML

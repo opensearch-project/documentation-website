@@ -4,6 +4,9 @@ title: Authentication flow
 parent: Configuration
 nav_order: 1
 canonical_url: https://docs.opensearch.org/latest/security/authentication-backends/authc-index/
+redirect_from:
+  - /security/authentication-backends/
+  - /security/authentication-backends/authc-index/
 ---
 
 # Authentication flow

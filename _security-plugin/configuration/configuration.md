@@ -4,6 +4,8 @@ title: Backend configuration
 parent: Configuration
 nav_order: 2
 canonical_url: https://docs.opensearch.org/latest/security/configuration/configuration/
+redirect_from:
+  - /security/configuration/configuration/
 ---
 
 # Backend configuration

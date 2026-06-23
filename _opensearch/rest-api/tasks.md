@@ -4,6 +4,9 @@ title: Tasks
 parent: REST API reference
 nav_order: 80
 canonical_url: https://docs.opensearch.org/latest/api-reference/tasks/
+redirect_from:
+  - /api-reference/tasks/
+  - /api-reference/tasks/tasks/
 ---
 
 # Tasks
