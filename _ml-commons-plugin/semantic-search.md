@@ -4,6 +4,10 @@ title: Semantic search
 has_children: false
 nav_order: 140
 canonical_url: https://docs.opensearch.org/latest/search-plugins/neural-search-tutorial/
+redirect_from:
+  - /search-plugins/neural-search-tutorial/
+  - /tutorials/vector-search/neural-search-tutorial/
+  - /vector-search/tutorials/neural-search-tutorial/
 ---
 
 # Semantic search

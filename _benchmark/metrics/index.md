@@ -3,6 +3,10 @@ layout: default
 title: Metrics
 nav_order: 25
 has_children: true
+redirect_from:
+  - /benchmark/metrics/
+  - /benchmark/reference/metrics/
+  - /benchmark/reference/metrics/index/
 ---
 
 # Metrics

@@ -5,6 +5,8 @@ parent: Index patterns
 grand_parent: Dashboards Management
 nav_order: 10
 canonical_url: https://docs.opensearch.org/latest/dashboards/management/multi-data-sources/
+redirect_from:
+  - /dashboards/discover/multi-data-sources/
 ---
 
 # Multiple data sources
