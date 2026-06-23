@@ -4,6 +4,8 @@ title: Troubleshooting
 parent: SQL and PPL
 nav_order: 88
 canonical_url: https://docs.opensearch.org/latest/search-plugins/sql/troubleshoot/
+redirect_from:
+  - /sql-and-ppl/troubleshoot/
 ---
 
 # Troubleshooting

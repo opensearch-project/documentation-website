@@ -6,6 +6,8 @@ has_children: true
 has_toc: false
 redirect_from:
   - /security-plugin/audit-logs/
+  - /security-plugin/audit-logs/index/
+  - /security/audit-logs/
 canonical_url: https://docs.opensearch.org/latest/security/audit-logs/index/
 ---
 

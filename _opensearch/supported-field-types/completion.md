@@ -6,6 +6,10 @@ has_children: false
 parent: Autocomplete field types
 grand_parent: Supported field types
 canonical_url: https://docs.opensearch.org/latest/field-types/supported-field-types/completion/
+redirect_from:
+  - /field-types/completion/
+  - /field-types/supported-field-types/completion/
+  - /mappings/supported-field-types/completion/
 ---
 
 # Completion field type

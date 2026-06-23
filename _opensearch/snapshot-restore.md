@@ -3,6 +3,9 @@ layout: default
 title: Take and restore snapshots
 nav_order: 65
 canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/
+redirect_from:
+  - /availability-and-recovery/snapshots/snapshot-restore/
+  - /opensearch/snapshots/snapshot-restore/
 ---
 
 # Take and restore snapshots

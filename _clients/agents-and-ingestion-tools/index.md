@@ -6,6 +6,8 @@ has_children: false
 has_toc: false
 redirect_from:
   - /clients/agents-and-ingestion-tools/
+  - /tools/
+  - /tools/index/
 canonical_url: https://docs.opensearch.org/latest/tools/
 ---
 

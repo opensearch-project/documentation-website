@@ -5,6 +5,10 @@ parent: Query DSL
 has_children: true
 nav_order: 40
 canonical_url: https://docs.opensearch.org/latest/query-dsl/compound/index/
+redirect_from:
+  - /query-dsl/compound/
+  - /query-dsl/compound/index/
+  - /query-dsl/query-dsl/compound/
 ---
 
 # Compound queries
