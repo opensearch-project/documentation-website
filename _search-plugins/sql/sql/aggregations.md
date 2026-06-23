@@ -7,6 +7,9 @@ nav_order: 11
 Redirect_from:
   - /search-plugins/sql/aggregations/
 canonical_url: https://docs.opensearch.org/latest/search-plugins/sql/sql/aggregations/
+redirect_from:
+  - /search-plugins/sql/aggregations/
+  - /sql-and-ppl/sql/aggregations/
 ---
 
 # Aggregate functions

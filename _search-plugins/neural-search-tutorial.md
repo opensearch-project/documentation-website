@@ -5,6 +5,8 @@ has_children: false
 nav_order: 30
 redirect_from:
   - /ml-commons-plugin/semantic-search/
+  - /tutorials/vector-search/neural-search-tutorial/
+  - /vector-search/tutorials/neural-search-tutorial/
 canonical_url: https://docs.opensearch.org/latest/search-plugins/neural-search-tutorial/
 ---
 

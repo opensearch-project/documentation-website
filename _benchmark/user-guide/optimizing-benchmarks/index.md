@@ -5,6 +5,8 @@ nav_order: 25
 parent: User guide
 has_children: true
 canonical_url: https://docs.opensearch.org/latest/benchmark/user-guide/optimizing-benchmarks/index/
+redirect_from:
+  - /benchmark/user-guide/optimizing-benchmarks/
 ---
 
 # Optimizing benchmarks

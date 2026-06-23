@@ -3,6 +3,8 @@ layout: default
 title: Collapse search results
 nav_order: 3
 canonical_url: https://docs.opensearch.org/latest/search-plugins/collapse-search/
+redirect_from:
+  - /search-plugins/searching-data/collapse-search/
 ---
 
 # Collapse search results
