@@ -4,7 +4,7 @@ title: Rename
 parent: Ingest processors
 nav_order: 227
 redirect_from:
-   - /api-reference/ingest-apis/processors/rename/
+  - /api-reference/ingest-apis/processors/rename/
 canonical_url: https://docs.opensearch.org/latest/ingest-pipelines/processors/rename/
 ---
 
