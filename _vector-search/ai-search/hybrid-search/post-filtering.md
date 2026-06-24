@@ -20,71 +20,143 @@ Post-filtering does not impact document relevance scores or aggregation results.
 
 To filter all subqueries during query execution instead of filtering the final results, use a common filter. For more information, see [Hybrid search with pre-filtering]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/pre-filtering/).
 
-## Example
+## Example: Faceted search with post-filtering
 
-The following example request combines two query clauses---a `term` query and a `match` query---and contains a `post_filter`:
+Post-filtering is commonly used in faceted search, where the UI displays aggregation counts (such as brand, color, and size filters) alongside search results. Using `post_filter` keeps the aggregation counts based on the full unfiltered query while narrowing only the displayed hits.
+
+Consider an index containing product documents:
 
 ```json
-GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
+{
+  "name": "Nike Air Max",
+  "brand": "Nike",
+  "color": "Red",
+  "size": 10,
+  "price": 120,
+  "category": "Running Shoes"
+}
+```
+
+A user searches for "running shoes" and the application returns results with aggregations for brand, color, and size:
+
+```json
+POST /products/_search
 {
   "query": {
-    "hybrid":{
-      "queries":[
-        {
-          "match":{
-            "passage_text": "hello"
-          }
-        },
-        {
-          "term":{
-            "passage_text":{
-              "value":"planet"
-            }
-          }
-        }
-      ]
+    "match": {
+      "category": "running shoes"
     }
-
   },
-  "post_filter":{
-    "match": { "passage_text": "world" }
+  "aggs": {
+    "brands": {
+      "terms": { "field": "brand.keyword" }
+    },
+    "colors": {
+      "terms": { "field": "color.keyword" }
+    },
+    "sizes": {
+      "terms": { "field": "size" }
+    }
   }
 }
 ```
 {% include copy-curl.html %}
 
-Compare the results to the results in the [example without post-filtering]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/#example-combining-a-match-query-and-a-term-query). In the example without post-filtering, the response contains two documents. In this example, the response contains one document because the second document is filtered out:
+The response returns hits and aggregations:
+
+**Hits:**
+
+```
+Nike Air Max
+Nike Pegasus
+Adidas Adizero
+Puma Velocity
+...
+```
+
+**Aggregations:**
+
+```
+Brands:  Nike (120), Adidas (80), Puma (45)
+Colors:  Black (90), White (70), Red (55)
+Sizes:   8 (40), 9 (60), 10 (85)
+```
+
+The UI renders the aggregations as facet filters on the side. Now the user clicks "Nike" to narrow results.
+
+### Why pre-filtering removes facets
+
+If you apply the brand selection as a pre-filter, the aggregations are computed only on Nike documents:
 
 ```json
+POST /products/_search
 {
-  "took": 18,
-  "timed_out": false,
-  "_shards": {
-    "total": 2,
-    "successful": 2,
-    "skipped": 0,
-    "failed": 0
-  },
-  "hits": {
-    "total": {
-      "value": 1,
-      "relation": "eq"
-    },
-    "max_score": 0.3,
-    "hits": [
-      {
-        "_index": "my-nlp-index",
-        "_id": "1",
-        "_score": 0.3,
-        "_source": {
-          "id": "s1",
-          "passage_text": "Hello world"
-        }
+  "query": {
+    "bool": {
+      "must": {
+        "match": { "category": "running shoes" }
+      },
+      "filter": {
+        "term": { "brand.keyword": "Nike" }
       }
-    ]
+    }
+  },
+  "aggs": {
+    "brands": {
+      "terms": { "field": "brand.keyword" }
+    },
+    "colors": {
+      "terms": { "field": "color.keyword" }
+    }
   }
 }
 ```
+{% include copy-curl.html %}
+
+The aggregations become:
+
+```
+Brands:  Nike (120)
+Colors:  Black (50), White (40), Red (30)
+```
+
+Adidas and Puma disappear completely from the brand facet because those documents were excluded before aggregations were computed. The user loses the ability to see other brand options or switch to a different brand without first removing the filter.
+
+### Using post_filter to preserve facets
+
+With `post_filter`, the query and aggregations run on the full result set. The filter is applied only to the displayed hits:
+
+```json
+POST /products/_search
+{
+  "query": {
+    "match": {
+      "category": "running shoes"
+    }
+  },
+  "aggs": {
+    "brands": {
+      "terms": { "field": "brand.keyword" }
+    },
+    "colors": {
+      "terms": { "field": "color.keyword" }
+    }
+  },
+  "post_filter": {
+    "term": { "brand.keyword": "Nike" }
+  }
+}
+```
+{% include copy-curl.html %}
+
+Now the hits contain only Nike shoes, but the aggregations still reflect the full unfiltered query:
+
+```
+Brands:  ✓ Nike (120), Adidas (80), Puma (45)
+Colors:  Black (90), White (70), Red (55)
+```
+
+The user can switch from Nike to Adidas or see how many results each brand has without issuing a different query.
 
 ## How post-filtering affects search results and scoring
 
