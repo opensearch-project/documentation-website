@@ -6,7 +6,6 @@ grand_parent: Index APIs
 nav_order: 10
 redirect_from:
   - /opensearch/rest-api/index-apis/get-settings/
-  - /opensearch/rest-api/index-apis/get-index/
 canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/get-settings/
 ---
 
