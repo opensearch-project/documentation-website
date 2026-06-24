@@ -3,7 +3,7 @@ layout: default
 title: Scroll
 nav_order: 71
 redirect_from:
- - /opensearch/rest-api/scroll/
+  - /opensearch/rest-api/scroll/
   - /api-reference/search-apis/scroll/
 canonical_url: https://docs.opensearch.org/latest/api-reference/scroll/
 ---
