@@ -4,7 +4,7 @@ title: Working with log types
 parent: Setting up Security Analytics
 nav_order: 14
 redirect_from: 
-   - /security-analytics/sec-analytics-config/custom-log-type/
+  - /security-analytics/sec-analytics-config/custom-log-type/
 canonical_url: https://docs.opensearch.org/latest/security-analytics/sec-analytics-config/log-types/
 ---
 
