@@ -5,7 +5,7 @@ parent: PPL
 grand_parent: SQL and PPL
 nav_order: 2
 redirect_from:
- - /search-plugins/ppl/commands/
+  - /search-plugins/ppl/commands/
   - /observability-plugin/ppl/commands/
   - /search-plugins/ppl/functions/
   - /sql-and-ppl/ppl/commands/index/

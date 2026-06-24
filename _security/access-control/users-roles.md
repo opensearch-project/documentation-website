@@ -4,8 +4,8 @@ title: Defining users and roles
 parent: Access control
 nav_order: 85
 redirect_from:
- - /security/access-control/users-roles/
- - /security-plugin/access-control/users-roles/
+  - /security/access-control/users-roles/
+  - /security-plugin/access-control/users-roles/
 canonical_url: https://docs.opensearch.org/latest/security/access-control/users-roles/
 ---
 

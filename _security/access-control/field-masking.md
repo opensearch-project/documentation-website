@@ -4,8 +4,8 @@ title: Field masking
 parent: Access control
 nav_order: 95
 redirect_from:
- - /security/access-control/field-masking/
- - /security-plugin/access-control/field-masking/
+  - /security/access-control/field-masking/
+  - /security-plugin/access-control/field-masking/
 canonical_url: https://docs.opensearch.org/latest/security/access-control/field-masking/
 ---
 
