@@ -5,7 +5,7 @@ nav_order: 15
 has_children: true
 permalink: /deploying-migration-assistant/
 redirect-from:
-   - /deploying-migration-assistant/index/
+  - /deploying-migration-assistant/index/
 canonical_url: https://docs.opensearch.org/latest/migration-assistant/deploying-migration-assistant/
 redirect_from:
   - /migration-assistant/deploying-migration-assistant/

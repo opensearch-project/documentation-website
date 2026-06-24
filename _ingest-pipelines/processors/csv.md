@@ -4,7 +4,7 @@ title: CSV
 parent: Ingest processors
 nav_order: 40
 redirect_from:
-   - /api-reference/ingest-apis/processors/csv/
+  - /api-reference/ingest-apis/processors/csv/
 canonical_url: https://docs.opensearch.org/latest/ingest-pipelines/processors/csv/
 ---
 

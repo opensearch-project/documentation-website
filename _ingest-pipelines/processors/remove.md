@@ -4,7 +4,7 @@ title: Remove
 parent: Ingest processors
 nav_order: 222
 redirect_from:
-   - /api-reference/ingest-apis/processors/remove/
+  - /api-reference/ingest-apis/processors/remove/
 canonical_url: https://docs.opensearch.org/latest/ingest-pipelines/processors/remove/
 ---
 
