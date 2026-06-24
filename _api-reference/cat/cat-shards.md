@@ -5,11 +5,13 @@ parent: CAT API
 
 nav_order: 60
 has_children: false
+redirect_from:
+- /opensearch/rest-api/cat/cat-shards/
 canonical_url: https://docs.opensearch.org/latest/api-reference/cat/cat-shards/
 ---
 
 # CAT shards
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 
 The CAT shards operation lists the state of all primary and replica shards and how they are distributed.
@@ -28,7 +30,7 @@ GET _cat/shards/<index>?v
 ```
 {% include copy-curl.html %}
 
-If you want to get information for more than one index, separate the indices with commas:
+If you want to get information for more than one index, separate the indexes with commas:
 
 ```
 GET _cat/shards/index1,index2,index3
@@ -45,7 +47,7 @@ GET _cat/shards
 
 All cat shards URL parameters are optional.
 
-In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameter:
+In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameters:
 
 Parameter | Type | Description
 :--- | :--- | :---

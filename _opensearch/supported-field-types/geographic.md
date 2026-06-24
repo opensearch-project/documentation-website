@@ -1,0 +1,22 @@
+---
+layout: default
+title: Geographic field types
+nav_order: 55
+has_children: true
+has_toc: false
+parent: Supported field types
+canonical_url: https://docs.opensearch.org/latest/field-types/supported-field-types/geographic/
+redirect_from:
+  - /field-types/geographic/
+  - /field-types/supported-field-types/geographic/
+  - /mappings/supported-field-types/geographic/
+---
+
+# Geographic field types
+
+The following table lists all geographic field types that OpenSearch supports.
+
+Field data type | Description
+:--- | :---  
+[`geo_point`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point/) | A geographic point specified by latitude and longitude. 
+[`geo_shape`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-shape/) | A geographic shape, such as a polygon or a collection of geographic points. 

@@ -5,11 +5,13 @@ parent: CAT API
 
 nav_order: 50
 has_children: false
+redirect_from:
+- /opensearch/rest-api/cat/cat-recovery/
 canonical_url: https://docs.opensearch.org/latest/api-reference/cat/cat-recovery/
 ---
 
 # CAT recovery
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 
 The CAT recovery operation lists all completed and ongoing index and shard recoveries.
@@ -28,7 +30,7 @@ GET _cat/recovery/<index>?v
 ```
 {% include copy-curl.html %}
 
-If you want to get information for more than one index, separate the indices with commas:
+If you want to get information for more than one index, separate the indexes with commas:
 
 ```json
 GET _cat/recovery/index1,index2,index3

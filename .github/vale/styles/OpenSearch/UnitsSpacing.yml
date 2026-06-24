@@ -1,0 +1,8 @@
+extends: existence
+message: "Put a space between the number and the units in '%s'."
+nonword: true
+ignorecase: true
+level: warning
+tokens:
+  - \d+(?:B|KB|MB|GB|TB|PB)(?:\s|\.|,)
+  - \d+(?:ns|ms|s|min|h|d)(?:\s|\.|,)

@@ -3,6 +3,9 @@ layout: default
 title: Field masking
 parent: Access control
 nav_order: 95
+redirect_from:
+ - /security/access-control/field-masking/
+ - /security-plugin/access-control/field-masking/
 canonical_url: https://docs.opensearch.org/latest/security/access-control/field-masking/
 ---
 
@@ -56,14 +59,14 @@ You configure field masking using OpenSearch Dashboards, `roles.yml`, or the RES
 
 ```yml
 someonerole:
-  cluster: []
-  indices:
-    movies:
-      _masked_fields_:
-      - "title"
-      - "genres"
-      '*':
-      - "READ"
+  index_permissions:
+    - index_patterns:
+      - 'movies'
+      allowed_actions:
+        - read
+      masked_fields:
+        - "title"
+        - "genres"
 ```
 
 
@@ -74,20 +77,20 @@ See [Create role]({{site.url}}{{site.baseurl}}/security/access-control/api/#crea
 
 ## (Advanced) Use an alternative hash algorithm
 
-By default, the security plugin uses the BLAKE2b algorithm, but you can use any hashing algorithm that your JVM provides. This list typically includes MD5, SHA-1, SHA-384, and SHA-512.
+By default, the Security plugin uses the BLAKE2b algorithm, but you can use any hashing algorithm that your JVM provides. This list typically includes MD5, SHA-1, SHA-384, and SHA-512.
 
 To specify a different algorithm, add it after the masked field:
 
 ```yml
 someonerole:
-  cluster: []
-  indices:
-    movies:
-      _masked_fields_:
-      - "title::SHA-512"
-      - "genres"
-      '*':
-      - "READ"
+  index_permissions:
+    - index_patterns:
+      - 'movies'
+      allowed_actions:
+        - read
+      masked_fields:
+        - "title::SHA-512"
+        - "genres"
 ```
 
 
@@ -101,19 +104,19 @@ hr_employee:
     - index_patterns:
       - 'humanresources'
       allowed_actions:
-        - ...
+        - read
       masked_fields:
         - 'lastname::/.*/::*'
         - '*ip_source::/[0-9]{1,3}$/::XXX::/^[0-9]{1,3}/::***'
 someonerole:
-  cluster: []
-  indices:
-    movies:
-      _masked_fields_:
-      - "title::/./::*"
-      - "genres::/^[a-zA-Z]{1,3}/::XXX::/[a-zA-Z]{1,3}$/::YYY"
-      '*':
-      - "READ"
+  index_permissions:
+    - index_patterns:
+      - 'movies'
+      allowed_actions:
+        - read
+      masked_fields:
+        - "title::/./::*"
+        - "genres::/^[a-zA-Z]{1,3}/::XXX::/[a-zA-Z]{1,3}$/::YYY"
 
 ```
 

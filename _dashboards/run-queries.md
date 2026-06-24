@@ -1,8 +1,13 @@
 ---
 layout: default
-title: Running queries in the Dev Tools Console
+title: Running queries in the console
 nav_order: 110
 canonical_url: https://docs.opensearch.org/latest/dashboards/dev-tools/run-queries/
+redirect_from:
+  - /dashboards/dev-tools/index-dev/
+  - /dashboards/dev-tools/run-queries/
+  - /dashboards/discover/run-queries/
+  - /dashboards/visualize/run-queries/
 ---
 
 # Running queries in the console

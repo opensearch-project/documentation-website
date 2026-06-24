@@ -1,0 +1,7 @@
+extends: sequence
+message: "Use 'setup' as an adjective or noun instead of '%s'."
+level: error
+ignorecase: true
+tokens:
+  - tag: NN|JJ
+    pattern: '(?:set up|set-up)'

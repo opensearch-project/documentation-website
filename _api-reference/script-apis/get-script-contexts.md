@@ -6,7 +6,9 @@ nav_order: 5
 canonical_url: https://docs.opensearch.org/latest/api-reference/script-apis/get-script-contexts/
 ---
 
-## Get stored script contexts
+# Get stored script contexts
+**Introduced 1.0**
+{: .label .label-purple }
 
 Retrieves all contexts for stored scripts.
 
@@ -546,7 +548,7 @@ The `GET _script_context` request returns the following fields:
 }
 ````
 
-### Response fields
+## Response fields
 
 The `GET _script_context` request returns the following response fields:
 

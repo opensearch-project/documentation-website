@@ -7,7 +7,7 @@ canonical_url: https://docs.opensearch.org/latest/troubleshoot/openid-connect/
 
 # OpenID Connect troubleshooting
 
-This page includes troubleshooting steps for using OpenID Connect with the security plugin.
+This page includes troubleshooting steps for using OpenID Connect with the Security plugin.
 
 
 ---
@@ -33,7 +33,7 @@ This setting prints a lot of helpful information to your log file. If this infor
 
 ## "Failed when trying to obtain the endpoints from your IdP"
 
-This error indicates that the security plugin can't reach the metadata endpoint of your IdP. In `opensearch_dashboards.yml`, check the following setting:
+This error indicates that the Security plugin can't reach the metadata endpoint of your IdP. In `opensearch_dashboards.yml`, check the following setting:
 
 ```
 plugins.security.openid.connect_url: "http://keycloak.example.com:8080/auth/realms/master/.well-known/openid-configuration"

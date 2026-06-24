@@ -6,18 +6,20 @@ nav_order: 7
 canonical_url: https://docs.opensearch.org/latest/api-reference/script-apis/exec-script/
 ---
 
-## Execute Painless script
+# Execute Painless script
+**Introduced 1.0**
+{: .label .label-purple }
 
 The Execute Painless script API allows you to run a script that is not stored.
 
-### Path and HTTP methods
+## Path and HTTP methods
 
 ```json
 GET /_scripts/painless/_execute
 POST /_scripts/painless/_execute
 ```
 
-### Request fields
+## Request fields
 
 | Field | Description | 
 :--- | :---
@@ -53,7 +55,7 @@ The response contains the average of two script parameters:
 }
 ```
 
-### Response fields
+## Response fields
 
 | Field | Description | 
 :--- | :--- 
@@ -64,11 +66,11 @@ The response contains the average of two script parameters:
 
 Choose different contexts to control the variables that are available to the script and the result's return type. The default context is `painless_test`.
 
-### Painless test context
+## Painless test context
 
 The `painless_test` context is the default script context that provides only the `params` variable to the script. The returned result is always converted to a string. See the preceding example request for a usage example.
 
-### Filter context
+## Filter context
 
 The `filter` context runs the script as if the script were inside a script query. You must provide a test document in the context. The `_source`, stored fields, and `_doc` variables will be available to the script.
 
@@ -129,7 +131,7 @@ The response contains the result:
 }
 ```
 
-### Score context
+## Score context
 
 The `score` context runs a script as if the script were in a `script_score` function in a `function_score` query.
 

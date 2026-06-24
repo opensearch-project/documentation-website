@@ -2,6 +2,8 @@
 layout: default
 title: CAT aliases
 parent: CAT API
+redirect_from:
+- /opensearch/rest-api/cat/cat-aliases/
 
 nav_order: 1
 has_children: false
@@ -9,10 +11,10 @@ canonical_url: https://docs.opensearch.org/latest/api-reference/cat/cat-aliases/
 ---
 
 # CAT aliases
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 
-The CAT aliases operation lists the mapping of aliases to indices, plus routing and filtering information.
+The CAT aliases operation lists the mapping of aliases to indexes, plus routing and filtering information.
 
 ## Example
 
@@ -52,7 +54,7 @@ In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-refe
 Parameter | Type | Description
 :--- | :--- | :---
 local | Boolean | Whether to return information from the local node only instead of from the master node. Default is false.
-expand_wildcards | Enum | Expands wildcard expressions to concrete indices. Combine multiple values with commas. Supported values are `all`, `open`, `closed`, `hidden`, and `none`. Default is `open`.
+expand_wildcards | Enum | Expands wildcard expressions to concrete indexes. Combine multiple values with commas. Supported values are `all`, `open`, `closed`, `hidden`, and `none`. Default is `open`.
 
 ## Response
 

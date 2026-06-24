@@ -11,28 +11,44 @@ canonical_url: https://docs.opensearch.org/latest/security/authentication-backen
 
 # SAML
 
-The security plugin supports user authentication through SAML single sign-on. The security plugin implements the web browser SSO profile of the SAML 2.0 protocol.
+The Security plugin supports user authentication through SAML single sign-on. The Security plugin implements the web browser SSO profile of the SAML 2.0 protocol.
 
-This profile is meant for use with web browsers. It is not a general-purpose way of authenticating users against the security plugin, so its primary use case is to support OpenSearch Dashboards single sign-on.
+This profile is meant for use with web browsers. It is not a general-purpose way of authenticating users against the Security plugin, so its primary use case is to support OpenSearch Dashboards single sign-on.
 
 
 ## Docker example
 
 We provide a fully functional example that can help you understand how to use SAML with OpenSearch Dashboards.
 
-1. Download and unzip [the example zip file]({{site.url}}{{site.baseurl}}/assets/examples/saml-example.zip).
-1. At the command line, run `docker-compose up`.
-1. Review the files:
+1. Visit the [saml-demo branch](https://github.com/opensearch-project/demos/tree/saml-demo) of the demos repository and download it to a folder of your choice. If you're not familiar with how to use GitHub, see the [OpenSearch onboarding guide](https://github.com/opensearch-project/demos/blob/main/ONBOARDING.md) for instructions.
 
-   * `docker-compose.yml` defines two OpenSearch nodes, an OpenSearch Dashboards server, and a SAML server.
-   * `custom-opensearch_dashboards.yml` add a few SAML settings to the default `opensearch_dashboards.yml` file.
-   * `config.yml` configures SAML for authentication.
+1. Navigate to the `demo` folder:
+   ```zsh
+   $ cd <path-to-demos-folder>/demo
+   ```
 
-1. Access OpenSearch Dashboards at [http://localhost:5601](http://localhost:5601){:target='\_blank'}. Note that OpenSearch Dashboards immediately redirects you to the SAML login page.
+1. Review the following files, as needed:
 
-1. Log in as `admin` with a password of `admin`.
+   * `.env`: 
+     * Defines the OpenSearch and OpenSearch Dashboards version to use. The default is the latest version ({{site.opensearch_major_minor_version}}).
+     * Defines the `OPENSEARCH_INITIAL_ADMIN_PASSWORD` variable required by versions 2.12 and later.
+   * `./custom-config/opensearch_dashboards.yml`: Includes the SAML settings for the default `opensearch_dashboards.yml` file.
+   * `./custom-config/config.yml`: Configures SAML for authentication.
+   * `docker-compose.yml`: Defines an OpenSearch server node, an OpenSearch Dashboards server node, and a SAML server node.
+   * `./saml/config/authsources.php`: Contains the list of users that can be authenticated by this SAML domain.
 
-1. After logging in, note that your user in the upper-right is `SAMLAdmin`, as defined in `/var/www/simplesamlphp/config/authsources.php` of the SAML server.
+1. From the command line, run:
+   ```zsh
+   $ docker-compose up.
+   ```
+
+1. Access OpenSearch Dashboards at [http://localhost:5601](http://localhost:5601){:target='\_blank'}.
+
+1. Select `Log in with single sign-on`. This redirects you to the SAML login page.
+
+1. Log in to OpenSearch Dashboards with a user defined in `./saml/config/authsources.php` (such as `user1` with password `user1pass`).
+
+1. After logging in, note that the user ID shown in the upper-right corner of the screen is the same as the `NameID` attribute for the user defined in `./saml/config/authsources.php` of the SAML server (that is, `saml-test` for `user1`).
 
 1. If you want to examine the SAML server, run `docker ps` to find its container ID and then `docker exec -it <container-id> /bin/bash`.
 
@@ -41,23 +57,29 @@ We provide a fully functional example that can help you understand how to use SA
 
 ## Activating SAML
 
-To use SAML for authentication, you need to configure a respective authentication domain in the `authc` section of `plugins/opensearch-security/securityconfig/config.yml`. Because SAML works solely on the HTTP layer, you do not need any `authentication_backend` and can set it to `noop`. Place all SAML-specific configuration options in this chapter in the `config` section of the SAML HTTP authenticator:
+To use SAML for authentication, you need to configure a respective authentication domain in the `authc` section of `config/opensearch-security/config.yml`. Because SAML works solely on the HTTP layer, you do not need any `authentication_backend` and can set it to `noop`. Place all SAML-specific configuration options in this chapter in the `config` section of the SAML HTTP authenticator:
 
 ```yml
-authc:
-  saml_auth_domain:
-    http_enabled: true
-    transport_enabled: false
-    order: 1
-    http_authenticator:
-      type: saml
-      challenge: true
-      config:
-        idp:
-          metadata_file: okta.xml
-          ...
-    authentication_backend:
-      type: noop
+_meta:
+  type: "config"
+  config_version: 2
+
+config:
+  dynamic:
+    authc:
+      saml_auth_domain:
+        http_enabled: true
+        transport_enabled: false
+        order: 1
+        http_authenticator:
+          type: saml
+          challenge: true
+          config:
+            idp:
+              metadata_file: okta.xml
+              ...
+        authentication_backend:
+          type: noop
 ```
 
 After you have configured SAML in `config.yml`, you must also [activate it in OpenSearch Dashboards](#opensearch-dashboards-configuration).
@@ -68,33 +90,39 @@ After you have configured SAML in `config.yml`, you must also [activate it in Op
 We recommend adding at least one other authentication domain, such as LDAP or the internal user database, to support API access to OpenSearch without SAML. For OpenSearch Dashboards and the internal OpenSearch Dashboards server user, you also must add another authentication domain that supports basic authentication. This authentication domain should be placed first in the chain, and the `challenge` flag must be set to `false`:
 
 ```yml
-authc:
-  basic_internal_auth_domain:
-    http_enabled: true
-    transport_enabled: true
-    order: 0
-    http_authenticator:
-      type: basic
-      challenge: false
-    authentication_backend:
-      type: internal
-  saml_auth_domain:
-    http_enabled: true
-    transport_enabled: false
-    order: 1
-    http_authenticator:
-      type: saml
-      challenge: true
-      config:
-        ...
-    authentication_backend:
-      type: noop
+_meta:
+  type: "config"
+  config_version: 2
+
+config:
+  dynamic:
+    authc:
+      basic_internal_auth_domain:
+        http_enabled: true
+        transport_enabled: true
+        order: 0
+        http_authenticator:
+          type: basic
+          challenge: false
+        authentication_backend:
+          type: internal
+      saml_auth_domain:
+        http_enabled: true
+        transport_enabled: false
+        order: 1
+        http_authenticator:
+          type: saml
+          challenge: true
+          config:
+            ...
+        authentication_backend:
+          type: noop
 ```
 
 
 ## Identity provider metadata
 
-A SAML identity provider (IdP) provides a SAML 2.0 metadata file describing the IdP's capabilities and configuration. The security plugin can read IdP metadata either from a URL or a file. The choice that you make depends on your IdP and your preferences. The SAML 2.0 metadata file is required.
+A SAML identity provider (IdP) provides a SAML 2.0 metadata file describing the IdP's capabilities and configuration. The Security plugin can read IdP metadata either from a URL or a file. The choice that you make depends on your IdP and your preferences. The SAML 2.0 metadata file is required.
 
 Name | Description
 :--- | :---
@@ -111,6 +139,21 @@ Name | Description
 `idp.entity_id` | The entity ID of your IdP. Required.
 `sp.entity_id` | The entity ID of the service provider. Required.
 
+## Time disparity compensation for JWT validation
+
+Occasionally you may find that the clock times between the authentication server and the OpenSearch node are not perfectly synchronized. When this is the case, even by a few seconds, the system that either issues or receives a JSON Web Token (JWT) may try to validate `nbf` (not before) and `exp` (expiration) claims and fail to authenticate the user due to the time disparity.
+
+By default, OpenSearch Security allows for a window of 30 seconds to compensate for possible misalignment between server clock times. To set a custom value for this feature and override the default, you can add the `jwt_clock_skew_tolerance_seconds` setting to the `config.yml`.
+
+```yml
+http_authenticator:
+  type: saml
+  challenge: true
+  config:
+    idp:
+      metadata_file: okta.xml
+    jwt_clock_skew_tolerance_seconds: 20
+```
 
 ## OpenSearch Dashboards settings
 
@@ -153,7 +196,7 @@ Name | Description
 
 ## Request signing
 
-Requests from the security plugin to the IdP can optionally be signed. Use the following settings to configure request signing.
+Requests from the Security plugin to the IdP can optionally be signed. Use the following settings to configure request signing.
 
 Name | Description
 :--- | :---
@@ -162,7 +205,9 @@ Name | Description
 `sp.signature_private_key_filepath` | Path to the private key. The file must be placed under the OpenSearch `config` directory, and the path must be specified relative to that same directory.
 `sp.signature_algorithm` | The algorithm used to sign the requests. See the next table for possible values.
 
-The security plugin supports the following signature algorithms.
+The private key must be in PKCS#8 format. If you want to use an encrypted key, it must be encrypted with a PKCS#12-compatible algorithm (3DES).
+
+The Security plugin supports the following signature algorithms.
 
 Algorithm | Value
 :--- | :---
@@ -175,22 +220,23 @@ RSA_SHA512 | http://www.w3.org/2001/04/xmldsig-more#rsa-sha512;
 
 ## Logout
 
-Usually, IdPs provide information about their individual logout URL in their SAML 2.0 metadata. If this is the case, the security plugin uses them to render the correct logout link in OpenSearch Dashboards. If your IdP does not support an explicit logout, you can force a re-login when the user visits OpenSearch Dashboards again.
+Usually, IdPs provide information about their individual logout URL in their SAML 2.0 metadata. If this is the case, the Security plugin uses them to render the correct logout link in OpenSearch Dashboards. If your IdP does not support an explicit logout, you can force a re-login when the user visits OpenSearch Dashboards again.
 
 Name | Description
 :--- | :---
 `sp.forceAuthn` | Force a re-login even if the user has an active session with the IdP.
 
-Currently, the security plugin supports only the `HTTP-Redirect` logout binding. Make sure this is configured correctly in your IdP.
+Currently, the Security plugin supports only the `HTTP-Redirect` logout binding. Make sure this is configured correctly in your IdP.
 
 
 ## Exchange key settings
 
-SAML, unlike other protocols, is not meant to be used for exchanging user credentials with each request. The security plugin trades the SAML response for a lightweight JSON web token that stores the validated user attributes. This token is signed by an exchange key that you can choose freely. Note that when you change this key, all tokens signed with it become invalid immediately.
+SAML, unlike other protocols, is not meant to be used for exchanging user credentials with each request. The Security plugin trades the SAML response for a lightweight JWT that stores the validated user attributes. This token is signed by an exchange key of your choice. Note that when you change this key, all tokens signed with it become invalid immediately.
 
 Name | Description
 :--- | :---
-`exchange_key` | The key to sign the token. The algorithm is HMAC256, so it should have at least 32 characters.
+`exchange_key` | The key to sign the token. The algorithm is HMACSHA512, therefore we recommend to use 64 characters, for example `9a2h8ajasdfhsdiydfn7dtd6d5ashsd89a2h8ajasdHhsdiyLfn7dtd6d5ashsdI`. Ensure that you enter a value for `exchange_key`, otherwise an error is returned. 
+
 
 
 ## TLS settings
@@ -251,7 +297,7 @@ Name | Description
 
 ### Client authentication
 
-The security plugin can use TLS client authentication when fetching the IdP metadata. If enabled, the security plugin sends a TLS client certificate to the IdP for each metadata request. Use the following keys to configure client authentication.
+The Security plugin can use TLS client authentication when fetching the IdP metadata. If enabled, the Security plugin sends a TLS client certificate to the IdP for each metadata request. Use the following keys to configure client authentication.
 
 Name | Description
 :--- | :---
@@ -277,30 +323,36 @@ Name | Description
 The following example shows the minimal configuration:
 
 ```yml
-authc:
-  saml_auth_domain:
-    http_enabled: true
-    transport_enabled: false
-    order: 1
-    http_authenticator:
-      type: saml
-      challenge: true
-      config:
-        idp:
-          metadata_file: metadata.xml
-          entity_id: http://idp.example.com/
-        sp:
-          entity_id: https://opensearch-dashboards.example.com
-        kibana_url: https://opensearch-dashboards.example.com:5601/
-        roles_key: Role
-        exchange_key: 'peuvgOLrjzuhXf ...'
-    authentication_backend:
-      type: noop
+_meta:
+  type: "config"
+  config_version: 2
+
+config:
+  dynamic:
+    authc:
+      saml_auth_domain:
+        http_enabled: true
+        transport_enabled: false
+        order: 1
+        http_authenticator:
+          type: saml
+          challenge: true
+          config:
+            idp:
+              metadata_file: metadata.xml
+              entity_id: http://idp.example.com/
+            sp:
+              entity_id: https://opensearch-dashboards.example.com
+            kibana_url: https://opensearch-dashboards.example.com:5601/
+            roles_key: Role
+            exchange_key: 'peuvgOLrjzuhXf ...'
+        authentication_backend:
+          type: noop
 ```
 
 ## OpenSearch Dashboards configuration
 
-Because most of the SAML-specific configuration is done in the security plugin, just activate SAML in your `opensearch_dashboards.yml` by adding the following:
+Because most of the SAML-specific configuration is done in the Security plugin, just activate SAML in your `opensearch_dashboards.yml` by adding the following:
 
 ```yml
 opensearch_security.auth.type: "saml"
@@ -309,25 +361,42 @@ opensearch_security.auth.type: "saml"
 In addition, you must add the OpenSearch Dashboards endpoint for validating the SAML assertions to your allow list:
 
 ```yml
-server.xsrf.whitelist: ["/_plugins/_security/saml/acs"]
+server.xsrf.allowlist: ["/_opendistro/_security/saml/acs"]
 ```
 
 If you use the logout POST binding, you also need to ad the logout endpoint to your allow list:
 
 ```yml
-server.xsrf.whitelist: ["/_plugins/_security/saml/acs", "/_plugins/_security/saml/logout"]
+server.xsrf.allowlist: ["/_opendistro/_security/saml/acs", "/_opendistro/_security/saml/logout"]
 ```
+
+To include SAML with other authentication types in the Dashboards sign-in window, see [Configuring sign-in options]({{site.url}}{{site.baseurl}}/security/configuration/multi-auth/).
+{: .note }
+
+#### Session management with additional cookies
+
+To improve session management---especially for users who have multiple roles assigned to them---Dashboards provides an option to split cookie payloads into multiple cookies and then recombine the payloads when receiving them. This can help prevent larger SAML assertions from exceeding size limits for each cookie. The two settings in the following example allow you to set a prefix name for additional cookies and specify the number of them. They are added to the `opensearch_dashboards.yml` file. The default number of additional cookies is three:
+
+```yml
+opensearch_security.saml.extra_storage.cookie_prefix: security_authentication_saml
+opensearch_security.saml.extra_storage.additional_cookies: 3
+```
+
+Note that reducing the number of additional cookies can cause some of the cookies that were in use before the change to stop working. We recommend establishing a fixed number of additional cookies and not changing the configuration after that.
+
+If the ID token from the IdP is especially large, OpenSearch may throw a server log authentication error indicating that the HTTP header is too large. In this case, you can increase the value for the `http.max_header_size` setting in the `opensearch.yml` file.
+{: .tip }
 
 ### IdP-initiated SSO
 
 To use IdP-initiated SSO, set the Assertion Consumer Service endpoint of your IdP to this:
 
 ```
-/_plugins/_security/saml/acs/idpinitiated
+/_opendistro/_security/saml/acs/idpinitiated
 ```
 
-Then add this endpoint to `server.xsrf.whitelist` in `opensearch_dashboards.yml`:
+Then add this endpoint to `server.xsrf.allowlist` in `opensearch_dashboards.yml`:
 
 ```yml
-server.xsrf.whitelist: ["/_plugins/_security/saml/acs/idpinitiated", "/_plugins/_security/saml/acs", "/_plugins/_security/saml/logout"]
+server.xsrf.allowlist: ["/_opendistro/_security/saml/acs/idpinitiated", "/_opendistro/_security/saml/acs", "/_opendistro/_security/saml/logout"]
 ```

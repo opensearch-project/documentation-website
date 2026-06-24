@@ -5,6 +5,8 @@ parent: Bucket aggregations
 grand_parent: Aggregations
 nav_order: 190
 canonical_url: https://docs.opensearch.org/latest/aggregations/bucket/significant-text/
+redirect_from:
+  - /query-dsl/aggregations/bucket/significant-text/
 ---
 
 # Significant text aggregations
@@ -49,6 +51,7 @@ GET shakespeare/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 #### Example response
 

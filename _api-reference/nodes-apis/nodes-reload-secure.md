@@ -7,6 +7,8 @@ canonical_url: https://docs.opensearch.org/latest/api-reference/nodes-apis/nodes
 ---
 
 # Nodes reload secure settings
+**Introduced 1.0**
+{: .label .label-purple }
 
 The nodes reload secure settings endpoint allows you to change secure settings on a node and reload the secure settings without restarting the node.
 
@@ -66,4 +68,4 @@ The following is an example response:
 
 ## Required permissions
 
-If you use the security plugin, make sure you set the following permissions: `cluster:manage/nodes`.
+If you use the Security plugin, make sure you set the following permissions: `cluster:manage/nodes`.

@@ -5,11 +5,13 @@ parent: CAT API
 
 nav_order: 55
 has_children: false
+redirect_from:
+- /opensearch/rest-api/cat/cat-segments/
 canonical_url: https://docs.opensearch.org/latest/api-reference/cat/cat-segments/
 ---
 
 # CAT segments
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 
 The cat segments operation lists Lucene segment-level information for each index.
@@ -28,7 +30,7 @@ GET _cat/segments/<index>?v
 ```
 {% include copy-curl.html %}
 
-If you want to get information for more than one index, separate the indices with commas:
+If you want to get information for more than one index, separate the indexes with commas:
 
 ```
 GET _cat/segments/index1,index2,index3
@@ -45,7 +47,7 @@ GET _cat/segments
 
 All CAT segments URL parameters are optional.
 
-In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameter:
+In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameters:
 
 Parameter | Type | Description
 :--- | :--- | :---

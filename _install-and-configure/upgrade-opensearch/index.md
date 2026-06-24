@@ -1,10 +1,13 @@
 ---
 layout: default
 title: Upgrading OpenSearch
-nav_order: 4
+nav_order: 20
 has_children: true
 redirect_from:
   - /upgrade-opensearch/index/
+  - /migrate-or-upgrade/
+  - /migrate-or-upgrade/index/
+  - /upgrade-or-migrate/
 canonical_url: https://docs.opensearch.org/latest/install-and-configure/upgrade-opensearch/index/
 ---
 
@@ -40,7 +43,7 @@ Stop any nonessential indexing before you begin the upgrade procedure to elimina
 
 ### Reviewing breaking changes
 
-It's important to determine how the new version of OpenSearch will integrate with your environment. Review [Breaking changes](https://docs.opensearch.org/latest/breaking-changes/) before beginning any upgrade procedures to determine whether you will need to make adjustments to your workflow. For example, upstream or downstream components might need to be modified to be compatible with an API change (see meta issue [#2589](https://github.com/opensearch-project/OpenSearch/issues/2589)).
+It's important to determine how the new version of OpenSearch will integrate with your environment. Review [Breaking changes]({{site.url}}{{site.baseurl}}/breaking-changes/) before beginning any upgrade procedures to determine whether you will need to make adjustments to your workflow. For example, upstream or downstream components might need to be modified to be compatible with an API change (see meta issue [#2589](https://github.com/opensearch-project/OpenSearch/issues/2589)).
 
 ### Reviewing the OpenSearch tools compatibility matrices
 
@@ -64,7 +67,7 @@ Mitigate the risk of data loss by backing up any important files before you star
 
 Some examples include `opensearch.yml`, `opensearch_dashboards.yml`, plugin configuration files, and TLS certificates. Once you identify which files you want to back up, copy them to remote storage for safety.
 
-If you use security features, make sure to read [A word of caution]({{site.url}}{{site.baseurl}}/security/configuration/security-admin/#a-word-of-caution) for information about backing up and restoring your security settings.
+If you use security features, make sure to read [A word of caution]({{site.url}}{{site.baseurl}}/security-plugin/configuration/security-admin/#a-word-of-caution) for information about backing up and restoring your security settings.
 
 ### Creating a snapshot
 
@@ -93,6 +96,7 @@ Upgrades spanning more than a single major version of OpenSearch will require ad
 A rolling upgrade is a great option if you want to keep your cluster operational throughout the process. Data may continue to be ingested, analyzed, and queried as nodes are individually stopped, upgraded, and restarted. A variation of the rolling upgrade referred to as "node replacement" follows exactly the same process except that hosts and containers are not reused for the new node. You might perform node replacement if you are upgrading the underlying host(s) as well.
 
 OpenSearch nodes cannot join a cluster if the cluster manager is running a newer version of OpenSearch than the node requesting membership. To avoid this issue, upgrade the cluster-manager-eligible nodes last.
+
 
 See [Rolling Upgrade]({{site.url}}{{site.baseurl}}/install-and-configure/upgrade-opensearch/rolling-upgrade/) for more information about the process.
 

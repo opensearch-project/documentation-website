@@ -2,6 +2,9 @@
 layout: default
 title: Configuring OpenSearch
 nav_order: 10
+redirect_from:
+ - /install-and-configure/configuration/
+  - /opensearch/configuration/
 canonical_url: https://docs.opensearch.org/latest/install-and-configure/configuring-opensearch/index/
 ---
 
@@ -66,7 +69,7 @@ PUT _cluster/settings
 }
 ```
 
-For more information about the Cluster Settings API, see [Cluster settings]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/).
+For more information about the Cluster Settings API, see [Cluster settings]({{site.url}}{{site.baseurl}}/api-reference/cluster-settings/).
 
 
 ---
@@ -87,7 +90,7 @@ action.auto_create_index: true
 compatibility.override_main_response_version: true
 ```
 
-The demo configuration includes a number of settings for the security plugin that you should modify before using OpenSearch for a production workload. To learn more, see [Security]({{site.url}}{{site.baseurl}}/security/).
+The demo configuration includes a number of settings for the Security plugin that you should modify before using OpenSearch for a production workload. To learn more, see [Security]({{site.url}}{{site.baseurl}}/security/).
 
 ### (Optional) CORS header configuration
 If you are working on a client application running against an OpenSearch cluster on a different domain, you can configure headers in `opensearch.yml` to allow for developing a local application on the same machine.  Use [Cross Origin Resource Sharing](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) so your application can make calls to the OpenSearch API running locally.  Add the following lines in your `custom-opensearch.yml` file (note that the "-" must be the first character in each line).

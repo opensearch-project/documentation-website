@@ -7,6 +7,7 @@ has_toc: false
 redirect_from:
   - /security-plugin/configuration/
   - /security-plugin/configuration/index/
+  - /security/configuration/
 canonical_url: https://docs.opensearch.org/latest/security/configuration/index/
 ---
 
@@ -25,5 +26,8 @@ The plugin includes demo certificates so that you can get up and running quickly
 
 If you don't want to use the plugin, see [Disable security]({{site.url}}{{site.baseurl}}/security/configuration/disable).
 
-The security plugin has several default users, roles, action groups, permissions, and settings for OpenSearch Dashboards that use kibana in their names. We will change these names in a future release.
+The Security plugin has several default users, roles, action groups, permissions, and settings for OpenSearch Dashboards that use kibana in their names. We will change these names in a future release.
 {: .note }
+
+For a full list of `opensearch.yml` Security plugin settings, Security plugin settings, see [Security settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/security-settings/).
+{: .note}

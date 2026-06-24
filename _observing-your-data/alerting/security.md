@@ -11,26 +11,26 @@ canonical_url: https://docs.opensearch.org/latest/observing-your-data/alerting/s
 
 # Alerting security
 
-If you use the security plugin alongside alerting, you might want to limit certain users to certain actions. For example, you might want some users to only be able to view and acknowledge alerts, while others can modify monitors and destinations.
+If you use the Security plugin alongside alerting, you might want to limit certain users to certain actions. For example, you might want some users to only be able to view and acknowledge alerts, while others can modify monitors and destinations.
 
 
 ## Basic permissions
 
-The security plugin has three built-in roles that cover most alerting use cases: `alerting_read_access`, `alerting_ack_alerts`, and `alerting_full_access`. For descriptions of each, see [Predefined roles]({{site.url}}{{site.baseurl}}/security/access-control/users-roles#predefined-roles).
+The Security plugin has three built-in roles that cover most alerting use cases: `alerting_read_access`, `alerting_ack_alerts`, and `alerting_full_access`. For descriptions of each, see [Predefined roles]({{site.url}}{{site.baseurl}}/security/access-control/users-roles#predefined-roles).
 
 If these roles don't meet your needs, mix and match individual alerting [permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/) to suit your use case. Each action corresponds to an operation in the REST API. For example, the `cluster:admin/opensearch/alerting/destination/delete` permission lets you delete destinations.
 
 
 ## How monitors access data
 
-Monitors run with the permissions of the user who created or last modified them. For example, consider the user `jdoe`, who works at a chain of retail stores. `jdoe` has two roles. Together, these two roles allow read access to three indices: `store1-returns`, `store2-returns`, and `store3-returns`.
+Monitors run with the permissions of the user who created or last modified them. For example, consider the user `jdoe`, who works at a chain of retail stores. `jdoe` has two roles. Together, these two roles allow read access to three indexes: `store1-returns`, `store2-returns`, and `store3-returns`.
 
-`jdoe` creates a monitor that sends an email to management whenever the number of returns across all three indices exceeds 40 per hour.
+`jdoe` creates a monitor that sends an email to management whenever the number of returns across all three indexes exceeds 40 per hour.
 
 Later, the user `psantos` wants to edit the monitor to run every two hours, but `psantos` only has access to `store1-returns`. To make the change, `psantos` has two options:
 
 - Update the monitor so that it only checks `store1-returns`.
-- Ask an administrator for read access to the other two indices.
+- Ask an administrator for read access to the other two indexes.
 
 After making the change, the monitor now runs with the same permissions as `psantos`, including any [document-level security]({{site.url}}{{site.baseurl}}/security/access-control/document-level-security/) queries, [excluded fields]({{site.url}}{{site.baseurl}}/security/access-control/field-level-security/), and [masked fields]({{site.url}}{{site.baseurl}}/security/access-control/field-masking/). If you use an extraction query to define your monitor, use the **Run** button to ensure that the response includes the fields you need.
 
@@ -51,7 +51,7 @@ To reduce the chances of unintended users viewing metadata that could describe a
 
 Out of the box, the alerting plugin has no concept of ownership. For example, if you have the `cluster:admin/opensearch/alerting/monitor/write` permission, you can edit *all* monitors, regardless of whether you created them. If a small number of trusted users manage your monitors and destinations, this lack of ownership generally isn't a problem. A larger organization might need to segment access by backend role.
 
-First, make sure that your users have the appropriate [backend roles]({{site.url}}{{site.baseurl}}/security/access-control/index/). Backend roles usually come from an [LDAP server]({{site.url}}{{site.baseurl}}/security/configuration/ldap/) or [SAML provider]({{site.url}}{{site.baseurl}}/security/configuration/saml/). However, if you use the internal user database, you can use the REST API to add them manually with a create user operation. To add a backend role to a create user request, follow the [Create user]({{site.url}}{{site.baseurl}}/security/access-control/api#create-user) instructions in the Security Plugin API documentation.
+First, make sure that your users have the appropriate [backend roles]({{site.url}}{{site.baseurl}}/security/access-control/index/). Backend roles usually come from an [LDAP server]({{site.url}}{{site.baseurl}}/security/configuration/ldap/) or [SAML provider]({{site.url}}{{site.baseurl}}/security/configuration/saml/). However, if you use the internal user database, you can use the REST API to add them manually with a create user operation. To add a backend role to a create user request, follow the [Create user]({{site.url}}{{site.baseurl}}/security/access-control/api#create-user) instructions in the Security plugin API documentation.
 
 Next, enable the following setting:
 
@@ -116,7 +116,7 @@ Regular user | No | Don’t update the backend roles on the monitor.
 - If the user tries to associate roles that they don't have permission to use, it will throw an exception.
 {: .note }
 
-To create an RBAC role, follow instructions in the Security Plugin API documentation to [Create role]({{site.url}}{{site.baseurl}}/security/access-control/api#create-role).
+To create an RBAC role, follow instructions in the Security plugin API documentation to [Create role]({{site.url}}{{site.baseurl}}/security/access-control/api#create-role).
 ### Create a monitor with an RBAC role
 
 When you create a monitor with the Alerting API, you can specify the RBAC roles at the bottom of the request body. Use the `rbac_roles` parameter.
@@ -128,4 +128,6 @@ The following sample shows the RBAC roles specified by the RBAC parameter:
   "rbac_roles": ["role1", "role2"]
 }
 ```
+
+To see a full request sample, see [Create a query-level monitor]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/api/#create-a-query-level-monitor).
 

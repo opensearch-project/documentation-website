@@ -11,18 +11,18 @@ canonical_url: https://docs.opensearch.org/latest/observing-your-data/ad/securit
 
 # Anomaly detection security
 
-You can use the security plugin with anomaly detection in OpenSearch to limit non-admin users to specific actions. For example, you might want some users to only be able to create, update, or delete detectors, while others to only view detectors.
+You can use the Security plugin with anomaly detection in OpenSearch to limit non-admin users to specific actions. For example, you might want some users to only be able to create, update, or delete detectors, while others to only view detectors.
 
-All anomaly detection indices are protected as system indices. Only a super admin user or an admin user with a TLS certificate can access system indices. For more information, see [System indexes]({{site.url}}{{site.baseurl}}/security/configuration/system-indexes/).
+All anomaly detection indexes are protected as system indexes. Only a super admin user or an admin user with a TLS certificate can access system indexes. For more information, see [System indexes]({{site.url}}{{site.baseurl}}/security/configuration/system-indices/).
 
 
 Security for anomaly detection works the same as [security for alerting]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/security/).
 
 ## Basic permissions
 
-As an admin user, you can use the security plugin to assign specific permissions to users based on which APIs they need access to. For a list of supported APIs, see [Anomaly detection API]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/api/).
+As an admin user, you can use the Security plugin to assign specific permissions to users based on which APIs they need access to. For a list of supported APIs, see [Anomaly detection API]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/api/).
 
-The security plugin has two built-in roles that cover most anomaly detection use cases: `anomaly_full_access` and `anomaly_read_access`. For descriptions of each, see [Predefined roles]({{site.url}}{{site.baseurl}}/security/access-control/users-roles#predefined-roles).
+The Security plugin has two built-in roles that cover most anomaly detection use cases: `anomaly_full_access` and `anomaly_read_access`. For descriptions of each, see [Predefined roles]({{site.url}}{{site.baseurl}}/security/access-control/users-roles#predefined-roles).
 
 If these roles don't meet your needs, mix and match individual anomaly detection [permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/) to suit your use case. Each action corresponds to an operation in the REST API. For example, the `cluster:admin/opensearch/ad/detector/delete` permission lets you delete detectors.
 
@@ -93,3 +93,5 @@ PUT _plugins/_security/api/rolesmapping/anomaly_full_access
 ```
 
 Because they have different backend roles, `alice` and `bob` cannot view each other's detectors or their results.
+
+If users do not have backend roles, they still can view other users' anomaly detection results as long as they have `anomaly_read_access`. This is the same for users who have `anomaly_full_access`, as it includes all of the permissions as `anomaly_read_access`. Administrators should inform users that having `anomaly_read_access` allows for viewing of the results from any detector in the cluster, including data not directly accessible to them. To limit access to the detector results, administrators should use backend role filters at the time the detector is created. This ensures only users with matching backend roles can access results from those particular detectors.

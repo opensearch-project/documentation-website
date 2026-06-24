@@ -2,11 +2,14 @@
 layout: default
 title: Scroll
 nav_order: 71
+redirect_from:
+ - /opensearch/rest-api/scroll/
+  - /api-reference/search-apis/scroll/
 canonical_url: https://docs.opensearch.org/latest/api-reference/scroll/
 ---
 
 # Scroll
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 
 You can use the `scroll` operation to retrieve a large number of results. For example, for machine learning jobs, you can request an unlimited number of results in batches.

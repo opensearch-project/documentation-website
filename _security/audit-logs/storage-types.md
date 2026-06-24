@@ -3,12 +3,15 @@ layout: default
 title: Audit log storage types
 parent: Audit logs
 nav_order: 135
+redirect_from:
+  - /security/audit-logs/storage-types/
+  - /security-plugin/audit-logs/storage-types/
 canonical_url: https://docs.opensearch.org/latest/security/audit-logs/storage-types/
 ---
 
 # Audit log storage types
 
-Audit logs can take up quite a bit of space, so the security plugin offers several options for storage locations.
+Audit logs can take up quite a bit of space, so the Security plugin offers several options for storage locations.
 
 Setting | Description
 :--- | :---
@@ -38,18 +41,18 @@ plugins.security.audit.config.index: <indexname>
 plugins.security.audit.config.type: _doc
 ```
 
-The security plugin uses the OpenSearch REST API to send events, just like any other indexing request. For `plugins.security.audit.config.http_endpoints`, use a comma-separated list of hosts/IP addresses and the REST port (default 9200).
+The Security plugin uses the OpenSearch REST API to send events, just like any other indexing request. For `plugins.security.audit.config.http_endpoints`, use a comma-separated list of hosts/IP addresses and the REST port (default 9200).
 
 ```
-plugins.security.audit.config.http_endpoints: [192.168.178.1:9200,192.168.178.2:9200]
+plugins.security.audit.config.http_endpoints: ['https://my-opensearch-cluster.company.com:9200', 'http://my-opensearch-cluster.company.com:9200', 'my-opensearch-cluster.company.com:9200', '192.168.178.1:9200', '192.168.178.2:9200']
 ```
 
-If you use `external_opensearch` and the remote cluster also uses the security plugin, you must supply some additional parameters for authentication. These parameters depend on which authentication type you configured for the remote cluster.
+If you use `external_opensearch` and the remote cluster also uses the Security plugin, you must supply some additional parameters for authentication. These parameters depend on which authentication type you configured for the remote cluster.
 
 
 ### TLS settings
 
-Name | Data Type | Description
+Name | Data type | Description
 :--- | :--- | :---
 `plugins.security.audit.config.enable_ssl` | Boolean | If you enabled SSL/TLS on the receiving cluster, set to true. The default is false.
 `plugins.security.audit.config.verify_hostnames` |  Boolean | Whether to verify the hostname of the SSL/TLS certificate of the receiving cluster. Default is true.
@@ -77,7 +80,7 @@ plugins.security.audit.config.password: <password>
 
 Use the following keys to configure the `webhook` storage type.
 
-Name | Data Type | Description
+Name | Data type | Description
 :--- | :--- | :---
 `plugins.security.audit.config.webhook.url` | String | The HTTP or HTTPS URL to send the logs to.
 `plugins.security.audit.config.webhook.ssl.verify` | Boolean | If true, the TLS certificate provided by the endpoint (if any) will be verified. If set to false, no verification is performed. You can disable this check if you use self-signed certificates.
@@ -106,4 +109,4 @@ plugins.security.audit.config.log4j.logger_name: audit
 plugins.security.audit.config.log4j.level: INFO
 ```
 
-By default, the security plugin uses the logger name `audit` and logs the events on `INFO` level. Audit events are stored in JSON format.
+By default, the Security plugin uses the logger name `audit` and logs the events on `INFO` level. Audit events are stored in JSON format.

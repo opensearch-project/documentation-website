@@ -7,16 +7,18 @@ nav_order: 4
 canonical_url: https://docs.opensearch.org/latest/api-reference/snapshots/verify-snapshot-repository/
 ---
 
-## Verify snapshot repository
+# Verify snapshot repository
+**Introduced 1.0**
+{: .label .label-purple }
 
 Verifies that a snapshot repository is functional. Verifies the repository on each node in a cluster.
 
 If verification is successful, the verify snapshot repository API returns a list of nodes connected to the snapshot repository. If verification failed, the API returns an error.
 
-If you use the security plugin, you must have the `manage cluster` privilege.
+If you use the Security plugin, you must have the `manage cluster` privilege.
 {: .note}
 
-### Path parameters
+## Path parameters
 
 Path parameters are optional. 
 
@@ -24,7 +26,7 @@ Path parameters are optional.
 :--- | :--- | :---
 | repository | String | Name of repository to verify. |
 
-### Query parameters
+## Query parameters
 
 | Parameter | Data type | Description | 
 :--- | :--- | :---
@@ -69,7 +71,7 @@ In the preceding sample, one node is connected to the snapshot repository. If mo
 }
 ````
 
-### Response fields
+## Response fields
 
 | Field | Data type | Description | 
 :--- | :--- | :---

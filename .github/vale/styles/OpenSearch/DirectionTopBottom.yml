@@ -1,0 +1,16 @@
+extends: substitution
+message: "Use '%s' instead of '%s' for window, page, or pane references to features or controls. Use 'top' and 'bottom' only as a general screen reference."
+link: 'https://github.com/opensearch-project/documentation-website/blob/main/TERMS.md'
+level: warning
+ignorecase: true
+action:
+  name: replace
+swap:
+  - top left: upper left
+  - bottom left: lower left
+  - top right: upper right
+  - bottom right: lower right
+  - top-left: upper-left
+  - bottom-left: lower-left
+  - top-right: upper-right
+  - bottom-right: lower-right

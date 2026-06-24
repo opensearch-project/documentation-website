@@ -1,0 +1,10 @@
+extends: existence
+message: "Using '%s' is unnecessary. Remove."
+link: https://github.com/opensearch-project/documentation-website/blob/main/STYLE_GUIDE.md#basic-guidelines
+ignorecase: true
+nonword: true
+level: warning
+action:
+  name: remove
+tokens:
+  - '\b(?:etc\.|etc)'

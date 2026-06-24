@@ -1,7 +1,7 @@
 ---
 layout: default
 title: PHP client
-nav_order: 90
+nav_order: 70
 canonical_url: https://docs.opensearch.org/latest/clients/php/
 redirect_to: https://docs.opensearch.org/latest/clients/php/
 ---

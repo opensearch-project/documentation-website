@@ -50,6 +50,7 @@ GET logs/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 #### Example response
 
