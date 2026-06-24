@@ -3,7 +3,7 @@ layout: default
 title: Count
 nav_order: 21
 redirect_from:
- - /opensearch/rest-api/count/
+  - /opensearch/rest-api/count/
   - /api-reference/search-apis/count/
 canonical_url: https://docs.opensearch.org/latest/api-reference/count/
 ---
