@@ -7,6 +7,7 @@ has_toc: false
 nav_exclude: true
 permalink: /about/
 redirect_from:
+  - /404.html
   - /docs/opensearch/
   - /opensearch/
   - /opensearch/index/
