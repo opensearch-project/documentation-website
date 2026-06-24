@@ -49,9 +49,9 @@ The following example query retrieves documents in which the `urlPath.keyword` f
 To create a cross-cluster detector in OpenSearch Dashboards, the following [permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/) are required: `indices:data/read/field_caps`, `indices:admin/resolve/index`, and `cluster:monitor/remote/info`.
 {: .note}
    
-   - /domain/{id}/short
-   - /sub_dir/{id}/short
-   - /abcd/123/{id}/xyz
+  - /domain/{id}/short
+  - /sub_dir/{id}/short
+  - /abcd/123/{id}/xyz
 
    ```json
    {
