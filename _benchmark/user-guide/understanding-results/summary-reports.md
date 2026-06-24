@@ -4,8 +4,6 @@ title: Summary reports
 nav_order: 22
 grand_parent: User guide
 parent: Understanding results
-redirect_from:
-  - /benchmark/user-guide/understanding-results/
 canonical_url: https://docs.opensearch.org/latest/benchmark/user-guide/understanding-results/summary-reports/
 ---
 

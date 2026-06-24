@@ -6,9 +6,7 @@ has_children: true
 has_toc: false
 parent: Reference
 redirect_from:
-  - /benchmark/commands/index/
   - /benchmark/reference/commands/
-  - /benchmark/commands/execute-test/
 canonical_url: https://docs.opensearch.org/latest/benchmark/reference/commands/index/
 ---
 
