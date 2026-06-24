@@ -4,7 +4,7 @@ title: Remove by pattern
 parent: Ingest processors
 nav_order: 225
 redirect_from:
-   - /ingest-pipelines/processors/remove_by_pattern/
+  - /ingest-pipelines/processors/remove_by_pattern/
 canonical_url: https://docs.opensearch.org/latest/ingest-pipelines/processors/remove-by-pattern/
 ---
 

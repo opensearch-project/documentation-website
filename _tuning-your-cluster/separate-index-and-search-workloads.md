@@ -4,7 +4,7 @@ title: Separate index and search workloads
 nav_order: 42
 has_children: false
 redirect_from: 
-   - /tuning-your-cluster/seperate-index-and-search-workloads/
+  - /tuning-your-cluster/seperate-index-and-search-workloads/
 canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/separate-index-and-search-workloads/
 ---
 
