@@ -4,7 +4,7 @@ title: Intro to OpenSearch
 nav_order: 2
 has_math: true
 redirect_from: 
- - /intro/
+  - /intro/
 canonical_url: https://docs.opensearch.org/latest/getting-started/intro/
 ---
 

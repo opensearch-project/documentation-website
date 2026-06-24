@@ -4,8 +4,8 @@ title: Configuring OpenSearch Data Prepper
 parent: Managing OpenSearch Data Prepper
 nav_order: 5
 redirect_from:
- - /clients/data-prepper/data-prepper-reference/
- - /monitoring-plugins/trace/data-prepper-reference/
+  - /clients/data-prepper/data-prepper-reference/
+  - /monitoring-plugins/trace/data-prepper-reference/
 canonical_url: https://docs.opensearch.org/latest/data-prepper/managing-data-prepper/configuring-data-prepper/
 ---
 
