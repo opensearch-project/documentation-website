@@ -6,7 +6,7 @@ parent: Monitors
 grand_parent: Alerting
 has_children: false
 redirect_from:
- - /observing-your-data/alerting/composite-monitors/
+  - /observing-your-data/alerting/composite-monitors/
 canonical_url: https://docs.opensearch.org/latest/observing-your-data/alerting/composite-monitors/
 ---
 
