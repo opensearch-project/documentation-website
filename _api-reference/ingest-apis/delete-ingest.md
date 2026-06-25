@@ -4,6 +4,9 @@ title: Delete a pipeline
 parent: Ingest APIs
 nav_order: 14
 canonical_url: https://docs.opensearch.org/latest/ingest-pipelines/delete-ingest/
+redirect_from:
+  - /ingest-pipelines/delete-ingest/
+  - /opensearch/rest-api/ingest-apis/delete-ingest/
 ---
 
 # Delete a pipeline

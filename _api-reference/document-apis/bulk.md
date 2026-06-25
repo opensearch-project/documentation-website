@@ -4,6 +4,8 @@ title: Bulk
 parent: Document APIs
 nav_order: 20
 canonical_url: https://docs.opensearch.org/latest/api-reference/document-apis/bulk/
+redirect_from:
+  - /opensearch/rest-api/document-apis/bulk/
 ---
 
 # Bulk
