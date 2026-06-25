@@ -5,6 +5,8 @@ nav_order: 60
 has_children: false
 has_toc: false
 canonical_url: https://docs.opensearch.org/latest/analyzers/tokenizers/index/
+redirect_from:
+  - /analyzers/tokenizers/
 ---
 
 # Tokenizers

@@ -3,6 +3,9 @@ layout: default
 title: Multi-search Template 
 nav_order: 47
 canonical_url: https://docs.opensearch.org/latest/api-reference/msearch-template/
+redirect_from:
+  - /api-reference/search-apis/msearch-template/
+  - /api-reference/search-apis/search-template/msearch-template/
 ---
 
 # Multi-search Template 

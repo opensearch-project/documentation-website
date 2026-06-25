@@ -6,6 +6,8 @@ has_children: true
 parent: OpenSearch Benchmark Reference
 redirect_from: /benchmark/commands/index/
 canonical_url: https://docs.opensearch.org/latest/benchmark/reference/commands/index/
+redirect_from:
+  - /benchmark/reference/commands/
 ---
 
 # OpenSearch Benchmark command reference

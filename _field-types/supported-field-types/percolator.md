@@ -7,6 +7,7 @@ parent: Supported field types
 redirect_from:
   - /opensearch/supported-field-types/percolator/
   - /field-types/percolator/
+  - /mappings/supported-field-types/percolator/
 canonical_url: https://docs.opensearch.org/latest/field-types/supported-field-types/percolator/
 ---
 

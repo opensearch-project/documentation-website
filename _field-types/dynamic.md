@@ -4,6 +4,8 @@ title: Dynamic parameter
 nav_order: 10
 redirect_from:
   - /opensearch/dynamic/
+  - /field-types/mapping-parameters/dynamic/
+  - /mappings/mapping-parameters/dynamic/
 canonical_url: https://docs.opensearch.org/latest/field-types/dynamic/
 ---
 
