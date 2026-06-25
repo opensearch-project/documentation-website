@@ -6,6 +6,10 @@ parent: OpenSearch Benchmark Reference
 has_children: true
 redirect_from: /benchmark/workloads/index/
 canonical_url: https://docs.opensearch.org/latest/benchmark/reference/workloads/index/
+redirect_from:
+  - /benchmark/reference/workloads/
+  - /benchmark/workloads/
+  - /benchmark/workloads/index/
 ---
 
 # OpenSearch Benchmark workload reference

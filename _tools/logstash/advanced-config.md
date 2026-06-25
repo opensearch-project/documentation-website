@@ -4,7 +4,7 @@ title: Advanced configurations
 parent: Logstash
 nav_order: 230
 redirect_from:
- - /clients/logstash/advanced-config/
+  - /clients/logstash/advanced-config/
 canonical_url: https://docs.opensearch.org/latest/tools/logstash/advanced-config/
 ---
 

@@ -5,6 +5,8 @@ parent: Vector search API
 nav_order: 10
 has_children: false
 canonical_url: https://docs.opensearch.org/latest/vector-search/api/knn/
+redirect_from:
+  - /search-plugins/knn/jni-libraries/
 ---
 
 # k-NN API

@@ -5,6 +5,10 @@ nav_order: 75
 has_children: true
 has_toc: false
 canonical_url: https://docs.opensearch.org/latest/field-types/mapping-parameters/
+redirect_from:
+  - /field-types/mapping-parameters/
+  - /mappings/mapping-parameters/
+  - /mappings/mapping-parameters/index/
 ---
 
 # Mapping parameters

@@ -7,6 +7,8 @@ nav_order: 35
 has_children: false
 has_toc: false
 canonical_url: https://docs.opensearch.org/latest/field-types/mapping-parameters/eager_global_ordinals/
+redirect_from:
+  - /mappings/mapping-parameters/eager_global_ordinals/
 ---
 
 # Eager global ordinals
