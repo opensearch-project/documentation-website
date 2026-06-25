@@ -238,7 +238,7 @@ security:
   ssl: true
   verification_mode: full
   certificate_authorities:
-    - /path/to/ca.crt
+  - /path/to/ca.crt
   client_certificate: /path/to/client.crt
   client_key: /path/to/client.key
 ```
