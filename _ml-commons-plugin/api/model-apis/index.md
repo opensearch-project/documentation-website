@@ -6,6 +6,8 @@ has_children: true
 nav_order: 10
 has_toc: false
 canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/api/model-apis/index/
+redirect_from:
+  - /ml-commons-plugin/api/model-apis/
 ---
 
 # Model APIs

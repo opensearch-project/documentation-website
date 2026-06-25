@@ -5,6 +5,8 @@ nav_order: 20
 parent: Workload management
 grand_parent: Availability and recovery
 canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/availability-and-recovery/workload-management/create-workload-group-rules-api/
+redirect_from:
+  - /tuning-your-cluster/availability-and-recovery/workload-management/workload-group-rules/
 ---
 
 # Create workload group rules

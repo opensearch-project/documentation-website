@@ -4,8 +4,8 @@ title: Count
 parent: Search APIs
 nav_order: 35
 redirect_from:
- - /opensearch/rest-api/count/
- - /api-reference/count/
+  - /opensearch/rest-api/count/
+  - /api-reference/count/
 canonical_url: https://docs.opensearch.org/latest/api-reference/search-apis/count/
 ---
 

@@ -6,8 +6,8 @@ has_children: true
 has_toc: false
 nav_order: 50
 redirect_from:
-   - /ml-commons-plugin/model-serving-framework/
-   - /ml-commons-plugin/ml-framework/
+  - /ml-commons-plugin/model-serving-framework/
+  - /ml-commons-plugin/ml-framework/
 models:
   - heading: "Pretrained models provided by OpenSearch"
     link: "/ml-commons-plugin/pretrained-models/"

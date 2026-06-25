@@ -7,6 +7,8 @@ nav_order: 10
 has_children: false
 has_toc: false
 canonical_url: https://docs.opensearch.org/latest/field-types/mapping-parameters/boost/
+redirect_from:
+  - /mappings/mapping-parameters/boost/
 ---
 
 # Boost 
