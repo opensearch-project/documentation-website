@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Java client
-nav_order: 65
+nav_order: 30
 canonical_url: https://docs.opensearch.org/latest/clients/java/
 redirect_to: https://docs.opensearch.org/latest/clients/java/
 ---
@@ -20,7 +20,13 @@ To start using the OpenSearch Java client, you need to provide a transport. The 
 <dependency>
   <groupId>org.opensearch.client</groupId>
   <artifactId>opensearch-java</artifactId>
-  <version>2.6.0</version>
+  <version>2.8.1</version>
+</dependency>
+
+<dependency>
+  <groupId>org.apache.httpcomponents.client5</groupId>
+  <artifactId>httpclient5</artifactId>
+  <version>5.2.1</version>
 </dependency>
 ```
 {% include copy.html %}
@@ -29,15 +35,13 @@ If you're using Gradle, add the following dependencies to your project:
 
 ```
 dependencies {
-  implementation 'org.opensearch.client:opensearch-java:2.6.0'
+  implementation 'org.opensearch.client:opensearch-java:2.8.1'
+  implementation 'org.apache.httpcomponents.client5:httpclient5:5.2.1'
 }
 ```
 {% include copy.html %}
 
 You can now start your OpenSearch cluster.
-
-If you're running OpenSearch version 1.3.2 or earlier, consider using opensearch-java version 1.0. See the developer documentation [Compatibility with OpenSearch](https://github.com/opensearch-project/opensearch-java/blob/main/COMPATIBILITY.md) for more detailed information.
-{: .note}
 
 ## Installing the client using RestClient Transport
 
@@ -70,12 +74,9 @@ dependencies {
 
 You can now start your OpenSearch cluster.
 
-If you're running OpenSearch version 1.3.2 or earlier, consider using opensearch-java version 1.0. See the developer documentation [Compatibility with OpenSearch](https://github.com/opensearch-project/opensearch-java/blob/main/COMPATIBILITY.md) for more detailed information.
-{: .note}
-
 ## Security
 
-Before using the REST client in your Java application, you must configure the application's truststore to connect to the security plugin. If you are using self-signed certificates or demo configurations, you can use the following command to create a custom truststore and add in root authority certificates.
+Before using the REST client in your Java application, you must configure the application's truststore to connect to the Security plugin. If you are using self-signed certificates or demo configurations, you can use the following command to create a custom truststore and add in root authority certificates.
 
 If you're using certificates from a trusted Certificate Authority (CA), you don't need to configure the truststore.
 
@@ -172,7 +173,7 @@ public class OpenSearchClientExample {
     final ApacheHttpClient5TransportBuilder builder = ApacheHttpClient5TransportBuilder.builder(host);
     builder.setHttpClientConfigCallback(httpClientBuilder -> {
       final TlsStrategy tlsStrategy = ClientTlsStrategyBuilder.create()
-        .setSslContext(SSLContextBuilder.create().build())
+        .setSslContext(sslcontext)
         // See https://issues.apache.org/jira/browse/HTTPCLIENT-2219
         .setTlsDetailsFactory(new Factory<SSLEngine, TlsDetails>() {
           @Override
@@ -192,7 +193,7 @@ public class OpenSearchClientExample {
         .setConnectionManager(connectionManager);
     });
 
-    final OpenSearchTransport transport = ApacheHttpClient5TransportBuilder.builder(host).build();
+    final OpenSearchTransport transport = builder.build();
     OpenSearchClient client = new OpenSearchClient(transport);
   }
 }
@@ -223,10 +224,10 @@ public class OpenSearchClientExample {
     System.setProperty("javax.net.ssl.trustStore", "/full/path/to/keystore");
     System.setProperty("javax.net.ssl.trustStorePassword", "password-to-keystore");
 
-    final HttpHost host = new HttpHost("https", 9200, "localhost");
+    final HttpHost host = new HttpHost("https", "localhost", 9200);
     final BasicCredentialsProvider credentialsProvider = new BasicCredentialsProvider();
     //Only for demo purposes. Don't specify your credentials in code.
-    credentialsProvider.setCredentials(new AuthScope(host), new UsernamePasswordCredentials("admin", "admin"));
+    credentialsProvider.setCredentials(new AuthScope(host), new UsernamePasswordCredentials("admin", "admin".toCharArray()));
 
     //Initialize the client with SSL and TLS enabled
     final RestClient restClient = RestClient.builder(host).
@@ -255,7 +256,7 @@ OpenSearchClient client = new OpenSearchClient(
     new AwsSdk2Transport(
         httpClient,
         "search-...us-west-2.es.amazonaws.com", // OpenSearch endpoint, without https://
-        "es"
+        "es",
         Region.US_WEST_2, // signing service region
         AwsSdk2TransportOptions.builder().build()
     )
@@ -303,9 +304,8 @@ CreateIndexRequest createIndexRequest = new CreateIndexRequest.Builder().index(i
 client.indices().create(createIndexRequest);
 
 IndexSettings indexSettings = new IndexSettings.Builder().autoExpandReplicas("0-all").build();
-IndexSettingsBody settingsBody = new IndexSettingsBody.Builder().settings(indexSettings).build();
-PutSettingsRequest putSettingsRequest = new PutSettingsRequest.Builder().index(index).value(settingsBody).build();
-client.indices().putSettings(putSettingsRequest);
+PutIndicesSettingsRequest putIndicesSettingsRequest = new PutIndicesSettingsRequest.Builder().index(index).value(indexSettings).build();
+client.indices().putSettings(putIndicesSettingsRequest);
 ```
 {% include copy.html %}
 
@@ -346,7 +346,7 @@ client.delete(b -> b.index(index).id("1"));
 The following sample code deletes an index:
 
 ```java
-DeleteIndexRequest deleteIndexRequest = new DeleteRequest.Builder().index(index).build();
+DeleteIndexRequest deleteIndexRequest = new DeleteIndexRequest.Builder().index(index).build();
 DeleteIndexResponse deleteIndexResponse = client.indices().delete(deleteIndexRequest);
 ```
 {% include copy.html %}

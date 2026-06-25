@@ -1,13 +1,14 @@
 ---
 layout: default
 title: Token count
-nav_order: 48
+nav_order: 70
 has_children: false
 parent: String field types
 grand_parent: Supported field types
 redirect_from:
   - /opensearch/supported-field-types/token-count/
   - /field-types/token-count/
+  - /mappings/supported-field-types/token-count/
 canonical_url: https://docs.opensearch.org/latest/field-types/supported-field-types/token-count/
 ---
 

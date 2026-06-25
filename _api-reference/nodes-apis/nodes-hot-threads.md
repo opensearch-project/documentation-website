@@ -7,10 +7,12 @@ canonical_url: https://docs.opensearch.org/latest/api-reference/nodes-apis/nodes
 ---
 
 # Nodes hot threads
+**Introduced 1.0**
+{: .label .label-purple }
 
 The nodes hot threads endpoint provides information about busy JVM threads for selected cluster nodes. It provides a unique view of the of activity each node.
 
-## Example
+#### Example
 
 ```json
 GET /_nodes/hot_threads
@@ -123,4 +125,4 @@ Then information about threads of the selected type is provided.
 
 ## Required permissions
 
-If you use the security plugin, make sure you set the following permissions: `cluster:monitor/nodes/hot_threads`.
+If you use the Security plugin, make sure you set the following permissions: `cluster:monitor/nodes/hot_threads`.

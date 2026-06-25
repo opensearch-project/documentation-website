@@ -1,22 +1,23 @@
 ---
 layout: default
 title: OpenSearch Dashboards plugin
-parent: Trace analytics
+parent: Trace Analytics
 nav_order: 50
 redirect_from:
   - /observability-plugin/trace/ta-dashboards/
+  - /monitoring-plugins/trace/ta-dashboards/
 canonical_url: https://docs.opensearch.org/latest/observing-your-data/trace/ta-dashboards/
 ---
 
 # Trace Analytics OpenSearch Dashboards plugin
 
-The Trace Analytics plugin for OpenSearch Dashboards provides at-a-glance visibility into your application performance, along with the ability to drill down on individual traces. For installation instructions, see [Standalone OpenSearch Dashboards plugin install]({{site.url}}{{site.baseurl}}/dashboards/install/plugins/).
+The Trace Analytics plugin for OpenSearch Dashboards provides at-a-glance visibility into your application performance, along with the ability to drill down on individual traces. For installation instructions, see [Standalone OpenSearch Dashboards plugin install]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/plugins/).
 
 The **Dashboard** view groups traces together by HTTP method and path so that you can see the average latency, error rate, and trends associated with a particular operation. For a more focused view, try filtering by trace group name.
 
 ![Dashboard view]({{site.url}}{{site.baseurl}}/images/ta-dashboard.png)
 
-To drill down on the traces that make up a trace group, choose the number of traces in righthand column. Then choose an individual trace for a detailed summary.
+To drill down on the traces that make up a trace group, choose the number of traces in the column on the right. Then choose an individual trace for a detailed summary.
 
 ![Detailed trace view]({{site.url}}{{site.baseurl}}/images/ta-trace.png)
 

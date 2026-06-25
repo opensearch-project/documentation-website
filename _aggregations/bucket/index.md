@@ -9,6 +9,7 @@ redirect_from:
   - /query-dsl/aggregations/bucket-agg/
   - /query-dsl/aggregations/bucket/
   - /aggregations/bucket-agg/
+  - /aggregations/bucket/
 canonical_url: https://docs.opensearch.org/latest/aggregations/bucket/index/
 ---
 
@@ -36,6 +37,7 @@ OpenSearch supports the following bucket aggregations:
 - [Histogram]({{site.url}}{{site.baseurl}}/aggregations/bucket/histogram/)
 - [IP range]({{site.url}}{{site.baseurl}}/aggregations/bucket/ip-range/)
 - [Missing]({{site.url}}{{site.baseurl}}/aggregations/bucket/missing/)
+- [Multi-terms]({{site.url}}{{site.baseurl}}/aggregations/bucket/multi-terms/)
 - [Nested]({{site.url}}{{site.baseurl}}/aggregations/bucket/nested/)
 - [Range]({{site.url}}{{site.baseurl}}/aggregations/bucket/range/)
 - [Reverse nested]({{site.url}}{{site.baseurl}}/aggregations/bucket/reverse-nested/)

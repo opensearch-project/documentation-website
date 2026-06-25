@@ -1,10 +1,14 @@
 ---
 layout: default
 title: Quickstart guide for OpenSearch Dashboards
-nav_order: 20
+nav_order: 10
 has_children: false
 redirect_from:
   - /dashboards/index/
+  - /dashboards/browser-compatibility/
+  - /dashboards/get-started/quickstart-dashboards/
+  - /dashboards/getting-started/
+  - /dashboards/getting-started/index/
   - /dashboards/quickstart/
 canonical_url: https://docs.opensearch.org/latest/dashboards/quickstart/
 ---
@@ -14,11 +18,8 @@ canonical_url: https://docs.opensearch.org/latest/dashboards/quickstart/
 This quickstart guide covers the core concepts that you need to understand to get started with OpenSearch Dashboards. You'll learn how to:
 
 - Add sample data.
-- Explore and inspect data with **Discover**.
-- Visualize data with **Dashboard**.
-- Add sample data.
-- Explore and inspect data with **Discover**.
-- Visualize data with **Dashboard**.
+- Explore and inspect data.
+- Visualize data.
 
 Before you get started, make sure you've installed OpenSearch and OpenSearch Dashboards. For information on installation and configuration, see [Install and configure OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/) and [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/).
 {: .note}
@@ -44,7 +45,7 @@ In [**Discover**]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discove
 ## Try it: Getting familiar with Discover
 
 1. On the OpenSearch Dashboards **Home** page, choose **Discover**.
-1. Change the time filter to **Last 7 days**, as shown in the following image.
+1. Change the [time filter]({{site.url}}{{site.baseurl}}/dashboards/discover/time-filter/) to **Last 7 days**, as shown in the following image.
 
     <img src="{{site.url}}{{site.baseurl}}/images/last-7--days.png" alt="Time filter interface" width="350"/>
 
@@ -83,7 +84,7 @@ Raw data can be difficult to comprehend and use. Data visualizations help you pr
 
 Continuing with the preceding dashboard, you'll create a bar chart comparing the number of canceled flights and delayed flights to delay type and then add the panel to the dashboard:
 
-1. Change the default time range from **24 hours** to **Last 7 days**. 
+1. Change the default [time range]({{site.url}}{{site.baseurl}}/dashboards/discover/time-filter/) from **24 hours** to **Last 7 days**. 
 1. In the toolbar, choose **Edit**, then **Create new**.
 1. Select **VisBuilder** in the **New Visualizations** window.
 1. In the **Data Source** dropdown list, choose `opensearch_dashboards_sample_data_flights`.
@@ -116,6 +117,6 @@ Alternatively, you can apply filters using the dashboard toolbar:
 
 # Next steps
 
-- **Visualize data**. To learn more about data visualizations in OpenSearch Dashboards, see [**Building data visualizations with Visualize**]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/).
-- **Create dashboards**. To learn more about creating dashboards in OpenSearch Dashboards, see [**Creating dashboards with Dashboard**]({{site.url}}{{site.baseurl}}/dashboards/dashboard/index/).
-- **Explore data**. To learn more about exploring data in OpenSearch Dashboards, see [**Exploring data with Discover**]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/). 
+- **Visualize data**. To learn more about data visualizations in OpenSearch Dashboards, see [**Building data visualizations**]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/).
+- **Create dashboards**. To learn more about creating dashboards in OpenSearch Dashboards, see [**Creating dashboards**]({{site.url}}{{site.baseurl}}/dashboards/quickstart-dashboards/).
+- **Explore data**. To learn more about exploring data in OpenSearch Dashboards, see [**Exploring data**]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/). 

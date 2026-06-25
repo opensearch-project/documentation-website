@@ -6,10 +6,11 @@ parent: Performance Analyzer
 has_children: true
 redirect_from:
   - /monitoring-plugins/pa/rca/index/
+  - /monitoring-your-cluster/pa/rca/
 canonical_url: https://docs.opensearch.org/latest/monitoring-your-cluster/pa/rca/index/
 ---
 
-# Root Cause Analysis
+# Root cause analysis
 
 The OpenSearch Performance Analyzer plugin (PA) captures OpenSearch and JVM activity, plus their lower-level resource usage (e.g. disk, network, CPU, and memory). Based on this instrumentation, Performance Analyzer computes and exposes diagnostic metrics so that administrators can measure and understand the bottlenecks in their OpenSearch clusters.
 

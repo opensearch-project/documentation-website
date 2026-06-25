@@ -4,12 +4,14 @@ title: Cluster health
 nav_order: 40
 parent: Cluster APIs
 has_children: false
-redirect_from: /api-reference/cluster-health/
+redirect_from: 
+ - /api-reference/cluster-health/
+ - /opensearch/rest-api/cluster-health/
 canonical_url: https://docs.opensearch.org/latest/api-reference/cluster-api/cluster-health/
 ---
 
 # Cluster health
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 
 The most basic cluster health request returns a simple status of the health of your cluster. OpenSearch expresses cluster health in three colors: green, yellow, and red. A green status means all primary shards and their replicas are allocated to nodes. A yellow status means all primary shards are allocated to nodes, but some replicas aren't. A red status means at least one primary shard is not allocated to any node.
@@ -102,7 +104,7 @@ The following table lists all response fields.
 |active_primary_shards | Integer |  The number of active primary shards. |
 |active_shards | Integer | The total number of active shards, including primary and replica shards. |
 |relocating_shards | Integer | The number of relocating shards. |
-|initializing_shards | Integer | The number of intializing shards. |
+|initializing_shards | Integer | The number of initializing shards. |
 |unassigned_shards | Integer | The number of unassigned shards. |
 |delayed_unassigned_shards | Integer | The number of delayed unassigned shards. |
 |number_of_pending_tasks | Integer | The number of pending tasks in the cluster. |

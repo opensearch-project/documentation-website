@@ -10,10 +10,13 @@ canonical_url: https://docs.opensearch.org/latest/monitoring-your-cluster/pa/das
 
 # PerfTop dashboards
 
-Dashboards are defined in JSON and composed of three main elements: tables, line graphs, and bar graphs. You define a grid of rows and columns and then place elements within that grid, with each element spanning as many rows and columns as you specify.
+You can view metrics derived from Performance Analyzer in a PerfTop dashboard. A PerfTop dashboard is a command line interface (CLI) for displaying the metrics. A PerfTop dashboard consists of three main elements: tables, line graphs, and bar graphs. Using JSON, you define a grid of rows and columns and then place elements within that grid, with each element spanning as many rows and columns as you specify.
 
 The best way to get started with building custom dashboards is to duplicate and modify one of the existing JSON files in the `dashboards` directory.
 {: .tip }
+
+An example dashboard is shown in the following image.
+![PerfTop dashboard]({{site.url}}{{site.baseurl}}/images/perftop.jpg)
 
 ---
 
@@ -129,7 +132,7 @@ Option | Type | Description
 `label` | String or integer | The text in the upper-left corner of the box.
 `labelColor` | String or integer | The color of the label.
 `refreshInterval` | Integer | The number of milliseconds between calls to the Performance Analyzer API for new data. Minimum value is 5000.
-`dimensionFilters` | String array | The dimension value to diplay for the graph. For example, if you query for `metric=Net_Throughput&agg=sum&dim=Direction` and the possible dimension values are `in` and `out`, you can define `dimensionFilters: ["in"]` to only display the metric data for `in` dimension
+`dimensionFilters` | String array | The dimension value to display for the graph. For example, if you query for `metric=Net_Throughput&agg=sum&dim=Direction` and the possible dimension values are `in` and `out`, you can define `dimensionFilters: ["in"]` to only display the metric data for `in` dimension
 `nodeName` | String | If non-null, lets you restrict elements to individual nodes. You can specify the node name directly in the dashboard file, but the better approach is to use `"nodeName": "#nodeName"` in the dashboard and include the `--nodename <node_name>` argument when starting PerfTop.
 
 

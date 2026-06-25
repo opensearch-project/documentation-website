@@ -1,0 +1,15 @@
+extends: substitution
+message: "Use '%s' instead of '%s'."
+link: https://github.com/opensearch-project/documentation-website/blob/main/STYLE_GUIDE.md#basic-guidelines
+ignorecase: false
+level: warning
+nonword: true
+action:
+  name: replace
+swap:
+  '\b(?:eg|e\.g\.)[\s,]': for example or such as
+  '\b(?:ie|i\.e\.)[\s,]': that is or specifically
+  '\bad hoc[\s,.]': one-time
+  '\b(?:v\.|vs\.|vs|versus)\s': compared to or compared with
+  '\bvia\s': using, through, by accessing, or by choosing
+  '\bvice versa': the other way around

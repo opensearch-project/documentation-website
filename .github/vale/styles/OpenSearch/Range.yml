@@ -1,0 +1,7 @@
+extends: existence
+message: "Use an en dash (--) with no space on either side in a range of numbers."
+link: https://github.com/opensearch-project/documentation-website/blob/main/STYLE_GUIDE.md#numbers-and-measurement
+nonword: true
+level: error
+tokens:
+  - '\b\d+ *[-] *\d+\b'

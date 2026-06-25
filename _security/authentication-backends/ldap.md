@@ -13,7 +13,7 @@ canonical_url: https://docs.opensearch.org/latest/security/authentication-backen
 
 Active Directory and LDAP can be used for both authentication and authorization (the `authc` and `authz` sections of the configuration, respectively). Authentication checks whether the user has entered valid credentials. Authorization retrieves any backend roles for the user.
 
-In most cases, you want to configure both authentication and authorization. You can also use authentication only and map the users retrieved from LDAP directly to security plugin roles.
+In most cases, you want to configure both authentication and authorization. You can also use authentication only and map the users retrieved from LDAP directly to Security plugin roles.
 
 
 ## Docker example
@@ -30,7 +30,7 @@ We provide a fully functional example that can help you understand how to use an
 
    * `directory.ldif` seeds the LDAP server with three users and two groups.
 
-     `psantos` is in the `Administrator` and `Developers` groups. `jroe` and `jdoe` are in the `Developers` group. The security plugin loads these groups as backend roles.
+     `psantos` is in the `Administrator` and `Developers` groups. `jroe` and `jdoe` are in the `Developers` group. The Security plugin loads these groups as backend roles.
 
    * `roles_mapping.yml` maps the `Administrator` and `Developers` LDAP groups (as backend roles) to security roles so that users gain the appropriate permissions after authenticating.
 
@@ -59,7 +59,7 @@ We provide a fully functional example that can help you understand how to use an
 
 ## Connection settings
 
-To enable LDAP authentication and authorization, add the following lines to `plugins/opensearch-security/securityconfig/config.yml`:
+To enable LDAP authentication and authorization, add the following lines to `config/opensearch-security/config.yml`:
 
 ```yml
 authc:
@@ -101,7 +101,7 @@ config:
     - secondary.ldap.example.com:389
 ```
 
-You can configure more than one server here. If the security plugin cannot connect to the first server, it tries to connect to the remaining servers sequentially.
+You can configure more than one server here. If the Security plugin cannot connect to the first server, it tries to connect to the remaining servers sequentially.
 
 
 ### Timeouts
@@ -119,7 +119,7 @@ If your server supports two-factor authentication (2FA), the default timeout set
 
 ### Bind DN and password
 
-To configure the `bind_dn` and `password` that the security plugin uses when issuing queries to your server, use the following:
+To configure the `bind_dn` and `password` that the Security plugin uses when issuing queries to your server, use the following:
 
 ```yml
 config:
@@ -152,16 +152,21 @@ Name | Description
 
 ### Certificate validation
 
-By default, the security plugin validates the TLS certificate of the LDAP servers against the root CA configured in `opensearch.yml`, either as a PEM certificate or a truststore:
+By default, the Security plugin validates the TLS certificate of the LDAP servers against the root CA configured in `opensearch.yml`, either as a PEM certificate or a truststore:
 
 ```
 plugins.security.ssl.transport.pemtrustedcas_filepath: ...
-plugins.security.ssl.http.truststore_filepath: ...
+plugins.security.ssl.transport.truststore_filepath: ...
 ```
 
 If your server uses a certificate signed by a different CA, import this CA into your truststore or add it to your trusted CA file on each node.
 
-You can also use a separate root CA in PEM format by setting one of the following configuration options:
+You can also use a separate root CA in PEM format.
+
+When configuring a separate root CA for LDAP, make sure to include the setting in all instances of the LDAP `config:` settings, including in both the `authc` and `authz` options of the configuration.
+{: .note}
+
+To configure a separate root CA, use one of the following configuration options:
 
 ```yml
 config:
@@ -186,7 +191,7 @@ Name | Description
 
 ### Client authentication
 
-If you use TLS client authentication, the security plugin sends the PEM certificate of the node, as configured in `opensearch.yml`. Set one of the following configuration options:
+If you use TLS client authentication, the Security plugin sends the PEM certificate of the node, as configured in `opensearch.yml`. Set one of the following configuration options:
 
 ```yml
 config:
@@ -251,7 +256,7 @@ Name | Description
 
 ## Use Active Directory and LDAP for authentication
 
-To use Active Directory/LDAP for authentication, first configure a respective authentication domain in the `authc` section of `plugins/opensearch-security/securityconfig/config.yml`:
+To use Active Directory/LDAP for authentication, first configure a respective authentication domain in the `authc` section of `config/opensearch-security/config.yml`:
 
 ```yml
 authc:
@@ -284,7 +289,7 @@ config:
 
 Authentication works by issuing an LDAP query containing the user name against the user subtree of the LDAP tree.
 
-The security plugin first takes the configured LDAP query and replaces the placeholder `{0}` with the user name from the user's credentials.
+The Security plugin first takes the configured LDAP query and replaces the placeholder `{0}` with the user name from the user's credentials.
 
 ```yml
 usersearch: '(sAMAccountName={0})'
@@ -296,7 +301,7 @@ Then it issues this query against the user subtree. Currently, the entire subtre
 userbase: 'ou=people,dc=example,dc=com'
 ```
 
-If the query is successful, the security plugin retrieves the user name from the LDAP entry. You can specify which attribute from the LDAP entry the security plugin should use as the user name:
+If the query is successful, the Security plugin retrieves the user name from the LDAP entry. You can specify which attribute from the LDAP entry the Security plugin should use as the user name:
 
 ```yml
 username_attribute: uid
@@ -310,8 +315,8 @@ If this key is not set or null, then the distinguished name (DN) of the LDAP ent
 Name | Description
 :--- | :---
 `userbase` | Specifies the subtree in the directory where user information is stored.
-`usersearch` | The actual LDAP query that the security plugin executes when trying to authenticate a user. The variable {0} is substituted with the user name.
-`username_attribute` | The security plugin uses this attribute of the directory entry to look for the user name. If set to null, the DN is used (default).
+`usersearch` | The actual LDAP query that the Security plugin executes when trying to authenticate a user. The variable {0} is substituted with the user name.
+`username_attribute` | The Security plugin uses this attribute of the directory entry to look for the user name. If set to null, the DN is used (default).
 
 
 ### Complete authentication example
@@ -360,16 +365,16 @@ authz:
 
 Authorization is the process of retrieving backend roles for an authenticated user from an LDAP server. This is typically the same servers that you use for authentication, but you can also use a different server. The only requirement is that the user you use to fetch the roles actually exists on the LDAP server.
 
-Because the security plugin always checks if a user exists in the LDAP server, you must also configure `userbase`, `usersearch` and `username_attribute` in the `authz` section.
+Because the Security plugin always checks if a user exists in the LDAP server, you must also configure `userbase`, `usersearch` and `username_attribute` in the `authz` section.
 
-Authorization works similarly to authentication. The security plugin issues an LDAP query containing the user name against the role subtree of the LDAP tree.
+Authorization works similarly to authentication. The Security plugin issues an LDAP query containing the user name against the role subtree of the LDAP tree.
 
-As an alternative, the security plugin can also fetch roles that are defined as a direct attribute of the user entry in the user subtree.
+As an alternative, the Security plugin can also fetch roles that are defined as a direct attribute of the user entry in the user subtree.
 
 
 ### Approach 1: Query the role subtree
 
-The security plugin first takes the LDAP query for fetching roles ("rolesearch") and substitutes any variables found in the query. For example, for a standard Active Directory installation, you would use the following role search:
+The Security plugin first takes the LDAP query for fetching roles ("rolesearch") and substitutes any variables found in the query. For example, for a standard Active Directory installation, you would use the following role search:
 
 ```yml
 rolesearch: '(member={0})'
@@ -387,25 +392,25 @@ The variable `{2}` refers to an attribute from the user's directory entry. The a
 userroleattribute: myattribute
 ```
 
-The security plugin then issues the substituted query against the configured role subtree. The entire subtree under `rolebase` is searched:
+The Security plugin then issues the substituted query against the configured role subtree. The entire subtree under `rolebase` is searched:
 
 ```yml
 rolebase: 'ou=groups,dc=example,dc=com'
 ```
 
-If you use nested roles (roles that are members of other roles), you can configure the security plugin to resolve them:
+If you use nested roles (roles that are members of other roles), you can configure the Security plugin to resolve them:
 
 ```yml
 resolve_nested_roles: false
 ```
 
-After all roles have been fetched, the security plugin extracts the final role names from a configurable attribute of the role entries:
+After all roles have been fetched, the Security plugin extracts the final role names from a configurable attribute of the role entries:
 
 ```yml
 rolename: cn
 ```
 
-If this is not set, the DN of the role entry is used. You can now use this role name for mapping it to one or more of the security plugin roles, as defined in `roles_mapping.yml`.
+If this is not set, the DN of the role entry is used. You can now use this role name for mapping it to one or more of the Security plugin roles, as defined in `roles_mapping.yml`.
 
 
 ### Approach 2: Use a user's attribute as the role name
@@ -422,7 +427,7 @@ You can configure multiple attribute names:
 userrolename: roles, otherroles
 ```
 
-This approach can be combined with querying the role subtree. The security plugin fetches the roles from the user's role attribute and then executes the role search.
+This approach can be combined with querying the role subtree. The Security plugin fetches the roles from the user's role attribute and then executes the role search.
 
 If you don't use or have a role subtree, you can disable the role search completely:
 
@@ -433,7 +438,7 @@ rolesearch_enabled: false
 
 ### (Advanced) Control LDAP user attributes
 
-By default, the security plugin reads all LDAP user attributes and makes them available for index name variable substitution and DLS query variable substitution. If your LDAP entries have a lot of attributes, you might want to control which attributes should be made available. The fewer the attributes, the better the performance.
+By default, the Security plugin reads all LDAP user attributes and makes them available for index name variable substitution and DLS query variable substitution. If your LDAP entries have a lot of attributes, you might want to control which attributes should be made available. The fewer the attributes, the better the performance.
 
 Note that this setting is made in the authentication `authc` section of the config.yml file.
 
@@ -466,7 +471,7 @@ If you are using multiple authentication methods, it can make sense to exclude c
 
 Consider the following scenario for a typical OpenSearch Dashboards setup: All OpenSearch Dashboards users are stored in an LDAP/Active Directory server.
 
-However, you also have an OpenSearch Dashboards server user. OpenSearch Dashboards uses this user to manage stored objects and perform monitoring and maintenance tasks. You do not want to add this user to your Active Directory installation, but rather store it in the security plugin internal user database.
+However, you also have an OpenSearch Dashboards server user. OpenSearch Dashboards uses this user to manage stored objects and perform monitoring and maintenance tasks. You do not want to add this user to your Active Directory installation, but rather store it in the Security plugin internal user database.
 
 In this case, it makes sense to exclude the OpenSearch Dashboards server user from the LDAP authorization because we already know that there is no corresponding entry. You can use the `skip_users` configuration setting to define which users should be skipped. Wildcards and regular expressions are supported:
 
@@ -498,17 +503,19 @@ nested_role_filter:
 Name | Description
 :--- | :---
 `rolebase`  | Specifies the subtree in the directory where role/group information is stored.
-`rolesearch` | The actual LDAP query that the security plugin executes when trying to determine the roles of a user. You can use three variables here (see below).
+`rolesearch` | The actual LDAP query that the Security plugin executes when trying to determine the roles of a user. You can use three variables here (see below).
 `userroleattribute`  | The attribute in a user entry to use for `{2}` variable substitution.
 `userrolename`  | If the roles/groups of a user are not stored in the groups subtree, but as an attribute of the user's directory entry, define this attribute name here.
 `rolename`  | The attribute of the role entry that should be used as the role name.
 `resolve_nested_roles`  | Boolean. Whether or not to resolve nested roles. Default is `false`.
 `max_nested_depth`  | Integer. When `resolve_nested_roles` is `true`, this defines the maximum number of nested roles to traverse. Setting smaller values can reduce the amount of data retrieved from LDAP and improve authentication times at the cost of failing to discover deeply nested roles. Default is `30`.
 `skip_users`  | Array of users that should be skipped when retrieving roles. Wildcards and regular expressions are supported.
+`exclude_roles`  | Array of roles that should be excluded when retrieving roles. Wildcards are supported.
 `nested_role_filter`  | Array of role DNs that should be filtered before resolving nested roles. Wildcards and regular expressions are supported.
 `rolesearch_enabled`  | Boolean. Enable or disable the role search. Default is `true`.
 `custom_attr_allowlist`  | String array. Specifies the LDAP attributes that should be made available for variable substitution.
 `custom_attr_maxval_len`  | Integer. Specifies the maximum allowed length of each attribute. All attributes longer than this value are discarded. A value of `0` disables custom attributes altogether. Default is 36.
+`custom_return_attributes`  | String array. Specifies which attributes to request from the LDAP server.
 
 
 ### Complete authorization example

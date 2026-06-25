@@ -8,8 +8,8 @@ jobs:
     if: github.repository == 'opensearch-project/documentation-website'
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
-    - uses: ruby/setup-ruby@afeafc3d1ab54a631816aba4c914a0081c12ff2f # v1
+    - uses: actions/checkout@v3
+    - uses: ruby/setup-ruby@v1
       with:
         ruby-version: '3.0'
         bundler-cache: true
@@ -17,7 +17,7 @@ jobs:
         JEKYLL_FATAL_LINK_CHECKER=all bundle exec jekyll build --future
     - name: Create Issue On Build Failure
       if: ${{ failure() }}
-      uses: dblock/create-a-github-issue@a25e69ccb88998dc267170a0dbde8ef8ac3a491c # v3
+      uses: dblock/create-a-github-issue@v3
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         WORKFLOW_URL: "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"

@@ -10,24 +10,26 @@ canonical_url: https://docs.opensearch.org/latest/observing-your-data/alerting/a
 
 # Alerting API
 
-Use the alerting API to programmatically manage monitors and alerts.
+Use the Alerting API to programmatically create, update, and manage monitors and alerts. For APIs that support the composite monitor specifically, see [Managing composite monitors with the API]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/composite-monitors/#managing-composite-monitors-with-the-api). 
 
 ---
 
-#### Table of contents
+<details markdown="block">
+  <summary>
+    Table of contents
+  </summary>
+  {: .text-delta }
 - TOC
 {:toc}
-
+</details>
 
 ---
 
-## Create query-level monitor
-Introduced 1.0
-{: .label .label-purple }
+## Create a query-level monitor
 
-Query-level monitors run the query and check whether the results should trigger any alerts. As such, query-level monitors can only trigger one alert at a time. For more information about query-level monitors versus bucket-level monitors, see [Create monitors]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/monitors/#create-monitors).
+Query-level monitors run the query and check whether or not the results should trigger an alert. Query-level monitors can only trigger one alert at a time. For more information about query-level monitors and bucket-level monitors, see [Creating monitors]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/monitors/).
 
-#### Request
+#### Example request
 
 ```json
 POST _plugins/_alerting/monitors
@@ -53,8 +55,8 @@ POST _plugins/_alerting/monitors
             "filter": {
               "range": {
                 "@timestamp": {
-                  "gte": "||-1h",
-                  "lte": "",
+                  "gte": {% raw %}"{{period_end}}||-1h"{% endraw %},
+                  "lte": {% raw %}"{{period_end}}"{% endraw %},
                   "format": "epoch_millis"
                 }
               }
@@ -102,6 +104,78 @@ If you use a custom webhook for your destination and need to embed JSON in the m
 }
 ```
 
+Optionally, to specify a backend role, you can add the `rbac_roles` parameter and backend role names to the bottom of your create monitor request.
+
+#### Example request
+
+The following request creates a query-level monitor and provides two backend roles, `role1` and `role2`. The section at the bottom of the request shows the line that specifies the roles with this syntax: `"rbac_roles": ["role1", "role2"]`.
+
+```json
+POST _plugins/_alerting/monitors
+{
+  "type": "monitor",
+  "name": "test-monitor",
+  "monitor_type": "query_level_monitor",
+  "enabled": true,
+  "schedule": {
+    "period": {
+      "interval": 1,
+      "unit": "MINUTES"
+    }
+  },
+  "inputs": [{
+    "search": {
+      "indices": ["movies"],
+      "query": {
+        "size": 0,
+        "aggregations": {},
+        "query": {
+          "bool": {
+            "filter": {
+              "range": {
+                "@timestamp": {
+                  "gte": "{{period_end}}||-1h",
+                  "lte": "{{period_end}}",
+                  "format": "epoch_millis"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }],
+  "triggers": [{
+    "name": "test-trigger",
+    "severity": "1",
+    "condition": {
+      "script": {
+        "source": "ctx.results[0].hits.total.value > 0",
+        "lang": "painless"
+      }
+    },
+    "actions": [{
+      "name": "test-action",
+      "destination_id": "ld7912sBlQ5JUWWFThoW",
+      "message_template": {
+        "source": "This is my message body."
+      },
+      "throttle_enabled": true,
+      "throttle": {
+        "value": 27,
+        "unit": "MINUTES"
+      },
+      "subject_template": {
+        "source": "TheSubject"
+      }
+    }]
+  }],
+  "rbac_roles": ["role1", "role2"]
+}
+```
+
+To learn more about using backend roles to limit access, see [(Advanced) Limit access by backend role]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/security/#advanced-limit-access-by-backend-role).
+
 #### Example response
 
 ```json
@@ -134,8 +208,8 @@ If you use a custom webhook for your destination and need to embed JSON in the m
               "filter": [{
                 "range": {
                   "@timestamp": {
-                    "from": "||-1h",
-                    "to": "",
+                    "from": {% raw %}"{{period_end}}||-1h"{% endraw %},
+                    "to": {% raw %}"{{period_end}}"{% endraw %},
                     "include_lower": true,
                     "include_upper": true,
                     "format": "epoch_millis",
@@ -181,11 +255,11 @@ If you use a custom webhook for your destination and need to embed JSON in the m
 }
 ```
 
-If you want to specify a timezone, you can do so by including a [cron expression]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/cron/) with a timezone name in the `schedule` section of your request.
+If you want to specify a time zone, you can do so by including a [cron expression]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/cron/) with a time zone name in the `schedule` section of your request.
 
 The following example creates a monitor that runs at 12:10 PM Pacific Time on the 1st day of every month.
 
-#### Request
+#### Example request
 
 ```json
 {
@@ -210,8 +284,8 @@ The following example creates a monitor that runs at 12:10 PM Pacific Time on th
             "filter": {
               "range": {
                 "@timestamp": {
-                  "gte": "||-1h",
-                  "lte": "",
+                  "gte": {% raw %}"{{period_end}}||-1h"{% endraw %},
+                  "lte": {% raw %}"{{period_end}}"{% endraw %},
                   "format": "epoch_millis"
                 }
               }
@@ -249,19 +323,19 @@ The following example creates a monitor that runs at 12:10 PM Pacific Time on th
 }
 ```
 
-For a full list of timezone names, refer to [Wikipedia](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones). The alerting plugin uses the Java [TimeZone](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/TimeZone.html) class to convert a [`ZoneId`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/time/ZoneId.html) to a valid timezone.
+For a full list of time zone names, refer to [Wikipedia](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones). The Alerting plugin uses the Java [TimeZone](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/TimeZone.html) class to convert a [`ZoneId`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/time/ZoneId.html) to a valid time zone.
 
 ---
 
-## Create bucket-level monitor
+## Bucket-level monitors
 
-Bucket-level monitors categorize results into buckets separated by fields. The monitor then runs your script with each bucket's results and evaluates whether to trigger an alert. For more information about bucket-level monitors versus query-level monitors, see [Create monitors]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/monitors/#create-monitors).
+Bucket-level monitors categorize results into buckets separated by fields. The monitor then runs your script with each bucket's results and evaluates whether to trigger an alert. For more information about bucket-level and query-level monitors, see [Creating monitors]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/monitors/).
 
 ```json
 POST _plugins/_alerting/monitors
 {
   "type": "monitor",
-  "name": "test-bucket-level-monitor",
+  "name": "Demo bucket-level monitor",
   "monitor_type": "bucket_level_monitor",
   "enabled": true,
   "schedule": {
@@ -284,8 +358,8 @@ POST _plugins/_alerting/monitors
                 {
                   "range": {
                     "order_date": {
-                      "from": "{{period_end}}||-1h",
-                      "to": "{{period_end}}",
+                      "from": {% raw %}"{{period_end}}||-1h"{% endraw %},
+                      "to": {% raw %}"{{period_end}}"{% endraw %},
                       "include_lower": true,
                       "include_upper": true,
                       "format": "epoch_millis"
@@ -342,7 +416,7 @@ POST _plugins/_alerting/monitors
             "name": "test-action",
             "destination_id": "E4o5hnsB6KjPKmHtpfCA",
             "message_template": {
-              "source": """Monitor {{ctx.monitor.name}} just entered alert status. Please investigate the issue.   - Trigger: {{ctx.trigger.name}}   - Severity: {{ctx.trigger.severity}}   - Period start: {{ctx.periodStart}}   - Period end: {{ctx.periodEnd}}    - Deduped Alerts:   {{ctx.dedupedAlerts}}     * {{id}} : {{bucket_keys}}   {{ctx.dedupedAlerts}}    - New Alerts:   {{ctx.newAlerts}}     * {{id}} : {{bucket_keys}}   {{ctx.newAlerts}}    - Completed Alerts:   {{ctx.completedAlerts}}     * {{id}} : {{bucket_keys}}   {{ctx.completedAlerts}}""",
+              "source": {% raw %}"""Monitor {{ctx.monitor.name}} just entered alert status. Please investigate the issue.   - Trigger: {{ctx.trigger.name}}   - Severity: {{ctx.trigger.severity}}   - Period start: {{ctx.periodStart}}   - Period end: {{ctx.periodEnd}}    - Deduped Alerts:   {{ctx.dedupedAlerts}}     * {{id}} : {{bucket_keys}}   {{ctx.dedupedAlerts}}    - New Alerts:   {{ctx.newAlerts}}     * {{id}} : {{bucket_keys}}   {{ctx.newAlerts}}    - Completed Alerts:   {{ctx.completedAlerts}}     * {{id}} : {{bucket_keys}}   {{ctx.completedAlerts}}"""{% endraw %},
               "lang": "mustache"
             },
             "throttle_enabled": false,
@@ -382,7 +456,7 @@ POST _plugins/_alerting/monitors
   "monitor" : {
     "type" : "monitor",
     "schema_version" : 4,
-    "name" : "test-bucket-level-monitor",
+    "name" : "Demo a bucket-level monitor",
     "monitor_type" : "bucket_level_monitor",
     "user" : {
       "name" : "",
@@ -413,8 +487,8 @@ POST _plugins/_alerting/monitors
                   {
                     "range" : {
                       "order_date" : {
-                        "from" : "{{period_end}}||-1h",
-                        "to" : "{{period_end}}",
+                        "from" : {% raw %}"{{period_end}}||-1h"{% endraw %},
+                        "to" : {% raw %}"{{period_end}}"{% endraw %},
                         "include_lower" : true,
                         "include_upper" : true,
                         "format" : "epoch_millis",
@@ -480,7 +554,7 @@ POST _plugins/_alerting/monitors
               "name" : "test-action",
               "destination_id" : "E4o5hnsB6KjPKmHtpfCA",
               "message_template" : {
-                "source" : "Monitor {{ctx.monitor.name}} just entered alert status. Please investigate the issue.   - Trigger: {{ctx.trigger.name}}   - Severity: {{ctx.trigger.severity}}   - Period start: {{ctx.periodStart}}   - Period end: {{ctx.periodEnd}}    - Deduped Alerts:   {{ctx.dedupedAlerts}}     * {{id}} : {{bucket_keys}}   {{ctx.dedupedAlerts}}    - New Alerts:   {{ctx.newAlerts}}     * {{id}} : {{bucket_keys}}   {{ctx.newAlerts}}    - Completed Alerts:   {{ctx.completedAlerts}}     * {{id}} : {{bucket_keys}}   {{ctx.completedAlerts}}",
+                "source" : {% raw %}"Monitor {{ctx.monitor.name}} just entered alert status. Please investigate the issue.   - Trigger: {{ctx.trigger.name}}   - Severity: {{ctx.trigger.severity}}   - Period start: {{ctx.periodStart}}   - Period end: {{ctx.periodEnd}}    - Deduped Alerts:   {{ctx.dedupedAlerts}}     * {{id}} : {{bucket_keys}}   {{ctx.dedupedAlerts}}    - New Alerts:   {{ctx.newAlerts}}     * {{id}} : {{bucket_keys}}   {{ctx.newAlerts}}    - Completed Alerts:   {{ctx.completedAlerts}}     * {{id}} : {{bucket_keys}}   {{ctx.completedAlerts}}"{% endraw %},
                 "lang" : "mustache"
               },
               "throttle_enabled" : false,
@@ -511,12 +585,153 @@ POST _plugins/_alerting/monitors
   }
 }
 ```
-
-## Update monitor
-Introduced 1.0
+## Document-level monitors
+Introduced 2.0
 {: .label .label-purple }
 
-When updating a monitor, you can optionally include `seq_no` and `primary_term` as URL parameters. If these numbers don't match the existing monitor or the monitor doesn't exist, the alerting plugin throws an error. OpenSearch increments the version number and the sequence number automatically (see the example response).
+Document-level monitors check whether individual documents in an index match trigger conditions. If so, the monitor generates an alert notification. When you run a query with a document-level monitor, the results are returned for each document that matches the trigger condition. You can create trigger conditions based on query names, query IDs, or tags that combine multiple queries.
+
+To learn more about per document monitors that function similarly to the document-level monitor API, see [Monitors]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/monitors/).
+
+### Search the findings index
+
+You can use the Alerting search API operation to search the findings index `.opensearch-alerting-finding*` for available document findings with a GET request. By default, a GET request without path parameters returns all available findings. 
+
+To retrieve any available findings, send a GET request without any path parameters as follows:
+
+```json
+GET /_plugins/_alerting/findings/_search?
+```
+
+
+To retrieve metadata for an individual document finding entry, you can search for the finding by its `findingId` as follows:
+
+```json
+GET /_plugins/_alerting/findings/_search?findingId=gKQhj8WJit3BxjGfiOXC
+```
+
+The response returns the number of individual finding entries in the `total_findings` field.
+
+To get more specific results in a findings search, you can use any of the optional path parameters that are defined in the following table:
+
+Path parameter | Description | Usage
+:--- | :--- : :---
+`findingId` | The identifier for the finding entry. | The finding ID is returned in the initial query response.
+`sortString` | This field specifies which string the Alerting plugin uses to sort the findings. | The default value is `id`.
+`sortOrder` | The order to sort the list of findings, either ascending or descending. | Use `sortOrder=asc` to indicate ascending, or `sortOrder=desc` for descending sort order.
+`size` | An optional limit for the maximum number of results returned in the response. | There is no minimum or maximum values.
+`startIndex` | The pagination indicator. | Default is `0`.
+`searchString` | The finding attribute you want returned in the search. | To search in a specific index, specify the index name in the request path. For example, to search findings in the `indexABC` index, use `searchString=indexABC'.
+
+### Create a document-level monitor
+
+You can create a document-level monitor with a POST request that provides the monitor details in the request body.
+At a minimum, you need to provide the following details: specify the queries or combinations by tag with the `inputs` field, a valid trigger condition, and provide the notification message in the `action` field.
+
+The following table shows the syntax to use for each trigger option:
+
+Trigger options | Definition | Syntax
+:--- | :--- : :---
+Tag | Creates alerts for documents that match a multiple query with this tag applied. If you group multiple queries by a single tag, then you can set it to trigger an alert if the results are returned by this tag name.| `query[tag=<tag-name>]`
+Query by name | Creates alerts for documents matched or returned by the named query.  | `query[name=<query-name>]`
+Query by ID | Creates alerts for documents that were returned by the identified query. | `query[id=<query-id>]`
+
+#### Example request
+
+The following example shows how to create a document-level monitor:
+
+```json
+POST _plugins/_alerting/monitors
+{
+  "type": "monitor",
+  "monitor_type": "doc_level_monitor",
+  "name": "Example document-level monitor",
+  "enabled": true,
+  "schedule": {
+    "period": {
+      "interval": 1,
+      "unit": "MINUTES"
+    }
+  },
+  "inputs": [
+    {
+      "doc_level_input": {
+        "description": "Example document-level monitor for audit logs",
+        "indices": [
+          "audit-logs"
+        ],
+        "queries": [
+        {
+            "id": "nKQnFYABit3BxjGfiOXC",
+            "name": "sigma-123",
+            "query": "region:\"us-west-2\"",
+            "tags": [
+                "tag1"
+            ]
+        },
+        {
+            "id": "gKQnABEJit3BxjGfiOXC",
+            "name": "sigma-456",
+            "query": "region:\"us-east-1\"",
+            "tags": [
+                "tag2"
+            ]
+        },
+        {
+            "id": "h4J2ABEFNW3vxjGfiOXC",
+            "name": "sigma-789",
+            "query": "message:\"This is a SEPARATE error from IAD region\"",
+            "tags": [
+                "tag3"
+            ]
+        }
+    ]
+      }
+    }
+  ],
+    "triggers": [ { "document_level_trigger": {
+      "name": "test-trigger",
+      "severity": "1",
+      "condition": {
+        "script": {
+          "source": "(query[name=sigma-123] || query[tag=tag3]) && query[name=sigma-789]",
+          "lang": "painless"
+        }
+      },
+      "actions": [
+        {
+            "name": "test-action",
+            "destination_id": "E4o5hnsB6KjPKmHtpfCA",
+            "message_template": {
+                "source": {% raw %}"""Monitor  just entered alert status. Please investigate the issue. Related Finding Ids: {{ctx.alerts.0.finding_ids}}, Related Document Ids: {{ctx.alerts.0.related_doc_ids}}"""{% endraw %},
+                "lang": "mustache"
+            },
+            "action_execution_policy": {
+                "action_execution_scope": {
+                    "per_alert": {
+                        "actionable_alerts": []
+                    }
+                }
+            },
+            "subject_template": {
+                "source": "The Subject",
+                "lang": "mustache"
+            }
+         }
+      ]
+  }}]
+}
+
+```
+
+### Limitations
+
+If you run a document-level query while the index is getting reindexed, the API response will not return the reindexed results. To get updates, wait until the reindexing process completes, then rerun the query.
+{: .tip}
+
+## Update monitor
+
+When updating a monitor, you can optionally include `seq_no` and `primary_term` as URL parameters. If these numbers don't match the existing monitor or the monitor doesn't exist, the Alerting plugin throws an error. OpenSearch increments the version number and the sequence number automatically (see the example response).
 
 #### Request
 
@@ -691,8 +906,6 @@ PUT _plugins/_alerting/monitors/<monitor_id>?if_seq_no=3&if_primary_term=1
 ---
 
 ## Get monitor
-Introduced 1.0
-{: .label .label-purple }
 
 #### Request
 
@@ -765,8 +978,6 @@ GET _plugins/_alerting/monitors/<monitor_id>
 ---
 
 ## Monitor stats
-Introduced 1.0
-{: .label .label-purple }
 
 Returns statistics about the alerting feature. Use `_plugins/_alerting/stats` to find node IDs and metrics. Then you can drill down using those values.
 
@@ -956,8 +1167,6 @@ GET _plugins/_alerting/<node-id>/stats/<metric>
 ---
 
 ## Delete monitor
-Introduced 1.0
-{: .label .label-purple }
 
 #### Request
 
@@ -970,7 +1179,6 @@ DELETE _plugins/_alerting/monitors/<monitor_id>
 ```json
 {
   "_index": ".opensearch-scheduled-jobs",
-  "_type": "_doc",
   "_id": "OYAHOmgBl3cmwnqZl_yH",
   "_version": 2,
   "result": "deleted",
@@ -989,8 +1197,6 @@ DELETE _plugins/_alerting/monitors/<monitor_id>
 ---
 
 ## Search monitors
-Introduced 1.0
-{: .label .label-purple }
 
 #### Request
 
@@ -1048,8 +1254,8 @@ GET _plugins/_alerting/monitors/_search
                   "filter": [{
                     "range": {
                       "@timestamp": {
-                        "from": "{{period_end}}||-1h",
-                        "to": "{{period_end}}",
+                        "from": {% raw %}"{{period_end}}||-1h"{% endraw %},
+                        "to": {% raw %}"{{period_end}}"{% endraw %},
                         "include_lower": true,
                         "include_upper": true,
                         "format": "epoch_millis",
@@ -1088,8 +1294,6 @@ GET _plugins/_alerting/monitors/_search
 ---
 
 ## Run monitor
-Introduced 1.0
-{: .label .label-purple }
 
 You can add the optional `?dryrun=true` parameter to the URL to show the results of a run without actions sending any message.
 
@@ -1122,10 +1326,25 @@ POST _plugins/_alerting/monitors/<monitor_id>/_execute
 ---
 
 ## Get alerts
-Introduced 1.0
-{: .label .label-purple }
 
 Returns an array of all alerts.
+
+#### Path parameters
+
+The following table lists the available path parameters. All path parameters are optional.
+
+| Parameter | Data type | Description
+| :--- | :--- | :---
+| `sortString` | String | Defines how to sort the results. Default is `monitor_name.keyword`.
+| `sortOrder` | String | Defines the order of the results. Options are `asc` or `desc`. Default is `asc`.
+| `missing` | String | Specifies whether to include missing data in the response.
+| `size` | String | Defines the size of the request to be returned. Default is `20`.
+| `startIndex` | String | Defines the index to start from. Used for paginating results. Default is `0`.
+| `searchString` | String | Defines the search string to use for searching a specific alert. Default is an empty string.
+| `severityLevel` | String | Defines the severity level to filter for. Default is `ALL`.
+| `alertState` | String | Defines the alert state to filter for. Default is `ALL`.
+| `monitorId` | String | Filters by monitor ID.
+| `workflowIds` | String | Allows for monitoring the status of chained alerts from multiple workflows within a single dashboard. Available in OpenSearch 2.9 or later.
 
 #### Request
 
@@ -1164,7 +1383,7 @@ GET _plugins/_alerting/monitors/alerts
       "alert_history": [
         {
           "timestamp": 1617314504873,
-          "message": "Example error emssage"
+          "message": "Example error message"
         },
         {
           "timestamp": 1617312543925,
@@ -1192,8 +1411,6 @@ GET _plugins/_alerting/monitors/alerts
 ---
 
 ## Acknowledge alert
-Introduced 1.0
-{: .label .label-purple }
 
 [After getting your alerts](#get-alerts), you can acknowledge any number of active alerts in one call. If the alert is already in an ERROR, COMPLETED, or ACKNOWLEDGED state, it appears in the `failed` array.
 
@@ -1221,8 +1438,6 @@ POST _plugins/_alerting/monitors/<monitor-id>/_acknowledge/alerts
 ---
 
 ## Create destination
-Introduced 1.0
-{: .label .label-purple }
 
 #### Requests
 
@@ -1299,10 +1514,8 @@ POST _plugins/_alerting/destinations
 ---
 
 ## Update destination
-Introduced 1.0
-{: .label .label-purple }
 
-When updating a destination, you can optionally include `seq_no` and `primary_term` as URL parameters. If these numbers don't match the existing destination or the destination doesn't exist, the alerting plugin throws an error. OpenSearch increments the version number and the sequence number automatically (see the example response).
+When updating a destination, you can optionally include `seq_no` and `primary_term` as URL parameters. If these numbers don't match the existing destination or the destination doesn't exist, the Alerting plugin throws an error. OpenSearch increments the version number and the sequence number automatically (see the example response).
 
 #### Request
 
@@ -1349,8 +1562,6 @@ PUT _plugins/_alerting/destinations/<destination-id>?if_seq_no=3&if_primary_term
 ---
 
 ## Get destination
-Introduced 1.0
-{: .label .label-purple }
 
 Retrieve one destination.
 
@@ -1396,8 +1607,6 @@ GET _plugins/_alerting/destinations/<destination-id>
 ---
 
 ## Get destinations
-Introduced 1.0
-{: .label .label-purple }
 
 Retrieve all destinations.
 
@@ -1443,8 +1652,6 @@ GET _plugins/_alerting/destinations
 ---
 
 ## Delete destination
-Introduced 1.0
-{: .label .label-purple }
 
 #### Request
 
@@ -1474,8 +1681,6 @@ DELETE _plugins/_alerting/destinations/<destination-id>
 ---
 
 ## Create email account
-Introduced 1.0
-{: .label .label-purple }
 
 #### Request
 ```json
@@ -1508,10 +1713,8 @@ POST _plugins/_alerting/destinations/email_accounts
 ```
 
 ## Update email account
-Introduced 1.0
-{: .label .label-purple }
 
-When updating an email account, you can optionally include `seq_no` and `primary_term` as URL parameters. If these numbers don't match the existing email account or the email account doesn't exist, the alerting plugin throws an error. OpenSearch increments the version number and the sequence number automatically (see the example response).
+When updating an email account, you can optionally include `seq_no` and `primary_term` as URL parameters. If these numbers don't match the existing email account or the email account doesn't exist, the Alerting plugin throws an error. OpenSearch increments the version number and the sequence number automatically (see the example response).
 
 #### Request
 ```json
@@ -1552,8 +1755,6 @@ PUT _plugins/_alerting/destinations/email_accounts/<email_account_id>?if_seq_no=
 ```
 
 ## Get email account
-Introduced 1.0
-{: .label .label-purple }
 
 #### Request
 ```json
@@ -1585,8 +1786,6 @@ GET _plugins/_alerting/destinations/email_accounts/<email_account_id>
 ```
 
 ## Delete email account
-Introduced 1.0
-{: .label .label-purple }
 
 #### Request
 ```
@@ -1613,8 +1812,6 @@ DELETE _plugins/_alerting/destinations/email_accounts/<email_account_id>
 ```
 
 ## Search email account
-Introduced 1.0
-{: .label .label-purple }
 
 #### Request
 
@@ -1681,8 +1878,6 @@ POST _plugins/_alerting/destinations/email_accounts/_search
 ---
 
 ## Create email group
-Introduced 1.0
-{: .label .label-purple }
 
 #### Request
 
@@ -1717,10 +1912,8 @@ POST _plugins/_alerting/destinations/email_groups
 ```
 
 ## Update email group
-Introduced 1.0
-{: .label .label-purple }
 
-When updating an email group, you can optionally include `seq_no` and `primary_term` as URL parameters. If these numbers don't match the existing email group or the email group doesn't exist, the alerting plugin throws an error. OpenSearch increments the version number and the sequence number automatically (see the example response).
+When updating an email group, you can optionally include `seq_no` and `primary_term` as URL parameters. If these numbers don't match the existing email group or the email group doesn't exist, the Alerting plugin throws an error. OpenSearch increments the version number and the sequence number automatically (see the example response).
 
 #### Request
 
@@ -1762,8 +1955,6 @@ PUT _plugins/_alerting/destinations/email_groups/<email_group_id>?if_seq_no=16&i
 ```
 
 ## Get email group
-Introduced 1.0
-{: .label .label-purple }
 
 #### Request
 ```json
@@ -1796,8 +1987,6 @@ GET _plugins/_alerting/destinations/email_groups/<email_group_id>
 ```
 
 ## Delete email group
-Introduced 1.0
-{: .label .label-purple }
 
 #### Request
 ```
@@ -1824,8 +2013,6 @@ DELETE _plugins/_alerting/destinations/email_groups/<email_group_id>
 ```
 
 ## Search email group
-Introduced 1.0
-{: .label .label-purple }
 
 #### Request
 

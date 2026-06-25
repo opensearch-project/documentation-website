@@ -5,6 +5,8 @@ parent: Bucket aggregations
 grand_parent: Aggregations
 nav_order: 180
 canonical_url: https://docs.opensearch.org/latest/aggregations/bucket/significant-terms/
+redirect_from:
+  - /query-dsl/aggregations/bucket/significant-terms/
 ---
 
 # Significant terms aggregations
@@ -36,6 +38,7 @@ GET opensearch_dashboards_sample_data_logs/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 #### Example response
 

@@ -6,6 +6,8 @@ has_children: true
 redirect_from: /im-plugin/index-transforms/
 has_toc: false
 canonical_url: https://docs.opensearch.org/latest/im-plugin/index-transforms/index/
+redirect_from:
+  - /im-plugin/index-transforms/
 ---
 
 # Index transforms
@@ -152,3 +154,7 @@ GET finished_flight_job/_search
 }
 
 ```
+
+## Index codec considerations
+
+For index codec considerations, see [Index codecs]({{site.url}}{{site.baseurl}}/im-plugin/index-codecs/#index-rollups-and-transforms).

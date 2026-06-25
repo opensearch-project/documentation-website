@@ -2,15 +2,17 @@
 layout: default
 title: Update settings
 parent: Index APIs
-nav_order: 120
+nav_order: 75
+redirect_from:
+  - /opensearch/rest-api/index-apis/update-settings/
 canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/update-settings/
 ---
 
 # Update settings
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 
-You can use the update settings API operation to update index-level settings. You can change dynamic index settings at any time, but static settings cannot be changed after index creation. For more information about static and dynamic index settings, see [Create index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index).
+You can use the update settings API operation to update index-level settings. You can change dynamic index settings at any time, but static settings cannot be changed after index creation. For more information about static and dynamic index settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
 
 Aside from the static and dynamic index settings, you can also update individual plugins' settings. To get the full list of updatable settings, run `GET <target-index>/_settings?include_defaults=true`.
 
@@ -33,7 +35,7 @@ PUT /sample-index1/_settings
 PUT /<target-index>/_settings
 ```
 
-## URL parameters
+## Query parameters
 
 All update settings parameters are optional.
 
@@ -41,10 +43,8 @@ Parameter | Data type | Description
 :--- | :--- | :---
 allow_no_indices | Boolean | Whether to ignore wildcards that don’t match any indexes. Default is `true`.
 expand_wildcards | String | Expands wildcard expressions to different indexes. Combine multiple values with commas. Available values are `all` (match all indexes), `open` (match open indexes), `closed` (match closed indexes), `hidden` (match hidden indexes), and `none` (do not accept wildcard expressions), which must be used with `open`, `closed`, or both. Default is `open`.
-flat_settings | Boolean | Whether to return settings in the flat form, which can improve readability, especially for heavily nested settings. For example, the flat form of “index”: { “creation_date”: “123456789” } is “index.creation_date”: “123456789”.
-ignore_unavailable | Boolean | If true, OpenSearch does not include missing or closed indexes in the response.
+cluster_manager_timeout | Time | How long to wait for a connection to the cluster manager node. Default is `30s`.
 preserve_existing | Boolean | Whether to preserve existing index settings. Default is false.
-master_timeout | Time | How long to wait for a connection to the master node. Default is `30s`.
 timeout | Time | How long to wait for a connection to return. Default is `30s`.
 
 ## Request body

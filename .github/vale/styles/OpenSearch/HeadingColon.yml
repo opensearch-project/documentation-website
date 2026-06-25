@@ -1,0 +1,7 @@
+extends: existence
+message: "Capitalize the word after a colon in '%s'."
+nonword: true
+level: error
+scope: heading
+tokens:
+  - '(?::\s)[a-z]+'

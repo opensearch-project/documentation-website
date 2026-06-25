@@ -5,6 +5,7 @@ parent: Installing OpenSearch
 nav_order: 5
 redirect_from: 
   - /opensearch/install/docker/
+  - /install-and-configure/install-opensearch/docker/
 canonical_url: https://docs.opensearch.org/latest/install-and-configure/install-opensearch/docker/
 ---
 
@@ -29,9 +30,11 @@ Docker Compose is a utility that allows users to launch multiple containers with
 If you need to install Docker Compose manually and your host supports Python, you can use [pip](https://pypi.org/project/pip/) to install the [Docker Compose package](https://pypi.org/project/docker-compose/) automatically.
 {: .tip}
 
-## Important host settings
+## Configure important host settings
+Before installing OpenSearch using Docker, configure the following settings. These are the most important settings that can affect the performance of your services, but for additional information, see [important system settings]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/#important-settings){:target='\_blank'}.
 
-Before launching OpenSearch you should review some [important system settings]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/#important-settings){:target='\_blank'} that can impact the performance of your services.
+### Linux settings
+For a Linux environment, run the following commands:
 
 1. Disable memory paging and swapping performance on the host to improve performance.
    ```bash
@@ -54,29 +57,37 @@ Before launching OpenSearch you should review some [important system settings]({
    cat /proc/sys/vm/max_map_count
    ```
 
+### Windows settings
+For Windows workloads using WSL through Docker Desktop, run the following commands in a terminal to set the `vm.max_map_count`:
+
+```bash
+wsl -d docker-desktop
+sysctl -w vm.max_map_count=262144
+```   
+
 ## Run OpenSearch in a Docker container
 
 Official OpenSearch images are hosted on [Docker Hub](https://hub.docker.com/u/opensearchproject/) and [Amazon ECR](https://gallery.ecr.aws/opensearchproject/). If you want to inspect the images you can pull them individually using `docker pull`, such as in the following examples.
 
 [Docker Hub](https://hub.docker.com/u/opensearchproject/):
 ```bash
-docker pull opensearchproject/opensearch:1
+docker pull opensearchproject/opensearch:2
 ```
 {% include copy.html %}
 
 ```bash
-docker pull opensearchproject/opensearch-dashboards:1
+docker pull opensearchproject/opensearch-dashboards:2
 ```
 {% include copy.html %}
 
 [Amazon ECR](https://gallery.ecr.aws/opensearchproject/):
 ```bash
-docker pull public.ecr.aws/opensearchproject/opensearch:1
+docker pull public.ecr.aws/opensearchproject/opensearch:2
 ```
 {% include copy.html %}
 
 ```bash
-docker pull public.ecr.aws/opensearchproject/opensearch-dashboards:1
+docker pull public.ecr.aws/opensearchproject/opensearch-dashboards:2
 ```
 {% include copy.html %}
 
@@ -90,9 +101,13 @@ Before continuing, you should verify that Docker is working correctly by deployi
     # This command maps ports 9200 and 9600, sets the discovery type to "single-node" and requests the newest image of OpenSearch
     docker run -d -p 9200:9200 -p 9600:9600 -e "discovery.type=single-node" opensearchproject/opensearch:latest
     ```
+   For OpenSearch 2.12 or greater, set a new custom admin password before installation using the following command:
+   ```bash
+    docker run -d -p 9200:9200 -p 9600:9600 -e "discovery.type=single-node" -e "OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password>" opensearchproject/opensearch:latest
+    ```
 1. Send a request to port 9200. The default username and password are `admin`.
     ```bash
-    curl https://localhost:9200 -ku 'admin:admin'
+    curl https://localhost:9200 -ku 'admin:<custom-admin-password>'
     ```
     {% include copy.html %}
 
@@ -149,7 +164,19 @@ You can specify a custom file location and name when invoking `docker-compose` w
 docker-compose -f /path/to/your-file.yml up
 ```
 
-If this is your first time launching an OpenSearch cluster using Docker Compose, use the following example `docker-compose.yml` file. Save it in the home directory of your host and name it `docker-compose.yml`. This file will create a cluster that contains three containers: two containers running the OpenSearch service and a single container running OpenSearch Dashboards. These containers will communicate over a bridge network called `opensearch-net` and use two volumes, one for each OpenSearch node. Because this file does not explicitly disable the demo security configuration, self-signed TLS certificates are installed and internal users with default names and passwords are created.
+If this is your first time launching an OpenSearch cluster using Docker Compose, use the following example `docker-compose.yml` file. Save it in the home directory of your host and name it `docker-compose.yml`. This file creates a cluster that contains three containers: two containers running the OpenSearch service and a single container running OpenSearch Dashboards. These containers communicate over a bridge network called `opensearch-net` and use two volumes, one for each OpenSearch node. Because this file does not explicitly disable the demo security configuration, self-signed TLS certificates are installed and internal users with default names and passwords are created.
+
+### Setting a custom admin password
+
+Starting with OpenSearch 2.12, a custom admin password is required to set up a demo security configuration. Do one of the following:
+
+- Before running `docker-compose.yml`, set a new custom admin password using the following command:
+  ```
+  export OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password>
+  ```
+  {% include copy.html %}
+  
+- Create an `.env` file in the same folder as your `docker-compose.yml` file with the `OPENSEARCH_INITIAL_ADMIN_PASSWORD` and a strong password value.
 
 ### Sample docker-compose.yml
 
@@ -157,15 +184,16 @@ If this is your first time launching an OpenSearch cluster using Docker Compose,
 version: '3'
 services:
   opensearch-node1: # This is also the hostname of the container within the Docker network (i.e. https://opensearch-node1/)
-    image: opensearchproject/opensearch:1 # Specifying the latest 1.x available image - modify if you want a specific version
+    image: opensearchproject/opensearch:latest # Specifying the latest available image - modify if you want a specific version
     container_name: opensearch-node1
     environment:
       - cluster.name=opensearch-cluster # Name the cluster
       - node.name=opensearch-node1 # Name the node that will run in this container
       - discovery.seed_hosts=opensearch-node1,opensearch-node2 # Nodes to look for when discovering the cluster
-      - cluster.initial_master_nodes=opensearch-node1,opensearch-node2 # Nodes eligible to serve as master
+      - cluster.initial_cluster_manager_nodes=opensearch-node1,opensearch-node2 # Nodes eligible to serve as cluster manager
       - bootstrap.memory_lock=true # Disable JVM heap memory swapping
       - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m" # Set min and max JVM heap sizes to at least 50% of system RAM
+      - OPENSEARCH_INITIAL_ADMIN_PASSWORD=${OPENSEARCH_INITIAL_ADMIN_PASSWORD}    # Sets the demo admin user password when using demo configuration, required for OpenSearch 2.12 and later
     ulimits:
       memlock:
         soft: -1 # Set memlock to unlimited (no soft or hard limit)
@@ -181,15 +209,16 @@ services:
     networks:
       - opensearch-net # All of the containers will join the same Docker bridge network
   opensearch-node2:
-    image: opensearchproject/opensearch:1 # This should be the same image used for opensearch-node1 to avoid issues
+    image: opensearchproject/opensearch:latest # This should be the same image used for opensearch-node1 to avoid issues
     container_name: opensearch-node2
     environment:
       - cluster.name=opensearch-cluster
       - node.name=opensearch-node2
       - discovery.seed_hosts=opensearch-node1,opensearch-node2
-      - cluster.initial_master_nodes=opensearch-node1,opensearch-node2
+      - cluster.initial_cluster_manager_nodes=opensearch-node1,opensearch-node2
       - bootstrap.memory_lock=true
       - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m"
+      - OPENSEARCH_INITIAL_ADMIN_PASSWORD=${OPENSEARCH_INITIAL_ADMIN_PASSWORD}
     ulimits:
       memlock:
         soft: -1
@@ -220,6 +249,7 @@ volumes:
 networks:
   opensearch-net:
 ```
+{% include copy.html %}
 
 If you override `opensearch_dashboards.yml` settings using environment variables in your compose file, use all uppercase letters and replace periods with underscores (for example, for `opensearch.hosts`, use `OPENSEARCH_HOSTS`). This behavior is inconsistent with overriding `opensearch.yml` settings, where the conversion is just a change to the assignment operator (for example, `discovery.type: single-node` in `opensearch.yml` is defined as `discovery.type=single-node` in `docker-compose.yml`).
 {: .note}
@@ -300,7 +330,7 @@ services:
 
 ### Sample Docker Compose file for development
 
-If you want to build your own compose file from an example, review the following sample `docker-compose.yml` file. This sample file creates two OpenSearch nodes and one OpenSearch Dashboards node with the security plugin disabled. You can use this sample file as a starting point while reviewing [Configuring basic security settings](#configuring-basic-security-settings).
+If you want to build your own compose file from an example, review the following sample `docker-compose.yml` file. This sample file creates two OpenSearch nodes and one OpenSearch Dashboards node with the Security plugin disabled. You can use this sample file as a starting point while reviewing [Configuring basic security settings](#configuring-basic-security-settings).
 ```yml
 version: '3'
 services:
@@ -311,11 +341,11 @@ services:
       - cluster.name=opensearch-cluster # Name the cluster
       - node.name=opensearch-node1 # Name the node that will run in this container
       - discovery.seed_hosts=opensearch-node1,opensearch-node2 # Nodes to look for when discovering the cluster
-      - cluster.initial_master_nodes=opensearch-node1,opensearch-node2 # Nodes eligible to serve as master
+      - cluster.initial_cluster_manager_nodes=opensearch-node1,opensearch-node2 # Nodes eligibile to serve as cluster manager
       - bootstrap.memory_lock=true # Disable JVM heap memory swapping
       - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m" # Set min and max JVM heap sizes to at least 50% of system RAM
       - "DISABLE_INSTALL_DEMO_CONFIG=true" # Prevents execution of bundled demo script which installs demo certificates and security configurations to OpenSearch
-      - "DISABLE_SECURITY_PLUGIN=true" # Disables security plugin
+      - "DISABLE_SECURITY_PLUGIN=true" # Disables Security plugin
     ulimits:
       memlock:
         soft: -1 # Set memlock to unlimited (no soft or hard limit)
@@ -337,11 +367,11 @@ services:
       - cluster.name=opensearch-cluster # Name the cluster
       - node.name=opensearch-node2 # Name the node that will run in this container
       - discovery.seed_hosts=opensearch-node1,opensearch-node2 # Nodes to look for when discovering the cluster
-      - cluster.initial_master_nodes=opensearch-node1,opensearch-node2 # Nodes eligible to serve as master
+      - cluster.initial_cluster_manager_nodes=opensearch-node1,opensearch-node2 # Nodes eligibile to serve as cluster manager
       - bootstrap.memory_lock=true # Disable JVM heap memory swapping
       - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m" # Set min and max JVM heap sizes to at least 50% of system RAM
       - "DISABLE_INSTALL_DEMO_CONFIG=true" # Prevents execution of bundled demo script which installs demo certificates and security configurations to OpenSearch
-      - "DISABLE_SECURITY_PLUGIN=true" # Disables security plugin
+      - "DISABLE_SECURITY_PLUGIN=true" # Disables Security plugin
     ulimits:
       memlock:
         soft: -1 # Set memlock to unlimited (no soft or hard limit)
@@ -466,14 +496,14 @@ docker build --tag=opensearch-custom-plugin .
 docker run -p 9200:9200 -p 9600:9600 -v /usr/share/opensearch/data opensearch-custom-plugin
 ```
 
-Alternatively, you might want to remove a plugin from an image before deploying it. This example Dockerfile removes the security plugin:
+Alternatively, you might want to remove a plugin from an image before deploying it. This example Dockerfile removes the Security plugin:
 ```
 FROM opensearchproject/opensearch:latest
 RUN /usr/share/opensearch/bin/opensearch-plugin remove opensearch-security
 ```
 {% include copy.html %}
 
-You can also use a Dockerfile to pass your own certificates for use with the [Security Plugin]({{site.url}}{{site.baseurl}}/security/):
+You can also use a Dockerfile to pass your own certificates for use with the [Security plugin]({{site.url}}{{site.baseurl}}/security/):
 ```
 FROM opensearchproject/opensearch:latest
 COPY --chown=opensearch:opensearch opensearch.yml /usr/share/opensearch/config/
@@ -485,7 +515,7 @@ COPY --chown=opensearch:opensearch my-root-cas.pem /usr/share/opensearch/config/
 
 ## Related links
 
-- [OpenSearch configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuration/)
+- [OpenSearch configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/)
 - [Performance analyzer]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/index/)
 - [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/)
-- [About the security plugin]({{site.url}}{{site.baseurl}}/security/index/)
+- [About Security in OpenSearch]({{site.url}}{{site.baseurl}}/security/index/)

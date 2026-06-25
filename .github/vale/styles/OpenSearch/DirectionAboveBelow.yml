@@ -1,0 +1,22 @@
+extends: substitution
+message: "Use '%s' instead of '%s' for versions or orientation within a document. Use 'above' and 'below' only for physical space or screen descriptions."
+link: 'https://github.com/opensearch-project/documentation-website/blob/main/TERMS.md'
+level: warning
+ignorecase: true
+swap:
+  - 'image below': 'following image'
+  - 'example below': 'following example'
+  - 'steps below': 'following steps'
+  - 'section below': 'following section'
+  - 'table below': 'following table'
+  - 'image above': 'following image'
+  - 'example above': 'preceding example'
+  - 'section above': 'preceding section'
+  - 'table above': 'preceding table'
+  - 'above image': 'preceding image'
+  - 'above section': 'preceding section'
+  - 'above table': 'preceding table'
+  - '\d+\.\d+\s+(?:and|or)\s+above': 'later'
+  - '\d+\.\d+\s+(?:and|or)\s+below': 'earlier'
+  - 'below(?!\s+(?:the|this|\d))': 'following or later'
+  - 'above(?!\s+(?:the|this|\d))': 'previous, preceding, or earlier'

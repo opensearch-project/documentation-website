@@ -22,6 +22,7 @@ OpenSearch provides clients for the following programming languages and platform
 * **Python**
   * [OpenSearch high-level Python client]({{site.url}}{{site.baseurl}}/clients/python-high-level/)
   * [OpenSearch low-level Python client]({{site.url}}{{site.baseurl}}/clients/python-low-level/)
+  * [`opensearch-py-ml` client]({{site.url}}{{site.baseurl}}/clients/opensearch-py-ml/)
 * **Java**
   * [OpenSearch Java client]({{site.url}}{{site.baseurl}}/clients/java/)
 * **JavaScript**
@@ -36,6 +37,9 @@ OpenSearch provides clients for the following programming languages and platform
   * [OpenSearch .NET clients]({{site.url}}{{site.baseurl}}/clients/dot-net/)
 * **Rust**
   * [OpenSearch Rust client]({{site.url}}{{site.baseurl}}/clients/rust/)
+* **Hadoop**
+  * [OpenSearch Hadoop client](https://github.com/opensearch-project/opensearch-hadoop) 
+
 
 For a client compatibility matrix, see the COMPATIBILITY.md file in the client's repository.
 {: .note}

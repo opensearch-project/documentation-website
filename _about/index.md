@@ -7,6 +7,7 @@ has_toc: false
 nav_exclude: true
 permalink: /about/
 redirect_from:
+  - /404.html
   - /docs/opensearch/
   - /opensearch/
   - /opensearch/index/
@@ -35,6 +36,12 @@ With OpenSearch, you can perform the following use cases:
 
 <table style="table-layout: auto ; width: 100%;">
 <tbody>
+<tr style="text-align: center; vertical-align:center;">
+<td><img src="{{site.url}}{{site.baseurl}}/images/1_search.png" class="no-border" alt="Fast, scalable full-text search" height="100"/></td>
+<td><img src="{{site.url}}{{site.baseurl}}/images/2_monitoring.png" class="no-border" alt="Application and infrastructure monitoring" height="100"/></td>
+<td><img src="{{site.url}}{{site.baseurl}}/images/3_security.png" class="no-border" alt="Security and event information management" height="100"/></td>
+<td><img src="{{site.url}}{{site.baseurl}}/images/4_tracking.png" class="no-border" alt="Operational health tracking" height="100"/></td>
+</tr>
 <tr style="text-align: left; vertical-align:top; font-weight: bold; color: rgb(0,59,92)">
 <td>Fast, Scalable Full-text Search</td>
 <td>Application and Infrastructure Monitoring</td>

@@ -1,0 +1,15 @@
+extends: substitution
+message: "Use '%s' instead of '%s' because the latter is an offensive term."
+link: https://github.com/opensearch-project/documentation-website/blob/main/STYLE_GUIDE.md#offensive-terms
+ignorecase: true
+level: error
+swap:
+  'abort': stop, end, or cancel
+  'black day': blocked day
+  'blacklist': deny list
+  'kill': stop, end, clear, remove, or cancel
+  'master account': 'management account'
+  'master': cluster manager
+  'slave': replica, secondary, standby
+  'white day': open day
+  'whitelist': allow list

@@ -4,6 +4,8 @@ title: Functions
 parent: SQL
 grand_parent: SQL and PPL
 nav_order: 7
+Redirect_from:
+  - /search-plugins/sql/functions/
 canonical_url: https://docs.opensearch.org/latest/search-plugins/sql/sql/functions/
 ---
 
@@ -68,7 +70,7 @@ multi_match('query'=query_expression[, 'fields'=field_expression][, option=<opti
 multimatchquery('query'=query_expression[, 'fields'=field_expression][, option=<option_value>]*)
 ```
 
-The `fields` parameter is optional and can contain a single field or a comma-separated list (whitespace characters are not allowed). The weight for each field is optional and is specified after the field name. It should be delimited by the `caret` character -- `^` -- without whitespace. 
+The `fields` parameter is optional and can contain a single field or a comma-separated list (white space characters are not allowed). The weight for each field is optional and is specified after the field name. It should be delimited by the `caret` character -- `^` -- without white space. 
 
 ### Example
 
@@ -98,7 +100,7 @@ The `QUERY` function is a synonym for [`QUERY_STRING`]({{site.url}}{{site.baseur
 query('query'=query_expression[, 'fields'=field_expression][, option=<option_value>]*)
 ```
 
-The `fields` parameter is optional and can contain a single field or a comma-separated list (whitespace characters are not allowed). The weight for each field is optional and is specified after the field name. It should be delimited by the `caret` character -- `^` -- without whitespace. 
+The `fields` parameter is optional and can contain a single field or a comma-separated list (white space characters are not allowed). The weight for each field is optional and is specified after the field name. It should be delimited by the `caret` character -- `^` -- without white space. 
 
 ### Example
 

@@ -6,7 +6,9 @@ nav_order: 3
 canonical_url: https://docs.opensearch.org/latest/api-reference/snapshots/delete-snapshot-repository/
 ---
 
-## Delete snapshot repository configuration
+# Delete snapshot repository configuration
+**Introduced 1.0**
+{: .label .label-purple }
 
  Deletes a snapshot repository configuration.  
  
@@ -14,7 +16,7 @@ canonical_url: https://docs.opensearch.org/latest/api-reference/snapshots/delete
 
  To learn more about repositories, see [Register or update snapshot repository]({{site.url}}{{site.baseurl}}/api-reference/snapshots/create-repository).
 
-### Path parameters
+## Path parameters
 
 Parameter | Data type | Description
 :--- | :--- | :---

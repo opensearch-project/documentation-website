@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Geo distance
+title: Geodistance
 parent: Bucket aggregations
 grand_parent: Aggregations
 nav_order: 70
@@ -9,7 +9,7 @@ redirect_from:
 canonical_url: https://docs.opensearch.org/latest/aggregations/bucket/geo-distance/
 ---
 
-# Geo distance aggregations
+# Geodistance aggregations
 
 The `geo_distance` aggregation groups documents into concentric circles based on distances from an origin `geo_point` field.
 It's the same as the `range` aggregation, except that it works on geo locations.
@@ -116,6 +116,7 @@ GET opensearch_dashboards_sample_data_logs/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 #### Example response
 

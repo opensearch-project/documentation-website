@@ -6,7 +6,9 @@ nav_order: 72
 canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/stats/
 ---
 
-# Index stats 
+# Index Stats 
+**Introduced 1.0**
+{: .label .label-purple }
 
 The Index Stats API provides index statistics. For data streams, the API provides statistics for the stream's backing indexes. By default, the returned statistics are index level. To receive shard-level statistics, set the `level` parameter to `shards`.
 
@@ -17,7 +19,6 @@ When a shard moves to a different node, the shard-level statistics for the shard
 
 ```json
 GET /_stats
-GET /_stats/<metric>
 GET /<index_ids>/_stats
 GET /<index_ids>/_stats/<metric>
 ```
@@ -77,11 +78,46 @@ GET /testindex/_stats
 ```
 {% include copy-curl.html %}
 
+#### Example request: Comma-separated list of indexes
+
+```json
+GET /testindex1,testindex2/_stats
+```
+{% include copy-curl.html %}
+
+#### Example request: Wildcard expression
+
+```json
+GET /testindex*/_stats
+```
+{% include copy-curl.html %}
+
+#### Example request: Specific stats
+
+```json
+GET /testindex/_stats/refresh,flush
+```
+{% include copy-curl.html %}
+
+#### Example request: Expand wildcards
+
+```json
+GET /testindex*/_stats?expand_wildcards=open,hidden
+```
+{% include copy-curl.html %}
+
+#### Example request: Shard-level statistics
+
+```json
+GET /testindex/_stats?level=shards
+```
+{% include copy-curl.html %}
+
 #### Example response
 
 By default, the returned statistics are aggregated in the `primaries` and `total` aggregations. The `primaries` aggregation contains statistics for the primary shards. The `total` aggregation contains statistics for both primary and replica shards. The following is an example Index Stats API response: 
 
-<details closed markdown="block">
+<details markdown="block">
   <summary>
     Response
   </summary>
@@ -201,6 +237,32 @@ By default, the returned statistics are aggregated in the `primaries` and `total
         "version_map_memory_in_bytes": 0,
         "fixed_bit_set_memory_in_bytes": 0,
         "max_unsafe_auto_id_timestamp": -1,
+        "remote_store" : {
+          "upload" : {
+            "total_upload_size" : {
+              "started_bytes" : 152419,
+              "succeeded_bytes" : 152419,
+              "failed_bytes" : 0
+            },
+            "refresh_size_lag" : {
+              "total_bytes" : 0,
+              "max_bytes" : 0
+            },
+            "max_refresh_time_lag_in_millis" : 0,
+            "total_time_spent_in_millis" : 516,
+            "pressure" : {
+              "total_rejections" : 0
+            }
+          },
+          "download" : {
+            "total_download_size" : {
+              "started_bytes" : 0,
+              "succeeded_bytes" : 0,
+              "failed_bytes" : 0
+            },
+            "total_time_spent_in_millis" : 0
+          }
+        },
         "file_sizes": {}
       },
       "translog": {
@@ -208,7 +270,21 @@ By default, the returned statistics are aggregated in the `primaries` and `total
         "size_in_bytes": 55,
         "uncommitted_operations": 0,
         "uncommitted_size_in_bytes": 55,
-        "earliest_last_modified_age": 142622215
+        "earliest_last_modified_age": 142622215,
+        "remote_store" : {
+          "upload" : {
+            "total_uploads" : {
+              "started" : 57,
+              "failed" : 0,
+              "succeeded" : 57
+            },
+            "total_upload_size" : {
+              "started_bytes" : 16830,
+              "failed_bytes" : 0,
+              "succeeded_bytes" : 16830
+            }
+          }
+        }
       },
       "request_cache": {
         "memory_size_in_bytes": 0,
@@ -328,6 +404,32 @@ By default, the returned statistics are aggregated in the `primaries` and `total
         "version_map_memory_in_bytes": 0,
         "fixed_bit_set_memory_in_bytes": 0,
         "max_unsafe_auto_id_timestamp": -1,
+        "remote_store" : {
+          "upload" : {
+            "total_upload_size" : {
+              "started_bytes" : 152419,
+              "succeeded_bytes" : 152419,
+              "failed_bytes" : 0
+            },
+            "refresh_size_lag" : {
+              "total_bytes" : 0,
+              "max_bytes" : 0
+            },
+            "max_refresh_time_lag_in_millis" : 0,
+            "total_time_spent_in_millis" : 516,
+            "pressure" : {
+              "total_rejections" : 0
+            }
+          },
+          "download" : {
+            "total_download_size" : {
+              "started_bytes" : 0,
+              "succeeded_bytes" : 0,
+              "failed_bytes" : 0
+            },
+            "total_time_spent_in_millis" : 0
+          }
+        },
         "file_sizes": {}
       },
       "translog": {
@@ -335,7 +437,21 @@ By default, the returned statistics are aggregated in the `primaries` and `total
         "size_in_bytes": 55,
         "uncommitted_operations": 0,
         "uncommitted_size_in_bytes": 55,
-        "earliest_last_modified_age": 142622215
+        "earliest_last_modified_age": 142622215,
+        "remote_store" : {
+          "upload" : {
+            "total_uploads" : {
+              "started" : 57,
+              "failed" : 0,
+              "succeeded" : 57
+            },
+            "total_upload_size" : {
+              "started_bytes" : 16830,
+              "failed_bytes" : 0,
+              "succeeded_bytes" : 16830
+            }
+          }
+        }
       },
       "request_cache": {
         "memory_size_in_bytes": 0,
@@ -459,6 +575,32 @@ By default, the returned statistics are aggregated in the `primaries` and `total
           "version_map_memory_in_bytes": 0,
           "fixed_bit_set_memory_in_bytes": 0,
           "max_unsafe_auto_id_timestamp": -1,
+          "remote_store" : {
+            "upload" : {
+              "total_upload_size" : {
+                "started_bytes" : 152419,
+                "succeeded_bytes" : 152419,
+                "failed_bytes" : 0
+              },
+              "refresh_size_lag" : {
+                "total_bytes" : 0,
+                "max_bytes" : 0
+              },
+              "max_refresh_time_lag_in_millis" : 0,
+              "total_time_spent_in_millis" : 516,
+              "pressure" : {
+                "total_rejections" : 0
+              }
+            },
+            "download" : {
+              "total_download_size" : {
+                "started_bytes" : 0,
+                "succeeded_bytes" : 0,
+                "failed_bytes" : 0
+              },
+              "total_time_spent_in_millis" : 0
+            }
+          },
           "file_sizes": {}
         },
         "translog": {
@@ -466,7 +608,21 @@ By default, the returned statistics are aggregated in the `primaries` and `total
           "size_in_bytes": 55,
           "uncommitted_operations": 0,
           "uncommitted_size_in_bytes": 55,
-          "earliest_last_modified_age": 142622215
+          "earliest_last_modified_age": 142622215,
+          "remote_store" : {
+            "upload" : {
+              "total_uploads" : {
+                "started" : 57,
+                "failed" : 0,
+                "succeeded" : 57
+              },
+              "total_upload_size" : {
+                "started_bytes" : 16830,
+                "failed_bytes" : 0,
+                "succeeded_bytes" : 16830
+              }
+            }
+          }
         },
         "request_cache": {
           "memory_size_in_bytes": 0,
@@ -586,6 +742,32 @@ By default, the returned statistics are aggregated in the `primaries` and `total
           "version_map_memory_in_bytes": 0,
           "fixed_bit_set_memory_in_bytes": 0,
           "max_unsafe_auto_id_timestamp": -1,
+          "remote_store" : {
+            "upload" : {
+              "total_upload_size" : {
+                "started_bytes" : 152419,
+                "succeeded_bytes" : 152419,
+                "failed_bytes" : 0
+              },
+              "refresh_size_lag" : {
+                "total_bytes" : 0,
+                "max_bytes" : 0
+              },
+              "max_refresh_time_lag_in_millis" : 0,
+              "total_time_spent_in_millis" : 516,
+              "pressure" : {
+                "total_rejections" : 0
+              }
+            },
+            "download" : {
+              "total_download_size" : {
+                "started_bytes" : 0,
+                "succeeded_bytes" : 0,
+                "failed_bytes" : 0
+              },
+              "total_time_spent_in_millis" : 0
+            }
+          },
           "file_sizes": {}
         },
         "translog": {
@@ -593,7 +775,21 @@ By default, the returned statistics are aggregated in the `primaries` and `total
           "size_in_bytes": 55,
           "uncommitted_operations": 0,
           "uncommitted_size_in_bytes": 55,
-          "earliest_last_modified_age": 142622215
+          "earliest_last_modified_age": 142622215,
+          "remote_store" : {
+            "upload" : {
+              "total_uploads" : {
+                "started" : 57,
+                "failed" : 0,
+                "succeeded" : 57
+              },
+              "total_upload_size" : {
+                "started_bytes" : 16830,
+                "failed_bytes" : 0,
+                "succeeded_bytes" : 16830
+              }
+            }
+          }
         },
         "request_cache": {
           "memory_size_in_bytes": 0,
@@ -613,37 +809,6 @@ By default, the returned statistics are aggregated in the `primaries` and `total
 ```
 </details>
 
-#### Example request: Comma-separated list of indexes
+## Response fields
 
-```json
-GET /testindex1,testindex2/_stats
-```
-{% include copy-curl.html %}
-
-#### Example request: Wildcard expression
-
-```json
-GET /testindex*/_stats
-```
-{% include copy-curl.html %}
-
-#### Example request: Specific stats
-
-```json
-GET /testindex/_stats/refresh,flush
-```
-{% include copy-curl.html %}
-
-#### Example request: Expand wildcards
-
-```json
-GET /testindex*/_stats?expand_wildcards=open,hidden
-```
-{% include copy-curl.html %}
-
-#### Example request: Shard-level statistics
-
-```json
-GET /testindex/_stats?level=shards
-```
-{% include copy-curl.html %}
+For information about response fields, see [Nodes Stats API response fields]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-stats/#indices).

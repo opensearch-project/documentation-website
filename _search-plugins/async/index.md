@@ -2,6 +2,7 @@
 layout: default
 title: Asynchronous search
 nav_order: 51
+parent: Improving search performance
 has_children: true
 redirect_from:
   - /search-plugins/async/
@@ -31,6 +32,7 @@ Options | Description | Default value | Required
 `wait_for_completion_timeout` |  The amount of time that you plan to wait for the results. You can see whatever results you get within this time just like in a normal search. You can poll the remaining results based on an ID. The maximum value is 300 seconds. | 1 second | No
 `keep_on_completion` |  Whether you want to save the results in the cluster after the search is complete. You can examine the stored results at a later time. | `false` | No
 `keep_alive` |  The amount of time that the result is saved in the cluster. For example, `2d` means that the results are stored in the cluster for 48 hours. The saved search results are deleted after this period or if the search is canceled. Note that this includes the query execution time. If the query overruns this time, the process cancels this query automatically. | 12 hours | No
+`index` | The name of the index to be searched. Can be an individual name, a comma-separated list of indexes, or a wildcard expression of index names. | All indexes in the cluster | No
 
 #### Example request
 
@@ -103,7 +105,7 @@ POST _plugins/_asynchronous_search/?pretty&size=10&wait_for_completion_timeout=1
 Options | Description
 :--- | :---
 `id` | The ID of an asynchronous search. Use this ID to monitor the progress of the search, get its partial results, and/or delete the results. If the asynchronous search finishes within the timeout period, the response doesn't include the ID because the results aren't stored in the cluster.
-`state` | Specifies whether the search is still running or if it has finished, and if the results persist in the cluster. The possible states are `RUNNING`, `COMPLETED`, and `PERSISTED`.
+`state` | Specifies whether the search is still running or if it has finished, and if the results persist in the cluster. The possible states are `RUNNING`, `SUCCEEDED`, `FAILED`, `PERSISTING`, `PERSIST_SUCCEEDED`, `PERSIST_FAILED`, `CLOSED` and `STORE_RESIDENT`.
 `start_time_in_millis` | The start time in milliseconds.
 `expiration_time_in_millis` | The expiration time in milliseconds.
 `took` | The total time that the search is running.

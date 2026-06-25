@@ -92,5 +92,7 @@ sample-pipeline:
 
 ## Next steps
 
-To get started building your own custom pipelines with Data Prepper, see [Getting started]({{site.url}}{{site.baseurl}}//data-prepper/index/).
+To get started building your own custom pipelines with Data Prepper, see [Getting started]({{site.url}}{{site.baseurl}}/clients/data-prepper/get-started/).
+
+<!---Delete this comment.--->
 

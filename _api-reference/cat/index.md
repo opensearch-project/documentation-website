@@ -5,12 +5,14 @@ nav_order: 10
 has_children: true
 redirect_from:
   - /opensearch/catapis/
-  - /opensearch/rest-api/cat
+  - /opensearch/rest-api/cat/index/
+  - /api-reference/cat/
 canonical_url: https://docs.opensearch.org/latest/api-reference/cat/index/
 ---
 
 # CAT API
-
+**Introduced 1.0**
+{: .label .label-purple }
 You can get essential statistics about your cluster in an easy-to-understand, tabular format using the compact and aligned text (CAT) API. The CAT API is a human-readable interface that returns plain text instead of traditional JSON.
 
 Using the CAT API, you can answer questions like which node is the elected master, what state is the cluster in, how many documents are in each index, and so on.
@@ -82,5 +84,5 @@ GET _cat/<operation_name>?h=<header_name_1>,<header_name_2>&v
 
 Typically, for any operation you can find out what headers are available using the `help` parameter, and then use the `h` parameter to limit the output to only the headers that you care about.
 
-If you use the security plugin, make sure you have the appropriate permissions.
+If you use the Security plugin, make sure you have the appropriate permissions.
 {: .note }

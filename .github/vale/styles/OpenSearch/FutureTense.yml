@@ -1,0 +1,7 @@
+extends: existence
+message: "'%s' is in future tense. Use present tense in documentation."
+ignorecase: true
+level: suggestion
+scope: raw
+tokens:
+  - '(?:will|is going to|won''t|[A-za-z]+''ll)\s+[a-z]+'
