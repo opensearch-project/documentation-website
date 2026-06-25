@@ -5,8 +5,8 @@ parent: Integrating ML models
 has_children: true
 nav_order: 50
 redirect_from:
-   - /ml-commons-plugin/model-serving-framework/
-   - /ml-commons-plugin/ml-framework/
+  - /ml-commons-plugin/model-serving-framework/
+  - /ml-commons-plugin/ml-framework/
 canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/using-ml-models/
 ---
 
