@@ -4,6 +4,8 @@ title: User guide
 nav_order: 5
 has_children: true
 canonical_url: https://docs.opensearch.org/latest/benchmark/user-guide/index/
+redirect_from:
+  - /benchmark/user-guide/
 ---
 
 # OpenSearch Benchmark User Guide

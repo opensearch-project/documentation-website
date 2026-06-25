@@ -6,6 +6,9 @@ parent: Migration phases
 has_toc: false
 has_children: true 
 canonical_url: https://docs.opensearch.org/latest/migration-assistant/migration-phases/planning-your-migration/index/
+redirect_from:
+  - /migration-assistant/migration-phases/assessment/
+  - /migration-assistant/migration-phases/planning-your-migration/
 ---
 
 # Planning your migration

@@ -4,6 +4,10 @@ title: Dev Tools
 nav_order: 120
 has_children: true
 canonical_url: https://docs.opensearch.org/latest/dashboards/dev-tools/index-dev/
+redirect_from:
+  - /dashboards/discover/run-queries/
+  - /dashboards/run-queries/
+  - /dashboards/visualize/run-queries/
 ---
 
 # Dev Tools

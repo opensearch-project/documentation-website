@@ -4,7 +4,7 @@ title: Date
 parent: Ingest processors
 nav_order: 50
 redirect_from:
-   - /api-reference/ingest-apis/processors/date/
+  - /api-reference/ingest-apis/processors/date/
 canonical_url: https://docs.opensearch.org/latest/ingest-pipelines/processors/date/
 ---
 

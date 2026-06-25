@@ -4,6 +4,10 @@ title: Backfill
 nav_order: 90
 parent: Migration phases
 canonical_url: https://docs.opensearch.org/latest/migration-assistant/migration-phases/backfill/
+redirect_from:
+  - /migration-assistant/migration-phases/create-snapshot/
+  - /migration-phases/backfill/
+  - /migration-phases/create-snapshot/
 ---
 
 # Backfill

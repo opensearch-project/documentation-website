@@ -5,6 +5,8 @@ nav_order: 16
 parent: k-NN search
 has_children: false
 canonical_url: https://docs.opensearch.org/latest/search-plugins/knn/disk-based-vector-search/
+redirect_from:
+  - /vector-search/optimizing-storage/disk-based-vector-search/
 ---
 
 # Disk-based vector search

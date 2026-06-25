@@ -6,6 +6,8 @@ has_children: false
 parent: Date field types
 grand_parent: Supported field types
 canonical_url: https://docs.opensearch.org/latest/field-types/supported-field-types/date-nanos/
+redirect_from:
+  - /mappings/supported-field-types/date-nanos/
 ---
 
 # Date nanoseconds field type
