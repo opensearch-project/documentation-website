@@ -4,6 +4,9 @@ title: Generating embeddings
 parent: Tutorials
 nav_order: 5
 canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/tutorials/generate-embeddings/
+redirect_from:
+  - /tutorials/vector-search/vector-operations/generate-embeddings/
+  - /vector-search/tutorials/vector-operations/generate-embeddings/
 ---
 
 # Generating embeddings for arrays of objects

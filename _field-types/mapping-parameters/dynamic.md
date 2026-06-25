@@ -8,6 +8,8 @@ has_children: false
 has_toc: false
 redirect_from:
   - /opensearch/dynamic/
+  - /field-types/dynamic/
+  - /mappings/mapping-parameters/dynamic/
 canonical_url: https://docs.opensearch.org/latest/field-types/mapping-parameters/dynamic/
 ---
 
