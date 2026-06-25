@@ -5,6 +5,8 @@ has_children: false
 nav_order: 61
 parent: ML extensibility
 canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/remote-models/connectors/
+redirect_from:
+  - /ml-commons-plugin/remote-models/connectors/
 ---
 
 # Creating connectors for third-party ML platforms

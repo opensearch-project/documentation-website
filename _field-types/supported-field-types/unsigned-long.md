@@ -6,6 +6,8 @@ grand_parent: Supported field types
 nav_order: 15
 has_children: false
 canonical_url: https://docs.opensearch.org/latest/field-types/supported-field-types/unsigned-long/
+redirect_from:
+  - /mappings/supported-field-types/unsigned-long/
 ---
 
 # Unsigned long field type

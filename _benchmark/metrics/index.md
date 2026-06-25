@@ -4,6 +4,10 @@ title: Metrics
 nav_order: 25
 has_children: true
 canonical_url: https://docs.opensearch.org/latest/benchmark/metrics/
+redirect_from:
+  - /benchmark/metrics/
+  - /benchmark/reference/metrics/
+  - /benchmark/reference/metrics/index/
 ---
 
 # Metrics

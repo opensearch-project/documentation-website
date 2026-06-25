@@ -6,6 +6,9 @@ has_children: false
 parent: Supported field types
 has_math: true
 canonical_url: https://docs.opensearch.org/latest/field-types/supported-field-types/knn-vector/
+redirect_from:
+  - /mappings/supported-field-types/knn-vector/
+  - /mappings/supported-field-types/vector-field-types/
 ---
 
 # k-NN vector 
