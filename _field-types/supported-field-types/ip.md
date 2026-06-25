@@ -6,6 +6,8 @@ has_children: false
 parent: Supported field types
 redirect_from:
   - /opensearch/supported-field-types/ip/
+  - /field-types/ip/
+  - /mappings/supported-field-types/ip/
 canonical_url: https://docs.opensearch.org/latest/field-types/supported-field-types/ip/
 ---
 

@@ -6,6 +6,7 @@ nav_order: 20
 permalink: /query-dsl/term/
 redirect_from: 
   - /opensearch/query-dsl/term/
+  - /query-dsl/term/index/
 canonical_url: https://docs.opensearch.org/latest/query-dsl/term/index/
 ---
 

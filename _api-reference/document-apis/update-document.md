@@ -4,6 +4,8 @@ title: Update document
 parent: Document APIs
 nav_order: 10
 canonical_url: https://docs.opensearch.org/latest/api-reference/document-apis/update-document/
+redirect_from:
+  - /opensearch/rest-api/document-apis/update-document/
 ---
 
 # Update document

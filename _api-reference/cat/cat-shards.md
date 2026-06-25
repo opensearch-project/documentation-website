@@ -6,6 +6,8 @@ parent: CAT API
 nav_order: 60
 has_children: false
 canonical_url: https://docs.opensearch.org/latest/api-reference/cat/cat-shards/
+redirect_from:
+  - /opensearch/rest-api/cat/cat-shards/
 ---
 
 # CAT shards

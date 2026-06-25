@@ -3,8 +3,8 @@ layout: default
 title: Installing plugins
 nav_order: 90
 redirect_from:
-   - /opensearch/install/plugins/
-   - /install-and-configure/install-opensearch/plugins/
+  - /opensearch/install/plugins/
+  - /install-and-configure/install-opensearch/plugins/
 canonical_url: https://docs.opensearch.org/latest/install-and-configure/plugins/
 ---
 

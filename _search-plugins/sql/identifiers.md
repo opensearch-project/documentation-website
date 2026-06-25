@@ -4,6 +4,10 @@ title: Identifiers
 parent: SQL and PPL
 nav_order: 6
 canonical_url: https://docs.opensearch.org/latest/search-plugins/sql/identifiers/
+redirect_from:
+  - /observability-plugin/ppl/identifiers/
+  - /search-plugins/ppl/identifiers/
+  - /sql-and-ppl/identifiers/
 ---
 
 

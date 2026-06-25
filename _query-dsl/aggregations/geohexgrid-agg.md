@@ -5,6 +5,11 @@ parent: Aggregations
 permalink: /aggregations/geohexgrid/
 nav_order: 4
 canonical_url: https://docs.opensearch.org/latest/aggregations/bucket/geohex-grid/
+redirect_from:
+  - /aggregations/bucket/geohex-grid/
+  - /opensearch/geohexgrid-agg/
+  - /query-dsl/aggregations/bucket/geohex-grid/
+  - /query-dsl/aggregations/geohexgrid/
 ---
 
 # GeoHex grid aggregations
