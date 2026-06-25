@@ -3,7 +3,8 @@ layout: default
 title: Tasks
 nav_order: 85
 redirect_from:
- - /opensearch/rest-api/tasks/
+  - /opensearch/rest-api/tasks/
+  - /api-reference/tasks/tasks/
 canonical_url: https://docs.opensearch.org/latest/api-reference/tasks/
 ---
 

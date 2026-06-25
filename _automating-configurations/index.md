@@ -6,6 +6,8 @@ has_children: false
 nav_exclude: true
 redirect_from: /automating-configurations/
 canonical_url: https://docs.opensearch.org/latest/automating-configurations/index/
+redirect_from:
+  - /automating-configurations/
 ---
 
 # Automating configurations

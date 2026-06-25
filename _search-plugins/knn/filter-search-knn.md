@@ -6,6 +6,9 @@ parent: k-NN search
 has_children: false
 has_math: true
 canonical_url: https://docs.opensearch.org/latest/search-plugins/knn/filter-search-knn/
+redirect_from:
+  - /vector-search/filter-search-knn/
+  - /vector-search/filter-search-knn/index/
 ---
 
 # k-NN search with filters
