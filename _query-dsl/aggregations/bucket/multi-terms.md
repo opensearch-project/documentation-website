@@ -5,6 +5,9 @@ parent: Bucket aggregations
 grand_parent: Aggregations
 nav_order: 130
 canonical_url: https://docs.opensearch.org/latest/aggregations/bucket/multi-terms/
+redirect_from:
+  - /aggregations/bucket/multi-terms/
+  - /query-dsl/aggregations/multi-terms/
 ---
 
 # Multi-terms aggregations

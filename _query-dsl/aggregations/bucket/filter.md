@@ -5,6 +5,8 @@ parent: Bucket aggregations
 grand_parent: Aggregations
 nav_order: 50
 canonical_url: https://docs.opensearch.org/latest/aggregations/bucket/filter/
+redirect_from:
+  - /aggregations/bucket/filter/
 ---
 
 # Filter aggregations

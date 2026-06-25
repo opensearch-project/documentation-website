@@ -5,6 +5,8 @@ parent: Compound queries
 grand_parent: Query DSL
 nav_order: 50
 canonical_url: https://docs.opensearch.org/latest/query-dsl/compound/disjunction-max/
+redirect_from:
+  - /query-dsl/compound/disjunction-max/
 ---
 
 # Disjunction max queries

@@ -5,6 +5,8 @@ parent: Bucket aggregations
 grand_parent: Aggregations
 nav_order: 40
 canonical_url: https://docs.opensearch.org/latest/aggregations/bucket/diversified-sampler/
+redirect_from:
+  - /aggregations/bucket/diversified-sampler/
 ---
 
 # Diversified sampler aggregations

@@ -5,6 +5,8 @@ nav_order: 20
 parent: Creating reports with the Reporting CLI
 
 canonical_url: https://docs.opensearch.org/latest/reporting/rep-cli-cron/
+redirect_from:
+  - /reporting/rep-cli-cron/
 ---
 
 # Scheduling reports with the cron utility

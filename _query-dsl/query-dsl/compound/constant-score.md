@@ -5,6 +5,8 @@ parent: Compound queries
 grand_parent: Query DSL
 nav_order: 40
 canonical_url: https://docs.opensearch.org/latest/query-dsl/compound/constant-score/
+redirect_from:
+  - /query-dsl/compound/constant-score/
 ---
 
 # Constant score queries

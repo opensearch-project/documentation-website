@@ -5,6 +5,8 @@ parent: Bucket aggregations
 grand_parent: Aggregations
 nav_order: 140
 canonical_url: https://docs.opensearch.org/latest/aggregations/bucket/nested/
+redirect_from:
+  - /aggregations/bucket/nested/
 ---
 
 # Nested aggregations

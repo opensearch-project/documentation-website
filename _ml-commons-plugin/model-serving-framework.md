@@ -4,6 +4,9 @@ title: Model-serving framework
 has_children: true
 nav_order: 50
 canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/using-ml-models/
+redirect_from:
+  - /ml-commons-plugin/ml-framework/
+  - /ml-commons-plugin/using-ml-models/
 ---
 
 # Model-serving framework

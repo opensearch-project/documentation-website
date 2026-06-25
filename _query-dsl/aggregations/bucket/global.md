@@ -5,6 +5,8 @@ parent: Bucket aggregations
 grand_parent: Aggregations
 nav_order: 90
 canonical_url: https://docs.opensearch.org/latest/aggregations/bucket/global/
+redirect_from:
+  - /aggregations/bucket/global/
 ---
 
 # Global aggregations

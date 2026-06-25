@@ -5,6 +5,8 @@ parent: Bucket aggregations
 grand_parent: Aggregations
 nav_order: 10
 canonical_url: https://docs.opensearch.org/latest/aggregations/bucket/adjacency-matrix/
+redirect_from:
+  - /aggregations/bucket/adjacency-matrix/
 ---
 
 # Adjacency matrix aggregations

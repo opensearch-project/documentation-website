@@ -5,6 +5,8 @@ parent: Bucket aggregations
 grand_parent: Aggregations
 nav_order: 30
 canonical_url: https://docs.opensearch.org/latest/aggregations/bucket/date-range/
+redirect_from:
+  - /aggregations/bucket/date-range/
 ---
 
 # Date range aggregations

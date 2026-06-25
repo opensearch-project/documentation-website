@@ -5,6 +5,8 @@ parent: Bucket aggregations
 grand_parent: Aggregations
 nav_order: 170
 canonical_url: https://docs.opensearch.org/latest/aggregations/bucket/sampler/
+redirect_from:
+  - /aggregations/bucket/sampler/
 ---
 
 # Sampler aggregations
