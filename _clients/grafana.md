@@ -4,6 +4,8 @@ title: Grafana
 nav_order: 150
 has_children: false
 canonical_url: https://docs.opensearch.org/latest/tools/grafana/
+redirect_from:
+  - /tools/grafana/
 ---
 
 # Grafana support

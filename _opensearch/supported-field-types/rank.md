@@ -5,6 +5,10 @@ nav_order: 60
 has_children: false
 parent: Supported field types
 canonical_url: https://docs.opensearch.org/latest/field-types/supported-field-types/rank/
+redirect_from:
+  - /field-types/rank/
+  - /field-types/supported-field-types/rank/
+  - /mappings/supported-field-types/rank/
 ---
 
 # Rank field types

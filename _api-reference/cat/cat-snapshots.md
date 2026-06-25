@@ -6,6 +6,8 @@ parent: CAT API
 nav_order: 65
 has_children: false
 canonical_url: https://docs.opensearch.org/latest/api-reference/cat/cat-snapshots/
+redirect_from:
+  - /opensearch/rest-api/cat/cat-snapshots/
 ---
 
 # CAT snapshots

@@ -6,6 +6,7 @@ has_children: true
 has_toc: false
 redirect_from:
   - /security/authentication-backends/
+  - /security-plugin/configuration/concepts/
 canonical_url: https://docs.opensearch.org/latest/security/authentication-backends/authc-index/
 ---
 

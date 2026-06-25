@@ -4,6 +4,8 @@ title: Intro to OpenSearch
 nav_order: 2
 permalink: /intro/
 canonical_url: https://docs.opensearch.org/latest/getting-started/intro/
+redirect_from:
+  - /getting-started/intro/
 ---
 
 # Introduction to OpenSearch

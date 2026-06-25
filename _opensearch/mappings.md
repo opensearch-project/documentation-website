@@ -3,6 +3,13 @@ layout: default
 title: Mapping
 nav_order: 13
 canonical_url: https://docs.opensearch.org/latest/mappings/
+redirect_from:
+  - /field-types/
+  - /field-types/index/
+  - /field-types/mappings-use-cases/
+  - /field-types/mappings/
+  - /mappings/
+  - /mappings/index/
 ---
 
 # About Mappings
