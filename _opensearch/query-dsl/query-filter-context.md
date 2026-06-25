@@ -4,6 +4,9 @@ title: Query and filter context
 parent: Query DSL
 nav_order: 5
 canonical_url: https://docs.opensearch.org/latest/query-dsl/query-filter-context/
+redirect_from:
+  - /query-dsl/query-dsl/query-filter-context/
+  - /query-dsl/query-filter-context/
 ---
 
 # Query and filter context

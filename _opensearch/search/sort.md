@@ -4,6 +4,8 @@ title: Sort results
 parent: Searching data
 nav_order: 22
 canonical_url: https://docs.opensearch.org/latest/search-plugins/searching-data/sort/
+redirect_from:
+  - /search-plugins/searching-data/sort/
 ---
 
 ## Sort results

@@ -5,6 +5,12 @@ parent: Aggregations
 nav_order: 4
 has_children: false
 canonical_url: https://docs.opensearch.org/latest/aggregations/bucket/geohex-grid/
+redirect_from:
+  - /aggregations/bucket/geohex-grid/
+  - /aggregations/geohexgrid/
+  - /query-dsl/aggregations/bucket/geohex-grid/
+  - /query-dsl/aggregations/geohexgrid-agg/
+  - /query-dsl/aggregations/geohexgrid/
 ---
 
 # GeoHex grid aggregations

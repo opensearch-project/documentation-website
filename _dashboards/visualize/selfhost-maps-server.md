@@ -5,6 +5,9 @@ grand_parent: Building data visualizations
 parent: Using coordinate and region maps
 nav_order: 10
 canonical_url: https://docs.opensearch.org/latest/dashboards/visualize/selfhost-maps-server/
+redirect_from:
+  - /dashboards/selfhost-maps-server/
+  - /dashboards/visualize/visualize-app/selfhost-maps-server/
 ---
 
 # Using the self-host maps server

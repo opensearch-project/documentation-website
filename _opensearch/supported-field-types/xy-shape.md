@@ -6,6 +6,10 @@ has_children: false
 parent: Cartesian field types
 grand_parent: Supported field types
 canonical_url: https://docs.opensearch.org/latest/field-types/supported-field-types/xy-shape/
+redirect_from:
+  - /field-types/supported-field-types/xy-shape/
+  - /field-types/xy-shape/
+  - /mappings/supported-field-types/xy-shape/
 ---
 
 # xy shape field type

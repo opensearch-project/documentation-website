@@ -5,6 +5,11 @@ parent: Aggregations
 nav_order: 4
 has_children: false
 canonical_url: https://docs.opensearch.org/latest/aggregations/pipeline-agg/
+redirect_from:
+  - /aggregations/pipeline-agg/
+  - /aggregations/pipeline/
+  - /aggregations/pipeline/index/
+  - /query-dsl/aggregations/pipeline-agg/
 ---
 
 # Pipeline aggregations

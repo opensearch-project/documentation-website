@@ -6,6 +6,10 @@ has_children: true
 has_toc: false
 parent: Supported field types
 canonical_url: https://docs.opensearch.org/latest/field-types/supported-field-types/object-fields/
+redirect_from:
+  - /field-types/object-fields/
+  - /field-types/supported-field-types/object-fields/
+  - /mappings/supported-field-types/object-fields/
 ---
 
 # Object field types

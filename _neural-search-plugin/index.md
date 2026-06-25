@@ -5,6 +5,10 @@ nav_order: 1
 has_children: false
 has_toc: false
 canonical_url: https://docs.opensearch.org/latest/search-plugins/neural-search/
+redirect_from:
+  - /search-plugins/neural-search/
+  - /vector-search/ai-search/
+  - /vector-search/ai-search/index/
 ---
 
 # Neural Search plugin

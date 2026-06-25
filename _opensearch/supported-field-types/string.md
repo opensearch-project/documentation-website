@@ -6,6 +6,10 @@ has_children: true
 has_toc: false
 parent: Supported field types
 canonical_url: https://docs.opensearch.org/latest/field-types/supported-field-types/string/
+redirect_from:
+  - /field-types/string/
+  - /field-types/supported-field-types/string/
+  - /mappings/supported-field-types/string/
 ---
 
 # String field types

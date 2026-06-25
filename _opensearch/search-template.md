@@ -3,6 +3,11 @@ layout: default
 title: Search templates
 nav_order: 50
 canonical_url: https://docs.opensearch.org/latest/api-reference/search-template/
+redirect_from:
+  - /api-reference/search-apis/search-template/
+  - /api-reference/search-apis/search-template/index/
+  - /api-reference/search-template/
+  - /search-plugins/search-template/
 ---
 
 # Search templates

@@ -5,6 +5,8 @@ nav_order: 1
 has_toc: true
 redirect_from:
   - /opensearch/rest-api/
+  - /api-reference/
+  - /opensearch/rest-api/index/
 canonical_url: https://docs.opensearch.org/latest/api-reference/
 ---
 
