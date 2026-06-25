@@ -5,6 +5,7 @@ parent: Logstash
 nav_order: 220
 redirect_from:
  - /clients/logstash/ship-to-opensearch/
+  - /clients/logstash/read-from-opensearch/
 canonical_url: https://docs.opensearch.org/latest/tools/logstash/read-from-opensearch/
 ---
 

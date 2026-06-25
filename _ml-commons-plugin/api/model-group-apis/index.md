@@ -5,6 +5,8 @@ parent: ML Commons API
 has_children: true
 nav_order: 20
 canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/api/model-group-apis/index/
+redirect_from:
+  - /ml-commons-plugin/api/model-group-apis/
 ---
 
 # Model group APIs

@@ -7,6 +7,8 @@ grand_parent: Search methods
 has_children: false
 has_math: true
 canonical_url: https://docs.opensearch.org/latest/search-plugins/knn/knn-score-script/
+redirect_from:
+  - /vector-search/vector-search-techniques/knn-score-script/
 ---
 
 # Exact k-NN with scoring script

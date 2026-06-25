@@ -7,6 +7,9 @@ nav_order: 6
 Redirect_from:
   - /search-plugins/sql/complex/
 canonical_url: https://docs.opensearch.org/latest/search-plugins/sql/sql/complex/
+redirect_from:
+  - /search-plugins/sql/complex/
+  - /sql-and-ppl/sql/complex/
 ---
 
 # Complex queries

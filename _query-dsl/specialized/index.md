@@ -5,6 +5,8 @@ has_children: true
 nav_order: 65
 has_toc: false
 canonical_url: https://docs.opensearch.org/latest/query-dsl/specialized/index/
+redirect_from:
+  - /query-dsl/specialized/
 ---
 
 # Specialized queries
