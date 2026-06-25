@@ -25,9 +25,6 @@ more_cards:
     link: "/benchmark/user-guide/optimizing-benchmarks/index/" 
 redirect_from:
   - /benchmark/user-guide/
-  - /benchmark/configuring-benchmark/
-  - /benchmark/creating-custom-workloads/
-  - /benchmark/installing-benchmark/
 canonical_url: https://docs.opensearch.org/latest/benchmark/user-guide/index/
 ---
 
