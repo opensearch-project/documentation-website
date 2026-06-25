@@ -6,6 +6,8 @@ has_children: false
 parent: Point in Time
 redirect_from:
   - /opensearch/point-in-time-api/
+  - /api-reference/search-apis/point-in-time-api/
+  - /search-plugins/searching-data/point-in-time-api/
 canonical_url: https://docs.opensearch.org/latest/search-plugins/searching-data/point-in-time-api/
 ---
 

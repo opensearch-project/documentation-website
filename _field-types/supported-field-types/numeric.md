@@ -6,6 +6,8 @@ nav_order: 15
 has_children: false
 redirect_from:
   - /opensearch/supported-field-types/numeric/
+  - /field-types/numeric/
+  - /mappings/supported-field-types/numeric/
 canonical_url: https://docs.opensearch.org/latest/field-types/supported-field-types/numeric/
 ---
 

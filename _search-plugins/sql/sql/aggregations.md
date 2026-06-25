@@ -5,6 +5,9 @@ parent: SQL
 grand_parent: SQL and PPL
 nav_order: 11
 canonical_url: https://docs.opensearch.org/latest/search-plugins/sql/sql/aggregations/
+redirect_from:
+  - /search-plugins/sql/aggregations/
+  - /sql-and-ppl/sql/aggregations/
 ---
 
 # Aggregate functions

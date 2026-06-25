@@ -6,6 +6,8 @@ has_children: false
 parent: Supported field types
 redirect_from:
   - /opensearch/supported-field-types/date/
+  - /field-types/date/
+  - /mappings/supported-field-types/date/
 canonical_url: https://docs.opensearch.org/latest/field-types/supported-field-types/date/
 ---
 

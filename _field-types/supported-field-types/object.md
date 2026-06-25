@@ -7,6 +7,8 @@ parent: Object field types
 grand_parent: Supported field types
 redirect_from: 
   - /opensearch/supported-field-types/object/
+  - /field-types/object/
+  - /mappings/supported-field-types/object/
 canonical_url: https://docs.opensearch.org/latest/field-types/supported-field-types/object/
 ---
 

@@ -5,6 +5,7 @@ nav_order: 50
 parent: Cluster APIs
 redirect_from:
   - /api-reference/cluster-settings/
+  - /opensearch/rest-api/cluster-settings/
 canonical_url: https://docs.opensearch.org/latest/api-reference/cluster-api/cluster-settings/
 ---
 

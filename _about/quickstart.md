@@ -5,6 +5,7 @@ nav_order: 3
 permalink: /quickstart/
 redirect_from: 
   - /opensearch/install/quickstart/
+  - /getting-started/quickstart/
 canonical_url: https://docs.opensearch.org/latest/getting-started/quickstart/
 ---
 

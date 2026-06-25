@@ -4,6 +4,8 @@ title: Limitations
 parent: SQL and PPL
 nav_order: 99
 canonical_url: https://docs.opensearch.org/latest/search-plugins/sql/limitation/
+redirect_from:
+  - /sql-and-ppl/limitation/
 ---
 
 # Limitations

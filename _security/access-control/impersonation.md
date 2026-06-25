@@ -4,6 +4,8 @@ title: User impersonation
 parent: Access control
 nav_order: 100
 canonical_url: https://docs.opensearch.org/latest/security/access-control/impersonation/
+redirect_from:
+  - /security-plugin/access-control/impersonation/
 ---
 
 # User impersonation
