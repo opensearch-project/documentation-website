@@ -4,6 +4,9 @@ title: RAG chatbot
 parent: Tutorials
 nav_order: 50
 canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/tutorials/rag-chatbot/
+redirect_from:
+  - /tutorials/gen-ai/chatbots/rag-chatbot/
+  - /vector-search/tutorials/chatbots/rag-chatbot/
 ---
 
 # RAG chatbot

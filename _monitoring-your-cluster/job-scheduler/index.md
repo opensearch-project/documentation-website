@@ -6,6 +6,7 @@ has_children: false
 has_toc: false
 redirect_from:
   - /job-scheduler-plugin/index/
+  - /monitoring-your-cluster/job-scheduler/
 canonical_url: https://docs.opensearch.org/latest/monitoring-your-cluster/job-scheduler/index/
 ---
 

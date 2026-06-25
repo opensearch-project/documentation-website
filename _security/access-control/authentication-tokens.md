@@ -4,8 +4,8 @@ title: Authorization tokens
 parent: Access control
 nav_order: 125
 redirect_from:
- - /security/access-control/authorization-tokens/
- - /security-plugin/access-control/authorization-tokens/
+  - /security/access-control/authorization-tokens/
+  - /security-plugin/access-control/authorization-tokens/
 canonical_url: https://docs.opensearch.org/latest/security/access-control/authentication-tokens/
 ---
 

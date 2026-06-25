@@ -4,6 +4,9 @@ title: Build your own chatbot
 parent: Tutorials
 nav_order: 60
 canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/tutorials/build-chatbot/
+redirect_from:
+  - /tutorials/gen-ai/chatbots/build-chatbot/
+  - /vector-search/tutorials/chatbots/build-chatbot/
 ---
 
 # Build your own chatbot

@@ -5,6 +5,8 @@ parent: Improving search performance
 has_children: true
 nav_order: 100
 canonical_url: https://docs.opensearch.org/latest/search-plugins/caching/index/
+redirect_from:
+  - /search-plugins/caching/
 ---
 
 # Caching
