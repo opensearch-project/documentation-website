@@ -5,6 +5,7 @@ parent: SQL and PPL
 nav_order: 99
 redirect_from:
   - /search-plugins/sql/limitation/
+  - /sql-and-ppl/limitation/
 canonical_url: https://docs.opensearch.org/latest/search-plugins/sql/limitation/
 ---
 

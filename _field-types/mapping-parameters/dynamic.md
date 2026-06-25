@@ -9,6 +9,7 @@ has_toc: false
 redirect_from:
   - /opensearch/dynamic/
   - /mappings/mapping-parameters/dynamic/
+  - /field-types/dynamic/
 canonical_url: https://docs.opensearch.org/latest/field-types/mapping-parameters/dynamic/
 ---
 
