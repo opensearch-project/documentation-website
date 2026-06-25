@@ -4,6 +4,8 @@ title: Field names
 nav_order: 10
 parent: Metadata fields
 canonical_url: https://docs.opensearch.org/latest/field-types/metadata-fields/field-names/
+redirect_from:
+  - /mappings/metadata-fields/field-names/
 ---
 
 # Field names

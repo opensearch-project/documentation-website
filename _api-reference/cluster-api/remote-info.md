@@ -4,8 +4,8 @@ title: Remote cluster information
 parent: Cluster APIs
 nav_order: 67
 redirect_from: 
- - /opensearch/rest-api/remote-info/
- - /api-reference/remote-info/
+  - /opensearch/rest-api/remote-info/
+  - /api-reference/remote-info/
 canonical_url: https://docs.opensearch.org/latest/api-reference/cluster-api/remote-info/
 ---
 

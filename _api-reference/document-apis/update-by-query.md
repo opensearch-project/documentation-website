@@ -4,7 +4,7 @@ title: Update by query
 parent: Document APIs
 nav_order: 40
 redirect_from: 
- - /opensearch/rest-api/document-apis/update-by-query/
+  - /opensearch/rest-api/document-apis/update-by-query/
 canonical_url: https://docs.opensearch.org/latest/api-reference/document-apis/update-by-query/
 ---
 

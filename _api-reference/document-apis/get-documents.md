@@ -4,7 +4,7 @@ title: Get document
 parent: Document APIs
 nav_order: 5
 redirect_from:
- - /opensearch/rest-api/document-apis/get-documents/
+  - /opensearch/rest-api/document-apis/get-documents/
 canonical_url: https://docs.opensearch.org/latest/api-reference/document-apis/get-documents/
 ---
 

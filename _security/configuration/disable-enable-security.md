@@ -5,8 +5,8 @@ parent: Configuration
 nav_order: 40
 has_toc: true
 redirect_from:
- - /security-plugin/configuration/disable/
- - /security/configuration/disable/
+  - /security-plugin/configuration/disable/
+  - /security/configuration/disable/
 canonical_url: https://docs.opensearch.org/latest/security/configuration/disable-enable-security/
 ---
 

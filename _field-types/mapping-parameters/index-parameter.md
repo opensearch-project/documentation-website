@@ -7,6 +7,8 @@ nav_order: 60
 has_children: false
 has_toc: false
 canonical_url: https://docs.opensearch.org/latest/field-types/mapping-parameters/index-parameter/
+redirect_from:
+  - /mappings/mapping-parameters/index-parameter/
 ---
 
 # Index

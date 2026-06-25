@@ -6,10 +6,9 @@ has_toc: true
 permalink: /migrate-or-upgrade/rolling-upgrade/
 nav_exclude: false
 redirect_from:
- - /upgrade-opensearch/
- - /rolling-upgrade/index/
- - /migrate-or-upgrade/rolling-upgrade/appendix/
- - /install-and-configure/upgrade-opensearch/rolling-upgrade/
+  - /upgrade-opensearch/
+  - /rolling-upgrade/index/
+  - /install-and-configure/upgrade-opensearch/rolling-upgrade/
 canonical_url: https://docs.opensearch.org/latest/migrate-or-upgrade/rolling-upgrade/
 ---
 

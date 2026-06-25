@@ -5,6 +5,8 @@ nav_order: 110
 redirect_from:
   - /dashboards/run-queries/
   - /dashboards/dev-tools/run-queries/
+  - /dashboards/discover/run-queries/
+  - /dashboards/visualize/run-queries/
 canonical_url: https://docs.opensearch.org/latest/dashboards/dev-tools/index-dev/
 ---
 
