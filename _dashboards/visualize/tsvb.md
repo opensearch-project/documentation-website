@@ -4,6 +4,8 @@ title: TSVB
 parent: Building data visualizations
 nav_order: 45
 canonical_url: https://docs.opensearch.org/latest/dashboards/visualize/tsvb/
+redirect_from:
+  - /dashboards/visualize/visualize-app/tsvb/
 ---
 
 # TSVB

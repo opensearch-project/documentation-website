@@ -9,6 +9,7 @@ permalink: /migration-assistant/
 redirect_from:
   - /migration-assistant/index/
  
+  - /migration-assistant/overview/
 items:
   - heading: "Is Migration Assistant right for you?"
     description: "Evaluate whether Migration Assistant is right for your use case."
