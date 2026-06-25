@@ -228,7 +228,7 @@ The response contains the agent ID:
 ```
 
 ### Overriding MCP tool descriptions
-**Introduced 3.7**
+**Introduced 3.8**
 {: .label .label-purple }
 
 Each MCP tool includes a description that helps the LLM decide when to call it. To replace a tool's description without modifying the MCP server, use the `tool_descriptions` parameter. This is useful when the server-provided description is too generic, uses internal naming, or does not match your agent's domain vocabulary.
