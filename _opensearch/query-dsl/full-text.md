@@ -4,6 +4,11 @@ title: Full-text queries
 parent: Query DSL
 nav_order: 40
 canonical_url: https://docs.opensearch.org/latest/query-dsl/full-text/index/
+redirect_from:
+  - /opensearch/query-dsl/full-text/index/
+  - /query-dsl/full-text/
+  - /query-dsl/full-text/index/
+  - /query-dsl/query-dsl/full-text/
 ---
 
 # Full-text queries

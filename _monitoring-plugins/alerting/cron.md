@@ -5,6 +5,8 @@ nav_order: 20
 parent: Alerting
 has_children: false
 canonical_url: https://docs.opensearch.org/latest/observing-your-data/alerting/cron/
+redirect_from:
+  - /observing-your-data/alerting/cron/
 ---
 
 # Cron expression reference

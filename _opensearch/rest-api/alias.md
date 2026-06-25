@@ -4,6 +4,10 @@ title: Alias
 parent: REST API reference
 nav_order: 5
 canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/alias/
+redirect_from:
+  - /api-reference/alias-api/
+  - /api-reference/alias/
+  - /api-reference/alias/index/
 ---
 
 # Alias

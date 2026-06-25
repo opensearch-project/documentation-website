@@ -5,6 +5,8 @@ nav_order: 10
 parent: Alerting
 has_children: false
 canonical_url: https://docs.opensearch.org/latest/observing-your-data/alerting/security/
+redirect_from:
+  - /observing-your-data/alerting/security/
 ---
 
 # Alerting security

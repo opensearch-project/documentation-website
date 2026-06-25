@@ -4,6 +4,9 @@ title: OpenSearch plugins
 parent: Install OpenSearch
 nav_order: 90
 canonical_url: https://docs.opensearch.org/latest/install-and-configure/plugins/
+redirect_from:
+  - /install-and-configure/install-opensearch/plugins/
+  - /install-and-configure/plugins/
 ---
 
 # Standalone OpenSearch plugin installation

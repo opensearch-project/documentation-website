@@ -4,6 +4,8 @@ title: Monitoring
 parent: SQL
 nav_order: 15
 canonical_url: https://docs.opensearch.org/latest/search-plugins/sql/monitoring/
+redirect_from:
+  - /sql-and-ppl/monitoring/
 ---
 
 # Monitoring

@@ -4,6 +4,9 @@ title: Client certificate authentication
 parent: Configuration
 nav_order: 50
 canonical_url: https://docs.opensearch.org/latest/security/authentication-backends/client-auth/
+redirect_from:
+  - /security/authentication-backends/client-auth/
+  - /security/configuration/client-auth/
 ---
 
 # Client certificate authentication

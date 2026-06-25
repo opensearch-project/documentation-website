@@ -4,6 +4,8 @@ title: OpenID Connect
 parent: Configuration
 nav_order: 32
 canonical_url: https://docs.opensearch.org/latest/security/authentication-backends/openid-connect/
+redirect_from:
+  - /security/authentication-backends/openid-connect/
 ---
 
 # OpenID Connect

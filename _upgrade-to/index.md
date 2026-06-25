@@ -4,6 +4,11 @@ title: About the process
 nav_order: 1
 redirect_from:
   - /upgrade-to/
+  - /install-and-configure/upgrade-opensearch/index/
+  - /migrate-or-upgrade/
+  - /migrate-or-upgrade/index/
+  - /upgrade-opensearch/index/
+  - /upgrade-or-migrate/
 canonical_url: https://docs.opensearch.org/latest/upgrade-to/
 ---
 

@@ -4,6 +4,8 @@ title: Performance tuning
 parent: k-NN
 nav_order: 8
 canonical_url: https://docs.opensearch.org/latest/search-plugins/knn/performance-tuning/
+redirect_from:
+  - /vector-search/performance-tuning/
 ---
 
 # Performance tuning

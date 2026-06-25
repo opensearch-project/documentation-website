@@ -4,6 +4,8 @@ title: Settings
 parent: Anomaly detection
 nav_order: 4
 canonical_url: https://docs.opensearch.org/latest/observing-your-data/ad/settings/
+redirect_from:
+  - /observing-your-data/ad/settings/
 ---
 
 # Settings

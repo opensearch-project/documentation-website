@@ -4,6 +4,8 @@ title: Create PerfTop Dashboards
 parent: Performance Analyzer
 nav_order: 2
 canonical_url: https://docs.opensearch.org/latest/monitoring-your-cluster/pa/dashboards/
+redirect_from:
+  - /monitoring-your-cluster/pa/dashboards/
 ---
 
 # PerfTop dashboards

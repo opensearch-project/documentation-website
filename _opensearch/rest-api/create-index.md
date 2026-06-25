@@ -4,6 +4,9 @@ title: Create index
 parent: REST API reference
 nav_order: 3
 canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/create-index/
+redirect_from:
+  - /api-reference/index-apis/create-index/
+  - /opensearch/rest-api/index-apis/create-index/
 ---
 
 # Create index
