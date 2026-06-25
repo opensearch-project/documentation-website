@@ -5,6 +5,9 @@ parent: Ingest APIs
 has_children: true
 nav_order: 5
 canonical_url: https://docs.opensearch.org/latest/ingest-pipelines/
+redirect_from:
+  - /ingest-pipelines/
+  - /ingest-pipelines/index/
 ---
 
 # Ingest pipelines

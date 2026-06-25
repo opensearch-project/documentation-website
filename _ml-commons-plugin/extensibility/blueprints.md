@@ -5,6 +5,8 @@ has_children: false
 nav_order: 65
 parent: ML extensibility 
 canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/remote-models/blueprints/
+redirect_from:
+  - /ml-commons-plugin/remote-models/blueprints/
 ---
 
 # Building blueprints

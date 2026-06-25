@@ -4,6 +4,9 @@ title: Supported log types
 parent: Setting up Security Analytics
 nav_order: 16
 canonical_url: https://docs.opensearch.org/latest/security-analytics/sec-analytics-config/log-types/
+redirect_from:
+  - /security-analytics/log-types-reference/
+  - /security-analytics/log-types-reference/index/
 ---
 
 

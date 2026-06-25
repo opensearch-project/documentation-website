@@ -7,6 +7,8 @@ nav_exclude: true
 permalink: /integrations/
 redirect_from:
   - /integrations/index/
+  - /dashboards/integrations/
+  - /dashboards/integrations/index/
 canonical_url: https://docs.opensearch.org/latest/integrations/
 ---
 
