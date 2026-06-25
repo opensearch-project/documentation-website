@@ -5,6 +5,8 @@ nav_order: 3
 parent: Index State Management
 has_children: false
 canonical_url: https://docs.opensearch.org/latest/im-plugin/ism/managedindexes/
+redirect_from:
+  - /im-plugin/ism/managedindexes/
 ---
 
 # Managed indices

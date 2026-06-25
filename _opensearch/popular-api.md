@@ -3,6 +3,8 @@ layout: default
 title: Popular APIs
 nav_order: 96
 canonical_url: https://docs.opensearch.org/latest/api-reference/popular-api/
+redirect_from:
+  - /api-reference/popular-api/
 ---
 
 # Popular APIs

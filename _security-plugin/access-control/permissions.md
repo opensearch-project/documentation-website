@@ -4,6 +4,8 @@ title: Permissions
 parent: Access control
 nav_order: 50
 canonical_url: https://docs.opensearch.org/latest/security/access-control/permissions/
+redirect_from:
+  - /security/access-control/permissions/
 ---
 
 # Permissions

@@ -4,6 +4,9 @@ title: Metadata Queries
 parent: SQL
 nav_order: 9
 canonical_url: https://docs.opensearch.org/latest/search-plugins/sql/sql/metadata/
+redirect_from:
+  - /search-plugins/sql/sql/metadata/
+  - /sql-and-ppl/sql/metadata/
 ---
 
 # Metadata queries

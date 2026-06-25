@@ -4,6 +4,8 @@ title: TLS certificates
 parent: Configuration
 nav_order: 10
 canonical_url: https://docs.opensearch.org/latest/security/configuration/tls/
+redirect_from:
+  - /security/configuration/tls/
 ---
 
 # Configure TLS certificates

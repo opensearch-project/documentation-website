@@ -4,6 +4,11 @@ title: Commands
 parent: Piped processing language
 nav_order: 4
 canonical_url: https://docs.opensearch.org/latest/search-plugins/sql/sql/functions/
+redirect_from:
+  - /observability-plugin/ppl/commands/
+  - /search-plugins/sql/ppl/functions/
+  - /sql-and-ppl/ppl/commands/index/
+  - /sql-and-ppl/ppl/functions/
 ---
 
 

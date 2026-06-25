@@ -4,6 +4,9 @@ title: Aggregation Functions
 parent: SQL
 nav_order: 11
 canonical_url: https://docs.opensearch.org/latest/search-plugins/sql/sql/aggregations/
+redirect_from:
+  - /search-plugins/sql/sql/aggregations/
+  - /sql-and-ppl/sql/aggregations/
 ---
 
 # Aggregation functions

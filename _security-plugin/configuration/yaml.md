@@ -4,6 +4,8 @@ title: YAML files
 parent: Configuration
 nav_order: 3
 canonical_url: https://docs.opensearch.org/latest/security/configuration/yaml/
+redirect_from:
+  - /security/configuration/yaml/
 ---
 
 # YAML files

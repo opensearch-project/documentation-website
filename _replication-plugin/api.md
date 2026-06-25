@@ -3,6 +3,8 @@ layout: default
 title: API
 nav_order: 50
 canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/replication-plugin/api/
+redirect_from:
+  - /tuning-your-cluster/replication-plugin/api/
 ---
 
 # Cross-cluster replication API

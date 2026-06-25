@@ -5,6 +5,8 @@ nav_order: 20
 has_children: false
 
 canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/replication-plugin/auto-follow/
+redirect_from:
+  - /tuning-your-cluster/replication-plugin/auto-follow/
 ---
 
 # Auto-follow for cross-cluster replication

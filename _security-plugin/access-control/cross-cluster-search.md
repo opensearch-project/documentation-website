@@ -4,6 +4,9 @@ title: Cross-cluster search
 parent: Access control
 nav_order: 40
 canonical_url: https://docs.opensearch.org/latest/search-plugins/cross-cluster-search/
+redirect_from:
+  - /search-plugins/cross-cluster-search/
+  - /security/access-control/cross-cluster-search/
 ---
 
 # Cross-cluster search

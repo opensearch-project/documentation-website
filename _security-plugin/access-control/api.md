@@ -4,6 +4,8 @@ title: API
 parent: Access control
 nav_order: 90
 canonical_url: https://docs.opensearch.org/latest/security/access-control/api/
+redirect_from:
+  - /security/access-control/api/
 ---
 
 # API

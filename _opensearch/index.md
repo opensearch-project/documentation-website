@@ -7,6 +7,7 @@ has_toc: false
 redirect_from:
   - /docs/opensearch/
   - /opensearch/
+  - /about/
 canonical_url: https://docs.opensearch.org/latest/getting-started/
 ---
 

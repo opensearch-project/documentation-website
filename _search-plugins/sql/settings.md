@@ -4,6 +4,8 @@ title: Settings
 parent: SQL
 nav_order: 16
 canonical_url: https://docs.opensearch.org/latest/search-plugins/sql/settings/
+redirect_from:
+  - /sql-and-ppl/settings/
 ---
 
 # Settings

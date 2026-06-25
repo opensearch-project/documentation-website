@@ -4,6 +4,9 @@ title: Cluster settings
 parent: REST API reference
 nav_order: 20
 canonical_url: https://docs.opensearch.org/latest/api-reference/cluster-api/cluster-settings/
+redirect_from:
+  - /api-reference/cluster-api/cluster-settings/
+  - /api-reference/cluster-settings/
 ---
 
 # Cluster settings

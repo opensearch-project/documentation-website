@@ -4,6 +4,9 @@ title: Multi-search
 parent: REST API reference
 nav_order: 130
 canonical_url: https://docs.opensearch.org/latest/api-reference/multi-search/
+redirect_from:
+  - /api-reference/multi-search/
+  - /api-reference/search-apis/multi-search/
 ---
 
 # Multi-search
