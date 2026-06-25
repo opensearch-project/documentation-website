@@ -4,6 +4,9 @@ title: Term-level queries
 parent: Query DSL
 nav_order: 20
 canonical_url: https://docs.opensearch.org/latest/query-dsl/term/index/
+redirect_from:
+  - /query-dsl/term/
+  - /query-dsl/term/index/
 ---
 
 # Term-level queries

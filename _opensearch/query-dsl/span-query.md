@@ -4,6 +4,11 @@ title: Span queries
 parent: Query DSL
 nav_order: 60
 canonical_url: https://docs.opensearch.org/latest/query-dsl/span-query/
+redirect_from:
+  - /query-dsl/query-dsl/span-query/
+  - /query-dsl/span-query/
+  - /query-dsl/span/
+  - /query-dsl/span/index/
 ---
 
 # Span queries

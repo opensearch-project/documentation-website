@@ -6,6 +6,8 @@ parent: CAT API
 nav_order: 55
 has_children: false
 canonical_url: https://docs.opensearch.org/latest/api-reference/cat/cat-segments/
+redirect_from:
+  - /opensearch/rest-api/cat/cat-segments/
 ---
 
 # CAT segments

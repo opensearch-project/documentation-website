@@ -6,6 +6,9 @@ has_children: false
 redirect_from: /im-plugin/refresh-analyzer/
 has_toc: false
 canonical_url: https://docs.opensearch.org/latest/im-plugin/refresh-analyzer/
+redirect_from:
+  - /im-plugin/refresh-analyzer/
+  - /query-dsl/analyzers/refresh-analyzer/
 ---
 
 # Refresh search analyzer
