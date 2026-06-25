@@ -5,6 +5,8 @@ nav_order: 15
 parent: Creating reports with the Reporting CLI
 
 canonical_url: https://docs.opensearch.org/latest/reporting/rep-cli-create/
+redirect_from:
+  - /reporting/rep-cli-create/
 ---
 
 # Creating and requesting a visualization report

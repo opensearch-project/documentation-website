@@ -5,7 +5,6 @@ parent: Index management in Dashboards
 nav_order: 20
 redirect_from:
   - /dashboards/admin-ui-index/datastream/
-  - /opensearch/data-streams/
 canonical_url: https://docs.opensearch.org/latest/dashboards/im-dashboards/datastream/
 ---
 

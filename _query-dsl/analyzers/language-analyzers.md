@@ -4,6 +4,9 @@ title: Language analyzers
 nav_order: 45
 parent: Text analyzers
 canonical_url: https://docs.opensearch.org/latest/analyzers/language-analyzers/
+redirect_from:
+  - /analyzers/language-analyzers/
+  - /analyzers/language-analyzers/index/
 ---
 
 # Language analyzer

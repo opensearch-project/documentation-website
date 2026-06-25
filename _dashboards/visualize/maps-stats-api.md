@@ -6,6 +6,8 @@ grand_parent: Building data visualizations
 parent: Using coordinate and region maps 
 has_children: false
 canonical_url: https://docs.opensearch.org/latest/dashboards/visualize/maps-stats-api/
+redirect_from:
+  - /dashboards/visualize/visualize-app/maps-stats-api/
 ---
 
 # Maps Stats API
