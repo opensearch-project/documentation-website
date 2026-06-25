@@ -37,9 +37,9 @@ A detector is an individual anomaly detection task. You can define multiple dete
 #### Example filter using query DSL
 The query is designed to retrieve documents in which the `urlPath.keyword` field matches one of the following specified values:
    
-  - /domain/{id}/short
-  - /sub_dir/{id}/short
-  - /abcd/123/{id}/xyz
+   - /domain/{id}/short
+   - /sub_dir/{id}/short
+   - /abcd/123/{id}/xyz
 
    ```json
    {
