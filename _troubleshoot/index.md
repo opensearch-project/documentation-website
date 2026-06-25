@@ -80,7 +80,7 @@ output.elasticsearch:
   username: "admin"
   password: "admin"
   ssl.certificate_authorities:
-    - /full/path/to/root-ca.pem
+  - /full/path/to/root-ca.pem
   ssl.certificate: "/full/path/to/client.pem"
   ssl.key: "/full/path/to/client-key.pem"
 ```
