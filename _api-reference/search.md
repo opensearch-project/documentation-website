@@ -3,6 +3,9 @@ layout: default
 title: Search
 nav_order: 75
 canonical_url: https://docs.opensearch.org/latest/api-reference/search/
+redirect_from:
+  - /api-reference/search-apis/search/
+  - /opensearch/rest-api/search/
 ---
 
 # Search

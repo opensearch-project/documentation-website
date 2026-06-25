@@ -5,6 +5,8 @@ nav_order: 20
 has_children: true
 has_toc: true
 canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/availability-and-recovery/index/
+redirect_from:
+  - /tuning-your-cluster/availability-and-recovery/
 ---
 
 # Availability and recovery

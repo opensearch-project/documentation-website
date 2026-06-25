@@ -4,6 +4,8 @@ title: Audit log field reference
 parent: Audit logs
 nav_order: 130
 canonical_url: https://docs.opensearch.org/latest/security/audit-logs/field-reference/
+redirect_from:
+  - /security-plugin/audit-logs/field-reference/
 ---
 
 # Audit log field reference

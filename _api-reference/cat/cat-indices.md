@@ -6,6 +6,8 @@ parent: CAT API
 nav_order: 25
 has_children: false
 canonical_url: https://docs.opensearch.org/latest/api-reference/cat/cat-indices/
+redirect_from:
+  - /opensearch/rest-api/cat/cat-indices/
 ---
 
 # CAT indices
