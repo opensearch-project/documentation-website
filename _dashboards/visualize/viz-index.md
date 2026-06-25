@@ -5,6 +5,9 @@ nav_order: 40
 has_children: true
 has_toc: false
 canonical_url: https://docs.opensearch.org/latest/dashboards/visualize/viz-index/
+redirect_from:
+  - /dashboards/visualize/visualize-app/
+  - /dashboards/visualize/visualize-app/index/
 ---
 
 # Building data visualizations

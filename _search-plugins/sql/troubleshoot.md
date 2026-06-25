@@ -5,6 +5,7 @@ parent: SQL and PPL
 nav_order: 88
 redirect_from:
   - /search-plugins/sql/troubleshoot/
+  - /sql-and-ppl/troubleshoot/
 canonical_url: https://docs.opensearch.org/latest/search-plugins/sql/troubleshoot/
 ---
 
