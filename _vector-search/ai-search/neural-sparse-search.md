@@ -6,6 +6,7 @@ nav_order: 50
 has_children: true
 redirect_from:
   - /search-plugins/sparse-search/
+  - /search-plugins/neural-sparse-search/
 canonical_url: https://docs.opensearch.org/latest/vector-search/ai-search/neural-sparse-search/
 ---
 
