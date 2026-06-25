@@ -4,6 +4,9 @@ title: JDBC Driver
 parent: SQL
 nav_order: 71
 canonical_url: https://docs.opensearch.org/latest/search-plugins/sql/sql/jdbc/
+redirect_from:
+  - /search-plugins/sql/sql/jdbc/
+  - /sql-and-ppl/sql/jdbc/
 ---
 
 # JDBC driver

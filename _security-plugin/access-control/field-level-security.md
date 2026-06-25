@@ -4,6 +4,8 @@ title: Field-level security
 parent: Access control
 nav_order: 11
 canonical_url: https://docs.opensearch.org/latest/security/access-control/field-level-security/
+redirect_from:
+  - /security/access-control/field-level-security/
 ---
 
 # Field-level security

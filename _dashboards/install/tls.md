@@ -4,6 +4,8 @@ title: Configure TLS
 parent: Install OpenSearch Dashboards
 nav_order: 40
 canonical_url: https://docs.opensearch.org/latest/install-and-configure/install-dashboards/tls/
+redirect_from:
+  - /install-and-configure/install-dashboards/tls/
 ---
 
 # Configure TLS for OpenSearch Dashboards

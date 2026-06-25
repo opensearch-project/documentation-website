@@ -4,6 +4,9 @@ title: JSON Support
 parent: SQL
 nav_order: 7
 canonical_url: https://docs.opensearch.org/latest/search-plugins/sql/sql/partiql/
+redirect_from:
+  - /search-plugins/sql/sql/partiql/
+  - /sql-and-ppl/sql/partiql/
 ---
 
 # JSON Support

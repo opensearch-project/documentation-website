@@ -4,6 +4,9 @@ title: Search
 parent: REST API reference
 nav_order: 10
 canonical_url: https://docs.opensearch.org/latest/api-reference/search/
+redirect_from:
+  - /api-reference/search-apis/search/
+  - /api-reference/search/
 ---
 
 # Search

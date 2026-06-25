@@ -5,6 +5,8 @@ parent: Index APIs
 grand_parent: REST API reference
 nav_order: 80
 canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/split/
+redirect_from:
+  - /api-reference/index-apis/split/
 ---
 
 # Split index

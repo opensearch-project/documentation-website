@@ -5,6 +5,10 @@ nav_order: 60
 has_children: true
 has_toc: false
 canonical_url: https://docs.opensearch.org/latest/observing-your-data/trace/index/
+redirect_from:
+  - /monitoring-plugins/trace/index/
+  - /observing-your-data/trace/
+  - /observing-your-data/trace/index/
 ---
 
 # Trace Analytics

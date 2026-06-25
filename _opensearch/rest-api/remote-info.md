@@ -4,6 +4,9 @@ title: Remote cluster information
 parent: REST API reference
 nav_order: 70
 canonical_url: https://docs.opensearch.org/latest/api-reference/remote-info/
+redirect_from:
+  - /api-reference/cluster-api/remote-info/
+  - /api-reference/remote-info/
 ---
 
 # Remote cluster information

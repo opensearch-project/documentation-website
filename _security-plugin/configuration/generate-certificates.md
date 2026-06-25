@@ -4,6 +4,8 @@ title: Generate certificates
 parent: Configuration
 nav_order: 11
 canonical_url: https://docs.opensearch.org/latest/security/configuration/generate-certificates/
+redirect_from:
+  - /security/configuration/generate-certificates/
 ---
 
 # Generate certificates

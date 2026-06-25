@@ -5,6 +5,8 @@ parent: Shard indexing backpressure
 nav_order: 1
 has_children: false
 canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/availability-and-recovery/shard-indexing-settings/
+redirect_from:
+  - /tuning-your-cluster/availability-and-recovery/shard-indexing-settings/
 ---
 
 # Settings

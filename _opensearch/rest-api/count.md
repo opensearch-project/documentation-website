@@ -4,6 +4,9 @@ title: Count
 parent: REST API reference
 nav_order: 150
 canonical_url: https://docs.opensearch.org/latest/api-reference/count/
+redirect_from:
+  - /api-reference/count/
+  - /api-reference/search-apis/count/
 ---
 
 # Count

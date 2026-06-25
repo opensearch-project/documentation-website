@@ -4,6 +4,9 @@ title: ODBC Driver
 parent: SQL
 nav_order: 72
 canonical_url: https://docs.opensearch.org/latest/search-plugins/sql/sql/odbc/
+redirect_from:
+  - /search-plugins/sql/sql/odbc/
+  - /sql-and-ppl/sql/odbc/
 ---
 
 # ODBC driver

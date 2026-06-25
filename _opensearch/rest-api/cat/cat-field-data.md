@@ -6,6 +6,8 @@ grand_parent: REST API reference
 nav_order: 15
 has_children: false
 canonical_url: https://docs.opensearch.org/latest/api-reference/cat/cat-field-data/
+redirect_from:
+  - /api-reference/cat/cat-field-data/
 ---
 
 # cat fielddata

@@ -5,6 +5,8 @@ parent: Index APIs
 grand_parent: REST API reference
 nav_order: 30
 canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/close-index/
+redirect_from:
+  - /api-reference/index-apis/close-index/
 ---
 
 # Close index

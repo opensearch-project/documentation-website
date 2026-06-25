@@ -6,6 +6,8 @@ has_children: false
 has_toc: false
 redirect_from:
   - /security-plugin/
+  - /security/
+  - /security/index/
 canonical_url: https://docs.opensearch.org/latest/security/
 ---
 

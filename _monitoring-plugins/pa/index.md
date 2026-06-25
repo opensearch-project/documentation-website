@@ -5,6 +5,8 @@ nav_order: 58
 has_children: true
 redirect_from:
   - /monitoring-plugins/pa/
+  - /monitoring-your-cluster/pa/
+  - /monitoring-your-cluster/pa/index/
 canonical_url: https://docs.opensearch.org/latest/monitoring-your-cluster/pa/index/
 ---
 

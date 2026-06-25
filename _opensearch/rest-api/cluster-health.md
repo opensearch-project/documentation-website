@@ -4,6 +4,9 @@ title: Cluster health
 parent: REST API reference
 nav_order: 55
 canonical_url: https://docs.opensearch.org/latest/api-reference/cluster-api/cluster-health/
+redirect_from:
+  - /api-reference/cluster-api/cluster-health/
+  - /api-reference/cluster-health/
 ---
 
 # Cluster health

@@ -5,6 +5,8 @@ parent: Index APIs
 grand_parent: REST API reference
 nav_order: 50
 canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/shrink-index/
+redirect_from:
+  - /api-reference/index-apis/shrink-index/
 ---
 
 # Shrink index

@@ -4,6 +4,8 @@ title: WMS map server
 nav_order: 5
 redirect_from:
   - /docs/opensearch-dashboards/maptiles/
+  - /dashboards/visualize/maptiles/
+  - /dashboards/visualize/visualize-app/maptiles/
 canonical_url: https://docs.opensearch.org/latest/dashboards/visualize/maptiles/
 ---
 

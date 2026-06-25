@@ -5,6 +5,9 @@ parent: Index APIs
 grand_parent: REST API reference
 nav_order: 200
 canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/put-mapping/
+redirect_from:
+  - /api-reference/index-apis/put-mapping/
+  - /opensearch/rest-api/update-mapping/
 ---
 
 # Put mapping

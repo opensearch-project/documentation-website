@@ -5,6 +5,8 @@ parent: Root Cause Analysis
 grand_parent: Performance Analyzer
 nav_order: 1
 canonical_url: https://docs.opensearch.org/latest/monitoring-your-cluster/pa/rca/api/
+redirect_from:
+  - /monitoring-your-cluster/pa/rca/api/
 ---
 
 # RCA API

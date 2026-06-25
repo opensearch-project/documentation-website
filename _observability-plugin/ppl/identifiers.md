@@ -4,6 +4,10 @@ title: Identifiers
 parent: Piped processing language
 nav_order: 7
 canonical_url: https://docs.opensearch.org/latest/search-plugins/sql/identifiers/
+redirect_from:
+  - /search-plugins/ppl/identifiers/
+  - /search-plugins/sql/identifiers/
+  - /sql-and-ppl/identifiers/
 ---
 
 

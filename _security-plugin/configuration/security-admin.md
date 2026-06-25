@@ -4,6 +4,8 @@ title: Apply changes with securityadmin.sh
 parent: Configuration
 nav_order: 20
 canonical_url: https://docs.opensearch.org/latest/security/configuration/security-admin/
+redirect_from:
+  - /security/configuration/security-admin/
 ---
 
 # Apply changes using securityadmin.sh

@@ -5,6 +5,8 @@ parent: Document APIs
 grand_parent: REST API reference
 nav_order: 20
 canonical_url: https://docs.opensearch.org/latest/api-reference/document-apis/bulk/
+redirect_from:
+  - /api-reference/document-apis/bulk/
 ---
 
 # Bulk

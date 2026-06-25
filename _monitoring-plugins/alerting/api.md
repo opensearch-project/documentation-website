@@ -4,6 +4,8 @@ title: API
 parent: Alerting
 nav_order: 15
 canonical_url: https://docs.opensearch.org/latest/observing-your-data/alerting/api/
+redirect_from:
+  - /observing-your-data/alerting/api/
 ---
 
 # Alerting API

@@ -4,6 +4,8 @@ title: Users and roles
 parent: Access control
 nav_order: 1
 canonical_url: https://docs.opensearch.org/latest/security/access-control/users-roles/
+redirect_from:
+  - /security/access-control/users-roles/
 ---
 
 # Users and roles
