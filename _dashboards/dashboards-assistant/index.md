@@ -5,6 +5,8 @@ nav_order: 3
 has_children: false
 has_toc: false
 canonical_url: https://docs.opensearch.org/latest/dashboards/dashboards-assistant/index/
+redirect_from:
+  - /dashboards/dashboards-assistant/
 ---
 
 This is an experimental feature and is not recommended for use in a production environment. For updates on the feature's progress or to leave feedback, go to the [`dashboards-assistant` repository](https://github.com/opensearch-project/dashboards-assistant) on GitHub or the associated [OpenSearch forum thread](https://forum.opensearch.org/t/feedback-opensearch-assistant/16741).
