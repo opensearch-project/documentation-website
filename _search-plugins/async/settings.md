@@ -2,16 +2,13 @@
 layout: default
 title: Settings
 parent: Asynchronous search
-grand_parent: Improving search performance
 nav_order: 4
 canonical_url: https://docs.opensearch.org/latest/search-plugins/async/settings/
 ---
 
-# Asynchronous Search settings
+# Settings
 
-The Asynchronous Search plugin adds several settings to the standard OpenSearch cluster settings. They are dynamic, so you can change the default behavior of the plugin without restarting your cluster. To learn more about static and dynamic settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
-
-You can mark the settings as `persistent` or `transient`.
+The asynchronous search plugin adds several settings to the standard OpenSearch cluster settings. They are dynamic, so you can change the default behavior of the plugin without restarting your cluster. You can mark the settings as `persistent` or `transient`.
 
 For example, to update the retention period of the result index:
 

@@ -2,15 +2,14 @@
 layout: default
 title: CAT field data
 parent: CAT API
+
 nav_order: 15
 has_children: false
-redirect_from:
-- /opensearch/rest-api/cat/cat-field-data/
 canonical_url: https://docs.opensearch.org/latest/api-reference/cat/cat-field-data/
 ---
 
 # CAT fielddata
-**Introduced 1.0**
+Introduced 1.0
 {: .label .label-purple }
 
 The CAT fielddata operation lists the memory size used by each field per node.

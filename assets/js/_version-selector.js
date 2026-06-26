@@ -1,10 +1,9 @@
 /* During build, DOC_VERSIONS is prefixed to convey all the versions available, informed by `_data/versions.json`
  * Example:
- *    const DOC_VERSIONS = ["2.1","1.1"];
- *    const DOC_VERSIONS_ARCHIVED = ["2.0","1.0"];
+ *    const DOC_VERSIONS = ["1.1","1.0"];
  *
  * DOC_VERSION_LATEST will pick `latest`, or in its absence the `current` version.
- *    const DOC_VERSION_LATEST = "2.1";
+ *    const DOC_VERSION_LATEST = "2.0";
  */
 const PREFIX = "OpenSearch ";
 const tpl = `
@@ -140,7 +139,6 @@ const tpl = `
         text-decoration: none;
         color: var(--link-color);
         position: relative;
-        line-height: 1.6em;
     }
     
     #dropdown > a:last-child {
@@ -161,38 +159,6 @@ const tpl = `
         transform: translateY(-50%);
         color: #999;
         white-space: nowrap;
-    }
-    
-    #spacer > a.archived,
-    #spacer > a.show-archived,
-    #dropdown > a.archived,
-    #dropdown > a.show-archived {
-        font-size: .8em;
-        text-transform: uppercase;
-        color: #999;
-        font-weight: 700;
-        line-height: 2em;
-        display: flex;
-        align-items: center;
-        padding-top: .375em;
-        padding-bottom: .375em;
-        padding-left: calc(1.25em - 1px);
-        gap: .3em;
-        cursor: pointer;
-    }
-    
-    #dropdown > a.show-archived {
-        border: 0;
-    }
-    
-    #dropdown > a.show-archived ~ a,
-    #dropdown > a.show-archived[aria-expanded="true"] {
-        display: none;
-        cursor: unset;
-    }
-    
-    #dropdown > a.show-archived[aria-expanded="true"] ~ a {
-        display: block;
     }
     </style>
     <a id="root" role="button" aria-labelledby="selected" aria-controls="dropdown" tabindex="0">
@@ -252,11 +218,6 @@ class VersionSelector extends HTMLElement {
             this._expand(this.getAttribute('aria-expanded') !== 'true');
         });
 
-        const showNode = shadowRoot.querySelector('#dropdown .show-archived');
-        showNode?.addEventListener('click', e => {
-            showNode.setAttribute('aria-expanded', 'true');
-        });
-
         /* On some devices, `blur` is fired on the component before navigation occurs when choosing a version from the
          * dropdown; this ends up hiding the dropdown and preventing the navigation. The `pointerup` on the anchor
          * element is always fired before the `blur` is dispatched on the component and that is used here to trigger
@@ -264,7 +225,6 @@ class VersionSelector extends HTMLElement {
          */
         shadowRoot.querySelector('#dropdown').addEventListener('pointerup', e => {
             const {target} = e;
-            e.preventDefault();
             if (target.matches('a[href]') && target.href) document.location.href = target.href;
         });
     }

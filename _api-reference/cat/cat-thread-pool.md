@@ -4,13 +4,11 @@ title: CAT thread pool
 parent: CAT API
 nav_order: 75
 has_children: false
-redirect_from:
-- /opensearch/rest-api/cat/cat-thread-pool/
 canonical_url: https://docs.opensearch.org/latest/api-reference/cat/cat-thread-pool/
 ---
 
 # CAT thread pool
-**Introduced 1.0**
+Introduced 1.0
 {: .label .label-purple }
 
 The CAT thread pool operation lists the active, queued, and rejected threads of different thread pools on each node.
@@ -46,7 +44,7 @@ GET _cat/thread_pool
 
 All CAT thread pool URL parameters are optional.
 
-In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameters:
+In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameter:
 
 Parameter | Type | Description
 :--- | :--- | :---

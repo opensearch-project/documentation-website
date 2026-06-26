@@ -1,29 +1,43 @@
 ---
 layout: default
-title: Delete pipeline
-parent: Ingest pipelines
-grand_parent: Ingest APIs
-nav_order: 13
-redirect_from:
-  - /opensearch/rest-api/ingest-apis/delete-ingest/
-  - /ingest-pipelines/delete-ingest/
+title: Delete a pipeline
+parent: Ingest APIs
+nav_order: 14
 canonical_url: https://docs.opensearch.org/latest/ingest-pipelines/delete-ingest/
 ---
 
-# Delete pipeline
+# Delete a pipeline
 
-Use the following request to delete a pipeline. 
+If you no longer want to use an ingest pipeline, use the delete ingest pipeline API operation.
 
-To delete a specific pipeline, pass the pipeline ID as a parameter:
+## Example
 
-```json
-DELETE /_ingest/pipeline/<pipeline-id>
+```
+DELETE _ingest/pipeline/12345
 ```
 {% include copy-curl.html %}
 
-To delete all pipelines in a cluster, use the wildcard character (`*`):
+## Path and HTTP methods
+
+Delete an ingest pipeline based on that pipeline's ID.
+
+```
+DELETE _ingest/pipeline/
+```
+
+## URL parameters
+
+All URL parameters are optional.
+
+Parameter | Type | Description
+:--- | :--- | :---
+master_timeout | time | How long to wait for a connection to the master node.
+timeout | time | How long to wait for the request to return.
+
+## Response
 
 ```json
-DELETE /_ingest/pipeline/*
+{
+  "acknowledged" : true
+}
 ```
-{% include copy-curl.html %}

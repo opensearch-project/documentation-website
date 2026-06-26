@@ -6,9 +6,7 @@ nav_order: 1
 canonical_url: https://docs.opensearch.org/latest/api-reference/script-apis/create-stored-script/
 ---
 
-# Create or update stored script
-**Introduced 1.0**
-{: .label .label-purple }
+## Create or update stored script
 
 Creates or updates a stored script or search template.
 
@@ -19,13 +17,13 @@ For additional information about Painless scripting, see:
 * [k-NN]({{site.url}}{{site.baseurl}}/search-plugins/knn/index/).
 
 
-## Path parameters
+### Path parameters
 
 | Parameter | Data type | Description | 
 :--- | :--- | :---
 | script-id | String | Stored script or search template ID. Must be unique across the cluster. Required. |
 
-## Query parameters
+### Query parameters
 
 All parameters are optional.
 
@@ -35,7 +33,7 @@ All parameters are optional.
 | cluster_manager_timeout | Time | Amount of time to wait for a connection to the cluster manager. Defaults to 30 seconds. |
 | timeout | Time | The period of time to wait for a response. If a response is not received before the timeout value, the request fails and returns an error. Defaults to 30 seconds.|
 
-## Request fields
+### Request fields
 
 | Field | Data type | Description | 
 :--- | :--- | :---
@@ -141,7 +139,7 @@ To determine whether the script was successfully created, use the [Get stored sc
 
 The Painless script supports `params` to pass variables to the script. 
 
-#### Example
+### Example
 
 The following request creates the Painless script `multiplier-script`. The request sums the ratings for each book, multiplies the summed value by the `multiplier` parameter, and displays the result in the output:
 

@@ -3,9 +3,6 @@ layout: default
 title: Troubleshooting
 parent: SQL and PPL
 nav_order: 88
-redirect_from:
-  - /search-plugins/sql/troubleshoot/
-  - /sql-and-ppl/troubleshoot/
 canonical_url: https://docs.opensearch.org/latest/search-plugins/sql/troubleshoot/
 ---
 
@@ -45,7 +42,7 @@ POST _plugins/_sql/_explain
 
 ## Index mapping verification exception
 
-If you see the following verification exception, make sure the index in your query isn't an index pattern and doesn't have multiple types:
+If you see the following verification exception:
 
 ```json
 {
@@ -57,5 +54,7 @@ If you see the following verification exception, make sure the index in your que
   "status": 503
 }
 ```
+
+Make sure the index in your query is not an index pattern and is not an index pattern and doesn't have multiple types.
 
 If these steps don't work, submit a Github issue [here](https://github.com/opensearch-project/sql/issues).

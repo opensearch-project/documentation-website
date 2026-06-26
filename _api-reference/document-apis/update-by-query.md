@@ -3,13 +3,11 @@ layout: default
 title: Update by query
 parent: Document APIs
 nav_order: 50
-redirect_from: 
- - /opensearch/rest-api/document-apis/update-by-query/
 canonical_url: https://docs.opensearch.org/latest/api-reference/document-apis/update-by-query/
 ---
 
 # Update by query
-**Introduced 1.0**
+Introduced 1.0
 {: .label .label-purple}
 
 You can include a query and a script as part of your update request so OpenSearch can run the script to update all of the documents that match the query.
@@ -47,16 +45,16 @@ All URL parameters are optional.
 
 Parameter | Type | Description
 :--- | :--- | :--- | :---
-&lt;index&gt; | String | Comma-separated list of indexes to update. To update all indexes, use * or omit this parameter.
-allow_no_indices | Boolean | Whether to ignore wildcards that don’t match any indexes. Default is `true`.
+&lt;index&gt; | String | Comma-separated list of indices to update. To update all indices, use * or omit this parameter.
+allow_no_indices | Boolean | Whether to ignore wildcards that don’t match any indices. Default is `true`.
 analyzer | String | Analyzer to use in the query string.
 analyze_wildcard | Boolean | Whether the update operation should include wildcard and prefix queries in the analysis. Default is false.
 conflicts | String | Indicates to OpenSearch what should happen if the update by query operation runs into a version conflict. Valid options are `abort` and `proceed`. Default is `abort`.
 default_operator | String | Indicates whether the default operator for a string query should be `AND` or `OR`. Default is `OR`.
 df | String | The default field if a field prefix is not provided in the query string.
-expand_wildcards | String | Specifies the type of index that wildcard expressions can match. Supports comma-separated values. Valid values are `all` (match any index), `open` (match open, non-hidden indexes), `closed` (match closed, non-hidden indexes), `hidden` (match hidden indexes), and `none` (deny wildcard expressions). Default is `open`.
+expand_wildcards | String | Specifies the type of index that wildcard expressions can match. Supports comma-separated values. Valid values are `all` (match any index), `open` (match open, non-hidden indices), `closed` (match closed, non-hidden indices), `hidden` (match hidden indices), and `none` (deny wildcard expressions). Default is `open`.
 from | Integer | The starting index to search from. Default is 0.
-ignore_unavailable | Boolean | Whether to exclude missing or closed indexes in the response. Default is false.
+ignore_unavailable | Boolean | Whether to exclude missing or closed indices in the response. Default is false.
 lenient | Boolean | Specifies whether OpenSearch should accept requests if queries have format errors (for example, querying a text field for an integer). Default is false.
 max_docs | Integer | How many documents the update by query operation should process at most. Default is all documents.
 pipeline | String | ID of the pipeline to use to process documents.
@@ -68,9 +66,9 @@ requests_per_second | Integer | Specifies the request's throttling in sub-reques
 routing | String | Value used to route the update by query operation to a specific shard.
 scroll | Time | How long to keep the search context open.
 scroll_size | Integer | Size of the operation's scroll request. Default is 1000.
-search_type | String | Whether OpenSearch should use global term and document frequencies calculating relevance scores. Valid choices are `query_then_fetch` and `dfs_query_then_fetch`. `query_then_fetch` scores documents using local term and document frequencies for the shard. It’s usually faster but less accurate. `dfs_query_then_fetch` scores documents using global term and document frequencies across all shards. It’s usually slower but more accurate. Default is `query_then_fetch`.
+search_type | String | Whether OpenSearch should use global term and document frequencies calculating revelance scores. Valid choices are `query_then_fetch` and `dfs_query_then_fetch`. `query_then_fetch` scores documents using local term and document frequencies for the shard. It’s usually faster but less accurate. `dfs_query_then_fetch` scores documents using global term and document frequencies across all shards. It’s usually slower but more accurate. Default is `query_then_fetch`.
 search_timeout | Time | How long to wait until OpenSearch deems the request timed out. Default is no timeout.
-slices | String or integer | The number slices to split an operation into for faster processing, specified by integer. When set to `auto` OpenSearch it should decides how many the number of slices for the operation. Default is `1`, which indicates an operation will not be split.
+slices | Integer | Number of sub-tasks OpenSearch should divide this task into. Default is 1, which means OpenSearch should not divide this task.
 sort | List | A comma-separated list of &lt;field&gt; : &lt;direction&gt; pairs to sort by.
 _source | String | Whether to include the `_source` field in the response.
 _source_excludes | String | A comma-separated list of source fields to exclude from the response.
@@ -84,7 +82,7 @@ wait_for_completion | boolean | When set to `false`, the response body includes 
 
 ## Request body
 
-To update your indexes and documents by query, you must include a [query]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index) and a script in the request body that OpenSearch can run to update your documents. If you don't specify a query, then every document in the index gets updated.
+To update your indices and documents by query, you must include a [query]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index) and a script in the request body that OpenSearch can run to update your documents. If you don't specify a query, then every document in the index gets updated.
 
 ```json
 {

@@ -4,10 +4,6 @@ title: Rolling Upgrade
 parent: Upgrading OpenSearch
 nav_order: 10
 canonical_url: https://docs.opensearch.org/latest/install-and-configure/upgrade-opensearch/rolling-upgrade/
-redirect_from:
-  - /migrate-or-upgrade/rolling-upgrade/
-  - /rolling-upgrade/index/
-  - /upgrade-opensearch/
 ---
 
 # Rolling Upgrade
@@ -74,7 +70,6 @@ Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/in
      "transient" : { }
    }
    ```
-
 1. Perform a flush operation on the cluster to commit transaction log entries to the Lucene index:
    ```json
    POST "/_flush?pretty"
@@ -202,7 +197,7 @@ Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/in
 
 ### Related articles
 
-- [OpenSearch configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/)
+- [OpenSearch configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuration/)
 - [Performance analyzer]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/index/)
 - [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/)
 - [About Security in OpenSearch]({{site.url}}{{site.baseurl}}/security/index/)

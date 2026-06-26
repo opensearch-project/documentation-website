@@ -5,8 +5,6 @@ parent: SQL
 grand_parent: SQL and PPL
 nav_order: 1
 canonical_url: https://docs.opensearch.org/latest/dashboards/query-workbench/
-redirect_from:
-  - /dashboards/query-workbench/
 ---
 
 # Query Workbench

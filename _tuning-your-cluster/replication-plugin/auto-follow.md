@@ -20,7 +20,7 @@ You need to [set up a cross-cluster connection]({{site.url}}{{site.baseurl}}/rep
 
 ## Permissions
 
-If the Security plugin is enabled, make sure that non-admin users are mapped to the appropriate permissions so they can perform replication actions. For index and cluster-level permissions requirements, see [Cross-cluster replication permissions]({{site.url}}{{site.baseurl}}/replication-plugin/permissions/).
+If the security plugin is enabled, make sure that non-admin users are mapped to the appropriate permissions so they can perform replication actions. For index and cluster-level permissions requirements, see [Cross-cluster replication permissions]({{site.url}}{{site.baseurl}}/replication-plugin/permissions/).
 
 ## Get started with auto-follow
 
@@ -29,7 +29,7 @@ Replication rules are a collection of patterns that you create against a single 
 Create a replication rule on the follower cluster:
 
 ```bash
-curl -XPOST -k -H 'Content-Type: application/json' -u 'admin:<custom-admin-password>' 'https://localhost:9200/_plugins/_replication/_autofollow?pretty' -d '
+curl -XPOST -k -H 'Content-Type: application/json' -u 'admin:admin' 'https://localhost:9200/_plugins/_replication/_autofollow?pretty' -d '
 {
    "leader_alias" : "my-connection-alias",
    "name": "my-replication-rule",
@@ -41,19 +41,19 @@ curl -XPOST -k -H 'Content-Type: application/json' -u 'admin:<custom-admin-passw
 }'
 ```
 
-If the Security plugin is disabled, you can leave out the `use_roles` parameter. If it's enabled, however, you need to specify the leader and follower cluster roles that OpenSearch uses to authenticate requests. This example uses `all_access` for simplicity, but we recommend creating a replication user on each cluster and [mapping it accordingly]({{site.url}}{{site.baseurl}}/replication-plugin/permissions/#map-the-leader-and-follower-cluster-roles).
+If the security plugin is disabled, you can leave out the `use_roles` parameter. If it's enabled, however, you need to specify the leader and follower cluster roles that OpenSearch uses to authenticate requests. This example uses `all_access` for simplicity, but we recommend creating a replication user on each cluster and [mapping it accordingly]({{site.url}}{{site.baseurl}}/replication-plugin/permissions/#map-the-leader-and-follower-cluster-roles).
 {: .tip }
 
 To test the rule, create a matching index on the leader cluster:
 
 ```bash
-curl -XPUT -k -H 'Content-Type: application/json' -u 'admin:<custom-admin-password>' 'https://localhost:9201/movies-0001?pretty'
+curl -XPUT -k -H 'Content-Type: application/json' -u 'admin:admin' 'https://localhost:9201/movies-0001?pretty'
 ```
 
 And confirm its replica shows up on the follower cluster:
 
 ```bash
-curl -XGET -u 'admin:<custom-admin-password>' -k 'https://localhost:9200/_cat/indices?v'
+curl -XGET -u 'admin:admin' -k 'https://localhost:9200/_cat/indices?v'
 ```
 
 It might take several seconds for the index to appear.
@@ -68,7 +68,7 @@ yellow open   movies-0001  kHOxYYHxRMeszLjTD9rvSQ     1   1          0          
 To retrieve a list of existing replication rules that are configured on a cluster, send the following request:
 
 ```bash
-curl -XGET -u 'admin:<custom-admin-password>' -k 'https://localhost:9200/_plugins/_replication/autofollow_stats'
+curl -XGET -u 'admin:admin' -k 'https://localhost:9200/_plugins/_replication/autofollow_stats'
 
 {
    "num_success_start_replication": 1,
@@ -97,7 +97,7 @@ curl -XGET -u 'admin:<custom-admin-password>' -k 'https://localhost:9200/_plugin
 To delete a replication rule, send the following request to the follower cluster:
 
 ```bash
-curl -XDELETE -k -H 'Content-Type: application/json' -u 'admin:<custom-admin-password>' 'https://localhost:9200/_plugins/_replication/_autofollow?pretty' -d '
+curl -XDELETE -k -H 'Content-Type: application/json' -u 'admin:admin' 'https://localhost:9200/_plugins/_replication/_autofollow?pretty' -d '
 {
    "leader_alias" : "my-conection-alias",
    "name": "my-replication-rule"

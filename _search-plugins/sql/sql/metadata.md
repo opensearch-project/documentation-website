@@ -4,15 +4,12 @@ title: Metadata Queries
 parent: SQL
 grand_parent: SQL and PPL
 nav_order: 9
-redirect_from:
-  - /search-plugins/sql/metadata/
-  - /sql-and-ppl/sql/metadata/
 canonical_url: https://docs.opensearch.org/latest/search-plugins/sql/sql/metadata/
 ---
 
 # Metadata queries
 
-To see basic metadata about your indexes, use the `SHOW` and `DESCRIBE` commands.
+To see basic metadata about your indices, use the `SHOW` and `DESCRIBE` commands.
 
 ### Syntax
 
@@ -24,10 +21,10 @@ Rule `showFilter`:
 
 ![showFilter]({{site.url}}{{site.baseurl}}/images/showFilter.png)
 
-### Example 1: See metadata for indexes
+### Example 1: See metadata for indices
 
-To see metadata for indexes that match a specific pattern, use the `SHOW` command.
-Use the wildcard `%` to match all indexes:
+To see metadata for indices that match a specific pattern, use the `SHOW` command.
+Use the wildcard `%` to match all indices:
 
 ```sql
 SHOW TABLES LIKE %

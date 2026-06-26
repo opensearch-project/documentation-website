@@ -51,7 +51,7 @@ Broadly, you can classify queries into two categories---*leaf queries* and *comp
 
     - [Specialized queries]({{site.url}}{{site.baseurl}}/query-dsl/specialized/index/): Specialized queries include all other query types (`distance_feature`, `more_like_this`, `percolate`, `rank_feature`, `script`, `script_score`, and `wrapper`).
 
-- **Compound queries**: Compound queries serve as wrappers for multiple leaf or compound clauses, either to combine their results or to modify their behavior. They include the Boolean, disjunction max, constant score, function score, and boosting query types. To learn more, see [Compound queries]({{site.url}}{{site.baseurl}}/query-dsl/compound/index/).
+- **Compound queries**: Compound queries serve as wrappers for multiple leaf or compound clauses, either to combine their results or to modify their behavior. They include the Boolean, disjunction max, constant score, function score, and boosting query types. To learn more, see [Compound queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/compound/index/).
 
 ## A note on Unicode special characters in text fields
 
@@ -110,5 +110,5 @@ PUT _cluster/settings
 ```
 {% include copy-curl.html %}
 
-To track expensive queries, enable [shard slow logs]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/logs/#shard-slow-logs).
+To track expensive queries, enable [slow logs]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/logs/#slow-logs).
 {: .tip}

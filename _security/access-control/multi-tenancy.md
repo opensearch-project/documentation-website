@@ -4,10 +4,6 @@ title: OpenSearch Dashboards multi-tenancy
 parent: Access control
 nav_order: 30
 canonical_url: https://docs.opensearch.org/latest/security/multi-tenancy/tenant-index/
-redirect_from:
-  - /security-plugin/access-control/multi-tenancy/
-  - /security/multi-tenancy/
-  - /security/multi-tenancy/tenant-index/
 ---
 
 # OpenSearch Dashboards multi-tenancy

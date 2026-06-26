@@ -2,16 +2,12 @@
 layout: default
 title: Create or update mappings
 parent: Index APIs
-nav_order: 27
-redirect_from:
-  - /opensearch/rest-api/index-apis/update-mapping/
-  - /opensearch/rest-api/update-mapping/
-  - /opensearch/rest-api/index-apis/put-mapping/
+nav_order: 220
 canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/put-mapping/
 ---
 
 # Create or update mappings
-**Introduced 1.0**
+Introduced 1.0
 {: .label .label-purple }
 
 If you want to create or add mappings and fields to an index, you can use the put mapping API operation. For an existing mapping, this operation updates the mapping.
@@ -45,23 +41,6 @@ The request body must contain `properties`, which has all of the mappings that y
 }
 ```
 
-## Optional request body fields
-
-### dynamic
-
-You can make the document structure match the structure of the index mapping by setting the `dynamic` request body field to `strict`, as seen in the following example:
-
-```json
-{
-  "dynamic": "strict",
-  "properties":{
-    "color":{
-      "type": "text"
-    }
-  }
-}
-```
-
 ## Optional query parameters
 
 Optionally, you can add query parameters to make a more specific request. For example, to skip any missing or closed indexes in the response, you can add the `ignore_unavailable` query parameter to your request as follows:
@@ -77,7 +56,6 @@ Parameter | Data type | Description
 allow_no_indices | Boolean | Whether to ignore wildcards that don’t match any indexes. Default is `true`.
 expand_wildcards | String | Expands wildcard expressions to different indexes. Combine multiple values with commas. Available values are `all` (match all indexes), `open` (match open indexes), `closed` (match closed indexes), `hidden` (match hidden indexes), and `none` (do not accept wildcard expressions), which must be used with `open`, `closed`, or both. Default is `open`.
 ignore_unavailable | Boolean | If true, OpenSearch does not include missing or closed indexes in the response.
-ignore_malformed | Boolean | Use this parameter with the `ip_range` data type to specify that OpenSearch should ignore malformed fields. If `true`, OpenSearch does not include entries that do not match the IP range specified in the index in the response. The default is `false`.
 cluster_manager_timeout | Time | How long to wait for a connection to the cluster manager node. Default is `30s`.
 timeout | Time | How long to wait for the response to return. Default is `30s`.
 write_index_only | Boolean | Whether OpenSearch should apply mapping updates only to the write index.

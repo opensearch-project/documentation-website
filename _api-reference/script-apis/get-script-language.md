@@ -6,9 +6,7 @@ nav_order: 6
 canonical_url: https://docs.opensearch.org/latest/api-reference/script-apis/get-script-language/
 ---
 
-# Get script language
-**Introduced 1.0**
-{: .label .label-purple }
+## Get script language
 
 The get script language API operation retrieves all supported script languages and their contexts.
 
@@ -90,7 +88,7 @@ The `GET _script_language` request returns the available contexts for each langu
 }
 ```
 
-## Response fields
+### Response fields
 
 The request contains the following response fields.
 

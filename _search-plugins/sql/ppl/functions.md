@@ -1,15 +1,9 @@
 ---
 layout: default
 title: Commands
-parent: PPL
+parent: PPL &ndash; Piped Processing Language
 grand_parent: SQL and PPL
 nav_order: 2
-redirect_from:
- - /search-plugins/ppl/commands/
-  - /observability-plugin/ppl/commands/
-  - /search-plugins/ppl/functions/
-  - /sql-and-ppl/ppl/commands/index/
-  - /sql-and-ppl/ppl/functions/
 canonical_url: https://docs.opensearch.org/latest/search-plugins/sql/ppl/functions/
 ---
 
@@ -767,7 +761,7 @@ The example shows how to classify three Iris species (Iris setosa, Iris virginic
 PPL query:
 
 ```sql
-os> source=iris_data | fields sepal_length_in_cm, sepal_width_in_cm, petal_length_in_cm, petal_width_in_cm | kmeans centroids=3
+os> source=iris_data | fields sepal_length_in_cm, sepal_width_in_cm, petal_length_in_cm, petal_width_in_cm | kmeans 3
 ```
 
 sepal_length_in_cm | sepal_width_in_cm | petal_length_in_cm | petal_width_in_cm | ClusterID

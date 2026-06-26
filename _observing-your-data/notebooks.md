@@ -3,7 +3,7 @@ layout: default
 title: Notebooks
 nav_order: 50
 redirect_from: 
-  - /dashboards/notebooks/
+  - /notebooks/
   - /observability-plugin/notebooks/
 has_children: false
 canonical_url: https://docs.opensearch.org/latest/observing-your-data/notebooks/
@@ -21,7 +21,7 @@ You can also generate [reports]({{site.url}}{{site.baseurl}}/dashboards/reportin
 
 Common use cases include creating postmortem reports, designing runbooks, building live infrastructure reports, and writing documentation.
 
-Tenants in OpenSearch Dashboards are spaces for saving notebooks and other OpenSearch Dashboards objects. For more information, see [OpenSearch Dashboards multi-tenancy]({{site.url}}{{site.baseurl}}/security/multi-tenancy/tenant-index/).
+Tenants in OpenSearch Dashboards are spaces for saving notebooks and other OpenSearch Dashboards objects. For more information, see [OpenSearch Dashboards multi-tenancy]({{site.url}}{{site.baseurl}}/security/access-control/multi-tenancy/).
 {: .note }
 
 

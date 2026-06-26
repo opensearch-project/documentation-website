@@ -3,11 +3,6 @@ layout: default
 title: Browser compatibility
 nav_order: 3
 canonical_url: https://docs.opensearch.org/latest/install-and-configure/install-dashboards/index/
-redirect_from:
-  - /dashboards/get-started/quickstart-dashboards/
-  - /dashboards/getting-started/
-  - /dashboards/getting-started/index/
-  - /dashboards/quickstart/
 ---
 
 # Browser compatibility

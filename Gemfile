@@ -1,4 +1,4 @@
-source "http://rubygems.org"
+source "https://rubygems.org"
 
 # Hello! This is where you manage which Jekyll version is used to run.
 # When you want to use a different version, change it below, save the
@@ -22,7 +22,6 @@ gem "jekyll-redirect-from", "~> 0.16"
 
 # If you have any plugins, put them here!
 group :jekyll_plugins do
-  gem "jekyll-last-modified-at"
   gem "jekyll-sitemap"
 end
 
@@ -35,8 +34,6 @@ gem "wdm", "~> 0.1.0" if Gem.win_platform?
 # Installs webrick dependency for building locally
 gem "webrick", "~> 1.7"
 
-
 # Link checker
 gem "typhoeus"
 gem "ruby-link-checker"
-gem "ruby-enum"

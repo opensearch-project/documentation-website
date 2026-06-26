@@ -6,13 +6,11 @@ nav_order: 4
 canonical_url: https://docs.opensearch.org/latest/api-reference/script-apis/delete-script/
 ---
 
-# Delete script
-**Introduced 1.0**
-{: .label .label-purple }
+## Delete script
 
 Deletes a stored script
 
-## Path parameters
+### Path parameters
 
 Path parameters are optional. 
 
@@ -20,7 +18,7 @@ Path parameters are optional.
 :--- | :--- | :---
 | script-id | String | ID of script to delete. |
 
-## Query parameters
+### Query parameters
 
 | Parameter | Data type | Description | 
 :--- | :--- | :---
@@ -48,7 +46,7 @@ The `DELETE _scripts/my-first-script` request returns the following field:
 
 To determine whether the stored script was successfully deleted, use the [Get stored script]({{site.url}}{{site.baseurl}}/api-reference/script-apis/get-stored-script/) API, passing the script name as the `script` path parameter.
 
-## Response fields
+### Response fields
 
 The <HTTP METHOD> <endpoint> request returns the following response fields:
 

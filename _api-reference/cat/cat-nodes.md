@@ -1,16 +1,15 @@
 ---
 layout: default
-title: CAT nodes
+title: CAT nodes operation
 parent: CAT API
+
 nav_order: 40
 has_children: false
-redirect_from:
-- /opensearch/rest-api/cat/cat-nodes/
 canonical_url: https://docs.opensearch.org/latest/api-reference/cat/cat-nodes/
 ---
 
 # CAT nodes
-**Introduced 1.0**
+Introduced 1.0
 {: .label .label-purple }
 
 The CAT nodes operation lists node-level information, including node roles and load metrics.

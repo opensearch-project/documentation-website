@@ -31,7 +31,7 @@ If you run legacy Kibana OSS scripts against OpenSearch Dashboards---for example
 In this case, your scripts likely include the `"kbn-xsrf: true"` header. Switch it to the `osd-xsrf: true` header:
 
 ```
-curl -XPOST -u 'admin:<custom-admin-password>' 'https://DASHBOARDS_ENDPOINT/api/saved_objects/_import' -H 'osd-xsrf:true' --form file=@export.ndjson
+curl -XPOST -u 'admin:admin' 'https://DASHBOARDS_ENDPOINT/api/saved_objects/_import' -H 'osd-xsrf:true' --form file=@export.ndjson
 ```
 
 
@@ -71,7 +71,7 @@ For full documentation about the command, see [cryptsetup(8) — Linux manual pa
 
 If you encounter compatibility issues when attempting to connect Beats to OpenSearch, make sure you're using the Apache 2.0 distribution of Beats, not the default distribution, which uses a proprietary license.
 
-Try this minimal output configuration for using Beats with the Security plugin:
+Try this minimal output configuration for using Beats with the security plugin:
 
 ```yml
 output.elasticsearch:
@@ -95,7 +95,7 @@ setup.ilm.check_exists: false
 
 ## Logstash
 
-If you have trouble connecting Logstash to OpenSearch, try this minimal output configuration, which works with the Security plugin:
+If you have trouble connecting Logstash to OpenSearch, try this minimal output configuration, which works with the security plugin:
 
 ```conf
 output {
@@ -114,7 +114,7 @@ output {
 
 ## Can't update by script when FLS, DLS, or field masking is active
 
-The Security plugin blocks the update by script operation (`POST <index>/_update/<id>`) when field-level security, document-level security, or field masking are active. You can still update documents using the standard index operation (`PUT <index>/_doc/<id>`).
+The security plugin blocks the update by script operation (`POST <index>/_update/<id>`) when field-level security, document-level security, or field masking are active. You can still update documents using the standard index operation (`PUT <index>/_doc/<id>`).
 
 
 ## Illegal reflective access operation in logs

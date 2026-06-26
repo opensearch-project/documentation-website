@@ -6,14 +6,10 @@ nav_order: 7
 redirect_from:
   - /opensearch/rest-api/analyze-apis/
   - /api-reference/analyze-apis/
-  - /api-reference/analyze-apis/index/
-  - /api-reference/analyze-apis/perform-text-analysis/
 canonical_url: https://docs.opensearch.org/latest/api-reference/analyze-apis/
 ---
 
 # Analyze API
-**Introduced 1.0**
-{: .label .label-purple }
 
 The Analyze API allows you to perform [text analysis]({{site.url}}{{site.baseurl}}/api-reference/analyze-apis/), which is the process of converting unstructured text into individual tokens (usually words) that are optimized for search.
 
@@ -658,7 +654,7 @@ PUT /books2
 ````
 {% include copy-curl.html %}
 
-The preceding request is an index API rather than an analyze API. See [Dynamic index-level index settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/#dynamic-index-level-index-settings) for additional details.
+The preceding request is an index API rather than an analyze API. See [DYNAMIC INDEX SETTINGS]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/#dynamic-index-settings) for additional details.
 {: .note}
 
 ### Response fields

@@ -6,9 +6,7 @@ nav_order: 2
 canonical_url: https://docs.opensearch.org/latest/api-reference/snapshots/get-snapshot-repository/
 ---
 
-# Get snapshot repository.
-**Introduced 1.0**
-{: .label .label-purple }
+## Get snapshot repository.
 
 Retrieves information about a snapshot repository.
 
@@ -17,13 +15,13 @@ To learn more about repositories, see [Register repository]({{site.url}}{{site.b
 You can also get details about a snapshot during and after snapshot creation. See [Get snapshot status]({{site.url}}{{site.baseurl}}/api-reference/snapshots/get-snapshot-status/).
 {: .note}
 
-## Path parameters
+### Path parameters
 
 | Parameter | Data type | Description |
 | :--- | :--- | :--- |
 | repository | String | A comma-separated list of snapshot repository names to retrieve. Wildcard (`*`) expressions are supported including combining wildcards with exclude patterns starting with `-`. |
 
-## Query parameters
+### Query parameters
 
 | Parameter | Data type | Description | 
 :--- | :--- | :---
@@ -55,7 +53,7 @@ Upon success, the response returns repositry information. This sample is for an 
 }
 ````
 
-## Response fields
+### Response fields
 
 | Field | Data type | Description |
 | :--- | :--- | :--- | 

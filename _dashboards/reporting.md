@@ -3,8 +3,6 @@ layout: default
 title: Creating reports with the Dashboards interface
 nav_order: 70
 canonical_url: https://docs.opensearch.org/latest/reporting/report-dashboard-index/
-redirect_from:
-  - /reporting/report-dashboard-index/
 ---
 
 

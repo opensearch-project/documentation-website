@@ -3,9 +3,6 @@ layout: default
 title: User impersonation
 parent: Access control
 nav_order: 100
-redirect_from:
- - /security/access-control/impersonation/
- - /security-plugin/access-control/impersonation/
 canonical_url: https://docs.opensearch.org/latest/security/access-control/impersonation/
 ---
 
@@ -43,10 +40,10 @@ plugins.security.authcz.impersonation_dn:
 ```
 
 
-## Impersonating users
+## Impersonating Users
 
 To impersonate another user, submit a request to the system with the HTTP header `opendistro_security_impersonate_as` set to the name of the user to be impersonated. A good test is to make a GET request to the `_plugins/_security/authinfo` URI:
 
 ```bash
-curl -XGET -u 'admin:<custom-admin-password>' -k -H "opendistro_security_impersonate_as: user_1" https://localhost:9200/_plugins/_security/authinfo?pretty
+curl -XGET -u 'admin:admin' -k -H "opendistro_security_impersonate_as: user_1" https://localhost:9200/_plugins/_security/authinfo?pretty
 ```

@@ -1,7 +1,0 @@
-extends: sequence
-message: "Use 'rollover' as an adjective or noun instead of '%s'."
-level: error
-ignorecase: true
-tokens:
-  - tag: NN|JJ
-    pattern: '(?:roll over|roll-over)'

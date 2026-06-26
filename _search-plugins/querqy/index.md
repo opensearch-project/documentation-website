@@ -1,7 +1,6 @@
 ---
 layout: default
 title: Querqy
-parent: Search relevance
 has_children: false
 redirect_from:
   - /search-plugins/querqy/
@@ -12,9 +11,6 @@ canonical_url: https://docs.opensearch.org/latest/search-plugins/querqy/index/
 # Querqy
 
 Querqy is a community plugin for query rewriting that helps to solve relevance issues, making search engines more precise regarding matching and scoring.
-
-Querqy is currently only supported in OpenSearch 2.3.
-{: .warning }
 
 ## Querqy plugin installation
 

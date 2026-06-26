@@ -4,9 +4,6 @@ title: Search templates
 nav_order: 50
 redirect_from:
   - /opensearch/search-template/
-  - /api-reference/search-apis/search-template/
-  - /api-reference/search-apis/search-template/index/
-  - /api-reference/search-template/
 canonical_url: https://docs.opensearch.org/latest/api-reference/search-template/
 ---
 
@@ -268,7 +265,7 @@ GET _search/template
 
 ### Loops
 
-You can also use the section tag to implement a for each loop:
+You can also use the section tag to implement a foreach loop:
 
 ```
 {% raw %}{{#var}}{{.}}}{{/var}}{% endraw %}

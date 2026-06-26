@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Boolean
+title: Boolean queries
 parent: Compound queries
 grand_parent: Query DSL
 nav_order: 10
@@ -11,7 +11,7 @@ redirect_from:
 canonical_url: https://docs.opensearch.org/latest/query-dsl/compound/bool/
 ---
 
-# Boolean query
+# Boolean queries
 
 A Boolean (`bool`) query can combine several query clauses into one advanced query. The clauses are combined with Boolean logic to find matching documents returned in the results.
 

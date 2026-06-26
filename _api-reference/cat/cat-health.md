@@ -5,13 +5,11 @@ parent: CAT API
 
 nav_order: 20
 has_children: false
-redirect_from:
-- /opensearch/rest-api/cat/cat-health/
 canonical_url: https://docs.opensearch.org/latest/api-reference/cat/cat-health/
 ---
 
 # CAT health
-**Introduced 1.0**
+Introduced 1.0
 {: .label .label-purple }
 
 The CAT health operation lists the status of the cluster, how long the cluster has been up, the number of nodes, and other useful information that helps you analyze the health of your cluster.

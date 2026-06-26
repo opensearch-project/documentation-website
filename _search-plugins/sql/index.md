@@ -1,24 +1,18 @@
 ---
 layout: default
 title: SQL and PPL
-nav_order: 230
+nav_order: 38
 has_children: true
 has_toc: false
 redirect_from:
-  - /search-plugins/sql/index/
   - /search-plugins/sql/
-  - /sql-and-ppl/
 canonical_url: https://docs.opensearch.org/latest/search-plugins/sql/index/
 ---
 
 # SQL and PPL
 
-OpenSearch SQL lets you write queries in SQL rather than the [OpenSearch query domain-specific language (DSL)]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/).
+OpenSearch SQL lets you write queries in SQL rather than the [OpenSearch query domain-specific language (DSL)]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text). If you're already familiar with SQL and don't want to learn the query DSL, this feature is a great option.
 
-## Next steps
+## Contributing
 
-- Learn about the [SQL and PPL API]({{site.url}}{{site.baseurl}}/search-plugins/sql/sql-ppl-api/).
-- Learn about [using SQL within OpenSearch]({{site.url}}{{site.baseurl}}/search-plugins/sql/sql/index/).
-- Learn about [using PPL within OpenSearch]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index/).
-- Learn about [using Query Workbench for SQL and PPL queries within OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/query-workbench/). 
-- Learn more about OpenSearch SQL in the [Developer Guide](https://github.com/opensearch-project/sql/blob/main/DEVELOPER_GUIDE.rst).
+To get involved and help us improve the SQL plugin, see the [development guide](https://github.com/opensearch-project/sql/blob/main/DEVELOPER_GUIDE.rst) for instructions on setting up your development environment and building the project.

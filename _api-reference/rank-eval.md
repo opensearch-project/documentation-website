@@ -3,13 +3,9 @@ layout: default
 title: Ranking evaluation
 nav_order: 60
 canonical_url: https://docs.opensearch.org/latest/api-reference/rank-eval/
-redirect_from:
-  - /api-reference/search-apis/rank-eval/
 ---
 
 # Ranking evaluation
-**Introduced 1.0**
-{: .label .label-purple }
 
 The [rank]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/rank/) eval endpoint allows you to evaluate the quality of ranked search results.
 

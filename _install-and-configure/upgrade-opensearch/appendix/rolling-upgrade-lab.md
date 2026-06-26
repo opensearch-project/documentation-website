@@ -126,7 +126,7 @@ After selecting a host, you can begin the lab:
    1. Press `Ctrl+C` to stop following container logs and return to the command prompt.
 1. Use cURL to query the OpenSearch REST API. In the following command, `os-node-01` is queried by sending the request to host port `9201`, which is mapped to port `9200` on the container:
    ```bash
-   curl -s "https://localhost:9201" -ku admin:<custom-admin-password>
+   curl -s "https://localhost:9201" -ku admin:admin
    ```
    {% include copy.html %}
    <p class="codeblock-label">Example response</p>
@@ -178,7 +178,7 @@ This section can be broken down into two parts:
    curl -H "Content-Type: application/x-ndjson" \
       -X PUT "https://localhost:9201/ecommerce?pretty" \
       --data-binary "@ecommerce-field_mappings.json" \
-      -ku admin:<custom-admin-password>
+      -ku admin:admin
    ```
    {% include copy.html %}
    <p class="codeblock-label">Example response</p>
@@ -194,7 +194,7 @@ This section can be broken down into two parts:
    curl -H "Content-Type: application/x-ndjson" \
       -X PUT "https://localhost:9201/ecommerce/_bulk?pretty" \
       --data-binary "@ecommerce.json" \
-      -ku admin:<custom-admin-password>
+      -ku admin:admin
    ```
    {% include copy.html %}
    <p class="codeblock-label">Example response (truncated)</p>
@@ -227,7 +227,7 @@ This section can be broken down into two parts:
    curl -H 'Content-Type: application/json' \
       -X GET "https://localhost:9201/ecommerce/_search?pretty=true&filter_path=hits.total" \
       -d'{"query":{"match":{"customer_first_name":"Sonya"}}}' \
-      -ku admin:<custom-admin-password>
+      -ku admin:admin
    ```
    {% include copy.html %}
    <p class="codeblock-label" id="query-validation">Example response</p>
@@ -272,7 +272,7 @@ In this section you will be:
    curl -H 'Content-Type: application/json' \
       -X PUT "https://localhost:9201/_snapshot/snapshot-repo?pretty" \
       -d '{"type":"fs","settings":{"location":"/usr/share/opensearch/snapshots"}}' \
-      -ku admin:<custom-admin-password>
+      -ku admin:admin
    ```
    {% include copy.html %}
    <p class="codeblock-label">Example response</p>
@@ -285,7 +285,7 @@ In this section you will be:
    ```bash
    curl -H 'Content-Type: application/json' \
       -X POST "https://localhost:9201/_snapshot/snapshot-repo/_verify?timeout=0s&master_timeout=50s&pretty" \
-      -ku admin:<custom-admin-password>
+      -ku admin:admin
    ```
    {% include copy.html %}
    <p class="codeblock-label">Example response</p>
@@ -316,7 +316,7 @@ Snapshots are backups of a cluster’s indexes and state. See [Snapshots]({{site
    ```bash
    curl -H 'Content-Type: application/json' \
       -X PUT "https://localhost:9201/_snapshot/snapshot-repo/cluster-snapshot-v137?wait_for_completion=true&pretty" \
-      -ku admin:<custom-admin-password>
+      -ku admin:admin
    ```
    {% include copy.html %}
    <p class="codeblock-label">Example response</p>
@@ -364,7 +364,7 @@ Cluster administrators can modify OpenSearch Security settings by using any of t
 - Making REST API requests using the admin certificate
 - Making changes with OpenSearch Dashboards
 
-Regardless of the method you choose, OpenSearch Security writes your configuration to a special system index called `.opendistro_security`. This system index is preserved through the upgrade process, and it is also saved in the snapshot you created. However, restoring system indexes requires elevated access granted by the `admin` certificate. To learn more, see [System indexes]({{site.url}}{{site.baseurl}}/security/configuration/system-indices/) and [Configuring TLS certificates]({{site.url}}{{site.baseurl}}/security/configuration/tls/).
+Regardless of the method you choose, OpenSearch Security writes your configuration to a special system index called `.opendistro_security`. This system index is preserved through the upgrade process, and it is also saved in the snapshot you created. However, restoring system indexes requires elevated access granted by the `admin` certificate. To learn more, see [System indexes]({{site.url}}{{site.baseurl}}/security/configuration/system-indexes/) and [Configuring TLS certificates]({{site.url}}{{site.baseurl}}/security/configuration/tls/).
 
 You can also export your OpenSearch Security settings as YAML files by running `securityadmin.sh` with the `-backup` option on any of your OpenSearch nodes. These YAML files can be used to reinitialize the `.opendistro_security` index with your existing configuration. The following steps will guide you through generating these backup files and copying them to your host for storage:
 
@@ -449,7 +449,7 @@ Some steps included in this section, like disabling shard replication and flushi
    curl -H 'Content-type: application/json' \
       -X PUT "https://localhost:9201/_cluster/settings?pretty" \
       -d'{"persistent":{"cluster.routing.allocation.enable":"primaries"}}' \
-      -ku admin:<custom-admin-password>
+      -ku admin:admin
    ```
    {% include copy.html %}
    <p class="codeblock-label">Example response</p>
@@ -470,7 +470,7 @@ Some steps included in this section, like disabling shard replication and flushi
    ```
 1. Perform a flush operation on the cluster to commit transaction log entries to the Lucene index:
    ```bash
-   curl -X POST "https://localhost:9201/_flush?pretty" -ku admin:<custom-admin-password>
+   curl -X POST "https://localhost:9201/_flush?pretty" -ku admin:admin
    ```
    {% include copy.html %}
    <p class="codeblock-label">Example response</p>
@@ -515,7 +515,7 @@ Some steps included in this section, like disabling shard replication and flushi
 1. **Optional**: Query the cluster to determine which node is acting as the cluster manager. You can run this command at any time during the process to see when a new cluster manager is elected:
    ```bash
    curl -s "https://localhost:9201/_cat/nodes?v&h=name,version,node.role,master" \
-      -ku admin:<custom-admin-password> | column -t
+      -ku admin:admin | column -t
    ```
    {% include copy.html %}
    <p class="codeblock-label">Example response</p>
@@ -529,7 +529,7 @@ Some steps included in this section, like disabling shard replication and flushi
 1. **Optional**: Query the cluster to see how shard allocation changes as nodes are removed and replaced. You can run this command at any time during the process to see how shard statuses change:
    ```bash
    curl -s "https://localhost:9201/_cat/shards" \
-      -ku admin:<custom-admin-password>
+      -ku admin:admin
    ```
    {% include copy.html %}
    <p class="codeblock-label">Example response</p>
@@ -645,7 +645,7 @@ Some steps included in this section, like disabling shard replication and flushi
 1. Confirm that your cluster is running the new version:
    ```bash
    curl -s "https://localhost:9201/_cat/nodes?v&h=name,version,node.role,master" \
-      -ku admin:<custom-admin-password> | column -t
+      -ku admin:admin | column -t
    ```
    {% include copy.html %}
    <p class="codeblock-label">Example response</p>
@@ -701,7 +701,7 @@ Some steps included in this section, like disabling shard replication and flushi
    curl -H 'Content-type: application/json' \
       -X PUT "https://localhost:9201/_cluster/settings?pretty" \
       -d'{"persistent":{"cluster.routing.allocation.enable":"all"}}' \
-      -ku admin:<custom-admin-password>
+      -ku admin:admin
    ```
    {% include copy.html %}
    <p class="codeblock-label">Example response</p>
@@ -736,7 +736,7 @@ For this cluster, post-upgrade validation steps can include verifying the follow
 1. Verify the current running version of your OpenSearch nodes:
    ```bash
    curl -s "https://localhost:9201/_cat/nodes?v&h=name,version,node.role,master" \
-      -ku admin:<custom-admin-password> | column -t
+      -ku admin:admin | column -t
    ```
    {% include copy.html %}
    <p class="codeblock-label">Example response</p>
@@ -782,7 +782,7 @@ For this cluster, post-upgrade validation steps can include verifying the follow
 
 1. Query the [Cluster health]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-health/) API endpoint to see information about the health of your cluster. You should see a status of `green`, which indicates that all primary and replica shards are allocated:
    ```bash
-   curl -s "https://localhost:9201/_cluster/health?pretty" -ku admin:<custom-admin-password>
+   curl -s "https://localhost:9201/_cluster/health?pretty" -ku admin:admin
    ```
    {% include copy.html %}
    <p class="codeblock-label">Example response</p>
@@ -809,7 +809,7 @@ For this cluster, post-upgrade validation steps can include verifying the follow
    ```
 1. Query the [CAT shards]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-shards/) API endpoint to see how shards are allocated after the cluster is upgrade:
    ```bash
-   curl -s "https://localhost:9201/_cat/shards" -ku admin:<custom-admin-password>
+   curl -s "https://localhost:9201/_cat/shards" -ku admin:admin
    ```
    {% include copy.html %}
    <p class="codeblock-label">Example response</p>
@@ -861,7 +861,7 @@ You need to query the ecommerce index again in order to confirm that the sample 
    curl -H 'Content-Type: application/json' \
       -X GET "https://localhost:9201/ecommerce/_search?pretty=true&filter_path=hits.total" \
       -d'{"query":{"match":{"customer_first_name":"Sonya"}}}' \
-      -ku admin:<custom-admin-password>
+      -ku admin:admin
    ```
    {% include copy.html %}
    <p class="codeblock-label">Example response</p>

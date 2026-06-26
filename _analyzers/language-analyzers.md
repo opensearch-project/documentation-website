@@ -4,7 +4,6 @@ title: Language analyzers
 nav_order: 10
 redirect_from:
   - /query-dsl/analyzers/language-analyzers/
-  - /analyzers/language-analyzers/index/
 canonical_url: https://docs.opensearch.org/latest/analyzers/language-analyzers/
 ---
 
@@ -19,7 +18,7 @@ To use the analyzer when you map an index, specify the value within your query. 
  "analyzer": "french"
 ```
 
-#### Example request
+#### Sample Request
 
 The following query specifies the `french` language analyzer for the index `my-index`:
 
