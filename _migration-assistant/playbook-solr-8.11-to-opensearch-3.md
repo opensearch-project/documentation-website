@@ -146,7 +146,7 @@ The following example shows a workflow configuration for migrating a Solr source
 ```
 {% include copy.html %}
 
-Always verify field names against `workflow configure sample` for your installed version, or browse the [Migration Assistant Schema Viewer](https://opensearch-project.github.io/opensearch-migrations/) for a complete interactive field reference.
+Always verify field names against `workflow configure sample` for your installed version, or browse the [Migration Assistant Schema Viewer](https://opensearch-project.github.io/opensearch-migrations/) for an interactive field reference.
 {: .note }
 
 ## Step 3: Submit and monitor the workflow

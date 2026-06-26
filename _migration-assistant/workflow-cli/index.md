@@ -159,7 +159,7 @@ On the Migration Console, the schema is available at:
 
 The CLI uses this schema automatically when editing and validating configurations, so no separate download is required.
 
-To browse all available fields, their types, defaults, and descriptions interactively, use the [Migration Assistant Schema Viewer](https://opensearch-project.github.io/opensearch-migrations/).
+For an interactive reference of all available fields, their types, defaults, and descriptions, see the [Migration Assistant Schema Viewer](https://opensearch-project.github.io/opensearch-migrations/).
 
 ## Related documentation
 
