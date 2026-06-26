@@ -603,6 +603,8 @@ workflow configure edit
 ```
 {% include copy.html %}
 
+For an interactive reference of all available fields, their types, defaults, and descriptions, see the [Migration Assistant Schema Viewer](https://opensearch-project.github.io/opensearch-migrations/).
+
 Replace the workflow configuration file contents with the following configuration. Replace `<PILOT_INDEX_NAME>` with the name of one small, noncritical index (for example, `test-index`):
 
 ```json
@@ -1266,3 +1268,4 @@ For more information, see the following resources:
 - [Backfill]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/backfill/)
 - [Removing Migration Assistant]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/remove-migration-infrastructure/)
 - [Elasticsearch 6.8 → OpenSearch 3.5 playbook]({{site.url}}{{site.baseurl}}/migration-assistant/playbook-elasticsearch-6-8-to-opensearch-3/)
+- [Migration Assistant Schema Viewer](https://opensearch-project.github.io/opensearch-migrations/)
