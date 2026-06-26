@@ -6,6 +6,7 @@ parent: Performance Analyzer
 has_children: true
 redirect_from:
   - /monitoring-plugins/pa/rca/index/
+  - /monitoring-your-cluster/pa/rca/
 canonical_url: https://docs.opensearch.org/latest/monitoring-your-cluster/pa/rca/index/
 ---
 

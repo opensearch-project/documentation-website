@@ -5,6 +5,7 @@ nav_order: 1
 has_children: false
 nav_exclude: true
 redirect_from:
+  - /dashboards/
     -/dashboards/
 canonical_url: https://docs.opensearch.org/latest/dashboards/
 ---

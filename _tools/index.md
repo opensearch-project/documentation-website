@@ -7,6 +7,8 @@ nav_exclude: true
 redirect_from:
   - /clients/agents-and-ingestion-tools/
   - /tools/index/
+  - /clients/agents-and-ingestion-tools/index/
+  - /tools/
 canonical_url: https://docs.opensearch.org/latest/tools/
 ---
 

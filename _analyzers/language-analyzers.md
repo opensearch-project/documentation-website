@@ -4,6 +4,7 @@ title: Language analyzers
 nav_order: 10
 redirect_from:
   - /query-dsl/analyzers/language-analyzers/
+  - /analyzers/language-analyzers/index/
 canonical_url: https://docs.opensearch.org/latest/analyzers/language-analyzers/
 ---
 

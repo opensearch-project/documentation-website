@@ -3,6 +3,9 @@ layout: default
 title: Render Template
 nav_order: 82
 canonical_url: https://docs.opensearch.org/latest/api-reference/render-template/
+redirect_from:
+  - /api-reference/search-apis/render-template/
+  - /api-reference/search-apis/search-template/render-template/
 ---
 
 # Render Template 
@@ -77,8 +80,8 @@ If you don't want to use a saved template, or want to test a template before sav
 ```
 {
   "source": {
-    "from": "{{from}}{{^from}}10{{/from}}",
-    "size": "{{size}}{{^size}}10{{/size}}",
+    "from": "{% raw %}{{from}}{{^from}}10{{/from}}{% endraw %}",
+    "size": "{% raw %}{{size}}{{^size}}10{{/size}}{% endraw %}",
     "query": {
       "match": {
         "play_name": "{{play_name}}"
