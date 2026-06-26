@@ -21,14 +21,15 @@ Boolean
 [Dd]ashboarding
 [Dd]atagram
 [Dd]eallocate
-[Dd]eduplicates?
-[Dd]eduplication
+[Dd]eduplicate[sd]?
+[Dd]eduplicat(ion|ing)
 [Dd]eprovision(s|ed|ing)?
 [Dd]eserialize
 [Dd]eserialization
 Dev
 [Dd]iscoverability
 Distro
+[Dd]onut
 [Dd]ownvote(s|d)?
 [Dd]uplicative
 [Ee]gress
@@ -49,6 +50,7 @@ Gantt
 gibibyte
 gRPC
 [Hh]ashmap
+[Hh]eatmaps?
 [Hh]ostname
 [Hh]yperparameters
 [Ii]mpactful
@@ -132,6 +134,7 @@ pprof
 [Ss]ignificand
 [Ss]napshott(ed|ing)
 stdout
+[Ss]tackable
 [Ss]temmers?
 [Ss]ubaggregation
 [Ss]ubcalculation

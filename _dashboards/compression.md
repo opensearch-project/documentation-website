@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Network compression
-nav_order: 135
+parent: Settings and administration
+nav_order: 50
 ---
 
 # Network compression

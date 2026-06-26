@@ -22,7 +22,7 @@ Agents may be of the following types:
 
 For more information about agents, see [Agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/).
 
-Starting with OpenSearch 3.5, you can use the [unified registration method]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/#unified-registration-method) to register agents with automated connector and model creation. This experimental feature supports Amazon Bedrock Converse, Google Gemini, and OpenAI models and requires the `plugins.ml_commons.unified_agent_api_enabled` cluster setting to be enabled.
+You can use the [unified registration method]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/#unified-registration-method) to register agents with automated connector and model creation. This method supports Amazon Bedrock Converse, Google Gemini, and OpenAI models and requires the `plugins.ml_commons.unified_agent_api_enabled` cluster setting to be enabled.
 {: .note}
 
 ## Endpoints
@@ -61,6 +61,7 @@ Field | Data type | Required/Optional | Agent type | Description
 `model.model_provider` | String | Required (if using `model`) | `conversational`, `plan_execute_and_reflect` | The model provider. Supported values: `bedrock/converse`, `gemini/v1beta/generatecontent`, `openai/v1/chat/completions`.
 `model.credential` | Object | Required (if using `model`) | `conversational`, `plan_execute_and_reflect` | Credentials for accessing the model. Accepts any credential format supported by connectors. For details, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints#configuration-parameters).
 `model.model_parameters` | Object | Optional (if using `model`) | `conversational`, `plan_execute_and_reflect` | Model-specific parameters such as system prompts and other configuration options.
+`provisioned_by` | String | Optional | All | An optional attribution tag identifying the plugin or client that registered the agent (for example, `flow-framework`). Included in ML statistics metrics.
 
 ### Using agentic memory
 
@@ -315,9 +316,6 @@ OpenSearch responds with an agent ID that you can use to refer to the agent:
 **Introduced 3.5**
 {: .label .label-purple }
 
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).    
-{: .warning}
-
 The unified registration method streamlines agent creation by automatically handling connector and model setup in a single API call. This method supports the Amazon Bedrock Converse API with Anthropic Claude models, Google Gemini models, and OpenAI models.
 
 Before using unified agents, see [Prerequisites]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/#prerequisites) for required cluster settings. For more information and supported agent types, see [Unified registration method]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/#unified-registration-method).
@@ -346,8 +344,10 @@ The following table lists the available request fields for unified agent registr
 | `model.model_parameters.max_tokens` | Integer | Optional | The maximum number of tokens in the model response. Default varies by model. |
 | `parameters` | Object | Optional | Additional agent parameters for controlling behavior. |
 | `parameters.max_iteration` | Integer | Optional | The maximum number of reasoning iterations the agent can perform. Default is 10. |
-| `parameters.mcp_connectors` | Array | Optional | Array of Model Context Protocol (MCP) connector configurations that extend agent capabilities. |
+| `parameters.mcp_connectors` | Array | Optional | An array of Model Context Protocol (MCP) connector configurations that extend agent capabilities. See [Connecting to an external MCP server]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/mcp/mcp-connector/#step-3-register-an-agent-for-accessing-mcp-tools). |
 | `parameters.mcp_connectors[].mcp_connector_id` | String | Required | The ID of a registered MCP connector. |
+| `parameters.mcp_connectors[].tool_filters` | Array | Optional | Java regular expressions that specify the MCP tools available to the agent. |
+| `parameters.mcp_connectors[].tool_descriptions` | Array | Optional | Objects that override MCP tool descriptions presented to the LLM. |
 | `tools` | Array | Optional | Array of tools available to the agent. For supported tools, see [Tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/). |
 | `memory` | Object | Optional | Configuration for conversation memory storage. |
 | `memory.type` | String | Optional | The memory storage type. Supported values: `conversation_index`, `agentic_memory`. |

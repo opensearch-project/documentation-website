@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Neural sparse
-parent: Specialized queries
+parent: AI and vector search queries
 has_children: true
 nav_order: 55
 redirect_from:

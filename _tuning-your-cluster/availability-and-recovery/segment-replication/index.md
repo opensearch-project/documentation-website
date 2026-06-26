@@ -129,7 +129,7 @@ When using segment replication, consider the following:
 
 During initial benchmarks, segment replication users reported 40% higher throughput than when using document replication with the same cluster setup.
 
-The following benchmarks were collected with [OpenSearch-benchmark]({{site.url}}{{site.baseurl}}/benchmark/index/) using the [`stackoverflow`](https://www.kaggle.com/datasets/stackoverflow/stackoverflow) and [`nyc_taxi`](https://github.com/topics/nyc-taxi-dataset) datasets.  
+The following benchmarks were collected with [OpenSearch-benchmark]({{site.url}}{{site.baseurl}}/benchmark/index/) using the [`stackoverflow`](https://www.kaggle.com/datasets/stackoverflow/stackoverflow) and [`nyc_taxi`](https://github.com/toddwschneider/nyc-taxi-data) datasets.  
 
 The benchmarks demonstrate the effect of the following configurations on segment replication:
 
