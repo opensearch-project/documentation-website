@@ -39,65 +39,42 @@ This guide assumes that you are comfortable working from the Linux command line 
 
 1. Download the RPM package for the desired version directly from the [OpenSearch downloads page](https://opensearch.org/downloads.html){:target='\_blank'}. The RPM package can be downloaded for both **x64** and **arm64** architectures.
 1. Import the public GNU Privacy Guard (GPG) key. This key verifies that your OpenSearch instance is signed.
-   
     ```bash
     sudo rpm --import https://artifacts.opensearch.org/publickeys/opensearch.pgp
     ```
     {% include copy.html %}
-   
-1. From the CLI, you can install the package with `rpm` or `yum`:
 
+1. From the CLI, you can install the package with `rpm` or `yum`.
    ```bash
-   # For new installations of OpenSearch 2.12 and later, you must define a custom admin password in order to set up a demo security configuration.
-   # Use one of the following commands to define a custom admin password:
-
-   ## Install the x64 package using yum.
-   sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password> yum install opensearch-{{site.opensearch_version}}-linux-x64.rpm
-   
-   ## Install the x64 package using rpm.
-   sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password> rpm -ivh opensearch-{{site.opensearch_version}}-linux-x64.rpm
-   
-   ## Install the arm64 package using yum.
-   sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password> yum install opensearch-{{site.opensearch_version}}-linux-arm64.rpm
-   
-   ## Install the arm64 package using rpm.
-   sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password> rpm -ivh opensearch-{{site.opensearch_version}}-linux-arm64.rpm
-   
-   # Use the following command for OpenSearch versions 2.11 and earlier:
-
-   ## Install the x64 package using yum.
+   # Install the x64 package using yum.
    sudo yum install opensearch-{{site.opensearch_version}}-linux-x64.rpm
 
-   ## Install the x64 package using rpm.
+   # Install the x64 package using rpm.
    sudo rpm -ivh opensearch-{{site.opensearch_version}}-linux-x64.rpm
 
-   ## Install the arm64 package using yum.
-   sudo yum install opensearch-{{site.opensearch_version}}-linux-arm64.rpm
+   # Install the arm64 package using yum.
+   sudo yum install opensearch-{{site.opensearch_version}}-linux-x64.rpm
 
-   ## Install the arm64 package using rpm.
-   sudo rpm -ivh opensearch-{{site.opensearch_version}}-linux-arm64.rpm
+   # Install the arm64 package using rpm.
+   sudo rpm -ivh opensearch-{{site.opensearch_version}}-linux-x64.rpm
    ```
-
 1. After the installation succeeds, enable OpenSearch as a service.
-
-   ```bash
-   sudo systemctl enable opensearch
-   ```
-   {% include copy.html %}
+    ```bash
+    sudo systemctl enable opensearch
+    ```
+    {% include copy.html %}
 
 1. Start OpenSearch.
+    ```bash
+    sudo systemctl start opensearch
+    ```
+    {% include copy.html %}
 
-   ```bash
-   sudo systemctl start opensearch
-   ```
-   {% include copy.html %}
-
-1. Verify that OpenSearch launched correctly:
-
-   ```bash
-   sudo systemctl status opensearch
-   ```
-   {% include copy.html %}
+1. Verify that OpenSearch launched correctly.
+    ```bash
+    sudo systemctl status opensearch
+    ```
+    {% include copy.html %}
 
 ### Install OpenSearch from a YUM repository
 
@@ -127,27 +104,15 @@ YUM, the primary package management tool for Red Hat–based operating systems, 
    ```
    {% include copy.html %}
 
-1. Choose the version of OpenSearch you want to install:
+1. Choose the version of OpenSearch you want to install: 
    - Unless otherwise indicated, the latest available version of OpenSearch is installed.
-
    ```bash
-   # For OpenSearch versions 2.12 and later, a custom admin password is required in order to set up a demo security configuration for a new installation.
-   # To set a custom admin password, use the following commands:
-   sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password> yum install opensearch
-
-   # Use the following command for OpenSearch versions 2.11 and earlier:
    sudo yum install opensearch
    ```
    {% include copy.html %}
 
    - To install a specific version of OpenSearch:
-
    ```bash
-   # For OpenSearch versions 2.12 and later, a custom admin password is required in order to set up a demo security configuration for a new installation.
-   # To set a custom admin password, use the following commands:
-   sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password> yum install 'opensearch-{{site.opensearch_version}}'
-
-   # Use the following command for OpenSearch versions 2.11 and earlier:
    sudo yum install 'opensearch-{{site.opensearch_version}}'
    ```
    {% include copy.html %}
@@ -183,7 +148,7 @@ An OpenSearch node in its default configuration (with demo certificates and user
 1. Send requests to the server to verify that OpenSearch is running. Note the use of the `--insecure` flag, which is required because the TLS certificates are self-signed.
    - Send a request to port 9200:
       ```bash
-      curl -X GET https://localhost:9200 -u 'admin:<custom-admin-password>' --insecure
+      curl -X GET https://localhost:9200 -u 'admin:admin' --insecure
       ```
       {% include copy.html %}
 
@@ -209,7 +174,7 @@ An OpenSearch node in its default configuration (with demo certificates and user
       ```
    - Query the plugins endpoint:
       ```bash
-      curl -X GET https://localhost:9200/_cat/plugins?v -u 'admin:<custom-admin-password>' --insecure
+      curl -X GET https://localhost:9200/_cat/plugins?v -u 'admin:admin' --insecure
       ```
       {% include copy.html %}
 
@@ -245,7 +210,7 @@ The following recommended settings will allow you to:
 - Configure your own TLS certificates—no third-party certificate authority (CA) is required.
 - Create an admin user with a custom password.
 
-If you ran the security demo script, then you will need to manually reconfigure settings that were modified. Refer to [Security configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/) for guidance before proceeding.
+If you ran the security demo script, then you will need to manually reconfigure settings that were modified. Refer to [Security configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuration/) for guidance before proceeding.
 {:.note}
 
 Before modifying any configuration files, it's always a good idea to save a backup copy before making changes. The backup file can be used to mitigate any issues caused by a bad configuration.
@@ -269,7 +234,7 @@ Before modifying any configuration files, it's always a good idea to save a back
    # fail when you try to start the service.
    discovery.type: single-node
 
-   # If you previously disabled the Security plugin in opensearch.yml,
+   # If you previously disabled the security plugin in opensearch.yml,
    # be sure to re-enable it. Otherwise you can skip this setting.
    plugins.security.disabled: false
    ```
@@ -295,7 +260,7 @@ Before modifying any configuration files, it's always a good idea to save a back
 
 ### Configure TLS
 
-TLS certificates provide additional security for your cluster by allowing clients to confirm the identity of hosts and encrypt traffic between the client and host. For more information, refer to [Configure TLS Certificates]({{site.url}}{{site.baseurl}}/security/configuration/tls/) and [Generate Certificates]({{site.url}}{{site.baseurl}}/security/configuration/generate-certificates/), which are included in the [Security plugin]({{site.url}}{{site.baseurl}}/security/index/) documentation. For work performed in a development environment, self-signed certificates are usually adequate. This section will guide you through the basic steps required to generate your own TLS certificates and apply them to your OpenSearch host.
+TLS certificates provide additional security for your cluster by allowing clients to confirm the identity of hosts and encrypt traffic between the client and host. For more information, refer to [Configure TLS Certificates]({{site.url}}{{site.baseurl}}/security/configuration/tls/) and [Generate Certificates]({{site.url}}{{site.baseurl}}/security/configuration/generate-certificates/), which are included in the [Security Plugin]({{site.url}}{{site.baseurl}}/security/index/) documentation. For work performed in a development environment, self-signed certificates are usually adequate. This section will guide you through the basic steps required to generate your own TLS certificates and apply them to your OpenSearch host.
 
 1. Navigate to the directory where the certificates will be stored.
    ```bash
@@ -318,7 +283,7 @@ TLS certificates provide additional security for your cluster by allowing client
    # replace the arguments passed to -subj so they reflect your specific host.
    sudo openssl req -new -x509 -sha256 -key root-ca-key.pem -subj "/C=CA/ST=ONTARIO/L=TORONTO/O=ORG/OU=UNIT/CN=ROOT" -out root-ca.pem -days 730
    ```
-1. Next, create the admin certificate. This certificate is used to gain elevated rights for performing administrative tasks relating to the Security plugin.
+1. Next, create the admin certificate. This certificate is used to gain elevated rights for performing administrative tasks relating to the security plugin.
    ```bash
    # Create a private key for the admin certificate.
    sudo openssl genrsa -out admin-key-temp.pem 2048
@@ -403,7 +368,7 @@ TLS certificates provide additional security for your cluster by allowing client
 
 Users are defined and authenticated by OpenSearch in a variety of ways. One method that does not require additional backend infrastructure is to manually configure users in `internal_users.yml`. See [YAML files]({{site.url}}{{site.baseurl}}/security/configuration/yaml/) for more information about configuring users. The following steps explain how to remove all demo users except for the `admin` user and how to replace the `admin` default password using a script.
 
-1. Navigate to the Security plugins tools directory.
+1. Navigate to the security plugins tools directory.
    ```bash
    cd /usr/share/opensearch/plugins/opensearch-security/tools
    ```
@@ -538,7 +503,7 @@ sudo yum update
 
 ## Related links
 
-- [OpenSearch configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/)
+- [OpenSearch configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuration/)
 - [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/)
 - [OpenSearch plugin installation]({{site.url}}{{site.baseurl}}/opensearch/install/plugins/)
-- [About the Security plugin]({{site.url}}{{site.baseurl}}/security/index/)
+- [About the security plugin]({{site.url}}{{site.baseurl}}/security/index/)

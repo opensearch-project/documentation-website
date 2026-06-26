@@ -8,7 +8,6 @@ parent: Supported field types
 redirect_from:
   - /opensearch/supported-field-types/object-fields/
   - /field-types/object-fields/
-  - /mappings/supported-field-types/object-fields/
 canonical_url: https://docs.opensearch.org/latest/field-types/supported-field-types/object-fields/
 ---
 
@@ -20,6 +19,5 @@ Field data type | Description
 :--- | :---  
 [`object`]({{site.url}}{{site.baseurl}}/field-types/object/) | A JSON object. 
 [`nested`]({{site.url}}{{site.baseurl}}/field-types/nested/) | Used when objects in an array need to be indexed independently as separate documents. 
-[`flat_object`]({{site.url}}{{site.baseurl}}/field-types/flat-object/) | A JSON object treated as a string.
 [`join`]({{site.url}}{{site.baseurl}}/field-types/join/) | Establishes a parent-child relationship between documents in the same index. 
 

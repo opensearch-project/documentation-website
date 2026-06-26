@@ -8,11 +8,10 @@ redirect_from:
 canonical_url: https://docs.opensearch.org/latest/observing-your-data/ad/settings/
 ---
 
-# Anomaly Detection settings
+# Settings
 
-The Anomaly Detection plugin adds several settings to the standard OpenSearch cluster settings.
-The settings are dynamic, so you can change the default behavior of the plugin without restarting your cluster. To learn more about static and dynamic settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
-
+The anomaly detection plugin adds several settings to the standard OpenSearch cluster settings.
+The settings are dynamic, so you can change the default behavior of the plugin without restarting your cluster.
 You can mark settings as `persistent` or `transient`.
 
 For example, to update the retention period of the result index:
@@ -37,7 +36,7 @@ plugins.anomaly_detection.ad_result_history_max_docs_per_shard | 1,350,000,000 |
 plugins.anomaly_detection.max_entities_per_query | 1,000,000 | The maximum unique values per detection interval for high cardinality detectors. By default, if the category field(s) have more than the configured unique values in a detector interval, the anomaly detection plugin orders them by the natural ordering of categorical values (for example, entity `ab` comes before `bc`) and then selects the top values.
 plugins.anomaly_detection.max_entities_for_preview | 5 | The maximum unique category field values displayed with the preview operation for high cardinality detectors. By default, if the category field(s) have more than the configured unique values in a detector interval, the anomaly detection plugin orders them by the natural ordering of categorical values (for example, entity `ab` comes before `bc`) and then selects the top values.
 plugins.anomaly_detection.max_primary_shards | 10 | The maximum number of primary shards an anomaly detection index can have.
-plugins.anomaly_detection.filter_by_backend_roles | False | When you enable the Security plugin and set this to `true`, the anomaly detection plugin filters results based on the user's backend role(s).
+plugins.anomaly_detection.filter_by_backend_roles | False | When you enable the security plugin and set this to `true`, the anomaly detection plugin filters results based on the user's backend role(s).
 plugins.anomaly_detection.max_batch_task_per_node | 10 | Starting a historical analysis triggers a batch task. This setting is the number of batch tasks that you can run per data node. You can tune this setting from 1 to 1,000. If the data nodes can’t support all batch tasks and you’re not sure if the data nodes are capable of running more historical analysis, add more data nodes instead of changing this setting to a higher value. Increasing this value might bring more load on each data node.
 plugins.anomaly_detection.max_old_ad_task_docs_per_detector | 1 | You can run historical analysis for the same detector many times. For each run, the anomaly detection plugin creates a new task. This setting is the number of previous tasks the plugin keeps. Set this value to at least 1 to track its last run. You can keep a maximum of 1,000 old tasks to avoid overwhelming the cluster.
 plugins.anomaly_detection.batch_task_piece_size | 1,000 | The date range for a historical task is split into smaller pieces and the anomaly detection plugin runs the task piece by piece. Each piece contains 1,000 detection intervals by default. For example, if detector interval is 1 minute and one piece is 1,000 minutes, the feature data is queried every 1,000 minutes. You can change this setting from 1 to 10,000.
@@ -49,5 +48,3 @@ plugins.anomaly_detection.delete_anomaly_result_when_delete_detector | False | W
 plugins.anomaly_detection.dedicated_cache_size | 10 | If the real-time analysis of a high cardinality detector starts successfully, the anomaly detection plugin guarantees keeping 10 (dynamically adjustable via this setting) entities' models in memory per node. If the number of entities exceeds this limit, the plugin puts the extra entities' models in a memory space shared by all detectors. The actual number of entities varies based on the memory that you've available and the frequencies of the entities. If you'd like the plugin to guarantee keeping more entities' models in memory and if you're cluster has sufficient memory, you can increase this setting value.
 plugins.anomaly_detection.max_concurrent_preview | 2 | The maximum number of concurrent previews. You can use this setting to limit resource usage.
 plugins.anomaly_detection.model_max_size_percent | 0.1 | The upper bound of the memory percentage for a model.
-plugins.anomaly_detection.door_keeper_in_cache.enabled | False | When set to `true`, OpenSearch places a bloom filter in front of an inactive entity cache to filter out items that are not likely to appear more than once.
-plugins.anomaly_detection.hcad_cold_start_interpolation.enabled | False | When set to `true`, enables interpolation in high-cardinality anomaly detection (HCAD) cold start.

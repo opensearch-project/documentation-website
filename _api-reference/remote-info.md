@@ -2,14 +2,11 @@
 layout: default
 title: Remote cluster information
 nav_order: 67
-redirect_from: 
- - /opensearch/rest-api/remote-info/
-  - /api-reference/cluster-api/remote-info/
 canonical_url: https://docs.opensearch.org/latest/api-reference/remote-info/
 ---
 
 # Remote cluster information
-**Introduced 1.0**
+Introduced 1.0
 {: .label .label-purple }
 
 This operation provides connection information for any remote OpenSearch clusters that you've configured for the local cluster, such as the remote cluster alias, connection mode (`sniff` or `proxy`), IP addresses for seed nodes, and timeout settings.

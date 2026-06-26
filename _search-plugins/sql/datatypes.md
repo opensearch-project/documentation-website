@@ -4,8 +4,6 @@ title: Data Types
 parent: SQL and PPL
 nav_order: 7
 canonical_url: https://docs.opensearch.org/latest/search-plugins/sql/datatypes/
-redirect_from:
-  - /sql-and-ppl/datatypes/
 ---
 
 # Data types

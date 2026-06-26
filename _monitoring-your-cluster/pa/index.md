@@ -6,7 +6,6 @@ has_children: true
 redirect_from:
   - /monitoring-plugins/pa/
   - /monitoring-plugins/pa/index/
-  - /monitoring-your-cluster/pa/
 canonical_url: https://docs.opensearch.org/latest/monitoring-your-cluster/pa/index/
 ---
 
@@ -247,7 +246,7 @@ curl -XPOST http://localhost:9200/_plugins/_performanceanalyzer/rca/cluster/conf
 If you encounter the `curl: (52) Empty reply from server` response, run the following command to enable RCA:
 
 ```bash
-curl -XPOST https://localhost:9200/_plugins/_performanceanalyzer/rca/cluster/config -H 'Content-Type: application/json' -d '{"enabled": true}' -u 'admin:<custom-admin-password>' -k
+curl -XPOST https://localhost:9200/_plugins/_performanceanalyzer/rca/cluster/config -H 'Content-Type: application/json' -d '{"enabled": true}' -u 'admin:admin' -k
 ```
 
 ### Example API query and response

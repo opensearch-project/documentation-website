@@ -8,8 +8,6 @@ canonical_url: https://docs.opensearch.org/latest/api-reference/units/
 ---
 
 # Supported units
-**Introduced 1.0**
-{: .label .label-purple }
 
 OpenSearch supports the following units for all REST operations:
 

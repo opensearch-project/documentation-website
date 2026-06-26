@@ -3,16 +3,14 @@ layout: default
 title: Multi-get document
 parent: Document APIs
 nav_order: 30
-redirect_from: 
- - /opensearch/rest-api/document-apis/multi-get/
 canonical_url: https://docs.opensearch.org/latest/api-reference/document-apis/multi-get/
 ---
 
 # Multi-get documents
-**Introduced 1.0**
+Introduced 1.0 
 {: .label .label-purple }
 
-The multi-get operation allows you to run multiple GET operations in one request, so you can get back all documents that match your criteria.
+The multi-get operation allows you to execute multiple GET operations in one request, so you can get back all documents that match your criteria.
 
 ## Path and HTTP methods
 
@@ -41,7 +39,7 @@ _source_includes | String | A comma-separated list of source fields to include i
 
 ## Request body
 
-If you don't specify an index in your request's URL, you must specify your target indexes and the relevant document IDs in the request body. Other fields are optional.
+If you don't specify an index in your request's URL, you must specify your target indices and the relevant document IDs in the request body. Other fields are optional.
 
 Field | Type | Description | Required
 :--- | :--- | :--- | :---
@@ -135,7 +133,7 @@ Field | Description
 _index | The name of the index.
 _id | The document's ID.
 _version | The document's version number. Updated whenever the document changes.
-_seq_no | The sequence number assigned when the document is indexed.
+_seq_no | The sequnce number assigned when the document is indexed.
 primary_term | The primary term assigned when the document is indexed.
 found | Whether the document exists.
 _routing | The shard that the document is routed to. If the document is not routed to a particular shard, this field is omitted.

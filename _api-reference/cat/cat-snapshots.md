@@ -5,13 +5,11 @@ parent: CAT API
 
 nav_order: 65
 has_children: false
-redirect_from:
-- /opensearch/rest-api/cat/cat-snapshots/
 canonical_url: https://docs.opensearch.org/latest/api-reference/cat/cat-snapshots/
 ---
 
 # CAT snapshots
-**Introduced 1.0**
+Introduced 1.0
 {: .label .label-purple }
 
 The CAT snapshots operation lists all snapshots for a repository.

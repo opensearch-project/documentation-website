@@ -10,6 +10,8 @@ canonical_url: https://docs.opensearch.org/latest/im-plugin/ism/index/
 ---
 
 # Index State Management
+OpenSearch Dashboards
+{: .label .label-yellow :}
 
 If you analyze time-series data, you likely prioritize new data over old data. You might periodically perform certain operations on older indexes, such as reducing replica count or deleting them.
 

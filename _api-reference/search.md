@@ -2,14 +2,11 @@
 layout: default
 title: Search
 nav_order: 75
-redirect_from:
-  - /opensearch/rest-api/search/
-  - /api-reference/search-apis/search/
 canonical_url: https://docs.opensearch.org/latest/api-reference/search/
 ---
 
 # Search
-**Introduced 1.0**
+Introduced 1.0
 {: .label .label-purple }
 
 The Search API operation lets you execute a search request to search your cluster for data.
@@ -61,15 +58,14 @@ ignore_throttled | Boolean | Whether to ignore concrete, expanded, or indexes wi
 ignore_unavailable | Boolean | Specifies whether to include missing or closed indexes in the response. Default is false.
 lenient | Boolean | Specifies whether OpenSearch should accept requests if queries have format errors (for example, querying a text field for an integer). Default is false.
 max_concurrent_shard_requests | Integer | How many concurrent shard requests this request should execute on each node. Default is 5.
-phase_took | Boolean | Whether to return phase-level `took` time values in the response. Default is false.
 pre_filter_shard_size | Integer | A prefilter size threshold that triggers a prefilter operation if the request exceeds the threshold. Default is 128 shards.
-preference | String | Specifies the shards or nodes on which OpenSearch should perform the search. For valid values, see [The `preference` query parameter](#the-preference-query-parameter). 
+preference | String | Specifies which shard or node OpenSearch should perform the count operation on.
 q | String | Lucene query string’s query.
 request_cache | Boolean | Specifies whether OpenSearch should use the request cache. Default is whether it’s enabled in the index’s settings.
 rest_total_hits_as_int | Boolean | Whether to return `hits.total` as an integer. Returns an object otherwise. Default is false.
 routing | String | Value used to route the update by query operation to a specific shard.
 scroll | Time | How long to keep the search context open.
-search_type | String | Whether OpenSearch should use global term and document frequencies when calculating relevance scores. Valid choices are `query_then_fetch` and `dfs_query_then_fetch`. `query_then_fetch` scores documents using local term and document frequencies for the shard. It’s usually faster but less accurate. `dfs_query_then_fetch` scores documents using global term and document frequencies across all shards. It’s usually slower but more accurate. Default is `query_then_fetch`.
+search_type | String | Whether OpenSearch should use global term and document frequencies when calculating revelance scores. Valid choices are `query_then_fetch` and `dfs_query_then_fetch`. `query_then_fetch` scores documents using local term and document frequencies for the shard. It’s usually faster but less accurate. `dfs_query_then_fetch` scores documents using global term and document frequencies across all shards. It’s usually slower but more accurate. Default is `query_then_fetch`.
 seq_no_primary_term | Boolean | Whether to return sequence number and primary term of the last operation of each document hit.
 size | Integer | How many results to include in the response.
 sort | List | A comma-separated list of &lt;field&gt; : &lt;direction&gt; pairs to sort by.
@@ -88,21 +84,6 @@ track_scores | Boolean | Whether to return document scores. Default is false.
 track_total_hits | Boolean or Integer | Whether to return how many documents matched the query.
 typed_keys | Boolean | Whether returned aggregations and suggested terms should include their types in the response. Default is true.
 version | Boolean | Whether to include the document version as a match.
-include_named_queries_score | Boolean | Whether to return scores with named queries. Default is false.
-
-### The `preference` query parameter
-
-The `preference` query parameter specifies the shards or nodes on which OpenSearch should perform the search. The following are valid values:
-
-- `_primary`: Perform the search only on primary shards.
-- `_replica`: Perform the search only on replica shards.
-- `_primary_first`: Perform the search on primary shards but fail over to other available shards if primary shards are not available.
-- `_replica_first`: Perform the search on replica shards but fail over to other available shards if replica shards are not available.
-- `_local`: If possible, perform the search on the local node's shards.
-- `_prefer_nodes:<node-id-1>,<node-id-2>`: If possible, perform the search on the specified nodes. Use a comma-separated list to specify multiple nodes.
-- `_shards:<shard-id-1>,<shard-id-2>`: Perform the search only on the specified shards. Use a comma-separated list to specify multiple shards. When combined with other preferences, the `_shards` preference must be listed first. For example, `_shards:1,2|_replica`.
-- `_only_nodes:<node-id-1>,<node-id-2>`: Perform the search only on the specified nodes. Use a comma-separated list to specify multiple nodes.
-- `<string>`: Specifies a custom string to use for the search. The string cannot start with an underscore character (`_`). Searches with the same custom string are routed to the same shards.
 
 ## Request body
 
@@ -110,12 +91,11 @@ All fields are optional.
 
 Field | Type | Description
 :--- | :--- | :---
-aggs | Object | In the optional `aggs` parameter, you can define any number of aggregations. Each aggregation is defined by its name and one of the types of aggregations that OpenSearch supports. For more information, see [Aggregations]({{site.url}}{{site.baseurl}}/aggregations/).
 docvalue_fields | Array of objects | The fields that OpenSearch should return using their docvalue forms. Specify a format to return results in a certain format, such as date and time.
 fields | Array | The fields to search for in the request. Specify a format to return results in a certain format, such as date and time.
 explain | String | Whether to return details about how OpenSearch computed the document's score. Default is false.
 from | Integer | The starting index to search from. Default is 0.
-indices_boost | Array of objects | Values used to boost the score of specified indexes. Specify in the format of &lt;index&gt; : &lt;boost-multiplier&gt;
+indices_boost | Array of objects | Scores used to boost specified indices' scores. Specify in the format of &lt;index&gt; : &lt;boost-multiplier&gt;
 min_score | Integer | Specify a score threshold to return only documents above the threshold.
 query | Object | The [DSL query]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index) to use in the request.
 seq_no_primary_term | Boolean | Whether to return sequence number and primary term of the last operation of each document hit.
@@ -177,51 +157,4 @@ version | Boolean | Whether to include the document version in the response.
     ]
   }
 }
-```
-
-## The `ext` object
-
-Starting with OpenSearch 2.10, plugin authors can add an `ext` object to the search response. The purpose of the `ext` object is to contain plugin-specific response fields. For example, in conversational search, the result of Retrieval Augmented Generation (RAG) is a single "hit" (answer). Plugin authors can include this answer in the search response as part of the `ext` object so that it is separate from the search hits. In the following example response, the RAG result is in the `ext.retrieval_augmented_generation.answer` field:
-
-```json
-{
-  "took": 3,
-  "timed_out": false,
-  "_shards": {
-    "total": 3,
-    "successful": 3,
-    "skipped": 0,
-    "failed": 0
-  },
-  "hits": {
-    "total": {
-      "value": 110,
-      "relation": "eq"
-    },
-    "max_score": 0.55129033,
-    "hits": [
-      {
-       "_index": "...",
-        "_id": "...",
-        "_score": 0.55129033,
-        "_source": {
-          "text": "...",
-          "title": "..."
-        }
-      },
-      {
-      ...
-      }
-      ...
-      {
-      ...
-      }
-    ],
-  }, // end of hits
-  "ext": {
-    "retrieval_augmented_generation": { // a search response processor
-      "answer": "RAG answer"
-    }
-  }
-} 
 ```

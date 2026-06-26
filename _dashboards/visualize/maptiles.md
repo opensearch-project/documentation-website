@@ -3,10 +3,9 @@ layout: default
 title: Configuring a Web Map Service (WMS)
 grand_parent: Building data visualizations
 parent: Using coordinate and region maps
-nav_order: 30
+nav_order: 5
 redirect_from:
-  - /dashboards/maptiles/
-  - /dashboards/visualize/visualize-app/maptiles/
+  - /docs/opensearch-dashboards/maptiles/
 canonical_url: https://docs.opensearch.org/latest/dashboards/visualize/maptiles/
 ---
 

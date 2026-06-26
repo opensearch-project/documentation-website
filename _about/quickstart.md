@@ -5,7 +5,6 @@ nav_order: 3
 permalink: /quickstart/
 redirect_from: 
   - /opensearch/install/quickstart/
-  - /getting-started/quickstart/
 canonical_url: https://docs.opensearch.org/latest/getting-started/quickstart/
 ---
 
@@ -54,31 +53,31 @@ You'll need a special file, called a Compose file, that Docker Compose uses to d
     opensearch-node1        "./opensearch-docker…"   opensearch-node1        running             0.0.0.0:9200->9200/tcp, 9300/tcp, 0.0.0.0:9600->9600/tcp, 9650/tcp
     opensearch-node2        "./opensearch-docker…"   opensearch-node2        running             9200/tcp, 9300/tcp, 9600/tcp, 9650/tcp
     ```
-1. Query the OpenSearch REST API to verify that the service is running. You should use `-k` (also written as `--insecure`) to disable hostname checking because the default security configuration uses demo certificates. Use `-u` to pass the default username and password (`admin:<custom-admin-password>`).
+1. Query the OpenSearch REST API to verify that the service is running. You should use `-k` (also written as `--insecure`) to disable host name checking because the default security configuration uses demo certificates. Use `-u` to pass the default username and password (`admin:admin`).
     ```bash
-    curl https://localhost:9200 -ku admin:<custom-admin-password>
+    curl https://localhost:9200 -ku admin:admin
     ```
     Sample response:
     ```json
     {
-        "name" : "opensearch-node1",
-        "cluster_name" : "opensearch-cluster",
-        "cluster_uuid" : "W0B8gPotTAajhMPbC9D4ww",
+        "name" : "26ceb87de6e6",
+        "cluster_name" : "docker-cluster",
+        "cluster_uuid" : "EEkKMk-_R5WDnhowaeEE3Q",
         "version" : {
             "distribution" : "opensearch",
-            "number" : "2.6.0",
+            "number" : "1.3.9",
             "build_type" : "tar",
-            "build_hash" : "7203a5af21a8a009aece1474446b437a3c674db6",
-            "build_date" : "2023-02-24T18:58:37.352296474Z",
+            "build_hash" : "64d2aa341cf591dd20ab3966792e564a467fdcf7",
+            "build_date" : "2023-03-13T23:35:04.209792Z",
             "build_snapshot" : false,
-            "lucene_version" : "9.5.0",
-            "minimum_wire_compatibility_version" : "7.10.0",
-            "minimum_index_compatibility_version" : "7.0.0"
+            "lucene_version" : "8.10.1",
+            "minimum_wire_compatibility_version" : "6.8.0",
+            "minimum_index_compatibility_version" : "6.0.0-beta1"
         },
         "tagline" : "The OpenSearch Project: https://opensearch.org/"
     }
     ```
-1. Explore OpenSearch Dashboards by opening `http://localhost:5601/` in a web browser on the same host that is running your OpenSearch cluster. The default username is `admin` and the default password is set in your `docker-compose.yml` file in the `OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password>` setting.
+1. Explore OpenSearch Dashboards by opening `http://localhost:5601/` in a web browser on the same host that is running your OpenSearch cluster. The default username is `admin` and the default password is `admin`.
 
 ## Create an index and field mappings using sample data
 
@@ -102,18 +101,18 @@ Create an index and define field mappings using a dataset provided by the OpenSe
     ```
 1. Define the field mappings with the mapping file.
     ```bash
-    curl -H "Content-Type: application/x-ndjson" -X PUT "https://localhost:9200/ecommerce" -ku admin:<custom-admin-password> --data-binary "@ecommerce-field_mappings.json"
+    curl -H "Content-Type: application/x-ndjson" -X PUT "https://localhost:9200/ecommerce" -ku admin:admin --data-binary "@ecommerce-field_mappings.json"
     ```
 1. Upload the index to the bulk API.
     ```bash
-    curl -H "Content-Type: application/x-ndjson" -X PUT "https://localhost:9200/ecommerce/_bulk" -ku admin:<custom-admin-password> --data-binary "@ecommerce.json"
+    curl -H "Content-Type: application/x-ndjson" -X PUT "https://localhost:9200/ecommerce/_bulk" -ku admin:admin --data-binary "@ecommerce.json"
     ```
 1. Query the data using the search API. The following command submits a query that will return documents where `customer_first_name` is `Sonya`.
     ```bash
-    curl -H 'Content-Type: application/json' -X GET "https://localhost:9200/ecommerce/_search?pretty=true" -ku admin:<custom-admin-password> -d' {"query":{"match":{"customer_first_name":"Sonya"}}}'
+    curl -H 'Content-Type: application/json' -X GET "https://localhost:9200/ecommerce/_search?pretty=true" -ku admin:admin -d' {"query":{"match":{"customer_first_name":"Sonya"}}}'
     ```
     Queries submitted to the OpenSearch REST API will generally return a flat JSON by default. For a human readable response body, use the query parameter `pretty=true`. For more information about `pretty` and other useful query parameters, see [Common REST parameters]({{site.url}}{{site.baseurl}}/opensearch/common-parameters/).
-1. Access OpenSearch Dashboards by opening `http://localhost:5601/` in a web browser on the same host that is running your OpenSearch cluster. The default username is `admin` and the password is set in your `docker-compose.yml` file in the `OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password>` setting.
+1. Access OpenSearch Dashboards by opening `http://localhost:5601/` in a web browser on the same host that is running your OpenSearch cluster. The default username is `admin` and the default password is `admin`.
 1. On the top menu bar, go to **Management > Dev Tools**.
 1. In the left pane of the console, enter the following:
     ```json
@@ -131,8 +130,8 @@ Create an index and define field mappings using a dataset provided by the OpenSe
 ## Next steps
 
 You successfully deployed your own OpenSearch cluster with OpenSearch Dashboards and added some sample data. Now you're ready to learn about configuration and functionality in more detail. Here are a few recommendations on where to begin:
-- [About the Security plugin]({{site.url}}{{site.baseurl}}/security/index/)
-- [OpenSearch configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/)
+- [About the security plugin]({{site.url}}{{site.baseurl}}/security/index/)
+- [OpenSearch configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuration/)
 - [OpenSearch plugin installation]({{site.url}}{{site.baseurl}}/opensearch/install/plugins/)
 - [Getting started with OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/index/)
 - [OpenSearch tools]({{site.url}}{{site.baseurl}}/tools/index/)

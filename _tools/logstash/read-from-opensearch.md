@@ -3,9 +3,6 @@ layout: default
 title: Read from OpenSearch
 parent: Logstash
 nav_order: 220
-redirect_from:
- - /clients/logstash/ship-to-opensearch/
-  - /clients/logstash/read-from-opensearch/
 canonical_url: https://docs.opensearch.org/latest/tools/logstash/read-from-opensearch/
 ---
 
@@ -29,7 +26,7 @@ input {
     user        => "admin"
     password    => "admin"
     index       => "logstash-logs-%{+YYYY.MM.dd}"
-    query       => '{ "query": { "match_all": {}} }'
+    query       => "{ "query": { "match_all": {}} }"
   }
 }
 

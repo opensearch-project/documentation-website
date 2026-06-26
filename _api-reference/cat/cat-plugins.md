@@ -5,13 +5,11 @@ parent: CAT API
 
 nav_order: 50
 has_children: false
-redirect_from:
-- /opensearch/rest-api/cat/cat-plugins/
 canonical_url: https://docs.opensearch.org/latest/api-reference/cat/cat-plugins/
 ---
 
 # CAT plugins
-**Introduced 1.0**
+Introduced 1.0
 {: .label .label-purple }
 
 The CAT plugins operation lists the names, components, and versions of the installed plugins.

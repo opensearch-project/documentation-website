@@ -1,14 +1,14 @@
 ---
 layout: default
-title: Dashboards Query Language
-parent: Discover
+title: Using Dashboards Query Language
+parent: Exploring data
 nav_order: 40
 redirect_from:
   - /dashboards/dql/
 canonical_url: https://docs.opensearch.org/latest/dashboards/dql/
 ---
 
-# Dashboards Query Language
+# Using Dashboards Query Language
 
 Dashboards Query Language (DQL) is a simple text-based query language for filtering data in OpenSearch Dashboards. Similar to [Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index), DQL uses an HTTP request body. For example, to display your site visitor data for a host in the United States, you would enter `geo.dest:US` in the search field, as shown in the following image.
 
@@ -31,7 +31,7 @@ Use the following steps to prepare sample data for querying.
 
 **Step 1: Set up mappings for the index**
 
-On the main menu, select **Management** > **Dev Tools** to open [Dev Tools]({{site.url}}{{site.baseurl}}/dashboards/dev-tools/run-queries/). Send the following request to create index mappings:
+On the main menu, select **Management** > **Dev Tools** to open [Dev Tools]({{site.url}}{{site.baseurl}}/dashboards/run-queries/). Send the following request to create index mappings:
 
 ```json
 PUT testindex
@@ -106,8 +106,6 @@ Follow these steps to create an index pattern for your index:
 1. In **Index pattern name**, enter `testindex*`. Select **Next step**.
 1. In **Time field**, select `I don't want to use the time filter`.
 1. Select **Create index pattern**.
-
-For more information about index patterns, see [Index patterns]({{site.url}}{{site.baseurl}}/dashboards/management/index-patterns/).
 
 **Step 4: Navigate to Discover and select the index pattern**
 

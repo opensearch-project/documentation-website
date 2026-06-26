@@ -12,13 +12,12 @@ require 'uri'
 require 'pathname'
 require 'typhoeus'
 require 'ruby-link-checker'
-require 'ruby-enum'
 
 ##
 # This singleton checks links during build to warn or fail upon finding dead links.
 #
 # `JEKYLL_LINK_CHECKER`, set on the environment, will cause verification of external links
-# Valid values: internal, all.
+# Valid values: internal, forced, all.
 # Usage: `JEKYLL_LINK_CHECKER=internal bundle exec jekyll build --trace`
 #
 # `JEKYLL_FATAL_LINK_CHECKER`, set on the environment, is the same as `JEKYLL_LINK_CHECKER`
@@ -26,14 +25,6 @@ require 'ruby-enum'
 # Usage: `JEKYLL_FATAL_LINK_CHECKER=internal bundle exec jekyll build --trace`
 
 module Jekyll::LinkChecker
-  class CheckTypes
-    include Ruby::Enum
-
-    define :INTERNAL, 'internal'
-    define :EXTERNAL, 'external'
-    define :ALL, 'all'
-  end
-
   ##
   # The collection that will get stores as the output
 
@@ -53,6 +44,7 @@ module Jekyll::LinkChecker
   # Pattern to check for external URLs
 
   @external_matcher = %r{^https?://}.freeze
+  @forced_external_matcher = %r{^https?://.*(?=opensearch\.org/)}.freeze
 
   ##
   # List of domains to ignore
@@ -62,10 +54,8 @@ module Jekyll::LinkChecker
     'localhost',
     'playground.opensearch.org', # inifite redirect, https://github.com/opensearch-project/dashboards-anywhere/issues/172
     'crates.io', # 404s on bots
-    'www.cloudflare.com', # 403s on bots
     'platform.openai.com', # 403s on bots
-    'mvnrepository.com', # 403s on bots
-    'example.issue.link' # a fake example link from the template
+    'www.cloudflare.com', # 403s on bots
   ]
 
   ##
@@ -78,31 +68,17 @@ module Jekyll::LinkChecker
 
   ##
   # Build flags driven by environment variables
-  @check_internal_links       # Enables checking internal links
+  @@LINK_CHECKER_STATES = %w[internal forced all]
+  @check_links                # Enables the link checker
+  @check_forced_external      # Enables checking internal links marked as external e.g. /docs
   @check_external_links       # Enables checking external links
-  @fail_on_error              # Indicates the need to fail the build for dead links
+  @should_build_fatally       # indicates the need to fail the build for dead links
 
   ##
   # Defines the priority of the plugin
   # The hooks are registered with a very low priority to make sure they runs after any content modifying hook
   def self.priority
     10
-  end
-
-  def self.check_links?
-    check_external_links? || check_internal_links?
-  end
-
-  def self.check_external_links?
-    !!@check_external_links
-  end
-
-  def self.check_internal_links?
-    !!@check_internal_links
-  end
-
-  def self.fail_on_error?
-    !!@fail_on_error
   end
 
   ##
@@ -113,15 +89,15 @@ module Jekyll::LinkChecker
     @failures = []
 
     begin
-      @fail_on_error = true if ENV.key?('JEKYLL_FATAL_LINK_CHECKER')
-      check_flag = fail_on_error? ? ENV['JEKYLL_FATAL_LINK_CHECKER'] : ENV['JEKYLL_LINK_CHECKER']
+      @should_build_fatally = true if ENV.key?('JEKYLL_FATAL_LINK_CHECKER')
+      check_flag = @should_build_fatally ? ENV['JEKYLL_FATAL_LINK_CHECKER'] : ENV['JEKYLL_LINK_CHECKER']
 
       unless check_flag
         return Jekyll.logger.info 'LinkChecker:', 'disabled. Enable with JEKYLL_LINK_CHECKER on the environment'
       end
 
-      unless CheckTypes.values.include?(check_flag)
-        Jekyll.logger.info "LinkChecker: [Notice] Could not initialize, Valid values for #{fail_on_error? ? 'JEKYLL_FATAL_LINK_CHECKER' : 'JEKYLL_LINK_CHECKER'} are #{CheckTypes.values}"
+      unless @@LINK_CHECKER_STATES.include?(check_flag)
+        Jekyll.logger.info "LinkChecker: [Notice] Could not initialize, Valid values for #{@should_build_fatally ? 'JEKYLL_FATAL_LINK_CHECKER' : 'JEKYLL_LINK_CHECKER'} are #{@@LINK_CHECKER_STATES}"
         return
       end
 
@@ -136,8 +112,15 @@ module Jekyll::LinkChecker
         @failures << "#{result}, linked to in #{result.options[:location]}"
       end
 
-      @check_external_links = [CheckTypes::EXTERNAL, CheckTypes::ALL].include?(check_flag)
-      @check_internal_links = [CheckTypes::INTERNAL, CheckTypes::ALL].include?(check_flag)
+      @check_links = true if @@LINK_CHECKER_STATES.include?(check_flag)
+      @check_forced_external = true if @@LINK_CHECKER_STATES[1..3].include?(check_flag)
+      @check_external_links = true if @@LINK_CHECKER_STATES[2..3].include?(check_flag)
+
+      msg = {
+        'internal' => 'internal links',
+        'forced' => 'internal and forced external links',
+        'all' => 'all links'
+      }
 
       # Process a Page as soon as its content is ready
       Jekyll::Hooks.register :pages, :post_convert, priority: priority do |page|
@@ -154,10 +137,10 @@ module Jekyll::LinkChecker
         verify(site)
       end
 
-      if check_links?
-        Jekyll.logger.info "LinkChecker: [Notice] Initialized successfully and will check #{check_flag} links"
+      if @check_links
+        Jekyll.logger.info "LinkChecker: [Notice] Initialized successfully and will check #{msg[check_flag]}"
       end
-      Jekyll.logger.info 'LinkChecker: [Notice] The build will fail if a dead link is found' if fail_on_error?
+      Jekyll.logger.info 'LinkChecker: [Notice] The build will fail if a dead link is found' if @should_build_fatally
     rescue StandardError => e
       Jekyll.logger.error 'LinkChecker: [Error] Failed to initialize Link Checker'
       raise
@@ -169,7 +152,7 @@ module Jekyll::LinkChecker
   # It also checks for anchors to parts of the same page/doc
 
   def self.process(page)
-    return unless check_links?
+    return unless @check_links
     return if @excluded_paths.match(page.path)
 
     hrefs = page.content.scan(@href_matcher)
@@ -194,11 +177,11 @@ module Jekyll::LinkChecker
   # Saves the collection as a JSON file
 
   def self.verify(_site)
-    return unless check_links?
+    return unless @check_links
 
     @base_url_matcher = %r{^#{@site.config["url"]}#{@site.baseurl}(/.*)$}.freeze
 
-    @urls.sort_by { |_url, _pages| rand }.each do |url, pages|
+    @urls.sort_by { |url, pages| rand }.each do |url, pages|
       location = "./#{pages.to_a.join(', ./')}"
       @failures << "#{url}, linked to in #{location}" unless check(url, location)
     end
@@ -210,7 +193,7 @@ module Jekyll::LinkChecker
     end
 
     if !@failures.empty?
-      if fail_on_error?
+      if @should_build_fatally
         Jekyll.logger.error "\nLinkChecker: [Error] #{msg}\n".red
         raise msg
       else
@@ -230,15 +213,19 @@ module Jekyll::LinkChecker
 
     url = @site.config['url'] + url if url.start_with? '/docs/'
 
-    if @external_matcher =~ url
-      return true unless check_external_links?
+    if @forced_external_matcher =~ url
+      return true unless @check_forced_external
 
-      check_external(url, location)
-    else
-      return true unless check_internal_links?
-
-      check_internal(url, location)
+      return check_external(url, location)
     end
+
+    if @external_matcher =~ url
+      return true unless @check_external_links
+
+      return check_external(url, location)
+    end
+
+    check_internal(url, location)
   end
 
   ##
@@ -259,7 +246,7 @@ module Jekyll::LinkChecker
   # Check if an internal link is accessible
 
   def self.check_internal(url, location)
-    Jekyll.logger.info "LinkChecker: [Info] Checking #{url} (#{location})".cyan
+    Jekyll.logger.info "LinkChecker: [Info] Checking #{url}".cyan
     return true if @ignored_paths =~ url
 
     path, hash = url.split('#')

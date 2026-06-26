@@ -5,13 +5,11 @@ parent: CAT API
 
 nav_order: 70
 has_children: false
-redirect_from:
-- /opensearch/rest-api/cat/cat-tasks/
 canonical_url: https://docs.opensearch.org/latest/api-reference/cat/cat-tasks/
 ---
 
 # CAT tasks
-**Introduced 1.0**
+Introduced 1.0
 {: .label .label-purple }
 
 The CAT tasks operation lists the progress of all tasks currently running on your cluster.
@@ -33,7 +31,7 @@ GET _cat/tasks
 
 All CAT tasks URL parameters are optional.
 
-In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameters:
+In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameter:
 
 Parameter | Type | Description
 :--- | :--- | :---

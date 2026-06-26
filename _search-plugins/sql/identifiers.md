@@ -3,10 +3,6 @@ layout: default
 title: Identifiers
 parent: SQL and PPL
 nav_order: 6
-redirect_from:
-  - /search-plugins/ppl/identifiers/
-  - /observability-plugin/ppl/identifiers/
-  - /sql-and-ppl/identifiers/
 canonical_url: https://docs.opensearch.org/latest/search-plugins/sql/identifiers/
 ---
 
@@ -20,7 +16,7 @@ OpenSearch supports two types of identifiers: regular identifiers and delimited 
 
 A regular identifier is a string of characters that starts with an ASCII letter (lower or upper case).
 The next character can either be a letter, digit, or underscore (_). It can't be a reserved keyword.
-White space and other special characters are also not allowed.
+Whitespace and other special characters are also not allowed.
 
 OpenSearch supports the following regular identifiers:
 

@@ -2,14 +2,11 @@
 layout: default
 title: Explain
 nav_order: 30
-redirect_from: 
- - /opensearch/rest-api/explain/
-  - /api-reference/search-apis/explain/
 canonical_url: https://docs.opensearch.org/latest/api-reference/explain/
 ---
 
 # Explain
-**Introduced 1.0**
+Introduced 1.0
 {: .label .label-purple }
 
 Wondering why a specific document ranks higher (or lower) for a query? You can use the explain API for an explanation of how the relevance score (`_score`) is calculated for every result.

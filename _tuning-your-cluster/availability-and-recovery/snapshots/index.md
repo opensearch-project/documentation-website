@@ -3,18 +3,17 @@ layout: default
 title: Snapshots
 nav_order: 5
 has_children: true
-parent: Availability and recovery
+parent: Availability and Recovery
 redirect_from: 
   - /opensearch/snapshots/
   - /opensearch/snapshots/index/
-  - /tuning-your-cluster/availability-and-recovery/snapshots/
 has_toc: false
 canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/availability-and-recovery/snapshots/index/
 ---
 
 # Snapshots
 
-Snapshots are backups of a cluster's indexes and state. State includes cluster settings, node information, index metadata (mappings, settings, or templates), and shard allocation.
+Snapshots are backups of a cluster's indexes and state. State includes cluster settings, node information, index metadata (mappings, settings, templates, etc.), and shard allocation.
 
 Snapshots have two main uses:
 
@@ -27,6 +26,4 @@ Snapshots have two main uses:
   For example, if you're moving from a proof-of-concept to a production cluster, you might take a snapshot of the former and restore it on the latter.
 
 
-You can take and restore snapshots using the [snapshot API]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore/). 
-
-If you need to automate snapshot creation, you can use the [snapshot management]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-management/) feature.
+You can take and restore snapshots using the [snapshot API]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore). 

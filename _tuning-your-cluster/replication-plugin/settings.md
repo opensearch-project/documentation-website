@@ -11,8 +11,7 @@ canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/replicatio
 # Replication settings
 
 The replication plugin adds several settings to the standard OpenSearch cluster settings.
-The settings are dynamic, so you can change the default behavior of the plugin without restarting your cluster. To learn more about static and dynamic settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
-
+The settings are dynamic, so you can change the default behavior of the plugin without restarting your cluster.
 You can mark settings as `persistent` or `transient`.
 
 For example, to update how often the follower cluster polls the leader cluster for updates:

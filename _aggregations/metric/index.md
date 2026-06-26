@@ -9,7 +9,6 @@ redirect_from:
   - /query-dsl/aggregations/metric-agg/
   - /aggregations/metric-agg/
   - /query-dsl/aggregations/metric/
-  - /aggregations/metric/
 canonical_url: https://docs.opensearch.org/latest/aggregations/metric/index/
 ---
 

@@ -29,7 +29,6 @@ GET opensearch_dashboards_sample_data_logs/_search
   }
 }
 ```
-{% include copy-curl.html %}
 
 #### Example response
 

@@ -5,13 +5,11 @@ parent: Bucket aggregations
 grand_parent: Aggregations
 nav_order: 170
 canonical_url: https://docs.opensearch.org/latest/aggregations/bucket/sampler/
-redirect_from:
-  - /query-dsl/aggregations/bucket/sampler/
 ---
 
 # Sampler aggregations
 
-If you're aggregating a very large number of documents, you can use a `sampler` aggregation to reduce the scope to a small sample of documents, resulting in a faster response. The `sampler` aggregation selects the samples by top-scoring documents.
+If you're aggregating over millions of documents, you can use a `sampler` aggregation to reduce its scope to a small sample of documents for a faster response. The `sampler` aggregation selects the samples by top-scoring documents.
 
 The results are approximate but closely represent the distribution of the real data. The `sampler` aggregation significantly improves query performance, but the estimated responses are not entirely reliable.
 
@@ -27,8 +25,6 @@ The basic syntax is:
   }
 }
 ```
-
-## Shard size property
 
 The `shard_size` property tells OpenSearch how many documents (at most) to collect from each shard.
 
@@ -54,7 +50,6 @@ GET opensearch_dashboards_sample_data_logs/_search
   }
 }
 ```
-{% include copy-curl.html %}
 
 #### Example response
 

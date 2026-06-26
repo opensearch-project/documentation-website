@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Debian
-parent: Installing OpenSearch Dashboards
+parent: Install OpenSearch Dashboards
 nav_order: 33
 canonical_url: https://docs.opensearch.org/latest/install-and-configure/install-dashboards/debian/
 ---
@@ -130,5 +130,5 @@ By default, OpenSearch Dashboards, like OpenSearch, binds to `localhost` when yo
     sudo systemctl restart opensearch-dashboards
     ```
 1. From a web browser, navigate to OpenSearch Dashboards. The default port is 5601.
-1. Log in with the default username `admin` and the default password `admin`. (For OpenSearch 2.12 and later, the password should be the custom admin password)
+1. Log in with the default username `admin` and the default password `admin`.
 1. Visit [Getting started with OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/index/) to learn more.

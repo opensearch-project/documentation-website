@@ -6,15 +6,13 @@ nav_order: 2
 canonical_url: https://docs.opensearch.org/latest/api-reference/script-apis/exec-stored-script/
 ---
 
-# Execute Painless stored script
-**Introduced 1.0**
-{: .label .label-purple }
+## Execute Painless stored script
 
 Runs a stored script written in the Painless language. 
 
 OpenSearch provides several ways to run a script; the following sections show how to run a script by passing script information in the request body of a `GET <index>/_search` request.
 
-## Request fields
+### Request fields
 
 | Field | Data type | Description | 
 :--- | :--- | :---
@@ -105,7 +103,7 @@ The `GET books/_search` request returns the following fields:
 }
 ````
 
-## Response fields
+### Response fields
 
 | Field | Data type | Description | 
 :--- | :--- | :---
@@ -135,7 +133,7 @@ The `GET books/_search` request returns the following fields:
 
 To pass different parameters to the script each time when running a query, define `params` in `script_fields`.
 
-#### Example
+### Example
 
 The following request runs the stored script that was created in [Create or update stored script]({{site.url}}{{site.baseurl}}/api-reference/script-apis/create-stored-script/). The script sums the ratings for each book, multiplies the summed value by the `multiplier` parameter, and displays the result in the output.
 
@@ -147,7 +145,7 @@ The following request runs the stored script that was created in [Create or upda
 
 * `"multiplier": 2` in the `params` field is a variable passed to the stored script `multiplier-script`:
 
-```json
+````json
 GET books/_search
 {
    "query": {
@@ -164,12 +162,11 @@ GET books/_search
     }
   }
 }
-```
+````
 {% include copy-curl.html %}
 
-#### Example response
-
-```json
+### Example response
+````json
 {
   "took" : 12,
   "timed_out" : false,
@@ -224,12 +221,12 @@ GET books/_search
 }
 ```
 
-**Sort results using painless stored script
-You can use painless stored script to sort results.**
+## Sort results using painless stored script
+You can use painless stored script to sort results.
 
-#### Sample request
+### Sample request
 
-```json
+````json
 GET books/_search
 {
    "query": {
@@ -260,9 +257,9 @@ GET books/_search
 }
 ```
 
-#### Sample response
+### Sample response
 
-```json
+````json
 {
   "took" : 90,
   "timed_out" : false,

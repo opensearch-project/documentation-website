@@ -2,18 +2,17 @@
 layout: default
 title: CAT allocation
 parent: CAT API
-redirect_from:
-- /opensearch/rest-api/cat/cat-allocation/
+
 nav_order: 5
 has_children: false
 canonical_url: https://docs.opensearch.org/latest/api-reference/cat/cat-allocation/
 ---
 
 # CAT allocation
-**Introduced 1.0**
+Introduced 1.0
 {: .label .label-purple }
 
-The CAT allocation operation lists the allocation of disk space for indexes and the number of shards on each node.
+The CAT allocation operation lists the allocation of disk space for indices and the number of shards on each node.
 
 ## Example
 
@@ -57,7 +56,7 @@ cluster_manager_timeout | Time | The amount of time to wait for a connection to 
 
 ## Response
 
-The following response shows that eight shards are allocated to each of the two nodes available:
+The following response shows that eight shards are allocated to each the two nodes available:
 
 ```json
 shards | disk.indices | disk.used | disk.avail | disk.total | disk.percent host | ip          | node
