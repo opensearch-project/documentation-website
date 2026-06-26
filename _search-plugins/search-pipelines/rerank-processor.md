@@ -146,7 +146,10 @@ Field  | Data type | Required/Optional | Description
 :--- | :---  | :--- | :--- 
 `target_field` | String | Required |  Specifies the field name or a dot path to the field containing the score to use for reranking. 
 `remove_target_field` | Boolean | Optional | If `true`, the response does not include the `target_field` used to perform reranking. Default is `false`.
-`keep_previous_score` | Boolean | Optional | If `true`, the response includes a `previous_score` field, which contains the score calculated before reranking and can be useful when debugging. Default is `false`.
+`keep_previous_score` | Boolean | Optional | If `true`, the response includes a field containing the score calculated before reranking. The field name is specified by `previous_score_field`. This can be useful when debugging. Default is `false`.
+`previous_score_field` | String | Optional | The field name used to store the score calculated before reranking when `keep_previous_score` is `true`. Default is `previous_score`. Only used when `keep_previous_score` is `true`.
+
+If your index already defines a `previous_score` document field, set `previous_score_field` to a different name (for example, `original_query_score`) to avoid overwriting the existing field value in search results.
 
 ### Example 
 
