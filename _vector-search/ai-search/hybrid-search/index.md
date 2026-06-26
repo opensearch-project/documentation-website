@@ -349,6 +349,13 @@ The response contains the matching documents:
 ```
 {% include copy-curl.html %}
 
+## Filtering data
+
+Hybrid search supports two approaches to filtering:
+
+- **Pre-filtering** removes documents before they are scored. To use pre-filtering, add a top-level `filter` to the `hybrid` query. This is the most common approach for filtering hybrid search results. For more information, see [Hybrid search with pre-filtering]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/pre-filtering/)
+- **Post-filtering** removes documents after all scoring is complete. To use post-filtering, add a `post_filter` to the search request. Use this approach for faceted search with aggregations when you want the facets to reflect the unfiltered query while filtering only the displayed hits. For more information, see [Hybrid search with post-filtering]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/post-filtering/).
+
 ## Next steps
 
 - Explore our [tutorials]({{site.url}}{{site.baseurl}}/vector-search/tutorials/) to learn how to build AI search applications. 
