@@ -4,6 +4,8 @@ title: Default action groups
 parent: Access control
 nav_order: 115
 canonical_url: https://docs.opensearch.org/latest/security/access-control/default-action-groups/
+redirect_from:
+  - /security-plugin/access-control/default-action-groups/
 ---
 
 # Default action groups

@@ -7,6 +7,7 @@ parent: Availability and Recovery
 redirect_from: 
   - /opensearch/snapshots/
   - /opensearch/snapshots/index/
+  - /tuning-your-cluster/availability-and-recovery/snapshots/
 has_toc: false
 canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/availability-and-recovery/snapshots/index/
 ---

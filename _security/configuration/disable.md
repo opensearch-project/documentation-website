@@ -4,6 +4,9 @@ title: Disabling security
 parent: Configuration
 nav_order: 40
 canonical_url: https://docs.opensearch.org/latest/security/configuration/disable-enable-security/
+redirect_from:
+  - /security-plugin/configuration/disable/
+  - /security/configuration/disable-enable-security/
 ---
 
 # Disabling security

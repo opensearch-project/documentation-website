@@ -6,6 +6,10 @@ nav_exclude: true
 permalink: /field-types/
 redirect_from: 
   - /opensearch/mappings/
+  - /field-types/mappings-use-cases/
+  - /field-types/mappings/
+  - /mappings/
+  - /mappings/index/
 canonical_url: https://docs.opensearch.org/latest/field-types/
 ---
 

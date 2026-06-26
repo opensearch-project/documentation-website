@@ -4,6 +4,10 @@ title: Create or update ingest pipeline
 parent: Ingest APIs
 nav_order: 11
 canonical_url: https://docs.opensearch.org/latest/ingest-pipelines/create-ingest/
+redirect_from:
+  - /api-reference/ingest-apis/create-ingest/
+  - /ingest-pipelines/create-ingest/
+  - /opensearch/rest-api/ingest-apis/create-update-ingest/
 ---
 
 # Create and update a pipeline
