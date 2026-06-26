@@ -13,7 +13,7 @@ nav_order: 38
 
 You can perform pre-filtering on hybrid search results by providing a top-level `filter` parameter in the `hybrid` query.
 
-The `filter` is applied during query execution and is pushed down to each subquery, so only documents that match the filter are scored. Pre-filtering is useful for applying the same filter to all subqueries without duplicating it in each one.
+The `filter` is applied during query execution to each subquery, so only documents that match the filter are scored. Pre-filtering is useful for applying the same filter to all subqueries without duplicating it in each one.
 
 The `filter` must be a single query object.
 {: .note}
@@ -89,7 +89,7 @@ POST /products/_search?search_pipeline=nlp-search-pipeline
 
 ## Filtering on multiple conditions
 
-Because the `filter` must be a single query object, you combine multiple conditions in a [Boolean query]({{site.url}}{{site.baseurl}}/query-dsl/compound/bool/):
+Because the `filter` must be a single query object, combine multiple conditions using a [Boolean query]({{site.url}}{{site.baseurl}}/query-dsl/compound/bool/). The following example filters results to only in-stock shoes:
 
 ```json
 "filter": {
@@ -104,7 +104,7 @@ Because the `filter` must be a single query object, you combine multiple conditi
 
 ## Combining a common filter with subquery filters
 
-A subquery can define its own filter in addition to the common filter. In this case, OpenSearch combines the two using a logical `AND`, further narrowing that subquery's results. Subqueries without their own filter are constrained by the common filter only.
+A subquery can define its own filter in addition to the common filter. In this case, OpenSearch combines the two using a logical `AND`, further narrowing that subquery's results.
 
 In the following example, the common filter restricts all subqueries to the `shoes` category, while the `match` subquery is additionally narrowed to the `nike` brand:
 
@@ -141,5 +141,3 @@ POST /products/_search?search_pipeline=nlp-search-pipeline
 }
 ```
 {% include copy-curl.html %}
-
-As a result, the `match` subquery requires both `category: shoes` and `brand: nike`, while the `knn` subquery is constrained only to `category: shoes`.

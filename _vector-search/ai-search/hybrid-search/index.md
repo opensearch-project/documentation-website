@@ -351,15 +351,10 @@ The response contains the matching documents:
 
 ## Filtering data
 
-Hybrid search supports two approaches to filtering: **pre-filtering** and **post-filtering**.
+Hybrid search supports two approaches to filtering:
 
-| | Pre-filtering | Post-filtering |
-| :--- | :--- | :--- |
-| **What it does** | Removes documents before they are scored | Removes documents after all scoring is complete |
-| **How to use** | Add a top-level `filter` to the `hybrid` query | Add a `post_filter` to the search request |
-| **When to use** | 95% of searches | Almost exclusively when you have faceted search with aggregations and want the facets to reflect the unfiltered query while narrowing only the displayed hits |
-
-For details on each approach, see [Hybrid search with pre-filtering]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/pre-filtering/) and [Hybrid search with post-filtering]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/post-filtering/).
+- **Pre-filtering** removes documents before they are scored. To use pre-filtering, add a top-level `filter` to the `hybrid` query. This is the most common approach for filtering hybrid search results. For more information, see [Hybrid search with pre-filtering]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/pre-filtering/)
+- **Post-filtering** removes documents after all scoring is complete. To use post-filtering, add a `post_filter` to the search request. Use this approach for faceted search with aggregations when you want the facets to reflect the unfiltered query while filtering only the displayed hits. For more information, see [Hybrid search with post-filtering]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/post-filtering/).
 
 ## Next steps
 

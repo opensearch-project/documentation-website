@@ -15,14 +15,14 @@ You can perform post-filtering on hybrid search results by providing the `post_f
 
 The `post_filter` clause is applied after the search results have been retrieved. Post-filtering is useful for applying additional filters to the search results without impacting the scoring or the order of the results. 
 
-Post-filtering does not impact document relevance scores or aggregation results.
+Post-filtering does not impact aggregation results.
 {: .note}
 
 To filter all subqueries during query execution instead of filtering the final results, use a common filter. For more information, see [Hybrid search with pre-filtering]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/pre-filtering/).
 
 ## Example: Faceted search with post-filtering
 
-Post-filtering is commonly used in faceted search, where the UI displays aggregation counts (such as brand, color, and size filters) alongside search results. Using `post_filter` keeps the aggregation counts based on the full unfiltered query while narrowing only the displayed hits.
+Post-filtering is commonly used in faceted search, in which the UI displays aggregation counts (such as brand, color, and size filters) alongside search results. Using a `post_filter` keeps the aggregation counts based on the full unfiltered query while filtering only the displayed hits.
 
 Consider an index containing product documents:
 
@@ -37,7 +37,7 @@ Consider an index containing product documents:
 }
 ```
 
-A user searches for "running shoes" and the application returns results with aggregations for brand, color, and size:
+A user searches for "running shoes", and the application constructs a query containing aggregations for brand, color, and size:
 
 ```json
 POST /products/_search
@@ -62,9 +62,7 @@ POST /products/_search
 ```
 {% include copy-curl.html %}
 
-The response returns hits and aggregations:
-
-**Hits:**
+The response returns hits from all brands:
 
 ```
 Nike Air Max
@@ -74,7 +72,7 @@ Puma Velocity
 ...
 ```
 
-**Aggregations:**
+The response also returns aggregations that include counts for every brand, color, and size:
 
 ```
 Brands:  Nike (120), Adidas (80), Puma (45)
@@ -82,47 +80,7 @@ Colors:  Black (90), White (70), Red (55)
 Sizes:   8 (40), 9 (60), 10 (85)
 ```
 
-The UI renders the aggregations as facet filters on the side. Now the user clicks "Nike" to narrow results.
-
-### Why pre-filtering removes facets
-
-If you apply the brand selection as a pre-filter, the aggregations are computed only on Nike documents:
-
-```json
-POST /products/_search
-{
-  "query": {
-    "bool": {
-      "must": {
-        "match": { "category": "running shoes" }
-      },
-      "filter": {
-        "term": { "brand.keyword": "Nike" }
-      }
-    }
-  },
-  "aggs": {
-    "brands": {
-      "terms": { "field": "brand.keyword" }
-    },
-    "colors": {
-      "terms": { "field": "color.keyword" }
-    }
-  }
-}
-```
-{% include copy-curl.html %}
-
-The aggregations become:
-
-```
-Brands:  Nike (120)
-Colors:  Black (50), White (40), Red (30)
-```
-
-Adidas and Puma disappear completely from the brand facet because those documents were excluded before aggregations were computed. The user loses the ability to see other brand options or switch to a different brand without first removing the filter.
-
-### Using post_filter to preserve facets
+The aggregations are typically displayed as facet filters in the UI. When a user selects a specific brand (for example, `Nike`) to filter results, using a pre-filter would exclude non-Nike documents before aggregations are computed, causing other brands to disappear from the facet counts.
 
 With `post_filter`, the query and aggregations run on the full result set. The filter is applied only to the displayed hits:
 
@@ -149,14 +107,14 @@ POST /products/_search
 ```
 {% include copy-curl.html %}
 
-Now the hits contain only Nike shoes, but the aggregations still reflect the full unfiltered query:
+The hits contain only Nike products, but the aggregations still reflect the full unfiltered query:
 
 ```
-Brands:  ✓ Nike (120), Adidas (80), Puma (45)
+Brands:  Nike (120), Adidas (80), Puma (45)
 Colors:  Black (90), White (70), Red (55)
 ```
 
-The user can switch from Nike to Adidas or see how many results each brand has without issuing a different query.
+All brand options remain visible in the facet, allowing the user to switch brands or compare counts without removing the filter.
 
 ## How post-filtering affects search results and scoring
 
