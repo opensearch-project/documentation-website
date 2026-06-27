@@ -150,6 +150,8 @@ Field  | Data type | Required/Optional | Description
 `previous_score_field` | String | Optional | The field name used to store the score calculated before reranking when `keep_previous_score` is `true`. Default is `previous_score`. Only used when `keep_previous_score` is `true`.
 
 If your index already defines a `previous_score` document field, set `previous_score_field` to a different name (for example, `original_query_score`) to avoid overwriting the existing field value in search results.
+{: .note}
+
 
 ### Example 
 
