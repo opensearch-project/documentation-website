@@ -145,7 +145,10 @@ Next, create a search pipeline for reranking. In the search pipeline configurati
 - The `output_map` field specifies how the output of the model is mapped to the fields in the response:
     - The `rank_score` field in the response will store the model's relevance score, which will be used to perform reranking.
     
-When using the `by_field` rerank type, the `rank_score` field will contain the same score as the `_score` field. To remove the `rank_score` field from the search results, set `remove_target_field` to `true`. The original BM25 score, before reranking, is included for debugging purposes by setting `keep_previous_score` to `true`. By default, this score is stored in a field named `previous_score`. If your index already defines a `previous_score` document field, set `previous_score_field` to a different name so the rerank processor does not overwrite your existing field value. This allows you to compare the original score with the reranked score to evaluate improvements in search relevance.
+When using the `by_field` rerank type, the `rank_score` field will contain the same score as the `_score` field. To remove the `rank_score` field from the search results, set `remove_target_field` to `true`.
+
+Comparing the original and reranked scores can help you evaluate improvements in search relevance. To compare the original BM25 score with the reranked score, set `keep_previous_score` to `true`. The original score is included in the search results for debugging purposes and is stored in the `previous_score` field by default. If your index already contains a document field named `previous_score`, set `previous_score_field` to a different name so that the rerank processor does not overwrite the existing field. 
+
     
 To create the search pipeline, send the following request:
 
