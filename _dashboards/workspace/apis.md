@@ -121,6 +121,7 @@ The following table lists the available path parameters.
 | Parameter | Data type | Required | Description |
 | :--- | :--- | :--- | :--- |
 | `attributes` | Object | Required | Defines the workspace attributes. |
+| `attributes.id` | String | Optional | The ID of the workspace. |
 | `permissions` | Object | Optional | Specifies the permissions for the workspace. |
 | `settings` | Object | Optional | Specifies the settings for the workspace. |
 
@@ -132,6 +133,7 @@ curl -k -XPOST "https://localhost:5601/api/workspaces" \
   -H "osd-xsrf: true" \
   -d '{
     "attributes": {
+      "id": "my_workspace",
       "name": "test4",
       "description": "test4",
       "features": ["use-case-all"]
