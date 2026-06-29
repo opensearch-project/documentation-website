@@ -90,7 +90,7 @@ Despite being one piece of an OpenSearch index, each shard is actually a full Lu
 
 ## Primary and replica shards
 
-In OpenSearch, a shard may be either a _primary_ (original) shard or a _replica_ (copy) shard. By default, OpenSearch creates a replica shard for each primary shard. Thus, if you split your index into 10 shards, OpenSearch creates 10 replica shards. For example, consider the cluster described in the previous section. If you add 1 replica for each shard of each index in the cluster, your cluster will contain a total of 2 shards and 2 replicas for index 1 and 4 shards and 4 replicas for index 2, as shown in the following image. 
+Each shard is either a _primary shard_ (or, simply, _primary_)---the original copy of the data---or a _replica shard_ (or, simply, _replica_)---a copy of a primary shard. By default, OpenSearch creates a replica shard for each primary shard. Thus, if you split your index into 10 shards, OpenSearch creates 10 replica shards. For example, consider the cluster described in the previous section. If you add 1 replica for each shard of each index in the cluster, your cluster will contain a total of 2 primary shards and 2 replica shards for index 1 and 4 primary shards and 4 replica shards for index 2, as shown in the following image. 
 
 ![A cluster containing two indexes with one replica shard for each shard in the index]({{site.url}}{{site.baseurl}}/images/intro/cluster-replicas.png){: width="700" }
 
