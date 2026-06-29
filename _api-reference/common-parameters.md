@@ -127,50 +127,41 @@ Nautical miles | `NM`, `nmi`, or `nauticalmiles`
 
 ## Cron expressions
 
-Several OpenSearch features accept cron expressions for scheduling, including [Index State Management]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies/), [alerting]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/monitors/), and [anomaly detection]({{site.url}}{{site.baseurl}}/observing-your-data/ad/index/). OpenSearch uses the Quartz cron parser, which extends standard UNIX cron with a seconds field and an optional year field. All schedule times are in UTC.
+Several OpenSearch features accept cron expressions for scheduling, including [Index State Management]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies/), [alerting]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/monitors/), and [anomaly detection]({{site.url}}{{site.baseurl}}/observing-your-data/ad/index/). OpenSearch uses the standard UNIX cron syntax. All schedule times are in UTC.
 
-A cron expression has the following format, where angle brackets denote required fields and square brackets denote an optional field:
+A cron expression has the following format:
 
 ```
-<seconds> <minutes> <hours> <day_of_month> <month> <day_of_week> [year]
+<minutes> <hours> <day_of_month> <month> <day_of_week>
 ```
 
 The following table describes each field.
 
-| Field | Required | Values | Special characters |
-| :--- | :--- | :--- | :--- |
-| Seconds | Yes | 0--59 | `, - * /` |
-| Minutes | Yes | 0--59 | `, - * /` |
-| Hours | Yes | 0--23 | `, - * /` |
-| Day of month | Yes | 1--31 | `, - * / ? L W` |
-| Month | Yes | 1--12 or JAN--DEC | `, - * /` |
-| Day of week | Yes | 1--7 or SUN--SAT | `, - * / ? L #` |
-| Year | No | 1970--2099 | `, - * /` |
+| Field | Values | Special characters |
+| :--- | :--- | :--- |
+| Minutes | 0--59 | `, - * /` |
+| Hours | 0--23 | `, - * /` |
+| Day of month | 1--31 | `, - * /` |
+| Month | 1--12 or JAN--DEC (case-insensitive) | `, - * /` |
+| Day of week | 0--7 (0 and 7 are both Sunday) or SUN--SAT (case-insensitive) | `, - * /` |
 
 The following table describes the special characters.
 
 | Character | Description |
 | :--- | :--- |
 | `*` | Matches all values. For example, `*` in the hours field means every hour. |
-| `?` | No specific value. Use in `day_of_month` or `day_of_week` when specifying the other. |
 | `-` | Range. For example, `9-17` in hours means every hour from 9:00 to 17:00 UTC. |
-| `,` | Multiple values. For example, `MON,WED,FRI` in `day_of_week`. |
+| `,` | Multiple values. For example, `1,3,5` in `day_of_week` means Monday, Wednesday, and Friday. |
 | `/` | Increment. For example, `0/15` in minutes means every 15 minutes starting at minute 0. |
-| `L` | Last. In `day_of_month`, the last day of the month. In `day_of_week`, the last occurrence of that day (for example, `6L` is the last Friday). |
-| `W` | The nearest weekday to the given day. For example, `15W` triggers on the closest Monday--Friday to the 15th. |
-| `#` | The Nth occurrence of a day in the month. For example, `6#1` is the first Friday of the month. |
 
 ### Examples
 
 | Expression | Description |
 | :--- | :--- |
-| `0 5 9 * * ?` | 9:05 AM UTC every day |
-| `0 0/15 9 * * ?` | Every 15 minutes from 9:00 to 9:45 AM UTC |
-| `0 5 9 ? * MON-FRI` | 9:05 AM UTC Monday through Friday |
-| `0 5 9 L * ?` | 9:05 AM UTC on the last day of every month |
-| `0 5 9 ? * 6#1` | 9:05 AM UTC on the first Friday of every month |
-
-For the full Quartz cron specification, see the [Quartz CronTrigger Tutorial](http://www.quartz-scheduler.org/documentation/quartz-2.2.x/tutorials/tutorial-lesson-06.html).
+| `5 9 * * *` | 9:05 AM UTC every day |
+| `0/15 9 * * *` | Every 15 minutes from 9:00 to 9:45 AM UTC |
+| `5 9 * * 1-5` | 9:05 AM UTC Monday through Friday |
+| `5 9 * * MON-FRI` | 9:05 AM UTC Monday through Friday (using named days) |
 
 ## `X-Opaque-Id` header
 
