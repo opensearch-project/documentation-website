@@ -5,9 +5,10 @@ level: error
 action:
   name: replace
 swap:
-  'Retrieval-Augmented Generation': retrieval-augmented generation
-  'base-64': Base64
+  'Base 64': Base64
   'Base-64': Base64
   'base 64': Base64
-  'Base 64': Base64
-  'base64-encoded': Base64-encoded
+  'base-64': Base64
+  'base64': Base64
+  'Retrieval-Augmented Generation': retrieval-augmented generation
+  

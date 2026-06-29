@@ -44,20 +44,20 @@ swap:
   'premigration': pre-migration
   're-enable': reenable
   'retrieval augmented generation': retrieval-augmented generation
-  'screen shot': screenshot
   'sample request': example request
   'sample response': example response
+  'screen shot': screenshot
   'stacktrace': stack trace
   'stand-alone': standalone
   'sub-aggregation': subaggregation
-  'timeframe': time frame
   'time series data': time-series data
   'time stamp': timestamp
+  'timeframe': time frame
   'timezone': time zone
   'tradeoff': trade-off
   'trust store': truststore
   'U.S.': US
+  'user interface \(UI\)': UI
   'web page': webpage
   'web site': website
   'whitespace': white space
-  'user interface \(UI\)': UI
