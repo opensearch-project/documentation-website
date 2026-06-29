@@ -25,6 +25,10 @@ module Jekyll
     @@pdf_jobs = []
 
     def generate(site)
+      # PDF generation only runs when explicitly requested (e.g. from the
+      # dedicated `pdf-generation` CI workflow). This keeps it out of the
+      # standard Jekyll build so it never adds to normal build time.
+      return unless ENV["ENABLE_PDF_GENERATION"] == "true"
       return unless site.config["pdf_generator"] && site.config["pdf_generator"]["enabled"]
       return unless GROVER_AVAILABLE
 
@@ -235,24 +239,20 @@ module Jekyll
     end
 
     def build_table_of_contents(docs)
-      toc_html = <<~HTML
+      entries = docs.each_with_index.map do |doc, index|
+        doc_title = doc.data["title"] || "Untitled"
+        %(<li><a href="#section-#{index + 1}">#{escape_html(doc_title)}</a></li>)
+      end
+
+      <<~HTML
         <div class="toc-page">
           <h1>Table of Contents</h1>
           <ul class="toc-list">
-      HTML
-
-      docs.each_with_index do |doc, index|
-        doc_title = doc.data["title"] || "Untitled"
-        toc_html << %(<li><a href="#section-#{index + 1}">#{escape_html(doc_title)}</a></li>\n)
-      end
-
-      toc_html << <<~HTML
+            #{entries.join("\n")}
           </ul>
         </div>
         <div style="page-break-after: always;"></div>
       HTML
-
-      toc_html
     end
 
     def build_document_section(doc, section_number, total_sections)
@@ -283,20 +283,23 @@ module Jekyll
       # Remove common HTML structure elements
       content = extract_main_content(content)
       
-      section_html = <<~HTML
+      # Render each document as a continuous chapter in a single cohesive
+      # document, rather than a standalone "printed page". The trailing page
+      # break only separates chapters; it is omitted after the last one.
+      page_break = section_number == total_sections ? "" : %(<div style="page-break-after: always;"></div>)
+
+      <<~HTML
         <div class="document-section" id="section-#{section_number}">
           <div class="section-header">
+            <p class="section-eyebrow">Chapter #{section_number}</p>
             <h1 class="section-title">#{escape_html(doc.data["title"] || "Untitled")}</h1>
-            <p class="section-meta">Page #{section_number} of #{total_sections}</p>
           </div>
           <div class="section-content">
             #{content}
           </div>
         </div>
-        <div style="page-break-after: always;"></div>
+        #{page_break}
       HTML
-
-      section_html
     end
 
     def extract_main_content(html)
@@ -446,10 +449,12 @@ module Jekyll
           margin-bottom: 5pt;
         }
 
-        .section-meta {
+        .section-eyebrow {
           font-size: 9pt;
+          letter-spacing: 1pt;
+          text-transform: uppercase;
           color: #888;
-          margin-top: 5pt;
+          margin-bottom: 4pt;
         }
 
         .section-content {
@@ -609,6 +614,7 @@ end
 
 # Hook to generate PDFs after all files are written
 Jekyll::Hooks.register :site, :post_write do |site|
+  next unless ENV["ENABLE_PDF_GENERATION"] == "true"
   next unless site.config["pdf_generator"] && site.config["pdf_generator"]["enabled"]
   next unless GROVER_AVAILABLE
   

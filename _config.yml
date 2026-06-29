@@ -359,6 +359,9 @@ plugins:
   - pdf_generator_loader
 
 # PDF Generator Configuration
+# Generation is gated behind the ENABLE_PDF_GENERATION=true environment
+# variable and runs only in the dedicated `pdf-generation` CI workflow, so it
+# never adds to the standard Jekyll build time.
 pdf_generator:
   enabled: true
   # Generate PDFs for entire collections

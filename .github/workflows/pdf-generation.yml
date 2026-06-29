@@ -1,0 +1,40 @@
+name: Generate Documentation PDFs
+
+# Runs PDF generation in a dedicated workflow so it never adds to the
+# standard Jekyll build time (see #11192). Generates one consolidated PDF
+# per developer guide plus a single full-documentation PDF.
+
+on:
+  # Allow manual runs from the Actions tab.
+  workflow_dispatch:
+  # Refresh the published PDFs on a weekly schedule.
+  schedule:
+    - cron: '0 6 * * 1'
+
+jobs:
+  generate-pdfs:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
+
+    - uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    - uses: ruby/setup-ruby@afeafc3d1ab54a631816aba4c914a0081c12ff2f # v1
+      with:
+        ruby-version: '3.4.5'
+
+    - name: Install dependencies (including PDF generator)
+      run: ENABLE_PDF_GENERATION=true bundle install
+
+    - name: Build site and generate PDFs
+      run: ENABLE_PDF_GENERATION=true bundle exec jekyll build --future
+
+    - name: Upload generated PDFs
+      uses: actions/upload-artifact@v4
+      with:
+        name: documentation-pdfs
+        path: _site/pdfs/
+        if-no-files-found: error

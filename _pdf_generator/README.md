@@ -1,6 +1,8 @@
 # PDF Generator for OpenSearch Documentation
 
-This plugin generates PDF versions of documentation collections during the Jekyll build process.
+This plugin generates a single, consolidated downloadable PDF per developer
+guide (plus an optional full-documentation PDF), modeled on the single-PDF
+developer guides published by AWS.
 
 ## File Structure
 
@@ -12,7 +14,23 @@ A minimal loader file exists in `_plugins/pdf_generator_loader.rb` to ensure Jek
 
 ## Overview
 
-The PDF generator creates downloadable PDF files for documentation collections and guides. PDFs are generated automatically during the Jekyll build and are saved to the `pdfs/` directory in the site destination.
+The PDF generator merges every page of a guide into one cohesive PDF (cover
+page, table of contents, then each page as a continuous chapter) and saves it
+to the `pdfs/` directory in the site destination.
+
+PDF generation does **not** run during the normal Jekyll build. It is gated
+behind the `ENABLE_PDF_GENERATION=true` environment variable and runs only in
+the dedicated `.github/workflows/pdf-generation.yml` CI workflow, so it never
+adds to the standard build time. The `grover` gem is likewise installed only
+when `ENABLE_PDF_GENERATION=true` (see the `Gemfile`).
+
+## Running locally
+
+```sh
+ENABLE_PDF_GENERATION=true bundle install
+ENABLE_PDF_GENERATION=true bundle exec jekyll build --future
+# PDFs are written to _site/pdfs/
+```
 
 ## Configuration
 
@@ -60,11 +78,11 @@ pdf_generator:
 
 ## How It Works
 
-1. During Jekyll build, the PDF generator plugin identifies configured collections/guides
-2. After all pages are rendered, the plugin collects the rendered HTML content
-3. HTML is cleaned and formatted for PDF output
-4. PDFs are generated using Grover (Puppeteer-based PDF generation)
-5. PDFs are saved to `_site/pdfs/` directory
+1. The `pdf-generation` CI workflow runs `jekyll build` with `ENABLE_PDF_GENERATION=true`
+2. The plugin identifies the configured collections/guides
+3. After all pages are rendered, it collects and cleans the rendered HTML for each guide
+4. The cleaned pages are merged into one HTML document and rendered to a single PDF using Grover (Puppeteer-based PDF generation)
+5. PDFs are saved to `_site/pdfs/` and uploaded as a workflow artifact
 
 ## Dependencies
 
