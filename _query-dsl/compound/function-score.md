@@ -12,9 +12,15 @@ redirect_from:
 
 Use a `function_score` query if you need to alter the relevance scores of documents returned in the results. A `function_score` query defines a query and one or more functions that can be applied to all results or subsets of the results to recalculate their relevance scores.
 
+## Default query behavior
+
+If you omit the top-level `query` parameter, `function_score` defaults to `match_all`. Every document in the index is considered a match and receives a base query score of `1`.
+
+`function_score` changes how documents are **ranked**, not which documents are returned (unless you use `min_score`). To limit which documents are returned, provide an explicit top-level `query` or wrap `function_score` in a `bool` query.
+
 ## Using one scoring function
 
-The most basic example of a `function_score` query uses one function to recalculate the score. The following query uses a `weight` function to double all relevance scores. This function applies to all documents in the results because there is no `query` parameter specified within `function_score`:
+The most basic example of a `function_score` query uses one function to recalculate the score. The following query uses a `weight` function to double all relevance scores. This function applies to all documents in the results because there is no top-level `query` parameter specified, so `function_score` runs on `match_all`:
 
 ```json
 GET shakespeare/_search
@@ -28,9 +34,13 @@ GET shakespeare/_search
 ```
 {% include copy-curl.html %}
 
-## Applying the scoring function to a subset of documents
+## Limiting which documents are scored
 
-To apply the scoring function to a subset of documents, provide a query within the function:
+Use the top-level `query` parameter to define which documents `function_score` runs on. Only documents matching this query are returned.
+
+To apply a scoring function only to a subset of those documents, use a `filter` inside a function in the `functions` array. A function `filter` controls whether that function contributes to the score; it does **not** exclude documents from the result set.
+
+The following query limits results to documents matching `Hamlet` and then doubles their relevance scores:
 
 ```json
 GET shakespeare/_search
@@ -48,6 +58,60 @@ GET shakespeare/_search
 }
 ```
 {% include copy-curl.html %}
+
+## Using filters in the functions array
+
+Each entry in `functions` can include an optional `filter`. The function runs only for documents that match that filter.
+
+**Important:** Function filters affect scoring, not document inclusion. Documents that match the top-level query (or implicit `match_all`) but match **no** function filters are still returned.
+
+When no function matches a document, the combined function score uses a neutral factor of `1` for most `score_mode` values (including `sum` and the default `multiply`). With the default `boost_mode` of `multiply`, the final score is typically:
+
+$$ \text{final score} = \text{query score} \times \text{function factor} = 1 \times 1 = 1 $$
+
+Use `explain: true` to see this as `No function matched` in the explanation.
+
+### Example: Weighted filters without a top-level query
+
+The following query assigns weights when `genre` is `detective` or `author` is `Conan Doyle`. Because no top-level `query` is specified, `function_score` runs on `match_all` and returns every document in the index:
+
+```json
+GET books/_search
+{
+  "query": {
+    "function_score": {
+      "score_mode": "sum",
+      "functions": [
+        {
+          "filter": {
+            "term": {
+              "genre": "detective"
+            }
+          },
+          "weight": 0.5
+        },
+        {
+          "filter": {
+            "term": {
+              "author": "Conan Doyle"
+            }
+          },
+          "weight": 1
+        }
+      ]
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+In the results:
+
+- A document matching both filters receives `_score: 1.5` (function factor `0.5 + 1.0`, multiplied by the `match_all` query score of `1`).
+- A document matching only the `author` filter receives `_score: 1.0`.
+- A document matching **no** filters still receives `_score: 1.0`. This is expected: the implicit `match_all` query contributes `1`, and the neutral function factor is also `1`.
+
+To return only documents that match at least one filter, use a `bool` query with `minimum_should_match` instead of relying on `function_score` alone. You can then nest `function_score` inside the `bool` query to re-rank the matching documents.
 
 ## Supported functions
 
@@ -686,6 +750,8 @@ The scores given by each function are combined using the `score_mode` parameter,
 - `max`: The maximum score is taken.
 - `min`: The minimum score is taken.
 
+If a document matches none of the function filters, the function score remains at the neutral value `1` (for `multiply`, `sum`, `avg`, `max`, and `min`). For `first`, no function score is applied and the factor also remains `1`.
+
 ### Specifying an upper limit for a score
 
 You can specify an upper limit for a function score in the `max_boost` parameter. The default upper limit is the maximum magnitude for a `float` value: (2 &minus; 2<sup>&minus;23</sup>) &middot; 2<sup>127</sup>.
@@ -701,9 +767,33 @@ You can specify how the score computed using all functions is combined with the 
 - `max`: Take the greater of the query score and the function score.
 - `min`: Take the lesser of the query score and the function score.
 
+With default settings (`boost_mode: multiply`, implicit `match_all` query), documents that match no functions typically receive `_score: 1`.
+
 ### Filtering documents that don't meet a threshold
 
 Changing the relevance score does not change the list of matching documents. To exclude some documents that don't meet a threshold, specify the threshold value in the `min_score` parameter. All documents returned by the query are then scored and filtered using the threshold value.
+
+`min_score` filters by score after scoring; it does not replace function filters as inclusion criteria.
+
+To return only documents that match at least one function filter, use a `bool` query:
+
+```json
+GET books/_search
+{
+  "query": {
+    "bool": {
+      "should": [
+        { "term": { "genre": "detective" } },
+        { "term": { "author": "Conan Doyle" } }
+      ],
+      "minimum_should_match": 1
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+To re-rank those documents by filter weights, nest `function_score` inside the `bool` query or use the `bool` query as the top-level `query` inside `function_score`.
 
 ### Example
 
@@ -880,7 +970,7 @@ GET blogs/_search
 ```
 {% include copy-curl.html %}
 
-The response explains the scoring process. For each function, the explanation contains the function `_name` in its `description`:
+The response explains the scoring process. For each function, the explanation contains the function `_name` in its `description`. The `*:*` entry with value `1` is the implicit `match_all` query score when no top-level `query` is specified.
 
 <details open markdown="block">
   <summary>
