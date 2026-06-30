@@ -145,7 +145,10 @@ Next, create a search pipeline for reranking. In the search pipeline configurati
 - The `output_map` field specifies how the output of the model is mapped to the fields in the response:
     - The `rank_score` field in the response will store the model's relevance score, which will be used to perform reranking.
     
-When using the `by_field` rerank type, the `rank_score` field will contain the same score as the `_score` field. To remove the `rank_score` field from the search results, set `remove_target_field` to `true`. The original BM25 score, before reranking, is included for debugging purposes by setting `keep_previous_score` to `true`. This allows you to compare the original score with the reranked score to evaluate improvements in search relevance.
+When using the `by_field` rerank type, the `rank_score` field will contain the same score as the `_score` field. To remove the `rank_score` field from the search results, set `remove_target_field` to `true`.
+
+Comparing the original and reranked scores can help you evaluate improvements in search relevance. To compare the original BM25 score with the reranked score, set `keep_previous_score` to `true`. The original score is included in the search results for debugging purposes and is stored in the `previous_score` field by default. If your index already contains a document field named `previous_score`, set `previous_score_field` to a different name so that the rerank processor does not overwrite the existing field. 
+
     
 To create the search pipeline, send the following request:
 
@@ -181,8 +184,9 @@ PUT /_search/pipeline/my_pipeline
         "by_field": {
           "target_field": "rank_score",
           "remove_target_field": true,
-          "keep_previous_score" : true
-          }
+          "keep_previous_score": true,
+          "previous_score_field": "original_query_score"
+        }
       }
     
     }
@@ -208,7 +212,7 @@ POST /nyc_areas/_search?search_pipeline=my_pipeline
 ```
 {% include copy-curl.html %}
 
-In the response, the `previous_score` field contains the document's BM25 score, which it would have received if you hadn't applied the pipeline. Note that while BM25 ranked "Astoria" the highest, the cross-encoder model prioritized "Harlem" because it matched more search terms:
+In the response, the `original_query_score` field contains the document's BM25 score, which it would have received if you hadn't applied the pipeline. Note that while BM25 ranked "Astoria" the highest, the cross-encoder model prioritized "Harlem" because it matched more search terms:
 
 ```json
 {
@@ -234,7 +238,7 @@ In the response, the `previous_score` field contains the document's BM25 score, 
         "_source": {
           "area_name": "Harlem",
           "description": "Harlem is a historic neighborhood in Upper Manhattan, known for its significant African-American cultural heritage.",
-          "previous_score": 1.6489418,
+          "original_query_score": 1.6489418,
           "borough": "Manhattan",
           "facts": "Harlem was the birthplace of the Harlem Renaissance, a cultural movement that celebrated Black culture through art, music, and literature.",
           "population": 116000
@@ -247,7 +251,7 @@ In the response, the `previous_score` field contains the document's BM25 score, 
         "_source": {
           "area_name": "Astoria",
           "description": "Astoria is a neighborhood in the western part of Queens, New York City, known for its diverse community and vibrant cultural scene.",
-          "previous_score": 2.519608,
+          "original_query_score": 2.519608,
           "borough": "Queens",
           "facts": "Astoria is home to many artists and has a large Greek-American community. The area also boasts some of the best Mediterranean food in NYC.",
           "population": 93000
@@ -260,7 +264,7 @@ In the response, the `previous_score` field contains the document's BM25 score, 
         "_source": {
           "area_name": "Williamsburg",
           "description": "Williamsburg is a trendy neighborhood in Brooklyn known for its hipster culture, vibrant art scene, and excellent restaurants.",
-          "previous_score": 1.5632852,
+          "original_query_score": 1.5632852,
           "borough": "Brooklyn",
           "facts": "Williamsburg is a hotspot for young professionals and artists. The neighborhood has seen rapid gentrification over the past two decades.",
           "population": 150000
