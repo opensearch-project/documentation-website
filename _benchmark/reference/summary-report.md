@@ -3,11 +3,78 @@ layout: default
 title: Summary report
 nav_order: 40
 parent: Reference
+canonical_url: https://docs.opensearch.org/latest/benchmark/reference/summary-report/
+redirect_from:
+  - /benchmark/user-guide/understanding-results/summary-reports/
 ---
 
 # Summary report
 
-At the end of each run, OpenSearch Benchmark shows a summary report based on the metric keys defined in the workload. This page gives details on each line of the summary report and that line's associated metric key.
+At the end of each test run, OpenSearch Benchmark prints a summary report of metrics such as service time, throughput, latency, and more. These metrics show how the selected workload performed on the benchmarked OpenSearch cluster.
+
+## Example output
+
+The following example shows a typical summary report:
+
+```bash
+------------------------------------------------------
+    _______             __   _____
+   / ____(_)___  ____ _/ /  / ___/_________  ________
+  / /_  / / __ \/ __ `/ /   \__ \/ ___/ __ \/ ___/ _ \
+ / __/ / / / / / /_/ / /   ___/ / /__/ /_/ / /  /  __/
+/_/   /_/_/ /_/\__,_/_/   /____/\___/\____/_/   \___/
+------------------------------------------------------
+
+|                                                         Metric |                                       Task |       Value |   Unit |
+|---------------------------------------------------------------:|-------------------------------------------:|------------:|-------:|
+|                     Cumulative indexing time of primary shards |                                            |     0.02655 |    min |
+|             Min cumulative indexing time across primary shards |                                            |           0 |    min |
+|          Median cumulative indexing time across primary shards |                                            |  0.00176667 |    min |
+|             Max cumulative indexing time across primary shards |                                            |   0.0140333 |    min |
+|                        Cumulative merge time of primary shards |                                            |   0.0102333 |    min |
+|                                                     Store size |                                            | 0.000485923 |     GB |
+|                                                  Segment count |                                            |          32 |        |
+|                                                 Min Throughput |                                      index |     3008.97 | docs/s |
+|                                                Mean Throughput |                                      index |     3008.97 | docs/s |
+|                                              Median Throughput |                                      index |     3008.97 | docs/s |
+|                                                 Max Throughput |                                      index |     3008.97 | docs/s |
+|                                        50th percentile latency |                                      index |     351.059 |     ms |
+|                                       100th percentile latency |                                      index |     365.058 |     ms |
+|                                   50th percentile service time |                                      index |     351.059 |     ms |
+|                                  100th percentile service time |                                      index |     365.058 |     ms |
+|                                                     error rate |                                      index |           0 |      % |
+|                                                 Min Throughput |                                  match_all |       36.09 |  ops/s |
+|                                                Mean Throughput |                                  match_all |       36.09 |  ops/s |
+|                                              Median Throughput |                                  match_all |       36.09 |  ops/s |
+|                                                 Max Throughput |                                  match_all |       36.09 |  ops/s |
+|                                       100th percentile latency |                                  match_all |     35.9822 |     ms |
+|                                  100th percentile service time |                                  match_all |     7.93048 |     ms |
+|                                                     error rate |                                  match_all |           0 |      % |
+```
+
+Metrics unique to the cluster begin at the `index` task line. For example:
+
+- To assess how much load your cluster can handle, the `index` task metrics show the number of documents ingested during the workload run and the ingestion error rate.
+- To assess query latency and service time, the `match_all` and `term` tasks show the number of query operations performed per second, measurable query latency, and query operation error rate.
+
+Which values are shown in the report depends on the `--show-in-results` flag; see [Storing results](#storing-results) below.
+
+## Storing results
+
+Results are stored in-memory by default. When stored in-memory, they're written to `~/.benchmark/benchmarks/test-runs/<test_run_id>/`, named by the `test_run_id` of the most recent workload test.
+
+While [running a test]({{site.url}}{{site.baseurl}}/benchmark/reference/commands/run/#general-settings), the following flags customize how results are stored:
+
+- `--results-file`: File path to write the summary report to.
+- `--results-format`: Output format for the summary. `markdown` or `csv`. Default is `markdown`.
+- `--show-in-results`: Which values appear in the published report. `available`, `all-percentiles`, or `all`. Default is `available`.
+- `--user-tag`: Key-value pairs stored with the run as metadata (for example, `intention:baseline-ticket-12345`). Useful when storing metrics in external storage.
+
+To store results outside the test-runs directory, configure an external metrics datastore. For nightly published results, see the OpenSearch Benchmark [nightly test dashboard](https://opensearch.org/benchmarks).
+
+## Metric reference
+
+The rest of this page describes each metric line printed in the summary report and the metrics-key each line maps to.
 
 ## Cumulative indexing time of primary shards
 
