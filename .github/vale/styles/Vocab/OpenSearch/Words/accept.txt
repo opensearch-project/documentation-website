@@ -163,6 +163,7 @@ tebibyte
 [Uu]ncheck
 [Uu]ncomment
 [Uu]ndeploy
+[Uu]naggregated
 [Uu]nigram
 [Uu]nnesting
 [Uu]nrecovered
