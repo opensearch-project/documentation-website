@@ -28,7 +28,7 @@ Before making any changes to your OpenSearch cluster, is it highly recommended t
 
 ### Cross-cluster replication
 
-If your cluster uses [cross-cluster replication]({{site.url}}{{site.baseurl}}/_tuning-your-cluster/replication-plugin/), follow these guidelines when upgrading:
+If your cluster uses [cross-cluster replication]({{site.url}}{{site.baseurl}}/tuning-your-cluster/replication-plugin/), follow these guidelines when upgrading:
 
 - **Unidirectional replication**: Upgrade the follower cluster first, then the leader cluster.
 - **Bidirectional replication**: Stop replication in one direction, then upgrade both clusters. For the replication that remains active, upgrade the follower cluster first, then the leader cluster. Resume the stopped replication after both clusters are upgraded.
