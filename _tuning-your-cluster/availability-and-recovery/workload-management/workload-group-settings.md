@@ -10,11 +10,11 @@ grand_parent: Availability and recovery
 **Introduced 3.7**
 {: .label .label-purple }
 
-OpenSearch operation is normally controlled by cluster-wide defaults and per-request parameters. In a multi-tenant cluster, you may need to apply different limits to different tenants. Without workload group settings, you can either lower the defaults for everyone, which restricts tenants that operate within limits, or trust every client to send the correct request parameters, which is difficult to enforce.
+OpenSearch operation is normally controlled by cluster-wide defaults and per-request parameters. In a multi-tenant cluster, you may need to apply different limits to different tenants.
 
-Workload group settings solve this problem by letting you attach group-specific configuration directly to a [workload group]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/workload-management/workload-groups/). When a request is routed to a group, the group's settings are applied automatically, letting you define guardrails per tenant:
+Workload group settings address this need by letting you attach group-specific configuration directly to a [workload group]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/workload-management/workload-groups/). When a request is routed to a group, the group's settings are applied automatically. This approach provides the following benefits:
 
-- Apply stricter limits to resource-intensive or unverified tenants while keeping generous defaults for others, all without modifying cluster settings.
+- You can apply stricter limits to resource-intensive or unverified tenants while keeping generous defaults for others, all without modifying cluster settings.
 - Limits are bound to the workload group, so they apply to every request routed to the group regardless of which client sent it. No client-side configuration is required.
 - A workload group can optionally take precedence over lenient request-level values, protecting the cluster from uncontrolled queries without rejecting them entirely.
 - All guardrails for a tenant are located in one place alongside the group's `resource_limits` and `resiliency_mode`.
@@ -25,11 +25,27 @@ You can configure settings in the `settings` object of a workload group. All set
 
 The following table lists the supported workload group settings.
 
-<table>
+<style>
+.wlm-settings-table {
+  table-layout: fixed;
+  width: 100%;
+}
+.wlm-settings-table td,
+.wlm-settings-table th {
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+.wlm-settings-table td a {
+  white-space: normal;
+  overflow: visible;
+}
+</style>
+
+<table class="wlm-settings-table">
   <colgroup>
-    <col style="width: 21%">
+    <col style="width: 22%">
     <col style="width: 8%">
-    <col style="width: 39%">
+    <col style="width: 38%">
     <col style="width: 16%">
     <col style="width: 16%">
   </colgroup>
@@ -47,28 +63,28 @@ The following table lists the supported workload group settings.
       <td><code>search.default_search_timeout</code></td>
       <td>Time unit</td>
       <td>The maximum amount of time a shard can spend on query execution. When a shard exceeds this timeout, it stops collecting hits and returns its current results to the coordinating node, which may produce partial results.</td>
-      <td><a href="{{site.url}}{{site.baseurl}}/api-reference/search-apis/search/"><code>timeout</code></a></td>
+      <td><a href="{{site.url}}{{site.baseurl}}/api-reference/search-apis/search/#query-parameters"><code>timeout</code></a></td>
       <td><a href="{{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/search-settings/"><code>search.default_search_timeout</code></a></td>
     </tr>
     <tr>
       <td><code>search.cancel_after_time_interval</code></td>
       <td>Time unit</td>
       <td>The maximum amount of time the entire search request can run at the coordinating node level. When the interval is reached, the request and all associated tasks are canceled and the client receives an error rather than partial results.</td>
-      <td><a href="{{site.url}}{{site.baseurl}}/api-reference/search-apis/search/"><code>cancel_after_time_interval</code></a></td>
+      <td><a href="{{site.url}}{{site.baseurl}}/api-reference/search-apis/search/#query-parameters"><code>cancel_after_time_interval</code></a></td>
       <td><a href="{{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/search-settings/"><code>search.cancel_after_time_interval</code></a></td>
     </tr>
     <tr>
       <td><code>search.max_concurrent_shard_requests</code></td>
       <td>Integer</td>
       <td>The maximum number of concurrent shard-level requests a single search may issue per node. Limits search fan-out.</td>
-      <td><a href="{{site.url}}{{site.baseurl}}/api-reference/search-apis/search/"><code>max_concurrent_shard_requests</code></a></td>
+      <td><a href="{{site.url}}{{site.baseurl}}/api-reference/search-apis/search/#query-parameters"><code>max_concurrent_shard_requests</code></a></td>
       <td>--</td>
     </tr>
     <tr>
       <td><code>search.batched_reduce_size</code></td>
       <td>Integer</td>
       <td>The number of shard results combined into one batch on the coordinating node before the final reduction step. Lower values reduce coordinator memory usage when a search spans many shards.</td>
-      <td><a href="{{site.url}}{{site.baseurl}}/api-reference/search-apis/search/"><code>batched_reduce_size</code></a></td>
+      <td><a href="{{site.url}}{{site.baseurl}}/api-reference/search-apis/search/#query-parameters"><code>batched_reduce_size</code></a></td>
       <td>--</td>
     </tr>
     <tr>
@@ -97,7 +113,7 @@ When a setting is defined on a workload group, OpenSearch resolves the effective
 
 The following table summarizes how the effective value is resolved. 
 
-| `override_request_values` | Precedence (highest to lowest) |
+| `override_request_values` value | Precedence (highest to lowest) |
 | :--- | :--- |
 | `false` (Default) | Request parameter > Workload group setting > Cluster setting |
 | `true` | Workload group setting > Request parameter > Cluster setting |
