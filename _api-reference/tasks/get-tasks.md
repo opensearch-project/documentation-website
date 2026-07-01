@@ -128,3 +128,7 @@ Response field | Description |
 `thread_info` | Thread-count-related statistics.|
 `thread_info.active_threads` | The number of threads currently working on the task. |
 `thread_info.thread_executions` | The number of threads that have been scheduled to work on the task. |
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `cluster:monitor/tasks/get`.

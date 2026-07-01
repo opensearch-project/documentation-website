@@ -219,3 +219,7 @@ If open indexes in a snapshot already exist in a cluster, and you don't delete, 
   "status" : 500
 }
 ```
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `cluster:admin/snapshot/restore`.

@@ -99,3 +99,7 @@ In the preceding sample, one node is connected to the snapshot repository. If mo
 | Field | Data type | Description | 
 :--- | :--- | :---
 | nodes | Object | A list (not an array) of nodes connected to the snapshot repository. Each node itself is a property where the node ID is the key and the name has an ID (Object) and a name (String). |
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `cluster:admin/repository/verify`.

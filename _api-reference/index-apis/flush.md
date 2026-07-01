@@ -115,4 +115,6 @@ OpenSearch responds with the number of shards that acknowledged the flush reques
 }
 ```
 
+## Required permissions
 
+If you use the Security plugin, make sure you have the appropriate permissions: `indices:admin/flush` and `indices:admin/flush*`.

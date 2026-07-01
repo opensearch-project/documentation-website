@@ -169,3 +169,7 @@ The following table lists all response body fields.
 | `stores[n].store_exception` | Object (optional) | Stores exceptions encountered when reading the shard store. |
 | `stores[n].store_exception.type`| String| The type of exception.|
 | `stores[n].store_exception.reason`| String| The reason message for the exception.|
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `indices:monitor/shard_stores`.

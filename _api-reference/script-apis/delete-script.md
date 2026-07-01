@@ -77,3 +77,7 @@ The <HTTP METHOD> <endpoint> request returns the following response fields:
 | Field | Data type | Description | 
 :--- | :--- | :---
 | acknowledged | Boolean | Whether the delete script request was received. |
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `cluster:admin/script/delete`.
