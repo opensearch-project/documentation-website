@@ -9,7 +9,7 @@ nav_order: 30
 **Introduced 1.0**
 {: .label .label-purple }
 
-The nodes hot threads endpoint provides information about busy JVM threads for selected cluster nodes. It provides a unique view of the activity on each node.
+The Nodes Hot Threads endpoint provides information about busy JVM threads for selected cluster nodes. It provides a unique view of the activity on each node.
 
 
 ## Endpoints
