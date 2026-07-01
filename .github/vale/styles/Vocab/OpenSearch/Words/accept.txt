@@ -1,6 +1,5 @@
 [Aa]gentic
 [Aa]nonymization
-Avro
 [Aa]utomapping
 [Aa]utopopulate
 [Bb]ackoff
@@ -71,7 +70,6 @@ Levenshtein
 [Ll]owercases?d?
 [Mm]acrobenchmarks?
 [Mm]etaphone
-[Mm]etastore
 [Mm]isorder
 [Mm]ultifield
 [Mm]ultiline

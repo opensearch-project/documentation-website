@@ -12,7 +12,9 @@ Ansible
 Anthropic Claude
 Apache HttpClient 5 Transport
 Apache Kafka
+Apache Avro
 Auditbeat
+Avro
 AWS Cloud
 Capture and Replay
 Claude Desktop
@@ -69,6 +71,7 @@ Logstash
 Lucene
 macOS
 Metadata-Migration-Tool
+Hive Metastore
 Metricbeat
 Microsoft Power BI
 Migration Assistant
