@@ -207,7 +207,7 @@ Backtests usually take 1 or 2 minutes, but run time depends on the following fac
 
 If the chart is empty, as shown in the following image, check that your index contains at least one time series with more than 40 data points at the selected interval.
 
-<img src="{{site.url}}{{site.baseurl}}/images/forecast/no_result.png" alt="test failed" width="800" height="800">
+![test failed]({{site.url}}{{site.baseurl}}/images/forecast/no_result.png){: width="800" height="800" }
 
 
 ### Reading the chart
@@ -220,7 +220,7 @@ When the test succeeds, hover over any point on the chart to view exact values a
 
 The following image shows the chart view.
 
-<img src="{{site.url}}{{site.baseurl}}/images/forecast/bound.png" alt="Forecast chart with confidence bounds" width="800" height="800">
+![Forecast chart with confidence bounds]({{site.url}}{{site.baseurl}}/images/forecast/bound.png){: width="800" height="800" }
 
 ### Viewing forecasts from a specific date
 
@@ -234,15 +234,15 @@ For example, you might configure the following settings in the **Forecast from**
 
 With these settings, the forecast range would span `Mar 5, 2025, 19:23 – 19:47`, as shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/forecast/trend.png" alt="Forecast chart with trend" width="800" height="800">
+![Forecast chart with trend]({{site.url}}{{site.baseurl}}/images/forecast/trend.png){: width="800" height="800" }
 
 You can also use the **Forecast from** dropdown list to view forecasts from earlier test runs, as shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/forecast/forecast_from_1.png" alt="Forecast from dropdown" width="800" height="800">
+![Forecast from dropdown]({{site.url}}{{site.baseurl}}/images/forecast/forecast_from_1.png){: width="800" height="800" }
 
 When you select an earlier **Forecast from** time, the forecast line is drawn directly over the historical data available at that moment. This causes the two series to overlap, as shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/forecast/forecast_from_2.png" alt="Overlapping forecast and actual data" width="800" height="800">
+![Overlapping forecast and actual data]({{site.url}}{{site.baseurl}}/images/forecast/forecast_from_2.png){: width="800" height="800" }
 
 To return to the most recent forecast window, select **Show latest**.
 
@@ -260,7 +260,7 @@ The horizon control defaults to **index 3**, but you can choose any value to foc
 
 The following image shows Overlay mode enabled with a horizon index of 3. The visualization plots the forecast curve (in purple) directly on top of the actual data points (shown with white-filled markers). This lets you evaluate the accuracy of the model's three-steps-ahead prediction across the full timeline. The forecast range is displayed as a shaded band around the predicted values, helping highlight uncertainty.
 
-<img src="{{site.url}}{{site.baseurl}}/images/forecast/overlay_3.png" alt="overlay config" width="800" height="800">
+![overlay config]({{site.url}}{{site.baseurl}}/images/forecast/overlay_3.png){: width="800" height="800" }
 
 ### View multiple forecast series
 
@@ -273,11 +273,11 @@ Actual and forecast lines are overlaid so you can assess accuracy point by point
 
 The following image shows the chart with actual and forecast lines overlaid.
 
-<img src="{{site.url}}{{site.baseurl}}/images/forecast/toggle_overlay_before.png" alt="Chart with actual and forecast lines overlaid" width="800" height="800">
+![Chart with actual and forecast lines overlaid]({{site.url}}{{site.baseurl}}/images/forecast/toggle_overlay_before.png){: width="800" height="800" }
 
 The following image shows the same chart with actual lines hidden at forecast time to simplify the view.
 
-<img src="{{site.url}}{{site.baseurl}}/images/forecast/toggle_overlay_after.png" alt="Chart with forecast lines only" width="800" height="800">
+![Chart with forecast lines only]({{site.url}}{{site.baseurl}}/images/forecast/toggle_overlay_after.png){: width="800" height="800" }
 
 
 ### Exploring the timeline
@@ -335,7 +335,7 @@ To edit a forecaster:
 
    The following image shows the validation process in progress.
 
-   <img src="{{site.url}}{{site.baseurl}}/images/forecast/validation_loading.png" alt="Validation panel loading" width="800" height="800">
+   ![Validation panel loading]({{site.url}}{{site.baseurl}}/images/forecast/validation_loading.png){: width="800" height="800" }
 
 4. Resolve any validation errors. When the panel becomes green, select **Start test** in the upper-right corner to run another backtest with the updated parameters.
 

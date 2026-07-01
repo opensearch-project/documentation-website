@@ -102,7 +102,7 @@ Depending on your specific use case, you might need to experiment with different
 
 ### Benchmarking
 
-The following table provides a performance comparison of the `best_compression`, `zstd`, and `zstd_no_dict` codecs against the `default` codec. The tests were performed with the [`nyc_taxi`](https://github.com/topics/nyc-taxi-dataset) dataset. The results are listed in terms of percent change, and bold results indicate performance improvement.
+The following table provides a performance comparison of the `best_compression`, `zstd`, and `zstd_no_dict` codecs against the `default` codec. The tests were performed with the [`nyc_taxi`](https://github.com/toddwschneider/nyc-taxi-data) dataset. The results are listed in terms of percent change, and bold results indicate performance improvement.
 
 | | `best_compression` | `zstd` | `zstd_no_dict` |
 |:---	|:---	|:---	|:--- |

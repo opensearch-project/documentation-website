@@ -57,6 +57,8 @@ Event | Logged on REST | Logged on transport | Description
 `SSL_EXCEPTION` | Yes | Yes | An attempt was made to access OpenSearch without a valid SSL/TLS certificate.
 `opensearch_SECURITY_INDEX_ATTEMPT` | No | Yes | An attempt was made to modify the Security plugin internal user and privileges index without the required permissions or TLS admin certificate.
 `BAD_HEADERS` | Yes | Yes | An attempt was made to spoof a request to OpenSearch with the Security plugin internal headers.
+`CLUSTER_SETTINGS_CHANGED` | No | Yes | A persistent or transient cluster setting was changed. Disabled by default.
+`INDEX_SETTINGS_CHANGED` | No | Yes | An index setting was changed. Disabled by default.
 
 
 ## Audit log settings
@@ -90,6 +92,17 @@ config:
       - AUTHENTICATED
       - GRANTED_PRIVILEGES
     disabled_transport_categories: [ GRANTED_PRIVILEGES ]
+```
+{% include copy.html %}
+
+By default, the `CLUSTER_SETTINGS_CHANGED` and `INDEX_SETTINGS_CHANGED` categories are disabled on the transport layer. To enable them, remove them from `disabled_transport_categories`:
+
+```yml
+config:
+  audit:
+    disabled_transport_categories:
+      - AUTHENTICATED
+      - GRANTED_PRIVILEGES
 ```
 {% include copy.html %}
 

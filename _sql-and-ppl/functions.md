@@ -2,8 +2,6 @@
 layout: default
 title: Functions
 nav_order: 10
-redirect_from:
-  - /search-plugins/sql/functions/
 ---
 
 # Functions

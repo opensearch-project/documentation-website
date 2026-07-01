@@ -57,6 +57,7 @@ Field | Data type | Required/Optional | Description
 `model_format` | String | Required | The portable format of the model file. Valid values are `TORCH_SCRIPT` and `ONNX`. |
 `description` | String | Optional| The model description. |
 `model_group_id` | String | Optional | The ID of the model group to which to register the model.
+`provisioned_by` | String | Optional | An optional attribution tag identifying the plugin or client that registered the model (for example, `flow-framework`). Included in ML statistics metrics.
 
 ## Example request: OpenSearch-provided text embedding model
 
@@ -89,6 +90,7 @@ Field | Data type | Required/Optional | Description
 `url` | String | Required | The URL that contains the model. |
 `description` | String | Optional| The model description. |
 `model_group_id` | String | Optional | The ID of the model group to which to register this model.
+`provisioned_by` | String | Optional | An optional attribution tag identifying the plugin or client that registered the model (for example, `flow-framework`). Included in ML statistics metrics.
 
 ## Example request: OpenSearch-provided sparse encoding model
 
@@ -125,6 +127,7 @@ Field | Data type | Required/Optional | Description
 `is_enabled`| Boolean | Optional | Specifies whether the model is enabled. Disabling the model makes it unavailable for Predict API requests, regardless of the model's deployment status. Default is `true`.
 `rate_limiter` | Object | Optional | Limits the number of times that any user can call the Predict API on the model. For more information, see [Rate limiting inference calls]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/#rate-limiting-inference-calls).
 `interface`| Object | Optional | The interface for the model. For more information, see [Interface](#the-interface-parameter).|
+`provisioned_by` | String | Optional | An optional attribution tag identifying the plugin or client that registered the model (for example, `flow-framework`). Included in ML statistics metrics.
 
 #### The `model_config` object
 
@@ -140,7 +143,7 @@ You can further customize a pretrained sentence transformer model's post-process
 
 | Field | Data type | Description |
 | :--- | :--- | :--- |
-| `pooling_mode` | String | The post-process model output, either `mean`, `mean_sqrt_len`, `max`, `weightedmean`, or `cls`.|
+| `pooling_mode` | String | The post-process model output, either `mean`, `mean_sqrt_len`, `max`, `weightedmean`, `cls`, `lasttoken`, or `none`. Use `lasttoken` for decoder-only models (for example, Qwen3-Embedding), for which the final non-padding token captures cumulative context through causal attention. Use `none` for models that already provide pre-pooled output (such as `sentence_embedding` or `pooler_output`) to skip additional pooling.|
 | `normalize_result` | Boolean | When set to `true`, normalizes the model output in order to scale to a standard range for the model. |
 
 ## Example request: Custom model
@@ -188,6 +191,7 @@ Field | Data type | Required/Optional | Description
 `rate_limiter` | Object | Optional | Limits the number of times that any user can call the Predict API on the model. For more information, see [Rate limiting inference calls]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/#rate-limiting-inference-calls).
 `guardrails`| Object | Optional | The guardrails for the model input. For more information, see [Guardrails](#the-guardrails-parameter).|
 `interface`| Object | Optional | The interface for the model. For more information, see [Interface](#the-interface-parameter).|
+`provisioned_by` | String | Optional | An optional attribution tag identifying the plugin or client that registered the model (for example, `flow-framework`). Included in ML statistics metrics.
 
 ## Example request: Externally hosted with a standalone connector
 

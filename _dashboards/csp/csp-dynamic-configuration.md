@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Configuring CSP rules for frame ancestors
-nav_order: 140
+parent: Settings and administration
+nav_order: 60
 has_children: false
 ---
 

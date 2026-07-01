@@ -207,7 +207,7 @@ Decay functions operate only on [numeric]({{site.url}}{{site.baseurl}}/mappings/
 
 Decay functions calculate scores based on the `origin`, `scale`, `offset`, and `decay`, as shown in the following figure.
 
-<img src="{{site.url}}{{site.baseurl}}/images/decay-functions.png" alt="Decay function curves" width="600">
+![Decay function curves]({{site.url}}{{site.baseurl}}/images/decay-functions.png){: width="600" }
 
 ### Example: Geopoint fields
 

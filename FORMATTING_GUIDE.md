@@ -46,10 +46,11 @@ nav_order: 25
 has_children: false
 parent: Date field types
 grand_parent: Supported field types
+great_grand_parent: Mappings
 ---
 ```
 
-If you want to reorganize content or add a new page, make sure to set the appropriate `has_children`, `parent`, `grand_parent`, and `nav_order` variables, which define the hierarchy of pages in the left navigation. 
+If you want to reorganize content or add a new page, make sure to set the appropriate `has_children`, `parent`, `grand_parent`, `great_grand_parent`, and `nav_order` variables, which define the hierarchy of pages in the left navigation.
 
 When adding a page or a section, make the `nav_order` of the child pages multiples of 10. For example, if you have a parent page `Clients`, make child pages `Java`, `Python`, and `JavaScript` have a `nav_order` of 10, 20, and 30, respectively. Doing so makes inserting additional child pages easier because it does not require you to renumber existing pages.
 
@@ -252,6 +253,19 @@ To insert a closed collapsible block, omit the `open` state:
 
 Collapsible blocks are useful for long responses and for the Table of Contents at the beginning of a page.
 
+To insert a collapsible Table of contents, use the following markup:
+
+````html
+<details markdown="block">
+  <summary>
+    Table of contents
+  </summary>
+  {: .text-delta }
+- TOC
+{:toc}
+</details>
+````
+
 ## Dashes
 
 Use one dash for hyphens, two for en dashes, and three for em dashes:
@@ -284,16 +298,16 @@ Markdown images are responsive by default. To insert a Markdown image, use the `
 
 Markdown uses the image’s actual width to render it. It sets the maximum image width to the width of the main body panel.
 
-If you want to specify the image width or another style, use HTML syntax:
+If you want to specify the image width, use Kramdown's inline attribute syntax after the image:
 
 ```
-<img src="{{site.url}}{{site.baseurl}}/images/brand.png" alt="OS branding" width="700"/>
+![OS branding]({{site.url}}{{site.baseurl}}/images/brand.png){: width="700" }
 ```
 
 You can specify width as a hard-coded number of pixels, as in the preceding example, or as a percentage of the parent width:
 
 ```
-<img src="{{site.url}}{{site.baseurl}}/images/brand.png" alt="OS branding" width="70%"/>
+![OS branding]({{site.url}}{{site.baseurl}}/images/brand.png){: width="70%" }
 ```
 
 To stretch the image to fit the width of the main body panel, use width=“100%”.

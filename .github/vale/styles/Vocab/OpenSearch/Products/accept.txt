@@ -16,7 +16,9 @@ Auditbeat
 Avro
 AWS Cloud
 AWS Secrets Manager
+AWS Signature Version 4
 Capture and Replay
+Claude Code
 Claude Desktop
 Cognito
 Cohere Command
@@ -28,6 +30,7 @@ Dashboards Query Language
 Data Prepper
 Debian
 Dev Tools
+Discover
 Docker
 Docker Compose
 Dockerfile
@@ -56,12 +59,14 @@ Jaeger HotROD
 JavaScript
 JSON
 JSON Web Token
+Karpenter
 Keycloak
 Kerberos
 Kibana
 Kinesis
 Kiro
 Kubernetes
+Kyverno
 Lambda
 LangChain
 Langflow
@@ -75,6 +80,7 @@ Metadata-Migration-Tool
 Metricbeat
 Microsoft Power BI
 Migration Assistant
+Migration Console
 Minikube
 Nagios
 Okta
@@ -113,7 +119,10 @@ RPM Package Manager
 Ruby
 Search Relevance Workbench
 Simple Schema for Observability
+Solr
+SolrCloud
 Strands Agents
+Strimzi
 Tableau
 Textract
 Titan
@@ -124,6 +133,8 @@ Traffic Capture Proxy
 Traffic Replayer
 Tribuo
 VisBuilder
+Visualize
+Workflow CLI
 Winlogbeat
 XGBoost
 Zipf

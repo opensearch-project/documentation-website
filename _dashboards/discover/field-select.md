@@ -15,7 +15,7 @@ The field select tool is in the vertical panel to the immediate left of the [Dis
 
 ## Navigating the field select tool
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/field-select-collapsed-callouts.png" alt="Field select tool"  width="44%">
+![Field select tool]({{site.url}}{{site.baseurl}}/images/dashboards/field-select-collapsed-callouts.png){: width="44%" }
 
 The following components make up the field select tool.
 
@@ -45,7 +45,7 @@ To select an index pattern, follow these steps:
 
 To select a field for display in the **Results** table, follow these steps:
 
-1. Select {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/arrow-right-icon.png" class="inline-icon" alt="expand icon"/>{:/} (expand) **Available fields** to expand the **Available fields**. 
+1. Select {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/arrow-right-icon.png" class="inline-icon" alt="expand icon"/>{:/} (expand) **Available fields** to expand the **Available fields**.
 
    If the field has been used recently, it might be in the **Popular fields** list instead of **Available fields**.
    {: .note}

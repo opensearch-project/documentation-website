@@ -35,7 +35,7 @@ To define a detector:
      
 1. Expand **Detection rules** to show the list of available detection rules for the selected log type. Initially, all rules are selected by default. The following example shows the rules associated with the **windows** log type.
 
-    <img src="{{site.url}}{{site.baseurl}}/images/Security/detector-rules.png" alt="Selecting threat detector log type to auto-populate rules" width="100%">
+    ![Selecting threat detector log type to auto-populate rules]({{site.url}}{{site.baseurl}}/images/Security/detector-rules.png){: width="100%" }
 
     You can perform the following actions when viewing rules:
     
@@ -52,7 +52,7 @@ To define a detector:
     
 1. In the **Detector schedule** section, create a schedule for how often to run the detector. Specify a unit of time and a corresponding number to set the interval. The following image shows that the detector runs every 3 minutes.
     
-    <img src="{{site.url}}{{site.baseurl}}/images/Security/detector-schedule.png" alt="Detector schedule settings to determine how often the detector runs" width="40%">
+    ![Detector schedule settings to determine how often the detector runs]({{site.url}}{{site.baseurl}}/images/Security/detector-schedule.png){: width="40%" }
     
 1. Select **Next**. The **Set up alerts** page appears and displays settings for an alert trigger.
 
@@ -72,18 +72,18 @@ To set up an alert for a detector, continue with the following steps:
 1. In the **Trigger name** box, optionally enter a name for the trigger or edit the default name.
 1. To define rule matches for the alert, select security rules, severity levels, and tags.
     
-    <img src="{{site.url}}{{site.baseurl}}/images/Security/alert_rules.png" alt="Defining an alert" width="70%">
+    ![Defining an alert]({{site.url}}{{site.baseurl}}/images/Security/alert_rules.png){: width="70%" }
 
     * Select one rule or multiple rules that will trigger the alert. Put the cursor in the **Rule names** box and type a name to search for it. To remove a rule name, select the **X** beside the name. To remove all rule names, select the **X** beside the dropdown list's down arrow.
 
-    <img src="{{site.url}}{{site.baseurl}}/images/Security/rule_name_delete.png" alt="Deletes all selected rules" width="45%">
+    ![Deletes all selected rules]({{site.url}}{{site.baseurl}}/images/Security/rule_name_delete.png){: width="45%" }
 
     * Select one or more rule severity levels as conditions for the alert.
     * Select from a list of tags to include as conditions for the alert.
 
 1. To define a notification for the alert, assign an alert severity, select a channel for the notification, and customize a message generated for the alert.
 
-    <img src="{{site.url}}{{site.baseurl}}/images/Security/alert_notify.png" alt="Notification settings for the alert" width="45%">
+    ![Notification settings for the alert]({{site.url}}{{site.baseurl}}/images/Security/alert_notify.png){: width="45%" }
 
     * Assign a level of severity for the alert to give the recipient an indication of its urgency.
     * Select a channel for the notification from the **Select channel to notify** dropdown list. Examples include Slack, Chime, or email. To create a new channel, select the **Manage channels** link to the right of the field. The **Channels** page for Notifications opens in a new tab where you can edit and create new channels. For more information about notifications, see the [Notifications]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/index/) documentation.
@@ -107,7 +107,7 @@ For more information about composite monitors and their workflows, see [Composit
 
 Once you select a data source and log type, the system attempts to automatically map fields between the log and rule fields. Switch to the **Mapped fields** tab to show the list of these mappings. When the field names are similar to one another, the system can successfully match the two, as shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/Security/automatic-mappings.png" alt="Field mapping example for automatic mappings" width="85%">
+![Field mapping example for automatic mappings]({{site.url}}{{site.baseurl}}/images/Security/automatic-mappings.png){: width="85%" }
 
 Although these automatic matches are normally dependable, it's still a good idea to review the mappings in the **Mapped fields** table and verify that they are correct and matched as expected. If you find a mapping that doesn't appear to be accurate, you can use the dropdown list to search for and select the correct field name. For more information about matching field names, see the following section.
 
@@ -117,7 +117,7 @@ For more information about field mappings, refer to the [About field mappings]({
 
 The field names that are not automatically mapped appear in the **Available fields** table. In this table you can manually map detection rule fields to data source fields, as shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/Security/pending-mappings.png" alt="Field mapping example for available mappings" width="85%">
+![Field mapping example for available mappings]({{site.url}}{{site.baseurl}}/images/Security/pending-mappings.png){: width="85%" }
 
 While mapping fields, consider the following:
 * The **Detection rule field** column lists field names based on all of the prepackaged rules associated with the selected log type.

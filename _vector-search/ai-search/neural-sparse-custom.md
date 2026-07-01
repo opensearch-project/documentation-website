@@ -5,8 +5,6 @@ parent: Neural sparse search
 grand_parent: AI search
 nav_order: 20
 has_children: false
-redirect_from:
-  - /search-plugins/neural-sparse-with-pipelines/
 ---
 
 # Using custom configurations for neural sparse search

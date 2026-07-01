@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Index patterns
-parent: Dashboards Management
+parent: Connecting data sources
 nav_order: 10
 ---
 
@@ -44,7 +44,7 @@ If you added sample data, you have index patterns that you can use to analyze th
 
 An example of step 1 is shown in the following image. Note that the index pattern `security*` matches three indexes. By defining the pattern with a wildcard `*`, you can query and visualize all the data in your indexes.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/index-patterns-step1.png" alt="Index pattern step 1 UI " width="700"/>
+![Index pattern step 1 UI ]({{site.url}}{{site.baseurl}}/images/dashboards/index-patterns-step1.png){: width="700" }
 
 ### Step 2: Configure the settings
 
@@ -52,13 +52,13 @@ An example of step 1 is shown in the following image. Note that the index patter
 
 2. Select **Create index pattern.** An example is shown in the following image.
 
-    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/index-pattern-step2.png" alt="Index pattern step 2 UI " width="700"/>
+    ![Index pattern step 2 UI ]({{site.url}}{{site.baseurl}}/images/dashboards/index-pattern-step2.png){: width="700" }
 
 Once the index pattern has been created, you can view the mapping of the matching indexes. Within the table, you can see the list of fields, along with their data type and properties. An example is shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/index-pattern-table.png" alt="Index pattern table UI " width="700"/>
+![Index pattern table UI ]({{site.url}}{{site.baseurl}}/images/dashboards/index-pattern-table.png){: width="700" }
 
 ## Next steps
 
-- [Understand your data through visuals]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/).
+- [Understand your data through visuals]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/).
 - [Dig into your data]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/).

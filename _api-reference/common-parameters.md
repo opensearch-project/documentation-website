@@ -125,6 +125,44 @@ Centimeters | `cm` or `centimeters`
 Millimeters | `mm` or `millimeters`
 Nautical miles | `NM`, `nmi`, or `nauticalmiles` 
 
+## Cron expressions
+
+Several OpenSearch features accept cron expressions for scheduling, including [Index State Management]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies/), [alerting]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/monitors/), and [anomaly detection]({{site.url}}{{site.baseurl}}/observing-your-data/ad/index/). OpenSearch uses the standard UNIX cron syntax. All schedule times are in UTC.
+
+A cron expression has the following format:
+
+```
+<minutes> <hours> <day_of_month> <month> <day_of_week>
+```
+
+The following table describes each field.
+
+| Field | Values | Special characters |
+| :--- | :--- | :--- |
+| Minutes | 0--59 | `, - * /` |
+| Hours | 0--23 | `, - * /` |
+| Day of month | 1--31 | `, - * /` |
+| Month | 1--12 or JAN--DEC (case-insensitive) | `, - * /` |
+| Day of week | 0--7 (0 and 7 are both Sunday) or SUN--SAT (case-insensitive) | `, - * /` |
+
+The following table describes the special characters.
+
+| Character | Description |
+| :--- | :--- |
+| `*` | Matches all values. For example, `*` in the hours field means every hour. |
+| `-` | Range. For example, `9-17` in hours means every hour from 9:00 to 17:00 UTC. |
+| `,` | Multiple values. For example, `1,3,5` in `day_of_week` means Monday, Wednesday, and Friday. |
+| `/` | Increment. For example, `0/15` in minutes means every 15 minutes starting at minute 0. |
+
+### Examples
+
+| Expression | Description |
+| :--- | :--- |
+| `5 9 * * *` | 9:05 AM UTC every day |
+| `0/15 9 * * *` | Every 15 minutes from 9:00 to 9:45 AM UTC |
+| `5 9 * * 1-5` | 9:05 AM UTC Monday through Friday |
+| `5 9 * * MON-FRI` | 9:05 AM UTC Monday through Friday (using named days) |
+
 ## `X-Opaque-Id` header
 
 You can specify an opaque identifier for any request using the `X-Opaque-Id` header. This identifier is used to track tasks and deduplicate deprecation warnings in server-side logs. This identifier is used to differentiate between callers sending requests to your OpenSearch cluster. Do not specify a unique value per request.

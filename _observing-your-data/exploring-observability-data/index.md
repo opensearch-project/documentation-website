@@ -34,7 +34,7 @@ To use these data exploration features, you need to:
 
 To create an observability workspace, follow these steps:
 
-1. Enable workspaces. For more information, see [Enabling the Worskpace feature]({{site.url}}{{site.baseurl}}/dashboards/workspace/workspace/#enabling-the-workspace-feature).
+1. Enable workspaces. For more information, see [Enabling workspaces]({{site.url}}{{site.baseurl}}/dashboards/workspace/workspace/#enabling-workspaces).
 2. On the OpenSearch Dashboards home page, select **Create Workspace** and choose **Observability**. Alternatively, select the plus sign on the **Observability** card to create a new observability workspace.
 3. In **Workspace details**, enter a **Name** and optional **Description** for your workspace.
 4. Select **Observability** as the use case and then select **Create workspace**.

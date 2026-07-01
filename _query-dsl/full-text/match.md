@@ -405,7 +405,7 @@ Now the query returns no results.
 
 ## Synonyms
 
-If you use a `synonym_graph` filter and `auto_generate_synonyms_phrase_query` is set to `true` (default), OpenSearch parses the query into terms and then combines the terms to generate a [phrase query](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/search/PhraseQuery.html) for multi-term synonyms. For example, if you specify `ba,batting average` as synonyms and search for `ba`, OpenSearch searches for `ba OR "batting average"`.
+If you use a `synonym_graph` filter and `auto_generate_synonyms_phrase_query` is set to `true` (default), OpenSearch parses the query into terms and then combines the terms to generate a [phrase query](https://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/search/PhraseQuery.html) for multi-term synonyms. For example, if you specify `ba,batting average` as synonyms and search for `ba`, OpenSearch searches for `ba OR "batting average"`.
 
 To match multi-term synonyms with conjunctions, set `auto_generate_synonyms_phrase_query` to `false`:
 

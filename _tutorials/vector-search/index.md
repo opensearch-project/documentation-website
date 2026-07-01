@@ -6,8 +6,6 @@ has_toc: false
 nav_order: 10
 redirect_from:
   - /vector-search/tutorials/
-  - /ml-commons-plugin/tutorials/
-  - /ml-commons-plugin/tutorials/index/
   - /tutorials/vector-search/
 vector_search_101:
   - heading: "Getting started with vector search"

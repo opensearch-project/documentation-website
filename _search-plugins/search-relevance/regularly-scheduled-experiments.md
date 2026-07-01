@@ -8,7 +8,7 @@ has_children: false
 ---
 
 # Monitoring search quality
-Introduced 3.4
+**Introduced 3.4**
 {: .label .label-purple }
 
 Search quality is not static. Even if your ranking algorithms remain unchanged, the indexed data evolves, signals such as popularity and recency fluctuate, and user queries shift over time.
@@ -22,17 +22,17 @@ Each job can have only one schedule. To modify the schedule, delete the existing
 
 After you successfully run a search evaluation for the first time, a clock icon appears that allows you to schedule the experiment, as shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/search-relevance-workbench/experiment_scheduled_icon.png" alt="Schedule a Experiment to Run"/>{: .img-fluid }
+![Schedule a Experiment to Run]({{site.url}}{{site.baseurl}}/images/search-relevance-workbench/experiment_scheduled_icon.png)
 
 On the scheduling page, configure how frequently you want the experiment to run, as shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/search-relevance-workbench/experiment_scheduled_modal.png" alt="Setting the schedule of how often to run"/>{: .img-fluid }
+![Setting the schedule of how often to run]({{site.url}}{{site.baseurl}}/images/search-relevance-workbench/experiment_scheduled_modal.png)
 
 ### Evaluating search quality
 
 Once an experiment is scheduled, a new dashboard icon lets you monitor the search results over time. Because the dashboard evaluates results daily, it may take up to 24 hours for the data to populate and display meaningful insights.
 
-<img src="{{site.url}}{{site.baseurl}}/images/search-relevance-workbench/experiment_scheduled_dashboard.png" alt="Review search quality over time"/>{: .img-fluid }
+![Review search quality over time]({{site.url}}{{site.baseurl}}/images/search-relevance-workbench/experiment_scheduled_dashboard.png)
 
 
 ## Scheduling a search evaluation using the API

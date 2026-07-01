@@ -19,11 +19,11 @@ The **Metrics** tool offers federated visualization capabilities in addition to 
 
 The following image displays the flow for retrieving metrics from Prometheus and displaying them on a visualization dashboard.
 
-<img src="{{site.url}}{{site.baseurl}}/images/metrics/prom-metrics.png" alt="Prometheus data source" width="700"/>
+![Prometheus data source]({{site.url}}{{site.baseurl}}/images/metrics/prom-metrics.png){: width="700" }
 
 The following image displays an observability dashboard that visualizes metric data from the OpenSearch index using OTel queries.
 
-<img src="{{site.url}}{{site.baseurl}}/images/metrics/otel-metrics.png" alt="OTel data source" width="700"/>
+![OTel data source]({{site.url}}{{site.baseurl}}/images/metrics/otel-metrics.png){: width="700" }
 
 ---
 
@@ -65,7 +65,7 @@ POST _plugins/_query/_datasources
 
 After configuring the connection, you can view Prometheus metrics in OpenSearch Dashboards by going to the **Observability** > **Metrics** page, as shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/metrics/metrics1.png" alt="Prometheus metrics displayed on a dashboard" width="700"/>
+![Prometheus metrics displayed on a dashboard]({{site.url}}{{site.baseurl}}/images/metrics/metrics1.png){: width="700" }
 
 ### Developer resources
 
@@ -149,7 +149,7 @@ To visualize OTel metric data in OpenSearch, follow these steps:
 5. Ingest metric data into OpenSearch. As the demo starts generating data, the metric signals will be added to the OpenSearch index that supports the OpenTelemetry Metrics schema format.
 6. On the **Metrics** page, choose `Otel-Index` from the **Data sources** dropdown menu and `Simple Schema for Observability Index` from the **OTel index** dropdown menu. A visualization is displayed, as shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/metrics/otel-metrics.png" alt="OTel metrics dashboard" width="700"/>
+![OTel metrics dashboard]({{site.url}}{{site.baseurl}}/images/metrics/otel-metrics.png){: width="700" }
 
 ---
 
@@ -159,11 +159,11 @@ Introduced 2.14
 
 You can view metrics from remote OpenSearch clusters by using the **Metrics** tool. Select the database icon on the upper-right toolbar and choose a cluster from the **DATA SOURCES** dropdown menu, as shown in the following image. You can switch from a local cluster to a remote cluster.
 
-<img src="{{site.url}}{{site.baseurl}}/images/metrics/remote-cluster-selection.png" alt="Switching clusters using the Metrics analytics tool" width="700"/>
+![Switching clusters using the Metrics analytics tool]({{site.url}}{{site.baseurl}}/images/metrics/remote-cluster-selection.png){: width="700" }
 
 You can also view metric visualizations from other sources alongside local metric visualizations. From the **DATA SOURCES** dropdown menu, choose the remote metric visualization to add it to the group of visualizations already shown on the dashboard. An example dashboard is shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/metrics/otel-metrics-remote-cluster-selection.png" alt="Metrics dashboard" width="700"/>
+![Metrics dashboard]({{site.url}}{{site.baseurl}}/images/metrics/otel-metrics-remote-cluster-selection.png){: width="700" }
 
 To learn about multi-cluster support for data sources, see [Enable OpenSearch Dashboards to support multiple OpenSearch clusters](https://github.com/opensearch-project/OpenSearch-Dashboards/issues/1388).
 
@@ -178,7 +178,7 @@ To create these visualizations, follow these steps:
 3. When prompted for a **Custom operational dashboards/application**, choose one of the listed options. You can edit the predefined name values in the **Metric Name** field.
 4. Select **Save** to save your visualization. An example visualization is shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/metrics/metrics2.png" alt="Metrics analytics dashboard with visualizations" width="700"/>
+![Metrics analytics dashboard with visualizations]({{site.url}}{{site.baseurl}}/images/metrics/metrics2.png){: width="700" }
 
 ## Defining PPL queries for Prometheus metrics
 
@@ -200,4 +200,4 @@ To create a custom visualization based on the PPL query, follow these steps:
 
 Only queries that include a time-series visualization and statistics or span information can be saved as a metric, as shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/metrics/metrics3.png" alt="Saving queries as metrics" width="700"/>
+![Saving queries as metrics]({{site.url}}{{site.baseurl}}/images/metrics/metrics3.png){: width="700" }
