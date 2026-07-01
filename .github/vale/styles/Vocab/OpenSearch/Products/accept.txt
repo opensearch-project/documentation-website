@@ -2,27 +2,27 @@ Active Directory
 Adoptium
 AI21 Labs Jurassic
 Amazon
-Amazon OpenSearch Serverless
-Amazon OpenSearch Service
 Amazon Bedrock
 Amazon Kinesis
+Amazon OpenSearch Serverless
+Amazon OpenSearch Service
 Amazon SageMaker
-AWS Secrets Manager
 Ansible
 Anthropic Claude
+Apache Avro
 Apache HttpClient 5 Transport
 Apache Kafka
-Apache Avro
 Auditbeat
 Avro
 AWS Cloud
+AWS Secrets Manager
 Capture and Replay
 Claude Desktop
+Cognito
 Cohere Command
 Cohere Embed
 Cohere Embed English
 Cohere Embed Multilingual
-Cognito
 Cursor
 Dashboards Query Language
 Data Prepper
@@ -33,16 +33,17 @@ Docker Compose
 Dockerfile
 DoS
 Elasticsearch
-GeoJSON
-GitHub
-Gradle
-Grafana
 Faiss
 Filebeat
 Flickr
 Fluent Bit
 Fluentd
+GeoJSON
+GitHub
+Gradle
+Grafana
 Helm
+Hive Metastore
 Hugging Face
 IdP
 Inferentia
@@ -50,9 +51,9 @@ IP2Geo
 IPv4
 IPv6
 Iris
-JavaScript
 Jaeger
 Jaeger HotROD
+JavaScript
 JSON
 JSON Web Token
 Keycloak
@@ -63,15 +64,14 @@ Kiro
 Kubernetes
 Lambda
 LangChain
-LangGraph
 Langflow
+LangGraph
 Linux
 Log4j
 Logstash
 Lucene
 macOS
 Metadata-Migration-Tool
-Hive Metastore
 Metricbeat
 Microsoft Power BI
 Migration Assistant
@@ -106,9 +106,9 @@ PyTorch
 Querqy
 Query Workbench
 RankLib
+RCF Summarize
 Reindex-from-Snapshot
 Replayer
-RCF Summarize
 RPM Package Manager
 Ruby
 Search Relevance Workbench
