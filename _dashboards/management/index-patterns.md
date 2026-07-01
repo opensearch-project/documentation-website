@@ -56,9 +56,9 @@ Once the index pattern has been created, you can view the mapping of the matchin
 
 Consider the following best practices when creating index patterns:
 
-- **Make your index patterns specific.** Instead of creating an index pattern that matches all indexes, create an index pattern that matches all indexes starting with a certain prefix, for example, `my-index-`. The more specific your index patterns, the better it will be to query and analyze your data.
-- **Use wildcards sparingly.** Wildcards can be useful for matching multiple indexes, but they can also make it more difficult to manage your index patterns. Try to use wildcards as specifically as possible.
-- **Test your index patterns.** Make sure to test your index patterns to ensure that they match the correct indexes. 
+- **Make your index patterns specific**: Instead of creating an index pattern that matches all indexes, create an index pattern that matches all indexes starting with a certain prefix, for example, `my-index-`. The more specific your index patterns, the better it will be to query and analyze your data.
+- **Use wildcards sparingly**: Wildcards can be useful for matching multiple indexes, but they can also make it more difficult to manage your index patterns. Try to use wildcards as specifically as possible.
+- **Test your index patterns**: Make sure to test your index patterns to ensure that they match the correct indexes. 
 
 ## Next steps
 
