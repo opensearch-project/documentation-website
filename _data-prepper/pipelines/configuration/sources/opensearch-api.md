@@ -8,8 +8,10 @@ nav_order: 30
 
 # opensearch_api
 
-The `opensearch_api` source accepts HTTP requests compatible with the [OpenSearch Bulk API](https://opensearch.org/docs/latest/api-reference/document-apis/bulk/). This allows standard OpenSearch clients — such as the Flink OpenSearch Connector, Logstash, and opensearch-py — to send data directly to Data Prepper without modification.
+The `opensearch_api` source accepts HTTP requests compatible with the [OpenSearch Bulk API](https://opensearch.org/docs/latest/api-reference/document-apis/bulk/). This allows standard OpenSearch clients like Flink OpenSearch Connector, Logstash, and opensearch-py to send data to Data Prepper.
 
+Unlike the OpenSearch Bulk API, this source writes asynchronously. Events are buffered for downstream processing (except when `zero` buffer is used, in which case events are directly passed onto the sink) rather than written directly to OpenSearch. Irrespective of the buffer type used, the response is synthetic and does not reflect actual indexing results from OpenSearch.
+  
 ## Usage
 
 The `opensearch_api` source supports the following endpoints:
@@ -142,6 +144,8 @@ The `opensearch_api` source works with the following buffer types:
 |--------|-----------|-------|
 | `bounded_blocking` | Yes | Default. Events stored as `Record<Event>` objects in a `BlockingQueue`. |
 | `kafka` | Yes | Requires Data Prepper 2.x with ByteDecoder support. Raw bytes are written to Kafka; a `ByteDecoder` reconstructs events on the consumer side. |
+| `zero` | Yes | Writes synchronously to OpenSearch (no buffering). |
+
 
 ## Metrics
 
