@@ -29,6 +29,7 @@ The following example shows a `bulk` operation type with a `bulk-size` of `5000`
   "bulk-size": 5000
 }
 ```
+{% include copy.html %}
 
 ### Split documents among clients
 
@@ -84,7 +85,7 @@ If `detailed-results` is `true`, the following metadata is returned:
 
 The `create-index` operation runs the [Create Index API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/). It supports the following two index creation modes:
 
-- Creating all indexes specified in the workloads `indices` section
+- Creating all indexes specified in the workload's `indices` section
 - Creating one specific index defined within the operation itself
 
 ### Usage
@@ -103,6 +104,7 @@ The following example creates all indexes defined in the `indices` section of th
   }
 }
 ```
+{% include copy.html %}
 
 The following example creates a new index with all index settings specified in the operation body:
 
@@ -127,6 +129,7 @@ The following example creates a new index with all index settings specified in t
   }
 }
 ```
+{% include copy.html %}
 
 ### Configuration options
 
@@ -142,16 +145,16 @@ Use the following options when creating a single index in the operation.
 Parameter | Required | Type | Description
 :--- | :--- | :--- | :---
 `index` | Yes | String | The index name.
-`body` | No | Request body | The request body for the Create Index API. For more information, see [Create Index API](/api-reference/index-apis/create-index/).
+`body` | No | Request body | The request body for the Create Index API. For more information, see [Create Index API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/).
 `request-params` | No | List of settings | Contains any request parameters allowed by the Create Index API. OpenSearch Benchmark does not attempt to serialize the parameters and passes them in their current state.
 
 ### Metadata
 
 The `create-index` operation returns the following metadata:
 
-`weight`: The number of indexes created by the operation.
-`unit`: Always `ops`, indicating the number of operations inside the workload.
-`success`: A Boolean indicating whether the operation has succeeded.
+- `weight`: The number of indexes created by the operation.
+- `unit`: Always `ops`, indicating the number of operations inside the workload.
+- `success`: A Boolean indicating whether the operation has succeeded.
 
 <!-- vale off -->
 ## delete-index
@@ -169,6 +172,7 @@ The following example deletes all indexes found in the `indices` section of the 
   "operation-type": "delete-index"
 }
 ```
+{% include copy.html %}
 
 The following example deletes all `logs_*` indexes:
 
@@ -185,6 +189,7 @@ The following example deletes all `logs_*` indexes:
   }
 }
 ```
+{% include copy.html %}
 
 ### Configuration options
 
@@ -207,9 +212,9 @@ Parameter | Required | Type | Description
 
 The `delete-index` operation returns the following metadata:
 
-`weight`: The number of indexes created by the operation.
-`unit`: Always `ops`, for the number of operations inside the workload.
-`success`: A Boolean indicating whether the operation has succeeded.
+- `weight`: The number of indexes created by the operation.
+- `unit`: Always `ops`, for the number of operations inside the workload.
+- `success`: A Boolean indicating whether the operation has succeeded.
 
 <!-- vale off -->
 ## cluster-health
@@ -235,6 +240,7 @@ The following example creates a `cluster-health` operation that checks for a `gr
 }
 
 ```
+{% include copy.html %}
 
 ### Configuration options
 
@@ -249,9 +255,9 @@ Parameter | Required | Type | Description
 
 The `cluster-health` operation returns the following metadata:
 
-`weight`: The number of indexes the `cluster-health` operation assesses. Alwasys `1`, since the operation runs once per index.
-`unit`: Always `ops`, for the number of operations inside the workload.
-`success`: A Boolean indicating whether the operation has succeeded.
+- `weight`: The number of indexes the `cluster-health` operation assesses. Always `1`, since the operation runs once per index.
+- `unit`: Always `ops`, for the number of operations inside the workload.
+- `success`: A Boolean indicating whether the operation has succeeded.
 - `cluster-status`: The current cluster status.
 - `relocating-shards`: The number of shards currently relocating to a different node.
 
@@ -272,6 +278,7 @@ The following example refreshes all `logs-*` indexes:
  "index": "logs-*"
 }
 ```
+{% include copy.html %}
 
 ### Configuration options
 
@@ -306,6 +313,7 @@ The following example runs a `match_all` query inside the `search` operation:
   }
 }
 ```
+{% include copy.html %}
 
 ### Configuration options
 
@@ -331,7 +339,7 @@ The following metadata is always returned:
 If `detailed-results` is set to `true`, the following metadata is also returned:
 
 - `hits`: The total number of hits for the query.
-- `hits_relation`: Whether the number of hits is accurate (eq) or a lower bound of the actual hit count (gte).
+- `hits_relation`: Whether the number of hits is accurate (`eq`) or a lower bound of the actual hit count (`gte`).
 - `timed_out`: Whether the query has timed out. For scroll queries, this flag is `true` if the flag was `true` for any of the queries issued.
  - `took`: The value of the `took` property in the query response. For scroll queries, the value is the sum of all `took` values in all query responses.
 
@@ -393,13 +401,14 @@ The `force-merge` operation runs the [Force Merge API]({{site.url}}{{site.baseur
   }
 }
 ```
+{% include copy.html %}
 
 ### Configuration options
 
 Parameter | Required | Type | Description
 :--- | :--- | :--- | :---
 `index` | No | String | The index or indexes to force merge. If omitted, the call falls through to the underlying client's default behavior, which targets all indexes.
-`max-num-segments` | No | Integer | Target number of segments per shard. Passed as `max_num_segments` to the Force Merge API.
+`max-num-segments` | No | Integer | The target number of segments per shard. Passed as `max_num_segments` to the Force Merge API.
 `mode` | No | String | Set to `polling` to issue the force merge asynchronously and poll the Tasks API until it completes. When omitted, the call waits synchronously and may time out on large indexes.
 `poll-period` | Conditional | Number | Required when `mode` is `polling`: the time in seconds between status polls. The operation raises an error if `mode: polling` is set without this value.
 `request-params` | No | Object | Additional request parameters passed to the Force Merge API.
@@ -426,6 +435,7 @@ The `index-stats` operation runs the [Index Stats API]({{site.url}}{{site.baseur
   "retry-until-success": true
 }
 ```
+{% include copy.html %}
 
 ### Configuration options
 
@@ -449,6 +459,7 @@ The `node-stats` operation runs the [Nodes Stats API]({{site.url}}{{site.baseurl
   "operation-type": "node-stats"
 }
 ```
+{% include copy.html %}
 
 ### Configuration options
 
@@ -482,6 +493,7 @@ The `vector-search` operation runs k-NN vector search queries and optionally com
   }
 }
 ```
+{% include copy.html %}
 
 ### Configuration options
 
@@ -490,9 +502,9 @@ Parameter | Required | Type | Description
 `index` | Yes | String | The target index. Required: omitting it causes the underlying `search` runner to error out.
 `body` | Yes | Object | The search request body containing the k-NN query.
 `k` | No | Integer | The number of nearest neighbors to retrieve. Used for recall calculation.
-`detailed-results` | No | Boolean | Records detailed metadata.
+`detailed-results` | No | Boolean | Whether to record detailed metadata.
 `calculate-recall` | No | Boolean | Whether to compute recall@k and recall@1 against ground truth neighbors. Default is `true`.
-`neighbors` | No | Array | Ground truth neighbor IDs for recall calculation. Typically provided by the workload's param source.
+`neighbors` | No | Array | The ground truth neighbor IDs for recall calculation. Typically provided by the workload at runtime.
 
 ### Metadata
 
@@ -518,6 +530,7 @@ The `bulk-vector-data-set` operation bulk-indexes vector data from HDF5 or BigAN
   "index": "vectors"
 }
 ```
+{% include copy.html %}
 
 ### Configuration options
 
@@ -551,13 +564,14 @@ The `put-pipeline` operation creates or updates an [ingest pipeline]({{site.url}
       {
         "set": {
           "field": "ingest_time",
-          "value": "{{_ingest.timestamp}}"
+          "value": {% raw %}"{{_ingest.timestamp}}"{% endraw %}
         }
       }
     ]
   }
 }
 ```
+{% include copy.html %}
 
 ### Configuration options
 
@@ -629,6 +643,7 @@ The `put-settings` operation updates [cluster settings]({{site.url}}{{site.baseu
   }
 }
 ```
+{% include copy.html %}
 
 ### Configuration options
 
@@ -768,6 +783,7 @@ The `shrink-index` operation uses the [Shrink Index API]({{site.url}}{{site.base
   }
 }
 ```
+{% include copy.html %}
 
 ### Configuration options
 
@@ -867,13 +883,13 @@ Parameter | Required | Type | Description
 ## submit-async-search
 <!-- vale on -->
 
-The `submit-async-search` operation submits an [asynchronous search]({{site.url}}{{site.baseurl}}/search-plugins/async/) request and stores the returned async search ID under the operation `name` so later operations in the same composite can fetch or delete it.
+The `submit-async-search` operation submits an [asynchronous search]({{site.url}}{{site.baseurl}}/search-plugins/async/) request and stores the returned asynchronous search ID under the operation `name` so later operations in the same composite can fetch or delete it.
 
 ### Configuration options
 
 Parameter | Required | Type | Description
 :--- | :--- | :--- | :---
-`name` | Yes | String | The operation name. Other operations refer to this name to look up the resulting async search ID.
+`name` | Yes | String | The operation name. Other operations refer to this name to look up the resulting asynchronous search ID.
 `body` | Yes | Object | The search request body.
 `index` | No | String | The target index.
 `request-params` | No | Object | Additional request parameters forwarded to the Async Search API.
@@ -882,7 +898,7 @@ Parameter | Required | Type | Description
 ## get-async-search
 <!-- vale on -->
 
-The `get-async-search` operation retrieves results from one or more previously submitted async searches. The operation succeeds only when every referenced search has completed (`is_running: false`).
+The `get-async-search` operation retrieves results from one or more previously submitted asynchronous searches. The operation succeeds only when every referenced search has completed (`is_running: false`).
 
 ### Configuration options
 
@@ -895,7 +911,7 @@ Parameter | Required | Type | Description
 ## delete-async-search
 <!-- vale on -->
 
-The `delete-async-search` operation deletes one or more async search results.
+The `delete-async-search` operation deletes one or more asynchronous search results.
 
 ### Configuration options
 
@@ -1126,6 +1142,7 @@ The `raw-request` operation sends an arbitrary HTTP request to OpenSearch. Use t
   "body": {}
 }
 ```
+{% include copy.html %}
 
 ### Configuration options
 
@@ -1153,6 +1170,7 @@ The `sleep` operation pauses execution for a specified duration.
   "duration": 30
 }
 ```
+{% include copy.html %}
 
 ### Configuration options
 
@@ -1181,6 +1199,7 @@ Only a subset of operation types can appear inside `composite`: `create-point-in
   ]
 }
 ```
+{% include copy.html %}
 
 ### Configuration options
 
@@ -1199,7 +1218,7 @@ The `produce-stream-message` operation publishes messages to a configured `messa
 
 Parameter | Required | Type | Description
 :--- | :--- | :--- | :---
-`message-producer` | Yes | Producer | The producer instance (resolved by the workload param source) used to send messages.
+`message-producer` | Yes | Producer | The producer instance (resolved by the workload at runtime) used to send messages.
 `body` | Yes | String or Bytes | The newline-delimited message payload. Index-metadata lines (`{"index": {"_index": ...}}`) are skipped.
 
 <!-- vale off -->
