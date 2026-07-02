@@ -137,6 +137,31 @@ The following table lists the common plugin logger categories.
 
 
 
+## Error logs
+
+OpenSearch logs errors at the `WARN`, `ERROR`, and `FATAL` levels. Additionally, certain exceptions from the `DEBUG` level are logged, including the following:
+
+- `org.opensearch.index.mapper.MapperParsingException`
+- `org.opensearch.index.query.QueryShardException`
+- `org.opensearch.action.search.SearchPhaseExecutionException`
+- `org.opensearch.common.util.concurrent.OpenSearchRejectedExecutionException`
+- `java.lang.IllegalArgumentException`
+
+Error logs can help with troubleshooting in many situations, including the following:
+
+- Painless script compilation issues
+- Invalid queries
+- Indexing issues
+- Snapshot failures
+- Index State Management migration failures
+
+### MapperParsingException scope
+
+`MapperParsingException` errors are logged only when they are triggered by explicit mapping requests, such as the [Put Mapping API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/put-mapping/). They are **not** logged when triggered by document indexing operations, such as the [Bulk API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/) or the [Index API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/index-document/).
+
+For example, if a document contains a field value that conflicts with the index mapping (such as sending a string value for an integer field), the Bulk API returns a `mapper_parsing_exception` error in the response body, but this error is not written to the error logs. To identify documents causing `MapperParsingException` during bulk indexing, inspect the Bulk API response for errors rather than relying on error logs.
+{: .note}
+
 ## Search request slow logs
 
 New in version 2.12, OpenSearch offers request-level slow logs for search. These logs rely on thresholds to define what qualifies as "slow." All requests which exceed the threshold are logged.
