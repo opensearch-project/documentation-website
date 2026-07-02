@@ -175,3 +175,7 @@ The following table lists all response body fields.
 Field | Description
 :--- | :---
 `settings` | An object containing all settings for the index. The specific settings returned depend on the index configuration. For information about available index settings, see [Index settings]({{site.url}}{{site.baseurl}}/im-plugin/index-settings/).
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `indices:monitor/settings/get`.

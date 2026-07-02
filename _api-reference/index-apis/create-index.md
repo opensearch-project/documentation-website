@@ -479,3 +479,7 @@ response = client.indices.create(
     rest=step1_rest
     python=step1_python %}
 <!-- spec_insert_end -->
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `indices:admin/create`.

@@ -257,5 +257,6 @@ The `PUT _scripts/my-first-script` request returns the following field:
 To determine whether the script was successfully created, use the [Get stored script]({{site.url}}{{site.baseurl}}/api-reference/script-apis/get-stored-script/) API, passing the script name as the `script` path parameter.
 {: .note}
 
+## Required permissions
 
-
+If you use the Security plugin, make sure you have the appropriate permissions: `cluster:admin/script/put`.

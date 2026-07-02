@@ -132,3 +132,7 @@ shards | disk.indices | disk.used | disk.avail | disk.total | disk.percent | hos
   8    |   989.4kb    |   25.9gb  |   32.4gb   |   58.4gb   |   44         | 172.18.0.4   | 172.18.0.4  | odfe-node1
   8    |   962.4kb    |   25.9gb  |   32.4gb   |   58.4gb   |   44         | 172.18.0.3   | 172.18.0.3  | odfe-node2
 ```
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `cluster:monitor/allocation/explain`.

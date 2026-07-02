@@ -745,3 +745,7 @@ Field | Data type | Description
 `nodes.packaging_types` | Array | Information about the distribution types installed on the specified nodes.
 `nodes.ingest.number_of_pipelines` | Integer | The total number of ingest pipelines across the specified nodes.
 `nodes.ingest.processor_stats` | Object | Statistics about ingest processors used on the specified nodes.
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `cluster:monitor/stats`.

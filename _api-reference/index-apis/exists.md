@@ -62,3 +62,7 @@ response = client.indices.exists(
 ## Example response
 
 The index exists API operation returns only one of two possible response codes: `200` -- the index exists, and `404` -- the index does not exist.
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `indices:admin/exists`.

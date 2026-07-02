@@ -129,3 +129,7 @@ The following response shows the overall document count as 1625:
 epoch      | timestamp | count
 1624237738 | 01:08:58  | 1625
 ```
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `indices:data/read/search`.

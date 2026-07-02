@@ -295,3 +295,7 @@ response = client.cat.recovery(
 ## Wait for active shards
 
 Because the clone operation creates a new index, the `wait_for_active_shards` setting for index creation also applies to the clone operation. This setting determines how many shard copies must be active before the operation returns a response. For more information, see [Index settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/).
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `indices:admin/resize`.

@@ -211,3 +211,7 @@ The response contains storage and shard statistics for each data stream in the c
 | `data_streams[n].store_size`| String| Human-readable storage used by the data stream. Present only if `human=true`. |
 | `data_streams[n].store_size_bytes`| Integer | The total storage used by the data stream, in bytes.|
 | `data_streams[n].maximum_timestamp` | Long| The maximum timestamp across all documents in the data stream. |
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `indices:monitor/data_stream/stats`.
