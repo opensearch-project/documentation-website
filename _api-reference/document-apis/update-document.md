@@ -946,3 +946,7 @@ If there's an error in your Painless script, OpenSearch returns a 400 error with
 ```
 
 Review the `script_stack` and `caused_by` fields in the error response to identify and fix the script error.
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `indices:data/write/update`.

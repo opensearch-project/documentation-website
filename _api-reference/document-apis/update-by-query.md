@@ -1000,3 +1000,7 @@ POST _tasks/<task_id>/_cancel
 {% include copy-curl.html %}
 
 Cancellation should happen quickly but might take a few seconds. The Tasks API continues to list the update by query task until it checks that it has been canceled and terminates itself. When you cancel an update by query operation with slices, OpenSearch cancels each sub-request.
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `indices:data/write/update/byquery`.

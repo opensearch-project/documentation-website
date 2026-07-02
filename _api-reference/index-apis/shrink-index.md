@@ -267,3 +267,7 @@ The following table lists all response body fields.
 | `acknowledged` | Boolean | Indicates whether the request was acknowledged by all relevant nodes in the cluster. |
 | `shards_acknowledged` | Boolean | Indicates whether the required number of shard copies were started before the request timed out. |
 | `index` | String | The name of the target index that was created. |
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `indices:admin/resize`.

@@ -261,3 +261,7 @@ Field | Description
 `boost` | The query boost value. A multiplier applied to the score. The default boost is 1.0 when not explicitly specified in the query.
 
 The final relevance score is calculated by multiplying these components together: `score = boost * idf * tf`. The values are calculated and stored at index time when a document is added or updated and may have small inaccuracies based on shard-level statistics.
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `indices:data/read/explain`.

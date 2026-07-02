@@ -626,3 +626,7 @@ Allocator | Description
 `rebalance_only_when_active` | Prevents rebalancing when not all shard copies (primaries and replicas) are active in the cluster.
 `cluster_rebalance` | Controls when cluster rebalancing is allowed based on the `cluster.routing.allocation.allow_rebalance` setting: `always`, `indices_primaries_active`, or `indices_all_active`.
 `replica_after_primary_active` | Ensures that replica shards are only allocated after their primary shard is active.
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `cluster:monitor/allocation/explain`.

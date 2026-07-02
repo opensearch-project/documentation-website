@@ -487,3 +487,7 @@ Each element of the `docs` array contains the following fields.
 | `term_vectors.<field>.field_statistics.sum_ttf` | Integer | The sum of total term frequencies for all terms in the field. |
 | `term_vectors.<field>.terms` | Object | A map of terms in the field, in which each term includes its frequency (`term_freq`) and associated token information. |
 | `term_vectors.<field>.terms.<term>.tokens` | Array | An array of token objects for each term, including the token's `position` in the text and its character offsets (`start_offset` and `end_offset`). |
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `indices:data/read/mtv` and `indices:data/read/mtv*`.

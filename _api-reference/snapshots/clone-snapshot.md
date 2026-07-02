@@ -106,3 +106,6 @@ The successful creation of a snapshot clone returns the following response:
 }
 ```
 
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `cluster:admin/snapshot/clone`.

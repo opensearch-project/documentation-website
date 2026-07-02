@@ -337,3 +337,7 @@ When you update a document using the Index Document API, OpenSearch always creat
 If you need to avoid creating unnecessary document versions, use the [Update Document API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/update-document/) with the `detect_noop` parameter set to `true`. The Update API fetches the existing document, compares it to the new content, and only creates a new version if the content has changed.
 
 The Index Document API does not support noop detection because it does not fetch the old source for comparison. Whether noop updates are problematic depends on several factors, including how frequently your data source sends updates that do not change the document and the query load on the shard receiving the updates.
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `indices:data/write/index`.

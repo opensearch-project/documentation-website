@@ -282,6 +282,6 @@ OpenSearch returns the following response confirming that all conditions except 
 }
 ```
 
+## Required permissions
 
-
-
+If you use the Security plugin, make sure you have the appropriate permissions: `indices:admin/rollover`.
