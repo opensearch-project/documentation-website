@@ -56,6 +56,14 @@ This guide assumes that you are comfortable working from the Linux command line 
    # arm64
    sudo dpkg -i opensearch-{{site.opensearch_version}}-linux-arm64.deb
    ```
+   For new installations of OpenSearch 2.19.6 and later, you can use the following installation-time environment variables to control the Security plugin behavior:
+   * `DISABLE_INSTALL_DEMO_CONFIG=true` -- Prevents the installer from setting up demo security configuration (certificates, users, and roles). Use this for installations where you will configure security manually.
+   * `DISABLE_SECURITY_PLUGIN=true` -- Disables the Security plugin entirely. Only use this for testing or development environments where security is not required.
+
+   To use these environment variables, add them before the installation command with the `env` keyword:
+   ```bash
+   sudo env DISABLE_INSTALL_DEMO_CONFIG=true dpkg -i opensearch-{{site.opensearch_version}}-linux-x64.deb
+   ```
 
 1. After the installation succeeds, enable OpenSearch as a service.
     ```bash
