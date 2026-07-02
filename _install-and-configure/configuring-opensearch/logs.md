@@ -155,7 +155,7 @@ Error logs can help with troubleshooting in many situations, including the follo
 - Snapshot failures
 - Index State Management migration failures
 
-### MapperParsingException scope
+### Mapper parsing exception scope
 
 Mapper parsing exceptions are logged only when they are triggered by explicit mapping requests, such as the [Put Mapping API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/put-mapping/) requests. They are not logged when triggered by document indexing operations, such as the [Bulk API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/) or the [Index API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/index-document/) requests. For example, if a document contains a field value that conflicts with the index mapping (for example, when you send a string value in an integer field), the Bulk API returns a `mapper_parsing_exception` in the response body, but this error is not written to the error logs. To identify documents causing a `mapper_parsing_exception` during bulk indexing, inspect the Bulk API response for errors rather than relying on error logs.
 
