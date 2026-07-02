@@ -108,3 +108,7 @@ tenant_template | [opensearch-dashboards*] | 0  |
 ```
 
 To learn more about index templates, see [Index templates]({{site.url}}{{site.baseurl}}/opensearch/index-templates).
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `indices:admin/template/get`.

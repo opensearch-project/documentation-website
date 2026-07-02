@@ -92,3 +92,7 @@ The following table lists all response fields.
 | `tasks[n].executing`            | Boolean   | Confirmation of whether the task is currently being executed.                      |
 | `tasks[n].time_in_queue_millis` | Integer   | The amount of time the task has been waiting in the queue (in milliseconds). |
 | `tasks[n].time_in_queue`        | String    | A human-readable version of `time_in_queue_millis`.                  |
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `cluster:monitor/task`.

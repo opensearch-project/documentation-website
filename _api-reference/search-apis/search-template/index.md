@@ -892,3 +892,7 @@ The following search template API operations are available:
 
 - [Multi-search template]({{site.url}}{{site.baseurl}}/api-reference/search-apis/search-template/msearch-template/)
 - [Render template]({{site.url}}{{site.baseurl}}/api-reference/search-apis/search-template/render-template/)
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `indices:data/read/search/template`.

@@ -217,6 +217,10 @@ The following table lists all response body fields.
 | `<index>.aliases.<alias>.search_routing` | String | Routing value used for search operations. |
 | `<index>.aliases.<alias>.is_write_index` | Boolean | Whether the index is the write index for the alias. |
 
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `indices:admin/aliases/get`.
+
 ## Related documentation
 
 For more information about index aliases, see [Index aliases]({{site.url}}{{site.baseurl}}/im-plugin/index-alias/).

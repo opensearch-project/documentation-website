@@ -84,3 +84,7 @@ Upon success, the response returns repositry information. This sample is for an 
 | type | string | Bucket type: `fs` (file system) or `s3` (s3 bucket) |
 | bucket | string | S3 bucket name. |
 | base_path | string | Folder within the bucket where snapshots are stored. |
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `cluster:admin/repository/get`.

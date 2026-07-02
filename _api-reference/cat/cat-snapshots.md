@@ -85,3 +85,7 @@ index | shard | prirep | state   | docs | store | ip |       | node
 plugins | 0   |   p    | STARTED |   0  |  208b | 172.18.0.4 | odfe-node1
 plugins | 0   |   r    | STARTED |   0  |  208b | 172.18.0.3 |  odfe-node2          
 ```
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `cluster:admin/snapshot/get`.
