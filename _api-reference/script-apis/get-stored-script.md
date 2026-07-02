@@ -92,3 +92,7 @@ The `GET _scripts/my-first-script` request returns the following response fields
 :--- | :--- | :---
 | lang | String | The script's language. |
 |  source | String | The script's body. |
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `cluster:admin/script/get`.

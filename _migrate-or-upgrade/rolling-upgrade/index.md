@@ -26,6 +26,13 @@ Before making any changes to your OpenSearch cluster, is it highly recommended t
 **Important**: The minimum required cluster version for upgrades to 3.x.x is 2.19.0.
 {: .important}
 
+### Cross-cluster replication
+
+If your cluster uses [cross-cluster replication]({{site.url}}{{site.baseurl}}/tuning-your-cluster/replication-plugin/), follow these guidelines when upgrading:
+
+- **Unidirectional replication**: Upgrade the follower cluster first, then the leader cluster.
+- **Bidirectional replication**: Stop replication in one direction, then upgrade both clusters. For the replication that remains active, upgrade the follower cluster first, then the leader cluster. Resume the stopped replication after both clusters are upgraded.
+
 ## Performing the upgrade
 
 1. Verify the health of your OpenSearch cluster before you begin. You should resolve any index or shard allocation issues prior to upgrading to ensure that your data is preserved. A status of **green** indicates that all primary and replica shards are allocated. See [Cluster health]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-health/) for more information. The following command queries the `_cluster/health` API endpoint:

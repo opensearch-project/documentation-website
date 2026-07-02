@@ -326,6 +326,10 @@ The following table lists the response body fields for the clear scroll operatio
 | `succeeded` | Boolean | Whether the scroll context was successfully released. |
 | `num_freed` | Integer | The number of scroll contexts that were freed. |
 
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `indices:data/read/scroll` and `indices:data/read/scroll/clear`.
+
 ## Related documentation
 
 - [Paginate results]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/)

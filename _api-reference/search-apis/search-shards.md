@@ -260,3 +260,7 @@ The following table lists all response body fields.
 | `shards.primary` | Boolean | Whether this is a primary shard. |
 | `shards.state` | String | The current shard state. |
 | `shards.allocation_id.id` | String | A unique ID for this shard allocation. |
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `indices:admin/shards/search_shards`.

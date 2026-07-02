@@ -323,3 +323,13 @@ For aliases, users must have either index **or** alias permissions for any PIT o
 For data streams, users must have both the data stream **and** the data stream's backing index permissions for any PIT operation. For example, the user must have permissions for the `data-stream-11` data stream and for its backing index `.ds-my-data-stream11-000001`.
 
 If users have the data stream permissions only, they will be able to create a PIT, but they will not be able to use the PIT ID for other operations, such as search, without the backing index permissions.
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions. The following permissions are required for this API:
+
+- `indices:data/read/point_in_time/create`: Required for creating a PIT
+- `indices:data/read/point_in_time/delete`: Required for deleting a PIT
+- `indices:data/read/search`: Required for searching with a PIT
+
+If users have the data stream permissions only, they will be able to create a PIT, but they will not be able to use the PIT ID for other operations, such as search, without the backing index permissions.

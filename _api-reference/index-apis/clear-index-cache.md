@@ -255,3 +255,7 @@ The `POST /books,hockey/_cache/clear` request returns the following response fie
 | total | Integer | Total number of shards. |
 | successful | Integer | Number of index shards with caches successfully cleared. |
 | failed | Integer | Number of index shards with caches that failed to clear. |
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `indices:admin/cache/clear`.

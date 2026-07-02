@@ -120,3 +120,6 @@ The document APIs such as Index, Update, Delete, and Bulk APIs support a `refres
 
 For more information about the `refresh` parameter, see the [Index Document API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/index-document/), [Update Document API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/update-document/), [Delete Document API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/delete-document/), and [Bulk API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/) documentation.
 
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `indices:admin/refresh` and `indices:admin/refresh*`.

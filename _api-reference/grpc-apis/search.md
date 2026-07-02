@@ -501,6 +501,23 @@ The [`ConstantScoreQuery`](https://github.com/opensearch-project/opensearch-prot
 | `boost` | `optional float` | A floating-point number used to decrease or increase the relevance scores of the query. Default is `1.0`. |
 | `x_name` | `optional string` | A query name for query tagging. |
 
+#### FunctionScoreQuery fields
+
+The [`FunctionScoreQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.2.0/protos/schemas/common.proto#L2154) message accepts the following fields.
+
+| Field | Protobuf type | Description |
+| :---- | :---- | :---- |
+| `boost` | `optional float` | A floating-point number used to decrease or increase the relevance scores of the query. Default is `1.0`. |
+| `x_name` | `optional string` | A query name for query tagging. |
+| `boost_mode` | `optional` [`FunctionBoostMode`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.2.0/protos/schemas/common.proto#L2947) | Determines how the computed function score is combined with the query score. |
+| `functions` | `repeated` [`FunctionScoreContainer`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.2.0/protos/schemas/common.proto#L2181) | The score functions. Each entry may set `filter`, `weight`, and one of `exp`, `gauss`, `linear`, `field_value_factor`, `random_score`, or `script_score`. |
+| `max_boost` | `optional float` | The maximum boost value that a function can apply to a document score. |
+| `min_score` | `optional float` | Excludes documents with a score below this threshold from the results. |
+| `query` | `optional` [`QueryContainer`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.2.0/protos/schemas/common.proto#L1341) | The query used to select documents before applying score functions. |
+| `score_mode` | `optional` [`FunctionScoreMode`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.2.0/protos/schemas/common.proto#L2957) | Determines how scores from multiple functions are combined into a single score. |
+
+For more information, see [Function score query]({{site.url}}{{site.baseurl}}/query-dsl/compound/function-score/).
+
 ### Joining query fields
 
 The following sections describe the fields for each joining query message.
@@ -558,6 +575,8 @@ A geodistance query returns documents with geopoints that are within a specified
 ### Specialized query fields
 
 The following sections describe the fields for each specialized query message.
+
+For `knn` query fields, see [k-NN (gRPC)]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/knn/).
 
 #### ScriptQuery fields
 

@@ -553,6 +553,10 @@ Field | Data type | Description
 `transient` | Object | Contains all transient cluster settings that have been explicitly configured. Settings in this object are cleared after a full cluster restart.
 `defaults` | Object | Contains all default cluster settings with their default values. Only present when the `include_defaults` parameter is set to `true` in `GET` requests.
 
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `cluster:admin/settings/update`.
+
 ## Related documentation
 
 - For more information about transient settings, persistent settings, and setting precedence, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/).
