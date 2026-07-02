@@ -25,84 +25,14 @@ You can configure settings in the `settings` object of a workload group. All set
 
 The following table lists the supported workload group settings.
 
-<style>
-.wlm-settings-table {
-  table-layout: fixed;
-  width: 100%;
-}
-.wlm-settings-table td,
-.wlm-settings-table th {
-  overflow-wrap: break-word;
-  word-break: break-word;
-}
-.wlm-settings-table td a {
-  white-space: normal;
-  overflow: visible;
-}
-</style>
-
-<table class="wlm-settings-table">
-  <colgroup>
-    <col style="width: 22%">
-    <col style="width: 8%">
-    <col style="width: 38%">
-    <col style="width: 16%">
-    <col style="width: 16%">
-  </colgroup>
-  <thead style="text-align: left">
-    <tr>
-      <th>Setting</th>
-      <th>Type</th>
-      <th>Description</th>
-      <th>Equivalent request parameter</th>
-      <th>Equivalent cluster setting</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code>search.default_search_timeout</code></td>
-      <td>Time unit</td>
-      <td>The maximum amount of time a shard can spend on query execution. When a shard exceeds this timeout, it stops collecting hits and returns its current results to the coordinating node, which may produce partial results.</td>
-      <td><a href="{{site.url}}{{site.baseurl}}/api-reference/search-apis/search/#query-parameters"><code>timeout</code></a></td>
-      <td><a href="{{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/search-settings/"><code>search.default_search_timeout</code></a></td>
-    </tr>
-    <tr>
-      <td><code>search.cancel_after_time_interval</code></td>
-      <td>Time unit</td>
-      <td>The maximum amount of time the entire search request can run at the coordinating node level. When the interval is reached, the request and all associated tasks are canceled and the client receives an error rather than partial results.</td>
-      <td><a href="{{site.url}}{{site.baseurl}}/api-reference/search-apis/search/#query-parameters"><code>cancel_after_time_interval</code></a></td>
-      <td><a href="{{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/search-settings/"><code>search.cancel_after_time_interval</code></a></td>
-    </tr>
-    <tr>
-      <td><code>search.max_concurrent_shard_requests</code></td>
-      <td>Integer</td>
-      <td>The maximum number of concurrent shard-level requests a single search may issue per node. Limits search fan-out.</td>
-      <td><a href="{{site.url}}{{site.baseurl}}/api-reference/search-apis/search/#query-parameters"><code>max_concurrent_shard_requests</code></a></td>
-      <td>--</td>
-    </tr>
-    <tr>
-      <td><code>search.batched_reduce_size</code></td>
-      <td>Integer</td>
-      <td>The number of shard results combined into one batch on the coordinating node before the final reduction step. Lower values reduce coordinator memory usage when a search spans many shards.</td>
-      <td><a href="{{site.url}}{{site.baseurl}}/api-reference/search-apis/search/#query-parameters"><code>batched_reduce_size</code></a></td>
-      <td>--</td>
-    </tr>
-    <tr>
-      <td><code>search.max_buckets</code></td>
-      <td>Integer</td>
-      <td>The maximum number of aggregation buckets allowed in a single response. Guards against excessive memory use from large aggregations.</td>
-      <td>--</td>
-      <td><a href="{{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/search-settings/"><code>search.max_buckets</code></a></td>
-    </tr>
-    <tr>
-      <td><code>override_request_values</code></td>
-      <td>Boolean</td>
-      <td>Whether the workload group's settings take precedence over values supplied on the request. Default is <code>false</code>. See <a href="#setting-precedence">Setting precedence</a>.</td>
-      <td>--</td>
-      <td>--</td>
-    </tr>
-  </tbody>
-</table>
+| Setting | Type | Description |
+| :--- | :--- | :--- |
+| `search.default_search_timeout` | Time unit | The maximum amount of time a shard can spend on query execution. When a shard exceeds this timeout, it stops collecting hits and returns its current results to the coordinating node, which may produce partial results. <br>**Equivalent request parameter:** [`timeout`]({{site.url}}{{site.baseurl}}/api-reference/search-apis/search/#query-parameters) <br>**Equivalent cluster setting:** [`search.default_search_timeout`]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/search-settings/) |
+| `search.cancel_after_time_interval` | Time unit | The maximum amount of time the entire search request can run at the coordinating node level. When the interval is reached, the request and all associated tasks are canceled and the client receives an error rather than partial results. <br>**Equivalent request parameter:** [`cancel_after_time_interval`]({{site.url}}{{site.baseurl}}/api-reference/search-apis/search/#query-parameters) <br>**Equivalent cluster setting:** [`search.cancel_after_time_interval`]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/search-settings/) |
+| `search.max_concurrent_shard_requests` | Integer | The maximum number of concurrent shard-level requests a single search may issue per node. Limits search fan-out. <br>**Equivalent request parameter:** [`max_concurrent_shard_requests`]({{site.url}}{{site.baseurl}}/api-reference/search-apis/search/#query-parameters) <br>**Equivalent cluster setting:** None |
+| `search.batched_reduce_size` | Integer | The number of shard results combined into one batch on the coordinating node before the final reduction step. Lower values reduce coordinator memory usage when a search spans many shards. <br>**Equivalent request parameter:** [`batched_reduce_size`]({{site.url}}{{site.baseurl}}/api-reference/search-apis/search/#query-parameters) <br>**Equivalent cluster setting:** None |
+| `search.max_buckets` | Integer | The maximum number of aggregation buckets allowed in a single response. Guards against excessive memory use from large aggregations. <br>**Equivalent request parameter:** None <br>**Equivalent cluster setting:** [`search.max_buckets`]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/search-settings/) |
+| `override_request_values` | Boolean | Whether the workload group's settings take precedence over values supplied on the request. Default is `false`. See [Setting precedence](#setting-precedence). <br>**Equivalent request parameter:** None <br>**Equivalent cluster setting:** None |
 
 ## Setting precedence
 
@@ -111,7 +41,7 @@ When a setting is defined on a workload group, OpenSearch resolves the effective
 - A workload group setting always takes precedence over the corresponding cluster setting when both are defined.
 - By default, an explicit value supplied on a request takes precedence over the workload group's setting. You can reverse this behavior by setting `override_request_values` to `true`.
 
-The following table summarizes how the effective value is resolved. 
+The following table summarizes how the effective value is resolved.
 
 | `override_request_values` value | Precedence (highest to lowest) |
 | :--- | :--- |
