@@ -285,6 +285,7 @@ Parameter | Description | Type | Example | Required
 `min_doc_count` |  The minimum number of documents required to roll over the index. See [**Important** note](#important-note). | Integer | `2000000` | No
 `min_index_age` |  The minimum age required to roll over the index. Index age is the time between its creation and the present. Supported units are `d` (days), `h` (hours), `m` (minutes), `s` (seconds), `ms` (milliseconds), and `micros` (microseconds). See [**Important** note](#important-note). | String | `5d` or `7h` | No
 `copy_alias` | Controls whether to copy over all aliases from the current index to a newly created index. Defaults to `false`.  | `boolean` | `true` or `false` | No
+`prevent_empty_rollover` | Controls whether to skip the rollover when the index is empty (contains no documents). When `true`, an empty index does not roll over. Defaults to `false`. Available in OpenSearch 3.4 and later. | `boolean` | `true` or `false` | No
 
 ```json
 {
@@ -317,6 +318,42 @@ Parameter | Description | Type | Example | Required
   }
 }
 ```
+
+#### Grouped conditions with `any_of`
+
+Introduced 3.7
+{: .label .label-purple }
+
+By default, the rollover conditions (`min_size`, `min_primary_shard_size`, `min_doc_count`, and `min_index_age`) are combined with a logical OR: the rollover occurs as soon as any single condition is met. To express more complex logic---for example, "roll over when the index is at least 7 days old **and** at least 50 GiB, **or** when it reaches 100,000,000 documents"---use the `any_of` parameter.
+
+`any_of` takes a list of condition *groups*. The conditions within a single group are combined with AND, and the groups are combined with OR. The rollover occurs when every condition in at least one group is satisfied.
+
+Parameter | Description | Type | Required
+:--- | :--- |:--- |:--- |
+`any_of` | A list of condition groups. Each group is an object containing one or more of `min_size`, `min_primary_shard_size`, `min_doc_count`, and `min_index_age`. Within a group, the conditions are combined with AND; the groups are combined with OR. Each condition follows the same rules and units described in the preceding table. | Array | No
+
+The `any_of` form and the flat form (conditions set directly on the `rollover` object) are mutually exclusive. Specifying both, an empty `any_of` list, or an empty group results in an error.
+
+The following rollover action rolls over the index when it is at least 7 days old and at least 50 GiB in size, or when it reaches 100,000,000 documents:
+
+```json
+{
+  "rollover": {
+    "any_of": [
+      {
+        "min_index_age": "7d",
+        "min_size": "50gb"
+      },
+      {
+        "min_doc_count": 100000000
+      }
+    ]
+  }
+}
+```
+
+In a mixed-version cluster, all nodes must be running OpenSearch 3.7 or later to evaluate grouped conditions. Nodes running earlier versions do not process the `any_of` form.
+{: .note}
 
 ### notification
 
