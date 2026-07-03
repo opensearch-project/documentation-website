@@ -105,7 +105,9 @@ The following table lists all tool parameters that are available when registerin
 Parameter	| Type | Description	
 :--- | :--- | :---
 `alertIds`	| Array	| The ID of the alert to search for.
-`monitorId`	| String	| The name of the monitor by which to filter the alerts.
+`alertIndex` | String | Name of the alert index to search from (default is null).
+`monitorId`	| String	| The ID of the monitor by which to filter the alerts.
+`monitorIds` | Array | A list of monitor IDs by which to filter the alerts.
 `workflowIds`	| Array | A list of workflow IDs by which to filter the alerts.
 `alertState` |	String	| The alert state by which to filter the alerts. Valid values are `ALL`, `ACTIVE`, `ERROR`, `COMPLETED`, and `ACKNOWLEDGED`. Default is `ALL`.
 `severityLevel` | String| The severity level by which to filter the alerts. Valid values are `ALL`, `1`, `2`, and `3`. Default is `ALL`.
