@@ -388,3 +388,6 @@ The response includes cluster state metadata and, optionally, a `decisions` arra
 | `commands`                   | List      | A list of processed reroute commands.                                   |
 | `explanations`               | List      | If `explain=true`, includes detailed explanations of the outcomes.          |
 
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `cluster:admin/reroute`.

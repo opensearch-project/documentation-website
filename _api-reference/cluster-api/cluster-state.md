@@ -146,3 +146,7 @@ The following table lists all response fields.
 | `routing_table`        | Object    | Shard-to-node allocation per index.                                               |
 | `routing_nodes`        | Object    | Lists of shards assigned to each node.                                            |
 | `indices`              | Object    | Index-specific state metadata.                                                    |
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `cluster:monitor/state`.

@@ -463,3 +463,7 @@ The following table lists the fields within each entry of the `responses` array.
 ## Partial responses
 
 If one or more shards fail during execution, the multi-search API still returns results from the successful shards. Each individual search response in the `responses` array includes a `_shards` object that reports how many shards succeeded and how many failed, allowing you to determine whether results are complete.
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `indices:data/read/msearch`.

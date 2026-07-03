@@ -249,3 +249,7 @@ The following table lists all response body fields.
 | `fields.<field>.<type>.non_searchable_indices`   | List or null | A list of indexes in which the field is *not* searchable. `null` means that the field is not searchable in any index.                                   |
 | `fields.<field>.<type>.non_aggregatable_indices` | List or null | A list of indexes in which the field is *not* aggregatable. `null` means that the field is not aggregatable in any index.                               |
 | `fields.<field>.<type>.meta`                     | Object       | Merged metadata values from all mappings. Keys are custom metadata keys, and values are arrays of values across indexes. |
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `indices:data/read/field_caps` and `indices:data/read/field_caps*`.

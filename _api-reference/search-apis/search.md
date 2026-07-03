@@ -320,3 +320,7 @@ POST /my-index/_search
   }
 }
 ```
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `indices:data/read/search`.

@@ -319,3 +319,7 @@ The following table lists all response body fields.
 | `term_vectors.text.terms.<term>.tokens[].start_offset` | Integer | The start character offset of the token. Present only if `offsets` is `true`. |
 | `term_vectors.text.terms.<term>.tokens[].end_offset` | Integer | The end character offset of the token. Present only if `offsets` is `true`. |
 | `term_vectors.text.terms.<term>.tokens[].payload` | String (Base64) | Optional payload data associated with the token. Present only if `payloads` is `true` and available. |
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `indices:data/read/tv`.
