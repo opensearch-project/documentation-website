@@ -105,7 +105,7 @@ The following table lists all tool parameters that are available when registerin
 Parameter	| Type | Description	
 :--- | :--- | :---
 `alertIds`	| Array	| The ID of the alert to search for.
-`alertIndex` | String | Name of the alert index to search from (default is null).
+`alertIndex` | String | The name of the alert index to search (default is `null`).
 `monitorId`	| String	| The ID of the monitor by which to filter the alerts.
 `monitorIds` | Array | A list of monitor IDs by which to filter the alerts.
 `workflowIds`	| Array | A list of workflow IDs by which to filter the alerts.
