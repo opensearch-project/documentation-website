@@ -16,6 +16,6 @@ Welcome to the OpenSearch Documentation Style Guide, a collection of guides that
 | [API Style Guide](API_STYLE_GUIDE.md) | API documentation structure |
 | [UI Style Guide](UI_STYLE_GUIDE.md) | OpenSearch Dashboards UI text |
 | [Blog Style Guide](BLOG_STYLE_GUIDE.md) | Blog post writing conventions |
-| [OpenSearch Terms](TERMS.md) | Terminology and word usage |
+| [Terms](TERMS.md) | Terminology and word usage |
 
 To start contributing, see [Contributing guidelines](https://github.com/opensearch-project/documentation-website/blob/main/CONTRIBUTING.md).

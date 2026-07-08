@@ -192,7 +192,7 @@ Additional hyphenation rules:
 - **Multi-**: Always hyphenate (multi-tenancy, multi-node, multi-search, multi-match).
 - **Industry exceptions**: Some industry terms don't follow standard hyphenation rules. For example, _high performance computing_ isn't hyphenated, and _machine learning_ isn't hyphenated when used as an adjective. 
 
-When in doubt, check [Merriam-Webster](https://www.merriam-webster.com/) or refer to [OpenSearch Terms](TERMS.md) for OpenSearch-specific usage.
+When in doubt, check [Merriam-Webster](https://www.merriam-webster.com/) or refer to [Terms](TERMS.md) for OpenSearch-specific usage.
 
 ### Quotation marks and apostrophes
 

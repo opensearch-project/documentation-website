@@ -1,9 +1,9 @@
 ---
-title: OpenSearch Terms
+title: Terms
 nav_order: 80
 ---
 
-# OpenSearch Terms
+# Terms
 
 This guide provides editorial guidelines for terms commonly used in OpenSearch documentation, including spelling, capitalization, hyphenation, and usage. For definitions of OpenSearch concepts, see [Concepts](https://docs.opensearch.org/latest/getting-started/concepts/).
 

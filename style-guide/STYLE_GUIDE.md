@@ -7,7 +7,7 @@ nav_order: 10
 
 This guide describes the style standards for creating OpenSearch content. For complementary information, see the [Writing Guide](WRITING_GUIDE.md), [Text Formatting Guide](TEXT_FORMATTING_GUIDE.md), and [Markdown Formatting Guide](MARKDOWN_FORMATTING_GUIDE.md).
 
-Our content follows the [Microsoft Writing Style Guide](https://docs.microsoft.com/en-us/style-guide/welcome/), [The Chicago Manual of Style](https://www.chicagomanualofstyle.org/home.html), and [Merriam-Webster](https://www.merriam-webster.com/). However, this guide and [OpenSearch Terms](TERMS.md) take precedence over those references.
+Our content follows the [Microsoft Writing Style Guide](https://docs.microsoft.com/en-us/style-guide/welcome/), [The Chicago Manual of Style](https://www.chicagomanualofstyle.org/home.html), and [Merriam-Webster](https://www.merriam-webster.com/). However, this guide and [Terms](TERMS.md) take precedence over those references.
 
 ## Naming conventions, voice and tone, and brand personality traits
 
