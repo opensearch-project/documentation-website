@@ -11,7 +11,7 @@ Node discovery is the process by which OpenSearch nodes locate and connect to ot
 
 The discovery process operates in two distinct phases:
 
-1. **Initial seed discovery**: Each starting node connects to a predefined list of seed addresses and attempts to identify whether the nodes at those addresses are cluster manager eligible.
+1. **Initial seed discovery**: Each starting node connects to a predefined list of seed addresses and attempts to identify whether the nodes at those addresses are cluster-manager-eligible.
 
 2. **Peer discovery**: Once connected to seed nodes, the node exchanges lists of known cluster-manager-eligible peers. This creates a cascading discovery process whereby each newly discovered node provides additional peer information.
 

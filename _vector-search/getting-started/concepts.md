@@ -37,11 +37,15 @@ This page defines key terms and techniques related to vector search in OpenSearc
 
 ## Query types
 
+- An [**_agentic query_**]({{site.url}}{{site.baseurl}}/query-dsl/specialized/agentic/) accepts a natural language question and uses a preconfigured agent to plan and execute the retrieval automatically.
+
 - A [**_k-NN query_**]({{site.url}}{{site.baseurl}}/query-dsl/specialized/k-nn/) searches vector fields using a query vector.
 
 - A [**_neural query_**]({{site.url}}{{site.baseurl}}/query-dsl/specialized/neural/) searches vector fields using text or image data.
 
 - A [**_neural sparse query_**]({{site.url}}{{site.baseurl}}/query-dsl/specialized/neural-sparse/) searches vector fields using raw text or sparse vector tokens.
+
+- A [**_template query_**]({{site.url}}{{site.baseurl}}/query-dsl/specialized/template/) contains placeholder variables that are resolved at runtime by search request processors, such as an ML inference processor that generates vector embeddings from text.
 
 ## Search techniques  
 
@@ -58,6 +62,10 @@ This page defines key terms and techniques related to vector search in OpenSearc
 - [**_Conversational search_**]({{site.url}}{{site.baseurl}}/vector-search/ai-search/conversational-search/) allows you to interact with a search system using natural language queries and refine results through follow-up questions. This approach enhances the user experience by making search more intuitive and interactive.  
 
 - [**_Retrieval-augmented generation (RAG)_**]({{site.url}}{{site.baseurl}}/vector-search/ai-search/conversational-search/#rag) enhances large language models (LLMs) by retrieving relevant information from an index and incorporating it into the model's response. This approach improves the accuracy and relevance of generated text.  
+
+- [**_Reranking_**]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/reranking-search-results/) is a second-pass scoring step that reorders initial search results using a more sophisticated model, such as a cross-encoder, to improve relevance.  
+
+- [**_Agentic search_**]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/) lets you ask questions in natural language and have an OpenSearch agent plan and execute retrieval automatically. The agent reads the question, selects appropriate tools, and returns relevant results.  
 
 ## Indexing and storage techniques  
 

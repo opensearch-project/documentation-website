@@ -46,11 +46,7 @@ The workflow for contributing documentation is the same as the one for contribut
 
 ### Before you start
 
-Before contributing content, make sure to read the following resources:
-- [README](README.md)
-- [OpenSearch Project Style Guidelines](STYLE_GUIDE.md)
-- [API Style Guide](API_STYLE_GUIDE.md)
-- [Formatting Guide](FORMATTING_GUIDE.md) 
+Before contributing content, make sure to read the [README](README.md) and review the [OpenSearch Documentation Style Guide](style-guide/index.md).
 
 NOTE: Make sure that any documentation you submit is your own work or work that you have the right to submit. We respect the intellectual property rights of others, and as part of contributing, we'll ask you to sign your contribution with a [Developer Certificate of Origin (DCO)](https://github.com/opensearch-project/.github/blob/main/CONTRIBUTING.md#developer-certificate-of-origin) stating that you have the right to submit your contribution and that you understand that we will use your contribution. 
 
@@ -113,6 +109,7 @@ Assuming you have Docker installed, run the following command:
 Try the following troubleshooting steps if you encounter an error when trying to build the documentation website:  
 
 - If you see the `Error running '__rvm_make -j10'` error when running `rvm install 3.4.5`, you can resolve it by running `rvm install 3.4.5 -C --with-openssl-dir=$(brew --prefix openssl@3)` instead of `rvm install 3.4.5`.
+- If you're having trouble installing Ruby with `rvm` on an Apple silicon machine because of an OpenSSL version misalignment, use `rvm install 3.4.5 --with-openssl-dir=$(brew --prefix openssl@<openssl-version>)`, replacing `<openssl-version>` with your [desired version](https://github.com/ruby/openssl/blob/master/README.md).
 - If you see the `bundle install`: `An error occurred while installing posix-spawn (0.3.15), and Bundler cannot continue.` error when trying to run `bundle install`, you can resolve it by running `gem install posix-spawn -v 0.3.15 -- --with-cflags=\"-Wno-incompatible-function-pointer-types\"` and then `bundle install`.
  
 
@@ -141,42 +138,26 @@ Here's how to build the website, make changes, and view them locally:
 
 ## Review process
 
-We greatly appreciate all contributions to the documentation and will review them as quickly as possible. Documentation can be updated at any time and does not require waiting for a release. Once you have created a PR, the documenation review process is as follows:
+We greatly appreciate all contributions to the documentation and will review them as quickly as possible. Documentation can be updated at any time and does not require waiting for a release. Once you have created a PR, the documentation review process is as follows:
 
 1. Ensure that the submitted documentation is technically accurate and all examples are working. If you are a developer implementing the feature, you can optionally ask one of your peers to conduct a technical review. If you need help finding a tech reviewer, tag a [maintainer](https://github.com/opensearch-project/documentation-website/blob/main/MAINTAINERS.md).
 2. When you submit a PR, it's assigned to one of the doc reviewers. Once you have verified technical accuracy and all technical reviews are completed, tag the assignee of the PR for a doc review.
-3. A doc reviewer (technical writer) performs a doc review. The doc reviewer may push edits to the PR directly or leave comments and suggestions for you to address (let us know in a comment if you have a preference). The doc reviewer will arrange for an editorial review.
-4. The editor performs an editorial review. The editor may push edits to the PR directly or leave comments and editorial suggestions for you to address (let us know in a comment if you have a preference).
-5. When you have addressed all comments, the PR is merged. It is important that you specify to which versions the PR is applicable when you create the PR so it can be backported to the correct branches. We support updates only for the latest documentation version; the previous versions are not updated. Once the PR is merged, the documentation is published on the documentation site.
+3. A doc reviewer (technical writer) performs a documentation and editorial review. The doc reviewer may push edits to the PR directly or leave comments and suggestions for you to address (let us know in a comment if you have a preference).
+4. When you have addressed all comments, the PR is merged. It is important that you specify to which versions the PR is applicable when you create the PR so it can be backported to the correct branches. We support updates only for the latest documentation version; the previous versions are not updated. Once the PR is merged, the documentation is published on the documentation site.
 
 During the PR process, expect that there will be some back-and-forth. If you want your contribution to be merged quickly, try to respond to comments in a timely fashion, and let us know if you don't want to continue with the PR. 
 
-We use the [Vale](https://github.com/errata-ai/vale) linter to ensure that our documentation adheres to the [OpenSearch Project Style Guidelines](STYLE_GUIDE.md). Addressing Vale comments on the PR expedites the review process. You can also install Vale locally so you can address the comments before creating a PR. For more information, see [Style linting](#style-linting).
+We use the [Vale](https://github.com/errata-ai/vale) linter to ensure that our documentation adheres to the [OpenSearch Project Style Guidelines](style-guide/STYLE_GUIDE.md). Addressing Vale comments on the PR expedites the review process. You can also install Vale locally so you can address the comments before creating a PR. For more information, see [Style linting](#style-linting).
 
 
 ### Style linting
 
-To ensure that our documentation adheres to the [OpenSearch Project Style Guidelines](STYLE_GUIDE.md), we use the [Vale](https://github.com/errata-ai/vale) linter. Addressing Vale comments on the PR expedites the review process. You can also install Vale locally as follows so you can address the comments before creating a PR:
+To ensure that our documentation adheres to the [OpenSearch Project Style Guidelines](style-guide/STYLE_GUIDE.md), we use the [Vale](https://github.com/errata-ai/vale) linter. Addressing Vale comments on the PR expedites the review process. You can also install Vale locally as follows so you can address the comments before creating a PR:
 
 1. Download and install [Vale version 2.28.0](https://github.com/errata-ai/vale/releases/tag/v2.28.0).
 2. Run `vale *` from the documentation site root directory to lint all Markdown files. To lint a specific file, run `vale /path/to/file`.
 
 Optionally, you can install the [Vale VSCode](https://github.com/chrischinchilla/vale-vscode) extension, which integrates Vale with Visual Studio Code. By default, only _errors_ and _warnings_ are underlined. To change the minimum alert level to include _suggestions_, go to **Vale VSCode** > **Extension Settings** and select **suggestion** in the **Vale > Vale CLI: Min Alert Level** dropdown list. 
-
-## Troubleshooting
-
-This section provides information about potential solutions for known issues.
-
-### Installing Ruby on an Apple silicon machine
-
-If you're having trouble installing Ruby with `rvm` on an Apple silicon machine, it could be because of an OpenSSL version misalignment. To fix this issue, use the following command, replacing `<openssl-version>` with your [desired version](https://github.com/ruby/openssl/blob/master/README.md):
-
-```
-# Assumes Brew is installed
-curl -sSL https://get.rvm.io | bash -s stable
-rvm install 3.4.5 --with-openssl-dir=$(brew --prefix openssl@<openssl-version>)
-ruby -v
-```
 
 ## Getting help
 

@@ -1,0 +1,14 @@
+title: OpenSearch Documentation Style Guide
+description: Style, writing, and formatting standards for OpenSearch documentation
+remote_theme: just-the-docs/just-the-docs
+
+color_scheme: opensearch
+
+url: "https://opensearch-project.github.io"
+baseurl: "/documentation-website/style-guide"
+
+# Navigation order is controlled by front matter nav_order in each file
+# Exclude files not needed in the build
+exclude:
+  - _config.yml
+  - README.md
