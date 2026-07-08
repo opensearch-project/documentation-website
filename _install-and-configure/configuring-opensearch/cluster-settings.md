@@ -33,7 +33,7 @@ OpenSearch supports the following cluster-level routing and shard allocation set
 
 - `cluster.routing.allocation.node_initial_primaries_recoveries` (Dynamic, integer): Sets the number of recoveries for unassigned primaries after a node restart. Default is `4`. 
 
-- `cluster.routing.allocation.unassigned.node_left.delayed_timeout` (Dynamic, time unit): Sets the default amount of time OpenSearch waits before allocating a replica shard that became unassigned because a node left the cluster. This helps avoid unnecessary shard recoveries during rolling upgrades, node restarts, and transient network failures. This setting applies when the index-level `index.unassigned.node_left.delayed_timeout` setting is not configured. Set to `0` to skip the delayed-allocation wait for indexes that don't set their own value. Default is `1m`.
+- `cluster.routing.allocation.unassigned.node_left.delayed_timeout` (Dynamic, time unit): Sets the default amount of time OpenSearch waits before allocating a replica shard that became unassigned after a node leaves the cluster. Delaying allocation helps avoid unnecessary shard recoveries during rolling upgrades, node restarts, and transient network failures. This setting applies only to indexes for which the index-level `index.unassigned.node_left.delayed_timeout` setting is not configured. Set to `0` to disable delayed allocation for indexes that use the cluster default. Default is `1m`.
 
 - `cluster.routing.allocation.same_shard.host` (Dynamic, Boolean): When set to `true`, multiple copies of a shard are prevented from being allocated to distinct nodes on the same host. Default is `false`. 
 
