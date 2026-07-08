@@ -55,7 +55,7 @@ curl -XGET "localhost:9200/_tasks?actions=*search&detailed
 
 **Example of a `copy-curl` include**
 
-````json
+````
 ```json
 PUT /sample-index1/_clone/cloned-index1
 {
@@ -123,7 +123,7 @@ Insert an include in the page body where you want the cards to appear:
 There are two ways to format code blocks:
 
 1. **Single code block**: Use triple backticks and provide the highlighting language for the code block. For example, format a REST request in the following way:
-    ````json
+    ````
     ```json
     PUT /hotels-index
     {
@@ -145,7 +145,7 @@ There are two ways to format code blocks:
     ````
     For information about the copy and copy as cURL button include, see [Buttons](#buttons).
 1. **Tabbed panel**: Use a tabbed panel to provide the same example in multiple programming languages. If using this method, the [buttons](#buttons) are inserted programmatically. Use the following syntax to provide the example in multiple languages. This example creates a tabbed panel with a **REST** and **Python** tabs:
-    ````json 
+    ````
     {% raw %}{% capture step1_rest %}{% endraw %}
     PUT /hotels-index
     {
@@ -187,7 +187,6 @@ There are two ways to format code blocks:
     {% raw %}{% include code-block.html 
         rest=step1_rest
         python=step1_python %}{% endraw %}
-    ``` 
     ````
     The supported languages are listed in [this yaml file](https://github.com/opensearch-project/documentation-website/blob/main/_data/code_languages.yml).
 
@@ -334,7 +333,7 @@ Use a purple label to specify the version in which an API was introduced:
 
 ```markdown
 # Alias
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 ```
 
@@ -342,7 +341,7 @@ If we introduce a breaking change to an operation, add an additional label with 
 
 ```markdown
 ## Get roles
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 [Last breaking change 2.0](https://example.com)
 {: .label .label-red }
@@ -471,10 +470,10 @@ If you need to position an image or a code snippet within a list, use tabs to si
 
 ```markdown
 1. To begin, select the rule in the **Rule name** column. The rule details pane opens, as shown in the following image.
-    <img src="{% raw %}{{site.url}}{% endraw %}{% raw %}{{site.baseurl}}{% endraw %}/images/Security/rule-dup2.png" alt="Opening the rule details pane" width="50%">
+    ![Opening the rule details pane]({% raw %}{{site.url}}{% endraw %}{% raw %}{{site.baseurl}}{% endraw %}/images/Security/rule-dup2.png){: width="50%"}
 
 1. Select the **Duplicate** button in the upper-right corner of the pane. The **Duplicate rule** window opens in Visual Editor view, and all of the fields are automatically populated with the rule's details. Details are also populated in YAML Editor view, as shown in the following image.
-    <img src="{% raw %}{{site.url}}{% endraw %}{% raw %}{{site.baseurl}}{% endraw %}/images/Security/dupe-rule.png" alt="Selecting the duplicate button opens the Duplicate rule window" width="50%">
+    ![Selecting the duplicate button opens the Duplicate rule window]({% raw %}{{site.url}}{% endraw %}{% raw %}{{site.baseurl}}{% endraw %}/images/Security/dupe-rule.png){: width="50%"}
 ```
 
 ## Math
@@ -570,15 +569,21 @@ For guidance on using code examples and when to use code font, see [Code example
 
 ## Variables in curly braces
 
-To correctly display variables that are in curly braces, escape the curly braces with the `{% raw %}{% endraw %}` tags:
+To correctly display variables that are in curly braces, escape the curly braces with the `{{ "{% raw " }}%}{{ "{% endraw " }}%}` tags:
 
 ````
 "message_template": {
-    "source": "the index is {% raw %}{{ctx.index}}{% endraw %}"
+    "source": "the index is {{ "{% raw " }}%}{% raw %}{{ctx.index}}{% endraw %}{{ "{% endraw " }}%}"
 }
 ````
 
-The variable `ctx.index` is rendered in double curly braces.
+The variable `ctx.index` is rendered in double curly braces:
+
+```json
+"message_template": {
+    "source": "the index is {% raw %}{{ctx.index}}{% endraw %}"
+}
+```
 
 ## Videos
 
