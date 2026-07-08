@@ -305,7 +305,7 @@ Always **separate an image from the text with a blank line**:
 ```markdown
 To send a query to OpenSearch, select the query by placing the cursor anywhere in the query text. Then choose the triangle on the top right of the request or press `Ctrl/Cmd+Enter`:
 
-<img src="{% raw %}{{site.url}}{% endraw %}{% raw %}{{site.baseurl}}{% endraw %}/images/dev-tools/dev-tools-send.png" alt="Send request">
+![Send request]({% raw %}{{site.url}}{% endraw %}{% raw %}{{site.baseurl}}{% endraw %}/images/dev-tools/dev-tools-send.png)
 ```
 
 Do not place an image next to text or insert artificial line breaks using `<br>`. Otherwise, the text might render as aligned to the bottom of the image, with the image on the right. 
