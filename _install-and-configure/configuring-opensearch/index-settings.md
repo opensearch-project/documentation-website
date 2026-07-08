@@ -340,7 +340,7 @@ OpenSearch supports the following dynamic index-level index settings:
 
 - `index.routing.allocation.enable` (String): Specifies options for the index’s shard allocation. Available options are `all` (allow allocation for all shards), `primaries` (allow allocation only for primary shards), `new_primaries` (allow allocation only for new primary shards), and `none` (do not allow allocation). Default is `all`.
 
-- `index.unassigned.node_left.delayed_timeout` (Dynamic, time unit): Sets the amount of time OpenSearch waits before allocating a replica shard that became unassigned because a node left the cluster. This setting overrides the cluster-level `cluster.routing.allocation.unassigned.node_left.delayed_timeout` setting. If neither setting is configured, the default is `1m`. Set to `0` to skip the delayed-allocation wait for the index.
+- `index.unassigned.node_left.delayed_timeout` (Dynamic, time unit): Sets the amount of time OpenSearch waits before allocating a replica shard that became unassigned because a node left the cluster. This setting overrides the cluster-level `cluster.routing.allocation.unassigned.node_left.delayed_timeout` setting. If neither setting is configured, the default is `1m`. Set to `0` to disable delayed allocation for the index.
 
 - `index.routing.rebalance.enable` (String): Enables shard rebalancing for the index. Available options are `all` (allow rebalancing for all shards), `primaries` (allow rebalancing only for primary shards), `replicas` (allow rebalancing only for replicas), and `none` (do not allow rebalancing). Default is `all`.
 
