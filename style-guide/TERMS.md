@@ -23,6 +23,10 @@ For orientation within a document, use _previous_, _preceding_, or _earlier_.
 
 Avoid. Use _one-time_ instead.
 
+**administrator, admin**
+
+Spell out when used as a noun ("contact your administrator"). You can use _admin_ as an adjective ("admin credentials," "admin privileges") and in code font (for example, the `admin` user).
+
 **affect**
 
 Affect as a noun refers to emotion as expressed in face or body language. Affect as a verb means to influence. Do not confuse with effect.
@@ -178,7 +182,11 @@ Two words as a noun. Hyphenate as an adjective.
 
 **Cross-Cluster Replication**
 
-A plugin that replicates indexes, mappings, and metadata from one OpenSearch cluster to another. Hyphenate _Cross-Cluster_. Do not use _Cross Cluster Replication_. 
+A plugin that replicates indexes, mappings, and metadata from one OpenSearch cluster to another. Hyphenate _Cross-Cluster_. Do not use _Cross Cluster Replication_.
+
+**cut over (v.), cutover (n., adj.)**
+
+Use _cut over_ as a verb ("cut over to the new cluster"). Use _cutover_ as a noun or adjective ("perform the cutover," "the cutover phase"). Do not hyphenate. 
 
 **cyber**
 
@@ -475,7 +483,11 @@ Located _in_ (a folder, directory, path), located on a disk drive or instance.
 
 **log in (v.), login (adj., n.)**
 
-Use with technologies with interfaces that use this verb. Also note that you log in to an instance, not log into. Also use log out and logout.
+Use _log in_ as a verb ("log in to the instance"). Use _login_ as a noun or adjective ("the login page"). Note: _log in to_, not _log into_.
+
+**log out (v.), logout (n., adj.)**
+
+Use _log out_ as a verb ("log out of the session"). Use _logout_ as a noun or adjective ("after logout").
 
 **lower left, lower right**
 
@@ -648,7 +660,7 @@ Not _pre-train_, _pre-trained_, or _pre-training_.
 
 Use only in reference to specific programming methods. Otherwise, use _delete_, _clear_, or _remove_ instead.
 
-## R 
+## R
 
 **real time (n.) real-time (adj.)**
 
@@ -659,6 +671,14 @@ Use with caution; this term can imply a degree of responsiveness or speed that m
 Use as a synonym for repository, on second and subsequent use.
 
 **retrieval-augmented generation (RAG)**
+
+**rollover (n., adj.), roll over (v.)**
+
+Use _rollover_ as a noun or adjective ("a rollover operation," "the rollover index"). Use _roll over_ as a verb ("roll over the index"). Do not hyphenate.
+
+**rollup (n., adj.), roll up (v.)**
+
+Use _rollup_ as a noun or adjective ("an index rollup," "rollup jobs"). Use _roll up_ as a verb ("roll up your indexes"). Do not hyphenate.
 
 **RPM**
 
@@ -685,6 +705,10 @@ The following examples of settings illustrate key-value pairs with a colon separ
 **set up (v.), setup (n., adj.)**
 
 Use _set up_ as a verb ("To set up a new user..."). Use _setup_ as a noun or adjective ("To begin setup...").
+
+**shut down (v.), shutdown (n., adj.)**
+
+Use _shut down_ as a verb ("shut down the node"). Use _shutdown_ as a noun or adjective ("a graceful shutdown"). Do not hyphenate.
 
 **simple, simply**
 
@@ -782,7 +806,11 @@ Do not use. Use _compared to_ or _compared with_ instead.
 
 Do not use. Replace with by using, through, or with or a more specific phrase such as by accessing or by choosing.
 
-## W 
+## W
+
+**warm up (v.), warmup (n., adj.)**
+
+Use _warm up_ as a verb ("warm up the cache"). Use _warmup_ as a noun or adjective ("the warmup phase," "warmup settings"). Do not hyphenate.
 
 **web**
 
