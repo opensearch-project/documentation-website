@@ -4,8 +4,8 @@ remote_theme: just-the-docs/just-the-docs
 
 color_scheme: opensearch
 
-url: "https://opensearch-project.github.io"
-baseurl: "/documentation-website/style-guide"
+url: "" # TODO: Update when hosting is configured
+baseurl: ""
 
 # Navigation order is controlled by front matter nav_order in each file
 # Exclude files not needed in the build
