@@ -100,6 +100,7 @@ pprof
 [Pp]luggable
 [Pp]ointwise
 [Pp]reaggregate(s|d)?
+[Pp]recompiled
 [Pp]recompute(s|d)?
 [Pp]reconfigure
 [Pp]refetch
@@ -150,6 +151,7 @@ stdout
 [Ss]ubquer(y|ies)
 [Ss]ubstrings?
 [Ss]ubtag
+[Ss]ubtasks?
 [Ss]ubtree
 [Ss]ubvector
 [Ss]ubwords?

@@ -33,7 +33,7 @@ You can include the following query parameters in your request. All query parame
 
 Parameter | Type | Description
 :--- | :---| :---
-`snapshots` | Integer | The number of samples of thread stacktraces. Defaults to `10`.
+`snapshots` | Integer | The number of samples of thread stack traces. Defaults to `10`.
 `interval` | Time | The interval between consecutive samples. Defaults to `500ms`.
 `threads` | Integer | The number of the busiest threads to return information about. Defaults to `3`.
 `ignore_idle_threads` | Boolean   | Don’t show threads that are in known idle states, such as waiting on a socket select or pulling from an empty task queue. Defaults to `true`.
