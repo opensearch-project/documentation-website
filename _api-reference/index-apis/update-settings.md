@@ -129,7 +129,7 @@ PUT /books,products/_settings
 
 ## Example request: Optimizing for bulk indexing
 
-To optimize an index for bulk indexing operations, disable the refresh interval by setting it to `-1`. After bulk indexing is complete, re-enable it by setting it back to a positive value:
+To optimize an index for bulk indexing operations, disable the refresh interval by setting it to `-1`. After bulk indexing is complete, reenable it by setting it back to a positive value:
 
 ```json
 PUT /books/_settings

@@ -32,9 +32,9 @@ GET books/_search
 
 | Field | Data type | Description | 
 :--- | :--- | :---
-| query | Object | A filter that specifies documents to process. |
-| script_fields | Object | Fields to include in output. | 
-| script | Object | ID of the script that produces a value for a field. |
+| `query` | Object | A filter that specifies documents to process. |
+| `script_fields` | Object | Fields to include in output. | 
+| `script` | Object | ID of the script that produces a value for a field. |
 
 ## Example request
 <!-- spec_insert_start
@@ -232,27 +232,27 @@ The `GET books/_search` request returns the following fields:
 
 | Field | Data type | Description | 
 :--- | :--- | :---
-| took | Integer | How long the operation took in milliseconds. |
-| timed_out | Boolean | Whether the operation timed out. |
-| _shards | Object | Total number of shards processed and also the total number of successful, skipped, and not processed. |
-| hits | Object | Contains high-level information about the documents processed and an array of `hits` objects. See [Hits object](#hits-object). | 
+| `took` | Integer | How long the operation took in milliseconds. |
+| `timed_out` | Boolean | Whether the operation timed out. |
+| `_shards` | Object | Total number of shards processed and also the total number of successful, skipped, and not processed. |
+| `hits` | Object | Contains high-level information about the documents processed and an array of `hits` objects. See [Hits object](#hits-object). | 
 
 #### Hits object
 
 | Field | Data type | Description | 
 :--- | :--- | :---
-| total | Object | Total number of documents processed and their relationship to the `match` request field. |
-| max_score | Double | Highest relevance score returned from all the hits. |
-| hits | Array | Information about each document that was processed. See [Document object](#Document-object). |
+| `total` | Object | Total number of documents processed and their relationship to the `match` request field. |
+| `max_score` | Double | Highest relevance score returned from all the hits. |
+| `hits` | Array | Information about each document that was processed. See [Document object](#Document-object). |
 
 #### Document object
 
 | Field | Data type | Description | 
 :--- | :--- | :---
-| _index | String | Index that contains the document. |
-| _id | String | Document ID. |
-| _score | Float | Document's relevance score. |
-| fields | Object | Fields and their value returned from the script. |
+| `_index` | String | Index that contains the document. |
+| `_id` | String | Document ID. |
+| `_score` | Float | Document's relevance score. |
+| `fields` | Object | Fields and their value returned from the script. |
 
 ## Running a Painless stored script with parameters
 
@@ -395,10 +395,10 @@ response = client.search(
 }
 ```
 
-**Sort results using painless stored script
-You can use painless stored script to sort results.**
+**Sort results using a Painless stored script
+You can use a Painless stored script to sort results.**
 
-#### Sample request
+#### Example request
 
 ```json
 GET books/_search
@@ -431,7 +431,7 @@ GET books/_search
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {

@@ -90,7 +90,7 @@ Line segment | Description
 `{global-eu-35}` | Node name.
 `{uFPbKLDOTlOmdnwUlKW8sw}` | NodeId.
 `{OAM8OT5CQAyasWuIDeVyUA}` | EphemeralId.
-`{global-eu-35.local}` | Host name.
+`{global-eu-35.local}` | Hostname.
 `{[gdv2:a284:2acv:5fa6:0:3a2:7260:74cf]:9300}` | Host address.
 `{dimr}` | Node roles (d=data, i=ingest, m=cluster&nbsp;manager, r=remote&nbsp;cluster&nbsp;client).
 `{zone=west-a2, shard_indexing_pressure_enabled=true}` | Node attributes.
