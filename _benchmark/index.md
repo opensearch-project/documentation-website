@@ -32,7 +32,7 @@ items:
     link: "/benchmark/user-guide/working-with-workloads/running-workloads/"
   - heading: "Analyze performance metrics"
     description: "View your benchmark report and analyze your metrics"
-    link: "/benchmark/user-guide/understanding-results/summary-reports/"
+    link: "/benchmark/reference/summary-report/"
 ---
 
 # ![Benchmark icon]({{site.url}}{{site.baseurl}}/images/icons/OpenSearch-PerformanceBenchmarks-Icon-1.png){: .heading-icon} OpenSearch Benchmark
