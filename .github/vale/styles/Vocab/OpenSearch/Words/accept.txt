@@ -39,6 +39,7 @@ Distro
 [Ff]sync
 Gantt
 [Gg]eobounds
+[Gg]eocentroid
 [Gg]eodistance
 [Gg]eohash
 [Gg]eohex
@@ -152,6 +153,7 @@ stdout
 [Ss]uperset
 [Ss]uperadmins?
 [Ss]yslog
+t-digest
 tebibyte
 [Tt]emplated
 [Tt]okenization

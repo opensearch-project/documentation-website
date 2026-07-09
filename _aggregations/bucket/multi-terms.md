@@ -30,7 +30,7 @@ The `multi_terms` aggregation takes the following parameters.
 
 ## Example: Grouping by multiple fields
 
-The following example identifies the most popular product categories for each gender by grouping orders on both `customer_gender` and `category` simultaneously. This query reveals the gender-category pairs htat generate the most orders:
+The following example identifies the most popular product categories for each gender by grouping orders on both `customer_gender` and `category` simultaneously. This query reveals the gender-category pairs that generate the most orders:
 
 ```json
 GET /opensearch_dashboards_sample_data_ecommerce/_search
