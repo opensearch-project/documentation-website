@@ -36,7 +36,6 @@ Distro
 [Ee]gress
 [Ee]num
 [Ff]ailover
-[Ff]ielddata
 [Ff]lyout
 [Ff]sync
 Gantt
@@ -56,7 +55,6 @@ gRPC
 [Hh]ostname
 [Hh]yperparameters
 [Ii]mpactful
-[Ii]ngestions?
 [Ii]ngress
 [Ii]nitializer
 [Ii]nline
@@ -87,7 +85,7 @@ Levenshtein
 [Mm]ultivalued
 [Mm]ultiword
 [Nn]amespace
-[Nn]o-?op
+[Nn]o-op
 [Oo]ffline
 [Oo]nboarding
 [Oo]versamples?

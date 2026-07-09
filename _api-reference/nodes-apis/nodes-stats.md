@@ -148,7 +148,7 @@ The following table lists the available query parameters. All query parameters a
 Parameter | Type | Description
 :--- | :--- | :---
 `completion_fields` | String | The fields to include in completion statistics. Supports comma-separated lists and wildcard expressions.
-`fielddata_fields` | String | The fields to include in fielddata statistics. Supports comma-separated lists and wildcard expressions.
+`fielddata_fields` | String | The fields to include in `fielddata` statistics. Supports comma-separated lists and wildcard expressions.
 `fields` | String | The fields to include. Supports comma-separated lists and wildcard expressions.
 `groups` | String | A comma-separated list of search groups to include in the search statistics.
 `level` | String | Specifies whether statistics for the `indices` metric are aggregated at the cluster, index, or shard level. Valid values are `indices`, `node`, and `shard`. When used for the `caches` metric, `indices`, `shard`, and `tier` are valid. The `tier` value is ignored if the [tiered spillover cache]({{site.url}}{{site.baseurl}}/search-plugins/caching/tiered-cache/) is not in use.
@@ -917,7 +917,7 @@ Field | Field type | Description
 `indexing.delete_total` | `Integer` | The total number of deletions.
 `indexing.delete_time_in_millis` | `Integer` | The total time for all deletion operations, in milliseconds.
 `indexing.delete_current` | `Integer` | The number of deletion operations that are currently running.
-`indexing.noop_update_total` | `Integer` | The total number of noop operations.
+`indexing.noop_update_total` | `Integer` | The total number of no-op operations.
 `indexing.is_throttled` | `Boolean` | Specifies whether any operations were throttled.
 `indexing.throttle_time_in_millis` | `Integer` | The total time for throttling operations, in milliseconds.
 `get` | `Object` | Statistics about the get operations for the node.
@@ -1278,11 +1278,11 @@ Field | Field type | Description
 `total.count` | `Integer` | The total number of documents ingested by the node.
 `total.time_in_millis` | `Integer` | The total amount of time for preprocessing ingest documents, in milliseconds.
 `total.current` | `Integer` | The total number of documents that are currently being ingested by the node.
-`total.failed` | `Integer` | The total number of failed ingestions for the node.
+`total.failed` | `Integer` | The total number of failed ingest operations for the node.
 `pipelines` | `Object` | Ingest pipeline statistics for the node. Each pipeline is a nested object that is specified by its ID and has the following properties.
 `pipelines._id_.count` | `Integer` | The number of documents preprocessed by the ingest pipeline.
 `pipelines._id_.time_in_millis` | `Integer` | The total amount of time for preprocessing documents in the ingest pipeline, in milliseconds.
-`pipelines._id_.failed` | `Integer` | The total number of failed ingestions for the ingest pipeline.
+`pipelines._id_.failed` | `Integer` | The total number of failed ingest operations for the ingest pipeline.
 `pipelines._id_.processors` | `Array of objects` | Statistics for the ingest processors. Includes the number of documents that are currently transformed, the total number of transformed documents, the number of failed transformations, and the time spent transforming documents.
 
 ### `search_pipeline`
