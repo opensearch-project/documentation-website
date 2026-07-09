@@ -33,6 +33,7 @@ Distro
 [Dd]ownvote(s|d)?
 [Dd]uplicative
 [Ee]gress
+[Ee]nricher
 [Ee]num
 [Ff]ailover
 [Ff]lyout
@@ -85,7 +86,7 @@ Levenshtein
 [Mm]ultiword
 [Nn]amespace
 [Oo]ffline
-[Oo]nboarding
+[Oo]nboard(ed|ing)?
 [Oo]versamples?
 [Pp]arallelization
 pebibyte
