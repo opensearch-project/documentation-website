@@ -506,14 +506,14 @@ The response shows the transformed keys:
 }
 ```
 
-## Accounting for pre-aggregated data
+## Accounting for preaggregated data
 
-While the `doc_count` field provides a representation of the number of individual documents aggregated in a bucket, `doc_count` by itself does not have a way to correctly increment documents that store pre-aggregated data. To account for pre-aggregated data and accurately calculate the number of documents in a bucket, you can use the `_doc_count` field to add the number of documents in a single summary field. When a document includes the `_doc_count` field, all bucket aggregations recognize its value and increase the bucket `doc_count` cumulatively. Keep these considerations in mind when using the `_doc_count` field:
+While the `doc_count` field provides a representation of the number of individual documents aggregated in a bucket, `doc_count` by itself does not have a way to correctly increment documents that store preaggregated data. To account for preaggregated data and accurately calculate the number of documents in a bucket, you can use the `_doc_count` field to add the number of documents in a single summary field. When a document includes the `_doc_count` field, all bucket aggregations recognize its value and increase the bucket `doc_count` cumulatively. Keep these considerations in mind when using the `_doc_count` field:
 
 * The field does not support nested arrays; only positive integers can be used.
 * If a document does not contain the `_doc_count` field, aggregation uses the document to increase the count by 1.
 
-OpenSearch features that rely on an accurate document count illustrate the importance of using the `_doc_count` field. To see how this field can be used to support other search tools, refer to [Index rollups]({{site.url}}{{site.baseurl}}/im-plugin/index-rollups/index/), an OpenSearch feature for the Index Management (IM) plugin that stores documents with pre-aggregated data in rollup indexes.
+OpenSearch features that rely on an accurate document count illustrate the importance of using the `_doc_count` field. To see how this field can be used to support other search tools, refer to [Index rollups]({{site.url}}{{site.baseurl}}/im-plugin/index-rollups/index/), an OpenSearch feature for the Index Management (IM) plugin that stores documents with preaggregated data in rollup indexes.
 {: .tip}
 
 #### Example request
