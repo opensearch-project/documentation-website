@@ -95,6 +95,31 @@ config:
 ```
 {% include copy.html %}
 
+Alternatively, you can use the unified `disabled_categories` setting to disable categories on both layers simultaneously:
+
+```yml
+config:
+  audit:
+    disabled_categories:
+      - AUTHENTICATED
+      - GRANTED_PRIVILEGES
+```
+{% include copy.html %}
+
+When `disabled_categories` is configured alongside `disabled_rest_categories` or `disabled_transport_categories`, they work in tandem --- a category is disabled on a given layer if it appears in either the unified setting or the layer-specific setting. A deprecation warning is logged when both are configured, encouraging migration to `disabled_categories` only.
+
+For example, the following configuration disables `AUTHENTICATED` on both layers (via `disabled_categories`) and additionally disables `SSL_EXCEPTION` on the REST layer only:
+
+```yml
+config:
+  audit:
+    disabled_categories:
+      - AUTHENTICATED
+    disabled_rest_categories:
+      - SSL_EXCEPTION
+```
+{% include copy.html %}
+
 By default, the `CLUSTER_SETTINGS_CHANGED` and `INDEX_SETTINGS_CHANGED` categories are disabled on the transport layer. To enable them, remove them from `disabled_transport_categories`:
 
 ```yml
@@ -234,6 +259,31 @@ config:
 ### Settings in opensearch.yml
 
 The following settings are stored in the `opensearch.yml` file.
+
+#### Exclude categories
+
+You can also configure disabled categories directly in `opensearch.yml` using the `plugins.security.audit.config` prefix. This is useful for non-FGAC modes (SSL-only or security-disabled) where the `audit.yml` security index is not available:
+
+```yml
+plugins.security.audit.config.disabled_categories:
+  - AUTHENTICATED
+  - GRANTED_PRIVILEGES
+```
+{% include copy.html %}
+
+The layer-specific settings are also available:
+
+```yml
+plugins.security.audit.config.disabled_rest_categories:
+  - AUTHENTICATED
+  - GRANTED_PRIVILEGES
+plugins.security.audit.config.disabled_transport_categories:
+  - AUTHENTICATED
+  - GRANTED_PRIVILEGES
+```
+{% include copy.html %}
+
+When both `disabled_categories` and the layer-specific settings are configured, they work in tandem --- a category is disabled on a given layer if it appears in either setting.
 
 
 #### Configure the audit log index name
