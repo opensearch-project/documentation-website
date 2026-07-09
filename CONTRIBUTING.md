@@ -46,7 +46,7 @@ The workflow for contributing documentation is the same as the one for contribut
 
 ### Before you start
 
-Before contributing content, make sure to read the [README](README.md) and review the [OpenSearch Documentation Style Guide](style-guide/index.md).
+Before contributing content, make sure to read the [README](README.md) and review the [OpenSearch Content Style Guide](style-guide/index.md).
 
 NOTE: Make sure that any documentation you submit is your own work or work that you have the right to submit. We respect the intellectual property rights of others, and as part of contributing, we'll ask you to sign your contribution with a [Developer Certificate of Origin (DCO)](https://github.com/opensearch-project/.github/blob/main/CONTRIBUTING.md#developer-certificate-of-origin) stating that you have the right to submit your contribution and that you understand that we will use your contribution. 
 

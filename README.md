@@ -10,12 +10,7 @@ The markdown files in this repository are rendered into HTML pages using [Jekyll
 
 Community contributions remain essential to keeping the documentation comprehensive, useful, well organized, and up to date. If you are interested in submitting an issue or contributing content, see [Contributing guidelines](CONTRIBUTING.md). 
 
-For style, writing, and formatting standards, see the [OpenSearch Documentation Style Guide](style-guide/index.md).
-<!-- TODO: Add hosted version link once subdomain is configured  
-
-You can also view the style guide as a [webpage]().
-
--->
+For style, writing, and formatting standards, see the [OpenSearch Content Style Guide](style-guide/index.md). You can also view the style guide as a [webpage](https://style-guide.opensearch.org).
 
 
 ## Points of contact

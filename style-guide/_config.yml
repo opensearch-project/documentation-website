@@ -1,10 +1,10 @@
-title: OpenSearch Documentation Style Guide
+title: OpenSearch Content Style Guide
 description: Style, writing, and formatting standards for OpenSearch documentation
 remote_theme: just-the-docs/just-the-docs
 
 color_scheme: opensearch
 
-url: "" # TODO: Update when hosting is configured
+url: "https://style-guide.opensearch.org"
 baseurl: ""
 
 # Navigation order is controlled by front matter nav_order in each file
