@@ -12,6 +12,7 @@
 Boolean
 [Cc]allout
 [Cc]hatbots?
+[Cc]lasspath
 [Cc]odec
 [Cc]utover
 [Cc]omposable
