@@ -271,6 +271,9 @@ plugins.security.audit.config.disabled_categories:
 ```
 {% include copy.html %}
 
+{: .warning}
+The following layer-specific settings (`disabled_rest_categories` and `disabled_transport_categories`) are on a deprecation path and could be removed in a future release. Use the unified `disabled_categories` setting instead.
+
 The layer-specific settings are also available:
 
 ```yml
