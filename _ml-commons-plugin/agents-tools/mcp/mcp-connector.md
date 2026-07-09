@@ -168,9 +168,16 @@ To check the status of the operation, provide the task ID to the [Get ML Task AP
 
 ## Step 3: Register an agent for accessing MCP tools
 
-Currently, MCP tools can only be used with [_conversational_]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/conversational/) or [_plan-execute-reflect_]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/plan-execute-reflect/) agent types. 
+OpenSearch supports MCP tools with the following agent types:
 
-To enable external MCP tools, include one or more MCP connectors in your agent's configuration.
+| Agent type | MCP integration |
+|:---|:---|
+| [`conversational`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/conversational/) | The LLM selects MCP tools at runtime |
+| [`plan_execute_and_reflect`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/plan-execute-reflect/) | The LLM selects MCP tools at runtime |
+| [`flow`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/flow/) | MCP tools run in a fixed pipeline order |
+| [`conversational_flow`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/conversational-flow/) | MCP tools run in a fixed pipeline order with conversation memory |
+
+For all supported agent types, include one or more MCP connectors in `parameters.mcp_connectors`. How you configure the `tools` array depends on the agent type.
 
 Each connector must specify the following parameters in the `parameters.mcp_connectors` array.
 
@@ -179,6 +186,8 @@ Each connector must specify the following parameters in the `parameters.mcp_conn
 | `mcp_connector_id` | String | Yes | The connector ID of the MCP connector. | 
 | `tool_filters` | Array | No | An array of Java-style regular expressions that specify which tools from the MCP server to make available to the agent. A tool will be included if it matches at least one of the regular expressions in the array. If omitted or set to an empty array, all tools exposed by the connector will be available. Use the `^` or `$` anchors or literal strings to precisely match tool names. For example, `^get_forecast` matches any tool starting with "get_forecast", while `search_indices` matches only "search_indices".|
 | `tool_descriptions` | Array | No | An array of objects that override the tool descriptions sent to the LLM. Each object maps a tool name (key) to a replacement description (string value). Only tools that pass the `tool_filters` evaluation can be overridden. Entries are ignored if the tool does not exist on the connector, is excluded by `tool_filters`, or has a blank, null, or non-string value. If the same tool name appears in multiple objects, the last value wins. |
+
+For `conversational` and `plan_execute_and_reflect` agents, MCP tools are discovered from the configured connectors and presented to the LLM. The LLM decides which MCP tool to call during execution. You do not need to list MCP tools explicitly in the `tools` array, but you can include OpenSearch built-in tools alongside MCP tools.
 
 In this example, you'll register a conversational agent using the connector ID created in Step 1. The MCP server has two tools available (`get_alerts` and `get_forecasts`), but only the `get_alerts` tool will be included in the agent's configuration because it matches the specified regex pattern `^get_alerts$`:
 
@@ -292,6 +301,83 @@ To override descriptions for multiple tools without applying `tool_filters`, omi
 
 Overrides for tool names that are not exposed by the connector or that `tool_filters` excludes have no effect. The agent continues to use the MCP server's original description for any tool without a valid override.
 
+### Flow agents and conversational flow agents
+**Introduced 3.8**
+{: .label .label-purple }
+
+For [`flow`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/flow/) and [`conversational_flow`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/conversational-flow/) agents, MCP tools run in the fixed order defined in the `tools` array. You must declare each MCP tool explicitly and match the tool `type` to your connector protocol:
+
+| Connector protocol | MCP tool `type` |
+|:---|:---|
+| `mcp_streamable_http` | `McpStreamableHttpTool` |
+| `mcp_sse` | `McpSseTool` |
+
+Each MCP tool entry in the `tools` array supports the following fields.
+
+| Field | Data type | Required | Description |
+|:---|:---|:---|:---|
+| `name` | String | Yes | The MCP server tool name. Must match a tool exposed by the configured connector. Used for output chaining (for example, `${parameters.get_simple_price.output}`). |
+| `type` | String | Yes | `McpStreamableHttpTool` or `McpSseTool`, matching the connector protocol. |
+| `description` | String | No | A description of the tool. If omitted, OpenSearch uses the description from the MCP server when available. |
+| `parameters.input` | String | Yes | The tool input payload, typically a JSON string passed to the MCP server tool. |
+
+You can mix MCP tools with OpenSearch tools such as `MLModelTool` in the same pipeline. Output from one step can be passed to the next using `${parameters.<tool_name>.output}`.
+
+If an MCP tool is listed in `tools` but is not available from the configured connector, agent registration or execution fails with an error indicating the tool is not available. If MCP tools are configured in `tools` but `mcp_connectors` is missing, the request fails.
+
+The following example registers a `flow` agent that calls two MCP tools in sequence and then summarizes the results with `MLModelTool`:
+
+```json
+POST /_plugins/_ml/agents/_register
+{
+  "name": "Crypto market flow agent",
+  "type": "flow",
+  "description": "Flow agent using MCP tools in a fixed order",
+  "parameters": {
+    "mcp_connectors": [
+      {
+        "mcp_connector_id": "<MCP_CONNECTOR_ID_FROM_STEP_1>"
+      }
+    ]
+  },
+  "tools": [
+    {
+      "name": "get_simple_price",
+      "type": "McpStreamableHttpTool",
+      "description": "Fetch BTC and ETH prices in USD",
+      "parameters": {
+        "input": "{\"ids\":\"bitcoin,ethereum\",\"vs_currencies\":\"usd\",\"include_24hr_change\":true,\"include_market_cap\":true}"
+      }
+    },
+    {
+      "name": "get_search_trending",
+      "type": "McpStreamableHttpTool",
+      "description": "Fetch trending coins",
+      "parameters": {
+        "input": "{\"show_max\":\"10\"}"
+      }
+    },
+    {
+      "name": "summarize_market",
+      "type": "MLModelTool",
+      "description": "Summarize MCP outputs",
+      "parameters": {
+        "model_id": "<MODEL_ID_FROM_STEP_2>",
+        "prompt": "You are a crypto market analyst.\n\nCurrent prices:\n${parameters.get_simple_price.output}\n\nTrending:\n${parameters.get_search_trending.output}\n\nGive a concise summary with key observations and risks."
+      }
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+To use the same MCP pipeline with conversation memory, set `type` to `conversational_flow` and add a `memory` block:
+
+```json
+"memory": {
+  "type": "conversation_index"
+}
+```
 ## Step 4: Run the agent
 
 Invoke the registered agent by calling the Execute Agent API and providing a user question:
