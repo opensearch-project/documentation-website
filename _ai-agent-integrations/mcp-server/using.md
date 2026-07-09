@@ -24,7 +24,7 @@ Before using the OpenSearch MCP Server, ensure that you have the following compo
 
 Choose one of the following installation options:
 
-### Option 1: Run using uvx (recommended)
+### Option 1: Run using `uvx` (recommended)
 
 Install `uv`, which provides the `uvx` command to run the server without installing the package:
 
@@ -336,7 +336,7 @@ The server attempts authentication methods in the following order:
 3. **Basic authentication** -- `OPENSEARCH_USERNAME` and `OPENSEARCH_PASSWORD`.
 4. **Mutual TLS** -- `OPENSEARCH_CA_CERT_PATH`, `OPENSEARCH_CLIENT_CERT_PATH`, and `OPENSEARCH_CLIENT_KEY_PATH`. Can be used with or without basic authentication.
 
-For information about IAM and AWS credential options, see the [opensearch-mcp-server-py repository](https://github.com/opensearch-project/opensearch-mcp-server-py/blob/main/USER_GUIDE.md#authentication).
+For information about IAM and AWS credential options, see the [`opensearch-mcp-server-py` repository](https://github.com/opensearch-project/opensearch-mcp-server-py/blob/main/USER_GUIDE.md#authentication).
 
 ## Transports: Stdio and streaming
 
@@ -359,6 +359,6 @@ The following list describes common connection and configuration issues:
 
 ## Next steps
 
-- For information about Kubernetes deployment, structured logging, tool filtering, and tool customization, see the [opensearch-mcp-server-py repository](https://github.com/opensearch-project/opensearch-mcp-server-py/blob/main/USER_GUIDE.md).
+- For information about Kubernetes deployment, structured logging, tool filtering, and tool customization, see the [`opensearch-mcp-server-py` repository](https://github.com/opensearch-project/opensearch-mcp-server-py/blob/main/USER_GUIDE.md).
 - To integrate MCP tools into an OpenSearch agent (instead of exposing OpenSearch to an external agent), see [Using MCP tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/mcp/).
 - For structured workflows that guide AI assistants through OpenSearch tasks, see [Agent skills]({{site.url}}{{site.baseurl}}/ai-agent-integrations/agent-skills/).

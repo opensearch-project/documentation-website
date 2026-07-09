@@ -84,6 +84,7 @@ Levenshtein
 [Mm]ultivalued
 [Mm]ultiword
 [Nn]amespace
+[Nn]o-auth
 [Oo]ffline
 [Oo]nboarding
 [Oo]versamples?
@@ -134,6 +135,7 @@ pprof
 [Ss]ignificand
 [Ss]napshott(ed|ing)
 stdout
+[Ss]ubprocess(es)?
 [Ss]tackable
 [Ss]temmers?
 [Ss]ubaggregation

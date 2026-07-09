@@ -9,6 +9,7 @@ first: '\b((?<!k-)[A-Z]{1,3}\/?[A-Z]{1,3}\d{0,2}\b(?!\sCommons))'
 second: '(?:\b[A-Za-z-]+ )+\(([A-Z]{1,3}\/?[A-Z]{1,3}\d{0,2})\)'
 # ... with the exception of these:
 exceptions:
+  - AI
   - API
   - ASCII
   - AWS
