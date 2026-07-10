@@ -25,6 +25,7 @@ Boolean
 [Dd]eduplicat(ion|ing)
 [Dd]eprovision(s|ed|ing)?
 [Dd]eserialize
+[Dd]eterminized
 [Dd]eserialization
 Dev
 [Dd]iscoverability
@@ -55,6 +56,7 @@ gRPC
 [Hh]yperparameters
 [Ii]mpactful
 [Ii]ngress
+[Ii]rreproducible
 [Ii]nitializer
 [Ii]nline
 [Ii]nstrumentations?
@@ -118,6 +120,7 @@ pprof
 [Rr]eenable
 [Rr]eindex
 [Rr]eingest
+[Rr]eorderings?
 [Rr]eprovision(ed|ing)?
 [Rr]ethrottl(e|ing)
 [Rr]erank(er|ed|ing)?
@@ -140,6 +143,7 @@ stdout
 [Ss]ubcalculation
 [Ss]ubcollectors?
 [Ss]ubcommands?
+[Ss]ubpatterns?
 [Ss]ubfield
 [Ss]ubnets?
 [Ss]ubpath
@@ -168,6 +172,7 @@ tebibyte
 [Uu]nnesting
 [Uu]nrecovered
 [Uu]nregister(s|ed|ing)?
+[Uu]nstemmed
 [Uu]pdatable
 [Uu]psert
 [Uu]pvote(s|d)?
