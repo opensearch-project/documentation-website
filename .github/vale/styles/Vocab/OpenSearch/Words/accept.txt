@@ -1,5 +1,6 @@
 [Aa]gentic
 [Aa]nonymization
+awscurl
 [Aa]utogenerated?
 [Aa]utomapping
 [Aa]utopopulate
@@ -13,6 +14,7 @@ Boolean
 [Cc]allout
 [Cc]hatbots?
 [Cc]odec
+[Cc]rowdsourced?
 [Cc]utover
 [Cc]omposable
 [Cc]onfig
@@ -49,6 +51,7 @@ Gantt
 [Gg]eotile
 gibibyte
 gRPC
+[Hh]ardcoded?
 [Hh]ashmap
 [Hh]eatmaps?
 [Hh]ostname
@@ -86,8 +89,10 @@ Levenshtein
 [Nn]amespace
 [Oo]ffline
 [Oo]nboarding
+[Oo]verfit(ting)?
 [Oo]versamples?
 [Pp]arallelization
+[Pp]arameteri(ze|zation)
 pebibyte
 p\d{2}
 pprof
@@ -96,7 +101,7 @@ pprof
 [Pp]luggable
 [Pp]ointwise
 [Pp]reaggregate(s|d)?
-[Pp]recompute(s|d)?
+[Pp]recomput(e|es|ed|ing)
 [Pp]reconfigure
 [Pp]refetch
 [Pp]refilter
@@ -136,6 +141,7 @@ pprof
 stdout
 [Ss]tackable
 [Ss]temmers?
+[Ss]ubagents?
 [Ss]ubaggregation
 [Ss]ubcalculation
 [Ss]ubcollectors?

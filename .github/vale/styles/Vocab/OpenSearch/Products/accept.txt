@@ -35,6 +35,7 @@ Docker
 Docker Compose
 Dockerfile
 DoS
+Ehcache
 Elasticsearch
 Faiss
 Filebeat
@@ -123,6 +124,7 @@ Solr
 SolrCloud
 Strands Agents
 Strimzi
+SVMRank
 Tableau
 Textract
 Titan
@@ -135,6 +137,9 @@ Tribuo
 VisBuilder
 Visualize
 Workflow CLI
+Wikimedia
+Wikitravel
+Wiktionary
 Winlogbeat
 XGBoost
 Zipf
