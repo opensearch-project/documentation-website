@@ -30,7 +30,7 @@ Dashboards Query Language
 Data Prepper
 Debian
 Dev Tools
-Discover application
+Discover
 Docker
 Docker Compose
 Dockerfile
@@ -94,7 +94,6 @@ OpenSearch Benchmark
 OpenSearch Dashboards
 OpenSearch Flow
 OpenSearch Kubernetes Operator
-OpenSearch MCP Server
 OpenSearch Playground
 OpenSearch Project
 OpenSearch Service
