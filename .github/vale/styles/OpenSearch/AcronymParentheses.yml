@@ -17,6 +17,7 @@ exceptions:
   - CSV
   - CPU
   - CRUD
+  - DN
   - DNS
   - DOS
   - FAQ
@@ -36,6 +37,7 @@ exceptions:
   - RAM
   - REST
   - RGB
+  - RSA
   - ROM
   - SAML
   - SDK

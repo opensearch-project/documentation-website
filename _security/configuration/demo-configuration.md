@@ -25,7 +25,7 @@ The demo configuration is automatically called as part of the setup for each sup
 
 Use the following steps to set up the Security plugin using Docker:
 
-1. Download [docker-compose.yml](https://opensearch.org/downloads.html).
+1. Download [`docker-compose.yml`](https://opensearch.org/downloads.html).
 2. Run the following command:
 
 ```bash
@@ -38,7 +38,7 @@ If you want to disable the Security plugin when using Docker, set the `DISABLE_S
 ### Setting up a custom admin password
 **Note**: For OpenSearch versions 2.12 and later, you must set the initial admin password before installation. To customize the admin password, you can take the following steps:
 
-1. Download the following sample [docker-compose.yml](https://github.com/opensearch-project/documentation-website/blob/{{site.opensearch_major_minor_version}}/assets/examples/docker-compose.yml) file.
+1. Download the following sample [`docker-compose.yml`](https://github.com/opensearch-project/documentation-website/blob/{{site.opensearch_major_minor_version}}/assets/examples/docker-compose.yml) file.
 2. Create a `.env` file.
 3. Add the variable `OPENSEARCH_INITIAL_ADMIN_PASSWORD` and set the variable with a strong password. The password must pass the following complexity requirements:
 
@@ -51,7 +51,7 @@ If you want to disable the Security plugin when using Docker, set the `DISABLE_S
 4. Make sure that Docker is running on your local machine
 5. Run `docker compose up` from the file directory where your `docker-compose.yml` file and `.env` file are located.
 
-### TAR (Linux) and Mac OS 
+### TAR (Linux) and macOS 
 
 For TAR distributions on Linux, download the Linux setup files from the OpenSearch [Download & Get Started](https://opensearch.org/downloads.html) page. Then use the following command to run the demo configuration: 
 

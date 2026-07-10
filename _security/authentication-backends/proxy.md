@@ -44,7 +44,7 @@ Name | Description
 `internalProxies` | A regular expression containing the IP addresses of all trusted proxies. The pattern `.*` trusts all internal proxies.
 `remoteIpHeader` | Name of the HTTP header field that has the hostname chain. Default is `x-forwarded-for`.
 
-To determine whether a request comes from a trusted internal proxy, the Security plugin compares the remote address of the HTTP request with the list of configured internal proxies.  If the remote address is not in the list, the plugin treats the request like a client request.
+To determine whether a request comes from a trusted internal proxy, the Security plugin compares the remote address of the HTTP request with the list of configured internal proxies. If the remote address is not in the list, the plugin treats the request like a client request.
 
 
 ## Enable proxy authentication
@@ -100,7 +100,7 @@ Name | Description
 
 ## Example
 
-The following example uses an nginx proxy in front of a three-node OpenSearch cluster. For simplicity, we use hardcoded values for `x-proxy-user` and `x-proxy-roles`. In a real world example you would set these headers dynamically. The example also includes a commented header for use with the extended proxy.
+The following example uses an NGINX proxy in front of a three-node OpenSearch cluster. For simplicity, we use hard-coded values for `x-proxy-user` and `x-proxy-roles`. In a real world example you would set these headers dynamically. The example also includes a commented header for use with the extended proxy.
 
 ```
 events {

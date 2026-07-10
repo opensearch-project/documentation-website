@@ -353,7 +353,7 @@ config:
 
 ## OpenSearch Dashboards configuration
 
-Because most of the SAML-specific configuration is done in the Security plugin, just activate SAML in your `opensearch_dashboards.yml` by adding the following:
+Because most of the SAML-specific configuration is done in the Security plugin, activate SAML in your `opensearch_dashboards.yml` by adding the following:
 
 ```yml
 opensearch_security.auth.type: "saml"

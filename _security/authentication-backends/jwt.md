@@ -52,7 +52,7 @@ The payload of a JWT contains the [JWT claims](https://auth0.com/docs/secure/tok
 
 There are three types of claims:
 
-* [Registered claims](https://www.iana.org/assignments/jwt/jwt.xhtml#claims) are defined by the JWT specification and comprise a set of standard claims with reserved names. Some examples of these claims include token issuer (iss), expiration time (exp), and subject (sub).
+* [Registered claims](https://www.iana.org/assignments/jwt/jwt.xhtml#claims) are defined by the JWT specification and comprise a set of standard claims with reserved names. Some examples of these claims include token issuer (`iss`), expiration time (`exp`), and subject (`sub`).
 * Public claims, on the other hand, are defined at the will of the parties sharing the token. They can contain arbitrary information, such as the username and the roles of the user. As a precaution, the specification advises either registering the name or, at least, ensuring that the name is [collision resistant](https://www.rfc-editor.org/rfc/rfc7519#section-4.2) with other claims.
 * Private claims provide another option for assigning custom information to the payload: for example, an email address. As such, they are also referred to as _custom_ claims. The two parties sharing the token must agree on their use because they are considered to be neither registered nor public claims. 
 
@@ -196,9 +196,9 @@ As with HTTP basic authentication, you should use HTTPS instead of HTTP.
 
 The following registered claims are validated automatically:
 
-* "iat" (Issued At) Claim
-* "nbf" (Not Before) Claim
-* "exp" (Expiration Time) Claim
+* `iat` (Issued At) claim
+* `nbf` (Not Before) claim
+* `exp` (Expiration Time) claim
 
 
 ### Supported formats and algorithms
@@ -360,7 +360,7 @@ To configure OpenSearch for using Teleport, perform these actions.
 
 #### Teleport configuration
 
-In the agent configuration file (typically located at /etc/teleport.yaml), configure the application service to automatically include the JWT in a request header:
+In the agent configuration file (typically located at `/etc/teleport.yaml`), configure the application service to automatically include the JWT in a request header:
 
 ```yaml
 # [...]
@@ -404,7 +404,7 @@ systemctl restart dashboards
 
 ### Security node configuration
 
-On the node where you run the `securityadmin.sh` script, update the security plugin configuration file (for example, `/usr/share/opensearch/config/opensearch-security/config.yml`) to configure both authentication methods:
+On the node where you run the `securityadmin.sh` script, update the Security plugin configuration file (for example, `/usr/share/opensearch/config/opensearch-security/config.yml`) to configure both authentication methods:
 
 ```yaml
 _meta:

@@ -83,9 +83,9 @@ PUT /_plugins/_security/api/tenancy/config
 }
 ```
 
-### Dashboardsinfo API
+### `Dashboardsinfo` API
 
-You can also use the Dashboardsinfo API to retrieve the status of multi-tenancy settings for the user logged in to Dashboards:
+You can also use the `dashboardsinfo` API to retrieve the status of multi-tenancy settings for the user logged in to Dashboards:
 
 ```json
 GET /_plugins/_security/dashboardsinfo

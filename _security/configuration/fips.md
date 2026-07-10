@@ -11,7 +11,7 @@ The [Federal Information Processing Standard (FIPS) 140-3](https://csrc.nist.gov
 
 To achieve FIPS compliance, OpenSearch requires:
 
-- FIPS-validated cryptographic providers for all cryptographic operations (Bouncy Castle FIPS is included in OpenSearch).
+- FIPS-validated cryptographic providers for all cryptographic operations (Bouncy Castle (BC) FIPS is included in OpenSearch).
 - A JVM configured to use these FIPS-validated providers.
 - A JVM using a Java version for which [BC-FJA](https://www.bouncycastle.org/download/bouncy-castle-java-fips/) is certified (for example, Java 11, 17, or 21 for OpenSearch v3.2.0+ with BC-FJA v2.1.0).
 - FIPS-compliant keystores and truststores in BCFKS or PKCS11 format.
@@ -68,7 +68,7 @@ To run the installer in non-interactive mode for automated deployments, use eith
 The non-interactive mode runs without prompts and automatically performs the following actions:
 
 - Defaults to generating a new BCFKS truststore.
-- Autoconfirms all prompts.
+- Automatically confirms all prompts.
 - Generates a secure 24-character password (or uses the one specified using `-p`).
 - Selects the first available PKCS11 provider when using the `system` command.
 

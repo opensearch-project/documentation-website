@@ -97,7 +97,7 @@ Now that the private key and signing request have been created, generate the cer
 openssl x509 -req -in admin.csr -CA root-ca.pem -CAkey root-ca-key.pem -CAcreateserial -sha256 -out admin.pem -days 730
 ```
 
-Just like the root certificate, use the `-days` option to specify an expiration date of longer than 30 days.
+As with the root certificate, use the `-days` option to specify an expiration date of longer than 30 days.
 
 
 ## (Optional) Generate node and client certificates
@@ -226,7 +226,7 @@ rm combined-node1.pem
 
 ## Add distinguished names to opensearch.yml
 
-You must specify the distinguished names (DNs) for all admin and node certificates in `opensearch.yml` on all nodes. Using the certificates from the sample script above, part of `opensearch.yml` might look like this:
+You must specify the distinguished names (DNs) for all admin and node certificates in `opensearch.yml` on all nodes. Using the certificates from the preceding sample script, part of `opensearch.yml` might look like this:
 
 ```yml
 plugins.security.authcz.admin_dn:
@@ -242,7 +242,7 @@ But if you look at the `subject` of the certificate after creating it, you might
 subject=/C=CA/ST=ONTARIO/L=TORONTO/O=ORG/OU=UNIT/CN=node1.dns.a-record
 ```
 
-If you compare this string to the ones above, you can see that you need to invert the order of elements and use commas rather than slashes. Enter this command to get the correct string:
+If you compare this string to the preceding ones, you can see that you need to invert the order of elements and use commas rather than slashes. Enter this command to get the correct string:
 
 ```bash
 openssl x509 -subject -nameopt RFC2253 -noout -in node.pem
@@ -285,4 +285,4 @@ For more information about adding and using these certificates in your own setup
 
 ## OpenSearch Dashboards
 
-For information on using your root CA and a client certificate to enable TLS for OpenSearch Dashboards, see [Configure TLS for OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/tls/).
+For information about using your root CA and a client certificate to enable TLS for OpenSearch Dashboards, see [Configure TLS for OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/tls/).

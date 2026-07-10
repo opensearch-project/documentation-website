@@ -34,7 +34,7 @@ The following security properties apply to API keys:
 - Tokens are generated using a cryptographically secure random number generator, making brute-force attacks not feasible.
 - Only the SHA-256 hash is stored. The plain-text token is never persisted.
 - Token creation and revocation are logged under the `API_TOKEN_WRITE` audit category. Authentication events show `token:<name>` as the user.
-- Revocation is broadcasted synchronously to all nodes. During a network partition, the revoke request fails and returns an error. Tokens expire automatically based on `duration_seconds`.
+- Revocation is broadcast synchronously to all nodes. During a network partition, the revoke request fails and returns an error. Tokens expire automatically based on `duration_seconds`.
 
 ## Limitations
 
@@ -130,7 +130,7 @@ curl -k -u admin:$PASSWORD -X DELETE \
 
 Revocation is synchronous: the key is immediately unusable across all nodes.
 
-## Managing API keys inOpenSearch Dashboards
+## Managing API keys in OpenSearch Dashboards
 
 If the Security Dashboards plugin is installed, you can manage API keys from the **Security** > **API Keys** page. You can create keys with cluster and index permissions, select expiration presets, and revoke keys.
 
