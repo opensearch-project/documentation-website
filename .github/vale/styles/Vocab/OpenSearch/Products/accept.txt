@@ -3,14 +3,12 @@ Adoptium
 AI21 Labs Jurassic
 Amazon
 Amazon Bedrock
-Amazon Bedrock Guardrails
 Amazon Kinesis
 Amazon OpenSearch Serverless
 Amazon OpenSearch Service
 Amazon SageMaker
 Ansible
 Anthropic Claude
-arXiv
 Apache Avro
 Apache HttpClient 5 Transport
 Apache Kafka
