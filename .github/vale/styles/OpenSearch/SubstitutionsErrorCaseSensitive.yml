@@ -10,5 +10,7 @@ swap:
   'base 64': Base64
   'base-64': Base64
   'base64': Base64
+  'lambda function': Lambda function
+  'lambda functions': Lambda functions
   'Retrieval-Augmented Generation': retrieval-augmented generation
   

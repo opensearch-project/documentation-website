@@ -9,34 +9,43 @@ first: '\b((?<!k-)[A-Z]{1,3}\/?[A-Z]{1,3}\d{0,2}\b(?!\sCommons))'
 second: '(?:\b[A-Za-z-]+ )+\(([A-Z]{1,3}\/?[A-Z]{1,3}\d{0,2})\)'
 # ... with the exception of these:
 exceptions:
+  - 3D
+  - AI
   - API
   - ASCII
   - AWS
   - BASIC
   - BM25
+  - CLI
   - CSV
   - CPU
   - CRUD
   - DNS
   - DOS
+  - EC2
   - FAQ
   - FTP
   - GIF
   - HTML
   - HTTP
   - HTTPS
+  - HTTP(S)
   - I/O
   - ID
   - IP
   - JPEG
   - JSON
+  - MS MARCO
   - NAT
   - NGINX
+  - NMSLIB
+  - OSS
   - PDF
   - RAM
   - REST
   - RGB
   - ROM
+  - RPM
   - SAML
   - SDK
   - SSL
@@ -50,6 +59,7 @@ exceptions:
   - UTF
   - XML
   - YAML
+  - YUM
   - CAT
   - GET
   - PUT
