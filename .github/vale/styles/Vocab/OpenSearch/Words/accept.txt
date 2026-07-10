@@ -49,6 +49,7 @@ Gantt
 [Gg]eotile
 gibibyte
 gRPC
+[Hh]ardcod(e|ed|ing)
 [Hh]ashmap
 [Hh]eatmaps?
 [Hh]ostname
@@ -85,7 +86,8 @@ Levenshtein
 [Mm]ultiword
 [Nn]amespace
 [Oo]ffline
-[Oo]nboarding
+[Oo]nboard(ed|ing)?
+Oniguruma
 [Oo]versamples?
 [Pp]arallelization
 pebibyte
@@ -162,6 +164,7 @@ tebibyte
 [Uu]nary
 [Uu]ncheck
 [Uu]ncomment
+[Uu]nescaped
 [Uu]ndeploy
 [Uu]naggregated
 [Uu]nigram
