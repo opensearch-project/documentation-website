@@ -343,7 +343,7 @@ Returns `expr1` if `condition1` is `true`, `expr2` if `condition2` is `true`, an
 
 #### Limitations
 
-When each condition is a field comparison against a numeric literal and each result expression is a string literal, the query is optimized as [range aggregations]({{site.url}}{{site.baseurl}}/aggregations/bucket/range) if pushdown optimization is enabled. However, this optimization has the following limitations:
+When each condition is a field comparison against a numeric literal and each result expression is a string literal, the query is optimized as [range aggregations]({{site.url}}{{site.baseurl}}/aggregations/bucket/range/) if pushdown optimization is enabled. However, this optimization has the following limitations:
 - `NULL` values are not grouped into any bucket of a range aggregation and are ignored.
 - The default `else` clauses use the string literal `"null"` instead of actual NULL values.
   
@@ -415,7 +415,7 @@ Returns the first non-null, non-missing value in the parameter list.
 
 **Behavior**:
 - Returns the first value that is not `NULL` and not missing (missing includes non-existent fields).
-- Empty strings (`""`) and whitespace strings (`" "`) are considered valid values.
+- Empty strings (`""`) and white space strings (`" "`) are considered valid values.
 - If all parameters are `NULL` or missing, returns `NULL`.
 - Automatic type coercion is applied to match the determined return type.
 - If type conversion fails, the value is converted to string representation.

@@ -11,7 +11,7 @@ redirect_from:
 # Functions
 
 The SQL language supports all SQL plugin [common functions]({{site.url}}{{site.baseurl}}/sql-and-ppl/functions/), including [relevance search]({{site.url}}{{site.baseurl}}/search-plugins/sql/full-text/), but also introduces a few function synonyms, which are available in SQL only.
-These synonyms are provided by the `V1` engine. For more information, see [Limitations]({{site.url}}{{site.baseurl}}/search-plugins/sql/limitation).
+These synonyms are provided by the `V1` engine. For more information, see [Limitations]({{site.url}}{{site.baseurl}}/search-plugins/sql/limitation/).
 
 ## Match query
 
@@ -148,7 +148,7 @@ GET accounts/_search
 ```
 {% include copy-curl.html %}
 
-The request above is equivalent to the following `query` function:
+The preceding request is equivalent to the following `query` function:
 
 ```sql
 SELECT account_number, address

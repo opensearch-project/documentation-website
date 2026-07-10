@@ -51,7 +51,7 @@ The `date` type represents the calendar date regardless of the time zone. A give
 
 ### Time
 
-The `time` type represents the time of a clock regardless of its timezone. The `time` type doesn't contain date information.
+The `time` type represents the time of a clock regardless of its time zone. The `time` type doesn't contain date information.
 
 | Type | Syntax | Range
 :--- | :--- | :---
@@ -59,7 +59,7 @@ The `time` type represents the time of a clock regardless of its timezone. The `
 
 ### Datetime
 
-The `datetime` type is a combination of date and time. It doesn't contain timezone information. For an absolute time point that contains date, time, and timezone information, see [Timestamp](#timestamp).
+The `datetime` type is a combination of date and time. It doesn't contain time zone information. For an absolute time point that contains date, time, and time zone information, see [Timestamp](#timestamp).
 
 | Type | Syntax | Range
 :--- | :--- | :---
@@ -67,7 +67,7 @@ The `datetime` type is a combination of date and time. It doesn't contain timezo
 
 ### Timestamp
 
-The `timestamp` type is an absolute instance independent of timezone or convention. For example, for a given point of time, if you change the timestamp to a different timezone, its value changes accordingly.
+The `timestamp` type is an absolute instance independent of time zone or convention. For example, for a given point of time, if you change the timestamp to a different time zone, its value changes accordingly.
 
 The `timestamp` type is stored differently from the other types. It's converted from its current timezone to UTC for storage and converted back to its set timezone from UTC when it's retrieved.
 
@@ -111,7 +111,7 @@ The SQL plugin supports the following conversion rules for each of the types:
 
 - Converting `datetime` to `date` extracts the date value from the `datetime` value. For example, conversion of `2020-08-17 14:09:00` to a `date` type is `2020-08-08`.
 - Converting `datetime` to `time` extracts the time value from the `datetime` value. For example, conversion of `2020-08-17 14:09:00` to a `time` type is `14:09:00`.
-- Because the `datetime` type doesn't contain timezone information, converting to `timestamp` type fills up the timezone value with the session timezone. For example, conversion of `2020-08-17 14:09:00` (UTC) to a `timestamp` type is `2020-08-17 14:09:00 UTC`.
+- Because the `datetime` type doesn't contain time zone information, converting to `timestamp` type fills up the timezone value with the session timezone. For example, conversion of `2020-08-17 14:09:00` (UTC) to a `timestamp` type is `2020-08-17 14:09:00 UTC`.
 
 **Convert from timestamp**
 

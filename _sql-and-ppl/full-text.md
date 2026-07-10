@@ -10,7 +10,7 @@ redirect_from:
 
 Use SQL commands for full-text search. The SQL plugin supports a subset of full-text queries available in OpenSearch.
 
-To learn about full-text queries in OpenSearch, see [Full-text queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/index).
+To learn about full-text queries in OpenSearch, see [Full-text queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/index/).
 
 ## Match
 

@@ -12,7 +12,7 @@ redirect_from:
 
 The Open Database Connectivity (ODBC) driver is a read-only ODBC driver for Windows and macOS that lets you connect business intelligence (BI) and data visualization applications like [Microsoft Excel](https://github.com/opensearch-project/sql-odbc/blob/main/docs/user/microsoft_excel_support.md) and [Power BI](https://github.com/opensearch-project/sql-odbc/blob/main/bi-connectors/PowerBIConnector/README.md) to the SQL plugin.
 
-For information on downloading and using the driver, see [the SQL repository on GitHub](https://github.com/opensearch-project/sql-odbc).
+For information about downloading and using the driver, see [the SQL repository on GitHub](https://github.com/opensearch-project/sql-odbc).
 
 ## Specifications
 
@@ -104,7 +104,7 @@ This command gives the application permissions to save the driver and DSN config
 4. Choose **OK** to save the options.
 5. Choose the **User DSN** tab.
 6. Select **Add**.
-7. Choose the driver that you added above.
+7. Choose the driver that you added previously.
 8. For **Data Source Name (DSN)**, enter the name of the DSN used to store connection options (for example, OpenSearch SQL ODBC DSN).
 9. For **Comment**, add an optional comment.
 10. Add key-value pairs by using the `+` button. We recommend the following options for a default local OpenSearch installation:
@@ -133,7 +133,7 @@ Typically, all that's required is to make the BI tool aware of the location of t
 The ODBC driver uses an ODBC connection string.
 The connection strings are semicolon-delimited strings that specify the set of options that you can use for a connection.
 Typically, a connection string will either:
-  - Specify a Data Source Name (DSN) that contains a pre-configured set of options (`DSN=xxx;User=xxx;Password=xxx;`).
+  - Specify a Data Source Name (DSN) that contains a preconfigured set of options (`DSN=xxx;User=xxx;Password=xxx;`).
   - Or, configure options explicitly using the string (`Host=xxx;Port=xxx;LogLevel=ES_DEBUG;...`).
 
 You can configure the following driver options using a DSN or connection string:

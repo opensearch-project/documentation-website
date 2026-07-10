@@ -27,7 +27,7 @@ Function | Description
 `STDDEV_POP` | Returns the population standard deviation of the results. Returns 0 when there is only one row of results.
 `STDDEV_SAMP` | Returns the sample standard deviation of the results. Returns null when there is only one row of results.
 
-The examples below reference an `employees` table. You can try out the examples by indexing the following documents into OpenSearch using the bulk index operation:
+The following examples reference an `employees` table. You can try out the examples by indexing the following documents into OpenSearch using the bulk index operation:
 
 ```json
 PUT employees/_bulk?refresh
@@ -70,7 +70,7 @@ GROUP BY department;
 
 ### Using an ordinal in GROUP BY
 
-You can specify the column number to aggregate on in the `GROUP BY` clause. The column number is determined by the column position in the `SELECT` clause. For example, the following query is equivalent to the query above. It returns the department numbers and the total sales for each department. It groups the results by the first column of the result set, which is `department`:
+You can specify the column number to aggregate on in the `GROUP BY` clause. The column number is determined by the column position in the `SELECT` clause. For example, the following query is equivalent to the preceding query. It returns the department numbers and the total sales for each department. It groups the results by the first column of the result set, which is `department`:
 
 ```sql
 SELECT department, sum(sales)

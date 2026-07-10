@@ -39,7 +39,7 @@ The following considerations apply when using the `timechart` command:
 
 * The `timechart` command requires a timestamp field in the data. By default, it uses the `@timestamp` field, but you can specify a different field using the `timefield` parameter.  
 * Results are returned in an unpivoted format with separate rows for each time-field combination that has data.  
-* Only combinations with actual data are included in the results---empty combinations are omitted rather than showing null or zero values.  
+* Only combinations that contain data are included in the results---empty combinations are omitted rather than showing null or zero values.  
 * The top N values for the `limit` parameter are selected based on the sum of values across all time intervals for each distinct field value.  
 * When using the `limit` parameter, values beyond the limit are grouped into an `OTHER` category (unless `useother=false`).   
 * Documents with null values in the `by` field are treated as a separate category and appear as null in the results.  

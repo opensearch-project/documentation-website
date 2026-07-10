@@ -1663,11 +1663,11 @@ The following table describes the available specifier arguments:
 | `%A` | Weekday name (Mon..Sun) - Note: Locale.ROOT uses abbreviated form |
 | `%b` | Abbreviated month name (Jan..Dec) |
 | `%B` | Month name (Jan..Dec) - Note: Locale.ROOT uses abbreviated form |
-| `%c` | Date and time (e.g., Mon Jul 18 09:30:00 2019) |
+| `%c` | Date and time (for example, Mon Jul 18 09:30:00 2019) |
 | `%C` | Century as 2-digit decimal number |
 | `%d` | Day of the month, zero-padded (01..31) |
 | `%e` | Day of the month, space-padded ( 1..31) |
-| `%Ez` | Timezone offset in minutes from UTC (e.g., +0 for UTC, +330 for IST, -300 for EST) |
+| `%Ez` | Time zone offset in minutes from UTC (for example, +0 for UTC, +330 for IST, -300 for EST) |
 | `%f` | Microseconds as decimal number (000000..999999) |
 | `%F` | ISO 8601 date format (`%Y-%m-%d`) |
 | `%g` | ISO 8601 year without century (00..99) |
@@ -1678,24 +1678,24 @@ The following table describes the available specifier arguments:
 | `%k` | Hour (24-hour clock), space-padded ( 0..23) |
 | `%m` | Month as decimal number (01..12) |
 | `%M` | Minute (00..59) |
-| `%N` | Subsecond digits (default `%9N` = nanoseconds). Accepts any precision value from 1-9 (e.g., `%3N` = 3 digits, `%5N` = 5 digits, `%9N` = 9 digits). The precision directly controls the number of digits displayed |
+| `%N` | Subsecond digits (default `%9N` = nanoseconds). Accepts any precision value from 1-9 (for example, `%3N` = 3 digits, `%5N` = 5 digits, `%9N` = 9 digits). The precision directly controls the number of digits displayed |
 | `%p` | AM or PM |
-| `%Q` | Subsecond component (default milliseconds). Can specify precision: `%3Q` = milliseconds, `%6Q` = microseconds, `%9Q` = nanoseconds. Other precision values (e.g., `%5Q`) default to `%3Q` |
+| `%Q` | Subsecond component (default milliseconds). Can specify precision: `%3Q` = milliseconds, `%6Q` = microseconds, `%9Q` = nanoseconds. Other precision values (for example, `%5Q`) default to `%3Q` |
 | `%s` | UNIX Epoch timestamp in seconds |
 | `%S` | Second (00..59) |
 | `%T` | Time in 24-hour notation (`%H:%M:%S`) |
 | `%U` | Week of year starting from 0 (00..53) |
 | `%V` | ISO week number (01..53) |
 | `%w` | Weekday as decimal (0=Sunday..6=Saturday) |
-| `%x` | Date in MM/dd/yyyy format (e.g., 07/13/2019) |
-| `%X` | Time in HH:mm:ss format (e.g., 09:30:00) |
+| `%x` | Date in MM/dd/yyyy format (for example, 07/13/2019) |
+| `%X` | Time in HH:mm:ss format (for example, 09:30:00) |
 | `%y` | Year without century (00..99) |
 | `%Y` | Year with century |
-| `%z` | Timezone offset (+hhmm or -hhmm) |
-| `%:z` | Timezone offset with colon (+hh:mm or -hh:mm) |
-| `%::z` | Timezone offset with colons (+hh:mm:ss) |
-| `%:::z` | Timezone offset hour only (+hh or -hh) |
-| `%Z` | Timezone abbreviation (e.g., EST, PDT) |
+| `%z` | Time zone offset (+hhmm or -hhmm) |
+| `%:z` | Time zone offset with colon (+hh:mm or -hh:mm) |
+| `%::z` | Time zone offset with colons (+hh:mm:ss) |
+| `%:::z` | Time zone offset hour only (+hh or -hh) |
+| `%Z` | Timezone abbreviation (for example, EST, PDT) |
 | `%%` | Literal % character |
 
 **Examples**

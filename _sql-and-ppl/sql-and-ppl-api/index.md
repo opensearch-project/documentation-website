@@ -385,7 +385,7 @@ POST /_plugins/_sql/close
 ```
 {% include copy-curl.html %}
 
-The response is an acknowledgement from OpenSearch:
+The response is an acknowledgment from OpenSearch:
 
 ```json
 {"succeeded":true}
@@ -465,7 +465,7 @@ POST /_plugins/_sql/_explain
 ```
 {% include copy-curl.html %}
 
-The response contains the Boolean query in OpenSearch DSL that corresponds to the query above:
+The response contains the Boolean query in OpenSearch DSL that corresponds to the preceding query:
 
 ```json
 {
@@ -523,7 +523,7 @@ POST /_plugins/_sql/_explain
 ```
 {% include copy-curl.html %}
 
-The response contains the Boolean query in OpenSearch DSL that corresponds to the SQL query above:
+The response contains the Boolean query in OpenSearch DSL that corresponds to the preceding SQL query:
 
 ```json
 {
