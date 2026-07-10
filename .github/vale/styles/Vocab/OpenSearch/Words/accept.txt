@@ -1,6 +1,5 @@
 [Aa]gentic
 [Aa]nonymization
-[Aa]ppenders?
 [Aa]utogenerated?
 [Aa]utomapping
 [Aa]utopopulate
@@ -169,8 +168,6 @@ tebibyte
 [Uu]nnesting
 [Uu]nrecovered
 [Uu]nregister(s|ed|ing)?
-[Uu]nstemmed
-[Uu]nthrottled
 [Uu]pdatable
 [Uu]psert
 [Uu]pvote(s|d)?
