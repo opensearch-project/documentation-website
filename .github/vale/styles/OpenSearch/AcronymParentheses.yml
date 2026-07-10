@@ -30,7 +30,6 @@ exceptions:
   - IP
   - JPEG
   - JSON
-  - LLM
   - NAT
   - NGINX
   - PDF
