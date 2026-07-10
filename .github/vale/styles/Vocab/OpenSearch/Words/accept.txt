@@ -157,7 +157,6 @@ pebibyte
 [Ss]ignificand
 [Ss]napshott(ed|ing)
 [Ss]tackable
-stdout
 [Ss]temmers?
 [Ss]treamable
 [Ss]ubagents?
@@ -181,7 +180,6 @@ stdout
 [Ss]uperadmins?
 [Ss]uperset
 [Ss]yslog
-systemd
 t-digest
 tebibyte
 [Tt]emplated
