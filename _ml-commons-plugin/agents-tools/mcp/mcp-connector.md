@@ -323,7 +323,7 @@ Each MCP tool entry in the `tools` array supports the following fields.
 
 You can mix MCP tools with OpenSearch tools such as `MLModelTool` in the same pipeline. Output from one step can be passed to the next using `${parameters.<tool_name>.output}`.
 
-If an MCP tool is listed in `tools` but is not available from the configured connector, agent registration or execution fails with an error indicating the tool is not available. If MCP tools are configured in `tools` but `mcp_connectors` is missing, the request fails.
+If an MCP tool is listed in `tools` but is not available from the configured connector, agent execution fails with an error indicating the tool is not available. If multiple MCP connectors expose a tool with the same name, OpenSearch uses the tool from the first matching connector in the `mcp_connectors` array.
 
 The following example registers a `flow` agent that calls two MCP tools in sequence and then summarizes the results with `MLModelTool`:
 
