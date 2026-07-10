@@ -35,7 +35,7 @@ Parameter | Data type | Description
 :--- | :--- | :---
 `language` | String | The language code (for example, `de` for German, `fr` for French). Optional.
 `country` | String | The country code (for example, `DE` for Germany, `FR` for France). Optional.
-`variant` | String | A variant string for additional collation options (for example, `@collation=phonebook` for German phonebook order). Optional.
+`variant` | String | A variant string for additional collation options (for example, `@collation=phonebook` for German phone book order). Optional.
 `strength` | String | The collation strength level. Valid values are `primary`, `secondary`, `tertiary`, `quaternary`, and `identical`. Default is `tertiary`. Optional.
 `decomposition` | String | How to handle character normalization. Valid values are `no` and `canonical`. Default is `no`. Optional.
 `alternate` | String | How to handle white space and punctuation. Valid values are `shifted` and `non-ignorable`. Optional.
@@ -50,9 +50,9 @@ Parameter | Data type | Description
 `store` | Boolean | Whether to store the field value separately from `_source`. Default is `false`. Optional.
 `fields` | Object | Multi-field mappings for indexing the same value in different ways. Optional.
 
-## Example: German phonebook sorting
+## Example: German phone book sorting
 
-The following example creates an index with a field that sorts German names using phonebook ordering:
+The following example creates an index with a field that sorts German names using phone book ordering:
 
 ```json
 PUT /german-names
@@ -104,7 +104,7 @@ GET /german-names/_search
 ```
 {% include copy-curl.html %}
 
-The results are sorted according to German phonebook conventions, where ö and ü are treated as distinct characters in the German alphabet:
+The results are sorted according to German phone book conventions, where ö and ü are treated as distinct characters in the German alphabet:
 
 ```json
 {
