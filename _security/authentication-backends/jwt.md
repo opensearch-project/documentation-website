@@ -144,7 +144,7 @@ jwt_auth_domain:
 
 ### Asymmetric key algorithms: RSA and ECDSA
 
-RSA and ECDSA are asymmetric encryption and digital signature algorithms that use a public/private key pair to sign and verify tokens. This means that they use a private key for signing the token, while the Security plugin needs to know only the public key to verify it.
+Rivest–Shamir–Adleman (RSA) and Elliptic Curve Digital Signature Algorithm (ECDSA) are asymmetric encryption and digital signature algorithms that use a public/private key pair to sign and verify tokens. This means that they use a private key for signing the token, while the Security plugin needs to know only the public key to verify it.
 
 Because you cannot issue new tokens with the public key---and because you can make valid assumptions about the creator of the token---RSA and ECDSA are considered to be more secure than HMAC.
 

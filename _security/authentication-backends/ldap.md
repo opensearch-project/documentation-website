@@ -130,7 +130,7 @@ config:
 If your server supports two-factor authentication (2FA), the default timeout settings might result in login errors. You can increase `connect_timeout` to accommodate the 2FA process. Setting `response_timeout` to 0 (the default) indicates an indefinite waiting period.
 
 
-### Bind DN and password
+### Bind distinguished name and password
 
 To configure the `bind_dn` and `password` that the Security plugin uses when issuing queries to your server, use the following:
 
