@@ -119,7 +119,7 @@ public SampleJobParameter(String id, String name, String indexToWatch, Schedule 
 The following table describes the request parameters configured in the previous example. All the request parameters shown are required.
 
 | Field | Data type | Description |
-:--- | :--- | :---
+| :--- | :--- | :--- |
 | `getName` | String | Returns the name of the job. |
 | `getLastUpdateTime` | Time unit | Returns the time that the job was last run. |
 | `getEnabledTime` | Time unit | Returns the time that the job was enabled. |
