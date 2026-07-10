@@ -23,7 +23,6 @@ Boolean
 [Dd]eallocate
 [Dd]eduplicate[sd]?
 [Dd]eduplicat(ion|ing)
-[Dd]ecompounder
 [Dd]eprovision(s|ed|ing)?
 [Dd]eserialize
 [Dd]eserialization
@@ -35,13 +34,11 @@ Distro
 [Dd]uplicative
 [Ee]gress
 [Ee]num
-Eszett
 [Ff]ailover
 [Ff]lyout
 [Ff]sync
 Gantt
 [Gg]eobounds
-[Gg]eocentroid
 [Gg]eodistance
 [Gg]eohash
 [Gg]eohex
@@ -52,7 +49,6 @@ Gantt
 [Gg]eotile
 gibibyte
 gRPC
-Hanja
 [Hh]ashmap
 [Hh]eatmaps?
 [Hh]ostname
@@ -68,8 +64,7 @@ Hanja
 k-NN
 [Kk]eystore
 kibibyte
-KStem
-[Kk]uromoji
+mebibyte
 [Ll]earnings
 [Ll]emmatization
 Levenshtein
@@ -78,7 +73,6 @@ Levenshtein
 [Ll]ossy
 [Ll]owercases?d?
 [Mm]acrobenchmarks?
-mebibyte
 [Mm]etaphone
 [Mm]isorder
 [Mm]ultifield
@@ -102,7 +96,6 @@ pprof
 [Pp]luggable
 [Pp]ointwise
 [Pp]reaggregate(s|d)?
-[Pp]recomposed
 [Pp]recompute(s|d)?
 [Pp]reconfigure
 [Pp]refetch
@@ -120,7 +113,6 @@ pprof
 [Rr]ebalance
 [Rr]ebalancing
 [Rr]eimplemented
-[Rr]omanized
 [Rr]outable
 [Rr]edownload
 [Rr]eenable
@@ -141,8 +133,6 @@ pprof
 [Ss]harding
 [Ss]ignificand
 [Ss]napshott(ed|ing)
-Sorani
-Stempel
 stdout
 [Ss]tackable
 [Ss]temmers?
@@ -154,7 +144,6 @@ stdout
 [Ss]ubnets?
 [Ss]ubpath
 [Ss]ubquer(y|ies)
-[Ss]ubtoken(s)?
 [Ss]ubstrings?
 [Ss]ubtag
 [Ss]ubtree
