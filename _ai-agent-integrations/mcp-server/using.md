@@ -115,7 +115,7 @@ To connect to Kiro, edit the configuration file at `.kiro/settings/mcp.json` in 
 ```
 {% include copy.html %}
 
-### No-auth clusters
+### Clusters without security
 
 For a local development cluster started without security (for example, `docker run -p 9200:9200 opensearchproject/opensearch:latest -e "discovery.type=single-node" -e "DISABLE_SECURITY_PLUGIN=true"`), use `OPENSEARCH_NO_AUTH` instead of credentials:
 
