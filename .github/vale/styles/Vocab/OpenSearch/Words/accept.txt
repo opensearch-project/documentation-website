@@ -54,7 +54,6 @@ gRPC
 [Hh]ostname
 [Hh]yperparameters
 [Ii]mpactful
-[Ii]nfographics?
 [Ii]ngress
 [Ii]nitializer
 [Ii]nline
