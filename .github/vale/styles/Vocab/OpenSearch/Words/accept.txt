@@ -1,5 +1,6 @@
 [Aa]gentic
 [Aa]nonymization
+[Aa]ppendable
 [Aa]utogenerated?
 [Aa]utomapping
 [Aa]utopopulate

@@ -50,7 +50,7 @@ Use the following steps to create a sample index and define field mappings for t
     ```
     {% include copy.html %}
 
-1. Download [ecommerce.ndjson](https://github.com/opensearch-project/documentation-website/blob/{{site.opensearch_major_minor_version}}/assets/examples/ecommerce.ndjson). This file contains the index data formatted so that it can be ingested by the Bulk API:
+1. Download [`ecommerce.ndjson`](https://github.com/opensearch-project/documentation-website/blob/{{site.opensearch_major_minor_version}}/assets/examples/ecommerce.ndjson). This file contains the index data formatted so that it can be ingested by the Bulk API:
     
     To use cURL, send the following request:
 
