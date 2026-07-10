@@ -38,7 +38,7 @@ Parameter | Data type | Description
 `variant` | String | A variant string for additional collation options (for example, `@collation=phonebook` for German phonebook order). Optional.
 `strength` | String | The collation strength level. Valid values are `primary`, `secondary`, `tertiary`, `quaternary`, and `identical`. Default is `tertiary`. Optional.
 `decomposition` | String | How to handle character normalization. Valid values are `no` and `canonical`. Default is `no`. Optional.
-`alternate` | String | How to handle whitespace and punctuation. Valid values are `shifted` and `non-ignorable`. Optional.
+`alternate` | String | How to handle white space and punctuation. Valid values are `shifted` and `non-ignorable`. Optional.
 `case_level` | Boolean | Whether to consider case differences when `strength` is `primary`. Default is `false`. Optional.
 `case_first` | String | Whether uppercase or lowercase sorts first. Valid values are `lower` and `upper`. Optional.
 `numeric` | Boolean | Whether to sort numeric substrings by numeric value. For example, `item-9` sorts before `item-21`. Default is `false`. Optional.

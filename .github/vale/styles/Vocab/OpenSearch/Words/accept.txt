@@ -92,6 +92,7 @@ pebibyte
 p\d{2}
 pprof
 [Pp]erformant
+[Pp]honebook
 [Pp]laintext
 [Pp]luggable
 [Pp]ointwise
