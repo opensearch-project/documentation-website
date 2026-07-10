@@ -41,7 +41,7 @@ PUT _cluster/settings
 }
 ```
 
-[Just like any other setting]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/), the alternative is to add the following line to `opensearch.yml` on each node and then restart the node:
+[Like any other setting]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/), the alternative is to add the following line to `opensearch.yml` on each node and then restart the node:
 
 ```yml
 compatibility.override_main_response_version: true
@@ -57,7 +57,7 @@ ecs_compatibility => disabled
 
 You can download the OpenSearch output plugin for Logstash from [OpenSearch downloads](https://opensearch.org/downloads.html). The Logstash output plugin is compatible with OpenSearch and Elasticsearch OSS (7.10.2 or lower).
 
-These are the latest versions of Beats OSS with OpenSearch compatibility. For more information, see the Compatibility matrices section, below.
+These are the latest versions of Beats OSS with OpenSearch compatibility. For more information, see the following Compatibility matrices section.
 
 - [Filebeat OSS 7.12.1](https://www.elastic.co/downloads/past-releases/filebeat-oss-7-12-1)
 - [Metricbeat OSS 7.12.1](https://www.elastic.co/downloads/past-releases/metricbeat-oss-7-12-1)
@@ -83,7 +83,7 @@ Some users report compatibility issues with ingest pipelines on these versions o
 | Elasticsearch OSS 7.10.2 | *Yes* | *Yes* | *No* | *Yes* | *Yes* |
 | ODFE 1.0 to 1.12 | *Yes* | *Yes* | *No* | *Yes* | *Yes* |
 | ODFE 1.13 | *Yes* | *Yes* | *No* | *Yes* | *Yes* |
-| OpenSearch 1.x to 2.x | Yes via version setting | Yes via version setting | *No* | *Yes* | Yes, with Elastic Common Schema Setting |
+| OpenSearch 1.x to 2.x | Yes through version setting | Yes through version setting | *No* | *Yes* | Yes, with Elastic Common Schema Setting |
 | OpenSearch 3.x | *No* | *No* | *No* | *Yes* | Yes, with Elastic Common Schema Setting |
 
 \* Most current compatible version with Elasticsearch OSS.
@@ -97,7 +97,7 @@ Some users report compatibility issues with ingest pipelines on these versions o
 | Elasticsearch OSS 7.10.2 | *Yes* | *Yes* | No |
 | ODFE 1.0 to 1.12 | *Yes* | *Yes* | No |
 | ODFE 1.13 | *Yes* | *Yes* | No |
-| OpenSearch 1.x to 2.x | Yes via version setting | Yes via version setting | No |
+| OpenSearch 1.x to 2.x | Yes through version setting | Yes through version setting | No |
 | Logstash OSS 7.0.0 to 7.11.x | *Yes* | *Yes* | *Yes* |
 | Logstash OSS 7.12.x\* | *Yes* | *Yes* | *Yes* |
 | Logstash 7.13.x with OpenSearch output plugin | *Yes* | *Yes* | *Yes* |
@@ -113,7 +113,7 @@ For recommendations about log and metrics collection tools, see the [Frequently 
 
 ## OpenSearch CLI
 
-The OpenSearch CLI command line interface (opensearch-cli) lets you manage your OpenSearch cluster from the command line and automate tasks. For more information about OpenSearch CLI, see [OpenSearch CLI]({{site.url}}{{site.baseurl}}/tools/cli/).
+The OpenSearch CLI command line interface (`opensearch-cli`) lets you manage your OpenSearch cluster from the command line and automate tasks. For more information about OpenSearch CLI, see [OpenSearch CLI]({{site.url}}{{site.baseurl}}/tools/cli/).
 
 ## OpenSearch Kubernetes operator
 

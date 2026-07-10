@@ -12,6 +12,7 @@ Anthropic Claude
 Apache Avro
 Apache HttpClient 5 Transport
 Apache Kafka
+Aryn
 Auditbeat
 Avro
 AWS Cloud

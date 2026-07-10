@@ -102,7 +102,7 @@ output {
 
 ## grok
 
-With the `grok` filter, you can parse unstructured data and and structure it into fields. The `grok` filter uses text patterns to match text in your logs. You can think of text patterns as variables containing regular expressions.
+With the `grok` filter, you can parse unstructured data and structure it into fields. The `grok` filter uses text patterns to match text in your logs. You can think of text patterns as variables containing regular expressions.
 
 The format of a text pattern is as follows:
 
