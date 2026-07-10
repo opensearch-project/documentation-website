@@ -89,7 +89,7 @@ The `filter` object in the request body allows you to filter the tokens to inclu
 | `min_word_length` | Integer | The minimum length of the term to be included. |
 | `max_word_length` | Integer | The maximum length of the term to be included. |
 
-## Example Requests
+## Example requests
 
 Create an index:
 
