@@ -83,7 +83,6 @@ Migration Assistant
 Migration Console
 Minikube
 Nagios
-NVMe
 Okta
 Open Distro
 OpenAI
