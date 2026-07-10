@@ -97,7 +97,6 @@ pprof
 [Pp]ointwise
 [Pp]reaggregate(s|d)?
 [Pp]recompute(s|d)?
-[Pp]regenerated
 [Pp]reconfigure
 [Pp]refetch
 [Pp]refilter

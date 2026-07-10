@@ -18,7 +18,6 @@ AWS Cloud
 AWS Secrets Manager
 AWS Signature Version 4
 Capture and Replay
-Chebyshev
 Claude Code
 Claude Desktop
 Cognito
@@ -68,6 +67,7 @@ Kinesis
 Kiro
 Kubernetes
 Kyverno
+Lambda
 LangChain
 Langflow
 LangGraph
