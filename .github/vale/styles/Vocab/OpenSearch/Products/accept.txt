@@ -7,7 +7,6 @@ Amazon Kinesis
 Amazon OpenSearch Serverless
 Amazon OpenSearch Service
 Amazon SageMaker
-Amazon Simple Email Service
 Ansible
 Anthropic Claude
 Apache Avro
@@ -116,7 +115,6 @@ RankLib
 RCF Summarize
 Reindex-from-Snapshot
 Replayer
-Reporting CLI
 RPM Package Manager
 Ruby
 Search Relevance Workbench
