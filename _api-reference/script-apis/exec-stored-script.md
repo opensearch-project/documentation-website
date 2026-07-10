@@ -28,7 +28,7 @@ GET books/_search
 }
 ```
 
-## Request field options
+## Request body fields
 
 | Field | Data type | Description | 
 :--- | :--- | :---
@@ -258,8 +258,6 @@ The `GET books/_search` request returns the following fields:
 
 To pass different parameters to the script each time when running a query, define `params` in `script_fields`.
 
-#### Example
-
 The following request runs the stored script that was created in [Create or update stored script]({{site.url}}{{site.baseurl}}/api-reference/script-apis/create-stored-script/). The script sums the ratings for each book, multiplies the summed value by the `multiplier` parameter, and displays the result in the output.
 
 * The script's target is the `books` index.
@@ -338,7 +336,7 @@ response = client.search(
     python=step1_python %}
 <!-- spec_insert_end -->
 
-#### Example response
+The response contains the matching documents:
 
 ```json
 {
@@ -395,10 +393,9 @@ response = client.search(
 }
 ```
 
-**Sort results using a Painless stored script
-You can use a Painless stored script to sort results.**
+## Sorting results using a Painless stored script
 
-#### Example request
+The following example uses a Painless stored script to sort results:
 
 ```json
 GET books/_search
