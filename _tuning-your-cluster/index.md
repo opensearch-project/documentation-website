@@ -22,7 +22,7 @@ There are many ways to design a cluster. The following illustration shows a basi
 
 ![multi-node cluster architecture diagram]({{site.url}}{{site.baseurl}}/images/cluster.png)
 
-The master node is now referred to as the cluster manager node.
+The former "master node" is now referred to as the cluster manager node.
    {: .note }
 
 ### Nodes

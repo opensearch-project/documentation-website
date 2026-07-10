@@ -193,7 +193,7 @@ You will most likely not need to specify any parameters except for `location`. F
    s3.client.default.identity_token_file: aws-web-identity-token-file
    ```
 
-   IAM roles require at least one of the above settings. Other settings will be taken from environment variables (if available): `AWS_ROLE_ARN`, `AWS_WEB_IDENTITY_TOKEN_FILE`, `AWS_ROLE_SESSION_NAME`.
+   IAM roles require at least one of the preceding settings. Other settings will be taken from environment variables (if available): `AWS_ROLE_ARN`, `AWS_WEB_IDENTITY_TOKEN_FILE`, `AWS_ROLE_SESSION_NAME`.
 
 1. If you changed `opensearch.yml`, you must restart each node in the cluster. Otherwise, you only need to reload secure cluster settings:
 
@@ -550,7 +550,7 @@ POST /_snapshot/my-repository/snapshot-2/_restore
 ```
 {% include copy-curl.html %}
 
-Just like when taking a snapshot, you can add a request body to include or exclude certain indexes or specify some other settings:
+As when taking a snapshot, you can add a request body to include or exclude certain indexes or specify some other settings:
 
 ```json
 POST /_snapshot/my-repository/snapshot-2/_restore

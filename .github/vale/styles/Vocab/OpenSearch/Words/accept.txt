@@ -52,6 +52,7 @@ gRPC
 [Hh]ashmap
 [Hh]eatmaps?
 [Hh]ostname
+[Hh]otspots?
 [Hh]yperparameters
 [Ii]mpactful
 [Ii]ngress
@@ -62,6 +63,7 @@ gRPC
 [Jj]avadoc
 [Jj]accard
 k-NN
+[Kk]eytab
 [Kk]eystore
 kibibyte
 mebibyte
@@ -69,6 +71,7 @@ mebibyte
 [Ll]emmatization
 Levenshtein
 [Ll]inestring
+[Ll]oopback
 [Ll]ookups?
 [Ll]ossy
 [Ll]owercases?d?
@@ -134,6 +137,7 @@ pprof
 [Ss]ignificand
 [Ss]napshott(ed|ing)
 stdout
+systemd
 [Ss]tackable
 [Ss]temmers?
 [Ss]ubaggregation
@@ -168,6 +172,7 @@ tebibyte
 [Uu]nnesting
 [Uu]nrecovered
 [Uu]nregister(s|ed|ing)?
+[Uu]nicast
 [Uu]pdatable
 [Uu]psert
 [Uu]pvote(s|d)?

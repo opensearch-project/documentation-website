@@ -19,6 +19,7 @@ exceptions:
   - CRUD
   - DNS
   - DOS
+  - EC2
   - FAQ
   - FTP
   - GIF
