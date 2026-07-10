@@ -43,7 +43,6 @@ Fluent Bit
 Fluentd
 GeoJSON
 GitHub
-Google Normalized Distance
 Gradle
 Grafana
 Helm
@@ -134,7 +133,7 @@ Traffic Capture Proxy
 Traffic Replayer
 Tribuo
 VisBuilder
-Visualize application
+Visualize
 Workflow CLI
 Winlogbeat
 XGBoost
