@@ -26,13 +26,13 @@ All bulk operations are asynchronous. Each request returns a `task_id` that you 
 ## Key behaviors
 
 - **Asynchronous execution**: All bulk operations run asynchronously and return a `task_id` immediately. Use the [task status](#get-bulk-task-status) endpoint to poll for progress.
-- **One task at a time**: Only one bulk replication task can run at a time per cluster. Submitting a new bulk operation while one is already in progress results in a `400 Bad Request` error.
+- **One task at a time**: Only one bulk replication task can run at a time per cluster. Submitting a new bulk operation while one is already in progress results in a `409 Conflict` error.
 - **Partial success**: If some indexes fail during a bulk operation, the task continues processing the remaining indexes. The task status response reports which indexes succeeded and which failed.
 - **Cancellation**: You can cancel a running bulk task at any time. Indexes already processed are not reverted.
 - **Batch processing**: Indices are processed in configurable batches. See [Cluster settings](#cluster-settings).
 
 ## Bulk start replication
-Introduced 2.17
+Introduced 3.7
 {: .label .label-purple }
 
 Initiates replication for all indexes on the leader cluster that match the specified pattern. Send this request to the follower cluster.
@@ -74,7 +74,7 @@ Options | Description | Type | Required
 ```
 
 ## Bulk stop replication
-Introduced 2.17
+Introduced 3.7
 {: .label .label-purple }
 
 Stops replication and converts all matching follower indexes to standard indexes that accept writes. Send this request to the follower cluster.
@@ -109,7 +109,7 @@ Options | Description | Type | Required
 ```
 
 ## Bulk pause replication
-Introduced 2.17
+Introduced 3.7
 {: .label .label-purple }
 
 Pauses replication for all matching follower indexes. Send this request to the follower cluster.
@@ -147,7 +147,7 @@ You can't resume replication after it's been paused for more than 12 hours. You 
 ```
 
 ## Bulk resume replication
-Introduced 2.17
+Introduced 3.7
 {: .label .label-purple }
 
 Resumes replication for all matching paused follower indexes. Send this request to the follower cluster.
@@ -182,7 +182,7 @@ Options | Description | Type | Required
 ```
 
 ## Get bulk replication status
-Introduced 2.17
+Introduced 3.7
 {: .label .label-purple }
 
 Returns the current replication state of all indexes matching a pattern. Unlike the [task status](#get-bulk-task-status) endpoint, this returns the live replication state rather than the progress of a bulk operation. Send this request to the follower cluster.
@@ -223,13 +223,31 @@ Parameter | Description | Required
          "leader_alias": "leader-cluster",
          "leader_index": "bulk-test-6",
          "follower_index": "bulk-test-6"
+      },
+      "bulk-test-9": {
+         "status": "BOOTSTRAPPING",
+         "reason": "User initiated",
+         "leader_alias": "leader-cluster",
+         "leader_index": "bulk-test-9",
+         "follower_index": "bulk-test-9",
+         "bootstrap_details": {
+            "status": "IN_PROGRESS",
+            "shard_restore_details": {
+               "total_shards": 5,
+               "successful_shards": 2,
+               "failed_shards": 0,
+               "in_progress_shards": 3
+            }
+         }
       }
    }
 }
 ```
 
+The `bootstrap_details` field is optional and only appears for indexes that are in the `BOOTSTRAPPING` state during initial restore. Once bootstrap completes and replication enters the syncing phase, this field is replaced by `syncing_details`.
+
 ## Get bulk task status
-Introduced 2.17
+Introduced 3.7
 {: .label .label-purple }
 
 Returns the progress of a bulk replication task. Use the `task_id` returned by any bulk operation to poll for completion. Send this request to the follower cluster.
@@ -274,7 +292,7 @@ Field | Description
 `failed_indices` | An array of objects containing the `index` name and `failure_reason` for each failed index.
 
 ## Cancel bulk task
-Introduced 2.17
+Introduced 3.7
 {: .label .label-purple }
 
 Cancels a running bulk replication task. Indices already processed remain in their new state; remaining indices are marked as cancelled. Send this request to the follower cluster.
@@ -299,7 +317,8 @@ The following cluster-level setting controls bulk replication behavior. This set
 
 Setting | Default | Description
 :--- | :--- | :---
-`plugins.replication.follower.bulk_batch_size` | 10 | The number of indices processed concurrently in each batch during a bulk replication task. Minimum value is `1`. This setting is dynamic and can be changed at any time.
+`plugins.replication.follower.bulk_batch_size` | 10 | The number of indices processed concurrently in each batch during a bulk replication task. Minimum value is `1`, default value is `10`, and maximum value is `100`. This setting is dynamic and can be changed at any time.
+`plugins.replication.follower.bulk_poll_timeout` | 15 | The time, in minutes, that start and resume tasks wait for replication to confirm before timing out indices. Minimum value is `1`, default value is `15`, and maximum value is `30`. This setting is dynamic and can be changed at any time.
 
 To update this setting:
 
@@ -342,7 +361,7 @@ The following examples show common error responses you may encounter when using 
 
 ### Bulk task already running
 
-If you submit a bulk operation while another is already in progress, OpenSearch returns a 400 error:
+If you submit a bulk operation while another is already in progress, OpenSearch returns a 409 error:
 
 ```json
 {
@@ -356,7 +375,7 @@ If you submit a bulk operation while another is already in progress, OpenSearch 
       "type": "resource_already_exists_exception",
       "reason": "A bulk replication task is already running. Only one bulk task is allowed at a time."
    },
-   "status": 400
+   "status": 409
 }
 ```
 
@@ -392,11 +411,11 @@ If you submit a bulk start request without providing a `leader_alias`, OpenSearc
       "root_cause": [
          {
             "type": "action_request_validation_exception",
-            "reason": "Validation Failed: 1: At least one leader_alias is required for bulk start;"
+            "reason": "Validation Failed: 1: leader_alias is required for bulk start;"
          }
       ],
       "type": "action_request_validation_exception",
-      "reason": "Validation Failed: 1: At least one leader_alias is required for bulk start;"
+      "reason": "Validation Failed: 1: leader_alias is required for bulk start;"
    },
    "status": 400
 }
