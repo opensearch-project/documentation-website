@@ -380,7 +380,7 @@ GET /opensearch_dashboards_sample_data_logs/_search
 ```
 {% include copy-curl.html %}
 
-For better performance, consider using a [`multi_terms` aggregation]({{site.url}}{{site.baseurl}}/aggregations/bucket/multi-terms/) or creating a combined field at index time using [`copy_to`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/text/#copy-to).
+For better performance, consider using a [`multi_terms` aggregation]({{site.url}}{{site.baseurl}}/aggregations/bucket/multi-terms/) or creating a combined field at index time using [`copy_to`]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/copy-to/).
 
 ## Mixing field types across indexes
 
