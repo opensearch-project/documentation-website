@@ -97,6 +97,7 @@ pprof
 [Pp]ointwise
 [Pp]reaggregate(s|d)?
 [Pp]recompute(s|d)?
+[Pp]reprint(s|ed)?
 [Pp]reconfigure
 [Pp]refetch
 [Pp]refilter
@@ -168,6 +169,7 @@ tebibyte
 [Uu]nnesting
 [Uu]nrecovered
 [Uu]nregister(s|ed|ing)?
+[Uu]ntrusted
 [Uu]pdatable
 [Uu]psert
 [Uu]pvote(s|d)?
