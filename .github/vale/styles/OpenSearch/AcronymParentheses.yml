@@ -32,6 +32,7 @@ exceptions:
   - JSON
   - NAT
   - NGINX
+  - OSS
   - PDF
   - RAM
   - REST
