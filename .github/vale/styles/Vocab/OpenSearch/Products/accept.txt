@@ -17,7 +17,6 @@ Avro
 AWS Cloud
 AWS Secrets Manager
 AWS Signature Version 4
-Bing
 Capture and Replay
 Claude Code
 Claude Desktop
@@ -85,7 +84,6 @@ Migration Console
 Minikube
 Nagios
 Okta
-Ollama
 Open Distro
 OpenAI
 OpenID Connect
@@ -117,7 +115,6 @@ RankLib
 RCF Summarize
 Reindex-from-Snapshot
 Replayer
-RMSProp
 RPM Package Manager
 Ruby
 Search Relevance Workbench
@@ -140,6 +137,5 @@ Visualize
 Workflow CLI
 Winlogbeat
 XGBoost
-Yandex
 Zipf
 Zstandard

@@ -77,7 +77,6 @@ Levenshtein
 [Mm]isorder
 [Mm]ultifield
 [Mm]ultiline
-[Mm]ultithreading
 [Mm]ultimodal
 [Mm]ultipoint
 [Mm]ultipolygon
@@ -101,7 +100,6 @@ pprof
 [Pp]reconfigure
 [Pp]refetch
 [Pp]refilter
-[Pp]regenerated
 [Pp]reload
 [Pp]repackaged?
 [Pp]repend
@@ -138,7 +136,6 @@ pprof
 stdout
 [Ss]tackable
 [Ss]temmers?
-[Ss]treamable
 [Ss]ubaggregation
 [Ss]ubcalculation
 [Ss]ubcollectors?
@@ -164,7 +161,6 @@ tebibyte
 [Tt]ruststore
 [Uu]nary
 [Uu]ncheck
-[Uu]ntrusted
 [Uu]ncomment
 [Uu]ndeploy
 [Uu]naggregated
@@ -175,7 +171,6 @@ tebibyte
 [Uu]pdatable
 [Uu]psert
 [Uu]pvote(s|d)?
-[Vv]ectoriz(e|ed|ing)
 [Ww]alkthrough
 [Ww]ebpage
 xy
