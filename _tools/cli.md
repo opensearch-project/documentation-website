@@ -18,11 +18,11 @@ Profiles let you easily access different clusters or sign requests with differen
 This example moves a detector (`ecommerce-count-quantity`) from a staging cluster to a production cluster:
 
 ```bash
-`opensearch-cli` ad get ecommerce-count-quantity --profile staging > ecommerce-count-quantity.json
-`opensearch-cli` ad create ecommerce-count-quantity.json --profile production
-`opensearch-cli` ad start ecommerce-count-quantity.json --profile production
-`opensearch-cli` ad stop ecommerce-count-quantity --profile staging
-`opensearch-cli` ad delete ecommerce-count-quantity --profile staging
+opensearch-cli ad get ecommerce-count-quantity --profile staging > ecommerce-count-quantity.json
+opensearch-cli ad create ecommerce-count-quantity.json --profile production
+opensearch-cli ad start ecommerce-count-quantity.json --profile production
+opensearch-cli ad stop ecommerce-count-quantity --profile staging
+opensearch-cli ad delete ecommerce-count-quantity --profile staging
 ```
 
 
@@ -30,10 +30,10 @@ This example moves a detector (`ecommerce-count-quantity`) from a staging cluste
 
 1. [Download](https://opensearch.org/downloads.html){:target='\_blank'} and extract the appropriate installation package for your computer.
 
-1. Make the ``opensearch-cli`` file executable:
+1. Make the `opensearch-cli` file executable:
 
    ```bash
-   chmod +x ./`opensearch-cli`
+   chmod +x ./opensearch-cli
    ```
 
 1. Add the command to your path:
@@ -45,7 +45,7 @@ This example moves a detector (`ecommerce-count-quantity`) from a staging cluste
 1. Confirm the CLI is working properly:
 
    ```bash
-   `opensearch-cli` --version
+   opensearch-cli --version
    ```
 
 
@@ -54,10 +54,10 @@ This example moves a detector (`ecommerce-count-quantity`) from a staging cluste
 Profiles let you easily switch between different clusters and user credentials. To get started, run ``opensearch-cli` profile create` with the `--auth-type`, `--endpoint`, and `--name` options:
 
 ```bash
-`opensearch-cli` profile create --auth-type basic --endpoint https://localhost:9200 --name docker-local
+opensearch-cli profile create --auth-type basic --endpoint https://localhost:9200 --name docker-local
 ```
 
-Alternatively, save a configuration file to `~/.`opensearch-cli`/config.yaml`:
+Alternatively, save a configuration file to `~/.opensearch-cli/config.yaml`:
 
 ```yaml
 profiles:
@@ -78,19 +78,19 @@ profiles:
 `opensearch-cli` commands use the following syntax:
 
 ```bash
-`opensearch-cli` <command> <subcommand> <flags>
+opensearch-cli <command> <subcommand> <flags>
 ```
 
 For example, the following command retrieves information about a detector:
 
 ```bash
-`opensearch-cli` ad get my-detector --profile docker-local
+opensearch-cli ad get my-detector --profile docker-local
 ```
 
 For a request to the OpenSearch CAT API, try the following command:
 
 ```bash
-`opensearch-cli` curl get --path _cat/plugins --profile aws
+opensearch-cli curl get --path _cat/plugins --profile aws
 ```
 
 Use the `-h` or `--help` flag to see all supported commands, subcommands, or usage for a specific command:
