@@ -12,13 +12,11 @@ redirect_from:
 
 If you use the Security plugin alongside alerting, you might want to limit certain users to certain actions. For example, you might want some users to only be able to view and acknowledge alerts, while others can modify monitors and destinations.
 
-
 ## Basic permissions
 
 The Security plugin has three built-in roles that cover most alerting use cases: `alerting_read_access`, `alerting_ack_alerts`, and `alerting_full_access`. For descriptions of each, see [Predefined roles]({{site.url}}{{site.baseurl}}/security/access-control/users-roles#predefined-roles).
 
 If these roles don't meet your needs, mix and match individual alerting [permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/) to suit your use case. Each action corresponds to an operation in the REST API. For example, the `cluster:admin/opensearch/alerting/destination/delete` permission lets you delete destinations.
-
 
 ## How monitors access data
 
@@ -69,6 +67,34 @@ Now when users view alerting resources in OpenSearch Dashboards (or make REST AP
 
 If `jdoe` creates a monitor, `jroe` can see and modify it, but `psantos` can't. If that monitor generates an alert, the situation is the same: `jroe` can see and acknowledge it, but `psantos` can't. If `psantos` creates a destination, `jdoe` and `jroe` can't see or modify it.
 
+### Specify how access is filtered by backend role
+
+The `plugins.alerting.filter_by_backend_roles_access_strategy` setting controls how a user's backend roles
+are compared to the backend roles on the monitor to determine access.
+
+The possible values for this setting are:
+
+- `exact` - Users have access to alerting objects if they have exactly the same (with no additional) backend roles as the user who created the object
+- `intersect`, **default** - Users have access to alerting objects if they share at least one backend role with the user who created the object
+- `all` - Users have access to alerting objects if their backend roles contain all of the backend roles of the user who created the object
+
+For example, given this scenario:
+
+- A monitor was created by a user with backend roles `analyst` and `human-resources`
+- User `jdoe` has the backend role `analyst`
+- User `jroe` has the backend roles `analyst` and `supervisor`
+- User `psantos` has the backend roles `analyst` and `human-resources`
+- User `bwayne` has the backend roles `analyst`, `human-resources`, and `batman`
+
+Then user access to the monitor would be as follows for each of the possible setting values:
+
+|  | `intersect` | `exact` | `all`
+:-- | :-- | :-- | :--
+`jdoe` | Has access | No access | No access
+`jroe` | Has access | No access | No access
+`psantos` | Has access | Has access | Has access
+`bwayne` | Has access | No access | Has access
+
 <!-- ## (Advanced) Limit access by individual
 
 If you only want users to be able to see and modify their own monitors and destinations, duplicate the `alerting_full_access` role and add the following [DLS query]({{site.url}}{{site.baseurl}}/security/access-control/document-level-security/) to it:
@@ -116,6 +142,7 @@ Regular user | No | Don’t update the backend roles on the monitor.
 {: .note }
 
 To create an RBAC role, follow instructions in the Security plugin API documentation to [Create role]({{site.url}}{{site.baseurl}}/security/access-control/api#create-role).
+
 ### Create a monitor with an RBAC role
 
 When you create a monitor with the Alerting API, you can specify the RBAC roles at the bottom of the request body. Use the `rbac_roles` parameter.
@@ -123,10 +150,9 @@ When you create a monitor with the Alerting API, you can specify the RBAC roles 
 The following sample shows the RBAC roles specified by the RBAC parameter:
 
 ```json
-... 
+...
   "rbac_roles": ["role1", "role2"]
 }
 ```
 
 To see a full request sample, see [Create a query-level monitor]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/api/#create-a-query-level-monitor).
-
