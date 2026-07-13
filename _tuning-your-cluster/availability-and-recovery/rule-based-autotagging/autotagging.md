@@ -96,6 +96,9 @@ OpenSearch evaluates incoming requests using the following process:
 3. The most specific matching rule's value is assigned.
 4. If no rules match, no value is assigned.
 
+{: .note}
+If two or more rules remain tied after all tie-breaking logic is applied, meaning they match equally specifically and produce the same match score, then no value is assigned. OpenSearch does not choose between tied rules arbitrarily.
+
 ### Rule matching examples
 
 The following examples demonstrate how OpenSearch matches attributes and resolves ties between rules.
