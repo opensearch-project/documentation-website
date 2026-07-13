@@ -1,5 +1,6 @@
 [Aa]gentic
 [Aa]ggregatable
+[Aa]rc(co)?sine
 [Aa]nonymization
 [Aa]ppendable
 [Aa]ppenders?
