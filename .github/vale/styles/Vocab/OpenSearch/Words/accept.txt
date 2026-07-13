@@ -8,6 +8,7 @@
 [Aa]utopopulate
 [Bb]ackoff
 [Bb]ackporting
+[Bb]lockquotes?
 [Bb]ackpressure
 [Bb]asemap
 [Bb]enchmarked
@@ -15,6 +16,7 @@
 Boolean
 [Cc]allout
 [Cc]hatbots?
+[Cc]heckpointing
 [Cc]lasspath
 [Cc]odec
 [Cc]omposable
@@ -70,6 +72,8 @@ gRPC
 [Ii]nitializer
 [Ii]nline
 [Ii]nstrumentations?
+[Ii]ntercluster
+[Ii]nterquartile
 [Ii]ntracluster
 [Ii]rreproducible
 [Jj]accard
@@ -105,6 +109,7 @@ mebibyte
 [Oo]nboard(ed|ing)?
 [Oo]verfit(ting)?
 [Oo]versamples?
+[Pp]addings?
 p\d{2}
 [Pp]arallelization
 [Pp]arameteri(ze|zation)
@@ -170,6 +175,8 @@ pebibyte
 [Ss]ubpatterns?
 [Ss]ubprocess(es)?
 [Ss]ubquer(y|ies)
+[Ss]ublists?
+[Ss]ubsearch(es)?
 [Ss]ubstrings?
 [Ss]ubtag
 [Ss]ubtasks?
@@ -193,7 +200,9 @@ tebibyte
 [Uu]ncheck
 [Uu]ncomment
 [Uu]ndeploy
+[Uu]ndock(ed|ing)?
 [Uu]nescaped
+[Uu]nhid(e|ing)
 [Uu]nicast
 [Uu]nigram
 [Uu]nnesting
@@ -208,4 +217,5 @@ tebibyte
 [Vv]ectoriz(e|ed|ing)
 [Ww]alkthrough
 [Ww]ebpage
+[Ww]orkspace's
 xy

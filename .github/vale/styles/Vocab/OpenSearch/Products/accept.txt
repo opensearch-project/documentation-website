@@ -12,6 +12,8 @@ Amazon SageMaker
 Amazon Simple Email Service
 Ansible
 Anthropic Claude
+arXiv
+Atlassian
 Apache Avro
 Apache HttpClient 5 Transport
 Apache Kafka
@@ -28,6 +30,7 @@ Chebyshev
 Claude Code
 Claude Desktop
 Cognito
+Confluence
 Cohere Command
 Cohere Embed
 Cohere Embed English
@@ -68,7 +71,9 @@ IPv6
 Iris
 Jaeger
 Jaeger HotROD
+Jira
 JavaScript
+jVector
 Jelinek
 Joda
 JSON
@@ -97,6 +102,7 @@ Microsoft Power BI
 Migration Assistant
 Migration Console
 Minikube
+Nagle
 Nagios
 NVMe
 Okta
@@ -149,6 +155,7 @@ Strimzi
 SVMRank
 Tableau
 Textract
+Tika
 Titan
 Titan Multimodal Embeddings
 Titan Text Embeddings
