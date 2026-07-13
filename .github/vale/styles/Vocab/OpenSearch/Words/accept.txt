@@ -81,7 +81,7 @@ Levenshtein
 [Mm]ultipoint
 [Mm]ultipolygon
 [Mm]ultithreaded
-[Mm]ultivalued
+[Mm]ultivalued?
 [Mm]ultiword
 [Nn]amespace
 [Oo]ffline
@@ -144,6 +144,7 @@ stdout
 [Ss]ubnets?
 [Ss]ubpath
 [Ss]ubquer(y|ies)
+[Ss]ubsearch(es)?
 [Ss]ubstrings?
 [Ss]ubtag
 [Ss]ubtree
