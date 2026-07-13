@@ -51,7 +51,7 @@ opensearch-cli ad delete ecommerce-count-quantity --profile staging
 
 ## Profiles
 
-Profiles let you easily switch between different clusters and user credentials. To get started, run ``opensearch-cli` profile create` with the `--auth-type`, `--endpoint`, and `--name` options:
+Profiles let you easily switch between different clusters and user credentials. To get started, run `opensearch-cli profile create` with the `--auth-type`, `--endpoint`, and `--name` options:
 
 ```bash
 opensearch-cli profile create --auth-type basic --endpoint https://localhost:9200 --name docker-local
