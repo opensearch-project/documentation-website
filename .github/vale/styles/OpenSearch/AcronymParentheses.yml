@@ -78,8 +78,16 @@ exceptions:
   - N/A
   - GROUP
   - BY
-  - SELECT
+  - DATE
+  - DD
+  - FROM
   - HAVING
+  - MONTH
+  - SECOND
+  - SELECT
   - SQL
+  - TABLE
+  - TIME
   - TOC
+  - UNIX
   - 'NULL'
