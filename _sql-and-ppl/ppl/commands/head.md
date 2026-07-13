@@ -6,14 +6,18 @@ grand_parent: PPL
 nav_order: 23
 ---
 
+<!-- vale off -->
 # head
+<!-- vale on -->
 
 The `head` command returns the first N lines from a search result.
 
 The `head` command is not rewritten to [query domain-specific language (DSL)]({{site.url}}{{site.baseurl}}/query-dsl/index/). It is only executed on the coordinating node.
 {: .note}
 
+<!-- vale off -->
 ## Syntax
+<!-- vale on -->
 
 The `head` command has the following syntax:
 
@@ -21,7 +25,9 @@ The `head` command has the following syntax:
 head [<size>] [from <offset>]
 ```
 
+<!-- vale off -->
 ## Parameters
+<!-- vale on -->
 
 The `head` command supports the following parameters.
 
@@ -31,7 +37,9 @@ The `head` command supports the following parameters.
 | `<offset>` | Optional | The number of results to skip (used with the `from` keyword). Must be an integer. Default is `0`. |
   
 
+<!-- vale off -->
 ## Example 1: Retrieving the first set of results using the default size 
+<!-- vale on -->
 
 The following query retrieves the most recent errors, limited to the default 10 results. This is a common first step when investigating an incident:
   
@@ -47,6 +55,7 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
 | severityText | resource.attributes.service.name | body |
 | --- | --- | --- |
 | ERROR | checkout | NullPointerException in CheckoutService.placeOrder at line 142 |
@@ -59,9 +68,12 @@ The query returns the following results:
 | WARN | frontend-proxy | SSL certificate for api.example.com expires in 14 days |
 | WARN | frontend-proxy | Rate limit threshold reached: 450/500 requests per minute for API key ending in ...abc789 |
 | WARN | product-catalog | Slow query detected: SELECT \* FROM products WHERE category = 'electronics' took 3200ms |
+<!-- vale on -->
   
 
+<!-- vale off -->
 ## Example 2: Retrieving a specified number of results  
+<!-- vale on -->
 
 The following query returns the top 3 most critical log entries for a quick severity check:
   
@@ -77,14 +89,18 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
 | severityText | resource.attributes.service.name | body |
 | --- | --- | --- |
 | ERROR | checkout | NullPointerException in CheckoutService.placeOrder at line 142 |
 | ERROR | checkout | Kafka producer delivery failed: message too large for topic order-events (max 1048576 bytes) |
 | ERROR | frontend-proxy | [2024-02-01T09:20:00.456Z] "POST /api/checkout HTTP/1.1" 503 - 0 30000 checkout-8d4f7b-mk2p9 |
+<!-- vale on -->
   
 
+<!-- vale off -->
 ## Example 3: Retrieving the first N results after an offset M
+<!-- vale on -->
 
 The following query skips the 2 most critical entries and returns the next 3, useful for paging through results after reviewing the top issues:
   
@@ -100,10 +116,12 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
 | severityText | resource.attributes.service.name | body |
 | --- | --- | --- |
 | ERROR | frontend-proxy | [2024-02-01T09:20:00.456Z] "POST /api/checkout HTTP/1.1" 503 - 0 30000 checkout-8d4f7b-mk2p9 |
 | ERROR | payment | Payment failed: connection timeout to payment gateway after 30000ms |
 | ERROR | payment | Out of memory: Java heap space - shutting down pod payment-6f8d4b-ht7q3 |
+<!-- vale on -->
   
 

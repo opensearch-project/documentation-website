@@ -6,13 +6,17 @@ grand_parent: PPL
 nav_order: 5
 ---
 
+<!-- vale off -->
 # append
+<!-- vale on -->
 
 The `append` command appends the results of a subsearch as additional rows to the end of the input search results (the main search).
 
 The command aligns columns that have the same field names and types. For columns that exist in only the main search or subsearch, `NULL` values are inserted into the missing fields for the respective rows.
 
+<!-- vale off -->
 ## Syntax
+<!-- vale on -->
 
 The `append` command has the following syntax:
 
@@ -20,7 +24,9 @@ The `append` command has the following syntax:
 append <subsearch>
 ```
 
+<!-- vale off -->
 ## Parameters
+<!-- vale on -->
 
 The `append` command supports the following parameters.
 
@@ -28,7 +34,9 @@ The `append` command supports the following parameters.
 | --- | --- | --- |
 | `<subsearch>` | Required | Executes PPL commands as a secondary search. |  
 
+<!-- vale off -->
 ## Example 1: Appending error and warning counts side by side
+<!-- vale on -->
 
 The following query shows error counts per service, then appends warning counts from a separate query. This lets you compare error and warning rates across services:
   
@@ -46,6 +54,7 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
 | resource.attributes.service.name | error_count | warn_count |
 | --- | --- | --- |
 | checkout | 2 | null |
@@ -55,9 +64,12 @@ The query returns the following results:
 | product-catalog | 1 | null |
 | product-catalog | null | 2 |
 | recommendation | 1 | null |
+<!-- vale on -->
   
 
+<!-- vale off -->
 ## Example 2: Appending summary rows to detail rows
+<!-- vale on -->
 
 The following query shows severity levels by count, then appends the total count across all levels:
   
@@ -73,6 +85,7 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
 | severityText | log_count |
 | --- | --- |
 | DEBUG | 3 |
@@ -80,8 +93,11 @@ The query returns the following results:
 | INFO | 6 |
 | WARN | 4 |
 | ALL | 20 |
+<!-- vale on -->
 
+<!-- vale off -->
 ## Limitations
+<!-- vale on -->
 
 The `append` command has the following limitations:
 

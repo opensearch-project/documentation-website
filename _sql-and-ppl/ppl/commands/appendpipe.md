@@ -6,13 +6,17 @@ grand_parent: PPL
 nav_order: 7
 ---
 
+<!-- vale off -->
 # appendpipe
+<!-- vale on -->
 
 The `appendpipe` command appends the results of a subpipeline to the search results. Unlike a subsearch, the subpipeline is not executed first; it runs only when the search reaches the `appendpipe` command.
 
 The command aligns columns that have the same field names and types. For columns that exist in only the main search or subpipeline, `NULL` values are inserted into the missing fields for the respective rows.
 
+<!-- vale off -->
 ## Syntax
+<!-- vale on -->
 
 The `appendpipe` command has the following syntax:
 
@@ -20,7 +24,9 @@ The `appendpipe` command has the following syntax:
 appendpipe [<subpipeline>]
 ```
 
+<!-- vale off -->
 ## Parameters
+<!-- vale on -->
 
 The `appendpipe` command supports the following parameters.
 
@@ -29,7 +35,9 @@ The `appendpipe` command supports the following parameters.
 | `<subpipeline>` | Required | A list of commands applied to the search results produced by the commands that precede the `appendpipe` command. |
   
 
+<!-- vale off -->
 ## Example 1: Appending a total row to aggregated results  
+<!-- vale on -->
 
 The following query counts logs by severity level, then appends a total row. This is useful for building summary reports that include both breakdowns and totals:
   
@@ -45,6 +53,7 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
 | severityText | log_count | total |
 | --- | --- | --- |
 | ERROR | 7 | null |
@@ -52,9 +61,12 @@ The query returns the following results:
 | WARN | 4 | null |
 | DEBUG | 3 | null |
 | null | null | 20 |
+<!-- vale on -->
   
 
+<!-- vale off -->
 ## Example 2: Appending summary statistics to detail rows  
+<!-- vale on -->
 
 The following query shows error counts per service, then appends the overall average error count across all services:
   
@@ -71,6 +83,7 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
 | resource.attributes.service.name | error_count | avg_errors |
 | --- | --- | --- |
 | checkout | 2 | null |
@@ -79,9 +92,12 @@ The query returns the following results:
 | product-catalog | 1 | null |
 | recommendation | 1 | null |
 | null | null | 1.4 |
+<!-- vale on -->
 
 
+<!-- vale off -->
 ## Limitations
+<!-- vale on -->
 
 The `appendpipe` command has the following limitations:
 

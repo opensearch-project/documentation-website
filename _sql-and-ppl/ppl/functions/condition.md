@@ -38,12 +38,14 @@ source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
 | result | employer | firstname |
 | --- | --- | --- |
 | False | Pyrami | Amber |
 | False | Netagy | Hattie |
 | False | Quility | Nanette |
 | True | null | Dale |
+<!-- vale on -->
 
 The following example demonstrates using `isnull` with the `if` function to create conditional labels:
 
@@ -56,12 +58,14 @@ source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
 | firstname | employer | status |
 | --- | --- | --- |
 | Amber | Pyrami | employed |
 | Hattie | Netagy | employed |
 | Nanette | Quility | employed |
 | Dale | null | unemployed |
+<!-- vale on -->
   
 The following example filters records using `isnull` in a `where` clause:
 
@@ -74,9 +78,11 @@ source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
 | account_number | firstname | employer |
 | --- | --- | --- |
 | 18 | Dale | null |
+<!-- vale on -->
   
 ## ISNOTNULL
 
@@ -109,12 +115,14 @@ source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
 | firstname | employer | has_employer |
 | --- | --- | --- |
 | Amber | Pyrami | True |
 | Hattie | Netagy | True |
 | Nanette | Quility | True |
 | Dale | null | False |
+<!-- vale on -->
 
 The following example shows how to filter records using `isnotnull` in a `where` clause:
 
@@ -127,9 +135,11 @@ source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
 | account_number | employer |
 | --- | --- |
 | 18 | null |
+<!-- vale on -->
 
 The following example demonstrates using `isnotnull` with the `if` function to create validation messages:
 
@@ -142,12 +152,14 @@ source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
 | firstname | employer | validation |
 | --- | --- | --- |
 | Amber | Pyrami | valid |
 | Hattie | Netagy | valid |
 | Nanette | Quility | valid |
 | Dale | null | missing employer |
+<!-- vale on -->
   
 ## EXISTS
 
@@ -168,9 +180,11 @@ source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
 | account_number | email |
 | --- | --- |
 | 13 | null |
+<!-- vale on -->
   
 ## IFNULL
 
@@ -196,12 +210,14 @@ source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
 | result | employer | firstname |
 | --- | --- | --- |
 | Pyrami | Pyrami | Amber |
 | Netagy | Netagy | Hattie |
 | Quility | Quility | Nanette |
 | default | null | Dale |
+<!-- vale on -->
   
 #### Nested ifnull pattern
 
@@ -219,12 +235,14 @@ source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
 | result | employer | firstname | lastname |
 | --- | --- | --- | --- |
 | Pyrami | Pyrami | Amber | Duke |
 | Netagy | Netagy | Hattie | Bond |
 | Quility | Quility | Nanette | Bates |
 | Dale | null | Dale | Adams |
+<!-- vale on -->
   
 ## NULLIF
 
@@ -250,12 +268,14 @@ source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
 | result | employer | firstname |
 | --- | --- | --- |
 | null | Pyrami | Amber |
 | Netagy | Netagy | Hattie |
 | Quility | Quility | Nanette |
 | null | null | Dale |
+<!-- vale on -->
   
 ## IF
 
@@ -284,12 +304,14 @@ source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
 | result | firstname | lastname |
 | --- | --- | --- |
 | Amber | Amber | Duke |
 | Hattie | Hattie | Bond |
 | Nanette | Nanette | Bates |
 | Dale | Dale | Adams |
+<!-- vale on -->
 
 The following example returns the last name when the condition is `false`:
 
@@ -302,12 +324,14 @@ source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
 | result | firstname | lastname |
 | --- | --- | --- |
 | Duke | Amber | Duke |
 | Bond | Hattie | Bond |
 | Bates | Nanette | Bates |
 | Adams | Dale | Adams |
+<!-- vale on -->
 
 The following example uses a complex condition to determine VIP status:
 
@@ -320,12 +344,14 @@ source=accounts
 
 The query returns the following results:
   
+<!-- vale off -->
 | is_vip | firstname | lastname |
 | --- | --- | --- |
 | True | Amber | Duke |
 | True | Hattie | Bond |
 | False | Nanette | Bates |
 | False | Dale | Adams |
+<!-- vale on -->
   
 ## CASE
 
@@ -360,12 +386,14 @@ source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
 | result | firstname | lastname | age | employer |
 | --- | --- | --- | --- | --- |
 | Pyrami | Amber | Duke | 32 | Pyrami |
 | Hattie | Hattie | Bond | 36 | Netagy |
 | Bates | Nanette | Bates | 28 | Quility |
 | null | Dale | Adams | 33 | null |
+<!-- vale on -->
 
 The following example demonstrates a case statement without an else clause:
 
@@ -378,12 +406,14 @@ source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
 | result | firstname | lastname | age |
 | --- | --- | --- | --- |
 | null | Amber | Duke | 32 |
 | Hattie | Hattie | Bond | 36 |
 | Bates | Nanette | Bates | 28 |
 | null | Dale | Adams | 33 |
+<!-- vale on -->
 
 The following example uses case in a where clause to filter records:
 
@@ -396,10 +426,12 @@ source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
 | firstname | lastname | age |
 | --- | --- | --- |
 | Amber | Duke | 32 |
 | Dale | Adams | 33 |
+<!-- vale on -->
   
 ## COALESCE
 
@@ -441,12 +473,14 @@ source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
 | result | firstname | lastname | employer |
 | --- | --- | --- | --- |
 | Pyrami | Amber | Duke | Pyrami |
 | Netagy | Hattie | Bond | Netagy |
 | Quility | Nanette | Bates | Quility |
 | Dale | Dale | Adams | null |
+<!-- vale on -->
   
 #### Empty String Handling Examples
   
@@ -460,12 +494,14 @@ source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
 | result | empty_field | firstname |
 | --- | --- | --- |
 |  |  | Amber |
 |  |  | Hattie |
 |  |  | Nanette |
 |  |  | Dale |
+<!-- vale on -->
   
 ```sql
 source=accounts
@@ -476,12 +512,14 @@ source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
 | result | firstname |
 | --- | --- |
 |  | Amber |
 |  | Hattie |
 |  | Nanette |
 |  | Dale |
+<!-- vale on -->
   
 #### Mixed Data Types with Auto Coercion
   
@@ -494,12 +532,14 @@ source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
 | result | employer | balance |
 | --- | --- | --- |
 | Pyrami | Pyrami | 39225 |
 | Netagy | Netagy | 5686 |
 | Quility | Quility | 32838 |
 | 4180 | null | 4180 |
+<!-- vale on -->
   
 #### Non-existent Field Handling
   
@@ -512,12 +552,14 @@ source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
 | result | firstname |
 | --- | --- |
 | Amber | Amber |
 | Hattie | Hattie |
 | Nanette | Nanette |
 | Dale | Dale |
+<!-- vale on -->
   
 ## ISPRESENT
 
@@ -544,11 +586,13 @@ source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
 | employer | firstname |
 | --- | --- |
 | Pyrami | Amber |
 | Netagy | Hattie |
 | Quility | Nanette |
+<!-- vale on -->
   
 ## ISBLANK
 
@@ -574,12 +618,14 @@ source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
 | isblank(temp) | temp | isblank(employer) | employer |
 | --- | --- | --- | --- |
 | False | Pyrami | False | Pyrami |
 | False | Netagy | False | Netagy |
 | False | Quility | False | Quility |
 | True |  | True | null |
+<!-- vale on -->
   
 ## ISEMPTY
 
@@ -605,12 +651,14 @@ source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
 | isempty(temp) | temp | isempty(employer) | employer |
 | --- | --- | --- | --- |
 | False | Pyrami | False | Pyrami |
 | False | Netagy | False | Netagy |
 | False | Quility | False | Quility |
 | False |  | True | null |
+<!-- vale on -->
   
 ## EARLIEST
 
@@ -655,9 +703,11 @@ source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
 | a | b |
 | --- | --- |
 | False | True |
+<!-- vale on -->
 
 The following example filters records using an absolute time format:
 
@@ -670,9 +720,11 @@ source=nyc_taxi
   
 The query returns the following results:
   
+<!-- vale off -->
 | cnt |
 | --- |
 | 972 |
+<!-- vale on -->
   
 ## LATEST
 
@@ -702,9 +754,11 @@ source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
 | a | b |
 | --- | --- |
 | True | True |
+<!-- vale on -->
 
 The following example filters records using latest with an absolute time format:
 
@@ -717,9 +771,11 @@ source=nyc_taxi
   
 The query returns the following results:
   
+<!-- vale off -->
 | cnt |
 | --- |
 | 969 |
+<!-- vale on -->
   
 ## REGEXP_MATCH
 

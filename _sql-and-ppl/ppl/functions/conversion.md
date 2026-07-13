@@ -25,6 +25,7 @@ Casts the expression to the specified data type and returns the converted value.
 
 The following table shows the conversion rules used for casting between data types:
   
+<!-- vale off -->
 | Src/Target | STRING | NUMBER | BOOLEAN | TIMESTAMP | DATE | TIME | IP |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | STRING |  | Note1 | Note1 | TIMESTAMP() | DATE() | TIME() | IP() |
@@ -34,6 +35,7 @@ The following table shows the conversion rules used for casting between data typ
 | DATE | Note1 | N/A | N/A | N/A |  | N/A | N/A |
 | TIME | Note1 | N/A | N/A | N/A | N/A |  | N/A |
 | IP | Note2 | N/A | N/A | N/A | N/A | N/A |  |
+<!-- vale on -->
   
 Note1: The conversion follows the JDK specification.
 Note2: IP addresses are converted to their canonical representation. The canonical representation for IPv6 is described in [RFC 5952](https://datatracker.ietf.org/doc/html/rfc5952).
@@ -51,9 +53,11 @@ source=people
   
 The query returns the following results:
   
+<!-- vale off -->
 | cbool | cint | cdate |
 | --- | --- | --- |
 | TRUE | 1 | 2012-08-07 |
+<!-- vale on -->
   
 The following example casts values to integer type:
 
@@ -66,9 +70,11 @@ source=people
   
 The query returns the following results:
   
+<!-- vale off -->
 | cbool | cstring |
 | --- | --- |
 | 1 | 1 |
+<!-- vale on -->
   
 The following example casts strings to date, time, and timestamp types:
 
@@ -81,9 +87,11 @@ source=people
   
 The query returns the following results:
   
+<!-- vale off -->
 | cdate | ctime | ctimestamp |
 | --- | --- | --- |
 | 2012-08-07 | 01:01:01 | 2012-08-07 01:01:01 |
+<!-- vale on -->
   
 The following example demonstrates chaining cast functions:
 
@@ -96,9 +104,11 @@ source=people
   
 The query returns the following results:
   
+<!-- vale off -->
 | cbool |
 | --- |
 | True |
+<!-- vale on -->
   
 ## Implicit type conversion  
 
@@ -124,9 +134,11 @@ source=people
   
 The query returns the following results:
   
+<!-- vale off -->
 | divide | multiply | add | minus | concat |
 | --- | --- | --- | --- | --- |
 | 0.5 | 50.0 | 15.0 | -5.0 | 55 |
+<!-- vale on -->
   
 The following example demonstrates using strings in comparison operations:
 
@@ -139,9 +151,11 @@ source=people
   
 The query returns the following results:
   
+<!-- vale off -->
 | e | en | ed | edn | l | ld | i |
 | --- | --- | --- | --- | --- | --- | --- |
 | True | False | True | False | True | True | null |
+<!-- vale on -->
   
 ## TOSTRING
 
@@ -178,9 +192,11 @@ source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
 | firstname | balance_binary | balance |
 | --- | --- | --- |
 | Amber | 1001100100111001 | 39225 |
+<!-- vale on -->
   
 The following example converts a number to its hexadecimal string representation:
 
@@ -194,9 +210,11 @@ source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
 | firstname | balance_hex | balance |
 | --- | --- | --- |
 | Amber | 9939 | 39225 |
+<!-- vale on -->
   
 The following example formats numbers with comma separators:
   
@@ -210,9 +228,11 @@ source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
 | firstname | balance_commas | balance |
 | --- | --- | --- |
 | Amber | 39,225 | 39225 |
+<!-- vale on -->
   
 ### Example: Convert seconds to duration format
 
@@ -228,9 +248,11 @@ source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
 | firstname | duration |
 | --- | --- |
 | Amber | 01:48:20 |
+<!-- vale on -->
   
 The following example converts a Boolean value to string:
   
@@ -244,9 +266,11 @@ source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
 | boolean_str |
 | --- |
 | TRUE |
+<!-- vale on -->
 
 ## TONUMBER
 
@@ -281,9 +305,11 @@ source=people
 
 The query returns the following results:
 
+<!-- vale off -->
 | int_value |
 | --- |
 | 21.0 |
+<!-- vale on -->
 
 #### Example: Convert a hexadecimal string to a number
 
@@ -297,9 +323,11 @@ source=people
 
 The query returns the following results:
 
+<!-- vale off -->
 | int_value |
 | --- |
 | 64052.0 |
+<!-- vale on -->
 
 #### Example: Convert a decimal string without a decimal part to a number
 
@@ -313,9 +341,11 @@ source=people
 
 The query returns the following results:
 
+<!-- vale off -->
 | int_value |
 | --- |
 | 4598.0 |
+<!-- vale on -->
 
 #### Example: Convert a decimal string with a decimal part to a number
 
@@ -329,6 +359,8 @@ source=people
 
 The query returns the following results:
 
+<!-- vale off -->
 | double_value |
 | --- |
 | 4598.678 |
+<!-- vale on -->

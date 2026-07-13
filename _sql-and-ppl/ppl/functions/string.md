@@ -33,9 +33,11 @@ source=people
   
 The query returns the following results:
   
+<!-- vale off -->
 | CONCAT('hello', 'world') | CONCAT('hello ', 'whole ', 'world', '!') |
 | --- | --- |
 | helloworld | hello whole world! |
+<!-- vale on -->
   
 ## CONCAT_WS
 
@@ -62,9 +64,11 @@ source=people
   
 The query returns the following results:
   
+<!-- vale off -->
 | CONCAT_WS(',', 'hello', 'world') |
 | --- |
 | hello,world |
+<!-- vale on -->
   
 ## LENGTH
 
@@ -89,9 +93,11 @@ source=people
   
 The query returns the following results:
   
+<!-- vale off -->
 | LENGTH('helloworld') |
 | --- |
 | 10 |
+<!-- vale on -->
   
 ## LIKE
 
@@ -126,9 +132,11 @@ source=people
   
 The query returns the following results:
   
+<!-- vale off -->
 | LIKE('hello world', '_ello%') | LIKE('hello world', '_ELLo%', true) | LIKE('hello world', '_ELLo%', false) |
 | --- | --- | --- |
 | True | False | True |
+<!-- vale on -->
   
 Limitation: The pushdown of the `LIKE` function to a DSL wildcard query is supported only for keyword fields.
 
@@ -160,9 +168,11 @@ source=people
   
 The query returns the following results:
   
+<!-- vale off -->
 | ILIKE('hello world', '_ELLo%') |
 | --- |
 | True |
+<!-- vale on -->
   
 Limitation: The pushdown of the `ILIKE` function to a DSL wildcard query is supported only for keyword fields.
 
@@ -191,9 +201,11 @@ source=people
   
 The query returns the following results:
   
+<!-- vale off -->
 | LOCATE('world', 'helloworld') | LOCATE('invalid', 'helloworld') | LOCATE('world', 'helloworld', 6) |
 | --- | --- | --- |
 | 6 | 0 | 6 |
+<!-- vale on -->
   
 ## LOWER
 
@@ -218,9 +230,11 @@ source=people
   
 The query returns the following results:
   
+<!-- vale off -->
 | LOWER('helloworld') | LOWER('HELLOWORLD') |
 | --- | --- |
 | helloworld | helloworld |
+<!-- vale on -->
   
 ## LTRIM
 
@@ -245,9 +259,11 @@ source=people
   
 The query returns the following results:
   
+<!-- vale off -->
 | LTRIM('   hello') | LTRIM('hello   ') |
 | --- | --- |
 | hello | hello |
+<!-- vale on -->
   
 ## POSITION
 
@@ -273,9 +289,11 @@ source=people
   
 The query returns the following results:
   
+<!-- vale off -->
 | POSITION('world' IN 'helloworld') | POSITION('invalid' IN 'helloworld') |
 | --- | --- |
 | 6 | 0 |
+<!-- vale on -->
   
 ## REPLACE
 
@@ -311,9 +329,11 @@ source=people
   
 The query returns the following results:
   
+<!-- vale off -->
 | REPLACE('helloworld', 'world', 'universe') | REPLACE('helloworld', 'invalid', 'universe') |
 | --- | --- |
 | hellouniverse | helloworld |
+<!-- vale on -->
 
 ### Example: Escaping special characters
   
@@ -326,9 +346,11 @@ source=people
   
 The query returns the following results:
   
+<!-- vale off -->
 | Replace domain | Replace with quote |
 | --- | --- |
 | api.newsite.org | http://localhost:8080/v1 |
+<!-- vale on -->
 
 ### Example: Regex patterns
   
@@ -341,9 +363,11 @@ source=people
   
 The query returns the following results:
   
+<!-- vale off -->
 | Remove digits | Collapse spaces | Remove special |
 | --- | --- | --- |
 | test | hello world | helloworld |
+<!-- vale on -->
 
 ### Example: Capture groups and backreference
   
@@ -356,9 +380,11 @@ source=people
   
 The query returns the following results:
   
+<!-- vale off -->
 | Swap date | Reverse words | Extract domain |
 | --- | --- | --- |
 | 14/1/2023 | World Hello | example.com |
+<!-- vale on -->
 
 ### Example: Advanced regex
   
@@ -371,9 +397,11 @@ source=people
   
 The query returns the following results:
   
+<!-- vale off -->
 | Clean phone | Remove vowels | Add prefix |
 | --- | --- | --- |
 | 5551234567 | hll wrld | pre_test |
+<!-- vale on -->
   
 **Notes for regex patterns in PPL queries**:
 * Backslashes must be escaped by doubling them: `\\` instead of `\`. Examples: `\\d` for digit patterns, `\\w+` for word characters.
@@ -402,9 +430,11 @@ source=people
   
 The query returns the following results:
   
+<!-- vale off -->
 | REVERSE('abcde') |
 | --- |
 | edcba |
+<!-- vale on -->
   
 ## RIGHT
 
@@ -430,9 +460,11 @@ source=people
   
 The query returns the following results:
   
+<!-- vale off -->
 | RIGHT('helloworld', 5) | RIGHT('HELLOWORLD', 0) |
 | --- | --- |
 | world |  |
+<!-- vale on -->
   
 ## RTRIM
 
@@ -457,9 +489,11 @@ source=people
   
 The query returns the following results:
   
+<!-- vale off -->
 | RTRIM('   hello') | RTRIM('hello   ') |
 | --- | --- |
 | hello | hello |
+<!-- vale on -->
   
 ## SUBSTRING
 
@@ -488,9 +522,11 @@ source=people
   
 The query returns the following results:
   
+<!-- vale off -->
 | SUBSTRING('helloworld', 5) | SUBSTRING('helloworld', 5, 3) |
 | --- | --- |
 | oworld | owo |
+<!-- vale on -->
   
 ## TRIM
 
@@ -515,9 +551,11 @@ source=people
   
 The query returns the following results:
   
+<!-- vale off -->
 | TRIM('   hello') | TRIM('hello   ') |
 | --- | --- |
 | hello | hello |
+<!-- vale on -->
   
 ## UPPER
 
@@ -542,9 +580,11 @@ source=people
   
 The query returns the following results:
   
+<!-- vale off -->
 | UPPER('helloworld') | UPPER('HELLOWORLD') |
 | --- | --- |
 | HELLOWORLD | HELLOWORLD |
+<!-- vale on -->
   
 ## REGEXP_REPLACE
 
@@ -573,6 +613,8 @@ source=people
   
 The query returns the following results:
   
+<!-- vale off -->
 | DOMAIN |
 | --- |
 | opensearch.org |
+<!-- vale on -->

@@ -10,7 +10,7 @@ redirect_from:
 
 The following table shows the data types supported by the SQL plugin and how each one maps to SQL and OpenSearch data types:
 
-| OpenSearch SQL Type | OpenSearch Type | SQL Type
+| OpenSearch SQL type | OpenSearch type | SQL type
 :--- | :--- | :---
 `boolean` |	boolean |	BOOLEAN
 `byte` |	byte |	TINYINT
