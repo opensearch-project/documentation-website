@@ -15,7 +15,7 @@ tutorial_cards:
     link: "/benchmark/quickstart/"
   - heading: "Choosing a workload"
     description: "Choose a benchmark workload based on your cluster's use case"
-    link: "/benchmark/user-guide/understanding-workloads/choosing-a-workload/"
+    link: "/benchmark/choosing-a-workload/"
 more_cards:
   - heading: "User guide"
     description: "Learn how to benchmark the performance of your cluster"
