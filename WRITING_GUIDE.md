@@ -189,7 +189,7 @@ Additional hyphenation rules:
 - **Single-letter prefixes**: Always hyphenate (n-gram, k-NN, e-commerce).
 - **Spelled-out fractions**: Always hyphenate (one-third of nodes).
 - **Prefixes (pre, post, non)**: Usually closed (pretrained, preconfigured, predefined). Hyphenate when the base word starts with a vowel, a capital letter, or when the closed form is ambiguous (pre-filtering, post-processing, non-production, pre-migration, post-migration).
-- **Multi-**: Always hyphenate (multi-tenancy, multi-node, multi-search, multi-match).
+- **Multi-**: Close if it's a known word or established technical term (multidimensional, multithreaded, multivalued). Hyphenate otherwise (multi-node, multi-match, multi-search).
 - **Industry exceptions**: Some industry terms don't follow standard hyphenation rules. For example, _high performance computing_ isn't hyphenated, and _machine learning_ isn't hyphenated when used as an adjective. 
 
 When in doubt, check [Merriam-Webster](https://www.merriam-webster.com/) or refer to [Terms](TERMS.md) for OpenSearch-specific usage.
