@@ -108,6 +108,6 @@ The query returns the following results:
 
 <!-- vale on -->
 
-See [Fetch metadata for table in Prometheus datasource]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/admin/datasources/) for more context.
+See [Fetch metadata for table in Prometheus datasource]({{site.url}}{{site.baseurl}}/sql-and-ppl/sql-and-ppl-api/data-source-apis/) for more context.
 
 -->
