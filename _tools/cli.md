@@ -96,7 +96,7 @@ opensearch-cli curl get --path _cat/plugins --profile aws
 Use the `-h` or `--help` flag to see all supported commands, subcommands, or usage for a specific command:
 
 ```bash
-`opensearch-cli` -h
-`opensearch-cli` ad -h
-`opensearch-cli` ad get -h
+opensearch-cli -h
+opensearch-cli ad -h
+opensearch-cli ad get -h
 ```
