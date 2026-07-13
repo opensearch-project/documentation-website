@@ -52,12 +52,14 @@ source=json_test
 The query returns the following results:
 
 <!-- vale off -->
+
 | test_name | json_string | json |
 | --- | --- | --- |
 | json nested object | {"a":"1","b":{"c":"2","d":"3"}} | {"a":"1","b":{"c":"2","d":"3"}} |
 | json object | {"a":"1","b":"2"} | {"a":"1","b":"2"} |
 | json array | [1, 2, 3, 4] | [1, 2, 3, 4] |
 | json scalar string | "abc" | "abc" |
+
 <!-- vale on -->
 
 ## JSON_VALID
@@ -88,9 +90,11 @@ source=people
 The query returns the following results:
 
 <!-- vale off -->
+
 | is_valid_json | is_invalid_json |
 | --- | --- |
 | True | False |
+
 <!-- vale on -->
 
 ## JSON_OBJECT
@@ -119,9 +123,11 @@ source=json_test
 The query returns the following results:
 
 <!-- vale off -->
+
 | test_json |
 | --- |
 | {"key":123.45} |
+
 <!-- vale on -->
 
 ## JSON_ARRAY
@@ -149,9 +155,11 @@ source=json_test
 The query returns the following results:
 
 <!-- vale off -->
+
 | test_json_array |
 | --- |
 | ["key",123.45] |
+
 <!-- vale on -->
 
 ## JSON_ARRAY_LENGTH
@@ -181,9 +189,11 @@ source=json_test
 The query returns the following results:
 
 <!-- vale off -->
+
 | array_length |
 | --- |
 | 3 |
+
 <!-- vale on -->
 
 The following example returns `NULL` for non-array JSON values:
@@ -199,9 +209,11 @@ source=json_test
 The query returns the following results:
 
 <!-- vale off -->
+
 | array_length |
 | --- |
 | null |
+
 <!-- vale on -->
 
 ## JSON_EXTRACT
@@ -239,9 +251,11 @@ source=json_test
 The query returns the following results:
 
 <!-- vale off -->
+
 | extract |
 | --- |
 | [1,2] |
+
 <!-- vale on -->
 
 The following example extracts values using multiple JSON paths:
@@ -257,9 +271,11 @@ source=json_test
 The query returns the following results:
 
 <!-- vale off -->
+
 | extract |
 | --- |
 | [[1,2],[{"b":1},{"b":2}]] |
+
 <!-- vale on -->
 
 ## JSON_DELETE
@@ -290,9 +306,11 @@ source=json_test
 The query returns the following results:
 
 <!-- vale off -->
+
 | delete |
 | --- |
 | {"a":[{},{"b":2}]} |
+
 <!-- vale on -->
 
 The following example deletes values using multiple JSON paths:
@@ -308,9 +326,11 @@ source=json_test
 The query returns the following results:
 
 <!-- vale off -->
+
 | delete |
 | --- |
 | {"a":[{},{}]} |
+
 <!-- vale on -->
 
 The following example shows no changes occur when trying to delete a non-existent path:
@@ -326,9 +346,11 @@ source=json_test
 The query returns the following results:
 
 <!-- vale off -->
+
 | delete |
 | --- |
 | {"a":[{"b":1},{"b":2}]} |
+
 <!-- vale on -->
 
 ## JSON_SET
@@ -360,9 +382,11 @@ source=json_test
 The query returns the following results:
 
 <!-- vale off -->
+
 | jsonSet |
 | --- |
 | {"a":[{"b":3}]} |
+
 <!-- vale on -->
 
 The following example sets multiple values using multiple path-value pairs:
@@ -378,9 +402,11 @@ source=json_test
 The query returns the following results:
 
 <!-- vale off -->
+
 | jsonSet |
 | --- |
 | {"a":[{"b":3},{"b":4}]} |
+
 <!-- vale on -->
 
 ## JSON_APPEND
@@ -412,9 +438,11 @@ source=json_test
 The query returns the following results:
 
 <!-- vale off -->
+
 | jsonAppend |
 | --- |
 | {"a":3} |
+
 <!-- vale on -->
 
 The following example shows paths to non-array targets are skipped:
@@ -430,9 +458,11 @@ source=json_test
 The query returns the following results:
 
 <!-- vale off -->
+
 | jsonAppend |
 | --- |
 | {"a":[{"b":1},{"b":2}]} |
+
 <!-- vale on -->
 
 The following example appends values using mixed path types:
@@ -448,9 +478,11 @@ source=json_test
 The query returns the following results:
 
 <!-- vale off -->
+
 | jsonAppend |
 | --- |
 | {"a":[{"b":1},"[1,2]"]} |
+
 <!-- vale on -->
 
 ## JSON_EXTEND
@@ -486,9 +518,11 @@ source=json_test
 The query returns the following results:
 
 <!-- vale off -->
+
 | jsonExtend |
 | --- |
 | {"a":[{"b":1},3]} |
+
 <!-- vale on -->
 
 The following example shows paths to non-array targets are skipped:
@@ -504,9 +538,11 @@ source=json_test
 The query returns the following results:
 
 <!-- vale off -->
+
 | jsonExtend |
 | --- |
 | {"a":[{"b":1},{"b":2}]} |
+
 <!-- vale on -->
 
 The following example extends an array by parsing the value as an array:
@@ -522,9 +558,11 @@ source=json_test
 The query returns the following results:
 
 <!-- vale off -->
+
 | jsonExtend |
 | --- |
 | {"a":[{"b":1},1.0,2.0]} |
+
 <!-- vale on -->
 
 ## JSON_KEYS
@@ -554,9 +592,11 @@ source=json_test
 The query returns the following results:
 
 <!-- vale off -->
+
 | jsonKeys |
 | --- |
 | ["a","b"] |
+
 <!-- vale on -->
 
 The following example gets keys from a nested JSON object:
@@ -572,7 +612,9 @@ source=json_test
 The query returns the following results:
 
 <!-- vale off -->
+
 | jsonKeys |
 | --- |
 | ["a","b"] |
+
 <!-- vale on -->

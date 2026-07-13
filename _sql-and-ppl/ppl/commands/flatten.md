@@ -7,7 +7,9 @@ nav_order: 20
 ---
 
 <!-- vale off -->
+
 # flatten
+
 <!-- vale on -->
 
 The `flatten` command converts a struct or object field into individual fields within a document.
@@ -18,7 +20,9 @@ The resulting flattened fields are ordered lexicographically by their original k
 {: .important}
 
 <!-- vale off -->
+
 ## Syntax
+
 <!-- vale on -->
 
 The `flatten` command has the following syntax:
@@ -28,7 +32,9 @@ flatten <field> [as (<alias-list>)]
 ```
 
 <!-- vale off -->
+
 ## Parameters
+
 <!-- vale on -->
 
 The `flatten` command supports the following parameters.
@@ -40,7 +46,9 @@ The `flatten` command supports the following parameters.
   
 
 <!-- vale off -->
+
 ## Example: Flatten the instrumentation scope object  
+
 <!-- vale on -->
 
 The following query flattens the `instrumentationScope` nested object into individual fields, useful for analyzing which OTel SDK versions are in use:
@@ -57,17 +65,21 @@ source=otellogs
 The query returns the following results:
   
 <!-- vale off -->
+
 | severityText | name | version |
 | --- | --- | --- |
 | INFO | @opentelemetry/instrumentation-http | 0.57.0 |
 | INFO | Microsoft.Extensions.Hosting | 9.0.0 |
 | WARN | go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc | 0.49.0 |
 | ERROR | @opentelemetry/instrumentation-http | 0.57.0 |
+
 <!-- vale on -->
   
 
 <!-- vale off -->
+
 ## Limitations
+
 <!-- vale on -->
 
 The `flatten` command has the following limitations:

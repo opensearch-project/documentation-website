@@ -7,13 +7,17 @@ nav_order: 53
 ---
 
 <!-- vale off -->
+
 # where
+
 <!-- vale on -->
 
 The `where` command filters the search results. It only returns results that match the specified conditions.
 
 <!-- vale off -->
+
 ## Syntax
+
 <!-- vale on -->
 
 The `where` command has the following syntax:
@@ -23,7 +27,9 @@ where <boolean-expression>
 ```
 
 <!-- vale off -->
+
 ## Parameters
+
 <!-- vale on -->
 
 The `where` command supports the following parameters.
@@ -33,7 +39,9 @@ The `where` command supports the following parameters.
 | `<boolean-expression>` | Required | The condition used to filter the results. Only rows in which this condition evaluates to `true` are returned. |
 
 <!-- vale off -->
+
 ## Example 1: Filtering by severity level
+
 <!-- vale on -->
 
 The following query finds all log entries with a severity level above `INFO` (severityNumber > 9), filtering out routine logs to focus on warnings and errors:
@@ -50,6 +58,7 @@ source=otellogs
 The query returns the following results:
 
 <!-- vale off -->
+
 | severityText | severityNumber | resource.attributes.service.name |
 | --- | --- | --- |
 | WARN | 13 | frontend-proxy |
@@ -63,10 +72,13 @@ The query returns the following results:
 | ERROR | 17 | payment |
 | ERROR | 17 | product-catalog |
 | ERROR | 17 | recommendation |
+
 <!-- vale on -->
 
 <!-- vale off -->
+
 ## Example 2: Filtering using combined criteria
+
 <!-- vale on -->
 
 The following query narrows down errors to a specific service during an incident investigation, combining severity and service name conditions with `AND`:
@@ -82,15 +94,19 @@ source=otellogs
 The query returns the following results:
 
 <!-- vale off -->
+
 | severityText | severityNumber | resource.attributes.service.name |
 | --- | --- | --- |
 | ERROR | 17 | payment |
 | ERROR | 17 | payment |
+
 <!-- vale on -->
 
 
 <!-- vale off -->
+
 ## Example 3: Filtering with multiple possible values
+
 <!-- vale on -->
 
 The following query retrieves all warnings and errors using `OR` to match either condition:
@@ -107,6 +123,7 @@ source=otellogs
 The query returns the following results:
 
 <!-- vale off -->
+
 | severityText | resource.attributes.service.name | body |
 | --- | --- | --- |
 | WARN | product-catalog | Slow query detected: SELECT \* FROM products WHERE category = 'electronics' took 3200ms |
@@ -114,17 +131,22 @@ The query returns the following results:
 | ERROR | checkout | NullPointerException in CheckoutService.placeOrder at line 142 |
 | ERROR | payment | Out of memory: Java heap space - shutting down pod payment-6f8d4b-ht7q3 |
 | WARN | product-catalog | Connection pool 80% utilized on database replica db-replica-02 |
+
 <!-- vale on -->
   
 
 <!-- vale off -->
+
 ## Example 4: Filtering by text patterns 
+
 <!-- vale on -->
 
 The `LIKE` operator enables pattern matching on string fields using wildcards.
 
 <!-- vale off -->
+
 ### Matching with a prefix pattern
+
 <!-- vale on -->
 
 The following query uses a percent sign (`%`) to find all services starting with `frontend`:
@@ -139,7 +161,9 @@ source=otellogs
 {% include try-in-playground.html %}
 
 <!-- vale off -->
+
 ### Matching with a wildcard pattern
+
 <!-- vale on -->
 
 The following query finds all logs from services containing `product` in their name:
@@ -156,15 +180,19 @@ source=otellogs
 The query returns the following results:
 
 <!-- vale off -->
+
 | severityText | resource.attributes.service.name | body |
 | --- | --- | --- |
 | WARN | product-catalog | Slow query detected: SELECT \* FROM products WHERE category = 'electronics' took 3200ms |
 | WARN | product-catalog | Connection pool 80% utilized on database replica db-replica-02 |
 | DEBUG | product-catalog | gRPC call /ProductCatalogService/GetProduct completed in 12ms |
+
 <!-- vale on -->
 
 <!-- vale off -->
+
 ## Example 5: Filtering by excluding specific values  
+
 <!-- vale on -->
 
 The following query uses a `NOT` operator to exclude routine informational and debug logs, focusing on warnings and errors that need attention:
@@ -182,17 +210,21 @@ source=otellogs
 The query returns the following results:
   
 <!-- vale off -->
+
 | severityText | resource.attributes.service.name | body |
 | --- | --- | --- |
 | WARN | frontend-proxy | SSL certificate for api.example.com expires in 14 days |
 | WARN | frontend-proxy | Rate limit threshold reached: 450/500 requests per minute for API key ending in ...abc789 |
 | WARN | product-catalog | Slow query detected: SELECT \* FROM products WHERE category = 'electronics' took 3200ms |
 | WARN | product-catalog | Connection pool 80% utilized on database replica db-replica-02 |
+
 <!-- vale on -->
   
 
 <!-- vale off -->
+
 ## Example 6: Filtering using value lists  
+
 <!-- vale on -->
 
 The following query uses an `IN` operator to match multiple severity levels at once, retrieving all errors and warnings for incident response:
@@ -209,6 +241,7 @@ source=otellogs
 The query returns the following results:
   
 <!-- vale off -->
+
 | severityText | resource.attributes.service.name | body |
 | --- | --- | --- |
 | WARN | frontend-proxy | SSL certificate for api.example.com expires in 14 days |
@@ -222,11 +255,14 @@ The query returns the following results:
 | ERROR | payment | Out of memory: Java heap space - shutting down pod payment-6f8d4b-ht7q3 |
 | ERROR | product-catalog | Database primary node unreachable: connection refused to db-primary-01:5432 |
 | ERROR | recommendation | Failed to process recommendation request: invalid product ID from 203.0.113.50 |
+
 <!-- vale on -->
   
 
 <!-- vale off -->
+
 ## Example 7: Filtering records with missing data  
+
 <!-- vale on -->
 
 The following query finds logs that have instrumentation scope metadata:
@@ -242,17 +278,21 @@ source=otellogs
 The query returns the following results:
   
 <!-- vale off -->
+
 | severityText | instrumentationScope.name |
 | --- | --- |
 | INFO | @opentelemetry/instrumentation-http |
 | INFO | Microsoft.Extensions.Hosting |
 | WARN | go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc |
 | ERROR | @opentelemetry/instrumentation-http |
+
 <!-- vale on -->
   
 
 <!-- vale off -->
+
 ## Example 8: Filtering using grouped conditions  
+
 <!-- vale on -->
 
 The following query investigates a specific service's errors by combining severity conditions with a service filter, using parentheses to control evaluation order:
@@ -269,9 +309,11 @@ source=otellogs
 The query returns the following results:
   
 <!-- vale off -->
+
 | severityText | resource.attributes.service.name | body |
 | --- | --- | --- |
 | ERROR | payment | Payment failed: connection timeout to payment gateway after 30000ms |
 | ERROR | payment | Out of memory: Java heap space - shutting down pod payment-6f8d4b-ht7q3 |
+
 <!-- vale on -->
   

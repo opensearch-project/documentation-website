@@ -158,7 +158,7 @@ The response contains the schema and the results:
 Field | Data type | Description  
 :--- | :--- | :---
 `schema` | Array | Specifies the field names and types for all fields. 
-`data_rows` | 2D array | An array of results. Each result represents one matching row (document).
+`data_rows` | Two-dimensional array | An array of results. Each result represents one matching row (document).
 `total` | Integer | The total number of rows (documents) in the index.
 `size` | Integer | The number of results to return in one response.
 `status` | String | The HTTP response status OpenSearch returns after running the query.

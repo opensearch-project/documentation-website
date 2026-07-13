@@ -55,10 +55,12 @@ source=accounts
 The query returns the following results:
   
 <!-- vale off -->
+
 | lastname | address |
 | --- | --- |
 | Bond | 671 Bristol Street |
 | Bates | 789 Madison Street |
+
 <!-- vale on -->
   
 The following example shows how to set custom values for the optional parameters:
@@ -73,9 +75,11 @@ source=accounts
 The query returns the following results:
   
 <!-- vale off -->
+
 | lastname |
 | --- |
 | Bond |
+
 <!-- vale on -->
   
 ## MATCH_PHRASE
@@ -114,10 +118,12 @@ source=books
 The query returns the following results:
   
 <!-- vale off -->
+
 | author | title |
 | --- | --- |
 | Alan Alexander Milne | The House at Pooh Corner |
 | Alan Alexander Milne | Winnie-the-Pooh |
+
 <!-- vale on -->
   
 The following example shows how to set custom values for the optional parameters:
@@ -132,10 +138,12 @@ source=books
 The query returns the following results:
   
 <!-- vale off -->
+
 | author | title |
 | --- | --- |
 | Alan Alexander Milne | The House at Pooh Corner |
 | Alan Alexander Milne | Winnie-the-Pooh |
+
 <!-- vale on -->
   
 ## MATCH_PHRASE_PREFIX
@@ -174,10 +182,12 @@ source=books
 The query returns the following results:
   
 <!-- vale off -->
+
 | author | title |
 | --- | --- |
 | Alan Alexander Milne | The House at Pooh Corner |
 | Alan Alexander Milne | Winnie-the-Pooh |
+
 <!-- vale on -->
   
 The following example shows how to set custom values for the optional parameters:
@@ -192,10 +202,12 @@ source=books
 The query returns the following results:
   
 <!-- vale off -->
+
 | author | title |
 | --- | --- |
 | Alan Alexander Milne | The House at Pooh Corner |
 | Alan Alexander Milne | Winnie-the-Pooh |
+
 <!-- vale on -->
   
 ## MULTI_MATCH
@@ -256,10 +268,12 @@ source=books
 The query returns the following results:
 
 <!-- vale off -->
+
 | id | title | author |
 | --- | --- | --- |
 | 1 | The House at Pooh Corner | Alan Alexander Milne |
 | 2 | Winnie-the-Pooh | Alan Alexander Milne |
+
 <!-- vale on -->
 
 The following example shows explicit field specification with optional parameters:
@@ -274,9 +288,11 @@ source=books
 The query returns the following results:
 
 <!-- vale off -->
+
 | id | title | author |
 | --- | --- | --- |
 | 1 | The House at Pooh Corner | Alan Alexander Milne |
+
 <!-- vale on -->
 
 The following example uses the default field syntax without explicit field specification:
@@ -291,10 +307,12 @@ source=books
 The query returns the following results:
   
 <!-- vale off -->
+
 | id | title | author |
 | --- | --- | --- |
 | 1 | The House at Pooh Corner | Alan Alexander Milne |
 | 2 | Winnie-the-Pooh | Alan Alexander Milne |
+
 <!-- vale on -->
   
 ## SIMPLE_QUERY_STRING
@@ -354,10 +372,12 @@ source=books
 The query returns the following results:
   
 <!-- vale off -->
+
 | id | title | author |
 | --- | --- | --- |
 | 1 | The House at Pooh Corner | Alan Alexander Milne |
 | 2 | Winnie-the-Pooh | Alan Alexander Milne |
+
 <!-- vale on -->
 
 The following example shows explicit field specification with optional parameters:
@@ -372,9 +392,11 @@ source=books
 The query returns the following results:
   
 <!-- vale off -->
+
 | id | title | author |
 | --- | --- | --- |
 | 1 | The House at Pooh Corner | Alan Alexander Milne |
+
 <!-- vale on -->
 
 The following example uses the default field syntax without explicit field specification:
@@ -389,10 +411,12 @@ source=books
 The query returns the following results:
   
 <!-- vale off -->
+
 | id | title | author |
 | --- | --- | --- |
 | 1 | The House at Pooh Corner | Alan Alexander Milne |
 | 2 | Winnie-the-Pooh | Alan Alexander Milne |
+
 <!-- vale on -->
   
 ## MATCH_BOOL_PREFIX
@@ -435,10 +459,12 @@ source=accounts
 The query returns the following results:
   
 <!-- vale off -->
+
 | firstname | address |
 | --- | --- |
 | Hattie | 671 Bristol Street |
 | Nanette | 789 Madison Street |
+
 <!-- vale on -->
 
 The following example shows setting optional parameters:
@@ -453,9 +479,11 @@ source=accounts
 The query returns the following results:
   
 <!-- vale off -->
+
 | firstname | address |
 | --- | --- |
 | Hattie | 671 Bristol Street |
+
 <!-- vale on -->
   
 ## QUERY_STRING
@@ -525,10 +553,12 @@ source=books
 The query returns the following results:
   
 <!-- vale off -->
+
 | id | title | author |
 | --- | --- | --- |
 | 1 | The House at Pooh Corner | Alan Alexander Milne |
 | 2 | Winnie-the-Pooh | Alan Alexander Milne |
+
 <!-- vale on -->
 
 The following example shows explicit field specification with optional parameters:
@@ -543,9 +573,11 @@ source=books
 The query returns the following results:
   
 <!-- vale off -->
+
 | id | title | author |
 | --- | --- | --- |
 | 1 | The House at Pooh Corner | Alan Alexander Milne |
+
 <!-- vale on -->
   
 The following example uses the default field syntax without explicit field specification:
@@ -560,10 +592,12 @@ source=books
 The query returns the following results:
   
 <!-- vale off -->
+
 | id | title | author |
 | --- | --- | --- |
 | 1 | The House at Pooh Corner | Alan Alexander Milne |
 | 2 | Winnie-the-Pooh | Alan Alexander Milne |
+
 <!-- vale on -->
   
 ## Limitations

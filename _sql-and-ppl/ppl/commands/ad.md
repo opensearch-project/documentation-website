@@ -7,7 +7,9 @@ nav_order: 2
 ---
 
 <!-- vale off -->
+
 # ad (Deprecated)
+
 <!-- vale on -->
 
 The `ad` command is deprecated in favor of the [`ml` command]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/commands/ml/).
@@ -22,13 +24,17 @@ To use the `ad` command, `plugins.calcite.enabled` must be set to `false`.
 {: .note}
 
 <!-- vale off -->
+
 ## Syntax
+
 <!-- vale on -->
 
 The `ad` command has two different syntax variants, depending on the algorithm type.
 
 <!-- vale off -->
+
 ### Anomaly detection for time-series data
+
 <!-- vale on -->
 
 Use this syntax to detect anomalies in time-series data. This method uses the fixed-in-time RCF algorithm, which is optimized for sequential data patterns.
@@ -40,7 +46,9 @@ ad [number_of_trees] [shingle_size] [sample_size] [output_after] [time_decay] [a
 ```
 
 <!-- vale off -->
+
 ### Parameters
+
 <!-- vale on -->
 
 The fixed-in-time RCF algorithm supports the following parameters.
@@ -60,7 +68,9 @@ The fixed-in-time RCF algorithm supports the following parameters.
   
 
 <!-- vale off -->
+
 ### Anomaly detection for non-time-series data
+
 <!-- vale on -->
 
 Use this syntax to detect anomalies in data where the order doesn't matter. This method uses the batch RCF algorithm, which is optimized for independent data points.
@@ -72,7 +82,9 @@ ad [number_of_trees] [sample_size] [output_after] [training_data_size] [anomaly_
 ```
 
 <!-- vale off -->
+
 ### Parameters
+
 <!-- vale on -->
 
 The batch RCF algorithm supports the following parameters.
@@ -88,7 +100,9 @@ The batch RCF algorithm supports the following parameters.
   
 
 <!-- vale off -->
+
 ## Example 1: Detecting events in New York City taxi ridership time-series data
+
 <!-- vale on -->
 
 The following examples use the `nyc_taxi` dataset, which contains New York City taxi ridership data with fields including `value` (number of rides), `timestamp` (time of measurement), and `category` (time period classifications such as 'day' and 'night').
@@ -106,14 +120,18 @@ source=nyc_taxi
 The query returns the following results:
   
 <!-- vale off -->
+
 | value | timestamp | score | anomaly_grade |
 | --- | --- | --- | --- |
 | 10844.0 | 2014-07-01 00:00:00 | 0.0 | 0.0 |
+
 <!-- vale on -->
   
 
 <!-- vale off -->
+
 ## Example 2: Detecting events in New York City taxi ridership time-series data by category
+
 <!-- vale on -->
 
 This example trains an RCF model and uses it to detect anomalies in time-series ridership data across multiple category values:
@@ -129,15 +147,19 @@ source=nyc_taxi
 The query returns the following results:
   
 <!-- vale off -->
+
 | category | value | timestamp | score | anomaly_grade |
 | --- | --- | --- | --- | --- |
 | night | 10844.0 | 2014-07-01 00:00:00 | 0.0 | 0.0 |
 | day | 6526.0 | 2014-07-01 06:00:00 | 0.0 | 0.0 |
+
 <!-- vale on -->
   
 
 <!-- vale off -->
+
 ## Example 3: Detecting events in New York City taxi ridership non-time-series data
+
 <!-- vale on -->
 
 This example trains an RCF model and uses it to detect anomalies in non-time-series ridership data:
@@ -153,14 +175,18 @@ source=nyc_taxi
 The query returns the following results:
   
 <!-- vale off -->
+
 | value | score | anomalous |
 | --- | --- | --- |
 | 10844.0 | 0.0 | False |
+
 <!-- vale on -->
   
 
 <!-- vale off -->
+
 ## Example 4: Detecting events in New York City taxi ridership non-time-series data by category
+
 <!-- vale on -->
 
 This example trains an RCF model and uses it to detect anomalies in non-time-series ridership data across multiple category values:
@@ -176,10 +202,12 @@ source=nyc_taxi
 The query returns the following results:
   
 <!-- vale off -->
+
 | category | value | score | anomalous |
 | --- | --- | --- | --- |
 | night | 10844.0 | 0.0 | False |
 | day | 6526.0 | 0.0 | False |
+
 <!-- vale on -->
   
 

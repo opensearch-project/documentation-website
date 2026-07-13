@@ -39,12 +39,18 @@ source=accounts
 The query returns the following results:
   
 <!-- vale off -->
+
 | result | employer | firstname |
+<!-- vale off -->
+
 | --- | --- | --- |
 | False | Pyrami | Amber |
 | False | Netagy | Hattie |
 | False | Quility | Nanette |
 | True | null | Dale |
+
+<!-- vale on -->
+
 <!-- vale on -->
 
 The following example demonstrates using `isnull` with the `if` function to create conditional labels:
@@ -59,12 +65,18 @@ source=accounts
 The query returns the following results:
   
 <!-- vale off -->
+
 | firstname | employer | status |
+<!-- vale off -->
+
 | --- | --- | --- |
 | Amber | Pyrami | employed |
 | Hattie | Netagy | employed |
 | Nanette | Quility | employed |
 | Dale | null | unemployed |
+
+<!-- vale on -->
+
 <!-- vale on -->
   
 The following example filters records using `isnull` in a `where` clause:
@@ -79,9 +91,15 @@ source=accounts
 The query returns the following results:
   
 <!-- vale off -->
+
 | account_number | firstname | employer |
+<!-- vale off -->
+
 | --- | --- | --- |
 | 18 | Dale | null |
+
+<!-- vale on -->
+
 <!-- vale on -->
   
 ## ISNOTNULL
@@ -116,12 +134,18 @@ source=accounts
 The query returns the following results:
   
 <!-- vale off -->
+
 | firstname | employer | has_employer |
+<!-- vale off -->
+
 | --- | --- | --- |
 | Amber | Pyrami | True |
 | Hattie | Netagy | True |
 | Nanette | Quility | True |
 | Dale | null | False |
+
+<!-- vale on -->
+
 <!-- vale on -->
 
 The following example shows how to filter records using `isnotnull` in a `where` clause:
@@ -136,9 +160,15 @@ source=accounts
 The query returns the following results:
   
 <!-- vale off -->
+
 | account_number | employer |
+<!-- vale off -->
+
 | --- | --- |
 | 18 | null |
+
+<!-- vale on -->
+
 <!-- vale on -->
 
 The following example demonstrates using `isnotnull` with the `if` function to create validation messages:
@@ -153,12 +183,18 @@ source=accounts
 The query returns the following results:
   
 <!-- vale off -->
+
 | firstname | employer | validation |
+<!-- vale off -->
+
 | --- | --- | --- |
 | Amber | Pyrami | valid |
 | Hattie | Netagy | valid |
 | Nanette | Quility | valid |
 | Dale | null | missing employer |
+
+<!-- vale on -->
+
 <!-- vale on -->
   
 ## EXISTS
@@ -181,9 +217,15 @@ source=accounts
 The query returns the following results:
   
 <!-- vale off -->
+
 | account_number | email |
+<!-- vale off -->
+
 | --- | --- |
 | 13 | null |
+
+<!-- vale on -->
+
 <!-- vale on -->
   
 ## IFNULL
@@ -211,15 +253,21 @@ source=accounts
 The query returns the following results:
   
 <!-- vale off -->
+
 | result | employer | firstname |
+<!-- vale off -->
+
 | --- | --- | --- |
 | Pyrami | Pyrami | Amber |
 | Netagy | Netagy | Hattie |
 | Quility | Quility | Nanette |
 | default | null | Dale |
+
+<!-- vale on -->
+
 <!-- vale on -->
   
-#### Nested ifnull pattern
+#### Nested `ifnull` pattern
 
 For OpenSearch versions prior to 3.1, `coalesce`-like functionality can be achieved using nested `ifnull` statements. This pattern is particularly useful in observability use cases where field names may vary across different data sources.
 Usage: `ifnull(field1, ifnull(field2, ifnull(field3, default_value)))`
@@ -236,12 +284,18 @@ source=accounts
 The query returns the following results:
   
 <!-- vale off -->
+
 | result | employer | firstname | lastname |
+<!-- vale off -->
+
 | --- | --- | --- | --- |
 | Pyrami | Pyrami | Amber | Duke |
 | Netagy | Netagy | Hattie | Bond |
 | Quility | Quility | Nanette | Bates |
 | Dale | null | Dale | Adams |
+
+<!-- vale on -->
+
 <!-- vale on -->
   
 ## NULLIF
@@ -269,12 +323,18 @@ source=accounts
 The query returns the following results:
   
 <!-- vale off -->
+
 | result | employer | firstname |
+<!-- vale off -->
+
 | --- | --- | --- |
 | null | Pyrami | Amber |
 | Netagy | Netagy | Hattie |
 | Quility | Quility | Nanette |
 | null | null | Dale |
+
+<!-- vale on -->
+
 <!-- vale on -->
   
 ## IF
@@ -305,12 +365,18 @@ source=accounts
 The query returns the following results:
   
 <!-- vale off -->
+
 | result | firstname | lastname |
+<!-- vale off -->
+
 | --- | --- | --- |
 | Amber | Amber | Duke |
 | Hattie | Hattie | Bond |
 | Nanette | Nanette | Bates |
 | Dale | Dale | Adams |
+
+<!-- vale on -->
+
 <!-- vale on -->
 
 The following example returns the last name when the condition is `false`:
@@ -325,12 +391,18 @@ source=accounts
 The query returns the following results:
   
 <!-- vale off -->
+
 | result | firstname | lastname |
+<!-- vale off -->
+
 | --- | --- | --- |
 | Duke | Amber | Duke |
 | Bond | Hattie | Bond |
 | Bates | Nanette | Bates |
 | Adams | Dale | Adams |
+
+<!-- vale on -->
+
 <!-- vale on -->
 
 The following example uses a complex condition to determine VIP status:
@@ -345,12 +417,18 @@ source=accounts
 The query returns the following results:
   
 <!-- vale off -->
+
 | is_vip | firstname | lastname |
+<!-- vale off -->
+
 | --- | --- | --- |
 | True | Amber | Duke |
 | True | Hattie | Bond |
 | False | Nanette | Bates |
 | False | Dale | Adams |
+
+<!-- vale on -->
+
 <!-- vale on -->
   
 ## CASE
@@ -369,7 +447,7 @@ Returns `expr1` if `condition1` is `true`, `expr2` if `condition2` is `true`, an
 
 #### Limitations
 
-When each condition is a field comparison against a numeric literal and each result expression is a string literal, the query is optimized as [range aggregations]({{site.url}}{{site.baseurl}}/aggregations/bucket/range/) if pushdown optimization is enabled. However, this optimization has the following limitations:
+When each condition is a field comparison against a numeric literal and each result expression is a string literal, the query is optimized as [range aggregations]({{site.url}}{{site.baseurl}}/aggregations/bucket/range/) if push-down optimization is enabled. However, this optimization has the following limitations:
 - `NULL` values are not grouped into any bucket of a range aggregation and are ignored.
 - The default `else` clauses use the string literal `"null"` instead of actual NULL values.
   
@@ -387,12 +465,18 @@ source=accounts
 The query returns the following results:
   
 <!-- vale off -->
+
 | result | firstname | lastname | age | employer |
+<!-- vale off -->
+
 | --- | --- | --- | --- | --- |
 | Pyrami | Amber | Duke | 32 | Pyrami |
 | Hattie | Hattie | Bond | 36 | Netagy |
 | Bates | Nanette | Bates | 28 | Quility |
 | null | Dale | Adams | 33 | null |
+
+<!-- vale on -->
+
 <!-- vale on -->
 
 The following example demonstrates a case statement without an else clause:
@@ -407,12 +491,18 @@ source=accounts
 The query returns the following results:
   
 <!-- vale off -->
+
 | result | firstname | lastname | age |
+<!-- vale off -->
+
 | --- | --- | --- | --- |
 | null | Amber | Duke | 32 |
 | Hattie | Hattie | Bond | 36 |
 | Bates | Nanette | Bates | 28 |
 | null | Dale | Adams | 33 |
+
+<!-- vale on -->
+
 <!-- vale on -->
 
 The following example uses case in a where clause to filter records:
@@ -427,10 +517,16 @@ source=accounts
 The query returns the following results:
   
 <!-- vale off -->
+
 | firstname | lastname | age |
+<!-- vale off -->
+
 | --- | --- | --- |
 | Amber | Duke | 32 |
 | Dale | Adams | 33 |
+
+<!-- vale on -->
+
 <!-- vale on -->
   
 ## COALESCE
@@ -474,15 +570,21 @@ source=accounts
 The query returns the following results:
   
 <!-- vale off -->
+
 | result | firstname | lastname | employer |
+<!-- vale off -->
+
 | --- | --- | --- | --- |
 | Pyrami | Amber | Duke | Pyrami |
 | Netagy | Hattie | Bond | Netagy |
 | Quility | Nanette | Bates | Quility |
 | Dale | Dale | Adams | null |
+
+<!-- vale on -->
+
 <!-- vale on -->
   
-#### Empty String Handling Examples
+#### Empty string handling examples
   
 ```sql
 source=accounts
@@ -495,12 +597,18 @@ source=accounts
 The query returns the following results:
   
 <!-- vale off -->
+
 | result | empty_field | firstname |
+<!-- vale off -->
+
 | --- | --- | --- |
 |  |  | Amber |
 |  |  | Hattie |
 |  |  | Nanette |
 |  |  | Dale |
+
+<!-- vale on -->
+
 <!-- vale on -->
   
 ```sql
@@ -513,15 +621,21 @@ source=accounts
 The query returns the following results:
   
 <!-- vale off -->
+
 | result | firstname |
+<!-- vale off -->
+
 | --- | --- |
 |  | Amber |
 |  | Hattie |
 |  | Nanette |
 |  | Dale |
+
+<!-- vale on -->
+
 <!-- vale on -->
   
-#### Mixed Data Types with Auto Coercion
+#### Mixed data types with auto coercion
   
 ```sql
 source=accounts
@@ -533,15 +647,21 @@ source=accounts
 The query returns the following results:
   
 <!-- vale off -->
+
 | result | employer | balance |
+<!-- vale off -->
+
 | --- | --- | --- |
 | Pyrami | Pyrami | 39225 |
 | Netagy | Netagy | 5686 |
 | Quility | Quility | 32838 |
 | 4180 | null | 4180 |
+
+<!-- vale on -->
+
 <!-- vale on -->
   
-#### Non-existent Field Handling
+#### Non-existent field handling
   
 ```sql
 source=accounts
@@ -553,12 +673,18 @@ source=accounts
 The query returns the following results:
   
 <!-- vale off -->
+
 | result | firstname |
+<!-- vale off -->
+
 | --- | --- |
 | Amber | Amber |
 | Hattie | Hattie |
 | Nanette | Nanette |
 | Dale | Dale |
+
+<!-- vale on -->
+
 <!-- vale on -->
   
 ## ISPRESENT
@@ -587,11 +713,17 @@ source=accounts
 The query returns the following results:
   
 <!-- vale off -->
+
 | employer | firstname |
+<!-- vale off -->
+
 | --- | --- |
 | Pyrami | Amber |
 | Netagy | Hattie |
 | Quility | Nanette |
+
+<!-- vale on -->
+
 <!-- vale on -->
   
 ## ISBLANK
@@ -619,12 +751,18 @@ source=accounts
 The query returns the following results:
   
 <!-- vale off -->
+
 | isblank(temp) | temp | isblank(employer) | employer |
+<!-- vale off -->
+
 | --- | --- | --- | --- |
 | False | Pyrami | False | Pyrami |
 | False | Netagy | False | Netagy |
 | False | Quility | False | Quility |
 | True |  | True | null |
+
+<!-- vale on -->
+
 <!-- vale on -->
   
 ## ISEMPTY
@@ -652,12 +790,18 @@ source=accounts
 The query returns the following results:
   
 <!-- vale off -->
+
 | isempty(temp) | temp | isempty(employer) | employer |
+<!-- vale off -->
+
 | --- | --- | --- | --- |
 | False | Pyrami | False | Pyrami |
 | False | Netagy | False | Netagy |
 | False | Quility | False | Quility |
 | False |  | True | null |
+
+<!-- vale on -->
+
 <!-- vale on -->
   
 ## EARLIEST
@@ -704,9 +848,15 @@ source=accounts
 The query returns the following results:
   
 <!-- vale off -->
+
 | a | b |
+<!-- vale off -->
+
 | --- | --- |
 | False | True |
+
+<!-- vale on -->
+
 <!-- vale on -->
 
 The following example filters records using an absolute time format:
@@ -721,9 +871,15 @@ source=nyc_taxi
 The query returns the following results:
   
 <!-- vale off -->
+
 | cnt |
+<!-- vale off -->
+
 | --- |
 | 972 |
+
+<!-- vale on -->
+
 <!-- vale on -->
   
 ## LATEST
@@ -755,9 +911,15 @@ source=accounts
 The query returns the following results:
   
 <!-- vale off -->
+
 | a | b |
+<!-- vale off -->
+
 | --- | --- |
 | True | True |
+
+<!-- vale on -->
+
 <!-- vale on -->
 
 The following example filters records using latest with an absolute time format:
@@ -772,9 +934,15 @@ source=nyc_taxi
 The query returns the following results:
   
 <!-- vale off -->
+
 | cnt |
+<!-- vale off -->
+
 | --- |
 | 969 |
+
+<!-- vale on -->
+
 <!-- vale on -->
   
 ## REGEXP_MATCH
@@ -801,11 +969,15 @@ source=logs
 ```
 {% include copy.html %}
   
+<!-- vale off -->
+
 | timestamp | message |
 | --- | --- |
 | 2024-01-15 10:23:45 | ERROR: Connection timeout to database |
 | 2024-01-15 10:24:12 | WARN: High memory usage detected |
 | 2024-01-15 10:25:33 | FATAL: System crashed unexpectedly |
+
+<!-- vale on -->
 
 The following example uses regex to validate email addresses:
 
@@ -816,10 +988,14 @@ source=users
 ```
 {% include copy.html %}
   
+<!-- vale off -->
+
 | name | email |
 | --- | --- |
 | John | john@example.com |
 | Alice | alice@company.org |
+
+<!-- vale on -->
 
 The following example filters for valid public IP addresses using regex:
 
@@ -830,10 +1006,14 @@ source=network
 ```
 {% include copy.html %}
   
+<!-- vale off -->
+
 | ip_address | status |
 | --- | --- |
 | 8.8.8.8 | active |
 | 1.1.1.1 | active |
+
+<!-- vale on -->
 
 The following example uses regex for product categorization with case-insensitive matching:
 
@@ -844,8 +1024,12 @@ source=products
 ```
 {% include copy.html %}
   
+<!-- vale off -->
+
 | name | category |
 | --- | --- |
 | Dell Laptop XPS | Computing |
 | iPhone 15 Pro | Mobile |
 | Wireless Mouse | Other |
+
+<!-- vale on -->

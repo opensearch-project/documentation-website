@@ -7,7 +7,9 @@ nav_order: 17
 ---
 
 <!-- vale off -->
+
 # fieldformat
+
 <!-- vale on -->
 
 The `fieldformat` command sets a field to the result of a specified expression and appends the evaluated field to the search results. This command is an alias of [`eval`]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/commands/eval/).
@@ -15,7 +17,9 @@ The `fieldformat` command sets a field to the result of a specified expression a
 It also supports string concatenation using the dot (`.`) operator, allowing you to append strings to expressions.
 
 <!-- vale off -->
+
 ## Syntax
+
 <!-- vale on -->
 
 The `fieldformat` command has the following syntax:
@@ -25,7 +29,9 @@ The `fieldformat` command has the following syntax:
 ```
 
 <!-- vale off -->
+
 ## Parameters
+
 <!-- vale on -->
 
 The `fieldformat` command supports the following parameters.
@@ -38,7 +44,9 @@ The `fieldformat` command supports the following parameters.
 | `suffix`       | Optional | A string placed after the expression. When combined using the dot (`.`) operator, it is concatenated as a suffix to the evaluated result. |
 
 <!-- vale off -->
+
 ## Example 1: Creating a computed field for incident classification  
+
 <!-- vale on -->
 
 The following query creates an `is_critical` field that indicates whether a log entry represents a critical issue, useful for filtering in dashboards:
@@ -57,17 +65,21 @@ source=otellogs
 The query returns the following results:
   
 <!-- vale off -->
+
 | severityText | resource.attributes.service.name | is_critical |
 | --- | --- | --- |
 | WARN | frontend-proxy | ERROR |
 | WARN | frontend-proxy | ERROR |
 | WARN | product-catalog | ERROR |
 | WARN | product-catalog | ERROR |
+
 <!-- vale on -->
   
 
 <!-- vale off -->
+
 ## Example 2: Overriding a field with a formatted value  
+
 <!-- vale on -->
 
 The following query overrides the `severityNumber` field with a human-readable severity tier:
@@ -85,16 +97,20 @@ source=otellogs
 The query returns the following results:
   
 <!-- vale off -->
+
 | severityText | severityNumber |
 | --- | --- |
 | DEBUG | low |
 | INFO | medium |
 | WARN | medium |
 | ERROR | high |
+
 <!-- vale on -->
   
 <!-- vale off -->
+
 ## Related commands
+
 <!-- vale on -->
 
 - [`eval`]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/commands/eval/)

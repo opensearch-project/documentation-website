@@ -7,7 +7,9 @@ nav_order: 10
 ---
 
 <!-- vale off -->
+
 # convert
+
 <!-- vale on -->
 
 The `convert` command uses conversion functions to transform field values into numeric values. Original field values are overwritten unless the `AS` clause is used to create new fields with the converted values.
@@ -21,7 +23,9 @@ The `convert` command has the following properties:
 Use the `AS` clause to preserve the original field while creating a converted field. You can apply multiple conversions within a single command (see [Example 4](#example-4-converting-multiple-fields)).
 
 <!-- vale off -->
+
 ## Syntax
+
 <!-- vale on -->
 
 The `convert` command has the following syntax:
@@ -31,7 +35,9 @@ convert <convert-function>(<field>) [AS <field>] [, <convert-function>(<field>) 
 ```
 
 <!-- vale off -->
+
 ## Parameters
+
 <!-- vale on -->
 
 The `convert` command supports the following parameters.
@@ -43,7 +49,9 @@ The `convert` command supports the following parameters.
 | `AS <field>` | Optional | Creates a new field using the converted value and preserves the original field. |
 
 <!-- vale off -->
+
 ## Conversion Functions
+
 <!-- vale on -->
 
 | Function | Description |
@@ -56,7 +64,9 @@ The `convert` command supports the following parameters.
 | `none(field)` | A no-op function that preserves the original field value. Used for excluding specific fields from wildcard conversions. |
 
 <!-- vale off -->
+
 ## Example 1: Converting a field automatically
+
 <!-- vale on -->
 
 The following query converts the `balance` field to a number using the `auto()` function:
@@ -72,15 +82,19 @@ source=accounts
 The query returns the following results:
 
 <!-- vale off -->
+
 | account_number | balance |
 | --- | --- |
 | 1 | 39225.0 |
 | 6 | 5686.0 |
 | 13 | 32838.0 |
+
 <!-- vale on -->
 
 <!-- vale off -->
+
 ## Example 2: Converting a field containing commas
+
 <!-- vale on -->
 
 The following query converts a field containing comma-separated numbers:
@@ -96,13 +110,17 @@ source=accounts
 The query returns the following results:
 
 <!-- vale off -->
+
 | price |
 | --- |
 | 1234.0 |
+
 <!-- vale on -->
 
 <!-- vale off -->
+
 ## Example 3: Converting a field containing memory units
+
 <!-- vale on -->
 
 The following query converts memory size strings to kilobytes:
@@ -118,13 +136,17 @@ source=system_metrics
 The query returns the following results:
 
 <!-- vale off -->
+
 | memory |
 | --- |
 | 102400.0 |
+
 <!-- vale on -->
 
 <!-- vale off -->
+
 ## Example 4: Converting multiple fields
+
 <!-- vale on -->
 
 The following query converts multiple fields using different conversion functions:
@@ -140,15 +162,19 @@ source=accounts
 The query returns the following results:
 
 <!-- vale off -->
+
 | account_number | balance | age |
 | --- | --- | --- |
 | 1 | 39225.0 | 32.0 |
 | 6 | 5686.0 | 36.0 |
 | 13 | 32838.0 | 28.0 |
+
 <!-- vale on -->
 
 <!-- vale off -->
+
 ## Example 5: Using an AS clause to preserve original values
+
 <!-- vale on -->
 
 The following query creates a new field that contains the converted value while preserving the original field:
@@ -164,15 +190,19 @@ source=accounts
 The query returns the following results:
 
 <!-- vale off -->
+
 | account_number | balance | balance_num |
 | --- | --- | --- |
 | 1 | 39225 | 39225.0 |
 | 6 | 5686 | 5686.0 |
 | 13 | 32838 | 32838.0 |
+
 <!-- vale on -->
 
 <!-- vale off -->
+
 ## Example 6: Extracting numbers from strings containing units
+
 <!-- vale on -->
 
 The following query extracts numeric values from strings containing units:
@@ -189,13 +219,17 @@ source=accounts
 The query returns the following results:
 
 <!-- vale off -->
+
 | duration |
 | --- |
 | 2.0 |
+
 <!-- vale on -->
 
 <!-- vale off -->
+
 ## Example 7: Using aggregation functions
+
 <!-- vale on -->
 
 The following query converts values and uses them in aggregations:
@@ -210,14 +244,18 @@ source=accounts
 The query returns the following results:
 
 <!-- vale off -->
+
 | sum(age) | gender |
 | --- | --- |
 | 28.0 | F |
 | 101.0 | M |
+
 <!-- vale on -->
 
 <!-- vale off -->
+
 ## Example 8: Using none() to preserve field values
+
 <!-- vale on -->
 
 The `none()` function returns the unchanged field value. This is useful for explicitly preserving fields in multi-field conversions:
@@ -233,15 +271,19 @@ source=accounts
 The query returns the following results:
 
 <!-- vale off -->
+
 | account_number | balance | age |
 | --- | --- | --- |
 | 1 | 39225.0 | 32.0 |
 | 6 | 5686.0 | 36.0 |
 | 13 | 32838.0 | 28.0 |
+
 <!-- vale on -->
 
 <!-- vale off -->
+
 ### Using none() with an AS clause for field renaming
+
 <!-- vale on -->
 
 The `none()` function can be combined with the `AS` clause to rename a field without modifying its value:
@@ -257,18 +299,22 @@ source=accounts
 The query returns the following results:
 
 <!-- vale off -->
+
 | account_id | firstname | lastname |
 | --- | --- | --- |
 | 1 | Amber | Duke |
 | 6 | Hattie | Bond |
 | 13 | Nanette | Bates |
+
 <!-- vale on -->
 
 The `none()` function is useful with wildcard support, allowing you to exclude specific fields from bulk conversions.
 {: .note}
 
 <!-- vale off -->
+
 ## Limitations
+
 <!-- vale on -->
 
 The `convert` command requires `plugins.calcite.enabled` to be set to `true`.

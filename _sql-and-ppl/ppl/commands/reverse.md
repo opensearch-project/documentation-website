@@ -7,7 +7,9 @@ nav_order: 39
 ---
 
 <!-- vale off -->
+
 # reverse
+
 <!-- vale on -->
 
 The `reverse` command reverses the display order of the search results. It returns the same results but in the opposite order.
@@ -16,7 +18,9 @@ The `reverse` command processes the entire dataset. If applied directly to milli
 {: .note}
 
 <!-- vale off -->
+
 ## Syntax
+
 <!-- vale on -->
 
 The `reverse` command has the following syntax:
@@ -26,7 +30,9 @@ reverse
 ```
 
 <!-- vale off -->
+
 ## Example 1: Using basic reverse operation
+
 <!-- vale on -->
 
 The following query reverses the order of all documents in the results:
@@ -43,6 +49,7 @@ source=otellogs
 The query returns the following results:
 
 <!-- vale off -->
+
 | severityText | resource.attributes.service.name |
 | --- | --- |
 | DEBUG | cart |
@@ -50,10 +57,13 @@ The query returns the following results:
 | WARN | product-catalog |
 | INFO | cart |
 | INFO | frontend |
+
 <!-- vale on -->
 
 <!-- vale off -->
+
 ## Example 2: Using the reverse and sort commands
+
 <!-- vale on -->
 
 The following query reverses results after sorting by `severityNumber` in ascending order, effectively implementing descending order:
@@ -71,6 +81,7 @@ source=otellogs
 The query returns the following results:
 
 <!-- vale off -->
+
 | severityText | severityNumber |
 | --- | --- |
 | INFO | 9 |
@@ -78,10 +89,13 @@ The query returns the following results:
 | DEBUG | 5 |
 | DEBUG | 5 |
 | DEBUG | 5 |
+
 <!-- vale on -->
 
 <!-- vale off -->
+
 ## Example 3: Using the reverse and head commands
+
 <!-- vale on -->
 
 The following query uses the `reverse` command together with the `head` command to retrieve the last two records from the original result order:
@@ -98,14 +112,18 @@ source=otellogs
 The query returns the following results:
 
 <!-- vale off -->
+
 | severityText | resource.attributes.service.name |
 | --- | --- |
 | ERROR | checkout |
 | DEBUG | cart |
+
 <!-- vale on -->
 
 <!-- vale off -->
+
 ## Example 4: Double reverse
+
 <!-- vale on -->
 
 The following query shows that applying `reverse` twice returns documents in the original order:
@@ -123,6 +141,7 @@ source=otellogs
 The query returns the following results:
 
 <!-- vale off -->
+
 | severityText | resource.attributes.service.name |
 | --- | --- |
 | INFO | frontend |
@@ -130,10 +149,13 @@ The query returns the following results:
 | WARN | product-catalog |
 | ERROR | payment |
 | DEBUG | cart |
+
 <!-- vale on -->
 
 <!-- vale off -->
+
 ## Example 5: Using the reverse command with filtering
+
 <!-- vale on -->
 
 The following query uses the `reverse` command with filtering and field selection:
@@ -150,6 +172,7 @@ source=otellogs
 The query returns the following results:
 
 <!-- vale off -->
+
 | severityText | resource.attributes.service.name |
 | --- | --- |
 | ERROR | checkout |
@@ -159,4 +182,5 @@ The query returns the following results:
 | ERROR | payment |
 | ERROR | checkout |
 | ERROR | payment |
+
 <!-- vale on -->

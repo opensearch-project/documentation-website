@@ -7,13 +7,17 @@ nav_order: 48
 ---
 
 <!-- vale off -->
+
 # table
+
 <!-- vale on -->
 
 The `table` command is an alias for the [`fields`]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/commands/fields/) command and provides the same field selection capabilities. It allows you to keep or remove fields from the search results using enhanced syntax options.
 
 <!-- vale off -->
+
 ## Syntax
+
 <!-- vale on -->
 
 The `table` command has the following syntax:
@@ -23,7 +27,9 @@ table [+|-] <field-list>
 ```
 
 <!-- vale off -->
+
 ## Parameters
+
 <!-- vale on -->
 
 The `table` command supports the following parameters.
@@ -34,7 +40,9 @@ The `table` command supports the following parameters.
 | `[+|-]` | Optional | Specifies the fields to keep or remove. If the plus sign (`+`) is used, only the fields specified in the field list are kept. If the minus sign (`-`) is used, all the fields specified in the field list are removed. Default is `+`. |
 
 <!-- vale off -->
+
 ## Example: Basic table command usage  
+
 <!-- vale on -->
 
 The following query builds a quick incident summary table showing severity, service, and the log message for recent errors:
@@ -52,16 +60,20 @@ source=otellogs
 The query returns the following results:
   
 <!-- vale off -->
+
 | severityText | resource.attributes.service.name | body |
 | --- | --- | --- |
 | ERROR | checkout | NullPointerException in CheckoutService.placeOrder at line 142 |
 | ERROR | checkout | Kafka producer delivery failed: message too large for topic order-events (max 1048576 bytes) |
 | ERROR | frontend-proxy | [2024-02-01T09:20:00.456Z] "POST /api/checkout HTTP/1.1" 503 - 0 30000 checkout-8d4f7b-mk2p9 |
+
 <!-- vale on -->
   
 
 <!-- vale off -->
+
 ## Related documentation 
+
 <!-- vale on -->
 
 - [`fields`]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/commands/fields/) -- An alias command with identical functionality  

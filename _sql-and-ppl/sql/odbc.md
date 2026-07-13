@@ -18,11 +18,11 @@ For information about downloading and using the driver, see [the SQL repository 
 
 The ODBC driver is compatible with ODBC version 3.51.
 
-## Supported OS versions
+## Supported operating system versions
 
 The following operating systems are supported:
 
-Operating System | Version
+Operating system | Version
 :--- | :---
 Windows | Windows 10, Windows 11
 macOS | Catalina 10.15.4, Mojave 10.14.6, Big Sur 11.6.7, Monterey 12.4
@@ -108,6 +108,8 @@ This command gives the application permissions to save the driver and DSN config
 8. For **Data Source Name (DSN)**, enter the name of the DSN used to store connection options (for example, OpenSearch SQL ODBC DSN).
 9. For **Comment**, add an optional comment.
 10. Add key-value pairs by using the `+` button. We recommend the following options for a default local OpenSearch installation:
+<!-- vale off -->
+
    - **Host**: `localhost` - OpenSearch server endpoint
    - **Port**: `9200` - The server port
    - **Auth**: `NONE` - The authentication mode
@@ -115,6 +117,8 @@ This command gives the application permissions to save the driver and DSN config
    - **Password**: `(blank)`- The password used for BASIC auth
    - **ResponseTimeout**: `10` - The number of seconds to wait for a response from the server
    - **UseSSL**: `0` - Do not use SSL for connections
+
+<!-- vale on -->
 
 11. Choose **OK** to save the DSN configuration.
 12. Choose **OK** to exit the iODBC Administrator.
@@ -150,7 +154,9 @@ Option | Description | Type | Default
 `Host / Server` | Hostname or IP address for the target cluster. | `string` | -
 `Port` | Port number on which the OpenSearch cluster's REST interface is listening. | `string` | -
 
-#### Authentication Options
+#### Authentication options
+
+<!-- vale off -->
 
 Option | Description | Type | Default
 :--- | :---
@@ -158,6 +164,8 @@ Option | Description | Type | Default
 `User / UID` | [`Auth=BASIC`] Username for the connection. | `string` | -
 `Password / PWD` | [`Auth=BASIC`] Password for the connection. | `string` | -
 `Region` | [`Auth=AWS_SIGV4`] Region used for signing requests. | `AWS region (for example, us-west-1)` | -
+
+<!-- vale on -->
 
 #### Advanced options
 

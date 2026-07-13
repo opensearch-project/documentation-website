@@ -7,13 +7,17 @@ nav_order: 27
 ---
 
 <!-- vale off -->
+
 # lookup
+
 <!-- vale on -->
 
 The `lookup` command enriches search data by adding or replacing values from a lookup index (dimension table). It allows you to extend fields in your index with values from a dimension table, appending or replacing values when the lookup condition matches. Compared with the `join` command, `lookup` is better suited for enriching source data with a static dataset.
 
 <!-- vale off -->
+
 ## Syntax
+
 <!-- vale on -->
 
 The `lookup` command has the following syntax:
@@ -37,7 +41,9 @@ source = table1 | lookup table2 id as cid, name output dept as department, city 
 ```
 
 <!-- vale off -->
+
 ## Parameters
+
 <!-- vale on -->
 
 The `lookup` command supports the following parameters.
@@ -52,7 +58,9 @@ The `lookup` command supports the following parameters.
 | `(replace \| append \| output)` | Optional | Specifies how matched values are applied to the output. `replace` overwrites existing values with matched values from the lookup index. `append` fills only missing values in the results with matched values from the lookup index. `output` is a synonym for `replace` (provided for SPL compatibility). Default is `replace`. |
   
 <!-- vale off -->
+
 ## Example 1: Replacing existing values  
+
 <!-- vale on -->
 
 The following query uses the `lookup` command with the `replace` strategy to overwrite existing values:  
@@ -67,6 +75,7 @@ source = worker
 The query returns the following results:
 
 <!-- vale off -->
+
 | id | name | occupation | country | salary | department |
 | --- | --- | --- | --- | --- | --- |
 | 1000 | Jake | Engineer | England | 100000 | IT |
@@ -75,11 +84,14 @@ The query returns the following results:
 | 1003 | David | Doctor | null | 120000 | HR |
 | 1004 | David | null | Canada | 0 | null |
 | 1005 | Jane | Scientist | Canada | 90000 | DATA |
+
 <!-- vale on -->
   
 
 <!-- vale off -->
+
 ## Example 2: Appending missing values  
+
 <!-- vale on -->
 
 The following query uses the `lookup` command with the `append` strategy to append missing values only:
@@ -93,7 +105,9 @@ source = worker
   
 
 <!-- vale off -->
+
 ## Example 3: Specifying no input field  
+
 <!-- vale on -->
 
 The following query uses the `lookup` command without specifying an `inputField`, which adds all fields from the lookup index to the results:
@@ -108,6 +122,7 @@ The following query uses the `lookup` command without specifying an `inputField`
 The query returns the following results:
 
 <!-- vale off -->
+
 | id | name | country | salary | department | occupation |
 | --- | --- | --- | --- | --- | --- |
 | 1000 | Jake | England | 100000 | IT | Engineer |
@@ -116,10 +131,13 @@ The query returns the following results:
 | 1003 | David | null | 120000 | HR | Doctor |
 | 1004 | David | Canada | 0 | null | null |
 | 1005 | Jane | Canada | 90000 | DATA | Engineer |
+
 <!-- vale on -->
   
 <!-- vale off -->
+
 ## Example 4: Adding matched values to a new field
+
 <!-- vale on -->
 
 The following query places matched values into a new field specified by `outputField`:
@@ -134,6 +152,7 @@ The following query places matched values into a new field specified by `outputF
 The query returns the following results:
 
 <!-- vale off -->
+
 | id | name | occupation | country | salary | new_col |
 | --- | --- | --- | --- | --- | --- |
 | 1003 | David | Doctor | null | 120000 | Doctor |
@@ -142,10 +161,13 @@ The query returns the following results:
 | 1000 | Jake | Engineer | England | 100000 | Engineer |
 | 1005 | Jane | Scientist | Canada | 90000 | Engineer |
 | 1002 | John | Doctor | Canada | 120000 | Scientist |
+
 <!-- vale on -->
 
 <!-- vale off -->
+
 ## Example 5: Using OUTPUT keyword
+
 <!-- vale on -->
 
 The `OUTPUT` keyword is a synonym for `REPLACE`. The following query demonstrates using `OUTPUT` to overwrite existing values:
@@ -160,6 +182,7 @@ source = worker
 This query produces the same results as Example 1 (using `REPLACE`):
 
 <!-- vale off -->
+
 | id | name | occupation | country | salary | department |
 | --- | --- | --- | --- | --- | --- |
 | 1000 | Jake | Engineer | England | 100000 | IT |
@@ -168,4 +191,5 @@ This query produces the same results as Example 1 (using `REPLACE`):
 | 1003 | David | Doctor | null | 120000 | HR |
 | 1004 | David | null | Canada | 0 | null |
 | 1005 | Jane | Scientist | Canada | 90000 | DATA |
+
 <!-- vale on -->

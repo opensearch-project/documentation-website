@@ -7,7 +7,9 @@ nav_order: 46
 ---
 
 <!-- vale off -->
+
 # streamstats
+
 <!-- vale on -->
 
 The `streamstats` command calculates cumulative or rolling statistics as events that are processed in order. Unlike `stats` or `eventstats`, which operate on the entire dataset at once, `streamstats` processes events incrementally, making it suitable for time-series and sequence-based analysis.
@@ -15,7 +17,9 @@ The `streamstats` command calculates cumulative or rolling statistics as events 
 Key features include support for the `window` (sliding window calculations) and `current` (whether to include the current event in calculations) parameters and specialized use cases such as identifying trends or detecting changes over sequences of events.  
   
 <!-- vale off -->
+
 ## Comparing stats, eventstats, and streamstats
+
 <!-- vale on -->
 
 The `stats`, `eventstats`, and `streamstats` commands can all generate aggregations such as average, sum, and maximum. However, they differ in how they operate and the results they produce. The following table summarizes these differences.
@@ -29,7 +33,9 @@ The `stats`, `eventstats`, and `streamstats` commands can all generate aggregati
   
 
 <!-- vale off -->
+
 ## Syntax
+
 <!-- vale on -->
 
 The `streamstats` command has the following syntax:
@@ -57,7 +63,9 @@ source = table | streamstats current=false reset_after=a>31 avg(b) by c
 {% include copy.html %}
 
 <!-- vale off -->
+
 ## Parameters
+
 <!-- vale on -->
 
 The `streamstats` command supports the following parameters.
@@ -76,7 +84,9 @@ The `streamstats` command supports the following parameters.
 
 
 <!-- vale off -->
+
 ## Aggregation functions  
+
 <!-- vale on -->
 
 The `streamstats` command supports the following aggregation functions:
@@ -97,7 +107,9 @@ The `streamstats` command supports the following aggregation functions:
 For detailed documentation of each function, see [Aggregation Functions]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/functions/aggregations/).
 
 <!-- vale off -->
+
 ## Example 1: Calculating the running count of errors by service  
+
 <!-- vale on -->
 
 The following query calculates a running count of error logs, grouped by service. This is useful for tracking how errors accumulate across services during an incident:
@@ -115,6 +127,7 @@ source=otellogs
 The query returns the following results:
   
 <!-- vale off -->
+
 | resource.attributes.service.name | severityText | running_count |
 | --- | --- | --- |
 | checkout | ERROR | 1 |
@@ -128,11 +141,14 @@ The query returns the following results:
 | product-catalog | WARN | 2 |
 | product-catalog | ERROR | 3 |
 | recommendation | ERROR | 1 |
+
 <!-- vale on -->
   
 
 <!-- vale off -->
+
 ## Example 2: Calculating running maximum severity over a sliding window
+
 <!-- vale on -->
 
 The following query calculates the running maximum severity level over the previous 2 log entries, excluding the current event. This is useful for alerting when severity escalates beyond recent patterns:
@@ -150,6 +166,7 @@ source=otellogs
 The query returns the following results:
 
 <!-- vale off -->
+
 | @timestamp | severityText | severityNumber | prev_max_severity |
 | --- | --- | --- | --- |
 | 2024-02-01 09:10:00 | INFO | 9 | null |
@@ -158,11 +175,14 @@ The query returns the following results:
 | 2024-02-01 09:13:00 | ERROR | 17 | 13 |
 | 2024-02-01 09:14:00 | DEBUG | 5 | 17 |
 | 2024-02-01 09:15:00 | ERROR | 17 | 17 |
+
 <!-- vale on -->
   
 
 <!-- vale off -->
+
 ## Example 3: Comparing global with group-specific windows  
+
 <!-- vale on -->
 
 The `global` parameter takes the following values:
@@ -173,6 +193,7 @@ The `global` parameter takes the following values:
 The following example uses a sample index containing the following data:
 
 <!-- vale off -->
+
 | name | country | state | month | year | age |
 | --- | --- | --- | --- | --- | --- |
 | Jake | USA | California | 4 | 2023 | 70 |
@@ -183,6 +204,7 @@ The following example uses a sample index containing the following data:
 | Peter | Canada | B.C | 4 | 2023 | 57 |
 | Rick | Canada | B.C | 4 | 2023 | 70 |
 | David | USA | Washington | 4 | 2023 | 40 |
+
 <!-- vale on -->
 
 The following examples calculate the running average of `age` across accounts by country, using a different `global` parameter.  
@@ -198,6 +220,7 @@ source=state_country
 As a result, `David` and `Rick` are included in the same sliding window when computing `running_avg` across all rows globally:
   
 <!-- vale off -->
+
 | name | country | state | month | year | age | running_avg |
 | --- | --- | --- | --- | --- | --- | --- |
 | Jake | USA | California | 4 | 2023 | 70 | 70.0 |
@@ -208,6 +231,7 @@ As a result, `David` and `Rick` are included in the same sliding window when com
 | Peter | Canada | B.C | 4 | 2023 | 57 | 42.0 |
 | Rick | Canada | B.C | 4 | 2023 | 70 | 63.5 |
 | David | USA | Washington | 4 | 2023 | 40 | 40.0 |
+
 <!-- vale on -->
   
 In contrast, when `global=false`, each `by` group forms an independent stream and window:
@@ -221,6 +245,7 @@ source=state_country
 `David` and `Hello` form a window for the `USA` group. As a result, for `David`, the `running_avg` is `35.0` instead of `40.0` in the previous case:
   
 <!-- vale off -->
+
 | name | country | state | month | year | age | running_avg |
 | --- | --- | --- | --- | --- | --- | --- |
 | Jake | USA | California | 4 | 2023 | 70 | 70.0 |
@@ -231,11 +256,14 @@ source=state_country
 | Peter | Canada | B.C | 4 | 2023 | 57 | 42.0 |
 | Rick | Canada | B.C | 4 | 2023 | 70 | 63.5 |
 | David | USA | Washington | 4 | 2023 | 40 | 35.0 |
+
 <!-- vale on -->
   
 
 <!-- vale off -->
+
 ## Example 4: Resetting statistics conditionally  
+
 <!-- vale on -->
 
 The following query calculates the running average of `age` across accounts by `country`, with resets applied:
@@ -249,6 +277,7 @@ source=state_country
 The query returns the following results:
   
 <!-- vale off -->
+
 | name | country | state | month | year | age | avg_age |
 | --- | --- | --- | --- | --- | --- | --- |
 | Jake | USA | California | 4 | 2023 | 70 | null |
@@ -259,12 +288,15 @@ The query returns the following results:
 | Peter | Canada | B.C | 4 | 2023 | 57 | null |
 | Rick | Canada | B.C | 4 | 2023 | 70 | null |
 | David | USA | Washington | 4 | 2023 | 40 | null |
+
 <!-- vale on -->
   
 
 
 <!-- vale off -->
+
 ## Example 5: Null bucket behavior
+
 <!-- vale on -->
 
 When `bucket_nullable=false`, null values are excluded from group-by aggregations:
@@ -279,12 +311,14 @@ source=accounts
 Rows in which the `by` field is `null` are excluded from aggregation, so the `cnt` for `Dale` is `null`:
   
 <!-- vale off -->
+
 | account_number | firstname | employer | cnt |
 | --- | --- | --- | --- |
 | 1 | Amber | Pyrami | 1 |
 | 6 | Hattie | Netagy | 1 |
 | 13 | Nanette | Quility | 1 |
 | 18 | Dale | null | null |
+
 <!-- vale on -->
   
 When `bucket_nullable=true`, null values are treated as a valid group:
@@ -299,10 +333,12 @@ source=accounts
 As a result, the `cnt` for `Dale` is included and calculated normally:
   
 <!-- vale off -->
+
 | account_number | firstname | employer | cnt |
 | --- | --- | --- | --- |
 | 1 | Amber | Pyrami | 1 |
 | 6 | Hattie | Netagy | 1 |
 | 13 | Nanette | Quility | 1 |
 | 18 | Dale | null | 1 |
+
 <!-- vale on -->

@@ -7,7 +7,9 @@ nav_order: 32
 ---
 
 <!-- vale off -->
+
 # nomv
+
 <!-- vale on -->
 
 The `nomv` command converts a multivalue (array) field into a single-value string field by joining all array elements with newline characters (`\n`). This operation is performed in place, replacing the original field with its joined string representation.
@@ -16,7 +18,9 @@ The field must be an array type. For scalar fields, use the [`array()`]({{site.u
 {: .note}
 
 <!-- vale off -->
+
 ## Syntax
+
 <!-- vale on -->
 
 The `nomv` command has the following syntax:
@@ -26,7 +30,9 @@ nomv <field>
 ```
 
 <!-- vale off -->
+
 ## Parameters
+
 <!-- vale on -->
 
 The `nomv` command supports the following parameters.
@@ -36,7 +42,9 @@ The `nomv` command supports the following parameters.
 | `<field>` | Required | The name of the field whose multivalue content should be converted to a single-value string. |
 
 <!-- vale off -->
+
 ## Example: Convert a collected list to a single-value string
+
 <!-- vale on -->
 
 The following query collects all service names into an array. It then filters to include only services that reported errors and converts the array into a string:
@@ -54,6 +62,7 @@ source=otellogs
 The query returns the following results:
 
 <!-- vale off -->
+
 | severityText | affected_services |
 | --- | --- |
 | ERROR | payment |
@@ -63,10 +72,13 @@ The query returns the following results:
 |  | recommendation |
 |  | product-catalog |
 |  | checkout |
+
 <!-- vale on -->
 
 <!-- vale off -->
+
 ## Limitations
+
 <!-- vale on -->
 
 The `nomv` command has the following limitations:
@@ -76,7 +88,9 @@ The `nomv` command has the following limitations:
 - `NULL` values within the array are automatically filtered out and do not appear in the output.
 
 <!-- vale off -->
+
 ## Related commands
+
 <!-- vale on -->
 
 - [`mvcombine`]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/commands/mvcombine/) -- Combines multiple rows into a single row with multivalue fields.

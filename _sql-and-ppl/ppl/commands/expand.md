@@ -7,7 +7,9 @@ nav_order: 15
 ---
 
 <!-- vale off -->
+
 # expand
+
 <!-- vale on -->
 
 The `expand` command transforms a single document with a nested array field into multiple documents, each containing one element of the array. All other fields in the original document are duplicated across the resulting documents.
@@ -20,7 +22,9 @@ The `expand` command operates in the following way:
 * If the specified field is an empty array, the row is retained with the expanded field set to `null`.
 
 <!-- vale off -->
+
 ## Syntax
+
 <!-- vale on -->
 
 The `expand` command has the following syntax:
@@ -30,7 +34,9 @@ expand <field> [as alias]
 ```
 
 <!-- vale off -->
+
 ## Parameters
+
 <!-- vale on -->
 
 The `expand` command supports the following parameters.
@@ -42,7 +48,9 @@ The `expand` command supports the following parameters.
   
 
 <!-- vale off -->
+
 ## Example: Expand a collected list of services into individual rows  
+
 <!-- vale on -->
 
 The following query first collects all service names per severity level into an array using `stats list()`, then expands each array element into its own row. This is useful when you need to go from an aggregated view back to individual rows:
@@ -60,17 +68,21 @@ source=otellogs
 The query returns the following results:
   
 <!-- vale off -->
+
 | severityText | service |
 | --- | --- |
 | WARN | product-catalog |
 | WARN | product-catalog |
 | WARN | frontend-proxy |
 | WARN | frontend-proxy |
+
 <!-- vale on -->
   
 
 <!-- vale off -->
+
 ## Limitations
+
 <!-- vale on -->
 
 The `expand` command has the following limitations:

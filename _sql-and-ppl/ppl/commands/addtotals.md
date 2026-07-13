@@ -7,7 +7,9 @@ nav_order: 4
 ---
 
 <!-- vale off -->
+
 # addtotals
+
 <!-- vale on -->
 
 The `addtotals` command computes the sum of numeric fields and can create both column totals (summary row) and row totals (new field). This command is useful for creating summary reports with subtotals or grand totals.
@@ -16,7 +18,9 @@ The command only processes numeric fields (integers, floats, doubles). Non-numer
 
 
 <!-- vale off -->
+
 ## Syntax
+
 <!-- vale on -->
 
 The `addtotals` command has the following syntax:
@@ -26,7 +30,9 @@ addtotals [field-list] [label=<string>] [labelfield=<field>] [row=<boolean>] [co
 ```
 
 <!-- vale off -->
+
 ## Parameters
+
 <!-- vale on -->
 
 The `addtotals` command supports the following parameters.
@@ -41,7 +47,9 @@ The `addtotals` command supports the following parameters.
 | `fieldname` | Optional | The field used to store row totals. Applicable when `row=true`. |
 
 <!-- vale off -->
+
 ## Example 1: Adding column totals
+
 <!-- vale on -->
 
 The following query counts errors and warnings per service, then adds a column total row showing the grand totals:
@@ -61,6 +69,7 @@ source=otellogs
 The query returns the following results:
 
 <!-- vale off -->
+
 | resource.attributes.service.name | errors | warnings | Total |
 | --- | --- | --- | --- |
 | checkout | 2 | 0 | 2 |
@@ -69,10 +78,13 @@ The query returns the following results:
 | product-catalog | 1 | 2 | 3 |
 | recommendation | 1 | 0 | 1 |
 | Total | 7 | 4 | null |
+
 <!-- vale on -->
 
 <!-- vale off -->
+
 ## Example 2: Adding row totals
+
 <!-- vale on -->
 
 The following query counts errors and warnings separately per service, then adds a row total showing the combined count of actionable issues per service:
@@ -92,6 +104,7 @@ source=otellogs
 The query returns the following results:
 
 <!-- vale off -->
+
 | resource.attributes.service.name | errors | warnings | total_issues |
 | --- | --- | --- | --- |
 | checkout | 2 | 0 | 2 |
@@ -99,10 +112,13 @@ The query returns the following results:
 | payment | 2 | 0 | 2 |
 | product-catalog | 1 | 2 | 3 |
 | recommendation | 1 | 0 | 1 |
+
 <!-- vale on -->
 
 <!-- vale off -->
+
 ## Example 3: Using all options
+
 <!-- vale on -->
 
 The following query uses the `addtotals` command with all options set, combining both row totals and column totals in a single report:
@@ -122,6 +138,7 @@ source=otellogs
 The query returns the following results:
 
 <!-- vale off -->
+
 | resource.attributes.service.name | errors | warnings | Row Total | Column Total |
 | --- | --- | --- | --- | --- |
 | checkout | 2 | 0 | 2 | null |
@@ -130,4 +147,5 @@ The query returns the following results:
 | product-catalog | 1 | 2 | 3 | null |
 | recommendation | 1 | 0 | 1 | null |
 | null | 7 | 4 | null | Sum |
+
 <!-- vale on -->

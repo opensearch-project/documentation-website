@@ -41,11 +41,13 @@ source=accounts
 The query returns the following results:
   
 <!-- vale off -->
+
 | age |
 | --- |
 | 32 |
 | 36 |
 | 33 |
+
 <!-- vale on -->
   
 ## Predicate operators
@@ -98,9 +100,11 @@ source=accounts
 The query returns the following results:
   
 <!-- vale off -->
+
 | age |
 | --- |
 | 36 |
+
 <!-- vale on -->
   
 The `==` operator can be used as an alternative to `=` for equality comparisons.
@@ -115,9 +119,11 @@ source=accounts
 The query returns the following results:
   
 <!-- vale off -->
+
 | age |
 | --- |
 | 32 |
+
 <!-- vale on -->
   
 Both `=` and `==` perform the same equality comparison. You can use either based on your preference.
@@ -137,10 +143,12 @@ source=accounts
 The query returns the following results:
   
 <!-- vale off -->
+
 | age |
 | --- |
 | 32 |
 | 33 |
+
 <!-- vale on -->
 
 #### OR
@@ -157,10 +165,12 @@ source=accounts
 The query returns the following results:
   
 <!-- vale off -->
+
 | age |
 | --- |
 | 32 |
 | 33 |
+
 <!-- vale on -->
 
 #### NOT
@@ -177,8 +187,10 @@ source=accounts
 The query returns the following results:
   
 <!-- vale off -->
+
 | age |
 | --- |
 | 36 |
 | 28 |
+
 <!-- vale on -->

@@ -7,7 +7,9 @@ nav_order: 13
 ---
 
 <!-- vale off -->
+
 # eval
+
 <!-- vale on -->
 
 The `eval` command evaluates the specified expression and appends the result of the evaluation to the search results.
@@ -18,7 +20,9 @@ The `eval` command is not rewritten to [query domain-specific language (DSL)]({{
 {: .note}
 
 <!-- vale off -->
+
 ## Syntax
+
 <!-- vale on -->
 
 The `eval` command has the following syntax:
@@ -28,7 +32,9 @@ eval <field>=<expression> ["," <field>=<expression> ]...
 ```
 
 <!-- vale off -->
+
 ## Parameters
+
 <!-- vale on -->
 
 The `eval` command supports the following parameters.
@@ -40,7 +46,9 @@ The `eval` command supports the following parameters.
   
 
 <!-- vale off -->
+
 ## Example 1: Classifying logs by severity tier  
+
 <!-- vale on -->
 
 The following query creates an `is_critical` field that classifies each log as critical or non-critical based on severity, useful for building alert rules:
@@ -58,17 +66,21 @@ source=otellogs
 The query returns the following results:
   
 <!-- vale off -->
+
 | severityText | is_critical |
 | --- | --- |
 | DEBUG | no |
 | INFO | no |
 | WARN | no |
 | ERROR | yes |
+
 <!-- vale on -->
   
 
 <!-- vale off -->
+
 ## Example 2: Finding untraced errors  
+
 <!-- vale on -->
 
 The following query creates two boolean fields to identify error logs and whether they have distributed tracing context. Untraced errors are harder to debug because you can't follow the request across services:
@@ -86,6 +98,7 @@ source=otellogs
 The query returns the following results:
   
 <!-- vale off -->
+
 | resource.attributes.service.name | is_error | is_traced |
 | --- | --- | --- |
 | checkout | True | True |
@@ -95,11 +108,14 @@ The query returns the following results:
 | payment | True | False |
 | product-catalog | True | False |
 | recommendation | True | True |
+
 <!-- vale on -->
   
 
 <!-- vale off -->
+
 ## Example 3: Building a standardized log line  
+
 <!-- vale on -->
 
 The following query prepends the severity level to the log body, creating a standardized format for export or alerting:
@@ -118,10 +134,12 @@ source=otellogs
 The query returns the following results:
   
 <!-- vale off -->
+
 | formatted |
 | --- |
 | [WARN] SSL certificate for api.example.com expires in 14 days |
 | [WARN] Rate limit threshold reached: 450/500 requests per minute for API key ending in ...abc789 |
 | [WARN] Slow query detected: SELECT \* FROM products WHERE category = 'electronics' took 3200ms |
+
 <!-- vale on -->
   

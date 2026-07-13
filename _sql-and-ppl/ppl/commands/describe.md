@@ -7,13 +7,17 @@ nav_order: 12
 ---
 
 <!-- vale off -->
+
 # describe
+
 <!-- vale on -->
 
 The `describe` command queries index metadata. The `describe` command can only be used as the first command in the PPL query.
 
 <!-- vale off -->
+
 ## Syntax
+
 <!-- vale on -->
 
 The `describe` command has the following syntax. The argument to the command is a dot-separated path to the table consisting of an optional data source, optional schema, and required table name:
@@ -23,7 +27,9 @@ describe [<data-source>.][<schema>.]<table-name>
 ```
 
 <!-- vale off -->
+
 ## Parameters
+
 <!-- vale on -->
 
 The `describe` command supports the following parameters.
@@ -35,7 +41,9 @@ The `describe` command supports the following parameters.
 | `<schema>` | Optional | The schema to use. Default is the default schema. |
 
 <!-- vale off -->
+
 ## Example 1: Fetching all metadata  
+
 <!-- vale on -->
 
 This example describes the `accounts` index:
@@ -48,6 +56,7 @@ describe accounts
 The query returns the following results:
   
 <!-- vale off -->
+
 | TABLE_CAT | TABLE_SCHEM | TABLE_NAME | COLUMN_NAME | DATA_TYPE | TYPE_NAME | COLUMN_SIZE | BUFFER_LENGTH | DECIMAL_DIGITS | NUM_PREC_RADIX | NULLABLE | REMARKS | COLUMN_DEF | SQL_DATA_TYPE | SQL_DATETIME_SUB | CHAR_OCTET_LENGTH | ORDINAL_POSITION | IS_NULLABLE | SCOPE_CATALOG | SCOPE_SCHEMA | SCOPE_TABLE | SOURCE_DATA_TYPE | IS_AUTOINCREMENT | IS_GENERATEDCOLUMN |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | docTestCluster | null | accounts | account_number | null | bigint | null | null | null | 10 | 2 | null | null | null | null | null | 0 |  | null | null | null | null | NO |  |
@@ -61,11 +70,14 @@ The query returns the following results:
 | docTestCluster | null | accounts | age | null | bigint | null | null | null | 10 | 2 | null | null | null | null | null | 8 |  | null | null | null | null | NO |  |
 | docTestCluster | null | accounts | email | null | string | null | null | null | 10 | 2 | null | null | null | null | null | 9 |  | null | null | null | null | NO |  |
 | docTestCluster | null | accounts | lastname | null | string | null | null | null | 10 | 2 | null | null | null | null | null | 10 |  | null | null | null | null | NO |  |
+
 <!-- vale on -->
   
 
 <!-- vale off -->
+
 ## Example 2: Fetching metadata with a condition and filter  
+
 <!-- vale on -->
 
 This example retrieves columns of the type `bigint` from the `accounts` index:
@@ -80,16 +92,20 @@ describe accounts
 The query returns the following results:
   
 <!-- vale off -->
+
 | COLUMN_NAME |
 | --- |
 | account_number |
 | balance |
 | age |
+
 <!-- vale on -->
   
 <!-- temporarily commented out because the admin section is not ported
 <!-- vale off -->
+
 ## Example 3: Fetching table metadata for a Prometheus data source
+
 <!-- vale on -->
 
 See [Fetch metadata for table in Prometheus datasource]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/admin/datasources/) for more context.

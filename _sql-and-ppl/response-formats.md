@@ -28,7 +28,7 @@ POST _plugins/_sql
 
 #### Example response
 
-In the response, the `schema` contains the field names and types, and the `datarows` field contains the result set:
+In the response, the `schema` contains the field names and types, and the `datarows` field contains the The query returns the following results:
 
 ```json
 {

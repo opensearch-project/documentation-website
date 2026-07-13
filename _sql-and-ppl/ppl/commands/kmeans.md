@@ -7,7 +7,9 @@ nav_order: 26
 ---
 
 <!-- vale off -->
+
 # kmeans (Deprecated)
+
 <!-- vale on -->
 
 The `kmeans` command is deprecated in favor of the [`ml` command]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/commands/ml/).
@@ -19,7 +21,9 @@ To use the `kmeans` command, `plugins.calcite.enabled` must be set to `false`.
 {: .note}
 
 <!-- vale off -->
+
 ## Syntax
+
 <!-- vale on -->
 
 The `kmeans` command has the following syntax:
@@ -29,7 +33,9 @@ kmeans <centroids> <iterations> <distance_type>
 ```
 
 <!-- vale off -->
+
 ## Parameters
+
 <!-- vale on -->
 
 The `kmeans` command supports the following parameters.
@@ -42,7 +48,9 @@ The `kmeans` command supports the following parameters.
   
 
 <!-- vale off -->
+
 ## Example: Clustering of the Iris dataset  
+
 <!-- vale on -->
 
 The following query classifies three Iris species (Iris setosa, Iris virginica, and Iris versicolor) based on the combination of four features measured from each sample (the lengths and widths of sepals and petals):
@@ -57,11 +65,13 @@ source=iris_data
 The query returns the following results:
   
 <!-- vale off -->
+
 | sepal_length_in_cm | sepal_width_in_cm | petal_length_in_cm | petal_width_in_cm | ClusterID |
 | --- | --- | --- | --- | --- |
 | 5.1 | 3.5 | 1.4 | 0.2 | 1 |
 | 5.6 | 3.0 | 4.1 | 1.3 | 0 |
 | 6.7 | 2.5 | 5.8 | 1.8 | 2 |
+
 <!-- vale on -->
   
 

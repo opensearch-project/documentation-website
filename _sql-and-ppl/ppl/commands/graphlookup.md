@@ -7,7 +7,9 @@ nav_order: 21
 ---
 
 <!-- vale off -->
+
 # graphLookup
+
 <!-- vale on -->
 
 This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).
@@ -26,7 +28,9 @@ The `graphLookup` command performs a breadth-first search (BFS) traversal:
 For bidirectional traversal (`<->`), the algorithm also follows edges in the reverse direction by additionally matching `fromField` values.
 
 <!-- vale off -->
+
 ## Syntax
+
 <!-- vale on -->
 
 The `graphLookup` command has the following syntax:
@@ -48,7 +52,9 @@ source = employees | graphLookup employees start=reportsTo edge=reportsTo-->name
 ```
 
 <!-- vale off -->
+
 ## Parameters
+
 <!-- vale on -->
 
 The `graphLookup` command supports the following parameters.
@@ -67,7 +73,9 @@ The `graphLookup` command supports the following parameters.
 | `as <outputField>` | Required | The name of the output field that stores all documents discovered during traversal. |
 
 <!-- vale off -->
+
 ### Edge parameters
+
 <!-- vale on -->
 
 The `edge` parameter uses the syntax `edge=<fromField><operator><toField>` and consists of the following components.
@@ -79,7 +87,9 @@ The `edge` parameter uses the syntax `edge=<fromField><operator><toField>` and c
 | `operator` | Specifies the direction of traversal:<br>- `-->` performs a **unidirectional** traversal from `fromField` to `toField` only (for example, `edge=reportsTo-->name` traverses from `reportsTo` to `name` in one direction only).<br>- `<->` performs a **bidirectional** traversal between `fromField` and `toField` (for example, `edge=reportsTo<->name` traverses between `reportsTo` and `name` in both directions). |
 
 <!-- vale off -->
+
 ## Example 1: Traversing an employee hierarchy
+
 <!-- vale on -->
 
 Consider an `employees` index containing the following documents.
@@ -107,6 +117,7 @@ source = employees
 The query returns the following results:
 
 <!-- vale off -->
+
 | name | reportsTo | id | reportingHierarchy |
 | --- | --- | --- | --- |
 | Dev | Eliot | 1 | [{name:Eliot, reportsTo:Ron, id:2}] |
@@ -115,12 +126,15 @@ The query returns the following results:
 | Andrew | null | 4 | [] |
 | Asya | Ron | 5 | [{name:Ron, reportsTo:Andrew, id:3}] |
 | Dan | Andrew | 6 | [{name:Andrew, reportsTo:null, id:4}] |
+
 <!-- vale on -->
 
 Each element in the `reportingHierarchy` array is a `struct` containing named fields from the lookup index. For the employee named `Dev`, the traversal starts with `reportsTo="Eliot"`, finds the record for `Eliot`, and includes it in the `reportingHierarchy` array.
 
 <!-- vale off -->
+
 ## Example 2: Adding depth tracking
+
 <!-- vale on -->
 
 The following query adds a `depthField` named `level` to track the number of levels each manager is from the employee:
@@ -138,6 +152,7 @@ source = employees
 The query returns the following results:
 
 <!-- vale off -->
+
 | name | reportsTo | id | reportingHierarchy |
 | --- | --- | --- | --- |
 | Dev | Eliot | 1 | [{name:Eliot, reportsTo:Ron, id:2, level:0}] |
@@ -146,12 +161,15 @@ The query returns the following results:
 | Andrew | null | 4 | [] |
 | Asya | Ron | 5 | [{name:Ron, reportsTo:Andrew, id:3, level:0}] |
 | Dan | Andrew | 6 | [{name:Andrew, reportsTo:null, id:4, level:0}] |
+
 <!-- vale on -->
 
 The `level` field is added to each struct in the result array. A value of `0` indicates the first level of matches.
 
 <!-- vale off -->
+
 ## Example 3: Limiting the traversal depth
+
 <!-- vale on -->
 
 The following query limits traversal to two levels using `maxDepth=1` (depth `0` and `1`):
@@ -169,6 +187,7 @@ source = employees
 The query returns the following results:
 
 <!-- vale off -->
+
 | name | reportsTo | id | reportingHierarchy |
 | --- | --- | --- | --- |
 | Dev | Eliot | 1 | [{name:Eliot, reportsTo:Ron, id:2}, {name:Ron, reportsTo:Andrew, id:3}] |
@@ -177,10 +196,13 @@ The query returns the following results:
 | Andrew | null | 4 | [] |
 | Asya | Ron | 5 | [{name:Ron, reportsTo:Andrew, id:3}, {name:Andrew, reportsTo:null, id:4}] |
 | Dan | Andrew | 6 | [{name:Andrew, reportsTo:null, id:4}] |
+
 <!-- vale on -->
 
 <!-- vale off -->
+
 ## Example 4: Finding reachable airports
+
 <!-- vale on -->
 
 Consider an `airports` index containing the following documents.
@@ -207,6 +229,7 @@ source = airports
 The query returns the following results:
 
 <!-- vale off -->
+
 | airport | connects | reachableAirports |
 | --- | --- | --- |
 | JFK | [BOS, ORD] | [{airport:JFK, connects:[BOS, ORD]}] |
@@ -214,10 +237,13 @@ The query returns the following results:
 | ORD | [JFK] | [{airport:ORD, connects:[JFK]}] |
 | PWM | [BOS, LHR] | [{airport:PWM, connects:[BOS, LHR]}] |
 | LHR | [PWM] | [{airport:LHR, connects:[PWM]}] |
+
 <!-- vale on -->
 
 <!-- vale off -->
+
 ## Example 5: Using different source and lookup indexes
+
 <!-- vale on -->
 
 The `graphLookup` command can use different source and lookup indexes. 
@@ -244,15 +270,19 @@ source = travelers
 The query returns the following results:
 
 <!-- vale off -->
+
 | name | nearestAirport | reachableAirports |
 | --- | --- | --- |
 | Dev | JFK | [{airport:JFK, connects:[BOS, ORD]}] |
 | Eliot | JFK | [{airport:JFK, connects:[BOS, ORD]}] |
 | Jeff | BOS | [{airport:BOS, connects:[JFK, PWM]}] |
+
 <!-- vale on -->
 
 <!-- vale off -->
+
 ## Example 6: Traversing the graph bidirectionally
+
 <!-- vale on -->
 
 The following query performs bidirectional traversal to find both managers and colleagues who share the same manager:
@@ -270,9 +300,11 @@ source = employees
 The query returns the following results:
 
 <!-- vale off -->
+
 | name | reportsTo | id | connections |
 | --- | --- | --- | --- |
 | Ron | Andrew | 3 | [{name:Ron, reportsTo:Andrew, id:3}, {name:Andrew, reportsTo:null, id:4}, {name:Dan, reportsTo:Andrew, id:6}] |
+
 <!-- vale on -->
 
 With bidirectional traversal, Ron's connections include the following records:
@@ -282,7 +314,9 @@ With bidirectional traversal, Ron's connections include the following records:
 - His peer (Dan, who also reports to Andrew).
 
 <!-- vale off -->
+
 ## Batch mode
+
 <!-- vale on -->
 
 When `batchMode=true`, the `graphLookup` command collects all start values from all source rows and performs a single unified BFS traversal instead of traversing each row separately.
@@ -328,13 +362,17 @@ source = travelers
 ```
 
 <!-- vale off -->
+
 ## Array fields
+
 <!-- vale on -->
 
 When the `fromField` or `toField` contains array values, set `supportArray=true` to ensure correct traversal behavior.
 
 <!-- vale off -->
+
 ## PIT Search
+
 <!-- vale on -->
 
 By default, each level of BFS traversal limits the number of returned documents to the `max_result_window` setting of the lookup index (typically, 10,000). This avoids the overhead of Point In Time (PIT) search but may return incomplete results when a single traversal level matches more documents than the limit.
@@ -360,7 +398,9 @@ source = employees
 {% include copy.html %}
 
 <!-- vale off -->
+
 ## Filtered graph traversal
+
 <!-- vale on -->
 
 The `filter` parameter restricts the documents in the lookup index that are considered during BFS traversal. Only documents matching the filter condition are included as candidates at each traversal level.
@@ -380,7 +420,9 @@ source = employees
 The filter is applied at the OpenSearch query level, so it combines efficiently with the BFS traversal queries. At each BFS level, the query sent to OpenSearch is  `bool { filter: [user_filter, bfs_terms_query] }`.
 
 <!-- vale off -->
+
 ## Limitations
+
 <!-- vale on -->
 
 Note the following limitations of the `graphLookup` command:

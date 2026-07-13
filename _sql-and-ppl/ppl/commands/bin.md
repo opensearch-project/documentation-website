@@ -7,13 +7,17 @@ nav_order: 8
 ---
 
 <!-- vale off -->
+
 # bin
+
 <!-- vale on -->
 
 The `bin` command groups numeric values into buckets of equal intervals, which is useful for creating histograms and analyzing data distribution. It accepts a numeric or time-based field and generates a new field containing values that represent the lower bound of each bucket.
 
 <!-- vale off -->
+
 ## Syntax
+
 <!-- vale on -->
 
 The `bin` command has the following syntax:
@@ -23,7 +27,9 @@ bin <field> [span=<interval>] [minspan=<interval>] [bins=<count>] [aligntime=(ea
 ```
 
 <!-- vale off -->
+
 ## Parameters
+
 <!-- vale on -->
 
 The `bin` command supports the following parameters.
@@ -39,7 +45,9 @@ The `bin` command supports the following parameters.
 | `end` | Optional | The ending value of the interval range. Default is the maximum value of the field. |
 
 <!-- vale off -->
+
 ### The bins parameter for timestamp fields
+
 <!-- vale on -->
 
 The `bins` parameter for timestamp fields has the following requirements:
@@ -49,7 +57,9 @@ The `bins` parameter for timestamp fields has the following requirements:
 
 
 <!-- vale off -->
+
 ### Time units
+
 <!-- vale on -->
 
 The following time units are available for the `span` parameter:
@@ -65,7 +75,9 @@ The following time units are available for the `span` parameter:
 * Months (`M`, `mon`, `month`, or `months`)
 
 <!-- vale off -->
+
 ### Align time options
+
 <!-- vale on -->
 
 The following options are available for the `aligntime` parameter:
@@ -75,13 +87,17 @@ The following options are available for the `aligntime` parameter:
 * `<time-specifier>` -- Align bins to a specific epoch time value or time modifier expression.
   
 <!-- vale off -->
+
 ### Parameter behavior
+
 <!-- vale on -->
 
 When multiple parameters are specified, the priority order is: `span` > `minspan` > `bins` > `start`/`end` > default.
 
 <!-- vale off -->
+
 ### Special parameter types
+
 <!-- vale on -->
 
 The `bin` command has the following special handling for certain parameter types:
@@ -92,7 +108,9 @@ The `bin` command has the following special handling for certain parameter types
 * The `start` and `end` parameters expand the range (they never reduce it) and affect bin width calculations.
 
 <!-- vale off -->
+
 ## Example 1: Response time distribution from logs
+
 <!-- vale on -->
 
 ```sql
@@ -108,17 +126,21 @@ source=otellogs
 The query returns the following results:
 
 <!-- vale off -->
+
 | request_count | duration |
 | --- | --- |
 | 17 | null |
 | 1 | 0-100 |
 | 1 | 30000-30100 |
 | 1 | 3200-3300 |
+
 <!-- vale on -->
   
 
 <!-- vale off -->
+
 ## Example 2: Severity level distribution
+
 <!-- vale on -->
 
 ```sql
@@ -133,16 +155,20 @@ source=otellogs
 The query returns the following results:
 
 <!-- vale off -->
+
 | log_count | severityNumber |
 | --- | --- |
 | 4 | 10-15 |
 | 7 | 15-20 |
 | 9 | 5-10 |
+
 <!-- vale on -->
   
 
 <!-- vale off -->
+
 ## Example 3: Logarithmic span (log10)  
+
 <!-- vale on -->
 
 ```sql
@@ -156,15 +182,19 @@ source=accounts
 The query returns the following results:
   
 <!-- vale off -->
+
 | balance |
 | --- |
 | 10000.0-100000.0 |
 | 1000.0-10000.0 |
+
 <!-- vale on -->
   
 
 <!-- vale off -->
+
 ## Example 4: Logarithmic span with coefficient  
+
 <!-- vale on -->
 
 ```sql
@@ -178,16 +208,20 @@ source=accounts
 The query returns the following results:
   
 <!-- vale off -->
+
 | balance |
 | --- |
 | 20000.0-200000.0 |
 | 2000.0-20000.0 |
 | 20000.0-200000.0 |
+
 <!-- vale on -->
   
 
 <!-- vale off -->
+
 ## Example 5: Basic bins parameter  
+
 <!-- vale on -->
 
 ```sql
@@ -201,16 +235,20 @@ source=time_test
 The query returns the following results:
   
 <!-- vale off -->
+
 | value |
 | --- |
 | 8000-9000 |
 | 7000-8000 |
 | 9000-10000 |
+
 <!-- vale on -->
   
 
 <!-- vale off -->
+
 ## Example 6: Log volume distribution with bins parameter
+
 <!-- vale on -->
 
 ```sql
@@ -226,17 +264,21 @@ source=otellogs
 The query returns the following results:
 
 <!-- vale off -->
+
 | service_count | volume |
 | --- | --- |
 | 1 | 1-2 |
 | 1 | 2-3 |
 | 3 | 3-4 |
 | 2 | 4-5 |
+
 <!-- vale on -->
   
 
 <!-- vale off -->
+
 ## Example 7: High bin count  
+
 <!-- vale on -->
 
 ```sql
@@ -250,16 +292,20 @@ source=accounts
 The query returns the following results:
   
 <!-- vale off -->
+
 | age | account_number |
 | --- | --- |
 | 32-33 | 1 |
 | 36-37 | 6 |
 | 28-29 | 13 |
+
 <!-- vale on -->
   
 
 <!-- vale off -->
+
 ## Example 8: Basic minspan  
+
 <!-- vale on -->
 
 ```sql
@@ -273,16 +319,20 @@ source=accounts
 The query returns the following results:
   
 <!-- vale off -->
+
 | age | account_number |
 | --- | --- |
 | 30-40 | 1 |
 | 30-40 | 6 |
 | 20-30 | 13 |
+
 <!-- vale on -->
   
 
 <!-- vale off -->
+
 ## Example 9: Large minspan  
+
 <!-- vale on -->
 
 ```sql
@@ -296,14 +346,18 @@ source=accounts
 The query returns the following results:
   
 <!-- vale off -->
+
 | age |
 | --- |
 | 0-1000 |
+
 <!-- vale on -->
   
 
 <!-- vale off -->
+
 ## Example 10: Start and end range  
+
 <!-- vale on -->
 
 ```sql
@@ -317,14 +371,18 @@ source=accounts
 The query returns the following results:
   
 <!-- vale off -->
+
 | age |
 | --- |
 | 0-100 |
+
 <!-- vale on -->
   
 
 <!-- vale off -->
+
 ## Example 11: Large end range  
+
 <!-- vale on -->
 
 ```sql
@@ -338,14 +396,18 @@ source=accounts
 The query returns the following results:
   
 <!-- vale off -->
+
 | balance |
 | --- |
 | 0-100000 |
+
 <!-- vale on -->
   
 
 <!-- vale off -->
+
 ## Example 12: Span with start/end  
+
 <!-- vale on -->
 
 ```sql
@@ -359,17 +421,21 @@ source=accounts
 The query returns the following results:
   
 <!-- vale off -->
+
 | age |
 | --- |
 | 32-33 |
 | 36-37 |
 | 28-29 |
 | 33-34 |
+
 <!-- vale on -->
   
 
 <!-- vale off -->
+
 ## Example 13: Hour span  
+
 <!-- vale on -->
 
 ```sql
@@ -383,16 +449,20 @@ source=time_test
 The query returns the following results:
   
 <!-- vale off -->
+
 | @timestamp | value |
 | --- | --- |
 | 2025-07-28 00:00:00 | 8945 |
 | 2025-07-28 01:00:00 | 7623 |
 | 2025-07-28 02:00:00 | 9187 |
+
 <!-- vale on -->
   
 
 <!-- vale off -->
+
 ## Example 14: Minute span  
+
 <!-- vale on -->
 
 ```sql
@@ -406,16 +476,20 @@ source=time_test
 The query returns the following results:
   
 <!-- vale off -->
+
 | @timestamp | value |
 | --- | --- |
 | 2025-07-28 00:00:00 | 8945 |
 | 2025-07-28 01:30:00 | 7623 |
 | 2025-07-28 02:15:00 | 9187 |
+
 <!-- vale on -->
   
 
 <!-- vale off -->
+
 ## Example 15: Second span  
+
 <!-- vale on -->
 
 ```sql
@@ -429,16 +503,20 @@ source=time_test
 The query returns the following results:
   
 <!-- vale off -->
+
 | @timestamp | value |
 | --- | --- |
 | 2025-07-28 00:15:30 | 8945 |
 | 2025-07-28 01:42:00 | 7623 |
 | 2025-07-28 02:28:30 | 9187 |
+
 <!-- vale on -->
   
 
 <!-- vale off -->
+
 ## Example 16: Daily span  
+
 <!-- vale on -->
 
 ```sql
@@ -452,16 +530,20 @@ source=time_test
 The query returns the following results:
   
 <!-- vale off -->
+
 | @timestamp | value |
 | --- | --- |
 | 2025-07-24 00:00:00 | 8945 |
 | 2025-07-24 00:00:00 | 7623 |
 | 2025-07-24 00:00:00 | 9187 |
+
 <!-- vale on -->
   
 
 <!-- vale off -->
+
 ## Example 17: Aligntime with time modifier  
+
 <!-- vale on -->
 
 ```sql
@@ -475,16 +557,20 @@ source=time_test
 The query returns the following results:
   
 <!-- vale off -->
+
 | @timestamp | value |
 | --- | --- |
 | 2025-07-27 23:00:00 | 8945 |
 | 2025-07-28 01:00:00 | 7623 |
 | 2025-07-28 01:00:00 | 9187 |
+
 <!-- vale on -->
   
 
 <!-- vale off -->
+
 ## Example 18: Aligntime with epoch timestamp  
+
 <!-- vale on -->
 
 ```sql
@@ -498,16 +584,20 @@ source=time_test
 The query returns the following results:
   
 <!-- vale off -->
+
 | @timestamp | value |
 | --- | --- |
 | 2025-07-27 22:40:00 | 8945 |
 | 2025-07-28 00:40:00 | 7623 |
 | 2025-07-28 00:40:00 | 9187 |
+
 <!-- vale on -->
   
 
 <!-- vale off -->
+
 ## Example 19: Default behavior (no parameters)  
+
 <!-- vale on -->
 
 ```sql
@@ -521,16 +611,20 @@ source=accounts
 The query returns the following results:
   
 <!-- vale off -->
+
 | age | account_number |
 | --- | --- |
 | 32.0-33.0 | 1 |
 | 36.0-37.0 | 6 |
 | 28.0-29.0 | 13 |
+
 <!-- vale on -->
   
 
 <!-- vale off -->
+
 ## Example 20: Binning with string fields  
+
 <!-- vale on -->
 
 ```sql
@@ -545,8 +639,10 @@ source=accounts
 The query returns the following results:
   
 <!-- vale off -->
+
 | count() | age_str |
 | --- | --- |
 | 1 | 20-30 |
 | 3 | 30-40 |
+
 <!-- vale on -->

@@ -57,4 +57,4 @@ If you see the following verification exception, make sure the index in your que
 }
 ```
 
-If these steps don't work, submit a Github issue [here](https://github.com/opensearch-project/sql/issues).
+If these steps don't work, submit a [GitHub issue](https://github.com/opensearch-project/sql/issues).

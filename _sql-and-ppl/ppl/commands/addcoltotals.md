@@ -7,7 +7,9 @@ nav_order: 3
 ---
 
 <!-- vale off -->
+
 # addcoltotals
+
 <!-- vale on -->
 
 The `addcoltotals` command computes the sum of each column and adds a summary row showing the total for each column. This command is equivalent to using `addtotals` with `row=false` and `col=true`, making it useful for creating summary reports with column totals.
@@ -16,7 +18,9 @@ The command only processes numeric fields (integers, floats, doubles). Non-numer
 
 
 <!-- vale off -->
+
 ## Syntax
+
 <!-- vale on -->
 
 The `addcoltotals` command has the following syntax:
@@ -26,7 +30,9 @@ addcoltotals [field-list] [label=<string>] [labelfield=<field>]
 ```
 
 <!-- vale off -->
+
 ## Parameters
+
 <!-- vale on -->
 
 The `addcoltotals` command supports the following parameters.
@@ -38,7 +44,9 @@ The `addcoltotals` command supports the following parameters.
 | `label` | Optional | The text that appears in the summary row (last row) to identify the computed totals. When used with `labelfield`, this text is placed in the specified field in the summary row. Default is `Total`. |
 
 <!-- vale off -->
+
 ## Example 1: Adding column totals to a severity breakdown
+
 <!-- vale on -->
 
 The following query adds a total row to a severity breakdown, showing the grand total of all log entries:
@@ -56,6 +64,7 @@ source=otellogs
 The query returns the following results:
 
 <!-- vale off -->
+
 | severityText | log_count |
 | --- | --- |
 | DEBUG | 3 |
@@ -63,10 +72,13 @@ The query returns the following results:
 | INFO | 6 |
 | WARN | 4 |
 | Total | 20 |
+
 <!-- vale on -->
 
 <!-- vale off -->
+
 ## Example 2: Adding column totals with a custom label
+
 <!-- vale on -->
 
 The following query adds totals to error counts per service with a custom summary label:
@@ -84,6 +96,7 @@ source=otellogs
 The query returns the following results:
 
 <!-- vale off -->
+
 | errors | resource.attributes.service.name | Summary |
 | --- | --- | --- |
 | 2 | checkout | null |
@@ -92,10 +105,13 @@ The query returns the following results:
 | 1 | product-catalog | null |
 | 1 | recommendation | null |
 | 7 | null | Grand Total |
+
 <!-- vale on -->
 
 <!-- vale off -->
+
 ## Example 3: Using all options
+
 <!-- vale on -->
 
 The following query uses the `addcoltotals` command with all options set, totaling only the specified numeric fields and placing the summary label in a new column:
@@ -114,6 +130,7 @@ source=otellogs
 The query returns the following results:
 
 <!-- vale off -->
+
 | errors | warnings | resource.attributes.service.name | Column Total |
 | --- | --- | --- | --- |
 | 2 | 0 | checkout | null |
@@ -122,4 +139,5 @@ The query returns the following results:
 | 1 | 2 | product-catalog | null |
 | 1 | 0 | recommendation | null |
 | 7 | 4 | null | Sum |
+
 <!-- vale on -->

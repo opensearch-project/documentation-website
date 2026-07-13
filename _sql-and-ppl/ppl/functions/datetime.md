@@ -40,9 +40,11 @@ source=people
 The query returns the following results:
   
 <!-- vale off -->
+
 | '2020-08-26' + 1h | '2020-08-26' + 1 | ts '2020-08-26 01:01:01' + 1 |
 | --- | --- | --- |
 | 2020-08-26 01:00:00 | 2020-08-27 | 2020-08-27 01:01:01 |
+
 <!-- vale on -->
   
 ## ADDTIME
@@ -72,9 +74,11 @@ source=people
 The query returns the following results:
 
 <!-- vale off -->
+
 | '2008-12-12' + 0 |
 | --- |
 | 2008-12-12 00:00:00 |
+
 <!-- vale on -->
 
 The following example shows adding TIME and DATE values:
@@ -89,9 +93,11 @@ source=people
 The query returns the following results:
 
 <!-- vale off -->
+
 | '23:59:59' + 0 |
 | --- |
 | 23:59:59 |
+
 <!-- vale on -->
 
 The following example shows combining DATE and TIME into a timestamp:
@@ -106,9 +112,11 @@ source=people
 The query returns the following results:
 
 <!-- vale off -->
+
 | '2004-01-01' + '23:59:59' |
 | --- |
 | 2004-01-01 23:59:59 |
+
 <!-- vale on -->
 
 The following example shows adding two TIME values:
@@ -123,9 +131,11 @@ source=people
 The query returns the following results:
 
 <!-- vale off -->
+
 | '10:20:30' + '00:05:42' |
 | --- |
 | 10:26:12 |
+
 <!-- vale on -->
 
 The following example shows adding two TIMESTAMP values:
@@ -140,9 +150,11 @@ source=people
 The query returns the following results:
 
 <!-- vale off -->
+
 | '2007-02-28 10:20:30' + '20:40:50' |
 | --- |
 | 2007-03-01 07:01:20 |
+
 <!-- vale on -->
   
 ## CONVERT_TZ
@@ -171,9 +183,11 @@ source=people
 The query returns the following results:
   
 <!-- vale off -->
+
 | convert_tz('2008-05-15 12:00:00','+00:00','+10:00') |
 | --- |
 | 2008-05-15 22:00:00 |
+
 <!-- vale on -->
   
 The valid time zone range for `convert_tz` is (-13:59, +14:00) inclusive. Time zones outside of the range, such as +15:00 in this example, return `NULL`:
@@ -188,9 +202,11 @@ source=people
 The query returns the following results:
   
 <!-- vale off -->
+
 | convert_tz('2008-05-15 12:00:00','+00:00','+15:00') |
 | --- |
 | null |
+
 <!-- vale on -->
 
 The following example shows conversion from a positive time zone to a negative time zone that crosses the date line:
@@ -205,9 +221,11 @@ source=people
 The query returns the following results:
   
 <!-- vale off -->
+
 | convert_tz('2008-05-15 12:00:00','+03:30','-10:00') |
 | --- |
 | 2008-05-14 22:30:00 |
+
 <!-- vale on -->
   
 Valid dates are required in `convert_tz`. For invalid dates such as April 31st (not a date in the Gregorian calendar), `NULL` is returned:
@@ -222,9 +240,11 @@ source=people
 The query returns the following results:
   
 <!-- vale off -->
+
 | convert_tz('2008-04-31 12:00:00','+03:30','-10:00') |
 | --- |
 | null |
+
 <!-- vale on -->
   
 The following example shows that February 30th also returns `NULL`:
@@ -239,9 +259,11 @@ source=people
 The query returns the following results:
   
 <!-- vale off -->
+
 | convert_tz('2008-02-30 12:00:00','+03:30','-10:00') |
 | --- |
 | null |
+
 <!-- vale on -->
   
 February 29th 2008 is a valid date because it is a leap year:
@@ -256,9 +278,11 @@ source=people
 The query returns the following results:
   
 <!-- vale off -->
+
 | convert_tz('2008-02-29 12:00:00','+03:30','-10:00') |
 | --- |
 | 2008-02-28 22:30:00 |
+
 <!-- vale on -->
   
 The following example shows that February 29th 2007 returns `NULL` because 2007 is not a leap year:
@@ -273,9 +297,11 @@ source=people
 The query returns the following results:
   
 <!-- vale off -->
+
 | convert_tz('2007-02-29 12:00:00','+03:30','-10:00') |
 | --- |
 | null |
+
 <!-- vale on -->
   
 The valid time zone range for `convert_tz` is [-13:59, +14:00] inclusive. Time zones outside of the range, such as +14:01 in this example, return `NULL`:
@@ -290,9 +316,11 @@ source=people
 The query returns the following results:
   
 <!-- vale off -->
+
 | convert_tz('2008-02-01 12:00:00','+14:01','+00:00') |
 | --- |
 | null |
+
 <!-- vale on -->
   
 The valid time zone range for `convert_tz` is (-13:59, +14:00) inclusive. Time zones within the range, such as +14:00 in this example, return a correctly converted date time object:
@@ -307,9 +335,11 @@ source=people
 The query returns the following results:
   
 <!-- vale off -->
+
 | convert_tz('2008-02-01 12:00:00','+14:00','+00:00') |
 | --- |
 | 2008-01-31 22:00:00 |
+
 <!-- vale on -->
   
 The following example shows that -14:00 (outside the valid range) returns `NULL`:
@@ -324,9 +354,11 @@ source=people
 The query returns the following results:
   
 <!-- vale off -->
+
 | convert_tz('2008-02-01 12:00:00','-14:00','+00:00') |
 | --- |
 | null |
+
 <!-- vale on -->
   
 The valid time zone range for `convert_tz` is [-13:59, +14:00] inclusive. Time zones at the lower boundary of the range, such as -13:59, are valid and return converted results:
@@ -341,9 +373,11 @@ source=people
 The query returns the following results:
   
 <!-- vale off -->
+
 | convert_tz('2008-02-01 12:00:00','-13:59','+00:00') |
 | --- |
 | 2008-02-02 01:59:00 |
+
 <!-- vale on -->
   
 ## CURDATE
@@ -368,9 +402,11 @@ source=people
 The query returns the following results:
   
 <!-- vale off -->
+
 | CURDATE() |
 | --- |
 | 2025-08-02 |
+
 <!-- vale on -->
   
 ## CURRENT_DATE
@@ -395,9 +431,11 @@ source=people
 The query returns the following results:
   
 <!-- vale off -->
+
 | CURRENT_DATE() |
 | --- |
 | 2025-08-02 |
+
 <!-- vale on -->
   
 ## CURRENT_TIME
@@ -422,9 +460,11 @@ source=people
 The query returns the following results:
   
 <!-- vale off -->
+
 | CURRENT_TIME() |
 | --- |
 | 15:39:05 |
+
 <!-- vale on -->
   
 ## CURRENT_TIMESTAMP
@@ -449,9 +489,11 @@ source=people
 The query returns the following results:
   
 <!-- vale off -->
+
 | CURRENT_TIMESTAMP() |
 | --- |
 | 2025-08-02 15:54:19 |
+
 <!-- vale on -->
   
 ## CURTIME
@@ -476,9 +518,11 @@ source=people
 The query returns the following results:
   
 <!-- vale off -->
+
 | value_1 | value_2 |
 | --- | --- |
 | 15:39:05 | 15:39:05 |
+
 <!-- vale on -->
   
 ## DATE
@@ -506,9 +550,11 @@ source=people
 The query returns the following results:
 
 <!-- vale off -->
+
 | DATE('2020-08-26') |
 | --- |
 | 2020-08-26 |
+
 <!-- vale on -->
 
 The following example extracts the date from a timestamp:
@@ -523,9 +569,11 @@ source=people
 The query returns the following results:
 
 <!-- vale off -->
+
 | DATE(TIMESTAMP('2020-08-26 13:49:00')) |
 | --- |
 | 2020-08-26 |
+
 <!-- vale on -->
 
 The following example extracts the date from a string containing both date and time:
@@ -540,9 +588,11 @@ source=people
 The query returns the following results:
 
 <!-- vale off -->
+
 | DATE('2020-08-26 13:49') |
 | --- |
 | 2020-08-26 |
+
 <!-- vale on -->
   
 ## DATE_ADD
@@ -572,9 +622,11 @@ source=people
 The query returns the following results:
   
 <!-- vale off -->
+
 | '2020-08-26' + 1h | ts '2020-08-26 01:01:01' + 1d |
 | --- | --- |
 | 2020-08-26 01:00:00 | 2020-08-27 01:01:01 |
+
 <!-- vale on -->
   
 ## DATE_FORMAT
@@ -639,16 +691,18 @@ source=people
 The query returns the following results:
   
 <!-- vale off -->
+
 | DATE_FORMAT('1998-01-31 13:14:15.012345', '%T.%f') | DATE_FORMAT(TIMESTAMP('1998-01-31 13:14:15.012345'), '%Y-%b-%D %r') |
 | --- | --- |
 | 13:14:15.012345 | 1998-Jan-31st 01:14:15 PM |
+
 <!-- vale on -->
   
 ## DATETIME
 
 **Usage**: `DATETIME(timestamp)` or `DATETIME(date, to_timezone)`
 
-Converts the datetime to a new time zone.
+Converts the `datetime` to a new time zone.
 
 **Parameters**:
 - `timestamp` (Required): A `TIMESTAMP` or `STRING` value.
@@ -658,7 +712,7 @@ Converts the datetime to a new time zone.
 
 #### Examples
 
-The following example converts a datetime to a different time zone:
+The following example converts a `datetime` to a different time zone:
 
 ```sql
 source=people
@@ -670,9 +724,11 @@ source=people
 The query returns the following results:
 
 <!-- vale off -->
+
 | DATETIME('2004-02-28 23:00:00-10:00', '+10:00') |
 | --- |
 | 2004-02-29 19:00:00 |
+
 <!-- vale on -->
 
 The valid time zone range is (-13:59, +14:00) inclusive. The following example shows that time zones outside of this range return `NULL`:
@@ -687,9 +743,11 @@ source=people
 The query returns the following results:
   
 <!-- vale off -->
+
 | DATETIME('2008-01-01 02:00:00', '-14:00') |
 | --- |
 | null |
+
 <!-- vale on -->
   
 ## DATE_SUB
@@ -719,9 +777,11 @@ source=people
 The query returns the following results:
   
 <!-- vale off -->
+
 | '2008-01-02' - 31d | ts '2020-08-26 01:01:01' + 1h |
 | --- | --- |
 | 2007-12-02 00:00:00 | 2020-08-26 00:01:01 |
+
 <!-- vale on -->
   
 ## DATEDIFF
@@ -748,9 +808,11 @@ source=people
 The query returns the following results:
   
 <!-- vale off -->
+
 | '2000-01-02' - '2000-01-01' | '2001-02-01' - '2004-01-01' | today - today |
 | --- | --- | --- |
 | 1 | -1064 | 0 |
+
 <!-- vale on -->
   
 ## DAY
@@ -778,9 +840,11 @@ source=people
 The query returns the following results:
   
 <!-- vale off -->
+
 | DAY(DATE('2020-08-26')) |
 | --- |
 | 26 |
+
 <!-- vale on -->
   
 ## DAYNAME
@@ -806,9 +870,11 @@ source=people
 The query returns the following results:
   
 <!-- vale off -->
+
 | DAYNAME(DATE('2020-08-26')) |
 | --- |
 | Wednesday |
+
 <!-- vale on -->
   
 ## DAYOFMONTH
@@ -836,9 +902,11 @@ source=people
 The query returns the following results:
   
 <!-- vale off -->
+
 | DAYOFMONTH(DATE('2020-08-26')) |
 | --- |
 | 26 |
+
 <!-- vale on -->
   
 ## DAY_OF_MONTH
@@ -866,9 +934,11 @@ source=people
 The query returns the following results:
   
 <!-- vale off -->
+
 | DAY_OF_MONTH(DATE('2020-08-26')) |
 | --- |
 | 26 |
+
 <!-- vale on -->
   
 ## DAYOFWEEK
@@ -896,9 +966,11 @@ source=people
 The query returns the following results:
   
 <!-- vale off -->
+
 | DAYOFWEEK(DATE('2020-08-26')) |
 | --- |
 | 4 |
+
 <!-- vale on -->
   
 ## DAY_OF_WEEK
@@ -926,9 +998,11 @@ source=people
 The query returns the following results:
   
 <!-- vale off -->
+
 | DAY_OF_WEEK(DATE('2020-08-26')) |
 | --- |
 | 4 |
+
 <!-- vale on -->
   
 ## DAYOFYEAR
@@ -956,9 +1030,11 @@ source=people
 The query returns the following results:
   
 <!-- vale off -->
+
 | DAYOFYEAR(DATE('2020-08-26')) |
 | --- |
 | 239 |
+
 <!-- vale on -->
   
 ## DAY_OF_YEAR
@@ -986,9 +1062,11 @@ source=people
 The query returns the following results:
   
 <!-- vale off -->
+
 | DAY_OF_YEAR(DATE('2020-08-26')) |
 | --- |
 | 239 |
+
 <!-- vale on -->
   
 ## EXTRACT
@@ -1040,9 +1118,11 @@ source=people
 The query returns the following results:
   
 <!-- vale off -->
+
 | extract(YEAR_MONTH FROM "2023-02-07 10:11:12") |
 | --- |
 | 202302 |
+
 <!-- vale on -->
   
 ## FROM_DAYS
@@ -1068,16 +1148,18 @@ source=people
 The query returns the following results:
   
 <!-- vale off -->
+
 | FROM_DAYS(733687) |
 | --- |
 | 2008-10-07 |
+
 <!-- vale on -->
   
 ## FROM_UNIXTIME
 
 **Usage**: `FROM_UNIXTIME(timestamp)` or `FROM_UNIXTIME(timestamp, format)`
 
-Returns a representation of the argument as a timestamp or character string value. Performs the reverse conversion for the [`UNIX_TIMESTAMP`](#unix_timestamp) function. If the second argument is provided, it is used to format the result in the same way as the format string used for the [`DATE_FORMAT`](#date_format) function. If the timestamp is outside the range 1970-01-01 00:00:00 - 3001-01-18 23:59:59.999999 (0 to 32536771199.999999 epoch time), the function returns `NULL`.
+Returns a representation of the argument as a timestamp or character string value. Performs the reverse conversion for the [`UNIX_TIMESTAMP`](#unix_timestamp) function. If the second argument is provided, it is used to format the result in the same way as the format string used for the [`DATE_FORMAT`](#date_format) function. If the timestamp is outside the range `1970-01-01 00:00:00`--`3001-01-18 23:59:59.999999` (0 to 32536771199.999999 epoch time), the function returns `NULL`.
 
 **Parameters**:
 - `timestamp` (Required): A `DOUBLE` value representing Unix timestamp.
@@ -1097,9 +1179,11 @@ source=people
 The query returns the following results:
   
 <!-- vale off -->
+
 | FROM_UNIXTIME(1220249547) |
 | --- |
 | 2008-09-01 06:12:27 |
+
 <!-- vale on -->
   
 ```sql
@@ -1112,9 +1196,11 @@ source=people
 The query returns the following results:
   
 <!-- vale off -->
+
 | FROM_UNIXTIME(1220249547, '%T') |
 | --- |
 | 06:12:27 |
+
 <!-- vale on -->
   
 ## GET_FORMAT
@@ -1141,9 +1227,11 @@ source=people
 The query returns the following results:
   
 <!-- vale off -->
+
 | GET_FORMAT(DATE, 'USA') |
 | --- |
 | `%m.%d.%Y` |
+
 <!-- vale on -->
   
 ## HOUR
@@ -1171,9 +1259,11 @@ source=people
 The query returns the following results:
   
 <!-- vale off -->
+
 | HOUR(TIME('01:02:03')) |
 | --- |
 | 1 |
+
 <!-- vale on -->
   
 ## HOUR_OF_DAY
@@ -1201,9 +1291,11 @@ source=people
 The query returns the following results:
   
 <!-- vale off -->
+
 | HOUR_OF_DAY(TIME('01:02:03')) |
 | --- |
 | 1 |
+
 <!-- vale on -->
   
 ## LAST_DAY
@@ -1229,9 +1321,11 @@ source=people
 The query returns the following results:
   
 <!-- vale off -->
+
 | last_day('2023-02-06') |
 | --- |
 | 2023-02-28 |
+
 <!-- vale on -->
   
 ## LOCALTIMESTAMP
@@ -1256,9 +1350,11 @@ source=people
 The query returns the following results:
   
 <!-- vale off -->
+
 | LOCALTIMESTAMP() |
 | --- |
 | 2025-08-02 15:54:19 |
+
 <!-- vale on -->
   
 ## LOCALTIME
@@ -1283,9 +1379,11 @@ source=people
 The query returns the following results:
   
 <!-- vale off -->
+
 | LOCALTIME() |
 | --- |
 | 2025-08-02 15:54:19 |
+
 <!-- vale on -->
   
 ## MAKEDATE
@@ -1318,9 +1416,11 @@ source=people
 The query returns the following results:
   
 <!-- vale off -->
+
 | MAKEDATE(1945, 5.9) | MAKEDATE(1984, 1984) |
 | --- | --- |
 | 1945-01-06 | 1989-06-06 |
+
 <!-- vale on -->
   
 ## MAKETIME
@@ -1337,7 +1437,7 @@ Returns a time value calculated from the hour, minute, and second arguments. Ret
 **Return type**: `TIME`
 
 Limitations:
-- A 24-hour clock is used, and the available time range is [00:00:00.0 - 23:59:59.(9)]
+- A 24-hour clock is used, and the available time range is [`00:00:00.0`--`23:59:59.(9)`]
 - Up to 9 digits of the second fraction part are taken (nanosecond precision)
 
 #### Example
@@ -1352,9 +1452,11 @@ source=people
 The query returns the following results:
   
 <!-- vale off -->
+
 | MAKETIME(20, 30, 40) | MAKETIME(20.2, 49.5, 42.100502) |
 | --- | --- |
 | 20:30:40 | 20:50:42.100502 |
+
 <!-- vale on -->
   
 ## MICROSECOND
@@ -1380,9 +1482,11 @@ source=people
 The query returns the following results:
   
 <!-- vale off -->
+
 | MICROSECOND(TIME('01:02:03.123456')) |
 | --- |
 | 123456 |
+
 <!-- vale on -->
   
 ## MINUTE
@@ -1410,9 +1514,11 @@ source=people
 The query returns the following results:
   
 <!-- vale off -->
+
 | MINUTE(TIME('01:02:03')) |
 | --- |
 | 2 |
+
 <!-- vale on -->
   
 ## MINUTE_OF_DAY
@@ -1438,9 +1544,11 @@ source=people
 The query returns the following results:
   
 <!-- vale off -->
+
 | MINUTE_OF_DAY(TIME('01:02:03')) |
 | --- |
 | 62 |
+
 <!-- vale on -->
   
 ## MINUTE_OF_HOUR
@@ -1468,9 +1576,11 @@ source=people
 The query returns the following results:
   
 <!-- vale off -->
+
 | MINUTE_OF_HOUR(TIME('01:02:03')) |
 | --- |
 | 2 |
+
 <!-- vale on -->
   
 ## MONTH
@@ -1498,9 +1608,11 @@ source=people
 The query returns the following results:
   
 <!-- vale off -->
+
 | MONTH(DATE('2020-08-26')) |
 | --- |
 | 8 |
+
 <!-- vale on -->
   
 ## MONTH_OF_YEAR
@@ -1528,9 +1640,11 @@ source=people
 The query returns the following results:
   
 <!-- vale off -->
+
 | MONTH_OF_YEAR(DATE('2020-08-26')) |
 | --- |
 | 8 |
+
 <!-- vale on -->
   
 ## MONTHNAME
@@ -1556,9 +1670,11 @@ source=people
 The query returns the following results:
   
 <!-- vale off -->
+
 | MONTHNAME(DATE('2020-08-26')) |
 | --- |
 | August |
+
 <!-- vale on -->
   
 ## NOW
@@ -1583,9 +1699,11 @@ source=people
 The query returns the following results:
   
 <!-- vale off -->
+
 | value_1 | value_2 |
 | --- | --- |
 | 2025-08-02 15:39:05 | 2025-08-02 15:39:05 |
+
 <!-- vale on -->
   
 ## PERIOD_ADD
@@ -1612,9 +1730,11 @@ source=people
 The query returns the following results:
   
 <!-- vale off -->
+
 | PERIOD_ADD(200801, 2) | PERIOD_ADD(200801, -12) |
 | --- | --- |
 | 200803 | 200701 |
+
 <!-- vale on -->
   
 ## PERIOD_DIFF
@@ -1641,9 +1761,11 @@ source=people
 The query returns the following results:
   
 <!-- vale off -->
+
 | PERIOD_DIFF(200802, 200703) | PERIOD_DIFF(200802, 201003) |
 | --- | --- |
 | 11 | -25 |
+
 <!-- vale on -->
   
 ## QUARTER
@@ -1669,9 +1791,11 @@ source=people
 The query returns the following results:
   
 <!-- vale off -->
+
 | QUARTER(DATE('2020-08-26')) |
 | --- |
 | 3 |
+
 <!-- vale on -->
   
 ## SEC_TO_TIME
@@ -1698,9 +1822,11 @@ source=people
 The query returns the following results:
   
 <!-- vale off -->
+
 | SEC_TO_TIME(3601) | SEC_TO_TIME(1234.123) |
 | --- | --- |
 | 01:00:01 | 00:20:34.123 |
+
 <!-- vale on -->
   
 ## SECOND
@@ -1728,9 +1854,11 @@ source=people
 The query returns the following results:
   
 <!-- vale off -->
+
 | SECOND(TIME('01:02:03')) |
 | --- |
 | 3 |
+
 <!-- vale on -->
   
 ## SECOND_OF_MINUTE
@@ -1758,9 +1886,11 @@ source=people
 The query returns the following results:
   
 <!-- vale off -->
+
 | SECOND_OF_MINUTE(TIME('01:02:03')) |
 | --- |
 | 3 |
+
 <!-- vale on -->
   
 ## STRFTIME
@@ -1769,7 +1899,7 @@ The query returns the following results:
 
 **Usage**: `STRFTIME(time, format)`
 
-Takes a UNIX timestamp (in seconds) and renders it as a string using the format specified. For numeric inputs, the UNIX time must be in seconds. Values greater than 100000000000 are automatically treated as milliseconds and converted to seconds. You can use time format variables with the strftime function. This function performs the reverse operation of [`UNIX_TIMESTAMP`](#unix_timestamp) and is similar to [`FROM_UNIXTIME`](#from_unixtime) but with POSIX-style format specifiers.
+Takes a UNIX timestamp (in seconds) and renders it as a string using the format specified. For numeric inputs, the UNIX time must be in seconds. Values greater than 100000000000 are automatically treated as milliseconds and converted to seconds. You can use time format variables with the `strftime` function. This function performs the reverse operation of [`UNIX_TIMESTAMP`](#unix_timestamp) and is similar to [`FROM_UNIXTIME`](#from_unixtime) but with POSIX-style format specifiers.
 
 **Parameters**:
 - `time` (Required): An `INTEGER`, `LONG`, `DOUBLE`, or `TIMESTAMP` value.
@@ -1788,6 +1918,7 @@ The following table describes the available specifier arguments:
 
 
 <!-- vale off -->
+
 | Specifier | Description |
 | --- | --- |
 | `%a` | Abbreviated weekday name (Mon..Sun) |
@@ -1828,6 +1959,7 @@ The following table describes the available specifier arguments:
 | `%:::z` | Time zone offset hour only (+hh or -hh) |
 | `%Z` | Timezone abbreviation (for example, EST, PDT) |
 | `%%` | Literal % character |
+
 <!-- vale on -->
 
 **Examples**
@@ -1836,40 +1968,56 @@ The following table describes the available specifier arguments:
 source=people | eval `strftime(1521467703, "%Y-%m-%dT%H:%M:%S")` = strftime(1521467703, "%Y-%m-%dT%H:%M:%S") | fields `strftime(1521467703, "%Y-%m-%dT%H:%M:%S")`
 ```
 {% include copy.html %}
-  
+
+<!-- vale off -->  
 | strftime(1521467703, "%Y-%m-%dT%H:%M:%S") |
 | --- |
 | 2018-03-19T13:55:03 |
-  
+
+<!-- vale on --> 
+
 ```sql
 source=people | eval `strftime(1521467703, "%F %T")` = strftime(1521467703, "%F %T") | fields `strftime(1521467703, "%F %T")`
 ```
 {% include copy.html %}
   
+<!-- vale off -->
+
 | strftime(1521467703, "%Y-%m-%dT%H:%M:%S") |
 | --- |
 | 2018-03-19T13:55:03 |
-  
+
+<!-- vale on -->
+
 ```sql
 source=people | eval `strftime(1521467703, "%a %b %d, %Y")` = strftime(1521467703, "%a %b %d, %Y") | fields `strftime(1521467703, "%a %b %d, %Y")`
 ```
 {% include copy.html %}
-  
+
+<!-- vale off -->  
 | strftime(1521467703, "%a %b %d, %Y") |
 | --- |
 | Mon Mar 19, 2018 |
-  
+
+<!-- vale on -->
+
 ```sql
 source=people | eval `strftime(1521467703, "%%Y")` = strftime(1521467703, "%%Y") | fields `strftime(1521467703, "%%Y")`
 ```
 {% include copy.html %}
-  
+
+<!-- vale off -->  
 | strftime(1521467703, "%%Y") |
 | --- |
 | `%Y` |
-  
+
+<!-- vale on -->
+
 ```sql
 source=people | eval `strftime(date('2020-09-16'), "%Y-%m-%d")` = strftime(date('2020-09-16'), "%Y-%m-%d") | fields `strftime(date('2020-09-16'), "%Y-%m-%d")`
+```
+{% include copy.html %}
+
 ```text
   
 fetched rows / total rows = 1/1
@@ -1881,13 +2029,14 @@ fetched rows / total rows = 1/1
 +----------------------------------------+
   
 ```
-{% include copy.html %}
+
 ```sql
   
 source=people | eval `strftime(timestamp('2020-09-16 14:30:00'), "%F %T")` = strftime(timestamp('2020-09-16 14:30:00'), "%F %T") | fields `strftime(timestamp('2020-09-16 14:30:00'), "%F %T")`
   
 ```
 {% include copy.html %}
+
 ```text
   
 fetched rows / total rows = 1/1
@@ -1899,12 +2048,14 @@ fetched rows / total rows = 1/1
 +--------------------------------------------------+
   
 ```
+
 ```sql
   
 source=people | eval `strftime(now(), "%Y-%m-%d %H:%M:%S")` = strftime(now(), "%Y-%m-%d %H:%M:%S") | fields `strftime(now(), "%Y-%m-%d %H:%M:%S")`
   
 ```
 {% include copy.html %}
+
 ```text
   
 fetched rows / total rows = 1/1
@@ -2089,8 +2240,7 @@ source=people
   
 The query returns the following results:
 
-```text
-  
+```text  
 fetched rows / total rows = 1/1
 +-------------------------+
 | '10:20:30' - '00:05:42' |
@@ -2098,30 +2248,25 @@ fetched rows / total rows = 1/1
 | 10:14:48                |
   
 +-------------------------+
-  
 ```
   
-```sql
-  
+```sql 
 source=people
 | eval `'2007-03-01 10:20:30' - '20:40:50'` = SUBTIME(TIMESTAMP('2007-03-01 10:20:30'), TIMESTAMP('2002-03-04 20:40:50'))
 | fields `'2007-03-01 10:20:30' - '20:40:50'`
-  
 ```
 {% include copy.html %}
   
 The query returns the following results:
 
-```text
-  
+```text  
 fetched rows / total rows = 1/1
 +------------------------------------+
 | '2007-03-01 10:20:30' - '20:40:50' |
 |------------------------------------|
 | 2007-02-28 13:39:40                |
   
-+------------------------------------+
-  
++------------------------------------+  
 ```
   
 ## SYSDATE
@@ -2280,6 +2425,7 @@ Formats the `time` argument using the specifiers in the `format` argument. This 
 The following table describes the available specifier arguments:
 
 <!-- vale off -->
+
 | Specifier | Description |
 | --- | --- |
 | `%f` | Microseconds (000000..999999) |
@@ -2292,6 +2438,7 @@ The following table describes the available specifier arguments:
 | `%S` | Seconds (00..59) |
 | `%s` | Seconds (00..59) |
 | `%T` | Time, 24-hour (hh:mm:ss) |
+
 <!-- vale on -->
 
 #### Example
@@ -2547,7 +2694,7 @@ fetched rows / total rows = 1/1
 
 **Usage**: `TO_SECONDS(date)`
 
-Returns the number of seconds since the year 0 of the given value. Returns `NULL` if value is invalid. An argument of a `LONG` type can be used. It must be formatted as YMMDD, YYMMDD, YYYMMDD, or YYYYMMDD. Note that a `LONG` type argument cannot have leading 0s as it will be parsed using an octal numbering system.
+Returns the number of seconds since the year 0 of the given value. Returns `NULL` if value is invalid. An argument of a `LONG` type can be used. It must be formatted as YMMDD, YYMMDD, YYYMMDD, or YYYYMMDD. Note that a `LONG` type argument cannot have leading zeros as it will be parsed using an octal numbering system.
 
 **Parameters**:
 - `date` (Required): A `STRING`, `LONG`, `DATE`, `TIME`, or `TIMESTAMP` value.
@@ -2584,7 +2731,7 @@ fetched rows / total rows = 1/1
 
 **Usage**: `UNIX_TIMESTAMP()` or `UNIX_TIMESTAMP(date)`
 
-Converts the given argument to Unix time (seconds since Epoch - the very beginning of the year 1970). If no argument is given, it returns the current Unix time. The date argument may be a `DATE`, or `TIMESTAMP` string, or a number in YYMMDD, YYMMDDhhmmss, YYYYMMDD, or YYYYMMDDhhmmss format. If the argument includes a time part, it may optionally include a fractional seconds part. If the argument is in an invalid format or outside the range 1970-01-01 00:00:00 - 3001-01-18 23:59:59.999999 (0 to 32536771199.999999 epoch time), the function returns `NULL`. You can use [`FROM_UNIXTIME`](#from_unixtime) to perform the reverse conversion.
+Converts the given argument to Unix time (seconds since Epoch---the very beginning of the year 1970). If no argument is given, it returns the current Unix time. The date argument may be a `DATE`, or `TIMESTAMP` string, or a number in `YYMMDD`, `YYMMDDhhmmss`, `YYYYMMDD`, or `YYYYMMDDhhmmss` format. If the argument includes a time part, it may optionally include a fractional seconds part. If the argument is in an invalid format or outside the range `1970-01-01 00:00:00`--`3001-01-18 23:59:59.999999` (0 to 32536771199.999999 epoch time), the function returns `NULL`. You can use [`FROM_UNIXTIME`](#from_unixtime) to perform the reverse conversion.
 
 **Parameters**:
 - `date` (Optional): A `DOUBLE`, `DATE`, or `TIMESTAMP` value.
@@ -2729,7 +2876,7 @@ Returns the week number for `date`. If the mode argument is omitted, the default
 
 **Parameters**:
 - `date` (Required): A `DATE`, `TIMESTAMP`, or `STRING` value.
-- `mode` (Optional): An `INTEGER` mode value (0-7).
+- `mode` (Optional): An `INTEGER` mode value (0--7).
 
 **Return type**: `INTEGER`
 
@@ -2739,14 +2886,14 @@ The following table describes how the `mode` parameter works.
 
 | Mode | First day of week | Range | Week 1 is the first week ... |
 | --- | --- | --- | --- |
-| 0 | Sunday | 0-53 | with a Sunday in this year |
-| 1 | Monday | 0-53 | with 4 or more days this year |
-| 2 | Sunday | 1-53 | with a Sunday in this year |
-| 3 | Monday | 1-53 | with 4 or more days this year |
-| 4 | Sunday | 0-53 | with 4 or more days this year |
-| 5 | Monday | 0-53 | with a Monday in this year |
-| 6 | Sunday | 1-53 | with 4 or more days this year |
-| 7 | Monday | 1-53 | with a Monday in this year |
+| 0 | Sunday | 0--53 | with a Sunday in this year |
+| 1 | Monday | 0--53 | with 4 or more days this year |
+| 2 | Sunday | 1--53 | with a Sunday in this year |
+| 3 | Monday | 1--53 | with 4 or more days this year |
+| 4 | Sunday | 0--53 | with 4 or more days this year |
+| 5 | Monday | 0--53 | with a Monday in this year |
+| 6 | Sunday | 1--53 | with 4 or more days this year |
+| 7 | Monday | 1--53 | with a Monday in this year |
 
 #### Example
 
@@ -2818,7 +2965,7 @@ Returns the week number for `date`. If the mode argument is omitted, the default
 
 **Parameters**:
 - `date` (Required): A `DATE`, `TIMESTAMP`, or `STRING` value.
-- `mode` (Optional): An `INTEGER` mode value (0-7).
+- `mode` (Optional): An `INTEGER` mode value (0--7).
 
 **Return type**: `INTEGER`
 
@@ -2827,16 +2974,18 @@ Synonyms: [`WEEK`](#week)
 The following table describes how the mode argument works:
 
 <!-- vale off -->
+
 | Mode | First day of week | Range | Week 1 is the first week ... |
 | --- | --- | --- | --- |
-| 0 | Sunday | 0-53 | with a Sunday in this year |
-| 1 | Monday | 0-53 | with 4 or more days this year |
-| 2 | Sunday | 1-53 | with a Sunday in this year |
-| 3 | Monday | 1-53 | with 4 or more days this year |
-| 4 | Sunday | 0-53 | with 4 or more days this year |
-| 5 | Monday | 0-53 | with a Monday in this year |
-| 6 | Sunday | 1-53 | with 4 or more days this year |
-| 7 | Monday | 1-53 | with a Monday in this year |
+| 0 | Sunday | 0--53 | with a Sunday in this year |
+| 1 | Monday | 0--53 | with 4 or more days this year |
+| 2 | Sunday | 1--53 | with a Sunday in this year |
+| 3 | Monday | 1--53 | with 4 or more days this year |
+| 4 | Sunday | 0--53 | with 4 or more days this year |
+| 5 | Monday | 0--53 | with a Monday in this year |
+| 6 | Sunday | 1--53 | with 4 or more days this year |
+| 7 | Monday | 1--53 | with a Monday in this year |
+
 <!-- vale on -->
 
 #### Example
@@ -2908,7 +3057,7 @@ Returns the year and week for `date` as an integer. It accepts an optional mode 
 
 **Parameters**:
 - `date` (Required): A `STRING`, `DATE`, `TIME`, or `TIMESTAMP` value.
-- `mode` (Optional): An `INTEGER` mode value (0-7).
+- `mode` (Optional): An `INTEGER` mode value (0--7).
 
 **Return type**: `INTEGER`
 

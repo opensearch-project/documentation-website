@@ -7,13 +7,17 @@ nav_order: 31
 ---
 
 <!-- vale off -->
+
 # mvexpand
+
 <!-- vale on -->
 
 The `mvexpand` command expands each value in a multivalue (array) field into a separate row. For each document, every element in the specified array field is returned as its own row.
 
 <!-- vale off -->
+
 ## Syntax
+
 <!-- vale on -->
 
 The `mvexpand` command has the following syntax:
@@ -23,7 +27,9 @@ mvexpand <field> [limit=<int>]
 ```
 
 <!-- vale off -->
+
 ## Parameters
+
 <!-- vale on -->
 
 The `mvexpand` command supports the following parameters.
@@ -34,7 +40,9 @@ The `mvexpand` command supports the following parameters.
 | `limit` | Optional | The maximum number of values per document to expand. If not specified, all array elements are expanded. |
 
 <!-- vale off -->
+
 ## Example 1: Using basic expansion
+
 <!-- vale on -->
 
 The following query creates an array and expands it into separate rows:
@@ -52,15 +60,19 @@ source=people
 The query returns the following results:
 
 <!-- vale off -->
+
 | tags |
 | --- |
 | error |
 | warning |
 | info |
+
 <!-- vale on -->
 
 <!-- vale off -->
+
 ## Example 2: Limiting the number of expanded rows
+
 <!-- vale on -->
 
 The following query expands an array while limiting the number of expanded rows:
@@ -78,15 +90,19 @@ source=people
 The query returns the following results:
 
 <!-- vale off -->
+
 | ids |
 | --- |
 | 1 |
 | 2 |
 | 3 |
+
 <!-- vale on -->
 
 <!-- vale off -->
+
 ## Example 3: Expanding nested fields
+
 <!-- vale on -->
 
 The following query expands a multivalue `projects` field into one row per project:
@@ -103,15 +119,19 @@ source=people
 The query returns the following results:
 
 <!-- vale off -->
+
 | projects.name |
 | --- |
 | AWS Redshift Spectrum querying |
 | AWS Redshift security |
 | AWS Aurora security |
+
 <!-- vale on -->
 
 <!-- vale off -->
+
 ## Example 4: Single-value array
+
 <!-- vale on -->
 
 A single-element array expands to one row:
@@ -129,13 +149,17 @@ source=people
 The query returns the following results:
 
 <!-- vale off -->
+
 | tags |
 | --- |
 | error |
+
 <!-- vale on -->
 
 <!-- vale off -->
+
 ## Example 5: Missing fields
+
 <!-- vale on -->
 
 The following query attempts to expand a field that does not exist in the input schema:
@@ -157,7 +181,9 @@ The query throws the following semantic check exception:
 ```
 
 <!-- vale off -->
+
 ## Related commands
+
 <!-- vale on -->
 
 - [`nomv`]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/commands/nomv/) -- Converts a multivalue field into a single-value string

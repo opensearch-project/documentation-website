@@ -132,7 +132,7 @@ SOURCE=my_index | WHERE match(message, "this is a test", operator='and', zero_te
 
 ## Multi-match
 
-To search for text in multiple fields, use `MULTI_MATCH` function. This function maps to the `multi_match` query used in search engine, to returns the documents that match a provided text, number, date or boolean value with a given field or fields.
+To search for text in multiple fields, use `MULTI_MATCH` function. This function maps to the `multi_match` query used in search engine, to returns the documents that match a provided text, number, date, or Boolean value with a given field or fields.
 
 ### Syntax
 
@@ -188,7 +188,8 @@ GET accounts/_search
 ```
 {% include copy-curl.html %}
 
-could be called from *SQL* using `multi_match` function
+could be called from *SQL* using `multi_match` function:
+
 ```sql
 SELECT firstname, lastname
 FROM accounts
@@ -197,21 +198,28 @@ WHERE multi_match(['*name'], 'Dale')
 {% include copy.html %}
 
 
-or `multi_match` *PPL* function
+or `multi_match` *PPL* function:
+
 ```sql
 SOURCE=accounts | WHERE multi_match(['*name'], 'Dale') | fields firstname, lastname
 ```
 {% include copy.html %}
 
 
-| firstname | lastname
-:--- | :---
-Dale | Adams
+The query returns the following results:
+
+<!-- vale off -->
+
+| firstname | lastname |
+| :--- | :--- |
+| Dale | Adams |
+
+<!-- vale on -->
 
 ## Query string
 
 To split text based on operators, use the `QUERY_STRING` function. The `QUERY_STRING` function supports logical connectives, wildcard, regex, and proximity search.
-This function maps to the to the `query_string` query used in search engine, to return the documents that match a provided text, number, date or boolean value with a given field or fields.
+This function maps to the to the `query_string` query used in search engine, to return the documents that match a provided text, number, date, or Boolean value with a given field or fields.
 
 ### Syntax
 
@@ -287,7 +295,7 @@ WHERE query_string(['address'], 'Lane Street', default_operator='OR')
 {% include copy.html %}
 
 
-or from *PPL*
+or from *PPL*:
 
 ```sql
 SOURCE=accounts | WHERE query_string(['address'], 'Lane Street', default_operator='OR') | fields account_number, address
@@ -295,11 +303,17 @@ SOURCE=accounts | WHERE query_string(['address'], 'Lane Street', default_operato
 {% include copy.html %}
 
 
-| account_number | address
-:--- | :---
-1 | 880 Holmes Lane
-6 | 671 Bristol Street
-13 | 789 Madison Street
+The query returns the following results:
+
+<!-- vale off -->
+
+| account_number | address |
+| :--- | :--- |
+| 1 | 880 Holmes Lane |
+| 6 | 671 Bristol Street |
+| 13 | 789 Madison Street |
+
+<!-- vale on -->
 
 ## Match phrase
 
@@ -357,14 +371,20 @@ SOURCE=accounts | WHERE match_phrase(address, '880 Holmes Lane') | FIELDS accoun
 {% include copy.html %}
 
 
+The query returns the following results:
+
+<!-- vale off -->
+
 | account_number | address
 :--- | :---
 1 | 880 Holmes Lane
 
+<!-- vale on -->
+
 
 ## Simple query string
 
-The `simple_query_string` function maps to the `simple_query_string` query in OpenSearch. It returns the documents that match a provided text, number, date or boolean value with a given field or fields.
+The `simple_query_string` function maps to the `simple_query_string` query in OpenSearch. It returns the documents that match a provided text, number, date, or Boolean value with a given field or fields.
 The **^** lets you *boost* certain fields. Boosts are multipliers that weigh matches in one field more heavily than matches in other fields.
 
 ### Syntax
@@ -435,11 +455,17 @@ SOURCE=accounts | WHERE simple_query_string(['address'], 'Lane Street', default_
 {% include copy.html %}
 
 
+The query returns the following results:
+
+<!-- vale off -->
+
 | account_number | address
 :--- | :---
 1 | 880 Holmes Lane
 6 | 671 Bristol Street
 13 | 789 Madison Street
+
+<!-- vale on -->
 
 ## Match phrase prefix
 
@@ -494,13 +520,19 @@ source=books | where match_phrase_prefix(author, 'Alexander Mil') | fields autho
 {% include copy.html %}
 
 
+The query returns the following results:
+
+<!-- vale off -->
+
 | author | title
 :--- | :---
 Alan Alexander Milne | The House at Pooh Corner
 Alan Alexander Milne | Winnie-the-Pooh
 
+<!-- vale on -->
 
-## Match boolean prefix
+
+## Match Boolean prefix
 
 Use the `match_bool_prefix` function to search documents that match text only for a given field prefix.
 
@@ -557,7 +589,13 @@ source=accounts | where match_bool_prefix(address, 'Bristol Stre') | fields firs
 {% include copy.html %}
 
 
+The query returns the following results:
+
+<!-- vale off -->
+
 | firstname | address
 :--- | :---
 Hattie | 671 Bristol Street
 Nanette | 789 Madison Street
+
+<!-- vale on -->

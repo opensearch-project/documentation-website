@@ -40,9 +40,11 @@ source=people
 The query returns the following results:
 
 <!-- vale off -->
+
 | array |
 | --- |
 | [1,2,3] |
+
 <!-- vale on -->
 
 The following example demonstrates mixed-type conversion:
@@ -58,9 +60,11 @@ source=people
 The query returns the following results:
   
 <!-- vale off -->
+
 | array |
 | --- |
 | [1,demo] |
+
 <!-- vale on -->
   
 ## ARRAY_LENGTH
@@ -89,9 +93,11 @@ source=people
 The query returns the following results:
   
 <!-- vale off -->
+
 | length |
 | --- |
 | 3 |
+
 <!-- vale on -->
   
 ## FORALL
@@ -120,9 +126,11 @@ source=people
 The query returns the following results:
   
 <!-- vale off -->
+
 | result |
 | --- |
 | True |
+
 <!-- vale on -->
   
 ## EXISTS
@@ -151,9 +159,11 @@ source=people
 The query returns the following results:
   
 <!-- vale off -->
+
 | result |
 | --- |
 | True |
+
 <!-- vale on -->
   
 ## FILTER
@@ -182,9 +192,11 @@ source=people
 The query returns the following results:
   
 <!-- vale off -->
+
 | result |
 | --- |
 | [1,3] |
+
 <!-- vale on -->
   
 ## TRANSFORM
@@ -215,9 +227,11 @@ source=people
 The query returns the following results:
 
 <!-- vale off -->
+
 | result |
 | --- |
 | [3,0,5] |
+
 <!-- vale on -->
 
 The following example uses both element value and index in the transformation:
@@ -233,9 +247,11 @@ source=people
 The query returns the following results:
   
 <!-- vale off -->
+
 | result |
 | --- |
 | [1,-1,5] |
+
 <!-- vale on -->
   
 ## REDUCE
@@ -268,9 +284,11 @@ source=people
 The query returns the following results:
 
 <!-- vale off -->
+
 | result |
 | --- |
 | 12 |
+
 <!-- vale on -->
 
 The following example uses an additional reduce function to transform the final result:
@@ -286,9 +304,11 @@ source=people
 The query returns the following results:
   
 <!-- vale off -->
+
 | result |
 | --- |
 | 120 |
+
 <!-- vale on -->
   
 ## MVJOIN
@@ -319,9 +339,11 @@ source=people
 The query returns the following results:
 
 <!-- vale off -->
+
 | result |
 | --- |
 | a,b,c |
+
 <!-- vale on -->
 
 The following example joins field values into a single string:
@@ -338,9 +360,11 @@ source=accounts
 The query returns the following results:
   
 <!-- vale off -->
+
 | result |
 | --- |
 | Amber, Duke |
+
 <!-- vale on -->
   
 ## MVAPPEND
@@ -372,9 +396,11 @@ source=people
 The query returns the following results:
   
 <!-- vale off -->
+
 | result |
 | --- |
 | [1,1,3] |
+
 <!-- vale on -->
 
 The following example demonstrates array flattening:
@@ -390,9 +416,11 @@ source=people
 The query returns the following results:
   
 <!-- vale off -->
+
 | result |
 | --- |
 | [1,2,3] |
+
 <!-- vale on -->
 
 The following example shows nested `mvappend` calls:
@@ -408,9 +436,11 @@ source=people
 The query returns the following results:
 
 <!-- vale off -->
+
 | result |
 | --- |
 | [1,2,3] |
+
 <!-- vale on -->
 
 The following example creates an array from a single value:
@@ -426,9 +456,11 @@ source=people
 The query returns the following results:
 
 <!-- vale off -->
+
 | result |
 | --- |
 | [42] |
+
 <!-- vale on -->
 
 The following example demonstrates `NULL` value filtering:
@@ -444,9 +476,11 @@ source=people
 The query returns the following results:
 
 <!-- vale off -->
+
 | result |
 | --- |
 | [2] |
+
 <!-- vale on -->
 
 The following example shows behavior with only `NULL` values:
@@ -462,9 +496,11 @@ source=people
 The query returns the following results:
 
 <!-- vale off -->
+
 | result |
 | --- |
 | null |
+
 <!-- vale on -->
 
 The following example concatenates multiple arrays:
@@ -480,9 +516,11 @@ source=people
 The query returns the following results:
 
 <!-- vale off -->
+
 | result |
 | --- |
 | [1,2,3,4] |
+
 <!-- vale on -->
 
 The following example appends field values:
@@ -498,9 +536,11 @@ source=accounts
 The query returns the following results:
 
 <!-- vale off -->
+
 | result |
 | --- |
 | [Amber,Duke] |
+
 <!-- vale on -->
 
 The following example demonstrates mixed data types:
@@ -516,9 +556,11 @@ source=people
 The query returns the following results:
 
 <!-- vale off -->
+
 | result |
 | --- |
 | [1,text,2.5] |
+
 <!-- vale on -->
   
 ## SPLIT
@@ -549,9 +591,11 @@ source=people
 The query returns the following results:
 
 <!-- vale off -->
+
 | result |
 | --- |
 | [buttercup,rarity,tenderhoof,dash] |
+
 <!-- vale on -->
 
 The following example uses a multi-character delimiter:
@@ -567,9 +611,11 @@ source=people
 The query returns the following results:
 
 <!-- vale off -->
+
 | result |
 | --- |
 | [1a2b3c4,567890] |
+
 <!-- vale on -->
 
 The following example splits a string into individual characters using an empty delimiter:
@@ -585,9 +631,11 @@ source=people
 The query returns the following results:
 
 <!-- vale off -->
+
 | result |
 | --- |
 | [a,b,c,d] |
+
 <!-- vale on -->
 
 The following example splits using a double-colon delimiter:
@@ -603,9 +651,11 @@ source=people
 The query returns the following results:
 
 <!-- vale off -->
+
 | result |
 | --- |
 | [name,value] |
+
 <!-- vale on -->
 
 The following example shows behavior when the delimiter is not found:
@@ -621,9 +671,11 @@ source=people
 The query returns the following results:
 
 <!-- vale off -->
+
 | result |
 | --- |
 | [hello] |
+
 <!-- vale on -->
   
 ## MVDEDUP
@@ -653,9 +705,11 @@ source=people
 The query returns the following results:
 
 <!-- vale off -->
+
 | result |
 | --- |
 | [1,2,3,4] |
+
 <!-- vale on -->
 
 The following example deduplicates string values:
@@ -671,9 +725,11 @@ source=people
 The query returns the following results:
 
 <!-- vale off -->
+
 | result |
 | --- |
 | [z,a,b,c] |
+
 <!-- vale on -->
 
 The following example shows behavior with an empty array:
@@ -689,9 +745,11 @@ source=people
 The query returns the following results:
 
 <!-- vale off -->
+
 | result |
 | --- |
 | [] |
+
 <!-- vale on -->
 
 ## MVFIND
@@ -722,9 +780,11 @@ source=people
 The query returns the following results:
 
 <!-- vale off -->
+
 | result |
 | --- |
 | 1 |
+
 <!-- vale on -->
 
 The following example shows behavior when no match is found:
@@ -740,9 +800,11 @@ source=people
 The query returns the following results:
 
 <!-- vale off -->
+
 | result |
 | --- |
 | null |
+
 <!-- vale on -->
 
 The following example uses a regex pattern with character classes:
@@ -758,9 +820,11 @@ source=people
 The query returns the following results:
 
 <!-- vale off -->
+
 | result |
 | --- |
 | 0 |
+
 <!-- vale on -->
 
 The following example demonstrates case-insensitive matching:
@@ -776,9 +840,11 @@ source=people
 The query returns the following results:
 
 <!-- vale off -->
+
 | result |
 | --- |
 | 1 |
+
 <!-- vale on -->
 
 ## MVINDEX
@@ -810,9 +876,11 @@ source=people
 The query returns the following results:
 
 <!-- vale off -->
+
 | result |
 | --- |
 | b |
+
 <!-- vale on -->
 
 The following example uses negative indexing to get the last element:
@@ -828,9 +896,11 @@ source=people
 The query returns the following results:
 
 <!-- vale off -->
+
 | result |
 | --- |
 | e |
+
 <!-- vale on -->
 
 The following example extracts a range of elements:
@@ -846,9 +916,11 @@ source=people
 The query returns the following results:
 
 <!-- vale off -->
+
 | result |
 | --- |
 | [2,3,4] |
+
 <!-- vale on -->
 
 The following example uses negative indexing for a range:
@@ -864,9 +936,11 @@ source=people
 The query returns the following results:
 
 <!-- vale off -->
+
 | result |
 | --- |
 | [3,4,5] |
+
 <!-- vale on -->
 
 The following example extracts elements from the beginning of an array:
@@ -882,9 +956,11 @@ source=people
 The query returns the following results:
 
 <!-- vale off -->
+
 | result |
 | --- |
 | [alex,celestino,claudia] |
+
 <!-- vale on -->
 
 ## MVMAP
@@ -915,9 +991,11 @@ source=people
 The query returns the following results:
 
 <!-- vale off -->
+
 | result |
 | --- |
 | [10,20,30] |
+
 <!-- vale on -->
 
 The following example applies a different mathematical operation:
@@ -933,9 +1011,11 @@ source=people
 The query returns the following results:
 
 <!-- vale off -->
+
 | result |
 | --- |
 | [6,7,8] |
+
 <!-- vale on -->
 
 For nested expressions such as `mvmap(mvindex(arr, 1, 3), arr * 2)`, the field name (`arr`) is extracted from the first argument and must match the field referenced in the expression.
@@ -954,9 +1034,11 @@ source=people
 The query returns the following results:
 
 <!-- vale off -->
+
 | result |
 | --- |
 | [10,20,30] |
+
 <!-- vale on -->
 
 
@@ -995,9 +1077,11 @@ source=people
 The query returns the following results:
 
 <!-- vale off -->
+
 | nserver |
 | --- |
 | [host1:80,host2:443] |
+
 <!-- vale on -->
 
 The following example uses a pipe delimiter with equal-length arrays:
@@ -1013,9 +1097,11 @@ source=people
 The query returns the following results:
 
 <!-- vale off -->
+
 | result |
 | --- |
 | [a|x,b|y,c|z] |
+
 <!-- vale on -->
 
 The following example demonstrates behavior with arrays of different lengths:
@@ -1031,9 +1117,11 @@ source=people
 The query returns the following results:
 
 <!-- vale off -->
+
 | result |
 | --- |
 | [1-a,2-b] |
+
 <!-- vale on -->
 
 The following example shows nested mvzip calls:
@@ -1049,9 +1137,11 @@ source=people
 The query returns the following results:
 
 <!-- vale off -->
+
 | result |
 | --- |
 | [a-x:1,b-y:2,c-z:3] |
+
 <!-- vale on -->
 
 The following example shows behavior with an empty array:
@@ -1067,7 +1157,9 @@ source=people
 The query returns the following results:
 
 <!-- vale off -->
+
 | result |
 | --- |
 | [] |
+
 <!-- vale on -->
