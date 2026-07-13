@@ -172,11 +172,7 @@ Consider the following performance optimizations when working with different fie
 * For wildcard searches on non-keyword fields, create a `keyword` subfield to improve performance. For example, for wildcard searches on a `message` field of type `text`, add a `message.keyword` field.
 
 <!-- temporarily commented out because the admin section is not ported
-<!-- vale off -->
-
 ## Cross-cluster search  
-
-<!-- vale on -->
 
 Cross-cluster search lets any node in a cluster execute search requests against other clusters. Refer to [Cross-cluster search]({{site.url}}{{site.baseurl}}/search-plugins/cross-cluster-search/) for configuration.
 -->

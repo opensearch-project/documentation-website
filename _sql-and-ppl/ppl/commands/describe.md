@@ -102,12 +102,7 @@ The query returns the following results:
 <!-- vale on -->
   
 <!-- temporarily commented out because the admin section is not ported
-<!-- vale off -->
-
 ## Example 3: Fetching table metadata for a Prometheus data source
 
-<!-- vale on -->
-
 See [Fetch metadata for table in Prometheus datasource]({{site.url}}{{site.baseurl}}/sql-and-ppl/sql-and-ppl-api/data-source-apis/) for more context.
-
 -->
