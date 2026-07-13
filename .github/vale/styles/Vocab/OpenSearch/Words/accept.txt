@@ -6,7 +6,9 @@
 [Aa]utogenerated?
 [Aa]utomapping
 [Aa]utopopulate
+[Bb]ackfill(ed|ing)?
 [Bb]ackoff
+[Bb]acktest(s|ed|ing)?
 [Bb]ackporting
 [Bb]lockquotes?
 [Bb]ackpressure
@@ -32,6 +34,7 @@ Boolean
 [Dd]eduplicat(ion|ing)
 [Dd]eduplicate[sd]?
 [Dd]eprovision(s|ed|ing)?
+[Dd]ialogs?
 [Dd]eserialization
 [Dd]eserialize
 [Dd]eterminized
@@ -79,6 +82,7 @@ gRPC
 [Jj]accard
 [Jj]avadoc
 k-NN
+[Kk]eyrings?
 [Kk]eystore
 [Kk]eytab
 kibibyte
@@ -89,7 +93,8 @@ Levenshtein
 [Ll]ookups?
 [Ll]oopback
 [Ll]ossy
-[Ll]owercases?d?
+[Ll]owercase[sd]?
+[Ll]owercasing
 [Mm]acrobenchmarks?
 mebibyte
 [Mm]etaphone
@@ -108,6 +113,7 @@ mebibyte
 [Oo]ffline
 [Oo]nboard(ed|ing)?
 [Oo]verfit(ting)?
+[Oo]versaturat(e|ed|ing)
 [Oo]versamples?
 [Pp]addings?
 p\d{2}
@@ -173,6 +179,7 @@ pebibyte
 [Ss]ubnets?
 [Ss]ubpath
 [Ss]ubpatterns?
+[Ss]ubpipelines?
 [Ss]ubprocess(es)?
 [Ss]ubquer(y|ies)
 [Ss]ublists?
