@@ -14,19 +14,17 @@ implemented for now. In other words, you only get the metrics for the
 node you're accessing. Cluster level statistics have yet to be
 implemented.
 
-## Node Stats
+## Node statistics
 
-### Description
-
-The meaning of fields in the response is as follows:
+The response contains the following fields.
 
 |                 Field name|                                                    Description|
 | ------------------------- | ------------------------------------------------------------- |
-|              request_total|                                         Total count of request|
-|              request_count|                     Total count of request within the interval|
-|failed_request_count_syserr|Count of failed request due to system error within the interval|
-|failed_request_count_cuserr| Count of failed request due to bad request within the interval|
-|    failed_request_count_cb| Indicate if plugin is being circuit broken within the interval|
+|              `request_total`|                                         Total count of request.|
+|              `request_count`|                     Total count of request within the interval.|
+|`failed_request_count_syserr`|Count of failed request due to system error within the interval.|
+|`failed_request_count_cuserr`| Count of failed request due to bad request within the interval.|
+|    `failed_request_count_cb`| Indicate if plugin is being circuit broken within the interval.|
 
 
 ### Example
@@ -39,7 +37,7 @@ SQL query:
 {% include copy.html %}
 
 
-Result set:
+The query returns the following results:
 
 ```json
 {

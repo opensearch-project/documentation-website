@@ -6,12 +6,20 @@ grand_parent: PPL
 nav_order: 11
 ---
 
+<!-- vale off -->
+
 # dedup
+
+<!-- vale on -->
 
 The `dedup` command removes duplicate documents defined by specified fields from the search result.
 
 
+<!-- vale off -->
+
 ## Syntax
+
+<!-- vale on -->
 
 The `dedup` command has the following syntax:
 
@@ -19,7 +27,11 @@ The `dedup` command has the following syntax:
 dedup [int] <field-list> [keepempty=<bool>] [consecutive=<bool>]
 ```
 
+<!-- vale off -->
+
 ## Parameters
+
+<!-- vale on -->
 
 The `dedup` command supports the following parameters.
 
@@ -31,7 +43,11 @@ The `dedup` command supports the following parameters.
 | `consecutive` | Optional | When set to `true`, removes only consecutive duplicate documents. Default is `false`. Requires the legacy SQL engine (`plugins.calcite.enabled=false`). |
   
 
+<!-- vale off -->
+
 ## Example 1: Removing duplicates based on a single field  
+
+<!-- vale on -->
 
 The following query deduplicates by service name to get one sample error per service, giving you a quick view of what's failing across your system:
   
@@ -47,6 +63,8 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | resource.attributes.service.name | severityText | body |
 | --- | --- | --- |
 | checkout | ERROR | NullPointerException in CheckoutService.placeOrder at line 142 |
@@ -54,9 +72,15 @@ The query returns the following results:
 | payment | ERROR | Payment failed: connection timeout to payment gateway after 30000ms |
 | product-catalog | WARN | Slow query detected: SELECT \* FROM products WHERE category = 'electronics' took 3200ms |
 | recommendation | ERROR | Failed to process recommendation request: invalid product ID from 203.0.113.50 |
+
+<!-- vale on -->
   
 
+<!-- vale off -->
+
 ## Example 2: Retaining multiple duplicate documents  
+
+<!-- vale on -->
 
 The following query keeps up to two logs per severity level, giving you a broader sample of each level to understand the variety of issues:
   
@@ -72,6 +96,8 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | severityText | severityNumber |
 | --- | --- |
 | DEBUG | 5 |
@@ -80,9 +106,15 @@ The query returns the following results:
 | INFO | 9 |
 | WARN | 13 |
 | WARN | 13 |
+
+<!-- vale on -->
   
 
+<!-- vale off -->
+
 ## Example 3: Handling documents with empty field values  
+
+<!-- vale on -->
 
 The following query deduplicates by instrumentation scope name to see which OTel SDKs are reporting. By default, records with null values are dropped:
   
@@ -97,11 +129,15 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | instrumentationScope.name |
 | --- |
 | @opentelemetry/instrumentation-http |
 | Microsoft.Extensions.Hosting |
 | go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc |
+
+<!-- vale on -->
   
 The following query deduplicates while ignoring documents with empty values in the specified field:
   
@@ -116,14 +152,22 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | instrumentationScope.name |
 | --- |
 | @opentelemetry/instrumentation-http |
 | Microsoft.Extensions.Hosting |
 | go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc |
+
+<!-- vale on -->
   
 
+<!-- vale off -->
+
 ## Example 4: Deduplicating consecutive documents  
+
+<!-- vale on -->
 
 The following query removes duplicate consecutive documents. When logs are sorted by severity, this shows the transitions between severity levels, helping you see the pattern of escalation:
   
@@ -138,10 +182,14 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | severityText | resource.attributes.service.name |
 | --- | --- |
 | DEBUG | cart |
 | INFO | cart |
 | WARN | frontend-proxy |
 | ERROR | checkout |
+
+<!-- vale on -->
   

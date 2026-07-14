@@ -33,6 +33,10 @@ source=people
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | typeof(date) | typeof(int) | typeof(now()) | typeof(column) |
 | --- | --- | --- | --- |
 | DATE | INT | TIMESTAMP | STRUCT |
+
+<!-- vale on -->
