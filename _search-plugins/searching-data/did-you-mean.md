@@ -332,7 +332,7 @@ The phrase suggester returns the corrected phrase:
 }
 ```
 
-To highlight suggestions, set up the [`highlight`]({{site.url}}{{site.baseurl}}/opensearch/search/highlight) field for the phrase suggester:
+To highlight suggestions, set up the [`highlight`]({{site.url}}{{site.baseurl}}/opensearch/search/highlight/) field for the phrase suggester:
 
 ```json
 GET books2/_search
@@ -418,7 +418,7 @@ field | The field to use for n-gram lookups. The phrase suggester uses this fiel
 
 ### Collate field
 
-To filter out spellchecked suggestions that will not return any results, you can use the `collate` field. This field contains a scripted query that is run for each returned suggestion. See [Search templates]({{site.url}}{{site.baseurl}}/opensearch/search-template) for information on constructing a templated query. You can specify the current suggestion using the `{% raw %}{{suggestion}}{% endraw %}` variable, or you can pass your own template parameters in the `params` field (the suggestion value will be added to the variables you specify).
+To filter out spellchecked suggestions that will not return any results, you can use the `collate` field. This field contains a scripted query that is run for each returned suggestion. See [Search templates]({{site.url}}{{site.baseurl}}/opensearch/search-template/) for information about constructing a templated query. You can specify the current suggestion using the `{% raw %}{{suggestion}}{% endraw %}` variable, or you can pass your own template parameters in the `params` field (the suggestion value will be added to the variables you specify).
 
 The collate query for a suggestion is run only on the shard from which the suggestion was sourced. The query is required.  
 
