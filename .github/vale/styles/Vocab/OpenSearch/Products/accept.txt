@@ -40,7 +40,6 @@ Dashboards Query Language
 Data Prepper
 Debian
 Dev Tools
-Discover
 Discover application
 Docker
 Docker Compose
@@ -164,7 +163,6 @@ Traffic Capture Proxy
 Traffic Replayer
 Tribuo
 VisBuilder
-Visualize
 Visualize application
 Wikimedia
 Wikitravel

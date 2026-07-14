@@ -125,6 +125,7 @@ mebibyte
 [Oo]ffline
 [Oo]nboard(ed|ing)?
 [Oo]verfit(ting)?
+[Oo]verrepresentation
 [Oo]versaturat(e|ed|ing)
 [Oo]versamples?
 [Pp]addings?
