@@ -28,6 +28,7 @@ exceptions:
   - GIF
   - HTML
   - HTTP
+  - ISO
   - HTTPS
   - HTTP(S)
   - I/O

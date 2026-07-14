@@ -5,7 +5,7 @@ parent: Analyzers
 nav_order: 120
 ---
 
-# Whitespace analyzer
+# White space analyzer
 
 The `whitespace` analyzer breaks text into tokens based only on white space characters (for example, spaces and tabs). It does not apply any transformations, such as lowercasing or removing stopwords, so the original case of the text is retained and punctuation is included as part of the tokens.
 

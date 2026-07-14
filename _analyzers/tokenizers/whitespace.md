@@ -5,7 +5,7 @@ parent: Tokenizers
 nav_order: 160
 ---
 
-# Whitespace tokenizer
+# White space tokenizer
 
 The `whitespace` tokenizer splits text on white space characters, such as spaces, tabs, and new lines. It treats each word separated by white space as a token and does not perform any additional analysis or normalization like lowercasing or punctuation removal.
 
