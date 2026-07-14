@@ -10,7 +10,7 @@
 [Aa]utopopulate
 [Bb]ackfill(ed|ing)?
 [Bb]ackoff
-[Bb]ackporting
+[Bb]ackport(s|ed|ing)?
 [Bb]ackpressure
 [Bb]ackreferences?
 [Bb]acktest(s|ed|ing)?
@@ -134,6 +134,7 @@ p\d{2}
 pebibyte
 [Pp]erformant
 [Pp]laintext
+[Pp]rofilers?
 [Pp]luggable
 [Pp]ointwise
 [Pp]reaggregate(s|d)?
