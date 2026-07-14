@@ -39,7 +39,7 @@ Download or clone the [Data Prepper repository](https://github.com/opensearch-pr
 
 Close the file and run `docker compose up --build` to start the containers.
 
-After the containers start, your ingestion pipeline is set up and ready to ingest log data. The `fluent-bit` container is configured to read log data from `test.log`. Run the following command to generate log data to send to the log ingestion pipeline.
+After the containers start, your ingest pipeline is set up and ready to ingest log data. The `fluent-bit` container is configured to read log data from `test.log`. Run the following command to generate log data to send to the log ingest pipeline.
 
 ```
 echo '63.173.168.120 - - [04/Nov/2021:15:07:25 -0500] "GET /search/tag/list HTTP/1.0" 200 5003' >> test.log

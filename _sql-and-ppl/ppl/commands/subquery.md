@@ -6,7 +6,11 @@ grand_parent: PPL
 nav_order: 47
 ---
 
+<!-- vale off -->
+
 # subquery
+
+<!-- vale on -->
 
 The `subquery` command allows you to embed one PPL query within another, enabling advanced filtering and data retrieval. A subquery is executed first, and its results are used by the outer query for filtering, comparison, or joining.
 
@@ -17,7 +21,11 @@ Common use cases for subqueries include:
 * Performing calculations that rely on aggregated values from other tables.
 * Creating complex joins with dynamic conditions.
 
+<!-- vale off -->
+
 ## Syntax
+
+<!-- vale on -->
 
 The `subquery` command has the following syntax:
 
@@ -30,7 +38,11 @@ Subqueries use the same syntax as regular PPL queries but must be enclosed in sq
 - [Scalar](#scalar-subquery)
 - [Relation](#relation-subquery)
 
+<!-- vale off -->
+
 ### IN subquery
+
+<!-- vale on -->
 
 Tests whether a field value exists in the results of a subquery:
   
@@ -55,7 +67,11 @@ source = table1 | inner join left = l right = r on l.a = r.a AND r.a in [ source
 ```
 {% include copy.html %}
   
+<!-- vale off -->
+
 ### EXISTS subquery
+
+<!-- vale on -->
 
 Tests whether a subquery returns any results:
   
@@ -83,7 +99,11 @@ source = outer | where exists [ source = inner ] | eval l = "nonEmpty" | fields 
 ```
 {% include copy.html %}
   
+<!-- vale off -->
+
 ### Scalar subquery
+
+<!-- vale on -->
 
 Returns a single value that can be used in comparisons or calculations:   
   
@@ -119,7 +139,11 @@ source = outer | where a = [ source = inner | where c =  [ source = nested | sta
 ```
 {% include copy.html %}
   
+<!-- vale off -->
+
 ### Relation subquery
+
+<!-- vale on -->
 
 Used in `join` operations to provide dynamic right-side data:  
   
@@ -136,7 +160,11 @@ source = [ source = table1 | join left = l right = r [ source = table2 | where d
 ```
 {% include copy.html %}
 
+<!-- vale off -->
+
 ## Configuration
+
+<!-- vale on -->
 
 The `subquery` command behavior is configured using the `plugins.ppl.subsearch.maxout` setting, which specifies the maximum number of rows to return from the subsearch. Default is `10000`. A value of `0` indicates that the restriction is unlimited.
 
@@ -153,7 +181,11 @@ PUT /_plugins/_query/settings
 {% include copy-curl.html %}
   
 
+<!-- vale off -->
+
 ## Example 1: TPC-H q20
+
+<!-- vale on -->
 
 The following query demonstrates a complex TPC-H query 20 implementation using nested subqueries:
 
@@ -184,7 +216,11 @@ source = supplier
 {% include copy.html %}
   
 
+<!-- vale off -->
+
 ## Example 2: TPC-H q22
+
+<!-- vale on -->
 
 The following query demonstrates a TPC-H query 22 implementation using `EXISTS` and scalar subqueries:
 

@@ -6,11 +6,19 @@ grand_parent: PPL
 nav_order: 9
 ---
 
+<!-- vale off -->
+
 # chart
+
+<!-- vale on -->
 
 The `chart` command transforms search results by applying a statistical aggregation function and optionally grouping the data by one or two fields. When grouped by two fields, the results are suitable for two-dimensional chart visualizations, with unique values in the second group key pivoted into column names.
 
+<!-- vale off -->
+
 ## Syntax
+
+<!-- vale on -->
 
 The `chart` command has the following syntax:
 
@@ -18,7 +26,11 @@ The `chart` command has the following syntax:
 chart [limit=(top|bottom) <number>] [useother=<boolean>] [usenull=<boolean>] [nullstr=<string>] [otherstr=<string>] <aggregation_function> [ by <row_split> <column_split> ] | [over <row_split> ] [ by <column_split>]
 ```
 
+<!-- vale off -->
+
 ## Parameters
+
+<!-- vale on -->
 
 The `chart` command supports the following parameters.
 
@@ -34,7 +46,11 @@ The `chart` command supports the following parameters.
 | `otherstr` | Optional | Specifies the category name for the `OTHER` category. This parameter only applies when `useother` is `true` and there are values beyond the `limit`. | `OTHER` |
 
 
+<!-- vale off -->
+
 ## Notes
+
+<!-- vale on -->
 
 The following considerations apply when using the `chart` command:
 
@@ -42,7 +58,11 @@ The following considerations apply when using the `chart` command:
 * Documents with null values in fields used by the aggregation function are excluded from aggregation. For example, in `chart avg(balance) over deptno, group`, documents where `balance` is null are excluded from the average calculation.
 * The aggregation metric appears as the last column in the results. Result columns are ordered as follows: `[row split] [column split] [aggregation metrics]`. 
 
+<!-- vale off -->
+
 ## Example 1: Basic aggregation without grouping  
+
+<!-- vale on -->
 
 This example counts the total number of log entries:
   
@@ -55,12 +75,20 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | total_logs |
 | --- |
 | 20 |
+
+<!-- vale on -->
   
 
+<!-- vale off -->
+
 ## Example 2: Grouping by a single field  
+
+<!-- vale on -->
 
 This example counts logs by severity level, useful for a severity distribution pie chart:
   
@@ -73,15 +101,23 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | severityText | count() |
 | --- | --- |
 | DEBUG | 3 |
 | ERROR | 7 |
 | INFO | 6 |
 | WARN | 4 |
+
+<!-- vale on -->
   
 
+<!-- vale off -->
+
 ## Example 3: Using over [] by [] to group by multiple fields  
+
+<!-- vale on -->
 
 The following query creates a two-dimensional chart showing log counts by severity level and service, ideal for a heatmap visualization:
   
@@ -94,6 +130,8 @@ source=otellogs
   
 The query returns the following results. Services beyond the top 2 are grouped into `OTHER`:
   
+<!-- vale off -->
+
 | severityText | `resource.attributes.service.name` | count() |
 | --- | --- | --- |
 | DEBUG | OTHER | 2 |
@@ -104,9 +142,15 @@ The query returns the following results. Services beyond the top 2 are grouped i
 | INFO | frontend | 4 |
 | WARN | OTHER | 2 |
 | WARN | product-catalog | 2 |
+
+<!-- vale on -->
   
 
+<!-- vale off -->
+
 ## Example 4: Using limit with custom other label  
+
+<!-- vale on -->
 
 The following query limits to the top 1 service per severity level and labels the rest as `other_services`:
   
@@ -119,6 +163,8 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | severityText | `resource.attributes.service.name` | count() |
 | --- | --- | --- |
 | DEBUG | other_services | 3 |
@@ -126,9 +172,15 @@ The query returns the following results:
 | INFO | frontend | 4 |
 | INFO | other_services | 2 |
 | WARN | other_services | 4 |
+
+<!-- vale on -->
   
 
+<!-- vale off -->
+
 ## Example 5: Using null parameters  
+
+<!-- vale on -->
 
 The following query shows log counts per service by namespace, labeling services without a namespace as `no namespace`:
   
@@ -141,6 +193,8 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | `resource.attributes.service.name` | instrumentationScope.name | count() |
 | --- | --- | --- |
 | cart | Microsoft.Extensions.Hosting | 1 |
@@ -154,9 +208,15 @@ The query returns the following results:
 | product-catalog | go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc | 1 |
 | product-catalog | not instrumented | 3 |
 | recommendation | not instrumented | 1 |
+
+<!-- vale on -->
   
 
+<!-- vale off -->
+
 ## Example 6: Using span  
+
+<!-- vale on -->
 
 The following query charts the maximum severity per severity range and host, useful for identifying which hosts experience the most critical issues:
   
@@ -169,6 +229,8 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | severityNumber | `resource.attributes.host.name` | max(severityNumber) |
 | --- | --- | --- |
 | 0 | cart-5d8f7b-mk29s | 9 |
@@ -180,9 +242,15 @@ The query returns the following results:
 | 10 | payment-6f8d4b-ht7q3 | 17 |
 | 10 | productcatalog-7c9d-zn4p2 | 17 |
 | 10 | recommendation-5f7c-bn3k8 | 17 |
+
+<!-- vale on -->
   
 
+<!-- vale off -->
+
 ## Limitations
+
+<!-- vale on -->
 
 The `chart` command has the following limitations:
 

@@ -14,7 +14,7 @@ Restores a snapshot of a cluster or specified data streams and indexes.
 
 * For information about indexes and clusters, see [Introduction to OpenSearch]({{site.url}}{{site.baseurl}}/opensearch/index/).
 
-* For information about data streams, see [Data streams]({{site.url}}{{site.baseurl}}/opensearch/data-streams).
+* For information about data streams, see [Data streams]({{site.url}}{{site.baseurl}}/opensearch/data-streams/).
 
 If open indexes with the same name that you want to restore already exist in the cluster, you must close, delete, or rename the indexes. For information about renaming an index, see [Example requests](#example-requests). For information about closing an index, see [Close index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/close-index/).
 {: .note}
@@ -190,7 +190,7 @@ Upon success, the response returns the following JSON object:
 }
 ```
 
-Except for the snapshot name, all properties are empty or `0`. This is because any changes made to the volume after the snapshot was generated are lost. However, if you invoke the [Get snapshot]({{site.url}}{{site.baseurl}}/api-reference/snapshots/get-snapshot) API to examine the snapshot, a fully populated snapshot object is returned. 
+Except for the snapshot name, all properties are empty or `0`. This is because any changes made to the volume after the snapshot was generated are lost. However, if you invoke the [Get snapshot]({{site.url}}{{site.baseurl}}/api-reference/snapshots/get-snapshot/) API to examine the snapshot, a fully populated snapshot object is returned. 
 
 ## Response body fields
 
@@ -198,9 +198,9 @@ The following table lists all available response body fields.
 
 | Field | Data type | Description |
 | :--- | :--- | :--- | 
-| `snapshot` | string | Snapshot name. |
-| `indices` | array | Indices in the snapshot. |
-| `shards` | object | Total number of shards created along with number of successful and failed shards. |
+| `snapshot` | String | Snapshot name. |
+| `indices` | Array | Indices in the snapshot. |
+| `shards` | Object | Total number of shards created along with number of successful and failed shards. |
 
 If open indexes in a snapshot already exist in a cluster, and you don't delete, close, or rename them, the API returns an error similar to the following:
 

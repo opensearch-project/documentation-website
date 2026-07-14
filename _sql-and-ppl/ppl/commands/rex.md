@@ -6,11 +6,19 @@ grand_parent: PPL
 nav_order: 40
 ---
 
+<!-- vale off -->
+
 # rex
+
+<!-- vale on -->
 
 The `rex` command extracts fields from a raw text field using regular expression named capture groups. It uses Java regex patterns. For more information, see the [Java regular expression documentation](https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html).
 
+<!-- vale off -->
+
 ## The rex and parse commands compared
+
+<!-- vale on -->
 
 The `rex` and [`parse`]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/commands/parse/) commands both extract information from text fields using Java regular expressions with named capture groups. The following table compares the capabilities of the `rex` and `parse` commands. 
 
@@ -24,7 +32,11 @@ The `rex` and [`parse`]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/commands/pa
 | Offset tracking | Yes | No |
 | Special characters in group names | No | No |
 
+<!-- vale off -->
+
 ## Syntax
+
+<!-- vale on -->
 
 The `rex` command has the following syntax:
 
@@ -32,7 +44,11 @@ The `rex` command has the following syntax:
 rex [mode=<mode>] field=<field> <pattern> [max_match=<int>] [offset_field=<string>]
 ```
 
+<!-- vale off -->
+
 ## Parameters
+
+<!-- vale on -->
 
 The `rex` command supports the following parameters.
 
@@ -50,7 +66,11 @@ You can set the `max_match` limit in the `plugins.ppl.rex.max_match.limit` clust
 {: .note}
 
 
+<!-- vale off -->
+
 ## Example 1: Extracting service name and error type from log messages  
+
+<!-- vale on -->
 
 The following query extracts the error type from Java exception log messages. Non-matching rows return `null` for the extracted field:
   
@@ -66,14 +86,22 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | body | errtype |
 | --- | --- |
 | Payment failed: connection timeout to payment gateway after 30000ms | null |
 | NullPointerException in CheckoutService.placeOrder at line 142 | NullPointerException |
 | Out of memory: Java heap space - shutting down pod payment-6f8d4b-ht7q3 | null |
+
+<!-- vale on -->
   
 
+<!-- vale off -->
+
 ## Example 2: Extracting multiple words using max_match  
+
+<!-- vale on -->
 
 The following query uses the `rex` command with the `max_match` parameter to extract multiple words from the `body` field. The extracted field is returned as an array of strings:
   
@@ -88,15 +116,23 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | body | word |
 | --- | --- |
 | Slow query detected: SELECT \* FROM products WHERE category = 'electronics' took 3200ms | [Slow,query,detected] |
 | Connection pool 80% utilized on database replica db-replica-02 | [Connection,pool,utilized] |
 | SSL certificate for api.example.com expires in 14 days | [SSL,certificate,for] |
 | Rate limit threshold reached: 450/500 requests per minute for API key ending in ...abc789 | [Rate,limit,threshold] |
+
+<!-- vale on -->
   
 
+<!-- vale off -->
+
 ## Example 3: Replacing text using sed mode  
+
+<!-- vale on -->
 
 The following query uses `sed` mode to mask IP addresses in log messages for privacy compliance:
 
@@ -111,11 +147,19 @@ source=otellogs
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | body |
 | --- |
 | User U300 authenticated via OAuth2 from xxx.xxx.xxx.xxx |
 
+<!-- vale on -->
+
+<!-- vale off -->
+
 ## Example 4: Tracking match positions using offset_field  
+
+<!-- vale on -->
 
 The following query tracks the character positions where matches occur, useful for highlighting matches in a UI:
   
@@ -131,9 +175,13 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | body | errtype | pos |
 | --- | --- | --- |
 | NullPointerException in CheckoutService.placeOrder at line 142 | NullPointerException | errtype=0-19 |
+
+<!-- vale on -->
   
 
 Capture group names cannot contain underscores because of [Java regex](https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html) limitations. For example, `(?<error_type>\w+)` is invalid; use `(?<errortype>\w+)` instead.
