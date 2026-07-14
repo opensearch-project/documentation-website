@@ -41,9 +41,7 @@ A slice is the unit of work that can be executed by a thread. Each query can be 
 
 In general, the max/min/avg slice time captures statistics across all slices for a timing type. For example, when profiling aggregations, the `max_slice_time_in_nanos` field in the `aggregations` section shows the maximum time consumed by the aggregation operation and its children across all slices. 
 
-## Example requests
-
-### Non-concurrent search
+## Example request: Non-concurrent search
 
 To use the Profile API, include the `profile` parameter set to `true` in the search request sent to the `_search` endpoint:
 
@@ -156,11 +154,11 @@ The response contains an additional `time` field with human-readable units, for 
 The Profile API response is verbose, so if you're running the request through the `curl` command, include the `?pretty` query parameter to make the response easier to understand.
 {: .tip}
 
-### Aggregations
+## Example request: Aggregations
 
 To profile aggregations, send an aggregation request and provide the `profile` parameter set to `true`.
 
-#### Global aggregation
+### Global aggregation
 
 <!-- spec_insert_start
 component: example_code
@@ -253,7 +251,7 @@ response = client.search(
     python=step1_python %}
 <!-- spec_insert_end -->
 
-#### Non-global aggregation
+### Non-global aggregation
 
 <!-- spec_insert_start
 component: example_code
@@ -309,9 +307,7 @@ response = client.search(
 <!-- spec_insert_end -->
 
 
-## Example response
-
-### Non-concurrent search
+## Example response: Non-concurrent search
 
 The response contains profiling information:
 
@@ -764,6 +760,8 @@ Reason | Description
 `global_aggregation` | A collector that is run against the global query scope. Global scope is different from a specified query scope, so in order to collect the entire dataset, a `match_all` query must be run.
 
 ### Aggregation responses
+
+The following examples show profiling responses for different aggregation types.
 
 #### Response: Global aggregation
 

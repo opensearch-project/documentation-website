@@ -38,7 +38,7 @@ All parameters are optional.
 
 | Field | Data type | Description | 
 :--- | :--- | :---
-| `script` | Object | Defines the script or search template, its parameters, and its language. See *Script object* below. |
+| `script` | Object | Defines the script or search template, its parameters, and its language. See the following *Script object* section. |
 
 *Script object*
 
