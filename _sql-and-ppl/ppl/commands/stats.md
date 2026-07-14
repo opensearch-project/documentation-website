@@ -6,15 +6,27 @@ grand_parent: PPL
 nav_order: 45
 ---
 
+<!-- vale off -->
+
 # stats
+
+<!-- vale on -->
 
 The `stats` command calculates aggregations on the search results.
 
+<!-- vale off -->
+
 ## Comparing stats, eventstats, and streamstats
+
+<!-- vale on -->
 
 For a comprehensive comparison of `stats`, `eventstats`, and `streamstats` commands, including their differences in transformation behavior, output format, aggregation scope, and use cases, see [Comparing stats, eventstats, and streamstats]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/commands/streamstats/#comparing-stats-eventstats-and-streamstats).
 
+<!-- vale off -->
+
 ## Syntax
+
+<!-- vale on -->
 
 The `stats` command has the following syntax:
 
@@ -22,7 +34,11 @@ The `stats` command has the following syntax:
 stats [bucket_nullable=bool] <aggregation>... [by-clause]
 ```
 
+<!-- vale off -->
+
 ## Parameters
+
+<!-- vale on -->
 
 The `stats` command supports the following parameters.
 
@@ -33,7 +49,11 @@ The `stats` command supports the following parameters.
 | `bucket_nullable` | Optional | Controls whether to include `null` buckets in group-by aggregations. When `false`, ignores records in which the `group-by` field is null, resulting in faster performance. Default is the value of `plugins.ppl.syntax.legacy.preferred`. |
 | `<span-expression>` | Optional | Splits a field into buckets by intervals (maximum of one). Syntax: `span(field_expr, interval_expr)`. By default, the interval uses the field's default unit. For date/time fields, aggregation results ignore null values. Examples: `span(age, 10)` creates 10-year age buckets, and `span(timestamp, 1h)` creates hourly buckets. Valid time units are millisecond (`ms`), second (`s`), minute (`m`), hour (`h`), day (`d`), week (`w`), month (`M`), quarter (`q`), year (`y`). |
 
+<!-- vale off -->
+
 ## Aggregation functions  
+
+<!-- vale on -->
 
 The `stats` command supports the following aggregation functions:
 
@@ -60,7 +80,11 @@ The `stats` command supports the following aggregation functions:
   
 For detailed documentation of each function, see [Aggregation Functions]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/functions/aggregations/).
 
+<!-- vale off -->
+
 ## Example 1: Calculating the count of events  
+
+<!-- vale on -->
 
 The following query counts the total number of log entries, a basic health check for log ingestion:
   
@@ -73,12 +97,20 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | total_logs |
 | --- |
 | 20 |
+
+<!-- vale on -->
   
 
+<!-- vale off -->
+
 ## Example 2: Calculating the average of a field  
+
+<!-- vale on -->
 
 The following query calculates the average severity number across all logs. A rising average over time may indicate increasing system instability:
   
@@ -91,12 +123,20 @@ source=otellogs
   
 The query returns the following results:
 
+<!-- vale off -->
+
 | avg_severity |
 | --- |
 | 12.0 |
+
+<!-- vale on -->
   
 
+<!-- vale off -->
+
 ## Example 3: Calculating the count by group  
+
+<!-- vale on -->
 
 The following query counts logs by severity level, giving you a breakdown of your system's health at a glance:
   
@@ -110,15 +150,23 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | log_count | severityText |
 | --- | --- |
 | 7 | ERROR |
 | 6 | INFO |
 | 4 | WARN |
 | 3 | DEBUG |
+
+<!-- vale on -->
   
 
+<!-- vale off -->
+
 ## Example 4: Calculating multiple aggregations by group  
+
+<!-- vale on -->
 
 The following query calculates the total log count and severity range per service, helping you identify which services are most active and most problematic:
   
@@ -133,6 +181,8 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | total | min_sev | max_sev | resource.attributes.service.name |
 | --- | --- | --- | --- |
 | 4 | 9 | 9 | frontend |
@@ -140,9 +190,15 @@ The query returns the following results:
 | 3 | 5 | 9 | cart |
 | 3 | 9 | 17 | checkout |
 | 3 | 13 | 17 | frontend-proxy |
+
+<!-- vale on -->
   
 
+<!-- vale off -->
+
 ## Example 5: Calculating the count by a span  
+
+<!-- vale on -->
 
 The following query groups logs into severity buckets of 10, showing the distribution across low (0-9), medium (10-19), and high (20+) severity ranges:
   
@@ -155,13 +211,21 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | log_count | span(severityNumber,10) |
 | --- | --- |
 | 9 | 0 |
 | 11 | 10 |
+
+<!-- vale on -->
   
 
+<!-- vale off -->
+
 ## Example 6: Calculating the count by a field and span  
+
+<!-- vale on -->
 
 The following query counts logs by severity level within severity number ranges, showing how severity text maps to numeric ranges:
   
@@ -175,15 +239,23 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | cnt | sev_range | severityText |
 | --- | --- | --- |
 | 3 | 0 | DEBUG |
 | 6 | 0 | INFO |
 | 7 | 10 | ERROR |
 | 4 | 10 | WARN |
+
+<!-- vale on -->
   
 
+<!-- vale off -->
+
 ## Example 7: Calculating the distinct count of a field  
+
+<!-- vale on -->
 
 The following query counts the total and distinct number of services reporting logs, useful for verifying all expected services are reporting:
   
@@ -196,12 +268,20 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | total_entries | unique_services |
 | --- | --- |
 | 20 | 7 |
+
+<!-- vale on -->
   
 
+<!-- vale off -->
+
 ## Example 8: Collecting unique values using VALUES by group  
+
+<!-- vale on -->
 
 The following query collects the unique service names for each severity level, useful for quickly seeing which services are affected at each level:
   
@@ -215,15 +295,23 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | services | severityText |
 | --- | --- |
 | [cart,product-catalog] | DEBUG |
 | [checkout,frontend-proxy,payment,product-catalog,recommendation] | ERROR |
 | [cart,checkout,frontend] | INFO |
 | [frontend-proxy,product-catalog] | WARN |
+
+<!-- vale on -->
   
 
+<!-- vale off -->
+
 ## Example 9: Calculating the percentile of a field  
+
+<!-- vale on -->
 
 The following query calculates the 90th percentile of severity numbers, helping you understand the severity distribution:
   
@@ -236,12 +324,20 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | p90_severity |
 | --- |
 | 17 |
+
+<!-- vale on -->
   
 
+<!-- vale off -->
+
 ## Example 10: Collecting unique values using VALUES  
+
+<!-- vale on -->
 
 The following query collects all unique severity levels present in the logs:
   
@@ -254,12 +350,20 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | severity_levels |
 | --- |
 | [DEBUG,ERROR,INFO,WARN] |
+
+<!-- vale on -->
   
 
+<!-- vale off -->
+
 ## Example 11: Ignoring a null bucket
+
+<!-- vale on -->
 
 The following query excludes null values from grouping by setting `bucket_nullable=false`, useful when you only want to see services that have a defined namespace:
 
@@ -272,16 +376,26 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | cnt | instrumentationScope.name |
 | --- | --- |
 | 2 | @opentelemetry/instrumentation-http |
 | 1 | Microsoft.Extensions.Hosting |
 | 1 | go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc |
+
+<!-- vale on -->
   
+
+<!-- vale off -->
 
 ## Example 12: Date span grouping with null handling  
 
+<!-- vale on -->
+
 The following example uses this sample index data:
+
+<!-- vale off -->
 
 | Name | DEPTNO | birthday |
 | --- | --- | --- |
@@ -289,6 +403,8 @@ The following example uses this sample index data:
 | Bob | 2 | 2025-08-21 |
 | Jeff | null | 2025-04-22 |
 | Adam | 2 | null |
+
+<!-- vale on -->
 
 The following query groups data by yearly spans of the `birthday` field, automatically excluding null values:
 
@@ -300,10 +416,14 @@ source=example
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | cnt | year |
 | --- | --- |
 | 1 | 2024-01-01 |
 | 2 | 2025-01-01 |
+
+<!-- vale on -->
 
 Group by both yearly spans and department number (by default, null `DEPTNO` values are included in the results):
 
@@ -315,11 +435,15 @@ source=example
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | cnt | year | DEPTNO |
 | --- | --- | --- |
 | 1 | 2024-01-01 | 1 |
 | 1 | 2025-01-01 | 2 |
 | 1 | 2025-01-01 | null |
+
+<!-- vale on -->
 
 Use `bucket_nullable=false` to exclude null `DEPTNO` values from the grouping:
 
@@ -331,13 +455,21 @@ source=example
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | cnt | year | DEPTNO |
 | --- | --- | --- |
 | 1 | 2024-01-01 | 1 |
 | 1 | 2025-01-01 | 2 |
+
+<!-- vale on -->
   
 
+<!-- vale off -->
+
 ## Example 13: Calculating the count by the implicit @timestamp field  
+
+<!-- vale on -->
 
 If you omit the `field` parameter in the `span` function, it automatically uses the implicit `@timestamp` field:
   
@@ -349,15 +481,27 @@ source=big5
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | count() | span(1month) |
 | --- | --- |
 | 1 | 2023-01-01 00:00:00 |
 
+<!-- vale on -->
+
+<!-- vale off -->
+
 ## Limitations
+
+<!-- vale on -->
 
 The following limitations apply to the `stats` command.
 
+<!-- vale off -->
+
 ### Bucket aggregation results may be approximate for high-cardinality fields
+
+<!-- vale on -->
 
 In OpenSearch, `doc_count` values for a `terms` bucket aggregation can be approximate. Thus, any aggregations (such as `sum` or `avg`) performed on those buckets may also be approximate.
 
@@ -373,7 +517,11 @@ source=hits
 
 This query is translated into a `terms` aggregation in OpenSearch with `"order": { "_count": "desc" }`. For fields with high cardinality, some buckets may be discarded, so the results may only be approximate.
 
+<!-- vale off -->
+
 ### Sorting by doc_count in ascending order may produce inaccurate results
+
+<!-- vale on -->
 
 When retrieving the least frequent terms for high-cardinality fields, results may be inaccurate. Shard-level aggregations can miss globally rare terms or misrepresent their frequency, causing errors in the overall results.
 

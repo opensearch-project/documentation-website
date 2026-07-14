@@ -10,7 +10,7 @@ redirect_from:
 
 The SQL plugin is stateless, so troubleshooting is mostly focused on why a particular query fails.
 
-The most common error is the dreaded null pointer exception, which can occur during parsing errors or when using the wrong HTTP method (POST vs. GET and vice versa). The POST method and HTTP request body offer the most consistent results:
+The most common error is the dreaded null pointer exception, which can occur during parsing errors or when using the wrong HTTP method (POST compared to GET and the other way around). The POST method and HTTP request body offer the most consistent results:
 
 ```json
 POST _plugins/_sql
@@ -57,4 +57,4 @@ If you see the following verification exception, make sure the index in your que
 }
 ```
 
-If these steps don't work, submit a Github issue [here](https://github.com/opensearch-project/sql/issues).
+If these steps don't work, submit a [GitHub issue](https://github.com/opensearch-project/sql/issues).

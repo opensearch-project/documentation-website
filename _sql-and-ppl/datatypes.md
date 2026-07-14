@@ -10,25 +10,25 @@ redirect_from:
 
 The following table shows the data types supported by the SQL plugin and how each one maps to SQL and OpenSearch data types:
 
-| OpenSearch SQL Type | OpenSearch Type | SQL Type
+| OpenSearch SQL type | OpenSearch type | SQL type
 :--- | :--- | :---
-`boolean` |	boolean |	BOOLEAN
-`byte` |	byte |	TINYINT
-`short` |	byte |	SMALLINT
-`integer` |	integer |	INTEGER
-`long` | long |	BIGINT
-`float` |	float |	REAL
-`half_float` | float | FLOAT
-`scaled_float` | float | DOUBLE
-`double` | double | DOUBLE
-`keyword` |	string | VARCHAR
-`text` | text | VARCHAR
-`date` | timestamp | TIMESTAMP
-`date_nanos` | timestamp | TIMESTAMP
-`ip` | ip | VARCHAR
-`binary` | binary | VARBINARY
-`object` | struct | STRUCT
-`nested` | array | STRUCT
+`boolean` |	Boolean |	`BOOLEAN`
+`byte` |	Byte |	`TINYINT`
+`short` |	Byte |	`SMALLINT`
+`integer` |	Integer |	`INTEGER`
+`long` | Long |	`BIGINT`
+`float` |	Float |	`REAL`
+`half_float` | Float | `FLOAT`
+`scaled_float` | Float | `DOUBLE`
+`double` | Double | `DOUBLE`
+`keyword` |	String | `VARCHAR`
+`text` | Text | `VARCHAR`
+`date` | Timestamp | `TIMESTAMP`
+`date_nanos` | Timestamp | `TIMESTAMP`
+`ip` | IP | `VARCHAR`
+`binary` | Binary | `VARBINARY`
+`object` | Struct | `STRUCT`
+`nested` | Array | `STRUCT`
 
 In addition to this list, the SQL plugin also supports the `datetime` type, though it doesn't have a corresponding mapping with OpenSearch or SQL.
 To use a function without a corresponding mapping, you must explicitly convert the data type to one that does.
@@ -51,15 +51,19 @@ The `date` type represents the calendar date regardless of the time zone. A give
 
 ### Time
 
-The `time` type represents the time of a clock regardless of its timezone. The `time` type doesn't contain date information.
+The `time` type represents the time of a clock regardless of its time zone. The `time` type doesn't contain date information.
 
 | Type | Syntax | Range
 :--- | :--- | :---
 `time` | `hh:mm:ss[.fraction]` | `00:00:00.0000000000` to `23:59:59.9999999999`
 
+<!-- vale off -->
+
 ### Datetime
 
-The `datetime` type is a combination of date and time. It doesn't contain timezone information. For an absolute time point that contains date, time, and timezone information, see [Timestamp](#timestamp).
+<!-- vale on -->
+
+The `datetime` type is a combination of date and time. It doesn't contain time zone information. For an absolute time point that contains date, time, and time zone information, see [Timestamp](#timestamp).
 
 | Type | Syntax | Range
 :--- | :--- | :---
@@ -67,9 +71,9 @@ The `datetime` type is a combination of date and time. It doesn't contain timezo
 
 ### Timestamp
 
-The `timestamp` type is an absolute instance independent of timezone or convention. For example, for a given point of time, if you change the timestamp to a different timezone, its value changes accordingly.
+The `timestamp` type is an absolute instance independent of time zone or convention. For example, for a given point of time, if you change the timestamp to a different time zone, its value changes accordingly.
 
-The `timestamp` type is stored differently from the other types. It's converted from its current timezone to UTC for storage and converted back to its set timezone from UTC when it's retrieved.
+The `timestamp` type is stored differently from the other types. It's converted from its current time zone to UTC for storage and converted back to its set time zone from UTC when it's retrieved.
 
 | Type | Syntax | Range
 :--- | :--- | :---
@@ -101,7 +105,7 @@ The SQL plugin supports the following conversion rules for each of the types:
 
 - Because the `date` value doesn't have any time information, conversion to the `time` type isn't useful and always returns a zero time value of `00:00:00`.
 - Converting from `date` to `datetime` has a data fill-up due to the lack of time information. It attaches the time `00:00:00` to the original date by default and forms a `datetime` instance. For example, conversion of `2020-08-17` to a `datetime` type is `2020-08-17 00:00:00`.
-- Converting to `timestamp` type alternates both the `time` value and the `timezone` information. It attaches the zero time value `00:00:00` and the session timezone (UTC by default) to the date. For example, conversion of `2020-08-17` to a `datetime` type with a session timezone UTC is `2020-08-17 00:00:00 UTC`.
+- Converting to `timestamp` type alternates both the `time` value and the time zone information. It attaches the zero time value `00:00:00` and the session time zone (UTC by default) to the date. For example, conversion of `2020-08-17` to a `datetime` type with a session time zone UTC is `2020-08-17 00:00:00 UTC`.
 
 **Convert from time**
 
@@ -111,8 +115,8 @@ The SQL plugin supports the following conversion rules for each of the types:
 
 - Converting `datetime` to `date` extracts the date value from the `datetime` value. For example, conversion of `2020-08-17 14:09:00` to a `date` type is `2020-08-08`.
 - Converting `datetime` to `time` extracts the time value from the `datetime` value. For example, conversion of `2020-08-17 14:09:00` to a `time` type is `14:09:00`.
-- Because the `datetime` type doesn't contain timezone information, converting to `timestamp` type fills up the timezone value with the session timezone. For example, conversion of `2020-08-17 14:09:00` (UTC) to a `timestamp` type is `2020-08-17 14:09:00 UTC`.
+- Because the `datetime` type doesn't contain time zone information, converting to `timestamp` type fills up the time zone value with the session time zone. For example, conversion of `2020-08-17 14:09:00` (UTC) to a `timestamp` type is `2020-08-17 14:09:00 UTC`.
 
 **Convert from timestamp**
 
-- Converting from a `timestamp` type to a `date` type extracts the date value and converting to a `time` type extracts the time value. Converting from a `timestamp` type to `datetime` type extracts only the `datetime` value and leaves out the timezone value. For example, conversion of `2020-08-17 14:09:00` UTC to a `date` type is `2020-08-17`, to a `time` type is `14:09:00`, and to a `datetime` type is `2020-08-17 14:09:00`.
+- Converting from a `timestamp` type to a `date` type extracts the date value and converting to a `time` type extracts the time value. Converting from a `timestamp` type to `datetime` type extracts only the `datetime` value and leaves out the time zone value. For example, conversion of `2020-08-17 14:09:00` UTC to a `date` type is `2020-08-17`, to a `time` type is `14:09:00`, and to a `datetime` type is `2020-08-17 14:09:00`.
