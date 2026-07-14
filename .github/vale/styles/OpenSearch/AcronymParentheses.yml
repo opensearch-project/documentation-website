@@ -63,6 +63,7 @@ exceptions:
   - YUM
   - CAT
   - GET
+  - HEAD
   - PUT
   - POST
   - DELETE
