@@ -1,43 +1,68 @@
 ---
 layout: default
-title: Bulk replication API
+title: Bulk Replication API
 nav_order: 55
 parent: Cross-cluster replication
-redirect_from:
-  - /replication-plugin/bulk-api/
 ---
 
-# Bulk replication API
+# Bulk Replication API
 
-Use the bulk replication operations to programmatically manage cross-cluster replication across multiple indexes with a single API call. Rather than invoking the single-index replication API for each index, you can specify an index pattern to select matching indexes and perform start, stop, pause, or resume operations in bulk.
+Use the bulk replication operations to programmatically manage cross-cluster replication across multiple indexes using a single API call. You can specify an index pattern to select matching indexes and perform start, stop, pause, or resume operations in bulk.
 
-Use cases include:
+All bulk replication operations are asynchronous. Each request returns a `task_id` that you can use to [check the task progress](#get-bulk-task-status) or [cancel the operation](#cancel-bulk-task). Only one bulk replication task can run at a time per cluster; submitting a new bulk replication operation while one is in progress results in a `409 Conflict` error. If a bulk replication operation fails for some indexes, the task continues processing the remaining indexes and reports a list of indexes for which the operation succeeded and failed. You can cancel a running bulk task at any time, but indexes already processed are not reverted. Indexes are processed in configurable batches (see [Settings](#settings)). Bulk replication operations are not idempotent: if you submit the same request after a previous task has finished running, a new task is created.
 
-- Stopping replication on all indexes during failover between active-passive clusters.
-- Pausing and resuming replication across multiple indexes during cluster maintenance.
-- Starting replication for indexes that follow a naming convention.
+## Pattern matching
 
-All bulk operations are asynchronous. Each request returns a `task_id` that you can use to poll progress, retrieve status, or cancel the operation.
+The `pattern` field supports the same syntax as OpenSearch index patterns:
 
-#### Table of contents
+- `*` matches any number of characters.
+- `?` matches a single character.
+- Patterns must not start with `_`.
+- Patterns must not contain spaces, quotes (`"`), angle brackets (`<`, `>`), pipes (`|`), backslashes (`\`), hash marks (`#`), or commas (`,`).
+
+Examples:
+- `my-index-*` matches `my-index-1`, `my-index-2`, `my-index-logs`, and so on.
+- `*` matches all indexes (excluding system indexes starting with `.`).
+- `logs-2024-0?` matches `logs-2024-01`--`logs-2024-09`.
+
+---
+
+<details markdown="block">
+  <summary>
+    Table of contents
+  </summary>
+  {: .text-delta }
 - TOC
 {:toc}
+</details>
 
-## Key behaviors
-
-- **Asynchronous execution**: All bulk operations run asynchronously and return a `task_id` immediately. Use the [task status](#get-bulk-task-status) endpoint to poll for progress.
-- **One task at a time**: Only one bulk replication task can run at a time per cluster. Submitting a new bulk operation while one is already in progress results in a `409 Conflict` error.
-- **Partial success**: If some indexes fail during a bulk operation, the task continues processing the remaining indexes. The task status response reports which indexes succeeded and which failed.
-- **Cancellation**: You can cancel a running bulk task at any time. Indexes already processed are not reverted.
-- **Batch processing**: Indices are processed in configurable batches. See [Cluster settings](#cluster-settings).
+---
 
 ## Bulk start replication
-Introduced 3.7
+**Introduced 3.7**
 {: .label .label-purple }
 
-Initiates replication for all indexes on the leader cluster that match the specified pattern. Send this request to the follower cluster.
+Initiates replication for all indexes of the leader cluster that match the specified pattern. Send this request to the follower cluster.
 
-#### Request
+### Endpoints
+
+```json
+POST /_plugins/_replication/_bulk_start
+```
+
+### Request body fields
+
+The following table lists the available request body fields.
+
+Field | Data type | Description | Required
+:--- | :--- |:--- |:--- 
+`leader_alias` | String | The name of the cross-cluster connection. You define this alias when you [set up a cross-cluster connection]({{site.url}}{{site.baseurl}}/replication-plugin/get-started/#set-up-a-cross-cluster-connection). | Yes
+`pattern` | String | An index pattern to match indexes on the leader cluster. Supports wildcard characters. For example, `my-index-*` or `*` for all indexes. | Yes
+`use_roles` | Object | The roles to use for all subsequent backend replication tasks between the indexes. Specify a `leader_cluster_role` and `follower_cluster_role`. See [Map the leader and follower cluster roles]({{site.url}}{{site.baseurl}}/replication-plugin/permissions/#map-the-leader-and-follower-cluster-roles). | If the Security plugin is enabled
+`filters` | Object | An object containing filters to refine index selection. | No
+`filters.exclude_index` | Array | A list of index names to exclude from the operation. | No
+
+### Example request
 
 ```json
 POST /_plugins/_replication/_bulk_start
@@ -53,33 +78,31 @@ POST /_plugins/_replication/_bulk_start
    }
 }
 ```
-
-Specify the following options:
-
-Options | Description | Type | Required
-:--- | :--- |:--- |:--- |
-`leader_alias` | The name of the cross-cluster connection. You define this alias when you [set up a cross-cluster connection]({{site.url}}{{site.baseurl}}/replication-plugin/get-started/#set-up-a-cross-cluster-connection). | `string` | Yes
-`pattern` | An index pattern to match against indexes on the leader cluster. Supports wildcard characters. For example, `my-index-*` or `*` for all indexes. | `string` | Yes
-`use_roles` | The roles to use for all subsequent backend replication tasks between the indexes. Specify a `leader_cluster_role` and `follower_cluster_role`. See [Map the leader and follower cluster roles]({{site.url}}{{site.baseurl}}/replication-plugin/permissions/#map-the-leader-and-follower-cluster-roles). | `object` | If Security plugin is enabled
-`filters` | An object containing filters to refine index selection. | `object` | No
-`filters.exclude_index` | A list of index names to exclude from the operation. | `array` | No
-
-#### Example response
-
-```json
-{
-   "acknowledged": true,
-   "task_id": "nodeId:123"
-}
-```
+{% include copy-curl.html %}
 
 ## Bulk stop replication
-Introduced 3.7
+**Introduced 3.7**
 {: .label .label-purple }
 
-Stops replication and converts all matching follower indexes to standard indexes that accept writes. Send this request to the follower cluster.
+Stops replication and converts all matching follower indexes to standard indexes that accept write operations. Send this request to the follower cluster.
 
-#### Request
+### Endpoints
+
+```json
+POST /_plugins/_replication/_bulk_stop
+```
+
+### Request body fields
+
+The following table lists the available request body fields.
+
+Field | Data type | Description | Required
+:--- | :--- |:--- |:---
+`pattern` | String | An index pattern to match follower indexes. Supports wildcard characters. For example, `follower-*` or `*` for all replicating indexes. | Yes
+`filters` | Object | An object containing filters to refine index selection. | No
+`filters.exclude_index` | Array | A list of index names to exclude from the operation. | No
+
+### Example request
 
 ```json
 POST /_plugins/_replication/_bulk_stop
@@ -90,31 +113,34 @@ POST /_plugins/_replication/_bulk_stop
    }
 }
 ```
-
-Specify the following options:
-
-Options | Description | Type | Required
-:--- | :--- |:--- |:--- |
-`pattern` | An index pattern to match against follower indexes. Supports wildcard characters. For example, `follower-*` or `*` for all replicating indexes. | `string` | Yes
-`filters` | An object containing filters to refine index selection. | `object` | No
-`filters.exclude_index` | A list of index names to exclude from the operation. | `array` | No
-
-#### Example response
-
-```json
-{
-   "acknowledged": true,
-   "task_id": "nodeId:456"
-}
-```
+{% include copy-curl.html %}
 
 ## Bulk pause replication
-Introduced 3.7
+**Introduced 3.7**
 {: .label .label-purple }
 
 Pauses replication for all matching follower indexes. Send this request to the follower cluster.
 
-#### Request
+You can't resume replication after it's been paused for more than 12 hours. You must [stop replication]({{site.url}}{{site.baseurl}}/replication-plugin/api/#stop-replication), delete the follower index, and restart replication of the leader.
+{: .warning }
+
+### Endpoints
+
+```json
+POST /_plugins/_replication/_bulk_pause
+```
+
+### Request body fields
+
+The following table lists the available request body fields.
+
+Field | Data type | Description | Required
+:--- | :--- |:--- |:---
+`pattern` | String | An index pattern to match follower indexes. Supports wildcard characters. | Yes
+`filters` | Object | An object containing filters to refine index selection. | No
+`filters.exclude_index` | Array | A list of index names to exclude from the operation. | No
+
+### Example request
 
 ```json
 POST /_plugins/_replication/_bulk_pause
@@ -125,34 +151,31 @@ POST /_plugins/_replication/_bulk_pause
    }
 }
 ```
-
-Specify the following options:
-
-Options | Description | Type | Required
-:--- | :--- |:--- |:--- |
-`pattern` | An index pattern to match against follower indexes. Supports wildcard characters. | `string` | Yes
-`filters` | An object containing filters to refine index selection. | `object` | No
-`filters.exclude_index` | A list of index names to exclude from the operation. | `array` | No
-
-You can't resume replication after it's been paused for more than 12 hours. You must [stop replication]({{site.url}}{{site.baseurl}}/replication-plugin/api/#stop-replication), delete the follower index, and restart replication of the leader.
-{: .warning }
-
-#### Example response
-
-```json
-{
-   "acknowledged": true,
-   "task_id": "nodeId:789"
-}
-```
+{% include copy-curl.html %}
 
 ## Bulk resume replication
-Introduced 3.7
+**Introduced 3.7**
 {: .label .label-purple }
 
-Resumes replication for all matching paused follower indexes. Send this request to the follower cluster.
+Resumes replication for all paused follower indexes that match the specified pattern. The leader cluster must be reachable and retention leases must still be valid for each index. Send this request to the follower cluster.
 
-#### Request
+### Endpoints
+
+```json
+POST /_plugins/_replication/_bulk_resume
+```
+
+### Request body fields
+
+The following table lists the available request body fields.
+
+Field | Data type | Description | Required
+:--- | :--- |:--- |:---
+`pattern` | String | An index pattern to match paused follower indexes. Supports wildcard characters. | Yes
+`filters` | Object | An object containing filters to refine index selection. | No
+`filters.exclude_index` | Array | A list of index names to exclude from the operation. | No
+
+### Example request
 
 ```json
 POST /_plugins/_replication/_bulk_resume
@@ -163,44 +186,29 @@ POST /_plugins/_replication/_bulk_resume
    }
 }
 ```
-
-Specify the following options:
-
-Options | Description | Type | Required
-:--- | :--- |:--- |:--- |
-`pattern` | An index pattern to match against paused follower indexes. Supports wildcard characters. | `string` | Yes
-`filters` | An object containing filters to refine index selection. | `object` | No
-`filters.exclude_index` | A list of index names to exclude from the operation. | `array` | No
-
-#### Example response
-
-```json
-{
-   "acknowledged": true,
-   "task_id": "nodeId:012"
-}
-```
+{% include copy-curl.html %}
 
 ## Get bulk replication status
-Introduced 3.7
+**Introduced 3.7**
 {: .label .label-purple }
 
-Returns the current replication state of all indexes matching a pattern. Unlike the [task status](#get-bulk-task-status) endpoint, this returns the live replication state rather than the progress of a bulk operation. Send this request to the follower cluster.
+Returns the current replication status of all indexes matching a pattern. Unlike the [Get Bulk Task Status](#get-bulk-task-status) endpoint, this endpoint returns the live replication state rather than the progress of a bulk replication operation. Send this request to the follower cluster.
 
-#### Request
+### Endpoints
 
+```json
+GET /_plugins/_replication/_bulk_status?pattern={index-pattern}
 ```
-GET /_plugins/_replication/_bulk_status?pattern=<index-pattern>
-```
 
-Specify the following query parameters:
+### Query parameters
 
-Parameter | Description | Required
-:--- | :--- |:---
-`pattern` | An index pattern to match against follower indexes. Supports wildcard characters. | Yes
-`pretty` | Whether to pretty-print the response. | No
+The following table lists the available query parameters.
 
-#### Example response
+Parameter | Data type | Description | Required
+:--- | :--- |:--- |:---
+`pattern` | String | An index pattern to match follower indexes. Supports wildcard characters. | Yes
+
+### Example response
 
 ```json
 {
@@ -244,21 +252,51 @@ Parameter | Description | Required
 }
 ```
 
-The `bootstrap_details` field is optional and only appears for indexes that are in the `BOOTSTRAPPING` state during initial restore. Once bootstrap completes and replication enters the syncing phase, this field is replaced by `syncing_details`.
+### Response body fields
+
+The following table lists the response body fields.
+
+Field | Data type | Description
+:--- | :--- | :---
+`indices` | Object | A map of index names to their replication status objects.
+`indices.<index>.status` | String | The current replication status. Possible values are `SYNCING`, `BOOTSTRAPPING`, `PAUSED`, `RESTORING`.
+`indices.<index>.reason` | String | The reason for the current status.
+`indices.<index>.leader_alias` | String | The cross-cluster connection alias for the leader cluster.
+`indices.<index>.leader_index` | String | The name of the index on the leader cluster.
+`indices.<index>.follower_index` | String | The name of the index on the follower cluster.
+`indices.<index>.syncing_details` | Object | Replication progress details. Present when the status is `SYNCING`.
+`indices.<index>.syncing_details.leader_checkpoint` | Integer | The latest checkpoint on the leader index.
+`indices.<index>.syncing_details.follower_checkpoint` | Integer | The latest checkpoint on the follower index.
+`indices.<index>.syncing_details.seq_no` | Integer | The current sequence number.
+`indices.<index>.bootstrap_details` | Object | Bootstrap progress details. Present only when the status is `BOOTSTRAPPING`. Once bootstrap completes and replication enters the syncing phase, this field is replaced by `syncing_details`.
+`indices.<index>.bootstrap_details.status` | String | The bootstrap status. Possible values are `IN_PROGRESS`, `COMPLETED`, `FAILED`.
+`indices.<index>.bootstrap_details.shard_restore_details` | Object | Shard-level restore progress during bootstrap.
+`indices.<index>.bootstrap_details.shard_restore_details.total_shards` | Integer | The total number of shards to restore.
+`indices.<index>.bootstrap_details.shard_restore_details.successful_shards` | Integer | The number of shards restored successfully.
+`indices.<index>.bootstrap_details.shard_restore_details.failed_shards` | Integer | The number of shards that failed to restore.
+`indices.<index>.bootstrap_details.shard_restore_details.in_progress_shards` | Integer | The number of shards currently being restored.
 
 ## Get bulk task status
-Introduced 3.7
+**Introduced 3.7**
 {: .label .label-purple }
 
-Returns the progress of a bulk replication task. Use the `task_id` returned by any bulk operation to poll for completion. Send this request to the follower cluster.
+Returns the progress of a bulk replication task. Use the `task_id` returned by any bulk replication operation to check the task status. Send this request to the follower cluster.
 
-#### Request
+### Endpoints
 
-```
+```json
 GET /_plugins/_replication/_task_status/{task_id}
 ```
 
-#### Example response
+### Path parameters
+
+The following table lists the available path parameters.
+
+Parameter | Data type | Description | Required
+:--- | :--- |:--- |:---
+`task_id` | String | The task ID returned by the bulk replication operation. | Yes
+
+### Example response
 
 ```json
 {
@@ -278,90 +316,52 @@ GET /_plugins/_replication/_task_status/{task_id}
 }
 ```
 
-The response includes the following fields:
+### Response body fields
 
-Field | Description
-:--- | :---
-`operation_type` | The type of bulk operation. Possible values: `bulk_start_replication`, `bulk_stop_replication`, `bulk_pause_replication`, `bulk_resume_replication`.
-`pattern` | The index pattern used for the operation.
-`start_time` | The epoch timestamp (in milliseconds) when the task started.
-`num_success` | The number of indexes on which the operation completed successfully.
-`num_failed` | The number of indexes on which the operation failed.
-`num_pending` | The number of indexes waiting to be processed. When this reaches `0`, the task is complete.
-`num_cancelled` | The number of indexes that were not processed due to task cancellation.
-`failed_indices` | An array of objects containing the `index` name and `failure_reason` for each failed index.
+The following table lists the response body fields.
+
+Field | Data type | Description
+:--- | :--- | :---
+`operation_type` | String | The type of bulk replication operation. Possible values are `bulk_start_replication`, `bulk_stop_replication`, `bulk_pause_replication`, `bulk_resume_replication`.
+`pattern` | String | The index pattern used for the operation.
+`start_time` | Long | The epoch timestamp (in milliseconds) when the task started.
+`num_success` | Integer | The number of indexes for which the operation completed successfully.
+`num_failed` | Integer | The number of indexes for which the operation failed.
+`num_pending` | Integer | The number of indexes waiting to be processed. When this reaches `0`, the task is complete.
+`num_cancelled` | Integer | The number of indexes that were not processed because of task cancellation.
+`failed_indices` | Array | An array of objects containing the `index` name and `failure_reason` for each failed index.
 
 ## Cancel bulk task
-Introduced 3.7
+**Introduced 3.7**
 {: .label .label-purple }
 
-Cancels a running bulk replication task. Indices already processed remain in their new state; remaining indices are marked as cancelled. Send this request to the follower cluster.
+Cancels a running bulk replication task. Indexes already processed remain in the state applied by the operation; remaining indexes are marked as canceled. Send this request to the follower cluster.
 
-#### Request
+### Endpoints
 
-```
+```json
 POST /_plugins/_replication/_task_cancel/{task_id}
 ```
 
-#### Example response
+### Path parameters
 
-```json
-{
-   "acknowledged": true
-}
-```
+The following table lists the available path parameters.
 
-## Cluster settings
+Parameter | Data type | Description | Required
+:--- | :--- |:--- |:---
+`task_id` | String | The task ID of the bulk replication operation to cancel. | Yes
 
-The following cluster-level setting controls bulk replication behavior. This setting is dynamic and can be updated without restarting the cluster.
+## Settings
 
-Setting | Default | Description
-:--- | :--- | :---
-`plugins.replication.follower.bulk_batch_size` | 10 | The number of indices processed concurrently in each batch during a bulk replication task. Minimum value is `1`, default value is `10`, and maximum value is `100`. This setting is dynamic and can be changed at any time.
-`plugins.replication.follower.bulk_poll_timeout` | 15 | The time, in minutes, that start and resume tasks wait for replication to confirm before timing out indices. Minimum value is `1`, default value is `15`, and maximum value is `30`. This setting is dynamic and can be changed at any time.
-
-To update this setting:
-
-```json
-PUT /_cluster/settings
-{
-   "persistent": {
-      "plugins.replication.follower.bulk_batch_size": 20
-   }
-}
-```
-
-## Pattern matching
-
-The `pattern` field supports the same syntax as OpenSearch index patterns:
-
-- `*` matches any number of characters.
-- `?` matches a single character.
-- Patterns must not start with `_`.
-- Patterns must not contain spaces, quotes (`"`), angle brackets (`<`, `>`), pipes (`|`), backslashes (`\`), hash marks (`#`), or commas (`,`).
-
-Examples:
-- `my-index-*` matches `my-index-1`, `my-index-2`, `my-index-logs`, and so on.
-- `*` matches all indexes (excluding system indexes starting with `.`).
-- `logs-2024-0?` matches `logs-2024-01` through `logs-2024-09`.
-
-## Limitations
-
-- Only one bulk task can run at a time per cluster.
-- The bulk API does not automatically retry failed indexes. Re-run the operation or use the single-index API for failed indexes.
-- Cancelling a task does not revert operations already performed on processed indexes.
-- For bulk resume, the leader cluster must be reachable and retention leases must still be valid for each index.
-- Bulk tasks are transient and do not persist across node restarts. Individual replication tasks initiated by a bulk start operation are persistent.
-- Bulk APIs are not idempotent. Submitting the same request after a previous task completes creates a new task.
-- Single-index replication APIs can be used alongside bulk APIs without conflict.
+For bulk replication settings, see [Bulk replication settings]({{site.url}}{{site.baseurl}}/tuning-your-cluster/replication-plugin/settings/#bulk-replication-settings). To learn about updating dynamic settings, see [Dynamic settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/#dynamic-settings).
 
 ## Error responses
 
-The following examples show common error responses you may encounter when using the bulk replication APIs.
+The following examples show common error responses you may encounter when using the bulk replication API operations.
 
 ### Bulk task already running
 
-If you submit a bulk operation while another is already in progress, OpenSearch returns a 409 error:
+If you submit a bulk replication operation while another is already in progress, OpenSearch returns a 409 error:
 
 ```json
 {
@@ -381,9 +381,9 @@ If you submit a bulk operation while another is already in progress, OpenSearch 
 
 Wait for the current task to complete or [cancel](#cancel-bulk-task) it before submitting a new one.
 
-### No indices match pattern
+### No indexes match pattern
 
-If no indices are found matching the specified pattern, OpenSearch returns a 404 error:
+If no indexes are found matching the specified pattern, OpenSearch returns a 404 error:
 
 ```json
 {
@@ -421,9 +421,9 @@ If you submit a bulk start request without providing a `leader_alias`, OpenSearc
 }
 ```
 
-### All indices failed validation
+### All indexes failed validation
 
-If all matched indices are already in the requested state, OpenSearch returns a 400 error. For example, pausing indices that are already paused:
+If all matched indexes are already in the state that the operation requests (for example, you send a pause replication operation to indexes for which replication is already paused), OpenSearch returns a 400 error:
 
 ```json
 {
@@ -443,7 +443,7 @@ If all matched indices are already in the requested state, OpenSearch returns a 
 
 ### Task not found
 
-If you attempt to cancel or poll a task that does not exist or has already completed, OpenSearch returns a 404 error:
+If you attempt to cancel or check a task that does not exist or has already completed, OpenSearch returns a 404 error:
 
 ```json
 {
@@ -460,3 +460,11 @@ If you attempt to cancel or poll a task that does not exist or has already compl
    "status": 404
 }
 ```
+
+
+## Limitations
+
+Note the following limitations:
+
+- The Bulk Replication API does not automatically rerun operations for failed indexes. Rerun the bulk replication operation manually or use the [Replication API]({{site.url}}{{site.baseurl}}/tuning-your-cluster/replication-plugin/api/) for individual indexes.
+- Bulk replication tasks are transient and do not persist across node restarts. Individual replication tasks initiated by a bulk start operation are persistent.
