@@ -12,7 +12,7 @@ redirect_from:
 You can aggregate values from nested documents to their parent; this aggregation is called `reverse_nested`.
 You can use `reverse_nested` to aggregate a field from the parent document after grouping by the field from the nested object. The `reverse_nested` aggregation "joins back" the root page and gets the `load_time` for each for your variations.
 
-The `reverse_nested` aggregation is a sub-aggregation inside a nested aggregation. It accepts a single option named `path`. This option defines how many steps backwards in the document hierarchy OpenSearch takes to calculate the aggregations.
+The `reverse_nested` aggregation is a subaggregation inside a nested aggregation. It accepts a single option named `path`. This option defines how many steps backwards in the document hierarchy OpenSearch takes to calculate the aggregations.
 
 ```json
 GET logs/_search

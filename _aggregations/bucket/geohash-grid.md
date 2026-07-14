@@ -28,7 +28,7 @@ The `geohash_grid` aggregation takes the following parameters.
 
 ## Example: Low-precision grid
 
-The following example groups ecommerce customer locations into geohash cells at precision 4 (approximately 39 km × 19.5 km):
+The following example groups e-commerce customer locations into geohash cells at precision 4 (approximately 39 km × 19.5 km):
 
 ```json
 GET /opensearch_dashboards_sample_data_ecommerce/_search

@@ -43,7 +43,7 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
 ```
 {% include copy-curl.html %}
 
-The response containes the aggregated results:
+The response contains the aggregated results:
 
 ```json
 {
