@@ -219,7 +219,7 @@ Before making any changes to your OpenSearch cluster, is it highly recommended t
    os-node-01  1.3.7    dimr       -
    os-node-03  1.3.7    dimr       -
    ```
-1. The upgrade is now complete, and you can begin enjoying the latest features and fixes!
+1. The upgrade is now complete, and you can begin using the latest features and fixes.
 
 ## Rolling restart
 
