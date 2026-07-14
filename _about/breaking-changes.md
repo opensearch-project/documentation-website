@@ -7,6 +7,8 @@ permalink: /breaking-changes/
 
 ## 1.x
 
+The following breaking changes were introduced in OpenSearch 1.x.
+
 ### Migrating to OpenSearch and limits on the number of nested JSON objects
 
 Migrating from Elasticsearch OSS version 6.8 to OpenSearch version 1.x will fail when a cluster contains any document that includes more than 10,000 nested JSON objects across all fields. Elasticsearch version 7.0 introduced the `index.mapping.nested_objects.limit` setting to guard against out-of-memory errors and assigned the setting a default of `10000`. OpenSearch adopted this setting at its inception and enforces the limitation on nested JSON objects. However, because the setting is not present in Elasticsearch 6.8 and not recognized by this version, migration to OpenSearch 1.x can result in incompatibility issues that block shard relocation between Elasticsearch 6.8 and OpenSearch versions 1.x when the number of nested JSON objects in any document surpasses the default limit. 
@@ -16,6 +18,8 @@ Therefore, we recommend evaluating your data for these limits before attempting 
 
 ## 2.0.0
 
+The following breaking changes were introduced in OpenSearch 2.0.0.
+
 ### Remove mapping types parameter
 
 The `type` parameter has been removed from all OpenSearch API endpoints. Instead, indexes can be categorized by document type. For more details, see issue [#1940](https://github.com/opensearch-project/opensearch/issues/1940).
@@ -24,9 +28,11 @@ The `type` parameter has been removed from all OpenSearch API endpoints. Instead
 
 Non-inclusive terms are deprecated in version 2.x and will be permanently removed in OpenSearch 3.0.  We are using the following replacements: 
 
+<!-- vale off -->
 - "Whitelist" is now "Allow list"
 - "Blacklist" is now "Deny list"
 - "Master" is now "Cluster Manager"
+<!-- vale on -->
 
 ### Add OpenSearch Notifications plugins
 
@@ -39,11 +45,15 @@ A Lucene upgrade forced OpenSearch to drop support for JDK 8. As a consequence, 
 
 ## 2.5.0
 
+The following breaking change was introduced in OpenSearch 2.5.0.
+
 ### Wildcard query behavior for text fields
 
 OpenSearch 2.5 contains a bug fix that corrects the behavior of the `case_insensitive` parameter for the `wildcard` query on text fields. As a result, a wildcard query on text fields that ignored case sensitivity and erroneously returned results prior to the bug fix will not return the same results. For more information, see issue [#8711](https://github.com/opensearch-project/OpenSearch/issues/8711).
 
 ## 2.18.0
+
+The following breaking change was introduced in OpenSearch 2.18.0.
 
 ### Default k-NN engine change
 
@@ -51,10 +61,14 @@ The default k-NN engine changed from NMSLIB to Faiss. If you use `space_type: "c
 
 ## 2.19.0
 
+The following breaking change was introduced in OpenSearch 2.19.0.
+
 ### Nested value support in the text embedding processor
 The `text_embedding` processor no longer replaces nested values like `_ingest._value` when evaluating fields like `title_tmp:_ingest._value.title_embedding`. Instead, you must directly specify the nested key as `books.title:title_embedding` to achieve the desired output. For more information, see issue [#1243](https://github.com/opensearch-project/neural-search/issues/1243).
 
 ## 3.0.0
+
+The following breaking changes were introduced in OpenSearch 3.0.0.
 
 ### JDK requirement
 
@@ -110,7 +124,7 @@ For more information, see issue [#2595](https://github.com/opensearch-project/Op
 
 The `index.store.hybrid.mmap.extensions` setting has been removed as part of improvements to `hybridfs` file handling. For more information, see pull request [#9392](https://github.com/opensearch-project/OpenSearch/pull/9392).
 
-### Transport Nio plugin
+### Transport NIO plugin
 
 The `transport-nio` plugin has been removed. Netty remains the standard network framework for both node-to-node and client-to-server communication. For more information, see issue [#16887](https://github.com/opensearch-project/OpenSearch/issues/16887).
 
