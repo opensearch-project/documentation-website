@@ -166,3 +166,11 @@ To start or stop the time interval refresh, follow these steps:
 
    The shortcut selector shows the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/calendar-icon.png" class="inline-icon" alt="calendar icon"/>{:/} (calendar) icon if the time interval refresh is stopped, or the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/clock-icon.png" class="inline-icon" alt="clock icon"/>{:/} (clock) icon if the time interval refresh is running.
    {: .note}
+
+## Configuring the time zone
+
+By default, the time filter uses the time zone detected by your browser. To change the time zone, go to **Dashboards Management** > **Advanced settings** and update the **Timezone for date formatting** (**dateFormat:tz**) setting. For more information, see [Advanced settings]({{site.url}}{{site.baseurl}}/dashboards/management/advanced-settings/).
+
+## Related documentation
+
+- [Advanced settings]({{site.url}}{{site.baseurl}}/dashboards/management/advanced-settings/)
