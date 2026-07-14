@@ -77,6 +77,27 @@ A rule matches a request only when *every* attribute in the rule matches, so mul
 {: .note}
 To match a request only when it carries a specific *combination* of values (a logical AND within a single attribute), model each required value as a separate attribute or combine the conditions upstream. Listing multiple values under one attribute always applies OR semantics.
 
+Note that `principal.username` and `principal.role` are subfields of the single `principal` attribute, so all of their values are OR'd together (not AND'd). For example, the following rule combines the `principal` and `index_pattern` attributes:
+
+```json
+{
+  "principal": {
+    "username": ["user1", "user2"],
+    "role": ["role1", "role2", "role3"]
+  },
+  "index_pattern": ["index-1", "index-2", "logs-*"],
+  "workload_group": "<id>"
+}
+```
+
+This rule matches a request when:
+
+```
+(user1 OR user2 OR role1 OR role2 OR role3) AND (index-1 OR index-2 OR logs-*)
+```
+
+In other words, the request must match at least one `principal` value (a username or a role) **and** at least one `index_pattern` value.
+
 ### Choosing between multiple matching rules
 
 When a request matches multiple rules that resolve to different workload groups, OpenSearch selects a single group in the following order:
