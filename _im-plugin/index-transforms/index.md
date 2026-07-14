@@ -61,7 +61,7 @@ You can configure transform jobs to run once or multiple times on a schedule. Tr
 
 After confirming your transform job’s details are correct, choose **Create Transform Job**. If you want to edit any part of the job, choose **Edit** of the section you want to change, and make the necessary changes. You can’t change aggregations or groupings after creating a job.
 
-### Step 5: Search through the transformed index.
+### Step 5: Search through the transformed index
 
 Once the transform job finishes, you can use the `_search` API operation to search the target index.
 

@@ -30,7 +30,7 @@ The `avg_bucket` aggregation takes the following parameters.
 
 ## Example
 
-The following example creates a date histogram with a one-week interval from the OpenSearch Dashboards e-commerce sample data. The `sum` sub-aggregation adds up the `taxful_total_price` for each week. Finally, the `percentiles_bucket` aggregation calculates the percentile values for each week from these sums:
+The following example creates a date histogram with a one-week interval from the OpenSearch Dashboards e-commerce sample data. The `sum` subaggregation adds up the `taxful_total_price` for each week. Finally, the `percentiles_bucket` aggregation calculates the percentile values for each week from these sums:
 
 ```json
 POST /opensearch_dashboards_sample_data_ecommerce/_search

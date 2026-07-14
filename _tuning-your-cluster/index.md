@@ -22,7 +22,7 @@ There are many ways to design a cluster. The following illustration shows a basi
 
 ![multi-node cluster architecture diagram]({{site.url}}{{site.baseurl}}/images/cluster.png)
 
-The master node is now referred to as the cluster manager node.
+The former "master node" is now referred to as the cluster manager node.
    {: .note }
 
 ### Nodes
@@ -169,7 +169,7 @@ After you set the configurations, start OpenSearch on all nodes:
 sudo systemctl start opensearch.service
 ```
 
-Installing OpenSearch from a tar archive will not automatically create a service with `systemd`. See [Run OpenSearch as a service with systemd]({{site.url}}{{site.baseurl}}/opensearch/install/tar/#run-opensearch-as-a-service-with-systemd) for instructions on how to create and start the service if you receive an error like `Failed to start opensearch.service: Unit not found.`
+Installing OpenSearch from a tar archive will not automatically create a service with `systemd`. See [Run OpenSearch as a service with `systemd`]({{site.url}}{{site.baseurl}}/opensearch/install/tar/#run-opensearch-as-a-service-with-systemd) for instructions on how to create and start the service if you receive an error like `Failed to start opensearch.service: Unit not found.`
 {: .tip}
 
 Then go to the logs file to see the formation of the cluster:

@@ -26,7 +26,7 @@ composer require opensearch-project/opensearch-php:<version>
 ```
 {% include copy.html %}
 
-Then require the autload file from composer in your code:
+Then require the autoload file from `composer` in your code:
 
 ```php
 require __DIR__ . '/vendor/autoload.php';
