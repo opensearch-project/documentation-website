@@ -72,7 +72,7 @@ This error has several potential root causes.
 
 ### Leftover cookies or cached credentials
 
-Please delete all cached browser data, or try again in a private browser window.
+Delete all cached browser data, or try again in a private browser window.
 
 
 ### Wrong client secret
