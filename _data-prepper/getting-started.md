@@ -154,7 +154,7 @@ Trace analytics is an important Data Prepper use case. If you haven't yet config
 
 Log ingestion is also an important Data Prepper use case. To learn more, see [Log analytics]({{site.url}}{{site.baseurl}}/data-prepper/common-use-cases/log-analytics/).
 
-For information on how to monitor Data Prepper, see [Monitoring]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/monitoring/).
+For information about how to monitor Data Prepper, see [Monitoring]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/monitoring/).
 
 ## More examples
 

@@ -6,11 +6,19 @@ grand_parent: PPL
 nav_order: 36
 ---
 
+<!-- vale off -->
+
 # regex
+
+<!-- vale on -->
 
 The `regex` command filters search results by matching field values against a regular expression pattern. Only documents in which the specified field matches the pattern are included in the results.
 
+<!-- vale off -->
+
 ## Syntax
+
+<!-- vale on -->
 
 The `regex` command has the following syntax:
 
@@ -31,7 +39,11 @@ The `regex` command uses Java's built-in regular expression engine, which suppor
 * **Lookahead/lookbehind**: `(?=...)` and `(?<=...)` assertions.  
 * **Inline flags**: Case-insensitive `(?i)`, multiline `(?m)`, dotall `(?s)`, and other modes.  
 
+<!-- vale off -->
+
 ## Parameters
+
+<!-- vale on -->
 
 The `regex` command supports the following parameters.
 
@@ -40,7 +52,11 @@ The `regex` command supports the following parameters.
 | `<field>` | Required | The field name to match against. |
 | `<pattern>` | Required | The regular expression pattern to match. Supports [Java regular expression syntax](https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html). |
 
+<!-- vale off -->
+
 ## Example 1: Finding logs matching a pattern  
+
+<!-- vale on -->
 
 The following query finds error logs mentioning connection timeouts:
   
@@ -55,12 +71,20 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | severityText | resource.attributes.service.name | body |
 | --- | --- | --- |
 | ERROR | payment | Payment failed: connection timeout to payment gateway after 30000ms |
+
+<!-- vale on -->
   
 
+<!-- vale off -->
+
 ## Example 2: Excluding logs matching a pattern  
+
+<!-- vale on -->
 
 The following query finds all errors except those related to timeouts:
   
@@ -76,14 +100,22 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | severityText | resource.attributes.service.name | body |
 | --- | --- | --- |
 | ERROR | checkout | NullPointerException in CheckoutService.placeOrder at line 142 |
 | ERROR | payment | Out of memory: Java heap space - shutting down pod payment-6f8d4b-ht7q3 |
 | ERROR | frontend-proxy | [2024-02-01T09:20:00.456Z] "POST /api/checkout HTTP/1.1" 503 - 0 30000 checkout-8d4f7b-mk2p9 |
+
+<!-- vale on -->
   
 
+<!-- vale off -->
+
 ## Example 3: Filtering by service name pattern  
+
+<!-- vale on -->
 
 The following query finds warning logs from services whose names end with "catalog":
   
@@ -98,13 +130,21 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | severityText | resource.attributes.service.name | body |
 | --- | --- | --- |
 | WARN | product-catalog | Slow query detected: SELECT \* FROM products WHERE category = 'electronics' took 3200ms |
 | WARN | product-catalog | Connection pool 80% utilized on database replica db-replica-02 |
+
+<!-- vale on -->
   
 
+<!-- vale off -->
+
 ## Example 4: Complex patterns with character classes
+
+<!-- vale on -->
 
 The following query uses complex regex patterns with character classes and quantifiers to match log messages containing service method calls:
 
@@ -120,11 +160,19 @@ source=otellogs
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | severityText | body |
 | --- | --- |
 | ERROR | NullPointerException in CheckoutService.placeOrder at line 142 |
 
+<!-- vale on -->
+
+<!-- vale off -->
+
 ## Example 5: Case-sensitive matching
+
+<!-- vale on -->
 
 By default, regex matching is case sensitive. The following query searches for lowercase `error`:
 
@@ -138,7 +186,11 @@ source=otellogs
 
 The query returns no results because the regex pattern `error` (lowercase) does not match `ERROR` (uppercase):
 
+<!-- vale off -->
+
 ## Limitations
+
+<!-- vale on -->
 
 The `regex` command has the following limitations:
 

@@ -13,7 +13,7 @@ By default, `text` fields cannot be used for sorting, aggregations, or scripting
 
 The `fielddata` mapping parameter loads analyzed tokens into a heap-resident data structure, making `text` fields available for sorting, aggregations, and scripting. OpenSearch constructs this structure on demand when the field is first accessed for one of these operations.
 
-Because field data operates on analyzed tokens, aggregating a text field produces buckets for individual terms (for example, "open" and "source") rather than the original multi-word values (for example, "Open Source"). If you need to aggregate on exact, unanalyzed values, use a `keyword` field instead.
+Because field data operates on analyzed tokens, aggregating a text field produces buckets for individual terms (for example, "open" and "source") rather than the original multi-word values (for example, "Open Source"). If you need to aggregate on exact values that are not analyzed, use a `keyword` field instead.
 {: .note}
 
 Field data can consume a significant amount of heap memory because it loads all unique tokens for the field across all documents in the segment and remains in memory for the lifetime of that segment. In most cases, using a [`keyword`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/keyword/) subfield in [multi-fields]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/fields/) is a better approach than enabling field data.
