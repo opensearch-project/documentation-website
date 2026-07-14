@@ -124,7 +124,7 @@ search_backpressure.cancellation_burst<br> *Deprecated in 2.6. Replaced by searc
 Introduced 2.4
 {: .label .label-purple }
 
-You can use the [nodes stats API operation]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-stats) to monitor server-side request cancellations.
+You can use the [nodes stats API operation]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-stats/) to monitor server-side request cancellations.
 
 #### Example request
 
@@ -275,5 +275,5 @@ Field Name | Data type | Description
 `cancellation_count` | Integer | The total number of tasks marked for cancellation since the node last restarted.
 `cancellation_limit_reached_count` | Integer | The number of times when the number of tasks eligible for cancellation exceeded the set cancellation threshold.
 
-Each resource tracker (heap, CPU, elapsed time) independently identifies tasks that breach its thresholds and increments its own `cancellation_count`. Since a single task may breach multiple resource thresholds, the sum of resource tracker `cancellation_count` values may exceed the top-level `cancellation_count`, which represents the actual number of unique tasks that were cancelled. The `cancellation_limit_reached_count` increments when the cancellation rate limit is reached during an observer iteration, preventing additional cancellations in that iteration.
+Each resource tracker (heap, CPU, elapsed time) independently identifies tasks that breach its thresholds and increments its own `cancellation_count`. Since a single task may breach multiple resource thresholds, the sum of resource tracker `cancellation_count` values may exceed the top-level `cancellation_count`, which represents the actual number of unique tasks that were canceled. The `cancellation_limit_reached_count` increments when the cancellation rate limit is reached during an observer iteration, preventing additional cancellations in that iteration.
 {: .note}
