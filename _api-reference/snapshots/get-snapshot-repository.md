@@ -5,7 +5,7 @@ parent: Snapshot APIs
 nav_order: 2
 ---
 
-# Get Snapshot Repository. API
+# Get Snapshot Repository API
 **Introduced 1.0**
 {: .label .label-purple }
 

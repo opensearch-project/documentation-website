@@ -35,6 +35,7 @@ Cohere Command
 Cohere Embed
 Cohere Embed English
 Cohere Embed Multilingual
+cURL
 Cursor
 Dashboards Query Language
 Data Prepper

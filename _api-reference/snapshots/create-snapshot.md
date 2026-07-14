@@ -41,12 +41,14 @@ The request body is optional.
 
 Field | Data type | Description
 :--- | :--- | :---
-`indices` | String | The indices you want to include in the snapshot. You can use `,` to create a list of indices, `*` to specify an index pattern, and `-` to exclude certain indices. Don't put spaces between items. Default is all indices.
+`indices` | String | The indexes you want to include in the snapshot. You can use `,` to create a list of indexes, `*` to specify an index pattern, and `-` to exclude certain indexes. Don't put spaces between items. Default is all indexes.
 `ignore_unavailable` | Boolean | If an index from the `indices` list doesn't exist, whether to ignore it rather than fail the snapshot. Default is `false`.
 `include_global_state` | Boolean | Whether to include cluster state in the snapshot. Default is `true`.
 `partial` | Boolean | Whether to allow partial snapshots. Default is `false`, which fails the entire snapshot if one or more shards fails to stor
 
 ## Example requests
+
+The following examples demonstrate how to create a snapshot.
 
 ### Request without a body
 
@@ -78,7 +80,7 @@ response = client.snapshot.create(
 
 ### Request with a body
 
-You can also add a request body to include or exclude certain indices or specify other settings:
+You can also add a request body to include or exclude certain indexes or specify other settings:
 
 <!-- spec_insert_start
 component: example_code
@@ -183,7 +185,7 @@ The snapshot definition is returned.
 | `uuid` | String | Snapshot's universally unique identifier (UUID). |
 | `version_id` | Integer | Build ID of the Open Search version that created the snapshot. |
 | `version` | Float | Open Search version that created the snapshot. |
-| `indices` | Array | Indices in the snapshot. |
+| `indices` | Array | Indexes in the snapshot. |
 | `data_streams` | Array | Data streams in the snapshot. |
 | `include_global_state` | Boolean | Whether the current cluster state is included in the snapshot. |
 | `start_time` | String | Date/time when the snapshot creation process began. |

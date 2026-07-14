@@ -66,7 +66,7 @@ response = client.snapshot.verify_repository(
 
 ## Example response
 
-The example that follows corresponds to the request above in the [Example request](#example-request) section.
+The following example corresponds to the preceding [Example request](#example-request).
 
 The `POST /_snapshot/my-opensearch-repo/_verify?timeout=0s&cluster_manager_timeout=50s` request returns the following fields:
 
