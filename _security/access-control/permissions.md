@@ -33,10 +33,10 @@ POST _bulk
 
 For this request to succeed, you must have the following permissions for `test-index`:
 
-- `indices:data/write/bulk*`
-- `indices:data/write/delete`
-- `indices:data/write/index`
-- `indices:data/write/update`
+- indices:data/write/bulk*
+- indices:data/write/delete
+- indices:data/write/index
+- indices:data/write/update
 
 These permissions also allow you add, update, or delete documents (e.g. `PUT test-index/_doc/tt0816711`), because they govern the underlying OpenSearch actions of indexing and deleting documents rather than a specific API path and HTTP method.
 
@@ -140,7 +140,7 @@ index_permissions:
 
 ### Verifying system index access
 
-You can use the [CAT Indices]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-indices/) operation to see all indexes associated with any index pattern in your permissions configuration and verify that the permissions provide the access you intended. For example, if you want to verify a permission that includes system indexes beginning with the prefix `.kibana`, you can run the `GET /_cat/indices/.kibana*` call to return all indexes associated with that prefix.
+You can use the [CAT indices]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-indices/) operation to see all indexes associated with any index pattern in your permissions configuration and verify that the permissions provide the access you intended. For example, if you want to verify a permission that includes system indexes beginning with the prefix `.kibana`, you can run the `GET /_cat/indices/.kibana*` call to return all indexes associated with that prefix.
 
 The following example response shows the three system indexes associated with the index pattern `.kibana*`:
 
@@ -236,197 +236,197 @@ Cross-references to API documentation in the permissions that follow are only in
 
 See [Ingest APIs]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/).
 
-- `cluster:admin/ingest/pipeline/delete`
-- `cluster:admin/ingest/pipeline/get`
-- `cluster:admin/ingest/pipeline/put`
-- `cluster:admin/ingest/pipeline/simulate`
-- `cluster:admin/ingest/processor/grok/get`
+- cluster:admin/ingest/pipeline/delete
+- cluster:admin/ingest/pipeline/get
+- cluster:admin/ingest/pipeline/put
+- cluster:admin/ingest/pipeline/simulate
+- cluster:admin/ingest/processor/grok/get
 
 ### Anomaly detection permissions
 
 See [Anomaly Detection API]({{site.url}}{{site.baseurl}}/observing-your-data/ad/api/).
 
-- `cluster:admin/opendistro/ad/detector/delete`
-- `cluster:admin/opendistro/ad/detector/info`
-- `cluster:admin/opendistro/ad/detector/jobmanagement`
-- `cluster:admin/opendistro/ad/detector/preview`
-- `cluster:admin/opendistro/ad/detector/run`
-- `cluster:admin/opendistro/ad/detector/search`
-- `cluster:admin/opendistro/ad/detector/stats`
-- `cluster:admin/opendistro/ad/detector/write`
-- `cluster:admin/opendistro/ad/detector/validate`
-- `cluster:admin/opendistro/ad/detectors/get`
-- `cluster:admin/opendistro/ad/result/search`
-- `cluster:admin/opendistro/ad/result/topAnomalies`
-- `cluster:admin/opendistro/ad/tasks/search`
+- cluster:admin/opendistro/ad/detector/delete
+- cluster:admin/opendistro/ad/detector/info
+- cluster:admin/opendistro/ad/detector/jobmanagement
+- cluster:admin/opendistro/ad/detector/preview
+- cluster:admin/opendistro/ad/detector/run
+- cluster:admin/opendistro/ad/detector/search
+- cluster:admin/opendistro/ad/detector/stats
+- cluster:admin/opendistro/ad/detector/write
+- cluster:admin/opendistro/ad/detector/validate
+- cluster:admin/opendistro/ad/detectors/get
+- cluster:admin/opendistro/ad/result/search
+- cluster:admin/opendistro/ad/result/topAnomalies
+- cluster:admin/opendistro/ad/tasks/search
 
 ### Alerting permissions
 
 See [Alerting API]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/api/).
 
-- `cluster:admin/opendistro/alerting/alerts/ack`
-- `cluster:admin/opendistro/alerting/alerts/get`
-- `cluster:admin/opendistro/alerting/destination/delete`
-- `cluster:admin/opendistro/alerting/destination/email_account/delete`
-- `cluster:admin/opendistro/alerting/destination/email_account/get`
-- `cluster:admin/opendistro/alerting/destination/email_account/search`
-- `cluster:admin/opendistro/alerting/destination/email_account/write`
-- `cluster:admin/opendistro/alerting/destination/email_group/delete`
-- `cluster:admin/opendistro/alerting/destination/email_group/get`
-- `cluster:admin/opendistro/alerting/destination/email_group/search`
-- `cluster:admin/opendistro/alerting/destination/email_group/write`
-- `cluster:admin/opendistro/alerting/destination/get`
-- `cluster:admin/opendistro/alerting/destination/write`
-- `cluster:admin/opendistro/alerting/monitor/delete`
-- `cluster:admin/opendistro/alerting/monitor/execute`
-- `cluster:admin/opendistro/alerting/monitor/get`
-- `cluster:admin/opendistro/alerting/monitor/search`
-- `cluster:admin/opendistro/alerting/monitor/write`
-- `cluster:admin/opensearch/alerting/remote/indexes/get`
+- cluster:admin/opendistro/alerting/alerts/ack
+- cluster:admin/opendistro/alerting/alerts/get
+- cluster:admin/opendistro/alerting/destination/delete
+- cluster:admin/opendistro/alerting/destination/email_account/delete
+- cluster:admin/opendistro/alerting/destination/email_account/get
+- cluster:admin/opendistro/alerting/destination/email_account/search
+- cluster:admin/opendistro/alerting/destination/email_account/write
+- cluster:admin/opendistro/alerting/destination/email_group/delete
+- cluster:admin/opendistro/alerting/destination/email_group/get
+- cluster:admin/opendistro/alerting/destination/email_group/search
+- cluster:admin/opendistro/alerting/destination/email_group/write
+- cluster:admin/opendistro/alerting/destination/get
+- cluster:admin/opendistro/alerting/destination/write
+- cluster:admin/opendistro/alerting/monitor/delete
+- cluster:admin/opendistro/alerting/monitor/execute
+- cluster:admin/opendistro/alerting/monitor/get
+- cluster:admin/opendistro/alerting/monitor/search
+- cluster:admin/opendistro/alerting/monitor/write
+- cluster:admin/opensearch/alerting/remote/indexes/get
 
 ### Asynchronous Search permissions
 
 See [Asynchronous search]({{site.url}}{{site.baseurl}}/search-plugins/async/index/).
 
-- `cluster:admin/opendistro/asynchronous_search/stats`
-- `cluster:admin/opendistro/asynchronous_search/delete`
-- `cluster:admin/opendistro/asynchronous_search/get`
-- `cluster:admin/opendistro/asynchronous_search/submit`
+- cluster:admin/opendistro/asynchronous_search/stats
+- cluster:admin/opendistro/asynchronous_search/delete
+- cluster:admin/opendistro/asynchronous_search/get
+- cluster:admin/opendistro/asynchronous_search/submit
 
 ### Index State Management permissions
 
 See [ISM API]({{site.url}}{{site.baseurl}}/im-plugin/ism/api/).
 
-- `cluster:indices:admin/opensearch/ism/managedindex`
-- `cluster:admin/opendistro/ism/managedindex/add`
-- `cluster:admin/opendistro/ism/managedindex/change`
-- `cluster:admin/opendistro/ism/managedindex/remove`
-- `cluster:admin/opendistro/ism/managedindex/explain`
-- `cluster:admin/opendistro/ism/managedindex/retry`
-- `cluster:admin/opendistro/ism/policy/write`
-- `cluster:admin/opendistro/ism/policy/get`
-- `cluster:admin/opendistro/ism/policy/search`
-- `cluster:admin/opendistro/ism/policy/delete`
+- cluster:indices:admin/opensearch/ism/managedindex
+- cluster:admin/opendistro/ism/managedindex/add
+- cluster:admin/opendistro/ism/managedindex/change
+- cluster:admin/opendistro/ism/managedindex/remove
+- cluster:admin/opendistro/ism/managedindex/explain
+- cluster:admin/opendistro/ism/managedindex/retry
+- cluster:admin/opendistro/ism/policy/write
+- cluster:admin/opendistro/ism/policy/get
+- cluster:admin/opendistro/ism/policy/search
+- cluster:admin/opendistro/ism/policy/delete
 
 ### Index rollups permissions
 
 See [Index rollups API]({{site.url}}{{site.baseurl}}/im-plugin/index-rollups/rollup-api/).
 
-- `cluster:admin/opendistro/rollup/index`
-- `cluster:admin/opendistro/rollup/get`
-- `cluster:admin/opendistro/rollup/search`
-- `cluster:admin/opendistro/rollup/delete`
-- `cluster:admin/opendistro/rollup/start`
-- `cluster:admin/opendistro/rollup/stop`
-- `cluster:admin/opendistro/rollup/explain`
+- cluster:admin/opendistro/rollup/index
+- cluster:admin/opendistro/rollup/get
+- cluster:admin/opendistro/rollup/search
+- cluster:admin/opendistro/rollup/delete
+- cluster:admin/opendistro/rollup/start
+- cluster:admin/opendistro/rollup/stop
+- cluster:admin/opendistro/rollup/explain
 
 ### Reporting permissions
 
 See [Creating reports with the Dashboards interface]({{site.url}}{{site.baseurl}}/dashboards/reporting/).
 
-- `cluster:admin/opendistro/reports/definition/create`
-- `cluster:admin/opendistro/reports/definition/update`
-- `cluster:admin/opendistro/reports/definition/on_demand`
-- `cluster:admin/opendistro/reports/definition/delete`
-- `cluster:admin/opendistro/reports/definition/get`
-- `cluster:admin/opendistro/reports/definition/list`
-- `cluster:admin/opendistro/reports/instance/list`
-- `cluster:admin/opendistro/reports/instance/get`
-- `cluster:admin/opendistro/reports/menu/download`
+- cluster:admin/opendistro/reports/definition/create
+- cluster:admin/opendistro/reports/definition/update
+- cluster:admin/opendistro/reports/definition/on_demand
+- cluster:admin/opendistro/reports/definition/delete
+- cluster:admin/opendistro/reports/definition/get
+- cluster:admin/opendistro/reports/definition/list
+- cluster:admin/opendistro/reports/instance/list
+- cluster:admin/opendistro/reports/instance/get
+- cluster:admin/opendistro/reports/menu/download
 
 ### Transform job permissions
 
 See [Transforms APIs]({{site.url}}{{site.baseurl}}/im-plugin/index-transforms/transforms-apis/)
 
-- `cluster:admin/opendistro/transform/index`
-- `cluster:admin/opendistro/transform/get`
-- `cluster:admin/opendistro/transform/preview`
-- `cluster:admin/opendistro/transform/delete`
-- `cluster:admin/opendistro/transform/start`
-- `cluster:admin/opendistro/transform/stop`
-- `cluster:admin/opendistro/transform/explain`
+- cluster:admin/opendistro/transform/index
+- cluster:admin/opendistro/transform/get
+- cluster:admin/opendistro/transform/preview
+- cluster:admin/opendistro/transform/delete
+- cluster:admin/opendistro/transform/start
+- cluster:admin/opendistro/transform/stop
+- cluster:admin/opendistro/transform/explain
 
 ### Observability permissions
 
 See [Observability security]({{site.url}}{{site.baseurl}}/observing-your-data/observability-security/).
 
-- `cluster:admin/opensearch/observability/create`
-- `cluster:admin/opensearch/observability/update`
-- `cluster:admin/opensearch/observability/delete`
-- `cluster:admin/opensearch/observability/get`
+- cluster:admin/opensearch/observability/create
+- cluster:admin/opensearch/observability/update
+- cluster:admin/opensearch/observability/delete
+- cluster:admin/opensearch/observability/get
 
 ### Cross-cluster replication
 
 See [Cross-cluster replication security]({{site.url}}{{site.baseurl}}/tuning-your-cluster/replication-plugin/permissions/).
 
-- `cluster:admin/plugins/replication/autofollow/update`
+- cluster:admin/plugins/replication/autofollow/update
 
 ### Reindex
 
 See [Reindex document]({{site.url}}{{site.baseurl}}/api-reference/document-apis/reindex/).
 
-- `cluster:admin/reindex/rethrottle`
+- cluster:admin/reindex/rethrottle
 
 ### Snapshot repository permissions
 
 See [Snapshot APIs]({{site.url}}{{site.baseurl}}/api-reference/snapshots/index/).
 
-- `cluster:admin/repository/delete`
-- `cluster:admin/repository/get`
-- `cluster:admin/repository/put`
-- `cluster:admin/repository/verify`
+- cluster:admin/repository/delete
+- cluster:admin/repository/get
+- cluster:admin/repository/put
+- cluster:admin/repository/verify
 
 ### Reroute
 
 See [Cluster manager task throttling]({{site.url}}{{site.baseurl}}/tuning-your-cluster/cluster-manager-task-throttling/).
 
-- `cluster:admin/reroute`
+- cluster:admin/reroute
 
 ### Script permissions
 
 See [Script APIs]({{site.url}}{{site.baseurl}}/api-reference/script-apis/index/).
 
-- `cluster:admin/script/delete`
-- `cluster:admin/script/get`
-- `cluster:admin/script/put`
+- cluster:admin/script/delete
+- cluster:admin/script/get
+- cluster:admin/script/put
 
 ### Update settings permission
 
 See [Update settings]({{site.url}}{{site.baseurl}}/api-reference/index-apis/update-settings/) on the Index APIs page.
 
-- `cluster:admin/settings/update`
+- cluster:admin/settings/update
 
 ### Snapshot permissions
 
 See [Snapshot APIs]({{site.url}}{{site.baseurl}}/api-reference/snapshots/index/).
 
-- `cluster:admin/snapshot/create`
-- `cluster:admin/snapshot/delete`
-- `cluster:admin/snapshot/get`
-- `cluster:admin/snapshot/restore`
-- `cluster:admin/snapshot/status`
-- `cluster:admin/snapshot/status*`
+- cluster:admin/snapshot/create
+- cluster:admin/snapshot/delete
+- cluster:admin/snapshot/get
+- cluster:admin/snapshot/restore
+- cluster:admin/snapshot/status
+- cluster:admin/snapshot/status*
 
 ### Task permissions
 
 See [Tasks]({{site.url}}{{site.baseurl}}/api-reference/tasks/) in the API Reference section.
 
-- `cluster:admin/tasks/cancel`
-- `cluster:admin/tasks/test`
-- `cluster:admin/tasks/testunblock`
+- cluster:admin/tasks/cancel
+- cluster:admin/tasks/test
+- cluster:admin/tasks/testunblock
 
 ### Data source permissions
 
 See [Data sources]({{site.url}}{{site.baseurl}}/dashboards/management/data-sources/)
 
-- `cluster:admin/opensearch/ql/datasources/create`
-- `cluster:admin/opensearch/ql/datasources/read`
-- `cluster:admin/opensearch/ql/datasources/update`
-- `cluster:admin/opensearch/ql/datasources/delete`
-- `cluster:admin/opensearch/ql/datasources/patch`
-- `cluster:admin/opensearch/ql/async_query/create`
-- `cluster:admin/opensearch/ql/async_query/result`
-- `cluster:admin/opensearch/ql/async_query/delete`
+- cluster:admin/opensearch/ql/datasources/create
+- cluster:admin/opensearch/ql/datasources/read
+- cluster:admin/opensearch/ql/datasources/update
+- cluster:admin/opensearch/ql/datasources/delete
+- cluster:admin/opensearch/ql/datasources/patch
+- cluster:admin/opensearch/ql/async_query/create
+- cluster:admin/opensearch/ql/async_query/result
+- cluster:admin/opensearch/ql/async_query/delete
 
 ### Security Analytics permissions
 
@@ -434,22 +434,22 @@ See [API tools]({{site.url}}{{site.baseurl}}/security-analytics/api-tools/index/
 
 | **Permission** | **Description** |
 | :--- | :--- |
-| `cluster:admin/opensearch/securityanalytics/alerts/get` | Permission to get alerts |
-| `cluster:admin/opensearch/securityanalytics/alerts/ack` | Permission to acknowledge alerts |
-| `cluster:admin/opensearch/securityanalytics/detector/get` | Permission to get detectors |
-| `cluster:admin/opensearch/securityanalytics/detector/search` | Permission to search detectors |
-| `cluster:admin/opensearch/securityanalytics/detector/write` | Permission to create and update detectors |
-| `cluster:admin/opensearch/securityanalytics/detector/delete` | Permission to delete detectors |
-| `cluster:admin/opensearch/securityanalytics/findings/get` | Permission to get findings |
-| `cluster:admin/opensearch/securityanalytics/mapping/get` | Permission to get field mappings by index |
-| `cluster:admin/opensearch/securityanalytics/mapping/view/get` | Permission to get field mappings by index and view mapped and unmapped fields |
-| `cluster:admin/opensearch/securityanalytics/mapping/create` | Permission to create field mappings |
-| `cluster:admin/opensearch/securityanalytics/mapping/update` | Permission to update field mappings |
-| `cluster:admin/opensearch/securityanalytics/rules/categories` | Permission to get all rule categories |
-| `cluster:admin/opensearch/securityanalytics/rule/write` | Permission to create and update rules |
-| `cluster:admin/opensearch/securityanalytics/rule/search` | Permission to search for rules |
-| `cluster:admin/opensearch/securityanalytics/rules/validate` | Permission to validate rules |
-| `cluster:admin/opensearch/securityanalytics/rule/delete` | Permission to delete rules |
+| cluster:admin/opensearch/securityanalytics/alerts/get | Permission to get alerts |
+| cluster:admin/opensearch/securityanalytics/alerts/ack | Permission to acknowledge alerts |
+| cluster:admin/opensearch/securityanalytics/detector/get | Permission to get detectors |
+| cluster:admin/opensearch/securityanalytics/detector/search | Permission to search detectors |
+| cluster:admin/opensearch/securityanalytics/detector/write | Permission to create and update detectors |
+| cluster:admin/opensearch/securityanalytics/detector/delete | Permission to delete detectors |
+| cluster:admin/opensearch/securityanalytics/findings/get | Permission to get findings |
+| cluster:admin/opensearch/securityanalytics/mapping/get | Permission to get field mappings by index |
+| cluster:admin/opensearch/securityanalytics/mapping/view/get | Permission to get field mappings by index and view mapped and unmapped fields |
+| cluster:admin/opensearch/securityanalytics/mapping/create | Permission to create field mappings |
+| cluster:admin/opensearch/securityanalytics/mapping/update | Permission to update field mappings |
+| cluster:admin/opensearch/securityanalytics/rules/categories | Permission to get all rule categories |
+| cluster:admin/opensearch/securityanalytics/rule/write | Permission to create and update rules |
+| cluster:admin/opensearch/securityanalytics/rule/search | Permission to search for rules |
+| cluster:admin/opensearch/securityanalytics/rules/validate | Permission to validate rules |
+| cluster:admin/opensearch/securityanalytics/rule/delete | Permission to delete rules |
 
 ### Monitoring permissions
 
@@ -457,20 +457,20 @@ Cluster permissions for monitoring the cluster apply to read-only operations, su
 
 See [REST API reference]({{site.url}}{{site.baseurl}}/api-reference/index/).
 
-- `cluster:monitor/allocation/explain`
-- `cluster:monitor/health`
-- `cluster:monitor/main`
-- `cluster:monitor/nodes/hot_threads`
-- `cluster:monitor/nodes/info`
-- `cluster:monitor/nodes/liveness`
-- `cluster:monitor/nodes/stats`
-- `cluster:monitor/nodes/usage`
-- `cluster:monitor/remote/info`
-- `cluster:monitor/state`
-- `cluster:monitor/stats`
-- `cluster:monitor/task`
-- `cluster:monitor/task/get`
-- `cluster:monitor/tasks/lists`
+- cluster:monitor/allocation/explain
+- cluster:monitor/health
+- cluster:monitor/main
+- cluster:monitor/nodes/hot_threads
+- cluster:monitor/nodes/info
+- cluster:monitor/nodes/liveness
+- cluster:monitor/nodes/stats
+- cluster:monitor/nodes/usage
+- cluster:monitor/remote/info
+- cluster:monitor/state
+- cluster:monitor/stats
+- cluster:monitor/task
+- cluster:monitor/task/get
+- cluster:monitor/tasks/lists
 
 ### Index templates
 
@@ -478,11 +478,11 @@ The index template permissions are for indexes but apply globally to the cluster
 
 See [Index templates]({{site.url}}{{site.baseurl}}/im-plugin/index-templates/).
 
-- `indices:admin/index_template/delete`
-- `indices:admin/index_template/get`
-- `indices:admin/index_template/put`
-- `indices:admin/index_template/simulate`
-- `indices:admin/index_template/simulate_index`
+- indices:admin/index_template/delete
+- indices:admin/index_template/get
+- indices:admin/index_template/put
+- indices:admin/index_template/simulate
+- indices:admin/index_template/simulate_index
 
 
 ## Index permissions
@@ -574,12 +574,12 @@ Allowing access to these endpoints has the potential to trigger operational chan
 
 The following REST API permissions control access to the endpoints. Granting access to any of these APIs allows a user to change fundamental operational components of the Security plugin:
 
-- `restapi:admin/actiongroups`
-- `restapi:admin/allowlist`
-- `restapi:admin/internalusers`
-- `restapi:admin/nodesdn`
-- `restapi:admin/roles`
-- `restapi:admin/rolesmapping`
-- `restapi:admin/ssl/certs/info`
-- `restapi:admin/ssl/certs/reload`
-- `restapi:admin/tenants`
+- restapi:admin/actiongroups
+- restapi:admin/allowlist
+- restapi:admin/internalusers
+- restapi:admin/nodesdn
+- restapi:admin/roles
+- restapi:admin/rolesmapping
+- restapi:admin/ssl/certs/info
+- restapi:admin/ssl/certs/reload
+- restapi:admin/tenants

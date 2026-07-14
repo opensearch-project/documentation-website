@@ -6,11 +6,19 @@ grand_parent: PPL
 nav_order: 41
 ---
 
+<!-- vale off -->
+
 # search
+
+<!-- vale on -->
 
 The `search` command retrieves documents from the index. The `search` command can only be used as the first command in a PPL query.
 
+<!-- vale off -->
+
 ## Syntax
+
+<!-- vale on -->
 
 The `search` command has the following syntax:
 
@@ -18,7 +26,11 @@ The `search` command has the following syntax:
 search source=[<remote-cluster>:]<index> [<search-expression>]
 ```
 
+<!-- vale off -->
+
 ## Parameters
+
+<!-- vale on -->
 
 The `search` command supports the following parameters.
 
@@ -28,7 +40,11 @@ The `search` command supports the following parameters.
 | `<search-expression>` | Optional | A search expression that is converted to an OpenSearch [query string]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/) query. |
   
 
+<!-- vale off -->
+
 ## Search expression  
+
+<!-- vale on -->
 
 The search expression syntax supports:
 * **Full-text search**: `error` or `"error message"` -- Searches the default field configured in the `index.query.default_field` setting (default is `*`, which specifies all fields). For more information, see [Default field configuration](#default-field-configuration). 
@@ -39,7 +55,11 @@ The search expression syntax supports:
 * **The `IN` operator for multiple values**: `field IN (value1, value2, value3)`.  
 * **Wildcards**: `*` (zero or more characters), `?` (exactly one character).  
   
+<!-- vale off -->
+
 ### Full-text search
+
+<!-- vale on -->
 
 Unlike other PPL commands, the `search` command supports both quoted and unquoted strings. Unquoted terms are limited to alphanumeric characters, hyphens, underscores, and wildcards. Any other characters require double quotation marks.
 
@@ -48,7 +68,11 @@ The following queries show both syntax types:
 * **Unquoted**: `search error`, `search user-123`, `search log_*`
 * **Quoted**: `search "error message"`, `search "user@example.com"`
   
+<!-- vale off -->
+
 ### Field values
+
+<!-- vale on -->
 
 Field values follow the same quoting rules as search text.
 
@@ -57,7 +81,11 @@ Examples of field value syntax:
 * **Unquoted**: `status=active`, `code=ERR-401`
 * **Quoted**: `email="user@example.com"`, `message="server error"`  
   
+<!-- vale off -->
+
 ### Time modifiers
+
+<!-- vale on -->
 
 Time modifiers filter search results by a time range using the implicit `@timestamp` field. Time modifiers support the following formats.
 
@@ -68,7 +96,11 @@ Time modifiers filter search results by a time range using the implicit `@timest
 | Unix timestamp | Numeric values | Seconds since the epoch | `latest=1754020060.123` |
 | Relative time | `[(+/-)<time_integer><time_unit>][@<round_to_unit>]` | A time offset relative to the current time. See [Relative time components](#relative-time-components). | `earliest=-7d`, `latest='+1d@d'` |
 
+<!-- vale off -->
+
 #### Relative time components
+
+<!-- vale on -->
 
 Relative time modifiers use multiple components that can be combined. The following table describes each component.
 
@@ -92,7 +124,11 @@ The following considerations apply when using time modifiers in the `search` com
 * **Column name conflicts**: If your data contains columns named `earliest` or `latest`, use backticks to access them as regular fields (for example, `` `earliest`="value"``) to avoid conflicts with time modifier syntax.  
 * **Time round syntax**: Time modifiers with chained time offsets must be wrapped in quotation marks (for example, `latest='+1d@month-10h'`) for proper query parsing.  
 
+<!-- vale off -->
+
 ## Default field configuration  
+
+<!-- vale on -->
 
 When a search is performed without specifying a field, it uses the default field configured by the `index.query.default_field` index setting. By default, this is set to `*`, which searches all fields.
 
@@ -113,7 +149,11 @@ PUT /accounts/_settings
 ```
 {% include copy-curl.html %}
 
+<!-- vale off -->
+
 ## Search behavior by field type
+
+<!-- vale on -->
 
 Different field types have specific search capabilities and limitations. The following table summarizes how search expressions work with each field type.
 
@@ -134,10 +174,14 @@ Consider the following performance optimizations when working with different fie
 <!-- temporarily commented out because the admin section is not ported
 ## Cross-cluster search  
 
-Cross-cluster search lets any node in a cluster execute search requests against other clusters. Refer to [Cross-Cluster Search]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/admin/cross_cluster_search/) for configuration.
+Cross-cluster search lets any node in a cluster execute search requests against other clusters. Refer to [Cross-cluster search]({{site.url}}{{site.baseurl}}/search-plugins/cross-cluster-search/) for configuration.
 -->
 
+<!-- vale off -->
+
 ## Example 1: Fetching all data
+
+<!-- vale on -->
 
 Retrieve all documents from an index:
 
@@ -150,14 +194,22 @@ source=otellogs
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | spanId | traceId | @timestamp | instrumentationScope | severityText | resource | flags | attributes | droppedAttributesCount | severityNumber | time | body |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | span0001 | abcd1234efgh5678 | 2024-02-01 09:10:00 | {'name': '@opentelemetry/instrumentation-http', 'droppedAttributesCount': 0, 'version': '0.57.0'} | INFO | {'attributes': {'service': {'name': 'frontend'}, 'host': {'name': 'frontend-6b7b4c9f-x2kl9'}}, 'droppedAttributesCount': 0} | 0 | {} | 0 | 9 | 2024-02-01 09:10:00 | [2024-02-01T09:10:00.123Z] "GET /api/products HTTP/1.1" 200 - 1024 45 frontend-6b7b4c9f-x2kl9 |
 | span0002 | abcd1234efgh5678 | 2024-02-01 09:11:00 | {'name': 'Microsoft.Extensions.Hosting', 'droppedAttributesCount': 0, 'version': '9.0.0'} | INFO | {'attributes': {'service': {'name': 'cart'}, 'host': {'name': 'cart-5d8f7b-mk29s'}}, 'droppedAttributesCount': 0} | 0 | {} | 0 | 9 | 2024-02-01 09:11:00 | Order #1234 placed successfully by user U100 |
 | span0003 | abcd1234efgh5678 | 2024-02-01 09:12:00 | {'name': 'go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc', 'droppedAttributesCount': 0, 'version': '0.49.0'} | WARN | {'attributes': {'service': {'name': 'product-catalog'}, 'host': {'name': 'productcatalog-7c9d-zn4p2'}}, 'droppedAttributesCount': 0} | 0 | {} | 0 | 13 | 2024-02-01 09:12:00 | Slow query detected: SELECT \* FROM products WHERE category = 'electronics' took 3200ms |
 
+<!-- vale on -->
+
+
+<!-- vale off -->
 
 ## Example 2: Searching text
+
+<!-- vale on -->
 
 For basic text search, use an unquoted single term:
   
@@ -172,9 +224,13 @@ search ERROR source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | severityText | body |
 | --- | --- |
 | ERROR | NullPointerException in CheckoutService.placeOrder at line 142 |
+
+<!-- vale on -->
   
 Phrase search requires quotation marks for multi-word exact matching:
   
@@ -187,9 +243,13 @@ search "Payment failed" source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | body |
 | --- |
 | Payment failed: connection timeout to payment gateway after 30000ms |
+
+<!-- vale on -->
 
 Multiple search terms (unquoted string literals) are automatically combined using the `AND` operator:
   
@@ -202,14 +262,22 @@ search connection timeout source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | body |
 | --- |
 | Payment failed: connection timeout to payment gateway after 30000ms |
+
+<!-- vale on -->
   
 `search connection timeout` is equivalent to `search connection AND timeout`. 
 {: .note}
 
+<!-- vale off -->
+
 ### Combined phrase and Boolean search
+
+<!-- vale on -->
 
 Combine quoted phrases with Boolean operators for more precise searches:
 
@@ -223,17 +291,29 @@ search "connection timeout" OR "heap space" source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | body |
 | --- |
 | Payment failed: connection timeout to payment gateway after 30000ms |
 | Out of memory: Java heap space - shutting down pod payment-6f8d4b-ht7q3 |
+
+<!-- vale on -->
   
+
+<!-- vale off -->
 
 ## Example 3: Boolean logic and operator precedence  
 
+<!-- vale on -->
+
 The following queries demonstrate Boolean operators and precedence.
 
+<!-- vale off -->
+
 ### Boolean operators
+
+<!-- vale on -->
 
 Use `OR` to match documents containing any of the specified conditions:
 
@@ -247,6 +327,8 @@ search severityText="ERROR" OR severityText="WARN" source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | severityText | resource.attributes.service.name |
 | --- | --- |
 | WARN | frontend-proxy |
@@ -261,6 +343,8 @@ The query returns the following results:
 | ERROR | product-catalog |
 | ERROR | recommendation |
 
+<!-- vale on -->
+
 Combine conditions with `AND` to require all criteria to match:
 
 ```sql
@@ -273,11 +357,19 @@ search severityText="INFO" AND `resource.attributes.service.name`="cart-service"
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | body |
 | --- |
 | Order #1234 placed successfully by user U100 |
+
+<!-- vale on -->
   
+<!-- vale off -->
+
 ### Operator precedence
+
+<!-- vale on -->
 
 The operators are evaluated using the following precedence:
 
@@ -297,12 +389,20 @@ search severityText="ERROR" OR severityText="WARN" AND severityNumber>15 source=
 
 The preceding expression is evaluated as `(severityText="ERROR" OR severityText="WARN") AND severityNumber>15`. The query returns the following results:
   
+<!-- vale off -->
+
 | severityText | severityNumber |
 | --- | --- |
 | ERROR | 17 |
 | ERROR | 17 |
 
+<!-- vale on -->
+
+<!-- vale off -->
+
 ## Example 4: Comparing NOT with != semantics
+
+<!-- vale on -->
 
 Both `!=` and `NOT` operators find documents in which the field value is not equal to the specified value. However, the `!=` operator excludes documents containing null or missing fields, while the `NOT` operator includes them. The following queries show this difference using `instrumentationScope.name`, which is null for most records.
 
@@ -319,9 +419,13 @@ search instrumentationScope.name!="@opentelemetry/instrumentation-http" source=o
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | instrumentationScope.name |
 | --- |
 | Microsoft.Extensions.Hosting |
+
+<!-- vale on -->
 
 **`NOT` operator**
 
@@ -337,6 +441,8 @@ search NOT instrumentationScope.name="@opentelemetry/instrumentation-http" sourc
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | instrumentationScope.name |
 | --- |
 | Microsoft.Extensions.Hosting |
@@ -345,7 +451,13 @@ The query returns the following results:
 | null |
 | null |
 
+<!-- vale on -->
+
+<!-- vale off -->
+
 ## Example 5: Querying ranges
+
+<!-- vale on -->
 
 Use comparison operators (`>,` `<,` `>=` and `<=`) to filter numeric and date fields within specific ranges. Range queries are particularly useful for filtering by age, price, timestamps, or any numeric metrics:
 
@@ -360,15 +472,23 @@ search severityNumber>13 AND severityNumber<=21 source=otellogs
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | severityNumber |
 | --- |
 | 17 |
 | 17 |
 | 17 |
 
+<!-- vale on -->
 
+
+
+<!-- vale off -->
 
 ## Example 6: Using wildcards
+
+<!-- vale on -->
 
 The following queries demonstrate wildcard pattern matching. In wildcard patterns, `*` matches zero or more characters, while `?` matches exactly one character.
 
@@ -385,11 +505,15 @@ search severityText=ERR* source=otellogs
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | severityText |
 | --- |
 | ERROR |
 | ERROR |
 | ERROR |
+
+<!-- vale on -->
 
 Wildcard searches also work within text fields to find partial matches:
 
@@ -404,10 +528,14 @@ search body=connection* source=otellogs
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | body |
 | --- |
 | Payment failed: connection timeout to payment gateway after 30000ms |
 | Connection pool 80% utilized on database replica db-replica-02 |
+
+<!-- vale on -->
 
 Use `?` to match exactly one character in specific positions:
 
@@ -421,14 +549,22 @@ search severityText="ERR?R" source=otellogs
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | severityText | resource.attributes.service.name |
 | --- | --- |
 | ERROR | payment |
 | ERROR | checkout |
 | ERROR | payment |
 
+<!-- vale on -->
+
+
+<!-- vale off -->
 
 ## Example 7: Wildcard patterns in service name searches
+
+<!-- vale on -->
 
 When searching in text or keyword fields, wildcards enable partial matching, which is useful when you only know part of a service name. Wildcards work best on keyword fields, for which they match the exact value using patterns. Using wildcards on text fields may produce unexpected results because they apply to individual tokens after analysis, not the entire field value. Wildcards in keyword fields are case sensitive unless normalized at indexing.
 
@@ -447,10 +583,14 @@ search `resource.attributes.service.name`=payment* source=otellogs
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | severityText | resource.attributes.service.name | body |
 | --- | --- | --- |
 | ERROR | payment | Payment failed: connection timeout to payment gateway after 30000ms |
 | ERROR | payment | Out of memory: Java heap space - shutting down pod payment-6f8d4b-ht7q3 |
+
+<!-- vale on -->
 
 Combine wildcard patterns with other conditions for more precise filtering:
 
@@ -462,11 +602,19 @@ search firstname=A* AND age>30 source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | firstname | age | city |
 | --- | --- | --- |
 | Amber | 32 | Brogan |
 
+<!-- vale on -->
+
+<!-- vale off -->
+
 ## Example 8: Field value matching  
+
+<!-- vale on -->
 
 The `IN` operator efficiently checks whether a field matches any value in a list, providing a more concise and more performant alternative to chaining multiple `OR` conditions on the same field.
 
@@ -481,6 +629,8 @@ search severityText IN ("ERROR", "WARN") source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | severityText | resource.attributes.service.name |
 | --- | --- |
 | WARN | product-catalog |
@@ -495,6 +645,8 @@ The query returns the following results:
 | ERROR | product-catalog |
 | ERROR | checkout |
 
+<!-- vale on -->
+
 
 Filter logs by `severityNumber` to find errors with a specific numeric severity level:
 
@@ -507,6 +659,8 @@ search severityNumber=17 source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | body | resource.attributes.service.name |
 | --- | --- |
 | Payment failed: connection timeout to payment gateway after 30000ms | payment |
@@ -517,7 +671,13 @@ The query returns the following results:
 | Database primary node unreachable: connection refused to db-primary-01:5432 | product-catalog |
 | Kafka producer delivery failed: message too large for topic order-events (max 1048576 bytes) | checkout |
 
+<!-- vale on -->
+
+<!-- vale off -->
+
 ## Example 9: Using complex expressions  
+
+<!-- vale on -->
 
 To create sophisticated search queries, combine multiple conditions using Boolean operators and parentheses:
   
@@ -532,17 +692,29 @@ search (severityText="ERROR" OR severityText="WARN") AND severityNumber>13 sourc
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | severityText |
 | --- |
 | ERROR |
 | ERROR |
 | ERROR |
 
+<!-- vale on -->
+
+<!-- vale off -->
+
 ## Example 10: Using time modifiers  
+
+<!-- vale on -->
 
 Time modifiers filter search results by time range using the implicit `@timestamp` field. They support various time formats for precise temporal filtering.
 
+<!-- vale off -->
+
 ### Absolute time filtering
+
+<!-- vale on -->
 
 Filter logs within a specific time window using absolute timestamps:
 
@@ -556,14 +728,22 @@ search earliest='2024-02-01 09:13:00' latest='2024-02-01 09:16:00' source=otello
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | @timestamp | severityText |
 | --- | --- |
 | 2024-02-01 09:14:00 | DEBUG |
 | 2024-02-01 09:16:00 | INFO |
 | 2024-02-01 09:13:00 | ERROR |
 | 2024-02-01 09:15:00 | ERROR |
+
+<!-- vale on -->
   
+<!-- vale off -->
+
 ### Relative time filtering
+
+<!-- vale on -->
 
 Filter logs using relative time expressions, such as those that occurred before 30 seconds ago:
 
@@ -578,13 +758,21 @@ search latest=-30s source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | @timestamp | severityText |
 | --- | --- |
 | 2024-02-01 09:14:00 | DEBUG |
 | 2024-02-01 09:21:00 | DEBUG |
 | 2024-02-01 09:28:00 | DEBUG |
+
+<!-- vale on -->
   
+<!-- vale off -->
+
 ### Time rounding
+
+<!-- vale on -->
 
 Use time rounding expressions to filter events relative to time boundaries, such as those before the start of the current minute:
 
@@ -599,12 +787,20 @@ search latest='@m' source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | @timestamp | severityText |
 | --- | --- |
 | 2024-02-01 09:14:00 | DEBUG |
 | 2024-02-01 09:21:00 | DEBUG |
+
+<!-- vale on -->
   
+<!-- vale off -->
+
 ### Unix timestamp filtering
+
+<!-- vale on -->
 
 Filter logs using Unix epoch timestamps for precise time ranges:
 
@@ -618,6 +814,8 @@ search earliest=1706778600 latest=1706778960 source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | @timestamp | severityText |
 | --- | --- |
 | 2024-02-01 09:14:00 | DEBUG |
@@ -627,9 +825,15 @@ The query returns the following results:
 | 2024-02-01 09:12:00 | WARN |
 | 2024-02-01 09:13:00 | ERROR |
 | 2024-02-01 09:15:00 | ERROR |
+
+<!-- vale on -->
   
 
+<!-- vale off -->
+
 ## Escaping special characters
+
+<!-- vale on -->
 
 Special characters fall into two categories, depending on whether they must always be escaped or only when you want to search for their literal value:
 

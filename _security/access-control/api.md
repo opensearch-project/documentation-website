@@ -20,7 +20,7 @@ The Security plugin REST API lets you programmatically create and manage users, 
 
 ## Access control for the API
 
-Like OpenSearch permissions, you control access to the Security plugin REST API using roles. Specify roles in `opensearch.yml`:
+Just like OpenSearch permissions, you control access to the Security plugin REST API using roles. Specify roles in `opensearch.yml`:
 
 ```yml
 plugins.security.restapi.roles_enabled: ["<role>", ...]
@@ -45,31 +45,31 @@ Roles also allow you to control access to specific REST APIs. You can add indivi
 
 | **Permission**                 | **APIs granted**                   | **Description**                                                                                                                                    |
 |:-------------------------------|:-----------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------|
-| `restapi:admin/actiongroups`     | `/actiongroup` and `/actiongroups` | Permission to get, delete, create, and patch actions groups (including bulk updates).                                                              |
-| `restapi:admin/allowlist`        | `/allowlist`                       | Permission to add any endpoints and HTTP requests to a list of allowed endpoints and requests.                                                     |
-| `restapi:admin/internalusers`    | `/internaluser` and `/user`        | Permission to add, retrieve, modify, and delete any user in the cluster.                                                                           |
-| `restapi:admin/nodesdn`          | `/nodesdn`                         | Permission to add, retrieve, update, or delete any distinguished names from an allow list and enable communication between clusters and/or nodes.  |
-| `restapi:admin/roles`            | `/roles`                           | Permission to add, retrieve, modify, and delete any roles in the cluster.                                                                          |
-| `restapi:admin/rolesmapping`     | `/rolesmapping`                    | Permission to add, retrieve, modify, and delete any roles-mapping.                                                                                 |
-| `restapi:admin/ssl/certs/info`   | `/ssl/certs/info`                  | Permission to view current Transport and HTTP certificates.                                                                                        |
-| `restapi:admin/ssl/certs/reload` | `/ssl/certs/reload`                | Permission to view reload Transport and HTTP certificates.                                                                                         |
-| `restapi:admin/tenants`          | `/tenants`                         | Permission to get, delete, create, and patch tenants.                                                                                              |
+| restapi:admin/actiongroups     | `/actiongroup` and `/actiongroups` | Permission to get, delete, create, and patch actions groups (including bulk updates).                                                              |
+| restapi:admin/allowlist        | `/allowlist`                       | Permission to add any endpoints and HTTP requests to a list of allowed endpoints and requests.                                                     |
+| restapi:admin/internalusers    | `/internaluser` and `/user`        | Permission to add, retrieve, modify, and delete any user in the cluster.                                                                           |
+| restapi:admin/nodesdn          | `/nodesdn`                         | Permission to add, retrieve, update, or delete any distinguished names from an allow list and enable communication between clusters and/or nodes.  |
+| restapi:admin/roles            | `/roles`                           | Permission to add, retrieve, modify, and delete any roles in the cluster.                                                                          |
+| restapi:admin/rolesmapping     | `/rolesmapping`                    | Permission to add, retrieve, modify, and delete any roles-mapping.                                                                                 |
+| restapi:admin/ssl/certs/info   | `/ssl/certs/info`                  | Permission to view current Transport and HTTP certificates.                                                                                        |
+| restapi:admin/ssl/certs/reload | `/ssl/certs/reload`                | Permission to view reload Transport and HTTP certificates.                                                                                         |
+| restapi:admin/tenants          | `/tenants`                         | Permission to get, delete, create, and patch tenants.                                                                                              |
 
 
 
-Valid values for `endpoint` are:
+Possible values for `endpoint` are:
 
-- `ACTIONGROUPS`
-- `ROLES`
-- `ROLESMAPPING`
-- `INTERNALUSERS`
-- `CONFIG`
-- `CACHE`
-- `SYSTEMINFO`
-- `NODESDN`
-- `SSL`
+- ACTIONGROUPS
+- ROLES
+- ROLESMAPPING
+- INTERNALUSERS
+- CONFIG
+- CACHE
+- SYSTEMINFO
+- NODESDN
+- SSL
 
-Valid values for `method` are:
+Possible values for `method` are:
 
 - GET
 - PUT
@@ -130,7 +130,7 @@ Introduced 1.0
 Returns account details for the current user. For example, if you sign the request as the `admin` user, the response includes details for that user.
 
 
-#### Example request
+#### Request
 
 ```json
 GET _plugins/_security/api/account
@@ -180,8 +180,8 @@ PUT _plugins/_security/api/account
 
 | Field              | Data type  | Description                    | Required  |
 |:-------------------|:-----------|:-------------------------------|:----------|
-| `current_password `  | String     | The current password.          | Yes       |
-| `password`           | String     | The new password to set.       | Yes       |
+| current_password   | String     | The current password.          | Yes       |
+| password           | String     | The new password to set.       | Yes       |
 
 ##### Example request
 
@@ -227,7 +227,7 @@ GET _plugins/_security/api/actiongroups/{action-group}
 ```
 {% include copy-curl.html %}
 
-#### Example request
+#### Request
 
 ```json
 GET _plugins/_security/api/actiongroups/custom_action_group
@@ -260,7 +260,7 @@ Introduced 1.0
 Retrieves all action groups.
 
 
-#### Example request
+#### Request
 
 ```json
 GET _plugins/_security/api/actiongroups/
@@ -302,7 +302,7 @@ GET _plugins/_security/api/actiongroups/
 Introduced 1.0
 {: .label .label-purple }
 
-#### Example request
+#### Request
 
 ```json
 DELETE _plugins/_security/api/actiongroups/{action-group}
@@ -325,7 +325,7 @@ Introduced 1.0
 
 Creates or replaces the specified action group.
 
-#### Example request
+#### Request
 
 ```json
 PUT _plugins/_security/api/actiongroups/{action-group}
@@ -358,7 +358,7 @@ Introduced 1.0
 
 Updates individual attributes of an action group.
 
-#### Example request
+#### Request
 
 ```json
 PATCH _plugins/_security/api/actiongroups/{action-group}
@@ -386,7 +386,7 @@ Introduced 1.0
 
 Creates, updates, or deletes multiple action groups in a single call.
 
-#### Example request
+#### Request
 
 ```json
 PATCH _plugins/_security/api/actiongroups
@@ -422,7 +422,7 @@ These calls let you create, update, and delete internal users. If you use an ext
 Introduced 1.0
 {: .label .label-purple }
 
-#### Example request
+#### Request
 
 ```json
 GET _plugins/_security/api/internalusers/{username}
@@ -450,7 +450,7 @@ GET _plugins/_security/api/internalusers/{username}
 Introduced 1.0
 {: .label .label-purple }
 
-#### Example request
+#### Request
 
 ```json
 GET _plugins/_security/api/internalusers/
@@ -477,7 +477,7 @@ GET _plugins/_security/api/internalusers/
 Introduced 1.0
 {: .label .label-purple }
 
-#### Example request
+#### Request
 
 ```json
 DELETE _plugins/_security/api/internalusers/{username}
@@ -502,7 +502,7 @@ Creates or replaces the specified user. You must specify either `password` (plai
 
 Note that any role you supply in the `opendistro_security_roles` array must already exist for the Security plugin to map the user to that role. To see predefined roles, refer to [the list of predefined roles]({{site.url}}{{site.baseurl}}/security/access-control/users-roles#predefined-roles). For instructions on how to create a role, refer to [creating a role](#create-role).
 
-#### Example request
+#### Request
 
 ```json
 PUT _plugins/_security/api/internalusers/{username}
@@ -534,7 +534,7 @@ Introduced 1.0
 
 Updates individual attributes of an internal user.
 
-#### Example request
+#### Request
 
 ```json
 PATCH _plugins/_security/api/internalusers/{username}
@@ -567,7 +567,7 @@ Introduced 1.0
 
 Creates, updates, or deletes multiple internal users in a single call.
 
-#### Example request
+#### Request
 
 ```json
 PATCH _plugins/_security/api/internalusers
@@ -606,7 +606,7 @@ Introduced 1.0
 
 Retrieves one role.
 
-#### Example request
+#### Request
 
 ```json
 GET _plugins/_security/api/roles/{role}
@@ -655,7 +655,7 @@ Introduced 1.0
 
 Retrieves all roles.
 
-#### Example request
+#### Request
 
 ```json
 GET _plugins/_security/api/roles/
@@ -696,7 +696,7 @@ GET _plugins/_security/api/roles/
 Introduced 1.0
 {: .label .label-purple }
 
-#### Example request
+#### Request
 
 ```json
 DELETE _plugins/_security/api/roles/{role}
@@ -719,7 +719,7 @@ Introduced 1.0
 
 Creates or replaces the specified role.
 
-#### Example request
+#### Request
 
 ```json
 PUT _plugins/_security/api/roles/{role}
@@ -776,7 +776,7 @@ Introduced 1.0
 
 Updates individual attributes of a role.
 
-#### Example request
+#### Request
 
 ```json
 PATCH _plugins/_security/api/roles/{role}
@@ -807,7 +807,7 @@ Introduced 1.0
 
 Creates, updates, or deletes multiple roles in a single call.
 
-#### Example request
+#### Request
 
 ```json
 PATCH _plugins/_security/api/roles
@@ -851,7 +851,7 @@ Introduced 1.0
 
 Retrieves one role mapping.
 
-#### Example request
+#### Request
 
 ```json
 GET _plugins/_security/api/rolesmapping/{role}
@@ -877,7 +877,7 @@ Introduced 1.0
 
 Retrieves all role mappings.
 
-#### Example request
+#### Request
 
 ```json
 GET _plugins/_security/api/rolesmapping
@@ -903,7 +903,7 @@ Introduced 1.0
 
 Deletes the specified role mapping.
 
-#### Example request
+#### Request
 
 ```json
 DELETE _plugins/_security/api/rolesmapping/{role}
@@ -926,7 +926,7 @@ Introduced 1.0
 
 Creates or replaces the specified role mapping.
 
-#### Example request
+#### Request
 
 ```json
 PUT _plugins/_security/api/rolesmapping/{role}
@@ -970,7 +970,7 @@ Introduced 1.0
 
 Updates individual attributes of a role mapping.
 
-#### Example request
+#### Request
 
 ```json
 PATCH _plugins/_security/api/rolesmapping/{role}
@@ -1001,7 +1001,7 @@ Introduced 1.0
 
 Creates or updates multiple role mappings in a single call.
 
-#### Example request
+#### Request
 
 ```json
 PATCH _plugins/_security/api/rolesmapping
@@ -1027,13 +1027,13 @@ PATCH _plugins/_security/api/rolesmapping
 
 ---
 
-## Allow list
+## Allowlist
 
-### Get allow list
+### Get allowlist
 
 Retrieves the current `allowlist` configuration.
 
-#### Example request
+#### Request
 
 ```json
 GET _plugins/_security/api/allowlist
@@ -1061,11 +1061,11 @@ GET _plugins/_security/api/allowlist
 }
 ```
 
-### Create allow list
+### Create allowlist
 
 Creates an `allowlist` configuration.
 
-#### Example request
+#### Request
 
 ```json
 PUT _plugins/_security/api/allowlist
@@ -1089,11 +1089,11 @@ PUT _plugins/_security/api/allowlist
 }
 ```
 
-### Update allow list
+### Update allowlist
 
 Updates an `allowlist` configuration.
 
-#### Example request
+#### Request
 
 ```json
 PATCH _plugins/_security/api/allowlist
@@ -1128,7 +1128,7 @@ Introduced 1.0
 
 Retrieves one tenant.
 
-#### Example request
+#### Request
 
 ```json
 GET _plugins/_security/api/tenants/{tenant}
@@ -1155,7 +1155,7 @@ Introduced 1.0
 
 Retrieves all tenants.
 
-#### Example request
+#### Request
 
 ```json
 GET _plugins/_security/api/tenants/
@@ -1188,7 +1188,7 @@ Introduced 1.0
 
 Deletes the specified tenant.
 
-#### Example request
+#### Request
 
 ```json
 DELETE _plugins/_security/api/tenants/{tenant}
@@ -1211,7 +1211,7 @@ Introduced 1.0
 
 Creates or replaces the specified tenant.
 
-#### Example request
+#### Request
 
 ```json
 PUT _plugins/_security/api/tenants/{tenant}
@@ -1237,7 +1237,7 @@ Introduced 1.0
 
 Add, delete, or modify a single tenant.
 
-#### Example request
+#### Request
 
 ```json
 PATCH _plugins/_security/api/tenants/{tenant}
@@ -1265,7 +1265,7 @@ Introduced 1.0
 
 Add, delete, or modify multiple tenants in a single call.
 
-#### Example request
+#### Request
 
 ```json
 PATCH _plugins/_security/api/tenants/
@@ -1306,7 +1306,7 @@ Introduced 1.0
 
 Retrieves the current Security plugin configuration in JSON format.
 
-#### Example request
+#### Request
 
 ```json
 GET _plugins/_security/api/securityconfig
@@ -1320,7 +1320,7 @@ Introduced 1.0
 
 Creates or updates the existing configuration using the REST API. This operation can easily break your existing configuration, so we recommend using `securityadmin.sh` instead, which is far safer. See [Access control for the API](#access-control-for-the-api) for how to enable this operation.
 
-#### Example request
+#### Request
 
 ```json
 PUT _plugins/_security/api/securityconfig/config
@@ -1388,7 +1388,7 @@ plugins.security.unsupported.restapi.allow_securityconfig_modification: true
 ```
 {% include copy.html %}
 
-#### Example request
+#### Request
 
 ```json
 PATCH _plugins/_security/api/securityconfig
@@ -1419,7 +1419,7 @@ Checks the current configuration bundled with the host's Security plugin and com
 With each new OpenSearch version, there are changes to the default security configuration. This endpoint helps cluster operators determine whether the cluster is missing defaults or has stale definitions of defaults.
 {: .note}
 
-#### Example request
+#### Request
 
 ```json
 GET _plugins/_security/api/_upgrade_check
@@ -1457,7 +1457,7 @@ Adds and updates resources on a host's existing security configuration from the 
 These bundled configuration files can be found in the `<OPENSEARCH_HOME>/security/config` directory. Default configuration files are updated when OpenSearch is upgraded, whereas the cluster configuration is only updated by the cluster operators. This endpoint helps cluster operator upgrade missing defaults and stale default definitions. 
 
 
-#### Example request
+#### Request
 
 ```json
 POST _plugins/_security/api/_upgrade_perform
@@ -1512,7 +1512,7 @@ plugins.security.nodes_dn_dynamic_config_enabled: true
 
 Retrieves all distinguished names in the allow list.
 
-#### Example request
+#### Request
 
 ```json
 GET _plugins/_security/api/nodesdn
@@ -1533,7 +1533,7 @@ GET _plugins/_security/api/nodesdn
 
 To get the distinguished names from a specific cluster's or node's allow list, include the cluster's name in the request path.
 
-#### Example request
+#### Request
 
 ```json
 GET _plugins/_security/api/nodesdn/{cluster-name}
@@ -1557,7 +1557,7 @@ GET _plugins/_security/api/nodesdn/{cluster-name}
 
 Adds or updates the specified distinguished names in the cluster's or node's allow list.
 
-#### Example request
+#### Request
 
 ```json
 PUT _plugins/_security/api/nodesdn/{cluster-name}
@@ -1593,9 +1593,9 @@ PATCH _plugins/_security/api/nodesdn
 
 | Field           | Data type  | Description                                                                                                       | Required |
 |:----------------|:-----------|:------------------------------------------------------------------------------------------------------------------|:---------|
-| `op`              | string     | The operation to perform on the action group. Valid values: `remove`,`add`, `replace`, `move`, `copy`, `test`. | Yes      |
-| `path`            | string     | The path to the resource.                                                                                         | Yes      |
-| `value`           | Array      | The new values used for the update.                                                                               | Yes      |
+| op              | string     | The operation to perform on the action group. Possible values: `remove`,`add`, `replace`, `move`, `copy`, `test`. | Yes      |
+| path            | string     | The path to the resource.                                                                                         | Yes      |
+| value           | Array      | The new values used for the update.                                                                               | Yes      |
 
 
 ##### Example request
@@ -1633,7 +1633,7 @@ PATCH _plugins/_security/api/nodesdn
 
 Deletes all distinguished names in the specified cluster's or node's allow list.
 
-#### Example request
+#### Request
 
 ```json
 DELETE _plugins/_security/api/nodesdn/{cluster-name}
@@ -1660,7 +1660,7 @@ Introduced 1.0
 
 Retrieves the cluster's security certificates.
 
-#### Example request
+#### Request
 
 ```json
 GET _plugins/_security/api/ssl/certs
@@ -1723,7 +1723,7 @@ curl -X PUT "https://your-opensearch-cluster/_plugins/_security/api/ssl/transpor
 
 | Field   | Data type | Description                                                                       |
 |:--------|:----------|:----------------------------------------------------------------------------------|
-| status  | String    | Indicates the status of the operation. Valid values: "OK" or an error message. |
+| status  | String    | Indicates the status of the operation. Possible values: "OK" or an error message. |
 | message | String    | Additional information about the operation.                                       |
 
 
@@ -1759,7 +1759,7 @@ curl -X PUT "https://your-opensearch-cluster/_plugins/_security/api/ssl/http/rel
 
 | Field   | Data type | Description                                                         |
 |:--------|:----------|:--------------------------------------------------------------------|
-| status  | String    | The status of the API operation. Valid value: "OK".              |
+| status  | String    | The status of the API operation. Possible value: "OK".              |
 | message | String    | A message indicating that the HTTP certificates have been updated.  |
 
 ---
@@ -1773,7 +1773,7 @@ Introduced 1.0
 Flushes the Security plugin user, authentication, and authorization cache.
 
 
-#### Example request
+#### Request
 
 ```json
 DELETE _plugins/_security/api/cache
@@ -1802,7 +1802,7 @@ Introduced 1.0
 Checks to see if the Security plugin is up and running. If you operate your cluster behind a load balancer, this operation is useful for determining node health and doesn't require a signed request.
 
 
-#### Example request
+#### Request
 
 ```json
 GET _plugins/_security/health
@@ -1864,7 +1864,7 @@ Field | Data type | Description
 `compliance.external_config` | Boolean | Logs external configuration files for the node. Default is `false`.
 `compliance.internal_config` | Boolean | Logs updates to internal security changes. Default is `true`.
 
-Changes to the `_readonly` property result in a 409 error, as indicated in the following response.
+Changes to the `_readonly` property result in a 409 error, as indicated in the response below.
 {: .note}
 
 ```json

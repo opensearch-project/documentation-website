@@ -172,7 +172,7 @@ snapshotrestore:
 
 `nodes_dn.yml` lets you add certificates' [distinguished names (DNs)]({{site.url}}{{site.baseurl}}/security/configuration/generate-certificates/#add-distinguished-names-to-opensearchyml) to an allow list to enable communication between any number of nodes or clusters. For example, a node that has the DN `CN=node1.example.com` in its allow list accepts communication from any other node or certificate that uses that DN.
 
-The DNs get indexed into a [system index]({{site.url}}{{site.baseurl}}/security/configuration/system-indices/) that only a super admin or an admin with a Transport Layer Security (TLS) certificate can access. If you want to programmatically add DNs to your allow lists, use the [REST API]({{site.url}}{{site.baseurl}}/security/access-control/api/#distinguished-names).
+The DNs get indexed into a [system index]({{site.url}}{{site.baseurl}}/security/configuration/system-indices) that only a super admin or an admin with a Transport Layer Security (TLS) certificate can access. If you want to programmatically add DNs to your allow lists, use the [REST API]({{site.url}}{{site.baseurl}}/security/access-control/api/#distinguished-names).
 
 ```yml
 ---
@@ -299,7 +299,7 @@ _meta:
 
 ## tenants.yml
 
-You can use this file to specify and add any number of OpenSearch Dashboards tenants to your OpenSearch cluster. For more information about tenants, see [OpenSearch Dashboards multi-tenancy]({{site.url}}{{site.baseurl}}/security/multi-tenancy/tenant-index/).
+You can use this file to specify and add any number of OpenSearch Dashboards tenants to your OpenSearch cluster. For more information about tenants, see [OpenSearch Dashboards multi-tenancy]({{site.url}}{{site.baseurl}}/security/multi-tenancy/tenant-index).
 
 Like all of the other YAML files, we recommend you use `tenants.yml` to add any tenants you must have in your cluster, and then use OpenSearch Dashboards or the [REST API]({{site.url}}{{site.baseurl}}/security/access-control/api/#tenants) if you need to further configure or create any other tenants.
 
@@ -384,7 +384,7 @@ plugins.security.restapi.password_validation_regex: '(?=.*[A-Z])(?=.*[^a-zA-Z\d]
 plugins.security.restapi.password_validation_error_message: "Password must be minimum 8 characters long and must contain at least one uppercase letter, one lowercase letter, one digit, and one special character."
 ```
 
-In addition, a score-based password strength estimator allows you to set a threshold for password strength when creating a new internal user or updating a user's password. This feature makes use of the [`zxcvbn` library](https://github.com/dropbox/zxcvbn) to apply a policy that emphasizes a password's complexity rather than its capacity to meet traditional criteria such as uppercase keys, numerals, and special characters.
+In addition, a score-based password strength estimator allows you to set a threshold for password strength when creating a new internal user or updating a user's password. This feature makes use of the [zxcvbn library](https://github.com/dropbox/zxcvbn) to apply a policy that emphasizes a password's complexity rather than its capacity to meet traditional criteria such as uppercase keys, numerals, and special characters.
 
 For information about defining users, see [Defining users]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/#defining-users).
 

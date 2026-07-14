@@ -34,12 +34,16 @@ FROM index_name
 ### Fundamentals
 
 Apart from the predefined keywords of SQL, the most basic elements are literal and identifiers.
-A literal is a numeric, string, date or boolean constant. An identifier is an OpenSearch index or field name.
+A literal is a numeric, string, date, or Boolean constant. An identifier is an OpenSearch index or field name.
 With arithmetic operators and SQL functions, use literals and identifiers to build complex expressions.
 
 Rule `expressionAtom`:
 
-![expressionAtom]({{site.url}}{{site.baseurl}}/images/expressionAtom.png)
+<!-- vale off -->
+
+![expressionAtom rule]({{site.url}}{{site.baseurl}}/images/expressionAtom.png)
+
+<!-- vale on -->
 
 The expression in turn can be combined into a predicate with logical operator. Use a predicate in the `WHERE` and `HAVING` clause to filter out data by specific conditions.
 
@@ -51,7 +55,7 @@ Rule `predicate`:
 
 ![expression]({{site.url}}{{site.baseurl}}/images/predicate.png)
 
-### Execution Order
+### Execution order
 
 These SQL clauses execute in an order different from how they appear:
 
@@ -75,11 +79,19 @@ Specify the fields to be retrieved.
 
 Rule `selectElements`:
 
-![selectElements]({{site.url}}{{site.baseurl}}/images/selectElements.png)
+<!-- vale off -->
+
+![selectElements rule]({{site.url}}{{site.baseurl}}/images/selectElements.png)
+
+<!-- vale on -->
 
 Rule `selectElement`:
 
-![selectElements]({{site.url}}{{site.baseurl}}/images/selectElement.png)
+<!-- vale off -->
+
+![selectElements rule]({{site.url}}{{site.baseurl}}/images/selectElement.png)
+
+<!-- vale on -->
 
 *Example 1*: Use `*` to retrieve all fields in an index:
 
@@ -90,12 +102,16 @@ FROM accounts
 {% include copy.html %}
 
 
+<!-- vale off -->
+
 | account_number | firstname | gender | city | balance | employer | state | email | address | lastname | age
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :---
 | 1 | Amber | M | Brogan | 39225 | Pyrami | IL | amberduke@pyrami.com | 880 Holmes Lane | Duke | 32
 | 16 | Hattie | M | Dante | 5686 | Netagy | TN | hattiebond@netagy.com | 671 Bristol Street | 	Bond | 36
 | 13 | Nanette | F | Nogal | 32838 | Quility | VA | nanettebates@quility.com | 789 Madison Street | Bates | 28
 | 18 | Dale | M | Orick | 4180 |  | MD | daleadams@boink.com | 467 Hutchinson Court | Adams | 33
+
+<!-- vale on -->
 
 *Example 2*: Use field name(s) to retrieve only specific fields:
 
@@ -106,12 +122,16 @@ FROM accounts
 {% include copy.html %}
 
 
+<!-- vale off -->
+
 | firstname | lastname
 | :--- | :---
 | Amber | Duke
 | Hattie | Bond
 | Nanette | Bates
 | Dale | Adams
+
+<!-- vale on -->
 
 *Example 3*: Use field aliases instead of field names. Field aliases are used to make field names more readable:
 
@@ -120,12 +140,16 @@ SELECT account_number AS num
 FROM accounts
 ```
 
+<!-- vale off -->
+
 | num
 :---
 | 1
 | 6
 | 13
 | 18
+
+<!-- vale on -->
 
 *Example 4*: Use the `DISTINCT` clause to get back only unique field values. You can specify one or more field names:
 
@@ -134,12 +158,16 @@ SELECT DISTINCT age
 FROM accounts
 ```
 
+<!-- vale off -->
+
 | age
 :---
 | 28
 | 32
 | 33
 | 36
+
+<!-- vale on -->
 
 ## From
 
@@ -150,7 +178,11 @@ You can specify subqueries within the `FROM` clause.
 
 Rule `tableName`:
 
-![tableName]({{site.url}}{{site.baseurl}}/images/tableName.png)
+<!-- vale off -->
+
+![tableName rule]({{site.url}}{{site.baseurl}}/images/tableName.png)
+
+<!-- vale on -->
 
 *Example 1*: Use index aliases to query across indexes. To learn about index aliases, see [Index Alias]({{site.url}}{{site.baseurl}}/opensearch/index-alias/).
 In this sample query, `acc` is an alias for the `accounts` index:
@@ -167,12 +199,16 @@ SELECT account_number, acc.age
 FROM accounts acc
 ```
 
+<!-- vale off -->
+
 | account_number | age
 | :--- | :---
 | 1 | 32
 | 6 | 36
 | 13 | 28
 | 18 | 33
+
+<!-- vale on -->
 
 *Example 2*: Use index patterns to query indexes that match a specific pattern:
 
@@ -181,6 +217,8 @@ SELECT account_number
 FROM account*
 ```
 
+<!-- vale off -->
+
 | account_number
 :---
 | 1
@@ -188,9 +226,13 @@ FROM account*
 | 13
 | 18
 
+<!-- vale on -->
+
 ## Where
 
 Specify a condition to filter the results.
+
+<!-- vale off -->
 
 | Operators | Behavior
 :--- | :---
@@ -206,7 +248,9 @@ Specify a condition to filter the results.
 `IS NULL` | Check if the field value is `NULL`.
 `IS NOT NULL` | Check if the field value is `NOT NULL`.
 
-Combine comparison operators (`=`, `<>`, `>`, `>=`, `<`, `<=`) with boolean operators `NOT`, `AND`, or `OR` to build more complex expressions.
+<!-- vale on -->
+
+Combine comparison operators (`=`, `<>`, `>`, `>=`, `<`, `<=`) with Boolean operators `NOT`, `AND`, or `OR` to build more complex expressions.
 
 *Example 1*: Use comparison operators for numbers, strings, or dates:
 
@@ -216,9 +260,13 @@ FROM accounts
 WHERE account_number = 1
 ```
 
+<!-- vale off -->
+
 | account_number
 | :---
 | 1
+
+<!-- vale on -->
 
 *Example 2*: OpenSearch allows for flexible schema，so documents in an index may have different fields. Use `IS NULL` or `IS NOT NULL` to retrieve only missing fields or existing fields. OpenSearch does not differentiate between missing fields and fields explicitly set to `NULL`:
 
@@ -228,9 +276,13 @@ FROM accounts
 WHERE employer IS NULL
 ```
 
+<!-- vale off -->
+
 | account_number | employer
 | :--- | :---
 | 18 |
+
+<!-- vale on -->
 
 *Example 3*: Deletes a document that satisfies the predicates in the `WHERE` clause:
 
@@ -239,7 +291,7 @@ DELETE FROM accounts
 WHERE age > 30
 ```
 
-## Group By
+## GROUP BY
 
 Group documents with the same field value into buckets.
 
@@ -251,12 +303,16 @@ FROM accounts
 GROUP BY age
 ```
 
+<!-- vale off -->
+
 | id | age
 :--- | :---
 0 | 28
 1 | 32
 2 | 33
 3 | 36
+
+<!-- vale on -->
 
 *Example 2*: Group by field alias:
 
@@ -266,12 +322,16 @@ FROM accounts
 GROUP BY num
 ```
 
+<!-- vale off -->
+
 | id | num
 :--- | :---
 0 | 1
 1 | 6
 2 | 13
 3 | 18
+
+<!-- vale on -->
 
 *Example 4*: Use scalar functions in the `GROUP BY` clause:
 
@@ -281,12 +341,16 @@ FROM accounts
 GROUP BY ABS(age)
 ```
 
+<!-- vale off -->
+
 | id | a
 :--- | :---
 0 | 28.0
 1 | 32.0
 2 | 33.0
 3 | 36.0
+
+<!-- vale on -->
 
 ## Having
 
@@ -301,12 +365,16 @@ FROM accounts
 GROUP BY age HAVING MIN(balance) > 10000
 ```
 
+<!-- vale off -->
+
 | id | age | MAX (balance)
 :--- | :---
 0 | 28 | 32838
 1 | 32 | 39225
 
-## Order By
+<!-- vale on -->
+
+## ORDER BY
 
 Use the `ORDER BY` clause to sort results into your desired order.
 
@@ -318,12 +386,16 @@ FROM accounts
 ORDER BY account_number DESC
 ```
 
+<!-- vale off -->
+
 | account_number
 | :---
 | 18
 | 13
 | 6
 | 1
+
+<!-- vale on -->
 
 *Example 2*: Specify if documents with missing fields are to be put at the beginning or at the end of the results. The default behavior of OpenSearch is to return nulls or missing fields at the end. To push them before non-nulls, use the `IS NOT NULL` operator:
 
@@ -333,12 +405,16 @@ FROM accounts
 ORDER BY employer IS NOT NULL
 ```
 
+<!-- vale off -->
+
 | employer
 | :---
 ||
 | Netagy
 | Pyrami
 | Quility
+
+<!-- vale on -->
 
 ## Limit
 
@@ -352,9 +428,13 @@ FROM accounts
 ORDER BY account_number LIMIT 1
 ```
 
+<!-- vale off -->
+
 | account_number
 | :---
 | 1
+
+<!-- vale on -->
 
 *Example 2*: If you pass in two arguments, the first is mapped to the `from` parameter and the second to the `size` parameter in OpenSearch. You can use this for simple pagination for small indexes, as it's inefficient for large indexes.
 Use `ORDER BY` to ensure the same order between pages:
@@ -365,6 +445,10 @@ FROM accounts
 ORDER BY account_number LIMIT 1, 1
 ```
 
+<!-- vale off -->
+
 | account_number
 | :---
 | 6
+
+<!-- vale on -->

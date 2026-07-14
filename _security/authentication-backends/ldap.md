@@ -130,7 +130,7 @@ config:
 If your server supports two-factor authentication (2FA), the default timeout settings might result in login errors. You can increase `connect_timeout` to accommodate the 2FA process. Setting `response_timeout` to 0 (the default) indicates an indefinite waiting period.
 
 
-### Bind distinguished name and password
+### Bind DN and password
 
 To configure the `bind_dn` and `password` that the Security plugin uses when issuing queries to your server, use the following:
 
@@ -393,7 +393,7 @@ As an alternative, the Security plugin can also fetch roles that are defined as 
 
 ### Approach 1: Query the role subtree
 
-The Security plugin first takes the LDAP query for fetching roles (`rolesearch`) and substitutes any variables found in the query. For example, for a standard Active Directory installation, you would use the following role search:
+The Security plugin first takes the LDAP query for fetching roles ("rolesearch") and substitutes any variables found in the query. For example, for a standard Active Directory installation, you would use the following role search:
 
 ```yml
 rolesearch: '(member={0})'
@@ -522,7 +522,7 @@ nested_role_filter:
 Name | Description
 :--- | :---
 `rolebase`  | Specifies the subtree in the directory where role/group information is stored.
-`rolesearch` | The actual LDAP query that the Security plugin executes when trying to determine the roles of a user. You can use three variables here (see the following section).
+`rolesearch` | The actual LDAP query that the Security plugin executes when trying to determine the roles of a user. You can use three variables here (see below).
 `userroleattribute`  | The attribute in a user entry to use for `{2}` variable substitution.
 `userrolename`  | If the roles/groups of a user are not stored in the groups subtree, but as an attribute of the user's directory entry, define this attribute name here.
 `rolename`  | The attribute of the role entry that should be used as the role name.
@@ -572,7 +572,7 @@ authz:
 
 ### (Advanced) Configuring multiple user and role bases
 
-To configure multiple user bases in the `authc` and/or `authz` section, use the following syntax:
+To configure multiple user bases in the authc and/or authz section, use the following syntax:
 
 ```yml
         ...
@@ -589,7 +589,7 @@ To configure multiple user bases in the `authc` and/or `authz` section, use the 
         ...
 ```
 
-Similarly, use the following setup to configure multiple role bases in the `authz` section:
+Similarly, use the following setup to configure multiple role bases in the authz section:
 
 ```yml
         ...

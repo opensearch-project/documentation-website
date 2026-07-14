@@ -106,7 +106,7 @@ See [Patch role]({{site.url}}{{site.baseurl}}/security/access-control/api/#patch
 
 If you didn't specify roles when you created your user, you can map roles to it afterwards.
 
-Like users and roles, you create role mappings using OpenSearch Dashboards, `roles_mapping.yml`, or the REST API.
+Just like users and roles, you create role mappings using OpenSearch Dashboards, `roles_mapping.yml`, or the REST API.
 
 ### OpenSearch Dashboards
 

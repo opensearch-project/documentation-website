@@ -24,7 +24,7 @@ Name | Description
 `audit_node_id ` | The ID of the node where the event was generated.
 `audit_node_name` | The name of the node where the event was generated.
 `audit_node_host_address` | The host address of the node where the event was generated.
-`audit_node_host_name` | The hostname of the node where the event was generated.
+`audit_node_host_name` | The host name of the node where the event was generated.
 `audit_request_layer` | The layer on which the event has been generated, either TRANSPORT or REST.
 `audit_request_origin` | The layer from which the event originated, either TRANSPORT or REST.
 `audit_request_effective_user_is_admin` | True if the request was made with a TLS admin certificate, otherwise false.

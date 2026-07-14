@@ -25,7 +25,7 @@ Certain aspects of this configuration, such as demo certificates and default pas
 
 ## Setting up the demo configuration
 
-Prior to running the `install_demo_configuration.sh` script, you must create an environment variable named `OPENSEARCH_INITIAL_ADMIN_PASSWORD` with a strong password. This will be used as the password for the admin user to authenticate with OpenSearch. Use the online tool [`zxcvbn`](https://lowe.github.io/tryzxcvbn/) to test the strength of any password. After this, you can execute `install_demo_configuration.sh` and follow the terminal prompt to enter necessary details.
+Prior to running the `install_demo_configuration.sh` script, you must create an environment variable named `OPENSEARCH_INITIAL_ADMIN_PASSWORD` with a strong password. This will be used as the password for the admin user to authenticate with OpenSearch. Use the online tool [_Zxcvbn_](https://lowe.github.io/tryzxcvbn/) to test the strength of any password. After this, you can execute `install_demo_configuration.sh` and follow the terminal prompt to enter necessary details.
 
 After the script is executed, you can start OpenSearch and test the configuration by running the following command:
 
