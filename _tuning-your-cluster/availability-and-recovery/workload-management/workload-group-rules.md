@@ -68,16 +68,17 @@ The `workload_group` feature type contains the following parameters.
 
 ## Rule matching and precedence
 
-A single request can match more than one rule. The following sections describe how a rule matches a request and how OpenSearch decides which workload group to assign when several rules match.
+A single request can match more than one rule. OpenSearch evaluates each rule against the request and then uses precedence logic to decide which workload group to assign. 
+If no rule matches, the request runs without a workload group.
 
 ### Matching within a single rule
 
-A rule matches a request only when *every* attribute in the rule matches, so multiple attributes in one rule form a logical AND. Within a single attribute, the listed values form a logical OR: the attribute matches when the request satisfies *any one* of its values. For example, a rule with `"principal": { "role": ["role1", "role2"] }` matches a request whose user has `role1` **or** `role2`; the request does not need both roles.
+A rule matches a request only when every attribute in the rule matches, so multiple attributes in one rule form a logical `AND`. Within a single attribute, the listed values form a logical `OR`: the attribute matches when the request satisfies any one of its values. For example, a rule containing `"principal": { "role": ["role1", "role2"] }` matches a request in which a user has `role1` or `role2`.
 
+To match a request only when it carries a specific combination of values (a logical `AND` within a single attribute), create separate rules for each required value. Listing multiple values under one attribute always applies `OR` semantics.
 {: .note}
-To match a request only when it carries a specific *combination* of values (a logical AND within a single attribute), model each required value as a separate attribute or combine the conditions upstream. Listing multiple values under one attribute always applies OR semantics.
 
-Note that `principal.username` and `principal.role` are subfields of the single `principal` attribute, so all of their values are OR'd together (not AND'd). For example, the following rule combines the `principal` and `index_pattern` attributes:
+Because `principal.username` and `principal.role` are subfields of the single `principal` attribute, all of their values are combined using `OR` (not `AND`). The following example shows a rule with both `principal` and `index_pattern` attributes:
 
 ```json
 {
@@ -90,23 +91,19 @@ Note that `principal.username` and `principal.role` are subfields of the single 
 }
 ```
 
-This rule matches a request when:
+This rule matches a request that contains at least one `principal` value (a username or a role) and at least one `index_pattern` value:
 
 ```
 (user1 OR user2 OR role1 OR role2 OR role3) AND (index-1 OR index-2 OR logs-*)
 ```
-
-In other words, the request must match at least one `principal` value (a username or a role) **and** at least one `index_pattern` value.
 
 ### Choosing between multiple matching rules
 
 When a request matches multiple rules that resolve to different workload groups, OpenSearch selects a single group in the following order:
 
 1. **Attribute priority**: The workload group matched through the highest-priority attribute is preferred. Priority is fixed and follows the order shown in the [Attributes](#attributes) table (`principal.username`, then `principal.role`, then `index_pattern`).
-2. **Match score**: If the choice is still ambiguous, OpenSearch compares match scores. An exact match scores higher than a shorter prefix (wildcard) match, and a workload group matched by *more* of the request's values receives a higher cumulative score. For example, if a request carries three roles and one group's rules match all three while another group's rules match only two, the group matching three roles is selected.
-3. **No assignment on an unresolved tie**: If two or more workload groups remain tied after all attributes are compared (for example, two rules that each match the request through a single, equally specific role), then OpenSearch assigns no workload group. The request runs without a workload group rather than having one chosen arbitrarily.
-
-If no rule matches, no workload group is assigned and the request runs without one.
+1. **Match score**: If the choice is still ambiguous, OpenSearch compares match scores. An exact match is scored higher than a shorter prefix (wildcard) match, and a workload group matched by more of the request's values receives a higher cumulative score. For example, if a request carries three roles and one group's rules match all three while another group's rules match only two, the group matching three roles is selected.
+1. **No assignment for an unresolved tie**: If two or more workload groups remain tied after all attributes are compared (for example, two rules that each match the request through a single, equally specific role), then OpenSearch assigns no workload group. The request runs without a workload group rather than having one chosen arbitrarily.
 
 ## Updating a rule
 
