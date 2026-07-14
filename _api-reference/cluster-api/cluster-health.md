@@ -64,7 +64,7 @@ The following table lists the available query parameters. All query parameters a
 | `wait_for_no_relocating_shards` | Boolean | Whether to wait until there are no relocating shards in the cluster. | `false` |
 | `wait_for_nodes` | Integer or String | Waits until the specified number of nodes (`N`) is available. Accepts `>=N`, `<=N`, `>N`, and `<N`. You can also use `ge(N)`, `le(N)`, `gt(N)`, and `lt(N)` notation. | N/A |
 | `wait_for_status` | String | Waits until the cluster health reaches the specified status or better. <br> Valid values are: `green`, `GREEN`, `yellow`, `YELLOW`, `red`, and `RED`. | N/A |
-|`weights` | JSON object | Assigns weights to attributes within the request body of the PUT request. Weights can be set in any ration, for example, 2:3:5. In a 2:3:5 ratio with three zones, for every 100 requests sent to the cluster, each zone would receive either 20, 30, or 50 search requests in a random order. When assigned a weight of `0`, the zone does not receive any search traffic. | N/A |
+| `weights` | JSON object | Assigns weights to attributes within the request body of the PUT request. Weights can be set in any ration, for example, 2:3:5. In a 2:3:5 ratio with three zones, for every 100 requests sent to the cluster, each zone would receive either 20, 30, or 50 search requests in a random order. When assigned a weight of `0`, the zone does not receive any search traffic. | N/A |
 
 <!-- spec_insert_end -->
 
