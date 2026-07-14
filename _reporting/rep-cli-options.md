@@ -21,7 +21,7 @@ You can use any of the following arguments with the `opensearch-reporting-cli` t
 `-f`, `--format` | The file format for the report. | Can be either `pdf`, `png`, or `csv`. The default is `pdf`.| N/A
 `-w`, `--width` | The window width in pixels for the report. | Default is `1680`.| N/A
 `-l`, `--height` | The minimum window height in pixels for the report. | Default is `600`. | N/A
-`-n`, `--filename` | The file name of the report. | Default is `reporting`. | opensearch-report-YYY-MM-DDTHH-mm-ss.sssZ
+`-n`, `--filename` | The file name of the report. | Default is `reporting`. | `opensearch-report-YYY-MM-DDTHH-mm-ss.sssZ`
 `-e`, `--transport` | The transport mechanism for sending the email. | For Amazon SES, specify `ses`. Amazon SES requires an AWS configuration on your system to store the credentials. For SMTP, use `smtp` and also specify the login credentials with `--smtpusername` and `--smtppassword`. | OPENSEARCH_TRANSPORT
 `-s`, `--from` | The email address of the sender. | For example, `user@amazon.com`. | OPENSEARCH_FROM
 `-r`, `--to` | The email address of the recipient. | For example, `user@amazon.com`. | OPENSEARCH_TO

@@ -57,7 +57,7 @@ The following table lists the available query parameters. All query parameters a
 
 
 
-## Example Requests
+## Example requests
 
 Retrieve the full cluster state:
 
