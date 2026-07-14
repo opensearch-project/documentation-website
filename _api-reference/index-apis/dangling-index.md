@@ -49,9 +49,7 @@ Query parameter | Data type | Description
 `timeout` | Time units | The amount of time to wait for a response. If no response is received in the defined time period, an error is returned. Default is `30` seconds.
 `cluster_manager_timeout` | Time units | The amount of time to wait for a connection to the cluster manager. If no response is received in the defined time period, an error is returned. Default is `30` seconds.
 
-## Example requests
-
-### Sample list
+## Example request: Listing dangling indexes
 
 <!-- spec_insert_start
 component: example_code
@@ -71,7 +69,7 @@ response = client.dangling_indices.list_dangling_indices()
     python=step1_python %}
 <!-- spec_insert_end -->
 
-### Sample import
+## Example request: Importing a dangling index
 
 <!-- spec_insert_start
 component: example_code
@@ -97,7 +95,7 @@ response = client.dangling_indices.import_dangling_index(
 <!-- spec_insert_end -->
 
  
-### Sample delete
+## Example request: Deleting a dangling index
 
 <!-- spec_insert_start
 component: example_code

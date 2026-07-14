@@ -134,6 +134,7 @@ p\d{2}
 [Pp]arameteri(ze|zation)
 pebibyte
 [Pp]erformant
+peta
 [Pp]laintext
 [Pp]rofilers?
 [Pp]luggable
@@ -216,6 +217,7 @@ pebibyte
 t-digest
 tebibyte
 [Tt]emplated
+tera
 [Tt]iering
 [Tt]okenization
 [Tt]okenizer?
