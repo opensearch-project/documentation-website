@@ -16,7 +16,9 @@ arXiv
 Atlassian
 Apache Avro
 Apache HttpClient 5 Transport
+Apache Hive
 Apache Kafka
+Apache Spark
 arXiv
 Aryn
 Auditbeat
@@ -36,7 +38,6 @@ Cohere Embed
 Cohere Embed English
 Cohere Embed Multilingual
 cURL
-Cursor
 Dashboards Query Language
 Data Prepper
 Debian
@@ -71,13 +72,14 @@ IPv6
 Iris
 Jaeger
 Jaeger HotROD
-Jira
+Java
 JavaScript
-jVector
 Jelinek
+Jira
 Joda
 JSON
 JSON Web Token
+jVector
 Karpenter
 Kerberos
 Keycloak
@@ -149,6 +151,8 @@ Simple Schema for Observability
 Solr
 SolrCloud
 Sorani
+Spark
+Spark Structured Streaming
 Stempel
 Strands Agents
 Strimzi

@@ -87,7 +87,7 @@ PUT students
 }
 ```
 
-In OpenSearch.Client, the equivalent of the above query is the following:
+In OpenSearch.Client, the equivalent of the preceding query is the following:
 
 ```cs
 var createResponse = await osClient.Indices.CreateAsync(index,
@@ -122,7 +122,7 @@ var bulkAll = osClient.BulkAll(ReadData(), r => r
 
 ## Searching with Boolean query
 
-OpenSearch.Client exposes full OpenSearch query capability. In addition to simple searches that use the match query, you can create a more complex Boolean query to search for students who graduated in 2022 and sort them by last name. In the example below, search is limited to 10 documents, and the scroll API is used to control the pagination of results.
+OpenSearch.Client exposes full OpenSearch query capability. In addition to simple searches that use the match query, you can create a more complex Boolean query to search for students who graduated in 2022 and sort them by last name. In the following example, search is limited to 10 documents, and the scroll API is used to control the pagination of results.
 
 ```cs
 var gradResponse = await osClient.SearchAsync<Student>(s => s

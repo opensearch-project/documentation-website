@@ -8,7 +8,7 @@ nav_order: 100
 
 The OpenSearch Rust client lets you connect your Rust application with the data in your OpenSearch cluster. For the client's complete API documentation and additional examples, see the [OpenSearch docs.rs documentation](https://docs.rs/opensearch/).
 
-This getting started guide illustrates how to connect to OpenSearch, index documents, and run queries. For the client source code, see the [opensearch-rs repo](https://github.com/opensearch-project/opensearch-rs).
+This getting started guide illustrates how to connect to OpenSearch, index documents, and run queries. For the client source code, see the [`opensearch-rs` repo](https://github.com/opensearch-project/opensearch-rs).
 
 ## Setup
 
