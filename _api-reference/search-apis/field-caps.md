@@ -50,7 +50,7 @@ The following table lists the available request body fields.
 | :------------- | :-------- | :---------------------------------------------------------------------- |
 | `index_filter` | Object    | A query DSL object used to filter indexes included in the request. See [Example: Using an index filter](#example-using-an-index-filter). _Optional_.|
 
-## Example Requests
+## Example requests
 
 Create two indexes with different mappings for the same field:
 
