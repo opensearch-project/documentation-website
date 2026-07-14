@@ -14,7 +14,7 @@ You can access and modify the workspace details, including name, description, us
 To access and modify your workspace details, follow these steps: 
 
 1. Open OpenSearch Dashboards and navigate to **My Workspaces**.
-2. Choose the desired workspace  and then select the **Edit** button to make changes
+2. Choose the desired workspace and then select the **Edit** button to make changes
 3. Select the **Save** button to confirm changes or the **Discard changes** button to cancel modifications.
 
 ## Workspace update permissions

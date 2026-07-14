@@ -50,7 +50,7 @@ Where applicable, the following sections describe, in parallel, how to use both 
 
 Use the _navigation panel_ on the left side of the UI to select any application or settings page that you want to use.
 
-The images below show the most-used features on both navigation modes (classic and workspaces).
+The following images show the most-used features on both navigation modes (classic and workspaces).
 
 Classic navigation panel | Workspaces navigation panel
 :--: | :--:

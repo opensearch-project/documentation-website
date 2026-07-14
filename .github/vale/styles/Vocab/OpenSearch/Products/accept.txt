@@ -27,6 +27,7 @@ AWS Cloud
 AWS Secrets Manager
 AWS Signature Version 4
 Bing
+Brotli
 Capture and Replay
 Chebyshev
 Claude Code
@@ -38,6 +39,8 @@ Cohere Embed
 Cohere Embed English
 Cohere Embed Multilingual
 cURL
+Dashboards application
+Dashboards Assistant
 Dashboards Query Language
 Data Prepper
 Debian
@@ -62,6 +65,7 @@ Gradle
 Grafana
 Hanja
 Helm
+Hjson
 Hive Metastore
 Hugging Face
 IdP
@@ -98,6 +102,7 @@ Log4j
 Logstash
 Lucene
 macOS
+Markdown
 Metadata-Migration-Tool
 Metricbeat
 Microsoft Power BI
@@ -134,8 +139,10 @@ Peer Forwarder
 Performance Analyzer
 Piped Processing Language
 Powershell
+Prometheus
 Python
 PyTorch
+Quandl
 Querqy
 Query Workbench
 RankLib
@@ -146,6 +153,7 @@ Reporting CLI
 RMSProp
 RPM Package Manager
 Ruby
+Scheduled Query Acceleration
 Search Relevance Workbench
 Simple Schema for Observability
 Solr
@@ -167,6 +175,7 @@ TorchScript
 Traffic Capture Proxy
 Traffic Replayer
 Tribuo
+Vega
 VisBuilder
 Visualize application
 Wikimedia

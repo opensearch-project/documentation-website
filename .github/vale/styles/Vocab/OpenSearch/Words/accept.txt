@@ -73,6 +73,7 @@ Gantt
 [Gg]eotile
 gibibyte
 gRPC
+gzip
 [Hh]ardcod(e|ed|ing)
 [Hh]ashmap
 [Hh]eatmaps?
@@ -179,6 +180,7 @@ peta
 [Rr]unbooks?
 [Ss]andbox(es|ed|ing)?
 [Ss]anitization
+[Ss]earchability
 [Ss]erverless
 [Ss]harding
 [Ss]ignificand

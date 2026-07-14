@@ -42,7 +42,7 @@ To create a data table, follow these steps:
 7. Set **Aggregation** to **Terms** and **Field** to **FlightDelay**.
 8. Select **Update**.
 
-   The table shows that undelayed flights averaged zero minutes of delay time. The nonzero flight delay bucket is considerably higher than the overall value because the zero delays are no longer part of that average.
+   The table shows that non-delayed flights averaged zero minutes of delay time. The nonzero flight delay bucket is considerably higher than the overall value because the zero delays are no longer part of that average.
    {: .note}
 
 9. Change the row buckets by choosing **Range** from the **Aggregation** dropdown and **DistanceMiles** from the **Field** dropdown.

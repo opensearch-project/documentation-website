@@ -35,7 +35,7 @@ The following image shows the main components of the **Visualize** application.
 ![Visualize application interface]({{site.url}}{{site.baseurl}}/images/dashboards/viz-app-panel-callouts.png)
 
 - The _search bar_ (A) enables selection of data using a query language search. See [Using the search bar]({{site.url}}{{site.baseurl}}/dashboards/discover/search-bar/).
-- The _time filter_ (B) provides a graphical interface for selecting data values and ranges.  See [Using the time filter]({{site.url}}{{site.baseurl}}/dashboards/discover/time-filter/).
+- The _time filter_ (B) provides a graphical interface for selecting data values and ranges. See [Using the time filter]({{site.url}}{{site.baseurl}}/dashboards/discover/time-filter/).
 - The _filter tool_ (C) contains frequently used commands and shortcuts. See [Using the filter tool]({{site.url}}{{site.baseurl}}/dashboards/discover/filter-tool/).
 - The _visualization panel_ (D) displays the visualization.
 - The _configuration panel_ (E) contains all the controls to select and configure the visualization. Its contents depend on the visualization type. See [Configuring visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/configuring-viz/).

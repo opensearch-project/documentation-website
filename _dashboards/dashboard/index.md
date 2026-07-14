@@ -36,7 +36,7 @@ For more information, see [Adding sample data]({{site.url}}{{site.baseurl}}/dash
 
 The following image shows the main components of the **Dashboards** application.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/dashboard-UI-blank-callouts.png" alt="Dashboards app default page">
+![Dashboards app default page]({{site.url}}{{site.baseurl}}/images/dashboards/dashboard-UI-blank-callouts.png)
 
 - The _application menu_ (A) contains application options. This menu is context-sensitive and is different for other applications.
 - The _search_ bar (B) enables selection of data using a query language search.

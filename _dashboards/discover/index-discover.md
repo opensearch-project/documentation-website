@@ -196,7 +196,7 @@ To download a CSV-formatted file of data from the **Results** table:
 
 1. Select the **Download CSV** button.
 
-   The data is written to a CSV file at the filesystem's default location.
+   The data is written to a CSV file at the file system's default location.
 
    If the selected fields include objects or arrays, the CSV documents will download as JSON objects. To download as discrete CSV values, select only single-value fields.
    {: .tip}
