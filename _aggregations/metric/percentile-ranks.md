@@ -163,7 +163,11 @@ The response includes an array instead of an object:
 }
 ```
 
+<!-- vale off -->
+
 ## Precision tuning with tdigest
+
+<!-- vale on -->
 
 By default, percentile ranks are calculated using the `tdigest` algorithm. You can control the trade-off between accuracy and memory usage by specifying the `tdigest.compression` parameter. Higher values provide better accuracy but require more memory. For more information about how tdigest works, see [Precision tuning with tdigest]({{site.url}}{{site.baseurl}}/aggregations/metric/percentile/#precision-tuning-with-tdigest).
 

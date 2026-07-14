@@ -210,7 +210,11 @@ The response provides percentiles as an array of values:
 }
 ```
 
+<!-- vale off -->
+
 ### Precision tuning with tdigest
+
+<!-- vale on -->
 
 The `tdigest` algorithm is the default method used to calculate percentiles. It provides a memory-efficient way to estimate percentile ranks, especially when working with floating-point data such as response times or latencies.
 
