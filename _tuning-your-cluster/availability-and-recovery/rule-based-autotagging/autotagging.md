@@ -96,6 +96,9 @@ OpenSearch evaluates incoming requests using the following process:
 3. The most specific matching rule's value is assigned.
 4. If no rules match, no value is assigned.
 
+If two or more rules remain tied after all tie-breaking logic is applied, meaning they match equally specifically and produce the same match score, then no value is assigned. OpenSearch does not choose between tied rules arbitrarily.
+{: .note}
+
 ### Rule matching examples
 
 The following examples demonstrate how OpenSearch matches attributes and resolves ties between rules.
@@ -105,9 +108,9 @@ In these examples, the `username` attribute has higher priority than the `index_
 1. **Example 1**
    A request matches three rules:
 
-   * Rule 1: `index_pattern = log`
+   * Rule 1: `index_pattern = log*`
    * Rule 2: `username = admin`
-   * Rule 3: `index_pattern = log123`
+   * Rule 3: `index_pattern = log123*`
 
    **Result**: Rule 2 applies because the `username` attribute has higher priority.
 
@@ -122,7 +125,7 @@ In these examples, the `username` attribute has higher priority than the `index_
 3. **Example 3**
    A request matches two rules:
 
-   * Rule 1: `index_pattern = log` and `username = admin`
+   * Rule 1: `index_pattern = log*` and `username = admin`
    * Rule 2: `username = admin`
 
    **Result**: Rule 1 applies because it includes both the `index_pattern` and `username` attributes, making it a more specific match.

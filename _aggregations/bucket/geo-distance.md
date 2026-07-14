@@ -28,7 +28,7 @@ The `geo_distance` aggregation takes the following parameters.
 
 ## Example: Basic distance rings
 
-The following example groups ecommerce orders into three distance rings around New York City, measured in miles:
+The following example groups e-commerce orders into three distance rings around New York City, measured in miles:
 
 ```json
 GET /opensearch_dashboards_sample_data_ecommerce/_search

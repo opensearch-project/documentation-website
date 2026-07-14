@@ -256,8 +256,8 @@ The `rds` source includes the following metrics:
 * `changeEventsProcessingErrors`: The number of processing errors for change events from database streams.
 * `bytesReceived`: The total number of bytes received by the source.
 * `bytesProcessed`: The total number of bytes processed by the source.
-* `positiveAcknowledgementSets`: The number of acknowledgement sets that are positively acknowledged in stream processing.
-* `negativeAcknowledgementSets`: The number of acknowledgement sets that are negatively acknowledged in stream processing.
+* `positiveAcknowledgementSets`: The number of acknowledgment sets that are positively acknowledged in stream processing.
+* `negativeAcknowledgementSets`: The number of acknowledgment sets that are negatively acknowledged in stream processing.
 * `checkpointCount`: The total number of checkpoints in stream processing.
 * `noDataExtendLeaseCount`: The number of times that the lease is extended on a partition with no new data processed since the last checkpoint. 
 * `giveupPartitionCount`: The number of times a partition is given up.

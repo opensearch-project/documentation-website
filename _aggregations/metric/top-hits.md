@@ -43,7 +43,7 @@ Because the `top_hits` aggregation returns standard search hits, the following p
 
 ## Example: Grouping results by category
 
-In the following example, orders in the ecommerce dataset are grouped by product category using a `terms` aggregation, and the `top_hits` subaggregation retrieves the most recent order from each category. Only the `order_date`, `taxful_total_price`, and `customer_full_name` fields are included in the source:
+In the following example, orders in the e-commerce dataset are grouped by product category using a `terms` aggregation, and the `top_hits` subaggregation retrieves the most recent order from each category. Only the `order_date`, `taxful_total_price`, and `customer_full_name` fields are included in the source:
 
 ```json
 GET /opensearch_dashboards_sample_data_ecommerce/_search
@@ -202,7 +202,7 @@ GET /opensearch_dashboards_sample_data_ecommerce/_search
 
 Field collapsing, or result grouping, organizes a result set into logical groups and returns the top documents from each group. The groups are ordered by the relevance of their highest-scoring document.
 
-You can implement field collapsing by wrapping a `top_hits` aggregation inside a bucket aggregation. The following example searches the ecommerce dataset for products matching `shirt` and groups the results by `manufacturer`. A `max` aggregation captures the highest score per manufacturer, and the `terms` aggregation uses that score to order the buckets by relevance:
+You can implement field collapsing by wrapping a `top_hits` aggregation inside a bucket aggregation. The following example searches the e-commerce dataset for products matching `shirt` and groups the results by `manufacturer`. A `max` aggregation captures the highest score per manufacturer, and the `terms` aggregation uses that score to order the buckets by relevance:
 
 ```json
 GET /opensearch_dashboards_sample_data_ecommerce/_search

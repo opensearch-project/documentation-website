@@ -6,7 +6,11 @@ grand_parent: PPL
 nav_order: 28
 ---
 
+<!-- vale off -->
+
 # ml
+
+<!-- vale on -->
 
 The `ml` command applies machine learning (ML) algorithms from the ML Commons plugin to the search results returned by a PPL command. It supports various ML operations, including anomaly detection and clustering. The command can perform train, predict, or combined train-and-predict operations, depending on the algorithm and specified action.
 
@@ -19,11 +23,19 @@ The `ml` command supports the following algorithms:
 
 - **K-means** for clustering data points into groups
 
+<!-- vale off -->
+
 ## Syntax
+
+<!-- vale on -->
 
 The `ml` command supports different syntax options, depending on the algorithm.
 
+<!-- vale off -->
+
 ### Anomaly detection for time-series data
+
+<!-- vale on -->
 
 Use this syntax to detect anomalies in time-series data. This method uses the RCF algorithm optimized for sequential data patterns:
 
@@ -31,7 +43,11 @@ Use this syntax to detect anomalies in time-series data. This method uses the RC
 ml action='train' algorithm='rcf' <number_of_trees> <shingle_size> <sample_size> <output_after> <time_decay> <anomaly_rate> <time_field> <date_format> <time_zone>
 ```
 
+<!-- vale off -->
+
 ### Parameters
+
+<!-- vale on -->
 
 The fixed-in-time RCF algorithm supports the following parameters.
 
@@ -48,7 +64,11 @@ The fixed-in-time RCF algorithm supports the following parameters.
 | `time_zone` | Optional | The time zone for the `time_field`. Default is `UTC`. |
 | `category_field` | Optional | The category field used to group input values. The predict operation is applied to each category independently. |
 
+<!-- vale off -->
+
 ### Anomaly detection for non-time-series data
+
+<!-- vale on -->
 
 Use this syntax to detect anomalies in data where the order doesn't matter. This method uses the RCF algorithm optimized for independent data points:
 
@@ -56,7 +76,11 @@ Use this syntax to detect anomalies in data where the order doesn't matter. This
 ml action='train' algorithm='rcf' <number_of_trees> <sample_size> <output_after> <training_data_size> <anomaly_score_threshold>
 ```
 
+<!-- vale off -->
+
 ### Parameters
+
+<!-- vale on -->
 
 The batch RCF algorithm supports the following parameters.
 
@@ -70,7 +94,11 @@ The batch RCF algorithm supports the following parameters.
 | `category_field` | Optional | The category field used to group input values. The predict operation is applied to each category independently. |  
   
 
+<!-- vale off -->
+
 ### K-means clustering
+
+<!-- vale on -->
 
 Use this syntax to group data points into clusters based on similarity:
 
@@ -78,7 +106,11 @@ Use this syntax to group data points into clusters based on similarity:
 ml action='train' algorithm='kmeans' <centroids> <iterations> <distance_type>
 ```
 
+<!-- vale off -->
+
 ### Parameters
+
+<!-- vale on -->
 
 The k-means clustering algorithm supports the following parameters.
 
@@ -89,7 +121,11 @@ The k-means clustering algorithm supports the following parameters.
 | `distance_type` | Optional | The distance type. Valid values are `COSINE`, `L1`, and `EUCLIDEAN`. Default is `EUCLIDEAN`. |  
   
 
+<!-- vale off -->
+
 ## Example 1: Time-series anomaly detection
+
+<!-- vale on -->
 
 This example trains an RCF model and uses it to detect anomalies in time-series ridership data:
   
@@ -103,12 +139,20 @@ source=nyc_taxi
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | value | timestamp | score | anomaly_grade |
 | --- | --- | --- | --- |
 | 10844.0 | 2014-07-01 00:00:00 | 0.0 | 0.0 |
+
+<!-- vale on -->
   
 
+<!-- vale off -->
+
 ## Example 2: Time-series anomaly detection by category
+
+<!-- vale on -->
 
 This example trains an RCF model and uses it to detect anomalies in time-series ridership data across multiple category values:
   
@@ -122,13 +166,21 @@ source=nyc_taxi
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | category | value | timestamp | score | anomaly_grade |
 | --- | --- | --- | --- | --- |
 | night | 10844.0 | 2014-07-01 00:00:00 | 0.0 | 0.0 |
 | day | 6526.0 | 2014-07-01 06:00:00 | 0.0 | 0.0 |
+
+<!-- vale on -->
   
 
+<!-- vale off -->
+
 ## Example 3: Non-time-series anomaly detection
+
+<!-- vale on -->
 
 This example trains an RCF model and uses it to detect anomalies in non-time-series ridership data:
   
@@ -142,12 +194,20 @@ source=nyc_taxi
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | value | score | anomalous |
 | --- | --- | --- |
 | 10844.0 | 0.0 | False |
+
+<!-- vale on -->
   
 
+<!-- vale off -->
+
 ## Example 4: Non-time-series anomaly detection by category
+
+<!-- vale on -->
 
 This example trains an RCF model and uses it to detect anomalies in non-time-series ridership data across multiple category values:
   
@@ -161,13 +221,21 @@ source=nyc_taxi
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | category | value | score | anomalous |
 | --- | --- | --- | --- |
 | night | 10844.0 | 0.0 | False |
 | day | 6526.0 | 0.0 | False |
+
+<!-- vale on -->
   
 
+<!-- vale off -->
+
 ## Example 5: K-means clustering of the Iris dataset  
+
+<!-- vale on -->
 
 This example uses k-means clustering to classify three Iris species (Iris setosa, Iris virginica, and Iris versicolor) based on the combination of four features measured from each sample (the lengths and widths of sepals and petals):
   
@@ -180,10 +248,14 @@ source=iris_data
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | sepal_length_in_cm | sepal_width_in_cm | petal_length_in_cm | petal_width_in_cm | ClusterID |
 | --- | --- | --- | --- | --- |
 | 5.1 | 3.5 | 1.4 | 0.2 | 1 |
 | 5.6 | 3.0 | 4.1 | 1.3 | 0 |
 | 6.7 | 2.5 | 5.8 | 1.8 | 2 |
+
+<!-- vale on -->
   
 

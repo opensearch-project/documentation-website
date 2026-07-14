@@ -24,7 +24,7 @@ We recommend testing analyzers before deploying them to production environments.
 
 ## Search quote analyzer
 
-The `search_quote_analyzer` parameter allows you to specify a different analyzer specifically for phrase queries. This proves especially valuable when you need to handle stop words differently for phrase searches versus regular term searches.
+The `search_quote_analyzer` parameter allows you to specify a different analyzer specifically for phrase queries. This proves especially valuable when you need to handle stop words differently for phrase searches compared to regular term searches.
 
 For effective phrase query handling with stop words, configure three analyzer settings:
 
@@ -34,7 +34,7 @@ For effective phrase query handling with stop words, configure three analyzer se
 
 ## Example
 
-The following example demonstrates how to use the `search_quote_analyzer` to handle stop words differently in phrase queries versus term queries.
+The following example demonstrates how to use the `search_quote_analyzer` to handle stop words differently in phrase queries compared to term queries.
 
 First, create an index with all three analyzer types. The `index_analyzer` preserves all terms during indexing, including stop words like "the" and "a". The `search_analyzer` removes stop words from regular term queries. The `search_quote_analyzer` uses the same analyzer that was used during document indexing, ensuring exact phrase matching works correctly:
 

@@ -54,7 +54,7 @@ PUT testindex1/_doc/1
 ```
 {% include copy-curl.html %}
 
-Nested objects are stored as flat key/value pairs internally. To refer to a field in a nested object, use `parent field`.`child field` (for example, `patient.id`).
+Nested objects are stored as flat key-value pairs internally. To refer to a field in a nested object, use `parent field`.`child field` (for example, `patient.id`).
 
 Search for a patient with ID 123456:
 
@@ -77,7 +77,7 @@ The following table lists the parameters accepted by object field types. All par
 Parameter | Description 
 :--- | :--- 
 [`dynamic`](#the-dynamic-parameter) | Specifies whether new fields can be dynamically added to the object. Valid values are `true`, `false`, `strict`, `strict_allow_templates`, and `false_allow_templates`. Default is `true`.
-`enabled` | A Boolean value that specifies whether the JSON contents of the object should be parsed. If `enabled` is set to `false`, the object's contents are not indexed or searchable, but they are still retrievable from the _source field. Default is `true`.
+`enabled` | A Boolean value that specifies whether the JSON contents of the object should be parsed. If `enabled` is set to `false`, the object's contents are not indexed or searchable, but they are still retrievable from the `_source` field. Default is `true`.
 `properties` | Fields of this object, which can be of any supported type. New properties can be dynamically added to this object if `dynamic` is set to `true`.
 
 ### The `dynamic` parameter
@@ -150,7 +150,7 @@ The `dynamic` parameter has the following valid values.
 Value | Description 
 :--- | :--- 
 `true` | New fields can be added to the mapping dynamically. This is the default.
-`false` | New fields cannot be added to the mapping dynamically. If a new field is detected, it is not indexed or searchable. However, it is still retrievable from the _source field. 
+`false` | New fields cannot be added to the mapping dynamically. If a new field is detected, it is not indexed or searchable. However, it is still retrievable from the `_source` field. 
 `strict` | When new fields are added to the mapping dynamically, an exception is thrown. To add a new field to an object, you have to add it to the mapping first.
 `strict_allow_templates` | If the newly detected fields match any of the predefined dynamic templates in the mapping, then they are added to the mapping; if they do not match any of them, then an exception is thrown.
 `false_allow_templates` | If the newly detected fields match any of the predefined dynamic templates in the mapping, then they are added to the mapping. Only fields matching dynamic templates or mapping properties are indexed.
