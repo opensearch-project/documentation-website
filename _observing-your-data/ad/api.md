@@ -326,7 +326,7 @@ Options | Description | Type | Required
 `name` |  The name of the detector. | `string` | Yes
 `description` |  A description of the detector. | `string` | No
 `time_field` |  The name of the time field. | `string` | Yes
-`indices`  |  A list of indices to use as the data source. | `list` | Yes
+`indices`  |  A list of indexes to use as the data source. | `list` | Yes
 `feature_attributes` | Specify a `feature_name`, set the `enabled` parameter to `true`, and specify an aggregation query. | `list` | Yes
 `filter_query` |  Provide an optional filter query for your feature. | `object` | No
 `detection_interval` | The time interval for your anomaly detector. | `object` | Yes
@@ -2233,9 +2233,9 @@ POST _plugins/_anomaly_detection/detectors/results/_search/opensearch-ad-plugin-
 }
 ```
 
-If you specify the custom result index like in this example, the search results API searches both the default result indices and custom result indices.
+If you specify the custom result index like in this example, the search results API searches both the default result indexes and custom result indexes.
 
-If you don't specify the custom result index and you just use the `_plugins/_anomaly_detection/detectors/results/_search` URL, the anomaly detection plugin searches only the default result indices.
+If you don't specify the custom result index and you just use the `_plugins/_anomaly_detection/detectors/results/_search` URL, the anomaly detection plugin searches only the default result indexes.
 
 Real-time detection doesn't persist the task ID in the anomaly result, so the task ID will be null.
 
@@ -3218,9 +3218,9 @@ Introduced 1.1
 
 Deletes the results of a detector based on a query.
 
-The delete detector results API only deletes anomaly result documents in the default result index. It doesn't support deleting anomaly result documents stored in any custom result indices.
+The delete detector results API only deletes anomaly result documents in the default result index. It doesn't support deleting anomaly result documents stored in any custom result indexes.
 
-You need to manually delete anomaly result documents that you don't need from custom result indices.
+You need to manually delete anomaly result documents that you don't need from custom result indexes.
 
 #### Request
 

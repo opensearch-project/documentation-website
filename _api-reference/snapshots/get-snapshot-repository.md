@@ -26,14 +26,14 @@ GET /_snapshot/{repository}
 
 | Parameter | Data type | Description |
 | :--- | :--- | :--- |
-| repository | String | A comma-separated list of snapshot repository names to retrieve. Wildcard (`*`) expressions are supported including combining wildcards with exclude patterns starting with `-`. |
+| `repository` | String | A comma-separated list of snapshot repository names to retrieve. Wildcard (`*`) expressions are supported including combining wildcards with exclude patterns starting with `-`. |
 
 ## Query parameters
 
 | Parameter | Data type | Description | 
 :--- | :--- | :---
-| local | Boolean | Whether to get information from the local node. Optional, defaults to `false`.|
-| cluster_manager_timeout | Time | Amount of time to wait for a connection to the cluster manager node. Optional, defaults to 30 seconds. |
+| `local` | Boolean | Whether to get information from the local node. Optional, defaults to `false`.|
+| `cluster_manager_timeout` | Time | Amount of time to wait for a connection to the cluster manager node. Optional, defaults to 30 seconds. |
 
 ## Example request
 
@@ -81,9 +81,9 @@ Upon success, the response returns repositry information. This sample is for an 
 
 | Field | Data type | Description |
 | :--- | :--- | :--- | 
-| type | string | Bucket type: `fs` (file system) or `s3` (s3 bucket) |
-| bucket | string | S3 bucket name. |
-| base_path | string | Folder within the bucket where snapshots are stored. |
+| `type` | String | Bucket type: `fs` (file system) or `s3` (s3 bucket) |
+| `bucket` | String | S3 bucket name. |
+| `base_path` | String | Folder within the bucket where snapshots are stored. |
 
 ## Required permissions
 

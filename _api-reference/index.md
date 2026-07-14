@@ -55,7 +55,7 @@ OpenSearch supports the following REST APIs:
 - [ML Commons API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/)
 - [Multi-search]({{site.url}}{{site.baseurl}}/api-reference/multi-search/)
 - [Notifications API]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/api/)
-- [Performance analyzer API]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/pa/api/)
+- [Performance Analyzer API]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/pa/api/)
 - [Point in Time API]({{site.url}}{{site.baseurl}}/search-plugins/point-in-time-api/)
 - [Ranking evaluation]({{site.url}}{{site.baseurl}}/api-reference/rank-eval/)
 - [Refresh search analyzer]({{site.url}}{{site.baseurl}}/im-plugin/refresh-analyzer/)

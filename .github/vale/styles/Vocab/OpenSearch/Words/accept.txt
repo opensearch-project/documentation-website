@@ -117,7 +117,7 @@ mebibyte
 [Mm]ultipolygon
 [Mm]ultithreaded
 [Mm]ultithreading
-[Mm]ultivalued
+[Mm]ultivalued?
 [Mm]ultiword
 [Nn]amespace
 [Nn]o-op

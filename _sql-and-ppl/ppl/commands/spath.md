@@ -6,7 +6,11 @@ grand_parent: PPL
 nav_order: 44
 ---
 
+<!-- vale off -->
+
 # spath
+
+<!-- vale on -->
 
 The `spath` command extracts fields from structured JSON data. It operates in two modes:
 
@@ -16,7 +20,11 @@ The `spath` command extracts fields from structured JSON data. It operates in tw
 The `spath` command is not executed on OpenSearch data nodes. It extracts fields from data after it has been returned to the coordinating node, which is slow on large datasets. We recommend indexing fields needed for filtering directly instead of using `spath` to filter nested fields.
 {: .note}
 
+<!-- vale off -->
+
 ## Syntax
+
+<!-- vale on -->
 
 The `spath` command has the following syntax:
 
@@ -24,7 +32,11 @@ The `spath` command has the following syntax:
 spath input=<field> [output=<field>] [[path=]<path>]
 ```
 
+<!-- vale off -->
+
 ## Parameters
+
+<!-- vale on -->
 
 The `spath` command supports the following parameters.
 
@@ -36,7 +48,11 @@ The `spath` command supports the following parameters.
 
 For more information about path syntax, see [json_extract]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/functions/json#json_extract).
 
+<!-- vale off -->
+
 ## Auto-extract mode (experimental)
+
+<!-- vale on -->
 
 When `path` is omitted, the `spath` command runs in auto-extract mode. Instead of extracting a single value, it flattens the entire JSON into a `map<string, string>` column using the following rules:
 
@@ -51,7 +67,11 @@ Auto-extract mode processes the entire input field with no character limit. For 
 >
 > Invalid or malformed JSON returns partial results containing any fields successfully parsed before the error. Empty JSON object (`{}`) returns an empty map.
 
+<!-- vale off -->
+
 ## Example 1: Extracting basic fields
+
+<!-- vale on -->
 
 The basic use of `spath` extracts a single field from JSON data. The following query extracts the `n` field from JSON objects in the `doc_n` field:
   
@@ -64,14 +84,22 @@ source=structured
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | doc_n | n |
 | --- | --- |
 | {"n": 1} | 1 |
 | {"n": 2} | 2 |
 | {"n": 3} | 3 |
+
+<!-- vale on -->
   
 
+<!-- vale off -->
+
 ## Example 2: Lists and nesting  
+
+<!-- vale on -->
 
 The following query shows how to traverse nested fields and extract list elements:
   
@@ -86,14 +114,22 @@ source=structured
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | doc_list | first_element | all_elements | nested |
 | --- | --- | --- | --- |
 | {"list": [1, 2, 3, 4], "nest_out": {"nest_in": "a"}} | 1 | [1,2,3,4] | a |
 | {"list": [], "nest_out": {"nest_in": "a"}} | null | [] | a |
 | {"list": [5, 6], "nest_out": {"nest_in": "a"}} | 5 | [5,6] | a |
+
+<!-- vale on -->
   
 
+<!-- vale off -->
+
 ## Example 3: Summing inner elements  
+
+<!-- vale on -->
 
 The following query shows how to use `spath` to extract the `n` field from JSON data and calculate the sum of all extracted values: 
   
@@ -108,12 +144,20 @@ source=structured
   
 The query returns the following results. The `spath` command always returns inner values as strings:
   
+<!-- vale off -->
+
 | sum(n) |
 | --- |
 | 6 |
+
+<!-- vale on -->
   
 
+<!-- vale off -->
+
 ## Example 4: Using escaped paths  
+
+<!-- vale on -->
 
 Use quoted string syntax to access JSON field names that contain spaces, dots, or other special characters:
   
@@ -127,14 +171,22 @@ source=structured
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | a | b |
 | --- | --- |
 | true | 0 |
 | true | 1 |
 | false | 2 |
+
+<!-- vale on -->
   
 
+<!-- vale off -->
+
 ## Example 5: Using auto-extract mode  
+
+<!-- vale on -->
 
 When `path` is omitted, `spath` extracts all fields from the JSON into a map. You can access individual values using dotted path navigation, where `doc.user.name` resolves to the map key `user.name`. For keys containing special characters like `{}`, use backtick quoting:
   
@@ -147,11 +199,15 @@ source=structured
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | doc_auto | doc.user.name | doc.user.age | doc.tags{} | doc.active |
 | --- | --- | --- | --- | --- |
 | {"user":{"name":"John","age":30},"tags":["java","sql"],"active":true} | John | 30 | [java, sql] | true |
 | {"user":{"name":"Jane","age":25},"tags":["python"],"active":null} | Jane | 25 | python | null |
 | {"user":{"name":"Bob","age":35},"tags":["go","rust","sql"],"user.name":"Bobby"} | [Bob, Bobby] | 35 | [go, rust, sql] | null |
+
+<!-- vale on -->
   
 The flattening rules demonstrated in this example:
 

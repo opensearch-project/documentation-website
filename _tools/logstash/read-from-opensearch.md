@@ -11,14 +11,14 @@ redirect_from:
 
 As we ship Logstash events to an OpenSearch cluster using the [OpenSearch output plugin](https://github.com/opensearch-project/logstash-output-opensearch), we can also perform read operations on an OpenSearch cluster and load data into Logstash using the [OpenSearch input plugin](https://github.com/opensearch-project/logstash-input-opensearch).
 
-The OpenSearch input plugin reads the search query results performed on an OpenSearch cluster and loads them into Logstash. This lets you replay test logs, reindex, and perform other operations based on the loaded data. You can schedule ingestions to run periodically by using 
+The OpenSearch input plugin reads the search query results performed on an OpenSearch cluster and loads them into Logstash. This lets you replay test logs, reindex, and perform other operations based on the loaded data. You can schedule ingest operations to run periodically by using 
 [cron expressions]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/cron/), or manually load data into Logstash by running the query once.
 
 
 
 ## OpenSearch input plugin
 
-To run the OpenSearch input plugin, add the configuration to the `pipeline.conf` file within your Logstash's `config` folder. The example below runs the `match_all` query filter and loads in data once.
+To run the OpenSearch input plugin, add the configuration to the `pipeline.conf` file within your Logstash's `config` folder. The following example runs the `match_all` query filter and loads in data once.
 
 ```yml
 input {

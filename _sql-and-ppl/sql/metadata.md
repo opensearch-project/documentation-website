@@ -16,11 +16,19 @@ To see basic metadata about your indexes, use the `SHOW` and `DESCRIBE` commands
 
 Rule `showStatement`:
 
+<!-- vale off -->
+
 ![showStatement]({{site.url}}{{site.baseurl}}/images/showStatement.png)
+
+<!-- vale on -->
 
 Rule `showFilter`:
 
+<!-- vale off -->
+
 ![showFilter]({{site.url}}{{site.baseurl}}/images/showFilter.png)
+
+<!-- vale on -->
 
 ### Example 1: See metadata for indexes
 
@@ -33,10 +41,14 @@ SHOW TABLES LIKE %
 {% include copy.html %}
 
 
+<!-- vale off -->
+
 | TABLE_CAT | TABLE_SCHEM | TABLE_NAME | TABLE_TYPE | REMARKS | TYPE_CAT | TYPE_SCHEM | TYPE_NAME | SELF_REFERENCING_COL_NAME | REF_GENERATION
 :--- | :---
 `docker-cluster` | null | accounts | BASE TABLE | null | null | null | null | null | null
 `docker-cluster`  | null | employees_nested | BASE TABLE | null | null | null | null | null | null
+
+<!-- vale on -->
 
 
 ### Example 2: See metadata for a specific index
@@ -49,9 +61,13 @@ SHOW TABLES LIKE acc%
 {% include copy.html %}
 
 
+<!-- vale off -->
+
 | TABLE_CAT | TABLE_SCHEM | TABLE_NAME | TABLE_TYPE | REMARKS | TYPE_CAT | TYPE_SCHEM | TYPE_NAME | SELF_REFERENCING_COL_NAME | REF_GENERATION
 :--- | :---
 `docker-cluster` | null | accounts | BASE TABLE | null | null | null | null | null | null
+
+<!-- vale on -->
 
 
 ### Example 3: See metadata for fields
@@ -63,6 +79,8 @@ DESCRIBE TABLES LIKE accounts
 ```
 {% include copy.html %}
 
+
+<!-- vale off -->
 
 | TABLE_CAT | TABLE_SCHEM | TABLE_NAME | COLUMN_NAME | DATA_TYPE | TYPE_NAME | COLUMN_SIZE | BUFFER_LENGTH | DECIMAL_DIGITS | NUM_PREC_RADIX | NULLABLE | REMARKS | COLUMN_DEF | SQL_DATA_TYPE | SQL_DATETIME_SUB | CHAR_OCTET_LENGTH | ORDINAL_POSITION | IS_NULLABLE | SCOPE_CATALOG | SCOPE_SCHEMA | SCOPE_TABLE | SOURCE_DATA_TYPE | IS_AUTOINCREMENT | IS_GENERATEDCOLUMN
 :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :---
@@ -77,3 +95,5 @@ DESCRIBE TABLES LIKE accounts
 `docker-cluster` | null | accounts | age | null | long | null | null | null | 10 | 2 | null | null | null | null | null | 9 |  | null | null | null | null | NO | 	
 `docker-cluster` | null | accounts | email | null | text | null | null | null | 10 | 2 | null | null | null | null | null | 10 |  | null | null | null | null | NO | 	
 `docker-cluster` | null | accounts | lastname | null | text | null | null | null | 10 | 2 | null | null | null | null | null | 11 |  | null | null | null | null | NO | 	 
+
+<!-- vale on -->

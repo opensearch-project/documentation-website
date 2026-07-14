@@ -93,7 +93,7 @@ The following limitations apply to environment variable usage with the Reporting
 - If a URL contains an exclamation point (!), then the history expansion needs to be disabled temporarily. Depending on which shell you are using, you can disable history expansion using one of the following commands:
 
   * For bash, use `set +H`. 
-  * For zsh, use `setopt nobanghist`.
+  * For `zsh`, use `setopt nobanghist`.
 
   Alternatively, you can add a URL value as an environment variable using this format: `URL="<url-with-!>"`.
 

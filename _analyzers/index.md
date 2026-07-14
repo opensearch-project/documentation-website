@@ -93,7 +93,7 @@ GET /_analyze
 
 The following image shows the query string.
 
-![Query string with indices]({{site.url}}{{site.baseurl}}/images/string-indices.png)
+![Query string with indexes]({{site.url}}{{site.baseurl}}/images/string-indices.png)
 
 The response contains each token and its start and end offsets that correspond to the starting index in the original string (inclusive) and the ending index (exclusive):
 
