@@ -31,7 +31,9 @@ Option | Required | Type | Description
 
 Use the following aggregate actions to determine how the `aggregate` processor processes events in each group.
 
+<!-- vale off -->
 ### remove_duplicates 
+<!-- vale on -->
 
 The `remove_duplicates` action processes the first event for a group immediately and drops any events that duplicate the first event from the source. For example, when using `identification_keys: ["sourceIp", "destination_ip"]`:
 
@@ -39,7 +41,9 @@ The `remove_duplicates` action processes the first event for a group immediately
 2. OpenSearch Data Prepper drops the `{ "sourceIp": "127.0.0.1", "destinationIp": "192.168.0.1", "bytes": 1000 }` event because the `sourceIp` and `destinationIp` match the first event in the source.
 3. The `remove_duplicates` action processes the next event, `{ "sourceIp": "127.0.0.2", "destinationIp": "192.168.0.1", "bytes": 1000 }`. Because the `sourceIp` is different from the first event of the group, Data Prepper creates a new group based on the event.
 
+<!-- vale off -->
 ### put_all
+<!-- vale on -->
 
 The `put_all` action combines events belonging to the same group by overwriting existing keys and adding new keys, similarly to the Java `Map.putAll`. The action drops all events that make up the combined event. For example, when using `identification_keys: ["sourceIp", "destination_ip"]`, the `put_all` action processes the following three events:
 
@@ -55,7 +59,9 @@ Then the action combines the events into one. The pipeline then uses the followi
 { "sourceIp": "127.0.0.1", "destinationIp": "192.168.0.1", "status": 200, "bytes": 1000, "http_verb": "GET" }
 ```
 
+<!-- vale off -->
 ### count
+<!-- vale on -->
 
 The `count` event counts events that belong to the same group and generates a new event with values of the `identification_keys` and the count, which indicates the number of new events. You can customize the processor with the following configuration options:
 
@@ -83,7 +89,9 @@ The processor creates the following event:
 {"isMonotonic":true,"unit":"1","aggregationTemporality":"AGGREGATION_TEMPORALITY_DELTA","kind":"SUM","name":"count","description":"Number of events","startTime":"2022-12-02T19:29:51.245358486Z","time":"2022-12-02T19:30:15.247799684Z","value":3.0,"sourceIp":"127.0.0.1","destinationIp":"192.168.0.1"}
 ```
 
+<!-- vale off -->
 ### histogram
+<!-- vale on -->
 
 The `histogram` action aggregates events belonging to the same group and generates a new event with values of the `identification_keys` and histogram of the aggregated events based on a configured `key`. The histogram contains the number of events, sum, buckets, bucket counts, and optionally min and max of the values corresponding to the `key`. The action drops all events that make up the combined event.
 
@@ -115,7 +123,9 @@ Then the processor creates the following event:
 {"max":0.55,"kind":"HISTOGRAM","buckets":[{"min":-3.4028234663852886E38,"max":0.0,"count":0},{"min":0.0,"max":0.25,"count":2},{"min":0.25,"max":0.50,"count":1},{"min":0.50,"max":3.4028234663852886E38,"count":1}],"count":4,"bucketCountsList":[0,2,1,1],"description":"Histogram of latency in the events","sum":1.15,"unit":"seconds","aggregationTemporality":"AGGREGATION_TEMPORALITY_DELTA","min":0.15,"bucketCounts":4,"name":"histogram","startTime":"2022-12-14T06:43:40.848762215Z","explicitBoundsCount":3,"time":"2022-12-14T06:44:04.852564623Z","explicitBounds":[0.0,0.25,0.5],"request":"/index.html","sourceIp": "127.0.0.1", "destinationIp": "192.168.0.1", "key": "latency"}
 ```
 
+<!-- vale off -->
 ### rate_limiter
+<!-- vale on -->
 
 The `rate_limiter` action controls the number of events aggregated per second. By default, `rate_limiter` blocks the `aggregate` processor from running if it receives more events than the configured number allowed. You can overwrite the number of events that triggers the `rate_limiter` by using the `when_exceeds` configuration option. 
 
@@ -140,7 +150,9 @@ The first event is processed, but the remaining events are dropped because `when
 
 If `when_exceeds` is set to `block`, the processor pauses until the next second before processing the remaining events.
 
+<!-- vale off -->
 ### append
+<!-- vale on -->
 
 The `append` action combines multiple events into a single event by appending values from the specified keys across all events in the group. Unlike `put_all`, which overwrites values, `append` collects all values for the specified keys into lists.
 
@@ -162,7 +174,9 @@ The processor creates the following event:
 { "sourceIp": "127.0.0.1", "status": [200, 503, 400] }
 ```
 
+<!-- vale off -->
 ### tail_sampler
+<!-- vale on -->
 
 The `tail_sampler` action samples OpenTelemetry traces after collecting all spans for a trace within the group duration. It allows you to keep all error traces while sampling a percentage of successful traces, reducing storage while retaining all error traces.
 
@@ -174,7 +188,9 @@ You can customize the processor with the following configuration options:
 
 For example, when using `identification_keys: ["traceId"]`, `wait_period: "10s"`, `percent: 20`, and `condition: '/status_code == 2'`, the `tail_sampler` action keeps all traces that contain at least one span with `status_code == 2` (error) and samples 20% of the remaining successful traces.
 
+<!-- vale off -->
 ### percent_sampler
+<!-- vale on -->
 
 The `percent_sampler` action controls the number of events aggregated based on a percentage of events. The action drops any events not included in the percentage. 
 

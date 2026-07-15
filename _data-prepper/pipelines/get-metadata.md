@@ -6,7 +6,9 @@ grand_parent: Pipelines
 nav_order: 15
 ---
 
+<!-- vale off -->
 # getMetadata()
+<!-- vale on -->
 
 The `getMetadata()` function takes one literal string argument and looks up specific keys in event metadata. 
 

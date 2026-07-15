@@ -28,12 +28,12 @@ exceptions:
   - GIF
   - HTML
   - HTTP
-  - ISO
   - HTTPS
   - HTTP(S)
   - I/O
   - ID
   - IP
+  - ISO
   - JPEG
   - JSON
   - MS MARCO
@@ -44,6 +44,7 @@ exceptions:
   - PDF
   - RAM
   - REST
+  - SASL
   - RGB
   - ROM
   - RPM

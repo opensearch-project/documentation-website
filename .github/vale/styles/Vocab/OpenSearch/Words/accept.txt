@@ -63,6 +63,7 @@ Distro
 Gantt
 [Gg]eobounds
 [Gg]eocentroid
+[Gg]eolocate
 [Gg]eodistance
 [Gg]eohash
 [Gg]eohex

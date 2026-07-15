@@ -14,6 +14,7 @@ Ansible
 Anthropic Claude
 arXiv
 Atlassian
+Apache
 Apache Avro
 Apache HttpClient 5 Transport
 Apache Hive
@@ -24,6 +25,8 @@ Aryn
 Auditbeat
 Avro
 AWS Cloud
+AWS Cloud Map
+AWS Lambda
 AWS Secrets Manager
 AWS Signature Version 4
 Bing
@@ -38,8 +41,11 @@ Cohere Command
 Cohere Embed
 Cohere Embed English
 Cohere Embed Multilingual
+Confluent Kafka
 cURL
 Dashboards application
+DocumentDB
+DynamoDB
 Dashboards Assistant
 Dashboards Query Language
 Data Prepper
@@ -67,9 +73,11 @@ Hanja
 Helm
 Hjson
 Hive Metastore
+Metastore
 Hugging Face
 IdP
 Inferentia
+Ion
 IP2Geo
 IPv4
 IPv6
@@ -84,6 +92,7 @@ Joda
 JSON
 JSON Web Token
 jVector
+Kafka
 Karpenter
 Kerberos
 Keycloak
@@ -112,6 +121,7 @@ Minikube
 Nagle
 Nagios
 NVMe
+OAuth2
 Okta
 Ollama
 Oniguruma
@@ -135,6 +145,7 @@ OpenTelemetry Collector
 OTel
 Packetbeat
 Painless
+Parquet
 Peer Forwarder
 Performance Analyzer
 Piped Processing Language
