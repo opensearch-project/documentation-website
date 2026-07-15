@@ -29,6 +29,7 @@ AWS Cloud Map
 AWS Lambda
 AWS Secrets Manager
 AWS Signature Version 4
+Azure Blob Storage
 Bing
 Brotli
 Capture and Replay
