@@ -14,7 +14,7 @@ Audit logs can take up quite a bit of space, so the Security plugin offers sever
 
 Setting | Description
 :--- | :---
-`debug` | Outputs to stdout. Useful for testing and debugging.
+`debug` | Outputs to `stdout`. Useful for testing and debugging.
 `internal_opensearch` | Writes to an audit index on the current OpenSearch cluster.
 `internal_opensearch_data_stream` | Writes to an audit log data stream on the current OpenSearch cluster.
 `external_opensearch` | Writes to an audit index on a remote OpenSearch cluster.
@@ -85,7 +85,7 @@ Name | Data type | Description
 `plugins.security.audit.config.pemkey_password` | String | The password of the private key.
 
 
-### Basic auth settings
+### Basic authentication settings
 
 If you enabled HTTP basic authentication on the receiving cluster, use these settings to specify the username and password:
 
@@ -104,7 +104,7 @@ Name | Data type | Description
 `plugins.security.audit.config.webhook.url` | String | The HTTP or HTTPS URL to send the logs to.
 `plugins.security.audit.config.webhook.ssl.verify` | Boolean | If true, the TLS certificate provided by the endpoint (if any) will be verified. If set to false, no verification is performed. You can disable this check if you use self-signed certificates.
 `plugins.security.audit.config.webhook.ssl.pemtrustedcas_filepath` | String | The path to the trusted certificate against which the webhook's TLS certificate is validated.
-`plugins.security.audit.config.webhook.ssl.pemtrustedcas_content` | String | Same as `plugins.security.audit.config.webhook.ssl.pemtrustedcas_content`, but you can configure the base 64 encoded certificate content directly.
+`plugins.security.audit.config.webhook.ssl.pemtrustedcas_content` | String | Same as `plugins.security.audit.config.webhook.ssl.pemtrustedcas_content`, but you can configure the Base64-encoded certificate content directly.
 `plugins.security.audit.config.webhook.format` | String | The format in which the audit log message is logged, can be one of `URL_PARAMETER_GET`, `URL_PARAMETER_POST`, `TEXT`, `JSON`, `SLACK`. See [Formats](#formats).
 
 
