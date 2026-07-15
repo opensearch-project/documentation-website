@@ -45,7 +45,7 @@ The name of the aggregation helps you to distinguish between different aggregati
 
 ## Example aggregation
 
-The following example uses the OpenSearch Dashboards sample ecommerce data. To add the sample data, log in to OpenSearch Dashboards, choose **Home**, and then choose **Try our sample data**. For **Sample eCommerce orders**, choose **Add data**.
+The following example uses the OpenSearch Dashboards sample e-commerce data. To add the sample data, log in to OpenSearch Dashboards, choose **Home**, and then choose **Try our sample data**. For **Sample eCommerce orders**, choose **Add data**.
 
 This example uses the `avg` aggregation to find the average value of the `taxful_total_price` field:
 
@@ -174,7 +174,7 @@ The inner `aggs` keyword begins a new nested aggregation. The syntax of the pare
 
 ### Nested aggregation example
 
-The following example uses the OpenSearch Dashboards sample ecommerce data to group orders by category and calculate the average price within each category. This query returns the top 5 categories sorted in descending alphabetical order:
+The following example uses the OpenSearch Dashboards sample e-commerce data to group orders by category and calculate the average price within each category. This query returns the top 5 categories sorted in descending alphabetical order:
 
 ```json
 GET opensearch_dashboards_sample_data_ecommerce/_search

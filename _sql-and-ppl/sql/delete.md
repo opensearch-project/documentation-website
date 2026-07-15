@@ -73,7 +73,7 @@ Explain:
 }
 ```
 
-Result set:
+The query returns the following results:
 
 ```json
 {

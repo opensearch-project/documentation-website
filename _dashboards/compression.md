@@ -22,7 +22,7 @@ When a client requests a bundle file, OpenSearch Dashboards automatically serves
 
 ## Compression effectiveness
 
-The following table shows typical compression ratios for large plugin bundles, using the observability plugin as an example:
+The following table shows typical compression ratios for large plugin bundles, using the Observability plugin as an example:
 
 | Compression method | File size | Compression ratio |
 |:---|:---|:---|

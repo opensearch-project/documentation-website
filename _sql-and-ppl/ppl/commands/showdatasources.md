@@ -6,14 +6,22 @@ grand_parent: PPL
 nav_order: 42
 ---
 
+<!-- vale off -->
+
 # show datasources
+
+<!-- vale on -->
 
 The `show datasources` command queries data sources configured in the PPL engine. The `show datasources` command can only be used as the first command in a PPL query.
 
 To use the `show datasources` command, `plugins.calcite.enabled` must be set to `false`.
 {: .note}
 
+<!-- vale off -->
+
 ## Syntax
+
+<!-- vale on -->
 
 The `show datasources` command has the following syntax:
 
@@ -23,7 +31,11 @@ show datasources
 
 The `show datasources` command takes no parameters.  
 
+<!-- vale off -->
+
 ## Example 1: Fetching all Prometheus data sources
+
+<!-- vale on -->
 
 The following query fetches all Prometheus data sources:
   
@@ -35,7 +47,11 @@ show datasources
   
 The query returns the following results:
 
+<!-- vale off -->
+
 | DATASOURCE_NAME | CONNECTOR_TYPE |
 | --- | --- |
 | my_prometheus | PROMETHEUS |
+
+<!-- vale on -->
 

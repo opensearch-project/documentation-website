@@ -394,7 +394,7 @@ Parameter | Description | Type
 
 ### snapshot
 
-Back up your cluster’s indexes and state. For more information about snapshots, see [Take and restore snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore).
+Back up your cluster’s indexes and state. For more information about snapshots, see [Take and restore snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore/).
 
 The `snapshot` operation has the following parameters.
 
@@ -831,14 +831,14 @@ Note that this condition does not execute at exactly 5:00 PM; the job still exec
 
 A window of an hour, which this example uses, is generally sufficient, but you might increase it to 2--3 hours to avoid missing the window and having to wait a week for the transition to occur. Alternately, you could use a broader expression such as `* * * * SAT,SUN` to have the transition occur at any time during the weekend.
 
-For information on writing cron expressions, see [Cron expression reference]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/cron/).
+For information about writing cron expressions, see [Cron expression reference]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/cron/).
 
 ---
 
 ## Error notifications
 
 The `error_notification` operation sends you a notification if your managed index fails.
-It notifies a single destination or [notification channel]({{site.url}}{{site.baseurl}}/notifications-plugin/index) with a custom message.
+It notifies a single destination or [notification channel]({{site.url}}{{site.baseurl}}/notifications-plugin/index/) with a custom message.
 
 Set up error notifications at the policy level:
 
