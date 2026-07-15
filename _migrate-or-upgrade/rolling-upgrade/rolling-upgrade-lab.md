@@ -81,7 +81,7 @@ After selecting a host, you can begin the lab:
 
    The response should appear similar to the following:
 
-```bash
+   ```bash
    CONTAINER ID   IMAGE                                           COMMAND                  CREATED          STATUS          PORTS                                                                                                      NAMES
    6e5218c8397d   opensearchproject/opensearch-dashboards:1.3.7   "./opensearch-dashbo…"   24 seconds ago   Up 22 seconds   0.0.0.0:5601->5601/tcp, :::5601->5601/tcp                                                                  os-dashboards-01
    cb5188308b21   opensearchproject/opensearch:1.3.7              "./opensearch-docker…"   25 seconds ago   Up 24 seconds   9300/tcp, 9650/tcp, 0.0.0.0:9204->9200/tcp, :::9204->9200/tcp, 0.0.0.0:9604->9600/tcp, :::9604->9600/tcp   os-node-04
@@ -97,9 +97,9 @@ After selecting a host, you can begin the lab:
       {% include copy.html %}
    1. You will see a log entry resembling the following example when the node is ready:
 
-   The following is an example:
+      The following is an example:
 
-```
+      ```bash
       [INFO ][o.o.s.c.ConfigurationRepository] [os-node-01] Node 'os-node-01' initialized
       ```
    1. Press `Ctrl+C` to stop following container logs and return to the command prompt.
@@ -111,7 +111,7 @@ After selecting a host, you can begin the lab:
 
    The response should appear similar to the following:
 
-```json
+   ```json
    {
        "name" : "os-node-01",
        "cluster_name" : "opensearch-dev-cluster",
@@ -131,8 +131,8 @@ After selecting a host, you can begin the lab:
    }
    ```
 
-**Tip**: Use the `-s` option with `curl` to hide the progress meter and error messages.
-{: .tip}
+   **Tip**: Use the `-s` option with `curl` to hide the progress meter and error messages.
+   {: .tip}
 
 ## Adding data and configuring OpenSearch Security
 
@@ -165,13 +165,13 @@ This section can be broken down into two parts:
 
    The response should appear similar to the following:
 
-```json
-   {
-      "acknowledged" : true,
-      "shards_acknowledged" : true,
-      "index" : "ecommerce"
-   }
-   ```
+      ```json
+      {
+         "acknowledged" : true,
+         "shards_acknowledged" : true,
+         "index" : "ecommerce"
+      }
+      ```
 1. Use the [Bulk]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/) API to add data to the new ecommerce index from `ecommerce.ndjson`:
    ```bash
    curl -H "Content-Type: application/x-ndjson" \
@@ -183,30 +183,30 @@ This section can be broken down into two parts:
 
    The response should appear similar to the following (truncated):
 
-```json
-   {
-      "took" : 3323,
-      "errors" : false,
-      "items" : [
-   ...
-         "index" : {
-            "_index" : "ecommerce",
-            "_type" : "_doc",
-            "_id" : "4674",
-            "_version" : 1,
-            "result" : "created",
-            "_shards" : {
-               "total" : 2,
-               "successful" : 2,
-               "failed" : 0
-            },
-            "_seq_no" : 4674,
-            "_primary_term" : 1,
-            "status" : 201
-         }
-      ]
-   }
-   ```
+      ```json
+      {
+         "took" : 3323,
+         "errors" : false,
+         "items" : [
+            ...
+            "index" : {
+               "_index" : "ecommerce",
+               "_type" : "_doc",
+               "_id" : "4674",
+               "_version" : 1,
+               "result" : "created",
+               "_shards" : {
+                  "total" : 2,
+                  "successful" : 2,
+                  "failed" : 0
+               },
+               "_seq_no" : 4674,
+               "_primary_term" : 1,
+               "status" : 201
+            }
+         ]
+      }
+      ```
 1. <p id="validation">A search query can also confirm that the data was indexed successfully. The following query returns the number of documents in which keyword `customer_first_name` equals `Sonya`:</p>
    ```bash
    curl -H 'Content-Type: application/json' \
@@ -218,16 +218,16 @@ This section can be broken down into two parts:
 
    The response should appear similar to the following:
 
-```json
-   {
-      "hits" : {
-         "total" : {
-            "value" : 106,
-            "relation" : "eq"
+      ```json
+      {
+         "hits" : {
+            "total" : {
+               "value" : 106,
+               "relation" : "eq"
+            }
          }
       }
-   }
-   ```
+      ```
 
 ### Adding data using OpenSearch Dashboards
 
@@ -265,11 +265,11 @@ In this section you will be:
 
    The response should appear similar to the following:
 
-```json
-   {
-      "acknowledged" : true
-   }
-   ```
+      ```json
+      {
+         "acknowledged" : true
+      }
+      ```
 1. **Optional**: Perform an additional check to verify that the repository was created successfully:
    ```bash
    curl -H 'Content-Type: application/json' \
@@ -280,24 +280,24 @@ In this section you will be:
 
    The response should appear similar to the following:
 
-```json
-   {
-      "nodes" : {
-         "UODBXfAlRnueJ67grDxqgw" : {
-            "name" : "os-node-03"
-         },
-         "14I_OyBQQXio8nmk0xsVcQ" : {
-            "name" : "os-node-04"
-         },
-         "tQp3knPRRUqHvFNKpuD2vQ" : {
-            "name" : "os-node-02"
-         },
-         "rPe8D6ssRgO5twIP00wbCQ" : {
-            "name" : "os-node-01"
+      ```json
+      {
+         "nodes" : {
+            "UODBXfAlRnueJ67grDxqgw" : {
+               "name" : "os-node-03"
+            },
+            "14I_OyBQQXio8nmk0xsVcQ" : {
+               "name" : "os-node-04"
+            },
+            "tQp3knPRRUqHvFNKpuD2vQ" : {
+               "name" : "os-node-02"
+            },
+            "rPe8D6ssRgO5twIP00wbCQ" : {
+               "name" : "os-node-01"
+            }
          }
       }
-   }
-   ```
+      ```
 
 ### Creating a snapshot
 
@@ -313,41 +313,41 @@ Snapshots are backups of a cluster’s indexes and state. See [Snapshots]({{site
 
    The response should appear similar to the following:
 
-```json
-   {
-      "snapshot" : {
-         "snapshot" : "cluster-snapshot-v137",
-         "uuid" : "-IYB8QNPShGOTnTtMjBjNg",
-         "version_id" : 135248527,
-         "version" : "1.3.7",
-         "indices" : [
-            "opensearch_dashboards_sample_data_logs",
-            ".opendistro_security",
-            "security-auditlog-2023.02.27",
-            ".kibana_1",
-            ".kibana_92668751_admin_1",
-            "ecommerce",
-            "security-auditlog-2023.03.06",
-            "security-auditlog-2023.02.28",
-            "security-auditlog-2023.03.07"
-         ],
-         "data_streams" : [ ],
-         "include_global_state" : true,
-         "state" : "SUCCESS",
-         "start_time" : "2023-03-07T18:33:00.656Z",
-         "start_time_in_millis" : 1678213980656,
-         "end_time" : "2023-03-07T18:33:01.471Z",
-         "end_time_in_millis" : 1678213981471,
-         "duration_in_millis" : 815,
-         "failures" : [ ],
-         "shards" : {
-            "total" : 9,
-            "failed" : 0,
-            "successful" : 9
+      ```json
+      {
+         "snapshot" : {
+            "snapshot" : "cluster-snapshot-v137",
+            "uuid" : "-IYB8QNPShGOTnTtMjBjNg",
+            "version_id" : 135248527,
+            "version" : "1.3.7",
+            "indices" : [
+               "opensearch_dashboards_sample_data_logs",
+               ".opendistro_security",
+               "security-auditlog-2023.02.27",
+               ".kibana_1",
+               ".kibana_92668751_admin_1",
+               "ecommerce",
+               "security-auditlog-2023.03.06",
+               "security-auditlog-2023.02.28",
+               "security-auditlog-2023.03.07"
+            ],
+            "data_streams" : [ ],
+            "include_global_state" : true,
+            "state" : "SUCCESS",
+            "start_time" : "2023-03-07T18:33:00.656Z",
+            "start_time_in_millis" : 1678213980656,
+            "end_time" : "2023-03-07T18:33:01.471Z",
+            "end_time_in_millis" : 1678213981471,
+            "duration_in_millis" : 815,
+            "failures" : [ ],
+            "shards" : {
+               "total" : 9,
+               "failed" : 0,
+               "successful" : 9
+            }
          }
       }
-   }
-   ```
+      ```
 
 ### Backing up security settings
 
@@ -385,7 +385,7 @@ You can also export your OpenSearch Security settings as YAML files by running `
 
    The response should appear similar to the following:
 
-```bash
+   ```bash
    Security Admin v7
    Will connect to localhost:9300 ... done
    Connected as CN=A,OU=DOCS,O=OPENSEARCH,L=PORTLAND,ST=OREGON,C=US
@@ -450,7 +450,7 @@ Some steps included in this section, like disabling shard replication and flushi
 
    The response should appear similar to the following:
 
-```json
+   ```json
    {
       "acknowledged" : true,
       "persistent" : {
@@ -473,7 +473,7 @@ Some steps included in this section, like disabling shard replication and flushi
 
    The response should appear similar to the following:
 
-```json
+   ```json
    {
       "_shards" : {
          "total" : 20,
@@ -510,7 +510,7 @@ Some steps included in this section, like disabling shard replication and flushi
 
    The response should appear similar to the following:
 
-```bash
+   ```bash
    d26d0cb2e1e93e9c01bb00f19307525ef89c3c3e306d75913860e6542f729ea4
    ```
 1. **Optional**: Query the cluster to determine which node is acting as the cluster manager. You can run this command at any time during the process to see when a new cluster manager is elected:
@@ -522,7 +522,7 @@ Some steps included in this section, like disabling shard replication and flushi
 
    The response should appear similar to the following:
 
-```bash
+   ```bash
    name        version  node.role  master
    os-node-01  2.5.0    dimr       -
    os-node-04  1.3.7    dimr       *
@@ -538,7 +538,7 @@ Some steps included in this section, like disabling shard replication and flushi
 
    The response should appear similar to the following:
 
-```bash
+   ```bash
    security-auditlog-2023.03.06           0 p STARTED       53 214.5kb 172.20.0.13 os-node-03
    security-auditlog-2023.03.06           0 r UNASSIGNED                           
    .kibana_1                              0 p STARTED        3  14.5kb 172.20.0.12 os-node-02
@@ -588,7 +588,7 @@ Some steps included in this section, like disabling shard replication and flushi
 
    The response should appear similar to the following:
 
-```bash
+   ```bash
    7b802865bd6eb420a106406a54fc388ed8e5e04f6cbd908c2a214ea5ce72ac00
    ```
 1. Stop `os-node-03`:
@@ -619,7 +619,7 @@ Some steps included in this section, like disabling shard replication and flushi
 
    The response should appear similar to the following:
 
-```bash
+   ```bash
    d7f11726841a89eb88ff57a8cbecab392399f661a5205f0c81b60a995fc6c99d
    ```
 1. Stop `os-node-04`:
@@ -650,7 +650,7 @@ Some steps included in this section, like disabling shard replication and flushi
 
    The response should appear similar to the following:
 
-```bash
+   ```bash
    26f8286ab11e6f8dcdf6a83c95f265172f9557578a1b292af84c6f5ef8738e1d
    ```
 1. Confirm that your cluster is running the new version:
@@ -662,7 +662,7 @@ Some steps included in this section, like disabling shard replication and flushi
 
    The response should appear similar to the following:
 
-```bash
+   ```bash
    name        version  node.role  master
    os-node-01  2.5.0    dimr       *
    os-node-02  2.5.0    dimr       -
@@ -691,7 +691,7 @@ Some steps included in this section, like disabling shard replication and flushi
 
    The response should appear similar to the following:
 
-```bash
+   ```bash
    310de7a24cf599ca0b39b241db07fa8865592ebe15b6f5fda26ad19d8e1c1e09
    ```
 1. Make sure the OpenSearch Dashboards container started properly. A command like the following can be used to confirm that requests to `https://<HOST_ADDRESS>:5601` are redirected (HTTP status code 302) to `/app/login?`:
@@ -702,7 +702,7 @@ Some steps included in this section, like disabling shard replication and flushi
 
    The response should appear similar to the following:
 
-```bash
+   ```bash
    HTTP/1.1 302 Found
    location: /app/login?
    osd-name: opensearch-dashboards-dev
@@ -724,21 +724,21 @@ Some steps included in this section, like disabling shard replication and flushi
 
    The response should appear similar to the following:
 
-```json
-   {
-      "acknowledged" : true,
-      "persistent" : {
-         "cluster" : {
-            "routing" : {
-               "allocation" : {
-                  "enable" : "all"
+      ```json
+      {
+         "acknowledged" : true,
+         "persistent" : {
+            "cluster" : {
+               "routing" : {
+                  "allocation" : {
+                     "enable" : "all"
+                  }
                }
             }
-         }
-      },
-      "transient" : { }
-   }
-   ```
+         },
+         "transient" : { }
+      }
+      ```
 
 ## Validating the upgrade
 
@@ -761,7 +761,7 @@ For this cluster, post-upgrade validation steps can include verifying the follow
 
    The response should appear similar to the following:
 
-```bash
+   ```bash
    name        version  node.role  master
    os-node-01  2.5.0    dimr       *
    os-node-02  2.5.0    dimr       -
@@ -786,9 +786,9 @@ For this cluster, post-upgrade validation steps can include verifying the follow
          ```
          {% include copy.html %}
 
-   The response should appear similar to the following:
+         The response should appear similar to the following:
 
-```bash
+         ```bash
          ---
          schema-version: '1.1'
          build:
@@ -811,7 +811,7 @@ For this cluster, post-upgrade validation steps can include verifying the follow
 
    The response should appear similar to the following:
 
-```json
+   ```json
    {
       "cluster_name" : "opensearch-dev-cluster",
       "status" : "green",
@@ -840,7 +840,7 @@ For this cluster, post-upgrade validation steps can include verifying the follow
 
    The response should appear similar to the following:
 
-```bash
+   ```bash
    security-auditlog-2023.02.27           0 r STARTED     4  80.5kb 172.20.0.13 os-node-03
    security-auditlog-2023.02.27           0 p STARTED     4  80.5kb 172.20.0.11 os-node-01
    security-auditlog-2023.03.08           0 p STARTED    30  95.2kb 172.20.0.13 os-node-03
@@ -894,7 +894,7 @@ You need to query the e-commerce index again in order to confirm that the sample
 
    The response should appear similar to the following:
 
-```json
+   ```json
    {
       "hits" : {
          "total" : {
