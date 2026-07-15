@@ -205,6 +205,7 @@ peta
 [Ss]ubprocess(es)?
 [Ss]ubquer(y|ies)
 [Ss]ublists?
+[Ss]ubrequests?
 [Ss]ubsearch(es)?
 [Ss]ubsecond
 [Ss]ubstrings?

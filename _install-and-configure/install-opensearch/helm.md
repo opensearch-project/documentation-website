@@ -22,7 +22,7 @@ Resource | Description
 The specification in the default Helm chart supports many standard use cases and setups. You can modify the default chart to configure your desired specifications and set Transport Layer Security (TLS) and role-based access control (RBAC).
 
 For information about the default configuration, steps to configure security, and configurable parameters, see the
-[README](https://github.com/opensearch-project/helm-charts/blob/main/README.md).
+[`README`](https://github.com/opensearch-project/helm-charts/blob/main/README.md).
 
 The instructions here assume you have a Kubernetes cluster with Helm preinstalled. See the [Kubernetes documentation](https://kubernetes.io/docs/setup/) for steps to configure a Kubernetes cluster and the [Helm documentation](https://helm.sh/docs/intro/install/) to install Helm.
 {: .note }
@@ -42,7 +42,7 @@ extraEnvs:
 
 ## Install OpenSearch using Helm
 
-1. Add `opensearch` [helm-charts](https://github.com/opensearch-project/helm-charts) repository to Helm:
+1. Add `opensearch` [`helm-charts`](https://github.com/opensearch-project/helm-charts) repository to Helm:
 
    ```bash
    helm repo add opensearch https://opensearch-project.github.io/helm-charts/
@@ -93,7 +93,7 @@ extraEnvs:
 
 You can also build the `opensearch-<VERSION>.tgz` file manually:
 
-1. Clone the [helm-charts repo](https://github.com/opensearch-project/helm-charts/tree/main):
+1. Clone the [`helm-charts` repo](https://github.com/opensearch-project/helm-charts/tree/main):
 
    ```bash
    git clone https://github.com/opensearch-project/helm-charts.git
