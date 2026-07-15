@@ -44,6 +44,7 @@ Cohere Embed English
 Cohere Embed Multilingual
 Confluent Kafka
 cURL
+Dagre
 Dashboards application
 DocumentDB
 DynamoDB
@@ -137,6 +138,7 @@ OpenSearch Dashboards
 OpenSearch Flow
 OpenSearch Kubernetes Operator
 OpenSearch MCP Server
+OpenSearch Observability Stack
 OpenSearch Playground
 OpenSearch Project
 OpenSearch Service
@@ -191,6 +193,7 @@ Tribuo
 Vega
 VisBuilder
 Visualize application
+Vizlib
 Wikimedia
 Wikitravel
 Wiktionary

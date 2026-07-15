@@ -73,6 +73,7 @@ Gantt
 [Gg]eospatial
 [Gg]eotile
 gibibyte
+gridlines
 gRPC
 gzip
 [Hh]ardcod(e|ed|ing)

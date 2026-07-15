@@ -6,7 +6,7 @@ redirect_from:
   - /observability-plugin/log-analytics/
 ---
 
-# Log Ingestion
+# Log ingestion
 
 Log ingestion provides a way to transform unstructured log data into structured data and ingest into OpenSearch. Structured log data allows for improved queries and filtering based on the data format when searching logs for an event.
 
@@ -20,7 +20,7 @@ OpenSearch Log Ingestion consists of three components---[Data Prepper]({{site.ur
 
 1. Log Ingestion relies on you adding log collection to your application's environment to gather and send log data.
 
-   (In the [example](#example) below, [FluentBit](https://docs.fluentbit.io/manual/) is used as a log collector that collects log data from a file and sends the log data to Data Prepper).
+   (In the following [example](#example), [FluentBit](https://docs.fluentbit.io/manual/) is used as a log collector that collects log data from a file and sends the log data to Data Prepper).
 
 2. [Data Prepper]({{site.url}}{{site.baseurl}}/clients/data-prepper/index/) receives the log data, transforms the data into a structure format, and indexes it on an OpenSearch cluster.
 

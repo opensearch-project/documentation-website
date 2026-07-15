@@ -1,13 +1,13 @@
 ---
 layout: default
-title: Anomaly detection API
+title: Anomaly Detection APIs
 parent: Anomaly detection
 nav_order: 1
 redirect_from: 
   - /monitoring-plugins/ad/api/
 ---
 
-# Anomaly detection API
+# Anomaly Detection APIs
 
 Use these anomaly detection operations to programmatically create and manage detectors.
 
@@ -28,7 +28,7 @@ Creates an anomaly detector.
 
 This command creates a single-entity detector named `test-detector` that finds anomalies based on the sum of the `value` field and stores the result in a custom `opensearch-ad-plugin-result-test` index:
 
-#### Request
+#### Example request
 
 ```json
 POST _plugins/_anomaly_detection/detectors
@@ -165,7 +165,7 @@ POST _plugins/_anomaly_detection/detectors
 
 To create a high cardinality detector by specifying a category field:
 
-#### Request
+#### Example request
 
 ```json
 POST _plugins/_anomaly_detection/detectors
@@ -362,7 +362,7 @@ POST _plugins/_anomaly_detection/detectors/_validate/model
 
 Responses from this API operation return either blocking issues as detector type responses or a response indicating a field that could be revised to increase likelihood of model training completing successfully. Model type issues don’t need to be fixed for detector creation to succeed, but the detector would likely not train successfully if they aren’t addressed.
 
-#### Request
+#### Example request
 
 ```json
 POST _plugins/_anomaly_detection/detectors/_validate
@@ -498,7 +498,7 @@ POST _plugins/_anomaly_detection/detectors/_validate/model
 
 If the Validate Detector API identifies areas of improvement in your configuration, it returns a response with suggestions for changing your configuration to improve model training.
 
-#### Sample Responses
+#### Example response
 
 In this example, the Validate Detector API returns a response indicating that changing the detector interval length to at least 4 minutes can increase the probability of successful model training.
 
@@ -538,7 +538,7 @@ Introduced 1.0
 
 Returns all information about a detector based on the `detector_id`.
 
-#### Request
+#### Example request
 
 ```json
 GET _plugins/_anomaly_detection/detectors/{detectorId}
@@ -624,18 +624,18 @@ GET _plugins/_anomaly_detection/detectors/{detectorId}
 }
 ```
 
-A "job" is something that you schedule to run periodically, so it's only applicable for real-time anomaly detection and not historical analysis that you run just one time.
+A _job_ is something that you schedule to run periodically, so it's only applicable for real-time anomaly detection and not historical analysis that you run just one time.
 
-When you start a real-time detector, the anomaly detection plugin creates a job or if the job already exists updates it.
+When you start a real-time detector, the Anomaly Detection plugin creates a job or if the job already exists updates it.
 When you start or a restart a real-time detector, the plugin creates a new real-time task that records run-time information like detector configuration snapshot, real-time job states (initializing/running/stopped), init progress, and so on.
 
 A single detector can only have one real-time job (job ID is the same as detector ID), but it can have multiple real-time tasks because each restart of a real-time job creates a new real-time task. You can limit the number of real-time tasks with the `plugins.anomaly_detection.max_old_ad_task_docs_per_detector` setting.
 
-Historical analysis doesn't have an associated job. When you start or rerun historical analysis for a detector, the anomaly detection plugin creates a new historical batch task that tracks the historical analysis runtime information like state, coordinating/worker node, task progress, and so on. You can limit the historical task number with the `plugins.anomaly_detection.max_old_ad_task_docs_per_detector` setting.
+Historical analysis doesn't have an associated job. When you start or rerun historical analysis for a detector, the Anomaly Detection plugin creates a new historical batch task that tracks the historical analysis runtime information like state, coordinating/worker node, task progress, and so on. You can limit the historical task number with the `plugins.anomaly_detection.max_old_ad_task_docs_per_detector` setting.
 
 Use `job=true` to get real-time analysis task information.
 
-#### Request
+#### Example request
 
 ```json
 GET _plugins/_anomaly_detection/detectors/{detectorId}?job=true
@@ -755,7 +755,7 @@ GET _plugins/_anomaly_detection/detectors/{detectorId}?job=true
 
 Use `task=true` to get information for both real-time and historical analysis task information.
 
-#### Request
+#### Example request
 
 ```json
 GET _plugins/_anomaly_detection/detectors/{detectorId}?task=true
@@ -1049,7 +1049,7 @@ To update a detector, you need to first stop both real-time detection and histor
 You can't update a category field.
 {: .note }
 
-#### Request
+#### Example request
 
 ```json
 PUT _plugins/_anomaly_detection/detectors/{detectorId}
@@ -1193,7 +1193,7 @@ Introduced 1.0
 Deletes a detector based on the `detector_id`.
 To delete a detector, you need to first stop both real-time detection and historical analysis.
 
-#### Request
+#### Example request
 
 ```json
 DELETE _plugins/_anomaly_detection/detectors/{detectorId}
@@ -1228,7 +1228,7 @@ Passes a date range to the anomaly detector to return any anomalies within that 
 
 To preview a single-entity detector:
 
-#### Request
+#### Example request
 
 ```json
 POST _plugins/_anomaly_detection/detectors/_preview
@@ -1369,7 +1369,7 @@ POST _plugins/_anomaly_detection/detectors/_preview
 
 If you specify a category field, each result is associated with an entity:
 
-#### Request
+#### Example request
 
 ```json
 POST _plugins/_anomaly_detection/detectors/_preview
@@ -1657,7 +1657,7 @@ Starts a real-time or historical anomaly detector job.
 
 To start a real-time detector job:
 
-#### Request
+#### Example request
 
 ```json
 POST _plugins/_anomaly_detection/detectors/{detectorId}/_start
@@ -1709,7 +1709,7 @@ Stops a real-time or historical anomaly detector job.
 
 To stop a real-time detector job:
 
-#### Request
+#### Example request
 
 ```json
 POST _plugins/_anomaly_detection/detectors/{detectorId}/_stop
@@ -1756,7 +1756,7 @@ Returns all anomaly detectors for a search query.
 
 To search detectors using the `server_log*` index:
 
-#### Request
+#### Example request
 
 ```json
 GET _plugins/_anomaly_detection/detectors/_search
@@ -1873,7 +1873,7 @@ Searches detector tasks.
 
 To search for the latest detector level historical analysis task for a high cardinality detector
 
-#### Request
+#### Example request
 
 ```json
 GET _plugins/_anomaly_detection/detectors/tasks/_search
@@ -2035,7 +2035,7 @@ POST _plugins/_anomaly_detection/detectors/tasks/_search
 
 To search for the latest entity-level tasks for the historical analysis of a high cardinality detector:
 
-#### Request
+#### Example request
 
 ```json
 GET _plugins/_anomaly_detection/detectors/tasks/_search
@@ -2080,7 +2080,7 @@ The `parent_task_id` is the same as the task ID that you can get with the profil
 {: .note }
 
 
-#### Request
+#### Example request
 
 ```json
 GET _plugins/_anomaly_detection/detectors/tasks/_search
@@ -2199,7 +2199,7 @@ You have the following search options:
 
 The following example searches anomaly results for grade greater than 0 for real-time analysis:
 
-#### Request
+#### Example request
 
 ```json
 GET _plugins/_anomaly_detection/detectors/results/_search/opensearch-ad-plugin-result-test
@@ -2235,7 +2235,7 @@ POST _plugins/_anomaly_detection/detectors/results/_search/opensearch-ad-plugin-
 
 If you specify the custom result index like in this example, the search results API searches both the default result indexes and custom result indexes.
 
-If you don't specify the custom result index and you just use the `_plugins/_anomaly_detection/detectors/results/_search` URL, the anomaly detection plugin searches only the default result indexes.
+If you don't specify the custom result index and you just use the `_plugins/_anomaly_detection/detectors/results/_search` URL, the Anomaly Detection plugin searches only the default result indexes.
 
 Real-time detection doesn't persist the task ID in the anomaly result, so the task ID will be null.
 
@@ -2334,7 +2334,7 @@ You can search for the latest historical batch task first and then search the hi
 
 To search anomaly results for `grade` greater than 0 for historical analysis with the `task_id`:
 
-#### Request
+#### Example request
 
 ```json
 GET _plugins/_anomaly_detection/detectors/results/_search
@@ -2447,7 +2447,7 @@ Returns the top anomaly results for a high-cardinality detector, bucketed by cat
 
 You can pass a `historical` boolean parameter to specify whether you want to analyze real-time or historical results.
 
-#### Request
+#### Example request
 
 ```json
 GET _plugins/_anomaly_detection/detectors/{detectorId}/results/_topAnomalies?historical=false
@@ -2500,7 +2500,7 @@ Options | Description | Type | Required
 `size` |  Specify the number of top buckets that you want to see. Default is 10. The maximum number is 10,000. | `integer` | No
 `category_field` |  Specify the set of category fields that you want to aggregate on. Defaults to all category fields for the detector. | `list` | No
 `order` |  Specify `severity` (anomaly grade) or `occurrence` (number of anomalies). Default is `severity`. | `string` | No
-`task_id`  |  Specify a historical task ID to see results only from that specific task. Use only when `historical=true`, otherwise the anomaly detection plugin ignores this parameter. | `string` | No
+`task_id`  |  Specify a historical task ID to see results only from that specific task. Use only when `historical=true`, otherwise the Anomaly Detection plugin ignores this parameter. | `string` | No
 `start_time_ms` | Specify the time to start analyzing results, in Epoch milliseconds. | `long` | Yes
 `end_time_ms` |  Specify the time to end analyzing results, in Epoch milliseconds. | `long` | Yes
 
@@ -2514,7 +2514,7 @@ Provides information about how the plugin is performing.
 
 To get all stats:
 
-#### Request
+#### Example request
 
 ```json
 GET _plugins/_anomaly_detection/stats
@@ -2624,7 +2624,7 @@ If haven't run any historical analysis, these values show up as 0.
 
 To get all stats for a specific node:
 
-#### Request
+#### Example request
 
 ```json
 GET _plugins/_anomaly_detection/{nodeId}/stats
@@ -2632,7 +2632,7 @@ GET _plugins/_anomaly_detection/{nodeId}/stats
 
 To get specific stats for a node:
 
-#### Request
+#### Example request
 
 ```json
 GET _plugins/_anomaly_detection/{nodeId}/stats/{stat}
@@ -2658,7 +2658,7 @@ GET _plugins/_anomaly_detection/SWD7ihu9TaaW1zKwFZNVNg/stats/ad_execute_request_
 
 To get a specific type of stats:
 
-#### Request
+#### Example request
 
 ```json
 GET _plugins/_anomaly_detection/stats/{stat}
@@ -2700,7 +2700,7 @@ This command helps locate logs by identifying the nodes that run the anomaly det
 
 It also helps track the initialization percentage, the required shingles, and the estimated time left.
 
-#### Request
+#### Example request
 
 ```json
 GET _plugins/_anomaly_detection/detectors/{detectorId}/_profile/
@@ -2709,7 +2709,7 @@ GET _plugins/_anomaly_detection/detectors/{detectorId}/_profile/{type}
 GET _plugins/_anomaly_detection/detectors/{detectorId}/_profile/{type1},{type2}
 ```
 
-#### Sample Responses
+#### Example response
 
 ```json
 GET _plugins/_anomaly_detection/detectors/{detectorId}/_profile
@@ -3020,13 +3020,13 @@ For a single-entity detector:
 
 The `total_entities` parameter shows you the total number of entities including the number of category fields for a detector.
 
-Getting the total count of entities is an expensive operation for real-time analysis of a detector with more than one category field. By default, for a real-time detection profile, a detector counts the number of entities up to a value of 10,000. For historical analysis, the anomaly detection plugin only detects the top 1,000 entities by default and caches the top entities in memory, so it doesn't cost much to get the total count of entities for historical analysis.
+Getting the total count of entities is an expensive operation for real-time analysis of a detector with more than one category field. By default, for a real-time detection profile, a detector counts the number of entities up to a value of 10,000. For historical analysis, the Anomaly Detection plugin only detects the top 1,000 entities by default and caches the top entities in memory, so it doesn't cost much to get the total count of entities for historical analysis.
 
 The `profile` operation also provides information about each entity, such as the entity’s `last_sample_timestamp` and `last_active_timestamp`. `last_sample_timestamp` shows the last document in the input data source index containing the entity, while `last_active_timestamp` shows the timestamp when the entity’s model was last seen in the model cache.
 
 If there are no anomaly results for an entity, either the entity doesn't have any sample data or resources such as memory and disk IO are constrained relative to the number of entities.
 
-#### Request
+#### Example request
 
 ```json
 GET _plugins/_anomaly_detection/detectors/{detectorId}/_profile?_all=true
@@ -3040,7 +3040,7 @@ GET _plugins/_anomaly_detection/detectors/{detectorId}/_profile?_all=true
 }
 ```
 
-#### Sample Responses
+#### Example response
 
 ```json
 {
@@ -3062,14 +3062,14 @@ GET _plugins/_anomaly_detection/detectors/{detectorId}/_profile?_all=true
 To get profile information for only historical analysis, specify `ad_task`.
 Specifying `_all` is an expensive operation for multi-category high cardinality detectors.
 
-#### Request
+#### Example request
 
 ```json
 GET _plugins/_anomaly_detection/detectors/{detectorId}/_profile?_all
 GET _plugins/_anomaly_detection/detectors/{detectorId}/_profile/ad_task
 ```
 
-#### Sample Responses
+#### Example response
 
 ```json
 {
@@ -3222,7 +3222,7 @@ The delete detector results API only deletes anomaly result documents in the def
 
 You need to manually delete anomaly result documents that you don't need from custom result indexes.
 
-#### Request
+#### Example request
 
 ```json
 DELETE _plugins/_anomaly_detection/detectors/results
@@ -3289,7 +3289,7 @@ Introduced 1.0
 
 Create a monitor to set up alerts for the detector.
 
-#### Request
+#### Example request
 
 ```json
 POST _plugins/_alerting/monitors

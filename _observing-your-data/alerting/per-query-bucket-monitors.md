@@ -26,7 +26,7 @@ To create a per query monitor, follow these steps:
 
 **Step 1.** Define your query and [triggers]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/triggers/). You can use any of these methods: visual editor, query editor, or anomaly detector.
 
-   - Visual definition works well for monitors that can be defined as "some value is above or below some threshold for some amount of time." It also works well for most monitors.
+   - Visual definition works well for monitors that can be defined as "some value is higher or lower than some threshold for some amount of time." It also works well for most monitors.
 
    - Query definition provides flexibility in relation to your query (using [OpenSearch query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/index/)) and how you evaluate the results of that query (Painless scripting).
 
@@ -101,6 +101,6 @@ To avoid this issue, make sure the alerting monitor is at least twice the detect
 
 Whenever you update a detector’s interval, make sure to update the associated monitor interval, as the Anomaly Detection plugin does not do this automatically.
 
-**Step 2.** Choose the frequency to run the monitor, for example, either by time intervals (minutes, hours, days) or on a schedule. If you run it by time interval or on a custom [custom cron expression]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/cron/), then you must provide the time zone.
+**Step 2.** Choose the frequency to run the monitor, for example, either by time intervals (minutes, hours, days) or on a schedule. If you run it by time interval or on a [custom cron expression]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/cron/), then you must provide the time zone.
 
 **Step 3.** Add a trigger to the monitor.
