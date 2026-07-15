@@ -43,6 +43,7 @@ exceptions:
   - NGINX
   - NMSLIB
   - OSS
+  - PATCH
   - PDF
   - RAM
   - REST
