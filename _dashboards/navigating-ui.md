@@ -54,7 +54,7 @@ The following images show the most-used features on both navigation modes (class
 
 Classic navigation panel | Workspaces navigation panel
 :--: | :--:
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/os-nav-panel.png" alt="Classic navigation panel"  width="60%"> | <img src="{{site.url}}{{site.baseurl}}/images/dashboards/os-new-nav-panel.png" alt="Workspaces navigation panel"  width="57%">
+![Classic navigation panel]({{site.url}}{{site.baseurl}}/images/dashboards/os-nav-panel.png){: width="60%" } | ![Workspaces navigation panel]({{site.url}}{{site.baseurl}}/images/dashboards/os-new-nav-panel.png){: width="57%" }
 
 - The _menu icon_ (A) hides and reveals the navigation panel. To enlarge the application panel, you can [hide](#hiding-the-navigation-panel) and [unhide](#unhiding-the-navigation-panel) the navigation panel.
 - **Discover** (B) opens the Discover application in the main panel. See [Exploring data with Discover]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/).

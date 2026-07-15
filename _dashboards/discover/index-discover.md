@@ -22,7 +22,7 @@ If you've installed a local OpenSearch Dashboards instance, add the sample data 
 
 For more information, see [Adding sample data]({{site.url}}{{site.baseurl}}/dashboards/getting-started/data-setup/#add-sample-data).
 
-## Navigating the Discover UI
+## Navigating the Discover application UI
 
 The following image shows the main components of the **Discover** application.
 

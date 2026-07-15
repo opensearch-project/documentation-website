@@ -15,8 +15,8 @@ OpenSearch Dashboards supports automatic compression of JavaScript and CSS bundl
 
 OpenSearch Dashboards generates pre-compressed versions of all plugin bundles using the following compression algorithms:
 
-- **Brotli (br)**: Modern compression algorithm providing the best compression ratio
-- **gzip (gz)**: Widely supported compression algorithm with good compatibility
+- **Brotli (`br`)**: Modern compression algorithm providing the best compression ratio
+- **gzip (`gz`)**: Widely supported compression algorithm with good compatibility
 
 When a client requests a bundle file, OpenSearch Dashboards automatically serves the compressed version if the client sends the appropriate `Accept-Encoding` header. If no compression encoding is specified, OpenSearch Dashboards serves the uncompressed file.
 
@@ -26,8 +26,8 @@ The following table shows typical compression ratios for large plugin bundles, u
 
 | Compression method | File size | Compression ratio |
 |:---|:---|:---|
-| Brotli (br) | ~1.8 MB | ~86% reduction |
-| gzip (gz) | ~2.5 MB | ~80% reduction |
+| Brotli (`br`) | ~1.8 MB | ~86% reduction |
+| gzip (`gz`) | ~2.5 MB | ~80% reduction |
 | Uncompressed | ~12.6 MB | Baseline |
 
 The actual compression ratio varies depending on the plugin and its dependencies.

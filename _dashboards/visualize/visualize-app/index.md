@@ -28,7 +28,7 @@ For more information, see [Adding sample data]({{site.url}}{{site.baseurl}}/dash
 
 To use your own data, you need an index pattern. See [Setting up your data]({{site.url}}{{site.baseurl}}/dashboards/getting-started/data-setup/).
 
-## Navigating the Visualize UI
+## Navigating the Visualize application UI
 
 The following image shows the main components of the **Visualize** application.
 
