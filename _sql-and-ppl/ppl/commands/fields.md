@@ -14,11 +14,7 @@ nav_order: 18
 
 The `fields` command specifies the fields that should be included in or excluded from the search results.
 
-<!-- vale off -->
-
 ## Syntax
-
-<!-- vale on -->
 
 The `fields` command has the following syntax:
 
@@ -26,11 +22,7 @@ The `fields` command has the following syntax:
 fields [+|-] <field-list>
 ```
 
-<!-- vale off -->
-
 ## Parameters
-
-<!-- vale on -->
 
 The `fields` command supports the following parameters.
 
@@ -40,11 +32,7 @@ The `fields` command supports the following parameters.
 | `[+|-]` | Optional | If the plus sign (`+`) is used, only the fields specified in the `field-list` are included. If the minus sign (`-`) is used, all fields specified in the `field-list` are excluded. Default is `+`. |
   
 
-<!-- vale off -->
-
 ## Example 1: Selecting the fields you need for triage
-
-<!-- vale on -->
 
 The following query selects specific fields from the search results:
   
@@ -71,11 +59,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 2: Removing noisy fields from results 
-
-<!-- vale on -->
 
 The following query removes the raw `body` field after extracting what you need, keeping the output clean:
   
@@ -103,11 +87,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 3: Selecting all severity-related fields with a prefix wildcard
-
-<!-- vale on -->
 
 When you're not sure of the exact field names, use wildcards to grab all fields starting with a common prefix. This selects both `severityText` and `severityNumber`:
   
@@ -134,11 +114,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 4: Selecting trace correlation fields with a suffix wildcard
-
-<!-- vale on -->
 
 The following query grabs all fields ending with `Id`, useful for pulling trace correlation identifiers when debugging distributed requests:
   
@@ -164,11 +140,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 5: Combining explicit fields with wildcards
-
-<!-- vale on -->
 
 The following query selects specific fields alongside wildcard-matched fields. This grabs the severity text plus all trace identifiers in one query:
   
@@ -194,11 +166,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 6: Removing trace fields with wildcard exclusion
-
-<!-- vale on -->
 
 The following query strips all identifier fields from the output, useful when you want the log content without the tracing metadata:
   
@@ -222,11 +190,7 @@ The query returns the following results:
 
 <!-- vale on -->
 
-<!-- vale off -->
-
 ## Example 7: Deduplicating fields
-
-<!-- vale on -->
 
 The following query automatically prevents duplicate columns when wildcards expand to already specified fields:
 
@@ -250,11 +214,7 @@ The query returns the following results. Even though `severityText` is explicitl
 
 <!-- vale on -->
 
-<!-- vale off -->
-
 ## Example 8: Selecting all fields  
-
-<!-- vale on -->
 
 The following query selects all fields defined in the index schema using `` `*` ``. Fields with null values are included in the The query returns the following results:
   
@@ -278,10 +238,6 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Related documentation 
-
-<!-- vale on -->
 
 - [`table`]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/commands/table/) -- An alias command with identical functionality  

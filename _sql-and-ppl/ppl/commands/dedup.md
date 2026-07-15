@@ -15,11 +15,7 @@ nav_order: 11
 The `dedup` command removes duplicate documents defined by specified fields from the search result.
 
 
-<!-- vale off -->
-
 ## Syntax
-
-<!-- vale on -->
 
 The `dedup` command has the following syntax:
 
@@ -27,11 +23,7 @@ The `dedup` command has the following syntax:
 dedup [int] <field-list> [keepempty=<bool>] [consecutive=<bool>]
 ```
 
-<!-- vale off -->
-
 ## Parameters
-
-<!-- vale on -->
 
 The `dedup` command supports the following parameters.
 
@@ -43,11 +35,7 @@ The `dedup` command supports the following parameters.
 | `consecutive` | Optional | When set to `true`, removes only consecutive duplicate documents. Default is `false`. Requires the legacy SQL engine (`plugins.calcite.enabled=false`). |
   
 
-<!-- vale off -->
-
 ## Example 1: Removing duplicates based on a single field  
-
-<!-- vale on -->
 
 The following query deduplicates by service name to get one sample error per service, giving you a quick view of what's failing across your system:
   
@@ -76,11 +64,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 2: Retaining multiple duplicate documents  
-
-<!-- vale on -->
 
 The following query keeps up to two logs per severity level, giving you a broader sample of each level to understand the variety of issues:
   
@@ -110,11 +94,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 3: Handling documents with empty field values  
-
-<!-- vale on -->
 
 The following query deduplicates by instrumentation scope name to see which OTel SDKs are reporting. By default, records with null values are dropped:
   
@@ -163,11 +143,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 4: Deduplicating consecutive documents  
-
-<!-- vale on -->
 
 The following query removes duplicate consecutive documents. When logs are sorted by severity, this shows the transitions between severity levels, helping you see the pattern of escalation:
   

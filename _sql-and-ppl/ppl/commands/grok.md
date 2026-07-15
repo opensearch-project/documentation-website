@@ -14,11 +14,7 @@ nav_order: 22
 
 The `grok` command parses a text field using a Grok pattern and appends the extracted results to the search results.
 
-<!-- vale off -->
-
 ## Syntax
-
-<!-- vale on -->
 
 The `grok` command has the following syntax:
 
@@ -26,11 +22,7 @@ The `grok` command has the following syntax:
 grok <field> <pattern>
 ```
 
-<!-- vale off -->
-
 ## Parameters
-
-<!-- vale on -->
 
 The `grok` command supports the following parameters.
 
@@ -40,11 +32,7 @@ The `grok` command supports the following parameters.
 | `<pattern>` | Required | The Grok pattern used to extract new fields from the specified text field. If a new field name already exists, it overwrites the original field. |  
   
 
-<!-- vale off -->
-
 ## Example 1: Parsing Apache access logs  
-
-<!-- vale on -->
 
 The following query parses raw Apache access logs using the built-in `COMMONAPACHELOG` grok pattern:
   
@@ -68,11 +56,7 @@ The query returns the following results:
 
 <!-- vale on -->
 
-<!-- vale off -->
-
 ## Example 2: Extracting fields from Envoy access logs
-
-<!-- vale on -->
 
 The following query parses Envoy access log entries, extracting the HTTP method, path, and status code:
 
@@ -96,11 +80,7 @@ The query returns the following results:
 
 <!-- vale on -->
 
-<!-- vale off -->
-
 ## Example 3: Extracting durations from log messages
-
-<!-- vale on -->
 
 The following query uses grok to extract numeric durations from log messages:
 
@@ -126,11 +106,7 @@ The query returns the following results:
 
 <!-- vale on -->
 
-<!-- vale off -->
-
 ## Limitations
-
-<!-- vale on -->
 
 The `grok` command has the following limitations:
 

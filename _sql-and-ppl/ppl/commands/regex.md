@@ -14,11 +14,7 @@ nav_order: 36
 
 The `regex` command filters search results by matching field values against a regular expression pattern. Only documents in which the specified field matches the pattern are included in the results.
 
-<!-- vale off -->
-
 ## Syntax
-
-<!-- vale on -->
 
 The `regex` command has the following syntax:
 
@@ -39,11 +35,7 @@ The `regex` command uses Java's built-in regular expression engine, which suppor
 * **Lookahead/lookbehind**: `(?=...)` and `(?<=...)` assertions.  
 * **Inline flags**: Case-insensitive `(?i)`, multiline `(?m)`, dotall `(?s)`, and other modes.  
 
-<!-- vale off -->
-
 ## Parameters
-
-<!-- vale on -->
 
 The `regex` command supports the following parameters.
 
@@ -52,11 +44,7 @@ The `regex` command supports the following parameters.
 | `<field>` | Required | The field name to match against. |
 | `<pattern>` | Required | The regular expression pattern to match. Supports [Java regular expression syntax](https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html). |
 
-<!-- vale off -->
-
 ## Example 1: Finding logs matching a pattern  
-
-<!-- vale on -->
 
 The following query finds error logs mentioning connection timeouts:
   
@@ -80,11 +68,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 2: Excluding logs matching a pattern  
-
-<!-- vale on -->
 
 The following query finds all errors except those related to timeouts:
   
@@ -111,11 +95,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 3: Filtering by service name pattern  
-
-<!-- vale on -->
 
 The following query finds warning logs from services whose names end with "catalog":
   
@@ -140,11 +120,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 4: Complex patterns with character classes
-
-<!-- vale on -->
 
 The following query uses complex regex patterns with character classes and quantifiers to match log messages containing service method calls:
 
@@ -168,11 +144,7 @@ The query returns the following results:
 
 <!-- vale on -->
 
-<!-- vale off -->
-
 ## Example 5: Case-sensitive matching
-
-<!-- vale on -->
 
 By default, regex matching is case sensitive. The following query searches for lowercase `error`:
 
@@ -186,11 +158,7 @@ source=otellogs
 
 The query returns no results because the regex pattern `error` (lowercase) does not match `ERROR` (uppercase):
 
-<!-- vale off -->
-
 ## Limitations
-
-<!-- vale on -->
 
 The `regex` command has the following limitations:
 

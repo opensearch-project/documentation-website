@@ -19,11 +19,7 @@ The resulting flattened fields are ordered lexicographically by their original k
 `flatten` should not be applied to arrays. To expand an array field into multiple rows, use the `expand` command. Note that arrays can be stored in non-array fields in OpenSearch; when flattening a field that contains a nested array, only the first element of the array is flattened.
 {: .important}
 
-<!-- vale off -->
-
 ## Syntax
-
-<!-- vale on -->
 
 The `flatten` command has the following syntax:
 
@@ -31,11 +27,7 @@ The `flatten` command has the following syntax:
 flatten <field> [as (<alias-list>)]
 ```
 
-<!-- vale off -->
-
 ## Parameters
-
-<!-- vale on -->
 
 The `flatten` command supports the following parameters.
 
@@ -45,11 +37,7 @@ The `flatten` command supports the following parameters.
 | `<alias-list>` | Optional | A list of names to use instead of the original key names, separated by commas. If specifying more than one alias, enclose the list in parentheses. The number of aliases must match the number of keys in the struct, and the aliases must follow the lexicographical order of the corresponding original keys. |  
   
 
-<!-- vale off -->
-
 ## Example: Flatten the instrumentation scope object  
-
-<!-- vale on -->
 
 The following query flattens the `instrumentationScope` nested object into individual fields, useful for analyzing which OTel SDK versions are in use:
   
@@ -76,11 +64,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Limitations
-
-<!-- vale on -->
 
 The `flatten` command has the following limitations:
 

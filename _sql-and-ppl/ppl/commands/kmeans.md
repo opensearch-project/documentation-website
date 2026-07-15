@@ -20,11 +20,7 @@ The `kmeans` command applies the k-means algorithm in the ML Commons plugin on t
 To use the `kmeans` command, `plugins.calcite.enabled` must be set to `false`.
 {: .note}
 
-<!-- vale off -->
-
 ## Syntax
-
-<!-- vale on -->
 
 The `kmeans` command has the following syntax:
 
@@ -32,11 +28,7 @@ The `kmeans` command has the following syntax:
 kmeans <centroids> <iterations> <distance_type>
 ```
 
-<!-- vale off -->
-
 ## Parameters
-
-<!-- vale on -->
 
 The `kmeans` command supports the following parameters.
 
@@ -47,11 +39,7 @@ The `kmeans` command supports the following parameters.
 | `<distance_type>` | Optional | The distance type. Valid values are `COSINE`, `L1`, and `EUCLIDEAN`. Default is `EUCLIDEAN`. |  
   
 
-<!-- vale off -->
-
 ## Example: Clustering of the Iris dataset  
-
-<!-- vale on -->
 
 The following query classifies three Iris species (Iris setosa, Iris virginica, and Iris versicolor) based on the combination of four features measured from each sample (the lengths and widths of sepals and petals):
   

@@ -17,11 +17,7 @@ The `nomv` command converts a multivalue (array) field into a single-value strin
 The field must be an array type. For scalar fields, use the [`array()`]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/functions/collection/#array) function to convert the value into an array first.
 {: .note}
 
-<!-- vale off -->
-
 ## Syntax
-
-<!-- vale on -->
 
 The `nomv` command has the following syntax:
 
@@ -29,11 +25,7 @@ The `nomv` command has the following syntax:
 nomv <field>
 ```
 
-<!-- vale off -->
-
 ## Parameters
-
-<!-- vale on -->
 
 The `nomv` command supports the following parameters.
 
@@ -41,11 +33,7 @@ The `nomv` command supports the following parameters.
 | --- | --- | --- |
 | `<field>` | Required | The name of the field whose multivalue content should be converted to a single-value string. |
 
-<!-- vale off -->
-
 ## Example: Convert a collected list to a single-value string
-
-<!-- vale on -->
 
 The following query collects all service names into an array. It then filters to include only services that reported errors and converts the array into a string:
 
@@ -75,11 +63,7 @@ The query returns the following results:
 
 <!-- vale on -->
 
-<!-- vale off -->
-
 ## Limitations
-
-<!-- vale on -->
 
 The `nomv` command has the following limitations:
 
@@ -87,11 +71,7 @@ The `nomv` command has the following limitations:
 - The newline delimiter (`\n`) is fixed and cannot be customized. For custom delimiters, use the [`mvjoin`]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/functions/collection/#mvjoin) function directly in an [`eval`]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/commands/eval/) expression.
 - `NULL` values within the array are automatically filtered out and do not appear in the output.
 
-<!-- vale off -->
-
 ## Related commands
-
-<!-- vale on -->
 
 - [`mvcombine`]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/commands/mvcombine/) -- Combines multiple rows into a single row with multivalue fields.
 - [`mvexpand`]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/commands/mvexpand/) -- Expands multivalue fields into separate rows.

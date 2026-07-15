@@ -24,6 +24,7 @@ Boolean
 [Cc]allout
 [Cc]hatbots?
 [Cc]heckpointing
+[Cc]entiseconds?
 [Cc]lasspath
 [Cc]odec
 [Cc]omposable
@@ -35,8 +36,10 @@ Boolean
 [Cc]ybersecurity
 [Dd]ashboarding
 [Dd]atagram
+[Dd]eciseconds?
 [Dd]eallocate
 [Dd]eclaratively
+dotall
 [Dd]ecompounder
 [Dd]eduplicat(ion|ing)
 [Dd]eduplicate[sd]?

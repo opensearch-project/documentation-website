@@ -67,7 +67,6 @@ Auth: NONE
 
 To customize the DSN, use **ODBC Data Source Administrator** which is pre-installed on Windows 10.
 
-
 ### macOS
 
 Before installing the ODBC Driver on macOS, install the iODBC Driver Manager.

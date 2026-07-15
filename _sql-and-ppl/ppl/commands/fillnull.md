@@ -17,11 +17,7 @@ The `fillnull` command replaces `null` values in one or more fields of the searc
 The `fillnull` command is not rewritten to [query domain-specific language (DSL)]({{site.url}}{{site.baseurl}}/query-dsl/). It is only executed on the coordinating node.
 {: .note}
 
-<!-- vale off -->
-
 ## Syntax
-
-<!-- vale on -->
 
 The `fillnull` command has the following syntax:
 
@@ -37,11 +33,7 @@ The following syntax variations are available:
 * `using <field>=<replacement>, ...` -- Apply different values to different fields.
 * `value=<replacement> [<field-list>]` -- Alternative syntax with an optional space-delimited field list.
 
-<!-- vale off -->
-
 ## Parameters
-
-<!-- vale on -->
 
 The `fillnull` command supports the following parameters.
 
@@ -51,11 +43,7 @@ The `fillnull` command supports the following parameters.
 | `<field>` | Required (with `using` syntax) | The name of the field to which a specific replacement value is applied. |
 | `<field-list>` | Optional | A list of fields in which null values are replaced. You can specify the list as comma-delimited (using `with` or `using` syntax) or space-delimited (using `value=` syntax). By default, all fields are processed. |
 
-<!-- vale off -->
-
 ## Example 1: Replacing null values with different values per field
-
-<!-- vale on -->
 
 The following query fills in missing instrumentation scope names with a default value:
 
@@ -90,13 +78,9 @@ The query returns the following results:
 <!-- vale on -->
 
 
-<!-- vale off -->
-
 ## Example 2: Replacing null values using value= syntax
 
-<!-- vale on -->
-
-The following query uses the `value=` syntax to fill null instrumentation scope names, helping identify uninstrumented services:
+The following query uses the `value=` syntax to fill null instrumentation scope names, helping identify services that are not instrumented:
 
 ```sql
 source=otellogs
@@ -125,11 +109,7 @@ The query returns the following results:
 <!-- vale on -->
 
 
-<!-- vale off -->
-
 ## Limitations
-
-<!-- vale on -->
 
 The `fillnull` command has the following limitations:
 

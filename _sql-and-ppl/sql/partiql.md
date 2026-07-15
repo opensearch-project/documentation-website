@@ -107,12 +107,16 @@ Explain:
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | employeeName | projectName
 :--- | :---
 Bob Smith | OpenSearch Security
 Bob Smith | SQL security
 Jane Smith | Hello security
 Jane Smith | SQL security
+
+<!-- vale on -->
 
 ### Example 2: Flattening in an existential subquery
 
