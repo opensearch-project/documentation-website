@@ -2,6 +2,7 @@
 layout: default
 title: Rolling upgrade
 nav_order: 20
+has_children: true
 has_toc: true
 permalink: /migrate-or-upgrade/rolling-upgrade/
 nav_exclude: false

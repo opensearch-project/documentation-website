@@ -2,39 +2,13 @@
 layout: default
 title: Rolling upgrade lab
 parent: Rolling upgrade
-nav_exclude: true
+nav_order: 10
 redirect_from:
   - /upgrade-opensearch/appendix/rolling-upgrade-lab/
   - /install-and-configure/upgrade-opensearch/appendix/index/
   - /migrate-or-upgrade/rolling-upgrade/appendix/
   - /migrate-or-upgrade/rolling-upgrade/appendix/rolling-upgrade-lab/
 ---
-
-<!--
-Testing out tabs for code blocks to identify example outputs and file names.
-To use, invoke class="codeblock-label"
--->
-
-<style>
-.codeblock-label {
-    display: inline-block;
-    border-top-left-radius: 0.5rem;
-    border-top-right-radius: 0.5rem;
-    font-family: Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace;
-    font-size: .75rem;
-    --bg-opacity: 1;
-    background-color: #e1e7ef;
-    background-color: rgba(224.70600000000002,231.07080000000002,239.394,var(--bg-opacity));
-    padding: 0.25rem 0.75rem;
-    border-top-width: 1px;
-    border-left-width: 1px;
-    border-right-width: 1px;
-    --border-opacity: 1;
-    border-color: #ccd6e0;
-    border-color: rgba(204,213.85999999999999,224.39999999999998,var(--border-opacity));
-    margin-bottom: 0;
-}
-</style>
 
 # Rolling upgrade lab
 
@@ -89,7 +63,7 @@ After selecting a host, you can begin the lab:
    mkdir ~/deploy && cd ~/deploy
    ```
    {% include copy.html %}
-1. Download `upgrade-demo-cluster.sh` from the OpenSearch Project [documentation-website](https://github.com/opensearch-project/documentation-website) repository:
+1. Download `upgrade-demo-cluster.sh` from the OpenSearch Project [`documentation-website`](https://github.com/opensearch-project/documentation-website) repository:
    ```bash
    wget https://raw.githubusercontent.com/opensearch-project/documentation-website/main/assets/examples/upgrade-demo-cluster.sh
    ```
@@ -104,8 +78,10 @@ After selecting a host, you can begin the lab:
    docker container ls
    ```
    {% include copy.html %}
-   <p class="codeblock-label">Example response</p>
-   ```bash
+
+   The response should appear similar to the following:
+
+```bash
    CONTAINER ID   IMAGE                                           COMMAND                  CREATED          STATUS          PORTS                                                                                                      NAMES
    6e5218c8397d   opensearchproject/opensearch-dashboards:1.3.7   "./opensearch-dashbo…"   24 seconds ago   Up 22 seconds   0.0.0.0:5601->5601/tcp, :::5601->5601/tcp                                                                  os-dashboards-01
    cb5188308b21   opensearchproject/opensearch:1.3.7              "./opensearch-docker…"   25 seconds ago   Up 24 seconds   9300/tcp, 9650/tcp, 0.0.0.0:9204->9200/tcp, :::9204->9200/tcp, 0.0.0.0:9604->9600/tcp, :::9604->9600/tcp   os-node-04
@@ -120,8 +96,10 @@ After selecting a host, you can begin the lab:
       ```
       {% include copy.html %}
    1. You will see a log entry resembling the following example when the node is ready:
-      <p class="codeblock-label">Example</p>
-      ```
+
+   The following is an example:
+
+```
       [INFO ][o.o.s.c.ConfigurationRepository] [os-node-01] Node 'os-node-01' initialized
       ```
    1. Press `Ctrl+C` to stop following container logs and return to the command prompt.
@@ -130,8 +108,10 @@ After selecting a host, you can begin the lab:
    curl -s "https://localhost:9201" -ku admin:<custom-admin-password>
    ```
    {% include copy.html %}
-   <p class="codeblock-label">Example response</p>
-   ```json
+
+   The response should appear similar to the following:
+
+```json
    {
        "name" : "os-node-01",
        "cluster_name" : "opensearch-dev-cluster",
@@ -182,8 +162,10 @@ This section can be broken down into two parts:
       -ku admin:<custom-admin-password>
    ```
    {% include copy.html %}
-   <p class="codeblock-label">Example response</p>
-   ```json
+
+   The response should appear similar to the following:
+
+```json
    {
       "acknowledged" : true,
       "shards_acknowledged" : true,
@@ -198,8 +180,10 @@ This section can be broken down into two parts:
       -ku admin:<custom-admin-password>
    ```
    {% include copy.html %}
-   <p class="codeblock-label">Example response (truncated)</p>
-   ```json
+
+   The response should appear similar to the following (truncated):
+
+```json
    {
       "took" : 3323,
       "errors" : false,
@@ -231,8 +215,10 @@ This section can be broken down into two parts:
       -ku admin:<custom-admin-password>
    ```
    {% include copy.html %}
-   <p class="codeblock-label" id="query-validation">Example response</p>
-   ```json
+
+   The response should appear similar to the following:
+
+```json
    {
       "hits" : {
          "total" : {
@@ -245,7 +231,7 @@ This section can be broken down into two parts:
 
 ### Adding data using OpenSearch Dashboards
 
-1. Open a web browser and navigate to port `5601` on your Docker host (for example, <code>https://<var>HOST_ADDRESS</var>:5601</code>). If OpenSearch Dashboards is running and you have network access to the host from your browser client, then you will be redirected to a login page.
+1. Open a web browser and navigate to port `5601` on your Docker host (for example, `https://<HOST_ADDRESS>:5601`). If OpenSearch Dashboards is running and you have network access to the host from your browser client, then you will be redirected to a login page.
     1. If the web browser throws an error because the TLS certificates are self-signed, then you might need to bypass certificate checks in your browser. Refer to the browser's documentation for information about bypassing certificate checks. The common name (CN) for each certificate is generated according to the container and node names for intracluster communication, so connecting to the host from a browser will still result in an "invalid CN" warning.
 1. Enter the default username (`admin`) and password (`admin`).
 1. On the OpenSearch Dashboards **Home** page, select **Add sample data**.
@@ -276,8 +262,10 @@ In this section you will be:
       -ku admin:<custom-admin-password>
    ```
    {% include copy.html %}
-   <p class="codeblock-label">Example response</p>
-   ```json
+
+   The response should appear similar to the following:
+
+```json
    {
       "acknowledged" : true
    }
@@ -289,8 +277,10 @@ In this section you will be:
       -ku admin:<custom-admin-password>
    ```
    {% include copy.html %}
-   <p class="codeblock-label">Example response</p>
-   ```json
+
+   The response should appear similar to the following:
+
+```json
    {
       "nodes" : {
          "UODBXfAlRnueJ67grDxqgw" : {
@@ -320,8 +310,10 @@ Snapshots are backups of a cluster’s indexes and state. See [Snapshots]({{site
       -ku admin:<custom-admin-password>
    ```
    {% include copy.html %}
-   <p class="codeblock-label">Example response</p>
-   ```json
+
+   The response should appear similar to the following:
+
+```json
    {
       "snapshot" : {
          "snapshot" : "cluster-snapshot-v137",
@@ -390,8 +382,10 @@ You can also export your OpenSearch Security settings as YAML files by running `
       -key /usr/share/opensearch/config/admin-key.pem
    ```
    {% include copy.html %}
-   <p class="codeblock-label">Example response</p>
-   ```bash
+
+   The response should appear similar to the following:
+
+```bash
    Security Admin v7
    Will connect to localhost:9300 ... done
    Connected as CN=A,OU=DOCS,O=OPENSEARCH,L=PORTLAND,ST=OREGON,C=US
@@ -453,8 +447,10 @@ Some steps included in this section, like disabling shard replication and flushi
       -ku admin:<custom-admin-password>
    ```
    {% include copy.html %}
-   <p class="codeblock-label">Example response</p>
-   ```json
+
+   The response should appear similar to the following:
+
+```json
    {
       "acknowledged" : true,
       "persistent" : {
@@ -474,8 +470,10 @@ Some steps included in this section, like disabling shard replication and flushi
    curl -X POST "https://localhost:9201/_flush?pretty" -ku admin:<custom-admin-password>
    ```
    {% include copy.html %}
-   <p class="codeblock-label">Example response</p>
-   ```json
+
+   The response should appear similar to the following:
+
+```json
    {
       "_shards" : {
          "total" : 20,
@@ -509,8 +507,10 @@ Some steps included in this section, like disabling shard replication and flushi
       opensearchproject/opensearch:2.5.0
    ```
    {% include copy.html %}
-   <p class="codeblock-label">Example response</p>
-   ```bash
+
+   The response should appear similar to the following:
+
+```bash
    d26d0cb2e1e93e9c01bb00f19307525ef89c3c3e306d75913860e6542f729ea4
    ```
 1. **Optional**: Query the cluster to determine which node is acting as the cluster manager. You can run this command at any time during the process to see when a new cluster manager is elected:
@@ -519,8 +519,10 @@ Some steps included in this section, like disabling shard replication and flushi
       -ku admin:<custom-admin-password> | column -t
    ```
    {% include copy.html %}
-   <p class="codeblock-label">Example response</p>
-   ```bash
+
+   The response should appear similar to the following:
+
+```bash
    name        version  node.role  master
    os-node-01  2.5.0    dimr       -
    os-node-04  1.3.7    dimr       *
@@ -533,8 +535,10 @@ Some steps included in this section, like disabling shard replication and flushi
       -ku admin:<custom-admin-password>
    ```
    {% include copy.html %}
-   <p class="codeblock-label">Example response</p>
-   ```bash
+
+   The response should appear similar to the following:
+
+```bash
    security-auditlog-2023.03.06           0 p STARTED       53 214.5kb 172.20.0.13 os-node-03
    security-auditlog-2023.03.06           0 r UNASSIGNED                           
    .kibana_1                              0 p STARTED        3  14.5kb 172.20.0.12 os-node-02
@@ -581,8 +585,10 @@ Some steps included in this section, like disabling shard replication and flushi
       opensearchproject/opensearch:2.5.0
    ```
    {% include copy.html %}
-   <p class="codeblock-label">Example response</p>
-   ```bash
+
+   The response should appear similar to the following:
+
+```bash
    7b802865bd6eb420a106406a54fc388ed8e5e04f6cbd908c2a214ea5ce72ac00
    ```
 1. Stop `os-node-03`:
@@ -610,8 +616,10 @@ Some steps included in this section, like disabling shard replication and flushi
       opensearchproject/opensearch:2.5.0
    ```
    {% include copy.html %}
-   <p class="codeblock-label">Example response</p>
-   ```bash
+
+   The response should appear similar to the following:
+
+```bash
    d7f11726841a89eb88ff57a8cbecab392399f661a5205f0c81b60a995fc6c99d
    ```
 1. Stop `os-node-04`:
@@ -639,8 +647,10 @@ Some steps included in this section, like disabling shard replication and flushi
       opensearchproject/opensearch:2.5.0
    ```
    {% include copy.html %}
-   <p class="codeblock-label">Example response</p>
-   ```bash
+
+   The response should appear similar to the following:
+
+```bash
    26f8286ab11e6f8dcdf6a83c95f265172f9557578a1b292af84c6f5ef8738e1d
    ```
 1. Confirm that your cluster is running the new version:
@@ -649,8 +659,10 @@ Some steps included in this section, like disabling shard replication and flushi
       -ku admin:<custom-admin-password> | column -t
    ```
    {% include copy.html %}
-   <p class="codeblock-label">Example response</p>
-   ```bash
+
+   The response should appear similar to the following:
+
+```bash
    name        version  node.role  master
    os-node-01  2.5.0    dimr       *
    os-node-02  2.5.0    dimr       -
@@ -676,17 +688,21 @@ Some steps included in this section, like disabling shard replication and flushi
       opensearchproject/opensearch-dashboards:2.5.0
    ```
    {% include copy.html %}
-   <p class="codeblock-label">Example response</p>
-   ```bash
+
+   The response should appear similar to the following:
+
+```bash
    310de7a24cf599ca0b39b241db07fa8865592ebe15b6f5fda26ad19d8e1c1e09
    ```
-1. Make sure the OpenSearch Dashboards container started properly. A command like the following can be used to confirm that requests to <code>https://<var>HOST_ADDRESS</var>:5601</code> are redirected (HTTP status code 302) to `/app/login?`:
+1. Make sure the OpenSearch Dashboards container started properly. A command like the following can be used to confirm that requests to `https://<HOST_ADDRESS>:5601` are redirected (HTTP status code 302) to `/app/login?`:
    ```bash
    curl https://localhost:5601 -kI
    ```
    {% include copy.html %}
-   <p class="codeblock-label">Example response</p>
-   ```bash
+
+   The response should appear similar to the following:
+
+```bash
    HTTP/1.1 302 Found
    location: /app/login?
    osd-name: opensearch-dashboards-dev
@@ -705,8 +721,10 @@ Some steps included in this section, like disabling shard replication and flushi
       -ku admin:<custom-admin-password>
    ```
    {% include copy.html %}
-   <p class="codeblock-label">Example response</p>
-   ```json
+
+   The response should appear similar to the following:
+
+```json
    {
       "acknowledged" : true,
       "persistent" : {
@@ -740,8 +758,10 @@ For this cluster, post-upgrade validation steps can include verifying the follow
       -ku admin:<custom-admin-password> | column -t
    ```
    {% include copy.html %}
-   <p class="codeblock-label">Example response</p>
-   ```bash
+
+   The response should appear similar to the following:
+
+```bash
    name        version  node.role  master
    os-node-01  2.5.0    dimr       *
    os-node-02  2.5.0    dimr       -
@@ -750,7 +770,7 @@ For this cluster, post-upgrade validation steps can include verifying the follow
    ```
 1. Verify the current running version of OpenSearch Dashboards:
    1. **Option 1**: Verify the OpenSearch Dashboards version from the web interface.
-      1. Open a web browser and navigate to port `5601` on your Docker host (for example, <code>https://<var>HOST_ADDRESS</var>:5601</code>).
+      1. Open a web browser and navigate to port `5601` on your Docker host (for example, `https://<HOST_ADDRESS>:5601`).
       1. Log in with the default username (`admin`) and default password (`admin`).
       1. Select the **Help button** in the upper-right corner. The version is displayed in a pop-up window.
       1. Select the **Help button** again to close the pop-up window.
@@ -765,8 +785,10 @@ For this cluster, post-upgrade validation steps can include verifying the follow
          head -n 5 manifest.yml 
          ```
          {% include copy.html %}
-         <p class="codeblock-label">Example response</p>
-         ```bash
+
+   The response should appear similar to the following:
+
+```bash
          ---
          schema-version: '1.1'
          build:
@@ -786,8 +808,10 @@ For this cluster, post-upgrade validation steps can include verifying the follow
    curl -s "https://localhost:9201/_cluster/health?pretty" -ku admin:<custom-admin-password>
    ```
    {% include copy.html %}
-   <p class="codeblock-label">Example response</p>
-   ```json
+
+   The response should appear similar to the following:
+
+```json
    {
       "cluster_name" : "opensearch-dev-cluster",
       "status" : "green",
@@ -813,8 +837,10 @@ For this cluster, post-upgrade validation steps can include verifying the follow
    curl -s "https://localhost:9201/_cat/shards" -ku admin:<custom-admin-password>
    ```
    {% include copy.html %}
-   <p class="codeblock-label">Example response</p>
-   ```bash
+
+   The response should appear similar to the following:
+
+```bash
    security-auditlog-2023.02.27           0 r STARTED     4  80.5kb 172.20.0.13 os-node-03
    security-auditlog-2023.02.27           0 p STARTED     4  80.5kb 172.20.0.11 os-node-01
    security-auditlog-2023.03.08           0 p STARTED    30  95.2kb 172.20.0.13 os-node-03
@@ -865,8 +891,10 @@ You need to query the e-commerce index again in order to confirm that the sample
       -ku admin:<custom-admin-password>
    ```
    {% include copy.html %}
-   <p class="codeblock-label">Example response</p>
-   ```json
+
+   The response should appear similar to the following:
+
+```json
    {
       "hits" : {
          "total" : {
@@ -876,7 +904,7 @@ You need to query the e-commerce index again in order to confirm that the sample
       }
    }
    ```
-1. Open a web browser and navigate to port `5601` on your Docker host (for example, <code>https://<var>HOST_ADDRESS</var>:5601</code>).
+1. Open a web browser and navigate to port `5601` on your Docker host (for example, `https://<HOST_ADDRESS>:5601`).
 1. Enter the default username (`admin`) and password (`admin`).
 1. On the OpenSearch Dashboards **Home** page, select the **Menu button** in the upper-left corner of the web interface to open the **Navigation pane**.
 1. Select **Dashboard**.
