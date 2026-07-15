@@ -5,9 +5,11 @@ parent: Using Security Analytics
 nav_order: 25
 ---
 
+<!-- vale off -->
 # The Overview page
+<!-- vale on -->
 
-When you select **Security Analytics** from the top menu, the Overview page is displayed. The Overview page consists of five sections:
+When you select **Security Analytics** from the top menu, the **Overview** page is displayed. The **Overview** page consists of five sections:
 * Findings and alert count
 * Recent alerts
 * Recent findings

@@ -31,6 +31,7 @@ Boolean
 [Cc]ron
 [Cc]rowdsourced?
 [Cc]utover
+[Cc]yberattacks?
 [Cc]ybersecurity
 [Dd]ashboarding
 [Dd]atagram
