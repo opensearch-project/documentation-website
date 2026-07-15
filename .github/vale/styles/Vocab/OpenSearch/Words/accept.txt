@@ -239,6 +239,7 @@ tera
 [Uu]nhid(e|ing)
 [Uu]nicast
 [Uu]nigram
+[Uu]nmanaged
 [Uu]nnesting
 [Uu]nrecovered
 [Uu]nregister(s|ed|ing)?
