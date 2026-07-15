@@ -8,7 +8,9 @@ redirect_from:
   - /benchmark/commands/aggregate/
 ---
 
+<!-- vale off -->
 # aggregate
+<!-- vale on -->
 
 The `aggregate` command combines multiple test runs into a single aggregated result, providing a more streamlined way to conduct and analyze multiple test runs. There are two methods of aggregation:
 

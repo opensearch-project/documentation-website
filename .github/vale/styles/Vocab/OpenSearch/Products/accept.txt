@@ -49,6 +49,7 @@ Cohere Embed Multilingual
 Confluent Kafka
 cURL
 Dagre
+Dask
 Dashboards application
 DocumentDB
 DynamoDB
@@ -120,6 +121,7 @@ Lucene
 macOS
 Markdown
 Metadata-Migration-Tool
+MPNet
 Metricbeat
 Microsoft
 Microsoft Power BI

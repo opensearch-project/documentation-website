@@ -5,7 +5,9 @@ nav_order: 5
 permalink: /breaking-changes/
 ---
 
+<!-- vale off -->
 ## 1.x
+<!-- vale on -->
 
 The following breaking changes were introduced in OpenSearch 1.x.
 
@@ -34,7 +36,9 @@ Non-inclusive terms are deprecated in version 2.x and will be permanently remove
 - "Master" is now "Cluster Manager"
 <!-- vale on -->
 
+<!-- vale off -->
 ### Add OpenSearch Notifications plugins
+<!-- vale on -->
 
 In OpenSearch 2.0, the Alerting plugin is now integrated with new plugins for Notifications. If you want to continue to use the notification action in the Alerting plugin, install the new backend plugins `notifications-core` and `notifications`. If you want to manage notifications in OpenSearch Dashboards, use the new `notificationsDashboards` plugin. For more information, see [Notifications]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/index/) on the OpenSearch documentation page.
 

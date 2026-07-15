@@ -12,7 +12,7 @@ You can use the **Dashboards** application in OpenSearch Dashboards to build a p
 
 Use the following tutorial to learn to create a dashboard using the **Dashboards** application and the OpenSearch sample data. The sample datasets have existing sample visualizations that you can use for the dashboard, or you can create your own visualizations. The tutorials demonstrate how to do both.
 
-For an overview of the Dashboards UI, see [Navigating the Dashboards UI]({{site.url}}{{site.baseurl}}/dashboards/dashboard/#navigating-the-dashboards-ui).
+For an overview of the Dashboards UI, see [Navigating the Dashboards application UI]({{site.url}}{{site.baseurl}}/dashboards/dashboard/#navigating-the-dashboards-application-ui).
 
 ## Prerequisites
 

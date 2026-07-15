@@ -21,10 +21,11 @@ OpenSearch Benchmark can be used to provision OpenSearch nodes for testing. If y
 Remember that OpenSearch Benchmark cannot be used to provision OpenSearch nodes when you run OpenSearch Benchmark in a Docker container. If you want to use OpenSearch Benchmark to provision nodes, or if you want to distribute the benchmark workload with the OpenSearch Benchmark daemon, then you must install OpenSearch Benchmark directly on each host using Python and pip.
 {: .important}
 
-When you select a host, you should also think about which workloads you want to run. To see a list of default benchmark workloads, visit the [opensearch-benchmark-workloads](https://github.com/opensearch-project/opensearch-benchmark-workloads) repository on GitHub. As a general rule, make sure that the OpenSearch Benchmark host has enough free storage space to store the compressed data and the fully decompressed data corpus once OpenSearch Benchmark is installed.
+When you select a host, you should also think about which workloads you want to run. To see a list of default benchmark workloads, visit the [`opensearch-benchmark-workloads`](https://github.com/opensearch-project/opensearch-benchmark-workloads) repository on GitHub. As a general rule, make sure that the OpenSearch Benchmark host has enough free storage space to store the compressed data and the fully decompressed data corpus once OpenSearch Benchmark is installed.
 
 If you want to benchmark with a default workload, then use the following table to determine the approximate minimum amount of required free space needed by adding the compressed size with the uncompressed size.
 
+<!-- vale off -->
 | Workload name | Document count | Compressed size | Uncompressed size |
 | :----: | :----: | :----: | :----: |
 | eventdata | 20,000,000 | 756.0 MB | 15.3 GB |
@@ -39,6 +40,7 @@ If you want to benchmark with a default workload, then use the following table t
 | percolator | 2,000,000 | 121.1 kB | 104.9 MB |
 | pmc | 574,199 | 5.5 GB | 21.7 GB |
 | so | 36,062,278 | 8.9 GB | 33.1 GB |
+<!-- vale on -->
 
 Your OpenSearch Benchmark host should use solid-state drives (SSDs) for storage because they perform read and write operations significantly faster than traditional spinning-disk hard drives. Spinning-disk hard drives can introduce performance bottlenecks, which can make benchmark results unreliable and inconsistent.
 {: .tip}
@@ -56,7 +58,7 @@ If you need help installing Python, refer to the official [Python Setup and Usag
 
 Before you begin installing OpenSearch Benchmark, check the following software dependencies.
 
-Use [pyenv](https://github.com/pyenv/pyenv) to manage multiple versions of Python on your host. This is especially useful if your "system" version of Python is earlier than version 3.8.
+Use [`pyenv`](https://github.com/pyenv/pyenv) to manage multiple versions of Python on your host. This is especially useful if your "system" version of Python is earlier than version 3.8.
 {: .tip}
 
 - Check that Python 3.8 or later is installed:

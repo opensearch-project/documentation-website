@@ -61,7 +61,7 @@ The `graphLookup` command supports the following parameters.
 | `depthField=<depthField>` | Optional | The name of the field added to each result document to indicate recursion depth. If omitted, no depth information is added. Depth starts at `0` for the first level. |
 | `supportArray=(true \| false)` | Optional | When `true`, disables early visited-node filter push-down to OpenSearch. Default is `false`. Enable when `fromField` or `toField` contains array values to ensure correct traversal behavior. See [Array fields](#array-fields). |
 | `batchMode=(true \| false)` | Optional | When `true`, collects all start values and performs a single unified BFS traversal. Default is `false`. Output becomes two arrays: `[Array<sourceRows>, Array<lookupResults>]`. See [Batch Mode](#batch-mode). |
-| `usePIT=(true \| false)` | Optional | When `true`, enables Point In Time (PIT) search for the lookup index, allowing complete paginated traversal beyond the `max_result_window` limit. Default is `false`. See [PIT Search](#pit-search). |
+| `usePIT=(true \| false)` | Optional | When `true`, enables Point in Time (PIT) search for the lookup index, allowing complete paginated traversal beyond the `max_result_window` limit. Default is `false`. See [PIT Search](#pit-search). |
 | `filter=(<condition>)` | Optional | A filter condition that restricts which lookup index documents participate in traversal. Only matching documents are considered during BFS. Parentheses are required. Example: `filter=(status = 'active' AND age > 18)`. |
 | `as <outputField>` | Required | The name of the output field that stores all documents discovered during traversal. |
 
@@ -337,7 +337,7 @@ When the `fromField` or `toField` contains array values, set `supportArray=true`
 ## PIT search
 
 
-By default, each level of BFS traversal limits the number of returned documents to the `max_result_window` setting of the lookup index (typically, 10,000). This avoids the overhead of Point In Time (PIT) search but may return incomplete results when a single traversal level matches more documents than the limit.
+By default, each level of BFS traversal limits the number of returned documents to the `max_result_window` setting of the lookup index (typically, 10,000). This avoids the overhead of Point in Time (PIT) search but may return incomplete results when a single traversal level matches more documents than the limit.
 
 When `usePIT=true`, this limit is removed and the lookup table uses PIT-based pagination, which ensures that all matching documents are retrieved at each traversal level. This provides complete and accurate results at the cost of additional search overhead.
 

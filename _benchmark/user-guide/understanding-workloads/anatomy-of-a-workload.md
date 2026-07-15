@@ -10,14 +10,16 @@ parent: Understanding workloads
 
 All workloads contain the following files and directories:
 
-- [workload.json](#workloadjson): Contains all of the workload settings.
-- [index.json](#indexjson): Contains the document mappings and parameters as well as index settings.
-- [files.txt](#filestxt): Contains the data corpora file names.
-- [_test-procedures](#_operations-and-_test-procedures): Most workloads contain only one default test procedure, which is configured in `default.json`.
-- [_operations](#_operations-and-_test-procedures): Contains all of the operations used in test procedures.
-- workload.py: Adds more dynamic functionality to the test.
+- [`workload.json`](#workloadjson): Contains all of the workload settings.
+- [`index.json`](#indexjson): Contains the document mappings and parameters as well as index settings.
+- [`files.txt`](#filestxt): Contains the data corpora file names.
+- [`_test-procedures`](#_operations-and-_test-procedures): Most workloads contain only one default test procedure, which is configured in `default.json`.
+- [`_operations`](#_operations-and-_test-procedures): Contains all of the operations used in test procedures.
+- `workload.py`: Adds more dynamic functionality to the test.
 
+<!-- vale off -->
 ## workload.json
+<!-- vale on -->
 
 The following example workload shows all of the essential elements needed to create a `workload.json` file. You can run this workload in your own benchmark configuration to understand how all of the elements work together:
 
@@ -84,16 +86,20 @@ The following example workload shows all of the essential elements needed to cre
 
 A workload usually includes the following elements:
 
-- [indices]({{site.url}}{{site.baseurl}}/benchmark/workloads/indices/): Defines the relevant indexes and index templates used for the workload.
-- [corpora]({{site.url}}{{site.baseurl}}/benchmark/workloads/corpora/): Defines all document corpora used for the workload.
+- [`indices`]({{site.url}}{{site.baseurl}}/benchmark/workloads/indices/): Defines the relevant indexes and index templates used for the workload.
+- [`corpora`]({{site.url}}{{site.baseurl}}/benchmark/workloads/corpora/): Defines all document corpora used for the workload.
 - `schedule`: Defines operations and the order in which the operations run inline. Alternatively, you can use `operations` to group operations and the `test_procedures` parameter to specify the order of operations.
 - `operations`: **Optional**. Describes which operations are available for the workload and how they are parameterized.
 
-### Indices
+<!-- vale off -->
+### indices
+<!-- vale on -->
 
-To create an index, specify its `name`. To add definitions to your index, use the `body` option and point it to the JSON file containing the index definitions. For more information, see [Indices]({{site.url}}{{site.baseurl}}/benchmark/workloads/indices/).
+To create an index, specify its `name`. To add definitions to your index, use the `body` option and point it to the JSON file containing the index definitions. For more information, see [`indices`]({{site.url}}{{site.baseurl}}/benchmark/workloads/indices/).
 
-### Corpora
+<!-- vale off -->
+### corpora
+<!-- vale on -->
 
 The `corpora` element requires the name of the index containing the document corpus, for example, `movies`, and a list of parameters that define the document corpora. This list includes the following parameters:
 
@@ -102,11 +108,15 @@ The `corpora` element requires the name of the index containing the document cor
 - `uncompressed-bytes`: The size, in bytes, of the source file after decompression, indicating how much disk space the decompressed source file needs.
 - `compressed-bytes`: The size, in bytes, of the source file before decompression. This can help you assess the amount of time needed for the cluster to ingest documents.
 
-### Operations
+<!-- vale off -->
+### operations
+<!-- vale on -->
 
 The `operations` element lists the OpenSearch API operations performed by the workload. For example, you can list an operation named `create-index` that creates an index in the benchmark cluster to which OpenSearch Benchmark can write documents. Operations are usually listed inside of the `schedule` element.
 
-### Schedule
+<!-- vale off -->
+### schedule
+<!-- vale on -->
 
 The `schedule` element contains a list of operations that are run in a specified order, as shown in the following JSON example:
 
@@ -162,7 +172,9 @@ According to this `schedule`, the actions will run in the following order:
    - The `iterations` field defines the number of times each client runs the `search` operation. The benchmark report automatically adjusts the percentile numbers based on this number. To generate a precise percentile, the benchmark needs to run at least 1,000 iterations.
    - The `target-throughput` field defines the number of requests per second performed by each client. This setting can help reduce benchmark latency. For example, a `target-throughput` of 100 requests divided by 8 clients means that each client will issue 12 requests per second. For more information about how target throughput is defined in OpenSearch Benchmark, see [Target throughput]({{site.url}}{{site.baseurl}}/benchmark/user-guide/target-throughput/).
 
+<!-- vale off -->
 ## index.json
+<!-- vale on -->
 
 The `index.json` file defines the data mappings, indexing parameters, and index settings for workload documents during `create-index` operations. 
 
@@ -264,11 +276,15 @@ When OpenSearch Benchmark creates an index for the workload, it uses the index s
 }
 ```
 
+<!-- vale off -->
 ## files.txt
+<!-- vale on -->
 
 The `files.txt` file lists the files that store the workload data, which are typically stored in a zipped JSON file.
 
+<!-- vale off -->
 ## _operations and _test-procedures
+<!-- vale on -->
 
 To make the workload more human-readable, `_operations` and `_test-procedures` are separated into two directories. 
 

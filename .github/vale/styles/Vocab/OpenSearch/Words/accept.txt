@@ -65,6 +65,7 @@ Distro
 [Ff]orecasted
 [Ff]sync
 Gantt
+Gbps
 [Gg]eobounds
 [Gg]eocentroid
 [Gg]eolocate

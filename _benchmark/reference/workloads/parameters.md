@@ -125,7 +125,9 @@ The following template conditionally includes the `target-throughput` field. If 
 ```
 {% include copy.html %}
 
+<!-- vale off -->
 #### If/else for alternative values
+<!-- vale on -->
 
 Use `{% raw %}{% else %}{% endraw %}` to provide a fallback. For example, if `use_zstd` is set to `true` in `--workload-params`, the rendered output sets the `source-file` parameter to `documents.json.zst`. Otherwise, it sets the `source-file` to `documents.json.bz2`:
 
@@ -140,7 +142,7 @@ Use `{% raw %}{% else %}{% endraw %}` to provide a fallback. For example, if `us
 
 #### Conditionally adding index fields
 
-This pattern is commonly used to define optional fields in `vectorsearch` workload templates. The `{% raw %}{%- endif %}{% endraw %}` (with the dash) trims trailing whitespace and newline characters, preventing empty lines from appearing and avoiding invalid JSON formatting (such as trailing commas or misaligned structure):
+This pattern is commonly used to define optional fields in `vectorsearch` workload templates. The `{% raw %}{%- endif %}{% endraw %}` (with the dash) trims trailing white space and newline characters, preventing empty lines from appearing and avoiding invalid JSON formatting (such as trailing commas or misaligned structure):
 
 ```json
 "properties": {

@@ -47,7 +47,7 @@ The following diagram illustrates how each component of the table is measured du
 
 ### Differences between OpenSearch Benchmark and a traditional client-server system
 
-While the definition for _throughput_ remains consistent with other client-server systems, the definitions for `service time` and `latency` differ from most client-server systems in the context of OpenSearch Benchmark. The following table compares the OpenSearch Benchmark definition of service time and latency versus the common definitions for a client-server system.
+While the definition for _throughput_ remains consistent with other client-server systems, the definitions for `service time` and `latency` differ from most client-server systems in the context of OpenSearch Benchmark. The following table compares the OpenSearch Benchmark definition of service time and latency compared to the common definitions for a client-server system.
 
 | Metric | Common definition | **OpenSearch Benchmark definition**	|
 | :--- | :--- |:--- |
@@ -69,11 +69,11 @@ For more information about service time and latency in OpenSearch Benchmark, see
 ### Service time
 
 
-OpenSearch Benchmark does not have insight into how long OpenSearch takes to process a request, apart from extracting the [took time](#took-time) for the request. It makes function calls to `opensearch-py` to communicate with an OpenSearch cluster. 
+OpenSearch Benchmark does not have insight into how long OpenSearch takes to process a request, apart from extracting the [took time](#took-time) for the request. It makes function calls to `opensearch-py` in order to communicate with an OpenSearch cluster. 
 
 OpenSearch Benchmark measures *service time*, which is the amount of time between when the `opensearch-py` client sends a request to and receives a response from the OpenSearch cluster. Unlike the traditional definition of service time, the OpenSearch Benchmark definition includes overhead, such as network latency, load balancer overhead, or deserialization/serialization. The following image shows the differences between the traditional definition and the OpenSearch Benchmark definition.
 
-![Comparison of traditional service time definition versus OpenSearch Benchmark service time definition]({{site.url}}{{site.baseurl}}/images/benchmark/service-time.png)
+![Comparison of traditional service time definition compared to OpenSearch Benchmark service time definition]({{site.url}}{{site.baseurl}}/images/benchmark/service-time.png)
 
 ### Latency
 

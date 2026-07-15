@@ -66,8 +66,8 @@ This section contains global information for the current benchmark environment. 
 | Parameter | Type | Description |
 | :---- | :---- | :---- |
 | `env.name` | String | The name of the benchmark environment used as metadata in metrics documents when an OpenSearch metrics store is configured. Only alphanumeric characters are allowed. Default is `local`. |
-| `available.cores` | Integer | Determines the number of available CPU cores. OpenSearch Benchmark aims to create one asyncio event loop per core and distributes it to clients evenly across event loops. Defaults to the number of logical CPU cores for your cluster. |
-| `async.debug` | Boolean | Enables debug mode on OpenSearch Benchmark's asyncio event loop. Default is `false`. |
+| `available.cores` | Integer | Determines the number of available CPU cores. OpenSearch Benchmark aims to create one `asyncio` event loop per core and distributes it to clients evenly across event loops. Defaults to the number of logical CPU cores for your cluster. |
+| `async.debug` | Boolean | Enables debug mode on OpenSearch Benchmark's `asyncio` event loop. Default is `false`. |
 | `passenv` | String | A comma-separated list of environment variable names that should be passed to OpenSearch for processing. |
 
 <!-- vale off -->
@@ -123,6 +123,7 @@ This section defines how benchmark metrics are stored.
 
 When `datastore.type` is set to `opensearch`, the following reporting settings can be customized.
 
+<!-- vale off -->
 | Parameter | Type | Description |
 | :---- | :---- | :---- |
 | `datastore.host` | IP address | The hostname of the metrics store, for example, `124.340.200.22`. |
@@ -135,6 +136,7 @@ When `datastore.type` is set to `opensearch`, the following reporting settings c
 | `datastore.probe.cluster_version` | String | Enables automatic detection of the metrics store’s version. Default is `true`. |
 | `datastore.number_of_shards` | Integer | The number of primary shards that the `opensearch-*` indexes should have. Any updates to this setting after initial index creation will only be applied to new `opensearch-*` indexes. Default is the [OpenSearch static index value]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/#static-index-level-index-settings). |
 | `datastore.number_of_replicas` | Integer | The number of replicas each primary shard in the datastore contains. Any updates to this setting after initial index creation will only be applied to new `opensearch-* `indexes. Default is the [OpenSearch static index value]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/#static-index-level-index-settings). |
+<!-- vale on -->
 
 ### Examples
 

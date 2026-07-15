@@ -62,7 +62,7 @@ The `_source` can also be disabled in index mappings by using the following conf
 ```
 
 <!-- vale off -->
-If `_source` is disabled in the index mappings, [searching with docvalue fields]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/retrieve-specific-fields/#searching-with-docvalue_fields) and [searching with stored fields]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/retrieve-specific-fields/#searching-with-stored_fields) become extremely useful.
+If `_source` is disabled in the index mappings, [searching with docvalue fields]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/retrieve-specific-fields/#searching-with-doc-value-fields) and [searching with stored fields]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/retrieve-specific-fields/#searching-with-stored_fields) become extremely useful.
 <!-- vale on -->
 
 ## Specifying the fields to retrieve

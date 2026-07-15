@@ -128,7 +128,9 @@ response = client.snapshot.create(
 
 Upon success, the response content depends on whether you include the `wait_for_completion` query parameter.
 
+<!-- vale off -->
 ##### `wait_for_completion` not included
+<!-- vale on -->
 
 ```json
 {
@@ -139,7 +141,9 @@ Upon success, the response content depends on whether you include the `wait_for_
 To verify that the snapshot was created, use the [Get snapshot]({{site.url}}{{site.baseurl}}/api-reference/snapshots/get-snapshot/) API, passing the snapshot name as the `snapshot` path parameter.
 {: .note}
 
+<!-- vale off -->
 ### `wait_for_completion` included
+<!-- vale on -->
 
 The snapshot definition is returned.
 

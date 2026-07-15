@@ -11,7 +11,7 @@ redirect_from:
   - /search-plugins/searching-data/point-in-time-api/
 ---
 
-# Point In Time API
+# Point in Time API
 
 Use the [Point in Time (PIT)]({{site.url}}{{site.baseurl}}/opensearch/point-in-time/) APIs to manage PITs. 
 
