@@ -5,9 +5,11 @@ Alertmanager
 Amazon
 Amazon Bedrock
 Amazon Bedrock Guardrails
+Amazon Kendra
 Amazon Kinesis
 Amazon OpenSearch Serverless
 Amazon OpenSearch Service
+Amazon Personalize
 Amazon SageMaker
 Amazon Simple Email Service
 Ansible

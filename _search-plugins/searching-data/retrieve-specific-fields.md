@@ -61,7 +61,9 @@ The `_source` can also be disabled in index mappings by using the following conf
 }
 ```
 
+<!-- vale off -->
 If `_source` is disabled in the index mappings, [searching with docvalue fields]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/retrieve-specific-fields/#searching-with-docvalue_fields) and [searching with stored fields]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/retrieve-specific-fields/#searching-with-stored_fields) become extremely useful.
+<!-- vale on -->
 
 ## Specifying the fields to retrieve
 
@@ -160,9 +162,7 @@ GET /my_index/_search
 
 Additionally, you can use [most fields]({{site.url}}{{site.baseurl}}/query-dsl/full-text/multi-match/#most-fields) and [field aliases]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/alias/) in the `fields` parameter because it queries both the document `_source` and `_mappings` of the index.
 
-<!-- vale off -->
-## Searching with docvalue_fields
-<!-- vale on -->
+## Searching with doc value fields
 
 To retrieve specific fields from the index, you can also use the `docvalue_fields` parameter. This parameter works slightly differently as compared to the `fields` parameter. It retrieves information from doc values rather than from the `_source` field, which is more efficient for fields that are not analyzed, like keyword, date, and numeric fields. Doc values have a columnar storage format optimized for efficient sorting and aggregations. It stores the values on disk in a way that is easy to read. When you use `docvalue_fields`, OpenSearch reads the values directly from this optimized storage format. It is useful for retrieving values of fields that are primarily used for sorting, aggregations, and for use in scripts.
 
