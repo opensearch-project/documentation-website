@@ -121,6 +121,7 @@ macOS
 Markdown
 Metadata-Migration-Tool
 Metricbeat
+Microsoft
 Microsoft Power BI
 Migration Assistant
 Migration Console
@@ -187,6 +188,7 @@ Stempel
 Strands Agents
 Strimzi
 SVMRank
+Sycamore
 Tableau
 Textract
 Tika
