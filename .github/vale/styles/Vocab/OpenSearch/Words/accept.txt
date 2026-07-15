@@ -188,6 +188,7 @@ peta
 [Ss]ignificand
 [Ss]kippable
 [Ss]napshott(ed|ing)
+[Ss]parklines?
 [Ss]tackable
 [Ss]trikethrough
 [Ss]tringified

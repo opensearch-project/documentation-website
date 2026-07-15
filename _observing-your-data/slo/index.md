@@ -117,7 +117,7 @@ To create an SLO, follow these steps:
 
 ## Monitoring SLOs
 
-The **SLOs** listing displays each SLO with its current state, attainment percentage, remaining error budget, and a spark line. 
+The **SLOs** listing displays each SLO with its current state, attainment percentage, remaining error budget, and a sparkline. 
 
 
 The following table describes the SLO states.
