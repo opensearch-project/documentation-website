@@ -276,7 +276,9 @@ Name | Description | Default
 `refresh_rate_limit_count` | The maximum number of JWKS refresh requests allowed within the time window. | `10`
 `refresh_rate_limit_time_window_ms` | The time window for rate limiting JWKS refresh requests, in milliseconds. | `10000` (10 seconds)
 
+<!-- vale off -->
 ### JWT header with Key ID
+<!-- vale on -->
 
 When using JWKS, your JWT header must include a key ID (`kid`) that identifies the specific key to use for verification:
 
@@ -331,7 +333,9 @@ JWT authentication supports direct JWKS endpoint configuration starting with Ope
 - You can switch between static keys and JWKS by updating the configuration.
 - When both `jwks_uri` and `signing_key` are configured, `jwks_uri` takes precedence and `signing_key` is ignored.
 
+<!-- vale off -->
 ## Using JWT with Teleport
+<!-- vale on -->
 
 You can use JWT tokens issued by Teleport to authenticate users in OpenSearch Dashboards. This integration maps Teleport roles to OpenSearch backend roles for access control.
 
@@ -360,7 +364,7 @@ To configure OpenSearch for using Teleport, perform these actions.
 
 #### Teleport configuration
 
-In the agent configuration file (typically located at /etc/teleport.yaml), configure the application service to automatically include the JWT in a request header:
+In the agent configuration file (typically located at `/etc/teleport.yaml`), configure the application service to automatically include the JWT in a request header:
 
 ```yaml
 # [...]
@@ -404,7 +408,7 @@ systemctl restart dashboards
 
 ### Security node configuration
 
-On the node where you run the `securityadmin.sh` script, update the security plugin configuration file (for example, `/usr/share/opensearch/config/opensearch-security/config.yml`) to configure both authentication methods:
+On the node where you run the `securityadmin.sh` script, update the Security plugin configuration file (for example, `/usr/share/opensearch/config/opensearch-security/config.yml`) to configure both authentication methods:
 
 ```yaml
 _meta:
