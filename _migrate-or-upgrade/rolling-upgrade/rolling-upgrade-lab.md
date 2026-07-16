@@ -6,6 +6,8 @@ nav_exclude: true
 redirect_from:
   - /upgrade-opensearch/appendix/rolling-upgrade-lab/
   - /install-and-configure/upgrade-opensearch/appendix/index/
+  - /install-and-configure/upgrade-opensearch/appendix/
+  - /install-and-configure/upgrade-opensearch/appendix/rolling-upgrade-lab/
   - /migrate-or-upgrade/rolling-upgrade/appendix/
   - /migrate-or-upgrade/rolling-upgrade/appendix/rolling-upgrade-lab/
 ---
