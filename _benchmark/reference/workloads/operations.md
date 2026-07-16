@@ -905,7 +905,7 @@ The `get-async-search` operation retrieves results from one or more previously s
 Parameter | Required | Type | Description
 :--- | :--- | :--- | :---
 `retrieve-results-for` | Yes | String or List | The name of the `submit-async-search` operation (or a list of names) whose results should be retrieved.
-`request-params` | No | Object | Additional request parameters forwarded to the Asyncronous Search Get API.
+`request-params` | No | Object | Additional request parameters forwarded to the Asynchronous Search Get API.
 
 <!-- vale off -->
 ## delete-async-search
