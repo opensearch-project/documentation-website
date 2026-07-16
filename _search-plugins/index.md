@@ -45,7 +45,7 @@ For information about querying data in OpenSearch Dashboards, including the Dash
 
 ## Customizing search results
 
-OpenSearch provides fundamental result handling capabilities that work with all search types.  You can customize result navigation (pagination, sorting), result formatting (highlighting, field selection), query enhancement (autocomplete, did-you-mean), and result filtering. For more information, see [Customizing search results]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/).
+OpenSearch provides fundamental result handling capabilities that work with all search types. You can customize result navigation (pagination, sorting), result formatting (highlighting, field selection), query enhancement (autocomplete, did-you-mean), and result filtering. For more information, see [Customizing search results]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/).
 
 ## Optimizing search quality
 

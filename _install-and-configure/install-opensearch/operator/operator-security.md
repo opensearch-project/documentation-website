@@ -105,7 +105,7 @@ spec:
 
 The namespace of the `OpenSearchUser` must be the namespace the OpenSearch cluster itself is deployed in.
 
-A secret called `sample-user-password` must exist in the `default` namespace with the base64-encoded password in the `password` key.
+A secret called `sample-user-password` must exist in the `default` namespace with the Base64-encoded password in the `password` key.
 {: .note}
 
 You can also store multiple user passwords in the same secret. To do this, create a secret in which each key equals a user name and the value is the user password. Otherwise, changes in the secret do not trigger user reconciliation.
@@ -237,7 +237,7 @@ internal_users.yml: |-
 ```
 {% include copy.html %}
 
-Add the security configuration to your cluster `spec`:
+Add the following security configuration to your `cluster.yaml` file:
 
 ```yaml
 security:
@@ -253,6 +253,9 @@ security:
       generate: true
 ```
 {% include copy.html %}
+
+At a minimum, the `security.tls` section is required for the cluster to start with security enabled. Setting `generate: true` for both `transport` and `http` instructs the operator to automatically generate the required TLS certificates. The operator also automatically creates the admin and OpenSearch Dashboards credentials secrets (`<cluster-name>-admin-password` and `<cluster-name>-dashboards-password`) when they are not explicitly specified.
+{: .note}
 
 ### Changing the admin password
 

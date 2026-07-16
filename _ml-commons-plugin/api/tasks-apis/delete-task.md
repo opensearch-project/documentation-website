@@ -43,3 +43,23 @@ DELETE /_plugins/_ml/tasks/xQRYLX8BydmmU1x6nuD3
   "_primary_term" : 7
 }
 ```
+
+## Error responses
+
+If you attempt to delete a task that doesn't exist, OpenSearch returns a 404 Not Found error:
+
+```json
+{
+  "error": {
+    "root_cause": [
+      {
+        "type": "status_exception",
+        "reason": "Failed to find task"
+      }
+    ],
+    "type": "status_exception",
+    "reason": "Failed to find task"
+  },
+  "status": 404
+}
+```

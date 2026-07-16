@@ -6,7 +6,11 @@ grand_parent: PPL
 nav_order: 7
 ---
 
+<!-- vale off -->
+
 # appendpipe
+
+<!-- vale on -->
 
 The `appendpipe` command appends the results of a subpipeline to the search results. Unlike a subsearch, the subpipeline is not executed first; it runs only when the search reaches the `appendpipe` command.
 
@@ -45,6 +49,8 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | severityText | log_count | total |
 | --- | --- | --- |
 | ERROR | 7 | null |
@@ -52,6 +58,8 @@ The query returns the following results:
 | WARN | 4 | null |
 | DEBUG | 3 | null |
 | null | null | 20 |
+
+<!-- vale on -->
   
 
 ## Example 2: Appending summary statistics to detail rows  
@@ -71,6 +79,8 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | resource.attributes.service.name | error_count | avg_errors |
 | --- | --- | --- |
 | checkout | 2 | null |
@@ -79,6 +89,8 @@ The query returns the following results:
 | product-catalog | 1 | null |
 | recommendation | 1 | null |
 | null | null | 1.4 |
+
+<!-- vale on -->
 
 
 ## Limitations

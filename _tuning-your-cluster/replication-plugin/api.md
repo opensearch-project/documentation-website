@@ -1,50 +1,64 @@
 ---
 layout: default
-title: API
+title: Cross-Cluster Replication API
 nav_order: 50
 parent: Cross-cluster replication
 redirect_from:
   - /replication-plugin/api/
 ---
 
-# Cross-cluster replication API
+# Cross-Cluster Replication API
 
 Use these replication operations to programmatically manage cross-cluster replication.
 
-#### Table of contents
+<details markdown="block">
+  <summary>
+    Table of contents
+  </summary>
+  {: .text-delta }
 - TOC
 {:toc}
+</details>
 
 ## Start replication
-Introduced 1.1
+**Introduced 1.1**
 {: .label .label-purple }
 
 Initiate replication of an index from the leader cluster to the follower cluster. Send this request to the follower cluster.
 
 
-#### Request
+### Endpoints
 
 ```json
 PUT /_plugins/_replication/{follower-index}/_start
+```
+
+### Request body fields
+
+The following table lists the available request body fields.
+
+| Field | Data type | Description | Required |
+| :--- | :--- | :--- | :--- |
+| `leader_alias` | String | The name of the cross-cluster connection. You define this alias when you [set up a cross-cluster connection]({{site.url}}{{site.baseurl}}/replication-plugin/get-started/#set-up-a-cross-cluster-connection). | Yes |
+| `leader_index` | String | The index on the leader cluster that you want to replicate. | Yes |
+| `use_roles` | Object | The roles to use for all subsequent backend replication tasks between the indexes. Specify a `leader_cluster_role` and `follower_cluster_role`. See [Map the leader and follower cluster roles]({{site.url}}{{site.baseurl}}/replication-plugin/permissions/#map-the-leader-and-follower-cluster-roles). | If Security plugin is enabled |
+
+### Example request
+
+```json
+PUT /_plugins/_replication/follower-01/_start
 {
-   "leader_alias":"<connection-alias-name>",
-   "leader_index":"<index-name>",
-   "use_roles":{
-      "leader_cluster_role":"<role-name>",
-      "follower_cluster_role":"<role-name>"
+   "leader_alias": "my-connection-alias",
+   "leader_index": "leader-01",
+   "use_roles": {
+      "leader_cluster_role": "cross_cluster_replication_leader_full_access",
+      "follower_cluster_role": "cross_cluster_replication_follower_full_access"
    }
 }
 ```
+{% include copy-curl.html %}
 
-Specify the following options:
-
-Options | Description | Type | Required
-:--- | :--- |:--- |:--- |
-`leader_alias` |  The name of the cross-cluster connection. You define this alias when you [set up a cross-cluster connection]({{site.url}}{{site.baseurl}}/replication-plugin/get-started/#set-up-a-cross-cluster-connection). | `string` | Yes
-`leader_index` |  The index on the leader cluster that you want to replicate. | `string` | Yes
-`use_roles` |  The roles to use for all subsequent backend replication tasks between the indexes. Specify a `leader_cluster_role` and `follower_cluster_role`. See [Map the leader and follower cluster roles]({{site.url}}{{site.baseurl}}/replication-plugin/permissions/#map-the-leader-and-follower-cluster-roles). | `string` | If Security plugin is enabled
-
-#### Example response
+### Example response
 
 ```json
 {
@@ -53,19 +67,26 @@ Options | Description | Type | Required
 ```
 
 ## Stop replication
-Introduced 1.1
+**Introduced 1.1**
 {: .label .label-purple }
 
 Terminates replication and converts the follower index to a standard index. Send this request to the follower cluster.
 
-#### Request
+### Endpoints
 
 ```json
 POST /_plugins/_replication/{follower-index}/_stop
-{}
 ```
 
-#### Example response
+### Example request
+
+```json
+POST /_plugins/_replication/follower-01/_stop
+{}
+```
+{% include copy-curl.html %}
+
+### Example response
 
 ```json
 {
@@ -74,21 +95,28 @@ POST /_plugins/_replication/{follower-index}/_stop
 ```
 
 ## Pause replication
-Introduced 1.1
+**Introduced 1.1**
 {: .label .label-purple }
 
 Pauses replication of the leader index. Send this request to the follower cluster.
 
-#### Request
+### Endpoints
 
 ```json
-POST /_plugins/_replication/{follower-index}/_pause 
-{}
+POST /_plugins/_replication/{follower-index}/_pause
 ```
 
-You can't resume replication after it's been paused for more than 12 hours. You must [stop replication]({{site.url}}{{site.baseurl}}/replication-plugin/api/#stop-replication), delete the follower index, and restart replication of the leader.
+### Example request
 
-#### Example response
+```json
+POST /_plugins/_replication/follower-01/_pause
+{}
+```
+{% include copy-curl.html %}
+
+You can't resume replication after it's been paused longer than the retention lease period. To recover, use [force-resume]({{site.url}}{{site.baseurl}}/tuning-your-cluster/replication-plugin/force-resume/), which restores the follower index from a snapshot of the leader.
+
+### Example response
 
 ```json
 {
@@ -97,19 +125,34 @@ You can't resume replication after it's been paused for more than 12 hours. You 
 ```
 
 ## Resume replication
-Introduced 1.1
+**Introduced 1.1**
 {: .label .label-purple }
 
 Resumes replication of the leader index. Send this request to the follower cluster.
 
-#### Request
+### Endpoints
 
 ```json
 POST /_plugins/_replication/{follower-index}/_resume
-{}
 ```
 
-#### Example response
+### Request body fields
+
+The following table lists the available request body fields.
+
+| Field | Data type | Description | Required |
+| :--- | :--- | :--- | :--- |
+| `force_resume` | Boolean | When set to `true`, performs a stop-delete-start cycle to restore the follower index from the leader when retention leases have expired. Use this when replication has been paused for more than 12 hours and a normal resume fails. For more information, see [Force resume replication]({{site.url}}{{site.baseurl}}/tuning-your-cluster/replication-plugin/force-resume/). Default is `false`. | No |
+
+### Example request
+
+```json
+POST /_plugins/_replication/follower-01/_resume
+{}
+```
+{% include copy-curl.html %}
+
+### Example response
 
 ```json
 {
@@ -117,19 +160,38 @@ POST /_plugins/_replication/{follower-index}/_resume
 }
 ```
 
+### Error responses
+
+The following table describes common error responses for the resume operation.
+
+| Status code | Error | Description |
+| :--- | :--- | :--- |
+| 404 | `Retention lease doesn't exist. Use force_resume=true to restore from snapshot.` | The retention lease has expired and `force_resume` was not set to `true`. Retry the request with `"force_resume": true`. |
+| 400 | Replication is not in PAUSED state | Force resume can only be used when replication is paused. Check the replication status first. |
+| 500 | Failed to stop replication | The internal stop operation failed. Verify cluster health and retry. |
+| 500 | Failed to delete follower index | The follower index could not be deleted after stopping replication. Manual cleanup may be required. |
+| 500 | Failed to start replication | The internal start operation failed after the follower was deleted. You may need to manually start replication again. |
+
 ## Get replication status
-Introduced 1.1
+**Introduced 1.1**
 {: .label .label-purple }
 
 Gets the status of index replication. Possible statuses are `SYNCING`, `BOOTSTRAPING`, `PAUSED`, and `REPLICATION NOT IN PROGRESS`. Use the syncing details to measure replication lag. Send this request to the follower cluster.
 
-#### Request
+### Endpoints
 
 ```json
 GET /_plugins/_replication/{follower-index}/_status
 ```
 
-#### Example response
+### Example request
+
+```json
+GET /_plugins/_replication/follower-01/_status
+```
+{% include copy-curl.html %}
+
+### Example response
 
 ```json
 {
@@ -150,18 +212,25 @@ To include shard replication details in the response, add the `&verbose=true` pa
 The leader and follower checkpoint values begin as negative integers and reflect the shard count (-1 for one shard, -5 for five shards, and so on). The values increment toward positive integers with each change that you make. For example, when you make a change on the leader index, the `leader_checkpoint` becomes `0`. The `follower_checkpoint` is initially still `-1` until the follower index pulls the change from the leader, at which point it increments to `0`. If the values are the same, it means the indexes are fully synced.
 
 ## Get leader cluster stats
-Introduced 1.1
+**Introduced 1.1**
 {: .label .label-purple }
 
 Gets information about replicated leader indexes on a specified cluster. 
 
-#### Request
+### Endpoints
 
 ```json
 GET /_plugins/_replication/leader_stats
 ```
 
-#### Example response
+### Example request
+
+```json
+GET /_plugins/_replication/leader_stats
+```
+{% include copy-curl.html %}
+
+### Example response
 
 ```json
 {
@@ -197,18 +266,25 @@ GET /_plugins/_replication/leader_stats
 ```
 
 ## Get follower cluster stats
-Introduced 1.1
+**Introduced 1.1**
 {: .label .label-purple }
 
 Gets information about follower (syncing) indexes on a specified cluster. 
 
-#### Request
+### Endpoints
 
 ```json
 GET /_plugins/_replication/follower_stats
 ```
 
-#### Example response
+### Example request
+
+```json
+GET /_plugins/_replication/follower_stats
+```
+{% include copy-curl.html %}
+
+### Example response
 
 ```json
 {
@@ -255,18 +331,25 @@ GET /_plugins/_replication/follower_stats
 ```
 
 ## Get auto-follow stats
-Introduced 1.1
+**Introduced 1.1**
 {: .label .label-purple }
 
 Gets information about auto-follow activity and any replication rules configured on the specified cluster.
 
-#### Request
+### Endpoints
 
 ```json
 GET /_plugins/_replication/autofollow_stats
 ```
 
-#### Example response
+### Example request
+
+```json
+GET /_plugins/_replication/autofollow_stats
+```
+{% include copy-curl.html %}
+
+### Example response
 
 ```json
 {
@@ -292,24 +375,31 @@ GET /_plugins/_replication/autofollow_stats
 ```
 
 ## Update settings
-Introduced 1.1
+**Introduced 1.1**
 {: .label .label-purple }
 
 Updates settings on the follower index.
 
-#### Request
+### Endpoints
 
 ```json
 PUT /_plugins/_replication/{follower-index}/_update
+```
+
+### Example request
+
+```json
+PUT /_plugins/_replication/follower-01/_update
 {
-   "settings":{
+   "settings": {
       "index.number_of_shards": 4,
       "index.number_of_replicas": 2
    }
 }
 ```
+{% include copy-curl.html %}
 
-#### Example response
+### Example response
 
 ```json
 {
@@ -318,7 +408,7 @@ PUT /_plugins/_replication/{follower-index}/_update
 ```
 
 ## Create replication rule
-Introduced 1.1
+**Introduced 1.1**
 {: .label .label-purple }
 
 Automatically starts replication on indexes matching a specified pattern. If a new index on the leader cluster matches the pattern, OpenSearch automatically creates a follower index and begins replication. You can also use this API to update existing replication rules.
@@ -328,31 +418,40 @@ Send this request to the follower cluster.
 Make sure to note the names of all auto-follow patterns after you create them. The replication plugin currently does not include an API operation to retrieve a list of existing patterns.
 {: .tip }
 
-#### Request
+### Endpoints
+
+```json
+POST /_plugins/_replication/_autofollow
+```
+
+### Request body fields
+
+The following table lists the available request body fields.
+
+| Field | Data type | Description | Required |
+| :--- | :--- | :--- | :--- |
+| `leader_alias` | String | The name of the cross-cluster connection. You define this alias when you [set up a cross-cluster connection]({{site.url}}{{site.baseurl}}/replication-plugin/get-started/#set-up-a-cross-cluster-connection). | Yes |
+| `name` | String | A name for the auto-follow pattern. | Yes |
+| `pattern` | String | An array of index patterns to match against indexes in the specified leader cluster. Supports wildcard characters. For example, `leader-*`. | Yes |
+| `use_roles` | Object | The roles to use for all subsequent backend replication tasks between the indexes. Specify a `leader_cluster_role` and `follower_cluster_role`. See [Map the leader and follower cluster roles]({{site.url}}{{site.baseurl}}/replication-plugin/permissions/#map-the-leader-and-follower-cluster-roles). | If Security plugin is enabled |
+
+### Example request
 
 ```json
 POST /_plugins/_replication/_autofollow
 {
-   "leader_alias" : "<connection-alias-name>",
-   "name": "<auto-follow-pattern-name>",
-   "pattern": "<pattern>",
-   "use_roles":{
-      "leader_cluster_role": "<role-name>",
-      "follower_cluster_role": "<role-name>"
+   "leader_alias": "my-connection-alias",
+   "name": "my-replication-rule",
+   "pattern": "leader-*",
+   "use_roles": {
+      "leader_cluster_role": "cross_cluster_replication_leader_full_access",
+      "follower_cluster_role": "cross_cluster_replication_follower_full_access"
    }
 }
 ```
+{% include copy-curl.html %}
 
-Specify the following options:
-
-Options | Description | Type | Required
-:--- | :--- |:--- |:--- |
-`leader_alias` |  The name of the cross-cluster connection. You define this alias when you [set up a cross-cluster connection]({{site.url}}{{site.baseurl}}/replication-plugin/get-started/#set-up-a-cross-cluster-connection). | `string` | Yes
-`name` |  A name for the auto-follow pattern. | `string` | Yes
-`pattern` |  An array of index patterns to match against indexes in the specified leader cluster. Supports wildcard characters. For example, `leader-*`. | `string` | Yes
-`use_roles` |  The roles to use for all subsequent backend replication tasks between the indexes. Specify a `leader_cluster_role` and `follower_cluster_role`. See [Map the leader and follower cluster roles]({{site.url}}{{site.baseurl}}/replication-plugin/permissions/#map-the-leader-and-follower-cluster-roles). | `string` | If Security plugin is enabled
-
-#### Example response
+### Example response
 
 ```json
 {
@@ -361,31 +460,40 @@ Options | Description | Type | Required
 ```
 
 ## Delete replication rule
-Introduced 1.1
+**Introduced 1.1**
 {: .label .label-purple }
 
 Deletes the specified replication rule. This operation prevents any new indexes from being replicated but does not stop existing replication that the rule has already initiated. Replicated indexes remain read-only until you stop replication.
 
 Send this request to the follower cluster.
 
-#### Request
+### Endpoints
+
+```json
+DELETE /_plugins/_replication/_autofollow
+```
+
+### Request body fields
+
+The following table lists the available request body fields.
+
+| Field | Data type | Description | Required |
+| :--- | :--- | :--- | :--- |
+| `leader_alias` | String | The name of the cross-cluster connection. You define this alias when you [set up a cross-cluster connection]({{site.url}}{{site.baseurl}}/replication-plugin/get-started/#set-up-a-cross-cluster-connection). | Yes |
+| `name` | String | The name of the pattern. | Yes |
+
+### Example request
 
 ```json
 DELETE /_plugins/_replication/_autofollow
 {
-   "leader_alias" : "<connection-alias-name>",
-   "name": "<auto-follow-pattern-name>",
+   "leader_alias": "my-connection-alias",
+   "name": "my-replication-rule"
 }
 ```
+{% include copy-curl.html %}
 
-Specify the following options:
-
-Options | Description | Type | Required
-:--- | :--- |:--- |:--- |
-`leader_alias` |  The name of the cross-cluster connection. You define this alias when you [set up a cross-cluster connection]({{site.url}}{{site.baseurl}}/replication-plugin/get-started/#set-up-a-cross-cluster-connection). | `string` | Yes
-`name` |  The name of the pattern. | `string` | Yes
-
-#### Example response
+### Example response
 
 ```json
 {

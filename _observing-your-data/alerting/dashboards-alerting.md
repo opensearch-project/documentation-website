@@ -1,8 +1,9 @@
 ---
 layout: default
-title: Alerting dashboards and visualizations 
+title: Alerting dashboards and visualizations
 parent: Alerting
 nav_order: 50
+has_children: true
 ---
 
 # Alerting dashboards and visualizations
@@ -17,7 +18,7 @@ Create, manage, and take action on your alerts in a single, consolidated view an
 
 The following image gives you a snapshot of the Dashboard interface. 
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/alerting-dashboard.png" alt="Example alerting visualization" width="800" height="800">
+![Example alerting visualization]({{site.url}}{{site.baseurl}}/images/dashboards/alerting-dashboard.png){: width="800" height="800" }
 
 ## Getting started 
 
@@ -60,7 +61,7 @@ To create an alerting monitor:
 
 An example of these steps is shown in the following screenshot.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/create-monitor-menu.png" alt="Create monitor interface" width="400" height="400">
+![Create monitor interface]({{site.url}}{{site.baseurl}}/images/dashboards/create-monitor-menu.png){: width="400" height="400" }
 
 ## Associating monitors
 
@@ -83,7 +84,7 @@ Once you've created or associated alerting monitors, verify that the monitor is 
 3. Select the ellipsis icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/ellipsis-icon.png" class="inline-icon" alt="ellipsis icon"/>{:/}), then **Alerting** > **Associated monitors**.
 4. Choose an alerting monitor from the list. Information such as history, alerts, and associated visualizations is shown within the visualization panel.
 5. Unlink or edit a monitor. 
-   1. Unlink a monitor from the visualization by selecting the link icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/link-icon.png" class="inline-icon" alt="link icon"/>{:/}) under **Actions**. This only unlinks the monitor from the visualization; it does not delete the monitor.
+   1. Unlink a monitor from the visualization by selecting the link icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/link-icon.png" class="inline-icon" alt="link icon"/>{:/}) under **Actions**. This only dissociates the monitor from the visualization; it does not delete the monitor.
    2. Edit the monitor's metrics by selecting the edit icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/edit-icon.png" class="inline-icon" alt="edit icon"/>{:/}).
 
 ## Next steps

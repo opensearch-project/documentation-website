@@ -65,6 +65,13 @@ For more information, see [Installation quickstart]({{site.url}}{{site.baseurl}}
 
 </details>
 
+## Running API requests
+
+This guide includes API request examples that you can run in several ways:
+
+- **OpenSearch Dashboards Dev Tools console** (recommended): Open OpenSearch Dashboards at `http://localhost:5601`, select **Dev Tools** in the upper-right corner, and paste the request. Select the request and choose the play button. For more information, see [Running queries in the console]({{site.url}}{{site.baseurl}}/dashboards/visualize/run-queries/).
+- **cURL**: Use the **Copy as cURL** button next to each code example to copy the request in cURL format, then paste and run it in your terminal.
+
 ## Step 1: Create a vector index
 
 First, create an index that will store sample hotel data. To signal to OpenSearch that this is a vector index, set `index.knn` to `true`. You'll store the vectors in a vector field named `location`. The vectors you'll ingest will be two-dimensional, and the distance between vectors will be calculated using the [Euclidean `l2` similarity metric]({{site.url}}{{site.baseurl}}/vector-search/getting-started/vector-search-basics/#calculating-similarity):
@@ -88,7 +95,7 @@ PUT /hotels-index
 ```
 {% include copy-curl.html %}
 
-Vector queries usually have a `size` > 0, so by default they don't enter the request cache. In OpenSearch 2.19 or later, if your workload mostly consists of vector queries, consider increasing the dynamic `indices.requests.cache.maximum_cacheable_size` cluster setting to a larger value, such as `256`. This allows queries with a `size` of up to 256 to enter the request cache, improving performance. For more information, see [Request cache]({{site.url}}{{site.baseurl}}/search-plugins/caching/request-cache).
+Vector queries usually have a `size` > 0, so by default they don't enter the request cache. In OpenSearch 2.19 or later, if your workload mostly consists of vector queries, consider increasing the dynamic `indices.requests.cache.maximum_cacheable_size` cluster setting to a larger value, such as `256`. This allows queries with a `size` of up to 256 to enter the request cache, improving performance. For more information, see [Request cache]({{site.url}}{{site.baseurl}}/search-plugins/caching/request-cache/).
 
 ## Step 2: Add data to your index
 

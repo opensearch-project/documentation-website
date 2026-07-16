@@ -9,7 +9,7 @@ has_toc: false
 ---
 
 # Template queries
-Introduced 2.19
+**Introduced 2.19**
 {: .label .label-purple }
 
 A template query allows you to create queries with dynamic placeholders that are resolved by search request processors during query execution. This is particularly useful when your query parameters need to be generated or transformed during the search process, such as when using machine learning (ML) inference to convert text into vector embeddings.

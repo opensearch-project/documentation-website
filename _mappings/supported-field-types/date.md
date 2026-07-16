@@ -58,7 +58,7 @@ Parameter | Description
 `meta` | Accepts metadata for this field.
 [`null_value`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/index#null-value) | A value to be used in place of `null`. Must be of the same type as the field. If this parameter is not specified, the field is treated as missing when its value is `null`. Default is `null`.
 `skip_list` | A Boolean value that specifies whether to enable skip list indexing for doc values. When enabled, OpenSearch creates indexed doc values that can improve performance for `range` queries by allowing the query engine to skip irrelevant document ranges. Skip list indexing is automatically enabled for the `@timestamp` field and fields used for index sorting. For all other fields, the default is `false`.
-`store` | A Boolean value that specifies whether the field value should be stored and can be retrieved separately from the _source field. Default is `false`. 
+`store` | A Boolean value that specifies whether the field value should be stored and can be retrieved separately from the `_source` field. Default is `false`. 
 
 ## Formats
 
@@ -402,6 +402,6 @@ After OpenSearch reconstructs `_source`, all dates are in the `strict_date_time_
 
 ```json
 {
-  "date": ["2025-09-22T00:34:00.000Z", "2025-09-22T01:34:00.000Z", "2025-09-22T01:34:00.000Z"]
+  "date": ["1970-01-21T08:28:24Z", "2025-09-22T00:34:00Z", "2025-09-22T01:34:20Z"]
 }
 ```

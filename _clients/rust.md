@@ -8,7 +8,7 @@ nav_order: 100
 
 The OpenSearch Rust client lets you connect your Rust application with the data in your OpenSearch cluster. For the client's complete API documentation and additional examples, see the [OpenSearch docs.rs documentation](https://docs.rs/opensearch/).
 
-This getting started guide illustrates how to connect to OpenSearch, index documents, and run queries. For the client source code, see the [opensearch-rs repo](https://github.com/opensearch-project/opensearch-rs).
+This getting started guide illustrates how to connect to OpenSearch, index documents, and run queries. For the client source code, see the [`opensearch-rs` repo](https://github.com/opensearch-project/opensearch-rs).
 
 ## Setup
 
@@ -28,7 +28,7 @@ serde_json = "~1"
 ```
 {% include copy.html %}
 
-The Rust client uses the higher-level [`reqwest`](https://crates.io/crates/reqwest) HTTP client library for HTTP requests, and reqwest uses the [`tokio`](https://crates.io/crates/tokio) platform to support asynchronous requests. If you are planning to use asynchronous functions, you need to add the `tokio` dependency to Cargo.toml:
+The Rust client uses the higher-level [`reqwest`](https://crates.io/crates/reqwest) HTTP client library for HTTP requests, and `reqwest` uses the [`tokio`](https://crates.io/crates/tokio) platform to support asynchronous requests. If you are planning to use asynchronous functions, you need to add the `tokio` dependency to Cargo.toml:
 
 ```rust
 tokio = { version = "*", features = ["full"] }

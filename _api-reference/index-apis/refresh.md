@@ -65,9 +65,7 @@ The following table lists the available query parameters. All query parameters a
 | `expand_wildcards` | String | The type of index that the wildcard patterns can match. If the request targets data streams, this argument determines whether the wildcard expressions match any hidden data streams. Supports comma-separated values, such as `open,hidden`. Valid values are `all`, `open`, `closed`, `hidden`, and `none`.
 
 
-## Example requests
-
-### Refresh several data streams or indexes
+## Example request: Refreshing several data streams or indexes
 
 The following example request refreshes two indexes named `my-index-A` and `my-index-B`:
 
@@ -94,7 +92,7 @@ response = client.indices.refresh(
     python=step1_python %}
 <!-- spec_insert_end -->
 
-### Refresh all data streams and indexes in a cluster
+## Example request: Refreshing all data streams and indexes
 
 The following request refreshes all data streams and indexes in a cluster:
 
@@ -103,7 +101,7 @@ POST /_refresh
 ```
 {% include copy-curl.html %}
 
-### Refresh using the GET method
+## Example request: Refreshing using the GET method
 
 You can also use the `GET` method to refresh indexes. The following example uses `GET` to refresh a specific index:
 
@@ -120,3 +118,6 @@ The document APIs such as Index, Update, Delete, and Bulk APIs support a `refres
 
 For more information about the `refresh` parameter, see the [Index Document API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/index-document/), [Update Document API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/update-document/), [Delete Document API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/delete-document/), and [Bulk API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/) documentation.
 
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `indices:admin/refresh` and `indices:admin/refresh*`.

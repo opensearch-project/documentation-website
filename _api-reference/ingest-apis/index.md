@@ -23,3 +23,11 @@ Simplify, secure, and scale your OpenSearch data ingestion with the following AP
 - [Simulate pipeline]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/simulate-ingest/): Use this pipeline to test a pipeline configuration.
 - [Access data in a pipeline]({{site.url}}{{site.baseurl}}/ingest-pipelines/accessing-data/): Use this API to access data in a pipeline.
 - [Delete pipeline]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/delete-ingest/): Use this API to delete a pipeline configuration.
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions. The following permissions are required for this API:
+
+- `cluster:admin/ingest/pipeline/get`: Required for getting pipelines
+- `cluster:admin/ingest/pipeline/put`: Required for creating or updating pipelines
+- `cluster:admin/ingest/pipeline/delete`: Required for deleting pipelines

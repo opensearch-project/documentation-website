@@ -69,7 +69,7 @@ A _star node_ (marked as `*` in the following diagram) aggregates all values for
 
 The following diagram shows a star-tree index created for this example and three example query paths. In the diagram, notice that each branch corresponds to a dimension (`status` and `port`). Some nodes contain precomputed aggregation values (for example, `Sum(size)`), allowing OpenSearch to skip unnecessary calculations at query time.
 
-<img src="{{site.url}}{{site.baseurl}}/images/star-tree-index.png" alt="A star-tree index containing two dimensions and two metrics">
+![A star-tree index containing two dimensions and two metrics]({{site.url}}{{site.baseurl}}/images/star-tree-index.png)
 
 The colored arrows show three query examples:
 
@@ -360,7 +360,7 @@ You can use [date histograms]({{site.url}}{{site.baseurl}}/aggregations/bucket/d
 To use date histogram aggregations and make them searchable in a star-tree index, remember the following requirements:
 
 - The calendar intervals in a star-tree mapping configuration can use either the request's calendar field or a field of lower granularity than the request field. For example, if an aggregation uses the `month` field, the star-tree search can still use lower-granularity fields such as `day`.
-- A metric sub-aggregation must be part of the aggregation request.
+- A metric subaggregation must be part of the aggregation request.
 
 The following example filters logs to include only those with status codes between `200` and `400` and sets the `size` of the response to `0`, so that only aggregated results are returned. It then aggregates the filtered logs by calendar month and calculates the total `size` of the requests for each month:
 

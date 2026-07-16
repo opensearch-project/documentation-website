@@ -41,12 +41,14 @@ The request body is optional.
 
 Field | Data type | Description
 :--- | :--- | :---
-`indices` | String | The indices you want to include in the snapshot. You can use `,` to create a list of indices, `*` to specify an index pattern, and `-` to exclude certain indices. Don't put spaces between items. Default is all indices.
+`indices` | String | The indexes you want to include in the snapshot. You can use `,` to create a list of indexes, `*` to specify an index pattern, and `-` to exclude certain indexes. Don't put spaces between items. Default is all indexes.
 `ignore_unavailable` | Boolean | If an index from the `indices` list doesn't exist, whether to ignore it rather than fail the snapshot. Default is `false`.
 `include_global_state` | Boolean | Whether to include cluster state in the snapshot. Default is `true`.
 `partial` | Boolean | Whether to allow partial snapshots. Default is `false`, which fails the entire snapshot if one or more shards fails to stor
 
 ## Example requests
+
+The following examples demonstrate how to create a snapshot.
 
 ### Request without a body
 
@@ -78,7 +80,7 @@ response = client.snapshot.create(
 
 ### Request with a body
 
-You can also add a request body to include or exclude certain indices or specify other settings:
+You can also add a request body to include or exclude certain indexes or specify other settings:
 
 <!-- spec_insert_start
 component: example_code
@@ -126,7 +128,9 @@ response = client.snapshot.create(
 
 Upon success, the response content depends on whether you include the `wait_for_completion` query parameter.
 
+<!-- vale off -->
 ##### `wait_for_completion` not included
+<!-- vale on -->
 
 ```json
 {
@@ -134,10 +138,12 @@ Upon success, the response content depends on whether you include the `wait_for_
 }
 ```
 
-To verify that the snapshot was created, use the [Get snapshot]({{site.url}}{{site.baseurl}}/api-reference/snapshots/get-snapshot) API, passing the snapshot name as the `snapshot` path parameter.
+To verify that the snapshot was created, use the [Get snapshot]({{site.url}}{{site.baseurl}}/api-reference/snapshots/get-snapshot/) API, passing the snapshot name as the `snapshot` path parameter.
 {: .note}
 
+<!-- vale off -->
 ### `wait_for_completion` included
+<!-- vale on -->
 
 The snapshot definition is returned.
 
@@ -179,20 +185,24 @@ The snapshot definition is returned.
 
 | Field | Data type | Description |
 | :--- | :--- | :--- | 
-| snapshot | string | Snapshot name. |
-| uuid | string | Snapshot's universally unique identifier (UUID). |
-| version_id | int | Build ID of the Open Search version that created the snapshot. |
-| version | float | Open Search version that created the snapshot. |
-| indices | array | Indices in the snapshot. |
-| data_streams | array | Data streams in the snapshot. |
-| include_global_state | boolean | Whether the current cluster state is included in the snapshot. |
-| start_time | string | Date/time when the snapshot creation process began. |
-| start_time_in_millis | long | Time (in milliseconds) when the snapshot creation process began. |
-| end_time | string | Date/time when the snapshot creation process ended. |
-| end_time_in_millis | long | Time (in milliseconds) when the snapshot creation process ended. |
-| duration_in_millis | long | Total time (in milliseconds) that the snapshot creation process lasted. |
-| failures | array | Failures, if any, that occured during snapshot creation. |
-| shards | object | Total number of shards created along with number of successful and failed shards. |
-| state | string | Snapshot status. Possible values: `IN_PROGRESS`, `SUCCESS`, `FAILED`, `PARTIAL`. |
-| remote_store_index_shallow_copy | Boolean | Whether the snapshots of the remote store indexes is captured as a shallow copy. Default is `false`. |
-| pinned_timestamp | long      | A timestamp (in milliseconds) pinned by the snapshot for the implicit locking of remote store files referenced by the snapshot. |
+| `snapshot` | String | Snapshot name. |
+| `uuid` | String | Snapshot's universally unique identifier (UUID). |
+| `version_id` | Integer | Build ID of the Open Search version that created the snapshot. |
+| `version` | Float | Open Search version that created the snapshot. |
+| `indices` | Array | Indexes in the snapshot. |
+| `data_streams` | Array | Data streams in the snapshot. |
+| `include_global_state` | Boolean | Whether the current cluster state is included in the snapshot. |
+| `start_time` | String | Date/time when the snapshot creation process began. |
+| `start_time_in_millis` | Long | Time (in milliseconds) when the snapshot creation process began. |
+| `end_time` | String | Date/time when the snapshot creation process ended. |
+| `end_time_in_millis` | Long | Time (in milliseconds) when the snapshot creation process ended. |
+| `duration_in_millis` | Long | Total time (in milliseconds) that the snapshot creation process lasted. |
+| `failures` | Array | Failures, if any, that occurred during snapshot creation. |
+| `shards` | Object | Total number of shards created along with number of successful and failed shards. |
+| `state` | String | Snapshot status. Possible values: `IN_PROGRESS`, `SUCCESS`, `FAILED`, `PARTIAL`. |
+| `remote_store_index_shallow_copy` | Boolean | Whether the snapshots of the remote store indexes is captured as a shallow copy. Default is `false`. |
+| `pinned_timestamp` | Long | A timestamp (in milliseconds) pinned by the snapshot for the implicit locking of remote store files referenced by the snapshot. |
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `cluster:admin/snapshot/create`.

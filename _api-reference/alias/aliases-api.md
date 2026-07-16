@@ -5,7 +5,6 @@ parent: Alias APIs
 grand_parent: Index APIs
 nav_order: 50
 redirect_from:
- - /opensearch/rest-api/alias/
  - /api-reference/index-apis/alias/
 ---
 
@@ -228,7 +227,10 @@ POST /_aliases
 ```
 {% include copy-curl.html %}
 
+
+<!-- vale off -->
 ## Example: Use the indices array
+<!-- vale on -->
 
 Alternatively, you can specify multiple indexes in a single action using the `indices` array:
 
@@ -512,6 +514,10 @@ All successful alias operations return the same response format:
     "acknowledged": true
 }
 ```
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `indices:admin/aliases/get`.
 
 ## Related documentation
 

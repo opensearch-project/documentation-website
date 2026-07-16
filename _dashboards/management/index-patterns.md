@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Index patterns
-parent: Dashboards Management
+parent: Connecting data sources
 nav_order: 10
 ---
 
@@ -11,25 +11,19 @@ Index patterns are essential for accessing OpenSearch data. An _index pattern_ r
 
 If you store data in multiple indexes, creating an index pattern enables your visualizations to retrieve data from all indexes that match the index pattern. You need to create index patterns to define how data is retrieved and fields are formatted so that you can query, search, and display data. 
 
-## Get started
 
-In this tutorial, you'll learn to create index patterns.  
-
-{::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/alert-icon.png" class="inline-icon" alt="alert icon" size="m"/>{:/}**Note**<br>
-To create or modify index patterns, you must have create, manage, and delete permissions. Contact your administrator for support. For more information, refer to [Multi-tenancy configuration]({{site.url}}{{site.baseurl}}/security/multi-tenancy/multi-tenancy-config/#give-roles-access-to-tenants).
-{: .note}
 
 ## Prerequisites
 
 Before you can create an index pattern, your data must be indexed. To learn about indexing your data in OpenSearch, see [Managing indexes]({{site.url}}{{site.baseurl}}/im-plugin/index/). 
 
-## Best practices
-
-Consider the following best practices when creating index patterns:
-
-- **Make your index patterns specific.** Instead of creating an index pattern that matches all indexes, create an index pattern that matches all indexes starting with a certain prefix, for example, `my-index-`. The more specific your index patterns, the better it will be to query and analyze your data.
-- **Use wildcards sparingly.** Wildcards can be useful for matching multiple indexes, but they can also make it more difficult to manage your index patterns. Try to use wildcards as specifically as possible.
-- **Test your index patterns.** Make sure to test your index patterns to ensure that they match the correct indexes. 
+> To create or modify index patterns, your role must have the following permissions:
+> - The `kibana_user` role (or equivalent), which grants access to OpenSearch Dashboards.
+> - The `kibana_all_write` tenant permission for the tenant in which you want to create the index pattern. With `kibana_all_read`, you can view existing index patterns but cannot create or modify them.
+> - Read access to the indexes that the index pattern will match.
+>
+> Contact your administrator for support. For more information about tenant permissions, see [Multi-tenancy configuration]({{site.url}}{{site.baseurl}}/security/multi-tenancy/multi-tenancy-config/#give-roles-access-to-tenants). For more information about roles, see [Predefined roles]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/#predefined-roles).
+{: .note}
 
 ## Creating an index pattern
 
@@ -44,7 +38,7 @@ If you added sample data, you have index patterns that you can use to analyze th
 
 An example of step 1 is shown in the following image. Note that the index pattern `security*` matches three indexes. By defining the pattern with a wildcard `*`, you can query and visualize all the data in your indexes.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/index-patterns-step1.png" alt="Index pattern step 1 UI " width="700"/>
+![Index pattern step 1 UI ]({{site.url}}{{site.baseurl}}/images/dashboards/index-patterns-step1.png){: width="700" }
 
 ### Step 2: Configure the settings
 
@@ -52,13 +46,21 @@ An example of step 1 is shown in the following image. Note that the index patter
 
 2. Select **Create index pattern.** An example is shown in the following image.
 
-    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/index-pattern-step2.png" alt="Index pattern step 2 UI " width="700"/>
+    ![Index pattern step 2 UI ]({{site.url}}{{site.baseurl}}/images/dashboards/index-pattern-step2.png){: width="700" }
 
 Once the index pattern has been created, you can view the mapping of the matching indexes. Within the table, you can see the list of fields, along with their data type and properties. An example is shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/index-pattern-table.png" alt="Index pattern table UI " width="700"/>
+![Index pattern table UI ]({{site.url}}{{site.baseurl}}/images/dashboards/index-pattern-table.png){: width="700" }
+
+## Best practices
+
+Consider the following best practices when creating index patterns:
+
+- **Make your index patterns specific**: Instead of creating an index pattern that matches all indexes, create an index pattern that matches all indexes starting with a certain prefix, for example, `my-index-`. The more specific your index patterns, the better it will be to query and analyze your data.
+- **Use wildcards sparingly**: Wildcards can be useful for matching multiple indexes, but they can also make it more difficult to manage your index patterns. Try to use wildcards as specifically as possible.
+- **Test your index patterns**: Make sure to test your index patterns to ensure that they match the correct indexes. 
 
 ## Next steps
 
-- [Understand your data through visuals]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/).
+- [Understand your data through visuals]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/).
 - [Dig into your data]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/).

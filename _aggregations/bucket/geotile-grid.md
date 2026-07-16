@@ -9,7 +9,7 @@ redirect_from:
 
 # Geotile grid aggregations
 
-The geotile grid aggregation groups documents into grid cells for geographical analysis. Each grid cell corresponds to a [map tile](https://en.wikipedia.org/wiki/Tiled_web_map) and is identified using the `{zoom}/{x}/{y}` format. You can aggregate documents on [geopoint]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point/) or [geoshape]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-shape/) fields using a geotile grid aggregation. One notable difference is that a geopoint is only present in one bucket, but a geoshape is counted in all geotile grid cells with which it intersects.
+The geotile grid aggregation groups documents into grid cells for geographical analysis. Each grid cell corresponds to a [map tile](https://en.wikipedia.org/wiki/Tiled_web_map) and is identified using the `{zoom}/{x}/{y}` format. You can aggregate documents on [geopoint]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/geo-point/) or [geoshape]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/geo-shape/) fields using a geotile grid aggregation. One notable difference is that a geopoint is only present in one bucket, but a geoshape is counted in all geotile grid cells with which it intersects.
 
 ## Precision
 

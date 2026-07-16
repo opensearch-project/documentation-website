@@ -6,7 +6,11 @@ grand_parent: PPL
 nav_order: 20
 ---
 
+<!-- vale off -->
+
 # flatten
+
+<!-- vale on -->
 
 The `flatten` command converts a struct or object field into individual fields within a document.
 
@@ -48,12 +52,16 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | severityText | name | version |
 | --- | --- | --- |
 | INFO | @opentelemetry/instrumentation-http | 0.57.0 |
 | INFO | Microsoft.Extensions.Hosting | 9.0.0 |
 | WARN | go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc | 0.49.0 |
 | ERROR | @opentelemetry/instrumentation-http | 0.57.0 |
+
+<!-- vale on -->
   
 
 ## Limitations

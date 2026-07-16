@@ -127,7 +127,7 @@ The predefined functions do not support function signatures with missing paramet
 
 ### Example: Predefined functions
 
-The following example creates a date histogram with a one-week interval from the OpenSearch Dashboards logs sample data. The `sum` sub-aggregation calculates the sum of all bytes logged for each week. Finally, the `moving_fn` aggregation calculates the standard deviation of the byte sum using a `window` size of `5`, the default `shift` of `0`, and unweighted means:
+The following example creates a date histogram with a one-week interval from the OpenSearch Dashboards logs sample data. The `sum` subaggregation calculates the sum of all bytes logged for each week. Finally, the `moving_fn` aggregation calculates the standard deviation of the byte sum using a `window` size of `5`, the default `shift` of `0`, and unweighted means:
 
 ```json
 POST /opensearch_dashboards_sample_data_logs/_search
@@ -311,7 +311,7 @@ You can supply an arbitrary custom script to calculate `moving_fn` results. Cust
 
 ### Example: Custom scripts
 
-The following example creates a date histogram with a one-week interval from the OpenSearch Dashboards e-commerce sample data. The `sum` sub-aggregation calculates the sum of all taxed revenue for each week. The `moving_fn` script then returns the greater of the two values previous to the current value or `NaN` if two values are not available:
+The following example creates a date histogram with a one-week interval from the OpenSearch Dashboards e-commerce sample data. The `sum` subaggregation calculates the sum of all taxed revenue for each week. The `moving_fn` script then returns the greater of the two values previous to the current value or `NaN` if two values are not available:
 
 ```json
 POST /opensearch_dashboards_sample_data_ecommerce/_search
@@ -436,7 +436,7 @@ The example returns the results of the calculation starting in bucket three, whe
 
 The `moving_fn` aggregation replaces the deprecated `moving_avg` aggregation. The `moving_fn` aggregation is similar to the `moving_avg` aggregation but is more versatile since it computes arbitrary functions instead of only averages. All of the predefined `moving_avg` functions are implemented in `moving_fn` as well. 
 
-The `holt` model is a moving average that uses exponentially decaying weights controlled by the `alpha` and `beta` parameters. The following example creates a date histogram with a one-week interval from the OpenSearch Dashboards logs sample data. The `sum` sub-aggregation calculates the sum of all bytes for each week. Finally, the `moving_fn` aggregation calculates a weighted average of the byte sum using a Holt model with a `window` size of `6`, the default `shift` of `0`, an `alpha` value of `0.3`, and a `beta` value of `0.1`:
+The `holt` model is a moving average that uses exponentially decaying weights controlled by the `alpha` and `beta` parameters. The following example creates a date histogram with a one-week interval from the OpenSearch Dashboards logs sample data. The `sum` subaggregation calculates the sum of all bytes for each week. Finally, the `moving_fn` aggregation calculates a weighted average of the byte sum using a Holt model with a `window` size of `6`, the default `shift` of `0`, an `alpha` value of `0.3`, and a `beta` value of `0.1`:
 
 ```json
 POST /opensearch_dashboards_sample_data_logs/_search

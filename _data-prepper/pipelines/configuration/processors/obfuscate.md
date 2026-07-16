@@ -97,9 +97,9 @@ You cannot use multiple patterns for one obfuscate processor. Use one pattern fo
 
 | Pattern name          | Examples                                                                                                                                                                      |
 |-----------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| %{EMAIL_ADDRESS}      | abc@test.com<br/> 123@test.com<br/>abc123@test.com<br/>abc_123@test.com<br/>a-b@test.com<br/>a.b@test.com<br/>abc@test-test.com<br/>abc@test.com.cn<br/>abc@test.mail.com.org |
-| %{IP_ADDRESS_V4}      | 1.1.1.1<br/>192.168.1.1<br/>255.255.255.0                                                                                                                                     |
-| %{BASE_NUMBER}        | 1.1<br/>.1<br/>2000                                                                                                                                                           |
-| %{CREDIT_CARD_NUMBER} | 5555555555554444<br/>4111111111111111<br/>1234567890123456<br/>1234 5678 9012 3456<br/> 1234-5678-9012-3456                                                                   |
-| %{US_PHONE_NUMBER}    | 1555 555 5555<br/>5555555555<br/>1-555-555-5555<br/>1-(555)-555-5555<br/>1(555) 555 5555<br/>(555) 555 5555<br/>+1-555-555-5555<br/>                                          |
-| %{US_SSN_NUMBER}      | 123-11-1234     
+| `%{EMAIL_ADDRESS}`      | `abc@test.com`<br/>`123@test.com`<br/>`abc123@test.com`<br/>`abc_123@test.com`<br/>`a-b@test.com`<br/>`a.b@test.com`<br/>`abc@test-test.com`<br/>`abc@test.com.cn`<br/>`abc@test.mail.com.org` |
+| `%{IP_ADDRESS_V4}`      | `1.1.1.1`<br/>`192.168.1.1`<br/>`255.255.255.0`                                                                                                                                     |
+| `%{BASE_NUMBER}`        | `1.1`<br/>`.1`<br/>`2000`                                                                                                                                                           |
+| `%{CREDIT_CARD_NUMBER}` | `5555555555554444`<br/>`4111111111111111`<br/>`1234567890123456`<br/>`1234 5678 9012 3456`<br/>`1234-5678-9012-3456`                                                                   |
+| `%{US_PHONE_NUMBER}`    | `1555 555 5555`<br/>`5555555555`<br/>`1-555-555-5555`<br/>`1-(555)-555-5555`<br/>`1(555) 555 5555`<br/>`(555) 555 5555`<br/>`+1-555-555-5555`                                          |
+| `%{US_SSN_NUMBER}`      | `123-11-1234`     

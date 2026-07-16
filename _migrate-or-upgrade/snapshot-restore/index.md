@@ -37,6 +37,8 @@ A typical snapshot-based migration follows this workflow:
 
 ## Key considerations for migration
 
+Consider the following before migrating using snapshots.
+
 ### Data consistency
 Snapshots capture data as it existed when the snapshot was initiated, but they're not instantaneous. For migration purposes, consider:
 - **Stopping writes** to ensure data consistency during the final snapshot.

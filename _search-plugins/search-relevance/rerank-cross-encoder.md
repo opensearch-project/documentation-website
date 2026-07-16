@@ -8,7 +8,7 @@ nav_order: 10
 ---
 
 # Reranking search results using a cross-encoder model
-Introduced 2.12
+**Introduced 2.12**
 {: .label .label-purple }
 
 You can rerank search results using a cross-encoder model in order to improve search relevance. To implement reranking, you need to configure a [search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/) that runs at search time. The search pipeline intercepts search results and applies the [`rerank` processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rerank-processor/) to them. The `rerank` processor evaluates the search results and sorts them based on the new scores provided by the cross-encoder model. 

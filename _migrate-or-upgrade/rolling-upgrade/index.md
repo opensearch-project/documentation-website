@@ -2,13 +2,13 @@
 layout: default
 title: Rolling upgrade
 nav_order: 20
+has_children: true
 has_toc: true
 permalink: /migrate-or-upgrade/rolling-upgrade/
 nav_exclude: false
 redirect_from:
  - /upgrade-opensearch/
  - /rolling-upgrade/index/
- - /migrate-or-upgrade/rolling-upgrade/appendix/
  - /install-and-configure/upgrade-opensearch/rolling-upgrade/
 ---
 
@@ -26,6 +26,13 @@ Before making any changes to your OpenSearch cluster, is it highly recommended t
 
 **Important**: The minimum required cluster version for upgrades to 3.x.x is 2.19.0.
 {: .important}
+
+### Cross-cluster replication
+
+If your cluster uses [cross-cluster replication]({{site.url}}{{site.baseurl}}/tuning-your-cluster/replication-plugin/), follow these guidelines when upgrading:
+
+- **Unidirectional replication**: Upgrade the follower cluster first, then the leader cluster.
+- **Bidirectional replication**: Stop replication in one direction, then upgrade both clusters. For the replication that remains active, upgrade the follower cluster first, then the leader cluster. Resume the stopped replication after both clusters are upgraded.
 
 ## Performing the upgrade
 
@@ -220,7 +227,7 @@ Before making any changes to your OpenSearch cluster, is it highly recommended t
    os-node-01  1.3.7    dimr       -
    os-node-03  1.3.7    dimr       -
    ```
-1. The upgrade is now complete, and you can begin enjoying the latest features and fixes!
+1. The upgrade is now complete, and you can begin using the latest features and fixes.
 
 ## Rolling restart
 
@@ -282,6 +289,6 @@ By preserving quorum and restarting nodes sequentially, rolling restarts ensure 
 
 - [Rolling upgrade lab]({{site.url}}{{site.baseurl}}/migrate-or-upgrade/rolling-upgrade/rolling-upgrade-lab/) -- A hands-on lab with step-by-step instructions for practicing rolling upgrades in a test environment.
 - [OpenSearch configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/)
-- [Performance analyzer]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/index/)
+- [Performance Analyzer]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/index/)
 - [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/)
 - [About Security in OpenSearch]({{site.url}}{{site.baseurl}}/security/index/)

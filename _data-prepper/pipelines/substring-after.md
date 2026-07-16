@@ -6,7 +6,9 @@ grand_parent: Pipelines
 nav_order: 60
 ---
 
+<!-- vale off -->
 # substringAfter()
+<!-- vale on -->
 
 The `substringAfter()` function is used to extract the portion of a string that follows the first occurrence of a specified delimiter. It takes two arguments:
 

@@ -2,7 +2,7 @@
 layout: default
 title: indices
 parent: Workload reference
-grand_parent: OpenSearch Benchmark Reference
+grand_parent: Reference
 nav_order: 65
 redirect_from:
   - /benchmark/workloads/indices/
@@ -12,7 +12,7 @@ redirect_from:
 # indices
 <!-- vale on -->
 
-The `indices` element contains a list of all indices used in the workload. 
+The `indices` element contains a list of all indexes used in the workload. 
 
 ## Example
 

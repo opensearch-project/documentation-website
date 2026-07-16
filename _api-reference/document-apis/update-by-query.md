@@ -405,7 +405,9 @@ response = client.update_by_query(
     python=step1_python %}
 <!-- spec_insert_end -->
 
+<!-- vale off -->
 ## Example: Using noop for conditional updates
+<!-- vale on -->
 
 The following example request increases discount only for products priced above $100, otherwise performs no operation:
 
@@ -862,7 +864,7 @@ The following example response shows a successful update by query operation that
 }
 ```
 
-When using a script with conditional noop operations, the response includes a `noops` count showing how many documents were skipped:
+When using a script with conditional `noop` operations, the response includes a `noops` count showing how many documents were skipped:
 
 ```json
 {
@@ -1000,3 +1002,7 @@ POST _tasks/<task_id>/_cancel
 {% include copy-curl.html %}
 
 Cancellation should happen quickly but might take a few seconds. The Tasks API continues to list the update by query task until it checks that it has been canceled and terminates itself. When you cancel an update by query operation with slices, OpenSearch cancels each sub-request.
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `indices:data/write/update/byquery`.

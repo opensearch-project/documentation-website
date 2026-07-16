@@ -54,6 +54,41 @@ PUT _ingest/pipeline/my-pipeline
 ```
 {% include copy-curl.html %}
 
+To index a document through the pipeline, specify the pipeline name in the `pipeline` query parameter:
+
+```json
+POST students/_doc/1?pipeline=my-pipeline
+{
+  "name": "john doe"
+}
+```
+{% include copy-curl.html %}
+
+To verify the pipeline processed the document, retrieve it:
+
+```json
+GET students/_doc/1
+```
+{% include copy-curl.html %}
+
+The response shows that the pipeline set `grad_year` and `graduated` and converted `name` to uppercase:
+
+```json
+{
+  "_index": "students",
+  "_id": "1",
+  "_version": 1,
+  "_seq_no": 0,
+  "_primary_term": 1,
+  "found": true,
+  "_source": {
+    "graduated": true,
+    "name": "JOHN DOE",
+    "grad_year": 2023
+  }
+}
+```
+
 To learn more about error handling, see [Handling pipeline failures]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/pipeline-failures/).
 
 ## Request body fields
@@ -84,22 +119,60 @@ Some processor parameters support [Mustache](https://mustache.github.io/) templa
 
 #### Example: `set` ingest processor using Mustache template snippet
 
-The following example sets the field `{% raw %}{{{role}}}{% endraw %}` with a value `{% raw %}{{{tenure}}}{% endraw %}`:
+Building on the student data pipeline shown in the [example request](#example-request), the following example uses Mustache template snippets to dynamically set field names and values. Instead of hardcoding the field name and value, the processor reads them from the document itself. In this example, the field name is taken from the document's `{% raw %}{{{department}}}{% endraw %}` field and the value is taken from the `{% raw %}{{{advisor}}}{% endraw %}` field:
 
 ```json
 PUT _ingest/pipeline/my-pipeline
 {
- "processors": [
+  "processors": [
     {
       "set": {
-        "field": "{% raw %}{{{role}}}{% endraw %}",
-        "value": "{% raw %}{{{tenure}}}{% endraw %}"
-         }
+        "field": "{% raw %}{{{department}}}{% endraw %}",
+        "value": "{% raw %}{{{advisor}}}{% endraw %}"
+      }
     }
   ]
 }
 ```
 {% include copy-curl.html %}
+
+To test this pipeline, index a document that contains the `department` and `advisor` fields:
+
+```json
+POST students/_doc/2?pipeline=my-pipeline
+{
+  "name": "Jane Smith",
+  "department": "computer_science",
+  "advisor": "Dr. Smith"
+}
+```
+{% include copy-curl.html %}
+
+Retrieve the document to verify the result:
+
+```json
+GET students/_doc/2
+```
+{% include copy-curl.html %}
+
+The response shows that the pipeline dynamically created a `computer_science` field with the value `Dr. Smith`:
+
+```json
+{
+  "_index": "students",
+  "_id": "2",
+  "_version": 1,
+  "_seq_no": 1,
+  "_primary_term": 1,
+  "found": true,
+  "_source": {
+    "advisor": "Dr. Smith",
+    "computer_science": "Dr. Smith",
+    "name": "Jane Smith",
+    "department": "computer_science"
+  }
+}
+```
 
 ## Processor tags for monitoring and debugging
 

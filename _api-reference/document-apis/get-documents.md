@@ -566,3 +566,7 @@ Internally, OpenSearch marks the old document version as deleted when a document
 The Get Document API uses the document ID to compute a hash value that identifies the shard storing the document. OpenSearch then routes the request to one of the replicas in that shard group (including the primary shard and its replicas) and returns the result.
 
 Having more shard replicas improves GET operation scalability because the load is distributed across multiple replicas, increasing throughput for retrieval requests.
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `indices:data/read/get`.

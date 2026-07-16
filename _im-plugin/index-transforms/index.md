@@ -16,7 +16,7 @@ For example, suppose that you have airline data that’s scattered across multip
 
 You can use transform jobs in two ways:
 
-1. Use the OpenSearch Dashboards UI to specify the index you want to transform and any optional data filters you want to use to filter the original index. Then select the fields you want to transform and the aggregations to use in the transformation. Finally, define a schedule for your job to follow.
+1. Use OpenSearch Dashboards to specify the index you want to transform and any optional data filters you want to use to filter the original index. Then select the fields you want to transform and the aggregations to use in the transformation. Finally, define a schedule for your job to follow.
 1. Use the Transforms API to specify all the details about your job: the index you want to transform, target groups for the transformed index, any aggregations you want to use to group columns, and a schedule for your job to follow.
 
 OpenSearch Dashboards provides a detailed summary of the jobs you created and their relevant information, such as associated indexes and job statuses. You can review and edit your job’s details and selections before creation, and even preview a transformed index’s data as you’re choosing which fields to transform. However, you can also use the REST API to create transform jobs and preview transform job results, but you must know all of the necessary settings and parameters to submit them as part of the HTTP request body. Submitting your transform job configurations as JSON scripts offers you more portability, allowing you to share and replicate your transform jobs, which is harder to do using OpenSearch Dashboards.
@@ -30,7 +30,7 @@ If you don't have any data in your cluster, you can use the sample flight data w
 ### Step 1: Choose indexes
 
 1. In the **Job name and description** section, specify a name and an optional description for your job.
-2. In the **Indices** section, select the source and target index. You can either select an existing target index or create a new one by entering a name for your new index. If you want to transform just a subset of your source index, choose **Edit data filter**, and use the OpenSearch query DSL to specify a subset of your source index. For more information about the OpenSearch query DSL, see [query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/).
+2. In the **Indices** section, select the source and target index. You can either select an existing target index or create a new one by entering a name for your new index. If you want to transform only a subset of your source index, choose **Edit data filter**, and use the OpenSearch query DSL to specify a subset of your source index. For more information about the OpenSearch query DSL, see [query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/).
 3. Choose **Next**.
 
 ### Step 2: Select fields to transform
@@ -53,7 +53,7 @@ On the other hand, aggregations let you perform simple calculations. For example
 You can configure transform jobs to run once or multiple times on a schedule. Transform jobs are enabled by default.
 
 1. Choose whether the job should be **continuous**. Continuous jobs execute at each **transform execution interval** and incrementally transform newly modified buckets, which can include new data added to the source indexes. Non-continuous jobs execute only once.
-1. For **transformation execution interval**, specify a transform interval in minutes, hours, or days. This interval dicatates how often continuous jobs should execute, and non-continuous jobs execute once after the interval elapses.
+1. For **transformation execution interval**, specify a transform interval in minutes, hours, or days. This interval dictates how often continuous jobs should execute, and non-continuous jobs execute once after the interval elapses.
 1. Under **Advanced**, specify an optional amount for **Pages per execution**. A larger number means more data is processed in each search request, but also uses more memory and causes higher latency. Exceeding allowed memory limits can cause exceptions and errors to occur.
 1. Choose **Next**.
 
@@ -61,7 +61,7 @@ You can configure transform jobs to run once or multiple times on a schedule. Tr
 
 After confirming your transform job’s details are correct, choose **Create Transform Job**. If you want to edit any part of the job, choose **Edit** of the section you want to change, and make the necessary changes. You can’t change aggregations or groupings after creating a job.
 
-### Step 5: Search through the transformed index.
+### Step 5: Search through the transformed index
 
 Once the transform job finishes, you can use the `_search` API operation to search the target index.
 
@@ -71,7 +71,7 @@ GET {target_index}/_search
 
 For example, after running a transform job that transforms the flight data based on a `DestAirportID` field, you can run the following request that returns all of the fields that have a value of `SFO`.
 
-**Sample Request**
+**Example request**
 
 ```json
 GET finished_flight_job/_search
@@ -84,7 +84,7 @@ GET finished_flight_job/_search
 }
 ```
 
-**Sample Response**
+**Example response**
 
 ```json
 {

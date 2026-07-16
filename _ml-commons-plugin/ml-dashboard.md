@@ -15,7 +15,7 @@ Administrators of machine learning (ML) clusters can use OpenSearch Dashboards t
 
 You can register and deploy models using the API only. For more information, see [Using ML models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-serving-framework/).
 
-## Enabling ML in Dashboards
+## Enabling ML in OpenSearch Dashboards
 
 In OpenSearch 2.6, ML functionality is disabled by default. To enable it, you need to edit the configuration in `opensearch_dashboards.yml` and then restart your cluster.
 
@@ -27,11 +27,11 @@ To enable the feature:
 4. Restart the Dashboards container.
 5. Verify that the feature configuration settings were created and configured properly by launching OpenSearch Dashboards. The Machine Learning section should appear under **OpenSearch plugins**.
 
-## Accessing ML functionality in Dashboards
+## Accessing ML functionality in OpenSearch Dashboards
 
 To access ML functionality in OpenSearch Dashboards, select **OpenSearch plugins** > **Machine Learning**.
 
-<img src="{{site.url}}{{site.baseurl}}/images/ml/ml-dashboard/ml-dashboard.png" alt="Machine Learning section in OpenSearch dashboards">
+![Machine Learning section in OpenSearch dashboards]({{site.url}}{{site.baseurl}}/images/ml/ml-dashboard/ml-dashboard.png)
 
 In the Machine Learning section, you now have access to the **Deployed models** dashboard.
 
@@ -39,7 +39,7 @@ In the Machine Learning section, you now have access to the **Deployed models** 
 
 The deployed models dashboard gives admins the ability to check the status of any models stored inside your OpenSearch cluster. 
 
-<img src="{{site.url}}{{site.baseurl}}/images/ml/ml-dashboard/deployed-models.png" alt="The deployed models view.">
+![The deployed models view.]({{site.url}}{{site.baseurl}}/images/ml/ml-dashboard/deployed-models.png)
 
 The dashboard includes the following information about the model:
 
@@ -53,7 +53,7 @@ The dashboard includes the following information about the model:
 
 As of OpenSearch 2.6, the only action available is **View Status Details**, shown in the following image. 
 
-<img src="{{site.url}}{{site.baseurl}}/images/ml/ml-dashboard/view-status-details.png" alt="You can view status details under actions.">
+![You can view status details under actions.]({{site.url}}{{site.baseurl}}/images/ml/ml-dashboard/view-status-details.png)
 
 When selected, the Status Details panel appears.
 
@@ -64,7 +64,7 @@ The panel provides the following details inside the panel:
 
 A list of nodes gives you a view of each node the model is running on, including each node’s **Node ID** and status, as shown in the following image. This is useful if you want to use the node's **Node ID** to determine why a node is unresponsive.
 
-<img src="{{site.url}}{{site.baseurl}}/images/ml/ml-dashboard/model-node-details.png" alt="The status of each node running the model.">
+![The status of each node running the model.]({{site.url}}{{site.baseurl}}/images/ml/ml-dashboard/model-node-details.png)
 
 ## Next steps
 

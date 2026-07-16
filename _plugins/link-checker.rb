@@ -77,11 +77,15 @@ module Jekyll::LinkChecker
     'www.base64decode.org', # 403s on bots
     'docs.docker.com', # 403s on bots,
     'docs-vizlib.insightsoftware.com', # 403s on bots,
+    'www.javadoc.io', # 522s on bots (Cloudflare)
     'medium.com', # 403s on bots
     'www.iso.org', # 403s on bots
     'elastic.co', # 406s on bots
     'www.elastic.co', # 406s on bots
-    'example.issue.link' # a fake example link from the template
+    'example.issue.link', # a fake example link from the template
+    'jinja.palletsprojects.com', # 429s on bots
+    'lemurproject.org', # timeouts on bots
+    'www.cs.cmu.edu' # timeouts on bots
   ]
 
   ##

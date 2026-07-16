@@ -21,7 +21,7 @@ When the `--redline-test` flag is used, OpenSearch Benchmark performs the follow
 
 The following images provides a visual overview of the redline testing architecture.
 
-<img src="{{site.url}}{{site.baseurl}}/images/benchmark/osb-actor-system.png" alt="Redline Overview" width="600">
+![Redline Overview]({{site.url}}{{site.baseurl}}/images/benchmark/osb-actor-system.png){: width="600" }
 
 
 ## Usage
@@ -108,7 +108,7 @@ Redline test finished. Maximum stable client number reached: 410
 
 Use the following optional command flags to better understand and customize a redline test run:
 
-- `--redline-scale-step`: Specifies the number of clients to unpause in each scaling iteration.
+- `--redline-scale-step`: Specifies the number of clients to resume in each scaling iteration.
 - `--redline-scaledown-percentage`: Specifies the percentage of clients to pause when an error occurs.
 - `--redline-post-scaledown-sleep`: Specifies the number of seconds the feedback actor waits before initiating a scale-up after scaling down.
 - `--redline-max-clients`: Specifies the maximum number of clients allowed during redline testing. If unset, OpenSearch Benchmark defaults to the number of clients defined in the test procedure.

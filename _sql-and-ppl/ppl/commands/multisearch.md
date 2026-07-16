@@ -6,14 +6,18 @@ grand_parent: PPL
 nav_order: 29
 ---
 
+<!-- vale off -->
+
 # multisearch
+
+<!-- vale on -->
 
 
 The `multisearch` command runs multiple subsearches and merges their results. It allows you to combine data from different queries on the same or different sources. You can optionally apply subsequent processing, such as aggregation or sorting, to the combined results. Each subsearch can have different filtering criteria, data transformations, and field selections. 
 
-Multisearch is particularly useful for comparative analysis, union operations, and creating comprehensive datasets from multiple search criteria. The command supports timestamp-based result interleaving when working with time-series data.
+The `multisearch` command is particularly useful for comparative analysis, union operations, and creating comprehensive datasets from multiple search criteria. The command supports timestamp-based result interleaving when working with time-series data.
 
-Use multisearch for:
+Use `multisearch` for:
 
 * **Comparative analysis**: Compare metrics across different segments, regions, or time periods.
 * **Success rate monitoring**: Calculate success rates by comparing successful to total operations.
@@ -46,7 +50,7 @@ The `multisearch` command supports the following parameters.
 | Parameter | Required/Optional | Description |
 | --- | --- | --- |
 | `<subsearchN>` | Required | At least two subsearches are required. Each subsearch must be enclosed in square brackets and start with the `search` keyword (`[search source=index | <commands>]`). All PPL commands are supported within subsearches. |
-| `<result-processing>` | Optional | Commands applied to the merged results after the multisearch operation (for example, `stats`, `sort`, or `head`). |  
+| `<result-processing>` | Optional | Commands applied to the merged results after the `multisearch` operation (for example, `stats`, `sort`, or `head`). |  
 
 ## Example 1: Comparing errors with debug logs
 
@@ -66,6 +70,8 @@ This example merges error logs with debug logs side by side. This is useful when
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | env | resource.attributes.service.name | body |
 | --- | --- | --- |
 | debug | cart | Cache miss for key user:session:U200 in Valkey cluster |
@@ -78,6 +84,8 @@ The query returns the following results:
 | errors | payment | Out of memory: Java heap space - shutting down pod payment-6f8d4b-ht7q3 |
 | errors | product-catalog | Database primary node unreachable: connection refused to db-primary-01:5432 |
 | errors | recommendation | Failed to process recommendation request: invalid product ID from 203.0.113.50 |
+
+<!-- vale on -->
   
 
 ## Example 2: Segmenting logs by severity tier
@@ -98,6 +106,8 @@ This example separates critical and non-critical logs for comparative analysis:
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | severityText | severityNumber | tier |
 | --- | --- | --- |
 | ERROR | 17 | critical |
@@ -111,6 +121,8 @@ The query returns the following results:
 | WARN | 13 | warning |
 | WARN | 13 | warning |
 | WARN | 13 | warning |
+
+<!-- vale on -->
   
 
 ## Example 3: Merging time-series data from multiple sources
@@ -128,6 +140,8 @@ This example demonstrates how to combine time-series data from different sources
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | @timestamp | category | value | timestamp |
 | --- | --- | --- | --- |
 | 2025-08-01 04:00:00 | E | 2001 | 2025-08-01 04:00:00 |
@@ -135,6 +149,8 @@ The query returns the following results:
 | 2025-08-01 02:30:00 | F | 2002 | 2025-08-01 02:30:00 |
 | 2025-08-01 01:14:11 | B | 9015 | 2025-08-01 01:14:11 |
 | 2025-08-01 01:00:00 | E | 2003 | 2025-08-01 01:00:00 |
+
+<!-- vale on -->
   
 
 ## Example 4: Handling missing fields across subsearches
@@ -155,6 +171,8 @@ This example demonstrates how `multisearch` handles schema differences when subs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | severityText | resource.attributes.service.name | needs_page |
 | --- | --- | --- |
 | ERROR | checkout | yes |
@@ -162,6 +180,8 @@ The query returns the following results:
 | ERROR | frontend-proxy | yes |
 | WARN | frontend-proxy | null |
 | WARN | frontend-proxy | null |
+
+<!-- vale on -->
   
 
 ## Limitations

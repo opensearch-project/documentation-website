@@ -2,30 +2,31 @@
 layout: default
 title: Exploring data with Discover
 parent: Exploring data
-nav_order: 20
+nav_order: 10
 has_children: true
+has_toc: false
 ---
 
 # Exploring data with Discover
 
 You can use the **Discover** application in **OpenSearch Dashboards** to explore and visualize your data in OpenSearch.
 
-This page describes how to use **Discover** to:
+## Prerequisites
 
-- [View data](#viewing-the-results-table).
-- [Filter data](#filtering-documents).
-- [Choose data fields to view](#choosing-data-fields).
-- [Examine details of a document](#examining-a-document).
-- [Visualize data fields](#visualizing-data-fields).
-- [Export data to a CSV file](#export-data).
-- [Set alerts](#setting-alerts).
+The examples on this page use the [**Sample flight data**](https://playground.opensearch.org/app/home#/tutorial_directory) dataset that is already installed in [OpenSearch Playground](https://playground.opensearch.org/app/home#/).
 
+If you've installed a local OpenSearch Dashboards instance, add the sample data by following these steps:
 
-## Navigating the Discover UI
+1. On the OpenSearch Dashboards home page, select **Add sample data**.
+2. In the **Sample flight data** panel, select **Add data**.
 
-The following components make up the **Discover** application UI.
+For more information, see [Adding sample data]({{site.url}}{{site.baseurl}}/dashboards/getting-started/data-setup/#add-sample-data).
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/discover-app-panel-callouts.png" alt="Discover app default page">
+## Navigating the Discover application UI
+
+The following image shows the main components of the **Discover** application.
+
+![Discover app default page]({{site.url}}{{site.baseurl}}/images/dashboards/discover-app-panel-callouts.png)
 
 - The _application menu_ (A) provides options for creating and saving Discover filters settings.
 - The _field select_ tool (B) determines which fields display in the **Discover** application panel. See [Using the field select tool]({{site.url}}{{site.baseurl}}/dashboards/discover/field-select/).
@@ -42,23 +43,6 @@ The following components make up the **Discover** application UI.
 
   The time filter interval defaults to **Last 15 minutes**. To change the time filter interval, [Expand the time range]({{site.url}}{{site.baseurl}}/dashboards/discover/time-filter/#selecting-a-time-range) to include data.
   {: .note}
-
-
-## Prerequisites
-
-Before using the **Discover** tool, ensure that you:
-
-- [Install OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards).
-
-- Add sample data or import your own data into OpenSearch. To learn about adding sample datasets, see [Adding sample data]({{site.url}}{{site.baseurl}}/dashboards/quickstart/#adding-sample-data). To learn about importing your own data, see [Managing indexes]({{site.url}}{{site.baseurl}}/im-plugin/index/).
-
-- Understand OpenSearch [documents]({{site.url}}{{site.baseurl}}/getting-started/intro/#document) and [indexes]({{site.url}}{{site.baseurl}}/getting-started/intro/#index).
-
-- Know how to use the various filter tools:
-  - [time filter]({{site.url}}{{site.baseurl}}/dashboards/discover/time-filter/)
-  - [search bar]({{site.url}}{{site.baseurl}}/dashboards/discover/search-bar/)
-  - [filter tool]({{site.url}}{{site.baseurl}}/dashboards/discover/filter-tool/)
-  - [field-select tool]({{site.url}}{{site.baseurl}}/dashboards/discover/field-select/)
 
 ## Viewing the Results table
 
@@ -80,11 +64,11 @@ To display documents in the **Discover** application, follow these steps:
 
    The following image shows the resulting display in the Discover app.
 
-   <img src="{{site.url}}{{site.baseurl}}/images/dashboards/discover-display-flight-data-3-mo.png" alt="Discover interface showing search of flight sample data for last 90 days"  width="95%">
+   ![Discover interface showing search of flight sample data for last 90 days]({{site.url}}{{site.baseurl}}/images/dashboards/discover-display-flight-data-3-mo.png){: width="95%" }
 
 1. Drag-select the narrow band of data from the timestamp histogram as shown in the following image.
 
-   <img src="{{site.url}}{{site.baseurl}}/images/dashboards/discover-drag-select.png" alt="Discover interface showing drag-select"  width="95%">
+   ![Discover interface showing drag-select]({{site.url}}{{site.baseurl}}/images/dashboards/discover-drag-select.png){: width="95%" }
 
    The data adjusts to span the width of the data display, and the scale adjusts automatically.
 
@@ -95,7 +79,7 @@ To display documents in the **Discover** application, follow these steps:
 
    The resulting view should look like the following image.
 
-   <img src="{{site.url}}{{site.baseurl}}/images/dashboards/discover-display-flight-data-adjusted.png" alt="Discover interface showing flight sample data scaled to display width"  width="95%">
+   ![Discover interface showing flight sample data scaled to display width]({{site.url}}{{site.baseurl}}/images/dashboards/discover-display-flight-data-adjusted.png){: width="95%" }
 
 
 ## Filtering documents
@@ -121,7 +105,7 @@ Some tools for changing the time interval are demonstrated in the previous examp
 You can filter documents by entering a query string in the search bar using one of two query languages.
 
 - [Dashboards Query Language (DQL)]({{site.url}}{{site.baseurl}}/dashboards/discover/dql/) is the default query language in the search bar and is available only in **Dashboards**.
-- [Query string query language (Lucene)]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/) is based on the [Apache Lucene](https://lucene.apache.org/core/2_9_4/queryparsersyntax.html) query language.
+- [Query string query language (Lucene)]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/) is based on the [Apache Lucene](https://lucene.apache.org/core/{{site.lucene_version}}/queryparser/org/apache/lucene/queryparser/classic/package-summary.html#package.description) query language.
 
 To filter documents using the search bar, see [Using the search bar]({{site.url}}{{site.baseurl}}/dashboards/discover/search-bar/).
 
@@ -141,7 +125,7 @@ To use the filter tool, see [Using the filter tool]({{site.url}}{{site.baseurl}}
 
 For example, using the _flights_ sample data, use the filter tool to enter the following filter:
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/filter-cancelled-true.png" alt="A data filter"  width="100">
+![A data filter]({{site.url}}{{site.baseurl}}/images/dashboards/filter-cancelled-true.png){: width="100" }
 
 
 ## Choosing data fields
@@ -187,14 +171,14 @@ To visualize a data field, follow these steps:
 
    The **Top 5 views popover** displays as shown in the following image.
    
-   <img src="{{site.url}}{{site.baseurl}}/images/dashboards/top-5-values.png" alt="top 5 values popover" width="51%"/>
+   ![top 5 values popover]({{site.url}}{{site.baseurl}}/images/dashboards/top-5-values.png){: width="51%" }
 
 1. From the **Top 5 values** popover, select the **Visualize** button. The display changes to the **Visualize** application, showing a default visualization of the selected field.
 
-   See [Building data visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/) to learn how to edit the visualization display.
+   See [Building data visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/) to learn how to edit the visualization display.
 
 
-## Export data
+## Exporting data
 
 You can export data from the **Results** table to a CSV file or copy a JSON object representing a single document.
 
@@ -212,7 +196,7 @@ To download a CSV-formatted file of data from the **Results** table:
 
 1. Select the **Download CSV** button.
 
-   The data is written to a CSV file at the filesystem's default location.
+   The data is written to a CSV file at the file system's default location.
 
    If the selected fields include objects or arrays, the CSV documents will download as JSON objects. To download as discrete CSV values, select only single-value fields.
    {: .tip}
@@ -232,3 +216,4 @@ To copy a JSON representation of a document, follow these steps:
 You can set thresholds for data values and then set alerts to notify you when your data exceeds your thresholds.
 
 To learn about creating and managing alerts, see [Alerting dashboards and visualizations]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/dashboards-alerting/).
+

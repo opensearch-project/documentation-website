@@ -28,7 +28,9 @@ Alternatively, you can add sample data in OpenSearch Dashboards using the follow
 1. Select **Add sample data**.
 1. Choose one of the built-in datasets and select **Add data**.
 
+<!-- vale off -->
 ## Using Compare Search Results in OpenSearch Dashboards
+<!-- vale on -->
 
 To compare search results in OpenSearch Dashboards, perform the following steps.
 
@@ -70,7 +72,7 @@ The following example query boosts the `title` field in the search results:
 
 The following example screen shows a search for the word "cup" in the `description` and `item_name` fields with and without boosting the `item_name`.
 
-<img src="{{site.url}}{{site.baseurl}}/images/search_relevance.png" alt="Compare search results"/>{: .img-fluid }
+![Compare search results]({{site.url}}{{site.baseurl}}/images/search_relevance.png)
 
 If a result in Result 1 appears in Result 2, the `Up` and `Down` indicators below the result number signify how many positions the result moved up or down compared to the same result in Result 2. In this example, the document with the ID 2 is `Up 1` position in Result 2 compared to Result 1 and `Down 1` position in Result 1 compared to Result 2.
 
@@ -93,7 +95,7 @@ By default, OpenSearch returns the top 10 results. To change the number of retur
 Setting `size` to a high value (for example, larger than 250 documents) may degrade performance.
 {: .note}
 
-You cannot save a given comparison for future use, so Compare Search Results is not suitable for systematic testing.  Instead, review the [Search result comparison]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/comparing-search-results/) experiment.
+You cannot save a given comparison for future use, so Compare Search Results is not suitable for systematic testing. Instead, review the [Search result comparison]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/comparing-search-results/) experiment.
 {: .note}
 
 ## Comparing OpenSearch search results using Search Relevance Workbench
@@ -102,7 +104,7 @@ You cannot save a given comparison for future use, so Compare Search Results is 
 
 To use Search Relevance Workbench, follow steps 1--4. The displayed results and the options for viewing the differences are shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/search-relevance-workbench/comparing_search_results.png" alt="Compare search results"/>{: .img-fluid }
+![Compare search results]({{site.url}}{{site.baseurl}}/images/search-relevance-workbench/comparing_search_results.png)
 
 The top section provides a summary of the results: how many of the retrieved results are unique to the query on the left, how many are unique to the query on the right, and how many are part of both queries?
 
@@ -124,7 +126,9 @@ One use case for Compare Search Results is the comparison of raw OpenSearch resu
 - [Amazon Kendra Intelligent Ranking for OpenSearch](#reranking-results-with-amazon-kendra-intelligent-ranking-for-opensearch)
 - [Amazon Personalize Search Ranking](#personalizing-search-results-with-amazon-personalize-search-ranking)
 
+<!-- vale off -->
 ### Reranking results with Amazon Kendra Intelligent Ranking for OpenSearch
+<!-- vale on -->
 
 An example of a reranker is **Amazon Kendra Intelligent Ranking for OpenSearch**, contributed by the Amazon Kendra team. This plugin takes search results from OpenSearch and applies Amazon Kendra’s semantic relevance rankings calculated using vector embeddings and other semantic search techniques. For many applications, this provides better result rankings.
 
@@ -136,7 +140,7 @@ To compare search results with reranked results in OpenSearch Dashboards, enter 
 
 The following example demonstrates searching for the text "snacking nuts" in the `abo` index. The documents in the index contain snack descriptions in the `bullet_point` array.
 
-<img src="{{site.url}}{{site.baseurl}}/images/kendra_query.png" alt="OpenSearch Intelligent Ranking query"/>{: .img-fluid }
+![OpenSearch Intelligent Ranking query]({{site.url}}{{site.baseurl}}/images/kendra_query.png)
 
 1. Enter `snacking nuts` in the search bar.
 1. Enter the following query, which searches the `bullet_point` field for the search text "snacking nuts", in **Query 1**:
@@ -180,7 +184,9 @@ The following example demonstrates searching for the text "snacking nuts" in the
     In the preceding query, `body_field` refers to the body field of the documents in the index, which Amazon Kendra Intelligent Ranking uses to rank the results. The `body_field` is required, while the `title_field` is optional.
 1. Select **Search** and compare the results in **Result 1** and **Result 2**.
 
+<!-- vale off -->
 ### Personalizing search results with Amazon Personalize Search Ranking
+<!-- vale on -->
 
 Another example of a reranker is **Amazon Personalize Search Ranking**, contributed by the Amazon Personalize team. Amazon Personalize uses machine learning (ML) techniques to generate custom recommendations for your users. The plugin takes OpenSearch search results and applies a [search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/) to rerank them according to their Amazon Personalize ranking. The Amazon Personalize rankings are based on the user's past behavior and metadata about the search items and the user. This workflow improves the search experience for your users by personalizing their search results.
 

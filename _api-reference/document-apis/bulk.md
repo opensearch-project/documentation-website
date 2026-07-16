@@ -173,7 +173,7 @@ You can specify routing in two ways: at the query parameter level or in individu
 
 Applying routing at the query parameter level affects all operations in the bulk request:
 
-```bash
+```json
 POST /_bulk?routing=user123
 { "index": { "_index": "movies", "_id": "routed-doc" } }
 { "title": "Routed Movie", "user_id": "user123" }
@@ -183,13 +183,13 @@ POST /_bulk?routing=user123
 
 Specifying routing in the action metadata provides finer control, allowing different operations in the same bulk request to use different routing values:
 
-```bash
+```json
 POST /_bulk
 { "index": { "_index": "movies", "_id": "routed-action", "routing": "user456" } }
 { "title": "Action Routed Movie", "user_id": "user456" }
 ```
 
-Custom routing is particularly useful for multi-tenant applications where you want to colocate all documents for a specific tenant on the same shard. This improves query performance when searching within a single tenant because OpenSearch only needs to query one shard instead of all shards in the index.
+Custom routing is particularly useful for multi-tenant applications in which you want to store all documents for a specific tenant on the same shard. This improves query performance when searching within a single tenant because OpenSearch only needs to query one shard instead of all shards in the index.
 
 When using custom routing, you must provide the same routing value for all operations (index, get, update, delete) on a document. Otherwise, OpenSearch may not find the document because it searches the wrong shard.
 
@@ -205,7 +205,7 @@ The `refresh` parameter accepts three values:
 
 The following example uses `refresh=wait_for`:
 
-```bash
+```json
 POST /_bulk?refresh=wait_for
 { "index": { "_index": "movies", "_id": "refresh-test" } }
 { "title": "Refresh Test Movie", "year": 2025 }
@@ -226,7 +226,7 @@ By default, `wait_for_active_shards` is set to `1`, meaning only the primary sha
 
 The following example waits for the primary and one replica shard to be active:
 
-```bash
+```json
 POST /_bulk?wait_for_active_shards=2
 { "index": { "_index": "movies", "_id": "active-shards-test" } }
 { "title": "Active Shards Test", "year": 2025 }

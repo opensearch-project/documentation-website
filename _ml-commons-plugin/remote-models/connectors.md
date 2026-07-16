@@ -36,16 +36,19 @@ As an ML developer, you can also create connector blueprints for other platforms
 
 You can provision connectors in two ways:
 
-1. [Create a standalone connector](#creating-a-standalone-connector): A standalone connector can be reused and shared by multiple models but requires access to both the model and connector in OpenSearch and the third-party platform, such as OpenAI or Amazon SageMaker, that the connector is accessing. Standalone connectors are saved in a connector index.
+1. [Create a standalone connector](#creating-a-standalone-connector): A standalone connector can be reused by multiple model registrations in OpenSearch that share the same external endpoint and configuration. Standalone connectors require access to both the connector and the model in OpenSearch as well as the third-party platform. Standalone connectors are saved in a connector index.
 
 2. [Create a connector for a specific externally hosted model](#creating-a-connector-for-a-specific-model): Alternatively, you can create a connector that can only be used with the model for which it was created. To access such a connector, you only need access to the model itself because the connection is established inside the model. These connectors are saved in the model index.
 
-If using Python, you can create connectors using the [opensearch-py-ml](https://github.com/opensearch-project/opensearch-py-ml) client CLI. The CLI automates many configuration steps, making setup faster and reducing the chance of errors. For more information about using the CLI, see the [CLI documentation](https://opensearch-project.github.io/opensearch-py-ml/cli/index.html#).
+If you need to connect to a different external model (for example, switching from `gpt-3.5-turbo` to `gpt-4`), we recommend creating a separate standalone connector. Alternatively, advanced users can override connector `parameters` at predict time if the connector blueprint uses placeholders. For more information, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/).
+{: .note}
+
+If using Python, you can create connectors using the [`opensearch-py-ml`](https://github.com/opensearch-project/opensearch-py-ml) client CLI. The CLI automates many configuration steps, making setup faster and reducing the chance of errors. For more information about using the CLI, see the [CLI documentation](https://opensearch-project.github.io/opensearch-py-ml/cli/index.html#).
 {: .tip}
 
 ## Creating a standalone connector
 
-Standalone connectors can be used by multiple models. To create a standalone connector, send a request to the `connectors/_create` endpoint and provide all of the parameters described in [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/):
+To create a standalone connector, send a request to the `connectors/_create` endpoint and provide all of the parameters described in [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/):
 
 ```json
 POST /_plugins/_ml/connectors/_create
@@ -308,6 +311,100 @@ PUT /_plugins/_ml/connectors/{connector_id}
 }
 ```
 {% include copy-curl.html %}
+
+## Dynamic header substitution
+**Introduced 3.7**
+{: .label .label-purple }
+
+By default, connector headers are resolved once at connector creation time. Dynamic connector headers allow you to use `${parameters.*}` placeholders in header values so that per-request values are substituted at prediction time. This is useful for passing request-scoped metadata such as transaction IDs, correlation IDs, or trace tokens to the eternally hosted model endpoint.
+
+### Configuring dynamic headers
+
+To configure a dynamic header, define the header with a `${parameters.*}` placeholder in the connector's `actions[].headers` field. You can optionally set a default value for the parameter in the top-level `parameters` field:
+
+```json
+POST /_plugins/_ml/connectors/_create
+{
+  "name": "My connector",
+  "description": "Connector with dynamic headers",
+  "version": 1,
+  "protocol": "http",
+  "parameters": {
+    "endpoint": "api.example.com",
+    "request_id": "default-request-id"
+  },
+  "credential": {
+    "api_key": "test-api-key"
+  },
+  "actions": [{
+    "action_type": "predict",
+    "method": "POST",
+    "url": "https://${parameters.endpoint}/predict",
+    "headers": {
+      "Authorization": "${credential.api_key}",
+      "X-Test-Request-Id": "${parameters.request_id}"
+    },
+    "request_body": "{ \"input\": \"${parameters.input}\" }"
+  }]
+}
+```
+{% include copy-curl.html %}
+
+At prediction time, pass the runtime value in the `parameters` field of the `_predict` request:
+
+```json
+POST /_plugins/_ml/models/{model_id}/_predict
+{
+  "parameters": {
+    "request_id": "request-123",
+    "input": "hello world"
+  }
+}
+```
+{% include copy-curl.html %}
+
+The resulting HTTP request to the remote endpoint includes the substituted header:
+
+```json
+POST https://api.example.com/predict
+Authorization: test-api-key
+X-Test-Request-Id: request-123
+```
+
+If no runtime value is provided and no default is set in the connector's `parameters` field, the prediction request is rejected with a 400 error. To avoid this, define a default value for the parameter in the connector's `parameters` field. If no runtime value is provided, the default value is used.
+
+### Security restrictions
+
+The following headers cannot contain `${parameters.*}` placeholders. Using them returns a 400 error at connector creation or update time. Use `${credential.*}` for authentication headers instead:
+
+- Credential headers:
+  - `Authorization`
+  - `Proxy-Authorization`
+  - `Cookie`
+  - `X-API-Key`
+  - `X-Auth-Token`
+  - `X-Auth-Header`
+
+- IP and host spoofing headers:
+  - `Host`
+  - `X-Forwarded-Host`
+  - `X-Forwarded-Server`
+  - `X-Forwarded-For`
+  - `Forwarded`
+  - `X-Real-IP`
+  - `X-Client-IP`
+  - `CF-Connecting-IP`
+  - `True-Client-IP`
+  - `X-Originating-IP`
+
+### Runtime validation
+
+At prediction time, substituted header values are validated before the request is sent:
+
+- Header values containing `\r` or `\n` characters are rejected to prevent HTTP response splitting.
+- Values containing control characters (`0x00–0x1F`, except tab) are rejected.
+- Each individual header value must not exceed 8 KB.
+- The combined size of all headers must not exceed 64 KB.
 
 ## Next steps
 

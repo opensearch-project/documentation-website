@@ -10,6 +10,8 @@ redirect_from:
 
 # RCA API
 
+Use the following API to retrieve root cause analysis (RCA) results.
+
 ## Example request
 
 ```

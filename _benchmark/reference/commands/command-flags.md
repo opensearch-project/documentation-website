@@ -51,7 +51,7 @@ Defines the workload to use based on the workload's name. You can find a list of
 ## workload-params
 <!-- vale on -->
 
-Defines which variables to inject into the workload. Variables injected must be available in the workload. To see which parameters are valid in the official workloads, select the workload from [the workloads repository](https://github.com/opensearch-project/opensearch-benchmark-workloads).
+Defines the variables to inject into the workload. Injected variables must be available in the workload. You can pass parameters as a JSON file, inline JSON, or comma-separated key-value pairs. For more information, including template syntax, precedence, and common parameters for each workload, see [Workload parameters]({{site.url}}{{site.baseurl}}/benchmark/reference/workloads/parameters/).
 
 <!-- vale off -->
 ## test-procedure
@@ -170,7 +170,7 @@ Defines a comma-separated list of host-port pairs that should be targeted if usi
 ## target-os
 <!-- vale on -->
 
-The target operating system (OS) for which the OpenSearch artifact should be downloaded. Default is the current OS.
+The target operating system for which the OpenSearch artifact should be downloaded. Default is the current operating system.
 
 <!-- vale off -->
 ## target-arch
