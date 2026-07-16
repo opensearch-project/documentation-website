@@ -6,11 +6,19 @@ grand_parent: PPL
 nav_order: 6
 ---
 
+<!-- vale off -->
+
 # appendcol
+
+<!-- vale on -->
 
 The `appendcol` command appends the result of a subsearch as additional columns to the input search results (the main search).
 
+<!-- vale off -->
+
 ## Syntax
+
+<!-- vale on -->
 
 The `appendcol` command has the following syntax:
 
@@ -18,7 +26,11 @@ The `appendcol` command has the following syntax:
 appendcol [override=<boolean>] <subsearch>
 ```
 
+<!-- vale off -->
+
 ## Parameters
+
+<!-- vale on -->
 
 The `appendcol` command supports the following parameters.
 
@@ -28,7 +40,11 @@ The `appendcol` command supports the following parameters.
 | `override` | Optional | Specifies whether the results of the main search should be overwritten when column names conflict. Default is `false`. |
   
 
+<!-- vale off -->
+
 ## Example 1: Appending a different aggregation alongside existing results
+
+<!-- vale on -->
 
 This example shows log counts per service alongside error counts per service. Because both queries group by service name in the same sort order, the rows align correctly:
 
@@ -44,6 +60,8 @@ source=otellogs
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | resource.attributes.service.name | total_logs | error_count |
 | --- | --- | --- |
 | cart | 3 | 2 |
@@ -54,7 +72,13 @@ The query returns the following results:
 | product-catalog | 4 | null |
 | recommendation | 1 | null |
 
+<!-- vale on -->
+
+<!-- vale off -->
+
 ## Example 2: Appending multiple subsearch results
+
+<!-- vale on -->
 
 The following query chains multiple `appendcol` commands to add summary statistics alongside detail rows. The first appendcol adds the total error count, and the second adds the number of affected services:
 
@@ -72,6 +96,8 @@ source=otellogs
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | resource.attributes.service.name | severityText | body | total_errors | services_affected |
 | --- | --- | --- | --- | --- |
 | checkout | ERROR | NullPointerException in CheckoutService.placeOrder at line 142 | 7 | 5 |
@@ -79,7 +105,13 @@ The query returns the following results:
 | frontend-proxy | ERROR | [2024-02-01T09:20:00.456Z] "POST /api/checkout HTTP/1.1" 503 - 0 30000 checkout-8d4f7b-mk2p9 | null | null |
 | payment | ERROR | Payment failed: connection timeout to payment gateway after 30000ms | null | null |
 
+<!-- vale on -->
+
+<!-- vale off -->
+
 ## Example 3: Resolving column name conflicts using the override parameter
+
+<!-- vale on -->
 
 When the main search and subsearch share a column name, `override=true` replaces the main search values with the subsearch values. In this example, both produce a column named `agg` -- the main search uses it for total log counts, the subsearch for error-only counts. With override, the error counts replace the totals:
 
@@ -94,6 +126,8 @@ source=otellogs
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | agg | severityText |
 | --- | --- |
 | 7 | ERROR |
@@ -101,7 +135,13 @@ The query returns the following results:
 | 6 | INFO |
 | 4 | WARN |
 
+<!-- vale on -->
+
+<!-- vale off -->
+
 ## Limitations
+
+<!-- vale on -->
 
 The `appendcol` command has the following limitations:
 

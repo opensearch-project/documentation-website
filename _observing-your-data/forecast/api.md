@@ -335,9 +335,9 @@ The response includes the `forecaster`, `realtime_task`, and `run_once_task` sec
 **Introduced 3.1**
 {: .label .label-purple }
 
-Updates the configuration of an existing forecaster. You must stop any active forecasting jobs before making updates. 
+Updates the configuration of an existing forecaster. You must stop any active forecasting jobs before making updates.
 
-Any change that affects the model, such as modifying the `category_field`, `result_index`, or `feature_attributes`, invalidates previous results shown in the OpenSearch Dashboards UI.
+Any change that affects the model, such as modifying the `category_field`, `result_index`, or `feature_attributes`, invalidates previous results shown in OpenSearch Dashboards.
 
 ### Endpoints
 

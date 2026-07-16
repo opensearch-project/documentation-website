@@ -59,7 +59,7 @@ The filters dropdown menus allow you to select the following query filters.
 | **Type**                | Filter by query type.                                               | `query`, `group`   |
 | **Indexes**             | Filter queries based on specific OpenSearch indexes.                | `index1`, `index2` |
 | **Search Type**         | Filter by search execution method.                                  | `query then fetch` |
-| **Coordinator Node ID** | Focus on queries executed by a specific coordinator node.           | `node-1`, `node-2` |
+| **Coordinating Node ID** | Focus on queries executed by a specific coordinating node.           | `node-1`, `node-2` |
 | **WLM Group**           | Filter queries by workload management group.                        | `default`          |
 | **Time Range**          | Adjust the time range for the queries displayed.                    | `last 1 day`       |
 
@@ -95,7 +95,7 @@ The top row of the panel displays P90 and P99 statistics for the following metri
 
 The **Queries by** section displays an interactive pie chart and a corresponding table that categorize query distribution by a selected dimension. You can switch between the following dimensions using the dropdown menu:
 
-- **Node** -- Groups queries by the coordinator node.
+- **Node** -- Groups queries by the coordinating node.
 - **Index** -- Groups queries by the target index.
 - **Username** -- Groups queries by the user who submitted the query.
 - **WLM Group** -- Groups queries by workload management group.
@@ -161,7 +161,7 @@ The following table provides descriptions for each metric and the metric's relat
 | **Memory Usage**        | The amount of memory used during execution.  | `Memory Usage`     | `Average Memory Usage` | `Avg Memory Usage/Memory Usage` |
 | **Indexes**             | A list of indexes involved in the query or group. | `Indexes`  | Not shown            | `Indexes`    |
 | **Search Type**         | The search execution method used (such as `query` or `fetch`).  | `Search Type`      | Not shown            | `Search Type`  |
-| **Coordinator Node ID** | The node that coordinated the query.  | `Coordinator Node ID` | Not shown         | `Coordinator Node ID` |
+| **Coordinating Node ID** | The node that coordinated the query.  | `Coordinating Node ID` | Not shown         | `Coordinating Node ID` |
 | **WLM Group**           | The workload management group associated with the query. | `WLM Group`        | Not shown            | `WLM Group`     |
 | **Total Shards**        | The number of shards involved in query processing.   | `Total Shards`     | Not shown            | `Total Shards`  |
 
@@ -182,7 +182,7 @@ You can access detailed information about a single query by selecting the query 
 
 ![Individual Query Details]({{site.url}}{{site.baseurl}}/images/Query-Insights/IndividualQueryDetails.png)
 
-In the query details view, you can view information such as **Timestamp**, **CPU Time**, **Memory Usage**, **Indexes**, **Search Type**, **Coordinator Node ID**, and **Total Shards**.
+In the query details view, you can view information such as **Timestamp**, **CPU Time**, **Memory Usage**, **Indexes**, **Search Type**, **Coordinating Node ID**, and **Total Shards**.
 
 If the query source has been truncated because of size limits, it is displayed as a string instead of formatted JSON.
 
@@ -195,7 +195,7 @@ To view query group details, select a query ID marked as a "group" in the **Top 
 ![Query Group Details]({{site.url}}{{site.baseurl}}/images/Query-Insights/GroupQueryDetails.png)
 
 - The **Aggregate summary for queries** section provides a view of key query metrics for the entire group, including **Average latency**, **Average CPU time**, **Average memory usage**, and **Group by** criteria.
-- The **Sample query details** section provides information about a single representative query, including its **Timestamp**, **Indexes**, **Search Type**, **Coordinator Node ID**, and **Total Shards**.
+- The **Sample query details** section provides information about a single representative query, including its **Timestamp**, **Indexes**, **Search Type**, **Coordinating Node ID**, and **Total Shards**.
 - The **Latency** section presents a graphical representation of the run phases for the query.
 
 ## Configuration
@@ -206,7 +206,7 @@ The **Query insights - Configuration** page is designed to gives you control ove
 
 On the configuration page, you can configure the settings described in the following sections.
 
-**For production deployments**: When the Dashboard application runs on separate nodes with network access restrictions, consider using the [Query Insights Settings API]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/settings-api/) to enable a secure configuration. The Query Insights Settings API provides fine-grained access control, allowing you to safely use an allowlist in a query insights configuration without granting broad cluster settings permissions.
+**For production deployments**: When the Dashboard application runs on separate nodes with network access restrictions, consider using the [Query Insights Settings API]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/settings-api/) to enable a secure configuration. The Query Insights Settings API provides fine-grained access control, allowing you to safely use an allow list in a query insights configuration without granting broad cluster settings permissions.
 {: .tip}
 
 ### Top N queries monitoring

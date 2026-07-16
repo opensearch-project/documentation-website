@@ -50,7 +50,7 @@ Use the following steps to create a sample index and define field mappings for t
     ```
     {% include copy.html %}
 
-1. Download [ecommerce.ndjson](https://github.com/opensearch-project/documentation-website/blob/{{site.opensearch_major_minor_version}}/assets/examples/ecommerce.ndjson). This file contains the index data formatted so that it can be ingested by the Bulk API:
+1. Download [`ecommerce.ndjson`](https://github.com/opensearch-project/documentation-website/blob/{{site.opensearch_major_minor_version}}/assets/examples/ecommerce.ndjson). This file contains the index data formatted so that it can be ingested by the Bulk API:
     
     To use cURL, send the following request:
 
@@ -97,13 +97,13 @@ GET ecommerce/_search
 
 ### Visualize the data
 
-To learn how to use OpenSearch Dashboards to visualize the data, see the [OpenSearch Dashboards quickstart guide]({{site.url}}{{site.baseurl}}/dashboards/quickstart/).
+To learn how to use OpenSearch Dashboards to visualize the data, see the [OpenSearch Dashboards getting started guide]({{site.url}}{{site.baseurl}}/dashboards/getting-started/).
 
 ## Further reading
 
 - For information about Data Prepper, see [Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/).
 - For information about ingestion tools, see [OpenSearch tools]({{site.url}}{{site.baseurl}}/tools/).
-- For information about OpenSearch Dashboards, see [OpenSearch Dashboards quickstart guide]({{site.url}}{{site.baseurl}}/dashboards/quickstart/).
+- For information about OpenSearch Dashboards, see [OpenSearch Dashboards getting started guide]({{site.url}}{{site.baseurl}}/dashboards/getting-started/).
 - For information about bulk indexing, see [Bulk API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/).
 
 ## Next steps

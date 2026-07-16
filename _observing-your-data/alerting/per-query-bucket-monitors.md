@@ -18,7 +18,7 @@ Both monitor types support querying remote indexes using the same `cluster-name:
 The following [permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/) are required in order to create a cross-cluster monitor through the dashboards UI: `cluster:admin/opensearch/alerting/remote/indexes/get`, `indices:admin/resolve/index`, `cluster:monitor/health`, and `indices:admin/mappings/get`.
 {: .note}
 
-<img src="{{site.url}}{{site.baseurl}}/images/alerting/cross-cluster-per-query-per-bucket-monitors.png" alt="Cluster metrics monitor" width="700"/>
+![Cluster metrics monitor]({{site.url}}{{site.baseurl}}/images/alerting/cross-cluster-per-query-per-bucket-monitors.png){: width="700" }
 
 ## Creating a per query or per bucket monitor
 
@@ -28,7 +28,7 @@ To create a per query monitor, follow these steps:
 
    - Visual definition works well for monitors that can be defined as "some value is above or below some threshold for some amount of time." It also works well for most monitors.
 
-   - Query definition provides flexibility in relation to your query (using [OpenSearch query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/index)) and how you evaluate the results of that query (Painless scripting).
+   - Query definition provides flexibility in relation to your query (using [OpenSearch query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/index/)) and how you evaluate the results of that query (Painless scripting).
 
 The following example averages the `cpu_usage` field:
 
@@ -84,7 +84,7 @@ Visual definition works well for most monitors.
 
 If you use the Security plugin, you can only choose indexes that you have permission to access. For details, see [Alerting security]({{site.url}}{{site.baseurl}}/security/).
 
-To use a query, choose **Extraction query editor**, add your query (using [OpenSearch query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/index)), and test it using the **Run** button.
+To use a query, choose **Extraction query editor**, add your query (using [OpenSearch query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/index/)), and test it using the **Run** button.
 
 The monitor makes this query to OpenSearch as often as the schedule dictates; check the **Query Performance** section and make sure you're comfortable with the performance implications.
 

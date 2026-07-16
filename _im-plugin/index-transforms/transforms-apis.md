@@ -46,13 +46,13 @@ description | String | Describes the transform job. | No
 `metadata_id` | String | Any metadata to be associated with the transform job. | No
 `source_index` | String | The source index containing the data to be transformed. | Yes
 `target_index` | String | The target index the newly transformed data is added to. You can create a new index or update an existing one. | Yes
-`data_selection_query` | Object | The query DSL to use to filter a subset of the source index for the transform job. See [query domain-specific language(DSL)]({{site.url}}{{site.baseurl}}/opensearch/query-dsl) for more information. | Yes
+`data_selection_query` | Object | The query DSL to use to filter a subset of the source index for the transform job. See [query domain-specific language(DSL)]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/) for more information. | Yes
 `page_size` | Integer | The number of buckets IM processes and indexes concurrently. A higher number results in better performance, but it requires more memory. If your machine runs out of memory, Index Management (IM) automatically adjusts this field and retries until the operation succeeds. | Yes
-`groups` | Array | Specifies the grouping(s) to use in the transform job. Supported groups are `terms`, `histogram`, and `date_histogram`. For more information, see [Bucket Aggregations]({{site.url}}{{site.baseurl}}/opensearch/bucket-agg). | Yes if not using aggregations.
+`groups` | Array | Specifies the grouping(s) to use in the transform job. Supported groups are `terms`, `histogram`, and `date_histogram`. For more information, see [Bucket Aggregations]({{site.url}}{{site.baseurl}}/opensearch/bucket-agg/). | Yes if not using aggregations.
 `source_field` | String | The field(s) to transform. | Yes
-`aggregations` | Object | The aggregations to use in the transform job. Supported aggregations are `sum`, `max`, `min`, `value_count`, `avg`, `scripted_metric`, and `percentiles`. For more information, see [Metric Aggregations]({{site.url}}{{site.baseurl}}/opensearch/metric-agg). | Yes if not using groups.
+`aggregations` | Object | The aggregations to use in the transform job. Supported aggregations are `sum`, `max`, `min`, `value_count`, `avg`, `scripted_metric`, and `percentiles`. For more information, see [Metric Aggregations]({{site.url}}{{site.baseurl}}/opensearch/metric-agg/). | Yes if not using groups.
 
-#### Sample Request
+#### Example request
 
 The following request creates a transform job with the id `sample`:
 
@@ -101,7 +101,7 @@ PUT _plugins/_transform/sample
 }
 ```
 
-#### Sample Response
+#### Example response
 
 ```json
 {
@@ -193,7 +193,7 @@ Option | Data type | Description
 description | Integer | Describes the transform job.
 `page_size` | Integer | The number of buckets IM processes and indexes concurrently. A higher number results in better performance, but it requires more memory. If your machine runs out of memory, IM automatically adjusts this field and retries until the operation succeeds.
 
-#### Sample Request
+#### Example request
 
 The following request updates a transform job with the id `sample`, sequence number `13`, and primary term `1`:
 
@@ -241,7 +241,7 @@ PUT _plugins/_transform/sample?if_seq_no=13&if_primary_term=1
 }
 ```
 
-#### Sample Response
+#### Example response
 
 ```json
 PUT _plugins/_transform/sample?if_seq_no=13&if_primary_term=1
@@ -299,7 +299,7 @@ Returns a transform job's details.
 GET _plugins/_transform/{transform_id}
 ```
 
-#### Sample Request
+#### Example request
 
 The following request returns the details of the transform job with the id `sample`:
 
@@ -307,7 +307,7 @@ The following request returns the details of the transform job with the id `samp
 GET _plugins/_transform/sample
 ```
 
-#### Sample Response
+#### Example response
 
 ```json
 {
@@ -367,7 +367,7 @@ GET _plugins/_transform/sample
 
 You can also get details of all transform jobs by omitting `transform_id`.
 
-#### Sample Request
+#### Example request
 
 The following request returns the details of all transform jobs:
 
@@ -375,7 +375,7 @@ The following request returns the details of all transform jobs:
 GET _plugins/_transform/
 ```
 
-#### Sample Response
+#### Example response
 
 ```json
 {
@@ -449,7 +449,7 @@ Parameter | Description | Required
 sortField | The field to sort results with. | No
 sortDirection | Specifies the direction to sort results in. Can be `ASC` or `DESC`. Default is `ASC`. | No
 
-#### Sample Request
+#### Example request
 
 The following request returns two results starting from transform `8`:
 
@@ -457,7 +457,7 @@ The following request returns two results starting from transform `8`:
 GET _plugins/_transform?size=2&from=8
 ```
 
-#### Sample Response
+#### Example response
 
 ```json
 {
@@ -581,7 +581,7 @@ Transform jobs created using the API are automatically enabled, but if you ever 
 POST _plugins/_transform/{transform_id}/_start
 ```
 
-#### Sample Request
+#### Example request
 
 The following request starts the transform job with the ID `sample`:
 
@@ -589,7 +589,7 @@ The following request starts the transform job with the ID `sample`:
 POST _plugins/_transform/sample/_start
 ```
 
-#### Sample Response
+#### Example response
 
 ```json
 {
@@ -609,7 +609,7 @@ Stops a transform job.
 POST _plugins/_transform/{transform_id}/_stop
 ```
 
-#### Sample Request
+#### Example request
 
 The following request stops the transform job with the ID `sample`:
 
@@ -617,7 +617,7 @@ The following request stops the transform job with the ID `sample`:
 POST _plugins/_transform/sample/_stop
 ```
 
-#### Sample Response
+#### Example response
 
 ```json
 {
@@ -637,7 +637,7 @@ Returns the status and metadata of a transform job.
 GET _plugins/_transform/{transform_id}/_explain
 ```
 
-#### Sample Request
+#### Example request
 
 The following request returns the details of the transform job with the ID `sample`:
 
@@ -645,7 +645,7 @@ The following request returns the details of the transform job with the ID `samp
 GET _plugins/_transform/sample/_explain
 ```
 
-#### Sample Response
+#### Example response
 
 ```json
 {
@@ -680,7 +680,7 @@ Introduced 1.0
 
 Returns a preview of what a transformed index would look like.
 
-#### Sample Request
+#### Example request
 
 ```json
 POST _plugins/_transform/_preview
@@ -727,7 +727,7 @@ POST _plugins/_transform/_preview
 }
 ```
 
-#### Sample Response
+#### Example response
 
 ```json
 {
@@ -773,7 +773,7 @@ Deletes a transform job. This operation does not delete the source or target ind
 DELETE _plugins/_transform/{transform_id}
 ```
 
-#### Sample Request
+#### Example request
 
 The following request deletes the transform job with the ID `sample`:
 
@@ -781,7 +781,7 @@ The following request deletes the transform job with the ID `sample`:
 DELETE _plugins/_transform/sample
 ```
 
-#### Sample Response
+#### Example response
 
 ```json
 {

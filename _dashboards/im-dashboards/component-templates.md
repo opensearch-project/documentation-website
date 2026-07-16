@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Component templates
-parent: Index Management
+parent: Index management
 nav_order: 50
 ---
 

@@ -703,7 +703,7 @@ Field | Data type | Description
 `indices.segments.stored_fields_memory_in_bytes` | Long | The amount of memory used for stored fields across the specified nodes, in bytes.
 `indices.segments.term_vectors_memory_in_bytes` | Long | The amount of memory used for term vectors across the specified nodes, in bytes.
 `indices.segments.norms_memory_in_bytes` | Long | The amount of memory used for normalization factors across the specified nodes, in bytes.
-`indices.segments.points_memory_in_bytes` | Long | The amount of memory used for point values (numeric, geo, etc.) across the specified nodes, in bytes.
+`indices.segments.points_memory_in_bytes` | Long | The amount of memory used for point values (numeric, geo) across the specified nodes, in bytes.
 `indices.segments.doc_values_memory_in_bytes` | Long | The amount of memory used for doc values across the specified nodes, in bytes.
 `indices.segments.index_writer_memory_in_bytes` | Long | The amount of memory used by index writers across the specified nodes, in bytes.
 `indices.segments.version_map_memory_in_bytes` | Long | The amount of memory used by version maps across the specified nodes, in bytes.
@@ -745,3 +745,7 @@ Field | Data type | Description
 `nodes.packaging_types` | Array | Information about the distribution types installed on the specified nodes.
 `nodes.ingest.number_of_pipelines` | Integer | The total number of ingest pipelines across the specified nodes.
 `nodes.ingest.processor_stats` | Object | Statistics about ingest processors used on the specified nodes.
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `cluster:monitor/stats`.

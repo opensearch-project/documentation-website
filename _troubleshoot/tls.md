@@ -79,7 +79,7 @@ If this problem occurs, you might see the following in the node's OpenSearch log
 SSL Problem Received fatal alert: certificate_unknown javax.net.ssl.SSLException: Received fatal alert: certificate_unknown
 ```
 
-You might also see the following message in your cluster's master log when the new node tries to join the cluster:
+You might also see the following message in your cluster manager log when the new node tries to join the cluster:
 
 ```
 Caused by: java.security.cert.CertificateException: No subject alternative names matching IP address 10.0.0.42 found
@@ -205,7 +205,7 @@ plugins.security.ssl.http.enabled_protocols:
 
 ## Supported ciphers
 
-TLS relies on the server and client negotiating a common cipher suite. Depending on your system, the available ciphers will vary. They depend on the JDK or OpenSSL version you're using, and  whether or not the `JCE Unlimited Strength Jurisdiction Policy Files` are installed.
+TLS relies on the server and client negotiating a common cipher suite. Depending on your system, the available ciphers will vary. They depend on the JDK or OpenSSL version you're using, and whether or not the `JCE Unlimited Strength Jurisdiction Policy Files` are installed.
 
 For legal reasons, the JDK does not include strong ciphers like AES256. In order to use strong ciphers you need to download and install the [Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files](https://www.oracle.com/java/technologies/javase-jce8-downloads.html). If you don't have them installed, you might see an error message on startup:
 

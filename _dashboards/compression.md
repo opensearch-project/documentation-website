@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Network compression
-nav_order: 135
+parent: Settings and administration
+nav_order: 50
 ---
 
 # Network compression
@@ -21,7 +22,7 @@ When a client requests a bundle file, OpenSearch Dashboards automatically serves
 
 ## Compression effectiveness
 
-The following table shows typical compression ratios for large plugin bundles, using the observability plugin as an example:
+The following table shows typical compression ratios for large plugin bundles, using the Observability plugin as an example:
 
 | Compression method | File size | Compression ratio |
 |:---|:---|:---|

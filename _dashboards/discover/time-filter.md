@@ -26,7 +26,7 @@ The default time range is a relative interval of **Last 15 minutes**. You can ch
 
 ## Navigating the time filter
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/time-filter-callouts.png" alt="Time filter interface">
+![Time filter interface]({{site.url}}{{site.baseurl}}/images/dashboards/time-filter-callouts.png)
 
 The following components make up the time filter.
 
@@ -51,7 +51,7 @@ To select an absolute time interval, follow these steps:
 
 1. In the time selection popover, choose the **Absolute** tab as shown in the following image.
 
-   <img src="{{site.url}}{{site.baseurl}}/images/dashboards/absolute-time-filter.png" width="56%" alt="Absolute time filter"/>
+   ![Absolute time filter]({{site.url}}{{site.baseurl}}/images/dashboards/absolute-time-filter.png){: width="56%" }
 
 1. Use the calendar and time scroll tools to choose a start time, or edit the start time in the **Start date** text box.
 
@@ -76,7 +76,7 @@ To select a relative time interval, follow these steps:
 
 1. In the time selection popover, choose the **Relative** tab as shown in the following image.
 
-   <img src="{{site.url}}{{site.baseurl}}/images/dashboards/relative-time-filter.png" width="56%" alt="Relative time filter"/>
+   ![Relative time filter]({{site.url}}{{site.baseurl}}/images/dashboards/relative-time-filter.png){: width="56%" }
 
 1. In the number combo box, select or enter the interval quantity.
 
@@ -123,7 +123,7 @@ To select a time interval from common or previous interval values, follow these 
 
 1. From the shortcut popover, select one of the time filter options, as shown in the following image.
 
-   <img src="{{site.url}}{{site.baseurl}}/images/dashboards/time-range.png" alt="Time range interface" width="59%"/>
+   ![Time range interface]({{site.url}}{{site.baseurl}}/images/dashboards/time-range.png){: width="59%" }
 
    - **Quick select**: Choose an interval spanning _now_ to a past (**Last**) or future (**Next**) time.
 
@@ -166,3 +166,11 @@ To start or stop the time interval refresh, follow these steps:
 
    The shortcut selector shows the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/calendar-icon.png" class="inline-icon" alt="calendar icon"/>{:/} (calendar) icon if the time interval refresh is stopped, or the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/clock-icon.png" class="inline-icon" alt="clock icon"/>{:/} (clock) icon if the time interval refresh is running.
    {: .note}
+
+## Configuring the time zone
+
+By default, the time filter uses the time zone detected by your browser. To change the time zone, go to **Dashboards Management** > **Advanced settings** and update the **Timezone for date formatting** (**dateFormat:tz**) setting. For more information, see [Advanced settings]({{site.url}}{{site.baseurl}}/dashboards/management/advanced-settings/).
+
+## Related documentation
+
+- [Advanced settings]({{site.url}}{{site.baseurl}}/dashboards/management/advanced-settings/)

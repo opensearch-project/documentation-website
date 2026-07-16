@@ -45,7 +45,7 @@ The name of the aggregation helps you to distinguish between different aggregati
 
 ## Example aggregation
 
-The following example uses the OpenSearch Dashboards sample ecommerce data. To add the sample data, log in to OpenSearch Dashboards, choose **Home**, and then choose **Try our sample data**. For **Sample eCommerce orders**, choose **Add data**.
+The following example uses the OpenSearch Dashboards sample e-commerce data. To add the sample data, log in to OpenSearch Dashboards, choose **Home**, and then choose **Try our sample data**. For **Sample eCommerce orders**, choose **Add data**.
 
 This example uses the `avg` aggregation to find the average value of the `taxful_total_price` field:
 
@@ -174,7 +174,7 @@ The inner `aggs` keyword begins a new nested aggregation. The syntax of the pare
 
 ### Nested aggregation example
 
-The following example uses the OpenSearch Dashboards sample ecommerce data to group orders by category and calculate the average price within each category. This query returns the top 5 categories sorted in descending alphabetical order:
+The following example uses the OpenSearch Dashboards sample e-commerce data to group orders by category and calculate the average price within each category. This query returns the top 5 categories sorted in descending alphabetical order:
 
 ```json
 GET opensearch_dashboards_sample_data_ecommerce/_search
@@ -274,7 +274,7 @@ You can also pair your aggregations with search queries to narrow down the data 
 
 ## Using aggregations
 
-You can use aggregations through the OpenSearch API or through the OpenSearch Dashboards UI.
+You can use aggregations through the OpenSearch API or through OpenSearch Dashboards.
 
 ### Using the aggregations API
 
@@ -284,41 +284,15 @@ See the [Example aggregation](#example-aggregation) and [Nested aggregation exam
 
 ### Using aggregations in OpenSearch Dashboards
 
-Aggregations power visualizations in OpenSearch Dashboards. When you create a visualization, OpenSearch Dashboards automatically generates aggregation API queries based on your selections—you don't need to write these queries manually.
+Aggregations power many visualization types in OpenSearch Dashboards. When you create a visualization, OpenSearch Dashboards automatically generates aggregation queries based on your selections. If you're new to OpenSearch Dashboards, see [Getting started with OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/getting-started/).
 
-#### How aggregations appear in visualizations
+The metric and bucket options you see in the **Visualize** application correspond to the aggregation types described on this page. `Count` is the default Y-axis metric---it displays the number of documents in each bucket (`doc_count`) and requires no field selection.
 
-The aggregation types described in this document correspond to options in visualizations:
+The following metrics are available in the **Visualize** application: `Count`, `Average`, `Max`, `Median`, `Min`, `Percentile Ranks`, `Percentiles`, `Standard Deviation`, `Sum`, `Top Hit`, `Unique Count`, `Cumulative Sum`, `Derivative`, `Moving Avg`, `Serial Diff`, `Average Bucket`, `Max Bucket`, `Min Bucket`, and `Sum Bucket`.
 
-- **Metric aggregations** appear in the **Metrics** dropdown and become Y-axis values in charts. Common options include `Count`, `Average`, `Sum`, `Min`, and `Max`.
-- **Bucket aggregations** appear in the **Buckets** dropdown and become X-axis groupings, slice dimensions in pie charts, or row/column splits. Common options include `Terms`, `Date Histogram`, `Histogram`, and `Range`.
-- **Date histograms** create time-series line charts and area charts by grouping data into time intervals.
+The following bucket aggregations are available in the **Visualize** application: `Date Histogram`, `Date Range`, `Filters`, `Histogram`, `IPv4 Range`, `Range`, `Significant Terms`, and `Terms`.
 
-#### Creating a visualization using aggregations
-
-To create a bar chart showing average order value by category, follow these steps:
-
-1. In OpenSearch Dashboards, on the top menu, select **Visualize**.
-1. Select **Create visualization**.
-1. Select **Vertical Bar** and then select **[eCommerce] Orders**.
-1. Set the time range:
-    1. In the upper-right corner, select the time range selector (calendar icon).
-    1. Select **Last 7 days**.
-1. Configure the Y-axis:
-    1. In the **Metrics** panel, select **Y-axis**.
-    1. From the **Aggregation** dropdown list, select **Average**.
-    1. From the **Field** dropdown list, choose the `taxful_total_price` field.
-1. Configure the X-axis:
-    1. In the **Buckets** panel, select **Add** > **X-axis**.
-    1. From the **Aggregation** dropdown list, select **Terms**.
-    1. From the **Field** dropdown list, select the `category.keyword` field.
-1. Select **Update** to view your visualization, as shown in the following image.
-
-![Vertical bar chart showing average order values by product category]({{site.url}}{{site.baseurl}}/images/aggregation-example.png)
-
-This creates a nested aggregation in which the **Average** metric is nested inside the **Terms** bucket. Internally, OpenSearch Dashboards generates an aggregation query matching the structure shown in the preceding [Nested aggregation example](#nested-aggregation-example).
-
-For detailed information about creating visualizations using aggregations, see [Building data visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/).
+For descriptions of each option and how they map to the Aggregations API, see [Configuring visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/configuring-viz/#data-tab). For a hands-on tutorial, see [Creating aggregation-based visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/aggregation-based-viz/). 
 
 ## Aggregations on text fields
 

@@ -5,7 +5,6 @@ parent: Alias APIs
 grand_parent: Index APIs
 nav_order: 50
 redirect_from:
- - /opensearch/rest-api/alias/
  - /api-reference/index-apis/alias/
 ---
 
@@ -512,6 +511,10 @@ All successful alias operations return the same response format:
     "acknowledged": true
 }
 ```
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `indices:admin/aliases/get`.
 
 ## Related documentation
 

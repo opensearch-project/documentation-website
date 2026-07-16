@@ -54,13 +54,17 @@ function initializeBreakingChanges() {
   }
 }
 
-// Initialize on DOMContentLoaded
-document.addEventListener('DOMContentLoaded', initializeBreakingChanges);
+// ES modules are deferred, so the DOM is already parsed when this runs.
+// DOMContentLoaded may have already fired by the time a module executes,
+// so call initialize directly instead of waiting for the event.
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initializeBreakingChanges);
+} else {
+  initializeBreakingChanges();
+}
 
-// Also initialize on window load to handle browser back/forward navigation
+// Re-initialize on back/forward navigation (bfcache restore)
 window.addEventListener('pageshow', (event) => {
-  // The pageshow event is fired when the page is shown, including when navigating back to the page
-  // The persisted property is true if the page is being restored from the bfcache
   if (event.persisted) {
     initializeBreakingChanges();
   }

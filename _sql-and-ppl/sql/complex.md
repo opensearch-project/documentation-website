@@ -47,11 +47,11 @@ The `JOIN` clause combines columns from one or more indexes using values common 
 
 Rule `tableSource`:
 
-![tableSource]({{site.url}}{{site.baseurl}}/images/tableSource.png)
+![tableSource rule]({{site.url}}{{site.baseurl}}/images/tableSource.png)
 
 Rule `joinPart`:
 
-![joinPart]({{site.url}}{{site.baseurl}}/images/joinPart.png)
+![joinPart rule]({{site.url}}{{site.baseurl}}/images/joinPart.png)
 
 ### Example 1: Inner join
 
@@ -144,16 +144,18 @@ The `explain` output is complicated, because a `JOIN` clause is associated with 
 }
 ```
 
-Result set:
+The query returns the following results:
 
+<!-- vale off-->
 | a.account_number | a.firstname | a.lastname | e.id | e.name
 :--- | :--- | :--- | :--- | :---
 6 | Hattie | Bond | 6 | Jane Smith
+<!-- vale on-->
 
 ### Example 2: Cross join
 
-Cross join, also known as cartesian join, combines each document from the first index with each document from the second.
-The result set is the cartesian product of documents of both indexes.
+Cross join, also known as Cartesian join, combines each document from the first index with each document from the second.
+The result set is the Cartesian product of documents of both indexes.
 This operation is similar to the inner join without the `ON` clause that specifies the join condition.
 
 It's risky to perform cross join on two indexes of large or even medium size. It might trigger a circuit breaker that terminates the query to avoid running out of memory.
@@ -171,8 +173,9 @@ JOIN employees_nested e
 {% include copy.html %}
 
 
-Result set:
+The query returns the following results:
 
+<!-- vale off-->
 | a.account_number | a.firstname | a.lastname | e.id | e.name
 :--- | :--- | :--- | :--- | :---
 1 | Amber | Duke | 3 | Bob Smith
@@ -187,6 +190,7 @@ Result set:
 18 | Dale | Adams | 3 | Bob Smith
 18 | Dale | Adams | 4 | Susan Smith
 18 | Dale | Adams | 6 | Jane Smith
+<!-- vale on-->
 
 ### Example 3: Left outer join
 
@@ -205,14 +209,16 @@ LEFT JOIN employees_nested e
 {% include copy.html %}
 
 
-Result set:
+The query returns the following results:
 
+<!-- vale off-->
 | a.account_number | a.firstname | a.lastname | e.id | e.name
 :--- | :--- | :--- | :--- | :---
 1 | Amber | Duke | null | null
 6 | Hattie | Bond | 6 | Jane Smith
 13 | Nanette | Bates | null | null
 18 | Dale | Adams | null | null
+<!-- vale on-->
 
 ## Subquery
 
@@ -358,12 +364,14 @@ Explain:
 }
 ```
 
-Result set:
+The query returns the following results:
 
+<!-- vale off-->
 | a1.firstname | a1.lastname | a1.balance
 :--- | :--- | :---
 Amber | Duke | 39225
 Nanette | Bates | 32838
+<!-- vale on-->
 
 ### Example 2: From subquery
 
@@ -424,10 +432,12 @@ Explain:
 }
 ```
 
-Result set:
+The query returns the following results:
 
+<!-- vale off-->
 | f | l | a
 :--- | :--- | :---
 Amber | Duke | 32
 Dale | Adams | 33
 Hattie | Bond | 36
+<!-- vale on-->

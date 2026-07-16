@@ -177,7 +177,7 @@ Follow these steps to create a pipeline for UBI query data:
 
 ### Step 3(b): Test the query pipeline
 
-When the pipeline status is `Active`, you can start ingesting data into it. You must sign all HTTP requests to the pipeline using [AWS Signature Version 4](https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html). Use an HTTP tool such as [Postman](https://www.getpostman.com/) or [awscurl](https://github.com/okigan/awscurl) to send some data to the pipeline. As with indexing data directly to a domain, ingesting data into a pipeline always requires either an AWS Identity and Access Management (IAM) role or an [IAM access key and secret key](https://docs.aws.amazon.com/powershell/latest/userguide/pstools-appendix-sign-up.html).
+When the pipeline status is `Active`, you can start ingesting data into it. You must sign all HTTP requests to the pipeline using [AWS Signature Version 4](https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html). Use an HTTP tool such as [Postman](https://www.getpostman.com/) or [`awscurl`](https://github.com/okigan/awscurl) to send some data to the pipeline. As with indexing data directly to a domain, ingesting data into a pipeline always requires either an AWS Identity and Access Management (IAM) role or an [IAM access key and secret key](https://docs.aws.amazon.com/powershell/latest/userguide/pstools-appendix-sign-up.html).
 
 To test the pipeline, use these steps:
 
@@ -185,7 +185,7 @@ To test the pipeline, use these steps:
 
     ![Pipeline Settings]({{site.url}}{{site.baseurl}}/images/ubi/opensearch-ingestion-pipeline.png "Pipeline Settings")
 
-1. Post a UBI query to the ingest pipeline. The following is an example of posting a query using [awscurl](https://github.com/okigan/awscurl):
+1. Post a UBI query to the ingest pipeline. The following is an example of posting a query using [`awscurl`](https://github.com/okigan/awscurl):
 
     ```bash
     awscurl --service osis --region us-east-1 \
@@ -265,7 +265,7 @@ Repeat [Step 3(a)](#step-3a-create-a-query-pipeline) to set up a pipeline for th
 
 ### Step 3(d): Test the event pipeline
 
-Test the event pipeline by following [Step 3(b)](#step-3b-test-the-query-pipeline). The following is an example of posting a query using [awscurl](https://github.com/okigan/awscurl):
+Test the event pipeline by following [Step 3(b)](#step-3b-test-the-query-pipeline). The following is an example of posting a query using [`awscurl`](https://github.com/okigan/awscurl):
 
 ```bash
 awscurl --service osis --region us-east-1 \

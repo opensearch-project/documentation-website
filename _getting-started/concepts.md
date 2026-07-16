@@ -20,6 +20,7 @@ This page defines key terms and concepts related to OpenSearch.
 - [***Node***]({{site.url}}{{site.baseurl}}/getting-started/intro/#clusters-and-nodes): A single server that is part of an OpenSearch cluster.
 - [***Cluster***]({{site.url}}{{site.baseurl}}/getting-started/intro/#clusters-and-nodes): A collection of OpenSearch nodes working together.
 - [***Cluster manager***]({{site.url}}{{site.baseurl}}/getting-started/intro/#clusters-and-nodes): The node responsible for managing cluster-wide operations.
+- ***Coordinating node***: The node that receives a client request, routes it to the appropriate shards, and aggregates the results before returning a response.
 - [***Shard***]({{site.url}}{{site.baseurl}}/getting-started/intro/#shards): A subset of an index's data; indexes are split into shards for distribution across nodes.
 - [***Primary shard***]({{site.url}}{{site.baseurl}}/getting-started/intro/#primary-and-replica-shards): The original shard containing index data.
 - [***Replica shard***]({{site.url}}{{site.baseurl}}/getting-started/intro/#primary-and-replica-shards): A copy of a primary shard for redundancy and search performance.
@@ -37,6 +38,7 @@ This page defines key terms and concepts related to OpenSearch.
 - ***Ingestion***: The process of adding data to OpenSearch.
 - [***Indexing***]({{site.url}}{{site.baseurl}}/api-reference/document-apis/index-document/): The process of storing and organizing data in OpenSearch to make it searchable.
 - [***Bulk indexing***]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/): The process of indexing multiple documents in a single request.
+- [***Upsert***]({{site.url}}{{site.baseurl}}/api-reference/document-apis/update-document/#upsert): An operation that updates a document if it already exists or inserts a new document if it does not.
 
 ## Text analysis
 
@@ -64,7 +66,16 @@ This page defines key terms and concepts related to OpenSearch.
 - [***Dashboards Query Language (DQL)***]({{site.url}}{{site.baseurl}}/dashboards/dql/): A simple text-based query language used specifically for filtering data in OpenSearch Dashboards.
 - [***Piped Processing Language (PPL)***]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index/): A query language that uses pipe syntax (`|`) to chain commands for data processing and analysis. Primarily used for observability use cases in OpenSearch.
 - [***Relevance score***]({{site.url}}{{site.baseurl}}/getting-started/intro/#relevance): A number indicating how well a document matches a query.
+- [***BM25***](https://en.wikipedia.org/wiki/Okapi_BM25): The default ranking function in OpenSearch used to calculate relevance scores. BM25 extends TF–IDF by normalizing for document length.
+- [***Term frequency–inverse document frequency (TF–IDF)***](https://en.wikipedia.org/wiki/Tf%E2%80%93idf): A numerical statistic that reflects how important a word is to a document in a collection. Term frequency measures how often a word appears in a document; inverse document frequency reduces the weight of common words across all documents.
+- [***Fuzziness***]({{site.url}}{{site.baseurl}}/query-dsl/term/fuzzy/): A tolerance for approximate matching that accounts for typos and minor spelling differences. Fuzziness is measured by the [Damerau–Levenshtein distance](https://en.wikipedia.org/wiki/Damerau–Levenshtein_distance)---the number of one-character changes (insertions, deletions, substitutions, or transpositions) needed to transform one term into another.
+- ***Recall***: The proportion of relevant documents that are retrieved by a search. Higher recall means fewer relevant results are missed.
+- ***Precision***: The proportion of retrieved documents that are relevant. Higher precision means fewer irrelevant results are returned.
 - [***Aggregation***]({{site.url}}{{site.baseurl}}/aggregations/): A way to analyze and summarize data based on a search query.
+
+## OpenSearch Dashboards concepts
+
+See [OpenSearch Dashboards concepts]({{site.url}}{{site.baseurl}}/dashboards/getting-started/concepts/).
 
 ## Vector search concepts
 

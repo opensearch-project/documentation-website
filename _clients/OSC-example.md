@@ -34,7 +34,7 @@ var createResponse = await osClient.Indices.CreateAsync("students",
 ```
 {% include copy.html %}
 
-If you use auto mapping, Id and GradYear are mapped as integers, Gpa is mapped as a double, and FirstName and LastName are mapped as text with a keyword subfield. If you want to search for FirstName and LastName and allow only case-sensitive full matches, you can suppress analyzing by mapping these fields as keyword only. In Query DSL, you can accomplish this using the following query:
+If you use auto mapping, `Id` and `GradYear` are mapped as integers, `Gpa` is mapped as a double, and `FirstName` and `LastName` are mapped as text with a keyword subfield. If you want to search for `FirstName` and `LastName` and allow only case-sensitive full matches, you can suppress analyzing by mapping these fields as keyword only. In Query DSL, you can accomplish this using the following query:
 
 ```json
 PUT students

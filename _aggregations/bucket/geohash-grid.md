@@ -9,20 +9,35 @@ redirect_from:
 
 # Geohash grid aggregations
 
-The `geohash_grid` aggregation buckets documents for geographical analysis. It organizes a geographical region into a grid of smaller regions of different sizes or precisions. Lower values of precision represent larger geographical areas, and higher values represent smaller, more precise geographical areas. You can aggregate documents on [geopoint]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point/) or [geoshape]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-shape/) fields using a geohash grid aggregation. One notable difference is that a geopoint is only present in one bucket, but a geoshape is counted in all geohash grid cells with which it intersects.
+The `geohash_grid` aggregation groups documents into grid cells based on their [geohash](https://en.wikipedia.org/wiki/Geohash) value. Each cell is labeled with its geohash string, and the precision parameter controls cell size---lower precision values produce fewer, larger cells, while higher values produce many smaller cells. You can aggregate documents on [geo_point]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point/) or [geo_shape]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-shape/) fields. A geo_point is placed in exactly one cell, while a geo_shape is counted in every cell it intersects.
 
-The number of results returned by a query might be far too many to display each geopoint individually on a map. The `geohash_grid` aggregation buckets nearby geopoints together by calculating the geohash for each point, at the level of precision that you define (between 1 to 12; the default is 5). To learn more about geohash, see [Wikipedia](https://en.wikipedia.org/wiki/Geohash).
+Precision values range from 1 to 12. High-precision requests can consume significant memory and produce large responses because they generate many buckets. Filter to a small geographic area before using high precision values.
+{: .note}
 
-The web logs example data is spread over a large geographical area, so you can use a lower precision value. You can zoom in on this map by increasing the precision value:
+## Parameters
+
+The `geohash_grid` aggregation takes the following parameters.
+
+| Parameter | Required/Optional | Data type | Description |
+| :--- | :--- | :--- | :--- |
+| `field` | Required | String | The field to aggregate on. Must be mapped as `geo_point` or `geo_shape`. |
+| `precision` | Optional | Integer or String | The geohash length controlling cell size. Valid integer values are 1--12. You can also specify an approximate distance (for example, `1km` or `10m`), and OpenSearch selects the precision level whose cells do not exceed that size. Default is `5`. |
+| `bounds` | Optional | Object | A bounding box that restricts which points are considered. Only points within the box are aggregated. Accepts all [geo_point formats]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point#formats). |
+| `size` | Optional | Integer | The maximum number of buckets to return. When there are more buckets than `size`, buckets with the highest document counts are returned. Default is `10000`. |
+| `shard_size` | Optional | Integer | The maximum number of buckets returned from each shard. Default is max(10, `size` × number of shards). |
+
+## Example: Low-precision grid
+
+The following example groups e-commerce customer locations into geohash cells at precision 4 (approximately 39 km × 19.5 km):
 
 ```json
-GET opensearch_dashboards_sample_data_logs/_search
+GET /opensearch_dashboards_sample_data_ecommerce/_search
 {
   "size": 0,
   "aggs": {
     "geo_hash": {
       "geohash_grid": {
-        "field": "geo.coordinates",
+        "field": "geoip.location",
         "precision": 4
       }
     }
@@ -31,50 +46,100 @@ GET opensearch_dashboards_sample_data_logs/_search
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example: High-precision grid with bounding box filter
+
+When zooming into a specific region, first filter documents to that area before requesting high precision. The following example uses a `geo_bounding_box` query to narrow to the New York City area, then aggregates at precision 7 (approximately 153 m × 152 m):
 
 ```json
-...
-"aggregations" : {
-  "geo_hash" : {
-    "buckets" : [
-      {
-        "key" : "c1cg",
-        "doc_count" : 104
+GET /opensearch_dashboards_sample_data_ecommerce/_search
+{
+  "size": 0,
+  "aggs": {
+    "zoomed_in": {
+      "filter": {
+        "geo_bounding_box": {
+          "geoip.location": {
+            "top_left": "41.0, -74.5",
+            "bottom_right": "40.5, -73.5"
+          }
+        }
       },
-      {
-        "key" : "dr5r",
-        "doc_count" : 26
-      },
-      {
-        "key" : "9q5b",
-        "doc_count" : 20
-      },
-      {
-        "key" : "c20g",
-        "doc_count" : 19
-      },
-      {
-        "key" : "dr70",
-        "doc_count" : 18
+      "aggs": {
+        "detailed_grid": {
+          "geohash_grid": {
+            "field": "geoip.location",
+            "precision": 7
+          }
+        }
       }
-      ...
-    ]
+    }
   }
- }
+}
+```
+{% include copy-curl.html %}
+
+## Example response
+
+The following response corresponds to the high-precision example:
+
+```json
+{
+  "took": 23,
+  "timed_out": false,
+  "terminated_early": true,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 4675,
+      "relation": "eq"
+    },
+    "max_score": null,
+    "hits": []
+  },
+  "aggregations": {
+    "zoomed_in": {
+      "doc_count": 896,
+      "detailed_grid": {
+        "buckets": [
+          {
+            "key": "dr72h56",
+            "doc_count": 747
+          },
+          {
+            "key": "dr5rs14",
+            "doc_count": 149
+          }
+        ]
+      }
+    }
+  }
 }
 ```
 
-You can visualize the aggregated response on a map using OpenSearch Dashboards.
+## Response body fields
 
-The more accurate you want the aggregation to be, the more resources OpenSearch consumes because of the number of buckets that the aggregation has to calculate. By default, OpenSearch does not generate more than 10,000 buckets. You can change this behavior by using the `size` attribute, but keep in mind that the performance might suffer for very wide queries consisting of thousands of buckets.
+The following table lists the response body fields.
+
+| Field | Data type | Description |
+| :--- | :--- | :--- |
+| `buckets` | Array | The grid cell buckets, ordered by `doc_count` descending. |
+| `buckets.key` | String | The geohash string identifying the cell. |
+| `buckets.doc_count` | Integer | The number of documents (or geoshape intersections) in this cell. |
+
+You can use a returned geohash key as both the `top_left` and `bottom_right` of a `geo_bounding_box` query to zoom into that cell at a higher precision. Client-side geohash libraries (such as [ngeohash](https://github.com/sunng87/node-geohash) for JavaScript) can decode bucket keys into lat/lon bounding boxes for map rendering.
+{: .tip}
 
 ## Aggregating geoshapes
 
 To run an aggregation on a geoshape field, first create an index and map the `location` field as a `geo_shape`:
 
 ```json
-PUT national_parks
+PUT /national_parks
 {
   "mappings": {
     "properties": {
@@ -90,7 +155,7 @@ PUT national_parks
 Next, index some documents into the `national_parks` index:
 
 ```json
-PUT national_parks/_doc/1
+PUT /national_parks/_doc/1
 {
   "name": "Yellowstone National Park",
   "location":
@@ -100,7 +165,7 @@ PUT national_parks/_doc/1
 {% include copy-curl.html %}
 
 ```json
-PUT national_parks/_doc/2
+PUT /national_parks/_doc/2
 {
   "name": "Yosemite National Park",
   "location": 
@@ -110,7 +175,7 @@ PUT national_parks/_doc/2
 {% include copy-curl.html %}
 
 ```json
-PUT national_parks/_doc/3
+PUT /national_parks/_doc/3
 {
   "name": "Death Valley National Park",
   "location": 
@@ -122,7 +187,7 @@ PUT national_parks/_doc/3
 You can run an aggregation on the `location` field as follows:
 
 ```json
-GET national_parks/_search
+GET /national_parks/_search
 {
   "aggregations": {
     "grouped": {
@@ -136,7 +201,7 @@ GET national_parks/_search
 ```
 {% include copy-curl.html %}
 
-When aggregating geoshapes, one geoshape can be counted for multiple buckets because it overlaps multiple grid cells:
+A geoshape can appear in multiple buckets when it spans more than one grid cell:
 
 <details open markdown="block">
   <summary>
@@ -244,24 +309,12 @@ When aggregating geoshapes, one geoshape can be counted for multiple buckets bec
 ```
 </details>
 
-Currently, OpenSearch supports geoshape aggregation through the API but not in OpenSearch Dashboards visualizations. If you'd like to see geoshape aggregation implemented for visualizations, upvote the related [GitHub issue](https://github.com/opensearch-project/dashboards-maps/issues/250).
+OpenSearch supports geoshape aggregation through the API but not in OpenSearch Dashboards visualizations.
 {: .note}
-
-## Supported parameters
-
-Geohash grid aggregation requests support the following parameters.
-
-Parameter | Data type | Description
-:--- | :--- | :---
-field | String | The field on which aggregation is performed. This field must be mapped as a `geo_point` or `geo_shape` field. If the field contains an array, all array values are aggregated. Required.
-`precision` | Integer | The granularity level used to determine grid cells for bucketing results. Cells cannot exceed the specified size (diagonal) of the required precision. Valid values are in the [0, 12] range. Optional. Default is 5. 
-`bounds` | Object | The bounding box for filtering geopoints and geoshapes. The bounding box is defined by the upper-left and lower-right vertices. Only shapes that intersect with this bounding box or are completely enclosed by this bounding box are included in the aggregation output. The vertices are specified as geopoints in one of the following formats: <br>- An object with a latitude and longitude<br>- An array in the [`longitude`, `latitude`] format<br>- A string in the "`latitude`,`longitude`" format<br>- A geohash <br>- WKT<br> See the [geopoint formats]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point#formats) for formatting examples. Optional.
-`size` | Integer | The maximum number of buckets to return. When there are more buckets than `size`, OpenSearch returns buckets with more documents. Optional. Default is 10,000.
-`shard_size` | Integer | The maximum number of buckets to return from each shard. Optional. Default is max (10, `size` &middot; number of shards), which provides a more accurate count of more highly prioritized buckets.
 
 ## Geohash precision
 
-The relationship between geohash precision and the approximate grid cell dimensions is described in the following table.
+The following table lists the approximate cell dimensions at each precision level. Cell dimensions vary with latitude; the values shown represent the widest case at the equator.
 
 Precision /<br>geohash length | Latitude bits | Longitude bits | Latitude error | Longitude error | Cell height | Cell width
 :---:|:-------------:|:--------------:|:--------------:|:---------------:|:-----------:|:----------:

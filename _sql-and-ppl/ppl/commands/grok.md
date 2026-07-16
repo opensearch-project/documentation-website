@@ -6,11 +6,19 @@ grand_parent: PPL
 nav_order: 22
 ---
 
+<!-- vale off -->
+
 # grok
+
+<!-- vale on -->
 
 The `grok` command parses a text field using a Grok pattern and appends the extracted results to the search results.
 
+<!-- vale off -->
+
 ## Syntax
+
+<!-- vale on -->
 
 The `grok` command has the following syntax:
 
@@ -18,7 +26,11 @@ The `grok` command has the following syntax:
 grok <field> <pattern>
 ```
 
+<!-- vale off -->
+
 ## Parameters
+
+<!-- vale on -->
 
 The `grok` command supports the following parameters.
 
@@ -28,7 +40,11 @@ The `grok` command supports the following parameters.
 | `<pattern>` | Required | The Grok pattern used to extract new fields from the specified text field. If a new field name already exists, it overwrites the original field. |  
   
 
+<!-- vale off -->
+
 ## Example 1: Parsing Apache access logs  
+
+<!-- vale on -->
 
 The following query parses raw Apache access logs using the built-in `COMMONAPACHELOG` grok pattern:
   
@@ -41,6 +57,8 @@ source=apache
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | COMMONAPACHELOG | timestamp | response | bytes |
 | --- | --- | --- | --- |
 | 177.95.8.74 - upton5450 [28/Sep/2022:10:15:57 -0700] "HEAD /e-business/mindshare HTTP/1.0" 404 19927 | 28/Sep/2022:10:15:57 -0700 | 404 | 19927 |
@@ -48,7 +66,13 @@ The query returns the following results:
 | 118.223.210.105 - - [28/Sep/2022:10:15:57 -0700] "PATCH /strategize/out-of-the-box HTTP/1.0" 401 27439 | 28/Sep/2022:10:15:57 -0700 | 401 | 27439 |
 | 210.204.15.104 - - [28/Sep/2022:10:15:57 -0700] "POST /users HTTP/1.1" 301 9481 | 28/Sep/2022:10:15:57 -0700 | 301 | 9481 |
 
+<!-- vale on -->
+
+<!-- vale off -->
+
 ## Example 2: Extracting fields from Envoy access logs
+
+<!-- vale on -->
 
 The following query parses Envoy access log entries, extracting the HTTP method, path, and status code:
 
@@ -63,12 +87,20 @@ source=otellogs
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | method | path | status |
 | --- | --- | --- |
 | GET | /api/products | 200 |
 | POST | /api/checkout | 503 |
 
+<!-- vale on -->
+
+<!-- vale off -->
+
 ## Example 3: Extracting durations from log messages
+
+<!-- vale on -->
 
 The following query uses grok to extract numeric durations from log messages:
 
@@ -84,13 +116,21 @@ source=otellogs
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | body | duration |
 | --- | --- |
 | Slow query detected: SELECT \* FROM products WHERE category = 'electronics' took 3200ms | 3200 |
 | Payment failed: connection timeout to payment gateway after 30000ms | 30000 |
 | gRPC call /ProductCatalogService/GetProduct completed in 12ms | 12 |
 
+<!-- vale on -->
+
+<!-- vale off -->
+
 ## Limitations
+
+<!-- vale on -->
 
 The `grok` command has the following limitations:
 

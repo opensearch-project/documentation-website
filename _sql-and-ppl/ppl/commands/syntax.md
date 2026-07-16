@@ -4,9 +4,15 @@ title: PPL syntax
 parent: Commands
 grand_parent: PPL
 nav_order: 1
+redirect_from:
+  - /search-plugins/sql/ppl/syntax/
 ---
 
+<!-- vale off -->
+
 # PPL syntax
+
+<!-- vale on -->
 
 Every PPL query starts with the `search` command. It specifies the index to search and retrieve documents from.
 
@@ -15,7 +21,11 @@ Every PPL query starts with the `search` command. It specifies the index to sear
 Subsequent commands can follow in any order.
 
 
+<!-- vale off -->
+
 ## Syntax
+
+<!-- vale on -->
 
 ```sql
 search source=<index> [boolean-expression]
@@ -23,7 +33,11 @@ source=<index> [boolean-expression]
 ```
 {% include copy.html %}
 
+<!-- vale off -->
+
 ## Parameters
+
+<!-- vale on -->
 
 The `search` command supports the following parameters.
 
@@ -33,17 +47,29 @@ The `search` command supports the following parameters.
 | `<boolean-expression>` | Optional | Specifies an expression that evaluates to a Boolean value. |
 
 
+<!-- vale off -->
+
 ## Syntax notation conventions
+
+<!-- vale on -->
 
 PPL command syntax uses the following notation conventions.
 
+<!-- vale off -->
+
 ### Placeholders
+
+<!-- vale on -->
 
 Placeholders are shown in angle brackets (`< >`). These must be replaced with actual values.
 
 **Example**: `<field>` means you must specify an actual field name like `age` or `firstname`.
 
+<!-- vale off -->
+
 ### Optional elements
+
+<!-- vale on -->
 
 Optional elements are enclosed in square brackets (`[ ]`). These can be omitted from the command.
 
@@ -51,19 +77,31 @@ Optional elements are enclosed in square brackets (`[ ]`). These can be omitted 
 - `[+|-]` means the plus or minus signs are optional.
 - `[<alias>]` means the alias placeholder is optional.
 
+<!-- vale off -->
+
 ### Required choices
+
+<!-- vale on -->
 
 Required choices between alternatives are shown in parentheses and are delimited with pipe separators (`(option1 | option2)`). You must choose exactly one of the specified options.
 
 **Example**: `(on | where)` means you must use either `on` or `where`, but not both.
 
+<!-- vale off -->
+
 ### Optional choices
+
+<!-- vale on -->
 
 Optional choices between alternatives are shown in square brackets with pipe separators (`[option1 | option2]`). You can choose one of the options or omit them entirely.
 
 **Example**: `[asc | desc]` means you can specify `asc`, `desc`, or neither.
 
+<!-- vale off -->
+
 ### Repetition
+
+<!-- vale on -->
 
 An ellipsis (`...`) indicates that the preceding element can be repeated multiple times.
 
@@ -72,7 +110,11 @@ An ellipsis (`...`) indicates that the preceding element can be repeated multipl
 - `<field>, ...` means comma-separated repetition: `field1, field2, field3`
   
 
+<!-- vale off -->
+
 ## Examples
+
+<!-- vale on -->
 
 **Example 1: Search through an index**
 
@@ -88,6 +130,8 @@ search source=otellogs
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | severityText | resource.attributes.service.name |
 | --- | --- |
 | ERROR | payment |
@@ -97,6 +141,8 @@ The query returns the following results:
 | ERROR | recommendation |
 | ERROR | product-catalog |
 | ERROR | checkout |
+
+<!-- vale on -->
 
 **Example 2: Get all documents**
 
@@ -112,6 +158,8 @@ source=otellogs
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | severityText | resource.attributes.service.name | body |
 | --- | --- | --- |
 | INFO | frontend | [2024-02-01T09:10:00.123Z] "GET /api/products HTTP/1.1" 200 - 1024 45 frontend-6b7b4c9f-x2kl9 |
@@ -119,6 +167,8 @@ The query returns the following results:
 | WARN | product-catalog | Slow query detected: SELECT \* FROM products WHERE category = 'electronics' took 3200ms |
 | ERROR | payment | Payment failed: connection timeout to payment gateway after 30000ms |
 | DEBUG | cart | Cache miss for key user:session:U200 in Valkey cluster |
+
+<!-- vale on -->
 
 **Example 3: Get documents that match a condition**
 
@@ -133,8 +183,12 @@ source=otellogs severityText = 'ERROR' AND `resource.attributes.service.name` = 
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | severityText | resource.attributes.service.name | body |
 | --- | --- | --- |
 | ERROR | payment | Payment failed: connection timeout to payment gateway after 30000ms |
 | ERROR | payment | Out of memory: Java heap space - shutting down pod payment-6f8d4b-ht7q3 |
+
+<!-- vale on -->
 

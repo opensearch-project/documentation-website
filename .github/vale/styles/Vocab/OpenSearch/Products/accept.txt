@@ -1,46 +1,67 @@
 Active Directory
 Adoptium
 AI21 Labs Jurassic
+Alertmanager
 Amazon
+Amazon Bedrock
+Amazon Bedrock Guardrails
+Amazon Kinesis
 Amazon OpenSearch Serverless
 Amazon OpenSearch Service
-Amazon Bedrock
-Amazon Kinesis
 Amazon SageMaker
-AWS Secrets Manager
+Amazon Simple Email Service
 Ansible
 Anthropic Claude
+arXiv
+Atlassian
+Apache Avro
 Apache HttpClient 5 Transport
 Apache Kafka
+arXiv
+Aryn
 Auditbeat
+Avro
 AWS Cloud
+AWS Secrets Manager
+AWS Signature Version 4
+Bing
 Capture and Replay
+Chebyshev
+Claude Code
 Claude Desktop
+Cognito
+Confluence
 Cohere Command
 Cohere Embed
 Cohere Embed English
 Cohere Embed Multilingual
-Cognito
 Cursor
 Dashboards Query Language
 Data Prepper
 Debian
 Dev Tools
+Discover
+Discover application
 Docker
 Docker Compose
 Dockerfile
 DoS
+Ehcache
 Elasticsearch
-GeoJSON
-GitHub
-Gradle
-Grafana
+Eszett
 Faiss
 Filebeat
 Flickr
 Fluent Bit
 Fluentd
+GeoJSON
+GitHub
+Google Normalized Distance
+Gradle
+Grafana
+Hanja
 Helm
+Hive Metastore
 Hugging Face
 IdP
 Inferentia
@@ -48,21 +69,28 @@ IP2Geo
 IPv4
 IPv6
 Iris
-JavaScript
 Jaeger
 Jaeger HotROD
+Jira
+JavaScript
+jVector
+Jelinek
+Joda
 JSON
 JSON Web Token
-Keycloak
+Karpenter
 Kerberos
+Keycloak
 Kibana
 Kinesis
 Kiro
+KStem
 Kubernetes
-Lambda
+Kuromoji
+Kyverno
 LangChain
-LangGraph
 Langflow
+LangGraph
 Linux
 Log4j
 Logstash
@@ -72,9 +100,14 @@ Metadata-Migration-Tool
 Metricbeat
 Microsoft Power BI
 Migration Assistant
+Migration Console
 Minikube
+Nagle
 Nagios
+NVMe
 Okta
+Ollama
+Oniguruma
 Open Distro
 OpenAI
 OpenID Connect
@@ -85,6 +118,7 @@ OpenSearch Benchmark
 OpenSearch Dashboards
 OpenSearch Flow
 OpenSearch Kubernetes Operator
+OpenSearch MCP Server
 OpenSearch Playground
 OpenSearch Project
 OpenSearch Service
@@ -103,16 +137,25 @@ PyTorch
 Querqy
 Query Workbench
 RankLib
+RCF Summarize
 Reindex-from-Snapshot
 Replayer
-RCF Summarize
+Reporting CLI
+RMSProp
 RPM Package Manager
 Ruby
 Search Relevance Workbench
 Simple Schema for Observability
+Solr
+SolrCloud
+Sorani
+Stempel
 Strands Agents
+Strimzi
+SVMRank
 Tableau
 Textract
+Tika
 Titan
 Titan Multimodal Embeddings
 Titan Text Embeddings
@@ -121,7 +164,14 @@ Traffic Capture Proxy
 Traffic Replayer
 Tribuo
 VisBuilder
+Visualize
+Visualize application
+Wikimedia
+Wikitravel
+Wiktionary
 Winlogbeat
+Workflow CLI
 XGBoost
+Yandex
 Zipf
 Zstandard

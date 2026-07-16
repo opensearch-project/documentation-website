@@ -83,6 +83,9 @@ Follow these steps to deploy the cluster, verify that it is running, access it, 
     ```
     {% include copy.html %}
 
+    This example deploys a cluster without security enabled. To configure TLS and security for production use, see [Configuring security]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/operator/operator-security/).
+    {: .note}
+
 1. Create the cluster by running the following command:
 
     ```bash

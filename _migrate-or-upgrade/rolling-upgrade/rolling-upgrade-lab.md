@@ -94,7 +94,7 @@ After selecting a host, you can begin the lab:
    wget https://raw.githubusercontent.com/opensearch-project/documentation-website/main/assets/examples/upgrade-demo-cluster.sh
    ```
    {% include copy.html %}
-1. Run the script without any modifications in order to deploy four containers running OpenSearch and one container running OpenSearch Dashboards, with custom, self-signed TLS certificates and a pre-defined set of internal users:
+1. Run the script without any modifications in order to deploy four containers running OpenSearch and one container running OpenSearch Dashboards, with custom, self-signed TLS certificates and a predefined set of internal users:
    ```bash
    sh upgrade-demo-cluster.sh
    ```
@@ -697,7 +697,7 @@ Some steps included in this section, like disabling shard replication and flushi
    Connection: keep-alive
    Keep-Alive: timeout=120
    ```
-1. Re-enable allocation of replica shards:
+1. Reenable allocation of replica shards:
    ```bash
    curl -H 'Content-type: application/json' \
       -X PUT "https://localhost:9201/_cluster/settings?pretty" \
@@ -855,7 +855,7 @@ For this cluster, post-upgrade validation steps can include verifying the follow
 
 ### Verifying data consistency
 
-You need to query the ecommerce index again in order to confirm that the sample data is still present:
+You need to query the e-commerce index again in order to confirm that the sample data is still present:
 
 1. Compare the response to this query with the response you received in the [last step](#validation) of [Indexing data with the REST API](#indexing-data-with-the-rest-api):
    ```bash
@@ -889,5 +889,5 @@ You need to query the ecommerce index again in order to confirm that the sample 
 Review the following resources to learn more about how OpenSearch works:
 
 - [REST API reference]({{site.url}}{{site.baseurl}}/api-reference/index/)
-- [Quickstart guide for OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/quickstart-dashboards/)
+- [Getting started with OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/getting-started/)
 - [About Security in OpenSearch]({{site.url}}{{site.baseurl}}/security/index/)

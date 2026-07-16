@@ -8,7 +8,6 @@ nav_exclude: false
 redirect_from:
  - /upgrade-opensearch/
  - /rolling-upgrade/index/
- - /migrate-or-upgrade/rolling-upgrade/appendix/
  - /install-and-configure/upgrade-opensearch/rolling-upgrade/
 ---
 
@@ -26,6 +25,13 @@ Before making any changes to your OpenSearch cluster, is it highly recommended t
 
 **Important**: The minimum required cluster version for upgrades to 3.x.x is 2.19.0.
 {: .important}
+
+### Cross-cluster replication
+
+If your cluster uses [cross-cluster replication]({{site.url}}{{site.baseurl}}/tuning-your-cluster/replication-plugin/), follow these guidelines when upgrading:
+
+- **Unidirectional replication**: Upgrade the follower cluster first, then the leader cluster.
+- **Bidirectional replication**: Stop replication in one direction, then upgrade both clusters. For the replication that remains active, upgrade the follower cluster first, then the leader cluster. Resume the stopped replication after both clusters are upgraded.
 
 ## Performing the upgrade
 
@@ -220,7 +226,7 @@ Before making any changes to your OpenSearch cluster, is it highly recommended t
    os-node-01  1.3.7    dimr       -
    os-node-03  1.3.7    dimr       -
    ```
-1. The upgrade is now complete, and you can begin enjoying the latest features and fixes!
+1. The upgrade is now complete, and you can begin using the latest features and fixes.
 
 ## Rolling restart
 

@@ -98,7 +98,7 @@ OpenSearch supports the following dynamic cluster-level index settings:
   Default is `fixed`.
 
 - `cluster.remote_store.index.path.hash_algorithm` (String): The hash function used to derive the hash value when `cluster.remote_store.index.path.type` is set to `hashed_prefix` or `hashed_infix`. This setting is effective only for remote-store-enabled clusters. This setting supports the following values:
-  - `fnv_1a_base64`: Uses the FNV1a hash function and generates a url-safe 20-bit base64-encoded hash value.
+  - `fnv_1a_base64`: Uses the FNV1a hash function and generates a url-safe 20-bit Base64-encoded hash value.
   - `fnv_1a_composite_1`: Uses the FNV1a hash function and generates a custom encoded hash value that scales well with most remote store options. The FNV1a function generates 64-bit value. The custom encoding uses the most significant 6 bits to create a url-safe base64 character and the next 14 bits to create a binary string. Default is `fnv_1a_composite_1`.
 
 - `cluster.remote_store.translog.transfer_timeout` (Time unit): Controls the timeout value while uploading translog and checkpoint files during a sync to the remote store. This setting is applicable only for remote-store-enabled clusters. Default is `30s`.
@@ -339,6 +339,8 @@ OpenSearch supports the following dynamic index-level index settings:
 - `index.requests.cache.enable` (Boolean): Enables or disables the index request cache. Default is `true`. For more information, see [Index request cache]({{site.url}}{{site.baseurl}}/search-plugins/caching/request-cache/).
 
 - `index.routing.allocation.enable` (String): Specifies options for the index’s shard allocation. Available options are `all` (allow allocation for all shards), `primaries` (allow allocation only for primary shards), `new_primaries` (allow allocation only for new primary shards), and `none` (do not allow allocation). Default is `all`.
+
+- `index.unassigned.node_left.delayed_timeout` (Dynamic, time unit): Sets the amount of time OpenSearch waits before allocating a replica shard that became unassigned because a node left the cluster. This setting overrides the cluster-level `cluster.routing.allocation.unassigned.node_left.delayed_timeout` setting. If neither setting is configured, the default is `1m`. Set to `0` to disable delayed allocation for the index.
 
 - `index.routing.rebalance.enable` (String): Enables shard rebalancing for the index. Available options are `all` (allow rebalancing for all shards), `primaries` (allow rebalancing only for primary shards), `replicas` (allow rebalancing only for replicas), and `none` (do not allow rebalancing). Default is `all`.
 

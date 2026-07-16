@@ -1,0 +1,33 @@
+extends: substitution
+message: "Use the American English spelling '%s' instead of '%s'."
+ignorecase: true
+level: error
+action:
+  name: replace
+swap:
+  'acknowledgement': acknowledgment
+  'analyse': analyze
+  'authorise': authorize
+  'behaviour': behavior
+  'cancelled': canceled
+  'cancelling': canceling
+  'categorise': categorize
+  'colour': color
+  'customise': customize
+  'favour': favor
+  'finalise': finalize
+  'initialise': initialize
+  'judgement': judgment
+  'labelled': labeled
+  'labelling': labeling
+  'maximise': maximize
+  'minimise': minimize
+  'modelled': modeled
+  'modelling': modeling
+  'normalise': normalize
+  'optimise': optimize
+  'recognise': recognize
+  'serialise': serialize
+  'summarise': summarize
+  'synchronise': synchronize
+  'visualise': visualize

@@ -83,3 +83,7 @@ response = client.cat.nodeattrs(
 node | host | ip | attr | value
 odfe-node2 | 172.18.0.3 | 172.18.0.3 | testattr | test
 ```
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `cluster:monitor/nodes/info`.

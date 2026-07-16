@@ -10,7 +10,7 @@ nav_order: 50
 **Introduced 3.3**
 {: .label .label-purple }
 
-The MCP server is exposed via the `/_plugins/_ml/mcp` endpoint and implements the Streamable HTTP transport defined by the Model Context Protocol (MCP). It allows agents or clients to connect to OpenSearch and discover or invoke available tools.
+The MCP server is exposed through the `/_plugins/_ml/mcp` endpoint and implements the Streamable HTTP transport defined by the Model Context Protocol (MCP). It allows agents or clients to connect to OpenSearch and discover or invoke available tools.
 
 This server does not open a persistent SSE connection with the client; all communication happens over stateless HTTP calls.
 If a client sends a `GET` request (typically, to establish an SSE connection), the server returns a `405 Method Not Allowed` response, allowing the client to continue using `POST` communication.
@@ -68,7 +68,7 @@ While not required for normal usage, you can manually invoke the MCP server usin
 Before connecting to the MCP server, you can register custom tools using the [Register MCP Tools API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/mcp-server-apis/register-mcp-tools/). For example, to register a [List Index tool]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/list-index-tool/), send the following request :
 
 ```json
-POST /_plugins/_ml/mcp/register
+POST /_plugins/_ml/mcp/tools/_register
 {
     "tools": [
         {

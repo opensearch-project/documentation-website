@@ -52,7 +52,7 @@ When configuring flow agents, some models require you to manually add a suitable
 
 ### Models
 
-In conversational agents, models are responsible for intelligent reasoning, including tool orchestration, connecting to external sources, and generating appropriate query domain-specific language (DSL) queries. In flow agents, tools run sequentially, and models in the **Query Planning** tool are used only for query generation. Different models are optimized for different scenarios: cost-efficient, fast inference versus resource-intensive, deep-reasoning approaches.
+In conversational agents, models are responsible for intelligent reasoning, including tool orchestration, connecting to external sources, and generating appropriate query domain-specific language (DSL) queries. In flow agents, tools run sequentially, and models in the **Query Planning** tool are used only for query generation. Different models are optimized for different scenarios: cost-efficient, fast inference compared to resource-intensive, deep-reasoning approaches.
 
 For a list of suggested models compatible with agentic search, see [Model configuration]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agent-customization/#model-configuration).
 

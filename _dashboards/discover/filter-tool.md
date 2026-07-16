@@ -8,14 +8,14 @@ nav_order: 30
 
 # Using the filter tool
 
-The filter tool is at the top of the [Discover]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/) and [Dashboard]({{site.url}}{{site.baseurl}}/dashboards/dashboard/index/) and [Visualize]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/) applications, directly below the **[Search]({{site.url}}{{site.baseurl}}/dashboards/discover/search-bar/)** bar. Use it to add and remove discrete filters to the data displayed in those applications.
+The filter tool is at the top of the [Discover]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/) and [Dashboard]({{site.url}}{{site.baseurl}}/dashboards/dashboard/index/) and [Visualize]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/) applications, directly below the **[Search]({{site.url}}{{site.baseurl}}/dashboards/discover/search-bar/)** bar. Use it to add and remove discrete filters to the data displayed in those applications.
 
  You can create any number of filters. Filters are listed in the filter display between the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/funnel-icon.png" class="inline-icon" alt="filter menu icon"/>{:/} (funnel) icon and the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/add-filter-icon.png" class="inline-icon" alt="add filter icon"/>{:/} (circle-plus) **Add filter** control.
 
 
 ## Navigating the filter tool
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/filter-tool-callouts.png" width="75%" alt="Filter tool">
+![Filter tool]({{site.url}}{{site.baseurl}}/images/dashboards/filter-tool-callouts.png){: width="75%" }
 
 The following components make up the filter tool.
 
@@ -31,7 +31,7 @@ To add a filter using the **Add filter** tool, follow these steps:
 
 1. In the **Edit filter** popover, choose a data field.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/edit-filter-popover-filled.png" alt="Edit filter popover"  width="79%">
+![Edit filter popover]({{site.url}}{{site.baseurl}}/images/dashboards/edit-filter-popover-filled.png){: width="79%" }
 
 1. In the **Operator** field, choose an operator.
 
@@ -143,7 +143,7 @@ To negate all filter expressions so that all included documents are excluded and
 
    Exclusion filters have **NOT** appended to their title, as shown following. Inverting inclusion a second time removes the **NOT** modifier.
    
-   <img src="{{site.url}}{{site.baseurl}}/images/dashboards/excluded-filter.png" alt="Exclusion filter"  width="36%">
+   ![Exclusion filter]({{site.url}}{{site.baseurl}}/images/dashboards/excluded-filter.png){: width="36%" }
 
    Disabled filters are inverted, but remain disabled.
    {: .note}

@@ -82,7 +82,7 @@ Field | Data type | Description
 `upsert` | Object | The document to index if the target document does not exist. Used in combination with `doc` or `script` for conditional upsert operations. See [Upsert](#upsert).
 `doc_as_upsert` | Boolean | If `true`, uses the `doc` content for both updates and inserts. Default is `false`. See [Doc as upsert](#doc-as-upsert).
 `scripted_upsert` | Boolean | If `true`, runs the script whether or not the document exists. Default is `false`. Requires both `script` and `upsert` fields. See [Scripted upsert](#scripted-upsert).
-`detect_noop` | Boolean | If `true`, OpenSearch checks whether the update changes the document. If no changes are detected, the update is skipped. Default is `true`. See [Detecting noop updates](#detecting-noop-updates).
+`detect_noop` | Boolean | If `true`, OpenSearch checks whether the update changes the document. If no changes are detected, the update is skipped. Default is `true`. See [Detecting no-op updates](#detecting-no-op-updates).
 
 ### Script context and variables
 
@@ -96,7 +96,7 @@ Variable | Description
 `ctx._version` | The current document version.
 `ctx._routing` | The routing value used to route the document to a shard (if custom routing was used).
 `ctx._now` | The current timestamp in milliseconds since the epoch.
-`ctx.op` | The operation to perform. Set this to `delete` to delete the document or `none` to perform no operation (noop).
+`ctx.op` | The operation to perform. Set this to `delete` to delete the document or `none` to perform no operation (no-op).
 
 You can use these variables in your scripts to implement conditional logic based on the document's current state.
 
@@ -513,7 +513,7 @@ If the document with ID `2` does not already exist, this operation creates it us
 
 Using `scripted_upsert` gives you full control over document creation and updates when standard `doc`-based operations are not flexible enough.
 
-### Detecting noop updates
+### Detecting no-op updates
 
 By default, OpenSearch detects whether an update operation actually changes the document. If the update doesn't make any changes, OpenSearch skips the operation and returns `"result": "noop"` to indicate that no operation was performed. This optimization avoids unnecessary reindexing when the document already contains the values you're trying to set.
 
@@ -531,7 +531,7 @@ POST /sample-index1/_update/1
 ```
 {% include copy-curl.html %}
 
-Because the document already has these exact values, OpenSearch detects no changes and returns a noop response:
+Because the document already has these exact values, OpenSearch detects no changes and returns a no-op response:
 
 ```json
 {
@@ -550,9 +550,9 @@ Because the document already has these exact values, OpenSearch detects no chang
 ```
 {% include copy-curl.html %}
 
-Note that `_shards.total` is `0` when a noop is detected, indicating that no shard operations were performed.
+Note that `_shards.total` is `0` when a no-op is detected, indicating that no shard operations were performed.
 
-You can disable noop detection by setting `detect_noop` to `false`. This forces OpenSearch to reindex the document even when the values haven't changed:
+You can disable no-op detection by setting `detect_noop` to `false`. This forces OpenSearch to reindex the document even when the values haven't changed:
 
 ```json
 POST /sample-index1/_update/1
@@ -946,3 +946,7 @@ If there's an error in your Painless script, OpenSearch returns a 400 error with
 ```
 
 Review the `script_stack` and `caused_by` fields in the error response to identify and fix the script error.
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `indices:data/write/update`.

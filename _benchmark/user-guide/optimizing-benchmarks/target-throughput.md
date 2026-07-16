@@ -38,18 +38,18 @@ The following diagrams illustrate how latency is calculated with an expected req
 - `search-clients` is set to `1`. 
 - `target-throughput` is set to `1` operation per second.
 
-<img src="{{site.url}}{{site.baseurl}}/images/benchmark/latency-explanation-1.png" alt="">
+![Request schedule showing expected 200 ms response times at 1 operation per second]({{site.url}}{{site.baseurl}}/images/benchmark/latency-explanation-1.png)
 
 When a request takes longer than 200 ms, such as when a request takes 1110 ms instead of 400 ms, OpenSearch Benchmark sends the next request that was supposed to occur at 4.00 s based on the `target-throughput` of 4.10 s. All requests subsequent to the 4.10 s request attempt to re-synchronize with the `target-throughput` setting, as shown in the following image:
 
-<img src="{{site.url}}{{site.baseurl}}/images/benchmark/latency-explanation-2.png" alt="">
+![Request schedule showing a delayed request re-synchronizing with the target throughput]({{site.url}}{{site.baseurl}}/images/benchmark/latency-explanation-2.png)
 
 When measuring the overall latency, OpenSearch Benchmark includes all performed requests. All requests have a latency of 200 ms, except for the following two requests:
 
 - The request that lasted 1100 ms. 
 - The subsequent request which should have started at 4.00 s. This request was delayed by 100 ms, denoted by the orange-colored area in the following diagram, and had a response time of 200 ms. When calculating the latency for this request, OpenSearch Benchmark accounts for the delayed start time and combines it with the response time. The latency for this request is **300 ms**.
 
-<img src="{{site.url}}{{site.baseurl}}/images/benchmark/latency-explanation-3.png" alt="">
+![Latency calculation showing the delayed request with combined wait time and response time]({{site.url}}{{site.baseurl}}/images/benchmark/latency-explanation-3.png)
 
 ### Example B
 
@@ -60,15 +60,15 @@ In this example, OpenSearch Benchmark assumes a latency of 200 ms and uses the f
 
 The following diagram shows the schedule built by OpenSearch Benchmark with the expected response times.
 
-<img src="{{site.url}}{{site.baseurl}}/images/benchmark/b-latency-explanation-1.png" alt="">
+![Request schedule with target throughput of 10 operations per second and expected 200 ms response times]({{site.url}}{{site.baseurl}}/images/benchmark/b-latency-explanation-1.png)
 
 However, if it is assumed that all responses will have a latency of 200 ms, then 10 operations per second won't be possible. Therefore, the highest throughput that OpenSearch Benchmark can reach is 5 operations per second, as shown in the following diagram.
 
-<img src="{{site.url}}{{site.baseurl}}/images/benchmark/b-latency-explanation-2.png" alt="">
+![Actual throughput limited to 5 operations per second due to 200 ms response times]({{site.url}}{{site.baseurl}}/images/benchmark/b-latency-explanation-2.png)
 
 OpenSearch Benchmark does not account for this limitation and continues to try to achieve the `target-throughput` of 10 operations per second. Because of this, delays for each request begin to cascade, as illustrated in the following diagram.
 
-<img src="{{site.url}}{{site.baseurl}}/images/benchmark/b-latency-explanation-3.png" alt="">
+![Cascading delays as OpenSearch Benchmark attempts to maintain target throughput beyond capacity]({{site.url}}{{site.baseurl}}/images/benchmark/b-latency-explanation-3.png)
 
 By combining the service time and the delay for each operation, the following latency measurements are provided for each operation: 
 

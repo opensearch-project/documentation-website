@@ -83,3 +83,7 @@ response = client.cat.tasks(
 action | task_id | parent_task_id | type | start_time | timestamp | running_time | ip | node
 cluster:monitor/tasks/lists | 1vo54NuxSxOrbPEYdkSF0w:168062 | - | transport | 1624337809471 | 04:56:49 | 489.5ms | 172.18.0.4 | odfe-node1     
 ```
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `cluster:monitor/tasks/list`.

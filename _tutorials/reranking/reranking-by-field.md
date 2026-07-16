@@ -4,7 +4,6 @@ title: Reranking search results by a field
 parent: Reranking search results
 nav_order: 120
 redirect_from:
-  - /ml-commons-plugin/tutorials/reranking-cohere/
   - /vector-search/tutorials/reranking/reranking-by-field/
 ---
 

@@ -94,9 +94,9 @@ You can now access OpenSearch Dashboards using http://localhost:5601 in your bro
 
 There are three ways to add users, roles, and other security-related configurations:
 
-  - Updating appropriate configuration files (`internal_users.yml` for adding/updating/removing users) 
+  - Updating appropriate configuration files (`internal_users.yml` for adding/updating/removing users)
   - Using the API
-  - Using the OpenSearch Dashboards UI
+  - Using OpenSearch Dashboards
 
 Security configuration files are located in the `config/opensearch-security` directory.
 {: .note}

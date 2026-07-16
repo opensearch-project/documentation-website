@@ -22,7 +22,7 @@ For additional information about Painless scripting, see:
 
 | Parameter | Data type | Description | 
 :--- | :--- | :---
-| script-id | String | Stored script or search template ID. Must be unique across the cluster. Required. |
+| `script-id` | String | Stored script or search template ID. Must be unique across the cluster. Required. |
 
 ## Query parameters
 
@@ -30,22 +30,22 @@ All parameters are optional.
 
 | Parameter | Data type | Description | 
 :--- | :--- | :---
-| context | String | Context in which the script or search template is to run. To prevent errors, the API immediately compiles the script or template in this context. |
-| cluster_manager_timeout | Time | Amount of time to wait for a connection to the cluster manager. Defaults to 30 seconds. |
-| timeout | Time | The period of time to wait for a response. If a response is not received before the timeout value, the request fails and returns an error. Defaults to 30 seconds.|
+| `context` | String | Context in which the script or search template is to run. To prevent errors, the API immediately compiles the script or template in this context. |
+| `cluster_manager_timeout` | Time | Amount of time to wait for a connection to the cluster manager. Defaults to 30 seconds. |
+| `timeout` | Time | The period of time to wait for a response. If a response is not received before the timeout value, the request fails and returns an error. Defaults to 30 seconds.|
 
 ## Request body fields
 
 | Field | Data type | Description | 
 :--- | :--- | :---
-| script | Object | Defines the script or search template, its parameters, and its language. See *Script object* below. |
+| `script` | Object | Defines the script or search template, its parameters, and its language. See *Script object* below. |
 
 *Script object*
 
 | Field | Data type | Description | 
 :--- | :--- | :---
-| lang | String | Scripting language. Required. |
-| source | String or Object | Required. <br /> <br /> For scripts, a string with the contents of the script. <br /> <br /> For search templates, an object that defines the search template. Supports the same parameters as the [Search]({{site.url}}{{site.baseurl}}/api-reference/search/) API request body. Search templates also support Mustache variables. |
+| `lang` | String | Scripting language. Required. |
+| `source` | String or Object | Required. <br /> <br /> For scripts, a string with the contents of the script. <br /> <br /> For search templates, an object that defines the search template. Supports the same parameters as the [Search]({{site.url}}{{site.baseurl}}/api-reference/search/) API request body. Search templates also support Mustache variables. |
 
 ## Example request
 
@@ -257,5 +257,6 @@ The `PUT _scripts/my-first-script` request returns the following field:
 To determine whether the script was successfully created, use the [Get stored script]({{site.url}}{{site.baseurl}}/api-reference/script-apis/get-stored-script/) API, passing the script name as the `script` path parameter.
 {: .note}
 
+## Required permissions
 
-
+If you use the Security plugin, make sure you have the appropriate permissions: `cluster:admin/script/put`.

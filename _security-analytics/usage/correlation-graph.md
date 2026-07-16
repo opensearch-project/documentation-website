@@ -14,14 +14,14 @@ The correlation graph is a security findings knowledge graph. It provides a visu
 
 Begin by selecting **Security Analytics** in the OpenSearch Dashboards main menu. Then select **Correlations** from the Security Analytics menu on the left side of the screen. The **Correlations** page is displayed, as shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/Security/sec-analytics/corr-graph.png" alt="The correlation graph" width="85%">
+![The correlation graph]({{site.url}}{{site.baseurl}}/images/Security/sec-analytics/corr-graph.png){: width="85%" }
 
 ---
 ## Interpreting the graph
 
 The graph displays findings as nodes with colored borders expressing their severity level. A three-letter abbreviation inside the node indicates the log type. The lines that connect the findings represent the correlations between them. A heavy line indicates a strong correlation, while a light line shows a weaker connection.
 
-<img src="{{site.url}}{{site.baseurl}}/images/Security/sec-analytics/corr-graph-detail.png" alt="The correlation graph" width="40%">
+![The correlation graph]({{site.url}}{{site.baseurl}}/images/Security/sec-analytics/corr-graph-detail.png){: width="40%" }
 
 ---
 ## Using the graph
@@ -34,11 +34,11 @@ You can control which findings are displayed on the graph by filtering by severi
 
 You can focus on a particular area of the graph to look at correlations associated with a specific finding by selecting the finding on the graph. The graph then changes to show only the selected finding along with the constellation of findings correlated to it, as shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/Security/sec-analytics/corr-drill-dn.png" alt="Zooming in on a specific finding on the graph" width="40%">
+![Zooming in on a specific finding on the graph]({{site.url}}{{site.baseurl}}/images/Security/sec-analytics/corr-drill-dn.png){: width="40%" }
 
 After narrowing the focus of the graph, informational cards for each of the findings appear on the right-hand side of the screen. The selected finding appears at the top of the cards, and the correlated findings are listed underneath it in order of their correlation relevance, represented by a correlation score, as shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/Security/sec-analytics/corr-cards.png" alt="Zooming in on a specific finding on the graph" width="30%">
+![Zooming in on a specific finding on the graph]({{site.url}}{{site.baseurl}}/images/Security/sec-analytics/corr-cards.png){: width="30%" }
 
 You can select one of the correlated findings on the graph to shift the perspective of the correlation relationships. This sends the newly selected finding to the top of the informational cards and displays the other findings as relative correlations.
 
