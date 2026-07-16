@@ -9,42 +9,37 @@ redirect_from:
 
 # Sampler aggregations
 
-If you're aggregating a very large number of documents, you can use a `sampler` aggregation to reduce the scope to a small sample of documents, resulting in a faster response. The `sampler` aggregation selects the samples by top-scoring documents.
+The `sampler` aggregation limits subaggregation processing to the top-scoring documents on each shard. This narrows the focus to the most relevant matches rather than processing the entire result set, which reduces computation time and can improve the quality of aggregation results by excluding low-relevance documents from the long tail.
 
-The results are approximate but closely represent the distribution of the real data. The `sampler` aggregation significantly improves query performance, but the estimated responses are not entirely reliable.
+Sampling is particularly valuable with subaggregations like `significant_terms`. Without a sampler, the full result set includes a long tail of marginally relevant documents whose generic terms dominate by volume, obscuring the truly distinctive terms found in top-scoring matches.
 
-The basic syntax is:
+For diversity-based sampling that prevents any single field value from dominating the sample, see the [`diversified_sampler` aggregation]({{site.url}}{{site.baseurl}}/aggregations/bucket/diversified-sampler/).
 
-```json
-“aggs”: {
-  "SAMPLE": {
-    "sampler": {
-      "shard_size": 100
-    },
-    "aggs": {...}
-  }
-}
-```
+## Parameters
 
-## Shard size property
+The `sampler` aggregation takes the following parameters.
 
-The `shard_size` property tells OpenSearch how many documents (at most) to collect from each shard.
+| Parameter | Required/Optional | Data type | Description |
+| :--- | :--- | :--- | :--- |
+| `shard_size` | Optional | Integer | The maximum number of top-scoring documents collected from each shard. Default is `100`. |
 
-The following example limits the number of documents collected on each shard to 1,000 and then buckets the documents by a `terms` aggregation:
+## Example
+
+The following example limits the sample to 200 top-scoring documents per shard, then runs a `terms` subaggregation to find the distribution of product categories within that sample:
 
 ```json
-GET opensearch_dashboards_sample_data_logs/_search
+GET /opensearch_dashboards_sample_data_ecommerce/_search
 {
   "size": 0,
   "aggs": {
     "sample": {
       "sampler": {
-        "shard_size": 1000
+        "shard_size": 200
       },
       "aggs": {
-        "terms": {
+        "top_categories": {
           "terms": {
-            "field": "agent.keyword"
+            "field": "category.keyword"
           }
         }
       }
@@ -54,32 +49,57 @@ GET opensearch_dashboards_sample_data_logs/_search
 ```
 {% include copy-curl.html %}
 
-#### Example response
+The response shows that the sample contains 200 documents, and the `terms` subaggregation operated only on those 200 documents rather than all 4,675:
 
 ```json
-...
-"aggregations" : {
-  "sample" : {
-    "doc_count" : 1000,
-    "terms" : {
-      "doc_count_error_upper_bound" : 0,
-      "sum_other_doc_count" : 0,
-      "buckets" : [
-        {
-          "key" : "Mozilla/5.0 (X11; Linux x86_64; rv:6.0a1) Gecko/20110421 Firefox/6.0a1",
-          "doc_count" : 368
-        },
-        {
-          "key" : "Mozilla/5.0 (X11; Linux i686) AppleWebKit/534.24 (KHTML, like Gecko) Chrome/11.0.696.50 Safari/534.24",
-          "doc_count" : 329
-        },
-        {
-          "key" : "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322)",
-          "doc_count" : 303
-        }
-      ]
+{
+  ...
+  "aggregations": {
+    "sample": {
+      "doc_count": 200,
+      "top_categories": {
+        "doc_count_error_upper_bound": 0,
+        "sum_other_doc_count": 0,
+        "buckets": [
+          {
+            "key": "Men's Clothing",
+            "doc_count": 82
+          },
+          {
+            "key": "Women's Clothing",
+            "doc_count": 82
+          },
+          {
+            "key": "Women's Shoes",
+            "doc_count": 49
+          },
+          {
+            "key": "Women's Accessories",
+            "doc_count": 40
+          },
+          {
+            "key": "Men's Shoes",
+            "doc_count": 37
+          },
+          {
+            "key": "Men's Accessories",
+            "doc_count": 25
+          }
+        ]
+      }
     }
   }
- }
 }
 ```
+
+## Response body fields
+
+The following table lists the response body fields.
+
+| Field | Data type | Description |
+| :--- | :--- | :--- |
+| `doc_count` | Integer | The total number of documents in the sample across all shards. |
+
+## Limitations
+
+The `sampler` aggregation cannot be nested under a `terms` aggregation that uses `breadth_first` collect mode because breadth-first collection discards relevance scores that the sampler requires.
