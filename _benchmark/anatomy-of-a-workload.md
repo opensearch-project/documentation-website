@@ -1,9 +1,9 @@
 ---
 layout: default
 title: Anatomy of a workload
-nav_order: 15
-grand_parent: User guide
-parent: Understanding workloads
+nav_order: 10
+redirect_from:
+  - /benchmark/user-guide/understanding-workloads/anatomy-of-a-workload/
 ---
 
 # Anatomy of a workload
@@ -787,4 +787,4 @@ The `_test-procedures` directory contains a `default.json` file that sets the or
 
 ## Next steps
 
-Now that you have familiarized yourself with the anatomy of a workload, see the criteria for [Choosing a workload]({{site.url}}{{site.baseurl}}/benchmark/user-guide/understanding-workloads/choosing-a-workload/).
+Now that you have familiarized yourself with the anatomy of a workload, see the criteria for [Choosing a workload]({{site.url}}{{site.baseurl}}/benchmark/choosing-a-workload/).
