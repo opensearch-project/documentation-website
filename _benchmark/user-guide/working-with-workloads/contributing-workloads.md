@@ -39,7 +39,7 @@ The workload must include the following files:
 - `test_procedures/default.json`
 - `operations/default.json` 
 
-Both `default.json` file names can be customized to have a descriptive name. The workload can include an optional `workload.py` file to add more dynamic functionality. For more information about a file's contents, go to [Anatomy of a workload]({{site.url}}{{site.baseurl}}/benchmark/user-guide/understanding-workloads/anatomy-of-a-workload/).
+Both `default.json` file names can be customized to have a descriptive name. The workload can include an optional `workload.py` file to add more dynamic functionality. For more information about a file's contents, go to [Anatomy of a workload]({{site.url}}{{site.baseurl}}/benchmark/anatomy-of-a-workload/).
 
 ## Testing the workload
 
