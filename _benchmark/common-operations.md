@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Common operations
-nav_order: 11
+nav_order: 15
 redirect_from:
   - /benchmark/user-guide/understanding-workloads/common-operations/
 ---

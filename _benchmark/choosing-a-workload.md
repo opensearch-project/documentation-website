@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Choosing a workload
-nav_order: 12
+nav_order: 20
 redirect_from:
   - /benchmark/user-guide/understanding-workloads/choosing-a-workload/
 ---
