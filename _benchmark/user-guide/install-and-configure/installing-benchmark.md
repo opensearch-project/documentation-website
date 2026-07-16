@@ -25,22 +25,20 @@ When you select a host, you should also think about which workloads you want to 
 
 If you want to benchmark with a default workload, then use the following table to determine the approximate minimum amount of required free space needed by adding the compressed size with the uncompressed size.
 
-<!-- vale off -->
 | Workload name | Document count | Compressed size | Uncompressed size |
 | :----: | :----: | :----: | :----: |
-| eventdata | 20,000,000 | 756.0 MB | 15.3 GB |
-| geonames | 11,396,503 | 252.9 MB | 3.3 GB |
-| geopoint | 60,844,404 | 482.1 MB | 2.3 GB |
-| geopointshape | 60,844,404 | 470.8 MB | 2.6 GB |
-| geoshape | 60,523,283 | 13.4 GB | 45.4 GB |
-| http_logs | 247,249,096 | 1.2 GB | 31.1 GB |
-| nested | 11,203,029 | 663.3 MB | 3.4 GB |
-| noaa | 33,659,481 | 949.4 MB | 9.0 GB |
-| nyc_taxis | 165,346,692 | 4.5 GB | 74.3 GB |
-| percolator | 2,000,000 | 121.1 kB | 104.9 MB |
-| pmc | 574,199 | 5.5 GB | 21.7 GB |
-| so | 36,062,278 | 8.9 GB | 33.1 GB |
-<!-- vale on -->
+| `eventdata` | 20,000,000 | 756.0 MB | 15.3 GB |
+| `geonames` | 11,396,503 | 252.9 MB | 3.3 GB |
+| `geopoint` | 60,844,404 | 482.1 MB | 2.3 GB |
+| `geopointshape` | 60,844,404 | 470.8 MB | 2.6 GB |
+| `geoshape` | 60,523,283 | 13.4 GB | 45.4 GB |
+| `http_logs` | 247,249,096 | 1.2 GB | 31.1 GB |
+| `nested` | 11,203,029 | 663.3 MB | 3.4 GB |
+| `noaa` | 33,659,481 | 949.4 MB | 9.0 GB |
+| `nyc_taxis` | 165,346,692 | 4.5 GB | 74.3 GB |
+| `percolator` | 2,000,000 | 121.1 kB | 104.9 MB |
+| `pmc` | 574,199 | 5.5 GB | 21.7 GB |
+| `so` | 36,062,278 | 8.9 GB | 33.1 GB |
 
 Your OpenSearch Benchmark host should use solid-state drives (SSDs) for storage because they perform read and write operations significantly faster than traditional spinning-disk hard drives. Spinning-disk hard drives can introduce performance bottlenecks, which can make benchmark results unreliable and inconsistent.
 {: .tip}

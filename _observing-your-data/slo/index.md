@@ -28,9 +28,7 @@ The following table defines the SLO and SLI terms.
 | Service-level objective (SLO) | A target attainment level for one or more SLIs, evaluated over a single time window. Each SLO contains one or more objectives. |
 | Objective | A target value for an SLI, expressed as a decimal between `0.5` and `0.99999` (for example, `0.999`). Each objective generates its own set of recording and alerting rules. |
 | Time window | The rolling period over which the SLO is evaluated (for example, `7d`, `28d`, `30d`). Calendar windows are not yet supported. |
-<!-- vale off -->
 | Error budget | The allowable fraction of failed events within the time window. When the error budget drops below zero, the objective is breached. |
-<!-- vale on -->
 | Burn rate | The rate at which the error budget is being consumed relative to the time window. Used to trigger alerts at different severity tiers. |
 | SLO mode | Controls whether alerting is active. In `active` mode, both recording and alerting rules are deployed. In `shadow` mode, only recording rules are deployed, which is useful for validating an SLO before enabling alerts. |
 | Data source | The `DirectQuery` Prometheus connection that the SLO uses. Each SLO is bound to a single data source. |
@@ -122,15 +120,17 @@ The **SLOs** listing displays each SLO with its current state, attainment percen
 
 The following table describes the SLO states.
 
+<!-- vale off -->
+
 | State | Description |
 | :--- | :--- |
-<!-- vale off -->
 | `ok` | All objectives are above target. |
-<!-- vale on -->
 | `warning` | At least one objective is consuming budget faster than expected. |
 | `breached` | At least one objective has exhausted its error budget. |
 | `no_data` | The SLI query returned no data in the evaluation window. |
 | `stale` | The latest data sample is older than expected, which may indicate a problem with the data source connection. |
+
+<!-- vale on -->
 | `disabled` | The SLO has been disabled. |
 | `rules_missing` | The expected recording rules are not present on the ruler. |
 

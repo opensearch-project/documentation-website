@@ -25,7 +25,9 @@ exceptions:
   - DNS
   - DOS
   - EC2
+  - ECDSA
   - FAQ
+  - FNV
   - FTP
   - GIF
   - GPU
@@ -48,6 +50,7 @@ exceptions:
   - PDF
   - RAM
   - REST
+  - RSA
   - SASL
   - RGB
   - ROM

@@ -39,7 +39,7 @@ Path parameters are optional.
 
 ## Example request
 
-The following request verifies that the my-opensearch-repo is functional:
+The following request verifies that the `my-opensearch-repo` is functional:
 
 <!-- spec_insert_start
 component: example_code

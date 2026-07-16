@@ -33,7 +33,7 @@ Original use case | Target use case |
 :---: | :---:
 Analytics  | Cannot be changed to any other use case
 Search  | Analytics
-Security analytics  | Analytics
+Security Analytics  | Analytics
 Observability  | Analytics
 Essentials  |    Analytics Search<br> Security Analytics<br> Observability
 

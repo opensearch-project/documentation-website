@@ -127,7 +127,7 @@ Service Accounts will not assume the roles of the operator but instead have thei
 
 ### API endpoint
 
-As suggested by the name, the Boolean flag `service` denotes whether a given internal user account is a Service Accounts. If an account is not a Service Accounts, then any attempts to generate an associated authorization token for the account will fail. Similarly, the `enabled` field determines when a Service Accounts can be used by an extension to perform operations. If a Service Accounts is not `enabled`, attempts to fetch its authorization token will be blocked and the Service Accounts will be unable to run requests on its own behalf using a previously issued auth token.
+As suggested by the name, the Boolean flag `service` denotes whether a given internal user account is a Service Accounts. If an account is not a Service Accounts, then any attempts to generate an associated authorization token for the account will fail. Similarly, the `enabled` field determines when a Service Accounts can be used by an extension to perform operations. If a Service Accounts is not `enabled`, attempts to fetch its authorization token will be blocked and the Service Accounts will be unable to run requests on its own behalf using a previously issued authorization token.
 The following is an example of creating a Service Accounts with `ALL PERMISSIONS` for your service or extension.
 ```json
 PUT /_plugins/_security/api/internalusers/admin_service

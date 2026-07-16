@@ -475,7 +475,7 @@ Now that TLS certificates are installed and demo users were removed or assigned 
 
 OpenSearch is now running on your host with custom TLS certificates and a secure user for basic authentication. You can verify external connectivity by sending an API request to your OpenSearch node from another host.
 
-During previous tests you directed requests to `localhost`. Now that TLS certificates have been applied and the new certificates reference your host's actual DNS record, requests to `localhost` will fail the CN check and the certificate will be considered invalid. Instead, requests should be sent to the address you specified while generating the certificate.
+During previous tests you directed requests to `localhost`. Now that TLS certificates have been applied and the new certificates reference your host's actual DNS record, requests to `localhost` will fail the common name (CN) check and the certificate will be considered invalid. Instead, requests should be sent to the address you specified while generating the certificate.
 
 You should add trust for the root certificate to your client before sending requests. If you do not add trust, then you must use the `-k` option so that cURL ignores CN and root certificate validation.
 {:.tip}

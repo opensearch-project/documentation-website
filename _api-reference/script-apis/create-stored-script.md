@@ -158,10 +158,10 @@ response = client.put_script(
     python=step1_python %}
 <!-- spec_insert_end -->
 
-The preceding example uses the syntax of the Dev Tools console in OpenSearch Dashboards. You can also use a curl request.
+The preceding example uses the syntax of the Dev Tools console in OpenSearch Dashboards. You can also use a cURL request.
 {: .note }
 
-The following curl request is equivalent to the previous Dashboards console example:
+The following cURL request is equivalent to the previous Dashboards console example:
 
 ````json
 curl -XPUT "http://opensearch:9200/_scripts/my-first-script" -H 'Content-Type: application/json' -d'

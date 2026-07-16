@@ -110,7 +110,7 @@ Use the system PKCS11 truststore with a specific provider:
 
 After running the FIPS demo installer, the following properties are added to your `jvm.options` file:
 
-```
+```bash
 ################################################################
 ## Start OpenSearch FIPS Demo Configuration
 ## WARNING: revise all the lines below before you go into production

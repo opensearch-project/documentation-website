@@ -93,7 +93,7 @@ For information about the Security plugin settings, see [Security settings]({{si
 
 ## Security Analytics plugin settings
 
-For information about security analytics settings, see [Security Analytics settings]({{site.url}}{{site.baseurl}}/security-analytics/settings/).
+For information about the Security Analytics plugin settings, see [Security Analytics settings]({{site.url}}{{site.baseurl}}/security-analytics/settings/).
 
 ## SQL plugin settings
 

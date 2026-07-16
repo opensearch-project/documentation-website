@@ -48,7 +48,7 @@ When `path` is omitted, the `spath` command runs in auto-extract mode. Instead o
 - Arrays use `{}` suffix: `tags{}`, `users{}.name`
 - Duplicate logical keys merge into arrays: `c{}.b = [2, 3]`
 - Null values are preserved: a JSON `null` becomes the string `"null"` in the map
-- All values are stringified: numbers and booleans are converted to their string representation (for example, `30` becomes `"30"`, `true` becomes `"true"`, and arrays become `"[a, b, c]"`)
+- All values are stringified: numeric and Boolean values are converted to their string representation (for example, `30` becomes `"30"`, `true` becomes `"true"`, and arrays become `"[a, b, c]"`)
 
 Auto-extract mode processes the entire input field with no character limit. For large JSON payloads, consider using path-based extraction to target specific fields.
 {: .note}

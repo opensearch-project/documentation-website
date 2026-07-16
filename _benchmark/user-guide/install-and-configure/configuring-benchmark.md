@@ -123,11 +123,10 @@ This section defines how benchmark metrics are stored.
 
 When `datastore.type` is set to `opensearch`, the following reporting settings can be customized.
 
-<!-- vale off -->
 | Parameter | Type | Description |
 | :---- | :---- | :---- |
 | `datastore.host` | IP address | The hostname of the metrics store, for example, `124.340.200.22`. |
-| datastore.port| Port | The port number of the metrics store, for example, `9200`. |
+| `datastore.port`| Port | The port number of the metrics store, for example, `9200`. |
 | `datastore.secure` | Boolean | If set to `false`, OpenSearch assumes an HTTP connection. If set to true, it assumes an HTTPS connection. |
 | `datastore.ssl.verification_mode` | String | When set to the default `full`, the metrics store’s SSL certificate is checked. To disable certificate verification, set this value to `none`. |
 | `datastore.ssl.certificate_authorities` | String | Determines the local file system path to the certificate authority’s signing certificate.
@@ -136,7 +135,6 @@ When `datastore.type` is set to `opensearch`, the following reporting settings c
 | `datastore.probe.cluster_version` | String | Enables automatic detection of the metrics store’s version. Default is `true`. |
 | `datastore.number_of_shards` | Integer | The number of primary shards that the `opensearch-*` indexes should have. Any updates to this setting after initial index creation will only be applied to new `opensearch-*` indexes. Default is the [OpenSearch static index value]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/#static-index-level-index-settings). |
 | `datastore.number_of_replicas` | Integer | The number of replicas each primary shard in the datastore contains. Any updates to this setting after initial index creation will only be applied to new `opensearch-* `indexes. Default is the [OpenSearch static index value]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/#static-index-level-index-settings). |
-<!-- vale on -->
 
 ### Examples
 

@@ -103,7 +103,7 @@ Name | Data type | Description
 :--- | :--- | :---
 `plugins.security.audit.config.webhook.url` | String | The HTTP or HTTPS URL to send the logs to.
 `plugins.security.audit.config.webhook.ssl.verify` | Boolean | If true, the TLS certificate provided by the endpoint (if any) will be verified. If set to false, no verification is performed. You can disable this check if you use self-signed certificates.
-`plugins.security.audit.config.webhook.ssl.pemtrustedcas_filepath` | String | The path to the trusted certificate against which the webhook's TLS certificate is validated.
+`plugins.security.audit.config.webhook.ssl.pemtrustedcas_filepath` | String | The path to the trusted certificate against which the webhook TLS certificate is validated.
 `plugins.security.audit.config.webhook.ssl.pemtrustedcas_content` | String | Same as `plugins.security.audit.config.webhook.ssl.pemtrustedcas_content`, but you can configure the Base64-encoded certificate content directly.
 `plugins.security.audit.config.webhook.format` | String | The format in which the audit log message is logged, can be one of `URL_PARAMETER_GET`, `URL_PARAMETER_POST`, `TEXT`, `JSON`, `SLACK`. See [Formats](#formats).
 

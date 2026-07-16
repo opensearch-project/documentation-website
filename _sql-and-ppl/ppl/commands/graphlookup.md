@@ -81,6 +81,7 @@ The `edge` parameter uses the syntax `edge=<fromField><operator><toField>` and c
 Consider an `employees` index containing the following documents.
 
 <!-- vale off -->
+
 | id | name | reportsTo |
 |----|------|-----------|
 | 1 | Dev | Eliot |
@@ -185,6 +186,7 @@ The query returns the following results:
 Consider an `airports` index containing the following documents.
 
 <!-- vale off -->
+
 | airport | connects |
 |---------|----------|
 | JFK | [BOS, ORD] |
@@ -226,6 +228,7 @@ The `graphLookup` command can use different source and lookup indexes.
 Consider a `travelers` index containing the following documents.
 
 <!-- vale off -->
+
 | name | nearestAirport |
 |------|----------------|
 | Dev | JFK |
