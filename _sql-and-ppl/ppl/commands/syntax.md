@@ -29,7 +29,7 @@ The `search` command supports the following parameters.
 
 | Parameter | Required/Optional | Description |
 | --- | --- | --- |
-| `<index>` | Optional | Specifies the index to query. |
+| `<index>` | Required | Specifies the index to query. |
 | `<boolean-expression>` | Optional | Specifies an expression that evaluates to a Boolean value. |
 
 
