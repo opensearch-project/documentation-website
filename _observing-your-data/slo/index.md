@@ -98,18 +98,14 @@ To create an SLO, follow these steps:
    - **Custom**: A blank **Custom PromQL** template for custom PromQL expressions.
 3. Configure the SLO in the wizard. The wizard contains the following sections:
    - **Identity**: A unique name, description, and data source (a registered DirectQuery Prometheus connection).
-<!-- vale off -->
    - **Window & mode**: A rolling window (for example, `28d`) and an optional shadow mode that deploys recording rules without alerting.
    - **Service & owner**: The service name and owner team.
-<!-- vale on -->
    - **SLI**: For prebuilt templates, the SLI type and metric are preconfigured. You can optionally add dimensions (label filters) to narrow the query. For the **Custom PromQL** template, you provide your own PromQL expressions---either separate good-events and total-events queries, or a single pre-computed error-ratio query.
    - **Probe SLI**: Tests the proposed query against the Prometheus backend over a configurable look-back period (`1h`, `24h`, or `7d`) so you can verify the query returns data before creating the SLO.
    - **Objectives**: One or more target values between `0.5` and `0.99999` (for example, `99.9%`). For latency SLIs, each objective also sets a latency bound.
    - **Advanced**: Burn rate alerting tiers, budget warnings, and supplemental alarms.
    - **Exclusion windows**: Time periods during which the SLO ignores measurements (for example, maintenance windows or deploy freezes).
-<!-- vale off -->
    - **Labels & annotations**: Optional metadata that propagates to the generated rules.
-<!-- vale on -->
    - **Rule preview**: A read-only preview of the recording and alerting rules that will be deployed to the ruler.
 4. Choose **Create SLO**. The rules are validated and deployed to the ruler. If the ruler rejects the rules, the error is displayed and the SLO is not saved.
 
@@ -120,8 +116,6 @@ The **SLOs** listing displays each SLO with its current state, attainment percen
 
 The following table describes the SLO states.
 
-<!-- vale off -->
-
 | State | Description |
 | :--- | :--- |
 | `ok` | All objectives are above target. |
@@ -129,8 +123,6 @@ The following table describes the SLO states.
 | `breached` | At least one objective has exhausted its error budget. |
 | `no_data` | The SLI query returned no data in the evaluation window. |
 | `stale` | The latest data sample is older than expected, which may indicate a problem with the data source connection. |
-
-<!-- vale on -->
 | `disabled` | The SLO has been disabled. |
 | `rules_missing` | The expected recording rules are not present on the ruler. |
 
