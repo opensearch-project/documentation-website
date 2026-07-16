@@ -16,7 +16,7 @@ The Trace Analytics plugin offers at-a-glance visibility into application perfor
 
 See [Standalone OpenSearch Dashboards plugin install]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/plugins/) for instructions on how to install the Trace Analytics plugin.
 
-## Setting up the OpenTelemetry Demo
+## Setting up the OpenTelemetry demo
 
 The [OpenTelemetry Demo with OpenSearch](https://github.com/opensearch-project/opentelemetry-demo) simulates a distributed application generating real-time telemetry data, providing you with a practical environment in which to explore features available with the Trace Analytics plugin before implementing it in your environment.
 
@@ -30,7 +30,7 @@ The [OpenTelemetry Demo with OpenSearch](https://github.com/opensearch-project/o
 - Configure the OTel collectors to send telemetry data (traces, metrics, logs) to your OpenSearch cluster, using the [preexisting setup](https://github.com/opensearch-project/opentelemetry-demo/tree/main/src/otel-collector).
 - Confirm that [Data Prepper](https://github.com/opensearch-project/opentelemetry-demo/tree/main/src/dataprepper) is set up to process the incoming data, handle trace analytics and service map pipelines, submit data to required indexes, and perform preaggregated calculations.
 
-### Step 3: Explore Trace Analytics in OpenSearch Dashboards
+### Step 3: Explore trace analytics in OpenSearch Dashboards
 
 The **Trace Analytics** application includes two options: **Services** and **Traces**:
 
@@ -177,7 +177,7 @@ Trace Analytics in OpenSearch 3.1 includes expanded support for custom index nam
 
   ![Drop-down menu and custom data grid in Trace Analytics]({{site.url}}{{site.baseurl}}/images/ta-span-kind.png)
 
-- The service map now appears below the traces table on the **Trace Analytics** page, providing immediate visual context for service relationships and dependencies as you analyze trace data.
+- The service map now appears under the traces table on the **Trace Analytics** page, providing immediate visual context for service relationships and dependencies as you analyze trace data.
 
   ![Service map displayed below traces table]({{site.url}}{{site.baseurl}}/images/ta-traces-page.png)
 
@@ -185,7 +185,7 @@ Trace Analytics in OpenSearch 3.1 includes expanded support for custom index nam
 
   ![Gantt chart with tree view and pie chart layout]({{site.url}}{{site.baseurl}}/images/ta-hierarchial-view.png)
 
-- The Gantt chart now includes a selectable mini-map above it, allowing you to quickly navigate to and focus on specific sections of the trace timeline, as shown in the following image.
+- The Gantt chart now includes a selectable mini-map, allowing you to quickly navigate to and focus on specific sections of the trace timeline, as shown in the following image.
 
   ![Gantt chart with selectable mini-map]({{site.url}}{{site.baseurl}}/images/ta-gantt-mini-map.png)
 

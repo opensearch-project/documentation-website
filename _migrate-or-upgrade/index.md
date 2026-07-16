@@ -48,6 +48,8 @@ Stop nonessential indexing before upgrading.
 
 ## Migration and upgrade methods
 
+OpenSearch supports the following migration and upgrade methods.
+
 ### Rolling upgrade
 
 Upgrade one node at a time while keeping the cluster operational.

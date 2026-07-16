@@ -165,7 +165,7 @@ The `unified` highlighter is based on the Lucene Unified Highlighter and is the 
 
 ### The `fvh` highlighter
 
-The `fvh` highlighter is based on the Lucene Fast Vector Highlighter. To use this highlighter, you need to store term vectors with positions offsets, which increases the index size. The `fvh` highlighter can combine matched terms from multiple fields into one result. It can also assign weights to matches depending on their positions; thus, you can sort phrase matches above term matches when highlighting a query that boosts phrase matches over term matches. Additionally, you can configure the `fvh` highlighter to select the boundaries of a returned text fragment, and you can highlight multiple words with different tags.
+The `fvh` highlighter is based on the Lucene Fast Vector Highlighter. To use this highlighter, you need to store term vectors with positions offsets, which increases the index size. The `fvh` highlighter can combine matched terms from multiple fields into one result. It can also assign weights to matches depending on their positions; thus, you can sort phrase matches higher than term matches when highlighting a query that boosts phrase matches over term matches. Additionally, you can configure the `fvh` highlighter to select the boundaries of a returned text fragment, and you can highlight multiple words with different tags.
 
 ### The `plain` highlighter
 
@@ -380,7 +380,7 @@ The unified highlighter's sentence scanner splits sentences larger than `fragmen
 
 ## Changing the highlighting tags
 
-Design your application code to parse the results from the `highlight` object and perform an action on the search terms, such as changing their color, bolding, italicizing, and so on.
+Design your application code to parse the results from the `highlight` object and perform an action on the search terms, such as changing their color or applying bold or italic formatting.
 
 To change the default `em` tags, specify the new tags in the `pretag` and `posttag` parameters:
 

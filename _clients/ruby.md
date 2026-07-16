@@ -195,7 +195,7 @@ client.indices.put_mapping(
 ```
 {% include copy.html %}
 
-By default, string fields are mapped as `text`, but in the mapping above, the `first_name` and `last_name` fields are mapped as `keyword`. This mapping signals to OpenSearch that these fields should not be analyzed and should support only full case-sensitive matches.
+By default, string fields are mapped as `text`, but in the preceding mapping, the `first_name` and `last_name` fields are mapped as `keyword`. This mapping signals to OpenSearch that these fields should not be analyzed and should support only full case-sensitive matches.
 
 You can verify the index's mappings using the `get_mapping` method:
 
@@ -339,7 +339,7 @@ client.bulk(body: actions, refresh: true)
 ```
 {% include copy.html %}
 
-In the above example, you pass the data and the header together and you denote the data with the `data:` key.
+In the preceding example, you pass the data and the header together and you denote the data with the `data:` key.
 
 ## Searching for a document
 
@@ -373,7 +373,7 @@ client.search(index: 'students')
 
 ## Boolean query
 
-The Ruby client exposes full OpenSearch query capability. In addition to simple searches that use the match query, you can create a more complex Boolean query to search for students who graduated in 2022 and sort them by last name. In the example below, search is limited to 10 documents.
+The Ruby client exposes full OpenSearch query capability. In addition to simple searches that use the match query, you can create a more complex Boolean query to search for students who graduated in 2022 and sort them by last name. In the following example, search is limited to 10 documents.
 
 ```ruby
 query = {
@@ -632,9 +632,9 @@ puts MultiJson.dump(response, pretty: "true")
 ```
 {% include copy.html %}
 
-# Ruby AWS Sigv4 Client
+# Ruby AWS Signature Version 4 client
 
-The [opensearch-aws-sigv4](https://github.com/opensearch-project/opensearch-ruby-aws-sigv4) gem provides the `OpenSearch::Aws::Sigv4Client` class, which has all features of `OpenSearch::Client`. The only difference between these two clients is that `OpenSearch::Aws::Sigv4Client` requires an instance of `Aws::Sigv4::Signer` during instantiation to authenticate with AWS:
+The [`opensearch-aws-sigv4`](https://github.com/opensearch-project/opensearch-ruby-aws-sigv4) gem provides the `OpenSearch::Aws::Sigv4Client` class, which has all features of `OpenSearch::Client`. The only difference between these two clients is that `OpenSearch::Aws::Sigv4Client` requires an instance of `Aws::Sigv4::Signer` during instantiation to authenticate with AWS:
 
 ```ruby
 require 'opensearch-aws-sigv4'

@@ -6,7 +6,9 @@ grand_parent: Pipelines
 nav_order: 50
 ---
 
+<!-- vale off -->
 # subList(<key>, <start_index, inclusive>, <end_index, exclusive>)
+<!-- vale on -->
 
 The `subList()` function extracts a sublist from a list field in an event. It takes the following arguments:
 
@@ -21,7 +23,9 @@ The function returns the portion of the list between the specified start and end
 
 The following examples show how the `sublist()` function works.
 
+<!-- vale off -->
 ### add_entries processor
+<!-- vale on -->
 
 You can use `subList()` in the `add_entries` processor, as shown in the following example.
 

@@ -17,11 +17,7 @@ The `addcoltotals` command computes the sum of each column and adds a summary ro
 The command only processes numeric fields (integers, floats, doubles). Non-numeric fields are ignored regardless of whether they are explicitly specified in the field list.
 
 
-<!-- vale off -->
-
 ## Syntax
-
-<!-- vale on -->
 
 The `addcoltotals` command has the following syntax:
 
@@ -29,11 +25,7 @@ The `addcoltotals` command has the following syntax:
 addcoltotals [field-list] [label=<string>] [labelfield=<field>]
 ```
 
-<!-- vale off -->
-
 ## Parameters
-
-<!-- vale on -->
 
 The `addcoltotals` command supports the following parameters.
 
@@ -43,11 +35,7 @@ The `addcoltotals` command supports the following parameters.
 | `labelfield` | Optional | The field in which the label is placed. If the field does not exist, it is created and the label is shown in the summary row (last row) of the new field. |
 | `label` | Optional | The text that appears in the summary row (last row) to identify the computed totals. When used with `labelfield`, this text is placed in the specified field in the summary row. Default is `Total`. |
 
-<!-- vale off -->
-
 ## Example 1: Adding column totals to a severity breakdown
-
-<!-- vale on -->
 
 The following query adds a total row to a severity breakdown, showing the grand total of all log entries:
 
@@ -75,11 +63,7 @@ The query returns the following results:
 
 <!-- vale on -->
 
-<!-- vale off -->
-
 ## Example 2: Adding column totals with a custom label
-
-<!-- vale on -->
 
 The following query adds totals to error counts per service with a custom summary label:
 
@@ -108,11 +92,7 @@ The query returns the following results:
 
 <!-- vale on -->
 
-<!-- vale off -->
-
 ## Example 3: Using all options
-
-<!-- vale on -->
 
 The following query uses the `addcoltotals` command with all options set, totaling only the specified numeric fields and placing the summary label in a new column:
 

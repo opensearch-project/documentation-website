@@ -146,7 +146,7 @@ The query returns the following results:
 
 <!-- vale on -->
   
-Limitation: The pushdown of the `LIKE` function to a DSL wildcard query is supported only for keyword fields.
+Limitation: The push-down of the `LIKE` function to a DSL wildcard query is supported only for keyword fields.
 
 ## ILIKE
 
@@ -184,7 +184,7 @@ The query returns the following results:
 
 <!-- vale on -->
   
-Limitation: The pushdown of the `ILIKE` function to a DSL wildcard query is supported only for keyword fields.
+Limitation: The push-down of the `ILIKE` function to a DSL wildcard query is supported only for keyword fields.
 
 ## LOCATE
 

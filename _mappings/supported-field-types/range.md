@@ -66,7 +66,7 @@ PUT testindex/_doc/1
 
 ## IP address ranges
 
-You can specify IP address ranges in two formats: as a range and in [CIDR notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation).
+You can specify IP address ranges in two formats: as a range and in [Classless Inter-Domain Routing (CIDR) notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation).
 
 Create a mapping with an IP address range:
 

@@ -14,11 +14,7 @@ nav_order: 48
 
 The `table` command is an alias for the [`fields`]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/commands/fields/) command and provides the same field selection capabilities. It allows you to keep or remove fields from the search results using enhanced syntax options.
 
-<!-- vale off -->
-
 ## Syntax
-
-<!-- vale on -->
 
 The `table` command has the following syntax:
 
@@ -26,11 +22,7 @@ The `table` command has the following syntax:
 table [+|-] <field-list>
 ```
 
-<!-- vale off -->
-
 ## Parameters
-
-<!-- vale on -->
 
 The `table` command supports the following parameters.
 
@@ -39,11 +31,7 @@ The `table` command supports the following parameters.
 | `<field-list>` | Required | A comma-delimited or space-delimited list of fields to keep or remove. Supports wildcard patterns. |
 | `[+|-]` | Optional | Specifies the fields to keep or remove. If the plus sign (`+`) is used, only the fields specified in the field list are kept. If the minus sign (`-`) is used, all the fields specified in the field list are removed. Default is `+`. |
 
-<!-- vale off -->
-
 ## Example: Basic table command usage  
-
-<!-- vale on -->
 
 The following query builds a quick incident summary table showing severity, service, and the log message for recent errors:
   
@@ -70,10 +58,6 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Related documentation 
-
-<!-- vale on -->
 
 - [`fields`]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/commands/fields/) -- An alias command with identical functionality  

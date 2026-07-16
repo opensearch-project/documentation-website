@@ -64,11 +64,11 @@ The following table provides common `DateTime` patterns.
 
 | Pattern                        | Example                       | Description                   |
 | ------------------------------ | ----------------------------- | ----------------------------- |
-| `yyyy-MM-dd'T'HH:mm:ss.SSSXXX` | 2023-03-15T14:30:45.123-05:00 | ISO 8601 format with time zone |
-| `dd/MMM/yyyy:HH:mm:ss Z`       | 15/Mar/2023:14:30:45 -0500    | Apache Common Log Format      |
-| `MMM dd HH:mm:ss`              | Mar 15 14:30:45               | Syslog format                 |
-| `yyyy-MM-dd HH:mm:ss`          | 2023-03-15 14:30:45           | Standard SQL format           |
-| `MM/dd/yyyy HH:mm:ss`          | 03/15/2023 14:30:45           | US format                     |
+| `yyyy-MM-dd'T'HH:mm:ss.SSSXXX` | `2023-03-15T14:30:45.123-05:00` | ISO 8601 format with time zone |
+| `dd/MMM/yyyy:HH:mm:ss Z`       | `15/Mar/2023:14:30:45 -0500`    | Apache Common Log Format      |
+| `MMM dd HH:mm:ss`              | `Mar 15 14:30:45`              | Syslog format                 |
+| `yyyy-MM-dd HH:mm:ss`          | `2023-03-15 14:30:45`           | Standard SQL format           |
+| `MM/dd/yyyy HH:mm:ss`          | `03/15/2023 14:30:45`           | US format                     |
 
 ## Epoch patterns
 
@@ -76,7 +76,7 @@ The following table provides supported epoch patterns.
 
 | Pattern        | Description                                        | Example value       |
 | -------------- | -------------------------------------------------- | ------------------- |
-| `epoch_second` | Seconds since Unix epoch (1970-01-01 00:00:00 UTC) | 1678902000          |
+| `epoch_second` | Seconds since Unix epoch (`1970-01-01 00:00:00` UTC) | 1678902000          |
 | `epoch_milli`  | Milliseconds since Unix epoch                      | 1678902000123       |
 | `epoch_micro`  | Microseconds since Unix epoch                      | 1678902000123456    |
 | `epoch_nano`   | Nanoseconds since Unix epoch                       | 1678902000123456789 |

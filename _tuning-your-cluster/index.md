@@ -372,7 +372,7 @@ In this case, all primary shards are allocated to `opensearch-d2`. Again, all re
 
 A popular approach is to configure your [index templates]({{site.url}}{{site.baseurl}}/opensearch/index-templates/) to set the `index.routing.allocation.require.temp` value to `hot`. This way, OpenSearch stores your most recent data on your hot nodes.
 
-You can then use the [Index State Management (ISM)]({{site.url}}{{site.baseurl}}/im-plugin/) plugin to periodically check the age of an index and specify actions to take on it. For example, when the index reaches a specific age, change the `index.routing.allocation.require.temp` setting to `warm` to automatically move your data from hot nodes to warm nodes.
+You can then use the [Index State Management (ISM)]({{site.url}}{{site.baseurl}}/im-plugin/) plugin to periodically check the age of an index and specify actions to take on it. For example, when the index reaches a specific age, change the `index.routing.allocation.require.temp` setting to `warm` in order to automatically move your data from hot nodes to warm nodes.
 
 ## Next steps
 

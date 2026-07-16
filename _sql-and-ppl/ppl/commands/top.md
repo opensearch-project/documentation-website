@@ -17,11 +17,7 @@ The `top` command finds the most common combination of values across all fields 
 The `top` command is not rewritten to [query domain-specific language (DSL)]({{site.url}}{{site.baseurl}}/query-dsl/). It is only executed on the coordinating node.
 {: .note}
 
-<!-- vale off -->
-
 ## Syntax
-
-<!-- vale on -->
 
 The `top` command has the following syntax:
 
@@ -29,11 +25,7 @@ The `top` command has the following syntax:
 top [N] [top-options] <field-list> [by-clause]
 ```
 
-<!-- vale off -->
-
 ## Parameters
-
-<!-- vale on -->
 
 The `top` command supports the following parameters.
 
@@ -44,11 +36,7 @@ The `top` command supports the following parameters.
 | `<field-list>` | Required | A comma-delimited list of field names.  |
 | `<by-clause>` | Optional | One or more fields to group the results by. |
 
-<!-- vale off -->
-
 ## Example 1: Displaying counts in the default count column
-
-<!-- vale on -->
 
 The following query finds the most common severity levels:
 
@@ -72,11 +60,7 @@ By default, the `top` command automatically includes a `count` column showing th
 
 <!-- vale on -->
 
-<!-- vale off -->
-
 ## Example 2: Finding the most common values without the count display
-
-<!-- vale on -->
 
 The following query uses `showcount=false` to hide the `count` column in the results:
 
@@ -100,11 +84,7 @@ The query returns the following results:
 
 <!-- vale on -->
 
-<!-- vale off -->
-
 ## Example 3: Renaming the count column
-
-<!-- vale on -->
 
 The following query uses the `countfield` parameter to specify a custom name (`cnt`) for the count column instead of the default `count`:
   
@@ -128,11 +108,7 @@ The query returns the following results:
 
 <!-- vale on -->
 
-<!-- vale off -->
-
 ## Example 4: Limiting the number of returned results
-
-<!-- vale on -->
 
 The following query returns the top 1 most common severity level:
 
@@ -153,11 +129,7 @@ The query returns the following results:
 
 <!-- vale on -->
 
-<!-- vale off -->
-
 ## Example 5: Grouping the results
-
-<!-- vale on -->
 
 The following query finds the most common severity level within each service:
 
@@ -184,11 +156,7 @@ The query returns the following results:
 
 <!-- vale on -->
 
-<!-- vale off -->
-
 ## Example 6: Specifying null value handling
-
-<!-- vale on -->
 
 The following query specifies `usenull=false` to exclude null values:
 

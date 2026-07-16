@@ -567,7 +567,7 @@ POST /sample-index1/_update/1
 ```
 {% include copy-curl.html %}
 
-With noop detection disabled, OpenSearch reindexes the document and increments its version number even though the content is identical.
+With `noop` detection disabled, OpenSearch reindexes the document and increments its version number even though the content is identical.
 
 
 ## Example response

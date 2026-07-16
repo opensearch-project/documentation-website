@@ -22,11 +22,7 @@ The `convert` command has the following properties:
 
 Use the `AS` clause to preserve the original field while creating a converted field. You can apply multiple conversions within a single command (see [Example 4](#example-4-converting-multiple-fields)).
 
-<!-- vale off -->
-
 ## Syntax
-
-<!-- vale on -->
 
 The `convert` command has the following syntax:
 
@@ -34,11 +30,7 @@ The `convert` command has the following syntax:
 convert <convert-function>(<field>) [AS <field>] [, <convert-function>(<field>) [AS <field>]]...
 ```
 
-<!-- vale off -->
-
 ## Parameters
-
-<!-- vale on -->
 
 The `convert` command supports the following parameters.
 
@@ -48,11 +40,7 @@ The `convert` command supports the following parameters.
 | `<field>` | Required | A single field name to convert. |
 | `AS <field>` | Optional | Creates a new field using the converted value and preserves the original field. |
 
-<!-- vale off -->
-
-## Conversion Functions
-
-<!-- vale on -->
+## Conversion functions
 
 | Function | Description |
 | --- | --- |
@@ -63,11 +51,7 @@ The `convert` command supports the following parameters.
 | `memk(field)` | Converts values containing memory unit suffixes to kilobytes. Accepts numbers containing optional unit suffixes such as `k`, `m`, or `g` (case insensitive). If the input is a numeric string with no unit suffix, the value is assumed to be in kilobytes. Returns `null` for invalid formats. |
 | `none(field)` | A no-op function that preserves the original field value. Used for excluding specific fields from wildcard conversions. |
 
-<!-- vale off -->
-
 ## Example 1: Converting a field automatically
-
-<!-- vale on -->
 
 The following query converts the `balance` field to a number using the `auto()` function:
 
@@ -91,11 +75,7 @@ The query returns the following results:
 
 <!-- vale on -->
 
-<!-- vale off -->
-
 ## Example 2: Converting a field containing commas
-
-<!-- vale on -->
 
 The following query converts a field containing comma-separated numbers:
 
@@ -117,11 +97,7 @@ The query returns the following results:
 
 <!-- vale on -->
 
-<!-- vale off -->
-
 ## Example 3: Converting a field containing memory units
-
-<!-- vale on -->
 
 The following query converts memory size strings to kilobytes:
 
@@ -143,11 +119,7 @@ The query returns the following results:
 
 <!-- vale on -->
 
-<!-- vale off -->
-
 ## Example 4: Converting multiple fields
-
-<!-- vale on -->
 
 The following query converts multiple fields using different conversion functions:
 
@@ -171,11 +143,7 @@ The query returns the following results:
 
 <!-- vale on -->
 
-<!-- vale off -->
-
 ## Example 5: Using an AS clause to preserve original values
-
-<!-- vale on -->
 
 The following query creates a new field that contains the converted value while preserving the original field:
 
@@ -199,11 +167,7 @@ The query returns the following results:
 
 <!-- vale on -->
 
-<!-- vale off -->
-
 ## Example 6: Extracting numbers from strings containing units
-
-<!-- vale on -->
 
 The following query extracts numeric values from strings containing units:
 
@@ -226,11 +190,7 @@ The query returns the following results:
 
 <!-- vale on -->
 
-<!-- vale off -->
-
 ## Example 7: Using aggregation functions
-
-<!-- vale on -->
 
 The following query converts values and uses them in aggregations:
 
@@ -252,11 +212,7 @@ The query returns the following results:
 
 <!-- vale on -->
 
-<!-- vale off -->
-
 ## Example 8: Using none() to preserve field values
-
-<!-- vale on -->
 
 The `none()` function returns the unchanged field value. This is useful for explicitly preserving fields in multi-field conversions:
 
@@ -280,11 +236,7 @@ The query returns the following results:
 
 <!-- vale on -->
 
-<!-- vale off -->
-
 ### Using none() with an AS clause for field renaming
-
-<!-- vale on -->
 
 The `none()` function can be combined with the `AS` clause to rename a field without modifying its value:
 
@@ -311,11 +263,7 @@ The query returns the following results:
 The `none()` function is useful with wildcard support, allowing you to exclude specific fields from bulk conversions.
 {: .note}
 
-<!-- vale off -->
-
 ## Limitations
-
-<!-- vale on -->
 
 The `convert` command requires `plugins.calcite.enabled` to be set to `true`.
 

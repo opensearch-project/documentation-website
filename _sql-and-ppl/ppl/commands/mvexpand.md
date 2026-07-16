@@ -14,11 +14,7 @@ nav_order: 31
 
 The `mvexpand` command expands each value in a multivalue (array) field into a separate row. For each document, every element in the specified array field is returned as its own row.
 
-<!-- vale off -->
-
 ## Syntax
-
-<!-- vale on -->
 
 The `mvexpand` command has the following syntax:
 
@@ -26,11 +22,7 @@ The `mvexpand` command has the following syntax:
 mvexpand <field> [limit=<int>]
 ```
 
-<!-- vale off -->
-
 ## Parameters
-
-<!-- vale on -->
 
 The `mvexpand` command supports the following parameters.
 
@@ -39,11 +31,7 @@ The `mvexpand` command supports the following parameters.
 | `<field>` | Required | The multivalue (array) field to expand. |
 | `limit` | Optional | The maximum number of values per document to expand. If not specified, all array elements are expanded. |
 
-<!-- vale off -->
-
 ## Example 1: Using basic expansion
-
-<!-- vale on -->
 
 The following query creates an array and expands it into separate rows:
 
@@ -69,11 +57,7 @@ The query returns the following results:
 
 <!-- vale on -->
 
-<!-- vale off -->
-
 ## Example 2: Limiting the number of expanded rows
-
-<!-- vale on -->
 
 The following query expands an array while limiting the number of expanded rows:
 
@@ -99,11 +83,7 @@ The query returns the following results:
 
 <!-- vale on -->
 
-<!-- vale off -->
-
 ## Example 3: Expanding nested fields
-
-<!-- vale on -->
 
 The following query expands a multivalue `projects` field into one row per project:
 
@@ -128,11 +108,7 @@ The query returns the following results:
 
 <!-- vale on -->
 
-<!-- vale off -->
-
 ## Example 4: Single-value array
-
-<!-- vale on -->
 
 A single-element array expands to one row:
 
@@ -156,11 +132,7 @@ The query returns the following results:
 
 <!-- vale on -->
 
-<!-- vale off -->
-
 ## Example 5: Missing fields
-
-<!-- vale on -->
 
 The following query attempts to expand a field that does not exist in the input schema:
 
@@ -180,11 +152,7 @@ The query throws the following semantic check exception:
 {'reason': 'Invalid Query', 'details': "Field 'tags' not found in the schema", 'type': 'SemanticCheckException'}
 ```
 
-<!-- vale off -->
-
 ## Related commands
-
-<!-- vale on -->
 
 - [`nomv`]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/commands/nomv/) -- Converts a multivalue field into a single-value string
 - [`mvcombine`]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/commands/mvcombine/) -- Combines multiple rows into a single row with multivalue fields

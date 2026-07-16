@@ -24,7 +24,7 @@ The `percentiles` aggregation takes the following parameters.
 | `field`                                  | String           | Required      | The numeric field used to compute percentiles.                                                                                    |
 | `percents`                               | Array of doubles | Optional       | The list of percentiles returned in the response. Default is `[1, 5, 25, 50, 75, 95, 99]`.                                                 |
 | `keyed`                                  | Boolean          | Optional       | If set to `false`, returns results as an array. Otherwise, returns results as a JSON object. Default is `true`. |
-| `tdigest.compression`                    | Double           | Optional       | Controls accuracy and memory usage of the `tdigest` algorithm. See [Precision tuning with tdigest](#precision-tuning-with-tdigest).                                      |
+| `tdigest.compression`                    | Double           | Optional       | Controls accuracy and memory usage of the `tdigest` algorithm. See [Precision tuning with `tdigest`](#precision-tuning-with-tdigest).                                      |
 | `hdr.number_of_significant_value_digits` | Integer          | Optional       | The precision setting for the HDR histogram. See [HDR histogram](#hdr-histogram).                                   |
 | `missing`                                | Number           | Optional       | The default value used when the target field is missing in a document.                                                                              |
 | `script`                                 | Object           | Optional       | The script used to compute custom values instead of using a field. Supports inline and stored scripts.                                |
@@ -210,7 +210,11 @@ The response provides percentiles as an array of values:
 }
 ```
 
+<!-- vale off -->
+
 ### Precision tuning with tdigest
+
+<!-- vale on -->
 
 The `tdigest` algorithm is the default method used to calculate percentiles. It provides a memory-efficient way to estimate percentile ranks, especially when working with floating-point data such as response times or latencies.
 

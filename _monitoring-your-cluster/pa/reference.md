@@ -166,7 +166,7 @@ For information about each of the dimensions, see [dimensions reference](#dimens
   
 | Metric | Description |
 | :--- | :--- |
-| `Data_RetryingPendingTasksCount` | The number of throttled pending tasks on which the data node is actively performing retries. It is an absolute metric at that point in time. |
+| `Data_RetryingPendingTasksCount` | The number of throttled pending tasks on which the data node is actively performing retries. This is an absolute metric measured at the current timestamp. |
 | `ClusterManager_ThrottledPendingTasksCount` | The sum of the total pending tasks that were throttled by the cluster manager node. This is a cumulative metric, so make sure to check the max aggregation. |
 
 ## Relevant dimensions: N/A

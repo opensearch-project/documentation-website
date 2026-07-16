@@ -32,11 +32,7 @@ The `rex` and [`parse`]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/commands/pa
 | Offset tracking | Yes | No |
 | Special characters in group names | No | No |
 
-<!-- vale off -->
-
 ## Syntax
-
-<!-- vale on -->
 
 The `rex` command has the following syntax:
 
@@ -44,11 +40,7 @@ The `rex` command has the following syntax:
 rex [mode=<mode>] field=<field> <pattern> [max_match=<int>] [offset_field=<string>]
 ```
 
-<!-- vale off -->
-
 ## Parameters
-
-<!-- vale on -->
 
 The `rex` command supports the following parameters.
 
@@ -66,11 +58,7 @@ You can set the `max_match` limit in the `plugins.ppl.rex.max_match.limit` clust
 {: .note}
 
 
-<!-- vale off -->
-
 ## Example 1: Extracting service name and error type from log messages  
-
-<!-- vale on -->
 
 The following query extracts the error type from Java exception log messages. Non-matching rows return `null` for the extracted field:
   
@@ -97,11 +85,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 2: Extracting multiple words using max_match  
-
-<!-- vale on -->
 
 The following query uses the `rex` command with the `max_match` parameter to extract multiple words from the `body` field. The extracted field is returned as an array of strings:
   
@@ -155,11 +139,7 @@ The query returns the following results:
 
 <!-- vale on -->
 
-<!-- vale off -->
-
 ## Example 4: Tracking match positions using offset_field  
-
-<!-- vale on -->
 
 The following query tracks the character positions where matches occur, useful for highlighting matches in a UI:
   

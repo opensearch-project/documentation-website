@@ -14,11 +14,7 @@ nav_order: 52
 
 The `trendline` command calculates moving averages of fields.
 
-<!-- vale off -->
-
 ## Syntax
-
-<!-- vale on -->
 
 The `trendline` command has the following syntax:
 
@@ -26,11 +22,7 @@ The `trendline` command has the following syntax:
 trendline [sort [+|-] <sort-field>] (sma | wma)(<number-of-datapoints>, <field>) [as <alias>] [(sma | wma)(<number-of-datapoints>, <field>) [as <alias>]]...
 ```
 
-<!-- vale off -->
-
 ## Parameters
-
-<!-- vale on -->
 
 The `trendline` command supports the following parameters.
 
@@ -43,11 +35,7 @@ The `trendline` command supports the following parameters.
 | `<field>` | Required | The field for which the moving average is calculated. |
 | `<alias>` | Optional | The name of the resulting column containing the moving average. Default is the `<field>` name with `_trendline` appended. |
 
-<!-- vale off -->
-
 ## Example 1: Tracking whether severity is escalating over time
-
-<!-- vale on -->
 
 The following query calculates a 3-point simple moving average of `severityNumber`:
   
@@ -77,11 +65,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 2: Using weighted moving average for recent-biased trends
-
-<!-- vale on -->
 
 The following query calculates a weighted moving average, which gives more weight to recent values:
   
@@ -111,11 +95,7 @@ The query returns the following results:
 <!-- vale on -->
 
 
-<!-- vale off -->
-
 ## Limitations
-
-<!-- vale on -->
 
 The `trendline` command has the following limitations:
 

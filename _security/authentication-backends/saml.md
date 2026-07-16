@@ -163,7 +163,7 @@ Name | Description
 `kibana_url` | The OpenSearch Dashboards base URL. Required.
 
 
-## Username and Role attributes
+## Username and role attributes
 
 Subjects (for example, user names) are usually stored in the `NameID` element of a SAML response:
 

@@ -9,6 +9,7 @@ redirect_from:
 
 # Management
 
+The following sections describe alerting indexes and settings.
 
 ## Alerting indexes
 
@@ -36,7 +37,7 @@ All settings are available using the OpenSearch `_cluster/settings` API. None re
 
 Setting | Default | Description
 :--- | :--- | :---
-`plugins.scheduled_jobs.enabled` | true | Whether the alerting plugin is enabled or not. If disabled, all monitors immediately stop running.
+`plugins.scheduled_jobs.enabled` | true | Whether the Alerting plugin is enabled or not. If disabled, all monitors immediately stop running.
 `plugins.alerting.index_timeout` | 60s | The timeout for creating monitors and destinations using the REST APIs.
 `plugins.alerting.request_timeout` | 10s | The timeout for miscellaneous requests from the plugin.
 `plugins.alerting.action_throttle_max_value` | 24h | The maximum amount of time you can set for action throttling. By default, this value displays as 1440 minutes in OpenSearch Dashboards.

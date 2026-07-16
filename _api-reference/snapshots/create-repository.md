@@ -51,7 +51,9 @@ Request field | Description
 `prefix_mode_verification` | When enabled, adds a hashed value of a random seed to the prefix for repository verification. For remote-store-enabled clusters, you can add the `setting.prefix_mode_verification` setting to the node attributes for the supplied repository. This field works with both new and existing repositories. Optional.
 `shard_path_type` | Controls the path structure of shard-level blobs. Supported values are `FIXED`, `HASHED_PREFIX`, and `HASHED_INFIX`. For more information about each value, see [shard_path_type values](#shard_path_type-values)/. Default is `HASHED_PREFIX`. Optional.
 
+<!-- vale off -->
 #### shard_path_type values
+<!-- vale on -->
 
 The following values are supported in the `shard_path_type` setting:
 
@@ -59,7 +61,9 @@ The following values are supported in the `shard_path_type` setting:
 - `HASHED_PREFIX`: Prepends a hashed prefix at the start of the path for each unique shard ID, for example, `<ROOT>/<HASH-OF-INDEX-ID-AND-SHARD-ID>/<BASE_PATH>/indices/<index-id>/0/<SHARD_BLOBS>`.
 - `HASHED_INFIX`: Appends a hashed prefix after the base path for each unique shard ID, for example, `<ROOT>/<BASE-PATH>/<HASH-OF-INDEX-ID-AND-SHARD-ID>/indices/<index-id>/0/<SHARD_BLOBS>`. The hash method used is `FNV_1A_COMPOSITE_1`, which uses the `FNV1a` hash function and generates a custom-encoded 64-bit hash value that scales well with most remote store options. `FNV1a` takes the most significant 6 bits to create a URL-safe Base64 character and the next 14 bits to create a binary string.
 
+<!-- vale off -->
 ### fs repository
+<!-- vale on -->
 
 Request field | Description
 :--- | :---
@@ -73,7 +77,9 @@ Request field | Description
 `readonly` | Whether the repository is read-only. Useful when migrating from one cluster (`"readonly": false` when registering) to another cluster (`"readonly": true` when registering). Optional.
 
 
+<!-- vale off -->
 ### s3 repository
+<!-- vale on -->
 
 | Request field                               | Description                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 |:--------------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -91,10 +97,10 @@ Request field | Description
 | `max_snapshot_bytes_per_sec` | The maximum rate at which snapshots are taken. Default is 40 MB per second (`40m`). Optional. |
 | `readonly` | Whether the repository is read-only. Useful when migrating from one cluster (`"readonly": false` when registering) to another cluster (`"readonly": true` when registering). Optional. |
 | `remote_store_index_shallow_copy` | Determines whether the snapshot of the remote store indexes is captured as a shallow copy. Default is `false`.
-| `shallow_snapshot_v2` | Determines whether the snapshots of the remote store indexes are captured as a [shallow copy v2]([shallow copy v2]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/snapshot-interoperability/#shallow-snapshot-v2). Default is `false`.
+| `shallow_snapshot_v2` | Determines whether the snapshots of the remote store indexes are captured as a [shallow copy v2]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/snapshot-interoperability/#shallow-snapshot-v2). Default is `false`.
 | `storage_class` | Specifies the [S3 storage class](https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html) for the snapshot files. Default is `standard`. Do not use the `glacier` and `deep_archive` storage classes. Optional.                                                                                                                                                                                                                  |
-| `server_side_encryption_type` | Specifies the S3 server-side encryption types. Supported values are `AES256` ([SSE-S3](https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingServerSideEncryption.html), `aws:kms` ([SSE-KMS](https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingKMSEncryption.html)), and `bucket_default` ([bucket default encryption](https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucket-encryption.html). Default is `bucket_default`. |
-| `server_side_encryption_kms_key_id` | Specifies the AWS Key Management Service (AWS KMS) key to be used if [S3 SSE-KMS](https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingKMSEncryption.html) is selected by setting the `aws:kms` encryption type. Required if `aws:kms` is set as the `server_side_encryption_type`.                                                                                                                                                                                               |
+| `server_side_encryption_type` | Specifies the S3 server-side encryption types. Supported values are `AES256` ([SSE-S3](https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingServerSideEncryption.html)), `aws:kms` ([SSE-AWS Key Management Service (KMS)](https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingKMSEncryption.html)), and `bucket_default` ([bucket default encryption](https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucket-encryption.html)). Default is `bucket_default`. |
+| `server_side_encryption_kms_key_id` | Specifies the AWS KMS key to be used if [S3 SSE-KMS](https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingKMSEncryption.html) is selected by setting the `aws:kms` encryption type. Required if `aws:kms` is set as the `server_side_encryption_type`.                                                                                                                                                                                               |
 | `server_side_encryption_bucket_key_enabled` | Specifies whether [S3 Bucket Keys](https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucket-key.html) should be used when using [S3 SSE-KMS](https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingKMSEncryption.html). Optional.                                                                                                                                                                                                              |
 | `server_side_encryption_encryption_context` | Specifies any additional [encryption context](https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingKMSEncryption.html#encryption-context) that should be used when using [S3 SSE-KMS](https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingKMSEncryption.html). This setting value must be formatted as a JSON object. Optional.                                                                                                            |
 | `expected_bucket_owner` | Specifies the AWS account ID of the expected S3 bucket owner. This setting can be used for [verifying bucket ownership](https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucket-owner-condition.html). Optional.                                                                                                                                                                                                                              |
@@ -105,7 +111,9 @@ For the `base_path` parameter, do not enter the `s3://` prefix when entering you
 The `server_side_encryption` setting is removed as of OpenSearch 3.1.0. S3 applies server-side encryption as the base level of encryption for all S3 buckets. Because this cannot be disabled, this value repository setting had no effect. For more information, see [Protecting data with server-side encryption](https://docs.aws.amazon.com/AmazonS3/latest/userguide/serv-side-encryption.html).
 {: .note}
 
+<!-- vale off -->
 ### hdfs repository
+<!-- vale on -->
 
 | Request field        | Description                                                                                                 |
 |:---------------------|:------------------------------------------------------------------------------------------------------------|
@@ -117,6 +125,8 @@ The `server_side_encryption` setting is removed as of OpenSearch 3.1.0. S3 appli
 
 
 ## Example requests
+
+The following examples demonstrate how to register different repository types.
 
 ### `fs`
 

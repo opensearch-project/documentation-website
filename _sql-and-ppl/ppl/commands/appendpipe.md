@@ -16,11 +16,7 @@ The `appendpipe` command appends the results of a subpipeline to the search resu
 
 The command aligns columns that have the same field names and types. For columns that exist in only the main search or subpipeline, `NULL` values are inserted into the missing fields for the respective rows.
 
-<!-- vale off -->
-
 ## Syntax
-
-<!-- vale on -->
 
 The `appendpipe` command has the following syntax:
 
@@ -28,11 +24,7 @@ The `appendpipe` command has the following syntax:
 appendpipe [<subpipeline>]
 ```
 
-<!-- vale off -->
-
 ## Parameters
-
-<!-- vale on -->
 
 The `appendpipe` command supports the following parameters.
 
@@ -41,11 +33,7 @@ The `appendpipe` command supports the following parameters.
 | `<subpipeline>` | Required | A list of commands applied to the search results produced by the commands that precede the `appendpipe` command. |
   
 
-<!-- vale off -->
-
 ## Example 1: Appending a total row to aggregated results  
-
-<!-- vale on -->
 
 The following query counts logs by severity level, then appends a total row. This is useful for building summary reports that include both breakdowns and totals:
   
@@ -74,11 +62,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 2: Appending summary statistics to detail rows  
-
-<!-- vale on -->
 
 The following query shows error counts per service, then appends the overall average error count across all services:
   
@@ -109,11 +93,7 @@ The query returns the following results:
 <!-- vale on -->
 
 
-<!-- vale off -->
-
 ## Limitations
-
-<!-- vale on -->
 
 The `appendpipe` command has the following limitations:
 

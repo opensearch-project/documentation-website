@@ -22,11 +22,7 @@ The `parse` command extracts information from a text field using a regular expre
 
 The `rex` and `parse` commands both extract information from text fields using Java regular expressions with named capture groups. To compare the capabilities of the `rex` and `parse` commands, see the [`rex` command documentation]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/commands/rex/).
 
-<!-- vale off -->
-
 ## Syntax
-
-<!-- vale on -->
 
 The `parse` command has the following syntax:
 
@@ -34,11 +30,7 @@ The `parse` command has the following syntax:
 parse <field> <pattern>
 ```
 
-<!-- vale off -->
-
 ## Parameters
-
-<!-- vale on -->
 
 The `parse` command supports the following parameters.
 
@@ -47,19 +39,11 @@ The `parse` command supports the following parameters.
 | `<field>` | Required | The text field to parse. |
 | `<pattern>` | Required | The regular expression pattern used to extract new fields from the specified text field. If a field with the same name already exists, its values are replaced. |
 
-<!-- vale off -->
-
 ## Regular expression
-
-<!-- vale on -->
 
 The regular expression pattern is used to match the whole text field of each document based on the [Java regular expression syntax](https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html). Each named capture group in the expression becomes a new `STRING` field.  
 
-<!-- vale off -->
-
 ## Example 1: Extracting error details from log messages  
-
-<!-- vale on -->
 
 The following query extracts the error summary and detail from error log messages. This is useful for categorizing errors during incident triage:
   
@@ -86,11 +70,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 2: Extracting IP addresses from log messages  
-
-<!-- vale on -->
 
 The following query extracts IP addresses from log messages for a specific service:
   
@@ -117,11 +97,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Limitations
-
-<!-- vale on -->
 
 The `parse` command has the following limitations:
 

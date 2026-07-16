@@ -23,19 +23,11 @@ The `ml` command supports the following algorithms:
 
 - **K-means** for clustering data points into groups
 
-<!-- vale off -->
-
 ## Syntax
-
-<!-- vale on -->
 
 The `ml` command supports different syntax options, depending on the algorithm.
 
-<!-- vale off -->
-
 ### Anomaly detection for time-series data
-
-<!-- vale on -->
 
 Use this syntax to detect anomalies in time-series data. This method uses the RCF algorithm optimized for sequential data patterns:
 
@@ -43,11 +35,7 @@ Use this syntax to detect anomalies in time-series data. This method uses the RC
 ml action='train' algorithm='rcf' <number_of_trees> <shingle_size> <sample_size> <output_after> <time_decay> <anomaly_rate> <time_field> <date_format> <time_zone>
 ```
 
-<!-- vale off -->
-
 ### Parameters
-
-<!-- vale on -->
 
 The fixed-in-time RCF algorithm supports the following parameters.
 
@@ -64,11 +52,7 @@ The fixed-in-time RCF algorithm supports the following parameters.
 | `time_zone` | Optional | The time zone for the `time_field`. Default is `UTC`. |
 | `category_field` | Optional | The category field used to group input values. The predict operation is applied to each category independently. |
 
-<!-- vale off -->
-
 ### Anomaly detection for non-time-series data
-
-<!-- vale on -->
 
 Use this syntax to detect anomalies in data where the order doesn't matter. This method uses the RCF algorithm optimized for independent data points:
 
@@ -76,11 +60,7 @@ Use this syntax to detect anomalies in data where the order doesn't matter. This
 ml action='train' algorithm='rcf' <number_of_trees> <sample_size> <output_after> <training_data_size> <anomaly_score_threshold>
 ```
 
-<!-- vale off -->
-
 ### Parameters
-
-<!-- vale on -->
 
 The batch RCF algorithm supports the following parameters.
 
@@ -94,11 +74,7 @@ The batch RCF algorithm supports the following parameters.
 | `category_field` | Optional | The category field used to group input values. The predict operation is applied to each category independently. |  
   
 
-<!-- vale off -->
-
 ### K-means clustering
-
-<!-- vale on -->
 
 Use this syntax to group data points into clusters based on similarity:
 
@@ -106,11 +82,7 @@ Use this syntax to group data points into clusters based on similarity:
 ml action='train' algorithm='kmeans' <centroids> <iterations> <distance_type>
 ```
 
-<!-- vale off -->
-
 ### Parameters
-
-<!-- vale on -->
 
 The k-means clustering algorithm supports the following parameters.
 
@@ -121,11 +93,7 @@ The k-means clustering algorithm supports the following parameters.
 | `distance_type` | Optional | The distance type. Valid values are `COSINE`, `L1`, and `EUCLIDEAN`. Default is `EUCLIDEAN`. |  
   
 
-<!-- vale off -->
-
 ## Example 1: Time-series anomaly detection
-
-<!-- vale on -->
 
 This example trains an RCF model and uses it to detect anomalies in time-series ridership data:
   
@@ -148,11 +116,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 2: Time-series anomaly detection by category
-
-<!-- vale on -->
 
 This example trains an RCF model and uses it to detect anomalies in time-series ridership data across multiple category values:
   
@@ -176,11 +140,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 3: Non-time-series anomaly detection
-
-<!-- vale on -->
 
 This example trains an RCF model and uses it to detect anomalies in non-time-series ridership data:
   
@@ -203,11 +163,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 4: Non-time-series anomaly detection by category
-
-<!-- vale on -->
 
 This example trains an RCF model and uses it to detect anomalies in non-time-series ridership data across multiple category values:
   
@@ -231,11 +187,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 5: K-means clustering of the Iris dataset  
-
-<!-- vale on -->
 
 This example uses k-means clustering to classify three Iris species (Iris setosa, Iris virginica, and Iris versicolor) based on the combination of four features measured from each sample (the lengths and widths of sepals and petals):
   

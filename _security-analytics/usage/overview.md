@@ -5,9 +5,11 @@ parent: Using Security Analytics
 nav_order: 25
 ---
 
+<!-- vale off -->
 # The Overview page
+<!-- vale on -->
 
-When you select **Security Analytics** from the top menu, the Overview page is displayed. The Overview page consists of five sections:
+When you select **Security Analytics** from the top menu, the **Overview** page is displayed. The **Overview** page consists of five sections:
 * Findings and alert count
 * Recent alerts
 * Recent findings
@@ -19,7 +21,7 @@ Each section provides a summary description for each element of Security Analyti
 ---
 ## Overview and getting started
 
-The upper portion of the Overview page contains two control buttons for refreshing information and getting started with Security Analytics. You can select the **Refresh** button to refresh all of the information on the page. 
+The upper portion of the **Overview** page contains two control buttons for refreshing information and getting started with Security Analytics. You can select the **Refresh** button to refresh all of the information on the page. 
 
 You can also select the **Getting started** link to expand the Get started with Security Analytics window, which includes a summary of the setup steps as well as control buttons that allow you to jump to any of the steps.
 
