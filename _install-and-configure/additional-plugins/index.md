@@ -41,6 +41,6 @@ There are many more plugins available in addition to those provided by the stand
 
 ## Related documentation
 
-[Installing plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/)
-[`ingest-attachment` plugin]({{site.url}}{{site.baseurl}}/install-and-configure/additional-plugins/ingest-attachment-plugin/)
-[`mapper-size` plugin]({{site.url}}{{site.baseurl}}/install-and-configure/additional-plugins/mapper-size-plugin/)
+- [Installing plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/)
+- [`ingest-attachment` plugin]({{site.url}}{{site.baseurl}}/install-and-configure/additional-plugins/ingest-attachment-plugin/)
+- [`mapper-size` plugin]({{site.url}}{{site.baseurl}}/install-and-configure/additional-plugins/mapper-size-plugin/)

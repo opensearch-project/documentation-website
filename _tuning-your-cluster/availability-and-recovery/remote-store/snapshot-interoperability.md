@@ -12,7 +12,7 @@ Shallow copy snapshots allow you to reference data from an entire remote-backed 
 
 ## Enabling shallow snapshots
 
-Use the [Snapshot API]({{site.url}}{{site.baseurl}}/api-reference/snapshots/create-repository/) and set the `remote_store_index_shallow_copy` repository setting to `true` to enable shallow snapshot copies, as shown in the following example:
+Use the [Snapshot API]({{site.url}}{{site.baseurl}}/api-reference/snapshots/create-repository/) and set the `remote_store_index_shallow_copy` repository setting to `true` in order to enable shallow snapshot copies, as shown in the following example:
 
 ```bash
 PUT /_snapshot/snap_repo

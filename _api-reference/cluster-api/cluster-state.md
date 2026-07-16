@@ -25,8 +25,8 @@ The following table lists the available path parameters. All path parameters are
 
 | Parameter   | Data type         | Description |
 | ----------- | ----------------- | ----------- |
-| `metric`    | String or list    | A comma-separated list of metrics to include in the response. See [Metric options](#metric-options) for a list of available options. Default is `_all`. |
-| `target`     | String or list    | A comma-separated list of index names, data streams, and index aliases used to limit the scope of the response. |
+| `metric` | String or List | A comma-separated list of metrics to include in the response. See [Metric options](#metric-options) for a list of available options. Default is `_all`. |
+| `target` | String or List | A comma-separated list of index names, data streams, and index aliases used to limit the scope of the response. |
 
 ## Metric options
 
@@ -46,18 +46,18 @@ The following table lists the available query parameters. All query parameters a
 
 | Parameter        | Data type | Description |
 | ---------------- | --------- | ----------- |
-| `local`          | Boolean   | If `true`, retrieves the state from the local node instead of the cluster manager node. Default is `false`. |
-| `cluster_manager_timeout` | Time      | The timeout duration for connecting to the cluster manager node. Default is `30s`. |
-| `flat_settings`  | Boolean   | If `true`, returns settings in a flat format. Default is `false`. |
+| `local` | Boolean | If `true`, retrieves the state from the local node instead of the cluster manager node. Default is `false`. |
+| `cluster_manager_timeout` | Time | The timeout duration for connecting to the cluster manager node. Default is `30s`. |
+| `flat_settings` | Boolean | If `true`, returns settings in a flat format. Default is `false`. |
 | `wait_for_metadata_version` | Integer | Waits until the metadata version is equal to or greater than this value before responding. |
-| `wait_for_timeout` | Time   | Specifies how long to wait when using `wait_for_metadata_version`. Default is `30s`. |
+| `wait_for_timeout` | Time | Specifies how long to wait when using `wait_for_metadata_version`. Default is `30s`. |
 | `ignore_unavailable` | Boolean | Whether to ignore missing or closed indexes. Default is `false`. |
 | `expand_wildcards` | String | Specifies the type of index that wildcard expressions can match. Supports comma-separated values. <br> Valid values are: <br> - `all`: Match any index, including hidden ones. <br> - `closed`: Match closed, non-hidden indexes. <br> - `hidden`: Match hidden indexes. Must be combined with `open`, `closed`, or both. <br> - `none`: Wildcard expressions are not accepted. <br> - `open`: Match open, non-hidden indexes. <br> Default is `open`. |
 | `allow_no_indices` | Boolean | Whether to fail if a wildcard expression or index alias resolves to no indexes. Default is `true`. |
 
 
 
-## Example Requests
+## Example requests
 
 Retrieve the full cluster state:
 
@@ -134,18 +134,18 @@ The following table lists all response fields.
 
 | Field                  | Data type | Description                                                                       |
 | ---------------------- | --------- | --------------------------------------------------------------------------------- |
-| `cluster_name`         | String    | The name of the cluster.                                                          |
-| `cluster_uuid`         | String    | The unique identifier for the cluster.                                                |
-| `version`              | Integer   | The current version of the cluster state.                                             |
-| `state_uuid`           | String    | The unique identifier for this version of the state.                                  |
-| `master_node`          | String    | As with `cluster_manager_node`, this is maintained for backward compatibility.                                    |
-| `cluster_manager_node` | String    | The node ID of the elected cluster manager node. |
-| `blocks`               | Object    | Index-level block settings.                                                       |
-| `metadata`             | Object    | Index mappings, settings, and aliases.                                            |
-| `nodes`                | Object    | Details of all nodes in the cluster.                                              |
-| `routing_table`        | Object    | Shard-to-node allocation per index.                                               |
-| `routing_nodes`        | Object    | Lists of shards assigned to each node.                                            |
-| `indices`              | Object    | Index-specific state metadata.                                                    |
+| `cluster_name` | String | The name of the cluster.                                                          |
+| `cluster_uuid` | String | The unique identifier for the cluster.                                                |
+| `version` | Integer | The current version of the cluster state.                                             |
+| `state_uuid` | String | The unique identifier for this version of the state.                                  |
+| `master_node` | String | As with `cluster_manager_node`, this is maintained for backward compatibility.                                    |
+| `cluster_manager_node` | String | The node ID of the elected cluster manager node. |
+| `blocks` | Object | Index-level block settings.                                                       |
+| `metadata` | Object | Index mappings, settings, and aliases.                                            |
+| `nodes` | Object | Details of all nodes in the cluster.                                              |
+| `routing_table` | Object | Shard-to-node allocation per index.                                               |
+| `routing_nodes` | Object | Lists of shards assigned to each node.                                            |
+| `indices` | Object | Index-specific state metadata.                                                    |
 
 ## Required permissions
 

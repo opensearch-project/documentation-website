@@ -22,7 +22,7 @@ If you've installed a local OpenSearch Dashboards instance, add the sample data 
 
 For more information, see [Adding sample data]({{site.url}}{{site.baseurl}}/dashboards/getting-started/data-setup/#add-sample-data).
 
-## Navigating the Discover UI
+## Navigating the Discover application UI
 
 The following image shows the main components of the **Discover** application.
 
@@ -196,7 +196,7 @@ To download a CSV-formatted file of data from the **Results** table:
 
 1. Select the **Download CSV** button.
 
-   The data is written to a CSV file at the filesystem's default location.
+   The data is written to a CSV file at the file system's default location.
 
    If the selected fields include objects or arrays, the CSV documents will download as JSON objects. To download as discrete CSV values, select only single-value fields.
    {: .tip}

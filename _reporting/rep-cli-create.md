@@ -14,7 +14,7 @@ First, you need to get the URL for the visualization that you want to download a
 
 To generate a visualization report, you need to specify the Dashboards URL.
 
-Open the visualization for which you want to generate a report, and select **Share >  Permalinks > Generate link as Shapshot > Short URL > Copy link**, as shown in the following image.
+Open the visualization for which you want to generate a report, and select **Share >  Permalinks > Generate link as Snapshot > Short URL > Copy link**, as shown in the following image.
 
 ![Copy link]({{site.url}}{{site.baseurl}}/images/dashboards/dash-url.png)
 

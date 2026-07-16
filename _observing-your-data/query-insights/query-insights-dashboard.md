@@ -39,7 +39,9 @@ Each label corresponds to the following components:
 - [C. Filters](#c-filters)
 - [D. Date range selector](#d-date-range-selector)
 - [E. Refresh button](#e-refresh-button)
+<!-- vale off -->
 - [F. Stats & Visualizations](#f-stats--visualizations)
+<!-- vale on -->
 - [G. Metrics table](#g-metrics-table)
 
 ### A. Navigation tabs
@@ -71,7 +73,9 @@ The **data range selector** analyzes queries sent during a set time frame. You c
 
 The **Refresh** button reloads the query data based on the selected filters and time range.
 
+<!-- vale off -->
 ### F. Stats & Visualizations
+<!-- vale on -->
 
 The **Stats & Visualizations** section is a collapsible panel on the **Top N queries** page that provides at-a-glance performance metrics and interactive visual breakdowns for your queries. You can toggle between **Query** and **Group** views using the buttons in the upper-right corner of the panel.
 
@@ -206,7 +210,7 @@ The **Query insights - Configuration** page is designed to gives you control ove
 
 On the configuration page, you can configure the settings described in the following sections.
 
-**For production deployments**: When the Dashboard application runs on separate nodes with network access restrictions, consider using the [Query Insights Settings API]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/settings-api/) to enable a secure configuration. The Query Insights Settings API provides fine-grained access control, allowing you to safely use an allowlist in a query insights configuration without granting broad cluster settings permissions.
+**For production deployments**: When the Dashboard application runs on separate nodes with network access restrictions, consider using the [Query Insights Settings API]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/settings-api/) to enable a secure configuration. The Query Insights Settings API provides fine-grained access control, allowing you to safely use an allow list in a query insights configuration without granting broad cluster settings permissions.
 {: .tip}
 
 ### Top N queries monitoring
@@ -303,7 +307,7 @@ The live queries table lists the following information for each live query.
 | **CPU usage**        | The cumulative CPU time consumed by the query.                                                                                                                            |
 | **Memory usage**     | The amount of memory consumed by the query during execution.                                                                                                              |
 | **Search type**      | The search execution method, such as `query_then_fetch`.                                                                                                                  |
-| **Coordinator node** | The node that coordinated the query execution.                                                                                                                            |
+| **Coordinating node** | The node that coordinated the query execution.                                                                                                                            |
 | **WLM Group**        | The workload group associated with the query. Displayed as plain text if workload management (WLM) is disabled or as a clickable link to the **WLM Group Details** page associated with that query when WLM is enabled. |
 | **Status**           | The current status of the query. Values are `running` or `cancelled`.                                                                                                         |
 | **Actions**          | The available actions for the query, such as canceling execution.                                                                                                       |

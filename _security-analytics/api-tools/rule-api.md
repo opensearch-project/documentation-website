@@ -10,9 +10,9 @@ nav_order: 40
 The following APIs can be used for a number of tasks related to rules, from searching for pre-packaged rules to creating and updating custom rules.
 
 ---
-## Create Custom Rule
+## Create custom rule
 
-The Create Custom Rule API uses Sigma security rule formatting to create a custom rule. For information about how to write a rule in Sigma format, see information provided at [Sigma's GitHub repository](https://github.com/SigmaHQ/sigma).
+Creates a custom rule using Sigma security rule formatting. For information about how to write a rule in Sigma format, see information provided at [Sigma's GitHub repository](https://github.com/SigmaHQ/sigma).
 
 ```json
 POST /_plugins/_security_analytics/rules?category=windows
@@ -119,7 +119,9 @@ falsepositives:
 ```
 
 ---
-## Update Custom Rule (not forced)
+## Update custom rule (not forced)
+
+Updates a custom rule. If the rule is actively used by detectors, the update is rejected unless the `forced` flag is set to `true`.
 
 ### Example request
 
@@ -180,7 +182,9 @@ falsepositives:
 ```
 
 ---
-## Update Custom Rule (forced)
+## Update custom rule (forced)
+
+Forces an update to a custom rule, even if it is actively used by detectors.
 
 ### Example request
 
@@ -260,7 +264,9 @@ falsepositives:
 ```
 
 ---
-## Search Pre-Packaged Rules
+## Search pre-packaged rules
+
+Searches for pre-packaged rules by category or other criteria.
 
 ### Example request
 
@@ -355,7 +361,9 @@ POST /_plugins/_security_analytics/rules/_search?pre_packaged=true
 ```
 
 ---
-## Search Custom Rules
+## Search custom rules
+
+Searches for custom rules by category or other criteria.
 
 ### Example request
 
@@ -452,7 +460,9 @@ Body:
 ```
 
 ---
-## Delete Custom Rule (not forced)
+## Delete custom rule (not forced)
+
+Deletes a custom rule. If the rule is actively used by detectors, the deletion is rejected unless the `forced` flag is set to `true`.
 
 ### Example request
 
@@ -483,7 +493,9 @@ DELETE /_plugins/_security_analytics/rules/ZaFv1IMBdLpXWBiBa1XI
 ```
 
 ---
-## Delete Custom Rule (forced)
+## Delete custom rule (forced)
+
+Forces deletion of a custom rule, even if it is actively used by detectors.
 
 ### Example request
 

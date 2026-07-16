@@ -12,7 +12,7 @@ redirect_from:
 
 {%- comment -%}The `/docs/opensearch-dashboards/maptiles/` redirect is specifically to support the UI links in OpenSearch Dashboards 1.0.0.{%- endcomment -%}
 
-# Configuring a Web Map Service (WMS)
+# Configuring a Web Map Service
 
 The Open Geospatial Consortium (OGC) Web Map Service (WMS) specification is an international specification for requesting dynamic maps on the web. OpenSearch Dashboards includes default map tiles. For specialized maps, you can configure a WMS on OpenSearch Dashboards following these steps:
 

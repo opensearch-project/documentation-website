@@ -9,6 +9,7 @@ redirect_from:
 
 # Management
 
+The following sections describe alerting indexes and settings.
 
 ## Alerting indexes
 
@@ -18,7 +19,7 @@ Index | Purpose
 :--- | :---
 `.opendistro-alerting-alerts` | Stores ongoing alerts.
 `.opendistro-alerting-alert-history-<date>` | Stores a history of completed alerts.
-`.opendistro-alerting-config` | Stores monitors, triggers, and destinations. [Take a snapshot]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore) of this index to back up your alerting configuration.
+`.opendistro-alerting-config` | Stores monitors, triggers, and destinations. [Take a snapshot]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore/) of this index to back up your alerting configuration.
 `.opendistro-alerting-alert-history-write` (alias) | Provides a consistent URI for the `.opendistro-alerting-alert-history-<date>` index.
 
 All alerting indexes are hidden by default. For a summary, make the following request:
@@ -36,7 +37,7 @@ All settings are available using the OpenSearch `_cluster/settings` API. None re
 
 Setting | Default | Description
 :--- | :--- | :---
-`plugins.scheduled_jobs.enabled` | true | Whether the alerting plugin is enabled or not. If disabled, all monitors immediately stop running.
+`plugins.scheduled_jobs.enabled` | true | Whether the Alerting plugin is enabled or not. If disabled, all monitors immediately stop running.
 `plugins.alerting.index_timeout` | 60s | The timeout for creating monitors and destinations using the REST APIs.
 `plugins.alerting.request_timeout` | 10s | The timeout for miscellaneous requests from the plugin.
 `plugins.alerting.action_throttle_max_value` | 24h | The maximum amount of time you can set for action throttling. By default, this value displays as 1440 minutes in OpenSearch Dashboards.

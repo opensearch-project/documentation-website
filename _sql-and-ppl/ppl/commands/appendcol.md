@@ -6,7 +6,11 @@ grand_parent: PPL
 nav_order: 6
 ---
 
+<!-- vale off -->
+
 # appendcol
+
+<!-- vale on -->
 
 The `appendcol` command appends the result of a subsearch as additional columns to the input search results (the main search).
 
@@ -44,6 +48,8 @@ source=otellogs
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | resource.attributes.service.name | total_logs | error_count |
 | --- | --- | --- |
 | cart | 3 | 2 |
@@ -54,9 +60,11 @@ The query returns the following results:
 | product-catalog | 4 | null |
 | recommendation | 1 | null |
 
+<!-- vale on -->
+
 ## Example 2: Appending multiple subsearch results
 
-The following query chains multiple `appendcol` commands to add summary statistics alongside detail rows. The first appendcol adds the total error count, and the second adds the number of affected services:
+The following query chains multiple `appendcol` commands to add summary statistics alongside detail rows. The first `appendcol` adds the total error count, and the second adds the number of affected services:
 
 ```sql
 source=otellogs
@@ -72,12 +80,16 @@ source=otellogs
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | resource.attributes.service.name | severityText | body | total_errors | services_affected |
 | --- | --- | --- | --- | --- |
 | checkout | ERROR | NullPointerException in CheckoutService.placeOrder at line 142 | 7 | 5 |
 | checkout | ERROR | Kafka producer delivery failed: message too large for topic order-events (max 1048576 bytes) | null | null |
 | frontend-proxy | ERROR | [2024-02-01T09:20:00.456Z] "POST /api/checkout HTTP/1.1" 503 - 0 30000 checkout-8d4f7b-mk2p9 | null | null |
 | payment | ERROR | Payment failed: connection timeout to payment gateway after 30000ms | null | null |
+
+<!-- vale on -->
 
 ## Example 3: Resolving column name conflicts using the override parameter
 
@@ -94,12 +106,16 @@ source=otellogs
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | agg | severityText |
 | --- | --- |
 | 7 | ERROR |
 | 4 | WARN |
 | 6 | INFO |
 | 4 | WARN |
+
+<!-- vale on -->
 
 ## Limitations
 

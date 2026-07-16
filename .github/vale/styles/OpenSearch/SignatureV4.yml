@@ -3,6 +3,7 @@ message: "'%s': Use 'AWS Signature Version 4' instead of '%s' on first appearanc
 ignorecase: true
 link: 'https://github.com/opensearch-project/documentation-website/blob/main/TERMS.md'
 level: warning
+scope: paragraph
 action:
   name: replace
 swap:

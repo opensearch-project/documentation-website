@@ -98,7 +98,9 @@ Option | Required | Type | Description
 `acknowledgments` | No | Boolean | When `true`, enables [end-to-end acknowledgments]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines#end-to-end-acknowledgments). Default is `true`.
 `shuffle` | No | Object | Configuration for the distributed shuffle used when processing snapshots with `DELETE` operations. For supported options, see [shuffle](#shuffle).
 
+<!-- vale off -->
 ### tables
+<!-- vale on -->
 
 Use the following options for each table entry.
 
@@ -109,7 +111,9 @@ Option | Required | Type | Description
 `identifier_columns` | No | List | A list of column names used as the document identifier for `UPDATE` and `DELETE` detection. Required when processing tables with `UPDATE` or `DELETE` operations. If not specified, the source cannot determine document IDs or correctly detect updates.
 `disable_export` | No | Boolean | When `true`, skips the initial snapshot export and starts with CDC only. Default is `false`.
 
+<!-- vale off -->
 ### catalog
+<!-- vale on -->
 
 The `catalog` option accepts any property supported by the Apache Iceberg catalog implementation. For the full list of available properties, see the documentation for each catalog type, such as the [REST catalog](https://iceberg.apache.org/rest-catalog-spec/), [AWS Glue](https://iceberg.apache.org/docs/latest/aws/#glue-catalog), or [Hive Metastore](https://iceberg.apache.org/docs/latest/hive/#global-hive-catalog). The following table lists the common properties.
 
@@ -120,7 +124,9 @@ Option | Required | Type | Description
 
 For AWS-specific catalog and S3 properties, see the [Apache Iceberg AWS integration documentation](https://iceberg.apache.org/docs/latest/aws/).
 
+<!-- vale off -->
 ### shuffle
+<!-- vale on -->
 
 When processing snapshots that contain `DELETE` operations (`UPDATE` or `DELETE` in Copy-on-Write tables), the source uses a distributed shuffle to ensure correct results across multiple nodes. The shuffle routes all records containing the same `identifier_columns` values to the same node so that matching `INSERT` and `DELETE` pairs can be resolved correctly.
 

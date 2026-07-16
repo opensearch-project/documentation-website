@@ -16,7 +16,9 @@ By default, the operator creates OpenSearch node pools with persistent storage f
 
 The available storage options are:
 
+<!-- vale off -->
 ### Persistent Volume Claim (PVC)
+<!-- vale on -->
 
 The default option is persistent storage using PVCs. You can explicitly define the `storageClass`, `annotations`, and `labels` if needed:
 
@@ -40,7 +42,9 @@ nodePools:
 ```
 {% include copy.html %}
 
+<!-- vale off -->
 ### emptyDir
+<!-- vale on -->
 
 If you do not want to use persistent storage, you can use the `emptyDir` option. Note that this can lead to data loss, so you should only use this option for testing or for data that is otherwise persisted.
 
@@ -59,7 +63,9 @@ nodePools:
 
 If you are using `emptyDir`, set `spec.general.drainDataNodes` to `true`. This ensures that shards are drained from the pods before rolling upgrades or restart operations are performed.
 
+<!-- vale off -->
 ### hostPath
+<!-- vale on -->
 
 As a last option, you can use `hostPath`. Using `hostPath` is strongly discouraged. By default, the operator applies pod anti-affinity to prevent multiple pods from scheduling on the same node, which helps when using `hostPath`. However, if you need stricter control, configure explicit affinity rules for the node pool to ensure that multiple pods do not schedule to the same Kubernetes host.
 
@@ -587,7 +593,7 @@ spec:
 
 ## Customize startup and readiness probe command
 
-While the `liveness` probe is a TCP check, the startup and readiness probes use the OpenSearch API with curl.
+While the `liveness` probe is a TCP check, the startup and readiness probes use the OpenSearch API with cURL.
 
 If you need to customize the startup or readiness probe commands, you can override them as shown in the following example:
 

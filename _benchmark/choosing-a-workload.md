@@ -8,9 +8,9 @@ redirect_from:
 
 # Choosing a workload
 
-The [opensearch-benchmark-workloads](https://github.com/opensearch-project/opensearch-benchmark-workloads) repository contains a list of workloads that you can use to run your benchmarks. Using a workload similar to your cluster's use cases can save you time and effort when assessing your cluster's performance. 
+The [`opensearch-benchmark-workloads`](https://github.com/opensearch-project/opensearch-benchmark-workloads) repository contains a list of workloads that you can use to run your benchmarks. Using a workload similar to your cluster's use cases can save you time and effort when assessing your cluster's performance. 
 
-For example, say you're a system architect at a rideshare company. As a rideshare company, you collect and store data based on trip times, locations, and other data related to each rideshare. Instead of building a custom workload and using your own data, which requires additional time, effort, and cost, you can use the [nyc_taxis](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/nyc_taxis) workload to benchmark your cluster because the data inside the workload is similar to the data that you collect. 
+For example, say you're a system architect at a ride share company. As a ride share company, you collect and store data based on trip times, locations, and other data related to each ride share. Instead of building a custom workload and using your own data, which requires additional time, effort, and cost, you can use the [nyc_taxis](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/nyc_taxis) workload to benchmark your cluster because the data inside the workload is similar to the data that you collect. 
 
 ## Criteria for choosing a workload
 

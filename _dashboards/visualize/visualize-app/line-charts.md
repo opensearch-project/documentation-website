@@ -49,7 +49,7 @@ To create a line chart, follow these steps:
 
    The average ticket price is displayed per weekday value in seven different lines, as shown in the following image. The average ticket price for weekday value keys 5 and 6 are significantly higher across most flight distances.
 
-   ![Line chart showing average ticket price vs distance by day of week]({{site.url}}{{site.baseurl}}/images/dashboards/example-line-cost-vs-distance.png)
+   ![Line chart showing average ticket price compared to distance by day of week]({{site.url}}{{site.baseurl}}/images/dashboards/example-line-cost-vs-distance.png)
 
 ## Configuring a line chart
 

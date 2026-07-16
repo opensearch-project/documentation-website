@@ -6,7 +6,11 @@ grand_parent: PPL
 nav_order: 19
 ---
 
+<!-- vale off -->
+
 # fillnull
+
+<!-- vale on -->
 
 The `fillnull` command replaces `null` values in one or more fields of the search results with a specified value.
 
@@ -55,6 +59,8 @@ source=otellogs
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | severityText | resource.attributes.service.name | instrumentationScope.name |
 | --- | --- | --- |
 | ERROR | checkout | unknown |
@@ -69,10 +75,12 @@ The query returns the following results:
 | ERROR | product-catalog | unknown |
 | ERROR | recommendation | unknown |
 
+<!-- vale on -->
+
 
 ## Example 2: Replacing null values using value= syntax
 
-The following query uses the `value=` syntax to fill null instrumentation scope names, helping identify uninstrumented services:
+The following query uses the `value=` syntax to fill null instrumentation scope names, helping identify services that are not instrumented:
 
 ```sql
 source=otellogs
@@ -86,6 +94,8 @@ source=otellogs
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | severityText | resource.attributes.service.name | instrumentationScope.name |
 | --- | --- | --- |
 | ERROR | checkout | unknown |
@@ -95,6 +105,8 @@ The query returns the following results:
 | ERROR | payment | unknown |
 | ERROR | product-catalog | unknown |
 | ERROR | recommendation | unknown |
+
+<!-- vale on -->
 
 
 ## Limitations

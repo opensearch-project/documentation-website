@@ -41,7 +41,7 @@ PUT _cluster/settings
 
 ## Step 1: Prepare the knowledge base
 
-Use the following steps to prepare the knowledge base that will supplement the LLM's knowledge.
+Use the following steps to prepare the knowledge base that will supplement the LLM knowledge.
 
 ### Step 1.1: Register a text embedding model
 

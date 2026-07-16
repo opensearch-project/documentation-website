@@ -23,7 +23,7 @@ The `filters` aggregation takes the following parameters.
 
 ## Example: Named filters
 
-When you provide filters as an object, each key becomes the bucket name in the response. The following example groups ecommerce orders into three price tiers:
+When you provide filters as an object, each key becomes the bucket name in the response. The following example groups e-commerce orders into three price tiers:
 
 ```json
 GET /opensearch_dashboards_sample_data_ecommerce/_search

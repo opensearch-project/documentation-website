@@ -36,7 +36,7 @@ One-dimensional visualizations display a single bucketed data field, comparing v
 
 ## Multidimensional visualizations
 
-Multidimensional visualizations display one or more data fields as a function of another data field. The aggregations that bucket the data are numerical rather than categorical.
+Multidimensional visualizations display one or more data fields as a function of another data field. The aggregations that bucket the data use numerical rather than categorical values.
 
 | Visualization type | Description |
 | :--- | :--- |

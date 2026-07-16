@@ -9,7 +9,7 @@ redirect_from:
 
 # Index rollups
 
-Time series data increases storage costs, strains cluster health, and slows down aggregations over time. Index rollup lets you periodically reduce data granularity by rolling up old data into summarized indexes.
+Time-series data increases storage costs, strains cluster health, and slows down aggregations over time. Index rollup lets you periodically reduce data granularity by rolling up old data into summarized indexes.
 
 You pick the fields that interest you and use index rollup to create a new index with only those fields aggregated into coarser time buckets. You can store months or years of historical data at a fraction of the cost with the same query performance.
 
@@ -21,7 +21,7 @@ You can use index rollup in three ways:
 2. Use the OpenSearch Dashboards UI to create an index rollup job that runs on a defined schedule. You can also set it up to roll up your indexes as it’s being actively ingested. For example, you can continuously roll up Logstash indexes from a five second interval to a one hour interval.
 3. Specify the index rollup job as an ISM action for complete index management. This allows you to roll up an index after a certain event such as a rollover, index age reaching a certain point, index becoming read-only, and so on. You can also have rollover and index rollup jobs running in sequence, where the rollover first moves the current index to a warm node and then the index rollup job creates a new index with the minimized data on the hot node.
 
-## Create an Index Rollup Job
+## Create an index rollup job
 
 To get started, choose **Index Management** in OpenSearch Dashboards.
 Select **Rollup Jobs** and choose **Create rollup job**.
@@ -41,7 +41,7 @@ Select the attributes with the aggregations (terms and histograms) and metrics (
 For example, consider a dataset of cities and demographics within those cities. You can aggregate based on cities and specify demographics within a city as metrics.
 The order in which you select attributes is critical. A city followed by a demographic is different from a demographic followed by a city.
 
-1. In the **Time aggregation** section, select a timestamp field. Choose between a **Fixed** or **Calendar** interval type and specify the interval and timezone. The index rollup job uses this information to create a date histogram for the timestamp field.
+1. In the **Time aggregation** section, select a timestamp field. Choose between a **Fixed** or **Calendar** interval type and specify the interval and time zone. The index rollup job uses this information to create a date histogram for the timestamp field.
 2. (Optional) Add additional aggregations for each field. You can choose terms aggregation for all field types and histogram aggregation only for numeric fields.
 3. (Optional) Add additional metrics for each field. You can choose **All**, **Min**, **Max**, **Sum**, **Avg**, **Value Count**, or **Cardinality**.
 4. Choose **Next**.
@@ -241,7 +241,7 @@ Daily Rollup (1-day intervals)
 Weekly Rollup (1-week intervals)
 ```
 
-Each tier uses the previous tier's rollup index as its source, progressively reducing storage requirements while maintaining queryability.
+Each tier uses the previous tier's rollup index as its source, progressively reducing storage requirements while maintaining the ability to query the data.
 
 ### Prerequisites
 
@@ -1041,7 +1041,7 @@ PUT log-000001
 }
 ```
 
-**Step 4:** Index four documents into the index created above. Two of the documents have the message "Success", and two have the message "Error".
+**Step 4:** Index four documents into the index created previously. Two of the documents have the message "Success", and two have the message "Error".
 
 ```json
 POST log/_doc?refresh=true 

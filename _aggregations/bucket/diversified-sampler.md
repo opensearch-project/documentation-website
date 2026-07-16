@@ -41,7 +41,7 @@ OpenSearch may ignore the `execution_hint` if the chosen strategy is not applica
 
 ## Example: Deduplicating by field
 
-The following example samples orders from the ecommerce dataset, limiting to 50 documents per `customer_gender` value, and then runs a `terms` subaggregation on the sample to see the category distribution:
+The following example samples orders from the e-commerce dataset, limiting to 50 documents per `customer_gender` value, and then runs a `terms` subaggregation on the sample to see the category distribution:
 
 ```json
 GET /opensearch_dashboards_sample_data_ecommerce/_search

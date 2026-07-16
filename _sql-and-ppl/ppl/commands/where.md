@@ -6,7 +6,11 @@ grand_parent: PPL
 nav_order: 53
 ---
 
+<!-- vale off -->
+
 # where
+
+<!-- vale on -->
 
 The `where` command filters the search results. It only returns results that match the specified conditions.
 
@@ -28,7 +32,7 @@ The `where` command supports the following parameters.
 
 ## Example 1: Filtering by severity level
 
-The following query finds all log entries with a severity level above `INFO` (severityNumber > 9), filtering out routine logs to focus on warnings and errors:
+The following query finds all log entries with a severity level higher than `INFO` (severityNumber > 9), filtering out routine logs to focus on warnings and errors:
 
 ```sql
 source=otellogs
@@ -40,6 +44,8 @@ source=otellogs
 {% include try-in-playground.html %}
 
 The query returns the following results:
+
+<!-- vale off -->
 
 | severityText | severityNumber | resource.attributes.service.name |
 | --- | --- | --- |
@@ -55,6 +61,8 @@ The query returns the following results:
 | ERROR | 17 | product-catalog |
 | ERROR | 17 | recommendation |
 
+<!-- vale on -->
+
 ## Example 2: Filtering using combined criteria
 
 The following query narrows down errors to a specific service during an incident investigation, combining severity and service name conditions with `AND`:
@@ -69,10 +77,14 @@ source=otellogs
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | severityText | severityNumber | resource.attributes.service.name |
 | --- | --- | --- |
 | ERROR | 17 | payment |
 | ERROR | 17 | payment |
+
+<!-- vale on -->
 
 
 ## Example 3: Filtering with multiple possible values
@@ -90,6 +102,8 @@ source=otellogs
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | severityText | resource.attributes.service.name | body |
 | --- | --- | --- |
 | WARN | product-catalog | Slow query detected: SELECT \* FROM products WHERE category = 'electronics' took 3200ms |
@@ -97,6 +111,8 @@ The query returns the following results:
 | ERROR | checkout | NullPointerException in CheckoutService.placeOrder at line 142 |
 | ERROR | payment | Out of memory: Java heap space - shutting down pod payment-6f8d4b-ht7q3 |
 | WARN | product-catalog | Connection pool 80% utilized on database replica db-replica-02 |
+
+<!-- vale on -->
   
 
 ## Example 4: Filtering by text patterns 
@@ -131,11 +147,15 @@ source=otellogs
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | severityText | resource.attributes.service.name | body |
 | --- | --- | --- |
 | WARN | product-catalog | Slow query detected: SELECT \* FROM products WHERE category = 'electronics' took 3200ms |
 | WARN | product-catalog | Connection pool 80% utilized on database replica db-replica-02 |
 | DEBUG | product-catalog | gRPC call /ProductCatalogService/GetProduct completed in 12ms |
+
+<!-- vale on -->
 
 ## Example 5: Filtering by excluding specific values  
 
@@ -153,12 +173,16 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | severityText | resource.attributes.service.name | body |
 | --- | --- | --- |
 | WARN | frontend-proxy | SSL certificate for api.example.com expires in 14 days |
 | WARN | frontend-proxy | Rate limit threshold reached: 450/500 requests per minute for API key ending in ...abc789 |
 | WARN | product-catalog | Slow query detected: SELECT \* FROM products WHERE category = 'electronics' took 3200ms |
 | WARN | product-catalog | Connection pool 80% utilized on database replica db-replica-02 |
+
+<!-- vale on -->
   
 
 ## Example 6: Filtering using value lists  
@@ -176,6 +200,8 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | severityText | resource.attributes.service.name | body |
 | --- | --- | --- |
 | WARN | frontend-proxy | SSL certificate for api.example.com expires in 14 days |
@@ -189,6 +215,8 @@ The query returns the following results:
 | ERROR | payment | Out of memory: Java heap space - shutting down pod payment-6f8d4b-ht7q3 |
 | ERROR | product-catalog | Database primary node unreachable: connection refused to db-primary-01:5432 |
 | ERROR | recommendation | Failed to process recommendation request: invalid product ID from 203.0.113.50 |
+
+<!-- vale on -->
   
 
 ## Example 7: Filtering records with missing data  
@@ -205,12 +233,16 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | severityText | instrumentationScope.name |
 | --- | --- |
 | INFO | @opentelemetry/instrumentation-http |
 | INFO | Microsoft.Extensions.Hosting |
 | WARN | go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc |
 | ERROR | @opentelemetry/instrumentation-http |
+
+<!-- vale on -->
   
 
 ## Example 8: Filtering using grouped conditions  
@@ -228,8 +260,12 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | severityText | resource.attributes.service.name | body |
 | --- | --- | --- |
 | ERROR | payment | Payment failed: connection timeout to payment gateway after 30000ms |
 | ERROR | payment | Out of memory: Java heap space - shutting down pod payment-6f8d4b-ht7q3 |
+
+<!-- vale on -->
   

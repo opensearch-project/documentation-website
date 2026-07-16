@@ -35,9 +35,9 @@ All query parameters are optional.
 
 | Parameter        | Type    | Description                                                                                                       |
 | :--------------- | :------ | :---------------------------------------------------------------------------------------------------------------- |
-| `order`          | Integer | The order in which to apply the template if multiple templates match. Higher values are applied last. Default is `0`. |
-| `create`         | Boolean | If `true`, the operation will fail if a template with the same name already exists. Default is `false`.             |
-| `cluster_manager_timeout` | Time    | Specifies how long to wait for a connection to the cluster manager node. Default is `30s`.                                        |
+| `order` | Integer | The order in which to apply the template if multiple templates match. Higher values are applied last. Default is `0`. |
+| `create` | Boolean | If `true`, the operation will fail if a template with the same name already exists. Default is `false`.             |
+| `cluster_manager_timeout` | Time | Specifies how long to wait for a connection to the cluster manager node. Default is `30s`.                                        |
 
 ## Request body
 
@@ -45,11 +45,11 @@ The request body must define one or more of the following components.
 
 | Field            | Type   | Description                                                          |
 | :--------------- | :----- | :------------------------------------------------------------------- |
-| `index_patterns` | Array  | The list of index name patterns to which the template applies. Required. |
-| `settings`       | Object | The index settings to apply to matching indexes.                         |
-| `mappings`       | Object | The mappings for fields in the index.                                    |
-| `aliases`        | Object | The aliases to assign to matching indexes.                               |
-| `version`        | Integer          | The optional version number used to identify the template.                   |
+| `index_patterns` | Array | The list of index name patterns to which the template applies. Required. |
+| `settings` | Object | The index settings to apply to matching indexes.                         |
+| `mappings` | Object | The mappings for fields in the index.                                    |
+| `aliases` | Object | The aliases to assign to matching indexes.                               |
+| `version` | Integer | The optional version number used to identify the template.                   |
 
 ## Example request
 

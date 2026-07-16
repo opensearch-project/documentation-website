@@ -232,7 +232,7 @@ source = supplier
 
 **Example 2: Query with `relation`, `scalar`, and `exists` subsearches**
 
-The following query uses `relation`, `scalar`, and `exists` subsearches to find customers from specific country codes with above-average account balances who have not placed any orders:
+The following query uses `relation`, `scalar`, and `exists` subsearches to find customers from specific country codes with higher-than-average account balances who have not placed any orders:
 
 ```sql
 source = [  /* relation subsearch */

@@ -52,7 +52,7 @@ The `analysis-icu` plugin provides several components that can be used independe
 
 The `icu_analyzer` applies a sequence of transformations to input text:
 
-- **Tokenization**: Breaks text into tokens using ICU's Unicode text segmentation algorithm. This approach identifies word boundaries accurately in languages like Chinese, Japanese, Korean, and Thai, where spaces don't separate words.
+- **Tokenization**: Breaks text into tokens using the ICU Unicode text segmentation algorithm. This approach identifies word boundaries accurately in languages like Chinese, Japanese, Korean, and Thai, where spaces don't separate words.
 - **Normalization**: Converts characters to canonical Unicode forms, resolving variations in how diacritics, ligatures, and composite characters are represented.
 - **Case folding**: Applies comprehensive case transformations that handle language-specific rules, such as the Turkish İ/i distinction, more effectively than basic lowercasing.
 - **Character filtering**: Standardizes equivalent Unicode representations and removes non-textual elements from the token stream.
@@ -61,7 +61,7 @@ The `icu_analyzer` applies a sequence of transformations to input text:
 
 Consider using the `icu_analyzer` for the following use cases:
 
-- **CJK content**: Chinese, Japanese, and Korean text benefits from ICU's word segmentation capabilities, which identify natural word boundaries more accurately than bigram approaches.
+- **CJK content**: Chinese, Japanese, and Korean text benefits from ICU word segmentation capabilities, which identify natural word boundaries more accurately than bigram approaches.
 - **Southeast Asian languages**: Thai, Khmer, Lao, and similar languages that require dictionary-based or rule-based word boundary detection.
 - **Right-to-left scripts**: Arabic, Hebrew, and other RTL writing systems where proper character normalization is essential.
 - **Diacritical marks**: Content with accented characters, umlauts, or other diacritics that need consistent normalization.

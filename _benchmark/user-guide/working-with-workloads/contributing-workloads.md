@@ -21,13 +21,13 @@ To share a custom workload, follow these steps.
 Provide a detailed `README.MD` file that includes the following:  
 
 - The purpose of the workload. When creating a description for the workload, consider its specific use and how the that use case differs from others in the [workloads repository](https://github.com/opensearch-project/opensearch-benchmark-workloads/).
-- An example document from the dataset that helps users understand the data's structure.
+- An example document from the dataset that helps users understand the data structure.
 - The workload parameters that can be used to customize the workload.
 - A list of default test procedures included in the workload as well as other test procedures that the workload can run.
 - An output sample produced by the workload after a test is run.
 - A copy of the open-source license that gives the user and OpenSearch Benchmark permission to use the dataset.
 
-For an example workload README file, go to the `http_logs` [README](https://github.com/opensearch-project/opensearch-benchmark-workloads/blob/main/http_logs/README.md).
+For an example workload `README` file, go to the `http_logs` [`README`](https://github.com/opensearch-project/opensearch-benchmark-workloads/blob/main/http_logs/README.md).
 
 ## Verify the workload's structure
 

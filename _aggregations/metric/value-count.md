@@ -25,7 +25,7 @@ The `value_count` aggregation takes the following parameters.
 
 ## Example
 
-The following example counts the number of documents that contain a `taxful_total_price` value in the ecommerce index:
+The following example counts the number of documents that contain a `taxful_total_price` value in the e-commerce index:
 
 ```json
 GET /opensearch_dashboards_sample_data_ecommerce/_search
