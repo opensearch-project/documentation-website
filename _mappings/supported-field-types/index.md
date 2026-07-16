@@ -8,6 +8,7 @@ redirect_from:
   - /opensearch/supported-field-types/
   - /opensearch/supported-field-types/index/
   - /field-types/supported-field-types/
+  - /field-types/supported-field-types/index/
   - /mappings/supported-field-types/
 ---
 
