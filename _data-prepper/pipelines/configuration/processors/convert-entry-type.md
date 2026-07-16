@@ -4,6 +4,8 @@ title: Convert type
 parent: Processors
 grand_parent: Pipelines
 nav_order: 50
+redirect_from:
+  - /data-prepper/pipelines/configuration/processors/convert_entry_type/
 ---
 
 # Convert type processor
