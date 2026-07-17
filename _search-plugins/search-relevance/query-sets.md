@@ -85,6 +85,7 @@ All query sets comprise one or more entries. Each entry is a JSON object contain
 | :--- | :--- | :--- |
 | `queryText` | String | The user query string. Required. |
 | `referenceAnswer` | String | The expected or correct answer to the user query. This field is used for generating judgments, especially with large language models (LLMs). Optional. |
+| Custom fields | String | Any additional field (beyond `queryText` and `referenceAnswer`) is stored as a custom field on the entry. Custom fields are available as [Mustache template variables]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/search-configurations/#using-mustache-templates) in a search configuration, referenced by field name. Optional. |
 
 ### Basic query set example
 
@@ -116,6 +117,20 @@ This format includes the `referenceAnswer` field alongside the `queryText`. It i
 
 
 The `referenceAnswer` field is particularly useful when using [LLMs to generate judgments]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/judgments/). The LLM can use the reference answer as a ground truth to compare against the retrieved search results, allowing it to accurately score the relevance of the response.
+
+### Query set with custom fields example
+
+In addition to `queryText`, each entry can include arbitrary custom fields. These values are available as Mustache template variables in a [search configuration]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/search-configurations/#using-mustache-templates), letting a single search configuration vary its filters or parameters for each query.
+
+#### Example query set with custom fields
+
+```json
+{"queryText": "phone", "category": "electronics"}
+{"queryText": "steel", "category": "materials"}
+{"queryText": "keyboard", "category": "electronics"}
+```
+
+For example, a search configuration whose query references `{{category}}` filters each query's results by the category value provided in the corresponding entry.
 
 ## Managing query sets
 
