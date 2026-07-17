@@ -14,6 +14,8 @@ Aggregate functions operate on subsets defined by the `GROUP BY` clause. In the 
 
 OpenSearch supports the following aggregate functions.
 
+<!-- vale off -->
+
 Function | Description
 :--- | :---
 `AVG` | Returns the average of the results.
@@ -27,7 +29,9 @@ Function | Description
 `STDDEV_POP` | Returns the population standard deviation of the results. Returns 0 when there is only one row of results.
 `STDDEV_SAMP` | Returns the sample standard deviation of the results. Returns null when there is only one row of results.
 
-The examples below reference an `employees` table. You can try out the examples by indexing the following documents into OpenSearch using the bulk index operation:
+<!-- vale on -->
+
+The following examples reference an `employees` table. You can try out the examples by indexing the following documents into OpenSearch using the bulk index operation:
 
 ```json
 PUT employees/_bulk?refresh
@@ -63,14 +67,18 @@ GROUP BY department;
 {% include copy.html %}
 
 
+<!-- vale off -->
+
 | department | sum(sales)
 :--- | :---
 1 | 58700  |
 2 | 37018 |
 
+<!-- vale on -->
+
 ### Using an ordinal in GROUP BY
 
-You can specify the column number to aggregate on in the `GROUP BY` clause. The column number is determined by the column position in the `SELECT` clause. For example, the following query is equivalent to the query above. It returns the department numbers and the total sales for each department. It groups the results by the first column of the result set, which is `department`:
+You can specify the column number to aggregate on in the `GROUP BY` clause. The column number is determined by the column position in the `SELECT` clause. For example, the following query is equivalent to the preceding query. It returns the department numbers and the total sales for each department. It groups the results by the first column of the result set, which is `department`:
 
 ```sql
 SELECT department, sum(sales)
@@ -80,10 +88,14 @@ GROUP BY 1;
 {% include copy.html %}
 
 
+<!-- vale off -->
+
 | department | sum(sales)
 :--- | :---
 1 | 58700  |
 2 | 37018 |
+
+<!-- vale on -->
 
 ### Using an expression in GROUP BY
 
@@ -97,11 +109,15 @@ GROUP BY year(sale_date);
 {% include copy.html %}
 
 
+<!-- vale off -->
+
 | year(start_date) | avg(sales)
 :--- | :---
 | 2020  | 1356.0 |
 | 2021 | 22455.0 |
 | 2022 | 16484.0  |
+
+<!-- vale on -->
 
 ## SELECT
 
@@ -119,10 +135,14 @@ GROUP BY department;
 {% include copy.html %}
 
 
+<!-- vale off -->
+
 | department | avg(sales)
 :--- | :---
 1 | 14675.0 |
 2 | 18509.0 |
+
+<!-- vale on -->
 
 ### Using aggregate expressions as part of larger expressions in SELECT
 
@@ -136,10 +156,14 @@ GROUP BY department;
 {% include copy.html %}
 
 
+<!-- vale off -->
+
 | department | avg_commission
 :--- | :---
 1 | 733.75 |
 2 | 925.45 |
+
+<!-- vale on -->
 
 ### Using expressions as arguments to aggregate functions
 
@@ -153,20 +177,28 @@ GROUP BY department;
 {% include copy.html %}
 
 
+<!-- vale off -->
+
 | department | avg_commission
 :--- | :---
 1 | 733.75 |
 2 | 925.45 |
+
+<!-- vale on -->
 
 ### COUNT
 
 The `COUNT` function accepts arguments, such as `*`, or literals, such as `1`.
 The following table describes how various forms of the `COUNT` function operate.
 
+<!-- vale off -->
+
 | Function type | Description
 `COUNT(field)` | Counts the number of rows where the value of the given field (or expression) is not null.
 `COUNT(*)` | Counts the total number of rows in a table.
 `COUNT(1)` (same as `COUNT(*)`) | Counts any non-null literal.
+
+<!-- vale on -->
 
 For example, the following query returns the count of sales for each year:
 
@@ -178,11 +210,15 @@ GROUP BY year(sale_date);
 {% include copy.html %}
 
 
+<!-- vale off -->
+
 | year(sale_date) | count(sales)
 :--- | :---
 2020 | 1
 2021 | 2
 2022 | 3
+
+<!-- vale on -->
 
 ## HAVING
 
@@ -205,10 +241,14 @@ HAVING count(sales) > 1;
 {% include copy.html %}
 
 
+<!-- vale off -->
+
 | employee_id | count(sales)
 :--- | :---
 1 | 2 |
 6 | 2
+
+<!-- vale on -->
 
 The aggregations in a `HAVING` clause do not have to be the same as the aggregations in a `SELECT` list. The following query uses the `count` function in the `HAVING` clause but the `sum` function in the `SELECT` clause. It returns the total sales amount for each employee who made more than one sale:
 
@@ -221,10 +261,14 @@ HAVING count(sales) > 1;
 {% include copy.html %}
 
 
+<!-- vale off -->
+
 | employee_id | sum (sales)
 :--- | :---
 1 | 40580 |
 6 | 18120
+
+<!-- vale on -->
 
 As an extension of the SQL standard, you are not restricted to using only identifiers in the `GROUP BY` clause. The following query uses an alias in the `GROUP BY` clause and is equivalent to the previous query:
 
@@ -237,10 +281,14 @@ HAVING count(sales) > 1;
 {% include copy.html %}
 
 
+<!-- vale off -->
+
 | id | sum (sales)
 :--- | :---
 1 | 40580 |
 6 | 18120
+
+<!-- vale on -->
 
 You can also use an alias for an aggregate expression in the `HAVING` clause. The following query returns the total sales for each department where sales exceed $40,000:
 
@@ -253,9 +301,13 @@ HAVING total > 40000;
 {% include copy.html %}
 
 
+<!-- vale off -->
+
 | department | total
 :--- | :---
 1 | 58700 |
+
+<!-- vale on -->
 
 If an identifier is ambiguous (for example, present both as a `SELECT` alias and as an index field), the preference is given to the alias. In the following query the identifier is replaced with the expression aliased in the `SELECT` clause:
 
@@ -268,9 +320,13 @@ HAVING sales > 40000;
 {% include copy.html %}
 
 
+<!-- vale off -->
+
 | department | sales
 :--- | :---
 1 | 58700 |
+
+<!-- vale on -->
 
 ### HAVING without GROUP BY
 
@@ -282,12 +338,20 @@ SELECT 'True' as more_than_one_department FROM employees HAVING min(department) 
 {% include copy.html %}
 
 
+<!-- vale off -->
+
 | more_than_one_department |
 :--- |
 True |
 
+<!-- vale on -->
+
 If all employees in the employee table belonged to the same department, the result would contain zero rows:
+
+<!-- vale off -->
 
 | more_than_one_department
 :--- |
  |
+
+<!-- vale on -->

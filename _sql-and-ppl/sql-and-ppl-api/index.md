@@ -158,7 +158,7 @@ The response contains the schema and the results:
 Field | Data type | Description  
 :--- | :--- | :---
 `schema` | Array | Specifies the field names and types for all fields. 
-`data_rows` | 2D array | An array of results. Each result represents one matching row (document).
+`data_rows` | Two-dimensional array | An array of results. Each result represents one matching row (document).
 `total` | Integer | The total number of rows (documents) in the index.
 `size` | Integer | The number of results to return in one response.
 `status` | String | The HTTP response status OpenSearch returns after running the query.
@@ -175,6 +175,8 @@ Starting with OpenSearch 3.0.0, when you set `plugins.calcite.enabled` to `true`
 - `extended`: Displays logical and physical plans with generated code
 
 ### Examples
+
+The following examples demonstrate different `explain` queries.
 
 #### Basic SQL query
 
@@ -385,7 +387,7 @@ POST /_plugins/_sql/close
 ```
 {% include copy-curl.html %}
 
-The response is an acknowledgement from OpenSearch:
+The response is an acknowledgment from OpenSearch:
 
 ```json
 {"succeeded":true}
@@ -465,7 +467,7 @@ POST /_plugins/_sql/_explain
 ```
 {% include copy-curl.html %}
 
-The response contains the Boolean query in OpenSearch DSL that corresponds to the query above:
+The response contains the Boolean query in OpenSearch DSL that corresponds to the preceding query:
 
 ```json
 {
@@ -523,7 +525,7 @@ POST /_plugins/_sql/_explain
 ```
 {% include copy-curl.html %}
 
-The response contains the Boolean query in OpenSearch DSL that corresponds to the SQL query above:
+The response contains the Boolean query in OpenSearch DSL that corresponds to the preceding SQL query:
 
 ```json
 {

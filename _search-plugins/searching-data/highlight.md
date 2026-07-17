@@ -120,7 +120,7 @@ The `highlight` parameter highlights the original terms even when using synonyms
 
 To highlight the search terms, the highlighter needs the start and end character offsets of each term. The offsets mark the term's position in the original text. The highlighter can obtain the offsets from the following sources:
 
-- **Postings**: When documents are indexed, OpenSearch creates an inverted search index&mdash;a core data structure used to search for documents. Postings represent the inverted search index and store the mapping of each analyzed term to the list of documents in which it occurs. If you set the `index_options` parameter to `offsets` when mapping a [text field]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/text), OpenSearch adds each term's start and end character offsets to the inverted index. During highlighting, the highlighter reruns the original query directly on the postings to locate each term. Thus, storing offsets makes highlighting more efficient for large fields because it does not require reanalyzing the text. Storing term offsets requires additional disk space, but uses less disk space than storing term vectors.
+- **Postings**: When documents are indexed, OpenSearch creates an inverted search index&mdash;a core data structure used to search for documents. Postings represent the inverted search index and store the mapping of each analyzed term to the list of documents in which it occurs. If you set the `index_options` parameter to `offsets` when mapping a [text field]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/text/), OpenSearch adds each term's start and end character offsets to the inverted index. During highlighting, the highlighter reruns the original query directly on the postings to locate each term. Thus, storing offsets makes highlighting more efficient for large fields because it does not require reanalyzing the text. Storing term offsets requires additional disk space, but uses less disk space than storing term vectors.
 
 - [**Term vectors**]: If you set the [`term_vector` parameter]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/text#term-vector-parameter) to  `with_positions_offsets` when mapping a text field, the highlighter uses the `term_vector` to highlight the field. Storing term vectors requires the most disk space. However, it makes highlighting faster for fields larger than 1 MB and for multi-term queries like prefix or wildcard because term vectors provide access to the dictionary of terms for each document.
 
@@ -165,7 +165,7 @@ The `unified` highlighter is based on the Lucene Unified Highlighter and is the 
 
 ### The `fvh` highlighter
 
-The `fvh` highlighter is based on the Lucene Fast Vector Highlighter. To use this highlighter, you need to store term vectors with positions offsets, which increases the index size. The `fvh` highlighter can combine matched terms from multiple fields into one result. It can also assign weights to matches depending on their positions; thus, you can sort phrase matches above term matches when highlighting a query that boosts phrase matches over term matches. Additionally, you can configure the `fvh` highlighter to select the boundaries of a returned text fragment, and you can highlight multiple words with different tags.
+The `fvh` highlighter is based on the Lucene Fast Vector Highlighter. To use this highlighter, you need to store term vectors with positions offsets, which increases the index size. The `fvh` highlighter can combine matched terms from multiple fields into one result. It can also assign weights to matches depending on their positions; thus, you can sort phrase matches higher than term matches when highlighting a query that boosts phrase matches over term matches. Additionally, you can configure the `fvh` highlighter to select the boundaries of a returned text fragment, and you can highlight multiple words with different tags.
 
 ### The `plain` highlighter
 
@@ -380,7 +380,7 @@ The unified highlighter's sentence scanner splits sentences larger than `fragmen
 
 ## Changing the highlighting tags
 
-Design your application code to parse the results from the `highlight` object and perform an action on the search terms, such as changing their color, bolding, italicizing, and so on.
+Design your application code to parse the results from the `highlight` object and perform an action on the search terms, such as changing their color or applying bold or italic formatting.
 
 To change the default `em` tags, specify the new tags in the `pretag` and `posttag` parameters:
 

@@ -6,7 +6,9 @@ grand_parent: Pipelines
 nav_order: 10
 ---
 
+<!-- vale off -->
 # contains()
+<!-- vale on -->
 
 The `contains()` function is used to check if a substring exists within a given string or the value of a field in an event. It takes two arguments:
 

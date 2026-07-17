@@ -6,7 +6,11 @@ grand_parent: PPL
 nav_order: 23
 ---
 
+<!-- vale off -->
+
 # head
+
+<!-- vale on -->
 
 The `head` command returns the first N lines from a search result.
 
@@ -47,6 +51,8 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | severityText | resource.attributes.service.name | body |
 | --- | --- | --- |
 | ERROR | checkout | NullPointerException in CheckoutService.placeOrder at line 142 |
@@ -59,6 +65,8 @@ The query returns the following results:
 | WARN | frontend-proxy | SSL certificate for api.example.com expires in 14 days |
 | WARN | frontend-proxy | Rate limit threshold reached: 450/500 requests per minute for API key ending in ...abc789 |
 | WARN | product-catalog | Slow query detected: SELECT \* FROM products WHERE category = 'electronics' took 3200ms |
+
+<!-- vale on -->
   
 
 ## Example 2: Retrieving a specified number of results  
@@ -77,11 +85,15 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | severityText | resource.attributes.service.name | body |
 | --- | --- | --- |
 | ERROR | checkout | NullPointerException in CheckoutService.placeOrder at line 142 |
 | ERROR | checkout | Kafka producer delivery failed: message too large for topic order-events (max 1048576 bytes) |
 | ERROR | frontend-proxy | [2024-02-01T09:20:00.456Z] "POST /api/checkout HTTP/1.1" 503 - 0 30000 checkout-8d4f7b-mk2p9 |
+
+<!-- vale on -->
   
 
 ## Example 3: Retrieving the first N results after an offset M
@@ -100,10 +112,14 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | severityText | resource.attributes.service.name | body |
 | --- | --- | --- |
 | ERROR | frontend-proxy | [2024-02-01T09:20:00.456Z] "POST /api/checkout HTTP/1.1" 503 - 0 30000 checkout-8d4f7b-mk2p9 |
 | ERROR | payment | Payment failed: connection timeout to payment gateway after 30000ms |
 | ERROR | payment | Out of memory: Java heap space - shutting down pod payment-6f8d4b-ht7q3 |
+
+<!-- vale on -->
   
 

@@ -29,7 +29,7 @@ You can configure the `otel_logs_source` source with the following options.
 | unframed_requests | Boolean | Enables requests that are not framed using the gRPC wire protocol. Default value is `false`. |
 | thread_count  | Integer | The number of threads to keep in the `ScheduledThreadPool`. Default value is `500`. |
 | max_connection_count | Integer | The maximum number of open connections allowed. Default value is `500`. |
-| compression | String | The compression type applied to the client request payload. Valid values are `none` or `gzip`. Use `gzip` to apply GZip decompression to the incoming request. Default is `none` (no compression). |
+| compression | String | The compression type applied to the client request payload. Valid values are `none` or `gzip`. Use `gzip` to apply gzip decompression to the incoming request. Default is `none` (no compression). |
 | output_format | String | Specifies the output format of the generated events. Valid values are `otel` or `opensearch`. Default is `opensearch`. |
 
 ### SSL
@@ -38,12 +38,12 @@ You can configure SSL in the `otel_logs_source` source with the following option
 
 | Option | Type | Description |
 | :--- | :--- | :--- |
-| ssl | Boolean | Enables TLS/SSL. Default value is `true`. |
-| sslKeyCertChainFile | String | Represents the SSL certificate chain file path or Amazon Simple Storage Service (Amazon S3) path. For example, see the Amazon S3 path `s3://<bucketName>/<path>`. Required if `ssl` is set to `true`.  |
-| sslKeyFile | String | Represents the SSL key file path or Amazon S3 path. For example, see the Amazon S3 path `s3://<bucketName>/<path>`. Required if `ssl` is set to `true`.  |
-| useAcmCertForSSL | Boolean | Enables TLS/SSL using a certificate and private key from AWS Certificate Manager (ACM). Default value is `false`. |
-| acmCertificateArn | String | Represents the ACM certificate Amazon Resource Name (ARN). ACM certificates take precedence over Amazon S3 or local file system certificates. Required if `useAcmCertForSSL` is set to `true`. |
-| awsRegion | String | Represents the AWS Region used by ACM or Amazon S3. Required if `useAcmCertForSSL` is set to `true` or `sslKeyCertChainFile` or `sslKeyFile` is the Amazon S3 path. |
+| `ssl` | Boolean | Enables TLS/SSL. Default value is `true`. |
+| `sslKeyCertChainFile` | String | Represents the SSL certificate chain file path or Amazon Simple Storage Service (Amazon S3) path. For example, see the Amazon S3 path `s3://<bucketName>/<path>`. Required if `ssl` is set to `true`.  |
+| `sslKeyFile` | String | Represents the SSL key file path or Amazon S3 path. For example, see the Amazon S3 path `s3://<bucketName>/<path>`. Required if `ssl` is set to `true`.  |
+| `useAcmCertForSSL` | Boolean | Enables TLS/SSL using a certificate and private key from AWS Certificate Manager (ACM). Default value is `false`. |
+| `acmCertificateArn` | String | Represents the ACM certificate Amazon Resource Name (ARN). ACM certificates take precedence over Amazon S3 or local file system certificates. Required if `useAcmCertForSSL` is set to `true`. |
+| `awsRegion` | String | Represents the AWS Region used by ACM or Amazon S3. Required if `useAcmCertForSSL` is set to `true` or `sslKeyCertChainFile` or `sslKeyFile` is the Amazon S3 path. |
 
 ## Usage
 

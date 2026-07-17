@@ -44,7 +44,7 @@ Advanced features in OpenSearch, such as the [Search Relevance Workbench]({{site
           <ul>
             <li><a href="https://github.com/o19s/chorus-opensearch-edition/blob/main/katas/002_derive_interaction_data.md">Derive Interaction Data from User Clicks.</a></li>
             <li><a href="https://github.com/o19s/chorus-opensearch-edition/blob/main/katas/006_protecting_sensitive_information.md">Protecting sensistive information when using UBI.</a></li>
-            <li><a href="https://github.com/o19s/chorus-opensearch-edition/blob/main/katas/007_configure_AB_with_TDI.md">Configuring an AB test with Team Draft Interleaving</a></li>    
+            <li><a href="https://github.com/o19s/chorus-opensearch-edition/blob/main/katas/007_configure_AB_with_TDI.md">Configuring an A/B test with Team Draft Interleaving</a></li>    
           </ul>
         </li>
       </ul>

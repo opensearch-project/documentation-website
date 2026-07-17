@@ -57,7 +57,7 @@ Metrics unique to the cluster begin at the `index` task line. For example:
 - To assess how much load your cluster can handle, the `index` task metrics show the number of documents ingested during the workload run and the ingestion error rate.
 - To assess query latency and service time, the `match_all` and `term` tasks show the number of query operations performed per second, measurable query latency, and query operation error rate.
 
-Which values are shown in the report depends on the `--show-in-results` flag; see [Storing results](#storing-results) below.
+Which values are shown in the report depends on the `--show-in-results` flag; see [Storing results](#storing-results).
 
 ## Storing results
 
@@ -70,7 +70,7 @@ While [running a test]({{site.url}}{{site.baseurl}}/benchmark/reference/commands
 - `--show-in-results`: Which values appear in the published report. `available`, `all-percentiles`, or `all`. Default is `available`.
 - `--user-tag`: Key-value pairs stored with the run as metadata (for example, `intention:baseline-ticket-12345`). Useful when storing metrics in external storage.
 
-To store results outside the test-runs directory, configure an external metrics datastore. For nightly published results, see the OpenSearch Benchmark [nightly test dashboard](https://opensearch.org/benchmarks).
+To store results outside the test-runs directory, configure an external metrics data store. For nightly published results, see the OpenSearch Benchmark [nightly test dashboard](https://opensearch.org/benchmarks).
 
 ## Metric reference
 

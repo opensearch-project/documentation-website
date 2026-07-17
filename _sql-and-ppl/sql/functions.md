@@ -11,7 +11,7 @@ redirect_from:
 # SQL functions
 
 The SQL language supports all SQL plugin [common functions]({{site.url}}{{site.baseurl}}/sql-and-ppl/functions/), including [relevance search]({{site.url}}{{site.baseurl}}/search-plugins/sql/full-text/), but also introduces a few function synonyms, which are available in SQL only.
-These synonyms are provided by the `V1` engine. For more information, see [Limitations]({{site.url}}{{site.baseurl}}/search-plugins/sql/limitation).
+These synonyms are provided by the `V1` engine. For more information, see [Limitations]({{site.url}}{{site.baseurl}}/search-plugins/sql/limitation/).
 
 ## Match query
 
@@ -59,9 +59,13 @@ WHERE address = MATCH_QUERY('Holmes')
 
 The results contain documents in which the address contains "Holmes":
 
+<!-- vale off -->
+
 | account_number | address
 :--- | :---
 1 | 880 Holmes Lane
+
+<!-- vale on -->
 
 ## Multi-match
 
@@ -148,7 +152,7 @@ GET accounts/_search
 ```
 {% include copy-curl.html %}
 
-The request above is equivalent to the following `query` function:
+The preceding request is equivalent to the following `query` function:
 
 ```sql
 SELECT account_number, address
@@ -160,11 +164,15 @@ WHERE query('address:Lane OR address:Street')
 
 The results contain addresses that contain "Lane" or "Street":
 
+<!-- vale off -->
+
 | account_number | address
 :--- | :---
 1 | 880 Holmes Lane
 6 | 671 Bristol Street
 13 | 789 Madison Street
+
+<!-- vale on -->
 
 ## Match phrase
 
@@ -216,11 +224,15 @@ ORDER BY _score
 
 The results contain matches with corresponding scores:
 
+<!-- vale off -->
+
 | account_number | address | score
 :--- | :--- | :---
 1 | 880 Holmes Lane | 0.5
 6 | 671 Bristol Street | 100
 13 | 789 Madison Street | 100
+
+<!-- vale on -->
 
 ## Wildcard query
 
@@ -249,6 +261,10 @@ WHERE wildcard_query(address, '*Holmes*');
 
 The results contain documents that match the wildcard expression:
 
+<!-- vale off -->
+
 | account_number | address
 :--- | :---
 1 | 880 Holmes Lane
+
+<!-- vale on -->

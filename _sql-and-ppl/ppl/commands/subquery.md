@@ -6,7 +6,11 @@ grand_parent: PPL
 nav_order: 47
 ---
 
+<!-- vale off -->
+
 # subquery
+
+<!-- vale on -->
 
 The `subquery` command allows you to embed one PPL query within another, enabling advanced filtering and data retrieval. A subquery is executed first, and its results are used by the outer query for filtering, comparison, or joining.
 

@@ -19,7 +19,7 @@ Disabling or removing the plugin exposes the configuration index for the Securit
 Disabling, removing, or installing the Security plugin requires a full cluster restart because during this process, the individual nodes are not able to communicate with each other.
 {: .warning}
 
-## Disabling/enabling the Security plugin
+## Disabling or enabling the Security plugin
 
 You can disable the Security plugin by editing the `opensearch.yml` file:
 

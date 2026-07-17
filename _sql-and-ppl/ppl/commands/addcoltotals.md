@@ -6,7 +6,11 @@ grand_parent: PPL
 nav_order: 3
 ---
 
+<!-- vale off -->
+
 # addcoltotals
+
+<!-- vale on -->
 
 The `addcoltotals` command computes the sum of each column and adds a summary row showing the total for each column. This command is equivalent to using `addtotals` with `row=false` and `col=true`, making it useful for creating summary reports with column totals.
 
@@ -47,6 +51,8 @@ source=otellogs
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | severityText | log_count |
 | --- | --- |
 | DEBUG | 3 |
@@ -54,6 +60,8 @@ The query returns the following results:
 | INFO | 6 |
 | WARN | 4 |
 | Total | 20 |
+
+<!-- vale on -->
 
 ## Example 2: Adding column totals with a custom label
 
@@ -71,6 +79,8 @@ source=otellogs
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | errors | resource.attributes.service.name | Summary |
 | --- | --- | --- |
 | 2 | checkout | null |
@@ -79,6 +89,8 @@ The query returns the following results:
 | 1 | product-catalog | null |
 | 1 | recommendation | null |
 | 7 | null | Grand Total |
+
+<!-- vale on -->
 
 ## Example 3: Using all options
 
@@ -97,6 +109,8 @@ source=otellogs
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | errors | warnings | resource.attributes.service.name | Column Total |
 | --- | --- | --- | --- |
 | 2 | 0 | checkout | null |
@@ -105,3 +119,5 @@ The query returns the following results:
 | 1 | 2 | product-catalog | null |
 | 1 | 0 | recommendation | null |
 | 7 | 4 | null | Sum |
+
+<!-- vale on -->

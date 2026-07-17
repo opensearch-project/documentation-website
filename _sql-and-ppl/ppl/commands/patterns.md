@@ -6,7 +6,11 @@ grand_parent: PPL
 nav_order: 34
 ---
 
+<!-- vale off -->
+
 # patterns
+
+<!-- vale on -->
 
 The `patterns` command extracts log patterns from a text field and appends the results to the search results. Grouping logs by pattern simplifies aggregating statistics from large volumes of log data for analysis and troubleshooting. You can choose from the following log parsing methods to achieve high pattern-grouping accuracy:
 
@@ -113,11 +117,15 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | body | patterns_field |
 | --- | --- |
 | Payment failed: connection timeout to payment gateway after 30000ms | \<\*\> \<\*\>: \<\*\> \<\*\> \<\*\> \<\*\> \<\*\> \<\*\> \<\*\> |
 | NullPointerException in CheckoutService.placeOrder at line 142 | \<\*\> \<\*\> \<\*\>.\<\*\> \<\*\> \<\*\> \<\*\> |
 | Out of memory: Java heap space - shutting down pod payment-6f8d4b-ht7q3 | \<\*\> \<\*\> \<\*\>: \<\*\> \<\*\> \<\*\> - \<\*\> \<\*\> \<\*\> \<\*\>-\<\*\>-\<\*\> |
+
+<!-- vale on -->
   
 
 ### Example 2: Extract log patterns
@@ -133,12 +141,16 @@ source=apache
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | message | patterns_field |
 | --- | --- |
 | 177.95.8.74 - upton5450 [28/Sep/2022:10:15:57 -0700] "HEAD /e-business/mindshare HTTP/1.0" 404 19927 | \<\*\>.\<\*\>.\<\*\>.\<\*\> - \<\*\> [\<\*\>/\<\*\>/\<\*\>:\<\*\>:\<\*\>:\<\*\> -\<\*\>] "\<\*\> /\<\*\>-\<\*\>/\<\*\> \<\*\>/\<\*\>.\<\*\>" \<\*\> \<\*\> |
 | 127.45.152.6 - pouros8756 [28/Sep/2022:10:15:57 -0700] "GET /architectures/convergence/niches/mindshare HTTP/1.0" 100 28722 | \<\*\>.\<\*\>.\<\*\>.\<\*\> - \<\*\> [\<\*\>/\<\*\>/\<\*\>:\<\*\>:\<\*\>:\<\*\> -\<\*\>] "\<\*\> /\<\*\>/\<\*\>/\<\*\>/\<\*\> \<\*\>/\<\*\>.\<\*\>" \<\*\> \<\*\> |
 | 118.223.210.105 - - [28/Sep/2022:10:15:57 -0700] "PATCH /strategize/out-of-the-box HTTP/1.0" 401 27439 | \<\*\>.\<\*\>.\<\*\>.\<\*\> - - [\<\*\>/\<\*\>/\<\*\>:\<\*\>:\<\*\>:\<\*\> -\<\*\>] "\<\*\> /\<\*\>/\<\*\>-\<\*\>-\<\*\>-\<\*\> \<\*\>/\<\*\>.\<\*\>" \<\*\> \<\*\> |
 | 210.204.15.104 - - [28/Sep/2022:10:15:57 -0700] "POST /users HTTP/1.1" 301 9481 | \<\*\>.\<\*\>.\<\*\>.\<\*\> - - [\<\*\>/\<\*\>/\<\*\>:\<\*\>:\<\*\>:\<\*\> -\<\*\>] "\<\*\> /\<\*\> \<\*\>/\<\*\>.\<\*\>" \<\*\> \<\*\> |
+
+<!-- vale on -->
   
 
 ### Example 3: Extract log patterns using a custom regex pattern
@@ -154,12 +166,16 @@ source=apache
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | message | no_numbers |
 | --- | --- |
 | 177.95.8.74 - upton5450 [28/Sep/2022:10:15:57 -0700] "HEAD /e-business/mindshare HTTP/1.0" 404 19927 | \<\*\>\<\*\>\<\*\>.\<\*\>\<\*\>.\<\*\>.\<\*\>\<\*\> - upton\<\*\>\<\*\>\<\*\>\<\*\> [\<\*\>\<\*\>/Sep/\<\*\>\<\*\>\<\*\>\<\*\>:\<\*\>\<\*\>:\<\*\>\<\*\>:\<\*\>\<\*\> -\<\*\>\<\*\>\<\*\>\<\*\>] "HEAD /e-business/mindshare HTTP/\<\*\>.\<\*\>" \<\*\>\<\*\>\<\*\> \<\*\>\<\*\>\<\*\>\<\*\>\<\*\> |
 | 127.45.152.6 - pouros8756 [28/Sep/2022:10:15:57 -0700] "GET /architectures/convergence/niches/mindshare HTTP/1.0" 100 28722 | \<\*\>\<\*\>\<\*\>.\<\*\>\<\*\>.\<\*\>\<\*\>\<\*\>.\<\*\> - pouros\<\*\>\<\*\>\<\*\>\<\*\> [\<\*\>\<\*\>/Sep/\<\*\>\<\*\>\<\*\>\<\*\>:\<\*\>\<\*\>:\<\*\>\<\*\>:\<\*\>\<\*\> -\<\*\>\<\*\>\<\*\>\<\*\>] "GET /architectures/convergence/niches/mindshare HTTP/\<\*\>.\<\*\>" \<\*\>\<\*\>\<\*\> \<\*\>\<\*\>\<\*\>\<\*\>\<\*\> |
 | 118.223.210.105 - - [28/Sep/2022:10:15:57 -0700] "PATCH /strategize/out-of-the-box HTTP/1.0" 401 27439 | \<\*\>\<\*\>\<\*\>.\<\*\>\<\*\>\<\*\>.\<\*\>\<\*\>\<\*\>.\<\*\>\<\*\>\<\*\> - - [\<\*\>\<\*\>/Sep/\<\*\>\<\*\>\<\*\>\<\*\>:\<\*\>\<\*\>:\<\*\>\<\*\>:\<\*\>\<\*\> -\<\*\>\<\*\>\<\*\>\<\*\>] "PATCH /strategize/out-of-the-box HTTP/\<\*\>.\<\*\>" \<\*\>\<\*\>\<\*\> \<\*\>\<\*\>\<\*\>\<\*\>\<\*\> |
 | 210.204.15.104 - - [28/Sep/2022:10:15:57 -0700] "POST /users HTTP/1.1" 301 9481 | \<\*\>\<\*\>\<\*\>.\<\*\>\<\*\>\<\*\>.\<\*\>\<\*\>.\<\*\>\<\*\>\<\*\> - - [\<\*\>\<\*\>/Sep/\<\*\>\<\*\>\<\*\>\<\*\>:\<\*\>\<\*\>:\<\*\>\<\*\>:\<\*\>\<\*\> -\<\*\>\<\*\>\<\*\>\<\*\>] "POST /users HTTP/\<\*\>.\<\*\>" \<\*\>\<\*\>\<\*\> \<\*\>\<\*\>\<\*\>\<\*\> |
+
+<!-- vale on -->
   
 
 ### Example 4: Return a log pattern aggregation result
@@ -175,12 +191,16 @@ source=apache
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | patterns_field | pattern_count | sample_logs |
 | --- | --- | --- |
 | \<\*\>.\<\*\>.\<\*\>.\<\*\> - - [\<\*\>/\<\*\>/\<\*\>:\<\*\>:\<\*\>:\<\*\> -\<\*\>] "\<\*\> /\<\*\> \<\*\>/\<\*\>.\<\*\>" \<\*\> \<\*\> | 1 | [210.204.15.104 - - [28/Sep/2022:10:15:57 -0700] "POST /users HTTP/1.1" 301 9481] |
 | \<\*\>.\<\*\>.\<\*\>.\<\*\> - - [\<\*\>/\<\*\>/\<\*\>:\<\*\>:\<\*\>:\<\*\> -\<\*\>] "\<\*\> /\<\*\>/\<\*\>-\<\*\>-\<\*\>-\<\*\> \<\*\>/\<\*\>.\<\*\>" \<\*\> \<\*\> | 1 | [118.223.210.105 - - [28/Sep/2022:10:15:57 -0700] "PATCH /strategize/out-of-the-box HTTP/1.0" 401 27439] |
 | \<\*\>.\<\*\>.\<\*\>.\<\*\> - \<\*\> [\<\*\>/\<\*\>/\<\*\>:\<\*\>:\<\*\>:\<\*\> -\<\*\>] "\<\*\> /\<\*\>-\<\*\>/\<\*\> \<\*\>/\<\*\>.\<\*\>" \<\*\> \<\*\> | 1 | [177.95.8.74 - upton5450 [28/Sep/2022:10:15:57 -0700] "HEAD /e-business/mindshare HTTP/1.0" 404 19927] |
 | \<\*\>.\<\*\>.\<\*\>.\<\*\> - \<\*\> [\<\*\>/\<\*\>/\<\*\>:\<\*\>:\<\*\>:\<\*\> -\<\*\>] "\<\*\> /\<\*\>/\<\*\>/\<\*\>/\<\*\> \<\*\>/\<\*\>.\<\*\>" \<\*\> \<\*\> | 1 | [127.45.152.6 - pouros8756 [28/Sep/2022:10:15:57 -0700] "GET /architectures/convergence/niches/mindshare HTTP/1.0" 100 28722] |
+
+<!-- vale on -->
   
 
 ### Example 5: Return aggregated log patterns with detected variable tokens
@@ -198,9 +218,13 @@ source=apache
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | patterns_field | pattern_count | tokens |
 | --- | --- | --- |
 | \<token1\>.\<token2\>.\<token3\>.\<token4\> - - [\<token5\>/\<token6\>/\<token7\>:\<token8\>:\<token9\>:\<token10\> -\<token11\>] "\<token12\> /\<token13\> \<token14\>/\<token15\>.\<token16\>" \<token17\> \<token18\> | 1 | {'\<token14\>': ['HTTP'], '\<token13\>': ['users'], '\<token16\>': ['1'], '\<token15\>': ['1'], '\<token18\>': ['9481'], '\<token17\>': ['301'], '\<token5\>': ['28'], '\<token4\>': ['104'], '\<token7\>': ['2022'], '\<token6\>': ['Sep'], '\<token9\>': ['15'], '\<token8\>': ['10'], '\<token10\>': ['57'], '\<token1\>': ['210'], '\<token12\>': ['POST'], '\<token3\>': ['15'], '\<token11\>': ['0700'], '\<token2\>': ['204']} |
+
+<!-- vale on -->
 
 
 ## Brain pattern examples
@@ -220,12 +244,16 @@ source=apache
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | message | patterns_field |
 | --- | --- |
 | 177.95.8.74 - upton5450 [28/Sep/2022:10:15:57 -0700] "HEAD /e-business/mindshare HTTP/1.0" 404 19927 | \<\*IP\*\> - \<\*\> [\<\*\>/Sep/\<\*\>:\<\*\>:\<\*\>:\<\*\> \<\*\>] "HEAD /e-business/mindshare HTTP/\<\*\>" 404 \<\*\> |
 | 127.45.152.6 - pouros8756 [28/Sep/2022:10:15:57 -0700] "GET /architectures/convergence/niches/mindshare HTTP/1.0" 100 28722 | \<\*IP\*\> - \<\*\> [\<\*\>/Sep/\<\*\>:\<\*\>:\<\*\>:\<\*\> \<\*\>] "GET /architectures/convergence/niches/mindshare HTTP/\<\*\>" 100 \<\*\> |
 | 118.223.210.105 - - [28/Sep/2022:10:15:57 -0700] "PATCH /strategize/out-of-the-box HTTP/1.0" 401 27439 | \<\*IP\*\> - - [\<\*\>/Sep/\<\*\>:\<\*\>:\<\*\>:\<\*\> \<\*\>] "PATCH /strategize/out-of-the-box HTTP/\<\*\>" 401 \<\*\> |
 | 210.204.15.104 - - [28/Sep/2022:10:15:57 -0700] "POST /users HTTP/1.1" 301 9481 | \<\*IP\*\> - - [\<\*\>/Sep/\<\*\>:\<\*\>:\<\*\>:\<\*\> \<\*\>] "POST /users HTTP/\<\*\>" 301 \<\*\> |
+
+<!-- vale on -->
   
 
 ### Example 2: Extract log patterns using custom parameters
@@ -241,12 +269,16 @@ source=apache
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | message | patterns_field |
 | --- | --- |
 | 177.95.8.74 - upton5450 [28/Sep/2022:10:15:57 -0700] "HEAD /e-business/mindshare HTTP/1.0" 404 19927 | \<\*IP\*\> - \<\*\> [\<\*\>/Sep/\<\*\>:\<\*\>:\<\*\>:\<\*\> \<\*\>] \<\*\> \<\*\> HTTP/\<\*\>" \<\*\> \<\*\> |
 | 127.45.152.6 - pouros8756 [28/Sep/2022:10:15:57 -0700] "GET /architectures/convergence/niches/mindshare HTTP/1.0" 100 28722 | \<\*IP\*\> - \<\*\> [\<\*\>/Sep/\<\*\>:\<\*\>:\<\*\>:\<\*\> \<\*\>] \<\*\> \<\*\> HTTP/\<\*\>" \<\*\> \<\*\> |
 | 118.223.210.105 - - [28/Sep/2022:10:15:57 -0700] "PATCH /strategize/out-of-the-box HTTP/1.0" 401 27439 | \<\*IP\*\> - \<\*\> [\<\*\>/Sep/\<\*\>:\<\*\>:\<\*\>:\<\*\> \<\*\>] \<\*\> \<\*\> HTTP/\<\*\>" \<\*\> \<\*\> |
 | 210.204.15.104 - - [28/Sep/2022:10:15:57 -0700] "POST /users HTTP/1.1" 301 9481 | \<\*IP\*\> - \<\*\> [\<\*\>/Sep/\<\*\>:\<\*\>:\<\*\>:\<\*\> \<\*\>] \<\*\> \<\*\> HTTP/\<\*\>" \<\*\> \<\*\> |
+
+<!-- vale on -->
   
 
 ### Example 3: Return a log pattern aggregation result
@@ -262,9 +294,13 @@ source=apache
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | patterns_field | pattern_count | sample_logs |
 | --- | --- | --- |
 | \<\*IP\*\> - \<\*\> [\<\*\>/Sep/\<\*\>:\<\*\>:\<\*\>:\<\*\> \<\*\>] \<\*\> \<\*\> HTTP/\<\*\>" \<\*\> \<\*\> | 4 | [177.95.8.74 - upton5450 [28/Sep/2022:10:15:57 -0700] "HEAD /e-business/mindshare HTTP/1.0" 404 19927,127.45.152.6 - pouros8756 [28/Sep/2022:10:15:57 -0700] "GET /architectures/convergence/niches/mindshare HTTP/1.0" 100 28722,118.223.210.105 - - [28/Sep/2022:10:15:57 -0700] "PATCH /strategize/out-of-the-box HTTP/1.0" 401 27439,210.204.15.104 - - [28/Sep/2022:10:15:57 -0700] "POST /users HTTP/1.1" 301 9481] |
+
+<!-- vale on -->
   
 
 ### Example 4: Return aggregated log patterns with detected variable tokens
@@ -280,9 +316,13 @@ source=apache
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | patterns_field | pattern_count | tokens |
 | --- | --- | --- |
 | \<token1\> - \<token2\> [\<token3\>/Sep/\<token4\>:\<token5\>:\<token6\>:\<token7\> \<token8\>] \<token9\> \<token10\> HTTP/\<token11\>" \<token12\> \<token13\> | 4 | {'\<token13\>': ['19927', '28722', '27439', '9481'], '\<token5\>': ['10', '10', '10', '10'], '\<token4\>': ['2022', '2022', '2022', '2022'], '\<token7\>': ['57', '57', '57', '57'], '\<token6\>': ['15', '15', '15', '15'], '\<token9\>': ['"HEAD', '"GET', '"PATCH', '"POST'], '\<token8\>': ['-0700', '-0700', '-0700', '-0700'], '\<token10\>': ['/e-business/mindshare', '/architectures/convergence/niches/mindshare', '/strategize/out-of-the-box', '/users'], '\<token1\>': ['177.95.8.74', '127.45.152.6', '118.223.210.10... |
+
+<!-- vale on -->
   
 
   

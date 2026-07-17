@@ -8,7 +8,9 @@ redirect_from:
   - /security-analytics/usage/
 ---
 
+<!-- vale off -->
 # Using Security Analytics
+<!-- vale on -->
 
 Security Analytics provides visualizations and tools to investigate and manage findings, create alerts and notifications, import or customize detection rules, and edit detectors. Use the following links to learn about each feature:
 

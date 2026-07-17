@@ -71,7 +71,7 @@ After configuring the connection, you can view Prometheus metrics in OpenSearch 
 
 See the following developer resources for sample code, articles, tutorials, and API references:
 
-* [Datasource Settings](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/admin/datasources.md), which contains information about authentication and authorization of data source APIs.
+* [Data source settings](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/admin/datasources.md), which contains information about authentication and authorization of data source APIs.
 * [Prometheus Connector](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/admin/connectors/prometheus_connector.md), which contains configuration information.
 * [Simple Schema for Observability](https://github.com/opensearch-project/opensearch-catalog/tree/main/docs/schema/observability), which contains information about the OTel schema and ingest pipeline.
 * [OTel Metrics Source](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/otel-metrics-source), which contains information about the Data Prepper metrics pipeline and ingestion.
@@ -194,7 +194,7 @@ source = my_prometheus.prometheus_http_requests_total | stats avg(@value) by spa
 To create a custom visualization based on the PPL query, follow these steps:
 
 1. From the **Logs** page, select > **Event Explorer**.
-2. On the **Explorer** page,  enter your PPL query and select **Run**. Then select **Save**.
+2. On the **Explorer** page, enter your PPL query and select **Run**. Then select **Save**.
 3. When prompted to choose a **Custom Operational Dashboards/Application**, select one of the listed options. Optionally, you can edit the predefined name values in the **Metric Name** fields and can choose to save the visualization as a metric.
 5. Select **Save** to save your custom visualization. 
 

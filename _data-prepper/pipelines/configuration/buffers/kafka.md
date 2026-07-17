@@ -42,14 +42,16 @@ Use the following configuration options with the `kafka` buffer.
 Option | Required | Type | Description
 --- | --- | --- | ---
 `authentication` | No | [Authentication](#authentication) | Sets the authentication options for both the pipeline and Kafka. For more information, see [Authentication](#authentication).
-`aws` | No | [AWS](#aws) | The AWS configuration. For more information, see [aws](#aws).
+`aws` | No | [AWS](#aws) | The AWS configuration. For more information, see [`aws`](#aws).
 `bootstrap_servers` | Yes | String list | The host and port for the initial connection to the Kafka cluster. You can configure multiple Kafka brokers by using the IP address or the port number for each broker. When using [Amazon Managed Streaming for Apache Kafka (Amazon MSK)](https://aws.amazon.com/msk/) as your Kafka cluster, the bootstrap server information is obtained from Amazon MSK using the Amazon Resource Name (ARN) provided in the configuration.
 `encryption` | No | [Encryption](#encryption) | The encryption configuration for encryption in transit. For more information, see [Encryption](#encryption).
 `producer_properties` | No | [Producer Properties](#producer_properties) | A list of configurable Kafka producer properties. 
 `topics` | Yes | List | A list of [topics](#topic) for the buffer to use. You must supply one topic per buffer.
 
 
+<!-- vale off -->
 ### topic
+<!-- vale on -->
 
 The `topic` option configures a single Kafka topic and tells the `kafka` buffer how to use that topic.
 
@@ -77,7 +79,9 @@ Option | Required | Type | Description
 `max_message_bytes` | No | Integer | The maximum size of the message, in bytes. Default is 1 MB.
 
 
+<!-- vale off -->
 ### kms
+<!-- vale on -->
 
 When using AWS KMS, the AWS KMS key can decrypt the `encryption_key` so that it is not stored in plain text. To configure AWS KMS with the `kafka` buffer, use the following options.
 
@@ -125,7 +129,9 @@ Option | Required | Type | Description
 `type` | No | String | The encryption type. Use `none` to disable encryption. Default is `ssl`.
 `insecure` | No | Boolean | A Boolean flag used to turn off SSL certificate verification. If set to `true`, certificate authority (CA) certificate verification is turned off and insecure HTTP requests are sent. Default is `false`.
 
+<!-- vale off -->
 #### producer_properties
+<!-- vale on -->
 
 Use the following configuration options to configure a Kafka producer.
 
@@ -134,7 +140,9 @@ Option | Required | Type | Description
 `max_request_size` | No | Integer | The maximum size of the request that the producer sends to Kafka. Default is 1 MB.
 
 
+<!-- vale off -->
 #### aws
+<!-- vale on -->
 
 Use the following options when setting up authentication for `aws` services.
 
@@ -144,7 +152,9 @@ Option | Required | Type | Description
 `sts_role_arn` | No | String | The AWS STS role to assume for requests to Amazon Simple Queue Service (Amazon SQS) and Amazon Simple Storage Service (Amazon S3). Default is `null`, which will use the [standard SDK behavior for credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html).
 `msk` | No | JSON object | The [Amazon MSK](#msk) configuration settings.
 
+<!-- vale off -->
 #### msk
+<!-- vale on -->
 
 Use the following options inside the `msk` object.
 

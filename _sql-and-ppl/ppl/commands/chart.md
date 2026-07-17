@@ -6,7 +6,11 @@ grand_parent: PPL
 nav_order: 9
 ---
 
+<!-- vale off -->
+
 # chart
+
+<!-- vale on -->
 
 The `chart` command transforms search results by applying a statistical aggregation function and optionally grouping the data by one or two fields. When grouped by two fields, the results are suitable for two-dimensional chart visualizations, with unique values in the second group key pivoted into column names.
 
@@ -55,9 +59,13 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | total_logs |
 | --- |
 | 20 |
+
+<!-- vale on -->
   
 
 ## Example 2: Grouping by a single field  
@@ -73,12 +81,16 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | severityText | count() |
 | --- | --- |
 | DEBUG | 3 |
 | ERROR | 7 |
 | INFO | 6 |
 | WARN | 4 |
+
+<!-- vale on -->
   
 
 ## Example 3: Using over [] by [] to group by multiple fields  
@@ -94,6 +106,8 @@ source=otellogs
   
 The query returns the following results. Services beyond the top 2 are grouped into `OTHER`:
   
+<!-- vale off -->
+
 | severityText | `resource.attributes.service.name` | count() |
 | --- | --- | --- |
 | DEBUG | OTHER | 2 |
@@ -104,6 +118,8 @@ The query returns the following results. Services beyond the top 2 are grouped i
 | INFO | frontend | 4 |
 | WARN | OTHER | 2 |
 | WARN | product-catalog | 2 |
+
+<!-- vale on -->
   
 
 ## Example 4: Using limit with custom other label  
@@ -119,6 +135,8 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | severityText | `resource.attributes.service.name` | count() |
 | --- | --- | --- |
 | DEBUG | other_services | 3 |
@@ -126,6 +144,8 @@ The query returns the following results:
 | INFO | frontend | 4 |
 | INFO | other_services | 2 |
 | WARN | other_services | 4 |
+
+<!-- vale on -->
   
 
 ## Example 5: Using null parameters  
@@ -141,6 +161,8 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | `resource.attributes.service.name` | instrumentationScope.name | count() |
 | --- | --- | --- |
 | cart | Microsoft.Extensions.Hosting | 1 |
@@ -154,6 +176,8 @@ The query returns the following results:
 | product-catalog | go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc | 1 |
 | product-catalog | not instrumented | 3 |
 | recommendation | not instrumented | 1 |
+
+<!-- vale on -->
   
 
 ## Example 6: Using span  
@@ -169,6 +193,8 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | severityNumber | `resource.attributes.host.name` | max(severityNumber) |
 | --- | --- | --- |
 | 0 | cart-5d8f7b-mk29s | 9 |
@@ -180,6 +206,8 @@ The query returns the following results:
 | 10 | payment-6f8d4b-ht7q3 | 17 |
 | 10 | productcatalog-7c9d-zn4p2 | 17 |
 | 10 | recommendation-5f7c-bn3k8 | 17 |
+
+<!-- vale on -->
   
 
 ## Limitations

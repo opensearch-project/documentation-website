@@ -6,7 +6,11 @@ grand_parent: PPL
 nav_order: 44
 ---
 
+<!-- vale off -->
+
 # spath
+
+<!-- vale on -->
 
 The `spath` command extracts fields from structured JSON data. It operates in two modes:
 
@@ -44,7 +48,7 @@ When `path` is omitted, the `spath` command runs in auto-extract mode. Instead o
 - Arrays use `{}` suffix: `tags{}`, `users{}.name`
 - Duplicate logical keys merge into arrays: `c{}.b = [2, 3]`
 - Null values are preserved: a JSON `null` becomes the string `"null"` in the map
-- All values are stringified: numbers and booleans are converted to their string representation (for example, `30` becomes `"30"`, `true` becomes `"true"`, and arrays become `"[a, b, c]"`)
+- All values are stringified: numeric and Boolean values are converted to their string representation (for example, `30` becomes `"30"`, `true` becomes `"true"`, and arrays become `"[a, b, c]"`)
 
 Auto-extract mode processes the entire input field with no character limit. For large JSON payloads, consider using path-based extraction to target specific fields.
 {: .note}
@@ -64,11 +68,15 @@ source=structured
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | doc_n | n |
 | --- | --- |
 | {"n": 1} | 1 |
 | {"n": 2} | 2 |
 | {"n": 3} | 3 |
+
+<!-- vale on -->
   
 
 ## Example 2: Lists and nesting  
@@ -86,11 +94,15 @@ source=structured
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | doc_list | first_element | all_elements | nested |
 | --- | --- | --- | --- |
 | {"list": [1, 2, 3, 4], "nest_out": {"nest_in": "a"}} | 1 | [1,2,3,4] | a |
 | {"list": [], "nest_out": {"nest_in": "a"}} | null | [] | a |
 | {"list": [5, 6], "nest_out": {"nest_in": "a"}} | 5 | [5,6] | a |
+
+<!-- vale on -->
   
 
 ## Example 3: Summing inner elements  
@@ -108,9 +120,13 @@ source=structured
   
 The query returns the following results. The `spath` command always returns inner values as strings:
   
+<!-- vale off -->
+
 | sum(n) |
 | --- |
 | 6 |
+
+<!-- vale on -->
   
 
 ## Example 4: Using escaped paths  
@@ -127,11 +143,15 @@ source=structured
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | a | b |
 | --- | --- |
 | true | 0 |
 | true | 1 |
 | false | 2 |
+
+<!-- vale on -->
   
 
 ## Example 5: Using auto-extract mode  
@@ -147,11 +167,15 @@ source=structured
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | doc_auto | doc.user.name | doc.user.age | doc.tags{} | doc.active |
 | --- | --- | --- | --- | --- |
 | {"user":{"name":"John","age":30},"tags":["java","sql"],"active":true} | John | 30 | [java, sql] | true |
 | {"user":{"name":"Jane","age":25},"tags":["python"],"active":null} | Jane | 25 | python | null |
 | {"user":{"name":"Bob","age":35},"tags":["go","rust","sql"],"user.name":"Bobby"} | [Bob, Bobby] | 35 | [go, rust, sql] | null |
+
+<!-- vale on -->
   
 The flattening rules demonstrated in this example:
 

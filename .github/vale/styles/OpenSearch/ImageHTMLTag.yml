@@ -4,4 +4,4 @@ level: warning
 nonword: true
 scope: raw
 tokens:
-  - '(?<!\{::nomarkdown\})<img\s+src='
+  - '^\s*<img\s+src='

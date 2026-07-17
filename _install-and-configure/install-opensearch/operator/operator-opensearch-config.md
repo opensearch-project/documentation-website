@@ -71,7 +71,7 @@ Use `spec.general.additionalConfig` to add settings applied to all cluster nodes
 
 For node-pool-specific configuration, use `nodePools[].additionalConfig`. The operator merges these settings with `spec.general.additionalConfig` for that node pool, with node pool settings taking precedence. When a node pool has `additionalConfig` defined, it receives its own `ConfigMap` containing the merged configuration.
 
-Provide all settings as a map of strings using the flat form. For non-string values (for example, booleans or numbers), enclose them in quotes: `"true"` or `"1234"`.
+Provide all settings as a map of strings using the flat form. For non-string values (for example, Boolean or numeric values), enclose them in quotes: `"true"` or `"1234"`.
 
 The operator merges its generated settings with the custom settings you provide. You cannot override basic settings such as `node.name`, `node.roles`, `cluster.name`, and network and discovery settings using `additionalConfig`.
 
