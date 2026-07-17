@@ -3,6 +3,7 @@ layout: default
 title: Intro to OpenSearch
 nav_order: 2
 has_math: true
+description: "An introduction to OpenSearch and how it works, including core concepts such as documents, indexes, clusters, nodes, shards, and how search results are ranked."
 redirect_from: 
  - /intro/
 ---

@@ -2,6 +2,7 @@
 layout: default
 title: Concepts
 nav_order: 70
+description: "Definitions of key OpenSearch terms and concepts, including documents, indexes, clusters, nodes, and shards, to help you get started."
 ---
 
 # OpenSearch concepts

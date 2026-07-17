@@ -5,6 +5,7 @@ nav_order: 1
 has_children: false
 has_toc: false
 nav_exclude: true
+description: "Documentation for OpenSearch and OpenSearch Dashboards, the open-source suite for full-text search, application monitoring, log analytics, and vector search."
 permalink: /about/
 redirect_from:
   - /docs/opensearch/
