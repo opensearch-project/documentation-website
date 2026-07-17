@@ -8,7 +8,9 @@ redirect_from:
   - /dashboards/reporting-cli/rep-cli-lambda/
 ---
 
+<!-- vale off -->
 # Scheduling reports with AWS Lambda
+<!-- vale on -->
 
 You can use AWS Lambda with the Reporting CLI tool to specify an AWS Lambda function to trigger the report generation.
 

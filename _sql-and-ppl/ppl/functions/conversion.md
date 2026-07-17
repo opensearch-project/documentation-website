@@ -312,8 +312,8 @@ Converts the string value to a number. The optional `base` parameter specifies t
 You can use this function with `eval` commands and as part of `eval` expressions. Base values can be between `2` and `36`.
 
 **Value limits**:
-- Base 10: Maximum is +(2-2^-52)·2^1023 and minimum is -(2-2^-52)·2^1023.
-- Other bases: Maximum is 2^63-1 (or 7FFFFFFFFFFFFFFF) and minimum is -2^63 (or -7FFFFFFFFFFFFFFF).
+- Base 10: Maximum is `+(2-2^-52)·2^1023` and minimum is `-(2-2^-52)·2^1023`.
+- Other bases: Maximum is `2^63-1` (or `7FFFFFFFFFFFFFFF`) and minimum is `-2^63` (or `-7FFFFFFFFFFFFFFF`).
 
 If the `tonumber` function cannot parse a field value to a number, the function returns `NULL`. You can use this function to convert string representations of numbers in various bases to their corresponding base 10 values.
 

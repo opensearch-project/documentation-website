@@ -65,7 +65,7 @@ OpenSearch supports the following REST APIs:
 - [Scroll]({{site.url}}{{site.baseurl}}/api-reference/scroll/)
 - [Search]({{site.url}}{{site.baseurl}}/api-reference/search/)
 - [Search relevance stats API]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/stats-api/)
-- [Security analytics APIs]({{site.url}}{{site.baseurl}}/security-analytics/api-tools/index/)
+- [Security Analytics APIs]({{site.url}}{{site.baseurl}}/security-analytics/api-tools/index/)
 - [Stats API]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/stats-api/)
 - [Tasks]({{site.url}}{{site.baseurl}}/api-reference/tasks/)
 - [Transforms API]({{site.url}}{{site.baseurl}}/im-plugin/index-transforms/transforms-apis/)

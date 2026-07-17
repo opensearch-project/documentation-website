@@ -16,7 +16,7 @@ The Nodes Hot Threads endpoint provides information about busy JVM threads for s
 
 ```json
 GET /_nodes/hot_threads
-GET /_nodes/{nodeId}/hot_threads
+GET /_nodes/{node_id}/hot_threads
 ```
 
 ## Path parameters
@@ -25,7 +25,7 @@ You can include the following optional path parameter in your request.
 
 Parameter | Type | Description
 :--- | :--- | :---
-nodeId | String  | A comma-separated list of node IDs used to filter results. Supports [node filters]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/index/#node-filters). Defaults to `_all`.
+`node_id` | String | A comma-separated list of node IDs used to filter results. Supports [node filters]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/index/#node-filters). Defaults to `_all`.
 
 ## Query parameters
 

@@ -7,7 +7,9 @@ redirect_from:
   - /dashboards/install/windows/
 ---
 
+<!-- vale off -->
 # Run OpenSearch Dashboards on Windows
+<!-- vale on -->
 
 Perform the following steps to install OpenSearch Dashboards on Windows.
 

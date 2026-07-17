@@ -17,11 +17,7 @@ The `head` command returns the first N lines from a search result.
 The `head` command is not rewritten to [query domain-specific language (DSL)]({{site.url}}{{site.baseurl}}/query-dsl/index/). It is only executed on the coordinating node.
 {: .note}
 
-<!-- vale off -->
-
 ## Syntax
-
-<!-- vale on -->
 
 The `head` command has the following syntax:
 
@@ -29,11 +25,7 @@ The `head` command has the following syntax:
 head [<size>] [from <offset>]
 ```
 
-<!-- vale off -->
-
 ## Parameters
-
-<!-- vale on -->
 
 The `head` command supports the following parameters.
 
@@ -43,11 +35,7 @@ The `head` command supports the following parameters.
 | `<offset>` | Optional | The number of results to skip (used with the `from` keyword). Must be an integer. Default is `0`. |
   
 
-<!-- vale off -->
-
 ## Example 1: Retrieving the first set of results using the default size 
-
-<!-- vale on -->
 
 The following query retrieves the most recent errors, limited to the default 10 results. This is a common first step when investigating an incident:
   
@@ -81,11 +69,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 2: Retrieving a specified number of results  
-
-<!-- vale on -->
 
 The following query returns the top 3 most critical log entries for a quick severity check:
   
@@ -112,11 +96,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 3: Retrieving the first N results after an offset M
-
-<!-- vale on -->
 
 The following query skips the 2 most critical entries and returns the next 3, useful for paging through results after reviewing the top issues:
   

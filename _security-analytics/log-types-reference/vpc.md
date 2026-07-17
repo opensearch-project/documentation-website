@@ -5,7 +5,9 @@ parent: Supported log types
 nav_order: 90
 ---
 
+<!-- vale off -->
 # VPC Flow
+<!-- vale on -->
 
 The `vpcflow` log type records data about the IP traffic flowing to and from the network interfaces within a virtual private cloud (VPC). This data is stored using the [VPC Flow Logs](https://docs.aws.amazon.com/vpc/latest/userguide/flow-logs.html) feature.
 

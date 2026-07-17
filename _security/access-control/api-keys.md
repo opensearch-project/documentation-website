@@ -130,7 +130,7 @@ curl -k -u admin:$PASSWORD -X DELETE \
 
 Revocation is synchronous: the key is immediately unusable across all nodes.
 
-## Managing API keys inOpenSearch Dashboards
+## Managing API keys in OpenSearch Dashboards
 
 If the Security Dashboards plugin is installed, you can manage API keys from the **Security** > **API Keys** page. You can create keys with cluster and index permissions, select expiration presets, and revoke keys.
 

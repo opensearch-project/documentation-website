@@ -14,11 +14,7 @@ nav_order: 8
 
 The `bin` command groups numeric values into buckets of equal intervals, which is useful for creating histograms and analyzing data distribution. It accepts a numeric or time-based field and generates a new field containing values that represent the lower bound of each bucket.
 
-<!-- vale off -->
-
 ## Syntax
-
-<!-- vale on -->
 
 The `bin` command has the following syntax:
 
@@ -26,11 +22,7 @@ The `bin` command has the following syntax:
 bin <field> [span=<interval>] [minspan=<interval>] [bins=<count>] [aligntime=(earliest | latest | <time-specifier>)] [start=<value>] [end=<value>]
 ```
 
-<!-- vale off -->
-
 ## Parameters
-
-<!-- vale on -->
 
 The `bin` command supports the following parameters.
 
@@ -44,23 +36,15 @@ The `bin` command supports the following parameters.
 | `start` | Optional | The starting value of the interval range. Default is the minimum value of the field. |
 | `end` | Optional | The ending value of the interval range. Default is the maximum value of the field. |
 
-<!-- vale off -->
-
 ### The bins parameter for timestamp fields
-
-<!-- vale on -->
 
 The `bins` parameter for timestamp fields has the following requirements:
 
-- **Pushdown must be enabled**: Enable pushdown by setting `plugins.calcite.pushdown.enabled` to `true` (enabled by default). If pushdown is disabled, use the `span` parameter instead (for example, `bin @timestamp span=5m`).
+- **Push-down must be enabled**: Enable push-down by setting `plugins.calcite.pushdown.enabled` to `true` (enabled by default). If push-down is disabled, use the `span` parameter instead (for example, `bin @timestamp span=5m`).
 - **The timestamp field must be used as an aggregation bucket**: The binned timestamp field must be included in a `stats` aggregation (for example, `source=events | bin @timestamp bins=3 | stats count() by @timestamp`). Using `bins` on timestamp fields outside of aggregation buckets is not supported.
 
 
-<!-- vale off -->
-
 ### Time units
-
-<!-- vale on -->
 
 The following time units are available for the `span` parameter:
 
@@ -74,11 +58,7 @@ The following time units are available for the `span` parameter:
 * Days (`d`, `day`, or `days`)
 * Months (`M`, `mon`, `month`, or `months`)
 
-<!-- vale off -->
-
 ### Align time options
-
-<!-- vale on -->
 
 The following options are available for the `aligntime` parameter:
 
@@ -86,19 +66,11 @@ The following options are available for the `aligntime` parameter:
 * `latest` -- Align bins to the latest timestamp in the data.
 * `<time-specifier>` -- Align bins to a specific epoch time value or time modifier expression.
   
-<!-- vale off -->
-
 ### Parameter behavior
-
-<!-- vale on -->
 
 When multiple parameters are specified, the priority order is: `span` > `minspan` > `bins` > `start`/`end` > default.
 
-<!-- vale off -->
-
 ### Special parameter types
-
-<!-- vale on -->
 
 The `bin` command has the following special handling for certain parameter types:
 
@@ -107,11 +79,7 @@ The `bin` command has the following special handling for certain parameter types
 * The `aligntime` parameter applies only to time spans shorter than a day (excluding daily or monthly spans).
 * The `start` and `end` parameters expand the range (they never reduce it) and affect bin width calculations.
 
-<!-- vale off -->
-
 ## Example 1: Response time distribution from logs
-
-<!-- vale on -->
 
 ```sql
 source=otellogs
@@ -137,11 +105,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 2: Severity level distribution
-
-<!-- vale on -->
 
 ```sql
 source=otellogs
@@ -165,11 +129,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 3: Logarithmic span (log10)  
-
-<!-- vale on -->
 
 ```sql
 source=accounts
@@ -191,11 +151,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 4: Logarithmic span with coefficient  
-
-<!-- vale on -->
 
 ```sql
 source=accounts
@@ -218,11 +174,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 5: Basic bins parameter  
-
-<!-- vale on -->
 
 ```sql
 source=time_test
@@ -245,11 +197,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 6: Log volume distribution with bins parameter
-
-<!-- vale on -->
 
 ```sql
 source=otellogs
@@ -275,11 +223,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 7: High bin count  
-
-<!-- vale on -->
 
 ```sql
 source=accounts
@@ -329,11 +273,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 9: Large minspan  
-
-<!-- vale on -->
 
 ```sql
 source=accounts
@@ -354,11 +294,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 10: Start and end range  
-
-<!-- vale on -->
 
 ```sql
 source=accounts
@@ -379,11 +315,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 11: Large end range  
-
-<!-- vale on -->
 
 ```sql
 source=accounts
@@ -404,11 +336,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 12: Span with start/end  
-
-<!-- vale on -->
 
 ```sql
 source=accounts
@@ -432,11 +360,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 13: Hour span  
-
-<!-- vale on -->
 
 ```sql
 source=time_test
@@ -459,11 +383,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 14: Minute span  
-
-<!-- vale on -->
 
 ```sql
 source=time_test
@@ -486,11 +406,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 15: Second span  
-
-<!-- vale on -->
 
 ```sql
 source=time_test
@@ -513,11 +429,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 16: Daily span  
-
-<!-- vale on -->
 
 ```sql
 source=time_test
@@ -540,11 +452,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
-## Example 17: Aligntime with time modifier  
-
-<!-- vale on -->
+## Example 17: Align time with time modifier  
 
 ```sql
 source=time_test
@@ -567,11 +475,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
-## Example 18: Aligntime with epoch timestamp  
-
-<!-- vale on -->
+## Example 18: Align time with epoch timestamp  
 
 ```sql
 source=time_test
@@ -594,11 +498,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 19: Default behavior (no parameters)  
-
-<!-- vale on -->
 
 ```sql
 source=accounts
@@ -621,11 +521,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 20: Binning with string fields  
-
-<!-- vale on -->
 
 ```sql
 source=accounts

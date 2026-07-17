@@ -176,6 +176,8 @@ Starting with OpenSearch 3.0.0, when you set `plugins.calcite.enabled` to `true`
 
 ### Examples
 
+The following examples demonstrate different `explain` queries.
+
 #### Basic SQL query
 
 The following request shows a basic SQL `explain` query:

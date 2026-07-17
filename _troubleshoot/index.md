@@ -21,7 +21,7 @@ If you encounter the error `FATAL  Error: Request Timeout after 30000ms` during 
 
 ## Requests to OpenSearch Dashboards fail with "Request must contain a osd-xsrf header"
 
-If you run legacy Kibana OSS scripts against OpenSearch Dashboards---for example, curl commands that import saved objects from a file---they might fail with the following error:
+If you run legacy Kibana OSS scripts against OpenSearch Dashboards---for example, `curl` commands that import saved objects from a file---they might fail with the following error:
 
 ```json
 {"status": 400, "body": "Request must contain a osd-xsrf header."}

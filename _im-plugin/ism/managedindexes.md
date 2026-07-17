@@ -18,7 +18,7 @@ Parameter | Description | Type | Required | Read Only
 :--- | :--- |:--- |:--- |
 `name` |  The name of the managed index policy. | `string` | Yes | No
 `index` | The name of the managed index that this policy is managing. | `string` | Yes | No
-`index_uuid`  |  The uuid of the index. | `string` | Yes | No
+`index_uuid`  |  The UUID of the index. | `string` | Yes | No
 `enabled` |  When `true`, the managed index is scheduled and run by the scheduler. | `boolean` | Yes | No
 `enabled_time` | The time the managed index was last enabled. If the managed index process is disabled, then this is null. | `timestamp` | Yes | Yes
 `last_updated_time` | The time the managed index was last updated.  | `timestamp` | Yes | Yes

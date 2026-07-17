@@ -17,11 +17,7 @@ The `reverse` command reverses the display order of the search results. It retur
 The `reverse` command processes the entire dataset. If applied directly to millions of records, it consumes significant coordinating node memory resources. Only apply the `reverse` command to smaller datasets, typically after aggregation operations.
 {: .note}
 
-<!-- vale off -->
-
 ## Syntax
-
-<!-- vale on -->
 
 The `reverse` command has the following syntax:
 
@@ -29,11 +25,7 @@ The `reverse` command has the following syntax:
 reverse
 ```
 
-<!-- vale off -->
-
 ## Example 1: Using basic reverse operation
-
-<!-- vale on -->
 
 The following query reverses the order of all documents in the results:
 
@@ -60,11 +52,7 @@ The query returns the following results:
 
 <!-- vale on -->
 
-<!-- vale off -->
-
 ## Example 2: Using the reverse and sort commands
-
-<!-- vale on -->
 
 The following query reverses results after sorting by `severityNumber` in ascending order, effectively implementing descending order:
 
@@ -92,11 +80,7 @@ The query returns the following results:
 
 <!-- vale on -->
 
-<!-- vale off -->
-
 ## Example 3: Using the reverse and head commands
-
-<!-- vale on -->
 
 The following query uses the `reverse` command together with the `head` command to retrieve the last two records from the original result order:
 
@@ -120,11 +104,7 @@ The query returns the following results:
 
 <!-- vale on -->
 
-<!-- vale off -->
-
 ## Example 4: Double reverse
-
-<!-- vale on -->
 
 The following query shows that applying `reverse` twice returns documents in the original order:
 
@@ -152,11 +132,7 @@ The query returns the following results:
 
 <!-- vale on -->
 
-<!-- vale off -->
-
 ## Example 5: Using the reverse command with filtering
-
-<!-- vale on -->
 
 The following query uses the `reverse` command with filtering and field selection:
 

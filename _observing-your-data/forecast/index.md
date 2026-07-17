@@ -22,7 +22,7 @@ Forecasting can be used for the following use cases.
 |--------|-------------------|---------------|
 | Predictive maintenance | Future temperature, vibration, or error counts per machine | Replace parts before failure to avoid unplanned downtime. |
 | Network forecasting | Future throughput, latency, or connection counts per node | Allocate bandwidth early to meet service-level agreement (SLA) targets. |
-| Capacity and cost optimization | Future CPU, RAM, or disk usage per microservice | Rightsize hardware and autoscale efficiently. |
+| Capacity and cost optimization | Future CPU, RAM, or disk usage per microservice | Rightsize hardware and scale automatically. |
 | Financial and operational planning | Future order volume, revenue, or ad spend efficiency | Align staffing and budgets with demand signals. |
 
 

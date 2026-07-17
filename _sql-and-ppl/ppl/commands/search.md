@@ -14,11 +14,7 @@ nav_order: 41
 
 The `search` command retrieves documents from the index. The `search` command can only be used as the first command in a PPL query.
 
-<!-- vale off -->
-
 ## Syntax
-
-<!-- vale on -->
 
 The `search` command has the following syntax:
 
@@ -26,11 +22,7 @@ The `search` command has the following syntax:
 search source=[<remote-cluster>:]<index> [<search-expression>]
 ```
 
-<!-- vale off -->
-
 ## Parameters
-
-<!-- vale on -->
 
 The `search` command supports the following parameters.
 
@@ -40,11 +32,7 @@ The `search` command supports the following parameters.
 | `<search-expression>` | Optional | A search expression that is converted to an OpenSearch [query string]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/) query. |
   
 
-<!-- vale off -->
-
 ## Search expression  
-
-<!-- vale on -->
 
 The search expression syntax supports:
 * **Full-text search**: `error` or `"error message"` -- Searches the default field configured in the `index.query.default_field` setting (default is `*`, which specifies all fields). For more information, see [Default field configuration](#default-field-configuration). 
@@ -55,11 +43,7 @@ The search expression syntax supports:
 * **The `IN` operator for multiple values**: `field IN (value1, value2, value3)`.  
 * **Wildcards**: `*` (zero or more characters), `?` (exactly one character).  
   
-<!-- vale off -->
-
 ### Full-text search
-
-<!-- vale on -->
 
 Unlike other PPL commands, the `search` command supports both quoted and unquoted strings. Unquoted terms are limited to alphanumeric characters, hyphens, underscores, and wildcards. Any other characters require double quotation marks.
 
@@ -68,11 +52,7 @@ The following queries show both syntax types:
 * **Unquoted**: `search error`, `search user-123`, `search log_*`
 * **Quoted**: `search "error message"`, `search "user@example.com"`
   
-<!-- vale off -->
-
 ### Field values
-
-<!-- vale on -->
 
 Field values follow the same quoting rules as search text.
 
@@ -81,11 +61,7 @@ Examples of field value syntax:
 * **Unquoted**: `status=active`, `code=ERR-401`
 * **Quoted**: `email="user@example.com"`, `message="server error"`  
   
-<!-- vale off -->
-
 ### Time modifiers
-
-<!-- vale on -->
 
 Time modifiers filter search results by a time range using the implicit `@timestamp` field. Time modifiers support the following formats.
 
@@ -96,11 +72,7 @@ Time modifiers filter search results by a time range using the implicit `@timest
 | Unix timestamp | Numeric values | Seconds since the epoch | `latest=1754020060.123` |
 | Relative time | `[(+/-)<time_integer><time_unit>][@<round_to_unit>]` | A time offset relative to the current time. See [Relative time components](#relative-time-components). | `earliest=-7d`, `latest='+1d@d'` |
 
-<!-- vale off -->
-
 #### Relative time components
-
-<!-- vale on -->
 
 Relative time modifiers use multiple components that can be combined. The following table describes each component.
 
@@ -124,11 +96,7 @@ The following considerations apply when using time modifiers in the `search` com
 * **Column name conflicts**: If your data contains columns named `earliest` or `latest`, use backticks to access them as regular fields (for example, `` `earliest`="value"``) to avoid conflicts with time modifier syntax.  
 * **Time round syntax**: Time modifiers with chained time offsets must be wrapped in quotation marks (for example, `latest='+1d@month-10h'`) for proper query parsing.  
 
-<!-- vale off -->
-
 ## Default field configuration  
-
-<!-- vale on -->
 
 When a search is performed without specifying a field, it uses the default field configured by the `index.query.default_field` index setting. By default, this is set to `*`, which searches all fields.
 
@@ -149,11 +117,7 @@ PUT /accounts/_settings
 ```
 {% include copy-curl.html %}
 
-<!-- vale off -->
-
 ## Search behavior by field type
-
-<!-- vale on -->
 
 Different field types have specific search capabilities and limitations. The following table summarizes how search expressions work with each field type.
 
@@ -177,11 +141,7 @@ Consider the following performance optimizations when working with different fie
 Cross-cluster search lets any node in a cluster execute search requests against other clusters. Refer to [Cross-cluster search]({{site.url}}{{site.baseurl}}/search-plugins/cross-cluster-search/) for configuration.
 -->
 
-<!-- vale off -->
-
 ## Example 1: Fetching all data
-
-<!-- vale on -->
 
 Retrieve all documents from an index:
 
@@ -205,11 +165,7 @@ The query returns the following results:
 <!-- vale on -->
 
 
-<!-- vale off -->
-
 ## Example 2: Searching text
-
-<!-- vale on -->
 
 For basic text search, use an unquoted single term:
   
@@ -273,11 +229,7 @@ The query returns the following results:
 `search connection timeout` is equivalent to `search connection AND timeout`. 
 {: .note}
 
-<!-- vale off -->
-
 ### Combined phrase and Boolean search
-
-<!-- vale on -->
 
 Combine quoted phrases with Boolean operators for more precise searches:
 
@@ -301,19 +253,11 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 3: Boolean logic and operator precedence  
-
-<!-- vale on -->
 
 The following queries demonstrate Boolean operators and precedence.
 
-<!-- vale off -->
-
 ### Boolean operators
-
-<!-- vale on -->
 
 Use `OR` to match documents containing any of the specified conditions:
 
@@ -365,11 +309,7 @@ The query returns the following results:
 
 <!-- vale on -->
   
-<!-- vale off -->
-
 ### Operator precedence
-
-<!-- vale on -->
 
 The operators are evaluated using the following precedence:
 
@@ -398,17 +338,13 @@ The preceding expression is evaluated as `(severityText="ERROR" OR severityText=
 
 <!-- vale on -->
 
-<!-- vale off -->
-
 ## Example 4: Comparing NOT with != semantics
-
-<!-- vale on -->
 
 Both `!=` and `NOT` operators find documents in which the field value is not equal to the specified value. However, the `!=` operator excludes documents containing null or missing fields, while the `NOT` operator includes them. The following queries show this difference using `instrumentationScope.name`, which is null for most records.
 
 **!= operator**
 
-Excludes null values — only returns rows where the field exists and is not the specified value:
+Excludes null values---only returns rows where the field exists and is not the specified value:
 
 ```sql
 search instrumentationScope.name!="@opentelemetry/instrumentation-http" source=otellogs
@@ -429,7 +365,7 @@ The query returns the following results:
 
 **`NOT` operator**
 
-Includes null values — returns rows where the field is null or not the specified value:
+Includes null values---returns rows where the field is null or not the specified value:
 
 ```sql
 search NOT instrumentationScope.name="@opentelemetry/instrumentation-http" source=otellogs
@@ -453,11 +389,7 @@ The query returns the following results:
 
 <!-- vale on -->
 
-<!-- vale off -->
-
 ## Example 5: Querying ranges
-
-<!-- vale on -->
 
 Use comparison operators (`>,` `<,` `>=` and `<=`) to filter numeric and date fields within specific ranges. Range queries are particularly useful for filtering by age, price, timestamps, or any numeric metrics:
 
@@ -484,11 +416,7 @@ The query returns the following results:
 
 
 
-<!-- vale off -->
-
 ## Example 6: Using wildcards
-
-<!-- vale on -->
 
 The following queries demonstrate wildcard pattern matching. In wildcard patterns, `*` matches zero or more characters, while `?` matches exactly one character.
 
@@ -560,11 +488,7 @@ The query returns the following results:
 <!-- vale on -->
 
 
-<!-- vale off -->
-
 ## Example 7: Wildcard patterns in service name searches
-
-<!-- vale on -->
 
 When searching in text or keyword fields, wildcards enable partial matching, which is useful when you only know part of a service name. Wildcards work best on keyword fields, for which they match the exact value using patterns. Using wildcards on text fields may produce unexpected results because they apply to individual tokens after analysis, not the entire field value. Wildcards in keyword fields are case sensitive unless normalized at indexing.
 
@@ -610,11 +534,7 @@ The query returns the following results:
 
 <!-- vale on -->
 
-<!-- vale off -->
-
 ## Example 8: Field value matching  
-
-<!-- vale on -->
 
 The `IN` operator efficiently checks whether a field matches any value in a list, providing a more concise and more performant alternative to chaining multiple `OR` conditions on the same field.
 
@@ -673,11 +593,7 @@ The query returns the following results:
 
 <!-- vale on -->
 
-<!-- vale off -->
-
 ## Example 9: Using complex expressions  
-
-<!-- vale on -->
 
 To create sophisticated search queries, combine multiple conditions using Boolean operators and parentheses:
   
@@ -702,19 +618,11 @@ The query returns the following results:
 
 <!-- vale on -->
 
-<!-- vale off -->
-
 ## Example 10: Using time modifiers  
-
-<!-- vale on -->
 
 Time modifiers filter search results by time range using the implicit `@timestamp` field. They support various time formats for precise temporal filtering.
 
-<!-- vale off -->
-
 ### Absolute time filtering
-
-<!-- vale on -->
 
 Filter logs within a specific time window using absolute timestamps:
 
@@ -739,11 +647,7 @@ The query returns the following results:
 
 <!-- vale on -->
   
-<!-- vale off -->
-
 ### Relative time filtering
-
-<!-- vale on -->
 
 Filter logs using relative time expressions, such as those that occurred before 30 seconds ago:
 
@@ -768,11 +672,7 @@ The query returns the following results:
 
 <!-- vale on -->
   
-<!-- vale off -->
-
 ### Time rounding
-
-<!-- vale on -->
 
 Use time rounding expressions to filter events relative to time boundaries, such as those before the start of the current minute:
 
@@ -796,11 +696,7 @@ The query returns the following results:
 
 <!-- vale on -->
   
-<!-- vale off -->
-
 ### Unix timestamp filtering
-
-<!-- vale on -->
 
 Filter logs using Unix epoch timestamps for precise time ranges:
 
@@ -829,11 +725,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Escaping special characters
-
-<!-- vale on -->
 
 Special characters fall into two categories, depending on whether they must always be escaped or only when you want to search for their literal value:
 

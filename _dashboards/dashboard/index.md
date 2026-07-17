@@ -32,11 +32,11 @@ If you've installed a local OpenSearch Dashboards instance, add the sample data 
 
 For more information, see [Adding sample data]({{site.url}}{{site.baseurl}}/dashboards/getting-started/data-setup/#add-sample-data).
 
-## Navigating the Dashboards UI
+## Navigating the Dashboards application UI
 
 The following image shows the main components of the **Dashboards** application.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/dashboard-UI-blank-callouts.png" alt="Dashboards app default page">
+![Dashboards app default page]({{site.url}}{{site.baseurl}}/images/dashboards/dashboard-UI-blank-callouts.png)
 
 - The _application menu_ (A) contains application options. This menu is context-sensitive and is different for other applications.
 - The _search_ bar (B) enables selection of data using a query language search.
