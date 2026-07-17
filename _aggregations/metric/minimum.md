@@ -7,7 +7,7 @@ redirect_from:
   - /query-dsl/aggregations/metric/minimum/
 ---
 
-# Minimum aggregations
+# Minimum aggregation
 
 The `min` metric is a single-value metric that returns the minimum value of a field.
 

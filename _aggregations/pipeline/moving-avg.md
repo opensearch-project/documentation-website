@@ -5,7 +5,7 @@ parent: Pipeline aggregations
 nav_order: 120
 ---
 
-# Moving average aggregations
+# Moving average aggregation
 **Deprecated**
 {: .label .label-red }
 

@@ -15,7 +15,7 @@ Creating a vector index in OpenSearch involves a common core process with some v
 Before you start, review the options for generating embeddings to help you decide on the option suitable for your use case. For more information, see [Preparing vectors]({{site.url}}{{site.baseurl}}/vector-search/getting-started/vector-search-options/).
 {: .tip}
 
-## Overview
+## Basic vector index
 
 To create a vector index, set the `index.knn` parameter to `true`in the `settings`:
 
