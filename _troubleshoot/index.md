@@ -11,7 +11,7 @@ redirect_from:
 
 # Common issues
 
-This page contains a list of common issues and workarounds.
+The following are common issues and workarounds for OpenSearch and OpenSearch Dashboards, including startup failures, security configuration errors, and cluster connectivity problems.
 
 
 ## OpenSearch Dashboards fails to start

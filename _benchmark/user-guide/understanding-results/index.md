@@ -8,7 +8,7 @@ redirect_from:
   - /benchmark/user-guide/understanding-results/
 ---
 
-After [running a workload]({{site.url}}{{site.baseurl}}/benchmark/user-guide/working-with-workloads/running-workloads/), OpenSearch Benchmark produces a series of metrics. This section describes how to interpret benchmark results through summary reports and how to visualize metrics using telemetry devices:
+After [running a workload]({{site.url}}{{site.baseurl}}/benchmark/user-guide/working-with-workloads/running-workloads/), OpenSearch Benchmark produces metrics including throughput, latency percentiles, and error rates. You can interpret these results using summary reports and visualize them using telemetry devices:
 
 - [How metrics are reported]({{site.url}}{{site.baseurl}}/benchmark/reference/summary-report/)
 - [How to visualize metrics]({{site.url}}{{site.baseurl}}/benchmark/reference/telemetry/)

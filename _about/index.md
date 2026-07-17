@@ -85,7 +85,7 @@ getting_started:
 **Version {{site.opensearch_major_minor_version}}**
 {: .label .label-blue }
 
-This section contains documentation for OpenSearch and OpenSearch Dashboards.
+OpenSearch is a scalable, open-source search and analytics suite for full-text search, application monitoring, log analytics, and vector search. OpenSearch Dashboards provides the visualization and management interface.
 
 ## Getting started
 

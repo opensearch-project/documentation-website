@@ -12,7 +12,7 @@ redirect_from:
 
 # OpenSearch tools
 
-This section provides documentation for OpenSearch-supported tools, including:
+OpenSearch provides command-line tools and utilities for ingesting data, managing clusters, and migrating from other search engines. Supported tools include:
 
 - [Agents and ingestion tools](#agents-and-ingestion-tools)
 - [OpenSearch CLI](#opensearch-cli)
