@@ -117,6 +117,8 @@ Word | Document
 `and` | 2
 `beast` | 2 
 
+Notice that the word `Beauty` from the original documents appears as `beauty` (lowercase) in the inverted index. This is because OpenSearch uses a [text analyzer]({{site.url}}{{site.baseurl}}/analyzers/) to process text during indexing. The default analyzer (the [standard analyzer]({{site.url}}{{site.baseurl}}/analyzers/supported-analyzers/standard/)) makes all text lowercase so searches are case insensitive.
+
 In addition to the document ID, OpenSearch stores the position of the word within the document for running phrase queries, where words must appear next to each other.
 
 ## Relevance
