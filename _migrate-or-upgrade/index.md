@@ -12,7 +12,9 @@ redirect_from:
   - /upgrade-to/
   - /upgrade-to/upgrade-to/
   - /install-and-configure/upgrade-opensearch/index/
+  - /install-and-configure/upgrade-opensearch/
   - /upgrade-to/docker-upgrade-to/
+  - /upgrade-to/dashboards-upgrade-to/
 nav_exclude: true
 ---
 # Migrate or upgrade OpenSearch
