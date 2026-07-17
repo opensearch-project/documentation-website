@@ -325,12 +325,14 @@ You can mix MCP tools with OpenSearch tools such as `MLModelTool` in the same pi
 
 If an MCP tool is listed in `tools` but is not available from the configured connector, agent execution fails with an error indicating the tool is not available. If multiple MCP connectors expose a tool with the same name, OpenSearch uses the tool from the first matching connector in the `mcp_connectors` array.
 
-The following example registers a `flow` agent that calls two MCP tools in sequence and then summarizes the results with `MLModelTool`:
+Before registering a flow or conversational flow agent, use the [List Connector MCP Tools API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/mcp-client-apis/list-connector-mcp-tools/) to discover tool names, types, descriptions, and input schemas from your MCP connector. Use the `name` and `type` values from the response when configuring MCP tools in the agent, and build the `parameters.input` JSON string from each tool's `input_schema`.
+
+The following example registers a `flow` agent that calls `search_documents` and `get_weather` in sequence, then summarizes the results with `MLModelTool`:
 
 ```json
 POST /_plugins/_ml/agents/_register
 {
-  "name": "Crypto market flow agent",
+  "name": "Research and weather flow agent",
   "type": "flow",
   "description": "Flow agent using MCP tools in a fixed order",
   "parameters": {
@@ -342,28 +344,28 @@ POST /_plugins/_ml/agents/_register
   },
   "tools": [
     {
-      "name": "get_simple_price",
+      "name": "search_documents",
       "type": "McpStreamableHttpTool",
-      "description": "Fetch BTC and ETH prices in USD",
+      "description": "Search a document repository for relevant content.",
       "parameters": {
-        "input": "{\"ids\":\"bitcoin,ethereum\",\"vs_currencies\":\"usd\",\"include_24hr_change\":true,\"include_market_cap\":true}"
+        "input": "{\"query\":\"OpenSearch agentic search\",\"limit\":5}"
       }
     },
     {
-      "name": "get_search_trending",
+      "name": "get_weather",
       "type": "McpStreamableHttpTool",
-      "description": "Fetch trending coins",
+      "description": "Retrieve current weather conditions for a specified location.",
       "parameters": {
-        "input": "{\"show_max\":\"10\"}"
+        "input": "{\"location\":\"Seattle\",\"units\":\"celsius\"}"
       }
     },
     {
-      "name": "summarize_market",
+      "name": "summarize_results",
       "type": "MLModelTool",
-      "description": "Summarize MCP outputs",
+      "description": "Summarize MCP tool outputs",
       "parameters": {
         "model_id": "<MODEL_ID_FROM_STEP_2>",
-        "prompt": "You are a crypto market analyst.\n\nCurrent prices:\n${parameters.get_simple_price.output}\n\nTrending:\n${parameters.get_search_trending.output}\n\nGive a concise summary with key observations and risks."
+        "prompt": "You are a research assistant.\n\nDocument search results:\n${parameters.search_documents.output}\n\nWeather:\n${parameters.get_weather.output}\n\nProvide a brief summary of the findings."
       }
     }
   ]
@@ -378,6 +380,7 @@ To use the same MCP pipeline with conversation memory, set `type` to `conversati
   "type": "conversation_index"
 }
 ```
+
 ## Step 4: Run the agent
 
 Invoke the registered agent by calling the Execute Agent API and providing a user question:
