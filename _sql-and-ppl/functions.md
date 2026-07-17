@@ -6,12 +6,12 @@ nav_order: 10
 
 # SQL and PPL common functions
 
+OpenSearch supports the following common functions shared across the SQL and PPL languages. Most functions work in both SQL (with `SELECT`) and PPL (with `source` and `eval`/`where`). Functions available only in SQL are marked with an asterisk (\*).
+
 You must enable field data in the document mapping for most string functions to work properly.
 
 The specification shows the return type of the function with a generic type `T` as the argument.
 For example, `abs(number T) -> T` means that the function `abs` accepts a numerical argument of type `T`, which could be any subtype of the `number` type, and it returns the actual type of `T` as the return type.
-
-The SQL plugin supports the following common functions shared across the SQL and PPL languages. Most functions work in both SQL (with `SELECT`) and PPL (with `source` and `eval`/`where`). Functions available only in SQL are marked with an asterisk (\*).
 
 ## Mathematical
 

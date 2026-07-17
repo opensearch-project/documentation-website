@@ -9,7 +9,7 @@ redirect_from:
 ---
 
 
-# Basic queries
+# Basic SQL queries
 
 Use the `SELECT` clause, along with `FROM`, `WHERE`, `GROUP BY`, `HAVING`, `ORDER BY`, and `LIMIT` to search and aggregate data.
 

@@ -6,7 +6,7 @@ nav_order: 30
 
 # OpenID Connect troubleshooting
 
-This page includes troubleshooting steps for using OpenID Connect with the Security plugin.
+Use the following troubleshooting steps to resolve issues with using OpenID Connect for OpenSearch authentication with the Security plugin.
 
 
 ---
