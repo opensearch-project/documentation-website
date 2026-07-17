@@ -1,22 +1,36 @@
 ---
 layout: default
-title: MCP client APIs
-parent: ML Commons APIs
+title: ML Commons APIs
+nav_order: 110
 has_children: true
 has_toc: false
-nav_order: 41
 redirect_from:
-  - /ml-commons-plugin/api/mcp-client-apis/
+  - /ml-commons-plugin/api/
 ---
 
-# MCP client APIs
-**Introduced 3.8**
-{: .label .label-purple }
+# ML APIs 
 
-When OpenSearch connects to an external [Model Context Protocol (MCP)](https://modelcontextprotocol.io/introduction) server through an MCP connector, it acts as an MCP client. These APIs let you discover and inspect tools exposed by external MCP servers before configuring agents.
+OpenSearch supports the following machine learning (ML) APIs:
 
-This differs from [MCP server APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/mcp-server-apis/), where OpenSearch exposes its own tools to external MCP clients. For conceptual information about using external MCP servers with agents, see [Connecting to an external MCP server]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/mcp/mcp-connector/).
+- [Model APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/index/)
+- [Model group APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-group-apis/index/)
+- [Connector APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/connector-apis/index/)
+- [Agent APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/index/)
+- [Memory APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/memory-apis/index/)
+- [Agentic Memory APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/)
+- [Controller APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/controller-apis/index/)
+- [Execute Algorithm API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/execute-algorithm/)
+- [Execute Tool API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/execute-tool/)
+- [ML Tasks APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/index/)
+- [Profile API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/profile/)
+- [Stats API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/stats/)
+- [MCP Server APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/mcp-server-apis/)
+- [MCP Client APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/mcp-client-apis/)
 
-ML Commons supports the following MCP client APIs:
+## Memory APIs comparison
 
-- [List connector MCP tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/mcp-client-apis/list-connector-mcp-tools/)
+OpenSearch provides two different memory systems:
+
+- **[Memory APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/memory-apis/index/)** -- Simple conversation history storage for [conversational search]({{site.url}}{{site.baseurl}}/search-plugins/conversational-search/). Stores question/answer pairs chronologically without processing or learning.
+
+- **[Agentic Memory APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/)** -- Intelligent memory system for AI agents. Uses large language models (LLMs) to extract knowledge, learn user preferences, and maintain context across sessions. For conceptual information, see [Agentic memory]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agentic-memory/).
