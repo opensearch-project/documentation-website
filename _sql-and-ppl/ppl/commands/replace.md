@@ -14,11 +14,7 @@ nav_order: 38
 
 The `replace` command replaces text in one or more fields in the search results. It supports literal string replacement and wildcard patterns using `*`.
 
-<!-- vale off -->
-
 ## Syntax
-
-<!-- vale on -->
 
 The `replace` command has the following syntax:
 
@@ -26,11 +22,7 @@ The `replace` command has the following syntax:
 replace '<pattern>' WITH '<replacement>' [, '<pattern>' WITH '<replacement>']... IN <field-name>[, <field-name>]...
 ```
 
-<!-- vale off -->
-
 ## Parameters
-
-<!-- vale on -->
 
 The `replace` command supports the following parameters.
 
@@ -40,11 +32,7 @@ The `replace` command supports the following parameters.
 | `<replacement>` | Required | The text to use as the replacement. |
 | `<field-name>` | Required | One or more fields to which the replacement should be applied. |
 
-<!-- vale off -->
-
 ## Example 1: Replacing text in one field  
-
-<!-- vale on -->
 
 The following query replaces text in one field:
   
@@ -72,11 +60,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 2: Replacing text in multiple fields  
-
-<!-- vale on -->
 
 The following query replaces text in multiple fields:
   
@@ -104,11 +88,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 3: Using the replace command in a pipeline
-
-<!-- vale on -->
 
 The following query uses the `replace` command with other commands in a query pipeline:
   
@@ -140,11 +120,7 @@ fetched rows / total rows = 3/3
 ```
   
 
-<!-- vale off -->
-
 ## Example 4: Replacing text using multiple pattern-replacement pairs
-
-<!-- vale on -->
 
 The following query uses the `replace` command with multiple pattern and replacement pairs in a single replace command. The replacements are applied sequentially:
   
@@ -170,11 +146,7 @@ fetched rows / total rows = 4/4
 ```
   
 
-<!-- vale off -->
-
 ## Example 5: Pattern matching using LIKE
-
-<!-- vale on -->
 
 The following query uses the `LIKE` command with the `replace` command for pattern matching, since the `replace` command only supports plain string literals:
   
@@ -198,11 +170,7 @@ fetched rows / total rows = 1/1
 ```
   
 
-<!-- vale off -->
-
 ## Example 6: Wildcard suffix matching  
-
-<!-- vale on -->
 
 The following query shows wildcard suffix matching, in which `*` matches any characters before a specific ending pattern:
   
@@ -228,11 +196,7 @@ fetched rows / total rows = 4/4
 ```
   
 
-<!-- vale off -->
-
 ## Example 7: Wildcard prefix matching  
-
-<!-- vale on -->
 
 The following query shows wildcard prefix matching, in which `*` matches any characters after a specific starting pattern:
   
@@ -258,11 +222,7 @@ fetched rows / total rows = 4/4
 ```
   
 
-<!-- vale off -->
-
 ## Example 8: Wildcard capture and substitution  
-
-<!-- vale on -->
 
 The following query uses wildcards in both the pattern and replacement to capture and reuse matched portions. The number of wildcards must match in the pattern and replacement:
   
@@ -288,11 +248,7 @@ fetched rows / total rows = 4/4
 ```
   
 
-<!-- vale off -->
-
 ## Example 9: Transforming patterns with multiple wildcards  
-
-<!-- vale on -->
 
 The following query uses multiple wildcards to transform patterns. Each wildcard in the replacement is substituted with the corresponding captured value:
   
@@ -318,11 +274,7 @@ fetched rows / total rows = 4/4
 ```
   
 
-<!-- vale off -->
-
 ## Example 10: Replacing any match with a fixed value  
-
-<!-- vale on -->
 
 The following query shows that when the replacement contains zero wildcards, all matching values are replaced with the literal replacement string:
   
@@ -348,11 +300,7 @@ fetched rows / total rows = 4/4
 ```
   
 
-<!-- vale off -->
-
 ## Example 11: Matching literal asterisks  
-
-<!-- vale on -->
 
 Use `\*` to match literal asterisk characters and `\\` to match literal backslash characters. The following query uses `\*`:
   
@@ -378,11 +326,7 @@ fetched rows / total rows = 4/4
 +------------+
 ```
 
-<!-- vale off -->
-
 ## Example 12: Replacing text with literal asterisk symbols  
-
-<!-- vale on -->
 
 The following query shows how to insert literal asterisk symbols into text while using wildcards to preserve other parts of the pattern:
   
@@ -409,11 +353,7 @@ fetched rows / total rows = 4/4
 ```
   
 
-<!-- vale off -->
-
 ## Limitations
-
-<!-- vale on -->
 
 The `replace` command has the following limitations:
 

@@ -23,19 +23,11 @@ The `ad` command applies the Random Cut Forest (RCF) algorithm in the ML Commons
 To use the `ad` command, `plugins.calcite.enabled` must be set to `false`.
 {: .note}
 
-<!-- vale off -->
-
 ## Syntax
-
-<!-- vale on -->
 
 The `ad` command has two different syntax variants, depending on the algorithm type.
 
-<!-- vale off -->
-
 ### Anomaly detection for time-series data
-
-<!-- vale on -->
 
 Use this syntax to detect anomalies in time-series data. This method uses the fixed-in-time RCF algorithm, which is optimized for sequential data patterns.
 
@@ -45,11 +37,7 @@ The fixed-in-time RCF `ad` command has the following syntax:
 ad [number_of_trees] [shingle_size] [sample_size] [output_after] [time_decay] [anomaly_rate] <time_field> [date_format] [time_zone] [category_field]
 ```
 
-<!-- vale off -->
-
 ### Parameters
-
-<!-- vale on -->
 
 The fixed-in-time RCF algorithm supports the following parameters.
 
@@ -67,11 +55,7 @@ The fixed-in-time RCF algorithm supports the following parameters.
 | `category_field` | Optional | The category field used to group input values. The predict operation is applied to each category independently. |  
   
 
-<!-- vale off -->
-
 ### Anomaly detection for non-time-series data
-
-<!-- vale on -->
 
 Use this syntax to detect anomalies in data where the order doesn't matter. This method uses the batch RCF algorithm, which is optimized for independent data points.
 
@@ -81,11 +65,7 @@ The batch RCF `ad` command has the following syntax:
 ad [number_of_trees] [sample_size] [output_after] [training_data_size] [anomaly_score_threshold] [category_field]
 ```
 
-<!-- vale off -->
-
 ### Parameters
-
-<!-- vale on -->
 
 The batch RCF algorithm supports the following parameters.
 
@@ -98,7 +78,6 @@ The batch RCF algorithm supports the following parameters.
 | `anomaly_score_threshold` | Optional | The anomaly score threshold. Default is `1.0`. |
 | `category_field` | Optional | The category field used to group input values. The predict operation is applied to each category independently. |  
   
-
 <!-- vale off -->
 
 ## Example 1: Detecting events in New York City taxi ridership time-series data

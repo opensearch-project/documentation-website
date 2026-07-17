@@ -17,11 +17,7 @@ The `show datasources` command queries data sources configured in the PPL engine
 To use the `show datasources` command, `plugins.calcite.enabled` must be set to `false`.
 {: .note}
 
-<!-- vale off -->
-
 ## Syntax
-
-<!-- vale on -->
 
 The `show datasources` command has the following syntax:
 
@@ -31,11 +27,7 @@ show datasources
 
 The `show datasources` command takes no parameters.  
 
-<!-- vale off -->
-
 ## Example 1: Fetching all Prometheus data sources
-
-<!-- vale on -->
 
 The following query fetches all Prometheus data sources:
   

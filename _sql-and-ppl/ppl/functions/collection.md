@@ -1124,7 +1124,7 @@ The query returns the following results:
 
 <!-- vale on -->
 
-The following example shows nested mvzip calls:
+The following example shows nested `mvzip` calls:
 
 ```sql
 source=people

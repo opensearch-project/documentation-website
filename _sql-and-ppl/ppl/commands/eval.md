@@ -19,11 +19,7 @@ The `eval` command processes data after documents are retrieved from the shards.
 The `eval` command is not rewritten to [query domain-specific language (DSL)]({{site.url}}{{site.baseurl}}/query-dsl/). It is only executed on the coordinating node.
 {: .note}
 
-<!-- vale off -->
-
 ## Syntax
-
-<!-- vale on -->
 
 The `eval` command has the following syntax:
 
@@ -31,11 +27,7 @@ The `eval` command has the following syntax:
 eval <field>=<expression> ["," <field>=<expression> ]...
 ```
 
-<!-- vale off -->
-
 ## Parameters
-
-<!-- vale on -->
 
 The `eval` command supports the following parameters.
 
@@ -45,11 +37,7 @@ The `eval` command supports the following parameters.
 | `<expression>` | Required | The expression to evaluate. |  
   
 
-<!-- vale off -->
-
 ## Example 1: Classifying logs by severity tier  
-
-<!-- vale on -->
 
 The following query creates an `is_critical` field that classifies each log as critical or non-critical based on severity, useful for building alert rules:
   
@@ -77,13 +65,9 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
+## Example 2: Finding errors without traces  
 
-## Example 2: Finding untraced errors  
-
-<!-- vale on -->
-
-The following query creates two boolean fields to identify error logs and whether they have distributed tracing context. Untraced errors are harder to debug because you can't follow the request across services:
+The following query creates two Boolean fields to identify error logs and whether they have distributed tracing context. Errors that are not traced are harder to debug because you can't follow the request across services:
   
 ```sql
 source=otellogs
@@ -112,11 +96,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 3: Building a standardized log line  
-
-<!-- vale on -->
 
 The following query prepends the severity level to the log body, creating a standardized format for export or alerting:
   

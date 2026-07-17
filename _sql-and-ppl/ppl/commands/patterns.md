@@ -27,19 +27,11 @@ The command identifies variable parts of log messages (such as timestamps, numbe
 The `patterns` command is not executed on OpenSearch data nodes. It only groups log patterns from log messages that have been returned to the coordinating node.
 {: .note}
 
-<!-- vale off -->
-
 ## Syntax
-
-<!-- vale on -->
 
 The `patterns` command supports the following syntax options.
 
-<!-- vale off -->
-
 ### Simple pattern method syntax
-
-<!-- vale on -->
 
 The `patterns` command with a `simple_pattern` method has the following syntax:
 
@@ -47,11 +39,7 @@ The `patterns` command with a `simple_pattern` method has the following syntax:
 patterns <field> [by <byClause>] [method=simple_pattern] [mode=label | aggregation] [max_sample_count=integer] [show_numbered_token=boolean] [new_field=<new-field-name>] [pattern=<regex-pattern>]
 ```
 
-<!-- vale off -->
-
 ### Brain method syntax
-
-<!-- vale on -->
 
 The `patterns` command with a `brain` method has the following syntax:
 
@@ -59,11 +47,7 @@ The `patterns` command with a `brain` method has the following syntax:
 patterns <field> [by <byClause>] [method=brain] [mode=label | aggregation] [max_sample_count=integer] [buffer_limit=integer] [show_numbered_token=boolean] [new_field=<new-field-name>] [variable_count_threshold=integer] [frequency_threshold_percentage=decimal]
 ```
 
-<!-- vale off -->
-
 ## Parameters
-
-<!-- vale on -->
 
 The `patterns` command supports the following parameters.
 
@@ -91,19 +75,11 @@ The `brain` method accepts the following parameters.
 | `variable_count_threshold` | Optional | Controls the algorithm sensitivity to detecting constant words by counting distinct words at specific positions in the initial log groups. Default is `5`. |
 | `frequency_threshold_percentage` | Optional | Sets the minimum word frequency percentage threshold. Words with frequencies below this value are ignored. The `brain` algorithm selects log patterns based on the longest word combination. Default is `0.3`. |
 
-<!-- vale off -->
-
 ## Placeholder behavior
-
-<!-- vale on -->
 
 By default, the Apache Calcite engine labels variables using the `<*>` placeholder. If the `show_numbered_token` option is enabled, the Calcite engine's `label` mode not only labels the text pattern but also assigns numbered placeholders to variable tokens. In `aggregation` mode, it outputs both the labeled pattern and the variable tokens for each pattern. In this case, variable placeholders use the format `<token%d>` instead of `<*>`.
 
-<!-- vale off -->
-
 ## Changing the default pattern method  
-
-<!-- vale on -->
 
 To override default pattern parameters, run the following command:
 
@@ -121,19 +97,11 @@ PUT _cluster/settings
 ```
 {% include copy-curl.html %}
   
-<!-- vale off -->
-
 ## Simple pattern examples
-
-<!-- vale on -->
 
 The following are examples of using the `simple_pattern` method.
 
-<!-- vale off -->
-
 ### Example 1: Extract patterns from log messages
-
-<!-- vale on -->
 
 The following query extracts patterns from error log messages, replacing variable parts with `<*>` placeholders:
   
@@ -160,11 +128,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ### Example 2: Extract log patterns
-
-<!-- vale on -->
 
 The following query extracts default patterns from a raw log field:
   
@@ -189,11 +153,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ### Example 3: Extract log patterns using a custom regex pattern
-
-<!-- vale on -->
 
 The following query extracts patterns from a raw log field using a custom pattern:
   
@@ -218,11 +178,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ### Example 4: Return a log pattern aggregation result
-
-<!-- vale on -->
 
 The following query aggregates patterns extracted from a raw log field:
   
@@ -247,11 +203,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ### Example 5: Return aggregated log patterns with detected variable tokens
-
-<!-- vale on -->
 
 The following query returns aggregated results with detected variable tokens. When the `show_numbered_token` option is enabled, the pattern output uses numbered placeholders (for example, `<token1>`, `<token2>`) and returns a mapping of each placeholder to the values that it represents:
 
@@ -275,19 +227,11 @@ The query returns the following results:
 <!-- vale on -->
 
 
-<!-- vale off -->
-
 ## Brain pattern examples
-
-<!-- vale on -->
 
 The following are examples of using the `brain` method.
 
-<!-- vale off -->
-
 ### Example 1: Extract log patterns
-
-<!-- vale on -->
 
 The following query extracts semantically meaningful log patterns from a raw log field using the `brain` algorithm. This query uses the default `variable_count_threshold` value of `5`:
   
@@ -312,11 +256,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ### Example 2: Extract log patterns using custom parameters
-
-<!-- vale on -->
 
 The following query extracts semantically meaningful log patterns from a raw log field using custom parameters of the `brain` algorithm:
   
@@ -341,11 +281,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ### Example 3: Return a log pattern aggregation result
-
-<!-- vale on -->
 
 The following query aggregates patterns extracted from a raw log field using the `brain` algorithm:
   
@@ -367,11 +303,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ### Example 4: Return aggregated log patterns with detected variable tokens
-
-<!-- vale on -->
 
 The following query returns aggregated results with detected variable tokens using the `brain` method. When the `show_numbered_token` option is enabled, the pattern output uses numbered placeholders (for example, `<token1>`, `<token2>`) and returns a mapping of each placeholder to the values that it represents:
   

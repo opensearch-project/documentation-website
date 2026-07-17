@@ -12,13 +12,9 @@ nav_order: 49
 
 <!-- vale on -->
 
-The `timechart` command creates a time-based aggregation of data. It groups data by time intervals and, optionally, by a field, and then applies an aggregation function to each group. The results are returned in an unpivoted format, with separate rows for each time-field combination.
-
-<!-- vale off -->
+The `timechart` command creates a time-based aggregation of data. It groups data by time intervals and, optionally, by a field, and then applies an aggregation function to each group. The results are returned in a non-pivoted format, with separate rows for each time-field combination.
 
 ## Syntax
-
-<!-- vale on -->
 
 The `timechart` command has the following syntax:
 
@@ -26,11 +22,7 @@ The `timechart` command has the following syntax:
 timechart [timefield=<field_name>] [span=<time_interval>] [limit=<number>] [useother=<boolean>] [usenull=<boolean>] [nullstr=<string>] <aggregation_function> [by <field>]
 ```
 
-<!-- vale off -->
-
 ## Parameters
-
-<!-- vale on -->
 
 The `timechart` command supports the following parameters.
 
@@ -45,26 +37,18 @@ The `timechart` command supports the following parameters.
 | `<aggregation_function>` | Required | The aggregation function to apply to each time bucket. Only a single aggregation function is supported. Available functions: All aggregation functions supported by the [stats]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/commands/stats/) command as well as the timechart-specific aggregations. |
 | `by` | Optional | Groups the results by the specified field in addition to time intervals. If not specified, the aggregation is performed across all documents in each time interval. |
 
-<!-- vale off -->
-
 ## Notes
-
-<!-- vale on -->
 
 The following considerations apply when using the `timechart` command:
 
 * The `timechart` command requires a timestamp field in the data. By default, it uses the `@timestamp` field, but you can specify a different field using the `timefield` parameter.  
-* Results are returned in an unpivoted format with separate rows for each time-field combination that has data.  
+* Results are returned in an non-pivoted format with separate rows for each time-field combination that has data.  
 * Only combinations that contain data are included in the results---empty combinations are omitted rather than showing null or zero values.  
 * The top N values for the `limit` parameter are selected based on the sum of values across all time intervals for each distinct field value.  
 * When using the `limit` parameter, values beyond the limit are grouped into an `OTHER` category (unless `useother=false`).   
 * Documents with null values in the `by` field are treated as a separate category and appear as null in the results.  
 
-<!-- vale off -->
-
 ### Time units
-
-<!-- vale on -->
 
 The following time units are available for the `span` parameter:
 
@@ -78,18 +62,12 @@ The following time units are available for the `span` parameter:
 * Quarters (`q`)
 * Years (`y`)
 
-<!-- vale off -->
-
 ## Timechart-specific aggregation functions
-
-<!-- vale on -->
 
 The `timechart` command provides specialized rate-based aggregation functions that calculate values per unit of time.
 
 <!-- vale off -->
-
 ### per_second
-
 <!-- vale on -->
 
 **Usage**: `per_second(field)` calculates the per-second rate for a numeric field within each time bucket.
@@ -99,9 +77,7 @@ The `timechart` command provides specialized rate-based aggregation functions th
 **Return type**: DOUBLE
 
 <!-- vale off -->
-
 ### per_minute
-
 <!-- vale on -->
 
 **Usage**: `per_minute(field)` calculates the per-minute rate for a numeric field within each time bucket.
@@ -111,9 +87,7 @@ The `timechart` command provides specialized rate-based aggregation functions th
 **Return type**: DOUBLE
 
 <!-- vale off -->
-
 ### per_hour
-
 <!-- vale on -->
 
 **Usage**: `per_hour(field)` calculates the per-hour rate for a numeric field within each time bucket.
@@ -123,9 +97,7 @@ The `timechart` command provides specialized rate-based aggregation functions th
 **Return type**: DOUBLE
 
 <!-- vale off -->
-
 ### per_day
-
 <!-- vale on -->
 
 **Usage**: `per_day(field)` calculates the per-day rate for a numeric field within each time bucket.
@@ -134,11 +106,7 @@ The `timechart` command provides specialized rate-based aggregation functions th
 
 **Return type**: DOUBLE
   
-<!-- vale off -->
-
 ## Example 1: Log volume per 5 minutes
-
-<!-- vale on -->
 
 The following query counts all log events in 5-minute windows to monitor overall system activity:
 
@@ -163,11 +131,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 2: Error rate over time by service
-
-<!-- vale on -->
 
 The following query counts only error logs per service in 10-minute windows to track service health:
 
@@ -195,11 +159,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 3: Top 3 services with the rest grouped as OTHER
-
-<!-- vale on -->
 
 The following query limits the breakdown to the top 3 services by log volume, grouping remaining services into an OTHER category:
 
@@ -228,11 +188,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 4: Excluding the OTHER category
-
-<!-- vale on -->
 
 The following query shows only the top 2 services without an OTHER bucket by setting useother=false:
 
@@ -255,11 +211,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 5: Per-second error rate by severity
-
-<!-- vale on -->
 
 The following query uses the per_second rate function to normalize error counts across different time windows, grouped by severity level:
 
@@ -290,11 +242,7 @@ The query returns the following results:
 
 <!-- vale on -->
   
-<!-- vale off -->
-
 ## Example 6: Distinct service count over time
-
-<!-- vale on -->
 
 The following query tracks how many unique services are actively logging per hour, useful for detecting service outages:
 
@@ -316,11 +264,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 7: Using limit=0 with count() to show all values  
-
-<!-- vale on -->
 
 This example uses the `events_many_hosts` dataset, which contains 11 distinct hosts.
 
@@ -352,11 +296,7 @@ All 11 hosts are returned as separate rows without an `OTHER` category:
 
 <!-- vale on -->
 
-<!-- vale off -->
-
 ## Example 8: Using useother=false with the count() function  
-
-<!-- vale on -->
 
 The following query limits the results to the top 10 hosts without creating an `OTHER` category by setting `useother=false`:
   
@@ -434,11 +374,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 10: Handling null values in the by field
-
-<!-- vale on -->
 
 The following query demonstrates how null values in the `by` field are treated as a separate category:
 
@@ -462,11 +398,7 @@ The `events_null` dataset contains one entry without a `host` value. Because the
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 11: Calculating the per-second packet rate  
-
-<!-- vale on -->
 
 The following query calculates the per-second packet rate for network traffic data using the `per_second()` function:
   
@@ -490,11 +422,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Limitations
-
-<!-- vale on -->
 
 The `timechart` command has the following limitations:
 

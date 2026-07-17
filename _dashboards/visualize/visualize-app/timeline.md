@@ -47,7 +47,7 @@ The timeline editor consists of the following components:
 
 The following image shows the timeline editor containing a basic expression that queries e-commerce data.
 
-![The timeline editor showing a basic .opensearch() expression with order count over time]({{site.url}}{{site.baseurl}}/images/dashboards/timeline-basic-expression.png){: width="700" }
+![The timeline editor showing a basic OpenSearch expression with order count over time]({{site.url}}{{site.baseurl}}/images/dashboards/timeline-basic-expression.png){: width="700" }
 
 ## Timeline expression syntax
 
@@ -71,7 +71,9 @@ To display multiple series on the same chart, separate the expressions with comm
 
 The `.opensearch()` function is the primary data source for timeline expressions. It pulls time-series data from an OpenSearch index.
 
+<!-- vale off -->
 ### .opensearch() parameters
+<!-- vale on -->
 
 The following table lists the `.opensearch()` function parameters.
 
@@ -142,7 +144,9 @@ The following image shows the current week compared to the previous week using o
 
 Display functions control the chart type used to render series (lines, bars, or points).
 
+<!-- vale off -->
 ### .lines()
+<!-- vale on -->
 
 Renders the series as lines. The following table lists the `.lines()` function parameters.
 
@@ -163,7 +167,9 @@ The following expression renders a line chart with a custom width and fill:
 ```
 {% include copy.html %}
 
+<!-- vale off -->
 ### .bars()
+<!-- vale on -->
 
 Renders the series as bars. The following table lists the `.bars()` function parameters.
 
@@ -181,7 +187,9 @@ The following expression renders a bar chart of total revenue:
 ```
 {% include copy.html %}
 
+<!-- vale off -->
 ### .points()
+<!-- vale on -->
 
 Renders the series as points. The following table lists the `.points()` function parameters.
 
@@ -207,7 +215,9 @@ The following expression renders data as cross-shaped points:
 
 Styling functions control the labeling, color, and legend of series without changing the chart type.
 
+<!-- vale off -->
 ### .label()
+<!-- vale on -->
 
 Changes the label of the series displayed in the legend. Use `$1`, `$2`, and so on to reference regex capture groups. The following table lists the `.label()` function parameters.
 
@@ -225,7 +235,9 @@ The following expression sets a custom label for the series:
 ```
 {% include copy.html %}
 
+<!-- vale off -->
 ### .color()
+<!-- vale on -->
 
 Changes the color of the series. Accepts hex color values. To create a gradient across multiple series, specify multiple colors separated by colons.
 
@@ -238,7 +250,9 @@ The following expression sets the series color to blue:
 ```
 {% include copy.html %}
 
+<!-- vale off -->
 ### .legend()
+<!-- vale on -->
 
 Sets the position and style of the legend. The following table lists the `.legend()` function parameters.
 
@@ -249,7 +263,9 @@ Sets the position and style of the legend. The following table lists the `.legen
 | `showTime` | Boolean | When set to `true`, shows the time value in the legend when hovering over the graph. Default is `true`. |
 | `timeFormat` | String | A moment.js format pattern. Default is `MMMM Do YYYY, HH:mm:ss.SSS`. |
 
+<!-- vale off -->
 ### .title()
+<!-- vale on -->
 
 Adds a title to the top of the plot. If called on more than one series, the last call is used. The following table lists the `.title()` function parameters.
 
@@ -257,7 +273,9 @@ Adds a title to the top of the plot. If called on more than one series, the last
 | :--- | :--- | :--- |
 | `title` | String | The title for the plot. |
 
+<!-- vale off -->
 ### .hide()
+<!-- vale on -->
 
 Hides the series by default. The series is still available in the legend and can be toggled on. The following table lists the `.hide()` function parameters.
 
@@ -269,7 +287,9 @@ Hides the series by default. The series is still available in the legend and can
 
 You can configure one or more y-axes to control scale, positioning, and formatting.
 
+<!-- vale off -->
 ### .yaxis()
+<!-- vale on -->
 
 Configures y-axis options. Use `.yaxis(2)` to plot a series on a secondary y-axis. The following table lists the `.yaxis()` function parameters.
 
@@ -302,7 +322,9 @@ The following image shows the dual y-axis visualization with revenue as bars and
 
 Data transformation functions modify, smooth, or analyze series data.
 
+<!-- vale off -->
 ### .movingaverage()
+<!-- vale on -->
 
 Calculates the moving average over a given window. Use this function to smooth noisy series. Aliases: `.mvavg()`. The following table lists the `.movingaverage()` function parameters.
 
@@ -325,7 +347,9 @@ The following image shows daily revenue with a 7-day moving average overlay.
 
 ![A timeline visualization showing daily revenue with a 7-day moving average overlay]({{site.url}}{{site.baseurl}}/images/dashboards/timeline-moving-average.png){: width="700" }
 
+<!-- vale off -->
 ### .movingstd()
+<!-- vale on -->
 
 Calculates the moving standard deviation over a given window. Aliases: `.mvstd()`. The following table lists the `.movingstd()` function parameters.
 
@@ -343,7 +367,9 @@ The following expression calculates the 5-point moving standard deviation:
 ```
 {% include copy.html %}
 
+<!-- vale off -->
 ### .derivative()
+<!-- vale on -->
 
 Plots the change in values over time.
 
@@ -356,7 +382,9 @@ The following expression plots the change in order count over time:
 ```
 {% include copy.html %}
 
+<!-- vale off -->
 ### .trend()
+<!-- vale on -->
 
 Draws a trend line using a specified regression algorithm. The following table lists the `.trend()` function parameters.
 
@@ -376,7 +404,9 @@ The following expression overlays a linear trend line on the order count:
 ```
 {% include copy.html %}
 
+<!-- vale off -->
 ### .cusum()
+<!-- vale on -->
 
 Returns the cumulative sum of a series, starting at a base value. The following table lists the `.cusum()` function parameters.
 
@@ -384,7 +414,9 @@ Returns the cumulative sum of a series, starting at a base value. The following 
 | :--- | :--- | :--- |
 | `base` | Number | The number to start at. This value is added to the beginning of the series. |
 
+<!-- vale off -->
 ### .fit()
+<!-- vale on -->
 
 Fills null values using a defined fit function. The following table lists the `.fit()` function parameters.
 
@@ -392,7 +424,9 @@ Fills null values using a defined fit function. The following table lists the `.
 | :--- | :--- | :--- |
 | `mode` | String | The algorithm to use. One of `average`, `carry`, `nearest`, `none`, or `scale`. |
 
+<!-- vale off -->
 ### .trim()
+<!-- vale on -->
 
 Sets N buckets at the start or end of a series to null. Use this function to address the partial bucket issue. The following table lists the `.trim()` function parameters.
 
@@ -432,7 +466,9 @@ The following expression calculates revenue per order by dividing the total reve
 
 Use the conditional function to set values based on comparison logic.
 
+<!-- vale off -->
 ### .condition()
+<!-- vale on -->
 
 Compares each point to a number or the same point in another series using an operator, then sets its value to the result if the condition proves true. If `else` is omitted, points that do not meet the condition retain their original value. Aliases: `.if()`. The following table lists the `.condition()` function parameters.
 
@@ -456,7 +492,9 @@ The following expression caps values at 150 and sets lower values to 0:
 
 Use static values to draw reference lines, such as targets or thresholds, on your chart.
 
+<!-- vale off -->
 ### .static()
+<!-- vale on -->
 
 Draws a single value as a horizontal line across the chart. Aliases: `.value()`. The following table lists the `.static()` function parameters.
 
@@ -485,7 +523,9 @@ The following image shows the order count with a static target line at 150 order
 
 Use the aggregation function to reduce a series to a single value and display it as a horizontal line.
 
+<!-- vale off -->
 ### .aggregate()
+<!-- vale on -->
 
 Creates a static line based on the result of processing all points in the series. The following table lists the `.aggregate()` function parameters.
 
@@ -507,7 +547,9 @@ The following expression displays the order count with its average as a horizont
 
 Use the forecasting function to predict future values based on historical patterns in your series.
 
+<!-- vale off -->
 ### .holt()
+<!-- vale on -->
 
 Samples the beginning of a series and uses it to forecast future values using Holt-Winters triple exponential smoothing. Use this function for anomaly detection. Null values are filled with forecasted values. The following table lists the `.holt()` function parameters.
 

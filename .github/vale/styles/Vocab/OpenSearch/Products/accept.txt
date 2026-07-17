@@ -5,26 +5,37 @@ Alertmanager
 Amazon
 Amazon Bedrock
 Amazon Bedrock Guardrails
+Amazon Kendra
 Amazon Kinesis
 Amazon OpenSearch Serverless
 Amazon OpenSearch Service
+Amazon Personalize
 Amazon SageMaker
+Amazon Security Lake
 Amazon Simple Email Service
 Ansible
 Anthropic Claude
 arXiv
 Atlassian
+Apache
+Apache Access
 Apache Avro
 Apache HttpClient 5 Transport
+Apache Hive
 Apache Kafka
+Apache Spark
 arXiv
 Aryn
 Auditbeat
 Avro
 AWS Cloud
+AWS Cloud Map
+AWS Lambda
 AWS Secrets Manager
 AWS Signature Version 4
+Azure Blob Storage
 Bing
+Brotli
 Capture and Replay
 Chebyshev
 Claude Code
@@ -35,12 +46,18 @@ Cohere Command
 Cohere Embed
 Cohere Embed English
 Cohere Embed Multilingual
-Cursor
+Confluent Kafka
+cURL
+Dagre
+Dask
+Dashboards application
+DocumentDB
+DynamoDB
+Dashboards Assistant
 Dashboards Query Language
 Data Prepper
 Debian
 Dev Tools
-Discover
 Discover application
 Docker
 Docker Compose
@@ -57,27 +74,33 @@ Fluentd
 GeoJSON
 GitHub
 Google Normalized Distance
+Google Workspace
 Gradle
 Grafana
 Hanja
 Helm
+Hjson
 Hive Metastore
+Metastore
 Hugging Face
 IdP
 Inferentia
+Ion
 IP2Geo
 IPv4
 IPv6
 Iris
 Jaeger
 Jaeger HotROD
-Jira
+Java
 JavaScript
-jVector
 Jelinek
+Jira
 Joda
 JSON
 JSON Web Token
+jVector
+Kafka
 Karpenter
 Kerberos
 Keycloak
@@ -96,8 +119,11 @@ Log4j
 Logstash
 Lucene
 macOS
+Markdown
 Metadata-Migration-Tool
+MPNet
 Metricbeat
+Microsoft
 Microsoft Power BI
 Migration Assistant
 Migration Console
@@ -105,6 +131,7 @@ Minikube
 Nagle
 Nagios
 NVMe
+OAuth2
 Okta
 Ollama
 Oniguruma
@@ -119,6 +146,7 @@ OpenSearch Dashboards
 OpenSearch Flow
 OpenSearch Kubernetes Operator
 OpenSearch MCP Server
+OpenSearch Observability Stack
 OpenSearch Playground
 OpenSearch Project
 OpenSearch Service
@@ -128,12 +156,16 @@ OpenTelemetry Collector
 OTel
 Packetbeat
 Painless
+Parquet
 Peer Forwarder
 Performance Analyzer
 Piped Processing Language
+Point in Time
 Powershell
+Prometheus
 Python
 PyTorch
+Quandl
 Querqy
 Query Workbench
 RankLib
@@ -144,15 +176,21 @@ Reporting CLI
 RMSProp
 RPM Package Manager
 Ruby
+Scheduled Query Acceleration
+Security Analytics
 Search Relevance Workbench
 Simple Schema for Observability
 Solr
 SolrCloud
 Sorani
+Spark
+Spark Structured Streaming
+SQLi
 Stempel
 Strands Agents
 Strimzi
 SVMRank
+Sycamore
 Tableau
 Textract
 Tika
@@ -163,9 +201,11 @@ TorchScript
 Traffic Capture Proxy
 Traffic Replayer
 Tribuo
+Vega
 VisBuilder
-Visualize
 Visualize application
+Vizlib
+VPC Flow
 Wikimedia
 Wikitravel
 Wiktionary

@@ -15,8 +15,8 @@ OpenSearch Dashboards supports automatic compression of JavaScript and CSS bundl
 
 OpenSearch Dashboards generates pre-compressed versions of all plugin bundles using the following compression algorithms:
 
-- **Brotli (br)**: Modern compression algorithm providing the best compression ratio
-- **Gzip (gz)**: Widely supported compression algorithm with good compatibility
+- **Brotli (`br`)**: Modern compression algorithm providing the best compression ratio
+- **gzip (`gz`)**: Widely supported compression algorithm with good compatibility
 
 When a client requests a bundle file, OpenSearch Dashboards automatically serves the compressed version if the client sends the appropriate `Accept-Encoding` header. If no compression encoding is specified, OpenSearch Dashboards serves the uncompressed file.
 
@@ -26,8 +26,8 @@ The following table shows typical compression ratios for large plugin bundles, u
 
 | Compression method | File size | Compression ratio |
 |:---|:---|:---|
-| Brotli (br) | ~1.8 MB | ~86% reduction |
-| Gzip (gz) | ~2.5 MB | ~80% reduction |
+| Brotli (`br`) | ~1.8 MB | ~86% reduction |
+| gzip (`gz`) | ~2.5 MB | ~80% reduction |
 | Uncompressed | ~12.6 MB | Baseline |
 
 The actual compression ratio varies depending on the plugin and its dependencies.
@@ -96,7 +96,7 @@ Keep-Alive: timeout=120
 Transfer-Encoding: chunked
 ```
 
-### Example: Requesting Gzip compression
+### Example: Requesting zip compression
 
 ```bash
 curl -H 'Accept-Encoding: gzip' \
@@ -129,6 +129,8 @@ curl https://your-dashboards-host/bundles/plugin/observabilityDashboards/observa
 {% include copy.html %}
 
 ### Proxy configuration examples
+
+The following examples show how to configure different proxy servers to request compressed content.
 
 #### NGINX
 
@@ -177,4 +179,4 @@ All modern browsers automatically include the `Accept-Encoding` header in their 
 Browser support for compression methods:
 
 - **Brotli**: Supported in all modern browsers (Chrome, Firefox, Safari, Edge)
-- **Gzip**: Universally supported by all browsers
+- **gzip**: Universally supported by all browsers

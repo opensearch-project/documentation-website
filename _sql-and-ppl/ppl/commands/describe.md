@@ -14,11 +14,7 @@ nav_order: 12
 
 The `describe` command queries index metadata. The `describe` command can only be used as the first command in the PPL query.
 
-<!-- vale off -->
-
 ## Syntax
-
-<!-- vale on -->
 
 The `describe` command has the following syntax. The argument to the command is a dot-separated path to the table consisting of an optional data source, optional schema, and required table name:
 
@@ -26,11 +22,7 @@ The `describe` command has the following syntax. The argument to the command is 
 describe [<data-source>.][<schema>.]<table-name>
 ```
 
-<!-- vale off -->
-
 ## Parameters
-
-<!-- vale on -->
 
 The `describe` command supports the following parameters.
 
@@ -40,11 +32,7 @@ The `describe` command supports the following parameters.
 | `<data-source>` | Optional | The data source to use. Default is the OpenSearch `datasource`. |
 | `<schema>` | Optional | The schema to use. Default is the default schema. |
 
-<!-- vale off -->
-
 ## Example 1: Fetching all metadata  
-
-<!-- vale on -->
 
 This example describes the `accounts` index:
   
@@ -74,11 +62,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 2: Fetching metadata with a condition and filter  
-
-<!-- vale on -->
 
 This example retrieves columns of the type `bigint` from the `accounts` index:
   

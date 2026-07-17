@@ -36,7 +36,7 @@ The following table lists the available path parameters. All path parameters are
 
 Parameter | Type | Description
 :--- |:-------| :---
-nodeId | String | A comma-separated list of nodeIds used to filter results. Supports [node filters]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/index/#node-filters). Defaults to `_all`.
+`node_id` | String | A comma-separated list of node IDs used to filter results. Supports [node filters]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/index/#node-filters). Defaults to `_all`.
 `metrics` | String | A comma-separated list of metric groups that will be included in the response. For example, `jvm,thread_pool`. Defaults to all metrics.
 
 The following table lists all available metric groups.
@@ -181,7 +181,7 @@ name | The node's name.
 `total_indexing_buffer` | The maximum heap size in bytes used to hold newly indexed documents. Once this heap size is exceeded, the documents are written to disk.
 `roles` | The list of the node's roles.
 `attributes` | The node's attributes.
-`os` | Information about the OS, including name, version, architecture, refresh interval, and the number of available and allocated processors.
+`os` | Information about the operating system, including name, version, architecture, refresh interval, and the number of available and allocated processors.
 `process` | Information about the currently running process, including PID, refresh interval, and `mlockall`, which specifies whether the process address space has been successfully locked in memory. 
 `jvm` | Information about the JVM, including PID, version, memory information, garbage collector information, and arguments.
 `thread_pool` | Information about the thread pool.

@@ -15,19 +15,11 @@ nav_order: 43
 The `sort` command sorts the search results by the specified fields.
 
 
-<!-- vale off -->
-
 ## Syntax
-
-<!-- vale on -->
 
 The `sort` command supports two syntax notations. You must use one notation consistently within a single `sort` command.
 
-<!-- vale off -->
-
 ### Prefix notation
-
-<!-- vale on -->
 
 The `sort` command has the following syntax in prefix notation:
 
@@ -35,11 +27,7 @@ The `sort` command has the following syntax in prefix notation:
 sort [<count>] [+|-] <field> [, [+|-] <field>]...
 ```
 
-<!-- vale off -->
-
 ### Suffix notation
-
-<!-- vale on -->
 
 The `sort` command has the following syntax in suffix notation:
 
@@ -47,11 +35,7 @@ The `sort` command has the following syntax in suffix notation:
 sort [<count>] <field> [asc|desc|a|d] [, <field> [asc|desc|a|d]]...
 ```
 
-<!-- vale off -->
-
 ## Parameters
-
-<!-- vale on -->
 
 The `sort` command supports the following parameters.
 
@@ -62,11 +46,7 @@ The `sort` command supports the following parameters.
 | `[+|-]` | Optional | **Prefix notation only.** The plus sign (`+`) specifies ascending order, and the minus sign (`-`) specifies descending order. Default is ascending order. |
 | `[asc|desc|a|d]` | Optional | **Suffix notation only.** Specifies the sort order: `asc`/`a` for ascending, `desc`/`d` for descending. Default is ascending order. |
 
-<!-- vale off -->
-
 ## Example 1: Sorting by one field
-
-<!-- vale on -->
 
 The following query sorts logs by severity number in ascending order, showing the least severe entries first:
 
@@ -93,11 +73,7 @@ The query returns the following results:
 <!-- vale on -->
 
 
-<!-- vale off -->
-
 ## Example 2: Sorting by one field in descending order
-
-<!-- vale on -->
 
 The following query sorts logs by severity in descending order to surface the most critical issues first. You can use either prefix notation (`- severityNumber`) or suffix notation (`severityNumber desc`):
 
@@ -135,11 +111,7 @@ The query returns the following results:
 <!-- vale on -->
 
 
-<!-- vale off -->
-
 ## Example 3: Sorting by multiple fields
-
-<!-- vale on -->
 
 The following query sorts errors by severity descending and service name ascending, so the most critical issues appear first and services are alphabetical within each severity level. You can use either prefix notation (`+`/`-`) or suffix notation (`asc`/`desc`):
   
@@ -194,11 +166,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 4: Sorting fields with null values
-
-<!-- vale on -->
 
 The default ascending order lists null values first. The following query sorts by the `instrumentationScope.name` field, showing that logs without instrumentation metadata appear before instrumented ones:
   
@@ -227,11 +195,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 6: Specifying the number of sorted documents to return  
-
-<!-- vale on -->
 
 The following query sorts all logs by severity and returns only the 3 least severe entries:
   
@@ -256,11 +220,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 7: Sorting by specifying field type
-
-<!-- vale on -->
 
 The following query uses `str()` to sort severity numbers lexicographically instead of numerically. Notice that `5` and `9` appear after `21` because string sorting compares character by character:
 

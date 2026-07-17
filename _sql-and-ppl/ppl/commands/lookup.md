@@ -14,11 +14,7 @@ nav_order: 27
 
 The `lookup` command enriches search data by adding or replacing values from a lookup index (dimension table). It allows you to extend fields in your index with values from a dimension table, appending or replacing values when the lookup condition matches. Compared with the `join` command, `lookup` is better suited for enriching source data with a static dataset.
 
-<!-- vale off -->
-
 ## Syntax
-
-<!-- vale on -->
 
 The `lookup` command has the following syntax:
 
@@ -40,11 +36,7 @@ source = table1 | lookup table2 id as cid, name output dept as department
 source = table1 | lookup table2 id as cid, name output dept as department, city as location
 ```
 
-<!-- vale off -->
-
 ## Parameters
-
-<!-- vale on -->
 
 The `lookup` command supports the following parameters.
 
@@ -57,11 +49,7 @@ The `lookup` command supports the following parameters.
 | `<outputField>` | Optional | The name of the field in the results (output) in which matched values are placed. Specify multiple fields as a comma-separated list. If the `outputField` specifies an existing field in the source query, its values are replaced or appended with matched values from the `inputField`. If the field specified in the `outputField` is not an existing field, a new field is added to the results when using `replace`, or the operation fails when using `append`. |
 | `(replace \| append \| output)` | Optional | Specifies how matched values are applied to the output. `replace` overwrites existing values with matched values from the lookup index. `append` fills only missing values in the results with matched values from the lookup index. `output` is a synonym for `replace` (provided for SPL compatibility). Default is `replace`. |
   
-<!-- vale off -->
-
 ## Example 1: Replacing existing values  
-
-<!-- vale on -->
 
 The following query uses the `lookup` command with the `replace` strategy to overwrite existing values:  
   
@@ -88,11 +76,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 2: Appending missing values  
-
-<!-- vale on -->
 
 The following query uses the `lookup` command with the `append` strategy to append missing values only:
   
@@ -104,11 +88,7 @@ source = worker
 {% include copy.html %}
   
 
-<!-- vale off -->
-
 ## Example 3: Specifying no input field  
-
-<!-- vale on -->
 
 The following query uses the `lookup` command without specifying an `inputField`, which adds all fields from the lookup index to the results:
   
@@ -134,11 +114,7 @@ The query returns the following results:
 
 <!-- vale on -->
   
-<!-- vale off -->
-
 ## Example 4: Adding matched values to a new field
-
-<!-- vale on -->
 
 The following query places matched values into a new field specified by `outputField`:
   
@@ -164,11 +140,7 @@ The query returns the following results:
 
 <!-- vale on -->
 
-<!-- vale off -->
-
 ## Example 5: Using OUTPUT keyword
-
-<!-- vale on -->
 
 The `OUTPUT` keyword is a synonym for `REPLACE`. The following query demonstrates using `OUTPUT` to overwrite existing values:
 

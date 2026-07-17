@@ -23,11 +23,7 @@ The `rename` command handles non-existent fields as follows:
 The `rename` command is not rewritten to [query domain-specific language (DSL)]({{site.url}}{{site.baseurl}}/query-dsl/). It is only executed on the coordinating node.
 {: .note}
 
-<!-- vale off -->
-
 ## Syntax
-
-<!-- vale on -->
 
 The `rename` command has the following syntax:
 
@@ -35,11 +31,7 @@ The `rename` command has the following syntax:
 rename <source-field> AS <target-field>[, <source-field> AS <target-field>]...
 ```
 
-<!-- vale off -->
-
 ## Parameters
-
-<!-- vale on -->
 
 The `rename` command supports the following parameters.
 
@@ -48,11 +40,7 @@ The `rename` command supports the following parameters.
 | `<source-field>` | Required | The name of the field you want to rename. Supports wildcard patterns using `*`. |
 | `<target-field>` | Required | The name you want to rename to. Must contain the same number of wildcards as the source. |
 
-<!-- vale off -->
-
 ## Example 1: Renaming a field  
-
-<!-- vale on -->
 
 The following query renames one field:
   
@@ -79,11 +67,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 2: Renaming multiple fields  
-
-<!-- vale on -->
 
 The following query renames multiple fields:
   
@@ -110,11 +94,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 3: Renaming fields using wildcards  
-
-<!-- vale on -->
 
 The following query renames multiple fields using a wildcard pattern. Both `severityText` and `severityNumber` match `severity*` and are renamed to `sev*`:
   
@@ -141,11 +121,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 4: Renaming fields using multiple wildcard patterns  
-
-<!-- vale on -->
 
 The following query renames multiple fields using multiple wildcard patterns:
   
@@ -172,11 +148,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 5: Renaming an existing field to another existing field  
-
-<!-- vale on -->
 
 The following query renames an existing field to another existing field. The target field is removed and the source field is renamed to the target:
   
@@ -203,11 +175,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Limitations
-
-<!-- vale on -->
 
 The `rename` command has the following limitations:
 

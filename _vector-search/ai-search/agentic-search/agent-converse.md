@@ -51,6 +51,8 @@ Once the workflow completes, the `state` changes to `COMPLETED`. The workflow cr
 
 ## Manual setup
 
+Use the following steps to set up an agentic converse flow manually.
+
 ## Step 1: Create a product index
 
 Create a sample index with product data that includes various attributes like name, price, color, and category:

@@ -8,8 +8,6 @@ nav_order: 50
 
 # Bounded blocking
 
-## Overview
-
 `Bounded blocking` is the default buffer and is memory based. The following table describes the `Bounded blocking` parameters.
 
 | Option | Required | Type | Description |

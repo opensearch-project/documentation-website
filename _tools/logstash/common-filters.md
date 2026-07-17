@@ -11,7 +11,9 @@ redirect_from:
 
 This page contains a list of common filter plugins.
 
+<!-- vale off -->
 ## mutate
+<!-- vale on -->
 
 You can use the `mutate` filter to change the data type of a field. For example, you can use the `mutate` filter if you're sending events to OpenSearch and you need to change the data type of a field to match any existing mappings.
 
@@ -100,7 +102,9 @@ output {
 }
 ```
 
+<!-- vale off -->
 ## grok
+<!-- vale on -->
 
 With the `grok` filter, you can parse unstructured data and structure it into fields. The `grok` filter uses text patterns to match text in your logs. You can think of text patterns as variables containing regular expressions.
 

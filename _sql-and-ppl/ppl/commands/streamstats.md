@@ -32,11 +32,7 @@ The `stats`, `eventstats`, and `streamstats` commands can all generate aggregati
 | Use cases | When only aggregated results are needed (for example, counts, averages, sums) | When aggregated statistics are needed alongside original event data | When a running total or cumulative statistic is needed across event streams |  
   
 
-<!-- vale off -->
-
 ## Syntax
-
-<!-- vale on -->
 
 The `streamstats` command has the following syntax:
 
@@ -62,11 +58,7 @@ source = table | streamstats current=false reset_after=a>31 avg(b) by c
 ```
 {% include copy.html %}
 
-<!-- vale off -->
-
 ## Parameters
-
-<!-- vale on -->
 
 The `streamstats` command supports the following parameters.
 
@@ -83,11 +75,7 @@ The `streamstats` command supports the following parameters.
 | `<span-expression>` | Optional | Splits a field into buckets by intervals (maximum of one). Syntax: `span(field_expr, interval_expr)`. By default, the interval uses the field's default unit. For date/time fields, aggregation results ignore null values. Examples: `span(age, 10)` creates 10-year age buckets, and `span(timestamp, 1h)` creates hourly buckets. Valid time units are millisecond (`ms`), second (`s`), minute (`m`), hour (`h`), day (`d`), week (`w`), month (`M`), quarter (`q`), year (`y`). |
 
 
-<!-- vale off -->
-
 ## Aggregation functions  
-
-<!-- vale on -->
 
 The `streamstats` command supports the following aggregation functions:
 
@@ -106,11 +94,7 @@ The `streamstats` command supports the following aggregation functions:
   
 For detailed documentation of each function, see [Aggregation Functions]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/functions/aggregations/).
 
-<!-- vale off -->
-
 ## Example 1: Calculating the running count of errors by service  
-
-<!-- vale on -->
 
 The following query calculates a running count of error logs, grouped by service. This is useful for tracking how errors accumulate across services during an incident:
   
@@ -145,11 +129,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 2: Calculating running maximum severity over a sliding window
-
-<!-- vale on -->
 
 The following query calculates the running maximum severity level over the previous 2 log entries, excluding the current event. This is useful for alerting when severity escalates beyond recent patterns:
 
@@ -179,11 +159,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 3: Comparing global with group-specific windows  
-
-<!-- vale on -->
 
 The `global` parameter takes the following values:
 
@@ -260,11 +236,7 @@ source=state_country
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 4: Resetting statistics conditionally  
-
-<!-- vale on -->
 
 The following query calculates the running average of `age` across accounts by `country`, with resets applied:
   
@@ -293,11 +265,7 @@ The query returns the following results:
   
 
 
-<!-- vale off -->
-
 ## Example 5: Null bucket behavior
-
-<!-- vale on -->
 
 When `bucket_nullable=false`, null values are excluded from group-by aggregations:
 

@@ -892,7 +892,7 @@ Parameter | Required | Type | Description
 `name` | Yes | String | The operation name. Other operations refer to this name to look up the resulting asynchronous search ID.
 `body` | Yes | Object | The search request body.
 `index` | No | String | The target index.
-`request-params` | No | Object | Additional request parameters forwarded to the Async Search API.
+`request-params` | No | Object | Additional request parameters forwarded to the Asynchronous Search API.
 
 <!-- vale off -->
 ## get-async-search
@@ -905,7 +905,7 @@ The `get-async-search` operation retrieves results from one or more previously s
 Parameter | Required | Type | Description
 :--- | :--- | :--- | :---
 `retrieve-results-for` | Yes | String or List | The name of the `submit-async-search` operation (or a list of names) whose results should be retrieved.
-`request-params` | No | Object | Additional request parameters forwarded to the Async Search Get API.
+`request-params` | No | Object | Additional request parameters forwarded to the Asynchronous Search Get API.
 
 <!-- vale off -->
 ## delete-async-search
@@ -1212,7 +1212,7 @@ Parameter | Required | Type | Description
 ## produce-stream-message
 <!-- vale on -->
 
-The `produce-stream-message` operation publishes messages to a configured `message-producer` (for example, a Kafka producer) for streaming ingestion benchmarks. The `body` is split on newlines, and each non-metadata line is sent as an individual message. Producers are configured at the workload or cluster level — the runner itself takes only the producer reference and the message payload.
+The `produce-stream-message` operation publishes messages to a configured `message-producer` (for example, a Kafka producer) for streaming ingestion benchmarks. The `body` is split on newlines, and each non-metadata line is sent as an individual message. Producers are configured at the workload or cluster level---the runner itself takes only the producer reference and the message payload.
 
 ### Configuration options
 

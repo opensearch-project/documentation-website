@@ -17,11 +17,7 @@ The `addtotals` command computes the sum of numeric fields and can create both c
 The command only processes numeric fields (integers, floats, doubles). Non-numeric fields are ignored regardless of whether they are explicitly specified in the field list.
 
 
-<!-- vale off -->
-
 ## Syntax
-
-<!-- vale on -->
 
 The `addtotals` command has the following syntax:
 
@@ -29,11 +25,7 @@ The `addtotals` command has the following syntax:
 addtotals [field-list] [label=<string>] [labelfield=<field>] [row=<boolean>] [col=<boolean>] [fieldname=<field>]
 ```
 
-<!-- vale off -->
-
 ## Parameters
-
-<!-- vale on -->
 
 The `addtotals` command supports the following parameters.
 
@@ -46,11 +38,7 @@ The `addtotals` command supports the following parameters.
 | `label` | Optional | The text that appears in the summary row (last row) to identify the computed totals. When used with `labelfield`, this text is placed in the specified field in the summary row. Default is `Total`. Applicable when `col=true`. This parameter has no effect when the `labelfield` and `fieldname` parameters specify the same field name. |
 | `fieldname` | Optional | The field used to store row totals. Applicable when `row=true`. |
 
-<!-- vale off -->
-
 ## Example 1: Adding column totals
-
-<!-- vale on -->
 
 The following query counts errors and warnings per service, then adds a column total row showing the grand totals:
 
@@ -81,11 +69,7 @@ The query returns the following results:
 
 <!-- vale on -->
 
-<!-- vale off -->
-
 ## Example 2: Adding row totals
-
-<!-- vale on -->
 
 The following query counts errors and warnings separately per service, then adds a row total showing the combined count of actionable issues per service:
 
@@ -115,11 +99,7 @@ The query returns the following results:
 
 <!-- vale on -->
 
-<!-- vale off -->
-
 ## Example 3: Using all options
-
-<!-- vale on -->
 
 The following query uses the `addtotals` command with all options set, combining both row totals and column totals in a single report:
 

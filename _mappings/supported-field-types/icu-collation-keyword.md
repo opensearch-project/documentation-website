@@ -215,7 +215,7 @@ The `strength` parameter determines how strictly the collation compares strings:
 - `primary`: Compares base characters only, ignoring accents and case. For example, `a`, `A`, `á`, and `Á` are considered equal.
 - `secondary`: Compares base characters and accents, but ignores case. For example, `a` and `á` are different, but `a` and `A` are equal.
 - `tertiary` (default): Compares base characters, accents, and case. For example, `a`, `A`, and `á` are all different.
-- `quaternary`: Adds punctuation and whitespace comparison when `alternate` is set to `shifted`.
+- `quaternary`: Adds punctuation and white space comparison when `alternate` is set to `shifted`.
 - `identical`: Performs character-by-character binary comparison.
 
 ## Performance considerations

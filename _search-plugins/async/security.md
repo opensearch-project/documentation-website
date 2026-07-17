@@ -23,7 +23,7 @@ The Security plugin has two built-in roles that cover most asynchronous search u
 
 If these roles don’t meet your needs, mix and match individual asynchronous search permissions to suit your use case. Each action corresponds to an operation in the REST API. For example, the `cluster:admin/opensearch/asynchronous_search/delete` permission lets you delete a previously submitted asynchronous search.
 
-### A note on Asynchronous Search and fine-grained access control
+### A note on asynchronous search and fine-grained access control
 
 By design, the Asynchronous Search plugin extracts data from a target index and stores the data in a separate index to make search results available to users with the proper permissions. Although a user with either the `asynchronous_search_read_access` or `cluster:admin/opensearch/asynchronous_search/get` permission cannot submit the asynchronous search request itself, that user can get and view the search results using the associated search ID. [Document-level security]({{site.url}}{{site.baseurl}}/security/access-control/document-level-security/) (DLS) and [field-level security]({{site.url}}{{site.baseurl}}/security/access-control/field-level-security/) (FLS) access controls are designed to protect the data in the target index. But once the data is stored outside this index, users with these access permissions are able to use search IDs to get and view asynchronous search results, which may include data that is otherwise concealed by DLS and FLS access control in the target index.
 

@@ -357,7 +357,7 @@ The query returns the following results:
 
 **Usage**: `ATAN(x)`, `ATAN(y, x)`
 
-Calculates the arctangent of `x`. `ATAN(y, x)` calculates the arctangent of the quotient y / x, using the signs of both arguments to determine the quadrant of the result.
+Calculates the arctangent of `x`. `ATAN(y, x)` calculates the arctangent of the quotient `y / x`, using the signs of both arguments to determine the quadrant of the result.
 
 **Parameters**:
 
@@ -389,7 +389,7 @@ The query returns the following results:
 
 **Usage**: `ATAN2(y, x)`
 
-Calculates the arctangent of the quotient y / x, using the signs of both arguments to determine the quadrant of the result.
+Calculates the arctangent of the quotient `y / x`, using the signs of both arguments to determine the quadrant of the result.
 
 **Parameters**:
 

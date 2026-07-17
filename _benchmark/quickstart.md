@@ -261,9 +261,9 @@ For more details about how the summary report is generated, see [Summary report]
 
 Now that you're familiar with running OpenSearch Benchmark on a cluster, you can run OpenSearch Benchmark on your own cluster, using the same `run` command but replacing the following settings:
 
-  * Replace `https://localhost:9200` with your target cluster endpoint.  This could be a URI like `https://search.mydomain.com` or a `HOST:PORT` specification.
+  * Replace `https://localhost:9200` with your target cluster endpoint. This can be a URI like `https://search.mydomain.com` or a `HOST:PORT` specification.
   * If the cluster is configured with basic authentication, replace the username and password in the command line with the appropriate credentials.
-  * Remove the `verify_certs:false` directive if you are not specifying `localhost` as your target cluster.  This directive is needed only for clusters where SSL certificates are not set up.
+  * Remove the `verify_certs:false` directive if you are not specifying `localhost` as your target cluster. This directive is needed only for clusters where SSL certificates are not set up.
   * If you are using a `HOST:PORT`specification and plan to use SSL/TLS, either specify `https://`, or add the `use_ssl:true` directive to the `--client-options` string option.
   * Remove the `--test-mode` flag to run the full workload, rather than an abbreviated test.
 
