@@ -29,7 +29,7 @@ Field | Data type |  Description
 :---  | :--- | :---
 `name` | String | The name of the search configuration.
 `description` | String | Description of the search configuration.
-`query` | Object | Defines the query in OpenSearch query DSL. Use the `%SearchText%` placeholder or [Mustache](https://mustache.github.io/) template variables (such as `{{query_string}}`) to substitute query set values at runtime. Needs to be escaped. For more information, see [Using Mustache templates](#using-mustache-templates).
+`query` | Object | Defines the query in OpenSearch query DSL. Use the `%SearchText%` placeholder or [Mustache](https://mustache.github.io/) template variables (such as `{{queryText}}`) to substitute query set values at runtime. Needs to be escaped. For more information, see [Using Mustache templates](#using-mustache-templates).
 `index` | String | The target index queried by this search configuration.
 `searchPipeline` | String | Specifies an existing search pipeline. Optional.
 
@@ -51,7 +51,7 @@ Instead of the `%SearchText%` placeholder, a query can use [Mustache](https://mu
 
 The following variables are available when a template is rendered:
 
-* `{{query_string}}`: The `queryText` of the current query set entry.
+* `{{queryText}}`: The `queryText` of the current query set entry.
 * Any custom field defined on the query set entry, referenced by its field name (for example, `{{category}}`). For more information, see [Query sets]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/query-sets/).
 
 Substituted values are automatically JSON-escaped, so query text containing quotation marks or other special characters does not break the query.
@@ -67,7 +67,7 @@ The following request creates a search configuration that matches the user query
 PUT _plugins/_search_relevance/search_configurations
 {
   "name": "mustache_filter",
-  "query": "{\"query\":{\"bool\":{\"must\":[{\"match\":{\"title\":\"{{query_string}}\"}}],\"filter\":[{\"term\":{\"category\":\"{{category}}\"}}]}}}",
+  "query": "{\"query\":{\"bool\":{\"must\":[{\"match\":{\"title\":\"{{queryText}}\"}}],\"filter\":[{\"term\":{\"category\":\"{{category}}\"}}]}}}",
   "description": "Title match filtered by a category custom field",
   "index": "ecommerce"
 }
