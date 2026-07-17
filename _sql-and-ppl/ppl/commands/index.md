@@ -12,6 +12,6 @@ redirect_from:
   - /sql-and-ppl/ppl/functions/
 ---
 
-# Commands  
+# PPL commands
 
 PPL supports most common [SQL functions]({{site.url}}{{site.baseurl}}/search-plugins/sql/functions/), including [relevance search]({{site.url}}{{site.baseurl}}/search-plugins/sql/full-text/), but also introduces several more functions, called _commands_, which are available in PPL only.  

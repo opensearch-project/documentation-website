@@ -1,12 +1,12 @@
 ---
 layout: default
-title: rds
+title: RDS
 parent: Sources
 grand_parent: Pipelines
 nav_order: 95
 ---
 
-# rds
+# RDS source
 
 The `rds` source enables change data capture (CDC) on [Amazon Relational Database Service (Amazon RDS)](https://aws.amazon.com/rds/) and [Amazon Aurora](https://aws.amazon.com/aurora/) databases. It can receive database events, such as `INSERT`, `UPDATE`, or `DELETE`, using database replication logs and supports initial load using RDS exports to Amazon Simple Storage Service (Amazon S3).
 

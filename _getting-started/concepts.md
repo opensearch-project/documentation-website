@@ -4,7 +4,7 @@ title: Concepts
 nav_order: 70
 ---
 
-# Concepts  
+# OpenSearch concepts
 
 This page defines key terms and concepts related to OpenSearch.
 

@@ -4,7 +4,7 @@ title: Functions
 nav_order: 10
 ---
 
-# Functions
+# SQL and PPL common functions
 
 You must enable fielddata in the document mapping for most string functions to work properly.
 

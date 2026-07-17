@@ -34,7 +34,7 @@ tutorial_cards:
     link: "/tutorials/llm-as-a-judge-tutorial/"    
 ---
 
-# Tutorials
+# OpenSearch tutorials
 
 Follow step-by-step tutorials to learn how to use OpenSearch features.
 
