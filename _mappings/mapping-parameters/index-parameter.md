@@ -9,7 +9,7 @@ has_children: false
 has_toc: false
 ---
 
-# Index
+# Index mapping parameter
 
 The `index` mapping parameter controls whether a field is included in the inverted index. When set to `true`, the field is indexed and available for queries. When set to `false`, the field is stored in the document but not indexed, making it non-searchable when [`doc_values`]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/doc-values/) are not enabled. If you do not need to search a particular field, disabling indexing and `doc_values` for that field can reduce index size and improve indexing performance. For example, you can disable indexing on large text fields or metadata that is only used for display.
 
