@@ -36,7 +36,7 @@ OpenSearch supports the following static script compilation settings:
 
 ## Script context settings
 
-Script context settings provide fine-grained control over script caching and compilation behavior for specific script contexts (search, ingest, and field operations). These settings allow independent tuning of performance characteristics for different types of script usage.
+Script context settings provide fine-grained control over script caching and compilation behavior for specific script contexts (search, ingest, field, and template operations). These settings allow independent tuning of performance characteristics for different types of script usage.
 
 OpenSearch supports the following dynamic script context settings:
 
@@ -63,3 +63,11 @@ OpenSearch supports the following dynamic script context settings:
 - `script.context.field.cache_expire` (Dynamic, time unit): Sets the cache expiration time for compiled field scripts. Controls how long field computation scripts remain cached before expiration. Setting to `0ms` disables expiration. Default is `0ms` (no expiration).
 
 - `script.context.field.max_compilations_rate` (Dynamic, rate): Sets the maximum rate at which field scripts can be compiled. This prevents compilation bottlenecks during operations involving many computed fields. Format is `number/time_unit`. Default is `75/5m` (75 compilations per 5 minutes).
+
+**Template context settings**:
+
+- `script.context.template.cache_max_size` (Dynamic, integer): Sets the maximum number of compiled search templates to be cached. Mustache search templates are used with the `_search/template` API to store and execute parameterized queries. Workloads with many stored templates (for example, 200 or more) may need to increase this value beyond the default to avoid excessive recompilation and `circuit_breaking_exception` errors. Default is `100`.
+
+- `script.context.template.cache_expire` (Dynamic, time unit): Sets the amount of time for compiled search templates after which the cache expires. After this time period, cached templates are removed and must be recompiled on next use. Setting to `0ms` disables expiration (templates remain cached indefinitely). Default is `0ms` (no expiration).
+
+- `script.context.template.max_compilations_rate` (Dynamic, rate): Sets the maximum rate at which search templates can be compiled. When this rate is exceeded, OpenSearch returns a `circuit_breaking_exception` with a "Too many dynamic script compilations" message. Format is `number/time_unit`. Default is `75/5m` (75 compilations per 5 minutes).
