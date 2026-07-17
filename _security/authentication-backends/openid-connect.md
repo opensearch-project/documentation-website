@@ -68,6 +68,7 @@ Name | Description
 `required_audience` | The name of the audience that the JWT must specify. You can specify a single value (for example, `project1`) or multiple comma-separated values (for example, `project1,admin`). If you specify multiple values, the JWT must have at least one required audience. This parameter corresponds to the [`aud` claim of the JWT](https://datatracker.ietf.org/doc/html/rfc7519#section-4.1.3).
 `required_issuer` | The target issuer of the JWT stored in the JSON payload. This corresponds to the [`iss` claim of the JWT](https://datatracker.ietf.org/doc/html/rfc7519#section-4.1.1).
 `jwt_clock_skew_tolerance_seconds` | Specifies a window of time, in seconds, to compensate for any disparity between the JWT authentication server and OpenSearch node clock times, thereby preventing authentication failures due to the misalignment. The Security plugin sets 30 seconds as the default. Use this setting to apply a custom value.
+`cache_jwks_endpoint` | Whether to cache the response from the IdP's JWKS endpoint. Enabling caching reduces remote requests made to retrieve the public key set used for JWT validation. Default is `false`. For more information, see [Caching and performance](#caching-and-performance).
 
 
 ## OpenID Connect URL
@@ -111,6 +112,32 @@ For more information about IdP endpoints, see the following:
 - [Connect2ID](https://connect2id.com/products/server/docs/api/discovery)
 - [Salesforce](https://help.salesforce.com/articleView?id=remoteaccess_using_openid_discovery_endpoint.htm&type=5)
 - [IBM OpenID Connect](https://www.ibm.com/support/knowledgecenter/en/SSEQTP_8.5.5/com.ibm.websphere.wlp.doc/ae/rwlp_oidc_endpoint_urls.html)
+
+## Caching and performance
+
+By default, the Security plugin does **not** cache the JWKS endpoint response for OpenID Connect (OIDC) authentication. Without caching, the Security plugin retrieves the JWKS from the IdP whenever it needs to refresh the key set, which can increase network traffic and add unnecessary load to the IdP.
+
+You can enable caching by setting `cache_jwks_endpoint` to `true` in your OIDC authentication domain configuration:
+
+```yml
+http_authenticator:
+  type: openid
+  challenge: false
+  config:
+    subject_key: preferred_username
+    roles_key: roles
+    openid_connect_url: https://keycloak.example.com:8080/auth/realms/master/.well-known/openid-configuration
+    cache_jwks_endpoint: true
+```
+{% include copy.html %}
+
+When caching is enabled, the Security plugin caches the public keys retrieved from the JWKS endpoint and reuses them for subsequent JWT validations. The cached key set is refreshed in the following situations:
+
+- A JWT contains a `kid` (key ID) that is not found in the current cache.
+- A key rollover is triggered in the IdP.
+
+For JWT authentication configured with `jwks_uri`, `cache_jwks_endpoint` is enabled by default. For OpenID Connect authentication, you must explicitly set `cache_jwks_endpoint` to `true` to enable caching.
+{: .note }
 
 
 ## Time disparity compensation for JWT validation
