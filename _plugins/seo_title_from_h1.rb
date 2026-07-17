@@ -105,7 +105,6 @@ end
 Jekyll::Hooks.register [:pages, :documents], :post_render do |doc|
   next unless doc.output_ext == '.html'
   next unless doc.output
-  next if doc.data['description'] # respect explicit descriptions
 
   h1_text = SeoTitleFromH1.extract_h1_text(doc.output)
   next if h1_text.nil? || h1_text.empty?
@@ -118,9 +117,11 @@ Jekyll::Hooks.register [:pages, :documents], :post_render do |doc|
     doc.output = SeoTitleFromH1.replace_seo_tags(doc.output, title_fm, h1_text, full_seo_title, site_title)
   end
 
-  # Replace description with first prose paragraph after H1
-  new_desc = SeoTitleFromH1.extract_description(doc.output)
-  if new_desc
-    doc.output = SeoTitleFromH1.replace_description(doc.output, new_desc)
+  # Replace description with the first prose paragraph after the H1, but only
+  # when the page has no explicit `description` in its front matter. A front
+  # matter description is already used by jekyll-seo-tag, so leave it as is.
+  unless doc.data['description'] && !doc.data['description'].to_s.strip.empty?
+    new_desc = SeoTitleFromH1.extract_description(doc.output)
+    doc.output = SeoTitleFromH1.replace_description(doc.output, new_desc) if new_desc
   end
 end
