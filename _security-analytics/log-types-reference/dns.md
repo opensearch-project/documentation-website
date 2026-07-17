@@ -5,7 +5,7 @@ parent: Supported log types
 nav_order: 35
 ---
 
-# DNS
+# DNS log type
 
 The `dns` log type stores DNS activity.
 

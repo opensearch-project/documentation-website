@@ -5,6 +5,10 @@ nav_order: 5
 permalink: /breaking-changes/
 ---
 
+# Breaking changes
+
+The following sections list breaking changes introduced in OpenSearch versions.
+
 <!-- vale off -->
 ## 1.x
 <!-- vale on -->
