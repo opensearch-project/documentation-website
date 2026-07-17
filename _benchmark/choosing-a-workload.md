@@ -2,8 +2,8 @@
 layout: default
 title: Choosing a workload
 nav_order: 20
-grand_parent: User guide
-parent: Understanding workloads
+redirect_from:
+  - /benchmark/user-guide/understanding-workloads/choosing-a-workload/
 ---
 
 # Choosing a workload
@@ -18,7 +18,7 @@ Consider the following criteria when deciding which workload would work best for
 
 - The cluster's use case and the size of the cluster. Small clusters usually contain 1--10 nodes and are suitable for development environments. Medium clusters usually contain 11--50 nodes and are used for testing environments that more closely resemble a production cluster. 
 - The data types that your cluster uses compared to the data structure of the documents contained in the workload. Each workload contains an example document so that you can compare data types, or you can view the index mappings and data types in the `index.json` file.
-- The query types most commonly used inside your cluster. The `operations/default.json` file contains information about the query types and workload operations. For a list of common operations, see [Common operations]({{site.url}}{{site.baseurl}}/benchmark/user-guide/understanding-workloads/common-operations/).
+- The query types most commonly used inside your cluster. The `operations/default.json` file contains information about the query types and workload operations. For a list of common operations, see [Common operations]({{site.url}}{{site.baseurl}}/benchmark/common-operations/).
 
 ## General search use cases: `nyc_taxis`
 
