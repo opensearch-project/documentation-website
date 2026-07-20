@@ -373,7 +373,7 @@ POST /_plugins/_ml/agents/_register
 ```
 {% include copy-curl.html %}
 
-To use the same MCP pipeline with conversation memory, set `type` to `conversational_flow` and add a `memory` block:
+To use the same MCP pipeline with conversation memory, set `type` to `conversational_flow` and add a top-level `memory` block alongside `parameters` and `tools` in the Register Agent request body:
 
 ```json
 "memory": {
