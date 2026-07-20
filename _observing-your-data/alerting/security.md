@@ -67,28 +67,26 @@ Now when users view alerting resources in OpenSearch Dashboards (or make REST AP
 
 If `jdoe` creates a monitor, `jroe` can see and modify it, but `psantos` can't. If that monitor generates an alert, the situation is the same: `jroe` can see and acknowledge it, but `psantos` can't. If `psantos` creates a destination, `jdoe` and `jroe` can't see or modify it.
 
-### Specify how access is filtered by backend role
+### Configuring backend role access
 
-The `plugins.alerting.filter_by_backend_roles_access_strategy` setting controls how a user's backend roles
-are compared to the backend roles on the monitor to determine access.
+The `plugins.alerting.filter_by_backend_roles_access_strategy` setting controls how a user's backend roles are compared with the backend roles associated with a monitor to determine whether the user can access the monitor.
 
-The possible values for this setting are:
+This setting supports the following values:
 
-- `exact` - Users have access to alerting objects if they have exactly the same (with no additional) backend roles as the user who created the object
-- `intersect`, **default** - Users have access to alerting objects if they share at least one backend role with the user who created the object
-- `all` - Users have access to alerting objects if their backend roles contain all of the backend roles of the user who created the object
+- `intersect` (Default) -- Users have access to notifications objects if they share at least one backend role with the user who created the object.
+- `exact` -- Users have access to notifications objects if they have exactly the same (with no additional) backend roles as the user who created the object.
+- `all` -- Users have access to notifications objects if their backend roles contain all of the backend roles of the user who created the object.
 
-For example, given this scenario:
+The following example uses a monitor associated with the `analyst` and `human-resources` backend roles and four users with different backend roles:
 
-- A monitor was created by a user with backend roles `analyst` and `human-resources`
-- User `jdoe` has the backend role `analyst`
-- User `jroe` has the backend roles `analyst` and `supervisor`
-- User `psantos` has the backend roles `analyst` and `human-resources`
-- User `bwayne` has the backend roles `analyst`, `human-resources`, and `batman`
+- User `jdoe` has the backend role `analyst`.
+- User `jroe` has the backend roles `analyst` and `supervisor`.
+- User `psantos` has the backend roles `analyst` and `human-resources`.
+- User `bwayne` has the backend roles `analyst`, `human-resources`, and `batman`.
 
-Then user access to the monitor would be as follows for each of the possible setting values:
+The following table shows whether each user can access the monitor for each setting value.
 
-|  | `intersect` | `exact` | `all`
+| User | `intersect` | `exact` | `all`
 :-- | :-- | :-- | :--
 `jdoe` | Has access | No access | No access
 `jroe` | Has access | No access | No access

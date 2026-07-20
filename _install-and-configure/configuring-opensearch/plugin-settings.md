@@ -83,10 +83,10 @@ The Notifications plugin supports the following settings. All settings in this l
 
 - `opensearch.notifications.general.filter_by_backend_roles` (Boolean): Enables filtering by backend roles (role-based access control for the notification channels). Default is `false`.
 
-- `opensearch.notifications.general.filter_by_backend_roles_access_strategy` (String): Controls filtering by backend roles (role-based access control for the notification channels). Default is `intersect`. The possible values and their behaviors are:
-  - `exact` - Users have access to notifications objects if they have **exactly the same (with no additional)** backend roles as the user who created the object
-  - `intersect` - Users have access to notifications objects if they share **at least one** backend role with the user who created the object
-  - `all` - Users have access to notifications objects if their backend roles **contain all of the backend roles** of the user who created the object
+- `opensearch.notifications.general.filter_by_backend_roles_access_strategy` (String): Controls filtering by backend roles (role-based access control for the notification channels). Valid values are:
+  - `exact` -- Users have access to notifications objects if they have exactly the same (with no additional) backend roles as the user who created the object.
+  - `intersect` (Default) -- Users have access to notifications objects if they share at least one backend role with the user who created the object.
+  - `all` -- Users have access to notifications objects if their backend roles contain all of the backend roles of the user who created the object.
 
 ## Query Insights plugin settings
 
