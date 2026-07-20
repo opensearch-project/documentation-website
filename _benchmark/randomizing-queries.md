@@ -1,10 +1,10 @@
 ---
 layout: default
 title: Randomizing queries
-nav_order: 160
-parent: Optimizing benchmarks
-grand_parent: User guide
+nav_order: 55
 has_math: true
+redirect_from:
+  - /benchmark/user-guide/optimizing-benchmarks/randomizing-queries/
 ---
 
 # Randomizing queries

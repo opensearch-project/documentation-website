@@ -1,11 +1,10 @@
 ---
 layout: default
 title: Running a workload
-nav_order: 9
-grand_parent: User guide
-parent: Working with workloads
+nav_order: 5
 redirect_from:
   - /benchmark/user-guide/running-workloads/
+  - /benchmark/user-guide/working-with-workloads/running-workloads/
 ---
 
 # Running a workload
