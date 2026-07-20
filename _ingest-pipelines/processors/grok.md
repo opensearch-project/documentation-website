@@ -19,7 +19,7 @@ The `grok` processor uses a set of predefined patterns to match parts of the inp
 For a list of available predefined patterns, see [Grok patterns](https://github.com/opensearch-project/OpenSearch/blob/main/libs/grok/src/main/resources/patterns/grok-patterns).
 {: .tip}
 
-The `grok` processor is built on the [Oniguruma regular expression library](https://github.com/kkos/oniguruma/blob/master/doc/RE) and supports all the patterns from that library. You can use the [Grok Debugger](https://grokdebugger.com/) tool to test and debug your grok expressions.
+The `grok` processor is built on the [Oniguruma regular expression library](https://github.com/kkos/oniguruma/blob/master/doc/RE) and supports all the patterns from that library. You can use the built-in [Grok Debugger]({{site.url}}{{site.baseurl}}/dashboards/dev-tools/run-queries/#using-the-grok-debugger) in OpenSearch Dashboards Dev Tools to test and debug your grok expressions.
 
 Note that patterns are *not anchored*. For performance and reliability, include a start-of-line anchor (`^`) in your pattern.
 {: .note}
