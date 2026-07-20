@@ -23,7 +23,7 @@ OpenSearch supports the following search settings:
 
 - `search.default_allow_partial_results` (Dynamic, Boolean):  A cluster-level setting that allows returning partial search results if a request times out or a shard fails. If a search request contains an `allow_partial_search_results` parameter, the parameter takes precedence over this setting. Default is `true`. 
 
-- `search.node_level_query_fanout.enabled` (Dynamic, Boolean): Enables node-level query fanout. When enabled, the coordinating node groups shard-level `query_then_fetch` query and `can_match` requests by target data node instead of sending one transport request per shard. If a search request contains the `node_level_query_fanout` parameter, the parameter takes precedence over this setting. Default is `false`.
+- `search.node_level_query_fanout.enabled` (Dynamic, Boolean): Enables node-level query fan-out. When enabled, the coordinating node groups shard-level `query_then_fetch` query and `can_match` requests by target data node instead of sending one transport request per shard. If a search request contains the `node_level_query_fanout` parameter, the parameter takes precedence over this setting. Default is `false`.
 
 - `search.cancel_after_time_interval` (Dynamic, time unit): A cluster-level setting that sets the default timeout for all search requests at the coordinating node level. After the specified time has been reached, the request is stopped and all associated tasks are canceled. Default is `-1` (no timeout).
 
