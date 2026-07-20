@@ -6,6 +6,7 @@ has_children: true
 has_toc: false
 redirect_from:
   - /dashboards/visualize/
+  - /dashboards/visualize/gantt/
 ---
 
 # Building data visualizations
