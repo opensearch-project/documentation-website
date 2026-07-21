@@ -12,7 +12,7 @@ nav_order: 10
 
 Use this API to list all tools available on an external MCP server through a registered MCP connector. The response includes each tool's name, type, description, and input schema.
 
-Flow and Conversational Flow agents require tools to be defined in advance when you register the agent. Use this API to discover available tools and their parameters before adding MCP tools to an agent configuration. For more information, see [Register Agent API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/register-agent/).
+Flow and conversational flow agents require tools to be defined in advance during agent registration. Use this API to discover available tools and their parameters before adding MCP tools to an agent configuration. For more information, see [Register Agent API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/register-agent/).
 
 This API differs from the [List MCP Tools API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/mcp-server-apis/list-mcp-tools/), which lists tools registered on OpenSearch's own MCP server.
 {: .note}
