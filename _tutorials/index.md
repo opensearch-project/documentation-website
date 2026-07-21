@@ -36,7 +36,7 @@ tutorial_cards:
 
 # OpenSearch tutorials
 
-Follow step-by-step tutorials to learn how to use OpenSearch features.
+Follow step-by-step tutorials to get started with OpenSearch and build search features, including semantic search, hybrid search, retrieval-augmented generation (RAG), and conversational search.
 
 ## Getting started
 

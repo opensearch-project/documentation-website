@@ -6,6 +6,7 @@ grand_parent: Building data visualizations
 nav_order: 5
 has_children: true
 has_toc: false
+description: "The recommended visualization types for creating data visualizations in OpenSearch Dashboards using the Visualize application, including charts, tables, and maps."
 redirect_from:
   - /dashboards/visualize/viz-types/
 ---

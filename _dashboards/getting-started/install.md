@@ -5,7 +5,7 @@ parent: Getting started
 nav_order: 10
 ---
 
-# Installation quickstart
+# OpenSearch Dashboards installation quickstart
 
 This guide helps you quickly install OpenSearch and OpenSearch Dashboards using [Docker](https://www.docker.com/). For other installation methods, see [Installing OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/).
 

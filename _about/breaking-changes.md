@@ -7,7 +7,7 @@ permalink: /breaking-changes/
 
 # Breaking changes
 
-The following sections list breaking changes introduced in OpenSearch versions.
+OpenSearch uses [Semantic Versioning](https://semver.org/), which means that breaking changes are only introduced between major version releases. The following sections list breaking changes introduced in OpenSearch, organized by version.
 
 <!-- vale off -->
 ## 1.x

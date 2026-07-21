@@ -7,7 +7,7 @@ has_children: false
 nav_order: 40
 ---
 
-# Reranking by a field using an externally hosted late interaction model
+# Reranking by a field using a late interaction model
 **Introduced 3.3**
 {: .label .label-purple }
 
