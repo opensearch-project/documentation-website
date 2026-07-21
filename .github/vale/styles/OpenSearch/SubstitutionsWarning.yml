@@ -6,7 +6,5 @@ action:
   name: replace
 swap:
   'async': asynchronous
-  'auth': authentication
+  'auth': authentication or authorization
   'config': configuration
-  'customer': (use second person 'you' instead)
-  'customers': (use second person 'you' instead)

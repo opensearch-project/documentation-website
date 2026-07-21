@@ -4,9 +4,15 @@ title: PPL syntax
 parent: Commands
 grand_parent: PPL
 nav_order: 1
+redirect_from:
+  - /search-plugins/sql/ppl/syntax/
 ---
 
+<!-- vale off -->
+
 # PPL syntax
+
+<!-- vale on -->
 
 Every PPL query starts with the `search` command. It specifies the index to search and retrieve documents from.
 
@@ -29,7 +35,7 @@ The `search` command supports the following parameters.
 
 | Parameter | Required/Optional | Description |
 | --- | --- | --- |
-| `<index>` | Optional | Specifies the index to query. |
+| `<index>` | Required | Specifies the index to query. |
 | `<boolean-expression>` | Optional | Specifies an expression that evaluates to a Boolean value. |
 
 
@@ -88,6 +94,8 @@ search source=otellogs
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | severityText | resource.attributes.service.name |
 | --- | --- |
 | ERROR | payment |
@@ -97,6 +105,8 @@ The query returns the following results:
 | ERROR | recommendation |
 | ERROR | product-catalog |
 | ERROR | checkout |
+
+<!-- vale on -->
 
 **Example 2: Get all documents**
 
@@ -112,6 +122,8 @@ source=otellogs
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | severityText | resource.attributes.service.name | body |
 | --- | --- | --- |
 | INFO | frontend | [2024-02-01T09:10:00.123Z] "GET /api/products HTTP/1.1" 200 - 1024 45 frontend-6b7b4c9f-x2kl9 |
@@ -119,6 +131,8 @@ The query returns the following results:
 | WARN | product-catalog | Slow query detected: SELECT \* FROM products WHERE category = 'electronics' took 3200ms |
 | ERROR | payment | Payment failed: connection timeout to payment gateway after 30000ms |
 | DEBUG | cart | Cache miss for key user:session:U200 in Valkey cluster |
+
+<!-- vale on -->
 
 **Example 3: Get documents that match a condition**
 
@@ -133,8 +147,12 @@ source=otellogs severityText = 'ERROR' AND `resource.attributes.service.name` = 
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | severityText | resource.attributes.service.name | body |
 | --- | --- | --- |
 | ERROR | payment | Payment failed: connection timeout to payment gateway after 30000ms |
 | ERROR | payment | Out of memory: Java heap space - shutting down pod payment-6f8d4b-ht7q3 |
+
+<!-- vale on -->
 

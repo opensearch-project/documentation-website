@@ -10,9 +10,9 @@ nav_order: 45
 The following APIs can be used for a number of tasks related to mappings, from creating to getting and updating mappings.
 
 ---
-## Get Mappings View
+## Get mappings view
 
-This API returns a view of the fields contained in an index used as a log source.
+Returns a view of the fields contained in an index used as a log source.
 
 ### Request body fields
 
@@ -76,7 +76,9 @@ GET /_plugins/_security_analytics/mappings/view
 ```
 
 ---
-## Create Mappings
+## Create mappings
+
+Creates field alias mappings for a specified index.
 
 #### Example request
 
@@ -107,9 +109,11 @@ POST /_plugins/_security_analytics/mappings
 ```
 
 ---
-## Get Mappings
+## Get mappings
 
-### Path options
+Retrieves field alias mappings for a specified index.
+
+### Path parameters
 
 Field | Type | Description
 :--- | :--- |:--- 
@@ -143,7 +147,9 @@ GET /_plugins/_security_analytics/mappings?index_name=windows
 ```
 
 ---
-## Update Mappings
+## Update mappings
+
+Updates the field alias mapping for a specified index.
 
 #### Example request
 

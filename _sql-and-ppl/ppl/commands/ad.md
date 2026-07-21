@@ -6,7 +6,11 @@ grand_parent: PPL
 nav_order: 2
 ---
 
+<!-- vale off -->
+
 # ad (Deprecated)
+
+<!-- vale on -->
 
 The `ad` command is deprecated in favor of the [`ml` command]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/commands/ml/).
 {: .warning}
@@ -74,8 +78,11 @@ The batch RCF algorithm supports the following parameters.
 | `anomaly_score_threshold` | Optional | The anomaly score threshold. Default is `1.0`. |
 | `category_field` | Optional | The category field used to group input values. The predict operation is applied to each category independently. |  
   
+<!-- vale off -->
 
 ## Example 1: Detecting events in New York City taxi ridership time-series data
+
+<!-- vale on -->
 
 The following examples use the `nyc_taxi` dataset, which contains New York City taxi ridership data with fields including `value` (number of rides), `timestamp` (time of measurement), and `category` (time period classifications such as 'day' and 'night').
 
@@ -91,12 +98,20 @@ source=nyc_taxi
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | value | timestamp | score | anomaly_grade |
 | --- | --- | --- | --- |
 | 10844.0 | 2014-07-01 00:00:00 | 0.0 | 0.0 |
+
+<!-- vale on -->
   
 
+<!-- vale off -->
+
 ## Example 2: Detecting events in New York City taxi ridership time-series data by category
+
+<!-- vale on -->
 
 This example trains an RCF model and uses it to detect anomalies in time-series ridership data across multiple category values:
   
@@ -110,13 +125,21 @@ source=nyc_taxi
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | category | value | timestamp | score | anomaly_grade |
 | --- | --- | --- | --- | --- |
 | night | 10844.0 | 2014-07-01 00:00:00 | 0.0 | 0.0 |
 | day | 6526.0 | 2014-07-01 06:00:00 | 0.0 | 0.0 |
+
+<!-- vale on -->
   
 
+<!-- vale off -->
+
 ## Example 3: Detecting events in New York City taxi ridership non-time-series data
+
+<!-- vale on -->
 
 This example trains an RCF model and uses it to detect anomalies in non-time-series ridership data:
   
@@ -130,12 +153,20 @@ source=nyc_taxi
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | value | score | anomalous |
 | --- | --- | --- |
 | 10844.0 | 0.0 | False |
+
+<!-- vale on -->
   
 
+<!-- vale off -->
+
 ## Example 4: Detecting events in New York City taxi ridership non-time-series data by category
+
+<!-- vale on -->
 
 This example trains an RCF model and uses it to detect anomalies in non-time-series ridership data across multiple category values:
   
@@ -149,9 +180,13 @@ source=nyc_taxi
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | category | value | score | anomalous |
 | --- | --- | --- | --- |
 | night | 10844.0 | 0.0 | False |
 | day | 6526.0 | 0.0 | False |
+
+<!-- vale on -->
   
 

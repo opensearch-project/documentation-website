@@ -6,7 +6,9 @@ grand_parent: Pipelines
 nav_order: 11
 ---
 
+<!-- vale off -->
 # generateUuid()
+<!-- vale on -->
 
 The `generateUuid()` function takes no arguments and returns a randomly generated [UUID version 4](https://www.rfc-editor.org/rfc/rfc4122) string, for example, `"550e8400-e29b-41d4-a716-446655440000"`. Each call produces a unique value using a cryptographically strong random number generator, so collision probability is negligible in practice.
 

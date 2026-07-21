@@ -1,14 +1,15 @@
 ---
 layout: default
 title: Custom branding
-nav_order: 130
+parent: Settings and administration
+nav_order: 40
 ---
 
 # Custom branding
 Introduced 1.2
 {: .label .label-purple }
 
-By default, OpenSearch Dashboards uses the OpenSearch logo, but if you want to use custom branding elements such as the favicon or main Dashboards logo, you can do so by editing `opensearch_dashboards.yml` or by including a custom `opensearch_dashboards.yml` file when you start your OpenSearch cluster.
+By default, OpenSearch Dashboards uses the OpenSearch logo, but if you want to use custom branding elements such as the `favicon` or main Dashboards logo, you can do so by editing `opensearch_dashboards.yml` or by including a custom `opensearch_dashboards.yml` file when you start your OpenSearch cluster.
 
 For example, if you're using Docker to start your OpenSearch cluster, include the following lines in the `opensearch-dashboards` section of your `docker-compose.yml` file:
 
@@ -17,7 +18,7 @@ volumes:
   - ./opensearch_dashboards.yml:/usr/share/opensearch-dashboards/config/opensearch_dashboards.yml
 ```
 
-Doing so replaces the Docker image's default `opensearch_dashboards.yml` with your custom `opensearch_dashboards.yml` file, so be sure to include your desired settings as well. For example, if you want to configure TLS for OpenSearch Dashboards, see [Configure TLS for OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/install/tls).
+Doing so replaces the Docker image's default `opensearch_dashboards.yml` with your custom `opensearch_dashboards.yml` file, so be sure to include your desired settings as well. For example, if you want to configure TLS for OpenSearch Dashboards, see [Configure TLS for OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/install/tls/).
 
 Re-launch OpenSearch Dashboards, and OpenSearch Dashboards now uses your custom elements.
 
@@ -31,9 +32,9 @@ Setting | Corresponding branding element
 :--- | :---
 `logo` | Header logo. See #1 in the image.
 `mark` | OpenSearch Dashboards mark. See #2 in the image.
-loadingLogo | Loading logo used when OpenSearch Dashboards is starting. See #3 in the image.
-faviconUrl | Website icon. Loads next to the application title. See #4 in the image.
-applicationTitle | The application's title. See #5 in the image.
+`loadingLogo` | Loading logo used when OpenSearch Dashboards is starting. See #3 in the image.
+`faviconUrl` | Website icon. Loads next to the application title. See #4 in the image.
+`applicationTitle` | The application's title. See #5 in the image.
 
 To consolidate navigation controls and reduce the space the header takes up on the page, see [Condensed header](#condensed-header).
 {: .note}
@@ -118,7 +119,7 @@ The current default view remains close in appearance to the two-bar header offer
 In a future release, default behavior will become `useExpandedHeader: false`. If you want to retain the default view in subsequent releases, you can explicitly set the property to `true` in advance. Alternatively, you can also do this when upgrading.
 {: .note }
 
-The condensed view header appears as in the example below.
+The condensed view header appears as in the following example.
 
 ![Condensed header]({{site.url}}{{site.baseurl}}/images/DBs-Condensed.jpeg)
 
@@ -137,9 +138,9 @@ Home button | See #1. Returns to the home page and provides an indication when a
 Header label | See #2. The label also functions as a home button.
 Navigation controls | See #3. Additional navigation controls on right-side insertion points.
 
-#### Preserving nagivation elements in the default view
+#### Preserving navigation elements in the default view
 
-You can continue using the top header bar in the default view for custom navigation links (such as menu items and plugins). Follow the steps below to keep these elements in the top header in the default view.
+You can continue using the top header bar in the default view for custom navigation links (such as menu items and plugins). Follow the following steps to keep these elements in the top header in the default view.
 1. Replace the property `coreStart.chrome.navControls.registerRight(...)` with `coreStart.chrome.navControls.registerExpandedRight(...)` and then replace the property  `coreStart.chrome.navControls.registerCenter(...)` with `coreStart.chrome.navControls.registerExpandedCenter(...)`
 
 2. Make sure the configuration property `useExpandedHeader` is explicitly set to `true`.

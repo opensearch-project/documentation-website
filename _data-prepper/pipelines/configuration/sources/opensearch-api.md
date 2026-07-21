@@ -228,7 +228,9 @@ curl -XPOST "http://localhost:9202/opensearch/_bulk" \
 ```
 {% include copy-curl.html %}
 
+<!-- vale off -->
 ### Sending data using opensearch-py
+<!-- vale on -->
 
 The following example sends a bulk request using the `opensearch-py` client:
 

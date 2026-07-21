@@ -6,7 +6,11 @@ grand_parent: PPL
 nav_order: 50
 ---
 
+<!-- vale off -->
+
 # top {#top-command}
+
+<!-- vale on -->
 
 The `top` command finds the most common combination of values across all fields specified in the field list.
 
@@ -45,12 +49,16 @@ source=otellogs
 
 By default, the `top` command automatically includes a `count` column showing the frequency of each value:
 
+<!-- vale off -->
+
 | severityText | count |
 | --- | --- |
 | ERROR | 7 |
 | INFO | 6 |
 | WARN | 4 |
 | DEBUG | 3 |
+
+<!-- vale on -->
 
 ## Example 2: Finding the most common values without the count display
 
@@ -65,12 +73,16 @@ source=otellogs
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | severityText |
 | --- |
 | ERROR |
 | INFO |
 | WARN |
 | DEBUG |
+
+<!-- vale on -->
 
 ## Example 3: Renaming the count column
 
@@ -85,12 +97,16 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | severityText | cnt |
 | --- | --- |
 | ERROR | 7 |
 | INFO | 6 |
 | WARN | 4 |
 | DEBUG | 3 |
+
+<!-- vale on -->
 
 ## Example 4: Limiting the number of returned results
 
@@ -105,9 +121,13 @@ source=otellogs
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | severityText |
 | --- |
 | ERROR |
+
+<!-- vale on -->
 
 ## Example 5: Grouping the results
 
@@ -122,6 +142,8 @@ source=otellogs
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | resource.attributes.service.name | severityText |
 | --- | --- |
 | product-catalog | WARN |
@@ -131,6 +153,8 @@ The query returns the following results:
 | checkout | ERROR |
 | cart | DEBUG |
 | frontend | INFO |
+
+<!-- vale on -->
 
 ## Example 6: Specifying null value handling
 
@@ -145,11 +169,15 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | instrumentationScope.name | count |
 | --- | --- |
 | @opentelemetry/instrumentation-http | 2 |
 | Microsoft.Extensions.Hosting | 1 |
 | go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc | 1 |
+
+<!-- vale on -->
 
 The following query specifies `usenull=true` to include null values in the results:
 
@@ -162,9 +190,13 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | instrumentationScope.name | count |
 | --- | --- |
 | null | 16 |
 | @opentelemetry/instrumentation-http | 2 |
 | Microsoft.Extensions.Hosting | 1 |
 | go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc | 1 |
+
+<!-- vale on -->

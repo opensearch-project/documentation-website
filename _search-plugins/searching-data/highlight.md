@@ -120,7 +120,7 @@ The `highlight` parameter highlights the original terms even when using synonyms
 
 To highlight the search terms, the highlighter needs the start and end character offsets of each term. The offsets mark the term's position in the original text. The highlighter can obtain the offsets from the following sources:
 
-- **Postings**: When documents are indexed, OpenSearch creates an inverted search index&mdash;a core data structure used to search for documents. Postings represent the inverted search index and store the mapping of each analyzed term to the list of documents in which it occurs. If you set the `index_options` parameter to `offsets` when mapping a [text field]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/text), OpenSearch adds each term's start and end character offsets to the inverted index. During highlighting, the highlighter reruns the original query directly on the postings to locate each term. Thus, storing offsets makes highlighting more efficient for large fields because it does not require reanalyzing the text. Storing term offsets requires additional disk space, but uses less disk space than storing term vectors.
+- **Postings**: When documents are indexed, OpenSearch creates an inverted search index&mdash;a core data structure used to search for documents. Postings represent the inverted search index and store the mapping of each analyzed term to the list of documents in which it occurs. If you set the `index_options` parameter to `offsets` when mapping a [text field]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/text/), OpenSearch adds each term's start and end character offsets to the inverted index. During highlighting, the highlighter reruns the original query directly on the postings to locate each term. Thus, storing offsets makes highlighting more efficient for large fields because it does not require reanalyzing the text. Storing term offsets requires additional disk space, but uses less disk space than storing term vectors.
 
 - [**Term vectors**]: If you set the [`term_vector` parameter]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/text#term-vector-parameter) to  `with_positions_offsets` when mapping a text field, the highlighter uses the `term_vector` to highlight the field. Storing term vectors requires the most disk space. However, it makes highlighting faster for fields larger than 1 MB and for multi-term queries like prefix or wildcard because term vectors provide access to the dictionary of terms for each document.
 
@@ -165,7 +165,7 @@ The `unified` highlighter is based on the Lucene Unified Highlighter and is the 
 
 ### The `fvh` highlighter
 
-The `fvh` highlighter is based on the Lucene Fast Vector Highlighter. To use this highlighter, you need to store term vectors with positions offsets, which increases the index size. The `fvh` highlighter can combine matched terms from multiple fields into one result. It can also assign weights to matches depending on their positions; thus, you can sort phrase matches above term matches when highlighting a query that boosts phrase matches over term matches. Additionally, you can configure the `fvh` highlighter to select the boundaries of a returned text fragment, and you can highlight multiple words with different tags.
+The `fvh` highlighter is based on the Lucene Fast Vector Highlighter. To use this highlighter, you need to store term vectors with positions offsets, which increases the index size. The `fvh` highlighter can combine matched terms from multiple fields into one result. It can also assign weights to matches depending on their positions; thus, you can sort phrase matches higher than term matches when highlighting a query that boosts phrase matches over term matches. Additionally, you can configure the `fvh` highlighter to select the boundaries of a returned text fragment, and you can highlight multiple words with different tags.
 
 ### The `plain` highlighter
 
@@ -274,7 +274,9 @@ PUT _cluster/settings
 ```
 {% include copy-curl.html %}
 
-Then set `batch_inference` to `true` in `highlight.options`:
+Then set `ext.semantic_highlighting_batch` to `true` at the request level. This enables batch inference for every highlight field configured as `type: semantic` in the request.
+
+The following example enables batch semantic highlighting for a top-level field:
 
 ```json
 POST /neural-search-index/_search
@@ -298,9 +300,42 @@ POST /neural-search-index/_search
       }
     },
     "options": {
-      "model_id": "your-remote-semantic-highlighing-model-id",
-      "batch_inference": true
+      "model_id": "your-remote-semantic-highlighting-model-id"
     }
+  },
+  "ext": {
+    "semantic_highlighting_batch": true
+  }
+}
+```
+{% include copy-curl.html %}
+
+The following example enables batch semantic highlighting for a field inside `inner_hits`:
+
+```json
+POST /neural-search-index/_search
+{
+  "query": {
+    "nested": {
+      "path": "chunks",
+      "query": {
+        "match": { "chunks.text": "treatments for neurodegenerative diseases" }
+      },
+      "inner_hits": {
+        "size": 5,
+        "highlight": {
+          "fields": {
+            "chunks.text": { "type": "semantic" }
+          },
+          "options": {
+            "model_id": "your-remote-semantic-highlighting-model-id"
+          }
+        }
+      }
+    }
+  },
+  "ext": {
+    "semantic_highlighting_batch": true
   }
 }
 ```
@@ -337,16 +372,15 @@ Option | Description
 `phrase_limit` | The number of matching phrases in a document that are considered. Limits the number of phrases to be analyzed by the `fvh` highlighter in order to avoid consuming a lot of memory. If `matched_fields` are used, `phrase_limit` specifies the number of phrases for each matched field. A higher `phrase_limit` leads to increased query time and more memory consumption. Valid only for the `fvh` highlighter. Default is 256.
 `max_analyzer_offset` | Specifies the maximum number of characters to be analyzed by a highlight request. The remaining text will not be processed. If the text to be highlighted exceeds this offset, then an empty highlight is returned. The maximum number of characters that will be analyzed for a highlight request is defined by `index.highlight.max_analyzed_offset`. When this limit is reached, an error is returned. Set the `max_analyzer_offset` to a lower value than `index.highlight.max_analyzed_offset` to avoid the error.
 `options` | A global object containing highlighter-specific options.
-`options.batch_inference` | When set to `true`, enables batch inference mode for semantic highlighting, processing all documents in a single ML inference call instead of one call per document. Requires an externally hosted model with batch processing capabilities (local models are not supported) and the system processor factory to be enabled via cluster setting: `search.pipeline.enabled_system_generated_factories: ["semantic-highlighter"]`. Default is `false`. Valid only for the `semantic` highlighter.
-`options.max_inference_batch_size` | Specifies the maximum number of documents to include in each inference request to the model server when using batch inference mode. If the number of documents to process exceeds this value, the documents will be processed iteratively in batches of this size. Default is `100`. Valid only for the `semantic` highlighter with `batch_inference` enabled.
-`options.model_id` | The ID of the deployed ML model to use for highlighting. Required for the `semantic` highlighter. When `options.batch_inference` is set to `true`, the model must be an externally hosted model with batch processing capabilities.
+`options.max_inference_batch_size` | Specifies the maximum number of documents to include in each inference request to the model server when using batch inference mode. If the number of documents to process exceeds this value, the documents are processed iteratively in batches of this size. Default is `100`. Valid only for the `semantic` highlighter when batch inference mode is enabled.
+`options.model_id` | The ID of the deployed ML model to use for highlighting. Required for the `semantic` highlighter. When batch inference mode is enabled, the model must be an externally hosted model with batch processing capabilities. See [Connecting to externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/).
 
 The unified highlighter's sentence scanner splits sentences larger than `fragment_size` at the first word boundary after `fragment_size` is reached. To return whole sentences without splitting them, set `fragment_size` to 0.
 {: .note}
 
 ## Changing the highlighting tags
 
-Design your application code to parse the results from the `highlight` object and perform an action on the search terms, such as changing their color, bolding, italicizing, and so on.
+Design your application code to parse the results from the `highlight` object and perform an action on the search terms, such as changing their color or applying bold or italic formatting.
 
 To change the default `em` tags, specify the new tags in the `pretag` and `posttag` parameters:
 
@@ -1107,4 +1141,4 @@ Note the following limitations:
 
 - When extracting terms to highlight, highlighters don't reflect the Boolean logic of a query. Therefore, for some complex Boolean queries, such as nested Boolean queries and queries using `minimum_should_match`, OpenSearch may highlight terms that don't correspond to query matches.
 - The `fvh` highlighter does not support span queries.
-- The `semantic` highlighter requires a deployed ML model specified by `model_id` in the `highlight.options`. It does not use traditional offset methods (postings, term vectors) and relies solely on model inference. For batch inference mode (`batch_inference: true`), you must use an externally hosted model with batch processing capabilities.
+- The `semantic` highlighter requires a deployed ML model specified by `model_id` in the `highlight.options`. It does not use traditional offset methods (postings and term vectors) and relies solely on model inference. For batch inference mode, you must use an externally hosted model with batch processing capabilities.

@@ -133,3 +133,7 @@ movies | 0 | r | 172.18.0.3 | _0 | 0 | 1 | 0 | 3.5kb | 1364 | true | true | 8.7.
 ## Limiting the response size
 
 To limit the number of indexes returned, configure the `cat.segments.response.limit.number_of_indices` setting. For more information, see [Cluster-level CAT response limit settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/cluster-settings/#cluster-level-cat-response-limit-settings).
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `indices:monitor/segments`.

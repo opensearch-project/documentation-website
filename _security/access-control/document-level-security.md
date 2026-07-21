@@ -68,7 +68,7 @@ These queries can be as complex as you want, but we recommend keeping them simpl
 
 Due to word boundaries associated with Unicode special characters, the Unicode standard analyzer cannot index a [text field type]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/text/) value as a whole value when it includes one of these special characters. As a result, a text field value that includes a special character is parsed by the standard analyzer as multiple values separated by the special character, effectively tokenizing the different elements on either side of it. This can lead to unintentional filtering of documents and potentially compromise control over their access.
 
-The examples below illustrate values containing special characters that will be parsed improperly by the standard analyzer. In this example, the existence of the hyphen/minus sign in the value prevents the analyzer from distinguishing between the two different users for `user.id` and interprets them as one and the same:
+The following examples illustrate values containing special characters that will be parsed improperly by the standard analyzer. In this example, the existence of the hyphen/minus sign in the value prevents the analyzer from distinguishing between the two different users for `user.id` and interprets them as one and the same:
 
 ```json
 {
@@ -132,6 +132,20 @@ Term | Replaced with
 `${user.securityRoles}` | A comma-separated, quoted list of user security roles. 
 `${attr.<TYPE>.<NAME>}` | An attribute with name `<NAME>` defined for a user. `<TYPE>` is `internal`, `jwt`, `proxy` or `ldap`
 
+If a variable does not exist, an error is thrown.
+
+### Fallback values
+**Introduced 3.7.0**
+{: .label .label-purple }
+
+You can specify a fallback value for a variable that may not exist. The fallback can be either a literal value or another variable.
+
+In the following examples, the `notexists` attribute is not defined and `attr1` is set to `foo`.
+
+ Term                                           | Replacement
+:-----------------------------------------------|:--------------
+ `${attr.proxy.notexists:-bar}`                 | `bar`
+ `${attr.proxy.notexists:-${attr.proxy.attr1}}` | `foo`
 
 ## Attribute-based security
 

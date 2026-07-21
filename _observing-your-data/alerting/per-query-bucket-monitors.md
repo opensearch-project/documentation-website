@@ -18,7 +18,7 @@ Both monitor types support querying remote indexes using the same `cluster-name:
 The following [permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/) are required in order to create a cross-cluster monitor through the dashboards UI: `cluster:admin/opensearch/alerting/remote/indexes/get`, `indices:admin/resolve/index`, `cluster:monitor/health`, and `indices:admin/mappings/get`.
 {: .note}
 
-<img src="{{site.url}}{{site.baseurl}}/images/alerting/cross-cluster-per-query-per-bucket-monitors.png" alt="Cluster metrics monitor" width="700"/>
+![Cluster metrics monitor]({{site.url}}{{site.baseurl}}/images/alerting/cross-cluster-per-query-per-bucket-monitors.png){: width="700" }
 
 ## Creating a per query or per bucket monitor
 
@@ -26,9 +26,9 @@ To create a per query monitor, follow these steps:
 
 **Step 1.** Define your query and [triggers]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/triggers/). You can use any of these methods: visual editor, query editor, or anomaly detector.
 
-   - Visual definition works well for monitors that can be defined as "some value is above or below some threshold for some amount of time." It also works well for most monitors.
+   - Visual definition works well for monitors that can be defined as "some value is higher or lower than some threshold for some amount of time." It also works well for most monitors.
 
-   - Query definition provides flexibility in relation to your query (using [OpenSearch query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/index)) and how you evaluate the results of that query (Painless scripting).
+   - Query definition provides flexibility in relation to your query (using [OpenSearch query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/index/)) and how you evaluate the results of that query (Painless scripting).
 
 The following example averages the `cpu_usage` field:
 
@@ -84,7 +84,7 @@ Visual definition works well for most monitors.
 
 If you use the Security plugin, you can only choose indexes that you have permission to access. For details, see [Alerting security]({{site.url}}{{site.baseurl}}/security/).
 
-To use a query, choose **Extraction query editor**, add your query (using [OpenSearch query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/index)), and test it using the **Run** button.
+To use a query, choose **Extraction query editor**, add your query (using [OpenSearch query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/index/)), and test it using the **Run** button.
 
 The monitor makes this query to OpenSearch as often as the schedule dictates; check the **Query Performance** section and make sure you're comfortable with the performance implications.
 
@@ -101,6 +101,6 @@ To avoid this issue, make sure the alerting monitor is at least twice the detect
 
 Whenever you update a detector’s interval, make sure to update the associated monitor interval, as the Anomaly Detection plugin does not do this automatically.
 
-**Step 2.** Choose the frequency to run the monitor, for example, either by time intervals (minutes, hours, days) or on a schedule. If you run it by time interval or on a custom [custom cron expression]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/cron/), then you must provide the time zone.
+**Step 2.** Choose the frequency to run the monitor, for example, either by time intervals (minutes, hours, days) or on a schedule. If you run it by time interval or on a [custom cron expression]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/cron/), then you must provide the time zone.
 
 **Step 3.** Add a trigger to the monitor.

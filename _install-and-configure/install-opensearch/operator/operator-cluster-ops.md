@@ -61,5 +61,5 @@ Consider the following when increasing the disk size:
 - Do not apply any other changes to the cluster at the same time as volume expansion.
 - Ensure the size unit is consistent. For example, if the `diskSize` is `30G`, use `G` for expansion (such as `50G`). Do not switch between `G` and `Gi` during expansion.
 
-To change the `diskSize` unit from `G` to `Gi` or vice versa, first back up the data and calculate the correct conversion so that the underlying volume size remains the same. Then reapply the cluster YAML. This ensures the `StatefulSet` is re-created with the correct value in `VolumeClaimTemplates`. This operation has no downtime.
+To change the `diskSize` unit from `G` to `Gi` or the other way around, first back up the data and calculate the correct conversion so that the underlying volume size remains the same. Then reapply the cluster YAML. This ensures the `StatefulSet` is re-created with the correct value in `VolumeClaimTemplates`. This operation has no downtime.
 {: .note}

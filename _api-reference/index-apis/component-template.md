@@ -466,3 +466,11 @@ response = client.cluster.exists_component_template(
 
 - `200`: The component template exists.
 - `404`: The component template does not exist.
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions. The following permissions are required for this API:
+
+- `cluster:admin/component_template/get`: Required for getting component templates
+- `cluster:admin/component_template/put`: Required for creating or updating component templates
+- `cluster:admin/component_template/delete`: Required for deleting component templates

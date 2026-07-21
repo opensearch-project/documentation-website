@@ -33,16 +33,17 @@ Because the `top_hits` aggregation returns standard search hits, the following p
 
 - [Highlighting]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/highlight/)
 - [Explain]({{site.url}}{{site.baseurl}}/api-reference/search-apis/explain/)
+- [Named queries]({{site.url}}{{site.baseurl}}/query-dsl/named-queries/)
 - [Source filtering]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/retrieve-specific-fields/#using-source-filtering)
 - [Stored fields]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/retrieve-specific-fields/#searching-with-stored_fields)
 - [Script fields]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/retrieve-specific-fields/#using-scripted-fields)
-- [Doc value fields]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/retrieve-specific-fields/#searching-with-docvalue_fields)
+- [Doc value fields]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/retrieve-specific-fields/#searching-with-doc-value-fields)
 - [Include versions]({{site.url}}{{site.baseurl}}/api-reference/search-apis/search/#query-parameters)
 - Include sequence numbers and primary terms
 
 ## Example: Grouping results by category
 
-In the following example, orders in the ecommerce dataset are grouped by product category using a `terms` aggregation, and the `top_hits` subaggregation retrieves the most recent order from each category. Only the `order_date`, `taxful_total_price`, and `customer_full_name` fields are included in the source:
+In the following example, orders in the e-commerce dataset are grouped by product category using a `terms` aggregation, and the `top_hits` subaggregation retrieves the most recent order from each category. Only the `order_date`, `taxful_total_price`, and `customer_full_name` fields are included in the source:
 
 ```json
 GET /opensearch_dashboards_sample_data_ecommerce/_search
@@ -201,7 +202,7 @@ GET /opensearch_dashboards_sample_data_ecommerce/_search
 
 Field collapsing, or result grouping, organizes a result set into logical groups and returns the top documents from each group. The groups are ordered by the relevance of their highest-scoring document.
 
-You can implement field collapsing by wrapping a `top_hits` aggregation inside a bucket aggregation. The following example searches the ecommerce dataset for products matching `shirt` and groups the results by `manufacturer`. A `max` aggregation captures the highest score per manufacturer, and the `terms` aggregation uses that score to order the buckets by relevance:
+You can implement field collapsing by wrapping a `top_hits` aggregation inside a bucket aggregation. The following example searches the e-commerce dataset for products matching `shirt` and groups the results by `manufacturer`. A `max` aggregation captures the highest score per manufacturer, and the `terms` aggregation uses that score to order the buckets by relevance:
 
 ```json
 GET /opensearch_dashboards_sample_data_ecommerce/_search
@@ -566,6 +567,8 @@ The `_nested` field identifies the array field (`reviews`) and the zero-based po
 When `_source` is requested for a nested hit, only the source of the nested object is returned rather than the entire parent document source. Stored fields defined on the nested object level are also accessible through `top_hits` when it resides inside a `nested` or `reverse_nested` aggregation.
 
 Only nested hits contain the `_nested` field. Regular (non-nested) hits do not include this field.
+
+The `_nested` field can also serve as a reference for locating the nested object within the original source when `_source` is disabled on the index.
 
 For mappings that contain multiple levels of nested object types, the `_nested` information can be hierarchical. The following snippet shows a nested hit that resides at the first position of `nested_grand_child_field`, which is itself within the second position of `nested_child_field`:
 

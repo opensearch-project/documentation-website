@@ -133,6 +133,6 @@ saml:
 
 ## Inspect the JWT token
 
-The Security plugin trades the SAML response for a more lightweight JSON web token. The username and backend roles in the JWT are ultimately mapped to roles in the Security plugin. If there is a problem with the mapping, you can enable the token debug mode using the same setting as [Inspect the SAML response](#inspect-the-saml-response).
+The Security plugin trades the SAML response for a more lightweight JSON Web Token (JWT). The username and backend roles in the JWT are ultimately mapped to roles in the Security plugin. If there is a problem with the mapping, you can enable the token debug mode using the same setting as [Inspect the SAML response](#inspect-the-saml-response).
 
 This setting prints the JWT to the OpenSearch log file so that you can inspect and debug it using a tool like [JWT.io](https://jwt.io/).

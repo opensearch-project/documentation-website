@@ -12,13 +12,11 @@ redirect_from:
 
 If you use the Security plugin alongside alerting, you might want to limit certain users to certain actions. For example, you might want some users to only be able to view and acknowledge alerts, while others can modify monitors and destinations.
 
-
 ## Basic permissions
 
 The Security plugin has three built-in roles that cover most alerting use cases: `alerting_read_access`, `alerting_ack_alerts`, and `alerting_full_access`. For descriptions of each, see [Predefined roles]({{site.url}}{{site.baseurl}}/security/access-control/users-roles#predefined-roles).
 
 If these roles don't meet your needs, mix and match individual alerting [permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/) to suit your use case. Each action corresponds to an operation in the REST API. For example, the `cluster:admin/opensearch/alerting/destination/delete` permission lets you delete destinations.
-
 
 ## How monitors access data
 
@@ -42,13 +40,13 @@ If your monitor's trigger has notifications configured, the Alerting plugin cont
 
 ### A note on alerts and fine-grained access control
 
-When a trigger generates an alert, the monitor configuration, the alert itself, and any notification that is sent to a channel may include metadata describing the index being queried. By design, the plugin must extract the data and store it as metadata outside of the index. [Document-level security]({{site.url}}{{site.baseurl}}/security/access-control/document-level-security) (DLS) and [field-level security]({{site.url}}{{site.baseurl}}/security/access-control/field-level-security) (FLS) access controls are designed to protect the data in the index. But once the data is stored outside the index as metadata, users with access to the monitor configurations, alerts, and their notifications will be able to view this metadata and possibly infer the contents and quality of data in the index, which would otherwise be concealed by DLS and FLS access control.
+When a trigger generates an alert, the monitor configuration, the alert itself, and any notification that is sent to a channel may include metadata describing the index being queried. By design, the plugin must extract the data and store it as metadata outside of the index. [Document-level security]({{site.url}}{{site.baseurl}}/security/access-control/document-level-security/) (DLS) and [field-level security]({{site.url}}{{site.baseurl}}/security/access-control/field-level-security/) (FLS) access controls are designed to protect the data in the index. But once the data is stored outside the index as metadata, users with access to the monitor configurations, alerts, and their notifications will be able to view this metadata and possibly infer the contents and quality of data in the index, which would otherwise be concealed by DLS and FLS access control.
 
 To reduce the chances of unintended users viewing metadata that could describe an index, we recommend that administrators enable role-based access control and keep these kinds of design elements in mind when assigning permissions to the intended group of users. See [Limit access by backend role](#advanced-limit-access-by-backend-role) for details.
 
 ## (Advanced) Limit access by backend role
 
-Out of the box, the alerting plugin has no concept of ownership. For example, if you have the `cluster:admin/opensearch/alerting/monitor/write` permission, you can edit *all* monitors, regardless of whether you created them. If a small number of trusted users manage your monitors and destinations, this lack of ownership generally isn't a problem. A larger organization might need to segment access by backend role.
+Out of the box, the Alerting plugin has no concept of ownership. For example, if you have the `cluster:admin/opensearch/alerting/monitor/write` permission, you can edit *all* monitors, regardless of whether you created them. If a small number of trusted users manage your monitors and destinations, this lack of ownership generally isn't a problem. A larger organization might need to segment access by backend role.
 
 First, make sure that your users have the appropriate [backend roles]({{site.url}}{{site.baseurl}}/security/access-control/index/). Backend roles usually come from an [LDAP server]({{site.url}}{{site.baseurl}}/security/configuration/ldap/) or [SAML provider]({{site.url}}{{site.baseurl}}/security/configuration/saml/). However, if you use the internal user database, you can use the REST API to add them manually with a create user operation. To add a backend role to a create user request, follow the [Create user]({{site.url}}{{site.baseurl}}/security/access-control/api#create-user) instructions in the Security plugin API documentation.
 
@@ -68,6 +66,32 @@ Now when users view alerting resources in OpenSearch Dashboards (or make REST AP
 `jdoe` and `jroe` are on the same team at work and both have the `analyst` backend role. `psantos` has the `human-resources` backend role.
 
 If `jdoe` creates a monitor, `jroe` can see and modify it, but `psantos` can't. If that monitor generates an alert, the situation is the same: `jroe` can see and acknowledge it, but `psantos` can't. If `psantos` creates a destination, `jdoe` and `jroe` can't see or modify it.
+
+### Configuring backend role access
+
+The `plugins.alerting.filter_by_backend_roles_access_strategy` setting controls how a user's backend roles are compared with the backend roles associated with a monitor to determine whether the user can access the monitor.
+
+This setting supports the following values:
+
+- `intersect` (Default) -- Users have access to notifications objects if they share at least one backend role with the user who created the object.
+- `exact` -- Users have access to notifications objects if they have exactly the same (with no additional) backend roles as the user who created the object.
+- `all` -- Users have access to notifications objects if their backend roles contain all of the backend roles of the user who created the object.
+
+The following example uses a monitor associated with the `analyst` and `human-resources` backend roles and four users with different backend roles:
+
+- User `jdoe` has the backend role `analyst`.
+- User `jroe` has the backend roles `analyst` and `supervisor`.
+- User `psantos` has the backend roles `analyst` and `human-resources`.
+- User `bwayne` has the backend roles `analyst`, `human-resources`, and `batman`.
+
+The following table shows whether each user can access the monitor for each setting value.
+
+| User | `intersect` | `exact` | `all`
+:-- | :-- | :-- | :--
+`jdoe` | Has access | No access | No access
+`jroe` | Has access | No access | No access
+`psantos` | Has access | Has access | Has access
+`bwayne` | Has access | No access | Has access
 
 <!-- ## (Advanced) Limit access by individual
 
@@ -116,6 +140,7 @@ Regular user | No | Don’t update the backend roles on the monitor.
 {: .note }
 
 To create an RBAC role, follow instructions in the Security plugin API documentation to [Create role]({{site.url}}{{site.baseurl}}/security/access-control/api#create-role).
+
 ### Create a monitor with an RBAC role
 
 When you create a monitor with the Alerting API, you can specify the RBAC roles at the bottom of the request body. Use the `rbac_roles` parameter.
@@ -123,10 +148,9 @@ When you create a monitor with the Alerting API, you can specify the RBAC roles 
 The following sample shows the RBAC roles specified by the RBAC parameter:
 
 ```json
-... 
+...
   "rbac_roles": ["role1", "role2"]
 }
 ```
 
 To see a full request sample, see [Create a query-level monitor]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/api/#create-a-query-level-monitor).
-

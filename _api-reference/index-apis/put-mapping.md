@@ -800,3 +800,7 @@ The following table lists all response body fields.
 | Field | Data type | Description |
 | :--- | :--- | :--- |
 | `acknowledged` | Boolean | Indicates whether the request was acknowledged by all relevant nodes in the cluster. |
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `indices:admin/mapping/put`.

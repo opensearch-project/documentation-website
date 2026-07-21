@@ -16,7 +16,7 @@ When defined, a search pipeline is an ordered list of search processors that is 
 
 ![Search processor diagram]({{site.url}}{{site.baseurl}}/images/search-pipelines.png)
 
-Both request and response processing for the pipeline are performed on the coordinator node, so there is no shard-level processing.
+Both request and response processing for the pipeline are performed on the coordinating node, so there is no shard-level processing.
 {: .note}
 
 ## Search processors
@@ -80,7 +80,7 @@ To delete an existing search pipeline, see [Deleting search pipelines]({{site.ur
 
 Search processors can be created manually or automatically:
 
-- [User-defined processors]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/search-processors): Processors configured manually in search pipelines, like in the preceding [example](#example).
+- [User-defined processors]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/search-processors/): Processors configured manually in search pipelines, like in the preceding [example](#example).
 - [System-generated processors]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/system-generated-search-processors/): Processors automatically created by OpenSearch based on search request parameters.
 
 ## Search pipeline metrics

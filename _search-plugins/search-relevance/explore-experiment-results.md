@@ -8,7 +8,7 @@ has_children: false
 ---
 
 # Exploring search evaluation results
-Introduced 3.2
+**Introduced 3.2**
 {: .label .label-purple }
 
 In addition to retrieving the experiment results using the API, you can explore the results visually. The Search Relevance Workbench comes with dashboards that you can install to review search evaluation and hybrid search optimization experiment results.
@@ -21,11 +21,11 @@ You can install the dashboards in one of the following ways:
 
 * Select the **Install Dashboards** button in the upper-right corner of the experiment overview.
 
-<img src="{{site.url}}{{site.baseurl}}/images/search-relevance-workbench/experiment_overview_dashboard_installation_options.png" alt="Experiment overview of the Search Relevance Workbench including dashboard installation options"/>{: .img-fluid }
+![Experiment overview of the Search Relevance Workbench including dashboard installation options]({{site.url}}{{site.baseurl}}/images/search-relevance-workbench/experiment_overview_dashboard_installation_options.png)
 
 The modal offers to install the dashboards for the user.
 
-<img src="{{site.url}}{{site.baseurl}}/images/search-relevance-workbench/install_dashboards_modal.png" alt="Modal to install dashboards"/>{: .img-fluid }
+![Modal to install dashboards]({{site.url}}{{site.baseurl}}/images/search-relevance-workbench/install_dashboards_modal.png)
 
 ## Using the dashboards
 
@@ -39,7 +39,7 @@ Once you install the dashboards, in the **Actions** column, select the visualiza
 
 The search evaluation dashboard, shown in the following image, aggregates performance metrics across all queries in your selected experiment. Use the search evaluation dashboard to get a high-level view of overall experiment performance and identify the queries that need attention.
 
-<img src="{{site.url}}{{site.baseurl}}/images/search-relevance-workbench/search_evaluation_dashboard.png" alt="Search evaluation dashboard with visualizations"/>{: .img-fluid }
+![Search evaluation dashboard with visualizations]({{site.url}}{{site.baseurl}}/images/search-relevance-workbench/search_evaluation_dashboard.png)
 
 The **Deep Dive Summary** panel shows the aggregate metrics for NDCG, MAP, precision, and coverage (see [Evaluating search quality]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/search-configurations/)).
 
@@ -53,7 +53,7 @@ The **Deep Dive Score Scatter Plot** pane shows an interactive view of the prece
 
 Use the hybrid search evaluation dashboard, shown in the following image, to compare experiment variants and identify the optimal parameter configurations for your hybrid experiment.
 
-<img src="{{site.url}}{{site.baseurl}}/images/search-relevance-workbench/hybrid_search_optimizer_dashboard.png" alt="Hybrid search optimization evaluation dashboard with visualizations"/>{: .img-fluid }
+![Hybrid search optimization evaluation dashboard with visualizations]({{site.url}}{{site.baseurl}}/images/search-relevance-workbench/hybrid_search_optimizer_dashboard.png)
 
 The **Variant Performance Chart** shows your experiment variants arranged visually from best to worst performing (left to right, by decreasing NDCG). Use this chart to quickly identify your top-performing queries and view performance patterns across different parameter combinations at a glance.
 

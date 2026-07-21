@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Configuring CSP rules for frame ancestors
-nav_order: 140
+parent: Settings and administration
+nav_order: 60
 has_children: false
 ---
 
@@ -54,4 +55,4 @@ When the Security plugin is enabled, only users with write permissions to the co
 
 An example of the `Copy as cURL` option in Firefox is shown in the following image.
 
-![Copying as curl in Firefox]({{site.url}}{{site.baseurl}}/images/dashboards/copy-as-curl.png)
+![Copying as cURL in Firefox]({{site.url}}{{site.baseurl}}/images/dashboards/copy-as-curl.png)

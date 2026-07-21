@@ -6,13 +6,21 @@ grand_parent: PPL
 nav_order: 45
 ---
 
+<!-- vale off -->
+
 # stats
+
+<!-- vale on -->
 
 The `stats` command calculates aggregations on the search results.
 
+<!-- vale off -->
+
 ## Comparing stats, eventstats, and streamstats
 
-For a comprehensive comparison of `stats`, `eventstats`, and `streamstats` commands, including their differences in transformation behavior, output format, aggregation scope, and use cases, see [Comparing stats, eventstats, and streamstats]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/commands/streamstats/#comparing-stats-eventstats-and-streamstats).
+<!-- vale on -->
+
+For a comprehensive comparison of the `stats`, `eventstats`, and `streamstats` commands, including their differences in transformation behavior, output format, aggregation scope, and use cases, see [Comparing `stats`, `eventstats`, and `streamstats`]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/commands/streamstats/#comparing-stats-eventstats-and-streamstats).
 
 ## Syntax
 
@@ -73,9 +81,13 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | total_logs |
 | --- |
 | 20 |
+
+<!-- vale on -->
   
 
 ## Example 2: Calculating the average of a field  
@@ -91,9 +103,13 @@ source=otellogs
   
 The query returns the following results:
 
+<!-- vale off -->
+
 | avg_severity |
 | --- |
 | 12.0 |
+
+<!-- vale on -->
   
 
 ## Example 3: Calculating the count by group  
@@ -110,12 +126,16 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | log_count | severityText |
 | --- | --- |
 | 7 | ERROR |
 | 6 | INFO |
 | 4 | WARN |
 | 3 | DEBUG |
+
+<!-- vale on -->
   
 
 ## Example 4: Calculating multiple aggregations by group  
@@ -133,6 +153,8 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | total | min_sev | max_sev | resource.attributes.service.name |
 | --- | --- | --- | --- |
 | 4 | 9 | 9 | frontend |
@@ -140,11 +162,13 @@ The query returns the following results:
 | 3 | 5 | 9 | cart |
 | 3 | 9 | 17 | checkout |
 | 3 | 13 | 17 | frontend-proxy |
+
+<!-- vale on -->
   
 
 ## Example 5: Calculating the count by a span  
 
-The following query groups logs into severity buckets of 10, showing the distribution across low (0-9), medium (10-19), and high (20+) severity ranges:
+The following query groups logs into severity buckets of 10, showing the distribution across low (0--9), medium (10--19), and high (20+) severity ranges:
   
 ```sql
 source=otellogs
@@ -155,10 +179,14 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | log_count | span(severityNumber,10) |
 | --- | --- |
 | 9 | 0 |
 | 11 | 10 |
+
+<!-- vale on -->
   
 
 ## Example 6: Calculating the count by a field and span  
@@ -175,12 +203,16 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | cnt | sev_range | severityText |
 | --- | --- | --- |
 | 3 | 0 | DEBUG |
 | 6 | 0 | INFO |
 | 7 | 10 | ERROR |
 | 4 | 10 | WARN |
+
+<!-- vale on -->
   
 
 ## Example 7: Calculating the distinct count of a field  
@@ -196,9 +228,13 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | total_entries | unique_services |
 | --- | --- |
 | 20 | 7 |
+
+<!-- vale on -->
   
 
 ## Example 8: Collecting unique values using VALUES by group  
@@ -215,12 +251,16 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | services | severityText |
 | --- | --- |
 | [cart,product-catalog] | DEBUG |
 | [checkout,frontend-proxy,payment,product-catalog,recommendation] | ERROR |
 | [cart,checkout,frontend] | INFO |
 | [frontend-proxy,product-catalog] | WARN |
+
+<!-- vale on -->
   
 
 ## Example 9: Calculating the percentile of a field  
@@ -236,9 +276,13 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | p90_severity |
 | --- |
 | 17 |
+
+<!-- vale on -->
   
 
 ## Example 10: Collecting unique values using VALUES  
@@ -254,9 +298,13 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | severity_levels |
 | --- |
 | [DEBUG,ERROR,INFO,WARN] |
+
+<!-- vale on -->
   
 
 ## Example 11: Ignoring a null bucket
@@ -272,16 +320,22 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | cnt | instrumentationScope.name |
 | --- | --- |
 | 2 | @opentelemetry/instrumentation-http |
 | 1 | Microsoft.Extensions.Hosting |
 | 1 | go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc |
+
+<!-- vale on -->
   
 
 ## Example 12: Date span grouping with null handling  
 
 The following example uses this sample index data:
+
+<!-- vale off -->
 
 | Name | DEPTNO | birthday |
 | --- | --- | --- |
@@ -289,6 +343,8 @@ The following example uses this sample index data:
 | Bob | 2 | 2025-08-21 |
 | Jeff | null | 2025-04-22 |
 | Adam | 2 | null |
+
+<!-- vale on -->
 
 The following query groups data by yearly spans of the `birthday` field, automatically excluding null values:
 
@@ -300,10 +356,14 @@ source=example
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | cnt | year |
 | --- | --- |
 | 1 | 2024-01-01 |
 | 2 | 2025-01-01 |
+
+<!-- vale on -->
 
 Group by both yearly spans and department number (by default, null `DEPTNO` values are included in the results):
 
@@ -315,11 +375,15 @@ source=example
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | cnt | year | DEPTNO |
 | --- | --- | --- |
 | 1 | 2024-01-01 | 1 |
 | 1 | 2025-01-01 | 2 |
 | 1 | 2025-01-01 | null |
+
+<!-- vale on -->
 
 Use `bucket_nullable=false` to exclude null `DEPTNO` values from the grouping:
 
@@ -331,10 +395,14 @@ source=example
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | cnt | year | DEPTNO |
 | --- | --- | --- |
 | 1 | 2024-01-01 | 1 |
 | 1 | 2025-01-01 | 2 |
+
+<!-- vale on -->
   
 
 ## Example 13: Calculating the count by the implicit @timestamp field  
@@ -349,9 +417,13 @@ source=big5
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | count() | span(1month) |
 | --- | --- |
 | 1 | 2023-01-01 00:00:00 |
+
+<!-- vale on -->
 
 ## Limitations
 

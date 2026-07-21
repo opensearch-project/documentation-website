@@ -173,3 +173,7 @@ The following table lists all response body fields.
 Field | Data type | Description
 :--- | :--- | :---
 `acknowledged` | Boolean | Indicates whether the delete request was received by the cluster. A value of `true` means the indexes were successfully deleted.
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `indices:admin/delete`.

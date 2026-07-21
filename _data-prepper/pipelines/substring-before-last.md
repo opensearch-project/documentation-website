@@ -6,7 +6,9 @@ grand_parent: Pipelines
 nav_order: 90
 ---
 
+<!-- vale off -->
 # substringBeforeLast()
+<!-- vale on -->
 
 The `substringBeforeLast()` function is used to extract the portion of a string that precedes the last occurrence of a specified delimiter. It takes two arguments:
 

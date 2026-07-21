@@ -910,8 +910,8 @@ Go to your OpenSearch Dashboards config folder (`$OSD_HOME/config`) and edit `op
 
 Restart OpenSearch Dashboards and then select the chat icon in the upper-right corner, shown in the following image.
 
-<img width="300" src="{{site.url}}{{site.baseurl}}/images/dashboards/os-assistant-icon.png" alt="OpenSearch Assistant icon">
+![OpenSearch Assistant icon]({{site.url}}{{site.baseurl}}/images/dashboards/os-assistant-icon.png){: width="300" }
 
 You can now chat in OpenSearch Dashboards, as shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/os-assistant-chat.png" alt="OpenSearch Assistant chat">
+![OpenSearch Assistant chat]({{site.url}}{{site.baseurl}}/images/dashboards/os-assistant-chat.png)

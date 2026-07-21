@@ -264,8 +264,8 @@ Once a primary shard is allocated, it transitions to the `initializing` state, a
 
 You can monitor the cloning process using one of the following methods:
 
-- Use the [CAT recovery API]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-recovery/) to view the progress of shard recovery and cloning.
-- Use the [Cluster health API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-health/) with the `wait_for_status` parameter set to `yellow` to wait until all primary shards have been allocated.
+- To view the progress of shard recovery and cloning, use the [CAT recovery API]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-recovery/).
+- To wait until all primary shards have been allocated, use the [Cluster health API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-health/) with the `wait_for_status` parameter set to `yellow`.
 
 The following example request monitors the recovery process for the cloned index:
 
@@ -295,3 +295,7 @@ response = client.cat.recovery(
 ## Wait for active shards
 
 Because the clone operation creates a new index, the `wait_for_active_shards` setting for index creation also applies to the clone operation. This setting determines how many shard copies must be active before the operation returns a response. For more information, see [Index settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/).
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `indices:admin/resize`.

@@ -22,7 +22,7 @@ To navigate to the **Log types** page, select **Log types** under **Detectors** 
 
 The main **Log types** UI features and actions are shown in the following image. These features are described in the list following the image. 
 
-<img src="{{site.url}}{{site.baseurl}}/images/Security/c-log-type.png" alt="The Log types landing page." width="85%">
+![The Log types landing page.]({{site.url}}{{site.baseurl}}/images/Security/c-log-type.png){: width="85%" }
 
 
 1. Search **Standard** and **Custom** log types. 

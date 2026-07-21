@@ -15,7 +15,7 @@ The `kstem` token filter is a stemming filter used to reduce words to their root
 
 The `kstem` token filter is equivalent to the a `stemmer` filter configured with a `light_english` language. It provides a more conservative stemming compared to other stemming filters like `porter_stem`.
 
-The `kstem` token filter is based on the Lucene KStemFilter. For more information, see the [Lucene documentation](https://lucene.apache.org/core/9_10_0/analysis/common/org/apache/lucene/analysis/en/KStemFilter.html).
+The `kstem` token filter is based on the Lucene KStemFilter. For more information, see the [Lucene documentation](https://lucene.apache.org/core/{{site.lucene_version}}/analysis/common/org/apache/lucene/analysis/en/KStemFilter.html).
 
 ## Example
 

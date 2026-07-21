@@ -464,7 +464,7 @@ The results appear as follows.
 
 ### Maintaining facet options during filtering
 
-When users select a facet filter, they typically expect to still see the other available filtering options. For example, if a user filters for red t-shirts, the color facet should still show all available colors (red, blue, and others) from the original search results, not just "red". This helps users understand the full range of options and easily switch between filters.
+When users select a facet filter, they typically expect to still see the other available filtering options. For example, if a user filters for red t-shirts, the color facet should still show all available colors (red, blue, and others) from the original search results, not only "red". This helps users understand the full range of options and easily switch between filters.
 
 You can achieve this behavior by using a `post_filter`. The `post_filter` filters the search results after aggregations are calculated, so facets reflect the unfiltered dataset:
 

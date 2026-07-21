@@ -14,7 +14,7 @@ You can configure the sign-in window for OpenSearch Dashboards to provide either
 Consider the following sequence of steps before configuring the sign-in window for multiple authentication options. 
 
 1. Decide which types of authentication to make available at sign-in.
-1. Configure each authentication type, including an authentication domain for the identity provider (IdP) and the essential settings that give each type sign-in access to OpenSearch Dashboards. For OpenId Connect backend configuration, see [OpenID Connect]({{site.url}}{{site.baseurl}}/security/authentication-backends/openid-connect/). For SAML backend configuration, see [SAML]({{site.url}}{{site.baseurl}}/security/authentication-backends/saml/).
+1. Configure each authentication type, including an authentication domain for the identity provider (IdP) and the essential settings that give each type sign-in access to OpenSearch Dashboards. For OpenID Connect backend configuration, see [OpenID Connect]({{site.url}}{{site.baseurl}}/security/authentication-backends/openid-connect/). For SAML backend configuration, see [SAML]({{site.url}}{{site.baseurl}}/security/authentication-backends/saml/).
 1. Add, enable, and configure multiple option authentication settings in the `opensearch_dashboards.yml` file.
 
 ## Enabling multiple authentication options
@@ -55,11 +55,11 @@ opensearch_security.auth.multiple_auth_enabled: true
 
 When the `opensearch_security.auth.type` setting contains `basicauth` and one other authentication type, the sign-in window appears as in the following example.
 
-<img src="{{site.url}}{{site.baseurl}}/images/Security/OneOptionWithoutLogo.png" alt="Basic authentication and one other type in the sign-in window" width="350">
+![Basic authentication and one other type in the sign-in window]({{site.url}}{{site.baseurl}}/images/Security/OneOptionWithoutLogo.png){: width="350" }
 
 With all three valid authentication types specified, the sign-in window appears as in the following example.
 
-<img src="{{site.url}}{{site.baseurl}}/images/Security/TwoOptionWithoutLogo.png" alt="All three authentication types specified in the sign-in window" width="350">
+![All three authentication types specified in the sign-in window]({{site.url}}{{site.baseurl}}/images/Security/TwoOptionWithoutLogo.png){: width="350" }
 
 ## Configuring a default redirect authentication type
 
@@ -93,7 +93,7 @@ This is useful for administrators who need to authenticate using basic authentic
 
 In addition to the essential sign-in settings for each authentication type, you can configure additional settings in the `opensearch_dashboards.yml` file to customize the sign-in window so that it clearly represents the options that are available. For example, you can replace the label on the sign-in button with the name and icon of the IdP. Refer to the settings and descriptions that follow.
 
-<img src="{{site.url}}{{site.baseurl}}/images/Security/TwoOptionWithLogo.png" alt="Multi-option sign-in window with with some customization" width="350">
+![Multi-option sign-in window with some customization]({{site.url}}{{site.baseurl}}/images/Security/TwoOptionWithLogo.png){: width="350" }
 
 ### Basic authentication settings
 

@@ -71,6 +71,10 @@ response = client.indices.exists_alias(
     python=step1_python %}
 <!-- spec_insert_end -->
 
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `indices:admin/aliases/get`.
+
 ## Related documentation
 
 For more information about index aliases, see [Index aliases]({{site.url}}{{site.baseurl}}/im-plugin/index-alias/).

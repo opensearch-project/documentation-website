@@ -95,7 +95,7 @@ docker run --name data-prepper \
 ```
 {% include copy.html %}
 
-The example pipeline configuration above demonstrates a simple pipeline with a source (`random`) sending data to a sink (`stdout`). For examples of more advanced pipeline configurations, see [Pipelines]({{site.url}}{{site.baseurl}}/clients/data-prepper/pipelines/).
+The preceding example pipeline configuration demonstrates a simple pipeline with a source (`random`) sending data to a sink (`stdout`). For examples of more advanced pipeline configurations, see [Pipelines]({{site.url}}{{site.baseurl}}/clients/data-prepper/pipelines/).
 
 After starting Data Prepper, you should see log output and some UUIDs after a few seconds:
 
@@ -154,7 +154,7 @@ Trace analytics is an important Data Prepper use case. If you haven't yet config
 
 Log ingestion is also an important Data Prepper use case. To learn more, see [Log analytics]({{site.url}}{{site.baseurl}}/data-prepper/common-use-cases/log-analytics/).
 
-For information on how to monitor Data Prepper, see [Monitoring]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/monitoring/).
+For information about how to monitor Data Prepper, see [Monitoring]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/monitoring/).
 
 ## More examples
 

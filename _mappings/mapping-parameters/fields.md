@@ -161,7 +161,7 @@ POST /articles/_search
 ```
 {% include copy-curl.html %}
 
-The `title.ngrams` subfield uses a custom n-gram analyzer, therefore the prefix "Und" successfully matches the start of the word "Understanding":
+The `title.ngrams` subfield uses a custom n-gram analyzer, therefore the prefix `Und` successfully matches the start of the word `Understanding`:
 
 ```json
 {

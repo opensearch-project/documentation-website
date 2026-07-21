@@ -141,7 +141,7 @@ To suppress anomalies for deviations of less than 30% from the expected value, y
 
 The following image shows the pane for a feature named `LogVolume`, where you can set the relative deviation percentage settings:
 
-<img src="{{site.url}}{{site.baseurl}}/images/anomaly-detection/add-feature-with-relative-rules.png" alt="Interface of adding a feature with suppression rules" width="800" height="800">
+![Interface of adding a feature with suppression rules]({{site.url}}{{site.baseurl}}/images/anomaly-detection/add-feature-with-relative-rules.png){: width="800" height="800" }
 
 If you expect that the log volume should differ by at least 10,000 from the expected value before being considered an anomaly, you can set the following absolute thresholds:
 
@@ -150,7 +150,7 @@ If you expect that the log volume should differ by at least 10,000 from the expe
 
 The following image shows the pane for a feature named `LogVolume`, where you can set the absolute threshold settings:
 
-<img src="{{site.url}}{{site.baseurl}}/images/anomaly-detection/add-suppression-rules-absolute.png" alt="Interface of adding suppression rules with absolute rules" width="800" height="800">
+![Interface of adding suppression rules with absolute rules]({{site.url}}{{site.baseurl}}/images/anomaly-detection/add-suppression-rules-absolute.png){: width="800" height="800" }
 
 If no custom suppression rules are set, then the system defaults to a filter that ignores anomalies with deviations of less than 20% from the expected value for each enabled feature.
 
@@ -221,7 +221,7 @@ Specifies the aggregation bucket size (for example, 10 minutes). You should set 
 
 The interval must be large enough that you rarely miss data. The model uses shingling (consecutive, contiguous buckets), and missing buckets degrade data quality and shingle formation.
 
-##### Frequency (Optional)
+##### Frequency (optional)
 
 Specifies how often the job queries, scores, and writes results. Shorter values provide more real-time updates at a higher cost, while longer values reduce load but slow down updates. Frequency must be a multiple of the interval and defaults to the interval value.
 
@@ -241,7 +241,7 @@ If you're unsure, leave this field blank---the job will use the interval value b
    - **Trade-offs**: Less frequent anomaly evaluation.
    - **Best for**: Batch jobs and sporadic log ingestion patterns.
 
-##### Window delay (Optional)
+##### Window delay (optional)
 
 To add extra processing time for data collection, specify a **Window delay** value. This signals to the detector that data is not ingested into OpenSearch in real time but with a certain delay.
 
@@ -258,7 +258,7 @@ Without a window delay, the detector attempts to get data from 1:50–2:00 PM bu
 - Set **Window delay** to the upper limit of expected ingestion delay to avoid missing data.
 - Balance data accuracy with timely detection—too long of a delay hinders real-time anomaly detection.
 
-##### History (Optional)
+##### History (optional)
 
 Sets the number of historical data points used to train the initial (cold-start) model. The maximum is 10,000 data points. More history improves initial model accuracy up to that limit.
 
@@ -293,9 +293,7 @@ Both **frequency** and **window delay** address ingestion delay but work better 
 
 The following diagram illustrates the timing differences between using window delay and using frequency to handle a 1-day ingestion delay. The timeline shows Day-1 ingestion (top), Day-2 processing with `window_delay = 1 day` (middle, continuous band), and a single daily run when `frequency = 1 day` (bottom, vertical bar). Depending on when you start the detector, a daily frequency can fire just after Day-1 ends (best case, minimal extra delay) or much later (worst case, up to ~+1 day). The job runs every day at approximately the time you first started it.
 
-<img src="{{site.url}}{{site.baseurl}}/images/anomaly-detection/window-delay-vs-frequency.png"
-     alt="Timeline showing Day-1 ingestion (top), Day-2 processing with window delay (middle), and a single daily run when frequency = 1 day (bottom)"
-     width="1200" height="350">
+![Timeline showing Day-1 ingestion (top), Day-2 processing with window delay (middle), and a single daily run when frequency = 1 day (bottom)]({{site.url}}{{site.baseurl}}/images/anomaly-detection/window-delay-vs-frequency.png){: width="1200" height="350" }
 
 
 ### Setting a shingle size

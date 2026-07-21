@@ -85,19 +85,19 @@ The [`SearchRequestBody`](https://github.com/opensearch-project/opensearch-proto
 | `highlight` | [`Highlight`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.4.0/protos/schemas/common.proto#L1727) | Highlights matched terms in the result snippets. |
 | `track_total_hits` | [`TrackHits`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.4.0/protos/schemas/common.proto#L252) | Whether to return the total hit count. |
 | `indices_boost` | `map<string, float>` | **Deprecated.** Use `indices_boost_2` instead. |
-| `docvalue_fields` | `repeated` [`FieldAndFormat`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.4.0/protos/schemas/common.proto#L1964) | The fields returned using doc values. Optionally, this field can be formatted for readability. |
+| `docvalue_fields` | `repeated` [`FieldAndFormat`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.4.0/protos/schemas/common.proto#L1964) | The fields to return in their `doc_values` form. You can include a format for the returned values (for example, a date format). For `knn_vector` fields, supported formats are `binary` (default, Base64-encoded) and `array` (JSON numeric arrays). For more information, see [Retrieving vector fields using `docvalue_fields`]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/retrieve-specific-fields/#retrieving-vector-fields-using-docvalue_fields). |
 | `min_score` | `float` | The minimum score required in order for a document to be included in the results. |
 | `post_filter` | [`QueryContainer`](#querycontainer-fields) | Filters hits after aggregations are applied. |
 | `profile` | `bool` | Enables profiling to analyze query performance. |
 | `search_pipeline` | `string` | The name of the search pipeline to apply. |
 | `verbose_pipeline` | `bool` | Enables verbose logging in the search pipeline. |
 | `query` | [`QueryContainer`](#querycontainer-fields) | The query domain-specific language (DSL) for the search. |
-| `rescore` | `repeated` [`Rescore`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.4.0/protos/schemas/common.proto#L505)   | Reranks the top N hits to improve precision. |
-| `script_fields` | `map<string, `[`ScriptField`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.4.0/protos/schemas/common.proto#L1676)`>`  | Custom fields whose values are computed by scripts. |
+| `rescore` | `repeated` [`Rescore`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.4.0/protos/schemas/common.proto#L505) | Reranks the top N hits to improve precision. |
+| `script_fields` | `map<string, `[`ScriptField`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.4.0/protos/schemas/common.proto#L1676)`>` | Custom fields whose values are computed by scripts. |
 | `search_after` | `repeated` [`FieldValue`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.4.0/protos/schemas/common.proto#L2629) | Cursor-based pagination using values from the previous page. |
 | `size` | `int32` | The number of results to return. Default is `10`. |
 | `slice` | [`SlicedScroll`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.4.0/protos/schemas/common.proto#L514) | Splits scroll context into slices for parallel processing. |
-| `sort` | `repeated` [`SortCombinations`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.4.0/protos/schemas/common.proto#L1692)   | The sorting rules (for example, by field, score, or custom order). |
+| `sort` | `repeated` [`SortCombinations`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.4.0/protos/schemas/common.proto#L1692) | The sorting rules (for example, by field, score, or custom order). |
 | `x_source` | [`SourceConfig`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.4.0/protos/schemas/common.proto#L1268) | Controls whether to return the full `_source`, no `_source`, or only specific fields from `_source` in the response. |
 | `fields` | `repeated` [`FieldAndFormat`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.4.0/protos/schemas/common.proto#L1964) | Additional fields to return, with formatting options. |
 | `terminate_after` | `int32` | The maximum number of matching documents (hits) to process before early termination. Default is `0`. |
@@ -154,7 +154,7 @@ Note that some query types are currently unsupported. See [Supported queries](#s
 | `match` | [`MatchQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.4.0/protos/schemas/common.proto#L2081) | Performs a full-text match on text or exact-value fields. Must be the only field set. |
 | `match_bool_prefix` | [`MatchBoolPrefixQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.4.0/protos/schemas/common.proto#L2660) | Matches full words and prefixes in a Boolean-style query. Must be the only field set. |
 | `match_phrase` | [`MatchPhraseQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.4.0/protos/schemas/common.proto#L2738) | Matches an exact phrase in order. Must be the only field set. |
-| `match_phrase_prefix` | [`MatchPhrasePrefixQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.4.0/protos/schemas/common.proto#L2711)    | Matches a phrase in which the last term is treated as a prefix. Must be the only field set. |
+| `match_phrase_prefix` | [`MatchPhrasePrefixQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.4.0/protos/schemas/common.proto#L2711) | Matches a phrase in which the last term is treated as a prefix. Must be the only field set. |
 | `multi_match` | [`MultiMatchQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.4.0/protos/schemas/common.proto#L2762) | Searches multiple fields using a single query string. Must be the only field set. |
 | `knn` | [`KnnQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.4.0/protos/schemas/common.proto#L2022) | A k-NN query across vector fields. Must be the only field set. |
 | `match_all` | [`MatchAllQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.4.0/protos/schemas/common.proto#L2651) | Matches all documents in the index. Must be the only field set. |
@@ -288,7 +288,7 @@ The [`RegexpQuery`](https://github.com/opensearch-project/opensearch-protobufs/b
 | Field | Protobuf type | Description |
 | :---- | :---- | :---- |
 | `field` | `string` | Required. The field against which to run a search query. |
-| `value` | `string` | Required. A regular expressionfor terms to search for in the provided field. |
+| `value` | `string` | Required. A regular expression for terms to search for in the provided field. |
 | `boost` | `optional float` | A floating-point number used to decrease or increase the relevance scores of the query. Default is `1.0`. |
 | `x_name` | `optional string` | A query name for query tagging. |
 | `case_insensitive` | `optional bool` | Allows case-insensitive matching of the regular expression. Default is `false`. |
@@ -501,6 +501,23 @@ The [`ConstantScoreQuery`](https://github.com/opensearch-project/opensearch-prot
 | `boost` | `optional float` | A floating-point number used to decrease or increase the relevance scores of the query. Default is `1.0`. |
 | `x_name` | `optional string` | A query name for query tagging. |
 
+#### FunctionScoreQuery fields
+
+The [`FunctionScoreQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.2.0/protos/schemas/common.proto#L2154) message accepts the following fields.
+
+| Field | Protobuf type | Description |
+| :---- | :---- | :---- |
+| `boost` | `optional float` | A floating-point number used to decrease or increase the relevance scores of the query. Default is `1.0`. |
+| `x_name` | `optional string` | A query name for query tagging. |
+| `boost_mode` | `optional` [`FunctionBoostMode`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.2.0/protos/schemas/common.proto#L2947) | Determines how the computed function score is combined with the query score. |
+| `functions` | `repeated` [`FunctionScoreContainer`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.2.0/protos/schemas/common.proto#L2181) | The score functions. Each entry may set `filter`, `weight`, and one of `exp`, `gauss`, `linear`, `field_value_factor`, `random_score`, or `script_score`. |
+| `max_boost` | `optional float` | The maximum boost value that a function can apply to a document score. |
+| `min_score` | `optional float` | Excludes documents with a score below this threshold from the results. |
+| `query` | `optional` [`QueryContainer`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.2.0/protos/schemas/common.proto#L1341) | The query used to select documents before applying score functions. |
+| `score_mode` | `optional` [`FunctionScoreMode`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.2.0/protos/schemas/common.proto#L2957) | Determines how scores from multiple functions are combined into a single score. |
+
+For more information, see [Function score query]({{site.url}}{{site.baseurl}}/query-dsl/compound/function-score/).
+
 ### Joining query fields
 
 The following sections describe the fields for each joining query message.
@@ -558,6 +575,8 @@ A geodistance query returns documents with geopoints that are within a specified
 ### Specialized query fields
 
 The following sections describe the fields for each specialized query message.
+
+For `knn` query fields, see [k-NN (gRPC)]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/knn/).
 
 #### ScriptQuery fields
 
@@ -786,11 +805,11 @@ The source documents are returned as bytes. Use Base64 decoding to read the `_so
 | `took` | `int64` | The amount of time taken to process the search request, in milliseconds. |
 | `timed_out` | `bool` | Whether the search timed out. |
 | `x_shards` | [`ShardStatistics`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.4.0/protos/schemas/common.proto#L1312) | The shard-level success/failure/total metadata. |
-| `phase_took` | [`PhaseTook`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.4.0/protos/schemas/common.proto#L330)   | The phase-level `took` time values in the response. |
-| `hits` | [`HitsMetadata`](#hitsmetadata-fields)    | The main document results and metadata. |
+| `phase_took` | [`PhaseTook`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.4.0/protos/schemas/common.proto#L330) | The phase-level `took` time values in the response. |
+| `hits` | [`HitsMetadata`](#hitsmetadata-fields) | The main document results and metadata. |
 | `processor_results` | `repeated` [`ProcessorExecutionDetail`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.4.0/protos/schemas/common.proto#L306) | Processor execution details. |
 | `x_clusters` | [`ClusterStatistics`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.4.0/protos/schemas/common.proto#L472) | Information about the search on each cluster when searching remote clusters. |
-| `fields` | [`ObjectMap`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.4.0/protos/schemas/common.proto#L3550)    | **Deprecated.** Retrieved specific fields in the search response. |
+| `fields` | [`ObjectMap`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.4.0/protos/schemas/common.proto#L3550) | **Deprecated.** Retrieved specific fields in the search response. |
 | `num_reduce_phases` | `int32` | The number of times that the coordinating node aggregates results from batches of shard responses. |
 | `profile` | [`Profile`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.4.0/protos/schemas/common.proto#L484) | Profiling data for query execution (debugging/performance insights). |
 | `pit_id` | `string` | The Point in Time ID. |
@@ -818,8 +837,8 @@ The `HitsMetadata` object contains information about the search results, includi
 
 | Field | Protobuf type | Description |
 | :---- | :---- | :---- |
-| `total` | [`HitsMetadataTotal`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.4.0/protos/schemas/common.proto#L351)  | Metadata about the total number of matching documents (value \+ relation). |
-| `max_score` | [`HitsMetadataMaxScore`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.4.0/protos/schemas/common.proto#L360)   | The highest relevance score of the returned hits (may be `null`). |
+| `total` | [`HitsMetadataTotal`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.4.0/protos/schemas/common.proto#L351) | Metadata about the total number of matching documents (value \+ relation). |
+| `max_score` | [`HitsMetadataMaxScore`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.4.0/protos/schemas/common.proto#L360) | The highest relevance score of the returned hits (may be `null`). |
 | `hits` | `repeated` [`HitsMetadataHitsInner`](#hitsmetadatahitsinner-fields) | The actual list of matched documents. Each hit includes core fields like `index`, `id`, `score`, and `source`, along with additional optional fields. |
 
 ### HitsMetadataHitsInner fields
@@ -847,7 +866,7 @@ Each `HitsMetadataHitsInner` represents a single document matched by the query a
 | `x_seq_no` | `int64` | The sequence number (used for indexing history and versioning). |
 | `x_primary_term` | `int64` | The primary term number (used for optimistic concurrency control). |
 | `x_version` | `int64` | The document version number. |
-| `sort` | `repeated` [`FieldValue`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.4.0/protos/schemas/common.proto#L2629)  | The sort values used for result sorting. |
+| `sort` | `repeated` [`FieldValue`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.4.0/protos/schemas/common.proto#L2629) | The sort values used for result sorting. |
 | `meta_fields` | [`ObjectMap`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.4.0/protos/schemas/common.proto#L3550) | The metadata values for the document. |
 | `matched_queries_2` | [`HitMatchedQueries`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.4.0/protos/schemas/common.proto#L2843) | The current protobuf representation of matched query names for the document. |
 

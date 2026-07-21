@@ -12,7 +12,7 @@ grand_parent: Agents and tools
 **Introduced 2.13**
 {: .label .label-purple }
 
-The `PPLTool` translates natural language into a PPL query. The tool provides an `execute` flag to specify whether to run the query. If you set the flag to `true`, the `PPLTool` runs the query and returns the query and the results.
+The `PPLTool` translates natural language into a Piped Processing Language (PPL) query. The tool provides an `execute` flag to specify whether to run the query. If you set the flag to `true`, the `PPLTool` runs the query and returns the query and the results.
 
 ## Prerequisite
 
@@ -130,7 +130,7 @@ OpenSearch responds with an agent ID:
 
 ## Step 4: Run the agent
 
-Before you run the agent, make sure that you add the sample OpenSearch Dashboards `Sample web logs` dataset. To learn more, see [Adding sample data]({{site.url}}{{site.baseurl}}/dashboards/quickstart#adding-sample-data).
+Before you run the agent, make sure that you add the sample OpenSearch Dashboards `Sample web logs` dataset. To learn more, see [Adding sample data]({{site.url}}{{site.baseurl}}/dashboards/getting-started/data-setup/#add-sample-data).
 
 Then, run the agent by sending the following request:
 

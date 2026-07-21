@@ -23,7 +23,7 @@ The `stats_bucket` aggregation takes the following parameters.
 
 ## Example
 
-The following example creates a date histogram with a one-month interval using the OpenSearch Dashboards e-commerce sample data. The `sum` sub-aggregation calculates the sum of all bytes for each month. Finally, the `stats_bucket` aggregation returns the `count`, `avg`, `sum`, `min`, and `max` stats from these sums:
+The following example creates a date histogram with a one-month interval using the OpenSearch Dashboards e-commerce sample data. The `sum` subaggregation calculates the sum of all bytes for each month. Finally, the `stats_bucket` aggregation returns the `count`, `avg`, `sum`, `min`, and `max` stats from these sums:
 
 ```json
 GET opensearch_dashboards_sample_data_logs/_search

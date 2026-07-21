@@ -282,7 +282,7 @@ The following table lists the available response body fields.
 Response field |  Description
 :--- | :---
 `model_id` | The unique identifier of the fetched model.
-`model_blob` | The base64 encoded string of the serialized model.
+`model_blob` | The Base64-encoded string of the serialized model.
 `state` | The model's current state, which can be `created`, `failed`, or `training`.
 `timestamp` | The date and time when the model was created.
 `description` | A user-provided description of the model.

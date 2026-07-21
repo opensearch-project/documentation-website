@@ -10,11 +10,11 @@ nav_order: 20
 
 The field data cache is a node-level in-memory cache that stores field data and global ordinals. These are data structures that enable aggregations and sorting on analyzed text fields. Since they can be expensive to compute, they are cached after creation in case they need to be reused.
 
-## What is field data?
+## What is field data
 
 Field data is a data structure that enables quick sorting and aggregation on text fields. Text fields are stored in an inverted index, which is optimized for quick searching for specific terms, not iterating through individual documents. As this is necessary for aggregations or sorting, OpenSearch must process the inverted index into another data structure that is optimized for individual document access.
 
-## What are global ordinals? 
+## What are global ordinals
 
 When computing aggregations on a given field, each Lucene segment assigns a unique ordinal to each unique term, enabling things like bucket aggregations. When computing an aggregation across the whole cluster, it's necessary to create a global ordinal for each globally unique term and to store a mapping between these global ordinals and the segment ordinals. This enables combining the aggregation results from each segment. This mapping is then stored in the field data cache for reuse in future aggregations. 
 
@@ -65,4 +65,4 @@ The response contains the cache statistics:
 
 You can aggregate the values by index by providing the parameter `level=indices`. 
 
-You can also use the [Cat Fielddata API]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-field-data/) to get a list of field data sizes for each field on each node. 
+You can also use the [Cat Field Data API]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-field-data/) to get a list of field data sizes for each field on each node. 

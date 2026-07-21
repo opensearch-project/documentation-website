@@ -19,11 +19,11 @@ The **Metrics** tool offers federated visualization capabilities in addition to 
 
 The following image displays the flow for retrieving metrics from Prometheus and displaying them on a visualization dashboard.
 
-<img src="{{site.url}}{{site.baseurl}}/images/metrics/prom-metrics.png" alt="Prometheus data source" width="700"/>
+![Prometheus data source]({{site.url}}{{site.baseurl}}/images/metrics/prom-metrics.png){: width="700" }
 
 The following image displays an observability dashboard that visualizes metric data from the OpenSearch index using OTel queries.
 
-<img src="{{site.url}}{{site.baseurl}}/images/metrics/otel-metrics.png" alt="OTel data source" width="700"/>
+![OTel data source]({{site.url}}{{site.baseurl}}/images/metrics/otel-metrics.png){: width="700" }
 
 ---
 
@@ -65,13 +65,13 @@ POST _plugins/_query/_datasources
 
 After configuring the connection, you can view Prometheus metrics in OpenSearch Dashboards by going to the **Observability** > **Metrics** page, as shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/metrics/metrics1.png" alt="Prometheus metrics displayed on a dashboard" width="700"/>
+![Prometheus metrics displayed on a dashboard]({{site.url}}{{site.baseurl}}/images/metrics/metrics1.png){: width="700" }
 
 ### Developer resources
 
 See the following developer resources for sample code, articles, tutorials, and API references:
 
-* [Datasource Settings](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/admin/datasources.md), which contains information about authentication and authorization of data source APIs.
+* [Data source settings](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/admin/datasources.md), which contains information about authentication and authorization of data source APIs.
 * [Prometheus Connector](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/admin/connectors/prometheus_connector.md), which contains configuration information.
 * [Simple Schema for Observability](https://github.com/opensearch-project/opensearch-catalog/tree/main/docs/schema/observability), which contains information about the OTel schema and ingest pipeline.
 * [OTel Metrics Source](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/otel-metrics-source), which contains information about the Data Prepper metrics pipeline and ingestion.
@@ -149,7 +149,7 @@ To visualize OTel metric data in OpenSearch, follow these steps:
 5. Ingest metric data into OpenSearch. As the demo starts generating data, the metric signals will be added to the OpenSearch index that supports the OpenTelemetry Metrics schema format.
 6. On the **Metrics** page, choose `Otel-Index` from the **Data sources** dropdown menu and `Simple Schema for Observability Index` from the **OTel index** dropdown menu. A visualization is displayed, as shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/metrics/otel-metrics.png" alt="OTel metrics dashboard" width="700"/>
+![OTel metrics dashboard]({{site.url}}{{site.baseurl}}/images/metrics/otel-metrics.png){: width="700" }
 
 ---
 
@@ -159,11 +159,11 @@ Introduced 2.14
 
 You can view metrics from remote OpenSearch clusters by using the **Metrics** tool. Select the database icon on the upper-right toolbar and choose a cluster from the **DATA SOURCES** dropdown menu, as shown in the following image. You can switch from a local cluster to a remote cluster.
 
-<img src="{{site.url}}{{site.baseurl}}/images/metrics/remote-cluster-selection.png" alt="Switching clusters using the Metrics analytics tool" width="700"/>
+![Switching clusters using the Metrics analytics tool]({{site.url}}{{site.baseurl}}/images/metrics/remote-cluster-selection.png){: width="700" }
 
 You can also view metric visualizations from other sources alongside local metric visualizations. From the **DATA SOURCES** dropdown menu, choose the remote metric visualization to add it to the group of visualizations already shown on the dashboard. An example dashboard is shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/metrics/otel-metrics-remote-cluster-selection.png" alt="Metrics dashboard" width="700"/>
+![Metrics dashboard]({{site.url}}{{site.baseurl}}/images/metrics/otel-metrics-remote-cluster-selection.png){: width="700" }
 
 To learn about multi-cluster support for data sources, see [Enable OpenSearch Dashboards to support multiple OpenSearch clusters](https://github.com/opensearch-project/OpenSearch-Dashboards/issues/1388).
 
@@ -178,7 +178,7 @@ To create these visualizations, follow these steps:
 3. When prompted for a **Custom operational dashboards/application**, choose one of the listed options. You can edit the predefined name values in the **Metric Name** field.
 4. Select **Save** to save your visualization. An example visualization is shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/metrics/metrics2.png" alt="Metrics analytics dashboard with visualizations" width="700"/>
+![Metrics analytics dashboard with visualizations]({{site.url}}{{site.baseurl}}/images/metrics/metrics2.png){: width="700" }
 
 ## Defining PPL queries for Prometheus metrics
 
@@ -194,10 +194,10 @@ source = my_prometheus.prometheus_http_requests_total | stats avg(@value) by spa
 To create a custom visualization based on the PPL query, follow these steps:
 
 1. From the **Logs** page, select > **Event Explorer**.
-2. On the **Explorer** page,  enter your PPL query and select **Run**. Then select **Save**.
+2. On the **Explorer** page, enter your PPL query and select **Run**. Then select **Save**.
 3. When prompted to choose a **Custom Operational Dashboards/Application**, select one of the listed options. Optionally, you can edit the predefined name values in the **Metric Name** fields and can choose to save the visualization as a metric.
 5. Select **Save** to save your custom visualization. 
 
 Only queries that include a time-series visualization and statistics or span information can be saved as a metric, as shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/metrics/metrics3.png" alt="Saving queries as metrics" width="700"/>
+![Saving queries as metrics]({{site.url}}{{site.baseurl}}/images/metrics/metrics3.png){: width="700" }
