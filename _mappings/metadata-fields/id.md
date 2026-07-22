@@ -7,7 +7,7 @@ redirect_from:
   - /field-types/metadata-fields/id/
 ---
 
-# ID
+# ID metadata field
 
 Each document in OpenSearch has a unique `_id` field. This field is indexed, allowing you to retrieve documents using the GET API or the [`ids` query]({{site.url}}{{site.baseurl}}/query-dsl/term/ids/).
 

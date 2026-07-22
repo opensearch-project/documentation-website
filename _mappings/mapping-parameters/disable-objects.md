@@ -7,7 +7,7 @@ has_children: false
 has_toc: false
 ---
 
-# Disable objects
+# Disable objects mapping parameter
 
 By default, OpenSearch interprets field names containing dots (`.`) as hierarchical object paths. For example, a field named `metrics.cpu.usage` is expanded into a nested object structure with `metrics` as the top-level object containing a `cpu` object, which in turn contains a `usage` field.
 

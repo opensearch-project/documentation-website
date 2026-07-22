@@ -6,9 +6,9 @@ redirect_from:
   - /search-plugins/sql/datatypes/
 ---
 
-# Data types
+# SQL and PPL data types
 
-The following table shows the data types supported by the SQL plugin and how each one maps to SQL and OpenSearch data types:
+The following table shows the data types supported by the SQL plugin and how each one maps to SQL and OpenSearch data types.
 
 | OpenSearch SQL type | OpenSearch type | SQL type
 :--- | :--- | :---

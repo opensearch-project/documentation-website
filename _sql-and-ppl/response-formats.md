@@ -6,9 +6,9 @@ redirect_from:
   - /search-plugins/sql/response-formats/
 ---
 
-# Response formats
+# SQL and PPL query response formats
 
-The SQL plugin provides the `jdbc`, `csv`, `raw`, and `json` response formats that are useful for different purposes. The `jdbc` format is widely used because it provides the schema information and adds more functionality, such as pagination. Besides the JDBC driver, various clients can benefit from a detailed and well-formatted response.
+OpenSearch provides the `jdbc`, `csv`, `raw`, and `json` response formats for SQL and PPL queries, each useful for different purposes. The `jdbc` format is widely used because it provides the schema information and adds more functionality, such as pagination. Besides the JDBC driver, various clients can benefit from a detailed and well-formatted response.
 
 ## JDBC format
 

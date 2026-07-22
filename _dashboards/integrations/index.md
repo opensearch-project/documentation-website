@@ -9,7 +9,7 @@ redirect_from:
   - /dashboards/integrations/
 ---
 
-# Integrations
+# OpenSearch Dashboards integrations
 **Introduced 2.9**
 {: .label .label-purple }
 

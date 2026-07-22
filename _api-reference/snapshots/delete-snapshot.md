@@ -5,7 +5,7 @@ parent: Snapshot APIs
 nav_order: 7
 ---
 
-## Delete snapshot
+# Delete Snapshot API
 **Introduced 1.0**
 {: .label .label-purple }
 

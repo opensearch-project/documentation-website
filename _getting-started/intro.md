@@ -3,6 +3,7 @@ layout: default
 title: Intro to OpenSearch
 nav_order: 2
 has_math: true
+description: "An introduction to OpenSearch and how it works, including core concepts such as documents, indexes, clusters, nodes, shards, and how search results are ranked."
 redirect_from: 
  - /intro/
 ---
@@ -11,7 +12,7 @@ redirect_from:
 
 OpenSearch is a distributed search and analytics engine that supports various use cases, from implementing a search box on a website to analyzing security data for threat detection. The term _distributed_ means that you can run OpenSearch on multiple computers. _Search and analytics_ means that you can search and analyze your data once you ingest it into OpenSearch. No matter your type of data, you can store and analyze it using OpenSearch.
 
-## Overview
+## Watch a demo
 
 Watch this video to learn key OpenSearch concepts and understand how OpenSearch organizes data and ranks search results.
 

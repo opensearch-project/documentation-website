@@ -6,7 +6,7 @@ nav_order: 1
 has_children: true
 ---
 
-# Functions
+# PPL functions
 
 PPL supports a wide range of built-in functions for data processing and analysis. These functions are organized into categories based on their functionality and can be used within PPL queries to manipulate and transform data.
 

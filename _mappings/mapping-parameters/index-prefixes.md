@@ -9,7 +9,7 @@ has_children: false
 has_toc: false
 ---
 
-# Index prefixes
+# Index prefixes mapping parameter
 
 The `index_prefixes` mapping parameter instructs the engine to generate additional index entries for the beginning segments of terms in a text field. When enabled, it builds a prefix index based on configurable minimum and maximum character lengths. This can significantly improve the performance of [prefix queries]({{site.url}}{{site.baseurl}}/query-dsl/term/prefix/), such as [autocomplete]({{site.url}}{{site.baseurl}}/opensearch/search/autocomplete/) or [search as you type]({{site.url}}{{site.baseurl}}/opensearch/search/autocomplete/#search-as-you-type), by allowing these queries to quickly match the pre-indexed term prefixes.
 

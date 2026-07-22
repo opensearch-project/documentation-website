@@ -10,7 +10,7 @@ redirect_from:
 
 # AI agent integrations
 
-OpenSearch supports AI agents in two ways:
+OpenSearch integrates with AI agents so you can use it as a data source for external AI tools or run agents inside the cluster. OpenSearch supports AI agents in two ways:
 
 - **External agents connecting to OpenSearch** (this section) -- AI tools run outside of your OpenSearch cluster and use OpenSearch as a data source. Examples include Claude Desktop with the MCP Server or Cursor with agent skills. Install these tools on your machine and configure your client.
 - **Internal agents running in OpenSearch** -- OpenSearch agents run inside the OpenSearch cluster and can call both internal tools and external MCP servers. Register these agents through ML Commons Agent APIs and configure cluster settings. For more information, see [Agents and tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/).

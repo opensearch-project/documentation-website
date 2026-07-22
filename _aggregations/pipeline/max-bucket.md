@@ -5,7 +5,7 @@ parent: Pipeline aggregations
 nav_order: 100
 ---
 
-# Maximum bucket aggregations
+# Maximum bucket aggregation
 
 The `max_bucket` aggregation is a sibling aggregation that calculates the maximum of a metric in each bucket of a previous aggregation.
 

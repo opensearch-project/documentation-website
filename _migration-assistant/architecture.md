@@ -7,7 +7,7 @@ redirect_from:
   - /migration-assistant/overview/architecture/
 ---
 
-# Architecture
+# Migration Assistant architecture
 
 Migration Assistant follows this operating model:
 
