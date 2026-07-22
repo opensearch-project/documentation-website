@@ -14,7 +14,7 @@ SQL plugin supports JSON by following [PartiQL](https://partiql.org/) specificat
 
 ## Querying nested collection
 
-PartiQL extends SQL to allow you to query and unnest nested collections. In OpenSearch, this is very useful to query a JSON index with nested objects or fields.
+PartiQL extends SQL to allow you to query and flatten nested collections. In OpenSearch, this is very useful to query a JSON index with nested objects or fields.
 
 To follow along, use the `bulk` operation to index some sample data:
 
@@ -29,9 +29,9 @@ POST employees_nested/_bulk?refresh
 ```
 {% include copy-curl.html %}
 
-### Example 1: Unnesting a nested collection
+### Example 1: Flattening a nested collection
 
-This example finds the nested document (`projects`) with a field value (`name`) that satisfies the predicate (contains `security`). Because each parent document can have more than one nested documents, the nested document that matches is flattened. In other words, the final result is the cartesian product between the parent and nested documents.
+This example finds the nested document (`projects`) with a field value (`name`) that satisfies the predicate (contains `security`). Because each parent document can have more than one nested documents, the nested document that matches is flattened. In other words, the final result is the Cartesian product between the parent and nested documents.
 
 ```sql
 SELECT e.name AS employeeName,
@@ -105,7 +105,7 @@ Explain:
 }
 ```
 
-Result set:
+The query returns the following results:
 
 | employeeName | projectName
 :--- | :---
@@ -114,9 +114,9 @@ Bob Smith | SQL security
 Jane Smith | Hello security
 Jane Smith | SQL security
 
-### Example 2: Unnesting in existential subquery
+### Example 2: Flattening in an existential subquery
 
-To unnest a nested collection in a subquery to check if it satisfies a condition:
+To flatten a nested collection in a subquery to check if it satisfies a condition:
 
 ```sql
 SELECT e.name AS employeeName
@@ -215,9 +215,13 @@ Explain:
 }
 ```
 
-Result set:
+The query returns the following results:
+
+<!-- vale off -->
 
 | employeeName |
 :--- | :---
 Bob Smith |
 Jane Smith |
+
+<!-- vale on -->
