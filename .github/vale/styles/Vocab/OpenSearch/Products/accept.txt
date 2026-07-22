@@ -57,6 +57,7 @@ Iris
 Jaeger
 Jaeger HotROD
 JavaScript
+Joda
 JSON
 JSON Web Token
 Karpenter

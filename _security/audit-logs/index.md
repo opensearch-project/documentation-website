@@ -106,9 +106,11 @@ config:
 ```
 {% include copy.html %}
 
-When `disabled_categories` is configured alongside `disabled_rest_categories` or `disabled_transport_categories`, they work in tandem --- a category is disabled on a given layer if it appears in either the unified setting or the layer-specific setting. A deprecation warning is logged when both are configured, encouraging migration to `disabled_categories` only.
+When `disabled_categories` is configured alongside `disabled_rest_categories` or `disabled_transport_categories`, a category is disabled on a given layer if it appears in either the unified setting or the layer-specific setting.
 
-For example, the following configuration disables `AUTHENTICATED` on both layers (via `disabled_categories`) and additionally disables `SSL_EXCEPTION` on the REST layer only:
+A deprecation warning is logged when `disabled_categories` is configured alongside layer-specific settings, encouraging migration to `disabled_categories` only.
+
+For example, the following configuration disables `AUTHENTICATED` on both layers (using `disabled_categories`) and disables `SSL_EXCEPTION` on the REST layer only:
 
 ```yml
 config:
@@ -262,7 +264,7 @@ The following settings are stored in the `opensearch.yml` file.
 
 #### Exclude categories
 
-You can also configure disabled categories directly in `opensearch.yml` using the `plugins.security.audit.config` prefix. This is useful for non-FGAC modes (SSL-only or security-disabled) where the `audit.yml` security index is not available:
+You can configure disabled categories in `opensearch.yml` using the `plugins.security.audit.config` prefix. This is useful for non-fine-grained access control (FGAC) modes (SSL-only or security-disabled) for which the `audit.yml` security index is not available:
 
 ```yml
 plugins.security.audit.config.disabled_categories:
@@ -271,8 +273,8 @@ plugins.security.audit.config.disabled_categories:
 ```
 {% include copy.html %}
 
+The layer-specific settings (`disabled_rest_categories` and `disabled_transport_categories`) may be deprecated in a future version. Use the unified `disabled_categories` setting instead.
 {: .warning}
-The following layer-specific settings (`disabled_rest_categories` and `disabled_transport_categories`) are on a deprecation path and could be removed in a future release. Use the unified `disabled_categories` setting instead.
 
 The layer-specific settings are also available:
 
@@ -286,7 +288,7 @@ plugins.security.audit.config.disabled_transport_categories:
 ```
 {% include copy.html %}
 
-When both `disabled_categories` and the layer-specific settings are configured, they work in tandem --- a category is disabled on a given layer if it appears in either setting.
+When both `disabled_categories` and the layer-specific settings are configured, a category is disabled on a given layer if it appears in either setting.
 
 
 #### Configure the audit log index name
