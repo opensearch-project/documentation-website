@@ -49,6 +49,26 @@ Avoid using allow to refer to making something possible for the user. Instead, r
 
 Use to describe a list of items that are allowed (not blocked). Do not use as a verb. Do not use whitelist.
 
+**Amazon Bedrock**
+
+Use _Amazon Bedrock_ on all appearances. The prefix is required; do not use _Bedrock_ alone.
+
+**Amazon CloudWatch**
+
+Use _Amazon CloudWatch_ on first appearance in a page; use _CloudWatch_ on subsequent appearances.
+
+**Amazon Elastic Compute Cloud (Amazon EC2)**
+
+Use _Amazon Elastic Compute Cloud (Amazon EC2)_ on first appearance in a page; use _Amazon EC2_ or _EC2_ on subsequent appearances.
+
+**Amazon Elastic Container Service (Amazon ECS)**
+
+Use _Amazon Elastic Container Service (Amazon ECS)_ on first appearance in a page; use _Amazon ECS_ or _ECS_ on subsequent appearances.
+
+**Amazon Elastic Kubernetes Service (Amazon EKS)**
+
+Use _Amazon Elastic Kubernetes Service (Amazon EKS)_ on first appearance in a page; use _Amazon EKS_ or _EKS_ on subsequent appearances.
+
 **Amazon OpenSearch Serverless**
 
 Use _Amazon OpenSearch Serverless_ on first appearance; _OpenSearch Serverless_ is acceptable for subsequent appearances. Amazon OpenSearch Serverless is an on-demand serverless configuration for Amazon OpenSearch Service.
@@ -56,6 +76,18 @@ Use _Amazon OpenSearch Serverless_ on first appearance; _OpenSearch Serverless_ 
 **Amazon OpenSearch Service**
 
 Use _Amazon OpenSearch Service_ on first appearance; _OpenSearch Service_ is acceptable for subsequent appearances. Amazon OpenSearch Service is a managed service that makes it easy to deploy, operate, and scale OpenSearch clusters in the AWS Cloud. Amazon OpenSearch Service is the successor to Amazon Elasticsearch Service (Amazon ES) and supports OpenSearch and legacy Elasticsearch OSS (up to 7.10, the final open-source version of the software).
+
+**Amazon SageMaker**
+
+Use _Amazon SageMaker_ on first appearance in a page; use _SageMaker_ on subsequent appearances.
+
+**Amazon Simple Queue Service (Amazon SQS)**
+
+Use _Amazon Simple Queue Service (Amazon SQS)_ on first appearance in a page; use _Amazon SQS_ or _SQS_ on subsequent appearances.
+
+**Amazon Simple Storage Service (Amazon S3)**
+
+Use _Amazon Simple Storage Service (Amazon S3)_ on first appearance in a page; use _Amazon S3_ or _S3_ on subsequent appearances.
 
 **API, API operation**
 
@@ -84,6 +116,14 @@ Avoid. Replace with in addition to or and as appropriate.
 Use lowercase _scaling_, _auto scaling_, and _automatic scaling_ (but not _autoscaling_) as the preferred descriptive terms when generically describing auto scaling functionality.
 
 Do not use hyphenated auto-scaling as a compound modifier. Instead, use scaling (for example, scaling policy), or scalable (for example, scalable target or scalable, load-balanced environment).
+
+**AWS Identity and Access Management (IAM)**
+
+Use _AWS Identity and Access Management (IAM)_ on first appearance in a page; use _IAM_ on subsequent appearances.
+
+**AWS Secrets Manager**
+
+Use _AWS Secrets Manager_ on first appearance in a page; use _Secrets Manager_ on subsequent appearances.
 
 **AWS Signature Version 4**
 
