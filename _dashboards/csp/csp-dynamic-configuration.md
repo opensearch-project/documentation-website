@@ -69,12 +69,6 @@ csp-report-only.allowedConnectSources: ["https://api.example.com"]
 csp-report-only.allowedImgSources: ["https://cdn.example.com"]
 ```
 
-## Fine-grained access control
-
-CSP configuration is managed through `opensearch_dashboards.yml` and requires access to the server's file system. Only administrators with access to the server configuration should modify these settings.
-
-When the Security plugin is enabled, ensure that any related index permissions are restricted to trusted administrator accounts.
-
 ## Deprecated: applicationConfig approach (2.13–2.16)
 
 **Deprecated.** In OpenSearch Dashboards 2.13–2.16, the `frame-ancestors` directive could be set dynamically via a REST API using the `applicationConfig` and `cspHandler` plugins. This approach is no longer functional—the API still accepts values but they are not applied to the `Content-Security-Policy` header. Use the `csp.*` settings above instead.
