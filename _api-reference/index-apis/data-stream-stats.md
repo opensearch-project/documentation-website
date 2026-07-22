@@ -37,7 +37,7 @@ The following table lists the available query parameters. All query parameters a
 | `pretty` | Boolean | Whether to pretty format the returned JSON response. | `false` |
 | `source` | String | The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests. | N/A |
 
-## Example Requests
+## Example requests
 
 Create an index template with a matching pattern and data stream enabled:
 
