@@ -136,7 +136,7 @@ Close the search context when you’re done scrolling, because it continues to c
 DELETE _search/scroll/DXF1ZXJ5QW5kRmV0Y2gBAAAAAAAAAAcWdmpUZDhnRFBUcWFtV21nMmFwUGJEQQ==
 ```
 
-#### Sample Response
+#### Example response
 
 ```json
 {
@@ -278,4 +278,4 @@ Unlike the `scroll` operation, the `search_after` parameter is stateless, so the
 
 ## Point in Time with `search_after`
 
-Point in Time (PIT) with `search_after` is the preferred pagination method in OpenSearch, especially for deep pagination. It bypasses the limitations of all other methods because it operates on a dataset that is frozen in time, it is not bound to a query, and it supports consistent pagination going forward and backward. To learn more, see [Point in Time]({{site.url}}{{site.baseurl}}/opensearch/point-in-time).
+Point in Time (PIT) with `search_after` is the preferred pagination method in OpenSearch, especially for deep pagination. It bypasses the limitations of all other methods because it operates on a dataset that is frozen in time, it is not bound to a query, and it supports consistent pagination going forward and backward. To learn more, see [Point in Time]({{site.url}}{{site.baseurl}}/opensearch/point-in-time/).
