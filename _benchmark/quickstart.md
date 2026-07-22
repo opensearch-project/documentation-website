@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Quickstart
-nav_order: 2
+nav_order: 5
 ---
 
 # OpenSearch Benchmark quickstart

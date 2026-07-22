@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Migration assistance
-nav_order: 102
+nav_order: 110
 ---
 
 # Migrating from 1.X to 2.X

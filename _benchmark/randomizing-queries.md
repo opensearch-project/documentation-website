@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Randomizing queries
-nav_order: 55
+nav_order: 65
 has_math: true
 redirect_from:
   - /benchmark/user-guide/optimizing-benchmarks/randomizing-queries/

@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Expanding a workload's data corpus
-nav_order: 45
+nav_order: 55
 redirect_from:
   - /benchmark/user-guide/optimizing-benchmarks/expand-data-corpus/
 ---

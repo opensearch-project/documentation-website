@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Fine-tuning custom workloads
-nav_order: 30
+nav_order: 40
 redirect_from:
   - /benchmark/user-guide/finetine-workloads/
   - /benchmark/user-guide/working-with-workloads/finetune-workloads/

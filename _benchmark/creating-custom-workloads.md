@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Creating custom workloads
-nav_order: 25
+nav_order: 35
 redirect_from:
   - /benchmark/user-guide/creating-custom-workloads/
   - /benchmark/user-guide/creating-osb-workloads/

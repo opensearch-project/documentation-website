@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Sharing custom workloads
-nav_order: 35
+nav_order: 45
 redirect_from:
   - /benchmark/user-guide/contributing-workloads/
   - /benchmark/user-guide/working-with-workloads/contributing-workloads/

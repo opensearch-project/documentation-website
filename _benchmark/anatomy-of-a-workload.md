@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Anatomy of a workload
-nav_order: 10
+nav_order: 15
 redirect_from:
   - /benchmark/user-guide/understanding-workloads/anatomy-of-a-workload/
 ---

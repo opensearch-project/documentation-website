@@ -1,7 +1,7 @@
 ---
 layout: default
 title: User guide
-nav_order: 5
+nav_order: 10
 has_children: true
 has_toc: false
 more_cards:

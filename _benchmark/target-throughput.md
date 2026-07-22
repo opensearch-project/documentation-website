@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Target throughput
-nav_order: 50
+nav_order: 60
 redirect_from:
   - /benchmark/user-guide/target-throughput/
   - /benchmark/user-guide/optimizing-benchmarks/target-throughput/
