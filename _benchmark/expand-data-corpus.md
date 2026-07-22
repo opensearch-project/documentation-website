@@ -1,9 +1,9 @@
 ---
 layout: default
 title: Expanding a workload's data corpus
-nav_order: 20
-parent: Optimizing benchmarks
-grand_parent: User guide
+nav_order: 55
+redirect_from:
+  - /benchmark/user-guide/optimizing-benchmarks/expand-data-corpus/
 ---
 
 # Expanding a workload's data corpus

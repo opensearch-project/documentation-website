@@ -1,7 +1,7 @@
 ---
 layout: default
 title: User guide
-nav_order: 5
+nav_order: 10
 has_children: true
 has_toc: false
 more_cards:
@@ -16,13 +16,13 @@ more_cards:
     link: "/benchmark/anatomy-of-a-workload/"
   - heading: "Run and customize your workload"
     description: "Run and customize your OpenSearch workload to get the most accurate results"
-    link: "/benchmark/user-guide/working-with-workloads/index/"  
+    link: "/benchmark/running-workloads/"
   - heading: "Understanding your results"
     description: "Analyze and store your benchmark results"
-    link: "/benchmark/user-guide/understanding-results/index/"  
+    link: "/benchmark/reference/summary-report/"
   - heading: "Optimizing benchmarks"
     description: "Optimize your benchmark experience through randomization and best practices"
-    link: "/benchmark/user-guide/optimizing-benchmarks/index/" 
+    link: "/benchmark/performance-testing-best-practices/"
 redirect_from:
   - /benchmark/user-guide/
 ---

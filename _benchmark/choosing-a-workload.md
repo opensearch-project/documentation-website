@@ -91,4 +91,4 @@ This workload tests the following queries and search functions:
 
 ## Creating a custom workload
 
-If you can't find an official workload that suits your needs, you can create a custom workload. For more information, see [Creating custom workloads]({{site.url}}{{site.baseurl}}/benchmark/user-guide/working-with-workloads/creating-custom-workloads/).
+If you can't find an official workload that suits your needs, you can create a custom workload. For more information, see [Creating custom workloads]({{site.url}}{{site.baseurl}}/benchmark/creating-custom-workloads/).

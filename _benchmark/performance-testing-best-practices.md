@@ -1,9 +1,10 @@
 ---
 layout: default
 title: Performance testing best practices
-nav_order: 160
-parent: Optimizing benchmarks
-grand_parent: User guide
+nav_order: 70
+redirect_from:
+  - /benchmark/user-guide/optimizing-benchmarks/performance-testing-best-practices/
+  - /benchmark/user-guide/optimizing-benchmarks/
 ---
 
 # Performance testing best practices
