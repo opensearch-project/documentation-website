@@ -2,15 +2,15 @@
 layout: default
 title: Grok
 parent: Ingest processors
-nav_order: 140
+nav_order: 120
 ---
-
-This documentation describes using the `grok` processor in OpenSearch ingest pipelines. Consider using the [Data Prepper `grok` processor]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/grok/), which runs on the OpenSearch cluster, if your use case involves large or complex datasets.
-{: .note}
 
 # Grok processor 
 
 The `grok` processor is used to parse and structure unstructured data using pattern matching. You can use the `grok` processor to extract fields from log messages, web server access logs, application logs, and other log data that follows a consistent format.
+
+This documentation describes using the `grok` processor in OpenSearch ingest pipelines. Consider using the [Data Prepper `grok` processor]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/grok/), which runs on the OpenSearch cluster, if your use case involves large or complex datasets.
+{: .note}
 
 ## Grok basics
 
@@ -19,7 +19,7 @@ The `grok` processor uses a set of predefined patterns to match parts of the inp
 For a list of available predefined patterns, see [Grok patterns](https://github.com/opensearch-project/OpenSearch/blob/main/libs/grok/src/main/resources/patterns/grok-patterns).
 {: .tip}
 
-The `grok` processor is built on the [Oniguruma regular expression library](https://github.com/kkos/oniguruma/blob/master/doc/RE) and supports all the patterns from that library. You can use the built-in [Grok Debugger]({{site.url}}{{site.baseurl}}/dashboards/dev-tools/run-queries/#using-the-grok-debugger) in OpenSearch Dashboards Dev Tools to test and debug your grok expressions.
+The `grok` processor is built on the [Oniguruma regular expression library](https://github.com/kkos/oniguruma/blob/master/doc/RE) and supports all the patterns from that library. You can use the built-in [Grok Debugger]({{site.url}}{{site.baseurl}}/dashboards/discover/run-queries/#using-the-grok-debugger) in OpenSearch Dashboards Dev Tools to test and debug your grok expressions.
 
 Note that patterns are *not anchored*. For performance and reliability, include a start-of-line anchor (`^`) in your pattern.
 {: .note}
