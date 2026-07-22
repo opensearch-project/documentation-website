@@ -153,7 +153,7 @@ To update your preferences, select **Settings** from the top menu:
 
 To view all available keyboard shortcuts, select **Help** from the top menu.
 
-## Using the Grok Debugger
+## Using the Grok debugger
 
 The **Grok Debugger** is a built-in tool in Dev Tools that helps you build and test [Grok patterns]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/grok/) before using them in ingest pipelines. Grok patterns are used to parse unstructured log data into structured fields.
 
