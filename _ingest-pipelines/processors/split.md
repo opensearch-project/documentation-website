@@ -5,7 +5,7 @@ parent: Ingest processors
 nav_order: 270
 ---
 
-# Split processor
+# Split ingest processor
 
 The `split` processor is used to split a string field into an array of substrings based on a specified delimiter.
 

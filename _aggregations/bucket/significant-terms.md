@@ -7,7 +7,7 @@ redirect_from:
   - /query-dsl/aggregations/bucket/significant-terms/
 ---
 
-# Significant terms aggregations
+# Significant terms aggregation
 
 The `significant_terms` aggregation identifies terms that occur unusually frequently in a subset of documents (foreground set) compared to a broader reference set (background set). By default, the background set targets all documents in the target indexes. You can narrow it with `background_filter`. Use this aggregation to retrieve the *most overrepresented* values, for which a plain `terms` aggregation that shows you the *most common* values is insufficient.
 

@@ -7,7 +7,7 @@ redirect_from:
   - /monitoring-plugins/alerting/settings/
 ---
 
-# Management
+# Alerting management
 
 The following sections describe alerting indexes and settings.
 

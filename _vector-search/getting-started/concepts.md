@@ -5,7 +5,7 @@ parent: Getting started
 nav_order: 40
 ---
 
-# Concepts  
+# Vector search concepts
 
 This page defines key terms and techniques related to vector search in OpenSearch.
 

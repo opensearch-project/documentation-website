@@ -7,7 +7,7 @@ redirect_from:
   - /field-types/metadata-fields/field-names/
 ---
 
-# Field names
+# Field names metadata field
 
 The `_field_names` field indexes field names that contain non-null values. This enables the use of the `exists` query, which can identify documents that either have or do not have non-null values for a specified field. 
 

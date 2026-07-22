@@ -8,7 +8,7 @@ redirect_from:
   - /search-plugins/sql/sql/complex/
 ---
 
-# Complex queries
+# Complex SQL queries
 
 Besides simple SFW (`SELECT-FROM-WHERE`) queries, the SQL plugin supports complex queries such as subquery, join, union, and minus. These queries operate on more than one OpenSearch index. To examine how these queries execute behind the scenes, use the `explain` operation.
 
