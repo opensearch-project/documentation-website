@@ -52,7 +52,9 @@ openid_auth_domain:
     ...
 ```
 
+<!-- vale off -->
 ## "ValidationError: child 'opensearch_security' fails"
+<!-- vale on -->
 
 This indicates that one or more of the OpenSearch Dashboards configuration settings are missing.
 
@@ -65,14 +67,16 @@ plugins.security.openid.client_secret: "..."
 ```
 
 
+<!-- vale off -->
 ## "Authentication failed. Please provide a new token."
+<!-- vale on -->
 
 This error has several potential root causes.
 
 
 ### Leftover cookies or cached credentials
 
-Please delete all cached browser data, or try again in a private browser window.
+Delete all cached browser data, or try again in a private browser window.
 
 
 ### Wrong client secret

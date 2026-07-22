@@ -361,7 +361,9 @@ Each tool in the `tools` array contains the following fields.
 | `description` | String | Optional | Tool description that helps the LLM understand when and how to use the tool. |
 | `parameters` | Object | Optional | Tool-specific parameters. Structure varies by tool type. |
 
+<!-- vale off -->
 ### Example request: Amazon Bedrock Claude
+<!-- vale on -->
 
 This example creates an agent using an Anthropic Claude model hosted on Amazon Bedrock:
 
@@ -406,7 +408,9 @@ POST /_plugins/_ml/agents/_register
 ```
 {% include copy-curl.html %}
 
+<!-- vale off -->
 ### Example request: Google Gemini
+<!-- vale on -->
 
 This example creates an agent using Google Gemini models:
 
@@ -438,7 +442,9 @@ POST /_plugins/_ml/agents/_register
 ```
 {% include copy-curl.html %}
 
+<!-- vale off -->
 ### Example request: OpenAI Chat Completion
+<!-- vale on -->
 
 This example creates an agent using OpenAI's GPT models:
 

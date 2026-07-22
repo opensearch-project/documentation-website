@@ -6,11 +6,19 @@ grand_parent: PPL
 nav_order: 33
 ---
 
+<!-- vale off -->
+
 # parse
+
+<!-- vale on -->
 
 The `parse` command extracts information from a text field using a regular expression and adds the extracted information to the search results. It uses Java regex patterns. For more information, see the [Java regular expression documentation](https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html).
 
+<!-- vale off -->
+
 ## The rex and parse commands compared
+
+<!-- vale on -->
 
 The `rex` and `parse` commands both extract information from text fields using Java regular expressions with named capture groups. To compare the capabilities of the `rex` and `parse` commands, see the [`rex` command documentation]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/commands/rex/).
 
@@ -51,11 +59,15 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | errmsg | detail |
 | --- | --- |
 | Payment failed | connection timeout to payment gateway after 30000ms |
 |  |  |
 | Out of memory | Java heap space - shutting down pod payment-6f8d4b-ht7q3 |
+
+<!-- vale on -->
   
 
 ## Example 2: Extracting IP addresses from log messages  
@@ -74,11 +86,15 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | body | sourceip |
 | --- | --- |
 | [2024-02-01T09:10:00.123Z] "GET /api/products HTTP/1.1" 200 - 1024 45 frontend-6b7b4c9f-x2kl9 |  |
 | User U300 authenticated via OAuth2 from 10.0.0.5 | 10.0.0.5 |
 | Deployment frontend-v2.2.0 rolled out successfully to 3/3 replicas |  |
+
+<!-- vale on -->
   
 
 ## Limitations

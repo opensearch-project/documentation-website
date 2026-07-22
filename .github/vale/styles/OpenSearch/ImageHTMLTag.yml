@@ -1,7 +1,7 @@
 extends: existence
-message: "Use Kramdown image syntax instead of HTML <img> tags. See FORMATTING_GUIDE.md for details."
+message: "Use Kramdown image syntax instead of HTML <img> tags. See style-guide/MARKDOWN_FORMATTING_GUIDE.md for details."
 level: warning
 nonword: true
 scope: raw
 tokens:
-  - '(?<!\{::nomarkdown\})<img\s+src='
+  - '^\s*<img\s+src='

@@ -69,7 +69,7 @@ PUT _ingest/pipeline/attachment
 
 ### Step 3: Store an attachment
 
-Convert the attachment to a base64 string to pass it as `data`.
+Convert the attachment to a Base64 string to pass it as `data`.
 In this example the `base64` command converts the file `lorem.rtf`:
 
 ```sh
@@ -88,7 +88,7 @@ const base64File = await fs.readFile(filePath, { encoding: "base64" });
 console.log(base64File);
 ```
 
-The`.rtf` file contains the following base64 text:
+The`.rtf` file contains the following Base64 text:
 
 `Lorem ipsum dolor sit amet`:
 `e1xydGYxXGFuc2kNCkxvcmVtIGlwc3VtIGRvbG9yIHNpdCBhbWV0DQpccGFyIH0=`.

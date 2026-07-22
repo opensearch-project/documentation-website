@@ -64,14 +64,14 @@ Integration assets can be installed directly from the [default catalog](https://
 To install an asset, follow these steps:
 
 1. Go to **Integrations** > **Available** to view the available options. 
-2. Select a tool, such as **Nginx** or **Amazon VPC**. You can choose **Add** to add or configure a new data integration using a prepackaged integration asset. You can choose **Try it** to test or explore the integration before fully adding it.
+2. Select a tool, such as **NGINX** or **Amazon VPC**. You can choose **Add** to add or configure a new data integration using a prepackaged integration asset. You can choose **Try it** to test or explore the integration before fully adding it.
 3. On the **Available** page, select the **Categories** dropdown menu to filter the list of integrations.
 
 ### Try it demo
 
 To try a prepackaged integration asset, follow these steps:
 
-1. On the **Integrations** page, select **Nginx**.
+1. On the **Integrations** page, select **NGINX**.
 2. Select the **Try it** button. The **Try it** option automatically creates a sample index template, adds sample data to the template, and then creates the integration based on that data.
 3. Select an asset from the **Asset List**. Assets include dashboards, index patterns, and visualizations.
 4. Preview the data visualizations and sample data details. An example is shown in the following image.

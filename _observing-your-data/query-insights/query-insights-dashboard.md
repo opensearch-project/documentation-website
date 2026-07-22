@@ -39,7 +39,9 @@ Each label corresponds to the following components:
 - [C. Filters](#c-filters)
 - [D. Date range selector](#d-date-range-selector)
 - [E. Refresh button](#e-refresh-button)
+<!-- vale off -->
 - [F. Stats & Visualizations](#f-stats--visualizations)
+<!-- vale on -->
 - [G. Metrics table](#g-metrics-table)
 
 ### A. Navigation tabs
@@ -71,7 +73,9 @@ The **data range selector** analyzes queries sent during a set time frame. You c
 
 The **Refresh** button reloads the query data based on the selected filters and time range.
 
+<!-- vale off -->
 ### F. Stats & Visualizations
+<!-- vale on -->
 
 The **Stats & Visualizations** section is a collapsible panel on the **Top N queries** page that provides at-a-glance performance metrics and interactive visual breakdowns for your queries. You can toggle between **Query** and **Group** views using the buttons in the upper-right corner of the panel.
 
@@ -206,7 +210,7 @@ The **Query insights - Configuration** page is designed to gives you control ove
 
 On the configuration page, you can configure the settings described in the following sections.
 
-**For production deployments**: When the Dashboard application runs on separate nodes with network access restrictions, consider using the [Query Insights Settings API]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/settings-api/) to enable a secure configuration. The Query Insights Settings API provides fine-grained access control, allowing you to safely use an allowlist in a query insights configuration without granting broad cluster settings permissions.
+**For production deployments**: When the Dashboard application runs on separate nodes with network access restrictions, consider using the [Query Insights Settings API]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/settings-api/) to enable a secure configuration. The Query Insights Settings API provides fine-grained access control, allowing you to safely use an allow list in a query insights configuration without granting broad cluster settings permissions.
 {: .tip}
 
 ### Top N queries monitoring
@@ -241,6 +245,40 @@ To configuring data export and retention, use the **Query insights export and da
 2. Set the **Delete After (days)** field with a data retention period.
 3. Select **Save**.
 4. In the **Statuses for data retention** panel, make sure that the **Exporter** setting is enabled.
+
+### Remote repository exporter
+
+The **Remote repository exporter settings** panel lets you export top N query insights data to a remote Amazon Simple Storage Service (Amazon S3) repository for less expensive long-term storage. This exporter operates independently of the local exporter and data retention settings. Because it's independent, you can run the remote repository exporter alongside the local index exporter, exporting data to both destinations at the same time.
+
+The remote repository exporter requires the [`repository-s3` plugin]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/#amazon-s3) to be installed on the cluster. To configure the exporter, follow the plugin installation instructions.
+
+#### Registering an S3 repository
+
+Before you can enable the exporter, you must register at least one S3 repository. 
+
+Ensure that your AWS credentials, AWS Region, and bucket are configured correctly.
+{: .note}
+
+To register a new S3 repository, use the following steps:
+
+1. In the **Remote repository exporter settings** panel, next to the **Repository** field, select **Register new**.
+2. In the **Register S3 repository** flyout, configure the following fields:
+   - **Repository name**: A unique name for the repository, for example, `query-insights-repository`.
+   - **S3 bucket**: The name of the S3 bucket used to store exported data, for example, `query-insights-exports`.
+   - **Base path** (optional): The path within the bucket for repository data. Leave this field empty to use the root of the bucket.
+3. Select **Register repository**.
+
+After the repository is registered, it becomes available for selection in the **Repository** dropdown menu.
+
+#### Enabling the remote exporter
+
+To enable the remote repository exporter, use the following steps:
+
+1. Toggle the **Enabled** setting to turn the remote repository exporter on.
+2. From the **Repository** dropdown list, select a registered S3 repository.
+3. In the **Path** field, specify a path within the repository for organizing exported files. The default is `query-insights`. This is separate from the **Base path** set during registration, which defines the location where the repository stores its data in the bucket.
+4. Select **Save**.
+5. In the **Statuses for remote exporter** panel, confirm that the remote exporter status is **Enabled**.
 
 ### Configuration best practices
 
@@ -303,7 +341,7 @@ The live queries table lists the following information for each live query.
 | **CPU usage**        | The cumulative CPU time consumed by the query.                                                                                                                            |
 | **Memory usage**     | The amount of memory consumed by the query during execution.                                                                                                              |
 | **Search type**      | The search execution method, such as `query_then_fetch`.                                                                                                                  |
-| **Coordinator node** | The node that coordinated the query execution.                                                                                                                            |
+| **Coordinating node** | The node that coordinated the query execution.                                                                                                                            |
 | **WLM Group**        | The workload group associated with the query. Displayed as plain text if workload management (WLM) is disabled or as a clickable link to the **WLM Group Details** page associated with that query when WLM is enabled. |
 | **Status**           | The current status of the query. Values are `running` or `cancelled`.                                                                                                         |
 | **Actions**          | The available actions for the query, such as canceling execution.                                                                                                       |

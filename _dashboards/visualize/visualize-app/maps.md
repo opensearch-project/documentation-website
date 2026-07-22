@@ -93,7 +93,7 @@ Document layers can display geopoint and geoshape document fields.
 
 The following example assumes that you have the `opensearch_dashboards_sample_data_flights` dataset installed. If you don't have this dataset installed, perform the following steps:
 
-1. On the top left, select the home icon.
+1. In the upper left, select the home icon.
 1. Select **Add sample data**.
 1. In the **Sample flight data** panel, select the **Add data** button.
 
@@ -158,7 +158,7 @@ By default, the shape filter is applied globally to all layers on the map. If yo
 
 ### Modifying an existing shape filter
 
-To modify an existing shape filter, select your filter on the top left above the map. You can perform the following operations on an existing filter:
+To modify an existing shape filter, select your filter on the upper left above the map. You can perform the following operations on an existing filter:
 
 - **Edit filter**: Change the filter name or modify the shape's coordinates.
 - **Exclude results**: Negate the filter, that is, show all data points _except_ those to which the filter applies.

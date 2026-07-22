@@ -6,7 +6,11 @@ grand_parent: PPL
 nav_order: 17
 ---
 
+<!-- vale off -->
+
 # fieldformat
+
+<!-- vale on -->
 
 The `fieldformat` command sets a field to the result of a specified expression and appends the evaluated field to the search results. This command is an alias of [`eval`]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/commands/eval/).
 
@@ -48,12 +52,16 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | severityText | resource.attributes.service.name | is_critical |
 | --- | --- | --- |
 | WARN | frontend-proxy | ERROR |
 | WARN | frontend-proxy | ERROR |
 | WARN | product-catalog | ERROR |
 | WARN | product-catalog | ERROR |
+
+<!-- vale on -->
   
 
 ## Example 2: Overriding a field with a formatted value  
@@ -72,12 +80,16 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | severityText | severityNumber |
 | --- | --- |
 | DEBUG | low |
 | INFO | medium |
 | WARN | medium |
 | ERROR | high |
+
+<!-- vale on -->
   
 ## Related commands
 

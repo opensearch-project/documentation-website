@@ -28,7 +28,7 @@ POST _plugins/_sql
 
 #### Example response
 
-In the response, the `schema` contains the field names and types, and the `datarows` field contains the result set:
+In the response, the `schema` contains the field names and types, and the `datarows` field contains the The query returns the following results:
 
 ```json
 {
@@ -201,7 +201,7 @@ PUT /userdata/_doc/1?refresh=true
 ```
 {% include copy-curl.html %}
 
-You can use the query below to request results in CSV format:
+You can use the following query to request results in CSV format:
 
 ```json
 POST /_plugins/_sql?format=csv
@@ -276,7 +276,7 @@ PUT /userdata/_doc/1?refresh=true
 ```
 {% include copy-curl.html %}
 
-You can use the query below to request results in `raw` format:
+You can use the following query to request results in `raw` format:
 
 ```json
 POST /_plugins/_sql?format=raw

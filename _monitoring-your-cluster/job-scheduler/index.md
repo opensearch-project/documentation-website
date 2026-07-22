@@ -19,7 +19,7 @@ You can install the Job Scheduler plugin by following the standard [OpenSearch p
 
 OpenSearch plugin developers can extend the Job Scheduler plugin to schedule jobs to perform on the cluster. Jobs you can schedule include running aggregation queries against raw data, saving the aggregated data to a new index every hour, or continuing to monitor the shard allocation by calling the OpenSearch API and then posting the output to a webhook.
 
-For examples of building a plugin that uses the Job Scheduler plugin, see the Job Scheduler [README](https://github.com/opensearch-project/job-scheduler/blob/main/README.md).
+For examples of building a plugin that uses the Job Scheduler plugin, see the Job Scheduler [`README`](https://github.com/opensearch-project/job-scheduler/blob/main/README.md).
 
 ## Defining an endpoint
 
@@ -119,14 +119,14 @@ public SampleJobParameter(String id, String name, String indexToWatch, Schedule 
 The following table describes the request parameters configured in the previous example. All the request parameters shown are required.
 
 | Field | Data type | Description |
-:--- | :--- | :---
-| getName | String | Returns the name of the job. |
-| getLastUpdateTime | Time unit | Returns the time that the job was last run. |
-| getEnabledTime | Time unit | Returns the time that the job was enabled. |
-| getSchedule | Unix cron | Returns the job schedule formatted in Unix cron syntax. |
-| isEnabled | Boolean | Indicates whether or not the job is enabled. |
-| getLockDurationSeconds | Integer | Returns the duration of time for which the job is locked. |
-| getJitter | Integer | Returns the defined jitter value. |
+| :--- | :--- | :--- |
+| `getName` | String | Returns the name of the job. |
+| `getLastUpdateTime` | Time unit | Returns the time that the job was last run. |
+| `getEnabledTime` | Time unit | Returns the time that the job was enabled. |
+| `getSchedule` | Unix cron | Returns the job schedule formatted in Unix cron syntax. |
+| `isEnabled` | Boolean | Indicates whether or not the job is enabled. |
+| `getLockDurationSeconds` | Integer | Returns the duration of time for which the job is locked. |
+| `getJitter` | Integer | Returns the defined jitter value. |
 
 The logic used by your job should be defined by a class extended from `ScheduledJobRunner` in the `SampleJobParameter.java` sample file, such as `SampleJobRunner`. While the job is running, there is a locking mechanism you can use to prevent other nodes from running the same job. First, [acquire](https://github.com/opensearch-project/job-scheduler/blob/main/sample-extension-plugin/src/main/java/org/opensearch/jobscheduler/sampleextension/SampleJobRunner.java#L96) the lock. Then make sure to release the lock before the [job finishes](https://github.com/opensearch-project/job-scheduler/blob/main/sample-extension-plugin/src/main/java/org/opensearch/jobscheduler/sampleextension/SampleJobRunner.java#L116).
 

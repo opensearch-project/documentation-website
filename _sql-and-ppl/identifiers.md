@@ -35,6 +35,9 @@ SELECT account_number, firstname, lastname FROM accounts;
 ```
 {% include copy.html %}
 
+The query returns the following results:
+
+<!-- vale off -->
 
 | account_number | firstname | lastname |
 :--- | :--- |
@@ -42,6 +45,8 @@ SELECT account_number, firstname, lastname FROM accounts;
 | 6  | Hattie | Bond
 | 13 | Nanette | Bates
 | 18 | Dale | Adams
+
+<!-- vale on -->
 
 
 ## Delimited identifiers
@@ -64,6 +69,9 @@ source=`accounts` | fields `account_number`;
 ```
 {% include copy.html %}
 
+The query returns the following results:
+
+<!-- vale off -->
 
 | account_number |
 :--- |
@@ -71,6 +79,8 @@ source=`accounts` | fields `account_number`;
 | 6  |
 | 13 |
 | 18 |
+
+<!-- vale on -->
 
 ## Case sensitivity
 

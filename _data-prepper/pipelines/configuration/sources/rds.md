@@ -6,7 +6,9 @@ grand_parent: Pipelines
 nav_order: 95
 ---
 
+<!-- vale off -->
 # rds
+<!-- vale on -->
 
 The `rds` source enables change data capture (CDC) on [Amazon Relational Database Service (Amazon RDS)](https://aws.amazon.com/rds/) and [Amazon Aurora](https://aws.amazon.com/aurora/) databases. It can receive database events, such as `INSERT`, `UPDATE`, or `DELETE`, using database replication logs and supports initial load using RDS exports to Amazon Simple Storage Service (Amazon S3).
 
@@ -17,7 +19,7 @@ The source supports the following database engines:
 The source includes two ingestion options for ingesting data from Aurora/RDS:
 
 1. Export: A full initial export from Aurora/RDS to S3 gets an initial load of the current state of the Aurora/RDS database.
-2. Stream: Stream events from database replication logs (MySQL binlog or PostgreSQL WAL). 
+2. Stream: Stream events from database replication logs (MySQL `binlog` or PostgreSQL WAL). 
 
 ## Usage
 
@@ -58,20 +60,22 @@ Option | Required | Type | Description
 `database` | Yes | String | The name of the database to connect to.
 `tables` | No | Object | The configuration for specifying which tables to include or exclude. See [tables](#tables) for more information.
 `authentication` | Yes | Object | Database authentication credentials. See [authentication](#authentication) for more information.
-`aws` | Yes | Object | The AWS configuration. See [aws](#aws) for more information.
+`aws` | Yes | Object | The AWS configuration. See [`aws`](#aws) for more information.
 `acknowledgments` | No | Boolean | When `true`, enables the source to receive [end-to-end acknowledgments]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines#end-to-end-acknowledgments) when events are received by OpenSearch sinks. Default is `true`.
 `s3_data_file_acknowledgment_timeout` | No | Duration | The amount of time that elapses before the data read from an RDS export expires when used with acknowledgments. Default is 30 minutes.
 `stream_acknowledgment_timeout` | No | Duration | The amount of time that elapses before the data read from database streams expires when used with acknowledgments. Default is 10 minutes.
 `s3_bucket` | Yes | String | The name of the S3 bucket in which RDS export data will be stored.
 `s3_prefix` | No | String | The prefix for S3 objects in the export bucket.
-`s3_region` | No | String | The AWS Region for the S3 bucket. If not specified, uses the same Region as specified in the [aws](#aws) configuration.
+`s3_region` | No | String | The AWS Region for the S3 bucket. If not specified, uses the same Region as specified in the [`aws`](#aws) configuration.
 `partition_count` | No | Integer | The number of folder partitions in the S3 buffer. Must be between 1 and 1,000. Default is 100.
 `export` | No | Object | The configuration for RDS export operations. See [export](#export-options) for more information.
 `stream` | No | Boolean | Whether to enable streaming of database change events. Default is `false`.
-`tls` | No | Object | The TLS configuration for database connections. See [tls](#tls-options) for more information.
+`tls` | No | Object | The TLS configuration for database connections. See [`tls`](#tls-options) for more information.
 `disable_s3_read_for_leader` | No | Boolean | Whether to disable S3 read operations for the leader node. Default is `false`.
 
+<!-- vale off -->
 ### aws
+<!-- vale on -->
 
 Use the following options in the AWS configuration.
 
@@ -82,7 +86,9 @@ Option | Required | Type | Description
 `sts_external_id` | No | String | The external ID to use when assuming the STS role. Must be between 2 and 1,224 characters.
 `sts_header_overrides` | No | Map | A map of header overrides that the AWS Identity and Access Management (IAM) role assumes for the source plugin. Maximum of 5 headers.
 
+<!-- vale off -->
 ### authentication
+<!-- vale on -->
 
 Use the following options for database authentication.
 
@@ -91,7 +97,9 @@ Option | Required | Type | Description
 `username` | Yes | String | The database username for authentication.
 `password` | Yes | String | The database password for authentication.
 
+<!-- vale off -->
 ### tables
+<!-- vale on -->
 
 Use the following options to specify which tables to include in the data capture.
 
@@ -100,7 +108,9 @@ Option | Required | Type | Description
 `include` | No | List | A list of table names to include in data capture. Maximum of 1,000 tables. If specified, only these tables will be processed.
 `exclude` | No | List | A list of table names to exclude from data capture. Maximum of 1,000 tables. These tables will be ignored even if they match include patterns.
 
+<!-- vale off -->
 ### export options
+<!-- vale on -->
 
 The following options let you customize the RDS export functionality.
 
@@ -109,7 +119,9 @@ Option | Required | Type | Description
 `kms_key_id` | Yes | String | The AWS Key Management Service (AWS KMS) key ID or Amazon Resource Name (ARN) to use for encrypting the export data.
 `export_role_arn` | Yes | String | The ARN of the IAM role that RDS will assume to perform the export operation.
 
+<!-- vale off -->
 ### tls options
+<!-- vale on -->
 
 The following options let you configure TLS for database connections.
 
@@ -256,8 +268,8 @@ The `rds` source includes the following metrics:
 * `changeEventsProcessingErrors`: The number of processing errors for change events from database streams.
 * `bytesReceived`: The total number of bytes received by the source.
 * `bytesProcessed`: The total number of bytes processed by the source.
-* `positiveAcknowledgementSets`: The number of acknowledgement sets that are positively acknowledged in stream processing.
-* `negativeAcknowledgementSets`: The number of acknowledgement sets that are negatively acknowledged in stream processing.
+* `positiveAcknowledgementSets`: The number of acknowledgment sets that are positively acknowledged in stream processing.
+* `negativeAcknowledgementSets`: The number of acknowledgment sets that are negatively acknowledged in stream processing.
 * `checkpointCount`: The total number of checkpoints in stream processing.
 * `noDataExtendLeaseCount`: The number of times that the lease is extended on a partition with no new data processed since the last checkpoint. 
 * `giveupPartitionCount`: The number of times a partition is given up.

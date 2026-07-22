@@ -15,10 +15,14 @@ Use the Snapshot Management (SM) API to automate [taking snapshots]({{site.url}}
 
 ---
 
-#### Table of contents
-- TOC
+<details markdown="block">
+  <summary>
+    Table of contents
+  </summary>
+  {: .text-delta }
+1. TOC
 {:toc}
-
+</details>
 
 ---
 
@@ -28,7 +32,7 @@ Introduced 2.1
 
 Creates or updates an SM policy.
 
-#### Request
+#### Endpoints
 
 Create:
 
@@ -44,7 +48,7 @@ PUT _plugins/_sm/policies/{policy_name}?if_seq_no=0&if_primary_term=1
 
 You must provide the `seq_no` and `primary_term` parameters for an update request.
 
-### Example
+### Example request
 
 ```json
 POST _plugins/_sm/policies/daily-policy
@@ -100,7 +104,7 @@ POST _plugins/_sm/policies/daily-policy
 }
 ```
 
-### Response
+### Example response
 
 ```json
 {
@@ -189,7 +193,7 @@ Parameter | Type | Description
 `snapshot_config.ignore_unavailable` | Boolean | Do you want to ignore unavailable indexes? Optional. Default is `false`.
 `snapshot_config.include_global_state` | Boolean | Do you want to include cluster state? Optional. Default is `true` because of [Security plugin considerations]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore#security-considerations).
 `snapshot_config.partial` | Boolean | Do you want to allow partial snapshots? Optional. Default is `false`.
-`snapshot_config.metadata` | Object | Metadata in the form of key/value pairs. Optional.
+`snapshot_config.metadata` | Object | Metadata in the form of key-value pairs. Optional.
 `creation` | Object | Configuration for snapshot creation. Optional in OpenSearch 3.3 and later. **Important**: Do not leave this unset until all nodes are upgraded to OpenSearch 3.3 or later.
 `creation.schedule` | String | The cron schedule used to create snapshots. Required.
 `creation.time_limit` | String | Sets the maximum time to wait for snapshot creation to finish. If time_limit is longer than the scheduled time interval for taking snapshots, no scheduled snapshots are taken until time_limit elapses. For example, if time_limit is set to 35 minutes and snapshots are taken every 30 minutes starting at midnight, the snapshots at 00:00 and 01:00 are taken, but the snapshot at 00:30 is skipped. Optional. 
@@ -202,7 +206,7 @@ Parameter | Type | Description
 `deletion.delete_condition.min_count` | Integer | The minimum number of snapshots to be retained. Optional. Default is `1`.
 `deletion.snapshot_pattern` | String | Additional snapshot patterns to include in deletion. This allows deletion of snapshots that match the specified pattern in addition to the policy's own snapshots. Supports wildcards (`*`). Optional.
 `notification` | Object | Defines notifications for SM events. Optional.
-`notification.channel` | Object | Defines a channel for notifications. You must [create and configure a notification channel]({{site.url}}{{site.baseurl}}/notifications-plugin/api) before setting up SM notifications. Required.
+`notification.channel` | Object | Defines a channel for notifications. You must [create and configure a notification channel]({{site.url}}{{site.baseurl}}/notifications-plugin/api/) before setting up SM notifications. Required.
 `notification.channel.id` | String | The channel ID of the channel used for notifications. To get the channel IDs of all created channels, use `GET _plugins/_notifications/configs`. Required.
 `notification.conditions` | Object | SM events you want to be notified about. Set the ones you are interested in to `true`.
 `notification.conditions.creation` | Boolean | Do you want notifications about snapshot creation? Optional. Default is `true`.
@@ -216,7 +220,7 @@ Introduced 2.1
 
 Gets SM policies.
 
-#### Request
+#### Endpoints
 
 Get all SM policies:
 
@@ -235,13 +239,13 @@ Get a specific SM policy:
 GET _plugins/_sm/policies/{policy_name}
 ```
 
-### Example
+### Example request
 
 ```json
 GET _plugins/_sm/policies/daily-policy
 ```
 
-### Response
+### Example response
 
 ```json
 {
@@ -313,19 +317,19 @@ SM uses a state machine for snapshot creation and deletion. The image on the lef
 
 The creation workflow starts in the CREATION_START state and continuously checks whether the conditions in the creation cron schedule are met. After the conditions are met, the creation workflow switches to the CREATION_CONDITION_MET state and continues to the CREATING state. The CREATING state calls the Create Snapshot API asynchronously and then waits for snapshot creation to end in the CREATION_FINISHED state. Once snapshot creation ends, the creation workflow returns to the CREATION_START state and the cycle continues. The `current_state` field of `metadata.creation` and `metadata.deletion` returns the current state of the state machine.
 
-#### Request
+#### Endpoints
 
 ```json
 GET _plugins/_sm/policies/{policy_names}/_explain
 ```
 
-### Example
+### Example request
 
 ```json
 GET _plugins/_sm/policies/daily*/_explain
 ```
 
-### Response
+### Example response
 
 ```json
 {
@@ -357,8 +361,8 @@ The following table lists all fields for each policy in the response.
 Field | Description 
 :--- |:--- 
 `name` | The name of the SM policy.
-`creation` | Information about the latest creation operation. See subfields below.
-`deletion` | Information about the latest deletion operation. See subfields below.
+`creation` | Information about the latest creation operation. See the following subfields.
+`deletion` | Information about the latest deletion operation. See the following subfields.
 `policy_seq_no` <br> `policy_primary_term` | The version of the SM policy.
 `enabled` | Is the policy running?
 
@@ -366,7 +370,7 @@ The following table lists all fields in the `creation` and `deletion` objects of
 
 Field | Description 
 :--- |:--- 
-`current_state` | The current state of the state machine that runs snapshot creation/deletion as described above.
+`current_state` | The current state of the state machine that runs snapshot creation/deletion as described in the preceding section.
 `trigger.time` | The next creation/deletion execution time in milliseconds since the epoch.
 `latest_execution` | Describes the latest creation/deletion execution.
 `latest_execution.status` | The execution status of the latest creation/deletion. Possible values are:<br> `IN_PROGRESS`: Snapshot creation/deletion has started. <br> `SUCCESS`: Snapshot creation/deletion has finished successfully. <br> `RETRYING`: The creation/deletion attempt has failed. It will be retried three times. <br> `FAILED`: The creation/deletion attempt failed after three retries. End the current execution period and go to the next execution period. <br> `TIME_LIMIT_EXCEEDED`: The creation/deletion time exceeded the time_limit set in the policy. End the current execution period and go to the next execution period.
@@ -383,19 +387,19 @@ Introduced 2.1
 
 Starts the policy by setting its `enabled` flag to `true`. 
 
-#### Request
+#### Endpoints
 
 ```json
 POST  _plugins/_sm/policies/{policy_name}/_start
 ```
 
-### Example
+### Example request
 
 ```json
 POST  _plugins/_sm/policies/daily-policy/_start
 ```
 
-### Response
+### Example response
 
 ```json
 {
@@ -409,19 +413,19 @@ Introduced 2.1
 
 Sets the `enabled` flag to `false` for an SM policy. The policy will not run until you [start](#start-a-policy) it.
 
-#### Request
+#### Endpoints
 
 ```json
 POST  _plugins/_sm/policies/{policy_name}/_stop
 ```
 
-### Example
+### Example request
 
 ```json
 POST  _plugins/_sm/policies/daily-policy/_stop
 ```
 
-### Response
+### Example response
 
 ```json
 {
@@ -435,19 +439,19 @@ Introduced 2.1
 
 Deletes the specified SM policy.
 
-#### Request
+#### Endpoints
 
 ```json
 DELETE  _plugins/_sm/policies/{policy_name}
 ```
 
-### Example
+### Example request
 
 ```json
 DELETE _plugins/_sm/policies/daily-policy
 ```
 
-### Response
+### Example response
 
 ```json
 {

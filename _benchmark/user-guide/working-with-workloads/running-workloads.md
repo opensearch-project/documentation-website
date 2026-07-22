@@ -10,7 +10,7 @@ redirect_from:
 
 # Running a workload
 
-Once you have a complete understanding of the various components of an OpenSearch Benchmark [workload]({{site.url}}{{site.baseurl}}/benchmark/user-guide/understanding-workloads/anatomy-of-a-workload/), you can run your first workload.
+Once you have a complete understanding of the various components of an OpenSearch Benchmark [workload]({{site.url}}{{site.baseurl}}/benchmark/anatomy-of-a-workload/), you can run your first workload.
 
 ## Step 1: Find the workload name
 

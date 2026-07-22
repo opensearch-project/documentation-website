@@ -363,6 +363,7 @@ plugins:
 exclude:
   - README.md
   - DEVELOPER_GUIDE.md
+  - style-guide/
   - Gemfile
   - Gemfile.lock
   - node_modules

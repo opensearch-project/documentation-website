@@ -223,7 +223,7 @@ If your subnets do not have direct internet access, the bootstrap script mirrors
 
 The mirroring step runs from your machine (which has internet), copies the release images and Helm charts to ECR, then the EKS cluster pulls everything through VPC endpoints. The endpoints created are: Amazon S3, Amazon ECR API, Amazon ECR Docker, CloudWatch Logs, and Amazon Elastic File System (Amazon EFS).
 
-If your deployment also requires STS or EKS Auth endpoints (for example, for IRSA or EKS Pod Identity), create those separately before running the bootstrap script.
+If your deployment also requires STS or EKS Authentication endpoints (for example, for IRSA or EKS Pod Identity), create those separately before running the bootstrap script.
 
 If you prefer to manage VPC endpoints with another tool, omit `--create-vpc-endpoints`. The script still mirrors images and uses your existing endpoints.
 

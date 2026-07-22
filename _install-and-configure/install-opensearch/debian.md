@@ -34,6 +34,8 @@ This guide assumes that you are comfortable working from the Linux command line 
 
 ## Step 1: Download and install OpenSearch
 
+You can install OpenSearch from a package or an APT repository.
+
 ### Install OpenSearch from a package
 
 1. Download the Debian package for the desired version directly from the [OpenSearch downloads page](https://opensearch.org/downloads.html){:target='\_blank'}. The Debian package can be downloaded for both **x64** and **arm64** architectures.
@@ -235,7 +237,7 @@ Before proceeding with any configuration, you should test your installation of O
 
 When OpenSearch is installed using the Debian package, some demo security settings are automatically applied. This includes self-signed TLS certificates and several users and roles. If you would like to configure these yourself, see [Set up OpenSearch in your environment](#step-3-set-up-opensearch-in-your-environment).
 
-An OpenSearch node in its default configuration (with demo certificates and users with default passwords) is not suitable for a production environment. If you plan to use the node in a production environment, you should, at a minimum, replace the demo TLS certificates with your own TLS certificates and [update the list of internal users and passwords]({{site.url}}{{site.baseurl}}/security-plugin/configuration/yaml). See [Security configuration]({{site.url}}{{site.baseurl}}/security-plugin/configuration/index/) for additional guidance to ensure that your nodes are configured according to your security requirements.
+An OpenSearch node in its default configuration (with demo certificates and users with default passwords) is not suitable for a production environment. If you plan to use the node in a production environment, you should, at a minimum, replace the demo TLS certificates with your own TLS certificates and [update the list of internal users and passwords]({{site.url}}{{site.baseurl}}/security-plugin/configuration/yaml/). See [Security configuration]({{site.url}}{{site.baseurl}}/security-plugin/configuration/index/) for additional guidance to ensure that your nodes are configured according to your security requirements.
 {: .warning}
 
 1. Send requests to the server to verify that OpenSearch is running. Note the use of the `--insecure` flag, which is required because the TLS certificates are self-signed.
@@ -344,7 +346,7 @@ Before modifying any configuration files, it's always a good idea to save a back
    ```
    {% include copy.html %}
 
-   If you previously disabled the Security plugin in opensearch.yml, be sure to re-enable it. Otherwise you can skip this setting:
+   If you previously disabled the Security plugin in opensearch.yml, be sure to reenable it. Otherwise you can skip this setting:
    ```yaml
    plugins.security.disabled: false
    ```
@@ -462,7 +464,7 @@ TLS certificates provide additional security for your cluster by allowing client
    ```
    {% include copy.html %}
 
-1. Make sure the remaining certificates are owned by the opensearch user:
+1. Make sure the remaining certificates are owned by the `opensearch` user:
 
    ```bash
    sudo chown opensearch:opensearch /etc/opensearch/admin-key.pem /etc/opensearch/admin.pem /etc/opensearch/node1-key.pem /etc/opensearch/node1.pem /etc/opensearch/root-ca-key.pem /etc/opensearch/root-ca.pem /etc/opensearch/root-ca.srl

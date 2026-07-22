@@ -14,14 +14,14 @@ OpenSearch Benchmark loads always run on the same machine on which the benchmark
 
 The following tutorial uses a three-node architecture; each node is generated in [Amazon Elastic Compute Cloud (Amazon EC2)](https://docs.aws.amazon.com/ec2/?nc2=h_ql_doc_ec2):
 
-- **Node 1**: Node 1 acts as the _coordinator node_ and enables distribution and communication between the other two nodes.
+- **Node 1**: Node 1 acts as the _coordinating node_ and enables distribution and communication between the other two nodes.
 - **Node 2** and **Node 3**: The remaining nodes in the cluster are used to generate the load for the benchmark test.
 
 OpenSearch Benchmark must be installed on all nodes. For installation instructions, see [Installing OpenSearch Benchmark]({{site.url}}{{site.baseurl}}/benchmark/user-guide/installing-benchmark/).
 
 Make note of each node's IP address. This tutorial uses the following IP addresses:
 
-- **Node 1 -- Coordinator node**: 192.0.1.0
+- **Node 1 -- Coordinating node**: 192.0.1.0
 - **Node 2 -- Worker node**: 198.52.100.0
 - **Node 3 -- Worker node**: 198.53.100.0
 
@@ -35,15 +35,15 @@ Make sure to enable communication for each node. In the AWS Management Console:
 
 ## Step 2: Run daemon processes on each node
 
-Start OpenSearch Benchmark on each node, using `--node-ip` to initialize OpenSearch Benchmark on the node itself and then `--coordinator-ip` to connect each node to the coordinator node.
+Start OpenSearch Benchmark on each node, using `--node-ip` to initialize OpenSearch Benchmark on the node itself and then `--coordinator-ip` to connect each node to the coordinating node.
 
-For **Node 1**, the following command identifies the node as the coordinator node:
+For **Node 1**, the following command identifies the node as the coordinating node:
 
 ```
 opensearch-benchmarkd start --node-ip=192.0.1.0 --coordinator-ip=192.0.1.0
 ```
 
-The following commands enable **Node 2** and **Node 3** to listen to the coordinator node for load generation instructions.
+The following commands enable **Node 2** and **Node 3** to listen to the coordinating node for load generation instructions.
 
 **Node 2**
 
@@ -57,7 +57,7 @@ opensearch-benchmarkd start --node-ip=198.52.100.0 --coordinator-ip=192.0.1.0
 opensearch-benchmarkd start --node-ip=198.53.100.0 --coordinator-ip=192.0.1.0
 ```
 
-With OpenSearch Benchmark running on all three nodes and the worker nodes set to listen to the coordinator node, you can now run the benchmark test.
+With OpenSearch Benchmark running on all three nodes and the worker nodes set to listen to the coordinating node, you can now run the benchmark test.
 
 ## Step 3: Run the benchmark test
 
