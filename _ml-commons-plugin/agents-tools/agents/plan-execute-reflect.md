@@ -432,6 +432,10 @@ Plan-execute-reflect agents support token usage tracking, which provides detaile
 
 To enable token usage tracking, set the `include_token_usage` parameter to `true` when executing the agent. The response will include a `token_usage` output with per-turn and per-model aggregated metrics. For detailed information about token usage fields and how tokens are calculated by different model providers, see [Tracking token usage]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/execute-agent/#tracking-token-usage) in the Execute Agent API documentation.
 
+### Limiting token usage
+
+To limit total token consumption for one plan-execute-reflect agent execution, set `parameters.max_tokens` to a positive integer. OpenSearch applies this value as one shared budget across planner, executor subagent, and summary or reflection LLM calls. Before each covered LLM call, the runner caps the outgoing model request to the remaining budget while preserving any lower per-call model limit; when reported usage exhausts the budget, the agent stops instead of making another covered LLM call. Token limiting does not require `include_token_usage` to be `true`; that parameter controls only whether detailed usage metrics are returned in the response. Omitting `max_tokens` leaves the execution unlimited; invalid, zero, or negative values are rejected. LLM calls made internally by tools, such as `AgentTool` or `MLModelTool`, are outside this budget.
+
 ## Next steps
 
 - To learn more about registering agents, see [Register Agent API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/register-agent/).
