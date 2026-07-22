@@ -7,7 +7,7 @@ has_children: false
 nav_order: 30
 ---
 
-# Reranking by a field using an externally hosted cross-encoder model
+# Reranking by a field using a cross-encoder model
 **Introduced 2.18**
 {: .label .label-purple }
 

@@ -7,7 +7,7 @@ redirect_from:
 ---
 
 
-# JSON Web Token
+# JSON Web Token authentication
 
 JSON Web Tokens (JWTs) are JSON-based access tokens that assert one or more claims. They are commonly used to implement single sign-on (SSO) solutions and fall in the category of token-based authentication systems. The basic information-transmission and identity-verification lifecycle for a JWT is described in the following steps:
 

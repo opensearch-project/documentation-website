@@ -8,7 +8,7 @@ redirect_from:
   - /monitoring-plugins/trace/ta-dashboards/
 ---
 
-# Trace Analytics plugin for OpenSearch Dashboards
+# Trace Analytics in OpenSearch Dashboards
 
 The Trace Analytics plugin offers at-a-glance visibility into application performance based on [OpenTelemetry (OTel)](https://opentelemetry.io/) protocol data that standardizes instrumentation for collecting telemetry data from cloud-native software.
 

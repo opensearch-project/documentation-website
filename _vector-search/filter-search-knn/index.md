@@ -8,7 +8,7 @@ redirect_from:
   - /vector-search/filter-search-knn/
 ---
 
-# Filtering data
+# Filtering vector search results
 
 To refine vector search results, you can filter a vector search using one of the following methods:
 

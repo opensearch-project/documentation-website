@@ -7,7 +7,7 @@ redirect_from:
   - /query-dsl/aggregations/bucket/adjacency-matrix/
 ---
 
-# Adjacency matrix aggregations
+# Adjacency matrix aggregation
 
 The `adjacency_matrix` aggregation accepts a set of named filter expressions and returns buckets representing every pair of intersecting filters. Each bucket's document count indicates how many documents matched both filters simultaneously, making it possible to analyze relationships between different document groups.
 

@@ -7,7 +7,7 @@ redirect_from:
   - /query-dsl/aggregations/metric/top-hits/
 ---
 
-# Top hits aggregations
+# Top hits aggregation
 
 The `top_hits` aggregation is a multi-value metric aggregation that retrieves the highest-scoring documents within each aggregation bucket. Use it inside a bucket aggregation to return representative or top-ranked documents per group.
 

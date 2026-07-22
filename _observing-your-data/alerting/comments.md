@@ -8,7 +8,7 @@ redirect_from:
   - /monitoring-plugins/alerting/comments/
 ---
 
-# Adding comments
+# Adding alerting comments
 
 When an alert is generated, add comments to share information about its root cause and facilitate resolution. Comments are enabled by setting `plugins.alerting.comments_enabled` to `true` using the [`cluster/settings` API]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/settings/).
 

@@ -4,6 +4,7 @@ title: User Behavior Insights
 parent: Optimizing search quality
 has_children: true
 nav_order: 10
+description: "User Behavior Insights (UBI) is a schema for capturing user search behavior, including the queries users submit, the results shown, and the actions they take."
 redirect_from:
   - /search-plugins/ubi/
 ---

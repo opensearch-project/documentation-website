@@ -5,7 +5,7 @@ parent: Supported log types
 nav_order: 29
 ---
 
-# Azure
+# Azure log type
 
 The `azure` log type monitors log data for cloud applications managed by Azure Cloud Services.
 

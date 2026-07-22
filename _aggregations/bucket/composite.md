@@ -7,7 +7,7 @@ redirect_from:
   - /query-dsl/aggregations/bucket/composite/
 ---
 
-# Composite aggregations
+# Composite aggregation
 
 The `composite` aggregation creates buckets based on one or more document fields or sources. The `composite` aggregation creates a bucket for every combination of individual source values. By default, combinations with a missing value in one or more individual fields are omitted from the results.
 

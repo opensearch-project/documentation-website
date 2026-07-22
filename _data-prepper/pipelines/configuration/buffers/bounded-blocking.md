@@ -6,11 +6,9 @@ grand_parent: Pipelines
 nav_order: 50
 ---
 
-# Bounded blocking
+# Bounded blocking buffer
 
-## Overview
-
-`Bounded blocking` is the default buffer and is memory based. The following table describes the `Bounded blocking` parameters.
+The `bounded_blocking` buffer is the default buffer and is memory based. The following table describes the `bounded_blocking` buffer parameters.
 
 | Option | Required | Type | Description |
 | --- | --- | --- | --- |

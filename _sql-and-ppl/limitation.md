@@ -6,9 +6,9 @@ redirect_from:
   - /search-plugins/sql/limitation/
 ---
 
-# Limitations
+# SQL and PPL limitations
 
-The SQL plugin has the following limitations:
+The SQL plugin has the following limitations.
 
 ## Aggregation over expression is not supported
 

@@ -4,6 +4,7 @@ title: gRPC APIs
 has_children: true
 has_toc: false
 nav_order: 25
+description: "Reference for the OpenSearch gRPC APIs, including the bulk and k-NN search operations that use protocol buffers for high-performance communication."
 redirect_from:
   - /api-reference/grpc-apis/
 ---

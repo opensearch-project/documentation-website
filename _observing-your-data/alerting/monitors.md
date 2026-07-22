@@ -8,7 +8,7 @@ redirect_from:
   - /monitoring-plugins/alerting/monitors/
 ---
 
-# Monitors
+# Alerting monitors
 
 Proactively monitor your data in OpenSearch with features available in Alerting and Anomaly Detection. For example, you can pair Anomaly Detection with Alerting to ensure that you're notified as soon as an anomaly is detected. You can do this by setting up a detector to automatically detect outliers in your streaming data and monitors to alert you through notifications when data exceeds certain thresholds. 
 

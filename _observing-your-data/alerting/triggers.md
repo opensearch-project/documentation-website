@@ -6,7 +6,7 @@ grand_parent: Alerting
 parent: Monitors
 ---
 
-# Triggers
+# Alerting triggers
 
 How you create a trigger differs depending on the monitor method selected when the monitor was created. The monitor methods are **Visual editor**, **Extraction query editor**, and **Anomaly detector**. Learn more about each type in the following sections.
 
