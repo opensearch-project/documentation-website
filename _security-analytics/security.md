@@ -1,6 +1,6 @@
 ---
 layout: default
-title: OpenSearch security for security analytics
+title: OpenSearch security for Security Analytics
 nav_order: 2
 has_children: false
 ---

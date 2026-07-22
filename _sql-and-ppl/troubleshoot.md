@@ -6,7 +6,7 @@ redirect_from:
   - /search-plugins/sql/troubleshoot/
 ---
 
-# Troubleshooting
+# SQL and PPL troubleshooting
 
 The SQL plugin is stateless, so troubleshooting is mostly focused on why a particular query fails.
 

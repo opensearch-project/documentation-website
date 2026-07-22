@@ -9,7 +9,7 @@ has_children: false
 has_toc: false
 ---
 
-# Null value
+# Null value mapping parameter
 
 The `null_value` mapping parameter allows you to replace explicit `null` values with a predefined substitute during indexing. By default, if a field is set to `null`, it is not indexed and cannot be searched. With `null_value` defined, the specified replacement value is indexed instead. This allows you to query or aggregate documents in which a field was originally `null` without modifying the document `_source`.
 

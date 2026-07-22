@@ -7,7 +7,7 @@ grand_parent: Optimizing search quality
 has_children: false
 ---
 
-# Advanced functionality
+# Advanced LTR functionality
 
 OpenSearch Learning to Rank (LTR) offers additional functionality. It is recommended that you have a foundational understanding of OpenSearch LTR before working with these features.
 

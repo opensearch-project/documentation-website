@@ -11,7 +11,7 @@ redirect_from:
   - /query-dsl/aggregations/bucket/geohex-grid/
 ---
 
-# Geohex grid aggregations
+# Geohex grid aggregation
 
 The Hexagonal Hierarchical Geospatial Indexing System (H3) partitions the Earth's areas into identifiable hexagon-shaped cells. 
 

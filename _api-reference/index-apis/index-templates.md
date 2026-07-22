@@ -7,7 +7,7 @@ has_children: true
 has_toc: false
 ---
 
-# Index templates
+# Index template APIs
 
 Index template APIs allow you to create and manage templates that automatically apply settings, mappings, and aliases to new indexes that match specific patterns. Templates provide a powerful way to ensure consistency across your indexes.
 

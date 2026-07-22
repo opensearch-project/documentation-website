@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Security patching & updating
+title: Security patching and updating
 nav_order: 30
 permalink: /classic/migration-assistant/security-patching-and-updating/
 ---

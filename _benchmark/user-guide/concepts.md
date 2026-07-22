@@ -8,7 +8,7 @@ redirect_from:
   - /benchmark/user-guide/concepts/
 ---
 
-# Concepts
+# OpenSearch Benchmark concepts
 
 Before you start using OpenSearch Benchmark, it's helpful to understand the following concepts, in order to effectively design, run, and analyze your benchmarks to evaluate OpenSearch performance under different scenarios.
 

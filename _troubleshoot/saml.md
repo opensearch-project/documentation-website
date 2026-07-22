@@ -6,7 +6,7 @@ nav_order: 20
 
 # SAML troubleshooting
 
-This page includes troubleshooting steps for using SAML for OpenSearch Dashboards authentication.
+Use the following troubleshooting steps to resolve issues with using SAML for OpenSearch Dashboards authentication.
 
 
 ---

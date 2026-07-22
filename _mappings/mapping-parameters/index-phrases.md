@@ -9,7 +9,7 @@ has_children: false
 has_toc: false
 ---
 
-# Index phrases
+# Index phrases mapping parameter
 
 The `index_phrases` mapping parameter determines whether a field's text is additionally processed to generate phrase tokens. When enabled, the system creates extra tokens representing sequences of exactly two consecutive words (_bigrams_). This can significantly improve the performance and accuracy of phrase queries. However, it also increases the index size and the time needed to index documents.
 

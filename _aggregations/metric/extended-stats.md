@@ -7,7 +7,7 @@ redirect_from:
   - /query-dsl/aggregations/metric/extended-stats/
 ---
 
-# Extended stats aggregations
+# Extended stats aggregation
 
 The `extended_stats` aggregation is a more comprehensive version of the [`stats`]({{site.url}}{{site.baseurl}}/query-dsl/aggregations/metric/stats/) aggregation. As well as the basic statistical measures provided by `stats`, `extended_stats` calculates the following:
 

@@ -7,7 +7,7 @@ redirect_from:
   - /query-dsl/aggregations/bucket/reverse-nested/
 ---
 
-# Reverse nested aggregations
+# Reverse nested aggregation
 
 You can aggregate values from nested documents to their parent; this aggregation is called `reverse_nested`.
 You can use `reverse_nested` to aggregate a field from the parent document after grouping by the field from the nested object. The `reverse_nested` aggregation "joins back" the root page and gets the `load_time` for each for your variations.

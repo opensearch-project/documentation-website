@@ -11,7 +11,7 @@ redirect_from:
   - /migration-assistant/migration-phases/planning-your-migration/assessing-your-cluster-for-migration/
 ---
 
-# Assessment
+# Migration assessment
 
 At this stage, you'll determine the migration type for your use case. The goal is to identify the issues that affect your workflow configuration, your cutover plan, and your application behavior before you start moving data.
 

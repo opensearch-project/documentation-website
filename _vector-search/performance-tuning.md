@@ -7,7 +7,7 @@ redirect_from:
   - /search-plugins/knn/performance-tuning/
 ---
 
-# Performance tuning
+# Vector search performance tuning
 
 This topic provides performance tuning recommendations for improving indexing and search performance for approximate k-NN (ANN) search. At a high level, k-NN works according to these principles:
 * Vector indexes are created per `knn_vector` field/Lucene segment pair.
