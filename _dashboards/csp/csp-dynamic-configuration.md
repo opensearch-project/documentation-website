@@ -10,7 +10,7 @@ has_children: false
 Introduced 2.13
 {: .label .label-purple }
 
-Content Security Policy (CSP) is a security standard intended to prevent cross-site scripting (XSS), clickjacking, and other code injection attacks. OpenSearch Dashboards enforces CSP by sending a `Content-Security-Policy` response header on every page load.
+Content Security Policy (CSP) is a security standard intended to prevent cross-site scripting (XSS), `clickjacking`, and other code injection attacks. OpenSearch Dashboards enforces CSP by sending a `Content-Security-Policy` response header on every page load.
 
 You can configure CSP rules in `opensearch_dashboards.yml`. A server restart is required after any change.
 
@@ -69,9 +69,9 @@ csp-report-only.allowedConnectSources: ["https://api.example.com"]
 csp-report-only.allowedImgSources: ["https://cdn.example.com"]
 ```
 
-## Deprecated: applicationConfig approach (2.13–2.16)
+## Deprecated: ApplicationConfig approach (2.13–2.16)
 
-**Deprecated.** In OpenSearch Dashboards 2.13–2.16, the `frame-ancestors` directive could be set dynamically via a REST API using the `applicationConfig` and `cspHandler` plugins. This approach is no longer functional—the API still accepts values but they are not applied to the `Content-Security-Policy` header. Use the `csp.*` settings above instead.
+**Deprecated.** In OpenSearch Dashboards 2.13–2.16, the `frame-ancestors` directive could be set dynamically using a REST API through the `applicationConfig` and `cspHandler` plugins. This approach is no longer functional—the API still accepts values but they are not applied to the `Content-Security-Policy` header. Use the `csp.*` settings described earlier instead.
 
 The following is documented for reference only.
 
@@ -82,7 +82,7 @@ application_config.enabled: true
 csp_handler.enabled: true
 ```
 
-Set, delete, or get `frame-ancestors` via cURL:
+Set, delete, or get `frame-ancestors` using cURL:
 
 ```bash
 # Set
