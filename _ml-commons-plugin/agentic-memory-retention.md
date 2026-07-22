@@ -9,6 +9,9 @@ nav_order: 30
 **Introduced 3.8**
 {: .label .label-purple }
 
+This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).
+{: .warning}
+
 When AI agents use memory containers to store conversations (sessions), distilled knowledge (long-term memory), and audit trails (history), that data grows without bound. Without lifecycle management, storage costs increase continuously, agents retrieve stale or contradictory memories that degrade response quality, and larger context windows drive up inference costs.
 
 A memory retention policy solves this by letting you define rules that automatically delete old or excess memories on a schedule. You set the rules, and a background job enforces them. This page explains how to configure retention on your [memory containers]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agentic-memory/).
@@ -31,8 +34,8 @@ The retention policy is the primary way to control retention, and it covers the 
 
 Working memory is managed separately in two cases that the retention policy does not cover. Two cluster-level administrator settings act as safety nets rather than per-container policy fields:
 
-- `working_memory_ttl_days` ages out working memory in session-less containers (those created with `disable_session: true`), which have no parent session to cascade from. It is off by default.
-- `orphan_ttl_days` sweeps working memory in session-enabled containers whose parent session no longer exists, for example after a session is manually deleted.
+- `plugins.ml_commons.memory.working_memory_ttl_days` ages out working memory in session-less containers (those created with `disable_session: true`), which have no parent session to cascade from. It is off by default.
+- `plugins.ml_commons.memory.orphan_ttl_days` sweeps working memory in session-enabled containers whose parent session no longer exists, for example after a session is manually deleted.
 
 Both are cluster-wide admin controls, not knobs on an individual container's retention policy. Most users never touch them. For details, see [Working memory time-to-live](#working-memory-time-to-live) and [Orphan sweep](#orphan-sweep).
 
