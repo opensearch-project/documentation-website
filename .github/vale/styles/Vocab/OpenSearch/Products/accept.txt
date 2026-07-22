@@ -79,6 +79,7 @@ Google Normalized Distance
 Google Workspace
 Gradle
 Grafana
+Grok Debugger
 Hanja
 Helm
 Hjson
