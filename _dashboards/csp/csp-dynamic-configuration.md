@@ -1,58 +1,108 @@
 ---
 layout: default
-title: Configuring CSP rules for frame ancestors
+title: Configuring CSP rules
 parent: Settings and administration
 nav_order: 60
 has_children: false
 ---
 
-# Configuring CSP rules for frame ancestors
+# Configuring CSP rules
 Introduced 2.13
 {: .label .label-purple }
 
-Content Security Policy (CSP) is a security standard intended to prevent cross-site scripting (XSS), `clickjacking`, and other code injection attacks resulting from the launch of malicious content in the trusted webpage context. OpenSearch Dashboards supports configuring CSP rules in the `opensearch_dashboards.yml` file by using the `csp.rules` key. A change in the YAML file requires a server restart, which may interrupt service availability. You can, however, dynamically configure the `frame-ancestors` directive in the CSP rules through the `applicationConfig` plugin without restarting the server. Support for other directives is evaluated based on security ramifications.
+Content Security Policy (CSP) is a security standard intended to prevent cross-site scripting (XSS), clickjacking, and other code injection attacks. OpenSearch Dashboards enforces CSP by sending a `Content-Security-Policy` response header on every page load.
+
+You can configure CSP rules in `opensearch_dashboards.yml`. A server restart is required after any change.
 
 ## Configuration
 
-The `applicationConfig` plugin provides read and write APIs that allow OpenSearch Dashboards users to manage dynamic configurations as key-value pairs in an index. The `cspHandler` plugin registers a pre-response handler to `HttpServiceSetup`, which gets the `frame-ancestors` value from the dependent `applicationConfig` plugin and then rewrites it to the CSP header. Enable both plugins in your `opensearch_dashboards.yml` file to use this feature. The configuration is shown in the following example. Refer to [`cspHandler` plugin](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/src/plugins/csp_handler/README.md) for more information.
+Add the following keys to `opensearch_dashboards.yml` to configure CSP. All `allowed*Sources` values are appended to the strict policy defaults for that directive.
+
+```yaml
+# Enable strict CSP enforcement.
+csp.enable: true
+
+# Append trusted origins to frame-ancestors (controls iframe embedding).
+csp.allowedFrameAncestorSources: ["https://portal.example.com"]
+
+# Append trusted origins to connect-src (fetch/XHR calls from the browser).
+csp.allowedConnectSources: ["https://api.example.com"]
+
+# Append trusted origins to img-src.
+csp.allowedImgSources: ["https://cdn.example.com"]
+
+# Relax specific directives back to their non-strict defaults
+# while keeping the rest of the policy strict.
+csp.loosenCspDirectives: ["style-src"]
+```
+
+Setting | Type | Description
+:--- | :--- | :---
+`csp.enable` | Boolean | Enables strict CSP enforcement. Default: `true`.
+`csp.allowedFrameAncestorSources` | Array of strings | Origins appended to the `frame-ancestors` directive. Use to allow embedding Dashboards in an iframe.
+`csp.allowedConnectSources` | Array of strings | Origins appended to `connect-src`. Use to allow browser-initiated requests (fetch, XHR, WebSocket) to external endpoints.
+`csp.allowedImgSources` | Array of strings | Origins appended to `img-src`. Use to allow images from external CDNs or tile servers.
+`csp.loosenCspDirectives` | Array of strings | Directive names to relax back to their non-strict default values.
+
+## Enable site embedding
+
+To embed OpenSearch Dashboards in an iframe on another site, add that site to `csp.allowedFrameAncestorSources`:
+
+```yaml
+csp.allowedFrameAncestorSources: ["https://portal.example.com"]
+```
+
+This produces the following `frame-ancestors` directive in the response header:
 
 ```
+frame-ancestors 'self' https://portal.example.com
+```
+
+## Report-only mode
+
+To audit a new CSP policy without enforcing it, enable the `Content-Security-Policy-Report-Only` header. Violations are reported but no content is blocked.
+
+```yaml
+csp-report-only.isEmitting: true
+csp-report-only.allowedFrameAncestorSources: ["https://portal.example.com"]
+csp-report-only.allowedConnectSources: ["https://api.example.com"]
+csp-report-only.allowedImgSources: ["https://cdn.example.com"]
+```
+
+## Fine-grained access control
+
+CSP configuration is managed through `opensearch_dashboards.yml` and requires access to the server's file system. Only administrators with access to the server configuration should modify these settings.
+
+When the Security plugin is enabled, ensure that any related index permissions are restricted to trusted administrator accounts.
+
+## Deprecated: applicationConfig approach (2.13–2.16)
+
+**Deprecated.** In OpenSearch Dashboards 2.13–2.16, the `frame-ancestors` directive could be set dynamically via a REST API using the `applicationConfig` and `cspHandler` plugins. This approach is no longer functional—the API still accepts values but they are not applied to the `Content-Security-Policy` header. Use the `csp.*` settings above instead.
+
+The following is documented for reference only.
+
+Enable the plugins in `opensearch_dashboards.yml`:
+
+```yaml
 application_config.enabled: true
 csp_handler.enabled: true
 ```
 
-## Enable site embedding for OpenSearch Dashboards
+Set, delete, or get `frame-ancestors` via cURL:
 
-To enable site embedding for OpenSearch Dashboards, update the `frame-ancestors` directive in the CSP rules using cURL. When using cURL commands with single quotation marks in the `data-raw` parameter, escape them with a backslash (`\`). For example, use `'\''` to represent `'`. The configuration is shown in the following example. Refer to [`applicationConfig` plugin](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/src/plugins/application_config/README.md) for more information.
+```bash
+# Set
+curl '{osd endpoint}/api/appconfig/csp.rules.frame-ancestors' \
+  -X POST \
+  -H 'Accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -H 'osd-xsrf: osd-fetch' \
+  --data-raw '{"newValue":"'\''self'\'' https://portal.example.com"}'
 
-```
-curl '{osd endpoint}/api/appconfig/csp.rules.frame-ancestors' -X POST -H 'Accept: application/json' -H 'Content-Type: application/json' -H 'osd-xsrf: osd-fetch' -H 'Sec-Fetch-Dest: empty' --data-raw '{"newValue":"{new site}"}'
-```
+# Delete
+curl '{osd endpoint}/api/appconfig/csp.rules.frame-ancestors' \
+  -X DELETE -H 'osd-xsrf: osd-fetch'
 
-## Delete `frame-ancestors` in the CSP rules
-
-Use the following cURL command to delete `frame-ancestors` in the CSP rules:
-
-```
-curl '{osd endpoint}/api/appconfig/csp.rules.frame-ancestors' -X DELETE -H 'osd-xsrf: osd-fetch' -H 'Sec-Fetch-Dest: empty'
-```
-
-## Get `frame-ancestors` in the CSP rules
-
-Use the following cURL command to get `frame-ancestors` in the CSP rules:
-
-```
+# Get
 curl '{osd endpoint}/api/appconfig/csp.rules.frame-ancestors'
 ```
-
-## Precedence
-
-Dynamic configurations override YAML configurations, except for empty CSP rules. To prevent `clickjacking`, a `frame-ancestors: self` directive is automatically added to YAML-defined rules when necessary.
-
-## Fine-grained access control
-
-When the Security plugin is enabled, only users with write permissions to the configuration index `.opensearch_dashboards_config` are able to call the mutating APIs. The API calls must have a valid cookie containing the security information. To construct the cURL command, you can use a `Copy as cURL` option from the network tab of a browser development tool. For GET APIs, you can find an existing GET XHR request with type `json` from the network tab, copy it as cURL, and then replace it with the `appconfig` API names. Similarly, for POST and DELETE APIs, you can find an existing POST XHR request and update the API name and the value of `--data-raw` accordingly. DELETE APIs must have their request method updated to `-X DELETE`.
-
-An example of the `Copy as cURL` option in Firefox is shown in the following image.
-
-![Copying as cURL in Firefox]({{site.url}}{{site.baseurl}}/images/dashboards/copy-as-curl.png)
