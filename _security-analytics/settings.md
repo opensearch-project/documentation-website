@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Security analytics settings
+title: Security Analytics settings
 nav_order: 100
 has_children: false
 ---
