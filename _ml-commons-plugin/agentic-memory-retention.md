@@ -29,10 +29,10 @@ A memory container holds four types of memory. The retention policy you configur
 
 The retention policy is the primary way to control retention, and it covers the first three types only. Working memory is not part of it: it has no `retention_days`, `max_count`, or `pinned` rule of its own. In normal use, working memory is deleted automatically when its parent session expires, so to control how long messages live, you configure retention on `sessions`.
 
-Working memory is only managed separately in one uncommon case: session-less containers (those created with `disable_session: true`). Because that memory has no parent session to cascade from, two cluster-level administrator settings act as safety nets rather than per-container policy fields:
+Working memory is managed separately in two cases that the retention policy does not cover. Two cluster-level administrator settings act as safety nets rather than per-container policy fields:
 
-- `working_memory_ttl_days` ages out working memory in session-less containers. It is off by default.
-- `orphan_ttl_days` sweeps working memory whose parent session no longer exists.
+- `working_memory_ttl_days` ages out working memory in session-less containers (those created with `disable_session: true`), which have no parent session to cascade from. It is off by default.
+- `orphan_ttl_days` sweeps working memory in session-enabled containers whose parent session no longer exists, for example after a session is manually deleted.
 
 Both are cluster-wide admin controls, not knobs on an individual container's retention policy. Most users never touch them. For details, see [Working memory time-to-live](#working-memory-time-to-live) and [Orphan sweep](#orphan-sweep).
 
@@ -331,7 +331,7 @@ Memory retention is governed by two independent cluster settings that act as on/
 
 `plugins.ml_commons.agentic_memory_enabled` (default `true`) controls all agentic memory APIs, including creating, updating, retrieving, and deleting containers and memories. If it is `false`, every memory API returns a 403 error, the retention job is never registered, and nothing memory-related works.
 
-`plugins.ml_commons.memory.retention_enabled` (default `false`) is the primary opt-in switch for the retention feature. It controls the background retention job and the acceptance of `retention_policy` and `pinned` input on the container APIs. While it is `false`, any request that carries a `retention_policy` or a `pinned` field is rejected with a 403 error, and the job short-circuits and deletes nothing. Other memory APIs (creating containers, adding messages, retrieving, and searching) still work normally. Set it to `true` to accept policies and pins and to have the job enforce them on schedule.
+`plugins.ml_commons.memory.retention_enabled` (default `false`) is the primary opt-in switch for the retention feature. It controls the background retention job and the acceptance of `retention_policy` input on the container APIs and `pinned` input on the memory update API. While it is `false`, any request that carries a `retention_policy` or a `pinned` field is rejected with a 403 error, and the job short-circuits and deletes nothing. Other memory APIs (creating containers, adding messages, retrieving, and searching) still work normally. Set it to `true` to accept policies and pins and to have the job enforce them on schedule.
 
 ### What each combination means
 
@@ -415,11 +415,11 @@ The following table lists common mistakes and how to resolve them.
 | :--- | :--- | :--- |
 | Setting `retention_enabled` to `false` and expecting policies to still be enforced | No deletions occur anywhere. The setting is a global pause, not a per-container control. | Use `"retention_policy": null` on specific containers to opt them out individually, or leave the global setting at `true`. |
 | Setting `agentic_memory_enabled` to `false`, thinking it only disables retention | All memory APIs break with a 403 error. Agents can no longer read or write memories. | Use `retention_enabled: false` instead, because it only stops deletions. |
-| Changing `retention_enabled` and expecting immediate deletions | The job runs on a schedule (every 24 hours by default). Changes take effect on the next run. | Wait for the next cycle. To run more frequently, set `retention_job_interval_hours` to a lower value before retention is first enabled on the cluster; it cannot be changed on a cluster where the job is already scheduled. |
+| Changing `retention_enabled` and expecting immediate deletions | The job runs every 24 hours. Changes take effect on the next run. | Wait for the next cycle. To run more frequently, set `retention_job_interval_hours` in `opensearch.yml` during initial cluster setup; changing it on a running cluster is not yet supported. |
 
 ## Cluster-level settings for administrators
 
-Cluster administrators can configure retention behavior using dynamic cluster settings. All settings use the prefix `plugins.ml_commons.memory.` and can be updated at runtime without a restart. One exception is `retention_job_interval_hours`: although the setting itself is dynamic, its value is applied only when the retention job is first scheduled, so a later change does not take effect until the job is recreated.
+Cluster administrators can configure retention behavior using dynamic cluster settings. All settings use the prefix `plugins.ml_commons.memory.` and can be updated at runtime without a restart, with one exception: `retention_job_interval_hours` is configured in `opensearch.yml` during initial setup and is applied once, when the retention job is first scheduled. The ability to change it on a running cluster is planned for a future release.
 
 ### Primary switch
 
@@ -435,7 +435,7 @@ The following table describes the job schedule and throttling settings.
 
 | Setting | Default | Range | Description |
 | :--- | :--- | :--- | :--- |
-| `retention_job_interval_hours` | 24 | 1--168 | How often the retention job runs, in hours. This value is applied only when the job is first scheduled. Set it before retention is first enabled on the cluster; changing it on a cluster where the job is already scheduled does not reschedule the running job. |
+| `retention_job_interval_hours` | 24 | 1--168 | How often the retention job runs, in hours. Configure this value in `opensearch.yml` during initial setup; it is applied once, when the job is first scheduled. Unlike the other settings in this section, changing it on a running cluster is not yet supported. |
 | `retention_job_throttle_seconds` | 5 | 1--60 | The pause between containers during job execution, used to reduce cluster load. |
 
 ### Cleanup time-to-live settings
@@ -690,19 +690,13 @@ With "no policy" (the field is absent), the container may receive cluster defaul
 
 **Can I trigger the retention job on demand?**
 
-Not in this version. The job runs on its configured interval. You can choose a shorter interval for faster enforcement, but you must set `retention_job_interval_hours` *before* the retention job is first scheduled on the cluster, for example in `opensearch.yml` or as a cluster setting applied during initial setup:
+Not in this version. The job runs on a fixed schedule of every 24 hours. To use a different interval, set `retention_job_interval_hours` in each node's `opensearch.yml` before the node first starts, as part of your initial cluster setup:
 
-```json
-PUT /_cluster/settings
-{
-  "persistent": {
-    "plugins.ml_commons.memory.retention_job_interval_hours": 1
-  }
-}
+```yaml
+plugins.ml_commons.memory.retention_job_interval_hours: 1
 ```
-{% include copy-curl.html %}
 
-The interval is read only once, when the job is first created. Changing it on a cluster where the job is already scheduled updates the setting value but does not reschedule the running job, so the change has no effect until the job is recreated. Support for changing the interval on a running cluster is planned for a future release.
+The interval is applied once, when the retention job is first scheduled, so it must be in place before agentic memory is first used on the cluster. Changing it afterward has no effect on the current schedule. Support for adjusting the interval on a running cluster is planned for a future release.
 
 **What OpenSearch version is required?**
 
