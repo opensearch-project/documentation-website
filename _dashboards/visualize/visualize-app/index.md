@@ -58,7 +58,7 @@ To create a visualization, follow these steps:
 
 1. If prompted, select an index pattern in the **Choose a source** dialog. Not all visualization types display this dialog. For examples of creating each visualization type, see the individual visualization type pages.
    
-   The default visualization shows a single value, the document count, for the current data set.
+   The default visualization shows a single value, the document count, for the current dataset.
 
    If the visualization shows no data, or a count different than expected, verify that the [search bar]({{site.url}}{{site.baseurl}}/dashboards/discover/search-bar/), [filter tool]({{site.url}}{{site.baseurl}}/dashboards/discover/filter-tool/), and especially the [time filter]({{site.url}}{{site.baseurl}}/dashboards/discover/time-filter/) are not filtering out the missing documents.
    {: .tip}
