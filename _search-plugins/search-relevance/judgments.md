@@ -86,40 +86,6 @@ The following table lists the parameters for creating LLM-based judgments.
 
 Generating a judgment sends one LLM request for every query-document pair. Occasional failures are expected at scale: for example, the provider might throttle a request or a request might time out. To make these failures self-healing, configure retries on the connector you use for the judgment, using the connector's `client_config` settings (`max_retry_times`, `retry_backoff_policy`, and related options). For more information, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/#configuration-parameters).
 
-If a document still doesn't receive a rating after retries, SRW keeps a record of it instead of dropping it silently. Each entry in `judgmentRatings` lists its successfully rated documents in `ratings` and any documents that were sent to the LLM but never rated in a `failures` array:
-
-```json
-{
-  "query": "laptop",
-  "ratings": [
-    { "docId": "1", "rating": "1.0" }
-  ],
-  "failures": [
-    { "docId": "6" }
-  ]
-}
-```
-
-The judgment's `metadata` field also includes a summary of the run:
-
-```json
-{
-  "metadata": {
-    "totalQueries": 2,
-    "successfulQueries": 1,
-    "failedQueries": 1,
-    "lastFailureReason": "Rate limit exceeded"
-  }
-}
-```
-
-- `totalQueries`: The total number of queries in the judgment run.
-- `successfulQueries`: The number of queries for which every document received a rating.
-- `failedQueries`: The number of queries with at least one document that didn't receive a rating.
-- `lastFailureReason`: The error message from the most recent failure. Included only when `failedQueries` is greater than `0`.
-
-A judgment can finish with a `status` of `COMPLETED` even if some documents weren't rated, so check `metadata.failedQueries` or each query's `failures` array to confirm that every document received a rating. In OpenSearch Dashboards, the Judgment view's ratings table includes a **Status** column, labeled **Rated** or **Failed** for each document, making missing ratings visible without inspecting the raw judgment document.
-
 ### Custom prompt templates
 
 You can customize the prompt template to focus on specific aspects of relevance:
@@ -451,6 +417,42 @@ GET _plugins/_search_relevance/judgments/b54f791a-3b02-49cb-a06c-46ab650b2ade
 ```
 
 </details>
+
+### Failed and unrated documents
+
+When you view or search for an LLM judgment, a document can appear unrated if it still fails after any connector-level retries. Instead of being dropped, the document appears in a `failures` array alongside the `ratings` array for its query:
+
+```json
+{
+  "query": "wireless headphones",
+  "ratings": [
+    { "docId": "B003VJPPI4", "rating": "0.900" }
+  ],
+  "failures": [
+    { "docId": "B0091B7RUI" }
+  ]
+}
+```
+
+The judgment's `metadata` field summarizes the run:
+
+```json
+{
+  "metadata": {
+    "totalQueries": 2,
+    "successfulQueries": 1,
+    "failedQueries": 1,
+    "lastFailureReason": "Rate limit exceeded"
+  }
+}
+```
+
+- `totalQueries`: The total number of queries in the judgment run.
+- `successfulQueries`: The number of queries for which every document received a rating.
+- `failedQueries`: The number of queries with at least one unrated document.
+- `lastFailureReason`: The error message from the most recent failure. Included only when `failedQueries` is greater than `0`.
+
+A judgment can finish with a `status` of `COMPLETED` even if some documents weren't rated. Check `metadata.failedQueries` or each query's `failures` array to confirm that every document received a rating. In OpenSearch Dashboards, the Judgment view's ratings table includes a **Status** column, labeled **Rated** or **Failed** for each document, so missing ratings are visible without inspecting the raw judgment document.
 
 ### Deleting a judgment list
 

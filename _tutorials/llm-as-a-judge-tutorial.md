@@ -72,7 +72,7 @@ POST /_plugins/_ml/connectors/_create
 ```
 {% include copy-curl.html %}
 
->   The `client_config` block enables automatic retries with jittered backoff for temporary rate limits or server errors. For information on how SRW reports judgment failures, see [Handling judgment failures]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/judgments/#handling-judgment-failures).
+>   The `client_config` block enables automatic retries with jittered backoff for temporary rate limits or server errors. If a document still fails after retries, it's reported instead of dropped; for more information, see [Failed and unrated documents]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/judgments/#failed-and-unrated-documents).
 >
 >   The `request_body` and `post_process_function` map the same neutral `system_prompt`, `user_prompt`, and `response` parameters into every provider's request and response format, so the judgment API call stays the same across providers. For information on how these fields work, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/#configuration-parameters).
 >
