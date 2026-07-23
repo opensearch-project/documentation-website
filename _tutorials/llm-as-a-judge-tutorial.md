@@ -35,7 +35,7 @@ PUT /_cluster/settings
 
 ### Step 1: Configure a model
 
-First, create a connector to an externally hosted LLM. This tutorial uses OpenAI, but you can adapt it for other providers such as Amazon Bedrock. Replace `YOUR_API_KEY` with your OpenAI API key:
+First, create a connector to an externally hosted LLM. This tutorial uses OpenAI, but you can adapt it for other providers such as Amazon Bedrock; for the full list of ready-to-use blueprints, see [Supported connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/supported-connectors/#llm-judgment-blueprints-for-search-relevance-workbench). Replace `<YOUR_API_KEY>` with your OpenAI API key:
 
 ```json
 POST /_plugins/_ml/connectors/_create
@@ -46,33 +46,46 @@ POST /_plugins/_ml/connectors/_create
   "protocol": "http",
   "parameters": {
     "endpoint": "api.openai.com",
-    "model": "gpt-3.5-turbo"
+    "model": "gpt-4o-mini"
   },
   "credential": {
-    "openAI_key": "YOUR_API_KEY"
+    "openAI_key": "<YOUR_API_KEY>"
+  },
+  "client_config": {
+    "max_retry_times": 3,
+    "retry_backoff_policy": "exponential_full_jitter"
   },
   "actions": [
     {
       "action_type": "predict",
       "method": "POST",
-      "url": "https://api.openai.com/v1/chat/completions",
+      "url": "https://${parameters.endpoint}/v1/chat/completions",
       "headers": {
         "Authorization": "Bearer ${credential.openAI_key}",
         "Content-Type": "application/json"
       },
-      "request_body": "{ \"model\": \"${parameters.model}\", \"messages\": ${parameters.messages}, \"temperature\": 0 }"
+      "request_body": "{\"model\":\"${parameters.model}\",\"messages\":[{\"role\":\"system\",\"content\":\"${parameters.system_prompt}\"},{\"role\":\"user\",\"content\":\"${parameters.user_prompt}\"}]}",
+      "post_process_function": "def text = params.choices[0].message.content; return '{\"name\":\"response\",\"dataAsMap\":{\"response\":\"' + escape(text) + '\"}}'"
     }
   ]
 }
 ```
 {% include copy-curl.html %}
 
+For more information about this connector and other providers, see [Supported connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/supported-connectors/#llm-judgment-blueprints-for-search-relevance-workbench). The following fields are specific to LLM-as-a-Judge:
+
+| Field | Description |
+| :--- | :--- |
+| `client_config` | Enables automatic retries with jittered backoff, so that a temporary rate limit or server error doesn't cause the request to fail outright. For more information, see [Handling judgment failures]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/judgments/#handling-judgment-failures). |
+| `request_body` | Maps the neutral `system_prompt` and `user_prompt` parameters that SRW sends on every call into the shape the provider's API expects. Every provider blueprint maps these same two parameters into its own format, so switching providers doesn't require changing how you call the judgment API. |
+| `post_process_function` | Copies the model's answer from the provider's response shape into a neutral `response` field, which SRW reads to get the rating results. |
+
 Then register and deploy the model. Replace `{connector_id}` with the ID returned in the previous response:
 
 ```json
 POST /_plugins/_ml/models/_register?deploy=true
 {
-  "name": "openai_gpt-3.5-turbo",
+  "name": "openai_gpt-4o-mini",
   "function_name": "remote",
   "description": "External LLM model via OpenAI",
   "connector_id": "{connector_id}"
@@ -160,7 +173,7 @@ Create an LLM judgment that uses your deployed model to evaluate search results.
 PUT /_plugins/_search_relevance/judgments
 {
   "name": "LLM Judgment via OpenAI",
-  "description": "Uses GPT-3.5-turbo to evaluate product search results",
+  "description": "Uses GPT-4o mini to evaluate product search results",
   "type": "LLM_JUDGMENT",
   "modelId": "{model_id}",
   "querySetId": "{query_set_id}",

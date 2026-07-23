@@ -82,6 +82,35 @@ The following table lists the parameters for creating LLM-based judgments.
 | `promptTemplate` | String | Optional. A custom prompt template for the LLM. Supports {% raw %}`{{queryText}}`{% endraw %} and {% raw %}`{{hits}}`{% endraw %} placeholders. If not provided, the default template is used. |
 | `overwriteCache` | Boolean | Whether to overwrite existing cached judgments for the same query-document pairs. Default is `false` (reuse cached judgments). |
 
+### Handling judgment failures
+
+Generating a judgment sends one LLM request for every query-document pair. Occasional failures are expected at scale: for example, the provider might throttle a request or a request might time out. To make these failures self-healing, configure retries on the connector you use for the judgment, using the connector's `client_config` settings (`max_retry_times`, `retry_backoff_policy`, and related options). For more information, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/#configuration-parameters).
+
+If a document still doesn't receive a rating after retries, SRW keeps a record of it instead of dropping it silently. Each entry in `judgmentRatings` lists its successfully rated documents in `ratings` and any documents that were sent to the LLM but never rated in a `failures` array:
+
+```json
+{
+  "query": "laptop",
+  "ratings": [
+    { "docId": "1", "rating": "1.0" }
+  ],
+  "failures": [
+    { "docId": "6" }
+  ]
+}
+```
+
+The judgment's `metadata` field also includes a summary of the run:
+
+| Field | Data type | Description |
+| :--- | :--- | :--- |
+| `totalQueries` | Integer | The total number of queries in the judgment run. |
+| `successfulQueries` | Integer | The number of queries for which every document received a rating. |
+| `failedQueries` | Integer | The number of queries with at least one document that didn't receive a rating. |
+| `lastFailureReason` | String | The error message from the most recent failure. Included only when `failedQueries` is greater than `0`. |
+
+A judgment can finish with a `status` of `COMPLETED` even if some documents weren't rated, so check `metadata.failedQueries` or each query's `failures` array to confirm that every document received a rating. In OpenSearch Dashboards, the Judgment view's ratings table includes a **Status** column, labeled **Rated** or **Failed** for each document, making missing ratings visible without inspecting the raw judgment document.
+
 ### Custom prompt templates
 
 You can customize the prompt template to focus on specific aspects of relevance:
@@ -120,36 +149,46 @@ PUT /_plugins/_search_relevance/judgments
 
 ### Using different LLM providers
 
-You can adapt the connector configuration for other providers.
+LLM-as-a-Judge works with any LLM provider that you can connect to through an [ML Commons connector]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/). For ready-to-use blueprints covering OpenAI, Azure OpenAI, DeepSeek, Ollama, Google Gemini, and Amazon Bedrock, see [Supported connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/supported-connectors/#llm-judgment-blueprints-for-search-relevance-workbench).
 
 #### Amazon Bedrock example
 
-The following example creates a connector for Amazon Bedrock:
+The following example creates a connector for an Anthropic Claude model on Amazon Bedrock:
 
 ```json
 POST /_plugins/_ml/connectors/_create
 {
-  "name": "Amazon Bedrock Connector",
-  "description": "Connector to Amazon Bedrock",
-  "version": "1",
-  "protocol": "aws_sigv4",
-  "parameters": {
-    "region": "us-east-1",
-    "service_name": "bedrock",
-    "model": "anthropic.claude-v2"
-  },
-  "credential": {
-    "access_key": "YOUR_ACCESS_KEY",
-    "secret_key": "YOUR_SECRET_KEY"
-  },
-  "actions": [
-    {
-      "action_type": "predict",
-      "method": "POST",
-      "url": "https://bedrock-runtime.${parameters.region}.amazonaws.com/model/${parameters.model}/invoke",
-      "request_body": "{ \"prompt\": \"${parameters.messages}\", \"max_tokens_to_sample\": 300 }"
-    }
-  ]
+    "name": "Amazon Bedrock Anthropic Claude",
+    "description": "Anthropic Claude via Bedrock for SRW LLM judgments",
+    "version": 1,
+    "protocol": "aws_sigv4",
+    "credential": {
+        "access_key": "<YOUR AWS ACCESS KEY>",
+        "secret_key": "<YOUR AWS SECRET KEY>"
+    },
+    "parameters": {
+        "region": "<YOUR AWS REGION>",  // example: us-east-1
+        "service_name": "bedrock",
+        "anthropic_version": "bedrock-2023-05-31",
+        "max_tokens": 8000,
+        "model": "<INFERENCE_PROFILE_ID>"  // example: us.anthropic.claude-haiku-4-5-20251001-v1:0
+    },
+    "client_config": {
+        "max_retry_times": 3,
+        "retry_backoff_policy": "exponential_full_jitter"
+    },
+    "actions": [
+        {
+            "action_type": "predict",
+            "method": "POST",
+            "headers": {
+                "content-type": "application/json"
+            },
+            "url": "https://bedrock-runtime.${parameters.region}.amazonaws.com/model/${parameters.model}/invoke",
+            "request_body": "{\"anthropic_version\":\"${parameters.anthropic_version}\",\"max_tokens\":${parameters.max_tokens},\"system\":\"${parameters.system_prompt}\",\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"${parameters.user_prompt}\"}]}]}",
+            "post_process_function": "def text = params.content[0].text; return '{\"name\":\"response\",\"dataAsMap\":{\"response\":\"' + escape(text) + '\"}}'"
+        }
+    ]
 }
 ```
 {% include copy-curl.html %}
