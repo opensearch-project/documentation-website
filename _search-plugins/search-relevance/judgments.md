@@ -102,12 +102,21 @@ If a document still doesn't receive a rating after retries, SRW keeps a record o
 
 The judgment's `metadata` field also includes a summary of the run:
 
-| Field | Data type | Description |
-| :--- | :--- | :--- |
-| `totalQueries` | Integer | The total number of queries in the judgment run. |
-| `successfulQueries` | Integer | The number of queries for which every document received a rating. |
-| `failedQueries` | Integer | The number of queries with at least one document that didn't receive a rating. |
-| `lastFailureReason` | String | The error message from the most recent failure. Included only when `failedQueries` is greater than `0`. |
+```json
+{
+  "metadata": {
+    "totalQueries": 2,
+    "successfulQueries": 1,
+    "failedQueries": 1,
+    "lastFailureReason": "Rate limit exceeded"
+  }
+}
+```
+
+- `totalQueries`: The total number of queries in the judgment run.
+- `successfulQueries`: The number of queries for which every document received a rating.
+- `failedQueries`: The number of queries with at least one document that didn't receive a rating.
+- `lastFailureReason`: The error message from the most recent failure. Included only when `failedQueries` is greater than `0`.
 
 A judgment can finish with a `status` of `COMPLETED` even if some documents weren't rated, so check `metadata.failedQueries` or each query's `failures` array to confirm that every document received a rating. In OpenSearch Dashboards, the Judgment view's ratings table includes a **Status** column, labeled **Rated** or **Failed** for each document, making missing ratings visible without inspecting the raw judgment document.
 

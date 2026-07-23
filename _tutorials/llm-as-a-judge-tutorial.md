@@ -72,13 +72,12 @@ POST /_plugins/_ml/connectors/_create
 ```
 {% include copy-curl.html %}
 
-For more information about this connector and other providers, see [Supported connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/supported-connectors/#llm-judgment-blueprints-for-search-relevance-workbench). The following fields are specific to LLM-as-a-Judge:
-
-| Field | Description |
-| :--- | :--- |
-| `client_config` | Enables automatic retries with jittered backoff, so that a temporary rate limit or server error doesn't cause the request to fail outright. For more information, see [Handling judgment failures]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/judgments/#handling-judgment-failures). |
-| `request_body` | Maps the neutral `system_prompt` and `user_prompt` parameters that SRW sends on every call into the shape the provider's API expects. Every provider blueprint maps these same two parameters into its own format, so switching providers doesn't require changing how you call the judgment API. |
-| `post_process_function` | Copies the model's answer from the provider's response shape into a neutral `response` field, which SRW reads to get the rating results. |
+>   The `client_config` block enables automatic retries with jittered backoff for temporary rate limits or server errors. For information on how SRW reports judgment failures, see [Handling judgment failures]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/judgments/#handling-judgment-failures).
+>
+>   The `request_body` and `post_process_function` map the same neutral `system_prompt`, `user_prompt`, and `response` parameters into every provider's request and response format, so the judgment API call stays the same across providers. For information on how these fields work, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/#configuration-parameters).
+>
+>   For blueprints covering other providers, see [Supported connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/supported-connectors/#llm-judgment-blueprints-for-search-relevance-workbench).
+{: .note}
 
 Then register and deploy the model. Replace `{connector_id}` with the ID returned in the previous response:
 
