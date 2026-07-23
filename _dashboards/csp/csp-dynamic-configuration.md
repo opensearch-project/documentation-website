@@ -79,4 +79,4 @@ csp-report-only.allowedImgSources: ["https://cdn.example.com"]
 
 ## Configuring CSP rules using applicationConfig (deprecated)
 
-**Deprecated.** In OpenSearch Dashboards 2.13--2.16, you could set the `frame-ancestors` directive dynamically using a REST API using the `applicationConfig` and `cspHandler` plugins. This approach is no longer functional. Use the `csp.*` settings instead.
+**Deprecated.** In OpenSearch Dashboards 2.13--2.16, you could set the `frame-ancestors` directive dynamically through a REST API by using the `applicationConfig` and `cspHandler` plugins. This approach is no longer functional. Use the `csp.*` settings instead.
