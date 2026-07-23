@@ -15,6 +15,9 @@ This is an experimental feature and is not recommended for use in a production e
 
 The Predict Stream API provides the same functionality as the [Predict API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/predict/) but returns responses in a streaming format, delivering data in chunks as it becomes available. This streaming approach is particularly beneficial for large language model interactions with lengthy responses, allowing you to see partial results immediately rather than waiting for the complete response.
 
+You can also stream predictions over gRPC using the [Predict Model Stream API (gRPC)]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/predict-model-stream/).
+{: .note}
+
 This API currently supports the following remote model types:
 - [OpenAI Chat Completion](https://platform.openai.com/docs/api-reference/completions)
 - [Amazon Bedrock Converse Stream](https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_ConverseStream.html)

@@ -15,6 +15,9 @@ This is an experimental feature and is not recommended for use in a production e
 
 The Execute Stream Agent API provides the same functionality as the [Execute Agent API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/execute-agent/) but returns responses in a streaming format, delivering data in chunks as it becomes available. This streaming approach is particularly beneficial for large language model interactions with lengthy responses, allowing you to see partial results immediately rather than waiting for the complete response.
 
+You can also stream agent execution over gRPC using the [Execute Agent Stream API (gRPC)]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/execute-agent-stream/).
+{: .note}
+
 This API currently supports the following agent types:
 
 - **Conversational agents** with the following externally hosted model types:

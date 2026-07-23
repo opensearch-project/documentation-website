@@ -27,6 +27,8 @@ The following gRPC APIs are currently supported:
 - [Bulk]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/bulk/) **Generally available 3.2**
 - [k-NN]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/knn/) **Generally available 3.2**
 - [Search]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/search/) (for select query types)
+- [ML Predict Model Stream]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/predict-model-stream/)
+- [ML Execute Agent Stream]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/execute-agent-stream/)
 
 ## How to use gRPC APIs
 
