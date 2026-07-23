@@ -35,7 +35,7 @@ PUT /_cluster/settings
 
 ### Step 1: Configure a model
 
-First, create a connector to an externally hosted LLM. This tutorial uses OpenAI, but you can adapt it for other providers such as Amazon Bedrock. Replace `YOUR_API_KEY` with your OpenAI API key:
+First, create a connector to an externally hosted LLM. This tutorial uses OpenAI, but you can adapt it for other providers such as Amazon Bedrock; for the full list of ready-to-use blueprints, see [Supported connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/supported-connectors/#llm-judgment-blueprints-for-search-relevance-workbench). Replace `<YOUR_API_KEY>` with your OpenAI API key:
 
 ```json
 POST /_plugins/_ml/connectors/_create
@@ -46,33 +46,45 @@ POST /_plugins/_ml/connectors/_create
   "protocol": "http",
   "parameters": {
     "endpoint": "api.openai.com",
-    "model": "gpt-3.5-turbo"
+    "model": "gpt-4o-mini"
   },
   "credential": {
-    "openAI_key": "YOUR_API_KEY"
+    "openAI_key": "<YOUR_API_KEY>"
+  },
+  "client_config": {
+    "max_retry_times": 3,
+    "retry_backoff_policy": "exponential_full_jitter"
   },
   "actions": [
     {
       "action_type": "predict",
       "method": "POST",
-      "url": "https://api.openai.com/v1/chat/completions",
+      "url": "https://${parameters.endpoint}/v1/chat/completions",
       "headers": {
         "Authorization": "Bearer ${credential.openAI_key}",
         "Content-Type": "application/json"
       },
-      "request_body": "{ \"model\": \"${parameters.model}\", \"messages\": ${parameters.messages}, \"temperature\": 0 }"
+      "request_body": "{\"model\":\"${parameters.model}\",\"messages\":[{\"role\":\"system\",\"content\":\"${parameters.system_prompt}\"},{\"role\":\"user\",\"content\":\"${parameters.user_prompt}\"}]}",
+      "post_process_function": "def text = params.choices[0].message.content; return '{\"name\":\"response\",\"dataAsMap\":{\"response\":\"' + escape(text) + '\"}}'"
     }
   ]
 }
 ```
 {% include copy-curl.html %}
 
+>   The `client_config` block enables automatic retries with jittered backoff for temporary rate limits or server errors. If a document still fails after retries, it's reported instead of dropped; for more information, see [Failed and unrated documents]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/judgments/#failed-and-unrated-documents).
+>
+>   The `request_body` and `post_process_function` map the same neutral `system_prompt`, `user_prompt`, and `response` parameters into every provider's request and response format, so the judgment API call stays the same across providers. For information on how these fields work, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/#configuration-parameters).
+>
+>   For blueprints covering other providers, see [Supported connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/supported-connectors/#llm-judgment-blueprints-for-search-relevance-workbench).
+{: .note}
+
 Then register and deploy the model. Replace `{connector_id}` with the ID returned in the previous response:
 
 ```json
 POST /_plugins/_ml/models/_register?deploy=true
 {
-  "name": "openai_gpt-3.5-turbo",
+  "name": "openai_gpt-4o-mini",
   "function_name": "remote",
   "description": "External LLM model via OpenAI",
   "connector_id": "{connector_id}"
@@ -160,7 +172,7 @@ Create an LLM judgment that uses your deployed model to evaluate search results.
 PUT /_plugins/_search_relevance/judgments
 {
   "name": "LLM Judgment via OpenAI",
-  "description": "Uses GPT-3.5-turbo to evaluate product search results",
+  "description": "Uses GPT-4o mini to evaluate product search results",
   "type": "LLM_JUDGMENT",
   "modelId": "{model_id}",
   "querySetId": "{query_set_id}",
