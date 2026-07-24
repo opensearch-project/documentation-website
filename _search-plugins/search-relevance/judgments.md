@@ -353,10 +353,15 @@ GET _plugins/_search_relevance/judgments/b54f791a-3b02-49cb-a06c-46ab650b2ade
         "_source": {
           "id": "b54f791a-3b02-49cb-a06c-46ab650b2ade",
           "timestamp": "2025-06-11T06:07:23.766Z",
-          "name": "Imported Judgments",
+          "name": "LLM Judgments",
           "status": "COMPLETED",
-          "type": "IMPORT_JUDGMENT",
-          "metadata": {},
+          "type": "LLM_JUDGMENT",
+          "metadata": {
+            "totalQueries": 2,
+            "successfulQueries": 1,
+            "failedQueries": 1,
+            "lastFailureReason": "Rate limit exceeded"
+          },
           "judgmentRatings": [
             {
               "query": "red dress",
@@ -370,16 +375,17 @@ GET _plugins/_search_relevance/judgments/b54f791a-3b02-49cb-a06c-46ab650b2ade
                   "docId": "B071S6LTJJ"
                 },
                 {
-                  "rating": "2.000",
-                  "docId": "B01IDSPDJI"
-                },
-                {
                   "rating": "0.000",
                   "docId": "B07QRCGL3G"
                 },
                 {
                   "rating": "1.000",
                   "docId": "B074V6Q1DR"
+                }
+              ],
+              "failures": [
+                {
+                  "docId": "B01IDSPDJI"
                 }
               ]
             },
@@ -418,41 +424,7 @@ GET _plugins/_search_relevance/judgments/b54f791a-3b02-49cb-a06c-46ab650b2ade
 
 </details>
 
-### Failed and unrated documents
-
-When you view or search for an LLM judgment, a document can appear unrated if it still fails after any connector-level retries. Instead of being dropped, the document appears in a `failures` array alongside the `ratings` array for its query:
-
-```json
-{
-  "query": "wireless headphones",
-  "ratings": [
-    { "docId": "B003VJPPI4", "rating": "0.900" }
-  ],
-  "failures": [
-    { "docId": "B0091B7RUI" }
-  ]
-}
-```
-
-The judgment's `metadata` field summarizes the run:
-
-```json
-{
-  "metadata": {
-    "totalQueries": 2,
-    "successfulQueries": 1,
-    "failedQueries": 1,
-    "lastFailureReason": "Rate limit exceeded"
-  }
-}
-```
-
-- `totalQueries`: The total number of queries in the judgment run.
-- `successfulQueries`: The number of queries for which every document received a rating.
-- `failedQueries`: The number of queries with at least one unrated document.
-- `lastFailureReason`: The error message from the most recent failure. Included only when `failedQueries` is greater than `0`.
-
-A judgment can finish with a `status` of `COMPLETED` even if some documents weren't rated. Check `metadata.failedQueries` or each query's `failures` array to confirm that every document received a rating. In OpenSearch Dashboards, the Judgment view's ratings table includes a **Status** column, labeled **Rated** or **Failed** for each document, so missing ratings are visible without inspecting the raw judgment document.
+Unrated documents appear in each query's `failures` array. The run's overall counts appear in the judgment's `metadata` field.
 
 ### Deleting a judgment list
 
