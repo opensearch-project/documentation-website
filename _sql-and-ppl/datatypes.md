@@ -6,9 +6,9 @@ redirect_from:
   - /search-plugins/sql/datatypes/
 ---
 
-# Data types
+# SQL and PPL data types
 
-The following table shows the data types supported by the SQL plugin and how each one maps to SQL and OpenSearch data types:
+The following table shows the data types supported by the SQL plugin and how each one maps to SQL and OpenSearch data types.
 
 | OpenSearch SQL type | OpenSearch type | SQL type
 :--- | :--- | :---
@@ -38,7 +38,7 @@ To use a function without a corresponding mapping, you must explicitly convert t
 
 The date and time types represent a time period: `DATE`, `TIME`, `DATETIME`, `TIMESTAMP`, and `INTERVAL`. By default, the OpenSearch DSL uses the `date` type as the only date-time related type that contains all information of an absolute time point.
 
-To integrate with SQL, each type other than the `timestamp` type holds part of the time period information. To use date-time functions, see [datetime]({{site.url}}{{site.baseurl}}/sql-and-ppl/functions#date-and-time). Some functions might have restrictions for the input argument type.
+To integrate with SQL, each type other than the `timestamp` type holds part of the time period information. To use date-time functions, see [Date and time]({{site.url}}{{site.baseurl}}/sql-and-ppl/functions#date-and-time). Some functions might have restrictions for the input argument type.
 
 
 ### Date
@@ -57,11 +57,7 @@ The `time` type represents the time of a clock regardless of its time zone. The 
 :--- | :--- | :---
 `time` | `hh:mm:ss[.fraction]` | `00:00:00.0000000000` to `23:59:59.9999999999`
 
-<!-- vale off -->
-
-### Datetime
-
-<!-- vale on -->
+### Date and time
 
 The `datetime` type is a combination of date and time. It doesn't contain time zone information. For an absolute time point that contains date, time, and time zone information, see [Timestamp](#timestamp).
 
@@ -111,7 +107,7 @@ The SQL plugin supports the following conversion rules for each of the types:
 
 - You cannot convert the `time` type to any other date and time types because it doesn't contain any date information.
 
-**Convert from datetime**
+**Convert from `datetime`**
 
 - Converting `datetime` to `date` extracts the date value from the `datetime` value. For example, conversion of `2020-08-17 14:09:00` to a `date` type is `2020-08-08`.
 - Converting `datetime` to `time` extracts the time value from the `datetime` value. For example, conversion of `2020-08-17 14:09:00` to a `time` type is `14:09:00`.

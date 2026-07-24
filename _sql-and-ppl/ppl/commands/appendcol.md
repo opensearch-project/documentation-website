@@ -14,11 +14,7 @@ nav_order: 6
 
 The `appendcol` command appends the result of a subsearch as additional columns to the input search results (the main search).
 
-<!-- vale off -->
-
 ## Syntax
-
-<!-- vale on -->
 
 The `appendcol` command has the following syntax:
 
@@ -26,11 +22,7 @@ The `appendcol` command has the following syntax:
 appendcol [override=<boolean>] <subsearch>
 ```
 
-<!-- vale off -->
-
 ## Parameters
-
-<!-- vale on -->
 
 The `appendcol` command supports the following parameters.
 
@@ -40,11 +32,7 @@ The `appendcol` command supports the following parameters.
 | `override` | Optional | Specifies whether the results of the main search should be overwritten when column names conflict. Default is `false`. |
   
 
-<!-- vale off -->
-
 ## Example 1: Appending a different aggregation alongside existing results
-
-<!-- vale on -->
 
 This example shows log counts per service alongside error counts per service. Because both queries group by service name in the same sort order, the rows align correctly:
 
@@ -74,13 +62,9 @@ The query returns the following results:
 
 <!-- vale on -->
 
-<!-- vale off -->
-
 ## Example 2: Appending multiple subsearch results
 
-<!-- vale on -->
-
-The following query chains multiple `appendcol` commands to add summary statistics alongside detail rows. The first appendcol adds the total error count, and the second adds the number of affected services:
+The following query chains multiple `appendcol` commands to add summary statistics alongside detail rows. The first `appendcol` adds the total error count, and the second adds the number of affected services:
 
 ```sql
 source=otellogs
@@ -107,11 +91,7 @@ The query returns the following results:
 
 <!-- vale on -->
 
-<!-- vale off -->
-
 ## Example 3: Resolving column name conflicts using the override parameter
-
-<!-- vale on -->
 
 When the main search and subsearch share a column name, `override=true` replaces the main search values with the subsearch values. In this example, both produce a column named `agg` -- the main search uses it for total log counts, the subsearch for error-only counts. With override, the error counts replace the totals:
 
@@ -137,11 +117,7 @@ The query returns the following results:
 
 <!-- vale on -->
 
-<!-- vale off -->
-
 ## Limitations
-
-<!-- vale on -->
 
 The `appendcol` command has the following limitations:
 

@@ -27,7 +27,7 @@ Acting as a traffic simulation tool, [Traffic Replayer]({{site.url}}{{site.baseu
 
 ## Metadata Migration Tool
 
-The metadata migration tool integrated into the Migration CLI can be used independently to migrate cluster metadata, including index mappings, index configuration settings, templates, component templates, and aliases.
+The Metadata Migration Tool integrated into the Migration CLI can be used independently to migrate cluster metadata, including index mappings, index configuration settings, templates, component templates, and aliases.
 
 ## Reindex-from-Snapshot
 

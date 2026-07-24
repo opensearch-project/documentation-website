@@ -6,6 +6,7 @@ has_children: true
 redirect_from:
   - /search-plugins/sql/sql-ppl-api/
   - /sql-and-ppl/sql-ppl-api/
+  - /sql-and-ppl/sql-and-ppl-api/
 ---
 
 # SQL and PPL API
@@ -175,6 +176,8 @@ Starting with OpenSearch 3.0.0, when you set `plugins.calcite.enabled` to `true`
 - `extended`: Displays logical and physical plans with generated code
 
 ### Examples
+
+The following examples demonstrate different `explain` queries.
 
 #### Basic SQL query
 

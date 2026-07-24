@@ -17,7 +17,7 @@ You can convert your full-text queries into a search template to accept user inp
 
 For example, if you use OpenSearch as a backend search engine for your application or website, you can take in user queries from a search bar or a form field and pass them as parameters into a search template. That way, the syntax to create OpenSearch queries is abstracted from your end users.
 
-When you're writing code to convert user input into OpenSearch queries, you can simplify your code with search templates. If you need to add fields to your search query, you can just modify the template without making changes to your code.
+When you're writing code to convert user input into OpenSearch queries, you can simplify your code with search templates. If you need to add fields to your search query, you can modify the template without making changes to your code.
 
 Search templates use the Mustache language. For a list of all syntax options, see the [Mustache manual](https://mustache.github.io/mustache.5.html).
 {: .note }

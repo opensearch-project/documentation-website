@@ -15,9 +15,9 @@ nav_order: 29
 
 The `multisearch` command runs multiple subsearches and merges their results. It allows you to combine data from different queries on the same or different sources. You can optionally apply subsequent processing, such as aggregation or sorting, to the combined results. Each subsearch can have different filtering criteria, data transformations, and field selections. 
 
-Multisearch is particularly useful for comparative analysis, union operations, and creating comprehensive datasets from multiple search criteria. The command supports timestamp-based result interleaving when working with time-series data.
+The `multisearch` command is particularly useful for comparative analysis, union operations, and creating comprehensive datasets from multiple search criteria. The command supports timestamp-based result interleaving when working with time-series data.
 
-Use multisearch for:
+Use `multisearch` for:
 
 * **Comparative analysis**: Compare metrics across different segments, regions, or time periods.
 * **Success rate monitoring**: Calculate success rates by comparing successful to total operations.
@@ -27,11 +27,7 @@ Use multisearch for:
  
   
 
-<!-- vale off -->
-
 ## Syntax
-
-<!-- vale on -->
 
 The `multisearch` command has the following syntax:
 
@@ -47,24 +43,16 @@ The following are examples of the `multisearch` command syntax:
 | multisearch [search source=table | where status="success"] [search source=table | where status="error"]
 ```
 
-<!-- vale off -->
-
 ## Parameters
-
-<!-- vale on -->
 
 The `multisearch` command supports the following parameters.
 
 | Parameter | Required/Optional | Description |
 | --- | --- | --- |
 | `<subsearchN>` | Required | At least two subsearches are required. Each subsearch must be enclosed in square brackets and start with the `search` keyword (`[search source=index | <commands>]`). All PPL commands are supported within subsearches. |
-| `<result-processing>` | Optional | Commands applied to the merged results after the multisearch operation (for example, `stats`, `sort`, or `head`). |  
-
-<!-- vale off -->
+| `<result-processing>` | Optional | Commands applied to the merged results after the `multisearch` operation (for example, `stats`, `sort`, or `head`). |  
 
 ## Example 1: Comparing errors with debug logs
-
-<!-- vale on -->
 
 This example merges error logs with debug logs side by side. This is useful when investigating whether debug-level logs from the same services provide clues about the root cause of errors:
   
@@ -100,11 +88,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 2: Segmenting logs by severity tier
-
-<!-- vale on -->
 
 This example separates critical and non-critical logs for comparative analysis:
   
@@ -141,11 +125,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 3: Merging time-series data from multiple sources
-
-<!-- vale on -->
 
 This example demonstrates how to combine time-series data from different sources while maintaining chronological order. The results are automatically sorted by timestamp to create a unified timeline:
   
@@ -173,11 +153,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 4: Handling missing fields across subsearches
-
-<!-- vale on -->
 
 This example demonstrates how `multisearch` handles schema differences when subsearches return different fields. When one subsearch includes a field that others don't have, missing values are automatically filled with null values:
   
@@ -208,11 +184,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Limitations
-
-<!-- vale on -->
 
 The `multisearch` command has the following limitations:
 

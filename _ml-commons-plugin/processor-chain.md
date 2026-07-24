@@ -56,7 +56,7 @@ Processor | Description
 [`set_field`](#set_field) | Sets a field to a specified static value or copies a value from another field.
 [`to_string`](#to_string) | Converts the input to a JSON string representation.
 
-### conditional
+### Conditional
 
 Applies different processor chains based on conditions.
 

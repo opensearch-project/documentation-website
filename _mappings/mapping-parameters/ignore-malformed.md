@@ -9,7 +9,7 @@ has_children: false
 has_toc: false
 ---
 
-# Ignore malformed
+# Ignore malformed mapping parameter
 
 The `ignore_malformed` mapping parameter instructs the indexing engine to ignore values that do not match the field's expected format. When enabled, malformed values are not indexed, preventing entire-document rejection because of data format issues. This ensures that documents are still stored even if one or more fields contain data that cannot be parsed.
 

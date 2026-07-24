@@ -10,7 +10,7 @@
 [Aa]utopopulate
 [Bb]ackfill(ed|ing)?
 [Bb]ackoff
-[Bb]ackporting
+[Bb]ackport(s|ed|ing)?
 [Bb]ackpressure
 [Bb]ackreferences?
 [Bb]acktest(s|ed|ing)?
@@ -24,6 +24,7 @@ Boolean
 [Cc]allout
 [Cc]hatbots?
 [Cc]heckpointing
+[Cc]entiseconds?
 [Cc]lasspath
 [Cc]odec
 [Cc]omposable
@@ -31,11 +32,14 @@ Boolean
 [Cc]ron
 [Cc]rowdsourced?
 [Cc]utover
+[Cc]yberattacks?
 [Cc]ybersecurity
 [Dd]ashboarding
 [Dd]atagram
+[Dd]eciseconds?
 [Dd]eallocate
 [Dd]eclaratively
+dotall
 [Dd]ecompounder
 [Dd]eduplicat(ion|ing)
 [Dd]eduplicate[sd]?
@@ -61,8 +65,10 @@ Distro
 [Ff]orecasted
 [Ff]sync
 Gantt
+Gbps
 [Gg]eobounds
 [Gg]eocentroid
+[Gg]eolocate
 [Gg]eodistance
 [Gg]eohash
 [Gg]eohex
@@ -72,7 +78,9 @@ Gantt
 [Gg]eospatial
 [Gg]eotile
 gibibyte
+gridlines
 gRPC
+gzip
 [Hh]ardcod(e|ed|ing)
 [Hh]ashmap
 [Hh]eatmaps?
@@ -125,6 +133,7 @@ mebibyte
 [Oo]ffline
 [Oo]nboard(ed|ing)?
 [Oo]verfit(ting)?
+[Oo]verrepresentation
 [Oo]versaturat(e|ed|ing)
 [Oo]versamples?
 [Pp]addings?
@@ -133,7 +142,9 @@ p\d{2}
 [Pp]arameteri(ze|zation)
 pebibyte
 [Pp]erformant
+peta
 [Pp]laintext
+[Pp]rofilers?
 [Pp]luggable
 [Pp]ointwise
 [Pp]reaggregate(s|d)?
@@ -176,11 +187,13 @@ pebibyte
 [Rr]unbooks?
 [Ss]andbox(es|ed|ing)?
 [Ss]anitization
+[Ss]earchability
 [Ss]erverless
 [Ss]harding
 [Ss]ignificand
 [Ss]kippable
 [Ss]napshott(ed|ing)
+[Ss]parklines?
 [Ss]tackable
 [Ss]trikethrough
 [Ss]tringified
@@ -199,6 +212,7 @@ pebibyte
 [Ss]ubprocess(es)?
 [Ss]ubquer(y|ies)
 [Ss]ublists?
+[Ss]ubrequests?
 [Ss]ubsearch(es)?
 [Ss]ubsecond
 [Ss]ubstrings?
@@ -214,6 +228,7 @@ pebibyte
 t-digest
 tebibyte
 [Tt]emplated
+tera
 [Tt]iering
 [Tt]okenization
 [Tt]okenizer?
@@ -232,6 +247,7 @@ tebibyte
 [Uu]nhid(e|ing)
 [Uu]nicast
 [Uu]nigram
+[Uu]nmanaged
 [Uu]nnesting
 [Uu]nrecovered
 [Uu]nregister(s|ed|ing)?

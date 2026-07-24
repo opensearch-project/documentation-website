@@ -17,11 +17,7 @@ The `mvcombine` command groups rows that are identical across all fields except 
 Rows are grouped by all fields currently in the pipeline except the target field. Rows in which the target field is missing or `null` are excluded from the combined multivalue output.
 {: .note}
 
-<!-- vale off -->
-
 ## Syntax
-
-<!-- vale on -->
 
 The `mvcombine` command has the following syntax:
 
@@ -29,11 +25,7 @@ The `mvcombine` command has the following syntax:
 mvcombine <field>
 ```
 
-<!-- vale off -->
-
 ## Parameters
-
-<!-- vale on -->
 
 The `mvcombine` command supports the following parameters.
 
@@ -67,11 +59,7 @@ The query returns the following results:
 
 <!-- vale on -->
 
-<!-- vale off -->
-
 ## Example 2: Combining multiple groups
-
-<!-- vale on -->
 
 The following query produces one output row per group key:
 
@@ -96,11 +84,7 @@ The query returns the following results:
 
 <!-- vale on -->
 
-<!-- vale off -->
-
 ## Example 3: Missing target field in some rows
-
-<!-- vale on -->
 
 Rows missing the target field do not contribute a value to the combined output:
 
@@ -122,11 +106,7 @@ The query returns the following results:
 
 <!-- vale on -->
 
-<!-- vale off -->
-
 ## Example 4: Missing fields
-
-<!-- vale on -->
 
 The following query attempts to combine values for a field that does not exist in the current schema:
 
@@ -142,11 +122,7 @@ The query returns the following error:
 {'reason': 'Invalid Query', 'details': 'Field [does_not_exist] not found.', 'type': 'IllegalArgumentException'}
 ```
 
-<!-- vale off -->
-
 ## Related commands
-
-<!-- vale on -->
 
 - [`nomv`]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/commands/nomv/) -- Converts a multivalue field into a single-value string
 - [`mvexpand`]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/commands/mvexpand/) -- Expands multivalue fields into separate rows

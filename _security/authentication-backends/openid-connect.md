@@ -7,7 +7,7 @@ redirect_from:
   - /security-plugin/configuration/openid-connect/
 ---
 
-# OpenID Connect
+# OpenID Connect authentication
 
 The Security plugin can integrate with identify providers that use the OpenID Connect standard. This feature enables the following:
 
@@ -295,7 +295,7 @@ opensearch_security.auth.type: "openid"
 
 ### Configuration
 
-OpenID Connect providers usually publish their configuration in JSON format under the *metadata url*. Therefore, most settings can be pulled in automatically, so the OpenSearch Dashboards configuration becomes minimal. The most important settings are the following:
+OpenID Connect providers usually publish their configuration in JSON format under the *metadata URL*. Therefore, most settings can be pulled in automatically, so the OpenSearch Dashboards configuration becomes minimal. The most important settings are the following:
 
 - [Connect URL](#openid-connect-url)
 - Client ID

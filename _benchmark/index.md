@@ -15,7 +15,7 @@ tutorial_cards:
     link: "/benchmark/quickstart/"
   - heading: "Choosing a workload"
     description: "Choose a benchmark workload based on your cluster's use case"
-    link: "/benchmark/user-guide/understanding-workloads/choosing-a-workload/"
+    link: "/benchmark/choosing-a-workload/"
 more_cards:
   - heading: "User guide"
     description: "Learn how to benchmark the performance of your cluster"
@@ -33,6 +33,7 @@ items:
   - heading: "Analyze performance metrics"
     description: "View your benchmark report and analyze your metrics"
     link: "/benchmark/reference/summary-report/"
+description: "OpenSearch Benchmark is a macrobenchmark utility provided by the OpenSearch Project. You can use OpenSearch Benchmark to gather performance metrics from an OpenSearch cluster."
 ---
 
 # ![Benchmark icon]({{site.url}}{{site.baseurl}}/images/icons/OpenSearch-PerformanceBenchmarks-Icon-1.png){: .heading-icon} OpenSearch Benchmark

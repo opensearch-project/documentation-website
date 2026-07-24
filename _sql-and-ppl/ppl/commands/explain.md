@@ -14,11 +14,7 @@ nav_order: 16
 
 The `explain` command displays the execution plan of a query, which is often used for query translation and troubleshooting. The `explain` command can only be used as the first command in the PPL query.
 
-<!-- vale off -->
-
 ## Syntax
-
-<!-- vale on -->
 
 The `explain` command has the following syntax:
 
@@ -26,26 +22,18 @@ The `explain` command has the following syntax:
 explain <mode> queryStatement
 ```
 
-<!-- vale off -->
-
 ## Parameters
-
-<!-- vale on -->
 
 The `explain` command supports the following parameters.
 
 | Parameter | Required/Optional | Description |
 | --- | --- | --- |
 | `<queryStatement>` | Required | A PPL query to explain. |
-| `<mode>` | Optional | The explain mode. Valid values are: <br> - `standard`: Displays the logical and physical plan along with pushdown information (query domain-specific language [DSL]). Available in both v2 and v3 engines. <br> - `simple`: Displays the logical plan tree without attributes. Requires the v3 engine (`plugins.calcite.enabled` = `true`). <br> - `cost`: Displays the standard information plus plan cost attributes. Requires the v3 engine (`plugins.calcite.enabled` = `true`). <br> - `extended`: Displays the standard information plus the generated code. If the whole plan is able to pushdown, it is equal to the standard mode. Requires the v3 engine (`plugins.calcite.enabled` = `true`). <br><br> Default is `standard`. |
-
-<!-- vale off -->
+| `<mode>` | Optional | The explain mode. Valid values are: <br> - `standard`: Displays the logical and physical plan along with push-down information (query domain-specific language [DSL]). Available in both v2 and v3 engines. <br> - `simple`: Displays the logical plan tree without attributes. Requires the v3 engine (`plugins.calcite.enabled` = `true`). <br> - `cost`: Displays the standard information plus plan cost attributes. Requires the v3 engine (`plugins.calcite.enabled` = `true`). <br> - `extended`: Displays the standard information plus the generated code. If the whole plan is able to push-down, it is equal to the standard mode. Requires the v3 engine (`plugins.calcite.enabled` = `true`). <br><br> Default is `standard`. |
 
 ## Example 1: Explaining a PPL query in the v2 engine  
 
-<!-- vale on -->
-
-When Apache Calcite is disabled (`plugins.calcite.enabled` is set to `false`), `explain` obtains its physical plan and pushdown information from the v2 engine:
+When Apache Calcite is disabled (`plugins.calcite.enabled` is set to `false`), `explain` obtains its physical plan and push-down information from the v2 engine:
   
 ```sql
 explain source=state_country
@@ -77,13 +65,9 @@ The query returns the following results:
 ```
   
 
-<!-- vale off -->
-
 ## Example 2: Explaining a PPL query in the v3 engine  
 
-<!-- vale on -->
-
-When Apache Calcite is enabled (`plugins.calcite.enabled` is set to `true`), `explain` obtains its logical and physical plan and pushdown information from the v3 engine:  
+When Apache Calcite is enabled (`plugins.calcite.enabled` is set to `true`), `explain` obtains its logical and physical plan and push-down information from the v3 engine:  
   
 ```sql
 explain source=state_country
@@ -110,11 +94,7 @@ The query returns the following results:
 ```
   
 
-<!-- vale off -->
-
 ## Example 3: Explaining a PPL query in the simple mode  
-
-<!-- vale on -->
 
 The following query uses the `explain` command in the `simple` mode to show a simplified logical plan tree: 
   
@@ -140,11 +120,7 @@ The query returns the following results:
 ```
   
 
-<!-- vale off -->
-
 ## Example 4: Explaining a PPL query in the cost mode  
-
-<!-- vale on -->
 
 The following query uses the `explain` command in the `cost` mode to show plan cost attributes:
   
@@ -173,11 +149,7 @@ The query returns the following results:
 ```
   
 
-<!-- vale off -->
-
 ## Example 5: Explaining a PPL query in the extended mode
-
-<!-- vale on -->
 
 The following query uses the `explain` command in the `extended` mode to show the generated code:
 

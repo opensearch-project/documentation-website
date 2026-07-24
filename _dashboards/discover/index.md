@@ -3,6 +3,8 @@ layout: default
 title: Exploring data
 nav_order: 20
 has_children: true
+redirect_from:
+  - /dashboards/discover/
 ---
 
 # Exploring data

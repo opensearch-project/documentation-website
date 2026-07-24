@@ -28,7 +28,7 @@ The following table lists the available path parameters. All path parameters are
 
 Parameter | Type | Description
 :--- | :--- | :---
-`nodeId` | String | A comma-separated list of nodeIds used to filter results. Supports [node filters]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/index/#node-filters). Defaults to `_all`.
+`node_id` | String | A comma-separated list of node IDs used to filter results. Supports [node filters]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/index/#node-filters). Defaults to `_all`.
 `metric` | String | A comma-separated list of metric groups that are included in the response. For example, `jvm,fs`. See the following list of all index metrics. Defaults to all metrics.
 `index_metric` | String | A comma-separated list of index metric groups that are included in the response. For example, `docs,store`. See the following list of all index metrics. Defaults to all index metrics.
 
@@ -37,7 +37,7 @@ The following table lists all available metric groups.
 Metric | Description
 :--- |:----
 `indices` | Index statistics, such as size, document count, and search, index, and delete times for documents.
-`os` | Statistics about the host OS, including load, memory, and swapping.
+`os` | Statistics about the host operating system, including load, memory, and swapping.
 `process` | Statistics about processes, including their memory consumption, open file descriptors, and CPU usage.
 `jvm` | Statistics about the JVM, including memory pool, buffer pool, and garbage collection, and the number of loaded classes.
 `thread_pool` | Statistics about each thread pool for the node.
@@ -871,7 +871,7 @@ Field | Data type | Description
 `roles` | Array | The roles of the node (for example, `cluster_manager`, `data`, or `ingest`).
 `attributes` | Object | The attributes of the node (for example, `shard_indexing_pressure_enabled`).
 [`indices`](#indices) | Object | Index statistics for each index that has shards on the node.
-[`os`](#os) | Object | Statistics about the OS for the node.
+[`os`](#os) | Object | Statistics about the operating system for the node.
 [`process`](#process) | Object | Process statistics for the node.
 [`jvm`](#jvm) | Object | Statistics about the JVM for the node.
 [`thread_pool`](#thread_pool)| Object | Statistics about each thread pool for the node.
@@ -959,7 +959,7 @@ Field | Field type | Description
 `search.request.took.time_in_millis` | `Integer` | The total amount of time taken for all search requests, in milliseconds.
 `search.request.took.current` | `Integer` | The number of search requests that are currently running.
 `search.request.took.total` | `Integer` | The total number of search requests completed.
-`search.request.dfs_pre_query.time_in_millis` | `Integer` | The total amount of time for all coordinator depth-first search (DFS) prequery operations, in milliseconds.
+`search.request.dfs_pre_query.time_in_millis` | `Integer` | The total amount of time for all coordinator depth-first search (DFS) pre-query operations, in milliseconds.
 `search.request.dfs_pre_query.current` | `Integer` | The number of coordinator DFS pre-query operations that are currently running.
 `search.request.dfs_pre_query.total` | `Integer` | The total number of coordinator DFS pre-query operations completed.
 `search.request.query.time_in_millis` | `Integer` | The total amount of time for all coordinator query operations, in milliseconds.
@@ -1083,11 +1083,11 @@ Field | Field type | Description
 
 ### `os`
 
-The `os` object has the OS statistics for the node and has the following properties.
+The `os` object has the operating system statistics for the node and has the following properties.
 
 Field | Field type | Description
 :--- | :--- | :---
-`timestamp` | `Integer` | The last refresh time for the OS statistics, in milliseconds since the epoch.
+`timestamp` | `Integer` | The last refresh time for the operating system statistics, in milliseconds since the epoch.
 `cpu` | `Object` | Statistics about the node's CPU usage.
 `cpu.percent` | `Integer` | Recent CPU usage for the system.
 `cpu.load_average` | `Object` | Statistics about load averages for the system.
@@ -1104,8 +1104,8 @@ Field | Field type | Description
 `swap.total_in_bytes` | `Integer` | The total amount of swap space, in bytes.
 `swap.free_in_bytes` | `Integer` | The total amount of free swap space, in bytes.
 `swap.used_in_bytes` | `Integer` | The total amount of used swap space, in bytes.
-`cgroup` | `Object` | Contains cgroup statistics for the node. Returned for Linux only.
-`cgroup.cpuacct` | `Object` | Statistics about the cpuacct control group for the node.
+`cgroup` | `Object` | Contains `cgroup` statistics for the node. Returned for Linux only.
+`cgroup.cpuacct` | `Object` | Statistics about the `cpuacct` control group for the node.
 `cgroup.cpu` | `Object` | Statistics about the CPU control group for the node.
 `cgroup.memory` | `Object` | Statistics about the memory control group for the node.
 

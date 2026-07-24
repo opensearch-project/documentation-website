@@ -7,7 +7,7 @@ redirect_from:
   - /query-dsl/aggregations/bucket/geo-distance/
 ---
 
-# Geodistance aggregations
+# Geodistance aggregation
 
 The `geo_distance` aggregation groups documents into distance-based rings around a central point. Each range defines a ring, and documents are placed into buckets based on how far their `geo_point` field value is from the specified origin. This is conceptually similar to the [`range` aggregation]({{site.url}}{{site.baseurl}}/aggregations/bucket/range/) but operates on geographic coordinates rather than numeric values.
 

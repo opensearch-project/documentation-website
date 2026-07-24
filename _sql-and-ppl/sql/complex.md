@@ -8,7 +8,7 @@ redirect_from:
   - /search-plugins/sql/sql/complex/
 ---
 
-# Complex queries
+# Complex SQL queries
 
 Besides simple SFW (`SELECT-FROM-WHERE`) queries, the SQL plugin supports complex queries such as subquery, join, union, and minus. These queries operate on more than one OpenSearch index. To examine how these queries execute behind the scenes, use the `explain` operation.
 
@@ -47,11 +47,11 @@ The `JOIN` clause combines columns from one or more indexes using values common 
 
 Rule `tableSource`:
 
-![tableSource rule]({{site.url}}{{site.baseurl}}/images/tableSource.png)
+![table source rule]({{site.url}}{{site.baseurl}}/images/tableSource.png)
 
 Rule `joinPart`:
 
-![joinPart rule]({{site.url}}{{site.baseurl}}/images/joinPart.png)
+![join part rule]({{site.url}}{{site.baseurl}}/images/joinPart.png)
 
 ### Example 1: Inner join
 

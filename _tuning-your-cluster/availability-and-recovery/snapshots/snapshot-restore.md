@@ -310,7 +310,7 @@ To use Hadoop Distributed File System (HDFS) as a snapshot repository, follow th
     ```
     {% include copy-curl.html %}
 
-### Registering a Microsoft Azure storage account using Helm 
+### Registering a Microsoft Azure storage account using Helm
 
 Use the following steps to register a snapshot repository backed by an Azure storage account for an OpenSearch cluster deployed using Helm.
 
@@ -416,7 +416,7 @@ To use Azure Blob Storage as a snapshot repository, follow these steps:
 
 Choose one of the following options for setting up your Azure Blob Storage authentication credentials.
 
-#### Using an Azure Storage account key
+#### Using an Azure Blob Storage account key
    
 Use the following setting to specify your Azure Storage account key:
    

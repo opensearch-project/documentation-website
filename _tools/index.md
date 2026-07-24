@@ -12,7 +12,7 @@ redirect_from:
 
 # OpenSearch tools
 
-This section provides documentation for OpenSearch-supported tools, including:
+OpenSearch provides command-line tools and utilities for ingesting data, managing clusters, and migrating from other search engines. Supported tools include:
 
 - [Agents and ingestion tools](#agents-and-ingestion-tools)
 - [OpenSearch CLI](#opensearch-cli)
@@ -89,7 +89,9 @@ Some users report compatibility issues with ingest pipelines on these versions o
 \* Most current compatible version with Elasticsearch OSS.
 
 
+<!-- vale off -->
 ### Compatibility matrix for Beats
+<!-- vale on -->
 
 | | Beats OSS 7.0.0 to 7.11.x\*\* | Beats OSS 7.12.x\* | Beats 7.13.x |
 | :--- | :--- | :--- | :--- |

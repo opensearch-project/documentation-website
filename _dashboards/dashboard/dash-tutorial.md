@@ -12,7 +12,7 @@ You can use the **Dashboards** application in OpenSearch Dashboards to build a p
 
 Use the following tutorial to learn to create a dashboard using the **Dashboards** application and the OpenSearch sample data. The sample datasets have existing sample visualizations that you can use for the dashboard, or you can create your own visualizations. The tutorials demonstrate how to do both.
 
-For an overview of the Dashboards UI, see [Navigating the Dashboards UI]({{site.url}}{{site.baseurl}}/dashboards/dashboard/#navigating-the-dashboards-ui).
+For an overview of the Dashboards UI, see [Navigating the Dashboards application UI]({{site.url}}{{site.baseurl}}/dashboards/dashboard/#navigating-the-dashboards-application-ui).
 
 ## Prerequisites
 
@@ -49,15 +49,15 @@ To add a saved visualization to the dashboard, follow these steps:
 
 1. Use the [time filter]({{site.url}}{{site.baseurl}}/dashboards/discover/time-filter/) to select `Last 2 years` as the time window as shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/dash-tut-time-2-years.png" alt="Time filter set to Last 2 years" width="40%">
+![Time filter set to Last 2 years]({{site.url}}{{site.baseurl}}/images/dashboards/dash-tut-time-2-years.png){: width="40%" }
 
 1. Drag-select the narrow band of data from the area chart as shown in the following image.
 
-   <img src="{{site.url}}{{site.baseurl}}/images/dashboards/dash-tut-sales-drag.png" alt="Visualization showing drag-select"  width="60%">
+   ![Visualization showing drag-select]({{site.url}}{{site.baseurl}}/images/dashboards/dash-tut-sales-drag.png){: width="60%" }
 
    The data adjusts to span the width of the data display and the scale adjusts automatically, as shown in the following image.
 
-   <img src="{{site.url}}{{site.baseurl}}/images/dashboards/dash-tut-sales-area.png" alt="Sales by category area visualization"  width="60%">
+   ![Sales by category area visualization]({{site.url}}{{site.baseurl}}/images/dashboards/dash-tut-sales-area.png){: width="60%" }
 
    Selecting a date range interactively results in an absolute time interval.
    {: .note}
@@ -98,7 +98,7 @@ To create a new visualization in **Dashboards**, follow these steps:
 
    The **Dashboards** application saves the metric visualization and adds it to the dashboard as shown in the following image.
 
-   <img src="{{site.url}}{{site.baseurl}}/images/dashboards/dash-tut-combined.png" alt="Dashboard with Sales by Category and Order Count metric panels"  width="100%">
+   ![Dashboard with Sales by Category and Order Count metric panels]({{site.url}}{{site.baseurl}}/images/dashboards/dash-tut-combined.png)
 
 
 ## Adding subsequent panels
@@ -113,7 +113,7 @@ Add a Markdown visualization to the dashboard. Follow these steps:
 
    The **Dashboards** application adds the Markdown panel to the dashboard as shown in the following image.
 
-   <img src="{{site.url}}{{site.baseurl}}/images/dashboards/dash-tut-three-panel.png" alt="Example dashboard"  width="100%">
+   ![Example dashboard]({{site.url}}{{site.baseurl}}/images/dashboards/dash-tut-three-panel.png)
 
 
 ## Organizing a dashboard
@@ -133,6 +133,6 @@ You can organize a dashboard by resizing and rearranging panels. Move and resize
 
    The resulting dashboard should look like the following image.
 
-   <img src="{{site.url}}{{site.baseurl}}/images/dashboards/dash-tut-banner.png" alt="Example dashboard"  width="100%">
+   ![Example dashboard]({{site.url}}{{site.baseurl}}/images/dashboards/dash-tut-banner.png)
 
 1. Save your dashboard. See [Saving a dashboard](#saving-a-dashboard).

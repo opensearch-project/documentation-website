@@ -264,8 +264,8 @@ Once a primary shard is allocated, it transitions to the `initializing` state, a
 
 You can monitor the cloning process using one of the following methods:
 
-- Use the [CAT recovery API]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-recovery/) to view the progress of shard recovery and cloning.
-- Use the [Cluster health API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-health/) with the `wait_for_status` parameter set to `yellow` to wait until all primary shards have been allocated.
+- To view the progress of shard recovery and cloning, use the [CAT recovery API]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-recovery/).
+- To wait until all primary shards have been allocated, use the [Cluster health API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-health/) with the `wait_for_status` parameter set to `yellow`.
 
 The following example request monitors the recovery process for the cloned index:
 

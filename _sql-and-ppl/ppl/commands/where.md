@@ -14,11 +14,7 @@ nav_order: 53
 
 The `where` command filters the search results. It only returns results that match the specified conditions.
 
-<!-- vale off -->
-
 ## Syntax
-
-<!-- vale on -->
 
 The `where` command has the following syntax:
 
@@ -26,11 +22,7 @@ The `where` command has the following syntax:
 where <boolean-expression>
 ```
 
-<!-- vale off -->
-
 ## Parameters
-
-<!-- vale on -->
 
 The `where` command supports the following parameters.
 
@@ -38,13 +30,9 @@ The `where` command supports the following parameters.
 | --- | --- | --- |
 | `<boolean-expression>` | Required | The condition used to filter the results. Only rows in which this condition evaluates to `true` are returned. |
 
-<!-- vale off -->
-
 ## Example 1: Filtering by severity level
 
-<!-- vale on -->
-
-The following query finds all log entries with a severity level above `INFO` (severityNumber > 9), filtering out routine logs to focus on warnings and errors:
+The following query finds all log entries with a severity level higher than `INFO` (severityNumber > 9), filtering out routine logs to focus on warnings and errors:
 
 ```sql
 source=otellogs
@@ -75,11 +63,7 @@ The query returns the following results:
 
 <!-- vale on -->
 
-<!-- vale off -->
-
 ## Example 2: Filtering using combined criteria
-
-<!-- vale on -->
 
 The following query narrows down errors to a specific service during an incident investigation, combining severity and service name conditions with `AND`:
 
@@ -103,11 +87,7 @@ The query returns the following results:
 <!-- vale on -->
 
 
-<!-- vale off -->
-
 ## Example 3: Filtering with multiple possible values
-
-<!-- vale on -->
 
 The following query retrieves all warnings and errors using `OR` to match either condition:
 
@@ -135,19 +115,11 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 4: Filtering by text patterns 
-
-<!-- vale on -->
 
 The `LIKE` operator enables pattern matching on string fields using wildcards.
 
-<!-- vale off -->
-
 ### Matching with a prefix pattern
-
-<!-- vale on -->
 
 The following query uses a percent sign (`%`) to find all services starting with `frontend`:
 
@@ -160,11 +132,7 @@ source=otellogs
 {% include copy.html %}
 {% include try-in-playground.html %}
 
-<!-- vale off -->
-
 ### Matching with a wildcard pattern
-
-<!-- vale on -->
 
 The following query finds all logs from services containing `product` in their name:
 
@@ -189,11 +157,7 @@ The query returns the following results:
 
 <!-- vale on -->
 
-<!-- vale off -->
-
 ## Example 5: Filtering by excluding specific values  
-
-<!-- vale on -->
 
 The following query uses a `NOT` operator to exclude routine informational and debug logs, focusing on warnings and errors that need attention:
   
@@ -221,11 +185,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 6: Filtering using value lists  
-
-<!-- vale on -->
 
 The following query uses an `IN` operator to match multiple severity levels at once, retrieving all errors and warnings for incident response:
   
@@ -259,11 +219,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 7: Filtering records with missing data  
-
-<!-- vale on -->
 
 The following query finds logs that have instrumentation scope metadata:
   
@@ -289,11 +245,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 8: Filtering using grouped conditions  
-
-<!-- vale on -->
 
 The following query investigates a specific service's errors by combining severity conditions with a service filter, using parentheses to control evaluation order:
   

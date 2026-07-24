@@ -8,7 +8,7 @@ has_children: true
 has_toc: false
 ---
 
-# Visualization types
+# Visualization types for query-based visualizations
 
 The following table lists the supported visualization types and their expected data shapes.
 

@@ -344,7 +344,9 @@ POST /_plugins/_ml/mcp/tools/_register
 ```
 {% include copy-curl.html %}
 
+<!-- vale off -->
 #### PPLTool
+<!-- vale on -->
 
 ```json
 POST /_plugins/_ml/mcp/tools/_register

@@ -6,7 +6,7 @@ grand_parent: Alerting
 parent: Monitors
 ---
 
-# Triggers
+# Alerting triggers
 
 How you create a trigger differs depending on the monitor method selected when the monitor was created. The monitor methods are **Visual editor**, **Extraction query editor**, and **Anomaly detector**. Learn more about each type in the following sections.
 
@@ -15,7 +15,9 @@ How you create a trigger differs depending on the monitor method selected when t
 To create a trigger:
 
 1. In the **Create monitor** window, select **Add trigger**.
+<!-- vale off -->
 2. Enter the trigger name, severity level, and trigger condition. Severity levels, which range from 1 (highest) to 5 (lowest) help manage alerts. For example, a trigger with a high severity level (for example, 1 or 2) may notify a specific individual, whereas a trigger with a low severity level (4 or 5) might notify a chat room. Trigger conditions include "IS ABOVE," "IS BELOW," and "IS EXACTLY."
+<!-- vale on -->
 
 Query-level monitors run your trigger's script once against the query's results, and bucket-level monitors run your trigger's script on each bucket. Create a trigger that best fits the monitor method. To run multiple scripts, you must create multiple triggers.
 {: .note}

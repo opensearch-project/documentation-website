@@ -5,7 +5,7 @@ parent: Pipeline aggregations
 nav_order: 130
 ---
 
-# Moving function aggregations
+# Moving function aggregation
 
 The `moving_fn` aggregation is a parent pipeline aggregation that executes a script over a sliding window. The sliding window moves over a sequence of values extracted from a parent `histogram` or `date histogram` aggregation. The window shifts left to right one bucket at a time; `moving_fn` runs the script each time the window shifts. 
 

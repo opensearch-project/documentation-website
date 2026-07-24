@@ -7,7 +7,7 @@ redirect_from:
   - /query-dsl/aggregations/bucket/missing/
 ---
 
-# Missing aggregations
+# Missing aggregation
 
 The `missing` aggregation creates a single bucket containing all documents that do not have a value for a specified field. A document is considered missing if the field is absent entirely or contains a configured `NULL` value. This aggregation is commonly paired with other bucket aggregations to account for documents that cannot be placed in any other bucket because they lack the required field.
 

@@ -8,7 +8,7 @@ redirect_from:
   - /benchmark/user-guide/concepts/
 ---
 
-# Concepts
+# OpenSearch Benchmark concepts
 
 Before you start using OpenSearch Benchmark, it's helpful to understand the following concepts, in order to effectively design, run, and analyze your benchmarks to evaluate OpenSearch performance under different scenarios.
 
@@ -20,7 +20,7 @@ The following diagram illustrates how OpenSearch Benchmark operates when running
 
 ## Core concepts and definitions
 
-- **Workload**: A collection of one or more benchmarking scenarios that use a specific document corpus to perform a benchmark against your cluster. The document corpus contains any indexes, data files, and operations invoked when the workload runs. You can list the available workloads by using `opensearch-benchmark list workloads` or view any included workloads in the [OpenSearch Benchmark Workloads repository](https://github.com/opensearch-project/opensearch-benchmark-workloads/). For more information about the elements of a workload, see [Anatomy of a workload]({{site.url}}{{site.baseurl}}/benchmark/user-guide/understanding-workloads/anatomy-of-a-workload/). For information about building a custom workload, see [Creating custom workloads]({{site.url}}{{site.baseurl}}/benchmark/creating-custom-workloads/). A workload typically includes the following:
+- **Workload**: A collection of one or more benchmarking scenarios that use a specific document corpus to perform a benchmark against your cluster. The document corpus contains any indexes, data files, and operations invoked when the workload runs. You can list the available workloads by using `opensearch-benchmark list workloads` or view any included workloads in the [OpenSearch Benchmark Workloads repository](https://github.com/opensearch-project/opensearch-benchmark-workloads/). For more information about the elements of a workload, see [Anatomy of a workload]({{site.url}}{{site.baseurl}}/benchmark/anatomy-of-a-workload/). For information about building a custom workload, see [Creating custom workloads]({{site.url}}{{site.baseurl}}/benchmark/creating-custom-workloads/). A workload typically includes the following components:
   - One or more data streams that are ingested into indexes.
   - A set of queries and operations that are invoked as part of the benchmark.
 
@@ -47,7 +47,7 @@ The following diagram illustrates how each component of the table is measured du
 
 ### Differences between OpenSearch Benchmark and a traditional client-server system
 
-While the definition for _throughput_ remains consistent with other client-server systems, the definitions for `service time` and `latency` differ from most client-server systems in the context of OpenSearch Benchmark. The following table compares the OpenSearch Benchmark definition of service time and latency versus the common definitions for a client-server system.
+While the definition for _throughput_ remains consistent with other client-server systems, the definitions for `service time` and `latency` differ from most client-server systems in the context of OpenSearch Benchmark. The following table compares the OpenSearch Benchmark definition of service time and latency compared to the common definitions for a client-server system.
 
 | Metric | Common definition | **OpenSearch Benchmark definition**	|
 | :--- | :--- |:--- |
@@ -69,11 +69,11 @@ For more information about service time and latency in OpenSearch Benchmark, see
 ### Service time
 
 
-OpenSearch Benchmark does not have insight into how long OpenSearch takes to process a request, apart from extracting the [took time](#took-time) for the request. It makes function calls to `opensearch-py` to communicate with an OpenSearch cluster. 
+OpenSearch Benchmark does not have insight into how long OpenSearch takes to process a request, apart from extracting the [took time](#took-time) for the request. It makes function calls to `opensearch-py` in order to communicate with an OpenSearch cluster. 
 
 OpenSearch Benchmark measures *service time*, which is the amount of time between when the `opensearch-py` client sends a request to and receives a response from the OpenSearch cluster. Unlike the traditional definition of service time, the OpenSearch Benchmark definition includes overhead, such as network latency, load balancer overhead, or deserialization/serialization. The following image shows the differences between the traditional definition and the OpenSearch Benchmark definition.
 
-![Comparison of traditional service time definition versus OpenSearch Benchmark service time definition]({{site.url}}{{site.baseurl}}/images/benchmark/service-time.png)
+![Comparison of traditional service time definition compared to OpenSearch Benchmark service time definition]({{site.url}}{{site.baseurl}}/images/benchmark/service-time.png)
 
 ### Latency
 

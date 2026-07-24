@@ -14,11 +14,7 @@ nav_order: 9
 
 The `chart` command transforms search results by applying a statistical aggregation function and optionally grouping the data by one or two fields. When grouped by two fields, the results are suitable for two-dimensional chart visualizations, with unique values in the second group key pivoted into column names.
 
-<!-- vale off -->
-
 ## Syntax
-
-<!-- vale on -->
 
 The `chart` command has the following syntax:
 
@@ -26,11 +22,7 @@ The `chart` command has the following syntax:
 chart [limit=(top|bottom) <number>] [useother=<boolean>] [usenull=<boolean>] [nullstr=<string>] [otherstr=<string>] <aggregation_function> [ by <row_split> <column_split> ] | [over <row_split> ] [ by <column_split>]
 ```
 
-<!-- vale off -->
-
 ## Parameters
-
-<!-- vale on -->
 
 The `chart` command supports the following parameters.
 
@@ -46,11 +38,7 @@ The `chart` command supports the following parameters.
 | `otherstr` | Optional | Specifies the category name for the `OTHER` category. This parameter only applies when `useother` is `true` and there are values beyond the `limit`. | `OTHER` |
 
 
-<!-- vale off -->
-
 ## Notes
-
-<!-- vale on -->
 
 The following considerations apply when using the `chart` command:
 
@@ -58,11 +46,7 @@ The following considerations apply when using the `chart` command:
 * Documents with null values in fields used by the aggregation function are excluded from aggregation. For example, in `chart avg(balance) over deptno, group`, documents where `balance` is null are excluded from the average calculation.
 * The aggregation metric appears as the last column in the results. Result columns are ordered as follows: `[row split] [column split] [aggregation metrics]`. 
 
-<!-- vale off -->
-
 ## Example 1: Basic aggregation without grouping  
-
-<!-- vale on -->
 
 This example counts the total number of log entries:
   
@@ -84,11 +68,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 2: Grouping by a single field  
-
-<!-- vale on -->
 
 This example counts logs by severity level, useful for a severity distribution pie chart:
   
@@ -113,11 +93,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 3: Using over [] by [] to group by multiple fields  
-
-<!-- vale on -->
 
 The following query creates a two-dimensional chart showing log counts by severity level and service, ideal for a heatmap visualization:
   
@@ -146,11 +122,7 @@ The query returns the following results. Services beyond the top 2 are grouped i
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 4: Using limit with custom other label  
-
-<!-- vale on -->
 
 The following query limits to the top 1 service per severity level and labels the rest as `other_services`:
   
@@ -176,11 +148,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 5: Using null parameters  
-
-<!-- vale on -->
 
 The following query shows log counts per service by namespace, labeling services without a namespace as `no namespace`:
   
@@ -212,11 +180,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 6: Using span  
-
-<!-- vale on -->
 
 The following query charts the maximum severity per severity range and host, useful for identifying which hosts experience the most critical issues:
   
@@ -246,11 +210,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Limitations
-
-<!-- vale on -->
 
 The `chart` command has the following limitations:
 

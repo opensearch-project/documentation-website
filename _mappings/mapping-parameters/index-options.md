@@ -9,7 +9,7 @@ has_children: false
 has_toc: false
 ---
 
-# Index options
+# Index options mapping parameter
 
 The `index_options` mapping parameter controls the level of detail stored in the inverted index for text fields. This setting directly influences both the index size and the capabilities available for scoring, phrase matching, and highlighting.
 

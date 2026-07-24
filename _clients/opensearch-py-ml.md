@@ -1,10 +1,12 @@
 ---
 layout: default
-title: Opensearch-py-ml
+title: opensearch-py-ml
 nav_order: 11
 ---
 
+<!-- vale off -->
 # opensearch-py-ml
+<!-- vale on -->
 
 `opensearch-py-ml` is a Python client that provides a suite of data analytics and natural language processing (NLP) support tools for OpenSearch. It provides data analysts with the ability to:
 
@@ -39,6 +41,6 @@ For information about all `opensearch-py-ml` objects, functions, and methods, se
 
 ## Next steps
 
-If you want to track or contribute to the development of the `opensearch-py-ml` client, see the [opensearch-py-ml GitHub repository](https://github.com/opensearch-project/opensearch-py-ml).
+If you want to track or contribute to the development of the `opensearch-py-ml` client, see the [`opensearch-py-ml` GitHub repository](https://github.com/opensearch-project/opensearch-py-ml).
 
 For example Python notebooks to use with the client, see [Examples](https://opensearch-project.github.io/opensearch-py-ml/examples/index.html).

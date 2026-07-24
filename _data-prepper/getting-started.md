@@ -95,7 +95,7 @@ docker run --name data-prepper \
 ```
 {% include copy.html %}
 
-The example pipeline configuration above demonstrates a simple pipeline with a source (`random`) sending data to a sink (`stdout`). For examples of more advanced pipeline configurations, see [Pipelines]({{site.url}}{{site.baseurl}}/clients/data-prepper/pipelines/).
+The preceding example pipeline configuration demonstrates a simple pipeline with a source (`random`) sending data to a sink (`stdout`). For examples of more advanced pipeline configurations, see [Pipelines]({{site.url}}{{site.baseurl}}/clients/data-prepper/pipelines/).
 
 After starting Data Prepper, you should see log output and some UUIDs after a few seconds:
 

@@ -14,19 +14,11 @@ nav_order: 25
 
 The `join` command combines two datasets. The left side can be an index or the results of piped commands, while the right side can be either an index or a subsearch.
 
-<!-- vale off -->
-
 ## Syntax
-
-<!-- vale on -->
 
 The `join` command supports basic and extended syntax options.
 
-<!-- vale off -->
-
 ### Basic syntax
-
-<!-- vale on -->
 
 ```sql
 [joinType] join [left = <leftAlias>] [right = <rightAlias>] (on | where) <joinCriteria> <right-dataset>
@@ -54,11 +46,7 @@ source = table1 as t1 | join left = l right = r on l.a = r.a table2 as t2 | fiel
 source = table1 | join left = l right = r on l.a = r.a [ source = table2 ] as s | fields l.a, s.a
 ```
 
-<!-- vale off -->
-
 #### Basic syntax parameters
-
-<!-- vale on -->
 
 The basic `join` syntax supports the following parameters.
 
@@ -70,11 +58,7 @@ The basic `join` syntax supports the following parameters.
 | `left` | Optional | An alias for the left dataset (typically a subsearch) used to avoid ambiguous field names. Specify as `left = <leftAlias>`. |
 | `right` | Optional | An alias for the right dataset (typically, a subsearch) used to avoid ambiguous field names. Specify as `right = <rightAlias>`. |
 
-<!-- vale off -->
-
 ### Extended syntax
-
-<!-- vale on -->
 
 ```sql
 join [type=<joinType>] [overwrite=<bool>] [max=n] (<join-field-list> | [left = <leftAlias>] [right = <rightAlias>] (on | where) <joinCriteria>) <right-dataset>
@@ -93,11 +77,7 @@ source = table1 | join type=inner max=1 a, b table2 | fields a, b, c
 source = table1 | join type=left overwrite=false max=0 a, b [source=table2 | rename d as b] | fields a, b, c
 ```
 
-<!-- vale off -->
-
 #### Extended syntax parameters
-
-<!-- vale on -->
 
 The extended `join` syntax supports the following parameters.
 
@@ -113,11 +93,7 @@ The extended `join` syntax supports the following parameters.
 | `right` | Optional | An alias for the right dataset (typically, a subsearch) used to avoid ambiguous field names. Specify as `right = <rightAlias>`. |
   
 
-<!-- vale off -->
-
 ## Configuration
-
-<!-- vale on -->
 
 The `join` command behavior is configured using the `plugins.ppl.join.subsearch_maxout` setting, which specifies the maximum number of rows from the subsearch to join against. Default is `50000`. A value of `0` indicates that the restriction is unlimited.
 
@@ -133,11 +109,7 @@ PUT /_plugins/_query/settings
 ```
 {% include copy-curl.html %}
 
-<!-- vale off -->
-
 ## Example 1: Joining two indexes  
-
-<!-- vale on -->
 
 The following query uses the basic `join` syntax to join two indexes:
   
@@ -163,11 +135,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 2: Joining with a subsearch  
-
-<!-- vale on -->
 
 The following query combines a dataset with a subsearch using the basic `join` syntax:
   
@@ -196,11 +164,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 3: Joining using a field list  
-
-<!-- vale on -->
 
 The following query uses the extended syntax and specifies a list of fields for the join criteria:
   
@@ -229,11 +193,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 4: Joining with additional options  
-
-<!-- vale on -->
 
 The following query uses the extended syntax and optional parameters for more control over the join operation:
   
@@ -258,11 +218,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Limitations
-
-<!-- vale on -->
 
 The `join` command has the following limitations:
 

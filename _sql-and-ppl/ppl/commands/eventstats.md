@@ -20,19 +20,11 @@ The `eventstats` command operates in the following way:
 2. The original events remain intact, with new fields added to contain the statistical results.
 3. The command is particularly useful for comparative analysis, identifying outliers, and providing additional context to individual events.
 
-<!-- vale off -->
+## Comparing stats commands
 
-## Comparing stats and eventstats
-
-<!-- vale on -->
-
-For a comprehensive comparison of `stats`, `eventstats`, and `streamstats` commands, including their differences in transformation behavior, output format, aggregation scope, and use cases, see [Comparing stats, eventstats, and streamstats]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/commands/streamstats/#comparing-stats-eventstats-and-streamstats).
-
-<!-- vale off -->
+For a comprehensive comparison of `stats`, `eventstats`, and `streamstats` commands, including their differences in transformation behavior, output format, aggregation scope, and use cases, see [Comparing `stats`, `eventstats`, and `streamstats`]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/commands/streamstats/#comparing-stats-eventstats-and-streamstats).
 
 ## Syntax
-
-<!-- vale on -->
 
 The `eventstats` command has the following syntax:
 
@@ -51,11 +43,7 @@ source = table | eventstats dc(field) as distinct_count
 source = table | eventstats distinct_count(category) by region
 ```
 
-<!-- vale off -->
-
 ## Parameters
-
-<!-- vale on -->
 
 The `eventstats` command supports the following parameters.
 
@@ -66,11 +54,7 @@ The `eventstats` command supports the following parameters.
 | `<by-clause>` | Optional | Groups results by specified fields or expressions. Syntax: `by [span-expression,] [field,]...` Default is aggregating over the entire search results. |
 | `<span-expression>` | Optional | Splits a field into buckets by intervals (at most one). Syntax: `span(field_expr, interval_expr)`. For example, `span(age, 10)` creates 10-year age buckets, while `span(timestamp, 1h)` creates hourly buckets. |
 
-<!-- vale off -->
-
 ### Time units
-
-<!-- vale on -->
 
 The following time units are available for span expressions:
 
@@ -84,11 +68,7 @@ The following time units are available for span expressions:
 * Quarters (`q`)
 * Years (`y`)  
 
-<!-- vale off -->
-
 ## Aggregation functions
-
-<!-- vale on -->
 
 The `eventstats` command supports the following aggregation functions:
 
@@ -107,11 +87,7 @@ The `eventstats` command supports the following aggregation functions:
 
 For detailed documentation of each function, see [Functions]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/functions/aggregations/).  
 
-<!-- vale off -->
-
 ## Example 1: Enriching logs with per-service counts  
-
-<!-- vale on -->
 
 The following query adds the total log count for each service to every log entry, letting you see how active each service is alongside individual log details:
   
@@ -139,11 +115,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 2: Calculating severity statistics by group  
-
-<!-- vale on -->
 
 The following query adds the average severity and error count per service to each log entry:
   
@@ -174,11 +146,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 3: Null bucket handling
-
-<!-- vale on -->
 
 The following query uses `bucket_nullable=false` to exclude null values from the group-by aggregation:
 

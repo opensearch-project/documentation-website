@@ -52,20 +52,24 @@ Option | Required | Type | Description
 :--- |:---------| :--- | :---
 `stream_name` | Yes      | String | Defines the name of each Kinesis data stream.
 `initial_position` | No       | String | Sets the `initial_position` to control where the `kinesis` source begins reading stream records. Use `LATEST` to start from the most recent record, `EARLIEST` to read from the beginning of the stream, or `AT_TIMESTAMP` to start from a specific timestamp. Default is `LATEST`.
-`initial_timestamp`| No       | String | Specifies the timestamp from which to begin reading stream records. The value must follow the [[ISO LocalDateTime](https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html#ISO_LOCAL_DATE_TIME)](https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html#ISO_LOCAL_DATE_TIME) format and be provided in the UTC time zone (for example, `2023-01-23T10:00:00`). When `initial_position` is set to `AT_TIMESTAMP`, you must specify either `initial_timestamp` or `range`.
+`initial_timestamp`| No       | String | Specifies the timestamp from which to begin reading stream records. The value must follow the [ISO LocalDateTime](https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html#ISO_LOCAL_DATE_TIME) format and be provided in the UTC time zone (for example, `2023-01-23T10:00:00`). When `initial_position` is set to `AT_TIMESTAMP`, you must specify either `initial_timestamp` or `range`.
 `range` | No  | String | Specifies how far back from the current time to begin reading Kinesis data stream records. Supports ISO-8601 duration strings (such as `PT20.345S` or `PT15M`) as well as shorthand notation for seconds (`60s`) and milliseconds (`1600ms`). For example, `PT12H` starts reading records from 12 hours before the pipeline started. When `initial_position` is set to `AT_TIMESTAMP`, you must specify either `initial_timestamp` or `range`.
 
 `checkpoint_interval` | No       | Duration | Configure the `checkpoint_interval` to periodically checkpoint Kinesis data streams and avoid duplication of record processing. Default is `PT2M`.
 `compression` | No | String  | Specifies the compression format. To decompress records added by a [CloudWatch Logs Subscription Filter](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/SubscriptionFilters.html) to Kinesis, use the `gzip` compression format.
 
+<!-- vale off -->
 ## codec
+<!-- vale on -->
 
 The `codec` determines how the `kinesis` source parses each Kinesis stream record. For increased and more efficient performance, you can use [codec combinations]({{site.url}}{{site.baseurl}}/data-prepper/common-use-cases/codec-processor-combinations/) with certain processors.
 
+<!-- vale off -->
 ### json codec
+<!-- vale on -->
 
 The `json` codec parses each single line as a single JSON object from a JSON array and then creates a Data Prepper event for each object in the array. It can be used for parsing nested CloudWatch events into individual log entries. 
-It also supports the below configuration to use with this codec.
+It also supports the following configuration to use with this codec.
 
 Option | Required | Type    | Description
 :--- | :--- |:--------| :---
@@ -98,7 +102,9 @@ Option | Required | Type    | Description
 `otel_format` | No | String | Specifies the output format of the decoded spans. Valid values are `opensearch` and `otel`. Default is `opensearch`.
 `length_prefixed_encoding` | No | Boolean | Specifies whether the length precedes the data in protobuf format. Default is `false`.
 
+<!-- vale off -->
 ### polling
+<!-- vale on -->
 
 When the `consumer_strategy` is set to `polling`, the `kinesis` source uses a polling-based approach to read records from the Kinesis data streams, instead of the default `fan-out` approach.
 
@@ -107,7 +113,9 @@ Option | Required | Type    | Description
 `max_polling_records` | No | Integer | Sets the number of records to fetch from Kinesis during a single call.
 `idle_time_between_reads` | No | Duration  | Defines the amount of idle time between calls. 
 
+<!-- vale off -->
 ### aws
+<!-- vale on -->
 
 You can use the following options in the `aws` configuration.
 

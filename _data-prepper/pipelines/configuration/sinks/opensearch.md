@@ -144,7 +144,9 @@ In this configuration:
 
 If a document already exists in OpenSearch, it will be dropped and the event handle will be released, preventing duplicates.
 
+<!-- vale off -->
 ## aws
+<!-- vale on -->
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---

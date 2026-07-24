@@ -93,7 +93,7 @@ response = client.snapshot.status(
 
 ## Example response
 
-The example that follows corresponds to the request above in the [Example request](#example-request) section.
+The following example corresponds to the preceding [Example request](#example-request).
 
 The `GET _snapshot/my-opensearch-repo/my-first-snapshot/_status` request returns the following fields:
 

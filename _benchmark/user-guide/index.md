@@ -13,7 +13,7 @@ more_cards:
     link: "/benchmark/user-guide/install-and-configure/index/"
   - heading: "Understanding workloads"
     description: "Dive deep into each workload component and choose a workload"
-    link: "/benchmark/user-guide/understanding-workloads/index/"
+    link: "/benchmark/anatomy-of-a-workload/"
   - heading: "Run and customize your workload"
     description: "Run and customize your OpenSearch workload to get the most accurate results"
     link: "/benchmark/user-guide/working-with-workloads/index/"  

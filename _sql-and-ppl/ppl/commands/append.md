@@ -16,11 +16,7 @@ The `append` command appends the results of a subsearch as additional rows to th
 
 The command aligns columns that have the same field names and types. For columns that exist in only the main search or subsearch, `NULL` values are inserted into the missing fields for the respective rows.
 
-<!-- vale off -->
-
 ## Syntax
-
-<!-- vale on -->
 
 The `append` command has the following syntax:
 
@@ -28,11 +24,7 @@ The `append` command has the following syntax:
 append <subsearch>
 ```
 
-<!-- vale off -->
-
 ## Parameters
-
-<!-- vale on -->
 
 The `append` command supports the following parameters.
 
@@ -40,11 +32,7 @@ The `append` command supports the following parameters.
 | --- | --- | --- |
 | `<subsearch>` | Required | Executes PPL commands as a secondary search. |  
 
-<!-- vale off -->
-
 ## Example 1: Appending error and warning counts side by side
-
-<!-- vale on -->
 
 The following query shows error counts per service, then appends warning counts from a separate query. This lets you compare error and warning rates across services:
   
@@ -77,11 +65,7 @@ The query returns the following results:
 <!-- vale on -->
   
 
-<!-- vale off -->
-
 ## Example 2: Appending summary rows to detail rows
-
-<!-- vale on -->
 
 The following query shows severity levels by count, then appends the total count across all levels:
   
@@ -109,11 +93,7 @@ The query returns the following results:
 
 <!-- vale on -->
 
-<!-- vale off -->
-
 ## Limitations
-
-<!-- vale on -->
 
 The `append` command has the following limitations:
 

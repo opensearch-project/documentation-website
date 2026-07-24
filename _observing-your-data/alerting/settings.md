@@ -7,8 +7,9 @@ redirect_from:
   - /monitoring-plugins/alerting/settings/
 ---
 
-# Management
+# Alerting management
 
+The following sections describe alerting indexes and settings.
 
 ## Alerting indexes
 
@@ -27,7 +28,6 @@ All alerting indexes are hidden by default. For a summary, make the following re
 GET _cat/indices?expand_wildcards=open,hidden
 ```
 
-
 ## Alerting settings
 
 We don't recommend changing these settings; the defaults should work well for most use cases.
@@ -36,7 +36,7 @@ All settings are available using the OpenSearch `_cluster/settings` API. None re
 
 Setting | Default | Description
 :--- | :--- | :---
-`plugins.scheduled_jobs.enabled` | true | Whether the alerting plugin is enabled or not. If disabled, all monitors immediately stop running.
+`plugins.scheduled_jobs.enabled` | true | Whether the Alerting plugin is enabled or not. If disabled, all monitors immediately stop running.
 `plugins.alerting.index_timeout` | 60s | The timeout for creating monitors and destinations using the REST APIs.
 `plugins.alerting.request_timeout` | 10s | The timeout for miscellaneous requests from the plugin.
 `plugins.alerting.action_throttle_max_value` | 24h | The maximum amount of time you can set for action throttling. By default, this value displays as 1440 minutes in OpenSearch Dashboards.
@@ -54,6 +54,7 @@ Setting | Default | Description
 `plugins.alerting.alert_history_retention_period` | 60d | The amount of time to store history indexes before automatically deleting them.
 `plugins.alerting.destination.allow_list` | ["chime", "slack", "custom_webhook", "email", "test_action"] | The list of allowed destinations. If you don't want to allow users to a certain type of destination, you can remove it from this list, but we recommend leaving this setting as-is.
 `plugins.alerting.filter_by_backend_roles` | "false" | Restricts access to monitors by backend role. See [Alerting security]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/security/).
+`plugins.alerting.filter_by_backend_roles_access_strategy` | "intersect" | Controls how user backend roles are compared with the backend roles associated with a monitor to determine whether a user can access the monitor. See [Alerting security documentation on filtering by backend role]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/security/#advanced-limit-access-by-backend-role).
 `plugins.alerting.cross_cluster_monitoring_enabled` | "true" | Toggles whether cluster metrics monitors support running against remote clusters.
 `plugins.scheduled_jobs.sweeper.period` | 5m | The alerting feature uses its "job sweeper" component to periodically check for new or updated jobs. This setting is the rate at which the sweeper checks to see if any jobs (monitors) have changed and need to be rescheduled.
 `plugins.scheduled_jobs.sweeper.page_size` | 100 | The page size for the sweeper. You shouldn't need to change this value.

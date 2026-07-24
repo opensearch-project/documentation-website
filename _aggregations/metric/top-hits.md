@@ -7,7 +7,7 @@ redirect_from:
   - /query-dsl/aggregations/metric/top-hits/
 ---
 
-# Top hits aggregations
+# Top hits aggregation
 
 The `top_hits` aggregation is a multi-value metric aggregation that retrieves the highest-scoring documents within each aggregation bucket. Use it inside a bucket aggregation to return representative or top-ranked documents per group.
 
@@ -37,7 +37,7 @@ Because the `top_hits` aggregation returns standard search hits, the following p
 - [Source filtering]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/retrieve-specific-fields/#using-source-filtering)
 - [Stored fields]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/retrieve-specific-fields/#searching-with-stored_fields)
 - [Script fields]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/retrieve-specific-fields/#using-scripted-fields)
-- [Doc value fields]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/retrieve-specific-fields/#searching-with-docvalue_fields)
+- [Doc value fields]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/retrieve-specific-fields/#searching-with-doc-value-fields)
 - [Include versions]({{site.url}}{{site.baseurl}}/api-reference/search-apis/search/#query-parameters)
 - Include sequence numbers and primary terms
 

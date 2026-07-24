@@ -10,7 +10,7 @@ has_children: false
 
 Manage dashboards in OpenSearch Dashboards from the **Dashboards** application main page, shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/dash-landing-page.png" alt="Dashboards landing page"  width="100%">
+![Dashboards landing page]({{site.url}}{{site.baseurl}}/images/dashboards/dash-landing-page.png)
 
 You can do the following:
 

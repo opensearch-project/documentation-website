@@ -7,7 +7,7 @@ redirect_from:
   - /monitoring-plugins/pa/reference/
 ---
 
-# Metrics reference
+# Performance Analyzer metrics reference
 
 Performance Analyzer provides a number of metrics to help you evaluate performance. The following tables describe the available metrics, grouped by the dimensions that are most relevant for that metric. All metrics support the `avg`, `sum`, `min`, and `max` aggregations, although for certain metrics, the measured value is the same regardless of aggregation type. 
 
@@ -166,7 +166,7 @@ For information about each of the dimensions, see [dimensions reference](#dimens
   
 | Metric | Description |
 | :--- | :--- |
-| `Data_RetryingPendingTasksCount` | The number of throttled pending tasks on which the data node is actively performing retries. It is an absolute metric at that point in time. |
+| `Data_RetryingPendingTasksCount` | The number of throttled pending tasks on which the data node is actively performing retries. This is an absolute metric measured at the current timestamp. |
 | `ClusterManager_ThrottledPendingTasksCount` | The sum of the total pending tasks that were throttled by the cluster manager node. This is a cumulative metric, so make sure to check the max aggregation. |
 
 ## Relevant dimensions: N/A

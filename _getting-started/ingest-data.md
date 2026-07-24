@@ -2,6 +2,7 @@
 layout: default
 title: Ingest data
 nav_order: 40
+description: "Get started with ingesting data into OpenSearch, including bulk indexing multiple documents, and experiment with sample data."
 ---
 
 # Ingest your data into OpenSearch
@@ -34,7 +35,7 @@ OpenSearch provides a fictitious e-commerce dataset that you can use to experime
 
 Use the following steps to create a sample index and define field mappings for the document fields:
 
-1. Download [ecommerce-field_mappings.json](https://github.com/opensearch-project/documentation-website/blob/{{site.opensearch_major_minor_version}}/assets/examples/ecommerce-field_mappings.json). This file defines a [mapping]({{site.url}}{{site.baseurl}}/opensearch/mappings/) for the sample data you will use.
+1. Download the [`ecommerce-field_mappings.json`](https://github.com/opensearch-project/documentation-website/blob/{{site.opensearch_major_minor_version}}/assets/examples/ecommerce-field_mappings.json) file. This file defines a [mapping]({{site.url}}{{site.baseurl}}/opensearch/mappings/) for the sample data you will use.
     
     To use cURL, send the following request:
 
