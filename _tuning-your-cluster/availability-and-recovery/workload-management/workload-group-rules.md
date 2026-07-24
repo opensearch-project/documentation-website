@@ -52,8 +52,8 @@ The table lists the attributes in order of priority, from highest to lowest. Thi
 
 | Attribute            | Data type | Description                                                                                                                                                                                                                   |
 |:---------------------|:----------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `principal.username` | List      | A list of usernames to be matched to this rule. This attribute is available only when the Security plugin is enabled on the domain. The attribute supports exact matching only.                                 |
-| `principal.role`     | List      | A list of roles to be matched to this rule. This attribute is available only when the Security plugin is enabled on the domain. The attribute supports exact matching only.                                     |
+| `principal.username` | List      | A list of usernames to be matched to this rule. This attribute is available only when the Security plugin is enabled on the domain. An element that is a full username (for example, `admin`) is matched exactly; an element ending in `*` (for example, `admin*`) is matched as a prefix.                                 |
+| `principal.role`     | List      | A list of roles to be matched to this rule. This attribute is available only when the Security plugin is enabled on the domain. An element that is a full role name (for example, `all_access`) is matched exactly; an element ending in `*` (for example, `all_*`) is matched as a prefix.                                     |
 | `index_pattern`      | List      | A list of target indexes for incoming queries. An element that is a full index name (for example, `logs-2025`) is matched exactly; an element ending in `*` (for example, `logs*`) is matched as a prefix.                                |
 
 ## Parameters
