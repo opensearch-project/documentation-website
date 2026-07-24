@@ -12,6 +12,7 @@
 Boolean
 [Cc]allout
 [Cc]hatbots?
+[Cc]lickjack(ing)?
 [Cc]odec
 [Cc]utover
 [Cc]omposable

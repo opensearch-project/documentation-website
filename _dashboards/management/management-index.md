@@ -9,7 +9,7 @@ has_children: true
 Introduced 2.10
 {: .label .label-purple }
 
-**Dashboards management** is the central hub for managing and customizing OpenSearch data directly within OpenSearch Dashboards. 
+**Dashboards Management** is the central hub for managing and customizing OpenSearch data directly within OpenSearch Dashboards. Unlike deployment-level settings that administrators configure, **Dashboards Management** is an in-product application that you access from OpenSearch Dashboards. Use it to configure data access, such as index patterns, data sources, saved objects, and advanced settings, without editing configuration files or accessing the host. 
 
 OpenSearch and OpenSearch Dashboards permissions govern access to individual features. If you do not have the appropriate access permissions, consult your administrator.
 {: .warning}
@@ -23,3 +23,7 @@ You can access the following applications in **Dashboards Management**:
 - **[Saved Objects](https://opensearch.org/blog/enhancement-multiple-data-source-import-saved-object/):** The Saved Objects tool helps you organize and manage your saved objects. Saved objects are files that store data, such as dashboards, visualizations, and maps, for later use.
 - **[Advanced Settings]({{site.url}}{{site.baseurl}}/dashboards/management/advanced-settings/):** The Advanced Settings tool gives you the flexibility to personalize the behavior of OpenSearch Dashboards. The tool is divided into settings sections, such as General, Accessibility, and Notifications, and you can use it to customize and optimize many of your Dashboards settings.
 - **[Resource Access Management]({{site.url}}{{site.baseurl}}/dashboards/management/resource-sharing/):** The Resource Access Management tool provides fine-grained access control for plugin-defined resources such as machine learning (ML) model groups, anomaly detectors, and report definitions. You can share resources with specific users, roles, or backend roles and control their access levels.
+
+## Related documentation
+
+- To configure deployment-level settings, such as branding and network compression, by editing the `opensearch_dashboards.yml` file, see [Settings and administration]({{site.url}}{{site.baseurl}}/dashboards/settings-and-administration/).
