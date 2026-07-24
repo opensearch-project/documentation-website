@@ -39,7 +39,7 @@ The AI-assisted judgment process consists of the following steps:
 
 - For each query, the top k documents are retrieved using the defined search configuration, which includes the index information. The query and each document from the result list create a query-document pair.
 - The LLM is then called with a predefined prompt to generate a judgment for each query-document pair.
-- All generated judgments are stored in the judgments cache index for reuse in future experiments.
+- All generated judgments are stored in the judgment list. To reuse ratings from previous judgments in a new run, use the `existingJudgments` parameter. For more information, see [Reusing existing judgments](#reusing-existing-judgments).
 
 To create a judgment list, provide the model ID of the LLM, an available query set, and a created search configuration.
 
@@ -80,7 +80,8 @@ The following table lists the parameters for creating LLM-based judgments.
 | `ignoreFailure` | Boolean | Whether to continue processing other documents if the LLM fails to generate a judgment for some documents. Default is `false`. |
 | `llmJudgmentRatingType` | String | The type of rating scale to use. Valid values are `SCORE0_1` (numeric scale 0--1) and `RELEVANT_IRRELEVANT` (binary relevant/irrelevant). Use `SCORE0_1` for graded relevance metrics such as NDCG. Use `RELEVANT_IRRELEVANT` for binary metrics such as precision and recall. |
 | `promptTemplate` | String | Optional. A custom prompt template for the LLM. Supports {% raw %}`{{queryText}}`{% endraw %} and {% raw %}`{{hits}}`{% endraw %} placeholders. If not provided, the default template is used. |
-| `overwriteCache` | Boolean | Whether to overwrite existing cached judgments for the same query-document pairs. Default is `false` (reuse cached judgments). |
+| `existingJudgments` | Array of strings | Optional. A list of up to five existing LLM judgment IDs whose ratings are reused before calling the LLM. SRW only sends query-document pairs that aren't already rated in one of these judgments to the LLM. For more information, see [Reusing existing judgments](#reusing-existing-judgments). |
+| `overwriteCache` | Boolean | Optional, deprecated. This parameter no longer has any effect because the global judgment cache has been removed. It is still accepted so that older clients don't break. To reuse ratings from previous judgments, use `existingJudgments`. To retry only the documents that failed in a completed judgment, use the [retry endpoint](#retrying-failed-documents). |
 
 ### Custom prompt templates
 
@@ -117,6 +118,31 @@ PUT /_plugins/_search_relevance/judgments
 }
 ```
 {% include copy-curl.html %}
+
+### Reusing existing judgments
+
+Generating an LLM judgment sends one request to the LLM for every query-document pair, which takes time and incurs cost. When you create a new judgment that overlaps with judgments you've already generated---for example, you're adding a search configuration to an existing query set, or resuming a run in which some documents didn't receive a rating---you can reuse the ratings you already have instead of asking the LLM to score those pairs again.
+
+To reuse ratings, provide a list of up to five existing LLM judgment IDs in the `existingJudgments` parameter. Before calling the LLM, SRW looks up each query-document pair in the specified judgments. If a pair is already rated, SRW reuses that rating; only pairs that aren't found are sent to the LLM. If the same query-document pair is rated in more than one of the listed judgments, SRW uses the rating from the first judgment in the list.
+
+```json
+PUT _plugins/_search_relevance/judgments
+{
+  "name": "Reuse existing ratings",
+  "type": "LLM_JUDGMENT",
+  "modelId": "MODEL_ID_HERE",
+  "querySetId": "QUERY_SET_ID_HERE",
+  "searchConfigurationList": ["SEARCH_CONFIGURATION_ID_HERE"],
+  "size": 5,
+  "existingJudgments": ["b54f791a-3b02-49cb-a06c-46ab650b2ade", "505d00cf-2fce-422b-bb97-2e3a95ce9446"]
+}
+```
+{% include copy-curl.html %}
+
+You can specify a maximum of five judgment IDs in `existingJudgments`. A request that includes more than five is rejected.
+{: .note}
+
+In OpenSearch Dashboards, you can select judgments to reuse from the **Reuse Existing Judgments** field under **Advanced Settings** on the judgment creation page.
 
 ### Using different LLM providers
 
@@ -403,6 +429,45 @@ GET _plugins/_search_relevance/judgments/b54f791a-3b02-49cb-a06c-46ab650b2ade
 ```
 
 </details>
+
+### Retrying failed documents
+
+A judgment can finish with a `status` of `COMPLETED` even if some documents didn't receive a rating, for example because the LLM provider throttled or timed out on those requests. Rather than regenerating the entire judgment, you can retry only the documents that failed by sending a `POST` request to the `_retry` endpoint with the judgment's ID.
+
+#### Endpoint
+
+```json
+POST _plugins/_search_relevance/judgments/{judgment_list_id}/_retry
+```
+
+#### Path parameters
+
+The following table lists the available path parameters.
+
+| Parameter | Data type | Description |
+| :--- | :--- | :--- |
+| `judgment_list_id` | String | The ID of the judgment list whose failed documents you want to retry. |
+
+#### Example request
+
+```json
+POST _plugins/_search_relevance/judgments/b54f791a-3b02-49cb-a06c-46ab650b2ade/_retry
+```
+{% include copy-curl.html %}
+
+#### Example response
+
+```json
+{
+  "judgment_id": "b54f791a-3b02-49cb-a06c-46ab650b2ade",
+  "status": "RETRYING",
+  "message": "Retrying failed documents"
+}
+```
+
+The retry runs asynchronously and generates new ratings for only the previously failed documents; ratings that already succeeded are left unchanged. The response returns immediately with a `status` of `RETRYING`. To track progress, retrieve the judgment and check its `status`, as described in [Viewing a judgment list](#viewing-a-judgment-list). When the retry finishes, the judgment returns to a `status` of `COMPLETED`.
+
+In OpenSearch Dashboards, you can start a retry from the judgment list, which also shows whether each document is **Rated** or **Failed**.
 
 ### Deleting a judgment list
 
