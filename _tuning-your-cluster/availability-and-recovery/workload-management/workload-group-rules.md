@@ -52,8 +52,8 @@ The table lists the attributes in order of priority, from highest to lowest. Thi
 
 | Attribute            | Data type | Description                                                                                                                                                                                                                   |
 |:---------------------|:----------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `principal.username` | List      | A list of usernames to be matched to this rule. Add `*` to the end of a value to match every username that starts with it, or omit it to match a username exactly. This attribute is available only when the Security plugin is enabled on the domain.                                 |
-| `principal.role`     | List      | A list of roles to be matched to this rule. Add `*` to the end of a value to match every role that starts with it, or omit it to match a role exactly. This attribute is available only when the Security plugin is enabled on the domain.                                     |
+| `principal.username` | List      | A list of usernames to be matched to this rule. Supports exact match (`user1`) and trailing wildcard patterns (`user*`). This attribute is available only when the Security plugin is enabled on the domain.                                 |
+| `principal.role`     | List      | A list of roles to be matched to this rule. Supports exact match (`role1`) and trailing wildcard patterns (`role*`). This attribute is available only when the Security plugin is enabled on the domain.                                     |
 | `index_pattern`      | List      | A list of target indexes for incoming queries. An element that is a full index name (for example, `logs-2025`) is matched exactly; an element ending in `*` (for example, `logs*`) is matched as a prefix.                                |
 
 ## Parameters
