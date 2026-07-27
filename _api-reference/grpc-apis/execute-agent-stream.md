@@ -11,7 +11,10 @@ nav_order: 50
 
 The gRPC Execute Agent Stream API provides a performant, binary interface for streaming the execution of an agent using protocol buffers over gRPC. Instead of waiting for the agent to finish, the server streams response chunks to the client as they are generated during agent execution. This is well suited to conversational agents that produce token-by-token output from large language models (LLMs).
 
-For information about HTTP-based streaming agent execution, see [Execute stream agent]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/execute-stream-agent/).
+ML Commons has supported streaming agent execution over REST since OpenSearch 3.3, using server-sent events (SSE) over HTTP. Starting with OpenSearch 3.8, you can also stream agent execution over gRPC. Both methods return the same incrementally generated output, so you can choose the transport that best fits your client:
+
+- **REST streaming** is convenient for browsers, standard HTTP clients, and quick testing with tools like cURL. It remains experimental and is not recommended for use in a production environment. For more information, see [Execute stream agent]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/execute-stream-agent/).
+- **gRPC streaming** uses protocol buffers over HTTP/2. This provides lower serialization overhead and smaller payloads, native server-streaming semantics with HTTP/2 flow control and connection multiplexing, and a strongly typed schema from which you can generate clients in any [gRPC-supported language](https://grpc.io/docs/languages/).
 
 Streaming agent execution is supported for agents backed by the following remote model types:
 
