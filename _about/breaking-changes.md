@@ -5,6 +5,10 @@ nav_order: 5
 permalink: /breaking-changes/
 ---
 
+# Breaking changes
+
+OpenSearch uses [Semantic Versioning](https://semver.org/), which means that breaking changes are only introduced between major version releases. The following sections list breaking changes introduced in OpenSearch, organized by version.
+
 <!-- vale off -->
 ## 1.x
 <!-- vale on -->

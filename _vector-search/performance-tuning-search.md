@@ -5,7 +5,7 @@ nav_order: 20
 parent: Performance tuning
 ---
 
-# Search performance tuning
+# Vector search query performance tuning
 
 Take the following steps to improve search performance.
 

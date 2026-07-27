@@ -7,7 +7,7 @@ redirect_from:
   - /query-dsl/aggregations/bucket/sampler/
 ---
 
-# Sampler aggregations
+# Sampler aggregation
 
 If you're aggregating a very large number of documents, you can use a `sampler` aggregation to reduce the scope to a small sample of documents, resulting in a faster response. The `sampler` aggregation selects the samples by top-scoring documents.
 

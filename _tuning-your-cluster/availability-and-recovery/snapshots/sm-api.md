@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Snapshot management API
+title: Snapshot Management API
 parent: Snapshots
 nav_order: 30
 has_children: false

@@ -12,7 +12,7 @@ redirect_from:
 
 # Monitoring your cluster
 
-OpenSearch provides several ways for you to monitor your cluster health and performance and automate common tasks:
+OpenSearch provides several ways to monitor cluster health and performance and automate common tasks, including logs, Performance Analyzer, the Job Scheduler plugin, and the Metrics Framework plugin:
 
 - The OpenSearch [logs]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/logs/) include valuable information for monitoring cluster operations and troubleshooting issues. 
 

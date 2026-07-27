@@ -9,7 +9,7 @@ has_children: false
 has_toc: false
 ---
 
-# Fields
+# Fields mapping parameter
 
 The `fields` mapping parameter enables you to index the same field in multiple ways by defining additional subfields. With multi-fields, the primary field value is stored using its main mapping. Additionally, you can configure one or more subfields with alternate mappings, for example, different data types or analyzers that support varied search and aggregation requirements.
 

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: graphlookup
+title: graphLookup
 parent: Commands
 grand_parent: PPL
 nav_order: 21

@@ -4,7 +4,7 @@ title: Extensions
 nav_order: 10
 ---
 
-# Extensions
+# OpenSearch extensions
 
 Extensions is an experimental feature. Therefore, we do not recommend the use of extensions in a production environment. For updates on the progress of extensions, or if you want leave feedback that could help improve the feature, refer to the [issue on GitHub](https://github.com/opensearch-project/OpenSearch/issues/2447).
 {: .warning}

@@ -18,7 +18,7 @@ Amazon Bedrock has a [quota limit](https://docs.aws.amazon.com/bedrock/latest/us
 Replace the placeholders beginning with the prefix `your_` with your own values.
 {: .note}
 
-# Overview
+## Cross-account setup
 
 In this tutorial, you'll use two AWS accounts: Account A (hosting Amazon OpenSearch Service) and Account B (hosting an Amazon Bedrock model).
 

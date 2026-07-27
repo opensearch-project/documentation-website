@@ -4,7 +4,7 @@ title: Version history
 nav_order: 101
 ---
 
-# Version history
+# OpenSearch Benchmark version history
 
 This page details high-level changes across OpenSearch Benchmark versions.
 

@@ -7,7 +7,7 @@ redirect_from:
   - /query-dsl/aggregations/bucket/significant-text/
 ---
 
-# Significant text aggregations
+# Significant text aggregation
 
 The `significant_text` aggregation is similar to the `significant_terms` aggregation but it's for raw text fields.
 Significant text measures the change in popularity measured between the foreground and background sets using statistical analysis. For example, it might suggest Tesla when you look for its stock acronym TSLA.

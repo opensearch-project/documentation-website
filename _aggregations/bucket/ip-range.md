@@ -7,7 +7,7 @@ redirect_from:
   - /query-dsl/aggregations/bucket/ip-range/
 ---
 
-# IP range aggregations
+# IP range aggregation
 
 The `ip_range` aggregation groups documents into buckets based on IP address ranges. It operates on fields mapped as `ip` type and supports both explicit `from`/`to` boundaries and [CIDR](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing) notation using the `mask` parameter.
 

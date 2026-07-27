@@ -27,6 +27,6 @@ redirect_from:
 
 # Optimizing benchmarks
 
-This section provides information about optimizing the benchmark tools for your cluster.
+You can optimize OpenSearch Benchmark results by distributing load across multiple machines, expanding data corpora, setting target throughput, and randomizing queries to simulate real-world traffic.
 
 {% include cards.html cards=page.more_cards %}

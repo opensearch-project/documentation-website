@@ -5,7 +5,7 @@ parent: Supported log types
 nav_order: 80
 ---
 
-# Okta
+# Okta log type
 
 The `okta` log type records Okta events generated from a range of actions, such as downloading an export file, requesting application access, or revoking privileges.
 

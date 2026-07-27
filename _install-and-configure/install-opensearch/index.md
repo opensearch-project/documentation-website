@@ -13,7 +13,7 @@ redirect_from:
 
 # Installing OpenSearch
 
-This section provides information about how to install OpenSearch on your host, including which [ports to open](#network-requirements) and which [important settings](#important-settings) to configure on your host.
+You can install OpenSearch using Docker, Helm, tarball, RPM, Debian packages, Ansible, or on Windows. Each method requires specific [ports to be open](#network-requirements) and [important settings](#important-settings) to be configured on your host.
 
 For operating system compatibility, see [Compatible operating systems]({{site.url}}{{site.baseurl}}/install-and-configure/os-comp/).
 

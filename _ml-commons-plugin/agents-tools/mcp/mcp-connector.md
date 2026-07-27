@@ -98,7 +98,7 @@ POST /_plugins/_ml/connectors/_create
 The following table describes the connector parameters. For more information about standard connector parameters, see [Configuration parameters]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/#configuration-parameters).
 
 | Parameter | Data type | Required | Description |
-|:----------|:---------|:------------|
+|:----------|:---------|:---|:------------|
 | `protocol` | String | Yes | Specify `mcp_sse` for SSE or `mcp_streamable_http` for Streamable HTTP. |
 | `url` | String | Yes | The complete base URL of the MCP server, including protocol, hostname, and port, if not using the default port (for example, `https://my-mcp-server.com:8443`). |
 | `credential` | Object | Yes | Contains sensitive authentication information such as API keys or tokens. Values stored in this object can be securely referenced in the `headers` section using the `${credential.*}` syntax. |
@@ -168,19 +168,28 @@ To check the status of the operation, provide the task ID to the [Get ML Task AP
 
 ## Step 3: Register an agent for accessing MCP tools
 
-Currently, MCP tools can only be used with [_conversational_]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/conversational/) or [_plan-execute-reflect_]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/plan-execute-reflect/) agent types. 
+The following table lists the agent types that support MCP tools.
 
-To enable external MCP tools, include one or more MCP connectors in your agent's configuration.
+| Agent type | MCP integration |
+|:---|:---|
+| [`conversational`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/conversational/) | The LLM selects MCP tools at runtime. |
+| [`plan_execute_and_reflect`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/plan-execute-reflect/) | The LLM selects MCP tools at runtime. |
+| [`flow`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/flow/) | MCP tools run in a fixed pipeline order. |
+| [`conversational_flow`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/conversational-flow/) | MCP tools run in a fixed pipeline order with conversation memory. |
+
+For all supported agent types, include one or more MCP connectors in `parameters.mcp_connectors`. How you configure the `tools` array depends on the agent type.
 
 Each connector must specify the following parameters in the `parameters.mcp_connectors` array.
 
 | Parameter | Data type | Required | Description | 
 |:--- |:--- |:--- |:--- |
 | `mcp_connector_id` | String | Yes | The connector ID of the MCP connector. | 
-| `tool_filters` | Array | No | An array of Java-style regular expressions that specify which tools from the MCP server to make available to the agent. A tool will be included if it matches at least one of the regular expressions in the array. If omitted or set to an empty array, all tools exposed by the connector will be available. Use the `^` or `$` anchors or literal strings to precisely match tool names. For example, `^get_forecast` matches any tool starting with "get_forecast", while `search_indices` matches only "search_indices".|
+| `tool_filters` | Array | No | An array of Java-style regular expressions that specify which tools from the MCP server to make available to the agent. A tool is included if it matches at least one of the regular expressions in the array. If omitted or set to an empty array, all tools exposed by the connector are available. Use the `^` or `$` anchors or literal strings to precisely match tool names. For example, `^get_forecast` matches any tool starting with "get_forecast", while `search_indices` matches only "search_indices".|
 | `tool_descriptions` | Array | No | An array of objects that override the tool descriptions sent to the LLM. Each object maps a tool name (key) to a replacement description (string value). Only tools that pass the `tool_filters` evaluation can be overridden. Entries are ignored if the tool does not exist on the connector, is excluded by `tool_filters`, or has a blank, null, or non-string value. If the same tool name appears in multiple objects, the last value wins. |
 
-In this example, you'll register a conversational agent using the connector ID created in Step 1. The MCP server has two tools available (`get_alerts` and `get_forecasts`), but only the `get_alerts` tool will be included in the agent's configuration because it matches the specified regex pattern `^get_alerts$`:
+For `conversational` and `plan_execute_and_reflect` agents, MCP tools are discovered from the configured connectors and presented to the LLM. The LLM decides which MCP tool to call during execution. You do not need to list MCP tools explicitly in the `tools` array, but you can include OpenSearch built-in tools alongside MCP tools.
+
+The following example registers a conversational agent using the connector ID created in Step 1. The MCP server has two tools available (`get_alerts` and `get_forecasts`), but only the `get_alerts` tool is included in the agent's configuration because it matches the specified regex pattern `^get_alerts$`:
 
 ```json
 POST /_plugins/_ml/agents/_register
@@ -233,7 +242,7 @@ The response contains the agent ID:
 
 Each MCP tool includes a description that helps the LLM decide when to call it. To replace a tool's description without modifying the MCP server, use the `tool_descriptions` parameter. This is useful when the server-provided description is too generic, uses internal naming, or does not match your agent's domain vocabulary.
 
-Each entry in `tool_descriptions` must be a JSON object with a single key–value pair: the MCP tool name and the override description string. You can specify multiple overrides by adding multiple objects to the array.
+Each entry in `tool_descriptions` must be a JSON object with a single key-value pair: the MCP tool name and the override description string. You can specify multiple overrides by adding multiple objects to the array.
 
 The following example registers an agent that exposes only the `get_alerts` tool (using `tool_filters`) and replaces its description with agent-specific guidance:
 
@@ -291,6 +300,127 @@ To override descriptions for multiple tools without applying `tool_filters`, omi
 ```
 
 Overrides for tool names that are not exposed by the connector or that `tool_filters` excludes have no effect. The agent continues to use the MCP server's original description for any tool without a valid override.
+
+### Flow agents and conversational flow agents
+**Introduced 3.8**
+{: .label .label-purple }
+
+For [`flow`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/flow/) and [`conversational_flow`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/conversational-flow/) agents, MCP tools run in the fixed order defined in the `tools` array. You must declare each MCP tool explicitly and match the tool `type` to your connector protocol.
+
+| Connector protocol | MCP tool `type` |
+|:---|:---|
+| `mcp_streamable_http` | `McpStreamableHttpTool` |
+| `mcp_sse` | `McpSseTool` |
+
+Each MCP tool entry in the `tools` array supports the following fields.
+
+| Field | Data type | Required | Description |
+|:---|:---|:---|:---|
+| `name` | String | Yes | The MCP server tool name. Must match a tool exposed by the configured connector. Used for output chaining (for example, `${parameters.get_simple_price.output}`). |
+| `type` | String | Yes | `McpStreamableHttpTool` or `McpSseTool`, matching the connector protocol. |
+| `description` | String | No | A description of the tool. If omitted, OpenSearch uses the description from the MCP server when available. |
+| `parameters.input` | String | Yes | The tool input payload, typically a JSON string passed to the MCP server tool. |
+
+You can mix MCP tools with OpenSearch tools such as `MLModelTool` in the same pipeline. Output from one step can be passed to the next using `${parameters.<tool_name>.output}`.
+
+If an MCP tool is listed in `tools` but is not available from the configured connector, agent execution fails with an error indicating the tool is not available. If multiple MCP connectors expose a tool with the same name, OpenSearch uses the tool from the first matching connector in the `mcp_connectors` array.
+
+Before registering a flow or conversational flow agent, use the [List Connector MCP Tools API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/mcp-client-apis/list-connector-mcp-tools/) to discover tool names, types, descriptions, and input schemas from your MCP connector. Use the `name` and `type` values from the response when configuring MCP tools in the agent, and build the `parameters.input` JSON string from each tool's `input_schema`.
+
+The following example registers a `flow` agent that calls `search_documents` and `get_weather` in sequence, then summarizes the results with `MLModelTool`:
+
+```json
+POST /_plugins/_ml/agents/_register
+{
+  "name": "Research and weather flow agent",
+  "type": "flow",
+  "description": "Flow agent using MCP tools in a fixed order",
+  "parameters": {
+    "mcp_connectors": [
+      {
+        "mcp_connector_id": "<MCP_CONNECTOR_ID_FROM_STEP_1>"
+      }
+    ]
+  },
+  "tools": [
+    {
+      "name": "search_documents",
+      "type": "McpStreamableHttpTool",
+      "description": "Search a document repository for relevant content.",
+      "parameters": {
+        "input": "{\"query\":\"OpenSearch agentic search\",\"limit\":5}"
+      }
+    },
+    {
+      "name": "get_weather",
+      "type": "McpStreamableHttpTool",
+      "description": "Retrieve current weather conditions for a specified location.",
+      "parameters": {
+        "input": "{\"location\":\"Seattle\",\"units\":\"celsius\"}"
+      }
+    },
+    {
+      "name": "summarize_results",
+      "type": "MLModelTool",
+      "description": "Summarize MCP tool outputs",
+      "parameters": {
+        "model_id": "<MODEL_ID_FROM_STEP_2>",
+        "prompt": "You are a research assistant.\n\nDocument search results:\n${parameters.search_documents.output}\n\nWeather:\n${parameters.get_weather.output}\n\nProvide a brief summary of the findings."
+      }
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+To use the same MCP pipeline with conversation memory, set `type` to `conversational_flow` and add a `memory` block at the same level as `parameters` and `tools`:
+
+```json
+POST /_plugins/_ml/agents/_register
+{
+  "name": "Research and weather conversational flow agent",
+  "type": "conversational_flow",
+  "description": "Conversational flow agent using MCP tools in a fixed order",
+  "memory": {
+    "type": "conversation_index"
+  },
+  "parameters": {
+    "mcp_connectors": [
+      {
+        "mcp_connector_id": "<MCP_CONNECTOR_ID_FROM_STEP_1>"
+      }
+    ]
+  },
+  "tools": [
+    {
+      "name": "search_documents",
+      "type": "McpStreamableHttpTool",
+      "description": "Search a document repository for relevant content.",
+      "parameters": {
+        "input": "{\"query\":\"OpenSearch agentic search\",\"limit\":5}"
+      }
+    },
+    {
+      "name": "get_weather",
+      "type": "McpStreamableHttpTool",
+      "description": "Retrieve current weather conditions for a specified location.",
+      "parameters": {
+        "input": "{\"location\":\"Seattle\",\"units\":\"celsius\"}"
+      }
+    },
+    {
+      "name": "summarize_results",
+      "type": "MLModelTool",
+      "description": "Summarize MCP tool outputs",
+      "parameters": {
+        "model_id": "<MODEL_ID_FROM_STEP_2>",
+        "prompt": "You are a research assistant.\n\nDocument search results:\n${parameters.search_documents.output}\n\nWeather:\n${parameters.get_weather.output}\n\nProvide a brief summary of the findings."
+      }
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
 
 ## Step 4: Run the agent
 

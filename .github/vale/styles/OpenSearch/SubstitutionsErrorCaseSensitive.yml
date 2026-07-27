@@ -5,6 +5,7 @@ level: error
 action:
   name: replace
 swap:
+  'AWS region': AWS Region
   'Base 64': Base64
   'Base-64': Base64
   'base 64': Base64

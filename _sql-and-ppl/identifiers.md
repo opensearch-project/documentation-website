@@ -9,10 +9,9 @@ redirect_from:
 ---
 
 
-# Identifiers
+# SQL and PPL identifiers
 
-An identifier is an ID to name your database objects, such as index names, field names, aliases, and so on.
-OpenSearch supports two types of identifiers: regular identifiers and delimited identifiers.
+An identifier is an ID to name your database objects, such as index names, field names, aliases, and so on. OpenSearch supports two types of identifiers: regular identifiers and delimited identifiers.
 
 ## Regular identifiers
 

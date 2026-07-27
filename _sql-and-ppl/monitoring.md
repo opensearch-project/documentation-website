@@ -6,13 +6,9 @@ redirect_from:
   - /search-plugins/sql/monitoring/
 ---
 
-# Monitoring
+# SQL and PPL monitoring
 
-By a stats endpoint, you are able to collect metrics for the plugin
-within the interval. Note that only node level statistics collecting is
-implemented for now. In other words, you only get the metrics for the
-node you're accessing. Cluster level statistics have yet to be
-implemented.
+OpenSearch provides a stats endpoint that collects metrics for SQL and PPL query processing within a set interval. Statistics are collected at the node level, so you receive metrics only for the node you're accessing.
 
 ## Node statistics
 

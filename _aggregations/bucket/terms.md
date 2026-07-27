@@ -7,7 +7,7 @@ redirect_from:
   - /query-dsl/aggregations/bucket/terms/
 ---
 
-# Terms aggregations
+# Terms aggregation
 
 The `terms` aggregation dynamically creates a bucket for each unique term of a field.
 

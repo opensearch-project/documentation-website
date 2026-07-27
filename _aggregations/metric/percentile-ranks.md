@@ -7,7 +7,7 @@ redirect_from:
   - /query-dsl/aggregations/metric/percentile-ranks/
 ---
 
-# Percentile rank aggregations
+# Percentile rank aggregation
 
 The `percentile_ranks` aggregation estimates the percentage of observed values that fall below or at given thresholds. This is useful for understanding the relative standing of a particular value within a distribution of values.
 

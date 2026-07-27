@@ -6,6 +6,7 @@ parent: Command reference
 grand_parent: Reference
 redirect_from:
   - /benchmark/commands/execute-test/
+  - /benchmark/reference/commands/execute-test/
 ---
 
 <!-- vale off -->

@@ -2,6 +2,7 @@
 layout: default
 title: Ingest data
 nav_order: 40
+description: "Get started with ingesting data into OpenSearch, including bulk indexing multiple documents, and experiment with sample data."
 ---
 
 # Ingest your data into OpenSearch

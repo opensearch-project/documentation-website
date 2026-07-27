@@ -5,7 +5,7 @@ parent: Pipeline aggregations
 nav_order: 190
 ---
 
-# Sum bucket aggregations
+# Sum bucket aggregation
 
 The `sum_bucket` aggregation is a sibling aggregation that calculates the sum of a metric in each bucket of a previous aggregation.
 

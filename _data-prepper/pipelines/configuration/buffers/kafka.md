@@ -6,16 +6,14 @@ grand_parent: Pipelines
 nav_order: 80
 ---
 
-<!-- vale off -->
-# kafka
-<!-- vale on -->
+# Kafka buffer
 
 The `kafka` buffer buffers data into an Apache Kafka topic. It uses the Kafka topic to persist data while the data is in transit.
 
 The following example shows how to run the Kafka buffer in an HTTP pipeline.
 It runs against a locally running Kafka cluster.
 
-```
+```yaml
 kafka-buffer-pipeline:
   source:
     http:
