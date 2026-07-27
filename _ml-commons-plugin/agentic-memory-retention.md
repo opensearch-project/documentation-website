@@ -117,7 +117,7 @@ Both fields are optional and independent. You can set one, both, or neither for 
 
 ### Constraints
 
-- Both `retention_days` and `max_count` must be positive integers (greater than zero) when provided.
+- Both `retention_days` and `max_count` must be positive integers (greater than zero) when provided. Only whole numbers are used: a decimal value in a retention policy is rounded down to the nearest integer (for example, `89.5` becomes `89`).
 - `retention_days` is not supported for the `history` type. The API returns a 400 error if you try to set it.
 - The `working` key is not allowed. The API returns a 400 error with guidance to configure sessions instead.
 - You only need to include the memory types that you want to manage. Omitted types have no retention enforcement.
@@ -471,7 +471,7 @@ The following table describes the default retention policy settings.
 
 If your organization wants all containers to have a baseline retention policy without requiring every user to set one manually, an administrator can configure these settings.
 
-There are no built-in default values; every setting ships as `-1` (off), and nothing is applied unless an administrator sets it. The numbers in the following example are offered only as a possible starting point: they represent a reasonable middle ground drawn from analysis of typical usage, not a recommendation that fits every deployment. Memory consumption varies drastically between organizations and workloads, so these figures will not be right for everyone. Treat them as a place to begin, then review your own data—storage footprint, retention and compliance requirements, and how quickly memory accumulates—to decide what is best for you and your organization.
+There are no built-in default values; every setting ships as `-1` (off), and nothing is applied unless an administrator sets it. The numbers in the following example are offered only as a possible starting point: they represent a reasonable middle ground drawn from analysis of typical usage, not a recommendation that fits every deployment. Memory consumption varies drastically between organizations and workloads, so these figures will not be right for everyone. Treat them as a place to begin, then review your own data—storage footprint, retention and compliance requirements, and how quickly memory accumulates—to decide what is best for you and your organization. When configuring these cluster default settings, provide whole numbers only; unlike a retention policy, these settings do not accept decimal values.
 {: .important}
 
 ```json
