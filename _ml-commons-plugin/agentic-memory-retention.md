@@ -60,6 +60,18 @@ POST /_plugins/_ml/memory_containers/_create
 {
   "name": "my-agent-memory",
   "configuration": {
+    "embedding_model_type": "TEXT_EMBEDDING",
+    "embedding_model_id": "your-embedding-model-id",
+    "embedding_dimension": 1024,
+    "llm_id": "your-llm-model-id",
+    "disable_session": false,
+    "disable_history": false,
+    "strategies": [
+      {
+        "type": "SEMANTIC",
+        "namespace": ["user_id"]
+      }
+    ],
     "retention_policy": {
       "sessions": {
         "retention_days": 90,
@@ -76,6 +88,9 @@ POST /_plugins/_ml/memory_containers/_create
 }
 ```
 {% include copy-curl.html %}
+
+The `long-term` and `history` rules only take effect when the container is configured to store those memory types, which requires an LLM (`llm_id`) and one or more `strategies`. Without them, no long-term or history memory is generated, so those rules have nothing to act on. The `disable_session` and `disable_history` fields are shown as `false` for clarity, but that is their default and they can be omitted.
+{: .note}
 
 The background job (which runs every 24 hours by default) enforces these rules automatically.
 
@@ -129,6 +144,9 @@ You can set a policy when you create a container or update it later.
 ### At creation time
 
 Include `retention_policy` in the create request:
+
+This example assumes a container configured with an LLM (`llm_id`) and strategies, as shown in the [Quick start](#quick-start) example. Without them, the container never stores long-term or history memory, so those rules have nothing to act on.
+{: .note}
 
 ```json
 POST /_plugins/_ml/memory_containers/_create
@@ -541,6 +559,9 @@ The following examples show common retention configurations.
 
 This is a high-volume support agent that processes thousands of conversations daily. You want to keep only recent sessions and a moderate knowledge base:
 
+This example assumes a container configured with an LLM (`llm_id`) and strategies, as shown in the [Quick start](#quick-start) example. Without them, the container never stores long-term or history memory, so those rules have nothing to act on.
+{: .note}
+
 ```json
 POST /_plugins/_ml/memory_containers/_create
 {
@@ -569,6 +590,9 @@ In this example, sessions older than 7 days are deleted. If more than 1,000 non-
 ### Example 2: Research assistant with long memory
 
 This is a knowledge-heavy agent for which long-term memory is critical and conversations are secondary:
+
+This example assumes a container configured with an LLM (`llm_id`) and strategies, as shown in the [Quick start](#quick-start) example. Without them, the container never stores long-term or history memory, so those rules have nothing to act on.
+{: .note}
 
 ```json
 POST /_plugins/_ml/memory_containers/_create
