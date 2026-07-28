@@ -6,6 +6,9 @@ nav_order: 35
 
 # Java gRPC transport
 
+**Introduced 3.9.0**
+{: .label .label-purple }
+
 The OpenSearch Java gRPC transport provides a high-performance alternative to the default REST transport for supported operations. It uses [protocol buffers](https://protobuf.dev/) over [gRPC](https://grpc.io/) for binary serialization and HTTP/2 multiplexing, reducing payload size and improving throughput for bulk ingestion workloads.
 
 The gRPC transport is **transparent** — you use the same `OpenSearchClient` methods you already know (`client.bulk()`, `client.search()`, etc.). Supported operations are automatically routed over gRPC, while all other operations use REST. No code changes are required beyond transport configuration.
