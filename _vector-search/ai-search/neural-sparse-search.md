@@ -7,7 +7,6 @@ has_children: true
 redirect_from:
   - /search-plugins/neural-sparse-search/
   - /search-plugins/sparse-search/
-  - /search-plugins/neural-sparse-search/
 ---
 
 # Neural sparse search

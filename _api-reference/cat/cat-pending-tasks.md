@@ -81,3 +81,7 @@ response = client.cat.pending_tasks(
 insertOrder | timeInQueue | priority | source
   1786      |    1.8s     |  URGENT  | shard-started
 ```
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `cluster:monitor/task`.

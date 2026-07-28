@@ -6,7 +6,11 @@ grand_parent: PPL
 nav_order: 41
 ---
 
+<!-- vale off -->
+
 # search
+
+<!-- vale on -->
 
 The `search` command retrieves documents from the index. The `search` command can only be used as the first command in a PPL query.
 
@@ -134,7 +138,7 @@ Consider the following performance optimizations when working with different fie
 <!-- temporarily commented out because the admin section is not ported
 ## Cross-cluster search  
 
-Cross-cluster search lets any node in a cluster execute search requests against other clusters. Refer to [Cross-Cluster Search]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/admin/cross_cluster_search/) for configuration.
+Cross-cluster search lets any node in a cluster execute search requests against other clusters. Refer to [Cross-cluster search]({{site.url}}{{site.baseurl}}/search-plugins/cross-cluster-search/) for configuration.
 -->
 
 ## Example 1: Fetching all data
@@ -150,11 +154,15 @@ source=otellogs
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | spanId | traceId | @timestamp | instrumentationScope | severityText | resource | flags | attributes | droppedAttributesCount | severityNumber | time | body |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | span0001 | abcd1234efgh5678 | 2024-02-01 09:10:00 | {'name': '@opentelemetry/instrumentation-http', 'droppedAttributesCount': 0, 'version': '0.57.0'} | INFO | {'attributes': {'service': {'name': 'frontend'}, 'host': {'name': 'frontend-6b7b4c9f-x2kl9'}}, 'droppedAttributesCount': 0} | 0 | {} | 0 | 9 | 2024-02-01 09:10:00 | [2024-02-01T09:10:00.123Z] "GET /api/products HTTP/1.1" 200 - 1024 45 frontend-6b7b4c9f-x2kl9 |
 | span0002 | abcd1234efgh5678 | 2024-02-01 09:11:00 | {'name': 'Microsoft.Extensions.Hosting', 'droppedAttributesCount': 0, 'version': '9.0.0'} | INFO | {'attributes': {'service': {'name': 'cart'}, 'host': {'name': 'cart-5d8f7b-mk29s'}}, 'droppedAttributesCount': 0} | 0 | {} | 0 | 9 | 2024-02-01 09:11:00 | Order #1234 placed successfully by user U100 |
 | span0003 | abcd1234efgh5678 | 2024-02-01 09:12:00 | {'name': 'go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc', 'droppedAttributesCount': 0, 'version': '0.49.0'} | WARN | {'attributes': {'service': {'name': 'product-catalog'}, 'host': {'name': 'productcatalog-7c9d-zn4p2'}}, 'droppedAttributesCount': 0} | 0 | {} | 0 | 13 | 2024-02-01 09:12:00 | Slow query detected: SELECT \* FROM products WHERE category = 'electronics' took 3200ms |
+
+<!-- vale on -->
 
 
 ## Example 2: Searching text
@@ -172,9 +180,13 @@ search ERROR source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | severityText | body |
 | --- | --- |
 | ERROR | NullPointerException in CheckoutService.placeOrder at line 142 |
+
+<!-- vale on -->
   
 Phrase search requires quotation marks for multi-word exact matching:
   
@@ -187,9 +199,13 @@ search "Payment failed" source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | body |
 | --- |
 | Payment failed: connection timeout to payment gateway after 30000ms |
+
+<!-- vale on -->
 
 Multiple search terms (unquoted string literals) are automatically combined using the `AND` operator:
   
@@ -202,9 +218,13 @@ search connection timeout source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | body |
 | --- |
 | Payment failed: connection timeout to payment gateway after 30000ms |
+
+<!-- vale on -->
   
 `search connection timeout` is equivalent to `search connection AND timeout`. 
 {: .note}
@@ -223,10 +243,14 @@ search "connection timeout" OR "heap space" source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | body |
 | --- |
 | Payment failed: connection timeout to payment gateway after 30000ms |
 | Out of memory: Java heap space - shutting down pod payment-6f8d4b-ht7q3 |
+
+<!-- vale on -->
   
 
 ## Example 3: Boolean logic and operator precedence  
@@ -247,6 +271,8 @@ search severityText="ERROR" OR severityText="WARN" source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | severityText | resource.attributes.service.name |
 | --- | --- |
 | WARN | frontend-proxy |
@@ -261,6 +287,8 @@ The query returns the following results:
 | ERROR | product-catalog |
 | ERROR | recommendation |
 
+<!-- vale on -->
+
 Combine conditions with `AND` to require all criteria to match:
 
 ```sql
@@ -273,9 +301,13 @@ search severityText="INFO" AND `resource.attributes.service.name`="cart-service"
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | body |
 | --- |
 | Order #1234 placed successfully by user U100 |
+
+<!-- vale on -->
   
 ### Operator precedence
 
@@ -297,10 +329,14 @@ search severityText="ERROR" OR severityText="WARN" AND severityNumber>15 source=
 
 The preceding expression is evaluated as `(severityText="ERROR" OR severityText="WARN") AND severityNumber>15`. The query returns the following results:
   
+<!-- vale off -->
+
 | severityText | severityNumber |
 | --- | --- |
 | ERROR | 17 |
 | ERROR | 17 |
+
+<!-- vale on -->
 
 ## Example 4: Comparing NOT with != semantics
 
@@ -308,7 +344,7 @@ Both `!=` and `NOT` operators find documents in which the field value is not equ
 
 **!= operator**
 
-Excludes null values — only returns rows where the field exists and is not the specified value:
+Excludes null values---only returns rows where the field exists and is not the specified value:
 
 ```sql
 search instrumentationScope.name!="@opentelemetry/instrumentation-http" source=otellogs
@@ -319,13 +355,17 @@ search instrumentationScope.name!="@opentelemetry/instrumentation-http" source=o
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | instrumentationScope.name |
 | --- |
 | Microsoft.Extensions.Hosting |
 
+<!-- vale on -->
+
 **`NOT` operator**
 
-Includes null values — returns rows where the field is null or not the specified value:
+Includes null values---returns rows where the field is null or not the specified value:
 
 ```sql
 search NOT instrumentationScope.name="@opentelemetry/instrumentation-http" source=otellogs
@@ -337,6 +377,8 @@ search NOT instrumentationScope.name="@opentelemetry/instrumentation-http" sourc
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | instrumentationScope.name |
 | --- |
 | Microsoft.Extensions.Hosting |
@@ -344,6 +386,8 @@ The query returns the following results:
 | null |
 | null |
 | null |
+
+<!-- vale on -->
 
 ## Example 5: Querying ranges
 
@@ -360,11 +404,15 @@ search severityNumber>13 AND severityNumber<=21 source=otellogs
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | severityNumber |
 | --- |
 | 17 |
 | 17 |
 | 17 |
+
+<!-- vale on -->
 
 
 
@@ -385,11 +433,15 @@ search severityText=ERR* source=otellogs
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | severityText |
 | --- |
 | ERROR |
 | ERROR |
 | ERROR |
+
+<!-- vale on -->
 
 Wildcard searches also work within text fields to find partial matches:
 
@@ -404,10 +456,14 @@ search body=connection* source=otellogs
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | body |
 | --- |
 | Payment failed: connection timeout to payment gateway after 30000ms |
 | Connection pool 80% utilized on database replica db-replica-02 |
+
+<!-- vale on -->
 
 Use `?` to match exactly one character in specific positions:
 
@@ -421,11 +477,15 @@ search severityText="ERR?R" source=otellogs
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | severityText | resource.attributes.service.name |
 | --- | --- |
 | ERROR | payment |
 | ERROR | checkout |
 | ERROR | payment |
+
+<!-- vale on -->
 
 
 ## Example 7: Wildcard patterns in service name searches
@@ -447,10 +507,14 @@ search `resource.attributes.service.name`=payment* source=otellogs
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | severityText | resource.attributes.service.name | body |
 | --- | --- | --- |
 | ERROR | payment | Payment failed: connection timeout to payment gateway after 30000ms |
 | ERROR | payment | Out of memory: Java heap space - shutting down pod payment-6f8d4b-ht7q3 |
+
+<!-- vale on -->
 
 Combine wildcard patterns with other conditions for more precise filtering:
 
@@ -462,9 +526,13 @@ search firstname=A* AND age>30 source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | firstname | age | city |
 | --- | --- | --- |
 | Amber | 32 | Brogan |
+
+<!-- vale on -->
 
 ## Example 8: Field value matching  
 
@@ -481,6 +549,8 @@ search severityText IN ("ERROR", "WARN") source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | severityText | resource.attributes.service.name |
 | --- | --- |
 | WARN | product-catalog |
@@ -495,6 +565,8 @@ The query returns the following results:
 | ERROR | product-catalog |
 | ERROR | checkout |
 
+<!-- vale on -->
+
 
 Filter logs by `severityNumber` to find errors with a specific numeric severity level:
 
@@ -507,6 +579,8 @@ search severityNumber=17 source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | body | resource.attributes.service.name |
 | --- | --- |
 | Payment failed: connection timeout to payment gateway after 30000ms | payment |
@@ -516,6 +590,8 @@ The query returns the following results:
 | Failed to process recommendation request: invalid product ID from 203.0.113.50 | recommendation |
 | Database primary node unreachable: connection refused to db-primary-01:5432 | product-catalog |
 | Kafka producer delivery failed: message too large for topic order-events (max 1048576 bytes) | checkout |
+
+<!-- vale on -->
 
 ## Example 9: Using complex expressions  
 
@@ -532,11 +608,15 @@ search (severityText="ERROR" OR severityText="WARN") AND severityNumber>13 sourc
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | severityText |
 | --- |
 | ERROR |
 | ERROR |
 | ERROR |
+
+<!-- vale on -->
 
 ## Example 10: Using time modifiers  
 
@@ -556,12 +636,16 @@ search earliest='2024-02-01 09:13:00' latest='2024-02-01 09:16:00' source=otello
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | @timestamp | severityText |
 | --- | --- |
 | 2024-02-01 09:14:00 | DEBUG |
 | 2024-02-01 09:16:00 | INFO |
 | 2024-02-01 09:13:00 | ERROR |
 | 2024-02-01 09:15:00 | ERROR |
+
+<!-- vale on -->
   
 ### Relative time filtering
 
@@ -578,11 +662,15 @@ search latest=-30s source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | @timestamp | severityText |
 | --- | --- |
 | 2024-02-01 09:14:00 | DEBUG |
 | 2024-02-01 09:21:00 | DEBUG |
 | 2024-02-01 09:28:00 | DEBUG |
+
+<!-- vale on -->
   
 ### Time rounding
 
@@ -599,10 +687,14 @@ search latest='@m' source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | @timestamp | severityText |
 | --- | --- |
 | 2024-02-01 09:14:00 | DEBUG |
 | 2024-02-01 09:21:00 | DEBUG |
+
+<!-- vale on -->
   
 ### Unix timestamp filtering
 
@@ -618,6 +710,8 @@ search earliest=1706778600 latest=1706778960 source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | @timestamp | severityText |
 | --- | --- |
 | 2024-02-01 09:14:00 | DEBUG |
@@ -627,6 +721,8 @@ The query returns the following results:
 | 2024-02-01 09:12:00 | WARN |
 | 2024-02-01 09:13:00 | ERROR |
 | 2024-02-01 09:15:00 | ERROR |
+
+<!-- vale on -->
   
 
 ## Escaping special characters

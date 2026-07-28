@@ -6,7 +6,11 @@ grand_parent: PPL
 nav_order: 5
 ---
 
+<!-- vale off -->
+
 # append
+
+<!-- vale on -->
 
 The `append` command appends the results of a subsearch as additional rows to the end of the input search results (the main search).
 
@@ -46,6 +50,8 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | resource.attributes.service.name | error_count | warn_count |
 | --- | --- | --- |
 | checkout | 2 | null |
@@ -55,6 +61,8 @@ The query returns the following results:
 | product-catalog | 1 | null |
 | product-catalog | null | 2 |
 | recommendation | 1 | null |
+
+<!-- vale on -->
   
 
 ## Example 2: Appending summary rows to detail rows
@@ -73,6 +81,8 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | severityText | log_count |
 | --- | --- |
 | DEBUG | 3 |
@@ -80,6 +90,8 @@ The query returns the following results:
 | INFO | 6 |
 | WARN | 4 |
 | ALL | 20 |
+
+<!-- vale on -->
 
 ## Limitations
 

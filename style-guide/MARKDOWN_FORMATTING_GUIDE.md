@@ -1,36 +1,20 @@
-# Formatting Guide
+---
+title: Markdown Formatting Guide
+nav_order: 40
+---
 
-This guide provides an overview of the formatted elements commonly used in the OpenSearch documentation. 
+# Markdown Formatting Guide
 
-* * *
+This guide provides an overview of the Markdown and Jekyll formatting elements used in the OpenSearch documentation. For brand identity, naming conventions, and voice and tone, see the [Style Guide](STYLE_GUIDE.md). For grammar, punctuation, and word choice, see the [Writing Guide](WRITING_GUIDE.md). For content formatting conventions, see the [Text Formatting Guide](TEXT_FORMATTING_GUIDE.md).
 
-### Table of contents
-
-* [Adding pages or sections](#adding-pages-or-sections)
-* [Buttons](#buttons)
-* [Callouts](#callouts)
-* [Cards](#cards)
-* [Code blocks](#code-blocks)
-* [Collapsible blocks](#collapsible-blocks)
-* [Dashes](#dashes)
-* [Horizontal rule](#horizontal-rule)
-* [Images](#images)
-  * [Images in line with text](#images-in-line-with-text)
-* [Labels](#labels)
-* [Links](#links)
-* [Lists](#lists)
-  * [Unordered lists](#unordered-lists)
-  * [Ordered lists](#ordered-lists)
-  * [Nested lists](#nested-lists) 
-  * [Lists with code snippets or images](#lists-with-code-snippets-or-images)
-* [Math](#math)
-* [Steps](#steps)
-* [Tables](#tables)
-* [Text style](#text-style)
-* [Variables in curly braces](#variables-in-curly-braces)
-* [Videos](#videos)
-
-* * *
+<details markdown="block">
+  <summary>
+    Table of contents
+  </summary>
+  {: .text-delta }
+- TOC
+{:toc}
+</details>
 
 ## Adding pages or sections
 
@@ -38,7 +22,7 @@ This repository contains [Markdown](https://guides.github.com/features/mastering
 
 In addition to the content for a given page, each Markdown file contains some Jekyll [front matter](https://jekyllrb.com/docs/front-matter/) similar to the following:
 
-```
+```yaml
 ---
 layout: default
 title: Date
@@ -62,11 +46,11 @@ You can use either `copy` or `copy-curl` includes for code snippets formatted us
 
 **Example of a `copy` include**
 
-````
+````bash
 ```bash
 curl -XGET "localhost:9200/_tasks?actions=*search&detailed
 ```
-{% include copy.html %}
+{% raw %}{% include copy.html %}{% endraw %}
 ````
 
 **Example of a `copy-curl` include**
@@ -80,7 +64,7 @@ PUT /sample-index1/_clone/cloned-index1
   }
 }
 ```
-{% include copy-curl.html %}
+{% raw %}{% include copy-curl.html %}{% endraw %}
 ````
 
 ## Callouts
@@ -96,15 +80,15 @@ Place a callout directly under the paragraph to which you want to apply the call
 
 **Example**
 
-```
+```markdown
 In case of a cluster or node failure, all PIT data is lost.
 {: .note}
 ```
 
 For a callout with multiple paragraphs or lists, use `>`:
 
-```
->   ****PREREQUISITE****
+```markdown
+>   **PREREQUISITE**
 >
 >   To use a custom vector map with GeoJSON, install these two required plugins:
 >   * OpenSearch Dashboards Maps [`dashboards-maps`](https://github.com/opensearch-project/dashboards-maps_) front-end plugin
@@ -131,7 +115,7 @@ tutorial_cards:
 Insert an include in the page body where you want the cards to appear:
 
 ```
-{% include cards.html cards=page.tutorial_cards %}  
+{% raw %}{% include cards.html cards=page.tutorial_cards %}{% endraw %}  
 ```
 
 ## Code blocks
@@ -139,7 +123,7 @@ Insert an include in the page body where you want the cards to appear:
 There are two ways to format code blocks:
 
 1. **Single code block**: Use triple backticks and provide the highlighting language for the code block. For example, format a REST request in the following way:
-    ````json
+    ````
     ```json
     PUT /hotels-index
     {
@@ -157,12 +141,12 @@ There are two ways to format code blocks:
       }
     }
     ```
-    {% include copy-curl.html %}
+    {% raw %}{% include copy-curl.html %}{% endraw %}
     ````
     For information about the copy and copy as cURL button include, see [Buttons](#buttons).
 1. **Tabbed panel**: Use a tabbed panel to provide the same example in multiple programming languages. If using this method, the [buttons](#buttons) are inserted programmatically. Use the following syntax to provide the example in multiple languages. This example creates a tabbed panel with a **REST** and **Python** tabs:
-    ```` 
-    {% capture step1_rest %}
+    ````
+    {% raw %}{% capture step1_rest %}{% endraw %}
     PUT /hotels-index
     {
       "settings": {
@@ -178,9 +162,9 @@ There are two ways to format code blocks:
         }
       }
     }
-    {% endcapture %}
+    {% raw %}{% endcapture %}{% endraw %}
 
-    {% capture step1_python %}
+    {% raw %}{% capture step1_python %}{% endraw %}
     from opensearchpy import OpenSearch
 
     client.indices.create(
@@ -198,14 +182,13 @@ There are two ways to format code blocks:
             }
         }
     )
-    {% endcapture %}
+    {% raw %}{% endcapture %}{% endraw %}
 
-    {% include code-block.html 
+    {% raw %}{% include code-block.html 
         rest=step1_rest
-        python=step1_python %}
-    ``` 
+        python=step1_python %}{% endraw %}
     ````
-    The supported languages are listed in [this yaml file](/_data/code_languages.yml).
+    The supported languages are listed in [this yaml file](https://github.com/opensearch-project/documentation-website/blob/main/_data/code_languages.yml).
 
 ## Collapsible blocks
 
@@ -270,7 +253,7 @@ To insert a collapsible Table of contents, use the following markup:
 
 Use one dash for hyphens, two for en dashes, and three for em dashes:
 
-```
+```markdown
 upper-right
 10--12 nodes per cluster
 There is one candidate generator available---`direct_generator`.
@@ -280,7 +263,7 @@ There is one candidate generator available---`direct_generator`.
 
 A horizontal rule is used to separate text sections. Use three asterisks separated by spaces for a horizontal rule:
 
-```
+```markdown
 ## Why use OpenSearch?
 
 * * *
@@ -292,22 +275,22 @@ Place images in the `images` directory of the documentation website. To refer to
 
 Markdown images are responsive by default. To insert a Markdown image, use the `![<alternate text>](link)` syntax:
 
-```
-![OS branding]({{site.url}}{{site.baseurl}}/images/brand.png)
+```markdown
+![OS branding]({% raw %}{{site.url}}{% endraw %}{% raw %}{{site.baseurl}}{% endraw %}/images/brand.png)
 ```
 
 Markdown uses the image’s actual width to render it. It sets the maximum image width to the width of the main body panel.
 
-If you want to specify the image width, use Kramdown's inline attribute syntax after the image:
+If you want to specify the image width, use Kramdown’s inline attribute syntax after the image:
 
-```
-![OS branding]({{site.url}}{{site.baseurl}}/images/brand.png){: width="700" }
+```markdown
+![OS branding]({% raw %}{{site.url}}{% endraw %}{% raw %}{{site.baseurl}}{% endraw %}/images/brand.png){: width="700" }
 ```
 
 You can specify width as a hard-coded number of pixels, as in the preceding example, or as a percentage of the parent width:
 
-```
-![OS branding]({{site.url}}{{site.baseurl}}/images/brand.png){: width="70%" }
+```markdown
+![OS branding]({% raw %}{{site.url}}{% endraw %}{% raw %}{{site.baseurl}}{% endraw %}/images/brand.png){: width="70%" }
 ```
 
 To stretch the image to fit the width of the main body panel, use width=“100%”.
@@ -318,10 +301,10 @@ Image borders are automatic; do not manually add a border to an image.
 
 Always **separate an image from the text with a blank line**:
 
-```
+```markdown
 To send a query to OpenSearch, select the query by placing the cursor anywhere in the query text. Then choose the triangle on the top right of the request or press `Ctrl/Cmd+Enter`:
 
-<img src="{{site.url}}{{site.baseurl}}/images/dev-tools/dev-tools-send.png" alt="Send request">
+![Send request]({% raw %}{{site.url}}{% endraw %}{% raw %}{{site.baseurl}}{% endraw %}/images/dev-tools/dev-tools-send.png)
 ```
 
 Do not place an image next to text or insert artificial line breaks using `<br>`. Otherwise, the text might render as aligned to the bottom of the image, with the image on the right. 
@@ -332,8 +315,8 @@ If the image is under a list item, place it on a new line with a tab. For more e
 
 When describing an icon, use the icon's name followed by an inline image in parentheses. Insert the image in line with text using the `nomarkdown` extension and an HTML image:
 
-```
-Choose the play icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dev-tools/play-icon.png" class="inline-icon" alt="play icon"/>{:/}) on the upper right of the request.
+```markdown
+Choose the play icon ({::nomarkdown}<img src="{% raw %}{{site.url}}{% endraw %}{% raw %}{{site.baseurl}}{% endraw %}/images/dev-tools/play-icon.png" class="inline-icon" alt="play icon"/>{:/}) on the upper right of the request.
 ```
 
 ## Labels
@@ -348,17 +331,17 @@ You can use the following labels:
 
 Use a purple label to specify the version in which an API was introduced:
 
-```
+```markdown
 # Alias
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 ```
 
 If we introduce a breaking change to an operation, add an additional label with a link to the release note for that breaking change:
 
-```
+```markdown
 ## Get roles
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 [Last breaking change 2.0](https://example.com)
 {: .label .label-red }
@@ -368,7 +351,7 @@ Introduced 1.0
 
 To add a link to a document, section, or image, use the `[name](link)` syntax, for example:
 
-```
+```markdown
 ## Looking for the Javadoc?
 
 See [opensearch.org/javadocs/](https://opensearch.org/javadocs/).
@@ -378,7 +361,7 @@ See [opensearch.org/javadocs/](https://opensearch.org/javadocs/).
 
 **Section links** are links to headings in your document. Markdown lowercases the headings for links, drops back ticks, and replaces spaces with hyphens:
 
-```
+```markdown
 ## The `minimum_should_match` parameter
 
 For more information, see [the `minimum_should_match` parameter](#the-minimum_should_match-parameter).
@@ -386,17 +369,17 @@ For more information, see [the `minimum_should_match` parameter](#the-minimum_sh
 
 ### Internal links
 
-**Internal links** are links to another document or image within the documentation website. Because the documentation website is versioned, do not hard code the version number in the link. Use the relative path, where `{{site.url}}{{site.baseurl}}` refers to the main directory, instead:
+**Internal links** are links to another document or image within the documentation website. Because the documentation website is versioned, do not hard code the version number in the link. Use the relative path, where `{% raw %}{{site.url}}{% endraw %}{% raw %}{{site.baseurl}}{% endraw %}` refers to the main directory, instead:
 
-```
-If you need to use a field for exact-value search, map it as a [`keyword`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/keyword/).
+```markdown
+If you need to use a field for exact-value search, map it as a [`keyword`]({% raw %}{{site.url}}{% endraw %}{% raw %}{{site.baseurl}}{% endraw %}/opensearch/supported-field-types/keyword/).
 ```
 
 ### GitHub links
 
 When linking to a GitHub issue or PR, refer to the issue or PR number in the following format:
 
-```
+```markdown
 For more details, see issue [#1940](https://github.com/opensearch-project/opensearch/issues/1940).
 ```
 
@@ -408,14 +391,14 @@ Markdown supports unordered and ordered lists, nested lists, and lists with code
 
 Use asterisks or dashes for unordered lists:
 
-```
+```markdown
 * One
 * Two
 ```
 
 or
 
-```
+```markdown
 - One 
 - Two
 ```
@@ -428,7 +411,7 @@ Don’t mix and match asterisks and dashes.
 
 Use all 1s for ordered lists:
 
-```
+```markdown
 1. One 
 1. Two
 ```
@@ -437,7 +420,7 @@ Jekyll will automatically correctly number the items, and it will be much easier
 
 If there is a paragraph in the middle of a list, the list will restart with 1 after the paragraph. If you want to continue the list after the paragraph, use `counter-reset: none`:
 
-```
+```markdown
 1.  One
 
 Paragraph that breaks the numbering
@@ -450,7 +433,7 @@ Paragraph that breaks the numbering
 
 Use tabs to nest lists:
 
-```
+```markdown
 1. Parent 1
     - Child 1
     - Child 2
@@ -465,17 +448,17 @@ If you need to position an image or a code snippet within a list, use tabs to si
 
 **Example with code snippets**
 
-```
+```markdown
 1. Run the demo batch script.
    There are two ways of running the batch script:
    1. Run the batch script using the Windows UI:
-      1. Navigate to the top directory of your OpenSearch installation and open the `opensearch-{{site.opensearch_version}}` folder.
+      1. Navigate to the top directory of your OpenSearch installation and open the `opensearch-{% raw %}{{site.opensearch_version}}{% endraw %}` folder.
       1. Run the batch script by double-clicking the `opensearch-windows-install.bat` file. This opens a command prompt with an OpenSearch instance running.
    1. Run the batch script from Command prompt or Powershell:
       1. Open Command Prompt by entering `cmd`, or Powershell by entering `powershell`, in the search box next to ****Start**** on the taskbar. 
       1. Change to the top directory of your OpenSearch installation.
          ```bat
-         cd \path\to\opensearch-{{site.opensearch_version}}
+         cd \path\to\opensearch-{% raw %}{{site.opensearch_version}}{% endraw %}
          ```
       1. Run the batch script.
          ```bat
@@ -485,19 +468,19 @@ If you need to position an image or a code snippet within a list, use tabs to si
 
 **Example with images**
 
-```
+```markdown
 1. To begin, select the rule in the **Rule name** column. The rule details pane opens, as shown in the following image.
-    <img src="{{site.url}}{{site.baseurl}}/images/Security/rule-dup2.png" alt="Opening the rule details pane" width="50%">
+    ![Opening the rule details pane]({% raw %}{{site.url}}{% endraw %}{% raw %}{{site.baseurl}}{% endraw %}/images/Security/rule-dup2.png){: width="50%"}
 
 1. Select the **Duplicate** button in the upper-right corner of the pane. The **Duplicate rule** window opens in Visual Editor view, and all of the fields are automatically populated with the rule's details. Details are also populated in YAML Editor view, as shown in the following image.
-    <img src="{{site.url}}{{site.baseurl}}/images/Security/dupe-rule.png" alt="Selecting the duplicate button opens the Duplicate rule window" width="50%">
+    ![Selecting the duplicate button opens the Duplicate rule window]({% raw %}{{site.url}}{% endraw %}{% raw %}{{site.baseurl}}{% endraw %}/images/Security/dupe-rule.png){: width="50%"}
 ```
 
 ## Math
 
 To add mathematical expressions to a page, add `has_math: true` to the page’s front matter. Then insert LaTeX math into HTML tags with the rest of your Markdown content, as shown in the following example:
 
-```
+```markdown
 ## Math
 
 Some Markdown paragraph. Here's a formula:
@@ -512,7 +495,7 @@ And back to Markdown.
 
 Alternatively, you can use double dollar signs (`$$`) for both display and inline math directly in Markdown:
 
-```
+```markdown
 The probability of selecting pair $$i$$ is proportional to $$1 \over i^\alpha$$.
 ```
 
@@ -533,7 +516,7 @@ steps:
 Insert an include in the page body where you want the steps to appear:
 
 ```
-{% include list.html list_items=page.steps%}
+{% raw %}{% include list.html list_items=page.steps%}{% endraw %}
 ```
 
 ## Tables
@@ -550,7 +533,7 @@ Body 1 | Body 2, which is extremely lengthy, but there is no need to specify its
 
 To insert line breaks within tables, use `<br>`:
 
-```
+```html
 Header 1 | Header 2
 :--- | :---
 Body 1 | Body paragraph 1 <br> Body paragraph 2 
@@ -558,7 +541,7 @@ Body 1 | Body paragraph 1 <br> Body paragraph 2
 
 To use lists within a table, use `<br>` and `-` :
 
-```
+```html
 Header 1 | Header 2
 :--- | :---
 Body 1 | List:<br>- One<br>- Two
@@ -569,7 +552,7 @@ You can also use `&nbsp;` to insert one space, `&ensp;` to insert two spaces, an
 
 If you need a list with real bullet points, use the bullet point HTML code:
 
-```
+```html
 Header 1 | Header 2
 :--- | :---
 Body 1 | List:<br>&ensp;&#x2022; One<br>&ensp;&#x2022; Two
@@ -582,26 +565,32 @@ You can style text in the following ways:
 * ```**bold**```
 * ```_italic_``` or ```*italic*```
 
-For guidance on using code examples and when to use code font, see [Code examples](https://github.com/opensearch-project/documentation-website/blob/main/STYLE_GUIDE.md#code-examples).
+For guidance on using code examples and when to use code font, see [Code examples](TEXT_FORMATTING_GUIDE.md#code-examples).
 
 ## Variables in curly braces
 
-To correctly display variables that are in curly braces, escape the curly braces with the `{% raw %}{% endraw %}` tags:
+To correctly display variables that are in curly braces, escape the curly braces with the `{{ "{% raw " }}%}{{ "{% endraw " }}%}` tags:
 
 ````
 "message_template": {
-    "source": "the index is {% raw %}{{ctx.index}}{% endraw %}"
+    "source": "the index is {{ "{% raw " }}%}{% raw %}{{ctx.index}}{% endraw %}{{ "{% endraw " }}%}"
 }
 ````
 
-The variable `ctx.index` is rendered in double curly braces.
+The variable `ctx.index` is rendered in double curly braces:
+
+```json
+"message_template": {
+    "source": "the index is {% raw %}{{ctx.index}}{% endraw %}"
+}
+```
 
 ## Videos
 
 To insert a video, add a YouTube player include similar to the following:
 
 ```
-{% include youtube-player.html id='_g46WiGPhFs' %}
+{% raw %}{% include youtube-player.html id='_g46WiGPhFs' %}{% endraw %}
 ```
 
 Note that the `id` variable refers to the YouTube video ID at the end of the URL. For example, the YouTube video at the URL `https://youtu.be/_g46WiGPhFs` has the ID `_g46WiGPhFs`. The ID must be surrounded with single quotation marks.

@@ -28,7 +28,7 @@ By default, Dashboards shows results from the last 15 minutes of your data. To s
 
 For more information about building PPL queries, see [Piped Processing Language]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index/).
 
-### OpenSearch Dashboards Query Assistant
+### OpenSearch Dashboards query assistant
 
 Note that machine learning models are probabilistic and that some may perform better than others, so the OpenSearch Assistant may occasionally produce inaccurate information. We recommend evaluating outputs for accuracy as appropriate to your use case, including reviewing the output or combining it with other verification factors.
 {: .important}
@@ -37,7 +37,7 @@ To simplify query building, the **OpenSearch Assistant** toolkit offers an assis
 
 ![Sample OpenSearch Query Assist screen view]({{site.url}}{{site.baseurl}}/images/log-explorer-query-assist.png)
 
-#### Enabling Query Assistant
+#### Enabling query assistant
 
 By default, **Query Assistant** is enabled in OpenSearch Dashboards. To enable summarization of responses, locate your copy of the `opensearch_dashboards.yml` file and set the following option:
 
@@ -49,7 +49,7 @@ observability.summarize.error_summary_agent_name: "Error summary agent"
 
 To disable Query Assistant, add `observability.query_assist.enabled: false` to your `opensearch_dashboards.yml`. 
 
-#### Setting up Query Assistant
+#### Setting up query assistant
 
 To set up **Query Assistant**, follow the steps in the [Getting started guide](https://github.com/opensearch-project/dashboards-assistant/blob/main/GETTING_STARTED_GUIDE.md) on GitHub. This guide provides step-by-step setup instructions for **OpenSearch Assistant** and **Query Assistant**. To set up **Query Assistant** only, use the `query-assist-agent` template included in the guide.
 

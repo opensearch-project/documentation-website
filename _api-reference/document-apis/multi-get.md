@@ -700,3 +700,7 @@ Field | Data type | Description
 `fields` | Object | The stored fields for the document. Only included when `stored_fields` is specified in the request and `found` is `true`. Each field value is returned as an array.
 `_routing` | String | The routing value used to direct the document to a specific shard. Only included if a custom routing value was used.
 `error` | Object | Error information if the document could not be retrieved due to a failure. Contains details about the error type and reason.
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `indices:data/read/mget` and `indices:data/read/mget*`.

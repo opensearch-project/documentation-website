@@ -5,10 +5,9 @@ parent: Index management
 nav_order: 20
 redirect_from:
   - /dashboards/admin-ui-index/datastream/
-  - /opensearch/data-streams/
 ---
 
-# Data streams
+# Data streams in OpenSearch Dashboards
 Introduced 2.6
 {: .label .label-purple }
 

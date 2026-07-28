@@ -14,7 +14,7 @@ Restores a snapshot of a cluster or specified data streams and indexes.
 
 * For information about indexes and clusters, see [Introduction to OpenSearch]({{site.url}}{{site.baseurl}}/opensearch/index/).
 
-* For information about data streams, see [Data streams]({{site.url}}{{site.baseurl}}/opensearch/data-streams).
+* For information about data streams, see [Data streams]({{site.url}}{{site.baseurl}}/opensearch/data-streams/).
 
 If open indexes with the same name that you want to restore already exist in the cluster, you must close, delete, or rename the indexes. For information about renaming an index, see [Example requests](#example-requests). For information about closing an index, see [Close index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/close-index/).
 {: .note}
@@ -44,13 +44,13 @@ All request body parameters are optional.
 
 | Parameter | Data type | Description |
 :--- | :--- | :--- 
-| `ignore_unavailable` | Boolean | How to handle data streams or indices that are missing or closed. If `false`, the request returns an error for any data stream or index that is missing or closed. If `true`, the request ignores data streams and indices in indices that are missing or closed. Defaults to `false`. |
+| `ignore_unavailable` | Boolean | How to handle data streams or indexes that are missing or closed. If `false`, the request returns an error for any data stream or index that is missing or closed. If `true`, the request ignores data streams and indexes in indexes that are missing or closed. Defaults to `false`. |
 | `ignore_index_settings` | Boolean | A comma-delimited list of index settings that you don't want to restore from a snapshot. |
-| `include_aliases` | Boolean | How to handle index aliases from the original snapshot. If `true`, index aliases from the original snapshot are restored. If `false`, aliases along with associated indices are not restored. Defaults to `true`. |
+| `include_aliases` | Boolean | How to handle index aliases from the original snapshot. If `true`, index aliases from the original snapshot are restored. If `false`, aliases along with associated indexes are not restored. Defaults to `true`. |
 | `include_global_state` | Boolean | Whether to restore the current cluster state<sup>1</sup>. If `false`, the cluster state is not restored. If true, the current cluster state is restored. Defaults to `false`.|
-| `index_settings` | String | A comma-delimited list of settings to add or change in all restored indices. Use this parameter to override index settings during snapshot restoration. For data streams, these index settings are applied to the restored backing indices. |
-| `indices` | String | A comma-delimited list of data streams and indices to restore from the snapshot. Multi-index syntax is supported. By default, a restore operation includes all data streams and indices in the snapshot. If this argument is provided, the restore operation only includes the data streams and indices that you specify. |
-| `partial` | Boolean | How the restore operation will behave if indices in the snapshot do not have all primary shards available. If `false`, the entire restore operation fails if any indices in the snapshot do not have all primary shards available. <br /> <br />If `true`, allows the restoration of a partial snapshot of indices with unavailable shards. Only shards that were successfully included in the snapshot are restored. All missing shards are recreated as empty. By default, the entire restore operation fails if one or more indices included in the snapshot do not have all primary shards available. To change this behavior, set `partial` to `true`. Defaults to `false`. |
+| `index_settings` | String | A comma-delimited list of settings to add or change in all restored indexes. Use this parameter to override index settings during snapshot restoration. For data streams, these index settings are applied to the restored backing indexes. |
+| `indices` | String | A comma-delimited list of data streams and indexes to restore from the snapshot. Multi-index syntax is supported. By default, a restore operation includes all data streams and indexes in the snapshot. If this argument is provided, the restore operation only includes the data streams and indexes that you specify. |
+| `partial` | Boolean | How the restore operation will behave if indexes in the snapshot do not have all primary shards available. If `false`, the entire restore operation fails if any indexes in the snapshot do not have all primary shards available. <br /> <br />If `true`, allows the restoration of a partial snapshot of indexes with unavailable shards. Only shards that were successfully included in the snapshot are restored. All missing shards are recreated as empty. By default, the entire restore operation fails if one or more indexes included in the snapshot do not have all primary shards available. To change this behavior, set `partial` to `true`. Defaults to `false`. |
 | `rename_pattern` | String | The pattern to apply to the restored data streams and indexes. Data streams and indexes matching the rename pattern will be renamed according to the `rename_replacement` setting. <br /><br /> The rename pattern is applied as defined by the regular expression that supports referencing the original text. <br /> <br /> The request fails if two or more data streams or indexes are renamed to the same name. If you rename a restored data stream, its backing indexes are also renamed. For example, if you rename the logs data stream to `recovered-logs`, the backing index `.ds-logs-1` is renamed to `.ds-recovered-logs-1`. <br /> <br /> If you rename a restored stream, ensure an index template matches the new stream name. If there are no matching index template names, the stream cannot roll over, and new backing indexes are not created.|
 | `rename_replacement` | String | The rename replacement string.|
 | `rename_alias_pattern` | String | The pattern to apply to the restored aliases. Aliases matching the rename pattern will be renamed according to the `rename_alias_replacement` setting. <br /><br /> The rename pattern is applied as defined by the regular expression that supports referencing the original text. <br /> <br /> If two or more aliases are renamed to the same name, these aliases will be merged into one.|
@@ -190,7 +190,7 @@ Upon success, the response returns the following JSON object:
 }
 ```
 
-Except for the snapshot name, all properties are empty or `0`. This is because any changes made to the volume after the snapshot was generated are lost. However, if you invoke the [Get snapshot]({{site.url}}{{site.baseurl}}/api-reference/snapshots/get-snapshot) API to examine the snapshot, a fully populated snapshot object is returned. 
+Except for the snapshot name, all properties are empty or `0`. This is because any changes made to the volume after the snapshot was generated are lost. However, if you invoke the [Get snapshot]({{site.url}}{{site.baseurl}}/api-reference/snapshots/get-snapshot/) API to examine the snapshot, a fully populated snapshot object is returned. 
 
 ## Response body fields
 
@@ -198,9 +198,9 @@ The following table lists all available response body fields.
 
 | Field | Data type | Description |
 | :--- | :--- | :--- | 
-| `snapshot` | string | Snapshot name. |
-| `indices` | array | Indices in the snapshot. |
-| `shards` | object | Total number of shards created along with number of successful and failed shards. |
+| `snapshot` | String | Snapshot name. |
+| `indices` | Array | Indexes in the snapshot. |
+| `shards` | Object | Total number of shards created along with number of successful and failed shards. |
 
 If open indexes in a snapshot already exist in a cluster, and you don't delete, close, or rename them, the API returns an error similar to the following:
 
@@ -219,3 +219,7 @@ If open indexes in a snapshot already exist in a cluster, and you don't delete, 
   "status" : 500
 }
 ```
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `cluster:admin/snapshot/restore`.

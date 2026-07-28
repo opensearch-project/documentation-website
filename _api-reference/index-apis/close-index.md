@@ -79,3 +79,7 @@ response = client.indices.close(
   }
 }
 ```
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `indices:admin/close` and `indices:admin/close*`.

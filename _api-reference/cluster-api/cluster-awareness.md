@@ -109,8 +109,8 @@ The following table lists the available request body fields for the `PUT` and `D
 
 | Parameter  | Data type | Applicable method | Description  |
 | :--- | :--- | :--- | :--- |
-| `weights`  | Object    | `PUT` | Specifies custom weights for the awareness attribute values. The weights influence how search requests are distributed across zones or other awareness attribute values. Weights are relative and can use any ratio. For example, in a `2:3:5` ratio across three zones, 20%, 30%, and 50% of requests are routed to the respective zones. A weight of `0` excludes a zone from receiving search traffic. Required for the `PUT` method. |
-| `_version` | Integer    | `PUT`, `DELETE` | Used for optimistic concurrency control (OCC). Ensures that changes are applied only if the current version matches, preventing conflicting updates. The version is incremented after each succesful `PUT` or `DELETE` operation. To initiate concurrency control, you must set `_version` to `-1` in the initial request. Required for the `PUT` and `DELETE` methods. |
+| `weights` | Object | `PUT` | Specifies custom weights for the awareness attribute values. The weights influence how search requests are distributed across zones or other awareness attribute values. Weights are relative and can use any ratio. For example, in a `2:3:5` ratio across three zones, 20%, 30%, and 50% of requests are routed to the respective zones. A weight of `0` excludes a zone from receiving search traffic. Required for the `PUT` method. |
+| `_version` | Integer | `PUT`, `DELETE` | Used for optimistic concurrency control (OCC). Ensures that changes are applied only if the current version matches, preventing conflicting updates. The version is incremented after each succesful `PUT` or `DELETE` operation. To initiate concurrency control, you must set `_version` to `-1` in the initial request. Required for the `PUT` and `DELETE` methods. |
 
 
 ## Example request: Weighted round-robin search

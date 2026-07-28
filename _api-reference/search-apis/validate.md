@@ -336,8 +336,6 @@ When both the `rewrite` and `all_shards` options are set to `true`, the Validate
 }
 ```
 
+## Required permissions
 
-
-
-
-
+If you use the Security plugin, make sure you have the appropriate permissions: `indices:admin/validate/query`.

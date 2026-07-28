@@ -22,7 +22,7 @@ There are many ways to design a cluster. The following illustration shows a basi
 
 ![multi-node cluster architecture diagram]({{site.url}}{{site.baseurl}}/images/cluster.png)
 
-The master node is now referred to as the cluster manager node.
+The former "master node" is now referred to as the cluster manager node.
    {: .note }
 
 ### Nodes
@@ -32,7 +32,7 @@ The following table provides brief descriptions of the node types:
 Node type | Description | Best practices for production
 :--- | :--- | :-- |
 Cluster manager node | Manages the overall operation of a cluster and keeps track of the cluster state. This includes creating and deleting indexes, keeping track of the nodes that join and leave the cluster, checking the health of each node in the cluster (by running ping requests), and allocating shards to nodes. | Three dedicated cluster manager nodes in three different zones is the right approach for almost all production use cases. This configuration ensures your cluster never loses quorum. Two nodes will be idle for most of the time except when one node goes down or needs some maintenance.
-Cluster manager eligible node | Elects one node among them as the cluster manager node through a voting process. | For production clusters, make sure you have dedicated cluster manager nodes. The way to achieve a dedicated node type is to mark all other node types as false. In this case, you have to mark all the other nodes as not cluster manager eligible.
+Cluster-manager-eligible node | Elects one node among them as the cluster manager node through a voting process. | For production clusters, make sure you have dedicated cluster manager nodes. The way to achieve a dedicated node type is to mark all other node types as false. In this case, you have to mark all the other nodes as not cluster manager eligible.
 Data node | Stores and searches data. Performs all data-related operations (indexing, searching, aggregating) on local shards. These are the worker nodes of your cluster and need more disk space than any other node type. | As you add data nodes, keep them balanced between zones. For example, if you have three zones, add data nodes in multiples of three, one for each zone. We recommend using storage and RAM-heavy nodes.
 Ingest node | Pre-processes data before storing it in the cluster. Runs an ingest pipeline that transforms your data before adding it to an index. | If you plan to ingest a lot of data and run complex ingest pipelines, we recommend you use dedicated ingest nodes. You can also optionally offload your indexing from the data nodes so that your data nodes are used exclusively for searching and aggregating.
 Coordinating node | Delegates client requests to the shards on the data nodes, collects and aggregates the results into one final result, and sends this result back to the client. | A couple of dedicated coordinating-only nodes is appropriate to prevent bottlenecks for search-heavy workloads. We recommend using CPUs with as many cores as you can.
@@ -169,7 +169,7 @@ After you set the configurations, start OpenSearch on all nodes:
 sudo systemctl start opensearch.service
 ```
 
-Installing OpenSearch from a tar archive will not automatically create a service with `systemd`. See [Run OpenSearch as a service with systemd]({{site.url}}{{site.baseurl}}/opensearch/install/tar/#run-opensearch-as-a-service-with-systemd) for instructions on how to create and start the service if you receive an error like `Failed to start opensearch.service: Unit not found.`
+Installing OpenSearch from a tar archive will not automatically create a service with `systemd`. See [Run OpenSearch as a service with `systemd`]({{site.url}}{{site.baseurl}}/opensearch/install/tar/#run-opensearch-as-a-service-with-systemd) for instructions on how to create and start the service if you receive an error like `Failed to start opensearch.service: Unit not found.`
 {: .tip}
 
 Then go to the logs file to see the formation of the cluster:
@@ -372,7 +372,7 @@ In this case, all primary shards are allocated to `opensearch-d2`. Again, all re
 
 A popular approach is to configure your [index templates]({{site.url}}{{site.baseurl}}/opensearch/index-templates/) to set the `index.routing.allocation.require.temp` value to `hot`. This way, OpenSearch stores your most recent data on your hot nodes.
 
-You can then use the [Index State Management (ISM)]({{site.url}}{{site.baseurl}}/im-plugin/) plugin to periodically check the age of an index and specify actions to take on it. For example, when the index reaches a specific age, change the `index.routing.allocation.require.temp` setting to `warm` to automatically move your data from hot nodes to warm nodes.
+You can then use the [Index State Management (ISM)]({{site.url}}{{site.baseurl}}/im-plugin/) plugin to periodically check the age of an index and specify actions to take on it. For example, when the index reaches a specific age, change the `index.routing.allocation.require.temp` setting to `warm` in order to automatically move your data from hot nodes to warm nodes.
 
 ## Next steps
 

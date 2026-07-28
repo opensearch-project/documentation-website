@@ -41,7 +41,7 @@ Before creating a custom OpenSearch Benchmark workload, make sure you have the f
 
 To begin creating a custom OpenSearch Benchmark workload, use the `opensearch-benchmark create-workload` command.
 
-```
+```bash
 opensearch-benchmark create-workload \
 --workload="<WORKLOAD NAME>" \
 --target-hosts="<CLUSTER ENDPOINT>" \
@@ -60,7 +60,7 @@ Replace the following options in the preceding example with information specific
 
 The following example response creates a workload named `movies` from a cluster with an index named `movies-info`. The `movies-info` index contains over 2,000 documents.
 
-```
+```bash
    ____                  _____                      __       ____                  __                         __
   / __ \____  ___  ____ / ___/___  ____ ___________/ /_     / __ )___  ____  _____/ /_  ____ ___  ____ ______/ /__
  / / / / __ \/ _ \/ __ \\__ \/ _ \/ __ `/ ___/ ___/ __ \   / __  / _ \/ __ \/ ___/ __ \/ __ `__ \/ __ `/ ___/ //_/
@@ -115,13 +115,12 @@ To build a workload with source files, create a directory for your workload and 
 
 1. Build a `<index>-documents.json` file that contains rows of documents that comprise the document corpora of the workload and houses all data to be ingested and queried into the cluster. The following example shows the first few rows of a `movies-documents.json` file that contains rows of documents about famous movies:
 
-   ```json
-  # First few rows of movies-documents.json
+  ```json
   {"title": "Back to the Future", "director": "Robert Zemeckis", "revenue": "$212,259,762 USD", "rating": "8.5 out of 10",  "image_url": "https://imdb.com/images/32"}
   {"title": "Avengers: Endgame", "director": "Anthony and Joe Russo", "revenue": "$2,800,000,000 USD", "rating": "8.4 out   of 10", "image_url": "https://imdb.com/images/2"}
   {"title": "The Grand Budapest Hotel", "director": "Wes Anderson", "revenue": "$173,000,000 USD", "rating": "8.1 out of 10", "image_url": "https://imdb.com/images/65"}
   {"title": "The Godfather: Part II", "director": "Francis Ford Coppola", "revenue": "$48,000,000 USD", "rating": "9 out of 10", "image_url": "https://imdb.com/images/7"}
-   ```
+  ```
 
 2. In the same directory, build a `index.json` file. The workload uses this file as a reference for data mappings and index settings for the documents contained in `<index>-documents.json`. The following example creates mappings and settings specific to the `movie-documents.json` data from the previous step:
 
@@ -255,7 +254,7 @@ The corpora section refers to the source file created in step one, `movie-docume
 
 For all the workload files created, verify that the workload is functional by running a test. To verify the workload, run the following command, replacing `--workload-path` with a path to your workload directory:
 
-```
+```bash
 opensearch-benchmark list workloads --workload-path=</path/to/workload/>
 ```
 
@@ -263,7 +262,7 @@ opensearch-benchmark list workloads --workload-path=</path/to/workload/>
 
 Use the `opensearch-benchmark run` command to invoke your new workload and run a benchmark test against your OpenSearch cluster, as shown in the following example. Replace `--workload-path` with the path to your custom workload, `--target-host` with the `host:port` pairs for your cluster, and `--client-options` with any authorization options required to access the cluster.
 
-```
+```bash
 opensearch-benchmark run \
 --pipeline="benchmark-only" \
 --workload-path="<PATH OUTPUTTED IN THE OUTPUT OF THE CREATE-WORKLOAD COMMAND>" \
@@ -283,13 +282,13 @@ If you want to run the test in test mode to make sure your workload operates as 
 
 To use test mode, create a `<index>-documents-1k.json` file that contains the first 1000 documents from `<index>-documents.json` using the following command:
 
-```
+```bash
 head -n 1000 <index>-documents.json > <index>-documents-1k.json
 ```
 
 Then, run `opensearch-benchmark run` with the option `--test-mode`. Test mode runs a quick version of the workload test.
 
-```
+```bash
 opensearch-benchmark run \
 --pipeline="benchmark-only"  \
 --workload-path="<PATH OUTPUTTED IN THE OUTPUT OF THE CREATE-WORKLOAD COMMAND>" \
@@ -389,4 +388,4 @@ If you want to make your `workload.json` file more readable, you can separate yo
 ## Next steps
 
 - For more information about configuring OpenSearch Benchmark, see [Configuring OpenSearch Benchmark]({{site.url}}{{site.baseurl}}/benchmark/configuring-benchmark/).
-- To show a list of prepackaged workloads for OpenSearch Benchmark, see the [opensearch-benchmark-workloads](https://github.com/opensearch-project/opensearch-benchmark-workloads) repository.
+- To show a list of prepackaged workloads for OpenSearch Benchmark, see the [`opensearch-benchmark-workloads`](https://github.com/opensearch-project/opensearch-benchmark-workloads) repository.

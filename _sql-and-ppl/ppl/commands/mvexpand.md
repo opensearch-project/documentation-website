@@ -6,7 +6,11 @@ grand_parent: PPL
 nav_order: 31
 ---
 
+<!-- vale off -->
+
 # mvexpand
+
+<!-- vale on -->
 
 The `mvexpand` command expands each value in a multivalue (array) field into a separate row. For each document, every element in the specified array field is returned as its own row.
 
@@ -43,11 +47,15 @@ source=people
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | tags |
 | --- |
 | error |
 | warning |
 | info |
+
+<!-- vale on -->
 
 ## Example 2: Limiting the number of expanded rows
 
@@ -65,11 +73,15 @@ source=people
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | ids |
 | --- |
 | 1 |
 | 2 |
 | 3 |
+
+<!-- vale on -->
 
 ## Example 3: Expanding nested fields
 
@@ -86,11 +98,15 @@ source=people
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | projects.name |
 | --- |
 | AWS Redshift Spectrum querying |
 | AWS Redshift security |
 | AWS Aurora security |
+
+<!-- vale on -->
 
 ## Example 4: Single-value array
 
@@ -108,9 +124,13 @@ source=people
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | tags |
 | --- |
 | error |
+
+<!-- vale on -->
 
 ## Example 5: Missing fields
 

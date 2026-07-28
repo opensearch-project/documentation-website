@@ -46,7 +46,9 @@ AG-UI agents use the unified registration method to streamline agent creation in
 
 For complete registration instructions, field definitions, and examples for all supported model providers (Amazon Bedrock, Google Gemini, OpenAI), see [Unified registration method]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/register-agent/#unified-agent-registration).
 
+<!-- vale off -->
 ### Example request: Amazon Bedrock Converse
+<!-- vale on -->
 
 ```json
 POST /_plugins/_ml/agents/_register
@@ -82,7 +84,9 @@ POST /_plugins/_ml/agents/_register
 ```
 {% include copy-curl.html %}
 
+<!-- vale off -->
 ### Example request: OpenAI Chat Completion
+<!-- vale on -->
 
 ```json
 POST /_plugins/_ml/agents/_register

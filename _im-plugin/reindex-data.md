@@ -2,8 +2,6 @@
 layout: default
 title: Reindex data
 nav_order: 30
-redirect_from:
-  - /opensearch/reindex-data/
 ---
 
 # Reindex data
@@ -12,7 +10,7 @@ After creating an index, you might need to make an extensive change such as addi
 
 With the `reindex` operation, you can copy all or a subset of documents that you select through a query to another index. Reindex is a `POST` operation. In its most basic form, you specify a source index and a destination index.
 
-Reindexing can be an expensive operation depending on the size of your source index. We recommend you disable replicas in your destination index by setting `number_of_replicas` to `0` and re-enable them once the reindex process is complete.
+Reindexing can be an expensive operation depending on the size of your source index. We recommend you disable replicas in your destination index by setting `number_of_replicas` to `0` and reenable them once the reindex process is complete.
 {: .note }
 
 For a complete API reference with all parameters and advanced options, see the [Reindex Documents API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/reindex/).
@@ -138,7 +136,7 @@ POST _reindex
 }
 ```
 
-For a list of all query operations, see [Full-text queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/index).
+For a list of all query operations, see [Full-text queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/index/).
 
 ## Combine one or more indexes
 

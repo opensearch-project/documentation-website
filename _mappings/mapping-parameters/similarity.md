@@ -9,7 +9,7 @@ has_children: false
 has_toc: false
 ---
 
-# Similarity
+# Similarity mapping parameter
 
 The `similarity` mapping parameter lets you customize how relevance scores are calculated for a text field during search. It defines the scoring algorithm used to rank matching documents, which directly impacts how results are ordered in search responses.
 

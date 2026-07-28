@@ -6,7 +6,11 @@ grand_parent: PPL
 nav_order: 13
 ---
 
+<!-- vale off -->
+
 # eval
+
+<!-- vale on -->
 
 The `eval` command evaluates the specified expression and appends the result of the evaluation to the search results.
 
@@ -49,17 +53,21 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | severityText | is_critical |
 | --- | --- |
 | DEBUG | no |
 | INFO | no |
 | WARN | no |
 | ERROR | yes |
+
+<!-- vale on -->
   
 
-## Example 2: Finding untraced errors  
+## Example 2: Finding errors without traces  
 
-The following query creates two boolean fields to identify error logs and whether they have distributed tracing context. Untraced errors are harder to debug because you can't follow the request across services:
+The following query creates two Boolean fields to identify error logs and whether they have distributed tracing context. Errors that are not traced are harder to debug because you can't follow the request across services:
   
 ```sql
 source=otellogs
@@ -73,6 +81,8 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | resource.attributes.service.name | is_error | is_traced |
 | --- | --- | --- |
 | checkout | True | True |
@@ -82,6 +92,8 @@ The query returns the following results:
 | payment | True | False |
 | product-catalog | True | False |
 | recommendation | True | True |
+
+<!-- vale on -->
   
 
 ## Example 3: Building a standardized log line  
@@ -101,9 +113,13 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | formatted |
 | --- |
 | [WARN] SSL certificate for api.example.com expires in 14 days |
 | [WARN] Rate limit threshold reached: 450/500 requests per minute for API key ending in ...abc789 |
 | [WARN] Slow query detected: SELECT \* FROM products WHERE category = 'electronics' took 3200ms |
+
+<!-- vale on -->
   

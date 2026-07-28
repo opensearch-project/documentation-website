@@ -11,7 +11,7 @@ redirect_from:
 
 # PPL visualizations
 
-PPL (Piped Processing Language) visualizations enable data processing and visualization using PPL queries. Selecting **PPL** from the **New Visualization** dialog opens the Observability Logs Explorer, where you write a PPL query and map the results to a chart.
+Piped Processing Language (PPL) visualizations enable data processing and visualization using PPL queries. Selecting **PPL** from the **New Visualization** dialog opens the Observability Logs Explorer, where you write a PPL query and map the results to a chart.
 
 ## When to use PPL visualizations
 

@@ -5,7 +5,7 @@ parent: Authentication backends
 nav_order: 75
 ---
 
-# Kerberos
+# Kerberos authentication
 
 Kerberos is a robust and secure method for user authentication that prevents passwords from being sent over the internet by issuing "tickets" for secure identity verification.
 

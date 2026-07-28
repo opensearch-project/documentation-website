@@ -12,7 +12,7 @@ redirect_from:
 # indices
 <!-- vale on -->
 
-The `indices` element contains a list of all indices used in the workload. 
+The `indices` element contains a list of all indexes used in the workload. 
 
 ## Example
 

@@ -6,7 +6,11 @@ grand_parent: PPL
 nav_order: 4
 ---
 
+<!-- vale off -->
+
 # addtotals
+
+<!-- vale on -->
 
 The `addtotals` command computes the sum of numeric fields and can create both column totals (summary row) and row totals (new field). This command is useful for creating summary reports with subtotals or grand totals.
 
@@ -52,6 +56,8 @@ source=otellogs
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | resource.attributes.service.name | errors | warnings | Total |
 | --- | --- | --- | --- |
 | checkout | 2 | 0 | 2 |
@@ -60,6 +66,8 @@ The query returns the following results:
 | product-catalog | 1 | 2 | 3 |
 | recommendation | 1 | 0 | 1 |
 | Total | 7 | 4 | null |
+
+<!-- vale on -->
 
 ## Example 2: Adding row totals
 
@@ -79,6 +87,8 @@ source=otellogs
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | resource.attributes.service.name | errors | warnings | total_issues |
 | --- | --- | --- | --- |
 | checkout | 2 | 0 | 2 |
@@ -86,6 +96,8 @@ The query returns the following results:
 | payment | 2 | 0 | 2 |
 | product-catalog | 1 | 2 | 3 |
 | recommendation | 1 | 0 | 1 |
+
+<!-- vale on -->
 
 ## Example 3: Using all options
 
@@ -105,6 +117,8 @@ source=otellogs
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | resource.attributes.service.name | errors | warnings | Row Total | Column Total |
 | --- | --- | --- | --- | --- |
 | checkout | 2 | 0 | 2 | null |
@@ -113,3 +127,5 @@ The query returns the following results:
 | product-catalog | 1 | 2 | 3 | null |
 | recommendation | 1 | 0 | 1 | null |
 | null | 7 | 4 | null | Sum |
+
+<!-- vale on -->

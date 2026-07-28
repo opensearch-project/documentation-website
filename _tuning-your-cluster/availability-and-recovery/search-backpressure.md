@@ -124,7 +124,7 @@ search_backpressure.cancellation_burst<br> *Deprecated in 2.6. Replaced by searc
 Introduced 2.4
 {: .label .label-purple }
 
-You can use the [nodes stats API operation]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-stats) to monitor server-side request cancellations.
+You can use the [nodes stats API operation]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-stats/) to monitor server-side request cancellations.
 
 #### Example request
 
@@ -220,7 +220,7 @@ The response contains server-side request cancellation statistics:
 
 The response contains the following fields.
 
-Field Name | Data type | Description
+Field name | Data type | Description
 :--- | :--- | :---
 `search_backpressure` | Object | Statistics about search backpressure.
 `search_backpressure.search_task` | Object | Statistics for search tasks. Contains resource tracker statistics for individual cancellation criteria (heap, CPU, elapsed time) and a summary of all cancellation activity across these trackers.
@@ -239,7 +239,7 @@ The `resource_tracker_stats` object contains the statistics for each resource tr
 
 The `elapsed_time_tracker` object contains the following statistics related to the elapsed time.
 
-Field Name | Data type | Description
+Field name | Data type | Description
 :--- | :--- | :---
 `cancellation_count` | Integer | The number of tasks marked for cancellation because of excessive elapsed time since the node last restarted.
 `current_max_millis` | Integer | The maximum elapsed time for all tasks currently running on the node, in milliseconds.
@@ -249,7 +249,7 @@ Field Name | Data type | Description
 
 The `heap_usage_tracker` object contains the following statistics related to the heap usage.
 
-Field Name | Data type | Description
+Field name | Data type | Description
 :--- | :--- | :---
 `cancellation_count` | Integer | The number of tasks marked for cancellation because of excessive heap usage since the node last restarted.
 `current_max_bytes` | Integer | The maximum heap usage for all tasks currently running on the node, in bytes.
@@ -260,7 +260,7 @@ Field Name | Data type | Description
 
 The `cpu_usage_tracker` object contains the following statistics related to the CPU usage.
 
-Field Name | Data type | Description
+Field name | Data type | Description
 :--- | :--- | :---
 `cancellation_count` | Integer | The number of tasks marked for cancellation because of excessive CPU usage since the node last restarted.
 `current_max_millis` | Integer | The maximum CPU time for all tasks currently running on the node, in milliseconds.
@@ -270,10 +270,10 @@ Field Name | Data type | Description
 
 The `cancellation_stats` object contains the following statistics for the tasks that are marked for cancellation.
 
-Field Name | Data type | Description
+Field name | Data type | Description
 :--- | :--- | :---
 `cancellation_count` | Integer | The total number of tasks marked for cancellation since the node last restarted.
 `cancellation_limit_reached_count` | Integer | The number of times when the number of tasks eligible for cancellation exceeded the set cancellation threshold.
 
-Each resource tracker (heap, CPU, elapsed time) independently identifies tasks that breach its thresholds and increments its own `cancellation_count`. Since a single task may breach multiple resource thresholds, the sum of resource tracker `cancellation_count` values may exceed the top-level `cancellation_count`, which represents the actual number of unique tasks that were cancelled. The `cancellation_limit_reached_count` increments when the cancellation rate limit is reached during an observer iteration, preventing additional cancellations in that iteration.
+Each resource tracker (heap, CPU, elapsed time) independently identifies tasks that breach its thresholds and increments its own `cancellation_count`. Since a single task may breach multiple resource thresholds, the sum of resource tracker `cancellation_count` values may exceed the top-level `cancellation_count`, which represents the actual number of unique tasks that were canceled. The `cancellation_limit_reached_count` increments when the cancellation rate limit is reached during an observer iteration, preventing additional cancellations in that iteration.
 {: .note}

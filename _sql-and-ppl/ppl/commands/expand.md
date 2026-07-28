@@ -6,7 +6,11 @@ grand_parent: PPL
 nav_order: 15
 ---
 
+<!-- vale off -->
+
 # expand
+
+<!-- vale on -->
 
 The `expand` command transforms a single document with a nested array field into multiple documents, each containing one element of the array. All other fields in the original document are duplicated across the resulting documents.
 
@@ -51,12 +55,16 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | severityText | service |
 | --- | --- |
 | WARN | product-catalog |
 | WARN | product-catalog |
 | WARN | frontend-proxy |
 | WARN | frontend-proxy |
+
+<!-- vale on -->
   
 
 ## Limitations

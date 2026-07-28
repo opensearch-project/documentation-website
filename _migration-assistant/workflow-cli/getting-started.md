@@ -85,7 +85,7 @@ The migration pattern depends on which top-level configuration sections are pres
 The minimum required fields for a backfill-only migration are `sourceClusters` (with `version` and `snapshotInfo`), `targetClusters` (with `endpoint`), and `snapshotMigrationConfigs` (with `fromSource`, `toTarget`, and `perSnapshotConfig`).
 {: .note }
 
-For complete configuration examples, see the [Playbooks]({{site.url}}{{site.baseurl}}/migration-assistant/playbooks/).
+For an interactive reference of all available fields, their types, defaults, and descriptions, see the [Migration Assistant Schema Viewer](https://opensearch-project.github.io/opensearch-migrations/). For complete configuration examples, see the [Playbooks]({{site.url}}{{site.baseurl}}/migration-assistant/playbooks/).
 
 ## Step 5 (Optional): Create authentication secrets
 

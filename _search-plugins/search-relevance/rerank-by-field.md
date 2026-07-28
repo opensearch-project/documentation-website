@@ -47,6 +47,8 @@ PUT /_search/pipeline/rerank_byfield_pipeline
 
 For more information about the request fields, see [Request fields]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rerank-processor/#request-body-fields).
 
+When `keep_previous_score` is `true`, the pre-rerank score is stored in `previous_score` by default. Use `previous_score_field` to choose a different field name if `previous_score` already exists in your documents.
+
 ## Step 2: Create an index for ingestion
 
 In order to use the `rerank` processor defined in your pipeline, create an OpenSearch index and add the pipeline created in the previous step as the default pipeline:

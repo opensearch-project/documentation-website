@@ -148,7 +148,9 @@ POST _plugins/_security_analytics/threat_intel/sources/
 ```
 {% include copy-curl.html %}
 
+<!-- vale off -->
 #### S3_CUSTOM type source
+<!-- vale on -->
 
 ```json
 POST _plugins/_security_analytics/threat_intel/sources/
@@ -220,7 +222,9 @@ The following example responses show what OpenSearch returns after a successful 
 }
 ```
 
+<!-- vale off -->
 #### S3_CUSTOM type source
+<!-- vale on -->
 
 ```json
 {

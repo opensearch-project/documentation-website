@@ -6,7 +6,11 @@ grand_parent: PPL
 nav_order: 30
 ---
 
+<!-- vale off -->
+
 # mvcombine
+
+<!-- vale on -->
 
 The `mvcombine` command groups rows that are identical across all fields except a specified target field, and combines the values of that target field into a multivalue (array) field.
 
@@ -29,7 +33,11 @@ The `mvcombine` command supports the following parameters.
 | --- | --- | --- |
 | `<field>` | Required | The name of the field whose values are combined into a multivalue field. |
 
+<!-- vale off -->
+
 ## Example 1: Using basic mvcombine
+
+<!-- vale on -->
 
 The following query collapses rows into a single row and combines `packets_str` into a multivalue field:
 
@@ -43,9 +51,13 @@ source=mvcombine_data
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | ip | bytes | tags | packets_str |
 | --- | --- | --- | --- |
 | 10.0.0.1 | 100 | t1 | [10,20,30] |
+
+<!-- vale on -->
 
 ## Example 2: Combining multiple groups
 
@@ -63,10 +75,14 @@ source=mvcombine_data
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | ip | bytes | tags | packets_str |
 | --- | --- | --- | --- |
 | 10.0.0.7 | 700 | t7 | [1,2] |
 | 10.0.0.8 | 700 | t7 | [9] |
+
+<!-- vale on -->
 
 ## Example 3: Missing target field in some rows
 
@@ -82,9 +98,13 @@ source=mvcombine_data
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | ip | bytes | tags | packets_str |
 | --- | --- | --- | --- |
 | 10.0.0.3 | 300 | t3 | [5] |
+
+<!-- vale on -->
 
 ## Example 4: Missing fields
 

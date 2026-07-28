@@ -6,7 +6,11 @@ grand_parent: PPL
 nav_order: 25
 ---
 
+<!-- vale off -->
+
 # join
+
+<!-- vale on -->
 
 The `join` command combines two datasets. The left side can be an index or the results of piped commands, while the right side can be either an index or a subsearch.
 
@@ -118,6 +122,8 @@ source = state_country
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | avg(salary) | age_span | b.country |
 | --- | --- | --- |
 | 120000.0 | 40 | USA |
@@ -125,6 +131,8 @@ The query returns the following results:
 | 0.0 | 40 | Canada |
 | 70000.0 | 30 | USA |
 | 100000.0 | 70 | England |
+
+<!-- vale on -->
   
 
 ## Example 2: Joining with a subsearch  
@@ -145,11 +153,15 @@ source = state_country as a
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | avg(salary) | age_span | b.country |
 | --- | --- | --- |
 | null | 40 | null |
 | 70000.0 | 30 | USA |
 | 100000.0 | 70 | England |
+
+<!-- vale on -->
   
 
 ## Example 3: Joining using a field list  
@@ -170,11 +182,15 @@ source = state_country
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | avg(salary) | age_span | country |
 | --- | --- | --- |
 | null | 40 | null |
 | 70000.0 | 30 | USA |
 | 100000.0 | 70 | England |
+
+<!-- vale on -->
   
 
 ## Example 4: Joining with additional options  
@@ -190,12 +206,16 @@ source = state_country
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | avg(salary) | age_span | country |
 | --- | --- | --- |
 | 120000.0 | 40 | USA |
 | 100000.0 | 70 | USA |
 | 105000.0 | 20 | Canada |
 | 70000.0 | 30 | USA |
+
+<!-- vale on -->
   
 
 ## Limitations

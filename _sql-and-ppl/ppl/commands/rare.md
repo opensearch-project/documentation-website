@@ -6,7 +6,11 @@ grand_parent: PPL
 nav_order: 35
 ---
 
+<!-- vale off -->
+
 # rare
+
+<!-- vale on -->
 
 The `rare` command identifies the least common combination of values across all fields specified in the field list.
 
@@ -47,12 +51,16 @@ source=otellogs
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | severityText |
 | --- |
 | DEBUG |
 | WARN |
 | INFO |
 | ERROR |
+
+<!-- vale on -->
 
 ## Example 2: Finding the least common values grouped by field
 
@@ -66,6 +74,8 @@ source=otellogs
 {% include try-in-playground.html %}
 
 The query returns the following results:
+
+<!-- vale off -->
 
 | resource.attributes.service.name | severityText |
 | --- | --- |
@@ -82,6 +92,8 @@ The query returns the following results:
 | cart | DEBUG |
 | frontend | INFO |
 
+<!-- vale on -->
+
 ## Example 3: Finding the least common values with frequency counts
 
 The following query finds the least common severity levels with their frequency counts:
@@ -95,12 +107,16 @@ source=otellogs
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | severityText | count |
 | --- | --- |
 | DEBUG | 3 |
 | WARN | 4 |
 | INFO | 6 |
 | ERROR | 7 |
+
+<!-- vale on -->
 
 ## Example 4: Customizing the count field name
 
@@ -115,12 +131,16 @@ source=otellogs
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | severityText | cnt |
 | --- | --- |
 | DEBUG | 3 |
 | WARN | 4 |
 | INFO | 6 |
 | ERROR | 7 |
+
+<!-- vale on -->
 
 ## Example 5: Specifying null value handling
 
@@ -135,11 +155,15 @@ source=otellogs
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | instrumentationScope.name | count |
 | --- | --- |
 | Microsoft.Extensions.Hosting | 1 |
 | go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc | 1 |
 | @opentelemetry/instrumentation-http | 2 |
+
+<!-- vale on -->
 
 The following query uses `usenull=true` to include null values in the results:
 
@@ -152,9 +176,11 @@ source=otellogs
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | instrumentationScope.name | count |
 | --- | --- |
 | Microsoft.Extensions.Hosting | 1 |
 | go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc | 1 |
 | @opentelemetry/instrumentation-http | 2 |
-| null | 16 |
+| null | 16 |<!-- vale on -->

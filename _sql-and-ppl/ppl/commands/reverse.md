@@ -6,7 +6,11 @@ grand_parent: PPL
 nav_order: 39
 ---
 
+<!-- vale off -->
+
 # reverse
+
+<!-- vale on -->
 
 The `reverse` command reverses the display order of the search results. It returns the same results but in the opposite order.
 
@@ -36,6 +40,8 @@ source=otellogs
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | severityText | resource.attributes.service.name |
 | --- | --- |
 | DEBUG | cart |
@@ -43,6 +49,8 @@ The query returns the following results:
 | WARN | product-catalog |
 | INFO | cart |
 | INFO | frontend |
+
+<!-- vale on -->
 
 ## Example 2: Using the reverse and sort commands
 
@@ -60,6 +68,8 @@ source=otellogs
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | severityText | severityNumber |
 | --- | --- |
 | INFO | 9 |
@@ -67,6 +77,8 @@ The query returns the following results:
 | DEBUG | 5 |
 | DEBUG | 5 |
 | DEBUG | 5 |
+
+<!-- vale on -->
 
 ## Example 3: Using the reverse and head commands
 
@@ -83,10 +95,14 @@ source=otellogs
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | severityText | resource.attributes.service.name |
 | --- | --- |
 | ERROR | checkout |
 | DEBUG | cart |
+
+<!-- vale on -->
 
 ## Example 4: Double reverse
 
@@ -104,6 +120,8 @@ source=otellogs
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | severityText | resource.attributes.service.name |
 | --- | --- |
 | INFO | frontend |
@@ -111,6 +129,8 @@ The query returns the following results:
 | WARN | product-catalog |
 | ERROR | payment |
 | DEBUG | cart |
+
+<!-- vale on -->
 
 ## Example 5: Using the reverse command with filtering
 
@@ -127,6 +147,8 @@ source=otellogs
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | severityText | resource.attributes.service.name |
 | --- | --- |
 | ERROR | checkout |
@@ -136,3 +158,5 @@ The query returns the following results:
 | ERROR | payment |
 | ERROR | checkout |
 | ERROR | payment |
+
+<!-- vale on -->

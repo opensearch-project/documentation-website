@@ -146,3 +146,6 @@ The following response shows that a bulk write and update task were canceled wit
 }
 ```
 
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `cluster:admin/tasks/cancel`.

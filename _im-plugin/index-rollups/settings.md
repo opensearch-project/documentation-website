@@ -15,8 +15,8 @@ Setting | Default | Description
 :--- | :--- | :---
 `plugins.rollup.search.backoff_millis` | 1000 milliseconds | The backoff time between retries for failed rollup jobs.
 `plugins.rollup.search.backoff_count` | 5 | How many retries the plugin should attempt for failed rollup jobs.
-`plugins.rollup.search.search_all_jobs` | false | Whether OpenSearch should return all jobs that match all specified search terms. If disabled, OpenSearch returns just one, as opposed to all, of the jobs that matches the search terms.
+`plugins.rollup.search.search_all_jobs` | false | Whether OpenSearch should return all jobs that match all specified search terms. If disabled, OpenSearch returns only one, as opposed to all, of the jobs that matches the search terms.
 `plugins.rollup.dashboards.enabled` | true | Whether rollups are enabled in OpenSearch Dashboards.
 `plugins.rollup.enabled` | true | Whether the rollup plugin is enabled.
-`plugins.ingest.backoff_millis` | 1000 milliseconds | The backoff time between data ingestions for rollup jobs.
-`plugins.ingest.backoff_count` | 5 | How many retries the plugin should attempt for failed ingestions.
+`plugins.ingest.backoff_millis` | 1000 milliseconds | The backoff time between data ingest operations for rollup jobs.
+`plugins.ingest.backoff_count` | 5 | How many retries the plugin should attempt for failed ingest operations.

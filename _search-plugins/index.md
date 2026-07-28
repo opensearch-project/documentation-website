@@ -22,7 +22,7 @@ search_methods:
 
 # Search
 
-OpenSearch provides many features for customizing your search use cases and improving search relevance. 
+OpenSearch supports keyword (BM25) search, vector search, and AI-powered search, along with tools for tuning relevance, reranking results, and building custom search pipelines. 
 
 ## Search methods
 
@@ -45,7 +45,7 @@ For information about querying data in OpenSearch Dashboards, including the Dash
 
 ## Customizing search results
 
-OpenSearch provides fundamental result handling capabilities that work with all search types.  You can customize result navigation (pagination, sorting), result formatting (highlighting, field selection), query enhancement (autocomplete, did-you-mean), and result filtering. For more information, see [Customizing search results]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/).
+OpenSearch provides fundamental result handling capabilities that work with all search types. You can customize result navigation (pagination, sorting), result formatting (highlighting, field selection), query enhancement (autocomplete, did-you-mean), and result filtering. For more information, see [Customizing search results]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/).
 
 ## Optimizing search quality
 

@@ -6,7 +6,9 @@ grand_parent: Pipelines
 nav_order: 25
 ---
 
+<!-- vale off -->
 # join()
+<!-- vale on -->
 
 
 The `join()` function joins elements of a list to form a string. The function takes a JSON pointer, which represents the key to a list or map where values are of the list type, and joins the lists as strings using a delimiter. The default delimiter is a comma (`,`).

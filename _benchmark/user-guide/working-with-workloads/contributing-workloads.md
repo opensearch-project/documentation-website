@@ -21,13 +21,13 @@ To share a custom workload, follow these steps.
 Provide a detailed `README.MD` file that includes the following:  
 
 - The purpose of the workload. When creating a description for the workload, consider its specific use and how the that use case differs from others in the [workloads repository](https://github.com/opensearch-project/opensearch-benchmark-workloads/).
-- An example document from the dataset that helps users understand the data's structure.
+- An example document from the dataset that helps users understand the data structure.
 - The workload parameters that can be used to customize the workload.
 - A list of default test procedures included in the workload as well as other test procedures that the workload can run.
 - An output sample produced by the workload after a test is run.
 - A copy of the open-source license that gives the user and OpenSearch Benchmark permission to use the dataset.
 
-For an example workload README file, go to the `http_logs` [README](https://github.com/opensearch-project/opensearch-benchmark-workloads/blob/main/http_logs/README.md).
+For an example workload `README` file, go to the `http_logs` [`README`](https://github.com/opensearch-project/opensearch-benchmark-workloads/blob/main/http_logs/README.md).
 
 ## Verify the workload's structure
 
@@ -39,7 +39,7 @@ The workload must include the following files:
 - `test_procedures/default.json`
 - `operations/default.json` 
 
-Both `default.json` file names can be customized to have a descriptive name. The workload can include an optional `workload.py` file to add more dynamic functionality. For more information about a file's contents, go to [Anatomy of a workload]({{site.url}}{{site.baseurl}}/benchmark/user-guide/understanding-workloads/anatomy-of-a-workload/).
+Both `default.json` file names can be customized to have a descriptive name. The workload can include an optional `workload.py` file to add more dynamic functionality. For more information about a file's contents, go to [Anatomy of a workload]({{site.url}}{{site.baseurl}}/benchmark/anatomy-of-a-workload/).
 
 ## Testing the workload
 

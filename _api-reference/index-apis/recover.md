@@ -342,4 +342,8 @@ Parameter | Data type | Description
 `target` | Object | The destination node. 
 `index` | Object | Statistics about the physical index recovery. 
 `translog` | Object | Statistics about the translog recovery. 
- `start` | Object | Statistics about the amount of time taken to open and start the index. 
+ `start` | Object | Statistics about the amount of time taken to open and start the index.
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `indices:monitor/recovery`.

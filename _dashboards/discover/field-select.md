@@ -19,7 +19,7 @@ The field select tool is in the vertical panel to the immediate left of the [Dis
 
 The following components make up the field select tool.
 
-- The **Index patterns** dropdown (A) presents all available index patterns. The selected index pattern determines what data are loaded and therefore which fields are available in the field select tool.
+- The **Index patterns** dropdown (A) presents all available index patterns. The selected index pattern determines what data is loaded and therefore which fields are available in the field select tool.
 - The **Search field names** (B) box narrows the fields available in the select tool by matching field names to your search string.
 - The **Filter by type** dropdown (C) narrows the fields available based on data properties such as data type and searchability.
 - The **Selected fields** list (D) is a collapsible list of all selected fields.
@@ -34,7 +34,7 @@ The **Selected fields**, **Popular fields**, and **Available fields** lists are 
 
 Before exploring and visualizing data, you must select an index pattern.
 
-An index pattern is equivalent to a table view in a traditional relational database system. It defines the data set that you are interested in exploring and visualizing. For information about creating index patterns, see [Index patterns]({{site.url}}{{site.baseurl}}/dashboards/management/index-patterns/).
+An index pattern is equivalent to a table view in a traditional relational database system. It defines the dataset that you are interested in exploring and visualizing. For information about creating index patterns, see [Index patterns]({{site.url}}{{site.baseurl}}/dashboards/management/index-patterns/).
 
 To select an index pattern, follow these steps:
 
@@ -106,7 +106,7 @@ To filter fields by property, follow these steps:
 
 1. In the **Filter by type** popover, select a **Searchable** option. For example, selecting **yes** filters out all non-searchable fields.
 
-   Searchable fields are fields that are included in the inverted index and are available for search. For more information, see [Index]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/index-parameter).
+   Searchable fields are fields that are included in the inverted index and are available for search. For more information, see [Index]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/index-parameter/).
 
 ### Filtering missing fields
 

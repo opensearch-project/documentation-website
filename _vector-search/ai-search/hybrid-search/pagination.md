@@ -7,7 +7,7 @@ has_children: false
 nav_order: 20
 ---
 
-## Paginating hybrid query results
+# Paginating hybrid query results
 **Introduced 2.19**
 {: .label .label-purple }
 

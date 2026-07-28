@@ -666,8 +666,8 @@ Field | Data type | Description
 `cluster_uuid` | String | The unique identifier of the cluster.
 `timestamp` | Long | The time when the cluster statistics were last updated, in milliseconds since epoch.
 `status` | String | The cluster health status: `green`, `yellow`, or `red`.
-`indices` | Object | Aggregated statistics for indices with shards on the specified nodes.
-`indices.count` | Integer | The total number of indices with shards on the specified nodes.
+`indices` | Object | Aggregated statistics for indexes with shards on the specified nodes.
+`indices.count` | Integer | The total number of indexes with shards on the specified nodes.
 `indices.shards` | Object | Aggregated shard statistics for the specified nodes.
 `indices.shards.total` | Integer | The total number of shards on the specified nodes.
 `indices.shards.primaries` | Integer | The number of primary shards on the specified nodes.
@@ -703,7 +703,7 @@ Field | Data type | Description
 `indices.segments.stored_fields_memory_in_bytes` | Long | The amount of memory used for stored fields across the specified nodes, in bytes.
 `indices.segments.term_vectors_memory_in_bytes` | Long | The amount of memory used for term vectors across the specified nodes, in bytes.
 `indices.segments.norms_memory_in_bytes` | Long | The amount of memory used for normalization factors across the specified nodes, in bytes.
-`indices.segments.points_memory_in_bytes` | Long | The amount of memory used for point values (numeric, geo, etc.) across the specified nodes, in bytes.
+`indices.segments.points_memory_in_bytes` | Long | The amount of memory used for point values (numeric or geographic) across the specified nodes, in bytes.
 `indices.segments.doc_values_memory_in_bytes` | Long | The amount of memory used for doc values across the specified nodes, in bytes.
 `indices.segments.index_writer_memory_in_bytes` | Long | The amount of memory used by index writers across the specified nodes, in bytes.
 `indices.segments.version_map_memory_in_bytes` | Long | The amount of memory used by version maps across the specified nodes, in bytes.
@@ -713,7 +713,7 @@ Field | Data type | Description
 `indices.mappings.field_types` | Array | Statistics about field data types used on the specified nodes.
 `indices.mappings.field_types.name` | String | The field data type.
 `indices.mappings.field_types.count` | Integer | The number of fields mapped to this data type.
-`indices.mappings.field_types.index_count` | Integer | The number of indices that use this data type.
+`indices.mappings.field_types.index_count` | Integer | The number of indexes that use this data type.
 `indices.analysis` | Object | Statistics about analyzers and analysis components used on the specified nodes.
 `nodes` | Object | Aggregated statistics for the specified nodes.
 `nodes.count.total` | Integer | The total number of nodes.
@@ -738,10 +738,14 @@ Field | Data type | Description
 `nodes.jvm.threads` | Integer | The total number of active JVM threads across the specified nodes.
 `nodes.fs.total_in_bytes` | Long | The total filesystem capacity across the specified nodes, in bytes.
 `nodes.fs.free_in_bytes` | Long | The total unallocated disk space across the specified nodes, in bytes.
-`nodes.fs.available_in_bytes` | Long | The disk space available to the JVM across the specified nodes (may be less than free space due to OS restrictions), in bytes.
+`nodes.fs.available_in_bytes` | Long | The disk space available to the JVM across the specified nodes (may be less than free space because of operating system restrictions), in bytes.
 `nodes.plugins` | Array | Information about installed plugins and modules on the specified nodes.
 `nodes.network_types` | Object | Statistics about transport and HTTP network types used by the specified nodes.
 `nodes.discovery_types` | Object | Statistics about discovery mechanisms used by the specified nodes.
 `nodes.packaging_types` | Array | Information about the distribution types installed on the specified nodes.
 `nodes.ingest.number_of_pipelines` | Integer | The total number of ingest pipelines across the specified nodes.
 `nodes.ingest.processor_stats` | Object | Statistics about ingest processors used on the specified nodes.
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `cluster:monitor/stats`.

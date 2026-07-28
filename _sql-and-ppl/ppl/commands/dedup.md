@@ -6,7 +6,11 @@ grand_parent: PPL
 nav_order: 11
 ---
 
+<!-- vale off -->
+
 # dedup
+
+<!-- vale on -->
 
 The `dedup` command removes duplicate documents defined by specified fields from the search result.
 
@@ -47,6 +51,8 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | resource.attributes.service.name | severityText | body |
 | --- | --- | --- |
 | checkout | ERROR | NullPointerException in CheckoutService.placeOrder at line 142 |
@@ -54,6 +60,8 @@ The query returns the following results:
 | payment | ERROR | Payment failed: connection timeout to payment gateway after 30000ms |
 | product-catalog | WARN | Slow query detected: SELECT \* FROM products WHERE category = 'electronics' took 3200ms |
 | recommendation | ERROR | Failed to process recommendation request: invalid product ID from 203.0.113.50 |
+
+<!-- vale on -->
   
 
 ## Example 2: Retaining multiple duplicate documents  
@@ -72,6 +80,8 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | severityText | severityNumber |
 | --- | --- |
 | DEBUG | 5 |
@@ -80,6 +90,8 @@ The query returns the following results:
 | INFO | 9 |
 | WARN | 13 |
 | WARN | 13 |
+
+<!-- vale on -->
   
 
 ## Example 3: Handling documents with empty field values  
@@ -97,11 +109,15 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | instrumentationScope.name |
 | --- |
 | @opentelemetry/instrumentation-http |
 | Microsoft.Extensions.Hosting |
 | go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc |
+
+<!-- vale on -->
   
 The following query deduplicates while ignoring documents with empty values in the specified field:
   
@@ -116,11 +132,15 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | instrumentationScope.name |
 | --- |
 | @opentelemetry/instrumentation-http |
 | Microsoft.Extensions.Hosting |
 | go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc |
+
+<!-- vale on -->
   
 
 ## Example 4: Deduplicating consecutive documents  
@@ -138,10 +158,14 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | severityText | resource.attributes.service.name |
 | --- | --- |
 | DEBUG | cart |
 | INFO | cart |
 | WARN | frontend-proxy |
 | ERROR | checkout |
+
+<!-- vale on -->
   

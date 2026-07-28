@@ -1344,3 +1344,7 @@ GET /_cluster/health
 GET /_nodes/stats/indices/store
 ```
 {% include copy-curl.html %}
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `indices:data/write/reindex`.

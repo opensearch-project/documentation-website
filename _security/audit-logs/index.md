@@ -57,6 +57,8 @@ Event | Logged on REST | Logged on transport | Description
 `SSL_EXCEPTION` | Yes | Yes | An attempt was made to access OpenSearch without a valid SSL/TLS certificate.
 `opensearch_SECURITY_INDEX_ATTEMPT` | No | Yes | An attempt was made to modify the Security plugin internal user and privileges index without the required permissions or TLS admin certificate.
 `BAD_HEADERS` | Yes | Yes | An attempt was made to spoof a request to OpenSearch with the Security plugin internal headers.
+`CLUSTER_SETTINGS_CHANGED` | No | Yes | A persistent or transient cluster setting was changed. Disabled by default.
+`INDEX_SETTINGS_CHANGED` | No | Yes | An index setting was changed. Disabled by default.
 
 
 ## Audit log settings
@@ -90,6 +92,44 @@ config:
       - AUTHENTICATED
       - GRANTED_PRIVILEGES
     disabled_transport_categories: [ GRANTED_PRIVILEGES ]
+```
+{% include copy.html %}
+
+Alternatively, you can use the unified `disabled_categories` setting to disable categories on both layers simultaneously:
+
+```yml
+config:
+  audit:
+    disabled_categories:
+      - AUTHENTICATED
+      - GRANTED_PRIVILEGES
+```
+{% include copy.html %}
+
+When `disabled_categories` is configured alongside `disabled_rest_categories` or `disabled_transport_categories`, a category is disabled on a given layer if it appears in either the unified setting or the layer-specific setting.
+
+A deprecation warning is logged when `disabled_categories` is configured alongside layer-specific settings, encouraging migration to `disabled_categories` only.
+
+For example, the following configuration disables `AUTHENTICATED` on both layers (using `disabled_categories`) and disables `SSL_EXCEPTION` on the REST layer only:
+
+```yml
+config:
+  audit:
+    disabled_categories:
+      - AUTHENTICATED
+    disabled_rest_categories:
+      - SSL_EXCEPTION
+```
+{% include copy.html %}
+
+By default, the `CLUSTER_SETTINGS_CHANGED` and `INDEX_SETTINGS_CHANGED` categories are disabled on the transport layer. To enable them, remove them from `disabled_transport_categories`:
+
+```yml
+config:
+  audit:
+    disabled_transport_categories:
+      - AUTHENTICATED
+      - GRANTED_PRIVILEGES
 ```
 {% include copy.html %}
 
@@ -221,6 +261,34 @@ config:
 ### Settings in opensearch.yml
 
 The following settings are stored in the `opensearch.yml` file.
+
+#### Exclude categories
+
+You can configure disabled categories in `opensearch.yml` using the `plugins.security.audit.config` prefix. This is useful for non-fine-grained access control (FGAC) modes (SSL-only or security-disabled) for which the `audit.yml` security index is not available:
+
+```yml
+plugins.security.audit.config.disabled_categories:
+  - AUTHENTICATED
+  - GRANTED_PRIVILEGES
+```
+{% include copy.html %}
+
+The layer-specific settings (`disabled_rest_categories` and `disabled_transport_categories`) may be deprecated in a future version. Use the unified `disabled_categories` setting instead.
+{: .warning}
+
+The layer-specific settings are also available:
+
+```yml
+plugins.security.audit.config.disabled_rest_categories:
+  - AUTHENTICATED
+  - GRANTED_PRIVILEGES
+plugins.security.audit.config.disabled_transport_categories:
+  - AUTHENTICATED
+  - GRANTED_PRIVILEGES
+```
+{% include copy.html %}
+
+When both `disabled_categories` and the layer-specific settings are configured, a category is disabled on a given layer if it appears in either setting.
 
 
 #### Configure the audit log index name

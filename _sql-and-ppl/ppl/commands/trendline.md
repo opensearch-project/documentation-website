@@ -6,7 +6,11 @@ grand_parent: PPL
 nav_order: 52
 ---
 
+<!-- vale off -->
+
 # trendline
+
+<!-- vale on -->
 
 The `trendline` command calculates moving averages of fields.
 
@@ -47,6 +51,8 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | severityText | severityNumber | sev_trend |
 | --- | --- | --- |
 | INFO | 9 | null |
@@ -55,6 +61,8 @@ The query returns the following results:
 | ERROR | 17 | 13.0 |
 | DEBUG | 5 | 11.666666666666666 |
 | ERROR | 17 | 13.0 |
+
+<!-- vale on -->
   
 
 ## Example 2: Using weighted moving average for recent-biased trends
@@ -73,6 +81,8 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | severityText | severityNumber | wma_trend |
 | --- | --- | --- |
 | INFO | 9 | null |
@@ -81,6 +91,8 @@ The query returns the following results:
 | ERROR | 17 | 14.333333333333334 |
 | DEBUG | 5 | 10.333333333333334 |
 | ERROR | 17 | 13.0 |
+
+<!-- vale on -->
 
 
 ## Limitations

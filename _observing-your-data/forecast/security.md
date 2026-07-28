@@ -150,7 +150,7 @@ PUT _plugins/_security/api/roles/data_source_read
 
 You can modify the `index_patterns` to match your actual data source.
 
-### `Result‑read` role
+### Result-read role
 
 The `forecast_result_read` role allows users to view forecast results and configure Alerting monitors that query those results.
 

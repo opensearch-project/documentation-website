@@ -259,3 +259,7 @@ The following table lists all response fields.
 | `shards.total` | Integer | The number of shards on which the operation was executed. |
 | `shards.successful` | Integer | The number of shards on which the operation was successful. |
 | `shards.failed` | Integer | The number of shards on which the operation failed. |
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `indices:admin/forcemerge`.

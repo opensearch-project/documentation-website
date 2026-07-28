@@ -11,7 +11,7 @@ redirect_from:
 
 A [reranking pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/reranking-search-results/) can rerank search results, providing a relevance score for each document in the search results with respect to the search query. The relevance score is calculated by a reranker model. 
 
-This tutorial shows you how to rerank search results in self-managed OpenSearch and [Amazon OpenSearch Service](https://docs.aws.amazon.com/opensearch-service/). The tutorial uses the [Hugging Face BAAI/bge-reranker-v2-m3](https://huggingface.co/BAAI/bge-reranker-v2-m3) model hosted on Amazon SageMaker.
+This tutorial shows you how to rerank search results in self-managed OpenSearch and [Amazon OpenSearch Service](https://docs.aws.amazon.com/opensearch-service/). The tutorial uses the [Hugging Face `BAAI/bge-reranker-v2-m3`](https://huggingface.co/BAAI/bge-reranker-v2-m3) model hosted on Amazon SageMaker.
 
 Replace the placeholders beginning with the prefix `your_` with your own values.
 {: .note}

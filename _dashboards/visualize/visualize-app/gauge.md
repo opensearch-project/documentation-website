@@ -57,7 +57,7 @@ To create a gauge visualization, follow these steps:
    2. Set **Aggregation** to **Terms** and **Field** to **FlightDelay**.
    3. Select **Update**.
 
-   The visualization displays two gauges, with median flight times for delayed and undelayed flights, as shown in the following image.
+   The visualization displays two gauges, with median flight times for delayed and non-delayed flights, as shown in the following image.
 
    ![Gauge showing median flight time split by delay status]({{site.url}}{{site.baseurl}}/images/dashboards/example-gauge-flight-time.png)
 

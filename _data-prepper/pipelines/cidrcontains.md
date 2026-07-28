@@ -6,7 +6,9 @@ grand_parent: Pipelines
 nav_order: 5
 ---
 
+<!-- vale off -->
 # cidrContains()
+<!-- vale on -->
 
 The `cidrContains()` function is used to check if an IP address is contained within a specified Classless Inter-Domain Routing (CIDR) block or range of CIDR blocks. It accepts two or more arguments:
 

@@ -29,7 +29,7 @@ Query insights features are provided by the Query Insights plugin, which is incl
 * _Exporters_: Export the data into different sinks.
 
 
-## Query Insights features and settings
+## Query insights features and settings
 
 Query Insights provides several ways to monitor and analyze your search queries:
 

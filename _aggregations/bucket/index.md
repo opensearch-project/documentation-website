@@ -24,7 +24,7 @@ OpenSearch supports the following bucket aggregations:
 
 - [Adjacency matrix]({{site.url}}{{site.baseurl}}/aggregations/bucket/adjacency-matrix/)
 - [Auto-interval date histogram]({{site.url}}{{site.baseurl}}/aggregations/bucket/auto-interval-date-histogram/)
-- [Children]({{site.url}}{{site.baseurl}}/aggregations/bucket/children)
+- [Children]({{site.url}}{{site.baseurl}}/aggregations/bucket/children/)
 - [Date histogram]({{site.url}}{{site.baseurl}}/aggregations/bucket/date-histogram/)
 - [Date range]({{site.url}}{{site.baseurl}}/aggregations/bucket/date-range/)
 - [Diversified sampler]({{site.url}}{{site.baseurl}}/aggregations/bucket/diversified-sampler/)

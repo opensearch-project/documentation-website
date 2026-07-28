@@ -16,7 +16,7 @@ The self-host maps server for OpenSearch Dashboards provides access to the defau
 
 The following sections provide steps for setting up and using the self-host maps server with OpenSearch Dashboards.
 
-You can access the `maps-server` image via the official OpenSearch [Docker Hub repository](https://hub.docker.com/u/opensearchproject).
+You can access the `maps-server` image from the official OpenSearch [Docker Hub repository](https://hub.docker.com/u/opensearchproject).
 {: .note}
 
 ## Pulling the Docker image

@@ -10,7 +10,7 @@ has_children: false
 
 Manage dashboards in OpenSearch Dashboards from the **Dashboards** application main page, shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/dash-landing-page.png" alt="Dashboards landing page"  width="100%">
+![Dashboards landing page]({{site.url}}{{site.baseurl}}/images/dashboards/dash-landing-page.png)
 
 You can do the following:
 
@@ -70,7 +70,7 @@ You can export a dashboard to a PDF file or PNG image file.
 Exporting a dashboard is a Reporting feature. You must have the Reporting plugin active to export a file.
 {: .note}
 
-This feature requires the Reporting plugin. See [Reporting using OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/reporting/report-dashboard-index) for more information about reporting.
+This feature requires the Reporting plugin. See [Reporting using OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/reporting/report-dashboard-index/) for more information about reporting.
 
 1. Select **Reporting** from the application menu.
 

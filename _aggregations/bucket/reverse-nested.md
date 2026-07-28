@@ -7,7 +7,7 @@ redirect_from:
   - /query-dsl/aggregations/bucket/reverse-nested/
 ---
 
-# Reverse nested aggregations
+# Reverse nested aggregation
 
 The `reverse_nested` aggregation allows you to aggregate on parent document fields from within a [`nested` aggregation]({{site.url}}{{site.baseurl}}/aggregations/bucket/nested/) context. When you group by a nested field, the aggregation context shifts to the nested documents. The `reverse_nested` aggregation breaks out of that nested context and joins back to the parent (or root) document, making parent fields accessible for further subaggregations.
 

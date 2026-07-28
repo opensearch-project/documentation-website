@@ -58,7 +58,7 @@ POST _plugins/_sql
 ```
 {% include copy-curl.html %}
 
-To run the preceding query in the command line, use the [curl](https://curl.haxx.se/) command:
+To run the preceding query in the command line, use the [cURL](https://curl.haxx.se/) command:
 
 ```bash
 curl -XPOST https://localhost:9200/_plugins/_sql -u 'admin:<custom-admin-password>' -k -H 'Content-Type: application/json' -d '{"query": "SELECT * FROM my-index* LIMIT 50"}'

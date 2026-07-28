@@ -6,7 +6,11 @@ grand_parent: PPL
 nav_order: 10
 ---
 
+<!-- vale off -->
+
 # convert
+
+<!-- vale on -->
 
 The `convert` command uses conversion functions to transform field values into numeric values. Original field values are overwritten unless the `AS` clause is used to create new fields with the converted values.
 
@@ -36,7 +40,7 @@ The `convert` command supports the following parameters.
 | `<field>` | Required | A single field name to convert. |
 | `AS <field>` | Optional | Creates a new field using the converted value and preserves the original field. |
 
-## Conversion Functions
+## Conversion functions
 
 | Function | Description |
 | --- | --- |
@@ -61,11 +65,15 @@ source=accounts
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | account_number | balance |
 | --- | --- |
 | 1 | 39225.0 |
 | 6 | 5686.0 |
 | 13 | 32838.0 |
+
+<!-- vale on -->
 
 ## Example 2: Converting a field containing commas
 
@@ -81,9 +89,13 @@ source=accounts
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | price |
 | --- |
 | 1234.0 |
+
+<!-- vale on -->
 
 ## Example 3: Converting a field containing memory units
 
@@ -99,9 +111,13 @@ source=system_metrics
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | memory |
 | --- |
 | 102400.0 |
+
+<!-- vale on -->
 
 ## Example 4: Converting multiple fields
 
@@ -117,11 +133,15 @@ source=accounts
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | account_number | balance | age |
 | --- | --- | --- |
 | 1 | 39225.0 | 32.0 |
 | 6 | 5686.0 | 36.0 |
 | 13 | 32838.0 | 28.0 |
+
+<!-- vale on -->
 
 ## Example 5: Using an AS clause to preserve original values
 
@@ -137,11 +157,15 @@ source=accounts
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | account_number | balance | balance_num |
 | --- | --- | --- |
 | 1 | 39225 | 39225.0 |
 | 6 | 5686 | 5686.0 |
 | 13 | 32838 | 32838.0 |
+
+<!-- vale on -->
 
 ## Example 6: Extracting numbers from strings containing units
 
@@ -158,9 +182,13 @@ source=accounts
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | duration |
 | --- |
 | 2.0 |
+
+<!-- vale on -->
 
 ## Example 7: Using aggregation functions
 
@@ -175,10 +203,14 @@ source=accounts
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | sum(age) | gender |
 | --- | --- |
 | 28.0 | F |
 | 101.0 | M |
+
+<!-- vale on -->
 
 ## Example 8: Using none() to preserve field values
 
@@ -194,11 +226,15 @@ source=accounts
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | account_number | balance | age |
 | --- | --- | --- |
 | 1 | 39225.0 | 32.0 |
 | 6 | 5686.0 | 36.0 |
 | 13 | 32838.0 | 28.0 |
+
+<!-- vale on -->
 
 ### Using none() with an AS clause for field renaming
 
@@ -214,11 +250,15 @@ source=accounts
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | account_id | firstname | lastname |
 | --- | --- | --- |
 | 1 | Amber | Duke |
 | 6 | Hattie | Bond |
 | 13 | Nanette | Bates |
+
+<!-- vale on -->
 
 The `none()` function is useful with wildcard support, allowing you to exclude specific fields from bulk conversions.
 {: .note}

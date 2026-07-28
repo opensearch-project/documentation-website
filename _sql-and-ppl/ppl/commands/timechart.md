@@ -6,9 +6,13 @@ grand_parent: PPL
 nav_order: 49
 ---
 
+<!-- vale off -->
+
 # timechart
 
-The `timechart` command creates a time-based aggregation of data. It groups data by time intervals and, optionally, by a field, and then applies an aggregation function to each group. The results are returned in an unpivoted format, with separate rows for each time-field combination.
+<!-- vale on -->
+
+The `timechart` command creates a time-based aggregation of data. It groups data by time intervals and, optionally, by a field, and then applies an aggregation function to each group. The results are returned in a non-pivoted format, with separate rows for each time-field combination.
 
 ## Syntax
 
@@ -38,8 +42,8 @@ The `timechart` command supports the following parameters.
 The following considerations apply when using the `timechart` command:
 
 * The `timechart` command requires a timestamp field in the data. By default, it uses the `@timestamp` field, but you can specify a different field using the `timefield` parameter.  
-* Results are returned in an unpivoted format with separate rows for each time-field combination that has data.  
-* Only combinations with actual data are included in the results---empty combinations are omitted rather than showing null or zero values.  
+* Results are returned in an non-pivoted format with separate rows for each time-field combination that has data.  
+* Only combinations that contain data are included in the results---empty combinations are omitted rather than showing null or zero values.  
 * The top N values for the `limit` parameter are selected based on the sum of values across all time intervals for each distinct field value.  
 * When using the `limit` parameter, values beyond the limit are grouped into an `OTHER` category (unless `useother=false`).   
 * Documents with null values in the `by` field are treated as a separate category and appear as null in the results.  
@@ -62,7 +66,9 @@ The following time units are available for the `span` parameter:
 
 The `timechart` command provides specialized rate-based aggregation functions that calculate values per unit of time.
 
+<!-- vale off -->
 ### per_second
+<!-- vale on -->
 
 **Usage**: `per_second(field)` calculates the per-second rate for a numeric field within each time bucket.
 
@@ -70,7 +76,9 @@ The `timechart` command provides specialized rate-based aggregation functions th
 
 **Return type**: DOUBLE
 
+<!-- vale off -->
 ### per_minute
+<!-- vale on -->
 
 **Usage**: `per_minute(field)` calculates the per-minute rate for a numeric field within each time bucket.
 
@@ -78,7 +86,9 @@ The `timechart` command provides specialized rate-based aggregation functions th
 
 **Return type**: DOUBLE
 
+<!-- vale off -->
 ### per_hour
+<!-- vale on -->
 
 **Usage**: `per_hour(field)` calculates the per-hour rate for a numeric field within each time bucket.
 
@@ -86,7 +96,9 @@ The `timechart` command provides specialized rate-based aggregation functions th
 
 **Return type**: DOUBLE
 
+<!-- vale off -->
 ### per_day
+<!-- vale on -->
 
 **Usage**: `per_day(field)` calculates the per-day rate for a numeric field within each time bucket.
 
@@ -107,12 +119,16 @@ source=otellogs
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | @timestamp | count() |
 | --- | --- |
 | 2024-02-01 09:10:00 | 5 |
 | 2024-02-01 09:15:00 | 5 |
 | 2024-02-01 09:20:00 | 5 |
 | 2024-02-01 09:25:00 | 5 |
+
+<!-- vale on -->
   
 
 ## Example 2: Error rate over time by service
@@ -129,6 +145,8 @@ source=otellogs
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | @timestamp | resource.attributes.service.name | count() |
 | --- | --- | --- |
 | 2024-02-01 09:10:00 | checkout | 1 |
@@ -137,6 +155,8 @@ The query returns the following results:
 | 2024-02-01 09:20:00 | frontend-proxy | 1 |
 | 2024-02-01 09:20:00 | product-catalog | 1 |
 | 2024-02-01 09:20:00 | recommendation | 1 |
+
+<!-- vale on -->
   
 
 ## Example 3: Top 3 services with the rest grouped as OTHER
@@ -152,6 +172,8 @@ source=otellogs
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | @timestamp | resource.attributes.service.name | count() |
 | --- | --- | --- |
 | 2024-02-01 09:00:00 | OTHER | 1 |
@@ -162,6 +184,8 @@ The query returns the following results:
 | 2024-02-01 09:15:00 | cart | 1 |
 | 2024-02-01 09:15:00 | frontend | 3 |
 | 2024-02-01 09:15:00 | product-catalog | 3 |
+
+<!-- vale on -->
   
 
 ## Example 4: Excluding the OTHER category
@@ -177,10 +201,14 @@ source=otellogs
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | @timestamp | resource.attributes.service.name | count() |
 | --- | --- | --- |
 | 2024-02-01 09:00:00 | frontend | 4 |
 | 2024-02-01 09:00:00 | product-catalog | 4 |
+
+<!-- vale on -->
   
 
 ## Example 5: Per-second error rate by severity
@@ -197,6 +225,8 @@ source=otellogs
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | @timestamp | severityText | per_second(severityNumber) |
 | --- | --- | --- |
 | 2024-02-01 09:12:00 | ERROR | 0.14166666666666666 |
@@ -209,6 +239,8 @@ The query returns the following results:
 | 2024-02-01 09:24:00 | ERROR | 0.2833333333333333 |
 | 2024-02-01 09:26:00 | WARN | 0.10833333333333334 |
 | 2024-02-01 09:28:00 | ERROR | 0.14166666666666666 |
+
+<!-- vale on -->
   
 ## Example 6: Distinct service count over time
 
@@ -223,9 +255,13 @@ source=otellogs
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | @timestamp | distinct_count(`resource.attributes.service.name`) |
 | --- | --- |
 | 2024-02-01 09:00:00 | 7 |
+
+<!-- vale on -->
   
 
 ## Example 7: Using limit=0 with count() to show all values  
@@ -242,6 +278,8 @@ source=events_many_hosts
   
 All 11 hosts are returned as separate rows without an `OTHER` category:
   
+<!-- vale off -->
+
 | @timestamp | host | count() |
 | --- | --- | --- |
 | 2024-07-01 00:00:00 | web-01 | 1 |
@@ -256,6 +294,8 @@ All 11 hosts are returned as separate rows without an `OTHER` category:
 | 2024-07-01 00:00:00 | web-10 | 1 |
 | 2024-07-01 00:00:00 | web-11 | 1 |
 
+<!-- vale on -->
+
 ## Example 8: Using useother=false with the count() function  
 
 The following query limits the results to the top 10 hosts without creating an `OTHER` category by setting `useother=false`:
@@ -268,6 +308,8 @@ source=events_many_hosts
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | @timestamp | host | count() |
 | --- | --- | --- |
 | 2024-07-01 00:00:00 | web-01 | 1 |
@@ -280,9 +322,15 @@ The query returns the following results:
 | 2024-07-01 00:00:00 | web-08 | 1 |
 | 2024-07-01 00:00:00 | web-09 | 1 |
 | 2024-07-01 00:00:00 | web-10 | 1 |
+
+<!-- vale on -->
   
 
+<!-- vale off -->
+
 ## Example 9: Using the limit parameter with the useother parameter and the avg() function  
+
+<!-- vale on -->
 
 The following query displays the top 3 hosts based on average `cpu_usage` per hour. All remaining hosts are grouped into an `OTHER` category (by default, `useother=true`):
   
@@ -294,12 +342,16 @@ source=events_many_hosts
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | @timestamp | host | avg(cpu_usage) |
 | --- | --- | --- |
 | 2024-07-01 00:00:00 | OTHER | 41.3 |
 | 2024-07-01 00:00:00 | web-03 | 55.3 |
 | 2024-07-01 00:00:00 | web-07 | 48.6 |
 | 2024-07-01 00:00:00 | web-09 | 67.8 |
+
+<!-- vale on -->
   
 The following query displays the top 3 hosts based on average `cpu_usage` per hour without creating an `OTHER` category by setting `useother=false`:
 
@@ -311,11 +363,15 @@ source=events_many_hosts
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | @timestamp | host | avg(cpu_usage) |
 | --- | --- | --- |
 | 2024-07-01 00:00:00 | web-03 | 55.3 |
 | 2024-07-01 00:00:00 | web-07 | 48.6 |
 | 2024-07-01 00:00:00 | web-09 | 67.8 |
+
+<!-- vale on -->
   
 
 ## Example 10: Handling null values in the by field
@@ -330,12 +386,16 @@ source=events_null
   
 The `events_null` dataset contains one entry without a `host` value. Because the default settings are `usenull=true` and `nullstr="NULL"`, this entry is grouped into a separate `NULL` category:
   
+<!-- vale off -->
+
 | @timestamp | host | count() |
 | --- | --- | --- |
 | 2024-07-01 00:00:00 | NULL | 1 |
 | 2024-07-01 00:00:00 | db-01 | 1 |
 | 2024-07-01 00:00:00 | web-01 | 2 |
 | 2024-07-01 00:00:00 | web-02 | 2 |
+
+<!-- vale on -->
   
 
 ## Example 11: Calculating the per-second packet rate  
@@ -350,12 +410,16 @@ source=events
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | @timestamp | host | per_second(packets) |
 | --- | --- | --- |
 | 2023-01-01 10:00:00 | server1 | 0.1 |
 | 2023-01-01 10:00:00 | server2 | 0.05 |
 | 2023-01-01 10:30:00 | server1 | 0.1 |
 | 2023-01-01 10:30:00 | server2 | 0.05 |
+
+<!-- vale on -->
   
 
 ## Limitations

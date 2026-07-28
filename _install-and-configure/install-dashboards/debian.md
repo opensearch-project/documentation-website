@@ -44,7 +44,7 @@ This guide assumes that you are comfortable working from the Linux command line 
    ```
    {% include copy.html %}
 
-1. After the installation completes, reload the systemd manager configuration:
+1. After the installation completes, reload the `systemd` manager configuration:
     ```bash
     sudo systemctl daemon-reload
     ```

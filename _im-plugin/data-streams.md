@@ -19,6 +19,8 @@ A data stream is internally composed of multiple backing indexes. Search request
 
 ## Get started with data streams
 
+The following steps show how to create and use a data stream.
+
 ### Step 1: Create an index template
 
 To create a data stream, you first need to create an index template that configures a set of indexes as a data stream. The `data_stream` object indicates that it’s a data stream and not a regular index template. The index pattern matches with the name of the data stream:
@@ -36,7 +38,7 @@ PUT _index_template/logs-template
 ```
 
 In this case, each ingested document must have an `@timestamp` field.
-You also have the ability to define your own custom timestamp field as a property in the `data_stream` object. You can also add index mappings and other settings here, just as you would for a regular index template.
+You also have the ability to define your own custom timestamp field as a property in the `data_stream` object. You can also add index mappings and other settings here, the same way as you would for a regular index template.
 
 ```json
 PUT _index_template/logs-template-nginx
@@ -254,7 +256,7 @@ You also see a data stream column that shows you the name of the data stream the
 
 You can select one or more data streams and apply an ISM policy on them. You can also apply a policy on any individual backing index.
 
-You can performing visualizations on a data stream just like you would on a regular index or index alias.
+You can performing visualizations on a data stream the same way you would on a regular index or index alias.
 
 ### Step 7: Delete a data stream
 

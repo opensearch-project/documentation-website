@@ -1,6 +1,6 @@
 ---
 layout: default
-title: RCA Reference
+title: RCA reference
 parent: Root Cause Analysis
 grand_parent: Performance Analyzer
 nav_order: 3

@@ -11,13 +11,13 @@ OpenSearch provides ingest settings that control which ingest processors are all
 
 To learn more about static and dynamic settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
 
-## User Agent processor settings
+## User agent processor settings
 
-User Agent processor settings control which user agent parsing processors are allowed in ingest pipelines.
+User agent processor settings control which user agent parsing processors are allowed in ingest pipelines.
 
-OpenSearch supports the following static User Agent processor settings:
+OpenSearch supports the following static User agent processor settings:
 
-- `ingest.useragent.processors.allowed` (Static, list): Specifies which User Agent processors are allowed to be used in ingest pipelines. When this list is empty (default), no restriction is applied and all available User Agent processors can be used. When configured with specific processor names, only those processors will be permitted in pipelines. This setting helps control which user agent parsing processors can be used for security and data governance purposes. Default is `[]` (empty list - no restrictions).
+- `ingest.useragent.processors.allowed` (Static, list): Specifies which User agent processors are allowed to be used in ingest pipelines. When this list is empty (default), no restriction is applied and all available User agent processors can be used. When configured with specific processor names, only those processors will be permitted in pipelines. This setting helps control which user agent parsing processors can be used for security and data governance purposes. Default is `[]` (empty list - no restrictions).
 
 ## Common processor settings
 
@@ -25,7 +25,7 @@ Common processor settings control which standard ingest processors are allowed i
 
 OpenSearch supports the following static common processor settings:
 
-- `ingest.common.processors.allowed` (Static, list): Specifies which common ingest processors are allowed to be used in ingest pipelines. When this list is empty (default), no restriction is applied and all available common processors (such as `set`, `remove`, `rename`, `convert`, etc.) can be used. When configured with specific processor names, only those processors will be permitted in pipelines. This setting provides fine-grained control over data transformation capabilities for security and compliance requirements. Default is `[]` (empty list - no restrictions).
+- `ingest.common.processors.allowed` (Static, list): Specifies which common ingest processors are allowed to be used in ingest pipelines. When this list is empty (default), no restriction is applied and all available common processors (such as `set`, `remove`, `rename`, and `convert`) can be used. When configured with specific processor names, only those processors will be permitted in pipelines. This setting provides fine-grained control over data transformation capabilities for security and compliance requirements. Default is `[]` (empty list - no restrictions).
 
 ## Caching and performance settings
 
@@ -33,7 +33,7 @@ Caching and performance settings control cache sizes and execution limits for va
 
 OpenSearch supports the following static caching and performance settings:
 
-- `ingest.user_agent.cache_size` (Static, long): Sets the cache size for User Agent string parsing results. This cache stores parsed user agent information to improve performance when processing documents with repeated user agent strings. Higher values reduce parsing overhead for common user agents but use more memory. The cache stores mappings between user agent strings and their parsed components (browser, OS, device information). Default is `1000`. Minimum is `0`.
+- `ingest.user_agent.cache_size` (Static, long): Sets the cache size for User agent string parsing results. This cache stores parsed user agent information to improve performance when processing documents with repeated user agent strings. Higher values reduce parsing overhead for common user agents but use more memory. The cache stores mappings between user agent strings and their parsed components (browser, operating system, and device information). Default is `1000`. Minimum is `0`.
 
 - `ingest.grok.watchdog.interval` (Static, time unit): Sets the interval at which the Grok processor watchdog checks for long-running pattern matching operations. The watchdog helps prevent Grok processors from consuming excessive CPU time with complex or inefficient patterns. More frequent checks provide better protection against runaway operations but add slight overhead. Default is `1s`.
 

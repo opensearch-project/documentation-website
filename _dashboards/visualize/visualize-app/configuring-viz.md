@@ -59,7 +59,7 @@ Metric aggregations appear in the **Metrics** panel and become Y-axis values in 
 | [`Percentiles`]({{site.url}}{{site.baseurl}}/aggregations/metric/percentile/) | Returns values at specified percentile ranks of a numeric field. After selecting, configure the **Percents** list to define which percentiles to calculate. The defaults are 1, 5, 25, 50, 75, 95, and 99. Each percentile appears as a separate series in the visualization. | Yes |
 | [`Standard Deviation`]({{site.url}}{{site.baseurl}}/aggregations/metric/extended-stats/) | Calculates the standard deviation of a numeric field. In the aggregation API, this uses the `extended_stats` aggregation. | Yes |
 | [`Sum`]({{site.url}}{{site.baseurl}}/aggregations/metric/sum/) | Calculates the total sum of a numeric field. | Yes |
-| [`Top Hit`]({{site.url}}{{site.baseurl}}/aggregations/metric/top-hits/) | Returns one or more of the top values from a field, sorted by a specified metric. After selecting, configure **Aggregate with** (how to combine multiple values: Concat, Min, Max, Sum, or Average), **Size** (number of top values to return), **Sort on** (field to sort by), and **Order** (ascending or descending). | Yes |
+| [`Top Hit`]({{site.url}}{{site.baseurl}}/aggregations/metric/top-hits/) | Returns one or more of the top values from a field, sorted by a specified metric. After selecting, configure **Aggregate with** (how to combine multiple values: `Concat`, `Min`, `Max`, `Sum`, or Average), **Size** (number of top values to return), **Sort on** (field to sort by), and **Order** (ascending or descending). | Yes |
 | [`Unique Count`]({{site.url}}{{site.baseurl}}/aggregations/metric/cardinality/) | Counts the number of distinct values in a field. In the aggregation API, this corresponds to the `cardinality` aggregation. | Yes |
 
 ### Parent pipeline aggregations
@@ -109,7 +109,7 @@ After you choose a bucket type, you select a bucket aggregation to define how th
 | [`IPv4 Range`]({{site.url}}{{site.baseurl}}/aggregations/bucket/ip-range/) | Groups documents into custom IP address ranges. Requires an IP field. |
 | [`Range`]({{site.url}}{{site.baseurl}}/aggregations/bucket/range/) | Groups numeric values into custom ranges that you define. Requires a numeric field. |
 | [`Significant Terms`]({{site.url}}{{site.baseurl}}/aggregations/bucket/significant-terms/) | Identifies terms that appear more frequently in the selected dataset than in the overall index. Requires a keyword or text field. |
-| [`Terms`]({{site.url}}{{site.baseurl}}/aggregations/bucket/terms/) | Groups documents by the unique values of a field. Requires a keyword, numeric, IP, or boolean field. |
+| [`Terms`]({{site.url}}{{site.baseurl}}/aggregations/bucket/terms/) | Groups documents by the unique values of a field. Requires a keyword, numeric, IP, or Boolean field. |
 
 For more information about bucket aggregation types, see [Bucket aggregations]({{site.url}}{{site.baseurl}}/aggregations/bucket/).
 

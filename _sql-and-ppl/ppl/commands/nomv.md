@@ -6,7 +6,11 @@ grand_parent: PPL
 nav_order: 32
 ---
 
+<!-- vale off -->
+
 # nomv
+
+<!-- vale on -->
 
 The `nomv` command converts a multivalue (array) field into a single-value string field by joining all array elements with newline characters (`\n`). This operation is performed in place, replacing the original field with its joined string representation.
 
@@ -45,6 +49,8 @@ source=otellogs
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | severityText | affected_services |
 | --- | --- |
 | ERROR | payment |
@@ -54,6 +60,8 @@ The query returns the following results:
 |  | recommendation |
 |  | product-catalog |
 |  | checkout |
+
+<!-- vale on -->
 
 ## Limitations
 

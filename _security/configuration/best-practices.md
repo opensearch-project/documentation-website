@@ -34,11 +34,11 @@ The certificates generated when initializing an OpenSearch cluster with `install
 You can generate custom certificates in a few different ways. One approach is to use OpenSSL, described in detail at [Generating self-signed certificates]({{site.url}}{{site.baseurl}}/security/configuration/generate-certificates/). Alternatively, there are online tools available that can simplify the certificate creation process, such as the following:
 
 - [SearchGuard TLS Tool](https://docs.search-guard.com/latest/offline-tls-tool)
-- [TLSTool by dylandreimerink](https://github.com/dylandreimerink/tlstool)
+- [`TLSTool` by `dylandreimerink`](https://github.com/dylandreimerink/tlstool)
 
 ## 2. Prefer client certificate authentication for API authentication
 
-Client certificate authentication offers a secure alternative to password authentication and is more suitable for machine-to-machine interactions. It also ensures low performance overhead because the authentication occurs on the TLS level. Nearly all client software, such as curl and client libraries, support this authentication method.
+Client certificate authentication offers a secure alternative to password authentication and is more suitable for machine-to-machine interactions. It also ensures low performance overhead because the authentication occurs on the TLS level. Nearly all client software, such as cURL and client libraries, support this authentication method.
 
 For detailed configuration instructions and additional information about client certificate authentication, see [Enabling client certificate authentication]({{site.url}}{{site.baseurl}}/security/authentication-backends/client-auth/#enabling-client-certificate-authentication).
 

@@ -146,7 +146,7 @@ The following example shows a workflow configuration for migrating a Solr source
 ```
 {% include copy.html %}
 
-Always verify field names against `workflow configure sample` for your installed version.
+Always verify field names against `workflow configure sample` for your installed version, or browse the [Migration Assistant Schema Viewer](https://opensearch-project.github.io/opensearch-migrations/) for an interactive field reference.
 {: .note }
 
 ## Step 3: Submit and monitor the workflow
@@ -207,3 +207,4 @@ For more information, see the following resources:
 - [Solr migration overview]({{site.url}}{{site.baseurl}}/migration-assistant/solr-migration/)
 - [Solr backfill guide]({{site.url}}{{site.baseurl}}/migration-assistant/solr-migration/solr-backfill-guide/) -- Step-by-step Amazon S3 backup configuration and workflow configuration for Solr.
 - [Supported migration paths]({{site.url}}{{site.baseurl}}/migration-assistant/is-migration-assistant-right-for-you/)
+- [Migration Assistant Schema Viewer](https://opensearch-project.github.io/opensearch-migrations/)

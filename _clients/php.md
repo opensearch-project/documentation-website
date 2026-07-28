@@ -8,7 +8,7 @@ nav_order: 70
 
 The OpenSearch PHP client provides a safer and easier way to interact with your OpenSearch cluster. Rather than using OpenSearch from a browser and potentially exposing your data to the public, you can build an OpenSearch client that takes care of sending requests to your cluster. The client contains a library of APIs that let you perform different operations on your cluster and return a standard response body.
 
-This getting started guide illustrates how to connect to OpenSearch, index documents, and run queries. For the client source code, see the [opensearch-php repo](https://github.com/opensearch-project/opensearch-php).
+This getting started guide illustrates how to connect to OpenSearch, index documents, and run queries. For the client source code, see the [`opensearch-php` repo](https://github.com/opensearch-project/opensearch-php).
 
 ## Setup
 
@@ -26,7 +26,7 @@ composer require opensearch-project/opensearch-php:<version>
 ```
 {% include copy.html %}
 
-Then require the autload file from composer in your code:
+Then require the `autoload` file from `composer` in your code:
 
 ```php
 require __DIR__ . '/vendor/autoload.php';

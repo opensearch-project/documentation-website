@@ -51,6 +51,8 @@ Once the workflow completes, the `state` changes to `COMPLETED`. The workflow cr
 
 ## Manual setup
 
+Use the following steps to set up an agentic converse flow manually.
+
 ## Step 1: Create a product index
 
 Create a sample index with product data that includes various attributes like name, price, color, and category:
@@ -416,7 +418,7 @@ GET /_search?search_pipeline=agentic-pipeline
 ```
 {% include copy-curl.html %}
 
-The first query will likely generate more complex DSL with sorting and aggregations, while the second will be simpler. Use specific terms like "sort by", "aggregate", "filter by", "group by", etc. to guide the agent's query generation.
+The first query will likely generate more complex DSL with sorting and aggregations, while the second will be simpler. Use specific terms like "sort by", "aggregate", "filter by", and "group by" to guide the agent's query generation.
 
 ## Next steps
 

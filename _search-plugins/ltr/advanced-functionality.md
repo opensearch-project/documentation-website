@@ -7,7 +7,7 @@ grand_parent: Optimizing search quality
 has_children: false
 ---
 
-# Advanced functionality
+# Advanced LTR functionality
 
 OpenSearch Learning to Rank (LTR) offers additional functionality. It is recommended that you have a foundational understanding of OpenSearch LTR before working with these features.
 
@@ -410,7 +410,7 @@ Experimental
 
 The `TermStatQuery` is in an experimental stage, and the Domain-Specific Language (DSL) may change as the code advances. For stable term-statistic access, see [ExplorerQuery]{.title-ref}.
 
-The `TermStatQuery` is a reimagined version of the legacy `ExplorerQuery`. It provides a clearer way to specify terms and offers more flexibility for experimentation. This query surfaces the same data as the [ExplorerQuery]{.title-ref}, but it allows you to specify a custom Lucene expression to retrieve the desired data, such as in the following example:
+The `TermStatQuery` is a redesigned version of the legacy `ExplorerQuery`. It provides a clearer way to specify terms and offers more flexibility for experimentation. This query surfaces the same data as the [ExplorerQuery]{.title-ref}, but it allows you to specify a custom Lucene expression to retrieve the desired data, such as in the following example:
 
 ```json
 POST tmdb/_search

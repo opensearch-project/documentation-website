@@ -6,7 +6,9 @@ grand_parent: Pipelines
 nav_order: 20
 ---
 
+<!-- vale off -->
 # hasTags()
+<!-- vale on -->
 
 The `hasTags()` function takes one or more string type arguments and returns `true` if all of the arguments passed are present in an event's tags. If an argument does not exist in the event's tags, then the function returns `false`. 
 

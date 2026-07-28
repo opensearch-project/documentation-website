@@ -26,6 +26,6 @@ flows:
 
 # Agentic AI tutorials
 
-The following tutorials show you how to build agents and chatbots using OpenSearch.
+Learn how to build AI agents that use OpenSearch as a knowledge base and tool provider, enabling autonomous query planning, retrieval, and response generation.
 
 {% include cards.html cards=page.flows %}

@@ -22,7 +22,7 @@ To learn more about | Go to
 An introduction to OpenSearch Dashboards | [Getting started]({{site.url}}{{site.baseurl}}/dashboards/getting-started/)
 Viewing a web-based, read-only OpenSearch Dashboards instance | [The OpenSearch Playground](https://playground.opensearch.org/app/home#/)
 The OpenSearch Dashboards visualization tool | [Using OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/navigating-ui/)
-Installing and configuring an OpenSearch Dashboards instance or Docker image | [Installing OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards)<br/>and<br/>[Configuring OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-dashboards/)
+Installing and configuring an OpenSearch Dashboards instance or Docker image | [Installing OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/)<br/>and<br/>[Configuring OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-dashboards/)
 
 ## Exploring data
 

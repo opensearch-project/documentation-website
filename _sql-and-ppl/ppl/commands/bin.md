@@ -6,7 +6,11 @@ grand_parent: PPL
 nav_order: 8
 ---
 
+<!-- vale off -->
+
 # bin
+
+<!-- vale on -->
 
 The `bin` command groups numeric values into buckets of equal intervals, which is useful for creating histograms and analyzing data distribution. It accepts a numeric or time-based field and generates a new field containing values that represent the lower bound of each bucket.
 
@@ -36,7 +40,7 @@ The `bin` command supports the following parameters.
 
 The `bins` parameter for timestamp fields has the following requirements:
 
-- **Pushdown must be enabled**: Enable pushdown by setting `plugins.calcite.pushdown.enabled` to `true` (enabled by default). If pushdown is disabled, use the `span` parameter instead (for example, `bin @timestamp span=5m`).
+- **Push-down must be enabled**: Enable push-down by setting `plugins.calcite.pushdown.enabled` to `true` (enabled by default). If push-down is disabled, use the `span` parameter instead (for example, `bin @timestamp span=5m`).
 - **The timestamp field must be used as an aggregation bucket**: The binned timestamp field must be included in a `stats` aggregation (for example, `source=events | bin @timestamp bins=3 | stats count() by @timestamp`). Using `bins` on timestamp fields outside of aggregation buckets is not supported.
 
 
@@ -89,12 +93,16 @@ source=otellogs
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | request_count | duration |
 | --- | --- |
 | 17 | null |
 | 1 | 0-100 |
 | 1 | 30000-30100 |
 | 1 | 3200-3300 |
+
+<!-- vale on -->
   
 
 ## Example 2: Severity level distribution
@@ -110,11 +118,15 @@ source=otellogs
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | log_count | severityNumber |
 | --- | --- |
 | 4 | 10-15 |
 | 7 | 15-20 |
 | 9 | 5-10 |
+
+<!-- vale on -->
   
 
 ## Example 3: Logarithmic span (log10)  
@@ -129,10 +141,14 @@ source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | balance |
 | --- |
 | 10000.0-100000.0 |
 | 1000.0-10000.0 |
+
+<!-- vale on -->
   
 
 ## Example 4: Logarithmic span with coefficient  
@@ -147,11 +163,15 @@ source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | balance |
 | --- |
 | 20000.0-200000.0 |
 | 2000.0-20000.0 |
 | 20000.0-200000.0 |
+
+<!-- vale on -->
   
 
 ## Example 5: Basic bins parameter  
@@ -166,11 +186,15 @@ source=time_test
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | value |
 | --- |
 | 8000-9000 |
 | 7000-8000 |
 | 9000-10000 |
+
+<!-- vale on -->
   
 
 ## Example 6: Log volume distribution with bins parameter
@@ -187,12 +211,16 @@ source=otellogs
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | service_count | volume |
 | --- | --- |
 | 1 | 1-2 |
 | 1 | 2-3 |
 | 3 | 3-4 |
 | 2 | 4-5 |
+
+<!-- vale on -->
   
 
 ## Example 7: High bin count  
@@ -207,14 +235,22 @@ source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | age | account_number |
 | --- | --- |
 | 32-33 | 1 |
 | 36-37 | 6 |
 | 28-29 | 13 |
+
+<!-- vale on -->
   
 
+<!-- vale off -->
+
 ## Example 8: Basic minspan  
+
+<!-- vale on -->
 
 ```sql
 source=accounts
@@ -226,11 +262,15 @@ source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | age | account_number |
 | --- | --- |
 | 30-40 | 1 |
 | 30-40 | 6 |
 | 20-30 | 13 |
+
+<!-- vale on -->
   
 
 ## Example 9: Large minspan  
@@ -245,9 +285,13 @@ source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | age |
 | --- |
 | 0-1000 |
+
+<!-- vale on -->
   
 
 ## Example 10: Start and end range  
@@ -262,9 +306,13 @@ source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | age |
 | --- |
 | 0-100 |
+
+<!-- vale on -->
   
 
 ## Example 11: Large end range  
@@ -279,9 +327,13 @@ source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | balance |
 | --- |
 | 0-100000 |
+
+<!-- vale on -->
   
 
 ## Example 12: Span with start/end  
@@ -296,12 +348,16 @@ source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | age |
 | --- |
 | 32-33 |
 | 36-37 |
 | 28-29 |
 | 33-34 |
+
+<!-- vale on -->
   
 
 ## Example 13: Hour span  
@@ -316,11 +372,15 @@ source=time_test
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | @timestamp | value |
 | --- | --- |
 | 2025-07-28 00:00:00 | 8945 |
 | 2025-07-28 01:00:00 | 7623 |
 | 2025-07-28 02:00:00 | 9187 |
+
+<!-- vale on -->
   
 
 ## Example 14: Minute span  
@@ -335,11 +395,15 @@ source=time_test
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | @timestamp | value |
 | --- | --- |
 | 2025-07-28 00:00:00 | 8945 |
 | 2025-07-28 01:30:00 | 7623 |
 | 2025-07-28 02:15:00 | 9187 |
+
+<!-- vale on -->
   
 
 ## Example 15: Second span  
@@ -354,11 +418,15 @@ source=time_test
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | @timestamp | value |
 | --- | --- |
 | 2025-07-28 00:15:30 | 8945 |
 | 2025-07-28 01:42:00 | 7623 |
 | 2025-07-28 02:28:30 | 9187 |
+
+<!-- vale on -->
   
 
 ## Example 16: Daily span  
@@ -373,14 +441,18 @@ source=time_test
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | @timestamp | value |
 | --- | --- |
 | 2025-07-24 00:00:00 | 8945 |
 | 2025-07-24 00:00:00 | 7623 |
 | 2025-07-24 00:00:00 | 9187 |
+
+<!-- vale on -->
   
 
-## Example 17: Aligntime with time modifier  
+## Example 17: Align time with time modifier  
 
 ```sql
 source=time_test
@@ -392,14 +464,18 @@ source=time_test
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | @timestamp | value |
 | --- | --- |
 | 2025-07-27 23:00:00 | 8945 |
 | 2025-07-28 01:00:00 | 7623 |
 | 2025-07-28 01:00:00 | 9187 |
+
+<!-- vale on -->
   
 
-## Example 18: Aligntime with epoch timestamp  
+## Example 18: Align time with epoch timestamp  
 
 ```sql
 source=time_test
@@ -411,11 +487,15 @@ source=time_test
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | @timestamp | value |
 | --- | --- |
 | 2025-07-27 22:40:00 | 8945 |
 | 2025-07-28 00:40:00 | 7623 |
 | 2025-07-28 00:40:00 | 9187 |
+
+<!-- vale on -->
   
 
 ## Example 19: Default behavior (no parameters)  
@@ -430,11 +510,15 @@ source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | age | account_number |
 | --- | --- |
 | 32.0-33.0 | 1 |
 | 36.0-37.0 | 6 |
 | 28.0-29.0 | 13 |
+
+<!-- vale on -->
   
 
 ## Example 20: Binning with string fields  
@@ -450,7 +534,11 @@ source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | count() | age_str |
 | --- | --- |
 | 1 | 20-30 |
 | 3 | 30-40 |
+
+<!-- vale on -->

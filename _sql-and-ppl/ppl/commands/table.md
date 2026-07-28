@@ -6,7 +6,11 @@ grand_parent: PPL
 nav_order: 48
 ---
 
+<!-- vale off -->
+
 # table
+
+<!-- vale on -->
 
 The `table` command is an alias for the [`fields`]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/commands/fields/) command and provides the same field selection capabilities. It allows you to keep or remove fields from the search results using enhanced syntax options.
 
@@ -43,11 +47,15 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | severityText | resource.attributes.service.name | body |
 | --- | --- | --- |
 | ERROR | checkout | NullPointerException in CheckoutService.placeOrder at line 142 |
 | ERROR | checkout | Kafka producer delivery failed: message too large for topic order-events (max 1048576 bytes) |
 | ERROR | frontend-proxy | [2024-02-01T09:20:00.456Z] "POST /api/checkout HTTP/1.1" 503 - 0 30000 checkout-8d4f7b-mk2p9 |
+
+<!-- vale on -->
   
 
 ## Related documentation 

@@ -169,7 +169,7 @@ To configure this role, add the following line to your `opensearch_dashboards.ym
 
 ```opensearch_security.readonly_mode.roles: [new_role]```
 
-Even if the assigned role grants additional privileges or a user is mapped to other roles with write access to indexes, OpenSearch Dashboards restricts this access. Direct access to OpenSearch data using CURL or API is still allowed. OpenSearch Dashboards is not involved in this communication. 
+Even if the assigned role grants additional privileges or a user is mapped to other roles with write access to indexes, OpenSearch Dashboards restricts this access. Direct access to OpenSearch data using cURL or API is still allowed. OpenSearch Dashboards is not involved in this communication. 
 
 If a user is mapped to the `readonly_mode` role, all other elements of the UI will be removed, except for `Dashboards`. In the following image, the view on the left shows the screen from the perspective of a user mapped to a `readonly_mode` role. The view on the right shows a user's standard view.
 

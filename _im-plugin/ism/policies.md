@@ -59,7 +59,7 @@ Field | Description | Type | Required
 
 Actions are the steps that the policy sequentially executes on entering a specific state.
 
-ISM executes actions in the order in which they are defined. For example, if you define actions [A,B,C,D], ISM executes action A, and then goes into a sleep period based on the cluster setting `plugins.index_state_management.job_interval`. Once the sleep period ends, ISM continues to execute the remaining actions. However, if ISM cannot successfully execute action A, the operation ends, and actions B, C, and D do not get executed.
+ISM executes actions in the order in which they are defined. For example, if you define actions `[A,B,C,D]`, ISM executes action `A`, and then goes into a sleep period based on the cluster setting `plugins.index_state_management.job_interval`. Once the sleep period ends, ISM continues to execute the remaining actions. However, if ISM cannot successfully execute action `A`, the operation ends, and actions `B`, `C`, and `D` do not get executed.
 
 Optionally, you can define an action's timeout period, which, if exceeded, forcibly fails the action. For example, if timeout is set to `1d`, and ISM has not completed the action within one day, even after retries, the action fails.
 
@@ -97,25 +97,25 @@ For a list of available unit types, see [Supported units]({{site.url}}{{site.bas
 
 ISM supports the following operations:
 
-- [force_merge](#force_merge)
-- [read_only](#read_only)
-- [read_write](#read_write)
-- [replica_count](#replica_count)
-- [shrink](#shrink)
-- [close](#close)
-- [open](#open)
-- [delete](#delete)
-- [rollover](#rollover)
-- [notification](#notification)
-- [snapshot](#snapshot)
-- [convert_index_to_remote](#convert_index_to_remote)
-- [index_priority](#index_priority)
-- [allocation](#allocation)
-- [rollup](#rollup)
-- [stop_replication](#stop_replication)
-- [search_only](#search_only)
+- [Force merge](#force-merge)
+- [Read only](#read-only)
+- [Read write](#read-write)
+- [Replica count](#replica-count)
+- [Shrink](#shrink)
+- [Close](#close)
+- [Open](#open)
+- [Delete](#delete)
+- [Rollover](#rollover)
+- [Notification](#notification)
+- [Snapshot](#snapshot)
+- [Convert index to remote](#convert-index-to-remote)
+- [Index priority](#index-priority)
+- [Allocation](#allocation)
+- [Rollup](#rollup)
+- [Stop replication](#stop-replication)
+- [Search only](#search-only)
 
-### force_merge
+### Force merge
 
 Reduces the number of Lucene segments by merging the segments of individual shards. This operation attempts to set the index to a `read-only` state before starting the merging process.
 
@@ -131,7 +131,7 @@ Parameter | Description | Type | Required
 }
 ```
 
-### read_only
+### Read only
 
 Sets a managed index to be read only.
 
@@ -143,7 +143,7 @@ Sets a managed index to be read only.
 
 Set the index setting `index.blocks.write` to `true` for a managed index. ***Note:** this block does not prevent the index from refreshing.
 
-### read_write
+### Read write
 
 Sets a managed index to be writeable.
 
@@ -153,7 +153,7 @@ Sets a managed index to be writeable.
 }
 ```
 
-### replica_count
+### Replica count
 
 Sets the number of replicas to assign to an index.
 
@@ -171,7 +171,7 @@ Parameter | Description | Type | Required
 
 For information about setting replicas, see [Primary and replica shards]({{site.url}}{{site.baseurl}}/intro/#primary-and-replica-shards).
 
-### shrink
+### Shrink
 
 Allows you to reduce the number of primary shards in your indexes. With this action, you can specify:
 
@@ -228,7 +228,7 @@ If you want to add `aliases` to the action, the parameter must include an array 
 ]
 ```
 
-### close
+### Close
 
 Closes the managed index.
 
@@ -242,7 +242,7 @@ Closed indexes remain on disk, but consume no CPU or memory. You can't read from
 
 Closing an index is a good option if you need to retain data for longer than you need to actively search it and have sufficient disk space on your data nodes. If you need to search the data again, reopening a closed index is simpler than restoring an index from a snapshot.
 
-### open
+### Open
 
 Opens a managed index.
 
@@ -252,7 +252,7 @@ Opens a managed index.
 }
 ```
 
-### delete
+### Delete
 
 Deletes a managed index.
 
@@ -262,7 +262,7 @@ Deletes a managed index.
 }
 ```
 
-### rollover
+### Rollover
 
 Rolls an alias over to a new index when the managed index meets one of the rollover conditions.
 
@@ -318,7 +318,7 @@ Parameter | Description | Type | Example | Required
 }
 ```
 
-### notification
+### Notification
 
 Sends you a notification.
 
@@ -392,9 +392,9 @@ Parameter | Description | Type
 `index_uuid` | The UUID of the index. | String
 `policy_id` | The name of the policy. | String
 
-### snapshot
+### Snapshot
 
-Back up your cluster’s indexes and state. For more information about snapshots, see [Take and restore snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore).
+Back up your cluster’s indexes and state. For more information about snapshots, see [Take and restore snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore/).
 
 The `snapshot` operation has the following parameters.
 
@@ -412,7 +412,7 @@ Parameter | Description | Type | Required | Default
 }
 ```
 
-### convert_index_to_remote
+### Convert index to remote
 
 Converts an existing index into a searchable snapshot by restoring it from a remote snapshot repository. This action reduces storage costs by moving infrequently accessed data to remote storage while keeping it searchable. After the restore request is accepted, the original index is automatically deleted, ensuring that only the remote snapshot-backed index remains.
 
@@ -529,7 +529,7 @@ The following policy moves indexes older than 30 days to searchable snapshots wi
 ```
 {% include copy.html %}
 
-### index_priority
+### Index priority
 
 Set the priority for the index in a specific state. Unallocated shards of indexes are recovered in the order of their priority, whenever possible. The indexes with higher priority values are recovered first followed by the indexes with lower priority values.
 
@@ -549,7 +549,7 @@ Parameter | Description | Type | Required | Default
 ]
 ```
 
-### allocation
+### Allocation
 
 Allocate the index to a node with a specific attribute set [like this]({{site.url}}{{site.baseurl}}/opensearch/cluster/#advanced-step-7-set-up-a-hot-warm-architecture).
 For example, setting `require` to `warm` moves your data only to "warm" nodes.
@@ -573,14 +573,14 @@ Parameter | Description | Type | Required
 ]
 ```
 
-### rollup
+### Rollup
 
 [Index rollup]({{site.url}}{{site.baseurl}}/im-plugin/index-rollups/index/) lets you periodically reduce data granularity by rolling up old data into summarized indexes.
 
 Rollup jobs can be continuous or non-continuous. A rollup job created using an ISM policy can only be non-continuous.
 {: .note }
 
-### stop_replication
+### Stop replication
 
 Stops replication and converts the follower index to a regular index.
 
@@ -595,7 +595,7 @@ When cross-cluster replication is enabled, the follower index becomes read-only,
 If security is enabled, in addition to [stop replication permissions]({{site.url}}{{site.baseurl}}/tuning-your-cluster/replication-plugin/permissions/#replication-permissions), you must have the `indices:internal/plugins/replication/index/stop` permission in order to use the `stop_replication` action.
 {: .note}
 
-### search_only
+### Search only
 
 When an index enters `search_only` mode, OpenSearch removes its primary and regular replica shards while retaining search replicas for query operations. All write operations to the index are blocked. This is useful for log lifecycle management where older indexes no longer need write capability but should remain searchable.
 
@@ -748,16 +748,16 @@ Request fields are required when creating an ISM policy. You can reference the [
 
 #### Adding a rollup policy in Dashboards
 
-To add a rollup policy in Dashboards, follow the steps below.
+To add a rollup policy in Dashboards, follow the following steps.
 
-- Select the menu button on the top-left of the Dashboards user interface.
+- Select the menu button on the upper-left of the Dashboards user interface.
 - In the Dashboards menu, select `Index Management`.
 - On the next screen select `Rollup jobs`.
 - Select the `Create rollup` button.
 - Follow the steps in the `Create rollup job` wizard.
 - Add a name for the policy in the `Name` box.
 - You can reference the [Index rollups API]({{site.url}}{{site.baseurl}}/im-plugin/index-rollups/rollup-api/#create-or-update-an-index-rollup-job) page to configure the rollup policy.
-- Finally, select the `Create` button on the bottom-right of the Dashboards user interface.
+- Finally, select the `Create` button on the lower-right of the Dashboards user interface.
 
 ---
 
@@ -765,7 +765,7 @@ To add a rollup policy in Dashboards, follow the steps below.
 
 Transitions define the conditions that need to be met for a state to change. After all actions in the current state are completed, the policy starts checking the conditions for transitions.
 
-ISM evaluates transitions in the order in which they are defined. For example, if you define transitions: [A,B,C,D], ISM iterates through this list of transitions until it finds a transition that evaluates to `true`, it then stops and sets the next state to the one defined in that transition. On its next execution, ISM dismisses the rest of the transitions and starts in that new state.
+ISM evaluates transitions in the order in which they are defined. For example, if you define transitions: `[A,B,C,D]`, ISM iterates through this list of transitions until it finds a transition that evaluates to `true`, it then stops and sets the next state to the one defined in that transition. On its next execution, ISM dismisses the rest of the transitions and starts in that new state.
 
 If you don't specify any conditions in a transition and leave it empty, then it's assumed to be the equivalent of always true. This means that the policy transitions the index to this state the moment it checks.
 
@@ -831,14 +831,14 @@ Note that this condition does not execute at exactly 5:00 PM; the job still exec
 
 A window of an hour, which this example uses, is generally sufficient, but you might increase it to 2--3 hours to avoid missing the window and having to wait a week for the transition to occur. Alternately, you could use a broader expression such as `* * * * SAT,SUN` to have the transition occur at any time during the weekend.
 
-For information on writing cron expressions, see [Cron expression reference]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/cron/).
+For information about writing cron expressions, see [Cron expression reference]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/cron/).
 
 ---
 
 ## Error notifications
 
 The `error_notification` operation sends you a notification if your managed index fails.
-It notifies a single destination or [notification channel]({{site.url}}{{site.baseurl}}/notifications-plugin/index) with a custom message.
+It notifies a single destination or [notification channel]({{site.url}}{{site.baseurl}}/notifications-plugin/index/) with a custom message.
 
 Set up error notifications at the policy level:
 
@@ -928,7 +928,7 @@ The destination system **must** return a response otherwise the `error_notificat
 }
 ```
 
-You can use the same options for `ctx` variables as the [notification](#notification) operation.
+You can use the same options for `ctx` variables as the [Notification](#notification) operation.
 
 ## Sample policy with ISM template for auto rollover
 
@@ -1222,6 +1222,6 @@ After 30 days, the policy moves this index into a `delete` state. The service se
 }
 ```
 
-This diagram shows the `states`, `transitions`, and `actions` of the above policy as a finite-state machine. For more information about finite-state machines, see [Wikipedia](https://en.wikipedia.org/wiki/Finite-state_machine).
+This diagram shows the `states`, `transitions`, and `actions` of the preceding policy as a finite-state machine. For more information about finite-state machines, see [Wikipedia](https://en.wikipedia.org/wiki/Finite-state_machine).
 
 ![Policy State Machine]({{site.url}}{{site.baseurl}}/images/ism.png)

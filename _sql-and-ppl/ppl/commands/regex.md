@@ -6,7 +6,11 @@ grand_parent: PPL
 nav_order: 36
 ---
 
+<!-- vale off -->
+
 # regex
+
+<!-- vale on -->
 
 The `regex` command filters search results by matching field values against a regular expression pattern. Only documents in which the specified field matches the pattern are included in the results.
 
@@ -55,9 +59,13 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | severityText | resource.attributes.service.name | body |
 | --- | --- | --- |
 | ERROR | payment | Payment failed: connection timeout to payment gateway after 30000ms |
+
+<!-- vale on -->
   
 
 ## Example 2: Excluding logs matching a pattern  
@@ -76,11 +84,15 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | severityText | resource.attributes.service.name | body |
 | --- | --- | --- |
 | ERROR | checkout | NullPointerException in CheckoutService.placeOrder at line 142 |
 | ERROR | payment | Out of memory: Java heap space - shutting down pod payment-6f8d4b-ht7q3 |
 | ERROR | frontend-proxy | [2024-02-01T09:20:00.456Z] "POST /api/checkout HTTP/1.1" 503 - 0 30000 checkout-8d4f7b-mk2p9 |
+
+<!-- vale on -->
   
 
 ## Example 3: Filtering by service name pattern  
@@ -98,10 +110,14 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | severityText | resource.attributes.service.name | body |
 | --- | --- | --- |
 | WARN | product-catalog | Slow query detected: SELECT \* FROM products WHERE category = 'electronics' took 3200ms |
 | WARN | product-catalog | Connection pool 80% utilized on database replica db-replica-02 |
+
+<!-- vale on -->
   
 
 ## Example 4: Complex patterns with character classes
@@ -120,9 +136,13 @@ source=otellogs
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | severityText | body |
 | --- | --- |
 | ERROR | NullPointerException in CheckoutService.placeOrder at line 142 |
+
+<!-- vale on -->
 
 ## Example 5: Case-sensitive matching
 

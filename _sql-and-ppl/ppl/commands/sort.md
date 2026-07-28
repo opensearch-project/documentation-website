@@ -6,7 +6,11 @@ grand_parent: PPL
 nav_order: 43
 ---
 
+<!-- vale off -->
+
 # sort
+
+<!-- vale on -->
 
 The `sort` command sorts the search results by the specified fields.
 
@@ -57,12 +61,16 @@ source=otellogs
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | severityText | severityNumber | resource.attributes.service.name |
 | --- | --- | --- |
 | DEBUG | 5 | cart |
 | DEBUG | 5 | product-catalog |
 | DEBUG | 5 | cart |
 | INFO | 9 | frontend |
+
+<!-- vale on -->
 
 
 ## Example 2: Sorting by one field in descending order
@@ -91,12 +99,16 @@ source=otellogs
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | severityText | severityNumber |
 | --- | --- |
 | ERROR | 17 |
 | WARN | 13 |
 | INFO | 9 |
 | DEBUG | 5 |
+
+<!-- vale on -->
 
 
 ## Example 3: Sorting by multiple fields
@@ -115,6 +127,8 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | severityText | severityNumber | resource.attributes.service.name |
 | --- | --- | --- |
 | DEBUG | 5 | product-catalog |
@@ -122,6 +136,8 @@ The query returns the following results:
 | INFO | 9 | frontend |
 | INFO | 9 | checkout |
 | INFO | 9 | cart |
+
+<!-- vale on -->
 
 The equivalent query using suffix notation is:
 
@@ -137,6 +153,8 @@ source=otellogs
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | severityText | severityNumber | resource.attributes.service.name |
 | --- | --- | --- |
 | DEBUG | 5 | product-catalog |
@@ -144,6 +162,8 @@ The query returns the following results:
 | INFO | 9 | frontend |
 | INFO | 9 | checkout |
 | INFO | 9 | cart |
+
+<!-- vale on -->
   
 
 ## Example 4: Sorting fields with null values
@@ -161,6 +181,8 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | instrumentationScope.name | severityText |
 | --- | --- |
 | null | DEBUG |
@@ -169,6 +191,8 @@ The query returns the following results:
 | null | ERROR |
 | null | WARN |
 | null | INFO |
+
+<!-- vale on -->
   
 
 ## Example 6: Specifying the number of sorted documents to return  
@@ -185,11 +209,15 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | severityText | severityNumber |
 | --- | --- |
 | DEBUG | 5 |
 | DEBUG | 5 |
 | DEBUG | 5 |
+
+<!-- vale on -->
   
 
 ## Example 7: Sorting by specifying field type
@@ -207,10 +235,14 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | severityText | severityNumber |
 | --- | --- |
 | WARN | 13 |
 | ERROR | 17 |
 | DEBUG | 5 |
 | INFO | 9 |
+
+<!-- vale on -->
   

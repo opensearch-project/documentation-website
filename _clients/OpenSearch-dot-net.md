@@ -10,9 +10,9 @@ parent: .NET clients
 
 OpenSearch.Net is a low-level .NET client that provides the foundational layer of communication with OpenSearch. It is dependency free, and it can handle round-robin load balancing, transport, and the basic request/response cycle. OpenSearch.Net contains all OpenSearch API endpoints as methods. When using OpenSearch.Net, you need to construct the queries yourself.
 
-This getting started guide illustrates how to connect to OpenSearch, index documents, and run queries. For the client source code, see the [opensearch-net repo](https://github.com/opensearch-project/opensearch-net).
+This getting started guide illustrates how to connect to OpenSearch, index documents, and run queries. For the client source code, see the [`opensearch-net` repo](https://github.com/opensearch-project/opensearch-net).
 
-## Stable Release
+## Stable release
 
 This documentation reflects the latest updates available in the [GitHub repository](https://github.com/opensearch-project/opensearch-net) and may include changes unavailable in the current stable release. The current stable release in NuGet is [1.2.0](https://www.nuget.org/packages/OpenSearch.Net.Auth.AwsSigV4/1.2.0).
 
@@ -34,7 +34,7 @@ public class Student
 
 ## Installing the Opensearch.Net client
 
-To install Opensearch.Net, download the [Opensearch.Net NuGet package](https://www.nuget.org/packages/OpenSearch.Net) and add it to your project in an IDE of your choice. In Microsoft Visual Studio, follow the steps below: 
+To install Opensearch.Net, download the [Opensearch.Net NuGet package](https://www.nuget.org/packages/OpenSearch.Net) and add it to your project in an IDE of your choice. In Microsoft Visual Studio, follow the following steps: 
 - In the **Solution Explorer** panel, right-click on your solution or project and select **Manage NuGet Packages for Solution**.
 - Search for the OpenSearch.Net NuGet package, and select **Install**.
 
@@ -205,7 +205,7 @@ Console.WriteLine(response.Body);
 ```
 {% include copy.html %}
 
-The generic type parameter of the `Index` method specifies the response body type. In the example above, the response is a string.
+The generic type parameter of the `Index` method specifies the response body type. In the preceding example, the response is a string.
 
 ## Indexing many documents using the Bulk API
 
@@ -234,7 +234,7 @@ var manyResponse = client.Bulk<StringResponse>(PostData.MultiJson(studentArray))
 ```
 {% include copy.html %}
 
-You can send the request body as an anonymous object, string, byte array, or stream in APIs that take a body. For APIs that take multiline JSON, you can send the body as a list of bytes or a list of objects, like in the example above. The `PostData` class has static methods to send the body in all of these forms. 
+You can send the request body as an anonymous object, string, byte array, or stream in APIs that take a body. For APIs that take multiline JSON, you can send the body as a list of bytes or a list of objects, like in the preceding example. The `PostData` class has static methods to send the body in all of these forms. 
 
 ## Searching for a document
 

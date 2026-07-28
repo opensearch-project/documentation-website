@@ -6,7 +6,11 @@ grand_parent: PPL
 nav_order: 51
 ---
 
+<!-- vale off -->
+
 # transpose
+
+<!-- vale on -->
 
 The `transpose` command outputs the requested number of rows as columns, converting each result row into a corresponding column of field values.
 
@@ -42,10 +46,14 @@ source=otellogs
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | column | row 1 | row 2 | row 3 | row 4 | row 5 |
 | --- | --- | --- | --- | --- | --- |
 | log_count | 3 | 7 | 6 | 4 | null |
 | severityText | DEBUG | ERROR | INFO | WARN | null |
+
+<!-- vale on -->
 
 ## Example 2: Transposing a limited number of rows
 
@@ -62,10 +70,14 @@ source=otellogs
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | column | row 1 | row 2 | row 3 |
 | --- | --- | --- | --- |
 | log_count | 3 | 7 | 6 |
 | severityText | DEBUG | ERROR | INFO |
+
+<!-- vale on -->
 
 ## Limitations
 

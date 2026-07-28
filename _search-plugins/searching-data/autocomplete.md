@@ -250,7 +250,7 @@ As the user types, the completion suggester moves through the FST graph one char
 
 The completion suggester makes your autocomplete solution as efficient as possible and lets you have explicit control over its suggestions.
 
-Use a dedicated field type called [`completion`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/completion), which stores the FST-like data structures in the index:
+Use a dedicated field type called [`completion`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/completion/), which stores the FST-like data structures in the index:
 
 ```json
 PUT shakespeare
@@ -685,11 +685,11 @@ GET shakespeare/_search
 }
 ```
 
-For more information, see the [`completion` field type documentation]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/completion).
+For more information, see the [`completion` field type documentation]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/completion/).
 
 ## Search as you type
 
-OpenSearch has a dedicated [`search_as_you_type`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/search-as-you-type) field type that is optimized for search-as-you-type functionality and can match terms using both prefix and infix completion. The `search_as_you_type` field does not require you to set up a custom analyzer or index suggestions beforehand. 
+OpenSearch has a dedicated [`search_as_you_type`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/search-as-you-type/) field type that is optimized for search-as-you-type functionality and can match terms using both prefix and infix completion. The `search_as_you_type` field does not require you to set up a custom analyzer or index suggestions beforehand. 
 
 First, map the field as `search_as_you_type`:
 
@@ -1030,4 +1030,4 @@ The result is empty:
 }
 ```
 
-For more information, see the [`search_as_you_type` field type documentation]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/search-as-you-type).
+For more information, see the [`search_as_you_type` field type documentation]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/search-as-you-type/).

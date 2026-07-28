@@ -6,7 +6,11 @@ grand_parent: PPL
 nav_order: 28
 ---
 
+<!-- vale off -->
+
 # ml
+
+<!-- vale on -->
 
 The `ml` command applies machine learning (ML) algorithms from the ML Commons plugin to the search results returned by a PPL command. It supports various ML operations, including anomaly detection and clustering. The command can perform train, predict, or combined train-and-predict operations, depending on the algorithm and specified action.
 
@@ -103,9 +107,13 @@ source=nyc_taxi
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | value | timestamp | score | anomaly_grade |
 | --- | --- | --- | --- |
 | 10844.0 | 2014-07-01 00:00:00 | 0.0 | 0.0 |
+
+<!-- vale on -->
   
 
 ## Example 2: Time-series anomaly detection by category
@@ -122,10 +130,14 @@ source=nyc_taxi
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | category | value | timestamp | score | anomaly_grade |
 | --- | --- | --- | --- | --- |
 | night | 10844.0 | 2014-07-01 00:00:00 | 0.0 | 0.0 |
 | day | 6526.0 | 2014-07-01 06:00:00 | 0.0 | 0.0 |
+
+<!-- vale on -->
   
 
 ## Example 3: Non-time-series anomaly detection
@@ -142,9 +154,13 @@ source=nyc_taxi
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | value | score | anomalous |
 | --- | --- | --- |
 | 10844.0 | 0.0 | False |
+
+<!-- vale on -->
   
 
 ## Example 4: Non-time-series anomaly detection by category
@@ -161,10 +177,14 @@ source=nyc_taxi
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | category | value | score | anomalous |
 | --- | --- | --- | --- |
 | night | 10844.0 | 0.0 | False |
 | day | 6526.0 | 0.0 | False |
+
+<!-- vale on -->
   
 
 ## Example 5: K-means clustering of the Iris dataset  
@@ -180,10 +200,14 @@ source=iris_data
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | sepal_length_in_cm | sepal_width_in_cm | petal_length_in_cm | petal_width_in_cm | ClusterID |
 | --- | --- | --- | --- | --- |
 | 5.1 | 3.5 | 1.4 | 0.2 | 1 |
 | 5.6 | 3.0 | 4.1 | 1.3 | 0 |
 | 6.7 | 2.5 | 5.8 | 1.8 | 2 |
+
+<!-- vale on -->
   
 

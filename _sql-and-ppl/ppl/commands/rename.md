@@ -6,7 +6,11 @@ grand_parent: PPL
 nav_order: 37
 ---
 
+<!-- vale off -->
+
 # rename
+
+<!-- vale on -->
 
 The `rename` command renames one or more fields in the search results.
 
@@ -51,12 +55,16 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | severity |
 | --- |
 | INFO |
 | INFO |
 | WARN |
 | ERROR |
+
+<!-- vale on -->
   
 
 ## Example 2: Renaming multiple fields  
@@ -74,12 +82,16 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | severity | service |
 | --- | --- |
 | INFO | frontend |
 | INFO | cart |
 | WARN | product-catalog |
 | ERROR | payment |
+
+<!-- vale on -->
   
 
 ## Example 3: Renaming fields using wildcards  
@@ -97,12 +109,16 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | sevText | sevNumber |
 | --- | --- |
 | INFO | 9 |
 | INFO | 9 |
 | WARN | 13 |
 | ERROR | 17 |
+
+<!-- vale on -->
   
 
 ## Example 4: Renaming fields using multiple wildcard patterns  
@@ -120,12 +136,16 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | sevText | sevNumber | otel_timestamp |
 | --- | --- | --- |
 | INFO | 9 | 2024-02-01 09:10:00 |
 | INFO | 9 | 2024-02-01 09:11:00 |
 | WARN | 13 | 2024-02-01 09:12:00 |
 | ERROR | 17 | 2024-02-01 09:13:00 |
+
+<!-- vale on -->
   
 
 ## Example 5: Renaming an existing field to another existing field  
@@ -143,12 +163,16 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | body |
 | --- |
 | INFO |
 | INFO |
 | WARN |
 | ERROR |
+
+<!-- vale on -->
   
 
 ## Limitations

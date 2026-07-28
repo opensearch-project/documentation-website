@@ -11,7 +11,7 @@ redirect_from:
 
 # Working with workloads
 
-Once you [understand workloads]({{site.url}}{{site.baseurl}}/benchmark/user-guide/understanding-workloads/index/) and have [chosen a workload]({{site.url}}{{site.baseurl}}/benchmark/user-guide/understanding-workloads/choosing-a-workload/) to run your benchmarks with, you can begin working with workloads.
+Once you're familiar with the [anatomy of a workload]({{site.url}}{{site.baseurl}}/benchmark/anatomy-of-a-workload/) and have [chosen a workload]({{site.url}}{{site.baseurl}}/benchmark/choosing-a-workload/), you can begin working with workloads.
 
 - [Running workloads]({{site.url}}{{site.baseurl}}/benchmark/user-guide/working-with-workloads/running-workloads/): Learn how to run an OpenSearch Benchmark workload.
 - [Creating custom workloads]({{site.url}}{{site.baseurl}}/benchmark/user-guide/working-with-workloads/creating-custom-workloads/): Create a custom workload with your own datasets.

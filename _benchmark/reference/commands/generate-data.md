@@ -8,7 +8,9 @@ redirect_from:
   - /benchmark/commands/generate-data/
 ---
 
+<!-- vale off -->
 # generate-data
+<!-- vale on -->
 
 The `generate-data` command creates synthetic datasets for benchmarking and testing. OpenSearch Benchmark supports two methods for data generation: using OpenSearch index mappings or custom Python modules with user-defined logic. For more information, see [Synthetic data generation]({{site.url}}{{site.baseurl}}/benchmark/features/synthetic-data-generation/).
 

@@ -6,7 +6,11 @@ grand_parent: PPL
 nav_order: 38
 ---
 
+<!-- vale off -->
+
 # replace
+
+<!-- vale on -->
 
 The `replace` command replaces text in one or more fields in the search results. It supports literal string replacement and wildcard patterns using `*`.
 
@@ -43,6 +47,8 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | resource.attributes.service.name | severityText |
 | --- | --- |
 | frontend | INFO |
@@ -50,6 +56,8 @@ The query returns the following results:
 | product catalog | WARN |
 | payment | ERROR |
 | cart | DEBUG |
+
+<!-- vale on -->
   
 
 ## Example 2: Replacing text in multiple fields  
@@ -67,6 +75,8 @@ source=otellogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | severityText | resource.attributes.service.name |
 | --- | --- |
 | INFO | frontend |
@@ -74,6 +84,8 @@ The query returns the following results:
 | Warning | product-catalog |
 | Error | payment |
 | DEBUG | cart |
+
+<!-- vale on -->
   
 
 ## Example 3: Using the replace command in a pipeline

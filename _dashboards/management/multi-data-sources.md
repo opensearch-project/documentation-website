@@ -269,30 +269,30 @@ The following GIF illustrates these steps.
 
 ![Multiple data sources in Search Relevance plugin]({{site.url}}{{site.baseurl}}/images/dashboards/searchrelevance_mds1.gif)
 
-### Security analytics
+### Security Analytics
 Introduced 2.15
 {: .label .label-purple}
 
-When you set `data_source.enabled:true`, you can view and manage security analytics resources, such as detection rules, across multiple connected data sources:
+When you set `data_source.enabled:true`, you can view and manage Security Analytics resources, such as detection rules, across multiple connected data sources:
 
-1. Navigate to **OpenSearch Plugins** > **Security analytics** under the main menu.
+1. Navigate to **OpenSearch Plugins** > **Security Analytics** under the main menu.
 2. Select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/database-icon.png" class="inline-icon" alt="database icon"/>{:/} icon and choose a data source from the dropdown menu.
-3. Select **Dectectors** > **Detection rules** from the navigation menu on the left. A list of detection rules is displayed.
+3. Select **Detectors** > **Detection rules** from the navigation menu on the left. A list of detection rules is displayed.
 4. Select a rule to open a pop-up window containing more information about that rule.
 
 The following GIF illustrates these steps.
 
-![Multiple data sources in Security analytics list page]({{site.url}}{{site.baseurl}}/images/dashboards/mds_sa_detection_rules_view.gif)
+![Multiple data sources in Security Analytics list page]({{site.url}}{{site.baseurl}}/images/dashboards/mds_sa_detection_rules_view.gif)
 
 1. Navigate to **OpenSearch Plugins** > **Security analytics** under the main menu.
 2. Select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/database-icon.png" class="inline-icon" alt="database icon"/>{:/} icon and choose a data source from the dropdown menu.
-3. Select **Dectectors** > **Detection rules** from the navigation menu on the left.
+3. Select **Detectors** > **Detection rules** from the navigation menu on the left.
 4. Select the **Create detection rule** button on the upper right and then enter the required configuration details in the **Create detection rule** window. 
 5. Select the **Create detection rule** button on the lower right to save the rule. The rule is now associated with the data source.
 
 The following GIF illustrates these steps.
 
-![Multiple data sources in Security analytics create page]({{site.url}}{{site.baseurl}}/images/dashboards/mds_sa_detection_rules_create.gif)
+![Multiple data sources in Security Analytics create page]({{site.url}}{{site.baseurl}}/images/dashboards/mds_sa_detection_rules_create.gif)
 
 ### Alerting
 Introduced 2.15

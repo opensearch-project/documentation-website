@@ -6,7 +6,9 @@ grand_parent: Pipelines
 nav_order: 80
 ---
 
+<!-- vale off -->
 # substringBefore()
+<!-- vale on -->
 
 The `substringBefore()` function is used to extract the portion of a string that precedes the first occurrence of a specified delimiter. It takes two arguments:
 

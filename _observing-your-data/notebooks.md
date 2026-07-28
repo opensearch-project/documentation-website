@@ -14,7 +14,7 @@ An OpenSearch Dashboards notebook is an interface that lets you easily combine c
 
 Notebooks let you interactively explore data by running different visualizations that you can share with team members to collaborate on a project.
 
-A notebook is a document composed of two elements: code blocks (Markdown/SQL/PPL) and visualizations. Choose multiple timelines to compare and contrast visualizations.
+A notebook is a document composed of two elements: code blocks (Markdown/SQL/Piped Processing Language (PPL)) and visualizations. Choose multiple timelines to compare and contrast visualizations.
 
 You can also generate [reports]({{site.url}}{{site.baseurl}}/dashboards/reporting/) directly from your notebooks.
 
@@ -46,16 +46,16 @@ Paragraphs combine code blocks and visualizations for describing data.
 
 #### Add a code block
 
-Code blocks support markdown, SQL, and PPL languages.
+Code blocks support Markdown, SQL, and PPL languages.
 
 Specify the input language on the first line using `%[language type]` syntax.
-For example, type `%md` for markdown, `%sql` for SQL, and `%ppl` for PPL.
+For example, type `%md` for Markdown, `%sql` for SQL, and `%ppl` for PPL.
 
-##### Sample markdown block
+##### Sample Markdown block
 
 ```
 %md
-Add in text formatted in markdown.
+Add in text formatted in Markdown.
 ```
 
 ![Markdown paragraph]({{site.url}}{{site.baseurl}}/images/markdown_notebooks.gif)

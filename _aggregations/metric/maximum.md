@@ -7,7 +7,7 @@ redirect_from:
   - /query-dsl/aggregations/metric/maximum/
 ---
 
-# Maximum aggregations
+# Maximum aggregation
 
 The `max` metric is a single-value metric that returns the maximum value of a field.
 

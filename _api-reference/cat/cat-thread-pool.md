@@ -134,3 +134,7 @@ odfe-node2 ad-batch-task-threadpool    0     0        0
 odfe-node2 ad-threadpool               0     0        0
 odfe-node2 analyze                     0     0        0s
 ```
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `cluster:monitor/nodes/info`.

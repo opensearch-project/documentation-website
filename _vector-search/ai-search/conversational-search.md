@@ -238,7 +238,7 @@ For information about the processor fields, see [Retrieval-augmented generation 
 
 ### Step 4: Ingest RAG data into an index
 
-RAG augments the LLM's knowledge with some supplementary data. 
+RAG augments the LLM knowledge with some supplementary data. 
 
 First, create an index in which to store this data and set the default search pipeline to the pipeline created in the previous step:
 

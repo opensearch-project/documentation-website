@@ -159,6 +159,8 @@ On the Migration Console, the schema is available at:
 
 The CLI uses this schema automatically when editing and validating configurations, so no separate download is required.
 
+For an interactive reference of all available fields, their types, defaults, and descriptions, see the [Migration Assistant Schema Viewer](https://opensearch-project.github.io/opensearch-migrations/).
+
 ## Related documentation
 
 | Topic | Link |
@@ -167,3 +169,4 @@ The CLI uses this schema automatically when editing and validating configuration
 | Deployment choice | [Choose your deployment]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/) |
 | Elasticsearch 6.8 to OpenSearch 3.5 | [Playbook]({{site.url}}{{site.baseurl}}/migration-assistant/playbook-elasticsearch-6-8-to-opensearch-3/) |
 | Amazon OpenSearch Service to Serverless | [Playbook]({{site.url}}{{site.baseurl}}/migration-assistant/playbook-amazon-opensearch-service-to-serverless/) |
+| Interactive schema reference | [Migration Assistant Schema Viewer](https://opensearch-project.github.io/opensearch-migrations/) |

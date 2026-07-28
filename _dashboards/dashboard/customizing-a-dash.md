@@ -38,7 +38,7 @@ To move a panel, follow these steps:
 
 1. Select and hold the panel title or the top of the panel as shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/dash-panel-grab.png" alt="Dragging a panel in Dashboards"  width="50%">
+![Dragging a panel in Dashboards]({{site.url}}{{site.baseurl}}/images/dashboards/dash-panel-grab.png){: width="50%" }
 
 1. Drag the panel to the new location.
 

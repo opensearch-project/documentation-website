@@ -126,7 +126,7 @@ Algorithmic stemmers apply predefined rules to systematically strip affixes (pre
 
 - [`porter_stem`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/porter-stem/): Applies the Porter stemming algorithm to remove common suffixes and reduce words to their stems. For example, "running" becomes "run".
 
-- [`kstem`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/kstem/): A lightweight stemmer designed for the English langugage that combines algorithmic stemming with a built-in dictionary. It reduces plurals to singulars, converts verb tenses to their base forms, and removes common derivational endings. 
+- [`kstem`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/kstem/): A lightweight stemmer designed for the English language that combines algorithmic stemming with a built-in dictionary. It reduces plurals to singulars, converts verb tenses to their base forms, and removes common derivational endings. 
 
 
 - [`stemmer`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/stemmer/): Provides algorithmic stemming for various languages, including English, with options for different stemming algorithms like `light_english`, `minimal_english`, and `porter2`. 

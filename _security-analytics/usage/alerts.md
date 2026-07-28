@@ -9,7 +9,7 @@ nav_order: 46
 
 The **Alerts** window provides features for viewing and managing alerts. It consists of:
 
-- A bar graph displaying alert counts, dates, and statuses or severities.
+- A bar graph displaying alert counts, dates, and status or severity levels.
 - Two tabs:
   - **Findings**: Lists detector-generated alerts, showing details such as alert time, trigger name, and the detector that triggered the alert.
   - **Correlations**: Lists correlation-rule-generated alerts, showing details such as alert time, trigger name, and the correlation rule that triggered the alert.

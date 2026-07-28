@@ -6,7 +6,11 @@ grand_parent: PPL
 nav_order: 26
 ---
 
+<!-- vale off -->
+
 # kmeans (Deprecated)
+
+<!-- vale on -->
 
 The `kmeans` command is deprecated in favor of the [`ml` command]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/commands/ml/).
 {: .warning}
@@ -48,10 +52,14 @@ source=iris_data
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | sepal_length_in_cm | sepal_width_in_cm | petal_length_in_cm | petal_width_in_cm | ClusterID |
 | --- | --- | --- | --- | --- |
 | 5.1 | 3.5 | 1.4 | 0.2 | 1 |
 | 5.6 | 3.0 | 4.1 | 1.3 | 0 |
 | 6.7 | 2.5 | 5.8 | 1.8 | 2 |
+
+<!-- vale on -->
   
 

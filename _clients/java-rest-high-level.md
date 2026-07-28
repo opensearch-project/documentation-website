@@ -35,9 +35,9 @@ If you're using certificates from a trusted Certificate Authority (CA), you don'
 keytool -import <path-to-cert> -alias <alias-to-call-cert> -keystore <truststore-name>
 ```
 
-You can now point your Java client to the truststore and set basic authentication credentials that can access a secure cluster (refer to the sample code below on how to do so).
+You can now point your Java client to the truststore and set basic authentication credentials that can access a secure cluster (refer to the sample following code on how to do so).
 
-If you run into issues when configuring security, see [common issues]({{site.url}}{{site.baseurl}}/troubleshoot/index) and [troubleshoot TLS]({{site.url}}{{site.baseurl}}/troubleshoot/tls).
+If you run into issues when configuring security, see [common issues]({{site.url}}{{site.baseurl}}/troubleshoot/index/) and [troubleshoot TLS]({{site.url}}{{site.baseurl}}/troubleshoot/tls/).
 
 ## Sample program
 

@@ -92,7 +92,7 @@ Follow these steps to view and manage access for a resource in OpenSearch Dashbo
       * The resource owner.
       * All users, roles, and backend roles with access.
       * Their assigned access levels.
-      * Whether you have permission to reshare the resource.
+      * Whether you have permission to share the resource with others.
 
       The Resources panel for the Anomaly Detector resource type is shown in the following image.
      

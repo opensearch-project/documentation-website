@@ -22,9 +22,9 @@ POST /_scripts/painless/_execute
 
 | Field | Description | 
 :--- | :---
-| script | The script to run. Required|
-| context | A context for the script. Optional. Default is `painless_test`. |
-| context_setup | Specifies additional parameters for the context. Optional.| 
+| `script` | The script to run. Required |
+| `context` | A context for the script. Optional. Default is `painless_test`. |
+| `context_setup` | Specifies additional parameters for the context. Optional. | 
 
 ## Example request
 <!-- spec_insert_start
@@ -161,7 +161,7 @@ The response contains the average of two script parameters:
 
 | Field | Description | 
 :--- | :--- 
-| result | The script result.|
+| `result` | The script result. |
 
 
 ## Script contexts
