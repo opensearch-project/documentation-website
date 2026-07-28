@@ -34,7 +34,7 @@ With `strategies` (requires `llm_id`, `embedding_model_id`, and `embedding_model
 Each index type serves a specific purpose:
 
 - **Working memory**: Stores raw messages as they are received. Always created.
-- **Session**: Tracks conversation sessions and their metadata. Created by default; set `disable_session` to `true` to opt out.
+- **Session**: Tracks conversation sessions and their metadata. Created by default. To disable session tracking, set `disable_session` to `true`.
 - **Long-term memory**: Stores extracted facts and persistent knowledge produced by strategies. Created only when strategies are configured.
 - **History**: An audit trail that records every ADD, UPDATE, and DELETE operation on long-term memory. Created only when strategies are configured. Can be opted out of by setting `disable_history` to `true`.
 
