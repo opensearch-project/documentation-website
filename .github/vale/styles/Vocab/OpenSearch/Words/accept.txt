@@ -87,6 +87,7 @@ gzip
 [Hh]ostname
 [Hh]otspots?
 [Hh]yperparameters
+[Ii]dempotent(?:ly|cy)?
 [Ii]mpactful
 [Ii]nfographics?
 [Ii]ngress

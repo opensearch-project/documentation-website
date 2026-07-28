@@ -28,13 +28,13 @@ The indexes created for a memory container depend on the `configuration` you pro
 
 Configuration | Indexes created | Capabilities
 :--- | :--- | :---
-No `configuration` or no `strategies` | Working memory only (+ session if `disable_session` is `false`) | Raw message storage and retrieval. No semantic search, no long-term memory, no fact extraction.
-With `strategies` (requires `llm_id`, `embedding_model_id`, and `embedding_model_type`) | Working memory + long-term memory + history (+ session if `disable_session` is `false`) | Semantic search, fact extraction, memory consolidation (ADD/UPDATE/DELETE decisions), and an audit trail of all long-term memory changes.
+No `configuration` or no `strategies` | Working memory + session (unless `disable_session` is `true`) | Raw message storage and retrieval. No semantic search, no long-term memory, no fact extraction.
+With `strategies` (requires `llm_id`, `embedding_model_id`, and `embedding_model_type`) | Working memory + session + long-term memory + history (unless `disable_session` is `true`) | Semantic search, fact extraction, memory consolidation (ADD/UPDATE/DELETE decisions), and an audit trail of all long-term memory changes.
 
 Each index type serves a specific purpose:
 
 - **Working memory**: Stores raw messages as they are received. Always created.
-- **Session**: Tracks conversation sessions and their metadata. Created only when `disable_session` is `false` (disabled by default).
+- **Session**: Tracks conversation sessions and their metadata. Created by default; set `disable_session` to `true` to opt out.
 - **Long-term memory**: Stores extracted facts and persistent knowledge produced by strategies. Created only when strategies are configured.
 - **History**: An audit trail that records every ADD, UPDATE, and DELETE operation on long-term memory. Created only when strategies are configured. Can be opted out of by setting `disable_history` to `true`.
 
@@ -176,19 +176,20 @@ Field | Data type | Required/Optional | Description
 `index_prefix` | String | Optional | A custom prefix for memory indexes. If not specified, a default prefix is used: `default` when `use_system_index` is `true`, or an 8-character random UUID when `use_system_index` is `false`.
 `use_system_index` | Boolean | Optional | Whether to use system indexes (hidden indexes prefixed with `.plugins-ml-agentic-memory-`). Default is `true`.
 `disable_history`  | Boolean | Optional | Whether to disable the history audit trail index. Default is `false`. This setting only takes effect when strategies are configured, because the history index records changes to long-term memory. Without strategies, no long-term memory or history index is created regardless of this setting.
-`disable_session`  | Boolean | Optional | Whether to disable the session tracking index. Default is `true` (sessions are disabled by default). Set to `false` to enable session tracking for organizing conversations.
+`disable_session`  | Boolean | Optional | Whether to disable the session tracking index. Default is `false` (sessions are enabled by default). Set to `true` to disable session tracking.
 `max_infer_size`   | Integer | Optional | The maximum number of similar existing memories retrieved during memory consolidation to make ADD/UPDATE/DELETE decisions. Default is `5`. Maximum is `10`.
-`index_settings`   | Object | Optional | Custom OpenSearch index settings for the memory storage indexes that will be created for this container. Each memory type (`sessions`, `working`, `long_term`, and `history`) uses its own index. See [Index settings](#index-settings).
+`index_settings`   | Object | Optional | Custom OpenSearch index settings for the memory storage indexes that will be created for this container. Each memory type (`sessions`, `working`, `long_term`, and `history`) uses its own index. See [The `index_settings` object](#the-index_settings-object).
 `strategies` | Array | Optional | An array of [memory processing strategies]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agentic-memory/#memory-processing-strategies). When strategies are provided, both `llm_id` and embedding model fields (`embedding_model_id`, `embedding_model_type`) are required. See [The `strategies` array](#the-strategies-array).
 `parameters` | Object | Optional | Global parameters for the memory container. See [The `parameters` object](#the-parameters-object).
 
-### Index settings
+### The index_settings object
 
 You can customize the OpenSearch index settings for the storage indexes that will be created to store memory data. Each memory type uses a dedicated index, and you can configure settings like the number of shards and replicas for performance optimization.
 
 The following example shows you how to specify custom index settings in the `configuration` object:
 
 ```json
+POST /_plugins/_ml/memory_containers/_create
 {
   "name": "my-memory-container",
   "configuration": {
@@ -222,7 +223,7 @@ The following example shows you how to specify custom index settings in the `con
   }
 }
 ```
-{% include copy.html %}
+{% include copy-curl.html %}
 
 ### The strategies array
 
@@ -232,12 +233,12 @@ Field | Data type | Required/Optional | Description
 :--- | :--- | :--- | :---
 `type` | String | Required | The strategy type. Valid values are `SEMANTIC`, `USER_PREFERENCE`, and `SUMMARY`.
 `namespace` | Array | Required | An array of [namespace]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agentic-memory/#namespaces) dimensions for organizing memories (for example, `["user_id"]` or `["agent_id", "session_id"]`).
-`configuration` | Object | Optional | Strategy-specific configuration. See [The strategy `configuration` object](#the-strategy-configuration-object).
+`configuration` | Object | Optional | Strategy-specific configuration. See [The `strategies.configuration` object](#the-strategies-configuration-object).
 `enabled`       | Boolean             | Optional | Whether to enable the strategy in the memory container. Default is `true`.
 
-### The strategy configuration object
+### The strategies configuration object
 
-The strategy `configuration` object supports the following fields.
+The `strategies.configuration` object supports the following fields.
 
 Field | Data type | Required/Optional | Description
 :--- | :--- | :--- | :---
@@ -246,6 +247,7 @@ Field | Data type | Required/Optional | Description
 `llm_id` | String | Optional | The LLM model ID for this strategy. Overrides the global LLM setting.
 
 ### The parameters object
+
 The `parameters` object supports the following field.
 
 Field | Data type | Required/Optional | Description

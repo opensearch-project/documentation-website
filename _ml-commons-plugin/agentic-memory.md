@@ -2,6 +2,8 @@
 layout: default
 title: Agentic memory
 parent: Memory and context
+has_children: true
+has_toc: false
 nav_order: 10
 ---
 
@@ -263,5 +265,6 @@ GET /_plugins/_ml/memory_containers/{memory_container_id}/memories/working/_sear
 
 ## Next steps
 
+- Learn about [agentic memory retention]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agentic-memory-retention/).
 - Explore [memory container configuration]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/create-memory-container/) options.
 - Review the complete [Agentic Memory API reference]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/).
