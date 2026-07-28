@@ -29,6 +29,8 @@ In general, you should choose the ANN method for larger datasets because it scal
 
 OpenSearch supports multiple backend algorithms (_methods_) and libraries for implementing these algorithms (_engines_). It automatically selects the optimal configuration based on the chosen mode and available memory. For more information, see [Methods and engines]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-methods-engines/).
 
+The [`opensearch-jvector`]({{site.url}}{{site.baseurl}}/install-and-configure/additional-plugins/opensearch-jvector/) plugin provides an additional `jvector` engine with the `disk_ann` method. Unlike the built-in engines, `jvector` is not part of the default OpenSearch distribution and cannot be installed alongside `opensearch-knn`.
+
 ## Using sparse vectors
 
 _Neural sparse search_ offers an efficient alternative to dense vector search by using sparse embedding models and inverted indexes, providing performance similar to BM25. Unlike dense vector methods that require significant memory and CPU resources, sparse search creates a list of token-weight pairs and stores them in a rank features index. This approach combines the efficiency of traditional search with the semantic understanding of neural networks. OpenSearch supports both automatic embedding generation through ingest pipelines and direct sparse vector ingestion. For more information, see [Neural sparse search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-search/).
