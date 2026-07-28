@@ -52,9 +52,9 @@ The table lists the attributes in order of priority, from highest to lowest. Thi
 
 | Attribute            | Data type | Description                                                                                                                                                                                                                   |
 |:---------------------|:----------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `principal.username` | List      | A list of usernames to be matched to this rule. Supports exact match (`user1`) and trailing wildcard patterns (`user*`). This attribute is available only when the Security plugin is enabled on the domain.                                 |
-| `principal.role`     | List      | A list of roles to be matched to this rule. Supports exact match (`role1`) and trailing wildcard patterns (`role*`). This attribute is available only when the Security plugin is enabled on the domain.                                     |
-| `index_pattern`      | List      | A list of target indexes for incoming queries. Supports exact match (`logs-2025`) and trailing wildcard patterns (`logs*`).                                |
+| `principal.username` | List      | A list of usernames to be matched to this rule. Supports exact match (for example, `user1`) and trailing wildcard patterns (for example, `user*`). This attribute is available only when the Security plugin is enabled on the domain.                                 |
+| `principal.role`     | List      | A list of roles to be matched to this rule. Supports exact match (for example, `role1`) and trailing wildcard patterns (for example, `role*`). This attribute is available only when the Security plugin is enabled on the domain.                                     |
+| `index_pattern`      | List      | A list of target indexes for incoming queries. Supports exact match (for example, `logs-2025`) and trailing wildcard patterns (for example, `logs*`).                                |
 
 ## Parameters
 
