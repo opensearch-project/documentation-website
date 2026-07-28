@@ -65,4 +65,4 @@ bin/opensearch-plugin install opensearch-jvector
 
 - `opensearch-jvector` plugin is not part of the default OpenSearch distribution
 - `opensearch-knn` and `opensearch-jvector` cannot be installed simultaneously
-- `opensearch-jvector` is not recognized by the upstream version of `neural-search` plugin. 
+- `opensearch-jvector` is not recognized by the upstream version of `opensearch-neural-search` plugin.
