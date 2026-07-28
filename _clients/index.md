@@ -26,6 +26,7 @@ OpenSearch provides clients for the following programming languages and platform
   * [`opensearch-py-ml` client]({{site.url}}{{site.baseurl}}/clients/opensearch-py-ml/)
 * **Java**
   * [OpenSearch Java client]({{site.url}}{{site.baseurl}}/clients/java/)
+  * [OpenSearch Java gRPC transport]({{site.url}}{{site.baseurl}}/clients/java-grpc/)
 * **JavaScript**
   * [OpenSearch JavaScript (Node.js) client]({{site.url}}{{site.baseurl}}/clients/javascript/index/)
 * **Go**
