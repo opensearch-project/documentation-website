@@ -7,7 +7,7 @@ redirect_from:
   - /security-plugin/configuration/openid-connect/
 ---
 
-# OpenID Connect
+# OpenID Connect authentication
 
 The Security plugin can integrate with identify providers that use the OpenID Connect standard. This feature enables the following:
 

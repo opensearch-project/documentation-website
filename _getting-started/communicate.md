@@ -2,6 +2,7 @@
 layout: default
 title: Communicate with OpenSearch
 nav_order: 30
+description: "Learn how to communicate with OpenSearch using the REST API to index documents, run queries, and change cluster settings."
 ---
 
 # Communicate with OpenSearch

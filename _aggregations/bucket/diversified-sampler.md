@@ -7,7 +7,7 @@ redirect_from:
   - /query-dsl/aggregations/bucket/diversified-sampler/
 ---
 
-# Diversified sampler aggregations
+# Diversified sampler aggregation
 
 The `diversified_sampler` aggregation is a filtering aggregation that limits subaggregation processing to a sample of top-scoring documents while ensuring the sample contains diverse content. It extends the [`sampler` aggregation]({{site.url}}{{site.baseurl}}/aggregations/bucket/sampler/) by deduplicating documents that share a common field value, preventing any single category from dominating the sample.
 

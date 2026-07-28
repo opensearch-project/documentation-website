@@ -7,7 +7,7 @@ redirect_from:
   - /query-dsl/aggregations/bucket/filters/
 ---
 
-# Filters aggregations
+# Filters aggregation
 
 The `filters` aggregation creates multiple buckets, each associated with a named or anonymous filter query. Every document is evaluated against all filters, and a document can land in multiple buckets if it matches more than one filter. This differs from the singular [`filter` aggregation]({{site.url}}{{site.baseurl}}/aggregations/bucket/filter/), which produces only one bucket.
 

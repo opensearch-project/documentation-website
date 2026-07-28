@@ -7,7 +7,7 @@ redirect_from:
   - /monitoring-plugins/pa/reference/
 ---
 
-# Metrics reference
+# Performance Analyzer metrics reference
 
 Performance Analyzer provides a number of metrics to help you evaluate performance. The following tables describe the available metrics, grouped by the dimensions that are most relevant for that metric. All metrics support the `avg`, `sum`, `min`, and `max` aggregations, although for certain metrics, the measured value is the same regardless of aggregation type. 
 

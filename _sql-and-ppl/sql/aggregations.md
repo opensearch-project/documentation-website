@@ -8,7 +8,7 @@ redirect_from:
   - /search-plugins/sql/sql/aggregations/
 ---
 
-# Aggregate functions
+# SQL aggregate functions
 
 Aggregate functions operate on subsets defined by the `GROUP BY` clause. In the absence of a `GROUP BY` clause, aggregate functions operate on all elements of the result set. You can use aggregate functions in the `GROUP BY`, `SELECT`, and `HAVING` clauses.
 

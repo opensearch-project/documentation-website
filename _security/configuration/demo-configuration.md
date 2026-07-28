@@ -5,7 +5,7 @@ parent: Configuration
 nav_order: 4
 ---
 
-# Setting up a demo configuration
+# Setting up a security demo configuration
 
 Welcome to the OpenSearch Security plugin demo configuration setup guide. This tool provides a quick and easy way to replicate a production environment for testing purposes. The demo configuration includes the setup of security-related components, such as internal users, roles, role mappings, audit configuration, basic authentication, tenants, and allow lists.
 

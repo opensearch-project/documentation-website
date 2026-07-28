@@ -7,7 +7,7 @@ redirect_from:
   - /security-plugin/access-control/permissions/
 ---
 
-# Permissions
+# Security permissions
 
 Each permission in the Security plugin controls access to some action that the OpenSearch cluster can perform, such as indexing a document or checking cluster health.
 

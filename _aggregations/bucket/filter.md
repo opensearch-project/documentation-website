@@ -7,7 +7,7 @@ redirect_from:
   - /query-dsl/aggregations/bucket/filter/
 ---
 
-# Filter aggregations
+# Filter aggregation
 
 The `filter` aggregation creates a single bucket containing all documents that match a specified query. Any query clause---`match`, `term`, `range`, `bool`, and others---can serve as the filter. Subaggregations nested inside the `filter` aggregation operate only on the matching documents, making it useful for scoping expensive computations to a relevant subset.
 

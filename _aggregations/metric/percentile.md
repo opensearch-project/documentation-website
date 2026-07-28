@@ -7,7 +7,7 @@ redirect_from:
   - /query-dsl/aggregations/metric/percentile/
 ---
 
-# Percentile aggregations
+# Percentile aggregation
 
 The `percentiles` aggregation estimates the value at a given percentile of a numeric field. This is useful for understanding distribution boundaries.
 

@@ -7,7 +7,7 @@ has_children: false
 has_toc: false
 ---
 
-# Field data
+# Field data mapping parameter
 
 By default, `text` fields cannot be used for sorting, aggregations, or scripting. The inverted index that powers full-text search maps terms to documents but does not provide the per-document field values that sorting and aggregations need. Attempting to aggregate or sort on a `text` field returns an error suggesting you use a `keyword` field instead.
 
