@@ -195,16 +195,16 @@ To pause retention while preserving configured retention policies, set `plugins.
 
 You can customize retention behavior using the following dynamic cluster settings, which take effect without a cluster restart.
 
-Setting | Default | Description
-:--- | :--- | :---
-`plugins.ml_commons.memory.retention_enabled` | `false` | Enables retention cluster-wide.
-`plugins.ml_commons.memory.retention_job_throttle_seconds` | `5` | The delay between containers during a job run, in seconds. Valid values are `1`--`60`. Used to reduce cluster load.
-`plugins.ml_commons.memory.working_memory_ttl_days` | `-1` (disabled) | Deletes working memory after this many days in containers created with `disable_session` set to `true`. Valid values are `1`--`365`.
-`plugins.ml_commons.memory.orphan_ttl_days` | `7` | Deletes working memory whose parent session no longer exists after this many days. Valid values are `1`--`365`.
-`plugins.ml_commons.memory.default_session_retention_days` | `-1` (disabled) | Applies a default `retention_days` to sessions in containers that have no explicit policy. Valid values are `1`--`3650`.
-`plugins.ml_commons.memory.default_session_max_count` | `-1` (disabled) | Applies a default `max_count` to sessions in containers that have no explicit policy. Valid values are `1`--`1000000`.
-`plugins.ml_commons.memory.default_long_term_max_count` | `-1` (disabled) | Applies a default `max_count` to long-term memory in containers that have no explicit policy. Valid values are `1`--`1000000`.
-`plugins.ml_commons.memory.default_history_max_count` | `-1` (disabled) | Applies a default `max_count` to history in containers that have no explicit policy. Valid values are `1`--`10000000`.
+Setting | Data type | Default | Description
+:--- | :--- | :--- | :---
+`plugins.ml_commons.memory.retention_enabled` | Boolean | `false` | Enables retention cluster-wide.
+`plugins.ml_commons.memory.retention_job_throttle_seconds` | Integer | `5` | The delay between containers during a job run, in seconds. Valid values are `1`--`60`. Used to reduce cluster load.
+`plugins.ml_commons.memory.working_memory_ttl_days` | Integer | `-1` (disabled) | Deletes working memory after this many days in containers created with `disable_session` set to `true`. Valid values are `1`--`365`.
+`plugins.ml_commons.memory.orphan_ttl_days` | Integer | `7` | Deletes working memory whose parent session no longer exists after this many days. Valid values are `1`--`365`.
+`plugins.ml_commons.memory.default_session_retention_days` | Integer | `-1` (disabled) | Applies a default `retention_days` to sessions in containers that have no explicit policy. Valid values are `1`--`3650`.
+`plugins.ml_commons.memory.default_session_max_count` | Integer | `-1` (disabled) | Applies a default `max_count` to sessions in containers that have no explicit policy. Valid values are `1`--`1000000`.
+`plugins.ml_commons.memory.default_long_term_max_count` | Integer | `-1` (disabled) | Applies a default `max_count` to long-term memory in containers that have no explicit policy. Valid values are `1`--`1000000`.
+`plugins.ml_commons.memory.default_history_max_count` | Integer | `-1` (disabled) | Applies a default `max_count` to history in containers that have no explicit policy. Valid values are `1`--`10000000`.
 
 ### Default settings
 
@@ -218,9 +218,9 @@ Defaults are applied to a container only once; changing the `default_` settings 
 
 The following setting controls the retention job schedule. Set it in `opensearch.yml` before starting the cluster. The job reads it once, when it is first scheduled at startup; updating it through the Cluster Settings API on a running cluster has no effect.
 
-Setting | Default | Description
-:--- | :--- | :---
-`plugins.ml_commons.memory.retention_job_interval_hours` | `24` | How often the retention job runs, in hours. Valid values are `1`--`168`.
+Setting | Data type | Default | Description
+:--- | :--- | :--- | :---
+`plugins.ml_commons.memory.retention_job_interval_hours` | Integer | `24` | How often the retention job runs, in hours. Valid values are `1`--`168`.
 
 ## Next steps
 
