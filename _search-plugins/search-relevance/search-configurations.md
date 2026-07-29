@@ -29,7 +29,7 @@ Field | Data type |  Description
 :---  | :--- | :---
 `name` | String | The name of the search configuration.
 `description` | String | Description of the search configuration.
-`query` | Object | Defines the query in OpenSearch query DSL. Use the `%SearchText%` placeholder or [Mustache](https://mustache.github.io/) template variables (such as {% raw %}`{{queryText}}`{% endraw %}) to substitute query set values at runtime. Needs to be escaped. For more information, see [Using Mustache templates](#using-mustache-templates).
+`query` | Object | Defines the query in OpenSearch query DSL, provided as a JSON string with the inner quotation marks escaped (for example, `"query": "{\"query\":{\"multi_match\":{...}}}"`). Use the `%SearchText%` placeholder or [Mustache](https://mustache.github.io/) template variables (such as {% raw %}`{{queryText}}`{% endraw %}) to substitute query set values at runtime. For more information, see [Using Mustache templates](#using-mustache-templates).
 `index` | String | The target index queried by this search configuration.
 `searchPipeline` | String | Specifies an existing search pipeline. Optional.
 
