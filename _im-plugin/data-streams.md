@@ -272,4 +272,11 @@ You can use wildcards to delete more than one data stream.
 
 We recommend deleting data from a data stream using an ISM policy.
 
+### Step 8: Modify the backing indexes of a data stream
+
+You can add or remove backing indexes of an existing data stream using the [Modify Data Stream API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/modify-data-stream/). This is a metadata-only operation that lets you migrate a pre-existing regular index into a data stream or detach a backing index without deleting its data. You can also attach a restored backing index to a data stream during a snapshot restore by setting `attach_to_data_stream` to `true` in the [Restore Snapshot API]({{site.url}}{{site.baseurl}}/api-reference/snapshots/restore-snapshot/).
+
+Both features are experimental in OpenSearch 3.8.
+{: .note}
+
 You can also use [asynchronous search]({{site.url}}{{site.baseurl}}/search-plugins/async/index/), [SQL]({{site.url}}{{site.baseurl}}/search-plugins/sql/index/), and [PPL]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index/) to query your data stream directly. You can also use the Security plugin to define granular permissions for the data stream name.
