@@ -473,67 +473,7 @@ The [`InlineGetDictUserDefined`](https://github.com/opensearch-project/opensearc
 
 ### Using the transparent transport (recommended)
 
-The following example uses the `opensearch-java-grpc` module, which handles protobuf conversion and gRPC channel management automatically. The `client.bulk()` call is identical to the REST transport — the only difference is the transport configuration:
-
-```java
-import org.apache.hc.core5.http.HttpHost;
-import org.opensearch.client.json.jackson3.JacksonJsonpMapper;
-import org.opensearch.client.opensearch.OpenSearchClient;
-import org.opensearch.client.opensearch._types.Refresh;
-import org.opensearch.client.opensearch.core.BulkRequest;
-import org.opensearch.client.opensearch.core.BulkResponse;
-import org.opensearch.client.opensearch.core.bulk.BulkOperation;
-import org.opensearch.client.opensearch.core.bulk.IndexOperation;
-import org.opensearch.client.transport.OpenSearchTransport;
-import org.opensearch.client.transport.grpc.GrpcTransport;
-import org.opensearch.client.transport.grpc.HybridTransport;
-import org.opensearch.client.transport.httpclient5.ApacheHttpClient5TransportBuilder;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-public class BulkGrpcExample {
-  public static void main(String[] args) throws Exception {
-    // REST transport (for non-bulk operations)
-    final HttpHost restHost = new HttpHost("http", "localhost", 9200);
-    final OpenSearchTransport restTransport = ApacheHttpClient5TransportBuilder.builder(restHost).build();
-
-    // gRPC transport (for bulk operations)
-    final GrpcTransport grpcTransport = GrpcTransport.builder("localhost", 9400)
-      .jsonpMapper(new JacksonJsonpMapper())
-      .build();
-
-    // HybridTransport: bulk → gRPC, everything else → REST
-    final HybridTransport transport = new HybridTransport(grpcTransport, restTransport);
-    final OpenSearchClient client = new OpenSearchClient(transport);
-
-    // Bulk indexing — same API as REST, routed to gRPC automatically
-    List<BulkOperation> operations = new ArrayList<>();
-    operations.add(new BulkOperation.Builder().index(
-      new IndexOperation.Builder<Map>()
-        .index("movies").id("tt0468569")
-        .document(Map.of("title", "The Dark Knight", "year", 2008)).build()
-    ).build());
-    operations.add(new BulkOperation.Builder().index(
-      new IndexOperation.Builder<Map>()
-        .index("movies").id("tt1375666")
-        .document(Map.of("title", "Inception", "year", 2010)).build()
-    ).build());
-
-    BulkResponse response = client.bulk(new BulkRequest.Builder()
-      .index("movies").operations(operations).refresh(Refresh.True).build());
-
-    System.out.println("Errors: " + response.errors());
-    System.out.println("Took: " + response.took() + " ms");
-
-    transport.close();
-  }
-}
-```
-{% include copy.html %}
-
-For complete setup instructions including TLS, authentication, and configuration options, see [Java gRPC transport]({{site.url}}{{site.baseurl}}/clients/java-grpc/).
+For a simpler approach that handles protobuf conversion and gRPC channel management automatically, use the `opensearch-java-grpc` module. See [Java gRPC transport]({{site.url}}{{site.baseurl}}/clients/java-grpc/) for complete setup instructions and examples.
 
 ### Using raw protobufs directly
 

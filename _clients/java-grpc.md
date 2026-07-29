@@ -17,17 +17,11 @@ For the client source code, see the [`opensearch-java` repo](https://github.com/
 
 ## Installing the client
 
-To use the gRPC transport, add the `opensearch-java-grpc` module to your project alongside `opensearch-java`.
+The gRPC transport is a separate module that you add alongside the standard [Java client]({{site.url}}{{site.baseurl}}/clients/java/). For basic Java client installation and configuration, see the [Java client documentation]({{site.url}}{{site.baseurl}}/clients/java/).
 
-Add the following dependencies to your `pom.xml` file:
+To add gRPC transport support, include the `opensearch-java-grpc` dependency in your `pom.xml`:
 
 ```xml
-<dependency>
-  <groupId>org.opensearch.client</groupId>
-  <artifactId>opensearch-java</artifactId>
-  <version>3.9.0</version>
-</dependency>
-
 <dependency>
   <groupId>org.opensearch.client</groupId>
   <artifactId>opensearch-java-grpc</artifactId>
@@ -36,11 +30,10 @@ Add the following dependencies to your `pom.xml` file:
 ```
 {% include copy.html %}
 
-If you're using Gradle, add the following dependencies to your project:
+Or in Gradle:
 
 ```groovy
 dependencies {
-  implementation 'org.opensearch.client:opensearch-java:3.9.0'
   implementation 'org.opensearch.client:opensearch-java-grpc:3.9.0'
 }
 ```
@@ -48,14 +41,9 @@ dependencies {
 
 ## Supported operations
 
-The gRPC transport currently supports the following operations:
+The gRPC transport routes supported operations over gRPC and all other operations to REST automatically via `HybridTransport`. For a complete list of operations supported by the gRPC server, see [gRPC APIs]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/).
 
-| Operation | gRPC support | Notes |
-| :--- | :--- | :--- |
-| Bulk (index, create, update, delete) | **Generally available** | All four operation types supported |
-| Search | Planned | Server-side GA in OpenSearch 3.5.0 |
-| k-NN | Planned | Server-side GA in OpenSearch 3.5.0 |
-| All other operations | Routed to REST | Handled automatically by `HybridTransport` |
+Currently, the Java gRPC transport client supports **Bulk** (index, create, update, delete). All other operations (search, index management, cluster operations) are routed to REST transparently.
 
 ## Initializing the client with HybridTransport
 
@@ -151,6 +139,9 @@ The following table lists all available TLS configuration options.
 | `hostnameOverride` | `String` | Override the hostname for TLS verification. |
 | `insecure` | `boolean` | If `true`, skips certificate verification. For testing only. |
 
+Note: The gRPC transport does not support all TLS options available in the REST transport. Specifically, custom `SSLContext` configuration and Apache HTTP client TLS callbacks are not available. Use the options listed above for gRPC TLS configuration.
+{: .note}
+
 ## Initializing the client with JWT authentication
 
 To connect with JWT or bearer token authentication:
@@ -175,7 +166,7 @@ import org.opensearch.client.transport.grpc.GrpcTlsConfig;
 import software.amazon.awssdk.auth.credentials.DefaultCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 
-final GrpcTransport grpcTransport = AwsGrpcTransport.awsBuilder("search-mydomain.us-east-1.es.amazonaws.com", 9400)
+final GrpcTransport grpcTransport = AwsGrpcTransport.awsBuilder("search-mydomain.us-east-1.es.amazonaws.com", 443)
   .jsonpMapper(new JacksonJsonpMapper())
   .tls(GrpcTlsConfig.builder().build())
   .sigV4(GrpcSigV4Config.builder()
@@ -278,12 +269,5 @@ for (int i = 0; i < searchResponse.hits().hits().size(); i++) {
 
 ## Server configuration
 
-To use the gRPC transport, the OpenSearch server must have gRPC enabled. Add the following to `opensearch.yml`:
+For information about enabling and configuring gRPC on the server side, see [gRPC APIs]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/#grpc-settings).
 
-```yaml
-aux.transport.types: [transport-grpc]
-aux.transport.transport-grpc.port: '9400'
-```
-{% include copy.html %}
-
-For more information about server-side gRPC settings, see [gRPC APIs]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/#grpc-settings).
