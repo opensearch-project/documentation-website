@@ -39,7 +39,7 @@ The AI-assisted judgment process consists of the following steps:
 
 - For each query, the top k documents are retrieved using the defined search configuration, which includes the index information. The query and each document from the result list create a query-document pair.
 - The LLM is then called with a predefined prompt to generate a judgment for each query-document pair.
-- All generated judgments are stored in the judgments cache index for reuse in future experiments.
+- All generated judgments are stored in the judgment list.
 
 To create a judgment list, provide the model ID of the LLM, an available query set, and a created search configuration.
 
@@ -80,7 +80,7 @@ The following table lists the parameters for creating LLM-based judgments.
 | `ignoreFailure` | Boolean | Whether to continue processing other documents if the LLM fails to generate a judgment for some documents. Default is `false`. |
 | `llmJudgmentRatingType` | String | The type of rating scale to use. Valid values are `SCORE0_1` (numeric scale 0--1) and `RELEVANT_IRRELEVANT` (binary relevant/irrelevant). Use `SCORE0_1` for graded relevance metrics such as NDCG. Use `RELEVANT_IRRELEVANT` for binary metrics such as precision and recall. |
 | `promptTemplate` | String | Optional. A custom prompt template for the LLM. Supports {% raw %}`{{queryText}}`{% endraw %} and {% raw %}`{{hits}}`{% endraw %} placeholders. If not provided, the default template is used. |
-| `overwriteCache` | Boolean | Whether to overwrite existing cached judgments for the same query-document pairs. Default is `false` (reuse cached judgments). |
+| `overwriteCache` | Boolean | Optional, deprecated. This parameter no longer has any effect because the global judgment cache has been removed. It is still accepted so that older clients don't break. To retry only the documents that failed in a completed judgment, use the [retry endpoint](#retrying-failed-documents). |
 
 ### Custom prompt templates
 
@@ -403,6 +403,43 @@ GET _plugins/_search_relevance/judgments/b54f791a-3b02-49cb-a06c-46ab650b2ade
 ```
 
 </details>
+
+### Retrying failed documents
+
+A judgment can finish with a `status` of `COMPLETED` even if some documents didn't receive a rating, for example because the LLM provider throttled or timed out on those requests. Rather than regenerating the entire judgment, you can retry only the documents that failed by sending a `POST` request to the `_retry` endpoint with the judgment's ID.
+
+#### Endpoint
+
+```json
+POST _plugins/_search_relevance/judgments/{judgment_list_id}/_retry
+```
+
+#### Path parameters
+
+The following table lists the available path parameters.
+
+| Parameter | Data type | Description |
+| :--- | :--- | :--- |
+| `judgment_list_id` | String | The ID of the judgment list whose failed documents you want to retry. |
+
+#### Example request
+
+```json
+POST _plugins/_search_relevance/judgments/b54f791a-3b02-49cb-a06c-46ab650b2ade/_retry
+```
+{% include copy-curl.html %}
+
+#### Example response
+
+```json
+{
+  "judgment_id": "b54f791a-3b02-49cb-a06c-46ab650b2ade",
+  "status": "RETRYING",
+  "message": "Retrying failed documents"
+}
+```
+
+The retry runs asynchronously and generates new ratings for only the previously failed documents; ratings that already succeeded are left unchanged. The response returns immediately with a `status` of `RETRYING`. To track progress, retrieve the judgment and check its `status`, as described in [Viewing a judgment list](#viewing-a-judgment-list). When the retry finishes, the judgment returns to a `status` of `COMPLETED`.
 
 ### Deleting a judgment list
 
