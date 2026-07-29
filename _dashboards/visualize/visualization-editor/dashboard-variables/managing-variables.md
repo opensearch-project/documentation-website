@@ -20,47 +20,110 @@ Before you start, ensure that you have met the following prerequisites:
 
 For the complete setup, see [Creating and using dashboard variables]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/dashboard-variables/#creating-and-using-dashboard-variables).
 
-## Creating a variable
+## Creating a query variable
 
-To create a new variable, follow these steps:
+Use a query variable when the list of available values should come from a data source. For example, you can create an `extension` variable from the sample web logs data and use it to filter multiple visualizations by file extension.
+
+The following example uses the OpenSearch Dashboards sample web logs data. If you use a different dataset, select the dataset and fields that match your data.
+{: .note}
+
+To create a query variable, follow these steps:
 
 1. In your Observability workspace, select **Dashboards** in the left navigation.
 1. Open an existing dashboard or select **Create** > **Dashboard** to create a new dashboard. If creating a new dashboard, save it first by entering a title and selecting **Save**.
 1. At the top of the dashboard, select **Add variable**.
-1. Configure the variable settings. The Add variable panel contains the following sections:
+1. Configure the general settings:
+   - **Name**: Enter `extension`. This is the identifier used to reference the variable in queries, for example `$extension` or `${extension}`.
+   - **Label**: Enter `Extension`. This is the display name shown at the top of the dashboard.
+   - **Description**: Optionally enter a description, such as `Filters visualizations by file extension`.
+   - **Type**: Select **Query**.
+1. In **Options Query**, keep the language set to **PPL**.
+1. In the dataset selector, select `opensearch_dashboards_sample_data_logs`.
+1. Enter the following query:
 
-   - **General configuration**:
-     - **Name** (required): The identifier used to reference the variable in queries using `$variableName` or `${variableName}` syntax.
-     - **Label** (optional): A display name shown at the top of the dashboard.
-     - **Description** (optional): Additional context about the variable's purpose.
-     - **Type** (required): Select **Query** or **Custom**. For more information about variable types, see [Variable types]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/dashboard-variables/#variable-types).
-   - **Query type configuration** (for query type variables):
-     - **Options Query**: Define a query to fetch variable options dynamically.
-       - If needed, update the default language (PPL) to PromQL using the language toggle.
-       - In the **Select dataset** dropdown list, select a dataset. For PPL, select an index pattern. For PromQL, select a Prometheus data source.
-       - Write a query that returns a single column of values.
-       - Select **Preview** to validate the query and view the first 100 results.
-     - **Regex** (optional): Filter query results using a regular expression. Only values matching the pattern are displayed.
-     - **Refresh**: Choose when to update variable options:
-       - **On dashboard load**: Options are fetched once when the dashboard loads.
-       - **On time range change**: Options refresh automatically when the dashboard time range changes.
-   - **Custom type configuration** (for custom type variables):
-     - **Custom options**: Enter custom values for the variable. Type a value and press Enter to add it. The maximum of 100 options can be displayed in the dropdown list.
-   - **Selection configuration** (available for both query and custom types):
-     - **Sort**: Choose how options are sorted in the dropdown list (**Disabled**, **Alphabetical** (ascending or descending), or **Numerical** (ascending or descending)).
-     - **Allow multiple selections**: Enables you to select multiple values from the dropdown.
-     - **Include All option** (only available when multiple selections are enabled): Adds an **All** option to the dropdown that selects all available values.
+   ```sql
+   source = opensearch_dashboards_sample_data_logs | stats count() by extension | fields extension
+   ```
 
-1. Select **Add variable** to save.
+   {% include copy.html %}
+
+1. Select **Preview**. The preview runs the query, loads the fields returned by the query, and shows the first 100 variable options. You must successfully preview a query variable before saving it.
+1. In **Value field**, select `extension`. The value field is the value inserted into queries when you use `$extension` or `${extension}`.
+1. In **Label field**, keep **None**. Select a label field only when the query returns a separate field that should be shown in the dropdown instead of the stored value.
+1. Optional: In **Regex**, enter a regular expression to filter the available options by value. For example, `^(css|gz|zip)$` shows only the `css`, `gz`, and `zip` options.
+1. In **Refresh**, choose when OpenSearch Dashboards updates the variable options:
+   - **On dashboard load**: Refreshes options when the dashboard loads.
+   - **On time range change**: Refreshes options when the dashboard time range changes. Use this when the available values should depend on the selected time range.
+1. Configure the common option settings. For more information, see [Configuring variable option settings](#configuring-variable-option-settings).
+1. Select **Add variable**.
 
 The variable appears at the top of the dashboard.
+
+The following image shows an `extension` query variable configured using the sample web logs data.
+
+![Variable editor panel configured for an extension query variable using sample web logs data]({{site.url}}{{site.baseurl}}/images/dashboard-variables/query-variable-config.png){: width="500" }
+
+### Mapping query result fields
+
+A query variable can use one field as the stored value and another field as the display label:
+
+- **Value field**: The field used as the actual variable value. This value is inserted into queries when you reference the variable.
+- **Label field**: An optional field used as the display label in the variable dropdown. The label does not change the value inserted into queries.
+
+For example, if your query returns `service_id` and `service_name`, set **Value field** to `service_id` and **Label field** to `service_name`. The dropdown shows the service name, but queries receive the service ID.
+
+If you do not select a value field, OpenSearch Dashboards uses the first field returned by the query. To avoid unexpected values, preview the query and explicitly select the field that should be used as the variable value.
+{: .tip}
+
+## Creating a custom variable
+
+Use a custom variable when the list of available values is fixed and does not need to be fetched from a data source. For example, you can create an `environment` variable with `dev`, `staging`, and `prod` options.
+
+To create a custom variable, follow these steps:
+
+1. In your Observability workspace, select **Dashboards** in the left navigation.
+1. Open an existing dashboard or select **Create** > **Dashboard** to create a new dashboard. If creating a new dashboard, save it first by entering a title and selecting **Save**.
+1. At the top of the dashboard, select **Add variable**.
+1. Configure the general settings:
+   - **Name**: Enter `environment`. This is the identifier used to reference the variable in queries, for example `$environment` or `${environment}`.
+   - **Label**: Enter `Environment`.
+   - **Description**: Optionally enter a description, such as `Filters visualizations by deployment environment`.
+   - **Type**: Select **Custom**.
+1. Under **Custom options**, select **Add option**.
+1. In the first option row, enter `dev` in **Value** and `Development` in **Label**.
+1. Add two more option rows:
+
+   | Value     | Label        |
+   | :-------- | :----------- |
+   | `staging` | `Staging`    |
+   | `prod`    | `Production` |
+
+1. Configure the common option settings. For more information, see [Configuring variable option settings](#configuring-variable-option-settings).
+1. Select **Add variable**.
+
+The **Value** is inserted into queries when you reference the variable. The **Label** is optional and is used only as the display text in the dropdown.
+
+Custom option values must be unique and cannot be empty. OpenSearch Dashboards displays a maximum of 100 options in the dropdown.
+{: .note}
+
+The following image shows an `environment` custom variable configured with value and label pairs.
+
+![Variable editor panel configured for an environment custom variable with value and label option rows]({{site.url}}{{site.baseurl}}/images/dashboard-variables/custom-variable-config.png){: width="500" }
+
+## Configuring variable option settings
+
+Query variables and custom variables share the following option settings:
+
+- **Sort**: Controls how options are sorted in the dropdown. Select **Disabled**, **Alphabetical** ascending or descending, or **Numerical** ascending or descending.
+- **Allow multiple selections**: Allows users to select more than one value from the variable dropdown.
+- **Include All option**: Adds an **All** option to the dropdown. This setting is available only when **Allow multiple selections** is enabled.
 
 ## Managing existing variables
 
 The **Manage variables** panel lists all existing variables, including their type, name, and configuration options. To access this panel, follow these steps:
 
 1. Navigate to your workspace.
-1. From **Dashboards**, select the dashboard to update. 
+1. From **Dashboards**, select the dashboard to update.
 1. On the top, toggle the **Edit** selector to enter edit mode.
 1. In the upper-left corner, select the **Manage variables** icon, as shown in the following image.
 
@@ -145,6 +208,7 @@ Query type variables can reference other variables in their queries. The followi
 ```sql
 source=logs | where region=$region | dedup service | fields service
 ```
+
 {% include copy.html %}
 
 In this example, the `service` variable depends on the `region` variable. When the `region` variable changes, the `service` variable automatically refreshes its options.
