@@ -39,3 +39,11 @@ Setting | Default | Description
 `plugins.replication.translog.retention_lease.pruning.enabled` | true | If enabled, prunes the translog based on retention leases on the leader index.
 `plugins.replication.translog.retention_size` | 512 MB | Controls the size of the translog on the leader index.
 
+## Bulk replication settings
+
+The following settings control [Bulk Replication API]({{site.url}}{{site.baseurl}}/tuning-your-cluster/replication-plugin/bulk-api/) behavior.
+
+Setting | Default | Description
+:--- | :--- | :---
+`plugins.replication.follower.bulk_batch_size` | 10 | The number of indexes processed concurrently in each batch during a bulk replication task. Minimum value is `1` and maximum value is `100`.
+`plugins.replication.follower.bulk_poll_timeout` | 15 | The time, in minutes, that start and resume tasks wait for replication to confirm before timing out indexes. Minimum value is `1` and maximum value is `30`.
