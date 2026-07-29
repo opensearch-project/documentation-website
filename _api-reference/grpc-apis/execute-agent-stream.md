@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Execute Agent Stream (gRPC)
+title: Execute agent stream (gRPC)
 parent: gRPC APIs
 nav_order: 50
 ---
@@ -9,34 +9,33 @@ nav_order: 50
 **Introduced 3.8**
 {: .label .label-purple }
 
-The gRPC Execute Agent Stream API provides a performant, binary interface for streaming the execution of an agent using protocol buffers over gRPC. Instead of waiting for the agent to finish, the server streams response chunks to the client as they are generated during agent execution. This is well suited to conversational agents that produce token-by-token output from large language models (LLMs).
+The gRPC Execute Agent Stream API provides a binary interface for streaming the execution of an agent using protocol buffers over gRPC. The server streams response chunks to the client as the agent generates them, so the client can begin processing output before execution completes. Use streaming for conversational agents that produce token-by-token output from large language models (LLMs).
 
-ML Commons has supported streaming agent execution over REST since OpenSearch 3.3, using server-sent events (SSE) over HTTP. Starting with OpenSearch 3.8, you can also stream agent execution over gRPC. Both methods return the same incrementally generated output, so you can choose the transport that best fits your client:
+You can stream agent execution over either REST or gRPC. Both transports return the same incrementally generated output, so choose the one that best fits your client:
 
-- **REST streaming** is convenient for browsers, standard HTTP clients, and quick testing with tools like cURL. It remains experimental and is not recommended for use in a production environment. For more information, see [Execute stream agent]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/execute-stream-agent/).
-- **gRPC streaming** uses protocol buffers over HTTP/2. This provides lower serialization overhead and smaller payloads, native server-streaming semantics with HTTP/2 flow control and connection multiplexing, and a strongly typed schema from which you can generate clients in any [gRPC-supported language](https://grpc.io/docs/languages/).
+- **REST streaming** uses server-sent events (SSE) over HTTP, which browsers, standard HTTP clients, and command line tools such as cURL support directly. This is an experimental feature and is not recommended for use in a production environment. For more information, see [Execute Agent Stream API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/execute-stream-agent/).
+- **gRPC streaming** uses protocol buffers over HTTP/2. This transport provides lower serialization overhead and smaller payloads, native server streaming semantics with HTTP/2 flow control and connection multiplexing, and a strongly typed schema from which you can generate clients in any [gRPC-supported language](https://grpc.io/docs/languages/).
 
-Streaming agent execution is supported for agents backed by the following remote model types:
+Streaming agent execution is supported for agents that use the following externally hosted models:
 
 - [OpenAI Chat Completion](https://platform.openai.com/docs/api-reference/completions)
 - [Amazon Bedrock Converse Stream](https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_ConverseStream.html)
 
+## Prerequisites
 
-## Prerequisite
-
-Before using the Execute Agent Stream API, you must:
+Before using the gRPC Execute Agent Stream API, ensure that you have fulfilled the following prerequisites:
 
 - Enable gRPC transport on the cluster. For more information, see [Using gRPC APIs]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/index/#how-to-use-grpc-apis).
 - Obtain the ML Commons protobufs on the client side. For ways to obtain the protobufs, see [Using gRPC APIs]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/index/#how-to-use-grpc-apis).
-- Register an agent backed by a supported streaming model. For agent and connector setup, see [Execute stream agent]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/execute-stream-agent/#step-2-register-a-compatible-externally-hosted-model).
+- Register an agent that uses a supported streaming model. For agent and connector configuration, see [Execute Agent Stream API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/execute-stream-agent/#step-2-register-a-compatible-externally-hosted-model).
 
 ## gRPC service and method
 
 The gRPC Execute Agent Stream API resides in the [`MLService`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.6.0/protos/services/ml_service.proto#L22) service.
 
-You can submit streaming agent execution requests by invoking the [`ExecuteAgentStream`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.6.0/protos/services/ml_service.proto#L27) method within the `MLService`. The method takes a [`MlExecuteAgentStreamRequest`](#mlexecuteagentstreamrequest-fields) and returns a stream of [`PredictResponse`](#predictresponse-fields) messages.
+You can submit streaming agent execution requests by invoking the [`ExecuteAgentStream`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.6.0/protos/services/ml_service.proto#L27) method within the `MLService`. The method takes an [`MlExecuteAgentStreamRequest`](#mlexecuteagentstreamrequest-fields) and returns a stream of [`PredictResponse`](#response-fields) messages.
 
-`ExecuteAgentStream` is a server-streaming RPC: the client sends a single request, and the server returns a sequence of response messages until the stream is complete.
+`ExecuteAgentStream` is a server streaming remote procedure call (RPC): the client sends a single request, and the server returns a sequence of response messages. The final message sets `is_last` to `true`, and the server then closes the stream.
 {: .note}
 
 ## Request fields
@@ -52,7 +51,9 @@ The [`MlExecuteAgentStreamRequest`](https://github.com/opensearch-project/opense
 | `agent_id` | `string` | Required | The ID of the agent to execute. |
 | `ml_execute_agent_stream_request_body` | [`MLExecuteAgentStreamRequestBody`](#mlexecuteagentstreamrequestbody-fields) | Required | The request payload containing the execution parameters. |
 
+<!-- vale off -->
 ### MLExecuteAgentStreamRequestBody fields
+<!-- vale on -->
 
 The [`MLExecuteAgentStreamRequestBody`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.6.0/protos/schemas/common.proto#L3318) message accepts the following fields.
 
@@ -62,7 +63,7 @@ The [`MLExecuteAgentStreamRequestBody`](https://github.com/opensearch-project/op
 
 ### Parameters fields
 
-The [`Parameters`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.6.0/protos/schemas/common.proto#L3356) message accepts the following fields. For agent execution, provide the `question` field.
+For agent execution, the [`Parameters`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.6.0/protos/schemas/common.proto#L3356) message accepts the following field.
 
 | Field | Protobuf type | Description |
 | :---- | :---- | :---- |
@@ -70,21 +71,21 @@ The [`Parameters`](https://github.com/opensearch-project/opensearch-protobufs/bl
 
 ## Response fields
 
-The server streams a sequence of [`PredictResponse`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.6.0/protos/schemas/common.proto#L3367) messages. Each message contains a portion of the generated output and provides the following fields.
+The server streams a sequence of [`PredictResponse`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.6.0/protos/schemas/common.proto#L3367) messages. Each message carries one chunk of the generated output and provides the following fields.
 
 | Field | Protobuf type | Description |
 | :---- | :---- | :---- |
-| `inference_results` | `repeated InferenceResults` | The inference results for this streamed chunk. |
+| `inference_results` | `repeated InferenceResults` | The inference results for the chunk. |
 | `inference_results.output` | `repeated Output` | The output objects for each inference result. |
 | `inference_results.output.name` | `string` | The name of the output field (typically, `response`). |
 | `inference_results.output.result` | `string` | The values of the `memory_id` and `parent_interaction_id` fields. |
-| `inference_results.output.data_as_map` | `DataAsMap` | The response content and metadata for this chunk. |
-| `inference_results.output.data_as_map.content` | `string` | The text content of the current chunk. Concatenate the `content` values across chunks to reconstruct the full response. |
+| `inference_results.output.data_as_map` | `DataAsMap` | The response content and metadata for the chunk. |
+| `inference_results.output.data_as_map.content` | `string` | The text content of the chunk. Concatenate the `content` values across chunks to reconstruct the full response. |
 | `inference_results.output.data_as_map.is_last` | `bool` | Whether this is the final chunk in the stream. When `true`, no further messages are sent. |
 
 ## Example request
 
-The following example shows the JSON representation of the gRPC request message. Replace the agent ID and question with values that match your agent configuration.
+The following example shows the JSON representation of the gRPC request message. Replace the `agent_id` and `question` with values that match your agent configuration:
 
 ```json
 {
@@ -98,7 +99,7 @@ The following example shows the JSON representation of the gRPC request message.
 ```
 {% include copy.html %}
 
-The following example shows a Java gRPC client that streams the execution of a conversational agent. Replace the agent ID and question with values that match your agent configuration.
+The following example shows a Java gRPC client that streams the execution of a conversational agent. Replace the agent ID and question with values that match your agent configuration:
 
 ```java
 import org.opensearch.protobufs.*;
@@ -158,7 +159,7 @@ public class ExecuteAgentStreamClient {
 
 ## Example response
 
-The server returns a sequence of `PredictResponse` messages. Each message carries a chunk of generated text in the `content` field, and the final message sets `isLast` to `true`. The following shows the JSON representation of a streamed chunk:
+The server returns a sequence of `PredictResponse` messages. Each message carries a chunk of generated text in the `content` field, and the final message sets `isLast` to `true`. The following example shows the JSON representation of a streamed chunk:
 
 ```json
 {
@@ -188,5 +189,5 @@ The server returns a sequence of `PredictResponse` messages. Each message carrie
 
 ## Related documentation
 
-- [Execute stream agent]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/execute-stream-agent/) — the REST equivalent for streaming agent execution.
-- [Using gRPC APIs]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/index/)
+- [Execute Agent Stream API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/execute-stream-agent/) -- The REST equivalent for streaming agent execution
+- [Using gRPC APIs]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/index/) -- gRPC transport configuration and client requirements

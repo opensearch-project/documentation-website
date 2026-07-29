@@ -1,21 +1,21 @@
 ---
 layout: default
-title: Execute stream agent
+title: Execute agent stream
 parent: Agent APIs
 grand_parent: ML Commons APIs
 nav_order: 25
 ---
 
-# Execute Stream Agent API
+# Execute Agent Stream API
 **Introduced 3.3**
 {: .label .label-purple }
 
 This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).    
 {: .warning}
 
-The Execute Stream Agent API provides the same functionality as the [Execute Agent API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/execute-agent/) but returns responses in a streaming format, delivering data in chunks as it becomes available. This streaming approach is particularly beneficial for large language model interactions with lengthy responses, allowing you to see partial results immediately rather than waiting for the complete response.
+The Execute Agent Stream API provides the same functionality as the [Execute Agent API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/execute-agent/) but returns responses in a streaming format, delivering data in chunks as it becomes available. This streaming approach is particularly beneficial for large language model interactions with lengthy responses, allowing you to see partial results immediately rather than waiting for the complete response.
 
-You can also stream agent execution over gRPC using the [Execute Agent Stream API (gRPC)]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/execute-agent-stream/).
+Alternatively, you can stream agent execution over gRPC. For more information, see [gRPC Execute Agent Stream API]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/execute-agent-stream/).
 {: .note}
 
 This API currently supports the following agent types:
@@ -42,7 +42,7 @@ Follow these steps to set up your cluster.
 
 #### Step 1: Install the required plugins
 
-The Execute Stream Agent API depends on the following plugins, which are included in the OpenSearch distribution but must be explicitly installed as follows:
+The Execute Agent Stream API depends on the following plugins, which are included in the OpenSearch distribution but must be explicitly installed as follows:
 
 ```bash
 bin/opensearch-plugin install transport-reactor-netty4
