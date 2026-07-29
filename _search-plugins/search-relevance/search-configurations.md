@@ -29,7 +29,7 @@ Field | Data type |  Description
 :---  | :--- | :---
 `name` | String | The name of the search configuration.
 `description` | String | Description of the search configuration.
-`query` | Object | Defines the query in OpenSearch query DSL. Use the `%SearchText%` placeholder or [Mustache](https://mustache.github.io/) template variables (such as `{{queryText}}`) to substitute query set values at runtime. Needs to be escaped. For more information, see [Using Mustache templates](#using-mustache-templates).
+`query` | Object | Defines the query in OpenSearch query DSL. Use the `%SearchText%` placeholder or [Mustache](https://mustache.github.io/) template variables (such as {% raw %}`{{queryText}}`{% endraw %}) to substitute query set values at runtime. Needs to be escaped. For more information, see [Using Mustache templates](#using-mustache-templates).
 `index` | String | The target index queried by this search configuration.
 `searchPipeline` | String | Specifies an existing search pipeline. Optional.
 
@@ -47,31 +47,30 @@ PUT _plugins/_search_relevance/search_configurations
 
 ### Using Mustache templates
 
-Instead of the `%SearchText%` placeholder, a query can use [Mustache](https://mustache.github.io/) template variables. If the `query` contains `{{`, it is rendered as a Mustache template; otherwise, the `%SearchText%` placeholder is substituted. Existing `%SearchText%` configurations continue to work unchanged.
+Instead of the `%SearchText%` placeholder, you can use [Mustache](https://mustache.github.io/) template variables in a query. If the `query` parameter contains double curly braces ({% raw %}`{{}}`{% endraw %}), OpenSearch renders the `query` as a Mustache template; otherwise, OpenSearch substitutes the `%SearchText%` placeholder. Existing `%SearchText%` configurations continue to work unchanged.
 
-The following variables are available when a template is rendered:
+When OpenSearch renders a template, the following variables are available:
 
-* `{{queryText}}`: The `queryText` of the current query set entry.
-* Any custom field defined on the query set entry, referenced by its field name (for example, `{{category}}`). For more information, see [Query sets]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/query-sets/).
+- {% raw %}`{{queryText}}`{% endraw %}: The `queryText` value from the current query set entry.
+- {% raw %}`{{<field_name>}}`{% endraw %}: Any custom field from the query set entry, referenced by its field name (for example, {% raw %}`{{category}}`{% endraw %}). For more information, see [Query sets]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/query-sets/).
 
-Substituted values are automatically JSON-escaped, so query text containing quotation marks or other special characters does not break the query.
+OpenSearch automatically escapes substituted values, so query text that contains quotation marks or other special characters remains valid in JSON.
 
-Mustache partials (`{{>...}}`) are not supported and cause the query to be rejected.
+Mustache partials ({% raw %}`{{>...}}`{% endraw %}) are not supported and cause the query to be rejected.
 {: .note}
 
-#### Example request: Creating a search configuration that uses a Mustache template
-
-The following request creates a search configuration that matches the user query against the `title` field and filters results by a `category` custom field provided by each query set entry:
+For example, the following request creates a search configuration that matches the user query against the `title` field and filters the results by the `category` custom field from each query set entry:
 
 ```json
 PUT _plugins/_search_relevance/search_configurations
 {
   "name": "mustache_filter",
-  "query": "{\"query\":{\"bool\":{\"must\":[{\"match\":{\"title\":\"{{queryText}}\"}}],\"filter\":[{\"term\":{\"category\":\"{{category}}\"}}]}}}",
+  "query": "{\"query\":{\"bool\":{\"must\":[{\"match\":{\"title\":\"{% raw %}{{queryText}}{% endraw %}\"}}],\"filter\":[{\"term\":{\"category\":\"{% raw %}{{category}}{% endraw %}\"}}]}}}",
   "description": "Title match filtered by a category custom field",
   "index": "ecommerce"
 }
 ```
+{% include copy-curl.html %}
 
 ## Managing search configurations
 

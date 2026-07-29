@@ -85,7 +85,7 @@ All query sets comprise one or more entries. Each entry is a JSON object contain
 | :--- | :--- | :--- |
 | `queryText` | String | The user query string. Required. |
 | `referenceAnswer` | String | The expected or correct answer to the user query. This field is used for generating judgments, especially with large language models (LLMs). Optional. |
-| Custom fields | String | Any additional field (beyond `queryText` and `referenceAnswer`) is stored as a custom field on the entry. Custom fields are available as [Mustache template variables]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/search-configurations/#using-mustache-templates) in a search configuration, referenced by field name. Optional. |
+| Custom fields | String | Any field other than `queryText` and `referenceAnswer` is stored as a custom field in the entry. You can reference a custom field by its name as a [Mustache template variable]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/search-configurations/#using-mustache-templates) in a search configuration. Optional. |
 
 ### Basic query set example
 
@@ -103,7 +103,7 @@ A basic query set contains only the `queryText` field for each entry. It is suit
 
 ### Query set with reference answers example
 
-This format includes the `referenceAnswer` field alongside the `queryText`. It is ideal for evaluating applications designed to provide specific answers, such as chatbots or question-answering systems.
+In this format, each entry pairs a `queryText` with a `referenceAnswer`. Use it to evaluate applications that return a specific answer, such as chatbots or question-answering systems.
 
 #### Example query set with reference answers
 
@@ -115,22 +115,21 @@ This format includes the `referenceAnswer` field alongside the `queryText`. It i
 {"queryText": "When was the first iPhone released?", "referenceAnswer": "June 29, 2007"}
 ```
 
-
 The `referenceAnswer` field is particularly useful when using [LLMs to generate judgments]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/judgments/). The LLM can use the reference answer as a ground truth to compare against the retrieved search results, allowing it to accurately score the relevance of the response.
 
 ### Query set with custom fields example
 
-In addition to `queryText`, each entry can include arbitrary custom fields. These values are available as Mustache template variables in a [search configuration]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/search-configurations/#using-mustache-templates), letting a single search configuration vary its filters or parameters for each query.
+In addition to `queryText`, each entry can include custom fields. You can reference these fields as Mustache template variables in a [search configuration]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/search-configurations/#using-mustache-templates) so that one search configuration applies different filters or parameters to each query.
 
 #### Example query set with custom fields
+
+In the following example, each entry includes a `category` custom field. If a search configuration references `{{category}}` in its query, it filters the results for each query by the `category` value in the corresponding entry:
 
 ```json
 {"queryText": "phone", "category": "electronics"}
 {"queryText": "steel", "category": "materials"}
 {"queryText": "keyboard", "category": "electronics"}
 ```
-
-For example, a search configuration whose query references `{{category}}` filters each query's results by the category value provided in the corresponding entry.
 
 ## Managing query sets
 
