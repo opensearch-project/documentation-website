@@ -26,6 +26,7 @@ Boolean
 [Cc]heckpointing
 [Cc]entiseconds?
 [Cc]lasspath
+[Cc]lickjack(ing)?
 [Cc]odec
 [Cc]omposable
 [Cc]onfig
