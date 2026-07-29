@@ -201,7 +201,7 @@ POST /_plugins/_ml/memory_containers/_create
           "number_of_replicas": "2"
         }
       },
-      "short_term_memory_index": {
+      "working_memory_index": {
         "index": {
           "number_of_shards": "2",
           "number_of_replicas": "2"
