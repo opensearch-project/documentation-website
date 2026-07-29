@@ -59,30 +59,6 @@ client = OpenSearchGrpc(
 ```
 {% include copy.html %}
 
-## Connecting to Amazon OpenSearch Service
-
-To connect to Amazon OpenSearch Service with IAM authentication:
-
-```python
-from opensearchpy import OpenSearchGrpc, RequestsHttpConnection, AWSV4SignerAuth
-import boto3
-
-host = "search-mydomain.us-east-1.es.amazonaws.com"
-region = "us-east-1"
-credentials = boto3.Session().get_credentials()
-auth = AWSV4SignerAuth(credentials, region, "es")
-
-client = OpenSearchGrpc(
-    hosts=[{"host": host, "port": 443}],
-    grpc_hosts=[{"host": host, "port": 9400}],
-    http_auth=auth,
-    use_ssl=True,
-    verify_certs=True,
-    connection_class=RequestsHttpConnection,
-)
-```
-{% include copy.html %}
-
 ## Supported operations
 
 The gRPC transport currently supports the following operations:

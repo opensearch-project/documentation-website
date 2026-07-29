@@ -155,43 +155,6 @@ final GrpcTransport grpcTransport = GrpcTransport.builder("localhost", 9400)
 ```
 {% include copy.html %}
 
-## Connecting to Amazon OpenSearch Service
-
-To connect to Amazon OpenSearch Service with IAM (SigV4) authentication, use `AwsGrpcTransport`:
-
-```java
-import org.opensearch.client.transport.grpc.AwsGrpcTransport;
-import org.opensearch.client.transport.grpc.GrpcSigV4Config;
-import org.opensearch.client.transport.grpc.GrpcTlsConfig;
-import software.amazon.awssdk.auth.credentials.DefaultCredentialsProvider;
-import software.amazon.awssdk.regions.Region;
-
-final GrpcTransport grpcTransport = AwsGrpcTransport.awsBuilder("search-mydomain.us-east-1.es.amazonaws.com", 443)
-  .jsonpMapper(new JacksonJsonpMapper())
-  .tls(GrpcTlsConfig.builder().build())
-  .sigV4(GrpcSigV4Config.builder()
-    .region(Region.US_EAST_1)
-    .service("es")
-    .credentialsProvider(DefaultCredentialsProvider.create())
-    .build())
-  .build();
-
-// Combine with REST transport for non-bulk operations
-final OpenSearchTransport restTransport = new AwsSdk2Transport(
-  ApacheHttpClient.builder().build(),
-  "search-mydomain.us-east-1.es.amazonaws.com",
-  "es",
-  Region.US_EAST_1,
-  AwsSdk2TransportOptions.builder().build()
-);
-
-final HybridTransport hybridTransport = new HybridTransport(grpcTransport, restTransport);
-final OpenSearchClient client = new OpenSearchClient(hybridTransport);
-```
-{% include copy.html %}
-
-For Amazon OpenSearch Serverless, use `"aoss"` as the service name.
-
 ## GrpcTransportOptions
 
 Configure gRPC channel behavior using `GrpcTransportOptions`:
