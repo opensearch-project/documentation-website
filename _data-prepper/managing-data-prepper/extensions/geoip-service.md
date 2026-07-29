@@ -6,9 +6,7 @@ parent: Extensions
 grand_parent: Managing OpenSearch Data Prepper
 ---
 
-<!-- vale off -->
-# geoip_service
-<!-- vale on -->
+# GeoIP service extension
 
 The `geoip_service` extension configures all [`geoip`]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/geoip) processors in OpenSearch Data Prepper.
 

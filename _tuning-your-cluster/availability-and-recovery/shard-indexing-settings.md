@@ -8,7 +8,7 @@ redirect_from:
   - /opensearch/shard-indexing-settings/
 ---
 
-# Settings
+# Shard indexing backpressure settings
 
 Shard indexing backpressure adds several settings to the standard OpenSearch cluster settings. They are dynamic, so you can change the default behavior of this feature without restarting your cluster.
 

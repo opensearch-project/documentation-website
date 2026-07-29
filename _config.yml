@@ -266,6 +266,8 @@ defaults:
     values:
       section: "opensearch"
       section-name: "OpenSearch and OpenSearch Dashboards"
+      seo:
+        type: "TechArticle" # appropriate for docs instead of jekyll-seo-tag's default BlogPosting
   -
     scope:
       path: "_data-prepper"
@@ -356,6 +358,11 @@ plugins:
   - jekyll-redirect-from
   - jekyll-sitemap
   - jekyll-spec-insert
+  # Registered so the just-the-docs theme suppresses its own <title> and
+  # <meta name="Description"> tags (it emits them only `unless` jekyll-seo-tag
+  # is in site.plugins). jekyll-seo-tag then owns those tags. See head.html in
+  # pmarsceill/just-the-docs and issues just-the-docs#1008 / #1040.
+  - jekyll-seo-tag
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list

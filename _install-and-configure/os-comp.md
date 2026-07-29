@@ -4,6 +4,8 @@ title: Compatible operating systems
 nav_order: 12
 ---
 
+# Compatible operating systems
+
 OpenSearch and OpenSearch Dashboards are compatible with Red Hat Enterprise Linux (RHEL) and Debian-based Linux distributions that use [`systemd`](https://en.wikipedia.org/wiki/Systemd), such as Amazon Linux, and Ubuntu Long-Term Support (LTS). While OpenSearch and OpenSearch Dashboards should work on most Linux distributions, we only test a subset. 
 
 ## Supported operating systems

@@ -22,7 +22,7 @@ search_methods:
 
 # Search
 
-OpenSearch provides many features for customizing your search use cases and improving search relevance. 
+OpenSearch supports keyword (BM25) search, vector search, and AI-powered search, along with tools for tuning relevance, reranking results, and building custom search pipelines. 
 
 ## Search methods
 

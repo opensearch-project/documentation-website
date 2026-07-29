@@ -1,6 +1,6 @@
 ---
 layout: default
-title: API tools
+title: Security Analytics APIs
 nav_order: 30
 has_children: true
 has_toc: false
@@ -8,7 +8,7 @@ redirect_from:
   - /security-analytics/api-tools/
 ---
 
-# API tools
+# Security Analytics APIs
 
 Security Analytics includes a number of APIs to help administrators maintain and update an implementation. The APIs often mimic the same controls available for setting up Security Analytics in OpenSearch Dashboards, and they provide another option for administering the plugin.
 

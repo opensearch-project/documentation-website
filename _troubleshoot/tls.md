@@ -6,7 +6,7 @@ nav_order: 15
 
 # TLS troubleshooting
 
-This page includes troubleshooting steps for configuring TLS certificates with the Security plugin.
+Use the following troubleshooting steps to resolve issues with configuring TLS certificates with the Security plugin.
 
 
 ---

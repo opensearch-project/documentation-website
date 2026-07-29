@@ -10,7 +10,7 @@ redirect_from:
 
 # Analyzers
 
-The following sections list all analyzers that OpenSearch supports.
+Analyzers transform text into tokens during indexing and search. OpenSearch provides built-in analyzers for common use cases and supports custom analyzers that combine character filters, tokenizers, and token filters.
 
 ## Built-in analyzers
 

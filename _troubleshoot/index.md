@@ -1,17 +1,18 @@
 ---
 layout: default
-title: Common issues
+title: Troubleshooting OpenSearch
 nav_order: 1
 has_toc: false
 nav_exclude: true
+description: "Solutions to common OpenSearch and OpenSearch Dashboards issues, including startup failures, security configuration errors, expired certificates, and connectivity problems."
 permalink: /troubleshoot/
 redirect_from:
   - /troubleshoot/index/
 ---
 
-# Common issues
+# Troubleshooting OpenSearch
 
-This page contains a list of common issues and workarounds.
+The following are common issues and workarounds for OpenSearch and OpenSearch Dashboards, including startup failures, security configuration errors, and cluster connectivity problems.
 
 
 ## OpenSearch Dashboards fails to start

@@ -8,7 +8,7 @@ redirect_from:
   - /search-plugins/sql/sql/partiql/
 ---
 
-# JSON support
+# SQL JSON support
 
 SQL plugin supports JSON by following [PartiQL](https://partiql.org/) specification, a SQL-compatible query language that lets you query semi-structured and nested data for any data format. The SQL plugin only supports a subset of the PartiQL specification.
 

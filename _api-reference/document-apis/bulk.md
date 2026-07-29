@@ -360,7 +360,7 @@ To upsert a document, use one of the following options:
     { "update": { "_index": "movies", "_id": "tt0816711" } }
     { "doc" : { "title": "World War Z" }, "doc_as_upsert": true }
     ```
-1. Specify the document to update (when it exists) in the `doc` field, the document to insert (when it doesn't exist) in the `upsert` field, and leave `doc_as_update` set to `false`:
+1. Specify the document to update (when it exists) in the `doc` field, the document to insert (when it doesn't exist) in the `upsert` field, and leave `doc_as_upsert` set to `false`:
 
     ```json
     { "update": { "_index": "products", "_id": "widget-123" } }

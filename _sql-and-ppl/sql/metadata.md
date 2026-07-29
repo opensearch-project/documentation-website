@@ -8,7 +8,7 @@ redirect_from:
   - /search-plugins/sql/sql/metadata/
 ---
 
-# Metadata queries
+# SQL metadata queries
 
 To see basic metadata about your indexes, use the `SHOW` and `DESCRIBE` commands.
 

@@ -9,7 +9,7 @@ has_children: false
 has_toc: false
 ---
 
-# Analyzer
+# Analyzer mapping parameter
 
 The `analyzer` mapping parameter specifies the analyzer to use for text analysis when indexing or searching a `text` field. Unless overridden by the `search_analyzer` mapping parameter, this analyzer handles both index-time and search-time analysis. For more information about analyzers, see [Text analysis]({{site.url}}{{site.baseurl}}/analyzers/).
 

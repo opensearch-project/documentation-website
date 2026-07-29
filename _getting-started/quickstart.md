@@ -2,6 +2,7 @@
 layout: default
 title: Installation quickstart
 nav_order: 3
+description: "Quickly set up a local OpenSearch and OpenSearch Dashboards cluster using Docker, then index and search sample data to get started."
 redirect_from: 
   - /about/quickstart/
   - /opensearch/install/quickstart/
@@ -11,6 +12,7 @@ redirect_from:
 # Installation quickstart
 
 OpenSearch supports multiple installation methods: Docker, Debian, Helm, RPM, tarball, and Windows.
+
 This guide uses [Docker](https://www.docker.com/) for a quick local setup. For other installation options, see the full [Install and upgrade OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/) guide.
 
 There are two ways to get started:

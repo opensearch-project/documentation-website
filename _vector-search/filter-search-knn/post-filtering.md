@@ -5,7 +5,7 @@ parent: Filtering data
 nav_order: 20
 ---
 
-## Post-filtering
+# Post-filtering vector search results
 
 You can achieve post-filtering with a [Boolean filter](#boolean-filter-with-ann-search) or by providing [the `post_filter` parameter](#the-post_filter-parameter).
 

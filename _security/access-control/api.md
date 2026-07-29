@@ -1,13 +1,13 @@
 ---
 layout: default
-title: API
+title: Security APIs
 parent: Access control
 nav_order: 120
 redirect_from: 
  - /security-plugin/access-control/api/
 ---
 
-# API
+# Security APIs
 
 The Security plugin REST API lets you programmatically create and manage users, roles, role mappings, action groups, and tenants.
 

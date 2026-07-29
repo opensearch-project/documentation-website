@@ -7,7 +7,7 @@ redirect_from:
   - /security-plugin/configuration/yaml/
 ---
 
-# Modifying the YAML files
+# Modifying the security YAML files
 
 The Security installation provides a number of YAML configuration files that are used to store the necessary settings that define the way the Security plugin manages users, roles, and activity within the cluster. These settings range from configurations for authentication backends to lists of allowed endpoints and HTTP requests. 
 
