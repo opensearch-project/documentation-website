@@ -44,7 +44,7 @@ All request body parameters are optional.
 
 | Parameter | Data type | Description |
 :--- | :--- | :--- 
-| `attach_to_data_stream` | Boolean | Whether to attach a restored backing index to a pre-existing data stream of the same name. This is an experimental feature, introduced in OpenSearch 3.8. When `true`, a restored index whose name matches the `.ds-<data_stream>-NNNNNN` backing-index convention is attached to a pre-existing data stream of the same name as part of the restore operation, advancing the stream generation as needed. The attached index must map the data stream's timestamp field as a `date`. When `false`, the index is restored as a standalone index, preserving the default behavior. Default is `false`. |
+| `attach_to_data_stream` (Experimental) | Boolean | Whether to attach a restored backing index to a pre-existing data stream of the same name. When `true`, a restored index whose name matches the `.ds-<data_stream>-NNNNNN` backing index convention is attached to a pre-existing data stream of the same name as part of the restore operation, advancing the stream generation as needed. The attached index must map the data stream's timestamp field as a `date`. When `false`, the index is restored as a standalone index. Default is `false`. See [Attach a restored backing index to a data stream](#attach-a-restored-backing-index-to-a-data-stream).|
 | `ignore_unavailable` | Boolean | How to handle data streams or indexes that are missing or closed. If `false`, the request returns an error for any data stream or index that is missing or closed. If `true`, the request ignores data streams and indexes in indexes that are missing or closed. Defaults to `false`. |
 | `ignore_index_settings` | Boolean | A comma-delimited list of index settings that you don't want to restore from a snapshot. |
 | `include_aliases` | Boolean | How to handle index aliases from the original snapshot. If `true`, index aliases from the original snapshot are restored. If `false`, aliases along with associated indexes are not restored. Defaults to `true`. |
@@ -174,11 +174,13 @@ The target cluster will restore the index and configure it to read remote segmen
 For the complete step-by-step procedure, see [Restoring snapshots across remote-backed clusters]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/#restoring-snapshots-across-remote-backed-clusters).
 
 ### Attach a restored backing index to a data stream
+**Introduced 3.8**
+{: .label .label-purple }
 
-This is an experimental feature, introduced in OpenSearch 3.8.
+This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/8271).
 {: .warning}
 
-Set `attach_to_data_stream` to `true` to attach a restored backing index to a pre-existing data stream of the same name. The restored index name must match the `.ds-<data_stream>-NNNNNN` backing-index convention, and the index must map the stream's timestamp field as a `date`. The following request restores the `.ds-logs-foo-000001` backing index and attaches it to the existing `logs-foo` data stream, advancing the stream generation as needed:
+To attach a restored backing index to a pre-existing data stream with the same name, set `attach_to_data_stream` to `true`. The restored index name must match the `.ds-<data_stream>-NNNNNN` backing index convention, and the index must map the stream's timestamp field as a `date`. The following request restores the `.ds-logs-foo-000001` backing index and attaches it to the existing `logs-foo` data stream, advancing the stream generation as needed:
 
 ```json
 POST /_snapshot/my-opensearch-repo/my-first-snapshot/_restore
@@ -189,7 +191,7 @@ POST /_snapshot/my-opensearch-repo/my-first-snapshot/_restore
 ```
 {% include copy-curl.html %}
 
-To modify the backing indexes of a data stream without restoring from a snapshot, use the [Modify Data Stream API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/modify-data-stream/).
+To add or remove backing indexes of a data stream without restoring an index from a snapshot, use the [Modify Data Stream API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/modify-data-stream/).
 
 ## Example response
 

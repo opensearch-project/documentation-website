@@ -12,7 +12,17 @@ nav_order: 85
 This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/8271).
 {: .warning}
 
-The Modify Data Stream API adds or removes backing indexes of a [data stream]({{site.url}}{{site.baseurl}}/im-plugin/data-streams/). It is a metadata-only operation: all actions in a request are applied atomically in a single cluster-state update, and no shards are created, deleted, restored, or relocated. Use this API to migrate a pre-existing regular index into a data stream or to detach a backing index without deleting its data.
+The Modify Data Stream API adds or removes backing indexes of a [data stream]({{site.url}}{{site.baseurl}}/im-plugin/data-streams/). Use this API to migrate a pre-existing regular index into a data stream or to detach a backing index without deleting its data.
+
+The following behaviors and restrictions apply when you add or remove backing indexes:
+
+- Add and remove actions change only the data stream metadata; the index and its data remain unchanged. No shards are created, deleted, restored, or relocated.
+- You can include multiple add and remove actions in a request. All actions are applied atomically in a single cluster state update, and the result is independent of the action order.
+- The data stream generation is derived from its backing indexes (the highest backing-index counter is the write index) and cannot be set directly.
+- The write index cannot be removed, and removing the last backing index is rejected.
+- An added index must map the data stream's timestamp field as a `date` or `date_nanos`. An added index is marked as hidden; a removed index is made visible again.
+- An added index need not follow the `.ds-<data_stream>-NNNNNN` naming convention, which allows you to migrate a pre-existing regular index into a data stream.
+- An index cannot be a backing index of more than one data stream.
 
 ## Endpoints
 
@@ -31,29 +41,22 @@ The following table lists the available query parameters. All query parameters a
 
 ## Request body fields
 
-The request body must contain an `actions` array in which each element is a single-key object specifying one action. The following table lists the available request body fields.
+The following table lists the available request body fields.
 
-| Field | Data type | Description | Required |
-| :--- | :--- | :--- | :--- |
-| `actions` | Array | A list of actions to perform. Each element is an object with exactly one action: `add_backing_index` or `remove_backing_index`. You must provide at least one action. | Yes |
-| `actions[].add_backing_index` | Object | Adds an existing index to the data stream as a backing index. | No |
-| `actions[].add_backing_index.data_stream` | String | The name of the data stream to modify. | Yes |
-| `actions[].add_backing_index.index` | String | The name of the index to add as a backing index. | Yes |
-| `actions[].remove_backing_index` | Object | Removes a backing index from the data stream. | No |
-| `actions[].remove_backing_index.data_stream` | String | The name of the data stream to modify. | Yes |
-| `actions[].remove_backing_index.index` | String | The name of the backing index to remove. | Yes |
+| Field | Data type | Description |
+| :--- | :--- | :--- |
+| `actions` | Array | A list of actions to perform. You must provide at least one action. Required. |
 
-## Behavior
+Each element in the `actions` array is a single-key object that specifies one action. The following table lists the available action fields.
 
-Keep the following behavior in mind when modifying a data stream:
-
-- Add and remove actions change only the data stream metadata; the index and its data are not modified.
-- You can include multiple add and remove actions in a request. The actions are applied atomically, and the result is independent of the action order.
-- The data stream generation is derived from its backing indexes (the highest backing-index counter is the write index) and cannot be set directly.
-- The write index cannot be removed, and removing the last backing index is rejected.
-- An added index must map the data stream's timestamp field as a `date` or `date_nanos`. An added index is marked as hidden; a removed index is made visible again.
-- An added index need not follow the `.ds-<data_stream>-NNNNNN` naming convention, which allows you to migrate a pre-existing regular index into a data stream.
-- An index cannot be a backing index of more than one data stream.
+| Field | Data type | Description |
+| :--- | :--- | :--- |
+| `add_backing_index.data_stream` | String | The name of the data stream to modify. Required. |
+| `add_backing_index.index` | String | The name of the index to add as a backing index. Required. |
+| `remove_backing_index.data_stream` | String | The name of the data stream to modify. Required. |
+| `remove_backing_index.index` | String | The name of the backing index to remove. Required. |
+| `add_backing_index` | Object | Adds an existing index to the data stream as a backing index. Optional. |
+| `remove_backing_index` | Object | Removes a backing index from the data stream. Optional. |
 
 ## Example request
 
@@ -87,14 +90,6 @@ POST /_data_stream/_modify
   "acknowledged": true
 }
 ```
-
-## Response body fields
-
-The following table lists all available response body fields.
-
-| Field | Data type | Description |
-| :--- | :--- | :--- |
-| `acknowledged` | Boolean | Whether the request was acknowledged and the cluster-state update was applied. |
 
 ## Required permissions
 
