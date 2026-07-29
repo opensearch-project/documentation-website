@@ -82,6 +82,10 @@ The following table lists the parameters for creating LLM-based judgments.
 | `promptTemplate` | String | Optional. A custom prompt template for the LLM. Supports {% raw %}`{{queryText}}`{% endraw %} and {% raw %}`{{hits}}`{% endraw %} placeholders. If not provided, the default template is used. |
 | `overwriteCache` | Boolean | Whether to overwrite existing cached judgments for the same query-document pairs. Default is `false` (reuse cached judgments). |
 
+### Retrying failed judgment requests
+
+Generating a judgment sends one LLM request for every query-document pair. Occasional failures are expected at scale: for example, the provider might throttle a request or a request might time out. To retry these requests automatically, configure retries on the connector you use for the judgment, using the connector's `client_config` settings (`max_retry_times`, `retry_backoff_policy`, and related options). For more information, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/#configuration-parameters).
+
 ### Custom prompt templates
 
 You can customize the prompt template to focus on specific aspects of relevance:
@@ -120,36 +124,46 @@ PUT /_plugins/_search_relevance/judgments
 
 ### Using different LLM providers
 
-You can adapt the connector configuration for other providers.
+LLM-as-a-Judge works with any LLM provider to which you can connect using an [ML Commons connector]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/). Blueprints are available for OpenAI, Azure OpenAI, DeepSeek, Ollama, Google Gemini, and Amazon Bedrock. For more information, see [Supported connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/supported-connectors/#llm-judgment-blueprints-for-search-relevance-workbench).
 
 #### Amazon Bedrock example
 
-The following example creates a connector for Amazon Bedrock:
+The following example creates a connector for an Anthropic Claude model on Amazon Bedrock:
 
 ```json
 POST /_plugins/_ml/connectors/_create
 {
-  "name": "Amazon Bedrock Connector",
-  "description": "Connector to Amazon Bedrock",
-  "version": "1",
-  "protocol": "aws_sigv4",
-  "parameters": {
-    "region": "us-east-1",
-    "service_name": "bedrock",
-    "model": "anthropic.claude-v2"
-  },
-  "credential": {
-    "access_key": "YOUR_ACCESS_KEY",
-    "secret_key": "YOUR_SECRET_KEY"
-  },
-  "actions": [
-    {
-      "action_type": "predict",
-      "method": "POST",
-      "url": "https://bedrock-runtime.${parameters.region}.amazonaws.com/model/${parameters.model}/invoke",
-      "request_body": "{ \"prompt\": \"${parameters.messages}\", \"max_tokens_to_sample\": 300 }"
-    }
-  ]
+    "name": "Amazon Bedrock Anthropic Claude",
+    "description": "Anthropic Claude via Bedrock for SRW LLM judgments",
+    "version": 1,
+    "protocol": "aws_sigv4",
+    "credential": {
+        "access_key": "<YOUR AWS ACCESS KEY>",
+        "secret_key": "<YOUR AWS SECRET KEY>"
+    },
+    "parameters": {
+        "region": "<YOUR AWS REGION>",  // example: us-east-1
+        "service_name": "bedrock",
+        "anthropic_version": "bedrock-2023-05-31",
+        "max_tokens": 8000,
+        "model": "<INFERENCE_PROFILE_ID>"  // example: us.anthropic.claude-haiku-4-5-20251001-v1:0
+    },
+    "client_config": {
+        "max_retry_times": 3,
+        "retry_backoff_policy": "exponential_full_jitter"
+    },
+    "actions": [
+        {
+            "action_type": "predict",
+            "method": "POST",
+            "headers": {
+                "content-type": "application/json"
+            },
+            "url": "https://bedrock-runtime.${parameters.region}.amazonaws.com/model/${parameters.model}/invoke",
+            "request_body": "{\"anthropic_version\":\"${parameters.anthropic_version}\",\"max_tokens\":${parameters.max_tokens},\"system\":\"${parameters.system_prompt}\",\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"${parameters.user_prompt}\"}]}]}",
+            "post_process_function": "def text = params.content[0].text; return '{\"name\":\"response\",\"dataAsMap\":{\"response\":\"' + escape(text) + '\"}}'"
+        }
+    ]
 }
 ```
 {% include copy-curl.html %}
@@ -339,10 +353,15 @@ GET _plugins/_search_relevance/judgments/b54f791a-3b02-49cb-a06c-46ab650b2ade
         "_source": {
           "id": "b54f791a-3b02-49cb-a06c-46ab650b2ade",
           "timestamp": "2025-06-11T06:07:23.766Z",
-          "name": "Imported Judgments",
+          "name": "LLM Judgments",
           "status": "COMPLETED",
-          "type": "IMPORT_JUDGMENT",
-          "metadata": {},
+          "type": "LLM_JUDGMENT",
+          "metadata": {
+            "totalQueries": 2,
+            "successfulQueries": 1,
+            "failedQueries": 1,
+            "lastFailureReason": "Rate limit exceeded"
+          },
           "judgmentRatings": [
             {
               "query": "red dress",
@@ -356,16 +375,17 @@ GET _plugins/_search_relevance/judgments/b54f791a-3b02-49cb-a06c-46ab650b2ade
                   "docId": "B071S6LTJJ"
                 },
                 {
-                  "rating": "2.000",
-                  "docId": "B01IDSPDJI"
-                },
-                {
                   "rating": "0.000",
                   "docId": "B07QRCGL3G"
                 },
                 {
                   "rating": "1.000",
                   "docId": "B074V6Q1DR"
+                }
+              ],
+              "failures": [
+                {
+                  "docId": "B01IDSPDJI"
                 }
               ]
             },
@@ -403,6 +423,8 @@ GET _plugins/_search_relevance/judgments/b54f791a-3b02-49cb-a06c-46ab650b2ade
 ```
 
 </details>
+
+Unrated documents appear in each query's `failures` array. The run's overall counts appear in the judgment's `metadata` field.
 
 ### Deleting a judgment list
 
