@@ -82,9 +82,9 @@ The following table lists the parameters for creating LLM-based judgments.
 | `promptTemplate` | String | Optional. A custom prompt template for the LLM. Supports {% raw %}`{{queryText}}`{% endraw %} and {% raw %}`{{hits}}`{% endraw %} placeholders. If not provided, the default template is used. |
 | `overwriteCache` | Boolean | Whether to overwrite existing cached judgments for the same query-document pairs. Default is `false` (reuse cached judgments). |
 
-### Handling judgment failures
+### Retrying failed judgment requests
 
-Generating a judgment sends one LLM request for every query-document pair. Occasional failures are expected at scale: for example, the provider might throttle a request or a request might time out. To make these failures self-healing, configure retries on the connector you use for the judgment, using the connector's `client_config` settings (`max_retry_times`, `retry_backoff_policy`, and related options). For more information, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/#configuration-parameters).
+Generating a judgment sends one LLM request for every query-document pair. Occasional failures are expected at scale: for example, the provider might throttle a request or a request might time out. To retry these requests automatically, configure retries on the connector you use for the judgment, using the connector's `client_config` settings (`max_retry_times`, `retry_backoff_policy`, and related options). For more information, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/#configuration-parameters).
 
 ### Custom prompt templates
 
@@ -124,7 +124,7 @@ PUT /_plugins/_search_relevance/judgments
 
 ### Using different LLM providers
 
-LLM-as-a-Judge works with any LLM provider that you can connect to through an [ML Commons connector]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/). For ready-to-use blueprints covering OpenAI, Azure OpenAI, DeepSeek, Ollama, Google Gemini, and Amazon Bedrock, see [Supported connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/supported-connectors/#llm-judgment-blueprints-for-search-relevance-workbench).
+LLM-as-a-Judge works with any LLM provider to which you can connect using an [ML Commons connector]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/). Blueprints are available for OpenAI, Azure OpenAI, DeepSeek, Ollama, Google Gemini, and Amazon Bedrock. For more information, see [Supported connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/supported-connectors/#llm-judgment-blueprints-for-search-relevance-workbench).
 
 #### Amazon Bedrock example
 

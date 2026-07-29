@@ -65,14 +65,14 @@ The following table provides a comprehensive list of connector blueprints availa
 
 ## LLM judgment blueprints for Search Relevance Workbench
 
-[Search Relevance Workbench (SRW)]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/using-search-relevance-workbench/) uses a chat model to generate relevance ratings with LLM-as-a-Judge. For an overview of these blueprints, see the [LLM judgment blueprints README](https://github.com/opensearch-project/ml-commons/blob/main/docs/remote_inference_blueprints/llm_judgment/README.md). The following blueprints let you connect SRW to a chat model from any of these providers:
+[Search Relevance Workbench]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/using-search-relevance-workbench/) uses a chat model to generate relevance ratings using an LLM-as-a-Judge. For an overview of these blueprints, see the [LLM judgment blueprints README](https://github.com/opensearch-project/ml-commons/blob/main/docs/remote_inference_blueprints/llm_judgment/README.md). The following table lists the available blueprints for connecting Search Relevance Workbench to a chat model.
 
 | Provider | Blueprint |
 |:---|:---|
 | OpenAI | [GPT-5, GPT-4.1, GPT-4o](https://github.com/opensearch-project/ml-commons/blob/main/docs/remote_inference_blueprints/llm_judgment/openai_chat_blueprint.md) |
 | Azure OpenAI | [GPT-5, GPT-4.1, GPT-4o](https://github.com/opensearch-project/ml-commons/blob/main/docs/remote_inference_blueprints/llm_judgment/azure_openai_chat_blueprint.md) |
 | DeepSeek | [DeepSeek-V3, DeepSeek-R1](https://github.com/opensearch-project/ml-commons/blob/main/docs/remote_inference_blueprints/llm_judgment/deepseek_chat_blueprint.md) |
-| Ollama (and other local OpenAI-compatible servers) | [Qwen 3, Llama 3.3, Mistral, Phi-4, Gemma 3](https://github.com/opensearch-project/ml-commons/blob/main/docs/remote_inference_blueprints/llm_judgment/ollama_chat_blueprint.md) |
+| Ollama and other local OpenAI-compatible servers | [Qwen 3, Llama 3.3, Mistral, Phi-4, Gemma 3](https://github.com/opensearch-project/ml-commons/blob/main/docs/remote_inference_blueprints/llm_judgment/ollama_chat_blueprint.md) |
 | Google Gemini | [Gemini 2.5 Pro, Gemini 2.5 Flash](https://github.com/opensearch-project/ml-commons/blob/main/docs/remote_inference_blueprints/llm_judgment/google_gemini_chat_blueprint.md) |
 | Amazon Bedrock | [Anthropic Claude (native `invoke` API)](https://github.com/opensearch-project/ml-commons/blob/main/docs/remote_inference_blueprints/llm_judgment/anthropic_claude_bedrock_blueprint.md) |
 | Amazon Bedrock Converse | [Anthropic Claude, Amazon Nova, Meta Llama, Mistral, AI21, Cohere](https://github.com/opensearch-project/ml-commons/blob/main/docs/remote_inference_blueprints/llm_judgment/bedrock_converse_blueprint.md) |
