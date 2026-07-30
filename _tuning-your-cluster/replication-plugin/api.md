@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Cross-Cluster Replication API
+title: API
 nav_order: 50
 parent: Cross-cluster replication
 redirect_from:
@@ -8,7 +8,7 @@ redirect_from:
 canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/replication-plugin/api/
 ---
 
-# Cross-Cluster Replication API
+# Cross-cluster replication API
 
 Use these replication operations to programmatically manage cross-cluster replication.
 
