@@ -79,6 +79,7 @@ Google Normalized Distance
 Google Workspace
 Gradle
 Grafana
+Grok
 Grok Debugger
 Hanja
 Helm
@@ -170,6 +171,7 @@ Python
 PyTorch
 Quandl
 Querqy
+Query Profiler
 Query Workbench
 RankLib
 RCF Summarize
