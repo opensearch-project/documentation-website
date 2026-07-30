@@ -11,8 +11,11 @@ more_cards:
   - heading: "Install and configure OpenSearch Benchmark"
     description: "Install OpenSearch Benchmark and configure your experience"
     link: "/benchmark/user-guide/install-and-configure/index/"
-  - heading: "Understanding workloads"
-    description: "Dive deep into each workload component and choose a workload"
+  - heading: "Choosing a workload"
+    description: "Compare the prepackaged workloads and select the one that matches your cluster"
+    link: "/benchmark/choosing-a-workload/"
+  - heading: "Anatomy of a workload"
+    description: "Dive deep into each workload component"
     link: "/benchmark/anatomy-of-a-workload/"
   - heading: "Run and customize your workload"
     description: "Run and customize your OpenSearch workload to get the most accurate results"
@@ -27,7 +30,9 @@ redirect_from:
   - /benchmark/user-guide/
 ---
 
+<!-- vale off -->
 # OpenSearch Benchmark user guide
+<!-- vale on -->
 
 The OpenSearch Benchmark user guide includes core [concepts]({{site.url}}{{site.baseurl}}/benchmark/user-guide/concepts/), [installation instructions]({{site.url}}{{site.baseurl}}/benchmark/installing-benchmark/), and [configuration options]({{site.url}}{{site.baseurl}}/benchmark/configuring-benchmark/) to help you get the most out of OpenSearch Benchmark.
 

@@ -1,14 +1,20 @@
 ---
 layout: default
 title: Anatomy of a workload
-nav_order: 15
+nav_order: 22
+has_children: true
+has_toc: false
 redirect_from:
   - /benchmark/user-guide/understanding-workloads/anatomy-of-a-workload/
+  - /benchmark/reference/workloads/
+  - /benchmark/reference/workloads/index/
+  - /benchmark/workloads/
+  - /benchmark/workloads/index/
 ---
 
 # Anatomy of a workload
 
-All workloads contain the following files and directories:
+A workload is a specification of one or more benchmarking scenarios. All workloads contain the following files and directories:
 
 - [`workload.json`](#workloadjson): Contains all of the workload settings.
 - [`index.json`](#indexjson): Contains the document mappings and parameters as well as index settings.
@@ -21,7 +27,14 @@ All workloads contain the following files and directories:
 ## workload.json
 <!-- vale on -->
 
-The following example workload shows all of the essential elements needed to create a `workload.json` file. You can run this workload in your own benchmark configuration to understand how all of the elements work together:
+A `workload.json` file usually includes the following elements:
+
+- [`indices`]({{site.url}}{{site.baseurl}}/benchmark/reference/workloads/indices/): Defines the relevant indexes and index templates used for the workload. To create an index, specify its `name`. To add definitions to your index, use the `body` option and point it to the JSON file containing the index definitions.
+- [`corpora`]({{site.url}}{{site.baseurl}}/benchmark/reference/workloads/corpora/): Defines all document corpora used for the workload, including the source files that contain the documents and the number of documents in each file.
+- [`operations`]({{site.url}}{{site.baseurl}}/benchmark/reference/workloads/operations/): **Optional**. Lists the OpenSearch API operations performed by the workload and how they are parameterized. For example, you can list an operation named `create-index` that creates an index in the benchmark cluster to which OpenSearch Benchmark can write documents.
+- [`schedule`]({{site.url}}{{site.baseurl}}/benchmark/reference/workloads/schedule/): Defines operations and the order in which the operations run inline. Alternatively, you can use `operations` to group operations and the [`test_procedures`]({{site.url}}{{site.baseurl}}/benchmark/reference/workloads/test-procedures/) parameter to specify the order of operations.
+
+The following example workload shows these elements working together. You can run this workload in your own benchmark configuration:
 
 ```json
 {
@@ -83,94 +96,6 @@ The following example workload shows all of the essential elements needed to cre
   ]
 }
 ```
-
-A workload usually includes the following elements:
-
-- [`indices`]({{site.url}}{{site.baseurl}}/benchmark/workloads/indices/): Defines the relevant indexes and index templates used for the workload.
-- [`corpora`]({{site.url}}{{site.baseurl}}/benchmark/workloads/corpora/): Defines all document corpora used for the workload.
-- `schedule`: Defines operations and the order in which the operations run inline. Alternatively, you can use `operations` to group operations and the `test_procedures` parameter to specify the order of operations.
-- `operations`: **Optional**. Describes which operations are available for the workload and how they are parameterized.
-
-<!-- vale off -->
-### indices
-<!-- vale on -->
-
-To create an index, specify its `name`. To add definitions to your index, use the `body` option and point it to the JSON file containing the index definitions. For more information, see [`indices`]({{site.url}}{{site.baseurl}}/benchmark/workloads/indices/).
-
-<!-- vale off -->
-### corpora
-<!-- vale on -->
-
-The `corpora` element requires the name of the index containing the document corpus, for example, `movies`, and a list of parameters that define the document corpora. This list includes the following parameters:
-
--  `source-file`: The file name that contains the workload's corresponding documents. When using OpenSearch Benchmark locally, documents are contained in a JSON file. When providing a `base_url`, use a compressed file format: `.zip`, `.bz2`, `.zst`, `.gz`, `.tar`, `.tar.gz`, `.tgz`, or `.tar.bz2`. The compressed file must include one JSON file containing the name.
--  `document-count`: The number of documents in the `source-file`, which determines which client indexes correlate to which parts of the document corpus. Each N client is assigned an Nth of the document corpus to ingest into the test cluster. When using a source that contains a document with a parent/child relationship, specify the number of parent documents.
-- `uncompressed-bytes`: The size, in bytes, of the source file after decompression, indicating how much disk space the decompressed source file needs.
-- `compressed-bytes`: The size, in bytes, of the source file before decompression. This can help you assess the amount of time needed for the cluster to ingest documents.
-
-<!-- vale off -->
-### operations
-<!-- vale on -->
-
-The `operations` element lists the OpenSearch API operations performed by the workload. For example, you can list an operation named `create-index` that creates an index in the benchmark cluster to which OpenSearch Benchmark can write documents. Operations are usually listed inside of the `schedule` element.
-
-<!-- vale off -->
-### schedule
-<!-- vale on -->
-
-The `schedule` element contains a list of operations that are run in a specified order, as shown in the following JSON example:
-
-```json
-  "schedule": [
-    {
-      "operation": {
-        "operation-type": "create-index"
-      }
-    },
-    {
-      "operation": {
-        "operation-type": "cluster-health",
-        "request-params": {
-          "wait_for_status": "green"
-        },
-        "retry-until-success": true
-      }
-    },
-    {
-      "operation": {
-        "operation-type": "bulk",
-        "bulk-size": 5000
-      },
-      "warmup-time-period": 120,
-      "clients": 8
-    },
-    {
-      "operation": {
-        "name": "query-match-all",
-        "operation-type": "search",
-        "body": {
-          "query": {
-            "match_all": {}
-          }
-        }
-      },
-      "iterations": 1000,
-      "target-throughput": 100
-    }
-  ]
-}
-```
-
-According to this `schedule`, the actions will run in the following order:
-
-1. The `create-index` operation creates an index. The index remains empty until the `bulk` operation adds documents with benchmarked data.
-2. The `cluster-health` operation assesses the cluster's health before running the workload. In the JSON example, the workload waits until the cluster's health status is `green`.
-   - The `bulk` operation runs the `bulk` API to index `5000` documents simultaneously.
-   - Before benchmarking, the workload waits until the specified `warmup-time-period` passes. In the JSON example, the warmup period is `120` seconds.
-3. The `clients` field defines the number of clients, in this example, eight, that will run the bulk indexing operation concurrently.
-4. The `search` operation runs a `match_all` query to match all documents after they have been indexed by the `bulk` API using the specified clients.
-   - The `iterations` field defines the number of times each client runs the `search` operation. The benchmark report automatically adjusts the percentile numbers based on this number. To generate a precise percentile, the benchmark needs to run at least 1,000 iterations.
-   - The `target-throughput` field defines the number of requests per second performed by each client. This setting can help reduce benchmark latency. For example, a `target-throughput` of 100 requests divided by 8 clients means that each client will issue 12 requests per second. For more information about how target throughput is defined in OpenSearch Benchmark, see [Target throughput]({{site.url}}{{site.baseurl}}/benchmark/target-throughput/).
 
 <!-- vale off -->
 ## index.json
@@ -801,6 +726,91 @@ The `_test-procedures` directory contains a `default.json` file that sets the or
     }
 ```
 
+## Workload examples
+
+The following examples show complete `workload.json` files that you can adapt for your own workloads.
+
+### Running unthrottled
+
+In the following example, OpenSearch Benchmark runs an unthrottled bulk index operation for 1 hour against the `movies` index:
+
+```json
+{
+  "description": "Tutorial benchmark for OpenSearch Benchmark",
+  "indices": [
+    {
+      "name": "movies",
+      "body": "index.json"
+    }
+  ],
+  "corpora": [
+    {
+      "name": "movies",
+      "documents": [
+        {
+          "source-file": "movies-documents.json",
+          "document-count": 11658903, # Fetch document count from command line
+          "uncompressed-bytes": 1544799789 # Fetch uncompressed bytes from command line
+        }
+      ]
+    }
+  ],
+  "schedule": [
+  {
+    "operation": "bulk",
+    "warmup-time-period": 120,
+    "time-period": 3600,
+    "clients": 8
+  }
+]
+}
+```
+
+### Workload with a single task
+
+The following workload runs a benchmark with a single task: a `match_all` query. Because no `clients` are indicated, only one client is used. According to the [`schedule`]({{site.url}}{{site.baseurl}}/benchmark/reference/workloads/schedule/), the workload runs the `match_all` query at 10 operations per second with 1 client, uses 100 iterations to warm up, and uses the next 100 iterations to measure the benchmark:
+
+```json
+{
+  "description": "Tutorial benchmark for OpenSearch Benchmark",
+  "indices": [
+    {
+      "name": "movies",
+      "body": "index.json"
+    }
+  ],
+  "corpora": [
+    {
+      "name": "movies",
+      "documents": [
+        {
+          "source-file": "movies-documents.json",
+          "document-count": 11658903, # Fetch document count from command line
+          "uncompressed-bytes": 1544799789 # Fetch uncompressed bytes from command line
+        }
+      ]
+    }
+  ],
+  "schedule": [
+    {
+      "operation": {
+        "operation-type": "search",
+        "index": "_all",
+        "body": {
+          "query": {
+            "match_all": {}
+          }
+        }
+      },
+      "warmup-iterations": 100,
+      "iterations": 100,
+      "target-throughput": 10
+    }
+  ]
+}
+```
+
 ## Next steps
 
-Now that you have familiarized yourself with the anatomy of a workload, see the criteria for [Choosing a workload]({{site.url}}{{site.baseurl}}/benchmark/choosing-a-workload/).
+- For the data, cluster requirements, and query types of each prepackaged workload, see [Workload types]({{site.url}}{{site.baseurl}}/benchmark/workload-types/).
+- For information about creating your own workload, see [Creating custom workloads]({{site.url}}{{site.baseurl}}/benchmark/creating-custom-workloads/).

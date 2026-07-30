@@ -8,7 +8,7 @@ redirect_from:
 
 # Common operations
 
-[Test procedures]({{site.url}}{{site.baseurl}}/benchmark/anatomy-of-a-workload#_operations-and-_test-procedures) use a variety of operations, found inside the `operations` directory of a workload. This page details the most common operations found inside OpenSearch Benchmark workloads.
+[Test procedures]({{site.url}}{{site.baseurl}}/benchmark/reference/workloads/test-procedures/) use a variety of operations, found inside the `operations` directory of a workload. This page details the most common operations found inside OpenSearch Benchmark workloads.
 
 - [Common operations](#common-operations)
   - [bulk](#bulk)

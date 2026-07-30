@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Running distributed loads
-nav_order: 50
+nav_order: 32
 redirect_from:
   - /benchmark/user-guide/optimizing-benchmarks/distributed-load/
 ---
