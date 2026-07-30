@@ -5,7 +5,7 @@ parent: Pipeline aggregations
 nav_order: 70
 ---
 
-# Derivative aggregations
+# Derivative aggregation
 
 The `derivative` aggregation is a parent aggregation used to calculate first-order and second-order derivatives of each bucket of an aggregation. "First-order derivative" and "second-order derivative" are often shortened to "first derivative" and "second derivative," respectively. This page uses the shortened terms.
 

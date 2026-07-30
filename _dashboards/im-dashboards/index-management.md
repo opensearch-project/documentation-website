@@ -3,11 +3,12 @@ layout: default
 title: Indexes
 parent: Index management
 nav_order: 16
+description: "Perform index management operations in OpenSearch Dashboards, including creating index policies, managing indexes, and configuring index templates."
 redirect_from:
   - /dashboards/admin-ui-index/index-management/
 ---
 
-# Indexes
+# Index management in OpenSearch Dashboards
 Introduced 2.5
 {: .label .label-purple }
 

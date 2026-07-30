@@ -9,7 +9,7 @@ has_children: false
 has_toc: false
 ---
 
-# Term vector
+# Term vector mapping parameter
 
 The `term_vector` mapping parameter controls whether term-level information is stored for individual text fields during indexing. This information includes details such as term frequency, position, and character offsets, which can be used for advanced features like custom scoring and highlighting.
 

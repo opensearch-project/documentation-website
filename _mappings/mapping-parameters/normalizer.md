@@ -9,7 +9,7 @@ has_children: false
 has_toc: false
 ---
 
-# Normalizer
+# Normalizer mapping parameter
 
 The `normalizer` mapping parameter defines a custom normalization process for keyword fields. Unlike [analyzers]({{site.url}}{{site.baseurl}}/analyzers/supported-analyzers/index/) for text fields, which generate multiple tokens, [normalizers]({{site.url}}{{site.baseurl}}/analyzers/normalizers/) transform the entire field value into a single token using a set of token filters. When you define a normalizer, the keyword field is processed by the specified filters before it is stored while keeping the `_source` of the document unchanged.
 

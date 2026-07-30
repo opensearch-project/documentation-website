@@ -5,7 +5,7 @@ parent: Pipeline aggregations
 nav_order: 160
 ---
 
-# Percentiles bucket aggregations
+# Percentiles bucket aggregation
 
 The `percentiles_bucket` aggregation is a sibling aggregation that calculates the percentile placement of bucketed metrics.
 

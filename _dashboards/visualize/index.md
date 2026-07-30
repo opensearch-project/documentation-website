@@ -11,8 +11,6 @@ redirect_from:
 
 # Building data visualizations
 
-By visualizing your data, you can translate complex, high-volume, or numerical data into a visual representation that is easier to process. OpenSearch Dashboards provides data visualization tools to improve and automate the visual communication process. 
-
 OpenSearch Dashboards provides two approaches for creating data visualizations: building visualizations visually and building visualizations using queries. Both produce charts that you can save and add to dashboards.
 
 ## Choosing a visualization approach

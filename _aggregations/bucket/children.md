@@ -5,7 +5,7 @@ parent: Bucket aggregations
 nav_order: 15
 ---
 
-# Children
+# Children aggregation
 
 The `children` aggregation is a bucket aggregation that creates a single bucket containing child documents, based on parent-child relationships defined in your index.
 

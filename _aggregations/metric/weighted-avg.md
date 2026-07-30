@@ -6,7 +6,7 @@ nav_order: 150
 has_math: true
 ---
 
-# Weighted average aggregations
+# Weighted average aggregation
 
 The `weighted_avg` aggregation computes a weighted average of numeric values extracted from documents. Unlike a regular average where each data point contributes equally, a weighted average assigns different importance to each data point based on a corresponding weight value.
 

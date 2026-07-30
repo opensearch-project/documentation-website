@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Update memory
+title: Update agentic memory
 parent: Agentic memory APIs
 grand_parent: ML Commons APIs
 nav_order: 52

@@ -5,7 +5,7 @@ parent: Bucket aggregations
 nav_order: 155
 ---
 
-# Rare terms aggregations
+# Rare terms aggregation
 
 The `rare_terms` aggregation is a bucket aggregation that identifies infrequent terms in a dataset. In contrast to the `terms` aggregation, which finds the most common terms, the `rare_terms` aggregation finds terms that appear with the lowest frequency. The `rare_terms` aggregation is suitable for applications like anomaly detection, long-tail analysis, and exception reporting.
 

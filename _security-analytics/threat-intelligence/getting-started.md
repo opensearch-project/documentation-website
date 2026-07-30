@@ -5,7 +5,7 @@ parent: Threat intelligence
 nav_order: 41
 ---
 
-# Getting started
+# Getting started with threat intelligence
 
 To get started with threat intelligence, you'll need to set up your threat intelligence sources and set up monitors to scan your log sources. The following tutorial shows you how to get started using OpenSearch Dashboards. Alternatively, you can use the [API]({{site.url}}{{site.baseurl}}/security-analytics/threat-intelligence/api/threat-intel-api/). 
 

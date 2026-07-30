@@ -9,7 +9,7 @@ redirect_from:
 ---
 
 
-# Delete
+# SQL DELETE statement
 
 The `DELETE` statement deletes documents that satisfy the predicates in the `WHERE` clause.
 If you don't specify the `WHERE` clause, all documents are deleted.

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Opensearch-py-ml
+title: opensearch-py-ml
 nav_order: 11
 ---
 

@@ -8,7 +8,7 @@ redirect_from:
   - /query-dsl/aggregations/multi-terms/
 ---
 
-# Multi-terms aggregations
+# Multi-terms aggregation
 
 The `multi_terms` aggregation creates buckets based on the combination of values from multiple fields. Each bucket represents a unique composite key, and documents are grouped by matching all specified term values simultaneously. This is useful when you need to find the top combinations ranked by document count or by a metric subaggregation.
 
