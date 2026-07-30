@@ -22,7 +22,7 @@ Option | Required | Type | Description
 `remove_processed_fields` | No | Boolean | When `true`, the processor removes all processed fields from the source. Default is `false`.
 `remove_list_indices` | No | Boolean | When `true`, the processor converts the fields from the source map into lists and puts the lists into the target field. Default is `false`.
 `flatten_when` | No | String | A [conditional expression]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/expression-syntax/), such as `/some-key == "test"'`, that determines whether the `flatten` processor will be run on the event. Default is `null`, which means that all events will be processed unless otherwise stated.
-`flatten_separator` | No | String | The character used to join nested key names into flattened keys. Must be a single character. Default is `"."`.
+`flatten_separator` | No | String | The character used to join nested key names into flattened keys. Must be a single character. Default is `.`.
 `tags_on_failure` | No | List | A list of tags to add to the event metadata when the event fails to process.
 
 ## Usage
@@ -258,7 +258,7 @@ Use the `flatten_separator` option to specify a custom character for joining nes
 ```
 {% include copy.html %}
 
-For example, when the input event contains the following nested objects:
+Consider an input event that contains the following nested objects:
 
 ```json
 {
