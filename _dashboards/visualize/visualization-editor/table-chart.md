@@ -9,9 +9,9 @@ nav_order: 65
 
 # Table
 
-A table chart displays query results in a tabular format with rows and columns, making it ideal for viewing raw data or summary statistics.
+A table displays query results in a tabular format with rows and columns, making it ideal for viewing raw data or summary statistics.
 
-## Creating a table chart
+## Creating a table
 
 The following example demonstrates a basic table visualization. Before you begin, complete the [prerequisites]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/#prerequisites).
 
@@ -26,9 +26,9 @@ source = opensearch_dashboards_sample_data_flights | fields Carrier, AvgTicketPr
 
 After running this query, select **Table** as the chart type. The result is a table displaying the selected fields as columns, as shown in the following image.
 
-![Table chart displaying flight data]({{site.url}}{{site.baseurl}}/images/dashboards/visualization-editor/table-chart-basic-result.png){: width="100%" }
+![A table displaying flight data]({{site.url}}{{site.baseurl}}/images/dashboards/visualization-editor/table-chart-basic-result.png){: width="100%" }
 
-## Configuring a table chart
+## Configuring a table
 
 You can configure the following settings in the configuration panel.
 
