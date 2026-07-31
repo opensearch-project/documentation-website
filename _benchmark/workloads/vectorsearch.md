@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Vector search
-nav_order: 35
+parent: Workload types
+nav_order: 10
 ---
 
 # Vector search workload

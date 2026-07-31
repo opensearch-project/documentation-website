@@ -1,11 +1,11 @@
 ---
 layout: default
 title: Sharing custom workloads
-nav_order: 11
-grand_parent: User guide
-parent: Working with workloads
-redirect_from: 
+parent: Creating custom workloads
+nav_order: 20
+redirect_from:
   - /benchmark/user-guide/contributing-workloads/
+  - /benchmark/user-guide/working-with-workloads/contributing-workloads/
 ---
 
 # Sharing custom workloads

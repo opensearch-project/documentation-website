@@ -1,9 +1,8 @@
 ---
 layout: default
 title: corpora
-parent: Workload reference
-grand_parent: Reference
-nav_order: 70
+parent: Anatomy of a workload
+nav_order: 20
 redirect_from:
   - /benchmark/workloads/corpora/
 ---

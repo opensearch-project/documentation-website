@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Get memory
+title: Get agentic memory
 parent: Agentic memory APIs
 grand_parent: ML Commons APIs
 nav_order: 51
