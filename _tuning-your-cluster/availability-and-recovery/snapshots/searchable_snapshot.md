@@ -25,7 +25,7 @@ A `warm` node reserves storage for the cache to perform searchable snapshot quer
 
 Parameter | Type | Description
 :--- | :--- | :---
-`node.search.cache.size` | String | Specifies the cache size either as an absolute byte value (for example, `7kb` or `6gb`, using the units described in [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/)) or as a percentage of the total disk space (for example, `10%`).
+`node.search.cache.size` | String | Specifies the cache size as either an absolute byte size (for example, `7kb` or `6gb`) or a percentage of the total disk space (for example, `10%`). For more information about byte size units, see [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/).
 
 ## Searchable snapshot index settings
 
