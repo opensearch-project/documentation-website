@@ -66,7 +66,7 @@ GET blogs/_search
 
 ## Applying a scoring function to a subset of documents
 
-To apply a scoring function to only a subset of the matching documents, specify a `filter` for a function in the `functions` array. The function contributes to the score only for documents matching its filter.
+To apply a scoring function to only a subset of the matching documents, specify a `filter` for a function in the `functions` array. The function contributes to the score only for documents matching its filter. Omitting a `filter` is equivalent to specifying `match_all`, so the function applies to every document. The relevance score produced by the filter query is not used in the calculation.
 
 A function `filter` determines which documents a function scores, not which documents are returned. Documents that match the top-level query (or the implicit `match_all`) but match none of the function filters are still returned.
 {: .important}
@@ -147,9 +147,11 @@ GET blogs/_search
 
 Unlike the `boost` value, the `weight` function is not normalized.
 
+When you specify `weight` without any other function, it acts as a function that returns the `weight` value. When you specify it alongside another function in the `functions` array, it multiplies the score that the other function produces.
+
 ## The random score function
 
-The `random_score` function provides a random score that is consistent for a single user but different between users. The score is a floating-point number in the [0, 1) range. By default, the `random_score` function uses internal Lucene document IDs as seed values, making random values irreproducible because documents can be renumbered after merges. To achieve consistency in generating random values, you can provide `seed` and `field` parameters. The `field` must be a field for which `fielddata` is enabled (commonly, a numeric field). The score is calculated using the `seed`, the `fielddata` values for the `field`, and a salt calculated using the index name and shard ID. Because the index name and shard ID are the same for documents that reside in the same shard, documents with the same `field` values will be assigned the same score. To ensure different scores for all documents in the same shard, use a `field` that has unique values for all documents. One option is to use the `_seq_no` field. However, if you choose this field, the scores can change if the document is updated because of the corresponding `_seq_no` update.
+The `random_score` function provides a random score that is consistent for a single user but different between users. The score is a floating-point number in the [0, 1) range. If you don't provide a `seed`, OpenSearch derives one from the current time and scores documents using internal Lucene document IDs. The resulting scores are not reproducible: they change between requests, and documents can also be renumbered after segment merges. To achieve consistency in generating random values, provide the `seed` and `field` parameters. The `field` must be a field for which `fielddata` is enabled (commonly, a numeric field). The score is calculated using the `seed`, the `fielddata` values for the `field`, and a salt calculated using the index name and shard ID. Because the index name and shard ID are the same for documents that reside in the same shard, documents with the same `field` values will be assigned the same score. To ensure different scores for all documents in the same shard, use a `field` that has unique values for all documents. One option is to use the `_seq_no` field. However, if you choose this field, the scores can change if the document is updated because of the corresponding `_seq_no` update.
 
 The following query uses the `random_score` function with a `seed` and `field`:
 
@@ -167,6 +169,9 @@ GET blogs/_search
 }
 ```
 {% include copy-curl.html %}
+
+Specifying a `seed` without a `field` is deprecated. In this case, OpenSearch uses the `_id` field, which requires loading its `fielddata` and consumes a large amount of memory. Always provide a `field` when you specify a `seed`.
+{: .warning}
 
 ## The field value factor function
 
@@ -265,6 +270,8 @@ GET blogs/_search
 }
 ```
 {% include copy-curl.html %}
+
+By default, the query score is multiplied by the script result. To use the script result as the final score, set `boost_mode` to `replace`. For more information, see [Combining the score for all functions with the query score](#combining-the-score-for-all-functions-with-the-query-score).
 
 ## Decay functions
 
@@ -524,7 +531,7 @@ The first two blog posts in the results have a score of 1 because one is at the 
 
 ### Example: Date fields
 
-The following query uses the Gaussian decay function to prioritize blog posts published around 04/24/2002:
+The following query uses the Gaussian decay function to prioritize blog posts published around 04/24/2022:
 
 ```json
 GET blogs/_search
@@ -759,6 +766,13 @@ If a document matches none of the function filters, the function score remains a
 ### Specifying an upper limit for a score
 
 You can specify an upper limit for a function score in the `max_boost` parameter. The default upper limit is the maximum magnitude for a `float` value: (2 &minus; 2<sup>&minus;23</sup>) &middot; 2<sup>127</sup>.
+
+### Boosting the whole query
+
+Use the top-level `boost` parameter to boost the `function_score` query as a whole. The `boost` value multiplies the query score, including the score of the implicit `match_all` query when no top-level `query` is specified. Default is `1`.
+
+Because `max_boost` caps the combined function score and not the final score, a `boost` value greater than `1` can produce scores that exceed `max_boost`. For example, a query with a `weight` of `10`, a `max_boost` of `2`, and a `boost` of `5` returns a score of `10`: the function score is capped at `2` and then multiplied by the boosted query score of `5`.
+{: .note}
 
 ### Combining the score for all functions with the query score
 
