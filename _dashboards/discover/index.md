@@ -20,5 +20,5 @@ OpenSearch Dashboards provides several tools for exploring data, enabling everyt
 To learn more about   |  Go to | Query languages used
 :-------------------   | :-----                     | :-----
 Exploring data quickly | [Exploring data with Discover]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/) | [Dashboards Query Language (DQL)]({{site.url}}{{site.baseurl}}/dashboards/dql/)<br/>or<br/>[Query String Query Language (Lucene)]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/)
-Querying data using the API |[Running queries in the Dev Tools Console]({{site.url}}{{site.baseurl}}/dashboards/visualize/run-queries/) | [Query Domain-specific Language (Query DSL)]({{site.url}}{{site.baseurl}}/query-dsl/)
+Querying data using the API |[Dev Tools]({{site.url}}{{site.baseurl}}/dashboards/dev-tools/index/) | [Query Domain-specific Language (Query DSL)]({{site.url}}{{site.baseurl}}/query-dsl/)
 Querying data | [Using Query Workbench]({{site.url}}{{site.baseurl}}/dashboards/query-workbench/) | [Structured Query Language (SQL)]({{site.url}}{{site.baseurl}}/sql-and-ppl/sql/)<br/>or<br/>[Piped Processing Language (PPL)]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/)
