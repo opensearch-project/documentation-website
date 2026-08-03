@@ -52,9 +52,9 @@ The table lists the attributes in order of priority, from highest to lowest. Thi
 
 | Attribute            | Data type | Description                                                                                                                                                                                                                   |
 |:---------------------|:----------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `principal.username` | List      | A list of usernames to be matched to this rule. This attribute is available only when the Security plugin is enabled on the domain. The attribute supports exact matching only.                                 |
-| `principal.role`     | List      | A list of roles to be matched to this rule. This attribute is available only when the Security plugin is enabled on the domain. The attribute supports exact matching only.                                     |
-| `index_pattern`      | List      | A list of target indexes for incoming queries. An element that is a full index name (for example, `logs-2025`) is matched exactly; an element ending in `*` (for example, `logs*`) is matched as a prefix.                                |
+| `principal.username` | List      | A list of usernames to be matched to this rule. Supports exact match (for example, `user1`) and trailing wildcard patterns (for example, `user*`). This attribute is available only when the Security plugin is enabled on the domain.                                 |
+| `principal.role`     | List      | A list of roles to be matched to this rule. Supports exact match (for example, `role1`) and trailing wildcard patterns (for example, `role*`). This attribute is available only when the Security plugin is enabled on the domain.                                     |
+| `index_pattern`      | List      | A list of target indexes for incoming queries. Supports exact match (for example, `logs-2025`) and trailing wildcard patterns (for example, `logs*`).                                |
 
 ## Parameters
 
