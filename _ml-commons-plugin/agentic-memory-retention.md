@@ -185,7 +185,8 @@ A background job enforces retention policies on a schedule (by default, every 24
 - When a memory type sets both `retention_days` and `max_count`, a memory is deleted if it exceeds either limit. The count limit applies regardless of age: if a container holds more than `max_count` non-pinned memories, the oldest are deleted until `max_count` remain, even if they are newer than `retention_days`.
 - Each run deletes at most 50,000 memories per memory type per container. A larger backlog is reduced over successive runs, so a container that far exceeds its `max_count` may take several runs to reach the limit.
 - The job is disabled when multi-tenancy is active. In this case, no retention is enforced, even for containers that have a policy.
-- Deleting a session does not immediately remove its messages. Working memories whose parent sessions no longer exists are removed only after they are older than `orphan_ttl_days` (by default, 7 days). The first time the job observes a container, it records a baseline and deletes no orphaned memory, deferring orphan deletion until the interval elapses.
+- When the retention job evicts a session, its working memory messages are deleted immediately, before the session document, to ensure there are no orphans. Note that manually deleting a session does not delete its associated working memory  — those messages are cleaned up later by the orphan sweep, once they exceed orphan_ttl_days.
+- After the retention job runs, an orphan sweep removes working memory whose parent session no longer exists, but only once a message is older than orphan_ttl_days. The first time the sweep observes a container, it records a baseline and deletes nothing, deferring all orphan deletion for that container until orphan_ttl_days after the baseline. This gives pre-existing working memory a full window before it can be swept.
 
 ## Pausing retention
 
