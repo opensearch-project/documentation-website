@@ -4,6 +4,7 @@ title: Roll over index
 parent: Index operations
 grand_parent: Index APIs
 nav_order: 70
+canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/rollover/
 ---
 
 # Roll Over Index API

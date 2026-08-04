@@ -4,6 +4,7 @@ title: top
 parent: Commands
 grand_parent: PPL
 nav_order: 50
+canonical_url: https://docs.opensearch.org/latest/sql-and-ppl/ppl/commands/top/
 ---
 
 <!-- vale off -->

@@ -4,6 +4,7 @@ title: Revoke an API key
 grand_parent: Security APIs
 parent: API Key APIs
 nav_order: 30
+canonical_url: https://docs.opensearch.org/latest/api-reference/security/api-keys/revoke/
 ---
 
 # Revoke an API Key API

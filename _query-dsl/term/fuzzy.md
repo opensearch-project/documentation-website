@@ -3,6 +3,7 @@ layout: default
 title: Fuzzy
 parent: Term-level queries
 nav_order: 80
+canonical_url: https://docs.opensearch.org/latest/query-dsl/term/fuzzy/
 ---
 
 # Fuzzy query

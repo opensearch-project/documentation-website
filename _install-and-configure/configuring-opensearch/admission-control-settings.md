@@ -3,6 +3,7 @@ layout: default
 title: Admission control settings
 parent: Configuring OpenSearch
 nav_order: 105
+canonical_url: https://docs.opensearch.org/latest/install-and-configure/configuring-opensearch/admission-control-settings/
 ---
 
 # Admission control settings

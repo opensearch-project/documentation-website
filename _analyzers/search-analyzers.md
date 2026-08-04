@@ -3,6 +3,7 @@ layout: default
 title: Search analyzers
 nav_order: 30
 parent: Analyzers
+canonical_url: https://docs.opensearch.org/latest/analyzers/search-analyzers/
 ---
 
 # Search analyzers

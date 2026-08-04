@@ -4,6 +4,7 @@ title: More like this
 parent: Specialized queries
 nav_order: 45
 has_math: false
+canonical_url: https://docs.opensearch.org/latest/query-dsl/specialized/more-like-this/
 ---
 
 # More like this

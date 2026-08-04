@@ -4,6 +4,7 @@ title: Alerting dashboards and visualizations
 parent: Alerting
 nav_order: 50
 has_children: true
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/alerting/dashboards-alerting/
 ---
 
 # Alerting dashboards and visualizations

@@ -2,6 +2,7 @@
 layout: default
 title: Compatible operating systems
 nav_order: 12
+canonical_url: https://docs.opensearch.org/latest/install-and-configure/os-comp/
 ---
 
 # Compatible operating systems

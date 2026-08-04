@@ -4,6 +4,7 @@ title: Write resources
 parent: Data source APIs
 nav_order: 30
 grand_parent: SQL and PPL API
+canonical_url: https://docs.opensearch.org/latest/sql-and-ppl/sql-and-ppl-api/data-source-apis/write-resources/
 ---
 
 # Write Resources API

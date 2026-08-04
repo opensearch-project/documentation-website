@@ -32,6 +32,7 @@ tutorial_cards:
   - heading: "LLM-as-a-Judge"
     description: "Automate search relevance evaluation using LLMs" 
     link: "/tutorials/llm-as-a-judge-tutorial/"    
+canonical_url: https://docs.opensearch.org/latest/tutorials/
 ---
 
 # OpenSearch tutorials

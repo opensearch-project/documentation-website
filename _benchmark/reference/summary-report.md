@@ -5,6 +5,7 @@ nav_order: 40
 parent: Reference
 redirect_from:
   - /benchmark/user-guide/understanding-results/summary-reports/
+canonical_url: https://docs.opensearch.org/latest/benchmark/reference/summary-report/
 ---
 
 # Summary report

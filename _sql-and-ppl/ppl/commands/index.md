@@ -11,6 +11,7 @@ redirect_from:
   - /search-plugins/ppl/functions/
   - /sql-and-ppl/ppl/functions/
   - /sql-and-ppl/ppl/commands/
+canonical_url: https://docs.opensearch.org/latest/sql-and-ppl/ppl/commands/
 ---
 
 # PPL commands

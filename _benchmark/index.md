@@ -34,6 +34,7 @@ items:
     description: "View your benchmark report and analyze your metrics"
     link: "/benchmark/reference/summary-report/"
 description: "OpenSearch Benchmark is a macrobenchmark utility provided by the OpenSearch Project. You can use OpenSearch Benchmark to gather performance metrics from an OpenSearch cluster."
+canonical_url: https://docs.opensearch.org/latest/benchmark/
 ---
 
 # ![Benchmark icon]({{site.url}}{{site.baseurl}}/images/icons/OpenSearch-PerformanceBenchmarks-Icon-1.png){: .heading-icon} OpenSearch Benchmark

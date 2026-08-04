@@ -3,6 +3,7 @@ layout: default
 title: HTML strip
 parent: Ingest processors
 nav_order: 140
+canonical_url: https://docs.opensearch.org/latest/ingest-pipelines/processors/html-strip/
 ---
 
 # HTML strip processor

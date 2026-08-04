@@ -7,6 +7,7 @@ great_grand_parent: Building data visualizations
 nav_order: 80
 redirect_from:
   - /dashboards/visualize/goal/
+canonical_url: https://docs.opensearch.org/latest/dashboards/visualize/visualize-app/goal/
 ---
 
 # Goal visualizations

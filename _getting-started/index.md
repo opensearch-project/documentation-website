@@ -7,6 +7,7 @@ has_toc: false
 nav_exclude: true
 description: "Get started with OpenSearch, the distributed search and analytics engine, by learning core concepts and how to install, ingest data, and run searches."
 permalink: /getting-started/
+canonical_url: https://docs.opensearch.org/latest/getting-started/
 ---
 
 # Getting started with OpenSearch

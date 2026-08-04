@@ -3,6 +3,7 @@ layout: default
 title: Instrumenting your application
 parent: Agent traces
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/agent-traces/instrument/
 ---
 
 # Instrumenting your application

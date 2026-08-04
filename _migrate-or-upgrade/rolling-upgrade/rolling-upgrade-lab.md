@@ -10,6 +10,7 @@ redirect_from:
   - /install-and-configure/upgrade-opensearch/appendix/rolling-upgrade-lab/
   - /migrate-or-upgrade/rolling-upgrade/appendix/
   - /migrate-or-upgrade/rolling-upgrade/appendix/rolling-upgrade-lab/
+canonical_url: https://docs.opensearch.org/latest/migrate-or-upgrade/rolling-upgrade/rolling-upgrade-lab/
 ---
 
 <!--

@@ -6,6 +6,7 @@ nav_order: 55
 has_toc: false
 redirect_from:
   - /query-dsl/ai-vector-search/
+canonical_url: https://docs.opensearch.org/latest/query-dsl/ai-vector-search/
 ---
 
 # AI and vector search queries

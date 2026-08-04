@@ -3,6 +3,7 @@ layout: default
 title: Tuning for indexing speed
 nav_order: 41
 has_children: false
+canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/performance/
 ---
 
 # Tuning your cluster for indexing speed

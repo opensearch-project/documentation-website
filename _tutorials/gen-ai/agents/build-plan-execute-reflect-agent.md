@@ -4,6 +4,7 @@ title: Building a plan-execute-reflect agent
 parent: Agentic AI
 grand_parent: Generative AI
 nav_order: 20
+canonical_url: https://docs.opensearch.org/latest/tutorials/gen-ai/agents/build-plan-execute-reflect-agent/
 ---
 
 # Building a plan-execute-reflect agent

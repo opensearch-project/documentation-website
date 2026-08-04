@@ -8,6 +8,7 @@ nav_order: 40
 redirect_from:
   - /dashboards/visualize/selfhost-maps-server/
   - /dashboards/selfhost-maps-server/
+canonical_url: https://docs.opensearch.org/latest/dashboards/visualize/visualize-app/selfhost-maps-server/
 ---
 
 # Using self-hosted map servers

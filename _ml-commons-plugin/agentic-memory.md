@@ -3,6 +3,7 @@ layout: default
 title: Agentic memory
 parent: Memory and context
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/agentic-memory/
 ---
 
 # Agentic memory

@@ -4,6 +4,7 @@ title: Forecaster access control
 parent: Forecasting
 nav_order: 50
 has_children: false
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/forecast/forecaster-access-control/
 ---
 
 # Forecaster access control

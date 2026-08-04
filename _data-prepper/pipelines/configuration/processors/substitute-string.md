@@ -4,6 +4,7 @@ title: Substitute string
 parent: Processors
 grand_parent: Pipelines
 nav_order: 370
+canonical_url: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/processors/substitute-string/
 ---
 
 # Substitute string processor

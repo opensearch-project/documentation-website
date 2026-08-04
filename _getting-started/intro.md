@@ -6,6 +6,7 @@ has_math: true
 description: "An introduction to OpenSearch and how it works, including core concepts such as documents, indexes, clusters, nodes, shards, and how search results are ranked."
 redirect_from: 
  - /intro/
+canonical_url: https://docs.opensearch.org/latest/getting-started/intro/
 ---
 
 # Introduction to OpenSearch

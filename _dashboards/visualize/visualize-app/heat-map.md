@@ -7,6 +7,7 @@ great_grand_parent: Building data visualizations
 nav_order: 90
 redirect_from:
   - /dashboards/visualize/heat-map/
+canonical_url: https://docs.opensearch.org/latest/dashboards/visualize/visualize-app/heat-map/
 ---
 
 # Heat maps

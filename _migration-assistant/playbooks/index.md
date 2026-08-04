@@ -5,6 +5,7 @@ nav_order: 80
 has_children: true
 has_toc: false
 permalink: /migration-assistant/playbooks/
+canonical_url: https://docs.opensearch.org/latest/migration-assistant/playbooks/
 ---
 
 # Playbooks

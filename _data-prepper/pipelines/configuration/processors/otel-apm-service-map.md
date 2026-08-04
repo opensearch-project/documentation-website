@@ -4,6 +4,7 @@ title: OTel APM Service map
 parent: Processors
 grand_parent: Pipelines
 nav_order: 245
+canonical_url: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/processors/otel-apm-service-map/
 ---
 
 # OTel APM service map processor

@@ -3,6 +3,7 @@ layout: default
 title: Workspaces
 nav_order: 90
 has_children: true
+canonical_url: https://docs.opensearch.org/latest/dashboards/workspace/workspace/
 ---
 
 # Workspaces

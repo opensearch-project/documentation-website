@@ -43,6 +43,7 @@ workflow_items:
   - heading: "Assemble dashboards"
     description: "Combine multiple visualizations into a single page for monitoring and analysis."
     link: "/dashboards/dashboard/"
+canonical_url: https://docs.opensearch.org/latest/dashboards/getting-started/
 ---
 
 # Getting started with OpenSearch Dashboards

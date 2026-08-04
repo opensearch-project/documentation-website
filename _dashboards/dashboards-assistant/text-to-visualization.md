@@ -4,6 +4,7 @@ title: Text to visualization
 parent: OpenSearch Assistant for OpenSearch Dashboards
 nav_order: 1
 has_children: false
+canonical_url: https://docs.opensearch.org/latest/dashboards/dashboards-assistant/text-to-visualization/
 ---
 
 # Text to visualization

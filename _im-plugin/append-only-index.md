@@ -2,6 +2,7 @@
 layout: default
 title: Append-only index
 nav_order: 15
+canonical_url: https://docs.opensearch.org/latest/im-plugin/append-only-index/
 ---
 
 # Append-only index

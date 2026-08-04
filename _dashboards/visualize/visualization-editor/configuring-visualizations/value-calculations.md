@@ -5,6 +5,7 @@ parent: Configuring visualizations
 grand_parent: Creating visualizations using queries
 great_grand_parent: Building data visualizations
 nav_order: 20
+canonical_url: https://docs.opensearch.org/latest/dashboards/visualize/visualization-editor/configuring-visualizations/value-calculations/
 ---
 
 # Value calculations

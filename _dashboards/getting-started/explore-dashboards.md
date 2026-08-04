@@ -3,6 +3,7 @@ layout: default
 title: Explore the Dashboards application
 parent: Getting started
 nav_order: 40
+canonical_url: https://docs.opensearch.org/latest/dashboards/getting-started/explore-dashboards/
 ---
 
 # Explore the Dashboards application

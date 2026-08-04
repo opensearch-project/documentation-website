@@ -4,6 +4,7 @@ title: Customizing a dashboard
 parent: Creating dashboards
 nav_order: 30
 has_children: false
+canonical_url: https://docs.opensearch.org/latest/dashboards/dashboard/customizing-a-dash/
 ---
 
 # Customizing a dashboard

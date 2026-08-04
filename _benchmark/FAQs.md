@@ -2,6 +2,7 @@
 layout: default
 title: FAQs
 nav_order: 103
+canonical_url: https://docs.opensearch.org/latest/benchmark/FAQs/
 ---
 
 # FAQs

@@ -5,6 +5,7 @@ parent: Visualization types
 grand_parent: Creating visualizations using queries
 great_grand_parent: Building data visualizations
 nav_order: 45
+canonical_url: https://docs.opensearch.org/latest/dashboards/visualize/visualization-editor/metric-chart/
 ---
 
 # Metric chart

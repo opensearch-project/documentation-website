@@ -3,6 +3,7 @@ layout: default
 title: Multiplexer
 parent: Token filters
 nav_order: 280
+canonical_url: https://docs.opensearch.org/latest/analyzers/token-filters/multiplexer/
 ---
 
 # Multiplexer token filter

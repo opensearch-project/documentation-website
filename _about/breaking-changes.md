@@ -3,6 +3,7 @@ layout: default
 title: Breaking changes
 nav_order: 5
 permalink: /breaking-changes/
+canonical_url: https://docs.opensearch.org/latest/about/breaking-changes/
 ---
 
 # Breaking changes

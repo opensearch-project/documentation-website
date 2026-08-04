@@ -4,6 +4,7 @@ title: Create an API key
 grand_parent: Security APIs
 parent: API Key APIs
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/api-reference/security/api-keys/create/
 ---
 
 # Create an API Key API

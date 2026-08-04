@@ -8,6 +8,7 @@ has_children: true
 has_toc: false
 redirect_from:
   - /dashboards/visualize/visualization-editor/
+canonical_url: https://docs.opensearch.org/latest/dashboards/visualize/visualization-editor/
 ---
 
 # Creating visualizations using queries

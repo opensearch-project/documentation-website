@@ -6,6 +6,7 @@ has_toc: false
 nav_order: 10
 parent: Tools
 grand_parent: Agents and tools
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/agents-tools/tools/agent-tool/
 ---
 
 <!-- vale off -->

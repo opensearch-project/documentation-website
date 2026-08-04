@@ -3,6 +3,7 @@ layout: default
 title: Analyzing metrics in Discover
 nav_order: 50
 parent: Using Discover for observability
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/exploring-observability-data/discover-metrics/
 ---
 
 # Analyzing metrics in Discover

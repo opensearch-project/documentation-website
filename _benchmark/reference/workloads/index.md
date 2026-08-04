@@ -8,6 +8,7 @@ redirect_from:
   - /benchmark/workloads/
   - /benchmark/workloads/index/
   - /benchmark/reference/workloads/
+canonical_url: https://docs.opensearch.org/latest/benchmark/reference/workloads/
 ---
 
 # OpenSearch Benchmark workload reference

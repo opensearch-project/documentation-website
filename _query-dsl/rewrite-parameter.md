@@ -2,6 +2,7 @@
 layout: default
 title: Rewrite
 nav_order: 85
+canonical_url: https://docs.opensearch.org/latest/query-dsl/rewrite-parameter/
 ---
 
 # Rewrite

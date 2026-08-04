@@ -5,6 +5,7 @@ parent: Compound queries
 nav_order: 30
 redirect_from:
   - /query-dsl/query-dsl/compound/boosting/
+canonical_url: https://docs.opensearch.org/latest/query-dsl/compound/boosting/
 ---
 
 # Boosting query

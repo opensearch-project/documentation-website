@@ -3,6 +3,7 @@ layout: default
 title: Ingest data
 nav_order: 40
 description: "Get started with ingesting data into OpenSearch, including bulk indexing multiple documents, and experiment with sample data."
+canonical_url: https://docs.opensearch.org/latest/getting-started/ingest-data/
 ---
 
 # Ingest your data into OpenSearch

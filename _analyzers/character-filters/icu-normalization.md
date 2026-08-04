@@ -3,6 +3,7 @@ layout: default
 title: ICU normalization
 parent: Character filters
 nav_order: 110
+canonical_url: https://docs.opensearch.org/latest/analyzers/character-filters/icu-normalization/
 ---
 
 # ICU normalization character filter

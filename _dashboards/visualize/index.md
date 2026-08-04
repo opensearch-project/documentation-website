@@ -7,6 +7,7 @@ has_toc: false
 redirect_from:
   - /dashboards/visualize/
   - /dashboards/visualize/gantt/
+canonical_url: https://docs.opensearch.org/latest/dashboards/visualize/
 ---
 
 # Building data visualizations

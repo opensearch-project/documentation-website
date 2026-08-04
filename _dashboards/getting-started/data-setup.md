@@ -3,6 +3,7 @@ layout: default
 title: Prepare your data
 parent: Getting started
 nav_order: 20
+canonical_url: https://docs.opensearch.org/latest/dashboards/getting-started/data-setup/
 ---
 
 # Prepare your data

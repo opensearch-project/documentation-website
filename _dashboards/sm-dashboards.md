@@ -4,6 +4,7 @@ title: Snapshot management
 nav_order: 110
 redirect_from:
   - /dashboards/admin-ui-index/sm-dashboards/
+canonical_url: https://docs.opensearch.org/latest/dashboards/sm-dashboards/
 ---
 
 # Snapshot management in OpenSearch Dashboards

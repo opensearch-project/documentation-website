@@ -4,6 +4,7 @@ title: Improving search performance
 nav_order: 220
 has_children: true
 has_toc: false
+canonical_url: https://docs.opensearch.org/latest/search-plugins/improving-search-performance/
 ---
 
 # Improving search performance

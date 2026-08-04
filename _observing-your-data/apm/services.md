@@ -3,6 +3,7 @@ layout: default
 title: Services
 nav_order: 20
 parent: Application Performance Monitoring
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/apm/services/
 ---
 
 # Services

@@ -8,6 +8,7 @@ description: "Solutions to common OpenSearch and OpenSearch Dashboards issues, i
 permalink: /troubleshoot/
 redirect_from:
   - /troubleshoot/index/
+canonical_url: https://docs.opensearch.org/latest/troubleshoot/
 ---
 
 # Troubleshooting OpenSearch

@@ -8,6 +8,7 @@ redirect_from:
   - /field-types/supported-field-types/range/
   - /opensearch/supported-field-types/range/
   - /field-types/range/
+canonical_url: https://docs.opensearch.org/latest/mappings/supported-field-types/range/
 ---
 
 # Range field types

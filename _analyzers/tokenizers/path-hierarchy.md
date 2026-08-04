@@ -3,6 +3,7 @@ layout: default
 title: Path hierarchy
 parent: Tokenizers
 nav_order: 90
+canonical_url: https://docs.opensearch.org/latest/analyzers/tokenizers/path-hierarchy/
 ---
 
 # Path hierarchy tokenizer

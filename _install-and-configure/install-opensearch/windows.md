@@ -3,6 +3,7 @@ layout: default
 title: Windows
 parent: Installing OpenSearch
 nav_order: 65
+canonical_url: https://docs.opensearch.org/latest/install-and-configure/install-opensearch/windows/
 ---
 
 # Windows

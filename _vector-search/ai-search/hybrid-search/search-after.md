@@ -5,6 +5,7 @@ parent: Hybrid search
 grand_parent: AI search
 has_children: false
 nav_order: 30
+canonical_url: https://docs.opensearch.org/latest/vector-search/ai-search/hybrid-search/search-after/
 ---
 
 # Hybrid search with search_after

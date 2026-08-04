@@ -4,6 +4,7 @@ title: Creating aggregation-based visualizations
 parent: Creating visualizations in the Visualize application
 grand_parent: Building data visualizations
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/dashboards/visualize/visualize-app/aggregation-based-viz/
 ---
 
 # Creating aggregation-based visualizations

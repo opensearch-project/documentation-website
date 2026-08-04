@@ -5,6 +5,7 @@ parent: Search APIs
 nav_order: 55
 redirect_from:
   - /api-reference/profile/
+canonical_url: https://docs.opensearch.org/latest/api-reference/search-apis/profile/
 ---
 
 # Profile API

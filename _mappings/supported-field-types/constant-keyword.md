@@ -7,6 +7,7 @@ parent: String field types
 grand_parent: Supported field types
 redirect_from:
   - /field-types/supported-field-types/constant-keyword/
+canonical_url: https://docs.opensearch.org/latest/mappings/supported-field-types/constant-keyword/
 ---
 
 # Constant keyword field type

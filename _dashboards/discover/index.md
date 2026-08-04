@@ -5,6 +5,7 @@ nav_order: 20
 has_children: true
 redirect_from:
   - /dashboards/discover/
+canonical_url: https://docs.opensearch.org/latest/dashboards/discover/
 ---
 
 # Exploring data

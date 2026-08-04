@@ -7,6 +7,7 @@ great_grand_parent: Building data visualizations
 nav_order: 40
 redirect_from:
   - /dashboards/visualize/bar-charts/
+canonical_url: https://docs.opensearch.org/latest/dashboards/visualize/visualize-app/bar-charts/
 ---
 
 # Bar charts

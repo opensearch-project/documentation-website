@@ -3,6 +3,7 @@ layout: default
 title: ICU
 parent: Tokenizers
 nav_order: 45
+canonical_url: https://docs.opensearch.org/latest/analyzers/tokenizers/icu-tokenizer/
 ---
 
 # ICU tokenizer

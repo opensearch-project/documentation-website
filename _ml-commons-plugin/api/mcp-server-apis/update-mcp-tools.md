@@ -4,6 +4,7 @@ title: Update MCP tools
 parent: MCP server APIs
 grand_parent: ML Commons APIs
 nav_order: 20
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/api/mcp-server-apis/update-mcp-tools/
 ---
 
 # Update MCP Tools API

@@ -7,6 +7,7 @@ great_grand_parent: Building data visualizations
 nav_order: 130
 redirect_from:
   - /dashboards/visualize/pie-charts/
+canonical_url: https://docs.opensearch.org/latest/dashboards/visualize/visualize-app/pie-charts/
 ---
 
 # Pie charts

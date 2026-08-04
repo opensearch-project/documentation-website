@@ -8,6 +8,7 @@ nav_order: 30
 redirect_from:
   - /dashboards/visualize/maptiles/
   - /dashboards/maptiles/
+canonical_url: https://docs.opensearch.org/latest/dashboards/visualize/visualize-app/maptiles/
 ---
 
 {%- comment -%}The `/docs/opensearch-dashboards/maptiles/` redirect is specifically to support the UI links in OpenSearch Dashboards 1.0.0.{%- endcomment -%}

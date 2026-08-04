@@ -3,6 +3,7 @@ layout: default
 title: Why Kubernetes and EKS?
 nav_order: 12
 permalink: /migration-assistant/why-kubernetes-and-eks/
+canonical_url: https://docs.opensearch.org/latest/migration-assistant/why-kubernetes-and-eks/
 ---
 
 # Why Kubernetes and EKS

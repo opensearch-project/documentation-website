@@ -4,6 +4,7 @@ title: Refresh index
 parent: Index operations
 grand_parent: Index APIs
 nav_order: 60
+canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/refresh/
 ---
 
 # Refresh Index API

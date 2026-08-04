@@ -8,6 +8,7 @@ redirect_from:
   - /field-types/supported-field-types/knn-vector/
   - /mappings/supported-field-types/vector-field-types/
 has_math: true
+canonical_url: https://docs.opensearch.org/latest/mappings/supported-field-types/knn-vector/
 ---
 
 # k-NN vector
