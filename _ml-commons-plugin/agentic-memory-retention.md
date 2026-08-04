@@ -195,7 +195,7 @@ When the job evicts a `sessions` memory, its `working` memories are deleted firs
 
 Orphan cleanup runs only for containers that have a retention policy and that were created with `disable_session` set to `false` (the default). In a container with no retention policy, orphaned `working` memories are retained indefinitely.
 
-A container created with `disable_session` set to `true` stores no `sessions` memories, so neither of the preceding mechanisms applies to it. Its `working` memories are deleted only by the `plugins.ml_commons.memory.working_memory_ttl_days` setting, which is disabled by default. Until you set it to a positive value, these containers retain `working` memories indefinitely. For more information, see [Memory retention settings](#memory-retention-settings). 
+A container created with `disable_session` set to `true` stores no `sessions` memories, so neither of the preceding mechanisms applies to it. Its `working` memories are deleted only by the `plugins.ml_commons.memory.working_memory_ttl_days` setting, which is disabled by default. Until you set it to a positive value, these containers retain `working` memories indefinitely. For more information, see [Memory retention settings](#memory-retention-settings).
 
 The job is disabled when multi-tenancy is active. In this case, no retention is enforced, even for containers that have a policy.
 
