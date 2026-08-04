@@ -2,7 +2,7 @@
 layout: default
 title: Search (gRPC)
 parent: gRPC APIs
-nav_order: 20
+nav_order: 10
 ---
 
 # Search API (gRPC)

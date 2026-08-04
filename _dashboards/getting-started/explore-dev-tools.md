@@ -46,5 +46,5 @@ The Dev Tools console lets you send [Query DSL]({{site.url}}{{site.baseurl}}/que
 
 ## Next steps
 
-- For the full Dev Tools reference, see [Running queries in the Dev Tools console]({{site.url}}{{site.baseurl}}/dashboards/discover/run-queries/).
+- For the full Dev Tools reference, see [Dev Tools]({{site.url}}{{site.baseurl}}/dashboards/dev-tools/index/).
 - For the full query language reference, see [Query DSL]({{site.url}}{{site.baseurl}}/query-dsl/).
