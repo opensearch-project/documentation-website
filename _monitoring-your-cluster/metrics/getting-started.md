@@ -6,6 +6,7 @@ has_children: false
 has_toc: false
 redirect_from:
   - /monitoring-your-cluster/metrics/
+canonical_url: https://docs.opensearch.org/latest/monitoring-your-cluster/metrics/getting-started/
 ---
 
 # Metrics framework

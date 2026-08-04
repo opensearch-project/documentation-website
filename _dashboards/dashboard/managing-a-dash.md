@@ -4,6 +4,7 @@ title: Managing dashboards
 parent: Creating dashboards
 nav_order: 40
 has_children: false
+canonical_url: https://docs.opensearch.org/latest/dashboards/dashboard/managing-a-dash/
 ---
 
 # Managing dashboards

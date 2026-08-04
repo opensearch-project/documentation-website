@@ -6,6 +6,7 @@ parent: Playbooks
 permalink: /migration-assistant/playbook-elasticsearch-6-8-to-opensearch-3/
 redirect_from:
   - /migration-assistant/playbook-elasticsearch-6-8-to-opensearch-3-Kubernetes/
+canonical_url: https://docs.opensearch.org/latest/migration-assistant/playbook-elasticsearch-6-8-to-opensearch-3/
 ---
 
 # Playbook: Elasticsearch 6.8 to OpenSearch 3.5 on EKS (existing VPC)

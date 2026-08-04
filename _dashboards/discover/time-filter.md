@@ -6,6 +6,7 @@ grand_parent: Exploring data
 nav_order: 10
 redirect_from:
   - /dashboards/get-started/time-filter/
+canonical_url: https://docs.opensearch.org/latest/dashboards/discover/time-filter/
 ---
 
 # Using the time filter

@@ -3,6 +3,7 @@ layout: default
 title: Custom branding
 parent: Settings and administration
 nav_order: 40
+canonical_url: https://docs.opensearch.org/latest/dashboards/branding/
 ---
 
 # Custom branding

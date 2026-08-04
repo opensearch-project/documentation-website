@@ -3,6 +3,7 @@ layout: default
 title: Filtering in neural sparse ANN search
 parent: Filtering data
 nav_order: 40
+canonical_url: https://docs.opensearch.org/latest/vector-search/filter-search-knn/filtering-in-sparse-search/
 ---
 
 # Filtering in neural sparse ANN search

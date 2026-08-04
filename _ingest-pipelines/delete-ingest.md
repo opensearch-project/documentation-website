@@ -5,6 +5,7 @@ nav_order: 13
 redirect_from:
   - /opensearch/rest-api/ingest-apis/delete-ingest/
   - /api-reference/ingest-apis/delete-ingest/
+canonical_url: https://docs.opensearch.org/latest/ingest-pipelines/delete-ingest/
 ---
 
 # Delete pipeline

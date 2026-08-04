@@ -3,6 +3,7 @@ layout: default
 title: Cluster bootstrapping
 parent: Discovery and cluster formation
 nav_order: 40
+canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/discovery-cluster-formation/bootstrapping/
 ---
 
 # Cluster bootstrapping

@@ -6,6 +6,7 @@ permalink: /migration-assistant/is-migration-assistant-right-for-you/
 redirect_from:
   - /migration-assistant/overview/is-migration-assistant-right-for-you/
   - /migration-assistant/migration-paths/
+canonical_url: https://docs.opensearch.org/latest/migration-assistant/is-migration-assistant-right-for-you/
 ---
 
 # Is Migration Assistant right for you?

@@ -8,6 +8,7 @@ permalink: /im-plugin/
 redirect_from:
   - /opensearch/index-data/
   - /im-plugin/index/
+canonical_url: https://docs.opensearch.org/latest/im-plugin/
 ---
 
 # Managing indexes

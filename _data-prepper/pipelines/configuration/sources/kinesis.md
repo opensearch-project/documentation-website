@@ -4,6 +4,7 @@ title: Kinesis
 parent: Sources
 grand_parent: Pipelines
 nav_order: 45
+canonical_url: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/sources/kinesis/
 ---
 
 # Kinesis source

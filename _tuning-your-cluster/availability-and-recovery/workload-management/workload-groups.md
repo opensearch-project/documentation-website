@@ -8,6 +8,7 @@ redirect_from:
   - /tuning-your-cluster/availability-and-recovery/workload-management/workload-group-lifecycle-api/
   - /tuning-your-cluster/availability-and-recovery/workload-management/query-group-lifecycle-api/
   - /tuning-your-cluster/availability-and-recovery/workload-management/workload-groups/
+canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/availability-and-recovery/workload-management/workload-groups/
 ---
 
 # Workload groups

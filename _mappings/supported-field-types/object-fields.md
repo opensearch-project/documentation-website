@@ -9,6 +9,7 @@ redirect_from:
   - /field-types/supported-field-types/object-fields/
   - /opensearch/supported-field-types/object-fields/
   - /field-types/object-fields/
+canonical_url: https://docs.opensearch.org/latest/mappings/supported-field-types/object-fields/
 ---
 
 # Object field types

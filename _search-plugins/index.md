@@ -18,6 +18,7 @@ search_methods:
   - heading: "AI search"
     description: "AI-powered search capabilities beyond vector embeddings. Enrich search and ingestion flows with any AI service to power the full range of AI-enhanced search use cases."
     link: "/vector-search/ai-search/"
+canonical_url: https://docs.opensearch.org/latest/search-plugins/
 ---
 
 # Search

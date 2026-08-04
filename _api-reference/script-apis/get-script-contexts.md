@@ -3,6 +3,7 @@ layout: default
 title: Get script contexts
 parent: Script APIs
 nav_order: 70
+canonical_url: https://docs.opensearch.org/latest/api-reference/script-apis/get-script-contexts/
 ---
 
 # Get Script Contexts API

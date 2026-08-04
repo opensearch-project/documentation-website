@@ -4,6 +4,7 @@ title: Create session
 parent: Agentic memory APIs
 grand_parent: ML Commons APIs
 nav_order: 40
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/api/agentic-memory-apis/create-session/
 ---
 
 # Create session

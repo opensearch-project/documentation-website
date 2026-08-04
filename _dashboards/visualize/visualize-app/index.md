@@ -9,6 +9,7 @@ has_toc: false
 redirect_from:
   - /dashboards/visualize/visualize-app/
   - /dashboards/visualize/viz-index/
+canonical_url: https://docs.opensearch.org/latest/dashboards/visualize/visualize-app/
 ---
 
 # Creating visualizations in the Visualize application

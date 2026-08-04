@@ -6,6 +6,7 @@ nav_exclude: true
 permalink: /ai-agent-integrations/
 redirect_from:
   - /ai-agent-integrations/index/
+canonical_url: https://docs.opensearch.org/latest/ai-agent-integrations/
 ---
 
 # AI agent integrations

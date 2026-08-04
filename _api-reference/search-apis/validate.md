@@ -5,6 +5,7 @@ nav_order: 87
 parent: Search APIs
 redirect_from: 
  - /api-reference/validate/
+canonical_url: https://docs.opensearch.org/latest/api-reference/search-apis/validate/
 ---
 
 # Validate Query API

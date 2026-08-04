@@ -8,6 +8,7 @@ parent: Creating visualizations using queries
 grand_parent: Building data visualizations
 redirect_from:
   - /dashboards/visualize/visualization-editor/dashboard-variables/
+canonical_url: https://docs.opensearch.org/latest/dashboards/visualize/visualization-editor/dashboard-variables/
 ---
 
 # Dashboard variables

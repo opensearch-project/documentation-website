@@ -3,6 +3,7 @@ layout: default
 title: Network compression
 parent: Settings and administration
 nav_order: 50
+canonical_url: https://docs.opensearch.org/latest/dashboards/compression/
 ---
 
 # Network compression

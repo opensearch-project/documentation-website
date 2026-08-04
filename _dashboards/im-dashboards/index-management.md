@@ -6,6 +6,7 @@ nav_order: 16
 description: "Perform index management operations in OpenSearch Dashboards, including creating index policies, managing indexes, and configuring index templates."
 redirect_from:
   - /dashboards/admin-ui-index/index-management/
+canonical_url: https://docs.opensearch.org/latest/dashboards/im-dashboards/index-management/
 ---
 
 # Index management in OpenSearch Dashboards

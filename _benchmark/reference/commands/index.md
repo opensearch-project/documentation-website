@@ -7,6 +7,7 @@ has_toc: false
 parent: Reference
 redirect_from:
   - /benchmark/reference/commands/
+canonical_url: https://docs.opensearch.org/latest/benchmark/reference/commands/
 ---
 
 # OpenSearch Benchmark command reference

@@ -5,6 +5,7 @@ parent: Exploring data
 nav_order: 30
 redirect_from:
   - /search-plugins/sql/workbench/
+canonical_url: https://docs.opensearch.org/latest/dashboards/query-workbench/
 ---
 
 # Using Query Workbench

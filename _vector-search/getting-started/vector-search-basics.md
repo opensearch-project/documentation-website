@@ -3,6 +3,7 @@ layout: default
 title: Vector search basics
 parent: Getting started
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/vector-search/getting-started/vector-search-basics/
 ---
 
 # Vector search basics

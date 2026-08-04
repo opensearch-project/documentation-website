@@ -7,6 +7,7 @@ nav_order: 10
 description: "User Behavior Insights (UBI) is a schema for capturing user search behavior, including the queries users submit, the results shown, and the actions they take."
 redirect_from:
   - /search-plugins/ubi/
+canonical_url: https://docs.opensearch.org/latest/search-plugins/ubi/
 ---
 # User Behavior Insights
 

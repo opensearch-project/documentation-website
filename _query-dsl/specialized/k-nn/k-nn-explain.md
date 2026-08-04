@@ -4,6 +4,7 @@ title: k-NN query explain
 parent: k-NN
 grand_parent: AI and vector search queries
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/query-dsl/specialized/k-nn/k-nn-explain/
 ---
 
 # k-NN query explain

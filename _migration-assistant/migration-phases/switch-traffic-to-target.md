@@ -6,6 +6,7 @@ parent: Migration workflows
 permalink: /migration-assistant/migration-phases/switch-traffic-to-target/
 redirect_from:
   - /migration-assistant/migration-phases/reroute-traffic-from-capture-proxy-to-target/
+canonical_url: https://docs.opensearch.org/latest/migration-assistant/migration-phases/switch-traffic-to-target/
 ---
 
 # Switch traffic to the target

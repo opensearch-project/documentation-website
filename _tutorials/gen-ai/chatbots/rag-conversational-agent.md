@@ -10,6 +10,7 @@ redirect_from:
   - /ml-commons-plugin/tutorials/rag-conversational-agent/
   - /vector-search/tutorials/chatbots/rag-conversational-agent/
   - /tutorials/gen-ai/chatbots/rag-conversational-agent/
+canonical_url: https://docs.opensearch.org/latest/tutorials/gen-ai/chatbots/rag-conversational-agent/
 ---
 
 # RAG chatbot with a conversational flow agent

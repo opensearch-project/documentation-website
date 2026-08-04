@@ -4,6 +4,7 @@ title: Delete memory container
 parent: Agentic memory APIs
 grand_parent: ML Commons APIs
 nav_order: 30
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/api/agentic-memory-apis/delete-memory-container/
 ---
 
 # Delete Memory Container API

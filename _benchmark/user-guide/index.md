@@ -25,6 +25,7 @@ more_cards:
     link: "/benchmark/user-guide/optimizing-benchmarks/index/" 
 redirect_from:
   - /benchmark/user-guide/
+canonical_url: https://docs.opensearch.org/latest/benchmark/user-guide/
 ---
 
 # OpenSearch Benchmark user guide

@@ -3,6 +3,7 @@ layout: default
 title: Exists
 parent: Term-level queries
 nav_order: 70
+canonical_url: https://docs.opensearch.org/latest/query-dsl/term/exists/
 ---
 
 # Exists query

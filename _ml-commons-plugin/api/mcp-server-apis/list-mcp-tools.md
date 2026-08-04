@@ -4,6 +4,7 @@ title: List MCP tools
 parent: MCP server APIs
 grand_parent: ML Commons APIs
 nav_order: 30
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/api/mcp-server-apis/list-mcp-tools/
 ---
 
 # List MCP Tools API

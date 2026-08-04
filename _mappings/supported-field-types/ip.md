@@ -8,6 +8,7 @@ redirect_from:
   - /field-types/supported-field-types/ip/
   - /opensearch/supported-field-types/ip/
   - /field-types/ip/
+canonical_url: https://docs.opensearch.org/latest/mappings/supported-field-types/ip/
 ---
 
 # IP address field type

@@ -17,6 +17,7 @@ steps:
     link: "/tutorials/vector-search/neural-search-tutorial/#step-3-ingest-data"
   - heading: "Search the data"
     link: "/tutorials/vector-search/neural-search-tutorial/#step-4-search-the-data"
+canonical_url: https://docs.opensearch.org/latest/tutorials/vector-search/neural-search-tutorial/
 ---
 
 # Getting started with semantic and hybrid search

@@ -8,6 +8,7 @@ nav_order: 190
 redirect_from:
   - /dashboards/visualize/visbuilder/
   - /dashboards/drag-drop-wizard/
+canonical_url: https://docs.opensearch.org/latest/dashboards/visualize/visualize-app/visbuilder/
 ---
 
 # VisBuilder

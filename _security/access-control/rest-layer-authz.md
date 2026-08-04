@@ -3,6 +3,7 @@ layout: default
 title: REST layer authorization
 parent: Access control
 nav_order: 85
+canonical_url: https://docs.opensearch.org/latest/security/access-control/rest-layer-authz/
 ---
 
 

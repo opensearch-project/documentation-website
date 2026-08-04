@@ -4,6 +4,7 @@ title: Update Security Configuration API
 parent: Configuration APIs
 grand_parent: Security APIs
 nav_order: 30
+canonical_url: https://docs.opensearch.org/latest/api-reference/security/configuration/update-configuration/
 ---
 
 # Update Security Configuration API

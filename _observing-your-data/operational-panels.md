@@ -4,6 +4,7 @@ title: Operational panels
 nav_order: 100
 redirect_from:
   - /observability-plugin/operational-panels/
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/operational-panels/
 ---
 
 # Operational panels

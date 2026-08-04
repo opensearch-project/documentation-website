@@ -3,6 +3,7 @@ layout: default
 title: Viewing agent traces
 parent: Agent traces
 nav_order: 20
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/agent-traces/agent-tracing/
 ---
 
 # Viewing agent traces

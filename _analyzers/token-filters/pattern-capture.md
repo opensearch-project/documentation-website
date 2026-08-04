@@ -3,6 +3,7 @@ layout: default
 title: Pattern capture
 parent: Token filters
 nav_order: 310
+canonical_url: https://docs.opensearch.org/latest/analyzers/token-filters/pattern-capture/
 ---
 
 # Pattern capture token filter

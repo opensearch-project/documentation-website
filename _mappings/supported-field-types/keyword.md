@@ -9,6 +9,7 @@ redirect_from:
   - /field-types/supported-field-types/keyword/
   - /opensearch/supported-field-types/keyword/
   - /field-types/keyword/
+canonical_url: https://docs.opensearch.org/latest/mappings/supported-field-types/keyword/
 ---
 
 # Keyword field type

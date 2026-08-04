@@ -7,6 +7,7 @@ great_grand_parent: Building data visualizations
 nav_order: 170
 redirect_from:
   - /dashboards/visualize/tsvb/
+canonical_url: https://docs.opensearch.org/latest/dashboards/visualize/visualize-app/tsvb/
 ---
 
 # TSVB visualizations

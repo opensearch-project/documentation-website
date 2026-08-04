@@ -5,6 +5,7 @@ nav_order: 60
 has_children: true
 has_toc: true
 permalink: /migration-assistant/solr-migration/
+canonical_url: https://docs.opensearch.org/latest/migration-assistant/solr-migration/
 ---
 
 # Solr migration

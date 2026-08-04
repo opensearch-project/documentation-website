@@ -4,6 +4,7 @@ title: ICU
 parent: Language analyzers
 grand_parent: Analyzers
 nav_order: 205
+canonical_url: https://docs.opensearch.org/latest/analyzers/language-analyzers/icu/
 ---
 
 # ICU analyzer

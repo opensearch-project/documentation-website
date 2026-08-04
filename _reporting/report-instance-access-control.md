@@ -2,6 +2,7 @@
 layout: default
 title: Report instance access control
 nav_order: 20
+canonical_url: https://docs.opensearch.org/latest/reporting/report-instance-access-control/
 ---
 
 # Report instance access control

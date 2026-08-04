@@ -8,6 +8,7 @@ parent: Maps application
 has_children: false
 redirect_from:
   - /dashboards/visualize/maps-stats-api/
+canonical_url: https://docs.opensearch.org/latest/dashboards/visualize/visualize-app/maps-stats-api/
 ---
 
 # Maps Stats API

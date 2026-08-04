@@ -4,6 +4,7 @@ title: Hybrid search memory
 parent: Agentic memory APIs
 grand_parent: ML Commons APIs
 nav_order: 70
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/api/agentic-memory-apis/hybrid-search-memory/
 ---
 
 # Hybrid search memory API

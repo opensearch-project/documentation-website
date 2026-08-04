@@ -7,6 +7,7 @@ nav_exclude: true
 permalink: /developer-documentation/
 redirect_from:
   - /developer-documentation/index/
+canonical_url: https://docs.opensearch.org/latest/developer-documentation/
 ---
 
 # Developer documentation

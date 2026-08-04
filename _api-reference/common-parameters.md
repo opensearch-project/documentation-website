@@ -4,6 +4,7 @@ title: Common REST parameters
 nav_order: 93
 redirect_from:
   - /opensearch/common-parameters/
+canonical_url: https://docs.opensearch.org/latest/api-reference/common-parameters/
 ---
 
 # Common REST parameters 

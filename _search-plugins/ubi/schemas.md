@@ -7,6 +7,7 @@ has_children: false
 nav_order: 5
 redirect_from:
   - /search-plugins/ubi/data-structures/
+canonical_url: https://docs.opensearch.org/latest/search-plugins/ubi/schemas/
 ---
 
 # UBI index schemas

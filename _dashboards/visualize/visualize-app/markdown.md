@@ -7,6 +7,7 @@ great_grand_parent: Building data visualizations
 nav_order: 110
 redirect_from:
   - /dashboards/visualize/markdown/
+canonical_url: https://docs.opensearch.org/latest/dashboards/visualize/visualize-app/markdown/
 ---
 
 # Markdown visualizations

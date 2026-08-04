@@ -5,6 +5,7 @@ nav_order: 1
 parent: Migrate metadata
 grand_parent: Migration phases
 permalink: /classic/migration-assistant/migration-phases/migrate-metadata/handling-type-mapping-deprecation/
+canonical_url: https://docs.opensearch.org/latest/migration-assistant-classic/migration-phases/migrate-metadata/handling-type-mapping-deprecation/
 ---
 
 # Transform type mappings

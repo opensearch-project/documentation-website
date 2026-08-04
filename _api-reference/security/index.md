@@ -6,6 +6,7 @@ has_children: true
 redirect_from:
   - /api-reference/security-apis/
   - /api-reference/security/
+canonical_url: https://docs.opensearch.org/latest/api-reference/security/
 ---
 
 # Security APIs

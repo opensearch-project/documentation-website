@@ -3,6 +3,7 @@ layout: default
 title: Stemmer override
 parent: Token filters
 nav_order: 400
+canonical_url: https://docs.opensearch.org/latest/analyzers/token-filters/stemmer-override/
 ---
 
 # Stemmer override token filter

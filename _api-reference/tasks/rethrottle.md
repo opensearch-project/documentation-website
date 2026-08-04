@@ -3,6 +3,7 @@ layout: default
 title: Rethrottle
 parent: Tasks APIs
 nav_order: 40
+canonical_url: https://docs.opensearch.org/latest/api-reference/tasks/rethrottle/
 ---
 
 # Rethrottle API

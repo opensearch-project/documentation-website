@@ -4,6 +4,7 @@ title: Create context management
 parent: Context management APIs
 grand_parent: ML Commons APIs
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/api/context-management-apis/create-context-management/
 ---
 
 # Create Context Management API

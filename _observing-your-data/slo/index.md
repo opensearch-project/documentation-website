@@ -5,6 +5,7 @@ nav_order: 125
 has_children: false
 redirect_from:
   - /observing-your-data/slo/
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/slo/
 ---
 
 # Service-level objectives

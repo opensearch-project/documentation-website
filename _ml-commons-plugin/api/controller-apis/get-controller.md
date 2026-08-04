@@ -4,6 +4,7 @@ title: Get controller
 parent: Controller APIs
 grand_parent: ML Commons APIs
 nav_order: 20
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/api/controller-apis/get-controller/
 ---
 
 # Get Controller API

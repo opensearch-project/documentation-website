@@ -5,6 +5,7 @@ title: Delete template (deprecated)
 parent: Index templates
 grand_parent: Index APIs
 nav_order: 110
+canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/delete-template-legacy/
 ---
 
 # Delete template

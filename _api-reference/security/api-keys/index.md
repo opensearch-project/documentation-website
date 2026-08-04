@@ -8,6 +8,7 @@ has_children: true
 has_toc: false
 redirect_from:
   - /api-reference/security/api-keys/
+canonical_url: https://docs.opensearch.org/latest/api-reference/security/api-keys/
 ---
 
 # API Key APIs

@@ -7,6 +7,7 @@ has_children: false
 has_math: true
 redirect_from:
   - /search-plugins/knn/approximate-knn/ 
+canonical_url: https://docs.opensearch.org/latest/vector-search/vector-search-techniques/approximate-knn/
 ---
 
 # Approximate k-NN search

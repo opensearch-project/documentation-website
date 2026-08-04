@@ -5,6 +5,7 @@ parent: Ingest processors
 nav_order: 40
 redirect_from:
    - /api-reference/ingest-apis/processors/csv/
+canonical_url: https://docs.opensearch.org/latest/ingest-pipelines/processors/csv/
 ---
 
 This documentation describes using the `csv` processor in OpenSearch ingest pipelines. Consider using the [Data Prepper `csv` processor]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/csv/), which runs on the OpenSearch cluster, if your use case involves large or complex datasets.

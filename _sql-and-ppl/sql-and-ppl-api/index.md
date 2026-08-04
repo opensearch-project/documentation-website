@@ -7,6 +7,7 @@ redirect_from:
   - /search-plugins/sql/sql-ppl-api/
   - /sql-and-ppl/sql-ppl-api/
   - /sql-and-ppl/sql-and-ppl-api/
+canonical_url: https://docs.opensearch.org/latest/sql-and-ppl/sql-and-ppl-api/
 ---
 
 # SQL and PPL API

@@ -2,6 +2,7 @@
 layout: default
 title: Reindex data
 nav_order: 30
+canonical_url: https://docs.opensearch.org/latest/im-plugin/reindex-data/
 ---
 
 # Reindex data

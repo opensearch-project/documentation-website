@@ -2,6 +2,7 @@
 layout: default
 title: Functions
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/sql-and-ppl/functions/
 ---
 
 # SQL and PPL common functions

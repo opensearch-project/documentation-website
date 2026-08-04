@@ -6,6 +6,7 @@ parent: Reporting using the CLI
 grand_parent: Reporting
 redirect_from:
   - /dashboards/reporting-cli/rep-cli-env-var/
+canonical_url: https://docs.opensearch.org/latest/reporting/rep-cli-env-var/
 ---
 
 # Use environment variables with the Reporting CLI
