@@ -399,7 +399,7 @@ An index created in OpenSearch version 2.11 or earlier will still use the previo
 
 ## `jvector` engine
 
-The `jvector` engine is available through the [`opensearch-jvector` plugin]({{site.url}}{{site.baseurl}}/install-and-configure/additional-plugins/opensearch-jvector/) and is not included in the default OpenSearch distribution. It cannot be installed alongside `opensearch-knn`. The `jvector` engine implements DiskANN-style approximate nearest neighbor search in pure Java, with no JNI dependency.
+The `jvector` engine is available through the [`opensearch-jvector` plugin]({{site.url}}{{site.baseurl}}/install-and-configure/additional-plugins/opensearch-jvector/) and is not included in the default OpenSearch distribution. To install it, please follow the instructions in the [`opensearch-jvector` plugin]({{site.url}}{{site.baseurl}}/install-and-configure/additional-plugins/opensearch-jvector/#installation) documentation. It is not possible to have this plugin alongside `opensearch-knn` in the same cluster presently. The `jvector` engine implements DiskANN-style approximate nearest neighbor search in pure Java, with no JNI dependency.
 
 ### Supported methods
 
