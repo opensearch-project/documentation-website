@@ -235,3 +235,13 @@ For more information, see pull request [#9813](https://github.com/opensearch-pro
 
 The `romanian` analyzer now supports Romanian in its modern Unicode form and normalizes cedilla characters to their comma-based equivalents. Because both forms are still in use, we recommend reindexing existing Romanian documents to ensure consistent analysis and search behavior.
 
+## 3.8.0
+
+The following breaking change was introduced in OpenSearch 3.8.0.
+
+### Default S3 repository server-side encryption type
+
+The default value of the `server_side_encryption_type` setting for `s3` snapshot repositories changed from `bucket_default` to `AES256`. When the setting is `bucket_default`, OpenSearch sends no `x-amz-server-side-encryption` header on S3 upload requests. With `AES256`, OpenSearch sends the header on every upload request. This change corrects silent snapshot failures on buckets whose policies require the encryption header, such as those with a `DenyUnEncryptedObjectUploads` statement.
+
+After you upgrade, repositories registered without an explicit `server_side_encryption_type` begin sending the `AES256` header. S3-compatible storage services that reject this header return an error, which causes previously working snapshot repositories to fail. To restore the previous encryption type, set `server_side_encryption_type` to `bucket_default` explicitly when you register or update the repository. For more information, see pull request [#22144](https://github.com/opensearch-project/OpenSearch/pull/22144).
+
