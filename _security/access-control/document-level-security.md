@@ -4,7 +4,6 @@ title: Document-level security
 parent: Access control
 nav_order: 90
 redirect_from:
-- /security/access-control/document-level-security/
 - /security-plugin/access-control/document-level-security/
 ---
 
