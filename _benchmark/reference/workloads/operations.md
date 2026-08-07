@@ -6,7 +6,7 @@ nav_order: 30
 ---
 
 <!-- vale off -->
-# operations
+# operations element
 <!-- vale on -->
 
 The `operations` element lists the OpenSearch API operations that the workload performs and how they are parameterized. For example, you can define an operation named `create-index` that creates an index in the benchmark cluster to which OpenSearch Benchmark can write documents. The [`schedule`]({{site.url}}{{site.baseurl}}/benchmark/reference/workloads/schedule/) element then references these operations by name to specify the order in which they run.

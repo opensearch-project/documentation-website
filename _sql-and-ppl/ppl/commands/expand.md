@@ -8,7 +8,7 @@ nav_order: 15
 
 <!-- vale off -->
 
-# expand
+# expand command
 
 <!-- vale on -->
 

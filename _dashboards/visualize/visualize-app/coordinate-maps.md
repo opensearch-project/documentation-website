@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Coordinate maps
+title: Coordinate map
 parent: Visualization types
 grand_parent: Creating visualizations in the Visualize application
 great_grand_parent: Building data visualizations
@@ -9,7 +9,7 @@ redirect_from:
   - /dashboards/visualize/coordinate-maps/
 ---
 
-# Coordinate maps
+# Coordinate map
 
 A coordinate map plots geographic data points on a map using latitude and longitude coordinates. Each marker represents a document with a geo_point field, and marker size indicates the aggregated value at that location.
 

@@ -7,7 +7,7 @@ nav_order: 12
 ---
 
 <!-- vale off -->
-# getEventType()
+# getEventType() function
 <!-- vale on -->
 
 The `getEventType()` function returns the internal event type of the current event. This function is particularly useful when working with unified sources that can receive multiple types of telemetry data, such as the [OTLP source]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/otlp-source/).
