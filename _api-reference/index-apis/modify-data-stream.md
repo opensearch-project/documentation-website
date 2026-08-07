@@ -98,4 +98,4 @@ If you use the Security plugin, make sure you have the appropriate permissions: 
 ## Related documentation
 
 - [Data streams]({{site.url}}{{site.baseurl}}/im-plugin/data-streams/)
-- [Data Stream Stats API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/data-stream-stats/)
+- [Data Stream Stats API]({{site.url}}{{site.baseurl}}/api-reference/data-stream/data-stream-stats/)
