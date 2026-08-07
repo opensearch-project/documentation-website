@@ -37,6 +37,19 @@ The following table lists the available path parameters. All path parameters are
 
 <!-- spec_insert_end -->
 
+## Query parameters
+
+The following table lists the available query parameters. All query parameters are optional.
+
+| Parameter | Data type | Description | Default |
+| :--- | :--- | :--- | :--- |
+| `error_trace` | Boolean | Whether to include the stack trace of returned errors. | `false` |
+| `filter_path` | List or String | Used to reduce the response. This parameter takes a comma-separated list of filters. It supports using wildcards to match any field or part of a field’s name. You can also exclude fields with `-`. | N/A |
+| `human` | Boolean | Whether to return human-readable values for statistics. | `false` |
+| `pretty` | Boolean | Whether to pretty format the returned JSON response. | `false` |
+| `source` | String | The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests. | N/A |
+
+
 ## Example request
 
 The following example request returns information about all data streams in the cluster:
