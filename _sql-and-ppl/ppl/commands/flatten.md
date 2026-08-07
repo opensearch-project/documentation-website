@@ -8,7 +8,7 @@ nav_order: 20
 
 <!-- vale off -->
 
-# flatten
+# flatten command
 
 <!-- vale on -->
 

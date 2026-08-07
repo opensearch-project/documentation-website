@@ -7,7 +7,7 @@ great_grand_parent: Building data visualizations
 nav_order: 40
 ---
 
-# Line chart
+# Line charts in the visualization editor
 
 A line chart plots data points connected by lines, making it ideal for visualizing trends and changes over time. You can compare multiple series on the same time axis and use a secondary Y-axis to correlate metrics with different scales.
 

@@ -7,7 +7,7 @@ has_toc: false
 permalink: /migration-assistant/playbooks/
 ---
 
-# Playbooks
+# Migration Assistant playbooks
 
 Playbooks are step-by-step migration guides for specific source and target combinations. Each playbook provides the complete sequence of commands and configuration required for that migration path.
 
