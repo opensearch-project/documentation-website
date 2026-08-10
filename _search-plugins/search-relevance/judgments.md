@@ -172,7 +172,7 @@ POST /_plugins/_ml/connectors/_create
 
 Implicit judgments are derived from past user interactions. SRW supports the Clicks Over Expected Clicks (COEC) click model, which uses *impression* and *click* signals to calculate judgments.
 
-Input data must follow the [UBI index schemas]({{site.url}}{{site.baseurl}}/search-plugins/ubi/schemas/). COEC uses every event in the `ubi_events` index with an `action_name` of `impression` or `click`.
+Input data must follow the [UBI index schemas]({{site.url}}{{site.baseurl}}/search-plugins/ubi/schemas/). COEC uses every event in the `ubi_events` index with an `action_name` of `impression` or `click`. Use the `ubiEventsIndex` parameter to read from a differently named index.
 
 COEC calculates an expected click-through rate (CTR) for each rank by dividing the total number of clicks by the total number of impressions observed at that rank, based on all events in `ubi_events`. This ratio represents the expected CTR for that position.
 
@@ -194,7 +194,8 @@ PUT _plugins/_search_relevance/judgments
   "name": "Implicit Judgments",
   "clickModel": "coec",
   "type": "UBI_JUDGMENT",
-  "maxRank": 20
+  "maxRank": 20,
+  "ubiEventsIndex": "customized_ubi_events_index_name"  // (optional)
 }
 ```
 {% include copy-curl.html %}
@@ -211,6 +212,7 @@ The following table lists the parameters for creating implicit judgments.
 | `maxRank` | Integer | The maximum rank to consider when including events in the judgment calculation. |
 | `startDate` | Date | An optional starting date from which behavioral data events are considered for implicit judgment generation. The format is `yyyy-MM-dd`. |
 | `endDate` | Date | An optional end date until which behavioral data events are considered for implicit judgment generation. The format is `yyyy-MM-dd`. |
+| `ubiEventsIndex` | String | An optional name of the index containing the UBI events to analyze. Default is `ubi_events`. Specify this parameter when your UBI events are stored in an index with a different name. |
 
 ## Importing judgments
 

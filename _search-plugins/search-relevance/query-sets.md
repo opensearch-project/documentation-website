@@ -14,7 +14,7 @@ Additionally, Search Relevance Workbench allows you to import a query set.
 
 ## Creating query sets
 
-If you're tracking user behavior with the UBI specification, you can choose from different sampling methods that can create query sets based on real user queries stored in the `ubi_queries` index.
+If you're tracking user behavior with the UBI specification, you can choose from different sampling methods that can create query sets based on real user queries stored in the `ubi_queries` index. Use the `ubiQueriesIndex` parameter to sample from a differently named index.
 
 Search Relevance Workbench supports three sampling methods:
 * Random: Takes a random sample of all queries.
@@ -37,6 +37,7 @@ Field | Data type |  Description
 `description` | String | A short description of the query set. The maximum length is 250 characters.
 `sampling` | String | Defines which sampler to use. Valid values are `pptss` (Probability-Proportional-to-Size-Sampling), `random`, `topn` (most frequent queries), and `manual`.
 `querySetSize` | Integer | The target number of queries in the query set. Depending on the number of unique queries in `ubi_queries`, the resulting query set may contain fewer queries. Must be a positive integer.
+`ubiQueriesIndex` | String | An optional name of the index containing the UBI queries to sample. Default is `ubi_queries`. Specify this parameter when your UBI queries are stored in an index with a different name.
 
 ### Example request: Sampling 20 queries with the Top N sampler
 
@@ -46,7 +47,8 @@ POST _plugins/_search_relevance/query_sets
   "name": "Top 20",
   "description": "Top 20 most frequent queries sourced from user searches.",
   "sampling": "topn",
-  "querySetSize": 20
+  "querySetSize": 20,
+  "ubiQueriesIndex": "customized_ubi_queries_index_name"  // (optional)
 }
 ```
 
