@@ -1,30 +1,21 @@
 ---
 layout: default
 title: Creating custom workloads
-nav_order: 10
-grand_parent: User guide
-parent: Working with workloads
+nav_order: 35
+has_children: true
+has_toc: false
 redirect_from:
   - /benchmark/user-guide/creating-custom-workloads/
-  - /benchmark/creating-custom-workloads/
   - /benchmark/user-guide/creating-osb-workloads/
+  - /benchmark/user-guide/working-with-workloads/creating-custom-workloads/
 ---
 
 # Creating custom workloads
 
-OpenSearch Benchmark includes a set of [workloads](https://github.com/opensearch-project/opensearch-benchmark-workloads) that you can use to benchmark data from your cluster. Additionally, if you want to create a workload that is tailored to your own data, you can create a custom workload using one of the following options:
+OpenSearch Benchmark includes a set of [workloads](https://github.com/opensearch-project/opensearch-benchmark-workloads) that you can use to benchmark data from your cluster. You can also create a workload that is tailored to your own data by using one of the following options:
 
-- [Creating custom workloads](#creating-custom-workloads)
-  - [Creating a workload from an existing cluster](#creating-a-workload-from-an-existing-cluster)
-    - [Prerequisites](#prerequisites)
-    - [Customizing the workload](#customizing-the-workload)
-    - [Creating a workload without an existing cluster](#creating-a-workload-without-an-existing-cluster)
-  - [Invoking your custom workload](#invoking-your-custom-workload)
-  - [Advanced options](#advanced-options)
-    - [Test mode](#test-mode)
-    - [Adding variance to test procedures](#adding-variance-to-test-procedures)
-    - [Separate operations and test procedures](#separate-operations-and-test-procedures)
-  - [Next steps](#next-steps)
+- [Creating a workload from an existing cluster](#creating-a-workload-from-an-existing-cluster)
+- [Creating a workload without an existing cluster](#creating-a-workload-without-an-existing-cluster)
 
 ## Creating a workload from an existing cluster
 
@@ -387,5 +378,7 @@ If you want to make your `workload.json` file more readable, you can separate yo
 
 ## Next steps
 
+- To adjust your workload so that it more closely reflects your production environment, see [Fine-tuning custom workloads]({{site.url}}{{site.baseurl}}/benchmark/finetune-workloads/).
+- To contribute your workload to the OpenSearch Project, see [Sharing custom workloads]({{site.url}}{{site.baseurl}}/benchmark/contributing-workloads/).
 - For more information about configuring OpenSearch Benchmark, see [Configuring OpenSearch Benchmark]({{site.url}}{{site.baseurl}}/benchmark/configuring-benchmark/).
 - To show a list of prepackaged workloads for OpenSearch Benchmark, see the [`opensearch-benchmark-workloads`](https://github.com/opensearch-project/opensearch-benchmark-workloads) repository.

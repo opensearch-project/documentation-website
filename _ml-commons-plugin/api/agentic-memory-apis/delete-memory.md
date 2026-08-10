@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Delete memory
+title: Delete agentic memory
 parent: Agentic memory APIs
 grand_parent: ML Commons APIs
 nav_order: 53

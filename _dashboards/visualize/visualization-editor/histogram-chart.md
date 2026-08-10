@@ -9,9 +9,9 @@ nav_order: 35
 
 # Histogram
 
-A histogram chart displays the distribution of a numeric field by grouping values into bins (buckets) and showing the count of values in each bin as vertical bars.
+A histogram displays the distribution of a numeric field by grouping values into bins (buckets) and showing the count of values in each bin as vertical bars.
 
-## Creating a histogram chart
+## Creating a histogram
 
 The following example demonstrates a basic histogram visualization. Before you begin, complete the [prerequisites]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/#prerequisites).
 
@@ -30,9 +30,9 @@ After running this query, select **Histogram** as the chart type. The editor map
 
 The result is a histogram showing the distribution of ticket prices, as shown in the following image.
 
-![Histogram chart showing distribution of average ticket prices]({{site.url}}{{site.baseurl}}/images/dashboards/visualization-editor/histogram-chart-basic-result.png){: width="100%" }
+![Histogram showing distribution of average ticket prices]({{site.url}}{{site.baseurl}}/images/dashboards/visualization-editor/histogram-chart-basic-result.png){: width="100%" }
 
-## Configuring a histogram chart
+## Configuring a histogram
 
 You can configure the following settings in the configuration panel.
 
