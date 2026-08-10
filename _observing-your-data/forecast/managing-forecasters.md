@@ -48,16 +48,6 @@ The following diagram illustrates the relationships and transitions between stat
 
 If you have many forecasters, use the pagination controls at the bottom of the table to navigate between pages. You can also use the search bar to filter by **name**, **status**, or **index**, which can be helpful when managing large sets of forecasters.
 
-## Viewing forecasters in the unified alerts view
-
-The **Alerts** page under **Observability** provides a unified view for reviewing alerting, anomaly detection, and forecasting resources.
-
-On the **Rules** tab, forecasters appear with alerting rules, monitors, and anomaly detectors for the selected data sources. You can filter the table by type and status.
-
-Select a forecaster to open a forecaster detail flyout. The flyout shows configuration and runtime information, including status, source index, timestamp field, schedule, interval, horizon, window delay, category fields, and feature configuration.
-
-For more information about forecaster status and results, see the Forecasting plugin documentation.
-
 ## Alert on forecasted values
 
 Because forecast result indexes are not system indexes, you can create an [Alerting monitor]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/) for the result indexes like you would for any other user index.
@@ -232,3 +222,5 @@ Entity
 ## Next steps
 
 After setting up and managing your forecasters, you may want to control who can access and modify them. To learn how to manage permissions, secure result indexes, and apply fine-grained access controls, see [the security page]({{site.url}}{{site.baseurl}}/observing-your-data/forecast/security/).
+
+

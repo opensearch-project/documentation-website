@@ -17,28 +17,7 @@ In **Monitor defining method**, choose one of these methods to define your monit
 - **Anomaly detector**: Use when monitoring an individual detector's results with thresholds on anomaly grade and confidence. 
 - **Extraction query editor**: Use when monitoring multiple detectors, writing complex queries, or creating advanced trigger conditions.
 
-## Viewing anomaly results in the unified alerts view
 
-The **Alerts** page under **Observability** provides a unified view for reviewing OpenSearch alerts and anomaly results. This can help you triage detector activity without switching between the Alerting and Anomaly Detection plugin pages.
-
-On the **Alerts** tab, real-time anomaly results appear with alert results in the **All alerts** table. You can filter the table by data source, result type, severity, state, and label. Anomaly results use the `anomaly` state because they are detector results rather than alert lifecycle events.
-
-If multiple anomaly results belong to the same detector and entity, the table groups them into one row. Expand the row to inspect individual occurrences, then select an occurrence to open the anomaly detail flyout.
-
-The anomaly detail flyout includes the following information:
-
-- Detector name and entity, if the detector uses a category field.
-- Anomaly grade, confidence, start time, duration, score, and feature data.
-- Detector result context for high-cardinality detectors, including a heat map that highlights the selected entity and anomaly occurrence.
-- Metric context for single-stream detectors, including anomaly grade, confidence, and feature output for the selected anomaly.
-
-If an OpenSearch alert is associated with an anomaly result, the alert detail flyout shows the related anomaly context. This lets you investigate the detector result that contributed to the alert while staying in Alerts Manager.
-
-## Viewing detectors in the unified alerts view
-
-The **Rules** tab on the **Alerts** page lists alerting rules, monitors, anomaly detectors, and forecasters for the selected data sources.
-
-Select an anomaly detector to open a detector detail flyout. The flyout shows detector configuration and runtime information, including detector state, source indexes, timestamp field, schedule, window delay, category fields, and feature configuration.
 
 ## Example alert monitor
 

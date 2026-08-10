@@ -10,9 +10,6 @@ nav_order: 10
 **Introduced 3.7**
 {: .label .label-purple }
 
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).
-{: .warning}
-
 The unified alerts view consolidates alerts from OpenSearch monitors and Prometheus alerting rules into a single view, so you can triage alerts across data sources without switching between tools. In OpenSearch Dashboards, this experience appears as the **Alerts** page under **Observability**.
 
 The **Alerts** page can also show anomaly detection and forecasting resources, providing a unified experience for investigating alerts, anomalies, detectors, and forecasters from the same workspace.
@@ -59,7 +56,7 @@ For Prometheus data sources, the view is read-only. You cannot acknowledge Prome
 
 The **Rules** tab lists alerting rules, monitors, anomaly detectors, and forecasters across the selected data sources. You can filter rules by type and status.
 
-Select a detector or forecaster to open a detail flyout with configuration and status information. For more information about detector and forecaster behavior, see the Anomaly Detection and Forecasting documentation.
+Select a detector or forecaster to open a detail flyout with configuration and status information.
 
 ## Notification routing
 
