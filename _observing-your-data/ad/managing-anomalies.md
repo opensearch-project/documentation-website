@@ -17,7 +17,7 @@ In **Monitor defining method**, choose one of these methods to define your monit
 - **Anomaly detector**: Use when monitoring an individual detector's results with thresholds on anomaly grade and confidence. 
 - **Extraction query editor**: Use when monitoring multiple detectors, writing complex queries, or creating advanced trigger conditions.
 
-## Viewing anomaly results in Alerts Manager
+## Viewing anomaly results in the unified alerts view
 
 The **Alerts** page under **Observability** provides a unified view for reviewing OpenSearch alerts and anomaly results. This can help you triage detector activity without switching between the Alerting and Anomaly Detection plugin pages.
 
@@ -34,7 +34,7 @@ The anomaly detail flyout includes the following information:
 
 If an OpenSearch alert is associated with an anomaly result, the alert detail flyout shows the related anomaly context. This lets you investigate the detector result that contributed to the alert while staying in Alerts Manager.
 
-## Viewing detectors in Alerts Manager
+## Viewing detectors in the unified alerts view
 
 The **Rules** tab on the **Alerts** page lists alerting rules, monitors, anomaly detectors, and forecasters for the selected data sources.
 

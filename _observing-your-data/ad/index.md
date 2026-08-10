@@ -24,7 +24,7 @@ You can pair the Anomaly Detection plugin with the [Alerting plugin]({{site.url}
 
 To get started, go to **OpenSearch Dashboards** > **OpenSearch Plugins** > **Anomaly Detection**. 
 
-You can also view anomaly results and detector details from the **Alerts** page under **Observability**. For more information, see [Viewing anomaly results in Alerts Manager]({{site.url}}{{site.baseurl}}/observing-your-data/ad/managing-anomalies/#viewing-anomaly-results-in-alerts-manager).
+You can also view anomaly results and detector details from the **Alerts** page under **Observability**. For more information, see [Viewing anomaly results in the unified alerts view]({{site.url}}{{site.baseurl}}/observing-your-data/ad/managing-anomalies/#viewing-anomaly-results-in-the-unified-alerts-view).
 
 ## Step 1: Define a detector
 

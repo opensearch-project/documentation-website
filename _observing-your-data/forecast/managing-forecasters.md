@@ -48,7 +48,7 @@ The following diagram illustrates the relationships and transitions between stat
 
 If you have many forecasters, use the pagination controls at the bottom of the table to navigate between pages. You can also use the search bar to filter by **name**, **status**, or **index**, which can be helpful when managing large sets of forecasters.
 
-## Viewing forecasters in Alerts Manager
+## Viewing forecasters in the unified alerts view
 
 The **Alerts** page under **Observability** provides a unified view for reviewing alerting, anomaly detection, and forecasting resources.
 
