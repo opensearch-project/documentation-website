@@ -7,7 +7,7 @@ great_grand_parent: Building data visualizations
 nav_order: 10
 ---
 
-# Thresholds
+# Thresholds in the visualization editor
 
 A threshold is a boundary value that, when reached or exceeded by a data point, triggers a visual change in color. Use thresholds to define meaningful ranges so that you can immediately understand whether values are within normal, warning, or critical zones.
 

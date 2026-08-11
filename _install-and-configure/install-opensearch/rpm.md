@@ -13,7 +13,7 @@ The following liquid syntax declares a variable, major_version_mask, which is tr
 {% assign version_parts = site.opensearch_major_minor_version | split: "." %}
 {% assign major_version_mask = version_parts[0] | append: ".x" %}
 
-# RPM
+# Installing OpenSearch using RPM
 
 Installing OpenSearch using RPM Package Manager (RPM) simplifies the process considerably compared to the [Tarball]({{site.url}}{{site.baseurl}}/opensearch/install/tar/) method. Several technical considerations, such as the installation path, location of configuration files, and creation of a service managed by `systemd`, as examples, are handled automatically by the package manager.
 

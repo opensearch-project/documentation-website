@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Bar charts
+title: Bar chart
 parent: Visualization types
 grand_parent: Creating visualizations in the Visualize application
 great_grand_parent: Building data visualizations
@@ -9,7 +9,7 @@ redirect_from:
   - /dashboards/visualize/bar-charts/
 ---
 
-# Bar charts
+# Bar chart
 
 A bar chart compares values across categories by representing values as proportional bar lengths. Use vertical bars for time-series data or category comparisons, and horizontal bars when category labels are long or when comparing many categories.
 

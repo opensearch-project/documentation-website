@@ -8,7 +8,7 @@ nav_order: 29
 
 <!-- vale off -->
 
-# multisearch
+# multisearch command
 
 <!-- vale on -->
 

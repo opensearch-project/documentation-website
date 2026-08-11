@@ -8,7 +8,7 @@ nav_order: 30
 
 <!-- vale off -->
 
-# mvcombine
+# mvcombine command
 
 <!-- vale on -->
 

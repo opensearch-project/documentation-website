@@ -10,7 +10,7 @@ redirect_from:
 ---
 
 <!-- vale off -->
-# run
+# run command
 <!-- vale on -->
 
 Whether you're using the included [OpenSearch Benchmark workloads](https://github.com/opensearch-project/opensearch-benchmark-workloads) or a [custom workload]({{site.url}}{{site.baseurl}}/benchmark/creating-custom-workloads/), use the `run` command to gather data about the performance of your OpenSearch cluster according to the selected workload.

@@ -6,7 +6,7 @@ parent: Specialized queries
 nav_order: 80
 ---
 
-# Wrapper
+# Wrapper query
 
 The `wrapper` query lets you submit a complete query in Base64-encoded JSON format. It is useful when the query must be embedded in contexts that only support string values.
 
