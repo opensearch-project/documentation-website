@@ -48,7 +48,6 @@ POST _plugins/_search_relevance/query_sets
   "description": "Top 20 most frequent queries sourced from user searches.",
   "sampling": "topn",
   "querySetSize": 20,
-  "ubiQueriesIndex": "customized_ubi_queries_index_name"
 }
 ```
 

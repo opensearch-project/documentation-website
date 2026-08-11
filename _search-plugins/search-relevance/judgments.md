@@ -195,7 +195,6 @@ PUT _plugins/_search_relevance/judgments
   "clickModel": "coec",
   "type": "UBI_JUDGMENT",
   "maxRank": 20,
-  "ubiEventsIndex": "customized_ubi_events_index_name"
 }
 ```
 {% include copy-curl.html %}
