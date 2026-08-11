@@ -9,7 +9,7 @@ redirect_from:
 ---
 
 <!-- vale off -->
-# compare
+# compare command
 <!-- vale on -->
 
 The `compare` command helps you analyze the difference between two benchmark tests. This can help you analyze the performance impact of changes made from a previous test based on a specific Git revision.

@@ -8,7 +8,7 @@ nav_order: 35
 
 <!-- vale off -->
 
-# rare
+# rare command
 
 <!-- vale on -->
 

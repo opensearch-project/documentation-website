@@ -8,7 +8,7 @@ nav_order: 28
 
 <!-- vale off -->
 
-# ml
+# ml command
 
 <!-- vale on -->
 

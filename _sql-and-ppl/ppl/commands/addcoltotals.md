@@ -8,7 +8,7 @@ nav_order: 3
 
 <!-- vale off -->
 
-# addcoltotals
+# addcoltotals command
 
 <!-- vale on -->
 

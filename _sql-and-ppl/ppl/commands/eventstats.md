@@ -8,7 +8,7 @@ nav_order: 14
 
 <!-- vale off -->
 
-# eventstats
+# eventstats command
 
 <!-- vale on -->
 

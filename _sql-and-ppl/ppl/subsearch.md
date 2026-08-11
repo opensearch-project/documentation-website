@@ -7,7 +7,7 @@ redirect_from:
   - /search-plugins/sql/ppl/subsearch/
 ---
 
-# Subsearch
+# Subsearch in PPL queries
 
 This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).    
 {: .warning}

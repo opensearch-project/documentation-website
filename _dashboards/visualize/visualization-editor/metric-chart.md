@@ -7,7 +7,7 @@ great_grand_parent: Building data visualizations
 nav_order: 45
 ---
 
-# Metric chart
+# Metric charts in the visualization editor
 
 A metric chart displays a single numeric value prominently, making it ideal for showing key performance indicators (KPIs) or summary statistics at a glance.
 
