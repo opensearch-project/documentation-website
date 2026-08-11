@@ -194,7 +194,7 @@ PUT _plugins/_search_relevance/judgments
   "name": "Implicit Judgments",
   "clickModel": "coec",
   "type": "UBI_JUDGMENT",
-  "maxRank": 20,
+  "maxRank": 20
 }
 ```
 {% include copy-curl.html %}

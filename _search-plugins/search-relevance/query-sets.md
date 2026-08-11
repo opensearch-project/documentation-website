@@ -47,7 +47,7 @@ POST _plugins/_search_relevance/query_sets
   "name": "Top 20",
   "description": "Top 20 most frequent queries sourced from user searches.",
   "sampling": "topn",
-  "querySetSize": 20,
+  "querySetSize": 20
 }
 ```
 
