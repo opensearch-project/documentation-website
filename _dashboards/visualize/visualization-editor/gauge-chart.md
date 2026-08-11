@@ -7,7 +7,7 @@ great_grand_parent: Building data visualizations
 nav_order: 25
 ---
 
-# Gauge chart
+# Gauge charts in the visualization editor
 
 A gauge chart displays a single numeric value on a semicircular arc, making it ideal for showing how a metric compares against defined thresholds or a target range.
 

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Area charts
+title: Area chart
 parent: Visualization types
 grand_parent: Creating visualizations in the Visualize application
 great_grand_parent: Building data visualizations
@@ -9,7 +9,7 @@ redirect_from:
   - /dashboards/visualize/area/
 ---
 
-# Area charts
+# Area chart
 
 An area chart is a line chart with the area below the line shaded with a color. You can stack multiple buckets to show relative proportions of a running absolute value of the variable, or superimpose buckets or different variables to compare within x-axis buckets or time values.
 

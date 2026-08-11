@@ -8,7 +8,7 @@ nav_order: 36
 
 <!-- vale off -->
 
-# regex
+# regex command
 
 <!-- vale on -->
 

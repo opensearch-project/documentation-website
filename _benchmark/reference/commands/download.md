@@ -9,7 +9,7 @@ redirect_from:
 ---
 
 <!-- vale off -->
-# download
+# download command
 <!-- vale on -->
 
 Use the `download` command to select which OpenSearch distribution version to download.

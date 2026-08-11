@@ -9,7 +9,7 @@ redirect_from:
   - /dashboards/visualize/controls/
 ---
 
-# Controls
+# Controls visualization
 **Experimental**
 {: .label .label-purple }
 
