@@ -22,6 +22,8 @@ nav_order: 130
 
 Standalone audit logging enables audit logging for OpenSearch clusters that do not use fine-grained access control (FGAC). This includes clusters running in SSL-only mode (`plugins.security.ssl_only: true`) or with security disabled (`plugins.security.disabled: true`).
 
+In this context, *standalone* means audit logging is independent of fine-grained access control---not a separate plugin or process. It runs inside the Security plugin and reuses the same audit pipeline as standard mode; it just does not depend on authentication or authorization to produce events.
+
 Many organizations need audit trails for compliance (SOC2, HIPAA, PCI-DSS, GDPR) even when they don't require authentication or authorization. Standalone audit logging answers the question "who did what, when?" without requiring the full security infrastructure.
 
 {: .note }
