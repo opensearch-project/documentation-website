@@ -61,7 +61,7 @@ For sink-specific configuration options, see [Audit log storage types]({{site.ur
 
 ## Tracked events
 
-Standalone audit logging introduces two event categories designed for environments without authentication:
+Standalone audit logging introduces two request-tracking categories designed for environments without authentication:
 
 Category | Layer | Description
 :--- | :--- | :---
@@ -69,6 +69,15 @@ Category | Layer | Description
 `TRANSPORT_AUDIT` | Transport | Captures transport-layer requests between nodes, including shard-level operations (`bulk[s][p]`, `search[phase/query]`), replica writes, and forwarded requests.
 
 These categories do not imply any authentication or authorization semantics---they simply record that a request was received and processed.
+
+In addition to these request-tracking categories, standalone audit logging emits the standard document-level compliance categories when [compliance tracking](#compliance-tracking) is enabled:
+
+Category | Description
+:--- | :---
+`COMPLIANCE_DOC_WRITE` | A document was written to a watched index. See [Document write tracking](#document-write-tracking).
+`COMPLIANCE_DOC_READ` | A watched field was read from a watched index. See [Document read tracking](#document-read-tracking).
+
+Compliance events are governed only by the compliance settings (watched indices/fields and `compliance.enabled`). They are not affected by `disabled_categories`, which applies only to `REQUEST_AUDIT` and `TRANSPORT_AUDIT`.
 
 ### Event fields
 
@@ -113,6 +122,45 @@ PUT _cluster/settings
 
 Dynamic settings override the values in `opensearch.yml` and persist across cluster restarts.
 
+### Dynamic settings reference
+
+The following settings are all dynamic---they can be set in `opensearch.yml` for initial values and updated at runtime via `PUT _cluster/settings`. Types are shown as placeholders:
+
+```yml
+# Global toggle
+plugins.security.audit.enabled: <bool>
+
+# Filter settings
+plugins.security.audit.config.log_request_body: <bool>
+plugins.security.audit.config.resolve_indices: <bool>
+plugins.security.audit.config.resolve_bulk_requests: <bool>
+plugins.security.audit.config.exclude_sensitive_headers: <bool>
+plugins.security.audit.config.enable_rest: <bool>
+plugins.security.audit.config.enable_transport: <bool>
+plugins.security.audit.config.disabled_categories: <list[string]>
+plugins.security.audit.config.disabled_rest_categories: <list[string]>
+plugins.security.audit.config.disabled_transport_categories: <list[string]>
+plugins.security.audit.config.ignore_users: <list[string]>
+plugins.security.audit.config.ignore_requests: <list[string]>
+plugins.security.audit.config.ignore_headers: <list[string]>
+plugins.security.audit.config.body_logging_exclusions: <list[string]>
+
+# Compliance settings
+plugins.security.audit.compliance.enabled: <bool>
+plugins.security.audit.compliance.write_metadata_only: <bool>
+plugins.security.audit.compliance.write_log_diffs: <bool>
+plugins.security.audit.compliance.write_watched_indices: <list[string]>
+plugins.security.audit.compliance.write_ignore_users: <list[string]>
+plugins.security.audit.compliance.read_metadata_only: <bool>
+plugins.security.audit.compliance.read_watched_fields: <list[string]>
+plugins.security.audit.compliance.read_ignore_users: <list[string]>
+plugins.security.audit.compliance.external_config: <bool>
+plugins.security.audit.compliance.internal_config: <bool>
+```
+{% include copy.html %}
+
+Static settings (`enable_standalone`, `action_groups.<NAME>`, `log4j.enable_mdc_routing`, sink connection settings, and the thread pool settings) require a node restart and cannot be changed with the cluster settings API.
+
 ### Available filter settings
 
 The following settings control what is logged. Configure them in `opensearch.yml` or update dynamically via `PUT _cluster/settings`:
@@ -125,9 +173,12 @@ Setting | Default | Description
 `plugins.security.audit.config.resolve_indices` | `true` | Resolve wildcard index patterns to concrete indices.
 `plugins.security.audit.config.resolve_bulk_requests` | `false` | Log individual sub-operations in bulk requests.
 `plugins.security.audit.config.exclude_sensitive_headers` | `true` | Exclude sensitive headers (e.g., `Authorization`) from audit events.
-`plugins.security.audit.config.disabled_categories` | `[]` | List of audit categories to disable (e.g., `["REQUEST_AUDIT"]`).
+`plugins.security.audit.config.disabled_categories` | `[]` | Request-tracking categories to disable (e.g., `["REQUEST_AUDIT"]`). Does not affect `COMPLIANCE_*` categories.
+`plugins.security.audit.config.disabled_rest_categories` | `["AUTHENTICATED", "GRANTED_PRIVILEGES"]` | REST-layer categories to disable. On a deprecation path---prefer `disabled_categories`.
+`plugins.security.audit.config.disabled_transport_categories` | `["AUTHENTICATED", "GRANTED_PRIVILEGES"]` | Transport-layer categories to disable. On a deprecation path---prefer `disabled_categories`.
 `plugins.security.audit.config.ignore_users` | `["kibanaserver"]` | Users whose requests are not logged.
-`plugins.security.audit.config.ignore_requests` | `[]` | Action patterns to exclude (e.g., `["cluster:monitor/*"]`).
+`plugins.security.audit.config.ignore_requests` | `[]` | Action patterns or REST paths to exclude (e.g., `["cluster:monitor/*"]`).
+`plugins.security.audit.config.ignore_headers` | `[]` | HTTP headers to exclude from audit events.
 
 ### Toggling audit on/off at runtime
 
@@ -165,13 +216,13 @@ Write events are logged with the `COMPLIANCE_DOC_WRITE` category and include the
 
 ### Document read tracking
 
-To track reads of specific fields in specific indices:
+To track reads of specific fields in specific indices, configure `read_watched_fields`. As a cluster setting, this is a list of strings---each entry is a comma-separated string whose first token is an index pattern and whose remaining tokens are field patterns. If no field patterns are given for an index, all fields (`*`) are watched:
 
 ```yml
 plugins.security.audit.compliance.enabled: true
 plugins.security.audit.compliance.read_watched_fields:
-  - "sensitive-data-*": ["ssn", "credit_card"]
-  - "hr-records": ["salary", "performance_rating"]
+  - "sensitive-data-*,ssn,credit_card"
+  - "hr-records,salary,performance_rating"
 ```
 {% include copy.html %}
 
@@ -181,12 +232,16 @@ Read events are logged with the `COMPLIANCE_DOC_READ` category and include the f
 
 Setting | Default | Description
 :--- | :--- | :---
-`plugins.security.audit.compliance.enabled` | `false` | Enable compliance tracking.
+`plugins.security.audit.compliance.enabled` | `true` | Enable compliance tracking. Compliance events are only produced for the indices and fields configured in the watched settings.
 `plugins.security.audit.compliance.write_metadata_only` | `false` | Log only metadata for write events (no document content).
 `plugins.security.audit.compliance.read_metadata_only` | `false` | Log only metadata for read events (no field values).
 `plugins.security.audit.compliance.write_log_diffs` | `false` | Include diffs between old and new document content.
 `plugins.security.audit.compliance.write_watched_indices` | `[]` | Index patterns to watch for write compliance events.
-`plugins.security.audit.compliance.read_watched_fields` | `{}` | Index-to-fields mapping for read compliance events.
+`plugins.security.audit.compliance.read_watched_fields` | `[]` | Index-and-fields patterns to watch for read compliance events. Each entry is a comma-separated string: `<index-pattern>,<field-pattern>,...`.
+`plugins.security.audit.compliance.write_ignore_users` | `["kibanaserver"]` | Users whose document writes are not tracked for compliance.
+`plugins.security.audit.compliance.read_ignore_users` | `["kibanaserver"]` | Users whose document reads are not tracked for compliance.
+`plugins.security.audit.compliance.external_config` | `false` | Log the external configuration (`opensearch.yml` and environment) once at startup.
+`plugins.security.audit.compliance.internal_config` | `false` | Log changes to the internal security configuration.
 
 All compliance settings are dynamic and can be updated via `PUT _cluster/settings`.
 
@@ -247,15 +302,3 @@ plugins.security.audit.compliance.write_watched_indices:
 {% include copy.html %}
 
 With this configuration, audit events are written to a daily rolling index named `security-auditlog-YYYY.MM.dd` by default.
-
-## OpenSearch Dashboards
-
-The **Security > Audit logs** page in OpenSearch Dashboards can be used to view and modify audit settings when standalone audit logging is active. The UI reads and writes dynamic cluster settings, so changes made through the Dashboards interface take effect immediately across all nodes without a restart.
-
-To access audit log configuration in Dashboards:
-
-1. Open OpenSearch Dashboards.
-2. Select **Security** from the navigation menu.
-3. Select **Audit logs**.
-
-From this page you can enable or disable audit logging, configure which categories are tracked, set ignore patterns, and manage compliance settings.
