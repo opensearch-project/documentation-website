@@ -28,7 +28,7 @@ Audit logs let you track access to your OpenSearch cluster and are useful for co
 
 OpenSearch supports two audit logging modes:
 
-- **Standard mode** (default): Requires the Security plugin with fine-grained access control (FGAC) enabled. Configuration is managed through the `audit.yml` file in the security index and through OpenSearch Dashboards.
+- **Standard mode** (default): Requires the Security plugin with fine-grained access control (FGAC) enabled. Configuration is managed through the `audit.yml` file in the security index and the REST API.
 - **Standalone mode**: Works without FGAC---in SSL-only mode (`plugins.security.ssl_only: true`) or with security disabled (`plugins.security.disabled: true`). Configuration is managed entirely through `opensearch.yml` and dynamic cluster settings. See [Standalone audit logging]({{site.url}}{{site.baseurl}}/security/audit-logs/standalone/) for details.
 
 ### Enabling audit logging (standard mode)
@@ -46,9 +46,7 @@ Audit logging is disabled by default. To enable audit logging:
 
 2. Restart each node.
 
-After this initial setup, you can use OpenSearch Dashboards to manage your audit log categories and other settings. In OpenSearch Dashboards, select **Security** and then **Audit logs**. 
-
-An alternative is to specify initial settings for audit logging in the `audit.yml` and `opensearch.yml` files (which file depends on the setting---see [Audit log settings](#audit-log-settings)). Thereafter, you can use Dashboards or the [Audit logs]({{site.url}}{{site.baseurl}}/security/access-control/api/#audit-logs) API to manage and update settings.
+After this initial setup, you can specify settings for audit logging in the `audit.yml` and `opensearch.yml` files (which file depends on the setting---see [Audit log settings](#audit-log-settings)). You can also use the [Audit logs]({{site.url}}{{site.baseurl}}/security/access-control/api/#audit-logs) API to manage and update settings.
 
 
 ## Tracked events
@@ -272,7 +270,7 @@ config:
 
 ### Settings in opensearch.yml
 
-The following settings are stored in the `opensearch.yml` file. All audit settings with the `plugins.security.audit.config` prefix are dynamic---they can be changed at runtime using the [Cluster settings API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/) without a node restart. Audit settings are marked as sensitive, meaning only security admin users can view or modify them via the cluster settings API.
+The following settings are stored in the `opensearch.yml` file. The audit filter and compliance settings---for example, `log_request_body`, `resolve_indices`, `disabled_categories`, and the `plugins.security.audit.compliance.*` settings---are dynamic: they can be changed at runtime using the [Cluster settings API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/) without a node restart. Most of these dynamic settings are also marked as sensitive, meaning only security admin users can view or modify them via the cluster settings API (`body_logging_exclusions` and `action_groups.<NAME>` are exceptions and are not sensitive). Other audit settings---such as `action_groups.<NAME>`, `log4j.enable_mdc_routing`, `config.index`, the thread pool settings, and the sink connection settings---are static and require a node restart.
 
 #### Enable or disable audit logging
 
@@ -304,8 +302,8 @@ plugins.security.audit.config.disabled_categories:
 ```
 {% include copy.html %}
 
-{: .warning}
 The following layer-specific settings (`disabled_rest_categories` and `disabled_transport_categories`) are on a deprecation path and could be removed in a future release. Use the unified `disabled_categories` setting instead.
+{: .warning}
 
 The layer-specific settings are also available:
 
@@ -320,6 +318,9 @@ plugins.security.audit.config.disabled_transport_categories:
 {% include copy.html %}
 
 When both `disabled_categories` and the layer-specific settings are configured, they work in tandem---a category is disabled on a given layer if it appears in either setting. A deprecation warning is logged when both are configured, encouraging migration to `disabled_categories` only.
+
+The `disabled_categories` settings suppress only REST and transport categories. They do not affect `COMPLIANCE_*` categories, which are governed solely by the compliance settings (`compliance.enabled`, the watched indices/fields, and the compliance ignore-users settings).
+{: .note}
 
 #### Body logging exclusions
 
@@ -464,7 +465,7 @@ This is a static setting and requires a node restart.
 
 #### Configure the audit log index name
 
-By default, the Security plugin stores audit events in a daily rolling index named `auditlog-YYYY.MM.dd`:
+By default, the Security plugin stores audit events in a daily rolling index named `security-auditlog-YYYY.MM.dd`:
 
 ```yml
 plugins.security.audit.config.index: myauditlogindex
@@ -499,7 +500,7 @@ plugins.security.audit.config.threadpool.max_queue_len: 100000
 
 ## Disabling audit logs
 
-To disable audit logs after they've been enabled, remove the `plugins.security.audit.type: internal_opensearch` setting from `opensearch.yml`, or switch off the **Enable audit logging** check box in OpenSearch Dashboards.
+To disable audit logs after they've been enabled, remove the `plugins.security.audit.type: internal_opensearch` setting from `opensearch.yml`, or set `plugins.security.audit.enabled` to `false` via the cluster settings API.
 
 ## Audit user account manipulation
 

@@ -245,7 +245,7 @@ The Security plugin supports the following audit log settings:
 
 - `opendistro_security.audit.config.disabled_transport_categories` (Dynamic): A list of transport layer categories to be ignored by the logger. Valid values are `AUTHENTICATED` and `GRANTED_PRIVILEGES`.
 
-All `plugins.security.audit.config.*` and `plugins.security.audit.compliance.*` settings are marked with `Setting.Property.Sensitive`. This means only security admin users can view or modify their values via the cluster settings API; values are masked for non-admin users.
+The dynamic audit filter settings and all `plugins.security.audit.compliance.*` settings are marked with `Setting.Property.Sensitive`. This means only security admin users can view or modify their values via the cluster settings API; values are masked for non-admin users. The `plugins.security.audit.config.body_logging_exclusions` and `plugins.security.audit.config.action_groups.<NAME>` settings are exceptions and are not marked sensitive.
 
 ## Hostname verification and DNS lookup settings
 
