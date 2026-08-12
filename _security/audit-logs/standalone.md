@@ -104,7 +104,9 @@ Identity information varies by security mode:
 
 ## Configuration
 
-All standalone audit settings are configured in `opensearch.yml` for initial values and can be dynamically updated at runtime using the cluster settings API. No security index is required.
+All standalone audit settings are configured in `opensearch.yml` for initial values and can be dynamically updated at runtime using the [Cluster settings API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/). No security index is required.
+
+Standalone mode does not use the [Audit logs]({{site.url}}{{site.baseurl}}/security/access-control/api/#audit-logs) REST API or `audit.yml`---those manage the security index and require fine-grained access control. In standalone mode, use the Cluster settings API instead.
 
 ### Dynamic configuration
 
