@@ -1,6 +1,6 @@
 ---
 layout: default
-title: TSVB visualizations
+title: TSVB visualization
 parent: Visualization types
 grand_parent: Creating visualizations in the Visualize application
 great_grand_parent: Building data visualizations
@@ -9,7 +9,7 @@ redirect_from:
   - /dashboards/visualize/tsvb/
 ---
 
-# TSVB visualizations
+# TSVB visualization
 
 The Time-Series Visual Builder (TSVB) is a data visualization tool in OpenSearch Dashboards for creating detailed time-series visualizations. TSVB supports adding annotations or markers at specific time points based on index data, making connections between multiple indexes, and building visualizations that display data over time. TSVB supports the following visualization types: Area, Line, Metric, Gauge, Markdown, and Data Table.
 

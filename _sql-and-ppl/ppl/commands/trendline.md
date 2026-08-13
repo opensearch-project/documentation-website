@@ -8,7 +8,7 @@ nav_order: 52
 
 <!-- vale off -->
 
-# trendline
+# trendline command
 
 <!-- vale on -->
 

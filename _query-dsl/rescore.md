@@ -4,7 +4,7 @@ title: Rescore
 nav_order: 90
 ---
 
-# Rescore
+# Rescore parameter
 
 The `rescore` parameter improves search precision by reordering only the highest-ranked documents returned from your initial query. Rather than applying an expensive algorithm to all documents in the index, rescoring focuses computational resources on reranking a smaller window of top results using a secondary scoring method.
 

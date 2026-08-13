@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Metric visualizations
+title: Metric visualization
 parent: Visualization types
 grand_parent: Creating visualizations in the Visualize application
 great_grand_parent: Building data visualizations
@@ -9,7 +9,7 @@ redirect_from:
   - /dashboards/visualize/metric/
 ---
 
-# Metric visualizations
+# Metric visualization
 
 A metric visualization displays a single data field. The visualization can show a single value or multiple bucketed values. Use metric visualizations for key indicators on dashboards, especially values that update frequently.
 

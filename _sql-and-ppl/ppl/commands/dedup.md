@@ -8,7 +8,7 @@ nav_order: 11
 
 <!-- vale off -->
 
-# dedup
+# dedup command
 
 <!-- vale on -->
 

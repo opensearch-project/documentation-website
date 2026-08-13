@@ -8,7 +8,7 @@ nav_order: 37
 
 <!-- vale off -->
 
-# rename
+# rename command
 
 <!-- vale on -->
 

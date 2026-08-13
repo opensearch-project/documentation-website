@@ -8,7 +8,7 @@ nav_order: 34
 
 <!-- vale off -->
 
-# patterns
+# patterns command
 
 <!-- vale on -->
 

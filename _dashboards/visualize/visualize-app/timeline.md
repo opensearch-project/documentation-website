@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Timeline visualizations
+title: Timeline visualization
 parent: Visualization types
 grand_parent: Creating visualizations in the Visualize application
 great_grand_parent: Building data visualizations
@@ -9,7 +9,7 @@ redirect_from:
   - /dashboards/visualize/timeline/
 ---
 
-# Timeline visualizations
+# Timeline visualization
 
 **Timeline** is an expression-based data visualization tool in OpenSearch Dashboards that you can use to create time-series visualizations using a simple expression language. Unlike other visualization types that use a graphical interface, **Timeline** uses a text-based expression syntax to define data sources, transformations, and display options. With this syntax, you can compare multiple time series, apply mathematical functions, and overlay data from different time periods.
 

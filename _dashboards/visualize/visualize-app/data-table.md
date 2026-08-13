@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Data tables
+title: Data table
 parent: Visualization types
 grand_parent: Creating visualizations in the Visualize application
 great_grand_parent: Building data visualizations
@@ -9,7 +9,7 @@ redirect_from:
   - /dashboards/visualize/data-table/
 ---
 
-# Data tables
+# Data table
 
 A data table displays selected fields in row-column form. You can display one or more metrics as columns, bucketed into rows, and subdivide bucket data into separate tables.
 
