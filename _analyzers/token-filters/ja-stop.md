@@ -81,7 +81,7 @@ The response retains `大切` and the inflected stem `学ん`:
 }
 ```
 
-Compare this with the [full pipeline example](#example-usage-with-kuromoji_baseform-and-kuromoji_part_of_speech) below, which uses the same input. Adding `kuromoji_baseform` normalises `学ん` to `学ぶ`, and `kuromoji_part_of_speech` removes `を` and `だ` as grammatical tokens — leaving `ja_stop` to handle `こと`, a common noun that part-of-speech filtering alone would not remove.
+Compare this with the following [full pipeline example](#example-usage-with-kuromoji_baseform-and-kuromoji_part_of_speech), which uses the same input. Adding `kuromoji_baseform` normalises `学ん` to `学ぶ`, and `kuromoji_part_of_speech` removes `を` and `だ` as grammatical tokens — leaving `ja_stop` to handle `こと`, a common noun that part-of-speech filtering alone would not remove.
 
 ## Example: Usage with kuromoji_baseform and kuromoji_part_of_speech
 
