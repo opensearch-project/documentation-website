@@ -1,7 +1,7 @@
 ---
 layout: default
 title: PPL monitors
-nav_order: 10
+nav_order: 22
 parent: Monitors
 grand_parent: Alerting
 has_children: false
@@ -9,7 +9,7 @@ has_children: false
 
 # PPL monitors
 
-PPL monitors are a type of alert monitor that uses [Piped Processing Language (PPL)]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/) queries to monitor your data. They are essentially [per query monitors]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/per-query-bucket-monitors/) that use PPL instead of DSL.
+PPL alert monitors use [Piped Processing Language (PPL)]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/) queries to monitor your data. They are essentially [per query monitors]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/per-query-bucket-monitors/) that use PPL instead of query DSL.
 
 ## Creating a PPL monitor
 
@@ -17,24 +17,24 @@ To create a PPL monitor, follow these steps:
 
 1. Select **Alerting** > **Monitors** > **Create monitor**.
 2. Select the **PPL monitor** option.
-3. Enter a name for the monitor and configure the schedule (by time interval or custom cron expression).
-4. In the **Query** section, enter your PPL query. For example:
+3. Enter a name for the monitor and configure the schedule (by time interval or custom cron expression). For more information about cron expressions, see [Cron expressions]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#cron-expressions).
+4. In the **Query** section, enter your PPL query, for example:
 
-   ```
+   ```sql
    source = web_logs | stats avg(response_time) as avg_response by endpoint
    ```
 
-5. Add one or more triggers. See [PPL triggers](#ppl-triggers) for details on configuring trigger conditions.
-6. Add actions to specify notifications when triggers fire. See [Actions]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/actions/).
+5. Add one or more triggers. For more information about configuring trigger conditions, see [PPL triggers](#ppl-triggers).
+6. Add actions to specify notifications when triggers fire. For more information, see [Actions]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/actions/).
 7. Select **Create**.
 
 ## PPL triggers
 
-PPL monitors use `PPLTrigger` objects, which differ from the Painless script-based triggers used by other monitor types. Each PPL monitor supports up to 10 triggers.
+PPL monitors use `PPLTrigger` objects, which differ from the Painless-script-based triggers used by other monitor types. Each PPL monitor supports up to 10 triggers.
 
 ### Number of results trigger
 
-A number of results trigger evaluates the total number of rows returned by the base PPL query against a threshold. The following comparison operators are supported:
+A number of results trigger evaluates the total number of rows returned by the base PPL query against a threshold. The following comparison operators are supported.
 
 Operator | Description
 :--- | :---
@@ -45,7 +45,7 @@ Operator | Description
 `==` | Equal to
 `!=` | Not equal to
 
-For example, to trigger an alert when more than 50 results are returned:
+For example, to trigger an alert when more than 50 results are returned, use the following trigger definition:
 
 ```json
 {
@@ -62,15 +62,15 @@ For example, to trigger an alert when more than 50 results are returned:
 
 ### Custom condition trigger
 
-A custom condition trigger appends a `where` clause to the base PPL query. If the modified query returns any results, the trigger fires. This allows you to define fine-grained conditions based on computed fields or aggregations.
+A custom condition trigger appends a `where` clause to the base PPL query. If the modified query returns any results, the trigger fires. This allows you to define fine-grained conditions based on computed fields or aggregations. The custom condition is validated as a `where` statement during monitor creation.
 
-For example, if your base query is:
+For example, consider the following base query:
 
-```
+```sql
 source = web_logs | stats max(response_time) as max_response by endpoint
 ```
 
-You can define a custom condition to trigger when any endpoint has a maximum response time above 3000 ms:
+To trigger an alert when any endpoint has a maximum response time above 3000 ms, use the following trigger definition:
 
 ```json
 {
@@ -84,20 +84,17 @@ You can define a custom condition to trigger when any endpoint has a maximum res
 }
 ```
 
-The alerting plugin validates that the custom condition is a valid `where` statement during monitor creation.
-{: .note}
-
 ## Template variables
 
-PPL monitors provide the following additional template variable for use in [actions]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/actions/) and notification messages:
+PPL monitors provide the following additional template variable for use in [actions]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/actions/) and notification messages.
 
 Variable | Data type | Description
 :--- | :--- | :---
-`ctx.ppl_query_results` | Array | A list of maps where each element represents a result row from the PPL query. Field names from the query schema serve as keys. For number of results triggers, this contains the base query results. For custom condition triggers, this contains the results of the query with the custom condition applied.
+`ctx.ppl_query_results` | Array | A list of maps in which each element represents a PPL query result row. The keys in each map are field names from the query schema. For number of results triggers, the array contains the base query results. For custom condition triggers, it contains the results of the query with the custom condition applied.
 
 ### Mustache template example
 
-The following example iterates over PPL query results and outputs each row's fields:
+The following example iterates over PPL query results and outputs the fields in each row:
 
 {% raw %}
 ```
@@ -110,9 +107,8 @@ PPL Query Results:
 
 ## Query results format
 
-The PPL plugin returns results in a schema/datarows format. The alerting plugin automatically transforms this into a list of maps for use in templates:
+PPL queries return results in a schema/datarows format, as shown in the following example response:
 
-**Raw PPL response:**
 ```json
 {
   "schema": [
@@ -128,7 +124,8 @@ The PPL plugin returns results in a schema/datarows format. The alerting plugin 
 }
 ```
 
-**Transformed `ctx.ppl_query_results`:**
+These results are automatically transformed into a list of maps for use in templates and are available in `ctx.ppl_query_results`:
+
 ```json
 [
   {"endpoint": "/api/orders", "error_count": 3},
@@ -206,15 +203,16 @@ POST _plugins/_alerting/monitors
   ]
 }
 ```
+{% include copy-curl.html %}
 
 ## Settings
 
-The following cluster settings control PPL monitor behavior. You can update these settings using the [cluster settings API]({{site.url}}{{site.baseurl}}/api-reference/cluster-settings/).
+The following cluster settings apply to PPL monitors. You can update these settings using the [cluster settings API]({{site.url}}{{site.baseurl}}/api-reference/cluster-settings/).
 
 Setting | Default | Description
 :--- | :--- | :---
 `plugins.alerting.monitor.max_ppl_triggers` | 10 | The maximum number of triggers allowed per PPL monitor.
 `plugins.alerting.ppl_query_max_execution_duration` | 30s | The maximum execution time allowed for a PPL query during monitor execution.
-`plugins.alerting.ppl_monitor_max_query_length` | 2000 | The maximum character length of a PPL query.
+`plugins.alerting.ppl_monitor_max_query_length` | 2000 | The maximum number of characters for a PPL query.
 `plugins.alerting.ppl_query_results_max_datarows` | 10000 | The maximum number of data rows to retrieve when executing a PPL query.
-`plugins.alerting.ppl_query_results_max_size` | 3000 | The maximum size (in bytes, estimated) of query results stored in alerts and notifications. If the PPL query results exceed this size, the alert stops displaying the results and instead displays a message saying PPL query results were too large
+`plugins.alerting.ppl_query_results_max_size` | 3000 | The maximum estimated size, in bytes, of query results stored in alerts and notifications. If the results exceed this size, the alert replaces them with a message stating that the PPL query results were too large.
