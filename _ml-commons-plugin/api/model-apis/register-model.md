@@ -38,6 +38,43 @@ The following table lists the available query parameters. All query parameters a
 | :--- | :--- | :--- |
 | `deploy` | Boolean | Whether to deploy the model after registering it. The deploy operation is performed by calling the [Deploy Model API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/deploy-model/). Default is `false`. |
 
+## Custom model IDs
+**Introduced 3.9**
+{: .label .label-purple }
+
+Optionally specify a `model_id` in the request body when registering a model. If provided, OpenSearch uses your ID as the model identifier in subsequent API calls (for example, `/_plugins/_ml/models/{model_id}/_predict`). If omitted, OpenSearch auto-generates a model ID as before.
+
+### Example request with a custom model ID
+
+The following example registers a remote model with a custom model ID and references a connector that was also created with a custom ID:
+
+```json
+POST /_plugins/_ml/models/_register
+{
+  "name": "gpt_4.1",
+  "description": "Remote GPT model",
+  "function_name": "remote",
+  "connector_id": "my_gpt_connector",
+  "model_id": "my_gpt_model"
+}
+```
+{% include copy-curl.html %}
+
+You can then call the [Predict API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/predict/) using the custom ID:
+
+```json
+POST /_plugins/_ml/models/my_gpt_model/_predict
+{
+  "parameters": {
+    "user_prompt": "What is OpenSearch?",
+    "system_prompt": "You are a helpful assistant."
+  }
+}
+```
+{% include copy-curl.html %}
+
+{% include ml-custom-resource-ids.md %}
+
 ## Register an OpenSearch-provided pretrained model
 
 OpenSearch provides several pretrained models. For more information, see [OpenSearch-provided pretrained models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/).
@@ -55,6 +92,7 @@ Field | Data type | Required/Optional | Description
 `name`| String | Required | The model name. |
 `version` | String | Required | The model version. |
 `model_format` | String | Required | The portable format of the model file. Valid values are `TORCH_SCRIPT` and `ONNX`. |
+`model_id` | String | Optional | A custom ID for the model. If omitted, OpenSearch auto-generates a model ID. See [Custom model IDs](#custom-model-ids). |
 `description` | String | Optional| The model description. |
 `model_group_id` | String | Optional | The ID of the model group to which to register the model.
 `provisioned_by` | String | Optional | An optional attribution tag identifying the plugin or client that registered the model (for example, `flow-framework`). Included in ML statistics metrics.
@@ -185,6 +223,7 @@ Field | Data type | Required/Optional | Description
 `function_name` | String | Required | Set this parameter to `SPARSE_ENCODING` or `SPARSE_TOKENIZE`.
 `connector_id` | Optional | Required | The connector ID of a standalone connector for a model hosted on a third-party platform. For more information, see [Standalone connector]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/#creating-a-standalone-connector). You must provide either `connector_id` or `connector`.
 `connector` | Object | Required | Contains specifications for a connector for a model hosted on a third-party platform. For more information, see [Creating a connector for a specific model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/#creating-a-connector-for-a-specific-model). You must provide either `connector_id` or `connector`.
+`model_id` | String | Optional | A custom ID for the model. If omitted, OpenSearch auto-generates a model ID. See [Custom model IDs](#custom-model-ids). |
 `description` | String | Optional| The model description. |
 `model_group_id` | String | Optional | The model group ID of the model group to register this model to. 
 `is_enabled`| Boolean | Optional | Specifies whether the model is enabled. Disabling the model makes it unavailable for Predict API requests, regardless of the model's deployment status. Default is `true`.

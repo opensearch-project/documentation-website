@@ -159,6 +159,7 @@ The following table lists the available request body fields.
 Field | Data type | Required/Optional | Description
 :--- | :--- | :--- | :---
 `name` | String | Required | The name of the memory container.
+`memory_container_id` | String | Optional | A custom ID for the memory container. If omitted, OpenSearch auto-generates a memory container ID. See [Custom memory container IDs](#custom-memory-container-ids).
 `description` | String | Optional | The description of the memory container.
 `configuration` | Object | Optional | The memory container configuration. When not provided, a default configuration is used that creates a working-memory-only container with no AI capabilities. For full functionality including semantic search and long-term memory, provide a configuration with model IDs and strategies. See [The `configuration` object](#the-configuration-object).
 `backend_roles` | Array | Optional | A list of backend roles for access control. Each role must be at most 128 characters and contain only alphanumeric characters and `:+=,.@-_/`.
@@ -350,3 +351,23 @@ The response contains the `memory_container_id` that you can use to retrieve or 
     "status": "created"
 }
 ```
+
+## Custom memory container IDs
+**Introduced 3.9**
+{: .label .label-purple }
+
+Optionally specify a `memory_container_id` in the request body when creating a memory container. If provided, OpenSearch uses your ID as the memory container identifier in subsequent API calls. If omitted, OpenSearch auto-generates a memory container ID as before.
+
+### Example request with a custom memory container ID
+
+```json
+POST /_plugins/_ml/memory_containers/_create
+{
+  "memory_container_id": "customer_service_memory",
+  "name": "Customer Service Memory",
+  "description": "Memory container for customer service agent sessions"
+}
+```
+{% include copy-curl.html %}
+
+{% include ml-custom-resource-ids.md %}
