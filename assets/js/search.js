@@ -1,3 +1,55 @@
+// The first breadcrumb the indexer writes is the section the page belongs to. OpenSearch is the only
+// versioned section, so its crumb is the only one that gets a version number added.
+// Keep this wording the same as `OPENSEARCH_ROOT` in `_plugins/search-indexer.rb`.
+const OPENSEARCH_SECTION = 'OpenSearch';
+
+// Shared by the type-ahead dropdown and the results page, so it returns an array and each caller
+// escapes it its own way.
+const getBreadcrumbTrail = result => {
+    const crumbs = (result.ancestors || []).filter(crumb => crumb && crumb.trim());
+
+    if (result.type !== 'DOCS') {
+        if (result.type) crumbs.unshift(result.type);
+    } else if (crumbs[0] === OPENSEARCH_SECTION) {
+        crumbs[0] = `${OPENSEARCH_SECTION} ${result.versionLabel || result.version}`;
+    }
+
+    return crumbs;
+};
+
+// The API cuts the snippet at a fixed length, so it usually ends mid-word. Drop the half word and end
+// with an ellipsis instead. A snippet already ending in punctuation was not cut.
+// The ellipsis is a literal character, not `&hellip;`, because the results page sets this as text.
+const formatSnippet = text => {
+    if (!text) return '';
+
+    // The indexer separates blocks with a new line. Splitting on them keeps a heading from running
+    // into the text beneath it.
+    const blocks = String(text).split('\n')
+        .map(block => block.replace(/\s+/g, ' ').trim())
+        .filter(Boolean);
+    if (!blocks.length) return '';
+
+    // Only the last block can have been cut. The ellipsis goes there rather than at the very end, so
+    // a snippet that stops at a block boundary does not get two in a row.
+    const last = blocks.length - 1;
+    if (!/[.!?]["')\]]?$/.test(blocks[last])) {
+        blocks[last] = `${blocks[last].replace(/\s+\S*$/, '')}…`;
+    }
+
+    return blocks.join(' … ');
+};
+
+// The version being read, which chooses the index to search: "/2.19/..." searches the 2.19 docs and
+// "/latest/..." the current ones. Only the first part of the path is read, because page names hold
+// version numbers of their own: a looser match finds "8.11" in
+// /latest/migration-assistant/playbook-solr-8.11-to-opensearch-3/ and searches for a 8.11 index that
+// does not exist.
+const getDocsVersion = fallback => {
+    const [, segment] = window.location.pathname.split('/');
+    return /^\d+\.\d+$/.test(segment) ? segment : (fallback || 'latest');
+};
+
 (() => {
     document.addEventListener('DOMContentLoaded', () => {
         //
@@ -14,10 +66,8 @@
 
         const canSmoothScroll = 'scrollBehavior' in document.documentElement.style;
 
-        //Extract version from the URL path
-        const urlPath = window.location.pathname;
-        const versionMatch = urlPath.match(/(\d+\.\d+)/);
-        const docsVersion = versionMatch ? versionMatch[1] : elInput.getAttribute('data-docs-version');
+        // Falls back to the attribute the header sets, which every build ships as "latest".
+        const docsVersion = getDocsVersion(elInput.getAttribute('data-docs-version'));
 
         let _showingResults = false,
             animationFrame,
@@ -79,14 +129,11 @@
             while (abortControllers.length) abortControllers.pop()?.abort?.();
         };
 
+        // The element sits on its own line, so an empty one would leave a gap above the title.
         const getBreadcrumbs = result => {
-            const crumbs = [...result.ancestors].filter(crumb => crumb && crumb.trim());
-
-            if (result.type === 'DOCS') crumbs.unshift(`OpenSearch ${result.versionLabel || result.version}`);
-            else if (result.type) crumbs.unshift(result.type);
-
-            return sanitizeText(crumbs.join(' › '));
-        }
+            const trail = getBreadcrumbTrail(result);
+            return trail.length ? `<cite>${sanitizeText(trail.join(' › '))}</cite>` : '';
+        };
 
         const doSearch = async () => {
             const query = elInput.value.replace(/[^a-z0-9-_. ]+/ig, ' ');
@@ -126,10 +173,10 @@
                     ? `
                     <div class="${searchResultClassName}">
                         <a href="${sanitizeAttribute(result.url)}">
-                            <cite>${getBreadcrumbs(result)}</cite>
+                            ${getBreadcrumbs(result)}
                             ${sanitizeText(result.title || 'Unnamed Document')}
                         </a>
-                        <span>${sanitizeText(result.content?.replace?.(/\n/g, '&hellip; '))}</span>
+                        <span>${sanitizeText(formatSnippet(result.content))}</span>
                     </div>
                     `
                     : ''
@@ -300,11 +347,9 @@ window.doResultsPageSearch = async (query, type, version) => {
               const resultElement = document.createElement('div');
               resultElement.classList.add('search-page--results--display--container--item');
 
+              const trail = getBreadcrumbTrail(result);
               const contentCite = document.createElement('cite');
-              const crumbs = [...result.ancestors].filter(crumb => crumb && crumb.trim());
-              if (result.type === 'DOCS') crumbs.unshift(`OpenSearch ${result.versionLabel || result.version}`);
-              else if (result.type) crumbs.unshift(result.type);
-              contentCite.textContent = crumbs.join(' › ')?.replace?.(/</g, '&lt;');
+              contentCite.textContent = trail.join(' › ');
               contentCite.style.fontSize = '.8em';
 
               const titleLink = document.createElement('a');
@@ -313,10 +358,10 @@ window.doResultsPageSearch = async (query, type, version) => {
               titleLink.textContent = result.title;
               
               const contentSpan = document.createElement('span');
-              contentSpan.textContent = result.content;
+              contentSpan.textContent = formatSnippet(result.content);
               contentSpan.style.display = 'block';
 
-              resultElement.appendChild(contentCite);
+              if (trail.length) resultElement.appendChild(contentCite);
               resultElement.appendChild(titleLink);
               resultElement.appendChild(contentSpan);
 
