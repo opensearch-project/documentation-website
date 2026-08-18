@@ -48,7 +48,7 @@ The following table lists the descriptors registered at startup by the component
 | Security Analytics | `.opensearch-sap-correlation-alerts`<br>`.opensearch-sap-threat-intel` |
 | SQL | `.ql-datasources`<br>`.query_execution_request*` |
 
-An index used by a plugin is not necessarily a system index. For example, Forecasting result indexes are regular indexes even though the plugin's configuration, checkpoint, and state indexes are system indexes.
+An index created or managed by a plugin is not necessarily a system index. Some plugin-created indexes are regular indexes because their contents are intended to be searched by users. For example, Forecasting result indexes are regular indexes even though the plugin's configuration, checkpoint, and state indexes are system indexes. Similarly, when Security audit logs are stored in OpenSearch, their index or data stream is user-searchable rather than registered as a system index.
 
 ## Security plugin protection
 
