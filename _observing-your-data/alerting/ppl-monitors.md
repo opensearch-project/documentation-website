@@ -9,7 +9,7 @@ has_children: false
 
 # PPL monitors
 
-PPL alert monitors use [Piped Processing Language (PPL)]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/) queries to monitor your data. They are essentially [per query monitors]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/per-query-bucket-monitors/) that use PPL instead of query DSL.
+PPL alert monitors use [Piped Processing Language (PPL)]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/) queries to monitor your data. They are [per query monitors]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/per-query-bucket-monitors/) that use PPL instead of query DSL as the query language.
 
 ## Creating a PPL monitor
 
@@ -105,9 +105,9 @@ PPL Query Results:
 ```
 {% endraw %}
 
-## Query results format
+## Query result format
 
-PPL queries return results in a schema/datarows format, as shown in the following example response:
+PPL query results contain a `schema` and `datarows` fields, as shown in the following example response:
 
 ```json
 {
