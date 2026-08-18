@@ -11,7 +11,40 @@ has_children: false
 
 PPL alert monitors use [Piped Processing Language (PPL)]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/) queries to monitor your data. They are [per query monitors]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/per-query-bucket-monitors/) that use PPL instead of query DSL as the query language.
 
-## Creating a PPL monitor
+## Setup
+
+The examples on this page use an `application_logs` index containing web request logs. To follow along, create the index with the following mapping:
+
+```json
+PUT /application_logs
+{
+  "mappings": {
+    "properties": {
+      "@timestamp": { "type": "date" },
+      "endpoint": { "type": "keyword" },
+      "service": { "type": "keyword" },
+      "level": { "type": "keyword" },
+      "response_time": { "type": "integer" }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+Index the sample documents:
+
+```json
+POST /application_logs/_bulk?refresh=true
+{ "index": {} }
+{ "@timestamp": "2026-01-15T10:00:00Z", "endpoint": "/api/orders", "service": "orders", "level": "ERROR", "response_time": 4200 }
+{ "index": {} }
+{ "@timestamp": "2026-01-15T10:01:00Z", "endpoint": "/api/orders", "service": "orders", "level": "ERROR", "response_time": 3600 }
+{ "index": {} }
+{ "@timestamp": "2026-01-15T10:02:00Z", "endpoint": "/api/checkout", "service": "checkout", "level": "ERROR", "response_time": 2500 }
+```
+{% include copy-curl.html %}
+
+## Creating a PPL monitor in OpenSearch Dashboards
 
 To create a PPL monitor, follow these steps:
 
@@ -21,8 +54,9 @@ To create a PPL monitor, follow these steps:
 4. In the **Query** section, enter your PPL query, for example:
 
    ```sql
-   source = web_logs | stats avg(response_time) as avg_response by endpoint
+   source = application_logs | stats avg(response_time) as avg_response by endpoint
    ```
+   {% include copy.html %}
 
 5. Add one or more triggers. For more information about configuring trigger conditions, see [PPL triggers](#ppl-triggers).
 6. Add actions to specify notifications when triggers fire. For more information, see [Actions]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/actions/).
@@ -45,7 +79,7 @@ Operator | Description
 `==` | Equal to
 `!=` | Not equal to
 
-For example, to trigger an alert when more than 50 results are returned, use the following trigger definition:
+For example, to trigger an alert when more than one result is returned, use the following trigger definition:
 
 ```json
 {
@@ -54,7 +88,7 @@ For example, to trigger an alert when more than 50 results are returned, use the
     "severity": "1",
     "type": "number_of_results",
     "num_results_condition": ">",
-    "num_results_value": 50,
+    "num_results_value": 1,
     "actions": []
   }
 }
@@ -67,7 +101,7 @@ A custom condition trigger appends a `where` clause to the base PPL query. If th
 For example, consider the following base query:
 
 ```sql
-source = web_logs | stats max(response_time) as max_response by endpoint
+source = application_logs | stats max(response_time) as max_response by endpoint
 ```
 
 To trigger an alert when any endpoint has a maximum response time above 3000 ms, use the following trigger definition:
@@ -107,17 +141,17 @@ PPL Query Results:
 
 ## Query result format
 
-PPL query results contain `schema` and `datarows` fields, as shown in the following example response:
+PPL query results contain `schema` and `datarows` fields. For example, the query `source = application_logs | where level = 'ERROR' | stats count() as error_count by endpoint` returns the following response:
 
 ```json
 {
   "schema": [
-    {"name": "endpoint", "type": "string"},
-    {"name": "error_count", "type": "integer"}
+    {"name": "error_count", "type": "bigint"},
+    {"name": "endpoint", "type": "string"}
   ],
   "datarows": [
-    ["/api/orders", 3],
-    ["/api/checkout", 1]
+    [1, "/api/checkout"],
+    [2, "/api/orders"]
   ],
   "total": 2,
   "size": 2
@@ -128,12 +162,12 @@ These results are automatically transformed into a list of maps for use in templ
 
 ```json
 [
-  {"endpoint": "/api/orders", "error_count": 3},
-  {"endpoint": "/api/checkout", "error_count": 1}
+  {"error_count": 1, "endpoint": "/api/checkout"},
+  {"error_count": 2, "endpoint": "/api/orders"}
 ]
 ```
 
-## API example
+## Creating a PPL monitor using the API
 
 The following example creates a PPL monitor with both trigger types:
 
@@ -165,7 +199,7 @@ POST _plugins/_alerting/monitors
         "severity": "1",
         "type": "number_of_results",
         "num_results_condition": ">",
-        "num_results_value": 10,
+        "num_results_value": 1,
         "actions": [
           {
             "name": "Notify ops channel",
@@ -185,7 +219,7 @@ POST _plugins/_alerting/monitors
         "name": "Critical service errors",
         "severity": "1",
         "type": "custom",
-        "custom_condition": "where error_count > 100",
+        "custom_condition": "where error_count > 1",
         "actions": [
           {
             "name": "Page oncall",
@@ -204,6 +238,55 @@ POST _plugins/_alerting/monitors
 }
 ```
 {% include copy-curl.html %}
+
+The response confirms that the monitor was created and returns its `_id`. The monitor runs on its configured schedule, and each run evaluates the triggers against the latest query results. When a trigger's condition is met, it fires and runs its actions.
+
+## Testing a PPL monitor
+
+To run a monitor immediately instead of waiting for its next scheduled run, use the Execute API with the monitor ID. Add `?dryrun=true` to evaluate the triggers without creating alerts or running actions:
+
+```json
+POST _plugins/_alerting/monitors/<monitor_id>/_execute?dryrun=true
+```
+{% include copy-curl.html %}
+
+The response reports the query results and, for each trigger, whether it fired. The `triggered` field indicates whether each trigger's condition was met. For custom condition triggers, `ppl_query_results` contains the rows that matched the condition:
+
+```json
+{
+  "monitor_name": "PPL Error Rate Monitor",
+  "period_start": 1787067810953,
+  "period_end": 1787068110953,
+  "error": null,
+  "input_results": {
+    "results": [],
+    "ppl_query_results": [
+      { "error_count": 1, "service": "checkout" },
+      { "error_count": 2, "service": "orders" }
+    ],
+    "ppl_num_results": 2,
+    "error": null
+  },
+  "trigger_results": {
+    "too_many_errors": {
+      "name": "Too many errors",
+      "triggered": true,
+      "action_results": {},
+      "ppl_query_results": [],
+      "error": null
+    },
+    "critical_service_errors": {
+      "name": "Critical service errors",
+      "triggered": true,
+      "action_results": {},
+      "ppl_query_results": [
+        { "error_count": 2, "service": "orders" }
+      ],
+      "error": null
+    }
+  }
+}
+```
 
 ## Settings
 
