@@ -173,6 +173,64 @@ Parameter | Data type | Description
 `method` | Object | The algorithm used for organizing vector data at indexing time and searching it at search time. Used when the ANN algorithm does not require training. Optional. For more information, see [Methods and engines]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-methods-engines/). 
 `model_id` | String | The model ID of a trained model. Used when the ANN algorithm requires training. See [Model IDs](#model-ids). Optional.
 
+## Dynamic mapping
+**Introduced 3.9**
+{: .label .label-purple }
+
+You can have OpenSearch map a field as a `knn_vector` automatically, without declaring it in your mappings up front. There are two paths: a dynamic template that uses `knn_vector` as a `match_mapping_type`, and zero-configuration auto-inference.
+
+An explicit mapping always takes precedence: if a field is already mapped, neither path runs for it.
+
+### Dynamic templates
+
+You can reference `knn_vector` as the `match_mapping_type` in a [dynamic template]({{site.url}}{{site.baseurl}}/field-types/#dynamic-mapping). When a matching field is first encountered, OpenSearch maps it as a `knn_vector` using the mapping block you provide. If you omit `dimension`, it is inferred from the length of the first indexed vector:
+
+```json
+PUT /my-index
+{
+  "settings": {
+    "index": {
+      "knn": true
+    }
+  },
+  "mappings": {
+    "dynamic_templates": [
+      {
+        "vectors": {
+          "match_mapping_type": "knn_vector",
+          "mapping": {
+            "type": "knn_vector"
+          }
+        }
+      }
+    ]
+  }
+}
+```
+{% include copy-curl.html %}
+
+You can specify any `knn_vector` parameters (such as `dimension`, `space_type`, or `method`) in the `mapping` block. If you specify `dimension`, the mapping is validated at index creation. If you omit it, the dimension is inferred from the first document, after which it is fixed for the field.
+
+### Auto-inference
+
+When no dynamic template matches, OpenSearch can still infer a `knn_vector` mapping from the field value. An unmapped field is mapped as a `knn_vector` when its value is a flat array of numbers whose length is a multiple of 8 and falls within the `[128, 16000]` range. The dimension is set to the array length.
+
+For example, indexing the following document into a k-NN index with no mapping for `embedding` maps it as a `knn_vector` of dimension 768:
+
+```json
+POST /my-index/_doc
+{
+  "embedding": [0.1, 0.2, ...]  // 768 float values
+}
+```
+{% include copy-curl.html %}
+
+Auto-inference is a shape-based heuristic, so keep the following behavior in mind:
+
+- The array length must be a multiple of 8 and in the `[128, 16000]` range. Arrays outside this range, or with a length that is not a multiple of 8, are mapped as a regular numeric array instead.
+- A numeric array that is not a vector (for example, a large list of IDs or measurements) is mapped as a `knn_vector` if its length happens to meet these conditions. Because the dimension is fixed after the first document, later documents whose array has a different length are rejected.
+- To prevent a field from being auto-inferred as a `knn_vector`, declare an explicit mapping for it.
+
 ## Next steps
 
 - [Spaces]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-spaces/)
