@@ -30,7 +30,7 @@ To create a PPL monitor, follow these steps:
 
 ## PPL triggers
 
-PPL monitors use `PPLTrigger` objects, which differ from the Painless-script-based triggers used by other monitor types. Each PPL monitor supports up to 10 triggers.
+PPL monitors use `ppl_trigger` objects, which differ from the Painless-script-based triggers used by other monitor types. Each PPL monitor supports up to 10 triggers.
 
 ### Number of results trigger
 
@@ -77,7 +77,7 @@ To trigger an alert when any endpoint has a maximum response time above 3000 ms,
   "ppl_trigger": {
     "name": "Slow endpoint detected",
     "severity": "2",
-    "condition_type": "custom",
+    "type": "custom",
     "custom_condition": "where max_response > 3000",
     "actions": []
   }
@@ -107,7 +107,7 @@ PPL Query Results:
 
 ## Query result format
 
-PPL query results contain a `schema` and `datarows` fields, as shown in the following example response:
+PPL query results contain `schema` and `datarows` fields, as shown in the following example response:
 
 ```json
 {
@@ -171,7 +171,7 @@ POST _plugins/_alerting/monitors
             "name": "Notify ops channel",
             "destination_id": "your-destination-id",
             "message_template": {
-              "source": "Monitor {{ctx.monitor.name}} detected {{ctx.ppl_query_results.size}} services with errors."
+              "source": {% raw %}"Monitor {{ctx.monitor.name}} detected {{ctx.ppl_query_results.size}} services with errors."{% endraw %}
             },
             "subject_template": {
               "source": "Alert: High Error Rate Detected"
@@ -191,7 +191,7 @@ POST _plugins/_alerting/monitors
             "name": "Page oncall",
             "destination_id": "your-destination-id",
             "message_template": {
-              "source": "Critical error threshold exceeded:\n{{#ctx.ppl_query_results}}\n  Service: {{service}}, Errors: {{error_count}}\n{{/ctx.ppl_query_results}}"
+              "source": {% raw %}"Critical error threshold exceeded:\n{{#ctx.ppl_query_results}}\n  Service: {{service}}, Errors: {{error_count}}\n{{/ctx.ppl_query_results}}"{% endraw %}
             },
             "subject_template": {
               "source": "CRITICAL: Service Error Threshold Exceeded"
