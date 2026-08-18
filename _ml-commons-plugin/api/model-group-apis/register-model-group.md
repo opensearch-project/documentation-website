@@ -28,7 +28,7 @@ The following table lists the available request fields.
 Field |Data type | Description 
 :--- | :--- | :---
 `name` | String | The model group name. Required.
-`model_group_id` | String | Optional. A custom ID for the model group. If omitted, OpenSearch auto-generates a model group ID. See [Custom model group IDs](#custom-model-group-ids).
+`model_group_id` | String | Optional. Unique identifier for the model group. If omitted, OpenSearch auto-generates one. **Introduced 3.9**
 `description` | String | The model group description. Optional.
 `access_mode` | String | The access mode for this model. Valid values are `public`, `private`, and `restricted`. When this parameter is set to `restricted`, you must specify either `backend_roles` or `add_all_backend_roles`, but not both. Optional. If you specify none of the security parameters (`access_mode`, `backend_roles`, and `add_all_backend_roles`), the default `access_mode` is `private`.
 `backend_roles` | Array | A list of the model owner's backend roles to add to the model. Can be specified only if `access_mode` is `restricted`. Cannot be specified at the same time as `add_all_backend_roles`. Optional.
@@ -149,24 +149,3 @@ POST /_plugins/_ml/model_groups/_register
 ## Registering a model group in a cluster where model access control is disabled
 
 If model access control is disabled on your cluster (one of the [prerequisites](ml-commons-plugin/model-access-control/#model-access-control-prerequisites) is not met), you can register a model group with a `name` and `description` but cannot specify any of the access parameters (`model_access_name`, `backend_roles`, or `add_backend_roles`). By default, in such a cluster, all model groups are public.
-
-## Custom model group IDs
-**Introduced 3.9**
-{: .label .label-purple }
-
-Optionally specify a `model_group_id` in the request body when registering a model group. If provided, OpenSearch uses your ID as the model group identifier. If omitted, OpenSearch auto-generates a model group ID as before.
-
-### Example request with a custom model group ID
-
-```json
-POST /_plugins/_ml/model_groups/_register
-{
-    "name": "production_models",
-    "description": "Production model group",
-    "model_group_id": "prod_model_group_v1",
-    "access_mode": "private"
-}
-```
-{% include copy-curl.html %}
-
-{% include ml-custom-resource-ids.md %}

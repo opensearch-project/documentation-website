@@ -39,7 +39,7 @@ Field | Data type | Required/Optional | Agent type | Description
 :---  | :--- | :--- | :--- | :---
 `name`| String | Required | All | The agent name. |
 `type` | String | Required | All | The agent type. Valid values are [`flow`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/flow/), [`conversational_flow`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/conversational-flow/), [`conversational`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/conversational/#the-conversational-agent-v1), [`conversational_v2`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/conversational/#the-conversational_v2-agent-with-full-multimodal-support), [`plan_execute_and_reflect`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/plan-execute-reflect/), and [`ag_ui`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/ag-ui/). For more information, see [Agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/). |
-`agent_id` | String | Optional | All | A custom ID for the agent. If omitted, OpenSearch auto-generates an agent ID. See [Custom agent IDs](#custom-agent-ids).
+`agent_id` | String | Optional | All | Unique identifier for the agent. If omitted, OpenSearch auto-generates one. **Introduced 3.9** |
 `description` | String | Optional| All | A description of the agent. |
 `tools` | Array | Optional | All | A list of tools for the agent to execute. 
 `app_type` | String | Optional | All | Specifies an optional agent category. You can then perform operations on all agents in the category. For example, you can delete all messages for RAG agents.
@@ -329,7 +329,7 @@ The following table lists the available request fields for unified agent registr
 | :--- | :--- | :--- | :--- |
 | `name` | String | Required | The agent name. |
 | `type` | String | Required | The agent type. Supported values: `conversational`, `conversational_v2`, `plan_execute_and_reflect`, and `AG_UI`. |
-| `agent_id` | String | Optional | A custom ID for the agent. If omitted, OpenSearch auto-generates an agent ID. See [Custom agent IDs](#custom-agent-ids). |
+| `agent_id` | String | Optional | Unique identifier for the agent. If omitted, OpenSearch auto-generates one. **Introduced 3.9** |
 | `description` | String | Optional | A description of the agent. |
 | `model` | Object | Required | Configuration for the LLM model using the unified registration method. Replaces the regular `llm` object and automatically creates model resources. |
 | `model.model_id` | String | Required | The provider's model identifier. For Amazon Bedrock, use the full model ID (for example, `us.anthropic.claude-3-7-sonnet-20250219-v1:0`). For Google Gemini, use the model name (for example, `gemini-2.5-pro`). For OpenAI, use model names like `gpt-4`. |
@@ -529,36 +529,6 @@ POST /_plugins/_ml/agents/_register
 }
 ```
 {% include copy-curl.html %}
-
-## Custom agent IDs
-**Introduced 3.9**
-{: .label .label-purple }
-
-Optionally specify an `agent_id` in the request body when registering an agent. If provided, OpenSearch uses your ID as the agent identifier in subsequent API calls (for example, `/_plugins/_ml/agents/{agent_id}/_execute`). If omitted, OpenSearch auto-generates an agent ID as before.
-
-### Example request with a custom agent ID
-
-```json
-POST /_plugins/_ml/agents/_register
-{
-  "name": "Customer Service Agent",
-  "type": "conversational",
-  "agent_id": "customer_service_agent",
-  "description": "Answers customer support questions",
-  "llm": {
-    "model_id": "my_gpt_model",
-    "parameters": {
-      "max_iteration": 10
-    }
-  },
-  "parameters": {
-    "_llm_interface": "openai/v1/chat/completions"
-  }
-}
-```
-{% include copy-curl.html %}
-
-{% include ml-custom-resource-ids.md %}
 
 ## Related documentation
 
