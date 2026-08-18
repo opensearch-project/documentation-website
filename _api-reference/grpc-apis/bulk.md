@@ -471,7 +471,13 @@ The [`InlineGetDictUserDefined`](https://github.com/opensearch-project/opensearc
 
 ## Java gRPC client example
 
-The following example shows a Java client-side program that submits an example bulk gRPC request and then checks whether there were any errors in the bulk response:
+### Using the transparent transport (recommended)
+
+For a simpler approach that handles protobuf conversion and gRPC channel management automatically, use the `opensearch-java-grpc` module. See [Java gRPC transport]({{site.url}}{{site.baseurl}}/clients/java-grpc/) for complete setup instructions and examples.
+
+### Using raw protobufs directly
+
+The following example shows a Java client-side program that submits an example bulk gRPC request using raw protobufs and then checks whether there were any errors in the bulk response:
 
 ```java
 import org.opensearch.protobufs.*;
