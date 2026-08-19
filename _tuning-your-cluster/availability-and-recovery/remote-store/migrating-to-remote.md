@@ -155,10 +155,10 @@ Before upgrading to OpenSearch 2.15, take a cluster snapshot and store it remote
    cluster.remote_store.state.enabled: true
    
    # Remote cluster state repository settings
-   node.attr.remote_store.repository.my-remote-state-repo.type: s3
-   node.attr.remote_store.repository.my-remote-state-repo.settings.bucket: <Bucket Name 3>
-   node.attr.remote_store.repository.my-remote-state-repo.settings.base_path: <Bucket Base Path 3>
-   node.attr.remote_store.repository.my-remote-state-repo.settings.region: <Bucket region>
+   node.attr.remote_store.repository.my-repo-3.type: s3
+   node.attr.remote_store.repository.my-repo-3.settings.bucket: <Bucket Name 3>
+   node.attr.remote_store.repository.my-repo-3.settings.base_path: <Bucket Base Path 3>
+   node.attr.remote_store.repository.my-repo-3.settings.region: <Bucket region>
    
    ```
 
@@ -168,12 +168,12 @@ Before upgrading to OpenSearch 2.15, take a cluster snapshot and store it remote
 
 1. Query the `_cat/nodes` endpoint after OpenSearch is running on the new node to confirm that it has joined the cluster. Wait for the cluster to become green again.
 
-1. Repeat steps 2 through 5 for each node in your cluster. 
+1. Repeat steps 6 through 9 for each node in your cluster. 
 
-1. Reenable shard replication, using a command similar to the following:
+1. Re-enable shard replication, using a command similar to the following:
 
    ```json
-   PUT "/_cluster/settings?pretty"
+   PUT _cluster/settings?pretty
    {
        "persistent": {
            "cluster.routing.allocation.enable": "all"
@@ -202,7 +202,7 @@ Before upgrading to OpenSearch 2.15, take a cluster snapshot and store it remote
 1. Confirm that the cluster is healthy by using the Cluster Health API, as shown in the following command:
 
    ```bash
-   GET "/_cluster/health?pretty"
+   GET _cluster/health?pretty
    ```
    You should receive a response similar to the following:
    ```json
