@@ -123,30 +123,65 @@ layout: table_wrappers
         const allCheckbox = document.getElementById('categoryAll');
         return document.querySelectorAll('input[name="categoryGroup"]:checked');
     }
-    
-    function triggerSearch(query) {
+
+    /* The query in the address bar, which is the query this page is showing results for. */
+    function getUrlQuery() {
+        return new URLSearchParams(window.location.search).get('q') || '';
+    }
+
+    /* Shows the results for a query and does nothing else. Separate from `triggerSearch` so that
+       going back to an earlier search can run it again without changing the history. */
+    function runSearch(query) {
       const searchResultsHeader = document.getElementById('searchPageResultsHeader');
+      const resultsContainer = document.getElementById('searchPageResultsContainer');
+
+      if (!query) {
+        searchResultsHeader.textContent = 'Enter a search query.';
+        resultsContainer.innerHTML = '';
+        return;
+      }
+
+      if (getSelectedCategory().length === 0) {
+        searchResultsHeader.textContent = 'Select the result type for your search.';
+        resultsContainer.innerHTML = '';
+        return;
+      }
+
+      const searchType = Array.from(getSelectedCategory()).map(element => element.value).join(',');
+      searchResultsHeader.textContent = `Search results for "${truncateSentence(query, 20)}"`;
+      doResultsPageSearch(query, searchType, getDocsVersion());
+    }
+
+    /* Runs a search and puts it in the address bar, so a reload or a copied link shows the same
+       results. A new query adds a history entry, so the back button walks back through the searches;
+       the same query replaces it, because a category checkbox would otherwise add one per tick.
+       Comment in this style here, never with `//`: the build puts this script on a single line, which
+       would turn a line comment into a comment on everything after it. */
+    function triggerSearch(query) {
+      const previousQuery = getUrlQuery();
+      const url = new URL(window.location);
 
       if (query) {
-        trucatedQuery = truncateSentence(query, 20);
-        if (getSelectedCategory().length === 0) {
-            searchResultsHeader.textContent = 'Select the result type for your search.';
-            document.getElementById('searchPageResultsContainer').innerHTML = '';
-            return;
-        }
-        const selectedCategory = getSelectedCategory();
-        const searchType = Array.from(selectedCategory).map(element => element.value).join(',');
-        const urlPath = window.location.pathname;
-        const versionMatch = urlPath.match(/(\d+\.\d+)/);
-        const docsVersion = versionMatch ? versionMatch[1] : "latest";
-
-        searchResultsHeader.textContent = `Search results for "${trucatedQuery}"`;
-        doResultsPageSearch(query, searchType, docsVersion);
+        url.searchParams.set('q', query);
       } else {
-        searchResultsHeader.textContent = 'Please input a Query for searching.';
-        document.getElementById('searchPageResultsContainer').innerHTML = '';
+        url.searchParams.delete('q');
       }
+
+      if (query && query !== previousQuery) {
+        history.pushState({ q: query }, '', url);
+      } else {
+        history.replaceState({ q: query }, '', url);
+      }
+
+      runSearch(query);
     }
+
+    /* Puts the search box and the results back in step with the address bar when the reader moves
+       between two searches with the back or forward button, which does not reload the page. */
+    window.addEventListener('popstate', () => {
+      searchInput.value = getUrlQuery();
+      runSearch(searchInput.value.trim());
+    });
 
     searchInput.addEventListener('keydown', function(event) {
       if (event.key === 'Enter') {
@@ -220,15 +255,13 @@ layout: table_wrappers
     document.addEventListener('DOMContentLoaded', () => {
       const searchInput = document.getElementById('searchPageInput');
 
-      const getQueryParam = (param) => {
-          const urlParams = new URLSearchParams(window.location.search);
-          return urlParams.get(param);
-      };
-  
-      const searchQuery = getQueryParam('q');
-  
+      /* Fills the box from the address bar and searches, so that a copied link or a reload shows the
+         results it promises. `getUrlQuery` returns the query ready to use, decoded once, which is what
+         a query holding a percent sign needs: "100% recall". */
+      const searchQuery = getUrlQuery();
+
       if (searchQuery) {
-        searchInput.value = decodeURIComponent(searchQuery);
+        searchInput.value = searchQuery;
         triggerSearch(searchInput.value.trim());
       }
     });
