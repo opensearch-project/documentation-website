@@ -170,7 +170,7 @@ Before upgrading to OpenSearch 2.15, take a cluster snapshot and store it remote
 
 1. Repeat steps 6 through 9 for each node in your cluster. 
 
-1. Re-enable shard replication, using a command similar to the following:
+1. Reenable shard replication, using a command similar to the following:
 
    ```json
    PUT _cluster/settings?pretty
