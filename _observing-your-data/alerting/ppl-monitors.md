@@ -290,12 +290,15 @@ The response reports the query results and, for each trigger, whether it fired. 
 
 ## Settings
 
-The following cluster settings apply to PPL monitors. You can update these settings using the [cluster settings API]({{site.url}}{{site.baseurl}}/api-reference/cluster-settings/).
+OpenSearch supports the following PPL monitor settings. All settings are dynamic, so you can change them without restarting your cluster:
 
-Setting | Default | Description
-:--- | :--- | :---
-`plugins.alerting.monitor.max_ppl_triggers` | 10 | The maximum number of triggers allowed per PPL monitor.
-`plugins.alerting.ppl_query_max_execution_duration` | 30s | The maximum execution time allowed for a PPL query during monitor execution.
-`plugins.alerting.ppl_monitor_max_query_length` | 2000 | The maximum number of characters for a PPL query.
-`plugins.alerting.ppl_query_results_max_datarows` | 10000 | The maximum number of data rows to retrieve when executing a PPL query.
-`plugins.alerting.ppl_query_results_max_size` | 3000 | The maximum estimated size, in bytes, of query results stored in alerts and notifications. If the results exceed this size, the alert replaces them with a message stating that the PPL query results were too large.
+- `plugins.alerting.monitor.max_ppl_triggers` (Dynamic, integer): The maximum number of triggers allowed per PPL monitor. This is also the highest accepted value, so you can only lower it. Default is `10`.
+
+- `plugins.alerting.ppl_query_max_execution_duration` (Dynamic, time unit): The maximum execution time allowed for a PPL query during monitor execution. Default is `30s`.
+
+- `plugins.alerting.ppl_monitor_max_query_length` (Dynamic, long): The maximum number of characters for a PPL query. Default is `2000`.
+
+- `plugins.alerting.ppl_query_results_max_datarows` (Dynamic, long): The maximum number of data rows to retrieve when executing a PPL query. Default is `10000`.
+
+- `plugins.alerting.ppl_query_results_max_size` (Dynamic, long): The maximum estimated size, in bytes, of query results stored in alerts and notifications. If the results exceed this size, the alert replaces them with a message stating that the PPL query results were too large. Default is `3000`.
+
