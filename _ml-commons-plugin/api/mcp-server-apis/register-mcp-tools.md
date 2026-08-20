@@ -8,6 +8,7 @@ nav_order: 10
 
 # Register MCP Tools API
 **Introduced 3.0**
+{: .label .label-purple }
 
 Use this API to register one or more Model Context Protocol (MCP)-based tools. For more information about supported tools, see [Tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/).
 
