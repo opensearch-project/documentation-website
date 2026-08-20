@@ -14,6 +14,8 @@ The unified alerts view consolidates alerts from OpenSearch monitors and Prometh
 
 The **Alerts** page can also show anomaly detection and forecasting resources, providing a unified experience for investigating alerts, anomalies, detectors, and forecasters from the same workspace.
 
+Anomaly detection and forecasting resources are available in the unified alerts view in OpenSearch 3.8 and later. Creating and managing these resources from the unified alerts view is available in OpenSearch 3.9 and later.
+
 ## Enabling the unified alerts view
 
 The unified alerts view is disabled by default. To enable it, add the following line to `opensearch_dashboards.yml`:
@@ -45,37 +47,6 @@ When multiple anomaly occurrences belong to the same detector and entity, the ta
 
 The anomaly detail flyout shows detector and anomaly metadata, anomaly grade, confidence, start time, duration, and feature data. For high-cardinality detectors, the flyout includes detector result context for the selected entity. For single-stream detectors, the flyout shows metric context for the selected anomaly.
 
-## Anomaly detection in the Rules tab
-
-The **Rules** tab also includes anomaly detection rules in addition to alert rules.
-
-Detector rows are labeled as **Anomaly Detector** in the **Type** column. Open a detector row to inspect:
-
-- detector and model configuration
-- current status and health
-- anomaly results context (including linked findings)
-- links back to the detector results page
-
-You can manage detector lifecycle directly from this page:
-
-- select one or more detectors and use **Start** / **Stop** from the action bar
-- use row actions in the detail flyout to start or stop an individual detector
-
-## Forecasting in the Rules tab
-
-Forecasting resources are exposed as **Forecaster** rules.
-
-Selecting a forecaster opens a side panel with:
-
-- forecaster description, index details, and feature definition
-- forecast horizon and interval configuration
-- forecast status and health
-- actions to start or stop forecasters
-
-Forecasters are intended to produce forecast output for trend and capacity planning. They do not create alert records directly in the Alerts timeline like monitor alerts do.
-
-You can also use multi-select on the **Rules** table to start and stop forecasters in batch.
-
 ## Acknowledging alerts
 
 From the **Alerts** tab, you can acknowledge one or more active OpenSearch alerts. Select the alerts in the table and select **Acknowledge**.
@@ -94,6 +65,35 @@ If no resources are configured for the selected data sources, the page shows a u
 - forecasting
 
 Anomaly detection and forecasting creation cards are only enabled when a standard OpenSearch datasource is selected in the datasource filter.
+
+### Anomaly detection in the Rules tab
+
+The **Rules** tab also includes anomaly detection rules in addition to alert rules.
+
+Detector rows are labeled as **Anomaly Detector** in the **Type** column. Open a detector row to inspect:
+
+- detector and model configuration
+- current status and health
+
+You can manage detector lifecycle directly from this page:
+
+- select one or more detectors and use **Start** / **Stop** from the action bar
+- use row actions in the detail flyout to start or stop an individual detector
+
+### Forecasting in the Rules tab
+
+Forecasting resources are exposed as **Forecaster** rules.
+
+Selecting a forecaster opens a side panel with:
+
+- forecaster description, index details, and feature definition
+- forecast horizon and interval configuration
+- forecast status and health
+- actions to start or stop forecasters
+
+Forecasters are intended to produce forecast output for trend and capacity planning. They do not create alert records directly in the Alerts timeline like monitor alerts do.
+
+You can also use multi-select on the **Rules** table to start and stop forecasters in batch.
 
 ## Notification routing
 
