@@ -80,7 +80,8 @@ The following table lists the parameters for creating LLM-based judgments.
 | `ignoreFailure` | Boolean | Whether to continue processing other documents if the LLM fails to generate a judgment for some documents. Default is `false`. |
 | `llmJudgmentRatingType` | String | The type of rating scale to use. Valid values are `SCORE0_1` (numeric scale 0--1) and `RELEVANT_IRRELEVANT` (binary relevant/irrelevant). Use `SCORE0_1` for graded relevance metrics such as NDCG. Use `RELEVANT_IRRELEVANT` for binary metrics such as precision and recall. |
 | `promptTemplate` | String | Optional. A custom prompt template for the LLM. Supports {% raw %}`{{queryText}}`{% endraw %} and {% raw %}`{{hits}}`{% endraw %} placeholders. If not provided, the default template is used. |
-| `overwriteCache` | Boolean | Optional, deprecated. This parameter no longer has any effect because the global judgment cache has been removed. It is still accepted so that older clients don't break. To retry only the documents that failed in a completed judgment, use the [retry endpoint](#retrying-failed-documents). |
+| `existingJudgments` | Array of strings | Array of strings | Optional. A list of up to 5 existing judgment IDs whose ratings are reused. For each query-document pair, SRW checks these judgments in order, using the rating from the first match found. Only pairs without an existing rating in any of these judgments are sent to the LLM for evaluation. |
+| `overwriteCache` | Boolean | Optional. Deprecated. Accepted but ignored. The global judgment cache has been removed. |
 
 ### Custom prompt templates
 
