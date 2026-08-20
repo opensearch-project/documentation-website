@@ -26,6 +26,13 @@ redirect_from:
 
 Audit logs let you track access to your OpenSearch cluster and are useful for compliance purposes or in the aftermath of a security breach. You can configure the categories to be logged, the detail level of the logged messages, and where to store the logs.
 
+OpenSearch supports two audit logging modes:
+
+- **Standard mode** (default): Requires the Security plugin with fine-grained access control (FGAC) enabled. Configuration is managed through the `audit.yml` file in the security index and the REST API.
+- **Standalone mode**: Works without FGAC---in SSL-only mode (`plugins.security.ssl_only: true`) or with security disabled (`plugins.security.disabled: true`). Configuration is managed entirely through `opensearch.yml` and dynamic cluster settings. See [Standalone audit logging]({{site.url}}{{site.baseurl}}/security/audit-logs/standalone/) for details.
+
+### Enabling audit logging (standard mode)
+
 Audit logging is disabled by default. To enable audit logging:
 
 1. Add the following line to `opensearch.yml` on each node:
@@ -39,9 +46,7 @@ Audit logging is disabled by default. To enable audit logging:
 
 2. Restart each node.
 
-After this initial setup, you can use OpenSearch Dashboards to manage your audit log categories and other settings. In OpenSearch Dashboards, select **Security** and then **Audit logs**. 
-
-An alternative is to specify initial settings for audit logging in the `audit.yml` and `opensearch.yml` files (which file depends on the setting---see [Audit log settings](#audit-log-settings)). Thereafter, you can use Dashboards or the [Audit logs]({{site.url}}{{site.baseurl}}/security/access-control/api/#audit-logs) API to manage and update settings.
+After this initial setup, you can specify settings for audit logging in the `audit.yml` and `opensearch.yml` files (which file depends on the setting---see [Audit log settings](#audit-log-settings)). You can also use the [Audit logs]({{site.url}}{{site.baseurl}}/security/access-control/api/#audit-logs) API to manage and update settings.
 
 
 ## Tracked events
@@ -59,6 +64,11 @@ Event | Logged on REST | Logged on transport | Description
 `BAD_HEADERS` | Yes | Yes | An attempt was made to spoof a request to OpenSearch with the Security plugin internal headers.
 `CLUSTER_SETTINGS_CHANGED` | No | Yes | A persistent or transient cluster setting was changed. Disabled by default.
 `INDEX_SETTINGS_CHANGED` | No | Yes | An index setting was changed. Disabled by default.
+`REQUEST_AUDIT` | Yes | No | A REST-layer request was received and processed. Generated in [standalone audit logging]({{site.url}}{{site.baseurl}}/security/audit-logs/standalone/) mode only.
+`TRANSPORT_AUDIT` | No | Yes | A transport-layer request was received on a node. Generated in [standalone audit logging]({{site.url}}{{site.baseurl}}/security/audit-logs/standalone/) mode only.
+`RESOURCE_ACCESS_GRANTED` | No | Yes | Access to a shared resource was granted. Disabled by default.
+`RESOURCE_ACCESS_DENIED` | No | Yes | Access to a shared resource was denied. Disabled by default.
+`RESOURCE_SHARING_CHANGED` | No | Yes | A resource sharing configuration was changed. Disabled by default.
 
 
 ## Audit log settings
@@ -260,11 +270,30 @@ config:
 
 ### Settings in opensearch.yml
 
-The following settings are stored in the `opensearch.yml` file.
+The following settings are stored in the `opensearch.yml` file. The audit filter and compliance settings---for example, `log_request_body`, `resolve_indices`, `disabled_categories`, and the `plugins.security.audit.compliance.*` settings---are dynamic: they can be changed at runtime using the [Cluster settings API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/) without a node restart. Most of these dynamic settings are also marked as sensitive, meaning only security admin users can view or modify them via the cluster settings API (`body_logging_exclusions` and `action_groups.<NAME>` are exceptions and are not sensitive). Other audit settings---such as `action_groups.<NAME>`, `log4j.enable_mdc_routing`, `config.index`, the thread pool settings, and the sink connection settings---are static and require a node restart.
+
+#### Enable or disable audit logging
+
+```yml
+plugins.security.audit.enabled: true
+```
+{% include copy.html %}
+
+Enables or disables audit logging globally. Default is `true`. This setting is dynamic and can be toggled at runtime:
+
+```json
+PUT _cluster/settings
+{
+  "persistent": {
+    "plugins.security.audit.enabled": false
+  }
+}
+```
+{% include copy.html %}
 
 #### Exclude categories
 
-You can configure disabled categories in `opensearch.yml` using the `plugins.security.audit.config` prefix. This is useful for non-fine-grained access control (FGAC) modes (SSL-only or security-disabled) for which the `audit.yml` security index is not available:
+You can configure disabled categories in `opensearch.yml` using the `plugins.security.audit.config` prefix. This is useful for non-FGAC modes (SSL-only or security-disabled) where the `audit.yml` security index is not available:
 
 ```yml
 plugins.security.audit.config.disabled_categories:
@@ -273,7 +302,7 @@ plugins.security.audit.config.disabled_categories:
 ```
 {% include copy.html %}
 
-The layer-specific settings (`disabled_rest_categories` and `disabled_transport_categories`) may be deprecated in a future version. Use the unified `disabled_categories` setting instead.
+The following layer-specific settings (`disabled_rest_categories` and `disabled_transport_categories`) are on a deprecation path and could be removed in a future release. Use the unified `disabled_categories` setting instead.
 {: .warning}
 
 The layer-specific settings are also available:
@@ -288,12 +317,155 @@ plugins.security.audit.config.disabled_transport_categories:
 ```
 {% include copy.html %}
 
-When both `disabled_categories` and the layer-specific settings are configured, a category is disabled on a given layer if it appears in either setting.
+When both `disabled_categories` and the layer-specific settings are configured, they work in tandem---a category is disabled on a given layer if it appears in either setting. A deprecation warning is logged when both are configured, encouraging migration to `disabled_categories` only.
+
+The `disabled_categories` settings suppress only REST and transport categories. They do not affect `COMPLIANCE_*` categories, which are governed solely by the compliance settings (`compliance.enabled`, the watched indices/fields, and the compliance ignore-users settings).
+{: .note}
+
+#### Body logging exclusions
+
+Request body logging is valuable for compliance but can be expensive at scale. For example, a cluster performing 100,000+ bulk writes per second generates enormous audit volume---most of it redundant data payloads. The `log_request_body: false` toggle is all-or-nothing: it either logs all bodies or none.
+
+Body logging exclusions give operators granular control: suppress request bodies for high-volume operations (like bulk ingestion) while still capturing bodies for searches, index creation, and admin operations that matter for investigation.
+
+##### How it works
+
+Each audit event's action name and REST path are matched against a set of exclusion patterns. When a match is found, the request body field is omitted from the audit event---all other fields (user, IP address, indices, timestamp, etc.) are preserved.
+
+Matching uses two identifiers per request:
+
+- **Transport action** --- The internal action name (for example, `indices:data/write/bulk[s][p]`). This is matched for transport-layer audit events.
+- **REST path** --- The HTTP request path (for example, `/_bulk`). This is matched for REST-layer audit events. REST paths always start with `/`.
+
+Both identifiers support wildcard patterns using `*` (for example, `indices:data/write/bulk*` matches `indices:data/write/bulk[s][p]`).
+
+##### Configuring action groups
+
+Action groups are named collections of action patterns and/or REST paths, defined statically in `opensearch.yml`. The group name is user-chosen---pick any name that is meaningful for your operations:
+
+```yml
+plugins.security.audit.config.action_groups.BULK: "indices:data/write/bulk*,/_bulk"
+plugins.security.audit.config.action_groups.SEARCH: "indices:data/read/search*,/_search"
+plugins.security.audit.config.action_groups.INDEX_ADMIN: "indices:admin/*"
+```
+{% include copy.html %}
+
+Each action group maps a name to a comma-separated list of patterns. Patterns can be:
+
+- Transport action patterns (contain `:`) --- for example, `indices:data/write/bulk*`
+- REST path patterns (start with `/`) --- for example, `/_bulk`
+- Wildcard patterns (contain `*`) --- for example, `indices:data/write/*`
+
+Action groups are static settings and require a node restart to change. The group names themselves are case-sensitive.
+
+##### Configuring body logging exclusions
+
+The `body_logging_exclusions` setting references action group names or raw patterns. It is dynamic and can be changed at runtime:
+
+```yml
+plugins.security.audit.config.body_logging_exclusions:
+  - BULK
+```
+{% include copy.html %}
+
+Or update at runtime without a restart:
+
+```json
+PUT _cluster/settings
+{
+  "persistent": {
+    "plugins.security.audit.config.body_logging_exclusions": ["BULK", "SEARCH"]
+  }
+}
+```
+{% include copy.html %}
+
+Each entry in the list is processed as follows:
+
+1. If the entry matches a defined action group name, that group's patterns are expanded.
+2. If it does not match any group name, the entry is treated as a raw pattern (literal or wildcard).
+
+A warning is logged for entries that don't look like an action pattern (no `:`), REST path (no `/`), or wildcard (no `*`), since they are unlikely to match any action.
+
+##### Bulk request behavior
+
+When `resolve_bulk_requests: true` is configured (logging individual bulk sub-items), the exclusion check uses the parent bulk action string. This means that excluding the `BULK` group suppresses bodies for **all** sub-items (index, update, delete) within that bulk request. You cannot selectively keep index-item bodies while dropping delete-item bodies within the same bulk request.
+
+##### Interaction with `log_request_body`
+
+Body logging exclusions only apply when `log_request_body` is `true`. If `log_request_body` is `false`, no bodies are logged regardless of the exclusion configuration.
+
+##### Example: Complete configuration
+
+```yml
+# opensearch.yml
+
+# Define action groups (static, requires restart)
+plugins.security.audit.config.action_groups.BULK: "indices:data/write/bulk*,/_bulk"
+plugins.security.audit.config.action_groups.SEARCH: "indices:data/read/search*,/_search"
+plugins.security.audit.config.action_groups.MONITORING: "cluster:monitor/*,indices:monitor/*"
+
+# Initial exclusions (can be updated at runtime via _cluster/settings)
+plugins.security.audit.config.body_logging_exclusions:
+  - BULK
+```
+{% include copy.html %}
+
+With this configuration:
+- Bulk write requests: body is **not** logged (excluded)
+- Search requests: body **is** logged (not excluded)
+- Index creation: body **is** logged (not excluded)
+- Monitoring requests: body **is** logged (not excluded, unless you add `MONITORING` to exclusions)
+
+To add search exclusions at runtime:
+
+```json
+PUT _cluster/settings
+{
+  "persistent": {
+    "plugins.security.audit.config.body_logging_exclusions": ["BULK", "SEARCH"]
+  }
+}
+```
+{% include copy.html %}
+
+To clear all exclusions (resume logging all bodies):
+
+```json
+PUT _cluster/settings
+{
+  "persistent": {
+    "plugins.security.audit.config.body_logging_exclusions": []
+  }
+}
+```
+{% include copy.html %}
+
+#### Log4j MDC routing
+
+When using the `log4j` audit sink, you can enable MDC (Mapped Diagnostic Context) routing to allow Log4j to route audit events to different appenders based on event properties:
+
+```yml
+plugins.security.audit.config.log4j.enable_mdc_routing: true
+```
+{% include copy.html %}
+
+When enabled, the following MDC keys are set on each audit event:
+
+- `audit_category` --- The audit event category (for example, `REQUEST_AUDIT`, `GRANTED_PRIVILEGES`)
+- `audit_action` --- The action name
+- `audit_user` --- The effective user
+- `audit_request_type` --- The request type
+
+This allows you to configure Log4j routing appenders in your `log4j2.properties` to split audit logs by category, user, or any other MDC key.
+
+This is a static setting and requires a node restart.
+{: .note}
 
 
 #### Configure the audit log index name
 
-By default, the Security plugin stores audit events in a daily rolling index named `auditlog-YYYY.MM.dd`:
+By default, the Security plugin stores audit events in a daily rolling index named `security-auditlog-YYYY.MM.dd`:
 
 ```yml
 plugins.security.audit.config.index: myauditlogindex
@@ -328,7 +500,7 @@ plugins.security.audit.config.threadpool.max_queue_len: 100000
 
 ## Disabling audit logs
 
-To disable audit logs after they've been enabled, remove the `plugins.security.audit.type: internal_opensearch` setting from `opensearch.yml`, or switch off the **Enable audit logging** check box in OpenSearch Dashboards.
+To disable audit logs after they've been enabled, remove the `plugins.security.audit.type: internal_opensearch` setting from `opensearch.yml`, or set `plugins.security.audit.enabled` to `false` via the cluster settings API.
 
 ## Audit user account manipulation
 
