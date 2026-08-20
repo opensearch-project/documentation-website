@@ -8,6 +8,7 @@ nav_order: 30
 
 # List MCP Tools API
 **Introduced 3.1**
+{: .label .label-purple }
 
 Use this API to list all Model Context Protocol (MCP)-based tools by name.
 
