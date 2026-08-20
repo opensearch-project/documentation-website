@@ -41,6 +41,14 @@ This page defines key terms and concepts related to OpenSearch.
 - [***Bulk indexing***]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/): The process of indexing multiple documents in a single request.
 - [***Upsert***]({{site.url}}{{site.baseurl}}/api-reference/document-apis/update-document/#upsert): An operation that updates a document if it already exists or inserts a new document if it does not.
 
+## Index management
+
+- [***Index management***]({{site.url}}{{site.baseurl}}/im-plugin/): OpenSearch Dashboard features and operations that support indexes. Most of these features were initially developed as _ISM plugin_ features. Features include index state, policy, alias, and transform functionality. They also include creation, update, and deletion of indexes and operational assignments such as sharding and replication.
+- [***Index operation***]({{site.url}}{{site.baseurl}}/im-plugin/index-ops/index/): An action affecting an index that can be initiated using an API or the OpenSearch Dashboards interface.
+- [***Index state management (ISM)***]({{site.url}}{{site.baseurl}}/im-plugin/ism/): Index management features that support policies and policy-managed indexes.
+- [***State management policy***]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies/), ***index policy***, or ***policy***: An object consisting of states, actions, and transitions, used to automatically manage indexes, for example in log rotation and compression.
+
+
 ## Text analysis
 
 - [***Text analysis***]({{site.url}}{{site.baseurl}}/analyzers/): A process of splitting the unstructured free text content of a document into a sequence of terms, which are then stored in an inverted index. 

@@ -15,7 +15,7 @@ redirect_from:
 
 OpenSearch index alias APIs allow you to create, update, delete, and retrieve information about aliases.
 
-For conceptual information about index aliases, including use cases and examples, see [Index aliases]({{site.url}}{{site.baseurl}}/im-plugin/index-alias/).
+For conceptual information about index aliases, including use cases and examples, see [Index aliases]({{site.url}}{{site.baseurl}}/im-plugin/aliases/index/).
 
 ## Available APIs
 
@@ -32,4 +32,4 @@ OpenSearch supports the following index alias APIs.
 
 ## Related documentation
 
-For more information about index aliases, see [Index aliases]({{site.url}}{{site.baseurl}}/im-plugin/index-alias/).
+For more information about index aliases, see [Index aliases]({{site.url}}{{site.baseurl}}/im-plugin/aliases/index/).

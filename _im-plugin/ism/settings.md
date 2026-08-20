@@ -2,14 +2,14 @@
 layout: default
 title: Settings
 parent: Index State Management
-nav_order: 4
+nav_order: 50
 ---
 
 # ISM settings
 
 We don't recommend changing these settings; the defaults should work well for most use cases.
 
-Index State Management (ISM) stores its configuration in the `.opendistro-ism-config` index. Don't modify this index without using the [ISM API operations]({{site.url}}{{site.baseurl}}/im-plugin/ism/api/).
+Index State Management (ISM) stores its configuration in the `.opendistro-ism-config` index. Don't modify this index without using the [ISM API operations]({{site.url}}{{site.baseurl}}/im-plugin/ism/api-ism/).
 
 All settings are available using the OpenSearch `_cluster/settings` operation. None require a restart, and all can be marked `persistent` or `transient`. To learn more about static and dynamic settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
 

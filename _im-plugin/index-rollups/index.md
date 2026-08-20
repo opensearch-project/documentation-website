@@ -9,17 +9,17 @@ redirect_from:
 
 # Index rollups
 
-Time-series data increases storage costs, strains cluster health, and slows down aggregations over time. Index rollup lets you periodically reduce data granularity by rolling up old data into summarized indexes.
+Uncompressed time series data eventually increases storage costs, strains cluster health, and slows down aggregations. _Index rollup_ mitigates these effects by periodically compressing old data into summarized indexes with reduced granularity.
 
-You pick the fields that interest you and use index rollup to create a new index with only those fields aggregated into coarser time buckets. You can store months or years of historical data at a fraction of the cost with the same query performance.
+You pick the fields that interest you and use index rollup to create a new index with only those fields, aggregated into coarser time buckets. You can store months or years of historical data at a fraction of the cost with the same query performance.
 
-For example, say you collect CPU consumption data every five seconds and store it on a hot node. Instead of moving older data to a read-only warm node, you can roll up or compress this data with only the average CPU consumption per day or with a 10% decrease in its interval every week.
+For example, say you collect CPU consumption data every five seconds and store it on a hot node. Instead of moving older data to a read-only warm node, you can progressively compress this data with a 10% decrease in its interval every week. Or you could save only the average CPU consumption per day.
 
 You can use index rollup in three ways:
 
 1. Use the Index Rollup API for an on-demand index rollup job that operates on an index that's not being actively ingested, such as a rolled-over index. For example, you can perform an index rollup operation to aggregate data collected at a 5-minute interval into a weekly average for trend analysis.
-2. Use the OpenSearch Dashboards UI to create an index rollup job that runs on a defined schedule. You can also set it up to roll up your indexes as it’s being actively ingested. For example, you can continuously roll up Logstash indexes from a five second interval to a one hour interval.
-3. Specify the index rollup job as an ISM action for complete index management. This allows you to roll up an index after a certain event such as a rollover, index age reaching a certain point, index becoming read-only, and so on. You can also have rollover and index rollup jobs running in sequence, where the rollover first moves the current index to a warm node and then the index rollup job creates a new index with the minimized data on the hot node.
+2. Use the OpenSearch Dashboards UI to create an index rollup job that runs on a defined schedule. Or you can configure the job to roll up your indexes as they are being ingested. For example, you can continuously roll up Logstash indexes from a five second interval to a one hour interval.
+3. Specify the index rollup job as an ISM action as a part of complete index management. This enables you to trigger a rollup after an event such as a rollover, index age reaching a certain point, index becoming read-only, and so on. You can also have rollover and index rollup jobs running in sequence, where the rollover first moves the current index to a warm node and then the index rollup job creates a new index with the minimized data on the hot node.
 
 ## Create an index rollup job
 
@@ -1184,4 +1184,4 @@ The response contains two buckets, "Error" and "Success", and the document count
 
 ## Index codec considerations
 
-For index codec considerations, see [Index codecs]({{site.url}}{{site.baseurl}}/im-plugin/index-codecs/#index-rollups-and-transforms).
+For index codec considerations, see [Index codecs]({{site.url}}{{site.baseurl}}/im-plugin/index-other/index-codecs/#index-rollups-and-transforms).

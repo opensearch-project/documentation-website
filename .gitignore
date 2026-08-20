@@ -15,3 +15,11 @@ node_modules
 cdk*
 .dev*
 CLAUDE.md
+mcp.json
+ 
+# Copilot customization files - workspace agent and instructions
+.github/copilot-instructions.md
+.github/agents/*.agent.md
+
+# VS Code Copilot cache
+.vscode/.copilot-cache/

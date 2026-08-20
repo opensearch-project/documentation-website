@@ -1,14 +1,16 @@
 ---
 layout: default
 title: Index context
-nav_order: 20
+parent: Other components
+grand_parent: Managing indexes
+nav_order: 60
 redirect_from:
   - /opensearch/index-context/
 ---
 
 # Index context
 
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).    
+This is an experimental feature and is not recommended for use in a production environment. For updates on the progress the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).
 {: .warning}
 
 Index context declares the use case for an index. Using the context information, OpenSearch applies a predetermined set of settings and mappings, which provides the following benefits:

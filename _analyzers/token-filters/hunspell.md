@@ -28,7 +28,7 @@ Parameter | Required/Optional | Data type | Description
 `dedup` | Optional | Boolean | Determines whether to remove multiple duplicate stemming terms for the same token. Default is `true`.
 `dictionary` | Optional | Array of strings | Configures the dictionary files to be used for the Hunspell dictionary. Default is all files in the `<OS_PATH_CONF>/hunspell/<locale>` directory if `ref_path` is not specified or all files in the `<OS_PATH_CONF>/<ref_path>/hunspell/<locale>/` directory when `ref_path` is specified. See [Custom dictionary loading with ref_path](#custom-dictionary-loading).
 `longest_only` | Optional | Boolean | Specifies whether only the longest stemmed version of the token should be returned. Default is `false`.
-`updateable` | Optional | Boolean | When set to `true`, the filter operates in search-time analysis mode, allowing dictionaries to be hot-reloaded by using the [Refresh search analyzer]({{site.url}}{{site.baseurl}}/im-plugin/refresh-analyzer/) API without restarting the node. Default is `false`. **Introduced 3.7.**
+`updateable` | Optional | Boolean | When set to `true`, the filter operates in search-time analysis mode, allowing dictionaries to be hot-reloaded by using the [Refresh search analyzer]({{site.url}}{{site.baseurl}}/im-plugin/index-other/refresh-analyzer/) API without restarting the node. Default is `false`. **Introduced 3.7.**
 
 ## Example
 
@@ -197,7 +197,7 @@ To hot-reload a Hunspell dictionary, follow these steps:
 
 1. Replace the `.aff` and `.dic` files on disk on every node that holds a shard for the index.
 
-1. Call the [Refresh Search Analyzer API]({{site.url}}{{site.baseurl}}/im-plugin/refresh-analyzer/). When `reload_cached_resources` is `false` (the default), the API rebuilds analyzer factories but reuses the previously cached Hunspell dictionary. Specify `reload_cached_resources=true` to force the dictionary to be reloaded from disk:
+1. Call the [Refresh Search Analyzer API]({{site.url}}{{site.baseurl}}/im-plugin/index-other/refresh-analyzer/). When `reload_cached_resources` is `false` (the default), the API rebuilds analyzer factories but reuses the previously cached Hunspell dictionary. Specify `reload_cached_resources=true` to force the dictionary to be reloaded from disk:
 
    ```json
    POST /_plugins/_refresh_search_analyzers/my_index?reload_cached_resources=true
