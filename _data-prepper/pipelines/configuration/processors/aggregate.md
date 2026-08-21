@@ -124,6 +124,35 @@ Then the processor creates the following event:
 ```
 
 <!-- vale off -->
+### sum
+<!-- vale on -->
+
+The `sum` action sums the numeric value of a configured `key` for events belonging to the same group and generates a new event with the values of the `identification_keys` and the accumulated total. The action drops all events that make up the combined event.
+
+You can customize the processor with the following configuration options:
+
+* `key`: The name of the field in the events to sum. The value of this field must be numeric. Required.
+* `metric_name`: The name of the metric when using the `otel_metrics` output format. Default is `sum`.
+* `count_key`: The key used for storing the number of events that contributed to the sum when using the `raw` output format. Default name is `aggr._count`.
+* `output_format`: Format of the aggregated event.
+    * `otel_metrics`: Default output format. Outputs in OTel metrics SUM type with the total as value. The metric is non-monotonic because a summed field is not guaranteed to be non-negative.
+    * `raw`: Generates a JSON object with the `aggr._sum` field as the total, the `count_key` field as the number of events that contributed to it, and the `aggr._start_time` field with the aggregation start time as value.
+
+For example, when using `identification_keys: ["sourceIp", "destination_ip"]` and `key: bytes_out`, the `sum` action processes the following events:
+
+```json
+{ "sourceIp": "127.0.0.1", "destinationIp": "192.168.0.1", "bytes_out": 1234 }
+{ "sourceIp": "127.0.0.1", "destinationIp": "192.168.0.1", "bytes_out": 4321 }
+{ "sourceIp": "127.0.0.1", "destinationIp": "192.168.0.1", "bytes_out": 100 }
+```
+
+The processor creates the following event:
+
+```json
+{"isMonotonic":false,"unit":"1","aggregationTemporality":"AGGREGATION_TEMPORALITY_DELTA","kind":"SUM","name":"sum","description":"Sum of the events","startTime":"2022-12-02T19:29:51.245358486Z","time":"2022-12-02T19:30:15.247799684Z","value":5655.0,"sourceIp":"127.0.0.1","destinationIp":"192.168.0.1"}
+```
+
+<!-- vale off -->
 ### rate_limiter
 <!-- vale on -->
 
