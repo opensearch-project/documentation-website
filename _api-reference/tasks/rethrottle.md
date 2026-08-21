@@ -2,7 +2,7 @@
 layout: default
 title: Rethrottle
 parent: Tasks APIs
-nav_order: 40
+nav_order: 50
 ---
 
 # Rethrottle API
