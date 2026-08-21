@@ -131,10 +131,10 @@ Run separately, the two query clauses produce scores on different scales. The `m
 
 | Document ID | `item_name` | Keyword score | Vector score |
 | :--- | :--- | :--- | :--- |
-| `1` | kids running shoes | 0.8167638 | -- |
-| `2` | mens lightweight running shoes for road racing | 0.5356597 | 1.0 |
-| `3` | trail runners | -- | 0.98039216 |
-| `4` | athletic socks | -- | 0.7575758 |
+| `1` | `kids running shoes` | 0.8167638 | -- |
+| `2` | `mens lightweight running shoes for road racing` | 0.5356597 | 1.0 |
+| `3` | `trail runners` | -- | 0.98039216 |
+| `4` | `athletic socks` | -- | 0.7575758 |
 
 Create one search pipeline for each normalization technique, replacing `min_max` with `l2` and `z_score` to create the other two:
 

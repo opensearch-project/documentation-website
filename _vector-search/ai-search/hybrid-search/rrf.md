@@ -8,7 +8,7 @@ has_math: true
 nav_order: 5
 ---
 
-# Reciprocal rank fusion (RRF)
+# Reciprocal rank fusion
 **Introduced 2.19**
 {: .label .label-purple }
 
