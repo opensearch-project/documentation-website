@@ -8,7 +8,7 @@ nav_order: 49
 
 <!-- vale off -->
 
-# timechart
+# timechart command
 
 <!-- vale on -->
 

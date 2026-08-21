@@ -1,16 +1,15 @@
 ---
 layout: default
 title: operations
-parent: Workload reference
-grand_parent: Reference
-nav_order: 100
+parent: Anatomy of a workload
+nav_order: 30
 ---
 
 <!-- vale off -->
-# operations
+# operations element
 <!-- vale on -->
 
-The `operations` element contains a list of all available operations for specifying a schedule.
+The `operations` element lists the OpenSearch API operations that the workload performs and how they are parameterized. For example, you can define an operation named `create-index` that creates an index in the benchmark cluster to which OpenSearch Benchmark can write documents. The [`schedule`]({{site.url}}{{site.baseurl}}/benchmark/reference/workloads/schedule/) element then references these operations by name to specify the order in which they run.
 
 <!-- vale off -->
 ## bulk

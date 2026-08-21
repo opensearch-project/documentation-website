@@ -300,6 +300,7 @@ Name | Description
 Name | Description
 :--- | :---
 `-dci` | Delete the Security plugin configuration index and exit. This option is useful if the cluster state is red due to a corrupted Security plugin index.
+`-dg,--diagnose` | Log a diagnostic trace to a file. The script prints the location of the generated file.
 `-esa` | Enable shard allocation and exit. This option is useful if you disabled shard allocation while performing a full cluster restart and need to recreate the Security plugin index.
 `-w` | Displays information about the used admin certificate.
 `-rl` | By default, the Security plugin caches authenticated users, along with their roles and permissions, for one hour. This option reloads the current Security plugin configuration stored in your cluster, invalidating any cached users, roles, and permissions.

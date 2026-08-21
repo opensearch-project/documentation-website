@@ -5,8 +5,6 @@ nav_order: 25
 parent: Monitors
 grand_parent: Alerting
 has_children: false
-redirect_from:
- - /observing-your-data/alerting/composite-monitors/
 ---
 
 # Composite monitors

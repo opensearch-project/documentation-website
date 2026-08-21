@@ -5,7 +5,7 @@ nav_order: 11
 ---
 
 <!-- vale off -->
-# opensearch-py-ml
+# opensearch-py-ml client
 <!-- vale on -->
 
 `opensearch-py-ml` is a Python client that provides a suite of data analytics and natural language processing (NLP) support tools for OpenSearch. It provides data analysts with the ability to:

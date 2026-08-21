@@ -7,7 +7,7 @@ great_grand_parent: Building data visualizations
 nav_order: 10
 ---
 
-# Area chart
+# Area charts in the visualization editor
 
 An area chart plots data points connected by lines with the region below filled in, making it ideal for visualizing volume and composition over time. You can stack multiple series to see how each category contributes to the total.
 

@@ -6,7 +6,7 @@ parent: Index State Management
 has_children: false
 ---
 
-# Policies
+# ISM policies
 
 Policies are JSON documents that define the following:
 

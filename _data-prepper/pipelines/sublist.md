@@ -7,7 +7,7 @@ nav_order: 50
 ---
 
 <!-- vale off -->
-# subList()
+# subList() function
 <!-- vale on -->
 
 The `subList(<key>, <start_index, inclusive>, <end_index, exclusive>)` function extracts a sublist from a list field in an event. It takes the following arguments:

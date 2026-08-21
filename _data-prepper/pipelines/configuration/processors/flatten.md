@@ -22,6 +22,7 @@ Option | Required | Type | Description
 `remove_processed_fields` | No | Boolean | When `true`, the processor removes all processed fields from the source. Default is `false`.
 `remove_list_indices` | No | Boolean | When `true`, the processor converts the fields from the source map into lists and puts the lists into the target field. Default is `false`.
 `flatten_when` | No | String | A [conditional expression]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/expression-syntax/), such as `/some-key == "test"'`, that determines whether the `flatten` processor will be run on the event. Default is `null`, which means that all events will be processed unless otherwise stated.
+`flatten_separator` | No | String | The character used to join nested key names into flattened keys. Must be a single character. Default is `.`.
 `tags_on_failure` | No | List | A list of tags to add to the event metadata when the event fails to process.
 
 ## Usage
@@ -238,5 +239,59 @@ The processor removes all indexes from the output and places them into the sourc
   "key2.key3.key4": "val2",
   "list1[].list2[].name": ["name1","name2"],
   "list1[].list2[].value": ["value1","value2"]
+}
+```
+
+### Custom separator
+
+Use the `flatten_separator` option to specify a custom character for joining nested key names. The default separator is `.`, but you can use any single character, such as `_`, as shown in the following example:
+
+```yaml
+...
+  processor:
+    - flatten:
+        source: "log"
+        target: ""
+        flatten_separator: "_"
+        remove_processed_fields: true
+...
+```
+{% include copy.html %}
+
+Consider an input event that contains the following nested objects:
+
+```json
+{
+  "timestamp": "2026-07-29T12:00:00Z",
+  "service": "user-service",
+  "log": {
+    "request": {
+      "method": "POST",
+      "url": "/api/v1/users",
+      "headers": {
+        "content_type": "application/json"
+      }
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "user_id": "usr_12345"
+      }
+    }
+  }
+}
+```
+
+The `flatten` processor flattens the `log` field using `_` as the separator and places the results at the root of the event, as shown in the following output:
+
+```json
+{
+  "timestamp": "2026-07-29T12:00:00Z",
+  "service": "user-service",
+  "request_method": "POST",
+  "request_url": "/api/v1/users",
+  "request_headers_content_type": "application/json",
+  "response_status": 200,
+  "response_body_user_id": "usr_12345"
 }
 ```

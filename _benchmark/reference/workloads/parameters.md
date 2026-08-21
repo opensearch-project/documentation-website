@@ -1,9 +1,8 @@
 ---
 layout: default
 title: Workload parameters
-nav_order: 150
-parent: Workload reference
-grand_parent: Reference
+parent: Anatomy of a workload
+nav_order: 60
 ---
 
 # Workload parameters

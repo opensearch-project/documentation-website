@@ -8,7 +8,7 @@ nav_order: 21
 
 <!-- vale off -->
 
-# graphLookup
+# graphLookup command
 
 <!-- vale on -->
 

@@ -79,6 +79,8 @@ Google Normalized Distance
 Google Workspace
 Gradle
 Grafana
+Grok
+Grok Debugger
 Hanja
 Helm
 Hjson
@@ -130,6 +132,7 @@ Microsoft Power BI
 Migration Assistant
 Migration Console
 Minikube
+Mustache
 Nagle
 Nagios
 NVMe
@@ -169,6 +172,7 @@ Python
 PyTorch
 Quandl
 Querqy
+Query Profiler
 Query Workbench
 RankLib
 RCF Summarize

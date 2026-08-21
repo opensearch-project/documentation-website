@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Tag clouds
+title: Tag cloud
 parent: Visualization types
 grand_parent: Creating visualizations in the Visualize application
 great_grand_parent: Building data visualizations
@@ -9,7 +9,7 @@ redirect_from:
   - /dashboards/visualize/tag-cloud/
 ---
 
-# Tag clouds
+# Tag cloud
 
 A tag cloud displays a group of text fields (bucket labels, called _tags_ in the visualization) from the data. The font size of each tag corresponds to the magnitude of the bucket in the data. For example, if the visualization specifies `Average`, the font size of the tag in the tag cloud is proportional to the bucketed field's average value.
 

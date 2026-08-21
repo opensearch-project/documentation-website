@@ -8,7 +8,7 @@ nav_order: 40
 
 <!-- vale off -->
 
-# rex
+# rex command
 
 <!-- vale on -->
 
