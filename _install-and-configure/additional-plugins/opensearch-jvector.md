@@ -33,12 +33,12 @@ Typical use cases include recommendation systems, image and video similarity sea
 ## Unique features
 
 - **DiskANN Implementation (Pure Java)** - Based on `jvector` library, a pure Java implementation of DiskANN-style approximate nearest neighbour (ANN) search optimized for memory-constrained environments. It eliminates the need for native libraries such as `Faiss` and avoids the complexity and overhead associated with JNI, simplifying deployment and maintenance.
-- **Scalable Thread-Safe Design** - The index is fully thread-safe and supports concurrent updates and insertions with near-linear scalability as CPU cores increase. The underlying Jvector library enables high-throughput ingestion without relying on costly merge operations to achieve parallelism.
+- **Scalable Thread-Safe Design** - The index is fully thread-safe and supports concurrent updates and insertions with near-linear scalability as CPU cores increase. The underlying `jvector` library enables high-throughput ingestion without relying on costly merge operations to achieve parallelism.
 - **Quantization Refinement During Merges** - The system refines quantization codebooks incrementally during merge operations. This approach improves search accuracy and recall without requiring a complete recomputation of codebooks, reducing computational overhead.
 - **Incremental Index Updates** - `jvector` allows incremental insertion of vectors into existing indexes. This providing efficiency gains over full index rebuilds for workloads involving frequent updates, particularly for large graph-based indexes.
 - **Quantized DiskANN with Reranking** - `jvector` supports DiskANN-style quantization combined with reranking, delivering significant performance improvements for datasets larger than available memory. This approach is particularly effective for large-scale deployments where traditional in-memory indexing is not feasible.
 - **Product Quantization (PQ)** - PQ is implemented with high-performance SIMD optimizations and separate codebooks to enable fast vector searches with low memory usage.
-- **Advanced Quantization Techniques** - `jvector` includes advanced capabilities such as Non-Vector Quantization (NVQ), and Anisotropic PQ, enabling more efficient and accurate similarity computations beyond standard quantization approaches.
+- **Advanced Quantization Techniques** - `jvector` includes advanced capabilities such as Non-Uniform Vector Quantization (NVQ), and Anisotropic PQ, enabling more efficient and accurate similarity computations beyond standard quantization approaches.
 
 ## Installation
 
