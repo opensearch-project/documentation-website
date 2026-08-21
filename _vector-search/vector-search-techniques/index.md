@@ -29,7 +29,7 @@ In general, you should choose the ANN method for larger datasets because it scal
 
 OpenSearch supports multiple backend algorithms (_methods_) and libraries for implementing these algorithms (_engines_). It automatically selects the optimal configuration based on the chosen mode and available memory. For more information, see [Methods and engines]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-methods-engines/).
 
-The [`opensearch-jvector`]({{site.url}}{{site.baseurl}}/install-and-configure/additional-plugins/opensearch-jvector/) plugin provides an additional `jvector` engine with the `disk_ann` method. Unlike the built-in engines, `jvector` is not part of the default OpenSearch distribution and cannot be installed alongside `opensearch-knn`.
+The [`opensearch-jvector` plugin]({{site.url}}{{site.baseurl}}/install-and-configure/additional-plugins/opensearch-jvector/) provides an additional `jvector` engine with the `disk_ann` method. The plugin isn't part of any OpenSearch distribution and can't be installed alongside `opensearch-knn`.
 
 ## Using sparse vectors
 

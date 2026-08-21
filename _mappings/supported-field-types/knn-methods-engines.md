@@ -23,7 +23,7 @@ OpenSearch supports the following engines:
 - [**Lucene**](#lucene-engine): The native search library, offering an HNSW implementation with efficient filtering capabilities
 - [**Faiss**](#faiss-engine) (Facebook AI Similarity Search): A comprehensive library implementing both the HNSW and IVF methods, with additional vector compression options
 - [**NMSLIB**](#nmslib-engine-deprecated) (Non-Metric Space Library): A legacy implementation of HNSW (now deprecated)
-- [**jvector**]({{site.url}}{{site.baseurl}}/install-and-configure/additional-plugins/opensearch-jvector/): Available through the `opensearch-jvector` plugin (not included in the default distribution). Implements DiskANN-style approximate nearest neighbor search using the `disk_ann` method. Supports concurrent inserts, incremental merges, and native Product Quantization (PQ). Cannot be installed alongside `opensearch-knn`.
+- [**JVector**](#jvector-engine): A pure-Java implementation of DiskANN-style search using the `disk_ann` method, with concurrent inserts, incremental merges, and native product quantization (PQ), available through the [`opensearch-jvector` plugin]({{site.url}}{{site.baseurl}}/install-and-configure/additional-plugins/opensearch-jvector/)
 
 ## Method definition example
 
@@ -75,7 +75,7 @@ The following parameters are common to all method definitions.
 
 Mapping parameter | Required | Default | Updatable | Description
 :--- | :--- | :--- | :--- | :---
-`name` | Yes | N/A | No | The nearest neighbor method. Valid values are `hnsw`, `ivf`, and `flat`. Not every engine combination supports each of the methods. For a list of supported methods, see the section for a specific engine.
+`name` | Yes | N/A | No | The nearest neighbor method. Valid values are `hnsw`, `ivf`, `flat`, and `disk_ann`. Not every engine combination supports each of the methods. For a list of supported methods, see the section for a specific engine.
 `space_type` | No | `l2` | No | The vector space used to calculate the distance between vectors. Valid values are `l1`, `l2`, `linf`, `cosinesimil`, `innerproduct`, `hamming`, and `hammingbit`. Not every method/engine combination supports each of the spaces. For a list of supported spaces, see the section for a specific engine. Note: This value can also be specified at the top level of the mapping. For more information, see [Spaces]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-spaces/).
 `engine` | No | `faiss`  | No | The approximate k-NN library to use for indexing and search. Valid values are `faiss`, `lucene`, `nmslib` (deprecated), and `jvector` (requires the [`opensearch-jvector` plugin]({{site.url}}{{site.baseurl}}/install-and-configure/additional-plugins/opensearch-jvector/)).
 `parameters` | No | `null` | No | The parameters used for the nearest neighbor method. For more information, see the section for a specific engine.
@@ -397,9 +397,9 @@ An index created in OpenSearch version 2.11 or earlier will still use the previo
 }
 ```
 
-## `jvector` engine
+## JVector engine
 
-The `jvector` engine is available through the [`opensearch-jvector` plugin]({{site.url}}{{site.baseurl}}/install-and-configure/additional-plugins/opensearch-jvector/) and is not included in the default OpenSearch distribution. To install it, please follow the instructions in the [`opensearch-jvector` plugin]({{site.url}}{{site.baseurl}}/install-and-configure/additional-plugins/opensearch-jvector/#installation) documentation. It is not possible to have this plugin alongside `opensearch-knn` in the same cluster presently. The `jvector` engine implements DiskANN-style approximate nearest neighbor search in pure Java, with no JNI dependency.
+The `jvector` engine implements DiskANN-style approximate nearest neighbor search in pure Java, with no Java Native Interface (JNI) dependency. The engine isn't included in any OpenSearch distribution; it's provided by the `opensearch-jvector` plugin, which can't be installed in the same cluster as `opensearch-knn`. For installation instructions, see [OpenSearch JVector plugin]({{site.url}}{{site.baseurl}}/install-and-configure/additional-plugins/opensearch-jvector/#installation).
 
 ### Supported methods
 
@@ -407,32 +407,32 @@ The `jvector` engine supports the following method.
 
 Method name | Requires training | Supported spaces
 :--- | :--- | :---
-`disk_ann` | No | `l2`, `cosinesimil`, `innerproduct`
+[`disk_ann`](#diskann-parameters) | No | `l2`, `cosinesimil`, `innerproduct`
 
-### Method parameters
+#### DiskANN parameters
 
-| Parameter | Default | Description |
-|---|---|---|
-| `m` | `16` | Bi-directional link count per node. Higher values improve recall, increase index size. |
-| `ef_construction` | `100` | Candidate list size during graph construction. Higher values improve recall, slow ingestion. |
-| `advanced.alpha` | `1.2` | Diversity factor for neighbor selection |
-| `advanced.neighbor_overflow` | `1.2` | Overflow factor for neighbor lists |
-| `advanced.hierarchy_enabled` | `false` | Enable hierarchical graph structure |
-| `advanced.num_pq_subspaces` | — | Number of PQ subspaces. Must be ≤ dimension. |
-| `advanced.min_batch_size_for_quantization` | `1024` | Documents needed before quantization is trained |
-| `advanced.leading_segment_merge_disabled` | `false` | Prevent leading segment from being rebuilt during force merge |
+The `disk_ann` method supports the following parameters.
 
-### Space Types
+Parameter name | Default | Description
+:--- | :--- | :---
+`m` | `16` | The number of bidirectional links per node. Higher values improve recall but increase index size.
+`ef_construction` | `100` | The size of the candidate list used during graph construction. Higher values improve recall but slow ingestion.
+`advanced.alpha` | `1.2` | The diversity factor for neighbor selection.
+`advanced.neighbor_overflow` | `1.2` | The overflow factor for neighbor lists.
+`advanced.hierarchy_enabled` | `false` | Whether to enable a hierarchical graph structure.
+`advanced.num_pq_subspaces` | N/A | The number of PQ subspaces. Must not exceed the number of vector dimensions.
+`advanced.min_batch_size_for_quantization` | `1024` | The number of documents required before quantization is trained.
+`advanced.leading_segment_merge_disabled` | `false` | Whether to prevent the leading segment from being rebuilt during a force merge.
 
-The `space_type` field controls which distance metric is used.
+### Space types
 
-| Value | Distance metric | Use case |
-|---|---|---|
-| `l2` | Euclidean distance (L2 norm) | General-purpose; raw coordinates |
-| `cosinesimil` | Cosine similarity | Text embeddings; direction matters more than magnitude |
-| `innerproduct` | Dot product (inner product) | Embeddings where magnitude carries meaning (e.g., biencoder models) |
+The `space_type` parameter determines the distance metric used to compare vectors. The following table lists the space types that the `jvector` engine supports. For more information, see [Spaces]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-spaces/).
 
-The default is `l2` when `space_type` is omitted.
+Space type | Distance metric | Use case
+:--- | :--- | :---
+`l2` (default) | Euclidean distance (L2 norm) | General-purpose search on raw coordinates
+`cosinesimil` | Cosine similarity | Text embeddings, for which direction matters more than magnitude
+`innerproduct` | Dot product (inner product) | Embeddings for which magnitude carries meaning, such as those produced by bi-encoder models
 
 ### Example configuration
 
@@ -458,26 +458,26 @@ If you want to use less memory and increase indexing speed as compared to HNSW w
 
 If memory is a concern, consider adding a PQ encoder to your HNSW or IVF index. Because PQ is a lossy encoding, query quality will drop.
 
-If your dataset grows continuously or exceeds available memory, consider the [jvector engine](#jvector-engine) (via the [`opensearch-jvector` plugin]({{site.url}}{{site.baseurl}}/install-and-configure/additional-plugins/opensearch-jvector/)). It supports concurrent inserts, incremental merges without full graph rebuilds, and native PQ with better recall at higher compression ratios.
+If your dataset grows continuously or exceeds available memory, consider the [JVector engine](#jvector-engine), which is provided by the [`opensearch-jvector` plugin]({{site.url}}{{site.baseurl}}/install-and-configure/additional-plugins/opensearch-jvector/). It supports concurrent inserts, incremental merges without full graph rebuilds, and native PQ with better recall at higher compression ratios.
 
 You can reduce the memory footprint by a factor of 2, with a minimal loss in search quality, by using the [`fp_16` encoder]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/faiss-scalar-quantization/#16-bit-quantization). If your vector dimensions are within the [-128, 127] byte range, we recommend using the [byte quantizer]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-memory-optimized/#byte-vectors) to reduce the memory footprint by a factor of 4. To learn more about vector quantization options, see [k-NN vector quantization]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/knn-vector-quantization/).
 
 ## Engine recommendations
 
-In general, select Faiss for large-scale use cases. Lucene is a good option for smaller deployments and offers benefits like smart filtering, where the optimal filtering strategy—pre-filtering, post-filtering, or exact k-NN—is automatically applied depending on the situation. Consider `jvector` for high-update workloads or memory-constrained large-scale deployments. The following table summarizes the differences between each option.
+In general, select Faiss for large-scale use cases. Lucene is a good option for smaller deployments and offers benefits like smart filtering, where the optimal filtering strategy—pre-filtering, post-filtering, or exact k-NN—is automatically applied depending on the situation. Consider JVector for high-update workloads or memory-constrained large-scale deployments. The following table summarizes the differences between each option.
 
-| |   Faiss/HNSW |  Faiss/IVF |  Lucene/HNSW | jvector/disk_ann |
+| |   Faiss/HNSW |  Faiss/IVF |  Lucene/HNSW | JVector/DiskANN |
 |:---|:---|:---|:---|:---|
 |  Max dimensions |    16,000 |  16,000 |  16,000 | 16,000 |
 |  Filter |    Post-filter |  Post-filter |  Filter during search | Filter during search <br><br> Post-filter |
 |  Training required |    No (Yes for PQ) |  Yes |  No | No |
-|  Similarity metrics | `l2`, `innerproduct`, `cosinesimil` |  `l2`, `innerproduct`, `cosinesimil` |  `l2`, `cosinesimil` | `l2`, `cosinesimil`, `innerproduct`, `l1`, `linf` |
+|  Similarity metrics | `l2`, `innerproduct`, `cosinesimil` |  `l2`, `innerproduct`, `cosinesimil` |  `l2`, `cosinesimil` | `l2`, `cosinesimil`, `innerproduct` |
 |  Number of vectors   |    Tens of billions |  Tens of billions |  Less than 10 million | Billions |
 |  Indexing latency |   Low  |  Lowest  |  Low  | Low (concurrent inserts) |
 |  Query latency and quality  |    Low latency and high quality  |  Low latency and low quality  |  High latency and high quality  | Low latency and high quality |
 |  Vector compression  |   Flat <br><br>PQ |  Flat <br><br>PQ |  Flat  | Flat <br><br> PQ (native, no training) |
 |  Memory consumption |   High <br><br> Low with PQ |  Medium <br><br> Low with PQ |  High  | Low (DiskANN) <br><br> Very low with PQ |
-|  Plugin required | No | No | No | Yes ([opensearch-jvector]({{site.url}}{{site.baseurl}}/install-and-configure/additional-plugins/opensearch-jvector/)) |
+|  Plugin required | No | No | No | Yes ([`opensearch-jvector`]({{site.url}}{{site.baseurl}}/install-and-configure/additional-plugins/opensearch-jvector/)) |
 
 ## Memory estimation
 

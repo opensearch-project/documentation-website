@@ -21,11 +21,11 @@ Vector search operations can be resource intensive, especially when dealing with
 
 {% include cards.html cards=page.storage_cards %}
 
-## Opensearch-jvector: Built-in disk-friendly quantization
+## Disk-friendly quantization using the opensearch-jvector plugin
 
-The `jvector` engine provided by [`opensearch-jvector`]({{site.url}}{{site.baseurl}}/install-and-configure/additional-plugins/opensearch-jvector/) plugin implements DiskANN-style indexing, which stores vectors on disk rather than in memory, and builds indexes directly from quantized vectors. This approach provides substantial memory savings without requiring separate quantization configuration steps.
+The `jvector` engine, provided by the [`opensearch-jvector` plugin]({{site.url}}{{site.baseurl}}/install-and-configure/additional-plugins/opensearch-jvector/), implements DiskANN-style indexing: it stores vectors on disk rather than in memory and builds indexes directly from quantized vectors. This reduces memory use without requiring separate quantization configuration.
 
-Key storage advantages of `jvector` compared to the built-in engines:
+Compared with the built-in engines, the `jvector` engine provides the following storage advantages:
 
-- **Quantized index construction**: Builds indexes from quantized vectors, reducing memory required during indexing.
-- **Incremental merges**: Refines quantization codebooks incrementally during merges instead of requiring full rebuilds, reducing computational overhead.
+- It builds indexes from quantized vectors, reducing the memory required during indexing.
+- It refines quantization codebooks incrementally during merges, with no full rebuilds.

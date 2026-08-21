@@ -7,7 +7,7 @@ nav_order: 10
 
 # Efficient k-NN filtering
 
-You can perform efficient k-NN filtering with the `lucene`, `faiss` or `jvector` engines.
+You can perform efficient k-NN filtering with the `lucene`, `faiss`, or `jvector` engines.
 
 ## Lucene k-NN filter implementation
 
@@ -69,7 +69,6 @@ PUT /hotels-index
   }
 }
 ```
-
 {% include copy-curl.html %}
 
 ### Step 2: Add data to your index
@@ -105,7 +104,6 @@ POST /_bulk
 { "index": { "_index": "hotels-index", "_id": "12" } }
 { "location": [5.0, 1.0], "parking" : "true", "rating" : 3 }
 ```
-
 {% include copy-curl.html %}
 
 ### Step 3: Search your data with a filter
@@ -150,7 +148,6 @@ POST /hotels-index/_search
   }
 }
 ```
-
 {% include copy-curl.html %}
 
 The response returns the three hotels that are nearest to the search point and have met the filter criteria:
@@ -271,7 +268,6 @@ PUT /products-shirts
   }
 }
 ```
-
 {% include copy-curl.html %}
 
 ### Step 2: Add data to your index
@@ -308,7 +304,6 @@ POST /_bulk?refresh
 { "item_vector": [5.0, 1.0, 4.0], "size" : "large", "rating" : 3 }
 
 ```
-
 {% include copy-curl.html %}
 
 ### Step 3: Search your data with a filter
@@ -352,7 +347,6 @@ POST /products-shirts/_search
   }
 }
 ```
-
 {% include copy-curl.html %}
 
 The response returns the two matching documents:
@@ -413,7 +407,7 @@ When [memory-optimized search]({{site.url}}{{site.baseurl}}/vector-search/optimi
 
 ## Using a JVector efficient filter
 
-The [`opensearch-jvector`]({{site.url}}{{site.baseurl}}/install-and-configure/additional-plugins/opensearch-jvector/) plugin supports filtering using the `jvector` engine with the `disk_ann` method. An inline `filter` inside the `knn` query clause restricts candidates during graph traversal. Post-filtering via `post_filter` is also supported but may return fewer than `k` results when the filter is restrictive.
+The [`opensearch-jvector` plugin]({{site.url}}{{site.baseurl}}/install-and-configure/additional-plugins/opensearch-jvector/) supports filtering using the `jvector` engine with the `disk_ann` method. An inline `filter` inside the `knn` query clause restricts candidates during graph traversal. Post-filtering using the `post_filter` parameter is also supported but may return fewer than `k` results when the filter is restrictive.
 
 In this example, you will create an index using the `jvector` engine and search for the three closest hotels that have high ratings and provide parking.
 
@@ -422,7 +416,7 @@ In this example, you will create an index using the `jvector` engine and search 
 Create an index with a `knn_vector` field, specifying `jvector` as the engine and `disk_ann` as the method:
 
 ```json
-PUT /hotels-index
+PUT /hotels-jvector-index
 {
   "settings": {
     "index": {
@@ -450,7 +444,6 @@ PUT /hotels-index
   }
 }
 ```
-
 {% include copy-curl.html %}
 
 ### Step 2: Add data to your index
@@ -459,32 +452,31 @@ Add 12 documents containing hotel location, rating, and parking information:
 
 ```json
 POST /_bulk
-{ "index": { "_index": "hotels-index", "_id": "1" } }
+{ "index": { "_index": "hotels-jvector-index", "_id": "1" } }
 { "location": [5.2, 4.4], "parking" : "true", "rating" : 5 }
-{ "index": { "_index": "hotels-index", "_id": "2" } }
+{ "index": { "_index": "hotels-jvector-index", "_id": "2" } }
 { "location": [5.2, 3.9], "parking" : "false", "rating" : 4 }
-{ "index": { "_index": "hotels-index", "_id": "3" } }
+{ "index": { "_index": "hotels-jvector-index", "_id": "3" } }
 { "location": [4.9, 3.4], "parking" : "true", "rating" : 9 }
-{ "index": { "_index": "hotels-index", "_id": "4" } }
+{ "index": { "_index": "hotels-jvector-index", "_id": "4" } }
 { "location": [4.2, 4.6], "parking" : "false", "rating" : 6}
-{ "index": { "_index": "hotels-index", "_id": "5" } }
+{ "index": { "_index": "hotels-jvector-index", "_id": "5" } }
 { "location": [3.3, 4.5], "parking" : "true", "rating" : 8 }
-{ "index": { "_index": "hotels-index", "_id": "6" } }
+{ "index": { "_index": "hotels-jvector-index", "_id": "6" } }
 { "location": [6.4, 3.4], "parking" : "true", "rating" : 9 }
-{ "index": { "_index": "hotels-index", "_id": "7" } }
+{ "index": { "_index": "hotels-jvector-index", "_id": "7" } }
 { "location": [4.2, 6.2], "parking" : "true", "rating" : 5 }
-{ "index": { "_index": "hotels-index", "_id": "8" } }
+{ "index": { "_index": "hotels-jvector-index", "_id": "8" } }
 { "location": [2.4, 4.0], "parking" : "true", "rating" : 8 }
-{ "index": { "_index": "hotels-index", "_id": "9" } }
+{ "index": { "_index": "hotels-jvector-index", "_id": "9" } }
 { "location": [1.4, 3.2], "parking" : "false", "rating" : 5 }
-{ "index": { "_index": "hotels-index", "_id": "10" } }
+{ "index": { "_index": "hotels-jvector-index", "_id": "10" } }
 { "location": [7.0, 9.9], "parking" : "true", "rating" : 9 }
-{ "index": { "_index": "hotels-index", "_id": "11" } }
+{ "index": { "_index": "hotels-jvector-index", "_id": "11" } }
 { "location": [3.0, 2.3], "parking" : "false", "rating" : 6 }
-{ "index": { "_index": "hotels-index", "_id": "12" } }
+{ "index": { "_index": "hotels-jvector-index", "_id": "12" } }
 { "location": [5.0, 1.0], "parking" : "true", "rating" : 3 }
 ```
-
 {% include copy-curl.html %}
 
 ### Step 3: Search your data with a filter
@@ -492,7 +484,7 @@ POST /_bulk
 Place the `filter` inside the `knn` query clause to restrict candidates during graph traversal. The following request searches for the top three hotels near `[5, 4]` that are rated between 8 and 10 and provide parking:
 
 ```json
-POST /hotels-index/_search
+POST /hotels-jvector-index/_search
 {
   "size": 3,
   "query": {
@@ -524,17 +516,16 @@ POST /hotels-index/_search
   }
 }
 ```
-
 {% include copy-curl.html %}
 
-### Step 4: Search your data with a post_filter
+### Step 4: Search your data with post-filtering
 
 You can also apply filtering after the ANN search using `post_filter`. Because `post_filter` runs after ANN retrieval, the final result count may be fewer than `k` when the filter is restrictive. To compensate, set `k` to a value larger than the number of results you need.
 
-The following request retrieves the 20 nearest hotels and then restricts the results to those rated 8 or above with parking:
+The following request retrieves the 20 nearest hotels and then restricts the results to those rated 8 or higher that provide parking:
 
 ```json
-POST /hotels-index/_search
+POST /hotels-jvector-index/_search
 {
   "size": 3,
   "query": {
@@ -566,7 +557,6 @@ POST /hotels-index/_search
   }
 }
 ```
-
 {% include copy-curl.html %}
 
 ## Constructing a filter
@@ -633,5 +623,4 @@ POST /hotels-index/_search
   }
 }
 ```
-
 {% include copy-curl.html %}

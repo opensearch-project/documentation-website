@@ -25,7 +25,7 @@ This page defines key terms and techniques related to vector search in OpenSearc
 
 - A [**_method_**]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-methods-engines/) refers to the algorithm used to organize vector data during indexing and retrieve relevant results during search in approximate k-NN search. Different methods balance trade-offs between accuracy, speed, and memory usage.
 
-- An [**_engine_**]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-methods-engines/) is the underlying library that implements vector search methods. It determines how vectors are indexed, stored, and retrieved during similarity search operations. OpenSearch supports multiple engines through the built-in `k-NN` plugin. Alternatively, the [`opensearch-jvector`]({{site.url}}{{site.baseurl}}/install-and-configure/additional-plugins/opensearch-jvector/) plugin provides an additional `jvector` engine, which implements `DiskANN` method.
+- An [**_engine_**]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-methods-engines/) is the underlying library that implements vector search methods. It determines how vectors are indexed, stored, and retrieved during similarity search operations. OpenSearch supports multiple engines through the built-in k-NN plugin. The [`opensearch-jvector` plugin]({{site.url}}{{site.baseurl}}/install-and-configure/additional-plugins/opensearch-jvector/) provides an additional `jvector` engine that implements the `disk_ann` method.
 
 ## k-NN search  
 

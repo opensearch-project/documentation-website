@@ -9,7 +9,9 @@ redirect_from:
 
 # Additional plugins
 
-There are many more plugins available in addition to those provided by the standard distribution of OpenSearch. These additional plugins have been built by OpenSearch developers or members of the OpenSearch community. While it isn't possible to provide an exhaustive list (because many plugins are not maintained in an OpenSearch GitHub repository), the following plugins, available in the [OpenSearch/plugins](https://github.com/opensearch-project/OpenSearch/tree/main/plugins) directory on GitHub, are some of the plugins that can be installed using one of the installation options, for example, using the command `bin/opensearch-plugin install <plugin-name>`.
+There are many more plugins available in addition to those provided by the standard distribution of OpenSearch. These additional plugins have been built by OpenSearch developers or members of the OpenSearch community. Most are maintained in the [OpenSearch/plugins](https://github.com/opensearch-project/OpenSearch/tree/main/plugins) directory on GitHub and can be installed by name, for example, by running `bin/opensearch-plugin install <plugin-name>`. To list all plugins that you can install by name, run `bin/opensearch-plugin install --help`. Plugins maintained in a separate repository, such as `opensearch-jvector`, must be installed from a downloaded package.
+
+The following table lists commonly used additional plugins and the earliest OpenSearch version in which each is available.
 
 | Plugin name                                                                                                            | Earliest available version |
 |:---|:---|
@@ -30,6 +32,7 @@ There are many more plugins available in addition to those provided by the stand
 | `mapper-annotated-text`                                                                                                  | 1.0.0                      |
 | `mapper-murmur3`                                                                                                         | 1.0.0                      |
 | [`mapper-size`]({{site.url}}{{site.baseurl}}/install-and-configure/additional-plugins/mapper-size-plugin/)             | 1.0.0                      |
+| [`opensearch-jvector`]({{site.url}}{{site.baseurl}}/install-and-configure/additional-plugins/opensearch-jvector/)       | 3.5.0                      |
 | `query-insights`                                                                                                         | 2.12.0                     |
 | `repository-azure`                                                                                                       | 1.0.0                      |
 | `repository-gcs`                                                                                                         | 1.0.0                      |
@@ -38,10 +41,10 @@ There are many more plugins available in addition to those provided by the stand
 | `store-smb`                                                                                                              | 1.0.0                      |
 | `transport-grpc`                                                                                                         | 3.0.0                      |
 | `workload-management` | 2.18.0 |
-| [`opensearch-jvector`]({{site.url}}{{site.baseurl}}/install-and-configure/additional-plugins/opensearch-jvector/)      | 3.5.0                   |
 
 ## Related documentation
 
 - [Installing plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/)
 - [`ingest-attachment` plugin]({{site.url}}{{site.baseurl}}/install-and-configure/additional-plugins/ingest-attachment-plugin/)
 - [`mapper-size` plugin]({{site.url}}{{site.baseurl}}/install-and-configure/additional-plugins/mapper-size-plugin/)
+- [`opensearch-jvector` plugin]({{site.url}}{{site.baseurl}}/install-and-configure/additional-plugins/opensearch-jvector/)
