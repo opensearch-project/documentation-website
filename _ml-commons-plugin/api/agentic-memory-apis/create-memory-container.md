@@ -159,6 +159,7 @@ The following table lists the available request body fields.
 Field | Data type | Required/Optional | Description
 :--- | :--- | :--- | :---
 `name` | String | Required | The name of the memory container.
+`memory_container_id` | String | Optional | Unique identifier for the memory container. If omitted, OpenSearch auto-generates one. **Introduced 3.9** |
 `description` | String | Optional | The description of the memory container.
 `configuration` | Object | Optional | The memory container configuration. When not provided, a default configuration is used that creates a working-memory-only container with no AI capabilities. For full functionality including semantic search and long-term memory, provide a configuration with model IDs and strategies. See [The `configuration` object](#the-configuration-object).
 `backend_roles` | Array | Optional | A list of backend roles for access control. Each role must be at most 128 characters and contain only alphanumeric characters and `:+=,.@-_/`.

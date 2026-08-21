@@ -28,6 +28,7 @@ The following table lists the available request fields.
 Field |Data type | Description 
 :--- | :--- | :---
 `name` | String | The model group name. Required.
+`model_group_id` | String | Optional. Unique identifier for the model group. If omitted, OpenSearch auto-generates one. **Introduced 3.9**
 `description` | String | The model group description. Optional.
 `access_mode` | String | The access mode for this model. Valid values are `public`, `private`, and `restricted`. When this parameter is set to `restricted`, you must specify either `backend_roles` or `add_all_backend_roles`, but not both. Optional. If you specify none of the security parameters (`access_mode`, `backend_roles`, and `add_all_backend_roles`), the default `access_mode` is `private`.
 `backend_roles` | Array | A list of the model owner's backend roles to add to the model. Can be specified only if `access_mode` is `restricted`. Cannot be specified at the same time as `add_all_backend_roles`. Optional.

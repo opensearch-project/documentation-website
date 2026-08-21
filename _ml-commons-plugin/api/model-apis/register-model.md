@@ -53,6 +53,7 @@ The following table lists the available request fields.
 Field | Data type | Required/Optional | Description
 :---  | :--- | :--- 
 `name`| String | Required | The model name. |
+`model_id` | String | Optional | Unique identifier for the model. If omitted, OpenSearch auto-generates one. **Introduced 3.9** |
 `version` | String | Required | The model version. |
 `model_format` | String | Required | The portable format of the model file. Valid values are `TORCH_SCRIPT` and `ONNX`. |
 `description` | String | Optional| The model description. |
@@ -83,6 +84,7 @@ The following table lists the available request fields.
 Field | Data type | Required/Optional | Description
 :---  | :--- | :--- 
 `name`| String | Required | The model name. |
+`model_id` | String | Optional | Unique identifier for the model. If omitted, OpenSearch auto-generates one. **Introduced 3.9** |
 `version` | String | Required | The model version. |
 `model_format` | String | Required | The portable format of the model file. Valid values are `TORCH_SCRIPT` and `ONNX`. |
 `function_name` | String | Required | For text embedding models, set this parameter to `TEXT_EMBEDDING`. For sparse encoding models, set this parameter to `SPARSE_ENCODING` or `SPARSE_TOKENIZE`. For cross-encoder models, set this parameter to `TEXT_SIMILARITY`. For question answering models, set this parameter to `QUESTION_ANSWERING`.
@@ -116,6 +118,7 @@ The following table lists the available request fields.
 Field | Data type | Required/Optional | Description
 :---  | :--- | :--- 
 `name`| String | Required | The model name. |
+`model_id` | String | Optional | Unique identifier for the model. If omitted, OpenSearch auto-generates one. **Introduced 3.9** |
 `version` | String | Required | The model version. |
 `model_format` | String | Required | The portable format of the model file. Valid values are `TORCH_SCRIPT` and `ONNX`. |
 `function_name` | String | Required | Set this parameter to `TEXT_EMBEDDING`, `SPARSE_ENCODING`, `SPARSE_TOKENIZE`, `TEXT_SIMILARITY`, or `QUESTION_ANSWERING`.
@@ -185,6 +188,7 @@ Field | Data type | Required/Optional | Description
 `function_name` | String | Required | Set this parameter to `SPARSE_ENCODING` or `SPARSE_TOKENIZE`.
 `connector_id` | Optional | Required | The connector ID of a standalone connector for a model hosted on a third-party platform. For more information, see [Standalone connector]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/#creating-a-standalone-connector). You must provide either `connector_id` or `connector`.
 `connector` | Object | Required | Contains specifications for a connector for a model hosted on a third-party platform. For more information, see [Creating a connector for a specific model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/#creating-a-connector-for-a-specific-model). You must provide either `connector_id` or `connector`.
+`model_id` | String | Optional | Unique identifier for the model. If omitted, OpenSearch auto-generates one. **Introduced 3.9** |
 `description` | String | Optional| The model description. |
 `model_group_id` | String | Optional | The model group ID of the model group to register this model to. 
 `is_enabled`| Boolean | Optional | Specifies whether the model is enabled. Disabling the model makes it unavailable for Predict API requests, regardless of the model's deployment status. Default is `true`.
