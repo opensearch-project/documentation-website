@@ -406,6 +406,167 @@ At prediction time, substituted header values are validated before the request i
 - Each individual header value must not exceed 8 KB.
 - The combined size of all headers must not exceed 64 KB.
 
+## Client certificate authentication
+**Introduced 3.9**
+{: .label .label-purple }
+
+Client certificate authentication, also called mutual TLS (mTLS), allows a connector to present a client certificate when connecting to an externally hosted model. Both sides of the connection authenticate each other during the TLS handshake: the endpoint proves its identity with a server certificate, and the connector proves its identity with a client certificate. Use mTLS when the model endpoint requires a client certificate rather than a token passed in a request header.
+
+To enable mTLS, set `mutual_tls_enabled` to `true` in the connector's `client_config` object and provide the certificate material in the connector's `credential` object.
+
+Certificate material is supplied as content, not as a file path. OpenSearch encrypts it in the same way as any other credential and makes it available on every node, so you don't need to copy certificate files to individual nodes. For descriptions of all certificate fields, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/#configuration-parameters).
+
+### Prerequisites
+
+Before you configure mTLS, ensure that the following requirements are met:
+
+- All nodes in the cluster run OpenSearch 3.9 or later.
+- The connector uses the `http` protocol. For more information, see [Restrictions](#restrictions).
+- The endpoint URL matches a trusted endpoint. For more information, see [Adding trusted endpoints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index#adding-trusted-endpoints).
+- Private keys in PEM format are unencrypted and use PKCS \#8 encoding (`-----BEGIN PRIVATE KEY-----`). PKCS \#1 keys (`-----BEGIN RSA PRIVATE KEY-----`) are not supported. To convert a PKCS \#1 key to PKCS \#8, use the following command:
+
+```bash
+openssl pkcs8 -topk8 -inform PEM -outform PEM -nocrypt -in rsa_key.pem -out pkcs8_key.pem
+```
+{% include copy.html %}
+
+You can provide PEM values either as literal PEM text, with newlines escaped as `\n`, or as base64-encoded PEM. Base64 values are detected and decoded automatically. Because base64 avoids escaping newlines by hand, it is the more convenient option for multiline certificates. To base64-encode a certificate or key, use the following command:
+
+```bash
+base64 -i client-cert.pem
+```
+{% include copy.html %}
+
+### Using PEM certificates
+
+To authenticate with a PEM certificate and private key, set `keystore_type` to `PEM` and provide `client_cert_pem` and `client_key_pem`:
+
+```json
+POST /_plugins/_ml/connectors/_create
+{
+  "name": "Externally hosted model connector with mutual TLS",
+  "description": "A connector that authenticates using a client certificate",
+  "version": 1,
+  "protocol": "http",
+  "parameters": {
+    "endpoint": "api.example.com"
+  },
+  "credential": {
+    "client_cert_pem": "<BASE64-ENCODED CLIENT CERTIFICATE>",
+    "client_key_pem": "<BASE64-ENCODED PRIVATE KEY>",
+    "ca_cert_pem": "<BASE64-ENCODED CA CERTIFICATE>"
+  },
+  "client_config": {
+    "mutual_tls_enabled": true,
+    "keystore_type": "PEM"
+  },
+  "actions": [
+    {
+      "action_type": "predict",
+      "method": "POST",
+      "url": "https://${parameters.endpoint}/predict",
+      "headers": {
+        "content-type": "application/json"
+      },
+      "request_body": "{ \"input\": \"${parameters.input}\" }"
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+Because `PEM` is the default, you can omit `keystore_type` when using PEM certificates.
+{: .note}
+
+### Using a PKCS12 keystore
+
+To authenticate with a PKCS12 keystore, set `keystore_type` to `PKCS12` and provide the base64-encoded keystore in `client_cert_pkcs12`. Unlike PEM values, a PKCS12 keystore is binary and must always be base64 encoded:
+
+```json
+POST /_plugins/_ml/connectors/_create
+{
+  "name": "Externally hosted model connector with a PKCS12 keystore",
+  "description": "A connector that authenticates using a client certificate",
+  "version": 1,
+  "protocol": "http",
+  "parameters": {
+    "endpoint": "api.example.com"
+  },
+  "credential": {
+    "client_cert_pkcs12": "<BASE64-ENCODED PKCS12 KEYSTORE>",
+    "keystore_password": "<KEYSTORE PASSWORD>",
+    "ca_cert_pem": "<BASE64-ENCODED CA CERTIFICATE>"
+  },
+  "client_config": {
+    "mutual_tls_enabled": true,
+    "keystore_type": "PKCS12"
+  },
+  "actions": [
+    {
+      "action_type": "predict",
+      "method": "POST",
+      "url": "https://${parameters.endpoint}/predict",
+      "headers": {
+        "content-type": "application/json"
+      },
+      "request_body": "{ \"input\": \"${parameters.input}\" }"
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+To create a PKCS12 keystore from an existing PEM certificate and key and then base64-encode it, use the following commands:
+
+```bash
+openssl pkcs12 -export -in client-cert.pem -inkey client-key.pem -out client.p12 -name client
+base64 -i client.p12
+```
+{% include copy.html %}
+
+### Certificate chains and custom CA certificates
+
+If your client certificate is issued by an intermediate certificate authority (CA), include the full chain in `client_cert_pem`. Order the chain leaf first, followed by each issuing intermediate certificate, so that every certificate is issued by the one that follows it. A misordered chain is rejected with an error that identifies the certificates involved.
+
+The `ca_cert_pem` field is optional and controls how the endpoint's server certificate is validated:
+
+- If you provide `ca_cert_pem`, OpenSearch validates the server certificate against only the certificates it contains. The field accepts a bundle, so you can include both intermediate and root certificates. Provide this field when the endpoint uses a private CA.
+- If you omit `ca_cert_pem`, OpenSearch validates the server certificate against the Java default truststore.
+
+Because a private CA is usually not present in the default truststore, provide `ca_cert_pem` rather than setting `skip_ssl_verification` to `true`. Skipping verification is rejected when mTLS is enabled.
+{: .important}
+
+### Rotating certificates
+
+To rotate an expiring certificate, send the new certificate material in an update request, as described in [Updating connector credentials](#updating-connector-credentials). You don't need to undeploy the model or restart any nodes.
+
+OpenSearch detects the change and builds a new HTTP client for subsequent predict requests. The replaced client is closed after a grace period, so requests already in flight complete against the previous certificate.
+
+### Restrictions
+
+The following restrictions apply to client certificate authentication:
+
+- mTLS applies only to connectors that use the `http` protocol. Connectors that use the `aws_sigv4`, `mcp_sse`, or `mcp_streamable_http` protocol accept `mutual_tls_enabled` when they are created but ignore it at runtime.
+- `skip_ssl_verification` and `mutual_tls_enabled` cannot both be set to `true`. Disabling server certificate validation while presenting a client certificate defeats the purpose of mTLS. Provide `ca_cert_pem` instead.
+- The `credential` object cannot contain `api_key` when mTLS is enabled. OpenSearch enforces certificate-only authentication and rejects mixed authentication methods.
+- File paths are not supported in certificate fields. Provide the certificate content itself.
+- Certificate material is validated when the connector is first used, not when it is created. A connector with an invalid certificate configuration is created successfully and fails on the first predict request.
+
+### Troubleshooting
+
+Certificate configuration errors surface on the first predict request. The following table lists common errors and their resolutions.
+
+| Error | Cause | Resolution |
+|:---|:---|:---|
+| `For PEM keystore, provide both client_cert_pem and client_key_pem` | One of the two required PEM fields is missing. | Provide both fields, or switch `keystore_type` to `PKCS12` and provide `client_cert_pkcs12`. |
+| `Invalid PEM private key format. Only PKCS#8 format is supported` | The private key uses PKCS \#1 encoding or is encrypted. | Convert the key to unencrypted PKCS \#8, as described in [Prerequisites](#prerequisites). |
+| `File paths are not supported for certificate fields` | A field contains a file path instead of certificate content. | Replace the path with the PEM text or base64-encoded PEM content of the file. |
+| `Certificate field '<field>' appears to be base64 encoded but does not contain valid PEM content after decoding` | The value decodes to something other than PEM text. | Verify that you encoded the PEM file itself, without extra wrapping or truncation. |
+| `Client certificate chain is not ordered correctly` | The chain in `client_cert_pem` is not leaf first. | Reorder the chain so that each certificate is issued by the one that follows it. |
+| `skip_ssl_verification cannot be enabled together with mutual_tls_enabled` | Both settings are set to `true`. | Remove `skip_ssl_verification` and provide `ca_cert_pem`. |
+| `Mixed authentication methods are not allowed` | The `credential` object contains `api_key`. | Remove `api_key` from the `credential` object. |
+| `Unsupported keystore type` | `keystore_type` is set to a value other than `PEM` or `PKCS12`. | Set `keystore_type` to `PEM` or `PKCS12`. Values are not case sensitive. |
+
 ## Next steps
 
 - For a full list of connector blueprints provided by OpenSearch, see [Supported connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/supported-connectors/).
