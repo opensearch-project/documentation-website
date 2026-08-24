@@ -308,6 +308,8 @@ OpenSearch supports the following dynamic index-level index settings:
 
 - `index.refresh_interval` (Time unit): How often the index should refresh, which publishes its most recent changes and makes them available for searching. Can be set to `-1` to disable refreshing. Default is `1s`.
 
+   If you don't set this setting explicitly, shards that haven't received a search request for the period specified in `index.search.idle.after` stop refreshing in the background until the next search request arrives. This optimizes bulk indexing for indexes that aren't being searched. To refresh on a fixed schedule regardless of search traffic, set `index.refresh_interval` to `1s` explicitly. For more information, see [Refresh interval]({{site.url}}{{site.baseurl}}/api-reference/index-apis/refresh/#refresh-interval).
+
 - `index.max_result_window` (Integer): The maximum value of `from` + `size` for searches of the index. `from` is the starting index to search from, and `size` is the number of results to return. Default is 10000.
 
 - `index.max_inner_result_window` (Integer): The maximum value of `from` + `size` that specifies the number of returned nested search hits and most relevant document aggregated during the query. `from` is the starting index to search from, and `size` is the number of top hits to return. Default is 100.
