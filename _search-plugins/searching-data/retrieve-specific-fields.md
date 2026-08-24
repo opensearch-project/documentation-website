@@ -660,9 +660,8 @@ The following is the expected response:
 
 The `stored_fields` parameter can be disabled completely by setting `stored_fields` to `_none_`.
 {: .note}
-<!-- vale off -->
-### Searching stored_fields with nested objects
-<!-- vale on -->
+### Searching stored fields with nested objects
+
 In OpenSearch, if you want to retrieve `stored_fields` for nested objects, you cannot directly use the `stored_fields` parameter because no data will be returned. Instead, you should use the `inner_hits` parameter with its own `stored_fields` property, as shown in the following example.
 
 1. Create an index with the following mappings:
