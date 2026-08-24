@@ -158,7 +158,7 @@ body: |
 {
   "query": {
     "match": {
-      "text_entry": "I am the night"
+      "director": "Christopher Nolan"
     }
   }
 }
@@ -168,7 +168,7 @@ GET /movies/_search
 {
   "query": {
     "match": {
-      "text_entry": "I am the night"
+      "director": "Christopher Nolan"
     }
   }
 }
@@ -182,7 +182,7 @@ response = client.search(
   body =   {
     "query": {
       "match": {
-        "text_entry": "I am the night"
+        "director": "Christopher Nolan"
       }
     }
   }
@@ -196,11 +196,13 @@ response = client.search(
 <!-- spec_insert_end -->
 
 
-## Response body fields
+## Example response
+
+The following example response shows the structure of a search response:
 
 ```json
 {
-  "took": 3,
+  "took": 14,
   "timed_out": false,
   "_shards": {
     "total": 1,
@@ -210,38 +212,31 @@ response = client.search(
   },
   "hits": {
     "total": {
-      "value": 1,
+      "value": 2,
       "relation": "eq"
     },
-    "max_score": 1.0,
+    "max_score": 0.42727602,
     "hits": [
       {
-        "_index": "superheroes",
+        "_index": "movies",
         "_id": "1",
-        "_score": 1.0,
+        "_score": 0.42727602,
         "_source": {
-          "superheroes": [
-            {
-              "Hero name": "Superman",
-              "Real identity": "Clark Kent",
-              "Age": 28
-            },
-            {
-              "Hero name": "Batman",
-              "Real identity": "Bruce Wayne",
-              "Age": 26
-            },
-            {
-              "Hero name": "Flash",
-              "Real identity": "Barry Allen",
-              "Age": 28
-            },
-            {
-              "Hero name": "Robin",
-              "Real identity": "Dick Grayson",
-              "Age": 15
-            }
-          ]
+          "title": "The Dark Knight",
+          "director": "Christopher Nolan",
+          "year": 2008,
+          "genre": "Action"
+        }
+      },
+      {
+        "_index": "movies",
+        "_id": "2",
+        "_score": 0.42727602,
+        "_source": {
+          "title": "Inception",
+          "director": "Christopher Nolan",
+          "year": 2010,
+          "genre": "Science Fiction"
         }
       }
     ]
@@ -249,9 +244,65 @@ response = client.search(
 }
 ```
 
-## The `ext` object
+## Response body fields
 
-Starting with OpenSearch 2.10, plugin authors can add an `ext` object to both search requests and search responses. The `ext` object contains plugin-specific fields that allow plugins to pass additional parameters in requests or return additional information in responses.
+The following table lists the top-level response body fields.
+
+| Field | Data type | Description |
+| :--- | :--- | :--- |
+| `took` | Integer | The time, in milliseconds, that OpenSearch took to run the search. This is measured from the moment the coordinating node receives the request until it is ready to send the response, so it includes communication between the coordinating node and the data nodes, time spent queued in the `search` thread pool, and the search itself. It does not include the time spent transmitting the request or the response over the network. |
+| `phase_took` | Object | The time, in milliseconds, spent in each search phase (`can_match`, `dfs_pre_query`, `query`, `dfs_query`, `fetch`, and `expand`). Returned only when the `phase_took` query parameter is `true`. |
+| `timed_out` | Boolean | Whether the search timed out before completing. If `true`, the returned results may be partial or empty. |
+| `terminated_early` | Boolean | Whether OpenSearch stopped the search early because it collected the number of documents specified in `terminate_after`. Returned only when `terminate_after` is set. |
+| `_shards` | Object | The number of shards that the search ran on and the outcome for each group of shards. |
+| `hits` | Object | The matching documents and their metadata. |
+| `aggregations` | Object | The aggregation results, keyed by aggregation name. Returned only when the request body contains an `aggs` object. |
+| `suggest` | Object | The suggestion results, keyed by suggester name. Returned only when the request body contains a `suggest` object. |
+| `profile` | Object | Per-shard timing details for the query and fetch phases. Returned only when the request body sets `profile` to `true`. For more information, see [Profile API]({{site.url}}{{site.baseurl}}/api-reference/search-apis/profile/). |
+| `_scroll_id` | String | The scroll ID that identifies the search context. Pass this value to the [Scroll API]({{site.url}}{{site.baseurl}}/api-reference/search-apis/scroll/) to retrieve the next batch of results. Returned only when the request includes the `scroll` query parameter. |
+| `pit_id` | String | The Point in Time (PIT) ID that identifies the search context. Returned only when the request searches a PIT. For more information, see [Point in Time API]({{site.url}}{{site.baseurl}}/api-reference/search-apis/point-in-time-api/). |
+| `_clusters` | Object | The number of clusters that a cross-cluster search ran on and the outcome for each group of clusters. Returned only for cross-cluster searches. |
+| `num_reduce_phases` | Integer | The number of reduce phases that OpenSearch performed in order to combine partial shard results into the final result set. Returned only when the search uses more than one reduce phase. |
+
+The following table lists the fields in the `_shards` object.
+
+| Field | Data type | Description |
+| :--- | :--- | :--- |
+| `total` | Integer | The number of shards that the search needed to query, including unallocated shards. |
+| `successful` | Integer | The number of shards that ran the search successfully. |
+| `skipped` | Integer | The number of shards that skipped the search because a preliminary check determined that no document on the shard could match. This commonly happens when the search contains a range filter and all values on the shard fall outside of that range. |
+| `failed` | Integer | The number of shards that failed to run the search. Unallocated shards count as neither successful nor failed, so if `successful` and `failed` add up to less than `total`, some of the shards were unallocated. |
+
+The following table lists the fields in the `hits` object.
+
+| Field | Data type | Description |
+| :--- | :--- | :--- |
+| `total` | Object | The number of matching documents. Contains a `value` field with the count and a `relation` field that is `eq` when the count is exact or `gte` when the count is a lower bound. Omitted when `track_total_hits` is `false`. |
+| `max_score` | Float | The highest `_score` among the matching documents. Is `null` when the search does not sort by `_score`. |
+| `hits` | Array of objects | The matching documents, ordered by relevance or by the specified sort. |
+
+The following table lists the fields in each object in the `hits.hits` array.
+
+| Field | Data type | Description |
+| :--- | :--- | :--- |
+| `_index` | String | The name of the index that contains the document. |
+| `_id` | String | The document ID. This ID is unique only within the returned index. |
+| `_score` | Float | The relevance score for the document. Is `null` when the search does not sort by `_score`. |
+| `_source` | Object | The original JSON document provided at indexing time. Use the `_source` query parameter to omit this field or to return only specific fields. |
+| `fields` | Object | The field values retrieved by `docvalue_fields` or `stored_fields`. Returned only when the request specifies either of those parameters. |
+| `sort` | Array | The sort values for the document. Returned only when the request body contains a `sort` array. Pass the values from the last hit as `search_after` to retrieve the next page of results. |
+| `highlight` | Object | The highlighted snippets, keyed by field name. Returned only when the request body contains a `highlight` object. |
+| `matched_queries` | Array of strings | The names of the named queries that the document matched. Returned only when the search uses the `_name` parameter. |
+| `inner_hits` | Object | The matching nested, child, or parent documents. Returned only when the request body contains an `inner_hits` object. |
+| `_explanation` | Object | A breakdown of how OpenSearch computed the document's relevance score. Returned only when `explain` is `true`. |
+| `_shard` | String | The shard that returned the document. Returned only when `explain` is `true`. |
+| `_node` | String | The node that returned the document. Returned only when `explain` is `true`. |
+
+## The `ext` object
+**Introduced 2.10**
+{: .label .label-purple }
+
+Plugin authors can add an `ext` object to both search requests and search responses. The `ext` object contains plugin-specific fields that allow plugins to pass additional parameters in requests or return additional information in responses.
 
 ### Using `ext` in search responses
 
