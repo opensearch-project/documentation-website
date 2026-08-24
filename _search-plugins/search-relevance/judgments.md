@@ -133,7 +133,7 @@ The following table lists the possible `status` values for a judgment list.
 | Status | Description |
 | :--- | :--- |
 | `PROCESSING` | The judgment list is being generated. |
-| `COMPLETED` | Generation (or a retry) has finished. Some documents may still be unrated---check the `failures` array and `metadata` field. |
+| `COMPLETED` | Generation (or a retry) has finished. Some documents may still be unrated: check the `failures` array and `metadata` field to verify the document ratings. |
 | `RETRYING` | A retry of previously failed documents is in progress. |
 | `ERROR` | The retry process itself failed internally. This is separate from individual documents failing to get rated, which still results in a `COMPLETED` status. |
 
