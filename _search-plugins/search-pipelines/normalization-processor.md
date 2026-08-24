@@ -32,6 +32,8 @@ $$\text{n_score} = \frac {\text{score} - \text{min_score}} {\text{max_score} - \
 
 The highest-scoring document in the clause receives a score of `1.0`. OpenSearch replaces a normalized score of exactly `0.0` with `0.001` because a score of `0.0` has the special meaning of `match_none`, so the lowest-scoring document in the clause receives `0.001`. If every document in a clause has the same score, including a clause that returns only one document, then the clause's minimum and maximum scores are equal and every document in the clause receives `1.0`.
 
+Because only an exact `0.0` is replaced, this substitution can reorder the low-scoring documents in a clause. Any document whose normalized score is less than `0.001` ranks below the lowest-scoring document, which receives exactly `0.001`. For example, a clause that returns the raw scores `10000`, `9`, and `8` normalizes them to `1.0`, `0.00010008`, and `0.001`, so the document scoring `8` ranks above the document scoring `9`. A document is affected when its score exceeds the clause minimum by less than 0.1% of the clause's score range, which occurs when one score in the clause is roughly 1,000 times larger than the others.
+
 To normalize against fixed thresholds instead of the minimum and maximum scores of the returned results, set the `lower_bounds` and `upper_bounds` parameters. For more information, see [Request body fields](#request-body-fields).
 
 ### L2 normalization
@@ -64,15 +66,15 @@ Use the following table to compare the three techniques.
 | Score of the highest-scoring document in a clause | Always `1.0` | Less than `1.0`, unless the clause returns a single document | Varies, and can exceed `1.0` |
 | Score ratios within a clause | Not preserved | Preserved | Not preserved |
 | Statistics used | Lowest and highest scores | All scores | All scores |
-| Influence of a single extreme score | High, because the score defines an endpoint of the range | Lower, because the score is one term of the norm | Lower, because the score shifts the mean and standard deviation |
-| Ordering below the clause mean | Preserved | Preserved | Discarded |
+| Effect of a single outlier on the other documents in a clause | Compresses their scores but keeps them distinct | Compresses their scores but keeps them distinct | Pushes them below the clause mean, so they all collapse to `0.001` |
+| Ordering of documents within a clause | Preserved, except that documents with normalized scores below `0.001` rank below the lowest-scoring document | Preserved | Lost for every document that scores below the clause mean |
 | Supported combination techniques | All | All | `arithmetic_mean` |
 
 The following guidance applies to each technique:
 
 - Use `min_max`, the default, when you want normalized scores on a predictable scale that you can reason about directly, or when you want to normalize against fixed thresholds through the `lower_bounds` and `upper_bounds` parameters.
-- Use `l2` when the ratios between the scores within a query clause carry information that the final ranking should reflect, or when a clause returns occasional extreme scores that would compress the rest of the range under `min_max`.
-- Use `z_score` when the query clauses produce score distributions that differ mainly in spread. Avoid it when a clause returns few results, because the documents that score below the clause mean become indistinguishable.
+- Use `l2` when the ratios between the scores within a query clause carry information that the final ranking should reflect. Note that `l2` does not spread out the remaining documents more than `min_max` does: because a clause's L2 norm is always greater than or equal to its score range, `l2` separates any two documents by less than or equal to the amount that `min_max` separates them.
+- Use `z_score` when the query clauses produce score distributions that differ mainly in spread. Avoid it when a clause returns few results or contains an outlier, because every document that scores below the clause mean collapses to `0.001`. A single high outlier can pull the mean above all remaining scores and erase the ordering of every other document in the clause.
 
 ### Example: Comparing normalization techniques
 
