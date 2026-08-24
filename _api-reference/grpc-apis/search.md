@@ -337,11 +337,11 @@ The [`TermsLookup`](https://github.com/opensearch-project/opensearch-protobufs/b
 | :---- | :---- | :---- |
 | `index` | `string` | The name of the index from which to fetch the terms. |
 | `path` | `string` | The path to the field in the lookup document that contains the term values. |
-| `id_2` | `string` | The ID of the document to fetch the terms from. |
-| `query` | [`QueryContainer`](#querycontainer-fields) | A query that selects the document or documents to fetch the terms from. |
+| `id_2` | `string` | The ID of the document from which to fetch the terms. |
+| `query` | [`QueryContainer`](#querycontainer-fields) | A query that selects the document or documents from which to fetch the terms. |
 | `routing` | `optional string` | The routing value used to locate the lookup document. |
 | `store` | `optional bool` | Whether to read the term values from the stored field instead of `_source`. |
-| `id` | `string` | **Deprecated.** Use `id_2` instead. The ID of the document to fetch the terms from. |
+| `id` | `string` | **Deprecated.** Use `id_2` instead. The ID of the document from which to fetch the terms. |
 
 #### TermsSetQuery fields
 
