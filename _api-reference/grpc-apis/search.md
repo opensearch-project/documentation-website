@@ -320,6 +320,29 @@ The [`TermsQuery`](https://github.com/opensearch-project/opensearch-protobufs/bl
 | `value_type` | `optional` [`TermsQueryValueType`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.4.0/protos/schemas/common.proto#L3310) | The types of values used for filtering. Valid values are `default` and `bitmap`. Default is `default`. |
 | `terms` | `map<string, `[`TermsQueryField`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.4.0/protos/schemas/common.proto#L2332)`>` | A map of field names to term values or term lookups. |
 
+#### TermsQueryField fields
+
+The [`TermsQueryField`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.7.0/protos/schemas/common.proto#L2333) message accepts one of the following fields.
+
+| Field | Protobuf type | Description |
+| :---- | :---- | :---- |
+| `value` | [`FieldValueArray`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.7.0/protos/schemas/common.proto#L2365) | An explicit list of term values to match. |
+| `lookup` | [`TermsLookup`](#termslookup-fields) | Fetches the term values from another document. |
+
+#### TermsLookup fields
+
+The [`TermsLookup`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.7.0/protos/schemas/common.proto#L2342) message accepts the following fields. Set either `id_2` or `query` to identify the lookup document. If neither is set, the deprecated `id` field is used.
+
+| Field | Protobuf type | Description |
+| :---- | :---- | :---- |
+| `index` | `string` | The name of the index from which to fetch the terms. |
+| `path` | `string` | The path to the field in the lookup document that contains the term values. |
+| `id_2` | `string` | The ID of the document to fetch the terms from. |
+| `query` | [`QueryContainer`](#querycontainer-fields) | A query that selects the document or documents to fetch the terms from. |
+| `routing` | `optional string` | The routing value used to locate the lookup document. |
+| `store` | `optional bool` | Whether to read the term values from the stored field instead of `_source`. |
+| `id` | `string` | **Deprecated.** Use `id_2` instead. The ID of the document to fetch the terms from. |
+
 #### TermsSetQuery fields
 
 The [`TermsSetQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.4.0/protos/schemas/common.proto#L2362) message accepts the following fields.
@@ -730,38 +753,88 @@ A `terms` query matches documents in which a specific field contains any value f
 
 ```json
 {
- "search_request_body": {
-   "query": {
-     "terms": {
-       "terms_lookup_field_string_array_map": {
-         "line_id": {
-           "string_array": {
-             "string_array": ["61809", "61810"]
-           }
-         }
-       }
-     }
-   }
- }
+  "search_request_body": {
+    "query": {
+      "terms": {
+        "terms": {
+          "line_id": {
+            "value": {
+              "field_value_array": [
+                { "string": "61809" },
+                { "string": "61810" }
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
 }
 ```
 {% include copy.html %}
 
 ### Terms query with a terms lookup
 
-A `terms` query with a `terms` lookup is a specialized form of the `terms` query that allows you to fetch the terms for filtering from another document in your cluster rather than specifying them directly in the query. For example, the following request matches documents in the `students` index with every student whose `id` matches one of the values in the `enrolled` array:
+A `terms` query with a `terms` lookup is a specialized form of the `terms` query that allows you to fetch the terms for filtering from another document in your cluster rather than specifying them directly in the query. The lookup document is identified by either `id_2` (a document ID) or `query` (a query that selects the source document or documents). For example, the following request matches documents in the `students` index whose `_id` matches one of the values in the `enrolled` array of the `classes` document with the ID `class_1`:
 
 ```json
 {
   "search_request_body": {
     "query": {
       "terms": {
-        "boost": 1.0,
-        "terms_lookup_field_string_array_map": {
-          "student_id": {
-            "terms_lookup_field": {
+        "terms": {
+          "_id": {
+            "lookup": {
               "index": "classes",
-              "id": "101",
+              "id_2": "class_1",
+              "path": "enrolled"
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+{% include copy.html %}
+
+To select the lookup document using a query rather than an ID, use the `query` field:
+
+```json
+{
+  "search_request_body": {
+    "query": {
+      "terms": {
+        "terms": {
+          "_id": {
+            "lookup": {
+              "index": "classes",
+              "path": "enrolled",
+              "query": {
+                "match_all": {}
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+{% include copy.html %}
+
+The deprecated `id` field is still honored for backward compatibility when neither `id_2` nor `query` is set:
+
+```json
+{
+  "search_request_body": {
+    "query": {
+      "terms": {
+        "terms": {
+          "_id": {
+            "lookup": {
+              "index": "classes",
+              "id": "class_1",
               "path": "enrolled"
             }
           }
