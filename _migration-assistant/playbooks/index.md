@@ -35,7 +35,7 @@ The following table lists the available playbooks.
 | Playbook | Use case |
 |:---------|:---------|
 | [Elasticsearch 6.8 to OpenSearch 3.5]({{site.url}}{{site.baseurl}}/migration-assistant/playbook-elasticsearch-6-8-to-opensearch-3/) | Self-managed Elasticsearch sources requiring metadata transformation and snapshot-based backfill |
-| [Amazon OpenSearch Service to OpenSearch Serverless]({{site.url}}{{site.baseurl}}/migration-assistant/playbook-amazon-opensearch-service-to-serverless/) | Managed AWS sources targeting Serverless collections |
+| [Amazon OpenSearch Service to OpenSearch Serverless NextGen]({{site.url}}{{site.baseurl}}/migration-assistant/playbook-amazon-opensearch-service-to-serverless/) | Managed AWS sources targeting Serverless NextGen collections |
 | [Solr 8.11 to OpenSearch 3]({{site.url}}{{site.baseurl}}/migration-assistant/playbook-solr-8.11-to-opensearch-3/) | Solr snapshot-based backfill to OpenSearch |
 
 For AWS production deployments, deploy Migration Assistant on Amazon Elastic Kubernetes Service (EKS) before following a playbook. For more information, see [Deploy on Amazon EKS]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-eks/).
