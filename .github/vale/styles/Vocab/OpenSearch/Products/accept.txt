@@ -8,6 +8,7 @@ Amazon Bedrock Guardrails
 Amazon Kendra
 Amazon Kinesis
 Amazon OpenSearch Serverless
+Amazon OpenSearch Serverless NextGen
 Amazon OpenSearch Service
 Amazon Personalize
 Amazon SageMaker
