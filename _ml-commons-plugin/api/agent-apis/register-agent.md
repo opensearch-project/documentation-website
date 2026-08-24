@@ -39,7 +39,7 @@ Field | Data type | Required/Optional | Agent type | Description
 :---  | :--- | :--- | :--- | :---
 `name`| String | Required | All | The agent name. |
 `type` | String | Required | All | The agent type. Valid values are [`flow`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/flow/), [`conversational_flow`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/conversational-flow/), [`conversational`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/conversational/#the-conversational-agent-v1), [`conversational_v2`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/conversational/#the-conversational_v2-agent-with-full-multimodal-support), [`plan_execute_and_reflect`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/plan-execute-reflect/), and [`ag_ui`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/ag-ui/). For more information, see [Agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/). |
-`agent_id` | String | Optional | All | Unique identifier for the agent. If omitted, OpenSearch auto-generates one. **Introduced 3.9** |
+`agent_id` | String | Optional | All | A unique identifier for the agent. If omitted, OpenSearch generates one automatically. |
 `description` | String | Optional| All | A description of the agent. |
 `tools` | Array | Optional | All | A list of tools for the agent to execute. 
 `app_type` | String | Optional | All | Specifies an optional agent category. You can then perform operations on all agents in the category. For example, you can delete all messages for RAG agents.
