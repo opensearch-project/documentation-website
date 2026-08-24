@@ -198,11 +198,11 @@ Migration Assistant supports the following authentication methods on generic Kub
 
 Basic authentication works the same way as EKS. Put the credentials in a Kubernetes secret and reference the secret name in `authConfig.basic.secretName`.
 
-### Use AWS Signature Version 4 for Amazon OpenSearch Service or Serverless
+### Use AWS Signature Version 4 for Amazon OpenSearch Service or Serverless NextGen
 
 AWS Signature Version 4 is supported by the workflow configuration, but **generic Kubernetes does not automatically create AWS pod identity for you**.
 
-If your source or target uses Amazon OpenSearch Service or OpenSearch Serverless, you must make AWS credentials available to two sets of pods:
+If your source or target uses Amazon OpenSearch Service or OpenSearch Serverless NextGen, you must make AWS credentials available to two sets of pods:
 
 - The Migration Console pod (`migration-console-0`), running under the `migration-console-access-role` service account, which runs CLI commands such as `console clusters connection-check`
 - The Argo workflow executor pods, running under the `argo-workflow-executor` service account, which perform the actual migration steps.
