@@ -552,9 +552,9 @@ The following is the expected response:
   }
 }
 ```
-<!-- vale off -->
-## Searching with stored_fields
-<!-- vale on -->
+
+## Searching with stored fields
+
 By default, OpenSearch stores the entire document in the `_source` field and uses it to return document contents in search results. However, you might also want to store certain fields separately for more efficient retrieval. You can explicitly store and retrieve specific document fields separately from the `_source` field by using `stored_fields`. 
 
 Unlike `_source`, `stored_fields` must be explicitly defined in the mappings for fields you want to store separately. It can be useful if you frequently need to retrieve only a small subset of fields and want to avoid retrieving the entire `_source` field. The following example demonstrates how to use the `stored_fields` parameter.
@@ -894,7 +894,7 @@ The following is the expected response:
 
 ### Including and excluding fields in the same search
 
-In some cases, both the `include` and `exclude` parameters may be necessary. The following examples demonstrate how to include and exclude fields in the same search.
+In some cases, both the `include` and `exclude` parameters may be necessary. When a field matches a pattern in both lists, OpenSearch omits the field because `excludes` takes precedence over `includes`. The following examples demonstrate how to include and exclude fields in the same search.
 
 Consider a `products` index containing the following document:
 
@@ -989,6 +989,12 @@ The following is the expected response:
   }
 }
 ```
+
+### Source filtering limitations
+
+Source filtering matches the field names in the original JSON document, so it cannot return values that OpenSearch derives during indexing. Multi-fields, [field aliases]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/alias/), and fields populated by `copy_to` are not part of the source, and a request for those fields returns an empty `_source` object.
+
+OpenSearch loads and parses the entire source document even when the request asks for only a few fields, so source filtering reduces network transfer but not disk reads. To read individual fields directly from the index, use [`docvalue_fields`](#searching-with-doc-value-fields) or [`stored_fields`](#searching-with-stored_fields).
 
 ## Using scripted fields
 

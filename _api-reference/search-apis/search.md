@@ -64,15 +64,15 @@ Parameter | Type | Description
 `seq_no_primary_term` | Boolean | Whether to return the sequence number and primary term of the last operation of each document hit. Example: `GET test-index/_search?seq_no_primary_term=true&size=1&q=title:test`. |
 `size` | Integer | The number of results to include in the response. Example: `GET test-index/_search?size=3`. |
 `sort` | List | A comma-separated list of `<field> : <direction>` pairs to sort by. Use `track_scores=true` if you want scores when sorting by a non-score field. Example: `GET test-index/_search?sort=views:desc&track_scores=true&size=3`. |
-`_source` | String or Boolean | Controls the `_source` field provided in the response. Valid values are `true` (return the document source), `false` (do not return the document source) and `<string>` (the field or fields in the source to return, provided as a list or wildcard pattern). Examples: `GET test-index/_search?_source=false&size=1`, `GET test-index/_search?_source=titl*&size=1`, `GET test-index/_search?_source=title,description&size=1`. |
-`_source_excludes` | List | A comma-separated list of source fields to exclude from the response. If the `_source` parameter is `false`, this parameter is ignored. Example: `GET test-index/_search?_source_excludes=title&size=1`. |
-`_source_includes` | List | A comma-separated list of source fields to include in the response. If the `_source` parameter is `false`, this parameter is ignored. Example: `GET test-index/_search?_source_includes=title&size=1`. |
+`_source` | String or Boolean | Controls the `_source` field provided in the response. Valid values are `true` (return the document source), `false` (do not return the document source) and `<string>` (the field or fields in the source to return, provided as a list or wildcard pattern). For more information, see [Source filtering](#source-filtering). Examples: `GET test-index/_search?_source=false&size=1`, `GET test-index/_search?_source=titl*&size=1`, `GET test-index/_search?_source=title,description&size=1`. |
+`_source_excludes` | List | A comma-separated list of source fields to exclude from the response. If the `_source` parameter is `false`, this parameter is ignored. For more information, see [Source filtering](#source-filtering). Example: `GET test-index/_search?_source_excludes=title&size=1`. |
+`_source_includes` | List | A comma-separated list of source fields to include in the response. If the `_source` parameter is `false`, this parameter is ignored. For more information, see [Source filtering](#source-filtering). Example: `GET test-index/_search?_source_includes=title&size=1`. |
 `stats` | String | A comma-separated list of [search stats groups](#search-stats-groups) to associate with the request. Example: `GET test-index/_search?stats=group1`. |
 `stored_fields` | List | Whether the GET operation should retrieve fields stored in the index. Default is `false`. Example: `GET test-index-stored/_search?stored_fields=note&size=1`. |
 `terminate_after` | Integer | The maximum number of matching documents (hits) OpenSearch should process before terminating the request. Default is `0` (no maximum). Example: `GET test-index/_search?terminate_after=1&size=10`. |
 `timeout` | Time | How long the operation should wait for a response from active shards. Default is `1m` (1 minute). Example: `GET test-index/_search?timeout=10ms`. |
 `track_scores` | Boolean | Whether to return document scores. Default is `false`. Use with `sort`. Example: `GET test-index/_search?sort=views:desc&track_scores=true&size=3`. |
-`track_total_hits` | Boolean or Integer | Whether to return the total number of documents that matched the query. Example: `GET test-index/_search?track_total_hits=2`. |
+`track_total_hits` | Boolean or Integer | How many matching documents to count. Default is `10000`. For more information, see [Track total hits](#track-total-hits). Example: `GET test-index/_search?track_total_hits=2`. |
 `typed_keys` | Boolean | Whether returned aggregations and suggested terms should include their types in the response. Default is `true`. Only applicable for aggregations or suggesters. Example: `POST test-index/_search?typed_keys=true {"size":0,"aggs":{"a":{"terms":{"field":"views"}}}}`. |
 `version` | Boolean | Whether to include the document version as a match. Example: `GET test-index/_search?version=true&size=1&q=title:test`. |
 
@@ -108,7 +108,7 @@ Field | Type | Description
 `seq_no_primary_term` | Boolean | Whether to return sequence number and primary term of the last operation of each document hit.
 `size` | Integer | How many results to return. Default is 10.
 `sort` | Array of objects or strings | Specifies how to sort the results. Can be a field name, an object with field and sort options, or an array of these. See [Sorting results]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/sort/).
-`_source` | | Whether to include the `_source` field in the response.
+`_source` | Boolean, String, Array of strings, or Object | The document source fields to return in each hit. Default is `true` (return the full document). For more information, see [Source filtering](#source-filtering).
 `stats` | Array of strings | A list of [search stats groups](#search-stats-groups) to associate with the request.
 `suggest_field` | String | The field used for suggestions. Use with `suggest_text` and, optionally, `suggest_mode` or `suggest_size`. |
 `suggest_mode` | String | The mode to use when searching. Valid values are `always` (provide suggestions based on the terms in `suggest_text`), `popular` (provide suggestions occurring in more documents on the shard than the search term), and `missing` (provide suggestions for terms not on the shard). Requires `suggest_field` and `suggest_text`. |
@@ -288,7 +288,7 @@ The following table lists the fields in each object in the `hits.hits` array.
 | `_index` | String | The name of the index that contains the document. |
 | `_id` | String | The document ID. This ID is unique only within the returned index. |
 | `_score` | Float | The relevance score for the document. Is `null` when the search does not sort by `_score`. |
-| `_source` | Object | The original JSON document provided at indexing time. Use the `_source` query parameter to omit this field or to return only specific fields. |
+| `_source` | Object | The original JSON document provided at indexing time. To omit this field or to return only specific fields, see [Source filtering](#source-filtering). |
 | `fields` | Object | The field values retrieved by `docvalue_fields` or `stored_fields`. Returned only when the request specifies either of those parameters. |
 | `sort` | Array | The sort values for the document. Returned only when the request body contains a `sort` array. Pass the values from the last hit as `search_after` to retrieve the next page of results. |
 | `highlight` | Object | The highlighted snippets, keyed by field name. Returned only when the request body contains a `highlight` object. |
@@ -297,6 +297,101 @@ The following table lists the fields in each object in the `hits.hits` array.
 | `_explanation` | Object | A breakdown of how OpenSearch computed the document's relevance score. Returned only when `explain` is `true`. |
 | `_shard` | String | The shard that returned the document. Returned only when `explain` is `true`. |
 | `_node` | String | The node that returned the document. Returned only when `explain` is `true`. |
+
+## Source filtering
+
+Each hit in the response contains a `_source` object holding the original JSON document. Returning the full document for every hit transfers more data than most applications need. Source filtering limits the fields that OpenSearch returns in `_source`.
+
+The following table lists the accepted values for the `_source` request body parameter.
+
+| Value | Description |
+| :--- | :--- |
+| `true` | Returns the full document. This is the default. |
+| `false` | Omits the `_source` object from each hit. |
+| String | A field name or a wildcard pattern, such as `details.*`. OpenSearch returns only the matching fields. |
+| Array of strings | A list of field names or wildcard patterns, such as `["name", "details.*"]`. |
+| Object | An object containing `includes` and `excludes` lists. A field that matches a pattern in both lists is not returned because `excludes` takes precedence. |
+
+To filter the source in the request URL instead of the request body, use the `_source`, `_source_includes`, and `_source_excludes` query parameters.
+
+For examples and limitations, see [Using source filtering]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/retrieve-specific-fields/#using-source-filtering).
+
+## Track total hits
+
+Counting matching documents exactly requires visiting every match, which is expensive for queries that match many documents. The `track_total_hits` parameter limits how many matches OpenSearch counts. Specify it either as a query parameter or in the request body.
+
+By default, OpenSearch counts matches accurately up to `10000`. When more documents match, `hits.total.value` reports `10000` and `hits.total.relation` is `gte`, indicating that the query matched at least that many documents.
+
+The following table lists the accepted values for `track_total_hits`.
+
+| Value | Description |
+| :--- | :--- |
+| `true` | Counts every matching document. `hits.total.relation` is always `eq`. |
+| `false` | Disables hit counting. The response contains no `hits.total` object. |
+| Integer | Counts matching documents accurately up to the specified number. When more documents match, `hits.total.value` reports the threshold and `hits.total.relation` is `gte`. |
+
+Counting every match slows down searches that match many documents. Increase the threshold only when your application requires an exact count.
+
+### Example: Default hit counting
+
+The following example searches a `logs` index containing 10,500 documents without specifying `track_total_hits`:
+
+```json
+GET /logs/_search
+{
+  "size": 0,
+  "query": {
+    "match_all": {}
+  }
+}
+```
+{% include copy-curl.html %}
+
+Because `relation` is `gte`, the index contains at least 10,000 matching documents:
+
+```json
+{
+  "hits": {
+    "total": {
+      "value": 10000,
+      "relation": "gte"
+    },
+    "max_score": null,
+    "hits": []
+  }
+}
+```
+
+### Example: Counting every matching document
+
+To count every match, set `track_total_hits` to `true`:
+
+```json
+GET /logs/_search
+{
+  "size": 0,
+  "track_total_hits": true,
+  "query": {
+    "match_all": {}
+  }
+}
+```
+{% include copy-curl.html %}
+
+Because `relation` is `eq`, `value` is the exact number of matching documents:
+
+```json
+{
+  "hits": {
+    "total": {
+      "value": 10500,
+      "relation": "eq"
+    },
+    "max_score": null,
+    "hits": []
+  }
+}
+```
 
 ## The `ext` object
 **Introduced 2.10**
