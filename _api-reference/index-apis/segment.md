@@ -166,5 +166,8 @@ Parameter | Data type | Description
 `search` | Boolean | When `true`, segment search is enabled. When `false`, the segment may have already been written to disk and require a refresh in order to be searchable.
 `version` | String | The Lucene version used to write the segment. 
 `compound` | Boolean | When `true`, indicates that Lucene merged all segment files into one file in order to save any file descriptions.
-`attributes` | Object | Shows if high compression was enabled. 
+`attributes` | Object | Shows if high compression was enabled.
 
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `indices:monitor/segments`.

@@ -7,7 +7,7 @@ parent: User-defined search processors
 grand_parent: Search pipelines
 ---
 
-# Script processor
+# Script search processor
 Introduced 2.8
 {: .label .label-purple }
 

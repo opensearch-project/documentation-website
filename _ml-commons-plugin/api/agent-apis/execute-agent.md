@@ -103,9 +103,6 @@ The following table lists the base response fields for agent execution.
 **Introduced 3.5**
 {: .label .label-purple }
 
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).
-{: .warning}
-
 For agents created using the [unified registration method]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/#unified-registration-method), use the `input` field. The supported input formats depend on the agent type:
 
 - **`conversational` and other V1 agent types**: Support plain text input only.
@@ -441,8 +438,8 @@ Field | Data type | Present in | Description
 `input_tokens` | Integer | Both | The number of tokens in the input/prompt sent to the model.
 `output_tokens` | Integer | Both | The number of tokens in the model's output/completion.
 `total_tokens` | Integer | Both | The total number of tokens (input + output).
-`cache_read_input_tokens` | Integer | Both | The number of input tokens served from the prompt cache. Supported by Anthropic (via Bedrock), OpenAI, and Gemini. Cached tokens are often cheaper than regular input tokens.
-`cache_creation_input_tokens` | Integer | Both | The number of tokens used to create new cache entries. Supported by Anthropic (via Bedrock).
+`cache_read_input_tokens` | Integer | Both | The number of input tokens served from the prompt cache. Supported by Anthropic (through Bedrock), OpenAI, and Gemini. Cached tokens are often cheaper than regular input tokens.
+`cache_creation_input_tokens` | Integer | Both | The number of tokens used to create new cache entries. Supported by Anthropic (through Bedrock).
 `reasoning_tokens` | Integer | Both | The number of tokens used for reasoning or thinking. Only extracted for OpenAI models (from `completion_tokens_details.reasoning_tokens`) and Gemini models (from `thoughtsTokenCount`).
 `turn` | Integer | `per_turn_usage` | The sequence number of this LLM call within the agent execution.
 `call_count` | Integer | `per_model_usage` | The total number of LLM calls made using this model.

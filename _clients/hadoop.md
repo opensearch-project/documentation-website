@@ -280,7 +280,7 @@ val filtered = sc.opensearchRDD("people", "?q=name:John")
 ```
 {% include copy.html %}
 
-### Structured Streaming
+### Spark Structured Streaming
 
 The connector supports Spark Structured Streaming as a sink:
 

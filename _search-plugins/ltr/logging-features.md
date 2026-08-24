@@ -11,7 +11,9 @@ has_children: false
 
 Feature values need to be logged in order to train a model. This is a crucial component of the Learning to Rank plugin---as you search, feature values from the feature sets are logged so that they can be used for training. This allows models that effectively predict relevance using that set of features to be discovered.
 
-## `sltr` query
+<!-- vale off -->
+## sltr query
+<!-- vale on -->
 
 The `sltr` query is the primary method for running features and evaluating models. When logging, an `sltr` query is used to execute each feature query and retrieve the feature scores. A feature set structure that works with the [`hello-ltr`](https://github.com/o19s/hello-ltr) demo schema is shown in the following example request:
 

@@ -5,7 +5,7 @@ nav_order: 70
 permalink: /migration-assistant/troubleshooting/
 ---
 
-# Troubleshooting
+# Migration Assistant troubleshooting
 
 First, determine whether the issue is related to deployment, authentication, or workflow execution.
 

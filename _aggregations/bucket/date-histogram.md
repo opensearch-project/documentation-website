@@ -7,7 +7,7 @@ redirect_from:
   - /query-dsl/aggregations/bucket/date-histogram/
 ---
 
-# Date histogram aggregations
+# Date histogram aggregation
 
 The `date_histogram` aggregation groups documents into time-based buckets using [date math]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/date/#date-math). Use it to roll up metrics per hour/day/month, chart traffic trends, or fill time series dashboards.
 

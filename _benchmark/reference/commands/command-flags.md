@@ -170,7 +170,7 @@ Defines a comma-separated list of host-port pairs that should be targeted if usi
 ## target-os
 <!-- vale on -->
 
-The target operating system (OS) for which the OpenSearch artifact should be downloaded. Default is the current OS.
+The target operating system for which the OpenSearch artifact should be downloaded. Default is the current operating system.
 
 <!-- vale off -->
 ## target-arch

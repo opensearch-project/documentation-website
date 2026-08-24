@@ -6,7 +6,7 @@ grand_parent: Alerting
 parent: Monitors
 ---
 
-# Actions
+# Alerting actions
 
 Actions send notifications when trigger conditions are met. See [Notifications]({{site.url}}{{site.baseurl}}/notifications-plugin/index/) to learn about creating notifications. If you don't want to receive notifications, don't add actions to your triggers.
 

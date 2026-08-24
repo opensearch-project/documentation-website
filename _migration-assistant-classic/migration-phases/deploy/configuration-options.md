@@ -13,12 +13,12 @@ This page outlines the configuration options for three key migrations scenarios:
 
 1. **Metadata migration**
 2. **Backfill migration with `Reindex-from-Snapshot` (RFS)**
-3. **Live capture migration with  Capture and Replay  (C&R)**
+3. **Live capture migration with Capture and Replay  (C&R)**
 
 Each of these migrations depends on either a snapshot or a capture proxy. The following example `cdk.context.json` configurations are used by AWS Cloud Development Kit (AWS CDK) to deploy and configure Migration Assistant for OpenSearch, shown as separate blocks for each migration type. If you are performing a migration applicable to multiple scenarios, these options can be combined.
 
 
-For a complete list of configuration options, see [opensearch-migrations-options.md](https://github.com/opensearch-project/opensearch-migrations/blob/main/deployment/cdk/opensearch-service-migration/options.md). If you need a configuration option that is not found on this page, create an issue in the [OpenSearch Migrations repository](https://github.com/opensearch-project/opensearch-migrations/issues).
+For a complete list of configuration options, see [`opensearch-migrations-options.md`](https://github.com/opensearch-project/opensearch-migrations/blob/main/deployment/cdk/opensearch-service-migration/options.md). If you need a configuration option that is not found on this page, create an issue in the [OpenSearch Migrations repository](https://github.com/opensearch-project/opensearch-migrations/issues).
 {: .tip }
 
 Options for the source cluster endpoint, target cluster endpoint, and existing virtual private cloud (VPC) should be configured in order for the migration tools to function effectively.
@@ -74,7 +74,7 @@ The RFS configuration uses the following options. All options are optional.
 | `reindexFromSnapshotServiceEnabled` | `true` | Enables deployment and configuration of the RFS ECS service. |
 | `reindexFromSnapshotExtraArgs` | `"--target-aws-region us-east-1 --target-aws-service-signing-name es"` | Extra arguments for the Document Migration command, with space separation. See [RFS Extra Arguments](https://github.com/opensearch-project/opensearch-migrations/blob/main/DocumentsFromSnapshotMigration/README.md#arguments) for more information. You can pass `--no-insecure` to remove the `--insecure` flag. |
 
-To view all available arguments for `reindexFromSnapshotExtraArgs`, see [Snapshot migrations README](https://github.com/opensearch-project/opensearch-migrations/blob/main/DocumentsFromSnapshotMigration/README.md#arguments). At a minimum, no extra arguments may be needed.
+To view all available arguments for `reindexFromSnapshotExtraArgs`, see [Snapshot migrations `README`](https://github.com/opensearch-project/opensearch-migrations/blob/main/DocumentsFromSnapshotMigration/README.md#arguments). At a minimum, no extra arguments may be needed.
 
 ## Live capture migration with C&R 
 
@@ -125,7 +125,7 @@ Performing a live capture migration requires that a Capture Proxy be configured 
 | `captureProxyExtraArgs`  | `"--suppressCaptureForHeaderMatch user-agent .*elastic-java/7.17.0.*"` | Extra arguments for the Capture Proxy command, including options specified by the [Capture Proxy](https://github.com/opensearch-project/opensearch-migrations/blob/main/TrafficCapture/trafficCaptureProxyServer/src/main/java/org/opensearch/migrations/trafficcapture/proxyserver/CaptureProxy.java).  |
 | `captureProxyDesiredCount`  | `0`                                                                    |  Sets the number of Capture Proxy Amazon Elastic Container Service (Amazon ECS) tasks. In most cases, keep this setting at `0` until you verify connectivity between the source and target clusters in the Migration Console. After deployment, you can modify the networking setup to allow ingress from the migration security groups into the existing cluster security groups.  |
 | `trafficReplayerServiceEnabled` | `true`                                                                 | Enables the Traffic Replayer service deployment using a CloudFormation stack.  |
-| `trafficReplayerExtraArgs`      | `"--sigv4-auth-header-service-region es,us-east-1 --speedup-factor 5"` | Extra arguments for the Traffic Replayer command, including options for auth headers and other parameters specified by the [Traffic Replayer](https://github.com/opensearch-project/opensearch-migrations/blob/main/TrafficCapture/trafficReplayer/src/main/java/org/opensearch/migrations/replay/TrafficReplayer.java). |
+| `trafficReplayerExtraArgs`      | `"--sigv4-auth-header-service-region es,us-east-1 --speedup-factor 5"` | Extra arguments for the Traffic Replayer command, including options for authentication headers and other parameters specified by the [Traffic Replayer](https://github.com/opensearch-project/opensearch-migrations/blob/main/TrafficCapture/trafficReplayer/src/main/java/org/opensearch/migrations/replay/TrafficReplayer.java). |
 | `targetClusterProxyServiceEnabled` | `true`                                                                 | Enables the target cluster proxy service deployment using a CloudFormation stack. |
 | `targetClusterProxyDesiredCount`  | `0`                                                                    | Sets the number of target cluster proxy Amazon ECS tasks. In most cases, keep this setting at `0` until you verify connectivity between the source and target clusters in the Migration Console. After deployment, you can modify the networking setup to allow ingress from the migration security groups into the existing cluster security groups.  |
 

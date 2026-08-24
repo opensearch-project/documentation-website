@@ -7,7 +7,7 @@ redirect_from:
   - /field-types/metadata-fields/index-metadata/
 ---
 
-# Index
+# Index metadata field
 
 When querying across multiple indexes, you may need to filter results based on the index into which a document was indexed. The `index` field matches documents based on their index. 
 

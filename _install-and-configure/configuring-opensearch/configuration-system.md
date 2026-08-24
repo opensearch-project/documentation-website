@@ -47,7 +47,7 @@ Settings that control how OpenSearch uses system memory and storage:
 
 Settings that control system-level security and bootstrap behavior:
 
-- `bootstrap.system_call_filter` (Static, Boolean): Controls whether OpenSearch enables system call filters (seccomp) for enhanced security. When enabled, the system call filter prevents certain potentially dangerous system calls from being executed, providing an additional layer of security. If system call filters cannot be installed due to system configuration issues, this setting can be set to `false` to disable them, but this reduces security. Default is `true`.
+- `bootstrap.system_call_filter` (Static, Boolean): Controls whether OpenSearch enables system call filters (`seccomp`) for enhanced security. When enabled, the system call filter prevents certain potentially dangerous system calls from being executed, providing an additional layer of security. If system call filters cannot be installed due to system configuration issues, this setting can be set to `false` to disable them, but this reduces security. Default is `true`.
 
 - `bootstrap.ctrlhandler` (Static, Boolean): Controls whether OpenSearch enables a control handler for graceful shutdown on Windows systems. When enabled, allows OpenSearch to respond to system shutdown signals and perform cleanup operations. This setting is primarily relevant for Windows deployments and helps ensure proper shutdown behavior. Default is `true`.
 

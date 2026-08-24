@@ -44,9 +44,9 @@ output {
 
 where:
 
-* `input` receives events like logs from multiple sources simultaneously. Logstash supports a number of input plugins for TCP/UDP, files, syslog, Microsoft Windows EventLogs, stdin, HTTP, and so on. You can also use an open source collection of input tools called Beats to gather events. The input plugin sends the events to a filter.
+* `input` receives events like logs from multiple sources simultaneously. Logstash supports a number of input plugins for TCP/UDP, files, syslog, Microsoft Windows EventLogs, `stdin`, HTTP, and so on. You can also use an open source collection of input tools called Beats to gather events. The input plugin sends the events to a filter.
 * `filter` parses and enriches the events in one way or the other. Logstash has a large collection of filter plugins that modify events and pass them on to an output. For example, a `grok` filter parses unstructured events into fields and a `mutate` filter changes fields. Filters are executed sequentially.
-* `output` ships the filtered events to one or more destinations. Logstash supports a wide range of output plugins for destinations like OpenSearch, TCP/UDP, emails, files, stdout, HTTP, Nagios, and so on.
+* `output` ships the filtered events to one or more destinations. Logstash supports a wide range of output plugins for destinations like OpenSearch, TCP/UDP, emails, files, `stdout`, HTTP, Nagios, and so on.
 
 Both the input and output phases support codecs to process events as they enter or exit the pipeline.
 Some of the popular codecs are `json` and `multiline`. The `json` codec processes data that’s in JSON format and the `multiline` codec merges multiple line events into a single line.

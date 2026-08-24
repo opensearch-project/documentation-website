@@ -129,7 +129,7 @@ PUT /books,products/_settings
 
 ## Example request: Optimizing for bulk indexing
 
-To optimize an index for bulk indexing operations, disable the refresh interval by setting it to `-1`. After bulk indexing is complete, re-enable it by setting it back to a positive value:
+To optimize an index for bulk indexing operations, disable the refresh interval by setting it to `-1`. After bulk indexing is complete, reenable it by setting it back to a positive value:
 
 ```json
 PUT /books/_settings
@@ -168,3 +168,7 @@ The following table lists all response body fields.
 Field | Data type | Description
 :--- | :--- | :---
 `acknowledged` | Boolean | Indicates whether the update request was received. A value of `true` indicates that the request was received. This does not guarantee that the settings were applied.
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `indices:admin/settings/update`.

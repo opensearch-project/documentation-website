@@ -20,7 +20,7 @@ Make sure you have [Ansible](https://www.ansible.com/) and [Java 8](https://www.
 
 ## Configuration
 
-1. Clone the OpenSearch [ansible-playbook](https://github.com/opensearch-project/ansible-playbook) repository:
+1. Clone the OpenSearch [`ansible-playbook`](https://github.com/opensearch-project/ansible-playbook) repository:
 
    ```bash
    git clone https://github.com/opensearch-project/ansible-playbook

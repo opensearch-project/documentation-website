@@ -11,7 +11,7 @@ redirect_from:
 
 The `Did-you-mean` suggester shows suggested corrections for misspelled search terms.
 
-For example, if a user types "fliud," OpenSearch suggests a corrected search term like "fluid." You can then suggest the corrected term to the user or even automatically correct the search term.
+For example, if a user types `fliud`, OpenSearch suggests a corrected search term like `fluid`. You can then suggest the corrected term to the user or even automatically correct the search term.
 
 You can implement the `did-you-mean` suggester using one of the following methods:
 
@@ -332,7 +332,7 @@ The phrase suggester returns the corrected phrase:
 }
 ```
 
-To highlight suggestions, set up the [`highlight`]({{site.url}}{{site.baseurl}}/opensearch/search/highlight) field for the phrase suggester:
+To highlight suggestions, set up the [`highlight`]({{site.url}}{{site.baseurl}}/opensearch/search/highlight/) field for the phrase suggester:
 
 ```json
 GET books2/_search
@@ -402,7 +402,7 @@ field | The field to use for n-gram lookups. The phrase suggester uses this fiel
 `gram_size` | The maximum size `n` of the n-grams (shingles) in the field. If the field does not contain n-grams (shingles), omit this option or set it to 1. If the field uses a shingle filter, and `gram_size` is not set, `gram_size` is set to `max_shingle_size`.
 `real_word_error_likelihood` | The probability that a term is misspelled, even if it exists in the dictionary. Default is 0.95 (5% of the words in the dictionary are misspelled).
 `confidence` | The confidence level is a float factor that is multiplied by the input phrase's score to calculate a threshold score for other suggestions. Only suggestions with higher scores than the threshold are returned. A confidence level of 1.0 will only return suggestions that score higher than the input phrase. If `confidence` is set to 0, the top `size` candidates are returned. Default is 1.
-`max_errors` | The maximum number or percentage of the terms that can be erroneous (spelled incorrectly) in order to return a suggestion. Valid values are integers that represent the number of terms or floats in the (0, 1) range that represent the percentage of the terms. Default is 1 (return only suggestions with at most one misspelled term). Setting this value to a high number can decrease performance. We recommend setting `max_errors` to a low number like 1 or 2 to reduce the time spent in suggest calls relative to the time spent in query execution.
+`max_errors` | The maximum number or percentage of the terms that can be erroneous (spelled incorrectly) in order to return a suggestion. Valid values are integers that represent the number of terms or floats in the (0, 1) range that represent the percentage of the terms. Default is 0.5, which allows up to half of a query's terms to be treated as misspelled. Setting this value to a high number can decrease performance. We recommend setting `max_errors` to a low number like 1 or 2 to reduce the time spent in suggest calls relative to the time spent in query execution.
 `separator` | The separator for the terms in the bigram field. Defaults to the space character.
 `size` | The number of candidate suggestions to generate for each query term. Specifying a higher value can result in terms with higher edit distances being returned. Default is 5.
 `analyzer` | The analyzer with which to analyze the suggestion text. Defaults to the analyzer configured for the `field`.
@@ -418,7 +418,7 @@ field | The field to use for n-gram lookups. The phrase suggester uses this fiel
 
 ### Collate field
 
-To filter out spellchecked suggestions that will not return any results, you can use the `collate` field. This field contains a scripted query that is run for each returned suggestion. See [Search templates]({{site.url}}{{site.baseurl}}/opensearch/search-template) for information on constructing a templated query. You can specify the current suggestion using the `{% raw %}{{suggestion}}{% endraw %}` variable, or you can pass your own template parameters in the `params` field (the suggestion value will be added to the variables you specify).
+To filter out spellchecked suggestions that will not return any results, you can use the `collate` field. This field contains a scripted query that is run for each returned suggestion. See [Search templates]({{site.url}}{{site.baseurl}}/opensearch/search-template/) for information about constructing a templated query. You can specify the current suggestion using the `{% raw %}{{suggestion}}{% endraw %}` variable, or you can pass your own template parameters in the `params` field (the suggestion value will be added to the variables you specify).
 
 The collate query for a suggestion is run only on the shard from which the suggestion was sourced. The query is required.  
 

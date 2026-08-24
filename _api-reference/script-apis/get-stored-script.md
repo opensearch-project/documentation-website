@@ -21,13 +21,13 @@ GET _scripts/my-first-script
 
 | Parameter | Data type | Description | 
 :--- | :--- | :---
-| script | String | Stored script or search template name. Required.|
+| `script` | String | Stored script or search template name. Required.|
 
 ## Query parameters
 
 | Parameter | Data type | Description | 
 :--- | :--- | :---
-| cluster_manager_timeout | Time | Amount of time to wait for a connection to the cluster manager. Optional, defaults to `30s`. |
+| `cluster_manager_timeout` | Time | Amount of time to wait for a connection to the cluster manager. Optional, defaults to `30s`. |
 
 ## Example request
 
@@ -82,13 +82,17 @@ The `GET _scripts/my-first-script` request returns the following response fields
 
 | Field | Data type | Description | 
 :--- | :--- | :---
-| _id | String | The script's name. |
-| found | Boolean | The requested script exists and was retrieved. |
-| script | Object | The script definition. See [Script object](#script-object).  |
+| `_id` | String | The script's name. |
+| `found` | Boolean | The requested script exists and was retrieved. |
+| `script` | Object | The script definition. See [Script object](#script-object).  |
 
 #### Script object
 
 | Field | Data type | Description | 
 :--- | :--- | :---
-| lang | String | The script's language. |
-|  source | String | The script's body. |
+| `lang` | String | The script's language. |
+| `source` | String | The script's body. |
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `cluster:admin/script/get`.

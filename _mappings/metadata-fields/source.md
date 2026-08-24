@@ -7,7 +7,7 @@ redirect_from:
   - /field-types/metadata-fields/source/
 ---
 
-# Source
+# Source metadata field
 
 The `_source` field contains the original JSON document body that was indexed. While this field is not searchable, it is stored so that the full document can be returned when executing fetch requests, such as `get` and `search`.
 

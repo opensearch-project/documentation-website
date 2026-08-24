@@ -33,7 +33,11 @@ These pipelines modify data at three key stages:
 
 In OpenSearch, you can [integrate models hosted on third-party platforms]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/) and use their inference capabilities directly in OpenSearch. Both ingest and search pipelines offer [ML inference processors]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/ml-inference/), allowing you to use externally hosted models for inference in your pipelines during both ingestion and search.
 
+<!-- vale off -->
+
 ## Accessing AI Search Flows
+
+<!-- vale on -->
 
 To access AI Search Flows, go to **OpenSearch Dashboards** and select **OpenSearch Plugins** > **AI Search Flows** from the top menu.
 

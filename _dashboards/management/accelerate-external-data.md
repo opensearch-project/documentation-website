@@ -1,8 +1,8 @@
 ---
 layout: default
 title: Optimizing query performance using OpenSearch indexing
-parent: Data sources
-nav_order: 17
+parent: Connecting data sources
+nav_order: 40
 ---
 
 # Optimizing query performance using OpenSearch indexing

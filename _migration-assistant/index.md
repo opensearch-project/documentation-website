@@ -50,7 +50,7 @@ If you used the older ECS/CDK-based Migration Assistant, see [Changes from the c
 Migration Assistant provides the following:
 
 - **One migration model** for snapshot-based migrations with planned downtime (called *backfill-only*) and zero-downtime migrations that use live-traffic Capture and Replay.
-- **Repeatable workflows** instead of ad-hoc infrastructure choreography.
+- **Repeatable workflows** instead of one-time infrastructure choreography.
 - **Low source-cluster impact** through snapshot-based backfill with [Reindex-from-Snapshot (RFS)]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/backfill/).
 - **Operational checkpoints** through approval gates, logs, status views, and validation steps.
 - **A practical AWS path** on EKS that reduces surrounding platform work.
@@ -73,7 +73,7 @@ If you previously used the ECS/CDK-based Migration Assistant, the operating mode
 
 - The migration is defined in workflow configuration instead of long-lived infrastructure stacks.
 - Migration Assistant runs the work on Kubernetes (Amazon EKS is the recommended AWS path).
-- Day-to-day operations happen through the Migration Console and Workflow CLI rather than through ad-hoc scripts.
+- Day-to-day operations happen through the Migration Console and Workflow CLI rather than through custom scripts.
 
 For background on the rationale, see [Why Kubernetes and EKS]({{site.url}}{{site.baseurl}}/migration-assistant/why-kubernetes-and-eks/).
 

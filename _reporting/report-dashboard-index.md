@@ -11,6 +11,11 @@ redirect_from:
 
 You can use OpenSearch Dashboards to create PNG, PDF, and CSV reports. To create reports, you must have the correct permissions. For a summary of the predefined roles and the permissions they grant, see the [Security plugin]({{site.url}}{{site.baseurl}}/security/access-control/users-roles#predefined-roles).
 
+Reporting uses two concepts:
+
+- A **report definition** is a saved configuration that specifies which dashboard, visualization, or saved search to capture, the file format (PDF, PNG, or CSV), the time range, and an optional schedule. You can reuse a report definition to generate reports on demand or on a recurring schedule.
+- A **report** is the generated output file (PDF, PNG, or CSV) produced from a report definition or a one-time download.
+
 CSV reports have a non-configurable 10,000-row limit in OpenSearch version 2.16 and earlier. As of version 2.17, this limit can be configured when setting up a report. While reports have no explicit size limit (for example, MB), extremely large documents could cause report generation to fail with an out-of-memory error from the V8 JavaScript engine.
 {: .tip }
 
@@ -43,6 +48,38 @@ Definitions let you generate reports on a periodic schedule.
    For scheduled reports, select either **Recurring** or **Cron based**. You can receive reports daily or at some other time interval, and Cron expressions give you more flexibility. See [Cron expression reference]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/cron/) for more information.
 
 2. Choose **Create**.
+
+## Deleting report definitions
+
+You can delete report definitions from OpenSearch Dashboards or by using the API. Deleting a report definition does not delete previously generated reports.
+
+Generated reports cannot be deleted individually. 
+{: .note}
+
+### Deleting from OpenSearch Dashboards
+
+To delete a report definition, follow these steps:
+
+1. From the navigation panel, choose **Reporting**.
+1. In the **Report definitions** section, select the name of the report definition you want to delete.
+1. On the report definition details page, choose **Delete**.
+1. In the confirmation dialog, choose **Delete**.
+
+### Deleting using the API
+
+To delete a report definition, send the following request:
+
+```json
+DELETE _plugins/_reports/definition/{report_definition_id}
+```
+{% include copy-curl.html %}
+
+To find the report definition ID, list all definitions:
+
+```json
+GET _plugins/_reports/definitions
+```
+{% include copy-curl.html %}
 
 ## Troubleshooting
 

@@ -34,11 +34,11 @@ The certificates generated when initializing an OpenSearch cluster with `install
 You can generate custom certificates in a few different ways. One approach is to use OpenSSL, described in detail at [Generating self-signed certificates]({{site.url}}{{site.baseurl}}/security/configuration/generate-certificates/). Alternatively, there are online tools available that can simplify the certificate creation process, such as the following:
 
 - [SearchGuard TLS Tool](https://docs.search-guard.com/latest/offline-tls-tool)
-- [TLSTool by dylandreimerink](https://github.com/dylandreimerink/tlstool)
+- [`TLSTool` by `dylandreimerink`](https://github.com/dylandreimerink/tlstool)
 
 ## 2. Prefer client certificate authentication for API authentication
 
-Client certificate authentication offers a secure alternative to password authentication and is more suitable for machine-to-machine interactions. It also ensures low performance overhead because the authentication occurs on the TLS level. Nearly all client software, such as curl and client libraries, support this authentication method.
+Client certificate authentication offers a secure alternative to password authentication and is more suitable for machine-to-machine interactions. It also ensures low performance overhead because the authentication occurs on the TLS level. Nearly all client software, such as cURL and client libraries, support this authentication method.
 
 For detailed configuration instructions and additional information about client certificate authentication, see [Enabling client certificate authentication]({{site.url}}{{site.baseurl}}/security/authentication-backends/client-auth/#enabling-client-certificate-authentication).
 
@@ -110,7 +110,7 @@ Using `securityadmin.sh` provides the following benefits:
 2. Automation: `securityadmin.sh` enables automation of security configuration tasks, making it easier to deploy and manage security settings across multiple nodes or clusters.
 3. Version control: Security configurations managed through `securityadmin.sh` can be version controlled using standard version control systems like Git. This facilitates tracking changes, auditing, and reverting to previous configurations.
 
-You can prevent configuration overrides by first creating a backup of the current configuration created using the OpenSearch Dashboards UI or the OpenSearch API by running the `securityadmin.sh` tool with the `-backup` option. This ensures that all configurations are captured before uploading the modified configuration with `securityadmin.sh`.
+You can prevent configuration overrides by first creating a backup of the current configuration created using the OpenSearch Dashboards web-based interface or the OpenSearch API by running the `securityadmin.sh` tool with the `-backup` option. This ensures that all configurations are captured before uploading the modified configuration with `securityadmin.sh`.
 
 For more detailed information about using `securityadmin.sh` and managing OpenSearch security configurations, refer to the following resources:
 - [Applying changes to configuration files]({{site.url}}{{site.baseurl}}/security/configuration/security-admin/)

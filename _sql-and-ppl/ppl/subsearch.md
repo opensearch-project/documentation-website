@@ -7,7 +7,7 @@ redirect_from:
   - /search-plugins/sql/ppl/subsearch/
 ---
 
-# Subsearch
+# Subsearch in PPL queries
 
 This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).    
 {: .warning}
@@ -232,7 +232,7 @@ source = supplier
 
 **Example 2: Query with `relation`, `scalar`, and `exists` subsearches**
 
-The following query uses `relation`, `scalar`, and `exists` subsearches to find customers from specific country codes with above-average account balances who have not placed any orders:
+The following query uses `relation`, `scalar`, and `exists` subsearches to find customers from specific country codes with higher-than-average account balances who have not placed any orders:
 
 ```sql
 source = [  /* relation subsearch */

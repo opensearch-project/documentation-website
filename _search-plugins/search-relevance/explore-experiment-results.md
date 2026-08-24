@@ -8,7 +8,7 @@ has_children: false
 ---
 
 # Exploring search evaluation results
-Introduced 3.2
+**Introduced 3.2**
 {: .label .label-purple }
 
 In addition to retrieving the experiment results using the API, you can explore the results visually. The Search Relevance Workbench comes with dashboards that you can install to review search evaluation and hybrid search optimization experiment results.

@@ -16,9 +16,12 @@ swap:
   'catch up': synchronize with
   'catches up': synchronizes with
   'catching up': synchronizing with
+  'check': verify, confirm, view, or retrieve
   'clean up': remove or normalize
   'cleans up': removes or normalizes
   'cleaning up': removing or normalizing
+  'cleaned up': removed or normalized
+  'covers': includes, describes, or provides
   'deal with': process or resolve
   'deals with': processes or resolves
   'dealing with': processing or resolving
@@ -59,6 +62,7 @@ swap:
   'looks into': investigates
   'looking into': investigating
   'looks like this': appears as follows
+  'means': indicates
   'navigate in': navigate to
   'one-off': single-use or ad-hoc
   'out of the box': by default, natively, or is built-in
@@ -90,7 +94,6 @@ swap:
   'scale up': scale or increase capacity
   'scales up': scales or increases capacity
   'scaling up': scaling or increasing capacity
-  'see': view
   'sees': detects or finds
   'set up': configure or initialize
   'sets up': configures or initializes
@@ -113,6 +116,7 @@ swap:
   'split up': divide or partition
   'splits up': divides or partitions
   'splitting up': dividing or partitioning
+  'spot': detect or identify
   'start here': getting started
   'stitching together': chaining or combining
   'talk to': communicate with or connect to
@@ -131,7 +135,6 @@ swap:
   'thinking': evaluating or determining
   'under the hood': internally
   'walks you through': describes or explains
-  'want': require or expect
   'wants': requires or expects
   'wire up': connect or configure
   'wires up': connects or configures

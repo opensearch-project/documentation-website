@@ -82,7 +82,10 @@ module Jekyll::LinkChecker
     'www.iso.org', # 403s on bots
     'elastic.co', # 406s on bots
     'www.elastic.co', # 406s on bots
-    'example.issue.link' # a fake example link from the template
+    'example.issue.link', # a fake example link from the template
+    'jinja.palletsprojects.com', # 429s on bots
+    'lemurproject.org', # timeouts on bots
+    'www.cs.cmu.edu' # timeouts on bots
   ]
 
   ##

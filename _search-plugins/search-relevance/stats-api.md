@@ -11,7 +11,7 @@ has_children: false
 Introduced 2.7
 {: .label .label-purple }
 
-The Search Relevance Stats API provides information about [Search Relevance plugin](https://github.com/opensearch-project/dashboards-search-relevance) operations. The Search Relevance plugin processes operations sent by the [Compare Search Results]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance) Dashboards tool.
+The Search Relevance Stats API provides information about [Search Relevance plugin](https://github.com/opensearch-project/dashboards-search-relevance) operations. The Search Relevance plugin processes operations sent by the [Compare Search Results]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/) Dashboards tool.
 
 The Search Relevance Stats API captures statistics for a one-minute interval during which it receives a request. For example, if a request is received at 23:59:59.004, statistics are collected for the 23:58:00.000--23:58:59.999 time interval.
 

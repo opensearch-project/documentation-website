@@ -3,7 +3,7 @@ layout: default
 title: Compound queries
 has_children: true
 has_toc: false
-nav_order: 40
+nav_order: 50
 redirect_from:
   - /opensearch/query-dsl/compound/index/
   - /query-dsl/query-dsl/compound/

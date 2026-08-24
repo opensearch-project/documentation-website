@@ -302,3 +302,7 @@ Field | Data type | Description
 `_shards.skipped` | Integer | The number of shards that were skipped during the count operation. Shards may be skipped if they do not contain any documents matching the query.
 `_shards.failed` | Integer | The number of shards that failed to execute the count operation. If this value is greater than 0, check your cluster health and shard allocation.
 `terminated_early` | Boolean | Appears only when the `terminate_after` query parameter is used. When `true`, indicates that the count operation was terminated before all matching documents were counted.
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `indices:data/read/search`.

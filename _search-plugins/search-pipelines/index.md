@@ -80,7 +80,7 @@ To delete an existing search pipeline, see [Deleting search pipelines]({{site.ur
 
 Search processors can be created manually or automatically:
 
-- [User-defined processors]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/search-processors): Processors configured manually in search pipelines, like in the preceding [example](#example).
+- [User-defined processors]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/search-processors/): Processors configured manually in search pipelines, like in the preceding [example](#example).
 - [System-generated processors]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/system-generated-search-processors/): Processors automatically created by OpenSearch based on search request parameters.
 
 ## Search pipeline metrics

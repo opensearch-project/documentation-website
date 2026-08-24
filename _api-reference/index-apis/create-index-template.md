@@ -432,4 +432,6 @@ PUT /_index_template/template_1
 
 Recursive merging is used for mapping definition and root options such as `dynamic_templates` and `meta`, meaning that when an earlier component contains a `meta` block, new `meta` entries are added to the end of the metadata in the index. Any entries containing a preexisting key are overwritten.
 
+## Required permissions
 
+If you use the Security plugin, make sure you have the appropriate permissions: `indices:admin/index_template/put`.

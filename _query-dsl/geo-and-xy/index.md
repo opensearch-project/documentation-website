@@ -2,7 +2,7 @@
 layout: default
 title: Geographic and xy queries
 has_children: true
-nav_order: 50
+nav_order: 65
 redirect_from:
    - /opensearch/query-dsl/geo-and-xy/index/
    - /query-dsl/query-dsl/geo-and-xy/
@@ -28,9 +28,9 @@ Geographic queries search for documents that contain geospatial geometries. Thes
 
 OpenSearch provides the following geographic query types:
 
-- [**Geo-bounding box queries**]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/geo-and-xy/geo-bounding-box/): Return documents with geopoint field values that are within a bounding box. 
-- [**Geodistance queries**]({{site.url}}{{site.baseurl}}/query-dsl/geo-and-xy/geodistance/): Return documents with geopoints that are within a specified distance from the provided geopoint.
-- [**Geopolygon queries**]({{site.url}}{{site.baseurl}}/query-dsl/geo-and-xy/geopolygon/): Return documents containing geopoints that are within a polygon.
-- [**Geoshape queries**]({{site.url}}{{site.baseurl}}/query-dsl/geo-and-xy/geoshape/): Return documents that contain:
-    - Geoshapes and geopoints that have one of four spatial relations to the provided shape: `INTERSECTS`, `DISJOINT`, `WITHIN`, or `CONTAINS`.
-    - Geopoints that intersect the provided shape.
+| Query type | Description |
+| :--- | :--- |
+| [Geo-bounding box]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/geo-and-xy/geo-bounding-box/) | Returns documents with geopoint field values that are within a bounding box. |
+| [Geodistance]({{site.url}}{{site.baseurl}}/query-dsl/geo-and-xy/geodistance/) | Returns documents with geopoints that are within a specified distance from the provided geopoint. |
+| [Geopolygon]({{site.url}}{{site.baseurl}}/query-dsl/geo-and-xy/geopolygon/) | Returns documents containing geopoints that are within a polygon. |
+| [Geoshape]({{site.url}}{{site.baseurl}}/query-dsl/geo-and-xy/geoshape/) | Returns documents containing geoshapes and geopoints that have one of four spatial relations to the provided shape (`INTERSECTS`, `DISJOINT`, `WITHIN`, or `CONTAINS`) or geopoints that intersect the provided shape. |

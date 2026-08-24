@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Rollover
-parent: Index Management
+parent: Index management
 nav_order: 40
 redirect_from:
   - /dashboards/admin-ui-index/rollover/
@@ -11,7 +11,7 @@ redirect_from:
 Introduced 2.6
 {: .label .label-purple }
 
-OpenSearch Dashboards allows you to perform an [index rollover]({{site.url}}{{site.baseurl}}/im-plugin/ism/error-prevention/index/#rollover) operation with **Index Management**.
+OpenSearch Dashboards allows you to perform an [index rollover]({{site.url}}{{site.baseurl}}/im-plugin/ism/error-prevention/index/#roll-over) operation with **Index Management**.
 
 ## Data streams
 

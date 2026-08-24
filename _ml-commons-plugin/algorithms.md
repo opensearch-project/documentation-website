@@ -314,7 +314,7 @@ Parameter | Type   | Description | Default value
 `aggregations` | List  | The fields and aggregation for values. | N/A
 `time_field_name` | String | The timestamp field. | `null`
 `start_time` | Long | The beginning of the time range. | `0` 
-`end_time` | Long | The end of the time range. | 0``
+`end_time` | Long | The end of the time range. | `0`
 `min_time_interval` | Long | The minimum time interval/scale for analysis. | `0`
 `num_outputs` | Integer | The maximum number of values from localization/slicing. | `0`
 `filter_query` | Long | (Optional) Reduces the collection of data for analysis. | N/A

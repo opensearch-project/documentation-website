@@ -9,7 +9,7 @@ parent: Application Performance Monitoring
 **Introduced 3.6**
 {: .label .label-purple }
 
-After ingesting telemetry data using the OpenTelemetry Collector and Data Prepper, you need to configure APM in OpenSearch Dashboards. You'll create datasets, configure index patterns, attach a Prometheus data source, and configure APM settings in your workspace.
+After ingesting telemetry data using the OpenTelemetry Collector and Data Prepper, you need to configure Application Performance Monitoring (APM) in OpenSearch Dashboards. You'll create datasets, configure index patterns, attach a Prometheus data source, and configure APM settings in your workspace.
 
 ## Step 1: Create datasets for logs and traces
 

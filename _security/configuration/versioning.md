@@ -99,7 +99,7 @@ The following table lists all response body fields for viewing a specific versio
 |:-----------------|:----------|:------------------------------------------------------------------------------------------|
 | `versions`         | Array     | A list of security configuration versions.                                                  |
 | `version_id`       | String    | The ID of the security configuration version.                                                        |
-| `timestamp`        | Datetime  | The timestamp of the security configuration change.                                                |
+| `timestamp`        | Date/Time  | The timestamp of the security configuration change.                                                |
 | `modified_by`      | String    | The user who modified the security configuration.                                                  |
 | `security_configs` | String    | The security configuration for a particular version that contains all security configurations. |
 

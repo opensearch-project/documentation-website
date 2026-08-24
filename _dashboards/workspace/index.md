@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Getting started with workspaces
-parent: Workspace for OpenSearch Dashboards
+parent: Workspaces
 nav_order: 0
 redirect_from:
   - /dashboards/workspace/
@@ -15,7 +15,7 @@ OpenSearch Dashboards 2.18 introduces an enhanced home page that provides a comp
 
 The new home page includes the following features: 
 
-1. A **Create workspace** button for [OpenSearch Dashboard admins]({{site.url}}{{site.baseurl}}/dashboards/workspace/workspace-acl/#configuring-dashboard-administrators) to navigate to the [create workspace]({{site.url}}{{site.baseurl}}/dashboards/workspace/create-workspace) page.
+1. A **Create workspace** button for [OpenSearch Dashboard admins]({{site.url}}{{site.baseurl}}/dashboards/workspace/workspace-acl/#configuring-dashboard-administrators) to navigate to the [create workspace]({{site.url}}{{site.baseurl}}/dashboards/workspace/create-workspace/) page.
 2. Workspace access time information and a link to the workspace overview page.
 3. A use case information icon that displays information about the workspace's purpose.
 4. A **View all workspaces** button that navigates to the [workspace management]({{site.url}}{{site.baseurl}}/dashboards/workspace/manage-workspace/#navigating-the-workspaces-list) page.

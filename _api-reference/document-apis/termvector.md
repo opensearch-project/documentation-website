@@ -72,7 +72,7 @@ The following table lists the fields that can be specified in the request body.
 | `routing` | String | A custom routing value used to identify the shard. Required if custom routing was used during indexing. |
 | `version` | Integer | The specific version of the document to retrieve. |
 | `version_type` | String | The type of versioning to use. Valid values: `internal`, `external`, `external_gte`, `force`. |
-| `filter`| Object | Allows filtering of tokens returned in the response (for example, by frequency or position). See [Filtering terms]({{site.url}}{{site.baseurl}}/api-reference/document-apis/termvector/#filtering-terms) for available options. |
+| `filter` | Object | Allows filtering of tokens returned in the response (for example, by frequency or position). See [Filtering terms]({{site.url}}{{site.baseurl}}/api-reference/document-apis/termvector/#filtering-terms) for available options. |
 | `per_field_analyzer` | Object | Specifies a custom analyzer to use per field. Format: `{ "field_name": "analyzer_name" }`. | 
 | `preference` | String | Specifies shard or node routing preferences. See [preference query parameter]({{site.url}}{{site.baseurl}}/api-reference/search-apis/search/#the-preference-query-parameter).|
 
@@ -89,7 +89,7 @@ The `filter` object in the request body allows you to filter the tokens to inclu
 | `min_word_length` | Integer | The minimum length of the term to be included. |
 | `max_word_length` | Integer | The maximum length of the term to be included. |
 
-## Example Requests
+## Example requests
 
 Create an index:
 
@@ -319,3 +319,7 @@ The following table lists all response body fields.
 | `term_vectors.text.terms.<term>.tokens[].start_offset` | Integer | The start character offset of the token. Present only if `offsets` is `true`. |
 | `term_vectors.text.terms.<term>.tokens[].end_offset` | Integer | The end character offset of the token. Present only if `offsets` is `true`. |
 | `term_vectors.text.terms.<term>.tokens[].payload` | String (Base64) | Optional payload data associated with the token. Present only if `payloads` is `true` and available. |
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `indices:data/read/tv`.

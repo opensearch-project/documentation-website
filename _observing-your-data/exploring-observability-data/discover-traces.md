@@ -34,7 +34,7 @@ Before using the **Traces** page, ensure that you have fulfilled the following p
 
 3. **Configure multiple data sources**: You must have multiple data sources configured. For instructions, see [Multiple data sources]({{site.url}}{{site.baseurl}}/dashboards/management/multi-data-sources/).
 
-## Accessing the Traces page
+## Accessing the traces page
 
 To access the **Traces** page:
 
@@ -66,7 +66,7 @@ If your indexes use different naming conventions, you must manually create the d
 
 The **Traces** page provides comprehensive tools for analyzing span data and understanding trace performance, including:
 
-- **RED metrics**: View rate, error, and duration metrics at the top of the page to quickly assess trace performance and health.
+- **RED metrics**: View Rate, Errors, and Duration (RED) metrics at the top of the page to quickly assess trace performance and health.
 - **Faceted fields**: Use faceted field filters to filter and analyze specific aspects of your traces.
 - **Span table**: Browse spans using sortable columns and quick access to detailed information.
 
@@ -86,7 +86,7 @@ The **Trace Details** flyout displays the following information:
 
 To access the full trace detail page from the **Trace Details** flyout, use one of the following options:
 
-- Select the **span ID** from the the **Traces** page table.
+- Select the **span ID** from the **Traces** page table.
 - Select **Open full page** from the flyout.
 
 The full page view provides an expanded interface for deeper trace analysis, featuring a timeline visualization that shows the hierarchical span relationships and durations, along with detailed span information in a side panel, as shown in the following image.

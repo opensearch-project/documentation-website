@@ -14,7 +14,7 @@ Revokes an API key, making it immediately unusable for authentication. This is a
 
 Note the following behavior when revoking API keys:
 
-- Revocation is synchronous: the key is broadcasted as invalid to all nodes before the response is returned.
+- Revocation is synchronous: the key is broadcast as invalid to all nodes before the response is returned.
 - Revoked keys cannot be reactivated.
 - The key name cannot be reused after revocation.
 

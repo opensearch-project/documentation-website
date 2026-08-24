@@ -211,6 +211,6 @@ As Metadata migration supports migrating from ES 6.8 on to the latest versions o
 ```
 {% include copy.html %}
 
-For additional technical details, [view the mapping type removal source code](https://github.com/opensearch-project/opensearch-migrations/blob/main/transformation/src/main/java/org/opensearch/migrations/transformation/rules/IndexMappingTypeRemoval.java).
+For additional technical details, [view the type mappings sanitization source code](https://github.com/opensearch-project/opensearch-migrations/blob/main/transformation/transformationPlugins/jsonMessageTransformers/jsonTypeMappingsSanitizationTransformer/src/main/java/org/opensearch/migrations/transform/TypeMappingsSanitizationTransformer.java).
 
 {% include migration-phase-navigation.html %}

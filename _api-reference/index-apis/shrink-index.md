@@ -123,11 +123,11 @@ The minimum number of primary shards for the target index is 1.
 
 ## Monitoring the shrink process
 
-The shrink API returns as soon as the target index has been added to the cluster state — it does not wait for the shrink operation to complete. The shrink process proceeds through the following shard states:
+The Shrink Index API returns as soon as the target index has been added to the cluster state---it does not wait for the shrink operation to complete. The shrink process proceeds through the following shard states:
 
-1. **Unassigned** — All shards in the target index begin in this state immediately after the API returns.
-1. **Initializing** — Once the primary shard is allocated to the shrink node, it transitions to this state and the data consolidation begins.
-1. **Active** — When the shrink completes, the shard becomes active. OpenSearch then attempts to allocate any configured replicas and may relocate the primary shard to another node for balancing.
+1. **Unassigned** -- All shards in the target index begin in this state immediately after the API returns.
+1. **Initializing** -- Once the primary shard is allocated to the shrink node, it transitions to this state and the data consolidation begins.
+1. **Active** -- When the shrink completes, the shard becomes active. OpenSearch then attempts to allocate any configured replicas and may relocate the primary shard to another node for balancing.
 
 You can track the progress of shard recovery using the [CAT recovery API]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-recovery/), or use the [Cluster Health API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-health/) with `wait_for_status=yellow` to wait until all primary shards have been allocated.
 
@@ -267,3 +267,7 @@ The following table lists all response body fields.
 | `acknowledged` | Boolean | Indicates whether the request was acknowledged by all relevant nodes in the cluster. |
 | `shards_acknowledged` | Boolean | Indicates whether the required number of shard copies were started before the request timed out. |
 | `index` | String | The name of the target index that was created. |
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `indices:admin/resize`.

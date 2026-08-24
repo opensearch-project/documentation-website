@@ -2,7 +2,7 @@
 layout: default
 title: k-NN query explain
 parent: k-NN
-grand_parent: Specialized queries
+grand_parent: AI and vector search queries
 nav_order: 10
 ---
 

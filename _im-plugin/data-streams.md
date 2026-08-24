@@ -19,6 +19,8 @@ A data stream is internally composed of multiple backing indexes. Search request
 
 ## Get started with data streams
 
+The following steps show how to create and use a data stream.
+
 ### Step 1: Create an index template
 
 To create a data stream, you first need to create an index template that configures a set of indexes as a data stream. The `data_stream` object indicates that it’s a data stream and not a regular index template. The index pattern matches with the name of the data stream:
@@ -34,9 +36,10 @@ PUT _index_template/logs-template
   "priority": 100
 }
 ```
+{% include copy-curl.html %}
 
 In this case, each ingested document must have an `@timestamp` field.
-You also have the ability to define your own custom timestamp field as a property in the `data_stream` object. You can also add index mappings and other settings here, just as you would for a regular index template.
+You also have the ability to define your own custom timestamp field as a property in the `data_stream` object. You can also add index mappings and other settings here, the same way as you would for a regular index template:
 
 ```json
 PUT _index_template/logs-template-nginx
@@ -56,6 +59,7 @@ PUT _index_template/logs-template-nginx
   }
 }
 ```
+{% include copy-curl.html %}
 
 In this case, `logs-nginx` index matches both the `logs-template` and `logs-template-nginx` templates. When you have a tie, OpenSearch selects the matching index template with the higher priority value.
 
@@ -71,7 +75,7 @@ PUT _data_stream/logs-nginx
 
 You can also directly start ingesting data without creating a data stream.
 
-Because we have a matching index template with a data_stream object, OpenSearch automatically creates the data stream:
+Because we have a matching index template with a `data_stream` object, OpenSearch automatically creates the data stream:
 
 ```json
 POST logs-staging/_doc
@@ -80,12 +84,14 @@ POST logs-staging/_doc
   "@timestamp": "2013-03-01T00:00:00"
 }
 ```
+{% include copy-curl.html %}
 
 To see information about a specific data stream:
 
 ```json
 GET _data_stream/logs-nginx
 ```
+{% include copy-curl.html %}
 
 #### Example response
 
@@ -118,6 +124,7 @@ To see more insights about the data stream, use the `_stats` endpoint:
 ```json
 GET _data_stream/logs-nginx/_stats
 ```
+{% include copy-curl.html %}
 
 #### Example response
 
@@ -147,6 +154,7 @@ To see information about all data streams, use the following request:
 ```json
 GET _data_stream
 ```
+{% include copy-curl.html %}
 
 ### Step 3: Ingest data into the data stream
 
@@ -159,11 +167,14 @@ POST logs-redis/_doc
   "@timestamp": "2013-03-01T00:00:00"
 }
 ```
+{% include copy-curl.html %}
 
 ### Step 4: Searching a data stream
 
 You can search a data stream just like you search a regular index or an index alias.
 The search operation applies to all of the backing indexes (all data present in the stream).
+
+The following request searches the `logs-redis` data stream for documents matching `login`:
 
 ```json
 GET logs-redis/_search
@@ -175,6 +186,7 @@ GET logs-redis/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 #### Example response
 
@@ -210,7 +222,9 @@ GET logs-redis/_search
 }
 ```
 
-### Step 5: Rollover a data stream
+You can also query a data stream directly using [asynchronous search]({{site.url}}{{site.baseurl}}/search-plugins/async/index/), [SQL]({{site.url}}{{site.baseurl}}/search-plugins/sql/index/), or [PPL]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index/).
+
+### Step 5: Roll over a data stream
 
 A rollover operation creates a new backing index that becomes the data stream’s new write index.
 
@@ -219,6 +233,7 @@ To perform manual rollover operation on the data stream:
 ```json
 POST logs-redis/_rollover
 ```
+{% include copy-curl.html %}
 
 #### Example response
 
@@ -254,7 +269,7 @@ You also see a data stream column that shows you the name of the data stream the
 
 You can select one or more data streams and apply an ISM policy on them. You can also apply a policy on any individual backing index.
 
-You can performing visualizations on a data stream just like you would on a regular index or index alias.
+You can performing visualizations on a data stream the same way you would on a regular index or index alias.
 
 ### Step 7: Delete a data stream
 
@@ -265,9 +280,16 @@ To delete a data stream and all of its hidden backing indexes:
 ```json
 DELETE _data_stream/{name_of_data_stream}
 ```
+{% include copy-curl.html %}
 
 You can use wildcards to delete more than one data stream.
 
 We recommend deleting data from a data stream using an ISM policy.
 
-You can also use [asynchronous search]({{site.url}}{{site.baseurl}}/search-plugins/async/index/), [SQL]({{site.url}}{{site.baseurl}}/search-plugins/sql/index/), and [PPL]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index/) to query your data stream directly. You can also use the Security plugin to define granular permissions for the data stream name.
+### Step 8: Modify the backing indexes of a data stream
+
+You can add or remove backing indexes of an existing data stream using the [Modify Data Stream API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/modify-data-stream/). This is a metadata-only operation that lets you migrate a pre-existing regular index into a data stream or detach a backing index without deleting its data. You can also attach a restored backing index to a data stream during a snapshot restore by setting `attach_to_data_stream` to `true` in the [Restore Snapshot API]({{site.url}}{{site.baseurl}}/api-reference/snapshots/restore-snapshot/).
+
+## Data stream permissions
+
+Use the Security plugin to define granular permissions for the data stream name. For more information, see [Permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/).

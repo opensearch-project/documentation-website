@@ -54,7 +54,7 @@ OpenSearch responds with an agent ID:
 
 ## Step 2: Run the agent
 
-Before you run the agent, make sure that you add the sample OpenSearch Dashboards `Sample eCommerce orders` dataset. To learn more, see [Adding sample data]({{site.url}}{{site.baseurl}}/dashboards/quickstart#adding-sample-data).
+Before you run the agent, make sure that you add the sample OpenSearch Dashboards `Sample eCommerce orders` dataset. To learn more, see [Adding sample data]({{site.url}}{{site.baseurl}}/dashboards/getting-started/data-setup/#add-sample-data).
 
 Then, run the agent by sending the following request:
 
@@ -118,11 +118,13 @@ green    open    .opendistro-job-scheduler-lock    XjgmXAVKQ4e8Y-ac54VBzg    1  
 
 The following table lists all tool parameters that are available when registering an agent.
 
+<!-- vale off -->
 Parameter | Type | Required/Optional | Description
 :--- | :--- | :--- | :---
 `indices` | String | Optional | A comma-delimited list of one or more indexes on which to run the list index operation. Default is an empty list, which means all indexes.
 `local` | Boolean | Optional | When `true`, retrieves information from the local node only instead of the cluster manager node. Default is `false`.
 `page_size` | Integer | Optional | Specifies the number of index results returned per page when using the List Indices API. The API retrieves index status in a paginated manner. Default is `100`.
+<!-- vale on -->
 
 ## Execute parameters
 

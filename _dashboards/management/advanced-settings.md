@@ -1,11 +1,11 @@
 ---
 layout: default
 title: Advanced settings
-parent: Dashboards Management
-nav_order: 40
+parent: Dashboards management
+nav_order: 10
 ---
 
-# Advanced settings
+# Advanced settings in OpenSearch Dashboards
 
 Use the **Advanced settings** page to modify settings that govern OpenSearch Dashboards behavior. These settings can be used to customize the look and feel of the application, change the behavior of certain features, and more. A view of the interface is shown in the following image.
 

@@ -184,3 +184,7 @@ The response contains a JSON object where each key is an index name. The followi
 | :--- | :--- | :--- |
 | `mappings` | Object | The mapping definition for the index. |
 | `mappings.properties` | Object | A map of field names to their mapping configurations, including type, parameters, and nested subfields. |
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `indices:admin/mappings/get`.

@@ -23,7 +23,7 @@ The following flow chart outlines the Lucene algorithm.
 
 ![Lucene algorithm for filtering]({{site.url}}{{site.baseurl}}/images/lucene-algorithm.png)
 
-For more information about the Lucene filtering implementation and the underlying `KnnVectorQuery`, see the [Apache Lucene documentation](https://lucene.apache.org/core/9_2_0/core/org/apache/lucene/search/KnnVectorQuery.html).
+For more information about the Lucene filtering implementation and the underlying `KnnFloatVectorQuery`, see the [Apache Lucene documentation](https://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/search/KnnFloatVectorQuery.html).
 
 ## Using a Lucene k-NN filter
 

@@ -15,13 +15,13 @@ You can use both term-level and full-text queries to search text, but while term
 :--- | :--- | :---
 *Description* | Term-level queries answer which documents match a query. | Full-text queries answer how well the documents match a query.
 *Analyzer* | The search term isn't analyzed. This means that the term query searches for your search term as it is.  | The search term is analyzed by the same analyzer that was used for the specific document field at the time it was indexed. This means that your search term goes through the same analysis process as the document's field.
-*Relevance* | Term-level queries simply return documents that match without sorting them based on the relevance score. They still calculate the relevance score, but this score is the same for all the documents that are returned. | Full-text queries calculate a relevance score for each match and sort the results by decreasing order of relevance.
+*Relevance* | Term-level queries return documents that match without sorting them based on the relevance score. They still calculate the relevance score, but this score is the same for all the documents that are returned. | Full-text queries calculate a relevance score for each match and sort the results by decreasing order of relevance.
 *Use Case* | Use term-level queries when you want to match exact values such as numbers, dates, or tags and don't need the matches to be sorted by relevance. | Use full-text queries to match text fields and sort by relevance after taking into account factors like casing and stemming variants.
 
 OpenSearch uses the BM25 ranking algorithm to calculate relevance scores. To learn more, see [Okapi BM25](https://en.wikipedia.org/wiki/Okapi_BM25).
 {: .note }
 
-## Should I use a full-text or a term-level query?
+## Should I use a full-text or a term-level query
 
 To clarify the difference between full-text and term-level queries, consider the following two examples that search for a specific text phrase. The complete works of Shakespeare are indexed in an OpenSearch cluster.
 
@@ -80,7 +80,7 @@ GET shakespeare/_search
 }
 ```
 
-The search query “To be, or not to be” is analyzed and tokenized into an array of tokens just like the `text_entry` field of the documents. The full-text query takes an intersection of tokens between the search query and the `text_entry` fields for all the documents, and then sorts the results by relevance score:
+The search query “To be, or not to be” is analyzed and tokenized into an array of tokens, the same as the `text_entry` field of the documents. The full-text query takes an intersection of tokens between the search query and the `text_entry` fields for all the documents and then sorts the results by relevance score:
 
 ```json
 {
@@ -147,7 +147,7 @@ The search query “To be, or not to be” is analyzed and tokenized into an arr
 ...
 ```
 
-For a list of all full-text queries, see [Full-text queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/index).
+For a list of all full-text queries, see [Full-text queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/index/).
 
 ### Example: Exact term search
 

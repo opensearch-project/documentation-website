@@ -1,11 +1,11 @@
 ---
 layout: default
 title: Notification settings
-parent: Index Management
+parent: Index management
 nav_order: 60
 ---
 
-# Notification settings
+# Notification settings in OpenSearch Dashboards
 
 You can configure global default notification settings for index operations on the **Notification settings** page. You can also configure additional notification settings for individual index operations.
 

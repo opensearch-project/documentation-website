@@ -502,6 +502,8 @@ workflow configure edit
 ```
 {% include copy.html %}
 
+For an interactive reference of all available fields, their types, defaults, and descriptions, see the [Migration Assistant Schema Viewer](https://opensearch-project.github.io/opensearch-migrations/).
+
 Use a pilot configuration similar to the following:
 
 ```json
@@ -860,3 +862,4 @@ For more information, see the following resources:
 - [Using the Workflow CLI]({{site.url}}{{site.baseurl}}/migration-assistant/workflow-cli/getting-started/)
 - [Troubleshooting]({{site.url}}{{site.baseurl}}/migration-assistant/troubleshooting/)
 - [Migrate metadata]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/)
+- [Migration Assistant Schema Viewer](https://opensearch-project.github.io/opensearch-migrations/)

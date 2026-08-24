@@ -78,7 +78,7 @@ Query\n
 - Metadata lines include options, such as which indexes to search and the type of search. A metadata line can be empty (`{}`) if no per-search overrides are needed.
 - Query lines use the [query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/).
 
-Just like the [bulk]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/) operation, the JSON doesn't need to be minified---spaces are fine---but it does need to be on a single line. OpenSearch uses newline characters to parse multi-search requests and requires that the request body end with a newline character.
+Like the [bulk]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/) operation, the JSON doesn't need to be minified---spaces are fine---but it does need to be on a single line. OpenSearch uses newline characters to parse multi-search requests and requires that the request body end with a newline character.
 
 When sending requests to this endpoint, set the `Content-Type` header to `application/x-ndjson`.
 {: .note}
@@ -463,3 +463,7 @@ The following table lists the fields within each entry of the `responses` array.
 ## Partial responses
 
 If one or more shards fail during execution, the multi-search API still returns results from the successful shards. Each individual search response in the `responses` array includes a `_shards` object that reports how many shards succeeded and how many failed, allowing you to determine whether results are complete.
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `indices:data/read/msearch`.

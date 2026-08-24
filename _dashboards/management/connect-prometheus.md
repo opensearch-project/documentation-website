@@ -1,8 +1,8 @@
 ---
 layout: default
 title: Connecting Prometheus to OpenSearch
-parent: Data sources
-nav_order: 20
+parent: Connecting data sources
+nav_order: 60
 ---
 
 # Connecting Prometheus to OpenSearch

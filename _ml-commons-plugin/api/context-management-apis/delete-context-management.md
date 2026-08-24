@@ -45,6 +45,26 @@ DELETE /_plugins/_ml/context_management/advanced-context-management
 }
 ```
 
+## Error responses
+
+If you attempt to delete a context management configuration that doesn't exist, the API returns a 404 error indicating the resource was not found:
+
+```json
+{
+  "error": {
+    "root_cause": [
+      {
+        "type": "status_exception",
+        "reason": "Context management template not found: sliding_window_max_40000_tokens_managers123"
+      }
+    ],
+    "type": "status_exception",
+    "reason": "Context management template not found: sliding_window_max_40000_tokens_managers123"
+  },
+  "status": 404
+}
+```
+
 ## Related documentation
 
 For more information, see [Context management]({{site.url}}{{site.baseurl}}/ml-commons-plugin/context-management/).

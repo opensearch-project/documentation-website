@@ -11,7 +11,7 @@ parent: Application Performance Monitoring
 
 The **Services** page provides a centralized catalog of all instrumented services in your application, displaying Rate, Errors, Duration (RED) at a glance. Use this page to identify services with high error rates, latency issues, or throughput anomalies.
 
-## Accessing the Services page
+## Accessing the services page
 
 To access the **Services** page, navigate to your Observability workspace and select **APM** > **Services** from the left navigation menu. The following image shows the **Services** page.
 

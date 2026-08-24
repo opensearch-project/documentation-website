@@ -14,6 +14,9 @@ redirect_from:
 
 OpenSearch provides a comprehensive suite of search-related APIs that allow you to perform various search operations, test and validate your searches, and work with search templates. OpenSearch supports the following Search APIs.
 
+The endpoint paths listed on this page (for example, `GET /{index}/_search`) are relative to your OpenSearch host and port. The full URL format is `https://<host>:<port>/{index}/_search`, for which the default port is `9200`. For more information about connecting to OpenSearch, see [Communicating with OpenSearch]({{site.url}}{{site.baseurl}}/getting-started/communicate/).
+{: .note}
+
 ## Core search APIs
 
 These APIs form the foundation of OpenSearch's search capabilities:

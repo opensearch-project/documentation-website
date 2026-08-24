@@ -2,6 +2,7 @@
 layout: default
 title: Installation quickstart
 nav_order: 3
+description: "Quickly set up a local OpenSearch and OpenSearch Dashboards cluster using Docker, then index and search sample data to get started."
 redirect_from: 
   - /about/quickstart/
   - /opensearch/install/quickstart/
@@ -11,6 +12,7 @@ redirect_from:
 # Installation quickstart
 
 OpenSearch supports multiple installation methods: Docker, Debian, Helm, RPM, tarball, and Windows.
+
 This guide uses [Docker](https://www.docker.com/) for a quick local setup. For other installation options, see the full [Install and upgrade OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/) guide.
 
 There are two ways to get started:
@@ -151,7 +153,7 @@ This configuration enables security using demo certificates and requires additio
 
     For more information, see [important system settings]({{site.url}}{{site.baseurl}}/opensearch/install/important-settings/).
 
-1. Download the sample Compose file to your host. You can download the file with command line utilities like `curl` and `wget`, or you can manually copy [docker-compose.yml](https://github.com/opensearch-project/documentation-website/blob/{{site.opensearch_major_minor_version}}/assets/examples/docker-compose.yml) from the OpenSearch Project documentation-website repository using a web browser.
+1. Download the sample Compose file to your host. You can download the file with command line utilities like `curl` and `wget`, or you can manually copy [`docker-compose.yml`](https://github.com/opensearch-project/documentation-website/blob/{{site.opensearch_major_minor_version}}/assets/examples/docker-compose.yml) from the OpenSearch Project documentation-website repository using a web browser.
 
     To use cURL, send the following request:
 
@@ -238,7 +240,7 @@ You successfully deployed your own OpenSearch cluster with OpenSearch Dashboards
 - [About the Security plugin]({{site.url}}{{site.baseurl}}/security/index/)
 - [OpenSearch configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/)
 - [OpenSearch plugin installation]({{site.url}}{{site.baseurl}}/opensearch/install/plugins/)
-- [OpenSearch Dashboards quickstart]({{site.url}}{{site.baseurl}}/dashboards/quickstart/)
+- [OpenSearch Dashboards getting started]({{site.url}}{{site.baseurl}}/dashboards/getting-started/)
 
 ## Next steps
 

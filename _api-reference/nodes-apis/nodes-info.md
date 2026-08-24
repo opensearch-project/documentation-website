@@ -36,7 +36,7 @@ The following table lists the available path parameters. All path parameters are
 
 Parameter | Type | Description
 :--- |:-------| :---
-nodeId | String | A comma-separated list of nodeIds used to filter results. Supports [node filters]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/index/#node-filters). Defaults to `_all`.
+`node_id` | String | A comma-separated list of node IDs used to filter results. Supports [node filters]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/index/#node-filters). Defaults to `_all`.
 `metrics` | String | A comma-separated list of metric groups that will be included in the response. For example, `jvm,thread_pool`. Defaults to all metrics.
 
 The following table lists all available metric groups.
@@ -44,7 +44,7 @@ The following table lists all available metric groups.
 Metric | Description
 :--- |:----
 `settings` | A node's settings. This is a combination of the default settings, custom settings from the [configuration file]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/#configuration-file), and dynamically [updated settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/#updating-cluster-settings-using-the-api).
-`os` | Static information about the host OS, including version, processor architecture, and available/allocated processors.
+`os` | Static information about the host operating system, including version, processor architecture, and available/allocated processors.
 `process` | Contains the process ID.
 `jvm` | Detailed static information about the running JVM, including arguments.
 `thread_pool` | Configured options for all individual thread pools.
@@ -53,7 +53,7 @@ Metric | Description
 `plugins` | Information about installed plugins and modules.
 `ingest` | Information about ingest pipelines and available ingest processors.
 `search_pipelines` | Information about search pipelines configured on the node.
-`aggregations` | Information about available [aggregations]({{site.url}}{{site.baseurl}}/opensearch/aggregations).
+`aggregations` | Information about available [aggregations]({{site.url}}{{site.baseurl}}/opensearch/aggregations/).
 `indices` | Static index settings configured at the node level.
 
 ## Query parameters
@@ -176,12 +176,12 @@ name | The node's name.
 `host` | The node's host address.
 `ip` | The node's host IP address.
 `version` | The node's OpenSearch version.
-`build_type` | The node's build type, like `rpm`, `docker`, `tar`, etc.
+`build_type` | The node's build type, such as `rpm`, `docker`, or `tar`.
 `build_hash` | The git commit hash of the build.
 `total_indexing_buffer` | The maximum heap size in bytes used to hold newly indexed documents. Once this heap size is exceeded, the documents are written to disk.
 `roles` | The list of the node's roles.
 `attributes` | The node's attributes.
-`os` | Information about the OS, including name, version, architecture, refresh interval, and the number of available and allocated processors.
+`os` | Information about the operating system, including name, version, architecture, refresh interval, and the number of available and allocated processors.
 `process` | Information about the currently running process, including PID, refresh interval, and `mlockall`, which specifies whether the process address space has been successfully locked in memory. 
 `jvm` | Information about the JVM, including PID, version, memory information, garbage collector information, and arguments.
 `thread_pool` | Information about the thread pool.

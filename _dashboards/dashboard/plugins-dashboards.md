@@ -12,12 +12,12 @@ Observability is a collection of plugins and applications that let you visualize
 As of OpenSearch 2.7, you can manage your observability plugins with **Observability Dashboards** or **Dashboard** instead of the plugins page. This feature provides you:
 
 - **Instant access to installed plugins:** The dashboard displays all installed plugins in one place.
-- **Improved efficiency:** With a list of plugins readily available from a dashboard, you can enable, disable, update, or remove plugins in the OpenSearch Dashboards UI.
+- **Improved efficiency:** With a list of plugins readily available from a dashboard, you can enable, disable, update, or remove plugins in OpenSearch Dashboards.
 - **Better troubleshooting:** Viewing a list of plugins from a dashboard can help you quickly identify which plugins may be causing a problem.
 - **Enhanced security:** With a list of plugins readily available from a dashboard, you can easily see if any outdated or vulnerable plugins are present and then quickly remove or update them, minimizing or avoiding security risks.
 - **Improved website performance:** Viewing a list of plugins from a dashboard can help you identify any plugins that may be slowing down your website or causing performance issues.
 
-Get familiar with the basics of managing plugins from the Dashboards app in less than 20 seconds in the following video.
+Learn the basics of managing plugins from the Dashboards app in less than 20 seconds in the following video.
 
 ![Demo of using Dashboards to view a list of observability plugins](https://user-images.githubusercontent.com/105296784/234345611-50beb9a6-6118-449a-b015-b9f9e90b525e.gif)
 
@@ -26,7 +26,7 @@ Get familiar with the basics of managing plugins from the Dashboards app in less
 To view a list of installed plugins from the Dashboards app, follow these steps:
 
 1. From the OpenSearch Dashboards main menu, select **Dashboards**.
-2. View the list of items and select your plugin. Plugins are categorized automatically as the Observability Dashboard data type, which you can filter in order to concentrate on just what you want to see.
+2. View the list of items and select your plugin. Plugins are categorized automatically as the Observability Dashboard data type, which you can filter to focus on specific items.
 
 ## Adding and removing plugins
 

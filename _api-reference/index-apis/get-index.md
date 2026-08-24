@@ -129,3 +129,7 @@ Field | Data type | Description
 `aliases` | Object | Index aliases associated with the index. Each key is an alias name, and each value is an alias configuration object. For more information, see [Index aliases]({{site.url}}{{site.baseurl}}/im-plugin/index-alias/).
 `mappings` | Object | Field mappings for documents in the index. Defines the data type and properties for each field. For more information, see [Mappings]({{site.url}}{{site.baseurl}}/field-types/).
 `settings` | Object | Index settings that control index behavior, such as the number of shards and replicas. For more information, see [Index settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/).
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `indices:admin/get`.

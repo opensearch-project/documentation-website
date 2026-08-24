@@ -3,7 +3,7 @@ layout: default
 title: Span queries
 has_children: true
 has_toc: false
-nav_order: 60
+nav_order: 75
 redirect_from: 
   - /opensearch/query-dsl/span-query/
   - /query-dsl/query-dsl/span-query/
@@ -17,23 +17,17 @@ You can use span queries to perform precise positional searches. Span queries ar
 
 Span queries include the following query types:
 
-- [**Span containing**]({{site.url}}{{site.baseurl}}/query-dsl/span/span-containing/): Returns larger spans that contain smaller spans within them. Useful for finding specific terms or phrases within a broader context. The opposite of `span_within` query.
-
-- [**Span field masking**]({{site.url}}{{site.baseurl}}/query-dsl/span/span-field-masking/): Allows span queries to work across different fields by making one field appear as another. Particularly useful when the same text is indexed using different analyzers.
-
-- [**Span first**]({{site.url}}{{site.baseurl}}/query-dsl/span/span-first/): Matches terms or phrases that appear within a specified number of positions from the start of a field. Useful for finding content at the beginning of text.
-
-- [**Span multi-term**]({{site.url}}{{site.baseurl}}/query-dsl/span/span-multi-term/): Enables multi-term queries (like `prefix`, `wildcard`, or `fuzzy`) to work within span queries. Allows for more flexible matching patterns in span searches.
-
-- [**Span near**]({{site.url}}{{site.baseurl}}/query-dsl/span/span-near/): Finds terms or phrases that appear within a specified distance of each other. You can require matches to appear in a specific order and control how many words can appear between them.
-
-- [**Span not**]({{site.url}}{{site.baseurl}}/query-dsl/span/span-not/): Excludes matches that overlap with another span query. Useful for finding terms when they do not appear in specific phrases or contexts.
-
-- [**Span or**]({{site.url}}{{site.baseurl}}/query-dsl/span/span-or/): Matches documents that satisfy any of the provided span queries. Combines multiple span patterns with OR logic.
-
-- [**Span term**]({{site.url}}{{site.baseurl}}/query-dsl/span/span-term/): The basic building block for span queries. Matches a single term while maintaining position information for use in other span queries.
-
-- [**Span within**]({{site.url}}{{site.baseurl}}/query-dsl/span/span-within/): Returns smaller spans that are enclosed by larger spans. The opposite of the `span_containing` query.
+| Query type | Description |
+| :--- | :--- |
+| [Span containing]({{site.url}}{{site.baseurl}}/query-dsl/span/span-containing/) | Returns larger spans that contain smaller spans within them. The opposite of the `span_within` query. |
+| [Span field masking]({{site.url}}{{site.baseurl}}/query-dsl/span/span-field-masking/) | Allows span queries to work across different fields by making one field appear as another. Useful when the same text is indexed using different analyzers. |
+| [Span first]({{site.url}}{{site.baseurl}}/query-dsl/span/span-first/) | Matches terms or phrases that appear within a specified number of positions from the start of a field. |
+| [Span multi-term]({{site.url}}{{site.baseurl}}/query-dsl/span/span-multi-term/) | Enables multi-term queries (like `prefix`, `wildcard`, or `fuzzy`) to work within span queries. |
+| [Span near]({{site.url}}{{site.baseurl}}/query-dsl/span/span-near/) | Finds terms or phrases that appear within a specified distance of each other. Supports requiring matches to appear in a specific order. |
+| [Span not]({{site.url}}{{site.baseurl}}/query-dsl/span/span-not/) | Excludes matches that overlap with another span query. |
+| [Span or]({{site.url}}{{site.baseurl}}/query-dsl/span/span-or/) | Matches documents that satisfy any of the provided span queries. |
+| [Span term]({{site.url}}{{site.baseurl}}/query-dsl/span/span-term/) | Matches a single term while maintaining position information for use in other span queries. |
+| [Span within]({{site.url}}{{site.baseurl}}/query-dsl/span/span-within/) | Returns smaller spans that are enclosed by larger spans. The opposite of the `span_containing` query. |
 
 ## Setup
 

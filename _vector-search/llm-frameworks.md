@@ -10,7 +10,7 @@ Several popular large language model (LLM) frameworks integrate with OpenSearch 
 
 - LangChain 
     - [Semantic cache](https://python.langchain.com/docs/integrations/llm_caching/#opensearch-semantic-cache)
-    - [Vector store support](https://python.langchain.com/docs/integrations/vectorstores/opensearch/)
+    - [Vector store support](https://pypi.org/project/langchain-opensearch/)
  
 - LlamaIndex
     - [Vector store support](https://developers.llamaindex.ai/python/framework-api-reference/storage/vector_store/opensearch/)

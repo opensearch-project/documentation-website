@@ -269,11 +269,13 @@ When using `DFI` similarity, avoid removing stop words for optimal relevance. Te
 
 | Parameter | Description | Valid values | Required |
 |-----------|-------------|------------------|----------|
-| `distribution` | Distribution model for the IB framework. | [`ll`](https://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/search/similarities/DistributionLL.html), [`spl`](https://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/search/similarities/DistributionSPL.html) | Yes |
-| `lambda` | Lambda model for the IB framework. | [`df`](https://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/search/similarities/LambdaDF.html), [`ttf`](https://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/search/similarities/LambdaTTF.html) | Yes |
-| `normalization` | Normalization model for the IB framework. | Same options as `DFR` similarity | Yes |
+| `distribution` | Distribution model for the `IB` framework. | [`ll`](https://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/search/similarities/DistributionLL.html), [`spl`](https://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/search/similarities/DistributionSPL.html) | Yes |
+| `lambda` | Lambda model for the `IB` framework. | [`df`](https://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/search/similarities/LambdaDF.html), [`ttf`](https://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/search/similarities/LambdaTTF.html) | Yes |
+| `normalization` | Normalization model for the `IB` framework. | Same options as `DFR` similarity | Yes |
 
+<!-- vale off -->
 ### LM Dirichlet similarity
+<!-- vale on -->
 
 `LMDirichlet` similarity uses [language model similarity](https://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/search/similarities/LMDirichletSimilarity.html) with Dirichlet smoothing.
 
@@ -285,7 +287,9 @@ When using `DFI` similarity, avoid removing stop words for optimal relevance. Te
 
 Terms with fewer occurrences than predicted by the language model receive a score of 0.
 
+<!-- vale off -->
 ### LM Jelinek Mercer similarity
+<!-- vale on -->
 
 `LMJelinekMercer` similarity uses [language model similarity](https://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/search/similarities/LMJelinekMercerSimilarity.html) with Jelinek-Mercer smoothing.
 

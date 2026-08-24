@@ -41,9 +41,7 @@ A slice is the unit of work that can be executed by a thread. Each query can be 
 
 In general, the max/min/avg slice time captures statistics across all slices for a timing type. For example, when profiling aggregations, the `max_slice_time_in_nanos` field in the `aggregations` section shows the maximum time consumed by the aggregation operation and its children across all slices. 
 
-## Example requests
-
-### Non-concurrent search
+## Example request: Non-concurrent search
 
 To use the Profile API, include the `profile` parameter set to `true` in the search request sent to the `_search` endpoint:
 
@@ -156,11 +154,11 @@ The response contains an additional `time` field with human-readable units, for 
 The Profile API response is verbose, so if you're running the request through the `curl` command, include the `?pretty` query parameter to make the response easier to understand.
 {: .tip}
 
-### Aggregations
+## Example request: Aggregations
 
 To profile aggregations, send an aggregation request and provide the `profile` parameter set to `true`.
 
-#### Global aggregation
+### Global aggregation
 
 <!-- spec_insert_start
 component: example_code
@@ -253,7 +251,7 @@ response = client.search(
     python=step1_python %}
 <!-- spec_insert_end -->
 
-#### Non-global aggregation
+### Non-global aggregation
 
 <!-- spec_insert_start
 component: example_code
@@ -309,9 +307,7 @@ response = client.search(
 <!-- spec_insert_end -->
 
 
-## Example response
-
-### Non-concurrent search
+## Example response: Non-concurrent search
 
 The response contains profiling information:
 
@@ -689,7 +685,7 @@ Field | Data type | Description
 [`profile.shards.searches.query`](#the-query-array) | Array of objects | Profiling information about the query execution.
 `profile.shards.searches.rewrite_time` | Integer | All Lucene queries are rewritten. A query and its children may be rewritten more than once, until the query stops changing. The rewriting process involves performing optimizations, such as removing redundant clauses or replacing a query path with a more efficient one. After the rewriting process, the original query may change significantly. The `rewrite_time` field contains the cumulative total rewrite time for the query and all its children, in nanoseconds.
 [`profile.shards.searches.collector`](#the-collector-array) | Array of objects | Profiling information about the Lucene collectors that ran the search.
-[`profile.shards.aggregations`](#aggregations) | Array of objects | Profiling information about the aggregation execution.
+[`profile.shards.aggregations`](#aggregation-responses) | Array of objects | Profiling information about the aggregation execution.
 
 ### The `query` array
 
@@ -735,7 +731,7 @@ The `collector` array contains information about Lucene Collectors. A Collector 
 
 Field | Description
 :--- | :--- 
-`name` | The collector name. In the [example response](#example-response), the `collector` is a single `SimpleTopScoreDocCollector`---the default scoring and sorting collector.
+`name` | The collector name. In the [example response](#example-response-non-concurrent-search), the `collector` is a single `SimpleTopScoreDocCollector`---the default scoring and sorting collector.
 `reason` | Contains a description of the collector. For possible field values, see [Collector reasons](#collector-reasons).
 `time_in_nanos` | The total elapsed time for this collector, in nanoseconds. For concurrent segment search, `time_in_nanos` is the total amount of time across all slices (the difference between the last completed slice execution end time and the first slice execution start time).
 `children` | If a collector has subcollectors (children), this field contains information about the subcollectors.
@@ -764,6 +760,8 @@ Reason | Description
 `global_aggregation` | A collector that is run against the global query scope. Global scope is different from a specified query scope, so in order to collect the entire dataset, a `match_all` query must be run.
 
 ### Aggregation responses
+
+The following examples show profiling responses for different aggregation types.
 
 #### Response: Global aggregation
 

@@ -1,20 +1,21 @@
 ---
 layout: default
 title: indices
-parent: Workload reference
-grand_parent: Reference
-nav_order: 65
+parent: Anatomy of a workload
+nav_order: 10
 redirect_from:
   - /benchmark/workloads/indices/
 ---
 
 <!-- vale off -->
-# indices
+# indices element
 <!-- vale on -->
 
-The `indices` element contains a list of all indices used in the workload. 
+The `indices` element contains a list of all indexes used in the workload. 
 
 ## Example
+
+To create an index, specify its name. To add definitions to your index, use the `body` option and point it to the JSON file containing the index definitions:
 
 ```json
 "indices": [

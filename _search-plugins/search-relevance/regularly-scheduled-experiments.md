@@ -8,7 +8,7 @@ has_children: false
 ---
 
 # Monitoring search quality
-Introduced 3.4
+**Introduced 3.4**
 {: .label .label-purple }
 
 Search quality is not static. Even if your ranking algorithms remain unchanged, the indexed data evolves, signals such as popularity and recency fluctuate, and user queries shift over time.
@@ -92,7 +92,7 @@ The following table lists the available path parameters.
 
 #### Example request
 
-``json
+```json
 GET _plugins/_search_relevance/experiments/schedule/6282afa6-fa14-49c8-a627-ac1d5204d357
 ```
 {% include copy-curl.html %}

@@ -12,17 +12,17 @@ redirect_from:
 
 The Open Database Connectivity (ODBC) driver is a read-only ODBC driver for Windows and macOS that lets you connect business intelligence (BI) and data visualization applications like [Microsoft Excel](https://github.com/opensearch-project/sql-odbc/blob/main/docs/user/microsoft_excel_support.md) and [Power BI](https://github.com/opensearch-project/sql-odbc/blob/main/bi-connectors/PowerBIConnector/README.md) to the SQL plugin.
 
-For information on downloading and using the driver, see [the SQL repository on GitHub](https://github.com/opensearch-project/sql-odbc).
+For information about downloading and using the driver, see [the SQL repository on GitHub](https://github.com/opensearch-project/sql-odbc).
 
 ## Specifications
 
 The ODBC driver is compatible with ODBC version 3.51.
 
-## Supported OS versions
+## Supported operating system versions
 
 The following operating systems are supported:
 
-Operating System | Version
+Operating system | Version
 :--- | :---
 Windows | Windows 10, Windows 11
 macOS | Catalina 10.15.4, Mojave 10.14.6, Big Sur 11.6.7, Monterey 12.4
@@ -67,7 +67,6 @@ Auth: NONE
 
 To customize the DSN, use **ODBC Data Source Administrator** which is pre-installed on Windows 10.
 
-
 ### macOS
 
 Before installing the ODBC Driver on macOS, install the iODBC Driver Manager.
@@ -104,10 +103,12 @@ This command gives the application permissions to save the driver and DSN config
 4. Choose **OK** to save the options.
 5. Choose the **User DSN** tab.
 6. Select **Add**.
-7. Choose the driver that you added above.
+7. Choose the driver that you added previously.
 8. For **Data Source Name (DSN)**, enter the name of the DSN used to store connection options (for example, OpenSearch SQL ODBC DSN).
 9. For **Comment**, add an optional comment.
 10. Add key-value pairs by using the `+` button. We recommend the following options for a default local OpenSearch installation:
+<!-- vale off -->
+
    - **Host**: `localhost` - OpenSearch server endpoint
    - **Port**: `9200` - The server port
    - **Auth**: `NONE` - The authentication mode
@@ -115,6 +116,8 @@ This command gives the application permissions to save the driver and DSN config
    - **Password**: `(blank)`- The password used for BASIC auth
    - **ResponseTimeout**: `10` - The number of seconds to wait for a response from the server
    - **UseSSL**: `0` - Do not use SSL for connections
+
+<!-- vale on -->
 
 11. Choose **OK** to save the DSN configuration.
 12. Choose **OK** to exit the iODBC Administrator.
@@ -133,7 +136,7 @@ Typically, all that's required is to make the BI tool aware of the location of t
 The ODBC driver uses an ODBC connection string.
 The connection strings are semicolon-delimited strings that specify the set of options that you can use for a connection.
 Typically, a connection string will either:
-  - Specify a Data Source Name (DSN) that contains a pre-configured set of options (`DSN=xxx;User=xxx;Password=xxx;`).
+  - Specify a Data Source Name (DSN) that contains a preconfigured set of options (`DSN=xxx;User=xxx;Password=xxx;`).
   - Or, configure options explicitly using the string (`Host=xxx;Port=xxx;LogLevel=ES_DEBUG;...`).
 
 You can configure the following driver options using a DSN or connection string:
@@ -150,7 +153,9 @@ Option | Description | Type | Default
 `Host / Server` | Hostname or IP address for the target cluster. | `string` | -
 `Port` | Port number on which the OpenSearch cluster's REST interface is listening. | `string` | -
 
-#### Authentication Options
+#### Authentication options
+
+<!-- vale off -->
 
 Option | Description | Type | Default
 :--- | :---
@@ -158,6 +163,8 @@ Option | Description | Type | Default
 `User / UID` | [`Auth=BASIC`] Username for the connection. | `string` | -
 `Password / PWD` | [`Auth=BASIC`] Password for the connection. | `string` | -
 `Region` | [`Auth=AWS_SIGV4`] Region used for signing requests. | `AWS region (for example, us-west-1)` | -
+
+<!-- vale on -->
 
 #### Advanced options
 

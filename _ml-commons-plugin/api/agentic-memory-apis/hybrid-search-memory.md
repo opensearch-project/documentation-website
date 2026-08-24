@@ -1,12 +1,12 @@
 ---
 layout: default
-title: Hybrid search memory
+title: Hybrid search agentic memory
 parent: Agentic memory APIs
 grand_parent: ML Commons APIs
 nav_order: 70
 ---
 
-# Hybrid search memory API
+# Hybrid Search Agentic Memory API
 **Introduced 3.6**
 {: .label .label-purple }
 

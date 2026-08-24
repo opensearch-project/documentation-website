@@ -15,7 +15,7 @@ getting_started_cards:
     link: "/getting-started/search-data/" 
   - heading: "OpenSearch Dashboards"
     description: "Start visualizing your data with interactive dashboards and powerful analytics tools"
-    link: "/dashboards/quickstart/"
+    link: "/dashboards/getting-started/"
 tutorial_cards:
   - heading: "Vector search"
     description: "Implement similarity search using vectors and enhance results with AI capabilities" 
@@ -34,9 +34,9 @@ tutorial_cards:
     link: "/tutorials/llm-as-a-judge-tutorial/"    
 ---
 
-# Tutorials
+# OpenSearch tutorials
 
-Follow step-by-step tutorials to learn how to use OpenSearch features.
+Follow step-by-step tutorials to get started with OpenSearch and build search features, including semantic search, hybrid search, retrieval-augmented generation (RAG), and conversational search.
 
 ## Getting started
 

@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Component templates
-parent: Index Management
+parent: Index management
 nav_order: 50
 ---
 
@@ -30,7 +30,7 @@ It's helpful to understand the following terms before starting this tutorial:
 - *Component template* refers to a reusable building block with settings, mappings, and aliases that can be attached to an index template.
 - *Index template* refers to a predefined structure used to organize and store data in a database or search index.
 
-## Creating component templates using the Index Management UI
+## Creating component templates using the index management UI
 
 You can use predefined OpenSearch Dashboards component templates or customize your own, either by creating original templates or by modifying existing templates. Predefined component templates include preconfigured charts, tables, and graphs and are a good starting point for users who are new to OpenSearch Dashboards. Alternatively, customized template components provide you with options for tailoring reports and visualizations that meet your specific requirements and preferences.
 

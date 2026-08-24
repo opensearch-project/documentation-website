@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Minimum should match
-nav_order: 70
+nav_order: 80
 redirect_from:
 - /query-dsl/query-dsl/minimum-should-match/
 ---

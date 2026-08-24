@@ -969,3 +969,7 @@ By default, the returned statistics are split into two groups: `primaries` and `
 ## Response body fields
 
 For information about response fields, see [Nodes Stats API response fields]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-stats/#indices).
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `indices:monitor/stats`.

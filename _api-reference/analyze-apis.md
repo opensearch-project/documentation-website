@@ -1049,3 +1049,7 @@ Field | Data type | Description
 
 See [token object](#token-object) for token field descriptions.
 {: .note}
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `indices:admin/analyze`.

@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Agentic
-parent: Specialized queries
+parent: AI and vector search queries
 nav_order: 2
 ---
 

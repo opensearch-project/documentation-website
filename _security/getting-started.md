@@ -25,7 +25,7 @@ Certain aspects of this configuration, such as demo certificates and default pas
 
 ## Setting up the demo configuration
 
-Prior to running the `install_demo_configuration.sh` script, you must create an environment variable named `OPENSEARCH_INITIAL_ADMIN_PASSWORD` with a strong password. This will be used as the password for the admin user to authenticate with OpenSearch. Use the online tool [_Zxcvbn_](https://lowe.github.io/tryzxcvbn/) to test the strength of any password. After this, you can execute `install_demo_configuration.sh` and follow the terminal prompt to enter necessary details.
+Prior to running the `install_demo_configuration.sh` script, you must create an environment variable named `OPENSEARCH_INITIAL_ADMIN_PASSWORD` with a strong password. This will be used as the password for the admin user to authenticate with OpenSearch. Use the online tool [`Zxcvbn`](https://lowe.github.io/tryzxcvbn/) to test the strength of any password. After this, you can execute `install_demo_configuration.sh` and follow the terminal prompt to enter necessary details.
 
 After the script is executed, you can start OpenSearch and test the configuration by running the following command:
 
@@ -94,9 +94,9 @@ You can now access OpenSearch Dashboards using http://localhost:5601 in your bro
 
 There are three ways to add users, roles, and other security-related configurations:
 
-  - Updating appropriate configuration files (`internal_users.yml` for adding/updating/removing users) 
+  - Updating appropriate configuration files (`internal_users.yml` for adding/updating/removing users)
   - Using the API
-  - Using the OpenSearch Dashboards UI
+  - Using OpenSearch Dashboards
 
 Security configuration files are located in the `config/opensearch-security` directory.
 {: .note}

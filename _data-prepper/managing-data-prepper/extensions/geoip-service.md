@@ -6,7 +6,7 @@ parent: Extensions
 grand_parent: Managing OpenSearch Data Prepper
 ---
 
-# geoip_service
+# GeoIP service extension
 
 The `geoip_service` extension configures all [`geoip`]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/geoip) processors in OpenSearch Data Prepper.
 
@@ -25,7 +25,9 @@ extensions:
       cache_count: 16_384
 ```
 
+<!-- vale off -->
 ## maxmind
+<!-- vale on -->
 
 The GeoIP service supports the MaxMind [GeoIP and GeoLite](https://dev.maxmind.com/geoip) databases.
 By default, Data Prepper will use all three of the following [MaxMind GeoLite2](https://dev.maxmind.com/geoip/geolite2-free-geolocation-data) databases:
@@ -44,10 +46,12 @@ Option | Required | Type | Description
 `database_refresh_interval` | No | Duration | How frequently to check for updates from MaxMind. This can be any duration in the range of 15 minutes to 30 days. Default is `PT7D`.
 `cache_count` | No | Integer | The maximum cache count by number of items in the cache, with a range of 100--100,000. Default is `4096`.
 `database_destination` | No | String | The name of the directory in which to store downloaded databases. Default is `{data-prepper.dir}/data/geoip`.
-`aws` | No | [aws](#aws) | Configures the AWS credentials for downloading the database from Amazon Simple Storage Service (Amazon S3).
+`aws` | No | [`aws`](#aws) | Configures the AWS credentials for downloading the database from Amazon Simple Storage Service (Amazon S3).
 `insecure` | No | Boolean | When `true`, this options allows you to download database files over HTTP. Default is `false`.
 
+<!-- vale off -->
 ## database
+<!-- vale on -->
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
@@ -57,7 +61,9 @@ Option | Required | Type | Description
 `enterprise` | No | String | The URL of the enterprise in which the database resides. Can be an HTTP URL for a manifest file, an MMDB file, or an S3 URL.
 
 
+<!-- vale off -->
 ## aws
+<!-- vale on -->
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---

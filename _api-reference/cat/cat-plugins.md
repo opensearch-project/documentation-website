@@ -114,3 +114,7 @@ To display specific columns, use the `h` query parameter. For example, to show o
 GET /_cat/plugins?v&h=name,component,version
 ```
 {% include copy-curl.html %}
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `cluster:monitor/nodes/info`.

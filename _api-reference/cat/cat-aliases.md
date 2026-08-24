@@ -145,4 +145,8 @@ This response shows:
 - `regional-orders`: An alias with routing configured for both indexing and searching
 - `multi-route`: An alias with different routing for indexing (1) and searching (1,2)
 
-To learn more about index aliases, see [Index aliases]({{site.url}}{{site.baseurl}}/opensearch/index-alias). For alias management APIs, see [Alias APIs]({{site.url}}{{site.baseurl}}/api-reference/alias/).
+To learn more about index aliases, see [Index aliases]({{site.url}}{{site.baseurl}}/opensearch/index-alias/). For alias management APIs, see [Alias APIs]({{site.url}}{{site.baseurl}}/api-reference/alias/).
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `indices:admin/aliases/get`.

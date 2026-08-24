@@ -1,12 +1,12 @@
 ---
 layout: default
-title: Delete memory
+title: Delete agentic memory
 parent: Agentic memory APIs
 grand_parent: ML Commons APIs
 nav_order: 53
 ---
 
-# Delete Memory API
+# Delete Agentic Memory API
 **Introduced 3.3**
 {: .label .label-purple }
 
@@ -72,6 +72,26 @@ DELETE /_plugins/_ml/memory_containers/HudqiJkB1SltqOcZusVU/memories/history/eMx
     "successful": 1,
     "failed": 0
   }
+}
+```
+
+### Error responses
+
+If you attempt to delete a memory from a container that doesn't exist, OpenSearch returns a 404 Not Found error:
+
+```json
+{
+  "error": {
+    "root_cause": [
+      {
+        "type": "status_exception",
+        "reason": "Memory container not found"
+      }
+    ],
+    "type": "status_exception",
+    "reason": "Memory container not found"
+  },
+  "status": 404
 }
 ```
 

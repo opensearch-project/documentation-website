@@ -81,7 +81,7 @@ The `confluence` source supports the following configuration options.
 |:------------------|:---------|:----------------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `hosts`           | Yes      | List                              | The Atlassian Confluence hostname. Currently, only one host is supported, so this list is expected to be of size 1.                                                                                                                 |
 | `acknowledgments` | No       | Boolean                           | When set to `true`, enables the `confluence` source to receive [end-to-end acknowledgments]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines#end-to-end-acknowledgments) when events are received by OpenSearch sinks. |
-| `preserve_formatting` | No       | Boolean                           | When set to `true`, Conflunece content formatting markup tags are kept as is. Default is `false` (remove markup tags and convert to plain text).                                                                 |
+| `preserve_formatting` | No       | Boolean                           | When set to `true`, Confluence content formatting markup tags are kept as is. Default is `false` (remove markup tags and convert to plain text).                                                                 |
 | `authentication`  | Yes      | [authentication](#Authentication) | Configures the authentication method used to access `confluence` source records from the specified host.                                                                                                                            |
 | `filter`          | No       | [filter](#Filter)                 | Applies specific filter criteria while extracting Confluence content.                                                                                                                                                               |
 
@@ -92,7 +92,7 @@ You can use one of the following authentication methods to access a Confluence h
 | Option   | Required | Type              | Description                                                  |
 |:---------|:---------|:------------------|:-------------------------------------------------------------|
 | `basic`  | Yes      | [basic](#basic-authentication)  | Basic authentication credentials used to access a Confluence host.  |
-| `oauth2` | Yes      | [oauth2](#oauth2-authentication) | OAuth2 authentication credentials used to access a Confluence host. |
+| `oauth2` | Yes      | [`oauth2`](#oauth2-authentication) | OAuth2 authentication credentials used to access a Confluence host. |
 
 #### Basic authentication
 

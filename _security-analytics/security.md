@@ -1,13 +1,15 @@
 ---
 layout: default
-title: OpenSearch Security for Security Analytics
+title: OpenSearch security for Security Analytics
 nav_order: 2
 has_children: false
 ---
 
-# OpenSearch Security for Security Analytics
+<!-- vale off -->
+# OpenSearch security for Security Analytics
+<!-- vale on -->
 
-You can use OpenSearch Security with Security Analytics to assign user permissions and manage the actions that users can and cannot perform. For example, you might want one group of users to be able to create, update, or delete detectors and another group of users to only view detectors. You may want still another group to be able to receive and acknowledge alerts but to be prevented from performing other tasks. The OpenSearch Security framework allows you to control the level of access users have to Security Analytics functionality.
+You can use OpenSearch security with Security Analytics to assign user permissions and manage the actions that users can and cannot perform. For example, you might want one group of users to be able to create, update, or delete detectors and another group of users to only view detectors. You may want still another group to be able to receive and acknowledge alerts but to be prevented from performing other tasks. The OpenSearch Security framework allows you to control the level of access users have to Security Analytics functionality.
 
 ---
 ## Security Analytics system indexes
@@ -93,6 +95,6 @@ However, because they have different backend roles, `alice` and `bob` cannot vie
 ---
 ## A note on using fine-grained access control with the plugin
 
-When a trigger generates an alert, the detector configurations, the alert itself, and any notifications that are sent to a channel may include metadata describing the index being queried. By design, the plugin must extract the data and store it as metadata outside of the index. [Document-level security]({{site.url}}{{site.baseurl}}/security/access-control/document-level-security) (DLS) and [field-level security]({{site.url}}{{site.baseurl}}/security/access-control/field-level-security) (FLS) access controls are designed to protect the data in the index. But once the data is stored outside the index as metadata, users with access to the detector and monitor configurations, alerts, and their notifications will be able to view this metadata and possibly infer the contents and quality of data in the index, which would otherwise be concealed by DLS and FLS access control.
+When a trigger generates an alert, the detector configurations, the alert itself, and any notifications that are sent to a channel may include metadata describing the index being queried. By design, the plugin must extract the data and store it as metadata outside of the index. [Document-level security]({{site.url}}{{site.baseurl}}/security/access-control/document-level-security/) (DLS) and [field-level security]({{site.url}}{{site.baseurl}}/security/access-control/field-level-security/) (FLS) access controls are designed to protect the data in the index. But once the data is stored outside the index as metadata, users with access to the detector and monitor configurations, alerts, and their notifications will be able to view this metadata and possibly infer the contents and quality of data in the index, which would otherwise be concealed by DLS and FLS access control.
 
 To reduce the chances of unintended users viewing metadata that could describe an index, we recommend that administrators enable role-based access control and keep these kinds of design elements in mind when assigning permissions to the intended group of users. See [Limit access by backend role](#advanced-limit-access-by-backend-role) for more information.

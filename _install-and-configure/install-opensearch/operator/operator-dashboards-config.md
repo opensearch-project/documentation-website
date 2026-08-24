@@ -88,7 +88,7 @@ This also sets the `server.rewriteBasePath` option to `true`. If you expose Open
 
 ## OpenSearch Dashboards HTTP
 
-OpenSearch Dashboards can expose its API and UI using HTTP or HTTPS. By default, the connection is unencrypted (HTTP). To secure the connection, you can either let the operator generate and sign a certificate or provide your own. The following fields in the `OpenSearchCluster` custom resource configure TLS for OpenSearch Dashboards:
+OpenSearch Dashboards can expose its API and UI using HTTP or HTTPS. By default, the connection is not encrypted (HTTP). To secure the connection, you can either let the operator generate and sign a certificate or provide your own. The following fields in the `OpenSearchCluster` custom resource configure TLS for OpenSearch Dashboards:
 
 ```yaml
 # ...

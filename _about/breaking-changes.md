@@ -5,7 +5,15 @@ nav_order: 5
 permalink: /breaking-changes/
 ---
 
+# Breaking changes
+
+OpenSearch uses [Semantic Versioning](https://semver.org/), which means that breaking changes are only introduced between major version releases. The following sections list breaking changes introduced in OpenSearch, organized by version.
+
+<!-- vale off -->
 ## 1.x
+<!-- vale on -->
+
+The following breaking changes were introduced in OpenSearch 1.x.
 
 ### Migrating to OpenSearch and limits on the number of nested JSON objects
 
@@ -16,6 +24,8 @@ Therefore, we recommend evaluating your data for these limits before attempting 
 
 ## 2.0.0
 
+The following breaking changes were introduced in OpenSearch 2.0.0.
+
 ### Remove mapping types parameter
 
 The `type` parameter has been removed from all OpenSearch API endpoints. Instead, indexes can be categorized by document type. For more details, see issue [#1940](https://github.com/opensearch-project/opensearch/issues/1940).
@@ -24,11 +34,15 @@ The `type` parameter has been removed from all OpenSearch API endpoints. Instead
 
 Non-inclusive terms are deprecated in version 2.x and will be permanently removed in OpenSearch 3.0.  We are using the following replacements: 
 
+<!-- vale off -->
 - "Whitelist" is now "Allow list"
 - "Blacklist" is now "Deny list"
 - "Master" is now "Cluster Manager"
+<!-- vale on -->
 
+<!-- vale off -->
 ### Add OpenSearch Notifications plugins
+<!-- vale on -->
 
 In OpenSearch 2.0, the Alerting plugin is now integrated with new plugins for Notifications. If you want to continue to use the notification action in the Alerting plugin, install the new backend plugins `notifications-core` and `notifications`. If you want to manage notifications in OpenSearch Dashboards, use the new `notificationsDashboards` plugin. For more information, see [Notifications]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/index/) on the OpenSearch documentation page.
 
@@ -39,11 +53,15 @@ A Lucene upgrade forced OpenSearch to drop support for JDK 8. As a consequence, 
 
 ## 2.5.0
 
+The following breaking change was introduced in OpenSearch 2.5.0.
+
 ### Wildcard query behavior for text fields
 
 OpenSearch 2.5 contains a bug fix that corrects the behavior of the `case_insensitive` parameter for the `wildcard` query on text fields. As a result, a wildcard query on text fields that ignored case sensitivity and erroneously returned results prior to the bug fix will not return the same results. For more information, see issue [#8711](https://github.com/opensearch-project/OpenSearch/issues/8711).
 
 ## 2.18.0
+
+The following breaking change was introduced in OpenSearch 2.18.0.
 
 ### Default k-NN engine change
 
@@ -51,10 +69,14 @@ The default k-NN engine changed from NMSLIB to Faiss. If you use `space_type: "c
 
 ## 2.19.0
 
+The following breaking change was introduced in OpenSearch 2.19.0.
+
 ### Nested value support in the text embedding processor
 The `text_embedding` processor no longer replaces nested values like `_ingest._value` when evaluating fields like `title_tmp:_ingest._value.title_embedding`. Instead, you must directly specify the nested key as `books.title:title_embedding` to achieve the desired output. For more information, see issue [#1243](https://github.com/opensearch-project/neural-search/issues/1243).
 
 ## 3.0.0
+
+The following breaking changes were introduced in OpenSearch 3.0.0.
 
 ### JDK requirement
 
@@ -110,7 +132,7 @@ For more information, see issue [#2595](https://github.com/opensearch-project/Op
 
 The `index.store.hybrid.mmap.extensions` setting has been removed as part of improvements to `hybridfs` file handling. For more information, see pull request [#9392](https://github.com/opensearch-project/OpenSearch/pull/9392).
 
-### Transport Nio plugin
+### Transport NIO plugin
 
 The `transport-nio` plugin has been removed. Netty remains the standard network framework for both node-to-node and client-to-server communication. For more information, see issue [#16887](https://github.com/opensearch-project/OpenSearch/issues/16887).
 
@@ -212,4 +234,14 @@ For more information, see pull request [#9813](https://github.com/opensearch-pro
 ### Romanian analysis
 
 The `romanian` analyzer now supports Romanian in its modern Unicode form and normalizes cedilla characters to their comma-based equivalents. Because both forms are still in use, we recommend reindexing existing Romanian documents to ensure consistent analysis and search behavior.
+
+## 3.8.0
+
+The following breaking change was introduced in OpenSearch 3.8.0.
+
+### Default S3 repository server-side encryption type
+
+The default value of the `server_side_encryption_type` setting for `s3` repositories changed from `bucket_default` to `AES256`. When the setting is `bucket_default`, OpenSearch sends no `x-amz-server-side-encryption` header on S3 upload requests. With `AES256`, OpenSearch sends the header on every upload request. This change corrects silent snapshot failures on buckets whose policies require the encryption header, such as those with a `DenyUnEncryptedObjectUploads` statement.
+
+After you upgrade, any `s3` repository registered without an explicit `server_side_encryption_type`, including snapshot repositories and [remote-backed storage]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/) repositories, begins sending the `AES256` header. S3-compatible storage services that reject this header return an error, which causes previously working repositories to fail. For example, MinIO returns the HTTP 501 error `Server side encryption specified but KMS is not configured` unless you configure its own KMS backend. To restore the previous encryption type, set `server_side_encryption_type` to `bucket_default` explicitly. For snapshot repositories, set it when you register or update the repository. For remote-backed storage repositories, set the `node.attr.remote_store.repository.<repository-name>.settings.server_side_encryption_type` node attribute in `opensearch.yml`. For more information, see pull request [#22144](https://github.com/opensearch-project/OpenSearch/pull/22144).
 

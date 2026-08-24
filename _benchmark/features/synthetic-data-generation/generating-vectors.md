@@ -26,7 +26,7 @@ Example embedding for the word "dog":
 
 Sparse vectors (represented by the [`sparse_vector`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/sparse-vector/) field type in OpenSearch) are vectors in which most dimensions are zero, represented as key-value pairs of non-zero token IDs and their weights.
 
-Example text: "Korean jindos are hunting dogs that have a reputation for being loyal, independent, and confident."
+Example text: `Korean jindos are hunting dogs that have a reputation for being loyal, independent, and confident`.
 
 Sparse vector representation of example text:
 
@@ -144,7 +144,7 @@ In each of the generated documents, the `sparse_embedding` field might appear as
 }
 ```
 
-Using only an OpenSearch index mapping, OpenSearch Benchmark can generate synthetic dense and sparse vectors. However, this produces basic synthetic vectors. For more realistic distributions and clusterings, we recommend configuring the parameters described in the following section.
+Using only an OpenSearch index mapping, OpenSearch Benchmark can generate synthetic dense and sparse vectors. However, this produces basic synthetic vectors. For more realistic distributions and clustering, we recommend configuring the parameters described in the following section.
 
 ---
 
@@ -152,7 +152,9 @@ Using only an OpenSearch index mapping, OpenSearch Benchmark can generate synthe
 
 The following are parameters that you can add to your synthetic data generation configuration file (YAML configuration) to fine-tune the generation of dense vectors. These parameters are used in the `field_overrides` section with the `generate_knn_vector` generator. For complete configuration details, see [Advanced configuration](/benchmark/features/synthetic-data-generation/mapping-sdg/#advanced-configuration).
 
+<!-- vale off -->
 #### dimension
+<!-- vale on -->
 
 This parameter specifies the number of dimensions in the vector. Optional. 
 
@@ -160,9 +162,9 @@ This parameter specifies the number of dimensions in the vector. Optional.
 
 **Impact**:
 - **Memory**: Higher dimensions = more storage
-  - 128D ≈ 0.5 KB per vector
-  - 768D ≈ 3 KB per vector
-  - 1536D ≈ 6 KB per vector
+  - 128 dimensions ≈ 0.5 KB per vector
+  - 768 dimensions ≈ 3 KB per vector
+  - 1536 dimensions ≈ 6 KB per vector
 - **Performance**: More dimensions = slower indexing and search
 - **Quality**: Must match your actual embedding model's output
 
@@ -284,7 +286,9 @@ field_overrides:
 
 ---
 
+<!-- vale off -->
 #### noise_factor
+<!-- vale on -->
 
 This parameter controls the amount of noise added to base vectors:
 - For `gaussian`: Standard deviation of normal distribution
@@ -323,7 +327,9 @@ field_overrides:
 
 ---
 
+<!-- vale off -->
 #### normalize
+<!-- vale on -->
 
 This parameter normalizes vectors after noise addition, making their magnitude (length) exactly `1.0`. Optional. Default is `false`. 
 
@@ -371,7 +377,9 @@ field_overrides:
 
 The following are parameters that you can add to your synthetic data generation configuration file to fine-tune how sparse vectors are generated. These parameters are used in the `field_overrides` section with the `generate_sparse_vector` generator. For complete configuration details, see [Advanced configuration](/benchmark/features/synthetic-data-generation/mapping-sdg/#advanced-configuration).
 
+<!-- vale off -->
 #### num_tokens
+<!-- vale on -->
 
 This parameter specifies the number of token-weight pairs to generate per vector. Optional. Default is `10`. 
 
@@ -409,7 +417,9 @@ field_overrides:
 
 ---
 
+<!-- vale off -->
 #### min_weight and max_weight
+<!-- vale on -->
 
 These parameters define the range of token importance weights. Optional. Default `min_weight` is `0.01`; default `max_weight` is `1.0`. 
 
@@ -455,7 +465,9 @@ field_overrides:
 
 ---
 
+<!-- vale off -->
 #### token_id_start and token_id_step
+<!-- vale on -->
 
 These parameters define how token IDs are assigned during vector generation:
 
@@ -520,7 +532,7 @@ field_overrides:
 ```
 {% include copy.html %}
 
-**Note**: Token IDs in the generated data are sequential. In real sparse vectors, IDs may be non-sequential based on the actual vocabulary. This difference does not impact OpenSearch indexing or search functionality.
+**Note**: Token IDs in the generated data is sequential. In real sparse vectors, IDs may be non-sequential based on the actual vocabulary. This difference does not impact OpenSearch indexing or search functionality.
 
 **Best practice**: Use a larger `token_id_step` (for example, `100`) for debugging, and set `token_id_step` to `1` for production-like data.
 
@@ -528,7 +540,7 @@ field_overrides:
 
 ## Choosing simple or complex generation approaches
 
-The following table outlines when to use simple generation versus a more complex, configurable approach based on your testing goals.
+The following table outlines when to use simple generation compared to a more complex, configurable approach based on your testing goals.
 
 | Scenario                  | Recommended approach                            | Rationale                                                                                     |
 | ------------------------- | ----------------------------------------------- | --------------------------------------------------------------------------------------------- |

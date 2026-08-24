@@ -71,7 +71,7 @@ POST /_plugins/_ml/agents/EuJYYo0B9RaBCvhuy1q8/_execute
 ```
 {% include copy-curl.html %} 
 
-OpenSearch responds with a JSON string containing all of the recommended parameters for creating an anomaly detector, such as the string shown in the following example repsonse:
+OpenSearch responds with a JSON string containing all of the recommended parameters for creating an anomaly detector, such as the string shown in the following example response:
 
 ```json
 {

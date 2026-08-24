@@ -55,6 +55,7 @@ PUT _plugins/_rollup/jobs/{rollup_id}?if_seq_no=1&if_primary_term=1 // Update
       "example_rollup_index_all"
     ],
     "continuous": false,
+    "routing_field": "PULocationID",
     "dimensions": [
       {
         "date_histogram": {
@@ -116,8 +117,9 @@ Options | Description                                                           
 `error_notification` | Set up a Mustache message template for error notifications. For example, if an index rollup job fails, the system sends a message to a Slack channel.                                                                                                                                                                                                                   | Object | No
 `page_size` | Specify the number of buckets to paginate at a time during rollup.                                                                                                                                                                                                                                                                                                      | Number | Yes
 `delay` | The number of milliseconds to delay execution of the index rollup job.                                                                                                                                                                                                                                                                                                  | Long | No
-`dimensions` | Specify aggregations to create dimensions for the roll up time window. Supported groups are `terms`, `histogram`, and `date_histogram`. For more information, see [Bucket Aggregations]({{site.url}}{{site.baseurl}}/opensearch/bucket-agg).                                                                                                                            | Array | Yes
-`metrics` | Specify a list of objects that represent the fields and metrics that you want to calculate. Supported metrics are `sum`, `max`, `min`, `value_count` and `avg`. For more information, see [Metric Aggregations]({{site.url}}{{site.baseurl}}/opensearch/metric-agg).                                                                                                    | Array | No
+`dimensions` | Specify aggregations to create dimensions for the roll up time window. Supported groups are `terms`, `histogram`, and `date_histogram`. For more information, see [Bucket Aggregations]({{site.url}}{{site.baseurl}}/opensearch/bucket-agg/).                                                                                                                            | Array | Yes
+`routing_field` | The `source_field` of a `terms` dimension to use as the routing value for rolled up documents in the target index. When set, each rolled up document is indexed using the value of that dimension as its routing value. This ensures that searches specifying the same `routing` value are directed to the correct shard and can find the rolled up documents. If not set, rolled up documents are distributed across shards based on document ID, and searches that specify a `routing` value may not return matching documents. The value must match the `source_field` of one of the `terms` dimensions defined in `dimensions`. This setting is immutable and cannot be changed when updating an existing rollup job. Available in OpenSearch 3.7 and later. | String | No
+`metrics` | Specify a list of objects that represent the fields and metrics that you want to calculate. Supported metrics are `sum`, `max`, `min`, `value_count` and `avg`. For more information, see [Metric Aggregations]({{site.url}}{{site.baseurl}}/opensearch/metric-agg/).                                                                                                    | Array | No
 
 
 #### Example response
@@ -149,6 +151,7 @@ Options | Description                                                           
     "page_size": 200,
     "delay": 0,
     "continuous": false,
+    "routing_field": "PULocationID",
     "dimensions": [
       {
         "date_histogram": {
