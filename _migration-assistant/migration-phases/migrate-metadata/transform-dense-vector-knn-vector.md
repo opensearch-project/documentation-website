@@ -19,7 +19,7 @@ The metadata migration path can:
 - Translate vector dimensions and related settings.
 - Prepare the target mapping for OpenSearch vector search.
 
-Depending on the target, additional vector compatibility transforms may also apply, including Serverless NextGen-specific adjustments.
+Depending on the target, additional vector compatibility transforms may also apply, including Serverless-NextGen-specific adjustments.
 
 ## Identifying dense_vector fields
 
