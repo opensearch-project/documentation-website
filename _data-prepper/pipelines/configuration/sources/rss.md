@@ -14,7 +14,7 @@ Each feed keeps a bounded in-memory cache of recently seen items, so already ing
 
 ## Usage
 
-Provide one or more feeds under the `feeds` map, which is keyed by feed name. Each feed requires a `url` and can optionally set a per-feed `polling_frequency` and `authentication`. The following example pipeline specifies an `rss` source that polls three feeds:
+Provide one or more feeds under the `feeds` map, which is keyed by feed name. Each feed requires a `url` and can optionally set a per-feed `polling_frequency` and `authentication`. The following example pipeline specifies an `rss` source that polls three feeds. Enclose the `password` value in quotation marks when it contains characters that YAML treats as syntax, such as `:` or `#`:
 
 ```yaml
 rss-pipeline:
@@ -33,11 +33,11 @@ rss-pipeline:
           authentication:
             basic:
               username: my-username
-              password: my-password
+              password: "p@ss:w0rd#123!"
 ```
 {% include copy.html %}
 
-To avoid storing plaintext credentials in your pipeline configuration, reference them from a configured secret store. AWS Secrets Manager is the only supported secret store. When the `aws` extension is configured, a `{% raw %}${{aws_secrets:<secret-name>:<key>}}{% endraw %}` reference resolves the given key from a secret at startup. For more information, see [Reference secrets]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/configuring-data-prepper/#reference-secrets).
+You can avoid storing plaintext credentials in your pipeline configuration by referencing them from a configured secret store. To use AWS Secrets Manager as a secret store, configure the [`aws` extension]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/configuring-data-prepper/#aws-extension-plugin). Then specify `{% raw %}${{aws_secrets:<secret-config-id>:<key>}}{% endraw %}` as the `password` value. Data Prepper resolves the reference at startup. For more information, see [Reference secrets]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/configuring-data-prepper/#reference-secrets).
 
 ## Configuration options
 
