@@ -6,10 +6,10 @@ nav_order: 30
 ---
 
 # Delete Task API
-**Introduced 3.8**
+**Introduced 3.9**
 {: .label .label-purple }
 
-Use the Delete Task API to delete the stored result of a completed task. For example, when you run a supported operation with `wait_for_completion=false`, OpenSearch stores the task result so that you can retrieve it later using the [Get Task API]({{site.url}}{{site.baseurl}}/api-reference/tasks/get-tasks/). After you no longer need the result, you can delete it to free the associated storage.
+Use the Delete Task API to delete the stored result of a completed task. For example, when you run a supported operation and set `wait_for_completion=false`, OpenSearch stores the task result so that you can retrieve it later by using the [Get Task API]({{site.url}}{{site.baseurl}}/api-reference/tasks/get-tasks/). When you no longer need the result, delete it to free the associated storage.
 
 The Delete Task API does not cancel or delete a running task. To stop a running task, use the [Cancel Tasks API]({{site.url}}{{site.baseurl}}/api-reference/tasks/cancel-tasks/).
 {: .important }
@@ -46,7 +46,7 @@ The following request deletes the stored result for task `JzrCxdtFTCO_RaINw8ckNA
 ```json
 DELETE /_tasks/JzrCxdtFTCO_RaINw8ckNA:54321
 ```
-{% include copy.html %}
+{% include copy-curl.html %}
 
 ## Example response
 
@@ -62,9 +62,9 @@ After a successful deletion, the Get Task API returns a `404 Not Found` response
 
 ## Parent and child tasks
 
-You cannot delete a stored task result while it has running child tasks or stored child task results. For a hierarchy of stored task results, delete the results from the leaves toward the root. For example, delete a grandchild result before its parent result, and then delete the root result.
+You cannot delete a stored task result while it has running child tasks or stored child task results. In a hierarchy of stored task results, delete the results from the leaves toward the root. For example, delete a grandchild result before its parent result, and then delete the root result.
 
-OpenSearch returns a `409 Conflict` response if the task has running children or stored child results.
+OpenSearch returns a `409 Conflict` response if the task has running child tasks or stored child task results.
 
 ## Response codes
 
@@ -78,4 +78,4 @@ The following table lists common response codes.
 
 ## Required permissions
 
-If you use the Security plugin, make sure you have the `cluster:admin/tasks/delete` permission.
+If you use the Security plugin, make sure you have the appropriate permissions: `cluster:admin/tasks/delete`.
