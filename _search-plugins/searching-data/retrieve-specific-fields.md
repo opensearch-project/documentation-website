@@ -62,7 +62,7 @@ The `_source` can also be disabled in index mappings by using the following conf
 ```
 
 <!-- vale off -->
-If `_source` is disabled in the index mappings, [searching with docvalue fields]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/retrieve-specific-fields/#searching-with-doc-value-fields) and [searching with stored fields]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/retrieve-specific-fields/#searching-with-stored_fields) become extremely useful.
+If `_source` is disabled in the index mappings, [searching with docvalue fields]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/retrieve-specific-fields/#searching-with-doc-value-fields) and [searching with stored fields]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/retrieve-specific-fields/#searching-with-stored-fields) become extremely useful.
 <!-- vale on -->
 
 ## Specifying the fields to retrieve
@@ -994,7 +994,7 @@ The following is the expected response:
 
 Source filtering matches the field names in the original JSON document, so it cannot return values that OpenSearch derives during indexing. Multi-fields, [field aliases]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/alias/), and fields populated by `copy_to` are not part of the source, and a request for those fields returns an empty `_source` object.
 
-OpenSearch loads and parses the entire source document even when the request asks for only a few fields, so source filtering reduces network transfer but not disk reads. To read individual fields directly from the index, use [`docvalue_fields`](#searching-with-doc-value-fields) or [`stored_fields`](#searching-with-stored_fields).
+OpenSearch loads and parses the entire source document even when the request asks for only a few fields, so source filtering reduces network transfer but not disk reads. To read individual fields directly from the index, use [`docvalue_fields`](#searching-with-doc-value-fields) or [`stored_fields`](#searching-with-stored-fields).
 
 ## Using scripted fields
 
