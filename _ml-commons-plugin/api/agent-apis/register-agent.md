@@ -329,7 +329,7 @@ The following table lists the available request fields for unified agent registr
 | :--- | :--- | :--- | :--- |
 | `name` | String | Required | The agent name. |
 | `type` | String | Required | The agent type. Supported values: `conversational`, `conversational_v2`, `plan_execute_and_reflect`, and `AG_UI`. |
-| `agent_id` | String | Optional | Unique identifier for the agent. If omitted, OpenSearch auto-generates one. **Introduced 3.9** |
+| `agent_id` | String | Optional | A unique identifier for the agent. If omitted, OpenSearch generates one automatically. |
 | `description` | String | Optional | A description of the agent. |
 | `model` | Object | Required | Configuration for the LLM model using the unified registration method. Replaces the regular `llm` object and automatically creates model resources. |
 | `model.model_id` | String | Required | The provider's model identifier. For Amazon Bedrock, use the full model ID (for example, `us.anthropic.claude-3-7-sonnet-20250219-v1:0`). For Google Gemini, use the model name (for example, `gemini-2.5-pro`). For OpenAI, use model names like `gpt-4`. |
