@@ -27,7 +27,7 @@ PUT _plugins/_security_analytics/threat_intel/sources/{source_id}
 
 | Field  | Type  | Description  |
 | :---  | :--- | :---- |
-| `type`  | String | The type of threat intelligence source. Valid values are `S3_CUSTOM`, `IOC_UPLOAD`, and `URL_DOWNLOAD`. You can only create `S3_CUSTOM` and `IOC_UPLOAD` sources using this API.  |
+| `type`  | String | The type of threat intelligence source. Valid values are `S3_CUSTOM` and `IOC_UPLOAD`. |
 | `name`  | String   | The name of the threat intelligence source.   |
 | `format`  | String   | The format of the threat intelligence data, such as `STIX2`.   |
 | `description`    | String   | A description of the threat intelligence source.  |
