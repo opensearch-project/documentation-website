@@ -73,6 +73,8 @@ The Security plugin supports the following advanced settings:
   These certificates are well known and therefore unsafe for production. Use only in a private network/environment.
   {: .warning}
 
+- `plugins.security.ccs.ignore_source_security_roles` (Dynamic): When set to `true`, a remote cluster ignores the security roles propagated from the coordinating cluster on cross-cluster search requests and evaluates access using only its own `roles_mapping.yml` configuration. Default is `false`. See [Remote cluster role evaluation]({{site.url}}{{site.baseurl}}/search-plugins/cross-cluster-search/#remote-cluster-role-evaluation).
+
 - `plugins.security.system_indices.permission.enabled` (Static): Enables the system index permissions feature. When set to `true`, the feature is enabled and users with permission to modify roles can create roles that include permissions that grant access to system indexes. When set to `false`, the permission is disabled and only admins with an admin certificate can make changes to system indexes. By default, the permission is set to `false` in a new cluster.
 
 ## Expert-level settings
