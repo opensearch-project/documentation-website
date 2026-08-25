@@ -93,6 +93,78 @@ GET /my-index/_search
 
 For more information, see [Retrieve specific fields]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/retrieve-specific-fields/).
 
+## Automatically exclude vectors from search results
+**Introduced 3.8**
+{: .label .label-purple }
+
+Instead of manually specifying vector fields in `_source.excludes` on every request, you can let OpenSearch exclude them automatically. When enabled, the `knn_default_excludes` [system-generated search request processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/system-generated-search-processors/) inspects the index mappings for each search request, finds all `knn_vector` fields (including those nested in object or nested fields), and adds them to `_source.excludes` before the request runs. This reduces the search response payload without requiring any per-request configuration.
+
+The processor is disabled by default. To enable it, add its factory, `knn_default_excludes_factory`, to the `cluster.search.enabled_system_generated_factories` cluster setting:
+
+```json
+PUT _cluster/settings
+{
+  "persistent": {
+    "cluster.search.enabled_system_generated_factories": [
+      "knn_default_excludes_factory"
+    ]
+  }
+}
+```
+{% include copy-curl.html %}
+
+After you enable the processor, vector fields are omitted from `_source` in search responses by default:
+
+```json
+GET /my-index/_search
+{
+  "query": {
+    "knn": {
+      "vector_field": {
+        "vector": [ 0.1, 0.2, 0.3],
+        "k": 10
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+### Overriding automatic exclusion
+
+The processor never overrides an explicit choice that you make in the request. It does not add any excludes when the request already expresses source intent. To return vector fields even when the processor is enabled, use any of the following options:
+
+- Return the entire source, including vectors, by setting `_source` to `true`.
+- Return a specific vector field by listing it in `_source.includes`.
+- Disable source entirely by setting `_source` to `false`.
+
+For example, the following request returns `vector_field` even though the processor is enabled because the field is explicitly included:
+
+```json
+GET /my-index/_search
+{
+  "_source": {
+    "includes": [
+      "vector_field"
+    ]
+  },
+  "query": {
+    "knn": {
+      "vector_field": {
+        "vector": [ 0.1, 0.2, 0.3],
+        "k": 10
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+The processor also does not add excludes for a field that is already covered by the index mapping's `_source.excludes` or by your request's `_source.includes` or `_source.excludes`.
+
+Automatic exclusion changes only what is returned in the search response. It does not affect scoring: a script that reads a vector during query execution, whether through `doc['vector_field']` or `params._source['vector_field']`, still receives the full vector, because the exclusion is applied on the fetch path rather than the query path. Vectors also remain fully stored and are reconstructed through [derived source]({{site.url}}{{site.baseurl}}/vector-search/settings/), so excluding them from responses does not remove them from the index.
+{: .note}
+
 ## Retrieve vectors using doc values
 **Introduced 3.7**
 {: .label .label-purple }
