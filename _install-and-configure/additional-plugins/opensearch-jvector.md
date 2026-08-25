@@ -62,7 +62,14 @@ Repeat the following steps on every node in the cluster:
     ```
     {% include copy.html %}
 
-1. Install the `opensearch-jvector` plugin from Maven Central:
+1. Install the `opensearch-jvector` plugin from Maven Central using the plugin's Maven coordinates:
+
+    ```bash
+    bin/opensearch-plugin install org.opensearch.plugin:opensearch-jvector-plugin:{{site.opensearch_version}}.0
+    ```
+    {% include copy.html %}
+
+    Installing by Maven coordinates requires a direct connection to Maven Central. If the node connects through a proxy or a local repository, install the plugin from its URL instead:
 
     ```bash
     bin/opensearch-plugin install https://repo1.maven.org/maven2/org/opensearch/plugin/opensearch-jvector-plugin/{{site.opensearch_version}}.0/opensearch-jvector-plugin-{{site.opensearch_version}}.0.zip
@@ -71,7 +78,7 @@ Repeat the following steps on every node in the cluster:
 
 1. Start OpenSearch on the node.
 
-For a full list of available plugin versions, see the [`opensearch-jvector-plugin` directory](https://repo1.maven.org/maven2/org/opensearch/plugin/opensearch-jvector-plugin/) in Maven Central. To skip the prompt that requests confirmation of the plugin's additional permissions, add the `--batch` option to the `install` command. For more information, see [Installing plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/).
+For a full list of available plugin versions, see the [`opensearch-jvector-plugin` directory](https://repo1.maven.org/maven2/org/opensearch/plugin/opensearch-jvector-plugin/) in Maven Central. To skip the prompt that requests confirmation of the plugin's additional permissions, add the `--batch` option to the `install` command. For more information, see [Installing plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/#install-a-plugin-using-maven-coordinates).
 
 To confirm that the plugin is installed, use the [CAT Plugins API]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-plugins/):
 

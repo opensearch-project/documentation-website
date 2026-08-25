@@ -411,7 +411,7 @@ Method name | Requires training | Supported spaces
 
 #### DiskANN parameters
 
-The `disk_ann` method supports the following parameters.
+The `disk_ann` method supports the following parameters. All parameters are optional.
 
 Parameter name | Default | Description
 :--- | :--- | :---
