@@ -7,7 +7,7 @@ great_grand_parent: Building data visualizations
 nav_order: 55
 ---
 
-# Scatter plot
+# Scatter plots in the visualization editor
 
 A scatter plot visualizes relationships between two numerical variables. Each point on the chart represents an observation from the dataset, with its position determined by the values of the two variables. You can split data by a categorical field to compare how different groups distribute across the same dimensions.
 

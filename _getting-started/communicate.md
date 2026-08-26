@@ -13,7 +13,7 @@ You can communicate with OpenSearch using the REST API or one of the OpenSearch 
 
 You interact with OpenSearch clusters using the REST API, which offers a lot of flexibility. Through the REST API, you can change most OpenSearch settings, modify indexes, check cluster health, get statistics---almost everything. You can use clients like [cURL](https://curl.se/) or any programming language that can send HTTP requests. 
 
-You can send HTTP requests in your terminal or in the [Dev Tools console]({{site.url}}{{site.baseurl}}/dashboards/dev-tools/index-dev/) in OpenSearch Dashboards.
+You can send HTTP requests in your terminal or in the [Dev Tools console]({{site.url}}{{site.baseurl}}/dashboards/dev-tools/index/) in OpenSearch Dashboards.
 
 ### Sending requests in a terminal
 
@@ -75,7 +75,7 @@ The Dev Tools console in OpenSearch Dashboards uses a simpler syntax to format R
     GET _cluster/health
     ```
     {% include copy-curl.html %}
-1. Choose the triangle icon on the upper right of the request to submit the query. You can also submit the request by pressing `Ctrl+Enter` (or `Cmd+Enter` for Mac users). To learn more about using the OpenSearch Dashboards console for submitting queries, see [Running queries in the console]({{site.url}}{{site.baseurl}}/dashboards/run-queries/).
+1. Choose the triangle icon on the upper right of the request to submit the query. You can also submit the request by pressing `Ctrl+Enter` (or `Cmd+Enter` for Mac users). To learn more about using the OpenSearch Dashboards console for submitting queries, see [Console]({{site.url}}{{site.baseurl}}/dashboards/dev-tools/console/).
 
 In the following sections, and in most of the OpenSearch documentation, requests are presented in the Dev Tools console format. 
 

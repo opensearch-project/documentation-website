@@ -6,7 +6,7 @@ nav_order: 40
 ---
 
 <!-- vale off -->
-# schedule
+# schedule element
 <!-- vale on -->
 
 The `schedule` element contains a list of tasks that are run in a specified order during the benchmark test. Each task is an operation supported by OpenSearch Benchmark.

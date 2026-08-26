@@ -9,13 +9,9 @@ nav_order: 170
 redirect_from:
   - /ml-commons-plugin/tutorials/build-chatbot/
   - /vector-search/tutorials/chatbots/build-chatbot/
-  - /tutorials/gen-ai/chatbots/build-chatbot/ 
 ---
 
 # Build your own chatbot
-
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/ml-commons/issues/1161).    
-{: .warning}
 
 Sometimes a large language model (LLM) cannot answer a question right away. For example, an LLM can't tell you how many errors there are in your log index for last week because its knowledge base does not contain your proprietary data. In this case, you need to provide additional information to an LLM in a subsequent call. You can use an agent to solve such complex problems. The agent can run tools to obtain more information from configured data sources and send the additional information to the LLM as context.
 
@@ -107,36 +103,28 @@ Create a connector for the model:
 ```json
 POST /_plugins/_ml/connectors/_create
 {
-  "name": "BedRock Claude instant-v1 Connector ",
+  "name": "Bedrock Claude Sonnet 5",
   "description": "The connector to BedRock service for claude model",
   "version": 1,
   "protocol": "aws_sigv4",
   "parameters": {
     "region": "us-east-1",
     "service_name": "bedrock",
-    "anthropic_version": "bedrock-2023-05-31",
-    "max_tokens_to_sample": 8000,
-    "temperature": 0.0001,
-    "response_filter": "$.completion",
-    "stop_sequences": ["\n\nHuman:","\nObservation:","\n\tObservation:","\nObservation","\n\tObservation","\n\nQuestion"]
+    "model": "us.anthropic.claude-sonnet-5",
+    "response_filter": "$.output.message.content[0].text"
   },
   "credential": {
     "access_key": "your_aws_access_key",
     "secret_key": "your_aws_secret_key",
     "session_token": "your_aws_session_token"
   },
-  "actions": [
-    {
-      "action_type": "predict",
-      "method": "POST",
-      "url": "https://bedrock-runtime.us-east-1.amazonaws.com/model/anthropic.claude-instant-v1/invoke",
-      "headers": {
-        "content-type": "application/json",
-        "x-amz-content-sha256": "required"
-      },
-      "request_body": "{\"prompt\":\"${parameters.prompt}\", \"stop_sequences\": ${parameters.stop_sequences}, \"max_tokens_to_sample\":${parameters.max_tokens_to_sample}, \"temperature\":${parameters.temperature},  \"anthropic_version\":\"${parameters.anthropic_version}\" }"
-    }
-  ]
+  "actions": [{
+    "action_type": "predict",
+    "method": "POST",
+    "url": "https://bedrock-runtime.${parameters.region}.amazonaws.com/model/${parameters.model}/converse",
+    "headers": { "content-type": "application/json" },
+    "request_body": "{\"messages\": [${parameters._chat_history:-}{\"role\":\"user\",\"content\":[{\"text\":\"${parameters.prompt:-}\"}]}${parameters._interactions:-}]${parameters.tool_configs:-}}"
+  }]
 }
 ```
 {% include copy-curl.html %}

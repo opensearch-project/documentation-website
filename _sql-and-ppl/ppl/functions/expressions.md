@@ -6,7 +6,7 @@ grand_parent: PPL
 nav_order: 7
 ---
 
-# Expressions
+# Expressions in PPL
 
 Expressions, particularly value expressions, return a scalar value. Expressions have different types and forms. For example, there are literal values as atomic expressions, as well as arithmetic, predicate, and function expressions built on top of them. You can use expressions in different clauses, such as arithmetic expressions in the `Filter` or `Stats` commands.
 

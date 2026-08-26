@@ -8,7 +8,7 @@ nav_order: 4
 
 <!-- vale off -->
 
-# addtotals
+# addtotals command
 
 <!-- vale on -->
 
