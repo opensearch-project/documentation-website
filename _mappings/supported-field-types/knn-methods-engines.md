@@ -73,7 +73,7 @@ Not every method/engine combination supports each of the spaces. For a list of s
 
 The following parameters are common to all method definitions.
 
-Mapping parameter | Required | Default | Updatable | Description
+Mapping parameter | Required | Default | Updatable after index creation | Description
 :--- | :--- | :--- | :--- | :---
 `name` | Yes | N/A | No | The nearest neighbor method. Valid values are `hnsw`, `ivf`, `flat`, and `disk_ann`. Not every engine combination supports each of the methods. For a list of supported methods, see the section for a specific engine.
 `space_type` | No | `l2` | No | The vector space used to calculate the distance between vectors. Valid values are `l1`, `l2`, `linf`, `cosinesimil`, `innerproduct`, `hamming`, and `hammingbit`. Not every method/engine combination supports each of the spaces. For a list of supported spaces, see the section for a specific engine. Note: This value can also be specified at the top level of the mapping. For more information, see [Spaces]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-spaces/).
@@ -97,7 +97,7 @@ Method name | Requires training | Supported spaces
 
 The HNSW method supports the following parameters.
 
-Parameter name | Required | Default | Updatable | Description
+Parameter name | Required | Default | Updatable after index creation | Description
 :--- | :--- | :--- | :--- | :---
 `ef_construction` | No | 100 | No | The size of the dynamic list used during k-NN graph creation. Higher values result in a more accurate graph but slower indexing speed.<br>Note: Lucene uses the term `beam_width` internally, but the OpenSearch documentation uses `ef_construction` for consistency.
 `m` | No | 16 | No | The number of bidirectional links created for each new element. Impacts memory consumption significantly. Keep between `2` and `100`.<br>Note: Lucene uses the term `max_connections` internally, but the OpenSearch documentation uses `m` for consistency.
@@ -155,7 +155,7 @@ When using `cosinesimil` with the Faiss engine, vectors are automatically normal
 
 The `hnsw` method supports the following parameters.
 
-Parameter name | Required | Default | Updatable | Description
+Parameter name | Required | Default | Updatable after index creation | Description
 :--- | :--- | :--- | :--- | :---
 `ef_search` | No | 100 | No | The size of the dynamic list used during k-NN searches. Higher values result in more accurate but slower searches. Default is `256` for [binary indexes]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/binary-quantization/).
 `ef_construction` | No | 100 | No | The size of the dynamic list used during k-NN graph creation. Higher values result in a more accurate graph but slower indexing speed. Default is `256` for [binary indexes]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/binary-quantization/).
@@ -169,7 +169,7 @@ An index created in OpenSearch version 2.11 or earlier will still use the previo
 
 The IVF method supports the following parameters.
 
-Parameter name | Required | Default | Updatable | Description
+Parameter name | Required | Default | Updatable after index creation | Description
 :--- | :--- | :--- | :--- | :---
 `nlist` | No | 4 | No | The number of buckets into which to partition vectors. Higher values may increase accuracy but also increase memory and training latency.
 `nprobes` | No | 1 | No | The number of buckets to search during a query. Higher values result in more accurate but slower searches.
@@ -197,7 +197,7 @@ Encoder name | Requires training | Description
 
 The `pq` encoder supports the following parameters.
 
-Parameter name | Required | Default | Updatable | Description
+Parameter name | Required | Default | Updatable after index creation | Description
 :--- | :--- | :--- | :--- | :---
 `m` | No | `1` | No |  Determines the number of subvectors into which to separate the vector. Subvectors are encoded independently of each other. This vector dimension must be divisible by `m`. Maximum value is 1,024.
 `code_size` | No | `8` | No | Determines the number of bits into which to encode a subvector. Maximum value is `8`. For `ivf`, this value must be less than or equal to `8`. For `hnsw`, this value must be `8`.
@@ -209,7 +209,7 @@ The `hnsw` method supports the `pq` encoder for OpenSearch version 2.10 and late
 
 The `sq` encoder supports the following parameters.
 
-Parameter name | Required | Default | Updatable | Description
+Parameter name | Required | Default | Updatable after index creation | Description
 :--- |:---------|:--------| :--- | :---
 `type` | No       | `fp16`  | No |  The type of scalar quantization to be used to encode 32-bit float vectors into the corresponding type. Supported only for 16-bit quantization. Currently, only the `fp16` encoder type is supported. For the `fp16` encoder, vector values must be in the [-65504.0, 65504.0] range. 
 `clip` | No       | `false` | No | Supported only for 16-bit quantization. If `true`, any vector values outside of the supported range for the specified vector type are rounded so that they are within the range. If `false`, the request is rejected if any vector values are outside of the supported range. Setting `clip` to `true` may decrease recall.
@@ -372,7 +372,7 @@ Method name | Requires training | Supported spaces
 
 The HNSW method supports the following parameters.
 
-Parameter name | Required | Default | Updatable | Description
+Parameter name | Required | Default | Updatable after index creation | Description
 :--- | :--- | :--- | :--- | :---
 `ef_construction` | No | 100 | No | The size of the dynamic list used during k-NN graph creation. Higher values result in a more accurate graph but slower indexing speed.
 `m` | No | 16 | No | The number of bidirectional links created for each new element. Impacts memory consumption significantly. Keep between `2` and `100`.
@@ -411,18 +411,29 @@ Method name | Requires training | Supported spaces
 
 #### DiskANN parameters
 
-The `disk_ann` method supports the following parameters. All parameters are optional.
+The `disk_ann` method supports the following parameters.
 
-Parameter name | Required | Default | Updatable | Description
+Parameter name | Required | Default | Updatable after index creation | Description
 :--- | :--- | :--- | :--- | :---
 `m` | No | `16` | No | The number of bidirectional links per node. Higher values improve recall but increase index size.
 `ef_construction` | No | `100` | No | The size of the candidate list used during graph construction. Higher values improve recall but slow ingestion.
 `advanced.alpha` | No | `1.2` | No | The diversity factor for neighbor selection.
 `advanced.neighbor_overflow` | No | `1.2` | No | The overflow factor for neighbor lists.
 `advanced.hierarchy_enabled` | No | `false` | No | Whether to enable a hierarchical graph structure.
-`advanced.num_pq_subspaces` | No | N/A | No | The number of PQ subspaces. Must not exceed the number of vector dimensions.
+`advanced.num_pq_subspaces` | No | Based on the vector dimension (see [the following table](#num-pq-subspaces)) | No | The number of PQ subspaces. Must not exceed the number of vector dimensions and works best as a divisor of the dimension. Higher values reduce compression but improve recall.
 `advanced.min_batch_size_for_quantization` | No | `1024` | No | The number of documents required before quantization is trained.
 `advanced.leading_segment_merge_disabled` | No | `false` | Yes | Whether to prevent the leading segment from being rebuilt during a force merge.
+
+<p id="num-pq-subspaces"> </p>
+
+The following table lists the default values of `advanced.num_pq_subspaces` for each vector dimension.
+
+Vector dimension | Default number of PQ subspaces
+:--- | :---
+`384` | `96`
+`768` | `192`
+`1536` | `192`
+`3072` | `384`
 
 ### Space types
 
