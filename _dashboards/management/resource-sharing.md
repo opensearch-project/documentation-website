@@ -79,6 +79,43 @@ Follow these steps to share resources in OpenSearch Dashboards:
 
 1. Select **Save** to update the backend configuration. Changes are applied immediately.
 
+## Sharing resources from a plugin page using the Share button
+**Introduced 3.9**
+{: .label .label-purple }
+
+Many plugins that support resource sharing provide a centralized **Share** button directly in their resource list tables. This lets you manage access to a resource without leaving the plugin's page. The **Share** button uses the same resource-sharing APIs as the **Resource Access Management** page, so changes made in either location are equivalent.
+
+The **Share** button appears in an **Access** column that is displayed only when resource sharing is enabled for that resource type. If the Security plugin is not installed or resource sharing is disabled, the column is hidden and no other plugin functionality is affected.
+{: .note}
+
+The following plugins surface the **Share** button in their resource lists:
+
+* **Anomaly Detection** – Detectors and forecasters
+* **Alerting** – Monitors
+* **Machine Learning** – Model groups
+* **Reporting** – Report definitions and reports
+* **Notifications** – Channels
+* **Flow Framework** – Workflows
+* **Security Analytics** – Detectors and correlation rules
+
+Follow these steps to share a resource using the **Share** button:
+
+1. Open the resource list for a supported plugin. For example, in the left navigation menu, under **Anomaly Detection**, select **Detectors**.
+
+1. In the **Access** column, review the sharing status for each resource. The share icon indicates whether the resource is private or already shared with other users.
+
+1. Select the share icon for the resource that you want to manage. The **Share access** dialog opens.
+
+1. For each access level, add or remove **Users**, **Roles**, or **Backend roles**. Access levels are plugin-specific and are retrieved dynamically from OpenSearch, for example, `ad_read_only` or `ml_read_write`.
+
+    Wildcards (`*`) are supported for the `users` field to make a resource accessible to everyone at the chosen access level.
+    {: .note}
+
+1. Select **Save** to apply your changes. Changes take effect immediately, and the **Access** column updates to reflect the new sharing status.
+
+You can share a resource only if you are its owner, a superadmin, or a user who was granted share permission by the owner.
+{: .note}
+
 ## Viewing and managing access
 
 Follow these steps to view and manage access for a resource in OpenSearch Dashboards:
