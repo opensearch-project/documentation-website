@@ -102,16 +102,20 @@ Follow these steps to share a resource using the **Share** button:
 
 1. Open the resource list for a supported plugin. For example, in the left navigation menu, under **Anomaly Detection**, select **Detectors**.
 
-1. In the **Access** column, review the sharing status for each resource. The share icon indicates whether the resource is private or already shared with other users.
+1. In the **Access** column, review the sharing status for each resource. Each resource displays a status of **Private** or **Shared**, along with a share icon.
 
-1. Select the share icon for the resource that you want to manage. The **Share access** dialog opens.
+   ![Access column with the Share button]({{site.url}}{{site.baseurl}}/images/resource-sharing/share-button-access-column.png)
+
+1. Select the share icon for the resource that you want to manage. The **Manage access** dialog opens.
+
+   ![Manage access dialog]({{site.url}}{{site.baseurl}}/images/resource-sharing/share-button-share-access-modal.png)
 
 1. For each access level, add or remove **Users**, **Roles**, or **Backend roles**. Access levels are plugin-specific and are retrieved dynamically from OpenSearch, for example, `ad_read_only` or `ml_read_write`.
 
     Wildcards (`*`) are supported for the `users` field to make a resource accessible to everyone at the chosen access level.
     {: .note}
 
-1. Select **Save** to apply your changes. Changes take effect immediately, and the **Access** column updates to reflect the new sharing status.
+1. Select **Save changes** to apply your changes. Changes take effect immediately, and the **Access** column updates to reflect the new sharing status.
 
 You can share a resource only if you are its owner, a superadmin, or a user who was granted share permission by the owner.
 {: .note}
