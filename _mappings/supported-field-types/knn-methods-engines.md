@@ -413,16 +413,16 @@ Method name | Requires training | Supported spaces
 
 The `disk_ann` method supports the following parameters. All parameters are optional.
 
-Parameter name | Default | Description
-:--- | :--- | :---
-`m` | `16` | The number of bidirectional links per node. Higher values improve recall but increase index size.
-`ef_construction` | `100` | The size of the candidate list used during graph construction. Higher values improve recall but slow ingestion.
-`advanced.alpha` | `1.2` | The diversity factor for neighbor selection.
-`advanced.neighbor_overflow` | `1.2` | The overflow factor for neighbor lists.
-`advanced.hierarchy_enabled` | `false` | Whether to enable a hierarchical graph structure.
-`advanced.num_pq_subspaces` | N/A | The number of PQ subspaces. Must not exceed the number of vector dimensions.
-`advanced.min_batch_size_for_quantization` | `1024` | The number of documents required before quantization is trained.
-`advanced.leading_segment_merge_disabled` | `false` | Whether to prevent the leading segment from being rebuilt during a force merge.
+Parameter name | Required | Default | Updatable | Description
+:--- | :--- | :--- | :--- | :---
+`m` | No | `16` | No | The number of bidirectional links per node. Higher values improve recall but increase index size.
+`ef_construction` | No | `100` | No | The size of the candidate list used during graph construction. Higher values improve recall but slow ingestion.
+`advanced.alpha` | No | `1.2` | No | The diversity factor for neighbor selection.
+`advanced.neighbor_overflow` | No | `1.2` | No | The overflow factor for neighbor lists.
+`advanced.hierarchy_enabled` | No | `false` | No | Whether to enable a hierarchical graph structure.
+`advanced.num_pq_subspaces` | No | N/A | No | The number of PQ subspaces. Must not exceed the number of vector dimensions.
+`advanced.min_batch_size_for_quantization` | No | `1024` | No | The number of documents required before quantization is trained.
+`advanced.leading_segment_merge_disabled` | No | `false` | Yes | Whether to prevent the leading segment from being rebuilt during a force merge.
 
 ### Space types
 
