@@ -51,7 +51,7 @@ The following table describes the possible geoshape types and their relationship
 
 OpenSearch type | GeoJSON type | WKT type | Description 
 :--- | :--- | :--- | :--- 
-[`point`](#point) | Point | POINT | A geographic point specified by latitude and longitude. OpenSearch uses World Geodetic System (WGS84 / EPSG:4326) coordinates.
+[`point`](#point) | Point | POINT | A geographic point specified by latitude and longitude. OpenSearch uses the World Geodetic System 1984 (WGS84) coordinate system, also known as EPSG:4326.
 [`linestring`](#linestring) | LineString | LINESTRING | A line specified by two or more points. May be a straight line or a path of connected line segments.
 [`polygon`](#polygon) | Polygon | POLYGON | A polygon specified by a list of vertices in coordinate form. The polygon must be closed, meaning the last point must be the same as the first point. Therefore, to create an n-gon, n+1 vertices are required. The minimum number of vertices is four, which creates a triangle.
 [`multipoint`](#multipoint) | MultiPoint | MULTIPOINT | An array of discrete related points that are not connected.
