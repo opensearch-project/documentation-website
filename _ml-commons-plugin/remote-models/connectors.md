@@ -10,7 +10,7 @@ redirect_from:
   - /ml-commons-plugin/extensibility/connectors/
 ---
 
-# Creating connectors for third-party ML platforms
+# Connectors for third-party ML platforms
 **Introduced 2.9**
 {: .label .label-purple }
 
@@ -22,6 +22,7 @@ OpenSearch provides connectors for several platforms, for example:
 - [OpenAI ChatGPT](https://platform.openai.com/docs/introduction) enables you to invoke an OpenAI chat model from inside an OpenSearch cluster.
 - [Cohere](https://cohere.com/) allows you to use data from OpenSearch to power the Cohere large language models.
 - [Amazon Bedrock](https://aws.amazon.com/bedrock/) supports models like [Bedrock Titan Embeddings](https://aws.amazon.com/bedrock/titan/), which can drive semantic search and retrieval-augmented generation in OpenSearch.
+- [Google Cloud Vertex AI](https://cloud.google.com/vertex-ai) enables you to invoke Vertex AI models, such as Gemini and text embedding models, from inside an OpenSearch cluster.
 
 ## Connector blueprints
 
@@ -124,6 +125,15 @@ POST /_plugins/_ml/models/_register
 
 The following sections contain examples of connectors for popular ML platforms. For a full list of supported connectors, see [Supported connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/supported-connectors/).
 
+### Native cloud provider authentication protocols
+
+Some cloud providers offer a dedicated connector protocol that mints and refreshes short-lived access tokens for you, so you do not have to supply or rotate a static `Authorization` header. Each provider has its own page:
+
+- [Amazon connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/aws-connectors/) (`aws_sigv4`)
+- [Google Cloud Vertex AI connector]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/gcp-connectors/) (`google_cloud`)
+
+The following examples cover providers that use the generic `http` protocol.
+
 ### OpenAI chat connector
 
 You can use the following example request to create a standalone OpenAI chat connector:
@@ -157,52 +167,6 @@ POST /_plugins/_ml/connectors/_create
 ```
 {% include copy-curl.html %}
 
-### Amazon SageMaker connector
-
-You can use the following example request to create a standalone Amazon SageMaker connector:
-
-```json
-POST /_plugins/_ml/connectors/_create
-{
-    "name": "sagemaker: embedding",
-    "description": "Test connector for Sagemaker embedding model",
-    "version": 1,
-    "protocol": "aws_sigv4",
-    "credential": {
-        "access_key": "...",
-        "secret_key": "...",
-        "session_token": "..."
-    },
-    "parameters": {
-        "region": "us-west-2",
-        "service_name": "sagemaker"
-    },
-    "actions": [
-        {
-            "action_type": "predict",
-            "method": "POST",
-            "headers": {
-                "content-type": "application/json"
-            },
-            "url": "https://runtime.sagemaker.${parameters.region}.amazonaws.com/endpoints/lmi-model-2023-06-24-01-35-32-275/invocations",
-            "request_body": "[\"${parameters.inputs}\"]"
-        }
-    ]
-}
-```
-{% include copy-curl.html %}
-
-The `credential` parameter contains the following options reserved for `aws_sigv4` authentication:
-
-- `access_key`: Required. Provides the access key for the AWS instance.
-- `secret_key`: Required. Provides the secret key for the AWS instance.
-- `session_token`: Optional. Provides a temporary set of credentials for the AWS instance.
-
-The `parameters` section requires the following options when using `aws_sigv4` authentication:
-
-- `region`: The AWS Region in which the AWS instance is located.
-- `service_name`: The name of the AWS service for the connector.
-
 ### Cohere connector
 
 You can use the following example request to create a standalone Cohere connector using the Embed V3 model. For more information, see [Cohere connector blueprint](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/cohere_connector_embedding_blueprint.md). 
@@ -234,44 +198,6 @@ POST /_plugins/_ml/connectors/_create
       "request_body": "{ \"texts\": ${parameters.texts}, \"truncate\": \"${parameters.truncate}\", \"model\": \"${parameters.model}\", \"input_type\": \"${parameters.input_type}\" }",
       "pre_process_function": "connector.pre_process.cohere.embedding",
       "post_process_function": "connector.post_process.cohere.embedding"
-    }
-  ]
-}
-```
-{% include copy-curl.html %}
-
-### Amazon Bedrock connector
-
-You can use the following example request to create a standalone Amazon Bedrock connector:
-
-```json
-POST /_plugins/_ml/connectors/_create
-{
-  "name": "Amazon Bedrock Connector: embedding",
-  "description": "The connector to the Bedrock Titan embedding model",
-  "version": 1,
-  "protocol": "aws_sigv4",
-  "parameters": {
-    "region": "<YOUR AWS REGION>",
-    "service_name": "bedrock"
-  },
-  "credential": {
-    "access_key": "<YOUR AWS ACCESS KEY>",
-    "secret_key": "<YOUR AWS SECRET KEY>",
-    "session_token": "<YOUR AWS SECURITY TOKEN>"
-  },
-  "actions": [
-    {
-      "action_type": "predict",
-      "method": "POST",
-      "url": "https://bedrock-runtime.us-east-1.amazonaws.com/model/amazon.titan-embed-text-v1/invoke",
-      "headers": {
-        "content-type": "application/json",
-        "x-amz-content-sha256": "required"
-      },
-      "request_body": "{ \"inputText\": \"${parameters.inputText}\" }",
-      "pre_process_function": "\n    StringBuilder builder = new StringBuilder();\n    builder.append(\"\\\"\");\n    String first = params.text_docs[0];\n    builder.append(first);\n    builder.append(\"\\\"\");\n    def parameters = \"{\" +\"\\\"inputText\\\":\" + builder + \"}\";\n    return  \"{\" +\"\\\"parameters\\\":\" + parameters + \"}\";",
-      "post_process_function": "\n      def name = \"sentence_embedding\";\n      def dataType = \"FLOAT32\";\n      if (params.embedding == null || params.embedding.length == 0) {\n        return params.message;\n      }\n      def shape = [params.embedding.length];\n      def json = \"{\" +\n                 \"\\\"name\\\":\\\"\" + name + \"\\\",\" +\n                 \"\\\"data_type\\\":\\\"\" + dataType + \"\\\",\" +\n                 \"\\\"shape\\\":\" + shape + \",\" +\n                 \"\\\"data\\\":\" + params.embedding +\n                 \"}\";\n      return json;\n    "
     }
   ]
 }
