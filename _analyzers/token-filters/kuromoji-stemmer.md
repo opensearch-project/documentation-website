@@ -25,7 +25,7 @@ Parameter | Data type | Description
 :--- | :--- | :---
 `minimum_length` | Integer | The minimum number of characters a token must have for the trailing long vowel mark to be removed. Tokens shorter than this threshold are passed through unchanged. Default is `4`.
 
-The default minimum length of `4` prevents short words like カー (car, 3 characters) from being incorrectly stemmed to カ.
+The default minimum length of `4` prevents short words like カー (car, 2 characters) from being incorrectly stemmed to カ.
 {: .note}
 
 ## Example

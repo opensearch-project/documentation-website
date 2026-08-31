@@ -7,7 +7,7 @@ nav_order: 55
 
 # Kuromoji tokenizer
 
-The `kuromoji_tokenizer` performs dictionary-based morphological analysis for Japanese text using the Kuromoji library and the MeCab IPAdic dictionary. Unlike tokenizers that split on white space or punctuation, it identifies natural word boundaries in Japanese sentences, which do not use spaces to separate words.
+The `kuromoji_tokenizer` performs dictionary-based morphological analysis for Japanese text using the Kuromoji library and the IPAdic dictionary. Unlike tokenizers that split on white space or punctuation, it identifies natural word boundaries in Japanese sentences, which do not use spaces to separate words.
 
 ## Installation
 
@@ -163,7 +163,7 @@ PUT /kuromoji-mode-comparison
 ```
 {% include copy-curl.html %}
 
-Test with text that contains a known compound word (関西国際空港 maning "Kansai International Airport") and an unknown loanword (アバクロンビー meaning "Abercrombie"):
+Test with text that contains a known compound word (関西国際空港 meaning "Kansai International Airport") and an unknown loanword (アバクロンビー meaning "Abercrombie"):
 
 **`normal` mode**
 

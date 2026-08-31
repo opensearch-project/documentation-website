@@ -8,7 +8,7 @@ nav_order: 225
 
 # Kuromoji analyzer
 
-The `kuromoji` analyzer provides morphological analysis for Japanese text using the Kuromoji library backed by the MeCab IPAdic dictionary. It segments Japanese sentences into meaningful tokens, removes common stop words and grammatical particles, and returns tokens in their dictionary base form.
+The `kuromoji` analyzer provides morphological analysis for Japanese text using the Kuromoji library backed by the IPAdic dictionary. It segments Japanese sentences into meaningful tokens, removes common stop words and grammatical particles, and returns tokens in their dictionary base form.
 
 To use the `kuromoji` analyzer or any Kuromoji components, you must first install the `analysis-kuromoji` plugin.
 
@@ -17,7 +17,7 @@ To use the `kuromoji` analyzer or any Kuromoji components, you must first instal
 Install the plugin on all nodes and then restart the cluster:
 
 ```bash
-sudo bin/opensearch-plugin install analysis-kuromoji
+bin/opensearch-plugin install analysis-kuromoji
 ```
 {% include copy-curl.html %}
 
@@ -32,7 +32,7 @@ The `analysis-kuromoji` plugin provides the following components that you can us
 | Analyzer | Description |
 |:---------|:------------|
 | [`kuromoji`](#how-the-kuromoji-analyzer-works) | Built-in Japanese analyzer. Segments text, removes stop words, and normalizes tokens to their base form. |
-| [`kuromoji_completion`](#kuromoji_completion-analyzer) | Analyzer designed for autocomplete of Japanese text. Generates both Katakana and Romaji reading variants. |
+| [`kuromoji_completion`](#kuromoji_completion-analyzer) | Analyzer designed for autocomplete of Japanese text. Generates the original Japanese tokens along with their Romaji reading variants. |
 
 ### Tokenizer
 
@@ -326,7 +326,8 @@ POST /japanese-icu-index/_analyze
 The analyzer applies the following transformations:
 - `icu_normalizer` converts full-width digits before tokenization: `３００` → `300`
 - `kuromoji_stemmer` removes the trailing long vowel mark: `コンピューター` → `コンピュータ`
-- `kuromoji_part_of_speech` removes the particles `は`, `の`, and `を`, and the auxiliary verb `します`
+- `kuromoji_part_of_speech` removes the particles `は`, `の`, and `を`, and the auxiliary verb `ます`
+- `ja_stop` removes `し` because it appears in the `_japanese_` stop set
 - `300` is kept as a single token; `文書` and `処理` are returned in base form
 
 The response is:

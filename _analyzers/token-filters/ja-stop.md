@@ -29,7 +29,7 @@ For the full list of stop words in the built-in stop set, see [stopwords.txt](ht
 
 ## Example: Minimal usage
 
-The following example uses `ja_stop` in isolation to show what the filter removes on its own. The sentence `大切なことを学んだ` ("I learned something important") produces the tokens `大切`, `だ`, `こと`, `を`, `学ん`, `だ`. Of these, `だ`, `こと`, and `を` are in the `_japanese_` stop set and are removed. The inflected verb stem `学ん` is not a stop word and is kept as-is, because `ja_stop` does not normalise inflections:
+The following example uses `ja_stop` in isolation to show what the filter removes on its own. The sentence `大切なことを学んだ` ("I learned something important") produces the tokens `大切`, `な`, `こと`, `を`, `学ん`, `だ`. Of these, `な`, `こと`, `を` and `だ` are in the `_japanese_` stop set and are removed. The inflected verb stem `学ん` is not a stop word and is kept as-is, because `ja_stop` does not normalise inflections:
 
 ```json
 PUT /ja-stop-minimal-index
@@ -72,8 +72,8 @@ The response retains `大切` and the inflected stem `学ん`:
     },
     {
       "token": "学ん",
-      "start_offset": 5,
-      "end_offset": 7,
+      "start_offset": 6,
+      "end_offset": 8,
       "type": "word",
       "position": 4
     }
@@ -88,7 +88,7 @@ Compare this with the following [full pipeline example](#example-usage-with-kuro
 This example uses the same sentence `大切なことを学んだ` ("I learned something important") to show how all three filters contribute when combined:
 
 - **`kuromoji_baseform`** normalises the inflected verb stem `学ん` to its dictionary form `学ぶ`.
-- **`kuromoji_part_of_speech`** removes the grammatical tokens `を` (object particle) and `だ` (auxiliary verb).
+- **`kuromoji_part_of_speech`** removes the grammatical tokens `な` (the attributive form of `だ`, tagged as auxiliary), `を` (object particle) and `だ` (auxiliary verb).
 - **`ja_stop`** removes `こと`, a common noun that survives part-of-speech filtering but appears in the `_japanese_` stop set.
 
 ```json
@@ -132,8 +132,8 @@ The response contains only the two content tokens with the verb in its base form
     },
     {
       "token": "学ぶ",
-      "start_offset": 5,
-      "end_offset": 7,
+      "start_offset": 6,
+      "end_offset": 8,
       "type": "word",
       "position": 4
     }
