@@ -196,7 +196,7 @@ POST /japanese-custom-index/_analyze
 ```
 {% include copy-curl.html %}
 
-The analyzer uses the custom dictionary rule to segment `東京スカイツリー` into `東京` and `スカイツリー`. The default Katakana stemmer (`kuromoji_stemmer`) then removes the trailing long vowel mark from `スカイツリー` to produce `スカイツリ`, while particles (`に`) and auxiliary verbs (`ました`) are removed, and `行きました` is normalized to its base form `行く`:
+The analyzer uses the custom dictionary rule to segment `東京スカイツリー` into `東京` and `スカイツリー`. The default Katakana stemmer (`kuromoji_stemmer`) removes the trailing long vowel mark from `スカイツリー` to produce `スカイツリ`. Particle (`に`), auxiliary (`まし`) and auxiliary verb (`た`) are removed by `kuromoji_part_of_speech`. `行き` is normalized to its base form `行く` by `kuromoji_baseform`:
 
 ```json
 {
@@ -228,15 +228,18 @@ The analyzer uses the custom dictionary rule to segment `東京スカイツリ�
 
 ## kuromoji_completion analyzer
 
-The `kuromoji_completion` analyzer is designed for autocomplete use cases. It generates both the original Japanese tokens and their Romaji (Latin script) reading variants, allowing users to search for Japanese content by typing in either Japanese characters or their romanized equivalents.
+The `kuromoji_completion` analyzer is designed for autocomplete use cases. It generates both the original Japanese tokens and their Romaji (Latin script) reading variants, allowing users to search for Japanese content by typing in either Japanese characters or their romanized equivalents. Moreover, the `query` mode merges the partial IME input
 
 The analyzer accepts the following parameters.
 
 Parameter | Data type | Description
 :--- | :--- | :---
-`mode` | String | Completion mode. Valid values are `index` (default) and `query`. Use `index` in the index analyzer to generate all reading variants; use `query` in the search analyzer to generate the query-side reading.
+`mode` | String | Controls how tokens are generated. Valid values are `index` (default) and `query`. Both modes expand Katakana tokens into their original form plus all Romaji variants. The `query` mode adds two additional behaviors for handling partial IME input: it concatenates consecutive Kana tokens into a single token before romanizing, and it merges a Kana token with a trailing lowercase alphabet token that represents a partially typed IME keystroke (for example, `サッ` followed by `k` becomes `サッk`).
 `user_dictionary` | String | Path to a custom user dictionary file. Optional.
 `user_dictionary_rules` | Array of strings | Inline custom dictionary rules. Optional.
+
+Use `query` mode in the search analyzer so that partial IME input typed by a user is correctly assembled before romanization.
+{: .tip}
 
 ### Example: Autocomplete with kuromoji_completion
 

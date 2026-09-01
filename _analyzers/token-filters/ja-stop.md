@@ -29,7 +29,7 @@ For the full list of stop words in the built-in stop set, see [stopwords.txt](ht
 
 ## Example: Minimal usage
 
-The following example uses `ja_stop` in isolation to show what the filter removes on its own. The sentence `大切なことを学んだ` ("I learned something important") produces the tokens `大切`, `な`, `こと`, `を`, `学ん`, `だ`. Of these, `な`, `こと`, `を` and `だ` are in the `_japanese_` stop set and are removed. The inflected verb stem `学ん` is not a stop word and is kept as-is, because `ja_stop` does not normalise inflections:
+The following example uses `ja_stop` in isolation to show what the filter removes on its own. The sentence `新聞を読んでいるばかりだ` ("I do nothing but read the newspaper") produces the tokens `新聞`, `を`, `読ん`, `で`, `いる`, `ばかり`, `だ`. Of these, `を`, `で`, `いる`, and `だ` are in the `_japanese_` stop set and are removed. The inflected stem `読ん` and the adverbial particle `ばかり` are not in the stop set and are kept as-is, because `ja_stop` does not normalise inflections or filter by grammatical category:
 
 ```json
 PUT /ja-stop-minimal-index
@@ -53,43 +53,50 @@ PUT /ja-stop-minimal-index
 POST /ja-stop-minimal-index/_analyze
 {
   "analyzer": "ja_stop_minimal_analyzer",
-  "text": "大切なことを学んだ"
+  "text": "新聞を読んでいるばかりだ"
 }
 ```
 {% include copy-curl.html %}
 
-The response retains `大切` and the inflected stem `学ん`:
+The response removes `を`, `で`, `いる`, and `だ` but retains the inflected verb stem `読ん` and the adverbial particle `ばかり` alongside the content token `新聞`:
 
 ```json
 {
   "tokens": [
     {
-      "token": "大切",
+      "token": "新聞",
       "start_offset": 0,
       "end_offset": 2,
       "type": "word",
       "position": 0
     },
     {
-      "token": "学ん",
-      "start_offset": 6,
-      "end_offset": 8,
+      "token": "読ん",
+      "start_offset": 3,
+      "end_offset": 5,
       "type": "word",
-      "position": 4
+      "position": 2
+    },
+    {
+      "token": "ばかり",
+      "start_offset": 8,
+      "end_offset": 11,
+      "type": "word",
+      "position": 5
     }
   ]
 }
 ```
 
-Compare this with the following [full pipeline example](#example-usage-with-kuromoji_baseform-and-kuromoji_part_of_speech), which uses the same input. Adding `kuromoji_baseform` normalises `学ん` to `学ぶ`, and `kuromoji_part_of_speech` removes `を` and `だ` as grammatical tokens — leaving `ja_stop` to handle `こと`, a common noun that part-of-speech filtering alone would not remove.
+Compare this with the following [full pipeline example](#example-usage-with-kuromoji_baseform-and-kuromoji_part_of_speech). Adding `kuromoji_baseform` normalises `読ん` to its dictionary form `読む`. Adding `kuromoji_part_of_speech` removes `ばかり` (adverbial particle) — a token that is not in the `_japanese_` stop word list and therefore cannot be removed by `ja_stop` alone.
 
 ## Example: Usage with kuromoji_baseform and kuromoji_part_of_speech
 
-This example uses the same sentence `大切なことを学んだ` ("I learned something important") to show how all three filters contribute when combined:
+This example uses the same sentence `新聞を読んでいるばかりだ` ("I do nothing but read the newspaper") to show how all three filters contribute distinct work when combined:
 
-- **`kuromoji_baseform`** normalises the inflected verb stem `学ん` to its dictionary form `学ぶ`.
-- **`kuromoji_part_of_speech`** removes the grammatical tokens `な` (the attributive form of `だ`, tagged as auxiliary), `を` (object particle) and `だ` (auxiliary verb).
-- **`ja_stop`** removes `こと`, a common noun that survives part-of-speech filtering but appears in the `_japanese_` stop set.
+- **`kuromoji_baseform`** normalises the inflected verb stem `読ん` to its dictionary form `読む`.
+- **`kuromoji_part_of_speech`** removes `ばかり` (adverbial particle) that would not be handled by `ja_stop`, and removes particles `を`, `で`, and `だ` (which would also be removed by `ja_stop`).
+- **`ja_stop`** removes remaining `いる`, which is listed in the built-in Japanese stop set.
 
 ```json
 PUT /ja-stop-index
@@ -113,7 +120,7 @@ PUT /ja-stop-index
 POST /ja-stop-index/_analyze
 {
   "analyzer": "ja_stop_analyzer",
-  "text": "大切なことを学んだ"
+  "text": "新聞を読んでいるばかりだ"
 }
 ```
 {% include copy-curl.html %}
@@ -124,18 +131,18 @@ The response contains only the two content tokens with the verb in its base form
 {
   "tokens": [
     {
-      "token": "大切",
+      "token": "新聞",
       "start_offset": 0,
       "end_offset": 2,
       "type": "word",
       "position": 0
     },
     {
-      "token": "学ぶ",
-      "start_offset": 6,
-      "end_offset": 8,
+      "token": "読む",
+      "start_offset": 3,
+      "end_offset": 5,
       "type": "word",
-      "position": 4
+      "position": 2
     }
   ]
 }
