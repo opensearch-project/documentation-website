@@ -27,7 +27,7 @@ The former "master node" is now referred to as the cluster manager node.
 
 ### Nodes
 
-The following table provides brief descriptions of the node types:
+The following table provides brief descriptions of the node types.
 
 Node type | Description | Best practices for production
 :--- | :--- | :-- |
