@@ -8,6 +8,7 @@ Amazon Bedrock Guardrails
 Amazon Kendra
 Amazon Kinesis
 Amazon OpenSearch Serverless
+Amazon OpenSearch Serverless NextGen
 Amazon OpenSearch Service
 Amazon Personalize
 Amazon SageMaker
@@ -60,6 +61,7 @@ Data Prepper
 Debian
 Dev Tools
 Discover application
+DiskANN
 Docker
 Docker Compose
 Dockerfile
@@ -103,7 +105,7 @@ Jira
 Joda
 JSON
 JSON Web Token
-jVector
+JVector
 Kafka
 Karpenter
 Kerberos

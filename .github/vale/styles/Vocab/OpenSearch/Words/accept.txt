@@ -27,6 +27,7 @@ Boolean
 [Cc]entiseconds?
 [Cc]lasspath
 [Cc]lickjack(ing)?
+[Cc]odebooks?
 [Cc]odec
 [Cc]omposable
 [Cc]onfig

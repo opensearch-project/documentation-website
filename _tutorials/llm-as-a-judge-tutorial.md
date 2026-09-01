@@ -179,8 +179,7 @@ PUT /_plugins/_search_relevance/judgments
   "contextFields": ["title", "description", "category"],
   "ignoreFailure": false,
   "llmJudgmentRatingType": "SCORE0_1",
-  "promptTemplate": "Rate the relevance of these search results {% raw %}{{hits}}{% endraw %} for the query '{% raw %}{{queryText}}{% endraw %}' on a scale of 0-1, where 0 is completely irrelevant and 1 is perfectly relevant. Consider the product title, description, and category.",
-  "overwriteCache": false
+  "promptTemplate": "Rate the relevance of these search results {% raw %}{{hits}}{% endraw %} for the query '{% raw %}{{queryText}}{% endraw %}' on a scale of 0-1, where 0 is completely irrelevant and 1 is perfectly relevant. Consider the product title, description, and category."
 }
 ```
 {% include copy-curl.html %}
