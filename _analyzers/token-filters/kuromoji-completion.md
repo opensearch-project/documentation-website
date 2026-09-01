@@ -7,7 +7,7 @@ nav_order: 231
 
 # Kuromoji completion token filter
 
-The `kuromoji_completion` token filter generates romanized reading variants for Katakana tokens. When used in an index analyzer, it emits both the original token and one or more romanized alternatives at the same position. This allows users to search for Japanese content by typing in either Japanese characters or their phonetic equivalents.
+The `kuromoji_completion` token filter generates romanized reading variants for Japanese tokens. When used in an index analyzer, it emits both the original token and one or more romanized alternatives at the same position. This allows users to search for Japanese content by typing in either Japanese characters or their phonetic equivalents.
 
 The filter is designed for use with the `kuromoji_completion` analyzer or in custom analyzers that power autocomplete or suggest fields. Because the filter needs to behave differently at index time and query time, it exposes a `mode` parameter.
 

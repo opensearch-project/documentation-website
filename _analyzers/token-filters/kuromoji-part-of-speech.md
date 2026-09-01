@@ -19,12 +19,9 @@ The following table lists the parameters for the `kuromoji_part_of_speech` token
 
 Parameter | Data type | Description
 :--- | :--- | :---
-`stoptags` | Array of strings | A list of IPAdic part-of-speech tags to remove. Tokens whose POS tag starts with any entry in this list are discarded. Defaults to the built-in Japanese stoptag set.
+`stoptags` | Array of strings | A list of IPAdic part-of-speech tags to remove. Tokens whose POS tag exactly matches an entry in this list are discarded. Defaults to the built-in Japanese stoptag set.
 
 For the full list of available stoptags, see [stoptags.txt](https://github.com/apache/lucene/blob/main/lucene/analysis/kuromoji/src/resources/org/apache/lucene/analysis/ja/stoptags.txt) in the Lucene source.
-
-IPAdic tags use a hierarchical structure separated by hyphens. An entry of `助詞` matches all particles, while `助詞-格助詞` matches only case particles. Entries in `stoptags` are treated as prefix matches against the full POS tag.
-{: .note}
 
 ## Example: Default filter
 
@@ -59,7 +56,7 @@ POST /kuromoji-pos-index/_analyze
 ```
 {% include copy-curl.html %}
 
-The response shows the particles の (の, genitive), で (location marker), and を (object marker) removed:
+The response shows the particles の (genitive), で (locative), and を (accusative) removed:
 
 ```json
 {

@@ -9,12 +9,6 @@ nav_order: 230
 
 The `kuromoji_baseform` token filter replaces inflected Japanese tokens with their dictionary base form, acting as a lemmatizer.
 
-For example:
-- 食べた (ate) → 食べる (to eat)
-- 美しかった (was beautiful) → 美しい (beautiful)
-
-Polite forms such as 食べます split into 食べ and ます before this filter runs. The filter normalizes 食べ to 食べる, but ます remains as a separate token. Use [`kuromoji_part_of_speech`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/kuromoji-part-of-speech/) and [`ja_stop`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/ja-stop/) to remove the auxiliary.
-
 The filter applies to tokens that carry dictionary form information from the Kuromoji tokenizer. Tokens without dictionary information (such as unknown words) are passed through unchanged.
 
 Note that the Kuromoji tokenizer splits some conjugated forms into multiple tokens before this filter runs. For example, the past-tense *i*-adjective 美しかった (was beautiful) is split into 美しかっ and た. The filter normalizes 美しかっ to 美しい, but た remains as a separate token. To remove auxiliary verb tokens like た, add [`kuromoji_part_of_speech`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/kuromoji-part-of-speech/) and [`ja_stop`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/ja-stop/) to the filter chain.
@@ -125,7 +119,7 @@ The response shows the conjugated verbs normalized to their base forms. The part
 }
 ```
 
-The past-tense forms 食べて and 飲んだ are replaced with their base forms 食べる and 飲む. The particles を and auxiliary verbs て and だ remain in the token stream because `kuromoji_baseform` only normalizes inflection; it does not remove grammatical tokens.
+The te-form 食べて and past-tense form 飲んだ are replaced with their base forms 食べる and 飲む. The particles を, て, and auxiliary verb だ remain in the token stream because `kuromoji_baseform` only normalizes inflection; it does not remove grammatical tokens.
 
 ## Example: Combining with part-of-speech and stop filters
 
