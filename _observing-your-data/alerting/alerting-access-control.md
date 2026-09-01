@@ -18,20 +18,18 @@ For the end-to-end framework concepts and APIs, see [Resource sharing and access
 
 ## Resource configuration
 
-Alerting registers two resource types, both stored in the alerting configuration index.
+Alerting registers two resource types, both stored in the same configuration index. The following table describes the alerting resource configuration.
 
-| Field | Value |
-| :--- | :--- |
-| Resource type | `monitor` |
-| Resource type | `alerting-workflow` |
-| System index | `.opendistro-alerting-config` |
-| Onboarded version | OpenSearch 3.8 |
+| Resource type | System index | Onboarded version |
+| :--- | :--- | :--- |
+| `monitor` | `.opendistro-alerting-config` | OpenSearch 3.8 |
+| `alerting-workflow` | `.opendistro-alerting-config` | OpenSearch 3.8 |
 
-The workflow resource type is named `alerting-workflow` (not `workflow`) to avoid colliding with the `workflow` resource type registered by the Flow Framework plugin. Both types share the `.opendistro-alerting-config` index; the framework distinguishes them by the document's own fields.
+The workflow resource type is named `alerting-workflow` in order to avoid a name collision with the `workflow` resource type registered by the Flow Framework plugin. Because both alerting types share the `.opendistro-alerting-config` index, the framework distinguishes them by the fields in each document.
 
 When resource-level authorization is enabled, each monitor's and workflow's visibility is governed by a central sharing record. Resource owners and users with sharing capabilities can grant or revoke access permissions for specific users, roles, or backend roles.
 
-Alerts and comments are subordinate to their monitor: they are not registered resource types, and access to them is derived from access to the monitor that produced them. A user who can access a monitor can read its alerts; adding a comment requires monitor access at the read-write or full-access level.
+Alerts and comments are subordinate to their monitor. They are not registered resource types, so access to them is derived from access to the monitor that produced them. A user who can access a monitor can read its alerts. Adding a comment requires monitor access at the read-write or full-access level.
 
 ## Enable alerting resource sharing
 
@@ -77,7 +75,7 @@ Alerting provides three predefined access levels that apply to both the `monitor
 
 ### alerting_read_only
 
-The `alerting_read_only` read-only access level grants users the ability to view and search shared monitors, workflows, and their alerts, but not modify them. This access level includes the following permissions:
+The `alerting_read_only` read-only access level grants users the ability to view and search shared monitors, workflows, and their alerts but not modify them. This access level includes the following permissions:
 
 ```yaml
 - 'cluster:admin/opendistro/alerting/monitor/get'
@@ -107,7 +105,7 @@ The `alerting_read_write` read-write access level grants users full access to mo
 
 ### alerting_full_access
 
-The `alerting_full_access` full access level grants users complete control over a monitor or workflow, including owner-like permissions such as sharing the resource with other users. This access level includes all alerting operations plus resource sharing permissions:
+The `alerting_full_access` full access level grants users complete control over a monitor or workflow, including owner-like permissions such as sharing the resource with other users. This access level includes all read-write permissions plus remote index and resource sharing permissions:
 
 ```yaml
 - 'cluster:admin/opendistro/alerting/monitor/*'
@@ -132,7 +130,7 @@ After enabling resource sharing and marking the alerting resource types as prote
 Admin-only: The Migrate API can only be executed by cluster administrators with superadmin or REST admin privileges.
 {: .important }
 
-Both alerting resource types are stored in the same index and store owner information under different paths (`monitor.user` and `workflow.user`). Alerting declares these per-type paths on its resource providers, so the framework reads the owner from the correct path for each document. The request-level `username_path` and `backend_roles_path` remain required and are used as a fallback.
+Both alerting resource types are stored in the same index but keep owner information under different paths (`monitor.user` and `workflow.user`). Alerting declares these per-type paths on its resource providers, so the framework reads the owner from the correct path for each document. The request-level `username_path` and `backend_roles_path` parameters are still required and are used as a fallback.
 
 Use the following API call to migrate legacy alerting sharing data to the resource sharing framework:
 
@@ -157,3 +155,5 @@ Replace `<replace-with-existing-user>` with the username of an existing user who
 
 - [Resource sharing and access control]({{site.url}}{{site.baseurl}}/security/access-control/resources/) -- Backend concepts, configuration, and setup
 - [Resource sharing APIs]({{site.url}}{{site.baseurl}}/security/access-control/resource-sharing-api/) -- REST API reference for programmatic management
+- [Resource access management]({{site.url}}{{site.baseurl}}/dashboards/management/resource-sharing/) -- UI workflows and user guidance
+- [Alerting security]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/security/) -- Built-in alerting roles and legacy backend role filtering

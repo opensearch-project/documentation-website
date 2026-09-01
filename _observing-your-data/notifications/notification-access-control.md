@@ -11,7 +11,7 @@ has_children: false
 This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).
 {: .warning}
 
-Notifications integrates with the Security plugin's resource sharing and access control framework to provide document-level authorization for notification configurations (channels). This replaces the legacy `opensearch.notifications.general.filter_by_backend_roles` setting with a more flexible sharing system that allows resource owners to grant specific access levels to users, roles, or backend roles.
+Notifications integrates with the Security plugin's resource sharing and access control framework to provide document-level authorization for notification configurations. A notification configuration is the underlying document for a channel, so sharing a configuration controls access to the corresponding channel. This replaces the legacy `opensearch.notifications.general.filter_by_backend_roles` setting with a more flexible sharing system that allows resource owners to grant specific access levels to users, roles, or backend roles.
 
 For the end-to-end framework concepts and APIs, see [Resource sharing and access control]({{site.url}}{{site.baseurl}}/security/access-control/resources/).
 {: .note}
@@ -117,7 +117,7 @@ After enabling resource sharing and marking the notification configuration resou
 Admin-only: The Migrate API can only be executed by cluster administrators with superadmin or REST admin privileges.
 {: .important }
 
-Notification configuration documents track their authorized backend roles under `metadata.access` and do not store a per-user owner. Set `backend_roles_path` to `/metadata/access`. The `username_path` field is required by the API, but because notification documents have no owner name, the path does not resolve to a value and ownership falls back to `default_owner`.
+Notification configuration documents track their authorized backend roles under `metadata.access` and do not store a per-user owner. Set `backend_roles_path` to `/metadata/access`. The `username_path` parameter is required by the API, but because notification documents have no owner name, the path does not resolve to a value, and ownership falls back to `default_owner`.
 
 Use the following API call to migrate legacy notification sharing data to the resource sharing framework:
 
@@ -141,3 +141,4 @@ Replace `<replace-with-existing-user>` with the username of an existing user who
 
 - [Resource sharing and access control]({{site.url}}{{site.baseurl}}/security/access-control/resources/) -- Backend concepts, configuration, and setup
 - [Resource sharing APIs]({{site.url}}{{site.baseurl}}/security/access-control/resource-sharing-api/) -- REST API reference for programmatic management
+- [Resource access management]({{site.url}}{{site.baseurl}}/dashboards/management/resource-sharing/) -- UI workflows and user guidance

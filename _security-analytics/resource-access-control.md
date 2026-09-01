@@ -17,7 +17,7 @@ For the end-to-end framework concepts and APIs, see [Resource sharing and access
 
 ## Resource configuration
 
-Security Analytics registers two resource types.
+Security Analytics registers two resource types. The following table describes the Security Analytics resource configuration.
 
 | Resource type | System index | Onboarded version |
 | :--- | :--- | :--- |
@@ -82,7 +82,7 @@ The `sa_read_only` read-only access level grants users the ability to view and s
 ```
 {% include copy.html %}
 
-For correlation rules, it includes the following permissions:
+For correlation rules, this access level includes the following permissions:
 
 ```yaml
 - 'cluster:admin/opensearch/securityanalytics/correlation/rule/search'
@@ -105,7 +105,7 @@ The `sa_read_write` read-write access level grants users full access to resource
 ```
 {% include copy.html %}
 
-For correlation rules, it includes the following permissions:
+For correlation rules, this access level includes the following permissions:
 
 ```yaml
 - 'cluster:admin/index/correlation/rules/*'
@@ -158,3 +158,5 @@ Replace `<replace-with-existing-user>` with the username of an existing user who
 
 - [Resource sharing and access control]({{site.url}}{{site.baseurl}}/security/access-control/resources/) -- Backend concepts, configuration, and setup
 - [Resource sharing APIs]({{site.url}}{{site.baseurl}}/security/access-control/resource-sharing-api/) -- REST API reference for programmatic management
+- [Resource access management]({{site.url}}{{site.baseurl}}/dashboards/management/resource-sharing/) -- UI workflows and user guidance
+- [OpenSearch security for Security Analytics]({{site.url}}{{site.baseurl}}/security-analytics/security/) -- Basic permissions and legacy backend role filtering
