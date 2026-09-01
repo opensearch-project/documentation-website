@@ -10,6 +10,8 @@ great_grand_parent: Integrating ML models
 ---
 
 # Google Cloud Vertex AI connector
+**Introduced 3.9**
+{: .label .label-purple }
 
 The `google_cloud` connector protocol lets OpenSearch call Google Cloud Vertex AI models while OpenSearch mints and refreshes the Google Cloud OAuth2 access token for you. You do not supply or rotate an access token by hand, and you do not add an `Authorization` header---the protocol injects one for each request. This is the Google Cloud equivalent of the [`aws_sigv4` protocol]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/aws-connectors/) for Amazon services.
 
@@ -128,7 +130,7 @@ The `credential` object contains the following options for service-account key a
 
 - `private_key`: Required in service-account key mode. The service account's private key. Omit in ADC mode.
 - `client_email`: Required in service-account key mode. The service account's client email. Omit in ADC mode.
-- `token_uri`: Optional. The Google OAuth2 token endpoint. Default is `https://oauth2.googleapis.com/token`. When set, it is restricted to Google token endpoints (`*.googleapis.com` over HTTPS).
+- `token_uri`: Optional. The Google OAuth2 token endpoint. Default is `https://oauth2.googleapis.com/token`. If you set this option, the value must use HTTPS and the host must be exactly `oauth2.googleapis.com`. Any other host is rejected when the connector is created.
 
 The `parameters` object contains the following options:
 
