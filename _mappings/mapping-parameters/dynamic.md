@@ -19,7 +19,7 @@ Parameter | Description
 :--- | :--- 
 `true`  | Specifies that new fields can be added dynamically to the mapping. Default is `true`.
 `false` | Specifies that new fields cannot be added dynamically to the mapping. If a new field is detected, then it is not indexed or searchable but can be retrieved from the `_source` field.
-`false_allow_templates` | Adds new fields if they match predefined dynamic templates in the mapping. If a new field which does not match the template is detected, then it is not indexed or searchable but can be retrieved from the `_source` field.
+`false_allow_templates` | Adds new fields to the mapping when they match a predefined dynamic template. New fields that do not match a template are not indexed or searchable but are present in the `_source` field.
 `strict` | Throws an exception. The indexing operation fails when new fields are detected.
 `strict_allow_templates` | Adds new fields if they match predefined dynamic templates in the mapping.
 
