@@ -117,7 +117,7 @@ After enabling resource sharing and marking the notification configuration resou
 Admin-only: The Migrate API can only be executed by cluster administrators with superadmin or REST admin privileges.
 {: .important }
 
-Notification configuration documents track their authorized backend roles under `metadata.access` and do not store a per-user owner. Set `backend_roles_path` to `/metadata/access`. The `username_path` parameter is required by the API, but because notification documents have no owner name, the path does not resolve to a value, and ownership falls back to `default_owner`.
+Notification configuration documents track their authorized backend roles under `metadata.access` and do not store a per-user owner. Set `backend_roles_path` to `/metadata/access`. The `username_path` parameter is required and must be a non-empty path (an empty value is rejected), so point it at a field that notification documents do not contain, such as `/metadata/owner`. The path resolves to no value, and ownership falls back to `default_owner`.
 
 Use the following API call to migrate legacy notification sharing data to the resource sharing framework:
 
