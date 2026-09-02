@@ -7,11 +7,12 @@ nav_order: 235
 
 # Kuromoji stemmer token filter
 
-The `kuromoji_stemmer` token filter normalizes Katakana words by removing a trailing long vowel mark (ー) from words that meet a minimum length threshold. Many foreign loanwords in Japanese are written in Katakana with a trailing ー that denotes a lengthened final vowel (for example, コンピューター, プリンター). In practice, Japanese speakers often drop the trailing ー in informal or technical writing, resulting in two surface forms for the same word. This filter collapses those variants to a single canonical form.
+The `kuromoji_stemmer` token filter normalizes katakana words by removing a trailing long vowel mark (ー) from words that meet a minimum length threshold. Many foreign loanwords in Japanese are written in katakana with a trailing ー that denotes a lengthened final vowel (for example, コンピューター, プリンター). In practice, Japanese speakers often drop the trailing ー in informal or technical writing, resulting in two surface forms for the same word. This filter collapses those variants to a single canonical form.
 
-For example:
-- コンピューター (computer) → コンピュータ
-- プリンター (printer) → プリンタ
+The filter makes conversions such as the following:
+
+- コンピューター (computer) becomes コンピュータ.
+- プリンター (printer) becomes プリンタ.
 
 ## Installation
 
@@ -25,7 +26,7 @@ Parameter | Data type | Description
 :--- | :--- | :---
 `minimum_length` | Integer | The minimum number of characters a token must have for the trailing long vowel mark to be removed. Tokens shorter than this threshold are passed through unchanged. Default is `4`.
 
-The default minimum length of `4` prevents short words like カー (car, 2 characters) from being incorrectly stemmed to カ.
+The default minimum length of `4` prevents short words such as カー (car, two characters) from being incorrectly stemmed to カ.
 {: .note}
 
 ## Example
@@ -56,7 +57,7 @@ PUT /kuromoji-stemmer-index
 ```
 {% include copy-curl.html %}
 
-Test the analyzer with Katakana loanwords (meaning "I use a computer and printer"):
+Test the analyzer with katakana loanwords (meaning "I use a computer and printer"):
 
 ```json
 POST /kuromoji-stemmer-index/_analyze
@@ -115,4 +116,4 @@ The response shows the trailing long vowel marks removed from both words:
 
 - [Kuromoji analyzer]({{site.url}}{{site.baseurl}}/analyzers/language-analyzers/kuromoji/)
 - [Kuromoji tokenizer]({{site.url}}{{site.baseurl}}/analyzers/tokenizers/kuromoji/)
-- [Kuromoji baseform token filter]({{site.url}}{{site.baseurl}}/analyzers/token-filters/kuromoji-baseform/)
+- [Kuromoji base form token filter]({{site.url}}{{site.baseurl}}/analyzers/token-filters/kuromoji-baseform/)

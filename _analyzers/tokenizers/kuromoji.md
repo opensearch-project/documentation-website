@@ -22,7 +22,7 @@ Parameter | Data type | Description
 `mode` | String | Tokenization mode. Valid values are `normal`, `search` (default), and `extended`. See [Tokenization modes](#tokenization-modes) for details.
 `discard_punctuation` | Boolean | When `true`, punctuation tokens are discarded from the output. Default is `true`.
 `discard_compound_token` | Boolean | When `true`, the compound token produced in `search` mode is discarded and only the sub-tokens are kept. Default is `false`.
-`user_dictionary` | String | Path to a custom user dictionary CSV file placed in the OpenSearch config directory. Each line must follow the format `surface,sub-tokens,readings,part-of-speech`. Optional.
+`user_dictionary` | String | Path to a custom user dictionary CSV file placed in the OpenSearch config directory. Each line must follow the format `<text>,<subtokens>,<readings>,<part of speech>`. Optional.
 `user_dictionary_rules` | Array of strings | Inline custom dictionary rules in the same CSV format as `user_dictionary`. Optional. Cannot be used together with `user_dictionary`.
 `nbest_cost` | Integer | When set to a value greater than `-1`, enables n-best segmentation and returns alternative tokenizations whose cost (log probability penalty) is within this value of the best segmentation. Default is `-1` (disabled).
 `nbest_examples` | String | A comma-separated list of example words used to automatically calculate `nbest_cost`. When provided, the tokenizer finds the minimum additional cost needed to also produce the given examples as tokens. Optional.
@@ -68,7 +68,7 @@ POST /kuromoji-tokenizer-index/_analyze
 ```
 {% include copy-curl.html %}
 
-In `search` mode, the compound place name 関西国際空港 (Kansai International Airport) is split into its components as well as kept as a compound token.
+In `search` mode, the compound place name 関西国際空港 (Kansai International Airport) is split into its components and also kept as a compound token:
 
 ```json
 {
@@ -405,12 +405,14 @@ PUT /kuromoji-user-dict-index
 ```
 {% include copy-curl.html %}
 
-Each `user_dictionary_rules` entry is a CSV string with the following four comma-separated fields (`surface,sub-tokens,readings,part-of-speech`):
+Each `user_dictionary_rules` entry is a CSV string with four comma-separated fields, in the order `<text>,<subtokens>,<readings>,<part of speech>`. The following table describes each field.
 
-- **surface** — The text as it appears in the document (for example, `東京スカイツリー`).
-- **sub-tokens** — Space-separated sub-tokens for segmentation (for example, `東京 スカイツリー`).
-- **readings** — Space-separated Katakana readings for each sub-token (for example, `トウキョウ スカイツリー`).
-- **part-of-speech** — IPAdic part-of-speech tag assigned to the term (for example, `カスタム名詞`).
+| Field | Description |
+|:---|:---|
+| `<text>` | The text as it appears in the document (for example, `東京スカイツリー`). |
+| `<subtokens>` | Space-separated subtokens for segmentatio (for example, `東京 スカイツリー`). |
+| `<readings>` | Space-separated katakana readings for each subtoken (for example, `トウキョウ スカイツリー`). |
+| `<part of speech>` | The IPAdic part of speech tag assigned to the term (for example, `カスタム名詞`). |
 
 Use the analyzer to test the user dictionary entry:
 
@@ -423,7 +425,7 @@ POST /kuromoji-user-dict-index/_analyze
 ```
 {% include copy-curl.html %}
 
-The user dictionary controls how the surface form is segmented. Because the rule defines `東京 スカイツリー` as two sub-tokens, the tokenizer emits 東京 and スカイツリー as separate tokens rather than keeping 東京スカイツリー as a single token:
+The user dictionary controls how the text is segmented. Because the rule defines `東京 スカイツリー` as two sub-tokens, the tokenizer emits 東京 and スカイツリー as separate tokens rather than keeping 東京スカイツリー as a single token:
 
 ```json
 {
@@ -460,7 +462,7 @@ The user dictionary controls how the surface form is segmented. Because the rule
 }
 ```
 
-To keep 東京スカイツリー as a single unsplit token, define it as a single sub-token in the rule:
+To keep 東京スカイツリー as a single token, define it as a single sub-token in the rule:
 
 ```json
 "東京スカイツリー,東京スカイツリー,トウキョウスカイツリー,カスタム名詞"

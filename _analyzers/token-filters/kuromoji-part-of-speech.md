@@ -5,7 +5,7 @@ parent: Token filters
 nav_order: 233
 ---
 
-# Kuromoji part-of-speech token filter
+# Kuromoji part of speech token filter
 
 The `kuromoji_part_of_speech` token filter removes tokens whose part-of-speech (POS) tag matches an entry in a configured list of stop tags. The Kuromoji tokenizer assigns each token an IPAdic POS tag. This filter reads that tag and discards tokens that serve a grammatical function (such as particles, auxiliary verbs, and punctuation) rather than a content function.
 
@@ -19,13 +19,13 @@ The following table lists the parameters for the `kuromoji_part_of_speech` token
 
 Parameter | Data type | Description
 :--- | :--- | :---
-`stoptags` | Array of strings | A list of IPAdic part-of-speech tags to remove. Tokens whose POS tag exactly matches an entry in this list are discarded. Defaults to the built-in Japanese stoptag set.
+`stoptags` | Array of strings | A list of IPAdic part-of-speech tags to remove. Tokens whose POS tag exactly matches an entry in this list are discarded. Default is the built-in Japanese stop tag set.
 
-For the full list of available stoptags, see [stoptags.txt](https://github.com/apache/lucene/blob/main/lucene/analysis/kuromoji/src/resources/org/apache/lucene/analysis/ja/stoptags.txt) in the Lucene source.
+For the full list of available stop tags, see [stoptags.txt](https://github.com/apache/lucene/blob/main/lucene/analysis/kuromoji/src/resources/org/apache/lucene/analysis/ja/stoptags.txt) in the Lucene repository.
 
 ## Example: Default filter
 
-The following example creates an index with an analyzer that uses the default stoptag list:
+The following example creates an index with an analyzer that uses the default stop tag list:
 
 ```json
 PUT /kuromoji-pos-index
@@ -125,5 +125,5 @@ PUT /kuromoji-custom-pos-index
 
 - [Kuromoji analyzer]({{site.url}}{{site.baseurl}}/analyzers/language-analyzers/kuromoji/)
 - [Kuromoji tokenizer]({{site.url}}{{site.baseurl}}/analyzers/tokenizers/kuromoji/)
-- [Kuromoji baseform token filter]({{site.url}}{{site.baseurl}}/analyzers/token-filters/kuromoji-baseform/)
+- [Kuromoji base form token filter]({{site.url}}{{site.baseurl}}/analyzers/token-filters/kuromoji-baseform/)
 - [Japanese stop token filter]({{site.url}}{{site.baseurl}}/analyzers/token-filters/ja-stop/)

@@ -1,17 +1,17 @@
 ---
 layout: default
-title: Kuromoji baseform
+title: Kuromoji base form
 parent: Token filters
 nav_order: 230
 ---
 
-# Kuromoji baseform token filter
+# Kuromoji base form token filter
 
 The `kuromoji_baseform` token filter replaces inflected Japanese tokens with their dictionary base form, acting as a lemmatizer.
 
 The filter applies to tokens that carry dictionary form information from the Kuromoji tokenizer. Tokens without dictionary information (such as unknown words) are passed through unchanged.
 
-Note that the Kuromoji tokenizer splits some conjugated forms into multiple tokens before this filter runs. For example, the past-tense *i*-adjective 美しかった (was beautiful) is split into 美しかっ and た. The filter normalizes 美しかっ to 美しい, but た remains as a separate token. To remove auxiliary verb tokens like た, add [`kuromoji_part_of_speech`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/kuromoji-part-of-speech/) and [`ja_stop`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/ja-stop/) to the filter chain.
+Note that the Kuromoji tokenizer splits some conjugated forms into multiple tokens before this filter runs. For example, the past-tense *i*-adjective 美しかった (was beautiful) is split into 美しかっ and た. The filter normalizes 美しかっ to 美しい, but た remains as a separate token. To remove auxiliary verb tokens such as た, add [`kuromoji_part_of_speech`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/kuromoji-part-of-speech/) and [`ja_stop`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/ja-stop/) to the filter chain.
 
 ## Installation
 

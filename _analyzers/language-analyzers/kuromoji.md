@@ -19,7 +19,7 @@ Install the plugin on all nodes and then restart the cluster:
 ```bash
 bin/opensearch-plugin install analysis-kuromoji
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 For more information about installing plugins, see [Installing plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/).
 
@@ -31,8 +31,8 @@ The `analysis-kuromoji` plugin provides the following components that you can us
 
 | Analyzer | Description |
 |:---------|:------------|
-| [`kuromoji`](#how-the-kuromoji-analyzer-works) | Built-in Japanese analyzer. Segments text, removes stop words, and normalizes tokens to their base form. |
-| [`kuromoji_completion`](#kuromoji_completion-analyzer) | Analyzer designed for autocomplete of Japanese text. Generates the original Japanese tokens along with their Romaji reading variants. |
+| [`kuromoji`](#analysis-pipeline) | Built-in Japanese analyzer. Segments text, removes stop words, and normalizes tokens to their base form. |
+| [`kuromoji_completion`](#kuromoji-completion-analyzer) | Analyzer designed for autocomplete of Japanese text. Generates the original Japanese tokens along with their romaji reading variants. |
 
 ### Tokenizer
 
@@ -44,7 +44,7 @@ The `analysis-kuromoji` plugin provides the following components that you can us
 
 | Character filter | Description |
 |:----------------|:------------|
-| [`kuromoji_iteration_mark`]({{site.url}}{{site.baseurl}}/analyzers/character-filters/kuromoji-iteration-mark/) | Normalizes Japanese iteration marks (々, ゞ, ヾ) by expanding them to the character they repeat. |
+| [`kuromoji_iteration_mark`]({{site.url}}{{site.baseurl}}/analyzers/character-filters/kuromoji-iteration-mark/) | Normalizes Japanese iteration marks (々, ゝ, ゞ, ヽ, and ヾ) by expanding them to the character they repeat. |
 
 ### Token filters
 
@@ -52,23 +52,23 @@ The `analysis-kuromoji` plugin provides the following components that you can us
 |:------------|:------------|
 | [`kuromoji_baseform`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/kuromoji-baseform/) | Replaces inflected tokens with their dictionary base form. |
 | [`kuromoji_part_of_speech`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/kuromoji-part-of-speech/) | Removes tokens whose part-of-speech tag is in a configured stop-tag list. |
-| [`kuromoji_readingform`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/kuromoji-readingform/) | Replaces each token with its Katakana or Romaji reading. |
-| [`kuromoji_stemmer`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/kuromoji-stemmer/) | Removes trailing long vowel marks (ー) from Katakana words. |
+| [`kuromoji_readingform`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/kuromoji-readingform/) | Replaces each token with its katakana or romaji reading. |
+| [`kuromoji_stemmer`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/kuromoji-stemmer/) | Removes trailing long vowel marks (ー) from katakana words. |
 | [`ja_stop`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/ja-stop/) | Removes Japanese stop words from the token stream. |
 | [`kuromoji_number`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/kuromoji-number/) | Converts Japanese numeral expressions to standard Arabic numerals. |
-| [`kuromoji_completion`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/kuromoji-completion/) | Generates Romaji reading variants for Katakana tokens to support autocomplete. |
+| [`kuromoji_completion`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/kuromoji-completion/) | Generates romaji reading variants for katakana tokens to support autocomplete. |
 
-## How the kuromoji analyzer works
+## Analysis pipeline
 
-The `kuromoji` analyzer applies the following pipeline to input text:
+The `kuromoji` analyzer applies the following components to input text, in order:
 
-1. **CJK width normalization** — `cjk_width` character filter converts full-width ASCII variants to their standard ASCII equivalents and half-width Katakana variants to full-width Katakana before tokenization.
-2. **Tokenization** — `kuromoji_tokenizer` in `search` mode segments text using the IPAdic dictionary, splitting long compound words into their sub-tokens.
-3. **Base form normalization** — `kuromoji_baseform` replaces inflected verb and adjective forms with their dictionary forms (for example, 食べた → 食べる).
-4. **Part-of-speech filtering** — `kuromoji_part_of_speech` removes grammatical particles (助詞), auxiliary verbs (助動詞), punctuation (記号), and other stop tags.
-5. **Stop word removal** — `ja_stop` removes common Japanese stop words.
-6. **Katakana stemming** — `kuromoji_stemmer` removes trailing long vowel marks (ー) from Katakana words of four or more characters (for example, コンピューター → コンピュータ).
-7. **Lowercasing** — `lowercase` converts any Latin characters to lowercase.
+1. The `cjk_width` character filter converts full-width ASCII variants to their standard ASCII equivalents and half-width katakana variants to full-width katakana before tokenization.
+2. The `kuromoji_tokenizer` in `search` mode segments text using the IPAdic dictionary, splitting long compound words into their sub-tokens.
+3. The `kuromoji_baseform` token filter replaces inflected verb and adjective forms with their dictionary forms (for example, 食べた becomes 食べる).
+4. The `kuromoji_part_of_speech` token filter removes grammatical particles (助詞), auxiliary verbs (助動詞), punctuation (記号), and other stop tags.
+5. The `ja_stop` token filter removes common Japanese stop words.
+6. The `kuromoji_stemmer` token filter removes trailing long vowel marks (ー) from katakana words of four or more characters (for example, コンピューター becomes コンピュータ).
+7. The `lowercase` token filter converts any Latin characters to lowercase.
 
 ## Parameters
 
@@ -78,8 +78,8 @@ Parameter | Data type | Description
 :--- | :--- | :---
 `mode` | String | Tokenization mode. Valid values are `normal`, `search` (default), and `extended`. See [Tokenization modes](#tokenization-modes) for details.
 `user_dictionary` | String | Path to a custom user dictionary file (CSV format) placed in the OpenSearch config directory. Optional.
-`user_dictionary_rules` | Array of strings | Inline custom dictionary rules in CSV format. Each entry is `surface,sub-tokens,readings,part-of-speech`. Optional. Cannot be used together with `user_dictionary`.
-`stopwords` | String or array of strings | Stop words to use. Accepts `_japanese_` for the built-in Japanese stop set, an array of explicit stop words, or a path to a stop word file. Defaults to the built-in Japanese stop set.
+`user_dictionary_rules` | Array of strings | Inline custom dictionary rules in CSV format. Each entry is `<text>,<subtokens>,<readings>,<part of speech>`. Optional. Cannot be used together with `user_dictionary`.
+`stopwords` | String or array of strings | Stop words to use. Accepts `_japanese_` (the built-in Japanese stop set), an array of explicit stop words, or a path to a stop word file. Default is `_japanese_`.
 
 For the full list of stop words in the built-in stop set, see [stopwords.txt](https://github.com/apache/lucene/blob/main/lucene/analysis/kuromoji/src/resources/org/apache/lucene/analysis/ja/stopwords.txt) in the Lucene repository.
 
@@ -87,8 +87,8 @@ For the full list of stop words in the built-in stop set, see [stopwords.txt](ht
 
 The tokenizer mode controls how compound and unknown words are segmented.
 
-| Mode | Behavior |
-|:-----|:---------|
+| Mode | Effect |
+|:-----|:-------|
 | `normal` | Standard dictionary-based segmentation. Compound words are kept as a single token. Unknown words are kept as a single token. |
 | `search` (default) | Like `normal`, but compound words (for example, place names) are also split into their sub-components, improving recall for search queries. |
 | `extended` | Like `normal`, but unknown words are split into unigrams (individual characters), ensuring that every character is indexed. |
@@ -153,7 +153,7 @@ The analyzer returns base-form tokens with particles and auxiliary verbs removed
 }
 ```
 
-## Example: Custom kuromoji analyzer
+## Example: Custom Kuromoji analyzer
 
 The following example creates a custom `kuromoji` analyzer that uses `user_dictionary_rules` to register inline custom terms:
 
@@ -196,7 +196,7 @@ POST /japanese-custom-index/_analyze
 ```
 {% include copy-curl.html %}
 
-The analyzer uses the custom dictionary rule to segment `東京スカイツリー` into `東京` and `スカイツリー`. The default Katakana stemmer (`kuromoji_stemmer`) removes the trailing long vowel mark from `スカイツリー` to produce `スカイツリ`. Particle (`に`), auxiliary (`まし`) and auxiliary verb (`た`) are removed by `kuromoji_part_of_speech`. `行き` is normalized to its base form `行く` by `kuromoji_baseform`:
+The analyzer uses the custom dictionary rule to segment `東京スカイツリー` into `東京` and `スカイツリー`. The default katakana stemmer (`kuromoji_stemmer`) removes the trailing long vowel mark from `スカイツリー` to produce `スカイツリ`. The `kuromoji_part_of_speech` filter removes the particle `に` and the auxiliary verbs `まし` and `た`, and `kuromoji_baseform` normalizes `行き` to its base form `行く`:
 
 ```json
 {
@@ -226,24 +226,24 @@ The analyzer uses the custom dictionary rule to segment `東京スカイツリ�
 }
 ```
 
-## kuromoji_completion analyzer
+## Kuromoji completion analyzer
 
-The `kuromoji_completion` analyzer is designed for autocomplete use cases. It generates both the original Japanese tokens and their Romaji (Latin script) reading variants, allowing users to search for Japanese content by typing in either Japanese characters or their romanized equivalents. Moreover, the `query` mode merges the partial IME input
+The `kuromoji_completion` analyzer is designed for autocomplete use cases. It generates both the original Japanese tokens and their romaji (Latin script) reading variants, allowing users to search for Japanese content by typing in either Japanese characters or their romanized equivalents. In `query` mode, the analyzer also assembles partial input from an input method editor (IME) into a single token before romanizing it.
 
-The analyzer accepts the following parameters.
+The following table lists the parameters for the `kuromoji_completion` analyzer.
 
 Parameter | Data type | Description
 :--- | :--- | :---
-`mode` | String | Controls how tokens are generated. Valid values are `index` (default) and `query`. Both modes expand Katakana tokens into their original form plus all Romaji variants. The `query` mode adds two additional behaviors for handling partial IME input: it concatenates consecutive Kana tokens into a single token before romanizing, and it merges a Kana token with a trailing lowercase alphabet token that represents a partially typed IME keystroke (for example, `サッ` followed by `k` becomes `サッk`).
+`mode` | String | Controls how tokens are generated. Valid values are `index` (default) and `query`. Both modes expand katakana tokens into their original form plus all romaji variants. The `query` mode applies two additional rules for handling partial IME input: it concatenates consecutive kana tokens into a single token before romanizing, and it merges a kana token with a trailing lowercase alphabet token that represents a partially typed IME keystroke (for example, `サッ` followed by `k` becomes `サッk`).
 `user_dictionary` | String | Path to a custom user dictionary file. Optional.
 `user_dictionary_rules` | Array of strings | Inline custom dictionary rules. Optional.
 
 Use `query` mode in the search analyzer so that partial IME input typed by a user is correctly assembled before romanization.
 {: .tip}
 
-### Example: Autocomplete with kuromoji_completion
+### Example: Autocomplete using the Kuromoji completion analyzer
 
-The following example configures an index with separate index-time and search-time completion analyzers:
+The following example configures an index with different completion analyzers used at index time and search time:
 
 ```json
 PUT /autocomplete-index
@@ -277,14 +277,14 @@ PUT /autocomplete-index
 
 For more details about the completion token filter, see [Kuromoji completion token filter]({{site.url}}{{site.baseurl}}/analyzers/token-filters/kuromoji-completion/).
 
-## Using kuromoji with ICU
+## Using the Kuromoji and ICU plugins together
 
 For the most thorough Japanese text analysis, combine the `analysis-kuromoji` and `analysis-icu` plugins. ICU contributes Unicode normalization of full-width and half-width characters and comprehensive character folding that the Kuromoji components alone do not provide.
 
 Both `analysis-kuromoji` and `analysis-icu` must be installed before creating an index that uses components from both plugins.
 {: .note}
 
-The following example creates a custom analyzer combining both plugins. The `icu_normalizer` character filter converts full-width characters to their ASCII equivalents before tokenization (for example, `３００` → `300`), keeping numeric sequences as single tokens. The `kuromoji_iteration_mark` character filter expands Japanese iteration marks (for example, `時々` → `時時`) so the tokenizer can look them up in the dictionary correctly:
+The following example creates a custom analyzer combining both plugins. The `icu_normalizer` character filter converts full-width characters to their ASCII equivalents before tokenization (for example, `３００` becomes `300`), keeping numeric sequences as single tokens. The `kuromoji_iteration_mark` character filter expands Japanese iteration marks (for example, `時々` becomes `時時`) so the tokenizer can look them up in the dictionary correctly:
 
 ```json
 PUT /japanese-icu-index
@@ -327,13 +327,14 @@ POST /japanese-icu-index/_analyze
 {% include copy-curl.html %}
 
 The analyzer applies the following transformations:
-- `icu_normalizer` converts full-width digits before tokenization: `３００` → `300`
-- `kuromoji_stemmer` removes the trailing long vowel mark: `コンピューター` → `コンピュータ`
-- `kuromoji_part_of_speech` removes the particles `は`, `の`, and `を`, and the auxiliary verb `ます`
-- `ja_stop` removes `し` because it appears in the `_japanese_` stop set
-- `300` is kept as a single token; `文書` and `処理` are returned in base form
 
-The response is:
+- `icu_normalizer` converts the full-width digits `３００` to `300` before tokenization.
+- `kuromoji_stemmer` removes the trailing long vowel mark, converting `コンピューター` to `コンピュータ`.
+- `kuromoji_part_of_speech` removes the particles `は`, `の`, and `を`, along with the auxiliary verb `ます`.
+- `ja_stop` removes `し` because it appears in the `_japanese_` stop set.
+- `300` is kept as a single token, and `文書` and `処理` are returned in base form.
+
+The response appears as follows:
 
 ```json
 {
@@ -381,14 +382,5 @@ The response is:
 
 - [Kuromoji tokenizer]({{site.url}}{{site.baseurl}}/analyzers/tokenizers/kuromoji/)
 - [Kuromoji iteration mark character filter]({{site.url}}{{site.baseurl}}/analyzers/character-filters/kuromoji-iteration-mark/)
-- [Kuromoji baseform token filter]({{site.url}}{{site.baseurl}}/analyzers/token-filters/kuromoji-baseform/)
-- [Kuromoji part-of-speech token filter]({{site.url}}{{site.baseurl}}/analyzers/token-filters/kuromoji-part-of-speech/)
-- [Kuromoji reading form token filter]({{site.url}}{{site.baseurl}}/analyzers/token-filters/kuromoji-readingform/)
-- [Kuromoji stemmer token filter]({{site.url}}{{site.baseurl}}/analyzers/token-filters/kuromoji-stemmer/)
-- [Japanese stop token filter]({{site.url}}{{site.baseurl}}/analyzers/token-filters/ja-stop/)
-- [Kuromoji number token filter]({{site.url}}{{site.baseurl}}/analyzers/token-filters/kuromoji-number/)
-- [Kuromoji completion token filter]({{site.url}}{{site.baseurl}}/analyzers/token-filters/kuromoji-completion/)
 - [ICU analyzer]({{site.url}}{{site.baseurl}}/analyzers/language-analyzers/icu/)
-- [ICU normalization character filter]({{site.url}}{{site.baseurl}}/analyzers/character-filters/icu-normalization/)
 - [CJK width token filter]({{site.url}}{{site.baseurl}}/analyzers/token-filters/cjk-width/)
-- [Installing plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/)

@@ -93,6 +93,7 @@ IdP
 Inferentia
 Ion
 IP2Geo
+IPAdic
 IPv4
 IPv6
 Iris

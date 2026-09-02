@@ -9,11 +9,11 @@ nav_order: 115
 
 The `kuromoji_iteration_mark` character filter normalizes Japanese horizontal iteration marks (odoriji) by replacing each mark with the character it repeats. Japanese writing uses iteration marks as shorthand for a repeated character:
 
-- 々 (kanji iteration mark) — Repeats the preceding kanji character without change. For example: 佐々木 → 佐佐木.
-- ゝ (hiragana iteration mark) — Repeats the preceding hiragana character without change. For example: かゝ → かか.
-- ゞ (hiragana voiced iteration mark) — Repeats the preceding hiragana character and applies voicing (dakuten). The preceding character must be unvoiced. For example: みすゞ → みすず (す is voiced to ず).
-- ヽ (katakana iteration mark) — Repeats the preceding katakana character without change. For example: コヽア → ココア.
-- ヾ (katakana voiced iteration mark) — Repeats the preceding katakana character and applies voicing (dakuten). The preceding character must be unvoiced. For example: カヾ → カガ.
+- 々 (kanji iteration mark) -- Repeats the preceding kanji character without change, so 佐々木 becomes 佐佐木.
+- ゝ (hiragana iteration mark) -- Repeats the preceding hiragana character without change, so かゝ becomes かか.
+- ゞ (hiragana voiced iteration mark) -- Repeats the preceding hiragana character and applies voicing (dakuten). The preceding character must be unvoiced, so みすゞ becomes みすず, in which す is voiced to ず.
+- ヽ (katakana iteration mark) -- Repeats the preceding katakana character without change, so コヽア becomes ココア.
+- ヾ (katakana voiced iteration mark) -- Repeats the preceding katakana character and applies voicing (dakuten). The preceding character must be unvoiced, so カヾ becomes カガ.
 
 Expanding these marks before tokenization ensures that the resulting tokens are consistent regardless of whether the original text used iteration marks or spelled out the repeated characters.
 
@@ -28,7 +28,7 @@ The following table lists the parameters for the `kuromoji_iteration_mark` chara
 Parameter | Data type | Description
 :--- | :--- | :---
 `normalize_kanji` | Boolean | When `true`, kanji iteration marks (々) are normalized. Default is `true`.
-`normalize_kana` | Boolean | When `true`, kana iteration marks (ゞ, ヾ, ゝ, ヽ) are normalized. Default is `true`.
+`normalize_kana` | Boolean | When `true`, kana iteration marks (ゞ, ヾ, ゝ, and ヽ) are normalized. Default is `true`.
 
 ## Example
 

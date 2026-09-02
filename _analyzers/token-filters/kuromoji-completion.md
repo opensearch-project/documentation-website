@@ -9,9 +9,11 @@ nav_order: 231
 
 The `kuromoji_completion` token filter generates romanized reading variants for Japanese tokens. When used in an index analyzer, it emits both the original token and one or more romanized alternatives at the same position. This allows users to search for Japanese content by typing in either Japanese characters or their phonetic equivalents.
 
-The filter is designed for use with the `kuromoji_completion` analyzer or in custom analyzers that power autocomplete or suggest fields. Because the filter needs to behave differently at index time and query time, it exposes a `mode` parameter.
+The filter is designed for use with the `kuromoji_completion` analyzer or in custom analyzers that power autocomplete or suggest fields. Because the filter is applied differently at index time and query time, it exposes a `mode` parameter.
 
-To use this token filter, you must first install the `analysis-kuromoji` plugin on all nodes by running `bin/opensearch-plugin install analysis-kuromoji` and then restart the cluster. For more information about installing additional plugins, see [Additional plugins]({{site.url}}{{site.baseurl}}/install-and-configure/additional-plugins/index/).
+## Installation
+
+The `kuromoji_completion` token filter requires the `analysis-kuromoji` plugin. For installation instructions, see [Kuromoji analyzer]({{site.url}}{{site.baseurl}}/analyzers/language-analyzers/kuromoji/).
 
 ## Parameters
 
@@ -19,7 +21,7 @@ The following table lists the parameters for the `kuromoji_completion` token fil
 
 Parameter | Data type | Description
 :--- | :--- | :---
-`mode` | String | Controls how tokens are generated. Valid values are `index` (default) and `query`. Both modes expand Katakana tokens into their original form plus all Romaji variants. The `query` mode adds two additional behaviors for handling partial IME input: it concatenates consecutive Kana tokens into a single token before romanizing, and it merges a Kana token with a trailing lowercase alphabet token that represents a partially typed IME keystroke (for example, `サッ` followed by `k` becomes `サッk`).
+`mode` | String | Controls how tokens are generated. Valid values are `index` (default) and `query`. Both modes expand katakana tokens into their original form plus all romaji variants. The `query` mode applies two additional rules for handling partial input from an input method editor (IME): it concatenates consecutive kana tokens into a single token before romanizing, and it merges a kana token with a trailing lowercase alphabet token that represents a partially typed IME keystroke (for example, `サッ` followed by `k` becomes `サッk`).
 
 Use `query` mode in the search analyzer so that partial IME input typed by a user is correctly assembled before romanization.
 {: .tip}
@@ -70,7 +72,7 @@ PUT /kuromoji_completion_example
 ```
 {% include copy-curl.html %}
 
-With this configuration, a query containing either `konpyu` or `コンピュ` will match documents indexed with `コンピューター`.
+With this configuration, a query containing either `konpyu` or `コンピュ` matches documents indexed with `コンピューター`.
 
 ### Index-time tokens
 
@@ -85,7 +87,7 @@ POST /kuromoji_completion_example/_analyze
 ```
 {% include copy-curl.html %}
 
-The response contains the generated tokens. Each source token produces the original form plus one or more Romaji variants at the same position. For `コンピューター` (computer), the filter emits the original Katakana token and two Romaji variants (`konpyuーtaー` and `konnpyuーtaー`). For the particle `を`, it emits the original and two Romaji forms (`wo` and `o`). For the verb `使う` (use), it emits the original and two Romaji forms (`tukau` and `tsukau`):
+The response contains the generated tokens. Each source token produces the original form plus one or more romaji variants at the same position. For `コンピューター` (computer), the filter emits the original katakana token and two romaji variants (`konpyuーtaー` and `konnpyuーtaー`). For the particle `を`, it emits the original and two romaji forms (`wo` and `o`). For the verb `使う` (use), it emits the original and two romaji forms (`tukau` and `tsukau`):
 
 ```json
 {
@@ -159,9 +161,9 @@ The response contains the generated tokens. Each source token produces the origi
 
 ### Query-time tokens
 
-Both modes expand Katakana tokens into the original form plus all Romaji variants. The key difference of `query` mode is its handling of partial IME input: when a Katakana token is followed by a lowercase alphabet character that represents an in-progress IME keystroke, `query` mode concatenates them into a single token before romanizing. Without this, the partial keystroke would be processed as a separate token and the romanization would not match any indexed variant.
+Both modes expand katakana tokens into the original form plus all romaji variants. The key difference of `query` mode is its handling of partial IME input: when a katakana token is followed by a lowercase alphabet character that represents an in-progress IME keystroke, `query` mode concatenates them into a single token before romanizing. Without this, the partial keystroke would be processed as a separate token and the romanization would not match any indexed variant.
 
-The following example demonstrates this with the input `コンピュt`, which represents a user who has typed the Katakana `コンピュ` and is still composing the next character `t` using an IME:
+The following example demonstrates this with the input `コンピュt`, which represents a user who has typed the katakana `コンピュ` and is still composing the next character `t` using an IME:
 
 ```json
 POST /kuromoji_completion_example/_analyze
@@ -172,7 +174,7 @@ POST /kuromoji_completion_example/_analyze
 ```
 {% include copy-curl.html %}
 
-The `query` mode recognizes `t` as a partial IME keystroke and merges it with the preceding Katakana token before romanizing, producing three tokens for the combined form `コンピュt`: the merged Katakana-plus-keystroke token and its two Romaji variants (`konpyut` and `konnpyut`):
+The `query` mode recognizes `t` as a partial IME keystroke and merges it with the preceding katakana token before romanizing, producing three tokens for the combined form `コンピュt`: the merged katakana-plus-keystroke token and its two romaji variants (`konpyut` and `konnpyut`):
 
 ```json
 {
@@ -206,7 +208,7 @@ With `index` mode, `コンピュ` and `t` would be emitted as two separate token
 
 ### Searching with prefix queries
 
-Because the index stores the original Katakana token and all its Romaji variants, you can use a `prefix` query directly against the indexed Romaji tokens to implement autocomplete. The `prefix` query bypasses the analyzer and matches any indexed token that starts with the given value.
+Because the index stores the original katakana token and all its romaji variants, you can use a `prefix` query directly against the indexed romaji tokens to implement autocomplete. The `prefix` query bypasses the analyzer and matches any indexed token that starts with the given value.
 
 First, index a sample document:
 
@@ -218,7 +220,7 @@ POST /kuromoji_completion_example/_doc/1
 ```
 {% include copy-curl.html %}
 
-The following `prefix` query matches the document because `konnp` is a prefix of the indexed Romaji token `konnpyuーtaー`:
+The following `prefix` query matches the document because `konnp` is a prefix of the indexed romaji token `konnpyuーtaー`:
 
 ```json
 GET /kuromoji_completion_example/_search
@@ -234,7 +236,7 @@ GET /kuromoji_completion_example/_search
 ```
 {% include copy-curl.html %}
 
-The following `prefix` query matches the document using the Katakana prefix `コンピュ`, which is a prefix of the indexed Katakana token `コンピューター`:
+The following `prefix` query matches the document using the katakana prefix `コンピュ`, which is a prefix of the indexed katakana token `コンピューター`:
 
 ```json
 GET /kuromoji_completion_example/_search
@@ -250,7 +252,7 @@ GET /kuromoji_completion_example/_search
 ```
 {% include copy-curl.html %}
 
-For a higher-level approach that configures the `mode` at the analyzer level rather than the filter level, use the built-in [`kuromoji_completion` analyzer]({{site.url}}{{site.baseurl}}/analyzers/language-analyzers/kuromoji/#kuromoji_completion-analyzer).
+For a higher-level approach that configures the `mode` at the analyzer level rather than the filter level, use the built-in [`kuromoji_completion` analyzer]({{site.url}}{{site.baseurl}}/analyzers/language-analyzers/kuromoji/#kuromoji-completion-analyzer).
 {: .tip}
 
 ## Related documentation

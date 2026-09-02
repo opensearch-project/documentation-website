@@ -19,7 +19,7 @@ Before using the `icu_analyzer`, you must install the `analysis-icu` plugin:
 ```bash
 bin/opensearch-plugin install analysis-icu
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 After installation, restart your OpenSearch cluster for the plugin to take effect.
 

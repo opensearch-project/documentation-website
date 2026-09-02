@@ -9,10 +9,11 @@ nav_order: 232
 
 The `kuromoji_number` token filter normalizes Japanese numeral expressions to standard Arabic numerals. Japanese text can represent numbers using kanji numerals (一, 二, 三…), full-width digits (１, ２, ３…), or a mix of both. This filter converts all such expressions to their standard integer or decimal equivalents.
 
-Examples:
-- 一万二千三百四十五 → 12345
-- ３，〇００ → 3000
-- 千円 → 1000 (with the unit 円 remaining as a separate token)
+The filter makes conversions such as the following:
+
+- 一万二千三百四十五 becomes 12345.
+- ３，〇００ becomes 3000.
+- 千円 becomes 1000, with the unit 円 remaining as a separate token.
 
 This filter is useful for faceted search, range queries, and sorting on fields that contain prices, counts, or other quantities written in Japanese notation.
 

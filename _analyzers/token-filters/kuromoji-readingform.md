@@ -7,7 +7,7 @@ nav_order: 234
 
 # Kuromoji reading form token filter
 
-The `kuromoji_readingform` token filter replaces each token with its reading form. Japanese characters (kanji) have multiple possible readings; this filter uses the reading information provided by the Kuromoji tokenizer to emit the phonetic form of each token. The filter can output readings in Katakana (Japanese phonetic script) or in Romaji (Latin script transliteration).
+The `kuromoji_readingform` token filter replaces each token with its reading form. Japanese characters (kanji) have multiple possible readings; this filter uses the reading information provided by the Kuromoji tokenizer to emit the phonetic form of each token. The filter can output readings in katakana (Japanese phonetic script) or in romaji (Latin script transliteration).
 
 ## Installation
 
@@ -19,11 +19,11 @@ The following table lists the parameters for the `kuromoji_readingform` token fi
 
 Parameter | Data type | Description
 :--- | :--- | :---
-`use_romaji` | Boolean | When `false` (default), tokens are replaced with their Katakana reading. When `true`, tokens are replaced with their Romaji (Latin script) transliteration.
+`use_romaji` | Boolean | When `false` (default), tokens are replaced with their katakana reading. When `true`, tokens are replaced with their romaji (Latin script) transliteration.
 
 ## Example: Katakana reading (default)
 
-The following example creates an index with an analyzer that outputs Katakana readings:
+The following example creates an index with an analyzer that outputs katakana readings:
 
 ```json
 PUT /kuromoji-reading-katakana-index
@@ -60,7 +60,7 @@ POST /kuromoji-reading-katakana-index/_analyze
 ```
 {% include copy-curl.html %}
 
-The response shows kanji tokens replaced with their Katakana readings:
+The response shows kanji tokens replaced with their katakana readings:
 
 ```json
 {
@@ -113,7 +113,7 @@ The response shows kanji tokens replaced with their Katakana readings:
 
 ## Example: Romaji reading
 
-The following example creates an analyzer that outputs Romaji transliterations:
+The following example creates an analyzer that outputs romaji transliterations:
 
 ```json
 PUT /kuromoji-reading-romaji-index

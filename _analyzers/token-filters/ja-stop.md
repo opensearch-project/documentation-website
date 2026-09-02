@@ -7,7 +7,7 @@ nav_order: 178
 
 # Japanese stop token filter
 
-The `ja_stop` token filter removes Japanese stop words from a token stream. It is a word-based stop filter (as opposed to `kuromoji_part_of_speech`, which filters by grammatical category) and can be configured with a custom stop word list or the built-in Japanese stop set.
+The `ja_stop` token filter removes Japanese stop words from a token stream. It matches tokens against a word list, either the built-in Japanese stop set or a custom list that you provide. To remove tokens by grammatical category instead, use [`kuromoji_part_of_speech`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/kuromoji-part-of-speech/).
 
 The filter also supports a suggest-friendly mode (`remove_trailing: false`) in which trailing stop words are preserved. This is important for autocomplete use cases where a user may be in the middle of typing a phrase that ends with a stop word or particle.
 
@@ -29,7 +29,7 @@ For the full list of stop words in the built-in stop set, see [stopwords.txt](ht
 
 ## Example: Minimal usage
 
-The following example uses `ja_stop` in isolation to show what the filter removes on its own. The sentence `新聞を読んでいるばかりだ` ("I do nothing but read the newspaper") produces the tokens `新聞`, `を`, `読ん`, `で`, `いる`, `ばかり`, `だ`. Of these, `を`, `で`, `いる`, and `だ` are in the `_japanese_` stop set and are removed. The inflected stem `読ん` and the adverbial particle `ばかり` are not in the stop set and are kept as-is, because `ja_stop` does not normalise inflections or filter by grammatical category:
+The following example uses `ja_stop` in isolation to show what the filter removes on its own:
 
 ```json
 PUT /ja-stop-minimal-index
@@ -49,6 +49,8 @@ PUT /ja-stop-minimal-index
 ```
 {% include copy-curl.html %}
 
+Test the analyzer with the sentence `新聞を読んでいるばかりだ` ("I do nothing but read the newspaper"), which the tokenizer segments into `新聞`, `を`, `読ん`, `で`, `いる`, `ばかり`, and `だ`:
+
 ```json
 POST /ja-stop-minimal-index/_analyze
 {
@@ -58,7 +60,7 @@ POST /ja-stop-minimal-index/_analyze
 ```
 {% include copy-curl.html %}
 
-The response removes `を`, `で`, `いる`, and `だ` but retains the inflected verb stem `読ん` and the adverbial particle `ばかり` alongside the content token `新聞`:
+The filter removes `を`, `で`, `いる`, and `だ` because they are in the `_japanese_` stop set. The inflected stem `読ん` and the adverbial particle `ばかり` are not in the stop set, so they remain unchanged alongside the content token `新聞`, because `ja_stop` does not normalize inflections or filter by grammatical category:
 
 ```json
 {
@@ -88,15 +90,17 @@ The response removes `を`, `で`, `いる`, and `だ` but retains the inflected
 }
 ```
 
-Compare this with the following [full pipeline example](#example-usage-with-kuromoji_baseform-and-kuromoji_part_of_speech). Adding `kuromoji_baseform` normalises `読ん` to its dictionary form `読む`. Adding `kuromoji_part_of_speech` removes `ばかり` (adverbial particle) — a token that is not in the `_japanese_` stop word list and therefore cannot be removed by `ja_stop` alone.
+Compare this with the following [full pipeline example](#example-full-analysis-pipeline). Adding `kuromoji_baseform` normalizes `読ん` to its dictionary form `読む`. Adding `kuromoji_part_of_speech` removes the adverbial particle `ばかり`, which is not in the `_japanese_` stop word list and therefore cannot be removed by `ja_stop` alone.
 
-## Example: Usage with kuromoji_baseform and kuromoji_part_of_speech
+## Example: Full analysis pipeline
 
 This example uses the same sentence `新聞を読んでいるばかりだ` ("I do nothing but read the newspaper") to show how all three filters contribute distinct work when combined:
 
-- **`kuromoji_baseform`** normalises the inflected verb stem `読ん` to its dictionary form `読む`.
-- **`kuromoji_part_of_speech`** removes `ばかり` (adverbial particle) that would not be handled by `ja_stop`, and removes particles `を`, `で`, and `だ` (which would also be removed by `ja_stop`).
-- **`ja_stop`** removes remaining `いる`, which is listed in the built-in Japanese stop set.
+- `kuromoji_baseform` normalizes the inflected verb stem `読ん` to its dictionary form `読む`.
+- `kuromoji_part_of_speech` removes the adverbial particle `ばかり`, which `ja_stop` does not handle, and the particles `を`, `で`, and `だ`, which `ja_stop` also removes.
+- `ja_stop` removes the remaining `いる`, which is listed in the built-in Japanese stop set.
+
+Create an index with an analyzer that chains all three filters:
 
 ```json
 PUT /ja-stop-index
@@ -115,6 +119,8 @@ PUT /ja-stop-index
 }
 ```
 {% include copy-curl.html %}
+
+Test the analyzer with the same sentence:
 
 ```json
 POST /ja-stop-index/_analyze
@@ -152,5 +158,5 @@ The response contains only the two content tokens with the verb in its base form
 
 - [Kuromoji analyzer]({{site.url}}{{site.baseurl}}/analyzers/language-analyzers/kuromoji/)
 - [Kuromoji tokenizer]({{site.url}}{{site.baseurl}}/analyzers/tokenizers/kuromoji/)
-- [Kuromoji baseform token filter]({{site.url}}{{site.baseurl}}/analyzers/token-filters/kuromoji-baseform/)
+- [Kuromoji base form token filter]({{site.url}}{{site.baseurl}}/analyzers/token-filters/kuromoji-baseform/)
 - [Kuromoji part-of-speech token filter]({{site.url}}{{site.baseurl}}/analyzers/token-filters/kuromoji-part-of-speech/)
