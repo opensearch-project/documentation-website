@@ -3,7 +3,7 @@ layout: default
 title: Amazon connectors
 has_children: false
 has_toc: false
-nav_order: 62
+nav_order: 50
 parent: Connectors
 grand_parent: Connecting to externally hosted models
 great_grand_parent: Integrating ML models

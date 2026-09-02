@@ -3,7 +3,7 @@ layout: default
 title: Google Cloud Vertex AI connector
 has_children: false
 has_toc: false
-nav_order: 63
+nav_order: 60
 parent: Connectors
 grand_parent: Connecting to externally hosted models
 great_grand_parent: Integrating ML models
