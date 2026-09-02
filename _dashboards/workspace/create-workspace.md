@@ -22,7 +22,8 @@ To create a workspace, follow these steps:
   - **Use case and features** is required. Choose the use case that best fits your needs. If you are using Amazon OpenSearch Serverless and have enabled the [multiple data sources]({{site.url}}{{site.baseurl}}/dashboards/management/data-sources/) feature, **Essentials** is automatically assigned. 
 4. (Optional) Select the color picker to customize the color of your workspace icon.
 5. (Optional) Add a workspace description of up to 200 characters. This option is disabled when the description exceeds the character limit.
-6. Save your workspace.
+6. (Optional) Enter a custom **Workspace ID**. If left blank, an ID is auto-generated. A custom ID must be either a UUID (`xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx`) or 6–20 characters using only letters, numbers, underscores (`_`), and hyphens (`-`). If a workspace with the provided ID already exists, an error is returned.
+7. Save your workspace.
   - The **Create workspace** button becomes active once you enter the information for all required fields. You become the workspace owner automatically. The system redirects you to either the collaborators page if the saved objects permission is enabled or the overview page if the saved objects permission is disabled. See [Configuring dashboard admin]({{site.url}}{{site.baseurl}}/dashboards/workspace/workspace-acl/#configuring-dashboard-administrators) for more information about permissions.
 
 To set up permissions, see [Workspace access control lists]({{site.url}}{{site.baseurl}}/dashboards/workspace/workspace-acl/) for more information.
