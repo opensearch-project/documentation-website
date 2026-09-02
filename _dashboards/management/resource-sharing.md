@@ -12,36 +12,30 @@ nav_order: 30
 This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).    
 {: .warning}
 
-Resource sharing in OpenSearch Dashboards provides fine-grained, document-level access control for plugin-defined resources such as machine learning (ML) model groups, anomaly detectors, report definitions, and other shareable objects. This feature extends OpenSearch's role-based access control by allowing resource owners to specify who can access a resource and what level of access they have, including read-only or read-write permissions. OpenSearch Dashboards offers a simple UI for everyday access management, while the Dev Tools console enables automation or batch operations for advanced workflows. 
+Resource sharing in OpenSearch Dashboards provides fine-grained, document-level access control for individual resources that plugins define. This feature extends OpenSearch's role-based access control by allowing resource owners to specify who can access a resource and what level of access they have, including read-only or read-write permissions. Use OpenSearch Dashboards for everyday access management and the **Dev Tools** console for automation and batch operations.
 
 If resource sharing features are not visible in OpenSearch Dashboards, contact your OpenSearch administrator to enable the capability and assign appropriate permissions.
 {: .note}
 
-A **resource** is a document created by a plugin and stored in a protected system index, for example:
-
-- ML model groups and models.
-- Anomaly detectors.
-- Reporting definitions.
-- Flow framework workflows.
-- Any plugin-defined resource type.
+A **resource** is a document that a plugin creates and stores in a protected system index, such as a machine learning (ML) model group, an anomaly detector, a report definition, or a Flow Framework workflow.
 
 The following table lists the default resource access, which is determined by the user's role and relationship to the resource.
 
-| User             | Access                                  |
-|------------------|-----------------------------------------|
-| Resource creator | Full access (view, edit, delete, share) |
-| Superadmin      | Full access                             |
-| Other users      | No access unless shared                 |
+| User | Access |
+|---|---|
+| Resource creator | Full access (view, edit, delete, and share) |
+| Superadmin | Full access |
+| Other users | No access unless the resource is shared with them |
 
-Once a resource is shared with specific users, roles, or backend roles, it becomes visible to those users in OpenSearch Dashboards. OpenSearch Dashboards automatically filters resource lists based on your identity, permissions, and the resource sharing configuration.
+After you share a resource with specific users, roles, or backend roles, it becomes visible to those users in OpenSearch Dashboards, which filters resource lists based on each user's identity, permissions, and the resource sharing configuration.
 
 ## Prerequisites
 
-To use resource sharing in OpenSearch Dashboards, you must fulfill the following prerequisites:
+To use resource sharing in OpenSearch Dashboards, you must meet the following prerequisites:
 
-* **Plugin-level cluster permissions**: Assigned by an administrator; required for creating resources.
-* **Resource-level sharing access**: The resource must be explicitly shared with you unless you are the owner or a superadmin.
-* **Security plugin settings enabled**: Administrators must enable the following in the configuration:
+* An administrator has granted you the cluster permissions for the resource's plugin. You need these permissions to create resources.
+* You own the resource, you are a superadmin, or the owner has shared the resource with you.
+* An administrator has enabled the following settings:
     ```yaml
     plugins.security.experimental.resource_sharing.enabled: true
     plugins.security.experimental.resource_sharing.protected_types: ["<resource-type>"]
@@ -49,76 +43,95 @@ To use resource sharing in OpenSearch Dashboards, you must fulfill the following
     ```
     {% include copy.html %}
 
-    For more information, see [Experimental feature flags]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/experimental/).
+    For more information about these settings, see [Configuring resource sharing]({{site.url}}{{site.baseurl}}/security/access-control/resources/#configuring-resource-sharing). For more information about experimental settings, see [Experimental feature flags]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/experimental/).
 
-## Sharing resources using OpenSearch Dashboards
+## Managing access for all resource types
 
-Follow these steps to share resources in OpenSearch Dashboards:
+The **Resource Access Management** page lists the resources of any protected type that you can access and lets you manage sharing for them in one place. Follow these steps to view and manage access for a resource:
 
-1. Open a shareable resource:
+1. On the top menu, go to **Management** > **Resource Access Management**.
 
-   * In the left navigation menu, under the **Management** section, select **Resource Access Management** (visible only if resource sharing is enabled).
-   * From the resource type dropdown list, choose the resource type you want to view or manage. The **Resources** table automatically displays all resources you have access to. If no resources appear, create one or ask an administrator or resource owner to share it with you.
+1. In the **Resources** panel, in the upper-right corner, select a resource type from the dropdown list. The table lists the resources of that type that you can access and shows the owner of each resource in the **Owner** column. The **Shared With** column lists the users, roles, and backend roles that the resource is shared with, along with their access levels, or **Not shared** if the resource is private. If no resources appear, create a resource or ask an administrator or the resource owner to share one with you.
 
-1. Choose an access level. OpenSearch Dashboards dynamically retrieves available access levels (action groups) from OpenSearch, for example:
+   The following image shows the **Resources** panel for the anomaly detector resource type.
 
-    * `ad_read_only`
-    * `ml_read_write`
-    * `flow_framework_full_access`
+   ![Resources panel listing anomaly detectors with their resource IDs, owners, and the users and roles that each detector is shared with]({{site.url}}{{site.baseurl}}/images/resource-sharing/4-after-selecting-resource.png)
 
-    Access levels are plugin-specific and vary by resource type.
-    {: .note}
+1. In the **Actions** column, select **Share** for a private resource or **Update Access** for a resource that is already shared. These options appear only for resources that you own or that the owner granted you share permission for. Superadmins can share any resource.
 
-1. Add users, roles, or backend roles:
-     * Specific users (for example, `alice`)
-     * Specific roles (for example, `data_viewer`)
-     * Specific backend roles (for example, `engineering_team`)
-     
-     Wildcards (`*`) are supported for the `users` field to make a resource publicly accessible at the chosen access level.
-     {: .note}
+1. In the **Share Resource** or **Update Access** dialog, from the **Access-level** dropdown list, select an access level. In the **Share Resource** dialog, first select **Add access-level** to display the fields.
 
-1. Select **Save** to update the backend configuration. Changes are applied immediately.
+1. Enter the users, roles, and backend roles that you want to grant this level of access to in the **Users**, **Roles**, and **Backend roles** fields. To grant access to all users, enter an asterisk (`*`) in the **Users** field.
 
-## Viewing and managing access
+1. To grant a different level of access to another set of users, select **Add access-level** and repeat the preceding two steps. To delete an access level, select **Remove**.
 
-Follow these steps to view and manage access for a resource in OpenSearch Dashboards:
+1. Select **Share** or **Update Access** to apply the changes. Removing access immediately hides the resource from the affected users.
 
+## Managing access from a plugin page
+**Introduced 3.9**
+{: .label .label-purple }
 
-1. In the left navigation menu, in the **Management** section, select **Resource Access Management**. The landing page displays all available resource types.
+You can manage access to a resource directly from the plugin's resource list when resource sharing is enabled for the resource type.
 
-1. In the **Resources** panel, in the upper-right corner, select a resource type from the dropdown menu.
-      
-      The panel displays:
-      * The resource owner.
-      * All users, roles, and backend roles with access.
-      * Their assigned access levels.
-      * Whether you have permission to share the resource with others.
+The following table lists the resources that support access management from their plugin's resource list and links to the access levels available for each one.
 
-      The Resources panel for the Anomaly Detector resource type is shown in the following image.
-     
-     ![Resource details after selection]({{site.url}}{{site.baseurl}}/images/resource-sharing/4-after-selecting-resource.png)
+| Plugin | Resources |
+|---|---|
+| Alerting | [Monitors and workflows]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/alerting-access-control/) |
+| Anomaly Detection | [Detectors]({{site.url}}{{site.baseurl}}/observing-your-data/ad/detector-access-control/) and [forecasters]({{site.url}}{{site.baseurl}}/observing-your-data/forecast/forecaster-access-control/) |
+| Flow Framework | [Workflows]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-access-control/) |
+| ML Commons | [Model groups]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-sharing-access-control/) |
+| Notifications | [Channels]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/notification-access-control/) |
+| Reporting | [Report definitions]({{site.url}}{{site.baseurl}}/reporting/report-definition-access-control/) and [reports]({{site.url}}{{site.baseurl}}/reporting/report-instance-access-control/) |
+| Security Analytics | [Detectors and correlation rules]({{site.url}}{{site.baseurl}}/security-analytics/resource-access-control/) |
 
-1. Determine sharing permissions. You can share a resource only if you meet one of the following conditions:
+You can share a resource only if you are its owner, a superadmin, or a user to whom the owner granted share permission.
+{: .note}
 
-   * You are the owner of the resource.
-   * The owner shared the resource with you and granted share permission.
-   * You are a superadmin.
+### Sharing a resource
 
-1. In the **Update Access** dialog, configure access to the resource by selecting the **Access level** and adding or removing **Users**, **Roles**, or **Backend roles** as needed.
+To share a resource from a plugin page, follow these steps:
 
-1. Select **Save** to apply changes. Removing access immediately hides the resource from the affected users.
+1. Open the resource list for a supported plugin. For example, on the top menu, go to **OpenSearch Plugins** > **Anomaly Detection**, and then select **Detectors**.
+
+1. In the **Access** column, review the sharing status for each resource. Each resource displays a status of **Private** or **Shared**. Resources that you have permission to share also display a share icon, as shown in the following image.
+
+   ![Detectors list showing the Access column with Private and Shared statuses and share icons]({{site.url}}{{site.baseurl}}/images/resource-sharing/share-button-access-column.png)
+
+1. Select the share icon for the resource that you want to manage.
+
+1. In the **Manage access** dialog, configure the following values:
+
+   1. From the **Access level** dropdown list, select an access level. The available levels vary by resource type.
+
+   1. In the **Users** field, enter a username and press Enter. To share the resource with all users at the selected access level, enter an asterisk (`*`).
+
+   1. To share the resource with roles or backend roles, expand **Advanced access options** and enter the role names in the **Roles** or **Backend roles** field.
+
+   1. To share the resource at more than one access level, select **Add access level** and repeat the preceding steps. Each level maintains its own users, roles, and backend roles. To delete a level, select **Remove level**.
+
+   1. Select **Save changes**.
+
+### Making a resource private
+
+To stop sharing a resource, follow these steps:
+
+1. In the **Access** column, select the share icon for the resource.
+
+1. In the **Remove all sharing** section of the **Manage access** dialog, select **Remove access**.
+
+The resource status returns to **Private**, and the users, roles, and backend roles that it was shared with can no longer access it.
 
 ## Listing resources shared with you
 
-OpenSearch Dashboards automatically shows only the resources you have access to. No additional actions are required.
+OpenSearch Dashboards shows only the resources that you can access, so no additional actions are required. A resource appears in your resource lists in any of the following cases:
 
-Resource visibility is determined by:
+* You own the resource.
+* The owner has explicitly shared the resource with you.
+* The owner has shared the resource with one of your roles or backend roles.
+* The resource is shared with all users.
 
-* **Ownership** – You are the owner of the resource.
-* **Sharing configuration** – The resource has been explicitly shared with you.
-* **Plugin cluster permissions** – You have the necessary permissions for the resource's plugin.
-* **Role or backend role membership** – Your roles grant access to the resource.
-* **Public resources** – Resources shared with all users using wildcards (for example, `users: ["*"]`).
+In all cases, listing a resource also requires the cluster permissions for the resource's plugin.
 
 ## Managing resource sharing using APIs
 
@@ -128,16 +141,16 @@ For complete API documentation, including endpoints, parameters, and examples, s
 
 ## Troubleshooting
 
-Use the following table to troubleshoot the following common issues.
+Use the following table to troubleshoot common issues.
 
-| Issue                                        | Possible cause                         | Fix                                                                        |
-|----------------------------------------------|----------------------------------------|----------------------------------------------------------------------------|
-| `Resource Access Management` app not visible | Feature disabled                       | Ask admin to enable `resource_sharing.enabled`                             |
-| User can't create resource                   | Missing plugin API permissions         | Ask admin to map to appropriate role                                       |
-| User can't access a resource                 | Resource is not shared with them       | Ask owner to share it with them at appropriate access level                |
-| API returns 403 in Dev Tools                 | Resource is not shared with them       | Ask owner to share it with them at appropriate access level                |
-| Resource not listed in OpenSearch Dashboards            | Resource not marked as protected       | Ask admin to mark resource as protected `resource_sharing.protected_types` |
-| PATCH does nothing                           | Access level not defined for that type | Verify plugin's action-groups                                              |
+| Issue | Possible cause | Fix |
+|---|---|---|
+| The **Resource Access Management** page is not visible. | The feature is disabled. | Ask an administrator to enable `plugins.security.experimental.resource_sharing.enabled`. |
+| You can't create a resource. | You don't have the cluster permissions for the resource's plugin. | Ask an administrator to map you to a role that grants those permissions. |
+| You can't access a resource. | The resource is not shared with you. | Ask the owner to share the resource with you at the appropriate access level. |
+| An API request returns a `403` error. | The resource is not shared with you. | Ask the owner to share the resource with you at the appropriate access level. |
+| A resource is not listed in OpenSearch Dashboards. | The resource type is not marked as protected. | Ask an administrator to add the resource type to `plugins.security.experimental.resource_sharing.protected_types`. |
+| Updating access has no effect. | The access level is not valid for the resource type. | Verify the access level against the documentation for the resource's plugin. |
 
 ## Related documentation
 
