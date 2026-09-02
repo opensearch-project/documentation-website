@@ -207,6 +207,14 @@ The Security plugin supports the following audit log settings:
 
 - `plugins.security.audit.config.cert_alias` (Static): An alias to the certificate used for audit log access.
 
+- `plugins.security.audit.config.body_logging_exclusions` (Dynamic): A list of action group names or raw action/path patterns for which request body logging is suppressed. Default is `[]` (empty, log all bodies). See [Body logging exclusions]({{site.url}}{{site.baseurl}}/security/audit-logs/index/#body-logging-exclusions) for details.
+
+- `plugins.security.audit.config.action_groups.<NAME>` (Static): Defines named groups of action/path patterns for use with `body_logging_exclusions`. Each group is a comma-separated string of transport action patterns and/or REST paths. Supports wildcards.
+
+- `plugins.security.audit.config.log4j.enable_mdc_routing` (Static): Enables MDC (Mapped Diagnostic Context) routing for the Log4j audit sink. When enabled, audit events set MDC keys (`audit_category`, `audit_action`, `audit_user`, `audit_request_type`) that can be used by Log4j routing appenders. Default is `false`.
+
+- `plugins.security.audit.enable_standalone` (Static): Enables standalone audit logging mode for clusters running without fine-grained access control (SSL-only or security-disabled modes). Must be set to `true` alongside `plugins.security.audit.type` to activate standalone audit. Default is `false`.
+
 - `plugins.security.audit.config.pemkey_filepath` (Static): The `/config` relative file path to the Privacy Enhanced Mail (PEM) key used for audit logging.
 
 - `plugins.security.audit.config.pemkey_content` (Static): The Base64-encoded content of the PEM key used for audit logging. This is an alternative to `...config.pemkey_filepath`.
@@ -238,6 +246,8 @@ The Security plugin supports the following audit log settings:
 - `opendistro_security.audit.config.disabled_rest_categories` (Dynamic): A list of REST categories to be ignored by the logger. Valid values are `AUTHENTICATED` and `GRANTED_PRIVILEGES`.
 
 - `opendistro_security.audit.config.disabled_transport_categories` (Dynamic): A list of transport layer categories to be ignored by the logger. Valid values are `AUTHENTICATED` and `GRANTED_PRIVILEGES`.
+
+The dynamic audit filter settings and all `plugins.security.audit.compliance.*` settings are marked with `Setting.Property.Sensitive`. This means only security admin users can view or modify their values via the cluster settings API; values are masked for non-admin users. The `plugins.security.audit.config.body_logging_exclusions` and `plugins.security.audit.config.action_groups.<NAME>` settings are exceptions and are not marked sensitive.
 
 ## Hostname verification and DNS lookup settings
 
