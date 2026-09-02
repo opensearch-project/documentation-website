@@ -26,7 +26,7 @@ The following index API operations are available, organized by category:
 - [Index settings and mappings]({{site.url}}{{site.baseurl}}/api-reference/index-apis/index-settings-mappings/) - Configure and modify index behavior and structure
 - [Index templates]({{site.url}}{{site.baseurl}}/api-reference/index-apis/index-templates/) - Create and manage templates for automatic index configuration
 - [Index blocks and allocation]({{site.url}}{{site.baseurl}}/api-reference/index-apis/index-blocks-allocation/) - Control index access restrictions and shard allocation
-- [Data stream stats]({{site.url}}{{site.baseurl}}/api-reference/index-apis/data-stream-stats/) - Returns statistics for data streams
+- [Data stream APIs]({{site.url}}{{site.baseurl}}/api-reference/data-stream/index/) - Create, delete, and get information and stats for data streams
 - [Dangling index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/dangling-index/) - Manage indexes that exist on disk but are not part of cluster state
 
 If you use the Security plugin, make sure you have the appropriate permissions.
