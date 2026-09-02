@@ -2,9 +2,10 @@
 layout: default
 title: Connector blueprints
 has_children: false
-nav_order: 65
-parent: Connecting to externally hosted models 
-grand_parent: Integrating ML models
+nav_order: 20
+parent: Connectors
+grand_parent: Connecting to externally hosted models
+great_grand_parent: Integrating ML models
 redirect_from: 
   - /ml-commons-plugin/extensibility/blueprints/
 ---
@@ -67,7 +68,7 @@ As an ML developer, you can build connector blueprints for other platforms. Usin
 | `backend_roles`                                  | JSON array  | Yes         | A list of OpenSearch backend roles. For more information about setting up backend roles, see [Assigning backend roles to users]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control#assigning-backend-roles-to-users).                                                                                                                                               |
 | `access_mode`                                    | String | Yes         | Sets the access mode for the model, either `public`, `restricted`, or `private`. Default is `private`. For more information about `access_mode`, see [Model groups]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control#model-groups).                                                                                                                               |
 | `add_all_backend_roles`                          | Boolean  | Yes         | When set to `true`, adds all `backend_roles` to the access list, which only a user with admin permissions can adjust. When set to `false`, non-admins can add `backend_roles`.                                                                                                                                                                                                       |
-| `client_config`                                  | JSON object | No          | The client configuration object, which provides settings that control the behavior of the client connections used by the connector. These settings allow you to manage connection limits, timeouts, and TLS behavior, ensuring efficient and reliable communication.                                                                                                                                |
+| `client_config`                                  | JSON object | No          | The client configuration object, which provides settings that control the behavior of the client connections used by the connector. These settings allow you to manage connection limits, timeouts, and TLS options, ensuring efficient and reliable communication.                                                                                                                                |
 | `parameters.skip_validating_missing_parameters`  | Boolean | No          | When set to `true`, this option allows you to send a request using a connector without validating any missing parameters. Default is `false`.                                                                                                                                                                                                                                                            |
 | `provisioned_by`                                     | String | No          | An optional attribution tag identifying the plugin or client that provisioned the connector (for example, `flow-framework`). Included in ML statistics metrics. Set at creation time only; ignored by the Update Connector API.                                                                                                                                                            |
 
@@ -96,16 +97,16 @@ The `client_config` parameter supports the following options.
 | `retry_backoff_millis` | Integer   | The base backoff time in milliseconds for retry policy. The suspend time during two retries is determined by this parameter and `retry_backoff_policy`.  Default is `200`. |
 | `retry_timeout_seconds` | Integer   | The timeout value, in seconds, for the retry. If the retry can not succeed within the specified amount of time, the connector will stop retrying and throw an exception. Default is `30`. |
 | `skip_ssl_verification` | Boolean   | If set to `true`, disables SSL certificate verification for the connector, allowing connections to endpoints with self-signed or otherwise invalid certificates. Use only in development or testing environments. If set to `false`, SSL certificate verification remains enabled (recommended for production). Default is `false`. |
-| `mutual_tls_enabled` | Boolean | If set to `true`, the connector presents a client certificate to the endpoint using mutual TLS (mTLS). Provide the certificate material in the connector's `credential` object. Supported only for connectors that use the `http` protocol and only in OpenSearch 3.9 or later. Cannot be enabled together with `skip_ssl_verification`. Default is `false`. For more information, see [Client certificate authentication]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/#client-certificate-authentication). |
+| `mutual_tls_enabled` | Boolean | If set to `true`, the connector presents a client certificate to the endpoint using mutual TLS (mTLS). Provide the certificate material in the connector's `credential` object. Supported only for connectors that use the `http` protocol. Cannot be enabled together with `skip_ssl_verification`. Default is `false`. For more information, see [Client certificate authentication]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connector-authentication/#client-certificate-authentication). |
 | `keystore_type` | String | The format of the client certificate material supplied in the `credential` object. Valid values are `PEM` and `PKCS12` (not case sensitive). Applies only when `mutual_tls_enabled` is `true`. Default is `PEM`. |
 
-When `mutual_tls_enabled` is set to `true`, the `credential` parameter supports the following certificate fields. Provide the certificate content itself, either as PEM text with newlines escaped as `\n` or as base64-encoded content; file paths are not supported. These fields are encrypted at rest in the same way as any other credential.
+When `mutual_tls_enabled` is set to `true`, the `credential` parameter supports the following certificate fields. Provide the certificate content itself, either as PEM text with newlines escaped as `\n` or as Base64-encoded content; file paths are not supported. These fields are encrypted at rest in the same way as any other credential.
 
 | Field  | Data type | Description |
 |:---|:---|:---|
 | `client_cert_pem` | String | The client certificate in PEM format. Required when `keystore_type` is `PEM`. To present a certificate issued by an intermediate certificate authority (CA), include the full chain, ordered leaf certificate first. |
-| `client_key_pem` | String | The client private key in PEM format. Required when `keystore_type` is `PEM`. Must be an unencrypted PKCS \#8 key (`-----BEGIN PRIVATE KEY-----`); PKCS \#1 keys are not supported. |
-| `client_cert_pkcs12` | String | The base64-encoded PKCS12 keystore containing the client certificate and private key. Required when `keystore_type` is `PKCS12`. |
+| `client_key_pem` | String | The client private key in PEM format. Required when `keystore_type` is `PEM`. Must be a non-encrypted PKCS #8 key (`-----BEGIN PRIVATE KEY-----`); PKCS #1 keys are not supported. |
+| `client_cert_pkcs12` | String | The Base64-encoded PKCS12 keystore containing the client certificate and private key. Required when `keystore_type` is `PKCS12`. |
 | `keystore_password` | String | The password protecting the PKCS12 keystore. Optional; omit it for a keystore that has no password. |
 | `ca_cert_pem` | String | One or more CA certificates, in PEM format, used to validate the endpoint's server certificate. Accepts a bundle of intermediate and root certificates. Optional; if omitted, the Java default truststore is used. Provide this field when the endpoint uses a private CA. |
 
