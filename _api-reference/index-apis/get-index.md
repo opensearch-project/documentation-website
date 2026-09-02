@@ -126,7 +126,7 @@ The response contains a separate object for each index, for which the key is the
 
 Field | Data type | Description
 :--- | :--- | :---
-`aliases` | Object | Index aliases associated with the index. Each key is an alias name, and each value is an alias configuration object. For more information, see [Index aliases]({{site.url}}{{site.baseurl}}/im-plugin/index-alias/).
+`aliases` | Object | Index aliases associated with the index. Each key is an alias name, and each value is an alias configuration object. For more information, see [Index aliases]({{site.url}}{{site.baseurl}}/im-plugin/aliases/index/).
 `mappings` | Object | Field mappings for documents in the index. Defines the data type and properties for each field. For more information, see [Mappings]({{site.url}}{{site.baseurl}}/field-types/).
 `settings` | Object | Index settings that control index behavior, such as the number of shards and replicas. For more information, see [Index settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/).
 

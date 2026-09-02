@@ -14,6 +14,12 @@ There are several ways to ingest data into OpenSearch:
 - Use Data Prepper---an OpenSearch server-side data collector that can enrich data for downstream analysis and visualization. For more information, see [Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/). 
 - Use other ingestion tools. For more information, see [OpenSearch tools]({{site.url}}{{site.baseurl}}/tools/).
 
+There is currently no way to index data using OpenSearch Dashboards.
+
+For situations in which new data arrives incrementally (for example, customer orders from a small business), you might use the Index API to add documents individually as they arrive. For situations in which the data flow is less frequent (for example, weekly updates to a marketing website), you might prefer to generate a file and send it to the `_bulk` API. For large numbers of documents, lumping requests together and using the `_bulk` API offers superior performance. If your documents are exceptionally large, however, you might need to index them individually.
+
+When indexing documents, the document `_id` must be 512 bytes or less in size.
+
 ## Bulk indexing
 
 To index documents in bulk, you can use the [Bulk API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/). For example, if you want to index several documents into the `students` index, send the following request:

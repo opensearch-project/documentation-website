@@ -1,288 +1,87 @@
 ---
 layout: default
 title: Managing indexes
-nav_order: 1
+nav_order: 10
 has_children: false
 nav_exclude: true
 permalink: /im-plugin/
 redirect_from:
   - /opensearch/index-data/
+  - /opensearch/rest-api/index-apis/index/
   - /im-plugin/index/
 ---
 
 # Managing indexes
 
-You index data using the OpenSearch REST API. Two APIs exist: the Index API and the `_bulk` API.
+Indexes are the data structure at the heart of OpenSearch. If you're unfamiliar with OpenSearch data structures, see [Introduction to OpenSearch]({{site.url}}{{site.baseurl}}/getting-started/intro/).
 
-For situations in which new data arrives incrementally (for example, customer orders from a small business), you might use the Index API to add documents individually as they arrive. For situations in which the data flow is less frequent (for example, weekly updates to a marketing website), you might prefer to generate a file and send it to the `_bulk` API. For large numbers of documents, lumping requests together and using the `_bulk` API offers superior performance. If your documents are exceptionally large, however, you might need to index them individually.
+This section describes how to use the features of the Index plugin to manage indexes. The topics are organized in a manner roughly similar to their organization in the OpenSearch [Index APIs]({{site.url}}{{site.baseurl}}/api-reference/index-apis/index/).
 
-When indexing documents, the document `_id` must be 512 bytes or less in size.
+Although the documentation roughly follows the API, most functionality is available in OpenSearch Dashboards, a web-based interface. In general, the API provides more fine-grained control and more options, but requires you to understand and write JSON-based queries. The OpenSearch Dashboards interface is more convenient, but in some cases is less flexible.
 
+Index management does not include _[indexing]({{site.url}}{{site.baseurl}}/getting-started/index-data/)_, the process of populating indexes with data. It also does not include other data operations such as updating and querying documents.
+{: .note}
 
-## Introduction to indexing
+## Index management concepts
 
-Before you can search data, you must *index* it. Indexing is the method by which search engines organize data for fast retrieval. The resulting structure is called, fittingly, an index.
+The following table provides links to conceptual information about index management.
 
-In OpenSearch, the basic unit of data is a JSON *document*. Within an index, OpenSearch identifies each document using a unique ID.
+To learn more about | Go to
+:-- | :--
+Index operations | [Index operations]({{site.url}}{{site.baseurl}}/im-plugin/index-ops/index/)
+Index state management | [Index state management]({{site.url}}{{site.baseurl}}/im-plugin/ism/index/)
+Index management concepts | Concepts: [Index management]({{site.url}}{{site.baseurl}}/getting-started/concepts/#index-management)
 
-A request sent to the Index API appears as follows:
+## Index management in OpenSearch Dashboards
 
-```json
-PUT {index}/_doc/{id}
-{ "A JSON": "document" }
-```
+The following table provides links to information about using OpenSearch Dashboards to manage indexes.
 
-A request to the `_bulk` API looks a little different, because you specify the index and ID in the bulk data:
+To learn more about | Go to
+:-- | :--
+The OpenSearch Dashboards index management interface | [Index Management in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/im-dashboards/index/)
+Core index operations: View, Create, Delete, Open, and Close indexes | [Core index operations in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/im-plugin/index-ops/dash-ops/)
+Index management operations: Refresh, Flush, Clear cache, Force merge, Shrink, Split | [Managing indexes in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/im-plugin/index-ops/dash-manage/)
+Index state management (ISM) | [Index state management with OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/im-plugin/ism/dash-ism/)
+Adding data to indexes (_not an index management function_) | [Indexing documents]({{site.url}}{{site.baseurl}}/getting-started/communicate/#indexing-documents)
+Index aliases: View, Create, Edit, Delete, Refresh, Flush, Clear cache, Rollover, and Force merge aliases | [Managing aliases with OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/im-plugin/aliases/dash-aliases/)
+Index data streams: View, Create, Delete, Rollover, Refresh, Flush, and Clear cache of data streams | [Working with data streams with OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/im-plugin/data-streams/dash-datastream/)
 
-```json
-POST _bulk
-{ "index": { "_index": "<index>", "_id": "<id>" } }
-{ "A JSON": "document" }
-```
 
-Bulk data must conform to a specific format, which requires a newline character (`\n`) at the end of every line, including the last line. This is the basic format:
+## Index management using APIs
 
-```
-Action and metadata\n
-Optional document\n
-Action and metadata\n
-Optional document\n
-```
+The following table provides links to information about using OpenSearch APIs to manage indexes.
 
-The document is optional, because `delete` actions don't require a document. The other actions (`index`, `create`, and `update`) all require a document. If you specifically want the action to fail if the document already exists, use the `create` action instead of the `index` action.
-{: .note }
+To learn more about | Go to
+:-- | :--
+The OpenSearch index APIs | [Index APIs]({{site.url}}{{site.baseurl}}/api-reference/index-apis/index/)
+Core index operations such as creating, opening, and closing indexes | [Core index APIs]({{site.url}}{{site.baseurl}}/api-reference/index-apis/core-index-apis/)
+Index management operations, including rollovers, transforms, and reindexing | [Index operation APIs]({{site.url}}{{site.baseurl}}/api-reference/index-apis/index-operation-apis/)
+Index state management (ISM) | [Index state management with the API]({{site.url}}{{site.baseurl}}/im-plugin/ism/api-ism/)
+Adding data to indexes (indexing — _not an index management function_) | [Ingest APIs]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/)
+Index aliases: List, Add, Remove, Create, Update, Delete, and Check for aliases | [Alias APIs]({{site.url}}{{site.baseurl}}/api-reference/alias/)
+Index alias examples | [Using the Aliases API]({{site.url}}{{site.baseurl}}/im-plugin/aliases/api-aliases/)
+Index data streams: List, Add, Remove, Create, Update, Delete, and Check for aliases | [Alias APIs]({{site.url}}{{site.baseurl}}/api-reference/alias/)
+Index data stream examples | [Using the Aliases API]({{site.url}}{{site.baseurl}}/im-plugin/aliases/api-aliases/)
 
-To index bulk data using the `curl` command, navigate to the folder where you have your file saved and run the following command:
 
-```json
-curl -H "Content-Type: application/x-ndjson" -POST https://localhost:9200/data/_bulk -u 'admin:admin' --insecure --data-binary "@data.json"
-```
+## Other index features
 
-If any one of the actions in the `_bulk` API fail, OpenSearch continues to execute the other actions. Examine the `items` array in the response to figure out what went wrong. The entries in the `items` array are in the same order as the actions specified in the request.
+The following table provides links to information about other features that support index management.
 
-OpenSearch automatically creates an index when you add a document to an index that doesn't already exist. It also automatically generates an ID if you don't specify an ID in the request. This simple example automatically creates the movies index, indexes the document, and assigns it a unique ID:
+To learn more about | Go to
+:-| :--
+Index codecs | [Index codecs]({{site.url}}{{site.baseurl}}/im-plugin/index-other/index-codecs/)
+Index context | [Index context]({{site.url}}{{site.baseurl}}/im-plugin/index-other/index-context/)
+Index sorting | [Index sorting]({{site.url}}{{site.baseurl}}/im-plugin/index-other/index-sorting/)
+Refreshing the search analyzer | [Refresh search analyzer]({{site.url}}{{site.baseurl}}/im-plugin/index-other/refresh-analyzer/)
+Index security | [Index management security]({{site.url}}{{site.baseurl}}/im-plugin/index-other/security/)
+Document similarity | [Similarity]({{site.url}}{{site.baseurl}}/im-plugin/index-other/similarity/)
 
-```json
-POST movies/_doc
-{ "title": "Spirited Away" }
-```
-
-Automatic ID generation has a clear downside: because the indexing request didn't specify a document ID, you can't easily update the document at a later time. Also, if you run this request 10 times, OpenSearch indexes this document as 10 different documents with unique IDs. To specify an ID of 1, use the following request (note the use of PUT instead of POST):
-
-```json
-PUT movies/_doc/1
-{ "title": "Spirited Away" }
-```
-
-Because you must specify an ID, if you run this command 10 times, you still have only one document indexed with the `_version` field incremented to 10.
-
-Indexes default to one primary shard and one replica. If you want to specify non-default settings, create the index before adding documents:
-
-```json
-PUT more-movies
-{ "settings": { "number_of_shards": 6, "number_of_replicas": 2 } }
-```
-
-## Naming restrictions for indexes
-
-OpenSearch indexes have the following naming restrictions:
-
-- All letters must be lowercase.
-- Index names can't begin with underscores (`_`) or hyphens (`-`).
-- Index names can't contain spaces, commas, or the following characters:
-
-  `:`, `"`, `*`, `+`, `/`, `\`, `|`, `?`, `#`, `>`, or `<`
-
-
-
-## Read data
-
-After you index a document, you can retrieve it by sending a GET request to the same endpoint that you used for indexing:
-
-```json
-GET movies/_doc/1
-
-{
-  "_index" : "movies",
-  "_type" : "_doc",
-  "_id" : "1",
-  "_version" : 1,
-  "_seq_no" : 0,
-  "_primary_term" : 1,
-  "found" : true,
-  "_source" : {
-    "title" : "Spirited Away"
-  }
-}
-```
-
-You can see the document in the `_source` object. If the document is not found, the `found` key is `false` and the `_source` object is not part of the response.
-
-To retrieve multiple documents with a single command, use the `_mget` operation.
-The format for retrieving multiple documents is similar to the `_bulk` operation, where you must specify the index and ID in the request body:
-
-```json
-GET _mget
-{
-  "docs": [
-    {
-      "_index": "<index>",
-      "_id": "<id>"
-    },
-    {
-      "_index": "<index>",
-      "_id": "<id>"
-    }
-  ]
-}
-```
-
-To only return specific fields in a document:
-
-```json
-GET _mget
-{
-  "docs": [
-    {
-      "_index": "<index>",
-      "_id": "<id>",
-      "_source": "field1"
-    },
-    {
-      "_index": "<index>",
-      "_id": "<id>",
-      "_source": "field2"
-    }
-  ]
-}
-```
-
-To check if a document exists:
-
-```json
-HEAD movies/_doc/{doc-id}
-```
-
-If the document exists, you get back a `200 OK` response, and if it doesn't, you get back a `404 - Not Found` error.
-
-## Update data
-
-To update existing fields or to add new fields, send a POST request to the `_update` operation with your changes in a `doc` object:
-
-```json
-POST movies/_update/1
-{
-  "doc": {
-    "title": "Castle in the Sky",
-    "genre": ["Animation", "Fantasy"]
-  }
-}
-```
-
-Note the updated `title` field and new `genre` field:
-
-```json
-GET movies/_doc/1
-
-{
-  "_index" : "movies",
-  "_type" : "_doc",
-  "_id" : "1",
-  "_version" : 2,
-  "_seq_no" : 1,
-  "_primary_term" : 1,
-  "found" : true,
-  "_source" : {
-    "title" : "Castle in the Sky",
-    "genre" : [
-      "Animation",
-      "Fantasy"
-    ]
-  }
-}
-```
-
-The document also has an incremented `_version` field. Use this field to keep track of how many times a document is updated.
-
-POST requests make partial updates to documents. To altogether replace a document, use a PUT request:
-
-```json
-PUT movies/_doc/1
-{
-  "title": "Spirited Away"
-}
-```
-
-The document with ID of 1 will contain only the `title` field, because the entire document will be replaced with the document indexed in this PUT request.
-
-Use the `upsert` object to conditionally update documents based on whether they already exist. Here, if the document exists, its `title` field changes to `Castle in the Sky`. If it doesn't, OpenSearch indexes the document in the `upsert` object.
-
-```json
-POST movies/_update/2
-{
-  "doc": {
-    "title": "Castle in the Sky"
-  },
-  "upsert": {
-    "title": "Only Yesterday",
-    "genre": ["Animation", "Fantasy"],
-    "date": 1993
-  }
-}
-```
-
-### Example response
-
-```json
-{
-  "_index" : "movies",
-  "_type" : "_doc",
-  "_id" : "2",
-  "_version" : 2,
-  "result" : "updated",
-  "_shards" : {
-    "total" : 2,
-    "successful" : 1,
-    "failed" : 0
-  },
-  "_seq_no" : 3,
-  "_primary_term" : 1
-}
-```
-
-Each update operation for a document has a unique combination of the `_seq_no` and `_primary_term` values.
-
-OpenSearch first writes your updates to the primary shard and then sends this change to all the replica shards. An uncommon issue can occur if multiple users of your OpenSearch-based application make updates to existing documents in the same index. In this situation, another user can read and update a document from a replica before it receives your update from the primary shard. Your update operation then ends up updating an older version of the document. In the best case, you and the other user make the same changes, and the document remains accurate. In the worst case, the document now contains out-of-date information.
-
-To prevent this situation, use the `_seq_no` and `_primary_term` values in the request header:
-
-```json
-POST movies/_update/2?if_seq_no=3&if_primary_term=1
-{
-  "doc": {
-    "title": "Castle in the Sky",
-    "genre": ["Animation", "Fantasy"]
-  }
-}
-```
-
-If the document is updated after we retrieved it, the `_seq_no` and `_primary_term` values are different and our update operation fails with a `409 — Conflict` error.
-
-When using the `_bulk` API, specify the `_seq_no` and `_primary_term` values within the action metadata.
-
-## Delete data
-
-To delete a document from an index, use a DELETE request:
-
-```json
-DELETE movies/_doc/1
-```
-
-The DELETE operation increments the `_version` field. If you add the document back to the same ID, the `_version` field increments again. This behavior occurs because OpenSearch deletes the document `_source`, but retains its metadata.
 
 ## Next steps
 
-- The Index Management (IM) plugin lets you automate recurring index management activities and reduce storage costs. For more information, see [Index State Management]({{site.url}}{{site.baseurl}}/im-plugin/ism/index/).
+For instructions on how to add data to indexes, see [Ingest your data into OpenSearch]({{site.url}}{{site.baseurl}}/getting-started/ingest-data/).
 
-- For instructions on how to reindex data, see [Reindex data]({{site.url}}{{site.baseurl}}/im-plugin/reindex-data/).
+For information about the various ways to query data, including using Query DSL, SQL, or web-based graphical tools, see [Exploring Data]({{site.url}}{{site.baseurl}}/dashboards/#exploring-data).
 
+For an introduction to the index management interface in OpenSearch Dashboards, see [Index Management in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/im-dashboards/index/).

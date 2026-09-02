@@ -216,9 +216,9 @@ Cross-references to API documentation in the permissions that follow are only in
 
 | **Permission** | **Description** |
 | :--- | :--- |
-| `indices:admin/template/delete` |  Permission to [delete index templates]({{site.url}}{{site.baseurl}}/im-plugin/index-templates/#delete-a-template). |
-| `indices:admin/template/get` |  Permission to [get index templates]({{site.url}}{{site.baseurl}}/im-plugin/index-templates/#retrieve-a-template). |
-| `indices:admin/template/put` |  Permission to [create index templates]({{site.url}}{{site.baseurl}}/im-plugin/index-templates/#create-a-template). |
+| `indices:admin/template/delete` |  Permission to [delete index templates]({{site.url}}{{site.baseurl}}/im-plugin/templates/api-templates/#delete-a-template). |
+| `indices:admin/template/get` |  Permission to [get index templates]({{site.url}}{{site.baseurl}}/im-plugin/templates/api-templates/#retrieve-a-template). |
+| `indices:admin/template/put` |  Permission to [create index templates]({{site.url}}{{site.baseurl}}/im-plugin/templates/api-templates/#create-a-template). |
 | `indices:data/read/scroll` |  Permission to scroll through data. This setting must be configured as both a cluster- and index-level permission. |
 | `indices:data/read/scroll/clear` | Permission to clear the scroll object. This setting must be configured as both a cluster- and index-level permission. |
 | `indices:data/read/mget` |  Permission to run [multiple GET operations]({{site.url}}{{site.baseurl}}/api-reference/document-apis/multi-get/) in one request. |
@@ -295,7 +295,7 @@ See [Asynchronous search]({{site.url}}{{site.baseurl}}/search-plugins/async/inde
 
 ### Index State Management permissions
 
-See [ISM API]({{site.url}}{{site.baseurl}}/im-plugin/ism/api/).
+See [ISM API]({{site.url}}{{site.baseurl}}/im-plugin/ism/api-ism/).
 
 - `cluster:indices:admin/opensearch/ism/managedindex`
 - `cluster:admin/opendistro/ism/managedindex/add`
@@ -310,7 +310,7 @@ See [ISM API]({{site.url}}{{site.baseurl}}/im-plugin/ism/api/).
 
 ### Index rollups permissions
 
-See [Index rollups API]({{site.url}}{{site.baseurl}}/im-plugin/index-rollups/rollup-api/).
+See [Index rollups API]({{site.url}}{{site.baseurl}}/im-plugin/index-rollups/api-rollup/).
 
 - `cluster:admin/opendistro/rollup/index`
 - `cluster:admin/opendistro/rollup/get`
@@ -336,7 +336,7 @@ See [Creating reports with the Dashboards interface]({{site.url}}{{site.baseurl}
 
 ### Transform job permissions
 
-See [Transforms APIs]({{site.url}}{{site.baseurl}}/im-plugin/index-transforms/transforms-apis/)
+See [Transforms APIs]({{site.url}}{{site.baseurl}}/im-plugin/index-transforms/api-transform/)
 
 - `cluster:admin/opendistro/transform/index`
 - `cluster:admin/opendistro/transform/get`
@@ -476,7 +476,7 @@ See [REST API reference]({{site.url}}{{site.baseurl}}/api-reference/index/).
 
 The index template permissions are for indexes but apply globally to the cluster.
 
-See [Index templates]({{site.url}}{{site.baseurl}}/im-plugin/index-templates/).
+See [Index templates]({{site.url}}{{site.baseurl}}/im-plugin/templates/index/).
 
 - `indices:admin/index_template/delete`
 - `indices:admin/index_template/get`
@@ -498,13 +498,13 @@ These permissions apply to an index or index pattern. You might want a user to h
 | `indices:admin/close` |  Permission to [close an index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/close-index/). |
 | `indices:admin/close*` |  Permission to [close an index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/close-index/). |
 | `indices:admin/create` |  Permission to [create indexes]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/). |
-| `indices:admin/data_stream/create` |  Permission to create [data streams]({{site.url}}{{site.baseurl}}/dashboards/im-dashboards/datastream/#creating-a-data-stream). |
-| `indices:admin/data_stream/delete` |  Permission to [delete data streams]({{site.url}}{{site.baseurl}}/dashboards/im-dashboards/datastream/#deleting-a-data-stream). |
-| `indices:admin/data_stream/get` |  Permission to [get data streams]({{site.url}}{{site.baseurl}}/dashboards/im-dashboards/datastream/#viewing-a-data-stream). |
+| `indices:admin/data_stream/create` |  Permission to create [data streams]({{site.url}}{{site.baseurl}}/im-plugin/data-streams/dash-datastream/#creating-a-data-stream). |
+| `indices:admin/data_stream/delete` |  Permission to [delete data streams]({{site.url}}{{site.baseurl}}/im-plugin/data-streams/dash-datastream/#deleting-a-data-stream). |
+| `indices:admin/data_stream/get` |  Permission to [get data streams]({{site.url}}{{site.baseurl}}/im-plugin/data-streams/dash-datastream/#viewing-data-streams). |
 | `indices:admin/delete` |  Permission to [delete indexes]({{site.url}}{{site.baseurl}}/api-reference/index-apis/delete-index/). |
 | `indices:admin/exists` |  Permission to use [exists query]({{site.url}}{{site.baseurl}}/query-dsl/term/exists/). |
-| `indices:admin/flush` |  Permission to [flush an index]({{site.url}}{{site.baseurl}}/dashboards/im-dashboards/index-management/#flushing-an-index). |
-| `indices:admin/flush*` |  Permission to [flush an index]({{site.url}}{{site.baseurl}}/dashboards/im-dashboards/index-management/#flushing-an-index). |
+| `indices:admin/flush` |  Permission to [flush an index]({{site.url}}{{site.baseurl}}/im-plugin/index-ops/dash-manage/#flushing-indexes). |
+| `indices:admin/flush*` |  Permission to [flush an index]({{site.url}}{{site.baseurl}}/im-plugin/index-ops/dash-manage/#flushing-indexes). |
 | `indices:admin/forcemerge` |  Permission to force merge indexes and data streams. |
 | `indices:admin/get` |  Permission to get index and mapping. |
 | `indices:admin/mapping/put` |  Permission to add new mappings and fields to an index. |
@@ -519,10 +519,10 @@ These permissions apply to an index or index pattern. You might want a user to h
 | `indices:admin/plugins/replication/index/stop` |  Permission to stop cross-cluster replication. |
 | `indices:admin/plugins/replication/index/update` |  Permission to update cross-cluster replication settings. |
 | `indices:admin/plugins/replication/index/status_check` |  Permission to check the status of cross-cluster replication. |
-| `indices:admin/refresh` |  Permission to use the [index refresh API]({{site.url}}{{site.baseurl}}/dashboards/im-dashboards/index-management/#refreshing-an-index). |
+| `indices:admin/refresh` |  Permission to use the [index refresh API]({{site.url}}{{site.baseurl}}/im-plugin/index-ops/dash-ops/#refreshing-an-index). |
 | `indices:admin/refresh*` |  Permission to use the index refresh API. |
 | `indices:admin/resolve/index` |  Permission to resolve index names, index aliases and data streams. |
-| `indices:admin/rollover` |  Permission to perform [index rollover]({{site.url}}{{site.baseurl}}/dashboards/im-dashboards/rollover/). |
+| `indices:admin/rollover` |  Permission to perform [index rollover]({{site.url}}{{site.baseurl}}/im-plugin/data-streams/dash-datastream/#rolling-over-a-data-stream). |
 | `indices:admin/seq_no/global_checkpoint_sync` | Permission to perform a global checkpoint sync. |
 | `indices:admin/settings/update` |  Permission to [update index settings]({{site.url}}{{site.baseurl}}/api-reference/index-apis/update-settings/). |
 | `indices:admin/shards/search_shards` |  Permission to perform [cross cluster search]({{site.url}}{{site.baseurl}}/security/access-control/cross-cluster-search/). |

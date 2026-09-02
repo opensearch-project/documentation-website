@@ -1,12 +1,14 @@
 ---
 layout: default
 title: Similarity
-nav_order: 37
+parent: Other components
+grand_parent: Managing indexes
+nav_order: 50
 ---
 
 # Similarity
 
-A similarity defines how matching documents are scored and ranked during search operations. OpenSearch uses similarity algorithms to calculate relevance scores that determine the order of search results. 
+A similarity defines how matching documents are scored and ranked during search operations. OpenSearch uses similarity algorithms to calculate relevance scores that determine the order of search results.
 
 Each field can have its own similarity configuration, allowing fine-tuned control over how different types of content are scored. You can define custom similarity algorithms in your index settings at the index level. Once configured, you can apply these algorithms to specific fields using the [`similarity` mapping parameter]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/similarity/).
 

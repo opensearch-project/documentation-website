@@ -173,11 +173,11 @@ OpenSearch supports the following static index-level index settings:
     - `qat_deflate` (OpenSearch 2.14 and later, on supported systems)
     - `qat_zstd` (OpenSearch 2.19.3 and later, on supported systems)
         
-For `zstd`, `zstd_no_dict`, `qat_lz4`, `qat_deflate`, and `qat_zstd`, you can specify the compression level in the `index.codec.compression_level` setting. For more information, see [Index codec settings]({{site.url}}{{site.baseurl}}/im-plugin/index-codecs/). Optional. Default is `default`.
+For `zstd`, `zstd_no_dict`, `qat_lz4`, `qat_deflate`, and `qat_zstd`, you can specify the compression level in the `index.codec.compression_level` setting. For more information, see [Index codec settings]({{site.url}}{{site.baseurl}}/im-plugin/index-other/index-codecs/). Optional. Default is `default`.
 
-- `index.codec.compression_level` (Integer): The compression level setting provides a trade-off between compression ratio and speed. A higher compression level results in a higher compression ratio (smaller storage size), but slower compression and decompression speeds lead to higher indexing and search latencies. This setting can only be specified if `index.codec` is set to `zstd` or `zstd_no_dict` in OpenSearch 2.9 and later; `qat_lz4` or `qat_deflate` in OpenSearch 2.14 and later; or `qat_zstd` in OpenSearch 2.19.3 and later. Valid values are integers in the `[1, 6]` range. For more information, see [Index codec settings]({{site.url}}{{site.baseurl}}/im-plugin/index-codecs/). Optional. Default is `3`.
+- `index.codec.compression_level` (Integer): The compression level setting provides a trade-off between compression ratio and speed. A higher compression level results in a higher compression ratio (smaller storage size), but slower compression and decompression speeds lead to higher indexing and search latencies. This setting can only be specified if `index.codec` is set to `zstd` or `zstd_no_dict` in OpenSearch 2.9 and later; `qat_lz4` or `qat_deflate` in OpenSearch 2.14 and later; or `qat_zstd` in OpenSearch 2.19.3 and later. Valid values are integers in the `[1, 6]` range. For more information, see [Index codec settings]({{site.url}}{{site.baseurl}}/im-plugin/index-other/index-codecs/). Optional. Default is `3`.
 
-- `index.codec.qatmode` (String): The hardware acceleration mode used for the `qat_lz4`, `qat_deflate`, and `qat_zstd` compression codecs. Valid values are `auto` and `hardware`. For more information, see [Index codec settings]({{site.url}}{{site.baseurl}}/im-plugin/index-codecs/). Optional. Default is `auto` (the recommended setting). 
+- `index.codec.qatmode` (String): The hardware acceleration mode used for the `qat_lz4`, `qat_deflate`, and `qat_zstd` compression codecs. Valid values are `auto` and `hardware`. For more information, see [Index codec settings]({{site.url}}{{site.baseurl}}/im-plugin/index-other/index-codecs/). Optional. Default is `auto` (the recommended setting). 
 
 - `index.routing_partition_size` (Integer): The number of shards a custom routing value can go to. Routing helps an imbalanced cluster by relocating values to a subset of shards rather than a single shard. To enable routing, set this value to greater than 1 but less than `index.number_of_shards`. Default is 1.
 
@@ -263,7 +263,7 @@ The following settings control the merge scheduler, which determines how merge o
 
 - `index.store.preload` (Static, list): Specifies which file extensions should be preloaded into the filesystem cache when the index is opened. This setting only works with the `mmap` directory implementation and provides best-effort caching. Preloading files can improve search performance by reducing disk I/O, but it consumes more memory. Common extensions include `nvd` (norms), `dvd` (doc values), and `tim` (terms index). Default is `[]` (empty list).
 
-- `index.bulk.adaptive_shard_selection.enabled` (Boolean): Set to `true` to enable adaptive shard selection for bulk operations so that a single shard is chosen for append-only indexes. Default is `false`. For more information, see [Adaptive shard selection for bulk indexing]({{site.url}}{{site.baseurl}}/im-plugin/append-only-index/#adaptive-shard-selection-for-bulk-indexing).
+- `index.bulk.adaptive_shard_selection.enabled` (Boolean): Set to `true` to enable adaptive shard selection for bulk operations so that a single shard is chosen for append-only indexes. Default is `false`. For more information, see [Adaptive shard selection for bulk indexing]({{site.url}}{{site.baseurl}}/im-plugin/index-ops/append-only-index/#adaptive-shard-selection-for-bulk-indexing).
 
 ### Updating a static index setting
 

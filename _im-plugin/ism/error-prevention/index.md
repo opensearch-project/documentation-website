@@ -1,7 +1,7 @@
 ---
 layout: default
 title: ISM Error Prevention
-nav_order: 90
+nav_order: 120
 has_children: true
 has_toc: false
 redirect_from:
@@ -10,7 +10,7 @@ redirect_from:
 
 # ISM error prevention
 
-Error prevention validates Index State Management (ISM) actions before they are performed in order to prevent actions from failing. It also outputs additional information from the action validation results in the response of the [Index Explain API]({{site.url}}{{site.baseurl}}/im-plugin/ism/api/#explain-index). Validation rules and troubleshooting of each action are listed in the following sections.
+Error prevention validates Index State Management (ISM) actions before they are performed in order to prevent actions from failing. It also outputs additional information from the action validation results in the response of the [Index Explain API]({{site.url}}{{site.baseurl}}/im-plugin/ism/api-ism/#explain-index). Validation rules and troubleshooting of each action are listed in the following sections.
 
 ---
 

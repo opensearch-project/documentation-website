@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Index codecs
-nav_order: 3
-parent: Index settings
+parent: Other components
+grand_parent: Managing indexes
+nav_order: 40
 ---
 
 # Index codecs
@@ -86,7 +87,7 @@ You can modify the value of `index.codec.qatmode` during the restore process by 
 
 ### Reindexing
 
-When you are performing a [reindex]({{site.url}}{{site.baseurl}}/im-plugin/reindex-data/) operation from a source index, the new segments created in the target index will have the properties of the codec settings of the target index. 
+When you are performing a [reindex]({{site.url}}{{site.baseurl}}/im-plugin/reindex/index/) operation from a source index, the new segments created in the target index will have the properties of the codec settings of the target index. 
 
 ### Index rollups and transforms
 

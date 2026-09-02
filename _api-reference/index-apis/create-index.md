@@ -78,7 +78,7 @@ Field | Data type | Description
 `settings.number_of_replicas` | Integer | Simplified syntax for specifying the number of replica shards without the `index` prefix. Optional.
 `mappings` | Object | Field mappings for documents in the index. Defines the data type and properties for each field. For more information, see [Mappings]({{site.url}}{{site.baseurl}}/field-types/). Optional.
 `mappings.properties` | Object | Defines the fields and their data types in documents. Each key is a field name, and each value is a field definition object. Optional.
-`aliases` | Object | Index aliases for the index. Each key is an alias name, and each value is an alias definition object. For more information, see [Index aliases]({{site.url}}{{site.baseurl}}/im-plugin/index-alias/). Optional.
+`aliases` | Object | Index aliases for the index. Each key is an alias name, and each value is an alias definition object. For more information, see [Index aliases]({{site.url}}{{site.baseurl}}/im-plugin/aliases/index/). Optional.
 
 **Note**: You do not have to explicitly specify the `index` section inside the `settings` section. You can use the simplified syntax instead.
 {: .note}

@@ -12,7 +12,7 @@ redirect_from:
 **Introduced 1.0**
 {: .label .label-purple }
 
-The Create or Update Alias API adds one or more indexes to an index alias or updates the settings for an existing alias. For more information about index aliases, see [Index aliases]({{site.url}}{{site.baseurl}}/im-plugin/index-alias/).
+The Create or Update Alias API adds one or more indexes to an index alias or updates the settings for an existing alias. For more information about index aliases, see [Index aliases]({{site.url}}{{site.baseurl}}/im-plugin/aliases/index/).
 
 The Create or Update Alias API is distinct from the [Manage aliases API]({{site.url}}{{site.baseurl}}/api-reference/alias/aliases-api/), which supports the addition and removal of aliases and the removal of indexes with their aliases. In contrast, the following API only supports adding or updating an alias without updating the index itself. Each API also uses different request body parameters.
 {: .note}
@@ -324,4 +324,4 @@ If you use the Security plugin, make sure you have the appropriate permissions: 
 
 ## Related documentation
 
-For more information about index aliases, see [Index aliases]({{site.url}}{{site.baseurl}}/im-plugin/index-alias/).
+For more information about index aliases, see [Index aliases]({{site.url}}{{site.baseurl}}/im-plugin/aliases/index/).

@@ -12,11 +12,11 @@ has_toc: false
 
 If you analyze time-series data, you likely prioritize new data over old data. You might periodically perform certain operations on older indexes, such as reducing replica count or deleting them.
 
-Index State Management (ISM) lets you automate these periodic, administrative operations by triggering them based on changes in the index age, index size, or number of documents. Using the ISM plugin, you can define *policies* that automatically handle index rollovers or deletions to fit your use case.
+Index State Management (ISM) automates these periodic, administrative operations by triggering them based on changes in the index age, index size, or number of documents. Using the ISM plugin, you can define *policies* that automatically handle index rollovers or deletions to fit your use case.
 
-For example, you can define a policy that moves your index into a `read_only` state after 30 days and then deletes it after a set period of 90 days. You can also set up the policy to send you a notification message when the index is deleted.
+For example, you can define a policy that moves your index into a `read_only` state after 30 days and then deletes it after 90 days. You can also set up the policy to send you a notification message when the index is deleted.
 
-You might want to perform an index rollover after a certain amount of time or run a `force_merge` operation on an index during off-peak hours to improve search performance during peak hours.
+As another example, you might want to perform an index rollover after a certain amount of time or run a `force_merge` operation on an index during off-peak hours to improve search performance during peak hours.
 
 To use the ISM plugin, your user role needs to be mapped to the `all_access` role that gives you full access to the cluster. To learn more, see [Users and roles]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/).
 {: .note }
@@ -27,7 +27,7 @@ To get started, choose **Index Management** in OpenSearch Dashboards.
 
 ### Step 1: Set up policies
 
-A policy is a set of rules that describes how an index should be managed. For information about creating a policy, see [Policies]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies/).
+A policy is a set of rules that describes how an index should be managed. For information about policies and their components, see [Policies]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies/).
 
 You can use the visual editor or JSON editor to create policies. Compared to the JSON editor, the visual editor offers a more structured way of defining policies by separating the process into creating error notifications, defining ISM templates, and adding states. We recommend using the visual editor if you want to see predefined fields, such as which actions you can assign to a state or under what conditions a state can transition into a destination state.
 

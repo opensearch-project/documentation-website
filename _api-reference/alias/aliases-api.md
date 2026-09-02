@@ -16,7 +16,7 @@ The Manage aliases API performs multiple index alias operations in a single atom
 
 This API is distinct from the [Create or update alias API]({{site.url}}{{site.baseurl}}/api-reference/alias/create-alias/), which operates on a single alias at a time and uses different request parameters. Use the Manage aliases API for bulk operations and atomic transactions involving multiple aliases or indexes.
 
-For conceptual information about index aliases, including use cases and examples, see [Index aliases]({{site.url}}{{site.baseurl}}/im-plugin/index-alias/).
+For conceptual information about index aliases, including use cases and examples, see [Index aliases]({{site.url}}{{site.baseurl}}/im-plugin/aliases/index/).
 
 
 ## Endpoints
@@ -521,4 +521,4 @@ If you use the Security plugin, make sure you have the appropriate permissions: 
 
 ## Related documentation
 
-For more information about index aliases, see [Index aliases]({{site.url}}{{site.baseurl}}/im-plugin/index-alias/).
+For more information about index aliases, see [Index aliases]({{site.url}}{{site.baseurl}}/im-plugin/aliases/index/).

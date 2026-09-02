@@ -3,7 +3,7 @@ layout: default
 title: ISM error prevention resolutions
 parent: ISM Error Prevention
 grand_parent: Index State Management
-nav_order: 5
+nav_order: 10
 ---
 
 # ISM error prevention resolutions
@@ -101,7 +101,7 @@ PUT {target_index}/_settings
 
 ## This index has already been rolled over successfully
 
-Remove the [rollover policy from the index]({{site.url}}{{site.baseurl}}/im-plugin/ism/api/#remove-policy-from-index) to prevent this error from reoccurring.
+Remove the [rollover policy from the index]({{site.url}}{{site.baseurl}}/im-plugin/ism/api-ism/#remove-policy-from-index) to prevent this error from reoccurring.
 
 ## The rollover policy misses rollover_alias index setting
 
