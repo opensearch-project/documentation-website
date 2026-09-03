@@ -415,3 +415,26 @@ The following example shows the response from the [Create user]({{site.url}}{{si
   "reason": "Weak password"
 }
 ```
+
+### REST API request body validation
+
+The Security plugin enforces a maximum length on every string value contained in a Security REST API request body (for example, when creating or updating roles, users, or tenants). This guards against excessively large inputs. The limit is configurable using the `plugins.security.restapi.max_string_length` setting.
+
+| Setting | Description |
+| :--- | :--- |
+| `plugins.security.restapi.max_string_length` | Sets the maximum number of characters allowed for any individual string value in a Security REST API request body. The default is `4096`. Increase this value if you submit large free-form values, such as document-level security (DLS) queries, through the REST API. |
+
+The following example increases the limit to `8192` characters:
+
+```yml
+plugins.security.restapi.max_string_length: 8192
+```
+
+If a request contains a string value that exceeds the configured limit, the API returns an HTTP `400` response similar to the following:
+
+```json
+{
+  "status": "error",
+  "reason": "String value exceeds the maximum allowed length of 4096 characters"
+}
+```
