@@ -54,7 +54,7 @@ POST /kuromoji-baseform-index/_analyze
 ```
 {% include copy-curl.html %}
 
-The response shows the conjugated verbs normalized to their base forms. The particles を and auxiliary verbs て and だ are retained because this analyzer uses only `kuromoji_baseform`:
+The response shows the conjugated verbs normalized to their base forms. The particles を, て, and the auxiliary verb だ are retained because this analyzer uses only `kuromoji_baseform`:
 
 ```json
 {
