@@ -10,6 +10,9 @@ The OpenSearch Java client allows you to interact with your OpenSearch clusters 
 
 This getting started guide illustrates how to connect to OpenSearch, index documents, and run queries. For the client source code, see the [`opensearch-java` repo](https://github.com/opensearch-project/opensearch-java).
 
+## Installing the client using gRPC Transport
+
+For high-throughput bulk ingestion workloads, you can use the gRPC transport, which provides binary serialization over HTTP/2. The gRPC transport is transparent — supported operations (such as bulk) are routed over gRPC automatically, while all other operations use REST. For complete setup instructions, see [Java gRPC transport]({{site.url}}{{site.baseurl}}/clients/java-grpc/).
 The Java client requires a transport in order to communicate with your cluster. `ApacheHttpClient5Transport` is the default transport and the recommended choice for new applications. The `RestClient` transport is deprecated and will be removed in a future release.
 {: .note}
 

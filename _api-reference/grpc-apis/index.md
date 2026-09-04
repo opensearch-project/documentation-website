@@ -35,7 +35,20 @@ The following gRPC APIs are currently supported:
 To use gRPC APIs, follow these steps:
 1. Enable gRPC transport by configuring the necessary [gRPC settings](#grpc-settings).
 
-2. To submit gRPC requests, you must have a set of protobufs on the client side. You can obtain the protobufs in the following ways.
+2. To submit gRPC requests, you can either use the transparent client transport (recommended) or work with raw protobufs directly.
+
+### Using the transparent client transport (recommended)
+
+The OpenSearch Java client provides a gRPC transport module that handles protobuf conversion automatically. You use the same `client.bulk()` API as REST — the transport routes supported operations over gRPC transparently.
+
+| Language | Module | Instructions |
+| :------- | :----- | :----------- |
+| Java | `opensearch-java-grpc` | See [Java gRPC transport]({{site.url}}{{site.baseurl}}/clients/java-grpc/) for complete setup instructions. |
+| Python | `opensearch-py[grpc]` | See [Python gRPC transport]({{site.url}}{{site.baseurl}}/clients/python-grpc/) for complete setup instructions. |
+
+### Using raw protobufs directly
+
+Alternatively, you can work with protobufs directly. You must include the compiled protobuf libraries, create and manage gRPC channels, and handle authentication yourself.
 
 | Language | Distribution method | Instructions |
 | :------- | :------------------ | :----------- |
