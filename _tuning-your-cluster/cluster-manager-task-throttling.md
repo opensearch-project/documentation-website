@@ -69,8 +69,8 @@ Task type | Threshold
 `remove-component-template` | 50
 `create-index-template-v2` | 50
 `remove-index-template-v2` | 50
-`put-pipeline` | 50
 `put-index-field-domains` | 50
+`put-pipeline` | 50
 `delete-pipeline` | 50
 `put-search-pipeline` | 50
 `delete-search-pipeline` | 50

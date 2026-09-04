@@ -99,8 +99,8 @@ ISM supports the following operations:
 
 - [Force merge](#force-merge)
 - [Read only](#read-only)
-- [Publish field domains](#publish-field-domains)
 - [Read write](#read-write)
+- [Publish field domains](#publish-field-domains)
 - [Replica count](#replica-count)
 - [Shrink](#shrink)
 - [Close](#close)
@@ -142,21 +142,34 @@ Sets a managed index to be read only.
 }
 ```
 
-Set the index setting `index.blocks.write` to `true` for a managed index. ***Note:** this block does not prevent the index from refreshing.
+Set the index setting `index.blocks.write` to `true` for a managed index. 
+
+The `index.blocks.write` block does not prevent the index from refreshing.
+{: .note }
+
+### Read write
+
+Sets a managed index to be writeable.
+
+```json
+{
+  "read_write": {}
+}
+```
 
 ### Publish field domains
 
-Computes finalized index-level field-domain metadata for a managed index and publishes it to index metadata. OpenSearch can use this metadata for [index-level search pruning]({{site.url}}{{site.baseurl}}/tuning-your-cluster/search-index-pruning/).
+Computes the field domains for a managed index and publishes them to the index metadata. OpenSearch uses field domains for [index-level search pruning]({{site.url}}{{site.baseurl}}/search-plugins/index-level-search-pruning/).
 
-A field domain describes the values that can exist for a field in one concrete index. For example, a `date_range` field domain stores the minimum and maximum values for a `date` or `date_nanos` field.
+A field domain contains the minimum and maximum values for a field in one index. The `date_range` field domain type applies to `date` and `date_nanos` fields. For `date` fields, ISM stores the bounds in epoch milliseconds; for `date_nanos` fields, ISM stores the bounds in epoch nanoseconds.
 
-The managed index must be write-blocked before this action runs. Add a `read_only` action before `publish_field_domains`.
+Before computing field domains, ISM refreshes the index. It then computes the minimum and maximum values for each configured field and publishes them to the index's `index_field_domains` metadata. If a configured field has no values in the index, ISM does not publish a field domain for that field, and if no field domains are produced, the action completes without publishing any field domains.
 
 Parameter | Description | Type | Required
 :--- | :--- |:--- |:--- |
 `fields` | The fields for which ISM computes and publishes field domains. | Array | Yes
 `fields.field` | The field name. | String | Yes
-`fields.type` | The field-domain type. Currently supports `date_range`. | String | Yes
+`fields.type` | The field domain type. Valid value is `date_range`. | String | Yes
 
 ```json
 {
@@ -171,7 +184,7 @@ Parameter | Description | Type | Required
 }
 ```
 
-Use `publish_field_domains` after `read_only`:
+The managed index must be write blocked before this action runs, so add a `read_only` action before `publish_field_domains`:
 
 ```json
 {
@@ -193,26 +206,10 @@ Use `publish_field_domains` after `read_only`:
 }
 ```
 
-The `date_range` type supports fields mapped as `date` or `date_nanos`. For `date` fields, ISM stores bounds in epoch milliseconds. For `date_nanos` fields, ISM stores bounds in epoch nanoseconds.
-
-Before computing field domains, ISM refreshes the index. It then computes the minimum and maximum values using sorted first and last hits and publishes the raw boundary values to the index's `index_field_domains` metadata.
-
-If the configured field has no values in the index, ISM does not publish metadata for that field. If no field domains are produced, the action completes without publishing metadata.
-
-This action should be used only for indexes that remain write-blocked after publishing. If writes resume after metadata is finalized, the field-domain metadata can become stale.
+Use this action only for indexes that remain write blocked after publishing. If writes resume, a new document can fall outside the published field domain, and pruning can skip an index that holds matching documents, silently dropping results from searches.
 {: .important}
 
-If the Security plugin is enabled, the ISM execution user must have permission to publish field-domain metadata using the `indices:admin/field_domains/put` action.
-
-### Read write
-
-Sets a managed index to be writeable.
-
-```json
-{
-  "read_write": {}
-}
-```
+If the Security plugin is enabled, the ISM execution user must have permission to publish field domains using the `indices:admin/field_domains/put` action.
 
 ### Replica count
 

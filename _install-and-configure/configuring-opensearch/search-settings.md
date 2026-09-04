@@ -25,11 +25,13 @@ OpenSearch supports the following search settings:
 
 - `search.node_level_query_fanout.enabled` (Dynamic, Boolean): Enables node-level query fan-out. When enabled, the coordinating node groups shard-level `query_then_fetch` query and `can_match` requests by target data node instead of sending one transport request per shard. If a search request contains the `node_level_query_fanout` parameter, the parameter takes precedence over this setting. Default is `false`.
 
-- `search.index_pruning.enabled` (Dynamic, Boolean): Enables index-level search pruning before `can_match` or query execution. For more information, see [Index-level search pruning]({{site.url}}{{site.baseurl}}/tuning-your-cluster/search-index-pruning/). Default is `false`.
+<p id="index-pruning-settings"></p>
 
-- `search.index_pruning.min_shards` (Dynamic, integer): The minimum number of active shard groups required before OpenSearch attempts index-level search pruning. Default is `128`.
+- `search.index_pruning.enabled` (Dynamic, Boolean): Enables index-level search pruning, which runs on the coordinating node before any shard-level request. For more information, see [Index-level search pruning]({{site.url}}{{site.baseurl}}/search-plugins/index-level-search-pruning/). Default is `false`.
 
-- `search.index_pruning.fields` (Dynamic, list): The query fields eligible for index-level search pruning. OpenSearch extracts mandatory query constraints only for these fields. Default is `[]`.
+- `search.index_pruning.min_shards` (Dynamic, integer): The minimum number of active shard groups (a primary shard and its replicas count as one group) required before OpenSearch attempts index-level search pruning. Default is `128`.
+
+- `search.index_pruning.fields` (Dynamic, list): The query fields eligible for index-level search pruning. OpenSearch extracts range constraints only for these fields. Default is `[]`.
 
 - `search.cancel_after_time_interval` (Dynamic, time unit): A cluster-level setting that sets the default timeout for all search requests at the coordinating node level. After the specified time has been reached, the request is stopped and all associated tasks are canceled. Default is `-1` (no timeout).
 
