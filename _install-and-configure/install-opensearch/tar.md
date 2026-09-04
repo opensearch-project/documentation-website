@@ -7,7 +7,7 @@ redirect_from:
   - /opensearch/install/tar/
 ---
 
-# Tarball
+# Installing OpenSearch from a tarball
 
 Installing OpenSearch from a tarball, also known as a tar archive, may appeal to users who want granular control over installation details like file permissions and installation paths.
 

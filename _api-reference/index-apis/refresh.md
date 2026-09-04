@@ -14,9 +14,9 @@ The Refresh Index API refreshes one or more indexes, making all operations perfo
 
 For a conceptual overview of how refresh operations work in OpenSearch, see [Refresh]({{site.url}}{{site.baseurl}}/getting-started/concepts/#refresh).
 
-## Automatic refresh behavior
+## Refresh interval
 
-OpenSearch's refresh behavior depends on whether or not `index.refresh_interval` is set:
+The `index.refresh_interval` setting controls how often an index refreshes automatically. OpenSearch's refresh behavior depends on whether `index.refresh_interval` is set:
 
 - When set, indexes are refreshed based on the `index.refresh_interval` setting (in seconds). For more information about `index.refresh_interval` settings, see [Dynamic index-level index settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/#dynamic-index-level-index-settings).
 - When not set, refreshes occur every second until the shard receives no search requests for at least the amount of time specified by the `index.search.idle.after` setting (in seconds). Default is `30s`. 

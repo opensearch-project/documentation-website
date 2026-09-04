@@ -13,6 +13,8 @@ This getting started guide illustrates how to connect to OpenSearch, index docum
 ## Installing the client using gRPC Transport
 
 For high-throughput bulk ingestion workloads, you can use the gRPC transport, which provides binary serialization over HTTP/2. The gRPC transport is transparent — supported operations (such as bulk) are routed over gRPC automatically, while all other operations use REST. For complete setup instructions, see [Java gRPC transport]({{site.url}}{{site.baseurl}}/clients/java-grpc/).
+The Java client requires a transport in order to communicate with your cluster. `ApacheHttpClient5Transport` is the default transport and the recommended choice for new applications. The `RestClient` transport is deprecated and will be removed in a future release.
+{: .note}
 
 ## Installing the client using Apache HttpClient 5 Transport
 
@@ -45,7 +47,10 @@ dependencies {
 
 You can now start your OpenSearch cluster.
 
-## Installing the client using RestClient Transport
+## Installing the client using RestClient Transport (deprecated)
+
+The `RestClientTransport` transport and the `org.opensearch.client.RestClient` class that it wraps are deprecated and will be removed in a future release. Use [Apache HttpClient 5 Transport](#installing-the-client-using-apache-httpclient-5-transport) instead.
+{: .warning}
 
 Alternatively, you can create a Java client by using the `RestClient`-based transport. In this case, make sure that you have the following dependencies in your project's `pom.xml` file:
 
@@ -200,7 +205,10 @@ public class OpenSearchClientExample {
 
 ```
 
-## Initializing the client with SSL and TLS enabled using RestClient Transport
+## Initializing the client with SSL and TLS enabled using RestClient Transport (deprecated)
+
+The `RestClientTransport` transport and the `org.opensearch.client.RestClient` class that it wraps are deprecated and will be removed in a future release. Use [Apache HttpClient 5 Transport](#initializing-the-client-with-ssl-and-tls-enabled-using-apache-httpclient-5-transport) instead.
+{: .warning}
 
 This code example uses basic credentials that come with the default OpenSearch configuration. If you’re using the Java client with your own OpenSearch cluster, be sure to change the code so that it uses your own credentials.
 

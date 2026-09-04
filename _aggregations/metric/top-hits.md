@@ -35,7 +35,7 @@ Because the `top_hits` aggregation returns standard search hits, the following p
 - [Explain]({{site.url}}{{site.baseurl}}/api-reference/search-apis/explain/)
 - [Named queries]({{site.url}}{{site.baseurl}}/query-dsl/named-queries/)
 - [Source filtering]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/retrieve-specific-fields/#using-source-filtering)
-- [Stored fields]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/retrieve-specific-fields/#searching-with-stored_fields)
+- [Stored fields]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/retrieve-specific-fields/#searching-with-stored-fields)
 - [Script fields]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/retrieve-specific-fields/#using-scripted-fields)
 - [Doc value fields]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/retrieve-specific-fields/#searching-with-doc-value-fields)
 - [Include versions]({{site.url}}{{site.baseurl}}/api-reference/search-apis/search/#query-parameters)

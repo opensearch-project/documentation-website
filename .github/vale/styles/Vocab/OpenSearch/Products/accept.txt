@@ -8,6 +8,7 @@ Amazon Bedrock Guardrails
 Amazon Kendra
 Amazon Kinesis
 Amazon OpenSearch Serverless
+Amazon OpenSearch Serverless NextGen
 Amazon OpenSearch Service
 Amazon Personalize
 Amazon SageMaker
@@ -60,6 +61,7 @@ Data Prepper
 Debian
 Dev Tools
 Discover application
+DiskANN
 Docker
 Docker Compose
 Dockerfile
@@ -79,6 +81,8 @@ Google Normalized Distance
 Google Workspace
 Gradle
 Grafana
+Grok
+Grok Debugger
 Hanja
 Helm
 Hjson
@@ -89,6 +93,7 @@ IdP
 Inferentia
 Ion
 IP2Geo
+IPAdic
 IPv4
 IPv6
 Iris
@@ -101,7 +106,7 @@ Jira
 Joda
 JSON
 JSON Web Token
-jVector
+JVector
 Kafka
 Karpenter
 Kerberos
@@ -170,7 +175,9 @@ Python
 PyTorch
 Quandl
 Querqy
+Query Profiler
 Query Workbench
+Qwen
 RankLib
 RCF Summarize
 Reindex-from-Snapshot

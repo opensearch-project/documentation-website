@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Batch ingestion
-has_children: false
+has_children: true
+has_toc: false
 nav_order: 80
 parent: Connecting to externally hosted models 
 grand_parent: Integrating ML models

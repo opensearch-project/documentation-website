@@ -10,14 +10,29 @@ redirect_from:
 
 # Function score query
 
-Use a `function_score` query if you need to alter the relevance scores of documents returned in the results. A `function_score` query defines a query and one or more functions that can be applied to all results or subsets of the results to recalculate their relevance scores.
+Use a `function_score` query if you need to alter the relevance scores of documents returned in the results. A `function_score` query defines a query and one or more functions that can be applied to all results or subsets of the results to recalculate their relevance scores. A `function_score` query changes how documents are ranked, not which documents are returned. If you omit the top-level `query` parameter, `function_score` runs on `match_all`, so every document in the index matches and receives a base query score of `1`. To limit which documents are returned, provide an explicit top-level `query`, wrap `function_score` in a [`bool` query](#returning-only-documents-that-match-a-function-filter), or specify a [`min_score`](#filtering-documents-that-dont-meet-a-threshold).
+
+The examples in this section use a `blogs` index containing the following documents:
+
+```json
+POST _bulk
+{ "index": { "_index": "blogs", "_id": "1" } }
+{ "name": "Semantic search in OpenSearch", "views": 1200, "likes": 150, "comments": 16, "date_posted": "2022-04-17" }
+{ "index": { "_index": "blogs", "_id": "2" } }
+{ "name": "Get started with OpenSearch 2.7", "views": 1400, "likes": 100, "comments": 20, "date_posted": "2022-05-02" }
+{ "index": { "_index": "blogs", "_id": "3" } }
+{ "name": "Distributed tracing with Data Prepper", "views": 800, "likes": 50, "comments": 5, "date_posted": "2022-04-25" }
+{ "index": { "_index": "blogs", "_id": "4" } }
+{ "name": "A very old blog", "views": 100, "likes": 20, "comments": 3, "date_posted": "2000-04-25" }
+```
+{% include copy-curl.html %}
 
 ## Using one scoring function
 
-The most basic example of a `function_score` query uses one function to recalculate the score. The following query uses a `weight` function to double all relevance scores. This function applies to all documents in the results because there is no `query` parameter specified within `function_score`:
+The most basic example of a `function_score` query uses one function to recalculate the score. The following query uses a `weight` function to double all relevance scores. This function applies to all documents in the results because there is no top-level `query` parameter specified, so `function_score` runs on `match_all`:
 
 ```json
-GET shakespeare/_search
+GET blogs/_search
 {
   "query": {
     "function_score": {
@@ -28,18 +43,18 @@ GET shakespeare/_search
 ```
 {% include copy-curl.html %}
 
-## Applying the scoring function to a subset of documents
+## Limiting which documents are scored
 
-To apply the scoring function to a subset of documents, provide a query within the function:
+Use the top-level `query` parameter to define which documents `function_score` runs on. Only documents matching this query are returned. The following query limits results to blog posts matching `OpenSearch` and then doubles their relevance scores:
 
 ```json
-GET shakespeare/_search
+GET blogs/_search
 {
   "query": {
     "function_score": {
       "query": { 
         "match": {
-          "play_name": "Hamlet"
+          "name": "OpenSearch"
         } 
       },
       "weight": "2"
@@ -48,6 +63,59 @@ GET shakespeare/_search
 }
 ```
 {% include copy-curl.html %}
+
+## Applying a scoring function to a subset of documents
+
+To apply a scoring function to only a subset of the matching documents, specify a `filter` for a function in the `functions` array. The function contributes to the score only for documents matching its filter. Omitting a `filter` is equivalent to specifying `match_all`, so the function applies to every document. The relevance score produced by the filter query is not used in the calculation.
+
+A function `filter` determines which documents a function scores, not which documents are returned. Documents that match the top-level query (or the implicit `match_all`) but match none of the function filters are still returned.
+{: .important}
+
+The following query adds `0.5` to the score of blog posts with at least 1,000 views and `1` to the score of blog posts with at least 150 likes. Because no top-level `query` is specified, `function_score` runs on `match_all` and returns every document in the index:
+
+```json
+GET blogs/_search
+{
+  "query": {
+    "function_score": {
+      "score_mode": "sum",
+      "functions": [
+        {
+          "filter": {
+            "range": {
+              "views": {
+                "gte": 1000
+              }
+            }
+          },
+          "weight": 0.5
+        },
+        {
+          "filter": {
+            "range": {
+              "likes": {
+                "gte": 150
+              }
+            }
+          },
+          "weight": 1
+        }
+      ]
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+All four blog posts are returned:
+
+- Document 1 matches both filters and receives a score of `1.5` (the function factor `0.5 + 1` multiplied by the `match_all` query score of `1`).
+- Document 2 matches only the `views` filter and receives a score of `0.5`.
+- Documents 3 and 4 match neither filter and each receive a score of `1`. The implicit `match_all` query contributes `1`, and because no function matched, the function factor is also `1`:
+
+$$ \text{final score} = \text{query score} \times \text{function factor} = 1 \times 1 = 1 $$
+
+Documents that match no function filters can therefore rank above documents that do. In the preceding results, documents 3 and 4 score `1` while document 2 scores `0.5`. To confirm that this is the cause of an unexpected score, set `explain` to `true` and look for a `No function matched` entry in the explanation. To exclude these documents, see [Returning only documents that match a function filter](#returning-only-documents-that-match-a-function-filter).
 
 ## Supported functions
 
@@ -66,7 +134,7 @@ The `function_score` query type supports the following functions:
 When you use the `weight` function, the original relevance score is multiplied by the floating-point value of `weight`:
 
 ```json
-GET shakespeare/_search
+GET blogs/_search
 {
   "query": {
     "function_score": {
@@ -79,9 +147,11 @@ GET shakespeare/_search
 
 Unlike the `boost` value, the `weight` function is not normalized.
 
+When you specify `weight` without any other function, it acts as a function that returns the `weight` value. When you specify it alongside another function in the `functions` array, it multiplies the score that the other function produces.
+
 ## The random score function
 
-The `random_score` function provides a random score that is consistent for a single user but different between users. The score is a floating-point number in the [0, 1) range. By default, the `random_score` function uses internal Lucene document IDs as seed values, making random values irreproducible because documents can be renumbered after merges. To achieve consistency in generating random values, you can provide `seed` and `field` parameters. The `field` must be a field for which `fielddata` is enabled (commonly, a numeric field). The score is calculated using the `seed`, the `fielddata` values for the `field`, and a salt calculated using the index name and shard ID. Because the index name and shard ID are the same for documents that reside in the same shard, documents with the same `field` values will be assigned the same score. To ensure different scores for all documents in the same shard, use a `field` that has unique values for all documents. One option is to use the `_seq_no` field. However, if you choose this field, the scores can change if the document is updated because of the corresponding `_seq_no` update.
+The `random_score` function provides a random score that is consistent for a single user but different between users. The score is a floating-point number in the [0, 1) range. If you don't provide a `seed`, OpenSearch derives one from the current time and scores documents using internal Lucene document IDs. The resulting scores are not reproducible: they change between requests, and documents can also be renumbered after segment merges. To achieve consistency in generating random values, provide the `seed` and `field` parameters. The `field` must be a field for which `fielddata` is enabled (commonly, a numeric field). The score is calculated using the `seed`, the `fielddata` values for the `field`, and a salt calculated using the index name and shard ID. Because the index name and shard ID are the same for documents that reside in the same shard, documents with the same `field` values will be assigned the same score. To ensure different scores for all documents in the same shard, use a `field` that has unique values for all documents. One option is to use the `_seq_no` field. However, if you choose this field, the scores can change if the document is updated because of the corresponding `_seq_no` update.
 
 The following query uses the `random_score` function with a `seed` and `field`:
 
@@ -99,6 +169,9 @@ GET blogs/_search
 }
 ```
 {% include copy-curl.html %}
+
+Specifying a `seed` without a `field` is deprecated. In this case, OpenSearch uses the `_id` field, which requires loading its `fielddata` and consumes a large amount of memory. Always provide a `field` when you specify a `seed`.
+{: .warning}
 
 ## The field value factor function
 
@@ -197,6 +270,8 @@ GET blogs/_search
 }
 ```
 {% include copy-curl.html %}
+
+By default, the query score is multiplied by the script result. To use the script result as the final score, set `boost_mode` to `replace`. For more information, see [Combining the score for all functions with the query score](#combining-the-score-for-all-functions-with-the-query-score).
 
 ## Decay functions
 
@@ -456,7 +531,7 @@ The first two blog posts in the results have a score of 1 because one is at the 
 
 ### Example: Date fields
 
-The following query uses the Gaussian decay function to prioritize blog posts published around 04/24/2002:
+The following query uses the Gaussian decay function to prioritize blog posts published around 04/24/2022:
 
 ```json
 GET blogs/_search
@@ -686,9 +761,18 @@ The scores given by each function are combined using the `score_mode` parameter,
 - `max`: The maximum score is taken.
 - `min`: The minimum score is taken.
 
+If a document matches none of the function filters, the function score remains at the neutral value `1` for all `score_mode` values.
+
 ### Specifying an upper limit for a score
 
 You can specify an upper limit for a function score in the `max_boost` parameter. The default upper limit is the maximum magnitude for a `float` value: (2 &minus; 2<sup>&minus;23</sup>) &middot; 2<sup>127</sup>.
+
+### Boosting the whole query
+
+Use the top-level `boost` parameter to boost the `function_score` query as a whole. The `boost` value multiplies the query score, including the score of the implicit `match_all` query when no top-level `query` is specified. Default is `1`.
+
+Because `max_boost` caps the combined function score and not the final score, a `boost` value greater than `1` can produce scores that exceed `max_boost`. For example, a query with a `weight` of `10`, a `max_boost` of `2`, and a `boost` of `5` returns a score of `10`: the function score is capped at `2` and then multiplied by the boosted query score of `5`.
+{: .note}
 
 ### Combining the score for all functions with the query score
 
@@ -701,13 +785,40 @@ You can specify how the score computed using all functions is combined with the 
 - `max`: Take the greater of the query score and the function score.
 - `min`: Take the lesser of the query score and the function score.
 
+With the default `boost_mode` of `multiply` and an implicit `match_all` query, a document that matches no functions receives a score of `1`.
+
 ### Filtering documents that don't meet a threshold
 
 Changing the relevance score does not change the list of matching documents. To exclude some documents that don't meet a threshold, specify the threshold value in the `min_score` parameter. All documents returned by the query are then scored and filtered using the threshold value.
 
+Because `min_score` is applied after scoring, it doesn't exclude documents based on the function filters they matched. In the [preceding example](#applying-a-scoring-function-to-a-subset-of-documents), setting `min_score` to `0.9` excludes document 2, which matched the `views` filter and scored `0.5`, but retains documents 3 and 4, which matched no filters and scored `1`.
+{: .note}
+
+### Returning only documents that match a function filter
+
+To return only the documents matching at least one function filter, use a [`bool` query]({{site.url}}{{site.baseurl}}/query-dsl/compound/bool/) with `minimum_should_match` instead of relying on function filters:
+
+```json
+GET blogs/_search
+{
+  "query": {
+    "bool": {
+      "should": [
+        { "range": { "views": { "gte": 1000 } } },
+        { "range": { "likes": { "gte": 150 } } }
+      ],
+      "minimum_should_match": 1
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+Only documents 1 and 2 are returned. To rank those documents using scoring functions, provide the `bool` query as the top-level `query` in a `function_score` query.
+
 ### Example
 
-The following request searches for blog posts that include the words "OpenSearch Data Prepper", preferring the posts published around 04/24/2022. Additionally, the number of views and likes are taken into consideration. Finally, the cutoff threshold is set at the score of 10:
+The following request searches for blog posts that include the words "OpenSearch Data Prepper", preferring the posts published around 04/24/2022. Additionally, the number of views and likes are taken into consideration. Finally, the cutoff threshold is set at the score of 6:
 
 ```json
 GET blogs/_search
@@ -753,14 +864,14 @@ GET blogs/_search
       "max_boost": 10,
       "score_mode": "max",
       "boost_mode": "multiply",
-      "min_score": 10
+      "min_score": 6
     }
   }
 }
 ```
 {% include copy-curl.html %}
 
-The results contain the three matching blog posts:
+Three blog posts match the query, but the `min_score` threshold of `6` excludes the lowest-scoring one, so the response contains two blog posts:
 
 <details open markdown="block">
   <summary>
@@ -770,7 +881,7 @@ The results contain the three matching blog posts:
 
 ```json
 {
-  "took": 14,
+  "took": 2,
   "timed_out": false,
   "_shards": {
     "total": 1,
@@ -780,15 +891,15 @@ The results contain the three matching blog posts:
   },
   "hits": {
     "total": {
-      "value": 3,
+      "value": 2,
       "relation": "eq"
     },
-    "max_score": 31.191923,
+    "max_score": 14.178148,
     "hits": [
       {
         "_index": "blogs",
         "_id": "3",
-        "_score": 31.191923,
+        "_score": 14.178148,
         "_source": {
           "name": "Distributed tracing with Data Prepper",
           "views": 800,
@@ -800,25 +911,13 @@ The results contain the three matching blog posts:
       {
         "_index": "blogs",
         "_id": "1",
-        "_score": 13.907352,
+        "_score": 6.321524,
         "_source": {
           "name": "Semantic search in OpenSearch",
           "views": 1200,
           "likes": 150,
           "comments": 16,
           "date_posted": "2022-04-17"
-        }
-      },
-      {
-        "_index": "blogs",
-        "_id": "2",
-        "_score": 11.150461,
-        "_source": {
-          "name": "Get started with OpenSearch 2.7",
-          "views": 1400,
-          "likes": 100,
-          "comments": 20,
-          "date_posted": "2022-05-02"
         }
       }
     ]
@@ -880,7 +979,7 @@ GET blogs/_search
 ```
 {% include copy-curl.html %}
 
-The response explains the scoring process. For each function, the explanation contains the function `_name` in its `description`:
+The response explains the scoring process. For each function, the explanation contains the function `_name` in its `description`. The `*:*` entry with a value of `1` is the score of the implicit `match_all` query because no top-level `query` is specified.
 
 <details open markdown="block">
   <summary>
@@ -900,7 +999,7 @@ The response explains the scoring process. For each function, the explanation co
   },
   "hits": {
     "total": {
-      "value": 3,
+      "value": 4,
       "relation": "eq"
     },
     "max_score": 6.1600614,

@@ -197,17 +197,25 @@ For `zstd`, `zstd_no_dict`, `qat_lz4`, `qat_deflate`, and `qat_zstd`, you can sp
 
 - `index.hidden` (Boolean): Whether the index should be hidden. Hidden indexes are not returned as part of queries that have wildcards. Available options are `true` and `false`. Default is `false`.
 
-- `index.merge.policy` (String): This setting controls the merge policy for the Lucene segments. The available options are `tiered` and `log_byte_size`. The default is `tiered`, but for time-series data, such as log events, we recommend that you use the `log_byte_size` merge policy, which can improve query performance when conducting range queries on the `@timestamp` field. We recommend that you not change the merge policy of an existing index. Instead, configure this setting when creating a new index.
+- `index.merge.policy` (Static, string): Selects the merge policy that controls how Lucene segments are merged. Valid values are `tiered`, `log_byte_size`, and `default`. The `default` value resolves to `tiered` for standard indexes. For time-series indexes, which OpenSearch identifies by the presence of a `@timestamp` field, `default` resolves to the policy named by the node-level `indices.time_series_index.default_index_merge_policy` setting. Default is `default`. For time-series data, such as log events, we recommend `log_byte_size`, which can improve query performance for range queries on the `@timestamp` field.
 
 ### Tiered merge policy settings
 
 When using the `tiered` merge policy (the default), the following settings control merge behavior:
 
-- `index.merge.policy.max_merge_at_once` (Dynamic, integer): Sets the maximum number of segments to be merged at a time during normal merging operations. Higher values can reduce the total number of merges but require more memory and I/O resources during each merge operation. This setting must be at least 2 and should typically be less than or equal to `segments_per_tier` to avoid forcing too many merges. Default is `30`. Minimum is `2`.
+- `index.merge.policy.max_merge_at_once` (Dynamic, integer): Sets the maximum number of segments to be merged at a time during normal merging operations. Higher values can reduce the total number of merges but require more memory and I/O resources during each merge operation. Default is `30`. Minimum is `2`.
 
-- `index.merge.policy.segments_per_tier` (Dynamic, double): Controls the allowed number of segments per tier in the tiered merge policy. Smaller values result in more merging but fewer segments, which can improve search performance at the cost of increased indexing overhead. This value should be greater than or equal to `max_merge_at_once` to prevent excessive merging. Default is `10.0`. Minimum is `2.0`.
+- `index.merge.policy.segments_per_tier` (Dynamic, double): Controls the allowed number of segments per tier in the tiered merge policy. Smaller values result in more merging but fewer segments, which can improve search performance at the cost of increased indexing overhead. Default is `10.0`. Minimum is `2.0`.
 
-- `index.merge.policy.reclaim_deletes_weight` (Dynamic, double): Controls how aggressively the merge policy reclaims deleted documents. Higher values make the merge policy prioritize merging segments with many deleted documents, which can help reclaim disk space more quickly but may increase merge overhead. A value of `0.0` disables this behavior entirely. Default is `2.0`. Minimum is `0.0`.
+- `index.merge.policy.floor_segment` (Dynamic, byte unit): Sets the smallest segment size that the merge policy distinguishes. Segments smaller than this value are rounded up to it and treated as equally sized when the policy selects candidates for merging, so the smallest segments are grouped and merged early instead of accumulating as a long tail of tiny segments. Larger values merge small segments more aggressively, which lowers the total segment count but increases merge work. The value must be greater than `0`. Default is `16mb`.
+
+- `index.merge.policy.max_merged_segment` (Dynamic, byte unit): Sets the maximum size of a segment produced by a background merge. The merge policy stops merging a group of segments when the estimated result would exceed this size, so segments larger than this value are only produced by a force merge. Smaller values keep individual merges shorter but leave more segments in the index. Default is `5gb`.
+
+- `index.merge.policy.deletes_pct_allowed` (Dynamic, double): Sets the percentage of deleted documents that the index is allowed to accumulate before the merge policy begins merging segments specifically to reclaim that space. Lower values reclaim disk space sooner but increase merge work. Default is `20.0`. Valid values are from `5.0` to `50.0`.
+
+- `index.merge.policy.expunge_deletes_allowed` (Dynamic, double): Sets the percentage of deleted documents a segment must contain before a force merge with `only_expunge_deletes` set to `true` rewrites it. Default is `10.0`. Valid values are from `0.0` to `100.0`. For more information, see [Force Merge API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/force-merge/).
+
+- `index.merge.policy.reclaim_deletes_weight` (Dynamic, double): Deprecated and no longer applied. OpenSearch accepts and stores the value but does not pass it to the merge policy, so changing it has no effect. Use `index.merge.policy.deletes_pct_allowed` to control when deleted documents are reclaimed. Default is `2.0`. Minimum is `0.0`.
 
 ### Log byte size merge policy settings
 
@@ -215,11 +223,15 @@ When using the `log_byte_size` merge policy, the following settings control merg
 
 - `index.merge.log_byte_size_policy.merge_factor` (Dynamic, integer): Controls how many segments are merged at once during normal merging operations. Higher values lead to fewer, larger segments, which can improve search performance but use more resources during merging. Default is `10`. Minimum is `2`.
 
-- `index.merge.log_byte_size_policy.min_merge` (Dynamic, byte unit): Sets the minimum size threshold for segment merging. Segments smaller than this size are more aggressively merged. Smaller values lead to fewer small segments but more merge operations. Default is `2MB`.
+- `index.merge.log_byte_size_policy.min_merge` (Dynamic, byte unit): Sets the minimum size threshold for segment merging. Segments smaller than this size are more aggressively merged. Smaller values lead to fewer small segments but more merge operations. Default is `16mb`.
 
-- `index.merge.log_byte_size_policy.max_merge_segment` (Dynamic, byte unit): Controls the maximum size of segments created during normal merge operations. Larger segments improve query performance but require more memory and can increase merge times. Default is `5GB`.
+- `index.merge.log_byte_size_policy.max_merge_segment` (Dynamic, byte unit): Controls the maximum size of segments created during normal merge operations. Larger segments improve query performance but require more memory and can increase merge times. Default is `5gb`.
 
 - `index.merge.log_byte_size_policy.max_merge_segment_forced_merge` (Dynamic, byte unit): Sets the maximum segment size when performing forced merge operations (such as during index optimization). This allows forced merges to create larger segments than normal merges. Default is unlimited.
+
+- `index.merge.log_byte_size_policy.max_merged_docs` (Dynamic, integer): Sets the maximum number of documents that a single segment can contain. The merge policy skips any merge that would produce a segment exceeding this count, which caps segment size by document count rather than by bytes. Default is `2147483647`, which places no practical limit on the number of documents per segment.
+
+- `index.merge.log_byte_size_policy.no_cfs_ratio` (Dynamic, double): Sets the largest share of the total index size that a segment can occupy and still be written in Lucene's compound file format, which packs a segment's files into a single file and reduces the number of open file handles. Segments larger than this share of the index are written as separate files. Set the value to `1.0` (or `true`) to use the compound format for all segments and `0.0` (or `false`) to disable it. Default is `0.1`. Valid values are from `0.0` to `1.0`.
 
 ### Merge scheduler settings
 
@@ -308,6 +320,8 @@ OpenSearch supports the following dynamic index-level index settings:
 
 - `index.refresh_interval` (Time unit): How often the index should refresh, which publishes its most recent changes and makes them available for searching. Can be set to `-1` to disable refreshing. Default is `1s`.
 
+   If you don't set this setting explicitly, shards that haven't received a search request for the period specified in `index.search.idle.after` stop refreshing in the background until the next search request arrives. This optimizes bulk indexing for indexes that aren't being searched. To refresh on a fixed schedule regardless of search traffic, set `index.refresh_interval` to `1s` explicitly. For more information, see [Refresh interval]({{site.url}}{{site.baseurl}}/api-reference/index-apis/refresh/#refresh-interval).
+
 - `index.max_result_window` (Integer): The maximum value of `from` + `size` for searches of the index. `from` is the starting index to search from, and `size` is the number of results to return. Default is 10000.
 
 - `index.max_inner_result_window` (Integer): The maximum value of `from` + `size` that specifies the number of returned nested search hits and most relevant document aggregated during the query. `from` is the starting index to search from, and `size` is the number of top hits to return. Default is 100.
@@ -380,13 +394,15 @@ OpenSearch supports the following dynamic index-level index settings:
 
 - `index.translog.generation_threshold_size` (Dynamic, byte unit): The size threshold that triggers the creation of a new translog generation. When the current translog generation reaches this size, OpenSearch creates a new generation file. Larger values can improve indexing performance by reducing the frequency of generation rollovers but may increase recovery time. Default is `64MB`. Minimum is `64KB`.
 
+- `index.translog.durability` (Dynamic, string): Controls when the translog is fsynced to disk and committed. Valid values are `request` and `async`. When set to `request`, OpenSearch fsyncs and commits the translog on the primary and every allocated replica before it acknowledges an index, delete, update, or bulk request, so every acknowledged write survives a node crash. When set to `async`, OpenSearch fsyncs and commits in the background at the interval set by `index.translog.sync_interval`, which reduces indexing overhead but discards any acknowledged writes made since the last commit if a node fails. Values are case insensitive. Default is `request`.
+
 - `index.translog.sync_interval` (Dynamic, time unit): The frequency at which the translog is fsynced to disk and committed. More frequent syncing provides better durability guarantees but may impact indexing performance. Less frequent syncing improves performance but increases the risk of data loss during failures. Default is `5s`. Minimum is `100ms`.
 
-- `index.translog.retention.age` (Dynamic, time unit): The maximum age of translog files to retain for Ops-based recovery. Translog files older than this setting are deleted during translog cleanup. This setting works in conjunction with `index.translog.retention.size` to control translog retention. Default is `12h`.
+- `index.translog.flush_threshold_size` (Dynamic, byte unit): The maximum total size of translog operations that are not yet committed to Lucene. When the translog reaches this size, OpenSearch flushes the index, which creates a new Lucene commit point and starts a new translog generation. Smaller values shorten recovery times because fewer operations must be replayed, but they trigger flushes more frequently. Default is `512mb`. Minimum is `56b`.
 
-- `index.translog.retention.size` (Dynamic, byte unit): The maximum total size of translog files to retain for Ops-based recovery. When the total size of translog files exceeds this threshold, older files are deleted during cleanup. This setting works in conjunction with `index.translog.retention.age` to control translog retention. Default is `512MB`.
+- `index.translog.retention.age` (Dynamic, time unit): The maximum age of translog files to retain for operations-based peer recovery. Translog files older than this setting are deleted during translog cleanup. This setting applies only to indexes that have soft deletes disabled. Because soft deletes are required for all indexes created in OpenSearch 2.0 and later, the setting has no effect on current indexes. Default is `-1` (retention disabled).
 
-- `index.translog.retention.total_files` (Integer): The maximum number of translog files to retain. This setting controls the number of translog files kept on disk regardless of their age or size, which can be useful for controlling storage usage and recovery capabilities. Default is `100`.
+- `index.translog.retention.size` (Dynamic, byte unit): The maximum total size of translog files to retain for operations-based peer recovery. When the total size exceeds this threshold, older files are deleted during cleanup. Like `index.translog.retention.age`, this setting applies only to indexes that have soft deletes disabled, so it has no effect on indexes created in OpenSearch 2.0 and later. Default is `-1` (retention disabled).
 
 - `index.soft_deletes.retention.operations` (Long): The maximum number of soft-deleted operations to retain in the index. Soft deletes allow for efficient replication and point-in-time recovery by marking documents as deleted rather than immediately removed. This setting controls how many soft-deleted operations are preserved before they are eligible for cleanup. Default is `0` (unlimited retention).
 

@@ -47,6 +47,7 @@ The following table lists the available system-generated search request processo
 | Processor name    | Processor factory name    | Execution stage     | Trigger condition                                          | Description                                                                                                                                         |
 | ----------------- | ------------------------- | ------------------- | ---------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `mmr_over_sample` | `mmr_over_sample_factory` | Runs after any user-defined request processors. | Triggered when a search request includes the `mmr` parameter in the `ext` object. See [Vector search with MMR reranking]({{site.url}}{{site.baseurl}}/vector-search/specialized-operations/vector-search-mmr/). | Adjusts the query size and `k` value of the `knn` or `neural` query to oversample candidates for maximal marginal relevance (MMR) reranking. |
+| `knn_default_excludes` | `knn_default_excludes_factory` | Runs before any user-defined request processors. | Triggered for every search request, except when the request already specifies how to return the source by setting `_source` to `true` or `false` or by setting `stored_fields` to `_none_`. Applies only to indexes containing `knn_vector` fields with `_source` enabled. See [Automatically exclude vectors from search results]({{site.url}}{{site.baseurl}}/vector-search/performance-tuning-search/#automatically-exclude-vectors-from-search-results). | Adds all `knn_vector` fields to `_source.excludes` so that vectors are omitted from the search response by default. Fields already listed in the request's `_source.includes` or `_source.excludes` remain unchanged. |
 
 ### System-generated search response processors
 
@@ -66,3 +67,4 @@ The following limitations apply to system-generated processors:
 ## Related documentation
 
 - [Vector search with MMR reranking]({{site.url}}{{site.baseurl}}/vector-search/specialized-operations/vector-search-mmr/)
+- [Automatically exclude vectors from search results]({{site.url}}{{site.baseurl}}/vector-search/performance-tuning-search/#automatically-exclude-vectors-from-search-results)

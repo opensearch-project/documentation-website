@@ -2,9 +2,10 @@
 layout: default
 title: Supported connectors
 has_children: false
-nav_order: 63
-parent: Connecting to externally hosted models
-grand_parent: Integrating ML models
+nav_order: 10
+parent: Connectors
+grand_parent: Connecting to externally hosted models
+great_grand_parent: Integrating ML models
 redirect_from:
   - /ml-commons-plugin/extensibility/supported-connectors/
 ---
@@ -65,7 +66,7 @@ The following table provides a comprehensive list of connector blueprints availa
 
 ## LLM judgment blueprints for Search Relevance Workbench
 
-[Search Relevance Workbench]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/using-search-relevance-workbench/) uses a chat model to generate relevance ratings using an LLM-as-a-Judge. For an overview of these blueprints, see the [LLM judgment blueprints README](https://github.com/opensearch-project/ml-commons/blob/main/docs/remote_inference_blueprints/llm_judgment/README.md). The following table lists the available blueprints for connecting Search Relevance Workbench to a chat model.
+[Search Relevance Workbench]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/using-search-relevance-workbench/) uses a chat model to generate relevance ratings using an LLM-as-a-Judge. For an overview of these blueprints, see [LLM judgment blueprints](https://github.com/opensearch-project/ml-commons/blob/main/docs/remote_inference_blueprints/llm_judgment/README.md). The following table lists the available blueprints for connecting Search Relevance Workbench to a chat model.
 
 | Provider | Blueprint |
 |:---|:---|
