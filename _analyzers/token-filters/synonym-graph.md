@@ -22,7 +22,6 @@ Parameter | Required/Optional | Data type | Description
 `expand` | Optional | Boolean |  Whether to expand equivalent synonym rules. Default is `true`.<br><br>For example: <br>If `synonyms` are defined as `"quick, fast"` and `expand` is set to `true`, then the synonym rules are configured as follows:<br>- `quick => quick`<br>- `quick => fast`<br>- `fast => quick`<br>- `fast => fast`<br><br>If `expand` is set to `false`, the synonym rules are configured as follows:<br>- `quick => quick`<br>- `fast => quick`
 `synonym_analyzer` | Optional | String | Specifies the name of an analyzer to use when parsing the synonym rules, instead of the analysis chain in which this filter is defined. Must be a globally registered analyzer, such as a built-in analyzer (`standard`, `simple`, `stop`, `whitespace`, or `keyword`), a language analyzer, or one registered by a plugin; custom analyzers defined in the same index cannot be used. If the analyzer cannot be resolved, the analysis chain is used and no error is returned. By default, the analysis chain is used.
 
-
 ## Example: Solr format
 
 The following example request creates a new index named `my-index` and configures an analyzer with a `synonym_graph` filter. The filter is configured with the default `solr` rule format:
