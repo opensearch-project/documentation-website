@@ -314,7 +314,7 @@ OpenSearch supports the following dynamic index-level index settings:
 
 - `index.blocks.write` (Boolean): Specifies whether the index is read-only. Setting to `true` blocks all write requests and makes the index read-only. Default is `false`.
 
-- `index.search.idle.after` (Time unit): The amount of time a shard should wait for a search or get request until it goes idle. Default is `30s`.
+- `index.search.idle.after` (Time unit): The amount of time a shard should wait for a search or get request until it goes idle. Can be set to -1 to disable idle. Default is `30s`.
 
 - `index.search.default_pipeline` (String): The name of the search pipeline that is used if no pipeline is explicitly set when searching an index. If a default pipeline is set and the pipeline doesn't exist, then the index requests fail. Use the pipeline name `_none` to specify no default search pipeline. For more information, see [Default search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/using-search-pipeline/#default-search-pipeline).
 
