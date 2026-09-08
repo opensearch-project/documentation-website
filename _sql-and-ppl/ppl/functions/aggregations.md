@@ -12,7 +12,7 @@ Aggregation functions perform calculations across multiple rows to return a sing
 
 The following table shows how `NULL` and missing values are handled by aggregation functions.
 
-| Function | null | Missing |
+| Function | `null` | Missing |
 | --- | --- | --- |
 | `COUNT` | Not counted | Not counted |
 | `SUM` | Ignored | Ignored |
@@ -50,9 +50,13 @@ source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | count() | c() | count | c |
 | --- | --- | --- | --- |
 | 4 | 4 | 4 | 4 |
+
+<!-- vale on -->
   
 The following example counts only records that match a specific condition:
 
@@ -64,9 +68,13 @@ source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | mature_users |
 | --- |
 | 3 |
+
+<!-- vale on -->
   
 ### SUM
 
@@ -90,10 +98,14 @@ source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | sum(age) | gender |
 | --- | --- |
 | 28 | F |
 | 101 | M |
+
+<!-- vale on -->
   
 ### AVG
 
@@ -117,10 +129,14 @@ source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | avg(age) | gender |
 | --- | --- |
 | 28.0 | F |
 | 33.666666666666664 | M |
+
+<!-- vale on -->
   
 ### MAX
 
@@ -144,9 +160,13 @@ source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | max(age) |
 | --- |
 | 36 |
+
+<!-- vale on -->
 
 The following example returns the value from the `firstname` text field that comes last in alphabetical order:
 
@@ -158,9 +178,13 @@ source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | max(firstname) |
 | --- |
 | Nanette |
+
+<!-- vale on -->
   
 ### MIN
 
@@ -184,9 +208,13 @@ source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | min(age) |
 | --- |
 | 28 |
+
+<!-- vale on -->
 
 The following example returns the value from the `firstname` text field that comes first in alphabetical order:
 
@@ -198,9 +226,13 @@ source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | min(firstname) |
 | --- |
 | Amber |
+
+<!-- vale on -->
   
 ### VAR_SAMP
 
@@ -224,9 +256,13 @@ source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | var_samp(age) |
 | --- |
 | 10.916666666666666 |
+
+<!-- vale on -->
   
 ### VAR_POP
 
@@ -250,9 +286,13 @@ source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | var_pop(age) |
 | --- |
 | 8.1875 |
+
+<!-- vale on -->
   
 ### STDDEV_SAMP
 
@@ -276,9 +316,13 @@ source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | stddev_samp(age) |
 | --- |
 | 3.304037933599835 |
+
+<!-- vale on -->
   
 ### STDDEV_POP
 
@@ -302,9 +346,13 @@ source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | stddev_pop(age) |
 | --- |
 | 2.8613807855648994 |
+
+<!-- vale on -->
   
 ### DISTINCT_COUNT, DC
 
@@ -328,10 +376,14 @@ source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | distinct_states | dc_states_alt | gender |
 | --- | --- | --- |
 | 1 | 1 | F |
 | 3 | 3 | M |
+
+<!-- vale on -->
   
 ### DISTINCT_COUNT_APPROX
 
@@ -355,9 +407,13 @@ source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | distinct_count_approx(gender) |
 | --- |
 | 2 |
+
+<!-- vale on -->
   
 ### EARLIEST
 
@@ -383,10 +439,14 @@ source=events
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | earliest(message) | host |
 | --- | --- |
 | Starting up | server1 |
 | Initializing | server2 |
+
+<!-- vale on -->
 
 The following example uses a custom time field instead of the default `@timestamp` field for ordering:
 
@@ -399,10 +459,14 @@ source=events
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | earliest(status, event_time) | category |
 | --- | --- |
 | pending | orders |
 | active | users |
+
+<!-- vale on -->
   
 ### LATEST
 
@@ -428,10 +492,14 @@ source=events
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | latest(message) | host |
 | --- | --- |
 | Shutting down | server1 |
 | Maintenance mode | server2 |
+
+<!-- vale on -->
 
 The following example uses a custom time field instead of the default `@timestamp` field for ordering:
 
@@ -444,10 +512,14 @@ source=events
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | latest(status, event_time) | category |
 | --- | --- |
 | cancelled | orders |
 | inactive | users |
+
+<!-- vale on -->
   
 ### TAKE
 
@@ -472,9 +544,13 @@ source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | take(firstname) |
 | --- |
 | [Amber,Hattie,Nanette,Dale] |
+
+<!-- vale on -->
   
 ### PERCENTILE, PERCENTILE_APPROX
 
@@ -502,10 +578,14 @@ source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | percentile(age, 90) | gender |
 | --- | --- |
 | 28 | F |
 | 36 | M |
+
+<!-- vale on -->
   
 #### Percentile shortcut functions
 
@@ -523,9 +603,13 @@ source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | perc99.5(age) |
 | --- |
 | 36 |
+
+<!-- vale on -->
   
 ```sql
 source=accounts 
@@ -535,9 +619,13 @@ source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | p50(age) |
 | --- |
 | 33 |
+
+<!-- vale on -->
   
 ### MEDIAN
 
@@ -561,9 +649,13 @@ source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | median(age) |
 | --- |
 | 33 |
+
+<!-- vale on -->
   
 ### FIRST
 
@@ -587,10 +679,14 @@ source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | first(firstname) | gender |
 | --- | --- |
 | Nanette | F |
 | Amber | M |
+
+<!-- vale on -->
   
 ### LAST
 
@@ -614,10 +710,14 @@ source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | last(firstname) | gender |
 | --- | --- |
 | Nanette | F |
 | Dale | M |
+
+<!-- vale on -->
   
 ### LIST
 
@@ -646,9 +746,13 @@ source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | list(firstname) |
 | --- |
 | [Amber,Hattie,Nanette,Dale] |
+
+<!-- vale on -->
   
 ### VALUES
 
@@ -684,6 +788,10 @@ source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | values(firstname) |
 | --- |
 | [Amber,Dale,Hattie,Nanette] |
+
+<!-- vale on -->

@@ -37,7 +37,7 @@ The following table lists the available query parameters. All query parameters a
 | `pretty` | Boolean | Whether to pretty format the returned JSON response. | `false` |
 | `source` | String | The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests. | N/A |
 
-## Example Requests
+## Example requests
 
 Create an index template with a matching pattern and data stream enabled:
 
@@ -199,18 +199,18 @@ The response contains storage and shard statistics for each data stream in the c
 
 | Field | Data type | Description |
 | `_shards.total` | Integer | The total number of shards involved in the request. |
-| `_shards.successful`| Integer | The number of successful shard fetches. |
-| `_shards.failed`| Integer | The number of failed shard fetches. |
+| `_shards.successful` | Integer | The number of successful shard fetches. |
+| `_shards.failed` | Integer | The number of failed shard fetches. |
 | `data_stream_count` | Integer | The total number of data streams returned in the response.|
 | `backing_indices` | Integer | The total number of backing indexes across all data streams.|
-| `total_store_size`| String| A human-readable total size of all data stream storage. Present only if `human=true`. |
-| `total_store_size_bytes`| Integer | The total storage used by all data streams, in bytes. |
-| `data_streams`| Array | A list of objects, one for each data stream.|
-| `data_streams[n].data_stream` | String| The name of the data stream.|
+| `total_store_size` | String | A human-readable total size of all data stream storage. Present only if `human=true`. |
+| `total_store_size_bytes` | Integer | The total storage used by all data streams, in bytes. |
+| `data_streams` | Array | A list of objects, one for each data stream.|
+| `data_streams[n].data_stream` | String | The name of the data stream.|
 | `data_streams[n].backing_indices` | Integer | The number of backing indexes for the data stream.|
-| `data_streams[n].store_size`| String| Human-readable storage used by the data stream. Present only if `human=true`. |
-| `data_streams[n].store_size_bytes`| Integer | The total storage used by the data stream, in bytes.|
-| `data_streams[n].maximum_timestamp` | Long| The maximum timestamp across all documents in the data stream. |
+| `data_streams[n].store_size` | String | Human-readable storage used by the data stream. Present only if `human=true`. |
+| `data_streams[n].store_size_bytes` | Integer | The total storage used by the data stream, in bytes.|
+| `data_streams[n].maximum_timestamp` | Long | The maximum timestamp across all documents in the data stream. |
 
 ## Required permissions
 

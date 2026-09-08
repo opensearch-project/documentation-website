@@ -124,7 +124,7 @@ Determines whether to configure a benchmark to run in warmup mode by setting it 
 The meta information for each metric record, including the following:
 
 - CPU info: The number of physical and logical cores and the model name.
-- OS info: The name and version of the operating system.
+- Operating system info: The name and version of the operating system.
 - Hostname.
 - Node name: A unique name given to each node when OpenSearch Benchmark provisions the cluster.
 - Source revision: The Git hash of the version of OpenSearch that is benchmarked.

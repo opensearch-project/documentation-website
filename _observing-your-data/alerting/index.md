@@ -11,7 +11,7 @@ redirect_from:
 
 # Alerting
 
-To create an alert, do the following: 
+Alerting lets you monitor your data and automatically send notifications when certain conditions are met. To create an alert, do the following: 
 
 - Configure a _monitor_, which is a job that runs on a defined schedule and queries OpenSearch indexes. Required.
 - Configure one or more _triggers_, which define the conditions that generate events. Optional.

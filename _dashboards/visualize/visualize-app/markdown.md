@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Markdown visualizations
+title: Markdown visualization
 parent: Visualization types
 grand_parent: Creating visualizations in the Visualize application
 great_grand_parent: Building data visualizations
@@ -9,7 +9,7 @@ redirect_from:
   - /dashboards/visualize/markdown/
 ---
 
-# Markdown visualizations
+# Markdown visualization
 
 A Markdown visualization renders formatted text within a dashboard panel. Use Markdown to provide titles, instructions, metric definitions, and explanatory context alongside data visualizations. Markdown supports headings, lists, bold and italic text, links, blockquotes, and code blocks (GitHub-flavored Markdown).
 

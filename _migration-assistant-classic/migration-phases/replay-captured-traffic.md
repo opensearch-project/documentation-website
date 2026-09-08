@@ -105,7 +105,7 @@ If the target cannot respond fast enough, Traffic Replayer will wait for the pre
 
 During migrations, some requests may need to be transformed between versions. For example, Elasticsearch previously supported multiple type mappings in indexes, but this is no longer the case in OpenSearch. Clients may need to be adjusted accordingly by splitting documents into multiple indexes or transforming request data.
 
-Traffic Replayer automatically rewrites host and authentication headers, but for more complex transformations, custom transformation rules can be specified using the `--transformer-config` option. For more information, see the [Traffic Replayer README](https://github.com/opensearch-project/opensearch-migrations/blob/c3d25958a44ec2e7505892b4ea30e5fbfad4c71b/TrafficCapture/trafficReplayer/README.md#transformations). 
+Traffic Replayer automatically rewrites host and authentication headers, but for more complex transformations, custom transformation rules can be specified using the `--transformer-config` option. For more information, see the [Traffic Replayer `README`](https://github.com/opensearch-project/opensearch-migrations/blob/c3d25958a44ec2e7505892b4ea30e5fbfad4c71b/TrafficCapture/trafficReplayer/README.md#transformations). 
 
 ### Example transformation
 

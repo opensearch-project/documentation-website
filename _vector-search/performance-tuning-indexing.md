@@ -5,7 +5,7 @@ nav_order: 10
 parent: Performance tuning
 ---
 
-# Indexing performance tuning
+# Vector search indexing performance tuning
 
 Take any of the following steps to improve indexing performance, especially when you plan to index a large number of vectors at once.
 

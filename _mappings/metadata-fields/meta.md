@@ -7,7 +7,7 @@ redirect_from:
   - /field-types/metadata-fields/meta/
 ---
 
-# Meta
+# Meta metadata field
 
 The `_meta` field is a mapping property that allows you to attach custom metadata to your index mappings. This metadata can be used by your application to store information relevant to your use case, such as versioning, ownership, categorization, or auditing.
 

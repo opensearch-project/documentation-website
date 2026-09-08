@@ -27,7 +27,7 @@ Workflow automation provides the following benefits:
 * **Customizable workflows**: Customize the workflow templates to your specific use case.
 * **Setup automation**: Easily configure AI connectors, tools, agents, and other components in a single API call.
 
-## Overview
+## Template structure
 
 **Templates** implement workflow automation in OpenSearch. You can provide these templates in JSON or YAML format. You can describe one or more templates with a sequence of steps required for a particular use case. Each template consists of the following elements:
 

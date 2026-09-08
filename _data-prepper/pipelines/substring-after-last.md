@@ -6,7 +6,9 @@ grand_parent: Pipelines
 nav_order: 70
 ---
 
-# substringAfterLast()
+<!-- vale off -->
+# substringAfterLast() function
+<!-- vale on -->
 
 The `substringAfterLast()` function is used to extract the portion of a string that follows the last occurrence of a specified delimiter. It takes two arguments:
 

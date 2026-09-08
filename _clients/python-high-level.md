@@ -11,7 +11,7 @@ The OpenSearch high-level Python client (`opensearch-dsl-py`) will be deprecated
 
 The OpenSearch high-level Python client (`opensearch-dsl-py`) provides wrapper classes for common OpenSearch entities, like documents, so you can work with them as Python objects. Additionally, the high-level client simplifies writing queries and supplies convenient Python methods for common OpenSearch operations. The high-level Python client supports creating and indexing documents, searching with and without filters, and updating documents using queries.
 
-This getting started guide illustrates how to connect to OpenSearch, index documents, and run queries. For the client source code, see the [opensearch-dsl-py repo](https://github.com/opensearch-project/opensearch-dsl-py).
+This getting started guide illustrates how to connect to OpenSearch, index documents, and run queries. For the client source code, see the [`opensearch-dsl-py` repo](https://github.com/opensearch-project/opensearch-dsl-py).
 
 ## Setup
 

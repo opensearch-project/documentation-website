@@ -29,7 +29,7 @@ interface Workspace {
 
 The workspace data model is composed of the following key attributes:
 
-- `id`: String type; unique ID for each each workspace.
+- `id`: String type; unique ID for each workspace.
 - `name`: String type; designates the name of the workspace.
 - `description`: Optional string type; provides contextual information for the workspace.
 - `features`: Optional array of strings; contains use case IDs linked to the workspace.

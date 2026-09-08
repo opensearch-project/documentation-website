@@ -20,8 +20,8 @@ Consider an index with two documents that you index as follows:
 ```json
 PUT testindex1/_doc/1
 {
-  "title": " The Top 10 Shakespeare Poems",
-  "description": "Top 10 sonnets of England's national poet and the Bard of Avon"
+  "title": "The Top 10 Shakespeare Poems",
+  "body": "Top 10 sonnets of England's national poet and the Bard of Avon"
 }
 ```
 {% include copy-curl.html %}
@@ -30,12 +30,12 @@ PUT testindex1/_doc/1
 PUT testindex1/_doc/2
 {
   "title": "Sonnets of the 16th Century",
-  "body": "The poems written by various 16-th century poets"
+  "body": "The poems written by various 16th-century poets"
 }
 ```
 {% include copy-curl.html %}
 
-Use a `dis_max` query to search for documents that contain the words "Shakespeare poems":
+Use a `dis_max` query to search the `title` and `body` fields for the words "Shakespeare poems":
 
 ```json
 GET testindex1/_search
@@ -52,11 +52,11 @@ GET testindex1/_search
 ```
 {% include copy-curl.html %}
 
-The response contains both documents:
+The response contains both documents. Document 1 receives a higher relevance score because its `title` field matches both words, whereas document 2 matches only the word "poems":
 
 ```json
 {
-  "took": 8,
+  "took": 1,
   "timed_out": false,
   "_shards": {
     "total": 1,
@@ -69,24 +69,24 @@ The response contains both documents:
       "value": 2,
       "relation": "eq"
     },
-    "max_score": 1.3862942,
+    "max_score": 0.63013375,
     "hits": [
       {
         "_index": "testindex1",
         "_id": "1",
-        "_score": 1.3862942,
+        "_score": 0.63013375,
         "_source": {
-          "title": " The Top 10 Shakespeare Poems",
-          "description": "Top 10 sonnets of England's national poet and the Bard of Avon"
+          "title": "The Top 10 Shakespeare Poems",
+          "body": "Top 10 sonnets of England's national poet and the Bard of Avon"
         }
       },
       {
         "_index": "testindex1",
         "_id": "2",
-        "_score": 0.2876821,
+        "_score": 0.34314215,
         "_source": {
           "title": "Sonnets of the 16th Century",
-          "body": "The poems written by various 16-th century poets"
+          "body": "The poems written by various 16th-century poets"
         }
       }
     ]

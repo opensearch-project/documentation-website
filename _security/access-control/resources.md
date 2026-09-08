@@ -79,18 +79,27 @@ The resource types you specify must exactly match the resource types supported b
 2. **Use the [List resource types API]({{site.url}}{{site.baseurl}}/security/access-control/resource-sharing-api/#list-resource-types)** to discover all available resource types for your installed plugins.
 3. **Update your `protected_types` configuration** with the resource types you want to enable.
 
-## Example resource types
+## Resource types by plugin
 
-The following are example resource types available for resource sharing:
+The following table describes the resource types registered by the plugins that support resource sharing. Each plugin's page describes the access levels for its resource types and the steps for migrating from the legacy backend role filtering settings.
 
-- **ML Commons plugin:**
-  - `ml-model-group` -- Machine learning (ML) model groups
+| Plugin | Resource types | Plugin documentation |
+| :--- | :--- | :--- |
+| Alerting | `monitor`, `alerting-workflow` | [Alerting resource access control]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/alerting-access-control/) |
+| Anomaly Detection | `anomaly-detector` | [Anomaly detector access control]({{site.url}}{{site.baseurl}}/observing-your-data/ad/detector-access-control/) |
+| Anomaly Detection | `forecaster` | [Forecaster access control]({{site.url}}{{site.baseurl}}/observing-your-data/forecast/forecaster-access-control/) |
+| Flow Framework | `workflow` | [Workflow access control]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-access-control/) |
+| Flow Framework | `workflow-state` | [Workflow state access control]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-state-access-control/) |
+| ML Commons | `ml-model-group` | [Model access control through resource sharing]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-sharing-access-control/) |
+| Notifications | `notification_config` | [Notification access control]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/notification-access-control/) |
+| Reporting | `report-definition` | [Report definition access control]({{site.url}}{{site.baseurl}}/reporting/report-definition-access-control/) |
+| Reporting | `report-instance` | [Report instance access control]({{site.url}}{{site.baseurl}}/reporting/report-instance-access-control/) |
+| Security Analytics | `detector`, `correlation-rule` | [Security Analytics resource access control]({{site.url}}{{site.baseurl}}/security-analytics/resource-access-control/) |
 
-- **Anomaly Detection plugin:**
-  - `anomaly-detector` -- Anomaly detection jobs
-  - `forecaster` -- Time series forecasting jobs
+The Security Analytics `detector` resource type is distinct from the Anomaly Detection `anomaly-detector` resource type, and the Alerting `alerting-workflow` resource type is distinct from the Flow Framework `workflow` resource type.
+{: .note}
 
-The following is an example configuration after discovering available types:
+The following is an example configuration that protects the ML Commons and Anomaly Detection resource types:
 
 ```yaml
 plugins.security.experimental.resource_sharing.protected_types: ["ml-model-group", "anomaly-detector", "forecaster"]
@@ -214,4 +223,5 @@ When managing resource sharing, administrators should follow these best practice
 
 - [Resource sharing APIs]({{site.url}}{{site.baseurl}}/security/access-control/resource-sharing-api/) -- REST API reference for programmatic management
 - [Resource access management]({{site.url}}{{site.baseurl}}/dashboards/management/resource-sharing/) -- UI workflows and user guidance
+- [Resource types by plugin](#resource-types-by-plugin) -- Per-plugin access levels and migration steps
 - [Developer documentation](https://github.com/opensearch-project/security/blob/main/RESOURCE_SHARING_AND_ACCESS_CONTROL.md) -- Detailed technical documentation for plugin developers, users, and administrators

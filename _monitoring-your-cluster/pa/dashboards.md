@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Create PerfTop Dashboards
+title: PerfTop dashboards
 parent: Performance Analyzer
 nav_order: 2
 redirect_from:
@@ -95,7 +95,7 @@ In JSON form, we have the following:
 }
 ```
 
-At this point, however, all the JSON does is define the size and position of three tables.  To fill elements with data, you specify a query.
+At this point, however, all the JSON does is define the size and position of three tables. To fill elements with data, you specify a query.
 
 
 ## Add queries

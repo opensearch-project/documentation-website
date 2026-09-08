@@ -12,7 +12,7 @@ You can specify a workflow template when you call the [Create Workflow API]({{si
 
 - To use an OpenSearch-provided workflow template, specify the template use case as the `use_case` query parameter (see the [Example](#example)). For a list of OpenSearch-provided templates, see [Supported workflow templates](#supported-workflow-templates).
 
-- To use a custom workflow template, provide the complete template in the request body. For an example of a custom template, see [an example JSON template]({{site.url}}{{site.baseurl}}/automating-configurations/api/create-workflow/#example-request-register-and-deploy-a-remote-model-json) or [an example YAML template]({{site.url}}{{site.baseurl}}/automating-configurations/api/create-workflow/#example-request-register-and-deploy-an-externally-hosted-model-yaml). 
+- To use a custom workflow template, provide the complete template in the request body. For an example of a custom template, see [an example JSON template]({{site.url}}{{site.baseurl}}/automating-configurations/api/create-workflow/#example-request-register-and-deploy-a-remote-model-json) or [an example YAML template]({{site.url}}{{site.baseurl}}/automating-configurations/api/create-workflow/#example-request-register-and-deploy-an-externally-hosted-model-in-yaml). 
 
 To provision the workflow, specify `provision=true` as a query parameter. 
 

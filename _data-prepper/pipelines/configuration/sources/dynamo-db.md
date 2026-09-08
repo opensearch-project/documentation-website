@@ -43,13 +43,15 @@ The following tables describe the configuration options for the `dynamodb` sourc
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
-`aws` | Yes | AWS | The AWS configuration. See [aws](#aws) for more information.
+`aws` | Yes | AWS | The AWS configuration. See [`aws`](#aws) for more information.
 `acknowledgments` | No | Boolean  | When `true`, enables `s3` sources to receive [end-to-end acknowledgments]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines#end-to-end-acknowledgments) when events are received by OpenSearch sinks.
 `shared_acknowledgement_timeout` | No | Duration | The amount of time that elapses before the data read from a DynamoDB stream expires when used with acknowledgements. Default is 10 minutes.
 `s3_data_file_acknowledgment_timeout` | No | Duration | The amount of time that elapses before the data read from a DynamoDB export expires when used with acknowledgments. Default is 5 minutes.
 `tables` | Yes | List | The configuration for the DynamoDB table. See [tables](#tables) for more information.
 
+<!-- vale off -->
 ### aws
+<!-- vale on -->
 
 Use the following options in the AWS configuration.
 
@@ -60,7 +62,9 @@ Option | Required | Type | Description
 `aws_sts_header_overrides` | No | Map | A map of header overrides that the AWS Identity and Access Management (IAM) role assumes for the sink plugin.
 
 
+<!-- vale off -->
 ### tables
+<!-- vale on -->
 
 Use the following options with the `tables` configuration.
 

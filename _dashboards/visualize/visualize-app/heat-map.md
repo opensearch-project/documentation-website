@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Heat maps
+title: Heat map
 parent: Visualization types
 grand_parent: Creating visualizations in the Visualize application
 great_grand_parent: Building data visualizations
@@ -9,7 +9,7 @@ redirect_from:
   - /dashboards/visualize/heat-map/
 ---
 
-# Heat maps
+# Heat map
 
 A heat map displays values represented as a color or saturation gradient on a two-dimensional grid, effectively rendering a three-dimensional data display. The X and Y dimensions can be the same, as in a spatial heat map, or different---for example, months against years in a record of average temperature at a location (thus separating the cyclic and trend data for the site).
 

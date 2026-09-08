@@ -1,6 +1,6 @@
 ---
 layout: default
-title: About Security
+title: About security
 nav_order: 1
 has_children: false
 has_toc: false
@@ -12,7 +12,7 @@ redirect_from:
   - /security/index/
 ---
 
-# About Security in OpenSearch
+# About security in OpenSearch
 
 Security in OpenSearch is built around four main features that work together to safeguard data and track activity within a cluster. Separately, these features are:
 
@@ -75,7 +75,7 @@ To learn more, see [Cross-cluster search]({{site.url}}{{site.baseurl}}/security/
 
 ## Next steps
 
-- To get started with OpenSearch security, read the [Getting started guide]({{site.url}}{{site.baseurl}}/security/getting-started).
+- To get started with OpenSearch security, read the [Getting started guide]({{site.url}}{{site.baseurl}}/security/getting-started/).
 
 - For practical recommendations, follow the [Best practices for OpenSearch security]({{site.url}}{{site.baseurl}}/security/configuration/best-practices/), which include 10 key considerations.
 

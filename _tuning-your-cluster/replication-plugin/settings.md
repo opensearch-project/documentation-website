@@ -47,4 +47,13 @@ You can specify these settings when creating a follower index or update them for
 
 Setting | Default | Description
 :--- |:------| :---
-`index.plugins.replication.follower.ops_batch_size` | 50000 | The number of operations that can be fetched at a time during the sync phase of replication for the specific index. This setting overrides the cluster-level setting. 
+`index.plugins.replication.follower.ops_batch_size` | 50000 | The number of operations that can be fetched at a time during the sync phase of replication for the specific index. This setting overrides the cluster-level setting.
+
+## Bulk replication settings
+
+The following settings control [Bulk Replication API]({{site.url}}{{site.baseurl}}/tuning-your-cluster/replication-plugin/bulk-api/) behavior.
+
+Setting | Default | Description
+:--- | :--- | :---
+`plugins.replication.follower.bulk_batch_size` | 10 | The number of indexes processed concurrently in each batch during a bulk replication task. Minimum value is `1` and maximum value is `100`.
+`plugins.replication.follower.bulk_poll_timeout` | 15 | The time, in minutes, that start and resume tasks wait for replication to confirm before timing out indexes. Minimum value is `1` and maximum value is `30`.

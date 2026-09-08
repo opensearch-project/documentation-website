@@ -8,7 +8,9 @@ redirect_from:
   - /dashboards/reporting-cli/rep-cli-lambda/
 ---
 
+<!-- vale off -->
 # Scheduling reports with AWS Lambda
+<!-- vale on -->
 
 You can use AWS Lambda with the Reporting CLI tool to specify an AWS Lambda function to trigger the report generation.
 
@@ -104,7 +106,7 @@ You need to get several commands from the AWS ECR Console to run within the Dock
 
 1. After you create your repository, select it from **Private repositories**.
 1. Choose **view push commands**.
-1. Copy and run each command shown in **Push commands for opensearch-reporting-cli** sequentially in the Dockerfile directory.
+1. Copy and run each command shown in **Push commands for `opensearch-reporting-cli`** sequentially in the Dockerfile directory.
 
 For more details about Docker push commands, see [Pushing a Docker image](https://docs.aws.amazon.com/AmazonECR/latest/userguide/docker-push-ecr-image.html) in the Amazon ECR user guide.
 
@@ -119,8 +121,8 @@ Now that you have a container image created for the Reporting CLI, you need to c
 1. In **Architecture**, choose **x86_64**.
 1. Choose **Create function**.
 1. Go to **Lambda** > **functions** and choose the function you created.
-1. Choose **Configuration > General configuration > Edit timeout** and set the timeout in lambda to 5 minutes to allow the Reporting CLI to generate the report.
-1. Change the **Ephemeral storage** setting to at least 1024MB. The default setting is not a sufficient storage amount to support report generation.
+1. Choose **Configuration > General configuration > Edit timeout** and set the timeout in Lambda to 5 minutes to allow the Reporting CLI to generate the report.
+1. Change the **Ephemeral storage** setting to at least 1024 MB. The default setting is not a sufficient storage amount to support report generation.
 
 1. Next, test the function either by providing values JSON format or by providing AWS Lambda environment variables.
 

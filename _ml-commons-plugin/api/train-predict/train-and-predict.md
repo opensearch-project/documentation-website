@@ -6,7 +6,7 @@ grand_parent: ML Commons APIs
 nav_order: 75
 ---
 
-## Train and predict
+# Train and Predict API
 
 Use to train and then immediately predict against the same training dataset. Can only be used with unsupervised learning models and the following algorithms:
 

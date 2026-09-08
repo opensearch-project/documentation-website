@@ -9,7 +9,7 @@ has_children: false
 has_toc: false
 ---
 
-# Ignore above
+# Ignore above mapping parameter
 
 The `ignore_above` mapping parameter limits the maximum number of characters for an indexed string. If a string's length exceeds the specified threshold, the value is stored with the document but is not indexed. This can help prevent the index from bloating with unusually long values and can ensure efficient queries.
 

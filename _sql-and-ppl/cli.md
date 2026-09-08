@@ -10,7 +10,7 @@ redirect_from:
 
 The SQL and PPL command line interface (CLI) is a standalone Python application that you can launch with the `opensearchsql` command.
 
- To use the SQL and PPL CLI, install the SQL plugin on your OpenSearch instance, run the CLI using MacOS or Linux, and connect to any valid OpenSearch endpoint.
+ To use the SQL and PPL CLI, install the SQL plugin on your OpenSearch instance, run the CLI using macOS or Linux, and connect to any valid OpenSearch endpoint.
 
 ![SQL CLI]({{site.url}}{{site.baseurl}}/images/cli.gif)
 
@@ -55,15 +55,15 @@ By default, the `opensearchsql` command connects to http://localhost:9200.
 
 ## Configure
 
-When you first launch the SQL CLI, a configuration file is automatically created at `~/.config/opensearchsql-cli/config` (for MacOS and Linux), the configuration is auto-loaded thereafter.
+When you first launch the SQL CLI, a configuration file is automatically created at `~/.config/opensearchsql-cli/config` (for macOS and Linux), the configuration is auto-loaded thereafter.
 
 You can configure the following connection properties:
 
 - `endpoint`: You do not need to specify an option. Anything that follows the launch command `opensearchsql` is considered as the endpoint. If you do not provide an endpoint, by default, the SQL CLI connects to http://localhost:9200.
 - `-u/-w`: Supports username and password for HTTP basic authentication, such as with the Security plugin or fine-grained access control for Amazon OpenSearch Service.
-- `--aws-auth`: Turns on AWS sigV4 authentication to connect to an Amazon OpenSearch endpoint. Use with the AWS CLI (`aws configure`) to retrieve the local AWS configuration to authenticate and connect.
+- `--aws-auth`: Turns on AWS Signature Version 4 authentication to connect to an Amazon OpenSearch endpoint. Use with the AWS CLI (`aws configure`) to retrieve the local AWS configuration to authenticate and connect.
 
-For a list of all available configurations, see [clirc](https://github.com/opensearch-project/sql/blob/1.x/sql-cli/src/opensearch_sql_cli/conf/clirc).
+For a list of all available configurations, see [`clirc`](https://github.com/opensearch-project/sql/blob/1.x/sql-cli/src/opensearch_sql_cli/conf/clirc).
 
 ## Using the CLI
 

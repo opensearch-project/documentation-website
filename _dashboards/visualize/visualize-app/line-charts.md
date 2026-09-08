@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Line charts
+title: Line chart
 parent: Visualization types
 grand_parent: Creating visualizations in the Visualize application
 great_grand_parent: Building data visualizations
@@ -9,7 +9,7 @@ redirect_from:
   - /dashboards/visualize/line-charts/
 ---
 
-# Line charts
+# Line chart
 
 A line chart shows one or more series of numerical data points on the Y-axis plotted against a numerical field on the X-axis. The points can be connected by a line. The X-axis value can be a timeline or any other continuous or discrete number series.
 
@@ -49,7 +49,7 @@ To create a line chart, follow these steps:
 
    The average ticket price is displayed per weekday value in seven different lines, as shown in the following image. The average ticket price for weekday value keys 5 and 6 are significantly higher across most flight distances.
 
-   ![Line chart showing average ticket price vs distance by day of week]({{site.url}}{{site.baseurl}}/images/dashboards/example-line-cost-vs-distance.png)
+   ![Line chart showing average ticket price compared to distance by day of week]({{site.url}}{{site.baseurl}}/images/dashboards/example-line-cost-vs-distance.png)
 
 ## Configuring a line chart
 

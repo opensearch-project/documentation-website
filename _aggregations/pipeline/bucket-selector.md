@@ -5,7 +5,7 @@ parent: Pipeline aggregations
 nav_order: 30
 ---
 
-# Bucket selector aggregations
+# Bucket selector aggregation
 
 The `bucket_selector` aggregation is a parent pipeline aggregation that evaluates a script to determine whether buckets returned by a `histogram` (or `date_histogram`) aggregation should be included in the final result. 
 

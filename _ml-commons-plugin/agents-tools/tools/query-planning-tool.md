@@ -321,8 +321,8 @@ The following table lists all tool parameters that are available when registerin
 Parameter	| Type | Required/Optional | Description	
 :--- | :--- | :--- | :---
 `model_id` | String | Required | The model ID of the LLM used to generate the query DSL. When used within a `conversational` agent, if this value is not provided, the agent's own `llm.model_id` is used by default.
-`response_filter` | String | Optional | A JSONPath expression used to extract the generated query from the LLM's response.
-`generation_type` | String | Optional | Determines how queries are generated. Use `llmGenerated` to rely solely on the LLM's built-in knowledge or `user_templates` to provide predefined search templates that guide query generation for consistent results. Default is `llmGenerated`.
+`response_filter` | String | Optional | A JSONPath expression used to extract the generated query from the LLM response.
+`generation_type` | String | Optional | Determines how queries are generated. Use `llmGenerated` to rely solely on the LLM built-in knowledge or `user_templates` to provide predefined search templates that guide query generation for consistent results. Default is `llmGenerated`.
 `query_planner_system_prompt` | String | Optional | A system prompt that provides high-level instructions to the LLM.
 `query_planner_user_prompt` | String | Optional | A user prompt template that defines how the natural language question and context are presented to the LLM for query generation.
 `search_templates` | Array | Optional | Applicable only when `generation_type` is `user_templates`. A list of search templates that provide the LLM with predefined query patterns for generating query DSL. Each template must include a `template_id` (unique identifier) and `template_description` (explains the template's purpose and use case to help the LLM choose appropriately).
@@ -333,7 +333,7 @@ All parameters that were configured either in the connector or in the agent regi
 
 ## Response filter configuration
 
-The `response_filter` parameter uses JSONPath expressions to extract the generated query from the LLM's response. Different model providers return responses in different formats, so you need to specify the appropriate filter for your model type.
+The `response_filter` parameter uses JSONPath expressions to extract the generated query from the LLM response. Different model providers return responses in different formats, so you need to specify the appropriate filter for your model type.
 
 **OpenAI models**:
 
@@ -546,7 +546,7 @@ Output:
 
 The `QueryPlanningTool` uses a fallback query when the LLM fails to generate valid query DSL. By default, the fallback query is `{"size":10,"query":{"match_all":{}}}`. You can override this default by specifying a custom `fallback_query` parameter when registering the agent.
 
-The tool automatically extracts the first valid JSON object from the LLM's response, even if the JSON is surrounded by additional text, Markdown code fences, explanations, or other content. However, if no valid JSON can be extracted from the response (for example, when the response is completely empty, contains only non-JSON text, or contains only malformed JSON), the tool returns the fallback query (either the default or your custom query).
+The tool automatically extracts the first valid JSON object from the LLM response, even if the JSON is surrounded by additional text, Markdown code fences, explanations, or other content. However, if no valid JSON can be extracted from the response (for example, when the response is completely empty, contains only non-JSON text, or contains only malformed JSON), the tool returns the fallback query (either the default or your custom query).
 
 When the fallback is triggered, no error is thrown. Instead, a debug log is shown in the system logs. This ensures that query planning operations continue to work even when the LLM provides unexpected output.
 

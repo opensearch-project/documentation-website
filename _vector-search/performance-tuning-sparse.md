@@ -1,8 +1,8 @@
 ---
 layout: default
-title: Sparse performance tuning
+title: Neural sparse ANN search performance tuning
+parent: Performance tuning
 nav_order: 30
-parent: Neural sparse ANN search performance tuning
 has_math: true
 ---
 

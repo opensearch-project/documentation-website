@@ -148,7 +148,7 @@ OpenSearch supports the following advanced cluster routing and allocation settin
 
 - `cluster.routing.allocation.balanced_shards_allocator.allocator_timeout` (Dynamic, time unit): Controls the timeout for balanced shard allocator operations. When set to `-1`, the timeout is disabled. When set to a positive value, the allocator will timeout after the specified duration if allocation cannot be completed. Default is `-1` (no timeout). Minimum value is `20s` when timeout is enabled.
 
-- `cluster.routing.allocation.cluster_concurrent_recoveries` (Dynamic, integer): Controls the maximum number of concurrent recovery operations allowed at the cluster level. This setting limits the total number of recovery operations (relocations) happening simultaneously across the entire cluster to prevent resource exhaustion. Set to `-1` for unlimited concurrent recoveries. Default is `-1`.
+- `cluster.routing.allocation.cluster_concurrent_recoveries` (Dynamic, integer): Controls the maximum number of concurrent recovery operations allowed at the cluster level. This setting limits the total number of recovery operations (relocation operations) happening simultaneously across the entire cluster to prevent resource exhaustion. Set to `-1` for unlimited concurrent recoveries. Default is `-1`.
 
 ### Load-aware allocation settings
 
@@ -207,7 +207,7 @@ OpenSearch supports the following cluster-level shard, block, and task settings:
 
 - `cluster.persistent_tasks.allocation.recheck_interval` (Time unit): The cluster manager automatically checks whether persistent tasks need to be assigned when the cluster state changes in a significant way. There are other factors, such as memory usage, that will affect whether persistent tasks are assigned to nodes but do not otherwise cause the cluster state to change. This setting defines how often assignment checks are performed in response to these factors. Default is `30 seconds`, with a minimum of `10 seconds` being required.
 
-- `task_cancellation.duration_millis` (Dynamic, long): The duration threshold in milliseconds for tracking cancelled tasks in the task cancellation monitoring system. Default is `10000` (10 seconds).
+- `task_cancellation.duration_millis` (Dynamic, long): The duration threshold in milliseconds for tracking canceled tasks in the task cancellation monitoring system. Default is `10000` (10 seconds).
 
 - `task_cancellation.enabled` (Dynamic, Boolean): Enables or disables the task cancellation monitoring service. Default is `true`.
 
@@ -358,7 +358,7 @@ For practical examples and step-by-step configuration guides, see [Remote-backed
 {: .tip}
 
 
-- `cluster.remote_store.index.restrict.async-durability` (Static, Boolean): **Restricted Access Setting.** When enabled (`true`), restricts the creation or modification of indexes where `index.translog.durability` is set to `async`. This setting prevents indexes from using async durability mode in remote store environments, enforcing stronger durability guarantees. When  set to `false`, indexes can use any durability mode (`sync` or `async`) and can be switched between modes at any time. When set to `true`, any attempt to create or update an index with `index.translog.durability=async` will be rejected. This setting is specifically designed for remote store deployments where async durability might compromise data consistency. Default is `false`.
+- `cluster.remote_store.index.restrict.async-durability` (Static, Boolean): **Restricted Access Setting.** When enabled (`true`), restricts the creation or modification of indexes where `index.translog.durability` is set to `async`. This setting prevents indexes from using `async` durability mode in remote store environments, enforcing stronger durability guarantees. When  set to `false`, indexes can use any durability mode (`sync` or `async`) and can be switched between modes at any time. When set to `true`, any attempt to create or update an index with `index.translog.durability=async` will be rejected. This setting is specifically designed for remote store deployments where asynchronous durability might compromise data consistency. Default is `false`.
 
 - `cluster.remote_store.compatibility_mode` (Dynamic, string): Controls the compatibility mode for remote store operations during cluster migration. Valid values are:
   - `strict`: Only nodes with identical remote store configuration can join the cluster
@@ -382,9 +382,9 @@ For practical examples and step-by-step configuration guides, see [Remote-backed
 
 - `cluster.filecache.remote_data_ratio` (Dynamic, double): Controls the ratio of remote data to local disk cache for file caching in remote store configurations. This setting determines how much remote data is cached locally to improve performance. Higher values cache more data locally but consume more disk space. Value should be between 0.0 and 1.0. Default is `0.8`.
 
-- `cluster.indices.replication.strategy` (Dynamic, string): Sets the replication strategy for indices in the cluster. Valid values include:
+- `cluster.indices.replication.strategy` (Dynamic, string): Sets the replication strategy for indexes in the cluster. Valid values include:
   - `DOCUMENT`: Traditional document-based replication
   - `SEGMENT`: Segment-based replication for improved performance and efficiency
   Default is `DOCUMENT`.
 
-- `cluster.index.restrict.replication.type` (Dynamic, Boolean): When enabled, restricts the creation of indices with specific replication types to ensure consistency across the cluster. This setting helps enforce replication policies and prevents incompatible replication configurations. Default is `false`.
+- `cluster.index.restrict.replication.type` (Dynamic, Boolean): When enabled, restricts the creation of indexes with specific replication types to ensure consistency across the cluster. This setting helps enforce replication policies and prevents incompatible replication configurations. Default is `false`.

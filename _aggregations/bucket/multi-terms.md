@@ -8,7 +8,7 @@ redirect_from:
   - /query-dsl/aggregations/multi-terms/
 ---
 
-# Multi-terms aggregations
+# Multi-terms aggregation
 
 The `multi_terms` aggregation creates buckets based on the combination of values from multiple fields. Each bucket represents a unique composite key, and documents are grouped by matching all specified term values simultaneously. This is useful when you need to find the top combinations ranked by document count or by a metric subaggregation.
 
@@ -30,7 +30,7 @@ The `multi_terms` aggregation takes the following parameters.
 
 ## Example: Grouping by multiple fields
 
-The following example identifies the most popular product categories for each gender by grouping orders on both `customer_gender` and `category` simultaneously. This query reveals the gender-category pairs htat generate the most orders:
+The following example identifies the most popular product categories for each gender by grouping orders on both `customer_gender` and `category` simultaneously. This query reveals the gender-category pairs that generate the most orders:
 
 ```json
 GET /opensearch_dashboards_sample_data_ecommerce/_search

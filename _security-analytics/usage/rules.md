@@ -45,7 +45,9 @@ The first method of rule creation is to create a custom rule by manually filling
 If you choose to create the rule manually, you can refer to Sigma's [Rule Creation Guide](https://github.com/SigmaHQ/sigma/wiki/Rule-Creation-Guide) for more information about the details of each field.
 {: .tip }
 
+<!-- vale off -->
 #### The Visual Editor
+<!-- vale on -->
 
 When the **Create detection rule** window opens, the **Visual Editor** is displayed by default. The required fields in the **Visual Editor** correspond to the basic fields found in a YAML file formatted as a Sigma rule. The descriptions in these steps mention this correspondence when it might not be immediately obvious.
   
@@ -125,7 +127,9 @@ When the **Create detection rule** window opens, the **Visual Editor** is displa
   
  1. Once the rule is complete and meets your requirements, select **Create detection rule** in the lower-right corner of the window to save the rule. A rule ID is automatically assigned to the new rule and appears in the list of detection rules.
   
+<!-- vale off -->  
 #### The YAML Editor
+<!-- vale on -->
 
 The **Create detection rule** window also contains the YAML Editor so that you can create a new rule directly in a YAML file format. Select **YAML Editor** and then enter information for the pre-populated field types. The rule's `id` is provided and assigned when the rule is saved. The following example shows the basic elements of a typical rule:
 

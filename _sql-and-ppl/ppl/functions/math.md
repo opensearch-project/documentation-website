@@ -33,9 +33,13 @@ source=people
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | ABS(-1) |
 | --- |
 | 1 |
+
+<!-- vale on -->
   
 ## ADD
 
@@ -63,9 +67,13 @@ source=people
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | ADD(2, 1) |
 | --- |
 | 3 |
+
+<!-- vale on -->
   
 ## SUBTRACT
 
@@ -93,9 +101,13 @@ source=people
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | SUBTRACT(2, 1) |
 | --- |
 | 1 |
+
+<!-- vale on -->
   
 ## MULTIPLY
 
@@ -123,9 +135,13 @@ source=people
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | MULTIPLY(2, 1) |
 | --- |
 | 2 |
+
+<!-- vale on -->
   
 ## DIVIDE
 
@@ -153,9 +169,13 @@ source=people
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | DIVIDE(2, 1) |
 | --- |
 | 2 |
+
+<!-- vale on -->
   
 ## SUM
 
@@ -183,12 +203,16 @@ source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | SUM(1, 2, 3) |
 | --- |
 | 6 |
 | 6 |
 | 6 |
 | 6 |
+
+<!-- vale on -->
   
 ```sql
 source=accounts
@@ -199,12 +223,16 @@ source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | age | total |
 | --- | --- |
 | 32 | 47 |
 | 36 | 51 |
 | 28 | 43 |
 | 33 | 48 |
+
+<!-- vale on -->
   
 ## AVG
 
@@ -232,12 +260,16 @@ source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | AVG(1, 2, 3) |
 | --- |
 | 2.0 |
 | 2.0 |
 | 2.0 |
 | 2.0 |
+
+<!-- vale on -->
   
 ```sql
 source=accounts
@@ -248,12 +280,16 @@ source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | age | average |
 | --- | --- |
 | 32 | 31.0 |
 | 36 | 33.0 |
 | 28 | 29.0 |
 | 33 | 31.5 |
+
+<!-- vale on -->
   
 ## ACOS
 
@@ -278,9 +314,13 @@ source=people
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | ACOS(0) |
 | --- |
 | 1.5707963267948966 |
+
+<!-- vale on -->
   
 ## ASIN
 
@@ -305,15 +345,19 @@ source=people
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | ASIN(0) |
 | --- |
 | 0.0 |
+
+<!-- vale on -->
   
 ## ATAN
 
 **Usage**: `ATAN(x)`, `ATAN(y, x)`
 
-Calculates the arctangent of `x`. `ATAN(y, x)` calculates the arctangent of the quotient y / x, using the signs of both arguments to determine the quadrant of the result.
+Calculates the arctangent of `x`. `ATAN(y, x)` calculates the arctangent of the quotient `y / x`, using the signs of both arguments to determine the quadrant of the result.
 
 **Parameters**:
 
@@ -333,15 +377,19 @@ source=people
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | ATAN(2) | ATAN(2, 3) |
 | --- | --- |
 | 1.1071487177940904 | 0.5880026035475675 |
+
+<!-- vale on -->
   
 ## ATAN2
 
 **Usage**: `ATAN2(y, x)`
 
-Calculates the arctangent of the quotient y / x, using the signs of both arguments to determine the quadrant of the result.
+Calculates the arctangent of the quotient `y / x`, using the signs of both arguments to determine the quadrant of the result.
 
 **Parameters**:
 
@@ -361,9 +409,13 @@ source=people
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | ATAN2(2, 3) |
 | --- |
 | 0.5880026035475675 |
+
+<!-- vale on -->
   
 ## CEIL
 
@@ -407,9 +459,13 @@ source=people
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | CEILING(0) | CEILING(50.00005) | CEILING(-50.00005) |
 | --- | --- | --- |
 | 0 | 51.0 | -50.0 |
+
+<!-- vale on -->
   
 ```sql
 source=people
@@ -420,9 +476,13 @@ source=people
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | CEILING(3147483647.12345) | CEILING(113147483647.12345) | CEILING(3147483647.00001) |
 | --- | --- | --- |
 | 3147483648.0 | 113147483648.0 | 3147483648.0 |
+
+<!-- vale on -->
   
 ## CONV
 
@@ -449,9 +509,13 @@ source=people
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | CONV('12', 10, 16) | CONV('2C', 16, 10) | CONV(12, 10, 2) | CONV(1111, 2, 10) |
 | --- | --- | --- | --- |
 | c | 44 | 1100 | 15 |
+
+<!-- vale on -->
   
 ## COS
 
@@ -476,9 +540,13 @@ source=people
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | COS(0) |
 | --- |
 | 1.0 |
+
+<!-- vale on -->
   
 ## COSH
 
@@ -503,9 +571,13 @@ source=people
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | COSH(2) |
 | --- |
 | 3.7621956910836314 |
+
+<!-- vale on -->
   
 ## COT
 
@@ -530,9 +602,13 @@ source=people
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | COT(1) |
 | --- |
 | 0.6420926159343306 |
+
+<!-- vale on -->
   
 ## CRC32
 
@@ -557,9 +633,13 @@ source=people
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | CRC32('MySQL') |
 | --- |
 | 3259397556 |
+
+<!-- vale on -->
   
 ## DEGREES
 
@@ -584,9 +664,13 @@ source=people
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | DEGREES(1.57) |
 | --- |
 | 89.95437383553924 |
+
+<!-- vale on -->
   
 ## E
 
@@ -609,9 +693,13 @@ source=people
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | E() |
 | --- |
 | 2.718281828459045 |
+
+<!-- vale on -->
   
 ## EXP
 
@@ -636,9 +724,13 @@ source=people
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | EXP(2) |
 | --- |
 | 7.38905609893065 |
+
+<!-- vale on -->
   
 ## EXPM1
 
@@ -663,9 +755,13 @@ source=people
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | EXPM1(1) |
 | --- |
 | 1.718281828459045 |
+
+<!-- vale on -->
   
 ## FLOOR
 
@@ -692,9 +788,13 @@ source=people
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | FLOOR(0) | FLOOR(50.00005) | FLOOR(-50.00005) |
 | --- | --- | --- |
 | 0 | 50.0 | -51.0 |
+
+<!-- vale on -->
   
 ```sql
 source=people
@@ -705,9 +805,13 @@ source=people
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | FLOOR(3147483647.12345) | FLOOR(113147483647.12345) | FLOOR(3147483647.00001) |
 | --- | --- | --- |
 | 3147483647.0 | 113147483647.0 | 3147483647.0 |
+
+<!-- vale on -->
   
 ```sql
 source=people
@@ -718,9 +822,13 @@ source=people
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | FLOOR(282474973688888.022) | FLOOR(9223372036854775807.022) | FLOOR(9223372036854775807.0000001) |
 | --- | --- | --- |
 | 282474973688888.0 | 9.223372036854776e+18 | 9.223372036854776e+18 |
+
+<!-- vale on -->
   
 ## LN
 
@@ -745,9 +853,13 @@ source=people
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | LN(2) |
 | --- |
 | 0.6931471805599453 |
+
+<!-- vale on -->
   
 ## LOG
 
@@ -773,9 +885,13 @@ source=people
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | LOG(2) | LOG(2, 8) |
 | --- | --- |
 | 0.6931471805599453 | 3.0 |
+
+<!-- vale on -->
   
 ## LOG2
 
@@ -800,9 +916,13 @@ source=people
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | LOG2(8) |
 | --- |
 | 3.0 |
+
+<!-- vale on -->
   
 ## LOG10
 
@@ -827,9 +947,13 @@ source=people
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | LOG10(100) |
 | --- |
 | 2.0 |
+
+<!-- vale on -->
   
 ## MOD
 
@@ -855,9 +979,13 @@ source=people
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | MOD(3, 2) | MOD(3.1, 2) |
 | --- | --- |
 | 1 | 1.1 |
+
+<!-- vale on -->
   
 ## MODULUS
 
@@ -883,9 +1011,13 @@ source=people
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | MODULUS(3, 2) | MODULUS(3.1, 2) |
 | --- | --- |
 | 1 | 1.1 |
+
+<!-- vale on -->
   
 ## PI
 
@@ -908,9 +1040,13 @@ source=people
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | PI() |
 | --- |
 | 3.141592653589793 |
+
+<!-- vale on -->
   
 ## POW
 
@@ -938,9 +1074,13 @@ source=people
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | POW(3, 2) | POW(-3, 2) | POW(3, -2) |
 | --- | --- | --- |
 | 9.0 | 9.0 | 0.1111111111111111 |
+
+<!-- vale on -->
   
 ## POWER
 
@@ -968,9 +1108,13 @@ source=people
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | POWER(3, 2) | POWER(-3, 2) | POWER(3, -2) |
 | --- | --- | --- |
 | 9.0 | 9.0 | 0.1111111111111111 |
+
+<!-- vale on -->
   
 ## RADIANS
 
@@ -995,9 +1139,13 @@ source=people
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | RADIANS(90) |
 | --- |
 | 1.5707963267948966 |
+
+<!-- vale on -->
   
 ## RAND
 
@@ -1022,9 +1170,13 @@ source=people
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | RAND(3) |
 | --- |
 | 0.34346429521113886 |
+
+<!-- vale on -->
   
 ## ROUND
 
@@ -1052,9 +1204,13 @@ source=people
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | ROUND(12.34) | ROUND(12.34, 1) | ROUND(12.34, -1) | ROUND(12, 1) |
 | --- | --- | --- | --- |
 | 12.0 | 12.3 | 10.0 | 12 |
+
+<!-- vale on -->
   
 ## SIGN
 
@@ -1079,9 +1235,13 @@ source=people
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | SIGN(1) | SIGN(0) | SIGN(-1.1) |
 | --- | --- | --- |
 | 1 | 0 | -1.0 |
+
+<!-- vale on -->
   
 ## SIGNUM
 
@@ -1108,9 +1268,13 @@ source=people
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | SIGNUM(1) | SIGNUM(0) | SIGNUM(-1.1) |
 | --- | --- | --- |
 | 1 | 0 | -1.0 |
+
+<!-- vale on -->
   
 ## SIN
 
@@ -1135,9 +1299,13 @@ source=people
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | SIN(0) |
 | --- |
 | 0.0 |
+
+<!-- vale on -->
   
 ## SINH
 
@@ -1162,9 +1330,13 @@ source=people
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | SINH(2) |
 | --- |
 | 3.626860407847019 |
+
+<!-- vale on -->
   
 ## SQRT
 
@@ -1191,9 +1363,13 @@ source=people
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | SQRT(4) | SQRT(4.41) |
 | --- | --- |
 | 2.0 | 2.1 |
+
+<!-- vale on -->
   
 ## CBRT
 
@@ -1218,10 +1394,14 @@ source=location
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | CBRT(8) | CBRT(9.261) | CBRT(-27) |
 | --- | --- | --- |
 | 2.0 | 2.1 | -3.0 |
 | 2.0 | 2.1 | -3.0 |
+
+<!-- vale on -->
   
 ## RINT
 
@@ -1246,6 +1426,10 @@ source=people
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | RINT(1.7) |
 | --- |
 | 2.0 |
+
+<!-- vale on -->

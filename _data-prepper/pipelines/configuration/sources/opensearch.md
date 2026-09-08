@@ -120,7 +120,7 @@ Option | Required | Type    | Description
 `username` | No | String  | The username for HTTP basic authentication. Since Data Prepper 2.5, this setting can be refreshed at runtime if [AWS secrets reference]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/configuring-data-prepper/#reference-secrets) is applied.
 `password` | No | String  | The password for HTTP basic authentication. Since Data Prepper 2.5, this setting can be refreshed at runtime if [AWS secrets reference]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/configuring-data-prepper/#reference-secrets) is applied.
 `disable_authentication` | No | Boolean | Whether authentication is disabled. Defaults to `false`.
-`aws` | No | Object  | The AWS configuration. For more information, see [aws](#aws).
+`aws` | No | Object  | The AWS configuration. For more information, see [`aws`](#aws).
 `acknowledgments` | No | Boolean | When `true`, enables the `opensearch` source to receive [end-to-end acknowledgments]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines/#end-to-end-acknowledgments) when events are received by OpenSearch sinks. Default is `false`.
 `connection` | No | Object  | The connection configuration. For more information, see [Connection](#connection).
 `indices` | No | Object | The configuration for filtering which indexes are processed. Defaults to all indexes, including system indexes. For more information, see [indexes](#indices).
@@ -154,7 +154,9 @@ Option | Required | Type            | Description
 `start_time` | No | String | The time when processing should begin. The source will not start processing until this time. The string must be in ISO 8601 format, such as `2007-12-03T10:15:30.00Z`. The default option starts processing immediately.
 
 
+<!-- vale off -->
 ### indices
+<!-- vale on -->
 
 The following options help the `opensearch` source determine which indexes are processed from the source cluster using regex patterns. An index will only be processed if it matches one of the `index_name_regex` patterns under the `include` setting and does not match any of the
 patterns under the `exclude` setting.
@@ -171,7 +173,9 @@ Option | Required | Type    | Description
 :--- |:----|:-----------------| :---
 `index_name_regex` | Yes | Regex string | The regex pattern to match indexes against.
 
+<!-- vale off -->
 ### search_options
+<!-- vale on -->
 
 Use the following settings under the `search_options` configuration.
 

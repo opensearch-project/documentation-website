@@ -21,7 +21,7 @@ To achieve FIPS compliance, OpenSearch requires:
 
 By default, the JVM uses the `cacerts` truststore (typically in PKCS12 format) for SSL/TLS connections. This truststore contains trusted certificate authority (CA) certificates. However, the standard PKCS12 format is not FIPS compliant.
 
-OpenSearch includes a FIPS demo installer CLI tool that simplifies the truststore configuration process. The tool provides an automated way to configure a FIPS-compliant truststore by converting the JVM's default truststore to BCFKS format. The project source is available in `distribution/tools/fips-demo-installer-cli`.
+OpenSearch includes a FIPS demo installer CLI tool that simplifies the truststore configuration process. The tool provides an automated way to configure a FIPS-compliant truststore by converting the JVM default truststore to BCFKS format. The project source is available in `distribution/tools/fips-demo-installer-cli`.
 
 This tool is designed for demo and development purposes. Before deploying to production, carefully review all generated configurations and replace demo settings with production-appropriate values.
 {: .warning}
@@ -68,7 +68,7 @@ To run the installer in non-interactive mode for automated deployments, use eith
 The non-interactive mode runs without prompts and automatically performs the following actions:
 
 - Defaults to generating a new BCFKS truststore.
-- Autoconfirms all prompts.
+- Auto-confirms all prompts.
 - Generates a secure 24-character password (or uses the one specified using `-p`).
 - Selects the first available PKCS11 provider when using the `system` command.
 
@@ -110,7 +110,7 @@ Use the system PKCS11 truststore with a specific provider:
 
 After running the FIPS demo installer, the following properties are added to your `jvm.options` file:
 
-```
+```bash
 ################################################################
 ## Start OpenSearch FIPS Demo Configuration
 ## WARNING: revise all the lines below before you go into production

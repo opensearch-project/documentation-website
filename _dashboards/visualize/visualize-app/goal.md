@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Goal visualizations
+title: Goal visualization
 parent: Visualization types
 grand_parent: Creating visualizations in the Visualize application
 great_grand_parent: Building data visualizations
@@ -9,7 +9,7 @@ redirect_from:
   - /dashboards/visualize/goal/
 ---
 
-# Goal visualizations
+# Goal visualization
 
 A goal visualization displays a value in a speedometer-like gauge. It shows the value as a proportion of a predefined goal. The visualization also displays the metric, either as an absolute value or as a percentage of the goal. The visualization can show a single value or multiple bucketed values. If bucketed, the goal is the same for all buckets.
 

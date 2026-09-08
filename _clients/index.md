@@ -27,7 +27,7 @@ OpenSearch provides clients for the following programming languages and platform
 * **Java**
   * [OpenSearch Java client]({{site.url}}{{site.baseurl}}/clients/java/)
 * **JavaScript**
-  * [OpenSearch JavaScript (Node.js) client]({{site.url}}{{site.baseurl}}/clients/javascript/index)
+  * [OpenSearch JavaScript (Node.js) client]({{site.url}}{{site.baseurl}}/clients/javascript/index/)
 * **Go**
   * [OpenSearch Go client]({{site.url}}{{site.baseurl}}/clients/go/)
 * **Ruby**
@@ -59,7 +59,7 @@ Client | Recommended version
 [Elasticsearch Node.js client](https://www.npmjs.com/package/@elastic/elasticsearch/v/7.13.0) | 7.13.0
 [Elasticsearch Ruby client](https://rubygems.org/gems/elasticsearch/versions/7.13.0) | 7.13.0
 
-If you test a legacy client and verify that it works, please [submit a PR](https://github.com/opensearch-project/documentation-website/pulls) and add it to this table.
+If you test a legacy client and verify that it works, [submit a PR](https://github.com/opensearch-project/documentation-website/pulls) and add it to this table.
 
 
 {% comment %}

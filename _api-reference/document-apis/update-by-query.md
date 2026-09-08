@@ -405,7 +405,9 @@ response = client.update_by_query(
     python=step1_python %}
 <!-- spec_insert_end -->
 
+<!-- vale off -->
 ## Example: Using noop for conditional updates
+<!-- vale on -->
 
 The following example request increases discount only for products priced above $100, otherwise performs no operation:
 
@@ -862,7 +864,7 @@ The following example response shows a successful update by query operation that
 }
 ```
 
-When using a script with conditional noop operations, the response includes a `noops` count showing how many documents were skipped:
+When using a script with conditional `noop` operations, the response includes a `noops` count showing how many documents were skipped:
 
 ```json
 {

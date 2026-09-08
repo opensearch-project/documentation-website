@@ -11,7 +11,7 @@ redirect_from:
   - /search-plugins/searching-data/point-in-time-api/
 ---
 
-# Point In Time API
+# Point in Time API
 
 Use the [Point in Time (PIT)]({{site.url}}{{site.baseurl}}/opensearch/point-in-time/) APIs to manage PITs. 
 
@@ -96,7 +96,7 @@ response = client.create_pit(
 Field | Data type | Description 
 :--- | :--- | :---  
 `pit_id` | [Base64-encoded binary]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/binary/) | The PIT ID.
-`creation_time` | long | The time at which the PIT was created, in milliseconds since the epoch. 
+`creation_time` | `long` | The time at which the PIT was created, in milliseconds since the epoch. 
 
 ## Extend a PIT time
 
@@ -187,8 +187,8 @@ Each PIT object contains the following fields.
 Field | Data type | Description 
 :--- | :--- | :---  
 `pit_id` | [Base64-encoded binary]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/binary/) | The PIT ID.
-`creation_time` | long | The time at which the PIT was created, in milliseconds since the epoch. 
-`keep_alive` | long |  The amount of time to keep the PIT, in milliseconds.
+`creation_time` | `long` | The time at which the PIT was created, in milliseconds since the epoch. 
+`keep_alive` | `long` |  The amount of time to keep the PIT, in milliseconds.
 
 ## Delete PITs
 **Introduced 2.4**

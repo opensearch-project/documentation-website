@@ -6,7 +6,7 @@ grand_parent: Installing OpenSearch
 nav_order: 70
 ---
 
-# Advanced management
+# Advanced OpenSearch Operator management
 
 This page covers advanced cluster management features including monitoring, Index State Management (ISM) policies, index and component templates, and snapshot policies.
 

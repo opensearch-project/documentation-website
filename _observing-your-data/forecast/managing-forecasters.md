@@ -199,7 +199,7 @@ The following table explains each design choice used in the example alert monito
 | `max(forecast_upper_bound)` as the metric | Detects upper-bound spikes. Alternatives include: <br> `min(forecast_lower_bound)` for sudden drops. <br> `avg(forecast_value)` for trend shifts. <br> For additional fields, see the [forecast result schema](https://github.com/opensearch-project/anomaly-detection/blob/main/src/main/resources/mappings/forecast-results.json). |
 | Index pattern `opensearch-forecast-results*` | Matches the default result index pattern. Update this pattern if you route results to a custom index, such as `opensearch-forecast-result-abc*`. |
 | Optional term filter on `forecaster_id` | Use this filter to target a specific forecaster and avoid matching unrelated forecasts. |
-| Monitor every 1 min, query window 15 min | Evaluates forecasts every minute to detect anomalies quickly. The 15-minute lookback increases resilience to timing delays. Combined with a 15-minute alert throttle, this avoids duplicate notifications for the same event. |
+| Monitor every 1 min, query window 15 min | Evaluates forecasts every minute to detect anomalies quickly. The 15-minute look-back window increases resilience to timing delays. Combined with a 15-minute alert throttle, this avoids duplicate notifications for the same event. |
 | Mustache block prints all entity dimensions | Displays both single-dimension (`host=server_3`) and multi-dimension (`host=server_3`, `service=auth`) entity values. You can also include a link to a pre-filtered dashboard for faster triage. |
 | Threshold | Use the OpenSearch Dashboards visual editor to analyze recent forecast values and determine an appropriate threshold that reliably indicates anomalies. |
 

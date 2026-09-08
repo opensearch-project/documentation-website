@@ -54,7 +54,7 @@ Option | Required | Type | Description
 `aws_cloud_map_namespace_name` | Conditional | String | The AWS Cloud Map namespace. Required if `discovery_mode` is set to `aws_cloud_map`.
 `aws_cloud_map_service_name` | Conditional | String | The AWS Cloud Map service name. Required if `discovery_mode` is set to `aws_cloud_map`.
 `aws_cloud_map_query_parameters` | No | Map | The key‑value filters applied to AWS Cloud Map instance attributes.
-`buffer_size` | No | Integer | The maximum number of unchecked records the buffer can hold, including written and in-flight records that haven't been checkpointed. Default is `512`.
+`buffer_size` | No | Integer | The maximum number of unchecked records the buffer can hold, including written and in-flight records that haven't been saved to a checkpoint. Default is `512`.
 `batch_size` | No | Integer | The maximum number of records returned in a single read operation. Default is `48`.
 `aws_region` | Conditional | String | The AWS Region used with AWS Certificate Manager (ACM), Amazon Simple Storage Service (Amazon S3), or AWS Cloud Map. Required if:<br> - `use_acm_certificate_for_ssl: true`. <br> - `ssl_certificate_file` or `ssl_key_file` is an S3 path. <br> - `discovery_mode` is set to `aws_cloud_map`.
 `drain_timeout` | No | Duration | The amount of time allowed for Peer Forwarder to complete processing before shutdown. Default is `10s`.

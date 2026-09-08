@@ -5,6 +5,7 @@ nav_order: 1
 has_children: false
 nav_exclude: true
 permalink: /search.html
+sitemap: false
 ---
 
 {% include banner.html %}

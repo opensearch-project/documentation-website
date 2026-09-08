@@ -16,6 +16,6 @@ flows:
 
 # AI search workflows tutorials
 
-The following tutorials show you how to build AI search workflows.
+Learn how to create AI-powered search workflows that combine embedding models, vector indexes, and search pipelines into end-to-end search solutions.
 
 {% include cards.html cards=page.flows %}

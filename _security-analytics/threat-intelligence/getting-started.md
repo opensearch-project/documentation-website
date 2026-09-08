@@ -5,7 +5,7 @@ parent: Threat intelligence
 nav_order: 41
 ---
 
-# Getting started
+# Getting started with threat intelligence
 
 To get started with threat intelligence, you'll need to set up your threat intelligence sources and set up monitors to scan your log sources. The following tutorial shows you how to get started using OpenSearch Dashboards. Alternatively, you can use the [API]({{site.url}}{{site.baseurl}}/security-analytics/threat-intelligence/api/threat-intel-api/). 
 
@@ -46,7 +46,9 @@ Local files uploaded as the threat intelligence source must use the following sp
 - Be less than 500 kB.
 
 
+<!-- vale off -->
 ### S3_SOURCE connection information
+<!-- vale on -->
 
 When using the `S3_SOURCE` as a remote store, the following connection information must be provided:
 
@@ -59,7 +61,9 @@ You can also set the **Download schedule**, which determines to where OpenSearch
 
 Alternatively, you can check the **Download on demand** option, which prevents new data from the bucket from being automatically downloaded.
 
+<!-- vale off -->
 #### Add AWS OpenSearch Service ARN
+<!-- vale on -->
 
 If you're using the AWS OpenSearch Service, create a new ARN role with a custom trust policy. For instructions on how to create the role, see [Creating a role for an AWS service](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-service.html#roles-creatingrole-service-console).
 

@@ -12,7 +12,7 @@ The following tips help you efficiently generate synthetic data and monitor perf
 
 ### Visualizing generation
 
-The generated URL opens a [Dask dashboard](https://docs.dask.org/en/latest/dashboard.html) that visualizes the data generation process. You can monitor CPU and memory usage for each worker and view a CPU flamegraph of the generation workflow. This helps track resource usage and optimize performance, especially when using a [custom Python module]({{site.url}}{{site.baseurl}}/benchmark/features/synthetic-data-generation/custom-logic-sdg/).
+The generated URL opens a [Dask dashboard](https://docs.dask.org/en/latest/dashboard.html) that visualizes the data generation process. You can monitor CPU and memory usage for each worker and view a CPU flame graph of the generation workflow. This helps track resource usage and optimize performance, especially when using a [custom Python module]({{site.url}}{{site.baseurl}}/benchmark/features/synthetic-data-generation/custom-logic-sdg/).
 
 ### Use default settings
 

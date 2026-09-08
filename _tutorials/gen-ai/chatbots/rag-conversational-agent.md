@@ -9,7 +9,6 @@ has_toc: false
 redirect_from:
   - /ml-commons-plugin/tutorials/rag-conversational-agent/
   - /vector-search/tutorials/chatbots/rag-conversational-agent/
-  - /tutorials/gen-ai/chatbots/rag-conversational-agent/
 ---
 
 # RAG chatbot with a conversational flow agent
@@ -41,7 +40,7 @@ PUT _cluster/settings
 
 ## Step 1: Prepare the knowledge base
 
-Use the following steps to prepare the knowledge base that will supplement the LLM's knowledge.
+Use the following steps to prepare the knowledge base that will supplement the LLM knowledge.
 
 ### Step 1.1: Register a text embedding model
 
@@ -174,35 +173,28 @@ Create a connector for the Claude model:
 ```json
 POST /_plugins/_ml/connectors/_create
 {
-  "name": "BedRock Claude instant-v1 Connector ",
+  "name": "Bedrock Claude Sonnet 5",
   "description": "The connector to BedRock service for claude model",
   "version": 1,
   "protocol": "aws_sigv4",
   "parameters": {
     "region": "us-east-1",
     "service_name": "bedrock",
-    "anthropic_version": "bedrock-2023-05-31",
-    "max_tokens_to_sample": 8000,
-    "temperature": 0.0001,
-    "response_filter": "$.completion"
+    "model": "us.anthropic.claude-sonnet-5",
+    "response_filter": "$.output.message.content[0].text"
   },
   "credential": {
     "access_key": "your_aws_access_key",
     "secret_key": "your_aws_secret_key",
     "session_token": "your_aws_session_token"
   },
-  "actions": [
-    {
-      "action_type": "predict",
-      "method": "POST",
-      "url": "https://bedrock-runtime.us-east-1.amazonaws.com/model/anthropic.claude-instant-v1/invoke",
-      "headers": {
-        "content-type": "application/json",
-        "x-amz-content-sha256": "required"
-      },
-      "request_body": "{\"prompt\":\"${parameters.prompt}\", \"max_tokens_to_sample\":${parameters.max_tokens_to_sample}, \"temperature\":${parameters.temperature},  \"anthropic_version\":\"${parameters.anthropic_version}\" }"
-    }
-  ]
+  "actions": [{
+    "action_type": "predict",
+    "method": "POST",
+    "url": "https://bedrock-runtime.${parameters.region}.amazonaws.com/model/${parameters.model}/converse",
+    "headers": { "content-type": "application/json" },
+    "request_body": "{\"messages\": [${parameters._chat_history:-}{\"role\":\"user\",\"content\":[{\"text\":\"${parameters.prompt:-}\"}]}${parameters._interactions:-}]${parameters.tool_configs:-}}"
+  }]
 }
 ```
 {% include copy-curl.html %}

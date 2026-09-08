@@ -6,7 +6,11 @@ grand_parent: PPL
 nav_order: 42
 ---
 
-# show datasources
+<!-- vale off -->
+
+# show datasources command
+
+<!-- vale on -->
 
 The `show datasources` command queries data sources configured in the PPL engine. The `show datasources` command can only be used as the first command in a PPL query.
 
@@ -35,7 +39,11 @@ show datasources
   
 The query returns the following results:
 
+<!-- vale off -->
+
 | DATASOURCE_NAME | CONNECTOR_TYPE |
 | --- | --- |
 | my_prometheus | PROMETHEUS |
+
+<!-- vale on -->
 

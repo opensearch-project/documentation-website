@@ -36,16 +36,16 @@ The following example shows a configuration of a cluster metrics monitor.
 
 Trigger conditions use responses from the following API endpoints. Most APIs that can be used to monitor cluster status support path parameters (for example, comma-separated lists of index names). They do not support query parameters.
 
-- [_cluster/health]({{site.url}}{{site.baseurl}}/api-reference/cluster-health/)
-- [_cluster/stats]({{site.url}}{{site.baseurl}}/api-reference/cluster-stats/)
-- [_cluster/settings]({{site.url}}{{site.baseurl}}/api-reference/cluster-settings/)
-- [_nodes/stats]({{site.url}}{{site.baseurl}}/opensearch/popular-api/#get-node-statistics)
-- [_cat/indices]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-indices/)
-- [_cat/pending_tasks]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-pending-tasks/)
-- [_cat/recovery]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-recovery/)
-- [_cat/shards]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-shards/)
-- [_cat/snapshots]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-snapshots/)
-- [_cat/tasks]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-tasks/)
+- [`_cluster/health`]({{site.url}}{{site.baseurl}}/api-reference/cluster-health/)
+- [`_cluster/stats`]({{site.url}}{{site.baseurl}}/api-reference/cluster-stats/)
+- [`_cluster/settings`]({{site.url}}{{site.baseurl}}/api-reference/cluster-settings/)
+- [`_nodes/stats`]({{site.url}}{{site.baseurl}}/opensearch/popular-api/#get-node-statistics)
+- [`_cat/indices`]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-indices/)
+- [`_cat/pending_tasks`]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-pending-tasks/)
+- [`_cat/recovery`]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-recovery/)
+- [`_cat/shards`]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-shards/)
+- [`_cat/snapshots`]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-snapshots/)
+- [`_cat/tasks`]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-tasks/)
 
 ## Restrict API fields
 

@@ -7,7 +7,7 @@ redirect_from:
   - /query-dsl/aggregations/bucket/histogram/
 ---
 
-# Histogram aggregations
+# Histogram aggregation
 
 The `histogram` aggregation divides a numeric field's value range into fixed-width intervals and counts documents in each interval. Each bucket's `key` represents the lower bound of that interval, computed as `Math.floor((value - offset) / interval) * interval + offset`.
 

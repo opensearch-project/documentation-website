@@ -40,7 +40,7 @@ The **Dev Tools** console lets you run OpenSearch API queries directly using [Qu
 
 ![The Dev Tools console showing a query and response]({{site.url}}{{site.baseurl}}/images/dev-tools/dev-tools-response.png){: width="700" }
 
-For a hands-on tutorial, see [Run queries in the Dev Tools console]({{site.url}}{{site.baseurl}}/dashboards/getting-started/explore-dev-tools/). For the full reference, see [Running queries in the Dev Tools console]({{site.url}}{{site.baseurl}}/dashboards/discover/run-queries/).
+For a hands-on tutorial, see [Run queries in the Dev Tools console]({{site.url}}{{site.baseurl}}/dashboards/getting-started/explore-dev-tools/). For the full reference, see [Dev Tools]({{site.url}}{{site.baseurl}}/dashboards/dev-tools/index/).
 
 ## Query languages
 

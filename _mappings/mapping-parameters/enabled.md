@@ -9,7 +9,7 @@ has_children: false
 has_toc: false
 ---
 
-# Enabled
+# Enabled mapping parameter
 
 OpenSearch tries to index all fields you provide, but sometimes you may want to store a field without making it searchable. For example, if you use OpenSearch as a web session store, you might index the session ID and last update time but store the session data itself without indexing it, since you don't need to search or aggregate this data.
 

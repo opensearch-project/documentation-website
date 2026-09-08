@@ -5,7 +5,7 @@ parent: Supported log types
 nav_order: 45
 ---
 
-# Google Workspace
+# Google Workspace log type
 
 The `gworkspace` log type monitors Google Workspace log entries, such as the following:
 

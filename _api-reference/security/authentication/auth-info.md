@@ -148,7 +148,7 @@ The response body is a JSON object with the following fields.
 | `backend_roles` | Array of strings | The backend roles associated with the user, typically obtained from an external authentication system. |
 | `roles` | Array of strings | The OpenSearch Security roles assigned to the user, determining their permissions. |
 | `tenants` | Object | The tenants the user has access to, with `true` indicating read-write access and `false` indicating read-only access. |
-| `principal` |  String | The user's authentication principal, if available. |
+| `principal` | String | The user's authentication principal, if available. |
 | `peer_certificates` | String | The number of peer certificates related to the user's authentication. |
 | `sso_logout_url` | String | The logout URL for single sign-on (SSO) authentication, if applicable. |
 | `remote_address` | String | The IP address and port of the client making the request. |
@@ -161,4 +161,4 @@ When requesting a verbose response, the following additional fields are included
 | `size_of_user` | String | The size of the user object in memory, in bytes. |
 | `size_of_backendroles` | String | The size of the user's backend roles, in bytes. |
 | `size_of_custom_attributes` | String | The size of the user's custom attributes, in bytes. |
-| `user_requested_tenant` |  String | The name of the tenant the user has requested to switch to, if any. |
+| `user_requested_tenant` | String | The name of the tenant the user has requested to switch to, if any. |

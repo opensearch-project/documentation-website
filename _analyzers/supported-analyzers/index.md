@@ -10,7 +10,7 @@ redirect_from:
 
 # Analyzers
 
-The following sections list all analyzers that OpenSearch supports.
+Analyzers transform text into tokens during indexing and search. OpenSearch provides built-in analyzers for common use cases and supports custom analyzers that combine character filters, tokenizers, and token filters.
 
 ## Built-in analyzers
 
@@ -20,7 +20,7 @@ Analyzer | Analysis performed | Analyzer output
 :--- | :--- | :---
 [**Standard**]({{site.url}}{{site.baseurl}}/analyzers/supported-analyzers/standard/) (default) | - Parses strings into tokens at word boundaries <br> - Removes most punctuation <br> - Converts tokens to lowercase | [`it’s`, `fun`, `to`, `contribute`, `a`,`brand`, `new`, `pr`, `or`, `2`, `to`, `opensearch`]
 [**Simple**]({{site.url}}{{site.baseurl}}/analyzers/supported-analyzers/simple/) | - Parses strings into tokens on any non-letter character <br> - Removes non-letter characters <br> - Converts tokens to lowercase  | [`it`, `s`, `fun`, `to`, `contribute`, `a`,`brand`, `new`, `pr`, `or`, `to`, `opensearch`]
-[**Whitespace**]({{site.url}}{{site.baseurl}}/analyzers/supported-analyzers/whitespace/) | - Parses strings into tokens on white space | [`It’s`, `fun`, `to`, `contribute`, `a`,`brand-new`, `PR`, `or`, `2`, `to`, `OpenSearch!`]
+[**White space**]({{site.url}}{{site.baseurl}}/analyzers/supported-analyzers/whitespace/) | - Parses strings into tokens on white space | [`It’s`, `fun`, `to`, `contribute`, `a`,`brand-new`, `PR`, `or`, `2`, `to`, `OpenSearch!`]
 [**Stop**]({{site.url}}{{site.baseurl}}/analyzers/supported-analyzers/stop/) | - Parses strings into tokens on any non-letter character <br> - Removes non-letter characters <br> - Removes stop words <br> - Converts tokens to lowercase | [`s`, `fun`, `contribute`, `brand`, `new`, `pr`, `opensearch`]
 [**Keyword**]({{site.url}}{{site.baseurl}}/analyzers/supported-analyzers/keyword/) (no-op) | - Outputs the entire string unchanged | [`It’s fun to contribute a brand-new PR or 2 to OpenSearch!`]
 [**Pattern**]({{site.url}}{{site.baseurl}}/analyzers/supported-analyzers/pattern/)| - Parses strings into tokens using regular expressions <br> - Supports converting strings to lowercase <br> - Supports removing stop words | [`it`, `s`, `fun`, `to`, `contribute`, `a`,`brand`, `new`, `pr`, `or`, `2`, `to`, `opensearch`]

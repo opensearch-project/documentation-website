@@ -12,7 +12,7 @@ redirect_from:
 
 # Install and upgrade OpenSearch
 
-OpenSearch and OpenSearch Dashboards are available on any compatible host that supports Docker (such as Linux, MacOS, or Windows). Additionally, you can install both products on various Linux distributions and on Windows. 
+OpenSearch and OpenSearch Dashboards are available on any compatible host that supports Docker (such as Linux, macOS, or Windows). Additionally, you can install both products on various Linux distributions and on Windows. 
 
 [Download OpenSearch](https://opensearch.org/downloads.html) for your preferred platform and then choose one of the following installation guides.
 

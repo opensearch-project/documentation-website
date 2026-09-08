@@ -9,7 +9,7 @@ has_children: false
 has_toc: false
 ---
 
-# Search analyzer
+# Search analyzer mapping parameter
 
 The `search_analyzer` mapping parameter specifies the analyzer to be used at search time for a [`text`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/text/) field. This allows the analyzer used for indexing to differ from the one used for search, offering greater control over how search terms are interpreted and matched.
 

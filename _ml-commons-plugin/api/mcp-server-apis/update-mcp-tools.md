@@ -8,6 +8,7 @@ nav_order: 20
 
 # Update MCP Tools API
 **Introduced 3.0**
+{: .label .label-purple }
 
 Use this API to update one or more Model Context Protocol (MCP)-based tools. For more information about supported tools, see [Tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/).
 
@@ -81,7 +82,9 @@ POST /_plugins/_ml/mcp/tools/_update
 ```
 {% include copy-curl.html %}
 
+<!-- vale off -->
 ### PPLTool
+<!-- vale on -->
 
 ```json
 POST /_plugins/_ml/mcp/tools/_update

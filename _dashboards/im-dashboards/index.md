@@ -18,7 +18,7 @@ An example of the interface is shown in the following image.
 
 ![Index Management user interface]({{site.url}}{{site.baseurl}}/images/dashboards/index-management-UI.png)
 
-## Get started with Index management using Dashboards
+## Get started with index management using Dashboards
 
 **Step 1: Open Index Management** 
 

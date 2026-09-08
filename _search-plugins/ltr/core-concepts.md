@@ -11,7 +11,7 @@ has_children: false
 
 This guide is intended for OpenSearch developers and data scientist who are interested in adding machine learning (ML) ranking capabilities to their OpenSearch system.
 
-## What is LTR?
+## What is LTR
 
 Learning to Rank (LTR) applies ML to search relevance ranking. This differs from other classic ML problems, such as the following: 
 
@@ -118,7 +118,7 @@ The following are key considerations for training a ranking function:
 
 - **Model selection:** The choice of model can depend not only on performance but also on your level of experience and familiarity with the different approaches.
 
-## Testing: Is the model any good?  
+## Testing: Is the model any good
 
 When testing the quality of the ranking model, consider the following: 
 

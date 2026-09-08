@@ -9,7 +9,7 @@ has_children: false
 has_toc: false
 ---
 
-# Norms
+# Norms mapping parameter
 
 The `norms` mapping parameter controls whether normalization factors are computed and stored for a field. These factors are used during query scoring to adjust the relevance of the search results. However, storing `norms` increases the index size and consumes additional memory.
 

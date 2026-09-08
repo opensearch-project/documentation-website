@@ -43,7 +43,7 @@ PUT _cluster/settings
 }
 ```
 
-## Check validation status and message via the Explain API
+## Check validation status and message using the Explain API
 
 Pass the `validate_action=true` path parameter in the Explain API URI to see the validation status and message. 
 

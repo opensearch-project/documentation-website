@@ -187,7 +187,7 @@ GET /my-sparse-ann-index/_search
 |:--- |:--- |
 | `k` | The number of top nearest results to return |
 | `top_n` | The number of query tokens with the highest weights to retain |
-| `heap_factor` | Controls recall vs. performance trade-off |
+| `heap_factor` | Controls recall compared to performance trade-off |
 | `filter` | Optional Boolean filter for pre-filtering or post-filtering |
 
 ## Filtering support

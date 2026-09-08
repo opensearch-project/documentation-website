@@ -31,7 +31,7 @@ chatbots:
 
 # Tutorials: Building chatbots
 
-The following machine learning (ML) tutorials show you how to implement chatbots using agents.
+Learn how to build conversational chatbots that use OpenSearch agents to retrieve relevant documents and generate context-aware responses.
 
 {% include cards.html cards=page.chatbots %}  
   

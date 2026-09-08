@@ -205,7 +205,9 @@ def lambda_handler(event, context):
 ```
 {% include copy.html %}
 
+<!-- vale off -->
 ### Example Lambda function
+<!-- vale on -->
 
 The following Lambda function transforms all string fields to uppercase:
 

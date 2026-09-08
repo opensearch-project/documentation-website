@@ -7,7 +7,7 @@ redirect_from:
   - /query-dsl/aggregations/bucket/diversified-sampler/
 ---
 
-# Diversified sampler aggregations
+# Diversified sampler aggregation
 
 The `diversified_sampler` aggregation is a filtering aggregation that limits subaggregation processing to a sample of top-scoring documents while ensuring the sample contains diverse content. It extends the [`sampler` aggregation]({{site.url}}{{site.baseurl}}/aggregations/bucket/sampler/) by deduplicating documents that share a common field value, preventing any single category from dominating the sample.
 
@@ -41,7 +41,7 @@ OpenSearch may ignore the `execution_hint` if the chosen strategy is not applica
 
 ## Example: Deduplicating by field
 
-The following example samples orders from the ecommerce dataset, limiting to 50 documents per `customer_gender` value, and then runs a `terms` subaggregation on the sample to see the category distribution:
+The following example samples orders from the e-commerce dataset, limiting to 50 documents per `customer_gender` value, and then runs a `terms` subaggregation on the sample to see the category distribution:
 
 ```json
 GET /opensearch_dashboards_sample_data_ecommerce/_search

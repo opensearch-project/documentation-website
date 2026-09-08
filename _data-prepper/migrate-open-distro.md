@@ -14,7 +14,7 @@ Existing users can migrate from the Open Distro Data Prepper to OpenSearch Data 
 
 The `elasticsearch` sink has changed to `opensearch`. Therefore, change your existing pipeline to use the `opensearch` plugin instead of `elasticsearch`.
 
-While the Data Prepper plugin is titled `opensearch`, it remains compatible with Open Distro and ElasticSearch 7.x.
+While the Data Prepper plugin is titled `opensearch`, it remains compatible with Open Distro and Elasticsearch 7.x.
 {: .note}
 
 ## Update Docker image

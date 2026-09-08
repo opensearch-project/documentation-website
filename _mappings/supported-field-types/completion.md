@@ -376,7 +376,7 @@ GET chess_store/_search
 ```
 {% include copy-curl.html %}
 
-The response matches the string "abcde":
+The response matches the string `"abcde"`:
 
 ```json
 {

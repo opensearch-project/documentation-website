@@ -66,8 +66,8 @@ This section contains global information for the current benchmark environment. 
 | Parameter | Type | Description |
 | :---- | :---- | :---- |
 | `env.name` | String | The name of the benchmark environment used as metadata in metrics documents when an OpenSearch metrics store is configured. Only alphanumeric characters are allowed. Default is `local`. |
-| `available.cores` | Integer | Determines the number of available CPU cores. OpenSearch Benchmark aims to create one asyncio event loop per core and distributes it to clients evenly across event loops. Defaults to the number of logical CPU cores for your cluster. |
-| `async.debug` | Boolean | Enables debug mode on OpenSearch Benchmark's asyncio event loop. Default is `false`. |
+| `available.cores` | Integer | Determines the number of available CPU cores. OpenSearch Benchmark aims to create one `asyncio` event loop per core and distributes it to clients evenly across event loops. Defaults to the number of logical CPU cores for your cluster. |
+| `async.debug` | Boolean | Enables debug mode on OpenSearch Benchmark's `asyncio` event loop. Default is `false`. |
 | `passenv` | String | A comma-separated list of environment variable names that should be passed to OpenSearch for processing. |
 
 <!-- vale off -->
@@ -126,7 +126,7 @@ When `datastore.type` is set to `opensearch`, the following reporting settings c
 | Parameter | Type | Description |
 | :---- | :---- | :---- |
 | `datastore.host` | IP address | The hostname of the metrics store, for example, `124.340.200.22`. |
-| datastore.port| Port | The port number of the metrics store, for example, `9200`. |
+| `datastore.port`| Port | The port number of the metrics store, for example, `9200`. |
 | `datastore.secure` | Boolean | If set to `false`, OpenSearch assumes an HTTP connection. If set to true, it assumes an HTTPS connection. |
 | `datastore.ssl.verification_mode` | String | When set to the default `full`, the metrics store’s SSL certificate is checked. To disable certificate verification, set this value to `none`. |
 | `datastore.ssl.certificate_authorities` | String | Determines the local file system path to the certificate authority’s signing certificate.
