@@ -26,6 +26,7 @@ Apache HttpClient 5 Transport
 Apache Hive
 Apache Kafka
 Apache Spark
+Application Default Credentials
 arXiv
 Aryn
 Auditbeat
@@ -77,6 +78,7 @@ Fluent Bit
 Fluentd
 GeoJSON
 GitHub
+Google Cloud
 Google Normalized Distance
 Google Workspace
 Gradle
@@ -138,7 +140,7 @@ Mustache
 Nagle
 Nagios
 NVMe
-OAuth2
+OAuth
 Okta
 Ollama
 Oniguruma

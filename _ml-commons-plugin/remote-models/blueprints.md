@@ -2,7 +2,7 @@
 layout: default
 title: Connector blueprints
 has_children: false
-nav_order: 20
+nav_order: 10
 parent: Connectors
 grand_parent: Connecting to externally hosted models
 great_grand_parent: Integrating ML models
@@ -50,11 +50,13 @@ For example, the following blueprint is a specification for an Amazon SageMaker 
 
 ## OpenSearch-provided connector blueprints
 
-OpenSearch provides connector blueprints for several machine learning (ML) platforms and models. For a list of all connector blueprints provided by OpenSearch, see [Supported connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/supported-connectors/).
+OpenSearch provides connector blueprints for many machine learning (ML) platforms and models. For a list of every platform and model that has a provided blueprint, along with the authentication protocol each one uses, see [OpenSearch-provided connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/supported-connectors/).
 
 As an ML developer, you can build connector blueprints for other platforms. Using those blueprints, administrators and data scientists can create connectors for models hosted on those platforms. 
 
-## Configuration parameters
+## Request body fields
+
+The following table lists the fields in a create connector request.
 
 | Field                                            | Data type | Is required | Description                                                                                                                                                                                                                                                                                                                                                                          |
 |:-------------------------------------------------|:---|:------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -62,9 +64,9 @@ As an ML developer, you can build connector blueprints for other platforms. Usin
 | `connector_id`                                   | String | No          | A unique identifier for the connector. If omitted, OpenSearch generates one automatically. |
 | `description`                                    | String | Yes         | A description of the connector.                                                                                                                                                                                                                                                                                                                                                      |
 | `version`                                        | Integer | Yes         | The connector version.                                                                                                                                                                                                                                                                                                                                                        |
-| `protocol`                                       | String | Yes         | The protocol for the connection. For AWS services, such as Amazon SageMaker and Amazon Bedrock, use `aws_sigv4`. For all other services, use `http`.                                                                                                                                                                                                                                  |
+| `protocol`                                       | String | Yes         | The protocol for the connection, which determines how OpenSearch authenticates to the platform. For AWS services, such as Amazon SageMaker and Amazon Bedrock, use `aws_sigv4`. For Google Cloud Vertex AI, use `google_cloud`. For all other platforms, use `http`. For more information, see [Connector authentication]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connector-authentication/).                                                                                                                                                                                                                                  |
 | `parameters`                                     | JSON object | Yes         | The default connector parameters, including `endpoint`, `model`, and `skip_validating_missing_parameters`. Any parameters indicated in this field can be overridden by parameters specified in a predict request.                                                                                                                                                                     |
-| `credential`                                     | JSON object | Yes         | Defines any credential variables required for connecting to your chosen endpoint. ML Commons uses **AES/GCM/NoPadding** symmetric encryption to encrypt your credentials. When the cluster connection is initiated, OpenSearch creates a random 32-byte encryption key that persists in OpenSearch's system index. Therefore, you do not need to manually set the encryption key. |
+| `credential`                                     | JSON object | Yes         | Defines any credential variables required for connecting to your chosen endpoint. The required fields depend on the connector's `protocol`. For more information, see [Connector authentication]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connector-authentication/). ML Commons uses **AES/GCM/NoPadding** symmetric encryption to encrypt your credentials. When the cluster connection is initiated, OpenSearch creates a random 32-byte encryption key that persists in OpenSearch's system index. Therefore, you do not need to manually set the encryption key. |
 | `actions`                                        | JSON array  | Yes         | Defines the actions that can run within the connector. If you're an administrator creating a connection, add the [blueprint]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/) for your desired connection.                                                                                                                                                      |
 | `backend_roles`                                  | JSON array  | Yes         | A list of OpenSearch backend roles. For more information about setting up backend roles, see [Assigning backend roles to users]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control#assigning-backend-roles-to-users).                                                                                                                                               |
 | `access_mode`                                    | String | Yes         | Sets the access mode for the model, either `public`, `restricted`, or `private`. Default is `private`. For more information about `access_mode`, see [Model groups]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control#model-groups).                                                                                                                               |
@@ -74,11 +76,11 @@ As an ML developer, you can build connector blueprints for other platforms. Usin
 | `provisioned_by`                                     | String | No          | An optional attribution tag identifying the plugin or client that provisioned the connector (for example, `flow-framework`). Included in ML statistics metrics. Set at creation time only; ignored by the Update Connector API.                                                                                                                                                            |
 
 
-The `actions` parameter supports the following options.
+The `actions` object supports the following fields.
 
 | Field | Data type | Description |
 |:---|:---|:---|
-| `action_type` | String | Required. Specifies the ML Commons API operation to use upon connection. As of OpenSearch 2.9, only `predict` is supported. |
+| `action_type` | String | Required. Specifies the ML Commons API operation to use upon connection. Valid values are `predict`, `batch_predict`, `batch_predict_status`, `cancel_batch_predict`, and `execute`. |
 | `method`  | String | Required. Defines the HTTP method for the API call. Supports `POST` and `GET`. |
 | `url` | String      | Required. Specifies the connection endpoint at which the action occurs. This must match the regex expression for the connection used when [adding trusted endpoints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index#adding-trusted-endpoints).|
 | `request_body` | String | Required. Sets the parameters contained in the request body of the action. The parameters must include `\"inputText\`, which specifies how users of the connector should construct the request payload for the `action_type`.  |
@@ -86,7 +88,7 @@ The `actions` parameter supports the following options.
 | `post_process_function` | String   | Optional. A built-in or custom Painless script used to post-process the model output data. OpenSearch provides the following built-in post-process functions that you can call directly:<br> - `connector.post_process.cohere.embedding` for [Cohere text embedding models](https://docs.cohere.com/reference/embed)<br> - `connector.post_process.openai.embedding` for [OpenAI text embedding models](https://platform.openai.com/docs/api-reference/embeddings) <br> - `connector.post_process.default.embedding`, which you can use to post-process documents in the model response so that they are in the format that neural search expects (OpenSearch 2.11 or later). For more information, see [Built-in functions](#built-in-pre--and-post-processing-functions). |
 | `headers` | JSON object | Specifies the headers used in the request or response body. Default is `ContentType: application/json`. If your third-party ML tool requires access control, define the required `credential` parameters in the `headers` parameter. |
 
-The `client_config` parameter supports the following options.
+The `client_config` object supports the following fields.
 
 | Field  | Data type | Description |
 |:---|:---|:---|
@@ -98,18 +100,8 @@ The `client_config` parameter supports the following options.
 | `retry_backoff_millis` | Integer   | The base backoff time in milliseconds for retry policy. The suspend time during two retries is determined by this parameter and `retry_backoff_policy`.  Default is `200`. |
 | `retry_timeout_seconds` | Integer   | The timeout value, in seconds, for the retry. If the retry can not succeed within the specified amount of time, the connector will stop retrying and throw an exception. Default is `30`. |
 | `skip_ssl_verification` | Boolean   | If set to `true`, disables SSL certificate verification for the connector, allowing connections to endpoints with self-signed or otherwise invalid certificates. Use only in development or testing environments. If set to `false`, SSL certificate verification remains enabled (recommended for production). Default is `false`. |
-| `mutual_tls_enabled` | Boolean | If set to `true`, the connector presents a client certificate to the endpoint using mutual TLS (mTLS). Provide the certificate material in the connector's `credential` object. Supported only for connectors that use the `http` protocol. Cannot be enabled together with `skip_ssl_verification`. Default is `false`. For more information, see [Client certificate authentication]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connector-authentication/#client-certificate-authentication). |
+| `mutual_tls_enabled` | Boolean | If set to `true`, the connector presents a client certificate to the endpoint using mutual TLS (mTLS). Provide the certificate material in the connector's `credential` object. Supported only for connectors that use the `http` protocol. Cannot be enabled together with `skip_ssl_verification`. Default is `false`. For more information, see [Client certificate authentication]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/http-authentication/#client-certificate-authentication). |
 | `keystore_type` | String | The format of the client certificate material supplied in the `credential` object. Valid values are `PEM` and `PKCS12` (not case sensitive). Applies only when `mutual_tls_enabled` is `true`. Default is `PEM`. |
-
-When `mutual_tls_enabled` is set to `true`, the `credential` parameter supports the following certificate fields. Provide the certificate content itself, either as PEM text with newlines escaped as `\n` or as Base64-encoded content; file paths are not supported. These fields are encrypted at rest in the same way as any other credential.
-
-| Field  | Data type | Description |
-|:---|:---|:---|
-| `client_cert_pem` | String | The client certificate in PEM format. Required when `keystore_type` is `PEM`. To present a certificate issued by an intermediate certificate authority (CA), include the full chain, ordered leaf certificate first. |
-| `client_key_pem` | String | The client private key in PEM format. Required when `keystore_type` is `PEM`. Must be a non-encrypted PKCS #8 key (`-----BEGIN PRIVATE KEY-----`); PKCS #1 keys are not supported. |
-| `client_cert_pkcs12` | String | The Base64-encoded PKCS12 keystore containing the client certificate and private key. Required when `keystore_type` is `PKCS12`. |
-| `keystore_password` | String | The password protecting the PKCS12 keystore. Optional; omit it for a keystore that has no password. |
-| `ca_cert_pem` | String | One or more CA certificates, in PEM format, used to validate the endpoint's server certificate. Accepts a bundle of intermediate and root certificates. Optional; if omitted, the Java default truststore is used. Provide this field when the endpoint uses a private CA. |
 
 ## Built-in pre- and post-processing functions
 

@@ -2,7 +2,7 @@
 layout: default
 title: Dynamic header substitution
 has_children: false
-nav_order: 40
+nav_order: 70
 parent: Connectors
 grand_parent: Connecting to externally hosted models
 great_grand_parent: Integrating ML models
@@ -104,5 +104,5 @@ At prediction time, substituted header values are validated before the request i
 
 ## Next steps
 
-- For descriptions of all connector parameters, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/).
-- For information about supplying authentication credentials to a connector, see [Connector authentication]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connector-authentication/).
+- For descriptions of all connector fields, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/).
+- For information about supplying authentication credentials to a connector, see the authentication method for your platform's protocol in [Connector authentication]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connector-authentication/).

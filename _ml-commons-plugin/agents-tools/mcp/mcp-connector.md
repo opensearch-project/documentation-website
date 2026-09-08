@@ -95,7 +95,7 @@ POST /_plugins/_ml/connectors/_create
 ```
 {% include copy-curl.html %}
 
-The following table describes the connector parameters. For more information about standard connector parameters, see [Configuration parameters]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/#configuration-parameters).
+The following table describes the connector parameters. For more information about standard connector parameters, see [Request body fields]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/#request-body-fields).
 
 | Parameter | Data type | Required | Description |
 |:----------|:---------|:---|:------------|
@@ -117,7 +117,7 @@ The response contains the connector ID:
 
 ## Step 2: Register a model
 
-Register any externally hosted large language model (LLM) using a connector. For a list of supported models, see [Supported connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/supported-connectors/).
+Register any externally hosted large language model (LLM) using a connector. For a list of supported models, see [OpenSearch-provided connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/supported-connectors/).
 
 For example, to register an OpenAI chat model, send the following request:
 
