@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Access control lists for saved objects
-parent: Dashboards management
+parent: Saved objects
+grand_parent: Dashboards management
 nav_order: 20
 ---
 

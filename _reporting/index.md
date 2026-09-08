@@ -14,4 +14,5 @@ redirect_from:
 Learn more about the following reporting features in OpenSearch:
 
 - [Reporting using OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/reporting/report-dashboard-index/) 
+- [Reporting API]({{site.url}}{{site.baseurl}}/reporting/api/)
 - [Reporting using the CLI]({{site.url}}{{site.baseurl}}/reporting/rep-cli-index/)

@@ -180,7 +180,7 @@ To visualize a data field, follow these steps:
 
 ## Exporting data
 
-You can export data from the **Results** table to a CSV file or copy a JSON object representing a single document.
+You can export data from the **Results** table to a CSV file or copy a JSON object representing a single document. To export the same data on a schedule or from a script instead of from the interface, save your query as a saved search and generate a CSV report from it. For more information, see [Reporting API]({{site.url}}{{site.baseurl}}/reporting/api/).
 
 ### Downloading data to a CSV file
 
