@@ -90,7 +90,7 @@ POST /_plugins/_ml/connectors/_create
 
 ### Application Default Credentials mode
 
-On nodes hosted on Google Cloud, use Application Default Credentials (ADC) or Workload Identity instead of a service account key. Set `auth_mode` to `adc` in `parameters` and leave `credential` empty:
+On nodes hosted on Google Cloud, use Application Default Credentials (ADC) or Workload Identity instead of a service account key. Set `auth_mode` to `adc` in `parameters` and omit the `credential` object:
 
 ```json
 POST /_plugins/_ml/connectors/_create
@@ -106,7 +106,6 @@ POST /_plugins/_ml/connectors/_create
         "auth_mode": "adc",
         "scopes": "https://www.googleapis.com/auth/cloud-platform"
     },
-    "credential": {},
     "actions": [
         {
             "action_type": "predict",
@@ -122,7 +121,7 @@ POST /_plugins/_ml/connectors/_create
 ```
 {% include copy-curl.html %}
 
-Use ADC mode only on nodes hosted on Google Cloud. ADC resolves credentials from the node environment, which requires contacting the Google Cloud metadata server. The service account key and ADC modes are mutually exclusive: in ADC mode, omit `private_key` and `client_email`.
+Use ADC mode only on nodes hosted on Google Cloud. ADC resolves credentials from the node environment, which requires contacting the Google Cloud metadata server. The service account key and ADC modes are mutually exclusive: if you include a `credential` object in ADC mode, it must not contain `private_key` or `client_email`. OpenSearch rejects the connector otherwise.
 
 ## Request body fields
 
@@ -142,7 +141,7 @@ When `protocol` is set to `google_cloud`, the `parameters` object supports the f
 | `location` | String | Required | The Vertex AI region, for example, `us-central1`. |
 | `model` | String | Required | The Vertex AI model ID, for example, `gemini-2.5-flash`. |
 | `auth_mode` | String | Optional | Set to `adc` to use Application Default Credentials or Workload Identity. Omit in service account key mode. |
-| `scopes` | String | Optional | The OAuth 2.0 scopes to request. Default is `https://www.googleapis.com/auth/cloud-platform`. |
+| `scopes` | String | Optional | The OAuth 2.0 scope to request. Specify a single scope. Default is `https://www.googleapis.com/auth/cloud-platform`. |
 
 ## Next steps
 
