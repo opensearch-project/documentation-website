@@ -20,6 +20,7 @@ Parameter | Required/Optional | Data type | Description
 `lenient` | Optional | Boolean | Whether to ignore exceptions when loading the rule configurations. Default is `false`.
 `format` | Optional | String | Specifies the format used to determine how OpenSearch defines and interprets synonyms. Valid values are:<br>- `solr` <br>- [`wordnet`](https://wordnet.princeton.edu/). <br> Default is `solr`.
 `expand` | Optional | Boolean |  Whether to expand equivalent synonym rules. Default is `true`.<br><br>For example: <br>If `synonyms` are defined as `"quick, fast"` and `expand` is set to `true`, then the synonym rules are configured as follows:<br>- `quick => quick`<br>- `quick => fast`<br>- `fast => quick`<br>- `fast => fast`<br><br>If `expand` is set to `false`, the synonym rules are configured as follows:<br>- `quick => quick`<br>- `fast => quick`
+`synonym_analyzer` | Optional | String | The name of the analyzer that parses the synonym rules. Specify any analyzer available to the index: a built-in analyzer (such as `standard`, `simple`, `stop`, `whitespace`, or `keyword`), a language analyzer, an analyzer registered by a plugin, or a custom analyzer defined in the same index. If the named analyzer cannot be resolved, OpenSearch parses the rules using the analysis chain in which this filter is defined and returns no error. By default, the analysis chain is used.
 
 ## Example: Solr format
 
