@@ -322,7 +322,7 @@ plugins.security.audit.config.disabled_transport_categories:
 
 When both `disabled_categories` and the layer-specific settings are configured, they work in tandem---a category is disabled on a given layer if it appears in either setting. A deprecation warning is logged when both are configured, encouraging migration to `disabled_categories` only.
 
-The `disabled_categories` settings suppress only REST and transport categories. They do not affect `COMPLIANCE_*` categories, which are governed solely by the compliance settings (`compliance.enabled`, the watched indices/fields, and the compliance ignore-users settings).
+The `disabled_categories` settings suppress only REST and transport categories. They do not affect `COMPLIANCE_*` categories, which are governed solely by the compliance settings (`compliance.enabled`, the watched indexes/fields, and the compliance ignore-users settings).
 {: .note}
 
 #### Body logging exclusions
@@ -333,7 +333,7 @@ Body logging exclusions give operators granular control: suppress request bodies
 
 ##### How it works
 
-All expanded action-group patterns and raw exclusion patterns form a single combined wildcard matcher. For each audit layer, this matcher is tested against the corresponding identifier below. When a match is found, the request body field is omitted from the audit event---all other fields (user, IP address, indices, timestamp, etc.) are preserved.
+All expanded action-group patterns and raw exclusion patterns form a single combined wildcard matcher. For each audit layer, this matcher is tested against the corresponding identifier in the following list. When a match is found, the request body field is omitted from the audit event---all other fields (user, IP address, indexes, timestamp) are preserved.
 
 - **Transport action** --- The internal action name (for example, `indices:data/write/bulk[s][p]`). This is matched for transport-layer audit events.
 - **REST path** --- The HTTP request path (for example, `/_bulk`). This is matched for REST-layer audit events. REST paths always start with `/`.
