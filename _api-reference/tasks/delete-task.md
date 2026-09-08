@@ -18,8 +18,7 @@ The Delete Task API does not cancel or delete a running task. To stop a running 
 api: tasks.delete
 component: endpoints
 -->
-## Endpoint
-
+## Endpoints
 ```json
 DELETE /_tasks/{task_id}
 ```
@@ -31,11 +30,11 @@ component: path_parameters
 -->
 ## Path parameters
 
-The following table lists the available path parameter.
+The following table lists the available path parameters.
 
 | Parameter | Required | Data type | Description |
 | :--- | :--- | :--- | :--- |
-| `task_id` | **Required** | String | The task ID in the format `node_id:task_number`. |
+| `task_id` | **Required** | String | The ID of the stored completed task result to delete (`node_id:task_number`). |
 
 <!-- spec_insert_end -->
 
@@ -43,10 +42,27 @@ The following table lists the available path parameter.
 
 The following request deletes the stored result for task `JzrCxdtFTCO_RaINw8ckNA:54321`:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: DELETE /_tasks/JzrCxdtFTCO_RaINw8ckNA:54321
+-->
+{% capture step1_rest %}
 DELETE /_tasks/JzrCxdtFTCO_RaINw8ckNA:54321
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.tasks.delete(
+  task_id = "JzrCxdtFTCO_RaINw8ckNA:54321"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 
