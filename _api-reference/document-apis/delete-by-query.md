@@ -836,7 +836,7 @@ The `total` field represents the total number of operations that the delete by q
 
 ### Changing throttling for a running operation
 
-To change the throttling of a running delete by query operation, use the Rethrottle API with the task ID:
+To change the throttling of a running delete by query operation, use the Rethrottle Task API with the task ID:
 
 ```json
 POST _delete_by_query/{task_id}/_rethrottle?requests_per_second=100
