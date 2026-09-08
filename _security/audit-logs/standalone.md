@@ -2,7 +2,7 @@
 layout: default
 title: Standalone audit logging
 parent: Audit logs
-nav_order: 130
+nav_order: 133
 ---
 
 # Standalone audit logging
@@ -70,6 +70,9 @@ Category | Layer | Description
 `REQUEST_AUDIT` | REST | Captures all REST-layer requests including source IP, target indices, request body, HTTP headers, and request method. This is the primary event for standalone mode.
 `TRANSPORT_AUDIT` | Transport | Captures transport-layer requests between nodes, including shard-level operations (`bulk[s][p]`, `search[phase/query]`), replica writes, and forwarded requests.
 
+Although `REQUEST_AUDIT` originates from REST, its internal request layer is `TRANSPORT`. It can be suppressed by `disabled_transport_categories` as well as the unified `disabled_categories` setting.
+{: .note}
+
 These categories do not imply any authentication or authorization semantics---they simply record that a request was received and processed.
 
 In addition to these request-tracking categories, standalone audit logging emits the standard document-level compliance categories when [compliance tracking](#compliance-tracking) is enabled:
@@ -93,7 +96,7 @@ Each `REQUEST_AUDIT` event includes:
 - `audit_trace_indices` --- Target indices (raw patterns)
 - `audit_trace_resolved_indices` --- Resolved concrete indices (when `resolve_indices: true`)
 - `audit_transport_request_type` --- Transport request class (e.g., `IndexRequest`, `SearchRequest`)
-- `audit_request_layer` --- `REST` or `TRANSPORT`
+- `audit_request_layer` --- `TRANSPORT` for `REQUEST_AUDIT` events
 - `audit_rest_request_headers` --- HTTP headers (sensitive headers excluded)
 
 ### Identity in standalone mode
@@ -106,7 +109,7 @@ Identity information varies by security mode:
 
 ## Configuration
 
-All standalone audit settings are configured in `opensearch.yml` for initial values and can be dynamically updated at runtime using the [Cluster settings API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/). No security index is required.
+Configure initial standalone audit settings in `opensearch.yml`. Dynamic settings can be updated at runtime using the [Cluster settings API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/). Static settings, including `enable_standalone`, `action_groups.<NAME>`, and sink connection settings, require a node restart. No security index is required.
 
 Standalone mode does not use the [Audit logs]({{site.url}}{{site.baseurl}}/security/access-control/api/#audit-logs) REST API or `audit.yml`---those manage the security index and require fine-grained access control. In standalone mode, use the Cluster settings API instead.
 
