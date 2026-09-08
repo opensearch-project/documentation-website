@@ -434,6 +434,22 @@ plugins.ml_commons.connector_access_control_enabled: true
 - Default value: `false`
 - Valid values: `false`, `true`
 
+## Enable the Google Cloud Vertex AI connector
+
+When set to `true`, this setting allows users to create connectors that use the `google_cloud` protocol. For more information, see [Google Cloud authentication]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/google-cloud/).
+
+### Setting
+
+```yaml
+plugins.ml_commons.connector.vertexai_enabled: true
+```
+{% include copy.html %}
+
+### Values
+
+- Default value: `false`
+- Valid values: `false`, `true`
+
 ## Enable a local model
 
 This setting allows a cluster admin to enable running local models on the cluster. When this setting is `false`, users will not be able to run register, deploy, or predict operations on any local model.

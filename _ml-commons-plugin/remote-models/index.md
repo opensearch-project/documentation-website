@@ -39,12 +39,16 @@ PUT /_cluster/settings
           "^https://runtime\\.sagemaker\\..*[a-z0-9-]\\.amazonaws\\.com/.*$",
           "^https://api\\.openai\\.com/.*$",
           "^https://api\\.cohere\\.ai/.*$",
-          "^https://bedrock-runtime\\..*[a-z0-9-]\\.amazonaws\\.com/.*$"
+          "^https://bedrock-runtime\\..*[a-z0-9-]\\.amazonaws\\.com/.*$",
+          "^https://.*-aiplatform\\.googleapis\\.com/.*$"
         ]
     }
 }
 ```
 {% include copy-curl.html %}
+
+This setting replaces the entire list of trusted endpoints, so include every pattern your cluster needs.
+{: .note}
 
 
 
@@ -336,7 +340,7 @@ You can undeploy the model automatically by defining a TTL in the model settings
 ## Next steps
 
 - For more information about connectors, including example connectors, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/).
-- For more information about connector parameters, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/).
+- For more information about connector fields, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/).
 - For more information about managing ML models in OpenSearch, see [Using ML models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-serving-framework/).
 - For more information about interacting with ML models in OpenSearch, see [Managing ML models in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-dashboard/)
 For instructions on how to configure model guardrails, see [Guardrails]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/guardrails/).
