@@ -27,7 +27,7 @@ In this context, *standalone* means audit logging is independent of fine-grained
 Many organizations need audit trails for compliance (SOC2, HIPAA, PCI-DSS, GDPR) even when they don't require authentication or authorization. Standalone audit logging answers the question "who did what, when?" without requiring the full security infrastructure.
 
 {: .note }
-Standalone audit logging uses the same audit infrastructure (sinks, routing, async thread pool) as standard FGAC audit logging. The difference is that it does not depend on authentication or authorization to produce events.
+Standalone audit logging uses the same audit infrastructure (sinks, routing, asynchronous thread pool) as standard FGAC audit logging. The difference is that it does not depend on authentication or authorization to produce events.
 
 ## Requirements
 
@@ -55,7 +55,7 @@ Standalone audit logging supports the same sinks as standard mode:
 Sink type | Description
 :--- | :---
 `internal_opensearch` | Writes audit events to an index on the current OpenSearch cluster.
-`log4j` | Writes events to a Log4j logger. You can use any Log4j appender (file, SNMP, JDBC, Kafka, etc.).
+`log4j` | Writes events to a Log4j logger. You can use any Log4j appender (file, SNMP, JDBC, Kafka).
 `webhook` | Sends events as JSON to an arbitrary HTTP endpoint.
 `external_opensearch` | Writes to an audit index on a remote OpenSearch cluster.
 
@@ -67,7 +67,7 @@ Standalone audit logging introduces two request-tracking categories designed for
 
 Category | Layer | Description
 :--- | :--- | :---
-`REQUEST_AUDIT` | REST | Captures all REST-layer requests including source IP, target indices, request body, HTTP headers, and request method. This is the primary event for standalone mode.
+`REQUEST_AUDIT` | REST | Captures all REST-layer requests including source IP, target indexes, request body, HTTP headers, and request method. This is the primary event for standalone mode.
 `TRANSPORT_AUDIT` | Transport | Captures transport-layer requests between nodes, including shard-level operations (`bulk[s][p]`, `search[phase/query]`), replica writes, and forwarded requests.
 
 Although `REQUEST_AUDIT` originates from REST, its internal request layer is `TRANSPORT`. It can be suppressed by `disabled_transport_categories` as well as the unified `disabled_categories` setting.
@@ -82,7 +82,7 @@ Category | Description
 `COMPLIANCE_DOC_WRITE` | A document was written to a watched index. See [Document write tracking](#document-write-tracking).
 `COMPLIANCE_DOC_READ` | A watched field was read from a watched index. See [Document read tracking](#document-read-tracking).
 
-Compliance events are governed only by the compliance settings (watched indices/fields and `compliance.enabled`). They are not affected by `disabled_categories`, which applies only to `REQUEST_AUDIT` and `TRANSPORT_AUDIT`.
+Compliance events are governed only by the compliance settings (watched indexes/fields and `compliance.enabled`). They are not affected by `disabled_categories`, which applies only to `REQUEST_AUDIT` and `TRANSPORT_AUDIT`.
 
 ### Event fields
 
@@ -93,8 +93,8 @@ Each `REQUEST_AUDIT` event includes:
 - `audit_rest_request_method`, `audit_rest_request_path` --- HTTP method and path
 - `audit_request_body` --- Request body (configurable)
 - `audit_request_remote_address` --- Client source IP
-- `audit_trace_indices` --- Target indices (raw patterns)
-- `audit_trace_resolved_indices` --- Resolved concrete indices (when `resolve_indices: true`)
+- `audit_trace_indices` --- Target indexes (raw patterns)
+- `audit_trace_resolved_indices` --- Resolved concrete indexes (when `resolve_indices: true`)
 - `audit_transport_request_type` --- Transport request class (e.g., `IndexRequest`, `SearchRequest`)
 - `audit_request_layer` --- `TRANSPORT` for `REQUEST_AUDIT` events
 - `audit_rest_request_headers` --- HTTP headers (sensitive headers excluded)
@@ -177,7 +177,7 @@ Setting | Default | Description
 `plugins.security.audit.config.enable_rest` | `true` | Enable REST-layer audit events.
 `plugins.security.audit.config.enable_transport` | `true` | Enable transport-layer audit events.
 `plugins.security.audit.config.log_request_body` | `true` | Include the request body in audit events.
-`plugins.security.audit.config.resolve_indices` | `true` | Resolve wildcard index patterns to concrete indices.
+`plugins.security.audit.config.resolve_indices` | `true` | Resolve wildcard index patterns to concrete indexes.
 `plugins.security.audit.config.resolve_bulk_requests` | `false` | Log individual sub-operations in bulk requests.
 `plugins.security.audit.config.exclude_sensitive_headers` | `true` | Exclude sensitive headers (e.g., `Authorization`) from audit events.
 `plugins.security.audit.config.disabled_categories` | `[]` | Request-tracking categories to disable (e.g., `["REQUEST_AUDIT"]`). Does not affect `COMPLIANCE_*` categories.
@@ -201,7 +201,7 @@ PUT _cluster/settings
 ```
 {% include copy.html %}
 
-Set the value to `true` to re-enable audit logging.
+Set the value to `true` to reenable audit logging.
 
 ## Compliance tracking
 
@@ -209,7 +209,7 @@ Document-level compliance tracking works in standalone mode for both reads and w
 
 ### Document write tracking
 
-To track writes to specific indices, configure the watched indices:
+To track writes to specific indexes, configure the watched indexes:
 
 ```yml
 plugins.security.audit.compliance.enabled: true
@@ -223,7 +223,7 @@ Write events are logged with the `COMPLIANCE_DOC_WRITE` category and include the
 
 ### Document read tracking
 
-To track reads of specific fields in specific indices, configure `read_watched_fields`. As a cluster setting, this is a list of strings---each entry is a comma-separated string whose first token is an index pattern and whose remaining tokens are field patterns. If no field patterns are given for an index, all fields (`*`) are watched:
+To track reads of specific fields in specific indexes, configure `read_watched_fields`. As a cluster setting, this is a list of strings---each entry is a comma-separated string whose first token is an index pattern and whose remaining tokens are field patterns. If no field patterns are given for an index, all fields (`*`) are watched:
 
 ```yml
 plugins.security.audit.compliance.enabled: true
@@ -239,7 +239,7 @@ Read events are logged with the `COMPLIANCE_DOC_READ` category and include the f
 
 Setting | Default | Description
 :--- | :--- | :---
-`plugins.security.audit.compliance.enabled` | `true` | Enable compliance tracking. Compliance events are only produced for the indices and fields configured in the watched settings.
+`plugins.security.audit.compliance.enabled` | `true` | Enable compliance tracking. Compliance events are only produced for the indexes and fields configured in the watched settings.
 `plugins.security.audit.compliance.write_metadata_only` | `false` | Log only metadata for write events (no document content).
 `plugins.security.audit.compliance.read_metadata_only` | `false` | Log only metadata for read events (no field values).
 `plugins.security.audit.compliance.write_log_diffs` | `false` | Include diffs between old and new document content.
@@ -253,6 +253,8 @@ Setting | Default | Description
 All compliance settings are dynamic and can be updated via `PUT _cluster/settings`.
 
 ## Example configurations
+
+The following examples configure standalone audit logging in SSL-only and security-disabled modes.
 
 ### SSL-only mode with Log4j sink
 
