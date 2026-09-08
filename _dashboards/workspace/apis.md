@@ -326,7 +326,7 @@ The following table lists the available path parameters.
 | `workspaceId` | String | Required | Identifies the target workspace for object association. |
 | `savedObjects` | Array | Required | Specifies the list of saved objects to be copied. |
 
-The following table lists the attributes of the object in the `objects` parameter.
+The following table lists the attributes of the object in the `savedObjects` parameter.
 
 | Parameter | Data type | Required | Description |
 | :--- | :--- | :--- | :--- |
@@ -341,10 +341,10 @@ curl -k -u admin:admin \
   -H 'Content-Type: application/json' \
   -X POST 'https://localhost:5601/api/workspaces/_associate' \
   -d '{
-    "objects": [
+    "savedObjects": [
       { "type": "index-pattern", "id": "619cc200-ecd0-11ee-95b1-e7363f9e289d" }
     ],
-    "targetWorkspace": "9gt4lB"
+    "workspaceId": "9gt4lB"
   }'
 ```
 {% include copy.html %}
@@ -393,10 +393,10 @@ curl -k -u admin:admin \
   -H 'Content-Type: application/json' \
   -X POST 'https://localhost:5601/api/workspaces/_dissociate' \
   -d '{
-    "objects": [
+    "savedObjects": [
       { "type": "index-pattern", "id": "619cc200-ecd0-11ee-95b1-e7363f9e289d" }
     ],
-    "targetWorkspace": "9gt4lB"
+    "workspaceId": "9gt4lB"
   }'
 
 ```
