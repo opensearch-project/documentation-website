@@ -48,7 +48,7 @@ For example, the following blueprint is a specification for an Amazon SageMaker 
 ```
 {% include copy-curl.html %} 
 
-## OpenSearch-provided connector blueprints
+## Finding a blueprint
 
 OpenSearch provides connector blueprints for many machine learning (ML) platforms and models. For a list of every platform and model that has a provided blueprint, along with the authentication protocol each one uses, see [OpenSearch-provided connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/supported-connectors/).
 
