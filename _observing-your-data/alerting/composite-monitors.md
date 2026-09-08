@@ -5,8 +5,6 @@ nav_order: 25
 parent: Monitors
 grand_parent: Alerting
 has_children: false
-redirect_from:
- - /observing-your-data/alerting/composite-monitors/
 ---
 
 # Composite monitors
@@ -210,7 +208,7 @@ The order of monitor IDs in the Painless script does not define the execution se
 {: .note }
 
 
-### Get Composite Monitor
+### Get composite monitor
 
 This API retrieves information on the specified monitor.
 
@@ -226,9 +224,9 @@ GET _plugins/_alerting/workflows/{workflow_id}
 | `workflow_id` | String | The composite monitor's [workflow ID](#key-terms). |
 
 
-### Update Composite Monitor
+### Update composite monitor
 
-This API updates the composite monitor's details. See [Create Composite Monitor](#create-composite-monitor) for descriptions of the request fields.
+This API updates the composite monitor's details. See [Create composite monitor](#create-composite-monitor) for descriptions of the request fields.
 
 #### Example request
 
@@ -270,7 +268,7 @@ PUT _plugins/_alerting/workflows/{workflow_id}
 {% include copy-curl.html %}
 
 
-### Delete Composite Monitor
+### Delete composite monitor
 
 ```json
 DELETE _plugins/_alerting/workflows/{workflow_id}
@@ -278,7 +276,7 @@ DELETE _plugins/_alerting/workflows/{workflow_id}
 {% include copy-curl.html %}
 
 
-### Execute Composite Monitor
+### Execute composite monitor
 
 This API begins the workflow execution for a composite monitor:
 

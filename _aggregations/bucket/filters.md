@@ -7,7 +7,7 @@ redirect_from:
   - /query-dsl/aggregations/bucket/filters/
 ---
 
-# Filters aggregations
+# Filters aggregation
 
 The `filters` aggregation creates multiple buckets, each associated with a named or anonymous filter query. Every document is evaluated against all filters, and a document can land in multiple buckets if it matches more than one filter. This differs from the singular [`filter` aggregation]({{site.url}}{{site.baseurl}}/aggregations/bucket/filter/), which produces only one bucket.
 
@@ -23,7 +23,7 @@ The `filters` aggregation takes the following parameters.
 
 ## Example: Named filters
 
-When you provide filters as an object, each key becomes the bucket name in the response. The following example groups ecommerce orders into three price tiers:
+When you provide filters as an object, each key becomes the bucket name in the response. The following example groups e-commerce orders into three price tiers:
 
 ```json
 GET /opensearch_dashboards_sample_data_ecommerce/_search

@@ -37,7 +37,7 @@ The request body is passed to the external data source API. The following fields
 
 Field | Data type | Description
 :--- | :--- | :---
-`matchers` | Array | An array of label matchers that determine the alerts to which the silence applies. Required.
+`matchers` | Array | An array of label matching rules that determine the alerts to which the silence applies. Required.
 `matchers[].name` | String | The label name to match. Required.
 `matchers[].value` | String | The label value to match. Required.
 `matchers[].isRegex` | Boolean | Whether the value is a regular expression. Default is `false`. Optional.

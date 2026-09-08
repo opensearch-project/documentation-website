@@ -6,6 +6,8 @@ parent: Security APIs
 nav_order: 50
 has_children: true
 has_toc: false
+redirect_from:
+  - /api-reference/security/api-keys/
 ---
 
 # API Key APIs

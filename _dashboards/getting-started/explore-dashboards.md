@@ -57,7 +57,7 @@ If you completed the [Explore the Visualize application]({{site.url}}{{site.base
 This step requires a local installation. Saving visualizations is not available in the OpenSearch Playground.
 {: .note}
 
-## Filtering data in Dashboards
+## Filtering data in the Dashboards application
 
 You can interact with visualizations to filter data.
 

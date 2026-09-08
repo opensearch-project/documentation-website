@@ -15,6 +15,9 @@ This is an experimental feature and is not recommended for use in a production e
 
 The Predict Stream API provides the same functionality as the [Predict API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/predict/) but returns responses in a streaming format, delivering data in chunks as it becomes available. This streaming approach is particularly beneficial for large language model interactions with lengthy responses, allowing you to see partial results immediately rather than waiting for the complete response.
 
+Alternatively, you can stream predictions over gRPC. For more information, see [gRPC Predict Model Stream API]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/predict-model-stream/).
+{: .note}
+
 This API currently supports the following remote model types:
 - [OpenAI Chat Completion](https://platform.openai.com/docs/api-reference/completions)
 - [Amazon Bedrock Converse Stream](https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_ConverseStream.html)
@@ -35,7 +38,7 @@ Follow these steps to set up your cluster.
 
 #### Step 1: Install the required plugins
 
-The Execute Stream Agent API depends on the following plugins, which are included in the OpenSearch distribution but must be explicitly installed as follows:
+The Predict Stream API depends on the following plugins, which are included in the OpenSearch distribution but must be explicitly installed as follows:
 
 ```bash
 bin/opensearch-plugin install transport-reactor-netty4

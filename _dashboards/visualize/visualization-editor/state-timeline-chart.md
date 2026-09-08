@@ -7,7 +7,7 @@ great_grand_parent: Building data visualizations
 nav_order: 60
 ---
 
-# State timeline
+# State timelines in the visualization editor
 
 A state timeline displays a series of horizontal bars that represent state changes over time. Each bar, known as a state region, represents a specific state, and its length indicates the duration of that state.
 

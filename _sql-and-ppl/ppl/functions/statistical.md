@@ -33,12 +33,16 @@ source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | age | max_val |
 | --- | --- |
 | 32 | 32 |
 | 36 | 36 |
 | 28 | 30 |
 | 33 | 33 |
+
+<!-- vale on -->
   
 ```sql
 source=accounts
@@ -49,12 +53,16 @@ source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | firstname | result |
 | --- | --- |
 | Amber | John |
 | Hattie | John |
 | Nanette | Nanette |
 | Dale | John |
+
+<!-- vale on -->
   
 ```sql
 source=accounts
@@ -65,12 +73,16 @@ source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | age | firstname | result |
 | --- | --- | --- |
 | 32 | Amber | John |
 | 36 | Hattie | John |
 | 28 | Nanette | Nanette |
 | 33 | Dale | John |
+
+<!-- vale on -->
   
 ## MIN
 
@@ -95,12 +107,16 @@ source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | age | min_val |
 | --- | --- |
 | 32 | 30 |
 | 36 | 30 |
 | 28 | 28 |
 | 33 | 30 |
+
+<!-- vale on -->
   
 ```sql
 source=accounts
@@ -111,12 +127,16 @@ source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | firstname | result |
 | --- | --- |
 | Amber | Amber |
 | Hattie | Hattie |
 | Nanette | John |
 | Dale | Dale |
+
+<!-- vale on -->
   
 ```sql
 source=accounts
@@ -127,9 +147,13 @@ source=accounts
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | age | firstname | result |
 | --- | --- | --- |
 | 32 | Amber | 32 |
 | 36 | Hattie | 35 |
 | 28 | Nanette | 28 |
 | 33 | Dale | 33 |
+
+<!-- vale on -->

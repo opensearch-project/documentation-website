@@ -2,6 +2,7 @@
 layout: default
 title: Rolling upgrade
 nav_order: 20
+has_children: true
 has_toc: true
 permalink: /migrate-or-upgrade/rolling-upgrade/
 nav_exclude: false
@@ -226,7 +227,7 @@ If your cluster uses [cross-cluster replication]({{site.url}}{{site.baseurl}}/tu
    os-node-01  1.3.7    dimr       -
    os-node-03  1.3.7    dimr       -
    ```
-1. The upgrade is now complete, and you can begin enjoying the latest features and fixes!
+1. The upgrade is now complete, and you can begin using the latest features and fixes.
 
 ## Rolling restart
 
@@ -288,6 +289,6 @@ By preserving quorum and restarting nodes sequentially, rolling restarts ensure 
 
 - [Rolling upgrade lab]({{site.url}}{{site.baseurl}}/migrate-or-upgrade/rolling-upgrade/rolling-upgrade-lab/) -- A hands-on lab with step-by-step instructions for practicing rolling upgrades in a test environment.
 - [OpenSearch configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/)
-- [Performance analyzer]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/index/)
+- [Performance Analyzer]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/index/)
 - [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/)
 - [About Security in OpenSearch]({{site.url}}{{site.baseurl}}/security/index/)

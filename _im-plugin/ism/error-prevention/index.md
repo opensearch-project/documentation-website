@@ -21,17 +21,17 @@ Error prevention validates Index State Management (ISM) actions before they are 
 
 ---
 
-## rollover 
+## Roll over 
 
 ISM does not perform a `rollover` action for an index under any of these conditions: 
 
 - [The index is not the write index]({{site.url}}{{site.baseurl}}/im-plugin/ism/error-prevention/resolutions/#the-index-is-not-the-write-index).
 - [The index does not have an alias]({{site.url}}{{site.baseurl}}/im-plugin/ism/error-prevention/resolutions/#the-index-does-not-have-an-alias).
 - [The rollover policy does not contain a rollover_alias index setting]({{site.url}}{{site.baseurl}}/im-plugin/ism/error-prevention/resolutions/#the-rollover-policy-misses-rollover_alias-index-setting).
-- [Skipping of a rollover action has occured]({{site.url}}{{site.baseurl}}/im-plugin/ism/error-prevention/resolutions/#skipping-rollover-action-is-true).
+- [Skipping of a rollover action has occurred]({{site.url}}{{site.baseurl}}/im-plugin/ism/error-prevention/resolutions/#skipping-rollover-action-is-true).
 - [The index has already been rolled over using the alias successfully]({{site.url}}{{site.baseurl}}/im-plugin/ism/error-prevention/resolutions/#this-index-has-already-been-rolled-over-successfully).
 
-## delete 
+## Delete 
 
 ISM does not perform a `delete` action for an index under any of these conditions: 
 
@@ -39,55 +39,55 @@ ISM does not perform a `delete` action for an index under any of these condition
 - The index name is invalid.
 - The index is the write index for a data stream.
 
-## force_merge
+## Force merge
 
 ISM does not perform a `force_merge` action for an index if its dataset is too large and exceeds the threshold.
 
-## replica_count
+## Replica count
 
 ISM does not perform a `replica_count` action for an index under any of these conditions: 
 
 - The amount of data exceeds the threshold.
 - The number of shards exceeds the maximum.
 
-## open
+## Open
 
 ISM does not perform an `open` action for an index under any of these conditions: 
 
 - The index is blocked.
 - The number of shards exceeds the maximum.
 
-## read_only
+## Read only
 
 ISM does not perform a `read_only` action for an index under any of these conditions: 
 
 - The index is blocked.
 - The amount of data exceeds the threshold.
 
-## read_write 
+## Read write 
 
 ISM does not perform a `read_write` action for an index if the index is blocked.
 
 
-## close
+## Close
 
 ISM does not perform a `close` action for an index under any of these conditions:
 
 - The index does not exist.
 - The index name is invalid.
 
-## index_priority
+## Index priority
 
 ISM does not perform an `index_priority` action for an index that does not have `read-only-allow-delete` permission.
 
-## snapshot
+## Snapshot
 
 ISM does not perform a `snapshot` action for an index under any of these conditions:
 
 - The index does not exist.
 - The index name is invalid.
 
-## search_only
+## Search only
 
 ISM does not perform a `search_only` action for an index under any of these conditions:
 
@@ -96,7 +96,7 @@ ISM does not perform a `search_only` action for an index under any of these cond
 - [Segment replication is not enabled]({{site.url}}{{site.baseurl}}/im-plugin/ism/error-prevention/resolutions/#segment-replication-is-not-enabled) for the index.
 - [No search replicas are configured]({{site.url}}{{site.baseurl}}/im-plugin/ism/error-prevention/resolutions/#no-search-replicas-configured) for the index.
 
-## transition 
+## Transition 
 
 ISM does not perform a `transition` action for an index under any of these conditions:
 

@@ -18,7 +18,9 @@ We recommend using the client as a starting point to address your specific needs
 ## Installation
 
 The client is a single file ([ubi.js](https://github.com/opensearch-project/user-behavior-insights/tree/main/ubi-javascript-collector/ubi.js)) and only has a dependency on the `axios` library.  
+<!-- vale off -->
 Download it from [https://github.com/opensearch-project/user-behavior-insights/tree/main/ubi-javascript-collector/ubi.js](https://github.com/opensearch-project/user-behavior-insights/tree/main/ubi-javascript-collector/ubi.js).
+<!-- vale on -->
 
 To reference the events and create the client, use the following code:
 

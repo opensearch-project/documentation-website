@@ -163,7 +163,10 @@ The following table describes the special characters.
 | `5 9 * * 1-5` | 9:05 AM UTC Monday through Friday |
 | `5 9 * * MON-FRI` | 9:05 AM UTC Monday through Friday (using named days) |
 
-## `X-Opaque-Id` header
+
+<!-- vale off -->
+## X-Opaque-Id header
+<!-- vale on -->
 
 You can specify an opaque identifier for any request using the `X-Opaque-Id` header. This identifier is used to track tasks and deduplicate deprecation warnings in server-side logs. This identifier is used to differentiate between callers sending requests to your OpenSearch cluster. Do not specify a unique value per request.
 
@@ -176,7 +179,9 @@ curl -H "X-Opaque-Id: my-curl-client-1" -XGET localhost:9200/_tasks
 ```
 {% include copy.html %}
 
+<!-- vale off -->
 ## `X-Request-Id` header
+<!-- vale on -->
 
 You can specify a unique identifier for a search request using the `X-Request-Id` header. This identifier is used to track individual search requests and can be referenced in logs, such as slow logs, for troubleshooting and analysis. The value must be a 32-character hexadecimal string. 
 

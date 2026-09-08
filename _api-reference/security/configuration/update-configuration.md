@@ -44,8 +44,8 @@ The request body is **required**. It is a JSON object with the following fields.
 | Property | Data type | Description |
 | :--- | :--- | :--- |
 | `auth_failure_listeners` | Object | The configuration for handling authentication failures, including thresholds and actions. |
-| `authc` | Object | The authentication configuration domains that define how users are authenticated. For more information, see [authc]({{site.url}}{{site.baseurl}}/api-reference/security/configuration/index/#authc). |
-| `authz` | Object | The authorization configuration that defines how to extract backend roles when using LDAP for authentication. For more information, see [authz]({{site.url}}{{site.baseurl}}/api-reference/security/configuration/index/#authz). |
+| `authc` | Object | The authentication configuration domains that define how users are authenticated. For more information, see [`authc`]({{site.url}}{{site.baseurl}}/api-reference/security/configuration/index/#authc). |
+| `authz` | Object | The authorization configuration that defines how to extract backend roles when using LDAP for authentication. For more information, see [`authz`]({{site.url}}{{site.baseurl}}/api-reference/security/configuration/index/#authz). |
 | `do_not_fail_on_forbidden` | Boolean | When `true`, returns empty results instead of a forbidden error. Instead, failures are stored in the application logs. |
 | `do_not_fail_on_forbidden_empty` | Boolean | Similar to `do_not_fail_on_forbidden` but with specific behavior for empty results. |
 | `filtered_alias_mode` | String | Controls how document field filtering is applied to aliases. |

@@ -15,7 +15,7 @@ Administrators of machine learning (ML) clusters can use OpenSearch Dashboards t
 
 You can register and deploy models using the API only. For more information, see [Using ML models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-serving-framework/).
 
-## Enabling ML in Dashboards
+## Enabling ML in OpenSearch Dashboards
 
 In OpenSearch 2.6, ML functionality is disabled by default. To enable it, you need to edit the configuration in `opensearch_dashboards.yml` and then restart your cluster.
 
@@ -27,7 +27,7 @@ To enable the feature:
 4. Restart the Dashboards container.
 5. Verify that the feature configuration settings were created and configured properly by launching OpenSearch Dashboards. The Machine Learning section should appear under **OpenSearch plugins**.
 
-## Accessing ML functionality in Dashboards
+## Accessing ML functionality in OpenSearch Dashboards
 
 To access ML functionality in OpenSearch Dashboards, select **OpenSearch plugins** > **Machine Learning**.
 

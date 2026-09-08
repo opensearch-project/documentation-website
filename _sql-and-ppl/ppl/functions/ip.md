@@ -34,10 +34,14 @@ source=weblogs
   
 The query returns the following results:
   
+<!-- vale off -->
+
 | host | url |
 | --- | --- |
 | 1.2.3.4 | /history/voyager1/ |
 | 1.2.3.5 | /history/voyager2/ |
+
+<!-- vale on -->
 
 ## GEOIP
 
@@ -63,6 +67,8 @@ source=weblogs
 
 The query returns the following results:
 
+<!-- vale off -->
+
 | LookupResult |
 | --- |
-| {'city_name': 'Vancouver', 'country_iso_code': 'CA'} | 
+| {'city_name': 'Vancouver', 'country_iso_code': 'CA'} | <!-- vale on -->

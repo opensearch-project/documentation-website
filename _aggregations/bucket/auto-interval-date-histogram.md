@@ -5,7 +5,7 @@ parent: Bucket aggregations
 nav_order: 12
 ---
 
-# Auto-interval date histogram
+# Auto-interval date histogram aggregation
 
 Similar to the [date histogram aggregation]({{site.url}}{{site.baseurl}}/aggregations/bucket/date-histogram/), in which you must specify an interval, the `auto_date_histogram` is a multi-bucket aggregation that automatically creates date histogram buckets based on the number of buckets you provide and the time range of your data. The actual number of buckets returned is always less than or equal to the number of buckets you specify. This aggregation is particularly useful when you are working with time-series data and want to visualize or analyze data over different time intervals without manually specifying the interval size.
 

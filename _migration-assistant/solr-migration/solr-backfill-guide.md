@@ -244,7 +244,7 @@ The following table describes the key configuration fields.
 | `sourceClusters.<name>.version` | The Solr version string. Must match the format `SOLR <major>.<minor>.<patch>`, for example, `SOLR 6.6.6`, `SOLR 7.7.3`, `SOLR 8.11.4`, or `SOLR 9.7.0`. |
 | `sourceClusters.<name>.snapshotInfo.repos.<repoName>.s3RepoPathUri` | The full Amazon S3 URI in the format `s3://bucket` or `s3://bucket/subpath`. The bucket must match `s3.bucket.name` in `solr.xml`. The subpath is passed as the `location` parameter to Solr's `BACKUP` API. |
 | `sourceClusters.<name>.snapshotInfo.snapshots.<snapshotName>.repoName` | The repository name. Must match the `name` attribute in `solr.xml`. |
-| `targetClusters.<name>.authConfig.sigv4.service` | The AWS service identifier. Use `es` for Amazon OpenSearch Service or `aoss` for OpenSearch Serverless. |
+| `targetClusters.<name>.authConfig.sigv4.service` | The AWS service identifier. Use `es` for Amazon OpenSearch Service or `aoss` for Amazon OpenSearch Serverless NextGen. |
 | `targetClusters.<name>.authConfig.basic.secretName` | The Kubernetes secret name containing basic authentication credentials. Use this field instead of `sigv4` when targeting a self-managed cluster. |
 | `perSnapshotConfig.<snapshotName>[].metadataMigrationConfig.skipEvaluateApproval` / `skipMigrateApproval` | Bypasses the per-step approval gates without disabling all approvals globally. |
 | `perSnapshotConfig.<snapshotName>[].documentBackfillConfig.podReplicas` | The number of RFS pods. Each pod processes a different shard in parallel. |

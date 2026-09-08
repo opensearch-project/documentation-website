@@ -7,7 +7,7 @@ parent: User-defined search processors
 grand_parent: Search pipelines
 ---
 
-# Split processor
+# Split search processor
 Introduced 2.17
 {: .label .label-purple }
 

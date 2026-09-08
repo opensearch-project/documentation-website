@@ -92,12 +92,12 @@ The `jira` source supports the following configuration options.
 
 ### Authentication
 
-You can use one the following authentication methods to access the specified jira host. You must provide one of the following parameters.
+You can use one the following authentication methods to access the specified Jira host. You must provide one of the following parameters.
 
 | Option   | Required | Type              | Description                                            |
 |:---------|:---------|:------------------|:-------------------------------------------------------|
-| `basic`  | Yes      | [basic](#basic-authentication)   | Basic authentication credentials used to access a Jira host.  |
-| `oauth2` | Yes      | [oauth2](#oauth2-authentication)| OAuth2 authentication credentials used to access a Jira host. |
+| `basic`  | Yes      | [Basic](#basic-authentication)   | Basic authentication credentials used to access a Jira host.  |
+| `oauth2` | Yes      | [OAuth2](#oauth2-authentication)| OAuth2 authentication credentials used to access a Jira host. |
 
 #### Basic authentication
 
@@ -110,7 +110,7 @@ Either basic or OAuth2 credentials are required to access the Jira site. If you 
 
 #### OAuth2 authentication
 
-Either basic or OAuth2 credentials are required to access the jira site. If OAuth2 is used, the following fields are mandatory.
+Either basic or OAuth2 credentials are required to access the `jira` site. If OAuth2 is used, the following fields are mandatory.
 
 Either basic or OAuth2 credentials are required to access the Confluence site. If you use OAuth2, the following fields are required.
 

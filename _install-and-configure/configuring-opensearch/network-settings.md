@@ -77,7 +77,7 @@ OpenSearch supports the following advanced network settings for HTTP communicati
 
 - `http.max_warning_header_size` (Static, byte unit): Sets the maximum total size of all warning headers combined in HTTP responses to clients. This helps prevent response headers from becoming too large. Default is unbounded (no limit).
 
-- `http.pipelining.max_events` (Static, integer): Sets the maximum number of events that can be queued up in memory before an HTTP connection is closed. This setting helps manage memory usage for HTTP pipelining. Default is `10000`.
+- `http.pipelining.max_events` (Static, integer): Sets the maximum number of events that can be queued up in memory before an HTTP connection is closed. This setting helps manage memory usage for pipelined HTTP requests. Default is `10000`.
 
 - `http.publish_port` (Static, integer): Specifies the port that HTTP clients should use when communicating with this node. This setting is useful when a cluster node is behind a proxy or firewall and the actual `http.port` is not directly addressable from outside the network. Default is the actual port assigned via `http.port`.
 

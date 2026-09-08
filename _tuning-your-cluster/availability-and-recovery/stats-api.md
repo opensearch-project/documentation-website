@@ -9,7 +9,7 @@ redirect_from:
   - /opensearch/stats-api/
 ---
 
-# Stats API
+# Shard Indexing Backpressure Stats API
 
 Use the stats operation to monitor shard indexing backpressure.
 

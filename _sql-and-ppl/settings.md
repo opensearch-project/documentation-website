@@ -117,7 +117,7 @@ Setting | Description
 `spark.datasource.flint.port` | The port number for Spark. Default is `9200`.
 `spark.datasource.flint.scheme` | The data scheme used in your Spark queries. Valid values are `http` and `https`.
 `spark.datasource.flint.auth` | The authorization required to access the Spark data source. Valid values are `false` and `sigv4`.
-`spark.datasource.flint.region` | The AWS Region in which your OpenSearch cluster is located. Only use when `auth` is set to `sigv4`. Default value is `us-west-2``.
+`spark.datasource.flint.region` | The AWS Region in which your OpenSearch cluster is located. Only use when `auth` is set to `sigv4`. Default value is `us-west-2`.
 `spark.datasource.flint.write.id_name` | The name of the index to which the Spark connector writes.
 `spark.datasource.flint.ignore.id_column` | Excludes the `id` column when exporting data in a query. Default is `true`.
 `spark.datasource.flint.write.batch_size` | Sets the batch size when writing to a Spark-connected index. Default is `1000`.

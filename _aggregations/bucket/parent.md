@@ -5,7 +5,7 @@ parent: Bucket aggregations
 nav_order: 145
 ---
 
-# Parent aggregations
+# Parent aggregation
 
 The `parent` aggregation is a bucket aggregation that creates a single bucket containing parent documents, based on parent-child relationships defined in your index. This aggregation enables you to perform analytics on parent documents that have the same matching child documents, allowing for powerful hierarchical data analysis.
 

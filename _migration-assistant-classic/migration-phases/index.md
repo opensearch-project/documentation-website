@@ -10,6 +10,6 @@ permalink: /classic/migration-assistant/migration-phases/
 
 # Migration phases
 
-This page outlines the phases of migrating with Migration Assistant. There are three migration scenarios, each consisting of a sequence of common steps.
+Migration Assistant breaks the migration process into discrete phases---assessment, metadata migration, backfill, and live traffic cutover. There are three migration scenarios, each consisting of a sequence of common steps.
 
 {% include migration-scenarios.html scenarios=site.data.migration-scenarios.scenarios %}

@@ -57,7 +57,7 @@ The default `-days` value of 30 is only useful for testing purposes. This sample
 - The `-addext` options add X.509 v3 extensions to the certificate:
   - `basicConstraints = critical, CA:TRUE, pathlen:0` marks this as a CA certificate that can sign certificates but cannot sign subordinate CAs (only end-entity certificates).
   - `keyUsage = critical, keyCertSign, cRLSign` allows the CA to sign certificates and certificate revocation lists.
-  - `authorityKeyIdentifier = keyid` helps identify the CA's public key, which is useful for certificate chain validation.
+  - `authorityKeyIdentifier = keyid` helps identify the CA public key, which is useful for certificate chain validation.
 
 These extensions ensure compliance with X.509 v3 standards and help prevent low-level SSL errors in Java applications. For more information about certificate extensions, see the [OpenSSL x509v3_config documentation](https://docs.openssl.org/master/man5/x509v3_config/).
 {: .note}
@@ -226,7 +226,7 @@ rm combined-node1.pem
 
 ## Add distinguished names to opensearch.yml
 
-You must specify the distinguished names (DNs) for all admin and node certificates in `opensearch.yml` on all nodes. Using the certificates from the sample script above, part of `opensearch.yml` might look like this:
+You must specify the distinguished names (DNs) for all admin and node certificates in `opensearch.yml` on all nodes. Using the certificates from the preceding sample script, part of `opensearch.yml` might look like this:
 
 ```yml
 plugins.security.authcz.admin_dn:
@@ -242,7 +242,7 @@ But if you look at the `subject` of the certificate after creating it, you might
 subject=/C=CA/ST=ONTARIO/L=TORONTO/O=ORG/OU=UNIT/CN=node1.dns.a-record
 ```
 
-If you compare this string to the ones above, you can see that you need to invert the order of elements and use commas rather than slashes. Enter this command to get the correct string:
+If you compare this string to the preceding ones, you can see that you need to invert the order of elements and use commas rather than slashes. Enter this command to get the correct string:
 
 ```bash
 openssl x509 -subject -nameopt RFC2253 -noout -in node.pem
@@ -285,4 +285,4 @@ For more information about adding and using these certificates in your own setup
 
 ## OpenSearch Dashboards
 
-For information on using your root CA and a client certificate to enable TLS for OpenSearch Dashboards, see [Configure TLS for OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/tls/).
+For information about using your root CA and a client certificate to enable TLS for OpenSearch Dashboards, see [Configure TLS for OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/tls/).

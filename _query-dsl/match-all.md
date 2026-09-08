@@ -33,7 +33,7 @@ GET _search
 
 ## Parameters
 
-Both the matchall and match none queries accepts the following parameters. All parameters are optional.
+Both the `match_all` and `match_none` queries accept the following parameters. All parameters are optional.
 
 Parameter | Data type | Description
 :--- | :--- | :---

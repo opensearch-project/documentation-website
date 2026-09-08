@@ -190,7 +190,7 @@ GET national_parks/_search
 ```
 {% include copy-curl.html %}
 
-Note that the new resulting geobound encompasses a larger area to avoid overlapping the dateline:
+Note that the new resulting geobounds encompass a larger area to avoid overlapping the dateline:
 
 ```json
 {

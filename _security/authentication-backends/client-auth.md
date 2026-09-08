@@ -10,7 +10,7 @@ redirect_from:
 
 # Client certificate authentication
 
-After obtaining your own certificates either from a certificate authority (CA) or by [generating your own certificates using OpenSSL]({{site.url}}{{site.baseurl}}/security/configuration/generate-certificates), you can start configuring OpenSearch to authenticate a user using a client certificate.
+After obtaining your own certificates either from a certificate authority (CA) or by [generating your own certificates using OpenSSL]({{site.url}}{{site.baseurl}}/security/configuration/generate-certificates/), you can start configuring OpenSearch to authenticate a user using a client certificate.
 
 Client certificate authentication offers more security advantages than just using basic authentication (username and password). Because client certificate authentication requires both a client certificate and its private key, which are often in the user's possession, it is less vulnerable to brute force attacks in which malicious individuals try to guess a user's password.
 
@@ -71,7 +71,7 @@ PUT _plugins/_security/api/rolesmapping/readall
 
 After mapping a role to your client certificate's CN, you're ready to connect to your cluster using those credentials.
 
-The code example below uses the Python `requests` library to connect to a local OpenSearch cluster and sends a GET request to the `movies` index.
+The following code example uses the Python `requests` library to connect to a local OpenSearch cluster and sends a GET request to the `movies` index.
 
 ```python
 import requests

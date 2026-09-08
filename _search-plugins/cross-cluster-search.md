@@ -40,6 +40,32 @@ The following sequence describes the authentication flow when using cross-cluste
 1. The call, including the authenticated user, is forwarded to the remote cluster.
 1. The user's permissions are evaluated on the remote cluster.
 
+## Remote cluster role evaluation
+**Introduced 3.9**
+{: .label .label-purple }
+
+By default, the remote cluster evaluates permissions using a combination of the security roles propagated from the coordinating cluster and its own role mappings. As a result, a user who has broad permissions on the coordinating cluster (for example, `all_access`) receives those same permissions on the remote cluster.
+
+To give the remote cluster independent control over the permissions that CCS users receive, set the following cluster setting on the remote cluster:
+
+```json
+PUT /_cluster/settings
+{
+  "persistent": {
+    "plugins.security.ccs.ignore_source_security_roles": true
+  }
+}
+```
+{% include copy-curl.html %}
+
+When `plugins.security.ccs.ignore_source_security_roles` is `true`, the remote cluster strips the security roles propagated from the coordinating cluster and evaluates access exclusively through its own `roles_mapping.yml` configuration. You can then define CCS user permissions independently on each cluster. The setting is `false` by default, so existing CCS deployments are unaffected.
+
+### Limitations
+
+The setting has the following limitations:
+
+- The remote cluster doesn't re-authenticate CCS users, so it doesn't consult the role assignments in `internal_users.yml`. When this setting is enabled, you must use `roles_mapping.yml` to grant CCS users access to the remote cluster. Role assignments made using `opendistro_security_roles` in `internal_users.yml` have no effect on CCS user authorization.
+- The setting applies only to cross-cluster search requests. Other cross-cluster operations aren't affected.
 
 ## Setting permissions
 

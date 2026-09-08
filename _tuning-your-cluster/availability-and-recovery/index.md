@@ -10,4 +10,4 @@ redirect_from:
 
 # Availability and recovery
 
-The following OpenSearch features help ensure reliability and consistent uptime so that your cluster can scale based on your use case.
+OpenSearch provides features for cluster reliability and data protection, including cross-cluster replication, snapshots, segment replication, and remote-backed storage.

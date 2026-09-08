@@ -52,6 +52,8 @@ swap:
   'sub-aggregation': subaggregation
   'time series data': time-series data
   'time stamp': timestamp
+  'filepath': file path
+  'threadpool': thread pool
   'timeframe': time frame
   'timezone': time zone
   'tradeoff': trade-off

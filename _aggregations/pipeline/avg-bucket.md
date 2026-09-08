@@ -5,7 +5,7 @@ parent: Pipeline aggregations
 nav_order: 10
 ---
 
-# Average bucket aggregations
+# Average bucket aggregation
 
 The `avg_bucket` aggregation is a sibling aggregation that calculates the average of a metric in each bucket of a previous aggregation.
 

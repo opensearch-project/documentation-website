@@ -4,6 +4,7 @@ title: gRPC APIs
 has_children: true
 has_toc: false
 nav_order: 25
+description: "Reference for the OpenSearch gRPC APIs, including the bulk and k-NN search operations that use protocol buffers for high-performance communication."
 redirect_from:
   - /api-reference/grpc-apis/
 ---
@@ -26,6 +27,8 @@ The following gRPC APIs are currently supported:
 - [Bulk]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/bulk/) **Generally available 3.2**
 - [k-NN]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/knn/) **Generally available 3.2**
 - [Search]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/search/) (for select query types)
+- [Predict Model Stream]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/predict-model-stream/)
+- [Execute Agent Stream]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/execute-agent-stream/)
 
 ## How to use gRPC APIs
 

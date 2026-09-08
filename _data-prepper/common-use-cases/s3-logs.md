@@ -48,7 +48,7 @@ Use the following steps to begin loading logs from S3 with Data Prepper.
 
 1. Create an [SQS standard queue](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/step-create-queue.html) for your S3 event notifications. 
 2. Configure [bucket notifications](https://docs.aws.amazon.com/AmazonS3/latest/userguide/ways-to-add-notification-config-to-bucket.html) for SQS. Use the `s3:ObjectCreated:*` event type.
-3. Grant [AWS IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html) permissions to Data Prepper for accessing SQS and S3.
+3. Grant [AWS Identity and Access Management (IAM)](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html) permissions to Data Prepper for accessing SQS and S3.
 4. (Recommended) Create an [SQS dead-letter queue](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-dead-letter-queues.html) (DLQ).
 5. (Recommended) Configure an SQS re-drive policy to move failed messages into the DLQ.
 
@@ -97,7 +97,7 @@ The following two options can be used to handle S3 object processing errors:
 
 The following diagram shows the system architecture when using SQS with DLQ.
 
-![S3 source architecture with dlq]({{site.url}}{{site.baseurl}}/images/data-prepper/s3-source/s3-architecture-dlq.jpg)
+![S3 source architecture with DLQ]({{site.url}}{{site.baseurl}}/images/data-prepper/s3-source/s3-architecture-dlq.jpg)
 
 To use an SQS dead-letter queue, perform the following steps:
 
@@ -180,7 +180,7 @@ To make sure that Data Prepper can directly parse the event from the SNS topic, 
 
 If a pipeline uses an S3 source, you can use SQL expressions to perform filtering and computations on the contents of S3 objects before ingesting them into the pipeline.
 
-The `s3_select` option supports objects in the [Parquet File Format](https://parquet.apache.org/docs/). It also works with objects that are compressed with GZIP or BZIP2 (for CSV and JSON objects only) and supports columnar compression for the Parquet File Format using GZIP and Snappy.
+The `s3_select` option supports objects in the [Parquet File Format](https://parquet.apache.org/docs/). It also works with objects that are compressed with gzip or BZIP2 (for CSV and JSON objects only) and supports columnar compression for the Parquet File Format using gzip and Snappy.
 
 Refer to [Filtering and retrieving data using Amazon S3 Select](https://docs.aws.amazon.com/AmazonS3/latest/userguide/selecting-content-from-objects.html) and [SQL reference for Amazon S3 Select](https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-select-sql-reference.html) for comprehensive information about using Amazon S3 Select.
 {: .note}

@@ -39,6 +39,7 @@ Field | Data type | Required/Optional | Agent type | Description
 :---  | :--- | :--- | :--- | :---
 `name`| String | Required | All | The agent name. |
 `type` | String | Required | All | The agent type. Valid values are [`flow`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/flow/), [`conversational_flow`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/conversational-flow/), [`conversational`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/conversational/#the-conversational-agent-v1), [`conversational_v2`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/conversational/#the-conversational_v2-agent-with-full-multimodal-support), [`plan_execute_and_reflect`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/plan-execute-reflect/), and [`ag_ui`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/ag-ui/). For more information, see [Agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/). |
+`agent_id` | String | Optional | All | A unique identifier for the agent. If omitted, OpenSearch generates one automatically. |
 `description` | String | Optional| All | A description of the agent. |
 `tools` | Array | Optional | All | A list of tools for the agent to execute. 
 `app_type` | String | Optional | All | Specifies an optional agent category. You can then perform operations on all agents in the category. For example, you can delete all messages for RAG agents.
@@ -328,6 +329,7 @@ The following table lists the available request fields for unified agent registr
 | :--- | :--- | :--- | :--- |
 | `name` | String | Required | The agent name. |
 | `type` | String | Required | The agent type. Supported values: `conversational`, `conversational_v2`, `plan_execute_and_reflect`, and `AG_UI`. |
+| `agent_id` | String | Optional | A unique identifier for the agent. If omitted, OpenSearch generates one automatically. |
 | `description` | String | Optional | A description of the agent. |
 | `model` | Object | Required | Configuration for the LLM model using the unified registration method. Replaces the regular `llm` object and automatically creates model resources. |
 | `model.model_id` | String | Required | The provider's model identifier. For Amazon Bedrock, use the full model ID (for example, `us.anthropic.claude-3-7-sonnet-20250219-v1:0`). For Google Gemini, use the model name (for example, `gemini-2.5-pro`). For OpenAI, use model names like `gpt-4`. |
@@ -344,7 +346,7 @@ The following table lists the available request fields for unified agent registr
 | `model.model_parameters.max_tokens` | Integer | Optional | The maximum number of tokens in the model response. Default varies by model. |
 | `parameters` | Object | Optional | Additional agent parameters for controlling behavior. |
 | `parameters.max_iteration` | Integer | Optional | The maximum number of reasoning iterations the agent can perform. Default is 10. |
-| `parameters.mcp_connectors` | Array | Optional | An array of Model Context Protocol (MCP) connector configurations that extend agent capabilities. See [Connecting to an external MCP server]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/mcp/mcp-connector/#step-3-register-an-agent-for-accessing-mcp-tools). |
+| `parameters.mcp_connectors` | Array | Optional | An array of Model Context Protocol (MCP) connector configurations that extend agent capabilities. For `conversational` and `plan_execute_and_reflect` agents, MCP tools are discovered automatically. For `flow` and `conversational_flow` agents, list MCP tools explicitly in the `tools` array. See [Connecting to an external MCP server]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/mcp/mcp-connector/#step-3-register-an-agent-for-accessing-mcp-tools). |
 | `parameters.mcp_connectors[].mcp_connector_id` | String | Required | The ID of a registered MCP connector. |
 | `parameters.mcp_connectors[].tool_filters` | Array | Optional | Java regular expressions that specify the MCP tools available to the agent. |
 | `parameters.mcp_connectors[].tool_descriptions` | Array | Optional | Objects that override MCP tool descriptions presented to the LLM. |
@@ -356,12 +358,14 @@ Each tool in the `tools` array contains the following fields.
 
 | Field | Data type | Required/Optional | Description |
 | :--- | :--- | :--- | :--- |
-| `type` | String | Required | The tool type (for example, `ListIndexTool`, `SearchIndexTool`). |
-| `name` | String | Optional | A custom name for the tool. Defaults to the `type` value. Required when using multiple tools of the same type. |
+| `type` | String | Required | The tool type (for example, `ListIndexTool`, `SearchIndexTool`, `McpStreamableHttpTool`, `McpSseTool`). For MCP tools in `flow` and `conversational_flow` agents, use `McpStreamableHttpTool` with `mcp_streamable_http` connectors or `McpSseTool` with `mcp_sse` connectors. |
+| `name` | String | Optional | A custom name for the tool. Defaults to the `type` value. Required when using multiple tools of the same type. For MCP tools in flow agents, set `name` to the MCP server tool name. |
 | `description` | String | Optional | Tool description that helps the LLM understand when and how to use the tool. |
 | `parameters` | Object | Optional | Tool-specific parameters. Structure varies by tool type. |
 
+<!-- vale off -->
 ### Example request: Amazon Bedrock Claude
+<!-- vale on -->
 
 This example creates an agent using an Anthropic Claude model hosted on Amazon Bedrock:
 
@@ -406,7 +410,9 @@ POST /_plugins/_ml/agents/_register
 ```
 {% include copy-curl.html %}
 
+<!-- vale off -->
 ### Example request: Google Gemini
+<!-- vale on -->
 
 This example creates an agent using Google Gemini models:
 
@@ -438,7 +444,9 @@ POST /_plugins/_ml/agents/_register
 ```
 {% include copy-curl.html %}
 
+<!-- vale off -->
 ### Example request: OpenAI Chat Completion
+<!-- vale on -->
 
 This example creates an agent using OpenAI's GPT models:
 

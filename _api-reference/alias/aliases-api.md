@@ -227,7 +227,10 @@ POST /_aliases
 ```
 {% include copy-curl.html %}
 
+
+<!-- vale off -->
 ## Example: Use the indices array
+<!-- vale on -->
 
 Alternatively, you can specify multiple indexes in a single action using the `indices` array:
 

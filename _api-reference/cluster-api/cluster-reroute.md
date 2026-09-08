@@ -26,12 +26,12 @@ POST /_cluster/reroute
 
 | Parameter        | Data type | Description                                                                                        |
 | ---------------- | --------- | -------------------------------------------------------------------------------------------------- |
-| `dry_run`        | Boolean   | If `true`, validates and simulates the reroute request without applying it. Default is `false`.    |
-| `explain`        | Boolean   | If `true`, returns an explanation of why the command was accepted or rejected. Default is `false`. |
-| `retry_failed`   | Boolean   | If `true`, retries allocation of shards that previously failed. Default is `false`.                |
-| `metric`         | String    | Limits the returned metadata. See [Metric options](#metric-options) for a list of available options. Default is `_all`. |
-| `cluster_manager_timeout` | Time      | The timeout for connection to the cluster manager node. Default is `30s`.                              |
-| `timeout`        | Time      | The overall request timeout. Default is `30s`.                                                         |
+| `dry_run` | Boolean | If `true`, validates and simulates the reroute request without applying it. Default is `false`.    |
+| `explain` | Boolean | If `true`, returns an explanation of why the command was accepted or rejected. Default is `false`. |
+| `retry_failed` | Boolean | If `true`, retries allocation of shards that previously failed. Default is `false`.                |
+| `metric` | String | Limits the returned metadata. See [Metric options](#metric-options) for a list of available options. Default is `_all`. |
+| `cluster_manager_timeout` | Time | The timeout for connection to the cluster manager node. Default is `30s`.                              |
+| `timeout` | Time | The overall request timeout. Default is `30s`.                                                         |
 
 ### Metric options
 
@@ -375,18 +375,18 @@ The response includes cluster state metadata and, optionally, a `decisions` arra
 
 | Field                        | Data type | Description                                                             |
 | ---------------------------- | --------- | ----------------------------------------------------------------------- |
-| `acknowledged`               | Boolean   | States whether the reroute request was acknowledged.                           |
-| `state.cluster_uuid`         | String    | The unique identifier of the cluster.                                       |
-| `state.version`              | Integer   | The version of the cluster state.                                           |
-| `state.state_uuid`           | String    | The UUID for this specific state version.                                   |
-| `state.master_node`          | String    | As with `cluster_manager_node`, this is maintained for backward compatibility.                                 |
-| `state.cluster_manager_node` | String    | The ID of the elected cluster manager node.  |
-| `state.blocks`               | Object    | Any global or index-level cluster blocks.                               |
-| `state.nodes`                | Object    | The cluster node's metadata, including its name and address.                      |
-| `state.routing_table`        | Object    | The shard routing information for each index.                               |
-| `state.routing_nodes`        | Object    | The shard allocation organized by node.                                     |
-| `commands`                   | List      | A list of processed reroute commands.                                   |
-| `explanations`               | List      | If `explain=true`, includes detailed explanations of the outcomes.          |
+| `acknowledged` | Boolean | States whether the reroute request was acknowledged.                           |
+| `state.cluster_uuid` | String | The unique identifier of the cluster.                                       |
+| `state.version` | Integer | The version of the cluster state.                                           |
+| `state.state_uuid` | String | The UUID for this specific state version.                                   |
+| `state.master_node` | String | As with `cluster_manager_node`, this is maintained for backward compatibility.                                 |
+| `state.cluster_manager_node` | String | The ID of the elected cluster manager node.  |
+| `state.blocks` | Object | Any global or index-level cluster blocks.                               |
+| `state.nodes` | Object | The cluster node's metadata, including its name and address.                      |
+| `state.routing_table` | Object | The shard routing information for each index.                               |
+| `state.routing_nodes` | Object | The shard allocation organized by node.                                     |
+| `commands` | List | A list of processed reroute commands.                                   |
+| `explanations` | List | If `explain=true`, includes detailed explanations of the outcomes.          |
 
 ## Required permissions
 

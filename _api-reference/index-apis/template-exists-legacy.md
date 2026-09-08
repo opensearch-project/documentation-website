@@ -35,9 +35,9 @@ The following table lists the available query parameters. All parameters are opt
 
 | Parameter                  | Type    | Description                                                                                          |
 | :------------------------- | :------ | :--------------------------------------------------------------------------------------------------- |
-| `flat_settings`            | Boolean | If `true`, returns settings in flat format. Default is `false`.                                       |
-| `local`                    | Boolean | If `true`, the request does not retrieve the state from the cluster manager node. Default is `false`. |
-| `cluster_manager_timeout` | Time    | Specifies how long to wait for a connection to the cluster manager node. Default is `30s`.           |
+| `flat_settings` | Boolean | If `true`, returns settings in flat format. Default is `false`.                                       |
+| `local` | Boolean | If `true`, the request does not retrieve the state from the cluster manager node. Default is `false`. |
+| `cluster_manager_timeout` | Time | Specifies how long to wait for a connection to the cluster manager node. Default is `30s`.           |
 
 ## Example request
 

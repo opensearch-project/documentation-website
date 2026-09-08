@@ -4,7 +4,6 @@ title: User impersonation
 parent: Access control
 nav_order: 105
 redirect_from:
- - /security/access-control/impersonation/
  - /security-plugin/access-control/impersonation/
 ---
 

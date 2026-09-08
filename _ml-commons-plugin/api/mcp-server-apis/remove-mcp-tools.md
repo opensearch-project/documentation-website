@@ -8,7 +8,7 @@ nav_order: 40
 
 # Remove MCP Tools API
 **Introduced 3.0**
-
+{: .label .label-purple }
 
 Use this API to delete one or more Model Context Protocol (MCP)-based tools by name.
 

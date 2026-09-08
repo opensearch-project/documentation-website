@@ -5,7 +5,7 @@ parent: Specialized queries
 nav_order: 55
 ---
 
-# Percolate
+# Percolate query
 
 Use the `percolate` query to find stored queries that match a given document. This operation is the opposite of a regular search: instead of finding documents that match a query, you find queries that match a document. `percolate` queries are often used for alerting, notifications, and reverse search use cases.
 

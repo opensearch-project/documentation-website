@@ -7,7 +7,7 @@ redirect_from:
   - /query-dsl/aggregations/metric/sum/
 ---
 
-# Sum aggregations
+# Sum aggregation
 
 The `sum` aggregation is a single-value metric aggregation that calculates the total sum of numeric values extracted from a field across all matching documents. This aggregation is commonly used to compute totals for metrics such as revenue, quantity, or duration.
 

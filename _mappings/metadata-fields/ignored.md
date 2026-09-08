@@ -7,7 +7,7 @@ redirect_from:
   - /field-types/metadata-fields/ignored/
 ---
 
-# Ignored
+# Ignored metadata field
 
 The `_ignored` field helps you manage issues related to malformed data in your documents. This field is used to index and store field names that were ignored during the indexing process as a result of the `ignore_malformed` setting being enabled in the [index mapping]({{site.url}}{{site.baseurl}}/mappings/). 
 

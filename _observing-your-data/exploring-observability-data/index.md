@@ -4,6 +4,7 @@ title: Using Discover for observability
 nav_order: 60
 has_children: true
 has_toc: false
+description: "Learn how to explore your observability data using specialized interfaces for logs, metrics, and traces within observability workspaces. These enhanced data exploration capabilities provide tools for querying, analyzing, and correlating different types of telemetry data."
 redirect_from:
   - /observing-your-data/exploring-observability-data/
 ---
@@ -12,15 +13,13 @@ redirect_from:
 **Introduced 3.5**
 {: .label .label-purple }
 
-Learn how to explore your observability data using specialized interfaces for logs, metrics, and traces within observability workspaces. These enhanced data exploration capabilities provide purpose-built tools for querying, analyzing, and correlating different types of telemetry data.
+OpenSearch provides interfaces that work together with datasets and correlations to provide a comprehensive observability experience, enabling you to quickly identify issues, understand system behavior, and troubleshoot problems across your distributed applications.
 
-OpenSearch provides specialized interfaces for exploring the three pillars of observability data:
+Specialized interfaces are available for exploring the three pillars of observability data:
 
 - **Logs**: Query and analyze log data using Piped Processing Language (PPL).
 - **Metrics**: Explore time-series metric data using PromQL queries.
 - **Traces**: Investigate distributed traces and span relationships.
-
-These interfaces work together with datasets and correlations to provide a comprehensive observability experience, enabling you to quickly identify issues, understand system behavior, and troubleshoot problems across your distributed applications.
 
 ## Prerequisites
 

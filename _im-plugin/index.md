@@ -74,7 +74,7 @@ PUT movies/_doc/1
 { "title": "Spirited Away" }
 ```
 
-Because you must specify an ID, if you run this command 10 times, you still have just one document indexed with the `_version` field incremented to 10.
+Because you must specify an ID, if you run this command 10 times, you still have only one document indexed with the `_version` field incremented to 10.
 
 Indexes default to one primary shard and one replica. If you want to specify non-default settings, create the index before adding documents:
 
@@ -282,7 +282,7 @@ The DELETE operation increments the `_version` field. If you add the document ba
 
 ## Next steps
 
-- The Index Management (IM) plugin lets you automate recurring index management activities and reduce storage costs. For more information, see [Index State Management]({{site.url}}{{site.baseurl}}/im-plugin/ism/index).
+- The Index Management (IM) plugin lets you automate recurring index management activities and reduce storage costs. For more information, see [Index State Management]({{site.url}}{{site.baseurl}}/im-plugin/ism/index/).
 
 - For instructions on how to reindex data, see [Reindex data]({{site.url}}{{site.baseurl}}/im-plugin/reindex-data/).
 

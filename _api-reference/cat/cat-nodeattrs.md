@@ -1,6 +1,6 @@
 ---
 layout: default
-title: CAT nodeattrs
+title: CAT node attributes
 parent: CAT APIs
 nav_order: 35
 has_children: false
@@ -8,11 +8,11 @@ redirect_from:
 - /opensearch/rest-api/cat/cat-nodeattrs/
 ---
 
-# CAT Nodeattrs API
+# CAT Node Attributes API
 **Introduced 1.0**
 {: .label .label-purple }
 
-The CAT nodeattrs operation lists the attributes of custom nodes.
+The CAT node attributes operation lists the attributes of custom nodes.
 
 
 <!-- spec_insert_start

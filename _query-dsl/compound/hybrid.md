@@ -23,6 +23,7 @@ Parameter | Description
 :--- | :---
 `queries` | An array of one or more query clauses that are used to match documents. A document must match at least one query clause in order to be returned in the results. The documents' relevance scores from all query clauses are combined into one score by applying a [search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/). The maximum number of query clauses is 5. Required.
 `filter` | A filter to apply to all the subqueries of the hybrid query. The filter must be a single query object. To apply multiple filter conditions, combine them in a [Boolean query]({{site.url}}{{site.baseurl}}/query-dsl/compound/bool/). For more information, see [Hybrid search with pre-filtering]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/pre-filtering/).
+`pagination_depth` | The maximum number of search results that each subquery returns from each shard. This bounds the set of documents that the search pipeline normalizes and combines, so it affects both the depth to which you can paginate and the resulting order. Valid values are integers from `1` to the value of [`index.max_result_window`]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/) (10000 by default). Required if `from` is greater than `0`; otherwise optional. If not provided, each subquery returns up to `size` results from each shard. For more information, see [Paginating hybrid query results]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/pagination/).
 
 ### Rescoring hybrid queries
 Introduced 2.18
@@ -138,7 +139,9 @@ The response contains documents whose scores reflect both the initial hybrid que
 
 In this example, Document 1 ranks highest because the rescore `match_phrase` query boosts its score (its `title` field contains the exact phrase "search engine"). Document 2 contains the phrase only in the `description` field, so it receives a lower boost from the phrase match on `title`. Document 3 matches the individual terms "search" and "engine" across different fields but not as an exact phrase, so it receives the smallest boost. Because the rescore query is applied independently to each subquery's results at the shard level before normalization, the phrase boost influences the final combined scores.
 
+<!-- vale off -->
 ### min_score support for hybrid queries
+<!-- vale on -->
 
 Starting with version 3.5, the [`min_score`]({{site.url}}{{site.baseurl}}/api-reference/search-apis/search/#request-body) parameter is applied after score normalization and combination. It can be used only when sorting by `_score` or when no explicit sort order is specified. If `min_score` is used with any other sorting criteria, the request results in an error.
 {: .note}

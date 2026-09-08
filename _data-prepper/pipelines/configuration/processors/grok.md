@@ -479,4 +479,4 @@ The Grok processor includes the following custom metrics.
 
 ### Timer
 
-* `grokProcessingTime`: The time taken by individual records to match against `match` patterns. The `avg` metric is the most useful metric for this timer because because it provides the average time taken to match records.
+* `grokProcessingTime`: The time taken by individual records to match against `match` patterns. The `avg` metric is the most useful metric for this timer because it provides the average time taken to match records.

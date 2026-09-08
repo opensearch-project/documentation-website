@@ -256,7 +256,7 @@ The following table lists all response body fields.
 | `shards` | Array of arrays | Nested arrays representing shard copies (primary/replica) for the request. |
 | `shards.index` | String | The index name. |
 | `shards.shard` | Integer | The shard number. |
-| `shards.node`  | String | The node ID of the node containing this shard. |
+| `shards.node` | String | The node ID of the node containing this shard. |
 | `shards.primary` | Boolean | Whether this is a primary shard. |
 | `shards.state` | String | The current shard state. |
 | `shards.allocation_id.id` | String | A unique ID for this shard allocation. |

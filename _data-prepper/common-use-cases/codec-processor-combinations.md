@@ -25,7 +25,7 @@ The NDJSON input type is parsed using the [newline]({{site.url}}{{site.baseurl}}
 
 ## CSV
 
-The CSV data type inputs data as a table. It can used without a codec or processor, but it does require one or the other, for example, either just the `csv` processor or the `csv` codec.
+The CSV data type inputs data as a table. It can used without a codec or processor, but it does require one or the other, for example, either only the `csv` processor or the `csv` codec.
 
 The CSV input type is most effective when used with the following codec processor combinations.
 
@@ -35,11 +35,11 @@ When the [`csv` codec]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/confi
 
 ### `newline` codec 
 
-The [`newline` codec]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/s3#newline-codec) parses each row as a single log event. The codec will only detect a header when `header_destination` is configured. The [csv]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/csv/) processor then outputs the event into columns. The header detected in `header_destination` from the `newline` codec can be used in the `csv` processor under `column_names_source_key.`
+The [`newline` codec]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/s3#newline-codec) parses each row as a single log event. The codec will only detect a header when `header_destination` is configured. The [`csv`]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/csv/) processor then outputs the event into columns. The header detected in `header_destination` from the `newline` codec can be used in the `csv` processor under `column_names_source_key.`
 
 ## Parquet
 
-[Apache Parquet](https://parquet.apache.org/docs/overview/) is a columnar storage format built for Hadoop. When configuring a pipeline, you can use the parquet codec to read Parquet data directly from the Amazon Simple Storage Service (Amazon S3) object. This will retrieve all data from Parquet. Alternatively, you can use [S3 Select]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/s3#using-s3_select-with-the-s3-source) instead of the codec. In this case, [S3 Select]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/s3#using-s3_select-with-the-s3-source) parses the Parquet file directly. This can be more efficient if you are filtering or loading a subset of data.
+[Apache Parquet](https://parquet.apache.org/docs/overview/) is a columnar storage format built for Hadoop. When configuring a pipeline, you can use the Parquet codec to read Parquet data directly from the Amazon Simple Storage Service (Amazon S3) object. This will retrieve all data from Parquet. Alternatively, you can use [S3 Select]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/s3#using-s3_select-with-the-s3-source) instead of the codec. In this case, [S3 Select]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/s3#using-s3_select-with-the-s3-source) parses the Parquet file directly. This can be more efficient if you are filtering or loading a subset of data.
 
 Additional S3 charges apply when using [S3 Select]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/s3#using-s3_select-with-the-s3-source).
 {: .note}

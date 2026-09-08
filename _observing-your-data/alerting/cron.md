@@ -10,8 +10,9 @@ redirect_from:
 
 # Cron expression reference
 
-Monitors can run at a variety of fixed intervals (e.g. hourly, daily, etc.), but you can also define custom cron expressions for when they should run. Monitors use the Unix cron syntax and support five fields:
+Monitors can run at a variety of fixed intervals (such as hourly or daily), but you can also define custom cron expressions for when they should run. Monitors use the Unix cron syntax and support five fields:
 
+<!-- vale off -->
 Field | Valid values
 :--- | :---
 Minute | 0-59
@@ -19,6 +20,7 @@ Hour | 0-23
 Day of month | 1-31
 Month | 1-12
 Day of week | 0-7 (0 and 7 are both Sunday) or SUN, MON, TUE, WED, THU, FRI, SAT
+<!-- vale on -->
 
 For example, the following expression translates to "every Monday through Friday at 11:30 AM":
 

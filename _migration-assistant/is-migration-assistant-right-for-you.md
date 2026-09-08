@@ -59,7 +59,7 @@ The following table lists supported source and target platforms.
 |:---------|:-------|:-------|
 | Self-managed (on-premises) | Yes | Yes |
 | Amazon OpenSearch Service | Yes | Yes |
-| [Amazon OpenSearch Serverless]({{site.url}}{{site.baseurl}}/migration-assistant/amazon-opensearch-serverless/) | No | Yes |
+| [Amazon OpenSearch Serverless NextGen]({{site.url}}{{site.baseurl}}/migration-assistant/amazon-opensearch-serverless/) | No | Yes |
 | Third-party cloud providers | Yes | Yes |
 | AWS EC2 | Yes | Yes |
 | Apache Solr (SolrCloud/Standalone) | Yes | No |

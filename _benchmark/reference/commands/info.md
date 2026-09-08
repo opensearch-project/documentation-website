@@ -9,7 +9,7 @@ redirect_from:
 ---
 
 <!-- vale off -->
-# info
+# info command
 <!-- vale on -->
 
 The `info` command prints details about an OpenSearch Benchmark component.

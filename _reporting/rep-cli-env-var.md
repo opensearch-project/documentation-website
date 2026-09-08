@@ -70,7 +70,7 @@ To modify the body of your email, you can edit the *index.hbs* file.
 
 #### Example: Sending a report to an email address with SMTP
 
-To send a report to an email address with SMTP transport, you need to set the options `OPENSEARCH_SMTP_HOST`, `OPENSEARCH_SMTP_PORT`, `OPENSEARCH_SMTP_USER`, `OPENSEARCH_SMTP_PASSWORD`, and `OPENSEARCH_SMTP_SECURE` in your .env file.
+To send a report to an email address with Simple Mail Transfer Protocol (SMTP) transport, you need to set the options `OPENSEARCH_SMTP_HOST`, `OPENSEARCH_SMTP_PORT`, `OPENSEARCH_SMTP_USER`, `OPENSEARCH_SMTP_PASSWORD`, and `OPENSEARCH_SMTP_SECURE` in your .env file.
 
 Once the transport options are set in your .env file, you can send the email using the following command:
 
@@ -93,7 +93,7 @@ The following limitations apply to environment variable usage with the Reporting
 - If a URL contains an exclamation point (!), then the history expansion needs to be disabled temporarily. Depending on which shell you are using, you can disable history expansion using one of the following commands:
 
   * For bash, use `set +H`. 
-  * For zsh, use `setopt nobanghist`.
+  * For `zsh`, use `setopt nobanghist`.
 
   Alternatively, you can add a URL value as an environment variable using this format: `URL="<url-with-!>"`.
 

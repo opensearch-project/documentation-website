@@ -13,7 +13,7 @@ The following liquid syntax declares a variable, major_version_mask, which is tr
 {% assign version_parts = site.opensearch_major_minor_version | split: "." %}
 {% assign major_version_mask = version_parts[0] | append: ".x" %}
 
-# Debian
+# Installing OpenSearch on Debian
 
 Installing OpenSearch using the Advanced Packaging Tool (APT) package manager simplifies the process considerably compared to the [Tarball]({{site.url}}{{site.baseurl}}/opensearch/install/tar/) method. Several technical considerations, such as the installation path, location of configuration files, and creation of a service managed by `systemd`, as examples, are handled automatically by the package manager.
 
@@ -33,6 +33,8 @@ This guide assumes that you are comfortable working from the Linux command line 
 {:.note}
 
 ## Step 1: Download and install OpenSearch
+
+You can install OpenSearch from a package or an APT repository.
 
 ### Install OpenSearch from a package
 
@@ -235,7 +237,7 @@ Before proceeding with any configuration, you should test your installation of O
 
 When OpenSearch is installed using the Debian package, some demo security settings are automatically applied. This includes self-signed TLS certificates and several users and roles. If you would like to configure these yourself, see [Set up OpenSearch in your environment](#step-3-set-up-opensearch-in-your-environment).
 
-An OpenSearch node in its default configuration (with demo certificates and users with default passwords) is not suitable for a production environment. If you plan to use the node in a production environment, you should, at a minimum, replace the demo TLS certificates with your own TLS certificates and [update the list of internal users and passwords]({{site.url}}{{site.baseurl}}/security-plugin/configuration/yaml). See [Security configuration]({{site.url}}{{site.baseurl}}/security-plugin/configuration/index/) for additional guidance to ensure that your nodes are configured according to your security requirements.
+An OpenSearch node in its default configuration (with demo certificates and users with default passwords) is not suitable for a production environment. If you plan to use the node in a production environment, you should, at a minimum, replace the demo TLS certificates with your own TLS certificates and [update the list of internal users and passwords]({{site.url}}{{site.baseurl}}/security-plugin/configuration/yaml/). See [Security configuration]({{site.url}}{{site.baseurl}}/security-plugin/configuration/index/) for additional guidance to ensure that your nodes are configured according to your security requirements.
 {: .warning}
 
 1. Send requests to the server to verify that OpenSearch is running. Note the use of the `--insecure` flag, which is required because the TLS certificates are self-signed.
@@ -344,7 +346,7 @@ Before modifying any configuration files, it's always a good idea to save a back
    ```
    {% include copy.html %}
 
-   If you previously disabled the Security plugin in opensearch.yml, be sure to re-enable it. Otherwise you can skip this setting:
+   If you previously disabled the Security plugin in opensearch.yml, be sure to reenable it. Otherwise you can skip this setting:
    ```yaml
    plugins.security.disabled: false
    ```
@@ -462,7 +464,7 @@ TLS certificates provide additional security for your cluster by allowing client
    ```
    {% include copy.html %}
 
-1. Make sure the remaining certificates are owned by the opensearch user:
+1. Make sure the remaining certificates are owned by the `opensearch` user:
 
    ```bash
    sudo chown opensearch:opensearch /etc/opensearch/admin-key.pem /etc/opensearch/admin.pem /etc/opensearch/node1-key.pem /etc/opensearch/node1.pem /etc/opensearch/root-ca-key.pem /etc/opensearch/root-ca.pem /etc/opensearch/root-ca.srl

@@ -1,13 +1,13 @@
 ---
 layout: default
-title: Peer forwarder
+title: Peer Forwarder
 nav_order: 12
 parent: Managing OpenSearch Data Prepper
 ---
 
-# Peer forwarder
+# Peer Forwarder
 
-Peer forwarder is an HTTP service that performs peer forwarding of an `event` between OpenSearch Data Prepper nodes for aggregation. This HTTP service uses a hash-ring approach to aggregate events and determine which Data Prepper node it should handle on a given trace before rerouting it to that node. Currently, peer forwarder is supported by the `aggregate`, `service_map`, and `otel_traces` [processors]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/processors/).
+Peer Forwarder is an HTTP service that performs peer forwarding of an `event` between OpenSearch Data Prepper nodes for aggregation. This HTTP service uses a hash-ring approach to aggregate events and determine which Data Prepper node it should handle on a given trace before rerouting it to that node. Currently, Peer Forwarder is supported by the `aggregate`, `service_map`, and `otel_traces` [processors]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/processors/).
 
 Peer Forwarder groups events based on the identification keys provided by the supported processors. For `service_map` and `otel_traces`, the identification key is `traceId` by default and cannot be configured. The `aggregate` processor is configured using the `identification_keys` configuration option. From here, you can specify which keys to use for Peer Forwarder. See [Aggregate Processor page](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/aggregate-processor#identification_keys) for more information about identification keys.
 
@@ -41,7 +41,7 @@ peer_forwarder:
 
 [AWS Cloud Map](https://docs.aws.amazon.com/cloud-map/latest/dg/what-is-cloud-map.html) provides API-based service discovery as well as DNS-based service discovery.
 
-Peer forwarder can use the API-based service discovery in AWS Cloud Map. To support this, you must have an existing namespace configured for API instance discovery. You can create a new one by following the instructions provided by the [AWS Cloud Map documentation](https://docs.aws.amazon.com/cloud-map/latest/dg/working-with-namespaces.html).
+Peer Forwarder can use the API-based service discovery in AWS Cloud Map. To support this, you must have an existing namespace configured for API instance discovery. You can create a new one by following the instructions provided by the [AWS Cloud Map documentation](https://docs.aws.amazon.com/cloud-map/latest/dg/working-with-namespaces.html).
 
 Your Data Prepper configuration needs to include the following:
 * `aws_cloud_map_namespace_name` – Set to your AWS Cloud Map namespace name.
@@ -92,11 +92,11 @@ The following table provides optional configuration values.
 
 | Value | Type | Description |
 | ----  | --- |  ----------- |
-| `port` | Integer | A value between 0 and 65535 that represents the port that the peer forwarder server is running on. Default value is `4994`. |
-| `request_timeout` | Integer | Represents the request timeout duration in milliseconds for the peer forwarder HTTP server. Default value is `10000`. |
-| `server_thread_count` | Integer | Represents the number of threads used by the peer forwarder server. Default value is `200`.|
-| `client_thread_count` | Integer | Represents the number of threads used by the peer forwarder client. Default value is `200`.|
-| `maxConnectionCount`  | Integer | Represents the maximum number of open connections for the peer forwarder server. Default value is `500`. |
+| `port` | Integer | A value between 0 and 65535 that represents the port that the Peer Forwarder server is running on. Default value is `4994`. |
+| `request_timeout` | Integer | Represents the request timeout duration in milliseconds for the Peer Forwarder HTTP server. Default value is `10000`. |
+| `server_thread_count` | Integer | Represents the number of threads used by the Peer Forwarder server. Default value is `200`.|
+| `client_thread_count` | Integer | Represents the number of threads used by the Peer Forwarder client. Default value is `200`.|
+| `maxConnectionCount`  | Integer | Represents the maximum number of open connections for the Peer Forwarder server. Default value is `500`. |
 | `discovery_mode` | String | Represents the peer discovery mode to be used. Allowable values are `local_node`, `static`, `dns`, and `aws_cloud_map`. Defaults to `local_node`, which processes events locally. |
 | `static_endpoints` | List | Contains the endpoints of all Data Prepper instances. Required if `discovery_mode` is set to `static`. |
 |  `domain_name` | String | Represents the single domain name to query DNS against. Typically used by creating multiple [DNS A records](https://www.cloudflare.com/learning/dns/dns-records/dns-a-record/) for the same domain. Required if `discovery_mode` is set to `dns`. |
@@ -107,14 +107,14 @@ The following table provides optional configuration values.
 | `batch_size` |  Integer | Represents the maximum number of records that the buffer returns on read. Default is `48`. |
 | `batch_delay` | Integer | Represents the maximum amount of time, in milliseconds, to retrieve `batch_size` records from the Peer Forwarder buffer. If `batch_size` is not reached within this duration, a partial batch is returned. If set to `0`, all available records up to `batch_size` are returned immediately. If the buffer is empty, it blocks for up to 5 milliseconds while waiting for records. Default is `3000`. |
 |  `aws_region` |  String | Represents the AWS Region that uses `ACM`, `Amazon S3`, or `AWS Cloud Map` and is required when any of the following conditions are met:<br> - The `use_acm_certificate_for_ssl` setting is set to `true`. <br> - Either `ssl_certificate_file` or `ssl_key_file` specifies an Amazon Simple Storage Service (Amazon S3) URI (for example, s3://mybucket/path/to/public.cert).<br> - The `discovery_mode` is set to `aws_cloud_map`. |
-| `drain_timeout`  | Duration | Represents the amount of time that peer forwarder will wait to complete data processing before shutdown. |
+| `drain_timeout`  | Duration | Represents the amount of time that Peer Forwarder will wait to complete data processing before shutdown. |
 | `forwarding_batch_size` | Integer | Represents the maximum number of records to send in each request to a peer. Default is `1500`. Maximum is `15000`. |
 | `forwarding_batch_queue_depth` | Integer | Represents the depth of the batching queue. This value is a scalar used to determine the size of the linked blocking queues used for batching records before they are sent to a peer. The queue size is determined by the formula `workers * forwarding_batch_size * forwarding_batch_queue_depth`. Default is `1`. |
 | `forwarding_batch_timeout` | Duration | Represents the maximum amount of time that can occur between flushing batches to a peer. Default is `3s`. |
 
 ## SSL configuration
 
-The following table provides optional SSL configuration values that allow you to set up a trust manager for the peer forwarder client in order to connect to other Data Prepper instances.
+The following table provides optional SSL configuration values that allow you to set up a trust manager for the Peer Forwarder client in order to connect to other Data Prepper instances.
 
 | Value | Type | Description |
 | ----- | ---- | ----------- |
@@ -152,14 +152,14 @@ peer_forwarder:
 
 ## Metrics
 
-Core peer forwarder introduces the following custom metrics. All the metrics are prefixed by `core.peerForwarder`.
+Core Peer Forwarder introduces the following custom metrics. All the metrics are prefixed by `core.peerForwarder`.
 
 ### Timer
 
-Peer forwarder's timer capability provides the following information:
+Peer Forwarder's timer capability provides the following information:
 
-- `requestForwardingLatency`: Measures latency of requests forwarded by the peer forwarder client.
-- `requestProcessingLatency`: Measures latency of requests processed by the peer forwarder server.
+- `requestForwardingLatency`: Measures latency of requests forwarded by the Peer Forwarder client.
+- `requestProcessingLatency`: Measures latency of requests processed by the Peer Forwarder server.
 
 ### Counter
 
@@ -170,9 +170,9 @@ The following table provides counter metric options.
 | `requests`| Measures the total number of forwarded requests. |
 | `requestsFailed`| Measures the total number of failed requests. Applies to requests with an HTTP response code other than `200`. |
 | `requestsSuccessful`|  Measures the total number of successful requests. Applies to requests with HTTP response code `200`. |
-| `requestsTooLarge`| Measures the total number of requests that are too large to be written to the peer forwarder buffer. Applies to requests with HTTP response code `413`. |
-| `requestTimeouts`| Measures the total number of requests that time out while writing content to the peer forwarder buffer. Applies to requests with HTTP response code `408`. |
-| `requestsUnprocessable`| Measures the total number of requests that fail due to an unprocessable entity. Applies to requests with HTTP response code `422`. |
+| `requestsTooLarge`| Measures the total number of requests that are too large to be written to the Peer Forwarder buffer. Applies to requests with HTTP response code `413`. |
+| `requestTimeouts`| Measures the total number of requests that time out while writing content to the Peer Forwarder buffer. Applies to requests with HTTP response code `408`. |
+| `requestsUnprocessable`| Measures the total number of requests that fail because of an entity that cannot be processed. Applies to requests with HTTP response code `422`. |
 | `badRequests`| Measures the total number of requests with a bad request format. Applies to requests with HTTP response code `400`. |
 | `recordsSuccessfullyForwarded`| Measures the total number of successfully forwarded records. |
 | `recordsFailedForwarding`| Measures the total number of records that fail to be forwarded. |

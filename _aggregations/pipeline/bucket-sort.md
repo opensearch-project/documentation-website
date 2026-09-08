@@ -5,7 +5,7 @@ parent: Pipeline aggregations
 nav_order: 40
 ---
 
-# Bucket sort aggregations
+# Bucket sort aggregation
 
 The `bucket_sort` aggregation is a parent aggregation that sorts or truncates the buckets produced by its parent multi-bucket aggregation.
 

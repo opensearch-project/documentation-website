@@ -9,7 +9,7 @@ has_children: false
 has_toc: false
 ---
 
-# Meta
+# Meta mapping parameter
 
 The `_meta` mapping parameter allows you to attach metadata to your mapping definition. This metadata is stored alongside your mapping and is returned when the mapping is retrieved, serving solely as informational context without influencing indexing or search operations.
 

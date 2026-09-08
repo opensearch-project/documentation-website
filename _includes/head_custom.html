@@ -38,7 +38,7 @@
   })();
 </script>
 
-{% if site.doc_version != "latest" %}
+{% if site.doc_version != "latest" or page.url == "/search.html" or page.url == "/404.html" %}
 <meta name="robots" content="noindex, follow">
 {% endif %}
 

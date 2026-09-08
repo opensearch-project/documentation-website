@@ -5,7 +5,7 @@ parent: Pipeline aggregations
 nav_order: 20
 ---
 
-# Bucket script aggregations
+# Bucket script aggregation
 
 The `bucket_script` aggregation is a parent pipeline aggregation that executes a script to perform per-bucket numeric computations across a set of buckets. Use the `bucket_script` aggregation to perform custom numeric computations on multiple metrics in a bucketed aggregation. For example, you can:
 

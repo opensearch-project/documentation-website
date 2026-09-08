@@ -73,7 +73,7 @@ A query clause in a query context asks the question "_How well_ does the documen
 - Find documents that contain the word `dream`, including its various forms (`dreaming` or `dreams`) and synonyms (`contemplate`).
 - Find documents that match the words `long live king`.
 
-With a query context, every matching document contains a relevance score in the `_score` field, which you can use to [sort]({{site.url}}{{site.baseurl}}/opensearch/search/sort) documents by relevance. 
+With a query context, every matching document contains a relevance score in the `_score` field, which you can use to [sort]({{site.url}}{{site.baseurl}}/opensearch/search/sort/) documents by relevance. 
 
 To run a query clause in a query context, pass it to a `query` parameter. For example, the following query searches for documents that match the words `long live king` in the `shakespeare` index:
 

@@ -7,6 +7,7 @@ parent: SQL and PPL API
 has_toc: false
 redirect_from:
   - /sql-and-ppl/sql-and-ppl-api/data-source-apis/
+  - /sql-and-ppl/ppl/admin/datasources/
 ---
 
 # Data source APIs

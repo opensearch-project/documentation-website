@@ -9,7 +9,7 @@ has_children: false
 has_toc: false
 ---
 
-# Doc values
+# Doc values mapping parameter
 
 By default, most fields are indexed and searchable using the inverted index. The inverted index works by storing a unique sorted list of terms and mapping each term to the documents that contain it.
 

@@ -73,6 +73,6 @@ semantic_search:
 
 # Semantic search tutorials
 
-The following tutorials show you how to implement semantic search.
+Learn how to implement semantic search in OpenSearch using embedding models to match queries by meaning rather than exact keywords.
 
 {% include cards.html cards=page.semantic_search %}

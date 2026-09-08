@@ -7,7 +7,7 @@ redirect_from:
   - /dashboards/admin-ui-index/datastream/
 ---
 
-# Data streams
+# Data streams in OpenSearch Dashboards
 Introduced 2.6
 {: .label .label-purple }
 

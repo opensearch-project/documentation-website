@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Pie charts
+title: Pie chart
 parent: Visualization types
 grand_parent: Creating visualizations in the Visualize application
 great_grand_parent: Building data visualizations
@@ -9,7 +9,7 @@ redirect_from:
   - /dashboards/visualize/pie-charts/
 ---
 
-# Pie charts
+# Pie chart
 
 A pie chart displays what percent of each condition makes up the entire count of a data field. The visualization can show a single value or multiple bucketed values.
 

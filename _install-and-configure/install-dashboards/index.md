@@ -31,7 +31,9 @@ OpenSearch Dashboards supports the following web browsers:
 
 Other Chromium-based browsers might work, as well. Internet Explorer and Microsoft Edge Legacy are **not** supported.
 
+<!-- vale off -->
 ## Node.js compatibility
+<!-- vale on -->
 
 OpenSearch Dashboards requires the Node.js runtime binary to run. One is included in the distribution packages available from the [OpenSearch downloads page](https://opensearch.org/downloads.html){:target='\_blank'}.
 

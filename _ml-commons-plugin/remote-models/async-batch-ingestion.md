@@ -2,8 +2,9 @@
 layout: default
 title: Asynchronous batch ingestion
 nav_order: 90
-parent: Connecting to externally hosted models 
-grand_parent: Integrating ML models
+parent: Batch ingestion
+grand_parent: Connecting to externally hosted models 
+great_grand_parent: Integrating ML models
 ---
 
 

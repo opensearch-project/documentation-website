@@ -75,7 +75,7 @@ Parameter | Type | Description
 :--- | :--- | :---
 `filter` | Query DSL object | The query that limits the number of documents that the alias can access.
 `index_routing` | String | The value that routes indexing operations to a specific shard. When specified, overwrites the `routing` value for indexing operations.
-`is_hidden` | Boolean | Hides or unhides the alias. When `true`, the alias is hidden. Default is `false`. Indexes for the alias must have matching values for this setting.
+`is_hidden` | Boolean | Hides or shows the alias. When `true`, the alias is hidden. Default is `false`. Indexes for the alias must have matching values for this setting.
 `is_write_index` | Boolean | Specifies the write index. When `true`, the index is the write index for the alias. Default is `false`.
 `routing` | String | The value used to route index and search operations to a specific shard.
 `search_routing` | String | Routes search operations to a specific shard. When specified, it overwrites `routing` for search operations.

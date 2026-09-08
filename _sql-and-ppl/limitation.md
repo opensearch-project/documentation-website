@@ -6,9 +6,9 @@ redirect_from:
   - /search-plugins/sql/limitation/
 ---
 
-# Limitations
+# SQL and PPL limitations
 
-The SQL plugin has the following limitations:
+The SQL plugin has the following limitations.
 
 ## Aggregation over expression is not supported
 
@@ -61,7 +61,7 @@ SELECT l.key, l.spanId, r.spanId
 {% include copy.html %}
 
 
-By default, JOIN queries will automatically terminate after 60 seconds to prevent excessive resource consumption. You can adjust this timeout period using a hint in your query. For example, to set a 5-minute (300-second) timeout, use the following code:
+By default, `JOIN` queries will automatically terminate after 60 seconds to prevent excessive resource consumption. You can adjust this timeout period using a hint in your query. For example, to set a 5-minute (300-second) timeout, use the following code:
 
 ```sql
 SELECT /*! JOIN_TIME_OUT(300) */ left.a, right.b FROM left JOIN right ON left.id = right.id;

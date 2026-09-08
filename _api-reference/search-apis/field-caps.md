@@ -48,9 +48,9 @@ The following table lists the available request body fields.
 
 | Field          | Data type | Description                                                             |
 | :------------- | :-------- | :---------------------------------------------------------------------- |
-| `index_filter` | Object    | A query DSL object used to filter indexes included in the request. See [Example: Using an index filter](#example-using-an-index-filter). _Optional_.|
+| `index_filter` | Object | A query DSL object used to filter indexes included in the request. See [Example: Using an index filter](#example-using-an-index-filter). _Optional_.|
 
-## Example Requests
+## Example requests
 
 Create two indexes with different mappings for the same field:
 
@@ -240,15 +240,15 @@ The following table lists all response body fields.
 
 | Field                                            | Data type    | Description                                                                                                              |
 | :----------------------------------------------- | :----------- | :----------------------------------------------------------------------------------------------------------------------- |
-| `indices`                                        | List         | The list of indexes included in the response.                                                                            |
-| `fields`                                         | Object       | A map of types to field capabilities, where each key is a field name and its value is an object.                  |
-| `fields.<field>.<type>.type`                     | String       | The data type of the field (for example, `float`, `text`, `keyword`).                                                           |
-| `fields.<field>.<type>.searchable`               | Boolean      | Whether the field is indexed and searchable.                                                                             |
-| `fields.<field>.<type>.aggregatable`             | Boolean      | Whether the field can be used in aggregations like `sum` or `terms`.                                                  |
-| `fields.<field>.<type>.indices`                  | List         | A list of indexes in which this field appears with the corresponding type.                                                  |
-| `fields.<field>.<type>.non_searchable_indices`   | List or null | A list of indexes in which the field is *not* searchable. `null` means that the field is not searchable in any index.                                   |
+| `indices` | List | The list of indexes included in the response.                                                                            |
+| `fields` | Object | A map of types to field capabilities, where each key is a field name and its value is an object.                  |
+| `fields.<field>.<type>.type` | String | The data type of the field (for example, `float`, `text`, `keyword`).                                                           |
+| `fields.<field>.<type>.searchable` | Boolean | Whether the field is indexed and searchable.                                                                             |
+| `fields.<field>.<type>.aggregatable` | Boolean | Whether the field can be used in aggregations like `sum` or `terms`.                                                  |
+| `fields.<field>.<type>.indices` | List | A list of indexes in which this field appears with the corresponding type.                                                  |
+| `fields.<field>.<type>.non_searchable_indices` | List or null | A list of indexes in which the field is *not* searchable. `null` means that the field is not searchable in any index.                                   |
 | `fields.<field>.<type>.non_aggregatable_indices` | List or null | A list of indexes in which the field is *not* aggregatable. `null` means that the field is not aggregatable in any index.                               |
-| `fields.<field>.<type>.meta`                     | Object       | Merged metadata values from all mappings. Keys are custom metadata keys, and values are arrays of values across indexes. |
+| `fields.<field>.<type>.meta` | Object | Merged metadata values from all mappings. Keys are custom metadata keys, and values are arrays of values across indexes. |
 
 ## Required permissions
 
