@@ -71,6 +71,9 @@ Event | Logged on REST | Logged on transport | Description
 `RESOURCE_SHARING_CHANGED` | No | Yes | A resource sharing configuration was changed. Disabled by default.
 
 
+Although `REQUEST_AUDIT` records a REST-origin request (`audit_request_origin: REST`), its internal request layer is `TRANSPORT` (`audit_request_layer: TRANSPORT`). It can therefore be suppressed by `disabled_transport_categories` as well as the unified `disabled_categories` setting.
+{: .note}
+
 ## Audit log settings
 
 The following default log settings work well for most use cases. However, you can change settings to save storage space or adapt the information to your exact needs. 
@@ -270,7 +273,7 @@ config:
 
 ### Settings in opensearch.yml
 
-The following settings are stored in the `opensearch.yml` file. The audit filter and compliance settings---for example, `log_request_body`, `resolve_indices`, `disabled_categories`, and the `plugins.security.audit.compliance.*` settings---are dynamic: they can be changed at runtime using the [Cluster settings API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/) without a node restart. Most of these dynamic settings are also marked as sensitive, meaning only security admin users can view or modify them via the cluster settings API (`body_logging_exclusions` and `action_groups.<NAME>` are exceptions and are not sensitive). Other audit settings---such as `action_groups.<NAME>`, `log4j.enable_mdc_routing`, `config.index`, the thread pool settings, and the sink connection settings---are static and require a node restart.
+The following settings are stored in the `opensearch.yml` file. The audit filter and compliance settings---for example, `log_request_body`, `resolve_indices`, `disabled_categories`, and the `plugins.security.audit.compliance.*` settings---are dynamic: they can be changed at runtime using the [Cluster settings API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/) without a node restart. Most of these dynamic settings are registered with `Setting.Property.Sensitive`, which keeps their values out of diagnostics and logs; `body_logging_exclusions` is a dynamic setting that is not marked sensitive. In standalone SSL-only mode, any caller can read the non-secret dynamic audit configuration (`plugins.security.audit.config.*` and `plugins.security.audit.compliance.*`) using `GET _cluster/settings`. Credential-bearing sink settings remain hidden. In FGAC mode, the entire `plugins.security.audit.*` subtree is filtered from settings responses for all callers. This read filtering is not role-based. Other audit settings---such as `action_groups.<NAME>`, `log4j.enable_mdc_routing`, `config.index`, the thread pool settings, and the sink connection settings---are static and require a node restart.
 
 #### Enable or disable audit logging
 
@@ -330,9 +333,7 @@ Body logging exclusions give operators granular control: suppress request bodies
 
 ##### How it works
 
-Each audit event's action name and REST path are matched against a set of exclusion patterns. When a match is found, the request body field is omitted from the audit event---all other fields (user, IP address, indices, timestamp, etc.) are preserved.
-
-Matching uses two identifiers per request:
+All expanded action-group patterns and raw exclusion patterns form a single combined wildcard matcher. For each audit layer, this matcher is tested against the corresponding identifier below. When a match is found, the request body field is omitted from the audit event---all other fields (user, IP address, indices, timestamp, etc.) are preserved.
 
 - **Transport action** --- The internal action name (for example, `indices:data/write/bulk[s][p]`). This is matched for transport-layer audit events.
 - **REST path** --- The HTTP request path (for example, `/_bulk`). This is matched for REST-layer audit events. REST paths always start with `/`.
@@ -350,11 +351,7 @@ plugins.security.audit.config.action_groups.INDEX_ADMIN: "indices:admin/*"
 ```
 {% include copy.html %}
 
-Each action group maps a name to a comma-separated list of patterns. Patterns can be:
-
-- Transport action patterns (contain `:`) --- for example, `indices:data/write/bulk*`
-- REST path patterns (start with `/`) --- for example, `/_bulk`
-- Wildcard patterns (contain `*`) --- for example, `indices:data/write/*`
+Each action group maps a name to a comma-separated list of literal or wildcard patterns, such as `indices:data/write/bulk*`, `/_bulk`, or `indices:data/write/*`. All patterns use the same matcher; characters such as `:`, `/`, and `*` do not assign a pattern to a particular audit layer.
 
 Action groups are static settings and require a node restart to change. The group names themselves are case-sensitive.
 
@@ -385,7 +382,7 @@ Each entry in the list is processed as follows:
 1. If the entry matches a defined action group name, that group's patterns are expanded.
 2. If it does not match any group name, the entry is treated as a raw pattern (literal or wildcard).
 
-A warning is logged for entries that don't look like an action pattern (no `:`), REST path (no `/`), or wildcard (no `*`), since they are unlikely to match any action.
+For entries that do not match a defined group name, a warning is logged if the entry contains none of `:`, `/`, or `*`, since it is unlikely to match an action or REST path. This check only determines whether to log a warning; the entry is still included in the combined matcher.
 
 ##### Bulk request behavior
 
