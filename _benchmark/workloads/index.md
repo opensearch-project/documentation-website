@@ -7,6 +7,7 @@ redirect_from:
   - /benchmark/reference/workloads/
   - /benchmark/reference/workloads/index/
   - /benchmark/workloads/
+redirect_to: https://docs.opensearch.org/latest/benchmark/anatomy-of-a-workload/
 ---
 
 # OpenSearch Benchmark workload reference

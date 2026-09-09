@@ -5,6 +5,7 @@ nav_order: 160
 parent: Optimizing benchmarks
 grand_parent: User guide
 canonical_url: https://docs.opensearch.org/latest/benchmark/user-guide/optimizing-benchmarks/randomizing-queries/
+redirect_to: https://docs.opensearch.org/latest/benchmark/randomizing-queries/
 ---
 
 # Randomizing queries
