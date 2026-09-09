@@ -168,9 +168,9 @@ The `size_in_bytes` value under `primaries` reports the on-disk size of each ind
 
 The ratio between the two values is how much larger a whole index becomes when the field is mapped as `wildcard` instead of `keyword`. It is not the ratio of the field's own storage, which is higher: `_source` and the other per-document structures are identical in both indexes, so they dilute the difference. In the preceding response, the whole-index ratio is 1.14, but the field alone accounts for 1.22. Use the whole-index ratio for capacity planning and multiply the result by 1 plus the number of replicas.
 
-Two properties of this measurement are worth noting. Because the indexes are merged into a single segment, the sizes are a floor: a production index holds multiple segments and deleted documents, both of which add overhead to either field type. And the ratio decreases slightly as the document count grows, so a small sample yields a marginally conservative estimate.
+Because the indexes are merged into a single segment, the sizes are a floor: a production index holds multiple segments and deleted documents, both of which add overhead to either field type. The ratio decreases slightly as the document count grows, so a small sample yields a marginally conservative estimate.
 
-To reduce the cost, use `ignore_above` to skip indexing values longer than a chosen length, or set `doc_values` to `false` if you do not need aggregations, sorting, or scripting on the field. When `doc_values` is disabled, OpenSearch reads each candidate document's value from `_source` rather than from doc values when it filters the substring matches, so the field must remain in `_source`. If the field is excluded from `_source` and `doc_values` is disabled, these queries return no matches instead of an error. Either setting makes the field ineligible for [derived source](#derived-source).
+To reduce storage, use `ignore_above` to prevent values longer than a specified length from being indexed. If you do not need aggregations, sorting, or scripting on the field, you can also disable doc values by setting `doc_values` to `false`. When doc values are disabled on a field, you cannot exclude the field from `_source`, and queries on the field can become considerably slower. Both settings make the field ineligible for [derived source](#derived-source).
 
 ## Limitations
 
