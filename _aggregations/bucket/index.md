@@ -48,3 +48,4 @@ OpenSearch supports the following bucket aggregations:
 - [Significant terms]({{site.url}}{{site.baseurl}}/aggregations/bucket/significant-terms/)
 - [Significant text]({{site.url}}{{site.baseurl}}/aggregations/bucket/significant-text/)
 - [Terms]({{site.url}}{{site.baseurl}}/aggregations/bucket/terms/)
+- [Variable width histogram]({{site.url}}{{site.baseurl}}/aggregations/bucket/variable-width-histogram/)
