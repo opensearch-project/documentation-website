@@ -6,6 +6,7 @@ parent: Migrate metadata
 grand_parent: Migration phases
 permalink: /migration-assistant/migration-phases/migrate-metadata/transform-string-text-keyword/
 canonical_url: https://docs.opensearch.org/latest/migration-assistant/migration-phases/migrate-metadata/transform-string-text-keyword/
+redirect_to: https://docs.opensearch.org/latest/migration-assistant/migration-phases/migrate-metadata/transform-string-text-keyword/
 ---
 
 # Transform string fields to text/keyword

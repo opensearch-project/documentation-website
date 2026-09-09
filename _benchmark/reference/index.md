@@ -6,6 +6,7 @@ has_children: true
 redirect_from:
   - /benchmark/reference/
 canonical_url: https://docs.opensearch.org/latest/benchmark/reference/index/
+redirect_to: https://docs.opensearch.org/latest/benchmark/reference/index/
 ---
 
 # Reference
