@@ -7,6 +7,7 @@ has_children: true
 redirect_from:
   - /benchmark/user-guide/understanding-results/
 canonical_url: https://docs.opensearch.org/latest/benchmark/user-guide/understanding-results/index/
+redirect_to: https://docs.opensearch.org/latest/benchmark/reference/summary-report/
 ---
 
 After [running a workload]({{site.url}}{{site.baseurl}}/benchmark/user-guide/working-with-workloads/running-workloads/), OpenSearch Benchmark produces a series of metrics. This section describes how to interpret benchmark results through summary reports and how to visualize metrics using telemetry devices:

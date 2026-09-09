@@ -6,6 +6,7 @@ parent: Migrate metadata
 grand_parent: Migration phases
 permalink: /classic/migration-assistant/migration-phases/migrate-metadata/handling-field-type-breaking-changes/
 canonical_url: https://docs.opensearch.org/latest/migration-assistant-classic/migration-phases/migrate-metadata/handling-field-type-breaking-changes/
+redirect_to: https://docs.opensearch.org/latest/classic/migration-assistant/migration-phases/migrate-metadata/handling-field-type-breaking-changes/
 ---
 
 # Transform field types

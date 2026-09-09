@@ -6,6 +6,7 @@ parent: Migrate metadata
 grand_parent: Migration workflows
 permalink: /migration-assistant/migration-phases/migrate-metadata/transform-flattened-flat-object/
 canonical_url: https://docs.opensearch.org/latest/migration-assistant/migration-phases/migrate-metadata/transform-flattened-flat-object/
+redirect_to: https://docs.opensearch.org/latest/migration-assistant/migration-phases/migrate-metadata/transform-flattened-flat-object/
 ---
 
 # Transform flattened fields to flat_object

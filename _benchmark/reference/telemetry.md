@@ -6,6 +6,7 @@ parent: Reference
 canonical_url: https://docs.opensearch.org/latest/benchmark/reference/telemetry/
 redirect_from:
   - /benchmark/user-guide/understanding-results/telemetry/
+redirect_to: https://docs.opensearch.org/latest/benchmark/reference/telemetry/
 ---
 
 # Telemetry devices

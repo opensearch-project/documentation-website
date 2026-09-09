@@ -5,6 +5,7 @@ parent: Migration phases
 nav_order: 4
 permalink: /classic/migration-assistant/migration-phases/create-snapshot/
 canonical_url: https://docs.opensearch.org/latest/migration-assistant-classic/migration-phases/create-snapshot/
+redirect_to: https://docs.opensearch.org/latest/classic/migration-assistant/migration-phases/create-snapshot/
 ---
 
 # Creating a snapshot

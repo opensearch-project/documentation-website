@@ -5,6 +5,7 @@ nav_order: 20
 parent: Optimizing benchmarks
 grand_parent: User guide
 canonical_url: https://docs.opensearch.org/latest/benchmark/user-guide/optimizing-benchmarks/expand-data-corpus/
+redirect_to: https://docs.opensearch.org/latest/benchmark/expand-data-corpus/
 ---
 
 # Expanding a workload's data corpus

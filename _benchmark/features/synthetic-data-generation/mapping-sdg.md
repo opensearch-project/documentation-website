@@ -5,6 +5,7 @@ nav_order: 15
 parent: Synthetic data generation
 grand_parent: Additional features
 canonical_url: https://docs.opensearch.org/latest/benchmark/features/synthetic-data-generation/mapping-sdg/
+redirect_to: https://docs.opensearch.org/latest/benchmark/features/synthetic-data-generation/mapping-sdg/
 ---
 
 # Generating data using index mappings

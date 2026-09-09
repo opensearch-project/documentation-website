@@ -4,6 +4,7 @@ title: Architecture
 nav_order: 15
 permalink: /classic/migration-assistant/architecture/
 canonical_url: https://docs.opensearch.org/latest/migration-assistant-classic/architecture/
+redirect_to: https://docs.opensearch.org/latest/classic/migration-assistant/architecture/
 ---
 
 # Architecture

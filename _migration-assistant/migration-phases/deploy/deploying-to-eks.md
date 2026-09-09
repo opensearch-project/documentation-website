@@ -6,6 +6,7 @@ grand_parent: Migration workflows
 parent: Choose your deployment
 permalink: /migration-assistant/migration-phases/deploy/deploying-to-eks/
 canonical_url: https://docs.opensearch.org/latest/migration-assistant/migration-phases/deploy/deploying-to-eks/
+redirect_to: https://docs.opensearch.org/latest/migration-assistant/migration-phases/deploy/deploying-to-eks/
 ---
 
 # Deploy on Amazon EKS
