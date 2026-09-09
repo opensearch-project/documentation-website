@@ -26,19 +26,26 @@ Before you begin, install [Docker](https://docs.docker.com/get-docker/) on your 
 
 ## Option 1: Try OpenSearch in one command
 
-Use this method to quickly spin up OpenSearch on your local machine with minimal setup.
+Use this method to quickly spin up OpenSearch and OpenSearch Dashboards on your local machine with minimal setup.
 
 This configuration disables security and should only be used in test environments.
 {: .note }
 
-Download and run OpenSearch: 
+Start OpenSearch:
 
 ```bash
-docker pull opensearchproject/opensearch:latest && docker run -it -p 9200:9200 -p 9600:9600 -e "discovery.type=single-node" -e "DISABLE_SECURITY_PLUGIN=true" opensearchproject/opensearch:latest
+docker pull opensearchproject/opensearch:latest && docker run -d -p 9200:9200 -p 9600:9600 -e "discovery.type=single-node" -e "DISABLE_SECURITY_PLUGIN=true" --name opensearch opensearchproject/opensearch:latest
 ```
 {% include copy.html %}
 
-This process may take some time. After it finishes, OpenSearch is now running on port `9200`. To verify that OpenSearch is running, send the following request: 
+Start OpenSearch Dashboards:
+
+```bash
+docker pull opensearchproject/opensearch-dashboards:latest && docker run -d -p 5601:5601 --add-host=host.docker.internal:host-gateway -e "OPENSEARCH_HOSTS=http://host.docker.internal:9200" -e "DISABLE_SECURITY_DASHBOARDS_PLUGIN=true" --name opensearch-dashboards opensearchproject/opensearch-dashboards:latest
+```
+{% include copy.html %}
+
+This process may take some time. After it finishes, OpenSearch is running on port `9200` and OpenSearch Dashboards on port `5601`. To verify that OpenSearch is running, send the following request: 
 
 ```bash
 curl http://localhost:9200
@@ -66,6 +73,8 @@ You should get a response that looks like this:
   "tagline" : "The OpenSearch Project: https://opensearch.org/"
 }
 ```
+
+To verify that OpenSearch Dashboards has started, go to `http://localhost:5601/` in your browser.
 
 ## Option 2: Set up a custom Docker cluster
 
@@ -230,17 +239,36 @@ opensearch-node1         | [1]: max virtual memory areas vm.max_map_count [65530
 opensearch-node1         | ERROR: OpenSearch did not exit normally - check the logs at /usr/share/opensearch/logs/opensearch-cluster.log
 ```
 
+## Stop the cluster
+
+To stop the containers that you started in [Option 1](#option-1-try-opensearch-in-one-command), run the following command:
+
+```bash
+docker stop opensearch opensearch-dashboards
+```
+{% include copy.html %}
+
+Option 1 doesn't mount a volume, so the containers store your data internally. To start the containers again with your data intact, use `docker start` in place of `docker stop`. Removing the containers with `docker rm` deletes their data, including any indexes that you create in the following tutorials.
+
+To stop the cluster that you started in [Option 2](#option-2-set-up-a-custom-docker-cluster), run the following command from the directory containing your `docker-compose.yml` file:
+
+```bash
+docker compose down
+```
+{% include copy.html %}
+
+This command removes the containers and the network but keeps the named volumes in which the cluster stores your data, so running `docker compose up -d` again restores the cluster with your data intact. Adding `-v` to `docker compose down` deletes the volumes and the data in them.
+
 ## Other installation types
 
 In addition to Docker, you can install OpenSearch on various Linux distributions and on Windows. For all available installation guides, see [Install and upgrade OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/).
 
 ## Further reading
 
-You successfully deployed your own OpenSearch cluster with OpenSearch Dashboards and added some sample data. Now you're ready to learn about configuration and functionality in more detail. Here are a few recommendations on where to begin:
+You successfully deployed your own OpenSearch cluster with OpenSearch Dashboards. To learn about configuration and functionality in more detail, see the following pages:
 - [About the Security plugin]({{site.url}}{{site.baseurl}}/security/index/)
 - [OpenSearch configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/)
 - [OpenSearch plugin installation]({{site.url}}{{site.baseurl}}/opensearch/install/plugins/)
-- [OpenSearch Dashboards getting started]({{site.url}}{{site.baseurl}}/dashboards/getting-started/)
 
 ## Next steps
 

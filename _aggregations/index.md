@@ -280,7 +280,7 @@ You can use aggregations through the OpenSearch API or through OpenSearch Dashbo
 
 You can run aggregation requests from the command line using a tool such as cURL or from the OpenSearch Dashboards Dev Tools console. For more information about using the Dev Tools console, see [Running queries in the Dev Tools console]({{site.url}}{{site.baseurl}}/dashboards/visualize/run-queries/).
 
-See the [Example aggregation](#example-aggregation) and [Nested aggregation example](#nested-aggregation-example) sections for sample API requests and responses. For detailed syntax and parameters for each aggregation type, see the type-specific documentation pages listed in the [Aggregation types](#aggregation-types) section.
+See the [Example aggregation](#example-aggregation) and [Nested aggregation example](#nested-aggregation-example) sections for sample API requests and responses. For detailed syntax and parameters for each aggregation type, see the type-specific documentation pages listed in the [Aggregation types](#aggregation-types) section. For a hands-on tutorial that runs aggregations against a sample dataset, see [Summarize data using aggregations]({{site.url}}{{site.baseurl}}/getting-started/analyze-data/#summarize-data-using-aggregations).
 
 ### Using aggregations in OpenSearch Dashboards
 
