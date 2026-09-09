@@ -4,6 +4,7 @@ title: Anomaly detection
 parent: Common use cases
 nav_order: 5
 canonical_url: https://docs.opensearch.org/latest/data-prepper/common-use-cases/anomaly-detection/
+redirect_to: https://docs.opensearch.org/latest/data-prepper/common-use-cases/anomaly-detection/
 ---
 
 # Anomaly detection

@@ -5,6 +5,7 @@ parent: Processors
 grand_parent: Pipelines
 nav_order: 150
 canonical_url: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/processors/geoip/
+redirect_to: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/processors/geoip/
 ---
 
 # Geo IP processor

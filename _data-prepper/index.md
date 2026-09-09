@@ -12,6 +12,7 @@ redirect_from:
   - /data-prepper/index/
   - /data-prepper/migrating-from-logstash-data-prepper/
 canonical_url: https://docs.opensearch.org/latest/data-prepper/
+redirect_to: https://docs.opensearch.org/latest/data-prepper/
 ---
 
 # OpenSearch Data Prepper
