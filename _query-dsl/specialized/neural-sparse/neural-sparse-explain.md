@@ -15,6 +15,8 @@ You can provide the `explain` parameter to understand how scores are calculated 
 `explain` is an expensive operation in terms of both resources and time. For production clusters, we recommend using it sparingly for the purpose of troubleshooting.
 {: .warning }
 
+The examples and field descriptions on this page describe the explanation output of the Lucene engine, which is the default engine for a `sparse_vector` field. On the native engine, the explanation reports query token pruning and an exact dot product score and doesn't include a quantization rescaling component. Both engines quantize token weights to 8 bits using the `quantization_ceiling_ingest` and `quantization_ceiling_search` mapping parameters, so both parameters are meaningful on either engine---only the explanation breakdown differs. For more information about engines, see [Engines]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/#engines).
+
 You can provide the `explain` parameter in a URL when running a neural sparse ANN query using the following syntax:
 
 ```json
@@ -362,12 +364,12 @@ Component | Description
 :--- | :---
 Query token pruning | Shows the number of query tokens retained after pruning based on the `top_n` parameter. If no pruning occurs, indicates that all tokens were kept.
 Raw dot product score | The quantized dot product score before rescaling. Contains nested details showing each token's contribution as `query_weight * doc_weight`.
-Quantization rescaling | Explains how the raw quantized score is converted to the final float score using the formula: `boost * ceiling_ingest * ceiling_search / 255 / 255`. Contains details about each parameter used in the calculation.
+Quantization rescaling | (Lucene engine only) Explains how the raw quantized score is converted to the final float score using the formula: `boost * ceiling_ingest * ceiling_search / 255 / 255`. Contains details about each parameter used in the calculation.
 Filter explanation | (When filters are applied) Shows filter criteria and search mode. Indicates whether exact search mode was used when the number of filtered documents is fewer than or equal to `k`.
 
 ### Quantization parameters
 
-Neural sparse ANN search uses unsigned byte quantization to reduce memory usage and improve search performance. The quantization rescaling section includes the following parameters.
+Neural sparse ANN search uses unsigned byte quantization to reduce memory usage and improve search performance. On the Lucene engine, the quantization rescaling section includes the following parameters. The native engine applies the same quantization but reports an exact dot product score instead of a rescaling component, so this section doesn't appear in its explanations.
 
 Parameter | Description
 :--- | :---

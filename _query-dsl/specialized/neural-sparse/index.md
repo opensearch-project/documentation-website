@@ -74,6 +74,8 @@ For more information, see [Generating sparse vector embeddings automatically]({{
 
 Use neural sparse ANN search on `sparse_vector` fields for improved query performance with high recall. For more information, see [Neural sparse ANN search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/).
 
+Neural sparse ANN search supports two engines: the Lucene engine and the native engine. You select the engine in the field mapping by setting `method.engine`, not in the query. The query syntax and all supported query parameters are the same for both engines. For more information, see [Engines]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/#engines).
+
 You can run a neural sparse search either using raw sparse vectors or text. 
 
 ### Using raw sparse vectors
@@ -138,7 +140,10 @@ These fields are supported for both `rank_features` and `sparse_vector` field ty
 | `method_parameters.top_n` | Integer | Optional | Specifies the number of query tokens with the highest weights to retain for approximate sparse queries. |
 | `method_parameters.heap_factor` | Float | Optional | Controls the trade-off between recall and performance. Higher values increase recall but reduce query speed; lower values decrease recall but improve query speed. |
 | `method_parameters.k` | Integer | Optional | Specifies the number of top k nearest results that the approximate neural search algorithm returns. |
-| `method_parameters.filter` | Object | Optional | Applies filters to the query results. See [Filtering in neural sparse ANN search]({{site.url}}{{site.baseurl}}/vector-search/filter-search-knn/filtering-in-sparse-search/). |
+| `method_parameters.filter` | Object | Optional | Applies filters to the query results. The engine configured for the field determines how the filter is applied: the Lucene engine applies post-filtering, in which the filter runs after approximate retrieval, so the results are the intersection of the top matches and the filter. The native engine applies pre-filtering, in which the filter is pushed down into the engine as a candidate set, so retrieval runs within the filtered set. See [Filtering in neural sparse ANN search]({{site.url}}{{site.baseurl}}/vector-search/filter-search-knn/filtering-in-sparse-search/). |
+
+On both engines, if the filter matches fewer documents than `k`, the query runs an exact search over the filtered documents. Above that point, the Lucene engine applies the filter after approximate retrieval, so a selective filter can produce fewer than `k` results, whereas the native engine retrieves within the filtered set and can return up to a full `k` results. This difference is a property of the engine configured in the field mapping---no query parameter controls it.
+{: .note}
 
 ## Examples
 

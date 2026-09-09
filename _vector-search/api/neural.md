@@ -373,6 +373,9 @@ The following table lists the available statistics. For statistics with paths pr
 | `clustered_posting_usage` | `nodes`, `all_nodes` | `memory.sparse.clustered_posting_usage`                         | The amount of JVM heap memory used to store clustered posting on the node, in kilobytes.                     |
 | `forward_index_usage` | `nodes`, `all_nodes` | `memory.sparse.forward_index_usage`                            | The amount of JVM heap memory used to store the forward index on the node, in kilobytes.                         |
 
+These memory statistics report the Lucene engine cache only. The native engine keeps its index in a memory-mapped file on disk rather than in the JVM heap cache, so native engine index memory is not reflected in these statistics. For more information, see [Choosing an engine]({{site.url}}{{site.baseurl}}/vector-search/performance-tuning-sparse/#choosing-an-engine).
+{: .note}
+
 **Node-level statistics: Semantic highlighting**
 
 | Statistic name | Category | Statistic path within category | Description |
@@ -429,7 +432,7 @@ To avoid high latency during initial searches, you can run random queries during
 
 As an alternative, you can use the warm up API operation to avoid latency during initial searches. This operation loads all sparse data for the primary and replica shards of the specified indexes into JVM memory. The warm up API operation is idempotent: if a segment's sparse data is already loaded into memory, this operation has no effect. It only loads files not currently stored in memory.
 
-This API operation only works with sparse indexes (indexes created with `index.sparse` set to `true`).
+This API operation only works with sparse indexes (indexes created with `index.sparse` set to `true`) whose fields use the Lucene engine. The native engine bypasses the JVM heap cache in favor of a memory-mapped index file, so there is nothing to warm up. For more information, see [Choosing an engine]({{site.url}}{{site.baseurl}}/vector-search/performance-tuning-sparse/#choosing-an-engine).
 {: .note}
 
 ### Endpoints
@@ -515,7 +518,7 @@ In contrast, decreasing the [neural search circuit breaker limit]({{site.url}}{{
 
 Similar to the [warm up operation](#warm-up), the clear cache operation is idempotent: if you attempt to clear the cache for an index that has already been evicted, the operation has no additional effect.
 
-This API operation only works with sparse indexes (indexes created with `index.sparse` set to `true`).
+This API operation only works with sparse indexes (indexes created with `index.sparse` set to `true`) whose fields use the Lucene engine. The native engine does not use a plugin-managed cache, so there is nothing to clear. For more information, see [Choosing an engine]({{site.url}}{{site.baseurl}}/vector-search/performance-tuning-sparse/#choosing-an-engine).
 {: .note}
 
 ### Endpoints
