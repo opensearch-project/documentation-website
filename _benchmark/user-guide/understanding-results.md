@@ -6,6 +6,7 @@ parent: User guide
 canonical_url: https://docs.opensearch.org/latest/benchmark/user-guide/understanding-results/
 redirect_from:
   - /benchmark/user-guide/understanding-results/index/
+redirect_to: https://docs.opensearch.org/latest/benchmark/reference/summary-report/
 ---
 
 

@@ -4,6 +4,7 @@ title: Tutorials
 nav_order: 10
 has_children: true
 canonical_url: https://docs.opensearch.org/latest/benchmark/tutorials/index/
+redirect_to: https://docs.opensearch.org/latest/benchmark/
 ---
 
 # Tutorial
