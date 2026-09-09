@@ -8,6 +8,7 @@ canonical_url: https://docs.opensearch.org/latest/migration-assistant/migration-
 redirect_from:
   - /migration-assistant/migration-phases/assessment/handling-field-type-breaking-changes/
   - /migration-assistant/migration-phases/migrate-metadata/handling-field-type-breaking-changes/
+redirect_to: https://docs.opensearch.org/latest/migration-assistant/migration-phases/migrate-metadata/handling-field-type-breaking-changes/
 ---
 
 # Handling breaking changes in field types

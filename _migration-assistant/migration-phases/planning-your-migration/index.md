@@ -9,6 +9,7 @@ canonical_url: https://docs.opensearch.org/latest/migration-assistant/migration-
 redirect_from:
   - /migration-assistant/migration-phases/assessment/
   - /migration-assistant/migration-phases/planning-your-migration/
+redirect_to: https://docs.opensearch.org/latest/migration-assistant/migration-phases/assessment/
 ---
 
 # Planning your migration

@@ -10,6 +10,7 @@ redirect_from:
   - /migration-assistant/migration-phases/using-traffic-Replayer/
   - /migration-phases/using-traffic-Replayer/
 canonical_url: https://docs.opensearch.org/latest/migration-assistant/migration-phases/live-traffic-migration/using-traffic-replayer/
+redirect_to: https://docs.opensearch.org/latest/migration-assistant/migration-phases/replay-captured-traffic/
 ---
 
 # Using Traffic Replayer

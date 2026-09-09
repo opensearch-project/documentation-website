@@ -5,6 +5,7 @@ parent: Processors
 grand_parent: Pipelines
 nav_order: 80
 canonical_url: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/processors/parse-json/
+redirect_to: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/processors/parse-json/
 ---
 
 # parse_json

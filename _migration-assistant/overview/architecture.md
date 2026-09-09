@@ -6,6 +6,7 @@ parent: Overview
 canonical_url: https://docs.opensearch.org/latest/migration-assistant/overview/architecture/
 redirect_from:
   - /migration-assistant/architecture/
+redirect_to: https://docs.opensearch.org/latest/migration-assistant/architecture/
 ---
 
 # Architecture

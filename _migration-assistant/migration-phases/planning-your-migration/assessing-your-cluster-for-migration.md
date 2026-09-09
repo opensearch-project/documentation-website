@@ -7,6 +7,7 @@ grand_parent: Migration phases
 redirect_from:
   - /migration-assistant/migration-phases/assessing-your-cluster-for-migration/
 canonical_url: https://docs.opensearch.org/latest/migration-assistant/migration-phases/planning-your-migration/assessing-your-cluster-for-migration/
+redirect_to: https://docs.opensearch.org/latest/migration-assistant/migration-phases/assessment/
 ---
 
 # Assessing your cluster for migration

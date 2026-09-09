@@ -16,6 +16,7 @@ items:
     description: "Evaluate whether Migration Assistant is right for your use case."
     link: "/migration-assistant/overview/is-migration-assistant-right-for-you/"
 canonical_url: https://docs.opensearch.org/latest/migration-assistant/overview/
+redirect_to: https://docs.opensearch.org/latest/migration-assistant/
 ---
 
 # Migration Assistant overview
