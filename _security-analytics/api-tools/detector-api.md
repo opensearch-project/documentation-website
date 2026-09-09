@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Detector APIs
-parent: API tools
+parent: Security Analytics APIs
 nav_order: 35
 ---
 
