@@ -4,6 +4,7 @@ title: Accessing the migration console
 nav_order: 35
 parent: Migration console
 canonical_url: https://docs.opensearch.org/latest/migration-assistant/migration-console/accessing-the-migration-console/
+redirect_to: https://docs.opensearch.org/latest/migration-assistant/
 ---
 
 # Accessing the migration console

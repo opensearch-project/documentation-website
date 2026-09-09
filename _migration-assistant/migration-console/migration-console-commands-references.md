@@ -4,6 +4,7 @@ title: Command reference
 nav_order: 40
 parent: Migration console
 canonical_url: https://docs.opensearch.org/latest/migration-assistant/migration-console/migration-console-commands-references/
+redirect_to: https://docs.opensearch.org/latest/migration-assistant/
 ---
 
 # Migration console command reference

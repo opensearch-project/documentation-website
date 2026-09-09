@@ -6,6 +6,7 @@ canonical_url: https://docs.opensearch.org/latest/migration-assistant/is-migrati
 redirect_from:
   - /migration-assistant/migration-paths/
   - /migration-assistant/overview/is-migration-assistant-right-for-you/
+redirect_to: https://docs.opensearch.org/latest/migration-assistant/is-migration-assistant-right-for-you/
 ---
 
 # Is Migration Assistant right for you?
