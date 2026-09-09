@@ -7,6 +7,7 @@ grand_parent: OpenSearch Benchmark Reference
 redirect_from:
   - /benchmark/metrics/metric-keys/
 canonical_url: https://docs.opensearch.org/latest/benchmark/reference/metrics/metric-keys/
+redirect_to: https://docs.opensearch.org/latest/benchmark/reference/metrics/metric-keys/
 ---
 
 # Metric keys

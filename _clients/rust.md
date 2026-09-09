@@ -3,6 +3,7 @@ layout: default
 title: Rust client
 nav_order: 100
 canonical_url: https://docs.opensearch.org/latest/clients/rust/
+redirect_to: https://docs.opensearch.org/latest/clients/rust/
 ---
 
 # Rust client

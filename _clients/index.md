@@ -8,6 +8,7 @@ permalink: /clients/
 redirect_from:
   - /clients/index/
 canonical_url: https://docs.opensearch.org/latest/clients/
+redirect_to: https://docs.opensearch.org/latest/clients/
 ---
 
 # OpenSearch language clients
