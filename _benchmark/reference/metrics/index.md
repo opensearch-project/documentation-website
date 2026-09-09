@@ -10,6 +10,7 @@ redirect_from:
   - /benchmark/metrics/
   - /benchmark/metrics/index/
   - /benchmark/reference/metrics/
+redirect_to: https://docs.opensearch.org/latest/benchmark/reference/metrics/index/
 ---
 
 # Metrics

@@ -7,6 +7,7 @@ grand_parent: OpenSearch Benchmark Reference
 redirect_from:
   - /benchmark/commands/execute-test/
 canonical_url: https://docs.opensearch.org/latest/benchmark/reference/commands/execute-test/
+redirect_to: https://docs.opensearch.org/latest/benchmark/reference/commands/run/
 ---
 
 <!-- vale off -->
