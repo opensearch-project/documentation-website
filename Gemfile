@@ -55,3 +55,7 @@ group :development, :test do
   gem 'rubocop', '~> 1.44', require: false
   gem 'rubocop-rake', require: false
 end
+
+# json 3.x removed the quirks_mode option that ActiveSupport's to_json passes,
+# which breaks jekyll-redirect-from's redirects.json generation.
+gem 'json', '~> 2'
