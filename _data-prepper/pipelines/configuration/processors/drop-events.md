@@ -5,6 +5,7 @@ parent: Processors
 grand_parent: Pipelines
 nav_order: 130
 canonical_url: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/processors/drop-events/
+redirect_to: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/processors/drop-events/
 ---
 
 # Drop events processor

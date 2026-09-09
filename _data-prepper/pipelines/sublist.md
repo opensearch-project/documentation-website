@@ -5,6 +5,7 @@ parent: Functions
 grand_parent: Pipelines
 nav_order: 50
 canonical_url: https://docs.opensearch.org/latest/data-prepper/pipelines/sublist/
+redirect_to: https://docs.opensearch.org/latest/data-prepper/pipelines/sublist/
 ---
 
 <!-- vale off -->

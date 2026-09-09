@@ -24,6 +24,7 @@ more_cards:
 redirect_from:
   - /benchmark/user-guide/optimizing-benchmarks/
 canonical_url: https://docs.opensearch.org/latest/benchmark/user-guide/optimizing-benchmarks/
+redirect_to: https://docs.opensearch.org/latest/benchmark/performance-testing-best-practices/
 ---
 
 # Optimizing benchmarks

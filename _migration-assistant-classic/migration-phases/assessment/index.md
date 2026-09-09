@@ -7,6 +7,7 @@ has_children: false
 has_toc: false
 permalink: /classic/migration-assistant/migration-phases/assessment/
 canonical_url: https://docs.opensearch.org/latest/migration-assistant-classic/migration-phases/assessment/
+redirect_to: https://docs.opensearch.org/latest/classic/migration-assistant/migration-phases/assessment/
 ---
 
 # Assessment

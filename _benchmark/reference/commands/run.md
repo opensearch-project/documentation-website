@@ -8,6 +8,7 @@ redirect_from:
   - /benchmark/commands/execute-test/
   - /benchmark/reference/commands/execute-test/
 canonical_url: https://docs.opensearch.org/latest/benchmark/reference/commands/run/
+redirect_to: https://docs.opensearch.org/latest/benchmark/reference/commands/run/
 ---
 
 <!-- vale off -->

@@ -7,6 +7,7 @@ has_children: true
 redirect_from:
   - /benchmark/user-guide/understanding-results/
 canonical_url: https://docs.opensearch.org/latest/benchmark/user-guide/understanding-results/
+redirect_to: https://docs.opensearch.org/latest/benchmark/reference/summary-report/
 ---
 
 # Understanding OpenSearch Benchmark results

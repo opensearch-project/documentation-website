@@ -7,6 +7,7 @@ grand_parent: Reference
 redirect_from:
   - /benchmark/commands/aggregate/
 canonical_url: https://docs.opensearch.org/latest/benchmark/reference/commands/aggregate/
+redirect_to: https://docs.opensearch.org/latest/benchmark/reference/commands/aggregate/
 ---
 
 # aggregate

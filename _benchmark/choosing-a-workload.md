@@ -5,6 +5,7 @@ nav_order: 20
 redirect_from:
   - /benchmark/user-guide/understanding-workloads/choosing-a-workload/
 canonical_url: https://docs.opensearch.org/latest/benchmark/choosing-a-workload/
+redirect_to: https://docs.opensearch.org/latest/benchmark/choosing-a-workload/
 ---
 
 # Choosing a workload

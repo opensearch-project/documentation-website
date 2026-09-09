@@ -5,6 +5,7 @@ nav_order: 150
 parent: Workload reference
 grand_parent: Reference
 canonical_url: https://docs.opensearch.org/latest/benchmark/reference/workloads/parameters/
+redirect_to: https://docs.opensearch.org/latest/benchmark/reference/workloads/parameters/
 ---
 
 # Workload parameters

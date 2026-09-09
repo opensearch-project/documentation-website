@@ -11,6 +11,7 @@ more_cards:
     description: "Create synthetic datasets using index mappings or custom Python logic for comprehensive benchmarking and testing."
     link: "/benchmark/features/synthetic-data-generation/"
 canonical_url: https://docs.opensearch.org/latest/benchmark/features/
+redirect_to: https://docs.opensearch.org/latest/benchmark/features/index/
 ---
 
 # Additional features
