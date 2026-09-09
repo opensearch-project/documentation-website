@@ -4,6 +4,7 @@ title: Telemetry devices
 nav_order: 45
 parent: Reference
 canonical_url: https://docs.opensearch.org/latest/benchmark/reference/telemetry/
+redirect_to: https://docs.opensearch.org/latest/benchmark/reference/telemetry/
 ---
 
 # Telemetry devices

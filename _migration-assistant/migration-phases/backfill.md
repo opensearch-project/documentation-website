@@ -8,6 +8,7 @@ redirect_from:
   - /migration-phases/backfill/
   - /migration-phases/create-snapshot/
 canonical_url: https://docs.opensearch.org/latest/migration-assistant/migration-phases/backfill/
+redirect_to: https://docs.opensearch.org/latest/migration-assistant/migration-phases/backfill/
 ---
 
 # Using backfill
