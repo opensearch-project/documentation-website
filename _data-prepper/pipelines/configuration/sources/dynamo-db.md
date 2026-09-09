@@ -5,6 +5,7 @@ parent: Sources
 grand_parent: Pipelines
 nav_order: 20
 canonical_url: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/sources/dynamo-db/
+redirect_to: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/sources/dynamo-db/
 ---
 
 # DynamoDB source

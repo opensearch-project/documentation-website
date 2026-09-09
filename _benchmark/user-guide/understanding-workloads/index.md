@@ -18,6 +18,7 @@ items:
 redirect_from:
   - /benchmark/user-guide/understanding-workloads/
 canonical_url: https://docs.opensearch.org/latest/benchmark/user-guide/understanding-workloads/index/
+redirect_to: https://docs.opensearch.org/latest/benchmark/
 ---
 
 # Understanding workloads

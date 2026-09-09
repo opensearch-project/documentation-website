@@ -34,6 +34,7 @@ items:
     description: "View your benchmark report and analyze your metrics"
     link: "/benchmark/user-guide/understanding-results/summary-reports/"
 canonical_url: https://docs.opensearch.org/latest/benchmark/
+redirect_to: https://docs.opensearch.org/latest/benchmark/
 ---
 
 # OpenSearch Benchmark

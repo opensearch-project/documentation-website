@@ -5,6 +5,7 @@ parent: Processors
 grand_parent: Pipelines
 nav_order: 260
 canonical_url: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/processors/otel-traces/
+redirect_to: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/processors/otel-traces/
 ---
 
 # OTel trace processor
