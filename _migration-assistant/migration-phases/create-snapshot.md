@@ -6,6 +6,7 @@ grand_parent: Migration Assistant for OpenSearch
 nav_order: 4
 permalink: /migration-assistant/migration-phases/create-snapshot/
 canonical_url: https://docs.opensearch.org/latest/migration-assistant/migration-phases/create-snapshot/
+redirect_to: https://docs.opensearch.org/latest/migration-assistant/migration-phases/backfill/
 ---
 
 # Creating a snapshot
