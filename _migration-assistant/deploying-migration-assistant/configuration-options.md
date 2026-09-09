@@ -4,6 +4,7 @@ title: Configuration options
 nav_order: 15
 parent: Deploying Migration Assistant
 canonical_url: https://docs.opensearch.org/latest/migration-assistant/deploying-migration-assistant/configuration-options/
+redirect_to: https://docs.opensearch.org/latest/migration-assistant/
 ---
 
 # Configuration options

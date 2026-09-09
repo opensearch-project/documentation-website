@@ -11,6 +11,7 @@ redirect_from:
   - /migration-assistant/deploying-migration-assistant/
   - /migration-assistant/getting-started-with-data-migration/
   - /migration-assistant/migration-phases/deploy/
+redirect_to: https://docs.opensearch.org/latest/migration-assistant/migration-phases/deploy/
 ---
 
 # Deploying Migration Assistant

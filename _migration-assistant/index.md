@@ -12,6 +12,7 @@ redirect_from:
   - /upgrade-to/
   - /migration-assistant/overview/
 canonical_url: https://docs.opensearch.org/latest/migration-assistant/
+redirect_to: https://docs.opensearch.org/latest/migration-assistant/
 ---
 
 # Migration Assistant for OpenSearch

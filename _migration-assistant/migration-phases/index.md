@@ -10,6 +10,7 @@ redirect_from:
   - /migration-assistant/migration-phases/
   - /migration-assistant/overview/migration-phases/
 canonical_url: https://docs.opensearch.org/latest/migration-phases/
+redirect_to: https://docs.opensearch.org/latest/migration-assistant/migration-phases/
 ---
 
 # Migration phases

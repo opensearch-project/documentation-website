@@ -4,6 +4,7 @@ title: Migrating metadata
 nav_order: 85
 parent: Migration phases
 canonical_url: https://docs.opensearch.org/latest/migration-assistant/migration-phases/migrating-metadata/
+redirect_to: https://docs.opensearch.org/latest/migration-assistant/migration-phases/migrate-metadata/
 ---
 
 # Migrating metadata

@@ -8,6 +8,7 @@ has_toc: false
 redirect_from: 
   - /migration-console/index/
 canonical_url: https://docs.opensearch.org/latest/migration-console/
+redirect_to: https://docs.opensearch.org/latest/migration-assistant/
 ---
 
 # Migration console
