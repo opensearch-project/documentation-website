@@ -3,7 +3,7 @@ layout: default
 title: Is Migration Assistant right for you?
 nav_order: 10
 permalink: /classic/migration-assistant/is-migration-assistant-right-for-you/
-canonical_url: https://docs.opensearch.org/latest/migration-assistant-classic/is-migration-assistant-right-for-you/
+canonical_url: https://docs.opensearch.org/latest/classic/migration-assistant/is-migration-assistant-right-for-you/
 redirect_to: https://docs.opensearch.org/latest/classic/migration-assistant/is-migration-assistant-right-for-you/
 ---
 

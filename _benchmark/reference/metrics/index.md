@@ -8,7 +8,7 @@ redirect_from:
   - /benchmark/metrics/
   - /benchmark/metrics/index/
   - /benchmark/reference/metrics/
-canonical_url: https://docs.opensearch.org/latest/benchmark/reference/metrics/
+canonical_url: https://docs.opensearch.org/latest/benchmark/reference/metrics/index/
 redirect_to: https://docs.opensearch.org/latest/benchmark/reference/metrics/index/
 ---
 

@@ -6,7 +6,7 @@ nav_order: 2
 has_children: true
 has_toc: true
 permalink: /classic/migration-assistant/migration-phases/deploy/
-canonical_url: https://docs.opensearch.org/latest/migration-assistant-classic/migration-phases/deploy/
+canonical_url: https://docs.opensearch.org/latest/classic/migration-assistant/migration-phases/deploy/
 redirect_to: https://docs.opensearch.org/latest/classic/migration-assistant/migration-phases/deploy/
 ---
 

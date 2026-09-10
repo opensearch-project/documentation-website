@@ -8,7 +8,7 @@ has_children: true
 has_toc: false
 redirect_from:
   - /dashboards/visualize/visualization-editor/configuring-visualizations/
-canonical_url: https://docs.opensearch.org/latest/dashboards/visualize/visualization-editor/configuring-visualizations/
+canonical_url: https://docs.opensearch.org/latest/dashboards/visualize/visualization-editor/configuring-visualizations/index/
 ---
 
 # Configuring visualizations in the visualization editor

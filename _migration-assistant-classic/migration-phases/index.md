@@ -6,7 +6,7 @@ nav_exclude: false
 has_children: true
 has_toc: false
 permalink: /classic/migration-assistant/migration-phases/
-canonical_url: https://docs.opensearch.org/latest/migration-assistant-classic/migration-phases/
+canonical_url: https://docs.opensearch.org/latest/classic/migration-assistant/migration-phases/
 redirect_to: https://docs.opensearch.org/latest/classic/migration-assistant/migration-phases/
 ---
 

@@ -8,7 +8,7 @@ has_toc: false
 redirect_from:
   - /sql-and-ppl/sql-and-ppl-api/data-source-apis/
   - /sql-and-ppl/ppl/admin/datasources/
-canonical_url: https://docs.opensearch.org/latest/sql-and-ppl/sql-and-ppl-api/data-source-apis/
+canonical_url: https://docs.opensearch.org/latest/sql-and-ppl/sql-and-ppl-api/data-source-apis/index/
 ---
 
 # Data source APIs
