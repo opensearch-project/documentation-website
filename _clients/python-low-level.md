@@ -18,6 +18,10 @@ This getting started guide illustrates how to connect to OpenSearch, index docum
 
 If you have any questions or would like to contribute, you can [create an issue](https://github.com/opensearch-project/opensearch-py/issues) to interact with the OpenSearch Python team directly. 
 
+## Using gRPC transport for bulk operations
+
+For high-throughput bulk ingestion workloads, you can use the gRPC transport, which provides binary serialization over HTTP/2. The gRPC transport is transparent — supported operations are routed over gRPC automatically, while all other operations use REST. For complete setup instructions, see [Python gRPC transport]({{site.url}}{{site.baseurl}}/clients/python-grpc/).
+
 ## Setup
 
 To add the client to your project, install it using [pip](https://pip.pypa.io/):
