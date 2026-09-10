@@ -7,7 +7,7 @@ redirect_from:
   - /clients/k8s-operator/
   - /install-and-configure/install-opensearch/operator/
   - /install-and-configure/install-opensearch/operator/index/
-canonical_url: https://docs.opensearch.org/latest/tools/k8s-operator/
+canonical_url: https://docs.opensearch.org/latest/install-and-configure/install-opensearch/operator/index/
 ---
 
 The OpenSearch Kubernetes Operator is an open-source kubernetes operator that helps automate the deployment and provisioning of OpenSearch and OpenSearch Dashboards in a containerized environment. The operator can manage multiple OpenSearch clusters that can be scaled up and down depending on your needs. 
