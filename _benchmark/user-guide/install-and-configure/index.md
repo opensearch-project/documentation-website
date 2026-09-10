@@ -4,7 +4,7 @@ title: Install and configure
 nav_order: 5
 parent: User guide
 has_children: true
-canonical_url: https://docs.opensearch.org/latest/benchmark/user-guide/install-and-configure/
+canonical_url: https://docs.opensearch.org/latest/benchmark/user-guide/install-and-configure/index/
 redirect_from:
   - /benchmark/user-guide/install-and-configure/
 redirect_to: https://docs.opensearch.org/latest/benchmark/user-guide/install-and-configure/index/

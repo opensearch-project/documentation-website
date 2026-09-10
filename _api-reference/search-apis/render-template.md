@@ -6,7 +6,7 @@ nav_order: 82
 redirect_from:
   - /api-reference/render-template/
   - /api-reference/search-apis/search-template/render-template/
-canonical_url: https://docs.opensearch.org/latest/api-reference/search-apis/render-template/
+canonical_url: https://docs.opensearch.org/latest/api-reference/search-apis/search-template/render-template/
 ---
 
 # Render template 

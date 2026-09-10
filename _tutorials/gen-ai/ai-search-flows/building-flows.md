@@ -6,7 +6,7 @@ grand_parent: Generative AI
 nav_order: 10
 redirect_from:
   - /tutorials/ai-search-flows/building-flows/
-canonical_url: https://docs.opensearch.org/latest/tutorials/gen-ai/ai-search-flows/building-flows/
+canonical_url: https://docs.opensearch.org/latest/vector-search/ai-search/workflow-builder/
 ---
 
 # Creating and customizing AI search workflows in OpenSearch Dashboards

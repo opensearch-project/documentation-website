@@ -4,7 +4,7 @@ title: Metadata fields
 nav_order: 90
 has_children: true
 has_toc: false
-canonical_url: https://docs.opensearch.org/latest/field-types/metadata-fields/
+canonical_url: https://docs.opensearch.org/latest/mappings/metadata-fields/index/
 redirect_from:
   - /field-types/metadata-fields/
   - /mappings/metadata-fields/

@@ -8,7 +8,7 @@ redirect_from:
   - /migration-assistant/getting-started-with-data-migration/
   - /migration-assistant/migration-phases/migrate-metadata/
   - /migration-phases/migrating-metadata/
-canonical_url: https://docs.opensearch.org/latest/migration-assistant/deploying-migration-assistant/getting-started-data-migration/
+canonical_url: https://docs.opensearch.org/latest/migration-assistant/migration-phases/migrate-metadata/
 redirect_to: https://docs.opensearch.org/latest/migration-assistant/migration-phases/migrate-metadata/
 ---
 
