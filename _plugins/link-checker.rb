@@ -69,7 +69,9 @@ module Jekyll::LinkChecker
 
   ##
   # Pattern of local paths to ignore
-  @ignored_paths = %r{(^/javadocs|^mailto:|^/clients|^/data-prepper|^/benchmark)}.freeze
+  # `^/$` is the branch home page: it redirects to /latest/, which CI rewrites
+  # back to `/`, so check_internal would follow the stub into itself.
+  @ignored_paths = %r{(^/$|^/javadocs|^mailto:|^/clients|^/data-prepper|^/benchmark)}.freeze
 
   ##
   # Holds the list of failures
