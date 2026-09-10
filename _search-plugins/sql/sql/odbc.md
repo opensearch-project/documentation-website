@@ -7,7 +7,7 @@ nav_order: 72
 redirect_from:
   - /search-plugins/sql/odbc/
   - /sql-and-ppl/sql/odbc/
-canonical_url: https://docs.opensearch.org/latest/search-plugins/sql/sql/odbc/
+canonical_url: https://docs.opensearch.org/latest/sql-and-ppl/sql/odbc/
 ---
 
 # ODBC driver
