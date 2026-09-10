@@ -78,11 +78,7 @@ module Jekyll::LinkChecker
   ]
 
   ##
-  # Pattern of local paths to ignore. The single-edition sections now redirect to
-  # /latest/, which CI rewrites back to the page's own path, so check_internal
-  # would recurse on its own stub.
-  # `^/$` is the branch home page: it redirects to /latest/, which CI rewrites
-  # back to `/`, so check_internal would follow the stub into itself.
+  # Pattern of local paths to ignore.
   @ignored_paths = %r{(^/$|^/javadocs|^mailto:|^/clients|^/data-prepper|^/benchmark|^/migration-assistant|^/classic/migration-assistant)}.freeze
 
   ##
