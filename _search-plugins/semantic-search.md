@@ -6,7 +6,7 @@ has_children: false
 redirect_from:
   - /search-plugins/neural-text-search/
   - /vector-search/ai-search/semantic-search/
-canonical_url: https://docs.opensearch.org/latest/search-plugins/semantic-search/
+canonical_url: https://docs.opensearch.org/latest/vector-search/ai-search/semantic-search/
 ---
 
 # Semantic search
