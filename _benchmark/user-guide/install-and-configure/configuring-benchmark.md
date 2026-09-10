@@ -8,6 +8,7 @@ redirect_from:
   - /benchmark/configuring-benchmark/
   - /benchmark/user-guide/configuring-benchmark/
 canonical_url: https://docs.opensearch.org/latest/benchmark/user-guide/install-and-configure/configuring-benchmark/
+redirect_to: https://docs.opensearch.org/latest/benchmark/user-guide/install-and-configure/configuring-benchmark/
 ---
 
 # Configuring OpenSearch Benchmark
