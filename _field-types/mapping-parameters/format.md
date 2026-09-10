@@ -6,7 +6,7 @@ parent: Mapping parameters
 nav_order: 50
 has_children: false
 has_toc: false
-canonical_url: https://docs.opensearch.org/latest/field-types/mapping-parameters/format/
+canonical_url: https://docs.opensearch.org/latest/mappings/mapping-parameters/format/
 redirect_from:
   - /mappings/mapping-parameters/format/
 ---

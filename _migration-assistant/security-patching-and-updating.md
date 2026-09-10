@@ -4,7 +4,8 @@ title: Security patching & updating
 nav_order: 30
 parent: Migration Assistant for OpenSearch
 permalink: /migration-assistant/security-patching-and-updating/
-canonical_url: https://docs.opensearch.org/latest/migration-assistant/security-patching-and-updating/
+canonical_url: https://docs.opensearch.org/latest/classic/migration-assistant/security-patching-and-updating/
+redirect_to: https://docs.opensearch.org/latest/migration-assistant/
 ---
 
 # Security patching and updating

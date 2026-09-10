@@ -8,7 +8,7 @@ redirect_from:
   - /field-types/mapping-parameters/
   - /mappings/mapping-parameters/
   - /mappings/mapping-parameters/index/
-canonical_url: https://docs.opensearch.org/latest/field-types/mapping-parameters/index/
+canonical_url: https://docs.opensearch.org/latest/mappings/mapping-parameters/index/
 ---
 
 # Mapping parameters
