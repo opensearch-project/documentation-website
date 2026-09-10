@@ -7,7 +7,7 @@ nav_exclude: true
 permalink: /migration-assistant/live-traffic-migration/
 has_toc: false
 has_children: true
-canonical_url: https://docs.opensearch.org/latest/migration-assistant/live-traffic-migration/
+canonical_url: https://docs.opensearch.org/latest/migration-assistant/
 redirect_to: https://docs.opensearch.org/latest/migration-assistant/
 ---
 
