@@ -3,7 +3,7 @@ layout: default
 title: Using the drag-and-drop wizard
 parent: Building data visualizations
 nav_order: 100
-canonical_url: https://docs.opensearch.org/latest/dashboards/visualize/visbuilder/
+canonical_url: https://docs.opensearch.org/latest/dashboards/visualize/visualize-app/visbuilder/
 redirect_from:
   - /dashboards/visualize/visbuilder/
   - /dashboards/visualize/visualize-app/visbuilder/

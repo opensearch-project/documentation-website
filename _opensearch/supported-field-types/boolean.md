@@ -4,7 +4,7 @@ title: Boolean
 nav_order: 20
 has_children: false
 parent: Supported field types
-canonical_url: https://docs.opensearch.org/latest/field-types/supported-field-types/boolean/
+canonical_url: https://docs.opensearch.org/latest/mappings/supported-field-types/boolean/
 redirect_from:
   - /field-types/boolean/
   - /field-types/supported-field-types/boolean/
