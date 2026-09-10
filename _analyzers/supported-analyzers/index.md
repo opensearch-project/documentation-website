@@ -7,7 +7,7 @@ has_toc: false
 redirect_from:
   - /analyzers/supported-analyzers/index/
   - /analyzers/supported-analyzers/
-canonical_url: https://docs.opensearch.org/latest/analyzers/supported-analyzers/
+canonical_url: https://docs.opensearch.org/latest/analyzers/supported-analyzers/index/
 ---
 
 # Analyzers

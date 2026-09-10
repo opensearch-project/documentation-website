@@ -3,7 +3,8 @@ layout: default
 title: IAM and security groups for existing clusters
 nav_order: 20
 parent: Deploying Migration Assistant
-canonical_url: https://docs.opensearch.org/latest/migration-assistant/deploying-migration-assistant/iam-and-security-groups-for-existing-clusters/
+canonical_url: https://docs.opensearch.org/latest/migration-assistant/
+redirect_to: https://docs.opensearch.org/latest/migration-assistant/
 ---
 
 # IAM and security groups for existing clusters

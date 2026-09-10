@@ -4,7 +4,7 @@ title: Configuration APIs
 parent: Security APIs
 has_children: true
 nav_order: 20
-canonical_url: https://docs.opensearch.org/latest/api-reference/security/configuration/
+canonical_url: https://docs.opensearch.org/latest/api-reference/security/configuration/index/
 redirect_from:
   - /api-reference/security/configuration/
 ---

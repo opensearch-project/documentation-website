@@ -7,7 +7,7 @@ nav_order: 12
 redirect_from:
   - /search-plugins/sql/delete/
   - /sql-and-ppl/sql/delete/
-canonical_url: https://docs.opensearch.org/latest/search-plugins/sql/sql/delete/
+canonical_url: https://docs.opensearch.org/latest/sql-and-ppl/sql/delete/
 ---
 
 

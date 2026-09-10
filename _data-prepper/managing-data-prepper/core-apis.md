@@ -4,6 +4,7 @@ title: Core APIs
 parent: Managing OpenSearch Data Prepper
 nav_order: 15
 canonical_url: https://docs.opensearch.org/latest/data-prepper/managing-data-prepper/core-apis/
+redirect_to: https://docs.opensearch.org/latest/data-prepper/managing-data-prepper/core-apis/
 ---
 
 # Core APIs

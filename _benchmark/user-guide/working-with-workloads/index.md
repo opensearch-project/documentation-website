@@ -5,9 +5,10 @@ nav_order: 15
 parent: User guide
 has_toc: false
 has_children: true
-canonical_url: https://docs.opensearch.org/latest/benchmark/user-guide/working-with-workloads/
+canonical_url: https://docs.opensearch.org/latest/benchmark/running-workloads/
 redirect_from:
   - /benchmark/user-guide/working-with-workloads/
+redirect_to: https://docs.opensearch.org/latest/benchmark/running-workloads/
 ---
 
 # Working with workloads
