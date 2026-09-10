@@ -6,7 +6,7 @@ parent: Mapping parameters
 nav_order: 140
 has_children: false
 has_toc: false
-canonical_url: https://docs.opensearch.org/latest/field-types/mapping-parameters/position-increment-gap/
+canonical_url: https://docs.opensearch.org/latest/mappings/mapping-parameters/position-increment-gap/
 redirect_from:
   - /mappings/mapping-parameters/position-increment-gap/
 ---

@@ -5,7 +5,7 @@ parent: Mapping parameters
 nav_order: 5
 has_children: false
 has_toc: false
-canonical_url: https://docs.opensearch.org/latest/field-types/mapping-parameters/analyzer/
+canonical_url: https://docs.opensearch.org/latest/mappings/mapping-parameters/analyzer/
 redirect_from:
   - /mappings/mapping-parameters/analyzer/
 ---
