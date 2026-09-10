@@ -10,7 +10,7 @@ nav_order: 15
 
 Use the Saved Objects APIs to list, retrieve, create, update, export, and import saved objects, for example to copy a set of visualizations between clusters or to inventory the visualizations that a cluster contains.
 
-These endpoints are served by OpenSearch Dashboards rather than by OpenSearch, so send them to the OpenSearch Dashboards host and port (`5601` by default) instead of the OpenSearch REST port. Requests that use `POST` require the `osd-xsrf: true` header.
+These endpoints are served by OpenSearch Dashboards rather than by OpenSearch, so send them to the OpenSearch Dashboards host and port (`5601` by default) instead of the OpenSearch REST port. Requests that use `POST`, `PUT`, or `DELETE` require the `osd-xsrf: true` header.
 
 Send these requests using `curl`, as shown in the examples on this page. To run a `GET` endpoint without `curl`, enter its full URL in the address bar of a browser in which you are signed in to OpenSearch Dashboards.
 
@@ -33,14 +33,26 @@ To export and import the same objects from OpenSearch Dashboards instead, see [E
 
 ## Selecting a tenant
 
-When multi-tenancy is enabled, each tenant has its own set of saved objects, and a request that does not specify a tenant is served by the requesting user's private tenant. Send the tenant name in the `securitytenant` header to work with the saved objects of a specific tenant:
+When multi-tenancy is enabled, each tenant has its own set of saved objects. Send the tenant name in the `securitytenant` header to work with the saved objects of a specific tenant:
 
 ```bash
 curl -k -u admin:<password> -H 'securitytenant: global' "https://localhost:5601/api/saved_objects/_find?type=dashboard&fields=title"
 ```
 {% include copy.html %}
 
-Add `securitytenant` to the `opensearch.requestHeadersWhitelist` setting in `opensearch_dashboards.yml` so that OpenSearch Dashboards forwards the header. Passing the tenant as a query parameter does not work; a `security_tenant` query parameter is rejected with a `400` error. For more information about tenants, see [OpenSearch Dashboards multi-tenancy]({{site.url}}{{site.baseurl}}/security/multi-tenancy/tenant-index/).
+Use `global` for the global tenant and `__user__` for the requesting user's private tenant.
+
+A request that omits the header is served by the first of the following tenants that applies:
+
+1. The tenant recorded in the request's session cookie.
+2. The default tenant configured for the cluster.
+3. The first tenant in the preferred tenant list that the user can access.
+4. The global tenant.
+5. The requesting user's private tenant.
+
+A `curl` request carries no session cookie, so under the default configuration it is served by the global tenant.
+
+Passing the tenant as a query parameter does not work, because the saved objects endpoints do not define one: a `securitytenant` or `security_tenant` query parameter is rejected with a `400` error. For more information about tenants, see [OpenSearch Dashboards multi-tenancy]({{site.url}}{{site.baseurl}}/security/multi-tenancy/tenant-index/).
 
 ## Find saved objects
 
@@ -335,7 +347,7 @@ The following table lists the available request body fields.
 | `includeReferencesDeep` | Boolean | Whether to also export the objects that the exported objects depend on, such as their index patterns. Set to `true` so that the export can be imported into a cluster that does not already contain those references. Optional. Default is `false`. |
 | `search` | String | A query string that limits the export to matching objects, such as `Sales*`. Use with `type`. Optional. |
 | `excludeExportDetails` | Boolean | Whether to omit the summary line at the end of the output. Optional. Default is `false`. |
-| `workspaces` | String or Array | The workspaces to export objects from. Optional. |
+| `workspaces` | Array | The workspaces to export objects from. Optional. |
 
 ### Example request
 
