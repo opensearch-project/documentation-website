@@ -5,7 +5,7 @@ nav_order: 46
 has_children: false
 parent: String field types
 grand_parent: Supported field types
-canonical_url: https://docs.opensearch.org/latest/field-types/supported-field-types/keyword/
+canonical_url: https://docs.opensearch.org/latest/mappings/supported-field-types/keyword/
 redirect_from:
   - /field-types/keyword/
   - /field-types/supported-field-types/keyword/

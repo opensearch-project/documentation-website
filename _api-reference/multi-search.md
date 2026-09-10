@@ -2,7 +2,7 @@
 layout: default
 title: Multi-search
 nav_order: 45
-canonical_url: https://docs.opensearch.org/latest/api-reference/multi-search/
+canonical_url: https://docs.opensearch.org/latest/api-reference/search-apis/multi-search/
 redirect_from:
   - /api-reference/search-apis/multi-search/
   - /opensearch/rest-api/multi-search/

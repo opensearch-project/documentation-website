@@ -3,7 +3,7 @@ layout: default
 title: Monitoring
 parent: SQL and PPL
 nav_order: 95
-canonical_url: https://docs.opensearch.org/latest/search-plugins/sql/monitoring/
+canonical_url: https://docs.opensearch.org/latest/sql-and-ppl/monitoring/
 redirect_from:
   - /sql-and-ppl/monitoring/
 ---

@@ -5,7 +5,7 @@ nav_order: 57
 has_children: true
 has_toc: false
 parent: Supported field types
-canonical_url: https://docs.opensearch.org/latest/field-types/supported-field-types/xy/
+canonical_url: https://docs.opensearch.org/latest/mappings/supported-field-types/xy/
 redirect_from:
   - /field-types/supported-field-types/xy/
   - /field-types/xy/
