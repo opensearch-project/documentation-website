@@ -9,7 +9,7 @@ redirect_from:
   - /dashboards/visualize/maps/
   - /dashboards/maps/
   - /dashboards/visualize/visualize-app/maps/
-canonical_url: https://docs.opensearch.org/latest/dashboards/visualize/maps/
+canonical_url: https://docs.opensearch.org/latest/dashboards/visualize/visualize-app/maps/
 ---
 
 # Using maps 

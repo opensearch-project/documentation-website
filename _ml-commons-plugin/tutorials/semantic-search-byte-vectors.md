@@ -3,7 +3,7 @@ layout: default
 title: Semantic search using byte vectors
 parent: Tutorials
 nav_order: 10
-canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/tutorials/semantic-search-byte-vectors/
+canonical_url: https://docs.opensearch.org/latest/tutorials/vector-search/vector-operations/semantic-search-byte-vectors/
 redirect_from:
   - /tutorials/vector-search/vector-operations/semantic-search-byte-vectors/
   - /vector-search/tutorials/vector-operations/semantic-search-byte-vectors/
