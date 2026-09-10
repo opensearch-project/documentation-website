@@ -4,8 +4,8 @@ title: service_map_stateful
 parent: Processors
 grand_parent: Pipelines
 nav_order: 45
-canonical_url: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/processors/service-map-stateful/
-redirect_to: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/processors/service-map-stateful/
+canonical_url: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/processors/service-map/
+redirect_to: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/processors/service-map/
 ---
 
 # service_map_stateful
