@@ -91,8 +91,20 @@ module Jekyll::LinkChecker
   ]
 
   ##
-  # Pattern of local paths to ignore
-  @ignored_paths = %r{(^/javadocs|^mailto:)}.freeze
+  # Pattern of local paths to ignore.
+  #
+  # `^/$` is the site home page, and the five section paths are the sections
+  # published as a single edition. On a branch that is no longer the source of
+  # /latest/, every one of those pages carries a `redirect_to` aimed at /latest/.
+  # CI sets `baseurl: /latest`, so the checker rewrites that target back to the
+  # page's own path, reads the stub jekyll-redirect-from just generated, pulls the
+  # same absolute URL out of it, and recurses until the build dies with `stack
+  # level too deep`. `check_internal` has no cycle detection.
+  #
+  # Every entry is a no-op on whichever branch builds /latest/, where these pages
+  # are real content. The list is kept identical on all branches so that one cut
+  # from here already carries the fix.
+  @ignored_paths = %r{(^/$|^/javadocs|^mailto:|^/clients|^/data-prepper|^/benchmark|^/migration-assistant|^/classic/migration-assistant)}.freeze
 
   ##
   # Holds the list of failures
