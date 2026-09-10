@@ -3,7 +3,7 @@ layout: default
 title: Configure Logstash for Data Prepper
 parent: Data Prepper
 nav_order: 2
-canonical_url: https://docs.opensearch.org/latest/data-prepper/migrating-from-logstash-data-prepper/
+canonical_url: https://docs.opensearch.org/latest/data-prepper/
 redirect_to: https://docs.opensearch.org/latest/data-prepper/migrating-from-logstash-data-prepper/
 ---
 # Configure Logstash for Data Prepper

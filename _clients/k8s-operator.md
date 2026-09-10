@@ -2,7 +2,7 @@
 layout: default
 title: OpenSearch Kubernetes Operator
 nav_order: 210
-canonical_url: https://docs.opensearch.org/latest/tools/k8s-operator/
+canonical_url: https://docs.opensearch.org/latest/install-and-configure/install-opensearch/operator/index/
 redirect_from:
   - /install-and-configure/install-opensearch/operator/
   - /install-and-configure/install-opensearch/operator/index/
