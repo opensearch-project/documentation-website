@@ -6,7 +6,7 @@ nav_order: 70
 redirect_from:
   - /ml-commons-plugin/conversational-search/
   - /vector-search/ai-search/conversational-search/
-canonical_url: https://docs.opensearch.org/latest/search-plugins/conversational-search/
+canonical_url: https://docs.opensearch.org/latest/vector-search/ai-search/conversational-search/
 ---
 
 # Conversational search

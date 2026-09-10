@@ -16,7 +16,7 @@ redirect_from:
   - /observability-plugin/ppl/index/
   - /sql-and-ppl/ppl/
   - /sql-and-ppl/ppl/index/
-canonical_url: https://docs.opensearch.org/latest/search-plugins/sql/ppl/index/
+canonical_url: https://docs.opensearch.org/latest/sql-and-ppl/ppl/index/
 ---
 
 # PPL
