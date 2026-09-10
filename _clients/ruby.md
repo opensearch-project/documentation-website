@@ -4,6 +4,7 @@ title: Ruby client
 nav_order: 60
 has_children: false
 canonical_url: https://docs.opensearch.org/latest/clients/ruby/
+redirect_to: https://docs.opensearch.org/latest/clients/ruby/
 ---
 
 # Ruby client
