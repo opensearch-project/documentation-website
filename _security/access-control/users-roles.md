@@ -52,7 +52,7 @@ See [YAML files]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#inter
 
 ### REST API
 
-See [Create user]({{site.url}}{{site.baseurl}}/security/access-control/api/#create-user).
+See [Create user]({{site.url}}{{site.baseurl}}/security/api/users/create-user/).
 
 
 ## Defining roles
@@ -80,7 +80,7 @@ See [YAML files]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#roles
 
 ### REST API
 
-See [Create role]({{site.url}}{{site.baseurl}}/security/access-control/api/#create-role).
+See [Create role]({{site.url}}{{site.baseurl}}/security/api/roles/create-role/).
 
 ## Editing roles
 
@@ -99,7 +99,7 @@ See [YAML files]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#roles
 
 ### REST API
 
-See [Patch role]({{site.url}}{{site.baseurl}}/security/access-control/api/#patch-role).
+See [Patch role]({{site.url}}{{site.baseurl}}/security/api/roles/patch-role/).
 
 ## Mapping users to roles
 
@@ -122,7 +122,7 @@ See [YAML files]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#roles
 
 ### REST API
 
-See [Create role mapping]({{site.url}}{{site.baseurl}}/security/access-control/api/#create-role-mapping).
+See [Create role mapping]({{site.url}}{{site.baseurl}}/security/api/role-mappings/create-role-mapping/).
 
 ## Defining read-only roles
 

@@ -36,13 +36,11 @@ OpenSearch supports the following REST APIs:
 - [Popular APIs]({{site.url}}{{site.baseurl}}/api-reference/popular-api/)
 - [Script APIs]({{site.url}}{{site.baseurl}}/api-reference/script-apis/)
 - [Search APIs]({{site.url}}{{site.baseurl}}/api-reference/search-apis/)
-- [Security APIs]({{site.url}}{{site.baseurl}}/api-reference/security/)
 - [Snapshot APIs]({{site.url}}{{site.baseurl}}/api-reference/snapshots/)
 - [Supported units]({{site.url}}{{site.baseurl}}/api-reference/units/)
 
 ### Other APIs (throughout documentation)
 
-- [Access control API]({{site.url}}{{site.baseurl}}/security/access-control/api/)
 - [Alerting API]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/api/)
 - [Anomaly detection API]({{site.url}}{{site.baseurl}}/observing-your-data/ad/api/)
 - [Count]({{site.url}}{{site.baseurl}}/api-reference/count/)
@@ -67,6 +65,7 @@ OpenSearch supports the following REST APIs:
 - [Search]({{site.url}}{{site.baseurl}}/api-reference/search/)
 - [Search relevance stats API]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/stats-api/)
 - [Security Analytics APIs]({{site.url}}{{site.baseurl}}/security-analytics/api-tools/index/)
+- [Security APIs]({{site.url}}{{site.baseurl}}/security/api/)
 - [Stats API]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/stats-api/)
 - [Tasks]({{site.url}}{{site.baseurl}}/api-reference/tasks/)
 - [Transforms API]({{site.url}}{{site.baseurl}}/im-plugin/index-transforms/transforms-apis/)
