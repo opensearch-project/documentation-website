@@ -7,7 +7,7 @@ nav_order: 5
 redirect_from:
   - /search-plugins/sql/basic/
   - /sql-and-ppl/sql/basic/
-canonical_url: https://docs.opensearch.org/latest/search-plugins/sql/sql/basic/
+canonical_url: https://docs.opensearch.org/latest/sql-and-ppl/sql/basic/
 ---
 
 

@@ -7,7 +7,7 @@ redirect_from:
   - /opensearch/rest-api/alias/
   - /api-reference/alias/
   - /api-reference/alias/aliases-api/
-canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/alias/
+canonical_url: https://docs.opensearch.org/latest/api-reference/alias/aliases-api/
 ---
 
 # Alias API

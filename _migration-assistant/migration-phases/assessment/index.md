@@ -11,6 +11,7 @@ redirect_from:
   - /migration-assistant/migration-phases/planning-your-migration/assessing-your-cluster-for-migration/
   - /migration-assistant/migration-phases/planning-your-migration/
 canonical_url: https://docs.opensearch.org/latest/migration-assistant/migration-phases/assessment/
+redirect_to: https://docs.opensearch.org/latest/migration-assistant/migration-phases/assessment/
 ---
 
 # Assessment
