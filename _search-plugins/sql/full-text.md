@@ -3,7 +3,7 @@ layout: default
 title: Full-Text Search
 parent: SQL and PPL
 nav_order: 11
-canonical_url: https://docs.opensearch.org/latest/search-plugins/sql/full-text/
+canonical_url: https://docs.opensearch.org/latest/sql-and-ppl/full-text/
 redirect_from:
   - /search-plugins/sql/sql-full-text/
   - /sql-and-ppl/full-text/

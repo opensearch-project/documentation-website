@@ -2,7 +2,7 @@
 layout: default
 title: Render Template
 nav_order: 82
-canonical_url: https://docs.opensearch.org/latest/api-reference/render-template/
+canonical_url: https://docs.opensearch.org/latest/api-reference/search-apis/search-template/render-template/
 redirect_from:
   - /api-reference/search-apis/render-template/
   - /api-reference/search-apis/search-template/render-template/
