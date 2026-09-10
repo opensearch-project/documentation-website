@@ -4,8 +4,8 @@ title: routes
 parent: Processors
 grand_parent: Pipelines
 nav_order: 90
-canonical_url: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/processors/routes/
-redirect_to: https://docs.opensearch.org/latest/data-prepper/
+canonical_url: https://docs.opensearch.org/latest/data-prepper/pipelines/pipelines/
+redirect_to: https://docs.opensearch.org/latest/data-prepper/pipelines/pipelines/
 ---
 
 # Routes
