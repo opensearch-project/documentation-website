@@ -4,7 +4,7 @@ title: Creating a snapshot
 parent: Migration phases
 nav_order: 4
 permalink: /migration-assistant/migration-phases/create-snapshot/
-canonical_url: https://docs.opensearch.org/latest/migration-assistant/migration-phases/create-snapshot/
+canonical_url: https://docs.opensearch.org/latest/migration-assistant/migration-phases/backfill/
 redirect_to: https://docs.opensearch.org/latest/migration-assistant/migration-phases/backfill/
 ---
 
