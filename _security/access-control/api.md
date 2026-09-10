@@ -20,39 +20,65 @@ plugins.security.restapi.roles_enabled: ["<role>", ...]
 ```
 {% include copy.html %}
 
-The distinguished name and certificate APIs require superadmin access. To let a role call them, enable the REST API admin configuration in `opensearch.yml`:
+A role listed in this setting can call every Security API except the allow list, distinguished name, and certificate APIs, which are restricted to a super admin. A user without such a role receives `403 Forbidden`, no matter which cluster permissions that user holds.
 
-```yml
-plugins.security.restapi.admin.enabled: true
-```
-{% include copy.html %}
-
-These roles can now access all APIs. To prevent access to certain APIs:
+To prevent a role from reaching certain APIs, disable individual endpoints for it:
 
 ```yml
 plugins.security.restapi.endpoints_disabled.<role>.<endpoint>: ["<method>", ...]
 ```
 {% include copy.html %}
 
-Roles also allow you to control access to specific REST APIs. You can add individual or multiple cluster permissions to a role and grant users access to associated APIs when they are mapped to the role. The following list of cluster permissions includes the endpoints that correspond to the Security REST APIs:
+To disable an endpoint for every role, including the roles listed in `plugins.security.restapi.roles_enabled`, use `global` in place of the role name:
+
+```yml
+plugins.security.restapi.endpoints_disabled.global.<endpoint>: ["<method>", ...]
+```
+{% include copy.html %}
+
+### REST API admin permissions
+
+The allow list, distinguished name, and certificate APIs are restricted to a super admin. To let a role call them without an admin certificate, enable REST API admin permissions in `opensearch.yml`:
+
+```yml
+plugins.security.restapi.admin.enabled: true
+```
+{% include copy.html %}
+
+Then grant the role the cluster permission for the endpoint you want it to reach. Both conditions apply together: the permission unlocks the endpoint, but the role must still be listed in `plugins.security.restapi.roles_enabled` to reach the Security APIs at all.
+
+A role that contains any `restapi:admin` permission cannot be created or modified through the [Role APIs]({{site.url}}{{site.baseurl}}/security/api/roles/), even by a super admin. Define such a role in `roles.yml` and apply it with `securityadmin.sh`. For more information, see [Applying changes to configuration files]({{site.url}}{{site.baseurl}}/security/configuration/security-admin/).
+{: .note}
+
+The following table lists the cluster permissions that correspond to the Security REST APIs. No built-in role includes them.
 
 | Permission | APIs granted | Description |
 | :--- | :--- | :--- |
 | `restapi:admin/actiongroups` | `/actiongroup` and `/actiongroups` | Permission to retrieve, create, modify, and delete any action group, including bulk updates. |
 | `restapi:admin/allowlist` | `/allowlist` | Permission to add endpoints and HTTP methods to the allow list. |
+| `restapi:admin/config/update` | `PUT` and `PATCH` on `/securityconfig` | Permission to replace or patch the security configuration. |
 | `restapi:admin/internalusers` | `/internaluser` and `/user` | Permission to add, retrieve, modify, and delete any user in the cluster. |
 | `restapi:admin/nodesdn` | `/nodesdn` | Permission to add, retrieve, update, and delete the distinguished names in the allow list that enables communication between clusters and nodes. |
+| `restapi:admin/ratelimiters` | `/authfailurelisteners` | Permission to retrieve and modify the authentication rate limiting configuration. |
+| `restapi:admin/resource_sharing/migrate` | `/resources/migrate` | Permission to migrate plugin-defined resource sharing records. |
 | `restapi:admin/roles` | `/roles` | Permission to add, retrieve, modify, and delete any role in the cluster. |
 | `restapi:admin/rolesmapping` | `/rolesmapping` | Permission to add, retrieve, modify, and delete any role mapping. |
-| `restapi:admin/ssl/certs/info` | `/ssl/certs/info` | Permission to view the current transport and HTTP certificates. |
-| `restapi:admin/ssl/certs/reload` | `/ssl/certs/reload` | Permission to reload the transport and HTTP certificates. |
+| `restapi:admin/rollback_version` | `/version/rollback` | Permission to restore a previous version of the security configuration. |
+| `restapi:admin/ssl/certs/info` | `/certificates`, `/certificates/{node_id}`, and `/ssl/certs` | Permission to view the current transport and HTTP certificates. |
+| `restapi:admin/ssl/certs/reload` | `/ssl/{cert_type}/reloadcerts` | Permission to reload the transport and HTTP certificates. |
 | `restapi:admin/tenants` | `/tenants` | Permission to retrieve, create, modify, and delete any tenant. |
+| `restapi:admin/view_version` | `/versions` and `/version/{version_id}` | Permission to list the security configuration versions and retrieve the contents of one version. |
+
+The paths in the preceding table are relative to `_plugins/_security/api/`. To grant a role every one of these permissions at once, use `restapi:admin/*`.
+
+The Security APIs that this table does not list have no `restapi:admin` permission of their own. A role listed in `plugins.security.restapi.roles_enabled` can already call them.
+
+### Endpoint values
 
 The following table lists the valid `endpoint` values and the APIs that each one covers.
 
 | Value | APIs |
 | :--- | :--- |
-| `ACCOUNT` | The account APIs, which return and modify the details of the calling user's own account. |
 | `ACTIONGROUPS` | The action group APIs. |
 | `ALLOWLIST` | The allow list APIs. |
 | `APITOKENS` | The API key APIs. |
@@ -62,15 +88,16 @@ The following table lists the valid `endpoint` values and the APIs that each one
 | `CONFIG` | The configuration APIs, including the upgrade check and upgrade operations. |
 | `INTERNALUSERS` | The internal user APIs. |
 | `NODESDN` | The distinguished name APIs. |
-| `PERMISSIONSINFO` | The Permissions Info API. |
 | `RATELIMITERS` | The APIs that configure authentication rate limiting. |
-| `RESOURCE_SHARING` | The resource sharing APIs. |
+| `RESOURCE_SHARING` | The operation that migrates plugin-defined resource sharing records. |
 | `ROLES` | The role APIs. |
 | `ROLESMAPPING` | The role mapping APIs. |
 | `ROLLBACK_VERSION` | The operation that restores a previous version of the security configuration. |
 | `SSL` | The certificate APIs. |
 | `TENANTS` | The tenant APIs and the multi-tenancy configuration APIs. |
 | `VIEW_VERSION` | The operations that list security configuration versions and return the contents of one version. |
+
+The account APIs, the Permissions Info API, the Dashboards Info API, and the Security Plugin Health API have no `endpoint` value because any authenticated user can call them.
 
 Possible values for `method` are:
 
