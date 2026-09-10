@@ -3,7 +3,7 @@ layout: default
 title: Key components
 nav_order: 10
 parent: Overview
-canonical_url: https://docs.opensearch.org/latest/migration-assistant/overview/key-components/
+canonical_url: https://docs.opensearch.org/latest/migration-assistant/
 redirect_to: https://docs.opensearch.org/latest/migration-assistant/
 ---
 
