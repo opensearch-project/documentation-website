@@ -4,7 +4,7 @@ title: JSON Support
 parent: SQL
 grand_parent: SQL and PPL
 nav_order: 8
-canonical_url: https://docs.opensearch.org/latest/search-plugins/sql/sql/partiql/
+canonical_url: https://docs.opensearch.org/latest/sql-and-ppl/sql/partiql/
 redirect_from:
   - /search-plugins/sql/partiql/
   - /sql-and-ppl/sql/partiql/

@@ -5,7 +5,7 @@ nav_order: 56
 has_children: false
 parent: Geographic field types
 grand_parent: Supported field types
-canonical_url: https://docs.opensearch.org/latest/field-types/supported-field-types/geo-point/
+canonical_url: https://docs.opensearch.org/latest/mappings/supported-field-types/geo-point/
 redirect_from:
   - /field-types/geo-point/
   - /field-types/supported-field-types/geo-point/
