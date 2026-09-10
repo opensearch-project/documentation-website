@@ -5,6 +5,7 @@ parent: Processors
 grand_parent: Pipelines
 nav_order: 63
 canonical_url: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/processors/map-to-list/
+redirect_to: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/processors/map-to-list/
 ---
 
 # map_to_list

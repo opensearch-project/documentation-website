@@ -7,6 +7,7 @@ nav_order: 70
 redirect_from:
   - /benchmark/workloads/corpora/
 canonical_url: https://docs.opensearch.org/latest/benchmark/reference/workloads/corpora/
+redirect_to: https://docs.opensearch.org/latest/benchmark/reference/workloads/corpora/
 ---
 
 <!-- vale off -->

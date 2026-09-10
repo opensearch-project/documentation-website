@@ -11,6 +11,7 @@ redirect_from:
   - /monitoring-plugins/trace/data-prepper/
   - /data-prepper/index/
 canonical_url: https://docs.opensearch.org/latest/data-prepper/
+redirect_to: https://docs.opensearch.org/latest/data-prepper/
 ---
 
 # Data Prepper

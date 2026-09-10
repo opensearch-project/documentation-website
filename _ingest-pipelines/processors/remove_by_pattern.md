@@ -6,7 +6,7 @@ nav_order: 225
 redirect_from:
   - /api-reference/ingest-apis/processors/remove_by_pattern/
   - /ingest-pipelines/processors/remove-by-pattern/
-canonical_url: https://docs.opensearch.org/latest/ingest-pipelines/processors/remove_by_pattern/
+canonical_url: https://docs.opensearch.org/latest/ingest-pipelines/processors/remove-by-pattern/
 ---
 
 # Remove_by_pattern processor

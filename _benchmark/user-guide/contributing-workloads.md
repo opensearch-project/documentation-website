@@ -3,9 +3,10 @@ layout: default
 title: Sharing custom workloads
 nav_order: 11
 parent: User guide
-canonical_url: https://docs.opensearch.org/latest/benchmark/user-guide/contributing-workloads/
+canonical_url: https://docs.opensearch.org/latest/benchmark/contributing-workloads/
 redirect_from:
   - /benchmark/user-guide/working-with-workloads/contributing-workloads/
+redirect_to: https://docs.opensearch.org/latest/benchmark/contributing-workloads/
 ---
 
 # Sharing custom workloads

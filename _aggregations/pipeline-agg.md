@@ -8,7 +8,7 @@ redirect_from:
   - /query-dsl/aggregations/pipeline-agg/
   - /aggregations/pipeline/
   - /aggregations/pipeline/index/
-canonical_url: https://docs.opensearch.org/latest/aggregations/pipeline-agg/
+canonical_url: https://docs.opensearch.org/latest/aggregations/pipeline/index/
 ---
 
 # Pipeline aggregations

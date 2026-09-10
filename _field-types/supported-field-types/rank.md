@@ -8,7 +8,7 @@ redirect_from:
   - /opensearch/supported-field-types/rank/
   - /field-types/rank/
   - /mappings/supported-field-types/rank/
-canonical_url: https://docs.opensearch.org/latest/field-types/supported-field-types/rank/
+canonical_url: https://docs.opensearch.org/latest/mappings/supported-field-types/rank/
 ---
 
 # Rank field types
