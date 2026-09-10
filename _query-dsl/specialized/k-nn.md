@@ -3,7 +3,7 @@ layout: default
 title: k-NN
 parent: Specialized queries
 nav_order: 10
-canonical_url: https://docs.opensearch.org/latest/query-dsl/specialized/k-nn/
+canonical_url: https://docs.opensearch.org/latest/query-dsl/specialized/k-nn/index/
 redirect_from:
   - /query-dsl/specialized/k-nn/index/
 ---

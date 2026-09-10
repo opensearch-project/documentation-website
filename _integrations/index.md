@@ -9,7 +9,7 @@ redirect_from:
   - /integrations/index/
   - /dashboards/integrations/
   - /dashboards/integrations/index/
-canonical_url: https://docs.opensearch.org/latest/integrations/
+canonical_url: https://docs.opensearch.org/latest/dashboards/integrations/index/
 ---
 
 # Integrations in OpenSearch Dashboards

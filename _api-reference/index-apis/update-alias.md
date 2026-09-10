@@ -3,7 +3,7 @@ layout: default
 title: Create or update alias
 parent: Index APIs
 nav_order: 6
-canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/update-alias/
+canonical_url: https://docs.opensearch.org/latest/api-reference/alias/create-alias/
 redirect_from:
   - /api-reference/alias/create-alias/
 ---
