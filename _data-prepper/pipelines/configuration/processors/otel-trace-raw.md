@@ -4,8 +4,8 @@ title: otel_trace
 parent: Processors
 grand_parent: Pipelines
 nav_order: 75
-canonical_url: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/processors/otel-trace-raw/
-redirect_to: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/processors/otel-trace-raw/
+canonical_url: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/processors/otel-traces/
+redirect_to: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/processors/otel-traces/
 ---
 
 # otel_trace

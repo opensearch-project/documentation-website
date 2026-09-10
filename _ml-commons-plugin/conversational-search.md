@@ -3,7 +3,7 @@ layout: default
 title: Conversational search
 has_children: false
 nav_order: 200
-canonical_url: https://docs.opensearch.org/latest/search-plugins/conversational-search/
+canonical_url: https://docs.opensearch.org/latest/vector-search/ai-search/conversational-search/
 redirect_from:
   - /search-plugins/conversational-search/
   - /vector-search/ai-search/conversational-search/
