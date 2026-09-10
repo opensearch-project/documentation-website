@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Upgrade Perform API
+title: Perform upgrade
 parent: Configuration APIs
 grand_parent: Security APIs
 nav_order: 50
@@ -8,11 +8,11 @@ redirect_from:
   - /api-reference/security/configuration/upgrade-perform/
 ---
 
-# Upgrade Perform API
+# Perform Upgrade API
 **Introduced 2.14**
 {: .label .label-purple }
 
-The Upgrade Perform API allows you to upgrade your Security plugin configuration components. This API is typically used after identifying necessary upgrades with the [Upgrade Check API]({{site.url}}{{site.baseurl}}/security/api/configuration/upgrade-check/). It updates your configuration components to ensure compatibility with the current version of the Security plugin.
+The Perform Upgrade API allows you to upgrade your Security plugin configuration components. This API is typically used after identifying necessary upgrades with the [Check for Upgrades API]({{site.url}}{{site.baseurl}}/security/api/configuration/upgrade-check/). It updates your configuration components to ensure compatibility with the current version of the Security plugin.
 
 This API adds and updates resources on the cluster's existing security configuration from the configuration bundled with the installed version of the Security plugin. The bundled configuration files are located in the `<OPENSEARCH_HOME>/security/config` directory. Default configuration files are updated when OpenSearch is upgraded, whereas the cluster configuration is only updated by cluster operators, so this API lets an operator upgrade missing defaults and stale default definitions.
 
@@ -36,74 +36,57 @@ The request body is optional. It is a JSON object with the following fields.
 
 ## Example request
 
-The following example request performs upgrades on only the `roles` and `config` components:
-
-<!-- spec_insert_start
-component: example_code
-rest: POST /_plugins/_security/api/_upgrade_perform
-body: |
-{
-  "config": ["roles", "config"]
-}
--->
-{% capture step1_rest %}
+```json
 POST /_plugins/_security/api/_upgrade_perform
 {
-  "config": [
-    "roles",
-    "config"
+  "configs": [
+    "roles"
   ]
 }
-{% endcapture %}
-
-{% capture step1_python %}
-
-
-response = client.security.config_upgrade_perform(
-  body =   {
-    "config": [
-      "roles",
-      "config"
-    ]
-  }
-)
-
-{% endcapture %}
-
-{% include code-block.html
-    rest=step1_rest
-    python=step1_python %}
-<!-- spec_insert_end -->
-
-To upgrade all components requiring it, you can omit the request body.
+```
+{% include copy-curl.html security=true %}
 
 ## Example response
 
-The response includes information about which components were upgraded and the specific changes that were made:
+The `upgrades` object lists the changes that were applied:
 
 ```json
 {
   "status": "OK",
   "upgrades": {
-    "roles": [
-      "Added permissions for dashboard features to admin role",
-      "Updated cluster monitor permissions"
-    ],
-    "config": [
-      "Updated authentication configuration",
-      "Added new security settings"
-    ]
+    "roles": {
+      "add": [
+        "flow_framework_full_access"
+      ]
+    }
   }
 }
 ```
 
-If no components require upgrades, you'll receive a response similar to the following:
+If the named configuration is already current, the request fails with `400 Bad Request`:
 
 ```json
 {
-  "status": "OK",
-  "upgrades": {}
+  "status": "BAD_REQUEST",
+  "message": "Unable to upgrade, no differences found in 'roles' config"
 }
 ```
 
 ## Response body fields
+
+The response body is a JSON object with the following fields.
+
+| Property | Data type | Description |
+| :--- | :--- | :--- |
+| `status` | String | The status of the request. A successful request returns `OK`. |
+| `upgrades` | Object | A container for the upgrade results, organized by configuration type, such as `roles`. Each changed configuration type is represented as a key in this object. |
+
+<details markdown="block">
+  <summary>
+    Response body fields: <code>upgrades</code>
+  </summary>
+  {: .text-delta}
+
+Each configuration type in `upgrades` maps to an object whose keys are the actions applied to that type, such as `add` or `modify`. Each action maps to a list of the names of the objects modified by the upgrade.
+
+</details>

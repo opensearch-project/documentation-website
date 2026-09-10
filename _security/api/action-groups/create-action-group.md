@@ -1,12 +1,12 @@
 ---
 layout: default
-title: Create Action Group API
-parent: Action Group APIs
+title: Create or update action group
+parent: Action group APIs
 grand_parent: Security APIs
-nav_order: 30
+nav_order: 10
 ---
 
-# Create Action Group API
+# Create or Update Action Group API
 **Introduced 1.0**
 {: .label .label-purple }
 
@@ -22,10 +22,22 @@ PUT /_plugins/_security/api/actiongroups/{action_group}
 ```
 <!-- spec_insert_end -->
 
+## Request body fields
+
+The request body is required. It is a JSON object with the following fields.
+
+| Field | Data type | Description | Required |
+| :--- | :--- | :--- | :--- |
+| `allowed_actions` | Array of strings | The actions that the action group permits. Specify individual actions, such as `indices:data/write/index`, or the names of other action groups. | Yes |
+| `type` | String | The scope of the action group. Valid values are `cluster`, `index`, and `kibana`. If omitted, the action group can be used at any level. | No |
+| `description` | String | A description of the action group. | No |
+| `hidden` | Boolean | Whether the action group is hidden from the API and OpenSearch Dashboards. Default is `false`. | No |
+| `reserved` | Boolean | Whether the action group is read-only and cannot be modified. Default is `false`. | No |
+
 ## Example request
 
 ```json
-PUT _plugins/_security/api/actiongroups/{action-group}
+PUT _plugins/_security/api/actiongroups/custom_action_group
 {
   "allowed_actions": [
     "indices:data/write/index*",
@@ -37,13 +49,13 @@ PUT _plugins/_security/api/actiongroups/{action-group}
   ]
 }
 ```
-{% include copy-curl.html %}
+{% include copy-curl.html security=true %}
 
 ## Example response
 
 ```json
 {
   "status": "CREATED",
-  "message": "'my-action-group' created."
+  "message": "'custom_action_group' created."
 }
 ```

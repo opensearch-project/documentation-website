@@ -20,7 +20,7 @@ plugins.security.restapi.roles_enabled: ["<role>", ...]
 ```
 {% include copy.html %}
 
-If you're working with APIs that manage `Distinguished names` or `Certificates` that require super admin access, enable the REST API admin configuration in your `opensearch.yml` file as shown in the following setting example:
+The distinguished name and certificate APIs require superadmin access. To let a role call them, enable the REST API admin configuration in `opensearch.yml`:
 
 ```yml
 plugins.security.restapi.admin.enabled: true
@@ -36,31 +36,41 @@ plugins.security.restapi.endpoints_disabled.<role>.<endpoint>: ["<method>", ...]
 
 Roles also allow you to control access to specific REST APIs. You can add individual or multiple cluster permissions to a role and grant users access to associated APIs when they are mapped to the role. The following list of cluster permissions includes the endpoints that correspond to the Security REST APIs:
 
-| **Permission**                 | **APIs granted**                   | **Description**                                                                                                                                    |
-|:-------------------------------|:-----------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------|
-| `restapi:admin/actiongroups`     | `/actiongroup` and `/actiongroups` | Permission to get, delete, create, and patch actions groups (including bulk updates).                                                              |
-| `restapi:admin/allowlist `       | `/allowlist`                       | Permission to add any endpoints and HTTP requests to a list of allowed endpoints and requests.                                                     |
-| `restapi:admin/internalusers`    | `/internaluser` and `/user`        | Permission to add, retrieve, modify, and delete any user in the cluster.                                                                           |
-| `restapi:admin/nodesdn `         | `/nodesdn`                         | Permission to add, retrieve, update, or delete any distinguished names from an allow list and enable communication between clusters and/or nodes.  |
-| `restapi:admin/roles`            | `/roles`                           | Permission to add, retrieve, modify, and delete any roles in the cluster.                                                                          |
-| `restapi:admin/rolesmapping`     | `/rolesmapping`                    | Permission to add, retrieve, modify, and delete any roles-mapping.                                                                                 |
-| `restapi:admin/ssl/certs/info`   | `/ssl/certs/info`                  | Permission to view current Transport and HTTP certificates.                                                                                        |
-| `restapi:admin/ssl/certs/reload` | `/ssl/certs/reload`                | Permission to view reload Transport and HTTP certificates.                                                                                         |
-| `restapi:admin/tenants`          | `/tenants`                         | Permission to get, delete, create, and patch tenants.                                                                                              |
+| Permission | APIs granted | Description |
+| :--- | :--- | :--- |
+| `restapi:admin/actiongroups` | `/actiongroup` and `/actiongroups` | Permission to retrieve, create, modify, and delete any action group, including bulk updates. |
+| `restapi:admin/allowlist` | `/allowlist` | Permission to add endpoints and HTTP methods to the allow list. |
+| `restapi:admin/internalusers` | `/internaluser` and `/user` | Permission to add, retrieve, modify, and delete any user in the cluster. |
+| `restapi:admin/nodesdn` | `/nodesdn` | Permission to add, retrieve, update, and delete the distinguished names in the allow list that enables communication between clusters and nodes. |
+| `restapi:admin/roles` | `/roles` | Permission to add, retrieve, modify, and delete any role in the cluster. |
+| `restapi:admin/rolesmapping` | `/rolesmapping` | Permission to add, retrieve, modify, and delete any role mapping. |
+| `restapi:admin/ssl/certs/info` | `/ssl/certs/info` | Permission to view the current transport and HTTP certificates. |
+| `restapi:admin/ssl/certs/reload` | `/ssl/certs/reload` | Permission to reload the transport and HTTP certificates. |
+| `restapi:admin/tenants` | `/tenants` | Permission to retrieve, create, modify, and delete any tenant. |
 
+The following table lists the valid `endpoint` values and the APIs that each one covers.
 
-
-Possible values for `endpoint` are:
-
-- `ACTIONGROUPS`
-- `ROLES`
-- `ROLESMAPPING`
-- `INTERNALUSERS`
-- `CONFIG`
-- `CACHE`
-- `SYSTEMINFO`
-- `NODESDN`
-- `SSL`
+| Value | APIs |
+| :--- | :--- |
+| `ACCOUNT` | The account APIs, which return and modify the details of the calling user's own account. |
+| `ACTIONGROUPS` | The action group APIs. |
+| `ALLOWLIST` | The allow list APIs. |
+| `APITOKENS` | The API key APIs. |
+| `AUDIT` | The audit log APIs. |
+| `AUTHTOKEN` | The Authorization Token API. |
+| `CACHE` | The Flush Cache API. |
+| `CONFIG` | The configuration APIs, including the upgrade check and upgrade operations. |
+| `INTERNALUSERS` | The internal user APIs. |
+| `NODESDN` | The distinguished name APIs. |
+| `PERMISSIONSINFO` | The Permissions Info API. |
+| `RATELIMITERS` | The APIs that configure authentication rate limiting. |
+| `RESOURCE_SHARING` | The resource sharing APIs. |
+| `ROLES` | The role APIs. |
+| `ROLESMAPPING` | The role mapping APIs. |
+| `ROLLBACK_VERSION` | The operation that restores a previous version of the security configuration. |
+| `SSL` | The certificate APIs. |
+| `TENANTS` | The tenant APIs and the multi-tenancy configuration APIs. |
+| `VIEW_VERSION` | The operations that list security configuration versions and return the contents of one version. |
 
 Possible values for `method` are:
 
@@ -88,7 +98,7 @@ plugins.security.unsupported.restapi.allow_securityconfig_modification: true
 
 ## Reserved and hidden resources
 
-You can mark users, role, role mappings, and action groups as reserved. Resources that have this flag set to true can't be changed using the REST API or OpenSearch Dashboards.
+You can mark users, roles, role mappings, and action groups as reserved. Resources that have this flag set to true can't be changed using the REST API or OpenSearch Dashboards.
 
 To mark a resource as reserved, add the following flag:
 
@@ -98,7 +108,7 @@ kibana_user:
 ```
 {% include copy.html %}
 
-Likewise, you can mark users, role, role mappings, and action groups as hidden. Resources that have this flag set to true are not returned by the REST API and not visible in OpenSearch Dashboards:
+Likewise, you can mark users, roles, role mappings, and action groups as hidden. Resources that have this flag set to true are not returned by the REST API and not visible in OpenSearch Dashboards:
 
 ```yml
 kibana_user:
@@ -109,30 +119,6 @@ kibana_user:
 Hidden resources are automatically reserved.
 
 To add or remove these flags, modify `config/opensearch-security/internal_users.yml` and run `plugins/opensearch-security/tools/securityadmin.sh`.
-
-## API reference
-
-The following table lists the available Security APIs.
-
-| Group | APIs |
-| :--- | :--- |
-| [Authentication APIs]({{site.url}}{{site.baseurl}}/security/api/authentication/) | [Authentication Information API]({{site.url}}{{site.baseurl}}/security/api/authentication/auth-info/), [Who Am I API]({{site.url}}{{site.baseurl}}/security/api/authentication/who-am-i/), [Who Am I Protected API]({{site.url}}{{site.baseurl}}/security/api/authentication/who-am-i-protected/), [Permissions Info API]({{site.url}}{{site.baseurl}}/security/api/authentication/permissions-info/), [SSL Info API]({{site.url}}{{site.baseurl}}/security/api/authentication/ssl-info/), [Auth Token API]({{site.url}}{{site.baseurl}}/security/api/authentication/auth-token/), [Generate On-Behalf-Of Token API]({{site.url}}{{site.baseurl}}/security/api/authentication/generate-obo-token/) |
-| [Account APIs]({{site.url}}{{site.baseurl}}/security/api/account/) | [Get Account Details API]({{site.url}}{{site.baseurl}}/security/api/account/get-account-details/), [Change Password API]({{site.url}}{{site.baseurl}}/security/api/account/change-password/) |
-| [Internal User APIs]({{site.url}}{{site.baseurl}}/security/api/users/) | [Get User API]({{site.url}}{{site.baseurl}}/security/api/users/get-user/), [Get Users API]({{site.url}}{{site.baseurl}}/security/api/users/get-users/), [Create User API]({{site.url}}{{site.baseurl}}/security/api/users/create-user/), [Patch User API]({{site.url}}{{site.baseurl}}/security/api/users/patch-user/), [Patch Users API]({{site.url}}{{site.baseurl}}/security/api/users/patch-users/), [Delete User API]({{site.url}}{{site.baseurl}}/security/api/users/delete-user/), [Generate User Token API]({{site.url}}{{site.baseurl}}/security/api/users/generate-user-token/) |
-| [Role APIs]({{site.url}}{{site.baseurl}}/security/api/roles/) | [Get Role API]({{site.url}}{{site.baseurl}}/security/api/roles/get-role/), [Get Roles API]({{site.url}}{{site.baseurl}}/security/api/roles/get-roles/), [Create Role API]({{site.url}}{{site.baseurl}}/security/api/roles/create-role/), [Patch Role API]({{site.url}}{{site.baseurl}}/security/api/roles/patch-role/), [Patch Roles API]({{site.url}}{{site.baseurl}}/security/api/roles/patch-roles/), [Delete Role API]({{site.url}}{{site.baseurl}}/security/api/roles/delete-role/) |
-| [Role Mapping APIs]({{site.url}}{{site.baseurl}}/security/api/role-mappings/) | [Get Role Mapping API]({{site.url}}{{site.baseurl}}/security/api/role-mappings/get-role-mapping/), [Get Role Mappings API]({{site.url}}{{site.baseurl}}/security/api/role-mappings/get-role-mappings/), [Create Role Mapping API]({{site.url}}{{site.baseurl}}/security/api/role-mappings/create-role-mapping/), [Patch Role Mapping API]({{site.url}}{{site.baseurl}}/security/api/role-mappings/patch-role-mapping/), [Patch Role Mappings API]({{site.url}}{{site.baseurl}}/security/api/role-mappings/patch-role-mappings/), [Delete Role Mapping API]({{site.url}}{{site.baseurl}}/security/api/role-mappings/delete-role-mapping/) |
-| [Action Group APIs]({{site.url}}{{site.baseurl}}/security/api/action-groups/) | [Get Action Group API]({{site.url}}{{site.baseurl}}/security/api/action-groups/get-action-group/), [Get Action Groups API]({{site.url}}{{site.baseurl}}/security/api/action-groups/get-action-groups/), [Create Action Group API]({{site.url}}{{site.baseurl}}/security/api/action-groups/create-action-group/), [Patch Action Group API]({{site.url}}{{site.baseurl}}/security/api/action-groups/patch-action-group/), [Patch Action Groups API]({{site.url}}{{site.baseurl}}/security/api/action-groups/patch-action-groups/), [Delete Action Group API]({{site.url}}{{site.baseurl}}/security/api/action-groups/delete-action-group/) |
-| [Tenant APIs]({{site.url}}{{site.baseurl}}/security/api/tenants/) | [Get Tenant API]({{site.url}}{{site.baseurl}}/security/api/tenants/get-tenant/), [Get Tenants API]({{site.url}}{{site.baseurl}}/security/api/tenants/get-tenants/), [Create Tenant API]({{site.url}}{{site.baseurl}}/security/api/tenants/create-tenant/), [Patch Tenant API]({{site.url}}{{site.baseurl}}/security/api/tenants/patch-tenant/), [Patch Tenants API]({{site.url}}{{site.baseurl}}/security/api/tenants/patch-tenants/), [Delete Tenant API]({{site.url}}{{site.baseurl}}/security/api/tenants/delete-tenant/) |
-| [Tenancy Configuration APIs]({{site.url}}{{site.baseurl}}/security/api/tenancy/) | [Get Tenancy Configuration API]({{site.url}}{{site.baseurl}}/security/api/tenancy/get-tenancy-config/), [Update Tenancy Configuration API]({{site.url}}{{site.baseurl}}/security/api/tenancy/update-tenancy-config/), [Tenant Info API]({{site.url}}{{site.baseurl}}/security/api/tenancy/tenant-info/) |
-| [Allow List APIs]({{site.url}}{{site.baseurl}}/security/api/allowlist/) | [Get Allow List API]({{site.url}}{{site.baseurl}}/security/api/allowlist/get-allowlist/), [Create Allow List API]({{site.url}}{{site.baseurl}}/security/api/allowlist/create-allowlist/), [Patch Allow List API]({{site.url}}{{site.baseurl}}/security/api/allowlist/patch-allowlist/) |
-| [Configuration APIs]({{site.url}}{{site.baseurl}}/security/api/configuration/) | [Get Configuration API]({{site.url}}{{site.baseurl}}/security/api/configuration/get-configuration/), [Update Configuration API]({{site.url}}{{site.baseurl}}/security/api/configuration/update-configuration/), [Patch Configuration API]({{site.url}}{{site.baseurl}}/security/api/configuration/patch-configuration/), [Upgrade Check API]({{site.url}}{{site.baseurl}}/security/api/configuration/upgrade-check/), [Upgrade Perform API]({{site.url}}{{site.baseurl}}/security/api/configuration/upgrade-perform/) |
-| [Distinguished Name APIs]({{site.url}}{{site.baseurl}}/security/api/distinguished-names/) | [Get Distinguished Names API]({{site.url}}{{site.baseurl}}/security/api/distinguished-names/get-distinguished-names/), [Get Distinguished Name API]({{site.url}}{{site.baseurl}}/security/api/distinguished-names/get-distinguished-name/), [Update Distinguished Name API]({{site.url}}{{site.baseurl}}/security/api/distinguished-names/update-distinguished-name/), [Patch Distinguished Name API]({{site.url}}{{site.baseurl}}/security/api/distinguished-names/patch-distinguished-name/), [Patch Distinguished Names API]({{site.url}}{{site.baseurl}}/security/api/distinguished-names/patch-distinguished-names/), [Delete Distinguished Name API]({{site.url}}{{site.baseurl}}/security/api/distinguished-names/delete-distinguished-name/) |
-| [Certificate APIs]({{site.url}}{{site.baseurl}}/security/api/certificates/) | [Get Certificates API]({{site.url}}{{site.baseurl}}/security/api/certificates/get-certificates/), [Get All Certificates API]({{site.url}}{{site.baseurl}}/security/api/certificates/get-all-certificates/), [Get Node Certificates API]({{site.url}}{{site.baseurl}}/security/api/certificates/get-node-certificates/), [Reload Transport Certificates API]({{site.url}}{{site.baseurl}}/security/api/certificates/reload-transport-certificates/), [Reload HTTP Certificates API]({{site.url}}{{site.baseurl}}/security/api/certificates/reload-http-certificates/) |
-| [Audit Log APIs]({{site.url}}{{site.baseurl}}/security/api/audit/) | [Get Audit Configuration API]({{site.url}}{{site.baseurl}}/security/api/audit/get-audit-configuration/), [Update Audit Configuration API]({{site.url}}{{site.baseurl}}/security/api/audit/update-audit-configuration/), [Patch Audit Configuration API]({{site.url}}{{site.baseurl}}/security/api/audit/patch-audit-configuration/) |
-| [Cache APIs]({{site.url}}{{site.baseurl}}/security/api/cache/) | [Flush Cache API]({{site.url}}{{site.baseurl}}/security/api/cache/flush-cache/) |
-| [API Key APIs]({{site.url}}{{site.baseurl}}/security/api/api-keys/) | [Create an API Key]({{site.url}}{{site.baseurl}}/security/api/api-keys/create/), [List API Keys]({{site.url}}{{site.baseurl}}/security/api/api-keys/list/), [Revoke an API Key]({{site.url}}{{site.baseurl}}/security/api/api-keys/revoke/) |
-| [Dashboards Info APIs]({{site.url}}{{site.baseurl}}/security/api/dashboards-info/) | [Get Dashboards Info API]({{site.url}}{{site.baseurl}}/security/api/dashboards-info/get-dashboards-info/), [Post Dashboards Info API]({{site.url}}{{site.baseurl}}/security/api/dashboards-info/post-dashboards-info/) |
-| [Cluster Utility APIs]({{site.url}}{{site.baseurl}}/security/api/cluster/) | [Health API]({{site.url}}{{site.baseurl}}/security/api/cluster/health/), [Validate API]({{site.url}}{{site.baseurl}}/security/api/cluster/validate/), [Migrate API]({{site.url}}{{site.baseurl}}/security/api/cluster/migrate/) |
 
 ## Resource sharing
 **Introduced 3.3**

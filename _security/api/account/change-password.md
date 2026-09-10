@@ -1,9 +1,9 @@
 ---
 layout: default
-title: Change Password API
+title: Change password
 parent: Account APIs
 grand_parent: Security APIs
-nav_order: 20
+nav_order: 10
 redirect_from:
   - /api-reference/security/authentication/change-password/
 ---
@@ -26,38 +26,38 @@ PUT /_plugins/_security/api/account
 
 ## Request body fields
 
-| Field              | Data type  | Description                    | Required  |
-|:-------------------|:-----------|:-------------------------------|:----------|
-| `current_password`   | String     | The current password.          | Yes       |
-| `password`           | String     | The new password to set.       | Yes       |
+The request body is required. It is a JSON object with the following fields.
 
-### Example request
+| Field | Data type | Description | Required |
+| :--- | :--- | :--- | :--- |
+| `current_password` | String | The user's current password. | Yes |
+| `password` | String | The new password. It must satisfy the password policy set by `plugins.security.restapi.password_validation_regex` and must not be too similar to the user name. | Yes |
+
+## Example request
 
 ```json
-PUT _plugins/_security/api/account
+PUT /_plugins/_security/api/account
 {
-    "current_password": "old-password",
-    "password": "new-password"
+  "current_password": "OldPassword_4471!",
+  "password": "NewPassword_8823!"
 }
 ```
-{% include copy-curl.html %}
+{% include copy-curl.html security=true %}
 
-
-### Example response
+## Example response
 
 ```json
 {
   "status": "OK",
-  "message": "'test-user' updated."
+  "message": "'pw-demo' updated."
 }
 ```
 
 ## Response body fields
 
-| Field    | Data type  | Description                   |
-|:---------|:-----------|:------------------------------|
-| `status`   | String     | The status of the operation.  |
-| `message`  | String     | A descriptive message.        |
+The response body is a JSON object with the following fields.
 
-
----
+| Field | Data type | Description |
+| :--- | :--- | :--- |
+| `status` | String | The status of the request. A successful request returns `OK`. |
+| `message` | String | A message naming the user whose password was changed. |

@@ -2,7 +2,7 @@
 layout: default
 title: Tenant APIs
 parent: Security APIs
-nav_order: 70
+nav_order: 80
 has_children: true
 has_toc: false
 redirect_from:
@@ -11,13 +11,13 @@ redirect_from:
 
 # Tenant APIs
 
-The Tenant APIs create, retrieve, modify, and delete the tenants that isolate OpenSearch Dashboards resources between groups of users.
+The tenant APIs create, retrieve, modify, and delete the tenants that isolate OpenSearch Dashboards resources between groups of users.
 
-| API | Method | Endpoint |
-| :--- | :--- | :--- |
-| [Get Tenant API]({{site.url}}{{site.baseurl}}/security/api/tenants/get-tenant/) | GET | `/_plugins/_security/api/tenants/{tenant}` |
-| [Get Tenants API]({{site.url}}{{site.baseurl}}/security/api/tenants/get-tenants/) | GET | `/_plugins/_security/api/tenants` |
-| [Create Tenant API]({{site.url}}{{site.baseurl}}/security/api/tenants/create-tenant/) | PUT | `/_plugins/_security/api/tenants/{tenant}` |
-| [Patch Tenant API]({{site.url}}{{site.baseurl}}/security/api/tenants/patch-tenant/) | PATCH | `/_plugins/_security/api/tenants/{tenant}` |
-| [Patch Tenants API]({{site.url}}{{site.baseurl}}/security/api/tenants/patch-tenants/) | PATCH | `/_plugins/_security/api/tenants` |
-| [Delete Tenant API]({{site.url}}{{site.baseurl}}/security/api/tenants/delete-tenant/) | DELETE | `/_plugins/_security/api/tenants/{tenant}` |
+OpenSearch supports the following tenant APIs.
+
+| API | Description |
+| :--- | :--- |
+| [Create or Update Tenant API]({{site.url}}{{site.baseurl}}/security/api/tenants/create-tenant/) | Creates or replaces the specified tenant. |
+| [Patch Tenants API]({{site.url}}{{site.baseurl}}/security/api/tenants/patch-tenants/) | Updates individual attributes of one tenant, or adds, deletes, or modifies multiple tenants in a single call. |
+| [Get Tenants API]({{site.url}}{{site.baseurl}}/security/api/tenants/get-tenants/) | Retrieves one tenant or all tenants. |
+| [Delete Tenant API]({{site.url}}{{site.baseurl}}/security/api/tenants/delete-tenant/) | Deletes the specified tenant. |

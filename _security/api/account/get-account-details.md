@@ -1,9 +1,9 @@
 ---
 layout: default
-title: Get Account Details API
+title: Get account details
 parent: Account APIs
 grand_parent: Security APIs
-nav_order: 10
+nav_order: 20
 ---
 
 # Get Account Details API
@@ -27,7 +27,7 @@ GET /_plugins/_security/api/account
 ```json
 GET _plugins/_security/api/account
 ```
-{% include copy-curl.html %}
+{% include copy-curl.html security=true %}
 
 ## Example response
 
@@ -48,8 +48,7 @@ GET _plugins/_security/api/account
     "admin": true
   },
   "roles": [
-    "all_access",
-    "own_index"
+    "all_access"
   ]
 }
 ```

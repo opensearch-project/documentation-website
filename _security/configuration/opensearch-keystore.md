@@ -2,7 +2,7 @@
 layout: default
 title: OpenSearch keystore
 parent: Configuration
-nav_order: 50
+nav_order: 40
 ---
 
 # OpenSearch keystore

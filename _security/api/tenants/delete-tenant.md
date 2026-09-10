@@ -1,9 +1,9 @@
 ---
 layout: default
-title: Delete Tenant API
+title: Delete tenant
 parent: Tenant APIs
 grand_parent: Security APIs
-nav_order: 60
+nav_order: 40
 ---
 
 # Delete Tenant API
@@ -25,15 +25,15 @@ DELETE /_plugins/_security/api/tenants/{tenant}
 ## Example request
 
 ```json
-DELETE _plugins/_security/api/tenants/{tenant}
+DELETE _plugins/_security/api/tenants/test-tenant
 ```
-{% include copy-curl.html %}
+{% include copy-curl.html security=true %}
 
 ## Example response
 
 ```json
 {
-  "status":"OK",
-  "message":"tenant human_resources deleted."
+  "status": "OK",
+  "message": "'test-tenant' deleted."
 }
 ```

@@ -2,7 +2,7 @@
 layout: default
 title: Certificate APIs
 parent: Security APIs
-nav_order: 120
+nav_order: 140
 has_children: true
 has_toc: false
 redirect_from:
@@ -11,12 +11,14 @@ redirect_from:
 
 # Certificate APIs
 
-The Certificate APIs return the certificates in use on the cluster and reload them without restarting a node.
+The certificate APIs return the certificates in use on the cluster and reload them without restarting a node.
 
-| API | Method | Endpoint |
-| :--- | :--- | :--- |
-| [Get Certificates API]({{site.url}}{{site.baseurl}}/security/api/certificates/get-certificates/) | GET | `/_plugins/_security/api/ssl/certs` |
-| [Get All Certificates API]({{site.url}}{{site.baseurl}}/security/api/certificates/get-all-certificates/) | GET | `/_plugins/_security/api/certificates` |
-| [Get Node Certificates API]({{site.url}}{{site.baseurl}}/security/api/certificates/get-node-certificates/) | GET | `/_plugins/_security/api/certificates/{node_id}` |
-| [Reload Transport Certificates API]({{site.url}}{{site.baseurl}}/security/api/certificates/reload-transport-certificates/) | PUT | `/_plugins/_security/api/ssl/transport/reloadcerts` |
-| [Reload HTTP Certificates API]({{site.url}}{{site.baseurl}}/security/api/certificates/reload-http-certificates/) | PUT | `/_plugins/_security/api/ssl/http/reloadcerts` |
+OpenSearch supports the following certificate APIs.
+
+| API | Description |
+| :--- | :--- |
+| [Get Certificates API]({{site.url}}{{site.baseurl}}/security/api/certificates/get-certificates/) | Returns the HTTP and transport certificates in use on the node that receives the request. |
+| [Get All Certificates API]({{site.url}}{{site.baseurl}}/security/api/certificates/get-all-certificates/) | Returns the certificates in use on every node in the cluster. |
+| [Get Node Certificates API]({{site.url}}{{site.baseurl}}/security/api/certificates/get-node-certificates/) | Returns the certificates in use on the specified node. |
+| [Reload Transport Certificates API]({{site.url}}{{site.baseurl}}/security/api/certificates/reload-transport-certificates/) | Reloads the transport layer certificates without restarting the node. |
+| [Reload HTTP Certificates API]({{site.url}}{{site.baseurl}}/security/api/certificates/reload-http-certificates/) | Reloads the HTTP layer certificates without restarting the node. |

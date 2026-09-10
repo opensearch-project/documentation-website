@@ -2,7 +2,7 @@
 layout: default
 title: Disabling and enabling the Security plugin
 parent: Configuration
-nav_order: 40
+nav_order: 65
 has_toc: true
 redirect_from:
  - /security-plugin/configuration/disable/
@@ -61,7 +61,7 @@ Do the following to remove the plugin from OpenSearch.
    }'
    ```
 
-To perform these steps on the Docker image, see [Working with plugins]({{site.url}}{{site.baseurl}}/opensearch/install/docker#working-with-plugins).
+To perform these steps on the Docker image, see [Working with plugins]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/#working-with-plugins).
 {: .note }
 
 ### Removing the Security plugin from OpenSearch Dashboards 

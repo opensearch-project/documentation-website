@@ -2,7 +2,7 @@
 layout: default
 title: Modifying the YAML files
 parent: Configuration
-nav_order: 10
+nav_order: 15
 redirect_from: 
   - /security-plugin/configuration/yaml/
 ---
@@ -377,7 +377,7 @@ To learn more about system index permissions, see [System index permissions]({{s
 
 If you want to run your users' passwords against some validation, specify a regular expression (regex) in this file. You can also include an error message that loads when passwords don't pass validation. The following example demonstrates how to include a regex so OpenSearch requires new passwords to be a minimum of eight characters with at least one uppercase, one lowercase, one digit, and one special character.
 
-Note that OpenSearch validates only users and passwords created through OpenSearch Dashboards or the REST API.
+Note that OpenSearch validates only users and passwords created through OpenSearch Dashboards or the REST API. The initial admin password that the demo configuration installer requires is validated against a separate, fixed set of rules. For more information, see [Admin password requirements]({{site.url}}{{site.baseurl}}/security/configuration/demo-configuration/#admin-password-requirements) and [Managing passwords]({{site.url}}{{site.baseurl}}/security/configuration/passwords/).
 
 ```yml
 plugins.security.restapi.password_validation_regex: '(?=.*[A-Z])(?=.*[^a-zA-Z\d])(?=.*[0-9])(?=.*[a-z]).{8,}'

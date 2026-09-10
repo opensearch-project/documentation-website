@@ -1,12 +1,12 @@
 ---
 layout: default
-title: Create Role Mapping API
-parent: Role Mapping APIs
+title: Create or update role mapping
+parent: Role mapping APIs
 grand_parent: Security APIs
-nav_order: 30
+nav_order: 10
 ---
 
-# Create Role Mapping API
+# Create or Update Role Mapping API
 **Introduced 1.0**
 {: .label .label-purple }
 
@@ -22,17 +22,19 @@ PUT /_plugins/_security/api/rolesmapping/{role}
 ```
 <!-- spec_insert_end -->
 
-## Example request
+## Request body fields
 
-```json
-PUT _plugins/_security/api/rolesmapping/{role}
-{
-  "backend_roles" : [ "starfleet", "captains", "defectors", "cn=ldaprole,ou=groups,dc=example,dc=com" ],
-  "hosts" : [ "*.starfleetintranet.com" ],
-  "users" : [ "worf" ]
-}
-```
-{% include copy-curl.html %}
+The request body is required. It is a JSON object with the following fields.
+
+| Field | Data type | Description | Required |
+| :--- | :--- | :--- | :--- |
+| `users` | Array of strings | The user names mapped to the role. Supports wildcard patterns. | No |
+| `backend_roles` | Array of strings | The backend roles mapped to the role. A user with any of these backend roles receives the role. | No |
+| `and_backend_roles` | Array of strings | The backend roles mapped to the role. A user must have all of these backend roles to receive the role. | No |
+| `hosts` | Array of strings | The host names or IP addresses mapped to the role. Supports wildcard patterns. | No |
+| `description` | String | A description of the role mapping. | No |
+| `hidden` | Boolean | Whether the role mapping is hidden from the API and OpenSearch Dashboards. Default is `false`. | No |
+| `reserved` | Boolean | Whether the role mapping is read-only and cannot be modified. Default is `false`. | No |
 
 ## Host-based role mapping
 
@@ -47,14 +49,33 @@ The `hosts` parameter maps requests originating from specific IP addresses or ho
 
   This enables reverse DNS lookups to resolve hostnames. For more information, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
 
-Using `"*"` in `hosts` matches all client IPs and hostnames, meaning this role will be applied to every request, regardless of user. This can unintentionally overgrant access if used alongside `users: ["someuser"]`. Avoid setting `hosts: ["*"]` unless you're intentionally granting the role to all client IPs.
+Using `"*"` in `hosts` matches all client IPs and hostnames, meaning this role will be applied to every request, regardless of user. Combined with `users: ["someuser"]`, this can grant broader access than you intend. Avoid setting `hosts: ["*"]` unless you're intentionally granting the role to all client IPs.
 {: .warning}
+
+## Example request
+
+```json
+PUT _plugins/_security/api/rolesmapping/test-role
+{
+  "backend_roles": [
+    "starfleet",
+    "captains"
+  ],
+  "hosts": [
+    "*.starfleetintranet.com"
+  ],
+  "users": [
+    "test-user"
+  ]
+}
+```
+{% include copy-curl.html security=true %}
 
 ## Example response
 
 ```json
 {
   "status": "CREATED",
-  "message": "'my-role' created."
+  "message": "'test-role' created."
 }
 ```

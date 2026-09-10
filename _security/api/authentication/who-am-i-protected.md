@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Who Am I Protected API
+title: Who am I protected
 parent: Authentication APIs
 grand_parent: Security APIs
 nav_order: 30
@@ -10,7 +10,7 @@ nav_order: 30
 **Introduced 2.11**
 {: .label .label-purple }
 
-Gets the identity information for the user currently logged in. To use this operation, you must have access to this endpoint when authorization at REST layer is enabled.
+Returns the identity information for the current user. Unlike the Who Am I API, this endpoint is subject to REST layer authorization, so the user's role must grant access to it.
 
 <!-- spec_insert_start
 api: security.who_am_i_protected
@@ -24,21 +24,17 @@ GET /_plugins/_security/whoamiprotected
 
 ## Example request
 
-<!-- spec_insert_start
-api: security.who_am_i_protected
-component: example_code
-rest: GET /_plugins/_security/whoamiprotected
--->
-{% capture step1_rest %}
-GET /_plugins/_security/whoamiprotected
-{% endcapture %}
+```json
+GET _plugins/_security/whoamiprotected
+```
+{% include copy-curl.html security=true %}
 
-{% capture step1_python %}
+## Example response
 
-response = client.security.who_am_i_protected()
-{% endcapture %}
-
-{% include code-block.html
-    rest=step1_rest
-    python=step1_python %}
-<!-- spec_insert_end -->
+```json
+{
+  "dn": null,
+  "is_admin": false,
+  "is_node_certificate_request": false
+}
+```

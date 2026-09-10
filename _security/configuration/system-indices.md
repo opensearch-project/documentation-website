@@ -2,7 +2,7 @@
 layout: default
 title: System indexes
 parent: Configuration
-nav_order: 4
+nav_order: 60
 redirect_from:
  - /security-plugin/configuration/system-indices/
 ---

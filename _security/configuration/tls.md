@@ -2,7 +2,7 @@
 layout: default
 title: Configuring TLS certificates
 parent: Configuration
-nav_order: 15
+nav_order: 35
 redirect_from:
   - /security-plugin/configuration/tls/
 ---
@@ -140,7 +140,7 @@ plugins.security.authcz.admin_dn:
 
 For security reasons, you cannot use wildcards or regular expressions as values for the `admin_dn` setting.
 
-For more information about admin and super admin user roles, see [Admin and super admin roles]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/#admin-and-super-admin-roles).
+For more information about admin and super admin user roles, see [Admin and super admin roles]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/#admin-and-superadmin-roles).
 
 
 ## (Advanced) Hostname verification and DNS lookup
@@ -290,7 +290,7 @@ Only a [superadmin]({{site.url}}{{site.baseurl}}/security/configuration/tls/#con
 ```json
 curl --cacert <ca.pem> --cert <admin.pem> --key <admin.key> -XPUT https://localhost:9200/_plugins/_security/api/ssl/transport/reloadcerts
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 You should receive the following response:
 
@@ -305,7 +305,7 @@ The following command reloads TLS certificates on the HTTP layer using the Reloa
 ```json
 curl --cacert <ca.pem> --cert <admin.pem> --key <admin.key> -XPUT https://localhost:9200/_plugins/_security/api/ssl/http/reloadcerts
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 You should receive the following response:
 

@@ -1,7 +1,7 @@
 ---
 layout: default
-title: Tenant Info API
-parent: Tenancy Configuration APIs
+title: Tenant info
+parent: Multi-tenancy configuration APIs
 grand_parent: Security APIs
 nav_order: 30
 ---
@@ -10,7 +10,10 @@ nav_order: 30
 **Introduced 1.0**
 {: .label .label-purple }
 
-Retrieves the names of current tenants. Requires super admin or `kibanaserver` permissions.
+Retrieves the index names that back the current tenants.
+
+This API is reserved for a superadmin or the `kibanaserver` user. Authenticate with an admin certificate rather than with a user name and password. For more information, see [Access control for the API]({{site.url}}{{site.baseurl}}/security/access-control/api/#access-control-for-the-api).
+{: .note}
 
 <!-- spec_insert_start
 api: security.tenant_info
@@ -25,21 +28,15 @@ POST /_plugins/_security/tenantinfo
 
 ## Example request
 
-<!-- spec_insert_start
-api: security.tenant_info
-component: example_code
-rest: GET /_plugins/_security/tenantinfo
--->
-{% capture step1_rest %}
-GET /_plugins/_security/tenantinfo
-{% endcapture %}
+```json
+GET _plugins/_security/tenantinfo
+```
+{% include copy-curl.html security=true %}
 
-{% capture step1_python %}
+## Example response
 
-response = client.security.tenant_info()
-{% endcapture %}
+The response maps each tenant index to the tenant it belongs to. It is empty until a tenant index is created:
 
-{% include code-block.html
-    rest=step1_rest
-    python=step1_python %}
-<!-- spec_insert_end -->
+```json
+{}
+```

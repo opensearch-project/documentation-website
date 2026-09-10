@@ -1,20 +1,22 @@
 ---
 layout: default
-title: Allow List APIs
+title: Allow list APIs
 parent: Security APIs
-nav_order: 90
+nav_order: 100
 has_children: true
 has_toc: false
 redirect_from:
   - /security/api/allowlist/
 ---
 
-# Allow List APIs
+# Allow list APIs
 
-The Allow List APIs control which APIs a user without administrator privileges can access.
+The allow list APIs control which APIs a user without administrator privileges can access.
 
-| API | Method | Endpoint |
-| :--- | :--- | :--- |
-| [Get Allow List API]({{site.url}}{{site.baseurl}}/security/api/allowlist/get-allowlist/) | GET | `/_plugins/_security/api/allowlist` |
-| [Create Allow List API]({{site.url}}{{site.baseurl}}/security/api/allowlist/create-allowlist/) | PUT | `/_plugins/_security/api/allowlist` |
-| [Patch Allow List API]({{site.url}}{{site.baseurl}}/security/api/allowlist/patch-allowlist/) | PATCH | `/_plugins/_security/api/allowlist` |
+OpenSearch supports the following allow list APIs.
+
+| API | Description |
+| :--- | :--- |
+| [Create or Update Allow List API]({{site.url}}{{site.baseurl}}/security/api/allowlist/create-allowlist/) | Creates or replaces the allow list configuration. |
+| [Patch Allow List API]({{site.url}}{{site.baseurl}}/security/api/allowlist/patch-allowlist/) | Updates individual fields in the allow list configuration. |
+| [Get Allow List API]({{site.url}}{{site.baseurl}}/security/api/allowlist/get-allowlist/) | Retrieves the current allow list configuration. |

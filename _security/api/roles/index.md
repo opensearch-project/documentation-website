@@ -11,13 +11,13 @@ redirect_from:
 
 # Role APIs
 
-The Role APIs create, retrieve, modify, and delete the roles that define cluster, index, and document permissions.
+The role APIs create, retrieve, modify, and delete the roles that define cluster, index, and document permissions.
 
-| API | Method | Endpoint |
-| :--- | :--- | :--- |
-| [Get Role API]({{site.url}}{{site.baseurl}}/security/api/roles/get-role/) | GET | `/_plugins/_security/api/roles/{role}` |
-| [Get Roles API]({{site.url}}{{site.baseurl}}/security/api/roles/get-roles/) | GET | `/_plugins/_security/api/roles` |
-| [Create Role API]({{site.url}}{{site.baseurl}}/security/api/roles/create-role/) | PUT | `/_plugins/_security/api/roles/{role}` |
-| [Patch Role API]({{site.url}}{{site.baseurl}}/security/api/roles/patch-role/) | PATCH | `/_plugins/_security/api/roles/{role}` |
-| [Patch Roles API]({{site.url}}{{site.baseurl}}/security/api/roles/patch-roles/) | PATCH | `/_plugins/_security/api/roles` |
-| [Delete Role API]({{site.url}}{{site.baseurl}}/security/api/roles/delete-role/) | DELETE | `/_plugins/_security/api/roles/{role}` |
+OpenSearch supports the following role APIs.
+
+| API | Description |
+| :--- | :--- |
+| [Create or Update Role API]({{site.url}}{{site.baseurl}}/security/api/roles/create-role/) | Creates or replaces the specified role. |
+| [Patch Roles API]({{site.url}}{{site.baseurl}}/security/api/roles/patch-roles/) | Updates individual attributes of one role, or creates, updates, or deletes multiple roles in a single call. |
+| [Get Roles API]({{site.url}}{{site.baseurl}}/security/api/roles/get-roles/) | Retrieves one role or all roles. |
+| [Delete Role API]({{site.url}}{{site.baseurl}}/security/api/roles/delete-role/) | Deletes the specified role. |

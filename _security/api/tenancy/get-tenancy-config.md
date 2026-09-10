@@ -1,16 +1,16 @@
 ---
 layout: default
-title: Get Tenancy Configuration API
-parent: Tenancy Configuration APIs
+title: Get multi-tenancy configuration
+parent: Multi-tenancy configuration APIs
 grand_parent: Security APIs
-nav_order: 10
+nav_order: 20
 ---
 
-# Get Tenancy Configuration API
+# Get Multi-Tenancy Configuration API
 **Introduced 2.7**
 {: .label .label-purple }
 
-Retrieves the multi-tenancy configuration. Requires super admin or REST API permissions.
+Retrieves the multi-tenancy configuration.
 
 <!-- spec_insert_start
 api: security.get_tenancy_config
@@ -24,21 +24,19 @@ GET /_plugins/_security/api/tenancy/config
 
 ## Example request
 
-<!-- spec_insert_start
-api: security.get_tenancy_config
-component: example_code
-rest: GET /_plugins/_security/api/tenancy/config
--->
-{% capture step1_rest %}
-GET /_plugins/_security/api/tenancy/config
-{% endcapture %}
+```json
+GET _plugins/_security/api/tenancy/config
+```
+{% include copy-curl.html security=true %}
 
-{% capture step1_python %}
+## Example response
 
-response = client.security.get_tenancy_config()
-{% endcapture %}
-
-{% include code-block.html
-    rest=step1_rest
-    python=step1_python %}
-<!-- spec_insert_end -->
+```json
+{
+  "default_tenant": "",
+  "private_tenant_enabled": true,
+  "multitenancy_enabled": true,
+  "sign_in_options": [],
+  "preferred_tenants": []
+}
+```

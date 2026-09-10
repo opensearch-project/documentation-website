@@ -58,7 +58,7 @@ You can install OpenSearch from a package or a YUM repository.
    ```
    {% include copy.html %}
 
-   For new installations of OpenSearch 2.12 and later, you must define a custom admin password in order to set up a demo security configuration. Use one of the following commands to define a custom admin password, following the [password requirements]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/#password-requirements).
+   For new installations of OpenSearch 2.12 and later, you must define a custom admin password in order to set up a demo security configuration. Use one of the following commands to define a custom admin password, following the [admin password requirements]({{site.url}}{{site.baseurl}}/security/configuration/demo-configuration/#admin-password-requirements).
 
    Install the x64 package using yum:
    ```bash

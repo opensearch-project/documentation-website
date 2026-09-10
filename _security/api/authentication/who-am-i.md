@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Who Am I API
+title: Who am I
 parent: Authentication APIs
 grand_parent: Security APIs
 nav_order: 20
@@ -10,7 +10,7 @@ nav_order: 20
 **Introduced 2.0**
 {: .label .label-purple }
 
-Gets the identity information for the user currently logged in.
+Returns the identity information for the current user.
 
 <!-- spec_insert_start
 api: security.who_am_i
@@ -25,21 +25,17 @@ POST /_plugins/_security/whoami
 
 ## Example request
 
-<!-- spec_insert_start
-api: security.who_am_i
-component: example_code
-rest: GET /_plugins/_security/whoami
--->
-{% capture step1_rest %}
-GET /_plugins/_security/whoami
-{% endcapture %}
+```json
+GET _plugins/_security/whoami
+```
+{% include copy-curl.html security=true %}
 
-{% capture step1_python %}
+## Example response
 
-response = client.security.who_am_i()
-{% endcapture %}
-
-{% include code-block.html
-    rest=step1_rest
-    python=step1_python %}
-<!-- spec_insert_end -->
+```json
+{
+  "dn": null,
+  "is_admin": false,
+  "is_node_certificate_request": false
+}
+```

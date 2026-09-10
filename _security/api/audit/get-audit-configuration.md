@@ -1,16 +1,18 @@
 ---
 layout: default
-title: Get Audit Configuration API
-parent: Audit Log APIs
+title: Get audit configuration
+parent: Audit log APIs
 grand_parent: Security APIs
-nav_order: 10
+nav_order: 30
 ---
 
 # Get Audit Configuration API
 **Introduced 1.0**
 {: .label .label-purple }
 
-Retrieves the audit configuration.
+Retrieves the audit logging and compliance configuration.
+
+For details on using audit logging to track access to OpenSearch clusters, as well as information on further configurations, see [Audit logs]({{site.url}}{{site.baseurl}}/security/audit-logs/index/).
 
 <!-- spec_insert_start
 api: security.get_audit_configuration
@@ -24,21 +26,22 @@ GET /_plugins/_security/api/audit
 
 ## Example request
 
-<!-- spec_insert_start
-api: security.get_audit_configuration
-component: example_code
-rest: GET /_plugins/_security/api/audit
--->
-{% capture step1_rest %}
-GET /_plugins/_security/api/audit
-{% endcapture %}
+```json
+GET _plugins/_security/api/audit
+```
+{% include copy-curl.html security=true %}
 
-{% capture step1_python %}
+## Example response
 
-response = client.security.get_audit_configuration()
-{% endcapture %}
+The response is abbreviated here:
 
-{% include code-block.html
-    rest=step1_rest
-    python=step1_python %}
-<!-- spec_insert_end -->
+```json
+{
+  "_readonly": [],
+  ...
+}
+```
+
+## Response body fields
+
+The `_readonly` field lists the configuration paths that cannot be modified. Changes to these paths result in a 409 error. The `config` field contains the current audit and compliance settings. For descriptions of the individual settings, see [Update Audit Configuration API]({{site.url}}{{site.baseurl}}/security/api/audit/update-audit-configuration/#request-body-fields).

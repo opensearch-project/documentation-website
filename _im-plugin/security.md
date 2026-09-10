@@ -23,7 +23,7 @@ Finally, with the exceptions of Create Policy, Get Policy, and Delete Policy, us
 
 You can use backend roles to configure fine-grained access to index management policies and actions. For example, users of different departments in an organization might view different policies depending on what roles and permissions they are assigned.
 
-First, ensure your users have the appropriate [backend roles]({{site.url}}{{site.baseurl}}/security/access-control/index/). Backend roles usually come from an [LDAP server]({{site.url}}{{site.baseurl}}/security/configuration/ldap/) or [SAML provider]({{site.url}}{{site.baseurl}}/security/configuration/saml/). However, if you use the internal user database, you can use the REST API to [add them manually]({{site.url}}{{site.baseurl}}/security/access-control/api#create-user).
+First, ensure your users have the appropriate [backend roles]({{site.url}}{{site.baseurl}}/security/access-control/index/). Backend roles usually come from an [LDAP server]({{site.url}}{{site.baseurl}}/security/configuration/ldap/) or [SAML provider]({{site.url}}{{site.baseurl}}/security/configuration/saml/). However, if you use the internal user database, you can use the REST API to [add them manually]({{site.url}}{{site.baseurl}}/security/api/users/create-user/).
 
 Use the REST API to enable the following setting:
 

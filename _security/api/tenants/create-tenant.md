@@ -1,12 +1,12 @@
 ---
 layout: default
-title: Create Tenant API
+title: Create or update tenant
 parent: Tenant APIs
 grand_parent: Security APIs
-nav_order: 30
+nav_order: 10
 ---
 
-# Create Tenant API
+# Create or Update Tenant API
 **Introduced 1.0**
 {: .label .label-purple }
 
@@ -22,21 +22,29 @@ PUT /_plugins/_security/api/tenants/{tenant}
 ```
 <!-- spec_insert_end -->
 
+## Request body fields
+
+The request body is required. It is a JSON object with the following field.
+
+| Field | Data type | Description | Required |
+| :--- | :--- | :--- | :--- |
+| `description` | String | A description of the tenant. | No |
+
 ## Example request
 
 ```json
-PUT _plugins/_security/api/tenants/{tenant}
+PUT _plugins/_security/api/tenants/test-tenant
 {
-  "description": "A tenant for the human resources team."
+  "description": "A tenant for the test team."
 }
 ```
-{% include copy-curl.html %}
+{% include copy-curl.html security=true %}
 
 ## Example response
 
 ```json
 {
-  "status":"CREATED",
-  "message":"tenant human_resources created"
+  "status": "CREATED",
+  "message": "'test-tenant' created."
 }
 ```

@@ -54,7 +54,7 @@ POST _plugins/_security/api/resources/migrate
   }
 }
 ```
-{% include copy-curl.html %}
+{% include copy-curl.html security=true %}
 
 ### Example response
 
@@ -104,7 +104,7 @@ The following table lists the available query parameters.
 ```json
 GET _plugins/_security/api/resource/share?resource_id=model-group-123&resource_type=ml-model-group
 ```
-{% include copy-curl.html %}
+{% include copy-curl.html security=true %}
 
 ### Example response
 
@@ -190,7 +190,7 @@ PUT _plugins/_security/api/resource/share
   }
 }
 ```
-{% include copy-curl.html %}
+{% include copy-curl.html security=true %}
 
 ### Example request: Make a resource private
 
@@ -202,7 +202,7 @@ PUT _plugins/_security/api/resource/share
   "share_with": {}
 }
 ```
-{% include copy-curl.html %}
+{% include copy-curl.html security=true %}
 
 ### Example response
 
@@ -285,7 +285,7 @@ PATCH _plugins/_security/api/resource/share
   }
 }
 ```
-{% include copy-curl.html %}
+{% include copy-curl.html security=true %}
 
 ### Example request: Make a resource public
 
@@ -299,7 +299,7 @@ PATCH _plugins/_security/api/resource/share
   }
 }
 ```
-{% include copy-curl.html %}
+{% include copy-curl.html security=true %}
 
 ### Example request: Remove specific access
 
@@ -313,7 +313,7 @@ PATCH _plugins/_security/api/resource/share
   }
 }
 ```
-{% include copy-curl.html %}
+{% include copy-curl.html security=true %}
 
 ### Example response
 
@@ -379,7 +379,7 @@ The following table lists the available query parameters.
 ```json
 GET _plugins/_security/api/resource/list?resource_type=ml-model-group
 ```
-{% include copy-curl.html %}
+{% include copy-curl.html security=true %}
 
 ### Example response
 
@@ -446,7 +446,7 @@ GET _plugins/_security/api/resource/types
 ```json
 GET _plugins/_security/api/resource/types
 ```
-{% include copy-curl.html %}
+{% include copy-curl.html security=true %}
 
 ### Example response
 

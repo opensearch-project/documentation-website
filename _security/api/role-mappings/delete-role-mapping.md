@@ -1,9 +1,9 @@
 ---
 layout: default
-title: Delete Role Mapping API
-parent: Role Mapping APIs
+title: Delete role mapping
+parent: Role mapping APIs
 grand_parent: Security APIs
-nav_order: 60
+nav_order: 40
 ---
 
 # Delete Role Mapping API
@@ -25,15 +25,15 @@ DELETE /_plugins/_security/api/rolesmapping/{role}
 ## Example request
 
 ```json
-DELETE _plugins/_security/api/rolesmapping/{role}
+DELETE _plugins/_security/api/rolesmapping/test-role
 ```
-{% include copy-curl.html %}
+{% include copy-curl.html security=true %}
 
 ## Example response
 
 ```json
 {
   "status": "OK",
-  "message": "'my-role' deleted."
+  "message": "'test-role' deleted."
 }
 ```

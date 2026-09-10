@@ -1,9 +1,9 @@
 ---
 layout: default
-title: Generate User Token API
-parent: Internal User APIs
+title: Generate user token
+parent: Internal user APIs
 grand_parent: Security APIs
-nav_order: 70
+nav_order: 50
 ---
 
 # Generate User Token API
@@ -11,6 +11,8 @@ nav_order: 70
 {: .label .label-purple }
 
 Generates an authorization token for the specified user.
+
+A token can only be generated for a service account: an internal user created with the `service` and `enabled` attributes set to `true`. A request for any other user fails. For more information, see [Service accounts]({{site.url}}{{site.baseurl}}/security/access-control/authentication-tokens/#service-accounts).
 
 <!-- spec_insert_start
 api: security.generate_user_token
@@ -38,40 +40,29 @@ The following table lists the available path parameters.
 
 ## Example request
 
-<!-- spec_insert_start
-api: security.generate_user_token
-component: example_code
-rest: POST /_plugins/_security/api/internalusers/{username}/authtoken
--->
-{% capture step1_rest %}
-POST /_plugins/_security/api/internalusers/{username}/authtoken
-{% endcapture %}
+The following request generates a token for the `svc-account` service account:
 
-{% capture step1_python %}
+```json
+POST _plugins/_security/api/internalusers/svc-account/authtoken
+```
+{% include copy-curl.html security=true %}
 
+## Example response
 
-response = client.security.generate_user_token(
-  username = "{username}"
-)
+The generated token is returned in the `message` field:
 
-{% endcapture %}
+```json
+{
+  "status": "OK",
+  "message": "'svc-account' authtoken generated Basic auth token with user=svc-account, password=4Yz0kQJsliaQ35"
+}
+```
 
-{% include code-block.html
-    rest=step1_rest
-    python=step1_python %}
-<!-- spec_insert_end -->
-
-<!-- spec_insert_start
-api: security.generate_user_token
-component: response_body_parameters
--->
 ## Response body fields
 
 The response body is a JSON object with the following fields.
 
-| Property | Data type | Description |
+| Field | Data type | Description |
 | :--- | :--- | :--- |
-| `message` | String | The message returned as part of an `OK` response. |
-| `status` | Float or String |  |
-
-<!-- spec_insert_end -->
+| `status` | String | The status of the request. `OK` indicates that OpenSearch generated a token. |
+| `message` | String | The generated credentials, in the form `'<username>' authtoken generated Basic auth token with user=<username>, password=<password>`. |

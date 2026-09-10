@@ -1,9 +1,9 @@
 ---
 layout: default
-title: Get Configuration API
+title: Get configuration
 parent: Configuration APIs
 grand_parent: Security APIs
-nav_order: 10
+nav_order: 30
 redirect_from:
   - /api-reference/security/configuration/get-configuration/
 ---
@@ -12,7 +12,7 @@ redirect_from:
 **Introduced 2.10**
 {: .label .label-purple }
 
-The Get Security Configuration API retrieves the current security configuration. This configuration includes authentication domains and other security-related configurations.
+The Get Configuration API retrieves the current security configuration. This configuration includes authentication domains and other security-related configurations.
 
 <!-- spec_insert_start
 api: security.get_configuration
@@ -26,63 +26,196 @@ GET /_plugins/_security/api/securityconfig
 
 ## Example request
 
-<!-- spec_insert_start
-component: example_code
-rest: GET /_plugins/_security/api/securityconfig
--->
-{% capture step1_rest %}
+```json
 GET /_plugins/_security/api/securityconfig
-{% endcapture %}
-
-{% capture step1_python %}
-
-response = client.security.get_configuration()
-{% endcapture %}
-
-{% include code-block.html
-    rest=step1_rest
-    python=step1_python %}
-<!-- spec_insert_end -->
+```
+{% include copy-curl.html security=true %}
 
 ## Example response
+
+The response is abbreviated here:
 
 ```json
 {
   "config": {
     "dynamic": {
+      "api_tokens": {
+        "enabled": false,
+        "max_duration_seconds": 7776000,
+        "max_tokens": 100
+      },
+      "auth_failure_listeners": {},
       "authc": {
+        "jwt_auth_domain": {
+          "authentication_backend": {
+            "config": {},
+            "type": "noop"
+          },
+          "description": "Authenticate via Json Web Token",
+          "http_authenticator": {
+            "challenge": false,
+            "config": {
+              "jwks_uri": "https://your-jwks-endpoint.com/.well-known/jwks.json",
+              "signing_key": "base64 encoded HMAC key or public RSA/ECDSA pem key",
+              "jwt_header": "Authorization",
+              "jwt_clock_skew_tolerance_seconds": 30
+            },
+            "type": "jwt"
+          },
+          "http_enabled": false,
+          "order": 0
+        },
+        "ldap": {
+          "authentication_backend": {
+            "config": {
+              "enable_ssl": false,
+              "enable_start_tls": false,
+              "enable_ssl_client_auth": false,
+              "verify_hostnames": true,
+              "hosts": [
+                "localhost:8389"
+              ],
+              "userbase": "ou=people,dc=example,dc=com",
+              "usersearch": "(sAMAccountName={0})"
+            },
+            "type": "ldap"
+          },
+          "description": "Authenticate via LDAP or Active Directory",
+          "http_authenticator": {
+            "challenge": false,
+            "config": {},
+            "type": "basic"
+          },
+          "http_enabled": false,
+          "order": 5
+        },
         "basic_internal_auth_domain": {
-          "http_enabled": true,
-          "transport_enabled": true,
-          "order": 0,
+          "authentication_backend": {
+            "config": {},
+            "type": "intern"
+          },
+          "description": "Authenticate via HTTP Basic against internal users database",
           "http_authenticator": {
             "challenge": true,
-            "type": "basic",
-            "config": {}
+            "config": {},
+            "type": "basic"
           },
+          "http_enabled": true,
+          "order": 4
+        },
+        "proxy_auth_domain": {
           "authentication_backend": {
-            "type": "internal",
-            "config": {}
-          }
+            "config": {},
+            "type": "noop"
+          },
+          "description": "Authenticate via proxy",
+          "http_authenticator": {
+            "challenge": false,
+            "config": {
+              "user_header": "x-proxy-user",
+              "roles_header": "x-proxy-roles"
+            },
+            "type": "proxy"
+          },
+          "http_enabled": false,
+          "order": 3
+        },
+        "clientcert_auth_domain": {
+          "authentication_backend": {
+            "config": {},
+            "type": "noop"
+          },
+          "description": "Authenticate via SSL client certificates",
+          "http_authenticator": {
+            "challenge": false,
+            "config": {
+              "username_attribute": "cn"
+            },
+            "type": "clientcert"
+          },
+          "http_enabled": false,
+          "order": 2
+        },
+        "kerberos_auth_domain": {
+          "authentication_backend": {
+            "config": {},
+            "type": "noop"
+          },
+          "http_authenticator": {
+            "challenge": true,
+            "config": {
+              "krb_debug": false,
+              "strip_realm_from_principal": true
+            },
+            "type": "kerberos"
+          },
+          "http_enabled": false,
+          "order": 6
         }
       },
       "authz": {
-        "roles_from_myldap": {
-          "http_enabled": true,
-          "transport_enabled": true,
+        "roles_from_another_ldap": {
           "authorization_backend": {
-            "type": "ldap",
+            "config": {},
+            "type": "ldap"
+          },
+          "description": "Authorize via another Active Directory",
+          "http_enabled": false
+        },
+        "roles_from_myldap": {
+          "authorization_backend": {
             "config": {
-              "roles_search_filter": "(uniqueMember={0})",
-              "host": "ldap.example.com",
-              "port": 389
-            }
-          }
+              "enable_ssl": false,
+              "enable_start_tls": false,
+              "enable_ssl_client_auth": false,
+              "verify_hostnames": true,
+              "hosts": [
+                "localhost:8389"
+              ],
+              "rolebase": "ou=groups,dc=example,dc=com",
+              "rolesearch": "(member={0})",
+              "userrolename": "disabled",
+              "rolename": "cn",
+              "resolve_nested_roles": true,
+              "userbase": "ou=people,dc=example,dc=com",
+              "usersearch": "(uid={0})"
+            },
+            "type": "ldap"
+          },
+          "description": "Authorize via LDAP or Active Directory",
+          "http_enabled": false
         }
       },
-      "multi_rolespan_enabled": true,
+      "disable_intertransport_auth": false,
+      "disable_rest_auth": false,
+      "do_not_fail_on_forbidden": false,
+      "do_not_fail_on_forbidden_empty": false,
+      "filtered_alias_mode": "warn",
       "hosts_resolver_mode": "ip-only",
-      "do_not_fail_on_forbidden": false
+      "http": {
+        "anonymous_auth_enabled": false,
+        "xff": {
+          "enabled": false,
+          "internalProxies": "192\\.168\\.0\\.10|192\\.168\\.0\\.11",
+          "remoteIpHeader": "X-Forwarded-For"
+        }
+      },
+      "kibana": {
+        "default_tenant": "Global",
+        "index": ".kibana",
+        "multitenancy_enabled": true,
+        "preferred_tenants": [],
+        "private_tenant_enabled": true,
+        "server_username": "kibanaserver"
+      },
+      "multi_rolespan_enabled": true,
+      "on_behalf_of": {
+        "enabled": true,
+        "encryption_key": "mT9vgsqzrg9K52mtqDONUtnLufJw8eo0fjw2kvBdn3k=",
+        "signing_key": "dCjVPWyFp5SEIWLOKC5DK5/8F5n/8/QoUWr+5b+yozIsISR9U3pqaA6F23HtDqF768GQA7r9RRtIh1R6ihot3A=="
+      },
+      "privileges_evaluation_ignore_unauthorized_indices": true,
+      "respect_request_indices_options": false
     }
   }
 }

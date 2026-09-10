@@ -1,14 +1,16 @@
 ---
 layout: default
-title: List API Keys
-parent: API Key APIs
+title: List API keys
+parent: API key APIs
 grand_parent: Security APIs
 nav_order: 20
 redirect_from:
   - /api-reference/security/api-keys/list/
 ---
 
-# List API Keys
+# List API Keys API
+**Introduced 3.7**
+{: .label .label-purple }
 
 Returns all API keys, including active, expired, and revoked keys.
 
@@ -21,35 +23,32 @@ GET /_plugins/_security/api/apitokens
 ## Example request
 
 ```json
-GET /_plugins/_security/api/apitokens
+GET _plugins/_security/api/apitokens
 ```
+{% include copy-curl.html security=true %}
 
 ## Example response
 
 ```json
 [
   {
-    "id": "DjxGIp4BkXkgMZpmeGvx",
-    "name": "my-pipeline-key",
-    "iat": 1778691504087,
-    "expires_at": 1781283504087,
-    "cluster_permissions": ["cluster_monitor", "indices:data/write/bulk"],
+    "id": "_ofOi6ABkhwU_cGa4M3v",
+    "name": "test-token",
+    "iat": 1789051986089,
+    "expires_at": 1789138386088,
+    "cluster_permissions": [
+      "cluster_monitor"
+    ],
     "index_permissions": [
       {
-        "index_pattern": ["logs-*"],
-        "allowed_actions": ["indices_all"]
+        "index_pattern": [
+          "logs*"
+        ],
+        "allowed_actions": [
+          "read"
+        ]
       }
     ],
-    "created_by": "admin"
-  },
-  {
-    "id": "EkxHJp4BkXkgMZpmfGvy",
-    "name": "revoked-key",
-    "iat": 1778600000000,
-    "expires_at": 1781192000000,
-    "cluster_permissions": ["cluster_monitor"],
-    "index_permissions": [],
-    "revoked_at": 1778650000000,
     "created_by": "admin"
   }
 ]
@@ -57,7 +56,7 @@ GET /_plugins/_security/api/apitokens
 
 ## Response body fields
 
-The following table lists all response body fields.
+The response body is an array of JSON objects. Each object contains the following fields.
 
 | Field | Data type | Description |
 | :--- | :--- | :--- |

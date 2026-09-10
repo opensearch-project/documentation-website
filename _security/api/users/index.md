@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Internal User APIs
+title: Internal user APIs
 parent: Security APIs
 nav_order: 30
 has_children: true
@@ -9,19 +9,19 @@ redirect_from:
   - /security/api/users/
 ---
 
-# Internal User APIs
+# Internal user APIs
 
-The Internal User APIs create, retrieve, modify, and delete users in the internal user database. If you use an external authentication backend, you probably don't need to worry about internal users.
+The internal user APIs create, retrieve, modify, and delete users in the internal user database. If you use an external authentication backend, you probably don't need to worry about internal users.
 
-| API | Method | Endpoint |
-| :--- | :--- | :--- |
-| [Get User API]({{site.url}}{{site.baseurl}}/security/api/users/get-user/) | GET | `/_plugins/_security/api/internalusers/{username}` |
-| [Get Users API]({{site.url}}{{site.baseurl}}/security/api/users/get-users/) | GET | `/_plugins/_security/api/internalusers` |
-| [Create User API]({{site.url}}{{site.baseurl}}/security/api/users/create-user/) | PUT | `/_plugins/_security/api/internalusers/{username}` |
-| [Patch User API]({{site.url}}{{site.baseurl}}/security/api/users/patch-user/) | PATCH | `/_plugins/_security/api/internalusers/{username}` |
-| [Patch Users API]({{site.url}}{{site.baseurl}}/security/api/users/patch-users/) | PATCH | `/_plugins/_security/api/internalusers` |
-| [Delete User API]({{site.url}}{{site.baseurl}}/security/api/users/delete-user/) | DELETE | `/_plugins/_security/api/internalusers/{username}` |
-| [Generate User Token API]({{site.url}}{{site.baseurl}}/security/api/users/generate-user-token/) | POST | `/_plugins/_security/api/internalusers/{username}/authtoken` |
+OpenSearch supports the following internal user APIs.
+
+| API | Description |
+| :--- | :--- |
+| [Create or Update User API]({{site.url}}{{site.baseurl}}/security/api/users/create-user/) | Creates or replaces the specified internal user. |
+| [Patch Users API]({{site.url}}{{site.baseurl}}/security/api/users/patch-users/) | Updates individual attributes of one internal user, or creates, updates, or deletes multiple internal users in a single call. |
+| [Get Users API]({{site.url}}{{site.baseurl}}/security/api/users/get-users/) | Retrieves one internal user or all internal users. |
+| [Delete User API]({{site.url}}{{site.baseurl}}/security/api/users/delete-user/) | Deletes the specified internal user. |
+| [Generate User Token API]({{site.url}}{{site.baseurl}}/security/api/users/generate-user-token/) | Generates an authorization token for the specified internal user. |
 
 ## Legacy endpoints
 

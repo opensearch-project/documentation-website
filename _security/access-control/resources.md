@@ -62,7 +62,7 @@ PUT _cluster/settings
   }
 }
 ```
-{% include copy-curl.html %}
+{% include copy-curl.html security=true %}
 
 ### Step 2: Configure protected resource types
 
@@ -179,7 +179,7 @@ PATCH _plugins/_security/api/resource/share
   }
 }
 ```
-{% include copy-curl.html %}
+{% include copy-curl.html security=true %}
 
 To keep a resource private, make the `share_with` object empty:
 
@@ -191,7 +191,7 @@ PUT _plugins/_security/api/resource/share
   "share_with": {}
 }
 ```
-{% include copy-curl.html %}
+{% include copy-curl.html security=true %}
 
 ## REST APIs
 

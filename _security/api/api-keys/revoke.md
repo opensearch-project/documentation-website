@@ -1,18 +1,20 @@
 ---
 layout: default
-title: Revoke an API Key
-parent: API Key APIs
+title: Revoke API key
+parent: API key APIs
 grand_parent: Security APIs
 nav_order: 30
 redirect_from:
   - /api-reference/security/api-keys/revoke/
 ---
 
-# Revoke an API Key
+# Revoke API Key API
+**Introduced 3.7**
+{: .label .label-purple }
 
 Revokes an API key, making it immediately unusable for authentication. This is a soft delete: the key remains visible in list responses with a `revoked_at` timestamp.
 
-Note the following behavior when revoking API keys:
+Note the following when revoking API keys:
 
 - Revocation is synchronous: the key is broadcast as invalid to all nodes before the response is returned.
 - Revoked keys cannot be reactivated.
@@ -28,20 +30,29 @@ DELETE /_plugins/_security/api/apitokens/{id}
 
 The following table lists the available path parameters.
 
-| Parameter | Data type | Description |
-| :--- | :--- | :--- |
-| `id` | String | The unique identifier of the key to revoke. Required. |
+| Parameter | Data type | Required | Description |
+| :--- | :--- | :--- | :--- |
+| `id` | String | Yes | The unique identifier of the key to revoke. |
 
 ## Example request
 
 ```json
-DELETE /_plugins/_security/api/apitokens/DjxGIp4BkXkgMZpmeGvx
+DELETE _plugins/_security/api/apitokens/_ofOi6ABkhwU_cGa4M3v
 ```
+{% include copy-curl.html security=true %}
 
 ## Example response
 
 ```json
 {
-  "message": "Token revoked successfully"
+  "message": "Token _ofOi6ABkhwU_cGa4M3v revoked successfully."
 }
 ```
+
+## Response body fields
+
+The response body is a JSON object with the following field.
+
+| Field | Data type | Description |
+| :--- | :--- | :--- |
+| `message` | String | A message confirming that the key was revoked. |

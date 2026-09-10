@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Reload Transport Certificates API
+title: Reload transport certificates
 parent: Certificate APIs
 grand_parent: Security APIs
 nav_order: 40
@@ -10,24 +10,10 @@ nav_order: 40
 **Introduced 2.8**
 {: .label .label-purple }
 
-Reload transport layer communication certificates. These REST APIs let a super admin (or a user with sufficient permissions to access this API) reload transport layer certificates.
+Reloads the transport layer communication certificates without restarting the node.
 
-
-### Example request
-
-```bash
-curl -X PUT "https://your-opensearch-cluster/_plugins/_security/api/ssl/transport/reloadcerts"
-```
-{% include copy-curl.html %}
-
-### Example response
-
-```json
-{
-  "status": "OK",
-  "message": "updated transport certs"
-}
-```
+This API is reserved for a superadmin. Authenticate with an admin certificate rather than with a user name and password. For more information, see [Access control for the API]({{site.url}}{{site.baseurl}}/security/access-control/api/#access-control-for-the-api).
+{: .note}
 
 <!-- spec_insert_start
 api: security.reload_transport_certificates
@@ -39,47 +25,25 @@ PUT /_plugins/_security/api/ssl/transport/reloadcerts
 ```
 <!-- spec_insert_end -->
 
-## Response body fields
-
-| Field   | Data type | Description                                                                       |
-|:--------|:----------|:----------------------------------------------------------------------------------|
-| status  | String    | Indicates the status of the operation. Possible values: "OK" or an error message. |
-| message | String    | Additional information about the operation.                                       |
-
-
-## Reload HTTP certificates
-
-Reload HTTP layer communication certificates. These REST APIs let a super admin (or a user with sufficient permissions to access this API) reload HTTP layer certificates.
-
-## Endpoints
+## Example request
 
 ```json
-PUT /_plugins/_security/api/ssl/http/reloadcerts
+PUT _plugins/_security/api/ssl/transport/reloadcerts
 ```
-{% include copy-curl.html %}
+{% include copy-curl.html security=true %}
 
-
-### Example request
-
-```
-curl -X PUT "https://your-opensearch-cluster/_plugins/_security/api/ssl/http/reloadcerts"
-```
-{% include copy-curl.html %}
-
-### Example response
+## Example response
 
 ```json
 {
-  "status": "OK",
-  "message": "updated http certs"
+  "message": "updated transport certs"
 }
 ```
 
 ## Response body fields
 
-| Field   | Data type | Description                                                         |
-|:--------|:----------|:--------------------------------------------------------------------|
-| status  | String    | The status of the API operation. Possible value: "OK".              |
-| message | String    | A message indicating that the HTTP certificates have been updated.  |
+The response body is a JSON object with the following fields.
 
----
+| Field | Data type | Description |
+| :--- | :--- | :--- |
+| `message` | String | A message confirming that the transport certificates were updated. |

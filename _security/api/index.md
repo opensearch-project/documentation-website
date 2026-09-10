@@ -7,6 +7,7 @@ has_toc: false
 redirect_from:
   - /security/api/
   - /api-reference/security/
+  - /api-reference/security/index/
   - /api-reference/security-apis/
 ---
 
@@ -14,26 +15,41 @@ redirect_from:
 
 The Security APIs configure and inspect the Security plugin over REST. Use them to manage users, roles, role mappings, action groups, and tenants; to read and replace the security configuration; and to inspect certificates, caches, and plugin health.
 
+All Security APIs use the base path `_plugins/_security/` followed by the specific path for each operation. For example, the path for the Perform Upgrade API is `/_plugins/_security/api/_upgrade_perform`.
+
 Most of these APIs read from and write to the security configuration index, so access to them is restricted. For information about who can call them and how to authenticate as an administrator, see [Access control for the API]({{site.url}}{{site.baseurl}}/security/access-control/api/).
 
-## API groups
+Most Security API calls require HTTP basic authentication with admin credentials, as shown in the following example:
+
+```bash
+curl -k -XGET -u admin:<password> https://localhost:9200/_plugins/_security/api/roles/
+```
+{% include copy.html %}
+
+The Security plugin ships with a demo configuration for testing purposes. Don't use the demo configuration in a production environment. For production deployments, generate secure credentials and certificates.
+{: .warning}
+
+## Supported APIs
+
+The Security APIs are grouped by the resource that each one configures. The following table lists the available groups. Select a group to view the operations it provides.
 
 | Group | Description |
 | :--- | :--- |
-| [Authentication APIs]({{site.url}}{{site.baseurl}}/security/api/authentication/) | The Authentication APIs return information about the authenticated user, the permissions granted to that user, and the TLS connection used to make the request. |
-| [Account APIs]({{site.url}}{{site.baseurl}}/security/api/account/) | The Account APIs return and modify the details of the currently authenticated user's own account. |
-| [Internal User APIs]({{site.url}}{{site.baseurl}}/security/api/users/) | The Internal User APIs create, retrieve, modify, and delete users in the internal user database. |
-| [Role APIs]({{site.url}}{{site.baseurl}}/security/api/roles/) | The Role APIs create, retrieve, modify, and delete the roles that define cluster, index, and document permissions. |
-| [Role Mapping APIs]({{site.url}}{{site.baseurl}}/security/api/role-mappings/) | The Role Mapping APIs map users, backend roles, and hosts to security roles. |
-| [Action Group APIs]({{site.url}}{{site.baseurl}}/security/api/action-groups/) | The Action Group APIs create, retrieve, modify, and delete action groups, which are reusable collections of permissions. |
-| [Tenant APIs]({{site.url}}{{site.baseurl}}/security/api/tenants/) | The Tenant APIs create, retrieve, modify, and delete the tenants that isolate OpenSearch Dashboards resources between groups of users. |
-| [Tenancy Configuration APIs]({{site.url}}{{site.baseurl}}/security/api/tenancy/) | The Tenancy Configuration APIs manage multi-tenancy settings and return information about the tenants available to the current user. |
-| [Allow List APIs]({{site.url}}{{site.baseurl}}/security/api/allowlist/) | The Allow List APIs control which APIs a user without administrator privileges can access. |
-| [Configuration APIs]({{site.url}}{{site.baseurl}}/security/api/configuration/) | The Configuration APIs retrieve, replace, patch, and upgrade the Security plugin configuration. |
-| [Distinguished Name APIs]({{site.url}}{{site.baseurl}}/security/api/distinguished-names/) | The Distinguished Name APIs manage the allow lists of node and client certificate distinguished names used for cross-cluster communication. |
-| [Certificate APIs]({{site.url}}{{site.baseurl}}/security/api/certificates/) | The Certificate APIs return the certificates in use on the cluster and reload them without restarting a node. |
-| [Audit Log APIs]({{site.url}}{{site.baseurl}}/security/api/audit/) | The Audit Log APIs retrieve and modify the audit logging configuration. |
-| [Cache APIs]({{site.url}}{{site.baseurl}}/security/api/cache/) | The Cache APIs flush the Security plugin's user, authentication, and authorization caches. |
-| [API Key APIs]({{site.url}}{{site.baseurl}}/security/api/api-keys/) | The API Key APIs create, list, and revoke the API keys used to authenticate requests without a user name and password. |
-| [Dashboards Info APIs]({{site.url}}{{site.baseurl}}/security/api/dashboards-info/) | The Dashboards Info APIs return the Security plugin settings that OpenSearch Dashboards needs in order to render its interface. |
-| [Cluster Utility APIs]({{site.url}}{{site.baseurl}}/security/api/cluster/) | The cluster utility APIs report Security plugin health and validate or migrate the security configuration index. |
+| [Authentication APIs]({{site.url}}{{site.baseurl}}/security/api/authentication/) | The authentication APIs return information about the authenticated user, the permissions granted to that user, and the TLS connection used to make the request. |
+| [Account APIs]({{site.url}}{{site.baseurl}}/security/api/account/) | The account APIs return and modify the details of the currently authenticated user's own account. |
+| [Internal user APIs]({{site.url}}{{site.baseurl}}/security/api/users/) | The internal user APIs create, retrieve, modify, and delete users in the internal user database. |
+| [Role APIs]({{site.url}}{{site.baseurl}}/security/api/roles/) | The role APIs create, retrieve, modify, and delete the roles that define cluster, index, and document permissions. |
+| [Role mapping APIs]({{site.url}}{{site.baseurl}}/security/api/role-mappings/) | The role mapping APIs map users, backend roles, and hosts to security roles. |
+| [Action group APIs]({{site.url}}{{site.baseurl}}/security/api/action-groups/) | The action group APIs create, retrieve, modify, and delete action groups, which are reusable collections of permissions. |
+| [API key APIs]({{site.url}}{{site.baseurl}}/security/api/api-keys/) | The API key APIs create, list, and revoke the API keys used to authenticate requests without a user name and password. |
+| [Tenant APIs]({{site.url}}{{site.baseurl}}/security/api/tenants/) | The tenant APIs create, retrieve, modify, and delete the tenants that isolate OpenSearch Dashboards resources between groups of users. |
+| [Multi-tenancy configuration APIs]({{site.url}}{{site.baseurl}}/security/api/tenancy/) | The multi-tenancy configuration APIs configure multi-tenancy for OpenSearch Dashboards and return information about the tenants available to the current user. |
+| [Allow list APIs]({{site.url}}{{site.baseurl}}/security/api/allowlist/) | The allow list APIs control which APIs a user without administrator privileges can access. |
+| [Configuration APIs]({{site.url}}{{site.baseurl}}/security/api/configuration/) | The configuration APIs retrieve, replace, patch, and upgrade the Security plugin configuration. |
+| [Security configuration version APIs]({{site.url}}{{site.baseurl}}/security/api/configuration-versions/) | The security configuration version APIs track the history of the Security plugin configuration and restore a previous version of it. |
+| [Audit log APIs]({{site.url}}{{site.baseurl}}/security/api/audit/) | The audit log APIs retrieve and modify the audit logging configuration. |
+| [Distinguished name APIs]({{site.url}}{{site.baseurl}}/security/api/distinguished-names/) | The distinguished name APIs manage the allow lists of node and client certificate distinguished names used for cross-cluster communication. |
+| [Certificate APIs]({{site.url}}{{site.baseurl}}/security/api/certificates/) | The certificate APIs return the certificates in use on the cluster and reload them without restarting a node. |
+| [Flush Cache API]({{site.url}}{{site.baseurl}}/security/api/flush-cache/) | The Flush Cache API flushes the Security plugin's user, authentication, and authorization caches. |
+| [Dashboards Info API]({{site.url}}{{site.baseurl}}/security/api/dashboards-info/) | The Dashboards Info API returns the Security plugin settings that OpenSearch Dashboards needs in order to render its interface. |
+| [Security Plugin Health API]({{site.url}}{{site.baseurl}}/security/api/health/) | The Security Plugin Health API reports whether the Security plugin is initialized and ready to authorize requests. |

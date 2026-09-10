@@ -1,14 +1,16 @@
 ---
 layout: default
-title: Create an API Key
-parent: API Key APIs
+title: Create API key
+parent: API key APIs
 grand_parent: Security APIs
 nav_order: 10
 redirect_from:
   - /api-reference/security/api-keys/create/
 ---
 
-# Create an API Key
+# Create API Key API
+**Introduced 3.7**
+{: .label .label-purple }
 
 Creates a new API key with the specified permissions and duration.
 
@@ -20,49 +22,61 @@ POST /_plugins/_security/api/apitokens
 
 ## Request body fields
 
-The request body is required. The following table lists the available request body fields.
+The request body is required. It is a JSON object with the following fields.
 
-| Field | Data type | Description |
-| :--- | :--- | :--- |
-| `name` | String | A unique name for the key. Must match `[a-zA-Z0-9_-]+`. Required. |
-| `cluster_permissions` | Array of strings | Cluster-level permissions or action groups. Optional. Default is `[]`. |
-| `index_permissions` | Array of objects | Index-level permissions. Optional. Default is `[]`. |
-| `index_permissions.index_pattern` | Array of strings | The index patterns to which this permission applies (for example, `["logs-*"]`). Required. |
-| `index_permissions.allowed_actions` | Array of strings | Actions or action groups allowed for the matching indexes. Required. |
-| `duration_seconds` | Long | The amount of time the token is valid, in seconds. The maximum for this value is configured in `max_duration_seconds` (default is 7,776,000 = 90 days). If omitted, defaults to the `max_duration_seconds`. Optional. |
+| Field | Data type | Description | Required |
+| :--- | :--- | :--- | :--- |
+| `name` | String | A unique name for the key. Must match the pattern `[a-zA-Z0-9_-]+`. | Yes |
+| `cluster_permissions` | Array of strings | The cluster-level permissions or action groups granted to the key. Default is an empty array. | No |
+| `index_permissions` | Array of objects | The index-level permissions granted to the key. Default is an empty array. | No |
+| `duration_seconds` | Long | The length of time for which the key is valid, in seconds. The maximum is set by `max_duration_seconds`, which defaults to 7,776,000 (90 days). If omitted, the key is valid for `max_duration_seconds`. | No |
+
+The `index_permissions` objects contain the following fields.
+
+| Field | Data type | Description | Required |
+| :--- | :--- | :--- | :--- |
+| `index_pattern` | Array of strings | The indexes to which the permissions apply. Supports wildcard patterns, such as `logs-*`. | Yes |
+| `allowed_actions` | Array of strings | The actions or action groups permitted on the matching indexes. | Yes |
 
 ## Example request
 
 ```json
-POST /_plugins/_security/api/apitokens
+POST _plugins/_security/api/apitokens
 {
-  "name": "my-pipeline-key",
-  "cluster_permissions": ["cluster_monitor", "indices:data/write/bulk"],
+  "name": "test-token",
+  "duration_seconds": 86400,
+  "cluster_permissions": [
+    "cluster_monitor"
+  ],
   "index_permissions": [
     {
-      "index_pattern": ["logs-*"],
-      "allowed_actions": ["indices_all"]
+      "index_pattern": [
+        "logs*"
+      ],
+      "allowed_actions": [
+        "read"
+      ]
     }
-  ],
-  "duration_seconds": 2592000
+  ]
 }
 ```
+{% include copy-curl.html security=true %}
 
 ## Example response
 
 ```json
 {
-  "id": "DjxGIp4BkXkgMZpmeGvx",
-  "token": "os_VNsOYN6kDoIgyrD_sBX2jmEIdfcnK5h9zq4u8ddjn8U"
+  "id": "_ofOi6ABkhwU_cGa4M3v",
+  "token": "os_7EoHbn6PVeBwnqFGFDT0g-NBSI46Nq5PutcHHsmCFHg"
 }
 ```
 
 The `token` value is returned only once and cannot be retrieved again. Store it securely.
-{: .warning }
+{: .warning}
 
 ## Response body fields
 
-The following table lists all response body fields.
+The response body is a JSON object with the following fields.
 
 | Field | Data type | Description |
 | :--- | :--- | :--- |

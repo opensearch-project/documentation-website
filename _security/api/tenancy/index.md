@@ -1,20 +1,22 @@
 ---
 layout: default
-title: Tenancy Configuration APIs
+title: Multi-tenancy configuration APIs
 parent: Security APIs
-nav_order: 80
+nav_order: 90
 has_children: true
 has_toc: false
 redirect_from:
   - /security/api/tenancy/
 ---
 
-# Tenancy Configuration APIs
+# Multi-tenancy configuration APIs
 
-The Tenancy Configuration APIs manage multi-tenancy settings and return information about the tenants available to the current user.
+The multi-tenancy configuration APIs configure multi-tenancy for OpenSearch Dashboards and return information about the tenants available to the current user.
 
-| API | Method | Endpoint |
-| :--- | :--- | :--- |
-| [Get Tenancy Configuration API]({{site.url}}{{site.baseurl}}/security/api/tenancy/get-tenancy-config/) | GET | `/_plugins/_security/api/tenancy/config` |
-| [Update Tenancy Configuration API]({{site.url}}{{site.baseurl}}/security/api/tenancy/update-tenancy-config/) | PUT | `/_plugins/_security/api/tenancy/config` |
-| [Tenant Info API]({{site.url}}{{site.baseurl}}/security/api/tenancy/tenant-info/) | GET/POST | `/_plugins/_security/tenantinfo` |
+OpenSearch supports the following multi-tenancy configuration APIs.
+
+| API | Description |
+| :--- | :--- |
+| [Create or Update Multi-Tenancy Configuration API]({{site.url}}{{site.baseurl}}/security/api/tenancy/update-tenancy-config/) | Creates or replaces the multi-tenancy configuration. |
+| [Get Multi-Tenancy Configuration API]({{site.url}}{{site.baseurl}}/security/api/tenancy/get-tenancy-config/) | Retrieves the multi-tenancy configuration. |
+| [Tenant Info API]({{site.url}}{{site.baseurl}}/security/api/tenancy/tenant-info/) | Returns the index names that back the current tenants. |

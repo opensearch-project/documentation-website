@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Authentication Information API
+title: Authentication information
 parent: Authentication APIs
 grand_parent: Security APIs
 nav_order: 10
@@ -12,7 +12,7 @@ redirect_from:
 **Introduced 1.0**
 {: .label .label-purple }
 
-The Authentication Information API returns information about the currently authenticated user. This includes the user's name, roles, backend roles, custom attributes, and tenant memberships. This API is useful for debugging authentication issues, verifying user permissions, and building applications that need to understand the current user's access levels.
+Returns information about the currently authenticated user, including the user's name, roles, backend roles, custom attributes, and tenant memberships. Use it to debug authentication problems or to confirm the permissions that a user holds.
 
 <!-- spec_insert_start
 api: security.authinfo
@@ -44,98 +44,72 @@ The following table lists the available query parameters. All query parameters a
 
 The following example request retrieves authentication information for the currently authenticated user:
 
-<!-- spec_insert_start
-component: example_code
-rest: GET /_plugins/_security/authinfo
--->
-{% capture step1_rest %}
+```json
 GET /_plugins/_security/authinfo
-{% endcapture %}
+```
+{% include copy-curl.html security=true %}
 
-{% capture step1_python %}
+The following example request retrieves verbose authentication information:
 
-response = client.security.authinfo()
-{% endcapture %}
-
-{% include code-block.html
-    rest=step1_rest
-    python=step1_python %}
-<!-- spec_insert_end -->
-
-To get verbose information:
-
-<!-- spec_insert_start
-component: example_code
-rest: GET /_plugins/_security/authinfo?verbose=true
--->
-{% capture step1_rest %}
+```json
 GET /_plugins/_security/authinfo?verbose=true
-{% endcapture %}
-
-{% capture step1_python %}
-
-
-response = client.security.authinfo(
-  params = { "verbose": "true" }
-)
-
-{% endcapture %}
-
-{% include code-block.html
-    rest=step1_rest
-    python=step1_python %}
-<!-- spec_insert_end -->
+```
+{% include copy-curl.html security=true %}
 
 ## Example response
 
-```json
-{
-  "user": "User [name=admin, backend_roles=[admin], requestedTenant=null]",
-  "user_name": "admin",
-  "backend_roles": [
-    "admin"
-  ],
-  "roles": [
-    "all_access",
-    "security_rest_api_access"
-  ],
-  "tenants": {
-    "admin": true,
-    "global_tenant": true
-  },
-  "principal": null,
-  "peer_certificates": "0",
-  "sso_logout_url": null,
-  "remote_address": "127.0.0.1:54013"
-}
-```
-
-For a verbose response, additional fields are included:
+The default response describes the user, their roles, and their tenants:
 
 ```json
 {
   "user": "User [name=admin, backend_roles=[admin], requestedTenant=null]",
   "user_name": "admin",
+  "user_requested_tenant": null,
+  "remote_address": "192.168.65.1:21728",
   "backend_roles": [
     "admin"
   ],
   "custom_attribute_names": [],
   "roles": [
-    "all_access",
-    "security_rest_api_access"
+    "all_access"
   ],
   "tenants": {
-    "admin": true,
-    "global_tenant": true
+    "global_tenant": true,
+    "admin_tenant": true,
+    "admin": true
+  },
+  "principal": null,
+  "peer_certificates": "0",
+  "sso_logout_url": null
+}
+```
+
+A verbose response adds the size fields:
+
+```json
+{
+  "user": "User [name=admin, backend_roles=[admin], requestedTenant=null]",
+  "user_name": "admin",
+  "user_requested_tenant": null,
+  "remote_address": "192.168.65.1:48870",
+  "backend_roles": [
+    "admin"
+  ],
+  "custom_attribute_names": [],
+  "roles": [
+    "all_access"
+  ],
+  "tenants": {
+    "global_tenant": true,
+    "admin_tenant": true,
+    "admin": true
   },
   "principal": null,
   "peer_certificates": "0",
   "sso_logout_url": null,
-  "remote_address": "127.0.0.1:54013",
-  "size_of_user": "115",
-  "size_of_backendroles": "28",
-  "size_of_custom_attributes": "2",
-  "user_requested_tenant": null
+  "size_of_user": "928 bytes",
+  "size_of_custom_attributes": "112 bytes",
+  "size_of_backendroles": "84 bytes"
 }
 ```
 
@@ -154,13 +128,13 @@ The response body is a JSON object with the following fields.
 | `peer_certificates` | String | The number of peer certificates related to the user's authentication. |
 | `sso_logout_url` | String | The logout URL for single sign-on (SSO) authentication, if applicable. |
 | `remote_address` | String | The IP address and port of the client making the request. |
+| `custom_attribute_names` | Array of strings | The names of any custom attributes associated with the user. |
+| `user_requested_tenant` | String | The name of the tenant the user has requested to switch to, if any. |
 
 When requesting a verbose response, the following additional fields are included.
 
 | Property | Data type | Description |
 | :--- | :--- | :--- |
-| `custom_attribute_names` | Array of strings | The names of any custom attributes associated with the user. |
-| `size_of_user` | String | The size of the user object in memory, in bytes. |
-| `size_of_backendroles` | String | The size of the user's backend roles, in bytes. |
-| `size_of_custom_attributes` | String | The size of the user's custom attributes, in bytes. |
-| `user_requested_tenant` | String | The name of the tenant the user has requested to switch to, if any. |
+| `size_of_user` | String | The size of the user object in memory. |
+| `size_of_backendroles` | String | The size of the user's backend roles. |
+| `size_of_custom_attributes` | String | The size of the user's custom attributes. |

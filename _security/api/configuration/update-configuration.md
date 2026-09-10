@@ -1,18 +1,18 @@
 ---
 layout: default
-title: Update Configuration API
+title: Create or update configuration
 parent: Configuration APIs
 grand_parent: Security APIs
-nav_order: 20
+nav_order: 10
 redirect_from:
   - /api-reference/security/configuration/update-configuration/
 ---
 
-# Update Configuration API
+# Create or Update Configuration API
 **Introduced 2.10**
 {: .label .label-purple }
 
-The Update Security Configuration API creates or updates the Security plugin's configuration directly through the REST API. This configuration manages core security settings, including authentication methods, authorization rules, and access controls.
+The Create or Update Configuration API creates or updates the Security plugin's configuration directly through the REST API. This configuration manages core security settings, including authentication methods, authorization rules, and access controls.
 
 This operation can easily break your existing security configuration. We strongly recommend using the `securityadmin.sh` script instead, which includes validations and safeguards to prevent misconfiguration.
 {: .warning}
@@ -57,156 +57,202 @@ The request body is **required**. It is a JSON object with the following fields.
 | `kibana` | Object | The configuration for OpenSearch Dashboards integration. |
 | `respect_request_indices_options` | Boolean | When `true`, respects index options specified in requests. |
 
-
 </details>
-
 
 ## Example request
 
-The following example updates the security configuration to configure basic authentication and an internal user database:
-
-<!-- spec_insert_start
-component: example_code
-rest: PUT /_plugins/_security/api/securityconfig/config
-body: |
-{
-  "dynamic": {
-    "filtered_alias_mode": "warn",
-    "disable_rest_auth": false,
-    "disable_intertransport_auth": false,
-    "respect_request_indices_options": false,
-    "opensearch-dashboards": {
-      "multitenancy_enabled": true,
-      "server_username": "kibanaserver",
-      "index": ".opensearch-dashboards"
-    },
-    "http": {
-      "anonymous_auth_enabled": false
-    },
-    "authc": {
-      "basic_internal_auth_domain": {
-        "http_enabled": true,
-        "transport_enabled": true,
-        "order": 0,
-        "http_authenticator": {
-          "challenge": true,
-          "type": "basic",
-          "config": {}
-        },
-        "authentication_backend": {
-          "type": "intern",
-          "config": {}
-        },
-        "description": "Authenticate via HTTP Basic against internal users database"
-      }
-    },
-    "auth_failure_listeners": {},
-    "do_not_fail_on_forbidden": false,
-    "multi_rolespan_enabled": true,
-    "hosts_resolver_mode": "ip-only",
-    "do_not_fail_on_forbidden_empty": false
-  }
-}
--->
-{% capture step1_rest %}
+```json
 PUT /_plugins/_security/api/securityconfig/config
 {
   "dynamic": {
-    "filtered_alias_mode": "warn",
-    "disable_rest_auth": false,
-    "disable_intertransport_auth": false,
-    "respect_request_indices_options": false,
-    "opensearch-dashboards": {
-      "multitenancy_enabled": true,
-      "server_username": "kibanaserver",
-      "index": ".opensearch-dashboards"
-    },
-    "http": {
-      "anonymous_auth_enabled": false
-    },
-    "authc": {
-      "basic_internal_auth_domain": {
-        "http_enabled": true,
-        "transport_enabled": true,
-        "order": 0,
-        "http_authenticator": {
-          "challenge": true,
-          "type": "basic",
-          "config": {}
-        },
-        "authentication_backend": {
-          "type": "intern",
-          "config": {}
-        },
-        "description": "Authenticate via HTTP Basic against internal users database"
-      }
+    "api_tokens": {
+      "enabled": false,
+      "max_duration_seconds": 7776000,
+      "max_tokens": 100
     },
     "auth_failure_listeners": {},
+    "authc": {
+      "jwt_auth_domain": {
+        "authentication_backend": {
+          "config": {},
+          "type": "noop"
+        },
+        "description": "Authenticate via Json Web Token",
+        "http_authenticator": {
+          "challenge": false,
+          "config": {
+            "jwks_uri": "https://your-jwks-endpoint.com/.well-known/jwks.json",
+            "signing_key": "base64 encoded HMAC key or public RSA/ECDSA pem key",
+            "jwt_header": "Authorization",
+            "jwt_clock_skew_tolerance_seconds": 30
+          },
+          "type": "jwt"
+        },
+        "http_enabled": false,
+        "order": 0
+      },
+      "ldap": {
+        "authentication_backend": {
+          "config": {
+            "enable_ssl": false,
+            "enable_start_tls": false,
+            "enable_ssl_client_auth": false,
+            "verify_hostnames": true,
+            "hosts": [
+              "localhost:8389"
+            ],
+            "userbase": "ou=people,dc=example,dc=com",
+            "usersearch": "(sAMAccountName={0})"
+          },
+          "type": "ldap"
+        },
+        "description": "Authenticate via LDAP or Active Directory",
+        "http_authenticator": {
+          "challenge": false,
+          "config": {},
+          "type": "basic"
+        },
+        "http_enabled": false,
+        "order": 5
+      },
+      "basic_internal_auth_domain": {
+        "authentication_backend": {
+          "config": {},
+          "type": "intern"
+        },
+        "description": "Authenticate via HTTP Basic against internal users database",
+        "http_authenticator": {
+          "challenge": true,
+          "config": {},
+          "type": "basic"
+        },
+        "http_enabled": true,
+        "order": 4
+      },
+      "proxy_auth_domain": {
+        "authentication_backend": {
+          "config": {},
+          "type": "noop"
+        },
+        "description": "Authenticate via proxy",
+        "http_authenticator": {
+          "challenge": false,
+          "config": {
+            "user_header": "x-proxy-user",
+            "roles_header": "x-proxy-roles"
+          },
+          "type": "proxy"
+        },
+        "http_enabled": false,
+        "order": 3
+      },
+      "clientcert_auth_domain": {
+        "authentication_backend": {
+          "config": {},
+          "type": "noop"
+        },
+        "description": "Authenticate via SSL client certificates",
+        "http_authenticator": {
+          "challenge": false,
+          "config": {
+            "username_attribute": "cn"
+          },
+          "type": "clientcert"
+        },
+        "http_enabled": false,
+        "order": 2
+      },
+      "kerberos_auth_domain": {
+        "authentication_backend": {
+          "config": {},
+          "type": "noop"
+        },
+        "http_authenticator": {
+          "challenge": true,
+          "config": {
+            "krb_debug": false,
+            "strip_realm_from_principal": true
+          },
+          "type": "kerberos"
+        },
+        "http_enabled": false,
+        "order": 6
+      }
+    },
+    "authz": {
+      "roles_from_another_ldap": {
+        "authorization_backend": {
+          "config": {},
+          "type": "ldap"
+        },
+        "description": "Authorize via another Active Directory",
+        "http_enabled": false
+      },
+      "roles_from_myldap": {
+        "authorization_backend": {
+          "config": {
+            "enable_ssl": false,
+            "enable_start_tls": false,
+            "enable_ssl_client_auth": false,
+            "verify_hostnames": true,
+            "hosts": [
+              "localhost:8389"
+            ],
+            "rolebase": "ou=groups,dc=example,dc=com",
+            "rolesearch": "(member={0})",
+            "userrolename": "disabled",
+            "rolename": "cn",
+            "resolve_nested_roles": true,
+            "userbase": "ou=people,dc=example,dc=com",
+            "usersearch": "(uid={0})"
+          },
+          "type": "ldap"
+        },
+        "description": "Authorize via LDAP or Active Directory",
+        "http_enabled": false
+      }
+    },
+    "disable_intertransport_auth": false,
+    "disable_rest_auth": false,
     "do_not_fail_on_forbidden": false,
-    "multi_rolespan_enabled": true,
+    "do_not_fail_on_forbidden_empty": false,
+    "filtered_alias_mode": "warn",
     "hosts_resolver_mode": "ip-only",
-    "do_not_fail_on_forbidden_empty": false
+    "http": {
+      "anonymous_auth_enabled": false,
+      "xff": {
+        "enabled": false,
+        "internalProxies": "192\\.168\\.0\\.10|192\\.168\\.0\\.11",
+        "remoteIpHeader": "X-Forwarded-For"
+      }
+    },
+    "kibana": {
+      "default_tenant": "Global",
+      "index": ".kibana",
+      "multitenancy_enabled": true,
+      "preferred_tenants": [],
+      "private_tenant_enabled": true,
+      "server_username": "kibanaserver"
+    },
+    "multi_rolespan_enabled": true,
+    "on_behalf_of": {
+      "enabled": true,
+      "encryption_key": "mT9vgsqzrg9K52mtqDONUtnLufJw8eo0fjw2kvBdn3k=",
+      "signing_key": "dCjVPWyFp5SEIWLOKC5DK5/8F5n/8/QoUWr+5b+yozIsISR9U3pqaA6F23HtDqF768GQA7r9RRtIh1R6ihot3A=="
+    },
+    "privileges_evaluation_ignore_unauthorized_indices": true,
+    "respect_request_indices_options": false
   }
 }
-{% endcapture %}
-
-{% capture step1_python %}
-
-
-response = client.security.update_configuration(
-  body =   {
-    "dynamic": {
-      "filtered_alias_mode": "warn",
-      "disable_rest_auth": false,
-      "disable_intertransport_auth": false,
-      "respect_request_indices_options": false,
-      "opensearch-dashboards": {
-        "multitenancy_enabled": true,
-        "server_username": "kibanaserver",
-        "index": ".opensearch-dashboards"
-      },
-      "http": {
-        "anonymous_auth_enabled": false
-      },
-      "authc": {
-        "basic_internal_auth_domain": {
-          "http_enabled": true,
-          "transport_enabled": true,
-          "order": 0,
-          "http_authenticator": {
-            "challenge": true,
-            "type": "basic",
-            "config": {}
-          },
-          "authentication_backend": {
-            "type": "intern",
-            "config": {}
-          },
-          "description": "Authenticate via HTTP Basic against internal users database"
-        }
-      },
-      "auth_failure_listeners": {},
-      "do_not_fail_on_forbidden": false,
-      "multi_rolespan_enabled": true,
-      "hosts_resolver_mode": "ip-only",
-      "do_not_fail_on_forbidden_empty": false
-    }
-  }
-)
-
-{% endcapture %}
-
-{% include code-block.html
-    rest=step1_rest
-    python=step1_python %}
-<!-- spec_insert_end -->
+```
+{% include copy-curl.html security=true %}
 
 ## Example response
 
 ```json
 {
   "status": "OK",
-  "message": "Configuration updated."
+  "message": "'config' updated."
 }
 ```
 
@@ -221,24 +267,22 @@ The response body is a JSON object with the following fields.
 
 ## Usage notes
 
-The Update Configuration API allows you to directly modify the Security plugin's core configuration but comes with potential risks:
+This API modifies the Security plugin's core configuration directly, so it carries the following risks:
 
-- **Prefer `securityadmin.sh`**: In most cases, you should use the `securityadmin.sh` script instead, which includes validations and safeguards to prevent misconfiguration.
-  
-- **Backup configuration**: Always back up your current security configuration before making changes.
-  
-- **Access control**: Enable access to this API only for trusted administrators, as it can potentially disable the security configuration for your entire cluster.
-  
-- **Testing**: Test the security configuration changes in a development environment before deploying them to production.
-
-- **Complete configuration**: You must provide a complete configuration when updating, as partial updates will replace the entire configuration.
-  
-- **Validation**: This API has minimal validation, so incorrect configurations might not be identified until they cause operational issues.
+- In most cases, use the `securityadmin.sh` script, which includes validations and safeguards that prevent misconfiguration.
+- Back up your current security configuration before making changes.
+- Grant access to this API only to trusted administrators. A request can disable the security configuration for your entire cluster.
+- Test security configuration changes in a development environment before deploying them to production.
+- Provide a complete configuration. A partial update replaces the entire configuration.
+- This API performs minimal validation, so an incorrect configuration might not be identified until it causes operational issues.
 
 ## Enabling this API
 
-By default, this API is disabled for security reasons. To enable it, you need to add the following line to `opensearch.yml`:
+By default, this API is disabled for security reasons. To enable it, add the following line to `opensearch.yml`:
 
 ```yml
 plugins.security.unsupported.restapi.allow_securityconfig_modification: true
 ```
+{% include copy.html %}
+
+For more information about granting access to the Security APIs, see [Access control for the API]({{site.url}}{{site.baseurl}}/security/access-control/api/#access-control-for-the-api).

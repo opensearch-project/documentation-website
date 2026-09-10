@@ -1,9 +1,9 @@
 ---
 layout: default
-title: Delete Distinguished Name API
-parent: Distinguished Name APIs
+title: Delete distinguished name
+parent: Distinguished name APIs
 grand_parent: Security APIs
-nav_order: 60
+nav_order: 40
 ---
 
 # Delete Distinguished Name API
@@ -11,6 +11,9 @@ nav_order: 60
 {: .label .label-purple }
 
 Deletes all distinguished names in the specified cluster's or node's allow list.
+
+This API is reserved for a superadmin. Authenticate with an admin certificate rather than with a user name and password. For more information, see [Access control for the API]({{site.url}}{{site.baseurl}}/security/access-control/api/#access-control-for-the-api).
+{: .note}
 
 <!-- spec_insert_start
 api: security.delete_distinguished_name
@@ -25,18 +28,15 @@ DELETE /_plugins/_security/api/nodesdn/{cluster_name}
 ## Example request
 
 ```json
-DELETE _plugins/_security/api/nodesdn/{cluster-name}
+DELETE _plugins/_security/api/nodesdn/cluster1
 ```
-{% include copy-curl.html %}
+{% include copy-curl.html security=true %}
 
 ## Example response
 
 ```json
 {
   "status": "OK",
-  "message": "'cluster3' deleted."
+  "message": "'cluster1' deleted."
 }
 ```
-
-
----

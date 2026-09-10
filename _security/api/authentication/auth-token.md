@@ -1,16 +1,18 @@
 ---
 layout: default
-title: Auth Token API
+title: Authorization token
 parent: Authentication APIs
 grand_parent: Security APIs
 nav_order: 60
 ---
 
-# Auth Token API
+# Authorization Token API
 **Introduced 1.0**
 {: .label .label-purple }
 
-Returns the authorization token for the current user.
+Returns an `OK` status with an empty `message` field. This endpoint accepts a `POST` request but does not issue a token.
+
+To generate an authorization token for a service account, use the [Generate User Token API]({{site.url}}{{site.baseurl}}/security/api/users/generate-user-token/).
 
 <!-- spec_insert_start
 api: security.authtoken
@@ -24,36 +26,26 @@ POST /_plugins/_security/api/authtoken
 
 ## Example request
 
-<!-- spec_insert_start
-api: security.authtoken
-component: example_code
-rest: POST /_plugins/_security/api/authtoken
--->
-{% capture step1_rest %}
-POST /_plugins/_security/api/authtoken
-{% endcapture %}
+```json
+POST _plugins/_security/api/authtoken
+{}
+```
+{% include copy-curl.html security=true %}
 
-{% capture step1_python %}
+## Example response
 
-response = client.security.authtoken()
-{% endcapture %}
+```json
+{
+  "status": "OK",
+  "message": ""
+}
+```
 
-{% include code-block.html
-    rest=step1_rest
-    python=step1_python %}
-<!-- spec_insert_end -->
-
-<!-- spec_insert_start
-api: security.authtoken
-component: response_body_parameters
--->
 ## Response body fields
 
 The response body is a JSON object with the following fields.
 
-| Property | Data type | Description |
+| Field | Data type | Description |
 | :--- | :--- | :--- |
-| `message` | String | The message returned as part of an `OK` response. |
-| `status` | Float or String |  |
-
-<!-- spec_insert_end -->
+| `status` | String | The status of the request. Always `OK`. |
+| `message` | String | Always an empty string. |

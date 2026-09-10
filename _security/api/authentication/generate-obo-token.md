@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Generate On-Behalf-Of Token API
+title: Generate on-behalf-of token
 parent: Authentication APIs
 grand_parent: Security APIs
 nav_order: 70
@@ -10,7 +10,9 @@ nav_order: 70
 **Introduced 2.12**
 {: .label .label-purple }
 
-Generates a `On-Behalf-Of` token for the current user.
+Generates an On-Behalf-Of token for the current user.
+
+On-Behalf-Of authentication must be configured before you call this API. Add an `on_behalf_of` section containing a `signing_key` to the `config.dynamic` section of the `config.yml` file and apply it with `securityadmin.sh`. For more information, see [On-Behalf-Of authentication]({{site.url}}{{site.baseurl}}/security/access-control/authentication-tokens/#on-behalf-of-authentication).
 
 <!-- spec_insert_start
 api: security.generate_obo_token
@@ -40,28 +42,25 @@ The request body is __required__. It is a JSON object with the following fields.
 
 ## Example request
 
-<!-- spec_insert_start
-api: security.generate_obo_token
-component: example_code
-rest: POST /_plugins/_security/api/generateonbehalfoftoken
--->
-{% capture step1_rest %}
-POST /_plugins/_security/api/generateonbehalfoftoken
-{% endcapture %}
+```json
+POST _plugins/_security/api/generateonbehalfoftoken
+{
+  "description": "Reason for token",
+  "service": "self-issued",
+  "durationSeconds": "300"
+}
+```
+{% include copy-curl.html security=true %}
 
-{% capture step1_python %}
+## Example response
 
-
-response = client.security.generate_obo_token(
-  body = { "Insert body here" }
-)
-
-{% endcapture %}
-
-{% include code-block.html
-    rest=step1_rest
-    python=step1_python %}
-<!-- spec_insert_end -->
+```json
+{
+  "user": "admin",
+  "authenticationToken": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1ZCI6InNlbGYtaXNzdWVkIiwibmJmIjoxNzg5MDUxOTQ1LCJpc3MiOiJvcGVuc2VhcmNoLWNsdXN0ZXIiLCJleHAiOjE3ODkwNTIyNDUsImlhdCI6MTc4OTA1MTk0NSwiZW5jcnlwdGVkX3JvbGVzIjoiZkE3blFnZW9hdmgrM1ZJWkZkRWNmUT09In0.1H6eSXlIsOfqZv7AeBPghgEC6tg4jrq5g-XiuNUYL3e705aP97c16xNXOnEUecOHsiqXskXqzH56Sw6ZLYSxSA",
+  "durationSeconds": 300
+}
+```
 
 <!-- spec_insert_start
 api: security.generate_obo_token

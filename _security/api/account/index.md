@@ -11,9 +11,11 @@ redirect_from:
 
 # Account APIs
 
-The Account APIs return and modify the details of the currently authenticated user's own account.
+The account APIs return and modify the details of the currently authenticated user's own account.
 
-| API | Method | Endpoint |
-| :--- | :--- | :--- |
-| [Get Account Details API]({{site.url}}{{site.baseurl}}/security/api/account/get-account-details/) | GET | `/_plugins/_security/api/account` |
-| [Change Password API]({{site.url}}{{site.baseurl}}/security/api/account/change-password/) | PUT | `/_plugins/_security/api/account` |
+OpenSearch supports the following account APIs.
+
+| API | Description |
+| :--- | :--- |
+| [Change Password API]({{site.url}}{{site.baseurl}}/security/api/account/change-password/) | Changes the password of the currently authenticated user. |
+| [Get Account Details API]({{site.url}}{{site.baseurl}}/security/api/account/get-account-details/) | Returns the account details of the currently authenticated user. |

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: SSL Info API
+title: SSL info
 parent: Authentication APIs
 grand_parent: Security APIs
 nav_order: 50
@@ -38,49 +38,37 @@ The following table lists the available query parameters. All query parameters a
 
 ## Example request
 
-<!-- spec_insert_start
-api: security.get_sslinfo
-component: example_code
-rest: GET /_opendistro/_security/sslinfo
--->
-{% capture step1_rest %}
-GET /_opendistro/_security/sslinfo
-{% endcapture %}
+```json
+GET _opendistro/_security/sslinfo
+```
+{% include copy-curl.html security=true %}
 
-{% capture step1_python %}
+## Example response
 
-response = client.security.get_sslinfo()
-{% endcapture %}
+```json
+{
+  "principal": null,
+  "peer_certificates": "0",
+  "ssl_protocol": "TLSv1.3",
+  "ssl_cipher": "TLS_AES_128_GCM_SHA256",
+  "ssl_provider_http": "JDK",
+  "ssl_provider_transport_server": "JDK",
+  "ssl_provider_transport_client": "JDK"
+}
+```
 
-{% include code-block.html
-    rest=step1_rest
-    python=step1_python %}
-<!-- spec_insert_end -->
-
-<!-- spec_insert_start
-api: security.get_sslinfo
-component: response_body_parameters
--->
 ## Response body fields
 
 The response body is a JSON object with the following fields.
 
-| Property | Required | Data type | Description |
-| :--- | :--- | :--- | :--- |
-| `peer_certificates` | **Required** | Float or String | The number of certificates. |
-| `principal` | **Required** | NULL or String | The user's principal. |
-| `ssl_cipher` | **Required** | NULL or String | The cipher for this SSL setup. |
-| `ssl_protocol` | **Required** | NULL or String | The protocol for this SSL setup. |
-| `ssl_provider_http` | **Required** | NULL or String | Returns the HTTP provider's name. |
-| `ssl_provider_transport_client` | **Required** | String | Returns the transport client's name. |
-| `ssl_provider_transport_server` | **Required** | String | Returns the transport server's name. |
-| `local_certificates_list` | _Optional_ | Array of Strings | A list of domain names from local certificates. |
-| `peer_certificates_list` | _Optional_ | Array of Strings | A list of domain names from peer certificates. |
-| `ssl_openssl_available` | _Optional_ | Boolean | Whether OpenSSL is available. |
-| `ssl_openssl_non_available_cause` | _Optional_ | NULL or String | The reason OpenSSL is unavailable. |
-| `ssl_openssl_supports_hostname_validation` | _Optional_ | Boolean | Whether the hostname validation is supported. |
-| `ssl_openssl_supports_key_manager_factory` | _Optional_ | Boolean | Whether `KMF` is supported. |
-| `ssl_openssl_version` | _Optional_ | Float or String | Version of OpenSSL. |
-| `ssl_openssl_version_string` | _Optional_ | NULL or String | The full version string for the OpenSSL version. |
-
-<!-- spec_insert_end -->
+| Field | Data type | Description |
+| :--- | :--- | :--- |
+| `principal` | String | The distinguished name of the client certificate that authenticated the request, or `null` when the request authenticated another way. |
+| `peer_certificates` | String | The number of certificates that the client presented, returned as a string. A request that presents no client certificate returns `0`. |
+| `ssl_protocol` | String | The TLS protocol version negotiated for the request. |
+| `ssl_cipher` | String | The cipher suite negotiated for the request. |
+| `ssl_provider_http` | String | The TLS provider in use on the HTTP layer. |
+| `ssl_provider_transport_server` | String | The TLS provider in use for incoming transport layer connections. |
+| `ssl_provider_transport_client` | String | The TLS provider in use for outgoing transport layer connections. |
+| `peer_certificates_list` | Array of Strings | The distinguished names of the certificates that the client presented, or `null` when the client presented none. Returned only when `show_dn` is `true`. |
+| `local_certificates_list` | Array of Strings | The distinguished names of the certificates that the node presented. Returned only when `show_dn` is `true`. |
