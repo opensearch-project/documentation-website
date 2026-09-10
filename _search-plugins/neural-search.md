@@ -8,7 +8,7 @@ redirect_from:
   - /neural-search-plugin/index/
   - /vector-search/ai-search/
   - /vector-search/ai-search/index/
-canonical_url: https://docs.opensearch.org/latest/search-plugins/neural-search/
+canonical_url: https://docs.opensearch.org/latest/vector-search/ai-search/index/
 ---
 
 # Neural Search plugin

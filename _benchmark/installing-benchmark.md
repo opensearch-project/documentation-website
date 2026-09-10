@@ -3,7 +3,7 @@ layout: default
 title: Installing OpenSearch Benchmark
 nav_order: 5
 has_children: false
-canonical_url: https://docs.opensearch.org/latest/benchmark/user-guide/installing-benchmark/
+canonical_url: https://docs.opensearch.org/latest/benchmark/user-guide/install-and-configure/installing-benchmark/
 redirect_to: https://docs.opensearch.org/latest/benchmark/user-guide/installing-benchmark/
 ---
 
