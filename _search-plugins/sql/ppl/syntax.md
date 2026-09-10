@@ -4,7 +4,7 @@ title: Syntax
 parent: PPL &ndash; Piped Processing Language
 grand_parent: SQL and PPL
 nav_order: 1
-canonical_url: https://docs.opensearch.org/latest/search-plugins/sql/ppl/syntax/
+canonical_url: https://docs.opensearch.org/latest/sql-and-ppl/ppl/commands/syntax/
 redirect_from:
   - /sql-and-ppl/ppl/commands/syntax/
 ---

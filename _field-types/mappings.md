@@ -9,7 +9,7 @@ redirect_from:
   - /field-types/mappings-use-cases/
   - /mappings/
   - /mappings/index/
-canonical_url: https://docs.opensearch.org/latest/field-types/
+canonical_url: https://docs.opensearch.org/latest/mappings/
 ---
 
 # Mapping

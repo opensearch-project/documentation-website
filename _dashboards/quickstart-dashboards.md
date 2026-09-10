@@ -10,7 +10,7 @@ redirect_from:
   - /dashboards/getting-started/
   - /dashboards/getting-started/index/
   - /dashboards/quickstart/
-canonical_url: https://docs.opensearch.org/latest/dashboards/quickstart/
+canonical_url: https://docs.opensearch.org/latest/dashboards/getting-started/index/
 ---
 
 # Quickstart guide for OpenSearch Dashboards

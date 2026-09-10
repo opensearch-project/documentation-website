@@ -5,7 +5,7 @@ nav_order: 35
 has_children: false
 parent: Date field types
 grand_parent: Supported field types
-canonical_url: https://docs.opensearch.org/latest/field-types/supported-field-types/date-nanos/
+canonical_url: https://docs.opensearch.org/latest/mappings/supported-field-types/date-nanos/
 redirect_from:
   - /mappings/supported-field-types/date-nanos/
 ---
