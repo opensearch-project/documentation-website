@@ -4,6 +4,7 @@ title: Source coordination
 nav_order: 35
 parent: Managing Data Prepper
 canonical_url: https://docs.opensearch.org/latest/data-prepper/managing-data-prepper/source-coordination/
+redirect_to: https://docs.opensearch.org/latest/data-prepper/managing-data-prepper/source-coordination/
 ---
 
 # Source coordination

@@ -4,9 +4,10 @@ title: Mutate event
 parent: Processors
 grand_parent: Pipelines
 nav_order: 65
-canonical_url: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/processors/mutate-event/
+canonical_url: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/processors/processors/
 redirect_from:
   - /data-prepper/pipelines/configuration/processors/
+redirect_to: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/processors/processors/
 ---
 
 # Mutate event processors

@@ -4,6 +4,7 @@ title: Dead-letter queues
 parent: Pipelines
 nav_order: 15
 canonical_url: https://docs.opensearch.org/latest/data-prepper/pipelines/dlq/
+redirect_to: https://docs.opensearch.org/latest/data-prepper/pipelines/dlq/
 ---
 
 # Dead-letter queues
