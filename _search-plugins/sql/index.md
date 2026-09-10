@@ -7,7 +7,7 @@ has_toc: false
 redirect_from:
   - /search-plugins/sql/
   - /sql-and-ppl/
-canonical_url: https://docs.opensearch.org/latest/search-plugins/sql/index/
+canonical_url: https://docs.opensearch.org/latest/sql-and-ppl/
 ---
 
 # SQL and PPL
