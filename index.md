@@ -6,6 +6,7 @@ has_children: false
 nav_exclude: true
 permalink: /
 redirect_to: https://docs.opensearch.org/latest/
+canonical_url: https://docs.opensearch.org/latest/
 ---
 
 {% include banner.html %}
