@@ -3,6 +3,7 @@ layout: default
 title: Hadoop connector
 nav_order: 110
 canonical_url: https://docs.opensearch.org/latest/clients/hadoop/
+redirect_to: https://docs.opensearch.org/latest/clients/hadoop/
 ---
 
 # Hadoop connector

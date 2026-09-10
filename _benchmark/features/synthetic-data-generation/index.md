@@ -23,6 +23,7 @@ tip_cards:
     description: "Learn practical guidance and best practices to optimize your synthetic data generation workflows."
     link: "/benchmark/features/synthetic-data-generation/tips/"
 canonical_url: https://docs.opensearch.org/latest/benchmark/features/synthetic-data-generation/index/
+redirect_to: https://docs.opensearch.org/latest/benchmark/features/synthetic-data-generation/index/
 ---
 
 # Synthetic data generation

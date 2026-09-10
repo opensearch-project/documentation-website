@@ -7,7 +7,8 @@ permalink: /migration-assistant/migration-console/migration-console-command-refe
 redirect_from:
   - /migration-console/migration-console-commands-references/
   - /migration-assistant/migration-console/migration-console-commands-references/
-canonical_url: https://docs.opensearch.org/latest/migration-assistant/migration-console/migration-console-command-reference/
+canonical_url: https://docs.opensearch.org/latest/migration-assistant/
+redirect_to: https://docs.opensearch.org/latest/migration-assistant/
 ---
 
 # Migration console command reference

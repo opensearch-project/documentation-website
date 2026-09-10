@@ -6,7 +6,8 @@ grand_parent: User guide
 parent: Working with workloads
 redirect_from:
   - /benchmark/user-guide/running-workloads/
-canonical_url: https://docs.opensearch.org/latest/benchmark/user-guide/working-with-workloads/running-workloads/
+canonical_url: https://docs.opensearch.org/latest/benchmark/running-workloads/
+redirect_to: https://docs.opensearch.org/latest/benchmark/running-workloads/
 ---
 
 # Running a workload
