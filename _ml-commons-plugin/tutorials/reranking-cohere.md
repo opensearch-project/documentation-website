@@ -3,7 +3,7 @@ layout: default
 title: Reranking with Cohere Rerank
 parent: Tutorials
 nav_order: 30
-canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/tutorials/reranking-cohere/
+canonical_url: https://docs.opensearch.org/latest/tutorials/reranking/reranking-cohere/
 redirect_from:
   - /tutorials/reranking/reranking-cohere/
   - /vector-search/tutorials/reranking/reranking-cohere/
