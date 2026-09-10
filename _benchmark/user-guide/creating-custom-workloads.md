@@ -8,7 +8,7 @@ redirect_from:
   - /benchmark/creating-custom-workloads/
   - /benchmark/user-guide/creating-osb-workloads/
   - /benchmark/user-guide/working-with-workloads/creating-custom-workloads/
-canonical_url: https://docs.opensearch.org/latest/benchmark/user-guide/creating-custom-workloads/
+canonical_url: https://docs.opensearch.org/latest/benchmark/creating-custom-workloads/
 redirect_to: https://docs.opensearch.org/latest/benchmark/creating-custom-workloads/
 ---
 

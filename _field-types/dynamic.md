@@ -6,7 +6,7 @@ redirect_from:
   - /opensearch/dynamic/
   - /field-types/mapping-parameters/dynamic/
   - /mappings/mapping-parameters/dynamic/
-canonical_url: https://docs.opensearch.org/latest/field-types/dynamic/
+canonical_url: https://docs.opensearch.org/latest/mappings/mapping-parameters/dynamic/
 ---
 
 # Dynamic parameter
