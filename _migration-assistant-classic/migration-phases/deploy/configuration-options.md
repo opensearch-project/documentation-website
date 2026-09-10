@@ -5,7 +5,8 @@ nav_order: 1
 grand_parent: Migration phases
 parent: Deploy
 permalink: /classic/migration-assistant/migration-phases/deploy/configuration-options/
-canonical_url: https://docs.opensearch.org/latest/migration-assistant-classic/migration-phases/deploy/configuration-options/
+canonical_url: https://docs.opensearch.org/latest/classic/migration-assistant/migration-phases/deploy/configuration-options/
+redirect_to: https://docs.opensearch.org/latest/classic/migration-assistant/migration-phases/deploy/configuration-options/
 ---
 
 # Configuration options

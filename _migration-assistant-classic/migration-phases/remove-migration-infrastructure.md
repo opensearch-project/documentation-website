@@ -4,7 +4,8 @@ title: Removing Migration Assistant
 nav_order: 9
 parent: Migration phases
 permalink: /classic/migration-assistant/migration-phases/remove-migration-infrastructure/
-canonical_url: https://docs.opensearch.org/latest/migration-assistant-classic/migration-phases/remove-migration-infrastructure/
+canonical_url: https://docs.opensearch.org/latest/classic/migration-assistant/migration-phases/remove-migration-infrastructure/
+redirect_to: https://docs.opensearch.org/latest/classic/migration-assistant/migration-phases/remove-migration-infrastructure/
 ---
 
 # Removing migration infrastructure

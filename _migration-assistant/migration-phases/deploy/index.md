@@ -11,6 +11,7 @@ redirect_from:
   - /deploying-migration-assistant/
   - /migration-assistant/deploying-migration-assistant/
 canonical_url: https://docs.opensearch.org/latest/migration-assistant/migration-phases/deploy/
+redirect_to: https://docs.opensearch.org/latest/migration-assistant/migration-phases/deploy/
 ---
 
 # Choose your deployment

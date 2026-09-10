@@ -3,6 +3,7 @@ layout: default
 title: Java client
 nav_order: 30
 canonical_url: https://docs.opensearch.org/latest/clients/java/
+redirect_to: https://docs.opensearch.org/latest/clients/java/
 ---
 
 # Java client

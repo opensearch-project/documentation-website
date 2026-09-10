@@ -5,6 +5,7 @@ parent: Workload reference
 grand_parent: Reference
 nav_order: 110
 canonical_url: https://docs.opensearch.org/latest/benchmark/reference/workloads/test-procedures/
+redirect_to: https://docs.opensearch.org/latest/benchmark/reference/workloads/test-procedures/
 ---
 
 <!-- vale off -->

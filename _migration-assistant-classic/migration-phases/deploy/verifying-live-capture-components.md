@@ -5,7 +5,8 @@ grand_parent: Migration phases
 nav_order: 4
 parent: Deploy
 permalink: /classic/migration-assistant/migration-phases/deploy/verifying-live-capture-components/
-canonical_url: https://docs.opensearch.org/latest/migration-assistant-classic/migration-phases/deploy/verifying-live-capture-components/
+canonical_url: https://docs.opensearch.org/latest/classic/migration-assistant/migration-phases/deploy/verifying-live-capture-components/
+redirect_to: https://docs.opensearch.org/latest/classic/migration-assistant/migration-phases/deploy/verifying-live-capture-components/
 ---
 
 # Verifying live capture components

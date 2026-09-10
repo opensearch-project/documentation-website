@@ -5,7 +5,8 @@ grand_parent: Migration phases
 nav_order: 3
 parent: Deploy
 permalink: /classic/migration-assistant/migration-phases/deploy/verifying-backfill-components/
-canonical_url: https://docs.opensearch.org/latest/migration-assistant-classic/migration-phases/deploy/verifying-backfill-components/
+canonical_url: https://docs.opensearch.org/latest/classic/migration-assistant/migration-phases/deploy/verifying-backfill-components/
+redirect_to: https://docs.opensearch.org/latest/classic/migration-assistant/migration-phases/deploy/verifying-backfill-components/
 ---
 
 # Verifying backfill components
