@@ -4,7 +4,7 @@ title: Date
 nav_order: 25
 has_children: false
 parent: Supported field types
-canonical_url: https://docs.opensearch.org/latest/field-types/supported-field-types/date/
+canonical_url: https://docs.opensearch.org/latest/mappings/supported-field-types/date/
 redirect_from:
   - /field-types/date/
   - /field-types/supported-field-types/date/

@@ -5,7 +5,7 @@ nav_order: 47
 has_children: false
 parent: String field types
 grand_parent: Supported field types
-canonical_url: https://docs.opensearch.org/latest/field-types/supported-field-types/text/
+canonical_url: https://docs.opensearch.org/latest/mappings/supported-field-types/text/
 redirect_from:
   - /field-types/supported-field-types/text/
   - /field-types/text/

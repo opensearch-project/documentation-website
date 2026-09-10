@@ -8,7 +8,7 @@ redirect_from:
   - /migrate-or-upgrade/
   - /migrate-or-upgrade/index/
   - /upgrade-or-migrate/
-canonical_url: https://docs.opensearch.org/latest/install-and-configure/upgrade-opensearch/index/
+canonical_url: https://docs.opensearch.org/latest/migrate-or-upgrade/
 ---
 
 # Upgrading OpenSearch
