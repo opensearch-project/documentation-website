@@ -5,6 +5,7 @@ nav_order: 45
 parent: Reference
 redirect_from:
   - /benchmark/user-guide/understanding-results/telemetry/
+  - /benchmark/user-guide/telemetry/
 ---
 
 # Telemetry devices
