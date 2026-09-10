@@ -4,7 +4,7 @@ title: Numeric field types
 parent: Supported field types
 nav_order: 15
 has_children: false
-canonical_url: https://docs.opensearch.org/latest/field-types/supported-field-types/numeric/
+canonical_url: https://docs.opensearch.org/latest/mappings/supported-field-types/numeric/
 redirect_from:
   - /field-types/numeric/
   - /field-types/supported-field-types/numeric/

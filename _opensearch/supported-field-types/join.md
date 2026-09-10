@@ -5,7 +5,7 @@ nav_order: 43
 has_children: false
 parent: Object field types
 grand_parent: Supported field types
-canonical_url: https://docs.opensearch.org/latest/field-types/supported-field-types/join/
+canonical_url: https://docs.opensearch.org/latest/mappings/supported-field-types/join/
 redirect_from:
   - /field-types/join/
   - /field-types/supported-field-types/join/
