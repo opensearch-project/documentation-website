@@ -6,7 +6,7 @@ parent: k-NN search
 grand_parent: Search methods
 has_children: false
 has_math: true
-canonical_url: https://docs.opensearch.org/latest/search-plugins/knn/approximate-knn/
+canonical_url: https://docs.opensearch.org/latest/vector-search/vector-search-techniques/approximate-knn/
 redirect_from:
   - /vector-search/vector-search-techniques/approximate-knn/
 ---
