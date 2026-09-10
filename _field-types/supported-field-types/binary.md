@@ -8,7 +8,7 @@ redirect_from:
   - /opensearch/supported-field-types/binary/
   - /field-types/binary/
   - /mappings/supported-field-types/binary/
-canonical_url: https://docs.opensearch.org/latest/field-types/supported-field-types/binary/
+canonical_url: https://docs.opensearch.org/latest/mappings/supported-field-types/binary/
 ---
 
 # Binary field type

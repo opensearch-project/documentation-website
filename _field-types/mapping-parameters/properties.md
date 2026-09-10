@@ -6,7 +6,7 @@ grand_parent: Mapping and field types
 nav_order: 150
 has_children: false
 has_toc: false
-canonical_url: https://docs.opensearch.org/latest/field-types/mapping-parameters/properties/
+canonical_url: https://docs.opensearch.org/latest/mappings/mapping-parameters/properties/
 redirect_from:
   - /mappings/mapping-parameters/properties/
 ---

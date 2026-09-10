@@ -10,7 +10,7 @@ redirect_from:
   - /search-plugins/sql/sql/
   - /sql-and-ppl/sql/
   - /sql-and-ppl/sql/index/
-canonical_url: https://docs.opensearch.org/latest/search-plugins/sql/sql/index/
+canonical_url: https://docs.opensearch.org/latest/sql-and-ppl/sql/index/
 ---
 
 # SQL

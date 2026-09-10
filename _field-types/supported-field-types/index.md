@@ -10,7 +10,7 @@ redirect_from:
   - /mappings/supported-field-types/index/
   - /mappings/supported-field-types/
   - /field-types/supported-field-types/
-canonical_url: https://docs.opensearch.org/latest/field-types/supported-field-types/index/
+canonical_url: https://docs.opensearch.org/latest/mappings/supported-field-types/index/
 ---
 
 # Supported field types

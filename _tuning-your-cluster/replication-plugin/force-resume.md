@@ -3,6 +3,7 @@ layout: default
 title: Force-resume
 nav_order: 25
 parent: Cross-cluster replication
+canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/replication-plugin/force-resume/
 ---
 
 # Force-resume replication
