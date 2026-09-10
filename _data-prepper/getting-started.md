@@ -5,6 +5,7 @@ nav_order: 5
 redirect_from:
   - /clients/data-prepper/get-started/
 canonical_url: https://docs.opensearch.org/latest/data-prepper/getting-started/
+redirect_to: https://docs.opensearch.org/latest/data-prepper/getting-started/
 ---
 
 # Getting started with OpenSearch Data Prepper

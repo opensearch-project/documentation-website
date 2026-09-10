@@ -5,6 +5,7 @@ parent: Processors
 grand_parent: Pipelines
 nav_order: 30
 canonical_url: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/processors/anomaly-detector/
+redirect_to: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/processors/anomaly-detector/
 ---
 
 # Anomaly detector processor
