@@ -2,7 +2,7 @@
 layout: default
 title: Using snapshots to migrate data
 nav_order: 5
-canonical_url: https://docs.opensearch.org/latest/upgrade-to/snapshot-migrate/
+canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/
 ---
 
 # Using snapshots to migrate data

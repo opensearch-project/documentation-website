@@ -2,7 +2,7 @@
 layout: default
 title: Explain
 nav_order: 30
-canonical_url: https://docs.opensearch.org/latest/api-reference/explain/
+canonical_url: https://docs.opensearch.org/latest/api-reference/search-apis/explain/
 redirect_from:
   - /api-reference/search-apis/explain/
   - /opensearch/rest-api/explain/

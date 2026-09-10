@@ -3,7 +3,7 @@ layout: default
 title: Language analyzers
 nav_order: 45
 parent: Text analyzers
-canonical_url: https://docs.opensearch.org/latest/analyzers/language-analyzers/
+canonical_url: https://docs.opensearch.org/latest/analyzers/language-analyzers/index/
 redirect_from:
   - /analyzers/language-analyzers/
   - /analyzers/language-analyzers/index/

@@ -8,7 +8,7 @@ redirect_from:
   - /opensearch/supported-field-types/boolean/
   - /field-types/boolean/
   - /mappings/supported-field-types/boolean/
-canonical_url: https://docs.opensearch.org/latest/field-types/supported-field-types/boolean/
+canonical_url: https://docs.opensearch.org/latest/mappings/supported-field-types/boolean/
 ---
 
 # Boolean field type
