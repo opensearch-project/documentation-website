@@ -3,7 +3,7 @@ layout: default
 title: Quickstart guide for OpenSearch Dashboards
 nav_order: 10
 has_children: false
-canonical_url: https://docs.opensearch.org/latest/dashboards/quickstart/
+canonical_url: https://docs.opensearch.org/latest/dashboards/getting-started/index/
 ---
 
 # Quickstart guide for OpenSearch Dashboards
