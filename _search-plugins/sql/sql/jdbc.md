@@ -8,7 +8,7 @@ redirect_from:
   - /search-plugins/sql/jdbc/
 
   - /sql-and-ppl/sql/jdbc/
-canonical_url: https://docs.opensearch.org/latest/search-plugins/sql/sql/jdbc/
+canonical_url: https://docs.opensearch.org/latest/sql-and-ppl/sql/jdbc/
 ---
 
 # JDBC driver

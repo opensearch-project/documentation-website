@@ -3,7 +3,7 @@ layout: default
 title: Fine-tuning custom workloads
 nav_order: 12
 parent: User guide
-canonical_url: https://docs.opensearch.org/latest/benchmark/user-guide/finetine-workloads/
+canonical_url: https://docs.opensearch.org/latest/benchmark/finetune-workloads/
 redirect_from:
   - /benchmark/user-guide/working-with-workloads/finetune-workloads/
 redirect_to: https://docs.opensearch.org/latest/benchmark/finetune-workloads/
