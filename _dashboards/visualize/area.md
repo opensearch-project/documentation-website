@@ -3,7 +3,7 @@ layout: default
 title: Using area charts
 parent: Building data visualizations
 nav_order: 5
-canonical_url: https://docs.opensearch.org/latest/dashboards/visualize/area/
+canonical_url: https://docs.opensearch.org/latest/dashboards/visualize/visualize-app/area/
 redirect_from:
   - /dashboards/visualize/visualize-app/area/
 ---

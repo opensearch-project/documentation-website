@@ -4,7 +4,7 @@ title: Alias
 nav_order: 10
 has_children: false
 parent: Supported field types
-canonical_url: https://docs.opensearch.org/latest/field-types/supported-field-types/alias/
+canonical_url: https://docs.opensearch.org/latest/mappings/supported-field-types/alias/
 redirect_from:
   - /field-types/alias/
   - /field-types/supported-field-types/alias/

@@ -5,7 +5,7 @@ nav_order: 50
 has_children: true
 has_toc: false
 parent: Supported field types
-canonical_url: https://docs.opensearch.org/latest/field-types/supported-field-types/autocomplete/
+canonical_url: https://docs.opensearch.org/latest/mappings/supported-field-types/autocomplete/
 redirect_from:
   - /field-types/autocomplete/
   - /mappings/supported-field-types/autocomplete/
