@@ -4,7 +4,7 @@ title: Reroute client traffic
 nav_order: 3
 parent: Migration phases
 permalink: /classic/migration-assistant/migration-phases/reroute-source-to-proxy/
-canonical_url: https://docs.opensearch.org/latest/migration-assistant-classic/migration-phases/reroute-source-to-proxy/
+canonical_url: https://docs.opensearch.org/latest/classic/migration-assistant/migration-phases/reroute-source-to-proxy/
 redirect_to: https://docs.opensearch.org/latest/classic/migration-assistant/migration-phases/reroute-source-to-proxy/
 ---
 

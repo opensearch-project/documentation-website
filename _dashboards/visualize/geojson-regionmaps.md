@@ -8,7 +8,7 @@ redirect_from:
   - /dashboards/geojson-regionmaps/
   - /dashboards/visualize/region-maps/
   - /dashboards/visualize/visualize-app/region-maps/
-canonical_url: https://docs.opensearch.org/latest/dashboards/visualize/geojson-regionmaps/
+canonical_url: https://docs.opensearch.org/latest/dashboards/visualize/visualize-app/region-maps/
 ---
 
 # Using coordinate and region maps
