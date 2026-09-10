@@ -5,6 +5,7 @@ parent: Processors
 grand_parent: Pipelines
 nav_order: 280
 canonical_url: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/processors/parse-ion/
+redirect_to: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/processors/parse-ion/
 ---
 
 # Parse Ion processor

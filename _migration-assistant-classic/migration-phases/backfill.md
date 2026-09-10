@@ -4,7 +4,8 @@ title: Backfill
 nav_order: 6
 parent: Migration phases
 permalink: /classic/migration-assistant/migration-phases/backfill/
-canonical_url: https://docs.opensearch.org/latest/migration-assistant-classic/migration-phases/backfill/
+canonical_url: https://docs.opensearch.org/latest/classic/migration-assistant/migration-phases/backfill/
+redirect_to: https://docs.opensearch.org/latest/classic/migration-assistant/migration-phases/backfill/
 ---
 
 # Using backfill

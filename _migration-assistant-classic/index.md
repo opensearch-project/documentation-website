@@ -20,7 +20,8 @@ items:
   - heading: "Execute your migration in phases"
     description: "A step-by-step guide for performing a migration."
     link: "/classic/migration-assistant/migration-phases/"
-canonical_url: https://docs.opensearch.org/latest/migration-assistant-classic/
+canonical_url: https://docs.opensearch.org/latest/classic/migration-assistant/
+redirect_to: https://docs.opensearch.org/latest/classic/migration-assistant/
 ---
 
 # ![Migration Assistant icon]({{site.url}}{{site.baseurl}}/images/icons/MigrationUpgrade_Color_Icon.svg){: .heading-icon} Migration Assistant for OpenSearch (Classic)

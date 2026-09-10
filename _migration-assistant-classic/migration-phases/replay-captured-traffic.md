@@ -4,7 +4,8 @@ title: Using Traffic Replayer
 nav_order: 7
 parent: Migration phases
 permalink: /classic/migration-assistant/migration-phases/replay-captured-traffic/
-canonical_url: https://docs.opensearch.org/latest/migration-assistant-classic/migration-phases/replay-captured-traffic/
+canonical_url: https://docs.opensearch.org/latest/classic/migration-assistant/migration-phases/replay-captured-traffic/
+redirect_to: https://docs.opensearch.org/latest/classic/migration-assistant/migration-phases/replay-captured-traffic/
 ---
 
 # Using Traffic Replayer
