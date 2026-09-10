@@ -3,7 +3,7 @@ layout: default
 title: Conversational search with Cohere Command
 parent: Tutorials
 nav_order: 20
-canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/tutorials/conversational-search-cohere/
+canonical_url: https://docs.opensearch.org/latest/tutorials/gen-ai/rag/conversational-search-cohere/
 redirect_from:
   - /tutorials/gen-ai/rag/conversational-search-cohere/
   - /tutorials/vector-search/rag/conversational-search/conversational-search-cohere/

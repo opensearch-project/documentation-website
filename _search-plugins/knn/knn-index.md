@@ -5,7 +5,7 @@ nav_order: 5
 parent: k-NN search
 grand_parent: Search methods
 has_children: false
-canonical_url: https://docs.opensearch.org/latest/search-plugins/knn/knn-index/
+canonical_url: https://docs.opensearch.org/latest/vector-search/creating-vector-index/
 redirect_from:
   - /vector-search/creating-a-vector-db/
   - /vector-search/creating-vector-index/

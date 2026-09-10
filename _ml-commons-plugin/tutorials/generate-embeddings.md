@@ -3,7 +3,7 @@ layout: default
 title: Generating embeddings
 parent: Tutorials
 nav_order: 5
-canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/tutorials/generate-embeddings/
+canonical_url: https://docs.opensearch.org/latest/tutorials/vector-search/vector-operations/generate-embeddings/
 redirect_from:
   - /tutorials/vector-search/vector-operations/generate-embeddings/
   - /vector-search/tutorials/vector-operations/generate-embeddings/
