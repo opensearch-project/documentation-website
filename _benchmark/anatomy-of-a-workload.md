@@ -10,6 +10,7 @@ redirect_from:
   - /benchmark/reference/workloads/index/
   - /benchmark/workloads/
   - /benchmark/workloads/index/
+  - /benchmark/user-guide/understanding-workloads/
 ---
 
 # Anatomy of a workload

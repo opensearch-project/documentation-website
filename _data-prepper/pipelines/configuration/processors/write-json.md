@@ -4,6 +4,8 @@ title: Write JSON
 parent: Processors
 grand_parent: Pipelines
 nav_order: 440
+redirect_from:
+  - /data-prepper/pipelines/configuration/processors/write_json/
 ---
 
 # Write JSON processor
