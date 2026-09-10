@@ -3,11 +3,12 @@ layout: default
 title: Metrics
 nav_order: 25
 has_children: true
-canonical_url: https://docs.opensearch.org/latest/benchmark/metrics/
+canonical_url: https://docs.opensearch.org/latest/benchmark/reference/metrics/index/
 redirect_from:
   - /benchmark/metrics/
   - /benchmark/reference/metrics/
   - /benchmark/reference/metrics/index/
+redirect_to: https://docs.opensearch.org/latest/benchmark/reference/metrics/index/
 ---
 
 # Metrics

@@ -8,7 +8,7 @@ redirect_from:
   - /search-plugins/knn/
   - /vector-search/vector-search-techniques/
   - /vector-search/vector-search-techniques/index/
-canonical_url: https://docs.opensearch.org/latest/search-plugins/knn/index/
+canonical_url: https://docs.opensearch.org/latest/vector-search/vector-search-techniques/index/
 ---
 
 # k-NN
