@@ -3,7 +3,7 @@ layout: default
 title: Settings
 parent: k-NN search
 nav_order: 40
-canonical_url: https://docs.opensearch.org/latest/search-plugins/knn/settings/
+canonical_url: https://docs.opensearch.org/latest/vector-search/settings/
 redirect_from:
   - /vector-search/settings/
 ---

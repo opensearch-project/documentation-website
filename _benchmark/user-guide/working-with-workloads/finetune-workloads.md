@@ -6,7 +6,7 @@ grand_parent: User guide
 parent: Working with workloads
 redirect_from: 
   - /benchmark/user-guide/finetine-workloads/
-canonical_url: https://docs.opensearch.org/latest/benchmark/user-guide/working-with-workloads/finetune-workloads/
+canonical_url: https://docs.opensearch.org/latest/benchmark/finetune-workloads/
 redirect_to: https://docs.opensearch.org/latest/benchmark/finetune-workloads/
 ---
 
