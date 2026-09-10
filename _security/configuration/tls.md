@@ -287,10 +287,10 @@ Only a [superadmin]({{site.url}}{{site.baseurl}}/security/configuration/tls/#con
 
  The following command reloads TLS certificates on the transport layer using the Reload Certificates API:
 
-```json
+```bash
 curl --cacert <ca.pem> --cert <admin.pem> --key <admin.key> -XPUT https://localhost:9200/_plugins/_security/api/ssl/transport/reloadcerts
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 You should receive the following response:
 
@@ -302,10 +302,10 @@ You should receive the following response:
 
 The following command reloads TLS certificates on the HTTP layer using the Reload Certificates API:
 
-```json
+```bash
 curl --cacert <ca.pem> --cert <admin.pem> --key <admin.key> -XPUT https://localhost:9200/_plugins/_security/api/ssl/http/reloadcerts
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 You should receive the following response:
 

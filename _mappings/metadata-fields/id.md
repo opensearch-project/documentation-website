@@ -14,14 +14,21 @@ Each document in OpenSearch has a unique `_id` field. This field is indexed, all
 If you do not provide an `_id` value, then OpenSearch automatically generates one for the document.
 {: .note}
 
-The following example request creates an index named `test-index1` and adds two documents with different `_id` values:
+The following example requests create an index named `test-index1` and add two documents with different `_id` values.
+
+The first request adds a document with an `_id` of `1`:
 
 ```json
 PUT test-index1/_doc/1
 {
   "text": "Document with ID 1"
 }
+```
+{% include copy-curl.html %}
 
+The second request adds a document with an `_id` of `2` and refreshes the index so that both documents are immediately searchable:
+
+```json
 PUT test-index1/_doc/2?refresh=true
 {
   "text": "Document with ID 2"

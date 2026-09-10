@@ -340,7 +340,7 @@ curl -XPUT -k -u 'admin:<custom-admin-password>' \
   -H 'Content-Type: application/json' \
   -d '{"password":"password"}'
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 Using the following command, map the new user to the `forecast_full_access` role:
 
@@ -350,7 +350,7 @@ curl -XPUT -k -u 'admin:<custom-admin-password>' \
   -H 'Content-Type: application/json' \
   -d '{"users":["forecastuser"]}'
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 In the remote cluster, create the same user and map `forecast_full_access` to that role, as shown in the following command:
 
@@ -439,7 +439,7 @@ curl -X PUT "https://localhost:9200/_cluster/settings" \
     }
   }'
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 
 - Replace `127.0.0.1` with the remote node's transport layer IP if it's located on a different host.
