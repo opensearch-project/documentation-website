@@ -1,6 +1,6 @@
 ---
 layout: default
-title: OTLP source
+title: OTLP
 parent: Sources
 grand_parent: Pipelines
 nav_order: 85
