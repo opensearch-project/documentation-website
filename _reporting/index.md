@@ -14,4 +14,5 @@ redirect_from:
 OpenSearch lets you generate and schedule reports from dashboards, visualizations, and saved searches, either through OpenSearch Dashboards or from the command line. Learn more about the following reporting features:
 
 - [Reporting using OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/reporting/report-dashboard-index/) 
+- [Reporting API]({{site.url}}{{site.baseurl}}/reporting/api/)
 - [Reporting using the CLI]({{site.url}}{{site.baseurl}}/reporting/rep-cli-index/)
