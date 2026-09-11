@@ -360,6 +360,12 @@ POST {osd_host}:{port}/w/{workspace_id}/api/saved_objects/_export
 
 The same path prefix associates imported objects with a workspace, so you can use it in place of the `workspaces` query parameter of the [Import Saved Objects API](#import-saved-objects).
 
+A request sent to a workspace path can export the objects of that workspace and objects that belong to no workspace. Requesting an object of a different workspace in `objects` returns the following error:
+
+```json
+{"statusCode": 400, "error": "Bad Request", "message": "Bad Request", "attributes": {"objects": [{"id": "test-viz", "type": "visualization", "attributes": {}, "references": [], "error": {"statusCode": 403, "error": "Forbidden", "message": "Saved object does not belong to the workspace"}}]}}
+```
+
 ### Example request
 
 The following request exports one visualization along with the index pattern it references:
