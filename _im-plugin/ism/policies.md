@@ -61,9 +61,9 @@ Actions are the steps that the policy sequentially executes on entering a specif
 
 ISM executes actions in the order in which they are defined. For example, if you define actions `[A,B,C,D]`, ISM executes action `A`, and then goes into a sleep period based on the cluster setting `plugins.index_state_management.job_interval`. Once the sleep period ends, ISM continues to execute the remaining actions. However, if ISM cannot successfully execute action `A`, the operation ends, and actions `B`, `C`, and `D` do not get executed.
 
-Optionally, you can define an action's timeout period, which, if exceeded, forcibly fails the action. The timeout covers the whole action, not a single attempt: the clock starts when ISM begins the action and keeps running through every step, retry, and retry delay, including any time that the action spends waiting for its conditions to be met.
+Optionally, you can define an action's timeout period. When the timeout expires, ISM fails the action. The timeout covers the whole action, not a single attempt: the clock starts when ISM begins the action and keeps running through every step, retry, and retry delay, including the time between job runs while the action waits for its conditions to be met.
 
-ISM checks the clock only when the managed index job runs, which is every 5 minutes by default. For example, a [Rollover](#rollover) operation with `min_index_age` set to `1d` evaluates that condition on each job run until the index is one day old, so a `timeout` of `1h` expires long before the index can meet the condition.
+ISM checks the clock only when the managed index job runs, which is every 5 minutes by default. For example, a [rollover](#rollover) operation with `min_index_age` set to `1d` evaluates `min_index_age` on each job run until the index is one day old. A `timeout` of `1h` therefore causes the action to fail before the index can meet the condition.
 
 When the timeout expires, ISM marks the action as failed and stops managing the index until you call the Retry failed index API, which restarts the action and its clock. A timeout does not stop work that ISM already started or undo changes that the action already made.
 
