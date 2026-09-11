@@ -16,6 +16,8 @@ OpenSearch offers several ways to improve search performance, from foundational 
 
 - Control shard selection for optimized query routing with [search shard routing]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/search-shard-routing/).
 
+- Skip indexes that cannot contain matching documents using [index-level search pruning]({{site.url}}{{site.baseurl}}/search-plugins/index-level-search-pruning/) for time-series workloads.
+
 - Run resource-intensive queries asynchronously with [asynchronous search]({{site.url}}{{site.baseurl}}/search-plugins/async/) to avoid timeouts.
 
 - Improve aggregation performance using a [star-tree index]({{site.url}}{{site.baseurl}}/search-plugins/star-tree-index/) for analytical workloads.
