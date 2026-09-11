@@ -76,7 +76,7 @@ Determine whether any additional YAML files need modification, for example, the 
 
 ## Set a password policy
 
-When using the internal user database, we recommend enforcing a password policy to ensure that strong passwords are used. For information about strong password policies, see [Password settings]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#password-settings).
+When using the internal user database, we recommend enforcing a password policy to ensure that strong passwords are used. For information about configuring a policy, see [Password settings]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#password-settings). For an overview of the passwords in a cluster, who sets each one, and how to change them, see [Managing passwords]({{site.url}}{{site.baseurl}}/security/configuration/passwords/).
 
 ## Apply changes using the `securityadmin` script
 

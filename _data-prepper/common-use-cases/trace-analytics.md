@@ -420,7 +420,7 @@ services:
 {% include copy.html %}
 
 
-Follow the [password requirements]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/#password-requirements) to set a strong admin password.
+Follow the [admin password requirements]({{site.url}}{{site.baseurl}}/security/configuration/demo-configuration/#admin-password-requirements) to set a strong admin password.
 {: .note}
 
 `pipelines/pipelines.yaml` file:

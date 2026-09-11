@@ -2,7 +2,7 @@
 layout: default
 title: Best practices
 parent: Configuration
-nav_order: 3
+nav_order: 5
 ---
 
 # Best practices for OpenSearch security

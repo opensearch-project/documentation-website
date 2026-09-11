@@ -182,7 +182,7 @@ APT, the primary package management tool for Debian–based operating systems, a
      ```
      {% include copy.html %}
 
-     For more information, see the [password requirements]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/#password-requirements).
+     For more information, see the [admin password requirements]({{site.url}}{{site.baseurl}}/security/configuration/demo-configuration/#admin-password-requirements).
      {: .note}
 
    - To install a specific version of OpenSearch.

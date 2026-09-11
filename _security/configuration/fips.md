@@ -2,7 +2,7 @@
 layout: default
 title: OpenSearch FIPS configuration
 parent: Configuration
-nav_order: 20
+nav_order: 55
 ---
 
 # OpenSearch FIPS configuration

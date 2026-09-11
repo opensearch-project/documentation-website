@@ -28,7 +28,7 @@ To reduce the chances of unintended users viewing metadata that describes an ind
 
 Use backend roles to configure fine-grained access to individual workflows based on roles. For example, users in different departments of an organization can view workflows owned by their own department.
 
-First, make sure your users have the appropriate [backend roles]({{site.url}}{{site.baseurl}}/security/access-control/index/). Backend roles usually come from an [LDAP server]({{site.url}}{{site.baseurl}}/security/configuration/ldap/) or [SAML provider]({{site.url}}{{site.baseurl}}/security/configuration/saml/), but if you use an internal user database, you can [create users manually using the API]({{site.url}}{{site.baseurl}}/security/access-control/api#create-user).
+First, make sure your users have the appropriate [backend roles]({{site.url}}{{site.baseurl}}/security/access-control/index/). Backend roles usually come from an [LDAP server]({{site.url}}{{site.baseurl}}/security/configuration/ldap/) or [SAML provider]({{site.url}}{{site.baseurl}}/security/configuration/saml/), but if you use an internal user database, you can [create users manually using the API]({{site.url}}{{site.baseurl}}/security/api/users/create-user/).
 
 Next, enable the following setting:
 
