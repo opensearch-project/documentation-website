@@ -37,27 +37,13 @@ PUT /electronics
 2. Add documents to the `electronics` index using the following request:
 
 ```json
-PUT /electronics/_doc/1?refresh
-{
-  "brand": "BrandA",
-  "category": "Smartphone",
-  "price": 699.99,
-  "features": ["5G", "Dual Camera"]
-}
-PUT /electronics/_doc/2?refresh
-{
-  "brand": "BrandA",
-  "category": "Laptop",
-  "price": 1199.99,
-  "features": ["Touchscreen", "16GB RAM"]
-}
-PUT /electronics/_doc/3?refresh
-{
-  "brand": "BrandB",
-  "category": "Smartphone",
-  "price": 799.99,
-  "features": ["5G", "Triple Camera"]
-}
+POST /_bulk?refresh
+{ "index": { "_index": "electronics", "_id": "1" } }
+{ "brand": "BrandA", "category": "Smartphone", "price": 699.99, "features": ["5G", "Dual Camera"] }
+{ "index": { "_index": "electronics", "_id": "2" } }
+{ "brand": "BrandA", "category": "Laptop", "price": 1199.99, "features": ["Touchscreen", "16GB RAM"] }
+{ "index": { "_index": "electronics", "_id": "3" } }
+{ "brand": "BrandB", "category": "Smartphone", "price": 799.99, "features": ["5G", "Triple Camera"] }
 ```
 {% include copy-curl.html %}
 

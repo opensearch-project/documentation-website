@@ -158,10 +158,9 @@ response = client.indices.rollover(
 
 ### Rolling over an index alias with a write index
 
-The following request creates a date-time index and sets it as the write index for `my-alias`:
+The following request creates a date-time index and sets it as the write index for `my-alias`. The index name must be URL encoded: `%3Cmy-index-%7Bnow%2Fd%7D-000001%3E` is the encoded form of `<my-index-{now/d}-000001>`, and `{now/d}` resolves to the current date:
 
 ```json
-PUT <my-index-{now/d}-000001>
 PUT %3Cmy-index-%7Bnow%2Fd%7D-000001%3E
 {
   "aliases": {

@@ -226,7 +226,7 @@ curl -XPOST "http://localhost:9202/opensearch/_bulk" \
 {"delete":{"_index":"movies","_id":"2"}}
 '
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 <!-- vale off -->
 ### Sending data using opensearch-py

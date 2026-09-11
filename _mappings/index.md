@@ -270,7 +270,6 @@ To get a mapping for a specific field, provide the index name and the field name
 GET _mapping/field/{fields}
 GET /{index}/_mapping/field/{fields}
 ```
-{% include copy-curl.html %}
 
 Both `<index>` and `<fields>` can be specified as either one value or a comma-separated list. For example, the following request retrieves the mapping for the `year` and `age` fields in `sample-index1`:
 

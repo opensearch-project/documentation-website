@@ -21,7 +21,6 @@ The following requests **simulate the latest ingest pipeline created**:
 GET _ingest/pipeline/_simulate
 POST _ingest/pipeline/_simulate
 ```
-{% include copy-curl.html %}
 
 The following requests **simulate a single pipeline based on the pipeline ID**:
 
@@ -29,7 +28,6 @@ The following requests **simulate a single pipeline based on the pipeline ID**:
 GET _ingest/pipeline/{pipeline-id}/_simulate
 POST _ingest/pipeline/{pipeline-id}/_simulate
 ```
-{% include copy-curl.html %}
 
 ## Request body fields
 
