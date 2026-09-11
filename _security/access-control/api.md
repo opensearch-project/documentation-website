@@ -126,26 +126,14 @@ Role-specific endpoint restrictions apply to the general-access path. A matching
 Possible values for `endpoint` are:
 
 - `ACTIONGROUPS`
-- `ALLOWLIST`
-- `APITOKENS`
-- `AUDIT`
-- `AUTHTOKEN`
-- `CACHE`
-- `CONFIG`
-- `INTERNALUSERS`
-- `MIGRATE`
-- `NODESDN`
-- `PERMISSIONSINFO`
-- `RATELIMITERS`
-- `RESOURCE_SHARING`
 - `ROLES`
 - `ROLESMAPPING`
-- `ROLLBACK_VERSION`
-- `SSL`
+- `INTERNALUSERS`
+- `CONFIG`
+- `CACHE`
 - `SYSTEMINFO`
-- `TENANTS`
-- `VALIDATE`
-- `VIEW_VERSION`
+- `NODESDN`
+- `SSL`
 
 Possible values for `method` are:
 
@@ -155,12 +143,12 @@ Possible values for `method` are:
 - `DELETE`
 - `PATCH`
 
-For example, the following configuration grants `rest_api_user` general API access but blocks all methods for the roles and tenants endpoints:
+For example, the following configuration grants `rest_api_user` general API access but blocks all methods for the roles and internal users endpoints:
 
 ```yml
 plugins.security.restapi.roles_enabled: ["rest_api_user"]
 plugins.security.restapi.endpoints_disabled.rest_api_user.ROLES: ["*"]
-plugins.security.restapi.endpoints_disabled.rest_api_user.TENANTS: ["*"]
+plugins.security.restapi.endpoints_disabled.rest_api_user.INTERNALUSERS: ["*"]
 ```
 {% include copy.html %}
 
