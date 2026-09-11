@@ -106,12 +106,33 @@ The Neural Search plugin supports the following settings.
 
 ### Cluster settings
 
-The following Neural Search plugin settings apply at the cluster level:
+The following Neural Search plugin settings apply at the cluster level. Dynamic settings are updated using the [Cluster Settings API]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/#updating-cluster-settings-using-the-api); static settings must be configured in `opensearch.yml` on each node:
 
 - `plugins.neural_search.stats_enabled` (Dynamic, Boolean): Enables the [Neural Search Stats API]({{site.url}}{{site.baseurl}}/vector-search/api/neural/#stats). Default is `false`.
-- `plugins.neural_search.circuit_breaker.limit` (Dynamic, percentage): Specifies the JVM memory limit for the [neural sparse ANN search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/) circuit breaker. Default is `10%` of the JVM heap. For more information, see [Memory and caching settings]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/#memory-and-caching-settings).
-- `plugins.neural_search.circuit_breaker.overhead` (Dynamic, float): A multiplier used to adjust memory usage estimates for [neural sparse ANN search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/). Higher values provide more conservative memory estimates. Default is `1.0`. 
-- `plugins.neural_search.sparse.algo_param.index_thread_qty` (Dynamic, integer): The number of threads used for building indexes for [neural sparse ANN search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/). Increasing this value allocates more CPUs to the index build job and boosts indexing performance. Default is `1`. For more information, see [Thread pool configuration]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/#thread-pool-configuration).
+- `plugins.neural_search.circuit_breaker.limit` (Dynamic, percentage): Specifies the JVM memory limit for the [neural sparse ANN search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/) circuit breaker. This limit bounds the JVM heap caches used by the Lucene engine only and has no effect on the native engine, which relies on operating system page cache instead. Default is `10%` of the JVM heap. For more information, see [Memory and caching settings]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/#memory-and-caching-settings).
+- `plugins.neural_search.circuit_breaker.overhead` (Dynamic, Float): A multiplier used to adjust memory usage estimates for [neural sparse ANN search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/). Higher values provide more conservative memory estimates. Like `plugins.neural_search.circuit_breaker.limit`, this setting applies to the Lucene engine only. Default is `1.0`. 
+- `plugins.neural_search.sparse.algo_param.index_thread_qty` (Dynamic, Integer): The number of threads used for building indexes for [neural sparse ANN search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/). Increasing this value allocates more CPUs to the index build job and boosts indexing performance. Valid values are in the range `1--1024`. This setting applies to both the Lucene engine and the native engine. Default is `1`. For more information, see [Thread pool configuration]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/#thread-pool-configuration).
+- `plugins.neural_search.sparse.native_engine_feature_enabled` (Static, Boolean): Whether the [native engine]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/#native-engine) for neural sparse ANN search is available. Because this setting is static, configure it in `opensearch.yml` on each node; changing it requires a node restart. Introduced 3.9. Default is `true`.
+- `plugins.neural_search.sparse.native_engine_enabled` (Dynamic, Boolean): The runtime gate for the [native engine]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/#native-engine) for neural sparse ANN search. Introduced 3.9. Default is `false`.
+
+#### Enabling the native engine
+**Introduced 3.9**
+{: .label .label-purple }
+
+Both `plugins.neural_search.sparse.native_engine_feature_enabled` and `plugins.neural_search.sparse.native_engine_enabled` must be `true` before a field can use the native engine. Because `plugins.neural_search.sparse.native_engine_enabled` defaults to `false`, the native engine is opt-in:
+
+```json
+PUT _cluster/settings
+{
+  "persistent": {
+    "plugins.neural_search.sparse.native_engine_enabled": true
+  }
+}
+```
+{% include copy-curl.html %}
+
+No setting bounds the amount of memory that a native engine index uses. The native engine reads its index from a memory-mapped file, so to size a node for the native engine, leave enough RAM for operating system page cache, the same as for any other memory-mapped Lucene data. For guidance on choosing between the two engines, see [Choosing an engine]({{site.url}}{{site.baseurl}}/vector-search/performance-tuning-sparse/#choosing-an-engine).
+{: .note}
 
 ### Index settings
 
