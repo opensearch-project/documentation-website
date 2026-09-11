@@ -1,7 +1,7 @@
 ---
 layout: default
 title: "Amazon OpenSearch Service → Amazon OpenSearch Serverless NextGen"
-nav_order: 2
+nav_order: 3
 parent: Playbooks
 permalink: /migration-assistant/playbook-amazon-opensearch-service-to-serverless/
 ---

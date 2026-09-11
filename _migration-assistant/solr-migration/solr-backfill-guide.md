@@ -10,6 +10,9 @@ permalink: /migration-assistant/solr-migration/solr-backfill-guide/
 
 To migrate documents from Apache Solr to OpenSearch, use the snapshot-based backfill workflow. For the overall Solr migration architecture, see [Solr migration overview]({{site.url}}{{site.baseurl}}/migration-assistant/solr-migration/).
 
+The Solr backup repository must use Amazon S3 (`s3://`) or a local file path (`file://`). Google Cloud Storage (`gs://`) backups are **not supported** for Solr in this release, even when Migration Assistant runs on Google Kubernetes Engine (GKE). If you provide a `gs://` repository URI for a Solr source, the workflow rejects it. This limit applies only to Solr sources; Elasticsearch and OpenSearch sources support Google Cloud Storage snapshots.
+{: .note }
+
 ## SolrCloud compared to standalone Solr
 
 Migration Assistant supports both SolrCloud and standalone Solr deployment modes. It auto-detects the mode by probing the Solr Collections API first and falling back to the Solr Core Admin API. The prerequisites differ between the two modes, as described in the following table.
@@ -227,7 +230,7 @@ Verify that `details.backup.status` returns `"success"`. If the value is `"faile
 
 Verify that the following Migration Assistant prerequisites are met:
 
-- Migration Assistant is deployed to Kubernetes or Amazon EKS. For more information, see [Deploy on Kubernetes]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-kubernetes/) or [Deploy on Amazon EKS]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-eks/).
+- Migration Assistant is deployed on a Kubernetes platform. For more information, see [Choose your deployment]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/).
 - The Migration Console pod and the RFS worker pods have read access (`s3:GetObject` and `s3:ListBucket`) to the backup bucket. If Solr and Migration Assistant run in different AWS accounts or VPCs, verify routing (VPC endpoints, bucket policy) before proceeding.
 - The bucket configured in Solr's `solr.xml` (`s3.bucket.name`) and the bucket referenced in the workflow configuration (`s3RepoPathUri`) are the same bucket.
 

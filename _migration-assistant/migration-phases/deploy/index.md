@@ -1,8 +1,7 @@
 ---
 layout: default
 title: Choose your deployment
-parent: Migration workflows
-nav_order: 2
+nav_order: 20
 has_children: true
 has_toc: true
 permalink: /migration-assistant/migration-phases/deploy/
@@ -14,18 +13,19 @@ redirect_from:
 
 # Choose your deployment
 
-Migration Assistant always runs on Kubernetes. The primary decision is how much platform configuration you want the tooling to automate.
+Migration Assistant always runs on Kubernetes. Two decisions are independent: **where Migration Assistant runs** (the cloud or platform that hosts it) and **what you migrate to** (the target OpenSearch deployment). This page covers the first decision: how much of the hosting platform the tooling prepares for you.
 
 ## Deployment types
 
-The following table compares the two deployment types.
+The following table compares the three deployment types.
 
 | Type | Best when | Included |
 |:-----|:----------|:-------------|
-| [Deploy on Kubernetes]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-kubernetes/) | You already operate a Kubernetes platform, you are not on AWS, or you are evaluating locally | The core Migration Assistant engine and workflow model, with you supplying the platform integrations |
-| [Deploy on Amazon Elastic Kubernetes Service (EKS)]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-eks/) | You are on AWS and want the recommended production path | The same engine plus AWS bootstrap automation, pod identity, image mirroring, snapshot helpers, and CloudWatch integration |
+| [Deploy on Amazon Elastic Kubernetes Service (EKS)]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-eks/) | You run migrations on AWS and want the recommended production path | The same engine plus AWS bootstrap automation, pod identity, image mirroring, snapshot helpers, and Amazon CloudWatch integration |
+| [Deploy on Google Kubernetes Engine (GKE)]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-gke/) | You run migrations on GCP and want the recommended production path | The same engine plus a Terraform module for the GKE cluster, VPC networking, Cloud Storage snapshots, and Workload Identity |
+| [Deploy on other Kubernetes]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-kubernetes/) | You use another Kubernetes platform (managed or self-managed), or you are evaluating locally | The core Migration Assistant engine and workflow model, with you supplying the platform integrations |
 
-Both paths install the same Migration Assistant Helm chart. The difference is how much of the surrounding environment is prepared for you.
+All paths install the same Migration Assistant Helm chart. The difference is how much of the surrounding environment is prepared for you.
 
 ## Default components
 
@@ -40,18 +40,27 @@ The following table describes the components that the Migration Assistant Helm c
 
 Source and target cluster configuration is handled dynamically through the Workflow CLI, not through large Helm value files.
 
-## Why Amazon EKS is recommended on AWS
+## Managed-cloud paths
 
-On AWS, Amazon EKS is the recommended path because it removes a large amount of non-migration work:
+On a managed cloud, a provider-specific path removes a large amount of non-migration work by preparing the surrounding platform for you.
+
+On AWS, Amazon EKS is the recommended path. It provides:
 
 - Cluster and VPC bootstrap.
 - Pod identity for AWS API access.
 - Private image support for isolated subnets.
 - Snapshot bucket and role helpers.
-- CloudWatch dashboards and logging.
+- Amazon CloudWatch dashboards and logging.
 - AWS-aware storage and node-pool defaults.
 
-This approach reduces platform configuration effort and allows you to focus on validating the migration.
+On GCP, Google Kubernetes Engine (GKE) is the recommended path. A Terraform module provides:
+
+- GKE cluster and VPC provisioning.
+- Workload Identity for GCP API access.
+- A Cloud Storage snapshot bucket and access bindings.
+- Optional private networking for the source, target, snapshot, and control-plane legs.
+
+Both managed paths reduce platform configuration effort so you can focus on validating the migration.
 
 ## Prerequisites
 
@@ -62,8 +71,10 @@ All deployment paths require:
 - **`kubectl`**: Configured to access your cluster.
 - **Network access**: Connectivity from the cluster to source and target clusters.
 
-Use [Deploy on Kubernetes]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-kubernetes/) if you are bringing your own Kubernetes platform.
+Use [Deploy on Amazon EKS]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-eks/) for the recommended production path on AWS.
 
-Use [Deploy on Amazon EKS]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-eks/) if you want the AWS production path that the rest of the new Migration Assistant documentation assumes by default.
+Use [Deploy on Google Kubernetes Engine (GKE)]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-gke/) for the recommended production path on GCP.
+
+Use [Deploy on other Kubernetes]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-kubernetes/) for any other Kubernetes platform, managed or self-managed.
 
 {% include migration-phase-navigation.html %}

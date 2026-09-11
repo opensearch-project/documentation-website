@@ -51,7 +51,7 @@ kubectl describe node <NODE_NAME>
 ```
 {% include copy.html %}
 
-On generic Kubernetes, this often means your cluster does not have enough CPU, memory, or storage. On Amazon Elastic Kubernetes Service (EKS), it can also mean your node group or Karpenter configuration needs attention.
+On other Kubernetes platforms, this often means your cluster does not have enough CPU, memory, or storage. On Amazon Elastic Kubernetes Service (EKS), it can also mean your node group or Karpenter configuration needs attention.
 
 ## Connectivity failures
 
@@ -112,9 +112,9 @@ If the target is Amazon OpenSearch Service with fine-grained access control, mak
 Use `es` as the AWS Signature Version 4 service for Amazon OpenSearch Service domains and `aoss` for Amazon OpenSearch Serverless NextGen collections.
 {: .note }
 
-### Authenticate using AWS Signature Version 4 on generic Kubernetes
+### Authenticate using AWS Signature Version 4 on other Kubernetes
 
-Generic Kubernetes does not automatically create AWS pod identity for Migration Assistant. You must supply AWS credentials to both of these pods separately:
+Other Kubernetes platforms do not automatically create AWS pod identity for Migration Assistant. You must supply AWS credentials to both of these pods separately:
 
 - The Migration Console pod (`migration-console-0`), running under the `migration-console-access-role` service account, needs credentials for console CLI commands.
 - The Argo workflow executor pods, running under the `argo-workflow-executor` service account, need credentials for the real migration steps.
@@ -274,4 +274,4 @@ When reporting an issue, collect the output of the following commands:
 - Source and target version numbers
 - Exact authentication mode in use
 
-When opening a [GitHub issue](https://github.com/opensearch-project/opensearch-migrations/issues), specify whether you are running on generic Kubernetes or EKS. The deployment type affects the root cause for identity and platform issues.
+When opening a [GitHub issue](https://github.com/opensearch-project/opensearch-migrations/issues), specify which deployment path you are running (Amazon EKS, GKE, or another Kubernetes platform). The deployment type affects the root cause for identity and platform issues.

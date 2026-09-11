@@ -15,7 +15,7 @@ Playbooks are step-by-step migration guides for specific source and target combi
 
 Before using a playbook, ensure the following:
 
-- Migration Assistant is deployed on Kubernetes or Amazon EKS.
+- Migration Assistant is deployed on a Kubernetes platform (Amazon EKS on AWS, Google Kubernetes Engine on GCP, or any other Kubernetes cluster).
 - You have determined whether your migration requires planned downtime or zero downtime.
 - You have loaded the version-matched sample configuration by running `workflow configure sample --load`.
 
@@ -38,4 +38,4 @@ The following table lists the available playbooks.
 | [Amazon OpenSearch Service to OpenSearch Serverless NextGen]({{site.url}}{{site.baseurl}}/migration-assistant/playbook-amazon-opensearch-service-to-serverless/) | Managed AWS sources targeting Serverless NextGen collections |
 | [Solr 8.11 to OpenSearch 3]({{site.url}}{{site.baseurl}}/migration-assistant/playbook-solr-8.11-to-opensearch-3/) | Solr snapshot-based backfill to OpenSearch |
 
-For AWS production deployments, deploy Migration Assistant on Amazon Elastic Kubernetes Service (EKS) before following a playbook. For more information, see [Deploy on Amazon EKS]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-eks/).
+Deploy Migration Assistant before following a playbook. For a managed-cloud production path, see [Deploy on Amazon EKS]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-eks/) on AWS or [Deploy on Google Kubernetes Engine (GKE)]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-gke/) on GCP. For any other platform, see [Choose your deployment]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/).

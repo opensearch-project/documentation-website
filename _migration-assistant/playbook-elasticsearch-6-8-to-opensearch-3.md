@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Elasticsearch 6.8 → OpenSearch 3.5"
+title: "Elasticsearch 6.8 → OpenSearch 3.5 on AWS"
 nav_order: 1
 parent: Playbooks
 permalink: /migration-assistant/playbook-elasticsearch-6-8-to-opensearch-3/

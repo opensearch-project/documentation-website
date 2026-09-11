@@ -79,6 +79,8 @@ Fluentd
 GeoJSON
 GitHub
 Google Cloud
+Google Cloud Storage
+Google Kubernetes Engine
 Google Normalized Distance
 Google Workspace
 Gradle
@@ -172,6 +174,8 @@ Performance Analyzer
 Piped Processing Language
 Point in Time
 Powershell
+Private Google Access
+Private Service Connect
 Prometheus
 Python
 PyTorch
@@ -223,6 +227,7 @@ Wikitravel
 Wiktionary
 Winlogbeat
 Workflow CLI
+Workload Identity
 XGBoost
 Yandex
 Zipf
