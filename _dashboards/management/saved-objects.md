@@ -30,6 +30,10 @@ The downloaded file uses the NDJSON format, with one object per line and a summa
 
 To review what an object references before you export it, select the **Relationships** action for that object.
 
+When multi-tenancy is enabled, each tenant has its own set of saved objects, and an export contains only the objects of the tenant that you are currently using. This applies to **Export all objects**, so to capture every object in an instance, switch to each tenant and export it separately. When the aggregate view is enabled, the list can show the objects of several tenants at once, but filtering the list by tenant does not change what an export contains. For more information, see [OpenSearch Dashboards multi-tenancy aggregate view for saved objects]({{site.url}}{{site.baseurl}}/security/multi-tenancy/mt-agg-view/).
+
+An export that you start from within a workspace contains only the objects associated with that workspace. An export that you start from **Saved objects** outside any workspace is not limited to one workspace. To copy objects to another workspace in the same instance, use the [Duplicate Saved Objects Workspaces API]({{site.url}}{{site.baseurl}}/dashboards/workspace/apis/#duplicate-saved-objects-workspaces-api).
+
 ## Importing saved objects
 
 To import saved objects, follow these steps:
@@ -44,6 +48,8 @@ To import saved objects, follow these steps:
 
 If an object refers to an index pattern that the target instance does not have, OpenSearch Dashboards lists the affected objects and prompts you to select a different index pattern or create one.
 
+When multi-tenancy is enabled, the objects are imported into the tenant that you are currently using, so switch to the target tenant before you import. An import that you start from within a workspace associates the imported objects with that workspace.
+
 ## Copying a dashboard to another instance
 
 To move a dashboard between two instances that index the same data, follow these steps:
@@ -53,7 +59,7 @@ To move a dashboard between two instances that index the same data, follow these
 1. In the target instance, go to **Management** > **Dashboards Management** > **Saved objects** and select **Import**.
 1. Select the downloaded file, choose an import option, and then select **Import**.
 
-When multi-tenancy is enabled, the objects are imported into the tenant that you are currently using, so switch to the target tenant before you import.
+Both instances confine the export and the import to one tenant and one workspace. Select the source tenant or workspace before you export and the target tenant or workspace before you import. For more information, see [Exporting saved objects](#exporting-saved-objects) and [Importing saved objects](#importing-saved-objects).
 
 ## Limitations
 

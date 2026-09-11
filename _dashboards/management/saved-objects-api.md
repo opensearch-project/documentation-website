@@ -330,6 +330,8 @@ curl -X DELETE "http://localhost:5601/api/saved_objects/visualization/sales-by-d
 
 The Export Saved Objects API exports saved objects as newline-delimited JSON (NDJSON). Each line is one saved object, and the final line summarizes the export.
 
+An export contains only the objects of the tenant that serves the request, so a backup of every tenant requires one request per tenant. For more information, see [Selecting a tenant](#selecting-a-tenant).
+
 ### Endpoint
 
 ```json
@@ -347,7 +349,16 @@ The following table lists the available request body fields.
 | `includeReferencesDeep` | Boolean | Whether to also export the objects that the exported objects depend on, such as their index patterns. Set to `true` so that the export can be imported into a cluster that does not already contain those references. Optional. Default is `false`. |
 | `search` | String | A query string that limits the export to matching objects, such as `Sales*`. Use with `type`. Optional. |
 | `excludeExportDetails` | Boolean | Whether to omit the summary line at the end of the output. Optional. Default is `false`. |
-| `workspaces` | Array | The workspaces to export objects from. Optional. |
+| `workspaces` | Array | The workspaces to export objects from. Use with `type`. Optional. |
+
+A request sent to a workspace path is limited to that workspace even when the request body omits `workspaces`:
+
+```json
+POST {osd_host}:{port}/w/{workspace_id}/api/saved_objects/_export
+```
+{% include copy.html %}
+
+The same path prefix associates imported objects with a workspace, so you can use it in place of the `workspaces` query parameter of the [Import Saved Objects API](#import-saved-objects).
 
 ### Example request
 
@@ -384,6 +395,8 @@ curl -X POST "http://localhost:5601/api/saved_objects/_export" \
   -o backup.ndjson
 ```
 {% include copy.html %}
+
+When multi-tenancy is enabled, repeat the request for each tenant, as described in [Selecting a tenant](#selecting-a-tenant).
 
 Installed plugins register additional types, so the types available in one instance can differ from those in another. To see the types that an instance contains, review the **Type** filter in **Dashboards Management** > **Saved objects**. Requesting a type that cannot be exported returns the following error:
 
