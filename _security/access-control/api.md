@@ -54,7 +54,7 @@ General access and protected API permissions are independent authorization paths
 - To grant broad access to the operations available to regular REST API users, list a role in `plugins.security.restapi.roles_enabled`.
 - To grant only a protected operation, set `plugins.security.restapi.admin.enabled` to `true` and assign the matching `restapi:admin/...` cluster permission to one of the user's roles. The role does not also need to be listed in `plugins.security.restapi.roles_enabled`.
 
-Thus, `plugins.security.restapi.admin.enabled` is the cluster-wide gate for delegating individual protected operations. It does not disable the broad access granted through `plugins.security.restapi.roles_enabled`.
+The `plugins.security.restapi.admin.enabled` setting controls whether OpenSearch honors `restapi:admin/...` permissions. When this setting is `false`, OpenSearch ignores these permissions. When it is `true`, a matching permission can authorize a protected operation without requiring the user's role to be listed in `plugins.security.restapi.roles_enabled`. This setting does not affect access granted through `plugins.security.restapi.roles_enabled`.
 
 These permissions must be assigned explicitly. Broad cluster permissions such as `*` or `cluster:*` do not grant protected REST API access. The scoped `restapi:admin/*` wildcard is supported when assigned directly to a role and grants all protected REST API permissions. You cannot grant REST API admin permissions through an action group.
 
