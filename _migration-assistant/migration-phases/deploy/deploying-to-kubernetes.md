@@ -10,7 +10,7 @@ permalink: /migration-assistant/migration-phases/deploy/deploying-to-kubernetes/
 
 Use this path when you run Migration Assistant on any Kubernetes platform other than the managed-cloud paths with dedicated tooling (Amazon EKS and GKE). This includes self-managing on any cloud (for example, your own cluster on AWS or GCP), other managed Kubernetes services, self-managed platforms such as Rancher or OpenShift, and local evaluation. You receive the same migration engine, workflow model, and console experience. The difference is that **you provide the surrounding platform pieces yourself**.
 
-If you want a recommended production path with dedicated tooling, use [Deploy on Amazon EKS]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-eks/) on AWS or [Deploy on Google Kubernetes Engine (GKE)]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-gke/) on GCP.
+If you want a recommended production path with dedicated tooling, use [Deploy on Amazon EKS]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/amazon-eks/) on AWS or [Deploy on Google Kubernetes Engine (GKE)]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-gke/) on GCP.
 
 ## Recommended use cases
 
@@ -210,7 +210,7 @@ On EKS, pod identity is configured automatically. On other Kubernetes platforms,
 The chart includes a developer-oriented Kyverno policy that can mount local AWS credentials for certain pods, but that is not a production identity strategy.
 {: .warning }
 
-If you are on AWS and want AWS Signature Version 4 to work without configuring credential injection manually, use [Deploy on Amazon EKS]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-eks/).
+If you are on AWS and want AWS Signature Version 4 to work without configuring credential injection manually, use [Deploy on Amazon EKS]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/amazon-eks/).
 
 ## Next steps
 

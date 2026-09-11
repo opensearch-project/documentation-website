@@ -55,7 +55,7 @@ On AWS, the Amazon EKS path provides:
 - **AWS-native observability**: Logs, metrics, and Amazon CloudWatch dashboards are integrated into the deployment.
 - **AWS-aware scheduling defaults**: Karpenter node pools and Amazon EBS-backed storage defaults are preconfigured for the platform.
 
-For details, see [Deploy on Amazon EKS]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-eks/).
+For details, see [Deploy on Amazon EKS]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/amazon-eks/).
 
 ### GKE on GCP
 

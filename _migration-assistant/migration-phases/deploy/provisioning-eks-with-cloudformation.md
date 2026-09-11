@@ -1,29 +1,15 @@
 ---
 layout: default
-title: Deploy on Amazon EKS
-nav_order: 2
-parent: Choose your deployment
+title: CloudFormation
+nav_order: 1
+parent: Deploy on Amazon EKS
+grand_parent: Choose your deployment
 permalink: /migration-assistant/migration-phases/deploy/deploying-to-eks/
 ---
 
-# Deploy on Amazon EKS
+# Provision with CloudFormation
 
-This is the recommended production path on AWS. You receive the same Migration Assistant engine and workflows as any other Kubernetes platform, but the Amazon Elastic Kubernetes Service (EKS) tooling removes much of the AWS platform work that otherwise delays migrations.
-
-EKS makes the migration **easier to deploy, easier to secure, and easier to operate** without changing how migrations run.
-
-## EKS deployment components
-
-The bootstrap path prepares AWS infrastructure around the workflow engine, including:
-
-- EKS cluster deployment into a new or existing virtual private cloud (VPC).
-- Pod identity for the Migration Console and workflow pods.
-- Image mirroring and VPC endpoint support for isolated subnets.
-- Default Amazon Simple Storage Service (Amazon S3) bucket and snapshot-role helpers.
-- Amazon CloudWatch logging and dashboards.
-- AWS-aware storage and node-pool defaults.
-
-If you are migrating to or from Amazon OpenSearch Service, this is usually the shortest path to a working production setup.
+The bootstrap script provisions the Amazon Elastic Kubernetes Service (EKS) infrastructure for Migration Assistant using AWS CloudFormation. It creates the cluster, virtual private cloud (VPC) networking, image mirroring, snapshot helpers, and Amazon CloudWatch integration, then installs the Migration Assistant Helm chart.
 
 ## Prerequisites
 
@@ -184,27 +170,6 @@ aws cloudformation describe-stacks \
 ```
 {% include copy.html %}
 
-## Authentication on EKS
-
-Migration Assistant supports the following authentication methods on EKS.
-
-### Basic authentication
-
-Basic authentication works the same way as on any other Kubernetes platform: create Kubernetes secrets and reference them in `authConfig.basic.secretName`.
-
-### Authenticate with AWS Signature Version 4
-
-AWS Signature Version 4 authentication is the primary advantage of deploying on EKS.
-
-For sources or targets authenticated using AWS Signature Version 4, the EKS stack uses [IAM Roles for Service Accounts (IRSA)](https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html) to assign an AWS identity to two sets of pods:
-
-- The Migration Console pod (`migration-console-0`), which runs under the `migration-console-access-role` service account.
-- The Argo workflow executor pods, which run under the `argo-workflow-executor` service account.
-
-This means the console and the migration jobs can authenticate to Amazon OpenSearch Service and other AWS services without you manually distributing long-lived AWS credentials.
-
-This is one of the main reasons EKS is the recommended AWS production path.
-
 ## Private or isolated networks
 
 If your subnets do not have direct internet access, the bootstrap script mirrors images into private ECR by default and creates the VPC endpoints needed to pull from inside the cluster:
@@ -224,7 +189,7 @@ If your subnets do not have direct internet access, the bootstrap script mirrors
 
 The mirroring step runs from your machine (which has internet), copies the release images and Helm charts to ECR, then the EKS cluster pulls everything through VPC endpoints. The endpoints created are: Amazon S3, Amazon ECR API, Amazon ECR Docker, CloudWatch Logs, and Amazon Elastic File System (Amazon EFS).
 
-If your deployment also requires STS or EKS Authentication endpoints (for example, for IRSA or EKS Pod Identity), create those separately before running the bootstrap script.
+If your deployment also requires STS or EKS Authentication endpoints (for example, for IAM Roles for Service Accounts (IRSA) or EKS Pod Identity), create those separately before running the bootstrap script.
 
 If you prefer to manage VPC endpoints with another tool, omit `--create-vpc-endpoints`. The script still mirrors images and uses your existing endpoints.
 

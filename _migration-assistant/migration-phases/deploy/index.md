@@ -21,7 +21,7 @@ The following table compares the three deployment types.
 
 | Type | Best when | Included |
 |:-----|:----------|:-------------|
-| [Deploy on Amazon Elastic Kubernetes Service (EKS)]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-eks/) | You run migrations on AWS and want the recommended production path | The same engine plus AWS bootstrap automation, pod identity, image mirroring, snapshot helpers, and Amazon CloudWatch integration |
+| [Deploy on Amazon Elastic Kubernetes Service (EKS)]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/amazon-eks/) | You run migrations on AWS and want the recommended production path | The same engine plus AWS bootstrap automation, pod identity, image mirroring, snapshot helpers, and Amazon CloudWatch integration |
 | [Deploy on Google Kubernetes Engine (GKE)]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-gke/) | You run migrations on GCP and want the recommended production path | The same engine plus a Terraform module for the GKE cluster, VPC networking, Cloud Storage snapshots, and Workload Identity |
 | [Deploy on other Kubernetes]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-kubernetes/) | You use another Kubernetes platform (managed or self-managed), or you are evaluating locally | The core Migration Assistant engine and workflow model, with you supplying the platform integrations |
 
@@ -53,6 +53,8 @@ On AWS, Amazon EKS is the recommended path. It provides:
 - Amazon CloudWatch dashboards and logging.
 - AWS-aware storage and node-pool defaults.
 
+You can provision the AWS infrastructure with either AWS CloudFormation or Terraform. For more information, see [Deploy on Amazon EKS]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/amazon-eks/).
+
 On GCP, Google Kubernetes Engine (GKE) is the recommended path. A Terraform module provides:
 
 - GKE cluster and VPC provisioning.
@@ -71,7 +73,7 @@ All deployment paths require:
 - **`kubectl`**: Configured to access your cluster.
 - **Network access**: Connectivity from the cluster to source and target clusters.
 
-Use [Deploy on Amazon EKS]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-eks/) for the recommended production path on AWS.
+Use [Deploy on Amazon EKS]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/amazon-eks/) for the recommended production path on AWS.
 
 Use [Deploy on Google Kubernetes Engine (GKE)]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-gke/) for the recommended production path on GCP.
 
