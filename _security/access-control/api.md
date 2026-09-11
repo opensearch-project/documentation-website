@@ -49,13 +49,12 @@ plugins.security.restapi.admin.enabled: true
 Introduced 2.8
 {: .label .label-purple }
 
-Protected API permissions elevate access; they do not form an allow list of the endpoints a role can call. For a non-admin user to perform a protected operation, all of the following conditions must be met:
+General access and protected API permissions are independent authorization paths, so you can use them together:
 
-- `plugins.security.restapi.admin.enabled` is set to `true`.
-- One of the user's roles is listed in `plugins.security.restapi.roles_enabled`.
-- One of the user's roles contains the matching `restapi:admin/...` cluster permission.
+- To grant broad access to the operations available to regular REST API users, list a role in `plugins.security.restapi.roles_enabled`.
+- To grant only a protected operation, set `plugins.security.restapi.admin.enabled` to `true` and assign the matching `restapi:admin/...` cluster permission to one of the user's roles. The role does not also need to be listed in `plugins.security.restapi.roles_enabled`.
 
-You can use the same role for the general-access and cluster-permission requirements.
+Thus, `plugins.security.restapi.admin.enabled` is the cluster-wide gate for delegating individual protected operations. It does not disable the broad access granted through `plugins.security.restapi.roles_enabled`.
 
 These permissions must be assigned explicitly. Broad cluster permissions such as `*` or `cluster:*` do not grant protected REST API access. The scoped `restapi:admin/*` wildcard is supported when assigned directly to a role and grants all protected REST API permissions. You cannot grant REST API admin permissions through an action group.
 
@@ -98,21 +97,20 @@ manage_internal_users:
 ```
 {% include copy.html %}
 
-Finally, add the role to `opensearch.yml` to grant general API access:
+Finally, enable protected API permissions in `opensearch.yml`:
 
 ```yml
-plugins.security.restapi.roles_enabled: ["manage_internal_users"]
 plugins.security.restapi.admin.enabled: true
 ```
 {% include copy.html %}
 
 Apply the YAML configuration using [`securityadmin.sh`]({{site.url}}{{site.baseurl}}/security/configuration/security-admin/) and restart the cluster for the `opensearch.yml` change to take effect.
 
-Because `manage_internal_users` is listed in `plugins.security.restapi.roles_enabled`, it can also perform regular-user operations on other endpoints unless you explicitly disable them.
+This example grants protected internal-user operations without granting broad access to the other REST API endpoints. To give the role both granular and general access, also list it in `plugins.security.restapi.roles_enabled`.
 
 You cannot use the REST API to create, modify, or delete a role that contains REST API admin permissions or a mapping for such a role. Define these roles and mappings in `roles.yml` and `roles_mapping.yml`, and then apply them using `securityadmin.sh`. This restriction, together with the action-group restriction, prevents users from granting themselves additional REST API access.
 
-The predefined `security_rest_api_full_access` role contains all protected REST API permissions. Because this role permits security-sensitive cluster changes, map it only to trusted administrators and add it to `plugins.security.restapi.roles_enabled` only when full delegated access is required.
+The predefined `security_rest_api_full_access` role contains all protected REST API permissions. Because this role permits security-sensitive cluster changes, map it only to trusted administrators. You do not need to add it to `plugins.security.restapi.roles_enabled` for its protected permissions to take effect.
 
 ### Restrict API access by role
 
@@ -123,7 +121,7 @@ plugins.security.restapi.endpoints_disabled.<role>.<endpoint>: ["<method>", ...]
 ```
 {% include copy.html %}
 
-The protected `restapi:admin/...` permissions do not override these restrictions. If a user has multiple roles listed in `plugins.security.restapi.roles_enabled`, an endpoint or method is blocked only when it is disabled for every listed role mapped to that user.
+Role-specific endpoint restrictions apply to the general-access path. A matching `restapi:admin/...` permission is an independent grant for that protected operation. If a user has multiple roles listed in `plugins.security.restapi.roles_enabled`, an endpoint or method is blocked through the general-access path only when it is disabled for every listed role mapped to that user.
 
 Possible values for `endpoint` are:
 
@@ -157,13 +155,12 @@ Possible values for `method` are:
 - `DELETE`
 - `PATCH`
 
-For example, the following configuration grants `manage_internal_users` general API access but blocks all methods for the roles and tenants endpoints. Add an `endpoints_disabled` entry for every other endpoint that the role does not need:
+For example, the following configuration grants `rest_api_user` general API access but blocks all methods for the roles and tenants endpoints:
 
 ```yml
-plugins.security.restapi.roles_enabled: ["manage_internal_users"]
-plugins.security.restapi.admin.enabled: true
-plugins.security.restapi.endpoints_disabled.manage_internal_users.ROLES: ["*"]
-plugins.security.restapi.endpoints_disabled.manage_internal_users.TENANTS: ["*"]
+plugins.security.restapi.roles_enabled: ["rest_api_user"]
+plugins.security.restapi.endpoints_disabled.rest_api_user.ROLES: ["*"]
+plugins.security.restapi.endpoints_disabled.rest_api_user.TENANTS: ["*"]
 ```
 {% include copy.html %}
 
