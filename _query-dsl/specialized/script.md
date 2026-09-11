@@ -9,6 +9,9 @@ nav_order: 58
 
 Use the `script` query to filter documents based on a custom condition written in the Painless scripting language. This query returns documents for which the script evaluates to `true`, enabling advanced filtering logic that can't be expressed using standard queries.
 
+Only grant trusted users access to operations that create or run Painless scripts. For more information, see [Script permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/#script-permissions).
+{: .warning }
+
 The `script` query is computationally expensive and should be used sparingly. Only use it when necessary and ensure `search.allow_expensive_queries` is enabled (default is `true`). For more information, see [Expensive queries]({{site.url}}{{site.baseurl}}/query-dsl/#expensive-queries).
 {: .important }
 

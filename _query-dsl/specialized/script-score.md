@@ -9,6 +9,9 @@ nav_order: 60
 
 Use a `script_score` query to customize the score calculation by using a script. For an expensive scoring function, you can use a `script_score` query to calculate the score only for the returned documents that have been filtered.
 
+Only grant trusted users access to operations that create or run Painless scripts. For more information, see [Script permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/#script-permissions).
+{: .warning }
+
 ## Example
 
 For example, the following request creates an index containing one document:

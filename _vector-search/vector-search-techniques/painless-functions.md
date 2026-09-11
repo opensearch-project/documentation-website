@@ -14,6 +14,9 @@ redirect_from:
 
 With Painless scripting extensions, you can use k-nearest neighbors (k-NN) distance functions directly in your Painless scripts to perform operations on `knn_vector` fields. Painless has a strict list of allowed functions and classes per context to ensure that its scripts are secure. OpenSearch adds Painless scripting extensions to a few of the distance functions used in [k-NN scoring script]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-score-script/), so you can use them to customize your k-NN workload.
 
+Only grant trusted users access to operations that create or run Painless scripts. For more information, see [Script permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/#script-permissions).
+{: .warning }
+
 ## Get started with k-NN Painless scripting functions
 
 To use k-NN Painless scripting functions, first create an index with `knn_vector` fields, as described in [Getting started with the scoring script for vectors]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-score-script#getting-started-with-the-scoring-script-for-vectors). Once you have created the index and ingested some data, you can use Painless extensions:

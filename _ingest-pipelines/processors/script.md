@@ -9,6 +9,9 @@ nav_order: 230
 
 The `script` processor executes inline and stored scripts that can modify or transform data in an OpenSearch document during the ingestion process. The processor uses script caching for improved performance because scripts may be recompiled per document. Refer to [Script APIs]({{site.url}}{{site.baseurl}}/api-reference/script-apis/index/) for information about working with scripts in OpenSearch. 
 
+Only grant trusted users access to operations that create or run Painless scripts. For more information, see [Script permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/#script-permissions).
+{: .warning }
+
 The following is the syntax for the `script` processor:
 
 ```json

@@ -389,6 +389,11 @@ See [Script APIs]({{site.url}}{{site.baseurl}}/api-reference/script-apis/index/)
 - `cluster:admin/script/delete`
 - `cluster:admin/script/get`
 - `cluster:admin/script/put`
+- `cluster:admin/scripts/painless/execute`
+
+The `cluster:admin/scripts/painless/execute` permission allows a user to run scripts with the Execute Inline Script API. The other permissions allow users to manage stored scripts.
+
+These permissions do not control Painless scripts embedded in other operations, such as search, update, ingest, or alerting requests. Authorization for an embedded script is based on the permission required for the enclosing operation. There is no single permission that controls every use of Painless scripting. Only grant trusted users access to operations that let them submit scripts.
 
 ### Update settings permission
 

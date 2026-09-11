@@ -77,6 +77,9 @@ Additionally, derived features can accept query-time variables of type [`Number`
 Script features are a type of [derived feature](#derived-features). These features have access to the `feature_vector`, but they are implemented as native or Painless OpenSearch scripts rather than as [Lucene
 expressions](http://lucene.apache.org/core/{{site.lucene_version}}/expressions/index.html?org/apache/lucene/expressions/js/package-summary.html). 
 
+Only grant trusted users access to operations that create or run Painless scripts. For more information, see [Script permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/#script-permissions).
+{: .warning }
+
 To identify these features, set the `"template_language": "script_feature""`. The custom script can access the `feature_vector` through the [Java Map](https://docs.oracle.com/javase/8/docs/api/java/util/Map.html), as described in [Create a feature set]({{site.url}}{{site.baseurl}}/search-plugins/ltr/working-with-features#creating-feature-sets).
 
 Script-based features may impact the performance of your OpenSearch cluster, so it is best to avoid them if you require highly performant queries.

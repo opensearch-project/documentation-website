@@ -9,6 +9,9 @@ nav_order: 340
 
 The `predicate_token_filter` evaluates whether tokens should be kept or discarded, depending on the conditions defined in a custom script. The tokens are evaluated in the analysis predicate context. This filter supports only inline Painless scripts.
 
+Only grant trusted users access to operations that create or run Painless scripts. For more information, see [Script permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/#script-permissions).
+{: .warning }
+
 ## Parameters
 
 The `predicate_token_filter` has one required parameter: `script`. This parameter provides a condition that is used to evaluate whether the token should be kept. 

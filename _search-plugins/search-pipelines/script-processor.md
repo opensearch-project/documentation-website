@@ -24,6 +24,9 @@ The `script` search request processor intercepts a search request and adds an in
 - `terminate_after` 
 - `profile` 
 
+Only grant trusted users access to operations that create or run Painless scripts. For more information, see [Script permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/#script-permissions).
+{: .warning }
+
 For request field definitions, see [search request fields]({{site.url}}{{site.baseurl}}/api-reference/search#request-body).
 
 ## Request body fields

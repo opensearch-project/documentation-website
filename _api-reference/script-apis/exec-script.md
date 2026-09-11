@@ -11,6 +11,9 @@ nav_order: 7
 
 The Execute Inline Script API allows you to run a script directly without storing it in the cluster state. The script is compiled and executed each time the API is called.
 
+Only grant trusted users access to operations that create or run Painless scripts. For more information, see [Script permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/#script-permissions).
+{: .warning }
+
 ## Endpoints
 
 ```json

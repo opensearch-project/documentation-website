@@ -11,6 +11,9 @@ nav_order: 20
 
 Runs a stored script that was previously saved to the cluster state using the Create Stored Script API. 
 
+Only grant trusted users access to operations that create or run Painless scripts. For more information, see [Script permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/#script-permissions).
+{: .warning }
+
 OpenSearch provides several ways to run a script; the following sections show how to run a script by passing script information in the request body of a `GET <index>/_search` request.
 
 ## Endpoints

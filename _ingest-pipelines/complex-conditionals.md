@@ -9,6 +9,9 @@ nav_order: 50
 
 In ingest pipelines, the `if` parameter in processors can evaluate complex conditions using Painless scripts. These conditionals help fine-tune document processing, allowing advanced logic such as type checking, regular expressions, and combining multiple criteria.
 
+Only grant trusted users access to operations that create or run Painless scripts. For more information, see [Script permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/#script-permissions).
+{: .warning }
+
 ## Multiple condition checks
 
 You can combine logical operators like `&&` (and), `||` (or), and `!` (not) to construct more complex conditions. The following pipeline tags documents as `spam` and drops them if they contain an `error_code` higher than `1000`:

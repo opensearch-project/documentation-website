@@ -11,6 +11,9 @@ nav_order: 10
 
 Creates or updates a stored script or search template in the cluster state. Stored scripts are compiled once and can be reused across multiple requests for better performance.
 
+Only grant trusted users access to operations that create or run Painless scripts. For more information, see [Script permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/#script-permissions).
+{: .warning }
+
 For additional information about Painless scripting, see:
 
 * [k-NN Painless Scripting extensions]({{site.url}}{{site.baseurl}}/search-plugins/knn/painless-functions/).

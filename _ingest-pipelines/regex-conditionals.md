@@ -9,6 +9,9 @@ nav_order: 70
 
 Ingest pipelines support conditional logic using regular expressions (regex) with the Painless scripting language. This allows fine-grained control over which documents get processed based on the structure and contents of text fields. Regex can be used within the `if` parameter to evaluate string patterns. This is especially useful for matching IP formats, validating email addresses, identifying UUIDs, or processing logs with specific keywords.
 
+Only grant trusted users access to operations that create or run Painless scripts. For more information, see [Script permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/#script-permissions).
+{: .warning }
+
 ## Example: Email domain filtering
 
 The following pipeline uses regex to identify users from the `@example.com` email domain and tag those documents accordingly:

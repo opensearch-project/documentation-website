@@ -164,6 +164,9 @@ The following processor configuration sets the target index dynamically by appen
 
 Use the `script` processor for advanced transformations.
 
+Only grant trusted users access to operations that create or run Painless scripts. For more information, see [Script permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/#script-permissions).
+{: .warning }
+
 ### Example: Adding a field only if another is missing
 
 The following processor adds the `error_message` field with the value "none" only if the field is missing from the document:

@@ -15,6 +15,9 @@ redirect_from:
 
 The script APIs allow you to work with both stored and inline scripts in OpenSearch. The default scripting language is Painless.
 
+Only grant trusted users access to operations that create or run Painless scripts. For more information, see [Script permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/#script-permissions).
+{: .warning }
+
 ## Types of scripts
 
 OpenSearch supports two types of scripts:
