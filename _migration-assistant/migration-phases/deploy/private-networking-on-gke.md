@@ -1,8 +1,9 @@
 ---
 layout: default
-title: Private networking on GKE
-parent: Choose your deployment
-nav_exclude: true
+title: Private networking
+nav_order: 1
+parent: Deploy on Google GKE
+grand_parent: Choose your deployment
 permalink: /migration-assistant/migration-phases/deploy/private-networking-on-gke/
 ---
 

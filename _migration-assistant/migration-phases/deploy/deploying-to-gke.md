@@ -3,6 +3,8 @@ layout: default
 title: Deploy on Google GKE
 nav_order: 3
 parent: Choose your deployment
+has_children: true
+has_toc: false
 permalink: /migration-assistant/migration-phases/deploy/deploying-to-gke/
 ---
 
