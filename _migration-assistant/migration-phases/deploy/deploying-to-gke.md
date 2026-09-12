@@ -34,12 +34,16 @@ Before you begin, make sure you have the following:
 - [Terraform](https://developer.hashicorp.com/terraform/install) 1.6 or later, or [OpenTofu](https://opentofu.org/docs/intro/install/) 1.6 or later.
 - The [gcloud CLI](https://cloud.google.com/sdk/docs/install), authenticated with `gcloud auth application-default login`.
 - [`kubectl`](https://kubernetes.io/docs/tasks/tools/) and [Helm 3](https://helm.sh/docs/intro/install/) installed.
+- On an Elasticsearch 7.x source cluster, the `repository-gcs` plugin installed on every node, because Backfill snapshots the source to Cloud Storage. Elasticsearch 8.0 and later and OpenSearch include this support. For installation steps, see [Private networking]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/private-networking-on-gke/#source-cluster-prerequisite-for-the-repository-gcs-plugin).
 - The required GCP APIs enabled:
 
 ```bash
 gcloud services enable compute.googleapis.com container.googleapis.com storage.googleapis.com
 ```
 {% include copy.html %}
+
+If your migration must not traverse the public internet, read [Private networking]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/private-networking-on-gke/) before you begin, because two of the options depend on another party: Private Service Connect requires the cluster's provider to add your project to its accept-list, and VPC peering requires the peer to create the reciprocal connection.
+{: .note }
 
 ## Step 1: Mirror the Migration Assistant images
 
