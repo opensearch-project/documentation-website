@@ -20,7 +20,7 @@ Before you begin, make sure you have the following:
 
 ## Deployment label
 
-Throughout this playbook, `<STAGE>` is a short label such as `dev`, `staging`, or `prod`. It is used in cluster and resource names so you can keep multiple deployments separate.
+Throughout this page, `<STAGE>` is a short label such as `dev`, `staging`, or `prod`. It is used in cluster and resource names so you can keep multiple deployments separate.
 
 ## Step 1: Download the bootstrap script
 
@@ -48,7 +48,7 @@ The following flags cover the most common cases. The script always installs the 
 | | `--skip-cfn-deploy` | Skip CloudFormation. Use when the stack already exists and you only want to re-bootstrap the cluster |
 | **Identity** | `--stack-name <name>` | CloudFormation stack name (required with `--deploy-*-cfn`) |
 | | `--stage <name>` | Short label for cluster and resource names. Defaults to `dev` |
-| | `--region <region>` | AWS region |
+| | `--region <region>` | AWS Region |
 | | `--vpc-id <id>` | Existing VPC ID (with `--deploy-import-vpc-cfn`) |
 | | `--subnet-ids <id1,id2>` | Comma-separated subnets in different AZs (with `--deploy-import-vpc-cfn`) |
 | **Versioning** | `--version <tag>` | Pin to a published GitHub release tag. Find tags at [the GitHub releases page](https://github.com/opensearch-project/opensearch-migrations/releases). Use this for reproducible deployments. |
