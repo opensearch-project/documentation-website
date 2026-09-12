@@ -23,6 +23,9 @@ Before you begin, make sure you have the following:
 EKS Auto Mode must be available in your region for the Kubernetes version you select. The `kubernetes_version` variable defaults to `1.35`; override it if that version is not offered in your region.
 {: .note }
 
+If your migration must not traverse the public internet, read [Private connectivity to the source and target](#private-connectivity-to-the-source-and-target) before you begin, because both options depend on another party: PrivateLink requires the cluster's provider to allow-list your account and accept the endpoint connection, and VPC peering requires the peer to accept the connection and add a reciprocal route.
+{: .note }
+
 ## Step 1: Get the module
 
 The module is published in the [`opensearch-migrations` repository](https://github.com/opensearch-project/opensearch-migrations) under `deployment/terraform/aws`. Clone the release tag you want to deploy, replacing `<RELEASE_TAG>` with a published version:
