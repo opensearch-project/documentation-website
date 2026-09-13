@@ -23,7 +23,7 @@ Before you begin, make sure you have the following:
 EKS Auto Mode must be available in your region for the Kubernetes version you select. The `kubernetes_version` variable defaults to `1.35`; override it if that version is not offered in your region.
 {: .note }
 
-If your migration must not traverse the public internet, read [Private connectivity to the source and target](#private-connectivity-to-the-source-and-target) before you begin, because both options depend on another party: PrivateLink requires the cluster's provider to allow-list your account and accept the endpoint connection, and VPC peering requires the peer to accept the connection and add a reciprocal route.
+If your migration must not traverse the public internet, read [Private networking]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/private-networking-on-eks/) before you begin, because two of the options depend on another party: AWS PrivateLink requires the cluster's provider to allow-list your account and accept the endpoint connection, and VPC peering requires the peer to accept the connection and add a reciprocal route.
 {: .note }
 
 ## Step 1: Get the module
@@ -134,74 +134,9 @@ Use a published Migration Assistant release tag. Terraform applies the `valuesEk
 
 Alternatively, leave `deploy_helm` at `false` and install the chart yourself. The module creates a private ECR repository and exposes it as the `ecr_repository_url` output for mirrored or locally built images.
 
-## Isolated (air-gapped) deployments
+## Keep migration traffic private
 
-Set `isolated = true` with `create_vpc = true` for a migration that must not traverse the public internet:
-
-```bash
-terraform apply \
-  -var="region=us-east-1" \
-  -var="stage=dev" \
-  -var="isolated=true"
-```
-{% include copy.html %}
-
-In isolated mode the module creates no NAT gateway, adds no default route from the private subnets, and creates the full set of service endpoints the cluster needs to reach AWS APIs privately: `s3` as a gateway endpoint, plus interface endpoints for `ecr.api`, `ecr.dkr`, `logs`, `monitoring`, `elasticfilesystem`, `sts`, and `eks-auth`.
-
-Isolated mode also makes the Kubernetes API endpoint private, which changes how you reach the cluster. Plan for this before you apply:
-
-- `kubectl`, including the `kubeconfig_command` output, must run from inside the VPC or a network routed to it: a bastion or workload in a private subnet, a peered VPC, or a virtual private network (VPN) or AWS Direct Connect attachment.
-- `deploy_helm = true` requires the same access, because the Terraform Helm provider talks to the cluster API directly. `terraform apply` itself must run from a host that can reach the private endpoint.
-
-Unlike the NAT gateway and endpoint behavior, the control-plane change is **not** conditional on `create_vpc`. Setting `isolated = true` with an existing VPC still disables the public API endpoint, even though the module makes no other network changes.
-{: .warning }
-
-To keep the data path isolated while reaching the API from outside the VPC, set `cluster_endpoint_public_access` explicitly. An explicit value always overrides the value derived from `isolated`, and it affects only the control plane. Narrow `cluster_public_access_cidrs` when you do, because it defaults to `0.0.0.0/0`:
-
-```bash
-terraform apply \
-  -var="region=us-east-1" \
-  -var="stage=dev" \
-  -var="isolated=true" \
-  -var="cluster_endpoint_public_access=true" \
-  -var='cluster_public_access_cidrs=["203.0.113.10/32"]'
-```
-{% include copy.html %}
-
-The override works in the other direction as well: set `cluster_endpoint_public_access = false` without `isolated` for a private-only API endpoint in a VPC that keeps its NAT egress.
-
-Container images must be reachable without internet egress. Mirror the Migration Assistant images, and any third-party images the chart pulls, into the module's private ECR repository before workloads start.
-
-## Private connectivity to the source and target
-
-The `source_connectivity` and `target_connectivity` variables establish a private network path to the source and target clusters. Each leg is independent and defaults to `mode = "none"`, which creates nothing:
-
-- `privatelink`: creates a consumer interface VPC endpoint to the cluster provider's VPC endpoint service, optionally with a Route 53 private hosted zone that resolves a hostname to the endpoint. Requires the provider to publish a VPC endpoint service name, which you obtain from the provider.
-- `vpc_peering`: peers the migration VPC with the cluster's VPC and routes to its CIDR. Fits a cluster in a VPC you can peer with, which is often the source.
-
-```hcl
-target_connectivity = {
-  mode                      = "privatelink"
-  vpc_endpoint_service_name = "com.amazonaws.vpce.us-east-1.vpce-svc-0123456789abcdef0"
-  dns_name                  = "my-target.example.com"
-}
-
-source_connectivity = {
-  mode        = "vpc_peering"
-  peer_vpc_id = "vpc-0aaaaaaaaaaaaaaaa"
-  peer_cidr   = "10.99.0.0/16"
-}
-```
-{% include copy.html %}
-
-For `privatelink`, the resolved endpoint is available as the `source_private_endpoint` and `target_private_endpoint` outputs; use those values in the workflow cluster configuration. For `vpc_peering`, these outputs are `null`, because peering routes to the cluster's existing address rather than creating an endpoint. Supply the cluster's own endpoint in the workflow configuration instead.
-
-The cluster endpoints and credentials themselves are supplied as runtime migration configuration, not by Terraform.
-
-The module provisions only the consumer side of each connection. The following remain operator responsibilities:
-
-- **PrivateLink**: the provider must allow-list your account and accept the endpoint connection if acceptance is required. Until then the endpoint stays in `pendingAcceptance` and the hostname does not resolve. Use the provider's canonical hostname for `dns_name` so that its TLS certificate validates. The endpoint service must be offered in the migration availability zones.
-- **VPC peering**: the peer must accept the connection and add a reciprocal route back to `vpc_cidr`. Peer CIDRs must not overlap the migration VPC CIDR.
+If your migration must not traverse the public internet, you can make the source, target, snapshot, and control-plane legs private independently. The options are set through the same variables used in [Step 2](#step-2-provision-the-infrastructure), so configure them before you apply. For the leg model, the `isolated` mode, and the `source_connectivity` and `target_connectivity` variables, see [Private networking]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/private-networking-on-eks/).
 
 ## Validate the module
 

@@ -64,5 +64,6 @@ This is one of the main reasons EKS is the recommended AWS production path.
 
 - To provision with the bootstrap script, see [Provision with CloudFormation]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-eks/).
 - To provision with Terraform, see [Provision with Terraform]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/provisioning-eks-with-terraform/).
+- To keep migration traffic off the public internet, see [Private networking]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/private-networking-on-eks/).
 
 {% include migration-phase-navigation.html %}

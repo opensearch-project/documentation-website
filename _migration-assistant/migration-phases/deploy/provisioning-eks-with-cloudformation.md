@@ -18,6 +18,9 @@ Before you begin, make sure you have the following:
 - An AWS account with permissions for AWS CloudFormation, Amazon EKS, AWS Identity and Access Management (IAM), Amazon EC2, Amazon Elastic Container Registry (Amazon ECR), Amazon S3, Amazon CloudWatch, and related services.
 - Either AWS CloudShell or a local terminal with AWS CLI v2, `kubectl`, and Helm installed. AWS CloudShell is recommended because it comes preconfigured with the required tools and avoids platform-specific issues (for example, the `tac` command used by the bootstrap script is not available on macOS by default).
 
+If your migration must not traverse the public internet, read [Private networking]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/private-networking-on-eks/) before you begin. The bootstrap script creates the VPC endpoints the cluster needs, but it does not establish a private path to the source or target cluster, so arrange that connection yourself. AWS PrivateLink also requires the cluster's provider to allow-list your account and accept the endpoint connection, and VPC peering requires the peer to accept the connection and add a reciprocal route.
+{: .note }
+
 ## Deployment label
 
 Throughout this page, `<STAGE>` is a short label such as `dev`, `staging`, or `prod`. It is used in cluster and resource names so you can keep multiple deployments separate.
@@ -53,7 +56,7 @@ The following flags cover the most common cases. The script always installs the 
 | | `--subnet-ids <id1,id2>` | Comma-separated subnets in different AZs (with `--deploy-import-vpc-cfn`) |
 | **Versioning** | `--version <tag>` | Pin to a published GitHub release tag. Find tags at [the GitHub releases page](https://github.com/opensearch-project/opensearch-migrations/releases). Use this for reproducible deployments. |
 | | `--build` | Build all artifacts from source (requires a repo checkout). Mutually exclusive with `--version` |
-| **Networking** | `--create-vpc-endpoints` | Create the five VPC endpoints needed for isolated subnets (S3, ECR API, ECR Docker, CloudWatch Logs, EFS) |
+| **Networking** | `--create-vpc-endpoints` | Create the five VPC endpoints needed for isolated subnets |
 | | `--use-public-images` | Skip mirroring images into private ECR. Use only when the cluster has internet access and you do not want a private mirror |
 | | `--ma-images-source <registry>` | Copy Migration Assistant images from another ECR registry. Useful when images were built on a separate cluster with internet access |
 | **Access** | `--eks-access-principal-arn <arn>` | Grant a CI role or teammate cluster-admin access. Combine with `--skip-cfn-deploy --skip-console-exec` to grant access without redeploying |
@@ -172,7 +175,7 @@ aws cloudformation describe-stacks \
 
 ## Private or isolated networks
 
-If your subnets do not have direct internet access, the bootstrap script mirrors images into private ECR by default and creates the VPC endpoints needed to pull from inside the cluster:
+If your subnets do not have direct internet access, add `--create-vpc-endpoints` so that the script creates the VPC endpoints the cluster needs to pull images from inside the VPC:
 
 ```bash
 ./aws-bootstrap.sh \
@@ -187,11 +190,7 @@ If your subnets do not have direct internet access, the bootstrap script mirrors
 ```
 {% include copy.html %}
 
-The mirroring step runs from your machine (which has internet), copies the release images and Helm charts to ECR, then the EKS cluster pulls everything through VPC endpoints. The endpoints created are: Amazon S3, Amazon ECR API, Amazon ECR Docker, CloudWatch Logs, and Amazon Elastic File System (Amazon EFS).
-
-If your deployment also requires STS or EKS Authentication endpoints (for example, for IAM Roles for Service Accounts (IRSA) or EKS Pod Identity), create those separately before running the bootstrap script.
-
-If you prefer to manage VPC endpoints with another tool, omit `--create-vpc-endpoints`. The script still mirrors images and uses your existing endpoints.
+For the endpoints this creates, the additional endpoints some deployments need, and how to reach a source or target privately, see [Private networking]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/private-networking-on-eks/#private-networks-with-the-bootstrap-script).
 
 <!-- vale off -->
 ## Grant kubectl access to a CI role or teammate
