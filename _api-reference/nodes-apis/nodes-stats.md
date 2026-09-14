@@ -58,6 +58,7 @@ Metric | Description
 `weighted_routing` | Statistics relevant to weighted round robin requests.
 `resource_usage_stats` | Node-level resource usage statistics, such as CPU and JVM memory.
 `admission_control` | Statistics about admission control.
+`concurrency_limiter` | Statistics about adaptive concurrency limiters.
 `caches` | Statistics about caches. 
 
 To filter the information returned for the `indices` metric, you can use specific `index_metric` values. You can use these only when you use the following query types:
@@ -895,6 +896,7 @@ Field | Data type | Description
 [`weighted_routing`](#weighted_routing) | Object | Statistics relevant to weighted round robin requests.
 [`resource_usage_stats`](#resource_usage_stats) | Object | Statistics related to resource usage for the node.
 [`admission_control`](#admission_control) | Object | Statistics related to admission control for the node.
+[`concurrency_limiters`]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/concurrency-limits/#concurrency-limits-stats-api) | Object | Statistics related to adaptive concurrency limiters for the node. Requested using the `concurrency_limiter` metric.
 [`caches`](#caches) | Object | Statistics related to caches on the node.
 
 ### `indices`
