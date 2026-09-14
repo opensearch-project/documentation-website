@@ -13,7 +13,7 @@ has_toc: false
 
 The `index` mapping parameter controls whether a field is included in the inverted index. When set to `true`, the field is indexed and available for queries. When set to `false`, the field is stored in the document but not indexed, making it non-searchable when [`doc_values`]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/doc-values/) are not enabled. If you do not need to search a particular field, disabling indexing and `doc_values` for that field can reduce index size and improve indexing performance. For example, you can disable indexing on large text fields or metadata that is only used for display.
 
-By default, all field types are indexed.
+By default, all field types are indexed. The exception is a set of doc-values-backed field types on indexes that use a pluggable data format, for which `index` defaults to `false`. For more information, see [Pluggable data format indexes](#pluggable-data-format-indexes).
 
 ##  The index and doc values parameters compared
 
@@ -243,3 +243,11 @@ The following response confirms that the search query succeeded because the `nam
   }
 }
 ```
+
+## Pluggable data format indexes
+
+As of OpenSearch 3.9, on indexes that use a pluggable data format, numeric fields (including `scaled_float`), `date`, `date_nanos`, `ip`, and `boolean` fields are not indexed by default. These fields remain searchable because `range`, `term`, and `terms` queries on them are served from doc values. Other field types are not affected. Pluggable data formats are an experimental feature. For more information about enabling and disabling feature flags, see [Enabling experimental features]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/experimental/).
+
+Because the default value is not stored in the mapping, the `index` parameter does not appear in the response to a `GET _mapping` request for these fields, and the Field Capabilities API reports them as `"searchable": false`.
+
+Setting `index` to `true` on these fields is not supported. Doing so when creating an index, updating a mapping, or creating an index template returns a `400` error stating that the configured data formats cannot provide the search capability that an indexed field requires, for example, `Field [price] of type [long] requires capabilities [COLUMNAR_STORAGE, POINT_RANGE] but configured data formats cannot collectively cover: [POINT_RANGE]`. Setting `index` to `false` explicitly is accepted.

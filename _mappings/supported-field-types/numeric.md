@@ -141,7 +141,7 @@ Parameter | Description
 `coerce` | A Boolean value that signals to truncate decimals for integer values and to convert strings to numeric values. Default is `true`. Dynamically updatable.
 `doc_values` | A Boolean value that specifies whether the field should be stored on disk so that it can be used for aggregations, sorting, or scripting. Default is `true`.
 `ignore_malformed` | A Boolean value that specifies to ignore malformed values and not to throw an exception. Default is `false`. Dynamically updatable.
-`index` | A Boolean value that specifies whether the field should be searchable. Default is `true`. 
+`index` | A Boolean value that specifies whether the field should be searchable. Default is `true`. On indexes that use a pluggable data format, the default is `false` and `true` is not supported. For more information, see [Pluggable data format indexes]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/index-parameter/#pluggable-data-format-indexes).
 `meta` | Accepts metadata for this field.
 [`null_value`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/index#null-value) | A value to be used in place of `null`. Must be of the same type as the field. If this parameter is not specified, the field is treated as missing when its value is `null`. Default is `null`.
 `skip_list` | A Boolean value that specifies whether to enable skip list indexing for doc values. When enabled, this creates indexed doc values that can improve performance for `range` queries by allowing the query engine to skip over irrelevant document ranges. Default is `false`.
