@@ -121,6 +121,86 @@ To add or remove these flags, modify `config/opensearch-security/internal_users.
 
 ---
 
+## Asynchronous configuration writes
+
+Configuration write endpoints (create, update, patch, and delete for roles, role mappings, internal users, tenants, and audit configuration) accept a `wait_for_completion` query parameter that follows the same convention as other long-running OpenSearch APIs such as `reindex` and `update_by_query`.
+
+By default (`wait_for_completion=true`, or when the parameter is omitted), the request runs synchronously and returns the standard response body only after the change has been persisted and every node has acknowledged the reload. When `wait_for_completion=false`, the operation is submitted through the OpenSearch tasks framework and the request returns immediately with a task identifier. Callers then poll the standard [Tasks API]({{site.url}}{{site.baseurl}}/api-reference/tasks/) for the outcome.
+
+### Supported endpoints
+
+| Path | Methods |
+| :--- | :--- |
+| `/_plugins/_security/api/roles/{name}` | `PUT`, `PATCH`, `DELETE` |
+| `/_plugins/_security/api/roles` | `PATCH` (bulk) |
+| `/_plugins/_security/api/rolesmapping/{name}` | `PUT`, `PATCH`, `DELETE` |
+| `/_plugins/_security/api/rolesmapping` | `PATCH` (bulk) |
+| `/_plugins/_security/api/internalusers/{name}` | `PUT`, `PATCH`, `DELETE` |
+| `/_plugins/_security/api/internalusers` | `PATCH` (bulk) |
+| `/_plugins/_security/api/tenants/{name}` | `PUT`, `PATCH`, `DELETE` |
+| `/_plugins/_security/api/tenants` | `PATCH` (bulk) |
+| `/_plugins/_security/api/audit/config` | `PUT` |
+| `/_plugins/_security/api/audit` | `PATCH` |
+
+On endpoints that do not support asynchronous execution, the `wait_for_completion` parameter is silently ignored so existing clients continue to work.
+
+### Query parameters
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `wait_for_completion` | Boolean | When set to `false`, the request returns immediately instead of after the operation is finished. To monitor the operation status, use the [Tasks API]({{site.url}}{{site.baseurl}}/api-reference/tasks/) with the task ID returned by the request. Default is `true`, which means the operation runs synchronously. |
+
+### Example: Submit asynchronously
+
+```json
+PUT _plugins/_security/api/roles/my_role?wait_for_completion=false
+{
+  "cluster_permissions": ["cluster_composite_ops_ro"]
+}
+```
+{% include copy-curl.html %}
+
+Response:
+
+```json
+{
+  "task": "abc123:42"
+}
+```
+
+### Example: Poll for the outcome
+
+```json
+GET _tasks/abc123:42?wait_for_completion=true&timeout=30s
+```
+{% include copy-curl.html %}
+
+Response:
+
+```json
+{
+  "completed": true,
+  "task": {
+    "action": "cluster:admin/opendistro_security/api/write_config",
+    "description": "roles/my_role",
+    "cancellable": false
+  },
+  "response": {
+    "status": "CREATED",
+    "message": "'my_role' created."
+  }
+}
+```
+
+The `response` object mirrors the body the endpoint would have returned on the synchronous path, so clients can treat it as an authoritative record of the outcome.
+
+### Task cancellation
+
+Security configuration tasks are non-cancellable. `POST /_tasks/{task_id}/_cancel` on one of these tasks returns an error message containing `doesn't support cancellation`, because interrupting a configuration write partway through would leave the security index updated while only a subset of nodes reloaded the change. Tasks are always allowed to run to completion.
+
+
+---
+
 ## Account
 
 The following APIs manage account details and passwords.
