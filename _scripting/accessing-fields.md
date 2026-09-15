@@ -172,7 +172,7 @@ An `expression` script has no equivalent guard, because the language provides no
 In Painless, the `doc['field']` syntax works on an analyzed `text` field only when [`fielddata`]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/field-data/) is enabled on it, and it returns the analyzed terms rather than the original string. Enabling `fielddata` loads every term in the field into the JVM heap, which consumes both memory and CPU and can destabilize a node. Map a `keyword` subfield and have the script read the subfield instead.
 {: .warning}
 
-### The document _source
+### The document source
 
 The `_source` field contains the original JSON document body that was indexed. To read the `_source`, use the `params._source.field_name` syntax. To read a nested field, use the full path. For example, the `warehouse` field of the test index is a `geo_point` indexed as `{"lat": 47.6062, "lon": -122.3321}`, so its latitude is read as `params._source.warehouse.lat`.
 

@@ -31,7 +31,7 @@ OpenSearch enforces this itself. A node started as `root` fails during bootstrap
 
 Below the language sandbox, OpenSearch calls on the operating system to restrict the process itself, so that even native code loaded into the JVM cannot start a new program. The mechanism differs by platform:
 
-- On Linux, a seccomp filter installed through `seccomp(2)`, or through `prctl(2)` on older kernels, blocks the `fork`, `vfork`, `execve`, and `execveat` system calls.
+- On Linux, a filter installed through `seccomp(2)`, or through `prctl(2)` on older kernels, blocks the `fork`, `vfork`, `execve`, and `execveat` system calls.
 - On macOS, `sandbox_init` applies the Seatbelt profile `(version 1) (allow default) (deny process-fork) (deny process-exec)`.
 - On Windows, the process joins a job object whose `ActiveProcessLimit` is 1, so it cannot create a child process.
 

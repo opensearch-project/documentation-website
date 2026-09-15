@@ -59,7 +59,7 @@ Type | Description
 `char` | A single UTF-16 code unit. There is no character literal, so cast from a single-character string: `(char) 'A'`.
 `def` | A placeholder for any type, resolved at runtime.
 
-Integer division truncates toward zero, and mixing an integer with a floating-point value promotes the result. The following table lists an example of each.
+Integer division truncates toward zero, and an operation that combines an integer with a floating-point value returns a floating-point result. The following table lists an example of each.
 
 Expression | Result
 :--- | :---
@@ -171,7 +171,7 @@ return s;  // 12
 
 A script that does not end in an explicit `return` returns the value of its final expression, which is why a one-line script such as `doc['price'].value * 2` needs no `return`.
 
-A `try`/`catch` block works on the exception types present in the Painless allow list:
+A `try`/`catch` block can catch only the exception types on the Painless allow list:
 
 ```js
 int z = 0;
