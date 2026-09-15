@@ -16,6 +16,10 @@ Reporting uses two concepts:
 - A **report definition** is a saved configuration that specifies which dashboard, visualization, or saved search to capture, the file format (PDF, PNG, or CSV), the time range, and an optional schedule. You can reuse a report definition to generate reports on demand or on a recurring schedule.
 - A **report** is the generated output file (PDF, PNG, or CSV) produced from a report definition or a one-time download.
 
+The available file formats depend on the report source. Dashboards, visualizations, and notebooks are captured as images and can be downloaded as PDF or PNG. Only a saved search can be exported as CSV, because CSV output contains the rows returned by a query rather than a rendered image. To export the data behind a visualization as CSV, save the equivalent query as a saved search in **Discover** and generate the report from that saved search.
+
+Alternatively, you can perform these operations programmatically. For more information, see [Reporting API]({{site.url}}{{site.baseurl}}/reporting/api/).
+
 CSV reports have a non-configurable 10,000-row limit in OpenSearch version 2.16 and earlier. As of version 2.17, this limit can be configured when setting up a report. While reports have no explicit size limit (for example, MB), extremely large documents could cause report generation to fail with an out-of-memory error from the V8 JavaScript engine.
 {: .tip }
 
@@ -80,6 +84,8 @@ To find the report definition ID, list all definitions:
 GET _plugins/_reports/definitions
 ```
 {% include copy-curl.html %}
+
+For the full set of reporting endpoints, see [Reporting API]({{site.url}}{{site.baseurl}}/reporting/api/).
 
 ## Troubleshooting
 
