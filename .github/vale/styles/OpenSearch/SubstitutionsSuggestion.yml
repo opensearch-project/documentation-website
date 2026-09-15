@@ -98,6 +98,10 @@ swap:
   'set up': configure or initialize
   'sets up': configures or initializes
   'setting up': configuring or initializing
+  'ship': provide or include
+  'ships': provides or includes
+  'shipped': provided or included
+  'shipping': providing or including
   'show up': appear
   'shows up': appears
   'showing up': appearing
@@ -119,6 +123,10 @@ swap:
   'spot': detect or identify
   'start here': getting started
   'stitching together': chaining or combining
+  'surface': return, report, display, or expose
+  'surfaces': returns, reports, displays, or exposes
+  'surfaced': returned, reported, displayed, or exposed
+  'surfacing': returning, reporting, displaying, or exposing
   'talk to': communicate with or connect to
   'talks to': communicates with or connects to
   'talking to': communicating with or connecting to

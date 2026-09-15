@@ -183,7 +183,7 @@ POST _reindex
 ## Transform documents during reindexing
 
 You can transform your data during the reindexing process using the `script` option.
-We recommend Painless for scripting in OpenSearch.
+We recommend Painless for scripting in OpenSearch. For more information, see [Painless scripting language]({{site.url}}{{site.baseurl}}/scripting/painless/).
 
 This command runs the source index through a Painless script that increments a `number` field inside an `account` object before copying it to the destination index:
 

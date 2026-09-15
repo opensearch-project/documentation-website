@@ -7,7 +7,7 @@ nav_order: 50
 
 # Complex conditionals
 
-In ingest pipelines, the `if` parameter in processors can evaluate complex conditions using Painless scripts. These conditionals help fine-tune document processing, allowing advanced logic such as type checking, regular expressions, and combining multiple criteria.
+In ingest pipelines, the `if` parameter in processors can evaluate complex conditions using Painless scripts. These conditionals help fine-tune document processing, allowing advanced logic such as type checking, regular expressions, and combining multiple criteria. For more information, see [Painless scripting language]({{site.url}}{{site.baseurl}}/scripting/painless/).
 
 ## Multiple condition checks
 

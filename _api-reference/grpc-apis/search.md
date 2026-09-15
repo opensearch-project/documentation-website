@@ -603,7 +603,7 @@ For `knn` query fields, see [k-NN (gRPC)]({{site.url}}{{site.baseurl}}/api-refer
 
 #### ScriptQuery fields
 
-A script query filters documents based on a custom condition written in the Painless scripting language. The [`ScriptQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.7.0/protos/schemas/common.proto#L1471) message accepts the following fields.
+A script query filters documents based on a custom condition written in the Painless scripting language. For more information, see [Painless scripting language]({{site.url}}{{site.baseurl}}/scripting/painless/). The [`ScriptQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.7.0/protos/schemas/common.proto#L1471) message accepts the following fields.
 
 | Field | Protobuf type | Description |
 | :---- | :---- | :---- |

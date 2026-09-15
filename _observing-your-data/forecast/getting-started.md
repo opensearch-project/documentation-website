@@ -154,7 +154,7 @@ To manage permissions, use hyphenated namespaces. For example, assign `opensearc
 
 If your custom result index's documents include nested fields, enable the **Flattened custom result index** to simplify aggregation and visualization.
 
-This creates a separate index prefixed with the custom index and forecaster name (for example, `opensearch-forecast-result-abc-flattened-test`) and attaches an ingest pipeline using a [Painless script](https://github.com/opensearch-project/anomaly-detection/blob/main/src/main/resources/scripts/flatten-custom-result-index-painless.txt) to flatten nested data.
+This creates a separate index prefixed with the custom index and forecaster name (for example, `opensearch-forecast-result-abc-flattened-test`) and attaches an ingest pipeline using a [Painless script](https://github.com/opensearch-project/anomaly-detection/blob/main/src/main/resources/scripts/flatten-custom-result-index-painless.txt) to flatten nested data. For more information, see [Painless scripting language]({{site.url}}{{site.baseurl}}/scripting/painless/).
 
 If you later disable this option, the associated ingest pipeline is removed.
 
