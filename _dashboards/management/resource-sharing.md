@@ -9,9 +9,6 @@ nav_order: 30
 **Introduced 3.3**
 {: .label .label-purple }
 
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).    
-{: .warning}
-
 Resource sharing in OpenSearch Dashboards provides fine-grained, document-level access control for individual resources that plugins define. This feature extends OpenSearch's role-based access control by allowing resource owners to specify who can access a resource and what level of access they have, including read-only or read-write permissions. Use OpenSearch Dashboards for everyday access management and the **Dev Tools** console for automation and batch operations.
 
 If resource sharing features are not visible in OpenSearch Dashboards, contact your OpenSearch administrator to enable the capability and assign appropriate permissions.
@@ -37,13 +34,13 @@ To use resource sharing in OpenSearch Dashboards, you must meet the following pr
 * You own the resource, you are a superadmin, or the owner has shared the resource with you.
 * An administrator has enabled the following settings:
     ```yaml
-    plugins.security.experimental.resource_sharing.enabled: true
-    plugins.security.experimental.resource_sharing.protected_types: ["<resource-type>"]
+    plugins.security.resource_sharing.enabled: true
+    plugins.security.resource_sharing.protected_types: ["<resource-type>"]
     plugins.security.system_indices.enabled: true
     ```
     {% include copy.html %}
 
-    For more information about these settings, see [Configuring resource sharing]({{site.url}}{{site.baseurl}}/security/access-control/resources/#configuring-resource-sharing). For more information about experimental settings, see [Experimental feature flags]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/experimental/).
+    For more information about these settings, see [Configuring resource sharing]({{site.url}}{{site.baseurl}}/security/access-control/resources/#configuring-resource-sharing).
 
 ## Managing access for all resource types
 
@@ -145,11 +142,11 @@ Use the following table to troubleshoot common issues.
 
 | Issue | Possible cause | Fix |
 |---|---|---|
-| The **Resource Access Management** page is not visible. | The feature is disabled. | Ask an administrator to enable `plugins.security.experimental.resource_sharing.enabled`. |
+| The **Resource Access Management** page is not visible. | The feature is disabled. | Ask an administrator to enable `plugins.security.resource_sharing.enabled`. |
 | You can't create a resource. | You don't have the cluster permissions for the resource's plugin. | Ask an administrator to map you to a role that grants those permissions. |
 | You can't access a resource. | The resource is not shared with you. | Ask the owner to share the resource with you at the appropriate access level. |
 | An API request returns a `403` error. | The resource is not shared with you. | Ask the owner to share the resource with you at the appropriate access level. |
-| A resource is not listed in OpenSearch Dashboards. | The resource type is not marked as protected. | Ask an administrator to add the resource type to `plugins.security.experimental.resource_sharing.protected_types`. |
+| A resource is not listed in OpenSearch Dashboards. | The resource type is not marked as protected. | Ask an administrator to add the resource type to `plugins.security.resource_sharing.protected_types`. |
 | Updating access has no effect. | The access level is not valid for the resource type. | Verify the access level against the documentation for the resource's plugin. |
 
 ## Related documentation

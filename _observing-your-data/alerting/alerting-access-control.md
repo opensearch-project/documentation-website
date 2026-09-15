@@ -8,9 +8,6 @@ has_children: false
 
 # Alerting resource access control
 
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).
-{: .warning}
-
 Alerting integrates with the Security plugin's resource sharing and access control framework to provide document-level authorization for monitors and workflows. This replaces the legacy `plugins.alerting.filter_by_backend_roles` setting with a more flexible sharing system that allows resource owners to grant specific access levels to users, roles, or backend roles.
 
 For the end-to-end framework concepts and APIs, see [Resource sharing and access control]({{site.url}}{{site.baseurl}}/security/access-control/resources/).
@@ -43,9 +40,9 @@ Admin-only: These settings can be configured only by cluster administrators with
 Add the following settings to your `opensearch.yml` configuration file to enable resource sharing for alerting:
 
 ```yaml
-plugins.security.experimental.resource_sharing.enabled: true
+plugins.security.resource_sharing.enabled: true
 plugins.security.system_indices.enabled: true
-plugins.security.experimental.resource_sharing.protected_types:
+plugins.security.resource_sharing.protected_types:
   - "monitor"
   - "alerting-workflow"
 ```
@@ -59,8 +56,8 @@ Alternatively, you can enable resource sharing dynamically using the Cluster Set
 PUT _cluster/settings
 {
   "transient": {
-    "plugins.security.experimental.resource_sharing.enabled": true,
-    "plugins.security.experimental.resource_sharing.protected_types": ["monitor", "alerting-workflow"]
+    "plugins.security.resource_sharing.enabled": true,
+    "plugins.security.resource_sharing.protected_types": ["monitor", "alerting-workflow"]
   }
 }
 ```
