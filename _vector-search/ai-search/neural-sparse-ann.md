@@ -17,10 +17,10 @@ Neural sparse ANN search provides the following advantages over traditional neur
 
 - **Query performance improvement**: Achieves significant query speed improvements compared to two-phase queries under ≥90% recall conditions with better than linear performance scaling as dataset size increases.
 - **Scalability**: Maintains consistent query performance as datasets scale to 50 million vectors on a single node.
-- **Memory efficiency**: Uses byte quantization to reduce the size of the index, and, depending on the engine, either JVM heap caches with a circuit breaker or off-heap memory-mapped files to manage memory usage and prevent resource exhaustion.
+- **Memory efficiency**: Uses byte quantization to reduce index size. Depending on the engine, memory is managed by a JVM heap cache with a circuit breaker or by off-heap memory-mapped files, which prevents resource exhaustion.
 - **Hybrid approach**: Automatically selects the optimal indexing strategy based on segment size, with minimal impact on indexing performance.
 - **Search flexibility**: Provides tunable trade-offs between high recall and low latency using query parameters.
-- **Engine choice**: Runs on either the Lucene engine or, starting with OpenSearch 3.9, the native engine, which builds and searches the index in off-heap memory. For more information, see [Engines](#engines).
+- **Engine choice**: Uses either the Lucene engine or the native engine, which builds and searches the index in off-heap memory. For more information, see [Engines](#engines).
 
 Consider neural sparse ANN search when you need the efficiency of sparse retrieval but require better performance than traditional neural sparse search methods can provide at scale:
 
@@ -38,7 +38,7 @@ During the indexing phase, neural sparse ANN search implements several key optim
 1. **Posting list clustering**: For each term in the inverted index, the algorithm performs the following actions:
    - Sorts documents by their token weights in descending order.
    - Retains only the top `n_postings` documents with the highest weights.
-   - Applies a clustering algorithm to group similar documents into one cluster. On the native engine, `clustering_batch_size` splits each posting list into that many batches and clusters each batch separately, which reduces the memory needed to build the index at the cost of a longer build time.
+   - Applies a clustering algorithm to group similar documents into one cluster. The native engine uses `clustering_batch_size` to split each posting list into batches and cluster each batch separately, which reduces the memory needed to build the index at the cost of a longer build time.
    - Generates summary sparse vectors for each cluster, keeping only the highest-weighted tokens.
 
 2. **Forward index maintenance**: Neural sparse ANN search maintains both the clustered inverted index and a forward index that stores complete sparse vectors organized by document ID for efficient access during query processing. 
@@ -55,11 +55,11 @@ During query execution, neural sparse ANN search employs an efficient retrieval 
 
 This approach dramatically reduces the number of documents that need to be scored, resulting in significant performance improvements while maintaining high accuracy.
 
-### Hybrid indexing behavior
+### Hybrid indexing
 
 Neural sparse ANN search is a hybrid indexing approach that depends on the document count in each segment to balance indexing and query performance:
 
-- Segments with fewer documents than `approximate_threshold`: Not clustered, so queries against them score every matching document instead of using the SEISMIC algorithm. On the Lucene engine, these segments are indexed as plain neural sparse (`rank_features`) segments and queried using the standard neural sparse query. On the native engine, they are indexed as an equivalent inverted index built in the engine's native format.
+- Segments with fewer documents than `approximate_threshold`: Indexed without clustering, so queries against them score every matching document. The Lucene engine indexes these segments as plain neural sparse (`rank_features`) segments and queries them using the standard neural sparse query. The native engine indexes them as an equivalent inverted index built in its native format.
 
 - Segments with more documents than `approximate_threshold`: Indexed as neural sparse ANN segments and queried using the sparse ANN query.
 
@@ -71,12 +71,12 @@ For more information about the SEISMIC algorithm, see [Efficient Inverted Indexe
 **Introduced 3.9**
 {: .label .label-purple }
 
-An _engine_ is the implementation that builds the neural sparse ANN index and runs queries against it. Both engines implement the SEISMIC algorithm and accept the same algorithm and query parameters; they differ in where the index lives and how its memory is managed.
+An _engine_ is the implementation that builds the neural sparse ANN index and runs queries against it. Both engines implement the SEISMIC algorithm and accept the same algorithm and query parameters; they differ in the location of the index and the method of managing its memory.
 
 OpenSearch supports the following engines:
 
-- [**Lucene**](#lucene-engine): Builds the clustered posting lists and forward index in JVM heap and serves queries from a plugin-managed cache. Available in OpenSearch 3.3 and later. This is the default.
-- [**Native**](#native-engine): Builds the index into a memory-mapped file on disk and serves queries from off-heap memory. Available in OpenSearch 3.9 and later.
+- [Lucene](#lucene-engine): Builds the clustered posting lists and forward index in JVM heap and serves queries from a plugin-managed cache. This is the default.
+- [Native](#native-engine): Builds the index into a memory-mapped file on disk and serves queries from off-heap memory.
 
 Select an engine using the `engine` parameter in the field's `method` object:
 
@@ -119,20 +119,19 @@ The following table compares the two engines.
 | Characteristic | Lucene engine | Native engine |
 |:--- |:--- |:--- |
 | `engine` value | `lucene` | `native` |
-| Available in | OpenSearch 3.3 and later | OpenSearch 3.9 and later |
 | Enabled by default | Yes | No. See [Enabling the native engine](#enabling-the-native-engine). |
 | Query performance | Baseline | Higher search throughput and lower query latency |
 | Index build performance | Baseline | Faster segment and force merge builds |
 | Where the index is held | JVM heap, in a plugin-managed cache | A memory-mapped file on disk, read from off-heap memory |
-| Memory bounded by | The `plugins.neural_search.circuit_breaker.limit` setting, with least recently used cache eviction | Operating system page cache. No configurable limit, and no eviction by OpenSearch. |
-| JVM heap required | Proportional to the working set of sparse segments served by the node | Minimal. The index is not held in heap. |
-| Disk layout | Managed by Lucene | A dedicated engine file, memory mapped at query time. Size depends on the [forward index layout](#choosing-a-forward-index-layout). |
+| Memory bounded by | The `plugins.neural_search.circuit_breaker.limit` setting, with least recently used cache eviction | The operating system page cache, with no configurable limit and no eviction by OpenSearch |
+| JVM heap required | Proportional to the working set of sparse segments served by the node | Minimal, because the index is not held in heap |
+| Disk layout | Managed by Lucene | A dedicated engine file, memory mapped at query time, whose size depends on the [forward index layout](#choosing-a-forward-index-layout) |
 | Filtering | Post-filtering | Pre-filtering. See [Filtering support](#filtering-support). |
-| Format of segments below `approximate_threshold` | `rank_features`, queried using the standard neural sparse query | An inverted index equivalent to `rank_features`, built in the engine's native format |
-| Warm up and clear cache APIs | Supported | Not applicable |
+| Format of segments with fewer documents than `approximate_threshold` | `rank_features`, queried using the standard neural sparse query | An inverted index equivalent to `rank_features`, built in the engine's native format |
+| Warm Up and Clear Cache APIs | Supported | Not applicable |
 | Sparse memory statistics | Reported | Not reported |
 
-For benchmark results and guidance on choosing between the engines, see [Neural sparse ANN search performance tuning]({{site.url}}{{site.baseurl}}/vector-search/performance-tuning-sparse/).
+For guidance on choosing between the engines, see [Choosing an engine]({{site.url}}{{site.baseurl}}/vector-search/performance-tuning-sparse/#choosing-an-engine).
 
 ### Lucene engine
 
@@ -145,10 +144,10 @@ Because the index is held in heap, a node running the Lucene engine at scale nee
 The native engine writes the SEISMIC index to a file that OpenSearch memory maps at query time and reads in place. The on-disk layout is the runtime layout, so nothing is reconstructed when the index is loaded. This has the following consequences:
 
 - The index does not consume JVM heap and adds no garbage collection pressure, so a node can serve large sparse indexes with a comparatively small heap.
-- Index memory is reclaimable operating system page cache rather than anonymous memory, so the operating system reclaims it under memory pressure. No circuit breaker or eviction policy is involved.
+- Index memory is reclaimable operating system page cache, so the operating system reclaims it under memory pressure. No circuit breaker or eviction policy is involved.
 - The first query against a segment pays a one-time cost to establish the memory mapping. Later queries reuse it. This cost grows with segment size.
 
-Because the native engine relies on page cache rather than a configurable limit, sizing a node means leaving enough RAM for page cache, the same as for any other memory-mapped Lucene data.
+The native engine relies on the operating system page cache, and no setting bounds the amount of memory that its index uses. To size a node for the native engine, leave enough RAM for the page cache, the same as for any other memory-mapped Lucene data.
 
 #### Enabling the native engine
 
@@ -171,21 +170,21 @@ PUT _cluster/settings
 ```
 {% include copy-curl.html %}
 
-If either setting is `false`, OpenSearch rejects attempts to create a field with `engine` set to `native`, to index documents into an existing native engine field, and to query one. OpenSearch does not silently fall back to the Lucene engine, because the field's mapping still specifies the native engine.
+If either setting is `false`, OpenSearch rejects attempts to create a field with `engine` set to `native`, to index documents into an existing native engine field, and to query one. OpenSearch does not fall back to the Lucene engine, because the field's mapping specifies the native engine.
 
 While the native engine is disabled, OpenSearch skips building the native index during segment flush and merge. Raw vectors are still written to disk, so re-enabling the engine and then force merging the affected indexes rebuilds the native index.
 {: .note}
 
 #### Choosing a forward index layout
 
-The `forward_index` algorithm parameter controls how the native engine stores the forward index. Specify it in the field's `method.parameters` object. Like `clustering_batch_size`, it is supported only for the native engine.
+The `forward_index` algorithm parameter controls how the native engine stores the forward index. Specify it in the field's `method.parameters` object. The following table describes the available layouts.
 
 | Value | Description | Trade-off |
 |:--- |:--- |:--- |
 | `shared` (default) | One contiguous forward index for the field. | Lower disk usage. |
 | `per_block` | Each block's vectors are stored inline with the block, so a query reads only the blocks it selects. | Lower query latency, higher disk usage. |
 
-Both layouts are memory mapped and apply the same quantization. The `forward_index` parameter selects where forward index data is placed, not the precision at which it is stored.
+Both layouts are memory mapped and apply the same quantization. The `forward_index` parameter selects where forward index data is placed; the precision at which it is stored is the same for both layouts.
 
 If you set `engine` to `lucene` and specify a `forward_index` value other than `shared`, the request is rejected.
 {: .warning}
@@ -194,7 +193,7 @@ If you set `engine` to `lucene` and specify a `forward_index` value other than `
 
 Before choosing the native engine, note the following:
 
-- The [warm up]({{site.url}}{{site.baseurl}}/vector-search/api/neural/#warm-up) and [clear cache]({{site.url}}{{site.baseurl}}/vector-search/api/neural/#clear-cache) APIs operate on the Lucene engine's cache and do not apply to the native engine.
+- The [Warm Up]({{site.url}}{{site.baseurl}}/vector-search/api/neural/#warm-up) and [Clear Cache]({{site.url}}{{site.baseurl}}/vector-search/api/neural/#clear-cache) APIs operate on the Lucene engine's cache and do not apply to the native engine.
 - The sparse memory statistics returned by the [Neural Search Stats API]({{site.url}}{{site.baseurl}}/vector-search/api/neural/#stats) report Lucene engine cache usage only. They do not account for native engine index memory.
 - The `plugins.neural_search.circuit_breaker.limit` setting has no effect on the native engine.
 - The native engine requires an index whose data is stored on the local filesystem.
@@ -325,15 +324,15 @@ GET /my-sparse-ann-index/_search
 | `heap_factor` | Controls recall compared to performance trade-off |
 | `filter` | Optional Boolean filter for pre-filtering or post-filtering |
 
-The query syntax and these parameters are the same for both engines. The engine is selected in the field mapping, not in the query. For more information, see [Engines](#engines).
+The query syntax and these parameters are the same for both engines. You select the engine in the field mapping. For more information, see [Engines](#engines).
 {: .note}
 
 ## Filtering support
 
-Neural sparse ANN search supports filtering. On both engines, if the filter matches fewer documents than `k`, the query runs an exact search over the filtered documents instead of the approximate algorithm. Otherwise, the two engines apply the filter at different points:
+Neural sparse ANN search supports filtering. If the filter matches fewer documents than `k`, both engines run an exact search over the filtered documents. Otherwise, the two engines apply the filter at different points:
 
-- On the **Lucene engine**, the filter is applied after approximate retrieval (post-filtering). The results are the intersection of the top matches and the filter, so a selective filter can return fewer than `k` results.
-- On the **native engine**, the filter is pushed into the engine as a candidate set before retrieval (pre-filtering). Retrieval runs within the filtered set, so the query can return a full `k` results.
+- The Lucene engine applies the filter after approximate retrieval (post-filtering). The results are the intersection of the top matches and the filter, so a selective filter can return fewer than `k` results.
+- The native engine pushes the filter down as a candidate set before retrieval (pre-filtering). Retrieval runs within the filtered set, so the query can return the full `k` results.
 
 For more information, see [Filtering in neural sparse ANN search]({{site.url}}{{site.baseurl}}/vector-search/filter-search-knn/filtering-in-sparse-search/).
 
@@ -384,7 +383,7 @@ For more information, see [Neural Search plugin settings]({{site.url}}{{site.bas
 
 Monitor memory usage and query statistics using the [Neural Search Stats API]({{site.url}}{{site.baseurl}}/vector-search/api/neural/#stats).
 
-The sparse memory statistics report Lucene engine cache usage only. Native engine index memory is held in operating system page cache and is not reflected in these statistics.
+The sparse memory statistics report Lucene engine cache usage only. Native engine index memory is held in the operating system page cache and is not reflected in these statistics.
 {: .note}
 
 ## Performance tuning

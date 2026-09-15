@@ -25,7 +25,7 @@ The `method` object supports the following parameters.
 | Parameter       | Type   | Required | Description                                                                                                                                                                                                      | Default    | Valid values           | 
 |-----------------|--------|----------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------|------------------------|
 | `name`          | String | Yes      | The neural sparse ANN search algorithm.                                                                                                                                                                          | -          | `seismic`              | 
-| `engine`        | String | No       | The engine that builds and searches the index. Introduced in OpenSearch 3.9. For a comparison of the two engines, see [Engines]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/#engines).  | `lucene`   | `lucene`, `native`     | 
+| `engine`        | String | No       | The engine that builds and searches the index. For more information, see [Engines]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/#engines).  | `lucene`   | `lucene`, `native`     | 
 | `parameters`    | Object | No       | The algorithm parameters. See [Algorithm parameters](#algorithm-parameters).                                                                                                                                     | -          | -                      | 
 
 The `method` object cannot be updated after the field is created. To change the engine or any algorithm parameter, create a new index with the intended mapping and reindex your data.
@@ -33,7 +33,7 @@ The `method` object cannot be updated after the field is created. To change the 
 
 ### Algorithm parameters
 
-The `method.parameters` object supports the following parameters. All of them apply to both the Lucene engine and the native engine except for `clustering_batch_size` and `forward_index`, which are supported for the native engine only.
+The `method.parameters` object supports the following parameters.
 
 | Parameter               | Type    | Required | Description                                   | Default               | Range       | 
 |-------------------------|---------|----------|-----------------------------------------------|-----------------------|-------------|
@@ -43,10 +43,10 @@ The `method.parameters` object supports the following parameters. All of them ap
 | `approximate_threshold` | Integer | No | The minimum number of documents in a segment required to activate neural sparse ANN search.     | `1000000`           | [0, ∞) | 
 | `quantization_ceiling_search`  | Float   | No | The maximum token weight used for quantization during search. | `16`                  | (0, ∞) | 
 | `quantization_ceiling_ingest` | Float | No | The maximum token weight used for quantization during ingestion. | `3`                   | (0, ∞)     | 
-| `clustering_batch_size` | Integer | No | The number of batches that each inverted list is split into for clustering. Supported for the native engine only. When this parameter is greater than `1`, clustering runs on each batch instead of on the whole corpus, which significantly reduces memory usage during index building at the cost of longer build times. | `1`                   | [1, 10000]     | 
-| `forward_index`         | String  | No | How the forward index is stored. Supported for the native engine only. `shared` stores one contiguous forward index for the field. `per_block` stores each block's vectors inline with the block, which lowers query latency but uses more disk space. Introduced in OpenSearch 3.9. | `shared`              | `shared`, `per_block` | 
+| `clustering_batch_size` | Integer | No | The number of batches that each inverted list is split into for clustering. Supported for the native engine only. When this parameter is greater than `1`, clustering runs on each batch rather than on the whole corpus, which reduces memory usage during index building at the cost of longer build times. | `1`                   | [1, 10000]     | 
+| `forward_index`         | String  | No | How the forward index is stored. Supported for the native engine only. `shared` stores one contiguous forward index for the field. `per_block` stores each block's vectors inline with the block, which lowers query latency but uses more disk space. | `shared`              | `shared`, `per_block` | 
 
-The `clustering_batch_size` and `forward_index` parameters are supported only for the native engine. If you set `engine` to `lucene` and specify a `forward_index` value other than `shared`, the request is rejected.
+If you set `engine` to `lucene` and specify a `forward_index` value other than `shared`, the request is rejected.
 {: .warning}
 
 
@@ -94,40 +94,7 @@ PUT sparse-vector-index
 ```
 {% include copy-curl.html %}
 
-Because `engine` defaults to `lucene`, this field uses the Lucene engine. To use the native engine, set `engine` to `native` and, optionally, set `forward_index` in `parameters`:
-
-```json
-PUT sparse-vector-native-index
-{
-  "settings": {
-    "index": {
-      "sparse": true
-    }
-  },
-  "mappings": {
-    "properties": {
-      "sparse_embedding": {
-        "type": "sparse_vector",
-        "method": {
-          "name": "seismic",
-          "engine": "native",
-          "parameters": {
-            "n_postings": 300,
-            "cluster_ratio": 0.1,
-            "summary_prune_ratio": 0.4,
-            "approximate_threshold": 1000000,
-            "forward_index": "per_block"
-          }
-        }
-      }
-    }
-  }
-}
-```
-{% include copy-curl.html %}
-
-The native engine is disabled by default. Before creating a field that uses it, enable it on every data node. For more information, see [Enabling the native engine]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/#enabling-the-native-engine).
-{: .note}
+This example uses the default Lucene engine. To map the field to the native engine instead, enable the engine at the cluster level and then set `engine` to `native`. For more information, see [Engines]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/#engines).
 
 ### Step 2: Ingest data into the index
 
@@ -178,7 +145,7 @@ GET sparse-vector-index/_search
     "neural_sparse": {
       "sparse_embedding": {
         "query_tokens": {
-          "1055": 5.5
+          "1000": 5.5
         },
         "method_parameters": {
           "heap_factor": 1.0,

@@ -67,7 +67,7 @@ For information about splitting large documents into smaller passages before gen
 
 You can run neural sparse approximate nearest neighbor (ANN) search to achieve better query performance with high query recall (>0.9). For more information, see [Neural sparse ANN search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/).
 
-Starting with OpenSearch 3.9, you can choose between two engines for a `sparse_vector` field: the Lucene engine, which is the default, and the native engine. You select the engine in the field mapping, and the query syntax is the same for both. For more information, see [Engines]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/#engines).
+You can choose between two engines for a `sparse_vector` field: the Lucene engine, which is the default, and the native engine. You select the engine in the field mapping, and the query syntax is the same for both. For more information, see [Engines]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/#engines).
 
 ## Further reading
 

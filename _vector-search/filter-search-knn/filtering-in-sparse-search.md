@@ -9,10 +9,10 @@ nav_order: 40
 
 You can run neural sparse approximate nearest neighbor (ANN) search queries with filtering in the following ways:
 
-- Provide a `filter` in the `method_parameters` of the `neural_sparse` query. The filter is evaluated by the engine that is configured for the `sparse_vector` field, so the filtering behavior depends on that engine.
-- Wrap the `neural_sparse` query in a [Boolean filter](#using-a-boolean-filter-with-neural-sparse-ann-search). The filter is evaluated outside the engine, after the query returns its top `k` results, and behaves the same way on both engines.
+- Provide a `filter` in the `method_parameters` of the `neural_sparse` query. The filter is evaluated by the engine that is configured for the `sparse_vector` field, so how the filter is applied depends on that engine.
+- Wrap the `neural_sparse` query in a [Boolean filter](#using-a-boolean-filter-with-neural-sparse-ann-search). The filter is evaluated outside the engine, after the query returns its top `k` results, and is applied the same way by both engines.
 
-## Filtering behavior by engine
+## Applying the filter
 **Introduced 3.9**
 {: .label .label-purple }
 
@@ -24,22 +24,27 @@ The algorithm uses the following variables to decide how to apply a filter:
 - P: The number of documents in the document subset after the filter is applied (P <= N).
 - k: The maximum number of vectors to return in the response.
 
-When P is less than k, both engines run an exact search over the P filtered documents rather than the approximate algorithm, which would otherwise return substantially fewer than k results. When P is greater than k, the engines behave as follows.
+When P is less than k, both engines run an exact search over the P filtered documents, which would otherwise return far fewer than k results. When P is greater than k, the engines apply the filter as follows.
 
-| Engine | Approximate search behavior | Number of results |
+| Engine | How the filter is applied | Number of results |
 |:--- |:--- |:--- |
 | `lucene` (default) | Post-filtering. The algorithm runs on the N documents, and the filter is applied to the results, so the results are the intersection of the top matches and the filter. | A selective filter can return fewer than `k` results. |
-| `native` | Pre-filtering. The filter is pushed down into the engine as a candidate set, so retrieval runs within the filtered set. | Returns up to a full `k` results. |
+| `native` | Pre-filtering. The filter is pushed down into the engine as a candidate set, so retrieval runs within the filtered set. | Returns the full `k` results. |
 
-### Post-filtering on the Lucene engine
+### Post-filtering using the Lucene engine
 
-When P is greater than k on the Lucene engine, the neural sparse ANN search algorithm runs on the N documents and the filter is applied to the results. Because the filter is applied to the approximate results, a selective filter can return fewer than k results.
+When P is greater than k, the Lucene engine runs the neural sparse ANN search algorithm on the N documents and applies the filter to the results. Because the filter is applied to the approximate results, a selective filter can return fewer than k results.
 
-### Pre-filtering on the native engine
+### Pre-filtering using the native engine
 
-When P is greater than k on the native engine, the filter is pushed down into the engine as a candidate set before retrieval begins. Approximate retrieval then runs within the filtered set, so a selective filter doesn't reduce the number of results, and the query returns up to a full `k` results.
+When P is greater than k, the native engine pushes the filter down as a candidate set before retrieval begins. Approximate retrieval then runs within the filtered set, so a selective filter doesn't reduce the number of results, and the query returns the full `k` results.
 
-To use the native engine for a field, set `method.engine` to `native` in the field mapping. The following request creates an index equivalent to the `hotels-index` index used in the following example, with the `name_embedding` field configured to use the native engine:
+To use the native engine for a field, set `method.engine` to `native` in the field mapping.
+
+The native engine is disabled by default and requires additional node settings. Enable the engine before creating a field that uses it. For more information, see [Enabling the native engine]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/#enabling-the-native-engine).
+{: .note}
+
+The following request creates an index equivalent to the `hotels-index` index used in the example, in which the `name_embedding` field uses the native engine:
 
 ```json
 PUT /hotels-index-native
@@ -81,12 +86,9 @@ PUT /hotels-index-native
 ```
 {% include copy-curl.html %}
 
-The native engine is opt-in and requires additional node settings. For more information, see [Enabling the native engine]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/#enabling-the-native-engine).
-{: .note}
-
 ## Using a neural sparse ANN search filter
 
-In this example, you will create an index and search for the three hotels with high ratings, parking, and a name matching your search criteria. The index uses the default Lucene engine, so the filter is applied after approximate retrieval. To run the same query with pre-filtering, map the field to the native engine, as described in [Pre-filtering on the native engine](#pre-filtering-on-the-native-engine).
+In this example, you will create an index and search for the three hotels with high ratings, parking, and a name matching your search criteria. The index uses the default Lucene engine, so the filter is applied after approximate retrieval. To run the same query using pre-filtering, map the field to the native engine, as described in [Pre-filtering using the native engine](#pre-filtering-using-the-native-engine).
 
 ### Step 1: Create a new index
 
@@ -277,7 +279,7 @@ The response returns the three hotels that are nearest to the search point and m
 
 ## Post-filtering outside the query
 
-Instead of providing a filter in `method_parameters`, you can apply post-filtering using a [Boolean filter](#using-a-boolean-filter-with-neural-sparse-ann-search). In this case the filter is evaluated outside the engine, so the behavior is the same on both the Lucene engine and the native engine. Because filtering occurs after the neural sparse ANN search retrieves its top k results, the final number of returned results may be significantly smaller than k.
+You can also apply post-filtering using a [Boolean filter](#using-a-boolean-filter-with-neural-sparse-ann-search). In this case, the filter is evaluated outside the engine, so it is applied the same way by both the Lucene engine and the native engine. Because filtering occurs after the neural sparse ANN search retrieves its top k results, the final number of returned results may be much smaller than k.
 
 ### Using a Boolean filter with neural sparse ANN search
 
