@@ -22,7 +22,13 @@ GET /_search
 
 POST /{index}/_search
 POST /_search
+
+QUERY /{index}/_search
+QUERY /_search
 ```
+
+The QUERY method is supported as of OpenSearch 2.17 (RFC 10008 compliance). The QUERY method is safe, idempotent, and cacheable, making it suitable for search requests that carry a request body.
+{: .label .label-blue }
 
 ## Query parameters
 
