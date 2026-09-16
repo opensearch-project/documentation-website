@@ -16,7 +16,7 @@ Operating system | Version
 :---------- | :-------- 
 Rocky Linux | 8
 Alma Linux | 8
-Amazon Linux | 2/2023
+Amazon Linux | 2023
 Ubuntu | 24.04
 Windows Server | 2019
 
@@ -29,6 +29,7 @@ The following table lists changes made to operating system compatibility.
 
 | Date       | Issue | PR | Details |
 |:-----------|:-------|:-------|:--------------------------|
+| `2026-09-29` | [`opensearch-build` issue 5227](https://github.com/opensearch-project/opensearch-build/issues/5227) | [PR 12853](https://github.com/opensearch-project/documentation-website/pull/12853) | Remove [Amazon Linux 2](https://aws.amazon.com/amazon-linux-2/faqs/) |
 | `2025-02-06` | [`opensearch-build` issue 5270](https://github.com/opensearch-project/opensearch-build/issues/5270) | [PR 9165](https://github.com/opensearch-project/documentation-website/pull/9165) | Remove [Ubuntu 20.04](https://ubuntu.com/blog/ubuntu-20-04-lts-end-of-life-standard-support-is-coming-to-an-end-heres-how-to-prepare) |
 | `2024-07-23` | [`opensearch-build` issue 4379](https://github.com/opensearch-project/opensearch-build/issues/4379) | [PR 7821](https://github.com/opensearch-project/documentation-website/pull/7821) | Remove [CentOS7](https://blog.centos.org/2023/04/end-dates-are-coming-for-centos-stream-8-and-centos-linux-7/) |
 | `2024-03-08` | [`opensearch-build` issue 4573](https://github.com/opensearch-project/opensearch-build/issues/4573) | [PR 6637](https://github.com/opensearch-project/documentation-website/pull/6637) | Remove CentOS8, add Almalinux8/Rockylinux8, and remove Ubuntu 16.04/18.04 because we currently only test on 20.04 |
