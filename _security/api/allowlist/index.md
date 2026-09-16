@@ -26,8 +26,8 @@ OpenSearch supports the following allow list APIs.
 The allow list APIs are restricted to a super admin. Being mapped to a role listed in `plugins.security.restapi.roles_enabled` is not sufficient on its own: a user with the `all_access` role receives `403 Forbidden`. To call these APIs, use one of the following approaches:
 
 - Authenticate with an admin certificate. For more information, see [Configuring an admin certificate]({{site.url}}{{site.baseurl}}/security/configuration/tls/#configuring-admin-certificates).
-- Grant a role the `restapi:admin/allowlist` cluster permission. The role must also be listed in `plugins.security.restapi.roles_enabled`, and `opensearch.yml` must set `plugins.security.restapi.admin.enabled` to `true`.
+- Grant a role the `restapi:admin/allowlist` cluster permission and set `plugins.security.restapi.admin.enabled` to `true` in `opensearch.yml`. This permission is an independent grant, so the role does not also need to be listed in `plugins.security.restapi.roles_enabled`.
 
-No built-in role includes `restapi:admin/allowlist`. A role that contains any `restapi:admin` permission cannot be created or modified through the [Role APIs]({{site.url}}{{site.baseurl}}/security/api/roles/), so define the role in `roles.yml` and apply it with `securityadmin.sh`. For more information, see [Applying changes to configuration files]({{site.url}}{{site.baseurl}}/security/configuration/security-admin/).
+The reserved `security_rest_api_full_access` role includes `restapi:admin/allowlist`. A role that contains any `restapi:admin` permission cannot be created or modified through the [Role APIs]({{site.url}}{{site.baseurl}}/security/api/roles/), so define your own such role in `roles.yml` and apply it with `securityadmin.sh`. For more information, see [Applying changes to configuration files]({{site.url}}{{site.baseurl}}/security/configuration/security-admin/).
 
 To prevent a role from using these APIs, disable the `ALLOWLIST` endpoint for that role using `plugins.security.restapi.endpoints_disabled`.

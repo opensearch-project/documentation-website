@@ -61,9 +61,9 @@ Restart the cluster to apply these settings. For more information, see [Experime
 
 ## Required permissions
 
-These APIs use the same access control as all other Security APIs, so the calling user must be mapped to a role listed in `plugins.security.restapi.roles_enabled`. A user without such a role receives `403 Forbidden`. For more information, see [Access control for the API]({{site.url}}{{site.baseurl}}/security/access-control/api/#access-control-for-the-api).
+These APIs use the same access control as all other Security APIs, so the calling user must be mapped to a role listed in `plugins.security.restapi.roles_enabled`. A user without such a role receives `403 Forbidden` unless that user holds one of the following permissions. For more information, see [Access control for the API]({{site.url}}{{site.baseurl}}/security/access-control/api/#access-control-for-the-api).
 
-To control the two operations separately, enable REST API admin permissions and grant a role the following cluster permissions. No built-in role includes them.
+To control the two operations separately, enable REST API admin permissions and grant a role the following cluster permissions. Each one is an independent grant, so a role that holds it does not also need to be listed in `plugins.security.restapi.roles_enabled`. No built-in role includes these permissions, including `security_rest_api_full_access`.
 
 | Operation | Required permission |
 | :--- | :--- |

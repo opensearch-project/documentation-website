@@ -17,13 +17,13 @@ The Security APIs configure and inspect the Security plugin over REST. Use them 
 
 All Security APIs use the base path `_plugins/_security/` followed by the specific path for each operation. For example, the path for the Perform Upgrade API is `/_plugins/_security/api/_upgrade_perform`.
 
-Most of these APIs read from and write to the security configuration index, so access to them is restricted. To call one, the requesting user must be mapped to a role listed in the `plugins.security.restapi.roles_enabled` setting in `opensearch.yml`. A user without such a role receives `403 Forbidden`, regardless of the cluster permissions granted to that user.
+Most of these APIs read from and write to the security configuration index, so access to them is restricted. To call one, the requesting user must be mapped to a role listed in the `plugins.security.restapi.roles_enabled` setting in `opensearch.yml` or hold a matching [REST API admin permission]({{site.url}}{{site.baseurl}}/security/access-control/api/#rest-api-admin-permissions). A user with neither receives `403 Forbidden`, regardless of the other cluster permissions granted to that user.
 
 Four APIs are exempt because they expose only the requesting user's own information: the [account APIs]({{site.url}}{{site.baseurl}}/security/api/account/), the [Permissions Info API]({{site.url}}{{site.baseurl}}/security/api/authentication/permissions-info/), the [Dashboards Info API]({{site.url}}{{site.baseurl}}/security/api/dashboards-info/), and the [Security Plugin Health API]({{site.url}}{{site.baseurl}}/security/api/health/). Any authenticated user can call them.
 
-Three groups of APIs require more than a `plugins.security.restapi.roles_enabled` role. The [allow list APIs]({{site.url}}{{site.baseurl}}/security/api/allowlist/), [distinguished name APIs]({{site.url}}{{site.baseurl}}/security/api/distinguished-names/), and [certificate APIs]({{site.url}}{{site.baseurl}}/security/api/certificates/) are restricted to a super admin, and each category page describes the additional cluster permission that lets a role reach them. For more information, see [Access control for the API]({{site.url}}{{site.baseurl}}/security/access-control/api/).
+A `plugins.security.restapi.roles_enabled` role is not enough for three groups of APIs. The [allow list APIs]({{site.url}}{{site.baseurl}}/security/api/allowlist/), [distinguished name APIs]({{site.url}}{{site.baseurl}}/security/api/distinguished-names/), and [certificate APIs]({{site.url}}{{site.baseurl}}/security/api/certificates/) are restricted to a super admin, and each category page describes the cluster permission that lets a role reach them instead. For more information, see [Access control for the API]({{site.url}}{{site.baseurl}}/security/access-control/api/).
 
-Most Security APIs require the calling user to be mapped to a role listed in `plugins.security.restapi.roles_enabled`. The following example uses HTTP basic authentication as the `admin` user:
+The following example uses HTTP basic authentication as the `admin` user:
 
 ```bash
 curl -k -XGET -u admin:<password> https://localhost:9200/_plugins/_security/api/roles/
