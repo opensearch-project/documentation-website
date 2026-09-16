@@ -71,7 +71,7 @@ Search backpressure is a mechanism used to identify resource-intensive search re
 
 ## Concurrency limit settings
 
-Concurrency limits adaptively cap the number of in-flight requests for any transport action and reject excess requests with an HTTP 429 response. For more information, see [Concurrency limit settings]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/concurrency-limits/#concurrency-limit-settings).
+Concurrency limits adaptively restrict the number of active requests for any transport action. For more information, see [Concurrency limit settings]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/concurrency-limits/#concurrency-limit-settings).
 
 ## Shard indexing backpressure settings
 

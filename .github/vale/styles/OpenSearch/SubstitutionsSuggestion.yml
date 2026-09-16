@@ -13,6 +13,9 @@ swap:
   'build out': expand or implement
   'builds out': expands or implements
   'building out': expanding or implementing
+  'cap': limit or maximum
+  'caps': limits or restricts
+  'capping': limiting or restricting
   'catch up': synchronize with
   'catches up': synchronizes with
   'catching up': synchronizing with
@@ -44,10 +47,18 @@ swap:
   'get': receive, obtain, or retrieve
   'gets': receives, returns, or retrieves
   'getting': retrieving or obtaining
+  'grow': increase
+  'grows': increases
+  'growing': increasing
   'handle': manage, process, or resolve
   'handles': manages, processes, or resolves
   'handling': managing, processing, or resolving
+  'in flight': in progress or active
+  'in-flight': in-progress or active
   'it is recommended': we recommend
+  'keep up': maintain throughput or match demand
+  'keeps up': maintains throughput or matches demand
+  'keeping up': maintaining throughput or matching demand
   'kick off': start or initiate
   'kicks off': starts or initiates
   'kicking off': starting or initiating
@@ -103,6 +114,9 @@ swap:
   'show up': appear
   'shows up': appears
   'showing up': appearing
+  'shrink': decrease or reduce
+  'shrinks': decreases or reduces
+  'shrinking': decreasing or reducing
   'shut down': stop or terminate
   'shuts down': stops or terminates
   'shutting down': stopping or terminating
