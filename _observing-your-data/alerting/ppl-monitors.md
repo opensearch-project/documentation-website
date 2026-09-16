@@ -64,7 +64,7 @@ To create a PPL monitor, follow these steps:
 
 ## PPL triggers
 
-PPL monitors use `ppl_trigger` objects, which differ from the Painless-script-based triggers used by other monitor types. Each PPL monitor supports up to 10 triggers.
+PPL monitors use `ppl_trigger` objects, which differ from the Painless-script-based triggers used by other monitor types. For more information, see [Painless scripting language]({{site.url}}{{site.baseurl}}/scripting/painless/). Each PPL monitor supports up to 10 triggers.
 
 ### Number of results trigger
 

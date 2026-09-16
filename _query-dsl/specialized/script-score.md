@@ -139,7 +139,7 @@ The relevance scores calculated by the `script_score` query cannot be negative.
 
 ## Customizing score calculation with built-in functions
 
-To customize score calculation, you can use one of the built-in Painless functions. For every function, OpenSearch provides one or more Painless methods you can access in the script score context. You can call the Painless methods listed in the following sections directly without using a class name or instance name qualifier.
+To customize score calculation, you can use one of the built-in Painless functions. For every function, OpenSearch provides one or more Painless methods you can access in the script score context. You can call the Painless methods listed in the following sections directly without using a class name or instance name qualifier. For more information, see [Painless scripting language]({{site.url}}{{site.baseurl}}/scripting/painless/).
 
 ### Saturation
 

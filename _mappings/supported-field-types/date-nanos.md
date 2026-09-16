@@ -231,7 +231,7 @@ The response contains the sorted documents:
 }
 ```
 
-You can also use a Painless script to access the nanoseconds part of the field:
+You can also use a [Painless]({{site.url}}{{site.baseurl}}/scripting/painless/) script to access the nanoseconds part of the field:
 
 ```json
 GET testindex/_search
