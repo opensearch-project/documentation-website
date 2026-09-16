@@ -43,7 +43,9 @@ The Security plugin supports the following REST management API settings:
 
 - `plugins.security.restapi.roles_enabled` (Static): Enables role-based access to the REST management API for listed roles. Roles are separated by a comma. Default is an empty list (no role is allowed to access the REST management API). See [Access control for the API]({{site.url}}{{site.baseurl}}/security/access-control/api/#access-control-for-the-api).
 
-- `plugins.security.restapi.endpoints_disabled.<role>.<endpoint>` (Static): Disables specific endpoints and their HTTP methods for roles. Values for this setting compose an array of HTTP methods. For example: `plugins.security.restapi.endpoints_disabled.all_access.ACTIONGROUPS: ["PUT","POST","DELETE"]`. By default, all endpoints and methods are allowed. Existing endpoints include `ACTIONGROUPS`, `CACHE`, `CONFIG`, `ROLES`, `ROLESMAPPING`, `INTERNALUSERS`, `SYSTEMINFO`, `PERMISSIONSINFO`, and `LICENSE`. See [Access control for the API]({{site.url}}{{site.baseurl}}/security/access-control/api/#access-control-for-the-api).
+- `plugins.security.restapi.endpoints_disabled.<role>.<endpoint>` (Static): Disables specific endpoints and their HTTP methods for roles. Values for this setting compose an array of HTTP methods. For example: `plugins.security.restapi.endpoints_disabled.all_access.ACTIONGROUPS: ["PUT","POST","DELETE"]`. By default, all endpoints and methods are allowed. To disable an endpoint for every role, use `global` in place of the role name. For the valid `<endpoint>` values, see [Endpoint values]({{site.url}}{{site.baseurl}}/security/access-control/api/#endpoint-values).
+
+- `plugins.security.restapi.admin.enabled` (Static): Enables the `restapi:admin/*` cluster permissions, which grant a role access to the allow list, distinguished name, and certificate APIs. When this setting is `false`, these permissions have no effect, and those APIs are reachable only with an admin certificate. Default is `false`. See [REST API admin permissions]({{site.url}}{{site.baseurl}}/security/access-control/api/#rest-api-admin-permissions).
 
 - `plugins.security.restapi.password_validation_regex` (Static): Specifies a regular expression to set the criteria for the login password. For more information, see [Password settings]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#password-settings).
 
@@ -423,7 +425,7 @@ plugins.security.cache.ttl_minutes: 60
 #
 # REST Management API configuration settings
 plugins.security.restapi.roles_enabled: ["all_access","xyz_role"]
-plugins.security.restapi.endpoints_disabled.all_access.ACTIONGROUPS: ["PUT","POST","DELETE"] # Alternative example: plugins.security.restapi.endpoints_disabled.xyz_role.LICENSE: ["DELETE"] #
+plugins.security.restapi.endpoints_disabled.all_access.ACTIONGROUPS: ["PUT","POST","DELETE"] # Alternative example: plugins.security.restapi.endpoints_disabled.xyz_role.INTERNALUSERS: ["DELETE"] #
 # Audit log configuration settings
 plugins.security.audit.enable_rest: true
 plugins.security.audit.enable_transport: false

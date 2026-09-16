@@ -48,7 +48,7 @@ To reduce the chances of unintended users viewing metadata that could describe a
 
 Out of the box, the Alerting plugin has no concept of ownership. For example, if you have the `cluster:admin/opensearch/alerting/monitor/write` permission, you can edit *all* monitors, regardless of whether you created them. If a small number of trusted users manage your monitors and destinations, this lack of ownership generally isn't a problem. A larger organization might need to segment access by backend role.
 
-First, make sure that your users have the appropriate [backend roles]({{site.url}}{{site.baseurl}}/security/access-control/index/). Backend roles usually come from an [LDAP server]({{site.url}}{{site.baseurl}}/security/configuration/ldap/) or [SAML provider]({{site.url}}{{site.baseurl}}/security/configuration/saml/). However, if you use the internal user database, you can use the REST API to add them manually with a create user operation. To add a backend role to a create user request, follow the [Create user]({{site.url}}{{site.baseurl}}/security/access-control/api#create-user) instructions in the Security plugin API documentation.
+First, make sure that your users have the appropriate [backend roles]({{site.url}}{{site.baseurl}}/security/access-control/index/). Backend roles usually come from an [LDAP server]({{site.url}}{{site.baseurl}}/security/configuration/ldap/) or [SAML provider]({{site.url}}{{site.baseurl}}/security/configuration/saml/). However, if you use the internal user database, you can use the REST API to add them manually with a create user operation. To add a backend role to a create user request, follow the [Create user]({{site.url}}{{site.baseurl}}/security/api/users/create-user/) instructions in the Security plugin API documentation.
 
 Next, enable the following setting:
 
@@ -139,7 +139,7 @@ Regular user | No | Don’t update the backend roles on the monitor.
 - If the user tries to associate roles that they don't have permission to use, it will throw an exception.
 {: .note }
 
-To create an RBAC role, follow instructions in the Security plugin API documentation to [Create role]({{site.url}}{{site.baseurl}}/security/access-control/api#create-role).
+To create an RBAC role, follow instructions in the Security plugin API documentation to [Create role]({{site.url}}{{site.baseurl}}/security/api/roles/create-role/).
 
 ### Create a monitor with an RBAC role
 
