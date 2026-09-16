@@ -44,14 +44,7 @@ plugins.security.system_indices.enabled: true
 ```
 {% include copy.html %}
 
-Before OpenSearch 3.9, these settings were named `plugins.security.experimental.resource_sharing.enabled` and `plugins.security.experimental.resource_sharing.protected_types`. Those names are deprecated as of 3.9 and will be removed in a future major version. Move your configuration to the current names.
-{: .warning}
-
-The deprecated names continue to work until they are removed, so upgrading to 3.9 requires no configuration change first. A node that still uses an old name in `opensearch.yml` starts normally and the value is honored, and the log records that the setting is deprecated along with its replacement. An existing cluster setting that uses an old name is honored as well, and is rewritten to the current name during cluster-state recovery so that `GET _cluster/settings` stops reporting the deprecated key. If both names are set, the current name takes precedence.
-
-In OpenSearch 3.3, these settings can be updated only through `opensearch.yml` and require a cluster restart. 
-
-Starting with OpenSearch 3.4, you can update both resource sharing settings dynamically without restarting the cluster:
+Settings added to `opensearch.yml` take effect after a cluster restart. To update both resource sharing settings without restarting the cluster, use the Cluster Settings API:
 
 ```json
 PUT _cluster/settings
