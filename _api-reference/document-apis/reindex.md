@@ -106,7 +106,7 @@ The `script` object supports the following fields.
 Field | Data type | Required/Optional | Description
 :--- | :--- | :--- | :---
 `source` | String | Required | The script source code as a string.
-`lang` | String | Optional | The scripting language. Valid values are `painless`, `expression`, `mustache`, and `java`. Default is `painless`.
+`lang` | String | Optional | The scripting language. Valid values are `painless`, `expression`, `mustache`, and `java`. Default is `painless`. For more information, see [Painless scripting language]({{site.url}}{{site.baseurl}}/scripting/painless/).
 
 ## How reindexing works
 

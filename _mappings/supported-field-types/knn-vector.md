@@ -147,7 +147,7 @@ Model IDs are used when the underlying ANN algorithm requires a training step. A
 }
 ```
 
-However, if you intend to use Painless scripting or a k-NN score script, you only need to pass the `dimension`:
+However, if you intend to use [Painless]({{site.url}}{{site.baseurl}}/scripting/painless/) scripting or a k-NN score script, you only need to pass the `dimension`:
 
 ```json
 "my_vector": {

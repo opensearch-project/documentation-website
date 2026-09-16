@@ -112,7 +112,7 @@ The request body is optional but typically includes a query to specify which doc
 Field | Data type | Description
 :--- | :--- | :---
 `query` | Object | The query used to select documents for update. If not specified, the operation updates all documents in the target index. For more information about query types, see [Query DSL]({{site.url}}{{site.baseurl}}/query-dsl/).
-`script` | Object | The script to run on each matching document. Contains `source` (the script code), `lang` (script language, typically `painless`), and optional `params` (parameters passed to the script). The script can access the document via `ctx._source` and control the operation by setting `ctx.op`.
+`script` | Object | The script to run on each matching document. Contains `source` (the script code), `lang` (script language, typically `painless`), and optional `params` (parameters passed to the script). The script can access the document via `ctx._source` and control the operation by setting `ctx.op`. For more information, see [Painless scripting language]({{site.url}}{{site.baseurl}}/scripting/painless/).
 `slice` | Object | Manually specify slice ID and maximum slices for parallel processing. Contains `id` (integer, slice number) and `max` (integer, total number of slices). Optional.
 `max_docs` | Integer | Maximum number of documents to process. Optional.
 `conflicts` | String | What to do when the update by query operation encounters version conflicts. Set to `proceed` to continue or `abort` to stop. Can be specified in either the request body or as a query parameter. Optional.

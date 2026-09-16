@@ -64,7 +64,7 @@ However, you can modify the file so that cluster metrics monitors can only be cr
 
 ## Painless triggers
 
-Painless scripts define triggers for cluster metrics monitors, similar to per query or per bucket monitors, which are defined using the extraction query definition option. Painless scripts are composed of at least one statement and any additional functions you wish to run.
+Painless scripts define triggers for cluster metrics monitors, similar to per query or per bucket monitors, which are defined using the extraction query definition option. Painless scripts are composed of at least one statement and any additional functions you wish to run. For more information, see [Painless scripting language]({{site.url}}{{site.baseurl}}/scripting/painless/).
 
 The cluster metrics monitor supports up to **ten** triggers.
 
