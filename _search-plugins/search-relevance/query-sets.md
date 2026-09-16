@@ -146,7 +146,6 @@ This API retrieves available query sets.
 GET _plugins/_search_relevance/query_sets
 GET _plugins/_search_relevance/query_sets/{query_set_id}
 ```
-{% include copy-curl.html %}
 
 #### Example response
 

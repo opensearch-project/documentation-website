@@ -86,7 +86,6 @@ You can retrieve or delete configurations using the following APIs.
 GET _plugins/_search_relevance/search_configurations
 GET _plugins/_search_relevance/search_configurations/{search_configuration_id}
 ```
-{% include copy-curl.html %}
 
 #### Example response
 
