@@ -53,7 +53,7 @@ Parameter | Description
 `doc_values` | A Boolean value that specifies whether the field should be stored on disk so that it can be used for aggregations, sorting, or scripting. Default is `false`.
 `format` | The format for parsing dates. Default is `strict_date_time_no_millis||strict_date_optional_time||epoch_millis`.
 `ignore_malformed` | A Boolean value that specifies to ignore malformed values and not to throw an exception. Default is `false`. Dynamically updatable.
-`index` | A Boolean value that specifies whether the field should be searchable. Default is `true`. On indexes that use a pluggable data format, the default is `false` and `true` is not supported. For more information, see [Pluggable data format indexes]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/index-parameter/#pluggable-data-format-indexes).
+`index` | A Boolean value that specifies whether the field should be searchable. Default is `true`. For indexes that use a pluggable data format, the default is `false`, and `true` is not supported. For more information, see [Pluggable data format indexes]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/index-parameter/#pluggable-data-format-indexes).
 `locale` | A region- and language-specific way of representing the date. Default is [`ROOT`](https://docs.oracle.com/javase/8/docs/api/java/util/Locale.html#ROOT) (a region- and language-neutral locale).
 `meta` | Accepts metadata for this field.
 [`null_value`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/index#null-value) | A value to be used in place of `null`. Must be of the same type as the field. If this parameter is not specified, the field is treated as missing when its value is `null`. Default is `null`.
