@@ -8,7 +8,23 @@ has_math: true
 
 # Neural sparse ANN search performance tuning
 
-[Neural sparse ANN search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/) offers several parameters that allow you to balance the trade-off between query recall (accuracy) and query efficiency (latency). You can change these parameters dynamically, without needing to delete and recreate an index for them to take effect. 
+[Neural sparse ANN search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/) offers several parameters that allow you to balance the trade-off between query recall (accuracy) and query efficiency (latency). Query parameters, which you supply in the `method_parameters` object of a query, take effect immediately. Mapping parameters, which you supply in the `method` object of a `sparse_vector` field, are fixed when the field is created.To change `engine` or any value in `method.parameters`, create a new index with the intended mapping and reindex your data.
+
+## Choosing an engine
+**Introduced 3.9**
+{: .label .label-purple }
+
+Neural sparse ANN search runs the SEISMIC algorithm using one of two engines, which you select for each `sparse_vector` field using the `method.engine` mapping parameter. Valid values are `lucene` (default) and `native`. Both engines accept the same query parameters, and they accept the same `method.parameters` values except for `clustering_batch_size` and `forward_index`, which apply to the native engine only. The tuning guidance in the rest of this page therefore applies to both engines. For a full comparison of the engines and instructions for enabling the native engine, see [Engines]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/#engines).
+
+The engines differ in the location of the data structures that the algorithm reads, which affects node sizing:
+
+- The Lucene engine holds clustered posting lists and the forward index in JVM heap caches bounded by `plugins.neural_search.circuit_breaker.limit`. Size the node's heap to hold the working set of every sparse segment it serves.
+- The native engine reads its index from a memory-mapped file on disk, so the index consumes no JVM heap and adds no garbage collection pressure. Size the node to leave enough RAM for the operating system page cache.
+
+Consider the native engine when you want better query and index build performance, when your sparse indexes are large enough that holding them in JVM heap constrains the node, or when you want to serve a large sparse index from a comparatively small heap. Consider the Lucene engine when you want the default configuration, or when you rely on the [Warm Up]({{site.url}}{{site.baseurl}}/vector-search/api/neural/#warm-up) and [Clear Cache]({{site.url}}{{site.baseurl}}/vector-search/api/neural/#clear-cache) APIs or the sparse memory statistics reported by the [Neural Search Stats API]({{site.url}}{{site.baseurl}}/vector-search/api/neural/#stats).
+
+Benchmark both engines against your own data and query mix before choosing one. Relative throughput, latency, and memory usage depend on your corpus, your parameter settings, and the resources available on the node.
+{: .note}
 
 ## Indexing performance tuning
 
@@ -30,6 +46,13 @@ These parameters control index construction and memory usage:
 
     This parameter controls whether to activate the neural sparse ANN algorithm in a segment once the segment's document count reaches the specified threshold. As the total number of documents increases, individual segments contain more documents. In this case, you can set `approximate_threshold` to a higher value in order to avoid rebuilding clusters repeatedly when segments with fewer documents are merged. This parameter is especially important if you do not use force merge operations to combine all segments into one, because segments with fewer documents than the threshold fall back to the `rank_features` (regular neural sparse search) mode. Note that if you set this value too high, neural sparse ANN search may never activate.
 
+- `clustering_batch_size`: The number of batches that each inverted list is split into for clustering. Supported for the native engine only.
+
+    By default, this parameter is `1` and clustering runs over the whole corpus. Setting it to a higher value, up to `10000`, splits each inverted list into that many batches and clusters each batch separately, which reduces the memory required to build the index in exchange for a longer build time. Increase this value if index building is memory constrained.
+
+- `forward_index`: How the forward index is stored on disk. Supported for the native engine only.
+
+    The default `shared` layout stores one contiguous forward index for the field, which uses less disk space. The `per_block` layout stores each block's vectors inline next to the block, so a query reads only the blocks that it selects, which reduces query latency but uses more disk space. For more information, see [Choosing a forward index layout]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/#choosing-a-forward-index-layout).
 
 ## Query performance tuning
 
@@ -50,11 +73,13 @@ In addition to tuning the preceding parameters, you can employ the following opt
 
 ### Building clusters
 
-Index building can benefit from using multiple threads. You can adjust the number of threads used for cluster building by specifying the `neural_search.sparse.algo_param.index_thread_qty` setting (by default, `1`). For information about updating this setting, see [Vector search settings]({{site.url}}{{site.baseurl}}/vector-search/settings/#cluster-settings-2). Using a higher `neural_search.sparse.algo_param.index_thread_qty` can reduce force merge time when neural sparse ANN search is enabled, though it also consumes more system resources.
+Index building can benefit from using multiple threads. You can adjust the number of threads used for cluster building by specifying the `plugins.neural_search.sparse.algo_param.index_thread_qty` setting (by default, `1`). For information about updating this setting, see [Vector search settings]({{site.url}}{{site.baseurl}}/vector-search/settings/#cluster-settings-2). Using a higher `plugins.neural_search.sparse.algo_param.index_thread_qty` can reduce force merge time when neural sparse ANN search is enabled, though it also consumes more system resources. This setting applies to both the Lucene engine and the native engine.
 
 ### Querying after a cold start
 
-After rebooting OpenSearch, the cache is empty, so the first several hundred queries may experience high latency. To address this "cold start" issue, you can use the [Warmup API]({{site.url}}{{site.baseurl}}/vector-search/api/neural/#warm-up). This API loads data from disk into cache, ensuring optimal performance for subsequent queries. You can also use the [Clear Cache API]({{site.url}}{{site.baseurl}}/vector-search/api/neural/#clear-cache) to free up memory when needed.
+The Lucene engine's cache is empty after rebooting OpenSearch, so the first several hundred queries may experience high latency. To address this "cold start" issue, you can use the [Warm Up API]({{site.url}}{{site.baseurl}}/vector-search/api/neural/#warm-up). This API loads data from disk into cache, ensuring optimal performance for subsequent queries. You can also use the [Clear Cache API]({{site.url}}{{site.baseurl}}/vector-search/api/neural/#clear-cache) to free up memory when needed.
+
+The native engine does not use this cache, so the Warm Up and Clear Cache APIs do not apply to it. For the native engine, the first query against a segment pays a one-time cost to memory map the segment's index file, and later queries reuse the existing mapping.
 
 ### Force merging segments
 
@@ -67,11 +92,18 @@ POST /sparse-ann-documents/_forcemerge?max_num_segments=1
 
 You can also set `approximate_threshold` to a high value so that individual segments do not trigger clustering but the merged segment does. This approach helps avoid repeated cluster building during indexing.
 
+The native engine builds the sparse index faster, so force merges complete sooner. For more information, see [Choosing an engine](#choosing-an-engine).
+
 ## Best practices
 
 - Start with default parameters and tune based on your specific dataset.
-- Monitor memory usage and adjust cache settings accordingly.
+- For the Lucene engine, monitor memory usage and adjust cache settings accordingly.
 - Consider the trade-off between indexing time and query performance.
+- Choose an engine before creating the field. `method` is not updatable, so switching engines later requires reindexing into a new index.
+- If you are memory constrained or your JVM heap is under pressure, we recommend the native engine, which keeps its index in a memory-mapped file on disk.
+- When sizing a node for the native engine, leave enough RAM for the operating system page cache rather than increasing the JVM heap.
+- Set `forward_index` to `per_block` when query latency matters more than disk usage, and keep the default `shared` layout when you want to minimize disk usage.
+- For the native engine, if index building is memory constrained, increase `clustering_batch_size` to lower peak build memory in exchange for a longer build time.
 - Do not combine neural sparse ANN search fields with a pipeline that includes a [two-phase processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/neural-sparse-query-two-phase-processor/).
 
 ## Next steps

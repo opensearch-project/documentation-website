@@ -2,7 +2,7 @@
 layout: default
 title: Configuring the security backend
 parent: Configuration
-nav_order: 5
+nav_order: 20
 redirect_from:
  - /security-plugin/configuration/configuration/
 ---

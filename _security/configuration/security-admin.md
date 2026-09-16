@@ -44,6 +44,8 @@ To avoid this situation, back up your current configuration before making change
   -key ../../../config/kirk-key.pem
 ```
 
+You can also have OpenSearch keep a history of the security configuration so that you can restore an earlier version after an unintended change. For more information, see [Security configuration version APIs]({{site.url}}{{site.baseurl}}/security/api/configuration-versions/).
+
 If you use the `-f` argument rather than `-cd`, you can load a single YAML file into the index rather than the entire directory of YAML files. For example, if you create ten new roles, you can safely load `internal_users.yml` into the index without losing your roles; only the internal users get overwritten.
 
 ```bash
