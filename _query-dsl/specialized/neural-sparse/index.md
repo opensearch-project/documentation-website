@@ -74,6 +74,8 @@ For more information, see [Generating sparse vector embeddings automatically]({{
 
 Use neural sparse ANN search on `sparse_vector` fields for improved query performance with high recall. For more information, see [Neural sparse ANN search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/).
 
+Neural sparse ANN search supports two engines: the Lucene engine and the native engine. You select the engine in the field mapping by setting `method.engine`. The query syntax and all supported query parameters are the same for both engines. For more information, see [Engines]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/#engines).
+
 You can run a neural sparse search either using raw sparse vectors or text. 
 
 ### Using raw sparse vectors
@@ -138,7 +140,10 @@ These fields are supported for both `rank_features` and `sparse_vector` field ty
 | `method_parameters.top_n` | Integer | Optional | Specifies the number of query tokens with the highest weights to retain for approximate sparse queries. |
 | `method_parameters.heap_factor` | Float | Optional | Controls the trade-off between recall and performance. Higher values increase recall but reduce query speed; lower values decrease recall but improve query speed. |
 | `method_parameters.k` | Integer | Optional | Specifies the number of top k nearest results that the approximate neural search algorithm returns. |
-| `method_parameters.filter` | Object | Optional | Applies filters to the query results. See [Filtering in neural sparse ANN search]({{site.url}}{{site.baseurl}}/vector-search/filter-search-knn/filtering-in-sparse-search/). |
+| `method_parameters.filter` | Object | Optional | Applies filters to the query results. How the filter is applied depends on the engine configured for the field. See [Filtering in neural sparse ANN search]({{site.url}}{{site.baseurl}}/vector-search/filter-search-knn/filtering-in-sparse-search/). |
+
+If the filter matches fewer documents than `k`, both engines run an exact search over the filtered documents. Beyond that point, the Lucene engine applies the filter after approximate retrieval, so a selective filter can produce fewer than `k` results, whereas the native engine retrieves within the filtered set and can return the full `k` results. This difference is determined by the engine configured in the field mapping.
+{: .note}
 
 ## Examples
 
