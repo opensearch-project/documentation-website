@@ -60,11 +60,11 @@ plugins.security.restapi.admin.enabled: true
 ```
 {% include copy.html %}
 
-Then grant the role the cluster permission for the endpoint you want it to reach. The role does not also need to be listed in `plugins.security.restapi.roles_enabled`. When `plugins.security.restapi.admin.enabled` is `false`, OpenSearch ignores these permissions and the APIs remain reachable only with an admin certificate.
+Restart the cluster after changing this static setting. Then grant the role the cluster permission for the endpoint you want it to reach. The role does not also need to be listed in `plugins.security.restapi.roles_enabled`. When `plugins.security.restapi.admin.enabled` is `false`, OpenSearch ignores these permissions and the APIs remain reachable only with an admin certificate.
 
 You must assign these permissions explicitly. Broad cluster permissions such as `*` and `cluster:*` do not grant them, and you cannot grant them through an action group.
 
-A role that contains any `restapi:admin` permission cannot be created or modified through the [Role APIs]({{site.url}}{{site.baseurl}}/security/api/roles/), even by a super admin. Define such a role in `roles.yml` and apply it with `securityadmin.sh`. For more information, see [Applying changes to configuration files]({{site.url}}{{site.baseurl}}/security/configuration/security-admin/).
+A role that contains any `restapi:admin` permission cannot be created or modified through the [Role APIs]({{site.url}}{{site.baseurl}}/security/api/roles/), even by a super admin, and neither can a mapping for such a role through the [Role mapping APIs]({{site.url}}{{site.baseurl}}/security/api/role-mappings/). Define the role in `roles.yml` and its mapping in `roles_mapping.yml`, and then apply both with `securityadmin.sh`. This restriction, together with the action group restriction, prevents a user from granting themselves additional access to the Security APIs. For more information, see [Applying changes to configuration files]({{site.url}}{{site.baseurl}}/security/configuration/security-admin/).
 {: .note}
 
 The following table lists the cluster permissions that correspond to the Security APIs. The reserved `security_rest_api_full_access` role contains all of them except `restapi:admin/ratelimiters`, `restapi:admin/rollback_version`, and `restapi:admin/view_version`. Because the role permits security-sensitive cluster changes, map it only to trusted administrators.
@@ -151,12 +151,12 @@ Possible values for `method` are:
 - `DELETE`
 - `PATCH`
 
-For example, the following configuration grants three roles access to the REST API, but then prevents `test-role` from making `PUT`, `POST`, `DELETE`, or `PATCH` requests to `_plugins/_security/api/roles` or `_plugins/_security/api/internalusers`:
+For example, the following configuration grants `rest_api_user` general API access but blocks all methods on the role and internal user APIs:
 
 ```yml
-plugins.security.restapi.roles_enabled: ["all_access", "security_rest_api_access", "test-role"]
-plugins.security.restapi.endpoints_disabled.test-role.ROLES: ["PUT", "POST", "DELETE", "PATCH"]
-plugins.security.restapi.endpoints_disabled.test-role.INTERNALUSERS: ["PUT", "POST", "DELETE", "PATCH"]
+plugins.security.restapi.roles_enabled: ["rest_api_user"]
+plugins.security.restapi.endpoints_disabled.rest_api_user.ROLES: ["*"]
+plugins.security.restapi.endpoints_disabled.rest_api_user.INTERNALUSERS: ["*"]
 ```
 {% include copy.html %}
 
