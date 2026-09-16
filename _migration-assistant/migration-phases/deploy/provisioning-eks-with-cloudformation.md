@@ -185,7 +185,7 @@ If your subnets do not have direct internet access, add `--create-vpc-endpoints`
   --stage prod \
   --vpc-id vpc-xxx \
   --subnet-ids subnet-aaa,subnet-bbb \
-  --region us-east-1 \
+  --region us-east-2 \
   --version 3.2.1
 ```
 {% include copy.html %}

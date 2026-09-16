@@ -108,7 +108,14 @@ kubectl get nodes
 ```
 {% include copy.html %}
 
-To load the same environment variables that the CloudFormation bootstrap exports, run the following command:
+The `migration_environment` output holds the same shell exports that the CloudFormation bootstrap provides through `MigrationsExportString`. Review the values before you apply them to your shell:
+
+```bash
+terraform output -raw migration_environment
+```
+{% include copy.html %}
+
+The output is a single line of `export` statements covering the cluster name, ECR registry, AWS account, Region, VPC ID, cluster security group, snapshot role, and stage. Once you have confirmed them, load them:
 
 ```bash
 eval "$(terraform output -raw migration_environment)"

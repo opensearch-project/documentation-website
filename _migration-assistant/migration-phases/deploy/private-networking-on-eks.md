@@ -116,7 +116,7 @@ If you provision with CloudFormation instead, the bootstrap script mirrors image
   --stage prod \
   --vpc-id vpc-xxx \
   --subnet-ids subnet-aaa,subnet-bbb \
-  --region us-east-1 \
+  --region us-east-2 \
   --version 3.2.1
 ```
 {% include copy.html %}
