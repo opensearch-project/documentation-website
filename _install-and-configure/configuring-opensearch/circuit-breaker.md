@@ -45,20 +45,12 @@ The in-flight request circuit breaker limits the memory usage for all currently 
 
 ## Script compilation circuit breaker settings
 
-The script compilation circuit breaker limits the number of inline script compilations within a time interval. OpenSearch supports the following script compilation circuit breaker setting:
-
-- `script.max_compilations_rate` (Dynamic, rate): The maximum number of unique dynamic scripts compiled within a time interval for a given context. Default is 150 every 5 minutes (`150/5m`).
+The script compilation circuit breaker limits the number of unique scripts that OpenSearch compiles within a time interval. When the limit is exceeded, OpenSearch returns a `circuit_breaking_exception`. By default, each script context has its own limit of 75 compilations every 5 minutes, set by `script.context.<context>.max_compilations_rate`. The `script.max_compilations_rate` setting replaces the per-context limits with a single cluster-wide limit. For more information, see [Script compilation settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/script-and-resource-settings/#script-compilation-settings).
 
 ## Regular expression circuit breaker settings
 
 The regular expression circuit breaker enables or disables regular expressions and limits their complexity. OpenSearch supports the following regular expression circuit breaker settings:
 
-- `script.painless.regex.enabled` (Static, string): Enables regular expressions in Painless scripts. 
-    Valid values are: 
-    - `limited`: Enables regular expressions and limits their complexity using the `script.painless.regex.limit-factor` setting. 
-    - `true`: Enables regular expressions. Turns off the regular expression circuit breaker and does not limit regular expression complexity. 
-    - `false`: Disables regular expressions. If a Painless script contains a regular expression, it returns an error. 
+- `script.painless.regex.enabled` (Static, string): Determines whether Painless scripts can contain regular expressions and whether their complexity is bounded. Valid values are `limited`, `true`, and `false`. Default is `limited`. For a description of each value, see [Controlling regular expressions]({{site.url}}{{site.baseurl}}/scripting/painless/#controlling-regular-expressions).
 
-    Default is `limited`.
-
-- `script.painless.regex.limit-factor` (Static, integer): Applied only if `script.painless.regex.enabled` is set to `limited`. Limits the number of characters a regular expression in a Painless script. The character limit is calculated by multiplying the number of characters in the script input by `script.painless.regex.limit-factor`. Default is 6 (thus, if the input has 5 characters, the maximum number of characters in a regular expression is 5 &middot; 6 = 30).
+- `script.painless.regex.limit-factor` (Static, integer): Applied only when `script.painless.regex.enabled` is set to `limited`. Limits the number of characters that a regular expression in a Painless script can examine. The character limit is calculated by multiplying the number of characters in the script input by `script.painless.regex.limit-factor`. Default is `6`, so if the input has 5 characters, the regular expression can examine at most 5 &middot; 6 = 30 characters.

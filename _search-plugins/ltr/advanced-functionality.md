@@ -84,7 +84,7 @@ Script-based features may impact the performance of your OpenSearch cluster, so 
 
 ### Script feature parameters
 
-Script features are native or Painless scripts within the context of LTR. These script features can accept parameters as described in the [OpenSearch script documentation]({{site.url}}{{site.baseurl}}/api-reference/script-apis/index/). When working with LTR scripts, you can override parameter values and names. The priority for parameterization, in increasing order, is as follows:
+Script features are native or Painless scripts within the context of LTR. For more information, see [Painless scripting language]({{site.url}}{{site.baseurl}}/scripting/painless/). These script features can accept parameters as described in the [OpenSearch script documentation]({{site.url}}{{site.baseurl}}/api-reference/script-apis/index/). When working with LTR scripts, you can override parameter values and names. The priority for parameterization, in increasing order, is as follows:
 
 - The parameter name and value are passed directly to the source script, but not in the LTR script parameters. These cannot be configured at query time. 
 - The parameter name is passed to both the `sltr` query and the source script, allowing the script parameter values to be overridden at query time.
