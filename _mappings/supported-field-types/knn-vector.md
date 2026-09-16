@@ -177,9 +177,29 @@ Parameter | Data type | Description
 **Introduced 3.9**
 {: .label .label-purple }
 
-You can have OpenSearch map a field as a `knn_vector` automatically, without declaring it in your mappings up front. There are two paths: a dynamic template that uses `knn_vector` as a `match_mapping_type`, and zero-configuration auto-inference.
+You can have OpenSearch map a field as a `knn_vector` automatically, without declaring it in your mappings up front. There are two paths: a dynamic template that uses `knn_vector` as a `match_mapping_type`, and auto-inference from the first indexed value.
 
-An explicit mapping always takes precedence: if a field is already mapped, neither path runs for it.
+Dynamic mapping applies only to new indexes and only to fields that are not already mapped. An explicit mapping always takes precedence: if a field is already mapped, neither path runs for it.
+
+Dynamic mapping is disabled by default. To enable it, set the [`knn.dynamic_mapping.enabled`]({{site.url}}{{site.baseurl}}/vector-search/settings/#cluster-settings) cluster setting:
+
+```json
+PUT /_cluster/settings
+{
+  "persistent": {
+    "knn.dynamic_mapping.enabled": true
+  }
+}
+```
+{% include copy-curl.html %}
+
+Dynamic mapping only creates the `knn_vector` field---it does not enable approximate k-NN (ANN) search on its own. Because [`index.knn`]({{site.url}}{{site.baseurl}}/vector-search/settings/#index-settings) is a static index setting, you must set it when the index is created; it cannot be enabled later. The behavior depends on the value of `index.knn` when the index is created:
+
+- If `index.knn: true`, OpenSearch builds the data structures required for the field, and both exact and approximate k-NN search are supported.
+- If `index.knn` is unset or `false`, the field is still mapped as `knn_vector`, but only exact k-NN search is supported.
+
+If you plan to run ANN search on auto-inferred vector fields, create the index with `index.knn: true` up front. You cannot enable ANN search on an existing index---you must reindex into a new index created with `index.knn: true`.
+{: .warning}
 
 ### Dynamic templates
 
@@ -209,27 +229,55 @@ PUT /my-index
 ```
 {% include copy-curl.html %}
 
-You can specify any `knn_vector` parameters (such as `dimension`, `space_type`, or `method`) in the `mapping` block. If you specify `dimension`, the mapping is validated at index creation. If you omit it, the dimension is inferred from the first document, after which it is fixed for the field.
+You can specify any `knn_vector` parameters (such as `dimension`, `space_type`, `method`, or `model_id`) in the `mapping` block. If you specify `dimension`, or a `model_id` that supplies it, OpenSearch uses that value directly and skips inference from the first document. If you omit both, the dimension is inferred from the first indexed document, after which it is fixed for the field.
+
+Because `match_mapping_type: "knn_vector"` already implies the field type, `type: knn_vector` is optional inside the `mapping` block and is injected automatically if you omit it. For example, the following template is equivalent to the `dynamic_templates` block shown previously:
+
+```json
+"dynamic_templates": [
+  {
+    "vectors": {
+      "match_mapping_type": "knn_vector",
+      "mapping": {}
+    }
+  }
+]
+```
+{% include copy-curl.html %}
+
+Because the template represents explicit user intent, the array-length heuristic used by auto-inference (described in the following section) does not apply. Any flat numeric array that matches the template is mapped as a `knn_vector`, regardless of its length.
 
 ### Auto-inference
 
-When no dynamic template matches, OpenSearch can still infer a `knn_vector` mapping from the field value. An unmapped field is mapped as a `knn_vector` when its value is a flat array of numbers whose length is a multiple of 8 and falls within the `[128, 16000]` range. The dimension is set to the array length.
+When no dynamic template matches, OpenSearch can still infer a `knn_vector` mapping from the field value. An unmapped field is mapped as a `knn_vector` when its value is a flat array of numbers whose length is a multiple of 8 and falls within `[128, MAX_DIMENSION]`. `MAX_DIMENSION` is the maximum dimension supported by the default k-NN engine (Faiss, capped at 16,000)---this bound is applied at inference time regardless of which engine the field ultimately uses. The dimension is set to the array length.
 
-For example, indexing the following document into a k-NN index with no mapping for `embedding` maps it as a `knn_vector` of dimension 768:
+For example, indexing the following document into an index with no mapping for `embedding` maps it as a `knn_vector` of dimension 768 (assume `embedding` contains a flat array of 768 floats):
 
 ```json
 POST /my-index/_doc
 {
-  "embedding": [0.1, 0.2, ...]  // 768 float values
+  "embedding": [0.1, 0.2, 0.3, ..., 0.9]
 }
 ```
 {% include copy-curl.html %}
 
 Auto-inference is a shape-based heuristic, so keep the following behavior in mind:
 
-- The array length must be a multiple of 8 and in the `[128, 16000]` range. Arrays outside this range, or with a length that is not a multiple of 8, are mapped as a regular numeric array instead.
-- A numeric array that is not a vector (for example, a large list of IDs or measurements) is mapped as a `knn_vector` if its length happens to meet these conditions. Because the dimension is fixed after the first document, later documents whose array has a different length are rejected.
-- To prevent a field from being auto-inferred as a `knn_vector`, declare an explicit mapping for it.
+- The array length must be a multiple of 8 and within `[128, MAX_DIMENSION]`. Arrays outside this range, or with a length that is not a multiple of 8, are mapped as a regular numeric array instead.
+- A numeric array that is not a vector (for example, a large list of IDs or measurements) is mapped as a `knn_vector` if its length happens to meet these conditions. Because the dimension is fixed after the first document, later documents whose array has a different length are rejected. To prevent a field from being auto-inferred as a `knn_vector`, declare an explicit mapping for it or use a dynamic template that maps the field to a different type.
+
+### Limitations
+
+Dynamic mapping does not create [`nested`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/nested/) parents. If you want to index an array of objects where each object contains its own vector (for example, per-chunk embeddings for a document), you must still declare the parent field explicitly as `type: nested`. Auto-inference and dynamic templates apply only to individual `knn_vector` fields, not to their parent object type---an array of objects such as the following is mapped as a plain `object`, not `nested`, so per-inner-document vector search does not work:
+
+```json
+{
+  "chunks": [
+    { "my_vector": [0.1, 0.2, ...], "text": "..." },
+    { "my_vector": [0.3, 0.4, ...], "text": "..." }
+  ]
+}
+```
 
 ## Next steps
 
