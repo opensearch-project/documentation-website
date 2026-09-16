@@ -10,9 +10,6 @@ nav_order: 10
 **Introduced 3.3**
 {: .label .label-purple }
 
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).
-{: .warning}
-
 The Resource Sharing APIs provide programmatic access to manage fine-grained, document-level access control for plugin-defined resources. These APIs allow you to share resources, manage access permissions, and automate resource sharing workflows.
 
 You can manage resource sharing directly using these REST APIs. Operations can only be performed if you are the owner, a superadmin, or have sharing access to the resource.
