@@ -383,14 +383,14 @@ PUT testindex/_doc/2
 ```
 {% include copy-curl.html %}
 
-In WKT format, use `BBOX (minX, maxY, maxX, minY)`.
+In WKT format, use `BBOX (minX, maxX, maxY, minY)`.
 
 Index an envelope in WKT BBOX format:
 
 ```json
 PUT testindex/_doc/8
 {
-  "location" : "BBOX (3.0, 2.0, 6.0, 0.0)"
+  "location" : "BBOX (3.0, 6.0, 2.0, 0.0)"
 }
 ```
 {% include copy-curl.html %}
