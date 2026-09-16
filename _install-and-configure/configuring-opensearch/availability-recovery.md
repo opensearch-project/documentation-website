@@ -14,6 +14,7 @@ Availability and recovery settings include settings for the following:
 - [Cluster manager task throttling](#cluster-manager-task-throttling-settings)
 - [Remote-backed storage](#remote-backed-storage-settings)
 - [Search backpressure](#search-backpressure-settings)
+- [Concurrency limits](#concurrency-limit-settings)
 - [Shard indexing backpressure](#shard-indexing-backpressure-settings)
 - [Segment replication](#segment-replication-settings)
 - [Cross-cluster replication](#cross-cluster-replication-settings)
@@ -67,6 +68,10 @@ For remote segment warmer settings, see [Remote segment warmer settings]({{site.
 ## Search backpressure settings
 
 Search backpressure is a mechanism used to identify resource-intensive search requests and cancel them when the node is under duress. For more information, see [Search backpressure settings]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/search-backpressure/#search-backpressure-settings).
+
+## Concurrency limit settings
+
+Concurrency limits adaptively restrict the number of active requests for any transport action. For more information, see [Concurrency limit settings]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/concurrency-limits/#concurrency-limit-settings).
 
 ## Shard indexing backpressure settings
 
