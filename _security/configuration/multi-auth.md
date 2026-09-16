@@ -2,7 +2,7 @@
 layout: default
 title: Configuring sign-in options
 parent: Configuration
-nav_order: 35
+nav_order: 45
 ---
 
 # Configuring Dashboards sign-in for multiple authentication options

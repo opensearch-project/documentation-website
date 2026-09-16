@@ -19,7 +19,7 @@ GET /_nodes/ingest?filter_path=nodes.*.ingest.processors
 ```
 {% include copy-curl.html %}
 
-To set up and deploy ingest processors, make sure you have the necessary permissions and access rights. See [Security plugin REST API]({{site.url}}{{site.baseurl}}/security/access-control/api/) to learn more.
+To set up and deploy ingest processors, make sure you have the necessary permissions and access rights. For more information, see [API permissions]({{site.url}}{{site.baseurl}}/security/access-control/api/).
 {:.note}
 
 ## Supported processors

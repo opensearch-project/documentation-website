@@ -2,7 +2,7 @@
 layout: default
 title: Modifying the YAML files
 parent: Configuration
-nav_order: 10
+nav_order: 15
 redirect_from: 
   - /security-plugin/configuration/yaml/
 ---
@@ -172,7 +172,7 @@ snapshotrestore:
 
 `nodes_dn.yml` lets you add a certificate's [distinguished name (DN)]({{site.url}}{{site.baseurl}}/security/configuration/generate-certificates/#add-distinguished-names-to-opensearchyml) to an allow list to enable communication between any number of nodes or clusters. For example, a node that has the DN `CN=node1.example.com` in its allow list accepts communication from any other node or certificate that uses that DN.
 
-The DNs get indexed into a [system index]({{site.url}}{{site.baseurl}}/security/configuration/system-indices/) that only a super admin or an admin with a Transport Layer Security (TLS) certificate can access. If you want to programmatically add DNs to your allow lists, use the [REST API]({{site.url}}{{site.baseurl}}/security/access-control/api/#distinguished-names).
+The DNs get indexed into a [system index]({{site.url}}{{site.baseurl}}/security/configuration/system-indices/) that only a super admin or an admin with a Transport Layer Security (TLS) certificate can access. If you want to programmatically add DNs to your allow lists, use the [REST API]({{site.url}}{{site.baseurl}}/security/api/distinguished-names/).
 
 ```yml
 ---
@@ -301,7 +301,7 @@ _meta:
 
 You can use this file to specify and add any number of OpenSearch Dashboards tenants to your OpenSearch cluster. For more information about tenants, see [OpenSearch Dashboards multi-tenancy]({{site.url}}{{site.baseurl}}/security/multi-tenancy/tenant-index/).
 
-Like all of the other YAML files, we recommend you use `tenants.yml` to add any tenants you must have in your cluster, and then use OpenSearch Dashboards or the [REST API]({{site.url}}{{site.baseurl}}/security/access-control/api/#tenants) if you need to further configure or create any other tenants.
+Like all of the other YAML files, we recommend you use `tenants.yml` to add any tenants you must have in your cluster, and then use OpenSearch Dashboards or the [REST API]({{site.url}}{{site.baseurl}}/security/api/tenants/) if you need to further configure or create any other tenants.
 
 ```yml
 ---
@@ -377,7 +377,7 @@ To learn more about system index permissions, see [System index permissions]({{s
 
 If you want to run your users' passwords against some validation, specify a regular expression (regex) in this file. You can also include an error message that loads when passwords don't pass validation. The following example demonstrates how to include a regex so OpenSearch requires new passwords to be a minimum of eight characters with at least one uppercase, one lowercase, one digit, and one special character.
 
-Note that OpenSearch validates only users and passwords created through OpenSearch Dashboards or the REST API.
+Note that OpenSearch validates only users and passwords created through OpenSearch Dashboards or the REST API. The initial admin password that the demo configuration installer requires is validated against a separate, fixed set of rules. For more information, see [Admin password requirements]({{site.url}}{{site.baseurl}}/security/configuration/demo-configuration/#admin-password-requirements) and [Managing passwords]({{site.url}}{{site.baseurl}}/security/configuration/passwords/).
 
 ```yml
 plugins.security.restapi.password_validation_regex: '(?=.*[A-Z])(?=.*[^a-zA-Z\d])(?=.*[0-9])(?=.*[a-z]).{8,}'
@@ -407,7 +407,7 @@ plugins.security.restapi.password_score_based_validation_strength: very_strong
 
 When you try to create a user with a password that doesn't reach the specified threshold, the system generates a "weak password" warning, indicating that the password needs to be modified before you can save the user.
 
-The following example shows the response from the [Create user]({{site.url}}{{site.baseurl}}/security/access-control/api/#create-user) API when the password is weak:
+The following example shows the response from the [Create user]({{site.url}}{{site.baseurl}}/security/api/users/create-user/) API when the password is weak:
 
 ```json
 {
