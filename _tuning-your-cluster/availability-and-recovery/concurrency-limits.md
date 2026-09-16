@@ -135,9 +135,9 @@ The `burst.capacity` setting adds a fixed amount of headroom on top of the adapt
 
 ## Partitions
 
-Divide the concurrency limit into named sub-pools so that one class of traffic cannot exhaust the capacity available to another. List the pool names in `partitions` and give each a share of the total limit using `partition.<name>.percent`. The shares must sum to at most `1.0`; any remaining capacity, together with requests that do not match a named partition, is served from a shared unknown pool.
+Divide the concurrency limit into named sub-pools so that one class of traffic cannot exhaust the capacity available to another. List the pool names in `partitions` and give each a share of the total limit using `partition.<name>.percent`. The shares must sum to at most `1.0`. Requests that do not match a named partition are routed to a built-in unknown pool, which admits only one request at a time once the overall limit is reached. Any share that you leave unallocated is not available to any partition under load, so in most cases the shares should sum to `1.0`.
 
-Partition shares are enforced only while the limiter is at its overall limit. Below the overall limit, a partition can use spare capacity beyond its share. Once the overall limit is reached, each partition is held to its own share, so a partition with a `0.0` share rejects every request routed to it under load.
+Partition shares are enforced only while the limiter is at its overall limit. Below the overall limit, a partition can use spare capacity beyond its share. Once the overall limit is reached, each partition is held to its own share. Every partition, including one with a `0.0` share, is guaranteed at least one concurrent request, so a `0.0` share allows one request at a time under load rather than none.
 
 When `partitions` is set, you must also choose a `partition.resolver` that maps each request to a partition. The following table lists the available resolvers.
 
