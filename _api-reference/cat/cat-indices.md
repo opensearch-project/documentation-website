@@ -55,6 +55,63 @@ The following table lists the available query parameters. All query parameters a
 
 <!-- spec_insert_end -->
 
+### System index filtering
+
+**Introduced 3.9**
+{: .label .label-purple }
+
+The optional `system` Boolean query parameter filters indexes using OpenSearch Core's system index metadata:
+
+- `system=true` returns only system indexes.
+- `system=false` returns only non-system indexes.
+- Omitting `system` returns both classifications, subject to the request's index selection and wildcard expansion.
+
+When `system=true` and `expand_wildcards` is omitted, wildcard expansion includes hidden indexes by default. When `system=false` or `system` is omitted, hidden indexes are not included in wildcard expansion by default. An explicit `expand_wildcards` value overrides this behavior. For example, `system=true&expand_wildcards=open` excludes hidden indexes, while `system=true&expand_wildcards=all` includes open, closed, and hidden indexes.
+
+System and hidden are separate index properties. The `system` filter does not identify every hidden index or every index protected by the Security plugin. It does not grant access to indexes; the caller's existing permissions still apply. For information about Security plugin protection, see [System indexes]({{site.url}}{{site.baseurl}}/security/configuration/system-indices/).
+
+The `system` parameter is supported only by the CAT Indices API. The paginated List Indices API (`/_list/indices`) rejects it.
+
+### System index response columns
+
+**Introduced 3.9**
+{: .label .label-purple }
+
+The following columns provide system index information:
+
+| Column | Alias | Description |
+| :--- | :--- | :--- |
+| `system` | `sys` | Whether the index is marked as a system index in OpenSearch Core's metadata. |
+| `system.description` | `sysdesc` | The description from the matching system index descriptor, when available. |
+
+Both columns are included in the default response when `system` is specified, including `system=false`. When `system` is omitted, the default columns are unchanged. Use `h` to select the columns explicitly. Selecting either column with `h` does not change index selection or include hidden indexes in wildcard expansion.
+
+The description is provided independently of the `system` flag. An index without a matching descriptor has no description. If the descriptor registry and index metadata temporarily disagree, an index with `system=false` can still have a description.
+
+For example, to list system indexes and their descriptions, including hidden indexes by default, use the following request:
+
+```json
+GET /_cat/indices?system=true&h=index,system,system.description&format=json
+```
+
+An example response for a cluster containing a task result index is:
+
+```json
+[
+  {
+    "index": ".tasks",
+    "system": "true",
+    "system.description": "Task Result Index"
+  }
+]
+```
+
+To display both system and non-system indexes, including open, closed, and hidden indexes, use the following request:
+
+```json
+GET /_cat/indices?expand_wildcards=all&h=index,system,system.description&format=json
+```
+
 ## Example requests
 
 <!-- spec_insert_start
@@ -139,6 +196,8 @@ green  | open | movies | UZbpfERBQ1-3GSH2bnM3sg | 1 | 1 | 1 | 0 | 7.7kb | 3.8kb
 ## Limiting the response size
 
 To limit the number of indexes returned, configure the `cat.indices.response.limit.number_of_indices` setting. For more information, see [Cluster-level CAT response limit settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/cluster-settings/#cluster-level-cat-response-limit-settings).
+
+When `system` is specified, the limit counts only indexes matching the requested system classification.
 
 ## Required permissions
 
