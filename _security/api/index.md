@@ -23,7 +23,7 @@ Four APIs are exempt because they expose only the requesting user's own informat
 
 Three groups of APIs require more than a `plugins.security.restapi.roles_enabled` role. The [allow list APIs]({{site.url}}{{site.baseurl}}/security/api/allowlist/), [distinguished name APIs]({{site.url}}{{site.baseurl}}/security/api/distinguished-names/), and [certificate APIs]({{site.url}}{{site.baseurl}}/security/api/certificates/) are restricted to a super admin, and each category page describes the additional cluster permission that lets a role reach them. For more information, see [Access control for the API]({{site.url}}{{site.baseurl}}/security/access-control/api/).
 
-Most Security API calls require HTTP basic authentication with admin credentials, as shown in the following example:
+Most Security APIs require the calling user to be mapped to a role listed in `plugins.security.restapi.roles_enabled`. The following example uses HTTP basic authentication as the `admin` user:
 
 ```bash
 curl -k -XGET -u admin:<password> https://localhost:9200/_plugins/_security/api/roles/
