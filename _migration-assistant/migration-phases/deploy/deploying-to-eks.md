@@ -66,10 +66,13 @@ The following flags cover the most common cases. The script always installs the 
 | | `--subnet-ids <id1,id2>` | Comma-separated subnets in different AZs (with `--deploy-import-vpc-cfn`) |
 | **Versioning** | `--version <tag>` | Pin to a published GitHub release tag. Find tags at [the GitHub releases page](https://github.com/opensearch-project/opensearch-migrations/releases). Use this for reproducible deployments. |
 | | `--build` | Build all artifacts from source (requires a repo checkout). Mutually exclusive with `--version` |
+| | `--base-dir <path>` | Path to your `opensearch-migrations` repo checkout, used with `--build` (defaults to three levels up from the script) |
 | **Networking** | `--create-vpc-endpoints` | Create the five VPC endpoints needed for isolated subnets (S3, ECR API, ECR Docker, CloudWatch Logs, EFS) |
+| | `--ignore-checks` | Skip the subnet connectivity and VPC endpoint pre-flight checks. Use only when you have verified connectivity yourself |
 | | `--use-public-images` | Skip mirroring images into private ECR. Use only when the cluster has internet access and you do not want a private mirror |
 | | `--ma-images-source <registry>` | Copy Migration Assistant images from another ECR registry. Useful when images were built on a separate cluster with internet access |
-| **Access** | `--eks-access-principal-arn <arn>` | Grant a CI role or teammate cluster-admin access. Combine with `--skip-cfn-deploy --skip-console-exec` to grant access without redeploying |
+| **Access** | `--eks-access-principal-arn <arn>` | Grant a CI role or teammate cluster-admin access. Use with `--grant-eks-access-only` to grant access to an already-bootstrapped cluster without redeploying |
+| | `--grant-eks-access-only` | Grant the `--eks-access-principal-arn` principal cluster-admin access to an already-bootstrapped cluster, then exit. Skips image mirroring, Helm installation, kubeconfig setup, and the `jq`, `kubectl`, and `helm` prerequisite checks. Requires `--eks-access-principal-arn` |
 | | `--kubectl-context <name>` | Set a custom alias for the `kubectl` context (defaults to the EKS cluster name) |
 | | `--skip-setting-k8s-context` | Don't switch your active `kubectl` context to the new cluster |
 | | `--skip-console-exec` | Don't auto-exec into the console pod when the script finishes |
@@ -80,6 +83,8 @@ The following flags cover the most common cases. The script always installs the 
 | **Helm** | `--namespace <name>` | Override the Migration Assistant namespace (default: `ma`) |
 | | `--helm-values <path>` | Extra values file for the Helm install---for example, to customize `workloadsNodePool.architectures` |
 | | `--use-general-node-pool` | Use the EKS Auto Mode general-purpose pool instead of the production Karpenter NodePool |
+| | `--disable-general-purpose-pool` | Disable the EKS Auto Mode general-purpose pool. Requires another node pool to be configured (for example, `cluster.useCustomKarpenterNodePool: true` in your `--helm-values` file) |
+| **Tagging** | `--tags <Key=Value,...>` | Apply tags to every resource the deployment creates, including resources EKS Auto Mode provisions later. Repeatable; values cannot contain commas. See [Tag deployed resources](#tag-deployed-resources) |
 
 ## Step 2: Deploy into a new or existing VPC
 
@@ -227,23 +232,61 @@ If your deployment also requires STS or EKS Authentication endpoints (for exampl
 
 If you prefer to manage VPC endpoints with another tool, omit `--create-vpc-endpoints`. The script still mirrors images and uses your existing endpoints.
 
+## Tag deployed resources
+
+Use `--tags` to apply one or more tags to everything the deployment creates, for example for cost allocation:
+
+```bash
+./aws-bootstrap.sh \
+  --deploy-create-vpc-cfn \
+  --stack-name MA-dev \
+  --stage dev \
+  --region us-east-2 \
+  --tags CostCenter=1234,Owner=platform-team
+```
+{% include copy.html %}
+
+The flag is repeatable, and tag values cannot contain commas.
+
+The tags become CloudFormation stack tags, so CloudFormation propagates them to every resource it creates. Because resources that EKS Auto Mode provisions later (EC2 instances, EBS volumes, and load balancers) are not created by CloudFormation, `--tags` additionally threads the tags into the cluster so those resources carry them too. As a result, using `--tags`:
+
+- Creates a custom EKS Auto Mode `NodeClass` carrying the tags, because the built-in `default` `NodeClass` is owned by EKS and cannot be edited.
+- Disables the built-in `system` and `general-purpose` node pools and replaces them with a node pool bound to the custom `NodeClass`.
+- Sets tag specifications on the `StorageClass` so provisioned EBS volumes are tagged, and annotates any load balancer the chart creates.
+
+{: .note }
+> Threading tags into EKS Auto Mode resources requires the cluster IAM role to allow user-defined tags. When you pass `--tags`, the script ensures the required inline policy even on older or hand-built clusters, so the calling principal needs the `iam:PutRolePolicy` permission on the cluster role.
+
 <!-- vale off -->
 ## Grant kubectl access to a CI role or teammate
 <!-- vale on -->
 
-You can run the bootstrap script in access-only mode after the stack is already deployed:
+After the cluster is already bootstrapped, run the script in grant-only mode to add a second admin principal:
 
 ```bash
 ./aws-bootstrap.sh \
-  --skip-cfn-deploy \
+  --grant-eks-access-only \
   --eks-access-principal-arn arn:aws:iam::123456789012:role/MyCIRole \
   --stage dev \
-  --region us-east-2 \
-  --skip-console-exec
+  --region us-east-2
 ```
 {% include copy.html %}
 
-This grants the principal cluster-admin access to the existing EKS cluster without redeploying anything else.
+This applies the EKS access entry and policy association for the principal, then exits. It does not redeploy CloudFormation, mirror images, run Helm, or update your `kubeconfig`, and it skips the `jq`, `kubectl`, and `helm` prerequisite checks.
+
+Verify the access entry from the cluster-owning account:
+
+```bash
+aws eks list-access-entries \
+  --cluster-name <CLUSTER_NAME> \
+  --region <REGION>
+
+aws eks list-associated-access-policies \
+  --cluster-name <CLUSTER_NAME> \
+  --principal-arn arn:aws:iam::123456789012:role/MyCIRole \
+  --region <REGION>
+```
+{% include copy.html %}
 
 ## Recovery if bootstrap fails
 
