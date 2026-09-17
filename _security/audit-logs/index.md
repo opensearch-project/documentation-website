@@ -39,6 +39,9 @@ Audit logging is disabled by default. To enable audit logging:
 
 2. Restart each node.
 
+The `audit.yml` file that ships with the Security plugin sets `config.enabled` to `true`, so that file on its own can make it look as though audit logging is already running. It is not. Audit logging needs both switches: a storage type in `opensearch.yml` and `config.enabled: true` in `audit.yml`. Without `plugins.security.audit.type`, the plugin cannot create a storage endpoint for the audit log, warns at startup that no default storage is available, and records no events.
+{: .note}
+
 After this initial setup, you can use OpenSearch Dashboards to manage your audit log categories and other settings. In OpenSearch Dashboards, select **Security** and then **Audit logs**. 
 
 An alternative is to specify initial settings for audit logging in the `audit.yml` and `opensearch.yml` files (which file depends on the setting---see [Audit log settings](#audit-log-settings)). Thereafter, you can use Dashboards or the [Audit logs]({{site.url}}{{site.baseurl}}/security/api/audit/) API to manage and update settings.
