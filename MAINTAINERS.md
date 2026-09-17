@@ -9,7 +9,6 @@ This document lists the maintainers in this repo. See [opensearch-project/.githu
 | Fanit Kolchina   | [kolchfa-aws](https://github.com/kolchfa-aws)   | Amazon      |
 | Peter Zhu   | [peterzhuamazon](https://github.com/peterzhuamazon)   | Amazon      |
 | Craig Perkins  | [cwperks](https://github.com/cwperks)   | Amazon      |
-| Mohit Godwani  | [mgodwan](https://github.com/mgodwan)   | Amazon      |
 | David Venable    | [dlvenable](https://github.com/dlvenable)       | Amazon      | 
 | Brian Presley    | [sumobrian](https://github.com/sumobrian/)      | Amazon      |
 | Eric Pugh        | [epugh](https://github.com/epugh)               | OpenSource Connections  | 
@@ -24,3 +23,4 @@ This document lists the maintainers in this repo. See [opensearch-project/.githu
 | Melissa Vagi     | [vagimeli](https://github.com/vagimeli)                 | Amazon      |
 | Stephen Crawford | [stephen-crawford](https://github.com/stephen-crawford) | Amazon      |
 | Nate Archer      | [Naarcha-AWS](https://github.com/Naarcha-AWS)           | Amazon      |
+| Mohit Godwani    | [mgodwan](https://github.com/mgodwan)                   | Amazon      |
