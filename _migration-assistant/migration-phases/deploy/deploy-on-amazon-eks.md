@@ -16,14 +16,15 @@ EKS makes the migration **easier to deploy, easier to secure, and easier to oper
 
 ## EKS deployment components
 
-The EKS path prepares AWS infrastructure around the workflow engine, including:
+The EKS path prepares AWS infrastructure around the workflow engine. Both provisioning methods provide:
 
 - EKS cluster deployment into a new or existing virtual private cloud (VPC).
 - Pod identity for the Migration Console and workflow pods.
-- Image mirroring and VPC endpoint support for isolated subnets.
-- Default Amazon Simple Storage Service (Amazon S3) bucket and snapshot-role helpers.
-- Amazon CloudWatch logging and dashboards.
+- A private Amazon Elastic Container Registry (Amazon ECR) repository and VPC endpoint support for isolated subnets.
+- The Amazon Simple Storage Service (Amazon S3) snapshot role that Amazon OpenSearch Service assumes.
 - AWS-aware storage and node-pool defaults.
+
+The CloudFormation bootstrap script additionally mirrors container images into that repository and always installs the Helm chart, which brings the Amazon CloudWatch dashboards and the default snapshot bucket with it. The Terraform module creates the repository but does not mirror images, and it installs the chart only when you set `deploy_helm`.
 
 If you are migrating to or from Amazon OpenSearch Service, this is usually the shortest path to a working production setup.
 

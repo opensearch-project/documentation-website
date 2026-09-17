@@ -21,7 +21,7 @@ The following table compares the three deployment types.
 
 | Type | Best when | Included |
 |:-----|:----------|:-------------|
-| [Deploy on Amazon Elastic Kubernetes Service (EKS)]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/amazon-eks/) | You run migrations on AWS and want the recommended production path | The same engine plus AWS bootstrap automation, pod identity, image mirroring, snapshot helpers, and Amazon CloudWatch integration |
+| [Deploy on Amazon Elastic Kubernetes Service (EKS)]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/amazon-eks/) | You run migrations on AWS and want the recommended production path | The same engine plus AWS platform integration: cluster and VPC provisioning, pod identity, snapshot access, and Amazon CloudWatch dashboards. Provision with either the CloudFormation bootstrap script or Terraform |
 | [Deploy on Google Kubernetes Engine (GKE)]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-gke/) | You run migrations on GCP and want the recommended production path | The same engine plus a Terraform module for the GKE cluster, VPC networking, Cloud Storage snapshots, and Workload Identity |
 | [Deploy on other Kubernetes]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-kubernetes/) | You use another Kubernetes platform (managed or self-managed), or you are evaluating locally | The core Migration Assistant engine and workflow model, with you supplying the platform integrations |
 
@@ -44,16 +44,15 @@ Source and target cluster configuration is handled dynamically through the Workf
 
 On a managed cloud, a provider-specific path removes a large amount of non-migration work by preparing the surrounding platform for you.
 
-On AWS, Amazon EKS is the recommended path. It provides:
+On AWS, Amazon EKS is the recommended path. Both provisioning methods provide:
 
 - Cluster and VPC bootstrap.
 - Pod identity for AWS API access.
-- Private image support for isolated subnets.
-- Snapshot bucket and role helpers.
-- Amazon CloudWatch dashboards and logging.
+- VPC endpoint support for isolated subnets.
+- Snapshot access for Amazon OpenSearch Service.
 - AWS-aware storage and node-pool defaults.
 
-You can provision the AWS infrastructure with either AWS CloudFormation or Terraform. For more information, see [Deploy on Amazon EKS]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/amazon-eks/).
+The CloudFormation bootstrap script additionally mirrors container images into a private registry and always installs the Helm chart, which brings the Amazon CloudWatch dashboards and the default snapshot bucket with it. The Terraform module creates the registry but does not mirror images, and it installs the chart only when you ask it to. For more information, see [Deploy on Amazon EKS]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/amazon-eks/).
 
 On GCP, Google Kubernetes Engine (GKE) is the recommended path. A Terraform module provides:
 
