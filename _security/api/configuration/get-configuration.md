@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Get configuration
-parent: Configuration APIs
+parent: Security configuration APIs
 grand_parent: Security APIs
 nav_order: 30
 redirect_from:

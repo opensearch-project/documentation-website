@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Create or update configuration
-parent: Configuration APIs
+parent: Security configuration APIs
 grand_parent: Security APIs
 nav_order: 10
 redirect_from:

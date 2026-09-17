@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Patch configuration
-parent: Configuration APIs
+parent: Security configuration APIs
 grand_parent: Security APIs
 nav_order: 20
 redirect_from:
