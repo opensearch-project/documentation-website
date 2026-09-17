@@ -8,7 +8,7 @@ redirect_from:
   - /api-reference/security/configuration/patch-configuration/
 ---
 
-# Patch Configuration API
+# Patch Security Configuration API
 **Introduced 2.10**
 {: .label .label-purple }
 

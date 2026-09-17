@@ -8,7 +8,7 @@ redirect_from:
   - /api-reference/security/configuration/upgrade-perform/
 ---
 
-# Perform Upgrade API
+# Perform Security Configuration Upgrade API
 **Introduced 2.14**
 {: .label .label-purple }
 

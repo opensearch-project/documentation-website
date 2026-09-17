@@ -8,7 +8,7 @@ redirect_from:
   - /api-reference/security/configuration/upgrade-check/
 ---
 
-# Check for Upgrades API
+# Check for Security Configuration Upgrades API
 **Introduced 2.14**
 {: .label .label-purple }
 

@@ -8,7 +8,7 @@ redirect_from:
   - /api-reference/security/configuration/update-configuration/
 ---
 
-# Create or Update Configuration API
+# Create or Update Security Configuration API
 **Introduced 2.10**
 {: .label .label-purple }
 
