@@ -32,7 +32,7 @@ Before you begin, make sure you have the following:
 
 - A GCP project with billing enabled. To create one, run `gcloud projects create <PROJECT_ID>` and then [link a billing account](https://cloud.google.com/billing/docs/how-to/modify-project).
 - [Terraform](https://developer.hashicorp.com/terraform/install) 1.6 or later, or [OpenTofu](https://opentofu.org/docs/intro/install/) 1.6 or later.
-- The [gcloud CLI](https://cloud.google.com/sdk/docs/install), authenticated with `gcloud auth application-default login`.
+- The [`gcloud` CLI](https://cloud.google.com/sdk/docs/install), authenticated with `gcloud auth application-default login`.
 - [`kubectl`](https://kubernetes.io/docs/tasks/tools/) and [Helm 3](https://helm.sh/docs/intro/install/) installed.
 - On an Elasticsearch 7.x source cluster, the `repository-gcs` plugin installed on every node, because Backfill snapshots the source to Cloud Storage. Elasticsearch 8.0 and later and OpenSearch include this support. For installation steps, see [Private networking]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/private-networking-on-gke/#source-cluster-prerequisite-for-the-repository-gcs-plugin).
 - The required GCP APIs enabled:

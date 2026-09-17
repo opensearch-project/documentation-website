@@ -80,7 +80,6 @@ Gbps
 [Gg]eoshape
 [Gg]eospatial
 [Gg]eotile
-gcloud
 gibibyte
 gridlines
 gRPC
@@ -182,7 +181,6 @@ peta
 [Rr]eorderings?
 [Rr]epo
 [Rr]eprovision(ed|ing)?
-[Rr]eplayer
 [Rr]erank(er|ed|ing)?
 [Rr]escor(e|ed|ing)?
 [Rr]ethrottl(e|ing)

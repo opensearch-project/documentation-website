@@ -119,7 +119,7 @@ This is a property of the source cluster and is independent of the private-netwo
 
 ## Live capture-proxy ingress
 
-Live capture-and-replay migrations place a capture proxy in front of the source cluster: source clients connect to the proxy, which forwards traffic to the source while mirroring it to Kafka for the replayer. The proxy is exposed by a Kubernetes service.
+Live capture-and-replay migrations place a capture proxy in front of the source cluster: source clients connect to the proxy, which forwards traffic to the source while mirroring it to Kafka for the Replayer. The proxy is exposed by a Kubernetes service.
 
 On GKE, the proxy's service is annotated for an internal load balancer according to the deployment's cloud provider (the `cloudProvider` Helm value). The proxy therefore receives a VPC-internal address, and its ingress never traverses the public internet. No per-migration configuration is required: deploying with `cloudProvider: gcp` is enough.
 

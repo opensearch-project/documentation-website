@@ -228,7 +228,7 @@ snapshotMigrationConfigs:
             documentsPerBulkRequest: 10000
 ```
 
-For a **zero-downtime** migration, add a `traffic` section with a capture proxy and a replayer. On GKE, the capture proxy's load balancer is internal by default, so its ingress stays on the VPC network:
+For a **zero-downtime** migration, add a `traffic` section with a capture proxy and a Replayer. On GKE, the capture proxy's load balancer is internal by default, so its ingress stays on the VPC network:
 
 ```yaml
 traffic:
@@ -307,7 +307,7 @@ After the pilot succeeds, widen the configuration to the full index set and subm
 3. After backfill completes, the Replayer drains captured traffic to the target. Monitor until the target catches up to live and the document counts stabilize.
 4. Continue to validation.
 
-For large migrations, consider applying target-side write tuning during the load: increase primary shards on hot indices, and set `refresh_interval: -1` and `number_of_replicas: 0` while loading, then restore them afterward. Watch the target's write thread pool for rejections and lower replayer concurrency if rejections appear.
+For large migrations, consider applying target-side write tuning during the load: increase primary shards on hot indices, and set `refresh_interval: -1` and `number_of_replicas: 0` while loading, then restore them afterward. Watch the target's write thread pool for rejections and lower Replayer concurrency if rejections appear.
 {: .note }
 
 ## Step 9: Validate and switch traffic
