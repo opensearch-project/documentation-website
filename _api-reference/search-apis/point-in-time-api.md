@@ -4,7 +4,6 @@ title: Point in Time
 nav_order: 25
 has_children: false
 parent: Search APIs
-grand_parent: Search options
 redirect_from:
   - /opensearch/point-in-time-api/
   - /search-plugins/point-in-time-api/

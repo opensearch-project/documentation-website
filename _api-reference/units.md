@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Supported units
-nav_order: 90
+nav_order: 150
 redirect_from:
   - /opensearch/units/
 ---

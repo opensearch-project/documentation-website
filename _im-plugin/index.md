@@ -7,7 +7,6 @@ nav_exclude: true
 permalink: /im-plugin/
 redirect_from:
   - /opensearch/index-data/
-  - /opensearch/rest-api/index-apis/index/
   - /im-plugin/index/
 ---
 

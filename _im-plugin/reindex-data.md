@@ -3,7 +3,6 @@ layout: default
 title: Reindexing data
 nav_order: 35
 redirect_from:
-  - /opensearch/reindex-data/
   - /im-plugin/reindex-data/index/
 ---
 
