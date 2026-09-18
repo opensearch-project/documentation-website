@@ -8,7 +8,7 @@ nav_order: 26
 
 <!-- vale off -->
 
-# kmeans (Deprecated)
+# kmeans command (Deprecated)
 
 <!-- vale on -->
 

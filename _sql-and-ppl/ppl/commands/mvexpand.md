@@ -8,7 +8,7 @@ nav_order: 31
 
 <!-- vale off -->
 
-# mvexpand
+# mvexpand command
 
 <!-- vale on -->
 

@@ -172,7 +172,9 @@ response = client.indices.put_index_template(
 
 ### Using multiple matching templates
 
-When multiple index templates match the name of a new index or data stream, the template with the highest priority is used. For example, the following two requests create index templates with different priorities: 
+When multiple index templates match the name of a new index or data stream, the template with the highest priority is used. For example, the following two requests create index templates with different priorities.
+
+The first request creates a template with priority `0` that matches index names starting with `h`:
 
 ```json
 PUT /_index_template/template_one
@@ -189,7 +191,12 @@ PUT /_index_template/template_one
     }
   }
 }
+```
+{% include copy-curl.html %}
 
+The second request creates a template with priority `1` that matches the narrower set of index names starting with `ha`:
+
+```json
 PUT /_index_template/template_two
 {
   "index_patterns" : ["ha*"],
@@ -217,7 +224,7 @@ The following example request adds a `version` number to an index template, whic
 
 <!-- spec_insert_start
 component: example_code
-rest: PUT /_index_template/template_one
+rest: PUT /_index_template/versioned-template
 body: |
 {
   "index_patterns" : ["mac", "cheese"],
@@ -231,7 +238,7 @@ body: |
 }
 -->
 {% capture step1_rest %}
-PUT /_index_template/template_one
+PUT /_index_template/versioned-template
 {
   "index_patterns": [
     "mac",
@@ -251,7 +258,7 @@ PUT /_index_template/template_one
 
 
 response = client.indices.put_index_template(
-  name = "template_one",
+  name = "versioned-template",
   body =   {
     "index_patterns": [
       "mac",
@@ -281,7 +288,7 @@ The following example request uses the `meta` parameter to add metadata to the i
 
 <!-- spec_insert_start
 component: example_code
-rest: PUT /_index_template/template_one
+rest: PUT /_index_template/metadata-template
 body: |
 {
   "index_patterns": ["rom", "juliet"],
@@ -300,7 +307,7 @@ body: |
 }
 -->
 {% capture step1_rest %}
-PUT /_index_template/template_one
+PUT /_index_template/metadata-template
 {
   "index_patterns": [
     "rom",
@@ -325,7 +332,7 @@ PUT /_index_template/template_one
 
 
 response = client.indices.put_index_template(
-  name = "template_one",
+  name = "metadata-template",
   body =   {
     "index_patterns": [
       "rom",
@@ -359,7 +366,7 @@ Include a `data_stream` object to use an index template for data streams, as sho
 
 <!-- spec_insert_start
 component: example_code
-rest: PUT /_index_template/template_1
+rest: PUT /_index_template/logs-template
 body: |
 {
   "index_patterns": ["logs-*"],
@@ -367,7 +374,7 @@ body: |
 }
 -->
 {% capture step1_rest %}
-PUT /_index_template/template_1
+PUT /_index_template/logs-template
 {
   "index_patterns": [
     "logs-*"
@@ -380,7 +387,7 @@ PUT /_index_template/template_1
 
 
 response = client.indices.put_index_template(
-  name = "template_1",
+  name = "logs-template",
   body =   {
     "index_patterns": [
       "logs-*"
@@ -400,7 +407,9 @@ response = client.indices.put_index_template(
 
 When using multiple component templates with the `composed_of` field, the component templates are merged in the specified order. Next, all mappings, settings, and aliases from the parent index template of the component are merged. Lastly, any configuration options added to the index requests are merged.
 
-In the following example request, an index with `h*` has two merged primary shards. If the order in the request body were reversed, then the index would have one primary shard:
+In the following example, an index matching `my-index-*` has two merged primary shards. If the order in the `composed_of` array were reversed, then the index would have one primary shard.
+
+First, create a component template that sets one primary shard:
 
 ```json
 PUT /_component_template/template_with_1_shard
@@ -411,7 +420,12 @@ PUT /_component_template/template_with_1_shard
     }
   }
 }
+```
+{% include copy-curl.html %}
 
+Next, create a component template that sets two primary shards:
+
+```json
 PUT /_component_template/template_with_2_shards
 {
   "template": {
@@ -420,10 +434,15 @@ PUT /_component_template/template_with_2_shards
     }
   }
 }
+```
+{% include copy-curl.html %}
 
-PUT /_index_template/template_1
+Finally, create an index template that composes both component templates in order:
+
+```json
+PUT /_index_template/composed-template
 {
-  "index_patterns": ["h*"],
+  "index_patterns": ["my-index-*"],
   "composed_of": ["template_with_1_shard", "template_with_2_shards"]
 }
 ```

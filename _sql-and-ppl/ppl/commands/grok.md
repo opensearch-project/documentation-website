@@ -8,7 +8,7 @@ nav_order: 22
 
 <!-- vale off -->
 
-# grok
+# grok command
 
 <!-- vale on -->
 

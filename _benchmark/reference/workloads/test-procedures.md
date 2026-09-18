@@ -6,7 +6,7 @@ nav_order: 50
 ---
 
 <!-- vale off -->
-# test_procedures
+# test_procedures element
 <!-- vale on -->
 
 A test procedure is a single benchmarking scenario. Each test procedure wraps a [`schedule`]({{site.url}}{{site.baseurl}}/benchmark/reference/workloads/schedule/) and adds properties such as a name and description. Use the `test_procedures` element when a workload defines multiple scenarios. When a workload defines only one scenario, specify `schedule` at the top level of `workload.json` instead and omit `test_procedures`.

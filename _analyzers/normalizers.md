@@ -101,11 +101,7 @@ Token filters: `icu_normalizer`, `icu_folding`, `icu_transform`
 
 ### The `analysis-kuromoji` plugin
 
-Character filters: `normalize_kanji`, `normalize_kana`
-
-### The `analysis-nori` plugin
-
-Character filters: `normalize_kanji`, `normalize_kana`
+Character filters: `kuromoji_iteration_mark`
 
 These lists of filters include only analysis components found in the [additional plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/#additional-plugins) that are part of the core OpenSearch repository.
 {: .note}

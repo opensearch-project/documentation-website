@@ -96,10 +96,10 @@ You must use an admin certificate when executing the script. To learn more, see 
 
 ## Use the diagnose option
 
-For more information about why `securityadmin.sh` is not executing, add the `--diagnose` option:
+For more information about why `securityadmin.sh` is not executing, add the `--diagnose` option (or its short form, `-dg`):
 
 ```
-./securityadmin.sh -diagnose -cd ../../../config/opensearch-security/ -cacert ... -cert ... -key ... -keypass ...
+./securityadmin.sh --diagnose -cd ../../../config/opensearch-security/ -cacert ... -cert ... -key ... -keypass ...
 ```
 
 The script prints the location of the generated diagnostic file.

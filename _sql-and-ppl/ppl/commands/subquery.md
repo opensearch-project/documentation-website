@@ -8,7 +8,7 @@ nav_order: 47
 
 <!-- vale off -->
 
-# subquery
+# subquery command
 
 <!-- vale on -->
 

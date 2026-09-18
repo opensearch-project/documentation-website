@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Console
-parent: Dev Tools
+parent: Using Dev Tools
 grand_parent: Exploring data
 nav_order: 10
 ---

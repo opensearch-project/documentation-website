@@ -8,7 +8,7 @@ nav_order: 25
 
 <!-- vale off -->
 
-# join
+# join command
 
 <!-- vale on -->
 

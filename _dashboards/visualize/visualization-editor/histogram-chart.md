@@ -7,7 +7,7 @@ great_grand_parent: Building data visualizations
 nav_order: 35
 ---
 
-# Histogram
+# Histograms in the visualization editor
 
 A histogram displays the distribution of a numeric field by grouping values into bins (buckets) and showing the count of values in each bin as vertical bars.
 

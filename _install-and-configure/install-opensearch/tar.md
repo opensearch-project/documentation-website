@@ -7,7 +7,7 @@ redirect_from:
   - /opensearch/install/tar/
 ---
 
-# Tarball
+# Installing OpenSearch from a tarball
 
 Installing OpenSearch from a tarball, also known as a tar archive, may appeal to users who want granular control over installation details like file permissions and installation paths.
 
@@ -100,7 +100,7 @@ An OpenSearch node configured by the demo security script is not suitable for a 
    ```
    {% include copy.html %}
 
-   For OpenSearch 2.12 or later, set a new custom admin password before installation using the following command, following the [password requirements]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/#password-requirements):
+   For OpenSearch 2.12 or later, set a new custom admin password before installation using the following command, following the [admin password requirements]({{site.url}}{{site.baseurl}}/security/configuration/demo-configuration/#admin-password-requirements):
    ```bash
    $ export OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password>
    ```

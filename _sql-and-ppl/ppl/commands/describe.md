@@ -8,7 +8,7 @@ nav_order: 12
 
 <!-- vale off -->
 
-# describe
+# describe command
 
 <!-- vale on -->
 

@@ -8,9 +8,9 @@ has_children: true
 has_toc: false
 ---
 
-# Visualization types for query-based visualizations
+# Query-based visualization types
 
-The following table lists the supported visualization types and their expected data shapes.
+The following table lists the visualization types supported by the visualization editor and their expected data shapes.
 
 | Chart type | Data shape |
 | :--- | :--- |

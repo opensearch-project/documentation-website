@@ -8,7 +8,7 @@ nav_order: 45
 
 <!-- vale off -->
 
-# stats
+# stats command
 
 <!-- vale on -->
 

@@ -7,7 +7,7 @@ great_grand_parent: Building data visualizations
 nav_order: 50
 ---
 
-# Pie chart
+# Pie charts in the visualization editor
 
 A pie chart displays data as proportional slices of a circle, making it ideal for visualizing part-to-whole relationships.
 

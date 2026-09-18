@@ -1,6 +1,6 @@
 ---
 layout: default
-title: PPL visualizations
+title: PPL visualization
 parent: Visualization types
 grand_parent: Creating visualizations in the Visualize application
 great_grand_parent: Building data visualizations
@@ -9,7 +9,7 @@ redirect_from:
   - /dashboards/visualize/ppl/
 ---
 
-# PPL visualizations
+# PPL visualization
 
 Piped Processing Language (PPL) visualizations enable data processing and visualization using PPL queries. Selecting **PPL** from the **New Visualization** dialog opens the Observability Logs Explorer, where you write a PPL query and map the results to a chart.
 

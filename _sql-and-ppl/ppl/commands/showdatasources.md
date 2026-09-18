@@ -8,7 +8,7 @@ nav_order: 42
 
 <!-- vale off -->
 
-# show datasources
+# show datasources command
 
 <!-- vale on -->
 

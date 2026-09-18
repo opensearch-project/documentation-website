@@ -7,7 +7,7 @@ great_grand_parent: Building data visualizations
 nav_order: 30
 ---
 
-# Heatmap
+# Heatmaps in the visualization editor
 
 A heatmap uses color to represent the magnitude of values in a dataset. Each cell in the map corresponds to a combination of two dimensions, with the cell's color intensity reflecting the value associated with that combination.
 

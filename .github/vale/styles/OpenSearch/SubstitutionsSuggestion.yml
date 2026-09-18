@@ -13,6 +13,9 @@ swap:
   'build out': expand or implement
   'builds out': expands or implements
   'building out': expanding or implementing
+  'cap': limit or maximum
+  'caps': limits or restricts
+  'capping': limiting or restricting
   'catch up': synchronize with
   'catches up': synchronizes with
   'catching up': synchronizing with
@@ -44,10 +47,18 @@ swap:
   'get': receive, obtain, or retrieve
   'gets': receives, returns, or retrieves
   'getting': retrieving or obtaining
+  'grow': increase
+  'grows': increases
+  'growing': increasing
   'handle': manage, process, or resolve
   'handles': manages, processes, or resolves
   'handling': managing, processing, or resolving
+  'in flight': in progress or active
+  'in-flight': in-progress or active
   'it is recommended': we recommend
+  'keep up': maintain throughput or match demand
+  'keeps up': maintains throughput or matches demand
+  'keeping up': maintaining throughput or matching demand
   'kick off': start or initiate
   'kicks off': starts or initiates
   'kicking off': starting or initiating
@@ -65,6 +76,7 @@ swap:
   'means': indicates
   'navigate in': navigate to
   'one-off': single-use or ad-hoc
+  'opt-in': optional or disabled by default
   'out of the box': by default, natively, or is built-in
   'out-of-the-box': default, native, or built-in
   'pick up': load or detect
@@ -82,6 +94,7 @@ swap:
   'pull in': import or retrieve
   'pulls in': imports or retrieves
   'pulling in': importing or retrieving
+  'purpose-built': designed for or built for
   'push back': postpone
   'pushes back': postpones
   'pushing back': postponing
@@ -98,9 +111,16 @@ swap:
   'set up': configure or initialize
   'sets up': configures or initializes
   'setting up': configuring or initializing
+  'ship': provide or include
+  'ships': provides or includes
+  'shipped': provided or included
+  'shipping': providing or including
   'show up': appear
   'shows up': appears
   'showing up': appearing
+  'shrink': decrease or reduce
+  'shrinks': decreases or reduces
+  'shrinking': decreasing or reducing
   'shut down': stop or terminate
   'shuts down': stops or terminates
   'shutting down': stopping or terminating
@@ -119,6 +139,10 @@ swap:
   'spot': detect or identify
   'start here': getting started
   'stitching together': chaining or combining
+  'surface': return, report, display, or expose
+  'surfaces': returns, reports, displays, or exposes
+  'surfaced': returned, reported, displayed, or exposed
+  'surfacing': returning, reporting, displaying, or exposing
   'talk to': communicate with or connect to
   'talks to': communicates with or connects to
   'talking to': communicating with or connecting to

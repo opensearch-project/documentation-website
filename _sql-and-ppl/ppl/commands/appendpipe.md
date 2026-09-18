@@ -8,7 +8,7 @@ nav_order: 7
 
 <!-- vale off -->
 
-# appendpipe
+# appendpipe command
 
 <!-- vale on -->
 

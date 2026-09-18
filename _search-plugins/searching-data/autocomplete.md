@@ -7,7 +7,7 @@ redirect_from:
   - /opensearch/search/autocomplete/
 ---
 
-# Autocomplete functionality
+# Autocomplete
 
 Autocomplete shows suggestions to users while they type.
 

@@ -8,7 +8,7 @@ nav_order: 32
 
 <!-- vale off -->
 
-# nomv
+# nomv command
 
 <!-- vale on -->
 

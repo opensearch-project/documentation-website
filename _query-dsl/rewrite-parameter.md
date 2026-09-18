@@ -4,7 +4,7 @@ title: Rewrite
 nav_order: 85
 ---
 
-# Rewrite
+# Rewrite parameter
 
 Multi-term queries like `wildcard`, `prefix`, `regexp`, `fuzzy`, and `range` expand internally into sets of terms. The `rewrite` parameter allows you to control how these term expansions are executed and scored.
 

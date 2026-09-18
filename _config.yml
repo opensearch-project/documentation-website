@@ -77,6 +77,9 @@ collections:
   aggregations:
     permalink: /:collection/:path/
     output: true
+  scripting:
+    permalink: /:collection/:path/
+    output: true
   mappings:
     permalink: /:collection/:path/
     output: true
@@ -107,9 +110,6 @@ collections:
   troubleshoot:
     permalink: /:collection/:path/
     output: true
-  external_links:
-    permalink: /:collection/:path/
-    output: true
   developer-documentation:
     permalink: /:collection/:path/
     output: true
@@ -119,13 +119,7 @@ collections:
   automating-configurations:
     permalink: /:collection/:path/
     output: true
-  dashboards-assistant:
-    permalink: /:collection/:path/
-    output: true
   getting-started:
-    permalink: /:collection/:path/
-    output: true
-  workspace:
     permalink: /:collection/:path/
     output: true
   vector-search:
@@ -159,26 +153,23 @@ opensearch_collection:
     tuning-your-cluster:
       name: Creating and tuning your cluster
       nav_fold: true
+    security:
+      name: Security
+      nav_fold: true
     im-plugin:
       name: Managing Indexes
       nav_fold: true
     ingest-pipelines:
       name: Ingest Pipelines
       nav_fold: true
-    dashboards:
-      name: OpenSearch Dashboards
-      nav_fold: true
-    security:
-      name: Security
-      nav_fold: true
-    security-analytics:
-      name: Security analytics 
-      nav_fold: true
     mappings:
       name: Mappings
       nav_fold: true
     analyzers:
       name: Text analysis
+      nav_fold: true
+    search-plugins:
+      name: Search
       nav_fold: true
     query-dsl:
       name: Query DSL
@@ -189,11 +180,11 @@ opensearch_collection:
     aggregations:
       name: Aggregations
       nav_fold: true
-    search-plugins:
-      name: Search
+    scripting:
+      name: Scripting
       nav_fold: true
     vector-search:
-      name: Vector search 
+      name: Vector search
       nav_fold: true
     ml-commons-plugin:
       name: Machine learning
@@ -204,14 +195,20 @@ opensearch_collection:
     automating-configurations:
       name: Automating configurations
       nav_fold: true
-    monitoring-your-cluster:
-      name: Monitoring your cluster
+    dashboards:
+      name: OpenSearch Dashboards
       nav_fold: true
     observing-your-data:
       name: Observability
       nav_fold: true
+    security-analytics:
+      name: Security analytics
+      nav_fold: true
     reporting:
       name: Reporting
+      nav_fold: true
+    monitoring-your-cluster:
+      name: Monitoring your cluster
       nav_fold: true
     tools:
       name: Tools

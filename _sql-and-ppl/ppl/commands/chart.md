@@ -8,7 +8,7 @@ nav_order: 9
 
 <!-- vale off -->
 
-# chart
+# chart command
 
 <!-- vale on -->
 

@@ -8,7 +8,7 @@ nav_order: 44
 
 <!-- vale off -->
 
-# spath
+# spath command
 
 <!-- vale on -->
 

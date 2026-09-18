@@ -9,7 +9,7 @@ nav_order: 10
 has_math: true
 ---
 
-# Spaces
+# Vector spaces
 
 In vector search, a _space_ defines how the distance (or similarity) between two vectors is calculated. The choice of space affects how nearest neighbors are determined during search operations. 
 

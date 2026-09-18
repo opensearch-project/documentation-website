@@ -35,7 +35,7 @@ Use the following aggregate actions to determine how the `aggregate` processor p
 ### remove_duplicates 
 <!-- vale on -->
 
-The `remove_duplicates` action processes the first event for a group immediately and drops any events that duplicate the first event from the source. For example, when using `identification_keys: ["sourceIp", "destination_ip"]`:
+The `remove_duplicates` action processes the first event for a group immediately and drops any events that duplicate the first event from the source. For example, when using `identification_keys: ["sourceIp", "destinationIp"]`:
 
 1. The `remove_duplicates` action processes `{ "sourceIp": "127.0.0.1", "destinationIp": "192.168.0.1", "status": 200 }`, the first event in the source.
 2. OpenSearch Data Prepper drops the `{ "sourceIp": "127.0.0.1", "destinationIp": "192.168.0.1", "bytes": 1000 }` event because the `sourceIp` and `destinationIp` match the first event in the source.
@@ -45,7 +45,7 @@ The `remove_duplicates` action processes the first event for a group immediately
 ### put_all
 <!-- vale on -->
 
-The `put_all` action combines events belonging to the same group by overwriting existing keys and adding new keys, similarly to the Java `Map.putAll`. The action drops all events that make up the combined event. For example, when using `identification_keys: ["sourceIp", "destination_ip"]`, the `put_all` action processes the following three events:
+The `put_all` action combines events belonging to the same group by overwriting existing keys and adding new keys, similarly to the Java `Map.putAll`. The action drops all events that make up the combined event. For example, when using `identification_keys: ["sourceIp", "destinationIp"]`, the `put_all` action processes the following three events:
 
 ```json
 { "sourceIp": "127.0.0.1", "destinationIp": "192.168.0.1", "status": 200 }
@@ -63,19 +63,20 @@ Then the action combines the events into one. The pipeline then uses the followi
 ### count
 <!-- vale on -->
 
-The `count` event counts events that belong to the same group and generates a new event with values of the `identification_keys` and the count, which indicates the number of new events. You can customize the processor with the following configuration options:
+The `count` action counts events that belong to the same group and generates a new event with values of the `identification_keys` and the count, which indicates the number of events in the group. The action drops all events that make up the combined event.
 
+You can customize the processor with the following configuration options:
 
- * `count_key`: The key used for storing the count. Default name is `aggr._count`.
+* `count_key`: The key used for storing the count. Default name is `aggr._count`.
 * `start_time_key`: The key used for storing the start time. Default name is `aggr._start_time`.
 * `end_time_key`: The key used for storing the end time. Default name is `aggr._end_time`.
 * `metric_name`: The name of the metric when using the `otel_metrics` output format. Default is `count`.
 * `unique_keys`: A list of keys for which to count unique values. When specified, the count reflects the number of unique combinations of these keys rather than the total number of events.
-* `output_format`: Format of the aggregated event.
-     * `otel_metrics`: Default output format. Outputs in OTel metrics SUM type with count as value.
-    * `raw` - Generates a JSON object with the `count_key` field as a count value and the `start_time_key` field with aggregation start time as value.
+* `output_format`: The aggregated event format. Valid values are:
+    * `otel_metrics` (default): Outputs an OpenTelemetry metric of type `SUM` in which the `value` field contains the number of events in the group.
+    * `raw`: Generates a JSON object with the `count_key` field as the count and the `start_time_key` field as the aggregation start time.
 
-For an example, when using `identification_keys: ["sourceIp", "destination_ip"]`, the `count` action counts and processes the following events:
+For an example, when using `identification_keys: ["sourceIp", "destinationIp"]`, the `count` action counts and processes the following events:
 
 ```json
 { "sourceIp": "127.0.0.1", "destinationIp": "192.168.0.1", "status": 200 }
@@ -97,18 +98,17 @@ The `histogram` action aggregates events belonging to the same group and generat
 
 You can customize the processor with the following configuration options:
 
-* `key`: Name of the field in the events the histogram generates.
+* `key`: The name of the field from which the histogram is generated.
 * `generated_key_prefix`: `key_prefix` used by all the fields created in the aggregated event. Having a prefix ensures that the names of the histogram event do not conflict with the field names in the event.
 * `units`: The units for the values in the `key`.
 * `record_minmax`: A Boolean value indicating whether the histogram should include the min and max of the values in the aggregation.
 * `buckets`: A list of buckets (values of type `double`) indicating the buckets in the histogram.
 * `metric_name`: The name of the metric when using the `otel_metrics` output format. Default is `histogram`.
-* `output_format`: Format of the aggregated event.
-    * `otel_metrics`: Default output format. Outputs in OTel metrics SUM type with count as value.
-    * `raw`: Generates a JSON object with `count_key` field with count as value and `start_time_key` field with aggregation start time as value.
+* `output_format`: The aggregated event format. Valid values are:
+    * `otel_metrics` (default): Outputs an OpenTelemetry metric of type `HISTOGRAM` containing the bucket boundaries and the number of values in each bucket.
+    * `raw`: Generates a JSON object containing the sum, count, buckets, bucket counts, aggregation start time, duration, and, when `record_minmax` is enabled, the min and max. Each field name uses `generated_key_prefix`, so the sum is `aggr._sum` by default.
 
-
-For example, when using `identification_keys: ["sourceIp", "destination_ip", "request"]`, `key: latency`, and `buckets: [0.0, 0.25, 0.5]`, the `histogram` action processes the following events:
+For example, when using `identification_keys: ["sourceIp", "destinationIp", "request"]`, `key: latency`, and `buckets: [0.0, 0.25, 0.5]`, the `histogram` action processes the following events:
 
 ```json
 { "sourceIp": "127.0.0.1", "destinationIp": "192.168.0.1", "request" : "/index.html", "latency": 0.2 }
@@ -121,6 +121,35 @@ Then the processor creates the following event:
 
 ```json
 {"max":0.55,"kind":"HISTOGRAM","buckets":[{"min":-3.4028234663852886E38,"max":0.0,"count":0},{"min":0.0,"max":0.25,"count":2},{"min":0.25,"max":0.50,"count":1},{"min":0.50,"max":3.4028234663852886E38,"count":1}],"count":4,"bucketCountsList":[0,2,1,1],"description":"Histogram of latency in the events","sum":1.15,"unit":"seconds","aggregationTemporality":"AGGREGATION_TEMPORALITY_DELTA","min":0.15,"bucketCounts":4,"name":"histogram","startTime":"2022-12-14T06:43:40.848762215Z","explicitBoundsCount":3,"time":"2022-12-14T06:44:04.852564623Z","explicitBounds":[0.0,0.25,0.5],"request":"/index.html","sourceIp": "127.0.0.1", "destinationIp": "192.168.0.1", "key": "latency"}
+```
+
+<!-- vale off -->
+### sum
+<!-- vale on -->
+
+The `sum` action sums the numeric values of a configured `key` for all events that belong to the same group and generates a new event with the values of the `identification_keys` and the total. The action drops all events that make up the combined event.
+
+You can customize the processor with the following configuration options:
+
+* `key`: The name of the field in the events to sum. The value of this field must be numeric. Required.
+* `metric_name`: The name of the metric when using the `otel_metrics` output format. Default is `sum`.
+* `count_key`: The key used for storing the number of events that contributed to the sum when using the `raw` output format. Default name is `aggr._count`.
+* `output_format`: The aggregated event format. Valid values are:
+    * `otel_metrics` (default): Outputs an OpenTelemetry metric of type `SUM` in which the `value` field contains the total. The metric is non-monotonic because the summed values are not guaranteed to be non-negative.
+    * `raw`: Generates a JSON object with the `aggr._sum` field as the total, the `count_key` field as the number of events that contributed to the total, and the `aggr._start_time` field as the aggregation start time.
+
+For example, when using `identification_keys: ["sourceIp", "destinationIp"]` and `key: bytes_out`, the `sum` action processes the following events:
+
+```json
+{ "sourceIp": "127.0.0.1", "destinationIp": "192.168.0.1", "bytes_out": 1234 }
+{ "sourceIp": "127.0.0.1", "destinationIp": "192.168.0.1", "bytes_out": 4321 }
+{ "sourceIp": "127.0.0.1", "destinationIp": "192.168.0.1", "bytes_out": 100 }
+```
+
+The processor creates the following event:
+
+```json
+{"isMonotonic":false,"unit":"1","aggregationTemporality":"AGGREGATION_TEMPORALITY_DELTA","kind":"SUM","name":"sum","description":"Sum of the events","startTime":"2022-12-02T19:29:51.245358486Z","time":"2022-12-02T19:30:15.247799684Z","value":5655.0,"sourceIp":"127.0.0.1","destinationIp":"192.168.0.1"}
 ```
 
 <!-- vale off -->

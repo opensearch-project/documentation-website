@@ -6,9 +6,11 @@ nav_order: 10
 redirect_from:
   - /data-prepper/pipelines/
   - /clients/data-prepper/pipelines/
+  - /data-prepper/pipelines/configuration/processors/routes/
+  - /data-prepper/pipelines/pipelines-configuration-options/
 ---
 
-# Pipelines
+# Data Prepper pipelines
 
 Pipelines are critical components that streamline the process of acquiring, transforming, and loading data from various sources into a centralized data repository or processing system. The following diagram illustrates how OpenSearch Data Prepper ingests data into OpenSearch.
 

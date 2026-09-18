@@ -8,7 +8,7 @@ nav_order: 8
 
 <!-- vale off -->
 
-# bin
+# bin command
 
 <!-- vale on -->
 

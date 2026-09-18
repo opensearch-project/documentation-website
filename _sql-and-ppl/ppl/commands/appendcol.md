@@ -8,7 +8,7 @@ nav_order: 6
 
 <!-- vale off -->
 
-# appendcol
+# appendcol command
 
 <!-- vale on -->
 

@@ -8,7 +8,7 @@ nav_order: 27
 
 <!-- vale off -->
 
-# lookup
+# lookup command
 
 <!-- vale on -->
 

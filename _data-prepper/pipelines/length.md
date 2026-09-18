@@ -7,7 +7,7 @@ nav_order: 30
 ---
 
 <!-- vale off -->
-# length()
+# length() function
 <!-- vale on -->
 
 The `length()` function takes one argument of the JSON pointer type and returns the length of the passed value. For example, `length(/message)` returns a length of `10` when a key message exists in the event and has a value of `1234567890`.

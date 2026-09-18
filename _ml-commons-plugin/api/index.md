@@ -6,6 +6,7 @@ has_children: true
 has_toc: false
 redirect_from:
   - /ml-commons-plugin/api/
+  - /ml-commons-plugin/api/train-predict/
 ---
 
 # ML APIs 

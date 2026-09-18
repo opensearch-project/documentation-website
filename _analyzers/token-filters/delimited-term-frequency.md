@@ -142,7 +142,7 @@ The response contains both the original token and the parsed version with the te
 
 ## Combining `delimited_token_filter` with scripts
 
-You can write Painless scripts to calculate custom scores for the documents in the results.
+You can write Painless scripts to calculate custom scores for the documents in the results. For more information, see [Painless scripting language]({{site.url}}{{site.baseurl}}/scripting/painless/).
 
 First, create an index and provide the following mappings and settings:
 

@@ -4,7 +4,6 @@ title: Field-level security
 parent: Access control
 nav_order: 95
 redirect_from:
- - /security/access-control/field-level-security/
  - /security-plugin/access-control/field-level-security/
 ---
 
@@ -96,7 +95,7 @@ someonerole:
 
 ### REST API
 
-See [Create role]({{site.url}}{{site.baseurl}}/security/access-control/api/#create-role).
+See [Create role]({{site.url}}{{site.baseurl}}/security/api/roles/create-role/).
 
 
 ## Interaction with multiple roles

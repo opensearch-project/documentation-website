@@ -10,9 +10,6 @@ nav_order: 10
 **Introduced 3.3**
 {: .label .label-purple }
 
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).
-{: .warning}
-
 The Resource Sharing APIs provide programmatic access to manage fine-grained, document-level access control for plugin-defined resources. These APIs allow you to share resources, manage access permissions, and automate resource sharing workflows.
 
 You can manage resource sharing directly using these REST APIs. Operations can only be performed if you are the owner, a superadmin, or have sharing access to the resource.
@@ -54,7 +51,7 @@ POST _plugins/_security/api/resources/migrate
   }
 }
 ```
-{% include copy-curl.html %}
+{% include copy-curl.html security=true %}
 
 ### Example response
 
@@ -104,7 +101,7 @@ The following table lists the available query parameters.
 ```json
 GET _plugins/_security/api/resource/share?resource_id=model-group-123&resource_type=ml-model-group
 ```
-{% include copy-curl.html %}
+{% include copy-curl.html security=true %}
 
 ### Example response
 
@@ -190,7 +187,7 @@ PUT _plugins/_security/api/resource/share
   }
 }
 ```
-{% include copy-curl.html %}
+{% include copy-curl.html security=true %}
 
 ### Example request: Make a resource private
 
@@ -202,7 +199,7 @@ PUT _plugins/_security/api/resource/share
   "share_with": {}
 }
 ```
-{% include copy-curl.html %}
+{% include copy-curl.html security=true %}
 
 ### Example response
 
@@ -285,7 +282,7 @@ PATCH _plugins/_security/api/resource/share
   }
 }
 ```
-{% include copy-curl.html %}
+{% include copy-curl.html security=true %}
 
 ### Example request: Make a resource public
 
@@ -299,7 +296,7 @@ PATCH _plugins/_security/api/resource/share
   }
 }
 ```
-{% include copy-curl.html %}
+{% include copy-curl.html security=true %}
 
 ### Example request: Remove specific access
 
@@ -313,7 +310,7 @@ PATCH _plugins/_security/api/resource/share
   }
 }
 ```
-{% include copy-curl.html %}
+{% include copy-curl.html security=true %}
 
 ### Example response
 
@@ -379,7 +376,7 @@ The following table lists the available query parameters.
 ```json
 GET _plugins/_security/api/resource/list?resource_type=ml-model-group
 ```
-{% include copy-curl.html %}
+{% include copy-curl.html security=true %}
 
 ### Example response
 
@@ -446,7 +443,7 @@ GET _plugins/_security/api/resource/types
 ```json
 GET _plugins/_security/api/resource/types
 ```
-{% include copy-curl.html %}
+{% include copy-curl.html security=true %}
 
 ### Example response
 

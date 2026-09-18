@@ -8,7 +8,7 @@ nav_order: 51
 
 <!-- vale off -->
 
-# transpose
+# transpose command
 
 <!-- vale on -->
 

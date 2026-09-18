@@ -7,7 +7,7 @@ great_grand_parent: Building data visualizations
 nav_order: 15
 ---
 
-# Bar chart
+# Bar charts in the visualization editor
 
 A bar chart displays data as vertical or horizontal bars, making it ideal for comparing discrete categories. You can use a Color field to break categories into sub-groups and add threshold lines to flag values higher or lower than a target.
 

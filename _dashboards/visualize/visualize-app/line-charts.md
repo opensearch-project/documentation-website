@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Line charts
+title: Line chart
 parent: Visualization types
 grand_parent: Creating visualizations in the Visualize application
 great_grand_parent: Building data visualizations
@@ -9,7 +9,7 @@ redirect_from:
   - /dashboards/visualize/line-charts/
 ---
 
-# Line charts
+# Line chart
 
 A line chart shows one or more series of numerical data points on the Y-axis plotted against a numerical field on the X-axis. The points can be connected by a line. The X-axis value can be a timeline or any other continuous or discrete number series.
 

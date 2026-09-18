@@ -7,7 +7,7 @@ great_grand_parent: Building data visualizations
 nav_order: 65
 ---
 
-# Table
+# Tables in the visualization editor
 
 A table displays query results in a tabular format with rows and columns, making it ideal for viewing raw data or summary statistics.
 

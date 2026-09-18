@@ -7,7 +7,7 @@ nav_order: 15
 ---
 
 <!-- vale off -->
-# getMetadata()
+# getMetadata() function
 <!-- vale on -->
 
 The `getMetadata()` function takes one literal string argument and looks up specific keys in event metadata. 

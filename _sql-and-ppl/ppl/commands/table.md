@@ -8,7 +8,7 @@ nav_order: 48
 
 <!-- vale off -->
 
-# table
+# table command
 
 <!-- vale on -->
 

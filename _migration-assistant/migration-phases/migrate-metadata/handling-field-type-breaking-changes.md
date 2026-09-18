@@ -21,7 +21,7 @@ Before you build custom logic, verify whether the migration is already covered b
 - `string` to `text` and `keyword`
 - `flattened` to `flat_object`
 - `dense_vector` to `knn_vector`
-- Additional vector compatibility adjustments for newer OpenSearch and Serverless targets.
+- Additional vector compatibility adjustments for newer OpenSearch and Serverless NextGen targets.
 
 ## Custom field type transformer
 

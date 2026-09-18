@@ -52,7 +52,7 @@ Additionally, ensure that the model output follows the format required by the [d
 ]
 ```
 
-If your model input/output is not the same as the required default, you can build your own pre-/post-processing function using a [Painless script]({{site.url}}{{site.baseurl}}/api-reference/script-apis/exec-script/).
+If your model input/output is not the same as the required default, you can build your own pre-/post-processing function using a [Painless script]({{site.url}}{{site.baseurl}}/scripting/painless/).
 
 ### Example: Amazon Bedrock Titan embedding model
 

@@ -9,7 +9,7 @@ nav_order: 20
 # Ingest-attachment plugin
 
 The `ingest-attachment` plugin enables OpenSearch to extract content and other information from files using the Apache text extraction library [Tika](https://tika.apache.org/).
-Supported document formats include PPT, PDF, RTF, ODF, and many more Tika ([Supported Document Formats](https://tika.apache.org/2.9.2/formats.html)).
+Supported document formats include PPT, PDF, RTF, ODF, and many more. See Tika [supported document formats](https://tika.apache.org/3.2.2/formats.html).
 
 The input field must be a Base64-encoded binary.
 

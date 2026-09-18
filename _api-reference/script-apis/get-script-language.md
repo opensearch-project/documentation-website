@@ -9,7 +9,7 @@ nav_order: 60
 **Introduced 1.0**
 {: .label .label-purple }
 
-The Get Script Languages API retrieves all supported script languages (such as Painless) and the contexts in which they can be used.
+The Get Script Languages API retrieves all supported script languages (such as Painless) and the contexts in which they can be used. For more information, see [Painless scripting language]({{site.url}}{{site.baseurl}}/scripting/painless/).
 
 ## Example request
 

@@ -7,7 +7,7 @@ nav_order: 25
 ---
 
 <!-- vale off -->
-# join()
+# join() function
 <!-- vale on -->
 
 

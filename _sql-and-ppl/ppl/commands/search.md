@@ -8,7 +8,7 @@ nav_order: 41
 
 <!-- vale off -->
 
-# search
+# search command
 
 <!-- vale on -->
 

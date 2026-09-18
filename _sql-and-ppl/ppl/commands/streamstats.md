@@ -8,7 +8,7 @@ nav_order: 46
 
 <!-- vale off -->
 
-# streamstats
+# streamstats command
 
 <!-- vale on -->
 

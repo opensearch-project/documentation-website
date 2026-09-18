@@ -7,7 +7,6 @@ grand_parent: Availability and recovery
 redirect_from:
   - /tuning-your-cluster/availability-and-recovery/workload-management/workload-group-lifecycle-api/
   - /tuning-your-cluster/availability-and-recovery/workload-management/query-group-lifecycle-api/
-  - /tuning-your-cluster/availability-and-recovery/workload-management/workload-groups/
 ---
 
 # Workload groups

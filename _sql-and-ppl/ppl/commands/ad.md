@@ -8,7 +8,7 @@ nav_order: 2
 
 <!-- vale off -->
 
-# ad (Deprecated)
+# ad command (Deprecated)
 
 <!-- vale on -->
 

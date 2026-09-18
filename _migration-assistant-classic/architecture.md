@@ -5,9 +5,9 @@ nav_order: 15
 permalink: /classic/migration-assistant/architecture/
 ---
 
-# Architecture
+# Migration Assistant (classic) architecture
 
-The Migration Assistant architecture is based on the use of an AWS Cloud infrastructure, but most tools are designed to be cloud independent. A local containerized version of this solution is also available.
+The Migration Assistant (classic) architecture is based on the use of an AWS Cloud infrastructure, but most tools are designed to be cloud independent. A local containerized version of this solution is also available.
 
 The design deployed on AWS uses the following architecture.
 

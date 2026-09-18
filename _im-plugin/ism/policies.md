@@ -6,7 +6,7 @@ parent: Index State Management
 has_children: false
 ---
 
-# Policies
+# ISM policies
 
 Policies are JSON documents that define the following:
 
@@ -61,7 +61,13 @@ Actions are the steps that the policy sequentially executes on entering a specif
 
 ISM executes actions in the order in which they are defined. For example, if you define actions `[A,B,C,D]`, ISM executes action `A`, and then goes into a sleep period based on the cluster setting `plugins.index_state_management.job_interval`. Once the sleep period ends, ISM continues to execute the remaining actions. However, if ISM cannot successfully execute action `A`, the operation ends, and actions `B`, `C`, and `D` do not get executed.
 
-Optionally, you can define an action's timeout period, which, if exceeded, forcibly fails the action. For example, if timeout is set to `1d`, and ISM has not completed the action within one day, even after retries, the action fails.
+Optionally, you can define an action's timeout period. When the timeout expires, ISM fails the action. The timeout covers the whole action, not a single attempt: the clock starts when ISM begins the action and keeps running through every step, retry, and retry delay, including the time between job runs while the action waits for its conditions to be met.
+
+ISM checks the clock only when the managed index job runs, which is every 5 minutes by default. For example, a [rollover](#rollover) operation with `min_index_age` set to `1d` evaluates `min_index_age` on each job run until the index is one day old. A `timeout` of `1h` therefore causes the action to fail before the index can meet the condition.
+
+When the timeout expires, ISM marks the action as failed and stops managing the index until you call the Retry failed index API, which restarts the action and its clock. A timeout does not stop work that ISM already started or undo changes that the action already made.
+
+Because ISM runs one step per job run, make the timeout longer than the total time that the action needs, plus one job interval for each of its steps. If you omit `timeout`, the action never times out and continues to retry according to its `retry` configuration.
 
 This table lists the parameters that you can define for an action.
 
@@ -100,6 +106,7 @@ ISM supports the following operations:
 - [Force merge](#force-merge)
 - [Read only](#read-only)
 - [Read write](#read-write)
+- [Publish field domains](#publish-field-domains)
 - [Replica count](#replica-count)
 - [Shrink](#shrink)
 - [Close](#close)
@@ -141,7 +148,10 @@ Sets a managed index to be read only.
 }
 ```
 
-Set the index setting `index.blocks.write` to `true` for a managed index. ***Note:** this block does not prevent the index from refreshing.
+Set the index setting `index.blocks.write` to `true` for a managed index. 
+
+The `index.blocks.write` block does not prevent the index from refreshing.
+{: .note }
 
 ### Read write
 
@@ -152,6 +162,60 @@ Sets a managed index to be writeable.
   "read_write": {}
 }
 ```
+
+### Publish field domains
+
+Computes the field domains for a managed index and publishes them to the index metadata. OpenSearch uses field domains for [index-level search pruning]({{site.url}}{{site.baseurl}}/search-plugins/index-level-search-pruning/).
+
+A field domain contains the minimum and maximum values for a field in one index. The `date_range` field domain type applies to `date` and `date_nanos` fields. For `date` fields, ISM stores the bounds in epoch milliseconds; for `date_nanos` fields, ISM stores the bounds in epoch nanoseconds.
+
+Before computing field domains, ISM refreshes the index. It then computes the minimum and maximum values for each configured field and publishes them to the index's `index_field_domains` metadata. If a configured field has no values in the index, ISM does not publish a field domain for that field, and if no field domains are produced, the action completes without publishing any field domains.
+
+Parameter | Description | Type | Required
+:--- | :--- |:--- |:--- |
+`fields` | The fields for which ISM computes and publishes field domains. | Array | Yes
+`fields.field` | The field name. | String | Yes
+`fields.type` | The field domain type. Valid value is `date_range`. | String | Yes
+
+```json
+{
+  "publish_field_domains": {
+    "fields": [
+      {
+        "field": "@timestamp",
+        "type": "date_range"
+      }
+    ]
+  }
+}
+```
+
+The managed index must be write blocked before this action runs, so add a `read_only` action before `publish_field_domains`:
+
+```json
+{
+  "actions": [
+    {
+      "read_only": {}
+    },
+    {
+      "publish_field_domains": {
+        "fields": [
+          {
+            "field": "@timestamp",
+            "type": "date_range"
+          }
+        ]
+      }
+    }
+  ]
+}
+```
+
+Use this action only for indexes that remain write blocked after publishing. If writes resume, a new document can fall outside the published field domain, and pruning can skip an index that holds matching documents, silently dropping results from searches.
+{: .important}
+
+If the Security plugin is enabled, the ISM execution user must have permission to publish field domains using the `indices:admin/field_domains/put` action.
 
 ### Replica count
 

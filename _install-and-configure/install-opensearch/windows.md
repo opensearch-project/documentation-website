@@ -5,7 +5,7 @@ parent: Installing OpenSearch
 nav_order: 65
 ---
 
-# Windows
+# Installing OpenSearch on Windows
 
 The following sections describe installing OpenSearch on Windows from a zip archive.
 
@@ -60,7 +60,7 @@ An OpenSearch node in its default configuration (with demo certificates and user
          {% include copy.html %}
 
       1. Run the batch script.
-         For OpenSearch 2.12 or later, use the following command to specify a custom admin password, following the [password requirements]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/#password-requirements):
+         For OpenSearch 2.12 or later, use the following command to specify a custom admin password, following the [admin password requirements]({{site.url}}{{site.baseurl}}/security/configuration/demo-configuration/#admin-password-requirements):
          ```bat
          > set OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password>
          ```

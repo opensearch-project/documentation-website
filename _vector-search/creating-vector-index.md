@@ -5,7 +5,6 @@ nav_order: 20
 redirect_from:
   - /vector-search/creating-a-vector-db/
   - /search-plugins/knn/knn-index/
-  - /vector-search/creating-vector-index/
 ---
 
 # Creating a vector index
