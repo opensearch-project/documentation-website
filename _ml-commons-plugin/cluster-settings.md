@@ -273,6 +273,19 @@ plugins.ml_commons.jvm_heap_memory_threshold: 85
 - Default value: 85
 - Value range: [0, 100]
 
+## Configure server-side batch queues
+
+Use the following dynamic, node-scoped settings to control how much memory [server-side batch inference queues]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/server-side-batch-inference/#configure-queueing-for-search) can use and when empty queues are removed. All model queues on a node share one memory budget.
+
+| Setting | Default | Description |
+|:---|:---|:---|
+| `plugins.ml_commons.batch_queue.memory_fraction` | `0.01` | The fraction of the maximum JVM heap used to calculate the queue memory budget. Valid values are from `0.0` through `0.1`. The calculated value is bounded by `memory_floor` and `memory_ceiling`. |
+| `plugins.ml_commons.batch_queue.memory_floor` | `64mb` | The minimum queue memory budget on each node. |
+| `plugins.ml_commons.batch_queue.memory_ceiling` | `512mb` | The maximum queue memory budget on each node. |
+| `plugins.ml_commons.batch_queue.idle_ttl` | `5m` | The time that an empty model queue must remain idle before it is eligible for removal. Specify a positive time value. |
+
+When the queue memory budget is exhausted, OpenSearch rejects new queue entries. Retry rejected requests after backoff or adjust the memory settings for the workload.
+
 ## Set a disk free space threshold
 
 Sets a disk circuit breaker that checks disk usage before running an ML task. If the amount of disk free space exceeds the threshold, then OpenSearch triggers a circuit breaker and throws an exception to maintain optimal performance.
