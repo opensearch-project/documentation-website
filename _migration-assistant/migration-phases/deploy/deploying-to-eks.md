@@ -50,41 +50,24 @@ curl -sL -o aws-bootstrap.sh \
 
 ### Bootstrap flag reference
 
-Run `./aws-bootstrap.sh --help` to view the available flags for the version you downloaded.
+> Use `./aws-bootstrap.sh --help` for the complete, version-specific flag reference for the script you downloaded. Treat the examples below as starting points, not a full flag list.
+{: .note }
 
-The following flags cover the most common cases. The script always installs the matching Helm chart and CloudWatch dashboards after the CloudFormation stack succeeds.
+The table below highlights the flags most users need first:
 
-| Group | Flag | Purpose |
-|:------|:-----|:--------|
-| **Mode (one required)** | `--deploy-create-vpc-cfn` | Create a new VPC and EKS cluster |
-| | `--deploy-import-vpc-cfn` | Reuse an existing VPC. Requires `--vpc-id` and `--subnet-ids` |
-| | `--skip-cfn-deploy` | Skip CloudFormation. Use when the stack already exists and you only want to re-bootstrap the cluster |
-| **Identity** | `--stack-name <name>` | CloudFormation stack name (required with `--deploy-*-cfn`) |
-| | `--stage <name>` | Short label for cluster and resource names. Defaults to `dev` |
-| | `--region <region>` | AWS region |
-| | `--vpc-id <id>` | Existing VPC ID (with `--deploy-import-vpc-cfn`) |
-| | `--subnet-ids <id1,id2>` | Comma-separated subnets in different AZs (with `--deploy-import-vpc-cfn`) |
-| **Versioning** | `--version <tag>` | Pin to a published GitHub release tag. Find tags at [the GitHub releases page](https://github.com/opensearch-project/opensearch-migrations/releases). Use this for reproducible deployments. |
-| | `--build` | Build all artifacts from source (requires a repo checkout). Mutually exclusive with `--version` |
-| | `--base-dir <path>` | Path to your `opensearch-migrations` repo checkout, used with `--build` (defaults to three levels up from the script) |
-| **Networking** | `--create-vpc-endpoints` | Create the five VPC endpoints needed for isolated subnets (S3, ECR API, ECR Docker, CloudWatch Logs, EFS) |
-| | `--ignore-checks` | Skip the subnet connectivity and VPC endpoint pre-flight checks. Use only when you have verified connectivity yourself |
-| | `--use-public-images` | Skip mirroring images into private ECR. Use only when the cluster has internet access and you do not want a private mirror |
-| | `--ma-images-source <registry>` | Copy Migration Assistant images from another ECR registry. Useful when images were built on a separate cluster with internet access |
-| **Access** | `--eks-access-principal-arn <arn>` | Grant a CI role or teammate cluster-admin access. Use with `--grant-eks-access-only` to grant access to an already-bootstrapped cluster without redeploying |
-| | `--grant-eks-access-only` | Grant the `--eks-access-principal-arn` principal cluster-admin access to an already-bootstrapped cluster, then exit. Skips image mirroring, Helm installation, kubeconfig setup, and the `jq`, `kubectl`, and `helm` prerequisite checks. Requires `--eks-access-principal-arn` |
-| | `--kubectl-context <name>` | Set a custom alias for the `kubectl` context (defaults to the EKS cluster name) |
-| | `--skip-setting-k8s-context` | Don't switch your active `kubectl` context to the new cluster |
-| | `--skip-console-exec` | Don't auto-exec into the console pod when the script finishes |
-| **TLS** (Capture proxy) | `--tls-mode none` | No TLS termination on the capture proxy (default) |
-| | `--tls-mode self-signed` | cert-manager-issued self-signed certificate |
-| | `--tls-mode pca-existing --pca-arn <arn>` | Use an existing AWS Private CA |
-| | `--tls-mode pca-create` | Create a new AWS Private CA through ACK |
-| **Helm** | `--namespace <name>` | Override the Migration Assistant namespace (default: `ma`) |
-| | `--helm-values <path>` | Extra values file for the Helm install---for example, to customize `workloadsNodePool.architectures` |
-| | `--use-general-node-pool` | Use the EKS Auto Mode general-purpose pool instead of the production Karpenter NodePool |
-| | `--disable-general-purpose-pool` | Disable the EKS Auto Mode general-purpose pool. Requires another node pool to be configured (for example, `cluster.useCustomKarpenterNodePool: true` in your `--helm-values` file) |
-| **Tagging** | `--tags <Key=Value,...>` | Apply tags to every resource the deployment creates, including resources EKS Auto Mode provisions later. Repeatable; values cannot contain commas. See [Tag deployed resources](#tag-deployed-resources) |
+| Group | Flag | Typical use |
+|:------|:-----|:------------|
+| Mode | `--deploy-create-vpc-cfn` | Create a new VPC and EKS cluster |
+| | `--deploy-import-vpc-cfn` | Reuse an existing VPC with `--vpc-id` and `--subnet-ids` |
+| | `--skip-cfn-deploy` | Re-bootstrap an existing cluster without rerunning CloudFormation |
+| Identity | `--stack-name <name>` | Set the CloudFormation stack name for `--deploy-*-cfn` |
+| | `--stage <name>` | Set the environment label used in resource names |
+| | `--region <region>` | Choose the AWS Region |
+| Networking | `--vpc-id <id>` | Identify the existing VPC to reuse |
+| | `--subnet-ids <id1,id2>` | Provide subnets in different Availability Zones |
+| Access | `--grant-eks-access-only` | Grant access to an existing cluster and exit |
+| | `--eks-access-principal-arn <arn>` | Specify the IAM principal to grant cluster-admin access |
+| Versioning | `--version <tag>` | Pin to a specific published release for reproducible deployments |
 
 ## Step 2: Deploy into a new or existing VPC
 
@@ -231,31 +214,6 @@ The mirroring step runs from your machine (which has internet), copies the relea
 If your deployment also requires STS or EKS Authentication endpoints (for example, for IRSA or EKS Pod Identity), create those separately before running the bootstrap script.
 
 If you prefer to manage VPC endpoints with another tool, omit `--create-vpc-endpoints`. The script still mirrors images and uses your existing endpoints.
-
-## Tag deployed resources
-
-Use `--tags` to apply one or more tags to everything the deployment creates, for example for cost allocation:
-
-```bash
-./aws-bootstrap.sh \
-  --deploy-create-vpc-cfn \
-  --stack-name MA-dev \
-  --stage dev \
-  --region us-east-2 \
-  --tags CostCenter=1234,Owner=platform-team
-```
-{% include copy.html %}
-
-The flag is repeatable, and tag values cannot contain commas.
-
-The tags become CloudFormation stack tags, so CloudFormation propagates them to every resource it creates. Because resources that EKS Auto Mode provisions later (EC2 instances, EBS volumes, and load balancers) are not created by CloudFormation, `--tags` additionally threads the tags into the cluster so those resources carry them too. As a result, using `--tags`:
-
-- Creates a custom EKS Auto Mode `NodeClass` carrying the tags, because the built-in `default` `NodeClass` is owned by EKS and cannot be edited.
-- Disables the built-in `system` and `general-purpose` node pools and replaces them with a node pool bound to the custom `NodeClass`.
-- Sets tag specifications on the `StorageClass` so provisioned EBS volumes are tagged, and annotates any load balancer the chart creates.
-
-{: .note }
-> Threading tags into EKS Auto Mode resources requires the cluster IAM role to allow user-defined tags. When you pass `--tags`, the script ensures the required inline policy even on older or hand-built clusters, so the calling principal needs the `iam:PutRolePolicy` permission on the cluster role.
 
 <!-- vale off -->
 ## Grant kubectl access to a CI role or teammate
