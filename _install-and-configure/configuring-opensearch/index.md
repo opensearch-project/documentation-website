@@ -77,6 +77,18 @@ docker run -e "OPENSEARCH_JAVA_OPTS=-Xms2g -Xmx2g" -e "OPENSEARCH_PATH_CONF=/usr
 {% include copy.html %}
 
 
+## Setting precedence
+
+A setting can be supplied in more than one place. When it is, OpenSearch uses the first value it finds in the following order:
+
+1. Transient cluster settings, applied with the Cluster Settings API.
+2. Persistent cluster settings, applied with the Cluster Settings API.
+3. Settings passed as `-E` flags at startup.
+4. Settings in `opensearch.yml`.
+5. The default value of the setting.
+
+Startup flags take precedence over the configuration file because `opensearch.yml` is read first and the `-E` values are applied on top of it. A `${VAR}` placeholder in `opensearch.yml` is resolved from the environment as the file is read, so a value supplied in that way behaves as though it had been written into the file.
+
 ## Updating cluster settings using the API
 
 The first step in changing a setting is to view the current settings by sending the following request:
@@ -95,12 +107,7 @@ GET _cluster/settings
 
 Using the Cluster Settings API, you can update dynamic cluster settings as either persistent or transient. Persistent settings are written to the cluster state and persist after a cluster restart. After a restart, OpenSearch clears transient settings. 
 
-If you specify the same setting in multiple places, OpenSearch uses the following precedence:
-
-1. Transient settings
-2. Persistent settings
-3. Settings from `opensearch.yml`
-4. Default settings
+If you specify the same setting in more than one place, see [Setting precedence](#setting-precedence) for the order in which OpenSearch uses the values.
 
 To change a setting, use the [Cluster Settings API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/) and specify the new value as either persistent or transient. This example shows the flat settings form:
 
