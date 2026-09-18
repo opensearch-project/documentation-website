@@ -17,6 +17,7 @@ Aliases are also how you do the following:
 - Switch from one index to another with no downtime, such as when you reindex into a new mapping and cut over once the copy is complete.
 - Serve different views of the same data by attaching a filter to the alias.
 - Keep environment-specific names, such as `production-data` and `staging-data`, independent of the indexes they resolve to.
+- Route the requests that go through the alias to specific shards, so that a search reads fewer shards. For more information, see [Manage aliases]({{site.url}}{{site.baseurl}}/api-reference/alias/aliases-api/#example-basic-routing).
 - Roll over time-series indexes behind a single write target. See [Rolling over an index]({{site.url}}{{site.baseurl}}/im-plugin/index-maintenance/#rolling-over-an-index).
 
 Aliases have the following characteristics:
@@ -27,6 +28,18 @@ Aliases have the following characteristics:
 - The filter on a filtered alias applies to all search, count, and delete-by-query operations through that alias.
 
 ## Creating an alias
+
+The examples in this section use two indexes, which you can create with the following requests:
+
+```json
+PUT /logs-2024-01
+```
+{% include copy-curl.html %}
+
+```json
+PUT /logs-2024-02
+```
+{% include copy-curl.html %}
 
 The most basic alias points to a single index:
 
@@ -130,7 +143,23 @@ POST /_aliases
 
 ## Filtering an alias
 
-Attach a filter to an alias to expose a subset of an index under its own name. The following alias returns only the documents in `application-logs` whose `level` field is `ERROR`:
+Attach a filter to an alias to expose a subset of an index under its own name. Create an index with a `level` field to filter on:
+
+```json
+PUT /application-logs
+{
+  "mappings": {
+    "properties": {
+      "level": {
+        "type": "keyword"
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+The following alias returns only the documents in `application-logs` whose `level` field is `ERROR`:
 
 ```json
 POST /_aliases
@@ -159,17 +188,23 @@ The following table lists common alias requests.
 | Task | Request |
 | :--- | :--- |
 | List all aliases | `GET /_cat/aliases?v` |
-| Get one alias | `GET /_alias/my-alias` |
-| Check whether an alias exists | `HEAD /_alias/my-alias` |
-| Search through an alias | `GET /my-alias/_search` |
+| Get one alias | `GET /_alias/current-logs` |
+| Check whether an alias exists | `HEAD /_alias/current-logs` |
+| Search through an alias | `GET /current-logs/_search` |
 
 For all alias operations and their parameters, see [Alias APIs]({{site.url}}{{site.baseurl}}/api-reference/alias/).
 
 ## Index aliases in OpenSearch Dashboards
 
-To reach the **Index Management** page, go to **Management > Index Management** on the top menu. Select **Aliases** to list the aliases in your cluster, with the write index and backing indexes of each one.
+To navigate to the **Index Management** page, go to **Management > Index Management** on the top menu. Select **Aliases** to list the aliases in your cluster, with the write index and the indexes of each one.
+
+The following image shows the **Aliases** page.
+
+![Aliases page]({{site.url}}{{site.baseurl}}/images/admin-ui-index/aliases-list.png)
 
 ### Creating an alias
+
+An alias covers at least one index, so create the indexes before the alias. To create an index, see [Creating an index]({{site.url}}{{site.baseurl}}/im-plugin/index-operations/#creating-an-index-1).
 
 1. In **Index Management**, select **Aliases**, and then select **Create alias**.
 1. Enter a name for the alias.
@@ -200,7 +235,7 @@ Deleting an alias does not delete the indexes behind it.
 1. In **Configure new rollover index**, enter a name for the new write index, then enter its definition, settings, and mappings. To reuse the configuration of the current write index, select **Import from old write index**.
 1. Select **Roll over**.
 
-The **Backing indexes** column shows the new write index.
+The **Write index** column shows the new write index, and the **Index name** column lists all of the indexes in the alias.
 
 Refresh, flush, clear cache, and force merge are also available from the **Aliases** page and apply to the open backing indexes of the selected aliases. For those procedures, see [Index maintenance in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/im-plugin/index-maintenance/#index-maintenance-in-opensearch-dashboards).
 

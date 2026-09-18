@@ -105,10 +105,10 @@ In the following example, the first job will trigger the rollover action, and a 
 First, create an ISM policy:
 
 ```json
-PUT /_plugins/_ism/policies/rollover_policy?pretty
+PUT /_plugins/_ism/policies/rollover_alias_policy
 {
   "policy": {
-    "description": "Example rollover policy.",
+    "description": "Example alias action policy.",
     "default_state": "rollover",
     "states": [
       {
@@ -135,7 +135,7 @@ PUT /_plugins/_ism/policies/rollover_policy?pretty
               "actions": [
                 {
                   "remove": {
-                      "alias": "log"
+                      "alias": "alias-log"
                   }
                 }
               ]
@@ -145,7 +145,7 @@ PUT /_plugins/_ism/policies/rollover_policy?pretty
       }
     ],
     "ism_template": {
-      "index_patterns": ["log*"],
+      "index_patterns": ["alias-log*"],
       "priority": 100
     }
   }
@@ -153,15 +153,18 @@ PUT /_plugins/_ism/policies/rollover_policy?pretty
 ```
 {% include copy-curl.html %}
 
+An `ism_template` whose index patterns overlap those of an existing policy at the same priority is rejected, so this policy uses its own `alias-log*` pattern rather than the `log*` pattern of the preceding example.
+{: .note}
+
 Next, create an index template on which to enable the policy:
 
 ```json
-PUT /_index_template/ism_rollover?
+PUT /_index_template/ism_rollover_alias
 {
-  "index_patterns": ["log*"],
+  "index_patterns": ["alias-log*"],
   "template": {
    "settings": {
-    "plugins.index_state_management.rollover_alias": "log"
+    "plugins.index_state_management.rollover_alias": "alias-log"
    }
  }
 }
@@ -183,10 +186,10 @@ PUT /_cluster/settings?pretty=true
 Next, create a new index:
 
 ```json
-PUT /log-000001
+PUT /alias-log-000001
 {
   "aliases": {
-    "log": {
+    "alias-log": {
       "is_write_index": true
     }
   }
@@ -197,7 +200,7 @@ PUT /log-000001
 Finally, add a document to the index to trigger the job:
 
 ```json
-POST /log-000001/_doc
+POST /alias-log-000001/_doc
 {
   "message": "dummy"
 }
@@ -216,8 +219,20 @@ GET /_cat/aliases?pretty
 ```
 {% include copy-curl.html %}
 
-Note: The `index` and `remove_index` parameters are not allowed with alias action policies. Only the `add` and `remove` alias action parameters are allowed.
+The `index` and `remove_index` parameters are not allowed with alias action policies. Only the `add` and `remove` alias action parameters are allowed.
 {: .warning }
+
+When you are finished, restore the job interval to its default so that the shortened interval does not apply to every managed index in the cluster:
+
+```json
+PUT /_cluster/settings
+{
+  "persistent" : {
+    "plugins.index_state_management.job_interval" : null
+  }
+}
+```
+{% include copy-curl.html %}
 
 ## Example policy
 
@@ -228,11 +243,11 @@ In this case, an index is initially in a `hot` state. After 7 days, it changes t
 After 30 days, the policy moves this index into a `delete` state. The service sends a notification to a Chime room that the index is being deleted, and then permanently deletes it.
 
 ```json
+PUT _plugins/_ism/policies/hot_warm_delete_policy
 {
   "policy": {
     "description": "hot warm delete workflow",
     "default_state": "hot",
-    "schema_version": 1,
     "states": [
       {
         "name": "hot",
@@ -297,12 +312,13 @@ After 30 days, the policy moves this index into a `delete` state. The service se
       }
     ],
     "ism_template": {
-      "index_patterns": ["log*"],
+      "index_patterns": ["index-*"],
       "priority": 100
     }
   }
 }
 ```
+{% include copy-curl.html %}
 
 This diagram shows the `states`, `transitions`, and `actions` of the preceding policy as a finite-state machine. For more information about finite-state machines, see [Wikipedia](https://en.wikipedia.org/wiki/Finite-state_machine).
 

@@ -10,7 +10,7 @@ nav_order: 20
 
 OpenSearch allows you to configure how documents are organized within each segment at index creation time. By default, Lucene applies no sorting to documents. The `index.sort.*` settings specify how documents are organized within each segment.
 
-The sorting behavior is controlled by the `index.sort.field`, `index.sort.order`, `index.sort.mode`, and `index.sort.missing` settings. For more information, see [Static index-level index settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings#index-sort-settings).
+The sorting behavior is controlled by the `index.sort.field`, `index.sort.order`, `index.sort.mode`, and `index.sort.missing` settings. For more information, see [Static index-level index settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/#index-sort-settings).
 
 Index sorting can only be configured during index creation and cannot be modified afterward. This feature impacts indexing performance because documents must be sorted during flush and merge operations. We recommend testing the performance impact of sorting before implementing it in production.
 {: .note}
@@ -44,7 +44,7 @@ PUT /sample-index
 You can also sort by multiple fields, with priority given to the first field. The following example sorts documents first by `category` in ascending order, then by `timestamp` in descending order:
 
 ```json
-PUT /sample-index
+PUT /multi-sort-index
 {
   "settings": {
     "index": {
@@ -77,7 +77,7 @@ PUT /sample-index
 **Introduced 3.3**
 {: .label .label-purple }
 
-You can sort an index that contains nested fields by the nested fields. The following example sorts a nested index by a top-level field (`user_id`) and a nested field (`comments.timestamp`) in descending order:
+You can configure index sorting on an index whose mappings contain nested fields. Sort by the top-level fields of the index; the nested fields can appear in the mappings but not in `sort.field`. The following example sorts an index that has a `comments` nested field by the top-level `user_id` and `created_at` fields:
 
 ```json
 PUT /nested-index
@@ -86,7 +86,7 @@ PUT /nested-index
     "index": {
       "sort.field": [
         "user_id",
-        "comments.timestamp"
+        "created_at"
       ],
       "sort.order": [
         "asc",
@@ -98,6 +98,9 @@ PUT /nested-index
     "properties": {
       "user_id": {
         "type": "keyword"
+      },
+      "created_at": {
+        "type": "date"
       },
       "comments": {
         "type": "nested",
@@ -112,7 +115,7 @@ PUT /nested-index
 ```
 {% include copy-curl.html %}
 
-Even though nested fields are allowed within mappings, index sorting cannot be applied to fields inside nested objects. This limitation ensures nested documents retain their structural integrity.
+Index sorting cannot be applied to a field inside a nested object, which keeps nested documents structurally intact. Naming one, such as `comments.timestamp`, is rejected with `400`.
 {: .note}
 
 ## Search optimization with early termination
@@ -138,6 +141,19 @@ PUT /events
     }
   }
 }
+```
+{% include copy-curl.html %}
+
+Add some events to it:
+
+```json
+POST /events/_bulk?refresh=true
+{ "index": {} }
+{ "timestamp": "2025-01-01T00:00:00" }
+{ "index": {} }
+{ "timestamp": "2025-01-02T00:00:00" }
+{ "index": {} }
+{ "timestamp": "2025-01-03T00:00:00" }
 ```
 {% include copy-curl.html %}
 

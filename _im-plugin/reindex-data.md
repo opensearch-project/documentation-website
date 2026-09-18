@@ -15,14 +15,24 @@ Reindexing is also how you combine several indexes into one, split one index by 
 Reindexing reads each document from the `_source` field of the source index and indexes it into the destination index using the destination's mappings and settings. This has two consequences:
 
 - The source index must have `_source` enabled. Any `stored_fields` configuration is ignored.
-- The destination index must exist, with the mappings and settings you want, before you start. Documents are not reindexed with the source index's mappings.
+- The destination index does not inherit the mappings and settings of the source index. If it does not exist, OpenSearch creates it with dynamic mappings inferred from the first documents copied, which is rarely what you want. Create it with the mappings and settings you need before you start.
 
 Reindexing a large index is expensive in I/O and can slow down searches on the cluster. Set `number_of_replicas` to `0` on the destination index while the copy runs and restore it afterward, and consider throttling the operation. For more information, see [Performance optimization]({{site.url}}{{site.baseurl}}/api-reference/document-apis/reindex/#performance-optimization).
 {: .note}
 
 ## Reindexing an index
 
-In its simplest form, a reindex request names a source and a destination:
+In its simplest form, a reindex request names a source and a destination. Create the source index and add a document to it:
+
+```json
+POST my-source-index/_doc?refresh=true
+{
+  "title": "Spirited Away"
+}
+```
+{% include copy-curl.html %}
+
+Then copy it into the destination index:
 
 ```json
 POST _reindex
@@ -50,7 +60,13 @@ The [Reindex Documents API]({{site.url}}{{site.baseurl}}/api-reference/document-
 
 ## Reindexing data in OpenSearch Dashboards
 
-To reach the **Index Management** page, go to **Management > Index Management** on the top menu.
+To navigate to the **Index Management** page, go to **Management > Index Management** on the top menu.
+
+The following image shows the reindex form.
+
+![Reindex form]({{site.url}}{{site.baseurl}}/images/admin-ui-index/reindex-form.png)
+
+To reindex an index, follow these steps:
 
 1. Optionally, [create the destination index]({{site.url}}{{site.baseurl}}/im-plugin/index-operations/#creating-an-index-1) first. You can also create it during the following steps and import the settings and mappings from the source index.
 1. In **Index Management**, select **Indexes**.
@@ -71,12 +87,12 @@ To reach the **Index Management** page, go to **Management > Index Management** 
    {% include copy.html %}
 
 1. In **Configure destination index**, select the destination. To create it here, select **Create index**, enter a name, optionally select aliases, and then select **Import settings and mappings** and select the source index to copy its configuration. You can add fields to the destination in **Index mapping**.
-1. Optionally, expand **Advanced** and set any of the following options:
+1. Optionally, expand **Advanced settings** and set any of the following options:
 
    - To skip the documents whose IDs already exist in the destination, select **Reindex only unique documents**.
    - To keep a version conflict from stopping the operation, select **Ignore conflicts during reindexing** in **Version conflicts**.
    - To split the operation into parallel subtasks, select **Slice this reindexing operation**.
-   - To apply an [ingest pipeline]({{site.url}}{{site.baseurl}}/ingest-pipelines/) to each document before it is written, select the pipeline in **Transform with ingestion pipeline**.
+   - To apply an [ingest pipeline]({{site.url}}{{site.baseurl}}/ingest-pipelines/) to each document before it is written, select the pipeline in **Transform with ingest pipeline**.
    - To be notified about the outcome, select **Send additional notifications**. For more information, see [Sending additional notifications]({{site.url}}{{site.baseurl}}/im-plugin/notifications-settings/#sending-additional-notifications).
 
 1. Select **Reindex**.

@@ -89,7 +89,7 @@ To delete indexes on a schedule rather than manually, define an [Index State Man
 
 ## Index operations in OpenSearch Dashboards
 
-To reach the **Index Management** page, go to **Management > Index Management** on the top menu. The **Indexes** page lists the indexes in your cluster and provides the following information about each one.
+To navigate to the **Index Management** page, go to **Management > Index Management** on the top menu. The **Indexes** page lists the indexes in your cluster and provides the following information about each one.
 
 | Column | Description |
 | :--- | :--- |
@@ -106,6 +106,10 @@ To reach the **Index Management** page, go to **Management > Index Management** 
 
 Because the list can span several pages, use the search box to find an index by name.
 
+The following image shows the **Indexes** page.
+
+![Indexes page]({{site.url}}{{site.baseurl}}/images/admin-ui-index/indexes-list.png)
+
 ### Viewing index details
 
 1. In **Index Management**, select **Indexes**.
@@ -115,7 +119,7 @@ The index page shows an **Overview** panel with metrics for the index, along wit
 
 ### Creating an index
 
-1. In **Index Management**, select **Indexes**, and then select **Create index**.
+1. In **Index Management**, select **Indexes**, and then select **Create Index**.
 1. In **Define index**, enter an index name. Optionally, select existing aliases for the index or enter the name of a new alias to create.
 1. In **Index settings**, enter the number of primary shards, the number of replicas, and the refresh interval. The default refresh interval is `1s`. To supply additional settings as a flat JSON object, expand **Advanced settings**. For the available options, see [Index-level index settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/#index-level-index-settings).
 1. In **Index mapping**, define the fields in your documents. Select **Visual editor** to add fields one at a time or **JSON editor** to paste an existing mapping. In the visual editor, select **Add new field** or **Add new object**, enter a field name, and select a field type. For an object field, select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/plus-icon.png" class="inline-icon" alt="plus icon"/>{:/} (plus) icon to add nested fields. This panel is optional; if you leave it empty, OpenSearch infers mappings from the first documents you index.

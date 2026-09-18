@@ -31,12 +31,18 @@ After a policy is attached to an index, ISM creates a job that runs every 5 minu
 Add an `ism_template` object to a policy so that ISM attaches the policy to each new index whose name matches one of the patterns. The following policy is attached to every index created with a name beginning with `index_name-`:
 
 ```json
-PUT _plugins/_ism/policies/policy_id
+PUT _plugins/_ism/policies/example_policy
 {
   "policy": {
     "description": "Example policy.",
-    "default_state": "...",
-    "states": [...],
+    "default_state": "hot",
+    "states": [
+      {
+        "name": "hot",
+        "actions": [],
+        "transitions": []
+      }
+    ],
     "ism_template": {
       "index_patterns": ["index_name-*"],
       "priority": 100

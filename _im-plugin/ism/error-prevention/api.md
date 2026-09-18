@@ -16,7 +16,7 @@ You can configure error prevention validation by setting the `plugins.index_stat
 
 #### Example request
 
-```bash
+```json
 PUT _cluster/settings
 {
    "persistent":{
@@ -24,6 +24,7 @@ PUT _cluster/settings
    }
 }
 ```
+{% include copy-curl.html %}
 
 #### Example response
 
@@ -33,7 +34,7 @@ PUT _cluster/settings
   "persistent" : {
     "plugins" : {
       "index_state_management" : {
-        "validation_action" : {
+        "action_validation" : {
           "enabled" : "true"
         }
       }
@@ -45,13 +46,14 @@ PUT _cluster/settings
 
 ## Check validation status and message using the Explain API
 
-Pass the `validate_action=true` path parameter in the Explain API URI to see the validation status and message. 
+Pass the `validate_action=true` path parameter in the Explain API URI to view the validation status and message.
 
 #### Example request
 
-```bash
+```json
 GET _plugins/_ism/explain/test-000001?validate_action=true
 ```
+{% include copy-curl.html %}
 
 #### Example response
 
@@ -101,15 +103,21 @@ GET _plugins/_ism/explain/test-000001?validate_action=true
 }
 ```
 
-If you pass the parameter without a value or false, then it doesn't return the validation status and message. Only if you pass `validate_action=true` will the response will return the validation status and message.
+The validation status and message are returned only when you pass `validate_action=true`. Setting the parameter to `false` or omitting it returns neither.
 
 #### Example request
 
-```bash
+```json
 GET _plugins/_ism/explain/test-000001?validate_action=false
- --- OR ---
+```
+{% include copy-curl.html %}
+
+Omitting the parameter has the same result:
+
+```json
 GET _plugins/_ism/explain/test-000001
 ```
+{% include copy-curl.html %}
 
 #### Example response
 

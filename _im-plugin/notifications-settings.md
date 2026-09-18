@@ -10,7 +10,7 @@ redirect_from:
 
 # Long-running operation notifications
 
-Introduced 2.8
+**Introduced 2.8**
 {: .label .label-purple }
 
 Reindex, resize, force merge, and open operations can run for minutes or hours. When you send one of these requests with `wait_for_completion` set to `false`, it returns a task ID immediately instead of blocking. Configure a notification against that task ID, or against the operation type, to be told when the work finishes or fails rather than polling for it.
@@ -36,52 +36,99 @@ The following table lists the parameters for long-running index operation notifi
 | `lron_condition.failure` | Boolean | Set this parameter to `true` to be notified when the operation fails or times out. Optional. Default is `true`. |
 | `channels` | Object | Supported communication channels include Amazon Chime, Amazon Simple Notification Service (Amazon SNS), Amazon Simple Email Service (Amazon SES), email through SMTP, Slack, and custom webhooks. If either `lron_condition.success` or `lron_condition.failure` is `true`, `channels` must contain at least one channel. Learn how to configure notification channels in [Notifications]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/index/). |
 
-### Create notification settings 
+### Create notification settings
 
-The following example request sets up notifications on a failure of a reindex task:
+The following example request sets up notifications for every reindex operation that fails:
 
 ```json
 POST /_plugins/_im/lron
 {
   "lron_config": {
-      "task_id":"dQlcQ0hQS2mwF-AQ7icCMw:12354",
-      "action_name":"indices:data/write/reindex",
-      "lron_condition": {
-        "success": false,
-        "failure": true
-      },
-      "channels":[
-          {"id":"channel1"},
-          {"id":"channel2"}
-      ]
-  }
-}
-```
-{% include copy-curl.html %}
-
-The preceding request results in the following response:
-
-```json
-{
-  "_id": "LRON:dQlcQ0hQS2mwF-AQ7icCMw:12354",
-  "lron_config": {
+    "action_name": "indices:data/write/reindex",
     "lron_condition": {
       "success": false,
       "failure": true
     },
-    "task_id": "dQlcQ0hQS2mwF-AQ7icCMw:12354",
-    "action_name": "indices:data/write/reindex",
     "channels": [
       {
-        "id": "channel1"
-      },
-      {
-        "id": "channel2"
+        "id": "my_chime"
       }
     ]
   }
 }
 ```
+{% include copy-curl.html %}
+
+The response contains the ID of the new notification setting:
+
+```json
+{
+  "_id": "LRON:indices:data/write/reindex",
+  "lron_config": {
+    "lron_condition": {
+      "success": false,
+      "failure": true
+    },
+    "action_name": "indices:data/write/reindex",
+    "channels": [
+      {
+        "id": "my_chime"
+      }
+    ]
+  }
+}
+```
+
+To be notified about a single operation rather than all operations of a type, provide its task ID. Send the operation with `wait_for_completion` set to `false` so that it returns a task ID instead of blocking.
+
+The following request indexes a document, which creates the source index that the reindex operation reads from:
+
+```json
+POST /my-source-index/_doc?refresh=true
+{
+  "message": "test document"
+}
+```
+{% include copy-curl.html %}
+
+The following request reindexes that index and returns a task ID:
+
+```json
+POST /_reindex?wait_for_completion=false
+{
+  "source": {
+    "index": "my-source-index"
+  },
+  "dest": {
+    "index": "my-dest-index"
+  }
+}
+```
+{% include copy-curl.html %}
+
+Then provide the returned task ID in `task_id`:
+
+```json
+POST /_plugins/_im/lron
+{
+  "lron_config": {
+    "task_id": "<task_id>",
+    "lron_condition": {
+      "success": false,
+      "failure": true
+    },
+    "channels": [
+      {
+        "id": "my_chime"
+      }
+    ]
+  }
+}
+```
+{% include copy-curl.html %}
+
+The task ID must belong to a node in the cluster. A task ID from another cluster, or one you invent, is rejected with `400`.
+{: .note}
 
 ### Notification setting ID
 
@@ -106,6 +153,13 @@ Use the following request to retrieve a notification setting with the specified 
 For example, the following request retrieves the notification setting for the `reindex` operation:
 
 ```json
+GET /_plugins/_im/lron/LRON:indices:data%2Fwrite%2Freindex
+```
+{% include copy-curl.html %}
+
+The response contains the setting:
+
+```json
 {
   "lron_configs": [
     {
@@ -127,7 +181,6 @@ For example, the following request retrieves the notification setting for the `r
   "total_number": 1
 }
 ```
-{% include copy-curl.html %}
 
 Use the following request to retrieve all notification settings:
 
@@ -177,19 +230,19 @@ The response contains all configured notification settings with their IDs:
 The following example modifies an existing notification setting with the specified [notification setting ID](#notification-setting-id):
 
 ```json
-PUT /_plugins/_im/lron/{lronID}
+PUT /_plugins/_im/lron/LRON:indices:data%2Fwrite%2Freindex
 {
   "lron_config": {
-      "task_id":"dQlcQ0hQS2mwF-AQ7icCMw:12354",
-      "action_name":"indices:data/write/reindex",
-      "lron_condition": {
-        "success": false,
-        "failure": true
-      },
-      "channels":[
-          {"id":"channel1"},
-          {"id":"channel2"}
-      ]
+    "action_name": "indices:data/write/reindex",
+    "lron_condition": {
+      "success": true,
+      "failure": true
+    },
+    "channels": [
+      {
+        "id": "my_chime"
+      }
+    ]
   }
 }
 ```
@@ -199,20 +252,16 @@ The response contains the updated setting:
 
 ```json
 {
-  "_id": "LRON:dQlcQ0hQS2mwF-AQ7icCMw:12354",
+  "_id": "LRON:indices:data/write/reindex",
   "lron_config": {
     "lron_condition": {
-      "success": false,
+      "success": true,
       "failure": true
     },
-    "task_id": "dQlcQ0hQS2mwF-AQ7icCMw:12354",
     "action_name": "indices:data/write/reindex",
     "channels": [
       {
-        "id": "channel1"
-      },
-      {
-        "id": "channel2"
+        "id": "my_chime"
       }
     ]
   }
@@ -237,13 +286,15 @@ DELETE _plugins/_im/lron/LRON:indices:data%2Fwrite%2Freindex
 
 ## Notifications in OpenSearch Dashboards
 
-To reach the **Index Management** page, go to **Management > Index Management** on the top menu.
+To navigate to the **Index Management** page, go to **Management > Index Management** on the top menu. Select **Notification settings** to set the defaults for the operations that support notifications, as shown in the following image.
+
+![Notification settings page]({{site.url}}{{site.baseurl}}/images/admin-ui-index/notification-settings.png)
 
 ### Creating a notification channel
 
 A notification setting needs at least one channel to deliver to:
 
-1. In **Index Management**, select **Manage channels**. The **Channels** page opens in a separate window.
+1. In **Index Management**, select **Notification settings**, and then select **Manage channels**. The **Channels** page opens in a separate window.
 1. Select **Create channel**.
 1. Enter a name for the channel and, optionally, a description.
 1. In **Configurations**, select a **Channel type**. The settings that follow depend on the type: an email channel asks for a sender type, a sender, and recipients, while a Slack channel asks for a webhook URL.
@@ -256,7 +307,7 @@ A notification setting needs at least one channel to deliver to:
 Default settings apply to every reindex, shrink, split, clone, force merge, and open operation in the cluster:
 
 1. In **Index Management**, select **Notification settings**.
-1. In **Defaults for index operations**, select **Has failed**, **Has completed**, or both for each of **Reindex**, **Shrink, split, clone**, **Force merge**, and **Open**.
+1. In **Defaults for index operations**, select **Has failed**, **Has completed**, or both for each of **reindex**, **shrink, split, clone**, **force merge**, and **open**.
 1. For each operation that you selected a notification for, select one or more channels from **Notification channels**.
 1. Select **Save**.
 

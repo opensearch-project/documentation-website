@@ -41,6 +41,9 @@ PUT _index_template/logs-template
 ```
 {% include copy-curl.html %}
 
+A data stream template claims its index patterns exclusively. While this template exists, creating a regular index whose name starts with `logs-` fails with `cannot create index with name [...], because it matches with template [logs-template] that creates data streams only`. Choose patterns narrow enough that they do not overlap with your regular indexes.
+{: .note}
+
 Documents indexed into a data stream created from this template must contain an `@timestamp` field. To use a different field name, specify it in `timestamp_field`. The `template` object accepts the same settings, mappings, and aliases as a regular index template and applies them to each backing index:
 
 ```json
@@ -92,13 +95,15 @@ POST logs-staging/_doc
 Index documents into a data stream by name, using the same [Document APIs]({{site.url}}{{site.baseurl}}/api-reference/document-apis/index/) that you use for a regular index. Each document must contain the timestamp field defined by the template:
 
 ```json
-POST logs-redis/_doc
+POST logs-redis/_doc?refresh=true
 {
   "message": "login attempt",
   "@timestamp": "2013-03-01T00:00:00"
 }
 ```
 {% include copy-curl.html %}
+
+The `refresh=true` parameter makes the document searchable immediately, so that the search in the next section returns it. Omit it in production, where the [refresh interval]({{site.url}}{{site.baseurl}}/im-plugin/index-maintenance/) handles this.
 
 A data stream accepts `create` operations only. An `index` operation that would overwrite a document, or an update or delete addressed to the data stream name, is rejected.
 
@@ -128,11 +133,11 @@ The `_index` field of each hit contains the name of the backing index that holds
 
 ```json
 {
-  "took": 514,
+  "took": 1,
   "timed_out": false,
   "_shards": {
-    "total": 5,
-    "successful": 5,
+    "total": 1,
+    "successful": 1,
     "skipped": 0,
     "failed": 0
   },
@@ -141,12 +146,12 @@ The `_index` field of each hit contains the name of the backing index that holds
       "value": 1,
       "relation": "eq"
     },
-    "max_score": 0.2876821,
+    "max_score": 0.13076457,
     "hits": [
       {
         "_index": ".ds-logs-redis-000001",
-        "_id": "-rhVmXoBL6BAVWH3mMpC",
-        "_score": 0.2876821,
+        "_id": "iCnxtaABPpBDXMo4kFWl",
+        "_score": 0.13076457,
         "_source": {
           "message": "login attempt",
           "@timestamp": "2013-03-01T00:00:00"
@@ -197,9 +202,49 @@ The following table lists common data stream requests. The response to a get req
 | Task | Request |
 | :--- | :--- |
 | List all data streams | `GET _data_stream` |
-| Get one data stream | `GET _data_stream/logs-nginx` |
-| Get statistics for a data stream | `GET _data_stream/logs-nginx/_stats` |
-| Delete a data stream and its backing indexes | `DELETE _data_stream/logs-nginx` |
+| Get one data stream | `GET _data_stream/logs-redis` |
+| Get statistics for a data stream | `GET _data_stream/logs-redis/_stats` |
+| Delete a data stream and its backing indexes | `DELETE _data_stream/logs-redis` |
+
+For example, the following request returns the `logs-redis` data stream after one rollover:
+
+```json
+GET _data_stream/logs-redis
+```
+{% include copy-curl.html %}
+
+<details markdown="block">
+  <summary>
+    Response
+  </summary>
+  {: .text-delta}
+
+```json
+{
+  "data_streams": [
+    {
+      "name": "logs-redis",
+      "timestamp_field": {
+        "name": "@timestamp"
+      },
+      "indices": [
+        {
+          "index_name": ".ds-logs-redis-000001",
+          "index_uuid": "Xq04oCQ-TiCjIL81Q_ZL9g"
+        },
+        {
+          "index_name": ".ds-logs-redis-000002",
+          "index_uuid": "UBX0UhE9TFKTi-jB5mB7tQ"
+        }
+      ],
+      "generation": 2,
+      "status": "YELLOW",
+      "template": "logs-template"
+    }
+  ]
+}
+```
+</details>
 
 You can use wildcards to address more than one data stream. Deleting a data stream deletes its backing indexes and cannot be undone; to remove data on a schedule, use an ISM policy instead.
 {: .warning}
@@ -212,7 +257,7 @@ Add or remove the backing indexes of an existing data stream using the [Modify D
 
 ## Data streams in OpenSearch Dashboards
 
-To reach the **Index Management** page, go to **Management > Index Management** on the top menu. Select **Data streams** to list the data streams in your cluster.
+To navigate to the **Index Management** page, go to **Management > Index Management** on the top menu. Select **Data streams** to list the data streams in your cluster.
 
 The **Data streams** table contains the following columns.
 
@@ -223,6 +268,10 @@ The **Data streams** table contains the following columns.
 | **Template** | The index template that created the data stream. |
 | **Backing indexes count** | The number of backing indexes that hold the data. |
 | **Total size** | The storage used by the data stream across all primary and replica shards. |
+
+The following image shows the **Data streams** page.
+
+![Data streams page]({{site.url}}{{site.baseurl}}/images/admin-ui-index/data-streams-list.png)
 
 ### Viewing a data stream
 

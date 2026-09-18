@@ -4,6 +4,7 @@ title: Index Management
 nav_order: 30
 has_children: false
 redirect_from:
+  - /dashboards/im-dashboards/
   - /dashboards/admin-ui-index/
 ---
 
@@ -11,7 +12,7 @@ redirect_from:
 
 The **Index Management** page in OpenSearch Dashboards provides an interface for the index operations that you can otherwise perform using the [Index APIs]({{site.url}}{{site.baseurl}}/api-reference/index-apis/index/): creating indexes and defining their mappings, opening and closing indexes, merging and splitting them, and automating those operations with state management policies.
 
-To reach the page, go to **Management > Index Management** on the top menu:
+To navigate to the **Index Management** page, go to **Management > Index Management** on the top menu. The following image shows the **Index Management** page.
 
 ![Index Management page]({{site.url}}{{site.baseurl}}/images/dashboards/index-management-UI.png)
 

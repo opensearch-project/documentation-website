@@ -17,6 +17,19 @@ Each operation is available through the [index operations APIs]({{site.url}}{{si
 
 For lifecycle operations such as creating, opening, closing, and deleting an index, see [Index operations]({{site.url}}{{site.baseurl}}/im-plugin/index-operations/).
 
+The examples on this page operate on an index named `logs-2026` with two primary shards, which you can create with the following request:
+
+```json
+PUT /logs-2026
+{
+  "settings": {
+    "index.number_of_shards": 2,
+    "index.number_of_replicas": 0
+  }
+}
+```
+{% include copy-curl.html %}
+
 ## Refreshing an index
 
 A refresh writes the documents in the in-memory buffer to a new segment, making them visible to search. OpenSearch refreshes each index every second by default, so a document becomes searchable about a second after you index it. Refresh an index manually when a test or a client needs to search a document immediately after writing it:
@@ -26,7 +39,7 @@ POST /logs-2026/_refresh
 ```
 {% include copy-curl.html %}
 
-Refreshing creates a segment each time it runs, so refreshing frequently during a bulk load slows indexing. When you load a large amount of data, set `index.refresh_interval` to `-1` for the duration of the load and refresh once at the end. For more information, see [Refresh]({{site.url}}{{site.baseurl}}/api-reference/index-apis/refresh/).
+Refreshing creates a segment each time it runs, so refreshing frequently during a bulk load slows indexing. When you load a large amount of data, set `index.refresh_interval` to `-1` for the duration of the load and refresh once at the end. For more information, see [Refresh index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/refresh/).
 
 A refresh applies only to open indexes.
 
@@ -52,7 +65,7 @@ POST /logs-2026/_cache/clear
 ```
 {% include copy-curl.html %}
 
-To clear one cache instead of all of them, use the `fielddata`, `query`, or `request` query parameter. For more information, see [Clear index cache]({{site.url}}{{site.baseurl}}/api-reference/index-apis/clear-index-cache/).
+To clear one cache instead of all of them, use the `fielddata`, `query`, or `request` query parameter. For more information, see [Clear cache]({{site.url}}{{site.baseurl}}/api-reference/index-apis/clear-index-cache/).
 
 Clearing a cache applies only to open indexes.
 
@@ -65,11 +78,23 @@ POST /logs-2026/_forcemerge?max_num_segments=1
 ```
 {% include copy-curl.html %}
 
-Force merging is expensive in I/O and can produce segments that the automatic merge policy will never merge again. Run it only on indexes that no longer receive writes, such as a rolled-over time-series index. For more information, see [Force merge]({{site.url}}{{site.baseurl}}/api-reference/index-apis/force-merge/).
+Force merging is expensive in I/O and can produce segments that the automatic merge policy never merges again. Run it only on indexes that no longer receive writes, such as a rolled-over time-series index. For more information, see [Force merge]({{site.url}}{{site.baseurl}}/api-reference/index-apis/force-merge/).
 
 ## Shrinking an index
 
-Shrinking copies an index into a new index with fewer primary shards. Shrink an index that was created with more shards than its final size warrants, because the number of primary shards of an existing index cannot be changed in place:
+Shrinking copies an index into a new index with fewer primary shards. Shrink an index that was created with more shards than its final size warrants, because the number of primary shards of an existing index cannot be changed in place.
+
+First, block write operations on the source index. Shrinking an index that still accepts writes fails with an `illegal_state_exception`:
+
+```json
+PUT /logs-2026/_settings
+{
+  "index.blocks.write": true
+}
+```
+{% include copy-curl.html %}
+
+Then shrink the index:
 
 ```json
 POST /logs-2026/_shrink/logs-2026-shrunk
@@ -85,7 +110,7 @@ The source index must meet the following conditions:
 
 - The index is read-only, with a write block set. See [Blocks]({{site.url}}{{site.baseurl}}/api-reference/index-apis/blocks/).
 - A copy of every shard, primary or replica, resides on the same node. Use [shard allocation filtering]({{site.url}}{{site.baseurl}}/api-reference/index-apis/shard-allocation/) to move the copies together.
-- The cluster health status is green.
+- Every shard of the source index is allocated, that is, the index health is not red.
 - The target index does not already exist.
 - The source index has more primary shards than the target index, and the target shard count is a factor of the source shard count. For example, an index with 8 primary shards can be shrunk to 4, 2, or 1. An index with a prime number of shards, such as 7, can be shrunk only to 1.
 - No single target shard receives more than 2,147,483,519 documents, which is the maximum a Lucene shard can hold.
@@ -95,7 +120,17 @@ For more information, see [Shrink index]({{site.url}}{{site.baseurl}}/api-refere
 
 ## Splitting an index
 
-Splitting copies an index into a new index with more primary shards, dividing each source shard into several target shards. Split an index that has outgrown its original shard count and needs more capacity for data volume or query load:
+Splitting copies an index into a new index with more primary shards, dividing each source shard into several target shards. Split an index that has outgrown its original shard count and needs more capacity for data volume or query load. Splitting also requires a write block on the source index:
+
+```json
+PUT /logs-2026/_settings
+{
+  "index.blocks.write": true
+}
+```
+{% include copy-curl.html %}
+
+Then split the index:
 
 ```json
 POST /logs-2026/_split/logs-2026-split
@@ -110,27 +145,53 @@ POST /logs-2026/_split/logs-2026-split
 The source index must meet the following conditions:
 
 - The index is read-only, with a write block set. See [Blocks]({{site.url}}{{site.baseurl}}/api-reference/index-apis/blocks/).
-- The cluster health status is green.
+- Every shard of the source index is allocated, that is, the index health is not red.
 - The target index does not already exist.
 - The source index has fewer primary shards than the target index, and the target shard count is a multiple of the source shard count. For example, an index with 2 primary shards can be split into 4, 6, or 8. An index with 1 primary shard can be split into any number of shards.
 - The node performing the split has enough free disk space for a second copy of the index.
 
-For more information, see [Split]({{site.url}}{{site.baseurl}}/api-reference/index-apis/split/).
+For more information, see [Split index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/split/).
 
 ## Cloning an index
 
 Cloning copies an index into a new index with the same number of primary shards, mappings, and settings. Clone an index to test a mapping or settings change against real data without touching the original. Like shrinking and splitting, cloning requires a write block on the source index:
 
 ```json
+PUT /logs-2026/_settings
+{
+  "index.blocks.write": true
+}
+```
+{% include copy-curl.html %}
+
+Then clone the index:
+
+```json
 POST /logs-2026/_clone/logs-2026-copy
 ```
 {% include copy-curl.html %}
+
+Remove the write block when you are finished by setting `index.blocks.write` to `false`.
 
 For more information, see [Clone index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/clone/). Cloning is available only through the API.
 
 ## Rolling over an index
 
 A rollover creates a new index and redirects the write alias or data stream to it, so that writes continue against a fresh index while the previous one becomes read-only. This keeps individual time-series indexes at a manageable size and lets you delete or archive old data by dropping whole indexes.
+
+A rollover target must be a [data stream]({{site.url}}{{site.baseurl}}/im-plugin/data-streams/) or an [index alias]({{site.url}}{{site.baseurl}}/im-plugin/index-alias/) with a designated write index. Create an index whose name ends in a number and point a write alias at it:
+
+```json
+PUT /logs-000001
+{
+  "aliases": {
+    "logs": {
+      "is_write_index": true
+    }
+  }
+}
+```
+{% include copy-curl.html %}
 
 The following request rolls over the `logs` alias when its write index reaches 50 GB, 10 million documents, or 7 days of age:
 
@@ -146,13 +207,17 @@ POST /logs/_rollover
 ```
 {% include copy-curl.html %}
 
-A rollover target must be a [data stream]({{site.url}}{{site.baseurl}}/im-plugin/data-streams/) or an [index alias]({{site.url}}{{site.baseurl}}/im-plugin/index-alias/) with a designated write index. For more information, see [Rollover]({{site.url}}{{site.baseurl}}/api-reference/index-apis/rollover/).
+None of the conditions are met on a new index, so the response reports `"rolled_over": false`. For more information, see [Roll over index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/rollover/).
 
 To roll over on a schedule instead of calling the API when a condition is met, define an [Index State Management policy]({{site.url}}{{site.baseurl}}/im-plugin/ism/index/) with a `rollover` action. ISM evaluates the conditions for you and rolls the index over when they are met.
 
 ## Index maintenance in OpenSearch Dashboards
 
-To reach the **Index Management** page, go to **Management > Index Management** on the top menu.
+To navigate to the **Index Management** page, go to **Management > Index Management** on the top menu. The maintenance operations for the selected indexes are in the **Actions** menu on the **Indexes** page, as shown in the following image.
+
+![Actions menu on the Indexes page]({{site.url}}{{site.baseurl}}/images/admin-ui-index/index-actions-menu.png)
+
+These procedures act on an index that already exists. To create one, see [Creating an index]({{site.url}}{{site.baseurl}}/im-plugin/index-operations/#creating-an-index-1).
 
 ### Refreshing, flushing, or clearing the cache
 
@@ -173,8 +238,8 @@ For aliases and data streams, these operations apply to the open backing indexes
    - To merge to a specific number of segments, select **Manually set number of segments** in **Index segments** and enter the number. Enter `1` to merge each shard into a single segment.
    - To flush the indexes after the merge completes, select **Flush indexes**.
    - To expunge the documents that are marked as deleted, select **Remove deleted documents**.
-   - To be notified about the outcome, select **Has failed / timed out**, **Has completed**, or both in **Notifications**.
 
+1. Optionally, in **Notifications**, select **Has failed / timed out**, **Has completed**, or both to be notified about the outcome.
 1. Select **Force merge**.
 
 ### Shrinking an index
@@ -184,7 +249,7 @@ For aliases and data streams, these operations apply to the open backing indexes
 1. In **Configure target index**, enter a name in **Target index name**.
 1. Enter the new shard count in **Number of primary shards** and the replica count in **Number of replicas**.
 1. Optionally, select or enter one or more aliases for the target index in **Index alias**.
-1. Optionally, expand **Advanced** to add notifications. See [Sending additional notifications]({{site.url}}{{site.baseurl}}/im-plugin/notifications-settings/#sending-additional-notifications).
+1. Optionally, expand **Advanced settings** to add notifications. See [Sending additional notifications]({{site.url}}{{site.baseurl}}/im-plugin/notifications-settings/#sending-additional-notifications).
 1. Select **Shrink**.
 
 If the source index does not meet the [conditions for shrinking](#shrinking-an-index), the interface prompts you to resolve them, including setting a write block on the index.
@@ -196,7 +261,7 @@ If the source index does not meet the [conditions for shrinking](#shrinking-an-i
 1. In **Configure target index**, enter a name in **Target index name**.
 1. Enter the new shard count in **Number of primary shards** and the replica count in **Number of replicas**.
 1. Optionally, select or enter one or more aliases for the target index in **Index alias**.
-1. Optionally, expand **Advanced** to add notifications. See [Sending additional notifications]({{site.url}}{{site.baseurl}}/im-plugin/notifications-settings/#sending-additional-notifications).
+1. Optionally, expand **Advanced settings** to add notifications. See [Sending additional notifications]({{site.url}}{{site.baseurl}}/im-plugin/notifications-settings/#sending-additional-notifications).
 1. Select **Split**.
 
 ### Rolling over a data stream

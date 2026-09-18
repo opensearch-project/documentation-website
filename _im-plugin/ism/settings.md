@@ -26,4 +26,9 @@ Setting | Default | Description
 `plugins.index_state_management.history.max_age` | 24h | The maximum age before rolling over the audit history index.
 `plugins.index_state_management.history.rollover_check_period` | 8h | The time between rollover checks for the audit history index.
 `plugins.index_state_management.history.rollover_retention_period` | 30d | How long audit history indexes are kept.
-`plugins.index_state_management.allow_list` | All actions | List of actions that you can use.
+`plugins.index_state_management.allow_list` | `alias`, `allocation`, `close`, `convert_index_to_remote`, `delete`, `force_merge`, `index_priority`, `notification`, `open`, `read_only`, `read_write`, `replica_count`, `rollover`, `rollup`, `search_only`, `shrink`, `snapshot`, `stop_replication`, `transform` | The actions that a policy can use. Removing an action from this list makes every policy that uses it fail.
+`plugins.index_state_management.action_validation.enabled` | False | Specifies whether ISM validates an action before running it. For more information, see [ISM error prevention]({{site.url}}{{site.baseurl}}/im-plugin/ism/error-prevention/index/).
+`plugins.index_state_management.coordinator.sweep_skip_period` | 5m | How long the coordinator waits before sweeping a managed index again after a failure.
+`plugins.index_state_management.history.number_of_shards` | 1 | The number of primary shards in the audit history index.
+`plugins.index_state_management.history.number_of_replicas` | 1 | The number of replicas of the audit history index.
+`plugins.index_state_management.snapshot.deny_list` | Empty list | The snapshot repositories that the `snapshot` action cannot write to.

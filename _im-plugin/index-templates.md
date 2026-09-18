@@ -52,6 +52,12 @@ Creating `logs-2020-01-01` now produces an index with the template's alias, sett
 
 ```json
 PUT logs-2020-01-01
+```
+{% include copy-curl.html %}
+
+To view the resulting configuration, send the following request:
+
+```json
 GET logs-2020-01-01
 ```
 {% include copy-curl.html %}
@@ -65,13 +71,16 @@ Settings and mappings that you specify in a [Create Index]({{site.url}}{{site.ba
 
 When an index name matches more than one template, OpenSearch applies the template with the highest `priority` and ignores the others---the templates are not merged. A template without a `priority` is assigned `0`, the lowest priority.
 
+Give overlapping templates distinct priorities. A template whose patterns overlap those of an existing template at the same priority is rejected with `400`, because OpenSearch cannot determine which one to apply.
+{: .note}
+
 For example, an index named `logs-2020-01-02` matches both of the following templates, which disagree about `number_of_shards`:
 
 ```json
 PUT _index_template/template-01
 {
   "index_patterns": ["logs*"],
-  "priority": 0,
+  "priority": 5,
   "template": {
     "settings": {
       "number_of_shards": 2,
@@ -86,7 +95,7 @@ PUT _index_template/template-01
 PUT _index_template/template-02
 {
   "index_patterns": ["logs-2020-01-*"],
-  "priority": 1,
+  "priority": 10,
   "template": {
     "settings": {
       "number_of_shards": 3
@@ -98,7 +107,7 @@ PUT _index_template/template-02
 
 Because `template-02` has the higher priority, the index gets 3 primary shards and the default of 1 replica. It does not inherit `number_of_replicas` from `template-01`.
 
-To see which template applies to a name before you create the index, use [Simulate Index Template]({{site.url}}{{site.baseurl}}/api-reference/index-apis/simulate-index-template/).
+To view the template that applies to a name before you create the index, use [Simulate Index Template]({{site.url}}{{site.baseurl}}/api-reference/index-apis/simulate-index-template/).
 
 ## Reusing configuration with component templates
 
@@ -179,6 +188,8 @@ PUT _index_template/daily_logs
 
 An index created from this template has the `@timestamp` and `ip_address` fields from the component templates alongside the `timestamp` and `value` fields from the index template.
 
+A component template takes effect only where an index template lists it in `composed_of`. Creating a component template does not attach it to index templates that already exist; add it to their `composed_of` list yourself. Updating a component template does reach every index template that already references it, but applies only to indexes created after the update. Indexes that already exist keep the configuration they were created with.
+
 ## Retrieving and deleting templates
 
 The following table lists common template requests.
@@ -195,7 +206,11 @@ For all template operations and their parameters, see [Index template APIs]({{si
 
 ## Index templates in OpenSearch Dashboards
 
-To reach the **Index Management** page, go to **Management > Index Management** on the top menu. Select **Templates** to list the index templates in your cluster; **Component templates** appears in the navigation once you do.
+To navigate to the **Index Management** page, go to **Management > Index Management** on the top menu. Select **Templates** to list the index templates in your cluster; **Component templates** appears in the navigation once you do.
+
+The following image shows the **Templates** page.
+
+![Templates page]({{site.url}}{{site.baseurl}}/images/admin-ui-index/templates-list.png)
 
 ### Creating an index template
 
@@ -203,7 +218,7 @@ To reach the **Index Management** page, go to **Management > Index Management** 
 1. In **Template settings**, do the following:
 
    1. Enter a name in **Template name**.
-   1. Select a **Template type**. Select **Data streams** if the template will back a [data stream]({{site.url}}{{site.baseurl}}/im-plugin/data-streams/), and then enter the name of the timestamp field in **Time field**. A data stream template requires a timestamp field.
+   1. Select a **Template type**. Select **Data streams** if the template backs a [data stream]({{site.url}}{{site.baseurl}}/im-plugin/data-streams/), and then enter the name of the timestamp field in **Time field**. A data stream template requires a timestamp field.
    1. In **Index patterns**, enter the patterns that the template matches, separated by commas.
    1. In **Priority**, enter the template priority. The default is `0`, the lowest priority. OpenSearch uses the priority when an index name matches more than one template.
    1. Select **Simple template** to define the configuration here, or **Component template** to build the template from existing component templates. See [Building a template from component templates](#building-a-template-from-component-templates).
@@ -238,7 +253,7 @@ Editing a template does not change indexes that were created from it.
 
 An index inherits a template when its name matches one of the template's index patterns:
 
-1. In **Index Management**, select **Indexes**, and then select **Create index**.
+1. In **Index Management**, select **Indexes**, and then select **Create Index**.
 1. In **Index name**, enter a name that matches one of the template's index patterns. For example, a template with the pattern `flight-data-*` applies to an index named `flight-data-1`.
 1. Optionally, change any alias, setting, or mapping value to override the one from the template. The template values populate the form as soon as focus leaves the **Index name** box, and any value you replace is kept.
 1. Select **Create**.

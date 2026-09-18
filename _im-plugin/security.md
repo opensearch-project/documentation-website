@@ -35,6 +35,10 @@ PUT _cluster/settings
   }
 }
 ```
+{% include copy-curl.html %}
+
+Only enable this setting on a cluster that has the Security plugin enabled. On a cluster with security disabled, the setting is accepted but every index management write request then fails with `403 Filter by user backend roles in IndexManagement is not supported with security disabled`.
+{: .warning}
 
 With security enabled, only users who share at least one backend role can see and execute the policies and actions relevant to their roles.
 

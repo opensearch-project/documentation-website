@@ -14,7 +14,7 @@ Policies are entities (stored as JSON documents) that define the following:
 - Any *actions* that you want the plugin to take when an index enters a state, such as performing a rollover. For more information, see [Actions](#actions).
 - The conditions that must be met for an index to move into a new state, known as *transitions*. For example, if an index is more than eight weeks old, you might want to move it to the "delete" state. For more information, see [Transitions](#transitions).
 
-Actions and transitions are associated with states. A condition (such as index size or age) triggers a transition to a new state, and entering a state triggers its actions. 
+Actions and transitions are associated with states. A condition (such as index size or age) triggers a transition to a new state, and entering a state triggers its actions.
 
 You have complete flexibility in the way you can design your policies. You can create any state, transition to any other state, and specify any number of actions in each state.
 
@@ -24,13 +24,13 @@ Field | Description | Type | Required | Read Only
 :--- | :--- |:--- |:--- |
 `policy_id` |  The name of the policy. | String | Yes | Yes
 `description` |  A human-readable description of the policy. | String | Yes | No
-`ism_template` | An ISM template to automatically apply the policy to the newly created index. | `nested list of objects` | No | No
-`ism_template.index_patterns` | A pattern that matches the newly created index name. | `list of strings` | No | No
+`ism_template` | An ISM template to automatically apply the policy to the newly created index. | Nested list of objects | No | No
+`ism_template.index_patterns` | A pattern that matches the newly created index name. | List of strings | No | No
 `ism_template.priority` | A priority used to choose which policy to apply when multiple policies match a newly created index name. | Integer | No | No
-`last_updated_time`  |  The time the policy was last updated. | `timestamp` | Yes | Yes
-`error_notification` |  The destination and message template for error notifications. The destination could be Amazon Chime, Slack, or a webhook URL. | `object` | No | No
+`last_updated_time`  |  The time the policy was last updated. | Timestamp | Yes | Yes
+`error_notification` |  The destination and message template for error notifications. The destination could be Amazon Chime, Slack, or a webhook URL. | Object | No | No
 `default_state` | The default starting state for each index that uses this policy. | String | Yes | No
-`states` | The states that you define in the policy. | `nested list of objects` | Yes | No
+`states` | The states that you define in the policy. | Nested list of objects | Yes | No
 
 
 ## States
@@ -42,8 +42,8 @@ The following table lists the parameters that you can define for a state.
 Field | Description | Type | Required
 :--- | :--- |:--- |:--- |
 `name` |  The name of the state. | String | Yes
-`actions` | The actions to execute after entering a state. For more information, see [Actions](#actions). | `nested list of objects` | Yes
-`transitions` | The next states and the conditions required to transition to those states. If no transitions exist, the policy assumes that it's complete and can now stop managing the index. For more information, see [Transitions](#transitions). | `nested list of objects` | Yes
+`actions` | The actions to execute after entering a state. If you omit this field, the state performs no actions. For more information, see [Actions](#actions). | Nested list of objects | No
+`transitions` | The next states and the conditions required to transition to those states. If no transitions exist, the policy assumes that it's complete and can now stop managing the index. For more information, see [Transitions](#transitions). | Nested list of objects | No
 
 
 ## Actions
@@ -54,7 +54,7 @@ ISM executes actions in the order in which they are defined. If an action fails,
 
 For example, if you define actions `[A,B,C,D]`, ISM does the following:
 1. Executes action `A`.
-2. Sleeps for a period based on the cluster setting `plugins.index_state_management.job_interval`. 
+2. Sleeps for a period based on the cluster setting `plugins.index_state_management.job_interval`.
 3. Executes action `B`.
 
 And so on.
@@ -63,7 +63,7 @@ If ISM cannot successfully execute action `A`, actions `B`, `C`, and `D` do not 
 
 Optionally, you can define an action's timeout period. When the timeout expires, ISM fails the action. The timeout covers the whole action, not a single attempt: the clock starts when ISM begins the action and keeps running through every step, retry, and retry delay, including the time between job runs while the action waits for its conditions to be met.
 
-ISM checks the clock only when the managed index job runs, which is every 5 minutes by default. For example, a [rollover]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies-operations/#rollover) operation with `min_index_age` set to `1d` evaluates `min_index_age` on each job run until the index is one day old. A `timeout` of `1h` therefore causes the action to fail before the index can meet the condition.
+ISM checks the clock only when the managed index job runs, which is every 5 minutes by default. For example, a [rollover]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies-operations/#rollover) operation with `min_index_age` set to `1d` evaluates `min_index_age` on each job run until the index is 1 day old. A `timeout` of `1h` therefore causes the action to fail before the index can meet the condition.
 
 When the timeout expires, ISM marks the action as failed and stops managing the index until you call the Retry failed index API, which restarts the action and its clock. A timeout does not stop work that ISM already started or undo changes that the action already made.
 
@@ -73,8 +73,8 @@ The following table lists the parameters that you can define for an action.
 
 Parameter | Description | Type | Required | Default
 :--- | :--- |:--- |:--- |
-`timeout` |  The timeout period for the action. Accepts time units for minutes, hours, and days. | `time unit` | No | -
-`retry` | The retry configuration for the action. | `object` | No | Specific to action
+`timeout` |  The timeout period for the action. Accepts time units for minutes, hours, and days. | Time unit | No | -
+`retry` | The retry configuration for the action. | Object | No | Specific to action
 
 The `retry` operation has the following parameters.
 
@@ -82,7 +82,7 @@ Parameter | Description | Type | Required | Default
 :--- | :--- |:--- |:--- |
 `count` | The number of retry counts. | Integer | Yes | -
 `backoff` | The backoff policy type to use when retrying. Valid values are Exponential, Constant, and Linear. | String | No | Exponential
-`delay` | The time to wait between retries. Accepts time units for minutes, hours, and days. | `time unit` | No | 1 minute
+`delay` | The time to wait between retries. Accepts time units for minutes, hours, and days. | Time unit | No | 1 minute
 
 ### Example action
 
@@ -119,7 +119,7 @@ This table lists the parameters you can define for transitions.
 Parameter | Description | Type | Required
 :--- | :--- |:--- |:--- |
 `state_name` |  The name of the state to transition to if the conditions are met. | String | Yes
-`conditions` |  List the conditions for the transition. | `list` | Yes
+`conditions` |  List the conditions for the transition. | List | Yes
 
 The `conditions` object has the following parameters.
 
@@ -130,9 +130,9 @@ Parameter | Description | Type | Required
 `min_state_age` | The minimum amount of time the index must spend in the current state before transitioning. | String | No
 `min_doc_count` | The minimum document count of the index required to transition. | Integer | No
 `min_size` | The minimum size of the total primary shard storage (not counting replicas) required to transition. For example, if you set `min_size` to 100 GiB and your index has 5 primary shards and 5 replica shards of 20 GiB each, the total size of all primary shards is 100 GiB, so your index is transitioned to the next state. | String | No
-`no_alias` | Controls transition based on alias presence. If `true`, transition occurs only when the index has **no aliases**. If `false`, transition occurs only when at least **one alias exists**. | `boolean` | No
-`cron` | The `cron` job that triggers the transition if no other transition happens first. | `object` | No
-`cron.cron.expression` | The `cron` expression that triggers the transition. | String | Yes
+`no_alias` | Controls transition based on alias presence. If `true`, transition occurs only when the index has **no aliases**. If `false`, transition occurs only when at least **one alias exists**. | Boolean | No
+`cron` | The `cron` job that triggers the transition if no other transition happens first. | Object | No
+`cron.cron.expression` | The `cron` expression that triggers the transition. For the syntax, see [Cron expressions]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#cron-expressions). | String | Yes
 `cron.cron.timezone` | The time zone for the triggering `cron` expression triggers the transition. | String | Yes
 
 All time-based values (`min_index_age`, `min_rollover_age`, `min_state_age`) use [standard OpenSearch time units]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#time-units).
@@ -176,34 +176,49 @@ Note that this condition does not execute at exactly 5:00 PM; the job still exec
 
 A window of an hour, which this example uses, is generally sufficient, but you might increase it to 2 or 3 hours to avoid missing the window and having to wait a week for the transition to occur. Alternately, you could use a broader expression such as `* * * * SAT,SUN` to have the transition occur at any time during the weekend.
 
-For information about writing cron expressions, see the [Cron expression reference]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/cron/).
+For information about writing cron expressions, see [Cron expressions]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#cron-expressions).
 
 
 ## Error notifications
 
-An error notification can be set up at the policy level as shown in the following example:
+An `error_notification` sends a notification if your managed index fails. Set it at the policy level, alongside `default_state` and `states`:
 
 ```json
+PUT _plugins/_ism/policies/hot_delete_workflow
 {
   "policy": {
-    "description": "hot warm delete workflow",
+    "description": "hot delete workflow",
     "default_state": "hot",
-    "schema_version": 1,
-    "error_notification": { },
-    "states": [ ]
+    "error_notification": {
+      "channel": {
+        "id": "<channel_id>"
+      },
+      "message_template": {
+        "source": "The index {% raw %}{{ctx.index}}{% endraw %} failed during policy execution."
+      }
+    },
+    "states": [
+      {
+        "name": "hot",
+        "actions": [],
+        "transitions": []
+      }
+    ]
   }
 }
 ```
+{% include copy-curl.html %}
 
-An `error_notification` sends a notification if your managed index fails.
+An `error_notification` requires a `message_template`, and it must name either a `destination` or a `channel`, so an empty object is rejected with `400`.
+{: .note}
 
 An error notification sends to a single destination or [notification channel]({{site.url}}{{site.baseurl}}/notifications-plugin/index/) with a custom message.
 
 Parameter | Description | Type | Required
 :--- | :--- |:--- |:--- |
-`destination` | The destination URL. | `Slack, Amazon Chime, or webhook URL` | Yes if `channel` isn't specified
+`destination` | The destination URL. | Slack, Amazon Chime, or webhook URL | Yes if `channel` isn't specified
 `channel` | A notification channel's ID | String | Yes if `destination` isn't specified
-`message_template` |  The text of the message. You can add variables to your messages using [Mustache templates](https://mustache.github.io/mustache.5.html). | `object` | Yes
+`message_template` |  The text of the message. You can add variables to your messages using [Mustache templates](https://mustache.github.io/mustache.5.html). | Object | Yes
 
 The destination system **must** return a response otherwise the `error_notification` operation throws an error.
 
@@ -277,16 +292,20 @@ You can use the same options for `ctx` variables as the [Notification]({{site.ur
 
 ## Policies in OpenSearch Dashboards
 
-To reach the **Index Management** page, go to **Management > Index Management** on the top menu. Select **State management policies** to list the policies in your cluster.
+To navigate to the **Index Management** page, go to **Management > Index Management** on the top menu. Select **State management policies** to list the policies in your cluster.
 
 Policies are created in either a visual editor or a JSON editor. The visual editor presents the parts of a policy as separate panels---error notification, ISM templates, and states---with the available actions and transition conditions in lists, so use it to compose a new policy. Use the JSON editor to paste a policy that you already have.
+
+The following image shows the **State management policies** page.
+
+![State management policies page]({{site.url}}{{site.baseurl}}/images/admin-ui-index/state-management-policies.png)
 
 ### Viewing a policy
 
 1. In **Index Management**, select **State management policies**.
 1. Select the policy in the **Policy** column.
 
-The page shows the **Policy settings**, **ISM templates**, and **States** panels. To see the actions and transitions of a state, select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/arrow-right-icon.png" class="inline-icon" alt="expand icon"/>{:/} (expand) icon next to the state name.
+The page shows the **Policy settings**, **ISM templates**, and **States** panels. To view the actions and transitions of a state, select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/arrow-right-icon.png" class="inline-icon" alt="expand icon"/>{:/} (expand) icon next to the state name.
 
 ### Creating a policy
 
@@ -347,8 +366,7 @@ The changes take effect the next time the policy runs. Indexes that the policy a
 ### Deleting a policy
 
 1. In **Index Management**, select **State management policies**.
-1. Select the checkbox next to each policy that you want to delete.
-1. Select **Actions**, and then select **Delete**.
+1. Select the checkbox next to each policy that you want to delete, and then select **Delete**.
 1. Select **Delete** in the confirmation dialog.
 
 A deleted policy stops managing its indexes immediately and cannot be recovered.

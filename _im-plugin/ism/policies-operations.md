@@ -73,6 +73,8 @@ Sets a managed index to be writeable.
 ```
 
 ## Publish field domains
+**Introduced 3.9**
+{: .label .label-purple }
 
 Computes the field domains for a managed index and publishes them to the index metadata. OpenSearch uses field domains for [index-level search pruning]({{site.url}}{{site.baseurl}}/search-plugins/index-level-search-pruning/).
 
@@ -197,7 +199,7 @@ If you want to add `aliases` to the action, the parameter must include an array 
       "index_routing" : "1",
       "search_routing" : "1"
     }
-  },
+  }
 ]
 ```
 
@@ -257,7 +259,7 @@ Parameter | Description | Type | Example | Required
 `min_primary_shard_size` | The minimum storage size of a **single primary shard** required to roll over the index. For example, if you set `min_primary_shard_size` to 30 GiB and **one of** the primary shards in the index has a size greater than the condition, the rollover occurs. See [**Important** note](#important-note). | String | `20gb` or `5mb` | No
 `min_doc_count` |  The minimum number of documents required to roll over the index. See [**Important** note](#important-note). | Integer | `2000000` | No
 `min_index_age` |  The minimum age required to roll over the index. Index age is the time between its creation and the present. Supported units are `d` (days), `h` (hours), `m` (minutes), `s` (seconds), `ms` (milliseconds), and `micros` (microseconds). See [**Important** note](#important-note). | String | `5d` or `7h` | No
-`copy_alias` | Controls whether to copy over all aliases from the current index to a newly created index. Defaults to `false`.  | `boolean` | `true` or `false` | No
+`copy_alias` | Controls whether to copy over all aliases from the current index to a newly created index. Defaults to `false`.  | Boolean | `true` or `false` | No
 
 ```json
 {
@@ -297,8 +299,8 @@ Sends you a notification.
 
 Parameter | Description | Type | Required
 :--- | :--- |:--- |:--- |
-`destination` | The destination URL. | `Slack, Amazon Chime, or webhook URL` | Yes
-`message_template` |  The text of the message. You can add variables to your messages using [Mustache templates](https://mustache.github.io/mustache.5.html). | `object` | Yes
+`destination` | The destination URL. | Slack, Amazon Chime, or webhook URL | Yes
+`message_template` |  The text of the message. You can add variables to your messages using [Mustache templates](https://mustache.github.io/mustache.5.html). | Object | Yes
 
 The destination system **must** return a response otherwise the notification operation throws an error.
 
@@ -367,7 +369,7 @@ Parameter | Description | Type
 
 ## Snapshot
 
-Back up your cluster’s indexes and state. For more information about snapshots, see [Take and restore snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore/).
+Back up your cluster's indexes and state. For more information about snapshots, see [Take and restore snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore/).
 
 The `snapshot` operation has the following parameters.
 
@@ -387,7 +389,7 @@ Parameter | Description | Type | Required | Default
 
 ## Convert index to remote
 
-Converts an existing index into a searchable snapshot by restoring it from a remote snapshot repository. This action reduces storage costs by moving infrequently accessed data to remote storage while keeping it searchable. After the restore request is accepted, the original index is automatically deleted, ensuring that only the remote snapshot-backed index remains.
+Converts an existing index into a searchable snapshot by restoring it from a remote snapshot repository. This action reduces storage costs by moving infrequently accessed data to remote storage while keeping it searchable. Set `delete_original_index` to `true` to remove the original index once the restore request is accepted, so that only the remote snapshot-backed index remains.
 
 The `convert_index_to_remote` operation has the following parameters.
 
@@ -399,6 +401,7 @@ Parameter | Description | Type | Required | Default
 `ignore_index_settings` | A comma-separated list of index settings to ignore during the restore operation. For example, `index.refresh_interval,index.number_of_replicas`. This is useful when you want to apply different settings to the restored remote index than the ones configured in the original index. | String | No | Empty string
 `number_of_replicas` | The number of replicas to configure for the restored remote index. This allows you to control replica allocation during the conversion process without requiring a separate update operation. Setting `number_of_replicas` during conversion helps prevent the cluster from entering a yellow state or creating unnecessary load during replica assignment. | Integer | No | `0`
 `rename_pattern` | The naming pattern for the restored searchable snapshot index. Use `$1` as a placeholder for the original index name. For example, `remote_$1` renames `my-index` to `remote_my-index`. | String | No | `$1_remote`
+`delete_original_index` | Whether to delete the original index after the restore request is accepted. | Boolean | No | `false`
 
 ### Prerequisites
 
@@ -412,26 +415,31 @@ Before using the `convert_index_to_remote` action, ensure the following:
 
 Note the following to ensure a smooth and predictable conversion when restoring an index as a searchable snapshot:
 
-- The original index is automatically deleted after the remote snapshot restore is successfully accepted. This ensures that only the searchable snapshot version remains, completing the conversion process.
+- The original index is deleted after the remote snapshot restore is successfully accepted only if you set `delete_original_index` to `true`. By default, the original index remains alongside the searchable snapshot version.
 - The repository name used in the `convert_index_to_remote` operation must match the repository name specified during the snapshot action.
+- Each object in the `actions` array holds one action. Putting `snapshot` and `convert_index_to_remote` in the same object is accepted, but only one of them is stored, so the snapshot is never taken. List each one in its own object.
 - You can reference the snapshot using Mustache variables like `{% raw %}{{ctx.index}}{% endraw %}` or `{% raw %}{{ctx.indexUuid}}{% endraw %}` for dynamic naming.
 - Consider your cluster's capacity when setting `number_of_replicas`. If there aren't enough eligible nodes for replica restoration, the cluster may enter a yellow state.
 
 ### Basic example
 
-The following example shows a basic conversion using the minimum required parameters:
+The following example shows a basic conversion using the minimum required parameters. The `snapshot` action creates the snapshot that `convert_index_to_remote` then restores, so each one is a separate object in the `actions` array:
 
 ```json
-{
-   "snapshot": {
+"actions": [
+  {
+    "snapshot": {
       "repository": "my_backup",
       "snapshot": "{% raw %}{{ctx.index}}{% endraw %}"
-   }, 
-   "convert_index_to_remote": {
+    }
+  },
+  {
+    "convert_index_to_remote": {
       "repository": "my_backup",
       "snapshot": "{% raw %}{{ctx.index}}{% endraw %}"
-   }
-}
+    }
+  }
+]
 ```
 {% include copy.html %}
 
@@ -548,100 +556,15 @@ Parameter | Description | Type | Required
 
 ## Rollup
 
-[Index rollup]({{site.url}}{{site.baseurl}}/im-plugin/index-rollups/index/) lets you periodically reduce data granularity by rolling up old data into summarized indexes.
+[Index rollup]({{site.url}}{{site.baseurl}}/im-plugin/index-rollups/index/) lets you periodically reduce data granularity by rolling up old data into summarized indexes. Define the job in an `ism_rollup` object. For the fields it accepts, see [Create or update an index rollup job]({{site.url}}{{site.baseurl}}/im-plugin/index-rollups/rollup-api/#create-or-update-an-index-rollup-job).
 
 Rollup jobs can be continuous or non-continuous. A rollup job created using an ISM policy can only be non-continuous.
 {: .note }
 
-## Stop replication
-
-Stops replication and converts the follower index to a regular index.
+The following policy rolls the `opensearch_dashboards_sample_data_ecommerce` fields up into hourly buckets in a `target` index:
 
 ```json
-{
-  "stop_replication": {}
-}
-```
-
-When cross-cluster replication is enabled, the follower index becomes read-only, preventing all write operations. To manage replicated indexes on a follower cluster, you can perform the `stop_replication` action before performing other write operations. For example, you can define a policy that first runs `stop_replication` and then deletes the index by running a `delete` action.
-
-If security is enabled, in addition to [stop replication permissions]({{site.url}}{{site.baseurl}}/tuning-your-cluster/replication-plugin/permissions/#replication-permissions), you must have the `indices:internal/plugins/replication/index/stop` permission in order to use the `stop_replication` action.
-{: .note}
-
-## Search only
-
-When an index enters `search_only` mode, OpenSearch removes its primary and regular replica shards while retaining search replicas for query operations. All write operations to the index are blocked. This is useful for log lifecycle management where older indexes no longer need write capability but should remain searchable.
-
-> This action requires the following prerequisites: 
-> - Remote store must be enabled on the cluster.
-> - Segment replication must be enabled on the index.
-> - Search replicas must be configured on the index. 
->
-> For more information about search-only mode and reader/writer separation, see [Separate index and search workloads]({{site.url}}{{site.baseurl}}/tuning-your-cluster/separate-index-and-search-workloads/).
-{: .note}
-
-Set an index to search-only mode using the following action: 
-
-```json
-{
-  "search_only": {}
-}
-```
-
-If the index is already in search-only mode, the action completes successfully without making any changes.
-
-You can manually enable or disable `search_only` mode outside of ISM policies by calling the [Scale API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/scale/).
-{: .tip}
-
-The following example policy transitions an index to `search_only` mode after 7 days:
-
-```json
-{
-  "policy": {
-    "policy_id": "hot-warm-search-only",
-    "default_state": "hot",
-    "states": [
-      {
-        "name": "hot",
-        "actions": [],
-        "transitions": [
-          {
-            "state_name": "warm",
-            "conditions": {
-              "min_index_age": "7d"
-            }
-          }
-        ]
-      },
-      {
-        "name": "warm",
-        "actions": [
-          {
-            "search_only": {}
-          }
-        ],
-        "transitions": []
-      }
-    ]
-  }
-}
-```
-{% include copy-curl.html %}
-
-### Endpoints
-
-````bash
-PUT _plugins/_rollup/jobs/{rollup_id}
-GET _plugins/_rollup/jobs/{rollup_id}
-DELETE _plugins/_rollup/jobs/{rollup_id}
-POST _plugins/_rollup/jobs/{rollup_id}/_start
-POST _plugins/_rollup/jobs/{rollup_id}/_stop
-GET _plugins/_rollup/jobs/{rollup_id}/_explain
-````
-
-### Sample ISM rollup policy
-
-````json
+PUT _plugins/_ism/policies/sample_rollup_policy
 {
     "policy": {
         "description": "Sample rollup" ,
@@ -713,10 +636,83 @@ GET _plugins/_rollup/jobs/{rollup_id}/_explain
         ]
     }
 }
-````
-
-### Request body fields
-
-Request fields are required when creating an ISM policy. You can reference the [Index rollups API]({{site.url}}{{site.baseurl}}/im-plugin/index-rollups/rollup-api/#create-or-update-an-index-rollup-job) page for request field options.
+```
+{% include copy-curl.html %}
 
 To create a rollup job in OpenSearch Dashboards, see [Creating a rollup job]({{site.url}}{{site.baseurl}}/im-plugin/index-rollups/index/#creating-a-rollup-job).
+
+## Stop replication
+
+Stops replication and converts the follower index to a regular index.
+
+```json
+{
+  "stop_replication": {}
+}
+```
+
+When cross-cluster replication is enabled, the follower index becomes read-only, preventing all write operations. To manage replicated indexes on a follower cluster, you can perform the `stop_replication` action before performing other write operations. For example, you can define a policy that first runs `stop_replication` and then deletes the index by running a `delete` action.
+
+If security is enabled, in addition to [stop replication permissions]({{site.url}}{{site.baseurl}}/tuning-your-cluster/replication-plugin/permissions/#replication-permissions), you must have the `indices:internal/plugins/replication/index/stop` permission in order to use the `stop_replication` action.
+{: .note}
+
+## Search only
+
+When an index enters `search_only` mode, OpenSearch removes its primary and regular replica shards while retaining search replicas for query operations. All write operations to the index are blocked. This is useful for log lifecycle management where older indexes no longer need write capability but should remain searchable.
+
+> This action requires the following prerequisites:
+> - Remote store must be enabled on the cluster.
+> - Segment replication must be enabled on the index.
+> - Search replicas must be configured on the index.
+>
+> For more information about search-only mode and reader/writer separation, see [Separate index and search workloads]({{site.url}}{{site.baseurl}}/tuning-your-cluster/separate-index-and-search-workloads/).
+{: .note}
+
+Set an index to search-only mode using the following action:
+
+```json
+{
+  "search_only": {}
+}
+```
+
+If the index is already in search-only mode, the action completes successfully without making any changes.
+
+You can manually enable or disable `search_only` mode outside of ISM policies by calling the [Scale API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/scale/).
+{: .tip}
+
+The following example policy transitions an index to `search_only` mode after 7 days:
+
+```json
+PUT _plugins/_ism/policies/hot-warm-search-only
+{
+  "policy": {
+    "description": "Move indexes to search-only mode after 7 days",
+    "default_state": "hot",
+    "states": [
+      {
+        "name": "hot",
+        "actions": [],
+        "transitions": [
+          {
+            "state_name": "warm",
+            "conditions": {
+              "min_index_age": "7d"
+            }
+          }
+        ]
+      },
+      {
+        "name": "warm",
+        "actions": [
+          {
+            "search_only": {}
+          }
+        ],
+        "transitions": []
+      }
+    ]
+  }
+}
+```
+{% include copy-curl.html %}
