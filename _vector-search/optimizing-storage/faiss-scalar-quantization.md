@@ -36,8 +36,7 @@ PUT /test-index
 {
   "settings": {
     "index": {
-      "knn": true,
-      "knn.algo_param.ef_search": 100
+      "knn": true
     }
   },
   "mappings": {
@@ -84,15 +83,38 @@ The `type` and `clip` parameters are supported only for 16-bit quantization. If 
 
 You can use 1-bit scalar quantization to significantly reduce the memory footprint. 1-bit quantization uses [memory-optimized search]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/memory-optimized-search/), and each vector dimension is represented using a single bit, resulting in a much smaller index size compared to 16-bit quantization.
 
-The following example creates an index with 1-bit Faiss scalar quantization:
+You can enable 1-bit scalar quantization by setting `compression_level` to `32x` on the `knn_vector` mapping.
 
 ```json
 PUT /test-index
 {
   "settings": {
     "index": {
-      "knn": true,
-      "knn.algo_param.ef_search": 100
+      "knn": true
+    }
+  },
+  "mappings": {
+    "properties": {
+      "my_vector1": {
+        "type": "knn_vector",
+        "dimension": 3,
+        "space_type": "l2",
+        "compression_level": "32x"
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+Alternatively, you can specify the encoder explicitly by setting `bits` to `1` in the `sq` encoder:
+
+```json
+PUT /test-index
+{
+  "settings": {
+    "index": {
+      "knn": true
     }
   },
   "mappings": {
@@ -128,15 +150,38 @@ PUT /test-index
 
 With 2-bit scalar quantization, each vector dimension is represented using 2 bits, reducing memory usage by 16x compared to 32-bit floating-point vectors. This quantization variant provides a middle ground between 1-bit and 4-bit quantization, offering better recall than 1-bit at a higher memory cost.
 
-The following example creates an index with 2-bit Faiss scalar quantization:
+You can enable 2-bit scalar quantization by setting `compression_level` to `16x` on the `knn_vector` mapping. For indices created in OpenSearch 3.9 or later, `16x` compression resolves to 2-bit Faiss scalar quantization:
 
 ```json
 PUT /test-index
 {
   "settings": {
     "index": {
-      "knn": true,
-      "knn.algo_param.ef_search": 100
+      "knn": true
+    }
+  },
+  "mappings": {
+    "properties": {
+      "my_vector1": {
+        "type": "knn_vector",
+        "dimension": 8,
+        "space_type": "l2",
+        "compression_level": "16x"
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+Alternatively, you can specify the encoder explicitly by setting `bits` to `2` in the `sq` encoder:
+
+```json
+PUT /test-index
+{
+  "settings": {
+    "index": {
+      "knn": true
     }
   },
   "mappings": {
@@ -172,15 +217,38 @@ PUT /test-index
 
 With 4-bit scalar quantization, each vector dimension is represented using 4 bits, reducing memory usage by 8x compared to 32-bit floating-point vectors. 4-bit quantization offers higher recall than 2-bit and 1-bit variants at the cost of a larger index size.
 
-The following example creates an index with 4-bit Faiss scalar quantization:
+You can enable 4-bit scalar quantization by setting `compression_level` to `8x` on the `knn_vector` mapping. For indices created in OpenSearch 3.9 or later, `8x` compression resolves to 4-bit Faiss scalar quantization:
 
 ```json
 PUT /test-index
 {
   "settings": {
     "index": {
-      "knn": true,
-      "knn.algo_param.ef_search": 100
+      "knn": true
+    }
+  },
+  "mappings": {
+    "properties": {
+      "my_vector1": {
+        "type": "knn_vector",
+        "dimension": 8,
+        "space_type": "l2",
+        "compression_level": "8x"
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+Alternatively, you can specify the encoder explicitly by setting `bits` to `4` in the `sq` encoder:
+
+```json
+PUT /test-index
+{
+  "settings": {
+    "index": {
+      "knn": true
     }
   },
   "mappings": {
@@ -230,8 +298,7 @@ PUT /test-index
 {
   "settings": {
     "index": {
-      "knn": true,
-      "knn.algo_param.ef_search": 100
+      "knn": true
     }
   },
   "mappings": {
@@ -329,19 +396,13 @@ The memory required for IVF is estimated to be `1.1 * (((bytes_per_dimension * d
 
 As an example, assume that you have 1 million vectors with a dimension of 256 and an `nlist` of 128.
 
-IVF is only supported with 16-bit and 1-bit Faiss scalar quantization. 2-bit and 4-bit quantization are supported only with the HNSW method.
+IVF is only supported with 16-bit Faiss scalar quantization. 1-bit, 2-bit, and 4-bit quantization are supported only with the HNSW method.
 {: .note}
 
 For 16-bit quantization, the memory requirement can be estimated as follows:
 
 ```r
 1.1 * (((2 * 256) * 1,000,000) + (4 * 128 * 256))  ~= 0.525 GB
-```
-
-For 1-bit quantization, the memory requirement can be estimated as follows:
-
-```r
-1.1 * (((256 / 8) * 1,000,000) + (4 * 128 * 256))  ~= 0.035 GB
 ```
 
 ## Next steps
