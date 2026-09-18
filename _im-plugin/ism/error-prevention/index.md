@@ -1,7 +1,8 @@
 ---
 layout: default
-title: ISM Error Prevention
-nav_order: 90
+title: ISM error prevention
+parent: Index State Management
+nav_order: 40
 has_children: true
 has_toc: false
 redirect_from:

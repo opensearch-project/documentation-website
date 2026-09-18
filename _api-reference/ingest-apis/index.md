@@ -2,7 +2,7 @@
 layout: default
 title: Ingest APIs
 has_children: false
-nav_order: 40
+nav_order: 70
 redirect_from:
   - /opensearch/rest-api/ingest-apis/index/
   - /api-reference/ingest-apis/

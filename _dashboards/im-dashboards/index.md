@@ -1,53 +1,41 @@
 ---
 layout: default
-title: Index management
-nav_order: 100
-has_children: true
+title: Index Management
+nav_order: 30
+has_children: false
 redirect_from:
-  - /dashboards/admin-ui-index/
   - /dashboards/im-dashboards/
+  - /dashboards/admin-ui-index/
 ---
 
-# Index management
-Introduced 2.5
-{: .label .label-purple }
+# Index Management in OpenSearch Dashboards
 
-The Index Management interface in OpenSearch Dashboards provides a unified solution for managing common indexing and data stream operations. The interface allows you to perform create, read, update, and delete (CRUD) and mapping operations for indexes, index templates, and aliases instead of using REST APIs or YAML configurations for basic administrative operations and interventions, along with other operations such as open, close, reindex, shrink, and split indexes. The interface also provides you with the capabilities to run index status and data validation before submitting requests and compare changes with previously saved settings before making updates.
+The **Index Management** page in OpenSearch Dashboards provides an interface for the index operations that you can otherwise perform using the [Index APIs]({{site.url}}{{site.baseurl}}/api-reference/index-apis/index/): creating indexes and defining their mappings, opening and closing indexes, merging and splitting them, and automating those operations with state management policies.
 
-An example of the interface is shown in the following image.
+To navigate to the **Index Management** page, go to **Management > Index Management** on the top menu. The following image shows the **Index Management** page.
 
-![Index Management user interface]({{site.url}}{{site.baseurl}}/images/dashboards/index-management-UI.png)
+![Index Management page]({{site.url}}{{site.baseurl}}/images/dashboards/index-management-UI.png)
 
-## Get started with index management using Dashboards
+Index management does not include operations on the documents in an index. To add data to an index, see [Ingest your data into OpenSearch]({{site.url}}{{site.baseurl}}/getting-started/ingest-data/). To query it, see [OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/).
 
-**Step 1: Open Index Management** 
+## Index Management pages
 
-- Once you're in OpenSearch Dashboards, select **Index Management** from the **OpenSearch Plugins** main menu. Then select **Indices**.
+The left panel of the **Index Management** page contains the following pages.
 
-**Step 2: View indexes** 
+| Page | Description | Documentation |
+| :--- | :--- | :--- |
+| **State management policies** | Create, edit, and delete the policies that manage indexes automatically. | [Policies]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies/#policies-in-opensearch-dashboards) |
+| **Policy managed indexes** | View the state of each index that a policy manages, change its policy, or stop managing it. | [Managed indexes]({{site.url}}{{site.baseurl}}/im-plugin/ism/managedindexes/#managed-indexes-in-opensearch-dashboards) |
+| **Indexes** | Create indexes and view their settings, mappings, and statistics. Open, close, reindex, and delete them, apply a policy to them, and maintain them by refreshing, flushing, force merging, shrinking, splitting, and rolling them over. | [Index operations]({{site.url}}{{site.baseurl}}/im-plugin/index-operations/#index-operations-in-opensearch-dashboards), [Index maintenance]({{site.url}}{{site.baseurl}}/im-plugin/index-maintenance/#index-maintenance-in-opensearch-dashboards) |
+| **Data streams** | Create data streams, view their backing indexes, and roll them over. | [Data streams]({{site.url}}{{site.baseurl}}/im-plugin/data-streams/#data-streams-in-opensearch-dashboards) |
+| **Templates** | Create index templates and component templates that configure new indexes and data streams. | [Index templates]({{site.url}}{{site.baseurl}}/im-plugin/index-templates/#index-templates-in-opensearch-dashboards) |
+| **Aliases** | Create aliases, add indexes to them, and set the write index. | [Index aliases]({{site.url}}{{site.baseurl}}/im-plugin/index-alias/#index-aliases-in-opensearch-dashboards) |
+| **Rollup jobs** | Create jobs that summarize old data into smaller indexes. | [Index rollups]({{site.url}}{{site.baseurl}}/im-plugin/index-rollups/index/#index-rollups-in-opensearch-dashboards) |
+| **Transform jobs** | Create jobs that write a summarized view of an index to a second index. | [Index transforms]({{site.url}}{{site.baseurl}}/im-plugin/index-transforms/index/#index-transforms-in-opensearch-dashboards) |
+| **Notification settings** | Choose the index operations that send a notification when they finish or fail, and the channels that receive it. | [Long-running operation notifications]({{site.url}}{{site.baseurl}}/im-plugin/notifications-settings/#notifications-in-opensearch-dashboards) |
 
-- In the **Indices** interface you will see a list of existing indexes in your OpenSearch cluster. The list provides information such as index name, health state, document count, index size, and other relevant details.  
+## Related documentation
 
-**Step 3: Create an index** 
-
-- To create a new index, select the **Create index** button in the upper-right corner. You will be prompted to enter the index name and configure the index settings, such as number of shards and replicas. Fill in the required information and select **Create** to create the index.
-
-**Step 4: Delete an index** 
-
-- To delete an index, locate the index and select the checkbox next to it. Then select the **Actions** button and choose **Delete** from the dropdown list. Use caution when deleting indexes because this action is irreversible. 
-
-**Step 5: Modify an index** 
-
-- To modify the settings of an existing index, locate the index in the list and select its name. This takes you to the index details page. Here you can update settings such as the numbers of shards, replicas, and other advanced configurations. After making the desired changes, select **Save**.
-
-**Step 6: Refresh indexes** 
-
-- To refresh an index, locate the index and select the checkbox next to it. Then select the **Actions** button and choose **Refresh** from the dropdown list.
-
-**Step 7: Filter and search indexes** 
-
-- If you have a large number of indexes and want to filter or search for specific indexes, you can use the search bar located above the list of indexes. Enter the relevant keywords or filters to narrow the list of indexes.
-
-**Step 8: Additional operations** 
-
-- Index Management provides additional functionalities such as creating index patterns, managing lifecycle policies, and configuring index templates. These options are available in their respective sections of the Index Management interface. 
+- [Managing indexes]({{site.url}}{{site.baseurl}}/im-plugin/)
+- [Index APIs]({{site.url}}{{site.baseurl}}/api-reference/index-apis/index/)
+- [Index State Management]({{site.url}}{{site.baseurl}}/im-plugin/ism/index/)

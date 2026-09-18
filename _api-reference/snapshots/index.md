@@ -3,7 +3,7 @@ layout: default
 title: Snapshot APIs
 has_children: true
 has_toc: false
-nav_order: 80
+nav_order: 120
 redirect_from:
   - /opensearch/rest-api/snapshots/
   - /api-reference/snapshots/
