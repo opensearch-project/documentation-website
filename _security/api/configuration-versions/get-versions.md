@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Get security configuration versions
+title: Get configuration versions
 parent: Security configuration version APIs
 grand_parent: Security APIs
 nav_order: 10

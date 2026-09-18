@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Configuration APIs
+title: Security configuration APIs
 parent: Security APIs
 nav_order: 110
 has_children: true
@@ -11,7 +11,7 @@ redirect_from:
   - /security/api/configuration/
 ---
 
-# Configuration APIs
+# Security configuration APIs
 
 The configuration APIs retrieve, replace, patch, and upgrade the Security plugin configuration.
 
@@ -19,11 +19,11 @@ OpenSearch supports the following configuration APIs.
 
 | API | Description |
 | :--- | :--- |
-| [Create or Update Configuration API]({{site.url}}{{site.baseurl}}/security/api/configuration/update-configuration/) | Creates or replaces the Security plugin configuration. |
-| [Patch Configuration API]({{site.url}}{{site.baseurl}}/security/api/configuration/patch-configuration/) | Updates individual parts of the Security plugin configuration without replacing the entire configuration document. |
-| [Get Configuration API]({{site.url}}{{site.baseurl}}/security/api/configuration/get-configuration/) | Retrieves the current Security plugin configuration, including its authentication and authorization domains. |
-| [Check for Upgrades API]({{site.url}}{{site.baseurl}}/security/api/configuration/upgrade-check/) | Checks whether any configuration components require an upgrade and lists the upgrades that are available. |
-| [Perform Upgrade API]({{site.url}}{{site.baseurl}}/security/api/configuration/upgrade-perform/) | Applies the upgrades that the Check for Upgrades API identifies. |
+| [Create or Update Security Configuration API]({{site.url}}{{site.baseurl}}/security/api/configuration/update-configuration/) | Creates or replaces the Security plugin configuration. |
+| [Patch Security Configuration API]({{site.url}}{{site.baseurl}}/security/api/configuration/patch-configuration/) | Updates individual parts of the Security plugin configuration without replacing the entire configuration document. |
+| [Get Security Configuration API]({{site.url}}{{site.baseurl}}/security/api/configuration/get-configuration/) | Retrieves the current Security plugin configuration, including its authentication and authorization domains. |
+| [Check for Security Configuration Upgrades API]({{site.url}}{{site.baseurl}}/security/api/configuration/upgrade-check/) | Checks whether any configuration components require an upgrade and lists the upgrades that are available. |
+| [Perform Security Configuration Upgrade API]({{site.url}}{{site.baseurl}}/security/api/configuration/upgrade-perform/) | Applies the upgrades that the Check for Upgrades API identifies. |
 
 These APIs manage the following configuration components:
 
