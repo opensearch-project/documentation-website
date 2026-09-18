@@ -179,7 +179,7 @@ Parameter | Data type | Description
 
 You can have OpenSearch map a field as a `knn_vector` automatically, without declaring it in your mappings up front. There are two paths: a dynamic template that uses `knn_vector` as a `match_mapping_type`, and auto-inference from the first indexed value.
 
-Dynamic mapping applies only to new indexes and only to fields that are not already mapped. An explicit mapping always takes precedence: if a field is already mapped, neither path runs for it.
+Dynamic mapping applies to any field that is not already mapped, on both new and existing indexes. An explicit mapping always takes precedence: if a field is already mapped, neither path runs for it.
 
 Dynamic mapping is disabled by default. To enable it, set the [`knn.dynamic_mapping.enabled`]({{site.url}}{{site.baseurl}}/vector-search/settings/#cluster-settings) cluster setting:
 
@@ -206,7 +206,7 @@ If you plan to run ANN search on auto-inferred vector fields, create the index w
 You can reference `knn_vector` as the `match_mapping_type` in a [dynamic template]({{site.url}}{{site.baseurl}}/field-types/#dynamic-mapping). When a matching field is first encountered, OpenSearch maps it as a `knn_vector` using the mapping block you provide. If you omit `dimension`, it is inferred from the length of the first indexed vector:
 
 ```json
-PUT /my-index
+PUT /knn-dyn-template
 {
   "settings": {
     "index": {
@@ -228,6 +228,78 @@ PUT /my-index
 }
 ```
 {% include copy-curl.html %}
+
+Before any document is indexed, the mapping contains only the dynamic template---no `properties` are materialized yet:
+
+```json
+GET /knn-dyn-template/_mapping
+```
+{% include copy-curl.html %}
+
+The response contains only the template:
+
+```json
+{
+  "knn-dyn-template": {
+    "mappings": {
+      "dynamic_templates": [
+        {
+          "vectors": {
+            "match_mapping_type": "knn_vector",
+            "mapping": {
+              "type": "knn_vector"
+            }
+          }
+        }
+      ]
+    }
+  }
+}
+```
+
+Index a document with an 8-dimensional vector so the template matches:
+
+```json
+POST /knn-dyn-template/_doc/1?refresh=true
+{
+  "vec_tmpl": [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8]
+}
+```
+{% include copy-curl.html %}
+
+Retrieve the mapping again to confirm that `vec_tmpl` was materialized as a `knn_vector` with `dimension: 8`:
+
+```json
+GET /knn-dyn-template/_mapping
+```
+{% include copy-curl.html %}
+
+The response now includes the auto-created `vec_tmpl` field:
+
+```json
+{
+  "knn-dyn-template": {
+    "mappings": {
+      "dynamic_templates": [
+        {
+          "vectors": {
+            "match_mapping_type": "knn_vector",
+            "mapping": {
+              "type": "knn_vector"
+            }
+          }
+        }
+      ],
+      "properties": {
+        "vec_tmpl": {
+          "type": "knn_vector",
+          "dimension": 8
+        }
+      }
+    }
+  }
+}
+```
 
 You can specify any `knn_vector` parameters (such as `dimension`, `space_type`, `method`, or `model_id`) in the `mapping` block. If you specify `dimension`, or a `model_id` that supplies it, OpenSearch uses that value directly and skips inference from the first document. If you omit both, the dimension is inferred from the first indexed document, after which it is fixed for the field.
 
@@ -268,7 +340,7 @@ Auto-inference is a shape-based heuristic, so keep the following behavior in min
 
 ### Limitations
 
-Dynamic mapping does not create [`nested`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/nested/) parents. If you want to index an array of objects where each object contains its own vector (for example, per-chunk embeddings for a document), you must still declare the parent field explicitly as `type: nested`. Auto-inference and dynamic templates apply only to individual `knn_vector` fields, not to their parent object type---an array of objects such as the following is mapped as a plain `object`, not `nested`, so per-inner-document vector search does not work:
+Dynamic mapping does not create [`nested`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/nested/) parents. Auto-inference and dynamic templates apply only to individual `knn_vector` fields, not to their parent object type. If you index an array of objects into an unmapped field (for example, per-chunk embeddings), the document is rejected because the inner vector array cannot be flattened into a single `knn_vector` value under a plain `object` parent:
 
 ```json
 {
@@ -276,6 +348,67 @@ Dynamic mapping does not create [`nested`]({{site.url}}{{site.baseurl}}/field-ty
     { "my_vector": [0.1, 0.2, ...], "text": "..." },
     { "my_vector": [0.3, 0.4, ...], "text": "..." }
   ]
+}
+```
+
+To make per-inner-document vector search work, declare the parent field explicitly as `type: nested` at index creation. Inner `knn_vector` fields under a declared `nested` parent are still auto-mapped by dynamic mapping. For example, create the index with `chunks` declared as `nested`:
+
+```json
+PUT /knn-nested-dyn
+{
+  "settings": {
+    "index": {
+      "knn": true
+    }
+  },
+  "mappings": {
+    "properties": {
+      "chunks": { "type": "nested" }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+Then ingest a document whose inner `embedding` field is a flat numeric array that meets the auto-inference gate (length is a multiple of 8 and within `[128, MAX_DIMENSION]`):
+
+```json
+POST /knn-nested-dyn/_doc/1?refresh=true
+{
+  "chunks": [
+    { "embedding": [0.1, 0.1, ..., 0.1] },
+    { "embedding": [0.2, 0.2, ..., 0.2] }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+Auto-inference maps `chunks.embedding` as `knn_vector` with the inferred dimension:
+
+```json
+GET /knn-nested-dyn/_mapping
+```
+{% include copy-curl.html %}
+
+The response confirms that `chunks` remains `nested` and that `chunks.embedding` was materialized as a `knn_vector`:
+
+```json
+{
+  "knn-nested-dyn": {
+    "mappings": {
+      "properties": {
+        "chunks": {
+          "type": "nested",
+          "properties": {
+            "embedding": {
+              "type": "knn_vector",
+              "dimension": 128
+            }
+          }
+        }
+      }
+    }
+  }
 }
 ```
 
