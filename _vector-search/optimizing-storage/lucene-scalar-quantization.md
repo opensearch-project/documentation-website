@@ -10,7 +10,14 @@ has_math: true
 
 # Lucene scalar quantization
 
-OpenSearch supports built-in scalar quantization for the Lucene engine. Unlike [byte vectors]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-memory-optimized/#byte-vectors), which require you to quantize vectors before ingesting documents, the Lucene scalar quantizer quantizes input vectors in OpenSearch during ingestion. The quantizer converts 32-bit floating-point input vectors into lower-bit representations in each segment. OpenSearch supports 7-bit quantization and 1-bit quantization. When searching, the query vector is quantized in each segment in order to compute the distance between the query vector and the segment's quantized input vectors. Quantization can decrease the memory footprint in exchange for some loss in recall. Additionally, quantization slightly increases disk usage because it requires storing both the raw input vectors and the quantized vectors.
+OpenSearch supports built-in scalar quantization for the Lucene engine. Unlike [byte vectors]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-memory-optimized/#byte-vectors), which require you to quantize vectors before ingesting documents, the Lucene scalar quantizer quantizes input vectors in OpenSearch during ingestion. The quantizer converts 32-bit floating-point input vectors into lower-bit representations in each segment. OpenSearch supports the following Lucene scalar quantization variants:
+
+- 7-bit quantization
+- 1-bit quantization (introduced in 3.6)
+- 2-bit quantization (introduced in 3.9)
+- 4-bit quantization (introduced in 3.9)
+
+When searching, the query vector is quantized in each segment in order to compute the distance between the query vector and the segment's quantized input vectors. Quantization can decrease the memory footprint in exchange for some loss in recall. Additionally, quantization slightly increases disk usage because it requires storing both the raw input vectors and the quantized vectors.
 
 The `bits` parameter is required when configuring the `sq` encoder.
 {: .important}
@@ -63,7 +70,7 @@ The Lucene `sq` encoder supports the following parameters.
 
 Parameter name | Required | Default | Description
 :--- | :--- | :--- | :---
-`bits` | Yes | 1 | The number of bits used to quantize each vector dimension. Valid values are `1` and `7`.
+`bits` | Yes | 1 | The number of bits used to quantize each vector dimension. Valid values are `1`, `7`, and (starting with OpenSearch 3.9) `2` and `4`.
 `confidence_interval` | No | Computed based on vector dimension | The quantile interval used to compute the minimum and maximum values for quantization. Supported for 7-bit quantization only. For more information, see [Confidence interval](#confidence-interval).
 
 The `confidence_interval` parameter is only supported for 7-bit quantization. If you set `bits` to any other value and specify a `confidence_interval`, the request is rejected.
@@ -102,6 +109,92 @@ PUT /test-index
               "name": "sq",
               "parameters": {
                 "bits": 1
+              }
+            },
+            "ef_construction": 256,
+            "m": 8
+          }
+        }
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+## 2-bit quantization
+**Introduced 3.9**
+{: .label .label-purple }
+
+With 2-bit scalar quantization, each vector dimension is represented using 2 bits, reducing memory usage by 16x compared to 32-bit floating-point vectors. 2-bit quantization does not support the `confidence_interval` parameter.
+
+The following example creates an index with 2-bit Lucene scalar quantization:
+
+```json
+PUT /test-index
+{
+  "settings": {
+    "index": {
+      "knn": true
+    }
+  },
+  "mappings": {
+    "properties": {
+      "my_vector1": {
+        "type": "knn_vector",
+        "dimension": 8,
+        "space_type": "l2",
+        "method": {
+          "name": "hnsw",
+          "engine": "lucene",
+          "parameters": {
+            "encoder": {
+              "name": "sq",
+              "parameters": {
+                "bits": 2
+              }
+            },
+            "ef_construction": 256,
+            "m": 8
+          }
+        }
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+## 4-bit quantization
+**Introduced 3.9**
+{: .label .label-purple }
+
+With 4-bit scalar quantization, each vector dimension is represented using 4 bits, reducing memory usage by 8x compared to 32-bit floating-point vectors. 4-bit quantization does not support the `confidence_interval` parameter.
+
+The following example creates an index with 4-bit Lucene scalar quantization:
+
+```json
+PUT /test-index
+{
+  "settings": {
+    "index": {
+      "knn": true
+    }
+  },
+  "mappings": {
+    "properties": {
+      "my_vector1": {
+        "type": "knn_vector",
+        "dimension": 8,
+        "space_type": "l2",
+        "method": {
+          "name": "hnsw",
+          "engine": "lucene",
+          "parameters": {
+            "encoder": {
+              "name": "sq",
+              "parameters": {
+                "bits": 4
               }
             },
             "ef_construction": 256,
@@ -167,7 +260,7 @@ PUT /test-index
 
 ## Memory estimation
 
-In the ideal scenario, 7-bit vectors created by the Lucene scalar quantizer use only 25% of the memory required by 32-bit vectors. For 1-bit vectors, the memory footprint is approximately 3.125% of the original 32-bit vectors (a reduction factor of 32).
+In the ideal scenario, 7-bit vectors created by the Lucene scalar quantizer use only 25% of the memory required by 32-bit vectors. 4-bit vectors use approximately 12.5% (8x reduction), 2-bit vectors approximately 6.25% (16x reduction), and 1-bit vectors approximately 3.125% (32x reduction) of the original 32-bit vector footprint.
 
 ### HNSW memory estimation
 
@@ -179,6 +272,18 @@ For 7-bit quantization, the memory requirement can be estimated as follows:
 
 ```r
 1.1 * (256 * 7 / 8 + 8 * 16) * 1,000,000 ~= 0.387 GB
+```
+
+For 4-bit quantization, the memory requirement can be estimated as follows:
+
+```r
+1.1 * (256 * 4 / 8 + 8 * 16) * 1,000,000 ~= 0.282 GB
+```
+
+For 2-bit quantization, the memory requirement can be estimated as follows:
+
+```r
+1.1 * (256 * 2 / 8 + 8 * 16) * 1,000,000 ~= 0.211 GB
 ```
 
 For 1-bit quantization, the memory requirement can be estimated as follows:

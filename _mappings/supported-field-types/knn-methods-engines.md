@@ -123,7 +123,10 @@ An index created in OpenSearch version 2.11 or earlier will still use the previo
 
 #### Flat parameters
 
-The `flat` method does not support any parameters.
+The `flat` method does not support any method-level parameters. To select the amount of scalar quantization applied to the vectors, set the `compression_level` field on the `knn_vector` mapping. Starting with OpenSearch 3.9, `flat` supports `32x`, `16x`, and `8x` compression levels, corresponding to 1-bit, 2-bit, and 4-bit scalar quantization, respectively. In earlier versions, `flat` only supports `32x`. If `compression_level` is not specified, `flat` defaults to `32x`.
+
+Starting with OpenSearch 3.9, `method: flat` is engine-agnostic and does not accept the `engine` parameter. Specifying `engine` at either the method level or the field level for a `flat` method causes index creation to fail.
+{: .important}
 
 For more information, see [Exact search using scalar quantization]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/exact-search-scalar-quantization/).
 
@@ -213,7 +216,7 @@ Parameter name | Required | Default | Updatable after index creation | Descripti
 :--- |:---------|:--------| :--- | :---
 `type` | No       | `fp16`  | No |  The type of scalar quantization to be used to encode 32-bit float vectors into the corresponding type. Supported only for 16-bit quantization. Currently, only the `fp16` encoder type is supported. For the `fp16` encoder, vector values must be in the [-65504.0, 65504.0] range. 
 `clip` | No       | `false` | No | Supported only for 16-bit quantization. If `true`, any vector values outside of the supported range for the specified vector type are rounded so that they are within the range. If `false`, the request is rejected if any vector values are outside of the supported range. Setting `clip` to `true` may decrease recall.
-`bits` | Yes      | `1`     | No | The number of bits used to quantize each 32-bit floating-point vector dimension. Valid values are `1` and `16`. Required starting from OpenSearch 3.6.
+`bits` | Yes      | `1`     | No | The number of bits used to quantize each 32-bit floating-point vector dimension. Valid values are `1`, `16`, and (starting with OpenSearch 3.9) `2` and `4`. Required starting from OpenSearch 3.6.
 
 For more information and examples, see [Using Faiss scalar quantization]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/faiss-scalar-quantization/).
 

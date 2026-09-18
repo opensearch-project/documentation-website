@@ -56,8 +56,8 @@ The `compression_level` mapping parameter selects a quantization encoder that re
 | `1x`              | `faiss`, `lucene`, and `nmslib` (deprecated) |
 | `2x`              | `faiss`                                      |
 | `4x`              | `lucene`                                     |
-| `8x`              | `faiss`                                      |
-| `16x`             | `faiss`                                      |
+| `8x`              | `faiss` and `lucene`                         |
+| `16x`             | `faiss` and `lucene`                         |
 | `32x`             | `faiss` and `lucene`                         |
 
 For example, if a `compression_level` of `32x` is passed for a `float32` index of 768-dimensional vectors, the per-vector memory is reduced from `4 * 768 = 3072` bytes to `3072 / 32 = 846` bytes. Internally, binary quantization (which maps a `float` to a `bit`) may be used to achieve this compression.
@@ -113,8 +113,8 @@ The default rescoring behavior is determined by the `mode` and `compression_leve
 | Compression level | Default rescore `oversample_factor` |
 |:------------------|:------------------------------------|
 | `32x` (default)   | 2.0                                 |
-| `16x`             | 3.0                                 |
-| `8x`              | 2.0                                 |
+| `16x`             | 1.0                                 |
+| `8x`              | 1.0                                 |
 | `4x`              | 1.0                                 |
 | `2x`              | No default rescoring                |
 
