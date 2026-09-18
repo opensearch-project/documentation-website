@@ -253,6 +253,120 @@ You will most likely not need to specify any parameters except for `location`. F
 
 You will most likely not need to specify any parameters except for `bucket` and `base_path`. For allowed request parameters, see [Register or update snapshot repository API]({{site.url}}{{site.baseurl}}/api-reference/snapshots/create-repository/).
 
+### Google Cloud Storage
+
+1. To use Google Cloud Storage (GCS) as a snapshot repository, install the `repository-gcs` plugin on all nodes:
+
+   ```bash
+   sudo ./bin/opensearch-plugin install repository-gcs
+   ```
+
+   If you're using the Docker installation, see [Working with plugins]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/#working-with-plugins). Your `Dockerfile` should look similar to the following:
+
+   ```dockerfile
+   FROM opensearchproject/opensearch:{{site.opensearch_version}}
+
+   RUN /usr/share/opensearch/bin/opensearch-plugin install --batch repository-gcs
+   ```
+
+Choose one of the following authentication methods for connecting to GCS. All GCS client settings, including authentication, are configured per named client (`gcs.client.<client_name>.*`), a repository uses the `default` client unless you specify a different `client` setting when registering it.
+
+#### Option 1: Service account key file
+
+Add your GCS service account credentials JSON file to the OpenSearch keystore as a secure file:
+
+```bash
+sudo ./bin/opensearch-keystore add-file gcs.client.default.credentials_file /path/to/service-account.json
+```
+{% include copy.html %}
+
+#### Option 2: Application Default Credentials (ADC)
+
+If you don't want to create and manage a long-lived service account key, leave `gcs.client.<client_name>.credentials_file` unset. Its absence is what causes the plugin to fall back to [Application Default Credentials](https://cloud.google.com/docs/authentication/application-default-credentials), which the GCS client library resolves, in order, from:
+
+1. The file referenced by the `GOOGLE_APPLICATION_CREDENTIALS` environment variable. This can be either a service account key or an external account configuration file (see Option 3).
+1. User credentials set by running `gcloud auth application-default login`. This is typically used only for local development and testing.
+1. The service account attached to the underlying compute environment—for example, a Google Compute Engine (GCE) instance profile or a Google Kubernetes Engine (GKE) node using Workload Identity—retrieved automatically from the instance metadata server.
+
+When ADC is in use, each node logs the following message at startup:
+
+```txt
+"Application Default Credentials" will be in use
+```
+
+#### Option 3: External account credentials (Workload Identity Federation)
+
+External account credentials are a form of ADC that let OpenSearch nodes authenticate to GCS without ever holding a Google service account key:
+
+1. Generate an external account credential configuration file, for example, with `gcloud iam workload-identity-pools create-cred-config`. This file maps an external identity—such as a GKE pod's Kubernetes service account token—to a Google Cloud service account through [Workload Identity Federation](https://cloud.google.com/iam/docs/workload-identity-federation).
+1. Distribute the file to every node and set the `GOOGLE_APPLICATION_CREDENTIALS` environment variable to its path before starting OpenSearch, for example, in the systemd unit file, the `Dockerfile`, or the pod spec.
+1. Leave `gcs.client.<client_name>.credentials_file` unset, as in Option 2, so that the plugin falls back to ADC, which in turn resolves the external account configuration.
+
+On GKE, this lets pods authenticate as a Google service account through Workload Identity without ever creating or distributing a JSON key.
+
+#### Client settings
+
+(Optional) Add other client settings to `opensearch.yml`:
+
+```yml
+gcs.client.default.endpoint: https://storage.googleapis.com # override the GCS endpoint; you probably don't need to change this value
+gcs.client.default.project_id: my-gcp-project # overrides the project ID that is otherwise inferred from the credentials
+gcs.client.default.universe_domain: googleapis.com # override the GCP universe domain; only needed for GCP "Trusted Partner Cloud" sovereign-cloud deployments that operate under a non-default universe domain
+gcs.client.default.connect_timeout: 5s # timeout for establishing a connection; -1 for infinite, 0 (default) to use the GCS SDK default
+gcs.client.default.read_timeout: 30s # timeout for reading data from an established connection; -1 for infinite, 0 (default) to use the GCS SDK default
+gcs.client.default.token_uri: https://oauth2.googleapis.com/token # override the OAuth token server URI; you probably don't need to change this value
+gcs.client.default.proxy.type: HTTP # DIRECT (default, no proxy), HTTP, or SOCKS
+gcs.client.default.proxy.host: my-proxy-host # the hostname for your proxy server; required if proxy.type isn't DIRECT
+gcs.client.default.proxy.port: 8080 # port for your proxy server; required if proxy.type isn't DIRECT
+gcs.client.default.truststore.path: /usr/share/opensearch/config/gcs-truststore.p12 # path to a custom truststore for TLS connections to GCS; if omitted, the bundled Google CA certificates are used
+gcs.client.default.truststore.type: PKCS12 # truststore type, for example, PKCS12, JKS, or BCFKS; required if truststore.path is set
+```
+{% include copy.html %}
+
+The `gcs.client.<client_name>.application_name` setting (sent as the HTTP `user-agent` header) is deprecated and no longer needs to be set.
+{: .note}
+
+(Optional) If you connect to GCS through an authenticated proxy, add the proxy credentials to the keystore:
+
+```bash
+sudo ./bin/opensearch-keystore add gcs.client.default.proxy.username
+sudo ./bin/opensearch-keystore add gcs.client.default.proxy.password
+```
+{% include copy.html %}
+
+(Optional) If your truststore requires a password, add it to the keystore:
+
+```bash
+sudo ./bin/opensearch-keystore add gcs.client.default.truststore.password
+```
+{% include copy.html %}
+
+If you changed `opensearch.yml`, you must restart each node in the cluster. Otherwise, you only need to reload secure cluster settings:
+
+```
+POST /_nodes/reload_secure_settings
+```
+{% include copy-curl.html %}
+
+1. Create a GCS bucket if you don't already have one, and grant the identity you configured above the permissions needed to take snapshots, for example, by binding the `roles/storage.objectAdmin` IAM role scoped to that bucket.
+
+1. Register the repository using the REST API:
+
+   ```json
+   PUT /_snapshot/my-gcs-repository
+   {
+     "type": "gcs",
+     "settings": {
+       "bucket": "my-gcs-bucket",
+       "base_path": "my/snapshot/directory",
+       "client": "default"
+     }
+   }
+   ```
+   {% include copy-curl.html %}
+
+You will most likely not need to specify any parameters except for `bucket` and `base_path`. `client` defaults to `default` and only needs to be set if you configured a differently named client in `opensearch.yml`. For allowed request parameters, see [Register or update snapshot repository API]({{site.url}}{{site.baseurl}}/api-reference/snapshots/create-repository/).
+
 ### HDFS
 
 To use Hadoop Distributed File System (HDFS) as a snapshot repository, follow these steps:
