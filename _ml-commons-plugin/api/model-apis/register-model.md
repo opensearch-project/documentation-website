@@ -195,6 +195,7 @@ Field | Data type | Required/Optional | Description
 `rate_limiter` | Object | Optional | Limits the number of times that any user can call the Predict API on the model. For more information, see [Rate limiting inference calls]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/#rate-limiting-inference-calls).
 `guardrails`| Object | Optional | The guardrails for the model input. For more information, see [Guardrails](#the-guardrails-parameter).|
 `interface`| Object | Optional | The interface for the model. For more information, see [Interface](#the-interface-parameter).|
+`batch_inference_config` | Object | Optional | Configures server-side batching for an externally hosted model. For more information, see [The `batch_inference_config` parameter](#the-batch_inference_config-parameter). |
 `provisioned_by` | String | Optional | An optional attribution tag identifying the plugin or client that registered the model (for example, `flow-framework`). Included in ML statistics metrics.
 
 ## Example request: Externally hosted with a standalone connector
@@ -467,6 +468,42 @@ OpenSearch responds with the `task_id`, task `status`, and `model_id`:
     "model_id": "t8qvDY4BChVAiNVEuo8q"
 }
 ```
+
+## The `batch_inference_config` parameter
+
+The `batch_inference_config` parameter sets size limits for remote model calls and can enable queueing across compatible prediction requests. At least one of `max_items_per_request` and `max_bytes_per_request` must be set to a positive value.
+
+Field | Data type | Required/Optional | Default | Description
+:---  | :--- | :--- | :--- | :---
+`max_items_per_request` | Integer | Conditionally required | `-1` (disabled) | The maximum number of texts in one remote model call. Omit this parameter or set it to `-1` to disable the item-count limit.
+`max_bytes_per_request` | Long | Conditionally required | `-1` (disabled) | The maximum combined UTF-8 size of the text inputs in one remote model call. This limit excludes the other fields in the connector request body. Set the value below the endpoint's payload limit to leave room for those fields. Omit this parameter or set it to `-1` to disable the text-size limit.
+`queue` | Object | Optional | Queueing disabled | Configures queueing across compatible requests.
+`queue.enabled` | Boolean | Optional | `false` | When `true`, combines compatible concurrent requests for the same model into shared remote calls.
+`queue.flush_timeout_ms` | Long | Optional | `50` | The maximum time, in milliseconds, that the first request waits for compatible requests. Valid values are `1`–`10,000`. The queue can flush earlier when it reaches a configured size limit.
+
+### Example request
+
+The following example configures both size-based splitting and cross-request queueing:
+
+```json
+POST /_plugins/_ml/models/_register
+{
+  "name": "remote-embedding-model",
+  "function_name": "remote",
+  "connector_id": "<connector_id>",
+  "batch_inference_config": {
+    "max_items_per_request": <max_texts_per_request>,
+    "max_bytes_per_request": <text_byte_limit>,
+    "queue": {
+      "enabled": true,
+      "flush_timeout_ms": <flush_timeout_ms>
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+Obtain the item-count (`max_items_per_request`) and payload (`max_bytes_per_request`) limits from the official documentation for the exact model and provider. For a custom endpoint, use the limits configured on the model server. The default value of `flush_timeout_ms` is `50`. For more information about choosing these values and using the two batching behaviors, see [Server-side batch inference]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/server-side-batch-inference/).
 
 ## Check the status of model registration
 
