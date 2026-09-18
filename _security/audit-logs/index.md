@@ -49,10 +49,7 @@ Audit logging is disabled by default. To enable audit logging:
 Audit logging requires two settings: a storage type (`plugins.security.audit.type`) in `opensearch.yml` and `config.enabled: true` in `audit.yml`. The `audit.yml` file provided by the Security plugin sets `config.enabled` to `true` by default, so audit logging can appear to be enabled in a new cluster. Until you specify a storage type, the Security plugin cannot create a storage endpoint for the audit log, so it does not record any events and logs a warning at startup that no default storage is available.
 {: .note}
 
-After this initial setup, you can use OpenSearch Dashboards to manage your audit log categories and other settings. In OpenSearch Dashboards, select **Security** and then **Audit logs**. 
-
-An alternative is to specify initial settings for audit logging in the `audit.yml` and `opensearch.yml` files (which file depends on the setting---see [Audit log settings](#audit-log-settings)). Thereafter, you can use Dashboards or the [Audit logs]({{site.url}}{{site.baseurl}}/security/api/audit/) API to manage and update settings.
-After this initial setup, you can use OpenSearch Dashboards to manage your audit log categories and other settings. In OpenSearch Dashboards, select **Security** and then **Audit logs**. Alternatively, you can specify settings for audit logging in the `audit.yml` and `opensearch.yml` files (which file depends on the setting---see [Audit log settings](#audit-log-settings)). You can also use the [Audit logs]({{site.url}}{{site.baseurl}}/security/access-control/api/#audit-logs) API to manage and update settings.
+After this initial setup, you can use OpenSearch Dashboards to manage your audit log categories and other settings. In OpenSearch Dashboards, select **Security** and then **Audit logs**. Alternatively, you can specify settings for audit logging in the `audit.yml` and `opensearch.yml` files (which file depends on the setting---see [Audit log settings](#audit-log-settings)). You can also use the [Audit logs]({{site.url}}{{site.baseurl}}/security/api/audit/) API to manage and update settings.
 
 
 ## Tracked events
