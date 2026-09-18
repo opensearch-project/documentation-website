@@ -48,7 +48,7 @@ Creating a vector index involves the following key steps:
    Set `index.knn` to `true` in the index settings to enable k-NN search functionality.
 
 1. **Define a vector field**:
-   Specify the field that will store the vector data. When defining a `knn_vector` field in OpenSearch, you can select from different data types to balance storage requirements and performance. By default, k-NN vectors are float vectors, but you can also choose byte or binary vectors for more efficient storage. For more information, see [k-NN vector]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-vector/).
+   Specify the field that will store the vector data. When defining a `knn_vector` field in OpenSearch, you can select from different data types to balance storage requirements and performance. By default, k-NN vectors are float vectors, but you can also choose half-float, byte, or binary vectors for more efficient storage. For more information, see [k-NN vector]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-vector/).
 
 1. **Specify the dimension**:
    Set the `dimension` property to match the size of the vectors used.

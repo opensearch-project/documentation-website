@@ -21,7 +21,7 @@ OpenSearch supports the following vector workload modes.
 | Mode    | Default engine | Description                                                                                                                                                                                                                                             |
 |:---|:---|:---|
 | `in_memory` (Default) | `faiss`        | Prioritizes low-latency search. This mode uses the `faiss` engine without any quantization applied. It is configured with the default parameter values for vector search in OpenSearch.                                                                 |
-| `on_disk`             | `faiss`        | Prioritizes low-cost vector search while maintaining strong recall. By default, the `on_disk` mode uses quantization and rescoring to execute a two-phase approach in order to retrieve the top neighbors. The `on_disk` mode supports only `float` vector types. |
+| `on_disk`             | `faiss`        | Prioritizes low-cost vector search while maintaining strong recall. By default, the `on_disk` mode uses quantization and rescoring to execute a two-phase approach in order to retrieve the top neighbors. The `on_disk` mode supports only `float` and `half_float` vector types. |
 
 To create a vector index that uses the `on_disk` mode for low-cost search, send the following request:
 
@@ -51,18 +51,18 @@ PUT test-index
 
 The `compression_level` mapping parameter selects a quantization encoder that reduces vector memory consumption by the given factor. The following table lists the available `compression_level` values.
 
-| Compression level | Supported engines                            |
-|:------------------|:---------------------------------------------|
-| `1x`              | `faiss`, `lucene`, and `nmslib` (deprecated) |
-| `2x`              | `faiss`                                      |
-| `4x`              | `lucene`                                     |
-| `8x`              | `faiss`                                      |
-| `16x`             | `faiss`                                      |
-| `32x`             | `faiss` and `lucene`                         |
+| Compression level | Supported engines                            | Supported data types    |
+|:------------------|:---------------------------------------------|:------------------------|
+| `1x`              | `faiss`, `lucene`, and `nmslib` (deprecated) | `float`, `half_float`   |
+| `2x`              | `faiss`                                      | `float`                 |
+| `4x`              | `lucene`                                     | `float`                 |
+| `8x`              | `faiss`                                      | `float`                 |
+| `16x`             | `faiss`                                      | `float`, `half_float`   |
+| `32x`             | `faiss` and `lucene`                         | `float`                 |
 
 For example, if a `compression_level` of `32x` is passed for a `float32` index of 768-dimensional vectors, the per-vector memory is reduced from `4 * 768 = 3072` bytes to `3072 / 32 = 846` bytes. Internally, binary quantization (which maps a `float` to a `bit`) may be used to achieve this compression.
 
-If you set the `compression_level` parameter, then you cannot specify an `encoder` in the `method` mapping. Compression levels greater than `1x` are only supported for `float` vector types.
+If you set the `compression_level` parameter, then you cannot specify an `encoder` in the `method` mapping. The `compression_level` parameter is supported only for `float` vectors and, starting with OpenSearch 3.9, [`half_float` vectors](#half-float-vectors); `byte` and `binary` vectors do not support it. For `half_float` vectors, the compression level is measured against their 16-bit baseline, so `16x` maps each dimension to a single bit, and `1x` stores the vectors as unquantized 16-bit floating-point values.
 {: .note}
 
 Starting with OpenSearch 3.1, enabling `on_disk` mode with a `1x` compression level activates [memory-optimized search]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/memory-optimized-search/). In this mode, the engine loads data on demand during search instead of loading all data into memory at once.
@@ -166,6 +166,60 @@ Rescoring is available only for the Faiss and Lucene engines.
 Rescoring is not needed if quantization is not used because the scores returned are already fully precise.
 {: .note}
 
+
+## Half-float vectors
+**Introduced 3.9**
+{: .label .label-purple }
+
+By default, k-NN vectors are `float` vectors, in which each dimension is 4 bytes. If you want to reduce memory and storage requirements by half, you can use `half_float` vectors. In a `half_float` vector, each dimension is a 16-bit floating-point (FP16) value in the [-65504.0, 65504.0] range. If any vector value is outside of this range, the request is rejected.
+
+To use `half_float` vectors, set the `data_type` parameter to `half_float` when creating mappings for an index. You ingest and query `half_float` vectors the same way as `float` vectors; OpenSearch stores them natively in the FP16 format.
+
+Half-float vectors are supported for the `hnsw` method with the `faiss` or `lucene` engine and for [exact search using scalar quantization]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/exact-search-scalar-quantization/) with the `flat` method. All of these configurations support both the `1x` and `16x` compression levels. Half-float vectors are not supported for the `nmslib` engine, the `ivf` method, or [trained models]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-vector/#model-ids).
+{: .note}
+
+Because the vectors are already 16-bit, `half_float` fields do not accept an `encoder` in the `method` mapping. To apply quantization, use the `compression_level` mapping parameter instead. Half-float vectors support the following compression levels:
+
+- `1x`: Unquantized FP16 storage (2 bytes per dimension).
+- `16x`: 1-bit scalar quantization. For `half_float` vectors, the compression level is measured against their 16-bit baseline, so `16x` maps each dimension to a single bit.
+
+The following example creates a half-float vector index with the `faiss` engine and `hnsw` algorithm:
+
+```json
+PUT test-index
+{
+  "settings": {
+    "index": {
+      "knn": true
+    }
+  },
+  "mappings": {
+    "properties": {
+      "my_vector": {
+        "type": "knn_vector",
+        "dimension": 8,
+        "space_type": "l2",
+        "data_type": "half_float",
+        "method": {
+          "name": "hnsw",
+          "engine": "faiss"
+        }
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+### Memory estimation
+
+Half-float vectors require half the memory of `float` vectors. The memory required for HNSW can be estimated as `1.1 * (2 * dimension + 8 * m)` bytes/vector, where `m` is the maximum number of bidirectional links created for each element during graph construction.
+
+As an example, assume that you have 1 million half-float vectors with a dimension of 256 and an `m` of 16. The memory requirement can be estimated as follows:
+
+```r
+1.1 * (2 * 256 + 8 * 16) * 1,000,000 ~= 0.656 GB
+```
 
 ## Byte vectors
 
