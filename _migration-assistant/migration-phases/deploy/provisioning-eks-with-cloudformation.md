@@ -1,30 +1,15 @@
 ---
 layout: default
-title: Deploy on Amazon EKS
-nav_order: 2
-grand_parent: Migration workflows
-parent: Choose your deployment
+title: CloudFormation
+nav_order: 1
+parent: Deploy on Amazon EKS
+grand_parent: Choose your deployment
 permalink: /migration-assistant/migration-phases/deploy/deploying-to-eks/
 ---
 
-# Deploy on Amazon EKS
+# Provision with CloudFormation
 
-This is the recommended production path on AWS. You receive the same Migration Assistant engine and workflows as generic Kubernetes, but the Amazon Elastic Kubernetes Service (EKS) tooling removes much of the AWS platform work that otherwise delays migrations.
-
-EKS makes the migration **easier to deploy, easier to secure, and easier to operate** without changing how migrations run.
-
-## EKS deployment components
-
-The bootstrap path prepares AWS infrastructure around the workflow engine, including:
-
-- EKS cluster deployment into a new or existing virtual private cloud (VPC).
-- Pod identity for the Migration Console and workflow pods.
-- Image mirroring and VPC endpoint support for isolated subnets.
-- Default Amazon Simple Storage Service (Amazon S3) bucket and snapshot-role helpers.
-- Amazon CloudWatch logging and dashboards.
-- AWS-aware storage and node-pool defaults.
-
-If you are migrating to or from Amazon OpenSearch Service, this is usually the shortest path to a working production setup.
+The bootstrap script provisions the Amazon Elastic Kubernetes Service (EKS) infrastructure for Migration Assistant using AWS CloudFormation. It creates the cluster, virtual private cloud (VPC) networking, image mirroring, snapshot helpers, and Amazon CloudWatch integration, then installs the Migration Assistant Helm chart.
 
 ## Prerequisites
 
@@ -33,11 +18,16 @@ Before you begin, make sure you have the following:
 - An AWS account with permissions for AWS CloudFormation, Amazon EKS, AWS Identity and Access Management (IAM), Amazon EC2, Amazon Elastic Container Registry (Amazon ECR), Amazon S3, Amazon CloudWatch, and related services.
 - Either AWS CloudShell or a local terminal with AWS CLI v2, `kubectl`, and Helm installed. AWS CloudShell is recommended because it comes preconfigured with the required tools and avoids platform-specific issues (for example, the `tac` command used by the bootstrap script is not available on macOS by default).
 
+If your migration must not traverse the public internet, read [Private networking]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/private-networking-on-eks/) before you begin. The bootstrap script creates the VPC endpoints the cluster needs, but it does not establish a private path to the source or target cluster, so arrange that connection yourself. AWS PrivateLink also requires the cluster's provider to allow-list your account and accept the endpoint connection, and VPC peering requires the peer to accept the connection and add a reciprocal route.
+{: .note }
+
 ## Deployment label
 
-Throughout this playbook, `<STAGE>` is a short label such as `dev`, `staging`, or `prod`. It is used in cluster and resource names so you can keep multiple deployments separate.
+Throughout this page, `<STAGE>` is a short label such as `dev`, `staging`, or `prod`. It is used in cluster and resource names so you can keep multiple deployments separate.
 
 ## Step 1: Download the bootstrap script
+
+Run these steps from AWS CloudShell or a local terminal with the tools listed in [Prerequisites](#prerequisites). CloudShell is recommended because it comes preconfigured and avoids platform-specific issues.
 
 Download the bootstrap script:
 
@@ -61,12 +51,12 @@ The following flags cover the most common cases. The script always installs the 
 | | `--skip-cfn-deploy` | Skip CloudFormation. Use when the stack already exists and you only want to re-bootstrap the cluster |
 | **Identity** | `--stack-name <name>` | CloudFormation stack name (required with `--deploy-*-cfn`) |
 | | `--stage <name>` | Short label for cluster and resource names. Defaults to `dev` |
-| | `--region <region>` | AWS region |
+| | `--region <region>` | AWS Region |
 | | `--vpc-id <id>` | Existing VPC ID (with `--deploy-import-vpc-cfn`) |
 | | `--subnet-ids <id1,id2>` | Comma-separated subnets in different AZs (with `--deploy-import-vpc-cfn`) |
 | **Versioning** | `--version <tag>` | Pin to a published GitHub release tag. Find tags at [the GitHub releases page](https://github.com/opensearch-project/opensearch-migrations/releases). Use this for reproducible deployments. |
 | | `--build` | Build all artifacts from source (requires a repo checkout). Mutually exclusive with `--version` |
-| **Networking** | `--create-vpc-endpoints` | Create the five VPC endpoints needed for isolated subnets (S3, ECR API, ECR Docker, CloudWatch Logs, EFS) |
+| **Networking** | `--create-vpc-endpoints` | Create the five VPC endpoints needed for isolated subnets |
 | | `--use-public-images` | Skip mirroring images into private ECR. Use only when the cluster has internet access and you do not want a private mirror |
 | | `--ma-images-source <registry>` | Copy Migration Assistant images from another ECR registry. Useful when images were built on a separate cluster with internet access |
 | **Access** | `--eks-access-principal-arn <arn>` | Grant a CI role or teammate cluster-admin access. Combine with `--skip-cfn-deploy --skip-console-exec` to grant access without redeploying |
@@ -183,30 +173,9 @@ aws cloudformation describe-stacks \
 ```
 {% include copy.html %}
 
-## Authentication on EKS
-
-Migration Assistant supports the following authentication methods on EKS.
-
-### Basic authentication
-
-Basic authentication works the same way as generic Kubernetes: create Kubernetes secrets and reference them in `authConfig.basic.secretName`.
-
-### Authenticate with AWS Signature Version 4
-
-AWS Signature Version 4 authentication is the primary advantage of deploying on EKS.
-
-For sources or targets authenticated using AWS Signature Version 4, the EKS stack uses [IAM Roles for Service Accounts (IRSA)](https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html) to assign an AWS identity to two sets of pods:
-
-- The Migration Console pod (`migration-console-0`), which runs under the `migration-console-access-role` service account.
-- The Argo workflow executor pods, which run under the `argo-workflow-executor` service account.
-
-This means the console and the migration jobs can authenticate to Amazon OpenSearch Service and other AWS services without you manually distributing long-lived AWS credentials.
-
-This is one of the main reasons EKS is the recommended AWS production path.
-
 ## Private or isolated networks
 
-If your subnets do not have direct internet access, the bootstrap script mirrors images into private ECR by default and creates the VPC endpoints needed to pull from inside the cluster:
+If your subnets do not have direct internet access, add `--create-vpc-endpoints` so that the script creates the VPC endpoints the cluster needs to pull images from inside the VPC:
 
 ```bash
 ./aws-bootstrap.sh \
@@ -216,16 +185,12 @@ If your subnets do not have direct internet access, the bootstrap script mirrors
   --stage prod \
   --vpc-id vpc-xxx \
   --subnet-ids subnet-aaa,subnet-bbb \
-  --region us-east-1 \
+  --region us-east-2 \
   --version 3.2.1
 ```
 {% include copy.html %}
 
-The mirroring step runs from your machine (which has internet), copies the release images and Helm charts to ECR, then the EKS cluster pulls everything through VPC endpoints. The endpoints created are: Amazon S3, Amazon ECR API, Amazon ECR Docker, CloudWatch Logs, and Amazon Elastic File System (Amazon EFS).
-
-If your deployment also requires STS or EKS Authentication endpoints (for example, for IRSA or EKS Pod Identity), create those separately before running the bootstrap script.
-
-If you prefer to manage VPC endpoints with another tool, omit `--create-vpc-endpoints`. The script still mirrors images and uses your existing endpoints.
+For the endpoints this creates, the additional endpoints some deployments need, and how to reach a source or target privately, see [Private networking]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/private-networking-on-eks/#private-networks-with-the-bootstrap-script).
 
 <!-- vale off -->
 ## Grant kubectl access to a CI role or teammate
@@ -270,6 +235,8 @@ If CloudFormation succeeded but the Helm portion failed, rerun only the bootstra
 {% include copy.html %}
 
 ## Removal
+
+Once you no longer need Migration Assistant for rollback, replay, or comparison, remove it. Do not remove it immediately after cutover. For the readiness checklist, see [Removing migration infrastructure]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/remove-migration-infrastructure/).
 
 To remove Migration Assistant from EKS, run the following commands:
 
