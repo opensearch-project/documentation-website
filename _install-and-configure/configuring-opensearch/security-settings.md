@@ -195,7 +195,7 @@ The Security plugin supports the following audit log settings:
 
 - `plugins.security.audit.config.http_endpoints` (Static): A list of endpoints for `localhost`.
 
-- `plugins.security.audit.config.index` (Static): The audit log index. The default is `auditlog6`. The index can be static or an index that includes a date so that it rotates on a daily basis, for example, `"'auditlog6-'YYYY.MM.dd"`. In either case, make sure to secure the index properly.
+- `plugins.security.audit.config.index` (Static): The audit log index. The default is `security-auditlog`. The index can be static or an index that includes a date so that it rotates on a daily basis, for example, `"'security-auditlog-'YYYY.MM.dd"`. In either case, make sure to secure the index properly.
 
 - `plugins.security.audit.config.type` (Static): Specify the audit log type as `auditlog`.
 
@@ -251,7 +251,9 @@ The Security plugin supports the following audit log settings:
 
 - `opendistro_security.audit.config.disabled_transport_categories` (Dynamic): A list of transport layer categories to be ignored by the logger. Valid values are `AUTHENTICATED` and `GRANTED_PRIVILEGES`.
 
-The dynamic audit filter settings (except `plugins.security.audit.config.body_logging_exclusions`) and all `plugins.security.audit.compliance.*` settings are registered with `Setting.Property.Sensitive`, which keeps their values out of diagnostics and logs. In standalone SSL-only mode, any caller can read the non-secret dynamic configuration under `plugins.security.audit.config.*` and `plugins.security.audit.compliance.*` using `GET _cluster/settings`. Credential-bearing sink settings, including endpoint and route credentials, PEM keys, and salt, remain hidden. In FGAC mode, the entire `plugins.security.audit.*` subtree is filtered from settings responses for all callers; this filtering is not role-based. The static `plugins.security.audit.config.action_groups.<NAME>` setting is also not marked sensitive.
+The dynamic audit filter settings (except `plugins.security.audit.config.body_logging_exclusions`) and all `plugins.security.audit.compliance.*` settings are registered with `Setting.Property.Sensitive`. This property does not redact values from diagnostics or logs; that behavior is controlled by `Setting.Property.Filtered`. When `SecurityFilter` is registered in the request pipeline, a `PUT _cluster/settings` update to one of these keys is rejected unless the caller holds a role listed in `plugins.security.restapi.roles_enabled`. Because `SecurityFilter` is not registered in standalone SSL-only or security-disabled mode, this write restriction is not enforced in either mode. The `body_logging_exclusions` setting is not marked sensitive and does not require the elevated role when the filter is registered.
+
+Read visibility also varies by mode. In SSL-only mode, any caller can read the non-secret dynamic configuration under `plugins.security.audit.config.*` and `plugins.security.audit.compliance.*` with `GET _cluster/settings`; credential-bearing sink settings remain hidden. In security-disabled mode, no `plugins.security.audit.*` settings are filtered, so sink credentials and PEM content may be visible in settings responses. In FGAC mode, the entire `plugins.security.audit.*` subtree is filtered from settings responses for all callers; this filtering is not role-based. The static `plugins.security.audit.config.action_groups.<NAME>` setting is also not marked sensitive.
 
 ## Hostname verification and DNS lookup settings
 
@@ -453,7 +455,7 @@ plugins.security.audit.type: internal_opensearch
 #
 # external_opensearch settings
 plugins.security.audit.config.http_endpoints: ['localhost:9200','localhost:9201','localhost:9202']
-plugins.security.audit.config.index: "'auditlog6-'2023.06.15"
+plugins.security.audit.config.index: "'security-auditlog-'2023.06.15"
 plugins.security.audit.config.type: auditlog
 plugins.security.audit.config.username: auditloguser
 plugins.security.audit.config.password: auditlogpassword

@@ -52,7 +52,7 @@ Audit logging requires two settings: a storage type (`plugins.security.audit.typ
 After this initial setup, you can use OpenSearch Dashboards to manage your audit log categories and other settings. In OpenSearch Dashboards, select **Security** and then **Audit logs**. 
 
 An alternative is to specify initial settings for audit logging in the `audit.yml` and `opensearch.yml` files (which file depends on the setting---see [Audit log settings](#audit-log-settings)). Thereafter, you can use Dashboards or the [Audit logs]({{site.url}}{{site.baseurl}}/security/api/audit/) API to manage and update settings.
-After this initial setup, you can specify settings for audit logging in the `audit.yml` and `opensearch.yml` files (which file depends on the setting---see [Audit log settings](#audit-log-settings)). You can also use the [Audit logs]({{site.url}}{{site.baseurl}}/security/access-control/api/#audit-logs) API to manage and update settings.
+After this initial setup, you can use OpenSearch Dashboards to manage your audit log categories and other settings. In OpenSearch Dashboards, select **Security** and then **Audit logs**. Alternatively, you can specify settings for audit logging in the `audit.yml` and `opensearch.yml` files (which file depends on the setting---see [Audit log settings](#audit-log-settings)). You can also use the [Audit logs]({{site.url}}{{site.baseurl}}/security/access-control/api/#audit-logs) API to manage and update settings.
 
 
 ## Tracked events
@@ -70,14 +70,14 @@ Event | Logged on REST | Logged on transport | Description
 `BAD_HEADERS` | Yes | Yes | An attempt was made to spoof a request to OpenSearch with the Security plugin internal headers.
 `CLUSTER_SETTINGS_CHANGED` | No | Yes | A persistent or transient cluster setting was changed. Disabled by default.
 `INDEX_SETTINGS_CHANGED` | No | Yes | An index setting was changed. Disabled by default.
-`REQUEST_AUDIT` | Yes | No | A REST-layer request was received and processed. Generated in [standalone audit logging]({{site.url}}{{site.baseurl}}/security/audit-logs/standalone/) mode only.
+`REQUEST_AUDIT` | Yes | Yes | A REST request was received and processed. Generated in [standalone audit logging]({{site.url}}{{site.baseurl}}/security/audit-logs/standalone/) mode only. See the note below the table for how this event is suppressed.
 `TRANSPORT_AUDIT` | No | Yes | A transport-layer request was received on a node. Generated in [standalone audit logging]({{site.url}}{{site.baseurl}}/security/audit-logs/standalone/) mode only.
 `RESOURCE_ACCESS_GRANTED` | No | Yes | Access to a shared resource was granted. Disabled by default.
 `RESOURCE_ACCESS_DENIED` | No | Yes | Access to a shared resource was denied. Disabled by default.
 `RESOURCE_SHARING_CHANGED` | No | Yes | A resource sharing configuration was changed. Disabled by default.
 
 
-Although `REQUEST_AUDIT` records a REST-origin request (`audit_request_origin: REST`), its internal request layer is `TRANSPORT` (`audit_request_layer: TRANSPORT`). It can therefore be suppressed by `disabled_transport_categories` as well as the unified `disabled_categories` setting.
+`REQUEST_AUDIT` originates from a REST request (`audit_request_origin: REST`), but the event itself is recorded with `audit_request_layer: TRANSPORT`. As a result, it can be suppressed by any of `disabled_categories`, `disabled_transport_categories`, or `disabled_rest_categories`---adding `REQUEST_AUDIT` to any one of these settings suppresses the event.
 {: .note}
 
 ## Audit log settings
@@ -279,26 +279,14 @@ config:
 
 ### Settings in opensearch.yml
 
-The following settings are stored in the `opensearch.yml` file. The audit filter and compliance settings---for example, `log_request_body`, `resolve_indices`, `disabled_categories`, and the `plugins.security.audit.compliance.*` settings---are dynamic: they can be changed at runtime using the [Cluster settings API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/) without a node restart. Most of these dynamic settings are registered with `Setting.Property.Sensitive`, which keeps their values out of diagnostics and logs; `body_logging_exclusions` is a dynamic setting that is not marked sensitive. In standalone SSL-only mode, any caller can read the non-secret dynamic audit configuration (`plugins.security.audit.config.*` and `plugins.security.audit.compliance.*`) using `GET _cluster/settings`. Credential-bearing sink settings remain hidden. In FGAC mode, the entire `plugins.security.audit.*` subtree is filtered from settings responses for all callers. This read filtering is not role-based. Other audit settings---such as `action_groups.<NAME>`, `log4j.enable_mdc_routing`, `config.index`, the thread pool settings, and the sink connection settings---are static and require a node restart.
+The following settings are stored in the `opensearch.yml` file. Runtime behavior depends on the audit logging mode. In standalone mode (SSL-only or security-disabled), audit filter and compliance settings with registered update consumers can be changed at runtime using the [Cluster settings API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/) without a node restart. Examples include `log_request_body`, `resolve_indices`, `disabled_categories`, `enable_rest`, `enable_transport`, `ignore_users`, and `ignore_requests`. In standard mode with FGAC, the audit configuration is stored in `audit.yml`; the corresponding `plugins.security.audit.config.*` and `plugins.security.audit.compliance.*` cluster settings do not update that configuration. A `PUT _cluster/settings` request can return `200 OK` without changing audit behavior. The `body_logging_exclusions` setting is the exception in FGAC and has a cluster-settings update consumer.
 
-#### Enable or disable audit logging
+`Setting.Property.Sensitive` controls authorization for dynamic writes, not redaction. When `SecurityFilter` is registered in the request pipeline, updating a sensitive key requires a role listed in `plugins.security.restapi.roles_enabled`. It does not keep values out of diagnostics or logs; that behavior is controlled by `Setting.Property.Filtered`. The `body_logging_exclusions` setting is not marked sensitive.
 
-```yml
-plugins.security.audit.enabled: true
-```
-{% include copy.html %}
+Read visibility also varies by mode. In standalone SSL-only mode, any caller can read the non-secret dynamic audit configuration (`plugins.security.audit.config.*` and `plugins.security.audit.compliance.*`) using `GET _cluster/settings`; credential-bearing sink settings remain hidden. In security-disabled mode, no `plugins.security.audit.*` settings are filtered, so sink credentials and PEM content may be visible in settings responses. In FGAC mode, the entire `plugins.security.audit.*` subtree is filtered from settings responses for all callers. This read filtering is not role-based. Other audit settings---such as `action_groups.<NAME>`, `log4j.enable_mdc_routing`, `config.index`, the thread pool settings, and the sink connection settings---are static and require a node restart.
 
-Enables or disables audit logging globally. Default is `true`. This setting is dynamic and can be toggled at runtime:
-
-```json
-PUT _cluster/settings
-{
-  "persistent": {
-    "plugins.security.audit.enabled": false
-  }
-}
-```
-{% include copy.html %}
+The `plugins.security.audit.enabled` runtime toggle applies only to standalone audit logging. See [Standalone audit logging]({{site.url}}{{site.baseurl}}/security/audit-logs/standalone/) for instructions.
+{: .note}
 
 #### Exclude categories
 
@@ -388,7 +376,7 @@ Each entry in the list is processed as follows:
 1. If the entry matches a defined action group name, that group's patterns are expanded.
 2. If it does not match any group name, the entry is treated as a raw pattern (literal or wildcard).
 
-For entries that do not match a defined group name, a warning is logged if the entry contains none of `:`, `/`, or `*`, since it is unlikely to match an action or REST path. This check only determines whether to log a warning; the entry is still included in the combined matcher.
+For entries that do not match a defined group name, a warning is logged if the entry contains no `:`, does not start with `/`, and contains no `*`, since it is unlikely to match an action or REST path. Note that this check looks for a leading `/` only, not a `/` anywhere in the entry: an entry such as `_bulk/items` contains a `/` but does not start with one, so the warning is still logged for it. This check only determines whether to log a warning; the entry is still included in the combined matcher.
 
 ##### Bulk request behavior
 
@@ -503,7 +491,7 @@ plugins.security.audit.config.threadpool.max_queue_len: 100000
 
 ## Disabling audit logs
 
-To disable audit logs after they've been enabled, remove the `plugins.security.audit.type: internal_opensearch` setting from `opensearch.yml`, or set `plugins.security.audit.enabled` to `false` via the cluster settings API.
+To disable audit logs after they've been enabled, remove the `plugins.security.audit.type: internal_opensearch` setting from `opensearch.yml`, or switch off the **Enable audit logging** check box in OpenSearch Dashboards. The `plugins.security.audit.enabled` runtime toggle via the cluster settings API applies only to standalone audit logging; see [Standalone audit logging]({{site.url}}{{site.baseurl}}/security/audit-logs/standalone/) for instructions.
 
 ## Audit user account manipulation
 
