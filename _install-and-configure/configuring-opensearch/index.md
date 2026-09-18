@@ -92,6 +92,15 @@ docker run -e "OPENSEARCH_JAVA_OPTS=-Xms2g -Xmx2g" -e "OPENSEARCH_PATH_CONF=/usr
 {% include copy.html %}
 
 
+Docker is the exception to the dot restriction described in [Directly in the shell environment](#directly-in-the-shell-environment). The image's entrypoint reads the container environment and converts any variable whose name looks like a setting, meaning at least two dot-separated lowercase words, plus `processors`, into an `-E` flag:
+
+```bash
+docker run -e "discovery.type=single-node" -e "cluster.name=my-cluster" opensearchproject/opensearch:latest
+```
+{% include copy.html %}
+
+A variable set to an empty value is skipped rather than passed through, so it cannot be used to clear a value set in `opensearch.yml`.
+
 ## Setting precedence
 
 A setting can be supplied in more than one place. When it is, OpenSearch uses the first value it finds in the following order:
