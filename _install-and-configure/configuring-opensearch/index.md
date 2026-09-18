@@ -47,6 +47,21 @@ export OPENSEARCH_PATH_CONF="/etc/opensearch"
 ```
 {% include copy.html %}
 
+Most OpenSearch settings cannot be exported this way. Their names contain dots, and most shells do not accept a dot in a variable name:
+
+```text
+$ export discovery.type=single-node
+bash: export: `discovery.type=single-node': not a valid identifier
+```
+
+The variables you can export directly are the ones the startup scripts read, such as `OPENSEARCH_JAVA_OPTS` and `OPENSEARCH_PATH_CONF`. To supply any other setting from the environment, either pass it as an `-E` flag or reference the variable from `opensearch.yml` with a `${VAR}` placeholder:
+
+```yml
+node.name: ${NODE_NAME}
+cluster.name: ${CLUSTER_NAME}
+```
+{% include copy.html %}
+
 <!-- vale off -->
 ### systemd service
 <!-- vale on --> file
