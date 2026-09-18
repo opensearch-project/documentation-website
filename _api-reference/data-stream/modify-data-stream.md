@@ -1,8 +1,10 @@
 ---
 layout: default
 title: Modify data stream
-parent: Index APIs
-nav_order: 85
+parent: Data stream APIs
+nav_order: 50
+redirect_from:
+  - /api-reference/index-apis/modify-data-stream/
 ---
 
 # Modify Data Stream API
@@ -98,4 +100,4 @@ If you use the Security plugin, make sure you have the appropriate permissions: 
 ## Related documentation
 
 - [Data streams]({{site.url}}{{site.baseurl}}/im-plugin/data-streams/)
-- [Data Stream Stats API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/data-stream-stats/)
+- [Data Stream Stats API]({{site.url}}{{site.baseurl}}/api-reference/data-stream/data-stream-stats/)
