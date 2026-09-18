@@ -49,7 +49,7 @@ The following table lists parameters that can be used with both the `fs` and `s3
 Request field | Description
 :--- | :---
 `prefix_mode_verification` | When enabled, adds a hashed value of a random seed to the prefix for repository verification. For remote-store-enabled clusters, you can add the `setting.prefix_mode_verification` setting to the node attributes for the supplied repository. This field works with both new and existing repositories. Optional.
-`shard_path_type` | Controls the path structure of shard-level blobs. Supported values are `FIXED`, `HASHED_PREFIX`, and `HASHED_INFIX`. For more information about each value, see [shard_path_type values](#shard_path_type-values)/. Default is `HASHED_PREFIX`. Optional.
+`shard_path_type` | Controls the path structure of shard-level blobs. Supported values are `FIXED`, `HASHED_PREFIX`, and `HASHED_INFIX`. For more information about each value, see [shard_path_type values](#shard_path_type-values). Default is `HASHED_PREFIX`. Optional.
 
 <!-- vale off -->
 #### shard_path_type values
@@ -83,8 +83,8 @@ Request field | Description
 
 | Request field                               | Description                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 |:--------------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `base_path` | The path within the bucket in which you want to store snapshots (for example, `my/snapshot/directory`). Optional. If not specified, snapshots are stored in the S3 bucket root. |
-| `bucket` | Name of the S3 bucket. Required. |
+| `base_path` | The path within the bucket in which you want to store snapshots (for example, `my/snapshot/directory`). Do not include the `s3://` prefix. Optional. If not specified, snapshots are stored in the S3 bucket root. |
+| `bucket` | The name of the S3 bucket, without the `s3://` prefix. Required. |
 | `region` | The AWS Region in which the S3 bucket is located. Optional. If missing, values of `s3.client.default.region` from `opensearch.yml` are used. |
 | `endpoint` | The S3 bucket endpoint. Optional. Required if `region` is set for OpenSearch 2.9 and later. For example, for `us-west-2`, use `https://s3.us-west-2.amazonaws.com`. If missing, values of `s3.client.default.endpoint` from `opensearch.yml` are used. |
 | `buffer_size` | The threshold beyond which chunks (of `chunk_size`) should be broken into pieces (of `buffer_size`) and sent to S3 using a different API. Default is the smaller of two values: 100 MB or 5% of the Java heap. Valid values are between `5mb` and `5gb`. We don't recommend changing this option. |
@@ -97,6 +97,7 @@ Request field | Description
 | `max_snapshot_bytes_per_sec` | The maximum rate at which snapshots are taken. Default is 40 MB per second (`40m`). Optional. |
 | `readonly` | Whether the repository is read-only. Useful when migrating from one cluster (`"readonly": false` when registering) to another cluster (`"readonly": true` when registering). Optional. |
 | `remote_store_index_shallow_copy` | Determines whether the snapshot of the remote store indexes is captured as a shallow copy. Default is `false`.
+| `s3_async_client_type` | The asynchronous HTTP client that the `repository-s3` plugin uses when it uploads data to this repository. Valid values are `crt` (the AWS Common Runtime client) and `netty` (the Netty NIO client). For more information, see [s3_async_client_type](#s3_async_client_type). Default is `crt`. Optional. |
 | `shallow_snapshot_v2` | Determines whether the snapshots of the remote store indexes are captured as a [shallow copy v2]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/snapshot-interoperability/#shallow-snapshot-v2). Default is `false`.
 | `storage_class` | Specifies the [S3 storage class](https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html) for the snapshot files. Default is `standard`. Do not use the `glacier` and `deep_archive` storage classes. Optional.                                                                                                                                                                                                                  |
 | `server_side_encryption_type` | Specifies the S3 server-side encryption types. Supported values are `AES256` ([SSE-S3](https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingServerSideEncryption.html)), `aws:kms` ([SSE-AWS Key Management Service (KMS)](https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingKMSEncryption.html)), and `bucket_default` ([bucket default encryption](https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucket-encryption.html)). Default is `AES256`. |
@@ -105,14 +106,21 @@ Request field | Description
 | `server_side_encryption_encryption_context` | Specifies any additional [encryption context](https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingKMSEncryption.html#encryption-context) that should be used when using [S3 SSE-KMS](https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingKMSEncryption.html). This setting value must be formatted as a JSON object. Optional.                                                                                                            |
 | `expected_bucket_owner` | Specifies the AWS account ID of the expected S3 bucket owner. This setting can be used for [verifying bucket ownership](https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucket-owner-condition.html). Optional.                                                                                                                                                                                                                              |
 
-For the `base_path` parameter, do not enter the `s3://` prefix when entering your S3 bucket details. Only the name of the bucket is required.
-{: .note}
-
 The `server_side_encryption` setting is removed as of OpenSearch 3.1.0. S3 applies server-side encryption as the base level of encryption for all S3 buckets. Because this cannot be disabled, this value repository setting had no effect. For more information, see [Protecting data with server-side encryption](https://docs.aws.amazon.com/AmazonS3/latest/userguide/serv-side-encryption.html).
 {: .note}
 
 The default `server_side_encryption_type` changed from `bucket_default` to `AES256` in OpenSearch 3.8.0. After you upgrade, repositories registered without an explicit `server_side_encryption_type` send the `x-amz-server-side-encryption` header on all upload requests. S3-compatible storage services that reject this header return an error. To restore the previous encryption type, set `server_side_encryption_type` to `bucket_default`. For more information, see [Breaking changes]({{site.url}}{{site.baseurl}}/breaking-changes/#default-s3-repository-server-side-encryption-type).
 {: .note}
+
+<!-- vale off -->
+#### s3_async_client_type
+<!-- vale on -->
+
+`s3_async_client_type` applies to a single repository, so set it in the repository's `settings` block. The `repository-s3` plugin also registers `s3_async_client_type` as a node setting, so a node starts successfully with the setting in `opensearch.yml` and the [Nodes Info API]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-info/) returns it, but the plugin reads the value only from the repository definition. A repository that does not set `s3_async_client_type` uses `crt`, even when `opensearch.yml` specifies `netty`.
+
+If the AWS Common Runtime native library is not available on the node's platform, the plugin logs a warning and uses the Netty client.
+
+To confirm which client a repository uses, enable `DEBUG` logging for the `org.opensearch.repositories.s3.S3AsyncService` logger and look for the `S3 Http client type` message.
 
 <!-- vale off -->
 ### hdfs repository
