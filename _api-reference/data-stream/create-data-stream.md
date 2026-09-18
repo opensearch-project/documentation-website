@@ -85,12 +85,6 @@ response = client.indices.create_data_stream(
 }
 ```
 
-## Response body fields
-
-| Field | Data type | Description |
-| :--- | :--- | :--- |
-| `acknowledged` | Boolean | Whether the data stream was successfully created. |
-
 ## Required permissions
 
 If you use the Security plugin, make sure you have the appropriate permissions: `indices:admin/data_stream/create`.

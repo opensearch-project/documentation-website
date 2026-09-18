@@ -123,21 +123,35 @@ response = client.indices.get_data_stream(
 
 | Field | Data type | Description |
 | :--- | :--- | :--- |
-| `data_streams` | Array | A list of objects, one for each data stream. |
-| `data_streams[n].name` | String | The name of the data stream. |
-| `data_streams[n].timestamp_field` | Object | The timestamp field configuration for the data stream. |
-| `data_streams[n].timestamp_field.name` | String | The name of the timestamp field, usually `@timestamp`. |
-| `data_streams[n].indices` | Array | A list of the data stream's backing indexes. The last item in the array is the current write index. |
-| `data_streams[n].indices[n].index_name` | String | The name of the backing index. |
-| `data_streams[n].indices[n].index_uuid` | String | The UUID of the backing index. |
-| `data_streams[n].generation` | Integer | The current generation of the data stream. This number increases by one with each rollover. |
-| `data_streams[n].status` | String | The health status of the data stream, based on the health of its backing indexes. Valid values are `GREEN`, `YELLOW`, and `RED`. |
-| `data_streams[n].template` | String | The name of the index template used to create the data stream. |
-| `data_streams[n].hidden` | Boolean | Whether the data stream is hidden. |
-| `data_streams[n].system` | Boolean | Whether the data stream is managed internally by OpenSearch and cannot be modified through normal user interaction. |
-| `data_streams[n].ilm_policy` | String | The name of the associated Index State Management (ISM) policy, if one is configured. |
-| `data_streams[n].allow_custom_routing` | Boolean | Whether the data stream allows custom routing on write requests. |
-| `data_streams[n]._meta` | Object | Custom metadata attached to the data stream. |
+| `data_streams` | Array | A list of objects, one for each data stream. For object fields, see [The data stream objects](#the-data-stream-objects). |
+
+### The data stream objects
+
+Each data stream object contains the following fields.
+
+| Field | Data type | Description |
+| :--- | :--- | :--- |
+| `name` | String | The name of the data stream. |
+| `timestamp_field` | Object | The timestamp field configuration for the data stream. |
+| `timestamp_field.name` | String | The name of the timestamp field, usually `@timestamp`. |
+| `indices` | Array | A list of the data stream's backing indexes. The last item in the array is the current write index. For object fields, see [The backing index objects](#the-backing-index-objects). |
+| `generation` | Integer | The current generation of the data stream. This number increases by one with each rollover. |
+| `status` | String | The health status of the data stream, based on the health of its backing indexes. Valid values are `GREEN`, `YELLOW`, and `RED`. |
+| `template` | String | The name of the index template used to create the data stream. |
+| `hidden` | Boolean | Whether the data stream is hidden. |
+| `system` | Boolean | Whether the data stream is managed internally by OpenSearch and cannot be modified through normal user interaction. |
+| `ilm_policy` | String | The name of the associated Index State Management (ISM) policy, if one is configured. |
+| `allow_custom_routing` | Boolean | Whether the data stream allows custom routing on write requests. |
+| `_meta` | Object | Custom metadata attached to the data stream. |
+
+### The backing index objects
+
+Each backing index object contains the following fields.
+
+| Field | Data type | Description |
+| :--- | :--- | :--- |
+| `index_name` | String | The name of the backing index. |
+| `index_uuid` | String | The UUID of the backing index. |
 
 ## Required permissions
 

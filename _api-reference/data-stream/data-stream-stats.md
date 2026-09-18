@@ -218,12 +218,19 @@ response = client.indices.data_streams_stats(
 | `backing_indices` | Integer | The total number of backing indexes across all data streams. |
 | `total_store_size` | String | A human-readable total size of all data stream storage. Present only if `human=true`. |
 | `total_store_size_bytes` | Integer | The total storage used by all data streams, in bytes. |
-| `data_streams` | Array | A list of objects, one for each data stream. |
-| `data_streams[n].data_stream` | String | The name of the data stream. |
-| `data_streams[n].backing_indices` | Integer | The number of backing indexes for the data stream. |
-| `data_streams[n].store_size` | String | Human-readable storage used by the data stream. Present only if `human=true`. |
-| `data_streams[n].store_size_bytes` | Integer | The total storage used by the data stream, in bytes. |
-| `data_streams[n].maximum_timestamp` | Long | The maximum timestamp across all documents in the data stream. |
+| `data_streams` | Array | A list of objects, one for each data stream. For object fields, see [The data stream objects](#the-data-stream-objects). |
+
+### The data stream objects
+
+Each data stream object contains the following fields.
+
+| Field | Data type | Description |
+| :--- | :--- | :--- |
+| `data_stream` | String | The name of the data stream. |
+| `backing_indices` | Integer | The number of backing indexes for the data stream. |
+| `store_size` | String | Human-readable storage used by the data stream. Present only if `human=true`. |
+| `store_size_bytes` | Integer | The total storage used by the data stream, in bytes. |
+| `maximum_timestamp` | Long | The maximum timestamp across all documents in the data stream. |
 
 ## Required permissions
 

@@ -81,12 +81,6 @@ response = client.indices.delete_data_stream(
 }
 ```
 
-## Response body fields
-
-| Field | Data type | Description |
-| :--- | :--- | :--- |
-| `acknowledged` | Boolean | Whether the data stream was successfully deleted. |
-
 ## Required permissions
 
 If you use the Security plugin, make sure you have the appropriate permissions: `indices:admin/data_stream/delete`.
