@@ -1,9 +1,8 @@
 ---
 layout: default
 title: Similarity
-parent: Other components
-grand_parent: Managing indexes
-nav_order: 50
+parent: Tuning indexes
+nav_order: 40
 ---
 
 # Similarity

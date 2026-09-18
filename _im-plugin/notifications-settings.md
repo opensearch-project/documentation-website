@@ -1,23 +1,28 @@
 ---
 layout: default
-title: With the API
-parent: Index notifications
-nav_order: 20
+title: Long-running operation notifications
+nav_order: 70
+redirect_from:
+  - /im-plugin/notifications/
+  - /dashboards/im-dashboards/notifications/
+  - /dashboards/admin-ui-index/notifications/
 ---
 
-# Setting up notifications the API
+# Long-running operation notifications
 
 Introduced 2.8
 {: .label .label-purple }
 
-Use the Notifications API to configure notifications about long-running index operations. When you send a request for those operations and set the `wait_for_completion` parameter to `false`, the operation returns immediately and the response contains a task ID. You can use that task ID to configure notifications for this operation.
+Reindex, resize, force merge, and open operations can run for minutes or hours. When you send one of these requests with `wait_for_completion` set to `false`, it returns a task ID immediately instead of blocking. Configure a notification against that task ID, or against the operation type, to be told when the work finishes or fails rather than polling for it.
+
+Notifications are delivered through the channels configured in the [Notifications]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/index/) application, which supports Amazon Chime, Amazon Simple Notification Service (Amazon SNS), Amazon Simple Email Service (Amazon SES), email through SMTP, Slack, and custom webhooks.
 
 ## Configuring notification settings
 
-You can configure long-running operation notifications through the API by using the `task_id` and `action_name` parameters:
+An `lron_config` object takes either a `task_id` or an `action_name`, and the choice determines how long the setting lives:
 
-- **One-time setting**: If you pass `task_id` in the `lron_config` object, the task runs one time and the setting is automatically deleted when the task ends. If you pass both `task_id` and `action_name`, `action_name` is ignored but may be useful to you for searching and debugging notification settings.
-- **Global, persistent setting**: If you pass `action_name` and not `task_id` in the `lron_config` object, the task is global and persistent and applies to all operations of this action type.
+- Provide `task_id` for a one-time setting. It is deleted automatically when the task ends. If you provide both `task_id` and `action_name`, `action_name` is ignored, though it can help you search for and debug your notification settings.
+- Provide `action_name` without `task_id` for a global, persistent setting that applies to every operation of that type.
 
 The following table lists the parameters for long-running index operation notifications. 
 
@@ -230,7 +235,49 @@ DELETE _plugins/_im/lron/LRON:indices:data%2Fwrite%2Freindex
 ```
 {% include copy-curl.html %}
 
-## Next steps
+## Notifications in OpenSearch Dashboards
 
-- Learn more about the [ISM API]({{site.url}}{{site.baseurl}}/im-plugin/ism/api-ism/).
-- Learn more about the [Notifications]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/index/) application. 
+To reach the **Index Management** page, go to **Management > Index Management** on the top menu.
+
+### Creating a notification channel
+
+A notification setting needs at least one channel to deliver to:
+
+1. In **Index Management**, select **Manage channels**. The **Channels** page opens in a separate window.
+1. Select **Create channel**.
+1. Enter a name for the channel and, optionally, a description.
+1. In **Configurations**, select a **Channel type**. The settings that follow depend on the type: an email channel asks for a sender type, a sender, and recipients, while a Slack channel asks for a webhook URL.
+1. Enter the settings for the channel type.
+1. Optionally, select **Send test message** to confirm that the channel works.
+1. Select **Create**.
+
+### Setting defaults for all operations
+
+Default settings apply to every reindex, shrink, split, clone, force merge, and open operation in the cluster:
+
+1. In **Index Management**, select **Notification settings**.
+1. In **Defaults for index operations**, select **Has failed**, **Has completed**, or both for each of **Reindex**, **Shrink, split, clone**, **Force merge**, and **Open**.
+1. For each operation that you selected a notification for, select one or more channels from **Notification channels**.
+1. Select **Save**.
+
+Viewing or changing default notification settings requires permission to read them.
+
+### Sending additional notifications
+
+Reindex, split, shrink, and force merge operations can carry their own notification settings in addition to the defaults:
+
+1. In **Index Management**, select **Indexes**.
+1. Select the index that the operation applies to.
+1. Select **Actions**, and then select the operation, such as **Reindex**.
+1. Expand **Advanced settings**. The **Notifications** section lists the defaults currently in effect.
+1. Select **Send additional notifications**.
+1. Select **Has failed / timed out**, **Has completed**, or both.
+1. Select a channel from **Notification channels**.
+1. Select the button for the operation, such as **Reindex**.
+
+## Related documentation
+
+- [Notifications]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/index/)
+- [Index maintenance]({{site.url}}{{site.baseurl}}/im-plugin/index-maintenance/)
+- [Reindexing data]({{site.url}}{{site.baseurl}}/im-plugin/reindex-data/)
+- [ISM API]({{site.url}}{{site.baseurl}}/im-plugin/ism/api/)

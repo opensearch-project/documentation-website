@@ -151,7 +151,7 @@ opensearch_collection:
       name: Creating and tuning your cluster
       nav_fold: true
     im-plugin:
-      name: Managing Indexes
+      name: Managing indexes
       nav_fold: true
     ingest-pipelines:
       name: Ingest Pipelines

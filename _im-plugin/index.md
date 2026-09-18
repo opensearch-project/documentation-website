@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Managing indexes
-nav_order: 10
+nav_order: 1
 has_children: false
 nav_exclude: true
 permalink: /im-plugin/
@@ -13,75 +13,80 @@ redirect_from:
 
 # Managing indexes
 
-Indexes are the data structure at the heart of OpenSearch. If you're unfamiliar with OpenSearch data structures, see [Introduction to OpenSearch]({{site.url}}{{site.baseurl}}/getting-started/intro/).
+An index is the basic unit of data storage in OpenSearch: a collection of JSON documents, each identified by a unique ID, distributed across one or more shards. This section covers what you do with an index after your data is in it---creating and deleting indexes, grouping them behind aliases and data streams, automating their lifecycle, and tuning how they store and retrieve data.
 
-This section describes how to use the features of the Index plugin to manage indexes. The topics are organized in a manner roughly similar to their organization in the OpenSearch [Index APIs]({{site.url}}{{site.baseurl}}/api-reference/index-apis/index/).
+If you are new to OpenSearch, start with [Add and manage your data]({{site.url}}{{site.baseurl}}/getting-started/manage-data/), which walks through creating an index, adding documents to it, and reading them back.
 
-Although the documentation roughly follows the API, most functionality is available in OpenSearch Dashboards, a web-based interface. In general, the API provides more fine-grained control and more options, but requires you to understand and write JSON-based queries. The OpenSearch Dashboards interface is more convenient, but in some cases is less flexible.
+## Indexing documents
 
-Index management does not include _[indexing]({{site.url}}{{site.baseurl}}/getting-started/index-data/)_, the process of populating indexes with data. It also does not include other data operations such as updating and querying documents.
-{: .note}
+OpenSearch creates an index automatically the first time you add a document to a name that does not yet exist, and generates a document ID if you do not supply one. The following request creates the `movies` index and indexes one document into it:
 
-## Index management concepts
+```json
+POST movies/_doc
+{ "title": "Spirited Away" }
+```
+{% include copy-curl.html %}
 
-The following table provides links to conceptual information about index management.
+Specify the ID yourself when you expect to update or retrieve the document later. Sending the following request repeatedly leaves a single document in the index and increments its `_version` field, whereas repeating the preceding request creates a new document each time:
 
-To learn more about | Go to
-:-- | :--
-Index operations | [Index operations]({{site.url}}{{site.baseurl}}/im-plugin/index-ops/index/)
-Index state management | [Index state management]({{site.url}}{{site.baseurl}}/im-plugin/ism/index/)
-Index management concepts | Concepts: [Index management]({{site.url}}{{site.baseurl}}/getting-started/concepts/#index-management)
+```json
+PUT movies/_doc/1
+{ "title": "Spirited Away" }
+```
+{% include copy-curl.html %}
 
-## Index management in OpenSearch Dashboards
+A document ID must be 512 bytes or smaller.
 
-The following table provides links to information about using OpenSearch Dashboards to manage indexes.
+To index many documents in one request, use the [Bulk API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/). Each action is described by a metadata line followed by the document itself, and every line must end with a newline character (`\n`), including the last one:
 
-To learn more about | Go to
-:-- | :--
-The OpenSearch Dashboards index management interface | [Index Management in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/im-dashboards/index/)
-Core index operations: View, Create, Delete, Open, and Close indexes | [Core index operations in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/im-plugin/index-ops/dash-ops/)
-Index management operations: Refresh, Flush, Clear cache, Force merge, Shrink, Split | [Managing indexes in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/im-plugin/index-ops/dash-manage/)
-Index state management (ISM) | [Index state management with OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/im-plugin/ism/dash-ism/)
-Adding data to indexes (_not an index management function_) | [Indexing documents]({{site.url}}{{site.baseurl}}/getting-started/communicate/#indexing-documents)
-Index aliases: View, Create, Edit, Delete, Refresh, Flush, Clear cache, Rollover, and Force merge aliases | [Managing aliases with OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/im-plugin/aliases/dash-aliases/)
-Index data streams: View, Create, Delete, Rollover, Refresh, Flush, and Clear cache of data streams | [Working with data streams with OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/im-plugin/data-streams/dash-datastream/)
+```json
+POST _bulk
+{ "index": { "_index": "movies", "_id": "2" } }
+{ "title": "My Neighbor Totoro" }
+{ "index": { "_index": "movies", "_id": "3" } }
+{ "title": "Princess Mononoke" }
+```
+{% include copy-curl.html %}
 
+Bulk requests give better throughput than individual requests for large numbers of documents. If one action in a bulk request fails, OpenSearch runs the remaining actions and reports the outcome of each one in the `items` array of the response, in the order in which you specified the actions.
 
-## Index management using APIs
+For the rest of the document operations, including retrieving, updating, and deleting documents, see [Document APIs]({{site.url}}{{site.baseurl}}/api-reference/document-apis/index/).
 
-The following table provides links to information about using OpenSearch APIs to manage indexes.
+## Naming restrictions for indexes
 
-To learn more about | Go to
-:-- | :--
-The OpenSearch index APIs | [Index APIs]({{site.url}}{{site.baseurl}}/api-reference/index-apis/index/)
-Core index operations such as creating, opening, and closing indexes | [Core index APIs]({{site.url}}{{site.baseurl}}/api-reference/index-apis/core-index-apis/)
-Index management operations, including rollovers, transforms, and reindexing | [Index operation APIs]({{site.url}}{{site.baseurl}}/api-reference/index-apis/index-operation-apis/)
-Index state management (ISM) | [Index state management with the API]({{site.url}}{{site.baseurl}}/im-plugin/ism/api-ism/)
-Adding data to indexes (indexing — _not an index management function_) | [Ingest APIs]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/)
-Index aliases: List, Add, Remove, Create, Update, Delete, and Check for aliases | [Alias APIs]({{site.url}}{{site.baseurl}}/api-reference/alias/)
-Index alias examples | [Using the Aliases API]({{site.url}}{{site.baseurl}}/im-plugin/aliases/api-aliases/)
-Index data streams: List, Add, Remove, Create, Update, Delete, and Check for aliases | [Alias APIs]({{site.url}}{{site.baseurl}}/api-reference/alias/)
-Index data stream examples | [Using the Aliases API]({{site.url}}{{site.baseurl}}/im-plugin/aliases/api-aliases/)
+OpenSearch indexes have the following naming restrictions:
 
+- All letters must be lowercase.
+- Index names can't begin with underscores (`_`) or hyphens (`-`).
+- Index names can't contain spaces, commas, or the following characters:
 
-## Other index features
+  `:`, `"`, `*`, `+`, `/`, `\`, `|`, `?`, `#`, `>`, or `<`
 
-The following table provides links to information about other features that support index management.
+Names beginning with a period (`.`) are reserved for OpenSearch system indexes.
 
-To learn more about | Go to
-:-| :--
-Index codecs | [Index codecs]({{site.url}}{{site.baseurl}}/im-plugin/index-other/index-codecs/)
-Index context | [Index context]({{site.url}}{{site.baseurl}}/im-plugin/index-other/index-context/)
-Index sorting | [Index sorting]({{site.url}}{{site.baseurl}}/im-plugin/index-other/index-sorting/)
-Refreshing the search analyzer | [Refresh search analyzer]({{site.url}}{{site.baseurl}}/im-plugin/index-other/refresh-analyzer/)
-Index security | [Index management security]({{site.url}}{{site.baseurl}}/im-plugin/index-other/security/)
-Document similarity | [Similarity]({{site.url}}{{site.baseurl}}/im-plugin/index-other/similarity/)
+## In this section
 
+Each page in this section describes what an operation does and how to run it using the OpenSearch API, followed by the equivalent steps in OpenSearch Dashboards.
 
-## Next steps
+| Topic | Description |
+| :--- | :--- |
+| [Index operations]({{site.url}}{{site.baseurl}}/im-plugin/index-operations/) | Create, inspect, close, open, and delete an index. |
+| [Index maintenance]({{site.url}}{{site.baseurl}}/im-plugin/index-maintenance/) | Refresh, flush, clear caches, force merge, shrink, split, clone, and roll over an index. |
+| [Index templates]({{site.url}}{{site.baseurl}}/im-plugin/index-templates/) | Apply the same settings and mappings to every index whose name matches a pattern. |
+| [Index aliases]({{site.url}}{{site.baseurl}}/im-plugin/index-alias/) | Query a group of indexes under one name and switch that name between indexes without changing your clients. |
+| [Data streams]({{site.url}}{{site.baseurl}}/im-plugin/data-streams/) | Manage append-only time-series data as a single named stream backed by rolling indexes. |
+| [Append-only index]({{site.url}}{{site.baseurl}}/im-plugin/append-only-index/) | Prevent updates and deletes on an index to reduce indexing overhead. |
+| [Reindexing data]({{site.url}}{{site.baseurl}}/im-plugin/reindex-data/) | Copy documents from one index into another, applying new mappings or transformations. |
+| [Index State Management]({{site.url}}{{site.baseurl}}/im-plugin/ism/index/) | Automate lifecycle operations, such as rollover and delete, based on index age, size, or document count. |
+| [Index rollups]({{site.url}}{{site.baseurl}}/im-plugin/index-rollups/index/) | Summarize historical data into a smaller index to reduce storage cost. |
+| [Index transforms]({{site.url}}{{site.baseurl}}/im-plugin/index-transforms/index/) | Build a materialized summary of your data, grouped by the fields you query most. |
+| [Long-running operation notifications]({{site.url}}{{site.baseurl}}/im-plugin/notifications-settings/) | Get notified when a reindex, force merge, shrink, split, or open operation finishes or fails. |
+| [Tuning indexes]({{site.url}}{{site.baseurl}}/im-plugin/index-tuning/) | Configure codecs, index sorting, similarity, and other storage and retrieval options. |
+| [Index management security]({{site.url}}{{site.baseurl}}/im-plugin/security/) | Control who can perform index management operations. |
 
-For instructions on how to add data to indexes, see [Ingest your data into OpenSearch]({{site.url}}{{site.baseurl}}/getting-started/ingest-data/).
+## Related documentation
 
-For information about the various ways to query data, including using Query DSL, SQL, or web-based graphical tools, see [Exploring Data]({{site.url}}{{site.baseurl}}/dashboards/#exploring-data).
-
-For an introduction to the index management interface in OpenSearch Dashboards, see [Index Management in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/im-dashboards/index/).
+- [Index APIs]({{site.url}}{{site.baseurl}}/api-reference/index-apis/index/)
+- [Index Management in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/im-dashboards/index/)
+- [Ingest your data into OpenSearch]({{site.url}}{{site.baseurl}}/getting-started/ingest-data/)
+- [Index settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/)

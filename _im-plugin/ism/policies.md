@@ -48,7 +48,7 @@ Field | Description | Type | Required
 
 ## Actions
 
-Actions are [operations]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies-operations) that a policy can execute upon entering a specific state.
+Actions are [operations]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies-operations/) that a policy can execute upon entering a specific state.
 
 ISM executes actions in the order in which they are defined. If an action fails, the state actions are abandoned, and remaining actions are not executed.
 
@@ -268,4 +268,83 @@ The destination system **must** return a response otherwise the `error_notificat
 ```
 
 You can use the same options for `ctx` variables as the [Notification]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies-operations/#notification) operation.
+
+## Policies in OpenSearch Dashboards
+
+To reach the **Index Management** page, go to **Management > Index Management** on the top menu. Select **State management policies** to list the policies in your cluster.
+
+Policies are created in either a visual editor or a JSON editor. The visual editor presents the parts of a policy as separate panels---error notification, ISM templates, and states---with the available actions and transition conditions in lists, so use it to compose a new policy. Use the JSON editor to paste a policy that you already have.
+
+### Viewing a policy
+
+1. In **Index Management**, select **State management policies**.
+1. Select the policy in the **Policy** column.
+
+The page shows the **Policy settings**, **ISM templates**, and **States** panels. To see the actions and transitions of a state, select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/arrow-right-icon.png" class="inline-icon" alt="expand icon"/>{:/} (expand) icon next to the state name.
+
+### Creating a policy
+
+1. In **Index Management**, select **State management policies**, and then select **Create policy**.
+1. Select **Visual editor** or **JSON editor**, and then select **Continue**.
+1. In **Policy info**, enter a unique **Policy ID** that describes what the policy does, such as `hot_cold_workflow`, and, optionally, a description.
+1. Optionally, in **Error notification**, select a **Channel ID** to be notified when a policy run fails. For more information, see [Error notifications](#error-notifications). If the policy rolls over indexes automatically, configure this notification: it tells you about unexpectedly large indexes when a rollover fails.
+1. Optionally, in **ISM templates**, add the index patterns that attach this policy to new indexes. See [Adding an ISM template](#adding-an-ism-template).
+1. In **States**, select **Add state** to add each state of the policy. See [Adding a state](#adding-a-state). A policy must contain at least one state.
+1. In **Initial state**, select the state that a newly managed index starts in.
+1. Select **Create**.
+
+In the JSON editor, enter the policy ID in **Name policy**, enter the policy in **Define policy**, and then select **Create**.
+
+### Adding a state
+
+In **States** on the **Create policy** page, select **Add state**, and then do the following:
+
+1. Enter a **State name** that describes the stage of the index lifecycle, such as `hot`, `warm`, or `delete`.
+1. To place the state relative to the states that you have already defined, select **Add before** or **Add after** in **Order**, and then select the state to position it against. Skip this step for the first state.
+1. For each operation that the state performs, do the following:
+
+   1. Select **Add action**.
+   1. Select an **Action type**. For the available types and their parameters, see [ISM supported operations]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies-operations/).
+   1. Enter the parameters of the action. For example, the snapshot action requires a repository and a snapshot name.
+   1. Optionally, enter a **Timeout** period after which the action fails, such as `5h`, and a **Retry count**, **Retry backoff** policy, and **Retry delay**, such as `1d`.
+   1. Select **Add action**.
+
+1. For each transition out of the state, do the following:
+
+   1. Select **Add transition**.
+   1. In **Destination state**, select the state to transition to. To transition a state to itself, enter its name, because it is not in the list.
+   1. Select a **Condition** and enter its parameters. For example, the minimum document count condition requires the number of documents that triggers the transition. A transition without a condition always evaluates to `true`.
+   1. Select **Add transition**.
+
+1. Select **Save state**.
+
+### Adding an ISM template
+
+An ISM template attaches the policy to each new index whose name matches one of its index patterns:
+
+1. In **ISM templates** on the **Create policy** page, select **Add template**.
+1. In **Index patterns**, enter an index pattern. For example, the pattern `sample-index-*` attaches the policy to every new index whose name begins with `sample-index-`. An index pattern cannot contain any of the following characters: `:`, `"`, `+`, `/`, `\`, `|`, `?`, `#`, `>`, or `<`.
+1. In **Priority**, enter a priority for the pattern. When more than one template matches the name of a new index, ISM applies the template with the highest priority.
+1. Optionally, repeat the preceding steps to add more templates.
+
+An ISM template applies only to indexes created after it. For more information, see [Attaching a policy to new indexes]({{site.url}}{{site.baseurl}}/im-plugin/ism/index/#attaching-a-policy-to-new-indexes).
+
+### Editing a policy
+
+1. In **Index Management**, select **State management policies**.
+1. Select the policy in the **Policy** column, and then select **Edit**.
+1. Select **Visual editor** or **JSON editor**.
+1. Change any part of the policy except the policy ID, and then select **Update**.
+
+The changes take effect the next time the policy runs. Indexes that the policy already manages continue with the cached version of the policy until then. To move a managed index to a different policy, see [Managed indexes]({{site.url}}{{site.baseurl}}/im-plugin/ism/managedindexes/).
+
+### Deleting a policy
+
+1. In **Index Management**, select **State management policies**.
+1. Select the checkbox next to each policy that you want to delete.
+1. Select **Actions**, and then select **Delete**.
+1. Select **Delete** in the confirmation dialog.
+
+A deleted policy stops managing its indexes immediately and cannot be recovered.
+{: .warning}
 

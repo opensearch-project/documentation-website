@@ -1,9 +1,8 @@
 ---
 layout: default
 title: Index context
-parent: Other components
-grand_parent: Managing indexes
-nav_order: 60
+parent: Tuning indexes
+nav_order: 50
 redirect_from:
   - /opensearch/index-context/
 ---

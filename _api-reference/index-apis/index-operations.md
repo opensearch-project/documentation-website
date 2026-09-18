@@ -1,17 +1,19 @@
 ---
 layout: default
-title: Index operations APIs
+title: Index operations
 parent: Index APIs
 nav_order: 30
 has_children: true
 has_toc: false
 ---
 
-# Index operation APIs
+# Index operations
 
 Index operations APIs provide advanced functionality for maintaining and optimizing indexes in your OpenSearch cluster. These operations help you manage index performance, data organization, and cluster efficiency.
 
-OpenSearch supports the following index operation APIs:
+## Available APIs
+
+OpenSearch supports the following index operations APIs.
 
 | API | Description |
 |-----|-------------|

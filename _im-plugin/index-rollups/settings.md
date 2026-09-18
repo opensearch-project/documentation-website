@@ -2,7 +2,7 @@
 layout: default
 title: Settings
 parent: Index rollups
-nav_order: 30
+nav_order: 20
 ---
 
 # Index rollup settings

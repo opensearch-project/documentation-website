@@ -188,7 +188,7 @@ Rolls an alias over to a new index when the managed index meets one of the rollo
 >ISM checks the conditions for operations on **every execution of the policy** based on the **set interval**, _not_ continuously. The rollover will be performed if the value **has reached** or _has exceeded_ the configured limit **when the check is performed**. For example, with `min_size` configured to a value of 100 GiB, ISM might check the index at 99 GiB and not perform the rollover. However, if the index has grown past the limit by the next check (for example, to 105 GiB), the operation is performed.
 {: .important}
 
-If you need to skip the rollover action, you can set the index setting `index.plugins.index_state_management.rollover_skip` to `true`. For example, if you receive the error message "Missing alias or not the write index...", you can set the `index.plugins.index_state_management.rollover_skip` parameter to `true` and retry to skip rollover action.
+If you need to skip the rollover action, you can set the index setting `index.plugins.index_state_management.rollover_skip` to `true`. For example, if you receive the error message "Missing alias or not the write index...", you can set the `index.plugins.index_state_management.rollover_skip` parameter to `true` and retry to skip the rollover action.
 
 The index format must match the pattern: `^.*-\d+$`. For example, `(logs-000001)`.
 Set `index.plugins.index_state_management.rollover_alias` as the alias to rollover.
@@ -659,17 +659,6 @@ GET _plugins/_rollup/jobs/{rollup_id}/_explain
 
 ### Request body fields
 
-Request fields are required when creating an ISM policy. You can reference the [Index rollups API]({{site.url}}{{site.baseurl}}/im-plugin/index-rollups/api-rollup/#create-or-update-an-index-rollup-job) page for request field options.
+Request fields are required when creating an ISM policy. You can reference the [Index rollups API]({{site.url}}{{site.baseurl}}/im-plugin/index-rollups/rollup-api/#create-or-update-an-index-rollup-job) page for request field options.
 
-### Adding a rollup policy in Dashboards
-
-To add a rollup policy in Dashboards, follow the steps below.
-
-- Select the menu button on the upper-left of the Dashboards user interface.
-- In the Dashboards menu, select `Index Management`.
-- On the next screen select `Rollup jobs`.
-- Select the `Create rollup` button.
-- Follow the steps in the `Create rollup job` wizard.
-- Add a name for the policy in the `Name` box.
-- You can reference the [Index rollups API]({{site.url}}{{site.baseurl}}/im-plugin/index-rollups/api-rollup/#create-or-update-an-index-rollup-job) page to configure the rollup policy.
-- Finally, select the `Create` button on the lower-right of the Dashboards user interface.
+To create a rollup job in OpenSearch Dashboards, see [Creating a rollup job]({{site.url}}{{site.baseurl}}/im-plugin/index-rollups/index/#creating-a-rollup-job).

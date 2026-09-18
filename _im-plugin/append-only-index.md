@@ -1,7 +1,6 @@
 ---
 layout: default
 title: Append-only index
-parent: Index operations
 nav_order: 30
 ---
 
@@ -18,15 +17,7 @@ When you configure an index as append-only, the following operations return an e
 - Bulk API calls made with the update, delete, or upsert actions
 - Bulk API calls containing an index action with a custom document ID
 
-## Benefits
-
-Append-only indexes offer several advantages:
-
-- Optimized performance by eliminating costly update and delete operations
-- Optimized storage and segment merges by eliminating soft deletes and version tracking
-- Support for future optimizations like auto-rollovers and efficient warm tiering
-
-Append-only indexes are ideal for immutable workloads, such as those containing log, metric, observability, or security event data, where data is not modified once ingested.
+Because an append-only index performs no updates or deletions, it skips soft deletes and version tracking, which reduces storage use and the work done during segment merges. Use an append-only index for data that is not modified after it is ingested, such as logs, metrics, observability data, or security events.
 
 ## Creating an append-only index
 

@@ -2,48 +2,39 @@
 layout: default
 title: Index Management
 nav_order: 30
+has_children: false
 redirect_from:
   - /dashboards/admin-ui-index/
-  - /dashboards/admin-ui-index/index-management/
 ---
 
 # Index Management in OpenSearch Dashboards
 
-Introduced 2.5
-{: .label .label-purple }
+The **Index Management** page in OpenSearch Dashboards provides an interface for the index operations that you can otherwise perform using the [Index APIs]({{site.url}}{{site.baseurl}}/api-reference/index-apis/index/): creating indexes and defining their mappings, opening and closing indexes, merging and splitting them, and automating those operations with state management policies.
 
-Index Management in OpenSearch Dashboards provides an interface for creating, using, and managing indexes. In the OpenSearch **Index Management** web-based interface, you can perform most operations available in the [Index API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/index/), including the following:
+To reach the page, go to **Management > Index Management** on the top menu:
 
-- Create indexes and define their data mappings.
-- Assign index sharding and replication.
-- Perform management tasks, such as opening, closing, merging, splitting, and deleting indexes.
-- Define state management policies to automate tasks such as log rollup and rollover, and assign those policies to indexes.
-- Create templates, aliases, and notifications to use with index management policies.
+![Index Management page]({{site.url}}{{site.baseurl}}/images/dashboards/index-management-UI.png)
 
-## Navigating the Index Management UI
+Index management does not include operations on the documents in an index. To add data to an index, see [Ingest your data into OpenSearch]({{site.url}}{{site.baseurl}}/getting-started/ingest-data/). To query it, see [OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/).
 
-The following image shows how to navigate to the **Index Management** features.
+## Index Management pages
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/index-management-UI-callouts.png" alt="Index Management panel" width="60%">
+The left panel of the **Index Management** page contains the following pages.
 
-- Select the **Index Management** _link_ (A) in the _navigation panel_ to view the Index Management features.
-- The **Index Management** _panel_ (B) contains the index management features.
-- The _breadcrumb_ display (C) shows which application or feature is active on the application page.
+| Page | Description | Documentation |
+| :--- | :--- | :--- |
+| **State management policies** | Create, edit, and delete the policies that manage indexes automatically. | [Policies]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies/#policies-in-opensearch-dashboards) |
+| **Policy managed indexes** | View the state of each index that a policy manages, change its policy, or stop managing it. | [Managed indexes]({{site.url}}{{site.baseurl}}/im-plugin/ism/managedindexes/#managed-indexes-in-opensearch-dashboards) |
+| **Indexes** | Create indexes and view their settings, mappings, and statistics. Open, close, reindex, and delete them, apply a policy to them, and maintain them by refreshing, flushing, force merging, shrinking, splitting, and rolling them over. | [Index operations]({{site.url}}{{site.baseurl}}/im-plugin/index-operations/#index-operations-in-opensearch-dashboards), [Index maintenance]({{site.url}}{{site.baseurl}}/im-plugin/index-maintenance/#index-maintenance-in-opensearch-dashboards) |
+| **Data streams** | Create data streams, view their backing indexes, and roll them over. | [Data streams]({{site.url}}{{site.baseurl}}/im-plugin/data-streams/#data-streams-in-opensearch-dashboards) |
+| **Templates** | Create index templates and component templates that configure new indexes and data streams. | [Index templates]({{site.url}}{{site.baseurl}}/im-plugin/index-templates/#index-templates-in-opensearch-dashboards) |
+| **Aliases** | Create aliases, add indexes to them, and set the write index. | [Index aliases]({{site.url}}{{site.baseurl}}/im-plugin/index-alias/#index-aliases-in-opensearch-dashboards) |
+| **Rollup jobs** | Create jobs that summarize old data into smaller indexes. | [Index rollups]({{site.url}}{{site.baseurl}}/im-plugin/index-rollups/index/#index-rollups-in-opensearch-dashboards) |
+| **Transform jobs** | Create jobs that write a summarized view of an index to a second index. | [Index transforms]({{site.url}}{{site.baseurl}}/im-plugin/index-transforms/index/#index-transforms-in-opensearch-dashboards) |
+| **Notification settings** | Choose the index operations that send a notification when they finish or fail, and the channels that receive it. | [Long-running operation notifications]({{site.url}}{{site.baseurl}}/im-plugin/notifications-settings/#notifications-in-opensearch-dashboards) |
 
-Following is a short summary of the index management operations available in the **Index Management** panel.
+## Related documentation
 
-- [**State management policies**]({{site.url}}{{site.baseurl}}/im-plugin/ism/dash-ism/): Create and modify policies that can automatically manage indexes.
-- [**Policy managed indexes**]({{site.url}}{{site.baseurl}}/im-plugin/ism/dash-ism): View, remove, and change state management policies applied to indexes.
-- [**Indexes**]({{site.url}}{{site.baseurl}}/im-plugin/index-ops/dash-ops): View all indexes. Create and manage indexes and perform operations on them.
-- [**Data streams**]({{site.url}}{{site.baseurl}}/im-plugin/data-streams/dash-datastream/): View, create, and manage data streams.
-- [**Templates**]({{site.url}}{{site.baseurl}}/im-plugin/templates/dash-templates): View, create, and manage templates to automate index and data stream creation.
-- [**Aliases**]({{site.url}}{{site.baseurl}}/im-plugin/aliases/dash-aliases/): View, create, and manage aliases. Aliases are virtual indexes that can incorporate multiple real indexes.
-- [**Rollup jobs**]({{site.url}}{{site.baseurl}}/im-plugin/index-rollups/): Create and manage rollup jobs. Rollup jobs are like specialized transform jobs for compressing and archiving continuous indexes such as log data.
-- [**Transform jobs**]({{site.url}}{{site.baseurl}}/im-plugin/index-transforms): Create and manage transform jobs. Transform jobs append transformed data from one index to a second index on a schedule you define.
-- [**Notification settings**]({{site.url}}{{site.baseurl}}/im-plugin/notifications/dash-notifications): Configure notifications via email or other channels for failed or completed index-related jobs.
-
-## Next steps
-
-For more information about index management, including how to perform index maangement operations using the Index management API or the Index Management page in OpenSearch Dashboards, see [Managing indexes]({{site.url}}{{site.baseurl}}/im-plugin/).
-
-Index management does not include data operations such as adding, updating, and querying documents. For an introduction to adding data to indexes, see [Ingest your data into OpenSearch]({{site.url}}{{site.baseurl}}/getting-started/ingest-data/). For information about using OpenSearch Dashboards to query your data, see [OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/).
+- [Managing indexes]({{site.url}}{{site.baseurl}}/im-plugin/)
+- [Index APIs]({{site.url}}{{site.baseurl}}/api-reference/index-apis/index/)
+- [Index State Management]({{site.url}}{{site.baseurl}}/im-plugin/ism/index/)

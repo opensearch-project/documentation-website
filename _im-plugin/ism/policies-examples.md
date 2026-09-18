@@ -9,13 +9,7 @@ has_children: false
 
 # Policy examples
 
-This page contains several examples of complete policies in JSON format.
-
-For a description of the components of a policy, see [Policies]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies/).
-
-To find out how to manage policies from OpenSearch Dashboards, see [ISM with OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/im-plugin/ism/dash-ism/).
-
-To find out how to manage policies using APIs, see [ISM API]({{site.url}}{{site.baseurl}}/im-plugin/ism/api-ism/).
+The following examples are complete policies in JSON format. For the components of a policy, see [Policies]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies/). To create a policy in OpenSearch Dashboards, see [Creating a policy]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies/#creating-a-policy). To create one using the API, see [ISM API]({{site.url}}{{site.baseurl}}/im-plugin/ism/api/).
 
 
 ## Sample policy with ISM template for auto rollover

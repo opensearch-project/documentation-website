@@ -1,35 +1,26 @@
 ---
 layout: default
 title: Managed indexes
-nav_order: 10
-parent: ISM API
-grand_parent: Index State Management
+nav_order: 20
+parent: Index State Management
 has_children: false
 redirect_from: 
  - /im-plugin/ism/managedindices/
 ---
 
-
 # Managed indexes
 
-You can change or update a policy using the managed index operations.
-
+A managed index is an index that an Index State Management (ISM) policy is attached to. This page describes how to move a managed index from one policy to another.
 
 ## Change policy
 
-You can change any managed index policy, with some caveats. ISM has constraints in place to make sure that policy changes don't break indexes.
+Changing the policy of a managed index is constrained so that a change cannot leave an index in a state that the new policy does not define.
 
-If an index is stuck in its current state, never proceeding, and you want to update its policy immediately, make sure that the new policy includes the same state---same name, same actions, same order---as the old policy. In this case, even if the policy is in the middle of executing an action, ISM applies the new policy.
+If the new policy contains a state identical to the current one---same name, same actions, in the same order---ISM applies the new policy immediately, even in the middle of an action. Use this when an index is stuck in its current state and you need the change to take effect now.
 
-If you update the policy without including an identical state, ISM updates the policy only after all actions in the current state finish executing. Alternately, you can choose a specific state in your old policy after which you want the new policy to take effect.
+If the new policy does not contain an identical state, ISM applies it only after every action in the current state finishes. You can also name a state in the current policy after which the new policy takes effect.
 
-To change a policy using OpenSearch Dashboards, do the following:
-
-- Under **Index Management**, choose the indexes that you want to attach the new policy to.
-- To attach the new policy to indexes in specific states, choose **Choose state filters**, and then choose those states.
-- Under **Choose New Policy**, choose the new policy.
-- To start the new policy for indexes in the current state, choose **Keep indices in their current state after the policy takes effect**.
-- To start the new policy in a specific state, choose **Start from a chosen state after changing policies**, and then choose the default start state in your new policy.
+To change a policy, use the [Update Managed Index Policy API]({{site.url}}{{site.baseurl}}/im-plugin/ism/api/#update-managed-index-policy) or the steps in [Changing the policy of an index](#changing-the-policy-of-an-index).
 
 ## Change policy parameters
 
@@ -78,4 +69,63 @@ The following example shows a managed index policy:
   }
 }
 ```
+
+## Managed indexes in OpenSearch Dashboards
+
+To reach the **Index Management** page, go to **Management > Index Management** on the top menu. Select **Policy managed indexes** to list the indexes that a policy manages, along with the policy, the current state, and the status of the last action.
+
+To attach a policy to an index that is not managed yet, see [Applying a policy]({{site.url}}{{site.baseurl}}/im-plugin/index-operations/#applying-a-policy).
+
+### Viewing the state of a managed index
+
+The **Policy managed indexes** table shows the state each index is in and the status of its last action. Select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/arrow-right-icon.png" class="inline-icon" alt="expand icon"/>{:/} (expand) icon in the **Status** column of a failed index to see the reason for the failure. To filter the table, select values from the **State** and **Policy** lists or enter a name in the search box.
+
+### Changing the policy of an index
+
+1. In **Index Management**, select **Policy managed indexes**.
+1. Select the checkbox next to each index whose policy you want to change, and then select **Change policy**.
+1. In **Choose managed indexes**, confirm the indexes. To limit the change to indexes in particular states, select those states in **State filters**.
+1. In **Choose new policy**, select the policy to change to.
+1. Select when the new policy takes effect:
+
+   - **Keep indexes in their current state after the policy takes effect** starts the new policy in the state that each index is in.
+   - **Start from a chosen state after changing policies** starts the new policy in the state that you select.
+
+1. Select **Change**.
+
+For the constraints on when the change takes effect, see [Change policy](#change-policy).
+
+### Adding a rollover alias
+
+A policy that contains a `rollover` action needs an alias to roll over. If the index was not created with one, add it:
+
+1. In **Index Management**, select **Policy managed indexes**.
+1. Select the checkbox next to the index.
+1. Select **Actions**, and then select **Edit rollover alias**.
+1. Enter the name of an existing alias, and then select **Edit**.
+
+### Removing a policy
+
+1. In **Index Management**, select **Policy managed indexes**.
+1. Select the checkbox next to each index that you want to stop managing.
+1. Select **Actions**, and then select **Remove policy**.
+1. Select **Remove** in the confirmation dialog.
+
+Removing a policy leaves the index and its data as they are. The state that the policy last applied to the index, such as `read_only`, remains in effect.
+
+### Retrying a policy
+
+When an action fails and its retries are exhausted, the managed index stops in a failed state. Correct the cause, such as a missing rollover alias or a snapshot repository that does not exist, and then retry:
+
+1. In **Index Management**, select **Policy managed indexes**.
+1. Select the checkbox next to each failed index.
+1. Select **Actions**, and then select **Retry policy**.
+1. Select **Retry from the failed action**, or select **Retry policy from a specific state** and select the state to restart from.
+1. Select **Retry**.
+
+## Related documentation
+
+- [Policies]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies/)
+- [ISM API]({{site.url}}{{site.baseurl}}/im-plugin/ism/api/)
+- [ISM error prevention]({{site.url}}{{site.baseurl}}/im-plugin/ism/error-prevention/index/)
 

@@ -1,7 +1,7 @@
 ---
 layout: default
 title: ISM Error Prevention API
-parent: ISM Error Prevention
+parent: ISM error prevention
 grand_parent: Index State Management
 nav_order: 20
 ---

@@ -1,9 +1,8 @@
 ---
 layout: default
 title: Index sorting
-parent: Other components
-grand_parent: Managing indexes
-nav_order: 30
+parent: Tuning indexes
+nav_order: 20
 ---
 
 
