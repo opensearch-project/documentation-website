@@ -72,7 +72,7 @@ console --json backfill status --deep-check
 ```
 
 {: .note }
-> If the stream is configured but cannot be read (for example, missing S3 permissions), the command fails rather than reporting "no failures" — a stream that cannot be read is never reported as empty.
+> If the stream is configured but cannot be read (for example, missing S3 permissions), the console command fails rather than reporting "no failures" — a stream that cannot be read is never reported as empty.
 
 ## Inspecting failed documents
 
