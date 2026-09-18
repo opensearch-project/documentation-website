@@ -48,7 +48,7 @@ PUT /test-index
 ```
 {% include copy-curl.html %}
 
-Scalar quantization is applied only to `float` vectors. If you change the default value of the `data_type` parameter from `float` to `byte` or any other type when mapping a [k-NN vector]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-vector/), then the request is rejected.
+Scalar quantization is applied only to `float` vectors and, starting with OpenSearch 3.9, to `half_float` vectors. For `half_float` fields, a `compression_level` of `16x` (the default) applies 1-bit quantization, and `1x` runs an exact search on unquantized FP16 vectors. If you change the `data_type` parameter to `byte` or any other unsupported type when mapping a [k-NN vector]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-vector/), then the request is rejected.
 {: .warning}
 
 ## Search

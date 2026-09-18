@@ -77,6 +77,8 @@ The `type` and `clip` parameters are supported only for 16-bit quantization. If 
 
 You can use 1-bit scalar quantization to significantly reduce the memory footprint. 1-bit quantization uses [memory-optimized search]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/memory-optimized-search/), and each vector dimension is represented using a single bit, resulting in a much smaller index size compared to 16-bit quantization.
 
+Starting with OpenSearch 3.9, 1-bit quantization is also supported for [`half_float` vectors]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-memory-optimized/#half-float-vectors). For `half_float` fields, enable it by setting `compression_level` to `16x` (`half_float` fields do not accept an `encoder` in the `method` mapping).
+
 The following example creates an index with 1-bit Faiss scalar quantization:
 
 ```json
@@ -118,6 +120,8 @@ PUT /test-index
 ## 16-bit quantization
 
 With 16-bit quantization, the Faiss scalar quantizer (SQfp16) converts 32-bit floating-point vectors into 16-bit floating-point vectors. At search time, SQfp16 decodes the vector values back into 32-bit floating-point values for distance computation. The SQfp16 quantization can decrease the memory footprint by a factor of 2 with minimal loss in recall when differences between vector values are large compared to the error introduced by eliminating their two least significant bits.
+
+Starting with OpenSearch 3.9, you can achieve the same 2x memory reduction without an encoder by setting the field's `data_type` to `half_float`, which stores vectors natively in the FP16 format.
 
 ### Type and clip parameters
 
