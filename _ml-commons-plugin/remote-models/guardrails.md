@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Guardrails
-has_children: true
+has_children: false
 has_toc: false
 nav_order: 70
 parent: Connecting to externally hosted models 

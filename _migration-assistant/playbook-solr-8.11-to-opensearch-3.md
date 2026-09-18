@@ -22,7 +22,7 @@ Solr migrations support **backfill only**---Capture and Replay is not supported 
 
 Solr migrations differ from Elasticsearch migrations because Solr uses a different HTTP API, schema format (`schema.xml`), and query syntax. Migration Assistant uses a specialized component called SolrReader to read Solr backup data (Lucene segment files), translate `schema.xml` field types to OpenSearch mappings, and bulk-index documents. For more information, see [Solr migration overview]({{site.url}}{{site.baseurl}}/migration-assistant/solr-migration/).
 
-If your target is Amazon OpenSearch Serverless, this playbook still applies. The only differences are the target endpoint, the `authConfig.sigv4.service` value (`aoss` instead of `es`), and a one-time data access policy configuration. For the Serverless-specific target configuration, see [Migrate to OpenSearch Serverless]({{site.url}}{{site.baseurl}}/migration-assistant/amazon-opensearch-serverless/).
+If your target is Amazon OpenSearch Serverless NextGen, this playbook still applies. The differences are the target endpoint, the `authConfig.sigv4.service` value (`aoss` instead of `es`), a one-time data access policy configuration, and creating a collection group before the collection. For the Serverless NextGen target configuration, see [Migrate to OpenSearch Serverless NextGen]({{site.url}}{{site.baseurl}}/migration-assistant/amazon-opensearch-serverless/).
 {: .tip }
 
 ## Step 1: Create a Solr backup

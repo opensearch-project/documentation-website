@@ -92,7 +92,7 @@ POST _plugins/_alerting/workflows
 | `triggers.chained_alert_trigger.name` | String | The name of the alert trigger. |
 | `triggers.chained_alert_trigger.severity` | Number | The alert severity. 1 = highest; 2 = high; 3 = medium; 4 = low; 5 = lowest. |
 | `triggers.chained_alert_trigger.condition.script` | Object | The script details that determine the conditions for triggering an alert. |
-| `triggers.chained_alert_trigger.condition.script.source` | String | The Painless script that defines the conditions for triggering an alert. |
+| `triggers.chained_alert_trigger.condition.script.source` | String | The Painless script that defines the conditions for triggering an alert. For more information, see [Painless scripting language]({{site.url}}{{site.baseurl}}/scripting/painless/). |
 | `triggers.chained_alert_trigger.condition.script.lang` | String | Enter `painless` for the Painless scripting language. |
 | `actions` | Object | Provides fields for configuring an alert notification. |
 

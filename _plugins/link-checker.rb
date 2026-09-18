@@ -79,6 +79,8 @@ module Jekyll::LinkChecker
     'docs-vizlib.insightsoftware.com', # 403s on bots,
     'www.javadoc.io', # 522s on bots (Cloudflare)
     'medium.com', # 403s on bots
+    'opensearch.slack.com', # 403s on bots
+    'www.ibm.com', # 403s on bots
     'www.iso.org', # 403s on bots
     'elastic.co', # 406s on bots
     'www.elastic.co', # 406s on bots

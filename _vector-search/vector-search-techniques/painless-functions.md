@@ -12,7 +12,7 @@ redirect_from:
 
 # Painless scripting extensions
 
-With Painless scripting extensions, you can use k-nearest neighbors (k-NN) distance functions directly in your Painless scripts to perform operations on `knn_vector` fields. Painless has a strict list of allowed functions and classes per context to ensure that its scripts are secure. OpenSearch adds Painless scripting extensions to a few of the distance functions used in [k-NN scoring script]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-score-script/), so you can use them to customize your k-NN workload.
+With Painless scripting extensions, you can use k-nearest neighbors (k-NN) distance functions directly in your Painless scripts to perform operations on `knn_vector` fields. Painless has a strict list of allowed functions and classes per context to ensure that its scripts are secure. For more information, see [Painless scripting language]({{site.url}}{{site.baseurl}}/scripting/painless/). OpenSearch adds Painless scripting extensions to a few of the distance functions used in [k-NN scoring script]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-score-script/), so you can use them to customize your k-NN workload.
 
 ## Get started with k-NN Painless scripting functions
 

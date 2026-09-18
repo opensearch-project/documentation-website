@@ -27,6 +27,7 @@ Boolean
 [Cc]entiseconds?
 [Cc]lasspath
 [Cc]lickjack(ing)?
+[Cc]odebooks?
 [Cc]odec
 [Cc]omposable
 [Cc]onfig
@@ -35,6 +36,7 @@ Boolean
 [Cc]utover
 [Cc]yberattacks?
 [Cc]ybersecurity
+[Dd]akuten
 [Dd]ashboarding
 [Dd]atagram
 [Dd]eciseconds?
@@ -108,6 +110,7 @@ k-NN
 kibibyte
 [Ll]earnings
 [Ll]emmatization
+[Ll]emmatizers?
 Levenshtein
 [Ll]inestring
 [Ll]ivestreaming
@@ -184,7 +187,8 @@ peta
 [Rr]ewriter
 [Rr]ollout
 [Rr]ollup
-[Rr]omanized
+[Rr]omaji
+[Rr]omaniz(e|es|ed|ing|ation)
 [Rr]outable
 [Rr]unbooks?
 [Ss]andbox(es|ed|ing)?

@@ -115,6 +115,11 @@ nav#site-nav > .nav-list:nth-of-type(1) {
   }
 }
 
+h1 code, h2 code, h3 code {
+  font-size: 0.75em;
+  padding: 0.1em 0.15em;
+}
+
 .site-title {
   @include mq(md) {
     padding-top: 1rem;

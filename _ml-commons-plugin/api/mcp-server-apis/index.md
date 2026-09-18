@@ -13,6 +13,7 @@ redirect_from:
 
 # MCP server APIs
 **Introduced 3.0**
+{: .label .label-purple }
 
 [Model Context Protocol (MCP)](https://modelcontextprotocol.io/introduction) defines how an agent can discover and execute tools. The MCP server in OpenSearch allows agents to connect and use available [tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/).
 

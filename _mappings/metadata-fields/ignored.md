@@ -36,7 +36,9 @@ GET _search
 
 #### Example indexing request with the `_ignored` field
 
-The following example request adds a new document to the `test-ignored` index with `ignore_malformed` set to `true` so that no error is thrown during indexing: 
+The following example requests add a document with a malformed value to the `test-ignored` index and then search for the documents that contain an ignored field.
+
+First, create the index with `ignore_malformed` set to `true` on the `length` field so that no error is thrown during indexing:
 
 ```json
 PUT test-ignored
@@ -53,13 +55,23 @@ PUT test-ignored
     }
   }
 }
+```
+{% include copy-curl.html %}
 
-POST test-ignored/_doc
+Next, index a document whose `length` value is not a number. The `refresh` parameter makes the document immediately searchable:
+
+```json
+POST test-ignored/_doc?refresh=true
 {
   "title": "correct text",
   "length": "not a number"
 }
+```
+{% include copy-curl.html %}
 
+Finally, search for the documents that have at least one ignored field:
+
+```json
 GET test-ignored/_search
 {
   "query": {

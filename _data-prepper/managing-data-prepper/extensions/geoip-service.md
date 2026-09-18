@@ -4,6 +4,8 @@ title: geoip_service
 nav_order: 5
 parent: Extensions
 grand_parent: Managing OpenSearch Data Prepper
+redirect_from:
+  - /data-prepper/managing-data-prepper/extensions/geoip_service/
 ---
 
 # GeoIP service extension

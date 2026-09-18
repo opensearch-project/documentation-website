@@ -88,7 +88,7 @@ POST /_plugins/_security/api/generateonbehalfoftoken
    "durationSeconds":"180"
 }
 ```
-{% include copy-curl.html %}
+{% include copy-curl.html security=true %}
 
 ### Additional authorization restriction 
 
@@ -138,9 +138,9 @@ PUT /_plugins/_security/api/internalusers/admin_service
   "enabled": "true",
   "service": "true"
  }
- ```
-
-{% include copy-curl.html %}
+}
+```
+{% include copy-curl.html security=true %}
  
 ## Handling OBO and service accounts requests
 While both OBO token handling and Service Accounts can be viewed as independent features, the most significant benefits are realized when coupled. Specifically, OpenSearch exposes a client that is used to connect to the OpenSearch cluster and provides the plugins with the capability to run requests. 

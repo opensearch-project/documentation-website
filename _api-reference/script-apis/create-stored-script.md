@@ -13,6 +13,8 @@ Creates or updates a stored script or search template in the cluster state. Stor
 
 For additional information about Painless scripting, see:
 
+* [Painless scripting language]({{site.url}}{{site.baseurl}}/scripting/painless/).
+
 * [k-NN Painless Scripting extensions]({{site.url}}{{site.baseurl}}/search-plugins/knn/painless-functions/).
 
 * [k-NN]({{site.url}}{{site.baseurl}}/search-plugins/knn/index/).

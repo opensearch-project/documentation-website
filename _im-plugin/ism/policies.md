@@ -61,7 +61,13 @@ And so on.
 
 If ISM cannot successfully execute action `A`, actions `B`, `C`, and `D` do not get executed.
 
-Optionally, you can define an action's timeout period, which, if exceeded, forcibly fails the action. For example, if timeout is set to `1d`, and ISM has not completed the action within one day, even after retries, the action fails.
+Optionally, you can define an action's timeout period. When the timeout expires, ISM fails the action. The timeout covers the whole action, not a single attempt: the clock starts when ISM begins the action and keeps running through every step, retry, and retry delay, including the time between job runs while the action waits for its conditions to be met.
+
+ISM checks the clock only when the managed index job runs, which is every 5 minutes by default. For example, a [rollover]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies-operations/#rollover) operation with `min_index_age` set to `1d` evaluates `min_index_age` on each job run until the index is one day old. A `timeout` of `1h` therefore causes the action to fail before the index can meet the condition.
+
+When the timeout expires, ISM marks the action as failed and stops managing the index until you call the Retry failed index API, which restarts the action and its clock. A timeout does not stop work that ISM already started or undo changes that the action already made.
+
+Because ISM runs one step per job run, make the timeout longer than the total time that the action needs, plus one job interval for each of its steps. If you omit `timeout`, the action never times out and continues to retry according to its `retry` configuration.
 
 The following table lists the parameters that you can define for an action.
 

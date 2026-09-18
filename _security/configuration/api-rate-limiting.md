@@ -2,7 +2,7 @@
 layout: default
 title: API rate limiting
 parent: Configuration
-nav_order: 30
+nav_order: 50
 ---
 
 

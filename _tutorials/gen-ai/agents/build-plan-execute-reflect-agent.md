@@ -81,7 +81,7 @@ Note the model ID; you'll use it in the following steps.
 
 ### Step 1(c): Configure a retry policy
 
-Because the agent is a long-running agent that executes multiple steps, we strongly recommend configuring a retry policy for your connector. For more information, see the `client_config` parameter in [Configuration parameters]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/#configuration-parameters). For example, to configure unlimited retries, set `max_retry_times` to `-1`:
+Because the agent is a long-running agent that executes multiple steps, we strongly recommend configuring a retry policy for your connector. For more information, see the `client_config` field in [Request body fields]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/#request-body-fields). For example, to configure unlimited retries, set `max_retry_times` to `-1`:
 
 ```json
 PUT /_plugins/_ml/connectors/{connector_id}
@@ -187,7 +187,7 @@ Use the following tips to test your `plan_execute_and_reflect` agent effectively
   - Ensure the agent has access to all necessary tools for the task.
   - Include relevant context about your cluster in the prompt; for example, `Can you identify the error in my cluster by analyzing the "spans" and "logs" indexes?`
 
-- **Configure retries**: LLM calls can occasionally fail. Set up retries to improve reliability. For more information, see the `client_config` parameter in [Configuration parameters]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/#configuration-parameters).
+- **Configure retries**: LLM calls can occasionally fail. Set up retries to improve reliability. For more information, see the `client_config` field in [Request body fields]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/#request-body-fields).
 
 To test the agent, run it using the [Execute Agent API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/execute-agent/). Because this agent performs long-running tasks, we recommend running it asynchronously to avoid timeouts. Use the `async=true` query parameter to run the agent as a separate task:
 

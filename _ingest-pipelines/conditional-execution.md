@@ -7,7 +7,7 @@ nav_order: 40
 
 # Conditional execution
 
-In ingest pipelines, you can control whether a processor runs by using the optional `if` parameter. This allows for conditional execution of processors based on the incoming document contents. The condition is written as a Painless script and evaluated against the document context (`ctx`).
+In ingest pipelines, you can control whether a processor runs by using the optional `if` parameter. This allows for conditional execution of processors based on the incoming document contents. The condition is written as a Painless script and evaluated against the document context (`ctx`). For more information, see [Painless scripting language]({{site.url}}{{site.baseurl}}/scripting/painless/).
 
 ## Basic conditional execution
 

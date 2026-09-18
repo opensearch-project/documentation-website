@@ -47,7 +47,7 @@ If any of the prerequisites are not met, all models in the cluster are `public` 
 
 ## Assigning backend roles to users
 
-Create the appropriate backend roles and assign those roles to users. Backend roles usually come from an [LDAP server]({{site.url}}{{site.baseurl}}/security/configuration/ldap/) or [SAML provider]({{site.url}}{{site.baseurl}}/security/configuration/saml/), but if you use the internal user database, you can use the REST API to [add them manually]({{site.url}}{{site.baseurl}}/security/access-control/api#create-user).
+Create the appropriate backend roles and assign those roles to users. Backend roles usually come from an [LDAP server]({{site.url}}{{site.baseurl}}/security/configuration/ldap/) or [SAML provider]({{site.url}}{{site.baseurl}}/security/configuration/saml/), but if you use the internal user database, you can use the REST API to [add them manually]({{site.url}}{{site.baseurl}}/security/api/users/create-user/).
 
 Only admin users can assign backend roles to users.
 {: .note}

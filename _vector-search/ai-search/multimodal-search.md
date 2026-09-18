@@ -21,7 +21,7 @@ Use multimodal search to search text and image data using multimodal embedding m
 > - **Amazon Bedrock -- Titan Multimodal Embeddings**: See the [Titan Multimodal Embeddings blueprint](https://github.com/opensearch-project/ml-commons/blob/main/docs/remote_inference_blueprints/bedrock_connector_titan_multimodal_embedding_blueprint.md).
 > - **Cohere -- Multimodal embedding models**: See the [Cohere multimodal embedding blueprint](https://github.com/opensearch-project/ml-commons/blob/main/docs/remote_inference_blueprints/cohere_connector_image_embedding_blueprint.md).
 > 
-> For complete setup instructions, see [Integrating ML models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/) and [Supported connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/supported-connectors/).
+> For complete setup instructions, see [Integrating ML models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/) and [OpenSearch-provided connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/supported-connectors/).
 {: .note}
 
 ## Configuring multimodal search
@@ -178,7 +178,7 @@ GET /my-nlp-index/_search
 ```
 {% include copy-curl.html %}
 
-To eliminate passing the model ID with each neural query request, you can set a default model on a vector index or a field. To learn more, see [Setting a default model on an index or field]({{site.url}}{{site.baseurl}}/search-plugins/neural-text-search/##setting-a-default-model-on-an-index-or-field).
+To eliminate passing the model ID with each neural query request, you can set a default model on a vector index or a field. To learn more, see [Setting a default model on an index or field]({{site.url}}{{site.baseurl}}/search-plugins/neural-text-search/#setting-a-default-model-on-an-index-or-field).
 
 ## Next steps
 

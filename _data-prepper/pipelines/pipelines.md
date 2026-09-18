@@ -6,6 +6,8 @@ nav_order: 10
 redirect_from:
   - /data-prepper/pipelines/
   - /clients/data-prepper/pipelines/
+  - /data-prepper/pipelines/configuration/processors/routes/
+  - /data-prepper/pipelines/pipelines-configuration-options/
 ---
 
 # Data Prepper pipelines

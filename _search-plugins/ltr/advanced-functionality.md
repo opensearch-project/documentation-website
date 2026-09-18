@@ -84,7 +84,7 @@ Script-based features may impact the performance of your OpenSearch cluster, so 
 
 ### Script feature parameters
 
-Script features are native or Painless scripts within the context of LTR. These script features can accept parameters as described in the [OpenSearch script documentation]({{site.url}}{{site.baseurl}}/api-reference/script-apis/index/). When working with LTR scripts, you can override parameter values and names. The priority for parameterization, in increasing order, is as follows:
+Script features are native or Painless scripts within the context of LTR. For more information, see [Painless scripting language]({{site.url}}{{site.baseurl}}/scripting/painless/). These script features can accept parameters as described in the [OpenSearch script documentation]({{site.url}}{{site.baseurl}}/api-reference/script-apis/index/). When working with LTR scripts, you can override parameter values and names. The priority for parameterization, in increasing order, is as follows:
 
 - The parameter name and value are passed directly to the source script, but not in the LTR script parameters. These cannot be configured at query time. 
 - The parameter name is passed to both the `sltr` query and the source script, allowing the script parameter values to be overridden at query time.
@@ -136,11 +136,18 @@ POST _ltr/_featureset/more_movie_features
 
 ## Multiple feature stores
 
-A feature store corresponds to an independent LTR system, including features, feature sets, and models backed by a single index and cache. A feature store typically represents a single search problem or application, like Wikipedia or Wiktionary. To use multiple feature stores in your OpenSearch cluster, you can create and manage them using the provided API. For example, you can create a feature set for the `wikipedia` feature store as follows:
+A feature store corresponds to an independent LTR system, including features, feature sets, and models backed by a single index and cache. A feature store typically represents a single search problem or application, like Wikipedia or Wiktionary. To use multiple feature stores in your OpenSearch cluster, you can create and manage them using the provided API.
+
+For example, first create the `wikipedia` feature store:
 
 ```json
 PUT _ltr/wikipedia
+```
+{% include copy-curl.html %}
 
+Then create a feature set in that store:
+
+```json
 POST _ltr/wikipedia/_featureset/attempt_1
 {
   "featureset": {
@@ -402,7 +409,6 @@ You can limit the information to a single node in the cluster by sending the fol
 GET /_plugins/_ltr/{nodeId}/stats
 GET /_plugins/_ltr/{nodeId}/stats/{stat}
 ```
-{% include copy-curl.html %}
 
 ## TermStat query
 Experimental

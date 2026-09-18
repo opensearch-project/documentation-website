@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Create Snapshot
+title: Create snapshot
 parent: Snapshot APIs
 nav_order: 5
 ---

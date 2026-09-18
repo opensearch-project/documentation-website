@@ -435,7 +435,7 @@ Parameter | Required/Optional | Description
 `id` | Required | The document ID of the document containing the pre-indexed shape. 
 `index` | Optional | The name of the index containing the pre-indexed shape. Default is `shapes`.
 `path` | Optional | The field name of the field containing the pre-indexed shape as a path. Default is `shape`.
-`routing` | Optional | The routing of the document containing the pre-indexed shape.
+`routing` | Optional | The routing value of the document containing the pre-indexed shape. Required if the shape document was indexed with a custom routing value.
 
 The following example illustrates how to reference the name of a shape pre-indexed in another index. In this example, the index `pre-indexed-shapes` contains the shape that defines the boundaries, and the index `testindex` contains the shapes that are checked against those boundaries.
 
@@ -728,3 +728,9 @@ Geoshape queries accept the following parameters.
 Parameter | Data type | Description
 :--- | :--- | :--- 
 `ignore_unmapped` | Boolean | Specifies whether to ignore an unmapped field. If set to `true`, then the query does not return any documents that contain an unmapped field. If set to `false`, then an exception is thrown when the field is unmapped. Optional. Default is `false`.
+
+## Expensive queries
+
+Geoshape fields store shapes in a BKD tree by default, and queries on those fields run regardless of the [`search.allow_expensive_queries`]({{site.url}}{{site.baseurl}}/query-dsl/index/#expensive-queries) setting.
+
+A geoshape field mapped with the `tree` or `strategy` parameter stores shapes in a prefix tree instead. Queries on a prefix tree field run only when `search.allow_expensive_queries` is `true`.
