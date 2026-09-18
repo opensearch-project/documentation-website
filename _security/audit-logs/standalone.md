@@ -58,7 +58,7 @@ Sink type | Description
 `log4j` | Writes events to a Log4j logger. You can use any Log4j appender (file, SNMP, JDBC, Kafka).
 `webhook` | Sends events as JSON to an arbitrary HTTP endpoint.
 `external_opensearch` | Writes to an audit index on a remote OpenSearch cluster.
-`debug` | Prints events to stdout. Intended for development and troubleshooting only.
+`debug` | Prints events to `stdout`. Intended for development and troubleshooting only.
 
 For sink-specific configuration options, see [Audit log storage types]({{site.url}}{{site.baseurl}}/security/audit-logs/storage-types/).
 
@@ -112,7 +112,7 @@ Identity information varies by security mode:
 
 Configure initial standalone audit settings in `opensearch.yml`. Dynamic settings can be updated at runtime using the [Cluster settings API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/). Static settings, including `enable_standalone`, `action_groups.<NAME>`, and sink connection settings, require a node restart. No security index is required.
 
-Standalone mode does not use the [Audit logs]({{site.url}}{{site.baseurl}}/security/access-control/api/#audit-logs) REST API or `audit.yml`---those manage the security index and require fine-grained access control. In standalone mode, use the Cluster settings API instead.
+Standalone mode does not use the [Audit logs]({{site.url}}{{site.baseurl}}/security/api/audit/) REST API or `audit.yml`---those manage the security index and require fine-grained access control. In standalone mode, use the Cluster settings API instead.
 
 ### Dynamic configuration
 
@@ -132,7 +132,7 @@ Dynamic settings override the values in `opensearch.yml` and persist across clus
 
 ### Dynamic settings reference
 
-The following settings are registered as dynamic cluster settings. For initial node configuration in `opensearch.yml`, the non-`enabled` compliance values use legacy `opendistro_security.compliance.*` keys. Those legacy names are for startup configuration only; do not use them in `PUT _cluster/settings`. In standalone mode, use the corresponding `plugins.security.audit.compliance.*` names for runtime updates, but only for settings with a registered update consumer. The `plugins.security.audit.enabled` setting is runtime-only: setting it in `opensearch.yml` has no effect; in standalone mode, change it with `PUT _cluster/settings`. See each setting's description below for its supported source and update behavior. Types are shown as placeholders:
+The following settings are registered as dynamic cluster settings. For initial node configuration in `opensearch.yml`, the non-`enabled` compliance values use legacy `opendistro_security.compliance.*` keys. Those legacy names are for startup configuration only; do not use them in `PUT _cluster/settings`. In standalone mode, use the corresponding `plugins.security.audit.compliance.*` names for runtime updates, but only for settings with a registered update consumer. The `plugins.security.audit.enabled` setting is runtime-only: setting it in `opensearch.yml` has no effect; in standalone mode, change it with `PUT _cluster/settings`. See each setting's description later in this section for its supported source and update behavior. Types are shown as placeholders:
 
 ```yml
 # Global toggle
@@ -188,7 +188,7 @@ Setting | Default | Description
 `plugins.security.audit.config.ignore_requests` | `[]` | Action patterns or REST paths to exclude (e.g., `["cluster:monitor/*"]`).
 `plugins.security.audit.config.ignore_headers` | `[]` | HTTP headers to exclude from audit events.
 
-Setting `disabled_rest_categories` or `disabled_transport_categories` replaces the entire default list rather than adding to it. If you set either to a custom list, include the categories shown above that you still want disabled---otherwise they are silently re-enabled.
+Setting `disabled_rest_categories` or `disabled_transport_categories` replaces the entire default list rather than adding to it. If you set either to a custom list, include the categories shown earlier that you still want disabled---otherwise they are silently re-enabled.
 {: .warning }
 
 ### Toggling audit on/off at runtime
@@ -254,7 +254,7 @@ Setting | Default | Description
 `plugins.security.audit.compliance.external_config` | `false` | Log the external configuration (`opensearch.yml` and environment) once at startup.
 `plugins.security.audit.compliance.internal_config` | `false` | Log changes to the internal security configuration.
 
-Four of the settings above have no registered update consumer, so a `PUT _cluster/settings` request accepts the change without error but has no effect: `write_ignore_users`, `read_ignore_users`, `external_config`, and `internal_config`. The rest can be updated dynamically via `PUT _cluster/settings`.
+Four of the settings listed earlier have no registered update consumer, so a `PUT _cluster/settings` request accepts the change without error but has no effect: `write_ignore_users`, `read_ignore_users`, `external_config`, and `internal_config`. The rest can be updated dynamically via `PUT _cluster/settings`.
 
 ## Example configurations
 

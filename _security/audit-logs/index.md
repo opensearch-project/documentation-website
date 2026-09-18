@@ -488,7 +488,7 @@ plugins.security.audit.config.threadpool.max_queue_len: 100000
 
 ## Disabling audit logs
 
-To disable audit logs after they've been enabled, remove the `plugins.security.audit.type: internal_opensearch` setting from `opensearch.yml`, or switch off the **Enable audit logging** check box in OpenSearch Dashboards. The `plugins.security.audit.enabled` runtime toggle via the cluster settings API applies only to standalone audit logging; see [Standalone audit logging]({{site.url}}{{site.baseurl}}/security/audit-logs/standalone/) for instructions.
+To disable audit logs after they've been enabled, remove the `plugins.security.audit.type: internal_opensearch` setting from `opensearch.yml`, or switch off the **Enable audit logging** check box in OpenSearch Dashboards. The `plugins.security.audit.enabled` runtime toggle, set using the cluster settings API, applies only to standalone audit logging; see [Standalone audit logging]({{site.url}}{{site.baseurl}}/security/audit-logs/standalone/) for instructions.
 
 ## Audit user account manipulation
 
