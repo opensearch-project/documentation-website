@@ -38,6 +38,8 @@ Run a small pilot before the full migration. Use a limited snapshot scope or a s
 - Target indexing capacity is sufficient.
 - Any document-level errors are resolved before you run the full migration.
 
+If the pilot or full backfill exposes document-level failures, see [Tracking and remediating failed documents]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/tracking-failed-documents/) for how to enable the failed document stream, inspect failures, and remediate them.
+
 ## Configure the workflow
 
 Always start from the version-matched sample:
