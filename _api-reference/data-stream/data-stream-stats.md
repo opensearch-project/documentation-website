@@ -2,7 +2,6 @@
 layout: default
 title: Get data stream stats
 parent: Data stream APIs
-grand_parent: Index APIs
 nav_order: 30
 redirect_from:
   - /api-reference/index-apis/data-stream-stats/

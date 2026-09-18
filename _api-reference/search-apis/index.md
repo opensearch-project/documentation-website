@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Search APIs
-nav_order: 75
+nav_order: 100
 has_children: true
 has_toc: false
 redirect_from:

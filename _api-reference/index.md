@@ -24,10 +24,11 @@ OpenSearch supports the following REST APIs:
 
 ### Core APIs (in this section)
 
-- [Analyze APIs]({{site.url}}{{site.baseurl}}/api-reference/analyze-apis/)
+- [Analyze API]({{site.url}}{{site.baseurl}}/api-reference/analyze-apis/)
 - [CAT APIs]({{site.url}}{{site.baseurl}}/api-reference/cat/)
 - [Cluster APIs]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/)
 - [Common REST parameters]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/)
+- [Data stream APIs]({{site.url}}{{site.baseurl}}/api-reference/data-stream/)
 - [Document APIs]({{site.url}}{{site.baseurl}}/api-reference/document-apis/)
 - [Index APIs]({{site.url}}{{site.baseurl}}/api-reference/index-apis/)
 - [Ingest APIs]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/)
@@ -62,6 +63,7 @@ OpenSearch supports the following REST APIs:
 - [Reporting API]({{site.url}}{{site.baseurl}}/reporting/api/)
 - [Root cause analysis API]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/pa/rca/api/)
 - [Saved Objects APIs]({{site.url}}{{site.baseurl}}/dashboards/management/saved-objects-api/)
+- [Security APIs]({{site.url}}{{site.baseurl}}/api-reference/security/)
 - [Snapshot management API]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/sm-api/)
 - [Scroll]({{site.url}}{{site.baseurl}}/api-reference/scroll/)
 - [Search]({{site.url}}{{site.baseurl}}/api-reference/search/)

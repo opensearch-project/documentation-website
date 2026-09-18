@@ -1,8 +1,10 @@
 ---
 layout: default
 title: Modify data stream
-parent: Index APIs
-nav_order: 85
+parent: Data stream APIs
+nav_order: 50
+redirect_from:
+  - /api-reference/index-apis/modify-data-stream/
 ---
 
 # Modify Data Stream API

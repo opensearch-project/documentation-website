@@ -2,7 +2,6 @@
 layout: default
 title: Delete data stream
 parent: Data stream APIs
-grand_parent: Index APIs
 nav_order: 40
 ---
 

@@ -1,8 +1,7 @@
 ---
 layout: default
 title: Data stream APIs
-parent: Index APIs
-nav_order: 80
+nav_order: 40
 has_children: true
 has_toc: false
 ---
@@ -19,10 +18,11 @@ OpenSearch supports the following data stream APIs.
 
 | API | Description |
 |-----|-------------|
-| [Create or update a data stream]({{site.url}}{{site.baseurl}}/api-reference/data-stream/create-data-stream/) | Creates a data stream. |
-| [Get data streams]({{site.url}}{{site.baseurl}}/api-reference/data-stream/data-stream-info/) | Returns information about one or more data streams. |
+| [Create data stream]({{site.url}}{{site.baseurl}}/api-reference/data-stream/create-data-stream/) | Creates a data stream. |
+| [Get data stream]({{site.url}}{{site.baseurl}}/api-reference/data-stream/data-stream-info/) | Returns information about one or more data streams. |
 | [Get data stream stats]({{site.url}}{{site.baseurl}}/api-reference/data-stream/data-stream-stats/) | Provides statistics on operations happening in one or more data streams. |
-| [Delete a data stream]({{site.url}}{{site.baseurl}}/api-reference/data-stream/delete-data-stream/) | Deletes a data stream. |
+| [Delete data stream]({{site.url}}{{site.baseurl}}/api-reference/data-stream/delete-data-stream/) | Deletes a data stream. |
+| [Modify data stream]({{site.url}}{{site.baseurl}}/api-reference/data-stream/modify-data-stream/) | Adds or removes backing indexes of a data stream. |
 
 ## Related documentation
 

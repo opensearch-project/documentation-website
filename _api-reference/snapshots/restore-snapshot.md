@@ -191,7 +191,7 @@ POST /_snapshot/my-opensearch-repo/my-first-snapshot/_restore
 ```
 {% include copy-curl.html %}
 
-To add or remove backing indexes of a data stream without restoring an index from a snapshot, use the [Modify Data Stream API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/modify-data-stream/).
+To add or remove backing indexes of a data stream without restoring an index from a snapshot, use the [Modify Data Stream API]({{site.url}}{{site.baseurl}}/api-reference/data-stream/modify-data-stream/).
 
 ## Example response
 
