@@ -8,7 +8,7 @@ permalink: /migration-assistant/migration-phases/tracking-failed-documents/
 
 # Tracking and remediating failed documents
 
-During a [backfill]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/backfill/), Reindex-from-Snapshot (RFS) retries most document errors automatically. A document is only counted as *failed* when the error is terminal — either non-retryable, or retried until the retry limit was exhausted. This page shows operators where those failures are recorded, how to see exactly which documents failed and why, and how to remediate them.
+During a [backfill]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/backfill/), Reindex-from-Snapshot (RFS) retries most document errors automatically. A document is only counted as *failed* when the error is terminal, either non-retryable, or retried until the retry limit was exhausted. This page shows operators where those failures are recorded, how to see exactly which documents failed and why, and how to remediate them.
 
 ## Where failures are recorded
 
@@ -18,7 +18,7 @@ Terminal document failures are recorded in two places:
 - **RFS worker logs (diagnostic detail).** Each failed bulk request is logged by the RFS workers, including the target index, failed item count, root cause, and the request and response bodies.
 
 {: .warning }
-> The failed document stream is **off by default**. If you do not enable it before running the backfill, a failed migration leaves no durable inventory of which documents did not land — you would be limited to the worker logs. Enable it as described in [Enabling the failed document stream](#enabling-the-failed-document-stream) before you start the backfill.
+> The failed document stream is **off by default**. If you do not enable it before running the backfill, a failed migration leaves no durable inventory of which documents did not land; you would be limited to the worker logs. Enable it as described in [Enabling the failed document stream](#enabling-the-failed-document-stream) before you start the backfill.
 
 ## Enabling the failed document stream
 
@@ -31,7 +31,7 @@ documentBackfillConfig:
 
 | Option | Default | Description |
 | :-- | :-- | :-- |
-| `failedDocumentStreamS3Bucket` | none — stream off | Bucket for records. Setting it enables the stream. |
+| `failedDocumentStreamS3Bucket` | none-stream off | Bucket for records. Setting it enables the stream. |
 | `failedDocumentStreamS3Prefix` | `rfs-failed-document-stream/` | Key prefix. Each run has a session root at `<prefix>session=<uid>/`; individual objects are nested under that root by target index and worker. |
 | `failedDocumentStreamS3Region` | resolved from config | Region for the bucket. Ignored without a bucket. |
 | `failedDocumentStreamS3Endpoint` | resolved from config | Endpoint override (for example, LocalStack). Ignored without a bucket. |
@@ -63,7 +63,7 @@ failed document stream location: s3://my-bucket/rfs-failed-document-stream/sessi
 Failed documents present: yes
 ```
 
-The status reports only *whether* failures exist, not how many — counting reads every record, which is unbounded work on a large failure set. Use the `count` command below when you need the number.
+The status command reports only *whether* failures exist, not how many. Counting requires reading every failed-document record, which is unbounded work on a large failure set. To get the number of failed documents, use `console failed-document-stream count` in [Inspecting failed documents](#inspecting-failed-documents).
 
 In JSON mode, the same check adds `failed_document_stream_location` and `failed_documents_present`:
 
@@ -98,7 +98,7 @@ Each record includes:
 | :-- | :-- |
 | `targetIndex` | The index the document was being written to. |
 | `documentId` | The document's ID. |
-| `failureClass` | How the document reached the stream (for example, non-retryable, or retryable retries exhausted). |
+| `failureClass` | How the document reached the stream (for example, non-retryable, or `retryable` retries exhausted). |
 | `failureType` | The OpenSearch error type, for example `mapper_parsing_exception`. |
 | `requestItem` | The captured bulk request item. When the original source document is available, that source content is stored here so you can diagnose or resubmit without going back to the source cluster. |
 
@@ -113,6 +113,8 @@ For lower-level detail, inspect the RFS worker logs. Each failed bulk request pr
 
 ## Remediating failures
 
+Use the failed document stream to identify the main cause before retrying any documents.
+
 ### Understand the failure type
 
 Group the failures by `failureType` (from `list`) to see what is going wrong, and use `failureClass` to tell whether the error was non-retryable or only became terminal after retries were exhausted. Common cases:
@@ -126,29 +128,6 @@ Group the failures by `failureType` (from `list`) to see what is going wrong, an
 ### Resubmit the failed documents
 
 The `--json ... list` output contains each failed document's `requestItem`, so you can correct the root cause (for example, a mapping or transform) and resubmit those documents to the target. When the original source document was available, `requestItem` preserves that source-side content rather than guaranteeing the exact transformed payload that was sent on the failed write.
-
-<!-- BEGIN: remove this admonition and keep the section once PR #3269 ships -->
-{: .note }
-> **Redrive is planned for a later release.** The built-in commands below (`seal` and `redrive`) are not yet available. Until they ship, resubmit failed documents manually using the `--json ... list` output described above.
-<!-- END -->
-
-### Sealing and redriving (later release)
-
-A future release adds a built-in redrive path that resubmits a session's failed documents to the target as an ordinary backfill — inheriting the same work coordination, retries, progress reporting, and transforms, so a corrected transform is applied on the way through.
-
-```
-# Freeze the session into an immutable manifest (automatic when a backfill runs to completion)
-console failed-document-stream seal
-
-# Preview what would be resubmitted without submitting anything
-console failed-document-stream redrive --dry-run
-
-# Redrive a subset
-console failed-document-stream redrive --index orders-2024 --failure-class RETRYABLE_EXHAUSTED
-```
-
-{: .warning }
-> Redriven documents are written at their original document IDs, replacing whatever those IDs currently hold. Review the preview before confirming, especially when several source indexes were combined into one target index.
 
 ## Deleting records
 
