@@ -578,7 +578,7 @@ To finish creating a composite monitor in the visual editor, follow these steps:
   * **Daily** — Specify a time of day and a time zone.
   * **Weekly** — Specify a day of the week, a time of day, and a time zone.
   * **Monthly** — Specify a day of the month, a time of day, and a time zone.
-  * **Custom cron expression** — Create a custom cron expression for the schedule. Use the **cron expressions** link for help with creating these expressions, or see the [Cron expression reference]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/cron/).
+  * **Custom cron expression** — Create a custom cron expression for the schedule. Use the **cron expressions** link for help with creating these expressions, or see [Cron expressions]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#cron-expressions).
 
 1. In the **Delegate monitors** section, enter the individual monitors you want to include in the workflow by selecting them in the dropdown lists. In the **Visual editor**, the order in which you select the monitors determines their order in the workflow.
   

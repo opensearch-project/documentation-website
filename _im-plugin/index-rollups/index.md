@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Index rollups
-nav_order: 60
+nav_order: 50
 has_children: true
 redirect_from: 
   - /im-plugin/index-rollups/
@@ -9,67 +9,43 @@ redirect_from:
 
 # Index rollups
 
-Time-series data increases storage costs, strains cluster health, and slows down aggregations over time. Index rollup lets you periodically reduce data granularity by rolling up old data into summarized indexes.
+Uncompressed time-series data eventually increases storage costs, strains cluster health, and slows down aggregations. _Index rollup_ mitigates these effects by periodically compressing old data into summarized indexes with reduced granularity.
 
-You pick the fields that interest you and use index rollup to create a new index with only those fields aggregated into coarser time buckets. You can store months or years of historical data at a fraction of the cost with the same query performance.
+You pick the fields that interest you and use index rollup to create a new index with only those fields, aggregated into coarser time buckets. You can store months or years of historical data at a fraction of the cost with the same query performance.
 
-For example, say you collect CPU consumption data every five seconds and store it on a hot node. Instead of moving older data to a read-only warm node, you can roll up or compress this data with only the average CPU consumption per day or with a 10% decrease in its interval every week.
+For example, say you collect CPU consumption data every five seconds and store it on a hot node. Instead of moving older data to a read-only warm node, you can progressively compress this data with a 10% decrease in its interval every week. Or you could save only the average CPU consumption per day.
 
 You can use index rollup in three ways:
 
 1. Use the Index Rollup API for an on-demand index rollup job that operates on an index that's not being actively ingested, such as a rolled-over index. For example, you can perform an index rollup operation to aggregate data collected at a 5-minute interval into a weekly average for trend analysis.
-2. Use the OpenSearch Dashboards UI to create an index rollup job that runs on a defined schedule. You can also set it up to roll up your indexes as it’s being actively ingested. For example, you can continuously roll up Logstash indexes from a five second interval to a one hour interval.
-3. Specify the index rollup job as an ISM action for complete index management. This allows you to roll up an index after a certain event such as a rollover, index age reaching a certain point, index becoming read-only, and so on. You can also have rollover and index rollup jobs running in sequence, where the rollover first moves the current index to a warm node and then the index rollup job creates a new index with the minimized data on the hot node.
+2. Use the OpenSearch Dashboards UI to create an index rollup job that runs on a defined schedule. Or you can configure the job to roll up your indexes as they are being ingested. For example, you can continuously roll up Logstash indexes from a five second interval to a one hour interval.
+3. Specify the index rollup job as an ISM action as a part of complete index management. This enables you to trigger a rollup after an event such as a rollover, index age reaching a certain point, index becoming read-only, and so on. You can also have rollover and index rollup jobs running in sequence, where the rollover first moves the current index to a warm node and then the index rollup job creates a new index with the minimized data on the hot node.
 
-## Create an index rollup job
+## Configuring a rollup job
 
-To get started, choose **Index Management** in OpenSearch Dashboards.
-Select **Rollup Jobs** and choose **Create rollup job**.
+A rollup job reads from a source index and writes summarized documents to a target index. The source index is unchanged, and you cannot change either index selection after the job is created.
 
-### Step 1: Set up indexes
+A job aggregates the source documents on a timestamp field, using either a fixed interval, where every bucket is the same length, or a calendar interval, which follows calendar entities such as months and can be unequal. You can group by additional fields---terms aggregation for any field type and histogram aggregation for numeric fields---and save `avg`, `sum`, `max`, `min`, `value_count`, and `cardinality` metrics for numeric fields.
 
-1. In the **Job name and description** section, specify a unique name and an optional description for the index rollup job.
-2. In the **Indices** section, select the source and target index. The source index is the one that you want to roll up. The source index remains as is, the index rollup job creates a new index referred to as a target index. The target index is where the index rollup results are saved. For target index, you can either type in a name for a new index or you select an existing index.
-5. Choose **Next**
+Choose the fields to group by carefully. Highly granular fields produce nearly as many rolled-up documents as source documents and save little space. The order of the fields matters: group by the fields with the fewest buckets first. For a dataset of demographics by city, for example, group by city and save the demographics as metrics.
 
-After you create an index rollup job, you can't change your index selections.
+A job runs on a fixed interval or on a schedule that you define with a [cron expression]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#cron-expressions), and processes a number of pages per run that trades run time against memory. Add an execution delay to give ingestion time to finish: with a delay of 10 minutes, the run that rolls up the hour from 1 PM to 2 PM starts at 2:10 PM. Mark the job as continuous to roll up data as it is ingested rather than in one pass.
 
-### Step 2: Define aggregations and metrics
+To create a job, use the [Index rollups API]({{site.url}}{{site.baseurl}}/im-plugin/index-rollups/rollup-api/) or the steps in [Creating a rollup job](#creating-a-rollup-job).
 
-Select the attributes with the aggregations (terms and histograms) and metrics (`avg`, `sum`, `max`, `min`, `value_count`, and `cardinality`) that you want to roll up. Make sure you don't add a lot of highly granular attributes, because you won't save much space.
+## Searching the target index
 
-For example, consider a dataset of cities and demographics within those cities. You can aggregate based on cities and specify demographics within a city as metrics.
-The order in which you select attributes is critical. A city followed by a demographic is different from a demographic followed by a city.
+Search the target index with the `_search` API. The query must match the constraints of the target index. A terms aggregation on a field that you did not group by, or an aggregation on a metric that you did not save, is rejected with `400`.
 
-1. In the **Time aggregation** section, select a timestamp field. Choose between a **Fixed** or **Calendar** interval type and specify the interval and time zone. The index rollup job uses this information to create a date histogram for the timestamp field.
-2. (Optional) Add additional aggregations for each field. You can choose terms aggregation for all field types and histogram aggregation only for numeric fields.
-3. (Optional) Add additional metrics for each field. You can choose **All**, **Min**, **Max**, **Sum**, **Avg**, **Value Count**, or **Cardinality**.
-4. Choose **Next**.
+An `avg` sub-aggregation nested under a `date_histogram` returns `400` with a `script_exception` on a rollup index. Use `sum` and `value_count` and divide them, or nest the `avg` under a `terms` aggregation instead.
+{: .note}
 
-### Step 3: Specify a schedule
-
-Specify a schedule to roll up your indexes as it’s being ingested. The index rollup job is enabled by default.
-
-1. Specify if the data is continuous or not.
-3. For roll up execution frequency, select **Define by fixed interval** and specify the **Rollup interval** and the time unit or **Define by cron expression** and add in a cron expression to select the interval. To learn how to define a cron expression, see [Alerting]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/cron/).
-4. Specify the number of pages per execution process. A larger number means faster execution and more cost for memory.
-5. (Optional) Add a delay to the roll up executions. This is the amount of time the job waits for data ingestion to accommodate any processing time. For example, if you set this value to 10 minutes, an index rollup that executes at 2 PM to roll up 1 PM to 2 PM of data starts at 2:10 PM.
-6. Choose **Next**.
-
-### Step 4: Review and create
-
-Review your configuration and select **Create**.
-
-### Step 5: Search the target index
-
-You can use the standard `_search` API to search the target index. Make sure that the query matches the constraints of the target index. For example, if you don’t set up terms aggregations on a field, you don’t receive results for terms aggregations. If you don’t set up the maximum aggregations, you don’t receive results for maximum aggregations.
-
-You can’t access the internal structure of the data in the target index because the plugin automatically rewrites the query in the background to suit the target index. This is to make sure you can use the same query for the source and target index.
+You cannot access the internal structure of the documents in the target index. OpenSearch rewrites the query to suit the target index so that you can use the same query against the source and target indexes.
 
 To query the target index, set `size` to 0:
 
 ```json
-GET target_index/_search
+GET {target_index}/_search
 {
   "size": 0,
   "query": {
@@ -99,7 +75,7 @@ When defining a cardinality metric in a rollup job, you can specify the followin
 
 | Parameter | Data type | Description |
 | :--- | :--- | :--- | 
-| `precision_threshold` | Integer | Controls the trade-off between accuracy and memory usage. Higher values provide more accuracy but use more memory. Valid values are 100 to 40,000, inclusive. Default is 3,000.|
+| `precision_threshold` | Integer | Controls the trade-off between accuracy and memory usage. Higher values provide more accuracy but use more memory. Use a value between 100 and 40,000; values outside that range are accepted without an error but are not supported. Default is 3,000.|
 
 You can specify the `precision_threshold` parameter in the `cardinality` object as follows:
 
@@ -125,7 +101,7 @@ You can specify the `precision_threshold` parameter in the `cardinality` object 
 You can query cardinality metrics on rollup indexes in the same way you would on source indexes:
 
 ```json
-GET rollup_index/_search
+GET {rollup_index}/_search
 {
   "size": 0,
   "aggs": {
@@ -144,12 +120,29 @@ When querying rollup indexes, any `precision_threshold` specified in the query i
 
 ### Example: Tracking unique visitors
 
-This example creates a rollup job that tracks the number of unique visitors per hour:
+This example creates a rollup job that tracks the number of unique visitors per hour. First create the source index:
+
+```json
+PUT web_logs
+{
+  "mappings": {
+    "properties": {
+      "timestamp": { "type": "date" },
+      "visitor_id": { "type": "keyword" },
+      "page_views": { "type": "integer" }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+Then create the rollup job:
 
 ```json
 PUT _plugins/_rollup/jobs/visitor_rollup
 {
   "rollup": {
+    "description": "Unique visitors per hour",
     "enabled": true,
     "schedule": {
       "interval": {
@@ -192,6 +185,9 @@ PUT _plugins/_rollup/jobs/visitor_rollup
 }
 ```
 {% include copy-curl.html %}
+
+A rollup job creates its target index on its first run, which happens once the configured interval elapses. Until then, searching the target index returns `index_not_found_exception`. To check whether a job has run, send `GET _plugins/_rollup/jobs/visitor_rollup/_explain`: a `rollup_metadata` of `null` means the job has not run yet.
+{: .note}
 
 Query the rollup index:
 
@@ -247,11 +243,11 @@ Each tier uses the previous tier's rollup index as its source, progressively red
 
 For multi-tier rollups to work correctly, you must fulfill the following prerequisites:
 
-1. **Matching dimensions**: All tiers must use the same dimension fields (field names and types must match).
-2. **Compatible time intervals**: Each tier's interval must be a multiple of the previous tier's interval (for example, `5m` → `1h` → `1d`).
-3. **Consistent cardinality precision**: If using [cardinality metrics](#cardinality-metric), all tiers must use the same `precision_threshold` value.
-4. **Source index type**: The source index for Tier 2+ must be a rollup index created by a previous tier.
-5. **Source index data**: Ensure that the source tier has completed at least one rollup execution before creating the next tier. Creating a rollup job from an empty rollup index will succeed, but it may behave unexpectedly.
+1. All tiers must use the same dimension fields, and the field names and types must match.
+2. Each tier's interval must be a multiple of the previous tier's interval, for example, `5m` → `1h` → `1d`.
+3. All tiers must use the same `precision_threshold` value if they use [cardinality metrics](#cardinality-metric).
+4. The source index for the second and subsequent tiers must be a rollup index created by a previous tier.
+5. The source tier must complete at least one rollup execution before you create the next tier. Creating a rollup job from an empty rollup index succeeds but produces unexpected results.
 
 ### Example: Two-tier rollup strategy
 
@@ -261,12 +257,44 @@ This example demonstrates a two-tier rollup for Internet of Things (IoT) sensor 
 - The cardinality `precision_threshold` is the same in both tiers (`10000`).
 - Tier 2 uses `sensor_data_hourly` (the output of Tier 1) as its source.
 
+Create the source index and add a few documents to it:
+
+```json
+PUT sensor_data
+{
+  "mappings": {
+    "properties": {
+      "timestamp": { "type": "date" },
+      "sensor_id": { "type": "keyword" },
+      "location": { "type": "keyword" },
+      "device_id": { "type": "keyword" },
+      "temperature": { "type": "double" }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+```json
+POST _bulk?refresh=true
+{ "index": { "_index": "sensor_data" } }
+{ "timestamp": "2026-01-05T08:15:00", "sensor_id": "s1", "location": "warehouse", "device_id": "d1", "temperature": 21.4 }
+{ "index": { "_index": "sensor_data" } }
+{ "timestamp": "2026-01-05T08:45:00", "sensor_id": "s1", "location": "warehouse", "device_id": "d1", "temperature": 22.1 }
+{ "index": { "_index": "sensor_data" } }
+{ "timestamp": "2026-01-05T09:10:00", "sensor_id": "s2", "location": "cold-store", "device_id": "d2", "temperature": 4.8 }
+{ "index": { "_index": "sensor_data" } }
+{ "timestamp": "2026-01-05T10:05:00", "sensor_id": "s2", "location": "cold-store", "device_id": "d2", "temperature": 5.2 }
+```
+{% include copy-curl.html %}
+
 **Tier 1: Raw data → Hourly rollup**
 
 ```json
 PUT _plugins/_rollup/jobs/sensors_hourly
 {
   "rollup": {
+    "description": "Hourly rollup of raw sensor data",
     "enabled": true,
     "schedule": {
       "interval": {
@@ -326,6 +354,7 @@ PUT _plugins/_rollup/jobs/sensors_hourly
 PUT _plugins/_rollup/jobs/sensors_daily
 {
   "rollup": {
+    "description": "Daily rollup of hourly sensor data",
     "enabled": true,
     "schedule": {
       "interval": {
@@ -379,6 +408,9 @@ PUT _plugins/_rollup/jobs/sensors_daily
 ```
 {% include copy-curl.html %}
 
+Each tier runs on its own interval, so `sensor_data_hourly` appears after the first hourly run and `sensor_data_daily` appears after the first daily run.
+{: .note}
+
 ### Querying multi-tier rollups
 
 You can query any tier independently or search across multiple tiers.
@@ -396,8 +428,8 @@ GET sensor_data_daily/_search
         "fixed_interval": "1d"
       },
       "aggs": {
-        "avg_temperature": {
-          "avg": {
+        "max_temperature": {
+          "max": {
             "field": "temperature"
           }
         },
@@ -426,8 +458,8 @@ GET sensor_data_hourly,sensor_data_daily/_search
         "fixed_interval": "1d"
       },
       "aggs": {
-        "avg_temp": {
-          "avg": {
+        "max_temp": {
+          "max": {
             "field": "temperature"
           }
         }
@@ -440,7 +472,7 @@ GET sensor_data_hourly,sensor_data_daily/_search
 
 ## Sample walkthrough
 
-This walkthrough uses the OpenSearch Dashboards sample e-commerce data. To add that sample data, log in to OpenSearch Dashboards, choose **Home** and **Try our sample data**. For **Sample eCommerce orders**, choose **Add data**.
+This walkthrough uses the OpenSearch Dashboards sample e-commerce data. To add it, go to the OpenSearch Dashboards home page, select **Try our sample data**, and then select **Add data** in **Sample eCommerce orders**.
 
 Then run a search:
 
@@ -469,7 +501,6 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
     "hits": [
       {
         "_index": "opensearch_dashboards_sample_data_ecommerce",
-        "_type": "_doc",
         "_id": "jlMlwXcBQVLeQPrkC_kQ",
         "_score": 1,
         "_source": {
@@ -875,46 +906,112 @@ To take advantage of shorter and more easily written strings in Query DSL, you c
 
 ```json
 "query": {
-      "query_string": {
-          "query": "field_name:field_value"
-      }
+  "query_string": {
+    "query": "field_name:field_value"
   }
+}
 ```
+{% include copy.html %}
 
-The following example uses a query string with a `*` wildcard operator to search inside a rollup index called `my_server_logs_rollup`:
+You can only query fields that the rollup job indexed as dimensions. The following example uses a query string with a `*` wildcard operator to search the `sensor_data_hourly` rollup index for two of its `location` dimension values:
 
 ```json
-GET my_server_logs_rollup/_search
+GET sensor_data_hourly/_search
 {
   "size": 0,
   "query": {
-      "query_string": {
-          "query": "email* OR inventory",
-          "default_field": "service_name"
-      }
-  },  
-  
+    "query_string": {
+      "query": "warehouse OR cold*",
+      "default_field": "location"
+    }
+  },
   "aggs": {
-    "service_name": {
+    "by_location": {
       "terms": {
-        "field": "service_name"
+        "field": "location"
       },
       "aggs": {
-        "region": {
+        "by_sensor": {
           "terms": {
-            "field": "region"
+            "field": "sensor_id"
           },
           "aggs": {
-            "average quantity": {
-               "avg": {
-                  "field": "cpu_usage"
-                }
+            "average temperature": {
+              "avg": {
+                "field": "temperature"
               }
             }
           }
         }
       }
     }
+  }
+}
+```
+{% include copy-curl.html %}
+
+The response contains one bucket per matching location:
+
+```json
+{
+  "took": 52,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 3,
+      "relation": "eq"
+    },
+    "max_score": null,
+    "hits": []
+  },
+  "aggregations": {
+    "by_location": {
+      "doc_count_error_upper_bound": 0,
+      "sum_other_doc_count": 0,
+      "buckets": [
+        {
+          "key": "cold-store",
+          "doc_count": 2,
+          "by_sensor": {
+            "doc_count_error_upper_bound": 0,
+            "sum_other_doc_count": 0,
+            "buckets": [
+              {
+                "key": "s2",
+                "doc_count": 2,
+                "average temperature": {
+                  "value": 5.0
+                }
+              }
+            ]
+          }
+        },
+        {
+          "key": "warehouse",
+          "doc_count": 2,
+          "by_sensor": {
+            "doc_count_error_upper_bound": 0,
+            "sum_other_doc_count": 0,
+            "buckets": [
+              {
+                "key": "s1",
+                "doc_count": 2,
+                "average temperature": {
+                  "value": 21.75
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
 }
 ```
 
@@ -935,8 +1032,8 @@ The `source_index` parameter in {% raw %}`{{ctx.source_index}}`{% endraw %} cann
 
 When data is rolled up into multiple target indexes, you can run one search across all of the rollup indexes. To search multiple target indexes that have the same rollup, specify the index names as a comma-separated list or a wildcard pattern. For example, with `target_index` as <span style="white-space: nowrap">`{% raw %}rollup_ndx-{{ctx.source_index}}{% endraw %}`</span> and source indexes that start with `log`, specify the `rollup_ndx-log*` pattern. Or, to search for rolled up log-000001 and log-000002 indexes, specify the `rollup_ndx-log-000001,rollup_ndx-log-000002` list.
 
-You cannot search a mix of rollup and non-rollup indexes with the same query.
-{: .note}
+Do not search a mix of rollup and non-rollup indexes with the same query. The request returns `200`, but the rollup index fails as a shard failure, so the results contain only the non-rollup data.
+{: .warning}
 
 ## Example
 
@@ -1079,9 +1176,9 @@ POST log/_doc?refresh=true
 }
 ```
 
-Once you index the first document, the rollover action is executed. This action creates the index `log-000002` with `rollover_policy` attached to it. Then the rollup action is executed, which creates the rollup index `rollup_ndx-log-000001`.
+After you index the first document, the rollover action runs and creates the index `log-000002` with `rollover_policy` attached to it. The rollup action then runs and creates the rollup index `rollup_ndx-log-000001`.
 
-To monitor the status of rollover and rollup index creation, you can use the ISM explain API: `GET _plugins/_ism/explain`
+Each step waits for the next run of the ISM job, so the full sequence takes several ISM cycles to complete---about 20 minutes at the default `job_interval` of 5 minutes. To follow its progress, run `GET _plugins/_ism/explain` and watch the state change.
 {: .tip}
 
 **Step 5:** Search the rollup index.
@@ -1185,3 +1282,56 @@ The response contains two buckets, "Error" and "Success", and the document count
 ## Index codec considerations
 
 For index codec considerations, see [Index codecs]({{site.url}}{{site.baseurl}}/im-plugin/index-codecs/#index-rollups-and-transforms).
+
+## Index rollups in OpenSearch Dashboards
+
+To navigate to the **Index Management** page, go to **Management > Index Management** on the top menu. Select **Rollup jobs** to list the rollup jobs in your cluster with their status and the time of their next run. Select a job to view its configuration and the results of its runs. To act on a job, select the checkbox next to it and then select **Enable**, **Disable**, or **Actions > Delete**.
+
+The following image shows the **Rollup jobs** page.
+
+![Rollup jobs page]({{site.url}}{{site.baseurl}}/images/admin-ui-index/rollup-jobs-list.png)
+
+A rollup job needs a source index that contains a timestamp field. If your cluster has no time-series data to roll up, add the sample e-commerce data from the OpenSearch Dashboards home page and roll up its `order_date` field, as described in [Sample walkthrough](#sample-walkthrough).
+
+### Creating a rollup job
+
+1. In **Index Management**, select **Rollup jobs**, and then select **Create rollup job**.
+1. Enter a **Name** for the job and, optionally, a description.
+1. In **Source index**, select the index or index pattern to roll up.
+1. In **Target index**, select an existing index or enter a name for a new one. The name can contain [embedded variables](#dynamic-target-index).
+1. Select **Next**.
+1. In **Time aggregation**, do the following:
+
+   1. Select the **Timestamp field** to aggregate on.
+   1. Select an **Interval type**. Fixed intervals are all the same length. Calendar intervals follow calendar entities, such as months, and can be unequal.
+   1. In **Interval**, select the length of the interval.
+   1. In **Timezone**, select the time zone of the timestamp.
+
+1. Optionally, in **Additional aggregation**, add the fields to group by:
+
+   1. Select **Add fields**, select the field names, and then select **Add**.
+   1. For each field, select an **Aggregation method**. Keyword fields can only be aggregated by term.
+   1. For each histogram aggregation, enter the number of timestamp intervals per bucket in **Interval**.
+   1. Optionally, reorder the fields so that the fields with the fewest buckets come first.
+
+1. Optionally, in **Additional metrics**, add the metrics to save:
+
+   1. Select **Add fields**, select the numeric field names, and then select **Add**.
+   1. For each field, select the metrics to save: **Min**, **Max**, **Sum**, **Avg**, **Value count**, or **All**. To save every metric for every field in the table, select **Enable all**; to clear them, select **Disable all**.
+
+1. Select **Next**.
+1. In **Schedule**, do the following:
+
+   1. To run the job on its schedule rather than only when a policy calls it, keep **Enable job by default** selected.
+   1. To roll up data as it is ingested, select **Yes** in **Continuous**.
+   1. In **Rollup execution frequency**, select **Define by fixed interval** and enter the **Rollup interval**, or select **Define by cron expression** and enter a cron expression and a time zone. For the expression syntax, see [Cron expressions]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#cron-expressions).
+   1. In **Page per execution**, enter the number of pages to process in each run. A larger number runs faster and uses more memory.
+   1. Optionally, in **Execution delay**, enter how long the job waits for ingestion to finish before it runs.
+
+1. Select **Next**, review the configuration, and then select **Create**.
+
+## Related documentation
+
+- [Index rollups API]({{site.url}}{{site.baseurl}}/im-plugin/index-rollups/rollup-api/)
+- [Index transforms]({{site.url}}{{site.baseurl}}/im-plugin/index-transforms/index/)
+- [Index State Management]({{site.url}}{{site.baseurl}}/im-plugin/ism/index/)

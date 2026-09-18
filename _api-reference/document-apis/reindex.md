@@ -1133,6 +1133,15 @@ The allow list supports:
 - Wildcard patterns for IP ranges.
 - Multiple cluster endpoints.
 
+#### Retry settings
+
+When a request to the remote cluster fails, OpenSearch retries it with an exponential backoff. The following cluster settings control the retries.
+
+Setting | Description | Default
+:--- | :--- | :---
+`reindex.remote.retry.initial_backoff` | The wait time before the first retry. Each subsequent retry doubles the wait time. | `500ms`
+`reindex.remote.retry.max_count` | The maximum number of retries before the reindex operation fails. | `15`
+
 ## Performance optimization
 
 Use the following techniques to optimize reindexing performance.
