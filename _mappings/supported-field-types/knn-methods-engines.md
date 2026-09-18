@@ -218,6 +218,9 @@ Parameter name | Required | Default | Updatable after index creation | Descripti
 `clip` | No       | `false` | No | Supported only for 16-bit quantization. If `true`, any vector values outside of the supported range for the specified vector type are rounded so that they are within the range. If `false`, the request is rejected if any vector values are outside of the supported range. Setting `clip` to `true` may decrease recall.
 `bits` | Yes      | `1`     | No | The number of bits used to quantize each 32-bit floating-point vector dimension. Valid values are `1`, `2`, `4`, and `16`. Required.
 
+The `encoder` setting is not supported for fields with the `half_float` data type (introduced in OpenSearch 3.9). To quantize `half_float` vectors, set the `compression_level` mapping parameter to `16x` (1-bit quantization), or use `1x` for unquantized FP16 storage.
+{: .important}
+
 For more information and examples, see [Using Faiss scalar quantization]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/faiss-scalar-quantization/).
 
 ### SIMD optimization 

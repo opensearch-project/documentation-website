@@ -166,7 +166,7 @@ Parameter | Data type | Description
 :--- | :--- 
 `type` | String | The vector field type. Must be `knn_vector`. Required.
 `dimension` | Integer | The size of the vectors used. Valid values are in the [1, 16,000] range. Required.
-`data_type` | String | The data type of the vector elements. Valid values are `binary`, `byte`, and `float`. Optional. Default is `float`.
+`data_type` | String | The data type of the vector elements. Valid values are `binary`, `byte`, `float`, and `half_float`. Optional. Default is `float`.
 `space_type` | String | The vector space used to calculate the distance between vectors. Valid values are `l1`, `l2`, `linf`, `cosinesimil`, `innerproduct`, `hamming`, and `hammingbit`. Not every method/engine combination supports each of the spaces. For a list of supported spaces, see the section for a specific engine. Note: This value can also be specified within the `method`. Optional. For more information, see [Spaces]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-spaces/). 
 `mode` | String | Sets appropriate default values for k-NN parameters based on your priority: either low latency or low cost. Valid values are `in_memory` and `on_disk`. Optional. Default is `in_memory`. For more information, see [Memory-optimized vectors]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-memory-optimized/). 
 `compression_level` | String | Selects a quantization encoder that reduces vector memory consumption by the given factor. Valid values are `1x`, `2x`, `4x`, `8x`, `16x`, and `32x`. Optional. For more information, see [Memory-optimized vectors]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-memory-optimized/). 
