@@ -56,7 +56,9 @@ Option | Required | Type | Description
 `tags_on_ip_not_found` | No | String | The tags to add to the event metadata if the `geoip` processor is unable to find a location for the IP address.
 `tags_on_engine_failure` | No | String | The tags to add to the event metadata if the `geoip` processor is unable to enrich an event due to an engine failure.
 
+<!-- vale off -->
 ## entry
+<!-- vale on -->
 
 The following parameters allow you to configure a single geolocation entry. Each entry corresponds to a single IP address.
 

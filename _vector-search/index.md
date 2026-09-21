@@ -55,7 +55,7 @@ items:
 
 OpenSearch [vector search]({{site.url}}{{site.baseurl}}/vector-search/getting-started/vector-search-basics/) provides a complete vector database solution for building efficient AI applications. Store and search vector embeddings alongside your existing data, making it easy to implement semantic search, retrieval-augmented generation (RAG), recommendation systems, and other AI-powered applications.
 
-## Overview
+## Watch a demo
 
 Watch this video to learn about key vector search features in OpenSearch and discover how to use OpenSearch as a vector database through a step-by-step demo.
 

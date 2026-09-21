@@ -5,8 +5,6 @@ nav_order: 25
 parent: Monitors
 grand_parent: Alerting
 has_children: false
-redirect_from:
- - /observing-your-data/alerting/composite-monitors/
 ---
 
 # Composite monitors
@@ -94,7 +92,7 @@ POST _plugins/_alerting/workflows
 | `triggers.chained_alert_trigger.name` | String | The name of the alert trigger. |
 | `triggers.chained_alert_trigger.severity` | Number | The alert severity. 1 = highest; 2 = high; 3 = medium; 4 = low; 5 = lowest. |
 | `triggers.chained_alert_trigger.condition.script` | Object | The script details that determine the conditions for triggering an alert. |
-| `triggers.chained_alert_trigger.condition.script.source` | String | The Painless script that defines the conditions for triggering an alert. |
+| `triggers.chained_alert_trigger.condition.script.source` | String | The Painless script that defines the conditions for triggering an alert. For more information, see [Painless scripting language]({{site.url}}{{site.baseurl}}/scripting/painless/). |
 | `triggers.chained_alert_trigger.condition.script.lang` | String | Enter `painless` for the Painless scripting language. |
 | `actions` | Object | Provides fields for configuring an alert notification. |
 
@@ -210,7 +208,7 @@ The order of monitor IDs in the Painless script does not define the execution se
 {: .note }
 
 
-### Get Composite Monitor
+### Get composite monitor
 
 This API retrieves information on the specified monitor.
 
@@ -226,9 +224,9 @@ GET _plugins/_alerting/workflows/{workflow_id}
 | `workflow_id` | String | The composite monitor's [workflow ID](#key-terms). |
 
 
-### Update Composite Monitor
+### Update composite monitor
 
-This API updates the composite monitor's details. See [Create Composite Monitor](#create-composite-monitor) for descriptions of the request fields.
+This API updates the composite monitor's details. See [Create composite monitor](#create-composite-monitor) for descriptions of the request fields.
 
 #### Example request
 
@@ -270,7 +268,7 @@ PUT _plugins/_alerting/workflows/{workflow_id}
 {% include copy-curl.html %}
 
 
-### Delete Composite Monitor
+### Delete composite monitor
 
 ```json
 DELETE _plugins/_alerting/workflows/{workflow_id}
@@ -278,7 +276,7 @@ DELETE _plugins/_alerting/workflows/{workflow_id}
 {% include copy-curl.html %}
 
 
-### Execute Composite Monitor
+### Execute composite monitor
 
 This API begins the workflow execution for a composite monitor:
 
@@ -580,7 +578,7 @@ To finish creating a composite monitor in the visual editor, follow these steps:
   * **Daily** — Specify a time of day and a time zone.
   * **Weekly** — Specify a day of the week, a time of day, and a time zone.
   * **Monthly** — Specify a day of the month, a time of day, and a time zone.
-  * **Custom cron expression** — Create a custom cron expression for the schedule. Use the **cron expressions** link for help with creating these expressions, or see the [Cron expression reference]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/cron/).
+  * **Custom cron expression** — Create a custom cron expression for the schedule. Use the **cron expressions** link for help with creating these expressions, or see [Cron expressions]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#cron-expressions).
 
 1. In the **Delegate monitors** section, enter the individual monitors you want to include in the workflow by selecting them in the dropdown lists. In the **Visual editor**, the order in which you select the monitors determines their order in the workflow.
   

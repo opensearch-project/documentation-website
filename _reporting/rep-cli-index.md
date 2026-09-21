@@ -25,7 +25,9 @@ You can connect to OpenSearch with any of the following authentication types:
 - **Basic** – Basic HTTP authentication. Use `-a basic`.
 - **Cognito** – Authentication through Amazon Cognito. Use `-a cognito`.
 - **SAML** – Authentication between an identity provider and a service provider. Use `-a saml`. Okta provides the SAML third-party authentication.
-- **No auth** – No authentication. Use `-a none`. Authentication defaults to No auth if the `-a` flag is not specified.
+<!-- vale off -->
+- **No auth** – No authentication. Use `-a none`. Authentication defaults to no authentication if the `-a` flag is not specified.
+<!-- vale on -->
 
 To learn more about Amazon Cognito, see [What is Amazon Cognito?](https://docs.aws.amazon.com/cognito/latest/developerguide/what-is-amazon-cognito.html).
 

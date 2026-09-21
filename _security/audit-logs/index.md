@@ -39,9 +39,12 @@ Audit logging is disabled by default. To enable audit logging:
 
 2. Restart each node.
 
+Audit logging requires two settings: a storage type (`plugins.security.audit.type`) in `opensearch.yml` and `config.enabled: true` in `audit.yml`. The `audit.yml` file provided by the Security plugin sets `config.enabled` to `true` by default, so audit logging can appear to be enabled in a new cluster. Until you specify a storage type, the Security plugin cannot create a storage endpoint for the audit log, so it does not record any events and logs a warning at startup that no default storage is available.
+{: .note}
+
 After this initial setup, you can use OpenSearch Dashboards to manage your audit log categories and other settings. In OpenSearch Dashboards, select **Security** and then **Audit logs**. 
 
-An alternative is to specify initial settings for audit logging in the `audit.yml` and `opensearch.yml` files (which file depends on the setting---see [Audit log settings](#audit-log-settings)). Thereafter, you can use Dashboards or the [Audit logs]({{site.url}}{{site.baseurl}}/security/access-control/api/#audit-logs) API to manage and update settings.
+An alternative is to specify initial settings for audit logging in the `audit.yml` and `opensearch.yml` files (which file depends on the setting---see [Audit log settings](#audit-log-settings)). Thereafter, you can use Dashboards or the [Audit logs]({{site.url}}{{site.baseurl}}/security/api/audit/) API to manage and update settings.
 
 
 ## Tracked events
@@ -92,6 +95,33 @@ config:
       - AUTHENTICATED
       - GRANTED_PRIVILEGES
     disabled_transport_categories: [ GRANTED_PRIVILEGES ]
+```
+{% include copy.html %}
+
+Alternatively, you can use the unified `disabled_categories` setting to disable categories on both layers simultaneously:
+
+```yml
+config:
+  audit:
+    disabled_categories:
+      - AUTHENTICATED
+      - GRANTED_PRIVILEGES
+```
+{% include copy.html %}
+
+When `disabled_categories` is configured alongside `disabled_rest_categories` or `disabled_transport_categories`, a category is disabled on a given layer if it appears in either the unified setting or the layer-specific setting.
+
+A deprecation warning is logged when `disabled_categories` is configured alongside layer-specific settings, encouraging migration to `disabled_categories` only.
+
+For example, the following configuration disables `AUTHENTICATED` on both layers (using `disabled_categories`) and disables `SSL_EXCEPTION` on the REST layer only:
+
+```yml
+config:
+  audit:
+    disabled_categories:
+      - AUTHENTICATED
+    disabled_rest_categories:
+      - SSL_EXCEPTION
 ```
 {% include copy.html %}
 
@@ -234,6 +264,34 @@ config:
 ### Settings in opensearch.yml
 
 The following settings are stored in the `opensearch.yml` file.
+
+#### Exclude categories
+
+You can configure disabled categories in `opensearch.yml` using the `plugins.security.audit.config` prefix. This is useful for non-fine-grained access control (FGAC) modes (SSL-only or security-disabled) for which the `audit.yml` security index is not available:
+
+```yml
+plugins.security.audit.config.disabled_categories:
+  - AUTHENTICATED
+  - GRANTED_PRIVILEGES
+```
+{% include copy.html %}
+
+The layer-specific settings (`disabled_rest_categories` and `disabled_transport_categories`) may be deprecated in a future version. Use the unified `disabled_categories` setting instead.
+{: .warning}
+
+The layer-specific settings are also available:
+
+```yml
+plugins.security.audit.config.disabled_rest_categories:
+  - AUTHENTICATED
+  - GRANTED_PRIVILEGES
+plugins.security.audit.config.disabled_transport_categories:
+  - AUTHENTICATED
+  - GRANTED_PRIVILEGES
+```
+{% include copy.html %}
+
+When both `disabled_categories` and the layer-specific settings are configured, a category is disabled on a given layer if it appears in either setting.
 
 
 #### Configure the audit log index name

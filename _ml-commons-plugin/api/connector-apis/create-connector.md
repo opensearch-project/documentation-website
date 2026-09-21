@@ -18,7 +18,7 @@ POST /_plugins/_ml/connectors/_create
 
 ## Request body fields
 
-For a list of request fields, see [Blueprint configuration parameters]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints#configuration-parameters).
+For a list of request fields, see [Request body fields]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints#request-body-fields).
 
 ## Example request
 

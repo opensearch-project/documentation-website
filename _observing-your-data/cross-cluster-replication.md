@@ -4,7 +4,7 @@ title: Cross-cluster search
 nav_order: 180
 ---
 
-# Cross-cluster search
+# Cross-cluster search in Observability
 
 With cross-cluster search, you can query and visualize data stored in multiple OpenSearch clusters using the Logs feature in Observability. This works across domain boundaries, so you can query data from any index, in any OpenSearch cluster, from a single interface and perform the same operations against the data as if it came from a single source.
 

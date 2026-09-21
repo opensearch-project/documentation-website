@@ -4,7 +4,6 @@ title: Defining users and roles
 parent: Access control
 nav_order: 70
 redirect_from:
- - /security/access-control/users-roles/
  - /security-plugin/access-control/users-roles/
 ---
 
@@ -53,7 +52,7 @@ See [YAML files]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#inter
 
 ### REST API
 
-See [Create user]({{site.url}}{{site.baseurl}}/security/access-control/api/#create-user).
+See [Create user]({{site.url}}{{site.baseurl}}/security/api/users/create-user/).
 
 
 ## Defining roles
@@ -81,7 +80,7 @@ See [YAML files]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#roles
 
 ### REST API
 
-See [Create role]({{site.url}}{{site.baseurl}}/security/access-control/api/#create-role).
+See [Create role]({{site.url}}{{site.baseurl}}/security/api/roles/create-role/).
 
 ## Editing roles
 
@@ -100,7 +99,7 @@ See [YAML files]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#roles
 
 ### REST API
 
-See [Patch role]({{site.url}}{{site.baseurl}}/security/access-control/api/#patch-role).
+See [Patch roles]({{site.url}}{{site.baseurl}}/security/api/roles/patch-roles/).
 
 ## Mapping users to roles
 
@@ -123,7 +122,7 @@ See [YAML files]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#roles
 
 ### REST API
 
-See [Create role mapping]({{site.url}}{{site.baseurl}}/security/access-control/api/#create-role-mapping).
+See [Create role mapping]({{site.url}}{{site.baseurl}}/security/api/role-mappings/create-role-mapping/).
 
 ## Defining read-only roles
 
@@ -167,9 +166,9 @@ The OpenSearch Dashboards `readonly_mode` functionality is used to give a user a
 
 To configure this role, add the following line to your `opensearch_dashboards.yml` file:
 
-```opensearch_security.readonly_mode.roles: [new_role]```
+`opensearch_security.readonly_mode.roles: [new_role]`
 
-Even if the assigned role grants additional privileges or a user is mapped to other roles with write access to indexes, OpenSearch Dashboards restricts this access. Direct access to OpenSearch data using CURL or API is still allowed. OpenSearch Dashboards is not involved in this communication. 
+Even if the assigned role grants additional privileges or a user is mapped to other roles with write access to indexes, OpenSearch Dashboards restricts this access. Direct access to OpenSearch data using cURL or API is still allowed. OpenSearch Dashboards is not involved in this communication. 
 
 If a user is mapped to the `readonly_mode` role, all other elements of the UI will be removed, except for `Dashboards`. In the following image, the view on the left shows the screen from the perspective of a user mapped to a `readonly_mode` role. The view on the right shows a user's standard view.
 

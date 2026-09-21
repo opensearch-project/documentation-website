@@ -7,7 +7,7 @@ redirect_from:
   - /vector-search/tutorials/reranking/reranking-by-field/
 ---
 
-# Reranking search results by a field
+# Reranking search results by a field using Cohere Rerank
 
 Starting with OpenSearch 2.18, you can rerank search [results by a field]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rerank-processor/#the-by_field-rerank-type). This feature is useful when your documents include a field that is particularly important or when you want to rerank results from an externally hosted model. For more information, see [Reranking search results by a field]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/rerank-by-field/).
 

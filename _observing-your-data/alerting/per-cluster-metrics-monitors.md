@@ -36,16 +36,16 @@ The following example shows a configuration of a cluster metrics monitor.
 
 Trigger conditions use responses from the following API endpoints. Most APIs that can be used to monitor cluster status support path parameters (for example, comma-separated lists of index names). They do not support query parameters.
 
-- [_cluster/health]({{site.url}}{{site.baseurl}}/api-reference/cluster-health/)
-- [_cluster/stats]({{site.url}}{{site.baseurl}}/api-reference/cluster-stats/)
-- [_cluster/settings]({{site.url}}{{site.baseurl}}/api-reference/cluster-settings/)
-- [_nodes/stats]({{site.url}}{{site.baseurl}}/opensearch/popular-api/#get-node-statistics)
-- [_cat/indices]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-indices/)
-- [_cat/pending_tasks]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-pending-tasks/)
-- [_cat/recovery]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-recovery/)
-- [_cat/shards]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-shards/)
-- [_cat/snapshots]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-snapshots/)
-- [_cat/tasks]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-tasks/)
+- [`_cluster/health`]({{site.url}}{{site.baseurl}}/api-reference/cluster-health/)
+- [`_cluster/stats`]({{site.url}}{{site.baseurl}}/api-reference/cluster-stats/)
+- [`_cluster/settings`]({{site.url}}{{site.baseurl}}/api-reference/cluster-settings/)
+- [`_nodes/stats`]({{site.url}}{{site.baseurl}}/opensearch/popular-api/#get-node-statistics)
+- [`_cat/indices`]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-indices/)
+- [`_cat/pending_tasks`]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-pending-tasks/)
+- [`_cat/recovery`]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-recovery/)
+- [`_cat/shards`]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-shards/)
+- [`_cat/snapshots`]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-snapshots/)
+- [`_cat/tasks`]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-tasks/)
 
 ## Restrict API fields
 
@@ -64,7 +64,7 @@ However, you can modify the file so that cluster metrics monitors can only be cr
 
 ## Painless triggers
 
-Painless scripts define triggers for cluster metrics monitors, similar to per query or per bucket monitors, which are defined using the extraction query definition option. Painless scripts are composed of at least one statement and any additional functions you wish to run.
+Painless scripts define triggers for cluster metrics monitors, similar to per query or per bucket monitors, which are defined using the extraction query definition option. Painless scripts are composed of at least one statement and any additional functions you wish to run. For more information, see [Painless scripting language]({{site.url}}{{site.baseurl}}/scripting/painless/).
 
 The cluster metrics monitor supports up to **ten** triggers.
 

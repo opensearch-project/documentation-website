@@ -2,7 +2,7 @@
 layout: default
 title: Settings
 parent: Index State Management
-nav_order: 4
+nav_order: 50
 ---
 
 # ISM settings
@@ -17,7 +17,7 @@ Setting | Default | Description
 :--- | :--- | :---
 `plugins.index_state_management.enabled` | True | Specifies whether ISM is enabled or not.
 `plugins.index_state_management.job_interval` | 5 | The interval (in minutes) at which the managed index jobs are run.
-`plugins.index_state_management.jitter` | 0.6 | A randomized delay that is added to a job's base run time to prevent a surge of activity from all indexes at the same time. A value of 0.6 means a delay of 0-60% of a job interval is added to the base interval. For example, if you have a base interval time of 30 minutes, a value of 0.6 means an amount anywhere between 0 to 18 minutes gets added to your job interval. Maximum is 1, which means an additional interval time of 100%. This maximum cannot exceed `plugins.jobscheduler.jitter_limit`, which also has a default of 0.6. For example, if `plugins.index_state_management.jitter` is set to 0.8, ISM uses `plugins.jobscheduler.jitter_limit` of 0.6 instead.
+`plugins.index_state_management.jitter` | 0.6 | A randomized delay that is added to a job's base run time to prevent a surge of activity from all indexes at the same time. A value of 0.6 means a delay of 0--60% of a job interval is added to the base interval. For example, if you have a base interval time of 30 minutes, a value of 0.6 means an amount anywhere between 0 to 18 minutes gets added to your job interval. Maximum is 1, which means an additional interval time of 100%. This maximum cannot exceed `plugins.jobscheduler.jitter_limit`, which also has a default of 0.6. For example, if `plugins.index_state_management.jitter` is set to 0.8, ISM uses `plugins.jobscheduler.jitter_limit` of 0.6 instead.
 `plugins.index_state_management.coordinator.sweep_period` | 10m | How often the routine background sweep is run.
 `plugins.index_state_management.coordinator.backoff_millis` | 50ms | The backoff time between retries for failures in the `ManagedIndexCoordinator` (such as when we update managed indexes).
 `plugins.index_state_management.coordinator.backoff_count` | 2 | The count of retries for failures in the `ManagedIndexCoordinator`.
@@ -26,4 +26,9 @@ Setting | Default | Description
 `plugins.index_state_management.history.max_age` | 24h | The maximum age before rolling over the audit history index.
 `plugins.index_state_management.history.rollover_check_period` | 8h | The time between rollover checks for the audit history index.
 `plugins.index_state_management.history.rollover_retention_period` | 30d | How long audit history indexes are kept.
-`plugins.index_state_management.allow_list` | All actions | List of actions that you can use.
+`plugins.index_state_management.allow_list` | `alias`, `allocation`, `close`, `convert_index_to_remote`, `delete`, `force_merge`, `index_priority`, `notification`, `open`, `read_only`, `read_write`, `replica_count`, `rollover`, `rollup`, `search_only`, `shrink`, `snapshot`, `stop_replication`, `transform` | The actions that a policy can use. Removing an action from this list makes every policy that uses it fail.
+`plugins.index_state_management.action_validation.enabled` | False | Specifies whether ISM validates an action before running it. For more information, see [ISM error prevention]({{site.url}}{{site.baseurl}}/im-plugin/ism/error-prevention/index/).
+`plugins.index_state_management.coordinator.sweep_skip_period` | 5m | How long the coordinator waits before sweeping a managed index again after a failure.
+`plugins.index_state_management.history.number_of_shards` | 1 | The number of primary shards in the audit history index.
+`plugins.index_state_management.history.number_of_replicas` | 1 | The number of replicas of the audit history index.
+`plugins.index_state_management.snapshot.deny_list` | Empty list | The snapshot repositories that the `snapshot` action cannot write to.

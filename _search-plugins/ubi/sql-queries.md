@@ -70,6 +70,8 @@ order by Total desc
 
 Both queries return the distribution of search strings, as shown in the following table.
 
+<!-- vale off -->
+
 Message|Total
 |---|---|
 User Behavior Insights|127
@@ -97,6 +99,8 @@ agrega modelos intuitivas|4
 bеуоnd|4
 abraza metodologías B2C|3
 
+<!-- vale on -->
+
 
 
 ## Event type distribution counts
@@ -112,6 +116,8 @@ order by Total desc
 ```
 
 The results include a distribution across actions, as shown in the following table.
+
+<!-- vale off -->
 
 `action_name`|Total
 |---|---|
@@ -130,6 +136,8 @@ The results include a distribution across actions, as shown in the following tab
 `user_feedback`|123
 404_redirect|123
 
+<!-- vale on -->
+
 The following query shows the distribution of margins across user actions:
 
 
@@ -145,6 +153,8 @@ order by average_cost desc
 ```
 
 The results include actions and the distribution across average costs and margins, as shown in the following table.
+
+<!-- vale off -->
 
 `action_name`|total|average_cost|average_margin
 ---|---|---|---
@@ -163,6 +173,8 @@ The results include actions and the distribution across average costs and margin
 `view_search_results`|3639||
 `type_filter`|3691||
 
+<!-- vale on -->
+
 ## Sample search journey
 
 To find a search in the query log, run the following query:
@@ -175,9 +187,13 @@ from ubi_queries where query_id = '7ae52966-4fd4-4ab1-8152-0fd0b52bdadf'
 
 The following table shows the results of the preceding query.
 
+<!-- vale off -->
+
 `client_id`|query_id|user_query|query_response_hit_ids|query_response_id|timestamp
 ---|---|---|---|---|---
 `a15f1ef3-6bc6-4959-9b83-6699a4d29845`|7ae52966-4fd4-4ab1-8152-0fd0b52bdadf|notebook|0882780391659|6e92c90c-1eee-4dd6-b820-c522fd4126f3|2024-06-04 19:02:45.728
+
+<!-- vale on -->
 
 The `query` field in `query_id` has the following nested structure:
 
@@ -260,6 +276,7 @@ order by query_id, timestamp
 
 The results are truncated to show a sample of sessions, as shown in the following table.
 
+<!-- vale off -->
 
 `application`|event_attributes.session_id|query_id|action_name|message_type|event_attributes.dwell_time|event_attributes.object.object_id|event_attributes.object.description|timestamp
 ---|---|---|---|---|---|---|---|---
@@ -306,6 +323,8 @@ The results are truncated to show a sample of sessions, as shown in the followin
 `ubi-demo`|33bd0ee2-60b7-4c25-b62c-1aa1580da73c|23f0149a-13ae-4977-8dc9-ef61c449c140|brand_filter|FILTER|19.54417|OBJECT-6c91da98-387b-45cb-8275-e90d1ea8bc54|supplier_name|2024-06-04 19:03:50.696
 `ubi-demo`|33bd0ee2-60b7-4c25-b62c-1aa1580da73c|23f0149a-13ae-4977-8dc9-ef61c449c140|type_filter|INFO|48.79312|OBJECT-32d9bb39-b17d-4611-82c1-5aaa14368060|filter_product_type|2024-06-04 19:03:50.74
 `ubi-demo`|33bd0ee2-60b7-4c25-b62c-1aa1580da73c|23f0149a-13ae-4977-8dc9-ef61c449c140|brand_filter|FILTER|19.54417|OBJECT-6c91da98-387b-45cb-8275-e90d1ea8bc54|supplier_name|2024-06-04 19:03:50.802
+
+<!-- vale on -->
 
 
 ## List user sessions for users who logged out without submitting any queries
@@ -362,6 +381,8 @@ order by EventTotal desc
 
 The following table shows user client IDs and the number of logouts without any queries.
 
+<!-- vale off -->
+
 `client_id`|EventTotal
 ---|---
 87_5a6e1f8c-4936-4184-a24d-beddd05c9274|8
@@ -384,3 +405,5 @@ The following table shows user client IDs and the number of logouts without any 
 204_b75e374c-4813-49c4-b111-4bf4fdab6f26|5
 29_ec2133e5-4d9b-4222-aa7c-2a9ae0880ddd|5
 41_f64abc69-56ea-4dd3-a991-7d1fd292a530|5
+
+<!-- vale on -->

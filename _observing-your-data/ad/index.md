@@ -98,7 +98,7 @@ To use the custom results index option, you must have the following permissions:
 
 Custom results index mappings with nested fields pose aggregation and visualization challenges. The **Enable flattened custom result index** option flattens the nested fields in the custom results index. When selecting this option, the plugin creates a separate index prefixed with the custom results index name and detector name. For example, if the detector `Test` uses the custom results index `abc`, a separate index with the alias `opensearch-ad-plugin-result-abc-flattened-test` will store the anomaly detection results with nested fields flattened. 
 
-In addition to creating a separate index, the plugin also sets up an ingest pipeline with a script processor. This pipeline is bound to the separate index and uses a Painless script to flatten all nested fields in the custom results index.
+In addition to creating a separate index, the plugin also sets up an ingest pipeline with a script processor. This pipeline is bound to the separate index and uses a Painless script to flatten all nested fields in the custom results index. For more information, see [Painless scripting language]({{site.url}}{{site.baseurl}}/scripting/painless/).
 
 Deactivating this option on a running detector removes its flattening ingest pipeline; it also ceases to be the default for the results index.
 When using the flattened custom result option, consider the following:
@@ -221,7 +221,7 @@ Specifies the aggregation bucket size (for example, 10 minutes). You should set 
 
 The interval must be large enough that you rarely miss data. The model uses shingling (consecutive, contiguous buckets), and missing buckets degrade data quality and shingle formation.
 
-##### Frequency (Optional)
+##### Frequency (optional)
 
 Specifies how often the job queries, scores, and writes results. Shorter values provide more real-time updates at a higher cost, while longer values reduce load but slow down updates. Frequency must be a multiple of the interval and defaults to the interval value.
 
@@ -241,7 +241,7 @@ If you're unsure, leave this field blank---the job will use the interval value b
    - **Trade-offs**: Less frequent anomaly evaluation.
    - **Best for**: Batch jobs and sporadic log ingestion patterns.
 
-##### Window delay (Optional)
+##### Window delay (optional)
 
 To add extra processing time for data collection, specify a **Window delay** value. This signals to the detector that data is not ingested into OpenSearch in real time but with a certain delay.
 
@@ -258,7 +258,7 @@ Without a window delay, the detector attempts to get data from 1:50–2:00 PM bu
 - Set **Window delay** to the upper limit of expected ingestion delay to avoid missing data.
 - Balance data accuracy with timely detection—too long of a delay hinders real-time anomaly detection.
 
-##### History (Optional)
+##### History (optional)
 
 Sets the number of historical data points used to train the initial (cold-start) model. The maximum is 10,000 data points. More history improves initial model accuracy up to that limit.
 

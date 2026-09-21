@@ -5,7 +5,7 @@ parent: Getting started
 nav_order: 60
 ---
 
-# Concepts
+# OpenSearch Dashboards concepts
 
 This page defines key terms used throughout the OpenSearch Dashboards documentation.
 

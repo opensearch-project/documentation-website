@@ -10,7 +10,7 @@ redirect_from:
 
 # Client certificate authentication
 
-After obtaining your own certificates either from a certificate authority (CA) or by [generating your own certificates using OpenSSL]({{site.url}}{{site.baseurl}}/security/configuration/generate-certificates), you can start configuring OpenSearch to authenticate a user using a client certificate.
+After obtaining your own certificates either from a certificate authority (CA) or by [generating your own certificates using OpenSSL]({{site.url}}{{site.baseurl}}/security/configuration/generate-certificates/), you can start configuring OpenSearch to authenticate a user using a client certificate.
 
 Client certificate authentication offers more security advantages than just using basic authentication (username and password). Because client certificate authentication requires both a client certificate and its private key, which are often in the user's possession, it is less vulnerable to brute force attacks in which malicious individuals try to guess a user's password.
 
@@ -47,7 +47,7 @@ clientcert_auth_domain:
 
 You can now assign your certificate's common name (CN) to a role. This step requires you to identify the certificate's CN and the role you want to assign it to. To view a list of all predefined OpenSearch roles, see [Predefined roles]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/#predefined-roles). To get started, first [define a role]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/#defining-roles) and then map your certificate's CN to that role.
 
-After determining which role to map to your certificate's CN, you can use [OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/#mapping-users-to-roles), [`roles_mapping.yml`]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#roles_mappingyml), or the [REST API]({{site.url}}{{site.baseurl}}/security/access-control/api/#create-role-mapping) to map the role. The following example uses the `REST API` to map the CN `CLIENT1` to the role `readall`.
+After determining which role to map to your certificate's CN, you can use [OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/#mapping-users-to-roles), [`roles_mapping.yml`]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#roles_mappingyml), or the [REST API]({{site.url}}{{site.baseurl}}/security/api/role-mappings/create-role-mapping/) to map the role. The following example uses the `REST API` to map the CN `CLIENT1` to the role `readall`.
 
 **Example request**
 
@@ -71,7 +71,7 @@ PUT _plugins/_security/api/rolesmapping/readall
 
 After mapping a role to your client certificate's CN, you're ready to connect to your cluster using those credentials.
 
-The code example below uses the Python `requests` library to connect to a local OpenSearch cluster and sends a GET request to the `movies` index.
+The following code example uses the Python `requests` library to connect to a local OpenSearch cluster and sends a GET request to the `movies` index.
 
 ```python
 import requests

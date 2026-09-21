@@ -1,12 +1,12 @@
 ---
 layout: default
-title: Semantic search memory
+title: Semantic search agentic memory
 parent: Agentic memory APIs
 grand_parent: ML Commons APIs
 nav_order: 60
 ---
 
-# Semantic Search Memory API
+# Semantic Search Agentic Memory API
 **Introduced 3.6**
 {: .label .label-purple }
 

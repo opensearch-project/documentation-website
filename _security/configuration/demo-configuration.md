@@ -2,10 +2,10 @@
 layout: default
 title: Setting up a demo configuration
 parent: Configuration
-nav_order: 4
+nav_order: 10
 ---
 
-# Setting up a demo configuration
+# Setting up a security demo configuration
 
 Welcome to the OpenSearch Security plugin demo configuration setup guide. This tool provides a quick and easy way to replicate a production environment for testing purposes. The demo configuration includes the setup of security-related components, such as internal users, roles, role mappings, audit configuration, basic authentication, tenants, and allow lists.
 
@@ -14,6 +14,24 @@ The demo configuration tool performs the following tasks:
 1. Configures security settings, which are then loaded into the security index.
 2. Generates demo certificates.
 3. Adds security-related settings to the `opensearch.yml` file.
+
+## Admin password requirements
+
+Starting with OpenSearch 2.12, the demo configuration requires a custom admin password, which you supply in the `OPENSEARCH_INITIAL_ADMIN_PASSWORD` environment variable. The password must meet all of the following requirements:
+
+- Contains between 8 and 100 characters.
+- Contains at least one uppercase letter, one lowercase letter, one digit, and one special character.
+- Receives a rating of `strong` or higher from the [`zxcvbn`](https://github.com/dropbox/zxcvbn) password strength estimator.
+- Is not similar to the user name `admin`.
+
+The `zxcvbn` rating measures entropy, so a password can satisfy every character requirement and still be rejected. Common words, dates, sequences such as `1234` or `qwerty`, and predictable character substitutions such as `3` for `E` all lower the rating, while length and unpredictability raise it. To check a password's rating before you use it, use the [`zxcvbn` demo](https://lowe.github.io/tryzxcvbn).
+
+If the password does not meet these requirements, the installation fails and OpenSearch reports the unmet requirement in the log.
+
+These requirements are built into the demo configuration installer and cannot be changed. The [password settings]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#password-settings) in `opensearch.yml` apply only to passwords created through the REST API or OpenSearch Dashboards.
+{: .note}
+
+To change the admin password after installation, and for an overview of the other passwords in a cluster, see [Managing passwords]({{site.url}}{{site.baseurl}}/security/configuration/passwords/).
 
 ## Installing the demo configuration
 
@@ -25,7 +43,7 @@ The demo configuration is automatically called as part of the setup for each sup
 
 Use the following steps to set up the Security plugin using Docker:
 
-1. Download [docker-compose.yml](https://opensearch.org/downloads.html).
+1. Download [`docker-compose.yml`](https://opensearch.org/downloads.html).
 2. Run the following command:
 
 ```bash
@@ -38,22 +56,17 @@ If you want to disable the Security plugin when using Docker, set the `DISABLE_S
 ### Setting up a custom admin password
 **Note**: For OpenSearch versions 2.12 and later, you must set the initial admin password before installation. To customize the admin password, you can take the following steps:
 
-1. Download the following sample [docker-compose.yml](https://github.com/opensearch-project/documentation-website/blob/{{site.opensearch_major_minor_version}}/assets/examples/docker-compose.yml) file.
+1. Download the following sample [`docker-compose.yml`](https://github.com/opensearch-project/documentation-website/blob/{{site.opensearch_major_minor_version}}/assets/examples/docker-compose.yml) file.
 2. Create a `.env` file.
-3. Add the variable `OPENSEARCH_INITIAL_ADMIN_PASSWORD` and set the variable with a strong password. The password must pass the following complexity requirements:
-
-   - Minimum 8 characters
-   - Must contain at least one uppercase letter [A--Z]
-   - One lowercase letter [a--z]
-   - One digit [0--9]
-   - One special character
-
+3. Add the variable `OPENSEARCH_INITIAL_ADMIN_PASSWORD` and set it to a password that meets the [admin password requirements](#admin-password-requirements).
 4. Make sure that Docker is running on your local machine
 5. Run `docker compose up` from the file directory where your `docker-compose.yml` file and `.env` file are located.
 
-### TAR (Linux) and Mac OS 
+<!-- vale off -->
+### TAR (Linux) and macOS
 
-For TAR distributions on Linux, download the Linux setup files from the OpenSearch [Download & Get Started](https://opensearch.org/downloads.html) page. Then use the following command to run the demo configuration: 
+For TAR distributions on Linux, download the Linux setup files from the OpenSearch [Download & Get Started](https://opensearch.org/downloads.html) page.
+<!-- vale on --> Then use the following command to run the demo configuration: 
 
 ```bash
 ./opensearch-tar-install.sh
@@ -85,7 +98,7 @@ For OpenSearch 2.12 or later, set a new custom admin password before installatio
 
 ### Helm
 
-For Helm charts, the demo configuration is automatically installed during the OpenSearch installation. For OpenSearch 2.12 or later, customize the admin password in `values.yaml` under `extraEnvs`, following the [password requirements]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/#password-requirements):
+For Helm charts, the demo configuration is automatically installed during the OpenSearch installation. For OpenSearch 2.12 or later, customize the admin password in `values.yaml` under `extraEnvs`, following the [admin password requirements](#admin-password-requirements):
 
 ```yaml
 extraEnvs:

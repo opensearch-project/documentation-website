@@ -23,6 +23,16 @@ OpenSearch supports the following search settings:
 
 - `search.default_allow_partial_results` (Dynamic, Boolean):  A cluster-level setting that allows returning partial search results if a request times out or a shard fails. If a search request contains an `allow_partial_search_results` parameter, the parameter takes precedence over this setting. Default is `true`. 
 
+- `search.node_level_query_fanout.enabled` (Dynamic, Boolean): Enables node-level query fan-out. When enabled, the coordinating node groups shard-level `query_then_fetch` query and `can_match` requests by target data node instead of sending one transport request per shard. If a search request contains the `node_level_query_fanout` parameter, the parameter takes precedence over this setting. Default is `false`.
+
+<p id="index-pruning-settings"></p>
+
+- `search.index_pruning.enabled` (Dynamic, Boolean): Enables index-level search pruning, which runs on the coordinating node before any shard-level request. For more information, see [Index-level search pruning]({{site.url}}{{site.baseurl}}/search-plugins/index-level-search-pruning/). Default is `false`.
+
+- `search.index_pruning.min_shards` (Dynamic, integer): The minimum number of active shard groups (a primary shard and its replicas count as one group) required before OpenSearch attempts index-level search pruning. Default is `128`.
+
+- `search.index_pruning.fields` (Dynamic, list): The query fields eligible for index-level search pruning. OpenSearch extracts range constraints only for these fields. Default is `[]`.
+
 - `search.cancel_after_time_interval` (Dynamic, time unit): A cluster-level setting that sets the default timeout for all search requests at the coordinating node level. After the specified time has been reached, the request is stopped and all associated tasks are canceled. Default is `-1` (no timeout).
 
 - `search.default_search_timeout` (Dynamic, time unit): A cluster-level setting that specifies the maximum amount of time that a search request can run before the request is canceled at the shard-level. If the `timeout` interval is specified in the search request, that interval takes precedence over the configured setting. Default is `-1`.
@@ -51,11 +61,7 @@ OpenSearch supports the following search settings:
 
 ## Scripting settings
 
-OpenSearch supports the following scripting settings:
-
-- `script.max_size_in_bytes` (Dynamic, byte unit): Controls the maximum script byte size allowed. This setting helps prevent memory issues by rejecting scripts larger than this limit. Default is `65536` (64 KB).
-
-- `script.cache.max_size` (Static, integer): Sets the maximum number of compiled scripts that can be cached in memory. The script cache stores compiled scripts to avoid recompilation overhead for frequently used scripts. When the cache reaches this limit, the least recently used scripts are evicted to make room for new ones. Increasing this value can improve performance for applications that use many different scripts but will consume more memory. Default is `100`.
+Scripts used in searches are governed by the script size, compilation, and caching settings. For more information, see [Script and resource settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/script-and-resource-settings/).
 
 ## Point in Time settings
 

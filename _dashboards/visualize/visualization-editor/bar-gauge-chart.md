@@ -7,7 +7,7 @@ great_grand_parent: Building data visualizations
 nav_order: 20
 ---
 
-# Bar gauge chart
+# Bar gauge charts in the visualization editor
 
 A bar gauge chart displays numeric values as horizontal or vertical bars against a scale, reducing each field to a single value. Unlike a bar chart, a bar gauge chart is designed for comparing values against defined thresholds.
 

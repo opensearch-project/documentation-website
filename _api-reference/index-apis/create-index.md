@@ -63,7 +63,7 @@ The following table lists the available query parameters. All query parameters a
 | :--- | :--- | :--- |
 | `cluster_manager_timeout` | String | The amount of time to wait for a connection to the cluster manager node. |
 | `timeout` | String | The amount of time to wait for a response. If no response is received before the timeout expires, the request fails and returns an error. |
-| `wait_for_active_shards` | Integer or String or NULL or String | The number of shard copies that must be active before proceeding with the operation.  Set to `all` or any positive integer up to the total number of shards in the index (`number_of_replicas+1`). <br> Valid values are: <br> - `all`: Wait for all shards to be active. |
+| `wait_for_active_shards` | Integer or String or NULL or String | The number of shard copies that must be active before proceeding with the operation. Set to `all` or any positive integer up to the total number of shards in the index (`number_of_replicas+1`). <br> Valid values are: <br> - `all`: Wait for all shards to be active. |
 
 ## Request body fields
 

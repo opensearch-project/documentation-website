@@ -5,6 +5,7 @@ nav_order: 45
 parent: Reference
 redirect_from:
   - /benchmark/user-guide/understanding-results/telemetry/
+  - /benchmark/user-guide/telemetry/
 ---
 
 # Telemetry devices
@@ -49,7 +50,7 @@ The `jit` telemetry device enables JIT compiler logs for the benchmark candidate
 ## gc
 <!-- vale on -->
 
-The `gc` telemetry device enables garbage collector (GC) logs for the benchmark candidate. You can use tools such as GCViewer to analyze the GC logs.
+The `gc` telemetry device enables garbage collector (GC) logs for the benchmark candidate. You can use tools such as `GCViewer` to analyze the GC logs.
 
 If the runtime JDK is Java 9 or higher, you can specify the `gc-log-config` parameter. The GC logging configuration consists of a list of tags and levels, such as the default value `gc*=info,safepoint=info,age*=trace`. Run `java -Xlog:help` to view a list of available levels and tags. 
 
@@ -68,9 +69,9 @@ The `node-stats` telemetry device regularly calls the cluster [Node Stats API]({
 - Index stats: `indices`
 - Thread pool stats: `thread_pool` 
 - JVM buffer pool stats: `jvm.buffer_pools`
-- JVM gc stats: `jvm.gc` 
-- OS mem stats: `os.mem` 
-- OS cgroup stats: `os.cgroup` 
+- JVM `gc` stats: `jvm.gc` 
+- Operating system mem stats: `os.mem` 
+- Operating system `cgroup` stats: `os.cgroup` 
 - JVM mem stats: `jvm.mem` 
 - Circuit breaker stats: `breakers`
 - Network-related stats: `transport` 
@@ -85,8 +86,8 @@ The `node-stats` device supports the following parameters:
 - `node-stats-include-buffer-pools`: A Boolean indicating whether buffer pool stats should be included. Default is `true`.
 - `node-stats-include-breakers`: A Boolean indicating whether circuit breaker stats should be included. Default is `true`.
 - `node-stats-include-gc`: A Boolean indicating whether JVM GC stats should be included. Default is `true`.
-- `node-stats-include-mem`: A Boolean indicating whether both JVM heap and OS mem stats should be included. Default is `true`.
-- `node-stats-include-cgroup`: A Boolean to include operating system cgroup stats. Memory stats are omitted since OpenSearch outputs them as string values. Use the `os_mem_*` fields instead. Default is `true`.
+- `node-stats-include-mem`: A Boolean indicating whether both JVM heap and operating system mem stats should be included. Default is `true`.
+- `node-stats-include-cgroup`: A Boolean to include operating system `cgroup` stats. Memory stats are omitted since OpenSearch outputs them as string values. Use the `os_mem_*` fields instead. Default is `true`.
 - `node-stats-include-network`: A Boolean indicating whether network-related stats should be included. Default is `true`.
 - `node-stats-include-process`: A Boolean indicating whether process CPU stats should be included. Default is `true`.
 - `node-stats-include-indexing-pressure`:  A Boolean indicating whether indexing presser stats should be included. Default is `true`.
@@ -116,7 +117,7 @@ This device supports the `shard-stats-sample-interval` parameter, which defines 
 ## data-stream-stats
 <!-- vale on -->
 
-The `data-stream-stats` telemetry device regularly calls the [Data Stream Stats API]({{site.url}}{{site.baseurl}}/im-plugin/data-streams/#step-2-create-a-data-stream) and records one metrics document for cluster-level stats (`_all`) and one metrics document per data stream.
+The `data-stream-stats` telemetry device regularly calls the [Get Data Stream Stats API]({{site.url}}{{site.baseurl}}/api-reference/data-stream/data-stream-stats/) and records one metrics document for cluster-level stats (`_all`) and one metrics document per data stream.
 
 The following is an example of recorded documents given two data streams in the cluster:
 

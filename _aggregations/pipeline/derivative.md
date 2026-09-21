@@ -5,7 +5,7 @@ parent: Pipeline aggregations
 nav_order: 70
 ---
 
-# Derivative aggregations
+# Derivative aggregation
 
 The `derivative` aggregation is a parent aggregation used to calculate first-order and second-order derivatives of each bucket of an aggregation. "First-order derivative" and "second-order derivative" are often shortened to "first derivative" and "second derivative," respectively. This page uses the shortened terms.
 
@@ -23,7 +23,7 @@ The `derivative` aggregation takes the following parameters.
 
 ## Example: First derivative
 
-The following example creates a date histogram with a one-month interval from the OpenSearch Dashboards e-commerce sample data. The `sum` sub-aggregation calculates the sum of all bytes for each month. Finally, the `derivative` aggregation calculates the first derivative of the `sum` sub-aggregation. The first derivative is estimated as the difference between the number of bytes in the current month and the previous month:
+The following example creates a date histogram with a one-month interval from the OpenSearch Dashboards e-commerce sample data. The `sum` subaggregation calculates the sum of all bytes for each month. Finally, the `derivative` aggregation calculates the first derivative of the `sum` subaggregation. The first derivative is estimated as the difference between the number of bytes in the current month and the previous month:
 
 ```json
 GET opensearch_dashboards_sample_data_logs/_search

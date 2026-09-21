@@ -47,7 +47,7 @@ The following section provides a sample Docker Compose file that contains the co
 
 ### Step 1: Run the Docker Compose file
 
-Use the following Docker Compose file to enable Jaeger data for trace analytics.  Set the `ES_TAGS_AS_FIELDS_ALL` environment variable set to `true` to enable errors to be added to trace data.
+Use the following Docker Compose file to enable Jaeger data for trace analytics. Set the `ES_TAGS_AS_FIELDS_ALL` environment variable set to `true` to enable errors to be added to trace data.
 
 Copy the following Docker Compose file and save it as `docker-compose.yml`:
 

@@ -8,7 +8,7 @@ redirect_from:
   - /monitoring-plugins/trace/get-started/
 ---
 
-# Getting started with Trace Analytics
+# Getting started with trace analytics
 
 OpenSearch Trace Analytics consists of two components---Data Prepper and the Trace Analytics OpenSearch Dashboards plugin. The Data Prepper repository contains several [sample applications](https://github.com/opensearch-project/data-prepper/tree/main/examples) that you can use to get started.
 
@@ -18,7 +18,7 @@ OpenSearch Trace Analytics consists of two components---Data Prepper and the Tra
 
 1. Trace Analytics relies on you adding instrumentation to your application and generating trace data. The [OpenTelemetry documentation](https://opentelemetry.io/docs/) contains example applications for many programming languages that can help you get started, including Java, Python, Go, and JavaScript.
 
-   (In the [Jaeger HotROD](#jaeger-hotrod) example below, an extra component, the Jaeger agent, runs alongside the application and sends the data to the OpenTelemetry Collector, but the concept is similar.)
+   (In the following [Jaeger HotROD](#jaeger-hotrod) example, an extra component, the Jaeger agent, runs alongside the application and sends the data to the OpenTelemetry Collector, but the concept is similar.)
 
 1. The [OpenTelemetry Collector](https://opentelemetry.io/docs/collector/getting-started/) receives data from the application and formats it into OpenTelemetry data.
 
@@ -81,4 +81,4 @@ curl -X GET -u 'admin:<custom-admin-password>' -k 'https://localhost:9200/otel-v
 
 Navigate to `http://localhost:5601` in a web browser and choose **Trace Analytics**. You can see the results of your single click in the Jaeger HotROD web interface: the number of traces per API and HTTP method, latency trends, a color-coded map of the service architecture, and a list of trace IDs that you can use to drill down on individual operations.
 
-If you don't see your trace, adjust the timeframe in OpenSearch Dashboards. For more information on using the plugin, see [OpenSearch Dashboards plugin]({{site.url}}{{site.baseurl}}/observing-your-data/trace/ta-dashboards/).
+If you don't see your trace, adjust the time frame in OpenSearch Dashboards. For more information about using the plugin, see [OpenSearch Dashboards plugin]({{site.url}}{{site.baseurl}}/observing-your-data/trace/ta-dashboards/).

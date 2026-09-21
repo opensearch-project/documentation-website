@@ -1,9 +1,11 @@
 ---
 layout: default
 title: Common REST parameters
-nav_order: 93
+nav_order: 160
 redirect_from:
   - /opensearch/common-parameters/
+  - /monitoring-plugins/alerting/cron/
+  - /observing-your-data/alerting/cron/
 ---
 
 # Common REST parameters 
@@ -154,6 +156,8 @@ The following table describes the special characters.
 | `,` | Multiple values. For example, `1,3,5` in `day_of_week` means Monday, Wednesday, and Friday. |
 | `/` | Increment. For example, `0/15` in minutes means every 15 minutes starting at minute 0. |
 
+Two fields specify the day: `day_of_month` and `day_of_week`. If you use a non-wildcard value in both, the schedule runs whenever either field matches the time. For example, `15 2 1,15 * 1` runs at 2:15 AM UTC on the first day of the month, on the 15th day of the month, and every Monday. To schedule a single day, set one field and leave the other as `*`.
+
 ### Examples
 
 | Expression | Description |
@@ -162,8 +166,14 @@ The following table describes the special characters.
 | `0/15 9 * * *` | Every 15 minutes from 9:00 to 9:45 AM UTC |
 | `5 9 * * 1-5` | 9:05 AM UTC Monday through Friday |
 | `5 9 * * MON-FRI` | 9:05 AM UTC Monday through Friday (using named days) |
+| `45 13 1-31/2 * *` | 1:45 PM UTC every other day |
+| `0/10 * * * 6-7` | Every 10 minutes on Saturday and Sunday |
+| `0 0-23/3 1 1-12/2 *` | Every 3 hours on the first day of every other month |
 
-## `X-Opaque-Id` header
+
+<!-- vale off -->
+## X-Opaque-Id header
+<!-- vale on -->
 
 You can specify an opaque identifier for any request using the `X-Opaque-Id` header. This identifier is used to track tasks and deduplicate deprecation warnings in server-side logs. This identifier is used to differentiate between callers sending requests to your OpenSearch cluster. Do not specify a unique value per request.
 
@@ -176,7 +186,9 @@ curl -H "X-Opaque-Id: my-curl-client-1" -XGET localhost:9200/_tasks
 ```
 {% include copy.html %}
 
+<!-- vale off -->
 ## `X-Request-Id` header
+<!-- vale on -->
 
 You can specify a unique identifier for a search request using the `X-Request-Id` header. This identifier is used to track individual search requests and can be referenced in logs, such as slow logs, for troubleshooting and analysis. The value must be a 32-character hexadecimal string. 
 

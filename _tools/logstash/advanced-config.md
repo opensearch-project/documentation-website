@@ -161,7 +161,7 @@ You can set the time of events.
 
 Logstash already sets the time when the event is received by the input plugin within the @timestamp field.
 In some scenarios, you might need to use a different timestamp.
-For example, if you have an eCommerce store and you process the orders daily at midnight. When Logstash receives the events at midnight, it sets the timestamp to the current time.
+For example, if you have an e-commerce store and you process the orders daily at midnight. When Logstash receives the events at midnight, it sets the timestamp to the current time.
 But you want it to be the time when the order is placed and not when Logstash received the event.
 
 Let's change the event timestamp to the date the request is received by the web server. You can do this using a filter plugin named `dates`.
@@ -176,7 +176,7 @@ date {
 ```
 
 timestamp is the field that the `grok` pattern creates.
-`Z` is the timezone. i.e., UTC offsets.
+`Z` is the time zone (UTC offsets).
 
 Start Logstash and send an HTTP request.
 
@@ -195,9 +195,9 @@ date {
 
 ## Parsing user agents
 
-The user agent is the last part of a log entry that consists of the name of the browser, the browser version, and the OS of the device.
+The user agent is the last part of a log entry that consists of the name of the browser, the browser version, and the operating system of the device.
 
-Users might be using a wide range of browsers, devices, and OS's. Doing this manually is hard.
+Users might be using a wide range of browsers, devices, and operating systems. Doing this manually is hard.
 
 You can't use `grok` patterns because the `grok` pattern only matches the usage in the string as whole and doesn't figure out which browser the visitor used, for instance.
 
@@ -216,7 +216,7 @@ useragent {
 
 Start Logstash and send an HTTP request.
 
-You can see a field named `ua` with a number of keys including the browser name and version, the OS, and the device.
+You can see a field named `ua` with a number of keys including the browser name and version, the operating system, and the device.
 
 You can use OpenSearch Dashboards to create a pie chart that shows how many visitors are using mobile devices and how many are desktop users. Or, you could get statistics on which browser versions are popular.
 

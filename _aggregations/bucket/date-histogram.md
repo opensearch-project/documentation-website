@@ -7,7 +7,7 @@ redirect_from:
   - /query-dsl/aggregations/bucket/date-histogram/
 ---
 
-# Date histogram aggregations
+# Date histogram aggregation
 
 The `date_histogram` aggregation groups documents into time-based buckets using [date math]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/date/#date-math). Use it to roll up metrics per hour/day/month, chart traffic trends, or fill time series dashboards.
 
@@ -255,7 +255,7 @@ GET my-logs/_search
 
 ## Example: Scripted value source
 
-You can use a Painless script to dynamically generate or modify the date value used for bucketing in a `date_histogram`. This provides flexibility for handling complex date logic at query time. A `date_histogram` aggregation does not work with date objects or strings directly. It requires a single, numerical value to represent each document's timestamp. This value must be a long integer representing epoch milliseconds, the number of milliseconds that have passed since 00:00:00 UTC on January 1, 1970. Any script you provide must return a value of this type. The following example with `script` behaves in the same way as the previous examples with `"field": "timestamp"` but generates the correct return type for the date field:
+You can use a Painless script to dynamically generate or modify the date value used for bucketing in a `date_histogram`. This provides flexibility for handling complex date logic at query time. For more information, see [Painless scripting language]({{site.url}}{{site.baseurl}}/scripting/painless/). A `date_histogram` aggregation does not work with date objects or strings directly. It requires a single, numerical value to represent each document's timestamp. This value must be a long integer representing epoch milliseconds, the number of milliseconds that have passed since 00:00:00 UTC on January 1, 1970. Any script you provide must return a value of this type. The following example with `script` behaves in the same way as the previous examples with `"field": "timestamp"` but generates the correct return type for the date field:
 
 ```json
 GET my-logs/_search

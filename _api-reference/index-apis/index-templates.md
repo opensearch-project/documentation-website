@@ -7,7 +7,7 @@ has_children: true
 has_toc: false
 ---
 
-# Index templates
+# Index template APIs
 
 Index template APIs allow you to create and manage templates that automatically apply settings, mappings, and aliases to new indexes that match specific patterns. Templates provide a powerful way to ensure consistency across your indexes.
 
@@ -26,7 +26,7 @@ OpenSearch supports the following index template APIs.
 
 ## Legacy template APIs
 
-OpenSearch also supports the following legacy template APIs for backward compatibility. These APIs use the older template format and are deprecated in favor of the index template APIs above.
+OpenSearch also supports the following legacy template APIs for backward compatibility. These APIs use the older template format and are deprecated in favor of the preceding index template APIs.
 
 | API | Description |
 |-----|-------------|

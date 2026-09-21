@@ -8,6 +8,7 @@ redirect_from:
   - /opensearch/supported-field-types/
   - /opensearch/supported-field-types/index/
   - /field-types/supported-field-types/
+  - /field-types/supported-field-types/index/
   - /mappings/supported-field-types/
 ---
 
@@ -98,7 +99,7 @@ You can specify data types for your fields when creating a mapping. The followin
 
 | Field type  | Description |
 | [`knn_vector`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-vector/)                 | Indexes a dense vector for k-NN search and vector similarity operations.                                                                   |
-| [`sparse_vector`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/sparse-vector/)               | Indexes a sparse vector for [neural sparse ANN search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann). |
+| [`sparse_vector`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/sparse-vector/)               | Indexes a sparse vector for [neural sparse ANN search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/). |
 
 ## Specialized search field types
 
@@ -184,7 +185,7 @@ PUT testindex
 }
 ```
 
-Index three documents into testindex. The `emergency_phone` fields of documents 1 and 3 contain `null`, while the `emergency_phone` field of document 2 has an empty array:
+Index three documents into `testindex`. The `emergency_phone` fields of documents 1 and 3 contain `null`, while the `emergency_phone` field of document 2 has an empty array:
 
 ```json
 PUT testindex/_doc/1

@@ -4,6 +4,8 @@ title: OTel trace
 parent: Processors
 grand_parent: Pipelines
 nav_order: 260
+redirect_from:
+  - /data-prepper/pipelines/configuration/processors/otel-trace-raw/
 ---
 
 # OTel trace processor

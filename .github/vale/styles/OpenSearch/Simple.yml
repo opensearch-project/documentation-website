@@ -6,6 +6,4 @@ level: warning
 action:
   name: remove
 tokens:
-  - simply
   - just
-  - simple

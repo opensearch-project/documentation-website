@@ -4,7 +4,6 @@ title: Field masking
 parent: Access control
 nav_order: 100
 redirect_from:
- - /security/access-control/field-masking/
  - /security-plugin/access-control/field-masking/
 ---
 
@@ -89,7 +88,7 @@ someonerole:
 
 ### REST API
 
-See [Create role]({{site.url}}{{site.baseurl}}/security/access-control/api/#create-role).
+See [Create role]({{site.url}}{{site.baseurl}}/security/api/roles/create-role/).
 
 
 ## (Advanced) Use an alternative hash algorithm

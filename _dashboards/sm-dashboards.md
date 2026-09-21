@@ -6,7 +6,7 @@ redirect_from:
   - /dashboards/admin-ui-index/sm-dashboards/
 ---
 
-# Snapshot management
+# Snapshot management in OpenSearch Dashboards
 
 [Snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/index/) are backups of a cluster’s indexes and state. The state includes cluster settings, node information, index metadata (mappings, settings, templates), and shard allocation. The Snapshot Management (SM) interface in OpenSearch Dashboards provides a unified solution for taking and restoring snapshots.
 

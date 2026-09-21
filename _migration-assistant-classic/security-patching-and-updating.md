@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Security patching & updating
+title: Security patching and updating
 nav_order: 30
 permalink: /classic/migration-assistant/security-patching-and-updating/
 ---
@@ -13,7 +13,7 @@ This page describes how to safely update the **bootstrap box** (the Amazon Elast
 
 ---
 
-## Step 1: Patch the OS on the bootstrap box
+## Step 1: Patch the operating system on the bootstrap box
 
 ```shell
 sudo dnf upgrade --refresh -y
@@ -29,7 +29,7 @@ sudo reboot
 ```
 {% include copy.html %}
 
-After the box comes back up, reconnect and continue.
+After the box comes back up, reconnect, and continue.
 
 
 ## Step 2: Clear Docker build and download caches

@@ -17,7 +17,7 @@ The Security plugin supports the following common settings:
 
 -  `plugins.security.nodes_dn` (Static): Specifies a list of distinguished names (DNs) that denote the other nodes in the cluster. This setting supports wildcards and regular expressions. The list of DNs are also read from the security index **in addition** to the YAML configuration when `plugins.security.nodes_dn_dynamic_config_enabled` is `true`. If this setting is not configured correctly, the cluster will fail to form as the nodes will not be able to trust each other and will result in the following error: `Transport client authentication no longer supported`.
 
-- `plugins.security.nodes_dn_dynamic_config_enabled` (Static): Relevant for `cross_cluster` use cases where there is a need to manage the  allow listed `nodes_dn` without having to restart the nodes every time a new `cross_cluster` remote is configured.
+- `plugins.security.nodes_dn_dynamic_config_enabled` (Static): Relevant for `cross_cluster` use cases where there is a need to manage the allow listed `nodes_dn` without having to restart the nodes every time a new `cross_cluster` remote is configured.
   Setting `nodes_dn_dynamic_config_enabled` to `true` enables **super-admin callable** Distinguished Names APIs, which provide means to update or retrieve `nodes_dn` dynamically. This setting only has effect if `plugins.security.cert.intercluster_request_evaluator_class` is not set. Default is `false`.
 
 - `plugins.security.authcz.admin_dn` (Static): Defines the DNs of certificates to which admin privileges should be assigned. Required.
@@ -43,7 +43,11 @@ The Security plugin supports the following REST management API settings:
 
 - `plugins.security.restapi.roles_enabled` (Static): Enables role-based access to the REST management API for listed roles. Roles are separated by a comma. Default is an empty list (no role is allowed to access the REST management API). See [Access control for the API]({{site.url}}{{site.baseurl}}/security/access-control/api/#access-control-for-the-api).
 
-- `plugins.security.restapi.endpoints_disabled.<role>.<endpoint>` (Static): Disables specific endpoints and their HTTP methods for roles. Values for this setting compose an array of HTTP methods. For example: `plugins.security.restapi.endpoints_disabled.all_access.ACTIONGROUPS: ["PUT","POST","DELETE"]`. By default, all endpoints and methods are allowed. Existing endpoints include `ACTIONGROUPS`, `CACHE`, `CONFIG`, `ROLES`, `ROLESMAPPING`, `INTERNALUSERS`, `SYSTEMINFO`, `PERMISSIONSINFO`, and `LICENSE`. See [Access control for the API]({{site.url}}{{site.baseurl}}/security/access-control/api/#access-control-for-the-api).
+- `plugins.security.restapi.endpoints_disabled.<role>.<endpoint>` (Static): Disables specific endpoints and their HTTP methods for roles. Values for this setting compose an array of HTTP methods. For example: `plugins.security.restapi.endpoints_disabled.all_access.ACTIONGROUPS: ["PUT","POST","DELETE"]`. By default, all endpoints and methods are allowed. To disable an endpoint for every role, use `global` in place of the role name. For the valid `<endpoint>` values, see [Endpoint values]({{site.url}}{{site.baseurl}}/security/access-control/api/#endpoint-values).
+
+- `plugins.security.restapi.admin.enabled` (Static): Enables the `restapi:admin/*` cluster permissions, which grant a role access to the allow list, distinguished name, and certificate APIs. When this setting is `false`, these permissions have no effect, and those APIs are reachable only with an admin certificate. Default is `false`. See [REST API admin permissions]({{site.url}}{{site.baseurl}}/security/access-control/api/#rest-api-admin-permissions).
+
+- `plugins.security.restapi.max_string_length` (Static): Sets the maximum number of characters allowed for any individual string value in a Security REST API request body. Valid values are between `1` and `50000000`, inclusive. Default is `4096`. Increase this value if you submit large free-form values, such as document-level security (DLS) queries, through the REST API.
 
 - `plugins.security.restapi.password_validation_regex` (Static): Specifies a regular expression to set the criteria for the login password. For more information, see [Password settings]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#password-settings).
 
@@ -72,6 +76,8 @@ The Security plugin supports the following advanced settings:
 
   These certificates are well known and therefore unsafe for production. Use only in a private network/environment.
   {: .warning}
+
+- `plugins.security.ccs.ignore_source_security_roles` (Dynamic): When set to `true`, a remote cluster ignores the security roles propagated from the coordinating cluster on cross-cluster search requests and evaluates access using only its own `roles_mapping.yml` configuration. Default is `false`. See [Remote cluster role evaluation]({{site.url}}{{site.baseurl}}/search-plugins/cross-cluster-search/#remote-cluster-role-evaluation).
 
 - `plugins.security.system_indices.permission.enabled` (Static): Enables the system index permissions feature. When set to `true`, the feature is enabled and users with permission to modify roles can create roles that include permissions that grant access to system indexes. When set to `false`, the permission is disabled and only admins with an admin certificate can make changes to system indexes. By default, the permission is set to `false` in a new cluster.
 
@@ -173,7 +179,7 @@ The Security plugin supports the following audit log settings:
 
 - `plugins.security.audit.enable_transport` (Dynamic): Enables or disables transport-level request logging. Default is `false` (disable).
 
-- `plugins.security.audit.resolve_bulk_requests` (Dynamic): Enable or disable bulk request logging. When enabled, all subrequests in bulk requests are also logged. Default is `false` (disabled).
+- `plugins.security.audit.resolve_bulk_requests` (Dynamic): Enable or disable bulk request logging. When enabled, all individual requests within bulk requests are also logged. Default is `false` (disabled).
 
 - `plugins.security.audit.config.disabled_categories` (Dynamic): Disables the specified event categories.
 
@@ -215,7 +221,7 @@ The Security plugin supports the following audit log settings:
 
 - `plugins.security.audit.config.pemcert_content` (Static): The Base64-encoded content of the PEM certificate used for audit logging. This is an alternative to specifying the file path with `...config.pemcert_filepath`.
 
-- `plugins.security.audit.config.pemtrustedcas_filepath` (Static): The `/config` relative filepath to trusted root certificate authority.
+- `plugins.security.audit.config.pemtrustedcas_filepath` (Static): The `/config` relative file path to trusted root certificate authority.
 
 - `plugins.security.audit.config.pemtrustedcas_content` (Static): The Base64-encoded content of the root certificate authority. This is an alternative to `...config.pemtrustedcas_filepath`.
 
@@ -269,49 +275,49 @@ The Security plugin supports the following enabled cipher and protocol settings.
 
 For more information, see [Enabled ciphers and protocols]({{site.url}}{{site.baseurl}}/security/configuration/tls/#advanced-enabled-ciphers-and-protocols).
 
-## Key store and trust store files---transport layer TLS settings
+## Keystore and truststore files---transport layer TLS settings
 
-The Security plugin supports the following transport layer TLS key store and trust store settings:
+The Security plugin supports the following transport layer TLS keystore and truststore settings:
 
-- `plugins.security.ssl.transport.keystore_type` (Static): The type of the key store file. Optional. Valid values are `JKS` or `PKCS12/PFX`. Default is `JKS`.
+- `plugins.security.ssl.transport.keystore_type` (Static): The type of the keystore file. Optional. Valid values are `JKS` or `PKCS12/PFX`. Default is `JKS`.
 
-- `plugins.security.ssl.transport.keystore_filepath` (Static): The path to the key store file, which must be under the `config` directory, specified using a relative path. Required.
+- `plugins.security.ssl.transport.keystore_filepath` (Static): The path to the keystore file, which must be under the `config` directory, specified using a relative path. Required.
 
-- `plugins.security.ssl.transport.keystore_alias` (Static): The key store alias name. Optional. Default is the first alias.
+- `plugins.security.ssl.transport.keystore_alias` (Static): The keystore alias name. Optional. Default is the first alias.
 
-- `plugins.security.ssl.transport.keystore_password` (Static): The key store password. Default is `changeit`.
+- `plugins.security.ssl.transport.keystore_password` (Static): The keystore password. Default is `changeit`.
 
-- `plugins.security.ssl.transport.truststore_type` (Static): The type of the trust store file. Optional. Valid values are `JKS` or `PKCS12/PFX`. Default is `JKS`.
+- `plugins.security.ssl.transport.truststore_type` (Static): The type of the truststore file. Optional. Valid values are `JKS` or `PKCS12/PFX`. Default is `JKS`.
 
-- `plugins.security.ssl.transport.truststore_filepath` (Static): The path to the trust store file, which must be under the `config` directory, specified using a relative path. Required.
+- `plugins.security.ssl.transport.truststore_filepath` (Static): The path to the truststore file, which must be under the `config` directory, specified using a relative path. Required.
 
-- `plugins.security.ssl.transport.truststore_alias` (Static): The trust store alias name. Optional. Default is all certificates.
+- `plugins.security.ssl.transport.truststore_alias` (Static): The truststore alias name. Optional. Default is all certificates.
 
-- `plugins.security.ssl.transport.truststore_password` (Static): The trust store password. Default is `changeit`.
+- `plugins.security.ssl.transport.truststore_password` (Static): The truststore password. Default is `changeit`.
 
-For more information about key store and trust store files, see [Transport layer TLS]({{site.url}}{{site.baseurl}}/security/configuration/tls/#transport-layer-tls-1).
+For more information about keystore and truststore files, see [Transport layer TLS]({{site.url}}{{site.baseurl}}/security/configuration/tls/#transport-layer-tls-1).
 
-## Key store and trust store files---REST layer TLS settings
+## Keystore and truststore files---REST layer TLS settings
 
-The Security plugin supports the following REST layer TLS key store and trust store settings:
+The Security plugin supports the following REST layer TLS keystore and truststore settings:
 
 - `plugins.security.ssl.http.enabled` (Static): Whether to enable TLS on the REST layer. If enabled, only HTTPS is allowed. Optional. Default is `false`.
 
-- `plugins.security.ssl.http.keystore_type` (Static): The type of the key store file. Optional. Valid values are `JKS` or `PKCS12/PFX`. Default is `JKS`.
+- `plugins.security.ssl.http.keystore_type` (Static): The type of the keystore file. Optional. Valid values are `JKS` or `PKCS12/PFX`. Default is `JKS`.
 
-- `plugins.security.ssl.http.keystore_filepath` (Static): The path to the key store file, which must be under the `config` directory, specified using a relative path. Required.
+- `plugins.security.ssl.http.keystore_filepath` (Static): The path to the keystore file, which must be under the `config` directory, specified using a relative path. Required.
 
-- `plugins.security.ssl.http.keystore_alias` (Static):  The key store alias name. Optional. Default is the first alias.
+- `plugins.security.ssl.http.keystore_alias` (Static):  The keystore alias name. Optional. Default is the first alias.
 
-- `plugins.security.ssl.http.keystore_password`: The key store password. Default is `changeit`.
+- `plugins.security.ssl.http.keystore_password`: The keystore password. Default is `changeit`.
 
-- `plugins.security.ssl.http.truststore_type`: The type of the trust store file. Optional. Valid values are `JKS` or `PKCS12/PFX`. Default is `JKS`.
+- `plugins.security.ssl.http.truststore_type`: The type of the truststore file. Optional. Valid values are `JKS` or `PKCS12/PFX`. Default is `JKS`.
 
-- `plugins.security.ssl.http.truststore_filepath`: The path to the trust store file, which must be under the `config` directory, specified using a relative path. Required.
+- `plugins.security.ssl.http.truststore_filepath`: The path to the truststore file, which must be under the `config` directory, specified using a relative path. Required.
 
-- `plugins.security.ssl.http.truststore_alias` (Static): The trust store alias name. Optional. Default is all certificates.
+- `plugins.security.ssl.http.truststore_alias` (Static): The truststore alias name. Optional. Default is all certificates.
 
-- `plugins.security.ssl.http.truststore_password` (Static): The trust store password. Default is `changeit`.
+- `plugins.security.ssl.http.truststore_password` (Static): The truststore password. Default is `changeit`.
 
 For more information, see [REST layer TLS]({{site.url}}{{site.baseurl}}/security/configuration/tls/#rest-layer-tls-1).
 
@@ -353,17 +359,17 @@ The Security plugin supports the following transport layer security settings:
 
 - `plugins.security.ssl.transport.client.pemkey_password` (Static): The password for the PEM-formatted private key used by the transport client.
 
-- `plugins.security.ssl.transport.keystore_keypassword` (Static): The password for the key inside the key store.
+- `plugins.security.ssl.transport.keystore_keypassword` (Static): The password for the key inside the keystore.
 
-- `plugins.security.ssl.transport.server.keystore_keypassword` (Static): The password for the key inside the server key store.
+- `plugins.security.ssl.transport.server.keystore_keypassword` (Static): The password for the key inside the server keystore.
 
-- `plugins.sercurity.ssl.transport.server.keystore_alias` (Static): The alias name for the key store of the server.
+- `plugins.sercurity.ssl.transport.server.keystore_alias` (Static): The alias name for the keystore of the server.
 
-- `plugins.sercurity.ssl.transport.client.keystore_alias` (Static): The alias name for the key store of the client.
+- `plugins.sercurity.ssl.transport.client.keystore_alias` (Static): The alias name for the keystore of the client.
 
-- `plugins.sercurity.ssl.transport.server.truststore_alias` (Static): The alias name for the trust store of the server.
+- `plugins.sercurity.ssl.transport.server.truststore_alias` (Static): The alias name for the truststore of the server.
 
-- `plugins.sercurity.ssl.transport.client.truststore_alias` (Static): The alias name for the trust store of the client.
+- `plugins.sercurity.ssl.transport.client.truststore_alias` (Static): The alias name for the truststore of the client.
 
 - `plugins.security.ssl.client.external_context_id` (Static): Provides the transport client an ID to use for an external SSL context.
 
@@ -423,7 +429,7 @@ plugins.security.cache.ttl_minutes: 60
 #
 # REST Management API configuration settings
 plugins.security.restapi.roles_enabled: ["all_access","xyz_role"]
-plugins.security.restapi.endpoints_disabled.all_access.ACTIONGROUPS: ["PUT","POST","DELETE"] # Alternative example: plugins.security.restapi.endpoints_disabled.xyz_role.LICENSE: ["DELETE"] #
+plugins.security.restapi.endpoints_disabled.all_access.ACTIONGROUPS: ["PUT","POST","DELETE"] # Alternative example: plugins.security.restapi.endpoints_disabled.xyz_role.INTERNALUSERS: ["DELETE"] #
 # Audit log configuration settings
 plugins.security.audit.enable_rest: true
 plugins.security.audit.enable_transport: false

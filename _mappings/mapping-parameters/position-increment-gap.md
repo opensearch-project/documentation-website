@@ -9,7 +9,7 @@ has_children: false
 has_toc: false
 ---
 
-# Position increment gap
+# Position increment gap mapping parameter
 
 The `position_increment_gap` mapping parameter defines the positional distance between tokens of multi-valued fields during indexing. This affects how [`match_phrase`]({{site.url}}{{site.baseurl}}/query-dsl/full-text/match-phrase/) and [`span`]({{site.url}}{{site.baseurl}}/query-dsl/span/index/) queries behave when searching across multiple values of the same field.
 

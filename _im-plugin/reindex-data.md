@@ -1,289 +1,110 @@
 ---
 layout: default
-title: Reindex data
-nav_order: 30
+title: Reindexing data
+nav_order: 35
+redirect_from:
+  - /im-plugin/reindex-data/index/
 ---
 
-# Reindex data
+# Reindexing data
 
-After creating an index, you might need to make an extensive change such as adding a new field to every document or combining multiple indexes to form a new one. Rather than deleting your index, making the change offline, and then indexing your data again, you can use the `reindex` operation.
+Some changes cannot be made to an index in place. You cannot change the type of an existing field, remove a field from a mapping, or change the number of primary shards without rebuilding the index. Reindexing copies documents from one or more source indexes into a destination index that has the configuration you want, so you can make these changes without exporting your data and loading it again.
 
-With the `reindex` operation, you can copy all or a subset of documents that you select through a query to another index. Reindex is a `POST` operation. In its most basic form, you specify a source index and a destination index.
+Reindexing is also how you combine several indexes into one, split one index by a query, apply an ingest pipeline to documents that are already stored, or move data between clusters.
 
-Reindexing can be an expensive operation depending on the size of your source index. We recommend you disable replicas in your destination index by setting `number_of_replicas` to `0` and re-enable them once the reindex process is complete.
-{: .note }
+Reindexing reads each document from the `_source` field of the source index and indexes it into the destination index using the destination's mappings and settings. This has two consequences:
 
-For a complete API reference with all parameters and advanced options, see the [Reindex Documents API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/reindex/).
+- The source index must have `_source` enabled. Any `stored_fields` configuration is ignored.
+- The destination index does not inherit the mappings and settings of the source index. If it does not exist, OpenSearch creates it with dynamic mappings inferred from the first documents copied, which is rarely what you want. Create it with the mappings and settings you need before you start.
+
+Reindexing a large index is expensive in I/O and can slow down searches on the cluster. Set `number_of_replicas` to `0` on the destination index while the copy runs and restore it afterward, and consider throttling the operation. For more information, see [Performance optimization]({{site.url}}{{site.baseurl}}/api-reference/document-apis/reindex/#performance-optimization).
 {: .note}
 
-## How reindex works
+## Reindexing an index
 
-The reindex operation performs the following steps:
-
-1. **Reads documents from the source index**: OpenSearch retrieves documents from the `_source` field of the source index.
-2. **Processes the documents**: Optionally applies any specified query filters, scripts, or ingest pipelines to transform the data.
-3. **Writes to the destination index**: Indexes the processed documents into the destination index using the destination index's current mappings and settings.
-
-Note the following considerations:
-
-- The reindex operation reads from the `_source` field and ignores any `stored_fields` configuration. If `_source` is disabled in your source index, the reindex operation will fail. Ensure that `_source` is enabled for all documents you want to reindex.
-- Documents are indexed according to the destination index's mappings, not the source index's mappings. Create your destination index with the desired mappings before reindexing.
-
----
-
-#### Table of contents
-1. TOC
-{:toc}
-
-
----
-
-## Reindex all documents
-
-You can copy all documents from one index to another.
-
-You first need to create a destination index with your desired field mappings and settings or you can copy the ones from your source index:
+In its simplest form, a reindex request names a source and a destination. Create the source index and add a document to it:
 
 ```json
-PUT destination
+POST my-source-index/_doc?refresh=true
 {
-   "mappings":{
-      "Add in your desired mappings"
-   },
-   "settings":{
-      "Add in your desired settings"
-   }
+  "title": "Spirited Away"
 }
 ```
+{% include copy-curl.html %}
 
-This `reindex` command copies all the documents from a source index to a destination index:
-
-```json
-POST _reindex
-{
-   "source":{
-      "index":"source"
-   },
-   "dest":{
-      "index":"destination"
-   }
-}
-```
-
-If the destination index is not already created, the `reindex` operation creates a new destination index with default configurations.
-
-## Reindex from a remote cluster
-
-You can copy documents from an index in a remote cluster. Use the `remote` option to specify the remote hostname and the required login credentials.
-
-This command reaches out to a remote cluster, logs in with the username and password, and copies all the documents from the source index in that remote cluster to the destination index in your local cluster:
-
-```json
-POST _reindex
-{
-   "source":{
-      "remote":{
-         "host":"https://<REST_endpoint_of_remote_cluster>:9200",
-         "username":"YOUR_USERNAME",
-         "password":"YOUR_PASSWORD"
-      },
-      "index": "source"
-   },
-   "dest":{
-      "index":"destination"
-   }
-}
-```
-
-You can specify the following options:
-
-Options | Valid values | Description | Required
-:--- | :--- | :---
-`host` | String | The REST endpoint of the remote cluster. | Yes
-`username` | String | The username to log into the remote cluster. | No
-`password` | String | The password to log into the remote cluster. | No
-`socket_timeout` | Time Unit | The wait time for socket reads (default 30s). | No
-`connect_timeout` | Time Unit | The wait time for remote connection timeouts (default 30s). | No
-
-The following table lists the remote reindexing cluster settings.
-
-Setting | Description | Default value
-:--- | :---
-`reindex.remote.allowlist` | Specifies the allow list of remote hosts from which data can be reindexed. This security setting prevents unauthorized remote reindexing by restricting which remote OpenSearch or Elasticsearch clusters can be used as sources. Each entry should be in the format `host:port`. When this list is empty (default), remote reindexing is disabled for security. | `[]` (empty list: remote reindexing disabled)
-`reindex.remote.retry.initial_backoff` | The initial backoff time for retries. Subsequent retries will follow exponential backoff based on the initial backoff time. | 500 ms
-`reindex.remote.retry.max_count` | The maximum number of retry attempts. | 15
-
-## Reindex a subset of documents
-
-You can copy a specific set of documents that match a search query.
-
-This command copies only a subset of documents matched by a query operation to the destination index:
-
-```json
-POST _reindex
-{
-   "source":{
-      "index":"source",
-      "query": {
-        "match": {
-           "field_name": "text"
-         }
-      }
-   },
-   "dest":{
-      "index":"destination"
-   }
-}
-```
-
-For a list of all query operations, see [Full-text queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/index).
-
-## Combine one or more indexes
-
-You can combine documents from one or more indexes by adding the source indexes as a list.
-
-This command copies all documents from two source indexes to one destination index:
-
-```json
-POST _reindex
-{
-   "source":{
-      "index":[
-         "source_1",
-         "source_2"
-      ]
-   },
-   "dest":{
-      "index":"destination"
-   }
-}
-```
-Make sure the number of shards for your source and destination indexes is the same.
-
-## Reindex only unique documents
-
-You can copy only documents missing from a destination index by setting the `op_type` option to `create`.
-In this case, if a document with the same ID already exists, the operation ignores the one from the source index.
-To ignore all version conflicts of documents, set the `conflicts` option to `proceed`.
-
-```json
-POST _reindex
-{
-   "conflicts":"proceed",
-   "source":{
-      "index":"source"
-   },
-   "dest":{
-      "index":"destination",
-      "op_type":"create"
-   }
-}
-```
-
-## Transform documents during reindexing
-
-You can transform your data during the reindexing process using the `script` option.
-We recommend Painless for scripting in OpenSearch.
-
-This command runs the source index through a Painless script that increments a `number` field inside an `account` object before copying it to the destination index:
-
-```json
-POST _reindex
-{
-   "source":{
-      "index":"source"
-   },
-   "dest":{
-      "index":"destination"
-   },
-   "script":{
-      "lang":"painless",
-      "source":"ctx._account.number++"
-   }
-}
-```
-
-You can also specify an ingest pipeline to transform your data during the reindexing process.
-
-You would first have to create a pipeline with `processors` defined. You have a number of different `processors` available to use in your ingest pipeline.
-
-Here's a sample ingest pipeline that defines a `split` processor that splits a `text` field based on a `space` separator and stores it in a new `word` field. The `script` processor is a Painless script that finds the length of the `word` field and stores it in a new `word_count` field. The `remove` processor removes the `test` field.
-
-```json
-PUT _ingest/pipeline/pipeline-test
-{
-"description": "Splits the text field into a list. Computes the length of the 'word' field and stores it in a new 'word_count' field. Removes the 'test' field.",
-"processors": [
- {
-   "split": {
-     "field": "text",
-     "separator": "\\s+",
-     "target_field": "word"
-   }
- },
- {
-   "script": {
-     "lang": "painless",
-     "source": "ctx.word_count = ctx.word.length"
-   }
- },
- {
-   "remove": {
-     "field": "test"
-   }
- }
-]
-}
-```
-
-After creating a pipeline, you can use the `reindex` operation:
+Then copy it into the destination index:
 
 ```json
 POST _reindex
 {
   "source": {
-    "index": "source"
+    "index": "my-source-index"
   },
   "dest": {
-    "index": "destination",
-    "pipeline": "pipeline-test"
+    "index": "my-destination-index"
   }
 }
 ```
+{% include copy-curl.html %}
 
-## Update documents in the current index
+By default, the request runs to completion and returns a summary of the documents copied. To run it in the background, set `wait_for_completion` to `false`; the response contains a task ID that you can pass to the [Tasks API]({{site.url}}{{site.baseurl}}/api-reference/tasks/) to check on progress, or use to [set up a notification]({{site.url}}{{site.baseurl}}/im-plugin/notifications-settings/).
 
-To update the data in your current index itself without copying it to a different index, use the `update_by_query` operation.
+The [Reindex Documents API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/reindex/) documents the rest of what a reindex request can do, including the following:
 
-The `update_by_query` operation is `POST` operation that you can perform on a single index at a time.
+- Copying a subset of documents selected by a query
+- Combining several source indexes into one destination
+- Reindexing from a remote cluster
+- Skipping documents that already exist in the destination
+- Transforming documents during the copy with a script or an ingest pipeline
+- Slicing the operation to run in parallel
 
-```json
-POST {index_name}/_update_by_query
-```
+## Reindexing data in OpenSearch Dashboards
 
-If you run this command with no parameters, it increments the version number for all documents in the index.
+To navigate to the **Index Management** page, go to **Management > Index Management** on the top menu.
 
-## Source index options
+The following image shows the reindex form.
 
-You can specify the following options for your source index:
+![Reindex form]({{site.url}}{{site.baseurl}}/images/admin-ui-index/reindex-form.png)
 
-Option | Valid values | Description | Required
-:--- | :--- | :---
-`index` | String | The name of the source index. You can provide multiple source indexes as a list. | Yes
-`max_docs` | Integer | The maximum number of documents to reindex. | No
-`query` | Object | The search query to use for the reindex operation. | No
-`size` | Integer | The number of documents to reindex. | No
-`slice` | String | Specify manual or automatic slicing to parallelize reindexing. | No
+To reindex an index, follow these steps:
 
-## Destination index options
+1. Optionally, [create the destination index]({{site.url}}{{site.baseurl}}/im-plugin/index-operations/#creating-an-index-1) first. You can also create it during the following steps and import the settings and mappings from the source index.
+1. In **Index Management**, select **Indexes**.
+1. Select **Actions**, and then select **Reindex**.
+1. In **Configure source index**, select the indexes, aliases, or data streams to copy from.
+1. In **Specify a reindex option**, select **Reindex all documents** or **Reindex a subset of documents**.
+1. If you are reindexing a subset, enter a [query]({{site.url}}{{site.baseurl}}/query-dsl/) in **Query expression** to select the documents to copy. For example, the following query selects the documents with a `timestamp` on or after January 1, 2024:
 
-You can specify the following options for your destination index:
+   ```json
+   {
+     "bool": {
+       "filter": [
+         { "range": { "timestamp": { "gte": "2024-01-01" }}}
+       ]
+     }
+   }
+   ```
+   {% include copy.html %}
 
-Option | Valid values | Description | Required
-:--- | :--- | :---
-`index` | String | The name of the destination index. | Yes
-`version_type` | Enum | The version type for the indexing operation. Valid values: internal, external, external_gt, external_gte. | No
+1. In **Configure destination index**, select the destination. To create it here, select **Create index**, enter a name, optionally select aliases, and then select **Import settings and mappings** and select the source index to copy its configuration. You can add fields to the destination in **Index mapping**.
+1. Optionally, expand **Advanced settings** and set any of the following options:
 
-## Index codec considerations
+   - To skip the documents whose IDs already exist in the destination, select **Reindex only unique documents**.
+   - To keep a version conflict from stopping the operation, select **Ignore conflicts during reindexing** in **Version conflicts**.
+   - To split the operation into parallel subtasks, select **Slice this reindexing operation**.
+   - To apply an [ingest pipeline]({{site.url}}{{site.baseurl}}/ingest-pipelines/) to each document before it is written, select the pipeline in **Transform with ingest pipeline**.
+   - To be notified about the outcome, select **Send additional notifications**. For more information, see [Sending additional notifications]({{site.url}}{{site.baseurl}}/im-plugin/notifications-settings/#sending-additional-notifications).
 
-For index codec considerations, see [Index codecs]({{site.url}}{{site.baseurl}}/im-plugin/index-codecs/#reindexing).
+1. Select **Reindex**.
+
+Reindexing can take a long time. To follow its progress, see [Checking the status of long-running operations]({{site.url}}{{site.baseurl}}/im-plugin/index-maintenance/#checking-the-status-of-long-running-operations).
+
+The source and destination must be different. Reindexing an index into itself is rejected; to update documents in place, use [Update By Query]({{site.url}}{{site.baseurl}}/api-reference/document-apis/update-by-query/).
+{: .note}
+
+## Related documentation
+
+- [Reindex Documents API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/reindex/)
+- [Update By Query]({{site.url}}{{site.baseurl}}/api-reference/document-apis/update-by-query/)
+- [Index codecs]({{site.url}}{{site.baseurl}}/im-plugin/index-codecs/#reindexing)
+- [Long-running operation notifications]({{site.url}}{{site.baseurl}}/im-plugin/notifications-settings/)

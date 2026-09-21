@@ -15,7 +15,7 @@ redirect_from:
 **Introduced 2.4**
 {: .label .label-purple }
 
-An xy point field type contains a point in a two-dimensional Cartesian coordinate system, specified by x and y coordinates. It is based on the Lucene [XYPoint](https://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/geo/XYPoint.html) field type. The xy point field type is similar to the [geopoint]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point/) field type, but does not have the range limitations of geopoint. The coordinates of an xy point are single-precision floating-point values. For information about the range and precision of floating-point values, see [Numeric field types]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/numeric/).
+An xy point field type contains a point in a two-dimensional Cartesian coordinate system, specified by x and y coordinates. It is based on the Lucene [`XYPoint`](https://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/geo/XYPoint.html) field type. The xy point field type is similar to the [geopoint]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point/) field type, but does not have the range limitations of geopoint. The coordinates of an xy point are single-precision floating-point values. For information about the range and precision of floating-point values, see [Numeric field types]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/numeric/).
 
 ## Example
 
@@ -105,5 +105,5 @@ The following table lists the parameters accepted by xy point field types. All p
 Parameter | Description 
 :--- | :--- 
 `ignore_malformed` | A Boolean value that specifies to ignore malformed values and not to throw an exception. Default is `false`.
-`ignore_z_value` | Specific to points with three coordinates. If `ignore_z_value` is `true`, the third coordinate is not indexed but is still stored in the _source field. If `ignore_z_value` is `false`, an exception is thrown.
-[`null_value`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/index#null-value) | A  value to be used in place of `null`. The value must be of the same type as the field. If this parameter is not specified, the field is treated as missing when its value is `null`. Default is `null`.
+`ignore_z_value` | Specific to points with three coordinates. If `ignore_z_value` is `true`, the third coordinate is not indexed but is still stored in the `_source` field. If `ignore_z_value` is `false`, an exception is thrown.
+[`null_value`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/index#null-value) | A value to be used in place of `null`. The value must be of the same type as the field. If this parameter is not specified, the field is treated as missing when its value is `null`. Default is `null`.

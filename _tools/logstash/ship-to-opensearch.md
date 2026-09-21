@@ -104,7 +104,7 @@ The following parameters are supported in the `auth_type` setting:
 - `user`: A user name.
 - `password`: The password used for basic authentication.
 
-## Configuration for AWS IAM Authentication
+## Configuration for AWS IAM authentication
 
 To run the Logstash Output OpenSearch plugin using `aws_iam` authentication, add the following configuration:
 
@@ -124,7 +124,7 @@ output {
 }
 ```
 
-### Required Parameters
+### Required parameters
 
 - `hosts` (array of string): The `AmazonOpensearchService` domain endpoint and port number.
 - `auth_type` (JSON object): The authentication settings.
@@ -135,7 +135,7 @@ output {
 - port (string): AmazonOpensearchService listens on port 443 for `HTTPS`.
 - protocol (string): The protocol used to connect. For `AmazonOpensearchService`, the protocol is `https`.
 
-### Optional Parameters
+### Optional parameters
 
 - `template` (path): You can set the path to your own template here. If no template is specified, the plugin uses the default template.
 - `template_name` (string, default => `logstash`): Defines how the template is named inside OpenSearch.
@@ -155,8 +155,8 @@ The following list provides details on the credential resolution logic:
 
 ## Data streams
 
-The OpenSearch output plugin can store both time series datasets (such as logs, events, and metrics) and non-time series data in OpenSearch.
-The data stream is recommended to index time series datasets (such as logs, metrics, and events) into OpenSearch.
+The OpenSearch output plugin can store both time-series datasets (such as logs, events, and metrics) and non-time-series data in OpenSearch.
+The data stream is recommended to index time-series datasets (such as logs, metrics, and events) into OpenSearch.
 
 To learn more about data streams, see the [data stream documentation]({{site.url}}{{site.baseurl}}/opensearch/data-streams/).
 

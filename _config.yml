@@ -6,10 +6,10 @@ latesturl: "/latest" # The subpath of the latest version. Used for non-version-s
 url: "https://docs.opensearch.org" # the base hostname & protocol for your site, e.g. http://example.com
 permalink: /:path/
 
-opensearch_version: '3.7.0'
-opensearch_dashboards_version: '3.7.0'
-opensearch_major_minor_version: '3.7'
-lucene_version: '10_4_0'
+opensearch_version: '3.8.0'
+opensearch_dashboards_version: '3.8.0'
+opensearch_major_minor_version: '3.8'
+lucene_version: '10_5_0'
 
 # Build settings
 markdown: kramdown
@@ -77,6 +77,9 @@ collections:
   aggregations:
     permalink: /:collection/:path/
     output: true
+  scripting:
+    permalink: /:collection/:path/
+    output: true
   mappings:
     permalink: /:collection/:path/
     output: true
@@ -107,9 +110,6 @@ collections:
   troubleshoot:
     permalink: /:collection/:path/
     output: true
-  external_links:
-    permalink: /:collection/:path/
-    output: true
   developer-documentation:
     permalink: /:collection/:path/
     output: true
@@ -119,13 +119,7 @@ collections:
   automating-configurations:
     permalink: /:collection/:path/
     output: true
-  dashboards-assistant:
-    permalink: /:collection/:path/
-    output: true
   getting-started:
-    permalink: /:collection/:path/
-    output: true
-  workspace:
     permalink: /:collection/:path/
     output: true
   vector-search:
@@ -159,26 +153,23 @@ opensearch_collection:
     tuning-your-cluster:
       name: Creating and tuning your cluster
       nav_fold: true
-    im-plugin:
-      name: Managing Indexes
-      nav_fold: true
-    ingest-pipelines:
-      name: Ingest Pipelines
-      nav_fold: true
-    dashboards:
-      name: OpenSearch Dashboards
-      nav_fold: true
     security:
       name: Security
       nav_fold: true
-    security-analytics:
-      name: Security analytics 
+    im-plugin:
+      name: Managing indexes
+      nav_fold: true
+    ingest-pipelines:
+      name: Ingest Pipelines
       nav_fold: true
     mappings:
       name: Mappings
       nav_fold: true
     analyzers:
       name: Text analysis
+      nav_fold: true
+    search-plugins:
+      name: Search
       nav_fold: true
     query-dsl:
       name: Query DSL
@@ -189,11 +180,11 @@ opensearch_collection:
     aggregations:
       name: Aggregations
       nav_fold: true
-    search-plugins:
-      name: Search
+    scripting:
+      name: Scripting
       nav_fold: true
     vector-search:
-      name: Vector search 
+      name: Vector search
       nav_fold: true
     ml-commons-plugin:
       name: Machine learning
@@ -204,14 +195,20 @@ opensearch_collection:
     automating-configurations:
       name: Automating configurations
       nav_fold: true
-    monitoring-your-cluster:
-      name: Monitoring your cluster
+    dashboards:
+      name: OpenSearch Dashboards
       nav_fold: true
     observing-your-data:
       name: Observability
       nav_fold: true
+    security-analytics:
+      name: Security analytics
+      nav_fold: true
     reporting:
       name: Reporting
+      nav_fold: true
+    monitoring-your-cluster:
+      name: Monitoring your cluster
       nav_fold: true
     tools:
       name: Tools
@@ -266,6 +263,8 @@ defaults:
     values:
       section: "opensearch"
       section-name: "OpenSearch and OpenSearch Dashboards"
+      seo:
+        type: "TechArticle" # appropriate for docs instead of jekyll-seo-tag's default BlogPosting
   -
     scope:
       path: "_data-prepper"
@@ -356,6 +355,11 @@ plugins:
   - jekyll-redirect-from
   - jekyll-sitemap
   - jekyll-spec-insert
+  # Registered so the just-the-docs theme suppresses its own <title> and
+  # <meta name="Description"> tags (it emits them only `unless` jekyll-seo-tag
+  # is in site.plugins). jekyll-seo-tag then owns those tags. See head.html in
+  # pmarsceill/just-the-docs and issues just-the-docs#1008 / #1040.
+  - jekyll-seo-tag
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list

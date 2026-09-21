@@ -1,20 +1,20 @@
 ---
 layout: default
 title: Index codecs
-nav_order: 3
-parent: Index settings
+parent: Tuning indexes
+nav_order: 30
 ---
 
 # Index codecs
 
-Index codecs determine how the index’s stored fields are compressed and stored on disk. The index codec is controlled by the static `index.codec` setting that specifies the compression algorithm. The setting impacts the index shard size and index operation performance.  
+Index codecs determine how the index's stored fields are compressed and stored on disk. The index codec is controlled by the static `index.codec` setting that specifies the compression algorithm. The setting impacts the index shard size and index operation performance.  
 
 ## Supported codecs
 
-OpenSearch provides support for four codecs that can be used for compressing the stored fields. Each codec offers different tradeoffs between compression ratio (storage size) and indexing performance (speed): 
+OpenSearch provides support for four codecs that can be used for compressing the stored fields. Each codec offers different trade-offs between compression ratio (storage size) and indexing performance (speed): 
 
-* `default` -- This codec employs the [LZ4 algorithm](https://en.wikipedia.org/wiki/LZ4_(compression_algorithm)) with a preset dictionary, which prioritizes performance over compression ratio. It offers faster indexing and search operations when compared with `best_compression` but may result in larger index/shard sizes. If no codec is provided in the index settings, then LZ4 is used as the default algorithm for compression.
-* `best_compression` -- This codec uses [zlib](https://en.wikipedia.org/wiki/Zlib) as an underlying algorithm for compression. It achieves high compression ratios that result in smaller index sizes. However, this may incur additional CPU usage during index operations and may subsequently result in high indexing and search latencies. 
+* `default` -- This codec employs the [`LZ4` algorithm](https://en.wikipedia.org/wiki/LZ4_(compression_algorithm)) with a preset dictionary, which prioritizes performance over compression ratio. It offers faster indexing and search operations when compared with `best_compression` but may result in larger index/shard sizes. If no codec is provided in the index settings, then `LZ4` is used as the default algorithm for compression.
+* `best_compression` -- This codec uses [`zlib`](https://en.wikipedia.org/wiki/Zlib) as an underlying algorithm for compression. It achieves high compression ratios that result in smaller index sizes. However, this may incur additional CPU usage during index operations and may subsequently result in high indexing and search latencies. 
 
 As of OpenSearch 2.9, two new codecs based on the [Zstandard compression algorithm](https://github.com/facebook/zstd) are available. This algorithm provides a good balance between compression ratio and speed.
 
@@ -27,7 +27,7 @@ It may be challenging to change the codec setting of an existing index (see [Cha
 As of OpenSearch 2.10, the `zstd` and `zstd_no_dict` compression codecs cannot be used for [k-NN]({{site.url}}{{site.baseurl}}/search-plugins/knn/index/) or [Security Analytics]({{site.url}}{{site.baseurl}}/security-analytics/index/) indexes.
 {: .warning}
 
-For the `zstd` and `zstd_no_dict` codecs, you can optionally specify a compression level in the `index.codec.compression_level` setting. This setting takes integers in the [1, 6] range. A higher compression level results in a higher compression ratio (smaller storage size) with a tradeoff in speed (slower compression and decompression speeds lead to greater indexing and search latencies). 
+For the `zstd` and `zstd_no_dict` codecs, you can optionally specify a compression level in the `index.codec.compression_level` setting. This setting takes integers in the [1, 6] range. A higher compression level results in a higher compression ratio (smaller storage size) with a trade-off in speed (slower compression and decompression speeds lead to greater indexing and search latencies). 
 
 When an index segment is created, it uses the current index codec for compression. If you update the index codec, any segment created after the update will use the new compression algorithm. For specific operation considerations, see [Index codec considerations for index operations](#index-codec-considerations-for-index-operations).
 {: .note}
@@ -39,7 +39,7 @@ The new hardware-accelerated codecs can be used by setting one of the following 
 * `qat_deflate` (OpenSearch 2.15 and later): Hardware-accelerated `DEFLATE`
 * `qat_zstd` (OpenSearch 2.19.3 and later): Hardware-accelerated `ZSTD`
 
-`qat_deflate` offers a much better compression ratio than `qat_lz4`, with a modest drop in compression and decompression speed. `qat_zstd` uses hardware acceleration for compression but relies on software-based decompression.
+The `qat_deflate` codec offers a much better compression ratio than `qat_lz4`, with a modest drop in compression and decompression speed. The `qat_zstd` codec uses hardware acceleration for compression but relies on software-based decompression.
 {: .note}
 
 The `index.codec.compression_level` setting can be used to specify the compression level for both `qat_lz4`, `qat_deflate`, and `qat_zstd`. 
@@ -55,7 +55,7 @@ For more information about hardware acceleration on Intel, see the [Intel (R) QA
 
 ## Choosing a codec 
 
-The choice of index codec impacts the amount of disk space required to store the index data. Codecs like `best_compression`, `zstd`, and `zstd_no_dict` can achieve higher compression ratios, resulting in smaller index sizes. Conversely, the `default` codec doesn’t prioritize compression ratio, resulting in larger index sizes but faster search operations than `best_compression`.
+The choice of index codec impacts the amount of disk space required to store the index data. Codecs like `best_compression`, `zstd`, and `zstd_no_dict` can achieve higher compression ratios, resulting in smaller index sizes. Conversely, the `default` codec doesn't prioritize compression ratio, resulting in larger index sizes but faster search operations than `best_compression`.
 
 ## Index codec considerations for index operations
 

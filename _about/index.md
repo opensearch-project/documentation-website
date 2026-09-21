@@ -5,6 +5,7 @@ nav_order: 1
 has_children: false
 has_toc: false
 nav_exclude: true
+description: "Documentation for OpenSearch and OpenSearch Dashboards, the open-source suite for full-text search, application monitoring, log analytics, and vector search."
 permalink: /about/
 redirect_from:
   - /docs/opensearch/
@@ -85,7 +86,7 @@ getting_started:
 **Version {{site.opensearch_major_minor_version}}**
 {: .label .label-blue }
 
-This section contains documentation for OpenSearch and OpenSearch Dashboards.
+OpenSearch is a scalable, open-source search and analytics suite for full-text search, application monitoring, log analytics, and vector search. OpenSearch Dashboards provides the visualization and management interface.
 
 ## Getting started
 
@@ -107,4 +108,6 @@ The project welcomes GitHub issues, bug fixes, features, plugins, documentation-
 
 ---
 
+<!-- vale off -->
 <small>OpenSearch includes certain Apache-licensed Elasticsearch code from Elasticsearch B.V. and other source code. Elasticsearch B.V. is not the source of that other source code. ELASTICSEARCH is a registered trademark of Elasticsearch B.V.</small>
+<!-- vale on -->

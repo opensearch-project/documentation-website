@@ -46,7 +46,7 @@ Core tools are enabled by default. You can enable additional tool categories usi
 | `search_relevance` | Disabled | `CreateSearchConfigurationTool`, `CreateQuerySetTool`, `CreateJudgmentListTool`, `CreateExperimentTool`, and related `Get`/`Delete`/`Search` variants |
 | `skills` | Disabled | `DataDistributionTool`, `LogPatternAnalysisTool` |
 
-For the full list and per-tool parameters, see the [opensearch-mcp-server-py README](https://github.com/opensearch-project/opensearch-mcp-server-py#available-tools).
+For the full list and per-tool parameters, see the [`opensearch-mcp-server-py` README](https://github.com/opensearch-project/opensearch-mcp-server-py#available-tools).
 
 ## Next steps
 
@@ -54,5 +54,5 @@ For the full list and per-tool parameters, see the [opensearch-mcp-server-py REA
 
 ## Related documentation
 
-- [opensearch-mcp-server-py](https://github.com/opensearch-project/opensearch-mcp-server-py) -- Source repository on GitHub.
+- [`opensearch-mcp-server-py`](https://github.com/opensearch-project/opensearch-mcp-server-py) -- Source repository on GitHub.
 - [Model Context Protocol specification](https://modelcontextprotocol.io/introduction) -- MCP protocol specification.

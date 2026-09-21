@@ -5,7 +5,7 @@ parent: Supported log types
 nav_order: 28
 ---
 
-# AWS CloudTrail
+# AWS CloudTrail log type
 
 The `cloudtrail` log type monitors events from the [AWS CloudTrail](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html) accounts. OpenSearch can ingest AWS CloudTrail log data from both [Amazon Simple Storage Service](https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html) (Amazon S3) accounts and [Amazon Security Lake](https://docs.aws.amazon.com/security-lake/latest/userguide/what-is-security-lake.html) accounts.
 

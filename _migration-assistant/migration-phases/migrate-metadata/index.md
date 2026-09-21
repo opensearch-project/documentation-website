@@ -46,7 +46,7 @@ The current metadata migration path already includes built-in transformations fo
 - `string` to `text` and `keyword`
 - `flattened` to `flat_object`
 - `dense_vector` to `knn_vector`
-- Additional vector compatibility transformations for newer OpenSearch and Serverless targets.
+- Additional vector compatibility transformations for newer OpenSearch and Serverless NextGen targets.
 
 If your migration needs more than the built-ins, you can also supply custom metadata transformers through `transformerConfig`, `transformerConfigBase64`, or `transformerConfigFile`.
 

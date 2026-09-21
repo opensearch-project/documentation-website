@@ -112,7 +112,7 @@ The request body is optional but typically includes a query to specify which doc
 Field | Data type | Description
 :--- | :--- | :---
 `query` | Object | The query used to select documents for update. If not specified, the operation updates all documents in the target index. For more information about query types, see [Query DSL]({{site.url}}{{site.baseurl}}/query-dsl/).
-`script` | Object | The script to run on each matching document. Contains `source` (the script code), `lang` (script language, typically `painless`), and optional `params` (parameters passed to the script). The script can access the document via `ctx._source` and control the operation by setting `ctx.op`.
+`script` | Object | The script to run on each matching document. Contains `source` (the script code), `lang` (script language, typically `painless`), and optional `params` (parameters passed to the script). The script can access the document via `ctx._source` and control the operation by setting `ctx.op`. For more information, see [Painless scripting language]({{site.url}}{{site.baseurl}}/scripting/painless/).
 `slice` | Object | Manually specify slice ID and maximum slices for parallel processing. Contains `id` (integer, slice number) and `max` (integer, total number of slices). Optional.
 `max_docs` | Integer | Maximum number of documents to process. Optional.
 `conflicts` | String | What to do when the update by query operation encounters version conflicts. Set to `proceed` to continue or `abort` to stop. Can be specified in either the request body or as a query parameter. Optional.
@@ -405,7 +405,9 @@ response = client.update_by_query(
     python=step1_python %}
 <!-- spec_insert_end -->
 
+<!-- vale off -->
 ## Example: Using noop for conditional updates
+<!-- vale on -->
 
 The following example request increases discount only for products priced above $100, otherwise performs no operation:
 
@@ -862,7 +864,7 @@ The following example response shows a successful update by query operation that
 }
 ```
 
-When using a script with conditional noop operations, the response includes a `noops` count showing how many documents were skipped:
+When using a script with conditional `noop` operations, the response includes a `noops` count showing how many documents were skipped:
 
 ```json
 {
@@ -981,7 +983,7 @@ The `total` field represents the total number of operations that the update by q
 
 ### Changing throttling for a running operation
 
-To change the throttling of a running update by query operation, use the Rethrottle API with the task ID:
+To change the throttling of a running update by query operation, use the Rethrottle Task API with the task ID:
 
 ```json
 POST _update_by_query/<task_id>/_rethrottle?requests_per_second=100

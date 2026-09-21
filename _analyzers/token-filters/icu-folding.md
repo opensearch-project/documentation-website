@@ -169,7 +169,7 @@ The response preserves German characters while folding others:
 
 While the `asciifolding` token filter converts non-ASCII characters to ASCII equivalents, `icu_folding` provides more sophisticated normalization:
 
-- **Broader character support**: Handles all Unicode scripts, not just Latin-based characters
+- **Broader character support**: Handles all Unicode scripts, not only Latin-based characters
 - **Language-aware**: Applies normalization rules appropriate for different writing systems
 - **Width normalization**: Converts full-width characters to half-width (important for CJK text)
 - **Ligature handling**: Properly decomposes ligatures across all scripts

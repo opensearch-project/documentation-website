@@ -5,7 +5,7 @@ parent: Supported log types
 nav_order: 70
 ---
 
-# Network
+# Network log type
 
 The `network` log type records events that happen in a system's network, such as login attempts and application events.
 

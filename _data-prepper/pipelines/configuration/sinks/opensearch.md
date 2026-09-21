@@ -144,7 +144,9 @@ In this configuration:
 
 If a document already exists in OpenSearch, it will be dropped and the event handle will be released, preventing duplicates.
 
+<!-- vale off -->
 ## aws
+<!-- vale on -->
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
@@ -215,7 +217,7 @@ Consider an [S3 source]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/conf
 * Reaching `max_retries` still prevents acknowledgment.
 * Results in unnecessary reprocessing of entire S3 objects.
 
-**Best practice** -- Always configure a DLQ when using acknowledgments to:
+**Best practice**---always configure a DLQ when using acknowledgments to:
 * Prevent infinite reprocessing.
 * Handle non-retryable errors gracefully.
 * Minimize unnecessary reprocessing.

@@ -7,7 +7,7 @@ redirect_from:
   - /query-dsl/aggregations/bucket/range/
 ---
 
-# Range aggregations
+# Range aggregation
 
 The `range` aggregation groups documents into buckets based on value ranges that you define. Each bucket captures documents whose field value falls within its specified `from` (inclusive) and `to` (exclusive) boundaries. Unlike the [`histogram` aggregation]({{site.url}}{{site.baseurl}}/aggregations/bucket/histogram/), which creates uniform intervals automatically, `range` lets you define arbitrary, non-uniform boundaries.
 

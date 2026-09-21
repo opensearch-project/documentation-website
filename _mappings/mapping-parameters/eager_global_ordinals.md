@@ -9,7 +9,7 @@ has_children: false
 has_toc: false
 ---
 
-# Eager global ordinals
+# Eager global ordinals mapping parameter
 
 The `eager_global_ordinals` mapping parameter controls when global ordinals are built for a field. When enabled, global ordinals are computed during index refresh rather than "lazily" during query execution. This can improve performance for operations that rely on global ordinals, for example, sorting and aggregations on keyword fields. However, it may also increase index refresh times and memory usage.
 

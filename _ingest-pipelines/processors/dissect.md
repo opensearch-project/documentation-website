@@ -184,7 +184,7 @@ Detailed descriptions of each key modifier, along with usage examples, are provi
 
 ### Right padding modifier (`->`)
 
-The dissection algorithm is precise and requires that every character in the pattern exactly match the source string. For example, the pattern `%{hellokey} %{worldkey}` (one space) will match the string "Hello world" (one space) but not the string "Hello  world" (two spaces) because the pattern only has one space while the source string has two.
+The dissection algorithm is precise and requires that every character in the pattern exactly match the source string. For example, the pattern `%{hellokey} %{worldkey}` (1 space) will match the string `Hello world` (1 space) but not the string <code>Hello&nbsp;&nbsp;world</code> (2 spaces) because the pattern only has 1 space while the source string has 2.
 
 The _right padding modifier_ can be used to address this issue. When added to the pattern `%{helloworldkey->} %{worldkey}`, the right padding modifier will match <code>Hello&nbsp;world</code> (1 space), <code>Hello&nbsp;&nbsp;world</code> (2 spaces), and even <code>Hello&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;world</code> (10 spaces). 
 

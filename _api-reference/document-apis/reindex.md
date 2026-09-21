@@ -106,7 +106,7 @@ The `script` object supports the following fields.
 Field | Data type | Required/Optional | Description
 :--- | :--- | :--- | :---
 `source` | String | Required | The script source code as a string.
-`lang` | String | Optional | The scripting language. Valid values are `painless`, `expression`, `mustache`, and `java`. Default is `painless`.
+`lang` | String | Optional | The scripting language. Valid values are `painless`, `expression`, `mustache`, and `java`. Default is `painless`. For more information, see [Painless scripting language]({{site.url}}{{site.baseurl}}/scripting/painless/).
 
 ## How reindexing works
 
@@ -1132,6 +1132,15 @@ The allow list supports:
 - Explicit host:port combinations.
 - Wildcard patterns for IP ranges.
 - Multiple cluster endpoints.
+
+#### Retry settings
+
+When a request to the remote cluster fails, OpenSearch retries it with an exponential backoff. The following cluster settings control the retries.
+
+Setting | Description | Default
+:--- | :--- | :---
+`reindex.remote.retry.initial_backoff` | The wait time before the first retry. Each subsequent retry doubles the wait time. | `500ms`
+`reindex.remote.retry.max_count` | The maximum number of retries before the reindex operation fails. | `15`
 
 ## Performance optimization
 

@@ -210,5 +210,5 @@ Parameter | Description
 `search_analyzer` | The analyzer to be used at search time. Default is the analyzer specified in the `analyzer` parameter. Configures the root field and subfields.
 `search_quote_analyzer` | The analyzer to be used at search time with phrases. Default is the analyzer specified in the `analyzer` parameter. Configures the root field and subfields.
 `similarity` | The ranking algorithm for calculating relevance scores. Default is `BM25`. Configures the root field and subfields.
-`store` | A Boolean value that specifies whether the field value should be stored and can be retrieved separately from the _source field. Default is `false`. Configures the root field only.
+`store` | A Boolean value that specifies whether the field value should be stored and can be retrieved separately from the `_source` field. Default is `false`. Configures the root field only.
 [`term_vector`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/text#term-vector-parameter) | A Boolean value that specifies whether a term vector for this field should be stored. Default is `no`. Configures the root field and n-gram subfields. Does not configure the prefix subfield. 

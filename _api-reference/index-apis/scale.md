@@ -39,9 +39,7 @@ The following table lists the available request body fields.
 | :--- | :--- | :--- | :--- |
 | `search_only` | **Required** | Boolean | When `true`, enables search-only mode on the index. When `false`, disables search-only mode and restores the index to normal operations. |
 
-## Example requests
-
-### Enable search-only mode
+## Example request: Enabling search-only mode
 
 The following request enables search-only mode for an index named `my-index`:
 
@@ -53,7 +51,7 @@ POST /my-index/_scale
 ```
 {% include copy-curl.html %}
 
-### Disable search-only mode
+## Example request: Disabling search-only mode
 
 The following request disables search-only mode and returns the index to normal operations:
 

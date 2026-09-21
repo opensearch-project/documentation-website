@@ -56,7 +56,7 @@ When creating a new bulk helper instance, you can use the following configuratio
 
 | Option | Data type | Required/Default | Description 
 | :--- | :--- | :--- | :---
-| `datasource` | An array, async generator or a readable stream of strings or objects | Required | Represents the documents you need to create, delete, index, or update. 
+| `datasource` | An array, asynchronous generator, or a readable stream of strings or objects | Required | Represents the documents you need to create, delete, index, or update. 
 | `onDocument` | Function | Required | A function to be invoked with each document in the given `datasource`. It returns the operation to be executed for this document. Optionally, the document can be manipulated for `create` and `index` operations by returning a new document as part of the function's result.
 | `concurrency` | Integer | Optional. Default is 5. | The number of requests to be executed in parallel. 
 | `flushBytes` | Integer |  Optional. Default is 5,000,000. | Maximum bulk body size to send in bytes.

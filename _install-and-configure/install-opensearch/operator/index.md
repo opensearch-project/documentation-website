@@ -154,7 +154,7 @@ Single-node clusters are currently not supported. Your cluster must have at leas
 
 After deploying your cluster, you can configure and manage it using the following guides:
 
-- [Operator configuration]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/operator/operator-config/): Operator-level settings such as log levels, namespaces, and pprof endpoints.
+- [Operator configuration]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/operator/operator-config/): Operator-level settings such as log levels, namespaces, and `pprof` endpoints.
 - [OpenSearch cluster configuration]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/operator/operator-opensearch-config/): OpenSearch-specific settings including node pools, TLS, plugins, and keystore management.
 - [OpenSearch Dashboards configuration]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/operator/operator-dashboards-config/): OpenSearch Dashboards settings, including authentication, base path, and TLS.
 - [Kubernetes deployment customization]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/operator/operator-kubernetes-custom/): Kubernetes-level settings such as persistence, security contexts, volumes, and probes.

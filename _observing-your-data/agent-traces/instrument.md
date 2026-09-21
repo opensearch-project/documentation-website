@@ -53,7 +53,11 @@ The following providers support auto-instrumentation:
 
 ## Core API
 
+The following sections describe the core API functions.
+
+<!-- vale off -->
 ### register()
+<!-- vale on -->
 
 The `register()` function configures the OpenTelemetry tracer and exporter. Call it once at application startup:
 
@@ -76,9 +80,11 @@ The following table describes the `register()` parameters.
 | `endpoint` | String | The OpenTelemetry Protocol (OTLP) endpoint URL. Default is `http://localhost:4318` for the OpenTelemetry Collector. |
 | `service_name` | String | An identifier for your application in trace data. |
 | `protocol` | String | The transport protocol. Valid values are `http` and `grpc`. |
-| `auto_instrument` | Boolean | When `true`, automatically discovers and enables installed provider instrumentors. Default is `false`. |
+| `auto_instrument` | Boolean | When `true`, automatically discovers and enables installed provider instrumentation packages. Default is `false`. |
 
+<!-- vale off -->
 ### @observe decorator
+<!-- vale on -->
 
 The `@observe` decorator wraps functions to create spans automatically. Use it to trace agent invocations, tool calls, and other operations:
 
@@ -97,9 +103,11 @@ def search_database(query: str):
 ```
 {% include copy.html %}
 
-The decorator supports synchronous functions, asynchronous functions, generators, and async generators. Span names are generated automatically from function names, or you can provide a custom name using the `name_from` parameter.
+The decorator supports synchronous functions, asynchronous functions, generators, and asynchronous generators. Span names are generated automatically from function names, or you can provide a custom name using the `name_from` parameter.
 
+<!-- vale off -->
 ### enrich()
+<!-- vale on -->
 
 The `enrich()` function adds GenAI semantic attributes to the active span:
 
@@ -116,7 +124,9 @@ enrich(
 ```
 {% include copy.html %}
 
+<!-- vale off -->
 ### score()
+<!-- vale on -->
 
 The `score()` function attaches evaluation metrics to traces or individual spans:
 
@@ -160,11 +170,15 @@ Strands supports both approaches:
 
 Wrap LangGraph nodes and the orchestration layer with `@observe`. Enable auto-instrumentation to capture model calls within nodes automatically.
 
+<!-- vale off -->
 ### CrewAI
+<!-- vale on -->
 
 Use `@observe` to wrap crew execution functions. Install the appropriate provider package (for example, `[openai]`) to automatically capture LLM calls made by crew members.
 
+<!-- vale off -->
 ### OpenAI Agents SDK
+<!-- vale on -->
 
 Enable auto-instrumentation for comprehensive LLM coverage. Supplement with `@observe` for top-level coordination logic and custom operations.
 

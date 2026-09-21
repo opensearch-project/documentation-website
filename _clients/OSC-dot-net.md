@@ -11,11 +11,11 @@ parent: .NET clients
 OpenSearch.Client is a high-level .NET client. It provides strongly typed requests and responses as well as Query DSL. It frees you from constructing raw JSON requests and parsing raw JSON responses by providing models that parse and serialize/deserialize requests and responses automatically. OpenSearch.Client also exposes the OpenSearch.Net low-level client if you need it. For the client's complete API documentation, see the [OpenSearch.Client API documentation](https://opensearch-project.github.io/opensearch-net/api/OpenSearch.Client.html).
 
 
-This getting started guide illustrates how to connect to OpenSearch, index documents, and run queries. For the client source code, see the [opensearch-net repo](https://github.com/opensearch-project/opensearch-net).
+This getting started guide illustrates how to connect to OpenSearch, index documents, and run queries. For the client source code, see the [`opensearch-net` repo](https://github.com/opensearch-project/opensearch-net).
 
 ## Installing OpenSearch.Client
 
-To install OpenSearch.Client, download the [OpenSearch.Client NuGet package](https://www.nuget.org/packages/OpenSearch.Client/) and add it to your project in an IDE of your choice. In Microsoft Visual Studio, follow the steps below: 
+To install OpenSearch.Client, download the [OpenSearch.Client NuGet package](https://www.nuget.org/packages/OpenSearch.Client/) and add it to your project in an IDE of your choice. In Microsoft Visual Studio, follow the following steps: 
 - In the **Solution Explorer** panel, right-click on your solution or project and select **Manage NuGet Packages for Solution**.
 - Search for the OpenSearch.Client NuGet package, and select **Install**.
 
@@ -136,7 +136,7 @@ var manyResponse = client.IndexMany(studentArray, "students");
 
 ## Searching for a document
 
-To search for a student indexed above, you want to construct a query that is analogous to the following Query DSL query:
+To search for a student indexed previously, you want to construct a query that is analogous to the following Query DSL query:
 
 ```json
 GET students/_search
@@ -149,7 +149,7 @@ GET students/_search
 }
 ```
 
-The query above is a shorthand version of the following explicit query:
+The preceding query is a shorthand version of the following explicit query:
 
 ```json
 GET students/_search
@@ -240,7 +240,7 @@ if (searchResponseLow.IsValid)
 
 ## Sample program
 
-The following is a complete sample program that illustrates all of the concepts described above. It uses the Student class defined above.
+The following is a complete sample program that illustrates all of the concepts described previously. It uses the Student class defined previously.
 
 ```cs
 using OpenSearch.Client;

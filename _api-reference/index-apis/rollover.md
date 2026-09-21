@@ -75,7 +75,7 @@ Parameter | Type | Description
 :--- | :--- | :---
 `filter` | Query DSL object | The query that limits the number of documents that the alias can access.
 `index_routing` | String | The value that routes indexing operations to a specific shard. When specified, overwrites the `routing` value for indexing operations.
-`is_hidden` | Boolean | Hides or unhides the alias. When `true`, the alias is hidden. Default is `false`. Indexes for the alias must have matching values for this setting.
+`is_hidden` | Boolean | Hides or shows the alias. When `true`, the alias is hidden. Default is `false`. Indexes for the alias must have matching values for this setting.
 `is_write_index` | Boolean | Specifies the write index. When `true`, the index is the write index for the alias. Default is `false`.
 `routing` | String | The value used to route index and search operations to a specific shard.
 `search_routing` | String | Routes search operations to a specific shard. When specified, it overwrites `routing` for search operations.
@@ -158,10 +158,9 @@ response = client.indices.rollover(
 
 ### Rolling over an index alias with a write index
 
-The following request creates a date-time index and sets it as the write index for `my-alias`:
+The following request creates a date-time index and sets it as the write index for `my-alias`. The index name must be URL encoded: `%3Cmy-index-%7Bnow%2Fd%7D-000001%3E` is the encoded form of `<my-index-{now/d}-000001>`, and `{now/d}` resolves to the current date:
 
 ```json
-PUT <my-index-{now/d}-000001>
 PUT %3Cmy-index-%7Bnow%2Fd%7D-000001%3E
 {
   "aliases": {

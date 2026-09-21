@@ -47,7 +47,9 @@ export OPENSEARCH_PATH_CONF="/etc/opensearch"
 ```
 {% include copy.html %}
 
-### Systemd service file
+<!-- vale off -->
+### systemd service
+<!-- vale on --> file
 
 When running OpenSearch as a service managed by `systemd`, you can specify environment variables in the service file, as shown in the following example:
 
@@ -57,7 +59,7 @@ When running OpenSearch as a service managed by `systemd`, you can specify envir
 Environment="OPENSEARCH_JAVA_OPTS=-Xms2g -Xmx2g"
 Environment="OPENSEARCH_PATH_CONF=/etc/opensearch"
 ```
-After creating or modifying the file, reload the systemd configuration and restart the service using the following command:
+After creating or modifying the file, reload the `systemd` configuration and restart the service using the following command:
 
 ```bash
 sudo systemctl daemon-reload

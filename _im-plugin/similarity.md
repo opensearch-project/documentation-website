@@ -1,12 +1,13 @@
 ---
 layout: default
 title: Similarity
-nav_order: 37
+parent: Tuning indexes
+nav_order: 40
 ---
 
 # Similarity
 
-A similarity defines how matching documents are scored and ranked during search operations. OpenSearch uses similarity algorithms to calculate relevance scores that determine the order of search results. 
+A similarity defines how matching documents are scored and ranked during search operations. OpenSearch uses similarity algorithms to calculate relevance scores that determine the order of search results.
 
 Each field can have its own similarity configuration, allowing fine-tuned control over how different types of content are scored. You can define custom similarity algorithms in your index settings at the index level. Once configured, you can apply these algorithms to specific fields using the [`similarity` mapping parameter]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/similarity/).
 
@@ -40,12 +41,16 @@ When you use the special `default` name, the similarity is automatically applied
 
 ### Changing default similarity after index creation
 
-To change the default similarity after index creation, you must close the index, update the settings, and reopen it:
+Similarity settings are not dynamic, so updating them on an open index fails. To change the default similarity after index creation, close the index, update the settings, and then reopen it.
+
+First, close the index:
 
 ```json
 POST /product_catalog/_close
 ```
 {% include copy-curl.html %}
+
+Next, update the default similarity:
 
 ```json
 PUT /product_catalog/_settings
@@ -64,6 +69,8 @@ PUT /product_catalog/_settings
 }
 ```
 {% include copy-curl.html %}
+
+Finally, reopen the index:
 
 ```json
 POST /product_catalog/_open
@@ -114,15 +121,50 @@ The response confirms that the default similarity has been updated:
 
 ### Parameter persistence when changing similarity types
 
-When changing from one similarity type to another, OpenSearch retains parameters from the previous configuration. If the new similarity type doesn't support these parameters, you'll encounter errors.
+When changing from one similarity type to another, OpenSearch retains the parameters from the previous configuration. If the new similarity type doesn't support these parameters, the update fails.
 
-For example, if you try to change from `DFR` similarity to `boolean` similarity, you'll get an error such as the following:
+For example, change the default similarity from `DFR` to `boolean`. First, close the index:
 
+```json
+POST /product_catalog/_close
 ```
-"Unknown settings for similarity of type [boolean]: [normalization.h2.c, normalization, after_effect, basic_model]"
+{% include copy-curl.html %}
+
+Then update the default similarity:
+
+```json
+PUT /product_catalog/_settings
+{
+  "index": {
+    "similarity": {
+      "default": {
+        "type": "boolean"
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+The request fails because the `DFR` parameters are still set:
+
+```json
+{
+  "error": {
+    "root_cause": [
+      {
+        "type": "illegal_argument_exception",
+        "reason": "Unknown settings for similarity of type [boolean]: [normalization.h2.c, normalization, after_effect, basic_model]"
+      }
+    ],
+    "type": "illegal_argument_exception",
+    "reason": "Unknown settings for similarity of type [boolean]: [normalization.h2.c, normalization, after_effect, basic_model]"
+  },
+  "status": 400
+}
 ```
 
-To resolve this, explicitly set the old parameters to `null` when updating:
+To resolve this, explicitly set the old parameters to `null` in the same request:
 
 ```json
 PUT /product_catalog/_settings
@@ -139,6 +181,13 @@ PUT /product_catalog/_settings
     }
   }
 }
+```
+{% include copy-curl.html %}
+
+Then reopen the index:
+
+```json
+POST /product_catalog/_open
 ```
 {% include copy-curl.html %}
 
@@ -221,9 +270,9 @@ OpenSearch supports the following similarity types.
 
 ### BM25 similarity (default)
 
-`BM25` similarity is a TF/IDF-based similarity with built-in term frequency normalization. It works well for most text fields, particularly shorter fields like titles and names.
+The `BM25` similarity is based on TF/IDF and includes built-in term frequency normalization. It works well for most text fields, particularly shorter fields like titles and names.
 
-`BM25` similarity supports the following parameters.
+The `BM25` similarity supports the following parameters.
 
 | Parameter | Description | Default | Required |
 |-----------|-------------|---------|----------|
@@ -233,27 +282,27 @@ OpenSearch supports the following similarity types.
 
 ### Boolean similarity
 
-`boolean` similarity is a built-in similarity that assigns all matching documents the same constant score, making it useful for only determining whether documents match rather than how relevant they are. This similarity ignores term frequency, document length, and other scoring factors.
+The built-in `boolean` similarity assigns all matching documents the same constant score, which is useful when you only need to determine whether documents match rather than how relevant they are. This similarity ignores term frequency, document length, and other scoring factors.
 
-`boolean` similarity does not support parameters.
+The `boolean` similarity does not support parameters.
 
 ### DFR similarity
 
-`DFR` similarity implements the [divergence from randomness](https://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/search/similarities/DFRSimilarity.html) framework for document scoring.
+The `DFR` similarity implements the [divergence from randomness](https://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/search/similarities/DFRSimilarity.html) framework for document scoring.
 
-`DFR` similarity supports the following parameters.
+The `DFR` similarity supports the following parameters.
 
 | Parameter | Description | Valid values | Required |
 |-----------|-------------|------------------|----------|
 | `basic_model` | Basic model for the DFR framework. | [`g`](https://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/search/similarities/BasicModelG.html), [`if`](https://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/search/similarities/BasicModelIF.html), [`in`](https://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/search/similarities/BasicModelIn.html), [`ine`](https://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/search/similarities/BasicModelIne.html) | Yes |
 | `after_effect` | After effect model for the DFR framework. | [`b`](https://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/search/similarities/AfterEffectB.html), [`l`](https://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/search/similarities/AfterEffectL.html) | Yes |
-| `normalization` | Normalization model for the DFR framework. All options except `no` require a normalization value. | [`no`](https://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/search/similarities/Normalization.NoNormalization.html), [`h1`](https://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/search/similarities/NormalizationH1.html), [`h2`](https://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/search/similarities/NormalizationH2.html), [`h3`](https://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/search/similarities/NormalizationH3.html), [`z`](https://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/search/similarities/NormalizationZ.html) | Yes |
+| `normalization` | Normalization model for the DFR framework. `h1`, `h2`, and `h3` accept an optional `c` parameter, specified as `normalization.h1.c`, `normalization.h2.c`, or `normalization.h3.c`. `z` accepts an optional `z` parameter, specified as `normalization.z.z`, whose value must be greater than 0 and less than 0.5. `no` accepts no parameter. | [`no`](https://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/search/similarities/Normalization.NoNormalization.html), [`h1`](https://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/search/similarities/NormalizationH1.html), [`h2`](https://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/search/similarities/NormalizationH2.html), [`h3`](https://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/search/similarities/NormalizationH3.html), [`z`](https://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/search/similarities/NormalizationZ.html) | Yes |
 
 ### DFI similarity
 
-`DFI` similarity implements the [divergence from independence (DFI)](https://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/search/similarities/DFISimilarity.html) model.
+The `DFI` similarity implements the [divergence from independence (DFI)](https://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/search/similarities/DFISimilarity.html) model.
 
-`DFI` similarity supports the following parameters.
+The `DFI` similarity supports the following parameters.
 
 | Parameter | Description | Valid values | Required |
 |-----------|-------------|------------------|----------|
@@ -263,21 +312,23 @@ When using `DFI` similarity, avoid removing stop words for optimal relevance. Te
 
 ### IB similarity
 
-`IB` similarity uses the [information-based model](https://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/search/similarities/IBSimilarity.html), which analyzes the repetitive usage of basic elements in symbolic distributions.
+The `IB` similarity uses the [information-based model](https://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/search/similarities/IBSimilarity.html), which analyzes the repetitive usage of basic elements in symbolic distributions.
 
-`IB` similarity supports the following parameters.
+The `IB` similarity supports the following parameters.
 
 | Parameter | Description | Valid values | Required |
 |-----------|-------------|------------------|----------|
-| `distribution` | Distribution model for the IB framework. | [`ll`](https://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/search/similarities/DistributionLL.html), [`spl`](https://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/search/similarities/DistributionSPL.html) | Yes |
-| `lambda` | Lambda model for the IB framework. | [`df`](https://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/search/similarities/LambdaDF.html), [`ttf`](https://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/search/similarities/LambdaTTF.html) | Yes |
-| `normalization` | Normalization model for the IB framework. | Same options as `DFR` similarity | Yes |
+| `distribution` | Distribution model for the `IB` framework. | [`ll`](https://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/search/similarities/DistributionLL.html), [`spl`](https://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/search/similarities/DistributionSPL.html) | Yes |
+| `lambda` | Lambda model for the `IB` framework. | [`df`](https://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/search/similarities/LambdaDF.html), [`ttf`](https://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/search/similarities/LambdaTTF.html) | Yes |
+| `normalization` | Normalization model for the `IB` framework. | Same options as `DFR` similarity | Yes |
 
+<!-- vale off -->
 ### LM Dirichlet similarity
+<!-- vale on -->
 
-`LMDirichlet` similarity uses [language model similarity](https://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/search/similarities/LMDirichletSimilarity.html) with Dirichlet smoothing.
+The `LMDirichlet` similarity uses [language model similarity](https://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/search/similarities/LMDirichletSimilarity.html) with Dirichlet smoothing.
 
-`LMDirichlet` similarity supports the following parameters.
+The `LMDirichlet` similarity supports the following parameters.
 
 | Parameter | Description | Default | Required |
 |-----------|-------------|---------|----------|
@@ -285,11 +336,13 @@ When using `DFI` similarity, avoid removing stop words for optimal relevance. Te
 
 Terms with fewer occurrences than predicted by the language model receive a score of 0.
 
+<!-- vale off -->
 ### LM Jelinek Mercer similarity
+<!-- vale on -->
 
-`LMJelinekMercer` similarity uses [language model similarity](https://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/search/similarities/LMJelinekMercerSimilarity.html) with Jelinek-Mercer smoothing.
+The `LMJelinekMercer` similarity uses [language model similarity](https://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/search/similarities/LMJelinekMercerSimilarity.html) with Jelinek-Mercer smoothing.
 
-`LMJelinekMercer` similarity supports the following parameters.
+The `LMJelinekMercer` similarity supports the following parameters.
 
 | Parameter | Description | Default | Required |
 |-----------|-------------|---------|----------|
@@ -297,7 +350,7 @@ Terms with fewer occurrences than predicted by the language model receive a scor
 
 ### Scripted similarity
 
-`scripted` similarity allows custom scoring logic using OpenSearch's scripting capabilities.
+The `scripted` similarity allows custom scoring logic using OpenSearch's scripting capabilities.
 
 When writing scripts for `scripted` similarities, you have access to the following variables. These variables allow you to implement custom scoring algorithms based on term frequency, document frequency, field statistics, and document characteristics.
 
@@ -432,12 +485,12 @@ The response shows the custom TF-IDF calculation with a score of `1.2570862` for
               "description": "score from ScriptedSimilarity(weightScript=[null], script=[Script{type=inline, lang='painless', idOrCode='double tf = Math.sqrt(doc.freq); double idf = Math.log((field.docCount+1.0)/(term.docFreq+1.0)) + 1.0; double norm = 1/Math.sqrt(doc.length); return query.boost * tf * idf * norm;', options={}, params={}}]) computed from:",
               "details": [
                 {
-                  "value": 1,
+                  "value": 1.0,
                   "description": "weight",
                   "details": []
                 },
                 {
-                  "value": 2,
+                  "value": 2.0,
                   "description": "query.boost",
                   "details": []
                 },
@@ -467,7 +520,7 @@ The response shows the custom TF-IDF calculation with a score of `1.2570862` for
                   "details": []
                 },
                 {
-                  "value": 1,
+                  "value": 1.0,
                   "description": "doc.freq",
                   "details": []
                 },
@@ -486,10 +539,10 @@ The response shows the custom TF-IDF calculation with a score of `1.2570862` for
 }
 ```
 
-You can improve performance by separating document-independent calculations into another script named `weight_script`. For queries matching many documents, the `weight_script` runs once per term, while the main `script` runs once per document The score produced by the `weight_script` is available in the `weight` variable:
+You can improve performance by separating document-independent calculations into another script named `weight_script`. For queries matching many documents, the `weight_script` runs once per term, while the main `script` runs once per document. The score produced by the `weight_script` is available in the `weight` variable:
 
 ```json
-PUT /research_papers
+PUT /research_papers_optimized
 {
   "settings": {
     "number_of_shards": 1,
@@ -517,7 +570,7 @@ PUT /research_papers
 ```
 {% include copy-curl.html %}
 
-After indexing the same sample documents and searching using the same query, the response shows how the optimized similarity works:
+Index the same sample documents into `research_papers_optimized`, refresh the index, and run the same query. The response shows how the optimized similarity works:
 
 ```json
 {
@@ -537,9 +590,9 @@ After indexing the same sample documents and searching using the same query, the
     "max_score": 1.2570862,
     "hits": [
       {
-        "_shard": "[research_papers][0]",
+        "_shard": "[research_papers_optimized][0]",
         "_node": "KfEEGG7_SsKZVFqI4ko2FA",
-        "_index": "research_papers",
+        "_index": "research_papers_optimized",
         "_id": "1",
         "_score": 1.2570862,
         "_source": {
@@ -559,7 +612,7 @@ After indexing the same sample documents and searching using the same query, the
                   "details": []
                 },
                 {
-                  "value": 2,
+                  "value": 2.0,
                   "description": "query.boost",
                   "details": []
                 },
@@ -589,7 +642,7 @@ After indexing the same sample documents and searching using the same query, the
                   "details": []
                 },
                 {
-                  "value": 1,
+                  "value": 1.0,
                   "description": "doc.freq",
                   "details": []
                 },

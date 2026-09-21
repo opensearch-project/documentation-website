@@ -330,13 +330,13 @@ PUT sample-index/_doc/1?version=5&version_type=external
 
 If the provided version does not meet the requirements of the specified version type, OpenSearch returns a version conflict error. Versioning is completely real time and is not affected by the near-real-time aspects of search operations.
 
-## Noop updates
+## No-op updates
 
 When you update a document using the Index Document API, OpenSearch always creates a new version of the document, even if the document content has not changed. This behavior can be inefficient if you frequently reindex documents with the same content.
 
 If you need to avoid creating unnecessary document versions, use the [Update Document API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/update-document/) with the `detect_noop` parameter set to `true`. The Update API fetches the existing document, compares it to the new content, and only creates a new version if the content has changed.
 
-The Index Document API does not support noop detection because it does not fetch the old source for comparison. Whether noop updates are problematic depends on several factors, including how frequently your data source sends updates that do not change the document and the query load on the shard receiving the updates.
+The Index Document API does not support no-op detection because it does not fetch the old source for comparison. Whether no-op updates are problematic depends on several factors, including how frequently your data source sends updates that do not change the document and the query load on the shard receiving the updates.
 
 ## Required permissions
 

@@ -4,6 +4,8 @@ title: Service map
 parent: Processors
 grand_parent: Pipelines
 nav_order: 330
+redirect_from:
+  - /data-prepper/pipelines/configuration/processors/service-map-stateful/
 ---
 
 # Service map processor

@@ -57,7 +57,11 @@ Set the `<llm_interface>` to the interface for your provider (for example, `open
 
 The following OpenAI GPT models are supported.
 
+<!-- vale off -->
+
 #### GPT-5 (Recommended)
+
+<!-- vale on -->
 
 GPT-5 provides advanced reasoning capabilities and is recommended for production use cases.
 
@@ -110,7 +114,9 @@ As you select higher reasoning modes, overall latency increases. Choose the lowe
 
 Anthropic Claude models are available through Amazon Bedrock integration and provide analytical capabilities for complex search scenarios.
 
+<!-- vale off -->
 #### Claude 4 Sonnet
+<!-- vale on -->
 
 **Amazon Bedrock connector setup**:
 

@@ -5,7 +5,7 @@ parent: Metric aggregations
 nav_order: 45
 ---
 
-# Geocentroid
+# Geocentroid aggregation
 
 The `geo_centroid` aggregation calculates the geographic center or focal point of a set of `geo_point` values. It returns the centroid location as a latitude-longitude pair.
 

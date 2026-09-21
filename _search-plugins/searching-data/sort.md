@@ -261,7 +261,7 @@ GET shakespeare/_search
 ```
 {% include copy-curl.html %}
 
-You can continue to sort by any number of field values to get the results in just the right order. It doesn’t have to be a numerical value&mdash;you can also sort by date or timestamp fields:
+You can continue to sort by any number of field values to get the results in the right order. It doesn’t have to be a numerical value&mdash;you can also sort by date or timestamp fields:
 
 ```json
 "sort": [
@@ -436,7 +436,7 @@ The response contains students sorted by `grades` in descending order:
 
 ## Sorting nested objects
 
-When sorting [nested]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/nested) objects, provide the `path` parameter specifying the path to the field on which to sort. 
+When sorting [nested]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/nested/) objects, provide the `path` parameter specifying the path to the field on which to sort. 
 
 For example, in the index `students`, map the variable `first_sem` as `nested`:
 
@@ -896,7 +896,7 @@ The response contains the sorted documents:
 }
 ```
 
-You can provide coordinates in any format supported by the geopoint field type. For a description of all formats, see the [geopoint field type documentation]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point).
+You can provide coordinates in any format supported by the geopoint field type. For a description of all formats, see the [geopoint field type documentation]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point/).
 {: .note}
 
 To pass multiple geopoints to `_geo_distance`, use an array:
@@ -927,7 +927,7 @@ For each document, the sorting distance is calculated as the minimum, maximum, o
 
 ## Performance considerations
 
-Sorted field values are loaded into memory for sorting. Therefore, for minimum overhead we recommend mapping [numeric types]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/numeric) to the smallest acceptable types, like `short`, `integer`, and `float`. [String types]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/string) should not have the sorted field analyzed or tokenized.
+Sorted field values are loaded into memory for sorting. Therefore, for minimum overhead we recommend mapping [numeric types]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/numeric/) to the smallest acceptable types, like `short`, `integer`, and `float`. [String types]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/string/) should not have the sorted field analyzed or tokenized.
 
 The `_id` field is restricted from use in sorting operations. If you need to sort by document ID, consider duplicating the ID value into another field with `doc_values` enabled. For more information about `_id` field limitations, see [ID field type]({{site.url}}{{site.baseurl}}/field-types/metadata-fields/id/).
 {: .note}

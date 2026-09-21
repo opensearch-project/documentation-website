@@ -8,7 +8,7 @@ has_children: false
 
 # Configuring anomaly alerting
 
-Once you've created an [anomaly detector]({{site.url}}{{site.baseurl}}/observing-your-data/ad/), you can configure alerting to be notified when anomalies occur. To configure alerting, create an [alert monitor]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/), shown in the following image. For instructions on how to to create an alert monitor, see [Creating an alert monitor]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/index/#creating-an-alert-monitor).
+Once you've created an [anomaly detector]({{site.url}}{{site.baseurl}}/observing-your-data/ad/), you can configure alerting to be notified when anomalies occur. To configure alerting, create an [alert monitor]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/), shown in the following image. For instructions on how to create an alert monitor, see [Creating an alert monitor]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/index/#creating-an-alert-monitor).
 
 ![Alerting editor]({{site.url}}{{site.baseurl}}/images/anomaly-detection/alerting_editor.png){: width="800" height="800" }
 

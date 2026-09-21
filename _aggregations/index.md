@@ -45,7 +45,7 @@ The name of the aggregation helps you to distinguish between different aggregati
 
 ## Example aggregation
 
-The following example uses the OpenSearch Dashboards sample ecommerce data. To add the sample data, log in to OpenSearch Dashboards, choose **Home**, and then choose **Try our sample data**. For **Sample eCommerce orders**, choose **Add data**.
+The following example uses the OpenSearch Dashboards sample e-commerce data. To add the sample data, log in to OpenSearch Dashboards, choose **Home**, and then choose **Try our sample data**. For **Sample eCommerce orders**, choose **Add data**.
 
 This example uses the `avg` aggregation to find the average value of the `taxful_total_price` field:
 
@@ -174,7 +174,7 @@ The inner `aggs` keyword begins a new nested aggregation. The syntax of the pare
 
 ### Nested aggregation example
 
-The following example uses the OpenSearch Dashboards sample ecommerce data to group orders by category and calculate the average price within each category. This query returns the top 5 categories sorted in descending alphabetical order:
+The following example uses the OpenSearch Dashboards sample e-commerce data to group orders by category and calculate the average price within each category. This query returns the top 5 categories sorted in descending alphabetical order:
 
 ```json
 GET opensearch_dashboards_sample_data_ecommerce/_search
@@ -280,7 +280,7 @@ You can use aggregations through the OpenSearch API or through OpenSearch Dashbo
 
 You can run aggregation requests from the command line using a tool such as cURL or from the OpenSearch Dashboards Dev Tools console. For more information about using the Dev Tools console, see [Running queries in the Dev Tools console]({{site.url}}{{site.baseurl}}/dashboards/visualize/run-queries/).
 
-See the [Example aggregation](#example-aggregation) and [Nested aggregation example](#nested-aggregation-example) sections for sample API requests and responses. For detailed syntax and parameters for each aggregation type, see the type-specific documentation pages listed in the [Aggregation types](#aggregation-types) section.
+See the [Example aggregation](#example-aggregation) and [Nested aggregation example](#nested-aggregation-example) sections for sample API requests and responses. For detailed syntax and parameters for each aggregation type, see the type-specific documentation pages listed in the [Aggregation types](#aggregation-types) section. For a hands-on tutorial that runs aggregations against a sample dataset, see [Summarize data using aggregations]({{site.url}}{{site.baseurl}}/getting-started/analyze-data/#summarize-data-using-aggregations).
 
 ### Using aggregations in OpenSearch Dashboards
 

@@ -112,6 +112,7 @@ PUT testindex1/_doc/1?pipeline=drop-pii
 
 The following response confirms that the document with the ID of `1` was not indexed: 
 
+```json
 {
   "_index": "testindex1",
   "_id": "1",
@@ -123,4 +124,4 @@ The following response confirms that the document with the ID of `1` was not ind
     "failed": 0
   }
 }
-{% include copy-curl.html %}
+```

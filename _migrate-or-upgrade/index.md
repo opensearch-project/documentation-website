@@ -3,18 +3,21 @@ layout: default
 title: Migrate or upgrade
 has_children: true
 has_toc: false
-permalink: /upgrade-or-migrate/
+permalink: /migrate-or-upgrade/
 redirect_from:
   - /migrate-or-upgrade/index/
   - /upgrade-opensearch/index/
-  - /migrate-or-upgrade/
+  - /upgrade-or-migrate/
   - /upgrade-to/index/
   - /upgrade-to/
   - /upgrade-to/upgrade-to/
   - /install-and-configure/upgrade-opensearch/index/
+  - /install-and-configure/upgrade-opensearch/
   - /upgrade-to/docker-upgrade-to/
+  - /upgrade-to/dashboards-upgrade-to/
 nav_exclude: true
 ---
+
 # Migrate or upgrade OpenSearch
 
 The OpenSearch Project releases regular updates that include new features, enhancements, and bug fixes. OpenSearch uses [Semantic Versioning](https://semver.org/), which means that breaking changes are only introduced between major version releases. To learn about upcoming features and fixes, review the [OpenSearch Project Roadmap](https://github.com/orgs/opensearch-project/projects/206) on GitHub. To view a list of previous releases or to learn more about how OpenSearch uses versioning, see [Release schedule and maintenance policy](https://opensearch.org/releases.html).
@@ -36,6 +39,7 @@ Take time to plan the process before making any changes to your cluster:
 Make sure to:
 
 - Review [breaking changes]({{site.url}}{{site.baseurl}}/breaking-changes/).
+- Review the [version history]({{site.url}}{{site.baseurl}}/version-history/) to see what changed in each release.
 - Check [plugin compatibility]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/#available-plugins).
 - Review the [OpenSearch tools compatibility matrices]({{site.url}}{{site.baseurl}}/tools/index/#compatibility-matrices).
 - Back up [configuration files](#backing-up-configuration-files).
@@ -47,6 +51,8 @@ Stop nonessential indexing before upgrading.
 ---
 
 ## Migration and upgrade methods
+
+OpenSearch supports the following migration and upgrade methods.
 
 ### Rolling upgrade
 

@@ -44,7 +44,7 @@ Common categories can be found in [Common core logging categories](#common-core-
 
 After this sample change, OpenSearch emits much more detailed logs during reindex operations:
 
-```plaintext
+```
 [2019-10-18T16:52:51,184][DEBUG][o.o.i.r.TransportReindexAction] [node1] [1626]: starting
 [2019-10-18T16:52:51,186][DEBUG][o.o.i.r.TransportReindexAction] [node1] executing initial scroll against [some-index]
 [2019-10-18T16:52:51,291][DEBUG][o.o.i.r.TransportReindexAction] [node1] scroll returned [3] documents with a scroll id of [DXF1Z==]

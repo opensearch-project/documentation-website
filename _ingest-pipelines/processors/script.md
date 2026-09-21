@@ -5,7 +5,7 @@ parent: Ingest processors
 nav_order: 230
 ---
 
-# Script processor
+# Script ingest processor
 
 The `script` processor executes inline and stored scripts that can modify or transform data in an OpenSearch document during the ingestion process. The processor uses script caching for improved performance because scripts may be recompiled per document. Refer to [Script APIs]({{site.url}}{{site.baseurl}}/api-reference/script-apis/index/) for information about working with scripts in OpenSearch. 
 
@@ -32,7 +32,7 @@ The following table lists the required and optional parameters for the `script` 
 
 | Parameter  | Required/Optional  | Description  |
 |---|---|---|
-`source`  | Optional  | The Painless script to be executed. Either `id` or `source` must be specified---but not both. If `source` is specified, then the script is executed using the provided source code.
+`source`  | Optional  | The Painless script to be executed. For more information, see [Painless scripting language]({{site.url}}{{site.baseurl}}/scripting/painless/). Either `id` or `source` must be specified---but not both. If `source` is specified, then the script is executed using the provided source code.
 `id` | Optional | The ID of a stored script previously created using the [Create Stored Script API]({{site.url}}{{site.baseurl}}/api-reference/script-apis/create-stored-script/). Either `id` or `source` must be specified, but not both. If `id` is specified, then the script source is retrieved from the stored script with the specified ID. 
 `lang`  | Optional  | The programming language of the script. Default is `painless`.
 `params` | Optional |  The parameters that can be passed to the script.

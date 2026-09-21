@@ -9,7 +9,7 @@ has_children: false
 has_toc: false
 ---
 
-# Properties
+# Properties mapping parameter
 
 The `properties` mapping parameter is used to define the structure and data types of fields within an object or the root of a document. It acts as the core of any mapping definition, allowing you to explicitly specify field names, types (such as `text`, `keyword`, `date`, or `float`), and additional settings or mapping parameters for each field.
 

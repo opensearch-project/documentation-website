@@ -14,9 +14,9 @@ The Refresh Index API refreshes one or more indexes, making all operations perfo
 
 For a conceptual overview of how refresh operations work in OpenSearch, see [Refresh]({{site.url}}{{site.baseurl}}/getting-started/concepts/#refresh).
 
-## Automatic refresh behavior
+## Refresh interval
 
-OpenSearch's refresh behavior depends on whether or not `index.refresh_interval` is set:
+The `index.refresh_interval` setting controls how often an index refreshes automatically. OpenSearch's refresh behavior depends on whether `index.refresh_interval` is set:
 
 - When set, indexes are refreshed based on the `index.refresh_interval` setting (in seconds). For more information about `index.refresh_interval` settings, see [Dynamic index-level index settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/#dynamic-index-level-index-settings).
 - When not set, refreshes occur every second until the shard receives no search requests for at least the amount of time specified by the `index.search.idle.after` setting (in seconds). Default is `30s`. 
@@ -65,9 +65,7 @@ The following table lists the available query parameters. All query parameters a
 | `expand_wildcards` | String | The type of index that the wildcard patterns can match. If the request targets data streams, this argument determines whether the wildcard expressions match any hidden data streams. Supports comma-separated values, such as `open,hidden`. Valid values are `all`, `open`, `closed`, `hidden`, and `none`.
 
 
-## Example requests
-
-### Refresh several data streams or indexes
+## Example request: Refreshing several data streams or indexes
 
 The following example request refreshes two indexes named `my-index-A` and `my-index-B`:
 
@@ -94,7 +92,7 @@ response = client.indices.refresh(
     python=step1_python %}
 <!-- spec_insert_end -->
 
-### Refresh all data streams and indexes in a cluster
+## Example request: Refreshing all data streams and indexes
 
 The following request refreshes all data streams and indexes in a cluster:
 
@@ -103,7 +101,7 @@ POST /_refresh
 ```
 {% include copy-curl.html %}
 
-### Refresh using the GET method
+## Example request: Refreshing using the GET method
 
 You can also use the `GET` method to refresh indexes. The following example uses `GET` to refresh a specific index:
 

@@ -21,7 +21,9 @@ You can configure the `copy_values` processor with the following options.
 | `to_list` | No | String | The key for the new list to be added. |
 | `overwrite_if_to_list_exists` | No | Boolean | When set to `true`, the existing value is overwritten if the `key` specified by `to_list` already exists in the event. Default is `false`. |
 
+<!-- vale off -->
 ## entry
+<!-- vale on -->
 
 For each entry, you can configure the following options.
 

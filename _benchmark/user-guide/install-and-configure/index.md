@@ -10,5 +10,5 @@ redirect_from:
 
 # Installing and configuring OpenSearch Benchmark 
 
-This section details how to install and configure OpenSearch Benchmark.
+OpenSearch Benchmark can be installed using `pip`. After installation, you can configure connections to your OpenSearch cluster and customize benchmarking behavior.
 

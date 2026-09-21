@@ -90,11 +90,15 @@ PUT my-polish-index
 
 The `analysis-stempel` plugin provides the following token filters for Polish language processing.
 
-### `polish_stop` token filter
+<!-- vale off -->
+### polish_stop token filter
+<!-- vale on -->
 
 Removes common Polish stop words from the token stream.
 
-### `polish_stem` token filter
+<!-- vale off -->
+### polish_stem token filter
+<!-- vale on -->
 
 Applies Polish-specific stemming rules to reduce words to their root forms using the Stempel stemming algorithm.
 

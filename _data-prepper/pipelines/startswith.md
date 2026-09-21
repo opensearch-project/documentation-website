@@ -6,7 +6,9 @@ grand_parent: Pipelines
 nav_order: 40
 ---
 
-# startsWith()
+<!-- vale off -->
+# startsWith() function
+<!-- vale on -->
 
 The `startsWith()` function checks whether a string starts with the given string. It takes two arguments:
 

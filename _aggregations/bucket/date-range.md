@@ -7,7 +7,7 @@ redirect_from:
   - /query-dsl/aggregations/bucket/date-range/
 ---
 
-# Date range aggregations
+# Date range aggregation
 
 Use the `date_range` aggregation to group documents into buckets defined by date boundaries. The `date_range` aggregation behaves like the numeric `range` aggregation but accepts date math in addition to [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) dates and epoch milliseconds.
 

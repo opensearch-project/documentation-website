@@ -7,7 +7,7 @@ redirect_from:
   - /query-dsl/aggregations/metric/average/
 ---
 
-# Average aggregations
+# Average aggregation
 
 The `avg` metric is a single-value metric that returns the average value of a field.
 

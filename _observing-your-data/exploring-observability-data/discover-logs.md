@@ -43,7 +43,7 @@ Before using the **Logs** page, ensure that you have fulfilled the following pre
 
 3. **Configure a logs dataset**: You must have at least one logs dataset configured. For detailed instructions, see [Datasets]({{site.url}}{{site.baseurl}}/observing-your-data/exploring-observability-data/datasets/).
 
-## Accessing the Logs page
+## Accessing the logs page
 
 To access the **Logs** page:
 

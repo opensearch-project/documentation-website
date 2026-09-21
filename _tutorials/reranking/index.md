@@ -48,7 +48,7 @@ reranking:
 
 # Reranking search results tutorials
 
-The following machine learning (ML) tutorials show you how to implement search result reranking. For more information about reranking, see [Reranking search results]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/reranking-search-results/).
+Learn how to improve search relevance by reranking results using ML models like Cohere Rerank and Amazon Bedrock. Reranking reorders initial search results based on semantic similarity to the query. For more information about reranking, see [Reranking search results]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/reranking-search-results/).
 
 {% include cards.html cards=page.reranking %}
 

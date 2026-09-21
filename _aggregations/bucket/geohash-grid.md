@@ -7,7 +7,7 @@ redirect_from:
   - /query-dsl/aggregations/bucket/geohash-grid/
 ---
 
-# Geohash grid aggregations
+# Geohash grid aggregation
 
 The `geohash_grid` aggregation groups documents into grid cells based on their [geohash](https://en.wikipedia.org/wiki/Geohash) value. Each cell is labeled with its geohash string, and the precision parameter controls cell size---lower precision values produce fewer, larger cells, while higher values produce many smaller cells. You can aggregate documents on [geo_point]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point/) or [geo_shape]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-shape/) fields. A geo_point is placed in exactly one cell, while a geo_shape is counted in every cell it intersects.
 
@@ -28,7 +28,7 @@ The `geohash_grid` aggregation takes the following parameters.
 
 ## Example: Low-precision grid
 
-The following example groups ecommerce customer locations into geohash cells at precision 4 (approximately 39 km × 19.5 km):
+The following example groups e-commerce customer locations into geohash cells at precision 4 (approximately 39 km × 19.5 km):
 
 ```json
 GET /opensearch_dashboards_sample_data_ecommerce/_search

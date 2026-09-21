@@ -1,17 +1,17 @@
 ---
 layout: default
-title: Workspaces APIs
+title: Workspace APIs
 parent: Workspaces
 nav_order: 10
 ---
 
-# Workspaces APIs
+# Workspace APIs
 **Introduced 2.18**
 {: .label .label-purple }
 
-The Workspaces API provides a set of endpoints for managing workspaces in OpenSearch Dashboards.
+Use the Workspace APIs to manage workspaces in OpenSearch Dashboards.
 
-## List Workspaces API
+## List workspaces
 
 You can use the following endpoint to retrieve a list of workspaces:
 
@@ -68,7 +68,7 @@ The following example response shows a successful API call:
 }
 ```
 
-## Get Workspaces API
+## Get a workspace
 
 You can use the following endpoint to retrieve a single workspace:
 
@@ -107,7 +107,7 @@ The following example response shows a successful API call:
 }
 ```
 
-## Create Workspaces API
+## Create a workspace
 
 You can use the following endpoint to create a workspace:
 
@@ -121,6 +121,7 @@ The following table lists the available path parameters.
 | Parameter | Data type | Required | Description |
 | :--- | :--- | :--- | :--- |
 | `attributes` | Object | Required | Defines the workspace attributes. |
+| `attributes.id` | String | Optional | The ID of the workspace. |
 | `permissions` | Object | Optional | Specifies the permissions for the workspace. |
 | `settings` | Object | Optional | Specifies the settings for the workspace. |
 
@@ -132,6 +133,7 @@ curl -k -XPOST "https://localhost:5601/api/workspaces" \
   -H "osd-xsrf: true" \
   -d '{
     "attributes": {
+      "id": "my_workspace",
       "name": "test4",
       "description": "test4",
       "features": ["use-case-all"]
@@ -151,7 +153,7 @@ The following example response shows a successful API call:
 }
 ```
 
-## Update Workspaces API
+## Update a workspace
 
 You can use the following endpoint to update the attributes and permissions for a workspace:
 
@@ -217,7 +219,7 @@ curl -k -u admin:admin \
 
 For a complete list of permission modes and the access levels they provide, see [Defining workspace collaborators]({{site.url}}{{site.baseurl}}/dashboards/workspace/workspace-acl/#defining-workspace-collaborators).
 
-## Delete Workspaces API
+## Delete a workspace
 
 You can use the following endpoint to delete a workspace:
 
@@ -250,7 +252,7 @@ The following example response shows a successful API call:
 }
 ```
 
-## Duplicate Saved Objects Workspaces API
+## Duplicate saved objects
 
 You can use the following endpoint to copy saved objects between workspaces:
 
@@ -310,7 +312,7 @@ The following example response shows a successful API call:
 }
 ```
 
-## Associate Saved Objects Workspaces API
+## Associate saved objects
 
 You can use the following endpoint to associate saved objects with a workspace:
 
@@ -326,7 +328,7 @@ The following table lists the available path parameters.
 | `workspaceId` | String | Required | Identifies the target workspace for object association. |
 | `savedObjects` | Array | Required | Specifies the list of saved objects to be copied. |
 
-The following table lists the attributes of the object in the `objects` parameter.
+The following table lists the attributes of the object in the `savedObjects` parameter.
 
 | Parameter | Data type | Required | Description |
 | :--- | :--- | :--- | :--- |
@@ -341,10 +343,10 @@ curl -k -u admin:admin \
   -H 'Content-Type: application/json' \
   -X POST 'https://localhost:5601/api/workspaces/_associate' \
   -d '{
-    "objects": [
+    "savedObjects": [
       { "type": "index-pattern", "id": "619cc200-ecd0-11ee-95b1-e7363f9e289d" }
     ],
-    "targetWorkspace": "9gt4lB"
+    "workspaceId": "9gt4lB"
   }'
 ```
 {% include copy.html %}
@@ -362,7 +364,7 @@ The following example response shows a successful API call:
 }
 ```
 
-## Dissociate Saved Objects Workspaces API
+## Dissociate saved objects
 
 You can use the following endpoint to dissociate saved objects from a workspace:
 
@@ -393,10 +395,10 @@ curl -k -u admin:admin \
   -H 'Content-Type: application/json' \
   -X POST 'https://localhost:5601/api/workspaces/_dissociate' \
   -d '{
-    "objects": [
+    "savedObjects": [
       { "type": "index-pattern", "id": "619cc200-ecd0-11ee-95b1-e7363f9e289d" }
     ],
-    "targetWorkspace": "9gt4lB"
+    "workspaceId": "9gt4lB"
   }'
 
 ```

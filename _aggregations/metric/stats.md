@@ -7,7 +7,7 @@ redirect_from:
   - /query-dsl/aggregations/metric/stats/
 ---
 
-# Stats aggregations
+# Stats aggregation
 
 The `stats` aggregation is a multi-value metric aggregation that computes a summary of numeric data. This aggregation is useful for quickly understanding the distribution of numeric fields. It can operate directly on a field, apply a script to derive the values, or handle documents with missing fields. The `stats` aggregation returns five values:
 

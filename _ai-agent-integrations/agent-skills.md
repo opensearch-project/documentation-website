@@ -120,7 +120,7 @@ Loaded 4,675 documents into the `ecommerce` index. Now, which search strategy wo
 
 **User**: Hybrid search.
 
-**Assistant**: Good choice for e-commerce — hybrid search balances exact keyword matches (product names, SKUs) with semantic understanding (intent, synonyms). Here's the plan:
+**Assistant**: Good choice for e-commerce---hybrid search balances exact keyword matches (product names, SKUs) with semantic understanding (intent, synonyms). Here's the plan:
 
 - Embedding model: `amazon/titan-embed-text-v1` (using ML Commons)
 - Index: `ecommerce-hybrid` with both `text` and `embedding` fields

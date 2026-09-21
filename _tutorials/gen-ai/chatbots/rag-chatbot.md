@@ -9,7 +9,6 @@ has_toc: false
 redirect_from:
   - /ml-commons-plugin/tutorials/rag-chatbot/
   - /vector-search/tutorials/chatbots/rag-chatbot/
-  - /tutorials/gen-ai/chatbots/rag-chatbot/
 ---
 
 # RAG chatbot

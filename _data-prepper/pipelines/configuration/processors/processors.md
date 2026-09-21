@@ -10,7 +10,7 @@ redirect_from:
   - /data-prepper/pipelines/configuration/processors/
 ---
 
-# Processors
+# Data Prepper processors
 
 Processors are components within an OpenSearch Data Prepper pipeline that enable you to filter, transform, and enrich events using your desired format before publishing records to the `sink` component. If no `processor` is defined in the pipeline configuration, then the events are published in the format specified by the `source` component. You can incorporate multiple processors within a single pipeline, and they are executed sequentially as defined in the pipeline.
 

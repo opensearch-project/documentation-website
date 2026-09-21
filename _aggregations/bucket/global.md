@@ -7,7 +7,7 @@ redirect_from:
   - /query-dsl/aggregations/bucket/global/
 ---
 
-# Global aggregations
+# Global aggregation
 
 The `global` aggregation creates a single bucket containing all documents in the index, regardless of the search query. Subaggregations nested inside `global` operate on the full document set, allowing you to compare filtered metrics against overall metrics in the same request.
 

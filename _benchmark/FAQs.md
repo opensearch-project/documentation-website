@@ -1,10 +1,10 @@
 ---
 layout: default
 title: FAQs
-nav_order: 103
+nav_order: 115
 ---
 
-# FAQs
+# OpenSearch Benchmark FAQs
 
 This section provides answers to frequently asked questions.
 

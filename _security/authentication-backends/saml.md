@@ -8,7 +8,7 @@ redirect_from:
   - /security-plugin/configuration/saml/
 ---
 
-# SAML
+# SAML authentication
 
 The Security plugin supports user authentication through SAML single sign-on. The Security plugin implements the web browser SSO profile of the SAML 2.0 protocol.
 
@@ -163,7 +163,7 @@ Name | Description
 `kibana_url` | The OpenSearch Dashboards base URL. Required.
 
 
-## Username and Role attributes
+## Username and role attributes
 
 Subjects (for example, user names) are usually stored in the `NameID` element of a SAML response:
 

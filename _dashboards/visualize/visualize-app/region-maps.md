@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Region maps
+title: Region map
 parent: Visualization types
 grand_parent: Creating visualizations in the Visualize application
 great_grand_parent: Building data visualizations
@@ -11,7 +11,7 @@ redirect_from:
   - /dashboards/geojson-regionmaps/
 ---
 
-# Region maps
+# Region map
 
 A region map colors geographic regions (countries, states, or counties) based on an aggregated value, using color intensity to show how a metric varies across regions.
 

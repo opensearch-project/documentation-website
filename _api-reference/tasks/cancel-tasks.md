@@ -2,7 +2,7 @@
 layout: default
 title: Cancel tasks
 parent: Tasks APIs
-nav_order: 30
+nav_order: 40
 ---
 
 # Cancel Tasks API

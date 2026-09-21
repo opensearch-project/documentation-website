@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Gauge visualizations
+title: Gauge visualization
 parent: Visualization types
 grand_parent: Creating visualizations in the Visualize application
 great_grand_parent: Building data visualizations
@@ -9,7 +9,7 @@ redirect_from:
   - /dashboards/visualize/gauge/
 ---
 
-# Gauge visualizations
+# Gauge visualization
 
 A gauge visualization displays a data field in a simulated analog instrument like a speedometer. The gauge value can be instantly compared with marked ranges or thresholds. The visualization can show a single value or multiple bucketed values.
 
@@ -57,7 +57,7 @@ To create a gauge visualization, follow these steps:
    2. Set **Aggregation** to **Terms** and **Field** to **FlightDelay**.
    3. Select **Update**.
 
-   The visualization displays two gauges, with median flight times for delayed and undelayed flights, as shown in the following image.
+   The visualization displays two gauges, with median flight times for delayed and non-delayed flights, as shown in the following image.
 
    ![Gauge showing median flight time split by delay status]({{site.url}}{{site.baseurl}}/images/dashboards/example-gauge-flight-time.png)
 

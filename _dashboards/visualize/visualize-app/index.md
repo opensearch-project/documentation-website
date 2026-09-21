@@ -28,14 +28,14 @@ For more information, see [Adding sample data]({{site.url}}{{site.baseurl}}/dash
 
 To use your own data, you need an index pattern. See [Setting up your data]({{site.url}}{{site.baseurl}}/dashboards/getting-started/data-setup/).
 
-## Navigating the Visualize UI
+## Navigating the Visualize application UI
 
 The following image shows the main components of the **Visualize** application.
 
 ![Visualize application interface]({{site.url}}{{site.baseurl}}/images/dashboards/viz-app-panel-callouts.png)
 
 - The _search bar_ (A) enables selection of data using a query language search. See [Using the search bar]({{site.url}}{{site.baseurl}}/dashboards/discover/search-bar/).
-- The _time filter_ (B) provides a graphical interface for selecting data values and ranges.  See [Using the time filter]({{site.url}}{{site.baseurl}}/dashboards/discover/time-filter/).
+- The _time filter_ (B) provides a graphical interface for selecting data values and ranges. See [Using the time filter]({{site.url}}{{site.baseurl}}/dashboards/discover/time-filter/).
 - The _filter tool_ (C) contains frequently used commands and shortcuts. See [Using the filter tool]({{site.url}}{{site.baseurl}}/dashboards/discover/filter-tool/).
 - The _visualization panel_ (D) displays the visualization.
 - The _configuration panel_ (E) contains all the controls to select and configure the visualization. Its contents depend on the visualization type. See [Configuring visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/configuring-viz/).
@@ -58,7 +58,7 @@ To create a visualization, follow these steps:
 
 1. If prompted, select an index pattern in the **Choose a source** dialog. Not all visualization types display this dialog. For examples of creating each visualization type, see the individual visualization type pages.
    
-   The default visualization shows a single value, the document count, for the current data set.
+   The default visualization shows a single value, the document count, for the current dataset.
 
    If the visualization shows no data, or a count different than expected, verify that the [search bar]({{site.url}}{{site.baseurl}}/dashboards/discover/search-bar/), [filter tool]({{site.url}}{{site.baseurl}}/dashboards/discover/filter-tool/), and especially the [time filter]({{site.url}}{{site.baseurl}}/dashboards/discover/time-filter/) are not filtering out the missing documents.
    {: .tip}

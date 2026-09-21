@@ -35,6 +35,8 @@ Parameter | Type | Description
 
 ## Example requests
 
+The following examples demonstrate how to use the Cluster Decommission API.
+
 ### Decommissioning and recommissioning a zone
 
 You can use the following example requests to decommission and recommission a zone:

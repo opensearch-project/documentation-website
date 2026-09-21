@@ -23,7 +23,7 @@ The list of threat detectors includes the search bar, the **Status** dropdown li
 
 To edit a detector, begin by selecting the link to the detector in the Detector name column of the list. The detector's details window opens and shows details about the detector's configuration.
 
-![Detector details window for editig the detector]({{site.url}}{{site.baseurl}}/images/Security/detector-details.png){: width="50%" }
+![Detector details window for editing the detector]({{site.url}}{{site.baseurl}}/images/Security/detector-details.png){: width="50%" }
 
 * In the upper-left portion of the window, the details window shows the name of the detector and its status, either Active or Inactive.
 * In the upper-right corner of the window, you can select **View alerts** to go to the Alerts window or **View findings** to go to the Findings window. You can also select **Actions** to perform actions for the detector. See [Detector actions]({{site.url}}{{site.baseurl}}/security-analytics/usage/detectors/#detector-actions).

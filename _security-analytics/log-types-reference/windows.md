@@ -5,7 +5,7 @@ parent: Supported log types
 nav_order: 100
 ---
 
-# Windows
+# Windows log type
 
 The `windows` log type records events that happen in Windows applications, system services, and the Windows operating system.
 

@@ -160,15 +160,15 @@ The response lists the stores that were assigned to each shard. If a shard has n
 The following table lists all response body fields.
 
 | Field | Data type | Description|
-| `indices` | Object| Contains shard store information for each index. |
-| `indices.<index>.shards`| Object| Contains store data for each shard in the index. |
-| `shards.<shard_id>.stores`| Array |  A list of store entries for the shard.|
-| `stores[n].<node_id>` | Object| Node metadata, including name, transport address, and attributes. |
-| `stores[n].allocation`| String| The shard role on this node (`primary` or `replica`). |
-| `stores[n].allocation_id` | String| The unique allocation ID for this shard copy.|
+| `indices` | Object | Contains shard store information for each index. |
+| `indices.<index>.shards` | Object | Contains store data for each shard in the index. |
+| `shards.<shard_id>.stores` | Array |  A list of store entries for the shard.|
+| `stores[n].<node_id>` | Object | Node metadata, including name, transport address, and attributes. |
+| `stores[n].allocation` | String | The shard role on this node (`primary` or `replica`). |
+| `stores[n].allocation_id` | String | The unique allocation ID for this shard copy.|
 | `stores[n].store_exception` | Object (optional) | Stores exceptions encountered when reading the shard store. |
-| `stores[n].store_exception.type`| String| The type of exception.|
-| `stores[n].store_exception.reason`| String| The reason message for the exception.|
+| `stores[n].store_exception.type` | String | The type of exception.|
+| `stores[n].store_exception.reason` | String | The reason message for the exception.|
 
 ## Required permissions
 

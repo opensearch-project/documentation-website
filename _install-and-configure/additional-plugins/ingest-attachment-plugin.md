@@ -9,7 +9,7 @@ nav_order: 20
 # Ingest-attachment plugin
 
 The `ingest-attachment` plugin enables OpenSearch to extract content and other information from files using the Apache text extraction library [Tika](https://tika.apache.org/).
-Supported document formats include PPT, PDF, RTF, ODF, and many more Tika ([Supported Document Formats](https://tika.apache.org/2.9.2/formats.html)).
+Supported document formats include PPT, PDF, RTF, ODF, and many more. See Tika [supported document formats](https://tika.apache.org/3.2.2/formats.html).
 
 The input field must be a Base64-encoded binary.
 
@@ -69,7 +69,7 @@ PUT _ingest/pipeline/attachment
 
 ### Step 3: Store an attachment
 
-Convert the attachment to a base64 string to pass it as `data`.
+Convert the attachment to a Base64 string to pass it as `data`.
 In this example the `base64` command converts the file `lorem.rtf`:
 
 ```sh
@@ -88,7 +88,7 @@ const base64File = await fs.readFile(filePath, { encoding: "base64" });
 console.log(base64File);
 ```
 
-The`.rtf` file contains the following base64 text:
+The`.rtf` file contains the following Base64 text:
 
 `Lorem ipsum dolor sit amet`:
 `e1xydGYxXGFuc2kNCkxvcmVtIGlwc3VtIGRvbG9yIHNpdCBhbWV0DQpccGFyIH0=`.

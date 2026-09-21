@@ -9,7 +9,7 @@ redirect_from:
 ---
 
 <!-- vale off -->
-# list
+# list command
 <!-- vale on -->
 
 The `list` command lists the following elements used by OpenSearch Benchmark:

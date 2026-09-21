@@ -5,7 +5,7 @@ parent: Supported log types
 nav_order: 40
 ---
 
-# GitHub
+# GitHub log type
 
 The `github` log type monitors workflows created by [GitHub Actions](https://docs.github.com/en/actions/learn-github-actions/understanding-github-actions).
 

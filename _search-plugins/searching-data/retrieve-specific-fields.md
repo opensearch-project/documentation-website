@@ -61,7 +61,9 @@ The `_source` can also be disabled in index mappings by using the following conf
 }
 ```
 
-If `_source` is disabled in the index mappings, [searching with docvalue fields]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/retrieve-specific-fields/#searching-with-docvalue_fields) and [searching with stored fields]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/retrieve-specific-fields/#searching-with-stored_fields) become extremely useful.
+<!-- vale off -->
+If `_source` is disabled in the index mappings, [searching with docvalue fields]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/retrieve-specific-fields/#searching-with-doc-value-fields) and [searching with stored fields]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/retrieve-specific-fields/#searching-with-stored-fields) become extremely useful.
+<!-- vale on -->
 
 ## Specifying the fields to retrieve
 
@@ -160,9 +162,7 @@ GET /my_index/_search
 
 Additionally, you can use [most fields]({{site.url}}{{site.baseurl}}/query-dsl/full-text/multi-match/#most-fields) and [field aliases]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/alias/) in the `fields` parameter because it queries both the document `_source` and `_mappings` of the index.
 
-<!-- vale off -->
-## Searching with docvalue_fields
-<!-- vale on -->
+## Searching with doc value fields
 
 To retrieve specific fields from the index, you can also use the `docvalue_fields` parameter. This parameter works slightly differently as compared to the `fields` parameter. It retrieves information from doc values rather than from the `_source` field, which is more efficient for fields that are not analyzed, like keyword, date, and numeric fields. Doc values have a columnar storage format optimized for efficient sorting and aggregations. It stores the values on disk in a way that is easy to read. When you use `docvalue_fields`, OpenSearch reads the values directly from this optimized storage format. It is useful for retrieving values of fields that are primarily used for sorting, aggregations, and for use in scripts.
 
@@ -552,9 +552,9 @@ The following is the expected response:
   }
 }
 ```
-<!-- vale off -->
-## Searching with stored_fields
-<!-- vale on -->
+
+## Searching with stored fields
+
 By default, OpenSearch stores the entire document in the `_source` field and uses it to return document contents in search results. However, you might also want to store certain fields separately for more efficient retrieval. You can explicitly store and retrieve specific document fields separately from the `_source` field by using `stored_fields`. 
 
 Unlike `_source`, `stored_fields` must be explicitly defined in the mappings for fields you want to store separately. It can be useful if you frequently need to retrieve only a small subset of fields and want to avoid retrieving the entire `_source` field. The following example demonstrates how to use the `stored_fields` parameter.
@@ -660,9 +660,8 @@ The following is the expected response:
 
 The `stored_fields` parameter can be disabled completely by setting `stored_fields` to `_none_`.
 {: .note}
-<!-- vale off -->
-### Searching stored_fields with nested objects
-<!-- vale on -->
+### Searching stored fields with nested objects
+
 In OpenSearch, if you want to retrieve `stored_fields` for nested objects, you cannot directly use the `stored_fields` parameter because no data will be returned. Instead, you should use the `inner_hits` parameter with its own `stored_fields` property, as shown in the following example.
 
 1. Create an index with the following mappings:
@@ -894,7 +893,7 @@ The following is the expected response:
 
 ### Including and excluding fields in the same search
 
-In some cases, both the `include` and `exclude` parameters may be necessary. The following examples demonstrate how to include and exclude fields in the same search.
+In some cases, both the `include` and `exclude` parameters may be necessary. When a field matches a pattern in both lists, OpenSearch omits the field because `excludes` takes precedence over `includes`. The following examples demonstrate how to include and exclude fields in the same search.
 
 Consider a `products` index containing the following document:
 
@@ -989,6 +988,12 @@ The following is the expected response:
   }
 }
 ```
+
+### Source filtering limitations
+
+Source filtering matches the field names in the original JSON document, so it cannot return values that OpenSearch derives during indexing. Multi-fields, [field aliases]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/alias/), and fields populated by `copy_to` are not part of the source, and a request for those fields returns an empty `_source` object.
+
+OpenSearch loads and parses the entire source document even when the request asks for only a few fields, so source filtering reduces network transfer but not disk reads. To read individual fields directly from the index, use [`docvalue_fields`](#searching-with-doc-value-fields) or [`stored_fields`](#searching-with-stored-fields).
 
 ## Using scripted fields
 

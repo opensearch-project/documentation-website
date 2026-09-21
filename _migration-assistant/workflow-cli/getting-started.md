@@ -142,7 +142,7 @@ If any connectivity verification fails, resolve the connectivity or authenticati
 
 ## Step 7 (Optional): Verify AWS identity
 
-If your source or target uses AWS Signature Version 4 authentication for Amazon OpenSearch Service or Amazon OpenSearch Serverless:
+If your source or target uses AWS Signature Version 4 authentication for Amazon OpenSearch Service or Amazon OpenSearch Serverless NextGen:
 
 - On EKS, verify that pod identity is working from the console pod.
 - On generic Kubernetes, make sure AWS credentials exist for both the console pod and the workflow executor pods.

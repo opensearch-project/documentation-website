@@ -14,6 +14,7 @@ Availability and recovery settings include settings for the following:
 - [Cluster manager task throttling](#cluster-manager-task-throttling-settings)
 - [Remote-backed storage](#remote-backed-storage-settings)
 - [Search backpressure](#search-backpressure-settings)
+- [Concurrency limits](#concurrency-limit-settings)
 - [Shard indexing backpressure](#shard-indexing-backpressure-settings)
 - [Segment replication](#segment-replication-settings)
 - [Cross-cluster replication](#cross-cluster-replication-settings)
@@ -34,7 +35,7 @@ OpenSearch supports the following snapshot settings:
 
 - `snapshot.max_concurrent_operations` (Dynamic, integer): The maximum number of concurrent snapshot operations. Default is `1000`.
 
-- `snapshot.repository_data.cache.threshold` (Static, byte size value or percentage): The maximum size of repository metadata that can be cached in memory. This setting improves snapshot operation performance by reducing the need to repeatedly download metadata during clone, restore, and status check operations. You can specify this value as an absolute size (for example, `2gb` or `500mb`) or as a percentage of heap memory (for example, `3%` or `1%`). Metadata that exceeds this threshold is not cached. Under heap memory pressure, cached data may be garbage collected automatically because it is stored using soft references. Default is 500 kb or 1% of heap memory, whichever is higher. 
+- `snapshot.repository_data.cache.threshold` (Static, byte size value or percentage): The maximum size of repository metadata that can be cached in memory. This setting improves snapshot operation performance by reducing the need to repeatedly download metadata during clone, restore, and status check operations. You can specify this value as an absolute size (for example, `2gb` or `500mb`) or as a percentage of heap memory (for example, `3%` or `1%`). Metadata that exceeds this threshold is not cached. Under heap memory pressure, cached data may be garbage collected automatically because it is stored using soft references. Default is 500 KB or 1% of heap memory, whichever is higher. 
 
 ### Security-related snapshot settings
 
@@ -67,6 +68,10 @@ For remote segment warmer settings, see [Remote segment warmer settings]({{site.
 ## Search backpressure settings
 
 Search backpressure is a mechanism used to identify resource-intensive search requests and cancel them when the node is under duress. For more information, see [Search backpressure settings]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/search-backpressure/#search-backpressure-settings).
+
+## Concurrency limit settings
+
+Concurrency limits adaptively restrict the number of active requests for any transport action. For more information, see [Concurrency limit settings]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/concurrency-limits/#concurrency-limit-settings).
 
 ## Shard indexing backpressure settings
 

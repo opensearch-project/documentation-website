@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Index transforms
-nav_order: 50
+nav_order: 60
 has_children: true
 redirect_from:
   - /im-plugin/index-transforms/
@@ -12,66 +12,86 @@ has_toc: false
 
 Whereas index rollup jobs let you reduce data granularity by rolling up old data into condensed indexes, transform jobs let you create a different, summarized view of your data centered around certain fields, so you can visualize or analyze the data in different ways.
 
-For example, suppose that you have airline data that’s scattered across multiple fields and categories, and you want to view a summary of the data that’s organized by airline, quarter, and then price. You can use a transform job to create a new, summarized index that’s organized by those specific categories.
+For example, suppose that you have airline data that's scattered across multiple fields and categories, and you want to view a summary of the data that's organized by airline, quarter, and then price. You can use a transform job to create a new, summarized index that's organized by those specific categories.
 
-You can use transform jobs in two ways:
+Create a transform job in either of the following ways:
 
-1. Use OpenSearch Dashboards to specify the index you want to transform and any optional data filters you want to use to filter the original index. Then select the fields you want to transform and the aggregations to use in the transformation. Finally, define a schedule for your job to follow.
-1. Use the Transforms API to specify all the details about your job: the index you want to transform, target groups for the transformed index, any aggregations you want to use to group columns, and a schedule for your job to follow.
+- In OpenSearch Dashboards, which shows the fields of the source index with sample data, previews the transformed fields as you select them, and lists the jobs you have created with their status. See [Creating a transform job](#creating-a-transform-job).
+- Using the [Transforms APIs]({{site.url}}{{site.baseurl}}/im-plugin/index-transforms/transforms-apis/), which take the whole job configuration as JSON, so you can store it in version control and replicate it across clusters.
 
-OpenSearch Dashboards provides a detailed summary of the jobs you created and their relevant information, such as associated indexes and job statuses. You can review and edit your job’s details and selections before creation, and even preview a transformed index’s data as you’re choosing which fields to transform. However, you can also use the REST API to create transform jobs and preview transform job results, but you must know all of the necessary settings and parameters to submit them as part of the HTTP request body. Submitting your transform job configurations as JSON scripts offers you more portability, allowing you to share and replicate your transform jobs, which is harder to do using OpenSearch Dashboards.
+## Configuring a transform job
 
-Your use cases will help you decide which method to use to create transform jobs.
+A transform job reads from a source index and writes summarized documents to a target index. To transform only part of the source index, add a filter written in [query DSL]({{site.url}}{{site.baseurl}}/query-dsl/).
 
-## Create a transform job
+The job configuration has two parts:
 
-If you don't have any data in your cluster, you can use the sample flight data within OpenSearch Dashboards to try out transform jobs. Otherwise, after launching OpenSearch Dashboards, choose **Index Management**. Select **Transform Jobs**, and choose **Create Transform Job**.
+- *Groups* place documents into buckets in the target index. Each group names a `source_field` in the source index and the `target_field` to write it to, so grouping the `DestAirportID` field of the sample flight data into a `DestAirportID_terms` target field produces one bucket per airport. If you omit `target_field`, it takes the name of the source field. OpenSearch Dashboards appends the name of the grouping, as in `DestAirportID_terms`. Transform jobs support the `histogram`, `date_histogram`, and `terms` [bucket aggregations]({{site.url}}{{site.baseurl}}/aggregations/bucket/index/).
+- *Aggregations* calculate a value for each bucket, such as a `sum_of_total_ticket_price` field that adds up the ticket prices in it. The `sum`, `avg`, `max`, `min`, `value_count`, `percentiles`, and `scripted_metric` [metric aggregations]({{site.url}}{{site.baseurl}}/aggregations/metric/index/) are supported.
 
-### Step 1: Choose indexes
+You cannot change the groups or aggregations of a job after you create it.
 
-1. In the **Job name and description** section, specify a name and an optional description for your job.
-2. In the **Indices** section, select the source and target index. You can either select an existing target index or create a new one by entering a name for your new index. If you want to transform just a subset of your source index, choose **Edit data filter**, and use the OpenSearch query DSL to specify a subset of your source index. For more information about the OpenSearch query DSL, see [query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/).
-3. Choose **Next**.
+A job runs at the transform execution interval that you set. A continuous job runs at each interval and transforms the buckets that changed since the last run, including buckets that new data was added to. A job that is not continuous runs once, after the first interval elapses. The number of pages processed per run trades speed against memory: a larger number processes more data per search request and can exceed the memory limits of the cluster.
 
-### Step 2: Select fields to transform
+## Example: Transforming the sample flight data
 
-After specifying the indexes, you can select the fields you want to use in your transform job, as well as whether to use groupings or aggregations.
+This example summarizes the OpenSearch Dashboards sample flight data by carrier and destination airport. To add the data, go to the OpenSearch Dashboards home page, select **Try our sample data**, and then select **Add data** in **Sample flight data**.
 
-You can use groupings to place your data into separate buckets in your transformed index. For example, if you want to group all of the airport destinations within the sample flight data, you can group the `DestAirportID` field into a target field of `DestAirportID_terms` field, and you can find the grouped airport IDs in your transformed index after the transform job finishes.
-
-On the other hand, aggregations let you perform simple calculations. For example, you can include an aggregation in your transform job to define a new field of `sum_of_total_ticket_price` that calculates the sum of all airplane tickets, and then analyze the newly summer data within your transformed index.
-
-1. In the data table, select the fields you want to transform and expand the drop-down menu within the column header to choose the grouping or aggregation you want to use.
-
-    Currently, transform jobs support histogram, date_histogram, and terms groupings. For more information about groupings, see [Bucket Aggregations]({{site.url}}{{site.baseurl}}/opensearch/bucket-agg/). In terms of aggregations, you can select from `sum`, `avg`, `max`, `min`, `value_count`, `percentiles`, and `scripted_metric`. For more information about aggregations, see [Metric Aggregations]({{site.url}}{{site.baseurl}}/opensearch/metric-agg/).
-
-1. Repeat step 1 for any other fields that you want to transform.
-1. After selecting the fields that you want to transform and verifying the transformation, choose **Next**.
-
-### Step 3: Specify a schedule
-
-You can configure transform jobs to run once or multiple times on a schedule. Transform jobs are enabled by default.
-
-1. Choose whether the job should be **continuous**. Continuous jobs execute at each **transform execution interval** and incrementally transform newly modified buckets, which can include new data added to the source indexes. Non-continuous jobs execute only once.
-1. For **transformation execution interval**, specify a transform interval in minutes, hours, or days. This interval dicatates how often continuous jobs should execute, and non-continuous jobs execute once after the interval elapses.
-1. Under **Advanced**, specify an optional amount for **Pages per execution**. A larger number means more data is processed in each search request, but also uses more memory and causes higher latency. Exceeding allowed memory limits can cause exceptions and errors to occur.
-1. Choose **Next**.
-
-### Step 4: Review and confirm details
-
-After confirming your transform job’s details are correct, choose **Create Transform Job**. If you want to edit any part of the job, choose **Edit** of the section you want to change, and make the necessary changes. You can’t change aggregations or groupings after creating a job.
-
-### Step 5: Search through the transformed index.
-
-Once the transform job finishes, you can use the `_search` API operation to search the target index.
+The following job groups the `Carrier` and `DestAirportID` fields and adds up the ticket prices in each bucket:
 
 ```json
-GET {target_index}/_search
+PUT _plugins/_transform/sample_flight_job
+{
+  "transform": {
+    "enabled": true,
+    "schedule": {
+      "interval": {
+        "period": 1,
+        "unit": "Minutes",
+        "start_time": 1602100553
+      }
+    },
+    "description": "Sample flight transform job",
+    "source_index": "opensearch_dashboards_sample_data_flights",
+    "target_index": "finished_flight_job",
+    "page_size": 1000,
+    "groups": [
+      {
+        "terms": {
+          "source_field": "Carrier",
+          "target_field": "Carrier_terms"
+        }
+      },
+      {
+        "terms": {
+          "source_field": "DestAirportID",
+          "target_field": "DestAirportID_terms"
+        }
+      }
+    ],
+    "aggregations": {
+      "sum_of_total_ticket_price": {
+        "sum": {
+          "field": "AvgTicketPrice"
+        }
+      }
+    }
+  }
+}
 ```
+{% include copy-curl.html %}
 
-For example, after running a transform job that transforms the flight data based on a `DestAirportID` field, you can run the following request that returns all of the fields that have a value of `SFO`.
+The job runs after the first interval elapses. To check its progress, use the [Explain API]({{site.url}}{{site.baseurl}}/im-plugin/index-transforms/transforms-apis/#get-the-status-of-a-transform-job):
 
-**Sample Request**
+```json
+GET _plugins/_transform/sample_flight_job/_explain
+```
+{% include copy-curl.html %}
+
+## Searching the transformed index
+
+After the transform job finishes, search the target index with the `_search` API. Each document in the target index contains the grouped fields, the aggregated values, the ID of the job that wrote it in `transform._id`, and the number of source documents in the bucket, reported in both `_doc_count` and `transform._doc_count`.
+
+The following request returns the buckets of the transformed flight index in which `DestAirportID_terms` is `SFO`:
 
 ```json
 GET finished_flight_job/_search
@@ -83,16 +103,21 @@ GET finished_flight_job/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
-**Sample Response**
+<details markdown="block">
+  <summary>
+    Response
+  </summary>
+  {: .text-delta}
 
 ```json
 {
   "took" : 3,
   "timed_out" : false,
   "_shards" : {
-    "total" : 5,
-    "successful" : 5,
+    "total" : 1,
+    "successful" : 1,
     "skipped" : 0,
     "failed" : 0
   },
@@ -101,58 +126,117 @@ GET finished_flight_job/_search
       "value" : 4,
       "relation" : "eq"
     },
-    "max_score" : 3.845883,
+    "max_score" : 1.0,
     "hits" : [
       {
         "_index" : "finished_flight_job",
-        "_id" : "dSNKGb8U3OJOmC4RqVCi1Q",
-        "_score" : 3.845883,
+        "_id" : "ifSaM4kOvFxWHw84UpfMRQ",
+        "_score" : 1.0,
         "_source" : {
           "transform._id" : "sample_flight_job",
-          "transform._doc_count" : 14,
-          "Carrier_terms" : "Dashboards Airlines",
-          "DestAirportID_terms" : "SFO"
+          "_doc_count" : 10,
+          "transform._doc_count" : 10,
+          "Carrier_terms" : "BeatsWest",
+          "DestAirportID_terms" : "SFO",
+          "sum_of_total_ticket_price" : 7012.053009033203
         }
       },
       {
         "_index" : "finished_flight_job",
-        "_id" : "_D7oqOy7drx9E-MG96U5RA",
-        "_score" : 3.845883,
+        "_id" : "uBoQr4Q393MMLHCzz1DQPQ",
+        "_score" : 1.0,
         "_source" : {
           "transform._id" : "sample_flight_job",
+          "_doc_count" : 14,
           "transform._doc_count" : 14,
           "Carrier_terms" : "Logstash Airways",
-          "DestAirportID_terms" : "SFO"
+          "DestAirportID_terms" : "SFO",
+          "sum_of_total_ticket_price" : 9678.005126953125
         }
       },
       {
         "_index" : "finished_flight_job",
-        "_id" : "YuZ8tOt1OsBA54e84WuAEw",
-        "_score" : 3.6988301,
+        "_id" : "1pi8feMm2fDwop05MkC6qA",
+        "_score" : 1.0,
         "_source" : {
           "transform._id" : "sample_flight_job",
+          "_doc_count" : 14,
+          "transform._doc_count" : 14,
+          "Carrier_terms" : "OpenSearch Dashboards Airlines",
+          "DestAirportID_terms" : "SFO",
+          "sum_of_total_ticket_price" : 9238.96060180664
+        }
+      },
+      {
+        "_index" : "finished_flight_job",
+        "_id" : "56d2npFptOKeHZEt6BlohA",
+        "_score" : 1.0,
+        "_source" : {
+          "transform._id" : "sample_flight_job",
+          "_doc_count" : 11,
           "transform._doc_count" : 11,
-          "Carrier_terms" : "ES-Air",
-          "DestAirportID_terms" : "SFO"
-        }
-      },
-      {
-        "_index" : "finished_flight_job",
-        "_id" : "W_-e7bVmH6eu8veJeK8ZxQ",
-        "_score" : 3.6988301,
-        "_source" : {
-          "transform._id" : "sample_flight_job",
-          "transform._doc_count" : 10,
-          "Carrier_terms" : "JetBeats",
-          "DestAirportID_terms" : "SFO"
+          "Carrier_terms" : "OpenSearch-Air",
+          "DestAirportID_terms" : "SFO",
+          "sum_of_total_ticket_price" : 6317.92561340332
         }
       }
     ]
   }
 }
-
 ```
+</details>
 
 ## Index codec considerations
 
 For index codec considerations, see [Index codecs]({{site.url}}{{site.baseurl}}/im-plugin/index-codecs/#index-rollups-and-transforms).
+
+## Index transforms in OpenSearch Dashboards
+
+To navigate to the **Index Management** page, go to **Management > Index Management** on the top menu. Select **Transform jobs** to list the transform jobs in your cluster with their source index, target index, and status. Select a job to view its configuration and the results of its runs. To act on a job, select the checkbox next to it and then select **Enable**, **Disable**, or **Actions > Delete**.
+
+The following image shows the **Transform jobs** page.
+
+![Transform jobs page]({{site.url}}{{site.baseurl}}/images/admin-ui-index/transform-jobs-list.png)
+
+If your cluster has no data to transform, add the sample flight data from the OpenSearch Dashboards home page and transform that. For more information, see [Add sample data]({{site.url}}{{site.baseurl}}/dashboards/getting-started/data-setup/#add-sample-data).
+
+### Creating a transform job
+
+1. In **Index Management**, select **Transform jobs**, and then select **Create transform job**.
+1. Enter a **Name** for the job and, optionally, a description.
+1. In **Source index**, select the index to transform.
+1. Optionally, in **Source index filter**, select **Edit data filter**, enter a [query DSL]({{site.url}}{{site.baseurl}}/query-dsl/) query that selects the documents to transform, and then select **Save**. For example, the following filter selects the flights whose tickets cost at least $1,000:
+
+   ```json
+   {
+     "bool": {
+       "filter": [
+         { "range": { "AvgTicketPrice": { "gte": "1000" }}}
+       ]
+     }
+   }
+   ```
+   {% include copy.html %}
+
+1. In **Target index**, select an existing index or enter a name for a new one.
+1. Select **Next**.
+1. In **Define transforms**, select the fields to summarize:
+
+   1. Select the **N columns hidden** link and select the fields that you want in the target index. To start from an empty table, select **Hide all** and then add the fields one at a time.
+   1. For each field in **Original fields with sample data**, select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/add-filter-icon.png" class="inline-icon" alt="plus icon"/>{:/} (plus) icon, and then select a grouping or an aggregation. The result is added to **Transformed fields preview based on sample data**.
+
+1. Select **Next**.
+1. In **Specify schedule**, do the following:
+
+   1. To run the job on its schedule rather than only when it is started by hand, keep **Job enabled by default** selected.
+   1. To transform the buckets that change after each run, select **Yes** in **Continuous**.
+   1. In **Transform execution interval**, enter an interval and select **Minute(s)**, **Hour(s)**, or **Day(s)**.
+   1. Optionally, expand **Advanced** and enter the number of **Pages per execution**. A larger number runs faster and uses more memory.
+
+1. Select **Next**, review the configuration, and then select **Create transform job**. To change a panel, select **Edit** in that panel.
+
+## Related documentation
+
+- [Transforms APIs]({{site.url}}{{site.baseurl}}/im-plugin/index-transforms/transforms-apis/)
+- [Index rollups]({{site.url}}{{site.baseurl}}/im-plugin/index-rollups/index/)
+- [Index State Management]({{site.url}}{{site.baseurl}}/im-plugin/ism/index/)

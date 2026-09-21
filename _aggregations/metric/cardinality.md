@@ -7,7 +7,7 @@ redirect_from:
   - /query-dsl/aggregations/metric/cardinality/
 ---
 
-# Cardinality aggregations
+# Cardinality aggregation
 
 The `cardinality` aggregation is a single-value metric aggregation that counts the number of unique or distinct values of a field.
 

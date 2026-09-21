@@ -9,7 +9,7 @@ nav_order: 7
 **Introduced 1.0**
 {: .label .label-purple }
 
-The Execute Inline Script API allows you to run a script directly without storing it in the cluster state. The script is compiled and executed each time the API is called.
+The Execute Inline Script API allows you to run a script directly without storing it in the cluster state. The script is compiled and executed each time the API is called. For more information, see [Painless scripting language]({{site.url}}{{site.baseurl}}/scripting/painless/).
 
 ## Endpoints
 
@@ -22,9 +22,9 @@ POST /_scripts/painless/_execute
 
 | Field | Description | 
 :--- | :---
-| script | The script to run. Required|
-| context | A context for the script. Optional. Default is `painless_test`. |
-| context_setup | Specifies additional parameters for the context. Optional.| 
+| `script` | The script to run. Required |
+| `context` | A context for the script. Optional. Default is `painless_test`. |
+| `context_setup` | Specifies additional parameters for the context. Optional. | 
 
 ## Example request
 <!-- spec_insert_start
@@ -161,7 +161,7 @@ The response contains the average of two script parameters:
 
 | Field | Description | 
 :--- | :--- 
-| result | The script result.|
+| `result` | The script result. |
 
 
 ## Script contexts

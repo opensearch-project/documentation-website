@@ -7,7 +7,7 @@ redirect_from:
   - /opensearch/install/helm/
 ---
 
-# Helm
+# Installing OpenSearch with Helm
 
 Helm is a package manager that allows you to easily install and manage OpenSearch in a Kubernetes cluster. You can define your OpenSearch configurations in a YAML file and use Helm to deploy your applications in a version-controlled and reproducible way.
 
@@ -22,7 +22,7 @@ Resource | Description
 The specification in the default Helm chart supports many standard use cases and setups. You can modify the default chart to configure your desired specifications and set Transport Layer Security (TLS) and role-based access control (RBAC).
 
 For information about the default configuration, steps to configure security, and configurable parameters, see the
-[README](https://github.com/opensearch-project/helm-charts/blob/main/README.md).
+[`README`](https://github.com/opensearch-project/helm-charts/blob/main/README.md).
 
 The instructions here assume you have a Kubernetes cluster with Helm preinstalled. See the [Kubernetes documentation](https://kubernetes.io/docs/setup/) for steps to configure a Kubernetes cluster and the [Helm documentation](https://helm.sh/docs/intro/install/) to install Helm.
 {: .note }
@@ -31,7 +31,7 @@ The instructions here assume you have a Kubernetes cluster with Helm preinstalle
 
 The default Helm chart deploys a three-node cluster. We recommend that you have at least 8 GiB of memory available for this deployment. You can expect the deployment to fail if, say, you have less than 4 GiB of memory available.
 
-For OpenSearch 2.12 or later, you must provide `OPENSEARCH_INITIAL_ADMIN_PASSWORD` to start the cluster. Customize the admin password in `values.yaml` under `extraEnvs`, following the [password requirements]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/#password-requirements), as shown in the following example:
+For OpenSearch 2.12 or later, you must provide `OPENSEARCH_INITIAL_ADMIN_PASSWORD` to start the cluster. Customize the admin password in `values.yaml` under `extraEnvs`, following the [admin password requirements]({{site.url}}{{site.baseurl}}/security/configuration/demo-configuration/#admin-password-requirements), as shown in the following example:
 
 ```yaml
 extraEnvs:
@@ -42,7 +42,7 @@ extraEnvs:
 
 ## Install OpenSearch using Helm
 
-1. Add `opensearch` [helm-charts](https://github.com/opensearch-project/helm-charts) repository to Helm:
+1. Add `opensearch` [`helm-charts`](https://github.com/opensearch-project/helm-charts) repository to Helm:
 
    ```bash
    helm repo add opensearch https://opensearch-project.github.io/helm-charts/
@@ -93,7 +93,7 @@ extraEnvs:
 
 You can also build the `opensearch-<VERSION>.tgz` file manually:
 
-1. Clone the [helm-charts repo](https://github.com/opensearch-project/helm-charts/tree/main):
+1. Clone the [`helm-charts` repo](https://github.com/opensearch-project/helm-charts/tree/main):
 
    ```bash
    git clone https://github.com/opensearch-project/helm-charts.git

@@ -9,7 +9,7 @@ has_children: false
 has_toc: false
 ---
 
-# Store
+# Store mapping parameter
 
 The `store` mapping parameter determines whether the value of a field should be stored separately from the `_source` and made directly retrievable using the `stored_fields` option in a search request.
 

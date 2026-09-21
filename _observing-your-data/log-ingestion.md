@@ -6,7 +6,7 @@ redirect_from:
   - /observability-plugin/log-analytics/
 ---
 
-# Log Ingestion
+# Log ingestion
 
 Log ingestion provides a way to transform unstructured log data into structured data and ingest into OpenSearch. Structured log data allows for improved queries and filtering based on the data format when searching logs for an event.
 
@@ -20,7 +20,7 @@ OpenSearch Log Ingestion consists of three components---[Data Prepper]({{site.ur
 
 1. Log Ingestion relies on you adding log collection to your application's environment to gather and send log data.
 
-   (In the [example](#example) below, [FluentBit](https://docs.fluentbit.io/manual/) is used as a log collector that collects log data from a file and sends the log data to Data Prepper).
+   (In the following [example](#example), [FluentBit](https://docs.fluentbit.io/manual/) is used as a log collector that collects log data from a file and sends the log data to Data Prepper).
 
 2. [Data Prepper]({{site.url}}{{site.baseurl}}/clients/data-prepper/index/) receives the log data, transforms the data into a structure format, and indexes it on an OpenSearch cluster.
 
@@ -39,7 +39,7 @@ Download or clone the [Data Prepper repository](https://github.com/opensearch-pr
 
 Close the file and run `docker compose up --build` to start the containers.
 
-After the containers start, your ingestion pipeline is set up and ready to ingest log data. The `fluent-bit` container is configured to read log data from `test.log`. Run the following command to generate log data to send to the log ingestion pipeline.
+After the containers start, your ingest pipeline is set up and ready to ingest log data. The `fluent-bit` container is configured to read log data from `test.log`. Run the following command to generate log data to send to the log ingest pipeline.
 
 ```
 echo '63.173.168.120 - - [04/Nov/2021:15:07:25 -0500] "GET /search/tag/list HTTP/1.0" 200 5003' >> test.log

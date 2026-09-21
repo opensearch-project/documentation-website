@@ -32,8 +32,8 @@ var node = new Node(uri);
 ```
 {% include copy.html %}
 
-When first created, a node is master eligible, and its `HoldsData` property is set to true. 
-The `AbsolutePath` property of the node created above is `"/opensearch/"`: A trailing forward slash is appended so that the paths can be easily combined. If not specified, the default `Port` is 80.
+When first created, a node is cluster-manager-eligible, and its `HoldsData` property is set to true. 
+The `AbsolutePath` property of the node created previously is `"/opensearch/"`: A trailing forward slash is appended so that the paths can be easily combined. If not specified, the default `Port` is 80.
 
 Nodes are considered equal if they have the same endpoint. Metadata is not taken into account when checking nodes for equality.
 {: .note}
@@ -79,7 +79,7 @@ var settings = new ConnectionSettings(connectionPool).MaximumRetries(5);
 ```
 {% include copy.html %}
 
-You can also set a `RequestTimeout` that specifies a timeout for a single request and a `MaxRetryTimeout` that specifies the time limit for all retry attempts. In the example below, `RequestTimeout` is set to 4 seconds, and `MaxRetryTimeout` is set to 12 seconds, so the maximum number of attempts for a query is 3. 
+You can also set a `RequestTimeout` that specifies a timeout for a single request and a `MaxRetryTimeout` that specifies the time limit for all retry attempts. In the following example, `RequestTimeout` is set to 4 seconds, and `MaxRetryTimeout` is set to 12 seconds, so the maximum number of attempts for a query is 3. 
 
 ```cs
 var settings = new ConnectionSettings(connectionPool)

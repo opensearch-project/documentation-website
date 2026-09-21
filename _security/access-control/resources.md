@@ -12,9 +12,6 @@ has_toc: false
 **Introduced 3.3**
 {: .label .label-purple }
 
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).
-{: .warning}
-
 The resource sharing and access control framework in the OpenSearch Security plugin provides *document-level*, fine-grained access management for plugin-defined resources. It extends OpenSearch's existing role-based access control by letting resource owners explicitly share individual resources with other principals.
 
 A _resource_ is a document stored in a plugin's system index. Resource sharing information is stored in a central security-managed system index.
@@ -42,34 +39,30 @@ Before configuring resource sharing, ensure that the plugins you want to use wit
 To enable resource sharing, add the following settings to the `opensearch.yml` file:
 
 ```yaml
-plugins.security.experimental.resource_sharing.enabled: true
+plugins.security.resource_sharing.enabled: true
 plugins.security.system_indices.enabled: true
 ```
 {% include copy.html %}
 
-For more information, see [Experimental feature flags]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/experimental/).
-
-In OpenSearch 3.3, these settings can be updated only through `opensearch.yml` and require a cluster restart. 
-
-Starting with OpenSearch 3.4, you can update both resource sharing settings dynamically without restarting the cluster:
+Settings added to `opensearch.yml` take effect after a cluster restart. To update both resource sharing settings without restarting the cluster, use the Cluster Settings API:
 
 ```json
 PUT _cluster/settings
 {
   "transient": {
-    "plugins.security.experimental.resource_sharing.enabled": true,
-    "plugins.security.experimental.resource_sharing.protected_types": ["sample-resource"]
+    "plugins.security.resource_sharing.enabled": true,
+    "plugins.security.resource_sharing.protected_types": ["sample-resource"]
   }
 }
 ```
-{% include copy-curl.html %}
+{% include copy-curl.html security=true %}
 
 ### Step 2: Configure protected resource types
 
 Specify the resource types that use resource-level authorization by listing them in the protected types configuration. This setting determines the plugin-defined resources that use the sharing and access control framework:
 
 ```yaml
-plugins.security.experimental.resource_sharing.protected_types: ["sample-resource", "ml-model"]
+plugins.security.resource_sharing.protected_types: ["sample-resource", "ml-model"]
 ```
 {% include copy.html %}
 
@@ -79,21 +72,30 @@ The resource types you specify must exactly match the resource types supported b
 2. **Use the [List resource types API]({{site.url}}{{site.baseurl}}/security/access-control/resource-sharing-api/#list-resource-types)** to discover all available resource types for your installed plugins.
 3. **Update your `protected_types` configuration** with the resource types you want to enable.
 
-## Example resource types
+## Resource types by plugin
 
-The following are example resource types available for resource sharing:
+The following table describes the resource types registered by the plugins that support resource sharing. Each plugin's page describes the access levels for its resource types and the steps for migrating from the legacy backend role filtering settings.
 
-- **ML Commons plugin:**
-  - `ml-model-group` -- Machine learning (ML) model groups
+| Plugin | Resource types | Plugin documentation |
+| :--- | :--- | :--- |
+| Alerting | `monitor`, `alerting-workflow` | [Alerting resource access control]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/alerting-access-control/) |
+| Anomaly Detection | `anomaly-detector` | [Anomaly detector access control]({{site.url}}{{site.baseurl}}/observing-your-data/ad/detector-access-control/) |
+| Anomaly Detection | `forecaster` | [Forecaster access control]({{site.url}}{{site.baseurl}}/observing-your-data/forecast/forecaster-access-control/) |
+| Flow Framework | `workflow` | [Workflow access control]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-access-control/) |
+| Flow Framework | `workflow-state` | [Workflow state access control]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-state-access-control/) |
+| ML Commons | `ml-model-group` | [Model access control through resource sharing]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-sharing-access-control/) |
+| Notifications | `notification_config` | [Notification access control]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/notification-access-control/) |
+| Reporting | `report-definition` | [Report definition access control]({{site.url}}{{site.baseurl}}/reporting/report-definition-access-control/) |
+| Reporting | `report-instance` | [Report instance access control]({{site.url}}{{site.baseurl}}/reporting/report-instance-access-control/) |
+| Security Analytics | `detector`, `correlation-rule` | [Security Analytics resource access control]({{site.url}}{{site.baseurl}}/security-analytics/resource-access-control/) |
 
-- **Anomaly Detection plugin:**
-  - `anomaly-detector` -- Anomaly detection jobs
-  - `forecaster` -- Time series forecasting jobs
+The Security Analytics `detector` resource type is distinct from the Anomaly Detection `anomaly-detector` resource type, and the Alerting `alerting-workflow` resource type is distinct from the Flow Framework `workflow` resource type.
+{: .note}
 
-The following is an example configuration after discovering available types:
+The following is an example configuration that protects the ML Commons and Anomaly Detection resource types:
 
 ```yaml
-plugins.security.experimental.resource_sharing.protected_types: ["ml-model-group", "anomaly-detector", "forecaster"]
+plugins.security.resource_sharing.protected_types: ["ml-model-group", "anomaly-detector", "forecaster"]
 ```
 {% include copy.html %}
 
@@ -170,7 +172,7 @@ PATCH _plugins/_security/api/resource/share
   }
 }
 ```
-{% include copy-curl.html %}
+{% include copy-curl.html security=true %}
 
 To keep a resource private, make the `share_with` object empty:
 
@@ -182,7 +184,7 @@ PUT _plugins/_security/api/resource/share
   "share_with": {}
 }
 ```
-{% include copy-curl.html %}
+{% include copy-curl.html security=true %}
 
 ## REST APIs
 
@@ -214,4 +216,5 @@ When managing resource sharing, administrators should follow these best practice
 
 - [Resource sharing APIs]({{site.url}}{{site.baseurl}}/security/access-control/resource-sharing-api/) -- REST API reference for programmatic management
 - [Resource access management]({{site.url}}{{site.baseurl}}/dashboards/management/resource-sharing/) -- UI workflows and user guidance
+- [Resource types by plugin](#resource-types-by-plugin) -- Per-plugin access levels and migration steps
 - [Developer documentation](https://github.com/opensearch-project/security/blob/main/RESOURCE_SHARING_AND_ACCESS_CONTROL.md) -- Detailed technical documentation for plugin developers, users, and administrators

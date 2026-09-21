@@ -6,7 +6,7 @@ nav_order: 10
 
 # securityadmin.sh Troubleshooting
 
-This page includes troubleshooting steps for `securityadmin.sh`. The script can be found at `/plugins/opensearch-security/tools/securityadmin.sh`. For more information about using this tool, see [Applying changes to configuration files]({{site.url}}{{site.baseurl}}/security/configuration/security-admin/).
+Use the following troubleshooting steps to resolve issues with the `securityadmin.sh` script, located at `/plugins/opensearch-security/tools/securityadmin.sh`. For more information about using this tool, see [Applying changes to configuration files]({{site.url}}{{site.baseurl}}/security/configuration/security-admin/).
 
 
 ---
@@ -96,10 +96,10 @@ You must use an admin certificate when executing the script. To learn more, see 
 
 ## Use the diagnose option
 
-For more information on why `securityadmin.sh` is not executing, add the `--diagnose` option:
+For more information about why `securityadmin.sh` is not executing, add the `--diagnose` option (or its short form, `-dg`):
 
 ```
-./securityadmin.sh -diagnose -cd ../../../config/opensearch-security/ -cacert ... -cert ... -key ... -keypass ...
+./securityadmin.sh --diagnose -cd ../../../config/opensearch-security/ -cacert ... -cert ... -key ... -keypass ...
 ```
 
 The script prints the location of the generated diagnostic file.

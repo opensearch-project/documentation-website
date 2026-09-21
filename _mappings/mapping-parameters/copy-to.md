@@ -9,7 +9,7 @@ has_children: false
 has_toc: false
 ---
 
-# Copy to
+# Copy to mapping parameter
 
 The `copy_to` parameter allows you to copy the values of multiple fields into a group field, which can then be queried as a single field. This is useful when you frequently search across multiple fields and want to simplify your queries.
 

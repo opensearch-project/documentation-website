@@ -7,7 +7,7 @@ redirect_from:
   - /query-dsl/aggregations/metric/scripted-metric/
 ---
 
-# Scripted metric aggregations
+# Scripted metric aggregation
 
 The `scripted_metric` aggregation is a multi-value metric aggregation that returns metrics calculated from a specified script. A script has four phases, `init`, `map`, `combine`, and `reduce`, which are run in order by each aggregation and allow you to combine results from your documents.
 

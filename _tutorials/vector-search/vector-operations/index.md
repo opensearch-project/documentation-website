@@ -31,6 +31,6 @@ vector_operations:
 
 # Vector operation tutorials
 
-The following tutorials show you how to implement vector operations.
+Learn how to perform vector operations in OpenSearch, including generating embeddings from structured data, indexing vectors, and running vector searches.
 
 {% include cards.html cards=page.vector_operations %}

@@ -5,7 +5,7 @@ nav_order: 70
 
 # Blog Style Guide
 
-This guide extends the core OpenSearch editorial guides for blog post contributors. When writing a blog post, follow the [Style Guide](STYLE_GUIDE.md), [Writing Guide](WRITING_GUIDE.md), and [Text Formatting Guide](TEXT_FORMATTING_GUIDE.md). This guide describes only the guidelines unique to blog posts. For information about blog formatting, see the [Blog Guide](https://github.com/opensearch-project/project-website/blob/main/BLOG_GUIDE.md).
+This guide extends the core OpenSearch editorial guides for blog post contributors. When writing a blog post, follow the [Style Guide](STYLE_GUIDE.md), [Writing Guide](WRITING_GUIDE.md), and [Text Formatting Guide](TEXT_FORMATTING_GUIDE.md). This guide describes only the guidelines unique to blog posts. For information about blog formatting, see the [Blog Guide](https://github.com/opensearch-project/project-website/blob/main/BLOG_GUIDE.md). For information about the submission process, image requirements, and publication schedule, see the [OpenSearch blog guidelines](https://opensearch.org/blog/guidelines/).
 
 Blog posts provide an informal approach to educating or inspiring readers through the personal perspective of the authors. Brief posts generally accompany service or feature releases, and longer posts may note best practices or provide creative solutions. Each post must provide a clear community benefit.
 

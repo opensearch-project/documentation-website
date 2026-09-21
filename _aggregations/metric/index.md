@@ -14,7 +14,7 @@ redirect_from:
 
 # Metric aggregations
 
-Metric aggregations let you perform simple calculations such as finding the minimum, maximum, and average values of a field.
+Metric aggregations let you perform calculations such as finding the minimum, maximum, and average values of a field.
 
 ## Types of metric aggregations
 

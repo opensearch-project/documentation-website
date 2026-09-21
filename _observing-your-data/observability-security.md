@@ -33,7 +33,7 @@ PUT _plugins/_security/api/roles/observability_full_access
 }
 ```
 
-If these roles don't meet your needs, mix and match individual Observability [permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/) to suit your use case. For example, the `cluster:admin/opensearch/observability/create` permission lets you create Observability objects (visualizations, operational panels, notebooks, etc.).
+If these roles don't meet your needs, mix and match individual Observability [permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/) to suit your use case. For example, the `cluster:admin/opensearch/observability/create` permission lets you create Observability objects (visualizations, operational panels, and notebooks).
 
 The following is an example role that provides access to Observability:
 

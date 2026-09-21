@@ -27,7 +27,7 @@ PUT /_plugins/_ml/connectors/{connector_id}
 
 ## Request body fields
 
-The following table lists the updatable fields. For more information about all connector fields, see [Blueprint configuration parameters]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints#configuration-parameters).
+The following table lists the updatable fields. For more information about all connector fields, see [Request body fields]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints#request-body-fields).
 
 | Field | Data type   | Description                                                                                                                                                                                                                                                                                                                                                                                   |
 | :---  |:------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|

@@ -6,7 +6,7 @@ nav_order: 10
 has_children: true
 ---
 
-# Functions
+# Data Prepper expression functions
 
 OpenSearch Data Prepper offers a range of built-in functions that can be used within expressions to perform common data preprocessing tasks, such as calculating lengths, checking for tags, retrieving metadata, searching for substrings, checking IP address ranges, joining list elements, and generating unique identifiers. These functions include the following:
 

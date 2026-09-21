@@ -16,22 +16,43 @@ The `sparse_vector` field supports [neural sparse approximate nearest neighbor (
     
 ## Parameters
 
-The `sparse_vector` field type supports the following parameters.
+A `sparse_vector` field requires a `method` object that specifies the algorithm, the engine that implements it, and the algorithm parameters.
+
+### Method parameters
+
+The `method` object supports the following parameters.
+
+| Parameter       | Type   | Required | Description                                                                                                                                                                                                      | Default    | Valid values           | 
+|-----------------|--------|----------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------|------------------------|
+| `name`          | String | Yes      | The neural sparse ANN search algorithm.                                                                                                                                                                          | -          | `seismic`              | 
+| `engine`        | String | No       | The engine that builds and searches the index. For more information, see [Engines]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/#engines).  | `lucene`   | `lucene`, `native`     | 
+| `parameters`    | Object | No       | The algorithm parameters. See [Algorithm parameters](#algorithm-parameters).                                                                                                                                     | -          | -                      | 
+
+The `method` object cannot be updated after the field is created. To change the engine or any algorithm parameter, create a new index with the intended mapping and reindex your data.
+{: .important}
+
+### Algorithm parameters
+
+The `method.parameters` object supports the following parameters.
 
 | Parameter               | Type    | Required | Description                                   | Default               | Range       | 
 |-------------------------|---------|----------|-----------------------------------------------|-----------------------|-------------|
-| `name`                  | String  | Yes | The neural sparse ANN search algorithm. Valid value is `seismic`.                              | -                     | -           | 
 | `n_postings`            | Integer | No | The maximum number of documents to retain in each posting list.            | `0.0005 * doc_count`¹ | (0, ∞) | 
 | `cluster_ratio`         | Float   | No | The fraction of documents in each posting list used to determine the cluster count.             | `0.1`                 | (0, 1)      | 
-| `summary_prune_ratio`   | Float   | No | The fraction of total token weight to retain when pruning cluster summary vectors. For example, if `summary_prune_ratio` is set to `0.5`, tokens contributing to the top 50% of the total weight are kept. Thus, for a cluster summary `{"100": 1, "200": 2, "300": 3, "400": 6}`, the pruned summary is `{"400": 6}`. | 0.4 | (0, 1] |     | `0.4`                 | (0, 1]      | 
+| `summary_prune_ratio`   | Float   | No | The fraction of total token weight to retain when pruning cluster summary vectors. For example, if `summary_prune_ratio` is set to `0.5`, tokens contributing to the top 50% of the total weight are kept. Thus, for a cluster summary `{"100": 1, "200": 2, "300": 3, "400": 6}`, the pruned summary is `{"400": 6}`. | `0.4`                 | (0, 1]      | 
 | `approximate_threshold` | Integer | No | The minimum number of documents in a segment required to activate neural sparse ANN search.     | `1000000`           | [0, ∞) | 
 | `quantization_ceiling_search`  | Float   | No | The maximum token weight used for quantization during search. | `16`                  | (0, ∞) | 
 | `quantization_ceiling_ingest` | Float | No | The maximum token weight used for quantization during ingestion. | `3`                   | (0, ∞)     | 
+| `clustering_batch_size` | Integer | No | The number of batches that each inverted list is split into for clustering. Supported for the native engine only. When this parameter is greater than `1`, clustering runs on each batch rather than on the whole corpus, which reduces memory usage during index building at the cost of longer build times. | `1`                   | [1, 10000]     | 
+| `forward_index`         | String  | No | How the forward index is stored. Supported for the native engine only. `shared` stores one contiguous forward index for the field. `per_block` stores each block's vectors inline with the block, which lowers query latency but uses more disk space. | `shared`              | `shared`, `per_block` | 
+
+If you set `engine` to `lucene` and specify a `forward_index` value other than `shared`, the request is rejected.
+{: .warning}
 
 
-¹`doc_count` represents the number of documents within the segment.
+¹`doc_count` represents the number of documents within the segment. The derived value is never lower than `160`.
 
-For parameter configuration, see [Neural sparse ANN search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann).  
+For parameter configuration, see [Neural sparse ANN search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/).  
 {: .note }
 
 To increase search efficiency and reduce memory consumption, the `sparse_vector` field automatically performs quantization of the token weight. You can adjust the `quantization_ceiling_search` and `quantization_ceiling_ingest` parameters according to different token weight distributions. For doc-only queries, we recommend setting `quantization_ceiling_search` to the default value (`16`). For bi-encoder queries, we recommend setting `quantization_ceiling_search` to `3`. For more information about doc-only and bi-encoder query modes, see [Generating sparse vector embeddings automatically]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-with-pipelines/).
@@ -73,6 +94,7 @@ PUT sparse-vector-index
 ```
 {% include copy-curl.html %}
 
+This example uses the default Lucene engine. To map the field to the native engine instead, enable the engine at the cluster level and then set `engine` to `native`. For more information, see [Engines]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/#engines).
 
 ### Step 2: Ingest data into the index
 
@@ -123,7 +145,7 @@ GET sparse-vector-index/_search
     "neural_sparse": {
       "sparse_embedding": {
         "query_tokens": {
-          "1055": 5.5
+          "1000": 5.5
         },
         "method_parameters": {
           "heap_factor": 1.0,

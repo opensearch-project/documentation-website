@@ -34,7 +34,9 @@ manager:
 The operator uses admission controller webhooks to validate OpenSearch Custom Resource Definitions (CRDs).
 {: .note}
 
+<!-- vale off -->
 ## pprof endpoints
+<!-- vale on -->
 
 To diagnose memory issues, you can enable the standard Go [`pprof`](https://pkg.go.dev/net/http/pprof) endpoints by adding the following to your `values.yaml`:
 
