@@ -24,7 +24,7 @@ The following table lists the standard options supported by each visualization t
 | [Heatmap]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/heatmap-chart/)               | No          | Yes   | Yes         | Yes      |
 | [Histogram]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/histogram-chart/)           | Yes         | Yes   | Yes         | Yes      |
 | [Line chart]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/line-chart/)               | Yes         | Yes   | Yes         | Yes      |
-| [Metric chart]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/metric-chart/)           | Yes         | Yes   | Yes         | Yes      |
+| [Metric chart]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/metric-chart/)           | No          | Yes   | Yes         | Yes      |
 | [Pie chart]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/pie-chart/)                 | No          | Yes   | Yes         | Yes      |
 | [Scatter plot]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/scatter-chart/)          | Yes         | Yes   | Yes         | Yes      |
 | [State timeline]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/state-timeline-chart/) | No          | No    | No          | No       |

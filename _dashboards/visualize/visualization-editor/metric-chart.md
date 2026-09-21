@@ -69,7 +69,7 @@ For information about configuring thresholds, see [Thresholds]({{site.url}}{{sit
 
 ### Standard options
 
-For information about configuring units, unit suffixes, decimal precision, and minimum and maximum values, see [Standard options]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/configuring-visualizations/standard-options/).
+For information about configuring units, unit suffixes, and decimal precision, see [Standard options]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/configuring-visualizations/standard-options/).
 
 
 ### Text size
