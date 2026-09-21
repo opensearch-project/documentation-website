@@ -50,13 +50,11 @@ curl -sL -o aws-bootstrap.sh \
 
 ### Bootstrap flag reference
 
-> Use `./aws-bootstrap.sh --help` for the complete, version-specific flag reference for the script you downloaded. Treat the examples below as starting points, not a full flag list.
-{: .note }
-
 The table below highlights the flags most users need first:
 
 | Group | Flag | Typical use |
 |:------|:-----|:------------|
+| **Help** | **`--help`** | **Show all of the options, including those not shown here** |
 | Mode | `--deploy-create-vpc-cfn` | Create a new VPC and EKS cluster |
 | | `--deploy-import-vpc-cfn` | Reuse an existing VPC with `--vpc-id` and `--subnet-ids` |
 | | `--skip-cfn-deploy` | Re-bootstrap an existing cluster without rerunning CloudFormation |
