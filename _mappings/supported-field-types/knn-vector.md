@@ -181,6 +181,8 @@ OpenSearch can map a field as a `knn_vector` automatically, without an explicit 
 
 Dynamic mapping applies to any field that is not already mapped, on both new and existing indexes. An explicit mapping always takes precedence: if a field is already mapped, dynamic mapping does not apply to it.
 
+`knn_vector` fields follow the same [`dynamic`]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/dynamic/) mapping parameter as all other dynamically mapped fields. If `dynamic` is set to `strict` for the index or the parent object, OpenSearch rejects any document containing an unmapped field, so no `knn_vector` field is created.
+
 Dynamic mapping is disabled by default. To enable it, set the [`knn.dynamic_mapping.enabled`]({{site.url}}{{site.baseurl}}/vector-search/settings/#cluster-settings) cluster setting:
 
 ```json
@@ -298,12 +300,52 @@ Because the template establishes the field type, the array-length heuristic used
 
 When no dynamic template matches, OpenSearch can still infer a `knn_vector` mapping from the field value. An unmapped field is mapped as a `knn_vector` when its value is a flat array of numbers whose length is a multiple of 8 and falls within the range from 128 to the maximum dimension supported by the default k-NN engine (16,000 for Faiss). This bound is applied at inference time regardless of which engine the field ultimately uses. The dimension is set to the array length. An array whose length falls outside this range or is not a multiple of 8 is mapped as a numeric array.
 
-For example, `knn-auto-infer` has no mapping for `embedding` and no dynamic template. Indexing the following document maps `embedding` as a `knn_vector` of dimension 768. The array is truncated in this example:
+Auto-inference specifies only `type` and `dimension`. All remaining parameters take their default values: the `faiss` engine, the `hnsw` method, the `l2` space type, and the `float` data type.
+
+For example, create an index with no mapping for `embedding` and no dynamic template. Because auto-inference does not enable ANN search, set `index.knn` to `true` if you plan to run ANN search on the inferred field:
 
 ```json
-POST /knn-auto-infer/_doc
+PUT /knn-auto-infer
+{
+  "settings": {
+    "index": {
+      "knn": true
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+Index a document containing a 768-dimensional vector. The array is truncated in this example:
+
+```json
+POST /knn-auto-infer/_doc/1?refresh=true
 {
   "embedding": [0.1, 0.2, 0.3, ..., 0.9]
+}
+```
+
+Retrieve the mapping to confirm that `embedding` was mapped as a `knn_vector` with a dimension of 768:
+
+```json
+GET /knn-auto-infer/_mapping
+```
+{% include copy-curl.html %}
+
+The response contains the inferred field:
+
+```json
+{
+  "knn-auto-infer": {
+    "mappings": {
+      "properties": {
+        "embedding": {
+          "type": "knn_vector",
+          "dimension": 768
+        }
+      }
+    }
+  }
 }
 ```
 
