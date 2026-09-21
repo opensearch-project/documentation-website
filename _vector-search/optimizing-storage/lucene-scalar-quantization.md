@@ -10,7 +10,9 @@ has_math: true
 
 # Lucene scalar quantization
 
-OpenSearch supports built-in scalar quantization for the Lucene engine. Unlike [byte vectors]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-memory-optimized/#byte-vectors), which require you to quantize vectors before ingesting documents, the Lucene scalar quantizer quantizes input vectors in OpenSearch during ingestion. The quantizer converts 32-bit floating-point input vectors into lower-bit representations in each segment. OpenSearch supports 7-bit quantization and 1-bit quantization. When searching, the query vector is quantized in each segment in order to compute the distance between the query vector and the segment's quantized input vectors. Quantization can decrease the memory footprint in exchange for some loss in recall. Additionally, quantization slightly increases disk usage because it requires storing both the raw input vectors and the quantized vectors.
+OpenSearch supports built-in scalar quantization for the Lucene engine. Unlike [byte vectors]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-memory-optimized/#byte-vectors), which require you to quantize vectors before ingesting documents, the Lucene scalar quantizer quantizes input vectors in OpenSearch during ingestion. The quantizer converts 32-bit floating-point input vectors into lower-bit representations in each segment. OpenSearch supports 1-, 2-, 4-, and 7-bit quantization.
+
+When searching, the query vector is quantized in each segment in order to compute the distance between the query vector and the segment's quantized input vectors. Quantization can decrease the memory footprint in exchange for some loss in recall. Additionally, quantization slightly increases disk usage because it requires storing both the raw input vectors and the quantized vectors.
 
 The `bits` parameter is required when configuring the `sq` encoder.
 {: .important}
@@ -63,22 +65,25 @@ The Lucene `sq` encoder supports the following parameters.
 
 Parameter name | Required | Default | Description
 :--- | :--- | :--- | :---
-`bits` | Yes | 1 | The number of bits used to quantize each vector dimension. Valid values are `1` and `7`.
+`bits` | Yes | 1 | The number of bits used to quantize each vector dimension. Valid values are `1`, `2`, `4`, and `7`.
 `confidence_interval` | No | Computed based on vector dimension | The quantile interval used to compute the minimum and maximum values for quantization. Supported for 7-bit quantization only. For more information, see [Confidence interval](#confidence-interval).
 
 The `confidence_interval` parameter is only supported for 7-bit quantization. If you set `bits` to any other value and specify a `confidence_interval`, the request is rejected.
 {: .warning}
 
-## 1-bit quantization
-**Introduced 3.6**
-{: .label .label-purple }
+## 1-bit, 2-bit, and 4-bit quantization
 
-You can use 1-bit scalar quantization to further reduce the memory footprint. With 1-bit quantization, each vector dimension is represented using a single bit, resulting in a significantly smaller index size compared to 7-bit quantization.
+For the lowest memory footprint, quantize each vector dimension to 1, 2, or 4 bits. These variants support the following bit widths.
 
-The 1-bit quantizer does not support the `confidence_interval` parameter. Do not specify `confidence_interval` when using 1-bit quantization.
-{: .warning}
+Bits | Memory reduction compared to 32-bit vectors | Introduced
+:--- | :--- | :---
+`1` | 32x | 3.6
+`2` | 16x | 3.9
+`4` | 8x | 3.9
 
-The following example creates an index with 1-bit Lucene scalar quantization:
+Fewer bits per dimension produce a smaller index at the cost of recall. None of these variants support the `confidence_interval` parameter; specifying it causes the request to be rejected.
+
+The following example creates an index that quantizes each vector dimension to 2 bits. To use 1-bit or 4-bit quantization, set `bits` to `1` or `4`:
 
 ```json
 PUT /test-index
@@ -92,7 +97,7 @@ PUT /test-index
     "properties": {
       "my_vector1": {
         "type": "knn_vector",
-        "dimension": 2,
+        "dimension": 8,
         "space_type": "l2",
         "method": {
           "name": "hnsw",
@@ -101,7 +106,7 @@ PUT /test-index
             "encoder": {
               "name": "sq",
               "parameters": {
-                "bits": 1
+                "bits": 2
               }
             },
             "ef_construction": 256,
@@ -167,25 +172,27 @@ PUT /test-index
 
 ## Memory estimation
 
-In the ideal scenario, 7-bit vectors created by the Lucene scalar quantizer use only 25% of the memory required by 32-bit vectors. For 1-bit vectors, the memory footprint is approximately 3.125% of the original 32-bit vectors (a reduction factor of 32).
+In the ideal scenario, quantized vectors use the following percentage of the memory that 32-bit vectors require.
+
+Bits | Percentage of 32-bit vector memory | Reduction
+:--- | :--- | :---
+`1` | 3.125% | 32x
+`2` | 6.25% | 16x
+`4` | 12.5% | 8x
+`7` | 25% | 4x
 
 ### HNSW memory estimation
 
 The memory required for the Hierarchical Navigable Small World (HNSW) graph can be estimated as `1.1 * (dimension * bits_per_dimension / 8 + 8 * m)` bytes per vector, where `m` is the maximum number of bidirectional links created for each element during the construction of the graph.
 
-As an example, assume that you have 1 million vectors with a dimension of 256 and m of 16.
+For example, assume that you have 1 million vectors with a dimension of 256 and an `m` of 16. The memory requirement for each bit width can be estimated as follows.
 
-For 7-bit quantization, the memory requirement can be estimated as follows:
-
-```r
-1.1 * (256 * 7 / 8 + 8 * 16) * 1,000,000 ~= 0.387 GB
-```
-
-For 1-bit quantization, the memory requirement can be estimated as follows:
-
-```r
-1.1 * (256 / 8 + 8 * 16) * 1,000,000 ~= 0.176 GB
-```
+Bits | Estimate | Result
+:--- | :--- | :---
+`1` | `1.1 * (256 * 1 / 8 + 8 * 16) * 1,000,000` | ~0.176 GB
+`2` | `1.1 * (256 * 2 / 8 + 8 * 16) * 1,000,000` | ~0.211 GB
+`4` | `1.1 * (256 * 4 / 8 + 8 * 16) * 1,000,000` | ~0.282 GB
+`7` | `1.1 * (256 * 7 / 8 + 8 * 16) * 1,000,000` | ~0.387 GB
 
 ## Next steps
 
