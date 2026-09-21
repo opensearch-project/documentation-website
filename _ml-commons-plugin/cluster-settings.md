@@ -275,7 +275,7 @@ plugins.ml_commons.jvm_heap_memory_threshold: 85
 
 ## Configure server-side batch queues
 
-Use the following dynamic, node-scoped settings to control how much memory [server-side batch inference queues]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/server-side-batch-inference/#configure-queueing-for-search) can use and when empty queues are removed. All model queues on a node share one memory budget.
+Use the following dynamic, node-scoped settings to control how much memory [queue-based batching]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/server-side-batch-inference/#queue-based-batching) can use and when empty queues are removed. All model queues on a node share one memory budget.
 
 | Setting | Default | Description |
 |:---|:---|:---|
