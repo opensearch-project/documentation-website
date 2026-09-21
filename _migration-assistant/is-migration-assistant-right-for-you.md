@@ -8,7 +8,9 @@ redirect_from:
   - /migration-assistant/migration-paths/
 ---
 
+<!-- vale off -->
 # Is Migration Assistant right for you?
+<!-- vale on -->
 Whether Migration Assistant is right for you depends on your migration path, downtime target, and how much platform work you want to own yourself.
 
 Migration Assistant is designed for teams that want a **workflow-driven migration platform** rather than a single-use upgrade procedure. It is especially useful when:
