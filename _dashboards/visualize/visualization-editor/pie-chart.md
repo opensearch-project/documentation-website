@@ -9,7 +9,7 @@ nav_order: 50
 
 # Pie charts in the visualization editor
 
-A pie chart displays data as proportional slices of a circle, making it ideal for visualizing part-to-whole relationships.
+A pie chart displays data as proportional slices of a circle. Use a pie chart to show part-to-whole relationships.
 
 ## Creating a pie chart
 
@@ -38,9 +38,9 @@ The default rendering is a **Donut** chart. Each airline carrier appears as a co
 Open the **Pie** settings panel and configure the following options:
 
 1. Change **Show as** from **Donut** to **Pie** to render a full circle without a center hole.
-2. Enable **Show values** to display the count on each slice.
-3. Enable **Show labels** to display the carrier name alongside each slice.
-4. Set **Truncate after** to `300` for longer label text, as shown in the following image.
+1. Enable **Show values** to display the count on each slice.
+1. Enable **Show labels** to display the carrier name alongside each slice.
+1. Set **Truncate after** to `300` for longer label text, as shown in the following image.
 
 ![Pie chart settings with Pie mode, show values, and show labels enabled]({{site.url}}{{site.baseurl}}/images/dashboards/visualization-editor/pie-chart-settings-custom.png){: width="400" }
 

@@ -9,7 +9,7 @@ nav_order: 25
 
 # Gauge charts in the visualization editor
 
-A gauge chart displays a single numeric value on a semicircular arc, making it ideal for showing how a metric compares against defined thresholds or a target range.
+A gauge chart displays a single numeric value on a semicircular arc. Use a gauge chart to show how a metric compares against defined thresholds or a target range.
 
 ## Creating a gauge chart
 

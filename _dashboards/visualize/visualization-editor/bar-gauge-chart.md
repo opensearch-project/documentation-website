@@ -86,7 +86,6 @@ For information about configuring thresholds, see [Thresholds]({{site.url}}{{sit
 
 For information about configuring units, unit suffixes, decimal precision, and minimum and maximum values, see [Standard options]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/configuring-visualizations/standard-options/).
 
-
 ### Bar gauge
 
 | Setting | Description |
