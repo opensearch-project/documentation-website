@@ -4,6 +4,8 @@ title: Data transformations
 parent: Creating visualizations using queries
 grand_parent: Building data visualizations
 nav_order: 95
+redirect_from:
+  - /dashboards/visualize/visualization-editor/data-transformation/
 ---
 
 # Data transformations
