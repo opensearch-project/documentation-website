@@ -28,6 +28,7 @@ Setting | Static/Dynamic | Default | Description
 `knn.model.cache.size.limit` | Dynamic | `10%` |  The model cache limit cannot exceed 25% of the JVM heap.
 `knn.faiss.avx2.disabled` | Static | `false` | A static setting that specifies whether to disable the SIMD-based `libopensearchknn_faiss_avx2.so` library and load the non-optimized `libopensearchknn_faiss.so` library for the Faiss engine on machines with x64 architecture. For more information, see [Single Instruction Multiple Data (SIMD) optimization]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-methods-engines/#simd-optimization).
 `knn.faiss.avx512_spr.disabled` | Static | `false` | A static setting that specifies whether to disable the SIMD-based `libopensearchknn_faiss_avx512_spr.so` library and load either the `libopensearchknn_faiss_avx512.so` , `libopensearchknn_faiss_avx2.so`, or the non-optimized `libopensearchknn_faiss.so` library for the Faiss engine on machines with x64 architecture. For more information, see [SIMD optimization for the Faiss engine]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-methods-engines/#simd-optimization).
+`knn.dynamic_mapping.enabled` | Dynamic | `false` | Specifies whether to enable [dynamic mapping]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-vector/#dynamic-mapping) of `knn_vector` fields, including inference of unmapped flat numeric arrays and dynamic templates that reference `knn_vector` as `match_mapping_type`.
 
 ## Index settings
 
