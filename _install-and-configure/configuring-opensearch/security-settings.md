@@ -195,7 +195,7 @@ The Security plugin supports the following audit log settings:
 
 - `plugins.security.audit.config.http_endpoints` (Static): A list of endpoints for `localhost`.
 
-- `plugins.security.audit.config.index` (Static): The audit log index. The default is `security-auditlog`. The index can be static or an index that includes a date so that it rotates on a daily basis, for example, `"'security-auditlog-'YYYY.MM.dd"`. In either case, make sure to secure the index properly.
+- `plugins.security.audit.config.index` (Static): The audit log index. The default is the date-rolling pattern `"'security-auditlog-'YYYY.MM.dd"`, which produces a new index daily (for example, `security-auditlog-2023.06.15`). You can also specify a fixed index name instead. In either case, make sure to secure the index properly.
 
 - `plugins.security.audit.config.type` (Static): Specify the audit log type as `auditlog`.
 

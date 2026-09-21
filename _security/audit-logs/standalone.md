@@ -188,6 +188,9 @@ Setting | Default | Description
 `plugins.security.audit.config.ignore_requests` | `[]` | Action patterns or REST paths to exclude (e.g., `["cluster:monitor/*"]`).
 `plugins.security.audit.config.ignore_headers` | `[]` | HTTP headers to exclude from audit events.
 
+`ignore_headers` has no registered update consumer, so a `PUT _cluster/settings` request accepts the change without error but has no effect. Set it in `opensearch.yml` instead.
+{: .note}
+
 Setting `disabled_rest_categories` or `disabled_transport_categories` replaces the entire default list rather than adding to it. If you set either to a custom list, include the categories shown earlier that you still want disabled---otherwise they are silently re-enabled.
 {: .warning }
 
