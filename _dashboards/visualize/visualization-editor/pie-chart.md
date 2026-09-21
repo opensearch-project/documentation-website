@@ -77,6 +77,10 @@ The following table describes the pie chart settings.
 | **Show labels** | When enabled, shows the category label for each slice on the chart. |
 | **Truncate after** | Sets the maximum width in pixels for labels before truncation. Only visible when **Show labels** is enabled. |
 
+### Standard options
+
+For information about configuring units, unit suffixes, and decimal precision, see [Standard options]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/configuring-visualizations/standard-options/).
+
 ### Legend
 
 The legend summarizes the visual color encodings used in the chart.

@@ -106,18 +106,29 @@ The following table describes the line style settings.
 
 | Setting | Description |
 | --- | --- |
-| **Style** | Controls whether the chart displays lines with dots (**Default**), lines without dots (**Line only**), or dots without connecting lines (**Dots only**). |
+| **Line Style** | Controls whether the chart displays lines with points (**Default**), lines only (**Line only**), or points only (**Dots only**). |
+| **Line Dash style** | Sets the line pattern to **Solid**, **Dashed**, or **Dotted**. |
 | **Interpolation** | Determines how points are connected. **Straight** draws direct lines between points. **Smooth** applies a curve. **Stepped** creates a staircase pattern, useful for data that changes at discrete intervals. |
 | **Line width** | Sets the thickness of the lines in pixels. Supports values in the 1–10 range. |
-| **Show current time marker** | When enabled, shows a vertical marker on the chart indicating the current time. |
+| **Point size** | Sets the size of data points. This setting is available when points are shown. |
+| **Show values** | Shows value labels on the chart. |
+| **Show current time marker** | Shows a vertical marker for the current time. This setting is available only when the X-axis uses a date field. |
 
 ### Thresholds
 
 For information about configuring thresholds, see [Thresholds]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/configuring-visualizations/thresholds/).
 
+### Standard options
+
+For information about configuring units, unit suffixes, decimal precision, and minimum and maximum values, see [Standard options]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/configuring-visualizations/standard-options/).
+
 ### Axes
 
 The X-axis and Y-axis share the same configuration options. For more information, see [Axes]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/configuring-visualizations/#axes).
+
+### Legend
+
+For information about configuring the legend, see [Legend]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/configuring-visualizations/#legend).
 
 ### Tooltip
 

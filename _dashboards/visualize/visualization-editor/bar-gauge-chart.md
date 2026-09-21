@@ -84,13 +84,8 @@ For information about configuring thresholds, see [Thresholds]({{site.url}}{{sit
 
 ### Standard options
 
-**Min** and **Max** controls define the scale boundaries and interact with thresholds. When left empty, they are calculated automatically.
+For information about configuring units, unit suffixes, decimal precision, and minimum and maximum values, see [Standard options]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/configuring-visualizations/standard-options/).
 
-| Setting | Description |
-| --- | --- |
-| **Min** | The lower bound of the bar gauge scale. When the min value falls within a threshold range, it acts as a cutoff---only the portion of the range above the min applies. If min is below all thresholds, the base color creates a base threshold starting at the min value. |
-| **Max** | The upper bound of the bar gauge scale. Thresholds above this value are not applied. |
-| **Unit** | An optional unit label applied to the displayed value. |
 
 ### Bar gauge
 

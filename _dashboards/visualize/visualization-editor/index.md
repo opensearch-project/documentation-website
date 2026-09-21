@@ -26,6 +26,7 @@ Add the following settings to your `opensearch_dashboards.yml` file:
 workspace.enabled: true
 explore.enabled: true
 ```
+
 {% include copy.html %}
 
 After updating the configuration file, restart OpenSearch Dashboards for the changes to take effect.
@@ -47,19 +48,18 @@ For more information, see [Create a workspace]({{site.url}}{{site.baseurl}}/dash
 The visualization editor requires a dataset associated with your workspace:
 
 - For PPL, configure an index pattern:
-
-    1. Inside your workspace, go to **Index patterns** (under **Management**).
-    2. Select **Create index pattern**.
-    3. Enter the index name (for example, `opensearch_dashboards_sample_data_logs`).
-    4. Select **Next step**.
-    5. Select a time field (for example, `@timestamp`).
-    6. Select **Create index pattern**.
+  1. Inside your workspace, go to **Index patterns** (under **Management**).
+  2. Select **Create index pattern**.
+  3. Enter the index name (for example, `opensearch_dashboards_sample_data_logs`).
+  4. Select **Next step**.
+  5. Select a time field (for example, `@timestamp`).
+  6. Select **Create index pattern**.
 
 For more information, see [Index patterns]({{site.url}}{{site.baseurl}}/dashboards/management/index-patterns/).
 
 - For PromQL (Prometheus data source), configure a Prometheus data source connection for your workspace. For more information, see [Connecting Prometheus to OpenSearch]({{site.url}}{{site.baseurl}}/dashboards/management/connect-prometheus/).
 
-### Step 4 (Optional): Install sample data 
+### Step 4 (Optional): Install sample data
 
 The examples in this documentation use the OpenSearch Dashboards sample datasets. To install the sample datasets, follow these steps:
 
@@ -76,7 +76,7 @@ The following image shows the main components of the visualization editor.
 
 - The _time filter_ (A) selects the time range for query results.
 - The _Update button_ (B) runs or refreshes the query.
-- The _query editor_ (C) is where you write PPL queries.
+- The _query editor_ (C) is where you write or build queries.
 - The _Saved queries_ dropdown (D) saves and loads reusable queries.
 - The _configuration panel_ (E) contains the chart type selector, field mappings, and style settings.
 
@@ -95,6 +95,7 @@ To create a visualization, follow these steps:
    ```sql
    source = opensearch_dashboards_sample_data_logs | stats count() by SPAN(@timestamp, 1h)
    ```
+
    {% include copy.html %}
 
    If `opensearch_dashboards_sample_data_logs` is already selected as the dataset, you can omit the `source`:
@@ -102,6 +103,7 @@ To create a visualization, follow these steps:
    ```sql
    | stats count() by SPAN(@timestamp, 1h)
    ```
+
    {% include copy.html %}
 
 1. Select **Update** or press **Enter** to run the query.
@@ -124,13 +126,13 @@ If you opened the visualization editor from a dashboard, the visualization is au
 
 To save a PPL query for reuse, select **Saved queries** > **Save query**. In the dialog, configure the following options.
 
-| Option | Description |
-| --- | --- |
-| **Save as new query** | When selected, saves the query as a new entry rather than overwriting an existing one. |
-| **Name** | A name for the saved query. |
-| **Description** | An optional description of the query. |
-| **Include filters** | When enabled, saves the currently applied filters along with the query. |
-| **Include time filter** | When enabled, saves the current time range along with the query. |
+| Option                  | Description                                                                            |
+| ----------------------- | -------------------------------------------------------------------------------------- |
+| **Save as new query**   | When selected, saves the query as a new entry rather than overwriting an existing one. |
+| **Name**                | A name for the saved query.                                                            |
+| **Description**         | An optional description of the query.                                                  |
+| **Include filters**     | When enabled, saves the currently applied filters along with the query.                |
+| **Include time filter** | When enabled, saves the current time range along with the query.                       |
 
 Select **Save changes** to save the query.
 
@@ -144,11 +146,22 @@ For a list of supported chart types and their expected data shapes, see [Visuali
 
 Shared configuration options (fields, split, axes, tooltip, legend, thresholds, and more) apply across multiple visualization types. For details, see [Configuring visualizations in the visualization editor]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/configuring-visualizations/).
 
+## Query panel
+
+The query panel lets you choose a query language and dataset, write or build a query, and run it to generate a visualization. It supports PPL, PromQL, and, when enabled, SQL. For PromQL, the query panel also supports Builder and Code modes, multiple query rows, series names, minimum step, rate windows, and max data points.
+
+For details, see [Query panel]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/query-panel/).
+
+## Data transformations
+
+Data transformations modify query results before the visualization is rendered. Use transformations to reshape, filter, sort, calculate, or summarize data without changing the original query. For details, see [Data transformations]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/data-transformation/).
+
 ## Related documentation
 
 - [PPL]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/)
 - [Dashboard variables]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/dashboard-variables/)
+- [Query panel]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/query-panel/)
+- [Data transformations]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/data-transformation/)
 - [Creating dashboards]({{site.url}}{{site.baseurl}}/dashboards/dashboard/)
 - [Index patterns]({{site.url}}{{site.baseurl}}/dashboards/management/index-patterns/)
 - [Connecting Prometheus to OpenSearch]({{site.url}}{{site.baseurl}}/dashboards/management/connect-prometheus/)
-

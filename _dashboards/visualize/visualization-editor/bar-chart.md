@@ -22,6 +22,7 @@ Start with an aggregation query that counts events by category:
 ```sql
 source = opensearch_dashboards_sample_data_flights | stats count() by Carrier
 ```
+
 {% include copy.html %}
 
 After running this query, the visualization editor automatically selects a **Bar** chart and maps the fields:
@@ -40,6 +41,7 @@ Add a second dimension to your query to split each category into sub-groups:
 ```sql
 source = opensearch_dashboards_sample_data_flights | stats count() by Carrier, Cancelled
 ```
+
 {% include copy.html %}
 
 This query groups the count by both carrier and the `Cancelled` field. Select `Cancelled` as the **Color** field to render a separate bar for each cancellation status within each carrier.
@@ -88,12 +90,17 @@ In the **Split by** dropdown list, select a field to split the chart into separa
 
 The following settings control the display style and sizing of bars.
 
-| Setting | Description |
-| --- | --- |
-| **Stack** | Controls whether grouped bars are displayed side by side (**None**) or stacked on top of each other (**Stacked**). |
-| **Size** | Controls bar width. **Auto** sizes bars automatically. **Manual** sets a specific width percentage (1–100). |
-| **Use threshold colors** | When enabled, the chart colors bars based on the threshold rules defined in the Thresholds section. |
-| **Show border** | When enabled, adds a border around each bar. You can configure border width and color. |
+| Setting                  | Description                                                                                                                                                                                 |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Stack**                | Controls how multiple series are displayed. **None** overlays the series without stacking. **Stack** adds series values together. **Percentage** stacks series as percentages of the total. |
+| **Fill opacity**         | Sets the opacity of the bars.                                                                                                                                                               |
+| **Size**                 | Controls bar width. **Auto** sizes bars automatically. **Manual** sets a specific width percentage (1–100).                                                                                 |
+| **Radius**               | Sets the corner rounding of each bar in pixels.                                                                                                                                             |
+| **Show values**          | Shows value labels on the chart.                                                                                                                                                            |
+| **Use threshold colors** | When enabled, the chart colors bars based on the threshold rules defined in the Thresholds section.                                                                                         |
+| **Show border**          | When enabled, adds a border around each bar.                                                                                                                                                |
+| **Border width**         | Sets the border thickness in pixels. This setting is available when **Show border** is enabled.                                                                                             |
+| **Border color**         | Sets the border color. This setting is available when **Show border** is enabled.                                                                                                           |
 
 ### Bucket
 
@@ -108,9 +115,17 @@ The following settings control how data is aggregated within each bar.
 
 For information about configuring thresholds, see [Thresholds]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/configuring-visualizations/thresholds/).
 
+### Standard options
+
+For information about configuring units, unit suffixes, decimal precision, and minimum and maximum values, see [Standard options]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/configuring-visualizations/standard-options/).
+
 ### Axes
 
 The X-axis and Y-axis share the same configuration options. For more information, see [Axes]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/configuring-visualizations/#axes).
+
+### Legend
+
+For information about configuring the legend, see [Legend]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/configuring-visualizations/#legend).
 
 ### Tooltip
 

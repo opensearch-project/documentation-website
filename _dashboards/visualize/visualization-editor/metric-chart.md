@@ -69,11 +69,8 @@ For information about configuring thresholds, see [Thresholds]({{site.url}}{{sit
 
 ### Standard options
 
-| Setting | Description |
-| --- | --- |
-| **Min** | The lower bound of the metric scale (used for percentage calculations). |
-| **Max** | The upper bound of the metric scale (used for percentage calculations). |
-| **Units** | An optional unit label applied to the displayed value. |
+For information about configuring units, unit suffixes, decimal precision, and minimum and maximum values, see [Standard options]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/configuring-visualizations/standard-options/).
+
 
 ### Text size
 
@@ -82,4 +79,3 @@ For information about configuring thresholds, see [Thresholds]({{site.url}}{{sit
 | **Value size** | Controls the font size of the displayed value. |
 | **Title size** | Controls the font size of the metric title. |
 | **Percentage size** | Controls the font size of the percentage display (when **Show percentage** is enabled). |
-
