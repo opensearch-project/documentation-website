@@ -22,8 +22,8 @@ When you create the first section on a dashboard, all existing panels are automa
 To create a section, follow these steps:
 
 1. Open a dashboard.
-1. In the toolbar, select **Add** to open the **Add** popover.
-1. Select **Section**. A new section is added to the dashboard.
+2. In the toolbar, select **Add** to open the **Add** popover.
+3. Select **Section**. A new section is added to the dashboard.
 
 The following image shows the **Add** popover with the **Section** option.
 
@@ -34,8 +34,8 @@ The following image shows the **Add** popover with the **Section** option.
 To rename a section, follow these steps:
 
 1. Select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/kebab-icon.png" class="inline-icon" alt="kebab icon"/>{:/} (kebab) icon on the right side of the section header.
-1. Select **Rename**.
-1. Enter a new name for the section and confirm.
+2. Select **Rename**.
+3. Enter a new name for the section and confirm.
 
 Section names do not need to be unique. However, using descriptive, distinct names helps when moving panels between sections.
 {: .tip}
@@ -51,8 +51,8 @@ To expand a collapsed section, select the arrow again. The panels reappear and b
 To reorder sections on a dashboard, follow these steps:
 
 1. Select and hold the section header. The header itself is the drag handle.
-1. Drag the section to the desired position.
-1. Release the section to drop it into place.
+2. Drag the section to the desired position.
+3. Release the section to drop it into place.
 
 ## Moving panels between sections
 
@@ -61,9 +61,9 @@ You can move a panel from one section to another, or from the ungrouped area int
 To move a panel to a different section, follow these steps:
 
 1. Select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/gear-icon.png" class="inline-icon" alt="gear icon"/>{:/} (gear) icon in the upper-right corner of the panel.
-1. Select **Move to section**.
-1. In the dialog, select the target section.
-1. Select **Move**.
+2. Select **Move to section**.
+3. In the dialog, select the target section.
+4. Select **Move**.
 
 The following image shows the panel context menu with the move action.
 
@@ -82,15 +82,15 @@ You can add new or existing visualizations directly to a specific section.
 ### Creating a new visualization in a section
 
 1. Select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/kebab-icon.png" class="inline-icon" alt="kebab icon"/>{:/} (kebab) icon on the section header.
-1. Select **Create new visualization**.
-1. Build your visualization in the visualization editor.
-1. Select **Save and return**. The new visualization is automatically added to the section.
+2. Select **Create new visualization**.
+3. Build your visualization in the visualization editor.
+4. Select **Save and return**. The new visualization is automatically added to the section.
 
 ### Adding an existing visualization from the library
 
 1. Select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/kebab-icon.png" class="inline-icon" alt="kebab icon"/>{:/} (kebab) icon on the section header.
-1. Select **Add from library**.
-1. Search for and select a saved visualization.
+2. Select **Add from library**.
+3. Search for and select a saved visualization.
 
 The visualization is added to the section.
 
@@ -105,8 +105,8 @@ Deleting a section removes the section **and all panels within it** from the das
 To delete a section, follow these steps:
 
 1. Select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/kebab-icon.png" class="inline-icon" alt="kebab icon"/>{:/} (kebab) icon on the section header.
-1. Select **Delete section**.
-1. In the confirmation dialog, confirm the deletion.
+2. Select **Delete section**.
+3. In the confirmation dialog, confirm the deletion.
 
 Deleting a section permanently removes all panels within it from the dashboard. This action cannot be undone after saving. If you want to keep the panels, move them to another section before deleting.
 {: .warning}
@@ -118,8 +118,8 @@ You can flatten all sections back into a single flat dashboard layout. This remo
 To ungroup all sections, follow these steps:
 
 1. Select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/kebab-icon.png" class="inline-icon" alt="kebab icon"/>{:/} (kebab) icon on any section header.
-1. Select **Ungroup all sections**.
-1. In the confirmation dialog, confirm the action.
+2. Select **Ungroup all sections**.
+3. In the confirmation dialog, confirm the action.
 
 All panels are returned to a flat grid layout, and the section structure is removed.
 

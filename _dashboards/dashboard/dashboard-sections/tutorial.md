@@ -22,8 +22,8 @@ Before starting this tutorial, ensure the following:
 ## Step 1: Open the sample dashboard
 
 1. In the left navigation, select **Dashboards**.
-1. Select **[eCommerce] Revenue Dashboard** to open it.
-1. Select the **Edit** toggle in the toolbar to enter edit mode.
+2. Select **[eCommerce] Revenue Dashboard** to open it.
+3. Select the **Edit** toggle in the toolbar to enter edit mode.
 
 The following image shows the e-commerce dashboard with all panels in a flat layout.
 
@@ -32,7 +32,7 @@ The following image shows the e-commerce dashboard with all panels in a flat lay
 ## Step 2: Create the first section
 
 1. In the toolbar, select **Add**.
-1. Select **Section**.
+2. Select **Section**.
 
 All existing panels are automatically grouped into a new section named "Section 1". This preserves the current layout so that no panels are lost.
 
@@ -41,8 +41,8 @@ All existing panels are automatically grouped into a new section named "Section 
 ## Step 3: Rename the section
 
 1. Select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/kebab-icon.png" class="inline-icon" alt="kebab icon"/>{:/} (kebab) icon on the **Section 1** header.
-1. Select **Rename**.
-1. Enter `Revenue and trends` and confirm.
+2. Select **Rename**.
+3. Enter `Revenue and trends` and confirm.
 
 ![Step 3: Rename section]({{site.url}}{{site.baseurl}}/images/dashboard-sections/tutorial-step3-rename.png)
 
@@ -52,9 +52,9 @@ All existing panels are automatically grouped into a new section named "Section 
 
    Because the original "Section 1" was renamed to "Revenue and trends" in the previous step, the new section is also named "Section 1".
 
-1. Select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/kebab-icon.png" class="inline-icon" alt="kebab icon"/>{:/} (kebab) icon on the **Section 1** header.
-1. Select **Rename**.
-1. Enter `Customer breakdown` and confirm.
+2. Select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/kebab-icon.png" class="inline-icon" alt="kebab icon"/>{:/} (kebab) icon on the **Section 1** header.
+3. Select **Rename**.
+4. Enter `Customer breakdown` and confirm.
 
 ![Step 4: Two sections on the dashboard]({{site.url}}{{site.baseurl}}/images/dashboard-sections/tutorial-step4-second-section.png)
 
@@ -63,9 +63,9 @@ All existing panels are automatically grouped into a new section named "Section 
 Move the customer-related panels to the "Customer breakdown" section:
 
 1. On the **[eCommerce] Sales by Gender** panel, select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/gear-icon.png" class="inline-icon" alt="gear icon"/>{:/} (gear) icon in the upper-right corner.
-1. Select **Move to section**.
-1. In the dialog, select **Customer breakdown**, and then select **Move**.
-1. Repeat for the following panels:
+2. Select **Move to section**.
+3. In the dialog, select **Customer breakdown**, and then select **Move**.
+4. Repeat for the following panels:
    - **[eCommerce] Sales Count Map**
    - **[eCommerce] Top Selling Products**
 
