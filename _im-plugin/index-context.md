@@ -1,14 +1,17 @@
 ---
 layout: default
 title: Index context
-nav_order: 20
+parent: Tuning indexes
+nav_order: 50
 redirect_from:
   - /opensearch/index-context/
 ---
 
 # Index context
+**Introduced 2.17**
+{: .label .label-purple }
 
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).    
+This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).
 {: .warning}
 
 Index context declares the use case for an index. Using the context information, OpenSearch applies a predetermined set of settings and mappings, which provides the following benefits:
@@ -20,16 +23,23 @@ Index context declares the use case for an index. Using the context information,
 The settings and metadata configuration that are applied using component templates are automatically loaded when your cluster starts. Component templates that start with `@abc_template@` or Application-Based Configuration (ABC) templates can only be used through a `context` object declaration, in order to prevent configuration issues.
 {: .warning}
 
+## Enabling index context
 
-## Installation
+Index context requires two settings, both of which are applied at node startup. Enable both on every node in the cluster, and then restart the nodes:
 
-To install the index context feature:
+1. Set the `opensearch.experimental.feature.application_templates.enabled` feature flag to `true`. For more information, see [Experimental feature flags]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/experimental/).
 
-1. Install the `opensearch-system-templates` plugin on all nodes in your cluster using one of the [installation methods]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/#install).
+2. Add the following line to `opensearch.yml`:
 
-2. Set the feature flag `opensearch.experimental.feature.application_templates.enabled` to `true`. For more information about enabling and disabling feature flags, see [Enabling experimental features]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/experimental/).
+   ```yaml
+   cluster.application_templates.enabled: true
+   ```
+   {% include copy.html %}
 
-3. Set the `cluster.application_templates.enabled` setting to `true`. For instructions on how to configure OpenSearch, see [configuring settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/#static-settings).
+Do not set `cluster.application_templates.enabled` using the [Cluster settings API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/). The API accepts the update and returns `200`, but the node then fails to apply the resulting cluster state, logging an error that the feature flag is not enabled. The node repeatedly gives up its cluster manager role, and every request that changes the cluster state, such as creating an index, stops responding until you restart the node. If you set the value as a persistent setting, it is reapplied after the restart.
+{: .warning}
+
+The `opensearch-system-templates` plugin supplies the component templates that back each context. It is bundled with all OpenSearch distributions except the minimal distribution. If you use the minimal distribution, install it using one of the [installation methods]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/#install).
 
 ## Using the `context` setting
 
@@ -39,15 +49,16 @@ Use the `context` setting with the Index API to add use-case-specific context.
 
 Consider the following when using the `context` parameter during index creation:
 
-1. If you use the `context` parameter to create an index, you cannot include any settings declared in the index context during index creation or dynamic settings updates.
-2. The index context becomes permanent when set on an index or index template.
+- If you use the `context` parameter to create an index, you cannot include any settings declared in the index context during index creation or dynamic settings updates.
+- The index context becomes permanent when set on an index or index template.
 
 When you adhere to these limitations, suggested configurations or mappings are uniformly applied on indexed data within the specified context.
+
+If `cluster.application_templates.enabled` is not enabled, a request that declares a context is rejected with `400`.
 
 ### Examples
 
 The following examples show how to use index context.
-
 
 #### Create an index
 
@@ -63,18 +74,14 @@ PUT /my-metrics-index
 ```
 {% include copy-curl.html %}
 
-After creation, the context is added to the index and the corresponding settings are applied:
-
-
-**GET request**
+After creation, the context is added to the index and the corresponding settings are applied. To confirm this, send the following request:
 
 ```json
 GET /my-metrics-index
 ```
 {% include copy-curl.html %}
 
-
-**Response**
+The response contains the context and the settings that it applied:
 
 ```json
 {
@@ -124,25 +131,23 @@ PUT _index_template/my-logs
 ```
 {% include copy-curl.html %}
 
-All indexes created using this index template will get the metadata provided by the associated component template. The following request and response show how `context` is added to the template:
-
-**Get index template**
+All indexes created using this index template will get the metadata provided by the associated component template. To confirm that `context` was added to the template, send the following request:
 
 ```json
 GET _index_template/my-logs
 ```
 {% include copy-curl.html %}
 
-**Response**
+The response contains the context:
 
 ```json
 {
     "index_templates": [
         {
-            "name": "my-logs2",
+            "name": "my-logs",
             "index_template": {
                 "index_patterns": [
-                    "my-logs1-*"
+                    "my-logs-*"
                 ],
                 "context": {
                     "name": "logs",
@@ -159,7 +164,7 @@ If there is any conflict between any settings, mappings, or aliases directly dec
 
 ## Available context templates
 
-The following templates are available to be used through the `context` parameter as of OpenSearch 2.17:
+The following templates can be used through the `context` parameter:
 
 - `logs`
 - `metrics`

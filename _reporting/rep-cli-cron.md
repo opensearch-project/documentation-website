@@ -12,7 +12,7 @@ redirect_from:
 
 You can use the cron command-line utility to initiate a report request with the Reporting CLI that runs periodically at any date or time interval. Follow the cron expression syntax to specify the date and time that precedes the command that you want to initiate.
 
-To learn about the cron expression syntax, see [Cron expression reference]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/cron/). To get help with cron, open the man page by running the following command:
+To learn about the cron expression syntax, see [Cron expressions]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#cron-expressions). To get help with cron, open the man page by running the following command:
 
 ```
 man cron

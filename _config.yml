@@ -157,7 +157,7 @@ opensearch_collection:
       name: Security
       nav_fold: true
     im-plugin:
-      name: Managing Indexes
+      name: Managing indexes
       nav_fold: true
     ingest-pipelines:
       name: Ingest Pipelines
