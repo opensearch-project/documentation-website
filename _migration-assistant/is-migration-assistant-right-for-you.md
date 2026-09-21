@@ -58,20 +58,21 @@ The following table lists supported source and target platforms.
 | Platform | Source | Target |
 |:---------|:-------|:-------|
 | Self-managed (on-premises) | Yes | Yes |
+| Self-managed on a cloud provider (for example, AWS EC2 or GCP Compute Engine) | Yes | Yes |
 | Amazon OpenSearch Service | Yes | Yes |
 | [Amazon OpenSearch Serverless NextGen]({{site.url}}{{site.baseurl}}/migration-assistant/amazon-opensearch-serverless/) | No | Yes |
-| Third-party cloud providers | Yes | Yes |
-| AWS EC2 | Yes | Yes |
+| Other managed OpenSearch or Elasticsearch services | Yes | Yes |
 | Apache Solr (SolrCloud/Standalone) | Yes | No |
 
 ## Deployment options
 
 Migration Assistant runs on Kubernetes and can be deployed to:
 
-- **Amazon EKS** for the recommended AWS production path with bootstrap automation, pod identity, image mirroring, snapshot helpers, and CloudWatch integration.
-- **Any Kubernetes cluster** when you already operate your own Kubernetes platform or you are evaluating locally.
+- **Amazon EKS** for the recommended AWS production path, with bootstrap automation, pod identity, image mirroring, snapshot helpers, and Amazon CloudWatch integration.
+- **Google Kubernetes Engine (GKE)** for the recommended GCP production path, with a Terraform module for the cluster, VPC networking, Cloud Storage snapshots, and Workload Identity.
+- **Any other Kubernetes cluster** when you self-manage your own platform (on any cloud) or you are evaluating locally.
 
-The migration engine is the same in both cases. The difference is how much of the surrounding platform is prepared for you.
+The migration engine is the same in every case. The difference is how much of the surrounding platform is prepared for you.
 
 ## Component support
 
@@ -103,9 +104,9 @@ Use this checklist to determine whether Migration Assistant is the right fit:
 - Do you need a high-performance backfill solution with pause, resume, and checkpoint recovery?
 - Are you migrating from Apache Solr and need a snapshot-based backfill solution?
 
-Use Amazon EKS if you also want the deployment tooling to prepare the AWS environment around the migration.
-
 If you answered "yes" to most of these questions, Migration Assistant is likely the right solution.
+
+If you also want the deployment tooling to prepare the cloud environment around the migration, use a managed-cloud path (Amazon EKS on AWS or GKE on GCP).
 
 ## Assumptions and limitations
 
@@ -115,13 +116,14 @@ Migration Assistant has the following assumptions and limitations.
 
 For Elasticsearch and OpenSearch sources:
 
-- The source cluster must have the [`repository-s3` plugin](https://opensearch.org/docs/latest/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/#amazon-s3) installed (for S3-based snapshots).
-- Shards of up to **80 GiB** are supported by default. This can be configured to support larger shards up to the limits of your EBS storage, except in AWS GovCloud regions which are limited to 80 GiB.
+- The source cluster must have the snapshot-repository plugin for your object storage installed: [`repository-s3`](https://opensearch.org/docs/latest/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/#amazon-s3) for Amazon S3, or `repository-gcs` for Google Cloud Storage. Elasticsearch 8.0 and later and OpenSearch bundle these; Elasticsearch 7.x and earlier require installing the plugin on every source node.
+- Shards of up to **80 GiB** are supported by default. This can be configured to support larger shards up to the limits of your node storage. (On Amazon EKS, AWS GovCloud regions are limited to 80 GiB.)
 - Snapshots of indexes using `zstd` or `zstd_no_dict` codecs (OpenSearch 2.9+) are not supported---reindex with `default` or `best_compression` first.
 
 For Apache Solr sources:
 
 - The source cluster must have the [Solr S3 backup plugin](https://solr.apache.org/guide/solr/latest/deployment-guide/backup-restore.html#s3backuprepository) installed and a backup repository configured in `solr.xml`. Solr writes the backup directly to S3, and Migration Assistant reads it from there. See the [Solr backfill guide]({{site.url}}{{site.baseurl}}/migration-assistant/solr-migration/solr-backfill-guide/) for the full prerequisite list.
+- The Solr backup repository must use Amazon S3 (`s3://`) or a local file path (`file://`). Google Cloud Storage (`gs://`) backups are not supported for Solr in this release, even when Migration Assistant runs on Google Kubernetes Engine (GKE). This limit applies only to Solr sources; Elasticsearch and OpenSearch sources support Google Cloud Storage snapshots.
 
 ### Capture and Replay
 
@@ -135,7 +137,7 @@ Capture and Replay has the following limitations:
 The following networking requirements apply:
 
 - The Kubernetes cluster must have network connectivity to both source and target clusters.
-- For EKS deployments, source and target cluster security groups must allow inbound traffic from the EKS cluster security group.
+- The source and target clusters must allow inbound traffic from the migration cluster. On Amazon EKS, this means the source and target security groups allow the EKS cluster security group; on GKE, it means firewall rules (or the private-networking legs) permit the migration cluster's ranges. For GKE private-networking options, see [Private networking on GKE]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/private-networking-on-gke/).
 
 ## Pre-migration checklist
 

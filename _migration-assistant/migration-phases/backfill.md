@@ -33,7 +33,7 @@ You define these in one workflow and let the platform orchestrate them.
 Run a small pilot before the full migration. Use a limited snapshot scope or a small metadata and RFS allow list to confirm that:
 
 - Snapshot creation is correct.
-- Source Amazon S3 access is correct.
+- Snapshot storage access is correct (for example, Amazon S3 or Google Cloud Storage).
 - Mappings migrate correctly.
 - Target indexing capacity is sufficient.
 - Any document-level errors are resolved before you run the full migration.
@@ -78,11 +78,12 @@ If an index is excluded from the snapshot, the metadata and RFS allow lists cann
 
 ## Using an existing snapshot
 
-If you already created the snapshot outside the workflow, use `workflow configure sample --load` to confirm the exact structure for your installed version, then set the following parameter in your workflow configuration:
+If you already created the snapshot outside the workflow, use `workflow configure sample --load` to confirm the exact structure for your installed version, then set the following parameters in your workflow configuration:
 
-```text
-snapshotConfig.snapshotNameConfig.externallyManagedSnapshotName
-```
+- `source.snapshotRepo.repoPathUri` --- the object storage URI of the snapshot repository. This can be an Amazon S3 URI (`s3://<bucket>/<path>`) or a Google Cloud Storage URI (`gs://<bucket>/<path>`).
+- `snapshotConfig.snapshotNameConfig.externallyManagedSnapshotName` --- the name of the snapshot within that repository.
+
+When `externallyManagedSnapshotName` is set, the workflow skips snapshot creation and proceeds directly to metadata migration and reindex-from-snapshot using the repository you provided.
 
 ## Run and monitor the workflow
 
