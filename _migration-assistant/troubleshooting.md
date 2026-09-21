@@ -252,6 +252,10 @@ If backfill is slow or unstable, verify the following:
 
 Because RFS reads from snapshots, adding workers does not increase load on the source cluster. Additional workers increase write pressure on the target cluster.
 
+## Individual document failures during backfill
+
+Individual documents can fail to reach the target because of errors such as mapping or parsing errors, even when the backfill itself runs normally. For more information, see [Tracking and remediating failed documents]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/tracking-failed-documents/).
+
 ## Missing console or workflow commands
 
 Some console images install the binaries under `/.venv/bin`. If the commands are not found, add the path manually:
