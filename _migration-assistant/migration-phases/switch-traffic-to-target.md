@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Switch traffic to the target
-nav_order: 8
+nav_order: 80
 parent: Migration workflows
 permalink: /migration-assistant/migration-phases/switch-traffic-to-target/
 redirect_from:

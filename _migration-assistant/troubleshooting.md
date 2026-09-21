@@ -254,7 +254,7 @@ Because RFS reads from snapshots, adding workers does not increase load on the s
 
 ## Individual document failures during backfill
 
-If specific documents did not reach the target (for example, mapping or parsing errors) rather than the whole backfill being slow, see [Tracking and remediating failed documents]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/tracking-failed-documents/). That page explains how to enable the failed document stream, list which documents failed and why, and remediate them.
+Individual documents can fail to reach the target because of errors such as mapping or parsing errors, even when the backfill itself runs normally. For more information, see [Tracking and remediating failed documents]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/tracking-failed-documents/).
 
 ## Missing console or workflow commands
 
