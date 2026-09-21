@@ -38,6 +38,8 @@ Parameter | Description | Type | Required
 :--- | :--- |:--- |:--- |
 `max_num_segments` | The number of segments to reduce the shard to. | Integer | Yes
 
+The following example merges the segments of each shard into a single segment:
+
 ```json
 {
   "force_merge": {
@@ -45,16 +47,20 @@ Parameter | Description | Type | Required
   }
 }
 ```
+{% include copy.html %}
 
 ## Read only
 
 Sets a managed index to be read only.
+
+The `read_only` operation takes no parameters:
 
 ```json
 {
   "read_only": {}
 }
 ```
+{% include copy.html %}
 
 Set the index setting `index.blocks.write` to `true` for a managed index.
 
@@ -65,11 +71,14 @@ The `index.blocks.write` block does not prevent the index from refreshing.
 
 Sets a managed index to be writeable.
 
+The `read_write` operation takes no parameters:
+
 ```json
 {
   "read_write": {}
 }
 ```
+{% include copy.html %}
 
 ## Replica count
 
@@ -79,6 +88,8 @@ Parameter | Description | Type | Required
 :--- | :--- |:--- |:--- |
 `number_of_replicas` | Defines the number of replicas to assign to an index. | Integer | Yes
 
+The following example assigns two replicas to the index:
+
 ```json
 {
   "replica_count": {
@@ -86,6 +97,7 @@ Parameter | Description | Type | Required
   }
 }
 ```
+{% include copy.html %}
 
 For information about setting replicas, see [Primary and replica shards]({{site.url}}{{site.baseurl}}/intro/#primary-and-replica-shards).
 
@@ -97,11 +109,13 @@ Allows you to reduce the number of primary shards in your indexes. With this act
 - A max shard size for the primary shards in the target index.
 - Specify a percentage to shrink the number of primary shards in the target index.
 
+The following example shrinks the index to one primary shard, names the target index by appending `_shrunken` to the source index name, and adds the `my-alias` alias:
+
 ```json
 "shrink": {
     "num_new_shards": 1,
     "target_index_name_template": {
-        "source": "{{ctx.index}}_shrunken"
+        "source": "{% raw %}{{ctx.index}}{% endraw %}_shrunken"
     },
     "aliases": [
       {
@@ -112,6 +126,7 @@ Allows you to reduce the number of primary shards in your indexes. With this act
     "force_unsafe": false
 }
 ```
+{% include copy.html %}
 
 Parameter | Description | Type | Example | Required
 :--- | :--- |:--- |:--- |
@@ -123,7 +138,7 @@ Parameter | Description | Type | Example | Required
 `switch_aliases` | If `true`, copies the aliases from the source index to the target index. If there is a name conflict with an alias from the `aliases` field, the alias in the `aliases` field is used instead of the name. | Boolean | `true` | No. The default implicit value is `false`, which means no aliases are copied by default.
 `force_unsafe` | If `true`, shrinks the index even if it has no replicas. | Boolean | `false` | No
 
-If you want to add `aliases` to the action, the parameter must include an array of [alias objects]({{site.url}}{{site.baseurl}}/api-reference/alias/). For example,
+If you want to add `aliases` to the action, the parameter must include an array of [alias objects]({{site.url}}{{site.baseurl}}/api-reference/alias/), as in the following example:
 
 ```json
 "aliases": [
@@ -145,16 +160,20 @@ If you want to add `aliases` to the action, the parameter must include an array 
   }
 ]
 ```
+{% include copy.html %}
 
 ## Close
 
 Closes the managed index.
+
+The `close` operation takes no parameters:
 
 ```json
 {
   "close": {}
 }
 ```
+{% include copy.html %}
 
 Closed indexes remain on disk, but consume no CPU or memory. You can't read from, write to, or search closed indexes.
 
@@ -164,21 +183,27 @@ Closing an index is a good option if you need to retain data for longer than you
 
 Opens a managed index.
 
+The `open` operation takes no parameters:
+
 ```json
 {
   "open": {}
 }
 ```
+{% include copy.html %}
 
 ## Delete
 
 Deletes a managed index.
+
+The `delete` operation takes no parameters:
 
 ```json
 {
   "delete": {}
 }
 ```
+{% include copy.html %}
 
 ## Rollover
 
@@ -196,45 +221,53 @@ If you need to skip the rollover action, you can set the index setting `index.pl
 The index format must match the pattern: `^.*-\d+$`. For example, `(logs-000001)`.
 Set `index.plugins.index_state_management.rollover_alias` as the alias to rollover.
 
-Parameter | Description | Type | Example | Required
-:--- | :--- |:--- |:--- |
-`min_size` | The minimum size of the total primary shard storage (not counting replicas) required to roll over the index. For example, if you set `min_size` to 100 GiB and your index has 5 primary shards and 5 replica shards of 20 GiB each, the total size of all primary shards is 100 GiB, so the rollover occurs. See [**Important** note](#important-note). | String | `20gb` or `5mb` | No
-`min_primary_shard_size` | The minimum storage size of a **single primary shard** required to roll over the index. For example, if you set `min_primary_shard_size` to 30 GiB and **one of** the primary shards in the index has a size greater than the condition, the rollover occurs. See [**Important** note](#important-note). | String | `20gb` or `5mb` | No
-`min_doc_count` |  The minimum number of documents required to roll over the index. See [**Important** note](#important-note). | Integer | `2000000` | No
-`min_index_age` |  The minimum age required to roll over the index. Index age is the time between its creation and the present. Supported units are `d` (days), `h` (hours), `m` (minutes), `s` (seconds), `ms` (milliseconds), and `micros` (microseconds). See [**Important** note](#important-note). | String | `5d` or `7h` | No
-`copy_alias` | Controls whether to copy over all aliases from the current index to a newly created index. Defaults to `false`.  | Boolean | `true` or `false` | No
+The `rollover` operation has the following parameters, all of which are optional.
+
+Parameter | Description | Type | Example
+:--- | :--- |:--- |:---
+`min_size` | The minimum size of the total primary shard storage (not counting replicas) required to roll over the index. For example, if you set `min_size` to 100 GiB and your index has 5 primary shards and 5 replica shards of 20 GiB each, the total size of all primary shards is 100 GiB, so the rollover occurs. See [**Important** note](#important-note). | String | `20gb` or `5mb`
+`min_primary_shard_size` | The minimum storage size of a **single primary shard** required to roll over the index. For example, if you set `min_primary_shard_size` to 30 GiB and **one of** the primary shards in the index has a size greater than the condition, the rollover occurs. See [**Important** note](#important-note). | String | `20gb` or `5mb`
+`min_doc_count` |  The minimum number of documents required to roll over the index. See [**Important** note](#important-note). | Integer | `2000000`
+`min_index_age` |  The minimum age required to roll over the index. Index age is the time between its creation and the present. Supported units are `d` (days), `h` (hours), `m` (minutes), `s` (seconds), `ms` (milliseconds), and `micros` (microseconds). See [**Important** note](#important-note). | String | `5d` or `7h`
+`copy_alias` | Controls whether to copy over all aliases from the current index to a newly created index. Default is `false`.  | Boolean | `true` or `false`
+`prevent_empty_rollover` | Controls whether to skip the rollover when the index contains no documents. When `true`, an empty index does not roll over. Default is `false`. | Boolean | `true` or `false`
+`any_of` | A list of condition groups. Each group is an object containing one or more of `min_size`, `min_primary_shard_size`, `min_doc_count`, and `min_index_age`. Within a group, the conditions are combined with AND; the groups are combined with OR. Mutually exclusive with the conditions set directly on the `rollover` object. Specifying both, an empty list, or an empty group returns an error. | Array | `[{"min_index_age": "7d"}]`
+
+Conditions set directly on the `rollover` object are combined with a logical OR, so the rollover occurs as soon as one of them is met. The following rollover action rolls the index over when the index is at least 7 days old or at least 50 GiB in size:
 
 ```json
 {
   "rollover": {
+    "min_index_age": "7d",
     "min_size": "50gb"
   }
 }
 ```
+{% include copy.html %}
+
+To require that several conditions be met together, use `any_of`. This parameter takes a list of condition groups. The conditions within a group are combined with AND, and the groups are combined with OR, so the rollover occurs when every condition in at least one group is met. 
+
+The following rollover action rolls the index over when it is at least 7 days old and at least 50 GiB in size, or when it reaches 100,000,000 documents:
 
 ```json
 {
   "rollover": {
-    "min_primary_shard_size": "30gb"
+    "any_of": [
+      {
+        "min_index_age": "7d",
+        "min_size": "50gb"
+      },
+      {
+        "min_doc_count": 100000000
+      }
+    ]
   }
 }
 ```
+{% include copy.html %}
 
-```json
-{
-  "rollover": {
-    "min_doc_count": 100000000
-  }
-}
-```
-
-```json
-{
-  "rollover": {
-    "min_index_age": "30d"
-  }
-}
-```
+In a mixed-version cluster, every node must be running OpenSearch 3.7 or later to evaluate grouped conditions. Nodes running earlier versions do not process `any_of`.
+{: .note}
 
 ## Notification
 
@@ -248,6 +281,8 @@ Parameter | Description | Type | Required
 The destination system **must** return a response otherwise the notification operation throws an error.
 
 ### Example 1: Chime notification
+
+The following notification operation sends a message to an Amazon Chime webhook:
 
 ```json
 {
@@ -263,8 +298,11 @@ The destination system **must** return a response otherwise the notification ope
   }
 }
 ```
+{% include copy.html %}
 
 ### Example 2: Custom webhook notification
+
+The following notification operation sends a message to a custom webhook:
 
 ```json
 {
@@ -280,8 +318,11 @@ The destination system **must** return a response otherwise the notification ope
   }
 }
 ```
+{% include copy.html %}
 
 ### Example 3: Slack notification
+
+The following notification operation sends a message to a Slack webhook:
 
 ```json
 {
@@ -297,6 +338,7 @@ The destination system **must** return a response otherwise the notification ope
   }
 }
 ```
+{% include copy.html %}
 
 You can use `ctx` variables in your message to represent a number of policy parameters based on the past executions of your policy. For example, if your policy has a rollover action, you can use `{% raw %}{{ctx.action.name}}{% endraw %}` in your message to represent the name of the rollover.
 
@@ -321,6 +363,8 @@ Parameter | Description | Type | Required | Default
 `repository` | The repository name that you register through the native snapshot API operations.  | String | Yes | -
 `snapshot` | The name of the snapshot. Accepts strings and the Mustache variables `{% raw %}{{ctx.index}}{% endraw %}` and `{% raw %}{{ctx.indexUuid}}{% endraw %}`. If the Mustache variables are invalid, then the snapshot name defaults to the index's name. | String or Mustache template | Yes | -
 
+The following example takes a snapshot of the index in the `my_backup` repository and names the snapshot using the index UUID:
+
 ```json
 {
   "snapshot": {
@@ -329,6 +373,7 @@ Parameter | Description | Type | Required | Default
   }
 }
 ```
+{% include copy.html %}
 
 ## Convert index to remote
 
@@ -463,6 +508,8 @@ Parameter | Description | Type | Required | Default
 :--- | :--- |:--- |:--- |:---
 `priority` | The priority for the index as soon as it enters a state. | Integer | Yes | 1
 
+The following example sets the index priority to `50`:
+
 ```json
 "actions": [
   {
@@ -472,6 +519,7 @@ Parameter | Description | Type | Required | Default
   }
 ]
 ```
+{% include copy.html %}
 
 ## Allocation
 
@@ -487,6 +535,8 @@ Parameter | Description | Type | Required
 `exclude` | Don't allocate the index to a node with any of the specified attributes. | Object | No
 `wait_for` | Wait for the policy to execute before allocating the index to a node with a specified attribute. | Boolean | No. Default is `false`.
 
+The following example allocates the index to nodes whose `temp` attribute is set to `warm`:
+
 ```json
 "actions": [
   {
@@ -496,6 +546,7 @@ Parameter | Description | Type | Required
   }
 ]
 ```
+{% include copy.html %}
 
 ## Rollup
 
@@ -588,11 +639,14 @@ To create a rollup job in OpenSearch Dashboards, see [Creating a rollup job]({{s
 
 Stops replication and converts the follower index to a regular index.
 
+The `stop_replication` operation takes no parameters:
+
 ```json
 {
   "stop_replication": {}
 }
 ```
+{% include copy.html %}
 
 When cross-cluster replication is enabled, the follower index becomes read-only, preventing all write operations. To manage replicated indexes on a follower cluster, you can perform the `stop_replication` action before performing other write operations. For example, you can define a policy that first runs `stop_replication` and then deletes the index by running a `delete` action.
 
@@ -618,6 +672,7 @@ Set an index to search-only mode using the following action:
   "search_only": {}
 }
 ```
+{% include copy.html %}
 
 If the index is already in search-only mode, the action completes successfully without making any changes.
 
