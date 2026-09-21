@@ -55,7 +55,7 @@ To reorder sections on a dashboard, follow these steps:
 
 ## Moving panels between sections
 
-You can move a panel from one section to another (or from the ungrouped area into a section) using the panel context menu.
+You can move a panel from one section to another, or from the ungrouped area into a section, using the panel context menu. Moving a panel back out into the ungrouped area is not supported.
 
 To move a panel to a different section, follow these steps:
 
@@ -63,7 +63,7 @@ To move a panel to a different section, follow these steps:
 1. Select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/gear-icon.png" class="inline-icon" alt="gear icon"/>{:/} (gear) icon in the upper-right corner of the panel.
 1. Select **Move to section**.
 1. In the dialog, select the target section.
-1. Select **Confirm**.
+1. Select **Move**.
 
 In edit mode, the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/gear-icon.png" class="inline-icon" alt="gear icon"/>{:/} (gear) icon is always visible on every panel. In view mode, the same panel menu is the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/ellipsis-icon.png" class="inline-icon" alt="ellipsis icon"/>{:/} (ellipsis) icon, and it appears only when you point to the panel.
 {: .note}

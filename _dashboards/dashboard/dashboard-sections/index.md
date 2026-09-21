@@ -25,7 +25,7 @@ Use dashboard sections to:
 
 - Organize related visualizations into named collapsible groups.
 - Collapse sections to hide panels you are not actively viewing, reducing page clutter.
-- Improve performance by deferring data fetching for panels in collapsed sections.
+- Reduce initial load time by deferring data fetching for panels in sections that are collapsed when the dashboard opens.
 - Reorder sections by dragging them to change the visual layout of a dashboard.
 - Move panels between sections without recreating them.
 
@@ -41,16 +41,16 @@ Each section contains a header bar with a collapse/expand toggle and a title. In
 
 Panels within a section are arranged in their own independent grid layout. You can drag and resize panels freely within a section, just as you would on a standard flat dashboard. The section automatically adjusts its height to fit its contents.
 
-When you collapse a section, its panels are hidden but remain mounted. Hidden panels issue no search requests until you expand the section and scroll them into view.
+When you collapse a section, its panels are hidden but remain mounted. A panel that has not yet been displayed requests no data while the section is collapsed; it fetches when you expand the section and scroll the panel into view. A panel that has already been displayed stays active, so it continues to refresh with the rest of the dashboard even while the section is collapsed.
 
 ![Collapsed section]({{site.url}}{{site.baseurl}}/images/dashboard-sections/collapse-expand.png)
 
-On dashboards with many visualizations, collapsing the sections you are not actively viewing can noticeably reduce page load time and OpenSearch cluster load.
+On dashboards with many visualizations, saving the dashboard with the sections you rarely use already collapsed can noticeably reduce the initial page load time and OpenSearch cluster load.
 {: .tip}
 
 ### Ungrouped panels
 
-When sections are enabled on a dashboard, any panels not assigned to a section appear in a trailing **Ungrouped** area at the bottom of the dashboard. You can move ungrouped panels into a section using the panel context menu.
+When sections are enabled on a dashboard, any panels not assigned to a section appear in a trailing **Ungrouped** area at the bottom of the dashboard. You can move ungrouped panels into a section using the panel context menu. The **Ungrouped** area is not a section you can move panels back into.
 
 The following image shows the **Ungrouped** area below the collapsed section.
 
@@ -88,7 +88,7 @@ Action | Access | Description
 **Add from library** | Section context menu | Adds an existing saved visualization to this section.
 **Delete section** | Section context menu | Removes the section and all its panels.
 **Ungroup all sections** | Section context menu | Flattens all sections back to a single grid.
-**Move to section** | Panel context menu | Moves a panel into a different section, or out of a section into the **Ungrouped** area.
+**Move to section** | Panel context menu | Moves a panel into a different section.
 
 ## Limitations
 

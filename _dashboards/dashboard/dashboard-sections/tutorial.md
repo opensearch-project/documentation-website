@@ -64,7 +64,7 @@ Move the customer-related panels to the "Customer breakdown" section:
 
 1. On the **[eCommerce] Sales by Gender** panel, select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/gear-icon.png" class="inline-icon" alt="gear icon"/>{:/} (gear) icon in the upper-right corner.
 1. Select **Move to section**.
-1. In the dialog, select **Customer breakdown** and confirm.
+1. In the dialog, select **Customer breakdown**, and then select **Move**.
 1. Repeat for the following panels:
    - **[eCommerce] Sales Count Map**
    - **[eCommerce] Top Selling Products**
@@ -77,7 +77,7 @@ The following image shows the **Move to section** dialog.
 
 1. Select the arrow to the left of the **Customer breakdown** section title.
 
-The section collapses, hiding its panels. Only the section header remains visible. The collapsed panels do not fetch data, which reduces the number of search requests to the OpenSearch cluster.
+The section collapses, hiding its panels. Only the section header remains visible.
 
 ![Step 6: Collapsed section]({{site.url}}{{site.baseurl}}/images/dashboard-sections/collapse-expand.png)
 
