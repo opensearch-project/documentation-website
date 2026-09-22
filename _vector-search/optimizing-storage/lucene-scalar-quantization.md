@@ -83,7 +83,7 @@ Bits | Memory reduction compared to 32-bit vectors | Introduced
 
 Fewer bits per dimension produce a smaller index at the cost of recall. None of these variants support the `confidence_interval` parameter; specifying it causes the request to be rejected.
 
-The following example creates an index that quantizes each vector dimension to 2 bits. To use 1-bit or 4-bit quantization, set `bits` to `1` or `4`:
+The following example creates an index that quantizes each `float` vector dimension to 2 bits. To use 1-bit or 4-bit quantization, set `bits` to `1` or `4`:
 
 ```json
 PUT /test-index
@@ -119,6 +119,8 @@ PUT /test-index
 }
 ```
 {% include copy-curl.html %}
+
+Starting with OpenSearch 3.9, 1-bit quantization is also supported for `half_float` vectors. For `half_float` fields, set `compression_level` to `16x`, which is measured against their 16-bit baseline and therefore maps each dimension to a single bit (`half_float` fields do not accept an `encoder` in the `method` mapping).
 
 ## 7-bit quantization
 

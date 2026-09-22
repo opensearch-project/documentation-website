@@ -49,16 +49,16 @@ PUT test-index
 
 ### Compression levels
 
-The `compression_level` mapping parameter selects a quantization encoder that reduces vector memory consumption by the given factor. The following table lists the available `compression_level` values and the engines and data types that support them.
+The `compression_level` mapping parameter selects a quantization encoder that reduces vector memory consumption by the given factor. The compression factor is measured against the storage size of the vector data type: 32 bits per dimension for `float` vectors and 16 bits per dimension for `half_float` vectors. Therefore, the same `compression_level` value applies a different quantization to each data type. The following table lists the available `compression_level` values, the engines and data types that support them, and the quantization each one applies.
 
-| Compression level | Supported engines                            | Supported data types    |
-|:------------------|:---------------------------------------------|:------------------------|
-| `1x`              | `faiss`, `lucene`, and `nmslib` (deprecated) | `float`, `half_float`   |
-| `2x`              | `faiss`                                      | `float`                 |
-| `4x`              | `lucene`                                     | `float`                 |
-| `8x`              | `faiss` and `lucene`                         | `float`                 |
-| `16x`             | `faiss` and `lucene`                         | `float`, `half_float`   |
-| `32x`             | `faiss` and `lucene`                         | `float`                 |
+| Compression level | Supported engines                            | Quantization for `float` vectors | Quantization for `half_float` vectors |
+|:------------------|:---------------------------------------------|:---------------------------------|:--------------------------------------|
+| `1x`              | `faiss`, `lucene`, and `nmslib` (deprecated) | None (32-bit storage)            | None (16-bit FP16 storage); `faiss` and `lucene` only |
+| `2x`              | `faiss`                                      | 16-bit                           | Not supported                         |
+| `4x`              | `lucene`                                     | 7-bit                            | Not supported                         |
+| `8x`              | `faiss` and `lucene`                         | 4-bit                            | Not supported                         |
+| `16x`             | `faiss` and `lucene`                         | 2-bit                            | 1-bit                                 |
+| `32x`             | `faiss` and `lucene`                         | 1-bit                            | Not supported                         |
 
 For example, if a `compression_level` of `32x` is passed for a `float32` index of 768-dimensional vectors, the per-vector memory is reduced from `4 * 768 = 3072` bytes to `3072 / 32 = 846` bytes. Internally, binary quantization (which maps a `float` to a `bit`) may be used to achieve this compression.
 
@@ -68,12 +68,12 @@ If you set the `compression_level` parameter, then you cannot specify an `encode
 Starting with OpenSearch 3.1, enabling `on_disk` mode with a `1x` compression level activates [memory-optimized search]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/memory-optimized-search/). In this mode, the engine loads data on demand during search instead of loading all data into memory at once.
 {: .important}
 
-The following table lists the default `compression_level` values for the available workload modes.
+The following table lists the default `compression_level` values for the available workload modes. For both data types, the `on_disk` default applies 1-bit quantization; the level differs because the compression factor is measured against the data type's storage size.
 
-| Mode | Default compression level    |
-|:------------------|:-------------------------------|
-| `in_memory`       | `1x` |
-| `on_disk`         | `32x` |
+| Mode | Default compression level for `float` | Default compression level for `half_float` |
+|:------------------|:-------------------------------|:-------------------------------|
+| `in_memory`       | `1x` | `1x` |
+| `on_disk`         | `32x` | `16x` |
 
 
 To create a vector field with a `compression_level` of `16x`, specify the `compression_level` parameter in the mappings. This parameter overrides the default compression level for the `on_disk` mode from `32x` to `16x`, producing higher recall and accuracy at the expense of a larger memory footprint:

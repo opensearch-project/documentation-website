@@ -22,7 +22,7 @@ The `flat` method is best suited for smaller datasets or use cases with restrict
 
 ## Running an exact search using scalar quantization
 
-To perform an exact search using scalar quantization, set the k-NN vector field's `method.name` to `flat` when creating a vector index. Optionally, set `compression_level` to select the number of bits per dimension:`32x` (1-bit), `16x` (2-bit), or `8x` (4-bit). If `compression_level` is not specified, `flat` defaults to 1-bit quantization (`32x`):
+To perform an exact search using scalar quantization, set the k-NN vector field's `method.name` to `flat` when creating a vector index. Optionally, set `compression_level` to select the number of bits per dimension. For `float` fields, valid values are `32x` (1-bit), `16x` (2-bit), and `8x` (4-bit); for `half_float` fields, valid values are `16x` (1-bit) and `1x` (no quantization). If `compression_level` is not specified, `flat` defaults to 1-bit quantization: `32x` for `float` fields and `16x` for `half_float` fields, because the compression factor is measured against the data type's storage size (32 or 16 bits per dimension):
 
 ```json
 PUT /test-index
