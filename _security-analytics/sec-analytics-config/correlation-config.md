@@ -62,3 +62,5 @@ PUT /_cluster/settings
 
 After creating detectors and correlation rules, you can use the correlation graph to observe the correlations between findings from different log sources. For information about working with the correlation graph, see [Working with the correlation graph]({{site.url}}{{site.baseurl}}/security-analytics/usage/correlation-graph/). 
 
+You can also add a trigger to a correlation rule so that it generates an alert and sends a notification when it correlates findings. For more information, see [Correlation rule triggers]({{site.url}}{{site.baseurl}}/security-analytics/api-tools/correlation-eng/#correlation-rule-triggers).
+
