@@ -189,9 +189,17 @@ The Security plugin supports the following audit log settings:
 
 - `plugins.security.audit.type` (Static): The destination of audit log events. Valid values are `internal_opensearch`, `external_opensearch`, `debug`, and `webhook`.
 
+- `plugins.security.audit.enable_standalone` (Static): Enables standalone audit logging for clusters running without fine-grained access control (SSL-only or security-disabled modes). Set this to `true` and also set `plugins.security.audit.type` to activate standalone audit logging. Default is `false`. For more information, see [Standalone audit logging]({{site.url}}{{site.baseurl}}/security/audit-logs/standalone/).
+
+- `plugins.security.audit.config.body_logging_exclusions` (Dynamic): A list of action group names or raw action and path patterns for which request body logging is suppressed. Default is `[]`, which logs all request bodies. For more information, see [Body logging exclusions]({{site.url}}{{site.baseurl}}/security/audit-logs/index/#body-logging-exclusions).
+
+- `plugins.security.audit.config.action_groups.<NAME>` (Static): Defines named groups of action and path patterns for use with `body_logging_exclusions`. Each group is a comma-separated string of transport action patterns, REST paths, or both. Supports wildcards.
+
+- `plugins.security.audit.config.log4j.enable_mdc_routing` (Static): Enables Mapped Diagnostic Context (MDC) routing for the Log4j audit sink. When enabled, audit events set the `audit_category`, `audit_action`, `audit_user`, and `audit_request_type` MDC keys, which Log4j routing appenders can use. Default is `false`.
+
 - `plugins.security.audit.config.http_endpoints` (Static): A list of endpoints for `localhost`.
 
-- `plugins.security.audit.config.index` (Static): The audit log index. The default is `auditlog6`. The index can be static or an index that includes a date so that it rotates on a daily basis, for example, `"'auditlog6-'YYYY.MM.dd"`. In either case, make sure to secure the index properly.
+- `plugins.security.audit.config.index` (Static): The audit log index. The default is the date-rolling pattern `"'security-auditlog-'YYYY.MM.dd"`, which produces a new index daily (for example, `security-auditlog-2023.06.15`). You can also specify a fixed index name instead. In either case, make sure to secure the index properly.
 
 - `plugins.security.audit.config.type` (Static): Specify the audit log type as `auditlog`.
 
@@ -238,6 +246,16 @@ The Security plugin supports the following audit log settings:
 - `opendistro_security.audit.config.disabled_rest_categories` (Dynamic): A list of REST categories to be ignored by the logger. Valid values are `AUTHENTICATED` and `GRANTED_PRIVILEGES`.
 
 - `opendistro_security.audit.config.disabled_transport_categories` (Dynamic): A list of transport layer categories to be ignored by the logger. Valid values are `AUTHENTICATED` and `GRANTED_PRIVILEGES`.
+
+When fine-grained access control (FGAC) is enabled, a `PUT _cluster/settings` request that updates a dynamic audit filter setting or any `plugins.security.audit.compliance.*` setting is rejected unless the caller holds a role listed in `plugins.security.restapi.roles_enabled`. This restriction is not enforced in SSL-only or security-disabled mode. The `plugins.security.audit.config.body_logging_exclusions` and `plugins.security.audit.config.action_groups.<NAME>` settings are exceptions and do not require the elevated role.
+
+The following table describes the audit settings that a caller can read using `GET _cluster/settings` in each mode.
+
+Mode | Audit settings visible in settings responses
+:--- | :---
+SSL-only | Any caller can read the non-secret dynamic configuration under `plugins.security.audit.config.*` and `plugins.security.audit.compliance.*`. Credential-bearing sink settings remain hidden.
+Security disabled | No `plugins.security.audit.*` settings are filtered, so sink credentials and PEM content may be visible.
+FGAC | The entire `plugins.security.audit.*` subtree is filtered for all callers. This filtering is not role based.
 
 ## Hostname verification and DNS lookup settings
 
@@ -439,7 +457,7 @@ plugins.security.audit.type: internal_opensearch
 #
 # external_opensearch settings
 plugins.security.audit.config.http_endpoints: ['localhost:9200','localhost:9201','localhost:9202']
-plugins.security.audit.config.index: "'auditlog6-'2023.06.15"
+plugins.security.audit.config.index: "'security-auditlog-'2023.06.15"
 plugins.security.audit.config.type: auditlog
 plugins.security.audit.config.username: auditloguser
 plugins.security.audit.config.password: auditlogpassword
