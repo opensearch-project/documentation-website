@@ -22,7 +22,7 @@ The `flat` method is best suited for smaller datasets or use cases with restrict
 
 ## Running an exact search using scalar quantization
 
-To perform an exact search using scalar quantization, set the k-NN vector field's `method.name` to `flat` when creating a vector index. Optionally, set `compression_level` to select the number of bits per dimension:`32x` (1-bit), `16x` (2-bit), or `8x` (4-bit). If `compression_level` is not specified, `flat` defaults to 1-bit quantization (`32x`):
+To perform an exact search using scalar quantization, set the k-NN vector field's `method.name` to `flat` when creating a vector index. Optionally, set `compression_level` to select the number of bits per dimension. For `float` fields, valid values are `32x` (1-bit), `16x` (2-bit), and `8x` (4-bit); for `half_float` fields, valid values are `16x` (1-bit) and `1x` (no quantization). If `compression_level` is not specified, `flat` defaults to 1-bit quantization: `32x` for `float` fields and `16x` for `half_float` fields, because the compression factor is measured against the data type's storage size (32 or 16 bits per dimension):
 
 ```json
 PUT /test-index
@@ -49,7 +49,7 @@ PUT /test-index
 ```
 {% include copy-curl.html %}
 
-Scalar quantization is applied only to `float` vectors. If you change the default value of the `data_type` parameter from `float` to `byte` or any other type when mapping a [k-NN vector]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-vector/), then the request is rejected.
+Scalar quantization is applied only to `float` and `half_float` vectors. For `half_float` fields, a `compression_level` of `16x` (the default) applies 1-bit quantization, and `1x` runs an exact search on unquantized 16-bit floating-point (FP16) vectors. If you change the `data_type` parameter to `byte` or any other unsupported type when mapping a [k-NN vector]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-vector/), then the request is rejected.
 {: .warning}
 
 ## Search
