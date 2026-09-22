@@ -193,6 +193,14 @@ The Security plugin supports the following audit log settings:
 
 - `plugins.security.audit.type` (Static): The destination of audit log events. Valid values are `internal_opensearch`, `external_opensearch`, `debug`, and `webhook`.
 
+- `plugins.security.audit.enable_standalone` (Static): Enables standalone audit logging for clusters running without fine-grained access control (SSL-only or security-disabled modes). Set this to `true` and also set `plugins.security.audit.type` to activate standalone audit logging. Default is `false`. For more information, see [Standalone audit logging]({{site.url}}{{site.baseurl}}/security/audit-logs/standalone/).
+
+- `plugins.security.audit.config.body_logging_exclusions` (Dynamic): A list of action group names or raw action and path patterns for which request body logging is suppressed. Default is `[]`, which logs all request bodies. For more information, see [Body logging exclusions]({{site.url}}{{site.baseurl}}/security/audit-logs/index/#body-logging-exclusions).
+
+- `plugins.security.audit.config.action_groups.<NAME>` (Static): Defines named groups of action and path patterns for use with `body_logging_exclusions`. Each group is a comma-separated string of transport action patterns, REST paths, or both. Supports wildcards.
+
+- `plugins.security.audit.config.log4j.enable_mdc_routing` (Static): Enables Mapped Diagnostic Context (MDC) routing for the Log4j audit sink. When enabled, audit events set the `audit_category`, `audit_action`, `audit_user`, and `audit_request_type` MDC keys, which Log4j routing appenders can use. Default is `false`.
+
 - `plugins.security.audit.config.http_endpoints` (Static): A list of endpoints for `localhost`.
 
 - `plugins.security.audit.config.index` (Static): The audit log index. The default is the date-rolling pattern `"'security-auditlog-'YYYY.MM.dd"`, which produces a new index daily (for example, `security-auditlog-2023.06.15`). You can also specify a fixed index name instead. In either case, make sure to secure the index properly.
@@ -210,14 +218,6 @@ The Security plugin supports the following audit log settings:
 - `plugins.security.audit.config.enable_ssl_client_auth` (Static): Enables or disables SSL/TLS client authentication. Default is `false` (disabled).
 
 - `plugins.security.audit.config.cert_alias` (Static): An alias to the certificate used for audit log access.
-
-- `plugins.security.audit.config.body_logging_exclusions` (Dynamic): A list of action group names or raw action/path patterns for which request body logging is suppressed. Default is `[]` (empty, log all bodies). See [Body logging exclusions]({{site.url}}{{site.baseurl}}/security/audit-logs/index/#body-logging-exclusions) for details.
-
-- `plugins.security.audit.config.action_groups.<NAME>` (Static): Defines named groups of action/path patterns for use with `body_logging_exclusions`. Each group is a comma-separated string of transport action patterns and/or REST paths. Supports wildcards.
-
-- `plugins.security.audit.config.log4j.enable_mdc_routing` (Static): Enables MDC (Mapped Diagnostic Context) routing for the Log4j audit sink. When enabled, audit events set MDC keys (`audit_category`, `audit_action`, `audit_user`, `audit_request_type`) that can be used by Log4j routing appenders. Default is `false`.
-
-- `plugins.security.audit.enable_standalone` (Static): Enables standalone audit logging mode for clusters running without fine-grained access control (SSL-only or security-disabled modes). Must be set to `true` alongside `plugins.security.audit.type` to activate standalone audit. Default is `false`.
 
 - `plugins.security.audit.config.pemkey_filepath` (Static): The `/config` relative file path to the Privacy Enhanced Mail (PEM) key used for audit logging.
 
@@ -251,9 +251,15 @@ The Security plugin supports the following audit log settings:
 
 - `opendistro_security.audit.config.disabled_transport_categories` (Dynamic): A list of transport layer categories to be ignored by the logger. Valid values are `AUTHENTICATED` and `GRANTED_PRIVILEGES`.
 
-The dynamic audit filter settings (except `plugins.security.audit.config.body_logging_exclusions`) and all `plugins.security.audit.compliance.*` settings are registered with `Setting.Property.Sensitive`. This property does not redact values from diagnostics or logs; that behavior is controlled by `Setting.Property.Filtered`. When `SecurityFilter` is registered in the request pipeline, a `PUT _cluster/settings` update to one of these keys is rejected unless the caller holds a role listed in `plugins.security.restapi.roles_enabled`. Because `SecurityFilter` is not registered in standalone SSL-only or security-disabled mode, this write restriction is not enforced in either mode. The `body_logging_exclusions` setting is not marked sensitive and does not require the elevated role when the filter is registered.
+When fine-grained access control (FGAC) is enabled, a `PUT _cluster/settings` request that updates a dynamic audit filter setting or any `plugins.security.audit.compliance.*` setting is rejected unless the caller holds a role listed in `plugins.security.restapi.roles_enabled`. This restriction is not enforced in SSL-only or security-disabled mode. The `plugins.security.audit.config.body_logging_exclusions` and `plugins.security.audit.config.action_groups.<NAME>` settings are exceptions and do not require the elevated role.
 
-Read visibility also varies by mode. In SSL-only mode, any caller can read the non-secret dynamic configuration under `plugins.security.audit.config.*` and `plugins.security.audit.compliance.*` with `GET _cluster/settings`; credential-bearing sink settings remain hidden. In security-disabled mode, no `plugins.security.audit.*` settings are filtered, so sink credentials and PEM content may be visible in settings responses. In FGAC mode, the entire `plugins.security.audit.*` subtree is filtered from settings responses for all callers; this filtering is not role-based. The static `plugins.security.audit.config.action_groups.<NAME>` setting is also not marked sensitive.
+The following table describes the audit settings that a caller can read using `GET _cluster/settings` in each mode.
+
+Mode | Audit settings visible in settings responses
+:--- | :---
+SSL-only | Any caller can read the non-secret dynamic configuration under `plugins.security.audit.config.*` and `plugins.security.audit.compliance.*`. Credential-bearing sink settings remain hidden.
+Security disabled | No `plugins.security.audit.*` settings are filtered, so sink credentials and PEM content may be visible.
+FGAC | The entire `plugins.security.audit.*` subtree is filtered for all callers. This filtering is not role based.
 
 ## Hostname verification and DNS lookup settings
 
