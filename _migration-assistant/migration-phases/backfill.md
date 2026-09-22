@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Backfill
-nav_order: 6
+nav_order: 60
 parent: Migration workflows
+has_children: true
 permalink: /migration-assistant/migration-phases/backfill/
 redirect_from:
   - /migration-phases/backfill/
@@ -49,6 +50,9 @@ workflow configure edit
 {% include copy.html %}
 
 Then configure the snapshot migration section for your source, target, and snapshot repository.
+
+While you have the configuration open, set `documentBackfillConfig.failedDocumentStreamS3Bucket` to enable the failed document stream. The stream is off by default, and it must be enabled before the backfill runs in order to record which documents did not reach the target. For more information, see [Tracking and remediating failed documents]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/tracking-failed-documents/).
+{: .tip }
 
 ## Allow list types
 
@@ -171,6 +175,8 @@ console clusters cat-indices
 console clusters curl target /<index>/_count
 ```
 {% include copy.html %}
+
+If the target document count is lower than the source count, individual documents failed to index. For more information, see [Tracking and remediating failed documents]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/tracking-failed-documents/).
 
 For zero-downtime migrations, complete backfill validation before replay begins the final synchronization step.
 
