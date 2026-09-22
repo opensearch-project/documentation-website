@@ -60,7 +60,7 @@ The `compression_level` mapping parameter selects a quantization encoder that re
 | `16x`             | `faiss` and `lucene`                         | 2-bit                            | 1-bit                                 |
 | `32x`             | `faiss` and `lucene`                         | 1-bit                            | Not supported                         |
 
-For example, if a `compression_level` of `32x` is passed for a `float32` index of 768-dimensional vectors, the per-vector memory is reduced from `4 * 768 = 3072` bytes to `3072 / 32 = 846` bytes. Internally, binary quantization (which maps a `float` to a `bit`) may be used to achieve this compression.
+For example, if a `compression_level` of `32x` is passed for a `float32` index of 768-dimensional vectors, the per-vector memory is reduced from `4 * 768 = 3072` bytes to `3072 / 32 = 96` bytes. Internally, binary quantization (which maps a `float` to a `bit`) may be used to achieve this compression.
 
 If you set the `compression_level` parameter, then you cannot specify an `encoder` in the `method` mapping. The `compression_level` parameter is supported only for `float` and [`half_float`](#half-float-vectors) vectors. For `half_float` vectors, the compression level is measured against their 16-bit baseline.
 {: .note}

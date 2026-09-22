@@ -120,7 +120,7 @@ PUT /test-index
 ```
 {% include copy-curl.html %}
 
-Starting with OpenSearch 3.9, 1-bit quantization is also supported for `half_float` vectors. For `half_float` fields, set `compression_level` to `16x`, which is measured against their 16-bit baseline and therefore maps each dimension to a single bit (`half_float` fields do not accept an `encoder` in the `method` mapping).
+To quantize [`half_float` vectors]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-memory-optimized/#half-float-vectors) to 1 bit per dimension, set `compression_level` to `16x` instead of specifying `bits`.
 
 ## 7-bit quantization
 

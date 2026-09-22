@@ -84,8 +84,6 @@ Bits | `compression_level` | Memory reduction compared to 32-bit vectors | Intro
 
 Fewer bits per dimension produce a smaller index at the cost of recall. These bit widths are supported only for the HNSW method; IVF requires 16-bit quantization. 1-bit quantization uses [memory-optimized search]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/memory-optimized-search/).
 
-1-bit quantization is also supported for [`half_float` vectors]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-memory-optimized/#half-float-vectors). Because `half_float` fields do not accept an `encoder` in the `method` mapping, set `compression_level` to `16x` instead, which maps each dimension to a single bit.
-
 The following example enables 2-bit quantization for `float` fields by setting `compression_level` to `16x` in the `knn_vector` mapping. To use 1-bit or 4-bit quantization, set `compression_level` to `32x` or `8x`:
 
 ```json
@@ -147,7 +145,7 @@ PUT /test-index
 ```
 {% include copy-curl.html %}
 
-Starting with OpenSearch 3.9, 1-bit quantization is also supported for `half_float` vectors. For `half_float` fields, set `compression_level` to `16x`, which is measured against their 16-bit baseline and therefore maps each dimension to a single bit (`half_float` fields do not accept an `encoder` in the `method` mapping).
+1-bit quantization is also supported for [`half_float` vectors]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-memory-optimized/#half-float-vectors). Because `half_float` fields do not accept an `encoder` in the `method` mapping, set `compression_level` to `16x` instead. This level is measured against the 16-bit baseline of `half_float` vectors and therefore maps each dimension to a single bit.
 
 ## 16-bit quantization
 
