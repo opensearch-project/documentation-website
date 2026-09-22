@@ -104,7 +104,7 @@ PUT my-vector-index
 ```
 {% include copy-curl.html %}
 
-The `on_disk` mode only works with the `float` and `half_float` data type.
+The `on_disk` mode works only with the `float` and `half_float` data types.
 {: .note}
 
 ## Ingestion

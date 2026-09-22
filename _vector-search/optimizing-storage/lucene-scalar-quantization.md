@@ -56,7 +56,7 @@ PUT /test-index
 ```
 {% include copy-curl.html %}
 
-Lucene scalar quantization is applied only to `float` vectors and, starting with OpenSearch 3.9, to `half_float` vectors, which support 1-bit quantization when `compression_level` is set to `16x`. If you change the `data_type` parameter to `byte` or any other unsupported type when mapping a [k-NN vector]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-vector/), then the request is rejected.
+Lucene scalar quantization is applied only to `float` and `half_float` vectors. [Half-float vectors]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-memory-optimized/#half-float-vectors) do not accept an `encoder` in the `method` mapping; to quantize them to 1 bit per dimension, set `compression_level` to `16x`. If you change the `data_type` parameter to `byte` or any other unsupported type when mapping a [k-NN vector]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-vector/), then the request is rejected.
 {: .warning}
 
 ### SQ parameters

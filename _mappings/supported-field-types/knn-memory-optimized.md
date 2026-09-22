@@ -49,7 +49,7 @@ PUT test-index
 
 ### Compression levels
 
-The `compression_level` mapping parameter selects a quantization encoder that reduces vector memory consumption by the given factor. The following table lists the available `compression_level` values.
+The `compression_level` mapping parameter selects a quantization encoder that reduces vector memory consumption by the given factor. The following table lists the available `compression_level` values and the engines and data types that support them.
 
 | Compression level | Supported engines                            | Supported data types    |
 |:------------------|:---------------------------------------------|:------------------------|
@@ -62,7 +62,7 @@ The `compression_level` mapping parameter selects a quantization encoder that re
 
 For example, if a `compression_level` of `32x` is passed for a `float32` index of 768-dimensional vectors, the per-vector memory is reduced from `4 * 768 = 3072` bytes to `3072 / 32 = 846` bytes. Internally, binary quantization (which maps a `float` to a `bit`) may be used to achieve this compression.
 
-If you set the `compression_level` parameter, then you cannot specify an `encoder` in the `method` mapping. The `compression_level` parameter is supported only for `float` vectors and, starting with OpenSearch 3.9, [`half_float` vectors](#half-float-vectors); `byte` and `binary` vectors do not support it. For `half_float` vectors, the compression level is measured against their 16-bit baseline, so `16x` maps each dimension to a single bit, and `1x` stores the vectors as unquantized 16-bit floating-point values.
+If you set the `compression_level` parameter, then you cannot specify an `encoder` in the `method` mapping. The `compression_level` parameter is supported only for `float` and [`half_float`](#half-float-vectors) vectors. For `half_float` vectors, the compression level is measured against their 16-bit baseline.
 {: .note}
 
 Starting with OpenSearch 3.1, enabling `on_disk` mode with a `1x` compression level activates [memory-optimized search]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/memory-optimized-search/). In this mode, the engine loads data on demand during search instead of loading all data into memory at once.
@@ -171,17 +171,21 @@ Rescoring is not needed if quantization is not used because the scores returned 
 **Introduced 3.9**
 {: .label .label-purple }
 
-By default, k-NN vectors are `float` vectors, in which each dimension is 4 bytes. If you want to reduce memory and storage requirements by half, you can use `half_float` vectors. In a `half_float` vector, each dimension is a 16-bit floating-point (FP16) value in the [-65504.0, 65504.0] range. If any vector value is outside of this range, the request is rejected.
+By default, k-NN vectors are `float` vectors, in which each dimension is 4 bytes. If you want to reduce memory and storage requirements by half, you can use `half_float` vectors. In a `half_float` vector, each dimension is a 16-bit floating-point (FP16) value in the [-65504.0, 65504.0] range. If any vector value is outside this range, the request is rejected.
 
 To use `half_float` vectors, set the `data_type` parameter to `half_float` when creating mappings for an index. You ingest and query `half_float` vectors the same way as `float` vectors; OpenSearch stores them natively in the FP16 format.
 
-Half-float vectors are supported for the `hnsw` method with the `faiss` or `lucene` engine and for [exact search using scalar quantization]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/exact-search-scalar-quantization/) with the `flat` method. All of these configurations support both the `1x` and `16x` compression levels. Half-float vectors are not supported for the `nmslib` engine, the `ivf` method, or [trained models]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-vector/#model-ids).
+Half-float vectors are supported for the `hnsw` method with the `faiss` or `lucene` engine and for [exact search using scalar quantization]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/exact-search-scalar-quantization/) with the `flat` method. Each of these configurations supports the `1x` and `16x` compression levels.
+
+Half-float vectors are not supported for the `nmslib` engine, the `ivf` method, or [trained models]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-vector/#model-ids).
 {: .note}
 
-Because the vectors are already 16-bit, `half_float` fields do not accept an `encoder` in the `method` mapping. To apply quantization, use the `compression_level` mapping parameter instead. Half-float vectors support the following compression levels:
+Because the vectors are already 16-bit, `half_float` fields do not accept an `encoder` in the `method` mapping. To apply quantization, use the `compression_level` mapping parameter instead. The compression level is measured against the 16-bit baseline of `half_float` vectors:
 
-- `1x`: Unquantized FP16 storage (2 bytes per dimension).
-- `16x`: 1-bit scalar quantization. For `half_float` vectors, the compression level is measured against their 16-bit baseline, so `16x` maps each dimension to a single bit.
+- `1x` stores vectors as unquantized FP16 values, using 2 bytes per dimension.
+- `16x` applies 1-bit scalar quantization, mapping each dimension to a single bit.
+
+### Example: HNSW
 
 The following example creates a half-float vector index with the `faiss` engine and `hnsw` algorithm:
 
@@ -215,7 +219,7 @@ PUT test-index
 
 Half-float vectors require half the memory of `float` vectors. The memory required for HNSW can be estimated as `1.1 * (2 * dimension + 8 * m)` bytes/vector, where `m` is the maximum number of bidirectional links created for each element during graph construction.
 
-As an example, assume that you have 1 million half-float vectors with a dimension of 256 and an `m` of 16. The memory requirement can be estimated as follows:
+As an example, assume that you have 1 million half-float vectors with a `dimension` of `256` and an `m` of `16`. The memory requirement can be estimated as follows:
 
 ```r
 1.1 * (2 * 256 + 8 * 16) * 1,000,000 ~= 0.656 GB
