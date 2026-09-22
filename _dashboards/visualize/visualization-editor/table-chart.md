@@ -9,7 +9,7 @@ nav_order: 65
 
 # Tables in the visualization editor
 
-A table displays query results in a tabular format with rows and columns, making it ideal for viewing raw data or summary statistics.
+A table displays query results in rows and columns. Use a table to view raw data or summary statistics.
 
 ## Creating a table
 

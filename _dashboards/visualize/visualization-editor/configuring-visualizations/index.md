@@ -76,14 +76,7 @@ Legends are available in heatmap, pie, scatter, and state timeline charts.
 
 ## Standard options
 
-Standard options control the display formatting for single-value visualizations.
-
-| Setting | Description |
-| --- | --- |
-| **Unit** | The unit of measurement displayed alongside the value. |
-| **Decimals** | The number of decimal places to display. |
-
-Standard options are available in bar gauge, gauge, and metric charts.
+Standard options control how numeric values are formatted in the visualization. For details, see [Standard options]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/configuring-visualizations/standard-options/).
 
 ## Value options
 
