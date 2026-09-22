@@ -4,6 +4,8 @@ title: Functions
 parent: PPL
 nav_order: 1
 has_children: true
+redirect_from:
+  - /sql-and-ppl/ppl/functions/
 ---
 
 # PPL functions
