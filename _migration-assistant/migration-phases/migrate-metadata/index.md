@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Migrate metadata
-nav_order: 5
+nav_order: 50
 parent: Migration workflows
 has_children: true
 has_toc: true

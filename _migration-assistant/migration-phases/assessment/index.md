@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Assessment
-nav_order: 1
+nav_order: 10
 parent: Migration workflows
 has_children: false
 has_toc: false

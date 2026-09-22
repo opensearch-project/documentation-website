@@ -9,7 +9,7 @@ nav_order: 10
 
 # Area charts in the visualization editor
 
-An area chart plots data points connected by lines with the region below filled in, making it ideal for visualizing volume and composition over time. You can stack multiple series to see how each category contributes to the total.
+An area chart plots data points connected by lines and fills the region below each line. Use an area chart to show volume and composition over time. Stack multiple series to see how each category contributes to the total.
 
 ## Creating an area chart
 
@@ -66,13 +66,37 @@ In the **Fields** section, configure the fields displayed on each axis.
 
 In the **Split by** dropdown list, select a field to split the chart into separate elements by value. For more information, see [Split]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/configuring-visualizations/#split).
 
+### Area
+
+The following settings control the area fill, line style, and value display.
+
+| Setting | Description |
+| --- | --- |
+| **Stack** | Controls how multiple series are displayed. **None** overlays the series without stacking. **Stack** adds series values together. **Percentage** stacks series as percentages of the total. |
+| **Fill opacity** | Sets the opacity of the filled area below the line. |
+| **Gradient mode** | Controls the fill gradient. **None** uses a solid fill. **Opacity** fades the fill toward the baseline. **Hue** uses a lighter color toward the baseline. |
+| **Line style** | Controls whether the chart displays lines with points (**Default**), lines only (**Line only**), or points only (**Dots only**). |
+| **Line dash style** | Sets the line pattern to **Solid**, **Dashed**, or **Dotted**. |
+| **Interpolation** | Determines how points are connected. **Straight** draws direct lines between points. **Smooth** applies a curve. **Stepped** creates a staircase pattern. |
+| **Line width** | Sets the thickness of the line in pixels. Supports values in the 1–10 range. |
+| **Show values** | Shows value labels on the chart. |
+| **Show current time marker** | Shows a vertical marker for the current time. This setting is available only when the X-axis uses a date field. |
+
 ### Thresholds
 
 For information about configuring thresholds, see [Thresholds]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/configuring-visualizations/thresholds/).
 
+### Standard options
+
+For information about configuring units, unit suffixes, decimal precision, and minimum and maximum values, see [Standard options]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/configuring-visualizations/standard-options/).
+
 ### Axes
 
 The X-axis and Y-axis share the same configuration options. For more information, see [Axes]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/configuring-visualizations/#axes).
+
+### Legend
+
+For information about configuring the legend, see [Legend]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/configuring-visualizations/#legend).
 
 ### Tooltip
 
