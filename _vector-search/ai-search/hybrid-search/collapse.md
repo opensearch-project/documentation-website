@@ -175,6 +175,69 @@ The response returns the collapsed search results:
 
 By default, collapse keeps the top `size` documents and then deduplicates them by the collapse field. This preserves score parity with the same hybrid query without collapse, but when one group holds several of the top-scoring documents, the deduplicated response contains fewer than `size` groups.
 
+For example, search the `bakery-items` index from the [preceding example](#example), requesting two results:
+
+```json
+GET /bakery-items/_search?search_pipeline=norm-pipeline
+{
+  "size": 2,
+  "query": {
+    "hybrid": {
+      "queries": [
+        {
+          "match": {
+            "item": "Chocolate Cake"
+          }
+        },
+        {
+          "bool": {
+            "must": {
+              "match": {
+                "category": "cakes"
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "collapse": {
+    "field": "item"
+  }
+}
+```
+{% include copy-curl.html %}
+
+The response contains only one result, even though the request asked for two results and two groups exist. Both of the top two documents belong to the `Chocolate Cake` group, so deduplication leaves a single group:
+
+```json
+"hits": {
+    "total": {
+      "value": 5,
+      "relation": "eq"
+    },
+    "max_score": 1.0,
+    "hits": [
+      {
+        "_index": "bakery-items",
+        "_id": "_w1VyqAB-8qXmeJq0uk4",
+        "_score": 1.0,
+        "_source": {
+          "item": "Chocolate Cake",
+          "category": "cakes",
+          "price": 15,
+          "baked_date": "2023-07-01T00:00:00Z"
+        },
+        "fields": {
+          "item": [
+            "Chocolate Cake"
+          ]
+        }
+      }
+    ]
+  }
+```
+
 To return the top `size` distinct groups instead, enable the `index.neural_search.hybrid_collapse_distinct_groups_enabled` setting on the index:
 
 ```json
@@ -185,12 +248,56 @@ PUT /bakery-items/_settings
 ```
 {% include copy-curl.html %}
 
+Running the same search now returns one result for each of the top two distinct groups:
+
+```json
+"hits": {
+    "total": {
+      "value": 5,
+      "relation": "eq"
+    },
+    "max_score": 1.0,
+    "hits": [
+      {
+        "_index": "bakery-items",
+        "_id": "_w1VyqAB-8qXmeJq0uk4",
+        "_score": 1.0,
+        "_source": {
+          "item": "Chocolate Cake",
+          "category": "cakes",
+          "price": 15,
+          "baked_date": "2023-07-01T00:00:00Z"
+        },
+        "fields": {
+          "item": [
+            "Chocolate Cake"
+          ]
+        }
+      },
+      {
+        "_index": "bakery-items",
+        "_id": "AQ1VyqAB-8qXmeJq0uo4",
+        "_score": 0.5,
+        "_source": {
+          "item": "Vanilla Cake",
+          "category": "cakes",
+          "price": 12,
+          "baked_date": "2023-07-02T00:00:00Z"
+        },
+        "fields": {
+          "item": [
+            "Vanilla Cake"
+          ]
+        }
+      }
+    ]
+  }
+```
+
 With the setting enabled, each returned document represents its group: its score reflects the group's best match in each subquery, which can come from a different document in the same group. Because normalization then runs on group representatives rather than on the plain top `size` documents, scores can differ from those returned by the same hybrid query without collapse. The two behaviors are mutually exclusive.
 
-When using this setting, note the following considerations:
-
-- The setting is dynamic and is read on every request, so changing it between pages of a paginated search changes how the pages are constructed.
-- The setting applies at the index level. Avoid mixing indexes with different values for this setting in a single search request because the two modes produce differently constructed results.
+This setting is read on every request, so changing it between pages of a paginated search changes how the pages are constructed. Because the setting applies per index, avoid mixing indexes with different values for this setting in a single search request.
+{: .note}
 
 ## Collapse and sort results
 
