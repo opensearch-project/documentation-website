@@ -294,9 +294,9 @@ Running the same search now returns one result for each of the top two distinct 
   }
 ```
 
-With the setting enabled, each returned document represents its group: its score reflects the group's best match in each subquery, which can come from a different document in the same group. Because normalization then runs on group representatives rather than on the plain top `size` documents, scores can differ from those returned by the same hybrid query without collapse. The two behaviors are mutually exclusive.
+With the setting enabled, each returned document represents its group: its score in each subquery is that subquery's best-ranked score across the group's documents — the highest under the default descending order, the lowest under `sort: [{"_score": "asc"}]` — and it can come from a different document in the same group. Because normalization then runs on group representatives rather than on the plain top `size` documents, scores can differ from those returned by the same hybrid query without collapse. The two behaviors are mutually exclusive.
 
-This setting is read on every request, so changing it between pages of a paginated search changes how the pages are constructed. Because the setting applies per index, avoid mixing indexes with different values for this setting in a single search request.
+This setting is dynamic and is read on every request, so changing it between pages of a paginated search changes how the pages are constructed. Avoid mixing indexes with different values for this setting in a single search request because the two modes produce differently constructed results.
 {: .note}
 
 ## Collapse and sort results
