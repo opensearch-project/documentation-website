@@ -122,7 +122,7 @@ Use the pipeline with the Bulk API as described in [Batch ingestion]({{site.url}
 
 OpenSearch waits for all remote calls created from the original prediction request. If all calls succeed, it combines their outputs in the original input order. If any call fails, the original prediction request fails and doesn't return a partial result.
 
-OpenSearch doesn't retry failed remote calls. Connector retry and backoff settings apply independently to each call. For more information, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/#request-body-fields).
+For configuring retry and backoff settins for failed calls, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/#request-body-fields).
 
 ## Dynamic batching
 
@@ -141,7 +141,7 @@ Dynamic batching settings are stored on the registered model. To apply dynamic b
 
 To use dynamic batching, you must also define at least one [size limit](#choose-the-size-limits). These limits set the maximum size of each batch call. Configure them to allow more than one text per remote call so that multiple requests can be combined.
 
-When traffic is low and neither size limit is reached, the first request waits for the full `dynamic_batching.flush_timeout_ms` value. Setting the value to `10,000`, for example, can add 10 seconds before the model is invoked.
+When traffic is low and neither size limit is reached, the first request waits for the full `dynamic_batching.flush_timeout_ms` value. Setting the value to `10000`, for example, can add 10 seconds before the model is invoked.
 
 ### How dynamic batching works
 
