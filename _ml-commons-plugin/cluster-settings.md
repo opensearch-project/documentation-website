@@ -273,18 +273,17 @@ plugins.ml_commons.jvm_heap_memory_threshold: 85
 - Default value: 85
 - Value range: [0, 100]
 
-## Configure server-side batch queues
+## Configure dynamic batch memory
 
-Use the following dynamic, node-scoped settings to control how much memory [queue-based batching]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/server-side-batch-inference/#queue-based-batching) can use and when empty queues are removed. All model queues on a node share one memory budget.
+Use the following dynamic, node-scoped settings to control how much memory [dynamic batching]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/performance-tuning/#dynamic-batching) can use. All models on a node share a single memory budget.
 
 | Setting | Default | Description |
 |:---|:---|:---|
-| `plugins.ml_commons.batch_queue.memory_fraction` | `0.01` | The fraction of the maximum JVM heap used to calculate the queue memory budget. Valid values are from `0.0` through `0.1`. The calculated value is bounded by `memory_floor` and `memory_ceiling`. |
-| `plugins.ml_commons.batch_queue.memory_floor` | `64mb` | The minimum queue memory budget on each node. |
-| `plugins.ml_commons.batch_queue.memory_ceiling` | `512mb` | The maximum queue memory budget on each node. |
-| `plugins.ml_commons.batch_queue.idle_ttl` | `5m` | The time that an empty model queue must remain idle before it is eligible for removal. Specify a positive time value. |
+| `plugins.ml_commons.dynamic_batching.memory.fraction` | `0.01` | The fraction of the maximum JVM heap used to calculate the dynamic batching memory budget. Valid values are from `0.0` through `0.1`. The calculated value is bounded by `plugins.ml_commons.dynamic_batching.memory.min` and `plugins.ml_commons.dynamic_batching.memory.max`. |
+| `plugins.ml_commons.dynamic_batching.memory.min` | `64mb` | The minimum value for the calculated dynamic batching memory budget on each node. |
+| `plugins.ml_commons.dynamic_batching.memory.max` | `512mb` | The maximum value for the calculated dynamic batching memory budget on each node. This value must be greater than or equal to `plugins.ml_commons.dynamic_batching.memory.min`. |
 
-When the queue memory budget is exhausted, OpenSearch rejects new queue entries. Retry rejected requests after backoff or adjust the memory settings for the workload.
+When the memory budget is exhausted, OpenSearch rejects new queue entries. Retry rejected requests after backoff or adjust the memory settings for the workload.
 
 ## Set a disk free space threshold
 
