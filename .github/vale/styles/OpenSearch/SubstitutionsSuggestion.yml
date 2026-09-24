@@ -29,6 +29,7 @@ swap:
   'deals with': processes or resolves
   'dealing with': processing or resolving
   'due to': because of
+  'expects': requires
   'fall back': revert
   'fall back to': default to
   'falls back': reverts
@@ -53,6 +54,7 @@ swap:
   'handle': manage, process, or resolve
   'handles': manages, processes, or resolves
   'handling': managing, processing, or resolving
+  'holds': stores or contains
   'in flight': in progress or active
   'in-flight': in-progress or active
   'it is recommended': we recommend
@@ -63,6 +65,7 @@ swap:
   'kicks off': starts or initiates
   'kicking off': starting or initiating
   'know about': detect or recognize
+  'knows': determines
   'knows about': detects or recognizes
   'leverage': use
   'life cycle': lifecycle
