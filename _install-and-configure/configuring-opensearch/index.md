@@ -54,7 +54,7 @@ $ export discovery.type=single-node
 bash: export: `discovery.type=single-node': not a valid identifier
 ```
 
-The variables you can export directly are the ones the startup scripts read, such as `OPENSEARCH_JAVA_OPTS` and `OPENSEARCH_PATH_CONF`. To supply any other setting from the environment, either pass it as an `-E` flag or reference the variable from `opensearch.yml` with a `${VAR}` placeholder:
+To supply such settings from the environment, either pass it as along with `-E` flag or introduce custom environment variables that could be referenced from `opensearch.yml` using `${ENV_VAR}` placeholder:
 
 ```yml
 node.name: ${NODE_NAME}
@@ -111,7 +111,7 @@ A setting can be supplied in more than one place. When it is, OpenSearch uses th
 4. Settings in `opensearch.yml`.
 5. The default value of the setting.
 
-Startup flags take precedence over the configuration file because `opensearch.yml` is read first and the `-E` values are applied on top of it. A `${VAR}` placeholder in `opensearch.yml` is resolved from the environment as the file is read, so a value supplied in that way behaves as though it had been written into the file.
+Startup flags take precedence over the configuration file because `opensearch.yml` is read first and the values specified with `-E` flag are applied on top of it. A `${ENV_VAR}` placeholder in `opensearch.yml` is resolved from the environment and substituted with its value.
 
 ## Updating cluster settings using the API
 
