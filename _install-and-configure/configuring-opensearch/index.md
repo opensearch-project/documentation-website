@@ -47,6 +47,21 @@ export OPENSEARCH_PATH_CONF="/etc/opensearch"
 ```
 {% include copy.html %}
 
+Most OpenSearch settings cannot be exported this way. Their names contain dots, and most shells do not accept a dot in a variable name:
+
+```text
+$ export discovery.type=single-node
+bash: export: `discovery.type=single-node': not a valid identifier
+```
+
+To supply such settings from the environment, either pass it as along with `-E` flag or introduce custom environment variables that could be referenced from `opensearch.yml` using `${ENV_VAR}` placeholder:
+
+```yml
+node.name: ${NODE_NAME}
+cluster.name: ${CLUSTER_NAME}
+```
+{% include copy.html %}
+
 <!-- vale off -->
 ### systemd service
 <!-- vale on --> file
@@ -77,6 +92,28 @@ docker run -e "OPENSEARCH_JAVA_OPTS=-Xms2g -Xmx2g" -e "OPENSEARCH_PATH_CONF=/usr
 {% include copy.html %}
 
 
+Docker is the exception to the dot restriction described in [Directly in the shell environment](#directly-in-the-shell-environment). The image's entrypoint reads the container environment and converts any variable whose name looks like a setting, meaning at least two dot-separated lowercase words, plus `processors`, into an `-E` flag:
+
+```bash
+docker run -e "discovery.type=single-node" -e "cluster.name=my-cluster" opensearchproject/opensearch:latest
+```
+{% include copy.html %}
+
+A variable set to an empty value is skipped rather than passed through, so it cannot be used to clear a value set in `opensearch.yml`. A special `[]` value denotes empty list notation where applicable.
+
+## Setting precedence
+
+A setting can be supplied in more than one place. When it is, OpenSearch uses the first value it finds in the following order:
+
+1. Transient cluster settings, applied with the Cluster Settings API.
+2. Persistent cluster settings, applied with the Cluster Settings API.
+3. Settings passed as `-E` flags at startup.
+4. Process environment variables referenced from `opensearch.yml` using a `${ENV_VAR}` placeholder.
+5. Other settings in `opensearch.yml`.
+6. The default value of the setting.
+
+Startup flags take precedence over the configuration file because `opensearch.yml` is read first and the values specified with `-E` flag are applied on top of it. A `${ENV_VAR}` placeholder in `opensearch.yml` is resolved from the process environment while the file is read, so an environment variable supplies the value unless the same setting is also passed with the `-E` flag.
+
 ## Updating cluster settings using the API
 
 The first step in changing a setting is to view the current settings by sending the following request:
@@ -95,12 +132,7 @@ GET _cluster/settings
 
 Using the Cluster Settings API, you can update dynamic cluster settings as either persistent or transient. Persistent settings are written to the cluster state and persist after a cluster restart. After a restart, OpenSearch clears transient settings. 
 
-If you specify the same setting in multiple places, OpenSearch uses the following precedence:
-
-1. Transient settings
-2. Persistent settings
-3. Settings from `opensearch.yml`
-4. Default settings
+If you specify the same setting in more than one place, see [Setting precedence](#setting-precedence) for the order in which OpenSearch uses the values.
 
 To change a setting, use the [Cluster Settings API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/) and specify the new value as either persistent or transient. This example shows the flat settings form:
 
