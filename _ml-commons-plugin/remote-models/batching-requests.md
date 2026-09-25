@@ -23,15 +23,13 @@ You configure both techniques in the `batch_inference_config` parameter when you
 
 These techniques work only for externally hosted models whose [connector]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/) accepts text-document (`text_docs`) input and produces one result for each input string in the same order. A model configured with the `batch_inference_config` parameter rejects prediction requests that use another input type.
 
-For direct [Predict API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/predict/) calls to an externally hosted model, requests can be sent in a batch only if their endpoints, including `{algorithm_name}` and `{model_id}` and all request body fields except `text_docs` are identical.
-
 ## Splitting large prediction requests
 
 Use request splitting when the input strings in one prediction request can exceed the model endpoint's limit on the number or combined size of input strings. This pattern is common during bulk ingestion because an [ingest processor]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/index-processors/) can send many documents in one prediction request.
 
 ### Choosing the size limits
 
-During [model registration]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/register-model/), provide the `batch_inference_config` parameter and set `max_items_per_request`, `max_bytes_per_request`, or both. Use the [OpenSearch-provided connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/supported-connectors/) to identify the provider and exact model used by the connector. Obtain the limits from the provider's official documentation for the exact model and version, or from the model server configuration for a custom endpoint.
+Set `max_items_per_request`, `max_bytes_per_request`, or both. Use the [OpenSearch-provided connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/supported-connectors/) to identify the provider and exact model used by the connector. Obtain the limits from the provider's official documentation for the exact model and version, or from the model server configuration for a custom endpoint.
 
 The `max_items_per_request` parameter limits the number of input strings in each call to the model, and `max_bytes_per_request` limits their combined size in bytes. OpenSearch measures the size of each input string as its UTF-8 byte length. The byte limit counts only the input strings. The request sent to the model also contains the other fields defined in the connector's `request_body` template, so set `max_bytes_per_request` lower than the model's actual limit to leave room for them.
 
@@ -114,19 +112,19 @@ Use the pipeline with the Bulk API as described in [Batch ingestion]({{site.url}
 
 ## Dynamically batching small prediction requests
 
-Dynamic batching is useful when many small prediction requests for the same model arrive close together. This pattern is common during search because each [neural query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/neural/) typically produces a prediction request containing one input string, the query text. Dynamic batching briefly queues these requests and sends them to the model as a single batch.
+Dynamic batching is useful when many small prediction requests for the same model arrive close together. This pattern is common during search because each [neural query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/neural/) typically produces a prediction request containing one input string, the query text.
 
 To apply dynamic batching to search independently from ingestion, register separate model IDs for the two workloads and enable dynamic batching only on the search model.
 
 To enable dynamic batching, set `dynamic_batching.enabled` to `true`. You must also set `max_items_per_request`, `max_bytes_per_request`, or both. These limits set the maximum size of each batch call, so configure them to allow more than one input string per call to the model. For more information, see [Choosing the size limits](#choosing-the-size-limits).
 
-The `dynamic_batching.flush_timeout_ms` parameter sets the maximum time that the first request waits for additional requests. When traffic is low and neither size limit is reached, the first request waits for the full `dynamic_batching.flush_timeout_ms` value. Setting the value to `10000`, for example, can add 10 seconds before the model is invoked.
-
 OpenSearch queues each prediction request on the node that processes it and invokes the model in batch when any of the following conditions is met:
 
 - The accumulated number of input strings reaches the configured `max_items_per_request` limit.
 - The accumulated size of the input strings, in bytes, reaches the configured `max_bytes_per_request` limit.
-- The time elapsed since the first request was received reaches `flush_timeout_ms`.
+- The time elapsed since the first request was received reaches `dynamic_batching.flush_timeout_ms`.
+
+When traffic is low and neither size limit is reached, the first request waits for the full `dynamic_batching.flush_timeout_ms` value. Setting the value to `10000`, for example, can add 10 seconds before the model is invoked.
 
 ### Batching scope and resource usage
 
@@ -134,13 +132,13 @@ Each batch belongs to one model ID on one node:
 
 - Requests that use different model IDs don't share a batch, even when both models reference the same connector.
 - Requests for the same model that are routed to different nodes enter different batches.
-- Requests for the same model and node share a batch. Within that batch, OpenSearch groups requests whose prediction input fields are all identical except the field the model supports for batching. Each group is sent as a separate batch request to the model.
+- Requests for the same model and node share a batch. Within that batch, OpenSearch groups requests whose prediction input fields are all identical except `text_docs`. For direct [Predict API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/predict/) calls, the endpoint, including `{algorithm_name}` and `{model_id}`, must also be identical. Each group is sent as a separate batch request to the model.
 
 All models on a node share the memory available for queued requests. A batch retains memory while it waits for additional requests and while its call to the model is in progress. If this memory is exhausted, OpenSearch rejects new requests before calling the model endpoint. For information about the memory settings, see [Dynamic batching memory settings]({{site.url}}{{site.baseurl}}/ml-commons-plugin/cluster-settings/#dynamic-batching-memory-settings).
 
 ### Response routing
 
-OpenSearch routes each output to the request and position that supplied the corresponding input. After connector response processing, each call to the model must produce one result for each input string. A result-count mismatch fails the affected requests because OpenSearch cannot route the outputs to their callers.
+OpenSearch routes each output to the request and position that supplied the corresponding input. If a call to the model returns a different number of results than the number of input strings it contained, OpenSearch can't route the outputs, and the affected requests fail.
 
 ### Configuring dynamic batching for search
 
@@ -168,7 +166,7 @@ POST /_plugins/_ml/models/_register?deploy=true
 ```
 {% include copy-curl.html %}
 
-The registration request returns a task ID and a separate model ID for search. A request can wait up to `flush_timeout_ms`, but the model might be invoked earlier if the accumulated input strings reach a count of 96 or a combined size of 4,000,000 UTF-8 bytes.
+The registration request returns a task ID and a separate model ID for search.
 
 #### Step 2: Use the model to generate query embeddings
 
@@ -192,5 +190,6 @@ GET /my-index/_search
 
 ## Related documentation
 
-- [The `batch_inference_config` parameter]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/register-model/#the-batch_inference_config-parameter)
-- [ML cluster settings: Dynamic batching memory settings]({{site.url}}{{site.baseurl}}/ml-commons-plugin/cluster-settings/#dynamic-batching-memory-settings)
+- [Sparse encoding processor]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/sparse-encoding/)
+- [Neural sparse query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/neural-sparse/)
+- [Semantic search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/semantic-search/)
