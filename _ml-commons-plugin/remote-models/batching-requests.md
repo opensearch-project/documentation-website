@@ -21,7 +21,7 @@ Both techniques are optional and disabled by default, and both operate on input 
 
 You configure both techniques in the `batch_inference_config` parameter when you register the model. For field descriptions and default values, see [The `batch_inference_config` parameter]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/register-model/#the-batch_inference_config-parameter).
 
-These techniques work only for externally hosted models whose [connector]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/) accepts text-document (`text_docs`) input and produces one result for each input string in the same order. A model configured with the `batch_inference_config` parameter rejects prediction requests that use another input type.
+These techniques work only for externally hosted models whose [connector]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/) accepts text document (`text_docs`) input and produces one result for each input string in the same order. A model configured with the `batch_inference_config` parameter rejects prediction requests that use another input type.
 
 ## Splitting large prediction requests
 
