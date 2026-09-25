@@ -108,10 +108,11 @@ A setting can be supplied in more than one place. When it is, OpenSearch uses th
 1. Transient cluster settings, applied with the Cluster Settings API.
 2. Persistent cluster settings, applied with the Cluster Settings API.
 3. Settings passed as `-E` flags at startup.
-4. Settings in `opensearch.yml`.
-5. The default value of the setting.
+4. Process environment variables referenced from `opensearch.yml` using a `${ENV_VAR}` placeholder.
+5. Other settings in `opensearch.yml`.
+6. The default value of the setting.
 
-Startup flags take precedence over the configuration file because `opensearch.yml` is read first and the values specified with `-E` flag are applied on top of it. A `${ENV_VAR}` placeholder in `opensearch.yml` is resolved from the environment and substituted with its value.
+Startup flags take precedence over the configuration file because `opensearch.yml` is read first and the values specified with `-E` flag are applied on top of it. A `${ENV_VAR}` placeholder in `opensearch.yml` is resolved from the process environment while the file is read, so an environment variable supplies the value unless the same setting is also passed with the `-E` flag.
 
 ## Updating cluster settings using the API
 
