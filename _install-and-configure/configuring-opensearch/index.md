@@ -99,7 +99,7 @@ docker run -e "discovery.type=single-node" -e "cluster.name=my-cluster" opensear
 ```
 {% include copy.html %}
 
-A variable set to an empty value is skipped rather than passed through, so it cannot be used to clear a value set in `opensearch.yml`. An empty list is the exception: `[]` is not an empty value, so `-e "node.roles=[]"` is turned into `-Enode.roles=[]` and does set the roles to an empty list, as suggested in [opensearch-project/OpenSearch#10625](https://github.com/opensearch-project/OpenSearch/issues/10625).
+A variable set to an empty value is skipped rather than passed through, so it cannot be used to clear a value set in `opensearch.yml`. A special `[]` value denotes empty list notation where applicable.
 
 ## Setting precedence
 
