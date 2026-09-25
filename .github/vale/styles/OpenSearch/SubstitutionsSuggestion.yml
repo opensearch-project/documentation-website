@@ -8,6 +8,8 @@ swap:
   'app server': application server
   'are worth': we recommend (reword the sentence)
   'as well as': and
+  'break': fail or stop working
+  'breaks': fails or stops working
   'bring up': start or launch
   'brings up': starts or launches
   'bringing up': starting or launching
@@ -25,6 +27,9 @@ swap:
   'cleans up': removes or normalizes
   'cleaning up': removing or normalizing
   'cleaned up': removed or normalized
+  'come back': return
+  'comes back': returns
+  'coming back': returning
   'come from': are read from, are taken from, or are supplied by
   'comes from': is read from, is taken from, or is supplied by
   'coming from': read from, taken from, or supplied by
@@ -50,6 +55,10 @@ swap:
   'fleshing out': elaborating or defining
   'from scratch': manually, from the beginning, or without a template
   'get': receive, obtain, or retrieve
+  'get back': receive
+  'gets back': receives
+  'get right': configure correctly
+  'gets right': configures correctly
   'gets': receives, returns, or retrieves
   'getting': retrieving or obtaining
   'grow': increase
@@ -73,6 +82,14 @@ swap:
   'know about': detect or recognize
   'knows': determines
   'knows about': detects or recognizes
+  'land': become available, be released, or be routed to
+  'lands': becomes available, is released, or is routed to
+  'landed': was introduced, was released, or became available
+  'landing': introducing, releasing, or routing to
+  'leave out': exclude or omit
+  'leaves out': excludes or omits
+  'leaving out': excluding or omitting
+  'left out': excluded or omitted
   'leverage': use
   'life cycle': lifecycle
   'live in': are located in
@@ -147,6 +164,8 @@ swap:
   'splitting up': dividing or partitioning
   'spot': detect or identify
   'start here': getting started
+  'stays put': is preserved or remains unchanged
+  'stay put': are preserved or remain unchanged
   'stitching together': chaining or combining
   'surface': return, report, display, or expose
   'surfaces': returns, reports, displays, or exposes
@@ -166,6 +185,9 @@ swap:
   'think': evaluate or determine
   'thinks': evaluates or determines
   'thinking': evaluating or determining
+  'trip': trigger or raise
+  'trips': triggers or raises
+  'tripping': triggering or raising
   'under the hood': internally
   'walks you through': describes or explains
   'wants': requires or expects

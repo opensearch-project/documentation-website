@@ -56,7 +56,7 @@ PUT /test-index
 ```
 {% include copy-curl.html %}
 
-Lucene scalar quantization is applied only to `float` vectors. If you change the default value of the `data_type` parameter from `float` to `byte` or any other type when mapping a [k-NN vector]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-vector/), then the request is rejected.
+Lucene scalar quantization is applied only to `float` and `half_float` vectors. [Half-float vectors]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-memory-optimized/#half-float-vectors) do not accept an `encoder` in the `method` mapping; to quantize them to 1 bit per dimension, set `compression_level` to `16x`. If you change the `data_type` parameter to `byte` or any other unsupported type when mapping a [k-NN vector]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-vector/), then the request is rejected.
 {: .warning}
 
 ### SQ parameters
@@ -83,7 +83,7 @@ Bits | Memory reduction compared to 32-bit vectors | Introduced
 
 Fewer bits per dimension produce a smaller index at the cost of recall. None of these variants support the `confidence_interval` parameter; specifying it causes the request to be rejected.
 
-The following example creates an index that quantizes each vector dimension to 2 bits. To use 1-bit or 4-bit quantization, set `bits` to `1` or `4`:
+The following example creates an index that quantizes each `float` vector dimension to 2 bits. To use 1-bit or 4-bit quantization, set `bits` to `1` or `4`:
 
 ```json
 PUT /test-index
@@ -119,6 +119,8 @@ PUT /test-index
 }
 ```
 {% include copy-curl.html %}
+
+To quantize [`half_float` vectors]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-memory-optimized/#half-float-vectors) to 1 bit per dimension, set `compression_level` to `16x` instead of specifying `bits`.
 
 ## 7-bit quantization
 
