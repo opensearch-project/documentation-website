@@ -18,6 +18,7 @@ The `collapse` parameter is compatible with other hybrid query search options, s
 When using `collapse` in a hybrid query, note the following considerations:
 
 - The [`index.neural_search.hybrid_collapse_docs_per_group_per_subquery`]({{site.url}}{{site.baseurl}}/vector-search/settings/#hybrid-collapse-docs-per-group) setting is deprecated and has no effect. If this setting exists in your index configuration, you can safely remove it. Search results are entirely controlled by the `size` parameter in the search request.
+- By default, collapse deduplicates the top `size` documents, so the response can contain fewer than `size` groups when one group holds several of the top-scoring documents. To return exactly `size` distinct groups, see [Returning distinct groups](#returning-distinct-groups).
 - Aggregations run on pre-collapsed results, not the final output.
 - Pagination behavior changes: Because `collapse` reduces the total number of results, it can affect how results are distributed across pages. To retrieve more results, consider increasing the pagination depth.
 - Results may differ from those returned by the [`collapse` response processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/collapse-processor/), which applies collapse logic after the query is executed.
@@ -167,6 +168,136 @@ The response returns the collapsed search results:
     ]
   }
 ```
+
+## Returning distinct groups
+**Introduced 3.10**
+{: .label .label-purple }
+
+By default, collapse keeps the top `size` documents and then deduplicates them by the collapse field. This preserves score parity with the same hybrid query without collapse, but when one group holds several of the top-scoring documents, the deduplicated response contains fewer than `size` groups.
+
+For example, search the `bakery-items` index from the [preceding example](#example), requesting two results:
+
+```json
+GET /bakery-items/_search?search_pipeline=norm-pipeline
+{
+  "size": 2,
+  "query": {
+    "hybrid": {
+      "queries": [
+        {
+          "match": {
+            "item": "Chocolate Cake"
+          }
+        },
+        {
+          "bool": {
+            "must": {
+              "match": {
+                "category": "cakes"
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "collapse": {
+    "field": "item"
+  }
+}
+```
+{% include copy-curl.html %}
+
+The response contains only one result, even though the request asked for two results and two groups exist. Both of the top two documents belong to the `Chocolate Cake` group, so deduplication leaves a single group:
+
+```json
+"hits": {
+    "total": {
+      "value": 5,
+      "relation": "eq"
+    },
+    "max_score": 1.0,
+    "hits": [
+      {
+        "_index": "bakery-items",
+        "_id": "_w1VyqAB-8qXmeJq0uk4",
+        "_score": 1.0,
+        "_source": {
+          "item": "Chocolate Cake",
+          "category": "cakes",
+          "price": 15,
+          "baked_date": "2023-07-01T00:00:00Z"
+        },
+        "fields": {
+          "item": [
+            "Chocolate Cake"
+          ]
+        }
+      }
+    ]
+  }
+```
+
+To return the top `size` distinct groups instead, enable the `index.neural_search.hybrid_collapse_distinct_groups_enabled` setting on the index:
+
+```json
+PUT /bakery-items/_settings
+{
+  "index.neural_search.hybrid_collapse_distinct_groups_enabled": true
+}
+```
+{% include copy-curl.html %}
+
+Running the same search now returns one result for each of the top two distinct groups:
+
+```json
+"hits": {
+    "total": {
+      "value": 5,
+      "relation": "eq"
+    },
+    "max_score": 1.0,
+    "hits": [
+      {
+        "_index": "bakery-items",
+        "_id": "_w1VyqAB-8qXmeJq0uk4",
+        "_score": 1.0,
+        "_source": {
+          "item": "Chocolate Cake",
+          "category": "cakes",
+          "price": 15,
+          "baked_date": "2023-07-01T00:00:00Z"
+        },
+        "fields": {
+          "item": [
+            "Chocolate Cake"
+          ]
+        }
+      },
+      {
+        "_index": "bakery-items",
+        "_id": "AQ1VyqAB-8qXmeJq0uo4",
+        "_score": 0.5,
+        "_source": {
+          "item": "Vanilla Cake",
+          "category": "cakes",
+          "price": 12,
+          "baked_date": "2023-07-02T00:00:00Z"
+        },
+        "fields": {
+          "item": [
+            "Vanilla Cake"
+          ]
+        }
+      }
+    ]
+  }
+```
+
+With the setting enabled, each returned document represents its group: its score in each subquery is that subquery's best-ranked score across the group's documents — the highest under the default descending order, the lowest under `sort: [{"_score": "asc"}]` — and it can come from a different document in the same group. Because normalization then runs on group representatives rather than on the plain top `size` documents, scores can differ from those returned by the same hybrid query without collapse. The two behaviors are mutually exclusive.
+
+This setting is dynamic and is read on every request, so changing it between pages of a paginated search changes how the pages are constructed. Avoid mixing indexes with different values for this setting in a single search request because the two modes produce differently constructed results.
+{: .note}
 
 ## Collapse and sort results
 
