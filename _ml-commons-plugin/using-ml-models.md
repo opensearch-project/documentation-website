@@ -29,7 +29,7 @@ To integrate machine learning (ML) models into your OpenSearch cluster, you can 
 
 {% include cards.html cards=page.models %}
 
-For production environments, run local models on dedicated ML nodes rather than data nodes. For more information, see [Run tasks and models on ML nodes only]({{site.url}}{{site.baseurl}}/ml-commons-plugin/cluster-settings/#run-tasks-and-models-on-ml-nodes-only).
+For production environments, run local models on dedicated ML nodes rather than data nodes. For more information, see [Node selection settings]({{site.url}}{{site.baseurl}}/ml-commons-plugin/cluster-settings/#node-selection-settings).
 {: .important}
 
 Running local models on the CentOS 7 operating system is not supported. Moreover, not all local models can run on all hardware and operating systems.
