@@ -70,7 +70,7 @@ Request field | Description
 `location` | The file system directory for snapshots, such as a mounted directory from a file server or a Samba share. Must be accessible by all nodes. Required.
 `chunk_size` | Breaks large files into chunks during snapshot operations (e.g. `64mb`, `1gb`), which is important for cloud storage providers and far less important for shared file systems. Default is `null` (unlimited). Optional.
 `compress` | Whether to compress metadata files. This setting does not affect data files, which might already be compressed, depending on your index settings. Default is `false`. Optional.
-`max_restore_bytes_per_sec` | The maximum rate at which snapshots restore. Default is 40 MB per second (`40m`). Optional.
+`max_restore_bytes_per_sec` | The maximum rate at which snapshots restore. Default is `0` (unlimited). Restores are also limited by `indices.recovery.max_bytes_per_sec`, which defaults to `40mb`. Optional.
 `max_snapshot_bytes_per_sec` | The maximum rate at which snapshots take. Default is 40 MB per second (`40m`). Optional.
 `remote_store_index_shallow_copy` | Determines whether the snapshot of the remote store indexes are captured as a shallow copy. Default is `false`.
 `shallow_snapshot_v2` | Determines whether the snapshots of the remote store indexes are captured as a [shallow copy v2]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/snapshot-interoperability/#shallow-snapshot-v2). Default is `false`.
@@ -93,7 +93,7 @@ Request field | Description
 | `client` | When specifying client settings (for example, `s3.client.default.access_key`), you can use a string other than `default` (for example, `s3.client.backup-role.access_key`). If you used an alternate name, change this value to match. Default and recommended value is `default`. Optional. |
 | `compress` | Whether to compress metadata files. This setting does not affect data files, which might already be compressed, depending on your index settings. Default is `false`. Optional. |
 | `disable_chunked_encoding` | Disables chunked encoding for compatibility with some storage services. Default is `false`. Optional. |
-| `max_restore_bytes_per_sec` | The maximum rate at which snapshots restore. Default is 40 MB per second (`40m`). Optional. |
+| `max_restore_bytes_per_sec` | The maximum rate at which snapshots restore. Default is `0` (unlimited). Restores are also limited by `indices.recovery.max_bytes_per_sec`, which defaults to `40mb`. Optional. |
 | `max_snapshot_bytes_per_sec` | The maximum rate at which snapshots are taken. Default is 40 MB per second (`40m`). Optional. |
 | `readonly` | Whether the repository is read-only. Useful when migrating from one cluster (`"readonly": false` when registering) to another cluster (`"readonly": true` when registering). Optional. |
 | `remote_store_index_shallow_copy` | Determines whether the snapshot of the remote store indexes is captured as a shallow copy. Default is `false`.
