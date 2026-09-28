@@ -163,7 +163,6 @@ OpenSearch supports the following experimental HTTP settings:
     - Linux/Aarch64
     - Linux/x86_64
     - OSX/Aarch64
-    - OSX/x86_64
     - Windows/x86_64
 
 ## Advanced transport settings
