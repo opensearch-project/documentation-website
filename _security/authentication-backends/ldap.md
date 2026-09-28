@@ -119,17 +119,15 @@ You can configure more than one server here. If the Security plugin cannot conne
 
 ### LDAP referrals
 
-An LDAP referral directs a client to another directory location to continue a lookup. By default, the Security plugin follows referrals during LDAP searches and lookups (`follow_referrals: true`). To disable this behavior, set `follow_referrals` to `false`:
+An LDAP referral directs a client to another directory location to continue a lookup. By default, the Security plugin follows referrals during LDAP searches and lookups. To disable this behavior, set `follow_referrals` to `false`:
 
 ```yml
 config:
   follow_referrals: false
-```
 
 Add this setting to the LDAP `authentication_backend.config` section under `authc` and the LDAP `authorization_backend.config` section under `authz`, as needed. Each backend reads its own setting. To disable referral following for both authentication and authorization, configure both sections.
 
 When referral following is disabled, users or roles available only through a referral might not be found. This setting does not disable failover between the servers listed in `hosts`.
-
 
 ### Timeouts
 
