@@ -102,7 +102,7 @@ The following example `read_only` action has a timeout period of one hour. The p
 ]
 ```
 
-For a list of available unit types, see [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/).
+For a list of available unit types, see [Supported units]({{site.url}}{{site.baseurl}}/api-reference/units/).
 
 ## Transitions
 
@@ -135,7 +135,7 @@ Parameter | Description | Type | Required
 `cron.cron.expression` | The `cron` expression that triggers the transition. For the syntax, see [Cron expressions]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#cron-expressions). | String | Yes
 `cron.cron.timezone` | The time zone for the triggering `cron` expression triggers the transition. | String | Yes
 
-All time-based values (`min_index_age`, `min_rollover_age`, `min_state_age`) use [standard OpenSearch time units]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#time-units).
+All time-based values (`min_index_age`, `min_rollover_age`, `min_state_age`) use [standard OpenSearch time units]({{site.url}}{{site.baseurl}}/api-reference/units/#time-units).
 {: .note}
 
 
