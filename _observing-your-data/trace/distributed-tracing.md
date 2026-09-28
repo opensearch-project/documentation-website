@@ -6,6 +6,7 @@ nav_order: 65
 ---
 
 # Distributed tracing
+
 This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/6750).    
 {: .warning}
 
@@ -156,21 +157,20 @@ Currently, the distributed tracing feature generates traces and spans for HTTP r
     - `LoggingSpanExporter`: Exports spans to a log file, generating a separate file in the logs directory `_otel_traces.log`. Default is `telemetry.otel.tracer.span.exporter.class=io.opentelemetry.exporter.logging.LoggingSpanExporter`.
     - `OtlpGrpcSpanExporter`: Exports spans through gRPC. To use this exporter, you need to install the `otel-collector` on the node. By default, it writes to the http://localhost:4317/ endpoint. To use this exporter, set the following static setting: `telemetry.otel.tracer.span.exporter.class=io.opentelemetry.exporter.otlp.trace.OtlpGrpcSpanExporter`.
 
-### Service name
-
+### Identifying traces from a specific cluster
 **Introduced 3.10**
 {: .label .label-purple }
 
-Spans are exported with the OpenTelemetry resource attribute `service.name`, which most tracing backends use as the primary dimension for grouping and filtering traces. By default, `service.name` is set to `OpenSearch`, so when several clusters export to the same backend, their traces cannot be distinguished from one another.
+Spans include the OpenTelemetry resource attribute `service.name`, which most tracing backends use as the primary dimension for grouping and filtering traces. By default, `service.name` is set to `OpenSearch`, so when several clusters export to the same backend, their traces cannot be distinguished from one another.
 
-To identify a cluster's traces, set the `telemetry.otel.service.name` static setting in the `opensearch.yml` file:
+To identify traces from a specific cluster, configure the `telemetry.otel.service.name` static setting in the `opensearch.yml` file:
 
 ```yaml
 telemetry.otel.service.name: my-service
 ```
 {% include copy.html %}
 
-Because this is a static setting, it is applied when the node starts and cannot be updated on a running cluster. Empty and whitespace-only values are rejected at startup. If the setting is not configured, spans continue to be exported with `service.name` set to `OpenSearch`.
+Because this is a static setting, it is applied when the node starts and cannot be updated on a running cluster. If the setting is not configured, spans continue to be exported with `service.name` set to `OpenSearch`.
 
 ### Sampling
 
