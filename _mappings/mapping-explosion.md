@@ -35,7 +35,7 @@ PUT /my-index/_settings
 ```
 {% include copy-curl.html %}
 
-The following table lists all available mapping limit settings. All settings are dynamic. For more information, see [Dynamic settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/#dynamic-settings).
+The following table lists all available mapping limit settings. All settings are dynamic. For more information, see [Updating a dynamic index setting]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/#updating-a-dynamic-index-setting).
 
 | Setting | Default | Valid values | Description |
 |:--- |:--- |:--- |:--- |:--- |

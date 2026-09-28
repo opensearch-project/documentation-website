@@ -2,7 +2,7 @@
 layout: default
 title: Availability and recovery settings
 parent: Configuring OpenSearch
-nav_order: 80
+nav_order: 100
 ---
 
 # Availability and recovery settings
@@ -19,7 +19,7 @@ Availability and recovery settings include settings for the following:
 - [Segment replication](#segment-replication-settings)
 - [Cross-cluster replication](#cross-cluster-replication-settings)
 
-To learn more about static and dynamic settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
+To learn how to apply these settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
 
 ## General recovery settings
 

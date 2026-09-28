@@ -2,14 +2,14 @@
 layout: default
 title: Admission control settings
 parent: Configuring OpenSearch
-nav_order: 105
+nav_order: 130
 ---
 
 # Admission control settings
 
 OpenSearch provides admission control settings to help prevent cluster overload by limiting resource usage for different types of operations. Admission control monitors CPU and I/O usage and can reject requests when resource utilization exceeds configured thresholds.
 
-To learn more about static and dynamic settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
+To learn how to apply these settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
 
 ## Transport layer settings
 

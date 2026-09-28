@@ -32,7 +32,7 @@ Setting | Static/Dynamic | Default | Description
 
 ## Index settings
 
-The following table lists all available index-level k-NN settings. For information about updating these settings, see [Index-level index settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/#index-level-index-settings).
+The following table lists all available index-level k-NN settings. For information about updating these settings, see [Index settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/).
 
 Several parameters defined in the settings are currently in the deprecation process. Those parameters should be set in the mapping instead of in the index settings. Parameters set in the mapping will override the parameters set in the index settings. Setting the parameters in the mapping allows an index to have multiple `knn_vector` fields with different parameters.
 
