@@ -15,7 +15,7 @@ OpenSearch supports building vector indexes using a GPU-accelerated remote index
 
 The remote index build service supports [Faiss]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-methods-engines/#faiss-engine) indexes with the `hnsw` method and the default 32-bit floating-point (`FP32`) vectors.
 
-As of OpenSearch 3.2, the `hnsw` method with [Faiss]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-methods-engines/#faiss-engine) supports 16-bit floating-point (`FP16`), byte, and binary vectors.
+As of OpenSearch 3.2, the `hnsw` method with [Faiss]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-methods-engines/#faiss-engine) supports 16-bit floating-point (`FP16`), byte, and binary vectors. Vectors quantized using the [`bf16` encoder type]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/faiss-scalar-quantization/#the-bf16-encoder) are not supported, and indexes using that encoder are always built locally.
 With the `hnsw` method and the [Faiss]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-methods-engines/#faiss-engine) engine, all compression levels (`2x`, `8x`, `16x`, and `32x`) are supported for remote indexes.
 
 As of OpenSearch 3.9, the `hnsw` method with [Faiss]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-methods-engines/#faiss-engine) also supports [`half_float` vectors]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-memory-optimized/#half-float-vectors) at the `1x` and `16x` compression levels.
@@ -26,15 +26,19 @@ Before configuring the remote index build settings, ensure you fulfill the follo
 
 ### Step 1: Enable the remote index build service
 
-Enable the remote index build service for both the cluster and the chosen index by configuring the following settings. 
+OpenSearch builds an index remotely only when both the cluster-level `knn.remote_index_build.enabled` setting and the index-level `index.knn.remote_index_build.enabled` setting are `true`. The cluster-level setting is `false` by default, so enable it for the cluster:
 
-| Setting                                | Static/Dynamic | Default | Description                                           |
-|:---------------------------------------|:---------------|:--------|:------------------------------------------------------|
-| `knn.remote_index_build.enabled`       | Dynamic        | `false` | Enables remote vector index building for the cluster. |
-| `index.knn.remote_index_build.enabled` | Dynamic        | `true`  | Enables remote index building for the index. Takes effect only if `knn.remote_index_build.enabled` is set to `true`.         |
+```json
+PUT /_cluster/settings
+{
+  "persistent": {
+    "knn.remote_index_build.enabled": true
+  }
+}
+```
+{% include copy-curl.html %}
 
-The remote vector index builder for an index is enabled only when both the cluster-level `knn.remote_index_build.enabled` setting and the `index.knn.remote_index_build.enabled` index-level setting are set to `true`.
-{: .note}
+The index-level setting is `true` by default, so set it to `false` only to exclude an individual index from remote index building. For descriptions of both settings, see [Remote index build settings]({{site.url}}{{site.baseurl}}/vector-search/settings/#remote-index-build-settings).
 
 ### Step 2: Create and register the remote vector repository
 
