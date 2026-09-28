@@ -27,12 +27,12 @@ GET _list/indices/{index}
 
 Parameter | Type | Description
 :--- | :--- | :---
-`bytes` | Byte size | Specifies the units for the byte size, for example, `7kb` or `6gb`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/).
+`bytes` | Byte size | Specifies the units for the byte size, for example, `7kb` or `6gb`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/api-reference/units/).
 `health` | String | Limits indexes based on their health status. Supported values are `green`, `yellow`, and `red`.
 `include_unloaded_segments` | Boolean | Whether to include information from segments not loaded into memory. Default is `false`.
 `cluster_manager_timeout` | Time | The amount of time to wait for a connection to the cluster manager node. Default is `30s`.
 `pri` | Boolean | Whether to return information only from the primary shards. Default is `false`.
-`time` | Time | Specifies the time units, for example, `5d` or `7h`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/).
+`time` | Time | Specifies the time units, for example, `5d` or `7h`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/api-reference/units/).
 `expand_wildcards` | Enum | Expands wildcard expressions to concrete indexes. Combine multiple values with commas. Supported values are `all`, `open`, `closed`, `hidden`, and `none`. Default is `open`.
 `next_token` | String | Fetches the next page of indexes. When `null`, only provides the first page of indexes. Default is `null`. 
 `size` | Integer | The maximum number of indexes to be displayed on a single page. The number of indexes on a single page of the response is not always equal to the specified `size`. Default is `500`. Minimum is `1` and maximum value is `5000`.

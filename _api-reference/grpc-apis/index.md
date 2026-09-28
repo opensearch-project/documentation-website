@@ -84,9 +84,9 @@ OpenSearch supports the following advanced settings for gRPC communication. Thes
 | `grpc.netty.worker_count` | The number of Netty worker threads for the gRPC server. Controls concurrency and parallelism. | `2` | Number of processors |
 | `grpc.netty.executor_count` | The number of threads in the fork-join pool for processing gRPC service calls. Controls request processing parallelism. | `32` | `2 * number of processors` |
 | `grpc.netty.max_concurrent_connection_calls` | The maximum number of simultaneous in-flight requests allowed per client connection. | `200` | `100` |
-| `grpc.netty.max_connection_age` | The maximum age a connection can reach before being gracefully closed. Supports time units like `ms`, `s`, or `m`. See [Time units]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#time-units). | `500ms` | Not set (no limit) |
-| `grpc.netty.max_connection_idle` | The maximum duration for which a connection can be idle before being closed. Supports time units like `ms`, `s`, or `m`. See [Time units]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#time-units). | `2m` | Not set (no limit) |
-| `grpc.netty.keepalive_timeout` | The amount of time to wait for `keepalive` ping acknowledgment before closing the connection. Supports [time units]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#time-units). | `1s` | Not set |
+| `grpc.netty.max_connection_age` | The maximum age a connection can reach before being gracefully closed. Supports time units like `ms`, `s`, or `m`. See [Time units]({{site.url}}{{site.baseurl}}/api-reference/units/#time-units). | `500ms` | Not set (no limit) |
+| `grpc.netty.max_connection_idle` | The maximum duration for which a connection can be idle before being closed. Supports time units like `ms`, `s`, or `m`. See [Time units]({{site.url}}{{site.baseurl}}/api-reference/units/#time-units). | `2m` | Not set (no limit) |
+| `grpc.netty.keepalive_timeout` | The amount of time to wait for `keepalive` ping acknowledgment before closing the connection. Supports [time units]({{site.url}}{{site.baseurl}}/api-reference/units/#time-units). | `1s` | Not set |
 | `grpc.netty.max_msg_size` | The maximum inbound message size for gRPC requests. Supports units like `b`, `kb`, `mb`, or `gb`. See [Supported units]({{site.url}}{{site.baseurl}}/api-reference/units/). | `10mb` or `10485760` | `10mb` |
 
 ### Example configuration
