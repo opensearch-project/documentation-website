@@ -9,14 +9,12 @@ redirect_from:
 ---
 
 # Common REST parameters 
-**Introduced 1.0**
-{: .label .label-purple }
 
 OpenSearch supports the following parameters for all REST operations:
 
 ## Human-readable output
 
-To convert output units to human-readable values (for example, `1h` for 1 hour and `1kb` for 1,024 bytes), add `?human=true` to the request URL.  
+To convert output units to human-readable values (for example, `1h` for 1 hour and `1kb` for 1,024 bytes), add `?human=true` to the request URL. For a list of supported units, see [Supported units]({{site.url}}{{site.baseurl}}/api-reference/units/).
 
 #### Example request
 
@@ -92,40 +90,6 @@ The following request specifies filters to limit the fields returned in the resp
 
 GET _search?filter_path={field_name}.*,-{field_name}
 ```
-
-## Units
-
-OpenSearch APIs support the following units.
-
-### Time units
-
-The following table lists all supported time units.
-
-Units | Specify as
-:--- | :---
-Days | `d`
-Hours | `h`
-Minutes | `m`
-Seconds | `s`
-Milliseconds | `ms`
-Microseconds | `micros`
-Nanoseconds | `nanos`
- 
-### Distance units
-
-The following table lists all supported distance units.
-
-Units | Specify as
-:--- | :---
-Miles | `mi` or `miles`
-Yards | `yd` or `yards`
-Feet | `ft` or `feet`
-Inches | `in` or `inch`
-Kilometers | `km` or `kilometers`
-Meters | `m` or `meters`
-Centimeters | `cm` or `centimeters`
-Millimeters | `mm` or `millimeters`
-Nautical miles | `NM`, `nmi`, or `nauticalmiles` 
 
 ## Cron expressions
 
@@ -203,3 +167,7 @@ curl -X GET "http://localhost:9200/_search" \
   -d '{"query": {"match_all": {}}}'
 ```
 {% include copy.html %}
+
+## Related documentation
+
+- [Supported units]({{site.url}}{{site.baseurl}}/api-reference/units/)

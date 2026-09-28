@@ -8,88 +8,98 @@ redirect_from:
 
 # Vector search settings
 
-OpenSearch supports the following vector search settings. To learn more about static and dynamic settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
+OpenSearch supports the following vector search settings. Dynamic settings are updated using the [Cluster Settings API]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/#updating-cluster-settings-using-the-api); static settings must be configured in `opensearch.yml` on each node. To learn more about static and dynamic settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
 
-## Cluster settings
+## k-NN plugin settings
 
-The following table lists all available cluster-level vector search settings. For more information about cluster settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/#updating-cluster-settings-using-the-api) and [Updating cluster settings using the API]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/#updating-cluster-settings-using-the-api).
-
-Setting | Static/Dynamic | Default | Description
-:--- | :--- | :--- | :---
-`knn.algo_param.index_thread_qty` | Dynamic |  `1` for systems with fewer than 32 CPU cores, `4` for systems with 32 or more cores | The number of threads used for native library and Lucene library (for OpenSearch version 2.19 and later) index creation. Keeping this value low reduces the CPU impact of the k-NN plugin but also reduces indexing performance.
-`knn.cache.item.expiry.enabled` | Dynamic | `false` | Whether to remove native library indexes from memory that have not been accessed in a specified period of time.
-`knn.cache.item.expiry.minutes` | Dynamic | `3h` | If enabled, the amount of idle time before a native library index is removed from memory.
-`knn.circuit_breaker.unset.percentage` | Dynamic | `75` | The native memory usage threshold for the circuit breaker. Memory usage must be lower than this percentage of `knn.memory.circuit_breaker.limit` in order for `knn.circuit_breaker.triggered` to remain `false`.
-`knn.circuit_breaker.triggered` | Dynamic | `false` | `true` when memory usage exceeds the `knn.circuit_breaker.unset.percentage` value.
-`knn.memory.circuit_breaker.limit` | Dynamic | `50%` | The native memory limit for native library indexes. At the default value, if a machine has 100 GB of memory and the JVM uses 32 GB, then the k-NN plugin uses 50% of the remaining 68 GB (34 GB). If memory usage exceeds this value, then the plugin removes the native library indexes used least recently. <br><br> To configure this limit at the node level, add `node.attr.knn_cb_tier: "<tier-name>"` in `opensearch.yml` and set `knn.memory.circuit_breaker.limit.<tier-name>` in the cluster settings. For example, define a node tier as `node.attr.knn_cb_tier: "integ"` and set `knn.memory.circuit_breaker.limit.integ: "80%"`. Nodes use their tier's circuit breaker limit if configured, defaulting to the cluster-wide setting if no node-specific value is set.
-`knn.memory.circuit_breaker.enabled` | Dynamic | `true` | Whether to enable the k-NN memory circuit breaker.
-`knn.model.index.number_of_shards`| Dynamic | `1` | The number of shards to use for the model system index, which is the OpenSearch index that stores the models used for approximate nearest neighbor (ANN) search.
-`knn.model.index.number_of_replicas`| Dynamic | `1` | The number of replica shards to use for the model system index. Generally, in a multi-node cluster, this value should be at least 1 in order to increase stability.
-`knn.model.cache.size.limit` | Dynamic | `10%` |  The model cache limit cannot exceed 25% of the JVM heap.
-`knn.faiss.avx2.disabled` | Static | `false` | A static setting that specifies whether to disable the SIMD-based `libopensearchknn_faiss_avx2.so` library and load the non-optimized `libopensearchknn_faiss.so` library for the Faiss engine on machines with x64 architecture. For more information, see [Single Instruction Multiple Data (SIMD) optimization]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-methods-engines/#simd-optimization).
-`knn.faiss.avx512_spr.disabled` | Static | `false` | A static setting that specifies whether to disable the SIMD-based `libopensearchknn_faiss_avx512_spr.so` library and load either the `libopensearchknn_faiss_avx512.so` , `libopensearchknn_faiss_avx2.so`, or the non-optimized `libopensearchknn_faiss.so` library for the Faiss engine on machines with x64 architecture. For more information, see [SIMD optimization for the Faiss engine]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-methods-engines/#simd-optimization).
-`knn.dynamic_mapping.enabled` | Dynamic | `false` | Specifies whether to enable [dynamic mapping]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-vector/#dynamic-mapping) of `knn_vector` fields, including inference of unmapped flat numeric arrays and dynamic templates that reference `knn_vector` as `match_mapping_type`.
-
-## Index settings
-
-The following table lists all available index-level k-NN settings. For information about updating these settings, see [Index settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/).
-
-Several parameters defined in the settings are currently in the deprecation process. Those parameters should be set in the mapping instead of in the index settings. Parameters set in the mapping will override the parameters set in the index settings. Setting the parameters in the mapping allows an index to have multiple `knn_vector` fields with different parameters.
-
-Setting | Static/Dynamic | Default | Description
-:--- | :--- |:--------| :---
-`index.knn` | Static | `false` | Whether the index should build native library indexes for the `knn_vector` fields. If set to `false`, the `knn_vector` fields will be stored in doc values, but approximate k-NN search functionality will be disabled.
-`index.knn.algo_param.ef_search` | Dynamic | `100`   | `ef` (or `efSearch`) represents the size of the dynamic list for the nearest neighbors used during a search. Higher `ef` values lead to a more accurate but slower search. `ef` cannot be set to a value lower than the number of queried nearest neighbors, `k`. `ef` can take any value between `k` and the size of the dataset. 
-`index.knn.advanced.approximate_threshold` | Dynamic | `0` | The number of vectors that a segment must have before creating specialized data structures for ANN search. Set to `-1` to disable building vector data structures and to `0` to always build them.
-`index.knn.advanced.filtered_exact_search_threshold`| Dynamic | None    | The filtered ID threshold value used to switch to exact search during filtered ANN search. If the number of filtered IDs in a segment is lower than this setting's value, then exact search will be performed on the filtered IDs.
-`index.knn.faiss.efficient_filter.disable_exact_search` | Dynamic | `false` | When `true`, disables the exact search fallback that occurs when a Faiss efficient-filtered approximate nearest neighbor (ANN) search returns fewer than `k` results. For more information, see [Disabling the exact search fallback]({{site.url}}{{site.baseurl}}/vector-search/filter-search-knn/efficient-knn-filtering/#disabling-the-exact-search-fallback).
-`index.knn.derived_source.enabled` | Static | `true` | Prevents vectors from being stored in `_source`, reducing disk usage for vector indexes.
-`index.knn.memory_optimized_search` | Static | `false` | Enables memory-optimized search on an index.
-
-An index created in OpenSearch version 2.11 or earlier will still use the previous `ef_construction` and `ef_search` values (`512`).
-{: .note}
-
-## Remote index build settings
-
-The following settings control [remote vector index building]({{site.url}}{{site.baseurl}}/vector-search/remote-index-build/).
+The k-NN plugin supports the following settings.
 
 ### Cluster settings
 
-The following remote index build settings apply at the cluster level.
+The following k-NN plugin settings apply at the cluster level:
 
-| Setting                                   | Static/Dynamic | Default | Description                                                                                              |
-|:------------------------------------------|:---------------|:--------|:---------------------------------------------------------------------------------------------------------|
-| `knn.remote_index_build.enabled`          | Dynamic        | `false` | Enables remote vector index building for the cluster.                                                    |
-| `knn.remote_index_build.repository`       | Dynamic        | None    | The repository to which the remote index builder should write.                                           |
-| `knn.remote_index_build.service.endpoint` | Dynamic        | None    | The endpoint URL of the remote build service.                                                            |
+- `knn.algo_param.index_thread_qty` (Dynamic, integer): The number of threads used for native library and Lucene library (for OpenSearch version 2.19 and later) index creation. Keeping this value low reduces the CPU impact of the k-NN plugin but also reduces indexing performance. Default is `1` for systems with fewer than 32 CPU cores and `4` for systems with 32 or more cores.
 
-#### Advanced cluster settings
+- `knn.cache.item.expiry.enabled` (Dynamic, Boolean): Whether to remove native library indexes that have not been accessed for a specified period of time from memory. Default is `false`.
 
-The following are advanced cluster settings. The default values for these settings are configured using extensive benchmarking. 
+- `knn.cache.item.expiry.minutes` (Dynamic, time unit): The amount of idle time before a native library index is removed from memory. Takes effect only when `knn.cache.item.expiry.enabled` is `true`. Default is `3h`.
 
-| Setting                                 | Static/Dynamic | Default | Description                                                                                                                                                                                                                                                                                                                        |
-|:----------------------------------------|:---------------|:--------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `knn.remote_index_build.poll.interval`  | Dynamic        | `5s`    | How frequently the client should poll the remote build service for job status.                                                                                                                                                                                                                                                     |
-| `knn.remote_index_build.client.timeout` | Dynamic        | `60m`   | The maximum amount of time to wait for remote build completion before falling back to a CPU-based build.                                                                                                                                                                                                                           |
-| `knn.remote_index_build.size.max`       | Dynamic        | `0`     | The maximum segment size for the remote index build service, based on the service implementation constraints. Must be greater than `0`. |
+- `knn.circuit_breaker.unset.percentage` (Dynamic, percentage): The native memory usage threshold for the circuit breaker. Memory usage must be lower than this percentage of `knn.memory.circuit_breaker.limit` for `knn.circuit_breaker.triggered` to remain `false`. Default is `75`.
+
+- `knn.circuit_breaker.triggered` (Dynamic, Boolean): Set to `true` when memory usage exceeds the `knn.circuit_breaker.unset.percentage` value. Default is `false`.
+
+- `knn.memory.circuit_breaker.limit` (Dynamic, percentage or byte unit): The native memory limit for native library indexes. At the default value, if a machine has 100 GB of memory and the JVM uses 32 GB, then the k-NN plugin uses 50% of the remaining 68 GB (34 GB). If memory usage exceeds this value, then the plugin removes the native library indexes used least recently. To configure this limit at the node level, add `node.attr.knn_cb_tier: "<tier-name>"` in `opensearch.yml` and set `knn.memory.circuit_breaker.limit.<tier-name>` in the cluster settings. For example, define a node tier as `node.attr.knn_cb_tier: "integ"` and set `knn.memory.circuit_breaker.limit.integ: "80%"`. Nodes use their tier's circuit breaker limit if one is configured and the cluster-wide setting if no node-specific value is set. Default is `50%`.
+
+- `knn.memory.circuit_breaker.enabled` (Dynamic, Boolean): Whether to enable the k-NN memory circuit breaker. Default is `true`.
+
+- `knn.model.index.number_of_shards` (Dynamic, integer): The number of shards to use for the model system index, which is the OpenSearch index that stores the models used for approximate nearest neighbor (ANN) search. Default is `1`.
+
+- `knn.model.index.number_of_replicas` (Dynamic, integer): The number of replica shards to use for the model system index. In a multi-node cluster, set this value to at least `1` to increase stability. Default is `1`.
+
+- `knn.model.cache.size.limit` (Dynamic, percentage): The model cache limit, which cannot exceed 25% of the JVM heap. Default is `10%`.
+
+- `knn.faiss.avx2.disabled` (Static, Boolean): Whether to disable the SIMD-based `libopensearchknn_faiss_avx2.so` library and load the non-optimized `libopensearchknn_faiss.so` library for the Faiss engine on machines with x64 architecture. Default is `false`. For more information, see [Single Instruction Multiple Data (SIMD) optimization]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-methods-engines/#simd-optimization).
+
+- `knn.faiss.avx512.disabled` (Static, Boolean): Whether to disable the SIMD-based `libopensearchknn_faiss_avx512.so` library and load either the `libopensearchknn_faiss_avx2.so` or the non-optimized `libopensearchknn_faiss.so` library for the Faiss engine on machines with x64 architecture. Default is `false`. For more information, see [SIMD optimization]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-methods-engines/#simd-optimization).
+
+- `knn.faiss.avx512_spr.disabled` (Static, Boolean): Whether to disable the SIMD-based `libopensearchknn_faiss_avx512_spr.so` library and load either the `libopensearchknn_faiss_avx512.so`, `libopensearchknn_faiss_avx2.so`, or the non-optimized `libopensearchknn_faiss.so` library for the Faiss engine on machines with x64 architecture. Default is `false`. For more information, see [SIMD optimization]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-methods-engines/#simd-optimization).
+
+- `knn.dynamic_mapping.enabled` (Dynamic, Boolean): Whether to enable [dynamic mapping]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-vector/#dynamic-mapping) of `knn_vector` fields, including inference of unmapped flat numeric arrays and dynamic templates that reference `knn_vector` as `match_mapping_type`. Default is `false`.
 
 ### Index settings
 
-The following remote index build settings apply at the index level.
+Several parameters defined in the index settings are currently in the deprecation process. Set those parameters in the mapping instead of in the index settings. Parameters set in the mapping override the parameters set in the index settings and allow an index to have multiple `knn_vector` fields with different parameters.
 
-| Setting                                       | Static/Dynamic | Default | Description                                               |
-|:----------------------------------------------|:---------------|:--------|:----------------------------------------------------------|
-| `index.knn.remote_index_build.enabled`        | Dynamic        | `false` | Enables remote index building for the index.              |
+The following k-NN plugin settings apply at the index level. For information about updating these settings, see [Index settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/):
 
-#### Advanced index settings
+- `index.knn` (Static, Boolean): Whether the index builds native library indexes for its `knn_vector` fields. If `false`, the `knn_vector` fields are stored in doc values, but approximate k-NN search is disabled. Default is `false`.
 
-The following index settings are advanced settings whose default values are set as a result of extensive benchmarking.
+- `index.knn.algo_param.ef_search` (Dynamic, integer): The size of the dynamic list of nearest neighbors used during a search (`ef`, or `efSearch`). Higher values produce a more accurate but slower search. This value cannot be lower than the number of queried nearest neighbors, `k`, and can be any value between `k` and the size of the dataset. Default is `100`.
 
-| Setting                                 | Static/Dynamic | Default | Description                                               |
-|:----------------------------------------|:---------------|:--------|:----------------------------------------------------------|
-| `index.knn.remote_index_build.size.min` | Dynamic        | `50mb`  | The minimum size required to enable remote vector builds. |
+- `index.knn.advanced.approximate_threshold` (Dynamic, integer): The number of vectors that a segment must contain before OpenSearch creates specialized data structures for ANN search. Set to `-1` to disable building vector data structures and to `0` to always build them. Default is `0`.
 
-### Remote build authentication
+- `index.knn.advanced.filtered_exact_search_threshold` (Dynamic, integer): The filtered ID threshold at which OpenSearch switches to exact search during filtered ANN search. If the number of filtered IDs in a segment is lower than this value, then exact search is performed on the filtered IDs. Default is `-1`, which applies no threshold.
+
+- `index.knn.faiss.efficient_filter.disable_exact_search` (Dynamic, Boolean): When `true`, disables the exact search fallback that occurs when a Faiss efficient-filtered approximate nearest neighbor (ANN) search returns fewer than `k` results. Default is `false`. For more information, see [Disabling the exact search fallback]({{site.url}}{{site.baseurl}}/vector-search/filter-search-knn/efficient-knn-filtering/#disabling-the-exact-search-fallback).
+
+- `index.knn.derived_source.enabled` (Static, Boolean): Prevents vectors from being stored in `_source`, reducing disk usage for vector indexes. Default is `true` for an index created with `index.knn` set to `true` and `false` for all other indexes.
+
+- `index.knn.memory_optimized_search` (Static, Boolean): Enables [memory-optimized search]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/memory-optimized-search/) on an index. Default is `false`.
+
+An index created in OpenSearch version 2.11 or earlier still uses the previous `ef_construction` and `ef_search` values (`512`).
+{: .note}
+
+When you create an index with `index.knn` set to `true`, the k-NN plugin also lowers two [tiered merge policy settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/#tiered-merge-policy-settings) so that merges compete less with search for CPU: it sets `index.merge.policy.max_merge_at_once` to `10` rather than the default of `30` and `index.merge.policy.floor_segment` to `2mb` rather than the default of `16mb`. Both settings are dynamic, so you can change them after creating the index.
+
+### Remote index build settings
+
+The following settings control [remote vector index building]({{site.url}}{{site.baseurl}}/vector-search/remote-index-build/).
+
+#### Cluster settings
+
+The following remote index build settings apply at the cluster level:
+
+- `knn.remote_index_build.enabled` (Dynamic, Boolean): Enables remote vector index building for the cluster. Default is `false`.
+
+- `knn.remote_index_build.repository` (Dynamic, string): The name of the registered repository to which the remote index builder writes. No default value; you must set this setting before using the remote index build service.
+
+- `knn.remote_index_build.service.endpoint` (Dynamic, string): The endpoint URL of the remote build service. No default value; you must set this setting before using the remote index build service.
+
+- `knn.remote_index_build.poll.interval` (Dynamic, time unit): How frequently the client polls the remote build service for job status. Default is `5s`.
+
+- `knn.remote_index_build.client.timeout` (Dynamic, time unit): The maximum amount of time to wait for the remote build to complete. If the build does not complete within this time, OpenSearch builds the index locally on the CPU. Default is `60m`.
+
+- `knn.remote_index_build.size.max` (Dynamic, byte unit): The maximum segment size that the remote index build service accepts. Set this setting according to the constraints of your remote build service implementation. Default is `0`, which places no upper bound on segment size.
+
+#### Index settings
+
+The following remote index build settings apply at the index level. For information about updating these settings, see [Index settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/):
+
+- `index.knn.remote_index_build.enabled` (Dynamic, Boolean): Enables remote index building for the index. Takes effect only when `knn.remote_index_build.enabled` is `true`. Default is `true`.
+
+- `index.knn.remote_index_build.size.min` (Dynamic, byte unit): The minimum segment size for which OpenSearch uses the remote index build service. Smaller segments are built locally. Default is `50mb`.
+
+#### Remote build authentication
 
 The remote build service username and password are secure settings that must be set in the [OpenSearch keystore]({{site.url}}{{site.baseurl}}/security/configuration/opensearch-keystore/) as follows:
 
