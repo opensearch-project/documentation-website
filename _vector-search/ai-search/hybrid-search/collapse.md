@@ -18,7 +18,7 @@ The `collapse` parameter is compatible with other hybrid query search options, s
 When using `collapse` in a hybrid query, note the following considerations:
 
 - The [`index.neural_search.hybrid_collapse_docs_per_group_per_subquery`]({{site.url}}{{site.baseurl}}/vector-search/settings/#hybrid-collapse-docs-per-group) setting is deprecated and has no effect. If this setting exists in your index configuration, you can safely remove it. Search results are entirely controlled by the `size` parameter in the search request.
-- By default, collapse deduplicates the top `size` documents, so the response can contain fewer than `size` groups when one group holds several of the top-scoring documents. To return exactly `size` distinct groups, see [Returning distinct groups](#returning-distinct-groups).
+- By default, when a hybrid query includes a `collapse` parameter, OpenSearch deduplicates the top `size` documents. As a result, the response can contain fewer than `size` groups if multiple top-scoring documents belong to the same group. To return up to `size` distinct groups, enable the `index.neural_search.hybrid_collapse_distinct_groups_enabled` setting. For more information, see [Returning distinct groups](#returning-distinct-groups).
 - Aggregations run on pre-collapsed results, not the final output.
 - Pagination behavior changes: Because `collapse` reduces the total number of results, it can affect how results are distributed across pages. To retrieve more results, consider increasing the pagination depth.
 - Results may differ from those returned by the [`collapse` response processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/collapse-processor/), which applies collapse logic after the query is executed.
@@ -173,7 +173,7 @@ The response returns the collapsed search results:
 **Introduced 3.10**
 {: .label .label-purple }
 
-By default, collapse keeps the top `size` documents and then deduplicates them by the collapse field. This preserves score parity with the same hybrid query without collapse, but when one group holds several of the top-scoring documents, the deduplicated response contains fewer than `size` groups.
+By default, when a hybrid query includes a `collapse` parameter, OpenSearch keeps the top `size` documents and then deduplicates them by the field specified in the `collapse` parameter. Scores match those returned by the same hybrid query when the `collapse` parameter is not provided. However, the response can contain fewer than `size` groups if multiple top-scoring documents belong to the same group.
 
 For example, search the `bakery-items` index from the [preceding example](#example), requesting two results:
 
@@ -208,7 +208,7 @@ GET /bakery-items/_search?search_pipeline=norm-pipeline
 ```
 {% include copy-curl.html %}
 
-The response contains only one result, even though the request asked for two results and two groups exist. Both of the top two documents belong to the `Chocolate Cake` group, so deduplication leaves a single group:
+The response contains only one result, even though the request specifies `"size": 2` and two groups exist. Both of the top two documents belong to the `Chocolate Cake` group, so deduplication leaves a single group:
 
 ```json
 "hits": {
@@ -294,9 +294,11 @@ Running the same search now returns one result for each of the top two distinct 
   }
 ```
 
-With the setting enabled, each returned document represents its group: its score in each subquery is that subquery's best-ranked score across the group's documents — the highest under the default descending order, the lowest under `sort: [{"_score": "asc"}]` — and it can come from a different document in the same group. Because normalization then runs on group representatives rather than on the plain top `size` documents, scores can differ from those returned by the same hybrid query without collapse. The two behaviors are mutually exclusive.
+When the `index.neural_search.hybrid_collapse_distinct_groups_enabled` setting is enabled, each returned document represents its group. For each subquery, OpenSearch assigns the returned document the best score among all documents in its group. The best scores for different subqueries can belong to different documents in the same group. The best score is the highest score when results are sorted by score in descending order (the default) and the lowest score when they are sorted by score in ascending order.
 
-This setting is dynamic and is read on every request, so changing it between pages of a paginated search changes how the pages are constructed. Avoid mixing indexes with different values for this setting in a single search request because the two modes produce differently constructed results.
+Normalization runs on the representative documents. As a result, scores can differ from those returned by the same hybrid query when the `collapse` parameter is not provided.
+
+The `index.neural_search.hybrid_collapse_distinct_groups_enabled` setting is dynamic and is read on every request, so changing it between pages of a paginated search produces inconsistent pages. Don't search indexes that have different values for this setting in the same request.
 {: .note}
 
 ## Collapse and sort results

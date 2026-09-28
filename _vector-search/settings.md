@@ -125,7 +125,7 @@ The following Neural Search plugin settings apply at the index level:
 
 - `index.neural_search.semantic_ingest_batch_size` (Dynamic, integer): Specifies the number of documents batched together when generating embeddings for `semantic` fields during ingestion. Default is `10`. 
 
-- `index.neural_search.hybrid_collapse_distinct_groups_enabled` (Dynamic, Boolean): When `true`, a hybrid query with `collapse` returns the top `size` distinct groups instead of the deduplicated top `size` documents. When `false`, collapse preserves score parity with the same hybrid query without collapse but can return fewer groups than `size`. Default is `false`. For more information, see [Returning distinct groups]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/collapse/#returning-distinct-groups).
+- `index.neural_search.hybrid_collapse_distinct_groups_enabled` (Dynamic, Boolean): When `true`, a hybrid query that includes a `collapse` parameter returns the top `size` distinct groups. When `false`, scores match those returned by the same hybrid query when the `collapse` parameter is not provided, but the response can contain fewer than `size` groups. Default is `false`. For more information, see [Returning distinct groups]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/collapse/#returning-distinct-groups).
 
 <p id="hybrid-collapse-docs-per-group"></p>
 
