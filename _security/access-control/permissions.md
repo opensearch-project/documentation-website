@@ -161,6 +161,9 @@ Keep in mind that enabling this feature and mapping system index permissions to 
 
 ### `do_not_fail_on_forbidden`
 
+This setting applies to legacy authorization. If you enable v4 authorization, use `privileges_evaluation_ignore_unauthorized_indices` instead. V4 also distinguishes wildcard requests from explicit index lists. See [Index authorization]({{site.url}}{{site.baseurl}}/security/access-control/index-authorization/).
+{: .note }
+
 If a user attempts to query multiple indexes, some of which they lack permissions for, by default they get an `error` in OpenSearch Dashboards or an `exception` when using `cURL` or an API. If you instead want the user to receive the search results for any of the indexes for which they _do_ have permissions, you can set the option `do_not_fail_on_forbidden` to `true` in `config.yml`. See the following example:
 
 ```
@@ -183,6 +186,9 @@ It is important to remember that if this option is set to `true`, then the user 
 {: .warning }
 
 ### `do_not_fail_on_forbidden_empty`
+
+This setting applies only to legacy authorization. For v4 behavior, see [Requests that include unauthorized indexes]({{site.url}}{{site.baseurl}}/security/access-control/index-authorization/#requests-that-include-unauthorized-indexes).
+{: .note }
 
 When a user attempts to view a visualization for which they lack index permissions, they will see `error` in place of the visualization. To change this behavior to display `No results displayed because all values equal 0.`, you can set `do_not_fail_on_forbidden_empty` to `true` in `config.yml`. This option is only valid if `do_not_fail_on_forbidden` is also set to `true`. See the following example:
 

@@ -48,12 +48,14 @@ The request body is **required**. It is a JSON object with the following fields.
 | `auth_failure_listeners` | Object | The configuration for handling authentication failures, including thresholds and actions. |
 | `authc` | Object | The authentication configuration domains that define how users are authenticated. For more information, see [`authc`]({{site.url}}{{site.baseurl}}/security/api/configuration/index/#authc). |
 | `authz` | Object | The authorization configuration that defines how to extract backend roles when using LDAP for authentication. For more information, see [`authz`]({{site.url}}{{site.baseurl}}/security/api/configuration/index/#authz). |
-| `do_not_fail_on_forbidden` | Boolean | When `true`, returns empty results instead of a forbidden error. Instead, failures are stored in the application logs. |
-| `do_not_fail_on_forbidden_empty` | Boolean | Similar to `do_not_fail_on_forbidden` but with specific behavior for empty results. |
+| `do_not_fail_on_forbidden` | Boolean | In legacy authorization, allows supported requests to omit unauthorized indexes instead of failing. Not used by `v4`; see `privileges_evaluation_ignore_unauthorized_indices`. |
+| `do_not_fail_on_forbidden_empty` | Boolean | Controls empty-result behavior in legacy authorization when `do_not_fail_on_forbidden` is enabled. Not used by `v4`. |
 | `filtered_alias_mode` | String | Controls how document field filtering is applied to aliases. |
 | `hosts_resolver_mode` | String | Determines how hostname resolution is performed for security operations. |
 | `http` | Object | The HTTP-specific security configurations. |
 | `on_behalf_of` | Object | Configures a temporary access token for the duration of a user's session (advanced). |
+| `privileges_evaluation_type` | String | Selects `legacy` (default) or `v4` index authorization. See [Index authorization]({{site.url}}{{site.baseurl}}/security/access-control/index-authorization/). |
+| `privileges_evaluation_ignore_unauthorized_indices` | Boolean | In `v4` mode, allows eligible requests to omit unauthorized indexes. Default is `true`. Explicit index lists generally require `ignore_unavailable=true` for this behavior. See [Requests that include unauthorized indexes]({{site.url}}{{site.baseurl}}/security/access-control/index-authorization/#requests-that-include-unauthorized-indexes). |
 | `kibana` | Object | The configuration for OpenSearch Dashboards integration. |
 | `respect_request_indices_options` | Boolean | When `true`, respects index options specified in requests. |
 
