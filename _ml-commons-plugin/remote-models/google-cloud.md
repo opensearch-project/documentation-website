@@ -131,7 +131,7 @@ When `protocol` is set to `google_cloud`, the `credential` object supports the f
 |:---|:---|:---|:---|
 | `private_key` | String | Required in service account key mode | The service account's private key. Omit in ADC mode. |
 | `client_email` | String | Required in service account key mode | The service account's client email. Omit in ADC mode. |
-| `token_uri` | String | Optional | The Google OAuth 2.0 token endpoint. Default is `https://oauth2.googleapis.com/token`. If you set this field, the value must use HTTPS and the host must be exactly `oauth2.googleapis.com`. OpenSearch rejects any other host when you create the connector. |
+| `token_uri` | String | Optional | The Google OAuth 2.0 token endpoint. Default is `https://oauth2.googleapis.com/token`. The URL must use HTTPS, the host must be `oauth2.googleapis.com`, and the port must be `443` or omitted. |
 
 When `protocol` is set to `google_cloud`, the `parameters` object supports the following fields.
 
