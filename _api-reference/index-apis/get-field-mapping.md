@@ -4,6 +4,7 @@ title: Get field mapping
 parent: Index settings and mappings
 grand_parent: Index APIs
 nav_order: 25
+canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/get-field-mapping/
 ---
 
 # Get Field Mapping API

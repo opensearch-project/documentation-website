@@ -4,6 +4,7 @@ title: Learn about main applications and query languages
 parent: Getting started
 nav_order: 25
 has_children: false
+canonical_url: https://docs.opensearch.org/latest/dashboards/getting-started/learn-dashboards/
 ---
 
 # Learn about main applications and query languages

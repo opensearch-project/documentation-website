@@ -3,6 +3,7 @@ layout: default
 title: Query Insights Settings API
 parent: Query insights
 nav_order: 25
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/query-insights/settings-api/
 ---
 
 # Query Insights Settings API

@@ -4,6 +4,7 @@ title: SQL
 nav_order: 4
 has_children: true
 has_toc: false
+canonical_url: https://docs.opensearch.org/latest/sql-and-ppl/sql/index/
 redirect_from:
   - /sql-and-ppl/sql/
   - /search-plugins/sql/sql/

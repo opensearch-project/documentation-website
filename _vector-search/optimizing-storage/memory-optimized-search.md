@@ -3,6 +3,7 @@ layout: default
 title: Memory-optimized search
 parent: Optimizing vector storage
 nav_order: 30
+canonical_url: https://docs.opensearch.org/latest/vector-search/optimizing-storage/memory-optimized-search/
 ---
 
 # Memory-optimized search

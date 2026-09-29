@@ -5,6 +5,7 @@ parent: AI search
 nav_order: 75
 has_children: true
 has_toc: false
+canonical_url: https://docs.opensearch.org/latest/vector-search/ai-search/agentic-search/index/
 redirect_from:
   - /vector-search/ai-search/agentic-search/
 ---

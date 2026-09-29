@@ -3,6 +3,7 @@ layout: default
 title: Generating embeddings automatically
 parent: Getting started
 nav_order: 30
+canonical_url: https://docs.opensearch.org/latest/vector-search/getting-started/auto-generated-embeddings/
 ---
 
 # Generating embeddings automatically

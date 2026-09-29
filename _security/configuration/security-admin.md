@@ -3,6 +3,7 @@ layout: default
 title: Applying changes to configuration files
 parent: Configuration
 nav_order: 25
+canonical_url: https://docs.opensearch.org/latest/security/configuration/security-admin/
 redirect_from:
   - /security-plugin/configuration/security-admin/
 ---

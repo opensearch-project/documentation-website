@@ -4,6 +4,7 @@ title: CAT field data
 parent: CAT APIs
 nav_order: 15
 has_children: false
+canonical_url: https://docs.opensearch.org/latest/api-reference/cat/cat-field-data/
 redirect_from:
 - /opensearch/rest-api/cat/cat-field-data/
 ---

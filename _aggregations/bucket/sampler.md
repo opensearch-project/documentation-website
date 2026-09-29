@@ -3,6 +3,7 @@ layout: default
 title: Sampler
 parent: Bucket aggregations
 nav_order: 170
+canonical_url: https://docs.opensearch.org/latest/aggregations/bucket/sampler/
 redirect_from:
   - /query-dsl/aggregations/bucket/sampler/
 ---

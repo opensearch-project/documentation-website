@@ -3,6 +3,7 @@ layout: default
 title: Analyzing logs in Discover
 nav_order: 30
 parent: Using Discover for observability
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/exploring-observability-data/discover-logs/
 redirect_from:
   - /observability-plugin/discover-logs/
 ---

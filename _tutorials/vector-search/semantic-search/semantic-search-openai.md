@@ -4,6 +4,7 @@ title: Semantic search using OpenAI
 parent: Semantic search
 grand_parent: Vector search
 nav_order: 20
+canonical_url: https://docs.opensearch.org/latest/tutorials/vector-search/semantic-search/semantic-search-openai/
 redirect_from:
   - /vector-search/tutorials/semantic-search/semantic-search-openai/
 ---

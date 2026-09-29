@@ -3,6 +3,7 @@ layout: default
 title: Delete data stream
 parent: Data stream APIs
 nav_order: 40
+canonical_url: https://docs.opensearch.org/latest/api-reference/data-stream/delete-data-stream/
 ---
 
 # Delete Data Stream API

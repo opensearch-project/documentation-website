@@ -4,6 +4,7 @@ title: Vector search API
 nav_order: 80
 has_children: true
 has_toc: false
+canonical_url: https://docs.opensearch.org/latest/vector-search/api/index/
 redirect_from:
   - /vector-search/api/knn/
   - /vector-search/api/

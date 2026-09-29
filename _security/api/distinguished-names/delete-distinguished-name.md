@@ -4,6 +4,7 @@ title: Delete distinguished name
 parent: Distinguished name APIs
 grand_parent: Security APIs
 nav_order: 40
+canonical_url: https://docs.opensearch.org/latest/security/api/distinguished-names/delete-distinguished-name/
 ---
 
 # Delete Distinguished Name API

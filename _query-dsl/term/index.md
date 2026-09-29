@@ -4,6 +4,7 @@ title: Term-level queries
 has_children: true
 has_toc: false
 nav_order: 40
+canonical_url: https://docs.opensearch.org/latest/query-dsl/term/index/
 redirect_from:
   - /opensearch/query-dsl/term/
   - /query-dsl/term/

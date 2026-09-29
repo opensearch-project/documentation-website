@@ -3,6 +3,7 @@ layout: default
 title: Permissions
 parent: Access control
 nav_order: 75
+canonical_url: https://docs.opensearch.org/latest/security/access-control/permissions/
 redirect_from:
   - /security-plugin/access-control/permissions/
 ---

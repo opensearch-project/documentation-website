@@ -4,6 +4,7 @@ title: Scheduled Query Acceleration
 parent: Connecting data sources
 nav_order: 50
 has_children: false
+canonical_url: https://docs.opensearch.org/latest/dashboards/management/scheduled-query-acceleration/
 ---
 
 # Scheduled Query Acceleration

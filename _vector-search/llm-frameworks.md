@@ -2,6 +2,7 @@
 layout: default
 title: LLM framework integration
 nav_order: 75
+canonical_url: https://docs.opensearch.org/latest/vector-search/llm-frameworks/
 ---
 
 # LLM framework integration

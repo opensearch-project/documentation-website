@@ -4,6 +4,7 @@ title: Alerting resource access control
 nav_order: 12
 parent: Alerting
 has_children: false
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/alerting/alerting-access-control/
 ---
 
 # Alerting resource access control

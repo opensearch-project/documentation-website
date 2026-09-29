@@ -4,6 +4,7 @@ title: Using Security Analytics
 nav_order: 20
 has_children: true
 has_toc: false
+canonical_url: https://docs.opensearch.org/latest/security-analytics/usage/index/
 redirect_from:
   - /security-analytics/usage/
 ---

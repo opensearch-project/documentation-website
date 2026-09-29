@@ -2,6 +2,7 @@
 layout: default
 title: Report definition access control
 nav_order: 15
+canonical_url: https://docs.opensearch.org/latest/reporting/report-definition-access-control/
 ---
 
 # Report definition access control

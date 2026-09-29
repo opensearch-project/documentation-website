@@ -4,6 +4,7 @@ title: Update connector
 parent: Connector APIs
 grand_parent: ML Commons APIs
 nav_order: 27
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/api/connector-apis/update-connector/
 ---
 
 # Update Connector API

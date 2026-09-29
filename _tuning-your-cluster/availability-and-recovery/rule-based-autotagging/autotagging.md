@@ -4,6 +4,7 @@ title: Rule-based auto-tagging
 nav_order: 80
 parent: Availability and recovery
 has_children: true
+canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/availability-and-recovery/rule-based-autotagging/autotagging/
 ---
 
 # Rule-based auto-tagging

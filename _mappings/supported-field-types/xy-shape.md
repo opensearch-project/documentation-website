@@ -5,6 +5,7 @@ nav_order: 59
 has_children: false
 parent: Cartesian field types
 grand_parent: Supported field types
+canonical_url: https://docs.opensearch.org/latest/mappings/supported-field-types/xy-shape/
 redirect_from:
   - /field-types/supported-field-types/xy-shape/
   - /opensearch/supported-field-types/xy-shape/

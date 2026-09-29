@@ -3,6 +3,7 @@ layout: default
 title: Integrating ML models
 nav_order: 10
 has_children: true
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/integrating-ml-models/
 more_cards:
   - heading: "Get started with AI search"
     description: "Learn how to implement semantic and hybrid search in OpenSearch"

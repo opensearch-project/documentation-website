@@ -2,6 +2,7 @@
 layout: default
 title: Data types
 nav_order: 7
+canonical_url: https://docs.opensearch.org/latest/sql-and-ppl/datatypes/
 redirect_from:
   - /search-plugins/sql/datatypes/
 ---

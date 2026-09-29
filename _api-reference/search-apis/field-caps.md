@@ -3,6 +3,7 @@ layout: default
 title: Field capabilities
 parent: Search APIs
 nav_order: 45
+canonical_url: https://docs.opensearch.org/latest/api-reference/search-apis/field-caps/
 ---
 
 # Field capabilities API

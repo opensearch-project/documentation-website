@@ -5,6 +5,7 @@ parent: Configuring maps
 grand_parent: Creating visualizations in the Visualize application
 great_grand_parent: Building data visualizations
 nav_order: 30
+canonical_url: https://docs.opensearch.org/latest/dashboards/visualize/visualize-app/maptiles/
 redirect_from:
   - /dashboards/visualize/maptiles/
   - /dashboards/maptiles/

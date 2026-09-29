@@ -3,6 +3,7 @@ layout: default
 title: Explore the Discover application
 parent: Getting started
 nav_order: 30
+canonical_url: https://docs.opensearch.org/latest/dashboards/getting-started/explore-discover/
 ---
 
 # Explore the Discover application

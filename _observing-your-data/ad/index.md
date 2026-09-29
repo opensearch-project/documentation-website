@@ -3,6 +3,7 @@ layout: default
 title: Anomaly detection
 nav_order: 120
 has_children: true
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/ad/index/
 redirect_from:
   - /monitoring-plugins/ad/
   - /monitoring-plugins/ad/index/

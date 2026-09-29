@@ -2,6 +2,7 @@
 layout: default
 title: Snapshot management
 nav_order: 110
+canonical_url: https://docs.opensearch.org/latest/dashboards/sm-dashboards/
 redirect_from:
   - /dashboards/admin-ui-index/sm-dashboards/
 ---

@@ -3,6 +3,7 @@ layout: default
 title: Uppercase
 parent: Ingest processors
 nav_order: 310
+canonical_url: https://docs.opensearch.org/latest/ingest-pipelines/processors/uppercase/
 redirect_from:
    - /api-reference/ingest-apis/processors/uppercase/
 ---

@@ -3,6 +3,7 @@ layout: default
 title: Kuromoji iteration mark
 parent: Character filters
 nav_order: 115
+canonical_url: https://docs.opensearch.org/latest/analyzers/character-filters/kuromoji-iteration-mark/
 ---
 
 # Kuromoji iteration mark character filter

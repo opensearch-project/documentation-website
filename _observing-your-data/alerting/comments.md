@@ -4,6 +4,7 @@ title: Adding comments
 nav_order: 35
 parent: Alerting
 has_children: false
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/alerting/comments/
 redirect_from:
   - /monitoring-plugins/alerting/comments/
 ---

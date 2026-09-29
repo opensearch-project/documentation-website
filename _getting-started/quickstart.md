@@ -3,6 +3,7 @@ layout: default
 title: Installation quickstart
 nav_order: 3
 description: "Quickly set up a local OpenSearch and OpenSearch Dashboards cluster using Docker, then add and search sample data to get started."
+canonical_url: https://docs.opensearch.org/latest/getting-started/quickstart/
 redirect_from: 
   - /about/quickstart/
   - /opensearch/install/quickstart/

@@ -5,6 +5,7 @@ nav_order: 15
 parent: Vector search techniques
 has_children: false
 has_math: true
+canonical_url: https://docs.opensearch.org/latest/vector-search/vector-search-techniques/approximate-knn/
 redirect_from:
   - /search-plugins/knn/approximate-knn/ 
 ---

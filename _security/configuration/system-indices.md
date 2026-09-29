@@ -3,6 +3,7 @@ layout: default
 title: System indexes
 parent: Configuration
 nav_order: 60
+canonical_url: https://docs.opensearch.org/latest/security/configuration/system-indices/
 redirect_from:
  - /security-plugin/configuration/system-indices/
 ---

@@ -2,9 +2,11 @@
 layout: default
 title: Running distributed loads
 nav_order: 32
+canonical_url: https://docs.opensearch.org/latest/benchmark/distributed-load/
 redirect_from:
   - /benchmark/user-guide/optimizing-benchmarks/distributed-load/
   - /benchmark/user-guide/distributed-load/
+redirect_to: https://docs.opensearch.org/latest/benchmark/distributed-load/
 ---
 
 # Running distributed loads

@@ -4,6 +4,7 @@ title: Who am I protected
 parent: Authentication APIs
 grand_parent: Security APIs
 nav_order: 30
+canonical_url: https://docs.opensearch.org/latest/security/api/authentication/who-am-i-protected/
 ---
 
 # Who Am I Protected API

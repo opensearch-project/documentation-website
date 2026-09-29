@@ -3,6 +3,7 @@ layout: default
 title: API
 nav_order: 50
 parent: Notifications
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/notifications/api/
 redirect_from:
   - /notifications-plugin/api/
 ---

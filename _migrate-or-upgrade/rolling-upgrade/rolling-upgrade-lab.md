@@ -3,6 +3,7 @@ layout: default
 title: Rolling upgrade lab
 parent: Rolling upgrade
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/migrate-or-upgrade/rolling-upgrade/rolling-upgrade-lab/
 redirect_from:
   - /upgrade-opensearch/appendix/rolling-upgrade-lab/
   - /install-and-configure/upgrade-opensearch/appendix/index/

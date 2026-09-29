@@ -4,6 +4,7 @@ title: Anomaly detector access control
 nav_order: 40
 parent: Anomaly detection
 has_children: false
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/ad/detector-access-control/
 redirect_from:
   - /monitoring-plugins/ad/detector-access-control/
 ---

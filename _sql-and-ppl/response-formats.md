@@ -2,6 +2,7 @@
 layout: default
 title: Response formats
 nav_order: 2
+canonical_url: https://docs.opensearch.org/latest/sql-and-ppl/response-formats/
 redirect_from:
   - /search-plugins/sql/response-formats/
 ---

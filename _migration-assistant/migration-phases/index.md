@@ -6,9 +6,11 @@ nav_exclude: false
 has_children: true
 has_toc: false
 permalink: /migration-assistant/migration-phases/
+canonical_url: https://docs.opensearch.org/latest/migration-assistant/migration-phases/
 redirect_from:
   - /migration-assistant/overview/migration-phases/
   - /migration-phases/
+redirect_to: https://docs.opensearch.org/latest/migration-assistant/migration-phases/
 ---
 
 # Migration workflows

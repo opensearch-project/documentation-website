@@ -4,6 +4,7 @@ title: Getting started
 nav_order: 5
 has_children: true
 has_toc: false
+canonical_url: https://docs.opensearch.org/latest/dashboards/getting-started/index/
 redirect_from:
   - /dashboards/getting-started/
   - /dashboards/get-started/quickstart-dashboards/

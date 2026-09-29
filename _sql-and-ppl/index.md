@@ -6,6 +6,7 @@ has_children: true
 has_toc: false
 nav_exclude: true
 permalink: /sql-and-ppl/
+canonical_url: https://docs.opensearch.org/latest/sql-and-ppl/
 redirect_from:
   - /search-plugins/sql/
   - /search-plugins/sql/index/

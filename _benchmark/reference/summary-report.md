@@ -3,9 +3,11 @@ layout: default
 title: Summary report
 nav_order: 40
 parent: Reference
+canonical_url: https://docs.opensearch.org/latest/benchmark/reference/summary-report/
 redirect_from:
   - /benchmark/user-guide/understanding-results/summary-reports/
   - /benchmark/user-guide/understanding-results/
+redirect_to: https://docs.opensearch.org/latest/benchmark/reference/summary-report/
 ---
 
 # Summary report

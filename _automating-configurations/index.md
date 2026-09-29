@@ -4,6 +4,7 @@ title: Automating configurations
 nav_order: 1
 has_children: false
 nav_exclude: true
+canonical_url: https://docs.opensearch.org/latest/automating-configurations/index/
 redirect_from:
   - /automating-configurations/
 ---

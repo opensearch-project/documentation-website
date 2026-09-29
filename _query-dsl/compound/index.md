@@ -4,6 +4,7 @@ title: Compound queries
 has_children: true
 has_toc: false
 nav_order: 50
+canonical_url: https://docs.opensearch.org/latest/query-dsl/compound/index/
 redirect_from:
   - /opensearch/query-dsl/compound/index/
   - /query-dsl/query-dsl/compound/

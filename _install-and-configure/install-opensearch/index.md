@@ -3,6 +3,7 @@ layout: default
 title: Installing OpenSearch
 nav_order: 2
 has_children: true
+canonical_url: https://docs.opensearch.org/latest/install-and-configure/install-opensearch/index/
 redirect_from:
   - /opensearch/install/
   - /opensearch/install/compatibility/

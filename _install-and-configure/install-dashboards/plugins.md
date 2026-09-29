@@ -2,6 +2,7 @@
 layout: default
 title: Managing OpenSearch Dashboards plugins
 nav_order: 100
+canonical_url: https://docs.opensearch.org/latest/install-and-configure/install-dashboards/plugins/
 redirect_from: 
   - /dashboards/install/plugins/
 ---

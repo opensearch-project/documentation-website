@@ -4,6 +4,7 @@ title: Conversational search using OpenAI
 parent: RAG
 grand_parent: Generative AI
 nav_order: 170
+canonical_url: https://docs.opensearch.org/latest/tutorials/gen-ai/rag/conversational-search-openai/
 redirect_from:
   - /vector-search/tutorials/conversational-search/conversational-search-openai/
   - /tutorials/vector-search/rag/conversational-search/conversational-search-openai/

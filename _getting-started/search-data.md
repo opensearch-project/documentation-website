@@ -3,6 +3,7 @@ layout: default
 title: Search your data
 nav_order: 50
 description: "Learn about query languages available in OpenSearch and get started with searching data in using query string queries and query domain-specific language (DSL)."
+canonical_url: https://docs.opensearch.org/latest/getting-started/search-data/
 ---
 
 # Search your data

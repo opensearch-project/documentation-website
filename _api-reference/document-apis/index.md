@@ -4,6 +4,7 @@ title: Document APIs
 has_children: true
 has_toc: false
 nav_order: 50
+canonical_url: https://docs.opensearch.org/latest/api-reference/document-apis/index/
 redirect_from:
   - /opensearch/rest-api/document-apis/index/
   - /api-reference/document-apis/

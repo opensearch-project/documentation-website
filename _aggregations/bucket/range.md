@@ -3,6 +3,7 @@ layout: default
 title: Range
 parent: Bucket aggregations
 nav_order: 150
+canonical_url: https://docs.opensearch.org/latest/aggregations/bucket/range/
 redirect_from:
   - /query-dsl/aggregations/bucket/range/
 ---

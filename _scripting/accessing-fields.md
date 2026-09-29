@@ -2,6 +2,7 @@
 layout: default
 title: Accessing document fields in scripts
 nav_order: 20
+canonical_url: https://docs.opensearch.org/latest/scripting/accessing-fields/
 ---
 
 # Accessing document fields in scripts

@@ -4,6 +4,7 @@ title: Security APIs
 nav_order: 80
 has_children: true
 has_toc: false
+canonical_url: https://docs.opensearch.org/latest/security/api/index/
 redirect_from:
   - /security/api/
   - /api-reference/security/

@@ -4,6 +4,7 @@ title: Vector search techniques
 nav_order: 15
 has_children: true
 has_toc: false
+canonical_url: https://docs.opensearch.org/latest/vector-search/vector-search-techniques/index/
 redirect_from:
   - /search-plugins/knn/
   - /search-plugins/knn/index/ 

@@ -3,6 +3,7 @@ layout: default
 title: Modify data stream
 parent: Data stream APIs
 nav_order: 50
+canonical_url: https://docs.opensearch.org/latest/api-reference/data-stream/modify-data-stream/
 redirect_from:
   - /api-reference/index-apis/modify-data-stream/
 ---

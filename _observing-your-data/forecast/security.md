@@ -4,6 +4,7 @@ title: Forecasting security
 nav_order: 10
 parent: Forecasting
 has_children: false
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/forecast/security/
 ---
 
 # Forecasting security

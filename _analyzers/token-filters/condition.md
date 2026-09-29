@@ -3,6 +3,7 @@ layout: default
 title: Condition
 parent: Token filters
 nav_order: 70
+canonical_url: https://docs.opensearch.org/latest/analyzers/token-filters/condition/
 ---
 
 # Condition token filter

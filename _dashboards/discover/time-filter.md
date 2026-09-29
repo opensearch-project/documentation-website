@@ -4,6 +4,7 @@ title: Time filter
 parent: Exploring data with Discover
 grand_parent: Exploring data
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/dashboards/discover/time-filter/
 redirect_from:
   - /dashboards/get-started/time-filter/
 ---

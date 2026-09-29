@@ -2,6 +2,7 @@
 layout: default
 title: Analyzer
 parent: Mapping parameters
+canonical_url: https://docs.opensearch.org/latest/mappings/mapping-parameters/analyzer/
 redirect_from:
   - /field-types/mapping-parameters/analyzer/
 nav_order: 5

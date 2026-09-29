@@ -3,6 +3,7 @@ layout: default
 title: Index rollups
 nav_order: 50
 has_children: true
+canonical_url: https://docs.opensearch.org/latest/im-plugin/index-rollups/index/
 redirect_from: 
   - /im-plugin/index-rollups/
 ---

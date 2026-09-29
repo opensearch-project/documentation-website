@@ -4,6 +4,7 @@ title: Root Cause Analysis
 nav_order: 50
 parent: Performance Analyzer
 has_children: true
+canonical_url: https://docs.opensearch.org/latest/monitoring-your-cluster/pa/rca/index/
 redirect_from:
   - /monitoring-plugins/pa/rca/index/
   - /monitoring-your-cluster/pa/rca/

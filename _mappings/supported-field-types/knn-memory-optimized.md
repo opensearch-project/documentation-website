@@ -3,6 +3,7 @@ layout: default
 title: Memory-optimized vectors
 parent: k-NN vector
 grand_parent: Supported field types
+canonical_url: https://docs.opensearch.org/latest/mappings/supported-field-types/knn-memory-optimized/
 redirect_from:
   - /field-types/supported-field-types/knn-memory-optimized/
 nav_order: 30

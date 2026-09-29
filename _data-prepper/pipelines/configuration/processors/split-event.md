@@ -4,6 +4,8 @@ title: Split event
 parent: Processors
 grand_parent: Pipelines
 nav_order: 340
+canonical_url: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/processors/split-event/
+redirect_to: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/processors/split-event/
 ---
 
 # Split event processor

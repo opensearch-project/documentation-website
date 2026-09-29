@@ -5,6 +5,7 @@ nav_order: 10
 parent: Search Relevance Workbench
 grand_parent: Optimizing search quality
 has_children: false
+canonical_url: https://docs.opensearch.org/latest/search-plugins/search-relevance/compare-search-results/
 ---
 
 # Comparing single queries

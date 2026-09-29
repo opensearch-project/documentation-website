@@ -4,6 +4,7 @@ title: Create or update role mapping
 parent: Role mapping APIs
 grand_parent: Security APIs
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/security/api/role-mappings/create-role-mapping/
 ---
 
 # Create or Update Role Mapping API

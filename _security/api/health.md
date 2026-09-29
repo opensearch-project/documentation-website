@@ -3,6 +3,7 @@ layout: default
 title: Security plugin health
 parent: Security APIs
 nav_order: 170
+canonical_url: https://docs.opensearch.org/latest/security/api/health/
 ---
 
 # Security Plugin Health API

@@ -3,6 +3,7 @@ layout: default
 title: Supported log types
 has_children: yes
 nav_order: 16
+canonical_url: https://docs.opensearch.org/latest/security-analytics/log-types-reference/index/
 redirect_from:
   - /security-analytics/sec-analytics-config/log-types/
   - /security-analytics/log-types-reference/

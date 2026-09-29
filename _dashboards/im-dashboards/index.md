@@ -3,6 +3,7 @@ layout: default
 title: Index Management
 nav_order: 30
 has_children: false
+canonical_url: https://docs.opensearch.org/latest/dashboards/im-dashboards/index/
 redirect_from:
   - /dashboards/im-dashboards/
   - /dashboards/admin-ui-index/

@@ -4,6 +4,8 @@ title: startsWith()
 parent: Functions
 grand_parent: Pipelines
 nav_order: 40
+canonical_url: https://docs.opensearch.org/latest/data-prepper/pipelines/startswith/
+redirect_to: https://docs.opensearch.org/latest/data-prepper/pipelines/startswith/
 ---
 
 <!-- vale off -->

@@ -3,6 +3,7 @@ layout: default
 title: Ingest APIs
 has_children: false
 nav_order: 70
+canonical_url: https://docs.opensearch.org/latest/api-reference/ingest-apis/index/
 redirect_from:
   - /opensearch/rest-api/ingest-apis/index/
   - /api-reference/ingest-apis/

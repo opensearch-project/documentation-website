@@ -3,6 +3,7 @@ layout: default
 title: Filtering data
 nav_order: 50
 has_children: true
+canonical_url: https://docs.opensearch.org/latest/vector-search/filter-search-knn/index/
 redirect_from:
   - /search-plugins/knn/filter-search-knn/ 
   - /vector-search/filter-search-knn/

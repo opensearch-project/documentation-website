@@ -6,6 +6,7 @@ has_toc: false
 nav_exclude: true
 description: "Solutions to common OpenSearch and OpenSearch Dashboards issues, including startup failures, security configuration errors, expired certificates, and connectivity problems."
 permalink: /troubleshoot/
+canonical_url: https://docs.opensearch.org/latest/troubleshoot/
 redirect_from:
   - /troubleshoot/index/
 ---

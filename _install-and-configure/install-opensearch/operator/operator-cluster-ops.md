@@ -4,6 +4,7 @@ title: Cluster operations
 parent: OpenSearch Kubernetes Operator
 grand_parent: Installing OpenSearch
 nav_order: 50
+canonical_url: https://docs.opensearch.org/latest/install-and-configure/install-opensearch/operator/operator-cluster-ops/
 ---
 
 # Cluster operations

@@ -3,6 +3,7 @@ layout: default
 title: Has parent
 parent: Joining queries
 nav_order: 20
+canonical_url: https://docs.opensearch.org/latest/query-dsl/joining/has-parent/
 ---
 
 # Has parent query

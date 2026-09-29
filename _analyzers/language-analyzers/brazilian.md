@@ -4,6 +4,7 @@ title: Brazilian
 parent: Language analyzers
 grand_parent: Analyzers
 nav_order: 50
+canonical_url: https://docs.opensearch.org/latest/analyzers/language-analyzers/brazilian/
 ---
 
 # Brazilian analyzer

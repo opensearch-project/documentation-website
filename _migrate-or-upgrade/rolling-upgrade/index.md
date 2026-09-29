@@ -6,6 +6,7 @@ has_children: true
 has_toc: true
 permalink: /migrate-or-upgrade/rolling-upgrade/
 nav_exclude: false
+canonical_url: https://docs.opensearch.org/latest/migrate-or-upgrade/rolling-upgrade/
 redirect_from:
  - /upgrade-opensearch/
  - /rolling-upgrade/index/

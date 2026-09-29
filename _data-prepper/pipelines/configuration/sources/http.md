@@ -4,8 +4,10 @@ title: HTTP
 parent: Sources
 grand_parent: Pipelines
 nav_order: 30
+canonical_url: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/sources/http/
 redirect_from:
   - /data-prepper/pipelines/configuration/sources/http-source/
+redirect_to: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/sources/http/
 ---
 
 # HTTP source

@@ -4,6 +4,7 @@ title: Generate user token
 parent: Internal user APIs
 grand_parent: Security APIs
 nav_order: 50
+canonical_url: https://docs.opensearch.org/latest/security/api/users/generate-user-token/
 ---
 
 # Generate User Token API

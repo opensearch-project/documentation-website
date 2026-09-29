@@ -4,6 +4,7 @@ title: Conversational search using Cohere Command
 parent: RAG
 grand_parent: Generative AI
 nav_order: 150
+canonical_url: https://docs.opensearch.org/latest/tutorials/gen-ai/rag/conversational-search-cohere/
 redirect_from:
   - /ml-commons-plugin/tutorials/conversational-search-cohere/
   - /vector-search/tutorials/conversational-search/conversational-search-cohere/

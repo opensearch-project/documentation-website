@@ -3,6 +3,7 @@ layout: default
 title: Scripted metric
 parent: Metric aggregations
 nav_order: 100
+canonical_url: https://docs.opensearch.org/latest/aggregations/metric/scripted-metric/
 redirect_from:
   - /query-dsl/aggregations/metric/scripted-metric/
 ---

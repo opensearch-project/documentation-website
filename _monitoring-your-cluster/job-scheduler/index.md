@@ -4,6 +4,7 @@ title: Job Scheduler
 nav_order: 1
 has_children: true
 has_toc: false
+canonical_url: https://docs.opensearch.org/latest/monitoring-your-cluster/job-scheduler/index/
 redirect_from:
   - /job-scheduler-plugin/index/
   - /monitoring-your-cluster/job-scheduler/

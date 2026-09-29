@@ -3,6 +3,7 @@ layout: default
 title: Source
 parent: Metadata fields
 nav_order: 70
+canonical_url: https://docs.opensearch.org/latest/mappings/metadata-fields/source/
 redirect_from:
   - /field-types/metadata-fields/source/
 ---

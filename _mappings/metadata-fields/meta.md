@@ -3,6 +3,7 @@ layout: default
 title: Meta
 parent: Metadata fields
 nav_order: 50
+canonical_url: https://docs.opensearch.org/latest/mappings/metadata-fields/meta/
 redirect_from:
   - /field-types/metadata-fields/meta/
 ---

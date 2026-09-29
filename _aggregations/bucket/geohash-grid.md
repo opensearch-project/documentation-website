@@ -3,6 +3,7 @@ layout: default
 title: Geohash grid
 parent: Bucket aggregations
 nav_order: 80
+canonical_url: https://docs.opensearch.org/latest/aggregations/bucket/geohash-grid/
 redirect_from:
   - /query-dsl/aggregations/bucket/geohash-grid/
 ---

@@ -3,6 +3,7 @@ layout: default
 title: Index sorting
 parent: Tuning indexes
 nav_order: 20
+canonical_url: https://docs.opensearch.org/latest/im-plugin/index-sorting/
 ---
 
 

@@ -4,6 +4,7 @@ title: Supported field types
 nav_order: 80
 has_children: true
 has_toc: false
+canonical_url: https://docs.opensearch.org/latest/mappings/supported-field-types/index/
 redirect_from:
   - /opensearch/supported-field-types/
   - /opensearch/supported-field-types/index/

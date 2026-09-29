@@ -3,6 +3,7 @@ layout: default
 title: Painless language reference
 parent: Painless scripting language
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/scripting/painless-language/
 ---
 
 # Painless language reference

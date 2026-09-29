@@ -3,6 +3,7 @@ layout: default
 title: Kuromoji base form
 parent: Token filters
 nav_order: 230
+canonical_url: https://docs.opensearch.org/latest/analyzers/token-filters/kuromoji-baseform/
 ---
 
 # Kuromoji base form token filter

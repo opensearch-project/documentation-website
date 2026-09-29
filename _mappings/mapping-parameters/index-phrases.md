@@ -2,6 +2,7 @@
 layout: default
 title: Index phrases
 parent: Mapping parameters
+canonical_url: https://docs.opensearch.org/latest/mappings/mapping-parameters/index-phrases/
 redirect_from:
   - /field-types/mapping-parameters/index-phrases/
 nav_order: 160

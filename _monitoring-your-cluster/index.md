@@ -6,6 +6,7 @@ has_children: false
 has_toc: false
 nav_exclude: true
 permalink: /monitoring-your-cluster/
+canonical_url: https://docs.opensearch.org/latest/monitoring-your-cluster/
 redirect_from: 
   - /monitoring-your-cluster/index/
 ---

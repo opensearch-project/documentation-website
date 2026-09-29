@@ -3,6 +3,8 @@ layout: default
 title: schedule
 parent: Anatomy of a workload
 nav_order: 40
+canonical_url: https://docs.opensearch.org/latest/benchmark/reference/workloads/schedule/
+redirect_to: https://docs.opensearch.org/latest/benchmark/reference/workloads/schedule/
 ---
 
 <!-- vale off -->

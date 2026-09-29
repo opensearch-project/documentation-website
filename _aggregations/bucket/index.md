@@ -4,6 +4,7 @@ title: Bucket aggregations
 has_children: true
 has_toc: false
 nav_order: 3
+canonical_url: https://docs.opensearch.org/latest/aggregations/bucket/index/
 redirect_from:
   - /opensearch/bucket-agg/
   - /query-dsl/aggregations/bucket-agg/

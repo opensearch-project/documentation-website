@@ -2,6 +2,7 @@
 layout: default
 title: Cross-cluster search
 nav_order: 230
+canonical_url: https://docs.opensearch.org/latest/search-plugins/cross-cluster-search/
 redirect_from:
  - /security/access-control/cross-cluster-search/
  - /security-plugin/access-control/cross-cluster-search/

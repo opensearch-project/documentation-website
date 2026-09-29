@@ -4,6 +4,7 @@ title: Neural Search API
 parent: Vector search API
 nav_order: 20
 has_children: false
+canonical_url: https://docs.opensearch.org/latest/vector-search/api/neural/
 ---
 
 # Neural Search API

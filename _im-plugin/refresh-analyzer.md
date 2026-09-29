@@ -4,6 +4,7 @@ title: Refresh search analyzer
 parent: Tuning indexes
 nav_order: 10
 has_toc: false
+canonical_url: https://docs.opensearch.org/latest/im-plugin/refresh-analyzer/
 redirect_from: 
   - /query-dsl/analyzers/refresh-analyzer/
   - /im-plugin/refresh-analyzer/index/

@@ -3,6 +3,7 @@ layout: default
 title: Best practices
 parent: Configuration
 nav_order: 5
+canonical_url: https://docs.opensearch.org/latest/security/configuration/best-practices/
 ---
 
 # Best practices for OpenSearch security

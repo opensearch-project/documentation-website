@@ -3,6 +3,7 @@ layout: default
 title: Sparse encoding
 parent: Ingest processors
 nav_order: 240
+canonical_url: https://docs.opensearch.org/latest/ingest-pipelines/processors/sparse-encoding/
 redirect_from:
    - /api-reference/ingest-apis/processors/sparse-encoding/
 ---

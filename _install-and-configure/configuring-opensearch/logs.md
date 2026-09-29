@@ -3,6 +3,7 @@ layout: default
 title: Logs
 parent: Configuring OpenSearch
 nav_order: 130
+canonical_url: https://docs.opensearch.org/latest/install-and-configure/configuring-opensearch/logs/
 redirect_from:
   - /opensearch/logs/
   - /monitoring-your-cluster/logs/

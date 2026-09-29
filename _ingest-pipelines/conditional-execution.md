@@ -3,6 +3,7 @@ layout: default
 title: Conditional execution
 has_children: true
 nav_order: 40
+canonical_url: https://docs.opensearch.org/latest/ingest-pipelines/conditional-execution/
 ---
 
 # Conditional execution

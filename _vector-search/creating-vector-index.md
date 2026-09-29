@@ -2,6 +2,7 @@
 layout: default
 title: Creating a vector index
 nav_order: 20
+canonical_url: https://docs.opensearch.org/latest/vector-search/creating-vector-index/
 redirect_from:
   - /vector-search/creating-a-vector-db/
   - /search-plugins/knn/knn-index/

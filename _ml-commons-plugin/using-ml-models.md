@@ -5,6 +5,7 @@ parent: Integrating ML models
 has_children: true
 has_toc: false
 nav_order: 50
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/using-ml-models/
 redirect_from:
    - /ml-commons-plugin/model-serving-framework/
    - /ml-commons-plugin/ml-framework/

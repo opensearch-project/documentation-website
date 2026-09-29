@@ -3,6 +3,7 @@ layout: default
 title: Search telemetry
 parent: Settings and administration
 nav_order: 70
+canonical_url: https://docs.opensearch.org/latest/dashboards/search-telemetry/
 ---
 
 

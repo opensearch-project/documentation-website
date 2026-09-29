@@ -3,6 +3,7 @@ layout: default
 title: Distributed tracing 
 parent: Trace analytics
 nav_order: 65
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/trace/distributed-tracing/
 ---
 
 # Distributed tracing

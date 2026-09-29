@@ -3,6 +3,7 @@ layout: default
 title: Get data stream
 parent: Data stream APIs
 nav_order: 20
+canonical_url: https://docs.opensearch.org/latest/api-reference/data-stream/data-stream-info/
 ---
 
 # Get Data Stream API

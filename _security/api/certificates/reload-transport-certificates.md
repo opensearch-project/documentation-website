@@ -4,6 +4,7 @@ title: Reload transport certificates
 parent: Certificate APIs
 grand_parent: Security APIs
 nav_order: 40
+canonical_url: https://docs.opensearch.org/latest/security/api/certificates/reload-transport-certificates/
 ---
 
 # Reload Transport Certificates API

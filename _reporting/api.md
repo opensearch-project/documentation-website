@@ -2,6 +2,7 @@
 layout: default
 title: Reporting API
 nav_order: 8
+canonical_url: https://docs.opensearch.org/latest/reporting/api/
 ---
 
 # Reporting API

@@ -4,6 +4,7 @@ title: Search bar
 parent: Exploring data with Discover
 grand_parent: Exploring data
 nav_order: 20
+canonical_url: https://docs.opensearch.org/latest/dashboards/discover/search-bar/
 redirect_from: 
   - /dashboards/#discover-and-dashboard-search-bar
 ---

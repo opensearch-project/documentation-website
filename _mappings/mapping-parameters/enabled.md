@@ -2,6 +2,7 @@
 layout: default
 title: Enabled
 parent: Mapping parameters
+canonical_url: https://docs.opensearch.org/latest/mappings/mapping-parameters/enabled/
 redirect_from:
   - /field-types/mapping-parameters/enabled/
 nav_order: 40

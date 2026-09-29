@@ -6,6 +6,7 @@ parent: Exact k-NN search with a scoring script
 grand_parent: Vector search techniques
 has_children: false
 has_math: true
+canonical_url: https://docs.opensearch.org/latest/vector-search/vector-search-techniques/painless-functions/
 redirect_from:
   - /search-plugins/knn/painless-functions/ 
 ---

@@ -2,6 +2,7 @@
 layout: default
 title: Doc values
 parent: Mapping parameters
+canonical_url: https://docs.opensearch.org/latest/mappings/mapping-parameters/doc-values/
 redirect_from:
   - /field-types/mapping-parameters/doc-values/
 nav_order: 25

@@ -3,6 +3,7 @@ layout: default
 title: Docker
 parent: Installing OpenSearch Dashboards
 nav_order: 1
+canonical_url: https://docs.opensearch.org/latest/install-and-configure/install-dashboards/docker/
 redirect_from: 
   - /dashboards/install/docker/
   - /opensearch/install/docker-security/

@@ -3,6 +3,7 @@ layout: default
 title: Standalone audit logging
 parent: Audit logs
 nav_order: 133
+canonical_url: https://docs.opensearch.org/latest/security/audit-logs/standalone/
 ---
 
 # Standalone audit logging

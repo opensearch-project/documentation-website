@@ -4,6 +4,7 @@ title: Cluster decommission
 nav_order: 30
 parent: Cluster APIs
 has_children: false
+canonical_url: https://docs.opensearch.org/latest/api-reference/cluster-api/cluster-decommission/
 redirect_from: 
   - /api-reference/cluster-decommission/
   - /opensearch/rest-api/cluster-decommission/

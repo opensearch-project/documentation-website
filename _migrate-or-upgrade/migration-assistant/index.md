@@ -5,6 +5,7 @@ nav_order: 70
 has_children: false
 has_toc: true
 permalink: /migrate-or-upgrade/migration-assistant/
+canonical_url: https://docs.opensearch.org/latest/migrate-or-upgrade/migration-assistant/
 ---
 
 # Migration Assistant

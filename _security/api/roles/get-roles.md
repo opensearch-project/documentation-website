@@ -4,6 +4,7 @@ title: Get roles
 parent: Role APIs
 grand_parent: Security APIs
 nav_order: 30
+canonical_url: https://docs.opensearch.org/latest/security/api/roles/get-roles/
 ---
 
 # Get Roles API

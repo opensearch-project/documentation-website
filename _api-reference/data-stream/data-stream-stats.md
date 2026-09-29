@@ -3,6 +3,7 @@ layout: default
 title: Get data stream stats
 parent: Data stream APIs
 nav_order: 30
+canonical_url: https://docs.opensearch.org/latest/api-reference/data-stream/data-stream-stats/
 redirect_from:
   - /api-reference/index-apis/data-stream-stats/
 ---

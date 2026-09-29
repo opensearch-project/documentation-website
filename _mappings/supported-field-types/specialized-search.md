@@ -5,6 +5,7 @@ nav_order: 95
 has_children: true
 has_toc: false
 parent: Supported field types
+canonical_url: https://docs.opensearch.org/latest/mappings/supported-field-types/specialized-search/
 redirect_from:
   - /field-types/supported-field-types/specialized-search/
 ---

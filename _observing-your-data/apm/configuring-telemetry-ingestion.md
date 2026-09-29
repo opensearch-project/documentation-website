@@ -3,6 +3,7 @@ layout: default
 title: Configuring telemetry ingestion
 nav_order: 10
 parent: Application Performance Monitoring
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/apm/configuring-telemetry-ingestion/
 ---
 
 # Configuring telemetry ingestion

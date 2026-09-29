@@ -3,6 +3,7 @@ layout: default
 title: API
 parent: Performance Analyzer
 nav_order: 1
+canonical_url: https://docs.opensearch.org/latest/monitoring-your-cluster/pa/api/
 redirect_from:
   - /monitoring-plugins/pa/api/
 ---

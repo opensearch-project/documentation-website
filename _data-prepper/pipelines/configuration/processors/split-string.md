@@ -4,6 +4,8 @@ title: Split string
 parent: Processors
 grand_parent: Pipelines
 nav_order: 350
+canonical_url: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/processors/split-string/
+redirect_to: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/processors/split-string/
 ---
 
 # Split string processor

@@ -3,6 +3,7 @@ layout: default
 title: Execute agent stream (gRPC)
 parent: gRPC APIs
 nav_order: 50
+canonical_url: https://docs.opensearch.org/latest/api-reference/grpc-apis/execute-agent-stream/
 ---
 
 # Execute Agent Stream API (gRPC)

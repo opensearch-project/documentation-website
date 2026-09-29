@@ -2,6 +2,8 @@
 layout: default
 title: FAQs
 nav_order: 115
+canonical_url: https://docs.opensearch.org/latest/benchmark/FAQs/
+redirect_to: https://docs.opensearch.org/latest/benchmark/FAQs/
 ---
 
 # OpenSearch Benchmark FAQs

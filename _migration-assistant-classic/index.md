@@ -7,6 +7,7 @@ has_toc: false
 nav_exclude: true
 permalink: /classic/migration-assistant/
 
+canonical_url: https://docs.opensearch.org/latest/classic/migration-assistant/
 items:
   - heading: "Is Migration Assistant right for you?"
     description: "Evaluate whether Migration Assistant is right for your use case."
@@ -20,6 +21,7 @@ items:
   - heading: "Execute your migration in phases"
     description: "A step-by-step guide for performing a migration."
     link: "/classic/migration-assistant/migration-phases/"
+redirect_to: https://docs.opensearch.org/latest/classic/migration-assistant/
 ---
 
 # ![Migration Assistant icon]({{site.url}}{{site.baseurl}}/images/icons/MigrationUpgrade_Color_Icon.svg){: .heading-icon} Migration Assistant for OpenSearch (Classic)

@@ -2,6 +2,7 @@
 layout: default
 title: Application analytics
 nav_order: 30
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/app-analytics/
 ---
 
 # Application analytics

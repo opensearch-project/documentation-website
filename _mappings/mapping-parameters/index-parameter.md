@@ -2,6 +2,7 @@
 layout: default
 title: Index
 parent: Mapping parameters
+canonical_url: https://docs.opensearch.org/latest/mappings/mapping-parameters/index-parameter/
 redirect_from:
   - /field-types/mapping-parameters/index-parameter/
 nav_order: 150

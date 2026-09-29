@@ -4,6 +4,7 @@ title: Create or update tenant
 parent: Tenant APIs
 grand_parent: Security APIs
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/security/api/tenants/create-tenant/
 ---
 
 # Create or Update Tenant API

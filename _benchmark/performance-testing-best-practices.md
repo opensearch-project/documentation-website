@@ -2,9 +2,11 @@
 layout: default
 title: Performance testing best practices
 nav_order: 70
+canonical_url: https://docs.opensearch.org/latest/benchmark/performance-testing-best-practices/
 redirect_from:
   - /benchmark/user-guide/optimizing-benchmarks/performance-testing-best-practices/
   - /benchmark/user-guide/optimizing-benchmarks/
+redirect_to: https://docs.opensearch.org/latest/benchmark/performance-testing-best-practices/
 ---
 
 # Performance testing best practices

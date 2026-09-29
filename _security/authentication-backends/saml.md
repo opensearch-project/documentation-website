@@ -3,6 +3,7 @@ layout: default
 title: SAML
 parent: Authentication backends
 nav_order: 55
+canonical_url: https://docs.opensearch.org/latest/security/authentication-backends/saml/
 redirect_from:
   - /security/configuration/saml/
   - /security-plugin/configuration/saml/

@@ -3,6 +3,7 @@ layout: default
 title: Flush cache
 parent: Security APIs
 nav_order: 150
+canonical_url: https://docs.opensearch.org/latest/security/api/flush-cache/
 redirect_from:
   - /security/api/cache/
   - /security/api/cache/flush-cache/

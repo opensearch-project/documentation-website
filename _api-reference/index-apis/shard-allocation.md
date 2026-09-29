@@ -4,6 +4,7 @@ title: Shard allocation
 parent: Index blocks and allocation
 grand_parent: Index APIs
 nav_order: 20
+canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/shard-allocation/
 ---
 
 # Shard allocation filtering

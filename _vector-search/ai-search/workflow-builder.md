@@ -5,6 +5,7 @@ parent: AI search
 has_children: true
 has_toc: false
 nav_order: 80
+canonical_url: https://docs.opensearch.org/latest/vector-search/ai-search/workflow-builder/
 redirect_from:
   - /automating-configurations/workflow-builder/
   - /tutorials/ai-search-flows/building-flows/

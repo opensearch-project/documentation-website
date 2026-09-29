@@ -4,6 +4,7 @@ title: Pipeline aggregations
 nav_order: 5
 has_children: true
 has_toc: false
+canonical_url: https://docs.opensearch.org/latest/aggregations/pipeline/index/
 redirect_from:
   - /opensearch/pipeline-agg/
   - /query-dsl/aggregations/pipeline-agg/

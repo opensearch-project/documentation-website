@@ -5,6 +5,7 @@ nav_order: 50
 has_children: false
 nav_exclude: true
 permalink: /tools/
+canonical_url: https://docs.opensearch.org/latest/tools/
 redirect_from:
   - /clients/agents-and-ingestion-tools/index/
   - /tools/index/

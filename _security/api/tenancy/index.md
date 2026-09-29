@@ -5,6 +5,7 @@ parent: Security APIs
 nav_order: 90
 has_children: true
 has_toc: false
+canonical_url: https://docs.opensearch.org/latest/security/api/tenancy/index/
 redirect_from:
   - /security/api/tenancy/
 ---

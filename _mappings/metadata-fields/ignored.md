@@ -3,6 +3,7 @@ layout: default
 title: Ignored
 parent: Metadata fields
 nav_order: 30
+canonical_url: https://docs.opensearch.org/latest/mappings/metadata-fields/ignored/
 redirect_from:
   - /field-types/metadata-fields/ignored/
 ---

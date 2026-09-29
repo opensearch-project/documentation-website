@@ -4,6 +4,7 @@ title: Metrics framework
 nav_order: 1
 has_children: false
 has_toc: false
+canonical_url: https://docs.opensearch.org/latest/monitoring-your-cluster/metrics/getting-started/
 redirect_from:
   - /monitoring-your-cluster/metrics/
 ---

@@ -4,6 +4,7 @@ title: Metric aggregations
 has_children: true
 has_toc: false
 nav_order: 2
+canonical_url: https://docs.opensearch.org/latest/aggregations/metric/index/
 redirect_from:
   - /opensearch/metric-agg/
   - /query-dsl/aggregations/metric-agg/

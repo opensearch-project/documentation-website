@@ -4,6 +4,7 @@ title: Get certificates
 parent: Certificate APIs
 grand_parent: Security APIs
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/security/api/certificates/get-certificates/
 ---
 
 # Get Certificates API

@@ -3,6 +3,7 @@ layout: default
 title: Kuromoji
 parent: Tokenizers
 nav_order: 55
+canonical_url: https://docs.opensearch.org/latest/analyzers/tokenizers/kuromoji/
 ---
 
 # Kuromoji tokenizer

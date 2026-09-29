@@ -3,6 +3,7 @@ layout: default
 title: API permissions
 parent: Access control
 nav_order: 120
+canonical_url: https://docs.opensearch.org/latest/security/access-control/api/
 redirect_from:
  - /security-plugin/access-control/api/
 ---

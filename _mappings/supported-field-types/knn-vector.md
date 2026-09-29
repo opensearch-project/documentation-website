@@ -4,6 +4,7 @@ title: k-NN vector
 nav_order: 90
 has_children: true
 parent: Supported field types
+canonical_url: https://docs.opensearch.org/latest/mappings/supported-field-types/knn-vector/
 redirect_from:
   - /field-types/supported-field-types/knn-vector/
   - /mappings/supported-field-types/vector-field-types/

@@ -4,6 +4,7 @@ title: Create or update role
 parent: Role APIs
 grand_parent: Security APIs
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/security/api/roles/create-role/
 ---
 
 # Create or Update Role API

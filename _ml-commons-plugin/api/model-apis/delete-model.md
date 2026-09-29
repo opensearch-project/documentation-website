@@ -4,6 +4,7 @@ title: Delete model
 parent: Model APIs
 grand_parent: ML Commons APIs
 nav_order: 47
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/api/model-apis/delete-model/
 ---
 
 # Delete Model API

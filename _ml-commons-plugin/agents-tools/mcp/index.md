@@ -4,6 +4,7 @@ title: Using MCP tools
 parent: Agents and tools
 has_children: true
 nav_order: 30
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/agents-tools/mcp/index/
 redirect_from:
   - /ml-commons-plugin/agents-tools/mcp/
 ---
