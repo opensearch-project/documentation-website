@@ -2,7 +2,7 @@
 layout: default
 title: Communicate with OpenSearch
 nav_order: 30
-description: "Learn how to communicate with OpenSearch using the REST API to index documents, run queries, and change cluster settings."
+description: "Learn how to communicate with OpenSearch using the REST API to add documents, run queries, and change cluster settings."
 ---
 
 # Communicate with OpenSearch
@@ -83,5 +83,5 @@ In most of the OpenSearch documentation, requests are presented in the Dev Tools
 
 ## Next steps
 
-- To index, search, update, and delete documents, see [Add and manage your data]({{site.url}}{{site.baseurl}}/getting-started/manage-data/).
+- To add, search, update, and delete documents, see [Add and manage your data]({{site.url}}{{site.baseurl}}/getting-started/manage-data/).
  

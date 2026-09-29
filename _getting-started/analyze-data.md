@@ -585,5 +585,5 @@ Each flight records the coordinates of its origin and destination airports in th
 ## Next steps
 
 - To learn more about summarizing data, see [Aggregations]({{site.url}}{{site.baseurl}}/aggregations/).
-- To explore OpenSearch Dashboards applications, see [Getting started with OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/getting-started/).
+- To explore OpenSearch Dashboards applications, see [Getting started with OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/getting-started/index/).
 - To shut down the cluster when you're finished, see [Stop the cluster]({{site.url}}{{site.baseurl}}/getting-started/quickstart/#stop-the-cluster).
