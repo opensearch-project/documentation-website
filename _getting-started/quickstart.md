@@ -2,7 +2,7 @@
 layout: default
 title: Installation quickstart
 nav_order: 3
-description: "Quickly set up a local OpenSearch and OpenSearch Dashboards cluster using Docker, then index and search sample data to get started."
+description: "Quickly set up a local OpenSearch and OpenSearch Dashboards cluster using Docker, then add and search sample data to get started."
 redirect_from: 
   - /about/quickstart/
   - /opensearch/install/quickstart/
@@ -272,4 +272,4 @@ You successfully deployed your own OpenSearch cluster with OpenSearch Dashboards
 
 ## Next steps
 
-- See [Communicate with OpenSearch]({{site.url}}{{site.baseurl}}/getting-started/communicate/) to learn about how to send requests to OpenSearch.
+- To learn how to send requests to OpenSearch, see [Communicate with OpenSearch]({{site.url}}{{site.baseurl}}/getting-started/communicate/).
