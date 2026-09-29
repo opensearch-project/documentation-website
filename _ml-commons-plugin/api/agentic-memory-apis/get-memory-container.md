@@ -4,6 +4,7 @@ title: Get memory container
 parent: Agentic memory APIs
 grand_parent: ML Commons APIs
 nav_order: 20
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/api/agentic-memory-apis/get-memory-container/
 ---
 
 # Get Memory Container API

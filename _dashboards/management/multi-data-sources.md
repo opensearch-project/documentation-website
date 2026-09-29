@@ -3,6 +3,7 @@ layout: default
 title: Configuring and using multiple data sources
 parent: Connecting data sources
 nav_order: 20
+canonical_url: https://docs.opensearch.org/latest/dashboards/management/multi-data-sources/
 redirect_from:
   - /dashboards/discover/multi-data-sources/
 ---

@@ -3,6 +3,7 @@ layout: default
 title: Multi-terms
 parent: Bucket aggregations
 nav_order: 130
+canonical_url: https://docs.opensearch.org/latest/aggregations/bucket/multi-terms/
 redirect_from:
   - /query-dsl/aggregations/bucket/multi-terms/
   - /query-dsl/aggregations/multi-terms/

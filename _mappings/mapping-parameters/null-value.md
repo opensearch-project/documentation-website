@@ -2,6 +2,7 @@
 layout: default
 title: Null value
 parent: Mapping parameters
+canonical_url: https://docs.opensearch.org/latest/mappings/mapping-parameters/null-value/
 redirect_from:
   - /field-types/mapping-parameters/null-value/
 nav_order: 210

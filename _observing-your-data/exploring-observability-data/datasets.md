@@ -3,6 +3,7 @@ layout: default
 title: Datasets
 nav_order: 10
 parent: Using Discover for observability
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/exploring-observability-data/datasets/
 redirect_from:
   - /observability-plugin/datasets/
 ---

@@ -2,6 +2,7 @@
 layout: default
 title: Script security
 nav_order: 50
+canonical_url: https://docs.opensearch.org/latest/scripting/script-security/
 ---
 
 # Script security

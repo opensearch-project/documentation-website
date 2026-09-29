@@ -3,6 +3,7 @@ layout: default
 title: Significant terms
 parent: Bucket aggregations
 nav_order: 180
+canonical_url: https://docs.opensearch.org/latest/aggregations/bucket/significant-terms/
 redirect_from:
   - /query-dsl/aggregations/bucket/significant-terms/
 ---

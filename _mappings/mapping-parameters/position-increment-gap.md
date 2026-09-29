@@ -2,6 +2,7 @@
 layout: default
 title: Position increment gap
 parent: Mapping parameters
+canonical_url: https://docs.opensearch.org/latest/mappings/mapping-parameters/position-increment-gap/
 redirect_from:
   - /field-types/mapping-parameters/position-increment-gap/
 nav_order: 220

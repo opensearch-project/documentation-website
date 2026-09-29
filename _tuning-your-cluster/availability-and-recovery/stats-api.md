@@ -5,6 +5,7 @@ parent: Shard indexing backpressure
 nav_order: 2
 grand_parent: Availability and recovery
 has_children: false
+canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/availability-and-recovery/stats-api/
 redirect_from: 
   - /opensearch/stats-api/
 ---

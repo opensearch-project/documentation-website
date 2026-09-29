@@ -4,6 +4,7 @@ title: Span queries
 has_children: true
 has_toc: false
 nav_order: 75
+canonical_url: https://docs.opensearch.org/latest/query-dsl/span/index/
 redirect_from: 
   - /opensearch/query-dsl/span-query/
   - /query-dsl/query-dsl/span-query/

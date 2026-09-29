@@ -2,6 +2,7 @@
 layout: default
 title: How to use scripts
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/scripting/using-scripts/
 ---
 
 # How to use scripts

@@ -3,6 +3,7 @@ layout: default
 title: PerfTop dashboards
 parent: Performance Analyzer
 nav_order: 2
+canonical_url: https://docs.opensearch.org/latest/monitoring-your-cluster/pa/dashboards/
 redirect_from:
   - /monitoring-plugins/pa/dashboards/
 ---

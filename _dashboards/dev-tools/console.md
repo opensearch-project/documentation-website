@@ -4,6 +4,7 @@ title: Console
 parent: Using Dev Tools
 grand_parent: Exploring data
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/dashboards/dev-tools/console/
 ---
 
 # Dev Tools console

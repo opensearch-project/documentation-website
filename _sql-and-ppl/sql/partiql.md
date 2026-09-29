@@ -3,6 +3,7 @@ layout: default
 title: JSON support
 parent: SQL
 nav_order: 8
+canonical_url: https://docs.opensearch.org/latest/sql-and-ppl/sql/partiql/
 redirect_from:
   - /search-plugins/sql/partiql/
   - /search-plugins/sql/sql/partiql/

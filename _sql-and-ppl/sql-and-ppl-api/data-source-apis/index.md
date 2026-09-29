@@ -5,6 +5,7 @@ nav_order: 1
 has_children: true
 parent: SQL and PPL API
 has_toc: false
+canonical_url: https://docs.opensearch.org/latest/sql-and-ppl/sql-and-ppl-api/data-source-apis/index/
 redirect_from:
   - /sql-and-ppl/sql-and-ppl-api/data-source-apis/
   - /sql-and-ppl/ppl/admin/datasources/

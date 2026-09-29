@@ -4,6 +4,7 @@ title: Disabling and enabling the Security plugin
 parent: Configuration
 nav_order: 65
 has_toc: true
+canonical_url: https://docs.opensearch.org/latest/security/configuration/disable-enable-security/
 redirect_from:
  - /security-plugin/configuration/disable/
  - /security/configuration/disable/

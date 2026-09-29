@@ -3,6 +3,7 @@ layout: default
 title: Top hits
 parent: Metric aggregations
 nav_order: 130
+canonical_url: https://docs.opensearch.org/latest/aggregations/metric/top-hits/
 redirect_from:
   - /query-dsl/aggregations/metric/top-hits/
 ---

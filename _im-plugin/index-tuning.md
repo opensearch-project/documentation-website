@@ -4,6 +4,7 @@ title: Tuning indexes
 nav_order: 80
 has_children: true
 has_toc: false
+canonical_url: https://docs.opensearch.org/latest/im-plugin/index-tuning/
 ---
 
 # Tuning indexes

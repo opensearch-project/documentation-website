@@ -3,6 +3,7 @@ layout: default
 title: Average
 parent: Metric aggregations
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/aggregations/metric/average/
 redirect_from:
   - /query-dsl/aggregations/metric/average/
 ---

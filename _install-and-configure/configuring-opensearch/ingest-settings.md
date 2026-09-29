@@ -3,6 +3,7 @@ layout: default
 title: Ingest settings
 parent: Configuring OpenSearch
 nav_order: 115
+canonical_url: https://docs.opensearch.org/latest/install-and-configure/configuring-opensearch/ingest-settings/
 ---
 
 # Ingest settings

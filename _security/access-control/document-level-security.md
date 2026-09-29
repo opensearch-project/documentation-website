@@ -3,6 +3,7 @@ layout: default
 title: Document-level security
 parent: Access control
 nav_order: 90
+canonical_url: https://docs.opensearch.org/latest/security/access-control/document-level-security/
 redirect_from:
 - /security-plugin/access-control/document-level-security/
 ---

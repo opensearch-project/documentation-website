@@ -6,6 +6,7 @@ has_children: false
 has_toc: false
 nav_exclude: true
 permalink: /ml-commons-plugin/
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/
 redirect_from: 
   - /ml-commons-plugin/index/
 demo_cards:

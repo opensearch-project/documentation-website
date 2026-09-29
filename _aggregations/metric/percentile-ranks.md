@@ -3,6 +3,7 @@ layout: default
 title: Percentile ranks
 parent: Metric aggregations
 nav_order: 80
+canonical_url: https://docs.opensearch.org/latest/aggregations/metric/percentile-ranks/
 redirect_from:
   - /query-dsl/aggregations/metric/percentile-ranks/
 ---

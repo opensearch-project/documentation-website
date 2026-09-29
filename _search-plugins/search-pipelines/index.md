@@ -4,6 +4,7 @@ title: Search pipelines
 nav_order: 100
 has_children: true
 has_toc: false
+canonical_url: https://docs.opensearch.org/latest/search-plugins/search-pipelines/index/
 redirect_from:
   - /search-plugins/search-pipelines/
 ---

@@ -6,6 +6,7 @@ has_toc: false
 nav_order: 47
 nav_exclude: true
 permalink: /tutorials/
+canonical_url: https://docs.opensearch.org/latest/tutorials/
 redirect_from:
   - /ml-commons-plugin/tutorials/
   - /ml-commons-plugin/tutorials/index/

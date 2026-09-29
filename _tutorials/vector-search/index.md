@@ -4,6 +4,7 @@ title: Vector search
 has_children: true
 has_toc: false
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/tutorials/vector-search/index/
 redirect_from:
   - /vector-search/tutorials/
   - /tutorials/vector-search/

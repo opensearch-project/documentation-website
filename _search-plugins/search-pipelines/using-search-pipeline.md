@@ -4,6 +4,7 @@ title: Using a search pipeline
 nav_order: 20
 has_children: false
 parent: Search pipelines
+canonical_url: https://docs.opensearch.org/latest/search-plugins/search-pipelines/using-search-pipeline/
 ---
 
 # Using a search pipeline

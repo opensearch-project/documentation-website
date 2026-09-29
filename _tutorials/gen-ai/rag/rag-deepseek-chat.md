@@ -4,6 +4,7 @@ title: RAG using the DeepSeek Chat API
 parent: RAG
 grand_parent: Generative AI
 nav_order: 120
+canonical_url: https://docs.opensearch.org/latest/tutorials/gen-ai/rag/rag-deepseek-chat/
 redirect_from:
   - /vector-search/tutorials/rag/rag-deepseek-chat/
   - /tutorials/vector-search/rag/rag-deepseek-chat/

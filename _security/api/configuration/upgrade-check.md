@@ -4,6 +4,7 @@ title: Check for upgrades
 parent: Security configuration APIs
 grand_parent: Security APIs
 nav_order: 40
+canonical_url: https://docs.opensearch.org/latest/security/api/configuration/upgrade-check/
 redirect_from:
   - /api-reference/security/configuration/upgrade-check/
 ---

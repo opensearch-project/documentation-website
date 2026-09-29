@@ -4,6 +4,7 @@ title: OpenSearch Assistant for OpenSearch Dashboards
 nav_order: 140
 has_children: true
 has_toc: false
+canonical_url: https://docs.opensearch.org/latest/dashboards/dashboards-assistant/index/
 redirect_from:
   - /dashboards/dashboards-assistant/
 ---

@@ -3,6 +3,7 @@ layout: default
 title: Multi-search
 parent: Search APIs
 nav_order: 20
+canonical_url: https://docs.opensearch.org/latest/api-reference/search-apis/multi-search/
 redirect_from: 
  - /opensearch/rest-api/multi-search/
  - /api-reference/multi-search/

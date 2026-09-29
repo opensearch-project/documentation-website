@@ -2,6 +2,7 @@
 layout: default
 title: Index prefixes
 parent: Mapping parameters
+canonical_url: https://docs.opensearch.org/latest/mappings/mapping-parameters/index-prefixes/
 redirect_from:
   - /field-types/mapping-parameters/index-prefixes/
 nav_order: 170

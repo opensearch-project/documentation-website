@@ -2,10 +2,12 @@
 layout: default
 title: Running a workload
 nav_order: 30
+canonical_url: https://docs.opensearch.org/latest/benchmark/running-workloads/
 redirect_from:
   - /benchmark/user-guide/running-workloads/
   - /benchmark/user-guide/working-with-workloads/running-workloads/
   - /benchmark/user-guide/working-with-workloads/
+redirect_to: https://docs.opensearch.org/latest/benchmark/running-workloads/
 ---
 
 # Running a workload

@@ -3,6 +3,7 @@ layout: default
 title: Regexp
 parent: Term-level queries
 nav_order: 100
+canonical_url: https://docs.opensearch.org/latest/query-dsl/term/regexp/
 ---
 
 # Regexp query

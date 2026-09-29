@@ -3,6 +3,7 @@ layout: default
 title: Aggregate functions
 parent: SQL
 nav_order: 11
+canonical_url: https://docs.opensearch.org/latest/sql-and-ppl/sql/aggregations/
 redirect_from:
   - /search-plugins/sql/aggregations/
   - /search-plugins/sql/sql/aggregations/

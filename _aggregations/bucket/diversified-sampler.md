@@ -3,6 +3,7 @@ layout: default
 title: Diversified sampler
 parent: Bucket aggregations
 nav_order: 40
+canonical_url: https://docs.opensearch.org/latest/aggregations/bucket/diversified-sampler/
 redirect_from:
   - /query-dsl/aggregations/bucket/diversified-sampler/
 ---

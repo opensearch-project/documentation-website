@@ -5,6 +5,7 @@ nav_order: 53
 has_children: false
 parent: Autocomplete field types
 grand_parent: Supported field types
+canonical_url: https://docs.opensearch.org/latest/mappings/supported-field-types/search-as-you-type/
 redirect_from:
   - /field-types/supported-field-types/search-as-you-type/
   - /opensearch/supported-field-types/search-as-you-type/

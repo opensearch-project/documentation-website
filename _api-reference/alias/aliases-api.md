@@ -4,6 +4,7 @@ title: Manage aliases
 parent: Alias APIs
 grand_parent: Index APIs
 nav_order: 50
+canonical_url: https://docs.opensearch.org/latest/api-reference/alias/aliases-api/
 redirect_from:
  - /api-reference/index-apis/alias/
 ---

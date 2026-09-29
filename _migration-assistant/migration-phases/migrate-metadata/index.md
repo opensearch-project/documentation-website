@@ -6,10 +6,12 @@ parent: Migration workflows
 has_children: true
 has_toc: true
 permalink: /migration-assistant/migration-phases/migrate-metadata/
+canonical_url: https://docs.opensearch.org/latest/migration-assistant/migration-phases/migrate-metadata/
 redirect_from:
   - /migration-assistant/migration-phases/migrating-metadata/
   - /migration-phases/migrating-metadata/
   - /migration-assistant/deploying-migration-assistant/getting-started-data-migration/
+redirect_to: https://docs.opensearch.org/latest/migration-assistant/migration-phases/migrate-metadata/
 ---
 
 # Migrate metadata

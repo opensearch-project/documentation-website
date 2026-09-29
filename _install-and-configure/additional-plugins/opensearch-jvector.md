@@ -3,6 +3,7 @@ layout: default
 title: OpenSearch JVector plugin
 parent: Installing plugins
 nav_order: 30
+canonical_url: https://docs.opensearch.org/latest/install-and-configure/additional-plugins/opensearch-jvector/
 ---
 
 # OpenSearch JVector plugin

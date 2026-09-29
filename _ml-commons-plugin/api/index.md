@@ -4,6 +4,7 @@ title: ML Commons APIs
 nav_order: 110
 has_children: true
 has_toc: false
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/api/index/
 redirect_from:
   - /ml-commons-plugin/api/
   - /ml-commons-plugin/api/train-predict/

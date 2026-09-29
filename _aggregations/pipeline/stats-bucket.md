@@ -3,6 +3,7 @@ layout: default
 title: Stats bucket
 parent: Pipeline aggregations
 nav_order: 190
+canonical_url: https://docs.opensearch.org/latest/aggregations/pipeline/stats-bucket/
 ---
 
 # Stats bucket aggregation

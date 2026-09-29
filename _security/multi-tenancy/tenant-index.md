@@ -4,6 +4,7 @@ title: OpenSearch Dashboards multi-tenancy
 nav_order: 140
 has_children: true
 has_toc: false
+canonical_url: https://docs.opensearch.org/latest/security/multi-tenancy/tenant-index/
 redirect_from:
   - /security/multi-tenancy/
   - /security-plugin/access-control/multi-tenancy/

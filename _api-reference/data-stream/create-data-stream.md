@@ -3,6 +3,7 @@ layout: default
 title: Create data stream
 parent: Data stream APIs
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/api-reference/data-stream/create-data-stream/
 ---
 
 # Create Data Stream API

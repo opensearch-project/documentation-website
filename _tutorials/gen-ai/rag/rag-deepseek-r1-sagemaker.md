@@ -4,6 +4,7 @@ title: RAG using DeepSeek-R1 in Amazon SageMaker
 parent: RAG
 grand_parent: Generative AI
 nav_order: 140
+canonical_url: https://docs.opensearch.org/latest/tutorials/gen-ai/rag/rag-deepseek-r1-sagemaker/
 redirect_from:
   - /vector-search/tutorials/rag/rag-deepseek-r1-sagemaker/
   - /tutorials/vector-search/rag/rag-deepseek-r1-sagemaker/

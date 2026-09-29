@@ -3,6 +3,7 @@ layout: default
 title: Kuromoji number
 parent: Token filters
 nav_order: 232
+canonical_url: https://docs.opensearch.org/latest/analyzers/token-filters/kuromoji-number/
 ---
 
 # Kuromoji number token filter

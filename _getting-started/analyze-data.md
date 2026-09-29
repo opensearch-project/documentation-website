@@ -2,6 +2,7 @@
 layout: default
 title: Analyze your data
 nav_order: 60
+canonical_url: https://docs.opensearch.org/latest/getting-started/analyze-data/
 ---
 
 # Analyze your data

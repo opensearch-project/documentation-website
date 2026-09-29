@@ -4,6 +4,7 @@ title: Logstash
 nav_order: 150
 has_children: true
 has_toc: true
+canonical_url: https://docs.opensearch.org/latest/tools/logstash/index/
 redirect_from:
   - /clients/logstash/
   - /clients/logstash/index/

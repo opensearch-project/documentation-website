@@ -4,6 +4,7 @@ title: PPL
 nav_order: 5
 has_children: true
 has_toc: false
+canonical_url: https://docs.opensearch.org/latest/sql-and-ppl/ppl/index/
 redirect_from:
   - /sql-and-ppl/ppl/
   - /search-plugins/sql/ppl/

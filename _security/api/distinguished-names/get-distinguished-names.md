@@ -4,6 +4,7 @@ title: Get distinguished names
 parent: Distinguished name APIs
 grand_parent: Security APIs
 nav_order: 30
+canonical_url: https://docs.opensearch.org/latest/security/api/distinguished-names/get-distinguished-names/
 ---
 
 # Get Distinguished Names API

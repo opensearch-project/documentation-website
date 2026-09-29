@@ -4,6 +4,7 @@ title: Ingest processors
 nav_order: 80
 has_children: true
 has_toc: false
+canonical_url: https://docs.opensearch.org/latest/ingest-pipelines/processors/index-processors/
 redirect_from:
    - /api-reference/ingest-apis/ingest-processors/
 ---

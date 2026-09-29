@@ -4,6 +4,7 @@ title: Galician
 parent: Language analyzers
 grand_parent: Analyzers
 nav_order: 160
+canonical_url: https://docs.opensearch.org/latest/analyzers/language-analyzers/galician/
 ---
 
 # Galician analyzer

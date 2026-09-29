@@ -3,6 +3,7 @@ layout: default
 title: Scoring script filter
 parent: Filtering data
 nav_order: 30
+canonical_url: https://docs.opensearch.org/latest/vector-search/filter-search-knn/scoring-script-filter/
 ---
 
 # Scoring script filter

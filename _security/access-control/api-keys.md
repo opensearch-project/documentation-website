@@ -3,6 +3,7 @@ layout: default
 title: API keys
 parent: Access control
 nav_order: 126
+canonical_url: https://docs.opensearch.org/latest/security/access-control/api-keys/
 ---
 
 # API keys

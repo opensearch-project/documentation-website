@@ -4,6 +4,7 @@ title: Update context management
 parent: Context management APIs
 grand_parent: ML Commons APIs
 nav_order: 30
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/api/context-management-apis/update-context-management/
 ---
 
 # Update Context Management API

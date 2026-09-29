@@ -5,6 +5,7 @@ parent: ML Commons APIs
 has_children: true
 has_toc: false
 nav_order: 40
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/api/mcp-server-apis/index/
 redirect_from: 
   - /ml-commons-plugin/api/mcp-server-apis/
   - /ml-commons-plugin/api/mcp-server-apis/sse-message/

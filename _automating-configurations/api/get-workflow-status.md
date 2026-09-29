@@ -3,6 +3,7 @@ layout: default
 title: Get a workflow status
 parent: Workflow APIs
 nav_order: 40
+canonical_url: https://docs.opensearch.org/latest/automating-configurations/api/get-workflow-status/
 ---
 
 # Get Workflow Status API

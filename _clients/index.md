@@ -5,8 +5,10 @@ nav_order: 1
 has_children: false
 nav_exclude: true
 permalink: /clients/
+canonical_url: https://docs.opensearch.org/latest/clients/
 redirect_from:
   - /clients/index/
+redirect_to: https://docs.opensearch.org/latest/clients/
 ---
 
 # ![Clients icon]({{site.url}}{{site.baseurl}}/images/icons/OpenSearch-Clients-Icon.avif){: .heading-icon} OpenSearch language clients

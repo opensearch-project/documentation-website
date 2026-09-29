@@ -4,6 +4,7 @@ title: Field select tool
 parent: Exploring data with Discover
 grand_parent: Exploring data
 nav_order: 40
+canonical_url: https://docs.opensearch.org/latest/dashboards/discover/field-select/
 ---
 
 # Using the field select tool

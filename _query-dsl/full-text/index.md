@@ -4,6 +4,7 @@ title: Full-text queries
 has_children: true
 has_toc: false
 nav_order: 30
+canonical_url: https://docs.opensearch.org/latest/query-dsl/full-text/index/
 redirect_from:
   - /opensearch/query-dsl/full-text/
   - /opensearch/query-dsl/full-text/index/

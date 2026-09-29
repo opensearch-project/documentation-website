@@ -4,6 +4,7 @@ title: Saved Objects APIs
 parent: Saved objects
 grand_parent: Dashboards management
 nav_order: 15
+canonical_url: https://docs.opensearch.org/latest/dashboards/management/saved-objects-api/
 ---
 
 # Saved Objects APIs

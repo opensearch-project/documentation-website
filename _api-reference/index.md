@@ -7,6 +7,7 @@ has_children: true
 nav_exclude: true
 description: "Complete OpenSearch API reference for REST APIs and gRPC APIs, including cluster, index, search, document, and other operations."
 permalink: /api-reference/
+canonical_url: https://docs.opensearch.org/latest/api-reference/
 redirect_from:
   - /opensearch/rest-api/index/
   - /api-reference/index/

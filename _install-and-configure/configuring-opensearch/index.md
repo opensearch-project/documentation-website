@@ -3,6 +3,7 @@ layout: default
 title: Configuring OpenSearch
 nav_order: 10
 has_children: true
+canonical_url: https://docs.opensearch.org/latest/install-and-configure/configuring-opensearch/index/
 redirect_from:
   - /opensearch/configuration/
   - /install-and-configure/configuring-opensearch/

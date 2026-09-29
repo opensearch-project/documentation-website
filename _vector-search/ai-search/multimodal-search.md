@@ -4,6 +4,7 @@ title: Multimodal search
 parent: AI search
 nav_order: 40
 has_children: false
+canonical_url: https://docs.opensearch.org/latest/vector-search/ai-search/multimodal-search/
 redirect_from:
   - /search-plugins/neural-multimodal-search/
   - /search-plugins/multimodal-search/

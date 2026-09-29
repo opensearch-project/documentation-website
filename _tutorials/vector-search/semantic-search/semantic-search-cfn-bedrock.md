@@ -4,6 +4,7 @@ title: Semantic search using AWS CloudFormation and Amazon Bedrock
 parent: Semantic search
 grand_parent: Vector search
 nav_order: 75
+canonical_url: https://docs.opensearch.org/latest/tutorials/vector-search/semantic-search/semantic-search-cfn-bedrock/
 redirect_from:
   - /vector-search/tutorials/semantic-search/semantic-search-cfn-bedrock/
 ---

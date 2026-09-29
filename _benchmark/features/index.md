@@ -4,12 +4,14 @@ title: Additional features
 nav_order: 80
 has_children: true
 has_toc: false
+canonical_url: https://docs.opensearch.org/latest/benchmark/features/index/
 redirect_from:
   - /benchmark/features/
 more_cards:
   - heading: "Synthetic data generation"
     description: "Create synthetic datasets using index mappings or custom Python logic for comprehensive benchmarking and testing."
     link: "/benchmark/features/synthetic-data-generation/"
+redirect_to: https://docs.opensearch.org/latest/benchmark/features/index/
 ---
 
 # Additional features

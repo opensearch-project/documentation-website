@@ -4,6 +4,7 @@ title: List API keys
 parent: API key APIs
 grand_parent: Security APIs
 nav_order: 20
+canonical_url: https://docs.opensearch.org/latest/security/api/api-keys/list/
 redirect_from:
   - /api-reference/security/api-keys/list/
 ---

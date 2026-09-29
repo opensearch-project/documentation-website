@@ -3,6 +3,7 @@ layout: default
 title: Performance tuning
 nav_order: 70
 has_children: true
+canonical_url: https://docs.opensearch.org/latest/vector-search/performance-tuning/
 redirect_from:
   - /search-plugins/knn/performance-tuning/
 ---

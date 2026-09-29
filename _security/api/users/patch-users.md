@@ -4,6 +4,7 @@ title: Patch users
 parent: Internal user APIs
 grand_parent: Security APIs
 nav_order: 20
+canonical_url: https://docs.opensearch.org/latest/security/api/users/patch-users/
 ---
 
 # Patch Users API

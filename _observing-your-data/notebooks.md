@@ -2,6 +2,7 @@
 layout: default
 title: Notebooks
 nav_order: 90
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/notebooks/
 redirect_from:
   - /dashboards/notebooks/
   - /observability-plugin/notebooks/

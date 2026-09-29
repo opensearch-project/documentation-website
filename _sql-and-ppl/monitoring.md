@@ -2,6 +2,7 @@
 layout: default
 title: Monitoring
 nav_order: 95
+canonical_url: https://docs.opensearch.org/latest/sql-and-ppl/monitoring/
 redirect_from:
   - /search-plugins/sql/monitoring/
 ---

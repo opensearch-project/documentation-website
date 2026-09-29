@@ -5,6 +5,7 @@ parent: Index APIs
 nav_order: 45
 has_children: true
 has_toc: false
+canonical_url: https://docs.opensearch.org/latest/api-reference/alias/index/
 redirect_from:
   - /opensearch/rest-api/alias/
   - /api-reference/alias-api/

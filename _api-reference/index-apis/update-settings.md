@@ -4,6 +4,7 @@ title: Update settings
 parent: Index settings and mappings
 grand_parent: Index APIs
 nav_order: 20
+canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/update-settings/
 redirect_from:
   - /opensearch/rest-api/index-apis/update-settings/
 ---

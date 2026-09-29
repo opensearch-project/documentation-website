@@ -3,6 +3,7 @@ layout: default
 title: Auto-follow
 nav_order: 20
 parent: Cross-cluster replication
+canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/replication-plugin/auto-follow/
 redirect_from:
   - /replication-plugin/auto-follow/
 ---

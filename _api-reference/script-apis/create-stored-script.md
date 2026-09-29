@@ -3,6 +3,7 @@ layout: default
 title: Create or update stored script
 parent: Script APIs
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/api-reference/script-apis/create-stored-script/
 ---
 
 # Create or Update Stored Script API

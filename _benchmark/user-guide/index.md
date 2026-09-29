@@ -4,6 +4,7 @@ title: User guide
 nav_order: 10
 has_children: true
 has_toc: false
+canonical_url: https://docs.opensearch.org/latest/benchmark/user-guide/index/
 more_cards:
   - heading: "Concepts"
     description: "Learn core OpenSearch Benchmark concepts"
@@ -28,6 +29,7 @@ more_cards:
     link: "/benchmark/performance-testing-best-practices/"
 redirect_from:
   - /benchmark/user-guide/
+redirect_to: https://docs.opensearch.org/latest/benchmark/user-guide/index/
 ---
 
 <!-- vale off -->

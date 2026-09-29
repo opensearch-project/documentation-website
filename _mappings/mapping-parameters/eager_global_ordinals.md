@@ -2,6 +2,7 @@
 layout: default
 title: Eager global ordinals
 parent: Mapping parameters
+canonical_url: https://docs.opensearch.org/latest/mappings/mapping-parameters/eager_global_ordinals/
 redirect_from:
   - /field-types/mapping-parameters/eager_global_ordinals/
 nav_order: 35

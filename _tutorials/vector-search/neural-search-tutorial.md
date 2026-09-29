@@ -4,6 +4,7 @@ title: Getting started with semantic and hybrid search
 has_children: false
 parent: Vector search
 nav_order: 3
+canonical_url: https://docs.opensearch.org/latest/tutorials/vector-search/neural-search-tutorial/
 redirect_from:
   - /ml-commons-plugin/semantic-search/
   - /search-plugins/neural-search-tutorial/

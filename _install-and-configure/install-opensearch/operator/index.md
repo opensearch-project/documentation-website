@@ -4,6 +4,7 @@ title: OpenSearch Kubernetes Operator
 parent: Installing OpenSearch
 nav_order: 55
 has_children: true
+canonical_url: https://docs.opensearch.org/latest/install-and-configure/install-opensearch/operator/index/
 redirect_from:
   - /clients/k8s-operator/
   - /tools/k8s-operator/

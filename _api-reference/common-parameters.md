@@ -2,6 +2,7 @@
 layout: default
 title: Common REST parameters
 nav_order: 160
+canonical_url: https://docs.opensearch.org/latest/api-reference/common-parameters/
 redirect_from:
   - /opensearch/common-parameters/
   - /monitoring-plugins/alerting/cron/

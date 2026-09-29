@@ -4,6 +4,7 @@ title: Binary
 nav_order: 20
 has_children: false
 parent: Supported field types
+canonical_url: https://docs.opensearch.org/latest/mappings/supported-field-types/binary/
 redirect_from:
   - /field-types/supported-field-types/binary/
   - /opensearch/supported-field-types/binary/

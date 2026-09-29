@@ -2,6 +2,7 @@
 layout: default
 title: Meta
 parent: Mapping parameters
+canonical_url: https://docs.opensearch.org/latest/mappings/mapping-parameters/meta/
 redirect_from:
   - /field-types/mapping-parameters/meta/
 nav_order: 180

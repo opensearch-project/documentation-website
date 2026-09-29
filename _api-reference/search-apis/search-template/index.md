@@ -4,6 +4,7 @@ title: Search templates
 parent: Search APIs
 has_children: true
 nav_order: 90
+canonical_url: https://docs.opensearch.org/latest/api-reference/search-apis/search-template/index/
 redirect_from:
   - /opensearch/search-template/
   - /search-plugins/search-template/

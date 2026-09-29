@@ -2,6 +2,7 @@
 layout: default
 title: Format
 parent: Mapping parameters
+canonical_url: https://docs.opensearch.org/latest/mappings/mapping-parameters/format/
 redirect_from:
   - /field-types/mapping-parameters/format/
 nav_order: 110

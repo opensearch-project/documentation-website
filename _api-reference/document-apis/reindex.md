@@ -3,6 +3,7 @@ layout: default
 title: Reindex documents
 parent: Document APIs
 nav_order: 60
+canonical_url: https://docs.opensearch.org/latest/api-reference/document-apis/reindex/
 redirect_from: 
   - /opensearch/reindex-data/
   - /opensearch/rest-api/document-apis/reindex/

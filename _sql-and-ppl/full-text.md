@@ -3,6 +3,7 @@ layout: default
 title: Full-text search
 nav_order: 11
 description: "OpenSearch supports full-text search in SQL through the MATCH function and other SQL functions that map to OpenSearch full-text queries."
+canonical_url: https://docs.opensearch.org/latest/sql-and-ppl/full-text/
 redirect_from:
   - /search-plugins/sql/full-text/
 ---

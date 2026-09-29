@@ -4,6 +4,7 @@ title: Optimizing vector storage
 nav_order: 60
 has_children: true
 has_toc: false
+canonical_url: https://docs.opensearch.org/latest/vector-search/optimizing-storage/index/
 redirect_from:
   - /vector-search/optimizing-storage/
 storage_cards:

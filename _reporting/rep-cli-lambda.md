@@ -4,6 +4,7 @@ title: Schedule reports with AWS Lambda
 nav_order: 30
 parent: Reporting using the CLI
 grand_parent: Reporting
+canonical_url: https://docs.opensearch.org/latest/reporting/rep-cli-lambda/
 redirect_from:
   - /dashboards/reporting-cli/rep-cli-lambda/
 ---

@@ -4,6 +4,7 @@ title: Search memory
 parent: Memory APIs
 grand_parent: ML Commons APIs
 nav_order: 25
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/api/memory-apis/search-memory/
 ---
 
 # Search Memory API

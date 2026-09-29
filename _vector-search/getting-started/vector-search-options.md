@@ -3,6 +3,7 @@ layout: default
 title: Preparing vectors
 parent: Getting started
 nav_order: 20
+canonical_url: https://docs.opensearch.org/latest/vector-search/getting-started/vector-search-options/
 quickstart_cards:
   - heading: "Getting started with vector search"
     description: "Use raw vectors or embeddings generated outside of OpenSearch"

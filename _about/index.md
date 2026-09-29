@@ -7,6 +7,7 @@ has_toc: false
 nav_exclude: true
 description: "Documentation for OpenSearch and OpenSearch Dashboards, the open-source suite for full-text search, application monitoring, log analytics, and vector search."
 permalink: /about/
+canonical_url: https://docs.opensearch.org/latest/about/
 redirect_from:
   - /docs/opensearch/
   - /opensearch/

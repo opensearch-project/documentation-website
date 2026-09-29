@@ -3,6 +3,7 @@ layout: default
 title: Analyzing traces in Discover
 nav_order: 40
 parent: Using Discover for observability
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/exploring-observability-data/discover-traces/
 ---
 
 # Analyzing traces in Discover

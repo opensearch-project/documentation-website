@@ -3,6 +3,7 @@ layout: default
 title: Execute stored script
 parent: Script APIs
 nav_order: 20
+canonical_url: https://docs.opensearch.org/latest/api-reference/script-apis/exec-stored-script/
 ---
 
 # Execute Stored Script API

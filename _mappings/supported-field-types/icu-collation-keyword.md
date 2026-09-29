@@ -5,6 +5,7 @@ nav_order: 35
 has_children: false
 parent: String field types
 grand_parent: Supported field types
+canonical_url: https://docs.opensearch.org/latest/mappings/supported-field-types/icu-collation-keyword/
 ---
 
 # ICU collation keyword field type

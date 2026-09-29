@@ -3,6 +3,7 @@ layout: default
 title: Constant score
 parent: Compound queries
 nav_order: 40
+canonical_url: https://docs.opensearch.org/latest/query-dsl/compound/constant-score/
 redirect_from:
   - /query-dsl/query-dsl/compound/constant-score/
 ---

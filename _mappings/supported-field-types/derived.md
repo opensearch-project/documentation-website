@@ -5,6 +5,7 @@ nav_order: 55
 has_children: false
 parent: Specialized search field types
 grand_parent: Supported field types
+canonical_url: https://docs.opensearch.org/latest/mappings/supported-field-types/derived/
 redirect_from:
   - /field-types/supported-field-types/derived/
 ---

@@ -2,6 +2,7 @@
 layout: default
 title: CAT aliases
 parent: CAT APIs
+canonical_url: https://docs.opensearch.org/latest/api-reference/cat/cat-aliases/
 redirect_from:
 - /opensearch/rest-api/cat/cat-aliases/
 

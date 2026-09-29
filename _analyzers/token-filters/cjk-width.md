@@ -3,6 +3,7 @@ layout: default
 title: CJK width
 parent: Token filters
 nav_order: 40
+canonical_url: https://docs.opensearch.org/latest/analyzers/token-filters/cjk-width/
 ---
 
 # CJK width token filter

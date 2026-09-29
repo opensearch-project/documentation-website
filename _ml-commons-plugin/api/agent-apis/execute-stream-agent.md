@@ -4,6 +4,7 @@ title: Execute agent stream
 parent: Agent APIs
 grand_parent: ML Commons APIs
 nav_order: 25
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/api/agent-apis/execute-stream-agent/
 ---
 
 # Execute Agent Stream API

@@ -3,6 +3,7 @@ layout: default
 title: Painless scripting language
 nav_order: 30
 has_children: true
+canonical_url: https://docs.opensearch.org/latest/scripting/painless/
 ---
 
 # Painless scripting language

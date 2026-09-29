@@ -4,6 +4,7 @@ title: Configuring AI search types
 parent: Building AI search workflows in OpenSearch Dashboards
 grand_parent: AI search
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/vector-search/ai-search/building-flows/
 ---
 
 # Configuring AI search types

@@ -4,6 +4,7 @@ title: Shrink index
 parent: Index operations
 grand_parent: Index APIs
 nav_order: 100
+canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/shrink-index/
 redirect_from:
   - /opensearch/rest-api/index-apis/shrink-index/
 ---

@@ -4,6 +4,7 @@ title: Amazon Bedrock model guardrails
 parent: Model guardrails
 grand_parent: Generative AI
 nav_order: 170
+canonical_url: https://docs.opensearch.org/latest/tutorials/gen-ai/model-controls/bedrock-guardrails/
 redirect_from:
   - /ml-commons-plugin/tutorials/bedrock-guardrails/
   - /vector-search/tutorials/model-controls/bedrock-guardrails/

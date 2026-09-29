@@ -3,6 +3,7 @@ layout: default
 title: Methods and engines
 parent: k-NN vector
 grand_parent: Supported field types
+canonical_url: https://docs.opensearch.org/latest/mappings/supported-field-types/knn-methods-engines/
 redirect_from:
   - /field-types/supported-field-types/knn-methods-engines/
 nav_order: 20

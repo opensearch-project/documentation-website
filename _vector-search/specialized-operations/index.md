@@ -4,6 +4,7 @@ title: Specialized vector search
 nav_order: 50
 has_children: true
 has_toc: false
+canonical_url: https://docs.opensearch.org/latest/vector-search/specialized-operations/index/
 redirect_from:
   - /vector-search/specialized-operations/
 cards:

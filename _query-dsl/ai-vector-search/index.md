@@ -4,6 +4,7 @@ title: AI and vector search queries
 has_children: true
 nav_order: 55
 has_toc: false
+canonical_url: https://docs.opensearch.org/latest/query-dsl/ai-vector-search/index/
 redirect_from:
   - /query-dsl/ai-vector-search/
 ---

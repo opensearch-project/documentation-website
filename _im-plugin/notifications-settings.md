@@ -2,6 +2,7 @@
 layout: default
 title: Long-running operation notifications
 nav_order: 70
+canonical_url: https://docs.opensearch.org/latest/im-plugin/notifications-settings/
 redirect_from:
   - /im-plugin/notifications/
   - /dashboards/im-dashboards/notifications/

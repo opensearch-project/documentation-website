@@ -4,6 +4,7 @@ title: Access control
 nav_order: 75
 has_children: true
 has_toc: false
+canonical_url: https://docs.opensearch.org/latest/security/access-control/index/
 redirect_from:
   - /security-plugin/access-control/index/
   - /security/access-control/

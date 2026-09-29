@@ -5,6 +5,7 @@ parent: Security APIs
 nav_order: 115
 has_children: true
 has_toc: false
+canonical_url: https://docs.opensearch.org/latest/security/api/configuration-versions/index/
 redirect_from:
   - /security/api/configuration-versions/
   - /security/configuration/versioning/

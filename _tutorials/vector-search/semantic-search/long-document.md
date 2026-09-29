@@ -4,6 +4,7 @@ title: Semantic search using text chunking
 parent: Semantic search
 grand_parent: Vector search
 nav_order: 90
+canonical_url: https://docs.opensearch.org/latest/tutorials/vector-search/semantic-search/long-document/
 redirect_from:
   - /vector-search/tutorials/semantic-search/long-document/
 ---

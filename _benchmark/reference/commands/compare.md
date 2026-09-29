@@ -4,8 +4,10 @@ title: compare
 nav_order: 20
 parent: Command reference
 grand_parent: Reference
+canonical_url: https://docs.opensearch.org/latest/benchmark/reference/commands/compare/
 redirect_from:
   - /benchmark/commands/compare/
+redirect_to: https://docs.opensearch.org/latest/benchmark/reference/commands/compare/
 ---
 
 <!-- vale off -->

@@ -3,6 +3,8 @@ layout: default
 title: Event aggregation
 parent: Common use cases
 nav_order: 25
+canonical_url: https://docs.opensearch.org/latest/data-prepper/common-use-cases/event-aggregation/
+redirect_to: https://docs.opensearch.org/latest/data-prepper/common-use-cases/event-aggregation/
 ---
 
 # Event aggregation

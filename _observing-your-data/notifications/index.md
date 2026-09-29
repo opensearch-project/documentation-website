@@ -3,6 +3,7 @@ layout: default
 title: Notifications
 nav_order: 140
 has_children: true
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/notifications/index/
 redirect_from:
   - /notifications-plugin/
   - /notifications-plugin/index/

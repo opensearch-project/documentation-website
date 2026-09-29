@@ -5,6 +5,7 @@ parent: ML Commons APIs
 has_children: true
 has_toc: false
 nav_order: 35
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/api/agentic-memory-apis/index/
 redirect_from: 
   - /ml-commons-plugin/api/agentic-memory-apis/
 ---

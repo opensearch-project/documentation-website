@@ -4,6 +4,8 @@ title: substringAfterLast()
 parent: Functions
 grand_parent: Pipelines
 nav_order: 70
+canonical_url: https://docs.opensearch.org/latest/data-prepper/pipelines/substring-after-last/
+redirect_to: https://docs.opensearch.org/latest/data-prepper/pipelines/substring-after-last/
 ---
 
 <!-- vale off -->

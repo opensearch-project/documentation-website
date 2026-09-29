@@ -3,6 +3,7 @@ layout: default
 title: Index
 parent: Metadata fields
 nav_order: 40
+canonical_url: https://docs.opensearch.org/latest/mappings/metadata-fields/index-metadata/
 redirect_from:
   - /field-types/metadata-fields/index-metadata/
 ---

@@ -3,6 +3,7 @@ layout: default
 title: Observability security
 nav_order: 160
 has_children: false
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/observability-security/
 redirect_from:
   - /observing-your-data/security/
 ---

@@ -2,6 +2,7 @@
 layout: default
 title: CAT allocation
 parent: CAT APIs
+canonical_url: https://docs.opensearch.org/latest/api-reference/cat/cat-allocation/
 redirect_from:
 - /opensearch/rest-api/cat/cat-allocation/
 nav_order: 5

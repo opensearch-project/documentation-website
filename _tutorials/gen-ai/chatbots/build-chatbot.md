@@ -6,6 +6,7 @@ grand_parent: Generative AI
 has_children: false
 has_toc: false
 nav_order: 170
+canonical_url: https://docs.opensearch.org/latest/tutorials/gen-ai/chatbots/build-chatbot/
 redirect_from:
   - /ml-commons-plugin/tutorials/build-chatbot/
   - /vector-search/tutorials/chatbots/build-chatbot/

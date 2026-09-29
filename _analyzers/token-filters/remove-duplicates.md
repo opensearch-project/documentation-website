@@ -3,6 +3,7 @@ layout: default
 title: Remove duplicates
 parent: Token filters
 nav_order: 350
+canonical_url: https://docs.opensearch.org/latest/analyzers/token-filters/remove-duplicates/
 ---
 
 # Remove duplicates token filter

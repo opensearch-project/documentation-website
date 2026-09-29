@@ -3,6 +3,7 @@ layout: default
 title: Performance Analyzer
 nav_order: 58
 has_children: true
+canonical_url: https://docs.opensearch.org/latest/monitoring-your-cluster/pa/index/
 redirect_from:
   - /monitoring-plugins/pa/
   - /monitoring-plugins/pa/index/

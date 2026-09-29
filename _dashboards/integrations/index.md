@@ -3,6 +3,7 @@ layout: default
 title: Integrations
 nav_order: 130
 has_children: false
+canonical_url: https://docs.opensearch.org/latest/dashboards/integrations/index/
 redirect_from:
   - /integrations/
   - /integrations/index/

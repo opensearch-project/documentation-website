@@ -3,6 +3,7 @@ layout: default
 title: Management
 parent: Alerting
 nav_order: 5
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/alerting/settings/
 redirect_from:
   - /monitoring-plugins/alerting/settings/
 ---

@@ -5,6 +5,7 @@ parent: Vector search
 has_children: true
 has_toc: false
 nav_order: 50
+canonical_url: https://docs.opensearch.org/latest/tutorials/vector-search/semantic-search/index/
 redirect_from:
   - /vector-search/tutorials/semantic-search/
   - /tutorials/vector-search/semantic-search/

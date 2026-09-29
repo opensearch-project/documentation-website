@@ -2,6 +2,7 @@
 layout: default
 title: Store
 parent: Mapping parameters
+canonical_url: https://docs.opensearch.org/latest/mappings/mapping-parameters/store/
 redirect_from:
   - /field-types/mapping-parameters/store/
 nav_order: 260

@@ -4,6 +4,7 @@ title: Analyzers
 nav_order: 40
 has_children: true
 has_toc: false
+canonical_url: https://docs.opensearch.org/latest/analyzers/supported-analyzers/index/
 redirect_from:
     - /analyzers/supported-analyzers/
 ---

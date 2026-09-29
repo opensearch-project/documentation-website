@@ -4,6 +4,7 @@ title: Kuromoji (Japanese)
 parent: Language analyzers
 grand_parent: Analyzers
 nav_order: 225
+canonical_url: https://docs.opensearch.org/latest/analyzers/language-analyzers/kuromoji/
 ---
 
 # Kuromoji analyzer

@@ -4,6 +4,7 @@ title: Optimizing vector search using Cohere compressed embeddings
 parent: Vector operations
 grand_parent: Vector search
 nav_order: 20
+canonical_url: https://docs.opensearch.org/latest/tutorials/vector-search/vector-operations/optimize-compression/
 redirect_from:
   - /vector-search/tutorials/vector-operations/optimize-compression/
 ---

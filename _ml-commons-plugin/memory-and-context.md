@@ -4,6 +4,7 @@ title: Memory and context
 nav_order: 40
 has_children: true
 has_toc: false
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/memory-and-context/
 ---
 
 # Memory and context

@@ -3,6 +3,7 @@ layout: default
 title: Remove
 parent: Ingest processors
 nav_order: 222
+canonical_url: https://docs.opensearch.org/latest/ingest-pipelines/processors/remove/
 redirect_from:
    - /api-reference/ingest-apis/processors/remove/
 ---

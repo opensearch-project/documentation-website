@@ -4,6 +4,7 @@ title: Sparse vector
 nav_order: 92
 has_children: false
 parent: Supported field types
+canonical_url: https://docs.opensearch.org/latest/mappings/supported-field-types/sparse-vector/
 redirect_from:
   - /field-types/supported-field-types/sparse-vector/
 ---

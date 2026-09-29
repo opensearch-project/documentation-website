@@ -3,6 +3,7 @@ layout: default
 title: Global
 parent: Bucket aggregations
 nav_order: 90
+canonical_url: https://docs.opensearch.org/latest/aggregations/bucket/global/
 redirect_from:
   - /query-dsl/aggregations/bucket/global/
 ---

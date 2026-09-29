@@ -3,6 +3,7 @@ layout: default
 title: Hyphenation decompounder
 parent: Token filters
 nav_order: 170
+canonical_url: https://docs.opensearch.org/latest/analyzers/token-filters/hyphenation-decompounder/
 ---
 
 # Hyphenation decompounder token filter

@@ -5,6 +5,7 @@ parent: Snapshots
 nav_order: 20
 has_children: false
 grand_parent: Availability and recovery
+canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-management/
 redirect_from: 
   - /opensearch/snapshots/snapshot-management/
 ---

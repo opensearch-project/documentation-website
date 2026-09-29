@@ -4,6 +4,7 @@ title: Create or update allow list
 parent: Allow list APIs
 grand_parent: Security APIs
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/security/api/allowlist/create-allowlist/
 ---
 
 # Create or Update Allow List API

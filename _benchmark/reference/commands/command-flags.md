@@ -3,9 +3,11 @@ layout: default
 title: Command flags
 nav_order: 150
 parent: Command reference
+canonical_url: https://docs.opensearch.org/latest/benchmark/reference/commands/command-flags/
 redirect_from:
   - /benchmark/commands/command-flags/
 grand_parent: Reference
+redirect_to: https://docs.opensearch.org/latest/benchmark/reference/commands/command-flags/
 ---
 
 # Command flags

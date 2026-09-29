@@ -2,6 +2,7 @@
 layout: default
 title: CAT cluster manager
 parent: CAT APIs
+canonical_url: https://docs.opensearch.org/latest/api-reference/cat/cat-cluster_manager/
 redirect_from:
  - /opensearch/rest-api/cat/cat-master/
 nav_order: 30

@@ -5,6 +5,7 @@ nav_order: 22
 parent: Monitors
 grand_parent: Alerting
 has_children: false
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/alerting/ppl-monitors/
 ---
 
 # PPL monitors

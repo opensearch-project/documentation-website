@@ -4,6 +4,7 @@ title: Semantic search using byte vectors
 parent: Vector operations
 grand_parent: Vector search
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/tutorials/vector-search/vector-operations/semantic-search-byte-vectors/
 redirect_from:
   - /ml-commons-plugin/tutorials/semantic-search-byte-vectors/
   - /vector-search/tutorials/vector-operations/semantic-search-byte-vectors/

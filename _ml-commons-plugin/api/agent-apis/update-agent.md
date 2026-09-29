@@ -4,6 +4,7 @@ title: Update agent
 parent: Agent APIs
 grand_parent: ML Commons APIs
 nav_order: 15
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/api/agent-apis/update-agent/
 ---
 
 # Update Agent API

@@ -4,10 +4,12 @@ title: Creating custom workloads
 nav_order: 35
 has_children: true
 has_toc: false
+canonical_url: https://docs.opensearch.org/latest/benchmark/creating-custom-workloads/
 redirect_from:
   - /benchmark/user-guide/creating-custom-workloads/
   - /benchmark/user-guide/creating-osb-workloads/
   - /benchmark/user-guide/working-with-workloads/creating-custom-workloads/
+redirect_to: https://docs.opensearch.org/latest/benchmark/creating-custom-workloads/
 ---
 
 # Creating custom workloads

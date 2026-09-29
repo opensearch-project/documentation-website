@@ -2,6 +2,8 @@
 layout: default
 title: opensearch-py-ml
 nav_order: 11
+canonical_url: https://docs.opensearch.org/latest/clients/opensearch-py-ml/
+redirect_to: https://docs.opensearch.org/latest/clients/opensearch-py-ml/
 ---
 
 <!-- vale off -->

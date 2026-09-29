@@ -2,6 +2,8 @@
 layout: default
 title: Glossary
 nav_order: 100
+canonical_url: https://docs.opensearch.org/latest/benchmark/glossary/
+redirect_to: https://docs.opensearch.org/latest/benchmark/glossary/
 ---
 
 # OpenSearch Benchmark glossary

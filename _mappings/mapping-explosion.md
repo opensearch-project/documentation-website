@@ -3,6 +3,7 @@ layout: default
 title: Mapping explosion
 nav_order: 110
 has_children: false
+canonical_url: https://docs.opensearch.org/latest/mappings/mapping-explosion/
 ---
 
 # Mapping explosion

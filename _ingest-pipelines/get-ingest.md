@@ -2,6 +2,7 @@
 layout: default
 title: Get pipeline
 nav_order: 12
+canonical_url: https://docs.opensearch.org/latest/ingest-pipelines/get-ingest/
 redirect_from:
   - /opensearch/rest-api/ingest-apis/get-ingest/
   - /api-reference/ingest-apis/get-ingest/

@@ -4,6 +4,7 @@ title: Migrate or upgrade
 has_children: true
 has_toc: false
 permalink: /migrate-or-upgrade/
+canonical_url: https://docs.opensearch.org/latest/migrate-or-upgrade/
 redirect_from:
   - /migrate-or-upgrade/index/
   - /upgrade-opensearch/index/

@@ -4,6 +4,7 @@ title: Generative AI
 has_children: true
 has_toc: false
 nav_order: 30
+canonical_url: https://docs.opensearch.org/latest/tutorials/gen-ai/index/
 redirect_from:
   - /tutorials/gen-ai/
 cards:

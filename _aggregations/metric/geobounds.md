@@ -3,6 +3,7 @@ layout: default
 title: Geobounds
 parent: Metric aggregations
 nav_order: 40
+canonical_url: https://docs.opensearch.org/latest/aggregations/metric/geobounds/
 redirect_from:
   - /query-dsl/aggregations/metric/geobounds/
 ---

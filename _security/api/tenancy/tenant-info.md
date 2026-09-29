@@ -4,6 +4,7 @@ title: Tenant info
 parent: Multi-tenancy configuration APIs
 grand_parent: Security APIs
 nav_order: 30
+canonical_url: https://docs.opensearch.org/latest/security/api/tenancy/tenant-info/
 ---
 
 # Tenant Info API

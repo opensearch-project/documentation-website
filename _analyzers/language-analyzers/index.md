@@ -5,6 +5,7 @@ nav_order: 140
 parent: Analyzers
 has_children: true
 has_toc: true
+canonical_url: https://docs.opensearch.org/latest/analyzers/language-analyzers/index/
 redirect_from:
   - /query-dsl/analyzers/language-analyzers/
   - /analyzers/language-analyzers/

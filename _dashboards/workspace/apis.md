@@ -3,6 +3,7 @@ layout: default
 title: Workspace APIs
 parent: Workspaces
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/dashboards/workspace/apis/
 ---
 
 # Workspace APIs

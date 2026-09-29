@@ -2,6 +2,7 @@
 layout: default
 title: Coerce
 parent: Mapping parameters
+canonical_url: https://docs.opensearch.org/latest/mappings/mapping-parameters/coerce/
 redirect_from:
   - /field-types/mapping-parameters/coerce/
 nav_order: 15

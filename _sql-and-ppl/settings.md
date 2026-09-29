@@ -2,6 +2,7 @@
 layout: default
 title: Settings
 nav_order: 77
+canonical_url: https://docs.opensearch.org/latest/sql-and-ppl/settings/
 redirect_from:
   - /search-plugins/sql/settings/
 ---

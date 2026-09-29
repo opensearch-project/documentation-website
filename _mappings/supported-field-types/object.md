@@ -5,6 +5,7 @@ nav_order: 41
 has_children: false
 parent: Object field types
 grand_parent: Supported field types
+canonical_url: https://docs.opensearch.org/latest/mappings/supported-field-types/object/
 redirect_from: 
   - /field-types/supported-field-types/object/
   - /opensearch/supported-field-types/object/

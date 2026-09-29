@@ -3,9 +3,11 @@ layout: default
 title: Telemetry devices
 nav_order: 45
 parent: Reference
+canonical_url: https://docs.opensearch.org/latest/benchmark/reference/telemetry/
 redirect_from:
   - /benchmark/user-guide/understanding-results/telemetry/
   - /benchmark/user-guide/telemetry/
+redirect_to: https://docs.opensearch.org/latest/benchmark/reference/telemetry/
 ---
 
 # Telemetry devices

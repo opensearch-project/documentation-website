@@ -4,6 +4,7 @@ title: Trace analytics
 nav_order: 40
 has_children: true
 has_toc: false
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/trace/index/
 redirect_from:
   - /observability-plugin/trace/index/
   - /monitoring-plugins/trace/index/

@@ -4,6 +4,7 @@ title: Configuration
 nav_order: 2
 has_children: true
 has_toc: true
+canonical_url: https://docs.opensearch.org/latest/security/configuration/index/
 redirect_from:
   - /security-plugin/configuration/
   - /security-plugin/configuration/index/

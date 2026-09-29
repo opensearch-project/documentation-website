@@ -2,6 +2,7 @@
 layout: default
 title: Limitations
 nav_order: 99
+canonical_url: https://docs.opensearch.org/latest/sql-and-ppl/limitation/
 redirect_from:
   - /search-plugins/sql/limitation/
 ---

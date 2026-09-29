@@ -2,6 +2,7 @@
 layout: default
 title: Add and manage your data
 nav_order: 35
+canonical_url: https://docs.opensearch.org/latest/getting-started/manage-data/
 ---
 
 # Add and manage your data

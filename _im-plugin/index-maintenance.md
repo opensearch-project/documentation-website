@@ -2,6 +2,7 @@
 layout: default
 title: Index maintenance
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/im-plugin/index-maintenance/
 redirect_from:
   - /dashboards/im-dashboards/forcemerge/
   - /dashboards/im-dashboards/rollover/

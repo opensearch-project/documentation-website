@@ -4,6 +4,7 @@ title: Discovery and cluster formation
 nav_order: 5
 has_children: true
 permalink: /tuning-your-cluster/discovery-cluster-formation/
+canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/discovery-cluster-formation/
 ---
 
 # Discovery and cluster formation

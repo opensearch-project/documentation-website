@@ -5,6 +5,7 @@ parent: Optimizing vector storage
 nav_order: 10
 has_children: true
 has_toc: false
+canonical_url: https://docs.opensearch.org/latest/vector-search/optimizing-storage/knn-vector-quantization/
 redirect_from:
   - /search-plugins/knn/knn-vector-quantization/
 outside_cards:

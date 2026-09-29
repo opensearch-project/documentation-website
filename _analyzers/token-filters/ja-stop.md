@@ -3,6 +3,7 @@ layout: default
 title: Japanese stop
 parent: Token filters
 nav_order: 178
+canonical_url: https://docs.opensearch.org/latest/analyzers/token-filters/ja-stop/
 ---
 
 # Japanese stop token filter

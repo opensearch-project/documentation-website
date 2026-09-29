@@ -3,6 +3,7 @@ layout: default
 title: Installation quickstart
 parent: Getting started
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/dashboards/getting-started/install/
 ---
 
 # OpenSearch Dashboards installation quickstart

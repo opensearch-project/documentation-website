@@ -3,6 +3,7 @@ layout: default
 title: Reranking search results using Cohere Rerank on Amazon Bedrock
 parent: Reranking search results
 nav_order: 95
+canonical_url: https://docs.opensearch.org/latest/tutorials/reranking/reranking-cohere-bedrock/
 redirect_from:
   - /vector-search/tutorials/reranking/reranking-cohere-bedrock/
 ---

@@ -4,6 +4,7 @@ title: Application Performance Monitoring
 nav_order: 45
 has_children: true
 has_toc: false
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/apm/index/
 redirect_from:
    - /observing-your-data/apm/
 ---

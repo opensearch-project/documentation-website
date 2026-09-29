@@ -2,6 +2,7 @@
 layout: default
 title: Norms
 parent: Mapping parameters
+canonical_url: https://docs.opensearch.org/latest/mappings/mapping-parameters/norms/
 redirect_from:
   - /field-types/mapping-parameters/norms/
 nav_order: 200

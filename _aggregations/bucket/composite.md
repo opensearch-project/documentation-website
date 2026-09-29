@@ -3,6 +3,7 @@ layout: default
 title: Composite
 parent: Bucket aggregations
 nav_order: 17
+canonical_url: https://docs.opensearch.org/latest/aggregations/bucket/composite/
 redirect_from:
   - /query-dsl/aggregations/bucket/composite/
 ---

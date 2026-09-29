@@ -4,6 +4,7 @@ title: CAT APIs
 nav_order: 10
 has_children: true
 has_toc: false
+canonical_url: https://docs.opensearch.org/latest/api-reference/cat/index/
 redirect_from:
   - /opensearch/catapis/
   - /opensearch/rest-api/cat/index/

@@ -4,6 +4,7 @@ title: Delete ML task
 parent: ML Tasks APIs
 grand_parent: ML Commons APIs
 nav_order: 20
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/api/tasks-apis/delete-task/
 ---
 
 # Delete ML Task API

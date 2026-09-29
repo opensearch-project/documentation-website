@@ -4,6 +4,7 @@ title: Create or update alias
 parent: Alias APIs
 grand_parent: Index APIs
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/api-reference/alias/create-alias/
 redirect_from:
   - /api-reference/index-apis/update-alias/
 ---

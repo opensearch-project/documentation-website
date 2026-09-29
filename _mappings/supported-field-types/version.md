@@ -4,6 +4,7 @@ title: Version
 parent: String field types
 grand_parent: Supported field types
 nav_order: 75
+canonical_url: https://docs.opensearch.org/latest/mappings/supported-field-types/version/
 redirect_from:
   - /opensearch/supported-field-types/version/
   - /field-types/supported-field-types/version/
