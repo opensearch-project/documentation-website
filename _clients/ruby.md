@@ -83,6 +83,18 @@ The output is as follows:
 2026-09-30 12:29:58 -0400: < {"cluster_name":"opensearch-cluster","status":"yellow","timed_out":false,"number_of_nodes":1,"number_of_data_nodes":1,"discovered_master":true,"discovered_cluster_manager":true,"active_primary_shards":57,"active_shards":57,"relocating_shards":0,"initializing_shards":0,"unassigned_shards":28,"delayed_unassigned_shards":0,"number_of_pending_tasks":0,"number_of_in_flight_fetch":0,"task_max_waiting_in_queue_millis":0,"active_shards_percent_as_number":67.05882352941175}
 ```
 
+To connect to a cluster that has the Security plugin enabled, use HTTPS and provide the user credentials:
+
+```ruby
+client = OpenSearch::Client.new(
+    host: 'https://localhost:9200',
+    user: 'admin', # Only for demo purposes. Don't specify your credentials in code.
+    password: '<custom-admin-password>',
+    transport_options: { ssl: { verify: false } } # For testing only. Use a certificate for validation.
+)
+```
+{% include copy.html %}
+
 ## Connecting to Amazon OpenSearch Service
 
 To connect to Amazon OpenSearch Service, first install the `opensearch-aws-sigv4` gem:
@@ -106,14 +118,15 @@ client = OpenSearch::Aws::Sigv4Client.new({
 }, signer)
 
 # create an index and document
-index = 'prime'
+index = 'students'
 client.indices.create(index: index)
-client.index(index: index, id: '1', body: { name: 'Amazon Echo', 
-                                            msrp: '5999', 
-                                            year: 2011 })
+client.index(index: index, id: '1', body: { firstName: 'John',
+                                            lastName: 'Doe',
+                                            gpa: 3.89,
+                                            gradYear: 2022 })
 
 # search for the document
-client.search(body: { query: { match: { name: 'Echo' } } })
+client.search(index: index, body: { query: { match: { firstName: 'John' } } })
 
 # delete the document
 client.delete(index: index, id: '1')
@@ -146,14 +159,15 @@ client = OpenSearch::Aws::Sigv4Client.new({
 }, signer)
 
 # create an index and document
-index = 'prime'
+index = 'students'
 client.indices.create(index: index)
-client.index(index: index, id: '1', body: { name: 'Amazon Echo', 
-                                            msrp: '5999', 
-                                            year: 2011 })
+client.index(index: index, id: '1', body: { firstName: 'John',
+                                            lastName: 'Doe',
+                                            gpa: 3.89,
+                                            gradYear: 2022 })
 
 # search for the document
-client.search(body: { query: { match: { name: 'Echo' } } })
+client.search(index: index, body: { query: { match: { firstName: 'John' } } })
 
 # delete the document
 client.delete(index: index, id: '1')
@@ -164,26 +178,16 @@ client.indices.delete(index: index)
 {% include copy.html %}
 
 
-## Creating an index 
+## Creating an index
 
-You don't need to create an index explicitly in OpenSearch. Once you upload a document into an index that does not exist, OpenSearch creates the index automatically. Alternatively, you can create an index explicitly to specify settings like the number of primary and replica shards. To create an index with non-default settings, create an index body hash with those settings:
+You don't need to create an index explicitly in OpenSearch. Once you upload a document into an index that does not exist, OpenSearch creates the index automatically. To create an index explicitly, use the `indices.create` method:
 
 ```ruby
-index_body = {
-    'settings': {
-        'index': {
-        'number_of_shards': 1,
-        'number_of_replicas': 2 
-        }
-    }
-} 
-
-client.indices.create(
-    index: 'students',
-    body: index_body
-)
+client.indices.create(index: 'students')
 ```
 {% include copy.html %}
+
+To create an index with non-default settings, such as the number of primary and replica shards, pass the settings in the `body` parameter.
 
 ## Mappings
 
@@ -191,18 +195,18 @@ OpenSearch uses dynamic mapping to infer field types of the documents that are i
 
 ```ruby
 client.indices.put_mapping(
-    index: 'students', 
-    body: {
-        properties: {
-            first_name: { type: 'keyword' },
-            last_name: { type: 'keyword' }
-        }  
+  index: 'students',
+  body: {
+    properties: {
+      firstName: { type: 'keyword' },
+      lastName: { type: 'keyword' }
     }
+  }
 )
 ```
 {% include copy.html %}
 
-By default, string fields are mapped as `text`, but in the preceding mapping, the `first_name` and `last_name` fields are mapped as `keyword`. This mapping signals to OpenSearch that these fields should not be analyzed and should support only full case-sensitive matches.
+By default, string fields are mapped as `text`, but in the preceding mapping, the `firstName` and `lastName` fields are mapped as `keyword`. This mapping signals to OpenSearch that these fields should not be analyzed and should support only full case-sensitive matches.
 
 You can verify the index's mappings using the `get_mapping` method:
 
@@ -215,88 +219,41 @@ If you know the mapping of your documents in advance and want to avoid mapping e
 
 ```ruby
 client.indices.put_mapping(
-    index: 'students', 
-    body: {
-        dynamic: 'strict',
-        properties: {
-            first_name: { type: 'keyword' },
-            last_name: { type: 'keyword' },
-            gpa: { type: 'float'},
-            grad_year: { type: 'integer'}
-        }  
+  index: 'students',
+  body: {
+    dynamic: 'strict',
+    properties: {
+      firstName: { type: 'keyword' },
+      lastName: { type: 'keyword' },
+      gpa: { type: 'float' },
+      gradYear: { type: 'integer' }
     }
+  }
 )
 ```
 {% include copy.html %}
 
-With strict mapping, you can index a document with a missing field, but you cannot index a document with a new field. For example, indexing the following document with a misspelled `grad_yea` field fails:
+With strict mapping, you can index a document with a missing field, but you cannot index a document with a new field. For example, indexing the following document with a misspelled `gradYea` field fails:
 
 ```ruby
-document = {
-    first_name: 'Connor',
-    last_name: 'James',
-    gpa: 3.93,
-    grad_yea: 2021
-}
-  
-client.index(
-    index: 'students',
-    body: document,
-    id: 100,
-    refresh: true
-)
+student = { firstName: 'John', lastName: 'Doe', gpa: 3.89, gradYea: 2022 }
+client.index(index: 'students', id: '1', body: student, refresh: true)
 ```
 {% include copy.html %}
 
 OpenSearch returns a mapping error, and the client raises an `OpenSearch::Transport::Transport::Errors::BadRequest` exception containing the following message:
 
 ```bash
-[400] {"error":{"root_cause":[{"type":"strict_dynamic_mapping_exception","reason":"mapping set to strict, dynamic introduction of [grad_yea] within [_doc] is not allowed"}],"type":"strict_dynamic_mapping_exception","reason":"mapping set to strict, dynamic introduction of [grad_yea] within [_doc] is not allowed"},"status":400}
+[400] {"error":{"root_cause":[{"type":"strict_dynamic_mapping_exception","reason":"mapping set to strict, dynamic introduction of [gradYea] within [_doc] is not allowed"}],"type":"strict_dynamic_mapping_exception","reason":"mapping set to strict, dynamic introduction of [gradYea] within [_doc] is not allowed"},"status":400}
 ```
 
-## Indexing one document
+## Indexing a document
 
-To index one document, use the `index` method:
-
-```ruby
-document = {
-    first_name: 'Connor',
-    last_name: 'James',
-    gpa: 3.93,
-    grad_year: 2021
-}
-  
-client.index(
-    index: 'students',
-    body: document,
-    id: 100,
-    refresh: true
-)
-```
-{% include copy.html %}
-
-## Updating a document
-
-To update a document, use the `update` method:
+To index a document, use the `index` method:
 
 ```ruby
-client.update(index: 'students', 
-              id: 100, 
-              body: { doc: { gpa: 3.25 } }, 
-              refresh: true)
-```
-{% include copy.html %}
-
-## Deleting a document
-
-To delete a document, use the `delete` method:
-
-```ruby
-client.delete(
-    index: 'students',
-    id: 100,
-    refresh: true
-)
+student = { firstName: 'John', lastName: 'Doe', gpa: 3.89, gradYear: 2022 }
+response = client.index(index: 'students', id: '1', body: student, refresh: true)
 ```
 {% include copy.html %}
 
@@ -304,117 +261,97 @@ client.delete(
 
 You can perform several operations at the same time by using the `bulk` method. The operations may be of the same type or of different types.
 
-You can index multiple documents using the `bulk` method:
+To index multiple documents, pass each action header followed by its document:
 
 ```ruby
 actions = [
-    { index: { _index: 'students', _id: '200' } },
-    { first_name: 'James', last_name: 'Rodriguez', gpa: 3.91, grad_year: 2019 },
-    { index: { _index: 'students', _id: '300' } },
-    { first_name: 'Nikki', last_name: 'Wolf', gpa: 3.87, grad_year: 2020 }
+  { index: { _index: 'students', _id: '2' } },
+  { firstName: 'Paulo', lastName: 'Santos', gpa: 3.93, gradYear: 2021 },
+  { index: { _index: 'students', _id: '3' } },
+  { firstName: 'Shirley', lastName: 'Rodriguez', gpa: 3.91, gradYear: 2019 }
 ]
-client.bulk(body: actions, refresh: true)
+response = client.bulk(body: actions, refresh: true)
 ```
 {% include copy.html %}
 
-You can delete multiple documents as follows:
-
-```ruby
-# Deleting multiple documents.
-actions = [
-    { delete: { _index: 'students', _id: 200 } },
-    { delete: { _index: 'students', _id: 300 } }
-]
-client.bulk(body: actions, refresh: true)
-```
-{% include copy.html %}
-
-You can perform different operations when using `bulk` as follows:
+Alternatively, you can pass the header and the data together by denoting the data with the `data:` key. The following request indexes the same two documents:
 
 ```ruby
 actions = [
-    { index:  { _index: 'students', _id: 100, data: { first_name: 'Paulo', last_name: 'Santos', gpa: 3.29, grad_year: 2022 } } },
-    { index:  { _index: 'students', _id: 200, data: { first_name: 'Shirley', last_name: 'Rodriguez', gpa: 3.92, grad_year: 2020 } } },
-    { index:  { _index: 'students', _id: 300, data: { first_name: 'Akua', last_name: 'Mansa', gpa: 3.95, grad_year: 2022 } } },
-    { index:  { _index: 'students', _id: 400, data: { first_name: 'John', last_name: 'Stiles', gpa: 3.72, grad_year: 2019 } } },
-    { index:  { _index: 'students', _id: 500, data: { first_name: 'Li', last_name: 'Juan', gpa: 3.94, grad_year: 2022 } } },
-    { index:  { _index: 'students', _id: 600, data: { first_name: 'Richard', last_name: 'Roe', gpa: 3.04, grad_year: 2020 } } },
-    { update: { _index: 'students', _id: 100, data: { doc: { gpa: 3.73 } } } },
-    { delete: { _index: 'students', _id: 200  } }
+  { index: { _index: 'students', _id: '2', data: { firstName: 'Paulo', lastName: 'Santos', gpa: 3.93, gradYear: 2021 } } },
+  { index: { _index: 'students', _id: '3', data: { firstName: 'Shirley', lastName: 'Rodriguez', gpa: 3.91, gradYear: 2019 } } }
 ]
-client.bulk(body: actions, refresh: true)
+response = client.bulk(body: actions, refresh: true)
 ```
 {% include copy.html %}
 
-In the preceding example, you pass the data and the header together and you denote the data with the `data:` key.
+## Searching for documents
 
-## Searching for a document
-
-To search for a document, use the `search` method. The following example searches for a student whose first or last name is "James." It uses a `multi_match` query to search for two fields (`first_name` and `last_name`), and it is boosting the `last_name` field in relevance with a caret notation (`last_name^2`). 
+To search for documents, use the `search` method. If you omit the request body, your query becomes a `match_all` query and returns all documents in the index:
 
 ```ruby
-q = 'James'
+response = client.search(index: 'students')
+response['hits']['hits'].each { |hit| puts hit['_source'] }
+```
+{% include copy.html %}
+
+The following example uses a `term` query to search for students who graduated in 2019:
+
+```ruby
+query = { query: { term: { gradYear: 2019 } } }
+response = client.search(index: 'students', body: query)
+```
+{% include copy.html %}
+
+The following example searches for a student whose first or last name is "Santos." It uses a `multi_match` query to search for two fields (`firstName` and `lastName`), and it is boosting the `lastName` field in relevance with a caret notation (`lastName^2`):
+
+```ruby
 query = {
-  'size': 5,
-  'query': {
-    'multi_match': {
-      'query': q,
-      'fields': ['first_name', 'last_name^2']
+  size: 5,
+  query: {
+    multi_match: {
+      query: 'Santos',
+      fields: ['firstName', 'lastName^2']
     }
   }
 }
-
-response = client.search(
-  body: query,
-  index: 'students'
-)
-```
-{% include copy.html %}
-
-If you omit the request body in the `search` method, your query becomes a `match_all` query and returns all documents in the index:
-
-```ruby
-client.search(index: 'students')
+response = client.search(index: 'students', body: query)
 ```
 {% include copy.html %}
 
 ## Boolean query
 
-The Ruby client exposes full OpenSearch query capability. In addition to simple searches that use the match query, you can create a more complex Boolean query to search for students who graduated in 2022 and sort them by last name. In the following example, search is limited to 10 documents.
+The Ruby client exposes full OpenSearch query capability. In addition to simple searches that use the match query, you can create a more complex Boolean query to search for students who graduated in 2021 or later and sort them by GPA in descending order. In the following example, search is limited to 10 documents:
 
 ```ruby
 query = {
-    'query': {
-        'bool': {
-        'filter': {
-            'term': {
-                'grad_year': 2022
-                
-            }
+  query: {
+    bool: {
+      filter: {
+        range: {
+          gradYear: { gte: 2021 }
         }
-        }
-    },
-    'sort': {
-        'last_name': {
-            'order': 'asc'
-        }
-    }       
+      }
+    }
+  },
+  sort: {
+    gpa: { order: 'desc' }
+  }
 }
-
 response = client.search(index: 'students', from: 0, size: 10, body: query)
 ```
 {% include copy.html %}
 
 ## Multi-search
 
-You can bulk several queries together and perform a multi-search using the `msearch` method. The following code searches for students whose GPAs are outside the 3.1&ndash;3.9 range:
+You can bulk several queries together and perform a multi-search using the `msearch` method. The following code searches for students whose GPAs are greater than 3.9 and for students whose GPAs are less than 3.9:
 
 ```ruby
 actions = [
-    {},
-    {query: {range: {gpa: {gt: 3.9}}}},
-    {},
-    {query: {range: {gpa: {lt: 3.1}}}}
+  {},
+  { query: { range: { gpa: { gt: 3.9 } } } },
+  {},
+  { query: { range: { gpa: { lt: 3.9 } } } }
 ]
 response = client.msearch(index: 'students', body: actions)
 ```
@@ -428,9 +365,9 @@ You can paginate your search results using the Scroll API:
 response = client.search(index: 'students', scroll: '2m', size: 2)
 
 while response['hits']['hits'].size.positive?
-    scroll_id = response['_scroll_id']
-    puts(response['hits']['hits'].map { |doc| [doc['_source']['first_name'] + ' ' + doc['_source']['last_name']] })
-    response = client.scroll(scroll: '1m', body: { scroll_id: scroll_id })
+  scroll_id = response['_scroll_id']
+  puts(response['hits']['hits'].map { |hit| "#{hit['_source']['firstName']} #{hit['_source']['lastName']}" })
+  response = client.scroll(scroll: '1m', body: { scroll_id: scroll_id })
 end
 
 client.clear_scroll(body: { scroll_id: response['_scroll_id'] })
@@ -440,6 +377,36 @@ client.clear_scroll(body: { scroll_id: response['_scroll_id'] })
 First, you issue a search query, specifying the `scroll` and `size` parameters. The `scroll` parameter tells OpenSearch how long to keep the search context. In this case, it is set to two minutes. The `size` parameter specifies how many documents you want to return in each request. 
 
 The response to the initial search query contains a `_scroll_id` that you can use to get the next set of documents. To do this, you use the `scroll` method, again specifying the `scroll` parameter and passing the `_scroll_id` in the body. You don't need to specify the query or index to the `scroll` method. The `scroll` method returns the next set of documents and the `_scroll_id`. It's important to use the latest `_scroll_id` when requesting the next batch of documents because `_scroll_id` can change between requests. When you have retrieved all documents, use the `clear_scroll` method to release the search context.
+
+## Updating a document
+
+To update a document, use the `update` method and pass the fields to change in the `doc` object. Then retrieve the updated document using the `get` method:
+
+```ruby
+response = client.update(index: 'students', id: '1', body: { doc: { gpa: 3.92 } })
+response = client.get(index: 'students', id: '1')
+```
+{% include copy.html %}
+
+## Deleting a document
+
+To delete a document, use the `delete` method:
+
+```ruby
+response = client.delete(index: 'students', id: '3', refresh: true)
+```
+{% include copy.html %}
+
+To delete multiple documents in one request, use the `bulk` method:
+
+```ruby
+actions = [
+  { delete: { _index: 'students', _id: '1' } },
+  { delete: { _index: 'students', _id: '2' } }
+]
+response = client.bulk(body: actions, refresh: true)
+```
+{% include copy.html %}
 
 ## Deleting an index
 
@@ -452,195 +419,148 @@ response = client.indices.delete(index: 'students')
 
 ## Sample program
 
-The following is a complete sample program that illustrates all of the concepts described in the preceding sections. The Ruby client's methods return responses as Ruby hashes, which are hard to read. To display JSON responses in a readable format, the sample program uses the `JSON.pretty_generate` method from the Ruby standard library.
+The following sample program creates a client, creates an index, indexes documents individually and in bulk, searches for documents, updates a document, deletes a document, and then deletes the index.
+
+### Without security
+
+Use the following sample program when connecting to an OpenSearch cluster that does not have the Security plugin enabled:
 
 ```ruby
 require 'opensearch'
-require 'json'
 
 client = OpenSearch::Client.new(host: 'http://localhost:9200')
 
-# Create an index with non-default settings
-index_name = 'students'
-index_body = {
-    'settings': {
-      'index': {
-        'number_of_shards': 1,
-        'number_of_replicas': 2 
-      }
-    }
-  } 
+# Create the index
+index = 'students'
+puts 'Creating index......'
+response = client.indices.create(index: index)
+puts "Index created: #{response['index']}"
 
-client.indices.create(
-    index: index_name,
-    body: index_body
-)
+# Index a document
+puts "\nIndexing one student......"
+student = { firstName: 'John', lastName: 'Doe', gpa: 3.89, gradYear: 2022 }
+response = client.index(index: index, id: '1', body: student, refresh: true)
+puts "Result: #{response['result']}, id: #{response['_id']}, version: #{response['_version']}"
 
-# Create a mapping
-client.indices.put_mapping(
-    index: index_name, 
-    body: {
-        properties: {
-            first_name: { type: 'keyword' },
-            last_name: { type: 'keyword' }
-        }  
-    }
-)
-
-# Get mappings
-response = client.indices.get_mapping(index: index_name)
-puts 'Mappings for the students index:'
-puts JSON.pretty_generate(response)
-
-# Add one document to the index
-puts 'Adding one document:'
-document = {
-    first_name: 'Connor',
-    last_name: 'James',
-    gpa: 3.93,
-    grad_year: 2021
-}
-id = 100
-  
-client.index(
-    index: index_name,
-    body: document,
-    id: id,
-    refresh: true
-)
-  
-response = client.search(index: index_name)
-puts JSON.pretty_generate(response)
-  
-# Update a document
-puts 'Updating a document:'
-client.update(index: index_name, id: id, body: { doc: { gpa: 3.25 } }, refresh: true)
-response = client.search(index: index_name)
-puts JSON.pretty_generate(response)
-print 'The updated gpa is '
-puts response['hits']['hits'].map { |doc| doc['_source']['gpa'] }
-
-# Add many documents in bulk
-documents = [
-{ index: { _index: index_name, _id: '200' } },
-{ first_name: 'James', last_name: 'Rodriguez', gpa: 3.91, grad_year: 2019},
-{ index: { _index: index_name, _id: '300' } },
-{ first_name: 'Nikki', last_name: 'Wolf', gpa: 3.87, grad_year: 2020}
-]
-client.bulk(body: documents, refresh: true)
-
-# Get all documents in the index
-response = client.search(index: index_name)
-puts 'All documents in the index after bulk upload:'
-puts JSON.pretty_generate(response)
-
-# Search for a document using a multi_match query
-puts 'Searching for documents that match "James":'
-q = 'James'
-query = {
-  'size': 5,
-  'query': {
-    'multi_match': {
-      'query': q,
-      'fields': ['first_name', 'last_name^2']
-    }
-  }
-}
-
-response = client.search(
-  body: query,
-  index: index_name
-)
-puts JSON.pretty_generate(response)
-
-# Delete the document
-response = client.delete(
-index: index_name,
-id: id,
-refresh: true
-)
-
-response = client.search(index: index_name)
-puts 'Documents in the index after one document was deleted:'
-puts JSON.pretty_generate(response)
-
-# Delete multiple documents
+# Bulk index documents
+puts "\nIndexing many students......"
 actions = [
-    { delete: { _index: index_name, _id: 200 } },
-    { delete: { _index: index_name, _id: 300 } }
+  { index: { _index: index, _id: '2' } },
+  { firstName: 'Paulo', lastName: 'Santos', gpa: 3.93, gradYear: 2021 },
+  { index: { _index: index, _id: '3' } },
+  { firstName: 'Shirley', lastName: 'Rodriguez', gpa: 3.91, gradYear: 2019 }
 ]
-client.bulk(body: actions, refresh: true)
-
-response = client.search(index: index_name)
-
-puts 'Documents in the index after all documents were deleted:'
-puts JSON.pretty_generate(response)
-
-# Bulk several operations together
-actions = [
-    { index:  { _index: index_name, _id: 100, data: { first_name: 'Paulo', last_name: 'Santos', gpa: 3.29, grad_year: 2022 } } },
-    { index:  { _index: index_name, _id: 200, data: { first_name: 'Shirley', last_name: 'Rodriguez', gpa: 3.92, grad_year: 2020 } } },
-    { index:  { _index: index_name, _id: 300, data: { first_name: 'Akua', last_name: 'Mansa', gpa: 3.95, grad_year: 2022 } } },
-    { index:  { _index: index_name, _id: 400, data: { first_name: 'John', last_name: 'Stiles', gpa: 3.72, grad_year: 2019 } } },
-    { index:  { _index: index_name, _id: 500, data: { first_name: 'Li', last_name: 'Juan', gpa: 3.94, grad_year: 2022 } } },
-    { index:  { _index: index_name, _id: 600, data: { first_name: 'Richard', last_name: 'Roe', gpa: 3.04, grad_year: 2020 } } },
-    { update: { _index: index_name, _id: 100, data: { doc: { gpa: 3.73 } } } },
-    { delete: { _index: index_name, _id: 200  } }
-]
-client.bulk(body: actions, refresh: true)
-
-puts 'All documents in the index after bulk operations with scrolling:'
-response = client.search(index: index_name, scroll: '2m', size: 2)
-
-while response['hits']['hits'].size.positive?
-    scroll_id = response['_scroll_id']
-    puts(response['hits']['hits'].map { |doc| [doc['_source']['first_name'] + ' ' + doc['_source']['last_name']] })
-    response = client.scroll(scroll: '1m', body: { scroll_id: scroll_id })
+response = client.bulk(body: actions, refresh: true)
+puts "Errors: #{response['errors']}"
+response['items'].each do |item|
+  puts "  #{item['index']['result']} id: #{item['index']['_id']}"
 end
 
-client.clear_scroll(body: { scroll_id: response['_scroll_id'] })
+# Search for all students
+puts "\nSearching for all students......"
+response = client.search(index: index)
+puts "Total hits: #{response['hits']['total']['value']}"
+response['hits']['hits'].each { |hit| puts "  #{hit['_source']}" }
 
-# Multi search
-actions = [
-    {},
-    {query: {range: {gpa: {gt: 3.9}}}},
-    {},
-    {query: {range: {gpa: {lt: 3.1}}}}
-]
-response = client.msearch(index: index_name, body: actions)
+# Search for students who graduated in 2019
+puts "\nSearching for students who graduated in 2019......"
+query = { query: { term: { gradYear: 2019 } } }
+response = client.search(index: index, body: query)
+puts "Total hits: #{response['hits']['total']['value']}"
+response['hits']['hits'].each { |hit| puts "  #{hit['_source']}" }
 
-puts 'Multi search results:'
-puts JSON.pretty_generate(response)
+# Update a document
+puts "\nUpdating a student's GPA......"
+response = client.update(index: index, id: '1', body: { doc: { gpa: 3.92 } })
+puts "Result: #{response['result']}, version: #{response['_version']}"
 
-# Boolean query
-query = {
-    'query': {
-        'bool': {
-        'filter': {
-            'term': {
-                'grad_year': 2022
-                
-            }
-        }
-        }
-    },
-    'sort': {
-        'last_name': {
-            'order': 'asc'
-        }
-    }       
-}
+# Get the updated document
+response = client.get(index: index, id: '1')
+puts "Updated document: #{response['_source']}"
 
-response = client.search(index: index_name, from: 0, size: 10, body: query)
-
-puts 'Boolean query search results:'
-puts JSON.pretty_generate(response)
+# Delete a document
+puts "\nDeleting a student......"
+response = client.delete(index: index, id: '3', refresh: true)
+puts "Result: #{response['result']}"
 
 # Delete the index
-puts 'Deleting the index:'
-response = client.indices.delete(index: index_name)
+puts "\nDeleting the index......"
+response = client.indices.delete(index: index)
+puts "Acknowledged: #{response['acknowledged']}"
+```
+{% include copy.html %}
 
-puts JSON.pretty_generate(response)
+### With security
+
+Use the following sample program when connecting to an OpenSearch cluster that has the Security plugin enabled. Make sure to change the credentials to match your cluster configuration:
+
+```ruby
+require 'opensearch'
+
+client = OpenSearch::Client.new(
+  host: 'https://localhost:9200',
+  user: 'admin', # Only for demo purposes. Don't specify your credentials in code.
+  password: '<custom-admin-password>',
+  transport_options: { ssl: { verify: false } } # For testing only. Use a certificate for validation.
+)
+
+# Create the index
+index = 'students'
+puts 'Creating index......'
+response = client.indices.create(index: index)
+puts "Index created: #{response['index']}"
+
+# Index a document
+puts "\nIndexing one student......"
+student = { firstName: 'John', lastName: 'Doe', gpa: 3.89, gradYear: 2022 }
+response = client.index(index: index, id: '1', body: student, refresh: true)
+puts "Result: #{response['result']}, id: #{response['_id']}, version: #{response['_version']}"
+
+# Bulk index documents
+puts "\nIndexing many students......"
+actions = [
+  { index: { _index: index, _id: '2' } },
+  { firstName: 'Paulo', lastName: 'Santos', gpa: 3.93, gradYear: 2021 },
+  { index: { _index: index, _id: '3' } },
+  { firstName: 'Shirley', lastName: 'Rodriguez', gpa: 3.91, gradYear: 2019 }
+]
+response = client.bulk(body: actions, refresh: true)
+puts "Errors: #{response['errors']}"
+response['items'].each do |item|
+  puts "  #{item['index']['result']} id: #{item['index']['_id']}"
+end
+
+# Search for all students
+puts "\nSearching for all students......"
+response = client.search(index: index)
+puts "Total hits: #{response['hits']['total']['value']}"
+response['hits']['hits'].each { |hit| puts "  #{hit['_source']}" }
+
+# Search for students who graduated in 2019
+puts "\nSearching for students who graduated in 2019......"
+query = { query: { term: { gradYear: 2019 } } }
+response = client.search(index: index, body: query)
+puts "Total hits: #{response['hits']['total']['value']}"
+response['hits']['hits'].each { |hit| puts "  #{hit['_source']}" }
+
+# Update a document
+puts "\nUpdating a student's GPA......"
+response = client.update(index: index, id: '1', body: { doc: { gpa: 3.92 } })
+puts "Result: #{response['result']}, version: #{response['_version']}"
+
+# Get the updated document
+response = client.get(index: index, id: '1')
+puts "Updated document: #{response['_source']}"
+
+# Delete a document
+puts "\nDeleting a student......"
+response = client.delete(index: index, id: '3', refresh: true)
+puts "Result: #{response['result']}"
+
+# Delete the index
+puts "\nDeleting the index......"
+response = client.indices.delete(index: index)
+puts "Acknowledged: #{response['acknowledged']}"
 ```
 {% include copy.html %}
 
@@ -664,6 +584,6 @@ client = OpenSearch::Aws::Sigv4Client.new({
 
 client.cluster.health
 
-client.search q: 'test'
+client.search(index: 'students', q: 'firstName:John')
 ```
 {% include copy.html %}
