@@ -90,6 +90,20 @@ var client = new Client({
 
 ## Authenticating with Amazon OpenSearch Service: AWS Signature Version 4
 
+To sign requests using the AWS SDK for JavaScript V3, install the V3 credential provider package:
+
+```bash
+npm install @aws-sdk/credential-provider-node
+```
+{% include copy.html %}
+
+To sign requests using the AWS SDK for JavaScript V2, install the V2 SDK:
+
+```bash
+npm install aws-sdk
+```
+{% include copy.html %}
+
 The AWS SDK for JavaScript V2 reached end of support on September 8, 2025. For new applications, use the AWS SDK for JavaScript V3 examples in this section.
 {: .note}
 
@@ -102,7 +116,7 @@ const { AwsSigv4Signer } = require('@opensearch-project/opensearch/aws');
 
 const client = new Client({
   ...AwsSigv4Signer({
-    region: 'us-west-2',
+    region: 'us-east-1',
     service: 'es',
     // Must return a Promise that resolves to an AWS.Credentials object.
     // This function acquires the credentials when the client starts and
@@ -123,7 +137,7 @@ const client = new Client({
         });
       }),
   }),
-  node: 'https://search-xxx.region.es.amazonaws.com', // OpenSearch domain URL
+  node: 'https://search-<domain-name>-<id>.<region>.es.amazonaws.com', // OpenSearch domain endpoint
 });
 ```
 {% include copy.html %}
@@ -137,7 +151,7 @@ const { AwsSigv4Signer } = require('@opensearch-project/opensearch/aws');
 
 const client = new Client({
   ...AwsSigv4Signer({
-    region: 'us-west-2',
+    region: 'us-east-1',
     service: 'aoss',
     // Must return a Promise that resolves to an AWS.Credentials object.
     // This function acquires the credentials when the client starts and
@@ -158,7 +172,7 @@ const client = new Client({
         });
       }),
   }),
-  node: "https://xxx.region.aoss.amazonaws.com" // OpenSearch domain URL
+  node: 'https://<collection-id>.<region>.aoss.amazonaws.com', // OpenSearch Serverless collection endpoint
 });
 ```
 {% include copy.html %}
@@ -176,7 +190,8 @@ const client = new Client({
   ...AwsSigv4Signer({
     region: 'us-east-1',
     service: 'es',  // 'aoss' for OpenSearch Serverless
-    // Must return a Promise that resolves to an AWS.Credentials object.
+    // Must return a Promise that resolves to a credentials object containing
+    // accessKeyId, secretAccessKey, and, optionally, sessionToken and expiration.
     // This function acquires the credentials when the client starts and
     // when the credentials expire.
     // The client treats the credentials as expired if they are within
@@ -184,13 +199,13 @@ const client = new Client({
 
     // Example with AWS SDK V3:
     getCredentials: () => {
-      // Any other method to acquire a new Credentials object can be used.
+      // Any other credential provider that returns such a Promise can be used.
       const credentialsProvider = defaultProvider();
       return credentialsProvider();
     },
   }),
-  node: 'https://search-xxx.region.es.amazonaws.com', // OpenSearch domain URL
-  // node: "https://xxx.region.aoss.amazonaws.com" for OpenSearch Serverless
+  node: 'https://search-<domain-name>-<id>.<region>.es.amazonaws.com', // OpenSearch domain endpoint
+  // node: 'https://<collection-id>.<region>.aoss.amazonaws.com' for an OpenSearch Serverless collection endpoint
 });
 ```
 {% include copy.html %}
@@ -208,7 +223,8 @@ const client = new Client({
   ...AwsSigv4Signer({
     region: 'us-east-1',
     service: 'aoss',
-    // Must return a Promise that resolves to an AWS.Credentials object.
+    // Must return a Promise that resolves to a credentials object containing
+    // accessKeyId, secretAccessKey, and, optionally, sessionToken and expiration.
     // This function acquires the credentials when the client starts and
     // when the credentials expire.
     // The client treats the credentials as expired if they are within
@@ -216,15 +232,18 @@ const client = new Client({
 
     // Example with AWS SDK V3:
     getCredentials: () => {
-      // Any other method to acquire a new Credentials object can be used.
+      // Any other credential provider that returns such a Promise can be used.
       const credentialsProvider = defaultProvider();
       return credentialsProvider();
     },
   }),
-  node: "https://xxx.region.aoss.amazonaws.com" // OpenSearch domain URL
+  node: 'https://<collection-id>.<region>.aoss.amazonaws.com', // OpenSearch Serverless collection endpoint
 });
 ```
 {% include copy.html %}
+
+Amazon OpenSearch Serverless supports a subset of OpenSearch API operations and does not support the `refresh` parameter used in the examples on this page. For more information, see [Supported operations and plugins in Amazon OpenSearch Serverless](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-genref.html).
+{: .note}
 
 ### Authenticating from within an AWS Lambda function
 
@@ -245,7 +264,8 @@ const client = new Client({
   ...AwsSigv4Signer({
     region: 'us-east-1',
     service: 'es',  // 'aoss' for OpenSearch Serverless
-    // Must return a Promise that resolves to an AWS.Credentials object.
+    // Must return a Promise that resolves to a credentials object containing
+    // accessKeyId, secretAccessKey, and, optionally, sessionToken and expiration.
     // This function acquires the credentials when the client starts and
     // when the credentials expire.
     // The client treats the credentials as expired if they are within
@@ -253,13 +273,13 @@ const client = new Client({
 
     // Example with AWS SDK V3:
     getCredentials: () => {
-      // Any other method to acquire a new Credentials object can be used.
+      // Any other credential provider that returns such a Promise can be used.
       const credentialsProvider = defaultProvider();
       return credentialsProvider();
     },
   }),
-  node: 'https://search-xxx.region.es.amazonaws.com', // OpenSearch domain URL
-  // node: "https://xxx.region.aoss.amazonaws.com" for OpenSearch Serverless
+  node: 'https://search-<domain-name>-<id>.<region>.es.amazonaws.com', // OpenSearch domain endpoint
+  // node: 'https://<collection-id>.<region>.aoss.amazonaws.com' for an OpenSearch Serverless collection endpoint
 });
 
 exports.handler = async (event, context) => {
