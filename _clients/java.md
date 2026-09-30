@@ -21,13 +21,7 @@ To start using the OpenSearch Java client, you need to provide a transport. The 
 <dependency>
   <groupId>org.opensearch.client</groupId>
   <artifactId>opensearch-java</artifactId>
-  <version>3.9.0</version>
-</dependency>
-
-<dependency>
-  <groupId>org.apache.httpcomponents.client5</groupId>
-  <artifactId>httpclient5</artifactId>
-  <version>5.2.1</version>
+  <version>3.10.0</version>
 </dependency>
 ```
 {% include copy.html %}
@@ -36,8 +30,7 @@ If you're using Gradle, add the following dependencies to your project:
 
 ```groovy
 dependencies {
-  implementation 'org.opensearch.client:opensearch-java:3.9.0'
-  implementation 'org.apache.httpcomponents.client5:httpclient5:5.2.1'
+  implementation 'org.opensearch.client:opensearch-java:3.10.0'
 }
 ```
 {% include copy.html %}
@@ -61,7 +54,7 @@ Alternatively, you can create a Java client by using the `RestClient`-based tran
 <dependency>
   <groupId>org.opensearch.client</groupId>
   <artifactId>opensearch-java</artifactId>
-  <version>3.9.0</version>
+  <version>3.10.0</version>
 </dependency>
 ```
 {% include copy.html %}
@@ -71,7 +64,7 @@ If you're using Gradle, add the following dependencies to your project:
 ```groovy
 dependencies {
   implementation 'org.opensearch.client:opensearch-rest-client:{{site.opensearch_version}}'
-  implementation 'org.opensearch.client:opensearch-java:3.9.0'
+  implementation 'org.opensearch.client:opensearch-java:3.10.0'
 }
 ```
 {% include copy.html %}
@@ -252,15 +245,53 @@ public class OpenSearchClientExample {
 
 ## Connecting to Amazon OpenSearch Service
 
-The following example illustrates connecting to Amazon OpenSearch Service:
+To connect to Amazon OpenSearch Service or Amazon OpenSearch Serverless, use `AwsSdk2Transport`, which signs requests using the AWS SDK for Java 2.x. Add the AWS SDK HTTP client and authentication modules to your `pom.xml` file in addition to `opensearch-java`:
+
+```xml
+<dependency>
+  <groupId>software.amazon.awssdk</groupId>
+  <artifactId>aws-crt-client</artifactId>
+  <version>2.55.9</version>
+</dependency>
+
+<dependency>
+  <groupId>software.amazon.awssdk</groupId>
+  <artifactId>auth</artifactId>
+  <version>2.55.9</version>
+</dependency>
+```
+{% include copy.html %}
+
+If you're using Gradle, add the following dependencies to your project:
+
+```groovy
+dependencies {
+  implementation 'software.amazon.awssdk:aws-crt-client:2.55.9'
+  implementation 'software.amazon.awssdk:auth:2.55.9'
+}
+```
+{% include copy.html %}
+
+The examples use `AwsCrtHttpClient`. Avoid `ApacheHttpClient` from the AWS SDK because it does not support request bodies in `GET` or `DELETE` requests, so `AwsSdk2Transport` throws a `TransportException` for operations such as `clearScroll()` and `deletePit()`.
+{: .note}
+
+`AwsSdk2Transport` obtains AWS credentials from the AWS SDK default credentials provider chain. The following example illustrates connecting to Amazon OpenSearch Service:
 
 ```java
-SdkHttpClient httpClient = ApacheHttpClient.builder().build();
+import org.opensearch.client.opensearch.OpenSearchClient;
+import org.opensearch.client.opensearch.core.InfoResponse;
+import org.opensearch.client.transport.aws.AwsSdk2Transport;
+import org.opensearch.client.transport.aws.AwsSdk2TransportOptions;
+import software.amazon.awssdk.http.SdkHttpClient;
+import software.amazon.awssdk.http.crt.AwsCrtHttpClient;
+import software.amazon.awssdk.regions.Region;
+
+SdkHttpClient httpClient = AwsCrtHttpClient.builder().build();
 
 OpenSearchClient client = new OpenSearchClient(
     new AwsSdk2Transport(
         httpClient,
-        "search-...us-west-2.es.amazonaws.com", // OpenSearch endpoint, without https://
+        "search-<domain-name>-<id>.us-west-2.es.amazonaws.com", // OpenSearch endpoint, without https://
         "es",
         Region.US_WEST_2, // signing service region
         AwsSdk2TransportOptions.builder().build()
@@ -276,28 +307,37 @@ httpClient.close();
 
 ## Connecting to Amazon OpenSearch Serverless
 
-The following example illustrates connecting to Amazon OpenSearch Serverless Service:
+The following example illustrates connecting to Amazon OpenSearch Serverless. Because Amazon OpenSearch Serverless does not support the root endpoint, the example checks whether an index exists:
 
 ```java
-SdkHttpClient httpClient = ApacheHttpClient.builder().build();
+import org.opensearch.client.opensearch.OpenSearchClient;
+import org.opensearch.client.transport.aws.AwsSdk2Transport;
+import org.opensearch.client.transport.aws.AwsSdk2TransportOptions;
+import software.amazon.awssdk.http.SdkHttpClient;
+import software.amazon.awssdk.http.crt.AwsCrtHttpClient;
+import software.amazon.awssdk.regions.Region;
+
+SdkHttpClient httpClient = AwsCrtHttpClient.builder().build();
 
 OpenSearchClient client = new OpenSearchClient(
     new AwsSdk2Transport(
         httpClient,
-        "search-...us-west-2.aoss.amazonaws.com", // OpenSearch endpoint, without https://
+        "<collection-id>.us-west-2.aoss.amazonaws.com", // OpenSearch Serverless collection endpoint, without https://
         "aoss",
         Region.US_WEST_2, // signing service region
         AwsSdk2TransportOptions.builder().build()
     )
 );
 
-InfoResponse info = client.info();
-System.out.println(info.version().distribution() + ": " + info.version().number());
+boolean exists = client.indices().exists(e -> e.index("students")).value();
+System.out.println("Index exists: " + exists);
 
 httpClient.close();
 ```
 {% include copy.html %}
 
+Amazon OpenSearch Serverless supports a subset of OpenSearch API operations and does not support the `refresh` parameter used in the examples on this page. For more information, see [Supported operations and plugins in Amazon OpenSearch Serverless](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-genref.html).
+{: .note}
 
 ## Creating an index
 
@@ -449,7 +489,7 @@ public class OpenSearchClientExample {
       IndexRequest<Student> indexRequest = new IndexRequest.Builder<Student>()
         .index(index).id("1").document(student).refresh(Refresh.True).build();
       IndexResponse indexResponse = client.index(indexRequest);
-      System.out.println("Result: " + indexResponse.result() + ", id: " + indexResponse.id() + ", version: " + indexResponse.version());
+      System.out.println("Result: " + indexResponse.result().jsonValue() + ", id: " + indexResponse.id() + ", version: " + indexResponse.version());
 
       // Bulk index documents
       System.out.println("\nIndexing many students......");
@@ -497,7 +537,7 @@ public class OpenSearchClientExample {
       UpdateRequest<Student, Student> updateRequest = new UpdateRequest.Builder<Student, Student>()
         .index(index).id("1").doc(updatedFields).build();
       UpdateResponse<Student> updateResponse = client.update(updateRequest, Student.class);
-      System.out.println("Result: " + updateResponse.result() + ", version: " + updateResponse.version());
+      System.out.println("Result: " + updateResponse.result().jsonValue() + ", version: " + updateResponse.version());
 
       // Get the updated document
       GetResponse<Student> getResponse = client.get(g -> g.index(index).id("1"), Student.class);
@@ -506,7 +546,7 @@ public class OpenSearchClientExample {
       // Delete a document
       System.out.println("\nDeleting a student......");
       DeleteResponse deleteResponse = client.delete(b -> b.index(index).id("3").refresh(Refresh.True));
-      System.out.println("Result: " + deleteResponse.result());
+      System.out.println("Result: " + deleteResponse.result().jsonValue());
 
       // Delete the index
       System.out.println("\nDeleting the index......");
@@ -616,7 +656,7 @@ public class OpenSearchClientExample {
       IndexRequest<Student> indexRequest = new IndexRequest.Builder<Student>()
         .index(index).id("1").document(student).refresh(Refresh.True).build();
       IndexResponse indexResponse = client.index(indexRequest);
-      System.out.println("Result: " + indexResponse.result() + ", id: " + indexResponse.id() + ", version: " + indexResponse.version());
+      System.out.println("Result: " + indexResponse.result().jsonValue() + ", id: " + indexResponse.id() + ", version: " + indexResponse.version());
 
       // Bulk index documents
       System.out.println("\nIndexing many students......");
@@ -664,7 +704,7 @@ public class OpenSearchClientExample {
       UpdateRequest<Student, Student> updateRequest = new UpdateRequest.Builder<Student, Student>()
         .index(index).id("1").doc(updatedFields).build();
       UpdateResponse<Student> updateResponse = client.update(updateRequest, Student.class);
-      System.out.println("Result: " + updateResponse.result() + ", version: " + updateResponse.version());
+      System.out.println("Result: " + updateResponse.result().jsonValue() + ", version: " + updateResponse.version());
 
       // Get the updated document
       GetResponse<Student> getResponse = client.get(g -> g.index(index).id("1"), Student.class);
@@ -673,7 +713,7 @@ public class OpenSearchClientExample {
       // Delete a document
       System.out.println("\nDeleting a student......");
       DeleteResponse deleteResponse = client.delete(b -> b.index(index).id("3").refresh(Refresh.True));
-      System.out.println("Result: " + deleteResponse.result());
+      System.out.println("Result: " + deleteResponse.result().jsonValue());
 
       // Delete the index
       System.out.println("\nDeleting the index......");
