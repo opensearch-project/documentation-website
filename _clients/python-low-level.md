@@ -176,19 +176,11 @@ client = OpenSearch(
 
 ## Creating an index
 
-To create an OpenSearch index, use the `client.indices.create()` method. You can use the following code to construct a JSON object with custom settings:
+To create an OpenSearch index, use the `client.indices.create()` method:
 
 ```python
-index_name = 'python-test-index'
-index_body = {
-  'settings': {
-    'index': {
-      'number_of_shards': 4
-    }
-  }
-}
-
-response = client.indices.create(index=index_name, body=index_body)
+index_name = 'students'
+response = client.indices.create(index=index_name)
 ```
 {% include copy.html %}
 
@@ -197,52 +189,42 @@ response = client.indices.create(index=index_name, body=index_body)
 You can index a document using the `client.index()` method:
 
 ```python
-document = {
-  'title': 'Moneyball',
-  'director': 'Bennett Miller',
-  'year': '2011'
-}
-
-response = client.index(
-    index = 'python-test-index',
-    body = document,
-    id = '1',
-    refresh = True
-)
+document = {'firstName': 'John', 'lastName': 'Doe', 'gpa': 3.89, 'gradYear': 2022}
+response = client.index(index=index_name, id='1', body=document, refresh=True)
 ```
 {% include copy.html %}
 
 ## Performing bulk operations
 
-You can perform several operations at the same time by using the `bulk()` method of the client. The operations may be of the same type or of different types. Note that the operations must be separated by a `\n` and the entire string must be a single line:
+You can perform several operations at the same time by using the `bulk()` method of the client. The operations may be of the same type or of different types. Provide the operations as a list in which each action is followed by its document:
 
 ```python
-movies = '{ "index" : { "_index" : "python-test-index", "_id" : "2" } } \n { "title" : "Interstellar", "director" : "Christopher Nolan", "year" : "2014"} \n { "create" : { "_index" : "python-test-index", "_id" : "3" } } \n { "title" : "Star Trek Beyond", "director" : "Justin Lin", "year" : "2015"} \n { "update" : {"_id" : "3", "_index" : "python-test-index" } } \n { "doc" : {"year" : "2016"} }'
-
-response = client.bulk(body=movies, refresh=True)
+operations = [
+    {'index': {'_index': index_name, '_id': '2'}},
+    {'firstName': 'Paulo', 'lastName': 'Santos', 'gpa': 3.93, 'gradYear': 2021},
+    {'index': {'_index': index_name, '_id': '3'}},
+    {'firstName': 'Shirley', 'lastName': 'Rodriguez', 'gpa': 3.91, 'gradYear': 2019}
+]
+response = client.bulk(body=operations, refresh=True)
 ```
 {% include copy.html %}
 
 ## Searching for documents
 
-The easiest way to search for documents is to construct a query string. The following code uses a multi-match query to search for "miller" in the title and director fields. It boosts the documents that have "miller" in the title field:
+To search for all documents in an index, use the `client.search()` method without a query:
 
 ```python
-q = 'miller'
-query = {
-  'size': 5,
-  'query': {
-    'multi_match': {
-      'query': q,
-      'fields': ['title^2', 'director']
-    }
-  }
-}
+response = client.search(index=index_name)
+for hit in response['hits']['hits']:
+    print(hit['_source'])
+```
+{% include copy.html %}
 
-response = client.search(
-    body = query,
-    index = 'python-test-index'
-)
+To search using a query, provide the query in the request body. The following code uses a term query to search for students who graduated in 2019:
+
+```python
+query = {'query': {'term': {'gradYear': 2019}}}
+response = client.search(index=index_name, body=query)
 ```
 {% include copy.html %}
 
@@ -251,15 +233,7 @@ response = client.search(
 You can update a document using the `client.update()` method. The fields in the `doc` object are merged into the existing document:
 
 ```python
-response = client.update(
-    index = 'python-test-index',
-    id = '1',
-    body = {
-      'doc': {
-        'rating': 'PG-13'
-      }
-    }
-)
+response = client.update(index=index_name, id='1', body={'doc': {'gpa': 3.92}})
 ```
 {% include copy.html %}
 
@@ -268,10 +242,7 @@ response = client.update(
 You can delete a document using the `client.delete()` method:
 
 ```python
-response = client.delete(
-    index = 'python-test-index',
-    id = '1'
-)
+response = client.delete(index=index_name, id='3', refresh=True)
 ```
 {% include copy.html %}
 
@@ -280,15 +251,98 @@ response = client.delete(
 You can delete an index using the `client.indices.delete()` method:
 
 ```python
-response = client.indices.delete(
-    index = 'python-test-index'
-)
+response = client.indices.delete(index=index_name)
 ```
 {% include copy.html %}
 
 ## Sample program
 
-The following sample program creates a client, adds an index with non-default settings, inserts a document, performs bulk operations, searches for the document, updates the document, deletes the document, and then deletes the index. To run the program against a cluster that does not have the Security plugin enabled, replace the client with the client [without SSL/TLS](#connecting-to-opensearch):
+The following sample program creates a client, creates an index, indexes documents individually and in bulk, searches for documents, updates a document, deletes a document, and then deletes the index.
+
+### Without security
+
+Use the following sample program when connecting to an OpenSearch cluster that does not have the Security plugin enabled:
+
+```python
+from opensearchpy import OpenSearch
+
+host = 'localhost'
+port = 9200
+
+# Create the client with SSL/TLS and hostname verification disabled.
+client = OpenSearch(
+    hosts = [{'host': host, 'port': port}],
+    http_compress = True, # enables gzip compression for request bodies
+    use_ssl = False,
+    verify_certs = False,
+    ssl_assert_hostname = False,
+    ssl_show_warn = False
+)
+
+# Create the index.
+index_name = 'students'
+print('Creating index......')
+response = client.indices.create(index=index_name)
+print(f"Index created: {response['index']}")
+
+# Index a document.
+print('\nIndexing one student......')
+document = {'firstName': 'John', 'lastName': 'Doe', 'gpa': 3.89, 'gradYear': 2022}
+response = client.index(index=index_name, id='1', body=document, refresh=True)
+print(f"Result: {response['result']}, id: {response['_id']}, version: {response['_version']}")
+
+# Bulk index documents.
+print('\nIndexing many students......')
+operations = [
+    {'index': {'_index': index_name, '_id': '2'}},
+    {'firstName': 'Paulo', 'lastName': 'Santos', 'gpa': 3.93, 'gradYear': 2021},
+    {'index': {'_index': index_name, '_id': '3'}},
+    {'firstName': 'Shirley', 'lastName': 'Rodriguez', 'gpa': 3.91, 'gradYear': 2019}
+]
+response = client.bulk(body=operations, refresh=True)
+print(f"Errors: {str(response['errors']).lower()}")
+for item in response['items']:
+    print(f"  {item['index']['result']} id: {item['index']['_id']}")
+
+# Search for all students.
+print('\nSearching for all students......')
+response = client.search(index=index_name)
+print(f"Total hits: {response['hits']['total']['value']}")
+for hit in response['hits']['hits']:
+    print(f"  {hit['_source']}")
+
+# Search for students who graduated in 2019.
+print('\nSearching for students who graduated in 2019......')
+query = {'query': {'term': {'gradYear': 2019}}}
+response = client.search(index=index_name, body=query)
+print(f"Total hits: {response['hits']['total']['value']}")
+for hit in response['hits']['hits']:
+    print(f"  {hit['_source']}")
+
+# Update a document.
+print("\nUpdating a student's GPA......")
+response = client.update(index=index_name, id='1', body={'doc': {'gpa': 3.92}})
+print(f"Result: {response['result']}, version: {response['_version']}")
+
+# Get the updated document.
+response = client.get(index=index_name, id='1')
+print(f"Updated document: {response['_source']}")
+
+# Delete a document.
+print('\nDeleting a student......')
+response = client.delete(index=index_name, id='3', refresh=True)
+print(f"Result: {response['result']}")
+
+# Delete the index.
+print('\nDeleting the index......')
+response = client.indices.delete(index=index_name)
+print(f"Acknowledged: {str(response['acknowledged']).lower()}")
+```
+{% include copy.html %}
+
+### With security
+
+Use the following sample program when connecting to an OpenSearch cluster that has the Security plugin enabled. Make sure to change the credentials and CA certificate path to match your cluster configuration:
 
 ```python
 from opensearchpy import OpenSearch
@@ -298,17 +352,11 @@ port = 9200
 auth = ('admin', '<custom-admin-password>') # For testing only. Don't store credentials in code.
 ca_certs_path = '/full/path/to/root-ca.pem' # Provide a CA bundle if you use intermediate CAs with your root CA.
 
-# Optional client certificates if you don't want to use HTTP basic authentication.
-# client_cert_path = '/full/path/to/client.pem'
-# client_key_path = '/full/path/to/client-key.pem'
-
 # Create the client with SSL/TLS enabled, but hostname verification disabled.
 client = OpenSearch(
     hosts = [{'host': host, 'port': port}],
     http_compress = True, # enables gzip compression for request bodies
     http_auth = auth,
-    # client_cert = client_cert_path,
-    # client_key = client_key_path,
     use_ssl = True,
     verify_certs = True,
     ssl_assert_hostname = False,
@@ -316,94 +364,64 @@ client = OpenSearch(
     ca_certs = ca_certs_path
 )
 
-# Create an index with non-default settings.
-index_name = 'python-test-index'
-index_body = {
-  'settings': {
-    'index': {
-      'number_of_shards': 4
-    }
-  }
-}
+# Create the index.
+index_name = 'students'
+print('Creating index......')
+response = client.indices.create(index=index_name)
+print(f"Index created: {response['index']}")
 
-response = client.indices.create(index=index_name, body=index_body)
-print('\nCreating index:')
-print(response)
+# Index a document.
+print('\nIndexing one student......')
+document = {'firstName': 'John', 'lastName': 'Doe', 'gpa': 3.89, 'gradYear': 2022}
+response = client.index(index=index_name, id='1', body=document, refresh=True)
+print(f"Result: {response['result']}, id: {response['_id']}, version: {response['_version']}")
 
-# Add a document to the index.
-document = {
-  'title': 'Moneyball',
-  'director': 'Bennett Miller',
-  'year': '2011'
-}
-id = '1'
+# Bulk index documents.
+print('\nIndexing many students......')
+operations = [
+    {'index': {'_index': index_name, '_id': '2'}},
+    {'firstName': 'Paulo', 'lastName': 'Santos', 'gpa': 3.93, 'gradYear': 2021},
+    {'index': {'_index': index_name, '_id': '3'}},
+    {'firstName': 'Shirley', 'lastName': 'Rodriguez', 'gpa': 3.91, 'gradYear': 2019}
+]
+response = client.bulk(body=operations, refresh=True)
+print(f"Errors: {str(response['errors']).lower()}")
+for item in response['items']:
+    print(f"  {item['index']['result']} id: {item['index']['_id']}")
 
-response = client.index(
-    index = index_name,
-    body = document,
-    id = id,
-    refresh = True
-)
+# Search for all students.
+print('\nSearching for all students......')
+response = client.search(index=index_name)
+print(f"Total hits: {response['hits']['total']['value']}")
+for hit in response['hits']['hits']:
+    print(f"  {hit['_source']}")
 
-print('\nAdding document:')
-print(response)
+# Search for students who graduated in 2019.
+print('\nSearching for students who graduated in 2019......')
+query = {'query': {'term': {'gradYear': 2019}}}
+response = client.search(index=index_name, body=query)
+print(f"Total hits: {response['hits']['total']['value']}")
+for hit in response['hits']['hits']:
+    print(f"  {hit['_source']}")
 
-# Perform bulk operations.
-movies = '{ "index" : { "_index" : "python-test-index", "_id" : "2" } } \n { "title" : "Interstellar", "director" : "Christopher Nolan", "year" : "2014"} \n { "create" : { "_index" : "python-test-index", "_id" : "3" } } \n { "title" : "Star Trek Beyond", "director" : "Justin Lin", "year" : "2015"} \n { "update" : {"_id" : "3", "_index" : "python-test-index" } } \n { "doc" : {"year" : "2016"} }'
+# Update a document.
+print("\nUpdating a student's GPA......")
+response = client.update(index=index_name, id='1', body={'doc': {'gpa': 3.92}})
+print(f"Result: {response['result']}, version: {response['_version']}")
 
-response = client.bulk(body=movies, refresh=True)
-print('\nPerforming bulk operations:')
-print(response)
+# Get the updated document.
+response = client.get(index=index_name, id='1')
+print(f"Updated document: {response['_source']}")
 
-# Search for the document.
-q = 'miller'
-query = {
-  'size': 5,
-  'query': {
-    'multi_match': {
-      'query': q,
-      'fields': ['title^2', 'director']
-    }
-  }
-}
-
-response = client.search(
-    body = query,
-    index = index_name
-)
-print('\nSearch results:')
-print(response)
-
-# Update the document.
-response = client.update(
-    index = index_name,
-    id = id,
-    body = {
-      'doc': {
-        'rating': 'PG-13'
-      }
-    }
-)
-
-print('\nUpdating document:')
-print(response)
-
-# Delete the document.
-response = client.delete(
-    index = index_name,
-    id = id
-)
-
-print('\nDeleting document:')
-print(response)
+# Delete a document.
+print('\nDeleting a student......')
+response = client.delete(index=index_name, id='3', refresh=True)
+print(f"Result: {response['result']}")
 
 # Delete the index.
-response = client.indices.delete(
-    index = index_name
-)
-
-print('\nDeleting index:')
-print(response)
+print('\nDeleting the index......')
+response = client.indices.delete(index=index_name)
+print(f"Acknowledged: {str(response['acknowledged']).lower()}")
 ```
 {% include copy.html %}
 

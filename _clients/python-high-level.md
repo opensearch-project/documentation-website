@@ -25,7 +25,7 @@ pip install opensearch-py
 After installing the client, you can import it like any other module:
 
 ```python
-from opensearchpy import OpenSearch, Search, Document, Text, Keyword
+from opensearchpy import OpenSearch, Search, Document, Text, Float, Integer
 ```
 {% include copy.html %}
 
@@ -101,91 +101,81 @@ client = OpenSearch(
 
 ## Creating an index
 
-To create an OpenSearch index, use the `client.indices.create()` method. You can use the following code to construct a JSON object with custom settings:
+To create an OpenSearch index, use the `client.indices.create()` method:
 
 ```python
-index_name = 'my-dsl-index'
-index_body = {
-  'settings': {
-    'index': {
-      'number_of_shards': 4
-    }
-  }
-}
-
-response = client.indices.create(index=index_name, body=index_body)
+index_name = 'students'
+response = client.indices.create(index=index_name)
 ```
 {% include copy.html %}
 
 ## Indexing a document
 
-You can create a class to represent the documents that you'll index in OpenSearch by extending the `Document` class:
+You can create a class to represent the documents that you'll index in OpenSearch by extending the `Document` class. The class attribute names are used as the document field names:
 
 ```python
-class Movie(Document):
-    title = Text(fields={'raw': Keyword()})
-    director = Text()
-    year = Text()
+class Student(Document):
+    firstName = Text()
+    lastName = Text()
+    gpa = Float()
+    gradYear = Integer()
 
     class Index:
         name = index_name
-
-    def save(self, ** kwargs):
-        return super(Movie, self).save(** kwargs)
 ```
 {% include copy.html %}
 
-To index a document, create the index mapping using the `init()` method, create an object of the new class, and call its `save()` method:
+To index a document, create an object of the new class and call its `save()` method:
 
 ```python
-# Create the mapping for the document in the index.
-Movie.init(using=client)
-doc = Movie(meta={'id': 1}, title='Moneyball', director='Bennett Miller', year='2011')
-response = doc.save(using=client, refresh=True)
+student = Student(meta={'id': '1'}, firstName='John', lastName='Doe', gpa=3.89, gradYear=2022)
+result = student.save(using=client, refresh=True)
 ```
 {% include copy.html %}
 
 ## Performing bulk operations
 
-You can perform several operations at the same time by using the `bulk()` method of the client. The operations may be of the same type or of different types. Note that the operations must be separated by a `\n` and the entire string must be a single line:
+You can perform several operations at the same time by using the `bulk()` method of the client. The operations may be of the same type or of different types. Provide the operations as a list in which each action is followed by its document. The following code converts `Student` objects to documents using the `to_dict()` method:
 
 ```python
-movies = '{ "index" : { "_index" : "my-dsl-index", "_id" : "2" } } \n { "title" : "Interstellar", "director" : "Christopher Nolan", "year" : "2014"} \n { "create" : { "_index" : "my-dsl-index", "_id" : "3" } } \n { "title" : "Star Trek Beyond", "director" : "Justin Lin", "year" : "2015"} \n { "update" : {"_id" : "3", "_index" : "my-dsl-index" } } \n { "doc" : {"year" : "2016"} }'
-
-response = client.bulk(body=movies, refresh=True)
+students = [
+    Student(meta={'id': '2'}, firstName='Paulo', lastName='Santos', gpa=3.93, gradYear=2021),
+    Student(meta={'id': '3'}, firstName='Shirley', lastName='Rodriguez', gpa=3.91, gradYear=2019)
+]
+operations = []
+for s in students:
+    operations.append({'index': {'_index': index_name, '_id': s.meta.id}})
+    operations.append(s.to_dict())
+response = client.bulk(body=operations, refresh=True)
 ```
 {% include copy.html %}
 
 ## Searching for documents
 
-You can use the `Search` class to construct a query. The following code creates a Boolean query with a filter:
+You can use the `Search` class to construct a query. To search for all documents in an index, create a `Search` object without a query:
 
 ```python
-s = Search(using=client, index=index_name) \
-    .filter("term", year="2011") \
-    .query("match", title="Moneyball")
+response = Search(using=client, index=index_name).execute()
+for hit in response:
+    print(hit.to_dict())
+```
+{% include copy.html %}
 
-response = s.execute()
+The following code uses a term query to search for students who graduated in 2019:
+
+```python
+response = Search(using=client, index=index_name).query('term', gradYear=2019).execute()
 ```
 {% include copy.html %}
 
 The preceding query is equivalent to the following query in OpenSearch domain-specific language (DSL):
 
 ```json
-GET my-dsl-index/_search 
+GET students/_search
 {
   "query": {
-    "bool": {
-      "must": {
-        "match": {
-          "title": "Moneyball"
-        }
-      },
-      "filter": {
-        "term" : {
-          "year": "2011"
-        }
-      }
+    "term": {
+      "gradYear": 2019
     }
   }
 }
@@ -196,8 +186,8 @@ GET my-dsl-index/_search
 To update a document, retrieve it using the `get()` method and then call its `update()` method with the fields to change:
 
 ```python
-doc = Movie.get(id=1, using=client)
-response = doc.update(using=client, rating='PG-13')
+student = Student.get(id='1', using=client)
+result = student.update(using=client, gpa=3.92)
 ```
 {% include copy.html %}
 
@@ -206,10 +196,7 @@ response = doc.update(using=client, rating='PG-13')
 You can delete a document using the `client.delete()` method:
 
 ```python
-response = client.delete(
-    index = 'my-dsl-index',
-    id = '1'
-)
+response = client.delete(index=index_name, id='3', refresh=True)
 ```
 {% include copy.html %}
 
@@ -218,107 +205,202 @@ response = client.delete(
 You can delete an index using the `client.indices.delete()` method:
 
 ```python
-response = client.indices.delete(
-    index = 'my-dsl-index'
-)
+response = client.indices.delete(index=index_name)
 ```
 {% include copy.html %}
 
 ## Sample program
 
-The following sample program creates a client, adds an index with non-default settings, inserts a document, performs bulk operations, searches for the document, updates the document, deletes the document, and then deletes the index. The program connects to a cluster that does not have the Security plugin enabled. To connect to a cluster that has the Security plugin enabled, replace the client with the client [with SSL/TLS enabled](#connecting-to-opensearch):
+The following sample program creates a client, creates an index, indexes documents individually and in bulk, searches for documents, updates a document, deletes a document, and then deletes the index.
+
+### Without security
+
+Use the following sample program when connecting to an OpenSearch cluster that does not have the Security plugin enabled:
 
 ```python
-from opensearchpy import OpenSearch, Search, Document, Text, Keyword
+from opensearchpy import OpenSearch, Search, Document, Text, Float, Integer
 
 host = 'localhost'
 port = 9200
 
 # Create the client with SSL/TLS and hostname verification disabled.
 client = OpenSearch(
-    hosts=[{'host': host, 'port': port}],
-    http_compress=True,  # enables gzip compression for request bodies
-    use_ssl=False,
-    verify_certs=False,
-    ssl_assert_hostname=False,
-    ssl_show_warn=False
+    hosts = [{'host': host, 'port': port}],
+    http_compress = True, # enables gzip compression for request bodies
+    use_ssl = False,
+    verify_certs = False,
+    ssl_assert_hostname = False,
+    ssl_show_warn = False
 )
-index_name = 'my-dsl-index'
 
-index_body = {
-  'settings': {
-    'index': {
-      'number_of_shards': 4
-    }
-  }
-}
+index_name = 'students'
 
-response = client.indices.create(index=index_name, body=index_body)
-print('\nCreating index:')
-print(response)
-
-# Create the structure of the document.
-class Movie(Document):
-    title = Text(fields={'raw': Keyword()})
-    director = Text()
-    year = Text()
+# Define the structure of a student document.
+class Student(Document):
+    firstName = Text()
+    lastName = Text()
+    gpa = Float()
+    gradYear = Integer()
 
     class Index:
         name = index_name
 
-    def save(self, ** kwargs):
-        return super(Movie, self).save(** kwargs)
-
-# Create the mapping for the document in the index.
-Movie.init(using=client)
+# Create the index.
+print('Creating index......')
+response = client.indices.create(index=index_name)
+print(f"Index created: {response['index']}")
 
 # Index a document.
-doc = Movie(meta={'id': 1}, title='Moneyball', director='Bennett Miller', year='2011')
-response = doc.save(using=client, refresh=True)
+print('\nIndexing one student......')
+student = Student(meta={'id': '1'}, firstName='John', lastName='Doe', gpa=3.89, gradYear=2022)
+result = student.save(using=client, refresh=True)
+print(f"Result: {result}, id: {student.meta.id}, version: {student.meta.version}")
 
-print('\nAdding document:')
-print(response)
+# Bulk index documents.
+print('\nIndexing many students......')
+students = [
+    Student(meta={'id': '2'}, firstName='Paulo', lastName='Santos', gpa=3.93, gradYear=2021),
+    Student(meta={'id': '3'}, firstName='Shirley', lastName='Rodriguez', gpa=3.91, gradYear=2019)
+]
+operations = []
+for s in students:
+    operations.append({'index': {'_index': index_name, '_id': s.meta.id}})
+    operations.append(s.to_dict())
+response = client.bulk(body=operations, refresh=True)
+print(f"Errors: {str(response['errors']).lower()}")
+for item in response['items']:
+    print(f"  {item['index']['result']} id: {item['index']['_id']}")
 
-# Perform bulk operations.
-movies = '{ "index" : { "_index" : "my-dsl-index", "_id" : "2" } } \n { "title" : "Interstellar", "director" : "Christopher Nolan", "year" : "2014"} \n { "create" : { "_index" : "my-dsl-index", "_id" : "3" } } \n { "title" : "Star Trek Beyond", "director" : "Justin Lin", "year" : "2015"} \n { "update" : {"_id" : "3", "_index" : "my-dsl-index" } } \n { "doc" : {"year" : "2016"} }'
-
-response = client.bulk(body=movies, refresh=True)
-print('\nPerforming bulk operations:')
-print(response)
-
-# Search for the document.
-s = Search(using=client, index=index_name) \
-    .filter('term', year='2011') \
-    .query('match', title='Moneyball')
-
-response = s.execute()
-
-print('\nSearch results:')
+# Search for all students.
+print('\nSearching for all students......')
+response = Search(using=client, index=index_name).execute()
+print(f"Total hits: {response.hits.total.value}")
 for hit in response:
-    print(hit.meta.score, hit.title)
+    print(f"  {hit.to_dict()}")
 
-# Update the document.
-doc = Movie.get(id=1, using=client)
-response = doc.update(using=client, rating='PG-13')
+# Search for students who graduated in 2019.
+print('\nSearching for students who graduated in 2019......')
+response = Search(using=client, index=index_name).query('term', gradYear=2019).execute()
+print(f"Total hits: {response.hits.total.value}")
+for hit in response:
+    print(f"  {hit.to_dict()}")
 
-print('\nUpdating document:')
-print(response)
+# Update a document.
+print("\nUpdating a student's GPA......")
+student = Student.get(id='1', using=client)
+result = student.update(using=client, gpa=3.92)
+print(f"Result: {result}, version: {student.meta.version}")
 
-# Delete the document.
-response = client.delete(
-    index = index_name,
-    id = '1'
-)
+# Get the updated document.
+student = Student.get(id='1', using=client)
+print(f"Updated document: {student.to_dict()}")
 
-print('\nDeleting document:')
-print(response)
+# Delete a document.
+print('\nDeleting a student......')
+response = client.delete(index=index_name, id='3', refresh=True)
+print(f"Result: {response['result']}")
 
 # Delete the index.
-response = client.indices.delete(
-    index = index_name
+print('\nDeleting the index......')
+response = client.indices.delete(index=index_name)
+print(f"Acknowledged: {str(response['acknowledged']).lower()}")
+```
+{% include copy.html %}
+
+### With security
+
+Use the following sample program when connecting to an OpenSearch cluster that has the Security plugin enabled. Make sure to change the credentials and CA certificate path to match your cluster configuration:
+
+```python
+from opensearchpy import OpenSearch, Search, Document, Text, Float, Integer
+
+host = 'localhost'
+port = 9200
+auth = ('admin', '<custom-admin-password>') # For testing only. Don't store credentials in code.
+ca_certs_path = '/full/path/to/root-ca.pem' # Provide a CA bundle if you use intermediate CAs with your root CA.
+
+# Create the client with SSL/TLS enabled, but hostname verification disabled.
+client = OpenSearch(
+    hosts = [{'host': host, 'port': port}],
+    http_compress = True, # enables gzip compression for request bodies
+    http_auth = auth,
+    use_ssl = True,
+    verify_certs = True,
+    ssl_assert_hostname = False,
+    ssl_show_warn = False,
+    ca_certs = ca_certs_path
 )
 
-print('\nDeleting index:')
-print(response)
+index_name = 'students'
+
+# Define the structure of a student document.
+class Student(Document):
+    firstName = Text()
+    lastName = Text()
+    gpa = Float()
+    gradYear = Integer()
+
+    class Index:
+        name = index_name
+
+# Create the index.
+print('Creating index......')
+response = client.indices.create(index=index_name)
+print(f"Index created: {response['index']}")
+
+# Index a document.
+print('\nIndexing one student......')
+student = Student(meta={'id': '1'}, firstName='John', lastName='Doe', gpa=3.89, gradYear=2022)
+result = student.save(using=client, refresh=True)
+print(f"Result: {result}, id: {student.meta.id}, version: {student.meta.version}")
+
+# Bulk index documents.
+print('\nIndexing many students......')
+students = [
+    Student(meta={'id': '2'}, firstName='Paulo', lastName='Santos', gpa=3.93, gradYear=2021),
+    Student(meta={'id': '3'}, firstName='Shirley', lastName='Rodriguez', gpa=3.91, gradYear=2019)
+]
+operations = []
+for s in students:
+    operations.append({'index': {'_index': index_name, '_id': s.meta.id}})
+    operations.append(s.to_dict())
+response = client.bulk(body=operations, refresh=True)
+print(f"Errors: {str(response['errors']).lower()}")
+for item in response['items']:
+    print(f"  {item['index']['result']} id: {item['index']['_id']}")
+
+# Search for all students.
+print('\nSearching for all students......')
+response = Search(using=client, index=index_name).execute()
+print(f"Total hits: {response.hits.total.value}")
+for hit in response:
+    print(f"  {hit.to_dict()}")
+
+# Search for students who graduated in 2019.
+print('\nSearching for students who graduated in 2019......')
+response = Search(using=client, index=index_name).query('term', gradYear=2019).execute()
+print(f"Total hits: {response.hits.total.value}")
+for hit in response:
+    print(f"  {hit.to_dict()}")
+
+# Update a document.
+print("\nUpdating a student's GPA......")
+student = Student.get(id='1', using=client)
+result = student.update(using=client, gpa=3.92)
+print(f"Result: {result}, version: {student.meta.version}")
+
+# Get the updated document.
+student = Student.get(id='1', using=client)
+print(f"Updated document: {student.to_dict()}")
+
+# Delete a document.
+print('\nDeleting a student......')
+response = client.delete(index=index_name, id='3', refresh=True)
+print(f"Result: {response['result']}")
+
+# Delete the index.
+print('\nDeleting the index......')
+response = client.indices.delete(index=index_name)
+print(f"Acknowledged: {str(response['acknowledged']).lower()}")
 ```
 {% include copy.html %}
