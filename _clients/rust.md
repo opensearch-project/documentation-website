@@ -149,7 +149,7 @@ use aws_config::{meta::region::RegionProviderChain, BehaviorVersion};
 The following example illustrates connecting to Amazon OpenSearch Service:
 
 ```rust
-let url = Url::parse("https://...")?;
+let url = Url::parse("https://search-<domain-name>-<id>.us-east-1.es.amazonaws.com")?;
 let service_name = "es";
 let conn_pool = SingleNodeConnectionPool::new(url);
 let region_provider = RegionProviderChain::default_provider().or_else("us-east-1");
@@ -167,10 +167,10 @@ let client = OpenSearch::new(transport);
 
 ## Connecting to Amazon OpenSearch Serverless
 
-Connecting to Amazon OpenSearch Serverless requires the same `aws-auth` feature, `aws-config` dependency, and imports as [connecting to Amazon OpenSearch Service](#connecting-to-amazon-opensearch-service). The following example illustrates connecting to Amazon OpenSearch Serverless Service:
+Connecting to Amazon OpenSearch Serverless requires the same `aws-auth` feature, `aws-config` dependency, and imports as [connecting to Amazon OpenSearch Service](#connecting-to-amazon-opensearch-service). The following example illustrates connecting to Amazon OpenSearch Serverless:
 
 ```rust
-let url = Url::parse("https://...")?;
+let url = Url::parse("https://<collection-id>.us-east-1.aoss.amazonaws.com")?;
 let service_name = "aoss";
 let conn_pool = SingleNodeConnectionPool::new(url);
 let region_provider = RegionProviderChain::default_provider().or_else("us-east-1");
@@ -185,6 +185,9 @@ let transport = TransportBuilder::new(conn_pool)
 let client = OpenSearch::new(transport);
 ```
 {% include copy.html %}
+
+Amazon OpenSearch Serverless supports a subset of OpenSearch API operations and does not support the `refresh` parameter used in the examples on this page. For more information, see [Supported operations and plugins in Amazon OpenSearch Serverless](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-genref.html).
+{: .note}
 
 ## Creating an index
 
