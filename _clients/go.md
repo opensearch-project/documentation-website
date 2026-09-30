@@ -96,13 +96,13 @@ import (
 	requestsigner "github.com/opensearch-project/opensearch-go/v5/signer/awsv2"
 )
 
-const endpoint = "" // For example, https://search-domain.region.es.amazonaws.com
+const endpoint = "" // For example, https://search-<domain-name>-<id>.<region>.es.amazonaws.com
 
 func main() {
 	ctx := context.Background()
 
 	awsCfg, err := config.LoadDefaultConfig(ctx,
-		config.WithRegion("<AWS_REGION>"),
+		config.WithRegion("<region>"),
 		config.WithCredentialsProvider(
 			getCredentialProvider("<AWS_ACCESS_KEY>", "<AWS_SECRET_ACCESS_KEY>", "<AWS_SESSION_TOKEN>"),
 		),
@@ -146,6 +146,8 @@ func getCredentialProvider(accessKey, secretAccessKey, token string) aws.Credent
 ```
 {% include copy.html %}
 
+To use the default AWS credential chain in this or the Amazon OpenSearch Serverless example, omit the `config.WithCredentialsProvider` option.
+
 ## Connecting to Amazon OpenSearch Serverless
 
 The following example illustrates connecting to Amazon OpenSearch Serverless:
@@ -164,13 +166,13 @@ import (
 	requestsigner "github.com/opensearch-project/opensearch-go/v5/signer/awsv2"
 )
 
-const endpoint = "" // For example, https://collection-id.region.aoss.amazonaws.com
+const endpoint = "" // For example, https://<collection-id>.<region>.aoss.amazonaws.com
 
 func main() {
 	ctx := context.Background()
 
 	awsCfg, err := config.LoadDefaultConfig(ctx,
-		config.WithRegion("<AWS_REGION>"),
+		config.WithRegion("<region>"),
 		config.WithCredentialsProvider(
 			getCredentialProvider("<AWS_ACCESS_KEY>", "<AWS_SECRET_ACCESS_KEY>", "<AWS_SESSION_TOKEN>"),
 		),
@@ -213,6 +215,9 @@ func getCredentialProvider(accessKey, secretAccessKey, token string) aws.Credent
 }
 ```
 {% include copy.html %}
+
+Amazon OpenSearch Serverless supports a subset of OpenSearch API operations and does not support the `refresh` parameter used in the examples on this page. For more information, see [Supported operations and plugins in Amazon OpenSearch Serverless](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-genref.html).
+{: .note}
 
 The `opensearchapi.NewClient` constructor takes an `opensearchapi.Config{}` type. Its `Client` field contains an `opensearch.Config{}` type, which can be customized using options such as a list of OpenSearch node addresses or a username and password combination.
 
