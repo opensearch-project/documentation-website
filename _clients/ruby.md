@@ -290,8 +290,10 @@ response = client.bulk(body: actions, refresh: true)
 To search for documents, use the `search` method. If you omit the request body, your query becomes a `match_all` query and returns all documents in the index:
 
 ```ruby
+require 'json'
+
 response = client.search(index: 'students')
-response['hits']['hits'].each { |hit| puts hit['_source'] }
+response['hits']['hits'].each { |hit| puts JSON.generate(hit['_source']) }
 ```
 {% include copy.html %}
 
@@ -427,6 +429,7 @@ Use the following sample program when connecting to an OpenSearch cluster that d
 
 ```ruby
 require 'opensearch'
+require 'json'
 
 client = OpenSearch::Client.new(host: 'http://localhost:9200')
 
@@ -460,14 +463,14 @@ end
 puts "\nSearching for all students......"
 response = client.search(index: index)
 puts "Total hits: #{response['hits']['total']['value']}"
-response['hits']['hits'].each { |hit| puts "  #{hit['_source']}" }
+response['hits']['hits'].each { |hit| puts "  #{JSON.generate(hit['_source'])}" }
 
 # Search for students who graduated in 2019
 puts "\nSearching for students who graduated in 2019......"
 query = { query: { term: { gradYear: 2019 } } }
 response = client.search(index: index, body: query)
 puts "Total hits: #{response['hits']['total']['value']}"
-response['hits']['hits'].each { |hit| puts "  #{hit['_source']}" }
+response['hits']['hits'].each { |hit| puts "  #{JSON.generate(hit['_source'])}" }
 
 # Update a document
 puts "\nUpdating a student's GPA......"
@@ -476,7 +479,7 @@ puts "Result: #{response['result']}, version: #{response['_version']}"
 
 # Get the updated document
 response = client.get(index: index, id: '1')
-puts "Updated document: #{response['_source']}"
+puts "Updated document: #{JSON.generate(response['_source'])}"
 
 # Delete a document
 puts "\nDeleting a student......"
@@ -496,6 +499,7 @@ Use the following sample program when connecting to an OpenSearch cluster that h
 
 ```ruby
 require 'opensearch'
+require 'json'
 
 client = OpenSearch::Client.new(
   host: 'https://localhost:9200',
@@ -534,14 +538,14 @@ end
 puts "\nSearching for all students......"
 response = client.search(index: index)
 puts "Total hits: #{response['hits']['total']['value']}"
-response['hits']['hits'].each { |hit| puts "  #{hit['_source']}" }
+response['hits']['hits'].each { |hit| puts "  #{JSON.generate(hit['_source'])}" }
 
 # Search for students who graduated in 2019
 puts "\nSearching for students who graduated in 2019......"
 query = { query: { term: { gradYear: 2019 } } }
 response = client.search(index: index, body: query)
 puts "Total hits: #{response['hits']['total']['value']}"
-response['hits']['hits'].each { |hit| puts "  #{hit['_source']}" }
+response['hits']['hits'].each { |hit| puts "  #{JSON.generate(hit['_source'])}" }
 
 # Update a document
 puts "\nUpdating a student's GPA......"
@@ -550,7 +554,7 @@ puts "Result: #{response['result']}, version: #{response['_version']}"
 
 # Get the updated document
 response = client.get(index: index, id: '1')
-puts "Updated document: #{response['_source']}"
+puts "Updated document: #{JSON.generate(response['_source'])}"
 
 # Delete a document
 puts "\nDeleting a student......"
