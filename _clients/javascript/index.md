@@ -33,9 +33,6 @@ npm install @opensearch-project/opensearch@<version>
 ```
 {% include copy.html %}
 
-Do not install versions 3.5.3, 3.6.2, 3.7.0, or 3.8.0. These versions contain malicious code that an external actor published through the project's release infrastructure. For more information and remediation steps, see [GHSA-27f5-xjrr-q9ff](https://github.com/opensearch-project/opensearch-js/security/advisories/GHSA-27f5-xjrr-q9ff).
-{: .warning}
-
 If you prefer to add the client manually or only want to examine the source code, see [`opensearch-js`](https://github.com/opensearch-project/opensearch-js) on GitHub.
 
 Then require the client:
@@ -266,21 +263,9 @@ const client = new Client({
 });
 
 exports.handler = async (event, context) => {
-  const indexName = "books";
-
-  const settings = {
-    settings: {
-      index: {
-        number_of_shards: 4,
-        number_of_replicas: 3,
-      },
-    },
-  };
-
   // Use the already initialized client
   const response = await client.indices.create({
-    index: indexName,
-    body: settings,
+    index: "students",
   });
 
   return response.body;
@@ -290,23 +275,13 @@ exports.handler = async (event, context) => {
 
 ## Creating an index
 
-To create an OpenSearch index, use the `indices.create()` method. You can use the following code to construct a JSON object with custom settings:
+To create an OpenSearch index, use the `indices.create()` method:
 
 ```javascript
-var index_name = "books";
-
-var settings = {
-  settings: {
-    index: {
-      number_of_shards: 4,
-      number_of_replicas: 3,
-    },
-  },
-};
+var index_name = "students";
 
 var response = await client.indices.create({
   index: index_name,
-  body: settings,
 });
 ```
 {% include copy.html %}
@@ -316,19 +291,12 @@ var response = await client.indices.create({
 Index a document into OpenSearch using the client's `index` method:
 
 ```javascript
-var document = {
-  title: "The Outsider",
-  author: "Stephen King",
-  year: "2018",
-  genre: "Crime fiction",
-};
-
-var id = "1";
+var student = { firstName: "John", lastName: "Doe", gpa: 3.89, gradYear: 2022 };
 
 var response = await client.index({
-  id: id,
   index: index_name,
-  body: document,
+  id: "1",
+  body: student,
   refresh: true,
 });
 ```
@@ -339,15 +307,13 @@ var response = await client.index({
 Index multiple documents in one request using the client's `bulk` method. The request body is an array in which each action is followed by the document that it applies to:
 
 ```javascript
-var documents = [
-  { index: { _index: index_name, _id: "2" } },
-  { title: "Fairy Tale", author: "Stephen King", year: "2022", genre: "Fantasy" },
-  { index: { _index: index_name, _id: "3" } },
-  { title: "The Institute", author: "Stephen King", year: "2019", genre: "Science fiction" },
-];
-
 var response = await client.bulk({
-  body: documents,
+  body: [
+    { index: { _index: index_name, _id: "2" } },
+    { firstName: "Paulo", lastName: "Santos", gpa: 3.93, gradYear: 2021 },
+    { index: { _index: index_name, _id: "3" } },
+    { firstName: "Shirley", lastName: "Rodriguez", gpa: 3.91, gradYear: 2019 },
+  ],
   refresh: true,
 });
 ```
@@ -357,59 +323,44 @@ To build the request body from an array, a stream, or an async generator, use th
 
 ## Searching for documents
 
-The easiest way to search for documents is to construct a query string. The following code uses a `match` query to search for "The Outsider" in the title field:
+Search for all documents in an index using the client's `search` method:
 
 ```javascript
-var query = {
-  query: {
-    match: {
-      title: {
-        query: "The Outsider",
+var response = await client.search({
+  index: index_name,
+});
+
+response.body.hits.hits.forEach((hit) => console.log(hit._source));
+```
+{% include copy.html %}
+
+Search using a `term` query:
+
+```javascript
+var response = await client.search({
+  index: index_name,
+  body: {
+    query: {
+      term: {
+        gradYear: 2019,
       },
     },
   },
-};
-
-var response = await client.search({
-  index: index_name,
-  body: query,
 });
 ```
 {% include copy.html %}
 
 ## Updating a document
 
-Update a document using the client's `update` method:
+Update a document using the client's `update` method. The `doc` object contains only the fields to update:
 
 ```javascript
 var response = await client.update({
   index: index_name,
-  id: id,
+  id: "1",
   body: {
-    doc: {
-      // Specify the fields and their updated values here
-      field1: "new_value1",
-      field2: "new_value2",
-      // Add more fields as needed
-    }
-  }
-});
-```
-{% include copy.html %}
-
-For example, the following code updates the `genre` field and adds a `tv_adapted` field to the document specified by `id`:
-
-```javascript
-var response = await client.update({
-  index: index_name,
-  id: id,
-  body: {
-    doc: {
-      genre: "Detective fiction",
-      tv_adapted: true
-    }
+    doc: { gpa: 3.92 },
   },
-  refresh: true
 });
 ```
 {% include copy.html %}
@@ -421,14 +372,15 @@ Delete a document using the client's `delete` method:
 ```javascript
 var response = await client.delete({
   index: index_name,
-  id: id,
+  id: "3",
+  refresh: true,
 });
 ```
 {% include copy.html %}
 
 ## Deleting an index
 
-You can delete an index using the `indices.delete()` method:
+Delete an index using the `indices.delete()` method:
 
 ```javascript
 var response = await client.indices.delete({
@@ -439,7 +391,7 @@ var response = await client.indices.delete({
 
 ## Sample program
 
-The following sample program creates a client, creates an index with non-default settings, indexes documents individually and in bulk, searches for documents, updates a document, deletes a document, and then deletes the index.
+The following sample program creates a client, creates an index, indexes documents individually and in bulk, searches for documents, updates a document, deletes a document, and then deletes the index.
 
 ### Without security
 
@@ -458,117 +410,100 @@ var client = new Client({
   node: protocol + "://" + host + ":" + port,
 });
 
-async function search() {
-  // Create an index with non-default settings
-  var index_name = "books";
-
-  var settings = {
-    settings: {
-      index: {
-        number_of_shards: 4,
-        number_of_replicas: 3,
-      },
-    },
-  };
-
+async function main() {
+  // Create the index
+  var index_name = "students";
+  console.log("Creating index......");
   var response = await client.indices.create({
     index: index_name,
-    body: settings,
   });
+  console.log("Index created: " + response.body.index);
 
-  console.log("Creating index:");
-  console.log(response.body);
-
-  // Add a document to the index
-  var document = {
-    title: "The Outsider",
-    author: "Stephen King",
-    year: "2018",
-    genre: "Crime fiction",
-  };
-
-  var id = "1";
-
+  // Index a document
+  console.log("\nIndexing one student......");
+  var student = { firstName: "John", lastName: "Doe", gpa: 3.89, gradYear: 2022 };
   response = await client.index({
-    id: id,
     index: index_name,
-    body: document,
+    id: "1",
+    body: student,
     refresh: true,
   });
+  console.log("Result: " + response.body.result + ", id: " + response.body._id + ", version: " + response.body._version);
 
-  console.log("Adding document:");
-  console.log(response.body);
-
-  // Add multiple documents in one request
-  var documents = [
-    { index: { _index: index_name, _id: "2" } },
-    { title: "Fairy Tale", author: "Stephen King", year: "2022", genre: "Fantasy" },
-    { index: { _index: index_name, _id: "3" } },
-    { title: "The Institute", author: "Stephen King", year: "2019", genre: "Science fiction" },
-  ];
-
+  // Bulk index documents
+  console.log("\nIndexing many students......");
   response = await client.bulk({
-    body: documents,
+    body: [
+      { index: { _index: index_name, _id: "2" } },
+      { firstName: "Paulo", lastName: "Santos", gpa: 3.93, gradYear: 2021 },
+      { index: { _index: index_name, _id: "3" } },
+      { firstName: "Shirley", lastName: "Rodriguez", gpa: 3.91, gradYear: 2019 },
+    ],
     refresh: true,
   });
+  console.log("Errors: " + response.body.errors);
+  response.body.items.forEach((item) =>
+    console.log("  " + item.index.result + " id: " + item.index._id));
 
-  console.log("Bulk indexing documents:");
-  console.log(response.body);
+  // Search for all students
+  console.log("\nSearching for all students......");
+  response = await client.search({
+    index: index_name,
+  });
+  console.log("Total hits: " + response.body.hits.total.value);
+  response.body.hits.hits.forEach((hit) => console.log("  " + JSON.stringify(hit._source)));
 
-  // Search for the documents
-  var query = {
-    query: {
-      match: {
-        author: {
-          query: "Stephen King",
+  // Search for students who graduated in 2019
+  console.log("\nSearching for students who graduated in 2019......");
+  response = await client.search({
+    index: index_name,
+    body: {
+      query: {
+        term: {
+          gradYear: 2019,
         },
       },
     },
-  };
-
-  response = await client.search({
-    index: index_name,
-    body: query,
   });
-
-  console.log("Search results:");
-  console.log(JSON.stringify(response.body.hits, null, "  "));
+  console.log("Total hits: " + response.body.hits.total.value);
+  response.body.hits.hits.forEach((hit) => console.log("  " + JSON.stringify(hit._source)));
 
   // Update a document
+  console.log("\nUpdating a student's GPA......");
   response = await client.update({
     index: index_name,
-    id: id,
+    id: "1",
     body: {
-      doc: {
-        genre: "Detective fiction",
-        tv_adapted: true,
-      },
+      doc: { gpa: 3.92 },
     },
-    refresh: true,
   });
+  console.log("Result: " + response.body.result + ", version: " + response.body._version);
 
-  console.log("Updating document:");
-  console.log(response.body);
+  // Get the updated document
+  response = await client.get({
+    index: index_name,
+    id: "1",
+  });
+  console.log("Updated document: " + JSON.stringify(response.body._source));
 
   // Delete a document
+  console.log("\nDeleting a student......");
   response = await client.delete({
     index: index_name,
-    id: id,
+    id: "3",
+    refresh: true,
   });
-
-  console.log("Deleting document:");
-  console.log(response.body);
+  console.log("Result: " + response.body.result);
 
   // Delete the index
+  console.log("\nDeleting the index......");
   response = await client.indices.delete({
     index: index_name,
   });
-
-  console.log("Deleting index:");
-  console.log(response.body);
+  console.log("Acknowledged: " + response.body.acknowledged);
 }
 
-search().catch(console.log);
+main().catch(console.log);
 ```
 {% include copy.html %}
 
@@ -603,117 +538,100 @@ var client = new Client({
   },
 });
 
-async function search() {
-  // Create an index with non-default settings
-  var index_name = "books";
-
-  var settings = {
-    settings: {
-      index: {
-        number_of_shards: 4,
-        number_of_replicas: 3,
-      },
-    },
-  };
-
+async function main() {
+  // Create the index
+  var index_name = "students";
+  console.log("Creating index......");
   var response = await client.indices.create({
     index: index_name,
-    body: settings,
   });
+  console.log("Index created: " + response.body.index);
 
-  console.log("Creating index:");
-  console.log(response.body);
-
-  // Add a document to the index
-  var document = {
-    title: "The Outsider",
-    author: "Stephen King",
-    year: "2018",
-    genre: "Crime fiction",
-  };
-
-  var id = "1";
-
+  // Index a document
+  console.log("\nIndexing one student......");
+  var student = { firstName: "John", lastName: "Doe", gpa: 3.89, gradYear: 2022 };
   response = await client.index({
-    id: id,
     index: index_name,
-    body: document,
+    id: "1",
+    body: student,
     refresh: true,
   });
+  console.log("Result: " + response.body.result + ", id: " + response.body._id + ", version: " + response.body._version);
 
-  console.log("Adding document:");
-  console.log(response.body);
-
-  // Add multiple documents in one request
-  var documents = [
-    { index: { _index: index_name, _id: "2" } },
-    { title: "Fairy Tale", author: "Stephen King", year: "2022", genre: "Fantasy" },
-    { index: { _index: index_name, _id: "3" } },
-    { title: "The Institute", author: "Stephen King", year: "2019", genre: "Science fiction" },
-  ];
-
+  // Bulk index documents
+  console.log("\nIndexing many students......");
   response = await client.bulk({
-    body: documents,
+    body: [
+      { index: { _index: index_name, _id: "2" } },
+      { firstName: "Paulo", lastName: "Santos", gpa: 3.93, gradYear: 2021 },
+      { index: { _index: index_name, _id: "3" } },
+      { firstName: "Shirley", lastName: "Rodriguez", gpa: 3.91, gradYear: 2019 },
+    ],
     refresh: true,
   });
+  console.log("Errors: " + response.body.errors);
+  response.body.items.forEach((item) =>
+    console.log("  " + item.index.result + " id: " + item.index._id));
 
-  console.log("Bulk indexing documents:");
-  console.log(response.body);
+  // Search for all students
+  console.log("\nSearching for all students......");
+  response = await client.search({
+    index: index_name,
+  });
+  console.log("Total hits: " + response.body.hits.total.value);
+  response.body.hits.hits.forEach((hit) => console.log("  " + JSON.stringify(hit._source)));
 
-  // Search for the documents
-  var query = {
-    query: {
-      match: {
-        author: {
-          query: "Stephen King",
+  // Search for students who graduated in 2019
+  console.log("\nSearching for students who graduated in 2019......");
+  response = await client.search({
+    index: index_name,
+    body: {
+      query: {
+        term: {
+          gradYear: 2019,
         },
       },
     },
-  };
-
-  response = await client.search({
-    index: index_name,
-    body: query,
   });
-
-  console.log("Search results:");
-  console.log(JSON.stringify(response.body.hits, null, "  "));
+  console.log("Total hits: " + response.body.hits.total.value);
+  response.body.hits.hits.forEach((hit) => console.log("  " + JSON.stringify(hit._source)));
 
   // Update a document
+  console.log("\nUpdating a student's GPA......");
   response = await client.update({
     index: index_name,
-    id: id,
+    id: "1",
     body: {
-      doc: {
-        genre: "Detective fiction",
-        tv_adapted: true,
-      },
+      doc: { gpa: 3.92 },
     },
-    refresh: true,
   });
+  console.log("Result: " + response.body.result + ", version: " + response.body._version);
 
-  console.log("Updating document:");
-  console.log(response.body);
+  // Get the updated document
+  response = await client.get({
+    index: index_name,
+    id: "1",
+  });
+  console.log("Updated document: " + JSON.stringify(response.body._source));
 
   // Delete a document
+  console.log("\nDeleting a student......");
   response = await client.delete({
     index: index_name,
-    id: id,
+    id: "3",
+    refresh: true,
   });
-
-  console.log("Deleting document:");
-  console.log(response.body);
+  console.log("Result: " + response.body.result);
 
   // Delete the index
+  console.log("\nDeleting the index......");
   response = await client.indices.delete({
     index: index_name,
   });
-
-  console.log("Deleting index:");
-  console.log(response.body);
+  console.log("Acknowledged: " + response.body.acknowledged);
 }
 
-search().catch(console.log);
+main().catch(console.log);
 ```
 {% include copy.html %}
 
