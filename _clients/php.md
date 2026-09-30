@@ -63,7 +63,8 @@ To connect to a cluster that has the Security plugin enabled, provide credential
 ```php
 $client = (new \OpenSearch\GuzzleClientFactory())->create([
     'base_uri' => 'https://localhost:9200',
-    'auth' => ['admin', getenv('OPENSEARCH_PASSWORD')],
+    // Only for demo purposes. Don't specify your credentials in code.
+    'auth' => ['admin', '<custom-admin-password>'],
     'verify' => false, // Disables TLS certificate verification. Use only for local development.
 ]);
 ```
@@ -74,7 +75,8 @@ The Symfony HTTP client accepts equivalent options:
 ```php
 $client = (new \OpenSearch\SymfonyClientFactory())->create([
     'base_uri' => 'https://localhost:9200',
-    'auth_basic' => ['admin', getenv('OPENSEARCH_PASSWORD')],
+    // Only for demo purposes. Don't specify your credentials in code.
+    'auth_basic' => ['admin', '<custom-admin-password>'],
     'verify_peer' => false, // Disables TLS certificate verification. Use only for local development.
 ]);
 ```
@@ -113,21 +115,13 @@ To connect to Amazon OpenSearch Serverless, set `service` to `aoss`. If you omit
 
 ## Creating an index
 
-Create an index with custom settings using the following code:
+Create an index using the following code:
 
 ```php
 $index = 'students';
 
 $client->indices()->create([
     'index' => $index,
-    'body' => [
-        'settings' => [
-            'index' => [
-                'number_of_shards' => 1,
-                'number_of_replicas' => 0,
-            ],
-        ],
-    ],
 ]);
 ```
 {% include copy.html %}
@@ -141,10 +135,10 @@ $response = $client->index([
     'index' => $index,
     'id' => '1',
     'body' => [
-        'first_name' => 'John',
-        'last_name' => 'Doe',
+        'firstName' => 'John',
+        'lastName' => 'Doe',
         'gpa' => 3.89,
-        'grad_year' => 2022,
+        'gradYear' => 2022,
     ],
     'refresh' => true,
 ]);
@@ -161,9 +155,9 @@ Index multiple documents in a single request using the following code. The reque
 $response = $client->bulk([
     'body' => [
         ['index' => ['_index' => $index, '_id' => '2']],
-        ['first_name' => 'Paulo', 'last_name' => 'Santos', 'gpa' => 3.93, 'grad_year' => 2021],
+        ['firstName' => 'Paulo', 'lastName' => 'Santos', 'gpa' => 3.93, 'gradYear' => 2021],
         ['index' => ['_index' => $index, '_id' => '3']],
-        ['first_name' => 'Shirley', 'last_name' => 'Rodriguez', 'gpa' => 3.91, 'grad_year' => 2019],
+        ['firstName' => 'Shirley', 'lastName' => 'Rodriguez', 'gpa' => 3.91, 'gradYear' => 2019],
     ],
     'refresh' => true,
 ]);
@@ -179,15 +173,10 @@ Search for all documents in an index using the following code:
 ```php
 $response = $client->search([
     'index' => $index,
-    'body' => [
-        'query' => [
-            'match_all' => (object)[],
-        ],
-    ],
 ]);
 
 foreach ($response['hits']['hits'] as $hit) {
-    print_r($hit['_source']);
+    echo json_encode($hit['_source']) . "\n";
 }
 ```
 {% include copy.html %}
@@ -200,7 +189,7 @@ $response = $client->search([
     'body' => [
         'query' => [
             'term' => [
-                'grad_year' => 2019,
+                'gradYear' => 2019,
             ],
         ],
     ],
@@ -213,7 +202,7 @@ To write the query in SQL, use the `sql()` namespace. The response contains a `s
 ```php
 $response = $client->sql()->query([
     'body' => [
-        'query' => "SELECT first_name, gpa FROM $index WHERE grad_year = 2019",
+        'query' => "SELECT firstName, lastName, gpa FROM $index WHERE gradYear = 2019",
     ],
 ]);
 ```
@@ -235,8 +224,7 @@ $response = $client->search([
     'body' => [
         'pit' => ['id' => $pitId, 'keep_alive' => '10m'],
         'size' => 2,
-        'query' => ['match_all' => (object)[]],
-        'sort' => '_id',
+        'sort' => [['gradYear' => 'asc']],
     ],
 ]);
 $last = end($response['hits']['hits']);
@@ -247,8 +235,7 @@ $response = $client->search([
         'pit' => ['id' => $pitId, 'keep_alive' => '10m'],
         'search_after' => $last['sort'],
         'size' => 2,
-        'query' => ['match_all' => (object)[]],
-        'sort' => '_id',
+        'sort' => [['gradYear' => 'asc']],
     ],
 ]);
 
@@ -272,7 +259,6 @@ $response = $client->update([
             'gpa' => 3.92,
         ],
     ],
-    'refresh' => true,
 ]);
 ```
 {% include copy.html %}
@@ -298,7 +284,7 @@ $response = $client->deleteByQuery([
     'body' => [
         'query' => [
             'term' => [
-                'grad_year' => 2021,
+                'gradYear' => 2021,
             ],
         ],
     ],
@@ -319,93 +305,80 @@ $response = $client->indices()->delete([
 
 ## Sample program
 
-The following sample program creates a client, creates an index, indexes documents individually and in bulk, searches for documents, updates a document, deletes a document, and then deletes the index:
+The following sample program creates a client, creates an index, indexes documents individually and in bulk, searches for documents, updates a document, deletes a document, and then deletes the index.
+
+### Without security
+
+Use the following sample program when connecting to an OpenSearch cluster that does not have the Security plugin enabled:
 
 ```php
 <?php
 
 require __DIR__ . '/vendor/autoload.php';
 
-$index = 'students';
-
 $client = (new \OpenSearch\GuzzleClientFactory())->create([
     'base_uri' => 'http://localhost:9200',
 ]);
 
 try {
-    // Print cluster information.
-    $info = $client->info();
-    echo "Cluster: {$info['cluster_name']}, version: {$info['version']['number']}\n";
-
-    // Create an index.
-    $client->indices()->create([
+    // Create the index
+    $index = 'students';
+    echo "Creating index......\n";
+    $response = $client->indices()->create([
         'index' => $index,
-        'body' => [
-            'settings' => [
-                'index' => [
-                    'number_of_shards' => 1,
-                    'number_of_replicas' => 0,
-                ],
-            ],
-        ],
     ]);
-    echo "Created index $index\n";
+    echo "Index created: {$response['index']}\n";
 
-    // Index a document.
-    echo "\nIndexing one student...\n";
+    // Index a document
+    echo "\nIndexing one student......\n";
     $response = $client->index([
         'index' => $index,
         'id' => '1',
         'body' => [
-            'first_name' => 'John',
-            'last_name' => 'Doe',
+            'firstName' => 'John',
+            'lastName' => 'Doe',
             'gpa' => 3.89,
-            'grad_year' => 2022,
+            'gradYear' => 2022,
         ],
         'refresh' => true,
     ]);
-    echo "Result: {$response['result']}, ID: {$response['_id']}, version: {$response['_version']}\n";
+    echo "Result: {$response['result']}, id: {$response['_id']}, version: {$response['_version']}\n";
 
-    // Index multiple documents in one request.
-    echo "\nIndexing many students...\n";
+    // Bulk index documents
+    echo "\nIndexing many students......\n";
     $response = $client->bulk([
         'body' => [
             ['index' => ['_index' => $index, '_id' => '2']],
-            ['first_name' => 'Paulo', 'last_name' => 'Santos', 'gpa' => 3.93, 'grad_year' => 2021],
+            ['firstName' => 'Paulo', 'lastName' => 'Santos', 'gpa' => 3.93, 'gradYear' => 2021],
             ['index' => ['_index' => $index, '_id' => '3']],
-            ['first_name' => 'Shirley', 'last_name' => 'Rodriguez', 'gpa' => 3.91, 'grad_year' => 2019],
+            ['firstName' => 'Shirley', 'lastName' => 'Rodriguez', 'gpa' => 3.91, 'gradYear' => 2019],
         ],
         'refresh' => true,
     ]);
     echo 'Errors: ' . var_export($response['errors'], true) . "\n";
     foreach ($response['items'] as $item) {
         $action = array_key_first($item);
-        echo "  {$item[$action]['result']} ID: {$item[$action]['_id']}\n";
+        echo "  {$item[$action]['result']} id: {$item[$action]['_id']}\n";
     }
 
-    // Search for all students.
-    echo "\nSearching for all students...\n";
+    // Search for all students
+    echo "\nSearching for all students......\n";
     $response = $client->search([
         'index' => $index,
-        'body' => [
-            'query' => [
-                'match_all' => (object)[],
-            ],
-        ],
     ]);
     echo "Total hits: {$response['hits']['total']['value']}\n";
     foreach ($response['hits']['hits'] as $hit) {
         echo '  ' . json_encode($hit['_source']) . "\n";
     }
 
-    // Search for students who graduated in 2019.
-    echo "\nSearching for students who graduated in 2019...\n";
+    // Search for students who graduated in 2019
+    echo "\nSearching for students who graduated in 2019......\n";
     $response = $client->search([
         'index' => $index,
         'body' => [
             'query' => [
                 'term' => [
-                    'grad_year' => 2019,
+                    'gradYear' => 2019,
                 ],
             ],
         ],
@@ -415,8 +388,8 @@ try {
         echo '  ' . json_encode($hit['_source']) . "\n";
     }
 
-    // Update a student's GPA.
-    echo "\nUpdating a student's GPA...\n";
+    // Update a document
+    echo "\nUpdating a student's GPA......\n";
     $response = $client->update([
         'index' => $index,
         'id' => '1',
@@ -425,19 +398,18 @@ try {
                 'gpa' => 3.92,
             ],
         ],
-        'refresh' => true,
     ]);
     echo "Result: {$response['result']}, version: {$response['_version']}\n";
 
-    // Get the updated document.
+    // Get the updated document
     $response = $client->get([
         'index' => $index,
         'id' => '1',
     ]);
     echo 'Updated document: ' . json_encode($response['_source']) . "\n";
 
-    // Delete a student.
-    echo "\nDeleting a student...\n";
+    // Delete a document
+    echo "\nDeleting a student......\n";
     $response = $client->delete([
         'index' => $index,
         'id' => '3',
@@ -445,16 +417,14 @@ try {
     ]);
     echo "Result: {$response['result']}\n";
 
-    // Delete the index.
-    echo "\nDeleting the index...\n";
+    // Delete the index
+    echo "\nDeleting the index......\n";
     $response = $client->indices()->delete([
         'index' => $index,
     ]);
     echo 'Acknowledged: ' . var_export($response['acknowledged'], true) . "\n";
 } catch (\OpenSearch\Exception\HttpExceptionInterface $e) {
     echo 'OpenSearch returned an error: ' . $e->getMessage() . "\n";
-} catch (\Throwable $e) {
-    echo 'Uncaught error: ' . $e->getMessage() . "\n";
 }
 ```
 {% include copy.html %}
@@ -462,37 +432,162 @@ try {
 The program produces the following output:
 
 ```
-Cluster: opensearch-cluster, version: 3.8.0
-Created index students
+Creating index......
+Index created: students
 
-Indexing one student...
-Result: created, ID: 1, version: 1
+Indexing one student......
+Result: created, id: 1, version: 1
 
-Indexing many students...
+Indexing many students......
 Errors: false
-  created ID: 2
-  created ID: 3
+  created id: 2
+  created id: 3
 
-Searching for all students...
+Searching for all students......
 Total hits: 3
-  {"first_name":"John","last_name":"Doe","gpa":3.89,"grad_year":2022}
-  {"first_name":"Paulo","last_name":"Santos","gpa":3.93,"grad_year":2021}
-  {"first_name":"Shirley","last_name":"Rodriguez","gpa":3.91,"grad_year":2019}
+  {"firstName":"John","lastName":"Doe","gpa":3.89,"gradYear":2022}
+  {"firstName":"Paulo","lastName":"Santos","gpa":3.93,"gradYear":2021}
+  {"firstName":"Shirley","lastName":"Rodriguez","gpa":3.91,"gradYear":2019}
 
-Searching for students who graduated in 2019...
+Searching for students who graduated in 2019......
 Total hits: 1
-  {"first_name":"Shirley","last_name":"Rodriguez","gpa":3.91,"grad_year":2019}
+  {"firstName":"Shirley","lastName":"Rodriguez","gpa":3.91,"gradYear":2019}
 
-Updating a student's GPA...
+Updating a student's GPA......
 Result: updated, version: 2
-Updated document: {"first_name":"John","last_name":"Doe","gpa":3.92,"grad_year":2022}
+Updated document: {"firstName":"John","lastName":"Doe","gpa":3.92,"gradYear":2022}
 
-Deleting a student...
+Deleting a student......
 Result: deleted
 
-Deleting the index...
+Deleting the index......
 Acknowledged: true
 ```
+
+### With security
+
+Use the following sample program when connecting to an OpenSearch cluster that has the Security plugin enabled. Make sure to change the credentials to match your cluster configuration:
+
+```php
+<?php
+
+require __DIR__ . '/vendor/autoload.php';
+
+$client = (new \OpenSearch\GuzzleClientFactory())->create([
+    'base_uri' => 'https://localhost:9200',
+    // Only for demo purposes. Don't specify your credentials in code.
+    'auth' => ['admin', '<custom-admin-password>'],
+    'verify' => false, // Disables TLS certificate verification. Use only for local development.
+]);
+
+try {
+    // Create the index
+    $index = 'students';
+    echo "Creating index......\n";
+    $response = $client->indices()->create([
+        'index' => $index,
+    ]);
+    echo "Index created: {$response['index']}\n";
+
+    // Index a document
+    echo "\nIndexing one student......\n";
+    $response = $client->index([
+        'index' => $index,
+        'id' => '1',
+        'body' => [
+            'firstName' => 'John',
+            'lastName' => 'Doe',
+            'gpa' => 3.89,
+            'gradYear' => 2022,
+        ],
+        'refresh' => true,
+    ]);
+    echo "Result: {$response['result']}, id: {$response['_id']}, version: {$response['_version']}\n";
+
+    // Bulk index documents
+    echo "\nIndexing many students......\n";
+    $response = $client->bulk([
+        'body' => [
+            ['index' => ['_index' => $index, '_id' => '2']],
+            ['firstName' => 'Paulo', 'lastName' => 'Santos', 'gpa' => 3.93, 'gradYear' => 2021],
+            ['index' => ['_index' => $index, '_id' => '3']],
+            ['firstName' => 'Shirley', 'lastName' => 'Rodriguez', 'gpa' => 3.91, 'gradYear' => 2019],
+        ],
+        'refresh' => true,
+    ]);
+    echo 'Errors: ' . var_export($response['errors'], true) . "\n";
+    foreach ($response['items'] as $item) {
+        $action = array_key_first($item);
+        echo "  {$item[$action]['result']} id: {$item[$action]['_id']}\n";
+    }
+
+    // Search for all students
+    echo "\nSearching for all students......\n";
+    $response = $client->search([
+        'index' => $index,
+    ]);
+    echo "Total hits: {$response['hits']['total']['value']}\n";
+    foreach ($response['hits']['hits'] as $hit) {
+        echo '  ' . json_encode($hit['_source']) . "\n";
+    }
+
+    // Search for students who graduated in 2019
+    echo "\nSearching for students who graduated in 2019......\n";
+    $response = $client->search([
+        'index' => $index,
+        'body' => [
+            'query' => [
+                'term' => [
+                    'gradYear' => 2019,
+                ],
+            ],
+        ],
+    ]);
+    echo "Total hits: {$response['hits']['total']['value']}\n";
+    foreach ($response['hits']['hits'] as $hit) {
+        echo '  ' . json_encode($hit['_source']) . "\n";
+    }
+
+    // Update a document
+    echo "\nUpdating a student's GPA......\n";
+    $response = $client->update([
+        'index' => $index,
+        'id' => '1',
+        'body' => [
+            'doc' => [
+                'gpa' => 3.92,
+            ],
+        ],
+    ]);
+    echo "Result: {$response['result']}, version: {$response['_version']}\n";
+
+    // Get the updated document
+    $response = $client->get([
+        'index' => $index,
+        'id' => '1',
+    ]);
+    echo 'Updated document: ' . json_encode($response['_source']) . "\n";
+
+    // Delete a document
+    echo "\nDeleting a student......\n";
+    $response = $client->delete([
+        'index' => $index,
+        'id' => '3',
+        'refresh' => true,
+    ]);
+    echo "Result: {$response['result']}\n";
+
+    // Delete the index
+    echo "\nDeleting the index......\n";
+    $response = $client->indices()->delete([
+        'index' => $index,
+    ]);
+    echo 'Acknowledged: ' . var_export($response['acknowledged'], true) . "\n";
+} catch (\OpenSearch\Exception\HttpExceptionInterface $e) {
+    echo 'OpenSearch returned an error: ' . $e->getMessage() . "\n";
+}
+```
+{% include copy.html %}
 
 ## Next steps
 
