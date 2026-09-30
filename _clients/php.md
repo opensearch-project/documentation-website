@@ -12,17 +12,31 @@ This getting started guide illustrates how to connect to OpenSearch, index docum
 
 ## Setup
 
-To add the client to your project, install it using [composer](https://getcomposer.org/):
+The client requires PHP 8.2 or later. To add the client to your project, install it using [Composer](https://getcomposer.org/):
 
 ```bash
 composer require opensearch-project/opensearch-php
 ```
 {% include copy.html %}
 
-To install a specific major version of the client, run the following command:
+To install a specific version of the client, run the following command:
 
 ```bash
 composer require opensearch-project/opensearch-php:<version>
+```
+{% include copy.html %}
+
+The client sends requests through any HTTP client that implements [PSR-18](https://www.php-fig.org/psr/psr-18/), so you must also install one. To use [Guzzle](https://docs.guzzlephp.org/en/stable/), run the following command:
+
+```bash
+composer require guzzlehttp/guzzle
+```
+{% include copy.html %}
+
+To use the [Symfony HTTP client](https://symfony.com/doc/current/http_client.html), run the following command:
+
+```bash
+composer require symfony/http-client
 ```
 {% include copy.html %}
 
@@ -35,481 +49,450 @@ require __DIR__ . '/vendor/autoload.php';
 
 ## Connecting to OpenSearch
 
-Use a PSR client to connect to OpenSearch. For information about the supported PSR clients, see [Client factories](https://github.com/opensearch-project/opensearch-php/blob/main/USER_GUIDE.md#client-factories). For information about basic authentication using PSR clients, see [Basic authentication using a PSR client](https://github.com/opensearch-project/opensearch-php/blob/main/guides/auth.md#using-a-psr-client).
+Create a client using `GuzzleClientFactory` or `SymfonyClientFactory`. The `base_uri` option is required. The factory passes all other options to the underlying HTTP client. The following code connects to a cluster that does not have the Security plugin enabled:
+
+```php
+$client = (new \OpenSearch\GuzzleClientFactory())->create([
+    'base_uri' => 'http://localhost:9200',
+]);
+```
+{% include copy.html %}
+
+To connect to a cluster that has the Security plugin enabled, provide credentials and TLS options:
+
+```php
+$client = (new \OpenSearch\GuzzleClientFactory())->create([
+    'base_uri' => 'https://localhost:9200',
+    'auth' => ['admin', getenv('OPENSEARCH_PASSWORD')],
+    'verify' => false, // Disables TLS certificate verification. Use only for local development.
+]);
+```
+{% include copy.html %}
+
+The Symfony HTTP client accepts equivalent options:
+
+```php
+$client = (new \OpenSearch\SymfonyClientFactory())->create([
+    'base_uri' => 'https://localhost:9200',
+    'auth_basic' => ['admin', getenv('OPENSEARCH_PASSWORD')],
+    'verify_peer' => false, // Disables TLS certificate verification. Use only for local development.
+]);
+```
+{% include copy.html %}
+
+For more information about the supported PSR clients, see [Client factories](https://github.com/opensearch-project/opensearch-php/blob/main/USER_GUIDE.md#client-factories). For more information about basic authentication, see [Basic authentication using a PSR client](https://github.com/opensearch-project/opensearch-php/blob/main/guides/auth.md#using-a-psr-client).
 
 ## Connecting to Amazon OpenSearch Service
 
-For information about connecting to Amazon OpenSearch Service, see [IAM authentication using a PSR client](https://github.com/opensearch-project/opensearch-php/blob/main/guides/auth.md#using-a-psr-client-1).
+To sign requests using AWS Identity and Access Management (IAM) credentials, install the AWS SDK for PHP:
 
+```bash
+composer require aws/aws-sdk-php
+```
+{% include copy.html %}
+
+Then pass the `auth_aws` option when you create the client:
+
+```php
+$client = (new \OpenSearch\GuzzleClientFactory())->create([
+    'base_uri' => 'https://<domain-endpoint>',
+    'auth_aws' => [
+        'region' => 'us-west-2',
+        'service' => 'es',
+        'credentials' => [
+            'access_key' => getenv('AWS_ACCESS_KEY_ID'),
+            'secret_key' => getenv('AWS_SECRET_ACCESS_KEY'),
+            'session_token' => getenv('AWS_SESSION_TOKEN'),
+        ],
+    ],
+]);
+```
+{% include copy.html %}
+
+To connect to Amazon OpenSearch Serverless, set `service` to `aoss`. If you omit `credentials`, the AWS SDK resolves credentials from the default provider chain. For more information, see [IAM authentication using a PSR client](https://github.com/opensearch-project/opensearch-php/blob/main/guides/auth.md#using-a-psr-client-1).
 
 ## Creating an index
 
-To create an OpenSearch index with custom settings, use the following code:
+Create an index with custom settings using the following code:
 
 ```php
-public function createIndex()
-{
-    $this->client->indices()->create([
-        'index' => INDEX_NAME,
-        'body' => [
-            'settings' => [
-                'index' => [
-                    'number_of_shards' => 4
-                ]
-            ]
-        ]
-    ]);
-}
+$index = 'students';
+
+$client->indices()->create([
+    'index' => $index,
+    'body' => [
+        'settings' => [
+            'index' => [
+                'number_of_shards' => 1,
+                'number_of_replicas' => 0,
+            ],
+        ],
+    ],
+]);
 ```
 {% include copy.html %}
 
 ## Indexing a document
 
-You can index a document into OpenSearch using the following code:
+Index a document using the following code. Set `refresh` to `true` to make the document available for search immediately:
 
 ```php
-public function create()
-{
-    $time = time();
-    $this->existingID = $time;
-    $this->deleteID = $time . '_uniq';
+$response = $client->index([
+    'index' => $index,
+    'id' => '1',
+    'body' => [
+        'first_name' => 'John',
+        'last_name' => 'Doe',
+        'gpa' => 3.89,
+        'grad_year' => 2022,
+    ],
+    'refresh' => true,
+]);
+```
+{% include copy.html %}
 
+To create a document only if its ID does not already exist, use `create()` instead of `index()`. A `create()` request for an existing ID returns a `409` response.
 
-    // Create a document passing the id
-    $this->client->create([
-        'id' => $time,
-        'index' => INDEX_NAME,
-        'body' => $this->getData($time)
-    ]);
+## Bulk indexing
 
-    // Create a document passing the id
-    $this->client->create([
-        'id' => $this->deleteID,
-        'index' => INDEX_NAME,
-        'body' => $this->getData($time)
-    ]);
+Index multiple documents in a single request using the following code. The request body alternates between an action line and the document to which the action applies:
 
-    // Create a document without passing the id (will be generated automatically)
-    $this->client->create([
-        'index' => INDEX_NAME,
-        'body' => $this->getData($time + 1)
-    ]);
+```php
+$response = $client->bulk([
+    'body' => [
+        ['index' => ['_index' => $index, '_id' => '2']],
+        ['first_name' => 'Paulo', 'last_name' => 'Santos', 'gpa' => 3.93, 'grad_year' => 2021],
+        ['index' => ['_index' => $index, '_id' => '3']],
+        ['first_name' => 'Shirley', 'last_name' => 'Rodriguez', 'gpa' => 3.91, 'grad_year' => 2019],
+    ],
+    'refresh' => true,
+]);
+```
+{% include copy.html %}
+
+A bulk request does not throw an exception when an individual action fails, so check the `errors` field of the response and the `items` array for per-action results.
+
+## Searching for documents
+
+Search for all documents in an index using the following code:
+
+```php
+$response = $client->search([
+    'index' => $index,
+    'body' => [
+        'query' => [
+            'match_all' => (object)[],
+        ],
+    ],
+]);
+
+foreach ($response['hits']['hits'] as $hit) {
+    print_r($hit['_source']);
 }
 ```
 {% include copy.html %}
 
-## Searching for documents
-
-The following code uses a `multi_match` query to search for "miller" in the title and director fields. It boosts the documents where "miller" appears in the title field:
+Search using a term query:
 
 ```php
-public function search()
-{
-    $docs = $this->client->search([
-        //index to search in or '_all' for all indices
-        'index' => INDEX_NAME,
-        'size' => 1000,
-        'body' => [
-            'query' => [
-                'prefix' => [
-                    'name' => 'wrecking'
-                ]
-            ]
-        ]
-    ]);
-    var_dump($docs['hits']['total']['value'] > 0);
+$response = $client->search([
+    'index' => $index,
+    'body' => [
+        'query' => [
+            'term' => [
+                'grad_year' => 2019,
+            ],
+        ],
+    ],
+]);
+```
+{% include copy.html %}
 
-    // Search for it
-    $docs = $this->client->search([
-        'index' => INDEX_NAME,
-        'body' => [
-            'size' => 5,
-            'query' => [
-                'multi_match' => [
-                    'query' => 'miller',
-                    'fields' => ['title^2', 'director']
-                ]
-            ]
-        ]
-    ]);
-    var_dump($docs['hits']['total']['value'] > 0);
-}
+To write the query in SQL, use the `sql()` namespace. The response contains a `schema` array describing the columns and a `datarows` array containing the matching rows:
+
+```php
+$response = $client->sql()->query([
+    'body' => [
+        'query' => "SELECT first_name, gpa FROM $index WHERE grad_year = 2019",
+    ],
+]);
+```
+{% include copy.html %}
+
+## Paginating results using a point in time
+
+To page through a fixed view of the index, create a point in time (PIT), pass its ID in the search body, and use the `sort` values of the last hit as the `search_after` value for the next page:
+
+```php
+$response = $client->createPit([
+    'index' => $index,
+    'keep_alive' => '10m',
+]);
+$pitId = $response['pit_id'];
+
+// Get the first page of results.
+$response = $client->search([
+    'body' => [
+        'pit' => ['id' => $pitId, 'keep_alive' => '10m'],
+        'size' => 2,
+        'query' => ['match_all' => (object)[]],
+        'sort' => '_id',
+    ],
+]);
+$last = end($response['hits']['hits']);
+
+// Get the next page of results.
+$response = $client->search([
+    'body' => [
+        'pit' => ['id' => $pitId, 'keep_alive' => '10m'],
+        'search_after' => $last['sort'],
+        'size' => 2,
+        'query' => ['match_all' => (object)[]],
+        'sort' => '_id',
+    ],
+]);
+
+// Delete the point in time.
+$client->deletePit([
+    'body' => ['pit_id' => [$pitId]],
+]);
+```
+{% include copy.html %}
+
+## Updating a document
+
+Update a document by wrapping the changed fields in a `doc` object:
+
+```php
+$response = $client->update([
+    'index' => $index,
+    'id' => '1',
+    'body' => [
+        'doc' => [
+            'gpa' => 3.92,
+        ],
+    ],
+    'refresh' => true,
+]);
 ```
 {% include copy.html %}
 
 ## Deleting a document
 
-You can delete a document using the following code:
+Delete a document using the following code:
 
 ```php
-public function deleteByID()
-{
-    $this->client->delete([
-        'id' => $this->deleteID,
-        'index' => INDEX_NAME,
-    ]);
-}
+$response = $client->delete([
+    'index' => $index,
+    'id' => '3',
+    'refresh' => true,
+]);
+```
+{% include copy.html %}
+
+To delete all documents that match a query, use `deleteByQuery()`:
+
+```php
+$response = $client->deleteByQuery([
+    'index' => $index,
+    'body' => [
+        'query' => [
+            'term' => [
+                'grad_year' => 2021,
+            ],
+        ],
+    ],
+]);
 ```
 {% include copy.html %}
 
 ## Deleting an index
 
-You can delete an index using the following code:
+Delete an index using the following code:
 
 ```php
-public function deleteByIndex()
-{
-    $this->client->indices()->delete([
-        'index' => INDEX_NAME
-    ]);
-}
+$response = $client->indices()->delete([
+    'index' => $index,
+]);
 ```
 {% include copy.html %}
 
 ## Sample program
 
-The following sample program creates a client and performs various OpenSearch operations:
+The following sample program creates a client, creates an index, indexes documents individually and in bulk, searches for documents, updates a document, deletes a document, and then deletes the index:
 
 ```php
 <?php
+
 require __DIR__ . '/vendor/autoload.php';
 
-define('INDEX_NAME', 'test_elastic_index_name2');
+$index = 'students';
 
-class MyOpenSearchClass
-{
-
-    protected ?\OpenSearch\Client $client;
-    protected $existingID = 1668504743;
-    protected $deleteID = 1668504743;
-    protected $bulkIds = [];
-
-
-    public function __construct()
-    {
-        // Simple Setup
-        $this->client = (new \OpenSearch\GuzzleClientFactory())->create([
-            'base_uri' => 'https://localhost:9200',
-            'auth' => ['admin', getenv('OPENSEARCH_PASSWORD')],
-            'verify' => false, // Disables SSL verification for local development.
-        ]);
-    }
-
-
-    // Create an index with non-default settings.
-    public function createIndex()
-    {
-        $this->client->indices()->create([
-            'index' => INDEX_NAME,
-            'body' => [
-                'settings' => [
-                    'index' => [
-                        'number_of_shards' => 4
-                    ]
-                ]
-            ]
-        ]);
-    }
-
-    public function info()
-    {
-        // Print OpenSearch version information on console.
-        var_dump($this->client->info());
-    }
-
-    // Create a document
-    public function create()
-    {
-        $time = time();
-        $this->existingID = $time;
-        $this->deleteID = $time . '_uniq';
-
-
-        // Create a document passing the id
-        $this->client->create([
-            'id' => $time,
-            'index' => INDEX_NAME,
-            'body' => $this->getData($time)
-        ]);
-
-        // Create a document passing the id
-        $this->client->create([
-            'id' => $this->deleteID,
-            'index' => INDEX_NAME,
-            'body' => $this->getData($time)
-        ]);
-
-        // Create a document without passing the id (will be generated automatically)
-        $this->client->create([
-            'index' => INDEX_NAME,
-            'body' => $this->getData($time + 1)
-        ]);
-
-        //This should throw an exception because ID already exists
-        // $this->client->create([
-        //     'id' => $this->existingID,
-        //     'index' => INDEX_NAME,
-        //     'body' => $this->getData($this->existingID)
-        // ]);
-    }
-
-    public function update()
-    {
-        $this->client->update([
-            'id' => $this->existingID,
-            'index' => INDEX_NAME,
-            'body' => [
-                //data must be wrapped in 'doc' object
-                'doc' => ['name' => 'updated']
-            ]
-        ]);
-    }
-
-    public function bulk()
-    {
-        $bulkData = [];
-        $time = time();
-        for ($i = 0; $i < 20; $i++) {
-            $id = ($time + $i) . rand(10, 200);
-            $bulkData[] = [
-                'index' => [
-                    '_index' => INDEX_NAME,
-                    '_id' => $id,
-                ]
-            ];
-            $this->bulkIds[] = $id;
-            $bulkData[] = $this->getData($time + $i);
-        }
-        //will not throw exception! check $response for error
-        $response = $this->client->bulk([
-            //default index
-            'index' => INDEX_NAME,
-            'body' => $bulkData
-        ]);
-
-        //give elastic a little time to create before update
-        sleep(2);
-
-        // bulk update
-        for ($i = 0; $i < 15; $i++) {
-            $bulkData[] = [
-                'update' => [
-                    '_index' => INDEX_NAME,
-                    '_id' => $this->bulkIds[$i],
-                ]
-            ];
-            $bulkData[] = [
-                'doc' => [
-                    'name' => 'bulk updated'
-                ]
-            ];
-        }
-
-        //will not throw exception! check $response for error
-        $response = $this->client->bulk([
-            //default index
-            'index' => INDEX_NAME,
-            'body' => $bulkData
-        ]);
-    }
-    public function deleteByQuery(string $query)
-    {
-        if ($query == '') {
-            return;
-        }
-        $this->client->deleteByQuery([
-            'index' => INDEX_NAME,
-            'q' => $query
-        ]);
-    }
-
-    // Delete a single document
-    public function deleteByID()
-    {
-        $this->client->delete([
-            'id' => $this->deleteID,
-            'index' => INDEX_NAME,
-        ]);
-    }
-
-    public function search()
-    {
-        $docs = $this->client->search([
-            //index to search in or '_all' for all indices
-            'index' => INDEX_NAME,
-            'size' => 1000,
-            'body' => [
-                'query' => [
-                    'prefix' => [
-                        'name' => 'wrecking'
-                    ]
-                ]
-            ]
-        ]);
-        var_dump($docs['hits']['total']['value'] > 0);
-
-        // Search for it
-        $docs = $this->client->search([
-            'index' => INDEX_NAME,
-            'body' => [
-                'size' => 5,
-                'query' => [
-                    'multi_match' => [
-                        'query' => 'miller',
-                        'fields' => ['title^2', 'director']
-                    ]
-                ]
-            ]
-        ]);
-        var_dump($docs['hits']['total']['value'] > 0);
-    }
-
-    // Write queries in SQL
-    public function searchUsingSQL()
-    {
-        $docs = $this->client->sql()->query([
-          'query' => "SELECT * FROM " . INDEX_NAME . " WHERE name = 'wrecking'",
-          'format' => 'json'
-        ]);
-        var_dump($docs['hits']['total']['value'] > 0);
-    }
-
-    public function getMultipleDocsByIDs()
-    {
-        $docs = $this->client->search([
-            //index to search in or '_all' for all indices
-            'index' => INDEX_NAME,
-            'body' => [
-                'query' => [
-                    'ids' => [
-                        'values' => $this->bulkIds
-                    ]
-                ]
-            ]
-        ]);
-        var_dump($docs['hits']['total']['value'] > 0);
-    }
-
-    public function getOneByID()
-    {
-        $docs = $this->client->search([
-            //index to search in or '_all' for all indices
-            'index' => INDEX_NAME,
-            'size' => 1,
-            'body' => [
-                'query' => [
-                    'bool' => [
-                        'filter' => [
-                            'term' => [
-                                '_id' => $this->existingID
-                            ]
-                        ]
-                    ]
-                ]
-            ]
-        ]);
-        var_dump($docs['hits']['total']['value'] > 0);
-    }
-
-    public function searchByPointInTime()
-    {
-        $result = $this->client->createPointInTime([
-            'index' => INDEX_NAME,
-            'keep_alive' => '10m'
-        ]);
-        $pitId = $result['pit_id'];
-
-        // Get first page of results in Point-in-Time
-        $result = $this->client->search([
-            'body' => [
-                'pit' => [
-                    'id' => $pitId,
-                    'keep_alive' => '10m',
-                ],
-                'size' => 10, // normally you would do 10000
-                'query' => [
-                    'match_all' => (object)[]
-                ],
-                'sort' => '_id',
-            ]
-        ]);
-        var_dump($result['hits']['total']['value'] > 0);
-
-        $last = end($result['hits']['hits']);
-        $lastSort = $last['sort'] ?? null;
-
-        // Get next page of results in Point-in-Time
-        $result = $this->client->search([
-            'body' => [
-                'pit' => [
-                    'id' => $pitId,
-                    'keep_alive' => '10m',
-                ],
-                'search_after' => $lastSort,
-                'size' => 10, // normally you would do 10000
-                'query' => [
-                    'match_all' => (object)[]
-                ],
-                'sort' => '_id',
-            ]
-        ]);
-        var_dump($result['hits']['total']['value'] > 0);
-
-        // Close Point-in-Time
-        $result = $this->client->deletePointInTime([
-            'body' => [
-              'pit_id' => $pitId,
-            ]
-        ]);
-        var_dump($result['pits'][0]['successful']);
-    }
-
-    // Delete index
-    public function deleteByIndex()
-    {
-        $this->client->indices()->delete([
-            'index' => INDEX_NAME
-        ]);
-    }
-
-    //simple data to index
-    public function getData($time = -1)
-    {
-        if ($time == -1) {
-            $time = time();
-        }
-        return [
-            'name' => date('c', $time) . " - i came in like a wrecking ball",
-            'time' => $time,
-            'date' => date('c', $time)
-        ];
-    }
-}
+$client = (new \OpenSearch\GuzzleClientFactory())->create([
+    'base_uri' => 'http://localhost:9200',
+]);
 
 try {
+    // Print cluster information.
+    $info = $client->info();
+    echo "Cluster: {$info['cluster_name']}, version: {$info['version']['number']}\n";
 
-    $e = new MyOpenSearchClass();
-    $e->info();
-    $e->createIndex();
-    $e->create();
-    //give elastic a little time to create before update
-    sleep(2);
-    $e->update();
-    $e->bulk();
-    $e->getOneByID();
-    $e->getMultipleDocsByIDs();
-    $e->search();
-    $e->searchUsingSQL();
-    $e->searchByPointInTime();
-    $e->deleteByQuery('');
-    $e->deleteByID();
-    $e->deleteByIndex();
-} catch (\Throwable $th) {
-    echo 'uncaught error ' . $th->getMessage() . "\n";
+    // Create an index.
+    $client->indices()->create([
+        'index' => $index,
+        'body' => [
+            'settings' => [
+                'index' => [
+                    'number_of_shards' => 1,
+                    'number_of_replicas' => 0,
+                ],
+            ],
+        ],
+    ]);
+    echo "Created index $index\n";
+
+    // Index a document.
+    echo "\nIndexing one student...\n";
+    $response = $client->index([
+        'index' => $index,
+        'id' => '1',
+        'body' => [
+            'first_name' => 'John',
+            'last_name' => 'Doe',
+            'gpa' => 3.89,
+            'grad_year' => 2022,
+        ],
+        'refresh' => true,
+    ]);
+    echo "Result: {$response['result']}, ID: {$response['_id']}, version: {$response['_version']}\n";
+
+    // Index multiple documents in one request.
+    echo "\nIndexing many students...\n";
+    $response = $client->bulk([
+        'body' => [
+            ['index' => ['_index' => $index, '_id' => '2']],
+            ['first_name' => 'Paulo', 'last_name' => 'Santos', 'gpa' => 3.93, 'grad_year' => 2021],
+            ['index' => ['_index' => $index, '_id' => '3']],
+            ['first_name' => 'Shirley', 'last_name' => 'Rodriguez', 'gpa' => 3.91, 'grad_year' => 2019],
+        ],
+        'refresh' => true,
+    ]);
+    echo 'Errors: ' . var_export($response['errors'], true) . "\n";
+    foreach ($response['items'] as $item) {
+        $action = array_key_first($item);
+        echo "  {$item[$action]['result']} ID: {$item[$action]['_id']}\n";
+    }
+
+    // Search for all students.
+    echo "\nSearching for all students...\n";
+    $response = $client->search([
+        'index' => $index,
+        'body' => [
+            'query' => [
+                'match_all' => (object)[],
+            ],
+        ],
+    ]);
+    echo "Total hits: {$response['hits']['total']['value']}\n";
+    foreach ($response['hits']['hits'] as $hit) {
+        echo '  ' . json_encode($hit['_source']) . "\n";
+    }
+
+    // Search for students who graduated in 2019.
+    echo "\nSearching for students who graduated in 2019...\n";
+    $response = $client->search([
+        'index' => $index,
+        'body' => [
+            'query' => [
+                'term' => [
+                    'grad_year' => 2019,
+                ],
+            ],
+        ],
+    ]);
+    echo "Total hits: {$response['hits']['total']['value']}\n";
+    foreach ($response['hits']['hits'] as $hit) {
+        echo '  ' . json_encode($hit['_source']) . "\n";
+    }
+
+    // Update a student's GPA.
+    echo "\nUpdating a student's GPA...\n";
+    $response = $client->update([
+        'index' => $index,
+        'id' => '1',
+        'body' => [
+            'doc' => [
+                'gpa' => 3.92,
+            ],
+        ],
+        'refresh' => true,
+    ]);
+    echo "Result: {$response['result']}, version: {$response['_version']}\n";
+
+    // Get the updated document.
+    $response = $client->get([
+        'index' => $index,
+        'id' => '1',
+    ]);
+    echo 'Updated document: ' . json_encode($response['_source']) . "\n";
+
+    // Delete a student.
+    echo "\nDeleting a student...\n";
+    $response = $client->delete([
+        'index' => $index,
+        'id' => '3',
+        'refresh' => true,
+    ]);
+    echo "Result: {$response['result']}\n";
+
+    // Delete the index.
+    echo "\nDeleting the index...\n";
+    $response = $client->indices()->delete([
+        'index' => $index,
+    ]);
+    echo 'Acknowledged: ' . var_export($response['acknowledged'], true) . "\n";
+} catch (\OpenSearch\Exception\HttpExceptionInterface $e) {
+    echo 'OpenSearch returned an error: ' . $e->getMessage() . "\n";
+} catch (\Throwable $e) {
+    echo 'Uncaught error: ' . $e->getMessage() . "\n";
 }
-
 ```
 {% include copy.html %}
+
+The program produces the following output:
+
+```
+Cluster: opensearch-cluster, version: 3.8.0
+Created index students
+
+Indexing one student...
+Result: created, ID: 1, version: 1
+
+Indexing many students...
+Errors: false
+  created ID: 2
+  created ID: 3
+
+Searching for all students...
+Total hits: 3
+  {"first_name":"John","last_name":"Doe","gpa":3.89,"grad_year":2022}
+  {"first_name":"Paulo","last_name":"Santos","gpa":3.93,"grad_year":2021}
+  {"first_name":"Shirley","last_name":"Rodriguez","gpa":3.91,"grad_year":2019}
+
+Searching for students who graduated in 2019...
+Total hits: 1
+  {"first_name":"Shirley","last_name":"Rodriguez","gpa":3.91,"grad_year":2019}
+
+Updating a student's GPA...
+Result: updated, version: 2
+Updated document: {"first_name":"John","last_name":"Doe","gpa":3.92,"grad_year":2022}
+
+Deleting a student...
+Result: deleted
+
+Deleting the index...
+Acknowledged: true
+```
 
 ## Next steps
 
