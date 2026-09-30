@@ -2,14 +2,14 @@
 layout: default
 title: Ingest settings
 parent: Configuring OpenSearch
-nav_order: 115
+nav_order: 150
 ---
 
 # Ingest settings
 
 OpenSearch provides ingest settings that control which ingest processors are allowed for data processing pipelines. These settings help maintain security and control over data transformation operations by restricting which processors can be used in ingest pipelines.
 
-To learn more about static and dynamic settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
+To learn how to apply these settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
 
 ## User agent processor settings
 

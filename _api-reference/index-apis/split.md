@@ -28,7 +28,7 @@ When not explicitly configured, `number_of_routing_shards` defaults to a value t
 
 Before you can split an index, it must meet the following conditions:
 
-- The index must be read-only. To make the index read-only, set the [dynamic index-level index setting]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/#dynamic-index-level-index-settings) `index.blocks.write` to `true`.
+- The index must be read-only. To make the index read-only, set the [dynamic index setting]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/#dynamic-index-settings) `index.blocks.write` to `true`.
 - The cluster health status must be green.
 
 Additionally, the split operation enforces the following constraints:
