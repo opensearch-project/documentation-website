@@ -20,6 +20,13 @@ gem install opensearch-ruby
 ```
 {% include copy.html %}
 
+Alternatively, add the gem to your `Gemfile` and run `bundle install`. The following example requires client version 3.4.0 or a later 3.x release:
+
+```ruby
+gem 'opensearch-ruby', '~> 3.4'
+```
+{% include copy.html %}
+
 To use the client, import it as a module:
 
 ```ruby
@@ -53,27 +60,27 @@ client.cluster.health
 The output is as follows:
 
 ```bash
-2022-08-25 14:24:52 -0400: GET http://localhost:9200/ [status:200, request:0.048s, query:n/a]
-2022-08-25 14:24:52 -0400: < {
-  "name" : "opensearch",
-  "cluster_name" : "docker-cluster",
-  "cluster_uuid" : "Aw0F5Pt9QF6XO9vXQHIs_w",
+2026-09-30 12:29:58 -0400: GET http://localhost:9200/ [status:200, request:0.009s, query:n/a]
+2026-09-30 12:29:58 -0400: < {
+  "name" : "opensearch-node1",
+  "cluster_name" : "opensearch-cluster",
+  "cluster_uuid" : "uwutrwdfTVeh8rroYbZh4g",
   "version" : {
     "distribution" : "opensearch",
-    "number" : "2.2.0",
+    "number" : "3.8.0",
     "build_type" : "tar",
-    "build_hash" : "b1017fa3b9a1c781d4f34ecee411e0cdf930a515",
-    "build_date" : "2022-08-09T02:27:25.256769336Z",
+    "build_hash" : "e5a3c5691be87af6c12dbe3e158c59c04ee72973",
+    "build_date" : "2026-08-03T21:07:36.443334696Z",
     "build_snapshot" : false,
-    "lucene_version" : "9.3.0",
-    "minimum_wire_compatibility_version" : "7.10.0",
-    "minimum_index_compatibility_version" : "7.0.0"
+    "lucene_version" : "10.5.0",
+    "minimum_wire_compatibility_version" : "2.19.0",
+    "minimum_index_compatibility_version" : "2.0.0"
   },
   "tagline" : "The OpenSearch Project: https://opensearch.org/"
 }
 
-2022-08-25 14:24:52 -0400: GET http://localhost:9200/_cluster/health [status:200, request:0.018s, query:n/a]
-2022-08-25 14:24:52 -0400: < {"cluster_name":"docker-cluster","status":"yellow","timed_out":false,"number_of_nodes":1,"number_of_data_nodes":1,"discovered_master":true,"discovered_cluster_manager":true,"active_primary_shards":10,"active_shards":10,"relocating_shards":0,"initializing_shards":0,"unassigned_shards":8,"delayed_unassigned_shards":0,"number_of_pending_tasks":0,"number_of_in_flight_fetch":0,"task_max_waiting_in_queue_millis":0,"active_shards_percent_as_number":55.55555555555556}
+2026-09-30 12:29:58 -0400: GET http://localhost:9200/_cluster/health [status:200, request:0.007s, query:n/a]
+2026-09-30 12:29:58 -0400: < {"cluster_name":"opensearch-cluster","status":"yellow","timed_out":false,"number_of_nodes":1,"number_of_data_nodes":1,"discovered_master":true,"discovered_cluster_manager":true,"active_primary_shards":57,"active_shards":57,"relocating_shards":0,"initializing_shards":0,"unassigned_shards":28,"delayed_unassigned_shards":0,"number_of_pending_tasks":0,"number_of_in_flight_fetch":0,"task_max_waiting_in_queue_millis":0,"active_shards_percent_as_number":67.05882352941175}
 ```
 
 ## Connecting to Amazon OpenSearch Service
@@ -241,10 +248,10 @@ client.index(
 ```
 {% include copy.html %}
 
-OpenSearch returns a mapping error:
+OpenSearch returns a mapping error, and the client raises an `OpenSearch::Transport::Transport::Errors::BadRequest` exception containing the following message:
 
 ```bash
-{"error":{"root_cause":[{"type":"strict_dynamic_mapping_exception","reason":"mapping set to strict, dynamic introduction of [grad_yea] within [_doc] is not allowed"}],"type":"strict_dynamic_mapping_exception","reason":"mapping set to strict, dynamic introduction of [grad_yea] within [_doc] is not allowed"},"status":400}
+[400] {"error":{"root_cause":[{"type":"strict_dynamic_mapping_exception","reason":"mapping set to strict, dynamic introduction of [grad_yea] within [_doc] is not allowed"}],"type":"strict_dynamic_mapping_exception","reason":"mapping set to strict, dynamic introduction of [grad_yea] within [_doc] is not allowed"},"status":400}
 ```
 
 ## Indexing one document
@@ -418,35 +425,38 @@ response = client.msearch(index: 'students', body: actions)
 You can paginate your search results using the Scroll API:
 
 ```ruby
-response = client.search(index: index_name, scroll: '2m', size: 2)
+response = client.search(index: 'students', scroll: '2m', size: 2)
 
 while response['hits']['hits'].size.positive?
     scroll_id = response['_scroll_id']
     puts(response['hits']['hits'].map { |doc| [doc['_source']['first_name'] + ' ' + doc['_source']['last_name']] })
     response = client.scroll(scroll: '1m', body: { scroll_id: scroll_id })
 end
+
+client.clear_scroll(body: { scroll_id: response['_scroll_id'] })
 ```
 {% include copy.html %}
 
 First, you issue a search query, specifying the `scroll` and `size` parameters. The `scroll` parameter tells OpenSearch how long to keep the search context. In this case, it is set to two minutes. The `size` parameter specifies how many documents you want to return in each request. 
 
-The response to the initial search query contains a `_scroll_id` that you can use to get the next set of documents. To do this, you use the `scroll` method, again specifying the `scroll` parameter and passing the `_scroll_id` in the body. You don't need to specify the query or index to the `scroll` method. The `scroll` method returns the next set of documents and the `_scroll_id`. It's important to use the latest `_scroll_id` when requesting the next batch of documents because `_scroll_id` can change between requests.
+The response to the initial search query contains a `_scroll_id` that you can use to get the next set of documents. To do this, you use the `scroll` method, again specifying the `scroll` parameter and passing the `_scroll_id` in the body. You don't need to specify the query or index to the `scroll` method. The `scroll` method returns the next set of documents and the `_scroll_id`. It's important to use the latest `_scroll_id` when requesting the next batch of documents because `_scroll_id` can change between requests. When you have retrieved all documents, use the `clear_scroll` method to release the search context.
 
 ## Deleting an index
 
-You can delete the index using the `delete` method:
+To delete an index, use the `indices.delete` method:
 
 ```ruby
-response = client.indices.delete(index: index_name)
+response = client.indices.delete(index: 'students')
 ```
 {% include copy.html %}
 
 ## Sample program
 
-The following is a complete sample program that illustrates all of the concepts described in the preceding sections. The Ruby client's methods return responses as Ruby hashes, which are hard to read. To display JSON responses in a pretty format, the sample program uses the `MultiJson.dump` method.
+The following is a complete sample program that illustrates all of the concepts described in the preceding sections. The Ruby client's methods return responses as Ruby hashes, which are hard to read. To display JSON responses in a readable format, the sample program uses the `JSON.pretty_generate` method from the Ruby standard library.
 
 ```ruby
 require 'opensearch'
+require 'json'
 
 client = OpenSearch::Client.new(host: 'http://localhost:9200')
 
@@ -480,7 +490,7 @@ client.indices.put_mapping(
 # Get mappings
 response = client.indices.get_mapping(index: index_name)
 puts 'Mappings for the students index:'
-puts MultiJson.dump(response, pretty: "true")
+puts JSON.pretty_generate(response)
 
 # Add one document to the index
 puts 'Adding one document:'
@@ -500,13 +510,13 @@ client.index(
 )
   
 response = client.search(index: index_name)
-puts MultiJson.dump(response, pretty: "true")
+puts JSON.pretty_generate(response)
   
 # Update a document
 puts 'Updating a document:'
 client.update(index: index_name, id: id, body: { doc: { gpa: 3.25 } }, refresh: true)
 response = client.search(index: index_name)
-puts MultiJson.dump(response, pretty: "true")
+puts JSON.pretty_generate(response)
 print 'The updated gpa is '
 puts response['hits']['hits'].map { |doc| doc['_source']['gpa'] }
 
@@ -522,7 +532,7 @@ client.bulk(body: documents, refresh: true)
 # Get all documents in the index
 response = client.search(index: index_name)
 puts 'All documents in the index after bulk upload:'
-puts MultiJson.dump(response, pretty: "true")
+puts JSON.pretty_generate(response)
 
 # Search for a document using a multi_match query
 puts 'Searching for documents that match "James":'
@@ -541,7 +551,7 @@ response = client.search(
   body: query,
   index: index_name
 )
-puts MultiJson.dump(response, pretty: "true")
+puts JSON.pretty_generate(response)
 
 # Delete the document
 response = client.delete(
@@ -552,7 +562,7 @@ refresh: true
 
 response = client.search(index: index_name)
 puts 'Documents in the index after one document was deleted:'
-puts MultiJson.dump(response, pretty: "true")
+puts JSON.pretty_generate(response)
 
 # Delete multiple documents
 actions = [
@@ -564,7 +574,7 @@ client.bulk(body: actions, refresh: true)
 response = client.search(index: index_name)
 
 puts 'Documents in the index after all documents were deleted:'
-puts MultiJson.dump(response, pretty: "true")
+puts JSON.pretty_generate(response)
 
 # Bulk several operations together
 actions = [
@@ -588,6 +598,8 @@ while response['hits']['hits'].size.positive?
     response = client.scroll(scroll: '1m', body: { scroll_id: scroll_id })
 end
 
+client.clear_scroll(body: { scroll_id: response['_scroll_id'] })
+
 # Multi search
 actions = [
     {},
@@ -598,7 +610,7 @@ actions = [
 response = client.msearch(index: index_name, body: actions)
 
 puts 'Multi search results:'
-puts MultiJson.dump(response, pretty: "true")
+puts JSON.pretty_generate(response)
 
 # Boolean query
 query = {
@@ -622,13 +634,13 @@ query = {
 response = client.search(index: index_name, from: 0, size: 10, body: query)
 
 puts 'Boolean query search results:'
-puts MultiJson.dump(response, pretty: "true")
+puts JSON.pretty_generate(response)
 
 # Delete the index
 puts 'Deleting the index:'
 response = client.indices.delete(index: index_name)
 
-puts MultiJson.dump(response, pretty: "true")
+puts JSON.pretty_generate(response)
 ```
 {% include copy.html %}
 
@@ -645,11 +657,12 @@ signer = Aws::Sigv4::Signer.new(service: 'es',
                                 access_key_id: 'key_id',
                                 secret_access_key: 'secret')
 
-client = OpenSearch::Aws::Sigv4Client.new({ log: true }, signer)
+client = OpenSearch::Aws::Sigv4Client.new({
+    host: 'https://your.amz-managed-opensearch.domain',
+    log: true
+}, signer)
 
 client.cluster.health
-
-client.transport.reload_connections!
 
 client.search q: 'test'
 ```
