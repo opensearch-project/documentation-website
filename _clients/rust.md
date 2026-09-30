@@ -20,10 +20,10 @@ opensearch = "2.4.0"
 ```
 {% include copy.html %}
 
-Additionally, you may want to add the following `serde` dependencies that help serialize types to JSON and deserialize JSON responses:
+Additionally, you may want to add the following `serde` dependencies that help serialize types to JSON and deserialize JSON responses. The `derive` feature lets you derive `Serialize` and `Deserialize` for your own structs:
 
 ```toml
-serde = "~1"
+serde = { version = "~1", features = ["derive"] }
 serde_json = "~1"
 ```
 {% include copy.html %}
@@ -41,6 +41,35 @@ To use the Rust client API, import the modules, structs, and enums you need:
 
 ```rust
 use opensearch::OpenSearch;
+```
+{% include copy.html %}
+
+## Sample data
+
+The examples on this page use a `Student` struct to represent documents. The `#[serde(rename_all = "camelCase")]` attribute serializes the struct fields to the `firstName`, `lastName`, `gpa`, and `gradYear` JSON fields:
+
+```rust
+use serde::{Deserialize, Serialize};
+
+#[derive(Debug, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+struct Student {
+    first_name: String,
+    last_name: String,
+    gpa: f64,
+    grad_year: i32,
+}
+
+impl Student {
+    fn new(first_name: &str, last_name: &str, gpa: f64, grad_year: i32) -> Self {
+        Student {
+            first_name: first_name.to_string(),
+            last_name: last_name.to_string(),
+            gpa,
+            grad_year,
+        }
+    }
+}
 ```
 {% include copy.html %}
 
@@ -78,6 +107,24 @@ Alternatively, you can customize the URL and use a connection pool by creating a
 let url = Url::parse("http://localhost:9200")?;
 let conn_pool = SingleNodeConnectionPool::new(url);
 let transport = TransportBuilder::new(conn_pool).disable_proxy().build()?;
+let client = OpenSearch::new(transport);
+```
+{% include copy.html %}
+
+To connect to a cluster that has the Security plugin enabled, use HTTPS and provide basic authentication credentials. The following example also disables certificate validation so that the client accepts the self-signed demo certificates. Import `Credentials` from `opensearch::auth` and `CertificateValidation` from `opensearch::cert`:
+
+```rust
+let url = Url::parse("https://localhost:9200")?;
+let conn_pool = SingleNodeConnectionPool::new(url);
+let transport = TransportBuilder::new(conn_pool)
+    // Only for demo purposes. Don't specify your credentials in code.
+    .auth(Credentials::Basic(
+        "admin".to_string(),
+        "<custom-admin-password>".to_string(),
+    ))
+    // Only for demo purposes. Disables certificate validation for self-signed certificates.
+    .cert_validation(CertificateValidation::None)
+    .build()?;
 let client = OpenSearch::new(transport);
 ```
 {% include copy.html %}
@@ -141,19 +188,13 @@ let client = OpenSearch::new(transport);
 
 ## Creating an index
 
-To create an OpenSearch index, use the `create` function of the `opensearch::indices::Indices` struct. You can use the following code to construct a JSON object with custom mappings:
+To create an OpenSearch index, use the `create` function of the `opensearch::indices::Indices` struct:
 
 ```rust
+let index = "students";
 let response = client
     .indices()
-    .create(IndicesCreateParts::Index("movies"))
-    .body(json!({
-        "mappings" : {
-            "properties" : {
-                "title" : { "type" : "text" }
-            }
-        }
-    }))
+    .create(IndicesCreateParts::Index(index))
     .send()
     .await?;
 ```
@@ -164,14 +205,10 @@ let response = client
 You can index a document into OpenSearch using the client's `index` function. The `refresh(Refresh::True)` call makes the document immediately available for search. `Refresh` is defined in the `opensearch::params` module:
 
 ```rust
+let student = Student::new("John", "Doe", 3.89, 2022);
 let response = client
-    .index(IndexParts::IndexId("movies", "1"))
-    .body(json!({
-        "id": 1,
-        "title": "Moneyball",
-        "director": "Bennett Miller",
-        "year": "2011"
-    }))
+    .index(IndexParts::IndexId(index, "1"))
+    .body(student)
     .refresh(Refresh::True)
     .send()
     .await?;
@@ -183,28 +220,14 @@ let response = client
 You can perform several operations at the same time by using the client's `bulk` function. First, create the JSON body of a Bulk API call, and then pass it to the `bulk` function:
 
 ```rust
-let mut body: Vec<JsonBody<_>> = Vec::with_capacity(4);
-
-// add the first operation and document
-body.push(json!({"index": {"_id": "2"}}).into());
-body.push(json!({
-    "id": 2,
-    "title": "Interstellar",
-    "director": "Christopher Nolan",
-    "year": "2014"
-}).into());
-
-// add the second operation and document
-body.push(json!({"index": {"_id": "3"}}).into());
-body.push(json!({
-    "id": 3,
-    "title": "Star Trek Beyond",
-    "director": "Justin Lin",
-    "year": "2016"
-}).into());
-
+let body: Vec<JsonBody<Value>> = vec![
+    json!({"index": {"_id": "2"}}).into(),
+    serde_json::to_value(Student::new("Paulo", "Santos", 3.93, 2021))?.into(),
+    json!({"index": {"_id": "3"}}).into(),
+    serde_json::to_value(Student::new("Shirley", "Rodriguez", 3.91, 2019))?.into(),
+];
 let response = client
-    .bulk(BulkParts::Index("movies"))
+    .bulk(BulkParts::Index(index))
     .body(body)
     .refresh(Refresh::True)
     .send()
@@ -214,18 +237,37 @@ let response = client
 
 ## Searching for documents
 
-The easiest way to search for documents is to construct a query string. The following code uses a `multi_match` query to search for "miller" in the title and director fields. It boosts the documents where "miller" appears in the title field: 
+To search for all documents in an index, send a search request without a query:
 
 ```rust
 let response = client
-    .search(SearchParts::Index(&["movies"]))
-    .from(0)
-    .size(10)
+    .search(SearchParts::Index(&[index]))
+    .send()
+    .await?;
+```
+{% include copy.html %}
+
+You can then read the response body as JSON and iterate over the `hits` array to deserialize each `_source` document into a `Student`:
+
+```rust
+let response_body = response.json::<Value>().await?;
+println!("Total hits: {}", response_body["hits"]["total"]["value"]);
+for hit in response_body["hits"]["hits"].as_array().unwrap_or(&vec![]) {
+    let student: Student = serde_json::from_value(hit["_source"].clone())?;
+    println!("  {:?}", student);
+}
+```
+{% include copy.html %}
+
+To search for students who graduated in 2019, use a `term` query on the `gradYear` field:
+
+```rust
+let response = client
+    .search(SearchParts::Index(&[index]))
     .body(json!({
         "query": {
-            "multi_match": {
-                "query": "miller",
-                "fields": ["title^2", "director"]
+            "term": {
+                "gradYear": 2019
             }
         }
     }))
@@ -234,29 +276,28 @@ let response = client
 ```
 {% include copy.html %}
 
-You can then read the response body as JSON and iterate over the `hits` array to read all the `_source` documents:
-
-```rust
-let response_body = response.json::<Value>().await?;
-for hit in response_body["hits"]["hits"].as_array().unwrap() {
-    // print the source document
-    println!("{}", serde_json::to_string_pretty(&hit["_source"])?);
-}
-```
-{% include copy.html %}
-
 ## Updating a document
 
-You can update a document using the client's `update` function. The following example adds a `genre` field to the document with the ID `1`:
+You can update a document using the client's `update` function. The following example sets the `gpa` field of the document with the ID `1` to `3.92`:
 
 ```rust
 let response = client
-    .update(UpdateParts::IndexId("movies", "1"))
+    .update(UpdateParts::IndexId(index, "1"))
     .body(json!({
         "doc": {
-            "genre": "Drama"
+            "gpa": 3.92
         }
     }))
+    .send()
+    .await?;
+```
+{% include copy.html %}
+
+To retrieve the updated document, use the client's `get` function:
+
+```rust
+let response = client
+    .get(GetParts::IndexId(index, "1"))
     .send()
     .await?;
 ```
@@ -268,7 +309,8 @@ You can delete a document using the client's `delete` function:
 
 ```rust
 let response = client
-    .delete(DeleteParts::IndexId("movies", "2"))
+    .delete(DeleteParts::IndexId(index, "3"))
+    .refresh(Refresh::True)
     .send()
     .await?;
 ```
@@ -281,7 +323,7 @@ You can delete an index using the `delete` function of the `opensearch::indices:
 ```rust
 let response = client
     .indices()
-    .delete(IndicesDeleteParts::Index(&["movies"]))
+    .delete(IndicesDeleteParts::Index(&[index]))
     .send()
     .await?;
 ```
@@ -289,7 +331,9 @@ let response = client
 
 ## Sample program
 
-The sample program uses the following Cargo.toml file with all dependencies described in the [Setup](#setup) section:
+The following sample program creates a client, creates an index, indexes documents individually and in bulk, searches for documents, updates a document, deletes a document, and then deletes the index.
+
+The sample programs use the following Cargo.toml file with all dependencies described in the [Setup](#setup) section:
 
 ```toml
 [package]
@@ -302,182 +346,390 @@ edition = "2021"
 [dependencies]
 opensearch = "2.4.0"
 tokio = { version = "1", features = ["full"] }
-serde = "~1"
+serde = { version = "~1", features = ["derive"] }
 serde_json = "~1"
 ```
 {% include copy.html %}
 
-The following sample program creates a client, adds an index with non-default mappings, inserts a document, performs bulk operations, searches for the document, updates the document, deletes a document, and then deletes the index:
+### Without security
+
+Use the following sample program when connecting to an OpenSearch cluster that does not have the Security plugin enabled:
 
 ```rust
 use opensearch::{
     http::request::JsonBody,
     indices::{IndicesCreateParts, IndicesDeleteParts},
     params::Refresh,
-    BulkParts, DeleteParts, IndexParts, OpenSearch, SearchParts, UpdateParts,
+    BulkParts, DeleteParts, GetParts, IndexParts, OpenSearch, SearchParts, UpdateParts,
 };
+use serde::{Deserialize, Serialize};
 use serde_json::{json, Value};
+
+#[derive(Debug, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+struct Student {
+    first_name: String,
+    last_name: String,
+    gpa: f64,
+    grad_year: i32,
+}
+
+impl Student {
+    fn new(first_name: &str, last_name: &str, gpa: f64, grad_year: i32) -> Self {
+        Student {
+            first_name: first_name.to_string(),
+            last_name: last_name.to_string(),
+            gpa,
+            grad_year,
+        }
+    }
+}
+
+fn print_hits(response_body: &Value) -> Result<(), Box<dyn std::error::Error>> {
+    println!("Total hits: {}", response_body["hits"]["total"]["value"]);
+    for hit in response_body["hits"]["hits"].as_array().unwrap_or(&vec![]) {
+        let student: Student = serde_json::from_value(hit["_source"].clone())?;
+        println!("  {:?}", student);
+    }
+    Ok(())
+}
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let client = OpenSearch::default();
 
-    // Create an index
-    let mut response = client
+    // Create the index
+    let index = "students";
+    println!("Creating index......");
+    let response_body = client
         .indices()
-        .create(IndicesCreateParts::Index("movies"))
-        .body(json!({
-            "mappings" : {
-                "properties" : {
-                    "title" : { "type" : "text" }
-                }
-            }
-        }))
+        .create(IndicesCreateParts::Index(index))
         .send()
+        .await?
+        .json::<Value>()
         .await?;
+    println!("Index created: {}", response_body["index"].as_str().unwrap_or_default());
 
-    let mut successful = response.status_code().is_success();
-
-    if successful {
-        println!("Successfully created an index");
-    } else {
-        println!("Could not create an index");
-    }
-
-    // Index a single document
-    println!("Indexing a single document...");
-    response = client
-        .index(IndexParts::IndexId("movies", "1"))
-        .body(json!({
-            "id": 1,
-            "title": "Moneyball",
-            "director": "Bennett Miller",
-            "year": "2011"
-        }))
+    // Index a document
+    println!("\nIndexing one student......");
+    let student = Student::new("John", "Doe", 3.89, 2022);
+    let response_body = client
+        .index(IndexParts::IndexId(index, "1"))
+        .body(student)
         .refresh(Refresh::True)
         .send()
+        .await?
+        .json::<Value>()
         .await?;
+    println!(
+        "Result: {}, id: {}, version: {}",
+        response_body["result"].as_str().unwrap_or_default(),
+        response_body["_id"].as_str().unwrap_or_default(),
+        response_body["_version"]
+    );
 
-    successful = response.status_code().is_success();
-
-    if successful {
-        println!("Successfully indexed a document");
-    } else {
-        println!("Could not index document");
-    }
-
-    // Index multiple documents using the bulk operation
-    println!("Indexing multiple documents...");
-
-    let mut body: Vec<JsonBody<_>> = Vec::with_capacity(4);
-
-    // add the first operation and document
-    body.push(json!({"index": {"_id": "2"}}).into());
-    body.push(json!({
-        "id": 2,
-        "title": "Interstellar",
-        "director": "Christopher Nolan",
-        "year": "2014"
-    }).into());
-
-    // add the second operation and document
-    body.push(json!({"index": {"_id": "3"}}).into());
-    body.push(json!({
-        "id": 3,
-        "title": "Star Trek Beyond",
-        "director": "Justin Lin",
-        "year": "2016"
-    }).into());
-
-    response = client
-        .bulk(BulkParts::Index("movies"))
+    // Bulk index documents
+    println!("\nIndexing many students......");
+    let body: Vec<JsonBody<Value>> = vec![
+        json!({"index": {"_id": "2"}}).into(),
+        serde_json::to_value(Student::new("Paulo", "Santos", 3.93, 2021))?.into(),
+        json!({"index": {"_id": "3"}}).into(),
+        serde_json::to_value(Student::new("Shirley", "Rodriguez", 3.91, 2019))?.into(),
+    ];
+    let response_body = client
+        .bulk(BulkParts::Index(index))
         .body(body)
         .refresh(Refresh::True)
         .send()
+        .await?
+        .json::<Value>()
         .await?;
-
-    let mut response_body = response.json::<Value>().await?;
-    successful = response_body["errors"].as_bool() == Some(false);
-
-    if successful {
-        println!("Successfully performed bulk operations");
-    } else {
-        println!("Could not perform bulk operations");
+    println!("Errors: {}", response_body["errors"]);
+    for item in response_body["items"].as_array().unwrap_or(&vec![]) {
+        println!(
+            "  {} id: {}",
+            item["index"]["result"].as_str().unwrap_or_default(),
+            item["index"]["_id"].as_str().unwrap_or_default()
+        );
     }
 
-    // Search for a document
-    println!("Searching for a document...");
-    response = client
-        .search(SearchParts::Index(&["movies"]))
-        .from(0)
-        .size(10)
+    // Search for all students
+    println!("\nSearching for all students......");
+    let response_body = client
+        .search(SearchParts::Index(&[index]))
+        .send()
+        .await?
+        .json::<Value>()
+        .await?;
+    print_hits(&response_body)?;
+
+    // Search for students who graduated in 2019
+    println!("\nSearching for students who graduated in 2019......");
+    let response_body = client
+        .search(SearchParts::Index(&[index]))
         .body(json!({
             "query": {
-                "multi_match": {
-                    "query": "miller",
-                    "fields": ["title^2", "director"]
+                "term": {
+                    "gradYear": 2019
                 }
             }
         }))
         .send()
+        .await?
+        .json::<Value>()
         .await?;
-
-    response_body = response.json::<Value>().await?;
-    for hit in response_body["hits"]["hits"].as_array().unwrap() {
-        // print the source document
-        println!("{}", serde_json::to_string_pretty(&hit["_source"])?);
-    }
+    print_hits(&response_body)?;
 
     // Update a document
-    println!("Updating a document...");
-    response = client
-        .update(UpdateParts::IndexId("movies", "1"))
+    println!("\nUpdating a student's GPA......");
+    let response_body = client
+        .update(UpdateParts::IndexId(index, "1"))
         .body(json!({
             "doc": {
-                "genre": "Drama"
+                "gpa": 3.92
             }
         }))
         .send()
+        .await?
+        .json::<Value>()
         .await?;
+    println!(
+        "Result: {}, version: {}",
+        response_body["result"].as_str().unwrap_or_default(),
+        response_body["_version"]
+    );
 
-    successful = response.status_code().is_success();
-
-    if successful {
-        println!("Successfully updated a document");
-    } else {
-        println!("Could not update document");
-    }
+    // Get the updated document
+    let response_body = client
+        .get(GetParts::IndexId(index, "1"))
+        .send()
+        .await?
+        .json::<Value>()
+        .await?;
+    let student: Student = serde_json::from_value(response_body["_source"].clone())?;
+    println!("Updated document: {:?}", student);
 
     // Delete a document
-    println!("Deleting a document...");
-    response = client
-        .delete(DeleteParts::IndexId("movies", "2"))
+    println!("\nDeleting a student......");
+    let response_body = client
+        .delete(DeleteParts::IndexId(index, "3"))
+        .refresh(Refresh::True)
         .send()
+        .await?
+        .json::<Value>()
         .await?;
-
-    successful = response.status_code().is_success();
-
-    if successful {
-        println!("Successfully deleted a document");
-    } else {
-        println!("Could not delete document");
-    }
+    println!("Result: {}", response_body["result"].as_str().unwrap_or_default());
 
     // Delete the index
-    println!("Deleting the index...");
-    response = client
+    println!("\nDeleting the index......");
+    let response_body = client
         .indices()
-        .delete(IndicesDeleteParts::Index(&["movies"]))
+        .delete(IndicesDeleteParts::Index(&[index]))
         .send()
+        .await?
+        .json::<Value>()
         .await?;
+    println!("Acknowledged: {}", response_body["acknowledged"]);
 
-    successful = response.status_code().is_success();
+    Ok(())
+}
+```
+{% include copy.html %}
 
-    if successful {
-        println!("Successfully deleted the index");
-    } else {
-        println!("Could not delete the index");
+### With security
+
+Use the following sample program when connecting to an OpenSearch cluster that has the Security plugin enabled. Make sure to change the credentials to match your cluster configuration:
+
+```rust
+use opensearch::{
+    auth::Credentials,
+    cert::CertificateValidation,
+    http::request::JsonBody,
+    http::transport::{SingleNodeConnectionPool, TransportBuilder},
+    http::Url,
+    indices::{IndicesCreateParts, IndicesDeleteParts},
+    params::Refresh,
+    BulkParts, DeleteParts, GetParts, IndexParts, OpenSearch, SearchParts, UpdateParts,
+};
+use serde::{Deserialize, Serialize};
+use serde_json::{json, Value};
+
+#[derive(Debug, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+struct Student {
+    first_name: String,
+    last_name: String,
+    gpa: f64,
+    grad_year: i32,
+}
+
+impl Student {
+    fn new(first_name: &str, last_name: &str, gpa: f64, grad_year: i32) -> Self {
+        Student {
+            first_name: first_name.to_string(),
+            last_name: last_name.to_string(),
+            gpa,
+            grad_year,
+        }
     }
+}
+
+fn print_hits(response_body: &Value) -> Result<(), Box<dyn std::error::Error>> {
+    println!("Total hits: {}", response_body["hits"]["total"]["value"]);
+    for hit in response_body["hits"]["hits"].as_array().unwrap_or(&vec![]) {
+        let student: Student = serde_json::from_value(hit["_source"].clone())?;
+        println!("  {:?}", student);
+    }
+    Ok(())
+}
+
+#[tokio::main]
+async fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let url = Url::parse("https://localhost:9200")?;
+    let conn_pool = SingleNodeConnectionPool::new(url);
+    let transport = TransportBuilder::new(conn_pool)
+        // Only for demo purposes. Don't specify your credentials in code.
+        .auth(Credentials::Basic(
+            "admin".to_string(),
+            "<custom-admin-password>".to_string(),
+        ))
+        // Only for demo purposes. Disables certificate validation for self-signed certificates.
+        .cert_validation(CertificateValidation::None)
+        .build()?;
+    let client = OpenSearch::new(transport);
+
+    // Create the index
+    let index = "students";
+    println!("Creating index......");
+    let response_body = client
+        .indices()
+        .create(IndicesCreateParts::Index(index))
+        .send()
+        .await?
+        .json::<Value>()
+        .await?;
+    println!("Index created: {}", response_body["index"].as_str().unwrap_or_default());
+
+    // Index a document
+    println!("\nIndexing one student......");
+    let student = Student::new("John", "Doe", 3.89, 2022);
+    let response_body = client
+        .index(IndexParts::IndexId(index, "1"))
+        .body(student)
+        .refresh(Refresh::True)
+        .send()
+        .await?
+        .json::<Value>()
+        .await?;
+    println!(
+        "Result: {}, id: {}, version: {}",
+        response_body["result"].as_str().unwrap_or_default(),
+        response_body["_id"].as_str().unwrap_or_default(),
+        response_body["_version"]
+    );
+
+    // Bulk index documents
+    println!("\nIndexing many students......");
+    let body: Vec<JsonBody<Value>> = vec![
+        json!({"index": {"_id": "2"}}).into(),
+        serde_json::to_value(Student::new("Paulo", "Santos", 3.93, 2021))?.into(),
+        json!({"index": {"_id": "3"}}).into(),
+        serde_json::to_value(Student::new("Shirley", "Rodriguez", 3.91, 2019))?.into(),
+    ];
+    let response_body = client
+        .bulk(BulkParts::Index(index))
+        .body(body)
+        .refresh(Refresh::True)
+        .send()
+        .await?
+        .json::<Value>()
+        .await?;
+    println!("Errors: {}", response_body["errors"]);
+    for item in response_body["items"].as_array().unwrap_or(&vec![]) {
+        println!(
+            "  {} id: {}",
+            item["index"]["result"].as_str().unwrap_or_default(),
+            item["index"]["_id"].as_str().unwrap_or_default()
+        );
+    }
+
+    // Search for all students
+    println!("\nSearching for all students......");
+    let response_body = client
+        .search(SearchParts::Index(&[index]))
+        .send()
+        .await?
+        .json::<Value>()
+        .await?;
+    print_hits(&response_body)?;
+
+    // Search for students who graduated in 2019
+    println!("\nSearching for students who graduated in 2019......");
+    let response_body = client
+        .search(SearchParts::Index(&[index]))
+        .body(json!({
+            "query": {
+                "term": {
+                    "gradYear": 2019
+                }
+            }
+        }))
+        .send()
+        .await?
+        .json::<Value>()
+        .await?;
+    print_hits(&response_body)?;
+
+    // Update a document
+    println!("\nUpdating a student's GPA......");
+    let response_body = client
+        .update(UpdateParts::IndexId(index, "1"))
+        .body(json!({
+            "doc": {
+                "gpa": 3.92
+            }
+        }))
+        .send()
+        .await?
+        .json::<Value>()
+        .await?;
+    println!(
+        "Result: {}, version: {}",
+        response_body["result"].as_str().unwrap_or_default(),
+        response_body["_version"]
+    );
+
+    // Get the updated document
+    let response_body = client
+        .get(GetParts::IndexId(index, "1"))
+        .send()
+        .await?
+        .json::<Value>()
+        .await?;
+    let student: Student = serde_json::from_value(response_body["_source"].clone())?;
+    println!("Updated document: {:?}", student);
+
+    // Delete a document
+    println!("\nDeleting a student......");
+    let response_body = client
+        .delete(DeleteParts::IndexId(index, "3"))
+        .refresh(Refresh::True)
+        .send()
+        .await?
+        .json::<Value>()
+        .await?;
+    println!("Result: {}", response_body["result"].as_str().unwrap_or_default());
+
+    // Delete the index
+    println!("\nDeleting the index......");
+    let response_body = client
+        .indices()
+        .delete(IndicesDeleteParts::Index(&[index]))
+        .send()
+        .await?
+        .json::<Value>()
+        .await?;
+    println!("Acknowledged: {}", response_body["acknowledged"]);
 
     Ok(())
 }
