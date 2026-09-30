@@ -20,7 +20,7 @@ If you have any questions or would like to contribute, you can [create an issue]
 
 ## Setup
 
-To add the client to your project, install it using [pip](https://pip.pypa.io/):
+The latest version of the client, `opensearch-py` 3.2.0, requires Python 3.10 or later. To add the client to your project, install it using [pip](https://pip.pypa.io/):
 
 ```bash
 pip install opensearch-py
@@ -36,12 +36,12 @@ from opensearchpy import OpenSearch
 
 ## Connecting to OpenSearch
 
-To connect to the default OpenSearch host, create a client object with SSL enabled if you are using the Security plugin. You can use the default credentials for testing purposes:
+To connect to the default OpenSearch host, create a client object with SSL enabled if you are using the Security plugin. Replace `<custom-admin-password>` with the admin password that you set when installing OpenSearch:
 
 ```python
 host = 'localhost'
 port = 9200
-auth = ('admin', 'admin') # For testing only. Don't store credentials in code.
+auth = ('admin', '<custom-admin-password>') # For testing only. Don't store credentials in code.
 ca_certs_path = '/full/path/to/root-ca.pem' # Provide a CA bundle if you use intermediate CAs with your root CA.
 
 # Create the client with SSL/TLS enabled, but hostname verification disabled.
@@ -63,7 +63,7 @@ If you have your own client certificates, specify them in the `client_cert_path`
 ```python
 host = 'localhost'
 port = 9200
-auth = ('admin', 'admin') # For testing only. Don't store credentials in code.
+auth = ('admin', '<custom-admin-password>') # For testing only. Don't store credentials in code.
 ca_certs_path = '/full/path/to/root-ca.pem' # Provide a CA bundle if you use intermediate CAs with your root CA.
 
 # Optional client certificates if you don't want to use HTTP basic authentication.
@@ -133,7 +133,7 @@ To connect to Amazon OpenSearch Service through HTTP with a username and passwor
 ```python
 from opensearchpy import OpenSearch
 
-auth = ('admin', 'admin') # For testing only. Don't store credentials in code.
+auth = ('admin', '<custom-admin-password>') # For testing only. Don't store credentials in code.
 
 client = OpenSearch(
     hosts=[{"host": host, "port": 443}],
@@ -217,15 +217,15 @@ response = client.index(
 You can perform several operations at the same time by using the `bulk()` method of the client. The operations may be of the same type or of different types. Note that the operations must be separated by a `\n` and the entire string must be a single line:
 
 ```python
-movies = '{ "index" : { "_index" : "my-dsl-index", "_id" : "2" } } \n { "title" : "Interstellar", "director" : "Christopher Nolan", "year" : "2014"} \n { "create" : { "_index" : "my-dsl-index", "_id" : "3" } } \n { "title" : "Star Trek Beyond", "director" : "Justin Lin", "year" : "2015"} \n { "update" : {"_id" : "3", "_index" : "my-dsl-index" } } \n { "doc" : {"year" : "2016"} }'
+movies = '{ "index" : { "_index" : "python-test-index", "_id" : "2" } } \n { "title" : "Interstellar", "director" : "Christopher Nolan", "year" : "2014"} \n { "create" : { "_index" : "python-test-index", "_id" : "3" } } \n { "title" : "Star Trek Beyond", "director" : "Justin Lin", "year" : "2015"} \n { "update" : {"_id" : "3", "_index" : "python-test-index" } } \n { "doc" : {"year" : "2016"} }'
 
-client.bulk(body=movies)
+response = client.bulk(body=movies, refresh=True)
 ```
 {% include copy.html %}
 
 ## Searching for documents
 
-The easiest way to search for documents is to construct a query string. The following code uses a multi-match query to search for “miller” in the title and director fields. It boosts the documents that have “miller” in the title field:
+The easiest way to search for documents is to construct a query string. The following code uses a multi-match query to search for "miller" in the title and director fields. It boosts the documents that have "miller" in the title field:
 
 ```python
 q = 'miller'
@@ -242,6 +242,23 @@ query = {
 response = client.search(
     body = query,
     index = 'python-test-index'
+)
+```
+{% include copy.html %}
+
+## Updating a document
+
+You can update a document using the `client.update()` method. The fields in the `doc` object are merged into the existing document:
+
+```python
+response = client.update(
+    index = 'python-test-index',
+    id = '1',
+    body = {
+      'doc': {
+        'rating': 'PG-13'
+      }
+    }
 )
 ```
 {% include copy.html %}
@@ -271,14 +288,14 @@ response = client.indices.delete(
 
 ## Sample program
 
-The following sample program creates a client, adds an index with non-default settings, inserts a document, performs bulk operations, searches for the document, deletes the document, and then deletes the index:
+The following sample program creates a client, adds an index with non-default settings, inserts a document, performs bulk operations, searches for the document, updates the document, deletes the document, and then deletes the index. To run the program against a cluster that does not have the Security plugin enabled, replace the client with the client [without SSL/TLS](#connecting-to-opensearch):
 
 ```python
 from opensearchpy import OpenSearch
 
 host = 'localhost'
 port = 9200
-auth = ('admin', 'admin') # For testing only. Don't store credentials in code.
+auth = ('admin', '<custom-admin-password>') # For testing only. Don't store credentials in code.
 ca_certs_path = '/full/path/to/root-ca.pem' # Provide a CA bundle if you use intermediate CAs with your root CA.
 
 # Optional client certificates if you don't want to use HTTP basic authentication.
@@ -331,11 +348,12 @@ response = client.index(
 print('\nAdding document:')
 print(response)
 
-# Perform bulk operations
+# Perform bulk operations.
+movies = '{ "index" : { "_index" : "python-test-index", "_id" : "2" } } \n { "title" : "Interstellar", "director" : "Christopher Nolan", "year" : "2014"} \n { "create" : { "_index" : "python-test-index", "_id" : "3" } } \n { "title" : "Star Trek Beyond", "director" : "Justin Lin", "year" : "2015"} \n { "update" : {"_id" : "3", "_index" : "python-test-index" } } \n { "doc" : {"year" : "2016"} }'
 
-movies = '{ "index" : { "_index" : "my-dsl-index", "_id" : "2" } } \n { "title" : "Interstellar", "director" : "Christopher Nolan", "year" : "2014"} \n { "create" : { "_index" : "my-dsl-index", "_id" : "3" } } \n { "title" : "Star Trek Beyond", "director" : "Justin Lin", "year" : "2015"} \n { "update" : {"_id" : "3", "_index" : "my-dsl-index" } } \n { "doc" : {"year" : "2016"} }'
-
-client.bulk(body=movies)
+response = client.bulk(body=movies, refresh=True)
+print('\nPerforming bulk operations:')
+print(response)
 
 # Search for the document.
 q = 'miller'
@@ -354,6 +372,20 @@ response = client.search(
     index = index_name
 )
 print('\nSearch results:')
+print(response)
+
+# Update the document.
+response = client.update(
+    index = index_name,
+    id = id,
+    body = {
+      'doc': {
+        'rating': 'PG-13'
+      }
+    }
+)
+
+print('\nUpdating document:')
 print(response)
 
 # Delete the document.
