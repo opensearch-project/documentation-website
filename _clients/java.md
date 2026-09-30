@@ -384,7 +384,7 @@ UpdateResponse<Student> updateResponse = client.update(updateRequest, Student.cl
 Delete a document using the following code:
 
 ```java
-client.delete(b -> b.index(index).id("1"));
+client.delete(b -> b.index(index).id("3").refresh(Refresh.True));
 ```
 {% include copy.html %}
 
