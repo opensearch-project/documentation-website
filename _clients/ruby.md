@@ -108,12 +108,13 @@ require 'opensearch-aws-sigv4'
 require 'aws-sigv4'
 
 signer = Aws::Sigv4::Signer.new(service: 'es',
-                                region: 'us-west-2', # signing service region
+                                region: 'us-west-2', # must match the Region in the endpoint
                                 access_key_id: 'key_id',
-                                secret_access_key: 'secret')
+                                secret_access_key: 'secret',
+                                session_token: 'session_token') # required for temporary credentials, such as IAM roles or SSO
 
 client = OpenSearch::Aws::Sigv4Client.new({
-    host: 'https://your.amz-managed-opensearch.domain',
+    host: 'https://search-<domain-name>-<id>.us-west-2.es.amazonaws.com',
     log: true
 }, signer)
 
@@ -123,7 +124,8 @@ client.indices.create(index: index)
 client.index(index: index, id: '1', body: { firstName: 'John',
                                             lastName: 'Doe',
                                             gpa: 3.89,
-                                            gradYear: 2022 })
+                                            gradYear: 2022 },
+                                            refresh: true)
 
 # search for the document
 client.search(index: index, body: { query: { match: { firstName: 'John' } } })
@@ -138,7 +140,7 @@ client.indices.delete(index: index)
 
 ## Connecting to Amazon OpenSearch Serverless
 
-To connect to Amazon OpenSearch Serverless Service, first install the `opensearch-aws-sigv4` gem:
+To connect to Amazon OpenSearch Serverless, first install the `opensearch-aws-sigv4` gem:
 
 ```bash
 gem install opensearch-aws-sigv4
@@ -149,12 +151,13 @@ require 'opensearch-aws-sigv4'
 require 'aws-sigv4'
 
 signer = Aws::Sigv4::Signer.new(service: 'aoss',
-                                region: 'us-west-2', # signing service region
+                                region: 'us-west-2', # must match the Region in the endpoint
                                 access_key_id: 'key_id',
-                                secret_access_key: 'secret')
+                                secret_access_key: 'secret',
+                                session_token: 'session_token') # required for temporary credentials, such as IAM roles or SSO
 
 client = OpenSearch::Aws::Sigv4Client.new({
-    host: 'https://your.amz-managed-opensearch.domain', # serverless endpoint for OpenSearch Serverless
+    host: 'https://<collection-id>.us-west-2.aoss.amazonaws.com', # Amazon OpenSearch Serverless collection endpoint
     log: true
 }, signer)
 
@@ -177,6 +180,8 @@ client.indices.delete(index: index)
 ```
 {% include copy.html %}
 
+Amazon OpenSearch Serverless supports a subset of OpenSearch API operations and does not support the `refresh` parameter used in the examples on this page. For more information, see [Supported operations and plugins in Amazon OpenSearch Serverless](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-genref.html).
+{: .note}
 
 ## Creating an index
 
@@ -579,10 +584,11 @@ require 'aws-sigv4'
 signer = Aws::Sigv4::Signer.new(service: 'es',
                                 region: 'us-west-2',
                                 access_key_id: 'key_id',
-                                secret_access_key: 'secret')
+                                secret_access_key: 'secret',
+                                session_token: 'session_token') # required for temporary credentials, such as IAM roles or SSO
 
 client = OpenSearch::Aws::Sigv4Client.new({
-    host: 'https://your.amz-managed-opensearch.domain',
+    host: 'https://search-<domain-name>-<id>.us-west-2.es.amazonaws.com',
     log: true
 }, signer)
 
