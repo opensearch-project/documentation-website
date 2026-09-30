@@ -97,9 +97,24 @@ Then pass the `auth_aws` option when you create the client:
 
 ```php
 $client = (new \OpenSearch\GuzzleClientFactory())->create([
-    'base_uri' => 'https://<domain-endpoint>',
+    'base_uri' => 'https://search-<domain-name>-<id>.<region>.es.amazonaws.com',
     'auth_aws' => [
-        'region' => 'us-west-2',
+        'region' => '<region>',
+        'service' => 'es',
+    ],
+]);
+```
+{% include copy.html %}
+
+Because the example does not specify `credentials`, the AWS SDK for PHP resolves credentials using the default credential provider chain. The chain checks environment variables, the shared AWS config and credentials files, and the IAM role of the Amazon EC2 instance or container in which the code runs.
+
+To pass credentials explicitly, add the `credentials` option. Specify `session_token` only when you use temporary credentials:
+
+```php
+$client = (new \OpenSearch\GuzzleClientFactory())->create([
+    'base_uri' => 'https://search-<domain-name>-<id>.<region>.es.amazonaws.com',
+    'auth_aws' => [
+        'region' => '<region>',
         'service' => 'es',
         'credentials' => [
             'access_key' => getenv('AWS_ACCESS_KEY_ID'),
@@ -111,7 +126,28 @@ $client = (new \OpenSearch\GuzzleClientFactory())->create([
 ```
 {% include copy.html %}
 
-To connect to Amazon OpenSearch Serverless, set `service` to `aoss`. If you omit `credentials`, the AWS SDK resolves credentials from the default provider chain. For more information, see [IAM authentication using a PSR client](https://github.com/opensearch-project/opensearch-php/blob/main/guides/auth.md#using-a-psr-client-1).
+For more information, see [IAM authentication using a PSR client](https://github.com/opensearch-project/opensearch-php/blob/main/guides/auth.md#using-a-psr-client-1).
+
+## Connecting to Amazon OpenSearch Serverless
+
+To connect to Amazon OpenSearch Serverless, set `service` to `aoss` and specify your collection endpoint. The following example checks whether an index exists:
+
+```php
+$client = (new \OpenSearch\GuzzleClientFactory())->create([
+    'base_uri' => 'https://<collection-id>.<region>.aoss.amazonaws.com',
+    'auth_aws' => [
+        'region' => '<region>',
+        'service' => 'aoss',
+    ],
+]);
+
+$exists = $client->indices()->exists(['index' => 'students']);
+echo $exists ? 'Index exists' : 'Index does not exist', PHP_EOL;
+```
+{% include copy.html %}
+
+Amazon OpenSearch Serverless supports a subset of OpenSearch API operations and does not support the `refresh` parameter used in the examples on this page. For more information, see [Supported operations and plugins in Amazon OpenSearch Serverless](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-genref.html).
+{: .note}
 
 ## Creating an index
 
