@@ -107,17 +107,24 @@ client = OpenSearch(
 
 ## Connecting to Amazon OpenSearch Service
 
+To sign requests to Amazon OpenSearch Service or Amazon OpenSearch Serverless using IAM credentials, install the AWS SDK for Python (Boto3):
+
+```bash
+pip install boto3
+```
+{% include copy.html %}
+
 The following example illustrates connecting to Amazon OpenSearch Service using IAM credentials:
 
 ```python
-from opensearchpy import OpenSearch, RequestsHttpConnection, AWSV4SignerAuth
+from opensearchpy import OpenSearch, RequestsHttpConnection, RequestsAWSV4SignerAuth
 import boto3
 
-host = '' # cluster endpoint, for example: my-test-domain.us-east-1.es.amazonaws.com
-region = 'us-west-2'
+host = 'search-<domain-name>-<id>.us-east-1.es.amazonaws.com' # Domain endpoint without https://
+region = 'us-east-1'
 service = 'es'
 credentials = boto3.Session().get_credentials()
-auth = AWSV4SignerAuth(credentials, region, service)
+auth = RequestsAWSV4SignerAuth(credentials, region, service)
 
 client = OpenSearch(
     hosts = [{'host': host, 'port': 443}],
@@ -128,12 +135,14 @@ client = OpenSearch(
     pool_maxsize = 20
 )
 ```
+{% include copy.html %}
 
 To connect to Amazon OpenSearch Service through HTTP with a username and password, use the following code:
 
 ```python
 from opensearchpy import OpenSearch
 
+host = 'search-<domain-name>-<id>.us-east-1.es.amazonaws.com' # Domain endpoint without https://
 auth = ('admin', '<custom-admin-password>') # For testing only. Don't store credentials in code.
 
 client = OpenSearch(
@@ -146,22 +155,21 @@ client = OpenSearch(
     ssl_show_warn=False,
 )
 ```
-
 {% include copy.html %}
 
 ## Connecting to Amazon OpenSearch Serverless
 
-The following example illustrates connecting to Amazon OpenSearch Serverless Service:
+The following example illustrates connecting to Amazon OpenSearch Serverless:
 
 ```python
-from opensearchpy import OpenSearch, RequestsHttpConnection, AWSV4SignerAuth
+from opensearchpy import OpenSearch, RequestsHttpConnection, RequestsAWSV4SignerAuth
 import boto3
 
-host = '' # cluster endpoint, for example: my-test-domain.us-east-1.aoss.amazonaws.com
-region = 'us-west-2'
+host = '<collection-id>.us-east-1.aoss.amazonaws.com' # Collection endpoint without https://
+region = 'us-east-1'
 service = 'aoss'
 credentials = boto3.Session().get_credentials()
-auth = AWSV4SignerAuth(credentials, region, service)
+auth = RequestsAWSV4SignerAuth(credentials, region, service)
 
 client = OpenSearch(
     hosts = [{'host': host, 'port': 443}],
@@ -174,6 +182,8 @@ client = OpenSearch(
 ```
 {% include copy.html %}
 
+Amazon OpenSearch Serverless supports a subset of OpenSearch API operations and does not support the `refresh` parameter used in the examples on this page. For more information, see [Supported operations and plugins in Amazon OpenSearch Serverless](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-genref.html).
+{: .note}
 
 ## Creating an index
 
