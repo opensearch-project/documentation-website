@@ -254,7 +254,7 @@ let response_body = response.json::<Value>().await?;
 println!("Total hits: {}", response_body["hits"]["total"]["value"]);
 for hit in response_body["hits"]["hits"].as_array().unwrap_or(&vec![]) {
     let student: Student = serde_json::from_value(hit["_source"].clone())?;
-    println!("  {:?}", student);
+    println!("  {}", serde_json::to_string(&student)?);
 }
 ```
 {% include copy.html %}
@@ -389,7 +389,7 @@ fn print_hits(response_body: &Value) -> Result<(), Box<dyn std::error::Error>> {
     println!("Total hits: {}", response_body["hits"]["total"]["value"]);
     for hit in response_body["hits"]["hits"].as_array().unwrap_or(&vec![]) {
         let student: Student = serde_json::from_value(hit["_source"].clone())?;
-        println!("  {:?}", student);
+        println!("  {}", serde_json::to_string(&student)?);
     }
     Ok(())
 }
@@ -507,7 +507,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         .json::<Value>()
         .await?;
     let student: Student = serde_json::from_value(response_body["_source"].clone())?;
-    println!("Updated document: {:?}", student);
+    println!("Updated document: {}", serde_json::to_string(&student)?);
 
     // Delete a document
     println!("\nDeleting a student......");
@@ -578,7 +578,7 @@ fn print_hits(response_body: &Value) -> Result<(), Box<dyn std::error::Error>> {
     println!("Total hits: {}", response_body["hits"]["total"]["value"]);
     for hit in response_body["hits"]["hits"].as_array().unwrap_or(&vec![]) {
         let student: Student = serde_json::from_value(hit["_source"].clone())?;
-        println!("  {:?}", student);
+        println!("  {}", serde_json::to_string(&student)?);
     }
     Ok(())
 }
@@ -707,7 +707,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         .json::<Value>()
         .await?;
     let student: Student = serde_json::from_value(response_body["_source"].clone())?;
-    println!("Updated document: {:?}", student);
+    println!("Updated document: {}", serde_json::to_string(&student)?);
 
     // Delete a document
     println!("\nDeleting a student......");
