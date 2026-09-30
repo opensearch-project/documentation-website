@@ -102,6 +102,7 @@ To connect to Amazon OpenSearch Service, first install the `opensearch-aws-sigv4
 ```bash
 gem install opensearch-aws-sigv4
 ```
+{% include copy.html %}
 
 ```ruby
 require 'opensearch-aws-sigv4'
@@ -145,6 +146,7 @@ To connect to Amazon OpenSearch Serverless, first install the `opensearch-aws-si
 ```bash
 gem install opensearch-aws-sigv4
 ```
+{% include copy.html %}
 
 ```ruby
 require 'opensearch-aws-sigv4'
@@ -161,22 +163,8 @@ client = OpenSearch::Aws::Sigv4Client.new({
     log: true
 }, signer)
 
-# create an index and document
-index = 'students'
-client.indices.create(index: index)
-client.index(index: index, id: '1', body: { firstName: 'John',
-                                            lastName: 'Doe',
-                                            gpa: 3.89,
-                                            gradYear: 2022 })
-
-# search for the document
-client.search(index: index, body: { query: { match: { firstName: 'John' } } })
-
-# delete the document
-client.delete(index: index, id: '1')
-
-# delete the index
-client.indices.delete(index: index)
+# check whether an index exists
+puts client.indices.exists?(index: 'students')
 ```
 {% include copy.html %}
 
