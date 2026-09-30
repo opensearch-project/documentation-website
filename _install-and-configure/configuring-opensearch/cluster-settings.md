@@ -1,15 +1,15 @@
 ---
 layout: default
-title: Cluster settings
+title: Cluster management settings
 parent: Configuring OpenSearch
 nav_order: 50
 ---
 
-# Cluster settings
+# Cluster management settings
 
-The following settings are related to the OpenSearch cluster.
+The following settings control shard allocation, coordination, fault detection, and other cluster-wide operations.
 
-To learn more about static and dynamic settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
+To learn how to apply these settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
 
 ## Cluster-level routing and allocation settings
 
@@ -233,9 +233,9 @@ For more information, see [Search request slow logs]({{site.url}}{{site.baseurl}
 
 - `cluster.search.request.slowlog.level` (String): Sets the minimum slow log level to log: `WARN`, `INFO`, `DEBUG`, and `TRACE`. Default is `TRACE`.
 
-## Cluster-level index settings
+## Cluster settings for indexes
 
-For information about index-level index settings, see [Cluster-level index settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/#cluster-level-index-settings).
+For information about cluster settings that apply to all indexes, see [Cluster settings for indexes]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/cluster-settings-for-indexes/).
 
 ## Cluster-level coordination settings
 

@@ -71,7 +71,7 @@ POST /logs-2026/_open
 ```
 {% include copy-curl.html %}
 
-For the list of settings that require a closed index, see [Index-level index settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/#index-level-index-settings).
+For the list of settings that require a closed index, see [Index settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/).
 
 ## Deleting an index
 
@@ -121,7 +121,7 @@ The index page shows an **Overview** panel with metrics for the index, along wit
 
 1. In **Index Management**, select **Indexes**, and then select **Create Index**.
 1. In **Define index**, enter an index name. Optionally, select existing aliases for the index or enter the name of a new alias to create.
-1. In **Index settings**, enter the number of primary shards, the number of replicas, and the refresh interval. The default refresh interval is `1s`. To supply additional settings as a flat JSON object, expand **Advanced settings**. For the available options, see [Index-level index settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/#index-level-index-settings).
+1. In **Index settings**, enter the number of primary shards, the number of replicas, and the refresh interval. The default refresh interval is `1s`. To supply additional settings as a flat JSON object, expand **Advanced settings**. For the available options, see [Index settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/).
 1. In **Index mapping**, define the fields in your documents. Select **Visual editor** to add fields one at a time or **JSON editor** to paste an existing mapping. In the visual editor, select **Add new field** or **Add new object**, enter a field name, and select a field type. For an object field, select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/plus-icon.png" class="inline-icon" alt="plus icon"/>{:/} (plus) icon to add nested fields. This panel is optional; if you leave it empty, OpenSearch infers mappings from the first documents you index.
 1. Select **Create**. Any new aliases that you specified are created along with the index.
 

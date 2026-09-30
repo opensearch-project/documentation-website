@@ -50,7 +50,7 @@ The following k-NN plugin settings apply at the cluster level:
 
 Several parameters defined in the index settings are currently in the deprecation process. Set those parameters in the mapping instead of in the index settings. Parameters set in the mapping override the parameters set in the index settings and allow an index to have multiple `knn_vector` fields with different parameters.
 
-The following k-NN plugin settings apply at the index level. For information about updating these settings, see [Index-level index settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/#index-level-index-settings):
+The following k-NN plugin settings apply at the index level. For information about updating these settings, see [Index settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/):
 
 - `index.knn` (Static, Boolean): Whether the index builds native library indexes for its `knn_vector` fields. If `false`, the `knn_vector` fields are stored in doc values, but approximate k-NN search is disabled. Default is `false`.
 
@@ -93,7 +93,7 @@ The following remote index build settings apply at the cluster level:
 
 #### Index settings
 
-The following remote index build settings apply at the index level. For information about updating these settings, see [Index-level index settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/#index-level-index-settings):
+The following remote index build settings apply at the index level. For information about updating these settings, see [Index settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/):
 
 - `index.knn.remote_index_build.enabled` (Dynamic, Boolean): Enables remote index building for the index. Takes effect only when `knn.remote_index_build.enabled` is `true`. Default is `true`.
 

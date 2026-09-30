@@ -371,7 +371,7 @@ PUT /my-index/_settings
 ```
 {% include copy-curl.html %}
 
-For more information about updating dynamic settings, see [Dynamic settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/#dynamic-settings).
+For more information about updating dynamic settings, see [Updating a dynamic index setting]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/#updating-a-dynamic-index-setting).
 
 ## Limitations
 

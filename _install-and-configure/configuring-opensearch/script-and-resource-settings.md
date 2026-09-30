@@ -2,14 +2,14 @@
 layout: default
 title: Script and resource settings
 parent: Configuring OpenSearch
-nav_order: 125
+nav_order: 160
 ---
 
 # Script and resource settings
 
 OpenSearch provides settings for managing script compilation behavior and resource file monitoring. These settings help control script performance, security, and automatic reloading of configuration files and other resources.
 
-To learn more about static and dynamic settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
+To learn how to apply these settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
 
 ## Resource reload settings
 
