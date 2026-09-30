@@ -330,7 +330,11 @@ for _, hit := range searchResp.Hits.Hits {
 	if err := json.Unmarshal(hit.Source, &s); err != nil {
 		return err
 	}
-	fmt.Printf("%+v\n", s)
+	out, err := json.Marshal(s)
+	if err != nil {
+		return err
+	}
+	fmt.Println(string(out))
 }
 ```
 {% include copy.html %}
@@ -499,7 +503,11 @@ func run() error {
 		if err := json.Unmarshal(hit.Source, &s); err != nil {
 			return err
 		}
-		fmt.Printf("  %+v\n", s)
+		out, err := json.Marshal(s)
+		if err != nil {
+			return err
+		}
+		fmt.Println("  " + string(out))
 	}
 
 	// Search for students who graduated in 2019
@@ -521,7 +529,11 @@ func run() error {
 		if err := json.Unmarshal(hit.Source, &s); err != nil {
 			return err
 		}
-		fmt.Printf("  %+v\n", s)
+		out, err := json.Marshal(s)
+		if err != nil {
+			return err
+		}
+		fmt.Println("  " + string(out))
 	}
 
 	// Update a document
@@ -545,7 +557,11 @@ func run() error {
 	if err := json.Unmarshal(getResp.Source, &updated); err != nil {
 		return err
 	}
-	fmt.Printf("Updated document: %+v\n", updated)
+	out, err := json.Marshal(updated)
+	if err != nil {
+		return err
+	}
+	fmt.Println("Updated document: " + string(out))
 
 	// Delete a document
 	fmt.Println("\nDeleting a student......")
@@ -690,7 +706,11 @@ func run() error {
 		if err := json.Unmarshal(hit.Source, &s); err != nil {
 			return err
 		}
-		fmt.Printf("  %+v\n", s)
+		out, err := json.Marshal(s)
+		if err != nil {
+			return err
+		}
+		fmt.Println("  " + string(out))
 	}
 
 	// Search for students who graduated in 2019
@@ -712,7 +732,11 @@ func run() error {
 		if err := json.Unmarshal(hit.Source, &s); err != nil {
 			return err
 		}
-		fmt.Printf("  %+v\n", s)
+		out, err := json.Marshal(s)
+		if err != nil {
+			return err
+		}
+		fmt.Println("  " + string(out))
 	}
 
 	// Update a document
@@ -736,7 +760,11 @@ func run() error {
 	if err := json.Unmarshal(getResp.Source, &updated); err != nil {
 		return err
 	}
-	fmt.Printf("Updated document: %+v\n", updated)
+	out, err := json.Marshal(updated)
+	if err != nil {
+		return err
+	}
+	fmt.Println("Updated document: " + string(out))
 
 	// Delete a document
 	fmt.Println("\nDeleting a student......")
