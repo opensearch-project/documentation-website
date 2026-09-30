@@ -37,8 +37,14 @@ The examples on this page use the following imports:
 
 ```go
 import (
+	"context"
+	"encoding/json"
+	"fmt"
+	"strings"
+
 	"github.com/opensearch-project/opensearch-go/v5"
 	"github.com/opensearch-project/opensearch-go/v5/opensearchapi"
+	"github.com/opensearch-project/opensearch-go/v5/opensearchutil"
 )
 ```
 {% include copy.html %}
@@ -240,60 +246,69 @@ client, err := opensearchapi.NewClient(opensearchapi.Config{
 ```
 {% include copy.html %}
 
-## Creating an index
+## Sample data
 
-To create an OpenSearch index, use the `Indices.Create` method. The following code creates an index with custom settings:
+The examples on this page use a `Student` struct to represent documents. The JSON tags determine the field names in the indexed documents:
 
 ```go
-settings := strings.NewReader(`{
-	"settings": {
-		"index": {
-			"number_of_shards": 1,
-			"number_of_replicas": 0
-		}
-	}
-}`)
+type Student struct {
+	FirstName string  `json:"firstName"`
+	LastName  string  `json:"lastName"`
+	GPA       float64 `json:"gpa"`
+	GradYear  int     `json:"gradYear"`
+}
+```
+{% include copy.html %}
 
-createResp, err := client.Indices.Create(ctx, opensearchapi.IndicesCreateReq{
-	Index:      "go-test-index1",
-	BodyReader: settings,
-})
+## Creating an index
+
+Create an index using the following code:
+
+```go
+ctx := context.Background()
+index := "students"
+createResp, err := client.Indices.Create(ctx, opensearchapi.IndicesCreateReq{Index: index})
 ```
 {% include copy.html %}
 
 ## Indexing a document
 
-To index a document, use the `Doc.Index` method. Setting the `Refresh` parameter to `true` makes the document immediately available for search:
+Index a document using the following code. Setting the `Refresh` parameter to `true` makes the document immediately available for search:
 
 ```go
-document := strings.NewReader(`{
-	"title": "Moneyball",
-	"director": "Bennett Miller",
-	"year": "2011"
-}`)
-
+student := Student{FirstName: "John", LastName: "Doe", GPA: 3.89, GradYear: 2022}
 indexResp, err := client.Doc.Index(ctx, opensearchapi.IndexReq{
-	Index:  "go-test-index1",
+	Index:  index,
 	ID:     "1",
-	Body:   document,
+	Body:   opensearchutil.NewJSONReader(student),
 	Params: &opensearchapi.IndexParams{Refresh: "true"},
 })
 ```
 {% include copy.html %}
 
-## Performing bulk operations
+## Bulk indexing
 
-To perform several operations in a single request, use the `Doc.Bulk` method. The operations may be of the same type or of different types. Each line of the request body must be a complete JSON object followed by a newline character:
+Index multiple documents in a single request using the following code. The request body contains an action line followed by a document line for each document, and each line must end with a newline character:
 
 ```go
+students := []struct {
+	id      string
+	student Student
+}{
+	{"2", Student{FirstName: "Paulo", LastName: "Santos", GPA: 3.93, GradYear: 2021}},
+	{"3", Student{FirstName: "Shirley", LastName: "Rodriguez", GPA: 3.91, GradYear: 2019}},
+}
+var bulkBody strings.Builder
+for _, s := range students {
+	doc, err := json.Marshal(s.student)
+	if err != nil {
+		return err
+	}
+	fmt.Fprintf(&bulkBody, "{\"index\":{\"_id\":%q}}\n%s\n", s.id, doc)
+}
 bulkResp, err := client.Doc.Bulk(ctx, opensearchapi.BulkReq{
-	Body: strings.NewReader(`{ "index": { "_index": "go-test-index1", "_id": "2" } }
-{ "title": "Interstellar", "director": "Christopher Nolan", "year": "2014" }
-{ "create": { "_index": "go-test-index1", "_id": "3" } }
-{ "title": "Star Trek Beyond", "director": "Justin Lin", "year": "2015" }
-{ "update": { "_index": "go-test-index1", "_id": "3" } }
-{ "doc": { "year": "2016" } }
-`),
+	Index:  index,
+	Body:   strings.NewReader(bulkBody.String()),
 	Params: &opensearchapi.BulkParams{Refresh: "true"},
 })
 ```
@@ -303,102 +318,111 @@ If any of the operations fail, the method returns an `*opensearchapi.PartialBulk
 
 ## Searching for documents
 
-The easiest way to search for documents is to construct a query string. The following code uses a `multi_match` query to search for "miller" in the title and director fields. It boosts the documents where "miller" appears in the title field:
+Search for all documents in an index using the following code:
 
 ```go
-query := strings.NewReader(`{
-	"size": 5,
-	"query": {
-		"multi_match": {
-			"query": "miller",
-			"fields": ["title^2", "director"]
-		}
-	}
-}`)
-
-searchResp, err := client.Search(ctx, &opensearchapi.SearchReq{
-	Indices:    []string{"go-test-index1"},
-	BodyReader: query,
-})
+searchResp, err := client.Search(ctx, &opensearchapi.SearchReq{Indices: []string{index}})
 if err != nil {
 	return err
 }
 for _, hit := range searchResp.Hits.Hits {
-	fmt.Printf("Search hit: %s\n", hit.Source)
+	var s Student
+	if err := json.Unmarshal(hit.Source, &s); err != nil {
+		return err
+	}
+	fmt.Printf("%+v\n", s)
 }
+```
+{% include copy.html %}
+
+Search using a term query:
+
+```go
+searchResp, err := client.Search(ctx, &opensearchapi.SearchReq{
+	Indices:    []string{index},
+	BodyReader: strings.NewReader(`{"query": {"term": {"gradYear": 2019}}}`),
+})
 ```
 {% include copy.html %}
 
 ## Updating a document
 
-To update specific fields of a document, use the `Doc.Update` method:
+Update specific fields of a document using a partial document in the `doc` field. Only the specified fields are updated:
 
 ```go
 updateResp, err := client.Doc.Update(ctx, opensearchapi.UpdateReq{
-	Index:      "go-test-index1",
+	Index:      index,
 	ID:         "1",
-	BodyReader: strings.NewReader(`{ "doc": { "year": "2012" } }`),
+	BodyReader: strings.NewReader(`{"doc": {"gpa": 3.92}}`),
 })
 ```
 {% include copy.html %}
 
 ## Deleting a document
 
-To delete a document, use the `Doc.Delete` method:
+Delete a document using the following code:
 
 ```go
 deleteResp, err := client.Doc.Delete(ctx, opensearchapi.DeleteReq{
-	Index: "go-test-index1",
-	ID:    "1",
+	Index:  index,
+	ID:     "3",
+	Params: &opensearchapi.DeleteParams{Refresh: "true"},
 })
 ```
 {% include copy.html %}
 
 ## Deleting an index
 
-To delete an index, use the `Indices.Delete` method:
+Delete an index using the following code:
 
 ```go
-deleteIndexResp, err := client.Indices.Delete(ctx, &opensearchapi.IndicesDeleteReq{
-	Indices: []string{"go-test-index1"},
-})
+deleteIndexResp, err := client.Indices.Delete(ctx, &opensearchapi.IndicesDeleteReq{Indices: []string{index}})
 ```
 {% include copy.html %}
 
 ## Sample program
 
-The following sample program creates a client, creates an index with non-default settings, indexes a document, performs bulk operations, searches for documents, updates a document, deletes a document, and then deletes the index. The program connects to a cluster that does not have the Security plugin enabled. To connect to a cluster that uses the Security plugin, replace the client configuration with the one in [Connecting to OpenSearch](#connecting-to-opensearch):
+The following sample program creates a client, creates an index, indexes documents individually and in bulk, searches for documents, updates a document, deletes a document, and then deletes the index.
+
+### Without security
+
+Use the following sample program when connecting to an OpenSearch cluster that does not have the Security plugin enabled:
 
 ```go
 package main
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"os"
 	"strings"
 
 	"github.com/opensearch-project/opensearch-go/v5"
 	"github.com/opensearch-project/opensearch-go/v5/opensearchapi"
+	"github.com/opensearch-project/opensearch-go/v5/opensearchutil"
 )
 
-const IndexName = "go-test-index1"
+type Student struct {
+	FirstName string  `json:"firstName"`
+	LastName  string  `json:"lastName"`
+	GPA       float64 `json:"gpa"`
+	GradYear  int     `json:"gradYear"`
+}
 
 func main() {
-	if err := example(); err != nil {
+	if err := run(); err != nil {
 		fmt.Println("Error:", err)
 		os.Exit(1)
 	}
 }
 
-func example() error {
+func run() error {
 	ctx := context.Background()
 
-	// Initialize the client.
 	client, err := opensearchapi.NewClient(opensearchapi.Config{
 		Client: opensearch.Config{
-			Addresses: []string{"http://localhost:9200"},
-			// Send requests only to the listed address.
+			Addresses:            []string{"http://localhost:9200"},
 			DiscoverNodesOnStart: new(false),
 		},
 	})
@@ -406,118 +430,333 @@ func example() error {
 		return err
 	}
 
-	// Print OpenSearch version information.
-	infoResp, err := client.Info(ctx, nil)
+	// Create the index
+	index := "students"
+	fmt.Println("Creating index......")
+	createResp, err := client.Indices.Create(ctx, opensearchapi.IndicesCreateReq{Index: index})
 	if err != nil {
 		return err
 	}
-	fmt.Printf("Connected to %s, version %s\n", infoResp.ClusterName, infoResp.Version.Number)
+	fmt.Println("Index created:", createResp.Index)
 
-	// Create an index with non-default settings.
-	settings := strings.NewReader(`{
-		"settings": {
-			"index": {
-				"number_of_shards": 1,
-				"number_of_replicas": 0
-			}
-		}
-	}`)
-
-	createResp, err := client.Indices.Create(ctx, opensearchapi.IndicesCreateReq{
-		Index:      IndexName,
-		BodyReader: settings,
-	})
-	if err != nil {
-		return err
-	}
-	fmt.Printf("Created index: %s\n", createResp.Index)
-
-	// Index a document.
-	document := strings.NewReader(`{
-		"title": "Moneyball",
-		"director": "Bennett Miller",
-		"year": "2011"
-	}`)
-
-	docID := "1"
+	// Index a document
+	fmt.Println("\nIndexing one student......")
+	student := Student{FirstName: "John", LastName: "Doe", GPA: 3.89, GradYear: 2022}
 	indexResp, err := client.Doc.Index(ctx, opensearchapi.IndexReq{
-		Index:  IndexName,
-		ID:     docID,
-		Body:   document,
+		Index:  index,
+		ID:     "1",
+		Body:   opensearchutil.NewJSONReader(student),
 		Params: &opensearchapi.IndexParams{Refresh: "true"},
 	})
 	if err != nil {
 		return err
 	}
-	fmt.Printf("Indexed document: %s, result: %s\n", indexResp.ID, indexResp.Result)
+	fmt.Printf("Result: %s, id: %s, version: %d\n", indexResp.Result, indexResp.ID, indexResp.Version)
 
-	// Perform bulk operations.
+	// Bulk index documents
+	fmt.Println("\nIndexing many students......")
+	students := []struct {
+		id      string
+		student Student
+	}{
+		{"2", Student{FirstName: "Paulo", LastName: "Santos", GPA: 3.93, GradYear: 2021}},
+		{"3", Student{FirstName: "Shirley", LastName: "Rodriguez", GPA: 3.91, GradYear: 2019}},
+	}
+	var bulkBody strings.Builder
+	for _, s := range students {
+		doc, err := json.Marshal(s.student)
+		if err != nil {
+			return err
+		}
+		fmt.Fprintf(&bulkBody, "{\"index\":{\"_id\":%q}}\n%s\n", s.id, doc)
+	}
 	bulkResp, err := client.Doc.Bulk(ctx, opensearchapi.BulkReq{
-		Body: strings.NewReader(`{ "index": { "_index": "go-test-index1", "_id": "2" } }
-{ "title": "Interstellar", "director": "Christopher Nolan", "year": "2014" }
-{ "create": { "_index": "go-test-index1", "_id": "3" } }
-{ "title": "Star Trek Beyond", "director": "Justin Lin", "year": "2015" }
-{ "update": { "_index": "go-test-index1", "_id": "3" } }
-{ "doc": { "year": "2016" } }
-`),
+		Index:  index,
+		Body:   strings.NewReader(bulkBody.String()),
 		Params: &opensearchapi.BulkParams{Refresh: "true"},
 	})
 	if err != nil {
 		return err
 	}
-	fmt.Printf("Bulk operations completed: %d items, errors: %t\n", len(bulkResp.Items), bulkResp.Errors)
+	fmt.Println("Errors:", bulkResp.Errors)
+	for _, item := range bulkResp.Items {
+		fmt.Printf("  %s id: %s\n", *item.Index.Result, *item.Index.ID)
+	}
 
-	// Search for documents.
-	query := strings.NewReader(`{
-		"size": 5,
-		"query": {
-			"multi_match": {
-				"query": "miller",
-				"fields": ["title^2", "director"]
-			}
-		}
-	}`)
-
-	searchResp, err := client.Search(ctx, &opensearchapi.SearchReq{
-		Indices:    []string{IndexName},
-		BodyReader: query,
-	})
+	// Search for all students
+	fmt.Println("\nSearching for all students......")
+	searchResp, err := client.Search(ctx, &opensearchapi.SearchReq{Indices: []string{index}})
 	if err != nil {
 		return err
 	}
+	total, err := searchResp.Hits.Total.TotalHits()
+	if err != nil {
+		return err
+	}
+	fmt.Println("Total hits:", total.Value)
 	for _, hit := range searchResp.Hits.Hits {
-		fmt.Printf("Search hit: %s\n", hit.Source)
+		var s Student
+		if err := json.Unmarshal(hit.Source, &s); err != nil {
+			return err
+		}
+		fmt.Printf("  %+v\n", s)
 	}
 
-	// Update a document.
+	// Search for students who graduated in 2019
+	fmt.Println("\nSearching for students who graduated in 2019......")
+	searchResp, err = client.Search(ctx, &opensearchapi.SearchReq{
+		Indices:    []string{index},
+		BodyReader: strings.NewReader(`{"query": {"term": {"gradYear": 2019}}}`),
+	})
+	if err != nil {
+		return err
+	}
+	total, err = searchResp.Hits.Total.TotalHits()
+	if err != nil {
+		return err
+	}
+	fmt.Println("Total hits:", total.Value)
+	for _, hit := range searchResp.Hits.Hits {
+		var s Student
+		if err := json.Unmarshal(hit.Source, &s); err != nil {
+			return err
+		}
+		fmt.Printf("  %+v\n", s)
+	}
+
+	// Update a document
+	fmt.Println("\nUpdating a student's GPA......")
 	updateResp, err := client.Doc.Update(ctx, opensearchapi.UpdateReq{
-		Index:      IndexName,
-		ID:         docID,
-		BodyReader: strings.NewReader(`{ "doc": { "year": "2012" } }`),
+		Index:      index,
+		ID:         "1",
+		BodyReader: strings.NewReader(`{"doc": {"gpa": 3.92}}`),
 	})
 	if err != nil {
 		return err
 	}
-	fmt.Printf("Updated document: %s, result: %s\n", updateResp.ID, updateResp.Result)
+	fmt.Printf("Result: %s, version: %d\n", updateResp.Result, updateResp.Version)
 
-	// Delete a document.
+	// Get the updated document
+	getResp, err := client.Doc.Get(ctx, opensearchapi.GetReq{Index: index, ID: "1"})
+	if err != nil {
+		return err
+	}
+	var updated Student
+	if err := json.Unmarshal(getResp.Source, &updated); err != nil {
+		return err
+	}
+	fmt.Printf("Updated document: %+v\n", updated)
+
+	// Delete a document
+	fmt.Println("\nDeleting a student......")
 	deleteResp, err := client.Doc.Delete(ctx, opensearchapi.DeleteReq{
-		Index: IndexName,
-		ID:    docID,
+		Index:  index,
+		ID:     "3",
+		Params: &opensearchapi.DeleteParams{Refresh: "true"},
 	})
 	if err != nil {
 		return err
 	}
-	fmt.Printf("Deleted document: %s, result: %s\n", deleteResp.ID, deleteResp.Result)
+	fmt.Println("Result:", deleteResp.Result)
 
-	// Delete the index.
-	deleteIndexResp, err := client.Indices.Delete(ctx, &opensearchapi.IndicesDeleteReq{
-		Indices: []string{IndexName},
+	// Delete the index
+	fmt.Println("\nDeleting the index......")
+	deleteIndexResp, err := client.Indices.Delete(ctx, &opensearchapi.IndicesDeleteReq{Indices: []string{index}})
+	if err != nil {
+		return err
+	}
+	fmt.Println("Acknowledged:", deleteIndexResp.Acknowledged)
+
+	return nil
+}
+```
+{% include copy.html %}
+
+### With security
+
+Use the following sample program when connecting to an OpenSearch cluster that has the Security plugin enabled. Make sure to change the credentials to match your cluster configuration:
+
+```go
+package main
+
+import (
+	"context"
+	"encoding/json"
+	"fmt"
+	"os"
+	"strings"
+
+	"github.com/opensearch-project/opensearch-go/v5"
+	"github.com/opensearch-project/opensearch-go/v5/opensearchapi"
+	"github.com/opensearch-project/opensearch-go/v5/opensearchutil"
+)
+
+type Student struct {
+	FirstName string  `json:"firstName"`
+	LastName  string  `json:"lastName"`
+	GPA       float64 `json:"gpa"`
+	GradYear  int     `json:"gradYear"`
+}
+
+func main() {
+	if err := run(); err != nil {
+		fmt.Println("Error:", err)
+		os.Exit(1)
+	}
+}
+
+func run() error {
+	ctx := context.Background()
+
+	client, err := opensearchapi.NewClient(opensearchapi.Config{
+		Client: opensearch.Config{
+			Addresses:            []string{"https://localhost:9200"},
+			InsecureSkipVerify:   true,    // For testing only. Use certificate for validation.
+			Username:             "admin", // For testing only. Don't store credentials in code.
+			Password:             "<custom-admin-password>",
+			DiscoverNodesOnStart: new(false),
+		},
 	})
 	if err != nil {
 		return err
 	}
-	fmt.Printf("Deleted index: %t\n", deleteIndexResp.Acknowledged)
+
+	// Create the index
+	index := "students"
+	fmt.Println("Creating index......")
+	createResp, err := client.Indices.Create(ctx, opensearchapi.IndicesCreateReq{Index: index})
+	if err != nil {
+		return err
+	}
+	fmt.Println("Index created:", createResp.Index)
+
+	// Index a document
+	fmt.Println("\nIndexing one student......")
+	student := Student{FirstName: "John", LastName: "Doe", GPA: 3.89, GradYear: 2022}
+	indexResp, err := client.Doc.Index(ctx, opensearchapi.IndexReq{
+		Index:  index,
+		ID:     "1",
+		Body:   opensearchutil.NewJSONReader(student),
+		Params: &opensearchapi.IndexParams{Refresh: "true"},
+	})
+	if err != nil {
+		return err
+	}
+	fmt.Printf("Result: %s, id: %s, version: %d\n", indexResp.Result, indexResp.ID, indexResp.Version)
+
+	// Bulk index documents
+	fmt.Println("\nIndexing many students......")
+	students := []struct {
+		id      string
+		student Student
+	}{
+		{"2", Student{FirstName: "Paulo", LastName: "Santos", GPA: 3.93, GradYear: 2021}},
+		{"3", Student{FirstName: "Shirley", LastName: "Rodriguez", GPA: 3.91, GradYear: 2019}},
+	}
+	var bulkBody strings.Builder
+	for _, s := range students {
+		doc, err := json.Marshal(s.student)
+		if err != nil {
+			return err
+		}
+		fmt.Fprintf(&bulkBody, "{\"index\":{\"_id\":%q}}\n%s\n", s.id, doc)
+	}
+	bulkResp, err := client.Doc.Bulk(ctx, opensearchapi.BulkReq{
+		Index:  index,
+		Body:   strings.NewReader(bulkBody.String()),
+		Params: &opensearchapi.BulkParams{Refresh: "true"},
+	})
+	if err != nil {
+		return err
+	}
+	fmt.Println("Errors:", bulkResp.Errors)
+	for _, item := range bulkResp.Items {
+		fmt.Printf("  %s id: %s\n", *item.Index.Result, *item.Index.ID)
+	}
+
+	// Search for all students
+	fmt.Println("\nSearching for all students......")
+	searchResp, err := client.Search(ctx, &opensearchapi.SearchReq{Indices: []string{index}})
+	if err != nil {
+		return err
+	}
+	total, err := searchResp.Hits.Total.TotalHits()
+	if err != nil {
+		return err
+	}
+	fmt.Println("Total hits:", total.Value)
+	for _, hit := range searchResp.Hits.Hits {
+		var s Student
+		if err := json.Unmarshal(hit.Source, &s); err != nil {
+			return err
+		}
+		fmt.Printf("  %+v\n", s)
+	}
+
+	// Search for students who graduated in 2019
+	fmt.Println("\nSearching for students who graduated in 2019......")
+	searchResp, err = client.Search(ctx, &opensearchapi.SearchReq{
+		Indices:    []string{index},
+		BodyReader: strings.NewReader(`{"query": {"term": {"gradYear": 2019}}}`),
+	})
+	if err != nil {
+		return err
+	}
+	total, err = searchResp.Hits.Total.TotalHits()
+	if err != nil {
+		return err
+	}
+	fmt.Println("Total hits:", total.Value)
+	for _, hit := range searchResp.Hits.Hits {
+		var s Student
+		if err := json.Unmarshal(hit.Source, &s); err != nil {
+			return err
+		}
+		fmt.Printf("  %+v\n", s)
+	}
+
+	// Update a document
+	fmt.Println("\nUpdating a student's GPA......")
+	updateResp, err := client.Doc.Update(ctx, opensearchapi.UpdateReq{
+		Index:      index,
+		ID:         "1",
+		BodyReader: strings.NewReader(`{"doc": {"gpa": 3.92}}`),
+	})
+	if err != nil {
+		return err
+	}
+	fmt.Printf("Result: %s, version: %d\n", updateResp.Result, updateResp.Version)
+
+	// Get the updated document
+	getResp, err := client.Doc.Get(ctx, opensearchapi.GetReq{Index: index, ID: "1"})
+	if err != nil {
+		return err
+	}
+	var updated Student
+	if err := json.Unmarshal(getResp.Source, &updated); err != nil {
+		return err
+	}
+	fmt.Printf("Updated document: %+v\n", updated)
+
+	// Delete a document
+	fmt.Println("\nDeleting a student......")
+	deleteResp, err := client.Doc.Delete(ctx, opensearchapi.DeleteReq{
+		Index:  index,
+		ID:     "3",
+		Params: &opensearchapi.DeleteParams{Refresh: "true"},
+	})
+	if err != nil {
+		return err
+	}
+	fmt.Println("Result:", deleteResp.Result)
+
+	// Delete the index
+	fmt.Println("\nDeleting the index......")
+	deleteIndexResp, err := client.Indices.Delete(ctx, &opensearchapi.IndicesDeleteReq{Indices: []string{index}})
+	if err != nil {
+		return err
+	}
+	fmt.Println("Acknowledged:", deleteIndexResp.Acknowledged)
 
 	return nil
 }
