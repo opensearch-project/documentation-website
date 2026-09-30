@@ -42,6 +42,7 @@ The Predict Stream API depends on the following plugins, which are included in t
 
 ```bash
 bin/opensearch-plugin install transport-reactor-netty4
+bin/opensearch-plugin install arrow-base
 bin/opensearch-plugin install arrow-flight-rpc
 ```
 
