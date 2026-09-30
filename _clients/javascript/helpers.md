@@ -7,11 +7,11 @@ nav_order: 2
 
 # Helper methods
 
-Helper methods simplify the use of complicated API tasks. For the client's complete API documentation and additional examples, see the [JS client API documentation](https://opensearch-project.github.io/opensearch-js/2.2/index.html).
+Helper methods simplify the use of complicated API tasks. For the client's complete API documentation and additional examples, see the [JS client API documentation](https://opensearch-project.github.io/opensearch-js/3.6/index.html).
 
 ## Bulk helper
 
-The bulk helper simplifies making complex bulk API requests. The bulk helper supports operations of the same kind. Alternatively, you can use the `client.bulk` method to perform multiple types of bulk operations. For example, you can send `delete` and `index` operations in one bulk request. For more information, see the [Bulk guide](https://github.com/opensearch-project/opensearch-js/blob/main/guides/bulk.md).
+The bulk helper simplifies making complex bulk API requests. It splits the documents in the data source into batches, sends each batch to the Bulk API, and retries failed operations. Because the `onDocument` function returns the operation for each document, one call can combine `index`, `create`, `update`, and `delete` operations. To send a bulk request body that you construct yourself, use the `client.bulk` method. For more information, see the [Bulk guide](https://github.com/opensearch-project/opensearch-js/blob/main/guides/bulk.md).
 
 ### Usage
 
@@ -44,6 +44,7 @@ Bulk helper operations return an object with the following fields:
   failed: number,
   retry: number,
   successful: number,
+  noop: number,
   time: number,
   bytes: number,
   aborted: boolean
@@ -62,7 +63,7 @@ When creating a new bulk helper instance, you can use the following configuratio
 | `flushBytes` | Integer |  Optional. Default is 5,000,000. | Maximum bulk body size to send in bytes.
 | `flushInterval` | Integer |  Optional. Default is 30,000. | Time in milliseconds to wait before flushing the body after the last document has been read.
 | `onDrop` | Function | Optional. Default is `noop`. | A function to be invoked for every document that can’t be indexed after reaching the maximum number of retries. 
-| `refreshOnCompletion` | Boolean | Optional. Default is `false`. | Whether or not a refresh should be run on all affected indexes at the end of the bulk operation. 
+| `refreshOnCompletion` | Boolean or string | Optional. Default is `false`. | Whether a refresh should be run at the end of the bulk operation. Set to `true` to refresh all indexes or to an index name to refresh only that index. 
 | `retries` | Integer |  Optional. Defaults to the client's  `maxRetries` value. | The number of times an operation is retried before `onDrop` is called for that document.
 | `wait` | Integer |  Optional. Default is 5,000. | Time in milliseconds to wait before retrying an operation.
 
@@ -144,7 +145,7 @@ client.helpers.bulk({
 
 The update operation updates the document with the fields being sent. The document must already exist in the index.
 
-The following bulk operation updates documents in the `arrayOfDocuments`:
+The following bulk operation updates documents in `example-index`:
 
 ```javascript
 client.helpers.bulk({
@@ -163,7 +164,7 @@ client.helpers.bulk({
 ```
 {% include copy.html %}
 
-The following bulk operation updates documents in the `arrayOfDocuments` with document overwrite:
+The following bulk operation updates documents in `example-index` with document overwrite:
 
 ```javascript
 client.helpers.bulk({
@@ -202,4 +203,5 @@ client.helpers.bulk({
 {% include copy.html %}
 
 ## Related documentation
-https://github.com/opensearch-project/opensearch-js/tree/main/guides
+
+For more examples and advanced index actions, see the [`opensearch-js` guides](https://github.com/opensearch-project/opensearch-js/tree/main/guides) in GitHub.

@@ -9,13 +9,15 @@ redirect_from:
 
 # JavaScript client
 
-The OpenSearch JavaScript (JS) client provides a safer and easier way to interact with your OpenSearch cluster. Rather than using OpenSearch from the browser and potentially exposing your data to the public, you can build an OpenSearch client that takes care of sending requests to your cluster. For the client's complete API documentation and additional examples, see the [JS client API documentation](https://opensearch-project.github.io/opensearch-js/2.2/index.html).
+The OpenSearch JavaScript (JS) client provides a safer and easier way to interact with your OpenSearch cluster. Rather than using OpenSearch from the browser and potentially exposing your data to the public, you can build an OpenSearch client that takes care of sending requests to your cluster. For the client's complete API documentation and additional examples, see the [JS client API documentation](https://opensearch-project.github.io/opensearch-js/3.6/index.html).
 
 The client contains a library of APIs that let you perform different operations on your cluster and return a standard response body. The example here demonstrates some basic operations like creating an index, adding documents, and searching your data. 
 
 You can use helper methods to simplify the use of complicated API tasks. For more information, see [Helper methods]({{site.url}}{{site.baseurl}}/clients/javascript/helpers/). For more advanced index actions, see the [`opensearch-js` guides](https://github.com/opensearch-project/opensearch-js/tree/main/guides) in GitHub.  
 
 ## Setup
+
+The client requires Node.js 14 or later.
 
 To add the client to your project, install it from [`npm`](https://www.npmjs.com):
 
@@ -24,12 +26,15 @@ npm install @opensearch-project/opensearch
 ```
 {% include copy.html %}
 
-To install a specific major version of the client, run the following command:
+To install a specific version of the client, run the following command:
 
 ```bash
 npm install @opensearch-project/opensearch@<version>
 ```
 {% include copy.html %}
+
+Do not install versions 3.5.3, 3.6.2, 3.7.0, or 3.8.0. These versions contain malicious code that an external actor published through the project's release infrastructure. For more information and remediation steps, see [GHSA-27f5-xjrr-q9ff](https://github.com/opensearch-project/opensearch-js/security/advisories/GHSA-27f5-xjrr-q9ff).
+{: .warning}
 
 If you prefer to add the client manually or only want to examine the source code, see [`opensearch-js`](https://github.com/opensearch-project/opensearch-js) on GitHub.
 
@@ -88,6 +93,9 @@ var client = new Client({
 
 ## Authenticating with Amazon OpenSearch Service: AWS Signature Version 4
 
+The AWS SDK for JavaScript V2 reached end of support on September 8, 2025. For new applications, use the AWS SDK for JavaScript V3 examples in this section.
+{: .note}
+
 Use the following code to authenticate with AWS V2 SDK:
 
 ```javascript
@@ -99,11 +107,11 @@ const client = new Client({
   ...AwsSigv4Signer({
     region: 'us-west-2',
     service: 'es',
-    // Must return a Promise that resolve to an AWS.Credentials object.
-    // This function is used to acquire the credentials when the client start and
-    // when the credentials are expired.
-    // The Client will refresh the Credentials only when they are expired.
-    // With AWS SDK V2, Credentials.refreshPromise is used when available to refresh the credentials.
+    // Must return a Promise that resolves to an AWS.Credentials object.
+    // This function acquires the credentials when the client starts and
+    // when the credentials expire.
+    // The client refreshes the credentials only when they expire, using
+    // Credentials.refreshPromise when it is available.
 
     // Example with AWS SDK V2:
     getCredentials: () =>
@@ -134,11 +142,11 @@ const client = new Client({
   ...AwsSigv4Signer({
     region: 'us-west-2',
     service: 'aoss',
-    // Must return a Promise that resolve to an AWS.Credentials object.
-    // This function is used to acquire the credentials when the client start and
-    // when the credentials are expired.
-    // The Client will refresh the Credentials only when they are expired.
-    // With AWS SDK V2, Credentials.refreshPromise is used when available to refresh the credentials.
+    // Must return a Promise that resolves to an AWS.Credentials object.
+    // This function acquires the credentials when the client starts and
+    // when the credentials expire.
+    // The client refreshes the credentials only when they expire, using
+    // Credentials.refreshPromise when it is available.
 
     // Example with AWS SDK V2:
     getCredentials: () =>
@@ -163,17 +171,19 @@ Use the following code to authenticate with AWS V3 SDK:
 ```javascript
 const { defaultProvider } = require('@aws-sdk/credential-provider-node'); // V3 SDK.
 const { Client } = require('@opensearch-project/opensearch');
-const { AwsSigv4Signer } = require('@opensearch-project/opensearch/aws');
+// Use the aws-v3 import path with the AWS SDK for JavaScript V3. It lazy loads
+// only the V3 credential providers.
+const { AwsSigv4Signer } = require('@opensearch-project/opensearch/aws-v3');
 
 const client = new Client({
   ...AwsSigv4Signer({
     region: 'us-east-1',
     service: 'es',  // 'aoss' for OpenSearch Serverless
-    // Must return a Promise that resolve to an AWS.Credentials object.
-    // This function is used to acquire the credentials when the client start and
-    // when the credentials are expired.
-    // The Client will refresh the Credentials only when they are expired.
-    // With AWS SDK V2, Credentials.refreshPromise is used when available to refresh the credentials.
+    // Must return a Promise that resolves to an AWS.Credentials object.
+    // This function acquires the credentials when the client starts and
+    // when the credentials expire.
+    // The client treats the credentials as expired if they are within
+    // requestTimeout milliseconds of expiration (the default is 30,000).
 
     // Example with AWS SDK V3:
     getCredentials: () => {
@@ -193,17 +203,19 @@ Use the following code to authenticate with the AWS V3 SDK for Amazon OpenSearch
 ```javascript
 const { defaultProvider } = require('@aws-sdk/credential-provider-node'); // V3 SDK.
 const { Client } = require('@opensearch-project/opensearch');
-const { AwsSigv4Signer } = require('@opensearch-project/opensearch/aws');
+// Use the aws-v3 import path with the AWS SDK for JavaScript V3. It lazy loads
+// only the V3 credential providers.
+const { AwsSigv4Signer } = require('@opensearch-project/opensearch/aws-v3');
 
 const client = new Client({
   ...AwsSigv4Signer({
     region: 'us-east-1',
     service: 'aoss',
-    // Must return a Promise that resolve to an AWS.Credentials object.
-    // This function is used to acquire the credentials when the client start and
-    // when the credentials are expired.
-    // The Client will refresh the Credentials only when they are expired.
-    // With AWS SDK V2, Credentials.refreshPromise is used when available to refresh the credentials.
+    // Must return a Promise that resolves to an AWS.Credentials object.
+    // This function acquires the credentials when the client starts and
+    // when the credentials expire.
+    // The client treats the credentials as expired if they are within
+    // requestTimeout milliseconds of expiration (the default is 30,000).
 
     // Example with AWS SDK V3:
     getCredentials: () => {
@@ -228,17 +240,19 @@ The following example AWS Lambda function code demonstrates the correct initiali
 ```javascript
 const { defaultProvider } = require('@aws-sdk/credential-provider-node'); // V3 SDK.
 const { Client } = require('@opensearch-project/opensearch');
-const { AwsSigv4Signer } = require('@opensearch-project/opensearch/aws');
+// Use the aws-v3 import path with the AWS SDK for JavaScript V3. It lazy loads
+// only the V3 credential providers.
+const { AwsSigv4Signer } = require('@opensearch-project/opensearch/aws-v3');
 
 const client = new Client({
   ...AwsSigv4Signer({
     region: 'us-east-1',
     service: 'es',  // 'aoss' for OpenSearch Serverless
-    // Must return a Promise that resolve to an AWS.Credentials object.
-    // This function is used to acquire the credentials when the client start and
-    // when the credentials are expired.
-    // The Client will refresh the Credentials only when they are expired.
-    // With AWS SDK V2, Credentials.refreshPromise is used when available to refresh the credentials.
+    // Must return a Promise that resolves to an AWS.Credentials object.
+    // This function acquires the credentials when the client starts and
+    // when the credentials expire.
+    // The client treats the credentials as expired if they are within
+    // requestTimeout milliseconds of expiration (the default is 30,000).
 
     // Example with AWS SDK V3:
     getCredentials: () => {
@@ -251,7 +265,7 @@ const client = new Client({
   // node: "https://xxx.region.aoss.amazonaws.com" for OpenSearch Serverless
 });
 
-export const handler = async (event, context) => {
+exports.handler = async (event, context) => {
   const indexName = "books";
 
   const settings = {
@@ -269,10 +283,10 @@ export const handler = async (event, context) => {
     body: settings,
   });
 
+  return response.body;
 };
 ```
 {% include copy.html %}
-
 
 ## Creating an index
 
@@ -299,7 +313,7 @@ var response = await client.indices.create({
 
 ## Indexing a document
 
-You can index a document into OpenSearch using the client's `index` method:
+Index a document into OpenSearch using the client's `index` method:
 
 ```javascript
 var document = {
@@ -319,6 +333,27 @@ var response = await client.index({
 });
 ```
 {% include copy.html %}
+
+## Bulk indexing
+
+Index multiple documents in one request using the client's `bulk` method. The request body is an array in which each action is followed by the document that it applies to:
+
+```javascript
+var documents = [
+  { index: { _index: index_name, _id: "2" } },
+  { title: "Fairy Tale", author: "Stephen King", year: "2022", genre: "Fantasy" },
+  { index: { _index: index_name, _id: "3" } },
+  { title: "The Institute", author: "Stephen King", year: "2019", genre: "Science fiction" },
+];
+
+var response = await client.bulk({
+  body: documents,
+  refresh: true,
+});
+```
+{% include copy.html %}
+
+To build the request body from an array, a stream, or an async generator, use the [bulk helper]({{site.url}}{{site.baseurl}}/clients/javascript/helpers/#bulk-helper).
 
 ## Searching for documents
 
@@ -344,7 +379,7 @@ var response = await client.search({
 
 ## Updating a document
 
-You can update a document using the client's `update` method:
+Update a document using the client's `update` method:
 
 ```javascript
 var response = await client.update({
@@ -366,22 +401,22 @@ For example, the following code updates the `genre` field and adds a `tv_adapted
 
 ```javascript
 var response = await client.update({
-    index: index_name,
-    id: id,
-    body: {
-      doc: {
-        genre: "Detective fiction",
-        tv_adapted: true
-      }
-    },
-    refresh: true
-  });
+  index: index_name,
+  id: id,
+  body: {
+    doc: {
+      genre: "Detective fiction",
+      tv_adapted: true
+    }
+  },
+  refresh: true
+});
 ```
 {% include copy.html %}
 
 ## Deleting a document
 
-You can delete a document using the client's `delete` method:
+Delete a document using the client's `delete` method:
 
 ```javascript
 var response = await client.delete({
@@ -404,39 +439,29 @@ var response = await client.indices.delete({
 
 ## Sample program
 
-The following sample program creates a client, adds an index with non-default settings, inserts a document, searches for the document, deletes the document, and then deletes the index:
+The following sample program creates a client, creates an index with non-default settings, indexes documents individually and in bulk, searches for documents, updates a document, deletes a document, and then deletes the index.
+
+### Without security
+
+Use the following sample program when connecting to an OpenSearch cluster that does not have the Security plugin enabled:
 
 ```javascript
 "use strict";
 
 var host = "localhost";
-var protocol = "https";
+var protocol = "http";
 var port = 9200;
-var auth = "admin:<custom-admin-password>"; // For testing only. Don't store credentials in code.
-var ca_certs_path = "/full/path/to/root-ca.pem";
 
-// Optional client certificates if you don't want to use HTTP basic authentication
-// var client_cert_path = '/full/path/to/client.pem'
-// var client_key_path = '/full/path/to/client-key.pem'
-
-// Create a client with SSL/TLS enabled
+// Create a client
 var { Client } = require("@opensearch-project/opensearch");
-var fs = require("fs");
 var client = new Client({
-  node: protocol + "://" + auth + "@" + host + ":" + port,
-  ssl: {
-    ca: fs.readFileSync(ca_certs_path),
-    // You can turn off certificate verification (rejectUnauthorized: false) if you're using 
-    // self-signed certificates with a hostname mismatch.
-    // cert: fs.readFileSync(client_cert_path),
-    // key: fs.readFileSync(client_key_path)
-  },
+  node: protocol + "://" + host + ":" + port,
 });
 
 async function search() {
   // Create an index with non-default settings
   var index_name = "books";
-  
+
   var settings = {
     settings: {
       index: {
@@ -464,7 +489,7 @@ async function search() {
 
   var id = "1";
 
-  var response = await client.index({
+  response = await client.index({
     id: id,
     index: index_name,
     body: document,
@@ -474,18 +499,34 @@ async function search() {
   console.log("Adding document:");
   console.log(response.body);
 
-  // Search for the document
+  // Add multiple documents in one request
+  var documents = [
+    { index: { _index: index_name, _id: "2" } },
+    { title: "Fairy Tale", author: "Stephen King", year: "2022", genre: "Fantasy" },
+    { index: { _index: index_name, _id: "3" } },
+    { title: "The Institute", author: "Stephen King", year: "2019", genre: "Science fiction" },
+  ];
+
+  response = await client.bulk({
+    body: documents,
+    refresh: true,
+  });
+
+  console.log("Bulk indexing documents:");
+  console.log(response.body);
+
+  // Search for the documents
   var query = {
     query: {
       match: {
-        title: {
-          query: "The Outsider",
+        author: {
+          query: "Stephen King",
         },
       },
     },
   };
 
-  var response = await client.search({
+  response = await client.search({
     index: index_name,
     body: query,
   });
@@ -494,39 +535,23 @@ async function search() {
   console.log(JSON.stringify(response.body.hits, null, "  "));
 
   // Update a document
-  var response = await client.update({
+  response = await client.update({
     index: index_name,
     id: id,
     body: {
       doc: {
         genre: "Detective fiction",
-        tv_adapted: true
-      }
-    },
-    refresh: true
-  });
-
-  // Search for the updated document
-  var query = {
-    query: {
-      match: {
-        title: {
-          query: "The Outsider",
-        },
+        tv_adapted: true,
       },
     },
-  };
-
-  var response = await client.search({
-    index: index_name,
-    body: query,
+    refresh: true,
   });
 
-  console.log("Search results:");
-  console.log(JSON.stringify(response.body.hits, null, "  "));
+  console.log("Updating document:");
+  console.log(response.body);
 
-  // Delete the document
-  var response = await client.delete({
+  // Delete a document
+  response = await client.delete({
     index: index_name,
     id: id,
   });
@@ -535,7 +560,152 @@ async function search() {
   console.log(response.body);
 
   // Delete the index
-  var response = await client.indices.delete({
+  response = await client.indices.delete({
+    index: index_name,
+  });
+
+  console.log("Deleting index:");
+  console.log(response.body);
+}
+
+search().catch(console.log);
+```
+{% include copy.html %}
+
+### With security
+
+Use the following sample program when connecting to an OpenSearch cluster that has the Security plugin enabled. Change the credentials and the root certificate path to match your cluster configuration:
+
+```javascript
+"use strict";
+
+var host = "localhost";
+var protocol = "https";
+var port = 9200;
+var auth = "admin:<custom-admin-password>"; // For testing only. Don't store credentials in code.
+var ca_certs_path = "/full/path/to/root-ca.pem";
+
+// Optional client certificates if you don't want to use HTTP basic authentication
+// var client_cert_path = '/full/path/to/client.pem'
+// var client_key_path = '/full/path/to/client-key.pem'
+
+// Create a client with SSL/TLS enabled
+var { Client } = require("@opensearch-project/opensearch");
+var fs = require("fs");
+var client = new Client({
+  node: protocol + "://" + auth + "@" + host + ":" + port,
+  ssl: {
+    ca: fs.readFileSync(ca_certs_path),
+    // You can turn off certificate verification (rejectUnauthorized: false) if you're using
+    // self-signed certificates with a hostname mismatch.
+    // cert: fs.readFileSync(client_cert_path),
+    // key: fs.readFileSync(client_key_path)
+  },
+});
+
+async function search() {
+  // Create an index with non-default settings
+  var index_name = "books";
+
+  var settings = {
+    settings: {
+      index: {
+        number_of_shards: 4,
+        number_of_replicas: 3,
+      },
+    },
+  };
+
+  var response = await client.indices.create({
+    index: index_name,
+    body: settings,
+  });
+
+  console.log("Creating index:");
+  console.log(response.body);
+
+  // Add a document to the index
+  var document = {
+    title: "The Outsider",
+    author: "Stephen King",
+    year: "2018",
+    genre: "Crime fiction",
+  };
+
+  var id = "1";
+
+  response = await client.index({
+    id: id,
+    index: index_name,
+    body: document,
+    refresh: true,
+  });
+
+  console.log("Adding document:");
+  console.log(response.body);
+
+  // Add multiple documents in one request
+  var documents = [
+    { index: { _index: index_name, _id: "2" } },
+    { title: "Fairy Tale", author: "Stephen King", year: "2022", genre: "Fantasy" },
+    { index: { _index: index_name, _id: "3" } },
+    { title: "The Institute", author: "Stephen King", year: "2019", genre: "Science fiction" },
+  ];
+
+  response = await client.bulk({
+    body: documents,
+    refresh: true,
+  });
+
+  console.log("Bulk indexing documents:");
+  console.log(response.body);
+
+  // Search for the documents
+  var query = {
+    query: {
+      match: {
+        author: {
+          query: "Stephen King",
+        },
+      },
+    },
+  };
+
+  response = await client.search({
+    index: index_name,
+    body: query,
+  });
+
+  console.log("Search results:");
+  console.log(JSON.stringify(response.body.hits, null, "  "));
+
+  // Update a document
+  response = await client.update({
+    index: index_name,
+    id: id,
+    body: {
+      doc: {
+        genre: "Detective fiction",
+        tv_adapted: true,
+      },
+    },
+    refresh: true,
+  });
+
+  console.log("Updating document:");
+  console.log(response.body);
+
+  // Delete a document
+  response = await client.delete({
+    index: index_name,
+    id: id,
+  });
+
+  console.log("Deleting document:");
+  console.log(response.body);
+
+  // Delete the index
+  response = await client.indices.delete({
     index: index_name,
   });
 
