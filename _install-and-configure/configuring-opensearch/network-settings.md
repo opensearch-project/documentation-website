@@ -9,7 +9,7 @@ nav_order: 20
 
 OpenSearch uses HTTP settings to configure communication with external clients through the REST API and transport settings for internal node-to-node communication within OpenSearch.
 
-To learn more about static and dynamic settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
+To learn how to apply these settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
 
 OpenSearch supports the following common network settings:
 

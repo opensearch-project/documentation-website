@@ -9,7 +9,7 @@ nav_order: 30
 
 The following are settings related to discovery and local gateway.
 
-To learn more about static and dynamic settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
+To learn how to apply these settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
 
 ## Discovery settings
 

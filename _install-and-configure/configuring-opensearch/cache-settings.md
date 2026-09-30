@@ -2,14 +2,14 @@
 layout: default
 title: Cache settings
 parent: Configuring OpenSearch
-nav_order: 65
+nav_order: 70
 ---
 
 # Cache settings
 
 OpenSearch provides various cache settings to optimize memory usage and performance. These settings control how OpenSearch manages cached data structures and memory allocation for caching operations.
 
-To learn more about static and dynamic settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
+To learn how to apply these settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
 
 ## Cache recycler settings
 
