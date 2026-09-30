@@ -25,6 +25,7 @@ pip install opensearch-py
 After installing the client, you can import it like any other module:
 
 ```python
+import json
 from opensearchpy import OpenSearch, Search, Document, Text, Float, Integer
 ```
 {% include copy.html %}
@@ -157,7 +158,7 @@ You can use the `Search` class to construct a query. To search for all documents
 ```python
 response = Search(using=client, index=index_name).execute()
 for hit in response:
-    print(hit.to_dict())
+    print(json.dumps(hit.to_dict(), separators=(',', ':')))
 ```
 {% include copy.html %}
 
@@ -218,6 +219,7 @@ The following sample program creates a client, creates an index, indexes documen
 Use the following sample program when connecting to an OpenSearch cluster that does not have the Security plugin enabled:
 
 ```python
+import json
 from opensearchpy import OpenSearch, Search, Document, Text, Float, Integer
 
 host = 'localhost'
@@ -276,14 +278,14 @@ print('\nSearching for all students......')
 response = Search(using=client, index=index_name).execute()
 print(f"Total hits: {response.hits.total.value}")
 for hit in response:
-    print(f"  {hit.to_dict()}")
+    print(f"  {json.dumps(hit.to_dict(), separators=(',', ':'))}")
 
 # Search for students who graduated in 2019.
 print('\nSearching for students who graduated in 2019......')
 response = Search(using=client, index=index_name).query('term', gradYear=2019).execute()
 print(f"Total hits: {response.hits.total.value}")
 for hit in response:
-    print(f"  {hit.to_dict()}")
+    print(f"  {json.dumps(hit.to_dict(), separators=(',', ':'))}")
 
 # Update a document.
 print("\nUpdating a student's GPA......")
@@ -293,7 +295,7 @@ print(f"Result: {result}, version: {student.meta.version}")
 
 # Get the updated document.
 student = Student.get(id='1', using=client)
-print(f"Updated document: {student.to_dict()}")
+print(f"Updated document: {json.dumps(student.to_dict(), separators=(',', ':'))}")
 
 # Delete a document.
 print('\nDeleting a student......')
@@ -312,6 +314,7 @@ print(f"Acknowledged: {str(response['acknowledged']).lower()}")
 Use the following sample program when connecting to an OpenSearch cluster that has the Security plugin enabled. Make sure to change the credentials and CA certificate path to match your cluster configuration:
 
 ```python
+import json
 from opensearchpy import OpenSearch, Search, Document, Text, Float, Integer
 
 host = 'localhost'
@@ -374,14 +377,14 @@ print('\nSearching for all students......')
 response = Search(using=client, index=index_name).execute()
 print(f"Total hits: {response.hits.total.value}")
 for hit in response:
-    print(f"  {hit.to_dict()}")
+    print(f"  {json.dumps(hit.to_dict(), separators=(',', ':'))}")
 
 # Search for students who graduated in 2019.
 print('\nSearching for students who graduated in 2019......')
 response = Search(using=client, index=index_name).query('term', gradYear=2019).execute()
 print(f"Total hits: {response.hits.total.value}")
 for hit in response:
-    print(f"  {hit.to_dict()}")
+    print(f"  {json.dumps(hit.to_dict(), separators=(',', ':'))}")
 
 # Update a document.
 print("\nUpdating a student's GPA......")
@@ -391,7 +394,7 @@ print(f"Result: {result}, version: {student.meta.version}")
 
 # Get the updated document.
 student = Student.get(id='1', using=client)
-print(f"Updated document: {student.to_dict()}")
+print(f"Updated document: {json.dumps(student.to_dict(), separators=(',', ':'))}")
 
 # Delete a document.
 print('\nDeleting a student......')

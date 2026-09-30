@@ -30,6 +30,7 @@ pip install opensearch-py
 After installing the client, you can import it like any other module:
 
 ```python
+import json
 from opensearchpy import OpenSearch
 ```
 {% include copy.html %}
@@ -216,7 +217,7 @@ To search for all documents in an index, use the `client.search()` method withou
 ```python
 response = client.search(index=index_name)
 for hit in response['hits']['hits']:
-    print(hit['_source'])
+    print(json.dumps(hit['_source'], separators=(',', ':')))
 ```
 {% include copy.html %}
 
@@ -264,6 +265,7 @@ The following sample program creates a client, creates an index, indexes documen
 Use the following sample program when connecting to an OpenSearch cluster that does not have the Security plugin enabled:
 
 ```python
+import json
 from opensearchpy import OpenSearch
 
 host = 'localhost'
@@ -309,7 +311,7 @@ print('\nSearching for all students......')
 response = client.search(index=index_name)
 print(f"Total hits: {response['hits']['total']['value']}")
 for hit in response['hits']['hits']:
-    print(f"  {hit['_source']}")
+    print(f"  {json.dumps(hit['_source'], separators=(',', ':'))}")
 
 # Search for students who graduated in 2019.
 print('\nSearching for students who graduated in 2019......')
@@ -317,7 +319,7 @@ query = {'query': {'term': {'gradYear': 2019}}}
 response = client.search(index=index_name, body=query)
 print(f"Total hits: {response['hits']['total']['value']}")
 for hit in response['hits']['hits']:
-    print(f"  {hit['_source']}")
+    print(f"  {json.dumps(hit['_source'], separators=(',', ':'))}")
 
 # Update a document.
 print("\nUpdating a student's GPA......")
@@ -326,7 +328,7 @@ print(f"Result: {response['result']}, version: {response['_version']}")
 
 # Get the updated document.
 response = client.get(index=index_name, id='1')
-print(f"Updated document: {response['_source']}")
+print(f"Updated document: {json.dumps(response['_source'], separators=(',', ':'))}")
 
 # Delete a document.
 print('\nDeleting a student......')
@@ -345,6 +347,7 @@ print(f"Acknowledged: {str(response['acknowledged']).lower()}")
 Use the following sample program when connecting to an OpenSearch cluster that has the Security plugin enabled. Make sure to change the credentials and CA certificate path to match your cluster configuration:
 
 ```python
+import json
 from opensearchpy import OpenSearch
 
 host = 'localhost'
@@ -394,7 +397,7 @@ print('\nSearching for all students......')
 response = client.search(index=index_name)
 print(f"Total hits: {response['hits']['total']['value']}")
 for hit in response['hits']['hits']:
-    print(f"  {hit['_source']}")
+    print(f"  {json.dumps(hit['_source'], separators=(',', ':'))}")
 
 # Search for students who graduated in 2019.
 print('\nSearching for students who graduated in 2019......')
@@ -402,7 +405,7 @@ query = {'query': {'term': {'gradYear': 2019}}}
 response = client.search(index=index_name, body=query)
 print(f"Total hits: {response['hits']['total']['value']}")
 for hit in response['hits']['hits']:
-    print(f"  {hit['_source']}")
+    print(f"  {json.dumps(hit['_source'], separators=(',', ':'))}")
 
 # Update a document.
 print("\nUpdating a student's GPA......")
@@ -411,7 +414,7 @@ print(f"Result: {response['result']}, version: {response['_version']}")
 
 # Get the updated document.
 response = client.get(index=index_name, id='1')
-print(f"Updated document: {response['_source']}")
+print(f"Updated document: {json.dumps(response['_source'], separators=(',', ':'))}")
 
 # Delete a document.
 print('\nDeleting a student......')
