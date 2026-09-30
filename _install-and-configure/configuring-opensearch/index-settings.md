@@ -1,5 +1,5 @@
 ---
-layout: defaul
+layout: default
 title: Index settings
 parent: Configuring OpenSearch
 nav_order: 170

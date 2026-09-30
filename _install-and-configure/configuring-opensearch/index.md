@@ -1,5 +1,5 @@
 ---
-layout: defaul
+layout: default
 title: Configuring OpenSearch
 nav_order: 10
 has_children: true
@@ -154,14 +154,14 @@ sudo systemctl restart opensearch
 When running OpenSearch in Docker, you can specify environment variables using the `-e` option of the `docker run` command, as shown in the following example:
 
 ```bash
-docker run -e "OPENSEARCH_JAVA_OPTS=-Xms2g -Xmx2g" -e "OPENSEARCH_PATH_CONF=/usr/share/opensearch/config" opensearchproject/opensearch:lates
+docker run -e "OPENSEARCH_JAVA_OPTS=-Xms2g -Xmx2g" -e "OPENSEARCH_PATH_CONF=/usr/share/opensearch/config" opensearchproject/opensearch:latest
 ```
 {% include copy.html %}
 
 Docker accepts environment variable names that contain dots, so you can pass OpenSearch settings directly using the `-e` option. The OpenSearch Docker image converts each environment variable whose name has the form of a setting into an `-E` flag. A name has the form of a setting if it begins with at least two dot-separated parts containing lowercase letters, digits, or underscores, for example, `discovery.type`. The `processors` setting is also converted. The following command passes two settings as environment variables:
 
 ```bash
-docker run -e "discovery.type=single-node" -e "cluster.name=my-cluster" opensearchproject/opensearch:lates
+docker run -e "discovery.type=single-node" -e "cluster.name=my-cluster" opensearchproject/opensearch:latest
 ```
 {% include copy.html %}
 

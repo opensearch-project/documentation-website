@@ -1,5 +1,5 @@
 ---
-layout: defaul
+layout: default
 title: Cluster settings for indexes
 parent: Configuring OpenSearch
 nav_order: 60
