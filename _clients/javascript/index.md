@@ -354,6 +354,17 @@ response.body.hits.hits.forEach((hit) => console.log(hit._source));
 ```
 {% include copy.html %}
 
+Each item in `response.body.hits.hits` is a plain JavaScript object. The document ID is in the `_id` property, and the document fields are properties of the `_source` object:
+
+```javascript
+response.body.hits.hits.forEach((hit) => {
+  console.log(
+    `ID: ${hit._id}, name: ${hit._source.firstName} ${hit._source.lastName}, GPA: ${hit._source.gpa}, graduation year: ${hit._source.gradYear}`
+  );
+});
+```
+{% include copy.html %}
+
 Search using a `term` query:
 
 ```javascript
