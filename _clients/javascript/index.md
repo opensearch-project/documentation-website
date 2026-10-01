@@ -15,7 +15,7 @@ The client contains a library of APIs that let you perform different operations 
 
 You can use helper methods to simplify the use of complicated API tasks. For more information, see [Helper methods]({{site.url}}{{site.baseurl}}/clients/javascript/helpers/). For more advanced index actions, see the [`opensearch-js` guides](https://github.com/opensearch-project/opensearch-js/tree/main/guides) in GitHub.  
 
-## Setup
+## Installing the JavaScript client
 
 The client requires Node.js 14 or later.
 
