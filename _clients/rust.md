@@ -46,7 +46,7 @@ use opensearch::OpenSearch;
 
 ## Sample data
 
-The examples on this page use a `Student` struct to represent documents. The `#[serde(rename_all = "camelCase")]` attribute serializes the struct fields to the `firstName`, `lastName`, `gpa`, and `gradYear` JSON fields:
+The examples on this page use a `Student` struct to represent documents. The `#[serde(rename_all = "camelCase")]` attribute serializes the struct fields to the `firstName`, `lastName`, `gpa`, and `gradDate` JSON fields:
 
 ```rust
 use serde::{Deserialize, Serialize};
@@ -57,16 +57,16 @@ struct Student {
     first_name: String,
     last_name: String,
     gpa: f64,
-    grad_year: i32,
+    grad_date: String,
 }
 
 impl Student {
-    fn new(first_name: &str, last_name: &str, gpa: f64, grad_year: i32) -> Self {
+    fn new(first_name: &str, last_name: &str, gpa: f64, grad_date: &str) -> Self {
         Student {
             first_name: first_name.to_string(),
             last_name: last_name.to_string(),
             gpa,
-            grad_year,
+            grad_date: grad_date.to_string(),
         }
     }
 }
@@ -195,7 +195,7 @@ Amazon OpenSearch Serverless supports a subset of OpenSearch API operations and 
 
 ## Creating an index
 
-The following example creates an index with one primary shard and one replica. It explicitly maps the `lastName` field as `keyword` and the `gradYear` field as `integer`. OpenSearch maps the other document fields dynamically when you index documents:
+The following example creates an index with one primary shard and one replica. It explicitly maps the `gradDate` field as a `date` in the `yyyy-MM-dd` format. OpenSearch maps the other document fields dynamically when you index documents:
 
 ```rust
 let index = "students";
@@ -211,8 +211,7 @@ let response = client
         },
         "mappings": {
             "properties": {
-                "lastName": { "type": "keyword" },
-                "gradYear": { "type": "integer" }
+                "gradDate": { "type": "date", "format": "yyyy-MM-dd" }
             }
         }
     }))
@@ -226,7 +225,7 @@ let response = client
 You can index a document into OpenSearch using the client's `index` function. The `refresh(Refresh::True)` call makes the document immediately available for search. `Refresh` is defined in the `opensearch::params` module:
 
 ```rust
-let student = Student::new("John", "Doe", 3.89, 2022);
+let student = Student::new("John", "Doe", 3.89, "2022-05-15");
 let response = client
     .index(IndexParts::IndexId(index, "1"))
     .body(student)
@@ -243,9 +242,9 @@ You can perform several operations at the same time by using the client's `bulk`
 ```rust
 let body: Vec<JsonBody<Value>> = vec![
     json!({"index": {"_id": "2"}}).into(),
-    serde_json::to_value(Student::new("Paulo", "Santos", 3.93, 2021))?.into(),
+    serde_json::to_value(Student::new("Paulo", "Santos", 3.93, "2021-05-20"))?.into(),
     json!({"index": {"_id": "3"}}).into(),
-    serde_json::to_value(Student::new("Shirley", "Rodriguez", 3.91, 2019))?.into(),
+    serde_json::to_value(Student::new("Shirley", "Rodriguez", 3.91, "2019-05-10"))?.into(),
 ];
 let response = client
     .bulk(BulkParts::Index(index))
@@ -289,22 +288,25 @@ for hit in response_body["hits"]["hits"].as_array().unwrap_or(&vec![]) {
     let id = hit["_id"].as_str().unwrap_or_default();
     let student: Student = serde_json::from_value(hit["_source"].clone())?;
     println!(
-        "ID: {}, name: {} {}, GPA: {}, graduation year: {}",
-        id, student.first_name, student.last_name, student.gpa, student.grad_year
+        "ID: {}, name: {} {}, GPA: {}, graduation date: {}",
+        id, student.first_name, student.last_name, student.gpa, student.grad_date
     );
 }
 ```
 {% include copy.html %}
 
-To search for students who graduated in 2019, use a `term` query on the `gradYear` field:
+To search for students who graduated in 2019, use a `range` query on the `gradDate` field:
 
 ```rust
 let response = client
     .search(SearchParts::Index(&[index]))
     .body(json!({
         "query": {
-            "term": {
-                "gradYear": 2019
+            "range": {
+                "gradDate": {
+                    "gte": "2019-01-01",
+                    "lte": "2019-12-31"
+                }
             }
         }
     }))
@@ -413,16 +415,16 @@ struct Student {
     first_name: String,
     last_name: String,
     gpa: f64,
-    grad_year: i32,
+    grad_date: String,
 }
 
 impl Student {
-    fn new(first_name: &str, last_name: &str, gpa: f64, grad_year: i32) -> Self {
+    fn new(first_name: &str, last_name: &str, gpa: f64, grad_date: &str) -> Self {
         Student {
             first_name: first_name.to_string(),
             last_name: last_name.to_string(),
             gpa,
-            grad_year,
+            grad_date: grad_date.to_string(),
         }
     }
 }
@@ -462,8 +464,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             },
             "mappings": {
                 "properties": {
-                    "lastName": { "type": "keyword" },
-                    "gradYear": { "type": "integer" }
+                    "gradDate": { "type": "date", "format": "yyyy-MM-dd" }
                 }
             }
         }))
@@ -475,7 +476,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     // Index a document
     println!("\nIndexing one student......");
-    let student = Student::new("John", "Doe", 3.89, 2022);
+    let student = Student::new("John", "Doe", 3.89, "2022-05-15");
     let response_body = client
         .index(IndexParts::IndexId(index, "1"))
         .body(student)
@@ -495,9 +496,9 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     println!("\nIndexing many students......");
     let body: Vec<JsonBody<Value>> = vec![
         json!({"index": {"_id": "2"}}).into(),
-        serde_json::to_value(Student::new("Paulo", "Santos", 3.93, 2021))?.into(),
+        serde_json::to_value(Student::new("Paulo", "Santos", 3.93, "2021-05-20"))?.into(),
         json!({"index": {"_id": "3"}}).into(),
-        serde_json::to_value(Student::new("Shirley", "Rodriguez", 3.91, 2019))?.into(),
+        serde_json::to_value(Student::new("Shirley", "Rodriguez", 3.91, "2019-05-10"))?.into(),
     ];
     let response_body = client
         .bulk(BulkParts::Index(index))
@@ -534,8 +535,11 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         .search(SearchParts::Index(&[index]))
         .body(json!({
             "query": {
-                "term": {
-                    "gradYear": 2019
+                "range": {
+                    "gradDate": {
+                        "gte": "2019-01-01",
+                        "lte": "2019-12-31"
+                    }
                 }
             }
         }))
