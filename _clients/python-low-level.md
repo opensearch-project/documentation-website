@@ -281,7 +281,7 @@ response = client.indices.delete(index=index_name)
 
 ## Sample program
 
-The sample program connects to a cluster that has the Security plugin enabled. To connect to a cluster without the Security plugin, change the lines marked with `# Without security` comments.
+This sample program combines the code from the preceding sections. It connects to a cluster that has the Security plugin enabled. To connect to a cluster without the Security plugin, change the lines marked with `# Without security` comments.
 
 This sample program is for testing only. It specifies credentials in code. In production, load credentials from a secure location.
 {: .warning}
