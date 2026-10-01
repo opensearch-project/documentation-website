@@ -93,6 +93,8 @@ composer require aws/aws-sdk-php
 ```
 {% include copy.html %}
 
+In the following example, replace the endpoint with your domain endpoint, which is listed on the domain's details page in the Amazon OpenSearch Service console.
+
 Then pass the `auth_aws` option when you create the client:
 
 ```php
@@ -129,6 +131,8 @@ $client = (new \OpenSearch\GuzzleClientFactory())->create([
 For more information, see [IAM authentication using a PSR client](https://github.com/opensearch-project/opensearch-php/blob/main/guides/auth.md#using-a-psr-client-1).
 
 ## Connecting to Amazon OpenSearch Serverless
+
+In the following example, replace the endpoint with your collection endpoint, which is listed on the collection's details page in the Amazon OpenSearch Service console.
 
 To connect to Amazon OpenSearch Serverless, set `service` to `aoss` and specify your collection endpoint. The following example checks whether an index exists:
 
