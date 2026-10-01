@@ -200,10 +200,10 @@ Parameter | Type | Description
 `deletion` | Object | Configuration for snapshot deletion. Optional. Default is to retain all snapshots.
 `deletion.schedule` | String | The cron schedule used to delete snapshots. Optional. Default is to use `creation.schedule`, which is required.
 `deletion.time_limit` | String | Sets the maximum time to wait for snapshot deletion to finish. Optional. 
-`deletion.delete_condition` | Object | Conditions for snapshot deletion. Optional. 
-`deletion.delete_condition.max_count` | Integer | The maximum number of snapshots to be retained. Optional.
-`deletion.delete_condition.max_age` | String | The maximum time a snapshot is retained. Optional.
-`deletion.delete_condition.min_count` | Integer | The minimum number of snapshots to be retained. Optional. Default is `1`.
+`deletion.condition` | Object | Conditions for snapshot deletion. Required. 
+`deletion.condition.max_count` | Integer | The maximum number of snapshots to be retained. Optional.
+`deletion.condition.max_age` | String | The maximum time a snapshot is retained. Optional.
+`deletion.condition.min_count` | Integer | The minimum number of snapshots to be retained. Optional. Default is `1`.
 `deletion.snapshot_pattern` | String | Additional snapshot patterns to include in deletion. This allows deletion of snapshots that match the specified pattern in addition to the policy's own snapshots. Supports wildcards (`*`). Optional.
 `notification` | Object | Defines notifications for SM events. Optional.
 `notification.channel` | Object | Defines a channel for notifications. You must [create and configure a notification channel]({{site.url}}{{site.baseurl}}/notifications-plugin/api/) before setting up SM notifications. Required.
