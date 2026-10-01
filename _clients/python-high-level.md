@@ -222,6 +222,9 @@ response = client.indices.delete(index=index_name)
 
 The sample program connects to a cluster that has the Security plugin enabled. To connect to a cluster without the Security plugin, change the lines marked with `# Without security` comments.
 
+This sample program is for testing only. It specifies credentials in code. In production, load credentials from a secure location.
+{: .warning}
+
 The following sample program creates a client, creates an index, indexes documents individually and in bulk, searches for documents, updates a document, deletes a document, and then deletes the index:
 
 ```python
@@ -231,7 +234,7 @@ from opensearchpy import OpenSearch, Search, Document, Text, Float, Integer
 host = 'localhost'
 port = 9200
 # Without security, remove this line
-auth = ('admin', '<custom-admin-password>') # For testing only. Don't store credentials in code.
+auth = ('admin', '<custom-admin-password>')
 # Without security, remove this line
 ca_certs_path = '/full/path/to/root-ca.pem' # Provide a CA bundle if you use intermediate CAs with your root CA.
 
