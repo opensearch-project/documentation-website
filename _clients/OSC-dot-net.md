@@ -19,34 +19,50 @@ To install OpenSearch.Client, download the [OpenSearch.Client NuGet package](htt
 - In the **Solution Explorer** panel, right-click on your solution or project and select **Manage NuGet Packages for Solution**.
 - Search for the OpenSearch.Client NuGet package, and select **Install**.
 
-Alternatively, you can add OpenSearch.Client to your .csproj file:
+Alternatively, add OpenSearch.Client to your project using the .NET CLI:
+
+```bash
+dotnet add package OpenSearch.Client --version 2.2.0
+```
+{% include copy.html %}
+
+You can also add OpenSearch.Client to your .csproj file:
+
 ```xml
 <Project>
   ...
   <ItemGroup>
-    <PackageReference Include="OpenSearch.Client" Version="1.0.0" />
+    <PackageReference Include="OpenSearch.Client" Version="2.2.0" />
   </ItemGroup>
 </Project>
 ```
 {% include copy.html %}
 
+OpenSearch.Client depends on OpenSearch.Net, so installing OpenSearch.Client also installs the low-level client. For information about supported OpenSearch versions and target frameworks, see [Compatibility]({{site.url}}{{site.baseurl}}/clients/dot-net/#compatibility).
+
 ## Example
 
-The following example illustrates connecting to OpenSearch, indexing documents, and sending queries on the data. It uses the Student class to represent one student, which is equivalent to one document in the index.
+The following example illustrates connecting to OpenSearch, indexing documents, and sending queries on the data. It uses the `Student` class to represent one student, which is equivalent to one document in the index. The `ToString` method formats a `Student` for console output:
 
 ```cs
+using System.Globalization;
+
 public class Student
 {
-    public int Id { get; init; }
-    public string FirstName { get; init; }
-    public string LastName { get; init; }
-    public int GradYear { get; init; }
-    public double Gpa { get; init; }
+    public string FirstName { get; set; } = string.Empty;
+    public string LastName { get; set; } = string.Empty;
+    public double Gpa { get; set; }
+    public string GradDate { get; set; } = string.Empty;
+
+    public override string ToString() =>
+        string.Format(CultureInfo.InvariantCulture,
+            "{% raw %}Student{{firstName='{0}', lastName='{1}', gpa={2}, gradDate={3}}}{% endraw %}",
+            FirstName, LastName, Gpa, GradDate);
 }
 ```
 {% include copy.html %}
 
-By default, OpenSearch.Client uses camel case to convert property names to field names.
+By default, OpenSearch.Client uses camel case to convert property names to field names, so a `Student` is indexed as a document containing the `firstName`, `lastName`, `gpa`, and `gradDate` fields.
 {: .note}
 
 ## Connecting to OpenSearch
@@ -84,7 +100,8 @@ var client = new OpenSearchClient(settings);
 
 ## Using ConnectionSettings
 
-`ConnectionConfiguration` is used to pass configuration options to the low-level OpenSearch.Net client. `ConnectionSettings` inherits from `ConnectionConfiguration` and provides additional configuration options.
+`ConnectionConfiguration` is used to pass configuration options to the low-level OpenSearch.Net client. `ConnectionSettings` inherits from `ConnectionConfiguration` and provides additional configuration options for the high-level client, such as a default index name for requests and the mapping of property names to field names. `ConnectionSettings` is part of the OpenSearch.Client package.
+
 To set the address of the node and the default index name for requests that don't specify the index name, create a `ConnectionSettings` object:
 
 ```cs
@@ -94,70 +111,108 @@ var client = new OpenSearchClient(config);
 ```
 {% include copy.html %}
 
+## Creating an index
+
+The following example creates an index with one primary shard and one replica. It explicitly maps the `gradDate` field as a `date` in the `yyyy-MM-dd` format. OpenSearch maps the other document fields dynamically when you index documents:
+
+```cs
+var index = "students";
+var createIndexResponse = client.Indices.Create(index, c => c
+    .Settings(s => s
+        .NumberOfShards(1)
+        .NumberOfReplicas(1))
+    .Map<Student>(m => m
+        .Properties(p => p
+            .Date(d => d.Name(f => f.GradDate).Format("yyyy-MM-dd")))));
+```
+{% include copy.html %}
+
 ## Indexing one document
 
-Create one instance of Student:
+Create one instance of `Student`:
 
 ```cs
-var student = new Student { Id = 100, FirstName = "Paulo", LastName = "Santos", Gpa = 3.93, GradYear = 2021 };
+var student = new Student { FirstName = "John", LastName = "Doe", Gpa = 3.89, GradDate = "2022-05-15" };
 ```
 {% include copy.html %}
 
-To index one document, you can use either fluent lambda syntax or object initializer syntax.
+To index one document, you can use either fluent lambda syntax or object initializer syntax. The following examples set `Refresh` to `Refresh.True` so that the document is immediately available for search.
 
-Index this Student into the `students` index using fluent lambda syntax:
+Index this `Student` into the `students` index with the ID `1` using fluent lambda syntax:
 
 ```cs
-var response = client.Index(student, i => i.Index("students"));
+var indexResponse = client.Index(student, i => i
+    .Index(index)
+    .Id("1")
+    .Refresh(Refresh.True));
 ```
 {% include copy.html %}
 
-Index this Student into the `students` index using object initializer syntax:
+Index this `Student` into the `students` index with the ID `1` using object initializer syntax:
 
 ```cs
-var response = client.Index(new IndexRequest<Student>(student, "students"));
+var indexResponse = client.Index(new IndexRequest<Student>(student, index, "1")
+{
+    Refresh = Refresh.True
+});
 ```
 {% include copy.html %}
 
 ## Indexing many documents
 
-You can index many documents from a collection at the same time by using the OpenSearch.Client's `IndexMany` method: 
+Index multiple documents in a single request using the Bulk API:
 
 ```cs
-var studentArray = new Student[]
-{
-    new() {Id = 200, FirstName = "Shirley", LastName = "Rodriguez", Gpa = 3.91, GradYear = 2019},
-    new() {Id = 300, FirstName = "Nikki", LastName = "Wolf", Gpa = 3.87, GradYear = 2020}
-};
-
-var manyResponse = client.IndexMany(studentArray, "students");
+var bulkResponse = client.Bulk(b => b
+    .Index(index)
+    .Refresh(Refresh.True)
+    .Index<Student>(op => op
+        .Id("2")
+        .Document(new Student { FirstName = "Paulo", LastName = "Santos", Gpa = 3.93, GradDate = "2021-05-20" }))
+    .Index<Student>(op => op
+        .Id("3")
+        .Document(new Student { FirstName = "Shirley", LastName = "Rodriguez", Gpa = 3.91, GradDate = "2019-05-10" })));
 ```
 {% include copy.html %}
 
-## Searching for a document
+## Searching for documents
 
-To search for a student indexed previously, you want to construct a query that is analogous to the following Query DSL query:
+Search for all documents in an index using the following code:
 
-```json
-GET students/_search
+```cs
+var searchResponse = client.Search<Student>(s => s
+    .Index(index)
+    .From(0)
+    .Size(10));
+foreach (var doc in searchResponse.Documents)
 {
-  "query" : {
-    "match": {
-      "lastName": "Santos"
-    }
-  }
+    Console.WriteLine(doc);
 }
 ```
+{% include copy.html %}
 
-The preceding query is a shorthand version of the following explicit query:
+The `from` and `size` parameters specify the offset and the number of results to return.
+
+Each item in `searchResponse.Documents` is a `Student` object, and its fields are available as properties. To also get the ID of each document, iterate over `searchResponse.Hits`. Each hit contains the document ID in the `Id` property and the `Student` object in the `Source` property:
+
+```cs
+foreach (var hit in searchResponse.Hits)
+{
+    Console.WriteLine($"ID: {hit.Id}, name: {hit.Source.FirstName} {hit.Source.LastName}, GPA: {hit.Source.Gpa}, graduation date: {hit.Source.GradDate}");
+}
+```
+{% include copy.html %}
+
+To search for students who graduated in 2019, use a range query. The following Query DSL range query searches for documents whose `gradDate` falls within 2019:
 
 ```json
 GET students/_search
 {
-  "query" : {
-    "match": {
-      "lastName": {
-        "query": "Santos"
+  "query": {
+    "range": {
+      "gradDate": {
+        "gte": "2019-01-01",
+        "lte": "2019-12-31"
       }
     }
   }
@@ -168,30 +223,51 @@ In OpenSearch.Client, this query looks like this:
 
 ```cs
 var searchResponse = client.Search<Student>(s => s
-                                .Index("students")
-                                .Query(q => q
-                                    .Match(m => m
-                                        .Field(fld => fld.LastName)
-                                        .Query("Santos"))));
-```
-{% include copy.html %}
-
-You can print out the results by accessing the documents in the response:
-
-```cs
-if (searchResponse.IsValid)
-{
-    foreach (var s in searchResponse.Documents)
-    {
-        Console.WriteLine($"{s.Id} {s.LastName} {s.FirstName} {s.Gpa} {s.GradYear}");
-    }
-}
+    .Index(index)
+    .Query(q => q
+        .DateRange(r => r
+            .Field(f => f.GradDate)
+            .GreaterThanOrEquals("2019-01-01")
+            .LessThanOrEquals("2019-12-31"))));
 ```
 {% include copy.html %}
 
 The response contains one document, which corresponds to the correct student:
 
-`100 Santos Paulo 3.93 2021`
+```text
+Student{firstName='Shirley', lastName='Rodriguez', gpa=3.91, gradDate=2019-05-10}
+```
+
+## Updating a document
+
+Update a document using a partial document. Only the fields in the partial document are updated:
+
+```cs
+var updateResponse = client.Update<Student, object>("1", u => u
+    .Index(index)
+    .Doc(new { gpa = 3.92 }));
+```
+{% include copy.html %}
+
+## Deleting a document
+
+Delete a document using the following code:
+
+```cs
+var deleteResponse = client.Delete<Student>("3", d => d
+    .Index(index)
+    .Refresh(Refresh.True));
+```
+{% include copy.html %}
+
+## Deleting an index
+
+Delete an index using the following code:
+
+```cs
+var deleteIndexResponse = client.Indices.Delete(index);
+```
+{% include copy.html %}
 
 ## Using OpenSearch.Client methods asynchronously
 
@@ -199,30 +275,32 @@ For applications that require asynchronous code, all method calls in OpenSearch.
 
 ```cs
 // synchronous method
-var response = client.Index(student, i => i.Index("students"));
+var response = client.Index(student, i => i.Index(index).Id("1"));
 
 // asynchronous method
-var response = await client.IndexAsync(student, i => i.Index("students"));
+var asyncResponse = await client.IndexAsync(student, i => i.Index(index).Id("1"));
 ```
+{% include copy.html %}
 
 ## Falling back on the low-level OpenSearch.Net client
 
-OpenSearch.Client exposes the low-level the OpenSearch.Net client you can use if anything is missing:
+OpenSearch.Client exposes the low-level OpenSearch.Net client through the `LowLevel` property. Use the low-level client to call an API for which OpenSearch.Client does not provide a method or to construct the request body yourself instead of using the OpenSearch.Client query methods. The following example sends a range query as an anonymous object and deserializes the response into a `SearchResponse<Student>`:
 
 ```cs
 var lowLevelClient = client.LowLevel;
 
-var searchResponseLow = lowLevelClient.Search<SearchResponse<Student>>("students",
+var searchResponseLow = lowLevelClient.Search<SearchResponse<Student>>(index,
     PostData.Serializable(
         new
         {
             query = new
             {
-                match = new
+                range = new
                 {
-                    lastName = new
+                    gradDate = new
                     {
-                        query = "Santos"
+                        gte = "2019-01-01",
+                        lte = "2019-12-31"
                     }
                 }
             }
@@ -230,9 +308,9 @@ var searchResponseLow = lowLevelClient.Search<SearchResponse<Student>>("students
 
 if (searchResponseLow.IsValid)
 {
-    foreach (var s in searchResponseLow.Documents)
+    foreach (var doc in searchResponseLow.Documents)
     {
-        Console.WriteLine($"{s.Id} {s.LastName} {s.FirstName} {s.Gpa} {s.GradYear}");
+        Console.WriteLine(doc);
     }
 }
 ```
@@ -240,7 +318,12 @@ if (searchResponseLow.IsValid)
 
 ## Sample program
 
-The following is a complete sample program that illustrates all of the concepts described previously. It uses the Student class defined previously.
+This sample program combines the code from the preceding sections. It connects to a cluster that has the Security plugin enabled. To connect to a cluster without the Security plugin, change the lines marked with `// Without security` comments. Before running the sample program, make sure that you have the `Student` class defined in your project.
+
+This sample program is for testing only. It specifies credentials in code and disables certificate validation so that it can connect to a cluster that uses self-signed certificates. In production, load credentials from a secure location and validate the cluster's certificate.
+{: .warning}
+
+The following sample program creates a client, creates an index, indexes documents individually and in bulk, searches for documents, updates a document, deletes a document, and then deletes the index:
 
 ```cs
 using OpenSearch.Client;
@@ -250,108 +333,142 @@ namespace NetClientProgram;
 
 internal class Program
 {
-    private static IOpenSearchClient osClient = new OpenSearchClient();
-
     public static void Main(string[] args)
-    {       
-        Console.WriteLine("Indexing one student......");
-        var student = new Student { Id = 100, 
-                                    FirstName = "Paulo", 
-                                    LastName = "Santos", 
-                                    Gpa = 3.93, 
-                                    GradYear = 2021 };
-        var response =  osClient.Index(student, i => i.Index("students"));
-        Console.WriteLine(response.IsValid ? "Response received" : "Error");
+    {
+        var settings = new ConnectionSettings(new Uri("https://localhost:9200")); // Without security, use http://localhost:9200
+        settings.BasicAuthentication("admin", "<custom-admin-password>"); // Without security, remove this line
+        settings.ServerCertificateValidationCallback(CertificateValidations.AllowAll); // Without security, remove this line
+        var client = new OpenSearchClient(settings);
 
-        Console.WriteLine("Searching for one student......");
-        SearchForOneStudent();
+        // Create the index
+        var index = "students";
+        Console.WriteLine("Creating index......");
+        var createIndexResponse = client.Indices.Create(index, c => c
+            .Settings(s => s
+                .NumberOfShards(1)
+                .NumberOfReplicas(1))
+            .Map<Student>(m => m
+                .Properties(p => p
+                    .Date(d => d.Name(f => f.GradDate).Format("yyyy-MM-dd")))));
+        Console.WriteLine("Index created: " + createIndexResponse.Index);
 
-        Console.WriteLine("Searching using low-level client......");
-        SearchLowLevel();
+        // Index a document
+        Console.WriteLine("\nIndexing one student......");
+        var student = new Student { FirstName = "John", LastName = "Doe", Gpa = 3.89, GradDate = "2022-05-15" };
+        var indexResponse = client.Index(student, i => i
+            .Index(index)
+            .Id("1")
+            .Refresh(Refresh.True));
+        Console.WriteLine($"Result: {indexResponse.Result.ToString().ToLowerInvariant()}, id: {indexResponse.Id}, version: {indexResponse.Version}");
 
-        Console.WriteLine("Indexing an array of Student objects......");
-        var studentArray = new Student[]
+        // Bulk index documents
+        Console.WriteLine("\nIndexing many students......");
+        var bulkResponse = client.Bulk(b => b
+            .Index(index)
+            .Refresh(Refresh.True)
+            .Index<Student>(op => op
+                .Id("2")
+                .Document(new Student { FirstName = "Paulo", LastName = "Santos", Gpa = 3.93, GradDate = "2021-05-20" }))
+            .Index<Student>(op => op
+                .Id("3")
+                .Document(new Student { FirstName = "Shirley", LastName = "Rodriguez", Gpa = 3.91, GradDate = "2019-05-10" })));
+        Console.WriteLine("Errors: " + bulkResponse.Errors.ToString().ToLowerInvariant());
+        foreach (var item in bulkResponse.Items)
         {
-            new() { Id = 200, 
-                    FirstName = "Shirley", 
-                    LastName = "Rodriguez", 
-                    Gpa = 3.91, 
-                    GradYear = 2019},
-            new() { Id = 300, 
-                    FirstName = "Nikki", 
-                    LastName = "Wolf", 
-                    Gpa = 3.87, 
-                    GradYear = 2020}
-        };
-        var manyResponse = osClient.IndexMany(studentArray, "students");
-        Console.WriteLine(manyResponse.IsValid ? "Response received" : "Error");
-    }
-
-    private static void SearchForOneStudent()
-    {
-        var searchResponse = osClient.Search<Student>(s => s
-                                .Index("students")
-                                .Query(q => q
-                                    .Match(m => m
-                                        .Field(fld => fld.LastName)
-                                        .Query("Santos"))));
-
-        PrintResponse(searchResponse);
-    }
-
-    private static void SearchForAllStudentsWithANonEmptyLastName()
-    {
-        var searchResponse = osClient.Search<Student>(s => s
-                                .Index("students")
-                                .Query(q => q
-                        						.Bool(b => b
-                        							.Must(m => m.Exists(fld => fld.LastName))
-                        							.MustNot(m => m.Term(t => t.Verbatim().Field(fld => fld.LastName).Value(string.Empty)))
-                        						)));
-
-        PrintResponse(searchResponse);
-    }
-
-    private static void SearchLowLevel()
-    {
-        // Search for the student using the low-level client
-        var lowLevelClient = osClient.LowLevel;
-
-        var searchResponseLow = lowLevelClient.Search<SearchResponse<Student>>
-            ("students",
-            PostData.Serializable(
-                new
-                {
-                    query = new
-                    {
-                        match = new
-                        {
-                            lastName = new
-                            {
-                                query = "Santos"
-                            }
-                        }
-                    }
-                }));
-
-        PrintResponse(searchResponseLow);
-    }
-
-    private static void PrintResponse(ISearchResponse<Student> response)
-    {
-        if (response.IsValid)
-        {
-            foreach (var s in response.Documents)
-            {
-                Console.WriteLine($"{s.Id} {s.LastName} " +
-                    $"{s.FirstName} {s.Gpa} {s.GradYear}");
-            }
+            Console.WriteLine($"  {item.Result} id: {item.Id}");
         }
-        else
+
+        // Search for all students
+        Console.WriteLine("\nSearching for all students......");
+        var searchResponse = client.Search<Student>(s => s
+            .Index(index)
+            .From(0)
+            .Size(10));
+        Console.WriteLine("Total hits: " + searchResponse.Total);
+        foreach (var doc in searchResponse.Documents)
         {
-            Console.WriteLine("Student not found.");
+            Console.WriteLine("  " + doc);
         }
+
+        // Search for students who graduated in 2019
+        Console.WriteLine("\nSearching for students who graduated in 2019......");
+        var searchResponse2 = client.Search<Student>(s => s
+            .Index(index)
+            .Query(q => q
+                .DateRange(r => r
+                    .Field(f => f.GradDate)
+                    .GreaterThanOrEquals("2019-01-01")
+                    .LessThanOrEquals("2019-12-31"))));
+        Console.WriteLine("Total hits: " + searchResponse2.Total);
+        foreach (var doc in searchResponse2.Documents)
+        {
+            Console.WriteLine("  " + doc);
+        }
+
+        // Update a document
+        Console.WriteLine("\nUpdating a student's GPA......");
+        var updateResponse = client.Update<Student, object>("1", u => u
+            .Index(index)
+            .Doc(new { gpa = 3.92 }));
+        Console.WriteLine($"Result: {updateResponse.Result.ToString().ToLowerInvariant()}, version: {updateResponse.Version}");
+
+        // Get the updated document
+        var getResponse = client.Get<Student>("1", g => g.Index(index));
+        Console.WriteLine("Updated document: " + getResponse.Source);
+
+        // Delete a document
+        Console.WriteLine("\nDeleting a student......");
+        var deleteResponse = client.Delete<Student>("3", d => d
+            .Index(index)
+            .Refresh(Refresh.True));
+        Console.WriteLine("Result: " + deleteResponse.Result.ToString().ToLowerInvariant());
+
+        // Delete the index
+        Console.WriteLine("\nDeleting the index......");
+        var deleteIndexResponse = client.Indices.Delete(index);
+        Console.WriteLine("Acknowledged: " + deleteIndexResponse.Acknowledged.ToString().ToLowerInvariant());
     }
 }
 ```
 {% include copy.html %}
+
+The sample program produces the following output:
+
+```text
+Creating index......
+Index created: students
+
+Indexing one student......
+Result: created, id: 1, version: 1
+
+Indexing many students......
+Errors: false
+  created id: 2
+  created id: 3
+
+Searching for all students......
+Total hits: 3
+  Student{firstName='John', lastName='Doe', gpa=3.89, gradDate=2022-05-15}
+  Student{firstName='Paulo', lastName='Santos', gpa=3.93, gradDate=2021-05-20}
+  Student{firstName='Shirley', lastName='Rodriguez', gpa=3.91, gradDate=2019-05-10}
+
+Searching for students who graduated in 2019......
+Total hits: 1
+  Student{firstName='Shirley', lastName='Rodriguez', gpa=3.91, gradDate=2019-05-10}
+
+Updating a student's GPA......
+Result: updated, version: 2
+Updated document: Student{firstName='John', lastName='Doe', gpa=3.92, gradDate=2022-05-15}
+
+Deleting a student......
+Result: deleted
+
+Deleting the index......
+Acknowledged: true
+```
+
+## Related documentation
+
+- For more examples of using the client, see the [`opensearch-net` user guide](https://github.com/opensearch-project/opensearch-net/blob/main/USER_GUIDE.md).
+- For guides to specific tasks, such as bulk indexing and searching, see the [`opensearch-net` guides](https://github.com/opensearch-project/opensearch-net/tree/main/guides).
+- For complete sample applications, see the [`opensearch-net` samples](https://github.com/opensearch-project/opensearch-net/tree/main/samples).
