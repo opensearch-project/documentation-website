@@ -414,13 +414,9 @@ print(f"Acknowledged: {str(response['acknowledged']).lower()}")
 ```
 {% include copy.html %}
 
-## Next steps
-
-- For Python client API, see the [`opensearch-py` API documentation](https://opensearch-project.github.io/opensearch-py/).
-- For Python code samples, see [Samples](https://github.com/opensearch-project/opensearch-py/tree/main/samples).
-
 ## Related documentation
 
+- For the client API reference, see the [`opensearch-py` API documentation](https://opensearch-project.github.io/opensearch-py/).
 - For more examples of using the client, see the [`opensearch-py` user guide](https://github.com/opensearch-project/opensearch-py/blob/main/USER_GUIDE.md).
 - For guides to specific tasks, such as bulk indexing and searching, see the [`opensearch-py` guides](https://github.com/opensearch-project/opensearch-py/tree/main/guides).
 - For complete sample applications, see the [`opensearch-py` samples](https://github.com/opensearch-project/opensearch-py/tree/main/samples).
