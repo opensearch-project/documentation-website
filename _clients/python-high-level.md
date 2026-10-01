@@ -26,7 +26,7 @@ After installing the client, you can import it like any other module:
 
 ```python
 import json
-from opensearchpy import OpenSearch, Search, Document, Text, Float, Integer
+from opensearchpy import OpenSearch, Search, Index, Mapping, Document, Text, Keyword, Float, Integer
 ```
 {% include copy.html %}
 
@@ -102,11 +102,14 @@ client = OpenSearch(
 
 ## Creating an index
 
-To create an OpenSearch index, use the `client.indices.create()` method:
+The following example creates an index with one primary shard and one replica. It explicitly maps the `lastName` field as `keyword` and the `gradYear` field as `integer`. OpenSearch maps the other document fields dynamically when you index documents:
 
 ```python
 index_name = 'students'
-response = client.indices.create(index=index_name)
+index = Index(index_name, using=client)
+index.settings(number_of_shards=1, number_of_replicas=1)
+index.mapping(Mapping().field('lastName', Keyword()).field('gradYear', Integer()))
+response = index.create()
 ```
 {% include copy.html %}
 
@@ -117,7 +120,7 @@ You can create a class to represent the documents that you'll index in OpenSearc
 ```python
 class Student(Document):
     firstName = Text()
-    lastName = Text()
+    lastName = Keyword()
     gpa = Float()
     gradYear = Integer()
 
@@ -153,10 +156,10 @@ response = client.bulk(body=operations, refresh=True)
 
 ## Searching for documents
 
-You can use the `Search` class to construct a query. To search for all documents in an index, create a `Search` object without a query:
+You can use the `Search` class to construct a query. To search for all documents in an index, create a `Search` object without a query. Slicing the `Search` object sets the `from` and `size` parameters, which specify the offset and the number of results to return:
 
 ```python
-response = Search(using=client, index=index_name).execute()
+response = Search(using=client, index=index_name)[0:10].execute()
 for hit in response:
     print(json.dumps(hit.to_dict(), separators=(',', ':')))
 ```
@@ -229,7 +232,7 @@ The following sample program creates a client, creates an index, indexes documen
 
 ```python
 import json
-from opensearchpy import OpenSearch, Search, Document, Text, Float, Integer
+from opensearchpy import OpenSearch, Search, Index, Mapping, Document, Text, Keyword, Float, Integer
 
 host = 'localhost'
 port = 9200
@@ -255,7 +258,7 @@ index_name = 'students'
 # Define the structure of a student document.
 class Student(Document):
     firstName = Text()
-    lastName = Text()
+    lastName = Keyword()
     gpa = Float()
     gradYear = Integer()
 
@@ -264,7 +267,10 @@ class Student(Document):
 
 # Create the index.
 print('Creating index......')
-response = client.indices.create(index=index_name)
+index = Index(index_name, using=client)
+index.settings(number_of_shards=1, number_of_replicas=1)
+index.mapping(Mapping().field('lastName', Keyword()).field('gradYear', Integer()))
+response = index.create()
 print(f"Index created: {response['index']}")
 
 # Index a document.
@@ -290,7 +296,7 @@ for item in response['items']:
 
 # Search for all students.
 print('\nSearching for all students......')
-response = Search(using=client, index=index_name).execute()
+response = Search(using=client, index=index_name)[0:10].execute()
 print(f"Total hits: {response.hits.total.value}")
 for hit in response:
     print(f"  {json.dumps(hit.to_dict(), separators=(',', ':'))}")

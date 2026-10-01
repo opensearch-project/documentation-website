@@ -191,11 +191,25 @@ Amazon OpenSearch Serverless supports a subset of OpenSearch API operations and 
 
 ## Creating an index
 
-To create an OpenSearch index, use the `client.indices.create()` method:
+The following example creates an index with one primary shard and one replica. It explicitly maps the `lastName` field as `keyword` and the `gradYear` field as `integer`. OpenSearch maps the other document fields dynamically when you index documents:
 
 ```python
 index_name = 'students'
-response = client.indices.create(index=index_name)
+index_body = {
+    'settings': {
+        'index': {
+            'number_of_shards': 1,
+            'number_of_replicas': 1
+        }
+    },
+    'mappings': {
+        'properties': {
+            'lastName': {'type': 'keyword'},
+            'gradYear': {'type': 'integer'}
+        }
+    }
+}
+response = client.indices.create(index=index_name, body=index_body)
 ```
 {% include copy.html %}
 
@@ -226,10 +240,10 @@ response = client.bulk(body=operations, refresh=True)
 
 ## Searching for documents
 
-To search for all documents in an index, use the `client.search()` method without a query:
+To search for all documents in an index, use the `client.search()` method without a query. The `from` and `size` parameters specify the offset and the number of results to return:
 
 ```python
-response = client.search(index=index_name)
+response = client.search(index=index_name, body={'from': 0, 'size': 10})
 for hit in response['hits']['hits']:
     print(json.dumps(hit['_source'], separators=(',', ':')))
 ```
@@ -313,8 +327,22 @@ client = OpenSearch(
 
 # Create the index.
 index_name = 'students'
+index_body = {
+    'settings': {
+        'index': {
+            'number_of_shards': 1,
+            'number_of_replicas': 1
+        }
+    },
+    'mappings': {
+        'properties': {
+            'lastName': {'type': 'keyword'},
+            'gradYear': {'type': 'integer'}
+        }
+    }
+}
 print('Creating index......')
-response = client.indices.create(index=index_name)
+response = client.indices.create(index=index_name, body=index_body)
 print(f"Index created: {response['index']}")
 
 # Index a document.
@@ -338,7 +366,7 @@ for item in response['items']:
 
 # Search for all students.
 print('\nSearching for all students......')
-response = client.search(index=index_name)
+response = client.search(index=index_name, body={'from': 0, 'size': 10})
 print(f"Total hits: {response['hits']['total']['value']}")
 for hit in response['hits']['hits']:
     print(f"  {json.dumps(hit['_source'], separators=(',', ':'))}")
