@@ -37,6 +37,15 @@ from opensearchpy import OpenSearch
 ```
 {% include copy.html %}
 
+## Sample data
+
+The examples on this page use student documents. Each document is a Python dictionary that contains the `firstName`, `lastName`, `gpa`, and `gradDate` fields. For example, the following dictionary represents one student:
+
+```python
+document = {'firstName': 'John', 'lastName': 'Doe', 'gpa': 3.89, 'gradDate': '2022-05-15'}
+```
+{% include copy.html %}
+
 ## Connecting to OpenSearch
 
 To connect to the default OpenSearch host, create a client object with SSL enabled if you are using the Security plugin. Replace `<custom-admin-password>` with the admin password that you set when installing OpenSearch:
@@ -216,10 +225,9 @@ response = client.indices.create(index=index_name, body=index_body)
 
 ## Indexing a document
 
-You can index a document using the `client.index()` method:
+To index the `document` dictionary from [Sample data](#sample-data), use the `client.index()` method:
 
 ```python
-document = {'firstName': 'John', 'lastName': 'Doe', 'gpa': 3.89, 'gradDate': '2022-05-15'}
 response = client.index(index=index_name, id='1', body=document, refresh=True)
 ```
 {% include copy.html %}

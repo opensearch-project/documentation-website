@@ -30,6 +30,21 @@ from opensearchpy import OpenSearch, Search, Index, Mapping, Document, Text, Flo
 ```
 {% include copy.html %}
 
+## Sample data
+
+The examples on this page use a `Student` class to represent one student, which is equivalent to one document in the index. The class extends the `Document` class, and its attribute names are used as the document field names. The class doesn't declare the `gradDate` field, so the client sends its string value unchanged and OpenSearch stores it as a date according to the index mapping:
+
+```python
+class Student(Document):
+    firstName = Text()
+    lastName = Text()
+    gpa = Float()
+
+    class Index:
+        name = 'students'
+```
+{% include copy.html %}
+
 ## Connecting to OpenSearch
 
 To connect to the default OpenSearch host, create a client object with SSL enabled if you are using the Security plugin. Replace `<custom-admin-password>` with the admin password that you set when installing OpenSearch:
@@ -115,20 +130,7 @@ response = index.create()
 
 ## Indexing a document
 
-To represent the documents that you'll index in OpenSearch, create a class that extends the `Document` class. The class attribute names are used as the document field names. The class doesn't declare the `gradDate` field, so the client sends its string value unchanged and OpenSearch stores it as a date according to the index mapping:
-
-```python
-class Student(Document):
-    firstName = Text()
-    lastName = Text()
-    gpa = Float()
-
-    class Index:
-        name = index_name
-```
-{% include copy.html %}
-
-To index a document, create an object of the new class and call its `save()` method:
+To index a document, create an object of the `Student` class and call its `save()` method:
 
 ```python
 student = Student(meta={'id': '1'}, firstName='John', lastName='Doe', gpa=3.89, gradDate='2022-05-15')
