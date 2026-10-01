@@ -97,9 +97,9 @@ Then pass the `auth_aws` option when you create the client:
 
 ```php
 $client = (new \OpenSearch\GuzzleClientFactory())->create([
-    'base_uri' => 'https://search-<domain-name>-<id>.<region>.es.amazonaws.com',
+    'base_uri' => 'https://search-<domain-name>-<id>.us-east-1.es.amazonaws.com',
     'auth_aws' => [
-        'region' => '<region>',
+        'region' => 'us-east-1',
         'service' => 'es',
     ],
 ]);
@@ -112,9 +112,9 @@ To pass credentials explicitly, add the `credentials` option. Specify `session_t
 
 ```php
 $client = (new \OpenSearch\GuzzleClientFactory())->create([
-    'base_uri' => 'https://search-<domain-name>-<id>.<region>.es.amazonaws.com',
+    'base_uri' => 'https://search-<domain-name>-<id>.us-east-1.es.amazonaws.com',
     'auth_aws' => [
-        'region' => '<region>',
+        'region' => 'us-east-1',
         'service' => 'es',
         'credentials' => [
             'access_key' => getenv('AWS_ACCESS_KEY_ID'),
@@ -134,9 +134,9 @@ To connect to Amazon OpenSearch Serverless, set `service` to `aoss` and specify 
 
 ```php
 $client = (new \OpenSearch\GuzzleClientFactory())->create([
-    'base_uri' => 'https://<collection-id>.<region>.aoss.amazonaws.com',
+    'base_uri' => 'https://<collection-id>.us-east-1.aoss.amazonaws.com',
     'auth_aws' => [
-        'region' => '<region>',
+        'region' => 'us-east-1',
         'service' => 'aoss',
     ],
 ]);
