@@ -71,21 +71,6 @@ dependencies {
 
 You can now start your OpenSearch cluster.
 
-## Security
-
-Before using the REST client in your Java application, you must configure the application's truststore to connect to the Security plugin. If you are using self-signed certificates or demo configurations, you can use the following command to create a custom truststore and add in root authority certificates.
-
-If you're using certificates from a trusted Certificate Authority (CA), you don't need to configure the truststore.
-
-```bash
-keytool -import <path-to-cert> -alias <alias-to-call-cert> -keystore <truststore-name>
-```
-{% include copy.html %}
-
-You can now point your Java client to the truststore and set basic authentication credentials that can access a secure cluster (see the sample code in the next sections).
-
-If you run into issues when configuring security, see [common issues]({{site.url}}{{site.baseurl}}/troubleshoot/index/) and [troubleshoot TLS]({{site.url}}{{site.baseurl}}/troubleshoot/tls/).
-
 ## Sample data
 
 The sample programs in the following sections use a `Student` class to represent documents. Use the following wrapper class with numeric fields as boxed types (`Double`, `Integer`) so that partial updates serialize correctly:
@@ -126,7 +111,7 @@ public class Student {
 
 ## Initializing the client with SSL and TLS enabled using Apache HttpClient 5 Transport
 
-This code example uses basic credentials that come with the default OpenSearch configuration. If you’re using the Java client with your own OpenSearch cluster, be sure to change the code so that it uses your own credentials.
+This code example uses the `admin` user. Replace `<custom-admin-password>` with the admin password that you set when you installed OpenSearch.
 
 The following sample code initializes a client with SSL and TLS enabled:
 
@@ -152,14 +137,12 @@ import org.opensearch.client.transport.httpclient5.ApacheHttpClient5TransportBui
 
 public class OpenSearchClientExample {
   public static void main(String[] args) throws Exception {
-    System.setProperty("javax.net.ssl.trustStore", "/full/path/to/keystore");
-    System.setProperty("javax.net.ssl.trustStorePassword", "password-to-keystore");
-
     final HttpHost host = new HttpHost("https", "localhost", 9200);
     final BasicCredentialsProvider credentialsProvider = new BasicCredentialsProvider();
     // Only for demo purposes. Don't specify your credentials in code.
-    credentialsProvider.setCredentials(new AuthScope(host), new UsernamePasswordCredentials("admin", "admin".toCharArray()));
+    credentialsProvider.setCredentials(new AuthScope(host), new UsernamePasswordCredentials("admin", "<custom-admin-password>".toCharArray()));
 
+    // Trusts all certificates, including self-signed certificates. For testing only. Don't use in production.
     final SSLContext sslcontext = SSLContextBuilder
       .create()
       .loadTrustMaterial(null, (chains, authType) -> true)
@@ -192,24 +175,35 @@ public class OpenSearchClientExample {
     OpenSearchClient client = new OpenSearchClient(transport);
   }
 }
-
 ```
+{% include copy.html %}
+
+If you run into issues when configuring security, see [common issues]({{site.url}}{{site.baseurl}}/troubleshoot/index/) and [troubleshoot TLS]({{site.url}}{{site.baseurl}}/troubleshoot/tls/).
 
 ## Initializing the client with SSL and TLS enabled using RestClient Transport (deprecated)
 
 The `RestClientTransport` transport and the `org.opensearch.client.RestClient` class that it wraps are deprecated and will be removed in a future release. Use [Apache HttpClient 5 Transport](#initializing-the-client-with-ssl-and-tls-enabled-using-apache-httpclient-5-transport) instead.
 {: .warning}
 
-This code example uses basic credentials that come with the default OpenSearch configuration. If you’re using the Java client with your own OpenSearch cluster, be sure to change the code so that it uses your own credentials.
+This code example uses the `admin` user. Replace `<custom-admin-password>` with the admin password that you set when you installed OpenSearch.
 
-The following sample code initializes a client with SSL and TLS enabled:
+The RestClient transport uses the Java truststore to validate the cluster's certificate. If you are using self-signed certificates or demo certificates, create a truststore that contains the root certificate authority (CA) certificate using the following command. When prompted, enter a password for the truststore:
+
+```bash
+keytool -importcert -file <path-to-root-ca-cert> -alias <alias> -keystore <truststore-name>
+```
+{% include copy.html %}
+
+If you're using certificates from a trusted CA, you don't need to configure the truststore.
+
+In the following code, replace `/full/path/to/keystore` with the path to your truststore and `password-to-keystore` with the truststore password. The following sample code initializes a client with SSL and TLS enabled:
 
 ```java
-import org.apache.http.HttpHost;
-import org.apache.http.auth.AuthScope;
-import org.apache.http.auth.UsernamePasswordCredentials;
-import org.apache.http.impl.nio.client.HttpAsyncClientBuilder;
-import org.apache.http.impl.client.BasicCredentialsProvider;
+import org.apache.hc.core5.http.HttpHost;
+import org.apache.hc.client5.http.auth.AuthScope;
+import org.apache.hc.client5.http.auth.UsernamePasswordCredentials;
+import org.apache.hc.client5.http.impl.async.HttpAsyncClientBuilder;
+import org.apache.hc.client5.http.impl.auth.BasicCredentialsProvider;
 import org.opensearch.client.RestClient;
 import org.opensearch.client.RestClientBuilder;
 import org.opensearch.client.json.jackson.JacksonJsonpMapper;
@@ -225,7 +219,7 @@ public class OpenSearchClientExample {
     final HttpHost host = new HttpHost("https", "localhost", 9200);
     final BasicCredentialsProvider credentialsProvider = new BasicCredentialsProvider();
     //Only for demo purposes. Don't specify your credentials in code.
-    credentialsProvider.setCredentials(new AuthScope(host), new UsernamePasswordCredentials("admin", "admin".toCharArray()));
+    credentialsProvider.setCredentials(new AuthScope(host), new UsernamePasswordCredentials("admin", "<custom-admin-password>".toCharArray()));
 
     //Initialize the client with SSL and TLS enabled
     final RestClient restClient = RestClient.builder(host).
@@ -455,7 +449,7 @@ DeleteIndexResponse deleteIndexResponse = client.indices().delete(deleteIndexReq
 
 ## Sample program
 
-The sample program connects to a cluster that has the Security plugin enabled. To connect to a cluster without the Security plugin, change the lines marked with `// Without security` comments. Before running the sample program, make sure that you have the `Student` class defined in your project. Make sure to change the credentials and truststore path to match your cluster configuration.
+The sample program connects to a cluster that has the Security plugin enabled. To connect to a cluster without the Security plugin, change the lines marked with `// Without security` comments. Before running the sample program, make sure that you have the `Student` class defined in your project. Make sure to change the credentials to match your cluster configuration.
 
 The following sample program creates a client, creates an index, indexes documents individually and in bulk, searches for documents, updates a document, deletes a document, and then deletes the index:
 
@@ -497,15 +491,13 @@ import java.util.List;
 
 public class OpenSearchClientExample {
   public static void main(String[] args) throws Exception {
-    System.setProperty("javax.net.ssl.trustStore", "/full/path/to/keystore"); // Without security, remove this line
-    System.setProperty("javax.net.ssl.trustStorePassword", "password-to-keystore"); // Without security, remove this line
-
     final HttpHost host = new HttpHost("https", "localhost", 9200); // Without security, use new HttpHost("http", "localhost", 9200)
     final BasicCredentialsProvider credentialsProvider = new BasicCredentialsProvider(); // Without security, remove this line
     // Only for demo purposes. Don't specify your credentials in code.
     // Without security, remove this line
     credentialsProvider.setCredentials(new AuthScope(host), new UsernamePasswordCredentials("admin", "<custom-admin-password>".toCharArray()));
 
+    // Trusts all certificates, including self-signed certificates. For testing only. Don't use in production.
     final SSLContext sslcontext = SSLContextBuilder.create()
       .loadTrustMaterial(null, (chains, authType) -> true)
       .build();
