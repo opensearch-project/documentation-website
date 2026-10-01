@@ -531,6 +531,43 @@ puts "Acknowledged: #{response['acknowledged']}"
 ```
 {% include copy.html %}
 
+The program produces the following output:
+
+```
+Creating index......
+Index created: students
+
+Indexing one student......
+Result: created, id: 1, version: 1
+
+Indexing many students......
+Errors: false
+  created id: 2
+  created id: 3
+
+Searching for all students......
+Total hits: 3
+Page 1:
+  {"firstName":"Shirley","lastName":"Rodriguez","gpa":3.91,"gradDate":"2019-05-10"}
+  {"firstName":"Paulo","lastName":"Santos","gpa":3.93,"gradDate":"2021-05-20"}
+Page 2:
+  {"firstName":"John","lastName":"Doe","gpa":3.89,"gradDate":"2022-05-15"}
+
+Searching for students who graduated in 2019......
+Total hits: 1
+  {"firstName":"Shirley","lastName":"Rodriguez","gpa":3.91,"gradDate":"2019-05-10"}
+
+Updating a student's GPA......
+Result: updated, version: 2
+Updated document: {"firstName":"John","lastName":"Doe","gpa":3.92,"gradDate":"2022-05-15"}
+
+Deleting a student......
+Result: deleted
+
+Deleting the index......
+Acknowledged: true
+```
+
 # Ruby AWS Signature Version 4 client
 
 The [`opensearch-aws-sigv4`](https://github.com/opensearch-project/opensearch-ruby-aws-sigv4) gem provides the `OpenSearch::Aws::Sigv4Client` class, which has all features of `OpenSearch::Client`. The only difference between these two clients is that `OpenSearch::Aws::Sigv4Client` requires an instance of `Aws::Sigv4::Signer` during instantiation to authenticate with AWS:
