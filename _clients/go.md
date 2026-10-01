@@ -344,6 +344,19 @@ for _, hit := range searchResp.Hits.Hits {
 ```
 {% include copy.html %}
 
+Each item in `searchResp.Hits.Hits` is a hit containing a pointer to the document ID in the `ID` field and the document source as raw JSON in the `Source` field. To access the document fields, unmarshal `Source` into a `Student` struct:
+
+```go
+for _, hit := range searchResp.Hits.Hits {
+	var s Student
+	if err := json.Unmarshal(hit.Source, &s); err != nil {
+		return err
+	}
+	fmt.Printf("ID: %s, name: %s %s, GPA: %v, graduation year: %d\n", *hit.ID, s.FirstName, s.LastName, s.GPA, s.GradYear)
+}
+```
+{% include copy.html %}
+
 Search using a term query:
 
 ```go
