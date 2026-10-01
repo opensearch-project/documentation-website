@@ -455,7 +455,9 @@ DeleteIndexResponse deleteIndexResponse = client.indices().delete(deleteIndexReq
 
 ## Sample program
 
-The following sample program creates a client, creates an index, indexes documents individually and in bulk, searches for documents, updates a document, deletes a document, and then deletes the index. The program connects to a cluster that has the Security plugin enabled. To connect to a cluster without the Security plugin, change the lines marked with `Without security` comments. Before running the sample program, make sure that you have the `Student` class defined in your project. Make sure to change the credentials and truststore path to match your cluster configuration.
+The sample program connects to a cluster that has the Security plugin enabled. To connect to a cluster without the Security plugin, change the lines marked with `// Without security` comments. Before running the sample program, make sure that you have the `Student` class defined in your project. Make sure to change the credentials and truststore path to match your cluster configuration.
+
+The following sample program creates a client, creates an index, indexes documents individually and in bulk, searches for documents, updates a document, deletes a document, and then deletes the index:
 
 ```java
 import javax.net.ssl.SSLContext;
