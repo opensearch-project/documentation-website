@@ -414,6 +414,43 @@ print(f"Acknowledged: {str(response['acknowledged']).lower()}")
 ```
 {% include copy.html %}
 
+The program produces the following output:
+
+```
+Creating index......
+Index created: students
+
+Indexing one student......
+Result: created, id: 1, version: 1
+
+Indexing many students......
+Errors: false
+  created id: 2
+  created id: 3
+
+Searching for all students......
+Total hits: 3
+Page 1:
+  {"firstName":"Shirley","lastName":"Rodriguez","gpa":3.91,"gradDate":"2019-05-10"}
+  {"firstName":"Paulo","lastName":"Santos","gpa":3.93,"gradDate":"2021-05-20"}
+Page 2:
+  {"firstName":"John","lastName":"Doe","gpa":3.89,"gradDate":"2022-05-15"}
+
+Searching for students who graduated in 2019......
+Total hits: 1
+  {"firstName":"Shirley","lastName":"Rodriguez","gpa":3.91,"gradDate":"2019-05-10"}
+
+Updating a student's GPA......
+Result: updated, version: 2
+Updated document: {"firstName":"John","lastName":"Doe","gpa":3.92,"gradDate":"2022-05-15"}
+
+Deleting a student......
+Result: deleted
+
+Deleting the index......
+Acknowledged: true
+```
+
 ## Related documentation
 
 - For the client API reference, see the [`opensearch-py` API documentation](https://opensearch-project.github.io/opensearch-py/).
