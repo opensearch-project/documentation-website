@@ -127,7 +127,7 @@ client.indices.create(index: index)
 client.index(index: index, id: '1', body: { firstName: 'John',
                                             lastName: 'Doe',
                                             gpa: 3.89,
-                                            gradYear: 2022 },
+                                            gradDate: '2022-05-15' },
                                             refresh: true)
 
 # search for the document
@@ -179,7 +179,7 @@ Amazon OpenSearch Serverless supports a subset of OpenSearch API operations and 
 
 You don't need to create an index explicitly in OpenSearch. Once you upload a document into an index that does not exist, OpenSearch creates the index automatically. To create an index explicitly, use the `indices.create` method and pass the index settings and mappings in the `body` parameter.
 
-The following example creates an index with one primary shard and one replica. It explicitly maps the `lastName` field as `keyword` and the `gradYear` field as `integer`. OpenSearch maps the other document fields dynamically when you index documents:
+The following example creates an index with one primary shard and one replica. It explicitly maps the `gradDate` field as a `date` in the `yyyy-MM-dd` format. OpenSearch maps the other document fields dynamically when you index documents:
 
 ```ruby
 index_body = {
@@ -191,8 +191,7 @@ index_body = {
   },
   mappings: {
     properties: {
-      lastName: { type: 'keyword' },
-      gradYear: { type: 'integer' }
+      gradDate: { type: 'date', format: 'yyyy-MM-dd' }
     }
   }
 }
@@ -222,17 +221,17 @@ client.indices.put_mapping(
       firstName: { type: 'keyword' },
       lastName: { type: 'keyword' },
       gpa: { type: 'float' },
-      gradYear: { type: 'integer' }
+      gradDate: { type: 'date', format: 'yyyy-MM-dd' }
     }
   }
 )
 ```
 {% include copy.html %}
 
-With strict mapping, you can index a document with a missing field, but you cannot index a document with a new field. For example, indexing the following document with a misspelled `gradYea` field fails:
+With strict mapping, you can index a document with a missing field, but you cannot index a document with a new field. For example, indexing the following document with a misspelled `gradDat` field fails:
 
 ```ruby
-student = { firstName: 'John', lastName: 'Doe', gpa: 3.89, gradYea: 2022 }
+student = { firstName: 'John', lastName: 'Doe', gpa: 3.89, gradDat: '2022-05-15' }
 client.index(index: 'students', id: '1', body: student, refresh: true)
 ```
 {% include copy.html %}
@@ -240,7 +239,7 @@ client.index(index: 'students', id: '1', body: student, refresh: true)
 OpenSearch returns a mapping error, and the client raises an `OpenSearch::Transport::Transport::Errors::BadRequest` exception containing the following message:
 
 ```bash
-[400] {"error":{"root_cause":[{"type":"strict_dynamic_mapping_exception","reason":"mapping set to strict, dynamic introduction of [gradYea] within [_doc] is not allowed"}],"type":"strict_dynamic_mapping_exception","reason":"mapping set to strict, dynamic introduction of [gradYea] within [_doc] is not allowed"},"status":400}
+[400] {"error":{"root_cause":[{"type":"strict_dynamic_mapping_exception","reason":"mapping set to strict, dynamic introduction of [gradDat] within [_doc] is not allowed"}],"type":"strict_dynamic_mapping_exception","reason":"mapping set to strict, dynamic introduction of [gradDat] within [_doc] is not allowed"},"status":400}
 ```
 
 ## Indexing a document
@@ -248,7 +247,7 @@ OpenSearch returns a mapping error, and the client raises an `OpenSearch::Transp
 To index a document, use the `index` method:
 
 ```ruby
-student = { firstName: 'John', lastName: 'Doe', gpa: 3.89, gradYear: 2022 }
+student = { firstName: 'John', lastName: 'Doe', gpa: 3.89, gradDate: '2022-05-15' }
 response = client.index(index: 'students', id: '1', body: student, refresh: true)
 ```
 {% include copy.html %}
@@ -262,9 +261,9 @@ To index multiple documents, pass each action header followed by its document:
 ```ruby
 actions = [
   { index: { _index: 'students', _id: '2' } },
-  { firstName: 'Paulo', lastName: 'Santos', gpa: 3.93, gradYear: 2021 },
+  { firstName: 'Paulo', lastName: 'Santos', gpa: 3.93, gradDate: '2021-05-20' },
   { index: { _index: 'students', _id: '3' } },
-  { firstName: 'Shirley', lastName: 'Rodriguez', gpa: 3.91, gradYear: 2019 }
+  { firstName: 'Shirley', lastName: 'Rodriguez', gpa: 3.91, gradDate: '2019-05-10' }
 ]
 response = client.bulk(body: actions, refresh: true)
 ```
@@ -274,8 +273,8 @@ Alternatively, you can pass the header and the data together by denoting the dat
 
 ```ruby
 actions = [
-  { index: { _index: 'students', _id: '2', data: { firstName: 'Paulo', lastName: 'Santos', gpa: 3.93, gradYear: 2021 } } },
-  { index: { _index: 'students', _id: '3', data: { firstName: 'Shirley', lastName: 'Rodriguez', gpa: 3.91, gradYear: 2019 } } }
+  { index: { _index: 'students', _id: '2', data: { firstName: 'Paulo', lastName: 'Santos', gpa: 3.93, gradDate: '2021-05-20' } } },
+  { index: { _index: 'students', _id: '3', data: { firstName: 'Shirley', lastName: 'Rodriguez', gpa: 3.91, gradDate: '2019-05-10' } } }
 ]
 response = client.bulk(body: actions, refresh: true)
 ```
@@ -293,10 +292,10 @@ response['hits']['hits'].each { |hit| puts JSON.generate(hit['_source']) }
 ```
 {% include copy.html %}
 
-The following example uses a `term` query to search for students who graduated in 2019:
+The following example uses a `range` query to search for students who graduated in 2019:
 
 ```ruby
-query = { query: { term: { gradYear: 2019 } } }
+query = { query: { range: { gradDate: { gte: '2019-01-01', lte: '2019-12-31' } } } }
 response = client.search(index: 'students', body: query)
 ```
 {% include copy.html %}
@@ -327,7 +326,7 @@ query = {
     bool: {
       filter: {
         range: {
-          gradYear: { gte: 2021 }
+          gradDate: { gte: '2021-01-01' }
         }
       }
     }
@@ -447,8 +446,7 @@ index_body = {
   },
   mappings: {
     properties: {
-      lastName: { type: 'keyword' },
-      gradYear: { type: 'integer' }
+      gradDate: { type: 'date', format: 'yyyy-MM-dd' }
     }
   }
 }
@@ -457,7 +455,7 @@ puts "Index created: #{response['index']}"
 
 # Index a document
 puts "\nIndexing one student......"
-student = { firstName: 'John', lastName: 'Doe', gpa: 3.89, gradYear: 2022 }
+student = { firstName: 'John', lastName: 'Doe', gpa: 3.89, gradDate: '2022-05-15' }
 response = client.index(index: index, id: '1', body: student, refresh: true)
 puts "Result: #{response['result']}, id: #{response['_id']}, version: #{response['_version']}"
 
@@ -465,9 +463,9 @@ puts "Result: #{response['result']}, id: #{response['_id']}, version: #{response
 puts "\nIndexing many students......"
 actions = [
   { index: { _index: index, _id: '2' } },
-  { firstName: 'Paulo', lastName: 'Santos', gpa: 3.93, gradYear: 2021 },
+  { firstName: 'Paulo', lastName: 'Santos', gpa: 3.93, gradDate: '2021-05-20' },
   { index: { _index: index, _id: '3' } },
-  { firstName: 'Shirley', lastName: 'Rodriguez', gpa: 3.91, gradYear: 2019 }
+  { firstName: 'Shirley', lastName: 'Rodriguez', gpa: 3.91, gradDate: '2019-05-10' }
 ]
 response = client.bulk(body: actions, refresh: true)
 puts "Errors: #{response['errors']}"
@@ -483,7 +481,7 @@ response['hits']['hits'].each { |hit| puts "  #{JSON.generate(hit['_source'])}" 
 
 # Search for students who graduated in 2019
 puts "\nSearching for students who graduated in 2019......"
-query = { query: { term: { gradYear: 2019 } } }
+query = { query: { range: { gradDate: { gte: '2019-01-01', lte: '2019-12-31' } } } }
 response = client.search(index: index, body: query)
 puts "Total hits: #{response['hits']['total']['value']}"
 response['hits']['hits'].each { |hit| puts "  #{JSON.generate(hit['_source'])}" }
