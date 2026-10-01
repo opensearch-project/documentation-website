@@ -137,7 +137,7 @@ const client = new Client({
         });
       }),
   }),
-  node: 'https://search-<domain-name>-<id>.<region>.es.amazonaws.com', // OpenSearch domain endpoint
+  node: 'https://search-<domain-name>-<id>.us-east-1.es.amazonaws.com', // OpenSearch domain endpoint
 });
 ```
 {% include copy.html %}
@@ -172,7 +172,7 @@ const client = new Client({
         });
       }),
   }),
-  node: 'https://<collection-id>.<region>.aoss.amazonaws.com', // OpenSearch Serverless collection endpoint
+  node: 'https://<collection-id>.us-east-1.aoss.amazonaws.com', // OpenSearch Serverless collection endpoint
 });
 ```
 {% include copy.html %}
@@ -204,8 +204,8 @@ const client = new Client({
       return credentialsProvider();
     },
   }),
-  node: 'https://search-<domain-name>-<id>.<region>.es.amazonaws.com', // OpenSearch domain endpoint
-  // node: 'https://<collection-id>.<region>.aoss.amazonaws.com' for an OpenSearch Serverless collection endpoint
+  node: 'https://search-<domain-name>-<id>.us-east-1.es.amazonaws.com', // OpenSearch domain endpoint
+  // node: 'https://<collection-id>.us-east-1.aoss.amazonaws.com' for an OpenSearch Serverless collection endpoint
 });
 ```
 {% include copy.html %}
@@ -237,7 +237,7 @@ const client = new Client({
       return credentialsProvider();
     },
   }),
-  node: 'https://<collection-id>.<region>.aoss.amazonaws.com', // OpenSearch Serverless collection endpoint
+  node: 'https://<collection-id>.us-east-1.aoss.amazonaws.com', // OpenSearch Serverless collection endpoint
 });
 ```
 {% include copy.html %}
@@ -278,8 +278,8 @@ const client = new Client({
       return credentialsProvider();
     },
   }),
-  node: 'https://search-<domain-name>-<id>.<region>.es.amazonaws.com', // OpenSearch domain endpoint
-  // node: 'https://<collection-id>.<region>.aoss.amazonaws.com' for an OpenSearch Serverless collection endpoint
+  node: 'https://search-<domain-name>-<id>.us-east-1.es.amazonaws.com', // OpenSearch domain endpoint
+  // node: 'https://<collection-id>.us-east-1.aoss.amazonaws.com' for an OpenSearch Serverless collection endpoint
 });
 
 exports.handler = async (event, context) => {
