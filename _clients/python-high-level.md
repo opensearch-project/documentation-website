@@ -330,3 +330,8 @@ response = client.indices.delete(index=index_name)
 print(f"Acknowledged: {str(response['acknowledged']).lower()}")
 ```
 {% include copy.html %}
+
+## Related documentation
+
+- For more information about the high-level features of the Python client, see the [`opensearch-py` DSL guide](https://github.com/opensearch-project/opensearch-py/blob/main/guides/dsl.md).
+- For more examples of using the client, see the [`opensearch-py` user guide](https://github.com/opensearch-project/opensearch-py/blob/main/USER_GUIDE.md).
