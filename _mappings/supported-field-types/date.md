@@ -50,13 +50,14 @@ The following table lists the parameters accepted by date field types. All param
 Parameter | Description 
 :--- | :--- 
 `boost` | A floating-point value that specifies the weight of this field toward the relevance score. Values above 1.0 increase the field's relevance. Values between 0.0 and 1.0 decrease the field's relevance. Default is 1.0. Dynamically updatable.
-`doc_values` | A Boolean value that specifies whether the field should be stored on disk so that it can be used for aggregations, sorting, or scripting. Default is `false`.
-`format` | The format for parsing dates. Default is `strict_date_time_no_millis||strict_date_optional_time||epoch_millis`.
+`doc_values` | A Boolean value that specifies whether the field should be stored on disk so that it can be used for aggregations, sorting, or scripting. Default is `true`.
+`format` | The format for parsing dates. Default is `strict_date_optional_time||epoch_millis`.
 `ignore_malformed` | A Boolean value that specifies to ignore malformed values and not to throw an exception. Default is `false`. Dynamically updatable.
 `index` | A Boolean value that specifies whether the field should be searchable. Default is `true`. For indexes that use a pluggable data format, the default is `false`, and `true` is not supported. For more information, see [Pluggable data format indexes]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/index-parameter/#pluggable-data-format-indexes).
 `locale` | A region- and language-specific way of representing the date. Default is [`ROOT`](https://docs.oracle.com/javase/8/docs/api/java/util/Locale.html#ROOT) (a region- and language-neutral locale).
 `meta` | Accepts metadata for this field.
 [`null_value`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/index#null-value) | A value to be used in place of `null`. Must be of the same type as the field. If this parameter is not specified, the field is treated as missing when its value is `null`. Default is `null`.
+`print_format` | The format in which OpenSearch returns dates in the `fields` and `docvalue_fields` sections of search responses, in aggregation keys, and in derived source. Does not affect dates in `_source`, which are returned as originally provided. Default is the first format specified in `format`.
 `skip_list` | A Boolean value that specifies whether to enable skip list indexing for doc values. When enabled, OpenSearch creates indexed doc values that can improve performance for `range` queries by allowing the query engine to skip irrelevant document ranges. Skip list indexing is automatically enabled for the `@timestamp` field and fields used for index sorting. For all other fields, the default is `false`.
 `store` | A Boolean value that specifies whether the field value should be stored and can be retrieved separately from the `_source` field. Default is `false`. 
 
@@ -364,7 +365,7 @@ The response contains both documents:
 
 ## Derived source
 
-When an index uses [derived source]({{site.url}}{{site.baseurl}}/field-types/metadata-fields/source/#derived-source), OpenSearch may sort values in multi-value date fields during source reconstruction. When configuring multiple date formats separated by `||` under the `format` mapping parameter, derived source returns results in the first provided format.
+When an index uses [derived source]({{site.url}}{{site.baseurl}}/field-types/metadata-fields/source/#derived-source), OpenSearch may sort values in multi-value date fields during source reconstruction. Derived source returns dates in the format specified in `print_format`. If `print_format` is not specified and `format` contains multiple date formats separated by `||`, derived source returns dates in the first format.
 
 Create an index that enables derived source and configures a `date` field with multiple formats:
 
