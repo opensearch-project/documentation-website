@@ -16,9 +16,34 @@ This getting started guide illustrates how to connect to OpenSearch, index docum
 
 This documentation reflects the latest updates available in the [GitHub repository](https://github.com/opensearch-project/opensearch-net) and may include changes unavailable in the current stable release. The current stable release in NuGet is [2.2.0](https://www.nuget.org/packages/OpenSearch.Net/2.2.0). For information about supported OpenSearch versions and target frameworks, see [Compatibility]({{site.url}}{{site.baseurl}}/clients/dot-net/#compatibility).
 
-## Example
+## Installing the OpenSearch.Net client
 
-The following example illustrates connecting to OpenSearch, indexing documents, and sending queries on the data. It uses the `Student` class to represent one student, which is equivalent to one document in the index. The `ToString` method formats a `Student` for console output:
+To install OpenSearch.Net, download the [OpenSearch.Net NuGet package](https://www.nuget.org/packages/OpenSearch.Net) and add it to your project in an IDE of your choice. In Microsoft Visual Studio, use the following steps:
+- In the **Solution Explorer** panel, right-click on your solution or project and select **Manage NuGet Packages for Solution**.
+- Search for the OpenSearch.Net NuGet package, and select **Install**.
+
+Alternatively, add OpenSearch.Net to your project using the .NET CLI:
+
+```bash
+dotnet add package OpenSearch.Net --version 2.2.0
+```
+{% include copy.html %}
+
+You can also add OpenSearch.Net to your .csproj file:
+
+```xml
+<Project>
+  ...
+  <ItemGroup>
+    <PackageReference Include="OpenSearch.Net" Version="2.2.0" />
+  </ItemGroup>
+</Project>
+```
+{% include copy.html %}
+
+## Sample data
+
+The examples on this page use the following `Student` class to represent one student, which is equivalent to one document in the index. The `ToString` method formats a `Student` for console output:
 
 ```cs
 using System.Globalization;
@@ -48,31 +73,6 @@ public class Student
 
 By default, OpenSearch.Net serializes property names exactly as they are declared. The `DataMember` attributes specify the field names, so a `Student` is indexed as a document containing the `firstName`, `lastName`, `gpa`, and `gradDate` fields.
 {: .note}
-
-## Installing the OpenSearch.Net client
-
-To install OpenSearch.Net, download the [OpenSearch.Net NuGet package](https://www.nuget.org/packages/OpenSearch.Net) and add it to your project in an IDE of your choice. In Microsoft Visual Studio, use the following steps:
-- In the **Solution Explorer** panel, right-click on your solution or project and select **Manage NuGet Packages for Solution**.
-- Search for the OpenSearch.Net NuGet package, and select **Install**.
-
-Alternatively, add OpenSearch.Net to your project using the .NET CLI:
-
-```bash
-dotnet add package OpenSearch.Net --version 2.2.0
-```
-{% include copy.html %}
-
-You can also add OpenSearch.Net to your .csproj file:
-
-```xml
-<Project>
-  ...
-  <ItemGroup>
-    <PackageReference Include="OpenSearch.Net" Version="2.2.0" />
-  </ItemGroup>
-</Project>
-```
-{% include copy.html %}
 
 ## Connecting to OpenSearch
 

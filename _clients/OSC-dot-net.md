@@ -40,9 +40,9 @@ You can also add OpenSearch.Client to your .csproj file:
 
 OpenSearch.Client depends on OpenSearch.Net, so installing OpenSearch.Client also installs the low-level client. For information about supported OpenSearch versions and target frameworks, see [Compatibility]({{site.url}}{{site.baseurl}}/clients/dot-net/#compatibility).
 
-## Example
+## Sample data
 
-The following example illustrates connecting to OpenSearch, indexing documents, and sending queries on the data. It uses the `Student` class to represent one student, which is equivalent to one document in the index. The `ToString` method formats a `Student` for console output:
+The examples on this page use the following `Student` class to represent one student, which is equivalent to one document in the index. The `ToString` method formats a `Student` for console output:
 
 ```cs
 using System.Globalization;
@@ -98,7 +98,7 @@ var client = new OpenSearchClient(settings);
 ```
 {% include copy.html %}
 
-## Using ConnectionSettings
+### Using ConnectionSettings
 
 `ConnectionConfiguration` is used to pass configuration options to the low-level OpenSearch.Net client. `ConnectionSettings` inherits from `ConnectionConfiguration` and provides additional configuration options for the high-level client, such as a default index name for requests and the mapping of property names to field names. `ConnectionSettings` is part of the OpenSearch.Client package.
 
