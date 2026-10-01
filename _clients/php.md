@@ -221,27 +221,18 @@ A bulk request does not throw an exception when an individual action fails, so c
 
 ## Searching for documents
 
-To paginate results, use the `from` and `size` parameters. The following example sorts students by graduation date and retrieves the results two at a time. The first request returns the first page of results, and the second request returns the next page:
+Search for all documents in an index using the following code:
 
 ```php
-foreach ([0, 2] as $from) {
-    $response = $client->search([
-        'index' => $index,
-        'body' => [
-            'from' => $from,
-            'size' => 2,
-            'sort' => [['gradDate' => 'asc']],
-        ],
-    ]);
+$response = $client->search([
+    'index' => $index,
+]);
 
-    foreach ($response['hits']['hits'] as $hit) {
-        echo json_encode($hit['_source']) . "\n";
-    }
+foreach ($response['hits']['hits'] as $hit) {
+    echo json_encode($hit['_source']) . "\n";
 }
 ```
 {% include copy.html %}
-
-The `from` and `size` parameters work well for the first pages of results. To paginate through a large number of results, use point in time with `search_after`, as described in [Paginating results using a point in time](#paginating-results-using-a-point-in-time).
 
 Search using a range query:
 
@@ -273,9 +264,33 @@ $response = $client->sql()->query([
 ```
 {% include copy.html %}
 
-## Paginating results using a point in time
+## Paginating results
 
-To page through a fixed view of the index, create a point in time (PIT), pass its ID in the search body, and use the `sort` values of the last hit as the `search_after` value for the next page:
+To paginate results, use the `from` and `size` parameters. The following example sorts students by graduation date and retrieves the results two at a time. The first request returns the first page of results, and the second request returns the next page:
+
+```php
+foreach ([0, 2] as $from) {
+    $response = $client->search([
+        'index' => $index,
+        'body' => [
+            'from' => $from,
+            'size' => 2,
+            'sort' => [['gradDate' => 'asc']],
+        ],
+    ]);
+
+    foreach ($response['hits']['hits'] as $hit) {
+        echo json_encode($hit['_source']) . "\n";
+    }
+}
+```
+{% include copy.html %}
+
+The `from` and `size` parameters work well for the first pages of results. To paginate through a large number of results, use point in time with `search_after`, as described in [Paginating using a point in time](#paginating-using-a-point-in-time).
+
+### Paginating using a point in time
+
+To paginate through a large number of results or to page through a fixed view of the index, use a point in time (PIT) with `search_after`. Create a PIT, pass its ID in the search body, and use the `sort` values of the last hit as the `search_after` value for the next page:
 
 ```php
 $response = $client->createPit([
