@@ -73,22 +73,22 @@ You can now start your OpenSearch cluster.
 
 ## Sample data
 
-The sample programs in the following sections use a `Student` class to represent documents. Use the following wrapper class with numeric fields as boxed types (`Double`, `Integer`) so that partial updates serialize correctly:
+The sample programs in the following sections use a `Student` class to represent documents. Use the following wrapper class, which declares `gpa` as a boxed `Double` so that partial updates serialize correctly:
 
 ```java
 public class Student {
   private String firstName;
   private String lastName;
   private Double gpa;
-  private Integer gradYear;
+  private String gradDate;
 
   public Student() {}
 
-  public Student(String firstName, String lastName, double gpa, int gradYear) {
+  public Student(String firstName, String lastName, double gpa, String gradDate) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.gpa = gpa;
-    this.gradYear = gradYear;
+    this.gradDate = gradDate;
   }
 
   public String getFirstName() { return firstName; }
@@ -97,13 +97,13 @@ public class Student {
   public void setLastName(String lastName) { this.lastName = lastName; }
   public Double getGpa() { return gpa; }
   public void setGpa(Double gpa) { this.gpa = gpa; }
-  public Integer getGradYear() { return gradYear; }
-  public void setGradYear(Integer gradYear) { this.gradYear = gradYear; }
+  public String getGradDate() { return gradDate; }
+  public void setGradDate(String gradDate) { this.gradDate = gradDate; }
 
   @Override
   public String toString() {
-    return String.format("Student{firstName='%s', lastName='%s', gpa=%s, gradYear=%s}",
-      firstName, lastName, gpa, gradYear);
+    return String.format("Student{firstName='%s', lastName='%s', gpa=%s, gradDate=%s}",
+      firstName, lastName, gpa, gradDate);
   }
 }
 ```
@@ -339,7 +339,7 @@ Amazon OpenSearch Serverless supports a subset of OpenSearch API operations and 
 
 ## Creating an index
 
-The following example creates an index with one primary shard and one replica. It explicitly maps the `lastName` field as `keyword` and the `gradYear` field as `integer`. OpenSearch maps the other document fields dynamically when you index documents:
+The following example creates an index with one primary shard and one replica. It explicitly maps the `gradDate` field as a `date` in the `yyyy-MM-dd` format. OpenSearch maps the other document fields dynamically when you index documents:
 
 ```java
 String index = "students";
@@ -349,8 +349,7 @@ CreateIndexRequest createIndexRequest = new CreateIndexRequest.Builder()
     .numberOfShards(1)
     .numberOfReplicas(1))
   .mappings(m -> m
-    .properties("lastName", p -> p.keyword(k -> k))
-    .properties("gradYear", p -> p.integer(i -> i)))
+    .properties("gradDate", p -> p.date(d -> d.format("yyyy-MM-dd"))))
   .build();
 client.indices().create(createIndexRequest);
 ```
@@ -361,7 +360,7 @@ client.indices().create(createIndexRequest);
 Index a document using the following code:
 
 ```java
-Student student = new Student("John", "Doe", 3.89, 2022);
+Student student = new Student("John", "Doe", 3.89, "2022-05-15");
 IndexRequest<Student> indexRequest = new IndexRequest.Builder<Student>()
   .index(index).id("1").document(student).refresh(Refresh.True).build();
 IndexResponse indexResponse = client.index(indexRequest);
@@ -377,12 +376,12 @@ List<BulkOperation> operations = new ArrayList<>();
 operations.add(new BulkOperation.Builder().index(
   new IndexOperation.Builder<Student>()
     .index(index).id("2")
-    .document(new Student("Paulo", "Santos", 3.93, 2021)).build()
+    .document(new Student("Paulo", "Santos", 3.93, "2021-05-20")).build()
 ).build());
 operations.add(new BulkOperation.Builder().index(
   new IndexOperation.Builder<Student>()
     .index(index).id("3")
-    .document(new Student("Shirley", "Rodriguez", 3.91, 2019)).build()
+    .document(new Student("Shirley", "Rodriguez", 3.91, "2019-05-10")).build()
 ).build());
 BulkRequest bulkRequest = new BulkRequest.Builder()
   .index(index).operations(operations).refresh(Refresh.True).build();
@@ -410,17 +409,20 @@ Each hit in `searchResponse.hits().hits()` is a `Hit<Student>` object that conta
 for (Hit<Student> hit : searchResponse.hits().hits()) {
   Student student = hit.source();
   System.out.println("ID: " + hit.id() + ", name: " + student.getFirstName() + " " + student.getLastName()
-      + ", GPA: " + student.getGpa() + ", graduation year: " + student.getGradYear());
+      + ", GPA: " + student.getGpa() + ", graduation date: " + student.getGradDate());
 }
 ```
 {% include copy.html %}
 
-Search using a term query:
+Search using a range query. The `gte` and `lte` bounds take `JsonData` values, so import `org.opensearch.client.json.JsonData`:
 
 ```java
 SearchResponse<Student> searchResponse = client.search(s -> s
   .index(index)
-  .query(q -> q.term(t -> t.field("gradYear").value(v -> v.longValue(2019)))),
+  .query(q -> q.range(r -> r
+    .field("gradDate")
+    .gte(JsonData.of("2019-01-01"))
+    .lte(JsonData.of("2019-12-31")))),
   Student.class);
 ```
 {% include copy.html %}
@@ -481,6 +483,7 @@ import org.apache.hc.core5.http.HttpHost;
 import org.apache.hc.core5.http.nio.ssl.TlsStrategy;
 import org.apache.hc.core5.reactor.ssl.TlsDetails;
 import org.apache.hc.core5.ssl.SSLContextBuilder;
+import org.opensearch.client.json.JsonData;
 import org.opensearch.client.opensearch.OpenSearchClient;
 import org.opensearch.client.opensearch._types.Refresh;
 import org.opensearch.client.opensearch.core.IndexRequest;
@@ -548,15 +551,14 @@ public class OpenSearchClientExample {
           .numberOfShards(1)
           .numberOfReplicas(1))
         .mappings(m -> m
-          .properties("lastName", p -> p.keyword(k -> k))
-          .properties("gradYear", p -> p.integer(i -> i)))
+          .properties("gradDate", p -> p.date(d -> d.format("yyyy-MM-dd"))))
         .build();
       CreateIndexResponse createIndexResponse = client.indices().create(createIndexRequest);
       System.out.println("Index created: " + createIndexResponse.index());
 
       // Index a document
       System.out.println("\nIndexing one student......");
-      Student student = new Student("John", "Doe", 3.89, 2022);
+      Student student = new Student("John", "Doe", 3.89, "2022-05-15");
       IndexRequest<Student> indexRequest = new IndexRequest.Builder<Student>()
         .index(index).id("1").document(student).refresh(Refresh.True).build();
       IndexResponse indexResponse = client.index(indexRequest);
@@ -568,12 +570,12 @@ public class OpenSearchClientExample {
       operations.add(new BulkOperation.Builder().index(
         new IndexOperation.Builder<Student>()
           .index(index).id("2")
-          .document(new Student("Paulo", "Santos", 3.93, 2021)).build()
+          .document(new Student("Paulo", "Santos", 3.93, "2021-05-20")).build()
       ).build());
       operations.add(new BulkOperation.Builder().index(
         new IndexOperation.Builder<Student>()
           .index(index).id("3")
-          .document(new Student("Shirley", "Rodriguez", 3.91, 2019)).build()
+          .document(new Student("Shirley", "Rodriguez", 3.91, "2019-05-10")).build()
       ).build());
       BulkRequest bulkRequest = new BulkRequest.Builder()
         .index(index).operations(operations).refresh(Refresh.True).build();
@@ -594,7 +596,10 @@ public class OpenSearchClientExample {
       System.out.println("\nSearching for students who graduated in 2019......");
       SearchResponse<Student> searchResponse2 = client.search(s -> s
         .index(index)
-        .query(q -> q.term(t -> t.field("gradYear").value(v -> v.longValue(2019)))),
+        .query(q -> q.range(r -> r
+          .field("gradDate")
+          .gte(JsonData.of("2019-01-01"))
+          .lte(JsonData.of("2019-12-31")))),
         Student.class);
       System.out.println("Total hits: " + searchResponse2.hits().total().value());
       for (int i = 0; i < searchResponse2.hits().hits().size(); i++) {
