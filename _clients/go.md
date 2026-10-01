@@ -343,6 +343,54 @@ If any of the operations fail, the method returns an `*opensearchapi.PartialBulk
 
 ## Searching for documents
 
+Search for all documents in an index using the following code:
+
+```go
+searchResp, err := client.Search(ctx, &opensearchapi.SearchReq{
+	Indices: []string{index},
+})
+if err != nil {
+	return err
+}
+for _, hit := range searchResp.Hits.Hits {
+	var s Student
+	if err := json.Unmarshal(hit.Source, &s); err != nil {
+		return err
+	}
+	out, err := json.Marshal(s)
+	if err != nil {
+		return err
+	}
+	fmt.Println(string(out))
+}
+```
+{% include copy.html %}
+
+In each item in `searchResp.Hits.Hits`, the `ID` field contains a pointer to the document ID, and the `Source` field contains the document as raw JSON. To access the document fields, unmarshal `Source` into a `Student` struct:
+
+```go
+for _, hit := range searchResp.Hits.Hits {
+	var s Student
+	if err := json.Unmarshal(hit.Source, &s); err != nil {
+		return err
+	}
+	fmt.Printf("ID: %s, name: %s %s, GPA: %v, graduation date: %s\n", *hit.ID, s.FirstName, s.LastName, s.GPA, s.GradDate)
+}
+```
+{% include copy.html %}
+
+Search using a range query:
+
+```go
+searchResp, err := client.Search(ctx, &opensearchapi.SearchReq{
+	Indices:    []string{index},
+	BodyReader: strings.NewReader(`{"query": {"range": {"gradDate": {"gte": "2019-01-01", "lte": "2019-12-31"}}}}`),
+})
+```
+{% include copy.html %}
+
+## Paginating results
+
 To paginate results, use the `from` and `size` parameters. The following example sorts students by graduation date and retrieves the results two at a time. The first request returns the first page of results, and the second request returns the next page:
 
 ```go
@@ -378,29 +426,6 @@ for i, resp := range []*opensearchapi.SearchResp{searchResp, nextResp} {
 {% include copy.html %}
 
 The `from` and `size` parameters work well for the first pages of results. To paginate through a large number of results, use point in time with `search_after`. For more information, see [Paginate results]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/).
-
-In each item in `searchResp.Hits.Hits`, the `ID` field contains a pointer to the document ID, and the `Source` field contains the document as raw JSON. To access the document fields, unmarshal `Source` into a `Student` struct:
-
-```go
-for _, hit := range searchResp.Hits.Hits {
-	var s Student
-	if err := json.Unmarshal(hit.Source, &s); err != nil {
-		return err
-	}
-	fmt.Printf("ID: %s, name: %s %s, GPA: %v, graduation date: %s\n", *hit.ID, s.FirstName, s.LastName, s.GPA, s.GradDate)
-}
-```
-{% include copy.html %}
-
-Search using a range query:
-
-```go
-searchResp, err := client.Search(ctx, &opensearchapi.SearchReq{
-	Indices:    []string{index},
-	BodyReader: strings.NewReader(`{"query": {"range": {"gradDate": {"gte": "2019-01-01", "lte": "2019-12-31"}}}}`),
-})
-```
-{% include copy.html %}
 
 ## Updating a document
 
