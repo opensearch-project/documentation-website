@@ -96,13 +96,13 @@ import (
 	requestsigner "github.com/opensearch-project/opensearch-go/v5/signer/awsv2"
 )
 
-const endpoint = "" // For example, https://search-<domain-name>-<id>.<region>.es.amazonaws.com
+const endpoint = "" // For example, https://search-<domain-name>-<id>.us-east-1.es.amazonaws.com
 
 func main() {
 	ctx := context.Background()
 
 	awsCfg, err := config.LoadDefaultConfig(ctx,
-		config.WithRegion("<region>"),
+		config.WithRegion("us-east-1"),
 		config.WithCredentialsProvider(
 			getCredentialProvider("<AWS_ACCESS_KEY>", "<AWS_SECRET_ACCESS_KEY>", "<AWS_SESSION_TOKEN>"),
 		),
@@ -166,13 +166,13 @@ import (
 	requestsigner "github.com/opensearch-project/opensearch-go/v5/signer/awsv2"
 )
 
-const endpoint = "" // For example, https://<collection-id>.<region>.aoss.amazonaws.com
+const endpoint = "" // For example, https://<collection-id>.us-east-1.aoss.amazonaws.com
 
 func main() {
 	ctx := context.Background()
 
 	awsCfg, err := config.LoadDefaultConfig(ctx,
-		config.WithRegion("<region>"),
+		config.WithRegion("us-east-1"),
 		config.WithCredentialsProvider(
 			getCredentialProvider("<AWS_ACCESS_KEY>", "<AWS_SECRET_ACCESS_KEY>", "<AWS_SESSION_TOKEN>"),
 		),
