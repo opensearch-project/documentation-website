@@ -455,131 +455,7 @@ DeleteIndexResponse deleteIndexResponse = client.indices().delete(deleteIndexReq
 
 ## Sample program
 
-The following sample program creates a client, creates an index, indexes documents individually and in bulk, searches for documents, updates a document, deletes a document, and then deletes the index. Before running the sample program, make sure that you have the `Student` class defined in your project.
-
-### Without security
-
-Use the following sample program when connecting to an OpenSearch cluster that does not have the Security plugin enabled:
-
-```java
-import org.apache.hc.core5.http.HttpHost;
-import org.opensearch.client.opensearch.OpenSearchClient;
-import org.opensearch.client.opensearch._types.Refresh;
-import org.opensearch.client.opensearch.core.IndexRequest;
-import org.opensearch.client.opensearch.core.IndexResponse;
-import org.opensearch.client.opensearch.core.SearchResponse;
-import org.opensearch.client.opensearch.core.UpdateRequest;
-import org.opensearch.client.opensearch.core.UpdateResponse;
-import org.opensearch.client.opensearch.core.GetResponse;
-import org.opensearch.client.opensearch.core.BulkRequest;
-import org.opensearch.client.opensearch.core.BulkResponse;
-import org.opensearch.client.opensearch.core.DeleteResponse;
-import org.opensearch.client.opensearch.core.bulk.BulkOperation;
-import org.opensearch.client.opensearch.core.bulk.IndexOperation;
-import org.opensearch.client.opensearch.indices.*;
-import org.opensearch.client.transport.OpenSearchTransport;
-import org.opensearch.client.transport.httpclient5.ApacheHttpClient5TransportBuilder;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-public class OpenSearchClientExample {
-  public static void main(String[] args) throws IOException {
-    final HttpHost host = new HttpHost("http", "localhost", 9200);
-    final OpenSearchTransport transport = ApacheHttpClient5TransportBuilder.builder(host).build();
-    final OpenSearchClient client = new OpenSearchClient(transport);
-
-    try {
-      // Create the index
-      String index = "students";
-      System.out.println("Creating index......");
-      CreateIndexRequest createIndexRequest = new CreateIndexRequest.Builder().index(index).build();
-      CreateIndexResponse createIndexResponse = client.indices().create(createIndexRequest);
-      System.out.println("Index created: " + createIndexResponse.index());
-
-      // Index a document
-      System.out.println("\nIndexing one student......");
-      Student student = new Student("John", "Doe", 3.89, 2022);
-      IndexRequest<Student> indexRequest = new IndexRequest.Builder<Student>()
-        .index(index).id("1").document(student).refresh(Refresh.True).build();
-      IndexResponse indexResponse = client.index(indexRequest);
-      System.out.println("Result: " + indexResponse.result().jsonValue() + ", id: " + indexResponse.id() + ", version: " + indexResponse.version());
-
-      // Bulk index documents
-      System.out.println("\nIndexing many students......");
-      List<BulkOperation> operations = new ArrayList<>();
-      operations.add(new BulkOperation.Builder().index(
-        new IndexOperation.Builder<Student>()
-          .index(index).id("2")
-          .document(new Student("Paulo", "Santos", 3.93, 2021)).build()
-      ).build());
-      operations.add(new BulkOperation.Builder().index(
-        new IndexOperation.Builder<Student>()
-          .index(index).id("3")
-          .document(new Student("Shirley", "Rodriguez", 3.91, 2019)).build()
-      ).build());
-      BulkRequest bulkRequest = new BulkRequest.Builder()
-        .index(index).operations(operations).refresh(Refresh.True).build();
-      BulkResponse bulkResponse = client.bulk(bulkRequest);
-      System.out.println("Errors: " + bulkResponse.errors());
-      bulkResponse.items().forEach(item ->
-        System.out.println("  " + item.result() + " id: " + item.id()));
-
-      // Search for all students
-      System.out.println("\nSearching for all students......");
-      SearchResponse<Student> searchResponse = client.search(s -> s.index(index), Student.class);
-      System.out.println("Total hits: " + searchResponse.hits().total().value());
-      for (int i = 0; i < searchResponse.hits().hits().size(); i++) {
-        System.out.println("  " + searchResponse.hits().hits().get(i).source());
-      }
-
-      // Search for students who graduated in 2019
-      System.out.println("\nSearching for students who graduated in 2019......");
-      SearchResponse<Student> searchResponse2 = client.search(s -> s
-        .index(index)
-        .query(q -> q.term(t -> t.field("gradYear").value(v -> v.longValue(2019)))),
-        Student.class);
-      System.out.println("Total hits: " + searchResponse2.hits().total().value());
-      for (int i = 0; i < searchResponse2.hits().hits().size(); i++) {
-        System.out.println("  " + searchResponse2.hits().hits().get(i).source());
-      }
-
-      // Update a document
-      System.out.println("\nUpdating a student's GPA......");
-      Student updatedFields = new Student();
-      updatedFields.setGpa(3.92);
-      UpdateRequest<Student, Student> updateRequest = new UpdateRequest.Builder<Student, Student>()
-        .index(index).id("1").doc(updatedFields).build();
-      UpdateResponse<Student> updateResponse = client.update(updateRequest, Student.class);
-      System.out.println("Result: " + updateResponse.result().jsonValue() + ", version: " + updateResponse.version());
-
-      // Get the updated document
-      GetResponse<Student> getResponse = client.get(g -> g.index(index).id("1"), Student.class);
-      System.out.println("Updated document: " + getResponse.source());
-
-      // Delete a document
-      System.out.println("\nDeleting a student......");
-      DeleteResponse deleteResponse = client.delete(b -> b.index(index).id("3").refresh(Refresh.True));
-      System.out.println("Result: " + deleteResponse.result().jsonValue());
-
-      // Delete the index
-      System.out.println("\nDeleting the index......");
-      DeleteIndexRequest deleteIndexRequest = new DeleteIndexRequest.Builder().index(index).build();
-      DeleteIndexResponse deleteIndexResponse = client.indices().delete(deleteIndexRequest);
-      System.out.println("Acknowledged: " + deleteIndexResponse.acknowledged());
-
-    } finally {
-      transport.close();
-    }
-  }
-}
-```
-{% include copy.html %}
-
-### With security
-
-Use the following sample program when connecting to an OpenSearch cluster that has the Security plugin enabled. Make sure to change the credentials and truststore path to match your cluster configuration:
+The following sample program creates a client, creates an index, indexes documents individually and in bulk, searches for documents, updates a document, deletes a document, and then deletes the index. The program connects to a cluster that has the Security plugin enabled. To connect to a cluster without the Security plugin, change the lines marked with `Without security` comments. Before running the sample program, make sure that you have the `Student` class defined in your project. Make sure to change the credentials and truststore path to match your cluster configuration.
 
 ```java
 import javax.net.ssl.SSLContext;
@@ -619,14 +495,14 @@ import java.util.List;
 
 public class OpenSearchClientExample {
   public static void main(String[] args) throws Exception {
-    System.setProperty("javax.net.ssl.trustStore", "/full/path/to/keystore");
-    System.setProperty("javax.net.ssl.trustStorePassword", "password-to-keystore");
+    System.setProperty("javax.net.ssl.trustStore", "/full/path/to/keystore"); // Without security, remove this line
+    System.setProperty("javax.net.ssl.trustStorePassword", "password-to-keystore"); // Without security, remove this line
 
-    final HttpHost host = new HttpHost("https", "localhost", 9200);
-    final BasicCredentialsProvider credentialsProvider = new BasicCredentialsProvider();
+    final HttpHost host = new HttpHost("https", "localhost", 9200); // Without security, use new HttpHost("http", "localhost", 9200)
+    final BasicCredentialsProvider credentialsProvider = new BasicCredentialsProvider(); // Without security, remove this line
     // Only for demo purposes. Don't specify your credentials in code.
-    credentialsProvider.setCredentials(new AuthScope(host),
-      new UsernamePasswordCredentials("admin", "<custom-admin-password>".toCharArray()));
+    // Without security, remove this line
+    credentialsProvider.setCredentials(new AuthScope(host), new UsernamePasswordCredentials("admin", "<custom-admin-password>".toCharArray()));
 
     final SSLContext sslcontext = SSLContextBuilder.create()
       .loadTrustMaterial(null, (chains, authType) -> true)
@@ -650,7 +526,7 @@ public class OpenSearchClientExample {
           .build();
 
       return httpClientBuilder
-        .setDefaultCredentialsProvider(credentialsProvider)
+        .setDefaultCredentialsProvider(credentialsProvider) // Without security, remove this line
         .setConnectionManager(connectionManager);
     });
 
