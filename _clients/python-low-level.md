@@ -18,7 +18,7 @@ This getting started guide illustrates how to connect to OpenSearch, index docum
 
 If you have any questions or would like to contribute, you can [create an issue](https://github.com/opensearch-project/opensearch-py/issues) to interact with the OpenSearch Python team directly. 
 
-## Setup
+## Installing the Python client
 
 The latest version of the client, `opensearch-py` 3.2.0, requires Python 3.10 or later. To add the client to your project, install it using [pip](https://pip.pypa.io/):
 

@@ -13,7 +13,7 @@ The OpenSearch high-level Python client provides wrapper classes for common Open
 
 This getting started guide illustrates how to connect to OpenSearch, index documents, and run queries. For the client source code, see the [`opensearch-py` repo](https://github.com/opensearch-project/opensearch-py).
 
-## Setup
+## Installing the Python client
 
 The high-level client is part of the `opensearch-py` package. The latest version of the package, 3.2.0, requires Python 3.10 or later. To add the client to your project, install it using [pip](https://pip.pypa.io/):
 
