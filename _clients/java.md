@@ -391,32 +391,15 @@ BulkResponse bulkResponse = client.bulk(bulkRequest);
 
 ## Searching for documents
 
-To paginate results, use the `from` and `size` parameters. The following example sorts students by graduation date and retrieves the results two at a time. The first request returns the first page of results, and the second request returns the next page. To use the `SortOrder` enum, import `org.opensearch.client.opensearch._types.SortOrder`:
+Search for all documents in an index using the following code:
 
 ```java
-SearchResponse<Student> searchResponse = client.search(s -> s
-  .index(index)
-  .from(0)
-  .size(2)
-  .sort(so -> so.field(f -> f.field("gradDate").order(SortOrder.Asc))),
-  Student.class);
+SearchResponse<Student> searchResponse = client.search(s -> s.index(index), Student.class);
 for (int i = 0; i < searchResponse.hits().hits().size(); i++) {
   System.out.println(searchResponse.hits().hits().get(i).source());
 }
-
-SearchResponse<Student> nextPageResponse = client.search(s -> s
-  .index(index)
-  .from(2)
-  .size(2)
-  .sort(so -> so.field(f -> f.field("gradDate").order(SortOrder.Asc))),
-  Student.class);
-for (int i = 0; i < nextPageResponse.hits().hits().size(); i++) {
-  System.out.println(nextPageResponse.hits().hits().get(i).source());
-}
 ```
 {% include copy.html %}
-
-The `from` and `size` parameters work well for the first pages of results. To paginate through a large number of results, use point in time with `search_after`. For more information, see [Paginate results]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/).
 
 Each hit in `searchResponse.hits().hits()` is a `Hit<Student>` object that contains the document ID in `hit.id()` and the `Student` object in `hit.source()`, whose fields are available through getters. To use the `Hit` class, import `org.opensearch.client.opensearch.core.search.Hit`:
 
@@ -441,6 +424,35 @@ SearchResponse<Student> searchResponse = client.search(s -> s
   Student.class);
 ```
 {% include copy.html %}
+
+## Paginating results
+
+To paginate results, use the `from` and `size` parameters. The following example sorts students by graduation date and retrieves the results two at a time. The first request returns the first page of results, and the second request returns the next page. To use the `SortOrder` enum, import `org.opensearch.client.opensearch._types.SortOrder`:
+
+```java
+SearchResponse<Student> firstPageResponse = client.search(s -> s
+  .index(index)
+  .from(0)
+  .size(2)
+  .sort(so -> so.field(f -> f.field("gradDate").order(SortOrder.Asc))),
+  Student.class);
+for (int i = 0; i < firstPageResponse.hits().hits().size(); i++) {
+  System.out.println(firstPageResponse.hits().hits().get(i).source());
+}
+
+SearchResponse<Student> nextPageResponse = client.search(s -> s
+  .index(index)
+  .from(2)
+  .size(2)
+  .sort(so -> so.field(f -> f.field("gradDate").order(SortOrder.Asc))),
+  Student.class);
+for (int i = 0; i < nextPageResponse.hits().hits().size(); i++) {
+  System.out.println(nextPageResponse.hits().hits().get(i).source());
+}
+```
+{% include copy.html %}
+
+The `from` and `size` parameters work well for the first pages of results. To paginate through a large number of results, use point in time with `search_after`. For more information, see [Paginate results]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/).
 
 ## Updating a document
 
