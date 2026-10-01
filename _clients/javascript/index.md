@@ -107,6 +107,8 @@ npm install aws-sdk
 The AWS SDK for JavaScript V2 reached end of support on September 8, 2025. For new applications, use the AWS SDK for JavaScript V3 examples in this section.
 {: .note}
 
+In the following examples, replace the endpoint with your domain or collection endpoint, which is listed on the domain's or collection's details page in the Amazon OpenSearch Service console.
+
 Use the following code to authenticate with AWS V2 SDK:
 
 ```javascript
