@@ -276,6 +276,17 @@ The version field follows semantic versioning comparison rules:
 3. Pre-release comparison: When both versions are pre-releases, they are compared lexically by each dot-separated identifier (`1.0.0-alpha` < `1.0.0-alpha.1` < `1.0.0-beta`).
 4. Build metadata ignored: Build metadata does not affect version precedence (`1.0.0+build.1` equals `1.0.0+build.2` for sorting purposes).
 
+## Parameters
+
+The following table lists the parameters accepted by version field types. All parameters are optional.
+
+Parameter | Description 
+:--- | :--- 
+`doc_values` | A Boolean value that specifies whether the field should be stored on disk so that it can be used for aggregations, sorting, or scripting. Default is `true`.
+`index` | A Boolean value that specifies whether the field should be searchable. Default is `true`.
+`meta` | Accepts metadata for this field.
+`store` | A Boolean value that specifies whether the field value should be stored and can be retrieved separately from the `_source` field. Default is `false`.
+
 ## Limitations
 
 - Version strings must follow the semantic versioning format. Invalid version strings will cause indexing to fail.
