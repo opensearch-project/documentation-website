@@ -687,6 +687,43 @@ public class OpenSearchClientExample {
 ```
 {% include copy.html %}
 
+The program produces the following output:
+
+```
+Creating index......
+Index created: students
+
+Indexing one student......
+Result: created, id: 1, version: 1
+
+Indexing many students......
+Errors: false
+  created id: 2
+  created id: 3
+
+Searching for all students......
+Total hits: 3
+Page 1:
+  Student{firstName='Shirley', lastName='Rodriguez', gpa=3.91, gradDate=2019-05-10}
+  Student{firstName='Paulo', lastName='Santos', gpa=3.93, gradDate=2021-05-20}
+Page 2:
+  Student{firstName='John', lastName='Doe', gpa=3.89, gradDate=2022-05-15}
+
+Searching for students who graduated in 2019......
+Total hits: 1
+  Student{firstName='Shirley', lastName='Rodriguez', gpa=3.91, gradDate=2019-05-10}
+
+Updating a student's GPA......
+Result: updated, version: 2
+Updated document: Student{firstName='John', lastName='Doe', gpa=3.92, gradDate=2022-05-15}
+
+Deleting a student......
+Result: deleted
+
+Deleting the index......
+Acknowledged: true
+```
+
 ## Related documentation
 
 - For more examples of using the client, see the [`opensearch-java` user guide](https://github.com/opensearch-project/opensearch-java/blob/main/USER_GUIDE.md).
