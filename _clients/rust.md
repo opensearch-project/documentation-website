@@ -352,9 +352,9 @@ let response = client
 
 ## Sample program
 
-The following sample program creates a client, creates an index, indexes documents individually and in bulk, searches for documents, updates a document, deletes a document, and then deletes the index.
+The following sample program creates a client, creates an index, indexes documents individually and in bulk, searches for documents, updates a document, deletes a document, and then deletes the index. The program connects to a cluster that has the Security plugin enabled. To connect to a cluster without the Security plugin, change the lines marked with `Without security` comments.
 
-The sample programs use the following Cargo.toml file with all dependencies described in the [Setup](#setup) section:
+The sample program uses the following Cargo.toml file with all dependencies described in the [Setup](#setup) section:
 
 ```toml
 [package]
@@ -372,199 +372,10 @@ serde_json = "~1"
 ```
 {% include copy.html %}
 
-### Without security
-
-Use the following sample program when connecting to an OpenSearch cluster that does not have the Security plugin enabled:
-
 ```rust
 use opensearch::{
-    http::request::JsonBody,
-    indices::{IndicesCreateParts, IndicesDeleteParts},
-    params::Refresh,
-    BulkParts, DeleteParts, GetParts, IndexParts, OpenSearch, SearchParts, UpdateParts,
-};
-use serde::{Deserialize, Serialize};
-use serde_json::{json, Value};
-
-#[derive(Debug, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-struct Student {
-    first_name: String,
-    last_name: String,
-    gpa: f64,
-    grad_year: i32,
-}
-
-impl Student {
-    fn new(first_name: &str, last_name: &str, gpa: f64, grad_year: i32) -> Self {
-        Student {
-            first_name: first_name.to_string(),
-            last_name: last_name.to_string(),
-            gpa,
-            grad_year,
-        }
-    }
-}
-
-fn print_hits(response_body: &Value) -> Result<(), Box<dyn std::error::Error>> {
-    println!("Total hits: {}", response_body["hits"]["total"]["value"]);
-    for hit in response_body["hits"]["hits"].as_array().unwrap_or(&vec![]) {
-        let student: Student = serde_json::from_value(hit["_source"].clone())?;
-        println!("  {}", serde_json::to_string(&student)?);
-    }
-    Ok(())
-}
-
-#[tokio::main]
-async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let client = OpenSearch::default();
-
-    // Create the index
-    let index = "students";
-    println!("Creating index......");
-    let response_body = client
-        .indices()
-        .create(IndicesCreateParts::Index(index))
-        .send()
-        .await?
-        .json::<Value>()
-        .await?;
-    println!("Index created: {}", response_body["index"].as_str().unwrap_or_default());
-
-    // Index a document
-    println!("\nIndexing one student......");
-    let student = Student::new("John", "Doe", 3.89, 2022);
-    let response_body = client
-        .index(IndexParts::IndexId(index, "1"))
-        .body(student)
-        .refresh(Refresh::True)
-        .send()
-        .await?
-        .json::<Value>()
-        .await?;
-    println!(
-        "Result: {}, id: {}, version: {}",
-        response_body["result"].as_str().unwrap_or_default(),
-        response_body["_id"].as_str().unwrap_or_default(),
-        response_body["_version"]
-    );
-
-    // Bulk index documents
-    println!("\nIndexing many students......");
-    let body: Vec<JsonBody<Value>> = vec![
-        json!({"index": {"_id": "2"}}).into(),
-        serde_json::to_value(Student::new("Paulo", "Santos", 3.93, 2021))?.into(),
-        json!({"index": {"_id": "3"}}).into(),
-        serde_json::to_value(Student::new("Shirley", "Rodriguez", 3.91, 2019))?.into(),
-    ];
-    let response_body = client
-        .bulk(BulkParts::Index(index))
-        .body(body)
-        .refresh(Refresh::True)
-        .send()
-        .await?
-        .json::<Value>()
-        .await?;
-    println!("Errors: {}", response_body["errors"]);
-    for item in response_body["items"].as_array().unwrap_or(&vec![]) {
-        println!(
-            "  {} id: {}",
-            item["index"]["result"].as_str().unwrap_or_default(),
-            item["index"]["_id"].as_str().unwrap_or_default()
-        );
-    }
-
-    // Search for all students
-    println!("\nSearching for all students......");
-    let response_body = client
-        .search(SearchParts::Index(&[index]))
-        .send()
-        .await?
-        .json::<Value>()
-        .await?;
-    print_hits(&response_body)?;
-
-    // Search for students who graduated in 2019
-    println!("\nSearching for students who graduated in 2019......");
-    let response_body = client
-        .search(SearchParts::Index(&[index]))
-        .body(json!({
-            "query": {
-                "term": {
-                    "gradYear": 2019
-                }
-            }
-        }))
-        .send()
-        .await?
-        .json::<Value>()
-        .await?;
-    print_hits(&response_body)?;
-
-    // Update a document
-    println!("\nUpdating a student's GPA......");
-    let response_body = client
-        .update(UpdateParts::IndexId(index, "1"))
-        .body(json!({
-            "doc": {
-                "gpa": 3.92
-            }
-        }))
-        .send()
-        .await?
-        .json::<Value>()
-        .await?;
-    println!(
-        "Result: {}, version: {}",
-        response_body["result"].as_str().unwrap_or_default(),
-        response_body["_version"]
-    );
-
-    // Get the updated document
-    let response_body = client
-        .get(GetParts::IndexId(index, "1"))
-        .send()
-        .await?
-        .json::<Value>()
-        .await?;
-    let student: Student = serde_json::from_value(response_body["_source"].clone())?;
-    println!("Updated document: {}", serde_json::to_string(&student)?);
-
-    // Delete a document
-    println!("\nDeleting a student......");
-    let response_body = client
-        .delete(DeleteParts::IndexId(index, "3"))
-        .refresh(Refresh::True)
-        .send()
-        .await?
-        .json::<Value>()
-        .await?;
-    println!("Result: {}", response_body["result"].as_str().unwrap_or_default());
-
-    // Delete the index
-    println!("\nDeleting the index......");
-    let response_body = client
-        .indices()
-        .delete(IndicesDeleteParts::Index(&[index]))
-        .send()
-        .await?
-        .json::<Value>()
-        .await?;
-    println!("Acknowledged: {}", response_body["acknowledged"]);
-
-    Ok(())
-}
-```
-{% include copy.html %}
-
-### With security
-
-Use the following sample program when connecting to an OpenSearch cluster that has the Security plugin enabled. Make sure to change the credentials to match your cluster configuration:
-
-```rust
-use opensearch::{
-    auth::Credentials,
-    cert::CertificateValidation,
+    auth::Credentials, // Without security, remove this line
+    cert::CertificateValidation, // Without security, remove this line
     http::request::JsonBody,
     http::transport::{SingleNodeConnectionPool, TransportBuilder},
     http::Url,
@@ -606,16 +417,14 @@ fn print_hits(response_body: &Value) -> Result<(), Box<dyn std::error::Error>> {
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let url = Url::parse("https://localhost:9200")?;
+    let url = Url::parse("https://localhost:9200")?; // Without security, use http://localhost:9200
     let conn_pool = SingleNodeConnectionPool::new(url);
     let transport = TransportBuilder::new(conn_pool)
         // Only for demo purposes. Don't specify your credentials in code.
-        .auth(Credentials::Basic(
-            "admin".to_string(),
-            "<custom-admin-password>".to_string(),
-        ))
+        // Without security, remove this line
+        .auth(Credentials::Basic("admin".to_string(), "<custom-admin-password>".to_string()))
         // Only for demo purposes. Disables certificate validation for self-signed certificates.
-        .cert_validation(CertificateValidation::None)
+        .cert_validation(CertificateValidation::None) // Without security, remove this line
         .build()?;
     let client = OpenSearch::new(transport);
 
