@@ -35,6 +35,13 @@ To install the operator using Helm, follow these steps:
    ```
    {% include copy.html %}
 
+1. Update your local Helm chart information. If you added the repository previously, this step ensures that Helm installs the latest operator version:
+
+   ```bash
+   helm repo update
+   ```
+   {% include copy.html %}
+
 1. Install the operator:
 
    ```bash
