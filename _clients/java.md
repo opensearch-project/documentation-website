@@ -339,11 +339,19 @@ Amazon OpenSearch Serverless supports a subset of OpenSearch API operations and 
 
 ## Creating an index
 
-Create an index using the following code:
+The following example creates an index with one primary shard and one replica. It explicitly maps the `lastName` field as `keyword` and the `gradYear` field as `integer`. OpenSearch maps the other document fields dynamically when you index documents:
 
 ```java
 String index = "students";
-CreateIndexRequest createIndexRequest = new CreateIndexRequest.Builder().index(index).build();
+CreateIndexRequest createIndexRequest = new CreateIndexRequest.Builder()
+  .index(index)
+  .settings(s -> s
+    .numberOfShards(1)
+    .numberOfReplicas(1))
+  .mappings(m -> m
+    .properties("lastName", p -> p.keyword(k -> k))
+    .properties("gradYear", p -> p.integer(i -> i)))
+  .build();
 client.indices().create(createIndexRequest);
 ```
 {% include copy.html %}
@@ -387,12 +395,14 @@ BulkResponse bulkResponse = client.bulk(bulkRequest);
 Search for all documents in an index using the following code:
 
 ```java
-SearchResponse<Student> searchResponse = client.search(s -> s.index(index), Student.class);
+SearchResponse<Student> searchResponse = client.search(s -> s.index(index).from(0).size(10), Student.class);
 for (int i = 0; i < searchResponse.hits().hits().size(); i++) {
   System.out.println(searchResponse.hits().hits().get(i).source());
 }
 ```
 {% include copy.html %}
+
+The `from` and `size` parameters specify the offset and the number of results to return.
 
 Each hit in `searchResponse.hits().hits()` is a `Hit<Student>` object that contains the document ID in `hit.id()` and the `Student` object in `hit.source()`, whose fields are available through getters. To use the `Hit` class, import `org.opensearch.client.opensearch.core.search.Hit`:
 
@@ -532,7 +542,15 @@ public class OpenSearchClientExample {
       // Create the index
       String index = "students";
       System.out.println("Creating index......");
-      CreateIndexRequest createIndexRequest = new CreateIndexRequest.Builder().index(index).build();
+      CreateIndexRequest createIndexRequest = new CreateIndexRequest.Builder()
+        .index(index)
+        .settings(s -> s
+          .numberOfShards(1)
+          .numberOfReplicas(1))
+        .mappings(m -> m
+          .properties("lastName", p -> p.keyword(k -> k))
+          .properties("gradYear", p -> p.integer(i -> i)))
+        .build();
       CreateIndexResponse createIndexResponse = client.indices().create(createIndexRequest);
       System.out.println("Index created: " + createIndexResponse.index());
 
@@ -566,7 +584,7 @@ public class OpenSearchClientExample {
 
       // Search for all students
       System.out.println("\nSearching for all students......");
-      SearchResponse<Student> searchResponse = client.search(s -> s.index(index), Student.class);
+      SearchResponse<Student> searchResponse = client.search(s -> s.index(index).from(0).size(10), Student.class);
       System.out.println("Total hits: " + searchResponse.hits().total().value());
       for (int i = 0; i < searchResponse.hits().hits().size(); i++) {
         System.out.println("  " + searchResponse.hits().hits().get(i).source());
