@@ -109,13 +109,13 @@ require 'opensearch-aws-sigv4'
 require 'aws-sigv4'
 
 signer = Aws::Sigv4::Signer.new(service: 'es',
-                                region: 'us-west-2', # must match the Region in the endpoint
+                                region: 'us-east-1', # must match the Region in the endpoint
                                 access_key_id: 'key_id',
                                 secret_access_key: 'secret',
                                 session_token: 'session_token') # required for temporary credentials, such as IAM roles or SSO
 
 client = OpenSearch::Aws::Sigv4Client.new({
-    host: 'https://search-<domain-name>-<id>.us-west-2.es.amazonaws.com',
+    host: 'https://search-<domain-name>-<id>.us-east-1.es.amazonaws.com',
     log: true
 }, signer)
 
@@ -153,13 +153,13 @@ require 'opensearch-aws-sigv4'
 require 'aws-sigv4'
 
 signer = Aws::Sigv4::Signer.new(service: 'aoss',
-                                region: 'us-west-2', # must match the Region in the endpoint
+                                region: 'us-east-1', # must match the Region in the endpoint
                                 access_key_id: 'key_id',
                                 secret_access_key: 'secret',
                                 session_token: 'session_token') # required for temporary credentials, such as IAM roles or SSO
 
 client = OpenSearch::Aws::Sigv4Client.new({
-    host: 'https://<collection-id>.us-west-2.aoss.amazonaws.com', # Amazon OpenSearch Serverless collection endpoint
+    host: 'https://<collection-id>.us-east-1.aoss.amazonaws.com', # Amazon OpenSearch Serverless collection endpoint
     log: true
 }, signer)
 
@@ -570,13 +570,13 @@ require 'opensearch-aws-sigv4'
 require 'aws-sigv4'
 
 signer = Aws::Sigv4::Signer.new(service: 'es',
-                                region: 'us-west-2',
+                                region: 'us-east-1',
                                 access_key_id: 'key_id',
                                 secret_access_key: 'secret',
                                 session_token: 'session_token') # required for temporary credentials, such as IAM roles or SSO
 
 client = OpenSearch::Aws::Sigv4Client.new({
-    host: 'https://search-<domain-name>-<id>.us-west-2.es.amazonaws.com',
+    host: 'https://search-<domain-name>-<id>.us-east-1.es.amazonaws.com',
     log: true
 }, signer)
 
