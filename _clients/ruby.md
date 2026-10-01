@@ -418,91 +418,17 @@ response = client.indices.delete(index: 'students')
 
 ## Sample program
 
-The following sample program creates a client, creates an index, indexes documents individually and in bulk, searches for documents, updates a document, deletes a document, and then deletes the index.
-
-### Without security
-
-Use the following sample program when connecting to an OpenSearch cluster that does not have the Security plugin enabled:
-
-```ruby
-require 'opensearch'
-require 'json'
-
-client = OpenSearch::Client.new(host: 'http://localhost:9200')
-
-# Create the index
-index = 'students'
-puts 'Creating index......'
-response = client.indices.create(index: index)
-puts "Index created: #{response['index']}"
-
-# Index a document
-puts "\nIndexing one student......"
-student = { firstName: 'John', lastName: 'Doe', gpa: 3.89, gradYear: 2022 }
-response = client.index(index: index, id: '1', body: student, refresh: true)
-puts "Result: #{response['result']}, id: #{response['_id']}, version: #{response['_version']}"
-
-# Bulk index documents
-puts "\nIndexing many students......"
-actions = [
-  { index: { _index: index, _id: '2' } },
-  { firstName: 'Paulo', lastName: 'Santos', gpa: 3.93, gradYear: 2021 },
-  { index: { _index: index, _id: '3' } },
-  { firstName: 'Shirley', lastName: 'Rodriguez', gpa: 3.91, gradYear: 2019 }
-]
-response = client.bulk(body: actions, refresh: true)
-puts "Errors: #{response['errors']}"
-response['items'].each do |item|
-  puts "  #{item['index']['result']} id: #{item['index']['_id']}"
-end
-
-# Search for all students
-puts "\nSearching for all students......"
-response = client.search(index: index)
-puts "Total hits: #{response['hits']['total']['value']}"
-response['hits']['hits'].each { |hit| puts "  #{JSON.generate(hit['_source'])}" }
-
-# Search for students who graduated in 2019
-puts "\nSearching for students who graduated in 2019......"
-query = { query: { term: { gradYear: 2019 } } }
-response = client.search(index: index, body: query)
-puts "Total hits: #{response['hits']['total']['value']}"
-response['hits']['hits'].each { |hit| puts "  #{JSON.generate(hit['_source'])}" }
-
-# Update a document
-puts "\nUpdating a student's GPA......"
-response = client.update(index: index, id: '1', body: { doc: { gpa: 3.92 } })
-puts "Result: #{response['result']}, version: #{response['_version']}"
-
-# Get the updated document
-response = client.get(index: index, id: '1')
-puts "Updated document: #{JSON.generate(response['_source'])}"
-
-# Delete a document
-puts "\nDeleting a student......"
-response = client.delete(index: index, id: '3', refresh: true)
-puts "Result: #{response['result']}"
-
-# Delete the index
-puts "\nDeleting the index......"
-response = client.indices.delete(index: index)
-puts "Acknowledged: #{response['acknowledged']}"
-```
-{% include copy.html %}
-
-### With security
-
-Use the following sample program when connecting to an OpenSearch cluster that has the Security plugin enabled. Make sure to change the credentials to match your cluster configuration:
+The following sample program creates a client, creates an index, indexes documents individually and in bulk, searches for documents, updates a document, deletes a document, and then deletes the index. The program connects to a cluster that has the Security plugin enabled. To connect to a cluster without the Security plugin, change the lines marked with `Without security` comments.
 
 ```ruby
 require 'opensearch'
 require 'json'
 
 client = OpenSearch::Client.new(
-  host: 'https://localhost:9200',
-  user: 'admin', # Only for demo purposes. Don't specify your credentials in code.
-  password: '<custom-admin-password>',
-  transport_options: { ssl: { verify: false } } # For testing only. Use a certificate for validation.
+  host: 'https://localhost:9200', # Without security, use http://localhost:9200
+  user: 'admin', # Without security, remove this line
+  password: '<custom-admin-password>', # Without security, remove this line
+  transport_options: { ssl: { verify: false } } # Without security, remove this line
 )
 
 # Create the index
