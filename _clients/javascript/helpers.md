@@ -204,4 +204,6 @@ client.helpers.bulk({
 
 ## Related documentation
 
-For more examples and advanced index actions, see the [`opensearch-js` guides](https://github.com/opensearch-project/opensearch-js/tree/main/guides) in GitHub.
+- For more examples of using the client, see the [`opensearch-js` user guide](https://github.com/opensearch-project/opensearch-js/blob/main/USER_GUIDE.md).
+- For guides to specific tasks, such as bulk indexing and searching, see the [`opensearch-js` guides](https://github.com/opensearch-project/opensearch-js/tree/main/guides).
+- For complete sample applications, see the [`opensearch-js` samples](https://github.com/opensearch-project/opensearch-js/tree/main/samples).

@@ -2,6 +2,7 @@
 layout: default
 title: JavaScript client
 has_children: true
+has_toc: false
 nav_order: 40
 redirect_from:
   - /clients/javascript/
@@ -661,6 +662,7 @@ var client = new Client({
 
 ## Related documentation
 
+- To index, update, and delete documents in bulk using the client's helper method, see [Helper methods]({{site.url}}{{site.baseurl}}/clients/javascript/helpers/).
 - For more examples of using the client, see the [`opensearch-js` user guide](https://github.com/opensearch-project/opensearch-js/blob/main/USER_GUIDE.md).
 - For guides to specific tasks, such as bulk indexing and searching, see the [`opensearch-js` guides](https://github.com/opensearch-project/opensearch-js/tree/main/guides).
 - For complete sample applications, see the [`opensearch-js` samples](https://github.com/opensearch-project/opensearch-js/tree/main/samples).
