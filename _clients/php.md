@@ -155,13 +155,27 @@ Amazon OpenSearch Serverless supports a subset of OpenSearch API operations and 
 
 ## Creating an index
 
-Create an index using the following code:
+The following example creates an index with one primary shard and one replica. It explicitly maps the `lastName` field as `keyword` and the `gradYear` field as `integer`. OpenSearch maps the other document fields dynamically when you index documents:
 
 ```php
 $index = 'students';
 
 $client->indices()->create([
     'index' => $index,
+    'body' => [
+        'settings' => [
+            'index' => [
+                'number_of_shards' => 1,
+                'number_of_replicas' => 1,
+            ],
+        ],
+        'mappings' => [
+            'properties' => [
+                'lastName' => ['type' => 'keyword'],
+                'gradYear' => ['type' => 'integer'],
+            ],
+        ],
+    ],
 ]);
 ```
 {% include copy.html %}
@@ -208,11 +222,15 @@ A bulk request does not throw an exception when an individual action fails, so c
 
 ## Searching for documents
 
-Search for all documents in an index using the following code:
+Search for all documents in an index using the following code. The `from` and `size` parameters specify the offset and the number of results to return:
 
 ```php
 $response = $client->search([
     'index' => $index,
+    'body' => [
+        'from' => 0,
+        'size' => 10,
+    ],
 ]);
 
 foreach ($response['hits']['hits'] as $hit) {
@@ -369,6 +387,20 @@ try {
     echo "Creating index......\n";
     $response = $client->indices()->create([
         'index' => $index,
+        'body' => [
+            'settings' => [
+                'index' => [
+                    'number_of_shards' => 1,
+                    'number_of_replicas' => 1,
+                ],
+            ],
+            'mappings' => [
+                'properties' => [
+                    'lastName' => ['type' => 'keyword'],
+                    'gradYear' => ['type' => 'integer'],
+                ],
+            ],
+        ],
     ]);
     echo "Index created: {$response['index']}\n";
 
@@ -408,6 +440,10 @@ try {
     echo "\nSearching for all students......\n";
     $response = $client->search([
         'index' => $index,
+        'body' => [
+            'from' => 0,
+            'size' => 10,
+        ],
     ]);
     echo "Total hits: {$response['hits']['total']['value']}\n";
     foreach ($response['hits']['hits'] as $hit) {
