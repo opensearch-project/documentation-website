@@ -221,22 +221,27 @@ A bulk request does not throw an exception when an individual action fails, so c
 
 ## Searching for documents
 
-Search for all documents in an index using the following code. The `from` and `size` parameters specify the offset and the number of results to return:
+To paginate results, use the `from` and `size` parameters. The following example sorts students by graduation date and retrieves the results two at a time. The first request returns the first page of results, and the second request returns the next page:
 
 ```php
-$response = $client->search([
-    'index' => $index,
-    'body' => [
-        'from' => 0,
-        'size' => 10,
-    ],
-]);
+foreach ([0, 2] as $from) {
+    $response = $client->search([
+        'index' => $index,
+        'body' => [
+            'from' => $from,
+            'size' => 2,
+            'sort' => [['gradDate' => 'asc']],
+        ],
+    ]);
 
-foreach ($response['hits']['hits'] as $hit) {
-    echo json_encode($hit['_source']) . "\n";
+    foreach ($response['hits']['hits'] as $hit) {
+        echo json_encode($hit['_source']) . "\n";
+    }
 }
 ```
 {% include copy.html %}
+
+The `from` and `size` parameters work well for the first pages of results. To paginate through a large number of results, use point in time with `search_after`, as described in [Paginating results using a point in time](#paginating-results-using-a-point-in-time).
 
 Search using a range query:
 
@@ -446,10 +451,25 @@ try {
         'index' => $index,
         'body' => [
             'from' => 0,
-            'size' => 10,
+            'size' => 2,
+            'sort' => [['gradDate' => 'asc']],
         ],
     ]);
     echo "Total hits: {$response['hits']['total']['value']}\n";
+    echo "Page 1:\n";
+    foreach ($response['hits']['hits'] as $hit) {
+        echo '  ' . json_encode($hit['_source']) . "\n";
+    }
+
+    $response = $client->search([
+        'index' => $index,
+        'body' => [
+            'from' => 2,
+            'size' => 2,
+            'sort' => [['gradDate' => 'asc']],
+        ],
+    ]);
+    echo "Page 2:\n";
     foreach ($response['hits']['hits'] as $hit) {
         echo '  ' . json_encode($hit['_source']) . "\n";
     }
@@ -531,9 +551,11 @@ Errors: false
 
 Searching for all students......
 Total hits: 3
-  {"firstName":"John","lastName":"Doe","gpa":3.89,"gradDate":"2022-05-15"}
-  {"firstName":"Paulo","lastName":"Santos","gpa":3.93,"gradDate":"2021-05-20"}
+Page 1:
   {"firstName":"Shirley","lastName":"Rodriguez","gpa":3.91,"gradDate":"2019-05-10"}
+  {"firstName":"Paulo","lastName":"Santos","gpa":3.93,"gradDate":"2021-05-20"}
+Page 2:
+  {"firstName":"John","lastName":"Doe","gpa":3.89,"gradDate":"2022-05-15"}
 
 Searching for students who graduated in 2019......
 Total hits: 1
