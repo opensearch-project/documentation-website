@@ -604,3 +604,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 }
 ```
 {% include copy.html %}
+
+## Related documentation
+
+- For more examples of using the client, see the [`opensearch-rs` user guide](https://github.com/opensearch-project/opensearch-rs/blob/main/USER_GUIDE.md).
+- For guides to specific tasks, such as bulk indexing and searching, see the [`opensearch-rs` guides](https://github.com/opensearch-project/opensearch-rs/tree/main/guides).
