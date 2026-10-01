@@ -279,14 +279,32 @@ You can send the request body as an anonymous object, string, byte array, or str
 
 ## Searching for documents
 
-To construct a Query DSL query, use anonymous types within the request body. The following query searches for all students. The `from` and `size` parameters specify the offset and the number of results to return:
+To construct a Query DSL query, use anonymous types within the request body. To paginate results, use the `from` and `size` parameters. The following example sorts students by graduation date and retrieves the results two at a time. The first request returns the first page of results, and the second request returns the next page:
 
 ```cs
 var searchResponse = client.Search<StringResponse>(index,
-    PostData.Serializable(new { from = 0, size = 10, query = new { match_all = new { } } }));
+    PostData.Serializable(new
+    {
+        from = 0,
+        size = 2,
+        sort = new[] { new { gradDate = "asc" } },
+        query = new { match_all = new { } }
+    }));
 Console.WriteLine(searchResponse.Body);
+
+var nextPageResponse = client.Search<StringResponse>(index,
+    PostData.Serializable(new
+    {
+        from = 2,
+        size = 2,
+        sort = new[] { new { gradDate = "asc" } },
+        query = new { match_all = new { } }
+    }));
+Console.WriteLine(nextPageResponse.Body);
 ```
 {% include copy.html %}
+
+The `from` and `size` parameters work well for the first pages of results. To paginate through a large number of results, use point in time with `search_after`. For more information, see [Paginate results]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/).
 
 The following range query searches for students who graduated in 2019:
 
@@ -524,8 +542,27 @@ internal class Program
         // Search for all students
         Console.WriteLine("\nSearching for all students......");
         var searchResponse = client.Search<StringResponse>(index,
-            PostData.Serializable(new { from = 0, size = 10, query = new { match_all = new { } } }));
-        PrintHits(searchResponse);
+            PostData.Serializable(new
+            {
+                from = 0,
+                size = 2,
+                sort = new[] { new { gradDate = "asc" } },
+                query = new { match_all = new { } }
+            }));
+        PrintTotal(searchResponse);
+        Console.WriteLine("Page 1:");
+        PrintStudents(searchResponse);
+
+        var nextPageResponse = client.Search<StringResponse>(index,
+            PostData.Serializable(new
+            {
+                from = 2,
+                size = 2,
+                sort = new[] { new { gradDate = "asc" } },
+                query = new { match_all = new { } }
+            }));
+        Console.WriteLine("Page 2:");
+        PrintStudents(nextPageResponse);
 
         // Search for students who graduated in 2019
         Console.WriteLine("\nSearching for students who graduated in 2019......");
@@ -540,7 +577,8 @@ internal class Program
                     }
                 }
             }));
-        PrintHits(searchResponse2);
+        PrintTotal(searchResponse2);
+        PrintStudents(searchResponse2);
 
         // Update a document
         Console.WriteLine("\nUpdating a student's GPA......");
@@ -574,12 +612,19 @@ internal class Program
     // Deserializes camelCase JSON field names into Student properties
     private static readonly JsonSerializerOptions JsonOptions = new(JsonSerializerDefaults.Web);
 
-    // Prints the total number of hits and the student in each hit
-    private static void PrintHits(StringResponse searchResponse)
+    // Prints the total number of hits
+    private static void PrintTotal(StringResponse searchResponse)
     {
         using var json = JsonDocument.Parse(searchResponse.Body);
         var hits = json.RootElement.GetProperty("hits");
         Console.WriteLine("Total hits: " + hits.GetProperty("total").GetProperty("value"));
+    }
+
+    // Prints the student in each hit
+    private static void PrintStudents(StringResponse searchResponse)
+    {
+        using var json = JsonDocument.Parse(searchResponse.Body);
+        var hits = json.RootElement.GetProperty("hits");
         foreach (var hit in hits.GetProperty("hits").EnumerateArray())
         {
             var student = hit.GetProperty("_source").Deserialize<Student>(JsonOptions);
@@ -606,9 +651,11 @@ Errors: false
 
 Searching for all students......
 Total hits: 3
-  Student{firstName='John', lastName='Doe', gpa=3.89, gradDate=2022-05-15}
-  Student{firstName='Paulo', lastName='Santos', gpa=3.93, gradDate=2021-05-20}
+Page 1:
   Student{firstName='Shirley', lastName='Rodriguez', gpa=3.91, gradDate=2019-05-10}
+  Student{firstName='Paulo', lastName='Santos', gpa=3.93, gradDate=2021-05-20}
+Page 2:
+  Student{firstName='John', lastName='Doe', gpa=3.89, gradDate=2022-05-15}
 
 Searching for students who graduated in 2019......
 Total hits: 1

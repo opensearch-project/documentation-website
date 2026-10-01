@@ -177,21 +177,32 @@ var bulkResponse = client.Bulk(b => b
 
 ## Searching for documents
 
-Search for all documents in an index using the following code:
+To paginate results, use the `from` and `size` parameters. The following example sorts students by graduation date and retrieves the results two at a time. The first request returns the first page of results, and the second request returns the next page:
 
 ```cs
 var searchResponse = client.Search<Student>(s => s
     .Index(index)
+    .Sort(so => so.Ascending(f => f.GradDate))
     .From(0)
-    .Size(10));
+    .Size(2));
 foreach (var doc in searchResponse.Documents)
+{
+    Console.WriteLine(doc);
+}
+
+var nextPageResponse = client.Search<Student>(s => s
+    .Index(index)
+    .Sort(so => so.Ascending(f => f.GradDate))
+    .From(2)
+    .Size(2));
+foreach (var doc in nextPageResponse.Documents)
 {
     Console.WriteLine(doc);
 }
 ```
 {% include copy.html %}
 
-The `from` and `size` parameters specify the offset and the number of results to return.
+The `from` and `size` parameters work well for the first pages of results. To paginate through a large number of results, use point in time with `search_after`. For more information, see [Paginate results]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/).
 
 Each item in `searchResponse.Documents` is a `Student` object, and its fields are available as properties. To also get the ID of each document, iterate over `searchResponse.Hits`. Each hit contains the document ID in the `Id` property and the `Student` object in the `Source` property:
 
@@ -382,10 +393,23 @@ internal class Program
         Console.WriteLine("\nSearching for all students......");
         var searchResponse = client.Search<Student>(s => s
             .Index(index)
+            .Sort(so => so.Ascending(f => f.GradDate))
             .From(0)
-            .Size(10));
+            .Size(2));
         Console.WriteLine("Total hits: " + searchResponse.Total);
+        Console.WriteLine("Page 1:");
         foreach (var doc in searchResponse.Documents)
+        {
+            Console.WriteLine("  " + doc);
+        }
+
+        var nextPageResponse = client.Search<Student>(s => s
+            .Index(index)
+            .Sort(so => so.Ascending(f => f.GradDate))
+            .From(2)
+            .Size(2));
+        Console.WriteLine("Page 2:");
+        foreach (var doc in nextPageResponse.Documents)
         {
             Console.WriteLine("  " + doc);
         }
@@ -448,9 +472,11 @@ Errors: false
 
 Searching for all students......
 Total hits: 3
-  Student{firstName='John', lastName='Doe', gpa=3.89, gradDate=2022-05-15}
-  Student{firstName='Paulo', lastName='Santos', gpa=3.93, gradDate=2021-05-20}
+Page 1:
   Student{firstName='Shirley', lastName='Rodriguez', gpa=3.91, gradDate=2019-05-10}
+  Student{firstName='Paulo', lastName='Santos', gpa=3.93, gradDate=2021-05-20}
+Page 2:
+  Student{firstName='John', lastName='Doe', gpa=3.89, gradDate=2022-05-15}
 
 Searching for students who graduated in 2019......
 Total hits: 1
