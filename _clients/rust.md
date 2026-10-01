@@ -352,7 +352,7 @@ let response = client
 
 ## Sample program
 
-The sample program connects to a cluster that has the Security plugin enabled. To connect to a cluster without the Security plugin, change the lines marked with `// Without security` comments.
+This sample program combines the code from the preceding sections. It connects to a cluster that has the Security plugin enabled. To connect to a cluster without the Security plugin, change the lines marked with `// Without security` comments.
 
 The sample program uses the following Cargo.toml file with all dependencies described in the [Setup](#setup) section:
 
