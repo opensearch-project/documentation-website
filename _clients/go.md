@@ -410,6 +410,9 @@ deleteIndexResp, err := client.Indices.Delete(ctx, &opensearchapi.IndicesDeleteR
 
 The sample program connects to a cluster that has the Security plugin enabled. To connect to a cluster without the Security plugin, change the lines marked with `// Without security` comments.
 
+This sample program is for testing only. It specifies credentials in code and disables certificate validation so that it can connect to a cluster that uses self-signed certificates. In production, load credentials from a secure location and validate the cluster's certificate.
+{: .warning}
+
 The following sample program creates a client, creates an index, indexes documents individually and in bulk, searches for documents, updates a document, deletes a document, and then deletes the index:
 
 ```go
@@ -449,9 +452,9 @@ func run() error {
 			// Without security, use http://localhost:9200
 			Addresses: []string{"https://localhost:9200"},
 			// Without security, remove this line
-			InsecureSkipVerify: true, // For testing only. Use certificate for validation.
+			InsecureSkipVerify: true,
 			// Without security, remove this line
-			Username: "admin", // For testing only. Don't store credentials in code.
+			Username: "admin",
 			// Without security, remove this line
 			Password:             "<custom-admin-password>",
 			DiscoverNodesOnStart: new(false),
