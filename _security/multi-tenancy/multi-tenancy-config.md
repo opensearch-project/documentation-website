@@ -29,8 +29,6 @@ config:
 | `server_username` | Must match the name of the OpenSearch Dashboards server user in `opensearch_dashboards.yml`. Default is `kibanaserver`. If a different user is configured, then make sure that user is mapped to the `kibana_server` role through the `role_mappings.yml` file in order to give them the appropriate permissions listed in [kibana_server role details]({{site.url}}{{site.baseurl}}/security/multi-tenancy/multi-tenancy-config/#kibana_server-role-details). |
 | `index` | Must match the name of the OpenSearch Dashboards index from `opensearch_dashboards.yml`. Default is `.kibana`. |
 
-`do_not_fail_on_forbidden` is a global index-authorization setting, not a multi-tenancy setting. For its behavior and the replacement `v4` mode, see [Authorization basics]({{site.url}}{{site.baseurl}}/security/access-control/authorization-basics/).
-
 The `opensearch_dashboards.yml` file includes additional settings:
 
 ```yml
