@@ -155,7 +155,7 @@ Amazon OpenSearch Serverless supports a subset of OpenSearch API operations and 
 
 ## Creating an index
 
-The following example creates an index with one primary shard and one replica. It explicitly maps the `lastName` field as `keyword` and the `gradYear` field as `integer`. OpenSearch maps the other document fields dynamically when you index documents:
+The following example creates an index with one primary shard and one replica. It explicitly maps the `gradDate` field as a `date` in the `yyyy-MM-dd` format. OpenSearch maps the other document fields dynamically when you index documents:
 
 ```php
 $index = 'students';
@@ -171,8 +171,7 @@ $client->indices()->create([
         ],
         'mappings' => [
             'properties' => [
-                'lastName' => ['type' => 'keyword'],
-                'gradYear' => ['type' => 'integer'],
+                'gradDate' => ['type' => 'date', 'format' => 'yyyy-MM-dd'],
             ],
         ],
     ],
@@ -192,7 +191,7 @@ $response = $client->index([
         'firstName' => 'John',
         'lastName' => 'Doe',
         'gpa' => 3.89,
-        'gradYear' => 2022,
+        'gradDate' => '2022-05-15',
     ],
     'refresh' => true,
 ]);
@@ -209,9 +208,9 @@ Index multiple documents in a single request using the following code. The reque
 $response = $client->bulk([
     'body' => [
         ['index' => ['_index' => $index, '_id' => '2']],
-        ['firstName' => 'Paulo', 'lastName' => 'Santos', 'gpa' => 3.93, 'gradYear' => 2021],
+        ['firstName' => 'Paulo', 'lastName' => 'Santos', 'gpa' => 3.93, 'gradDate' => '2021-05-20'],
         ['index' => ['_index' => $index, '_id' => '3']],
-        ['firstName' => 'Shirley', 'lastName' => 'Rodriguez', 'gpa' => 3.91, 'gradYear' => 2019],
+        ['firstName' => 'Shirley', 'lastName' => 'Rodriguez', 'gpa' => 3.91, 'gradDate' => '2019-05-10'],
     ],
     'refresh' => true,
 ]);
@@ -239,15 +238,18 @@ foreach ($response['hits']['hits'] as $hit) {
 ```
 {% include copy.html %}
 
-Search using a term query:
+Search using a range query:
 
 ```php
 $response = $client->search([
     'index' => $index,
     'body' => [
         'query' => [
-            'term' => [
-                'gradYear' => 2019,
+            'range' => [
+                'gradDate' => [
+                    'gte' => '2019-01-01',
+                    'lte' => '2019-12-31',
+                ],
             ],
         ],
     ],
@@ -260,7 +262,7 @@ To write the query in SQL, use the `sql()` namespace. The response contains a `s
 ```php
 $response = $client->sql()->query([
     'body' => [
-        'query' => "SELECT firstName, lastName, gpa FROM $index WHERE gradYear = 2019",
+        'query' => "SELECT firstName, lastName, gpa FROM $index WHERE gradDate BETWEEN '2019-01-01' AND '2019-12-31'",
     ],
 ]);
 ```
@@ -282,7 +284,7 @@ $response = $client->search([
     'body' => [
         'pit' => ['id' => $pitId, 'keep_alive' => '10m'],
         'size' => 2,
-        'sort' => [['gradYear' => 'asc']],
+        'sort' => [['gradDate' => 'asc']],
     ],
 ]);
 $last = end($response['hits']['hits']);
@@ -293,7 +295,7 @@ $response = $client->search([
         'pit' => ['id' => $pitId, 'keep_alive' => '10m'],
         'search_after' => $last['sort'],
         'size' => 2,
-        'sort' => [['gradYear' => 'asc']],
+        'sort' => [['gradDate' => 'asc']],
     ],
 ]);
 
@@ -341,8 +343,11 @@ $response = $client->deleteByQuery([
     'index' => $index,
     'body' => [
         'query' => [
-            'term' => [
-                'gradYear' => 2021,
+            'range' => [
+                'gradDate' => [
+                    'gte' => '2021-01-01',
+                    'lte' => '2021-12-31',
+                ],
             ],
         ],
     ],
@@ -396,8 +401,7 @@ try {
             ],
             'mappings' => [
                 'properties' => [
-                    'lastName' => ['type' => 'keyword'],
-                    'gradYear' => ['type' => 'integer'],
+                    'gradDate' => ['type' => 'date', 'format' => 'yyyy-MM-dd'],
                 ],
             ],
         ],
@@ -413,7 +417,7 @@ try {
             'firstName' => 'John',
             'lastName' => 'Doe',
             'gpa' => 3.89,
-            'gradYear' => 2022,
+            'gradDate' => '2022-05-15',
         ],
         'refresh' => true,
     ]);
@@ -424,9 +428,9 @@ try {
     $response = $client->bulk([
         'body' => [
             ['index' => ['_index' => $index, '_id' => '2']],
-            ['firstName' => 'Paulo', 'lastName' => 'Santos', 'gpa' => 3.93, 'gradYear' => 2021],
+            ['firstName' => 'Paulo', 'lastName' => 'Santos', 'gpa' => 3.93, 'gradDate' => '2021-05-20'],
             ['index' => ['_index' => $index, '_id' => '3']],
-            ['firstName' => 'Shirley', 'lastName' => 'Rodriguez', 'gpa' => 3.91, 'gradYear' => 2019],
+            ['firstName' => 'Shirley', 'lastName' => 'Rodriguez', 'gpa' => 3.91, 'gradDate' => '2019-05-10'],
         ],
         'refresh' => true,
     ]);
@@ -456,8 +460,11 @@ try {
         'index' => $index,
         'body' => [
             'query' => [
-                'term' => [
-                    'gradYear' => 2019,
+                'range' => [
+                    'gradDate' => [
+                        'gte' => '2019-01-01',
+                        'lte' => '2019-12-31',
+                    ],
                 ],
             ],
         ],
@@ -524,17 +531,17 @@ Errors: false
 
 Searching for all students......
 Total hits: 3
-  {"firstName":"John","lastName":"Doe","gpa":3.89,"gradYear":2022}
-  {"firstName":"Paulo","lastName":"Santos","gpa":3.93,"gradYear":2021}
-  {"firstName":"Shirley","lastName":"Rodriguez","gpa":3.91,"gradYear":2019}
+  {"firstName":"John","lastName":"Doe","gpa":3.89,"gradDate":"2022-05-15"}
+  {"firstName":"Paulo","lastName":"Santos","gpa":3.93,"gradDate":"2021-05-20"}
+  {"firstName":"Shirley","lastName":"Rodriguez","gpa":3.91,"gradDate":"2019-05-10"}
 
 Searching for students who graduated in 2019......
 Total hits: 1
-  {"firstName":"Shirley","lastName":"Rodriguez","gpa":3.91,"gradYear":2019}
+  {"firstName":"Shirley","lastName":"Rodriguez","gpa":3.91,"gradDate":"2019-05-10"}
 
 Updating a student's GPA......
 Result: updated, version: 2
-Updated document: {"firstName":"John","lastName":"Doe","gpa":3.92,"gradYear":2022}
+Updated document: {"firstName":"John","lastName":"Doe","gpa":3.92,"gradDate":"2022-05-15"}
 
 Deleting a student......
 Result: deleted
