@@ -282,21 +282,15 @@ response = client.bulk(body: actions, refresh: true)
 
 ## Searching for documents
 
-To search for documents, use the `search` method. If you omit the request body, your query becomes a `match_all` query and returns all documents in the index. To paginate results, use the `from` and `size` parameters. The following example sorts students by graduation date and retrieves the results two at a time. The first request returns the first page of results, and the second request returns the next page:
+To search for documents, use the `search` method. If you omit the request body, your query becomes a `match_all` query and returns all documents in the index:
 
 ```ruby
 require 'json'
 
-query = { sort: [{ gradDate: 'asc' }] }
-response = client.search(index: 'students', from: 0, size: 2, body: query)
-response['hits']['hits'].each { |hit| puts JSON.generate(hit['_source']) }
-
-response = client.search(index: 'students', from: 2, size: 2, body: query)
+response = client.search(index: 'students')
 response['hits']['hits'].each { |hit| puts JSON.generate(hit['_source']) }
 ```
 {% include copy.html %}
-
-The `from` and `size` parameters work well for the first pages of results. To paginate through a large number of results, use point in time with `search_after`. For more information, see [Paginate results]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/).
 
 The following example uses a `range` query to search for students who graduated in 2019:
 
@@ -360,9 +354,29 @@ response = client.msearch(index: 'students', body: actions)
 ```
 {% include copy.html %}
 
-## Scroll
+## Paginating results
 
-You can paginate your search results using the Scroll API:
+To paginate results, use the `from` and `size` parameters. The following example sorts students by graduation date and retrieves the results two at a time. The first request returns the first page of results, and the second request returns the next page:
+
+```ruby
+require 'json'
+
+query = { sort: [{ gradDate: 'asc' }] }
+response = client.search(index: 'students', from: 0, size: 2, body: query)
+response['hits']['hits'].each { |hit| puts JSON.generate(hit['_source']) }
+
+response = client.search(index: 'students', from: 2, size: 2, body: query)
+response['hits']['hits'].each { |hit| puts JSON.generate(hit['_source']) }
+```
+{% include copy.html %}
+
+The `from` and `size` parameters work well for the first pages of results. To process a large number of results in a batch, use scroll, as described in [Paginating using scroll](#paginating-using-scroll).
+
+### Paginating using scroll
+
+Use the Scroll API to paginate search results. Scroll keeps a search context open on the cluster and is suited to processing all results in a batch job rather than to user-facing requests. For other use cases, use point in time with `search_after`. For more information, see [Paginate results]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/).
+
+The following example retrieves all students two at a time:
 
 ```ruby
 response = client.search(index: 'students', scroll: '2m', size: 2)
