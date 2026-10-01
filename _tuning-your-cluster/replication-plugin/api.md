@@ -433,6 +433,7 @@ The following table lists the available request body fields.
 | `leader_alias` | String | The name of the cross-cluster connection. You define this alias when you [set up a cross-cluster connection]({{site.url}}{{site.baseurl}}/replication-plugin/get-started/#set-up-a-cross-cluster-connection). | Yes |
 | `name` | String | A name for the auto-follow pattern. | Yes |
 | `pattern` | String | An array of index patterns to match against indexes in the specified leader cluster. Supports wildcard characters. For example, `leader-*`. | Yes |
+| `follower_index_pattern` | String | A pattern used to name the follower index name. Use the `{{leader_index}}` placeholder to include the matched leader index name. For example, `{{leader_index}}-replica` creates a follower index named `<leader_index_name>-replica`. Useful for avoiding name collisions when a same-named local index exists on the follower cluster or when replicating from multiple leader clusters. If omitted, the follower index is given the same name as the leader index. | No |
 | `use_roles` | Object | The roles to use for all subsequent backend replication tasks between the indexes. Specify a `leader_cluster_role` and `follower_cluster_role`. See [Map the leader and follower cluster roles]({{site.url}}{{site.baseurl}}/replication-plugin/permissions/#map-the-leader-and-follower-cluster-roles). | If Security plugin is enabled |
 
 ### Example request
@@ -443,6 +444,7 @@ POST /_plugins/_replication/_autofollow
    "leader_alias": "my-connection-alias",
    "name": "my-replication-rule",
    "pattern": "leader-*",
+   "follower_index_pattern": "{{leader_index}}-replica",
    "use_roles": {
       "leader_cluster_role": "cross_cluster_replication_leader_full_access",
       "follower_cluster_role": "cross_cluster_replication_follower_full_access"
