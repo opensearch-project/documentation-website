@@ -162,6 +162,14 @@ for hit in response:
 ```
 {% include copy.html %}
 
+Each item in `response` is a `Hit` object, and the document fields are available as its attributes. The document ID is in the `hit.meta.id` attribute:
+
+```python
+for hit in response:
+    print(f'ID: {hit.meta.id}, name: {hit.firstName} {hit.lastName}, GPA: {hit.gpa}, graduation year: {hit.gradYear}')
+```
+{% include copy.html %}
+
 The following code uses a term query to search for students who graduated in 2019:
 
 ```python

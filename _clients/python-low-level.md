@@ -231,6 +231,15 @@ for hit in response['hits']['hits']:
 ```
 {% include copy.html %}
 
+The response is a dictionary, and each item in `response['hits']['hits']` is a dictionary that contains the document ID in the `_id` key and the document fields in the `_source` key:
+
+```python
+for hit in response['hits']['hits']:
+    source = hit['_source']
+    print(f"ID: {hit['_id']}, name: {source['firstName']} {source['lastName']}, GPA: {source['gpa']}, graduation year: {source['gradYear']}")
+```
+{% include copy.html %}
+
 To search using a query, provide the query in the request body. The following code uses a term query to search for students who graduated in 2019:
 
 ```python
