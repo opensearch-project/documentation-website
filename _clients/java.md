@@ -396,6 +396,17 @@ for (int i = 0; i < searchResponse.hits().hits().size(); i++) {
 ```
 {% include copy.html %}
 
+Each hit in `searchResponse.hits().hits()` is a `Hit<Student>` object that contains the document ID in `hit.id()` and the `Student` object in `hit.source()`, whose fields are available through getters. To use the `Hit` class, import `org.opensearch.client.opensearch.core.search.Hit`:
+
+```java
+for (Hit<Student> hit : searchResponse.hits().hits()) {
+  Student student = hit.source();
+  System.out.println("ID: " + hit.id() + ", name: " + student.getFirstName() + " " + student.getLastName()
+      + ", GPA: " + student.getGpa() + ", graduation year: " + student.getGradYear());
+}
+```
+{% include copy.html %}
+
 Search using a term query:
 
 ```java
