@@ -655,3 +655,8 @@ func run() error {
 }
 ```
 {% include copy.html %}
+
+## Related documentation
+
+- For more examples of using the client, see the [`opensearch-go` user guide](https://github.com/opensearch-project/opensearch-go/blob/main/USER_GUIDE.md).
+- For guides to specific tasks, such as bulk indexing and searching, see the [`opensearch-go` guides](https://github.com/opensearch-project/opensearch-go/tree/main/guides).
