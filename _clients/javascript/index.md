@@ -358,20 +358,32 @@ To build the request body from an array, a stream, or an async generator, use th
 
 ## Searching for documents
 
-Search for all documents in an index using the client's `search` method. The `from` and `size` parameters specify the offset and the number of results to return:
+To paginate results, use the `from` and `size` parameters. The following example sorts students by graduation date and retrieves the results two at a time. The first request returns the first page of results, and the second request returns the next page:
 
 ```javascript
 var response = await client.search({
   index: index_name,
   body: {
     from: 0,
-    size: 10,
+    size: 2,
+    sort: [{ gradDate: "asc" }],
   },
 });
-
 response.body.hits.hits.forEach((hit) => console.log(hit._source));
+
+var nextPage = await client.search({
+  index: index_name,
+  body: {
+    from: 2,
+    size: 2,
+    sort: [{ gradDate: "asc" }],
+  },
+});
+nextPage.body.hits.hits.forEach((hit) => console.log(hit._source));
 ```
 {% include copy.html %}
+
+The `from` and `size` parameters work well for the first pages of results. To paginate through a large number of results, use point in time with `search_after`. For more information, see [Paginate results]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/).
 
 Each item in `response.body.hits.hits` is a plain JavaScript object. The document ID is in the `_id` property, and the document fields are properties of the `_source` object:
 
@@ -534,10 +546,22 @@ async function main() {
     index: index_name,
     body: {
       from: 0,
-      size: 10,
+      size: 2,
+      sort: [{ gradDate: "asc" }],
     },
   });
   console.log("Total hits: " + response.body.hits.total.value);
+  console.log("Page 1:");
+  response.body.hits.hits.forEach((hit) => console.log("  " + JSON.stringify(hit._source)));
+  response = await client.search({
+    index: index_name,
+    body: {
+      from: 2,
+      size: 2,
+      sort: [{ gradDate: "asc" }],
+    },
+  });
+  console.log("Page 2:");
   response.body.hits.hits.forEach((hit) => console.log("  " + JSON.stringify(hit._source)));
 
   // Search for students who graduated in 2019
