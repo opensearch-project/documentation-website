@@ -402,6 +402,7 @@ The following table lists the parameters accepted by xy shape field types. All p
 Parameter | Description 
 :--- | :--- 
 `coerce` | A Boolean value that specifies whether to automatically close unclosed linear rings. Default is `false`.
+`doc_values` | A Boolean value that specifies whether the field should be stored on disk so that it can be used for aggregations, sorting, or scripting. Default is `false`.
 `ignore_malformed` | A Boolean value that specifies to ignore malformed GeoJSON or WKT xy shapes and not to throw an exception. Default is `false` (throw an exception when xy shapes are malformed).
 `ignore_z_value` | Specific to points with three coordinates. If `ignore_z_value` is `true`, the third coordinate is not indexed but is still stored in the `_source` field. If `ignore_z_value` is `false`, an exception is thrown. Default is `true`.
 `orientation` | Specifies the traversal order of the vertices in the xy shape's list of coordinates. `orientation` takes the following values: <br> 1. RIGHT: counterclockwise. Specify RIGHT orientation by using one of the following strings (uppercase or lowercase): `right`, `counterclockwise`, `ccw`. <br> 2. LEFT: clockwise. Specify LEFT orientation by using one of the following strings (uppercase or lowercase): `left`, `clockwise`, `cw`.  This value can be overridden by individual documents.<br> Default is `RIGHT`.
