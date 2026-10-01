@@ -282,15 +282,21 @@ response = client.bulk(body: actions, refresh: true)
 
 ## Searching for documents
 
-To search for documents, use the `search` method. If you omit the request body, your query becomes a `match_all` query and returns all documents in the index. The `from` and `size` parameters specify the offset and the number of results to return:
+To search for documents, use the `search` method. If you omit the request body, your query becomes a `match_all` query and returns all documents in the index. To paginate results, use the `from` and `size` parameters. The following example sorts students by graduation date and retrieves the results two at a time. The first request returns the first page of results, and the second request returns the next page:
 
 ```ruby
 require 'json'
 
-response = client.search(index: 'students', from: 0, size: 10)
+query = { sort: [{ gradDate: 'asc' }] }
+response = client.search(index: 'students', from: 0, size: 2, body: query)
+response['hits']['hits'].each { |hit| puts JSON.generate(hit['_source']) }
+
+response = client.search(index: 'students', from: 2, size: 2, body: query)
 response['hits']['hits'].each { |hit| puts JSON.generate(hit['_source']) }
 ```
 {% include copy.html %}
+
+The `from` and `size` parameters work well for the first pages of results. To paginate through a large number of results, use point in time with `search_after`. For more information, see [Paginate results]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/).
 
 The following example uses a `range` query to search for students who graduated in 2019:
 
@@ -475,9 +481,13 @@ end
 
 # Search for all students
 puts "\nSearching for all students......"
-response = client.search(index: index, from: 0, size: 10)
-puts "Total hits: #{response['hits']['total']['value']}"
-response['hits']['hits'].each { |hit| puts "  #{JSON.generate(hit['_source'])}" }
+query = { sort: [{ gradDate: 'asc' }] }
+[0, 2].each_with_index do |from, page|
+  response = client.search(index: index, from: from, size: 2, body: query)
+  puts "Total hits: #{response['hits']['total']['value']}" if page.zero?
+  puts "Page #{page + 1}:"
+  response['hits']['hits'].each { |hit| puts "  #{JSON.generate(hit['_source'])}" }
+end
 
 # Search for students who graduated in 2019
 puts "\nSearching for students who graduated in 2019......"
