@@ -426,6 +426,9 @@ var response = await client.indices.delete({
 
 The sample program connects to a cluster that has the Security plugin enabled. To connect to a cluster without the Security plugin, change the lines marked with `// Without security` comments.
 
+This sample program is for testing only. It specifies credentials in code. In production, load credentials from a secure location.
+{: .warning}
+
 The following sample program creates a client, creates an index, indexes documents individually and in bulk, searches for documents, updates a document, deletes a document, and then deletes the index:
 
 ```javascript
@@ -435,7 +438,7 @@ var host = "localhost";
 var protocol = "https"; // Without security, use "http"
 var port = 9200;
 // Without security, remove the following line
-var auth = "admin:<custom-admin-password>"; // For testing only. Don't store credentials in code.
+var auth = "admin:<custom-admin-password>";
 var ca_certs_path = "/full/path/to/root-ca.pem"; // Without security, remove this line
 
 // Optional client certificates if you don't want to use HTTP basic authentication
