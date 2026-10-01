@@ -146,6 +146,8 @@ use aws_config::{meta::region::RegionProviderChain, BehaviorVersion};
 ```
 {% include copy.html %}
 
+In the following example, replace the endpoint with your domain endpoint, which is listed on the domain's details page in the Amazon OpenSearch Service console.
+
 The following example illustrates connecting to Amazon OpenSearch Service:
 
 ```rust
@@ -166,6 +168,8 @@ let client = OpenSearch::new(transport);
 {% include copy.html %}
 
 ## Connecting to Amazon OpenSearch Serverless
+
+In the following example, replace the endpoint with your collection endpoint, which is listed on the collection's details page in the Amazon OpenSearch Service console.
 
 Connecting to Amazon OpenSearch Serverless requires the same `aws-auth` feature, `aws-config` dependency, and imports as [connecting to Amazon OpenSearch Service](#connecting-to-amazon-opensearch-service). The following example illustrates connecting to Amazon OpenSearch Serverless:
 
