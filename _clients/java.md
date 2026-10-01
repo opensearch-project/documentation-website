@@ -391,17 +391,32 @@ BulkResponse bulkResponse = client.bulk(bulkRequest);
 
 ## Searching for documents
 
-Search for all documents in an index using the following code:
+To paginate results, use the `from` and `size` parameters. The following example sorts students by graduation date and retrieves the results two at a time. The first request returns the first page of results, and the second request returns the next page. To use the `SortOrder` enum, import `org.opensearch.client.opensearch._types.SortOrder`:
 
 ```java
-SearchResponse<Student> searchResponse = client.search(s -> s.index(index).from(0).size(10), Student.class);
+SearchResponse<Student> searchResponse = client.search(s -> s
+  .index(index)
+  .from(0)
+  .size(2)
+  .sort(so -> so.field(f -> f.field("gradDate").order(SortOrder.Asc))),
+  Student.class);
 for (int i = 0; i < searchResponse.hits().hits().size(); i++) {
   System.out.println(searchResponse.hits().hits().get(i).source());
+}
+
+SearchResponse<Student> nextPageResponse = client.search(s -> s
+  .index(index)
+  .from(2)
+  .size(2)
+  .sort(so -> so.field(f -> f.field("gradDate").order(SortOrder.Asc))),
+  Student.class);
+for (int i = 0; i < nextPageResponse.hits().hits().size(); i++) {
+  System.out.println(nextPageResponse.hits().hits().get(i).source());
 }
 ```
 {% include copy.html %}
 
-The `from` and `size` parameters specify the offset and the number of results to return.
+The `from` and `size` parameters work well for the first pages of results. To paginate through a large number of results, use point in time with `search_after`. For more information, see [Paginate results]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/).
 
 Each hit in `searchResponse.hits().hits()` is a `Hit<Student>` object that contains the document ID in `hit.id()` and the `Student` object in `hit.source()`, whose fields are available through getters. To use the `Hit` class, import `org.opensearch.client.opensearch.core.search.Hit`:
 
@@ -486,6 +501,7 @@ import org.apache.hc.core5.ssl.SSLContextBuilder;
 import org.opensearch.client.json.JsonData;
 import org.opensearch.client.opensearch.OpenSearchClient;
 import org.opensearch.client.opensearch._types.Refresh;
+import org.opensearch.client.opensearch._types.SortOrder;
 import org.opensearch.client.opensearch.core.IndexRequest;
 import org.opensearch.client.opensearch.core.IndexResponse;
 import org.opensearch.client.opensearch.core.SearchResponse;
@@ -586,10 +602,26 @@ public class OpenSearchClientExample {
 
       // Search for all students
       System.out.println("\nSearching for all students......");
-      SearchResponse<Student> searchResponse = client.search(s -> s.index(index).from(0).size(10), Student.class);
+      SearchResponse<Student> searchResponse = client.search(s -> s
+        .index(index)
+        .from(0)
+        .size(2)
+        .sort(so -> so.field(f -> f.field("gradDate").order(SortOrder.Asc))),
+        Student.class);
       System.out.println("Total hits: " + searchResponse.hits().total().value());
+      System.out.println("Page 1:");
       for (int i = 0; i < searchResponse.hits().hits().size(); i++) {
         System.out.println("  " + searchResponse.hits().hits().get(i).source());
+      }
+      SearchResponse<Student> nextPageResponse = client.search(s -> s
+        .index(index)
+        .from(2)
+        .size(2)
+        .sort(so -> so.field(f -> f.field("gradDate").order(SortOrder.Asc))),
+        Student.class);
+      System.out.println("Page 2:");
+      for (int i = 0; i < nextPageResponse.hits().hits().size(); i++) {
+        System.out.println("  " + nextPageResponse.hits().hits().get(i).source());
       }
 
       // Search for students who graduated in 2019
