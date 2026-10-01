@@ -51,12 +51,18 @@ Follow these steps to deploy the cluster, verify that it is running, access it, 
       name: my-first-cluster
       namespace: default
     spec:
+      security:
+        tls:
+          transport:
+            generate: true
+          http:
+            generate: true
       general:
         serviceName: my-first-cluster
-        version: 3
+        version: "3"
       dashboards:
         enable: true
-        version: 3
+        version: "3"
         replicas: 1
         resources:
           requests:
@@ -83,7 +89,7 @@ Follow these steps to deploy the cluster, verify that it is running, access it, 
     ```
     {% include copy.html %}
 
-    This example deploys a cluster without security enabled. To configure TLS and security for production use, see [Configuring security]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/operator/operator-security/).
+    The `version` values must be quoted strings. The `security.tls` section enables the Security plugin, and `generate: true` instructs the operator to generate self-signed TLS certificates. The operator also creates the `my-first-cluster-admin-password` and `my-first-cluster-dashboards-password` secrets containing randomly generated passwords. For more information, see [TLS]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/operator/operator-opensearch-config/#tls) and [User and role management]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/operator/operator-security/).
     {: .note}
 
 1. Create the cluster by running the following command:
@@ -101,37 +107,46 @@ Follow these steps to deploy the cluster, verify that it is running, access it, 
     {% include copy.html %}
 
     The operator creates several pods:
-    1. A bootstrap pod (`my-first-cluster-bootstrap-0`) that helps with initial cluster manager discovery.
-    1. Three pods for the OpenSearch cluster (`my-first-cluster-masters-0`, `my-first-cluster-masters-1`, and `my-first-cluster-masters-2`).
-    1. A pod for the OpenSearch Dashboards instance.
+
+    - A bootstrap pod (`my-first-cluster-bootstrap-0`) that helps with initial cluster manager discovery.
+    - Three pods for the OpenSearch cluster (`my-first-cluster-nodes-0`, `my-first-cluster-nodes-1`, and `my-first-cluster-nodes-2`), named after the `nodes` node pool.
+    - A pod for the OpenSearch Dashboards instance (`my-first-cluster-dashboards-<id>`).
 
     After all pods are ready, which takes about 1--2 minutes, you can connect to your cluster using port forwarding.
 
-1. Start port forwarding:
+1. Retrieve the generated password for the `admin` user from the `my-first-cluster-admin-password` secret:
+
     ```bash
-    kubectl port-forward svc/my-first-cluster-dashboards 5601
+    kubectl get secret my-first-cluster-admin-password -o jsonpath='{.data.password}' | base64 -d; echo
     ```
     {% include copy.html %}
 
 1. Access OpenSearch Dashboards or use the OpenSearch REST API:
 
-  1. To access OpenSearch Dashboards, go to [http://localhost:5601](http://localhost:5601) in your browser and log in using the admin or Dashboards user credentials. You can retrieve the credentials from the `my-first-cluster-admin-password` and `my-first-cluster-dashboards-password` secrets.
+    - To access OpenSearch Dashboards, start port forwarding by running the following command:
 
-  1. To use the OpenSearch REST API, run the following command:
+        ```bash
+        kubectl port-forward svc/my-first-cluster-dashboards 5601
+        ```
+        {% include copy.html %}
 
-      ```bash
-      kubectl port-forward svc/my-first-cluster 9200
-      ```
-      {% include copy.html %}
+        Then go to [http://localhost:5601](http://localhost:5601) in your browser and log in as the `admin` user using the password that you retrieved in the previous step.
 
-      Then open a second terminal and run the following command. You can retrieve the admin credentials from the `my-first-cluster-admin-password` secret:
+    - To use the OpenSearch REST API, start port forwarding by running the following command:
 
-      ```bash
-      curl -k -u admin:admin_password https://localhost:9200/_cat/nodes?v
-      ```
-      {% include copy.html %}
+        ```bash
+        kubectl port-forward svc/my-first-cluster 9200
+        ```
+        {% include copy.html %}
 
-      You should see the three deployed nodes listed.
+        Then open a second terminal and run the following command, replacing `<admin-password>` with the password that you retrieved in the previous step:
+
+        ```bash
+        curl -k -u 'admin:<admin-password>' "https://localhost:9200/_cat/nodes?v"
+        ```
+        {% include copy.html %}
+
+        The response lists the three deployed nodes.
 
 1. To delete your cluster, run the following command:
 
