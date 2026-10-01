@@ -279,32 +279,14 @@ You can send the request body as an anonymous object, string, byte array, or str
 
 ## Searching for documents
 
-To construct a Query DSL query, use anonymous types within the request body. To paginate results, use the `from` and `size` parameters. The following example sorts students by graduation date and retrieves the results two at a time. The first request returns the first page of results, and the second request returns the next page:
+To construct a Query DSL query, use anonymous types within the request body. The following query searches for all students:
 
 ```cs
 var searchResponse = client.Search<StringResponse>(index,
-    PostData.Serializable(new
-    {
-        from = 0,
-        size = 2,
-        sort = new[] { new { gradDate = "asc" } },
-        query = new { match_all = new { } }
-    }));
+    PostData.Serializable(new { query = new { match_all = new { } } }));
 Console.WriteLine(searchResponse.Body);
-
-var nextPageResponse = client.Search<StringResponse>(index,
-    PostData.Serializable(new
-    {
-        from = 2,
-        size = 2,
-        sort = new[] { new { gradDate = "asc" } },
-        query = new { match_all = new { } }
-    }));
-Console.WriteLine(nextPageResponse.Body);
 ```
 {% include copy.html %}
-
-The `from` and `size` parameters work well for the first pages of results. To paginate through a large number of results, use point in time with `search_after`. For more information, see [Paginate results]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/).
 
 The following range query searches for students who graduated in 2019:
 
@@ -344,6 +326,35 @@ var searchResponse = client.Search<StringResponse>(index,
 Console.WriteLine(searchResponse.Body);
 ```
 {% include copy.html %}
+
+## Paginating results
+
+To paginate results, use the `from` and `size` parameters. The following example sorts students by graduation date and retrieves the results two at a time. The first request returns the first page of results, and the second request returns the next page:
+
+```cs
+var firstPageResponse = client.Search<StringResponse>(index,
+    PostData.Serializable(new
+    {
+        from = 0,
+        size = 2,
+        sort = new[] { new { gradDate = "asc" } },
+        query = new { match_all = new { } }
+    }));
+Console.WriteLine(firstPageResponse.Body);
+
+var nextPageResponse = client.Search<StringResponse>(index,
+    PostData.Serializable(new
+    {
+        from = 2,
+        size = 2,
+        sort = new[] { new { gradDate = "asc" } },
+        query = new { match_all = new { } }
+    }));
+Console.WriteLine(nextPageResponse.Body);
+```
+{% include copy.html %}
+
+The `from` and `size` parameters work well for the first pages of results. To paginate through a large number of results, use point in time with `search_after`. For more information, see [Paginate results]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/).
 
 ## Updating a document
 
