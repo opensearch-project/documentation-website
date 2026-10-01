@@ -424,134 +424,17 @@ var response = await client.indices.delete({
 
 ## Sample program
 
-The following sample program creates a client, creates an index, indexes documents individually and in bulk, searches for documents, updates a document, deletes a document, and then deletes the index.
-
-### Without security
-
-Use the following sample program when connecting to an OpenSearch cluster that does not have the Security plugin enabled:
+The following sample program creates a client, creates an index, indexes documents individually and in bulk, searches for documents, updates a document, deletes a document, and then deletes the index. The program connects to a cluster that has the Security plugin enabled. To connect to a cluster without the Security plugin, change the lines marked with `Without security` comments.
 
 ```javascript
 "use strict";
 
 var host = "localhost";
-var protocol = "http";
+var protocol = "https"; // Without security, use "http"
 var port = 9200;
-
-// Create a client
-var { Client } = require("@opensearch-project/opensearch");
-var client = new Client({
-  node: protocol + "://" + host + ":" + port,
-});
-
-async function main() {
-  // Create the index
-  var index_name = "students";
-  console.log("Creating index......");
-  var response = await client.indices.create({
-    index: index_name,
-  });
-  console.log("Index created: " + response.body.index);
-
-  // Index a document
-  console.log("\nIndexing one student......");
-  var student = { firstName: "John", lastName: "Doe", gpa: 3.89, gradYear: 2022 };
-  response = await client.index({
-    index: index_name,
-    id: "1",
-    body: student,
-    refresh: true,
-  });
-  console.log("Result: " + response.body.result + ", id: " + response.body._id + ", version: " + response.body._version);
-
-  // Bulk index documents
-  console.log("\nIndexing many students......");
-  response = await client.bulk({
-    body: [
-      { index: { _index: index_name, _id: "2" } },
-      { firstName: "Paulo", lastName: "Santos", gpa: 3.93, gradYear: 2021 },
-      { index: { _index: index_name, _id: "3" } },
-      { firstName: "Shirley", lastName: "Rodriguez", gpa: 3.91, gradYear: 2019 },
-    ],
-    refresh: true,
-  });
-  console.log("Errors: " + response.body.errors);
-  response.body.items.forEach((item) =>
-    console.log("  " + item.index.result + " id: " + item.index._id));
-
-  // Search for all students
-  console.log("\nSearching for all students......");
-  response = await client.search({
-    index: index_name,
-  });
-  console.log("Total hits: " + response.body.hits.total.value);
-  response.body.hits.hits.forEach((hit) => console.log("  " + JSON.stringify(hit._source)));
-
-  // Search for students who graduated in 2019
-  console.log("\nSearching for students who graduated in 2019......");
-  response = await client.search({
-    index: index_name,
-    body: {
-      query: {
-        term: {
-          gradYear: 2019,
-        },
-      },
-    },
-  });
-  console.log("Total hits: " + response.body.hits.total.value);
-  response.body.hits.hits.forEach((hit) => console.log("  " + JSON.stringify(hit._source)));
-
-  // Update a document
-  console.log("\nUpdating a student's GPA......");
-  response = await client.update({
-    index: index_name,
-    id: "1",
-    body: {
-      doc: { gpa: 3.92 },
-    },
-  });
-  console.log("Result: " + response.body.result + ", version: " + response.body._version);
-
-  // Get the updated document
-  response = await client.get({
-    index: index_name,
-    id: "1",
-  });
-  console.log("Updated document: " + JSON.stringify(response.body._source));
-
-  // Delete a document
-  console.log("\nDeleting a student......");
-  response = await client.delete({
-    index: index_name,
-    id: "3",
-    refresh: true,
-  });
-  console.log("Result: " + response.body.result);
-
-  // Delete the index
-  console.log("\nDeleting the index......");
-  response = await client.indices.delete({
-    index: index_name,
-  });
-  console.log("Acknowledged: " + response.body.acknowledged);
-}
-
-main().catch(console.log);
-```
-{% include copy.html %}
-
-### With security
-
-Use the following sample program when connecting to an OpenSearch cluster that has the Security plugin enabled. Change the credentials and the root certificate path to match your cluster configuration:
-
-```javascript
-"use strict";
-
-var host = "localhost";
-var protocol = "https";
-var port = 9200;
+// Without security, remove the following line
 var auth = "admin:<custom-admin-password>"; // For testing only. Don't store credentials in code.
-var ca_certs_path = "/full/path/to/root-ca.pem";
+var ca_certs_path = "/full/path/to/root-ca.pem"; // Without security, remove this line
 
 // Optional client certificates if you don't want to use HTTP basic authentication
 // var client_cert_path = '/full/path/to/client.pem'
@@ -559,10 +442,11 @@ var ca_certs_path = "/full/path/to/root-ca.pem";
 
 // Create a client with SSL/TLS enabled
 var { Client } = require("@opensearch-project/opensearch");
-var fs = require("fs");
+var fs = require("fs"); // Without security, remove this line
 var client = new Client({
+  // Without security, use node: protocol + "://" + host + ":" + port,
   node: protocol + "://" + auth + "@" + host + ":" + port,
-  ssl: {
+  ssl: { // Without security, remove the ssl block
     ca: fs.readFileSync(ca_certs_path),
     // You can turn off certificate verification (rejectUnauthorized: false) if you're using
     // self-signed certificates with a hostname mismatch.
