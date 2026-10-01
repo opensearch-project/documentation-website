@@ -358,32 +358,20 @@ To build the request body from an array, a stream, or an async generator, use th
 
 ## Searching for documents
 
-To paginate results, use the `from` and `size` parameters. The following example sorts students by graduation date and retrieves the results two at a time. The first request returns the first page of results, and the second request returns the next page:
+Search for all documents in an index using the client's `search` method:
 
 ```javascript
 var response = await client.search({
   index: index_name,
   body: {
-    from: 0,
-    size: 2,
-    sort: [{ gradDate: "asc" }],
+    query: {
+      match_all: {},
+    },
   },
 });
 response.body.hits.hits.forEach((hit) => console.log(hit._source));
-
-var nextPage = await client.search({
-  index: index_name,
-  body: {
-    from: 2,
-    size: 2,
-    sort: [{ gradDate: "asc" }],
-  },
-});
-nextPage.body.hits.hits.forEach((hit) => console.log(hit._source));
 ```
 {% include copy.html %}
-
-The `from` and `size` parameters work well for the first pages of results. To paginate through a large number of results, use point in time with `search_after`. For more information, see [Paginate results]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/).
 
 Each item in `response.body.hits.hits` is a plain JavaScript object. The document ID is in the `_id` property, and the document fields are properties of the `_source` object:
 
@@ -414,6 +402,35 @@ var response = await client.search({
 });
 ```
 {% include copy.html %}
+
+## Paginating results
+
+To paginate results, use the `from` and `size` parameters. The following example sorts students by graduation date and retrieves the results two at a time. The first request returns the first page of results, and the second request returns the next page:
+
+```javascript
+var response = await client.search({
+  index: index_name,
+  body: {
+    from: 0,
+    size: 2,
+    sort: [{ gradDate: "asc" }],
+  },
+});
+response.body.hits.hits.forEach((hit) => console.log(hit._source));
+
+var nextPage = await client.search({
+  index: index_name,
+  body: {
+    from: 2,
+    size: 2,
+    sort: [{ gradDate: "asc" }],
+  },
+});
+nextPage.body.hits.hits.forEach((hit) => console.log(hit._source));
+```
+{% include copy.html %}
+
+The `from` and `size` parameters work well for the first pages of results. To paginate through a large number of results, use point in time with `search_after`. For more information, see [Paginate results]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/).
 
 ## Updating a document
 
