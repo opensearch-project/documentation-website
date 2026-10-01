@@ -10,7 +10,7 @@ The OpenSearch Rust client lets you connect your Rust application with the data 
 
 This getting started guide illustrates how to connect to OpenSearch, index documents, and run queries. For the client source code, see the [`opensearch-rs` repo](https://github.com/opensearch-project/opensearch-rs).
 
-## Setup
+## Installing the Rust client
 
 If you're starting a new project, add the `opensearch` crate to Cargo.toml:
 
@@ -395,7 +395,7 @@ let response = client
 
 This sample program combines the code from the preceding sections. It connects to a cluster that has the Security plugin enabled. To connect to a cluster without the Security plugin, change the lines marked with `// Without security` comments.
 
-The sample program uses the following Cargo.toml file with all dependencies described in the [Setup](#setup) section:
+The sample program uses the following Cargo.toml file with all dependencies described in the [Installing the Rust client](#installing-the-rust-client) section:
 
 ```toml
 [package]
