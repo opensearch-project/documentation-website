@@ -32,7 +32,6 @@ pip install opensearch-py
 After installing the client, you can import it like any other module:
 
 ```python
-import json
 from opensearchpy import OpenSearch
 ```
 {% include copy.html %}
@@ -282,7 +281,7 @@ response = client.search(index=index_name, body={'from': 0, 'size': 2, 'sort': [
 next_response = client.search(index=index_name, body={'from': 2, 'size': 2, 'sort': [{'gradDate': 'asc'}]})
 for page in [response, next_response]:
     for hit in page['hits']['hits']:
-        print(json.dumps(hit['_source'], separators=(',', ':')))
+        print(hit['_source'])
 ```
 {% include copy.html %}
 
