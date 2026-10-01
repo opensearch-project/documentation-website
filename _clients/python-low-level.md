@@ -281,11 +281,7 @@ response = client.indices.delete(index=index_name)
 
 ## Sample program
 
-The following sample program creates a client, creates an index, indexes documents individually and in bulk, searches for documents, updates a document, deletes a document, and then deletes the index.
-
-### Without security
-
-Use the following sample program when connecting to an OpenSearch cluster that does not have the Security plugin enabled:
+The following sample program creates a client, creates an index, indexes documents individually and in bulk, searches for documents, updates a document, deletes a document, and then deletes the index. The program connects to a cluster that has the Security plugin enabled. To connect to a cluster without the Security plugin, change the lines marked with `Without security` comments.
 
 ```python
 import json
@@ -293,101 +289,21 @@ from opensearchpy import OpenSearch
 
 host = 'localhost'
 port = 9200
-
-# Create the client with SSL/TLS and hostname verification disabled.
-client = OpenSearch(
-    hosts = [{'host': host, 'port': port}],
-    http_compress = True, # enables gzip compression for request bodies
-    use_ssl = False,
-    verify_certs = False,
-    ssl_assert_hostname = False,
-    ssl_show_warn = False
-)
-
-# Create the index.
-index_name = 'students'
-print('Creating index......')
-response = client.indices.create(index=index_name)
-print(f"Index created: {response['index']}")
-
-# Index a document.
-print('\nIndexing one student......')
-document = {'firstName': 'John', 'lastName': 'Doe', 'gpa': 3.89, 'gradYear': 2022}
-response = client.index(index=index_name, id='1', body=document, refresh=True)
-print(f"Result: {response['result']}, id: {response['_id']}, version: {response['_version']}")
-
-# Bulk index documents.
-print('\nIndexing many students......')
-operations = [
-    {'index': {'_index': index_name, '_id': '2'}},
-    {'firstName': 'Paulo', 'lastName': 'Santos', 'gpa': 3.93, 'gradYear': 2021},
-    {'index': {'_index': index_name, '_id': '3'}},
-    {'firstName': 'Shirley', 'lastName': 'Rodriguez', 'gpa': 3.91, 'gradYear': 2019}
-]
-response = client.bulk(body=operations, refresh=True)
-print(f"Errors: {str(response['errors']).lower()}")
-for item in response['items']:
-    print(f"  {item['index']['result']} id: {item['index']['_id']}")
-
-# Search for all students.
-print('\nSearching for all students......')
-response = client.search(index=index_name)
-print(f"Total hits: {response['hits']['total']['value']}")
-for hit in response['hits']['hits']:
-    print(f"  {json.dumps(hit['_source'], separators=(',', ':'))}")
-
-# Search for students who graduated in 2019.
-print('\nSearching for students who graduated in 2019......')
-query = {'query': {'term': {'gradYear': 2019}}}
-response = client.search(index=index_name, body=query)
-print(f"Total hits: {response['hits']['total']['value']}")
-for hit in response['hits']['hits']:
-    print(f"  {json.dumps(hit['_source'], separators=(',', ':'))}")
-
-# Update a document.
-print("\nUpdating a student's GPA......")
-response = client.update(index=index_name, id='1', body={'doc': {'gpa': 3.92}})
-print(f"Result: {response['result']}, version: {response['_version']}")
-
-# Get the updated document.
-response = client.get(index=index_name, id='1')
-print(f"Updated document: {json.dumps(response['_source'], separators=(',', ':'))}")
-
-# Delete a document.
-print('\nDeleting a student......')
-response = client.delete(index=index_name, id='3', refresh=True)
-print(f"Result: {response['result']}")
-
-# Delete the index.
-print('\nDeleting the index......')
-response = client.indices.delete(index=index_name)
-print(f"Acknowledged: {str(response['acknowledged']).lower()}")
-```
-{% include copy.html %}
-
-### With security
-
-Use the following sample program when connecting to an OpenSearch cluster that has the Security plugin enabled. Make sure to change the credentials and CA certificate path to match your cluster configuration:
-
-```python
-import json
-from opensearchpy import OpenSearch
-
-host = 'localhost'
-port = 9200
+# Without security, remove this line
 auth = ('admin', '<custom-admin-password>') # For testing only. Don't store credentials in code.
+# Without security, remove this line
 ca_certs_path = '/full/path/to/root-ca.pem' # Provide a CA bundle if you use intermediate CAs with your root CA.
 
 # Create the client with SSL/TLS enabled, but hostname verification disabled.
 client = OpenSearch(
     hosts = [{'host': host, 'port': port}],
     http_compress = True, # enables gzip compression for request bodies
-    http_auth = auth,
-    use_ssl = True,
-    verify_certs = True,
+    http_auth = auth, # Without security, remove this line
+    use_ssl = True, # Without security, use use_ssl = False
+    verify_certs = True, # Without security, use verify_certs = False
     ssl_assert_hostname = False,
     ssl_show_warn = False,
-    ca_certs = ca_certs_path
+    ca_certs = ca_certs_path # Without security, remove this line
 )
 
 # Create the index.
