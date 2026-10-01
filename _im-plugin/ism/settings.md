@@ -13,6 +13,8 @@ Index State Management (ISM) stores its configuration in the `.opendistro-ism-co
 
 All settings are available using the OpenSearch `_cluster/settings` operation. None require a restart, and all can be marked `persistent` or `transient`. To learn more about static and dynamic settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
 
+Because ISM settings are cluster settings, persistent ISM settings are part of the cluster global state and are included in a snapshot taken with `include_global_state` set to `true`. Transient settings are not included. ISM policies are stored in the `.opendistro-ism-config` index, not in the cluster state, so a snapshot includes them only if it includes that index. For more information, see [Cluster global state]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/#cluster-global-state).
+
 Setting | Default | Description
 :--- | :--- | :---
 `plugins.index_state_management.enabled` | True | Specifies whether ISM is enabled or not.

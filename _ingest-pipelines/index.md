@@ -52,6 +52,8 @@ Field | Required | Type | Description
 `processors` | Required | Array of processor objects | A component that performs a specific data processing task as the data is being ingested into OpenSearch.
 `description` | Optional | String | A description of the ingest pipeline. 
 
+Pipeline definitions are stored in the cluster state. A snapshot includes them when you take it with `include_global_state` set to `true`. For more information, see [Cluster global state]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/#cluster-global-state).
+
 ## Next steps
 
 Learn how to:
