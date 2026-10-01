@@ -5,9 +5,9 @@ parent: JavaScript client
 nav_order: 2
 ---
 
-# Helper methods
+# JavaScript helper methods
 
-Helper methods simplify the use of complicated API tasks. For the client's complete API documentation and additional examples, see the [JS client API documentation](https://opensearch-project.github.io/opensearch-js/3.6/index.html).
+JavaScript helper methods simplify the use of complicated API tasks. For complete helper documentation, see the [`opensearch-js` guides](https://github.com/opensearch-project/opensearch-js/tree/main/guides).
 
 ## Bulk helper
 
@@ -51,7 +51,7 @@ Bulk helper operations return an object with the following fields:
 }
 ```
 
-#### Bulk helper configuration options
+### Bulk helper configuration options
 
 When creating a new bulk helper instance, you can use the following configuration options.
 
@@ -204,6 +204,5 @@ client.helpers.bulk({
 
 ## Related documentation
 
-- For more examples of using the client, see the [`opensearch-js` user guide](https://github.com/opensearch-project/opensearch-js/blob/main/USER_GUIDE.md).
-- For guides to specific tasks, such as bulk indexing and searching, see the [`opensearch-js` guides](https://github.com/opensearch-project/opensearch-js/tree/main/guides).
+- For more helper documentation, such as that for indexing and multi-search, see the [`opensearch-js` guides](https://github.com/opensearch-project/opensearch-js/tree/main/guides).
 - For complete sample applications, see the [`opensearch-js` samples](https://github.com/opensearch-project/opensearch-js/tree/main/samples).
