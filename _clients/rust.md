@@ -257,17 +257,28 @@ let response = client
 
 ## Searching for documents
 
-To search for all documents in an index, send a search request without a query. The `from` and `size` parameters specify the offset and the number of results to return:
+To search for all documents in an index, send a search request without a query. To paginate results, use the `from` and `size` parameters. The following example sorts students by graduation date and retrieves the results two at a time. The first request returns the first page of results, and the second request returns the next page:
 
 ```rust
 let response = client
     .search(SearchParts::Index(&[index]))
     .from(0)
-    .size(10)
+    .size(2)
+    .sort(&["gradDate:asc"])
+    .send()
+    .await?;
+
+let next_page = client
+    .search(SearchParts::Index(&[index]))
+    .from(2)
+    .size(2)
+    .sort(&["gradDate:asc"])
     .send()
     .await?;
 ```
 {% include copy.html %}
+
+The `from` and `size` parameters work well for the first pages of results. To paginate through a large number of results, use point in time with `search_after`. For more information, see [Paginate results]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/).
 
 You can then read the response body as JSON and iterate over the `hits` array to deserialize each `_source` document into a `Student`:
 
@@ -429,13 +440,17 @@ impl Student {
     }
 }
 
-fn print_hits(response_body: &Value) -> Result<(), Box<dyn std::error::Error>> {
-    println!("Total hits: {}", response_body["hits"]["total"]["value"]);
+fn print_students(response_body: &Value) -> Result<(), Box<dyn std::error::Error>> {
     for hit in response_body["hits"]["hits"].as_array().unwrap_or(&vec![]) {
         let student: Student = serde_json::from_value(hit["_source"].clone())?;
         println!("  {}", serde_json::to_string(&student)?);
     }
     Ok(())
+}
+
+fn print_hits(response_body: &Value) -> Result<(), Box<dyn std::error::Error>> {
+    println!("Total hits: {}", response_body["hits"]["total"]["value"]);
+    print_students(response_body)
 }
 
 #[tokio::main]
@@ -517,17 +532,24 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         );
     }
 
-    // Search for all students
+    // Search for all students, two at a time, sorted by graduation date
     println!("\nSearching for all students......");
-    let response_body = client
-        .search(SearchParts::Index(&[index]))
-        .from(0)
-        .size(10)
-        .send()
-        .await?
-        .json::<Value>()
-        .await?;
-    print_hits(&response_body)?;
+    for (page, from) in [(1, 0), (2, 2)] {
+        let response_body = client
+            .search(SearchParts::Index(&[index]))
+            .from(from)
+            .size(2)
+            .sort(&["gradDate:asc"])
+            .send()
+            .await?
+            .json::<Value>()
+            .await?;
+        if page == 1 {
+            println!("Total hits: {}", response_body["hits"]["total"]["value"]);
+        }
+        println!("Page {}:", page);
+        print_students(&response_body)?;
+    }
 
     // Search for students who graduated in 2019
     println!("\nSearching for students who graduated in 2019......");
