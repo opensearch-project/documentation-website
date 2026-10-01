@@ -257,28 +257,15 @@ let response = client
 
 ## Searching for documents
 
-To search for all documents in an index, send a search request without a query. To paginate results, use the `from` and `size` parameters. The following example sorts students by graduation date and retrieves the results two at a time. The first request returns the first page of results, and the second request returns the next page:
+To search for all documents in an index, send a search request without a query:
 
 ```rust
 let response = client
     .search(SearchParts::Index(&[index]))
-    .from(0)
-    .size(2)
-    .sort(&["gradDate:asc"])
-    .send()
-    .await?;
-
-let next_page = client
-    .search(SearchParts::Index(&[index]))
-    .from(2)
-    .size(2)
-    .sort(&["gradDate:asc"])
     .send()
     .await?;
 ```
 {% include copy.html %}
-
-The `from` and `size` parameters work well for the first pages of results. To paginate through a large number of results, use point in time with `search_after`. For more information, see [Paginate results]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/).
 
 You can then read the response body as JSON and iterate over the `hits` array to deserialize each `_source` document into a `Student`:
 
@@ -325,6 +312,31 @@ let response = client
     .await?;
 ```
 {% include copy.html %}
+
+## Paginating results
+
+To paginate results, use the `from` and `size` parameters. The following example sorts students by graduation date and retrieves the results two at a time. The first request returns the first page of results, and the second request returns the next page:
+
+```rust
+let response = client
+    .search(SearchParts::Index(&[index]))
+    .from(0)
+    .size(2)
+    .sort(&["gradDate:asc"])
+    .send()
+    .await?;
+
+let next_page = client
+    .search(SearchParts::Index(&[index]))
+    .from(2)
+    .size(2)
+    .sort(&["gradDate:asc"])
+    .send()
+    .await?;
+```
+{% include copy.html %}
+
+The `from` and `size` parameters work well for the first pages of results. To paginate through a large number of results, use point in time with `search_after`. For more information, see [Paginate results]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/).
 
 ## Updating a document
 
