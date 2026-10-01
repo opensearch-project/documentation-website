@@ -177,42 +177,41 @@ Amazon OpenSearch Serverless supports a subset of OpenSearch API operations and 
 
 ## Creating an index
 
-You don't need to create an index explicitly in OpenSearch. Once you upload a document into an index that does not exist, OpenSearch creates the index automatically. To create an index explicitly, use the `indices.create` method:
+You don't need to create an index explicitly in OpenSearch. Once you upload a document into an index that does not exist, OpenSearch creates the index automatically. To create an index explicitly, use the `indices.create` method and pass the index settings and mappings in the `body` parameter.
+
+The following example creates an index with one primary shard and one replica. It explicitly maps the `lastName` field as `keyword` and the `gradYear` field as `integer`. OpenSearch maps the other document fields dynamically when you index documents:
 
 ```ruby
-client.indices.create(index: 'students')
+index_body = {
+  settings: {
+    index: {
+      number_of_shards: 1,
+      number_of_replicas: 1
+    }
+  },
+  mappings: {
+    properties: {
+      lastName: { type: 'keyword' },
+      gradYear: { type: 'integer' }
+    }
+  }
+}
+client.indices.create(index: 'students', body: index_body)
 ```
 {% include copy.html %}
-
-To create an index with non-default settings, such as the number of primary and replica shards, pass the settings in the `body` parameter.
 
 ## Mappings
 
-OpenSearch uses dynamic mapping to infer field types of the documents that are indexed. However, to have more control over the schema of your document, you can pass an explicit mapping to OpenSearch. You can define data types for some or all fields of your document in this mapping. To create a mapping for an index, use the `put_mapping` method:
+OpenSearch uses dynamic mapping to infer field types of the documents that are indexed. However, to have more control over the schema of your document, you can pass an explicit mapping to OpenSearch, as shown in [Creating an index](#creating-an-index). By default, string fields are mapped as `text`. Mapping a field as `keyword` instead signals to OpenSearch that the field should not be analyzed and should support only full case-sensitive matches.
 
-```ruby
-client.indices.put_mapping(
-  index: 'students',
-  body: {
-    properties: {
-      firstName: { type: 'keyword' },
-      lastName: { type: 'keyword' }
-    }
-  }
-)
-```
-{% include copy.html %}
-
-By default, string fields are mapped as `text`, but in the preceding mapping, the `firstName` and `lastName` fields are mapped as `keyword`. This mapping signals to OpenSearch that these fields should not be analyzed and should support only full case-sensitive matches.
-
-You can verify the index's mappings using the `get_mapping` method:
+To verify an index's mappings, use the `get_mapping` method:
 
 ```ruby
 response = client.indices.get_mapping(index: 'students')
 ```
 {% include copy.html %}
 
-If you know the mapping of your documents in advance and want to avoid mapping errors (for example, misspellings of a field name), you can set the `dynamic` parameter to `strict`:
+If you know the mapping of your documents in advance and want to avoid mapping errors (for example, misspellings of a field name), use the `put_mapping` method to map the remaining fields and set the `dynamic` parameter to `strict`:
 
 ```ruby
 client.indices.put_mapping(
@@ -284,12 +283,12 @@ response = client.bulk(body: actions, refresh: true)
 
 ## Searching for documents
 
-To search for documents, use the `search` method. If you omit the request body, your query becomes a `match_all` query and returns all documents in the index:
+To search for documents, use the `search` method. If you omit the request body, your query becomes a `match_all` query and returns all documents in the index. The `from` and `size` parameters specify the offset and the number of results to return:
 
 ```ruby
 require 'json'
 
-response = client.search(index: 'students')
+response = client.search(index: 'students', from: 0, size: 10)
 response['hits']['hits'].each { |hit| puts JSON.generate(hit['_source']) }
 ```
 {% include copy.html %}
@@ -439,7 +438,21 @@ client = OpenSearch::Client.new(
 # Create the index
 index = 'students'
 puts 'Creating index......'
-response = client.indices.create(index: index)
+index_body = {
+  settings: {
+    index: {
+      number_of_shards: 1,
+      number_of_replicas: 1
+    }
+  },
+  mappings: {
+    properties: {
+      lastName: { type: 'keyword' },
+      gradYear: { type: 'integer' }
+    }
+  }
+}
+response = client.indices.create(index: index, body: index_body)
 puts "Index created: #{response['index']}"
 
 # Index a document
@@ -464,7 +477,7 @@ end
 
 # Search for all students
 puts "\nSearching for all students......"
-response = client.search(index: index)
+response = client.search(index: index, from: 0, size: 10)
 puts "Total hits: #{response['hits']['total']['value']}"
 response['hits']['hits'].each { |hit| puts "  #{JSON.generate(hit['_source'])}" }
 
