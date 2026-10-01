@@ -451,6 +451,9 @@ DeleteIndexResponse deleteIndexResponse = client.indices().delete(deleteIndexReq
 
 The sample program connects to a cluster that has the Security plugin enabled. To connect to a cluster without the Security plugin, change the lines marked with `// Without security` comments. Before running the sample program, make sure that you have the `Student` class defined in your project. Make sure to change the credentials to match your cluster configuration.
 
+This sample program is for testing only. It specifies credentials in code and disables certificate validation so that it can connect to a cluster that uses self-signed certificates. In production, load credentials from a secure location and validate the cluster's certificate.
+{: .warning}
+
 The following sample program creates a client, creates an index, indexes documents individually and in bulk, searches for documents, updates a document, deletes a document, and then deletes the index:
 
 ```java
@@ -493,11 +496,9 @@ public class OpenSearchClientExample {
   public static void main(String[] args) throws Exception {
     final HttpHost host = new HttpHost("https", "localhost", 9200); // Without security, use new HttpHost("http", "localhost", 9200)
     final BasicCredentialsProvider credentialsProvider = new BasicCredentialsProvider(); // Without security, remove this line
-    // Only for demo purposes. Don't specify your credentials in code.
     // Without security, remove this line
     credentialsProvider.setCredentials(new AuthScope(host), new UsernamePasswordCredentials("admin", "<custom-admin-password>".toCharArray()));
 
-    // Trusts all certificates, including self-signed certificates. For testing only. Don't use in production.
     final SSLContext sslcontext = SSLContextBuilder.create()
       .loadTrustMaterial(null, (chains, authType) -> true)
       .build();
