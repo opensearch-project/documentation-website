@@ -637,3 +637,9 @@ public class OpenSearchClientExample {
 }
 ```
 {% include copy.html %}
+
+## Related documentation
+
+- For more examples of using the client, see the [`opensearch-java` user guide](https://github.com/opensearch-project/opensearch-java/blob/main/USER_GUIDE.md).
+- For guides to specific tasks, such as bulk indexing and searching, see the [`opensearch-java` guides](https://github.com/opensearch-project/opensearch-java/tree/main/guides).
+- For complete sample applications, see the [`opensearch-java` samples](https://github.com/opensearch-project/opensearch-java/tree/main/samples).
