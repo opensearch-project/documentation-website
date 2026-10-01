@@ -587,11 +587,6 @@ Deleting the index......
 Acknowledged: true
 ```
 
-## Next steps
-
-- [PHP client main user guide](https://github.com/opensearch-project/opensearch-php/blob/main/USER_GUIDE.md)
-- [Other PHP client user guides](https://github.com/opensearch-project/opensearch-php/tree/main/guides)
-
 ## Related documentation
 
 - For more examples of using the client, see the [`opensearch-php` user guide](https://github.com/opensearch-project/opensearch-php/blob/main/USER_GUIDE.md).
