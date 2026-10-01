@@ -104,6 +104,8 @@ gem install opensearch-aws-sigv4
 ```
 {% include copy.html %}
 
+Then create a client. Replace the endpoint with your domain endpoint, which is listed on the domain's details page in the Amazon OpenSearch Service console:
+
 ```ruby
 require 'opensearch-aws-sigv4'
 require 'aws-sigv4'
@@ -147,6 +149,8 @@ To connect to Amazon OpenSearch Serverless, first install the `opensearch-aws-si
 gem install opensearch-aws-sigv4
 ```
 {% include copy.html %}
+
+Then create a client. Replace the endpoint with your collection endpoint, which is listed on the collection's details page in the Amazon OpenSearch Service console:
 
 ```ruby
 require 'opensearch-aws-sigv4'
