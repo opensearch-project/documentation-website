@@ -10,7 +10,7 @@ The OpenSearch PHP client provides a safer and easier way to interact with your 
 
 This getting started guide illustrates how to connect to OpenSearch, index documents, and run queries. For the client source code, see the [`opensearch-php` repo](https://github.com/opensearch-project/opensearch-php).
 
-## Setup
+## Installing the PHP client
 
 The client requires PHP 8.2 or later. To add the client to your project, install it using [Composer](https://getcomposer.org/):
 
