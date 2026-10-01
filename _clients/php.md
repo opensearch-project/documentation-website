@@ -554,3 +554,9 @@ Acknowledged: true
 
 - [PHP client main user guide](https://github.com/opensearch-project/opensearch-php/blob/main/USER_GUIDE.md)
 - [Other PHP client user guides](https://github.com/opensearch-project/opensearch-php/tree/main/guides)
+
+## Related documentation
+
+- For more examples of using the client, see the [`opensearch-php` user guide](https://github.com/opensearch-project/opensearch-php/blob/main/USER_GUIDE.md).
+- For guides to specific tasks, such as authentication and sending raw requests, see the [`opensearch-php` guides](https://github.com/opensearch-project/opensearch-php/tree/main/guides).
+- For complete sample applications, see the [`opensearch-php` samples](https://github.com/opensearch-project/opensearch-php/tree/main/samples).
