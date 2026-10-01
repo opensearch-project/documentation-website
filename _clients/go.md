@@ -264,14 +264,14 @@ type Student struct {
 	FirstName string  `json:"firstName"`
 	LastName  string  `json:"lastName"`
 	GPA       float64 `json:"gpa"`
-	GradYear  int     `json:"gradYear"`
+	GradDate  string  `json:"gradDate"`
 }
 ```
 {% include copy.html %}
 
 ## Creating an index
 
-The following example creates an index with one primary shard and one replica. It explicitly maps the `lastName` field as `keyword` and the `gradYear` field as `integer`. OpenSearch maps the other document fields dynamically when you index documents:
+The following example creates an index with one primary shard and one replica. It explicitly maps the `gradDate` field as a `date` in the `yyyy-MM-dd` format. OpenSearch maps the other document fields dynamically when you index documents:
 
 ```go
 ctx := context.Background()
@@ -285,8 +285,7 @@ body := `{
   },
   "mappings": {
     "properties": {
-      "lastName": { "type": "keyword" },
-      "gradYear": { "type": "integer" }
+      "gradDate": { "type": "date", "format": "yyyy-MM-dd" }
     }
   }
 }`
@@ -302,7 +301,7 @@ createResp, err := client.Indices.Create(ctx, opensearchapi.IndicesCreateReq{
 Index a document using the following code. Setting the `Refresh` parameter to `true` makes the document immediately available for search:
 
 ```go
-student := Student{FirstName: "John", LastName: "Doe", GPA: 3.89, GradYear: 2022}
+student := Student{FirstName: "John", LastName: "Doe", GPA: 3.89, GradDate: "2022-05-15"}
 indexResp, err := client.Doc.Index(ctx, opensearchapi.IndexReq{
 	Index:  index,
 	ID:     "1",
@@ -321,8 +320,8 @@ students := []struct {
 	id      string
 	student Student
 }{
-	{"2", Student{FirstName: "Paulo", LastName: "Santos", GPA: 3.93, GradYear: 2021}},
-	{"3", Student{FirstName: "Shirley", LastName: "Rodriguez", GPA: 3.91, GradYear: 2019}},
+	{"2", Student{FirstName: "Paulo", LastName: "Santos", GPA: 3.93, GradDate: "2021-05-20"}},
+	{"3", Student{FirstName: "Shirley", LastName: "Rodriguez", GPA: 3.91, GradDate: "2019-05-10"}},
 }
 var bulkBody strings.Builder
 for _, s := range students {
@@ -376,17 +375,17 @@ for _, hit := range searchResp.Hits.Hits {
 	if err := json.Unmarshal(hit.Source, &s); err != nil {
 		return err
 	}
-	fmt.Printf("ID: %s, name: %s %s, GPA: %v, graduation year: %d\n", *hit.ID, s.FirstName, s.LastName, s.GPA, s.GradYear)
+	fmt.Printf("ID: %s, name: %s %s, GPA: %v, graduation date: %s\n", *hit.ID, s.FirstName, s.LastName, s.GPA, s.GradDate)
 }
 ```
 {% include copy.html %}
 
-Search using a term query:
+Search using a range query:
 
 ```go
 searchResp, err := client.Search(ctx, &opensearchapi.SearchReq{
 	Indices:    []string{index},
-	BodyReader: strings.NewReader(`{"query": {"term": {"gradYear": 2019}}}`),
+	BodyReader: strings.NewReader(`{"query": {"range": {"gradDate": {"gte": "2019-01-01", "lte": "2019-12-31"}}}}`),
 })
 ```
 {% include copy.html %}
@@ -454,7 +453,7 @@ type Student struct {
 	FirstName string  `json:"firstName"`
 	LastName  string  `json:"lastName"`
 	GPA       float64 `json:"gpa"`
-	GradYear  int     `json:"gradYear"`
+	GradDate  string  `json:"gradDate"`
 }
 
 func main() {
@@ -496,8 +495,7 @@ func run() error {
 	  },
 	  "mappings": {
 	    "properties": {
-	      "lastName": { "type": "keyword" },
-	      "gradYear": { "type": "integer" }
+	      "gradDate": { "type": "date", "format": "yyyy-MM-dd" }
 	    }
 	  }
 	}`
@@ -512,7 +510,7 @@ func run() error {
 
 	// Index a document
 	fmt.Println("\nIndexing one student......")
-	student := Student{FirstName: "John", LastName: "Doe", GPA: 3.89, GradYear: 2022}
+	student := Student{FirstName: "John", LastName: "Doe", GPA: 3.89, GradDate: "2022-05-15"}
 	indexResp, err := client.Doc.Index(ctx, opensearchapi.IndexReq{
 		Index:  index,
 		ID:     "1",
@@ -530,8 +528,8 @@ func run() error {
 		id      string
 		student Student
 	}{
-		{"2", Student{FirstName: "Paulo", LastName: "Santos", GPA: 3.93, GradYear: 2021}},
-		{"3", Student{FirstName: "Shirley", LastName: "Rodriguez", GPA: 3.91, GradYear: 2019}},
+		{"2", Student{FirstName: "Paulo", LastName: "Santos", GPA: 3.93, GradDate: "2021-05-20"}},
+		{"3", Student{FirstName: "Shirley", LastName: "Rodriguez", GPA: 3.91, GradDate: "2019-05-10"}},
 	}
 	var bulkBody strings.Builder
 	for _, s := range students {
@@ -584,7 +582,7 @@ func run() error {
 	fmt.Println("\nSearching for students who graduated in 2019......")
 	searchResp, err = client.Search(ctx, &opensearchapi.SearchReq{
 		Indices:    []string{index},
-		BodyReader: strings.NewReader(`{"query": {"term": {"gradYear": 2019}}}`),
+		BodyReader: strings.NewReader(`{"query": {"range": {"gradDate": {"gte": "2019-01-01", "lte": "2019-12-31"}}}}`),
 	})
 	if err != nil {
 		return err
