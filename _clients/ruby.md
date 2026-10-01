@@ -531,3 +531,9 @@ client.cluster.health
 client.search(index: 'students', q: 'firstName:John')
 ```
 {% include copy.html %}
+
+## Related documentation
+
+- For more examples of using the client, see the [`opensearch-ruby` user guide](https://github.com/opensearch-project/opensearch-ruby/blob/main/USER_GUIDE.md).
+- For guides to specific tasks, such as bulk indexing and searching, see the [`opensearch-ruby` guides](https://github.com/opensearch-project/opensearch-ruby/tree/main/guides).
+- For complete sample applications, see the [`opensearch-ruby` samples](https://github.com/opensearch-project/opensearch-ruby/tree/main/samples).
