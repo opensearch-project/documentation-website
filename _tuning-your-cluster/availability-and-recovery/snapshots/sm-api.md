@@ -201,8 +201,8 @@ Parameter | Type | Description
 `deletion.schedule` | String | The cron schedule used to delete snapshots. Optional. Default is to use `creation.schedule`, which is required.
 `deletion.time_limit` | String | Sets the maximum time to wait for snapshot deletion to finish. Optional. 
 `deletion.condition` | Object | Conditions for snapshot deletion. Required. 
-`deletion.condition.max_count` | Integer | The maximum number of snapshots to be retained. Optional.
-`deletion.condition.max_age` | String | The maximum time a snapshot is retained. Optional.
+`deletion.condition.max_count` | Integer | The maximum number of snapshots to be retained. Optional. You must specify `max_age`, `max_count`, or both.
+`deletion.condition.max_age` | String | The maximum time a snapshot is retained. Optional. You must specify `max_age`, `max_count`, or both.
 `deletion.condition.min_count` | Integer | The minimum number of snapshots to be retained. Optional. Default is `1`.
 `deletion.snapshot_pattern` | String | Additional snapshot patterns to include in deletion. This allows deletion of snapshots that match the specified pattern in addition to the policy's own snapshots. Supports wildcards (`*`). Optional.
 `notification` | Object | Defines notifications for SM events. Optional.
