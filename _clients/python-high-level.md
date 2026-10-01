@@ -26,7 +26,7 @@ After installing the client, you can import it like any other module:
 
 ```python
 import json
-from opensearchpy import OpenSearch, Search, Index, Mapping, Document, Text, Keyword, Float, Date
+from opensearchpy import OpenSearch, Search, Index, Mapping, Document, Text, Float, Date
 ```
 {% include copy.html %}
 
@@ -115,14 +115,13 @@ response = index.create()
 
 ## Indexing a document
 
-You can create a class to represent the documents that you'll index in OpenSearch by extending the `Document` class. The class attribute names are used as the document field names:
+To represent the documents that you'll index in OpenSearch, create a class that extends the `Document` class. The class attribute names are used as the document field names. The class doesn't declare the `gradDate` field, so the client sends its string value unchanged and OpenSearch stores it as a date according to the index mapping:
 
 ```python
 class Student(Document):
     firstName = Text()
     lastName = Text()
     gpa = Float()
-    gradDate = Keyword()
 
     class Index:
         name = index_name
@@ -235,7 +234,7 @@ The following sample program creates a client, creates an index, indexes documen
 
 ```python
 import json
-from opensearchpy import OpenSearch, Search, Index, Mapping, Document, Text, Keyword, Float, Date
+from opensearchpy import OpenSearch, Search, Index, Mapping, Document, Text, Float, Date
 
 host = 'localhost'
 port = 9200
@@ -263,7 +262,6 @@ class Student(Document):
     firstName = Text()
     lastName = Text()
     gpa = Float()
-    gradDate = Keyword()
 
     class Index:
         name = index_name
