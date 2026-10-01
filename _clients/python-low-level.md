@@ -191,7 +191,7 @@ Amazon OpenSearch Serverless supports a subset of OpenSearch API operations and 
 
 ## Creating an index
 
-The following example creates an index with one primary shard and one replica. It explicitly maps the `lastName` field as `keyword` and the `gradYear` field as `integer`. OpenSearch maps the other document fields dynamically when you index documents:
+The following example creates an index with one primary shard and one replica. It explicitly maps the `gradDate` field as a `date` in the `yyyy-MM-dd` format. OpenSearch maps the other document fields dynamically when you index documents:
 
 ```python
 index_name = 'students'
@@ -204,8 +204,7 @@ index_body = {
     },
     'mappings': {
         'properties': {
-            'lastName': {'type': 'keyword'},
-            'gradYear': {'type': 'integer'}
+            'gradDate': {'type': 'date', 'format': 'yyyy-MM-dd'}
         }
     }
 }
@@ -218,7 +217,7 @@ response = client.indices.create(index=index_name, body=index_body)
 You can index a document using the `client.index()` method:
 
 ```python
-document = {'firstName': 'John', 'lastName': 'Doe', 'gpa': 3.89, 'gradYear': 2022}
+document = {'firstName': 'John', 'lastName': 'Doe', 'gpa': 3.89, 'gradDate': '2022-05-15'}
 response = client.index(index=index_name, id='1', body=document, refresh=True)
 ```
 {% include copy.html %}
@@ -230,9 +229,9 @@ You can perform several operations at the same time by using the `bulk()` method
 ```python
 operations = [
     {'index': {'_index': index_name, '_id': '2'}},
-    {'firstName': 'Paulo', 'lastName': 'Santos', 'gpa': 3.93, 'gradYear': 2021},
+    {'firstName': 'Paulo', 'lastName': 'Santos', 'gpa': 3.93, 'gradDate': '2021-05-20'},
     {'index': {'_index': index_name, '_id': '3'}},
-    {'firstName': 'Shirley', 'lastName': 'Rodriguez', 'gpa': 3.91, 'gradYear': 2019}
+    {'firstName': 'Shirley', 'lastName': 'Rodriguez', 'gpa': 3.91, 'gradDate': '2019-05-10'}
 ]
 response = client.bulk(body=operations, refresh=True)
 ```
@@ -254,14 +253,14 @@ The response is a dictionary, and each item in `response['hits']['hits']` is a d
 ```python
 for hit in response['hits']['hits']:
     source = hit['_source']
-    print(f"ID: {hit['_id']}, name: {source['firstName']} {source['lastName']}, GPA: {source['gpa']}, graduation year: {source['gradYear']}")
+    print(f"ID: {hit['_id']}, name: {source['firstName']} {source['lastName']}, GPA: {source['gpa']}, graduation date: {source['gradDate']}")
 ```
 {% include copy.html %}
 
-To search using a query, provide the query in the request body. The following code uses a term query to search for students who graduated in 2019:
+To search using a query, provide the query in the request body. The following code uses a range query to search for students who graduated in 2019:
 
 ```python
-query = {'query': {'term': {'gradYear': 2019}}}
+query = {'query': {'range': {'gradDate': {'gte': '2019-01-01', 'lte': '2019-12-31'}}}}
 response = client.search(index=index_name, body=query)
 ```
 {% include copy.html %}
@@ -336,8 +335,7 @@ index_body = {
     },
     'mappings': {
         'properties': {
-            'lastName': {'type': 'keyword'},
-            'gradYear': {'type': 'integer'}
+            'gradDate': {'type': 'date', 'format': 'yyyy-MM-dd'}
         }
     }
 }
@@ -347,7 +345,7 @@ print(f"Index created: {response['index']}")
 
 # Index a document.
 print('\nIndexing one student......')
-document = {'firstName': 'John', 'lastName': 'Doe', 'gpa': 3.89, 'gradYear': 2022}
+document = {'firstName': 'John', 'lastName': 'Doe', 'gpa': 3.89, 'gradDate': '2022-05-15'}
 response = client.index(index=index_name, id='1', body=document, refresh=True)
 print(f"Result: {response['result']}, id: {response['_id']}, version: {response['_version']}")
 
@@ -355,9 +353,9 @@ print(f"Result: {response['result']}, id: {response['_id']}, version: {response[
 print('\nIndexing many students......')
 operations = [
     {'index': {'_index': index_name, '_id': '2'}},
-    {'firstName': 'Paulo', 'lastName': 'Santos', 'gpa': 3.93, 'gradYear': 2021},
+    {'firstName': 'Paulo', 'lastName': 'Santos', 'gpa': 3.93, 'gradDate': '2021-05-20'},
     {'index': {'_index': index_name, '_id': '3'}},
-    {'firstName': 'Shirley', 'lastName': 'Rodriguez', 'gpa': 3.91, 'gradYear': 2019}
+    {'firstName': 'Shirley', 'lastName': 'Rodriguez', 'gpa': 3.91, 'gradDate': '2019-05-10'}
 ]
 response = client.bulk(body=operations, refresh=True)
 print(f"Errors: {str(response['errors']).lower()}")
@@ -373,7 +371,7 @@ for hit in response['hits']['hits']:
 
 # Search for students who graduated in 2019.
 print('\nSearching for students who graduated in 2019......')
-query = {'query': {'term': {'gradYear': 2019}}}
+query = {'query': {'range': {'gradDate': {'gte': '2019-01-01', 'lte': '2019-12-31'}}}}
 response = client.search(index=index_name, body=query)
 print(f"Total hits: {response['hits']['total']['value']}")
 for hit in response['hits']['hits']:

@@ -26,7 +26,7 @@ After installing the client, you can import it like any other module:
 
 ```python
 import json
-from opensearchpy import OpenSearch, Search, Index, Mapping, Document, Text, Keyword, Float, Integer
+from opensearchpy import OpenSearch, Search, Index, Mapping, Document, Text, Keyword, Float, Date
 ```
 {% include copy.html %}
 
@@ -102,13 +102,13 @@ client = OpenSearch(
 
 ## Creating an index
 
-The following example creates an index with one primary shard and one replica. It explicitly maps the `lastName` field as `keyword` and the `gradYear` field as `integer`. OpenSearch maps the other document fields dynamically when you index documents:
+The following example creates an index with one primary shard and one replica. It explicitly maps the `gradDate` field as a `date` in the `yyyy-MM-dd` format. OpenSearch maps the other document fields dynamically when you index documents:
 
 ```python
 index_name = 'students'
 index = Index(index_name, using=client)
 index.settings(number_of_shards=1, number_of_replicas=1)
-index.mapping(Mapping().field('lastName', Keyword()).field('gradYear', Integer()))
+index.mapping(Mapping().field('gradDate', Date(format='yyyy-MM-dd')))
 response = index.create()
 ```
 {% include copy.html %}
@@ -120,9 +120,9 @@ You can create a class to represent the documents that you'll index in OpenSearc
 ```python
 class Student(Document):
     firstName = Text()
-    lastName = Keyword()
+    lastName = Text()
     gpa = Float()
-    gradYear = Integer()
+    gradDate = Keyword()
 
     class Index:
         name = index_name
@@ -132,7 +132,7 @@ class Student(Document):
 To index a document, create an object of the new class and call its `save()` method:
 
 ```python
-student = Student(meta={'id': '1'}, firstName='John', lastName='Doe', gpa=3.89, gradYear=2022)
+student = Student(meta={'id': '1'}, firstName='John', lastName='Doe', gpa=3.89, gradDate='2022-05-15')
 result = student.save(using=client, refresh=True)
 ```
 {% include copy.html %}
@@ -143,8 +143,8 @@ You can perform several operations at the same time by using the `bulk()` method
 
 ```python
 students = [
-    Student(meta={'id': '2'}, firstName='Paulo', lastName='Santos', gpa=3.93, gradYear=2021),
-    Student(meta={'id': '3'}, firstName='Shirley', lastName='Rodriguez', gpa=3.91, gradYear=2019)
+    Student(meta={'id': '2'}, firstName='Paulo', lastName='Santos', gpa=3.93, gradDate='2021-05-20'),
+    Student(meta={'id': '3'}, firstName='Shirley', lastName='Rodriguez', gpa=3.91, gradDate='2019-05-10')
 ]
 operations = []
 for s in students:
@@ -169,14 +169,14 @@ Each item in `response` is a `Hit` object, and the document fields are available
 
 ```python
 for hit in response:
-    print(f'ID: {hit.meta.id}, name: {hit.firstName} {hit.lastName}, GPA: {hit.gpa}, graduation year: {hit.gradYear}')
+    print(f'ID: {hit.meta.id}, name: {hit.firstName} {hit.lastName}, GPA: {hit.gpa}, graduation date: {hit.gradDate}')
 ```
 {% include copy.html %}
 
-The following code uses a term query to search for students who graduated in 2019:
+The following code uses a range query to search for students who graduated in 2019:
 
 ```python
-response = Search(using=client, index=index_name).query('term', gradYear=2019).execute()
+response = Search(using=client, index=index_name).query('range', gradDate={'gte': '2019-01-01', 'lte': '2019-12-31'}).execute()
 ```
 {% include copy.html %}
 
@@ -186,8 +186,11 @@ The preceding query is equivalent to the following query in OpenSearch domain-sp
 GET students/_search
 {
   "query": {
-    "term": {
-      "gradYear": 2019
+    "range": {
+      "gradDate": {
+        "gte": "2019-01-01",
+        "lte": "2019-12-31"
+      }
     }
   }
 }
@@ -232,7 +235,7 @@ The following sample program creates a client, creates an index, indexes documen
 
 ```python
 import json
-from opensearchpy import OpenSearch, Search, Index, Mapping, Document, Text, Keyword, Float, Integer
+from opensearchpy import OpenSearch, Search, Index, Mapping, Document, Text, Keyword, Float, Date
 
 host = 'localhost'
 port = 9200
@@ -258,9 +261,9 @@ index_name = 'students'
 # Define the structure of a student document.
 class Student(Document):
     firstName = Text()
-    lastName = Keyword()
+    lastName = Text()
     gpa = Float()
-    gradYear = Integer()
+    gradDate = Keyword()
 
     class Index:
         name = index_name
@@ -269,21 +272,21 @@ class Student(Document):
 print('Creating index......')
 index = Index(index_name, using=client)
 index.settings(number_of_shards=1, number_of_replicas=1)
-index.mapping(Mapping().field('lastName', Keyword()).field('gradYear', Integer()))
+index.mapping(Mapping().field('gradDate', Date(format='yyyy-MM-dd')))
 response = index.create()
 print(f"Index created: {response['index']}")
 
 # Index a document.
 print('\nIndexing one student......')
-student = Student(meta={'id': '1'}, firstName='John', lastName='Doe', gpa=3.89, gradYear=2022)
+student = Student(meta={'id': '1'}, firstName='John', lastName='Doe', gpa=3.89, gradDate='2022-05-15')
 result = student.save(using=client, refresh=True)
 print(f"Result: {result}, id: {student.meta.id}, version: {student.meta.version}")
 
 # Bulk index documents.
 print('\nIndexing many students......')
 students = [
-    Student(meta={'id': '2'}, firstName='Paulo', lastName='Santos', gpa=3.93, gradYear=2021),
-    Student(meta={'id': '3'}, firstName='Shirley', lastName='Rodriguez', gpa=3.91, gradYear=2019)
+    Student(meta={'id': '2'}, firstName='Paulo', lastName='Santos', gpa=3.93, gradDate='2021-05-20'),
+    Student(meta={'id': '3'}, firstName='Shirley', lastName='Rodriguez', gpa=3.91, gradDate='2019-05-10')
 ]
 operations = []
 for s in students:
@@ -303,7 +306,7 @@ for hit in response:
 
 # Search for students who graduated in 2019.
 print('\nSearching for students who graduated in 2019......')
-response = Search(using=client, index=index_name).query('term', gradYear=2019).execute()
+response = Search(using=client, index=index_name).query('range', gradDate={'gte': '2019-01-01', 'lte': '2019-12-31'}).execute()
 print(f"Total hits: {response.hits.total.value}")
 for hit in response:
     print(f"  {json.dumps(hit.to_dict(), separators=(',', ':'))}")
