@@ -344,7 +344,7 @@ for _, hit := range searchResp.Hits.Hits {
 ```
 {% include copy.html %}
 
-Each item in `searchResp.Hits.Hits` is a hit containing a pointer to the document ID in the `ID` field and the document source as raw JSON in the `Source` field. To access the document fields, unmarshal `Source` into a `Student` struct:
+In each item in `searchResp.Hits.Hits`, the `ID` field contains a pointer to the document ID, and the `Source` field contains the document as raw JSON. To access the document fields, unmarshal `Source` into a `Student` struct:
 
 ```go
 for _, hit := range searchResp.Hits.Hits {
