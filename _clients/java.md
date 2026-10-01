@@ -291,9 +291,9 @@ SdkHttpClient httpClient = AwsCrtHttpClient.builder().build();
 OpenSearchClient client = new OpenSearchClient(
     new AwsSdk2Transport(
         httpClient,
-        "search-<domain-name>-<id>.us-west-2.es.amazonaws.com", // OpenSearch endpoint, without https://
+        "search-<domain-name>-<id>.us-east-1.es.amazonaws.com", // OpenSearch endpoint, without https://
         "es",
-        Region.US_WEST_2, // signing service region
+        Region.US_EAST_1, // signing service region
         AwsSdk2TransportOptions.builder().build()
     )
 );
@@ -322,9 +322,9 @@ SdkHttpClient httpClient = AwsCrtHttpClient.builder().build();
 OpenSearchClient client = new OpenSearchClient(
     new AwsSdk2Transport(
         httpClient,
-        "<collection-id>.us-west-2.aoss.amazonaws.com", // OpenSearch Serverless collection endpoint, without https://
+        "<collection-id>.us-east-1.aoss.amazonaws.com", // OpenSearch Serverless collection endpoint, without https://
         "aoss",
-        Region.US_WEST_2, // signing service region
+        Region.US_EAST_1, // signing service region
         AwsSdk2TransportOptions.builder().build()
     )
 );
