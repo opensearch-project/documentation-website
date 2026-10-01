@@ -297,7 +297,7 @@ exports.handler = async (event, context) => {
 
 ## Creating an index
 
-The following example creates an index with one primary shard and one replica. It explicitly maps the `lastName` field as `keyword` and the `gradYear` field as `integer`. OpenSearch maps the other document fields dynamically when you index documents:
+The following example creates an index with one primary shard and one replica. It explicitly maps the `gradDate` field as a `date` in the `yyyy-MM-dd` format. OpenSearch maps the other document fields dynamically when you index documents:
 
 ```javascript
 var index_name = "students";
@@ -313,8 +313,7 @@ var response = await client.indices.create({
     },
     mappings: {
       properties: {
-        lastName: { type: "keyword" },
-        gradYear: { type: "integer" },
+        gradDate: { type: "date", format: "yyyy-MM-dd" },
       },
     },
   },
@@ -327,7 +326,7 @@ var response = await client.indices.create({
 Index a document into OpenSearch using the client's `index` method:
 
 ```javascript
-var student = { firstName: "John", lastName: "Doe", gpa: 3.89, gradYear: 2022 };
+var student = { firstName: "John", lastName: "Doe", gpa: 3.89, gradDate: "2022-05-15" };
 
 var response = await client.index({
   index: index_name,
@@ -346,9 +345,9 @@ Index multiple documents in one request using the client's `bulk` method. The re
 var response = await client.bulk({
   body: [
     { index: { _index: index_name, _id: "2" } },
-    { firstName: "Paulo", lastName: "Santos", gpa: 3.93, gradYear: 2021 },
+    { firstName: "Paulo", lastName: "Santos", gpa: 3.93, gradDate: "2021-05-20" },
     { index: { _index: index_name, _id: "3" } },
-    { firstName: "Shirley", lastName: "Rodriguez", gpa: 3.91, gradYear: 2019 },
+    { firstName: "Shirley", lastName: "Rodriguez", gpa: 3.91, gradDate: "2019-05-10" },
   ],
   refresh: true,
 });
@@ -379,21 +378,24 @@ Each item in `response.body.hits.hits` is a plain JavaScript object. The documen
 ```javascript
 response.body.hits.hits.forEach((hit) => {
   console.log(
-    `ID: ${hit._id}, name: ${hit._source.firstName} ${hit._source.lastName}, GPA: ${hit._source.gpa}, graduation year: ${hit._source.gradYear}`
+    `ID: ${hit._id}, name: ${hit._source.firstName} ${hit._source.lastName}, GPA: ${hit._source.gpa}, graduation date: ${hit._source.gradDate}`
   );
 });
 ```
 {% include copy.html %}
 
-Search using a `term` query:
+Search using a `range` query:
 
 ```javascript
 var response = await client.search({
   index: index_name,
   body: {
     query: {
-      term: {
-        gradYear: 2019,
+      range: {
+        gradDate: {
+          gte: "2019-01-01",
+          lte: "2019-12-31",
+        },
       },
     },
   },
@@ -493,8 +495,7 @@ async function main() {
       },
       mappings: {
         properties: {
-          lastName: { type: "keyword" },
-          gradYear: { type: "integer" },
+          gradDate: { type: "date", format: "yyyy-MM-dd" },
         },
       },
     },
@@ -503,7 +504,7 @@ async function main() {
 
   // Index a document
   console.log("\nIndexing one student......");
-  var student = { firstName: "John", lastName: "Doe", gpa: 3.89, gradYear: 2022 };
+  var student = { firstName: "John", lastName: "Doe", gpa: 3.89, gradDate: "2022-05-15" };
   response = await client.index({
     index: index_name,
     id: "1",
@@ -517,9 +518,9 @@ async function main() {
   response = await client.bulk({
     body: [
       { index: { _index: index_name, _id: "2" } },
-      { firstName: "Paulo", lastName: "Santos", gpa: 3.93, gradYear: 2021 },
+      { firstName: "Paulo", lastName: "Santos", gpa: 3.93, gradDate: "2021-05-20" },
       { index: { _index: index_name, _id: "3" } },
-      { firstName: "Shirley", lastName: "Rodriguez", gpa: 3.91, gradYear: 2019 },
+      { firstName: "Shirley", lastName: "Rodriguez", gpa: 3.91, gradDate: "2019-05-10" },
     ],
     refresh: true,
   });
@@ -545,8 +546,11 @@ async function main() {
     index: index_name,
     body: {
       query: {
-        term: {
-          gradYear: 2019,
+        range: {
+          gradDate: {
+            gte: "2019-01-01",
+            lte: "2019-12-31",
+          },
         },
       },
     },
