@@ -98,7 +98,7 @@ import (
 	requestsigner "github.com/opensearch-project/opensearch-go/v5/signer/awsv2"
 )
 
-const endpoint = "" // For example, https://search-<domain-name>-<id>.us-east-1.es.amazonaws.com
+const endpoint = "https://search-<domain-name>-<id>.us-east-1.es.amazonaws.com" // OpenSearch domain endpoint
 
 func main() {
 	ctx := context.Background()
@@ -170,7 +170,7 @@ import (
 	requestsigner "github.com/opensearch-project/opensearch-go/v5/signer/awsv2"
 )
 
-const endpoint = "" // For example, https://<collection-id>.us-east-1.aoss.amazonaws.com
+const endpoint = "https://<collection-id>.us-east-1.aoss.amazonaws.com" // OpenSearch Serverless collection endpoint
 
 func main() {
 	ctx := context.Background()
