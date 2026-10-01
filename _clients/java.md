@@ -275,6 +275,8 @@ dependencies {
 The examples use `AwsCrtHttpClient`. Avoid `ApacheHttpClient` from the AWS SDK because it does not support request bodies in `GET` or `DELETE` requests, so `AwsSdk2Transport` throws a `TransportException` for operations such as `clearScroll()` and `deletePit()`.
 {: .note}
 
+In the following example, replace the endpoint with your domain endpoint, which is listed on the domain's details page in the Amazon OpenSearch Service console.
+
 `AwsSdk2Transport` obtains AWS credentials from the AWS SDK default credentials provider chain. The following example illustrates connecting to Amazon OpenSearch Service:
 
 ```java
@@ -306,6 +308,8 @@ httpClient.close();
 {% include copy.html %}
 
 ## Connecting to Amazon OpenSearch Serverless
+
+In the following example, replace the endpoint with your collection endpoint, which is listed on the collection's details page in the Amazon OpenSearch Service console.
 
 The following example illustrates connecting to Amazon OpenSearch Serverless. Because Amazon OpenSearch Serverless does not support the root endpoint, the example checks whether an index exists:
 
