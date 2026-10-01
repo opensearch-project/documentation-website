@@ -262,6 +262,20 @@ for hit in response_body["hits"]["hits"].as_array().unwrap_or(&vec![]) {
 ```
 {% include copy.html %}
 
+Each `_source` document deserializes into a `Student` struct, so the document fields are available as struct fields, such as `student.first_name`. Each hit contains the document ID in `hit["_id"]` and the document in `hit["_source"]`. To print the ID and fields of each document, use the following code:
+
+```rust
+for hit in response_body["hits"]["hits"].as_array().unwrap_or(&vec![]) {
+    let id = hit["_id"].as_str().unwrap_or_default();
+    let student: Student = serde_json::from_value(hit["_source"].clone())?;
+    println!(
+        "ID: {}, name: {} {}, GPA: {}, graduation year: {}",
+        id, student.first_name, student.last_name, student.gpa, student.grad_year
+    );
+}
+```
+{% include copy.html %}
+
 To search for students who graduated in 2019, use a `term` query on the `gradYear` field:
 
 ```rust
