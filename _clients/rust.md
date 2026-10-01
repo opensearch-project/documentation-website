@@ -372,6 +372,9 @@ serde_json = "~1"
 ```
 {% include copy.html %}
 
+This sample program is for testing only. It specifies credentials in code and disables certificate validation so that it can connect to a cluster that uses self-signed certificates. In production, load credentials from a secure location and validate the cluster's certificate.
+{: .warning}
+
 The following sample program creates a client, creates an index, indexes documents individually and in bulk, searches for documents, updates a document, deletes a document, and then deletes the index:
 
 ```rust
@@ -422,10 +425,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let url = Url::parse("https://localhost:9200")?; // Without security, use http://localhost:9200
     let conn_pool = SingleNodeConnectionPool::new(url);
     let transport = TransportBuilder::new(conn_pool)
-        // Only for demo purposes. Don't specify your credentials in code.
         // Without security, remove this line
         .auth(Credentials::Basic("admin".to_string(), "<custom-admin-password>".to_string()))
-        // Only for demo purposes. Disables certificate validation for self-signed certificates.
         .cert_validation(CertificateValidation::None) // Without security, remove this line
         .build()?;
     let client = OpenSearch::new(transport);
