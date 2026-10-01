@@ -271,12 +271,29 @@ type Student struct {
 
 ## Creating an index
 
-Create an index using the following code:
+The following example creates an index with one primary shard and one replica. It explicitly maps the `lastName` field as `keyword` and the `gradYear` field as `integer`. OpenSearch maps the other document fields dynamically when you index documents:
 
 ```go
 ctx := context.Background()
 index := "students"
-createResp, err := client.Indices.Create(ctx, opensearchapi.IndicesCreateReq{Index: index})
+body := `{
+  "settings": {
+    "index": {
+      "number_of_shards": 1,
+      "number_of_replicas": 1
+    }
+  },
+  "mappings": {
+    "properties": {
+      "lastName": { "type": "keyword" },
+      "gradYear": { "type": "integer" }
+    }
+  }
+}`
+createResp, err := client.Indices.Create(ctx, opensearchapi.IndicesCreateReq{
+	Index:      index,
+	BodyReader: strings.NewReader(body),
+})
 ```
 {% include copy.html %}
 
@@ -327,10 +344,13 @@ If any of the operations fail, the method returns an `*opensearchapi.PartialBulk
 
 ## Searching for documents
 
-Search for all documents in an index using the following code:
+Search for all documents in an index using the following code. The `from` and `size` parameters specify the offset and the number of results to return:
 
 ```go
-searchResp, err := client.Search(ctx, &opensearchapi.SearchReq{Indices: []string{index}})
+searchResp, err := client.Search(ctx, &opensearchapi.SearchReq{
+	Indices: []string{index},
+	Params:  &opensearchapi.SearchParams{From: 0, Size: new(10)},
+})
 if err != nil {
 	return err
 }
@@ -467,7 +487,24 @@ func run() error {
 	// Create the index
 	index := "students"
 	fmt.Println("Creating index......")
-	createResp, err := client.Indices.Create(ctx, opensearchapi.IndicesCreateReq{Index: index})
+	body := `{
+	  "settings": {
+	    "index": {
+	      "number_of_shards": 1,
+	      "number_of_replicas": 1
+	    }
+	  },
+	  "mappings": {
+	    "properties": {
+	      "lastName": { "type": "keyword" },
+	      "gradYear": { "type": "integer" }
+	    }
+	  }
+	}`
+	createResp, err := client.Indices.Create(ctx, opensearchapi.IndicesCreateReq{
+		Index:      index,
+		BodyReader: strings.NewReader(body),
+	})
 	if err != nil {
 		return err
 	}
@@ -519,7 +556,10 @@ func run() error {
 
 	// Search for all students
 	fmt.Println("\nSearching for all students......")
-	searchResp, err := client.Search(ctx, &opensearchapi.SearchReq{Indices: []string{index}})
+	searchResp, err := client.Search(ctx, &opensearchapi.SearchReq{
+		Indices: []string{index},
+		Params:  &opensearchapi.SearchParams{From: 0, Size: new(10)},
+	})
 	if err != nil {
 		return err
 	}
