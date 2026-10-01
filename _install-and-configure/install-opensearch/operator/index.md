@@ -16,16 +16,26 @@ The OpenSearch Kubernetes Operator is an open-source Kubernetes operator that he
 
 ## Installing the operator
 
+The operator Helm chart installs a validation webhook whose certificate is issued by [cert-manager](https://cert-manager.io/), so cert-manager must be installed in your Kubernetes cluster before you install the operator. If cert-manager is not installed, the operator installation fails. For other options, see [Webhooks](https://github.com/opensearch-project/opensearch-k8s-operator/blob/main/docs/userguide/webhooks.md).
+
 To install the operator using Helm, follow these steps:
 
-1. Add the Helm repository:
+1. Install cert-manager:
+
+   ```bash
+   helm repo add jetstack https://charts.jetstack.io
+   helm install cert-manager jetstack/cert-manager --namespace cert-manager --create-namespace --set crds.enabled=true
+   ```
+   {% include copy.html %}
+
+1. Add the operator Helm repository:
 
    ```bash
    helm repo add opensearch-operator https://opensearch-project.github.io/opensearch-k8s-operator/
    ```
    {% include copy.html %}
 
-2. Install the operator:
+1. Install the operator:
 
    ```bash
    helm install opensearch-operator opensearch-operator/opensearch-operator
@@ -89,7 +99,7 @@ Follow these steps to deploy the cluster, verify that it is running, access it, 
     ```
     {% include copy.html %}
 
-    The `version` values must be quoted strings. The `security.tls` section enables the Security plugin, and `generate: true` instructs the operator to generate self-signed TLS certificates. The operator also creates the `my-first-cluster-admin-password` and `my-first-cluster-dashboards-password` secrets containing randomly generated passwords. For more information, see [TLS]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/operator/operator-opensearch-config/#tls) and [User and role management]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/operator/operator-security/).
+    The `version` values must be quoted strings. The `security.tls` section is required: if you omit it, the OpenSearch pods never become ready. The `security.tls` section enables the Security plugin, and `generate: true` instructs the operator to generate self-signed TLS certificates. The operator also creates the `my-first-cluster-admin-password` and `my-first-cluster-dashboards-password` secrets containing randomly generated passwords. For more information, see [TLS]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/operator/operator-opensearch-config/#tls) and [User and role management]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/operator/operator-security/).
     {: .note}
 
 1. Create the cluster by running the following command:
@@ -111,8 +121,9 @@ Follow these steps to deploy the cluster, verify that it is running, access it, 
     - A bootstrap pod (`my-first-cluster-bootstrap-0`) that helps with initial cluster manager discovery.
     - Three pods for the OpenSearch cluster (`my-first-cluster-nodes-0`, `my-first-cluster-nodes-1`, and `my-first-cluster-nodes-2`), named after the `nodes` node pool.
     - A pod for the OpenSearch Dashboards instance (`my-first-cluster-dashboards-<id>`).
+    - A job pod (`my-first-cluster-securityconfig-update-<id>`) that applies the security configuration and then shows the `Completed` status.
 
-    After all pods are ready, which takes about 1--2 minutes, you can connect to your cluster using port forwarding.
+    The cluster is ready when the three OpenSearch pods and the OpenSearch Dashboards pod show `1/1` in the `READY` column, which takes about 3 minutes. The operator then removes the bootstrap pod. You can now connect to your cluster using port forwarding.
 
 1. Retrieve the generated password for the `admin` user from the `my-first-cluster-admin-password` secret:
 
