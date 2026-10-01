@@ -109,7 +109,11 @@ public class Student {
 ```
 {% include copy.html %}
 
-## Initializing the client with SSL and TLS enabled using Apache HttpClient 5 Transport
+## Connecting to OpenSearch
+
+The following examples connect to a cluster that has the Security plugin enabled using either the Apache HttpClient 5 transport or the deprecated RestClient transport.
+
+### Using Apache HttpClient 5 Transport
 
 This code example uses the `admin` user. Replace `<custom-admin-password>` with the admin password that you set when you installed OpenSearch.
 
@@ -180,9 +184,9 @@ public class OpenSearchClientExample {
 
 If you run into issues when configuring security, see [common issues]({{site.url}}{{site.baseurl}}/troubleshoot/index/) and [troubleshoot TLS]({{site.url}}{{site.baseurl}}/troubleshoot/tls/).
 
-## Initializing the client with SSL and TLS enabled using RestClient Transport (deprecated)
+### Using RestClient Transport (deprecated)
 
-The `RestClientTransport` transport and the `org.opensearch.client.RestClient` class that it wraps are deprecated and will be removed in a future release. Use [Apache HttpClient 5 Transport](#initializing-the-client-with-ssl-and-tls-enabled-using-apache-httpclient-5-transport) instead.
+The `RestClientTransport` transport and the `org.opensearch.client.RestClient` class that it wraps are deprecated and will be removed in a future release. Use [Apache HttpClient 5 Transport](#using-apache-httpclient-5-transport) instead.
 {: .warning}
 
 This code example uses the `admin` user. Replace `<custom-admin-password>` with the admin password that you set when you installed OpenSearch.
