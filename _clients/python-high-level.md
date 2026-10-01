@@ -155,19 +155,12 @@ response = client.bulk(body=operations, refresh=True)
 
 ## Searching for documents
 
-You can use the `Search` class to construct a query. To search for all documents in an index, create a `Search` object without a query. To paginate results, use the `from` and `size` parameters. Slicing the `Search` object sets these parameters: for example, `[2:4]` sets `from` to `2` and `size` to `2`. The following example sorts students by graduation date and retrieves the results two at a time. The first request returns the first page of results, and the second request returns the next page:
+You can use the `Search` class to construct a query. To search for all documents in an index, create a `Search` object without a query:
 
 ```python
-search = Search(using=client, index=index_name).sort('gradDate')
-response = search[0:2].execute()
-next_response = search[2:4].execute()
-for page in [response, next_response]:
-    for hit in page:
-        print(json.dumps(hit.to_dict(), separators=(',', ':')))
+response = Search(using=client, index=index_name).execute()
 ```
 {% include copy.html %}
-
-The `from` and `size` parameters work well for the first pages of results. To paginate through a large number of results, use point in time with `search_after`. For more information, see [Paginate results]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/).
 
 Each item in `response` is a `Hit` object, and the document fields are available as its attributes. The document ID is in the `hit.meta.id` attribute:
 
@@ -199,6 +192,22 @@ GET students/_search
   }
 }
 ```
+
+## Paginating results
+
+To paginate results, use the `from` and `size` parameters. Slicing the `Search` object sets these parameters: for example, `[2:4]` sets `from` to `2` and `size` to `2`. The following example sorts students by graduation date and retrieves the results two at a time. The first request returns the first page of results, and the second request returns the next page:
+
+```python
+search = Search(using=client, index=index_name).sort('gradDate')
+response = search[0:2].execute()
+next_response = search[2:4].execute()
+for page in [response, next_response]:
+    for hit in page:
+        print(json.dumps(hit.to_dict(), separators=(',', ':')))
+```
+{% include copy.html %}
+
+The `from` and `size` parameters work well for the first pages of results. To paginate through a large number of results, use point in time with `search_after`. For more information, see [Paginate results]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/).
 
 ## Updating a document
 
