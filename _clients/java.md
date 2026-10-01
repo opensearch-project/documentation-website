@@ -10,14 +10,11 @@ The OpenSearch Java client allows you to interact with your OpenSearch clusters 
 
 This getting started guide illustrates how to connect to OpenSearch, index documents, and run queries. For the client source code, see the [`opensearch-java` repo](https://github.com/opensearch-project/opensearch-java).
 
-The Java client requires a transport in order to communicate with your cluster. `ApacheHttpClient5Transport` is the default transport and the recommended choice for new applications. The `RestClient` transport is deprecated and will be removed in a future release.
-{: .note}
-
 ## Installing the Java client
 
-Install the Java client with one of the following transports.
+The Java client requires a transport in order to communicate with your cluster. `ApacheHttpClient5Transport` is the default transport and the recommended choice for new applications. The `RestClient` transport is deprecated and will be removed in a future release.
 
-### Apache HttpClient 5 Transport
+### Installing the client using Apache HttpClient 5 Transport
 
 To start using the OpenSearch Java client, you need to provide a transport. The default `ApacheHttpClient5TransportBuilder` transport comes with the Java client. To use the OpenSearch Java client with the default transport, add it to your `pom.xml` file as a dependency:
 
@@ -41,9 +38,9 @@ dependencies {
 
 You can now start your OpenSearch cluster.
 
-### RestClient Transport (deprecated)
+### Installing the client using RestClient Transport (deprecated)
 
-The `RestClientTransport` transport and the `org.opensearch.client.RestClient` class that it wraps are deprecated and will be removed in a future release. Use [Apache HttpClient 5 Transport](#apache-httpclient-5-transport) instead.
+The `RestClientTransport` transport and the `org.opensearch.client.RestClient` class that it wraps are deprecated and will be removed in a future release. Use [Apache HttpClient 5 Transport](#installing-the-client-using-apache-httpclient-5-transport) instead.
 {: .warning}
 
 Alternatively, you can create a Java client by using the `RestClient`-based transport. In this case, make sure that you have the following dependencies in your project's `pom.xml` file:
