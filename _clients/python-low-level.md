@@ -239,14 +239,18 @@ response = client.bulk(body=operations, refresh=True)
 
 ## Searching for documents
 
-To search for all documents in an index, use the `client.search()` method without a query. The `from` and `size` parameters specify the offset and the number of results to return:
+To search for all documents in an index, use the `client.search()` method without a query. To paginate results, use the `from` and `size` parameters. The following example sorts students by graduation date and retrieves the results two at a time. The first request returns the first page of results, and the second request returns the next page:
 
 ```python
-response = client.search(index=index_name, body={'from': 0, 'size': 10})
-for hit in response['hits']['hits']:
-    print(json.dumps(hit['_source'], separators=(',', ':')))
+response = client.search(index=index_name, body={'from': 0, 'size': 2, 'sort': [{'gradDate': 'asc'}]})
+next_response = client.search(index=index_name, body={'from': 2, 'size': 2, 'sort': [{'gradDate': 'asc'}]})
+for page in [response, next_response]:
+    for hit in page['hits']['hits']:
+        print(json.dumps(hit['_source'], separators=(',', ':')))
 ```
 {% include copy.html %}
+
+The `from` and `size` parameters work well for the first pages of results. To paginate through a large number of results, use point in time with `search_after`. For more information, see [Paginate results]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/).
 
 The response is a dictionary, and each item in `response['hits']['hits']` is a dictionary that contains the document ID in the `_id` key and the document fields in the `_source` key:
 
@@ -364,10 +368,13 @@ for item in response['items']:
 
 # Search for all students.
 print('\nSearching for all students......')
-response = client.search(index=index_name, body={'from': 0, 'size': 10})
-print(f"Total hits: {response['hits']['total']['value']}")
-for hit in response['hits']['hits']:
-    print(f"  {json.dumps(hit['_source'], separators=(',', ':'))}")
+for page, start in enumerate([0, 2], start=1):
+    response = client.search(index=index_name, body={'from': start, 'size': 2, 'sort': [{'gradDate': 'asc'}]})
+    if page == 1:
+        print(f"Total hits: {response['hits']['total']['value']}")
+    print(f"Page {page}:")
+    for hit in response['hits']['hits']:
+        print(f"  {json.dumps(hit['_source'], separators=(',', ':'))}")
 
 # Search for students who graduated in 2019.
 print('\nSearching for students who graduated in 2019......')
