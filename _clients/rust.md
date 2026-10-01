@@ -195,13 +195,27 @@ Amazon OpenSearch Serverless supports a subset of OpenSearch API operations and 
 
 ## Creating an index
 
-To create an OpenSearch index, use the `create` function of the `opensearch::indices::Indices` struct:
+The following example creates an index with one primary shard and one replica. It explicitly maps the `lastName` field as `keyword` and the `gradYear` field as `integer`. OpenSearch maps the other document fields dynamically when you index documents:
 
 ```rust
 let index = "students";
 let response = client
     .indices()
     .create(IndicesCreateParts::Index(index))
+    .body(json!({
+        "settings": {
+            "index": {
+                "number_of_shards": 1,
+                "number_of_replicas": 1
+            }
+        },
+        "mappings": {
+            "properties": {
+                "lastName": { "type": "keyword" },
+                "gradYear": { "type": "integer" }
+            }
+        }
+    }))
     .send()
     .await?;
 ```
@@ -244,11 +258,13 @@ let response = client
 
 ## Searching for documents
 
-To search for all documents in an index, send a search request without a query:
+To search for all documents in an index, send a search request without a query. The `from` and `size` parameters specify the offset and the number of results to return:
 
 ```rust
 let response = client
     .search(SearchParts::Index(&[index]))
+    .from(0)
+    .size(10)
     .send()
     .await?;
 ```
@@ -437,6 +453,20 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let response_body = client
         .indices()
         .create(IndicesCreateParts::Index(index))
+        .body(json!({
+            "settings": {
+                "index": {
+                    "number_of_shards": 1,
+                    "number_of_replicas": 1
+                }
+            },
+            "mappings": {
+                "properties": {
+                    "lastName": { "type": "keyword" },
+                    "gradYear": { "type": "integer" }
+                }
+            }
+        }))
         .send()
         .await?
         .json::<Value>()
@@ -490,6 +520,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     println!("\nSearching for all students......");
     let response_body = client
         .search(SearchParts::Index(&[index]))
+        .from(0)
+        .size(10)
         .send()
         .await?
         .json::<Value>()
