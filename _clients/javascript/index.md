@@ -297,13 +297,27 @@ exports.handler = async (event, context) => {
 
 ## Creating an index
 
-To create an OpenSearch index, use the `indices.create()` method:
+The following example creates an index with one primary shard and one replica. It explicitly maps the `lastName` field as `keyword` and the `gradYear` field as `integer`. OpenSearch maps the other document fields dynamically when you index documents:
 
 ```javascript
 var index_name = "students";
 
 var response = await client.indices.create({
   index: index_name,
+  body: {
+    settings: {
+      index: {
+        number_of_shards: 1,
+        number_of_replicas: 1,
+      },
+    },
+    mappings: {
+      properties: {
+        lastName: { type: "keyword" },
+        gradYear: { type: "integer" },
+      },
+    },
+  },
 });
 ```
 {% include copy.html %}
@@ -345,11 +359,15 @@ To build the request body from an array, a stream, or an async generator, use th
 
 ## Searching for documents
 
-Search for all documents in an index using the client's `search` method:
+Search for all documents in an index using the client's `search` method. The `from` and `size` parameters specify the offset and the number of results to return:
 
 ```javascript
 var response = await client.search({
   index: index_name,
+  body: {
+    from: 0,
+    size: 10,
+  },
 });
 
 response.body.hits.hits.forEach((hit) => console.log(hit._source));
@@ -466,6 +484,20 @@ async function main() {
   console.log("Creating index......");
   var response = await client.indices.create({
     index: index_name,
+    body: {
+      settings: {
+        index: {
+          number_of_shards: 1,
+          number_of_replicas: 1,
+        },
+      },
+      mappings: {
+        properties: {
+          lastName: { type: "keyword" },
+          gradYear: { type: "integer" },
+        },
+      },
+    },
   });
   console.log("Index created: " + response.body.index);
 
@@ -499,6 +531,10 @@ async function main() {
   console.log("\nSearching for all students......");
   response = await client.search({
     index: index_name,
+    body: {
+      from: 0,
+      size: 10,
+    },
   });
   console.log("Total hits: " + response.body.hits.total.value);
   response.body.hits.hits.forEach((hit) => console.log("  " + JSON.stringify(hit._source)));
