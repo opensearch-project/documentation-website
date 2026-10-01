@@ -80,6 +80,8 @@ By default, the client discovers the nodes in the cluster when it starts and the
 
 ## Connecting to Amazon OpenSearch Service
 
+In the following example, replace the endpoint with your domain endpoint, which is listed on the domain's details page in the Amazon OpenSearch Service console.
+
 The following example illustrates connecting to Amazon OpenSearch Service:
 
 ```go
@@ -149,6 +151,8 @@ func getCredentialProvider(accessKey, secretAccessKey, token string) aws.Credent
 To use the default AWS credential chain in this or the Amazon OpenSearch Serverless example, omit the `config.WithCredentialsProvider` option.
 
 ## Connecting to Amazon OpenSearch Serverless
+
+In the following example, replace the endpoint with your collection endpoint, which is listed on the collection's details page in the Amazon OpenSearch Service console.
 
 The following example illustrates connecting to Amazon OpenSearch Serverless:
 
