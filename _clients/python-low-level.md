@@ -114,6 +114,8 @@ pip install boto3
 ```
 {% include copy.html %}
 
+In the following example, replace the endpoint with your domain endpoint, which is listed on the domain's details page in the Amazon OpenSearch Service console.
+
 The following example illustrates connecting to Amazon OpenSearch Service using IAM credentials:
 
 ```python
@@ -158,6 +160,8 @@ client = OpenSearch(
 {% include copy.html %}
 
 ## Connecting to Amazon OpenSearch Serverless
+
+In the following example, replace the endpoint with your collection endpoint, which is listed on the collection's details page in the Amazon OpenSearch Service console.
 
 The following example illustrates connecting to Amazon OpenSearch Serverless:
 
