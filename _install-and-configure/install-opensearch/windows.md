@@ -256,10 +256,10 @@ Before modifying any configuration files, it's always a good idea to save a back
 
 ## Plugin compatibility
 
-The Performance Analyzer plugin is not available on Windows. All other OpenSearch plugins, including the k-NN plugin, are available. For a complete list of plugins, see [Available plugins]({{site.url}}{{site.baseurl}}/opensearch/install/plugins/#available-plugins).
+The Performance Analyzer plugin is not available on Windows. All other OpenSearch plugins, including the k-NN plugin, are available. For a complete list of plugins, see [Available plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/#available-plugins).
 
 ## Related links
 
 - [OpenSearch configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/)
-- [OpenSearch plugin installation]({{site.url}}{{site.baseurl}}/opensearch/install/plugins/)
+- [OpenSearch plugin installation]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/)
 - [About the Security plugin]({{site.url}}{{site.baseurl}}/security/index/)

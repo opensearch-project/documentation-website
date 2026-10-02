@@ -51,7 +51,7 @@ It is a best practice to direct traffic from external sources, such as [OpenSear
 
 ## Prerequisites
 
-Before you get started, you must install and configure OpenSearch on all of your nodes. For information about the available options, see [Install and configure OpenSearch]({{site.url}}{{site.baseurl}}/opensearch/install/).
+Before you get started, you must install and configure OpenSearch on all of your nodes. For information about the available options, see [Installing OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/).
 
 After you're done, use SSH to connect to each node, then open the `config/opensearch.yml` file. You can set all configurations for your cluster in this file.
 
@@ -169,7 +169,7 @@ After you set the configurations, start OpenSearch on all nodes:
 sudo systemctl start opensearch.service
 ```
 
-Installing OpenSearch from a tar archive will not automatically create a service with `systemd`. See [Run OpenSearch as a service with `systemd`]({{site.url}}{{site.baseurl}}/opensearch/install/tar/#run-opensearch-as-a-service-with-systemd) for instructions on how to create and start the service if you receive an error like `Failed to start opensearch.service: Unit not found.`
+Installing OpenSearch from a tar archive will not automatically create a service with `systemd`. See [Run OpenSearch as a service with `systemd`]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/tar/#run-opensearch-as-a-service-with-systemd) for instructions on how to create and start the service if you receive an error like `Failed to start opensearch.service: Unit not found.`
 {: .tip}
 
 Then go to the logs file to see the formation of the cluster:

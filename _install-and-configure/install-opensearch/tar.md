@@ -48,7 +48,7 @@ This guide assumes that you are comfortable working from the Linux command line 
 
 ## Step 2: Configure important system settings
 
-Before launching OpenSearch you should review some [important system settings]({{site.url}}{{site.baseurl}}/opensearch/install/important-settings/){:target='\_blank'}.
+Before launching OpenSearch you should review some [important system settings]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/#important-settings){:target='\_blank'}.
 1. Disable memory paging and swapping performance on the host to improve performance.
    ```bash
    sudo swapoff -a
@@ -595,5 +595,5 @@ The following configuration is only suitable for testing in a non-production env
 - [OpenSearch configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/)
 - [Configure Performance Analyzer for Tarball Installation]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/index/#install-performance-analyzer)
 - [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/)
-- [OpenSearch plugin installation]({{site.url}}{{site.baseurl}}/opensearch/install/plugins/)
+- [OpenSearch plugin installation]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/)
 - [About the Security plugin]({{site.url}}{{site.baseurl}}/security/index/)

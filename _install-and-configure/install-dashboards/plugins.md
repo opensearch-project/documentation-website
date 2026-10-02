@@ -22,7 +22,7 @@ Major, minor, and patch plugin versions must match OpenSearch major, minor, and 
 ## Prerequisites
 
 - A compatible OpenSearch cluster
-- The corresponding OpenSearch plugins [installed on that cluster]({{site.url}}{{site.baseurl}}/opensearch/install/plugins/)
+- The corresponding OpenSearch plugins [installed on that cluster]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/)
 - The corresponding version of [OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/) (for example, OpenSearch Dashboards 2.3.0 works with OpenSearch 2.3.0)
 
 ## Available plugins

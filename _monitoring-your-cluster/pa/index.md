@@ -59,9 +59,9 @@ private-key-file-path = specify_path
 
 ## Install Performance Analyzer 
 
-The Performance Analyzer plugin is included in the installations for [Docker]({{site.url}}{{site.baseurl}}/opensearch/install/docker/) and [tarball]({{site.url}}{{site.baseurl}}/opensearch/install/tar/), but you can also install the plugin manually. 
+The Performance Analyzer plugin is included in the installations for [Docker]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/) and [tarball]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/tar/), but you can also install the plugin manually. 
 
-To install the Performance Analyzer plugin manually, download the plugin from [Maven](https://central.sonatype.com/namespace/org.opensearch.plugin) and install it using the standard [plugin installation]({{site.url}}{{site.baseurl}}/opensearch/install/plugins/) process. Performance Analyzer runs on each node in a cluster.
+To install the Performance Analyzer plugin manually, download the plugin from [Maven](https://central.sonatype.com/namespace/org.opensearch.plugin) and install it using the standard [plugin installation]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/) process. Performance Analyzer runs on each node in a cluster.
 
 To start the Performance Analyzer root cause analysis (RCA) agent on a tarball installation, run the following command:
       

@@ -13,7 +13,7 @@ redirect_from:
 
 OpenSearch supports multiple installation methods: Docker, Debian, Helm, RPM, tarball, and Windows.
 
-This guide uses [Docker](https://www.docker.com/) for a quick local setup. For other installation options, see the full [Install and upgrade OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/) guide.
+This guide uses [Docker](https://www.docker.com/) for a quick local setup. For other installation options, see the full [Installing OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/) guide.
 
 There are two ways to get started:
 
@@ -160,7 +160,7 @@ This configuration enables security using demo certificates and requires additio
     ```  
     {% include copy.html %}
 
-    For more information, see [important system settings]({{site.url}}{{site.baseurl}}/opensearch/install/important-settings/).
+    For more information, see [important system settings]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/#important-settings).
 
 1. Download the sample Compose file to your host. You can download the file with command line utilities like `curl` and `wget`, or you can manually copy [`docker-compose.yml`](https://github.com/opensearch-project/documentation-website/blob/{{site.opensearch_major_minor_version}}/assets/examples/docker-compose.yml) from the OpenSearch Project documentation-website repository using a web browser.
 
@@ -232,7 +232,7 @@ sudo usermod -aG docker $USER
 
 ### Error message: "max virtual memory areas vm.max_map_count [65530] is too low"
 
-OpenSearch will fail to start if your host's `vm.max_map_count` is too low. Review the [important system settings]({{site.url}}{{site.baseurl}}/opensearch/install/important-settings/) if you see the following errors in the service log, and set `vm.max_map_count` appropriately.
+OpenSearch will fail to start if your host's `vm.max_map_count` is too low. Review the [important system settings]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/#important-settings) if you see the following errors in the service log, and set `vm.max_map_count` appropriately.
 ```bash
 opensearch-node1         | ERROR: [1] bootstrap checks failed
 opensearch-node1         | [1]: max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]
@@ -261,14 +261,14 @@ This command removes the containers and the network but keeps the named volumes 
 
 ## Other installation types
 
-In addition to Docker, you can install OpenSearch on various Linux distributions and on Windows. For all available installation guides, see [Install and upgrade OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/).
+In addition to Docker, you can install OpenSearch on various Linux distributions and on Windows. For all available installation guides, see [Installing OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/).
 
 ## Further reading
 
 You successfully deployed your own OpenSearch cluster with OpenSearch Dashboards. To learn about configuration and functionality in more detail, see the following pages:
 - [About the Security plugin]({{site.url}}{{site.baseurl}}/security/index/)
 - [OpenSearch configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/)
-- [OpenSearch plugin installation]({{site.url}}{{site.baseurl}}/opensearch/install/plugins/)
+- [OpenSearch plugin installation]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/)
 
 ## Next steps
 
