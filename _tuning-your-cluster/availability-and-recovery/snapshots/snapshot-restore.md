@@ -561,7 +561,7 @@ POST /_snapshot/my-repository/snapshot-2/_restore
   "include_aliases": false,
   "partial": false,
   "rename_pattern": "opensearch_dashboards(.+)",
-  "rename_replacement": "restored-opensearch-dashboards$1",
+  "rename_replacement": "restored_opensearch_dashboards$1",
   "index_settings": {
     "index.blocks.read_only": false
   },
