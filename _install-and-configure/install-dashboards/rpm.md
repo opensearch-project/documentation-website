@@ -60,11 +60,12 @@ Install OpenSearch. For more information, see [Installing OpenSearch using RPM](
     ```
     {% include copy.html %}
 
-    For new installations of OpenSearch Dashboards 3.7 and later, you can use the following environment variable to control Security Dashboards plugin behavior:
+    For new installations of OpenSearch Dashboards 3.7 and later, you can disable the Security Dashboards plugin by adding the `DISABLE_SECURITY_DASHBOARDS_PLUGIN=true` environment variable before the installation command with the `env` keyword:
     ```bash
-    DISABLE_SECURITY_DASHBOARDS_PLUGIN=true
+    sudo env DISABLE_SECURITY_DASHBOARDS_PLUGIN=true rpm -ivh opensearch-dashboards-{{site.opensearch_dashboards_version}}-linux-x64.rpm
     ```
     {% include copy.html %}
+
 1. After the installation succeeds, enable OpenSearch Dashboards as a service:
     ```bash
     sudo systemctl enable opensearch-dashboards
@@ -126,11 +127,10 @@ YUM, the primary package management tool for Red Hat-based operating systems, al
    ```
    {% include copy.html %}
 
-1. During installation, the installer will present you with the GPG key fingerprint. Verify that the information matches the following:
-   ```bash
+1. The first time YUM downloads the repository metadata (for example, when you list the available versions) and again during installation, YUM prompts you to import the GPG key and presents the key fingerprint. Verify that the information matches the following:
+   ```text
    Fingerprint: A8B2 D9E0 4CD5 1FEF 6AA2 DB53 BA81 D999 8119 1457
    ```
-   {% include copy.html %}
 
     - If correct, enter `yes` or `y`. The OpenSearch installation continues.
 1. Start OpenSearch Dashboards:
@@ -153,7 +153,7 @@ Download the RPM package for the desired upgrade version directly from the [Open
 Navigate to the directory containing the distribution and run the following command:
 
 ```bash
-rpm -Uvh opensearch-dashboards-{{site.opensearch_dashboards_version}}-linux-x64.rpm
+sudo rpm -Uvh opensearch-dashboards-{{site.opensearch_dashboards_version}}-linux-x64.rpm
 ```
 {% include copy.html %}
 
@@ -175,7 +175,12 @@ You can also upgrade to a specific OpenSearch Dashboards version by providing th
 
 ### Automatically restart the service after a package upgrade
 
-The OpenSearch Dashboards RPM package does not support automatically restarting the service after a package upgrade.
+The OpenSearch Dashboards RPM package does not support automatically restarting the service after a package upgrade. The upgrade stops OpenSearch Dashboards, so start the service after the upgrade completes:
+
+```bash
+sudo systemctl start opensearch-dashboards
+```
+{% include copy.html %}
 
 ## Related documentation
 
