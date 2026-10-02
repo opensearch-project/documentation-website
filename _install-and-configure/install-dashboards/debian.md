@@ -189,7 +189,7 @@ By default, OpenSearch Dashboards, like OpenSearch, binds to `localhost` when yo
     {% include copy.html %}
 
 1. Specify a network interface that OpenSearch Dashboards should bind to. Use `0.0.0.0` to bind to any available interface:
-    ```bash
+    ```yaml
     server.host: 0.0.0.0
     ```
     {% include copy.html %}

@@ -150,8 +150,8 @@ APT, the primary package management tool for Debian–based operating systems, a
 
 1. Create an APT repository for OpenSearch:
    ```bash
-   echo "deb [signed-by=/etc/apt/keyrings/opensearch.gpg] https://artifacts.opensearch.org/releases/bundle/opensearch/3.x/apt stable main" \
-   | sudo tee /etc/apt/sources.list.d/opensearch-3.x.list
+   echo "deb [signed-by=/etc/apt/keyrings/opensearch.gpg] https://artifacts.opensearch.org/releases/bundle/opensearch/{{major_version_mask}}/apt stable main" \
+   | sudo tee /etc/apt/sources.list.d/opensearch-{{major_version_mask}}.list
    ```
    {% include copy.html %}
 
@@ -202,16 +202,15 @@ APT, the primary package management tool for Debian–based operating systems, a
 1. If the installation succeeds, it means APT has validated that the repository metadata was signed with a trusted GPG key. To manually confirm that the key you imported matches the official OpenSearch release key, execute the following command:
 
    ```bash
-   gpg --no-default-keyring --keyring /etc/apt/trusted.gpg.d/opensearch.gpg --fingerprint
+   gpg --no-default-keyring --keyring /etc/apt/keyrings/opensearch.gpg --fingerprint
    ```
    {% include copy.html %}
 
    In the output you should see the following snippet:
-   ```bash
-   pub   rsa4096 2021-05-11 [SC]
-      C5B7 4989 65EF D1C2 924B  A9D5 39D3 1987 9310 D3FC
+   ```text
+   pub   rsa4096 2025-03-06 [SC]
+         A8B2 D9E0 4CD5 1FEF 6AA2  DB53 BA81 D999 8119 1457
    ```
-   {% include copy.html %}
 
 1. Once complete, enable OpenSearch:
     ```bash
@@ -280,10 +279,13 @@ An OpenSearch node in its default configuration (with demo certificates and user
     hostname      opensearch-anomaly-detection         {{site.opensearch_version}}
     hostname      opensearch-asynchronous-search       {{site.opensearch_version}}
     hostname      opensearch-cross-cluster-replication {{site.opensearch_version}}
+    hostname      opensearch-custom-codecs             {{site.opensearch_version}}
+    hostname      opensearch-flow-framework            {{site.opensearch_version}}
     hostname      opensearch-geospatial                {{site.opensearch_version}}
     hostname      opensearch-index-management          {{site.opensearch_version}}
     hostname      opensearch-job-scheduler             {{site.opensearch_version}}
     hostname      opensearch-knn                       {{site.opensearch_version}}
+    hostname      opensearch-ltr                       {{site.opensearch_version}}
     hostname      opensearch-ml                        {{site.opensearch_version}}
     hostname      opensearch-neural-search             {{site.opensearch_version}}
     hostname      opensearch-notifications             {{site.opensearch_version}}
@@ -291,9 +293,14 @@ An OpenSearch node in its default configuration (with demo certificates and user
     hostname      opensearch-observability             {{site.opensearch_version}}
     hostname      opensearch-performance-analyzer      {{site.opensearch_version}}
     hostname      opensearch-reports-scheduler         {{site.opensearch_version}}
+    hostname      opensearch-search-relevance          {{site.opensearch_version}}
     hostname      opensearch-security                  {{site.opensearch_version}}
     hostname      opensearch-security-analytics        {{site.opensearch_version}}
+    hostname      opensearch-skills                    {{site.opensearch_version}}
     hostname      opensearch-sql                       {{site.opensearch_version}}
+    hostname      opensearch-system-templates          {{site.opensearch_version}}
+    hostname      opensearch-ubi                       {{site.opensearch_version}}
+    hostname      query-insights                       {{site.opensearch_version}}
     ```
 
 ## Step 3: Set up OpenSearch in your environment
@@ -657,19 +664,22 @@ sudo dpkg -i opensearch-{{site.opensearch_version}}-linux-x64.deb
 
 ### Upgrade using `apt-get`
 
-To upgrade to the latest version of OpenSearch using `apt-get`:
+To upgrade to the newest available version of OpenSearch, run the following command:
 
 ```bash
-sudo apt-get upgrade opensearch
+sudo apt-get install --only-upgrade opensearch
 ```
 {% include copy.html %}
 
-You can also upgrade to a specific OpenSearch version:
+You can also upgrade to a specific OpenSearch version by providing the version number:
 
 ```bash
-sudo apt-get upgrade opensearch=<version>
+sudo apt-get install opensearch=<version>
 ```
 {% include copy.html %}
+
+The `apt-get upgrade` subcommand acts on every installed package on the host. The `--only-upgrade` option limits the operation to the `opensearch` package.
+{: .note}
 
 ### Automatically restart the service after a package upgrade
 
