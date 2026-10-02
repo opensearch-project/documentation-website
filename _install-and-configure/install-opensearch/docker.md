@@ -25,7 +25,7 @@ Docker Desktop users should set host memory utilization to a minimum of 4 GB by 
 
 Docker Compose is a utility that allows users to launch multiple containers with a single command. You pass a file to Docker Compose when you invoke it. Docker Compose reads those settings and starts the requested containers. Docker Compose is installed automatically with Docker Desktop, but users operating in a command line environment must install Docker Compose manually. You can find information about installing Docker Compose on the official [Docker Compose GitHub page](https://github.com/docker/compose).
 
-If you need to install Docker Compose manually and your host supports Python, you can use [pip](https://pypi.org/project/pip/) to install the [Docker Compose package](https://pypi.org/project/docker-compose/) automatically.
+On Linux, you can install Docker Compose as a Docker plugin. For more information, see [Install the Docker Compose plugin](https://docs.docker.com/compose/install/linux/). The examples in this guide use the `docker compose` command provided by the plugin.
 {: .tip}
 
 ## Configure important host settings
@@ -132,7 +132,13 @@ Before continuing, you should verify that Docker is working correctly by deployi
       ```
 1. Before stopping the running container, display a list of all running containers and copy the container ID for the OpenSearch node you are testing. In the following example, the container ID is `a937e018cee5`:
     ```bash
-    $ docker container ls
+    docker container ls
+    ```
+    {% include copy.html %}
+
+    The response lists the running containers:
+
+    ```bash
     CONTAINER ID   IMAGE                                 COMMAND                  CREATED          STATUS          PORTS                                                                NAMES
     a937e018cee5   opensearchproject/opensearch:latest   "./opensearch-docker…"   19 minutes ago   Up 19 minutes   0.0.0.0:9200->9200/tcp, 9300/tcp, 0.0.0.0:9600->9600/tcp, 9650/tcp   wonderful_boyd
     ```
@@ -477,10 +483,11 @@ Use the same process to specify a [Backend configuration]({{site.url}}{{site.bas
 
 #### Complete Docker Compose example with custom configuration
 
-This example uses the `${OS_VER}` environment variable to specify the OpenSearch version. Before using this example, set the OpenSearch version by exporting the variable:
+This example uses the `${OS_VER}` and `${OSD_VER}` environment variables to specify the OpenSearch and OpenSearch Dashboards versions. If either variable is not set, Docker Compose fails with an `invalid reference format` error. Before using this example, set the versions by exporting the variables:
 
 ```bash
 export OS_VER={{ site.opensearch_version }}
+export OSD_VER={{ site.opensearch_dashboards_version }}
 ```
 {% include copy.html %}
 
@@ -488,6 +495,7 @@ Alternatively, create a `.env` file in the same directory as your `docker-compos
 
 ```bash
 OS_VER={{ site.opensearch_version }}
+OSD_VER={{ site.opensearch_dashboards_version }}
 ```
 {% include copy.html %}
 
@@ -497,10 +505,9 @@ Using environment variables or explicit version tags (such as  `{{ site.opensear
 After creating your own certificates, `internal_users.yml`, `roles.yml`, `roles_mapping.yml`, and the rest of the security configuration files, your `docker-compose.yaml` file should appear similar to the following:
 
 ```yaml
-version: '3'  # Docker Compose file format version - optional in Compose V2 and later
 services:
   opensearch-node1:
-    image: opensearchproject/opensearch:${OS_VER}  # The OpenSearch version is specified here, not in the version field above
+    image: opensearchproject/opensearch:${OS_VER}
     container_name: opensearch-node1_${OS_VER}
     environment:
       - cluster.name=opensearch-cluster
@@ -532,7 +539,6 @@ services:
       - ./internal_users.yml:/usr/share/opensearch/config/opensearch-security/internal_users.yml
       - ./nodes_dn.yml:/usr/share/opensearch/config/opensearch-security/nodes_dn.yml
       - ./tenants.yml:/usr/share/opensearch/config/opensearch-security/tenants.yml
-      - ./whitelist.yml:/usr/share/opensearch/config/opensearch-security/whitelist.yml
     ports:
       - 9201:9200
       - 9600:9600
@@ -572,7 +578,6 @@ services:
       - ./internal_users.yml:/usr/share/opensearch/config/opensearch-security/internal_users.yml
       - ./nodes_dn.yml:/usr/share/opensearch/config/opensearch-security/nodes_dn.yml
       - ./tenants.yml:/usr/share/opensearch/config/opensearch-security/tenants.yml
-      - ./whitelist.yml:/usr/share/opensearch/config/opensearch-security/whitelist.yml
     ports:
       - 9200:9200
     networks:
@@ -611,7 +616,6 @@ services:
       - ./internal_users.yml:/usr/share/opensearch/config/opensearch-security/internal_users.yml
       - ./nodes_dn.yml:/usr/share/opensearch/config/opensearch-security/nodes_dn.yml
       - ./tenants.yml:/usr/share/opensearch/config/opensearch-security/tenants.yml
-      - ./whitelist.yml:/usr/share/opensearch/config/opensearch-security/whitelist.yml
     ports:
       - 9202:9200
     networks:
@@ -643,9 +647,6 @@ networks:
 ```
 {% include copy.html %}
 
-The `version: '3'` field in this example refers to the Docker Compose file format version, not the OpenSearch version. This field is optional in Docker Compose V2 and later. The sample file may be updated over time with improvements to configuration, comments, or settings while maintaining the same Compose format version. The actual OpenSearch version is controlled by the image tag (for example, `opensearchproject/opensearch:${OS_VER}`).
-{: .note}
-
 Use Docker Compose to start the cluster:
 ```bash
 docker compose up -d
@@ -668,7 +669,7 @@ Then run the following commands:
 # Build an image from a Dockerfile
 docker build --tag=opensearch-custom-plugin .
 # Start the container from the custom image
-docker run -p 9200:9200 -p 9600:9600 -v /usr/share/opensearch/data opensearch-custom-plugin
+docker run -p 9200:9200 -p 9600:9600 -e "discovery.type=single-node" -e "OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password>" -v /usr/share/opensearch/data opensearch-custom-plugin
 ```
 
 Alternatively, you might want to remove a plugin from an image before deploying it. This example Dockerfile removes the Security plugin:

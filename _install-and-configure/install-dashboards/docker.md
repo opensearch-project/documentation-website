@@ -25,7 +25,7 @@ Then you can start OpenSearch Dashboards using the following steps:
 
 1. Create an `opensearch_dashboards.yml` configuration file:
 
-    ```bash
+    ```yaml
     server.name: opensearch_dashboards
     server.host: "0.0.0.0"
     server.customResponseHeaders : { "Access-Control-Allow-Credentials" : "true" }
@@ -62,7 +62,7 @@ Then you can start OpenSearch Dashboards using the following steps:
 
 Use the following steps to run OpenSearch Dashboards using Docker Compose:
 
-1. Create a [`docker-compose.yml`](https://docs.docker.com/compose/compose-file/) file appropriate for your environment. A sample file that includes OpenSearch Dashboards is available on the OpenSearch [Docker installation page]({{site.url}}{{site.baseurl}}/opensearch/install/docker#sample-docker-composeyml).
+1. Create a [`docker-compose.yml`](https://docs.docker.com/compose/compose-file/) file appropriate for your environment. A sample file that includes OpenSearch Dashboards is available on the OpenSearch [Docker installation page]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/#sample-docker-composeyml).
 
    You can pass a custom `opensearch_dashboards.yml` file to the container in the Docker Compose file. For more information, see [Complete Docker Compose example with custom configuration]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/#complete-docker-compose-example-with-custom-configuration).
    {: .tip }
@@ -91,7 +91,15 @@ Use the following steps to run OpenSearch Dashboards using Docker Compose:
     The `opensearch.hosts` setting must be configured if you are not passing it as an environment variable. For an example of how to configure this setting, see [Complete Docker Compose example with custom configuration]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/#complete-docker-compose-example-with-custom-configuration).
     {: .note}
 
-1. Run `docker compose up`.
+1. Mount the `opensearch_dashboards.yml` file in the `opensearch-dashboards` service of your `docker-compose.yml` file:
+
+    ```yaml
+    opensearch-dashboards:
+      volumes:
+        - ./opensearch_dashboards.yml:/usr/share/opensearch-dashboards/config/opensearch_dashboards.yml
+    ```
+
+1. Run `docker compose up -d`.
 
    Wait for the containers to start. Then see the [OpenSearch Dashboards documentation]({{site.url}}{{site.baseurl}}/dashboards/index/).
 
