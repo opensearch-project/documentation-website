@@ -39,9 +39,9 @@ Install OpenSearch. For more information, see [Installing OpenSearch on Debian](
    ```
    {% include copy.html %}
 
-   For new installations of OpenSearch Dashboards 3.7 and later, you can use the following environment variable to control the Security Dashboards plugin behavior:
+   For new installations of OpenSearch Dashboards 3.7 and later, you can disable the Security Dashboards plugin by adding the `DISABLE_SECURITY_DASHBOARDS_PLUGIN=true` environment variable before the installation command with the `env` keyword:
    ```bash
-   DISABLE_SECURITY_DASHBOARDS_PLUGIN=true
+   sudo env DISABLE_SECURITY_DASHBOARDS_PLUGIN=true dpkg -i opensearch-dashboards-{{site.opensearch_dashboards_version}}-linux-x64.deb
    ```
    {% include copy.html %}
 
