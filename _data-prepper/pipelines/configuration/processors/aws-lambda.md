@@ -33,6 +33,7 @@ Field                | Type    | Required | Description
 `client.max_concurrency` | Integer | Optional | The maximum number of concurrent threads on the client. Default is `200`.
 `client.base_delay`  | Duration | Optional | The base delay for the exponential backoff. Default is `100ms`.
 `client.max_backoff` | Duration | Optional | The maximum backoff time for the exponential backoff. Default is `20s`.
+`client.retryable_status_codes` | List | Optional | A list of HTTP status codes that trigger a retry when returned by a Lambda invocation, for example `[500, 502, 503, 504]`. Default is an empty list (standard AWS SDK retry conditions only). Use for idempotent functions for which retrying transient server-side errors is safe.
 `batch`              | Object  | Optional | The batch settings for the Lambda invocations. Contains `key_name` (default: `"events"`) and `threshold` object with `event_count` (default: `100`), `maximum_size` (default: `"5mb"`), and `event_collect_timeout` (default: `10s`). See [Batch processing](#batch-processing) for details.                            
 `lambda_when`        | String  | Optional | A conditional expression that determines when to invoke the Lambda processor.     
 `response_codec`     | Object  | Optional |  A codec configuration for parsing Lambda responses. Default is `json`.
@@ -66,6 +67,7 @@ processors:
         max_concurrency: 200
         base_delay: "PT0.1S"
         max_backoff: "PT20S"
+        retryable_status_codes: [500, 502, 503, 504]  # Optional: retry these Lambda invocation status codes
       batch:
         key_name: events
         threshold:
