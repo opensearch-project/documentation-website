@@ -281,6 +281,8 @@ docker compose logs <serviceName>
 ```
 {% include copy.html %}
 
+For solutions to common startup errors, see [Common issues](#common-issues).
+
 Verify access to OpenSearch Dashboards by connecting to http://localhost:5601 from a browser. For OpenSearch 2.12 and later, you must use your configured username and password. For earlier versions, the default username and password are `admin`. We do not recommend using this configuration on hosts that are accessible from the public internet until you have customized the security configuration of your deployment.
 
 Remember that `localhost` cannot be accessed remotely. If you are deploying these containers to a remote host, then you will need to establish a network connection and replace `localhost` with the IP or DNS record corresponding to the host.
@@ -688,6 +690,29 @@ COPY --chown=opensearch:opensearch my-certificate-chain.pem /usr/share/opensearc
 COPY --chown=opensearch:opensearch my-root-cas.pem /usr/share/opensearch/config/
 ```
 {% include copy.html %}
+
+## Common issues
+
+Review these common issues and suggested solutions if your containers fail to start or exit unexpectedly.
+
+### Docker commands require elevated permissions
+
+Eliminate the need for running your Docker commands with `sudo` by adding your user to the `docker` user group. See Docker's [Post-installation steps for Linux](https://docs.docker.com/engine/install/linux-postinstall/) for more information.
+
+```bash
+sudo usermod -aG docker $USER
+```
+{% include copy.html %}
+
+### Error message: "max virtual memory areas vm.max_map_count [65530] is too low"
+
+OpenSearch fails to start if your host's `vm.max_map_count` is too low. If you see the following errors in the service log, set `vm.max_map_count` as described in [Linux settings](#linux-settings):
+
+```bash
+opensearch-node1         | ERROR: [1] bootstrap checks failed
+opensearch-node1         | [1]: max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]
+opensearch-node1         | ERROR: OpenSearch did not exit normally - check the logs at /usr/share/opensearch/logs/opensearch-cluster.log
+```
 
 ## Related links
 
