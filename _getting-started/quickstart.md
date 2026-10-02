@@ -13,7 +13,7 @@ redirect_from:
 
 OpenSearch supports multiple installation methods: Docker, Debian, Helm, RPM, tarball, and Windows.
 
-This guide uses [Docker](https://www.docker.com/) for a quick local setup. For other installation options, see the full [Installing OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/) guide.
+This guide uses [Docker](https://www.docker.com/) for a quick local setup. For other installation options, see [Installing OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/) and [Installing OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/).
 
 There are two ways to get started:
 
@@ -109,10 +109,10 @@ This configuration disables security and should only be used in test environment
     You should see an output similar to the following:
 
     ```bash
-    NAME                    COMMAND                  SERVICE                 STATUS              PORTS
-    opensearch-dashboards   "./opensearch-dashbo…"   opensearch-dashboards   running             0.0.0.0:5601->5601/tcp
-    opensearch-node1        "./opensearch-docker…"   opensearch-node1        running             0.0.0.0:9200->9200/tcp, 9300/tcp, 0.0.0.0:9600->9600/tcp, 9650/tcp
-    opensearch-node2        "./opensearch-docker…"   opensearch-node2        running             9200/tcp, 9300/tcp, 9600/tcp, 9650/tcp
+    NAME                    IMAGE                                            COMMAND                  SERVICE                 CREATED          STATUS          PORTS
+    opensearch-dashboards   opensearchproject/opensearch-dashboards:latest   "./opensearch-dashbo…"   opensearch-dashboards   30 seconds ago   Up 30 seconds   0.0.0.0:5601->5601/tcp, [::]:5601->5601/tcp
+    opensearch-node1        opensearchproject/opensearch:latest              "./opensearch-docker…"   opensearch-node1        30 seconds ago   Up 30 seconds   0.0.0.0:9200->9200/tcp, [::]:9200->9200/tcp, 9300/tcp, 0.0.0.0:9600->9600/tcp, [::]:9600->9600/tcp, 9650/tcp
+    opensearch-node2        opensearchproject/opensearch:latest              "./opensearch-docker…"   opensearch-node2        30 seconds ago   Up 30 seconds   9200/tcp, 9300/tcp, 9600/tcp, 9650/tcp
     ```
 
 1. To verify that OpenSearch is running, send the following request: 
@@ -205,10 +205,10 @@ This configuration uses demo certificates and serves OpenSearch Dashboards over 
     You should see an output like the following:
 
     ```bash
-    NAME                    COMMAND                  SERVICE                 STATUS              PORTS
-    opensearch-dashboards   "./opensearch-dashbo…"   opensearch-dashboards   running             0.0.0.0:5601->5601/tcp
-    opensearch-node1        "./opensearch-docker…"   opensearch-node1        running             0.0.0.0:9200->9200/tcp, 9300/tcp, 0.0.0.0:9600->9600/tcp, 9650/tcp
-    opensearch-node2        "./opensearch-docker…"   opensearch-node2        running             9200/tcp, 9300/tcp, 9600/tcp, 9650/tcp
+    NAME                    IMAGE                                            COMMAND                  SERVICE                 CREATED          STATUS          PORTS
+    opensearch-dashboards   opensearchproject/opensearch-dashboards:latest   "./opensearch-dashbo…"   opensearch-dashboards   30 seconds ago   Up 30 seconds   0.0.0.0:5601->5601/tcp, [::]:5601->5601/tcp
+    opensearch-node1        opensearchproject/opensearch:latest              "./opensearch-docker…"   opensearch-node1        30 seconds ago   Up 30 seconds   0.0.0.0:9200->9200/tcp, [::]:9200->9200/tcp, 9300/tcp, 0.0.0.0:9600->9600/tcp, [::]:9600->9600/tcp, 9650/tcp
+    opensearch-node2        opensearchproject/opensearch:latest              "./opensearch-docker…"   opensearch-node2        30 seconds ago   Up 30 seconds   9200/tcp, 9300/tcp, 9600/tcp, 9650/tcp
     ```
 
 1. Verify that OpenSearch is running. You should use `-k` (also written as `--insecure`) to disable hostname checking because the default security configuration uses demo certificates. Use `-u` to pass the default username and password (`admin:<custom-admin-password>`):
@@ -264,7 +264,7 @@ This command removes the containers and the network but keeps the named volumes 
 
 ## Other installation types
 
-In addition to Docker, you can install OpenSearch on various Linux distributions and on Windows. For all available installation guides, see [Installing OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/).
+In addition to Docker, you can install OpenSearch and OpenSearch Dashboards on various Linux distributions and on Windows. For all available installation guides, see [Installing OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/) and [Installing OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/).
 
 ## Further reading
 
