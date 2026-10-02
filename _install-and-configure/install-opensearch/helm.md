@@ -31,14 +31,9 @@ The instructions here assume you have a Kubernetes cluster with Helm preinstalle
 
 The default Helm chart deploys a three-node cluster. We recommend that you have at least 8 GiB of memory available for this deployment. You can expect the deployment to fail if, say, you have less than 4 GiB of memory available.
 
-For OpenSearch 2.12 or later, you must provide `OPENSEARCH_INITIAL_ADMIN_PASSWORD` to start the cluster. Customize the admin password in `values.yaml` under `extraEnvs`, following the [admin password requirements]({{site.url}}{{site.baseurl}}/security/configuration/demo-configuration/#admin-password-requirements), as shown in the following example:
+OpenSearch requires the `vm.max_map_count` kernel setting on each Kubernetes node to be at least `262144`. If the value is lower, the OpenSearch pods fail the bootstrap checks and enter the `CrashLoopBackOff` status. The `values.yaml` file in the following steps sets `sysctlInit.enabled` to `true`, which runs a privileged init container that sets `vm.max_map_count` on the node. If your nodes are already configured or your cluster does not allow privileged containers, remove this setting and configure `vm.max_map_count` on the nodes instead. For more information, see [Important settings]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/#important-settings).
 
-```yaml
-extraEnvs:
-  - name: OPENSEARCH_INITIAL_ADMIN_PASSWORD
-    value: <custom-admin-password>
-```
-{% include copy.html %}
+For OpenSearch 2.12 or later, you must provide `OPENSEARCH_INITIAL_ADMIN_PASSWORD` to start the cluster. Set the admin password in `values.yaml` under `extraEnvs`, following the [admin password requirements]({{site.url}}{{site.baseurl}}/security/configuration/demo-configuration/#admin-password-requirements).
 
 ## Install OpenSearch using Helm
 
@@ -66,12 +61,13 @@ extraEnvs:
    The available charts are provided in the response:
 
    ```bash
-   NAME                            	CHART VERSION	APP VERSION	DESCRIPTION                           
-   opensearch/opensearch                  	3.1.0        	3.1.0      	A Helm chart for OpenSearch                      
-   opensearch/opensearch-dashboards       	3.1.0        	3.1.0      	A Helm chart for OpenSearch Dashboards
+   NAME                            	CHART VERSION	APP VERSION	DESCRIPTION
+   opensearch/opensearch           	3.9.0        	3.9.0      	A Helm chart for OpenSearch
+   opensearch/opensearch-dashboards	3.9.0        	3.9.0      	A Helm chart for OpenSearch Dashboards
+   opensearch/data-prepper         	0.3.1        	2.8.0      	A Helm chart for Data Prepper
    ```
 
-1. Create a minimal `values.yaml` file:
+1. Create a minimal `values.yaml` file, replacing `<custom-admin-password>` with your admin password:
 
    ```yaml
    config:
@@ -80,7 +76,9 @@ extraEnvs:
        network.host: 0.0.0.0
    extraEnvs:
      - name: OPENSEARCH_INITIAL_ADMIN_PASSWORD
-       value: <strong_password>
+       value: <custom-admin-password>
+   sysctlInit:
+     enabled: true
    ```
    {% include copy.html %}
 
@@ -90,6 +88,20 @@ extraEnvs:
    helm install my-deployment opensearch/opensearch -f values.yaml
    ```
    {% include copy.html %}
+
+   The output shows the deployed release:
+
+   ```yaml
+   NAME: my-deployment
+   LAST DEPLOYED: Fri Oct  2 02:28:00 2026
+   NAMESPACE: default
+   STATUS: deployed
+   REVISION: 1
+   TEST SUITE: None
+   NOTES:
+   Watch all cluster members come up.
+     $ kubectl get pods --namespace=default -l app.kubernetes.io/component=opensearch-cluster-master -w
+   ```
 
 You can also build the `opensearch-<VERSION>.tgz` file manually:
 
@@ -121,37 +133,24 @@ You can also build the `opensearch-<VERSION>.tgz` file manually:
    ```
    {% include copy.html %}
 
-   The output shows you the specifications instantiated from the install.
+   Helm generates the release name, for example, `opensearch-3-1790908448`. Use this name instead of `my-deployment` when you uninstall the release.
 
-
-#### Example output
-
-  ```yaml
-  NAME: opensearch-3-1754992026
-  LAST DEPLOYED: Tue Aug 12 10:47:06 2025
-  NAMESPACE: default
-  STATUS: deployed
-  REVISION: 1
-  TEST SUITE: None
-  NOTES:
-  Watch all cluster members come up.
-  $ kubectl get pods --namespace=default -l app.kubernetes.io/component=opensearch-cluster-master -w
-  ```
+## Verify the deployment
 
 To make sure your OpenSearch pods are up and running, run the following command:
 
 ```bash
-$ kubectl get pods --namespace=default -w
+kubectl get pods --namespace=default -w
 ```
 {% include copy.html %}
 
-Wait until all pods show `1/1` in the `READY` column and `Running` in the `STATUS` column:
+Wait until all pods show `1/1` in the `READY` column and `Running` in the `STATUS` column, which takes about 1 minute:
 
 ```bash
-NAME                                                  READY   STATUS    RESTARTS   AGE
-opensearch-cluster-master-0                           1/1     Running   0          3m56s
-opensearch-cluster-master-1                           1/1     Running   0          3m56s
-opensearch-cluster-master-2                           1/1     Running   0          3m56s
+NAME                          READY   STATUS    RESTARTS   AGE
+opensearch-cluster-master-0   1/1     Running   0          41s
+opensearch-cluster-master-1   1/1     Running   0          41s
+opensearch-cluster-master-2   1/1     Running   0          41s
 ```
 
 Once all pods are ready, you can verify that OpenSearch is running. Use one of the following methods.
@@ -161,14 +160,14 @@ Once all pods are ready, you can verify that OpenSearch is running. Use one of t
 To access OpenSearch from your local machine, set up port forwarding from the OpenSearch service:
 
 ```bash
-$ kubectl port-forward svc/opensearch-cluster-master 9200:9200
+kubectl port-forward svc/opensearch-cluster-master 9200:9200
 ```
 {% include copy.html %}
 
 Leave this command running and open a separate terminal session. Then send a request to verify that OpenSearch is running:
 
 ```bash
-$ curl -XGET https://localhost:9200 -u 'admin:<custom-admin-password>' --insecure
+curl -XGET https://localhost:9200 -u 'admin:<custom-admin-password>' --insecure
 ```
 {% include copy.html %}
 
@@ -177,14 +176,14 @@ $ curl -XGET https://localhost:9200 -u 'admin:<custom-admin-password>' --insecur
 Alternatively, you can access the OpenSearch shell directly:
 
 ```bash
-$ kubectl exec -it opensearch-cluster-master-0 -- /bin/bash
+kubectl exec -it opensearch-cluster-master-0 -- /bin/bash
 ```
 {% include copy.html %}
 
 Then send a request from inside the pod:
 
 ```bash
-$ curl -XGET https://localhost:9200 -u 'admin:<custom-admin-password>' --insecure
+curl -XGET https://localhost:9200 -u 'admin:<custom-admin-password>' --insecure
 ```
 {% include copy.html %}
 
@@ -217,24 +216,31 @@ If you receive an `OpenSearch Security not initialized` error, the cluster is st
 
 ## Uninstall using Helm
 
-To identify the OpenSearch deployment that you want to delete:
+To identify the OpenSearch deployment that you want to delete, run the following command:
 
 ```bash
-$ helm list
+helm list
 ```
 {% include copy.html %}
 
-The reponse lists the current Helm deployments:
+The response lists the current Helm deployments:
 
 ```bash
-NAME                   	NAMESPACE	REVISION	UPDATED                            	STATUS  	CHART           	APP VERSION
-opensearch-3-1754992026	default  	1       	2025-08-12 10:47:06.02703 +0100 IST	deployed	opensearch-3.1.0	3.1.0      
+NAME         	NAMESPACE	REVISION	UPDATED                                	STATUS  	CHART           	APP VERSION
+my-deployment	default  	1       	2026-10-02 02:28:00.553978943 +0000 UTC	deployed	opensearch-3.9.0	3.9.0
 ```
 
-To delete or uninstall a deployment, run the following command:
+To uninstall a deployment, run the following command:
 
 ```bash
-helm delete opensearch-3-1754992026
+helm uninstall my-deployment
+```
+{% include copy.html %}
+
+Uninstalling the release does not delete the persistent volume claims (PVCs) that store the OpenSearch data. If you reinstall the release, OpenSearch reuses the existing data, including the original admin password. To delete the data, delete the PVCs:
+
+```bash
+kubectl delete pvc -l app.kubernetes.io/instance=my-deployment
 ```
 {% include copy.html %}
 

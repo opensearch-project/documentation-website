@@ -29,12 +29,18 @@ The instructions here assume you have a Kubernetes cluster with Helm preinstalle
 
 ## Prerequisites
 
-Install OpenSearch. For more information, see [Installing OpenSearch using Helm]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/helm/).
+Install OpenSearch. For more information, see [Installing OpenSearch using Helm]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/helm/). The OpenSearch Dashboards chart connects to the `opensearch-cluster-master` service that the OpenSearch chart creates by default.
 
 Make sure that you can send requests to your OpenSearch pod:
 
+```bash
+curl -XGET https://localhost:9200 -u 'admin:<custom-admin-password>' --insecure
+```
+{% include copy.html %}
+
+The response contains the cluster information:
+
 ```json
-$ curl -XGET https://localhost:9200 -u 'admin:<custom-admin-password>' --insecure
 {
   "name" : "opensearch-cluster-master-0",
   "cluster_name" : "opensearch-cluster",
@@ -56,109 +62,91 @@ $ curl -XGET https://localhost:9200 -u 'admin:<custom-admin-password>' --insecur
 
 ## Install OpenSearch Dashboards using Helm
 
-1. Clone the [`helm-charts` repo](https://github.com/opensearch-project/helm-charts/tree/main):
-
-   ```bash
-   git clone https://github.com/opensearch-project/helm-charts.git
-   ```
-   {% include copy.html %}
-
-1. Navigate to the `opensearch-dashboards` directory:
-
-   ```bash
-   cd helm-charts/charts/opensearch-dashboards
-   ```
-   {% include copy.html %}
-
-1. Package the Helm chart:
-
-   ```bash
-   helm package .
-   ```
-   {% include copy.html %}
+The following steps use the `opensearch` Helm repository that you added when you installed OpenSearch.
 
 1. Deploy OpenSearch Dashboards:
 
    ```bash
-   helm install --generate-name opensearch-dashboards-3.1.0.tgz
+   helm install my-dashboards opensearch/opensearch-dashboards
    ```
    {% include copy.html %}
-   
-   The output shows you the specifications instantiated from the install.
-   To customize the deployment, pass in the values that you want to override with a custom YAML file:
+
+   To customize the deployment, pass in the values that you want to override using a custom YAML file:
 
    ```bash
-   helm install --values=customvalues.yaml opensearch-dashboards-3.1.0.tgz
+   helm install my-dashboards opensearch/opensearch-dashboards -f customvalues.yaml
    ```
    {% include copy.html %}
 
-#### Example output
+   The output shows the deployed release:
 
-```yaml
-NAME: opensearch-dashboards-1-1629223356
-LAST DEPLOYED: Tue Aug 12 11:32:42 2025
-NAMESPACE: default
-STATUS: deployed
-REVISION: 1
-TEST SUITE: None
-NOTES:
-1. Get the application URL by running these commands:
-  export POD_NAME=$(kubectl get pods --namespace default -l "app.kubernetes.io/name=opensearch-dashboards,app.kubernetes.io/instance=dashboards" -o jsonpath="{.items[0].metadata.name}")
-  export CONTAINER_PORT=$(kubectl get pod --namespace default $POD_NAME -o jsonpath="{.spec.containers[0].ports[0].containerPort}")
-  echo "Visit http://127.0.0.1:8080 to use your application"
-  kubectl --namespace default port-forward $POD_NAME 8080:$CONTAINER_PORT
-```
+   ```yaml
+   NAME: my-dashboards
+   LAST DEPLOYED: Fri Oct  2 02:30:49 2026
+   NAMESPACE: default
+   STATUS: deployed
+   REVISION: 1
+   TEST SUITE: None
+   NOTES:
+   1. Get the application URL by running these commands:
+     export POD_NAME=$(kubectl get pods --namespace default -l "app.kubernetes.io/name=opensearch-dashboards,app.kubernetes.io/instance=my-dashboards" -o jsonpath="{.items[0].metadata.name}")
+     export CONTAINER_PORT=$(kubectl get pod --namespace default $POD_NAME -o jsonpath="{.spec.containers[0].ports[0].containerPort}")
+     echo "Visit http://127.0.0.1:8080 to use your application"
+     kubectl --namespace default port-forward $POD_NAME 8080:$CONTAINER_PORT
+   ```
 
 After the deployment completes, follow these steps to access OpenSearch Dashboards:
 
-1. To make sure that your OpenSearch Dashboards pod is running, run the following command:
+1. To make sure your OpenSearch Dashboards pod is up and running, run the following command:
 
    ```bash
    kubectl get pods
    ```
    {% include copy.html %}
 
-   The running containers are listed in the response:
+   Wait until the OpenSearch Dashboards pod shows `1/1` in the `READY` column:
 
    ```bash
-   NAME                                                  READY   STATUS    RESTARTS   AGE
-   opensearch-cluster-master-0                           1/1     Running   0          4m35s
-   opensearch-cluster-master-1                           1/1     Running   0          4m35s
-   opensearch-cluster-master-2                           1/1     Running   0          4m35s
-   opensearch-dashboards-1-1629223356-758bd8747f-8www5   1/1     Running   0          66s
+   NAME                                                   READY   STATUS    RESTARTS   AGE
+   my-dashboards-opensearch-dashboards-567b777979-xx8jj   1/1     Running   0          70s
+   opensearch-cluster-master-0                            1/1     Running   0          3m
+   opensearch-cluster-master-1                            1/1     Running   0          3m
+   opensearch-cluster-master-2                            1/1     Running   0          3m
    ```
 
-1. Forward port 5601 from your local machine to the OpenSearch Dashboards pod, replacing the pod name with the name from the previous step:
+1. Set up port forwarding from the OpenSearch Dashboards service:
 
    ```bash
-   kubectl port-forward opensearch-dashboards-1-1629223356-758bd8747f-8www5 5601
+   kubectl port-forward svc/my-dashboards-opensearch-dashboards 5601
    ```
    {% include copy.html %}
 
 1. In a web browser, go to `http://localhost:5601` and log in as the `admin` user using the custom admin password that you set when you installed OpenSearch. For more information, see [Accessing OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/#accessing-opensearch-dashboards).
 
+   OpenSearch Dashboards can take about 1 minute after the pod is ready to finish starting. Until then, requests return a `503` error. If you receive this error, wait and then reload the page.
+   {: .note}
 
 ## Uninstall using Helm
 
-To identify the OpenSearch Dashboards deployment that you want to delete:
+To identify the OpenSearch Dashboards deployment that you want to delete, run the following command:
 
 ```bash
-$ helm list
+helm list
 ```
 {% include copy.html %}
 
-The existing Helm deployments are listed in the response:
+The response lists the current Helm deployments:
 
 ```bash
-NAME                   	NAMESPACE	REVISION	UPDATED                             	STATUS  	CHART                      	APP VERSION
-opensearch-dashboards-1-1629223356             	default  	1       	2025-08-12 11:32:42.798313 +0100 IST	deployed	opensearch-dashboards-3.1.0	3.1.0      
-opensearch-3-1754994664	default  	1       	2025-08-12 11:31:04.710386 +0100 IST	deployed	opensearch-3.1.0           	3.1.0      
+NAME         	NAMESPACE	REVISION	UPDATED                                	STATUS  	CHART                      	APP VERSION
+my-dashboards	default  	1       	2026-10-02 02:30:49.128429961 +0000 UTC	deployed	opensearch-dashboards-3.9.0	3.9.0
+my-deployment	default  	1       	2026-10-02 02:28:00.553978943 +0000 UTC	deployed	opensearch-3.9.0           	3.9.0
 ```
 
-To delete or uninstall a deployment, run the following command:
+To uninstall a deployment, run the following command:
 
 ```bash
-helm delete opensearch-dashboards-1-1629223356
+helm uninstall my-dashboards
 ```
 {% include copy.html %}
 
