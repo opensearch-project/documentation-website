@@ -81,7 +81,7 @@ To verify that OpenSearch Dashboards has started, go to `http://localhost:5601/`
 Use [Docker Compose](https://docs.docker.com/compose/) to run a local multi-node OpenSearch and OpenSearch Dashboards cluster:
 
 - [Set up a cluster without security](#set-up-a-cluster-without-security-for-local-development) -- Best for local development.
-- [Set up a cluster with security](#set-up-a-cluster-with-security-recommended-for-most-use-cases) -- Try OpenSearch with security by installing it with default certificates.
+- [Set up a cluster with security](#set-up-a-cluster-with-security-closer-to-a-production-setup) -- Try OpenSearch with security by installing it with default certificates.
 
 ### Set up a cluster without security (for local development)
 
@@ -126,9 +126,12 @@ This configuration disables security and should only be used in test environment
 
 You can now explore OpenSearch Dashboards by opening `http://localhost:5601/`.
 
-### Set up a cluster with security (recommended for most use cases)
+### Set up a cluster with security (closer to a production setup)
 
-This configuration enables security using demo certificates and requires additional system setup.
+This configuration enables security and requires additional system setup.
+
+This configuration uses demo certificates and serves OpenSearch Dashboards over HTTP. Use it only in test environments. Before you use OpenSearch in production, replace the demo certificates and configure TLS for OpenSearch Dashboards. For more information, see [Configure TLS for OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/tls/).
+{: .note }
 
 1. Before running OpenSearch on your machine, you should disable memory paging and swapping performance on the host to improve performance and increase the number of memory maps available to OpenSearch.
     
@@ -217,7 +220,7 @@ This configuration enables security using demo certificates and requires additio
 
     You should get a response similar to the one in [Option 1](#option-1-try-opensearch-in-one-command). 
 
-You can now explore OpenSearch Dashboards by opening `http://localhost:5601/` in a web browser on the same host that is running your OpenSearch cluster. OpenSearch Dashboards uses HTTP because the sample Compose file does not enable TLS for OpenSearch Dashboards. Log in as the `admin` user using the custom admin password that you set in the `.env` file.
+You can now explore OpenSearch Dashboards by opening `http://localhost:5601/` in a web browser on the same host that is running your OpenSearch cluster. Log in as the `admin` user using the custom admin password that you set in the `.env` file.
 
 ## Common issues
 
