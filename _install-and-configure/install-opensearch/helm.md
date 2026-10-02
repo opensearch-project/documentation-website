@@ -62,8 +62,8 @@ For OpenSearch 2.12 or later, you must provide `OPENSEARCH_INITIAL_ADMIN_PASSWOR
 
    ```bash
    NAME                            	CHART VERSION	APP VERSION	DESCRIPTION
-   opensearch/opensearch           	3.9.0        	3.9.0      	A Helm chart for OpenSearch
-   opensearch/opensearch-dashboards	3.9.0        	3.9.0      	A Helm chart for OpenSearch Dashboards
+   opensearch/opensearch           	{{site.opensearch_version}}        	{{site.opensearch_version}}      	A Helm chart for OpenSearch
+   opensearch/opensearch-dashboards	{{site.opensearch_dashboards_version}}        	{{site.opensearch_dashboards_version}}      	A Helm chart for OpenSearch Dashboards
    opensearch/data-prepper         	0.3.1        	2.8.0      	A Helm chart for Data Prepper
    ```
 
@@ -133,7 +133,7 @@ You can also build the `opensearch-<VERSION>.tgz` file manually:
    ```
    {% include copy.html %}
 
-   Helm generates the release name, for example, `opensearch-3-1790908448`. Use this name instead of `my-deployment` when you uninstall the release.
+   Helm generates the release name, for example, `opensearch-{{ site.opensearch_version | split: "." | first }}-1790908448`. Use this name instead of `my-deployment` when you uninstall the release.
 
 ## Verify the deployment
 
@@ -227,7 +227,7 @@ The response lists the current Helm deployments:
 
 ```bash
 NAME         	NAMESPACE	REVISION	UPDATED                                	STATUS  	CHART           	APP VERSION
-my-deployment	default  	1       	2026-10-02 02:28:00.553978943 +0000 UTC	deployed	opensearch-3.9.0	3.9.0
+my-deployment	default  	1       	2026-10-02 02:28:00.553978943 +0000 UTC	deployed	opensearch-{{site.opensearch_version}}	{{site.opensearch_version}}
 ```
 
 To uninstall a deployment, run the following command:

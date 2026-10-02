@@ -47,12 +47,12 @@ The response contains the cluster information:
   "cluster_uuid" : "72e_wDs1QdWHmwum_E2feA",
   "version" : {
     "distribution" : "opensearch",
-    "number" : "3.1.0",
+    "number" : "{{site.opensearch_version}}",
     "build_type" : "tar",
-    "build_hash" : "8ff7c6ee924a49f0f59f80a6e1c73073c8904214",
-    "build_date" : "2025-06-21T08:05:50.445588571Z",
+    "build_hash" : "<build-hash>",
+    "build_date" : "<build-date>",
     "build_snapshot" : false,
-    "lucene_version" : "10.2.1",
+    "lucene_version" : "<lucene-version>",
     "minimum_wire_compatibility_version" : "2.19.0",
     "minimum_index_compatibility_version" : "2.0.0"
   },
@@ -139,8 +139,8 @@ The response lists the current Helm deployments:
 
 ```bash
 NAME         	NAMESPACE	REVISION	UPDATED                                	STATUS  	CHART                      	APP VERSION
-my-dashboards	default  	1       	2026-10-02 02:30:49.128429961 +0000 UTC	deployed	opensearch-dashboards-3.9.0	3.9.0
-my-deployment	default  	1       	2026-10-02 02:28:00.553978943 +0000 UTC	deployed	opensearch-3.9.0           	3.9.0
+my-dashboards	default  	1       	2026-10-02 02:30:49.128429961 +0000 UTC	deployed	opensearch-dashboards-{{site.opensearch_dashboards_version}}	{{site.opensearch_dashboards_version}}
+my-deployment	default  	1       	2026-10-02 02:28:00.553978943 +0000 UTC	deployed	opensearch-{{site.opensearch_version}}           	{{site.opensearch_version}}
 ```
 
 To uninstall a deployment, run the following command:
