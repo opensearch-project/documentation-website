@@ -217,7 +217,7 @@ This configuration enables security using demo certificates and requires additio
 
     You should get a response similar to the one in [Option 1](#option-1-try-opensearch-in-one-command). 
 
-You can now explore OpenSearch Dashboards by opening `https://localhost:5601/` in a web browser on the same host that is running your OpenSearch cluster. The default username is `admin`, and the default password is set in your `docker-compose.yml` file in the `OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password>` setting.
+You can now explore OpenSearch Dashboards by opening `http://localhost:5601/` in a web browser on the same host that is running your OpenSearch cluster. OpenSearch Dashboards uses HTTP because the sample Compose file does not enable TLS for OpenSearch Dashboards. Log in as the `admin` user using the custom admin password that you set in the `.env` file.
 
 ## Common issues
 
