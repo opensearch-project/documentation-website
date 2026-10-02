@@ -100,9 +100,9 @@ POST /_plugins/_ml/agents/_register
 {
   "name": "My Conversational Agent",
   "type": "conversational",
-  "description": "A conversational agent using OpenAI GPT-4",
+  "description": "A conversational agent using OpenAI gpt-4o-mini",
   "model": {
-    "model_id": "gpt-4",
+    "model_id": "gpt-4o-mini",
     "model_provider": "openai/v1/chat/completions",
     "credential": {
       "openai_api_key": "sk-your-api-key"

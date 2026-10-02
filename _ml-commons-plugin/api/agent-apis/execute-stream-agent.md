@@ -117,17 +117,17 @@ To register an OpenAI Chat Completion model, send the following request:
 ```json
 POST /_plugins/_ml/models/_register
 {
-    "name": "OpenAI gpt 3.5 turbo",
+    "name": "OpenAI gpt-4o-mini",
     "function_name": "remote",
     "description": "OpenAI model",
     "connector": {
         "name": "OpenAI Chat Connector",
-        "description": "The connector to OpenAI model service for GPT 3.5",
+        "description": "The connector to OpenAI model service for gpt-4o-mini",
         "version": 1,
         "protocol": "http",
         "parameters": {
             "endpoint": "api.openai.com",
-            "model": "gpt-3.5-turbo"
+            "model": "gpt-4o-mini"
         },
         "credential": {
             "openAI_key": "<your_api_key>"
@@ -305,7 +305,7 @@ The streaming response includes a `token_usage` chunk sent after the content chu
 ```json
 ... (content chunks as shown above) ...
 
-data: {"inference_results":[{"output":[{"name":"memory_id","result":"LvU1iJkBCzHrriq5hXbN"},{"name":"parent_interaction_id","result":"L_U1iJkBCzHrriq5hXbs"},{"name":"token_usage","dataAsMap":{"per_turn_usage":[{"turn":1,"model_id":"rk6okJwB_kOxOUbO6853","model_name":"GPT-3.5 Turbo","model_url":"https://api.openai.com/v1/chat/completions","input_tokens":1042,"output_tokens":69,"total_tokens":1111,"cache_read_input_tokens":0}],"per_model_usage":[{"model_id":"rk6okJwB_kOxOUbO6853","model_name":"GPT-3.5 Turbo","model_url":"https://api.openai.com/v1/chat/completions","call_count":1,"input_tokens":1042,"output_tokens":69,"total_tokens":1111,"cache_read_input_tokens":0}]}}]}]}
+data: {"inference_results":[{"output":[{"name":"memory_id","result":"LvU1iJkBCzHrriq5hXbN"},{"name":"parent_interaction_id","result":"L_U1iJkBCzHrriq5hXbs"},{"name":"token_usage","dataAsMap":{"per_turn_usage":[{"turn":1,"model_id":"rk6okJwB_kOxOUbO6853","model_name":"gpt-4o-mini","model_url":"https://api.openai.com/v1/chat/completions","input_tokens":1042,"output_tokens":69,"total_tokens":1111,"cache_read_input_tokens":0}],"per_model_usage":[{"model_id":"rk6okJwB_kOxOUbO6853","model_name":"gpt-4o-mini","model_url":"https://api.openai.com/v1/chat/completions","call_count":1,"input_tokens":1042,"output_tokens":69,"total_tokens":1111,"cache_read_input_tokens":0}]}}]}]}
 
 data: {"inference_results":[{"output":[{"name":"memory_id","result":"LvU1iJkBCzHrriq5hXbN"},{"name":"parent_interaction_id","result":"L_U1iJkBCzHrriq5hXbs"},{"name":"response","dataAsMap":{"content":"","is_last":true}}]}]}
 ```
