@@ -9,7 +9,17 @@ redirect_from:
 
 # Configuring TLS for OpenSearch Dashboards
 
-By default, for ease of testing and getting started, OpenSearch Dashboards runs over HTTP. To enable TLS for HTTPS, update the following settings in `opensearch_dashboards.yml`.
+By default, for ease of testing and getting started, OpenSearch Dashboards runs over HTTP.
+
+The following table lists the certificates that OpenSearch Dashboards uses, depending on your configuration.
+
+Certificate | Settings | Description
+:--- | :--- | :---
+Server certificate and key | `server.ssl.certificate`, `server.ssl.key` | The certificate that OpenSearch Dashboards presents to web browsers over HTTPS. Use a certificate issued for the OpenSearch Dashboards host. This certificate is separate from the OpenSearch node certificates.
+CA certificates | `opensearch.ssl.certificateAuthorities` | The certificates of the CA that signed the OpenSearch node certificates. OpenSearch Dashboards uses them to verify OpenSearch, so they are the same CA certificates that your OpenSearch cluster uses.
+Client certificate and key | `opensearch.ssl.certificate`, `opensearch.ssl.key` | Required only if OpenSearch requires OpenSearch Dashboards to authenticate using a certificate (mTLS). The certificate must be signed by a CA that OpenSearch trusts.
+
+To enable TLS for HTTPS, update the following settings in `opensearch_dashboards.yml`.
 
 Setting | Description
 :--- | :---
