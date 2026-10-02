@@ -267,7 +267,7 @@ POST /_plugins/_ml/models/_register
 ```json
 POST /_plugins/_ml/models/_register
 {
-    "name": "openAI-gpt-3.5-turbo",
+    "name": "openAI-gpt-4o-mini",
     "function_name": "remote",
     "model_group_id": "1jriBYsBq7EKuKzZX131",
     "description": "test model",
@@ -281,20 +281,20 @@ POST /_plugins/_ml/models/_register
 ```json
 POST /_plugins/_ml/models/_register
 {
-    "name": "openAI-GPT-3.5: internal connector",
+    "name": "openAI-gpt-4o-mini: internal connector",
     "function_name": "remote",
     "model_group_id": "lEFGL4kB4ubqQRzegPo2",
     "description": "test model",
     "connector": {
         "name": "OpenAI Connector",
-        "description": "The connector to public OpenAI model service for GPT 3.5",
+        "description": "The connector to public OpenAI model service for gpt-4o-mini",
         "version": 1,
         "protocol": "http",
         "parameters": {
             "endpoint": "api.openai.com",
             "max_tokens": 7,
             "temperature": 0,
-            "model": "text-davinci-003"
+            "model": "gpt-4o-mini"
         },
         "credential": {
             "openAI_key": "..."
@@ -303,11 +303,11 @@ POST /_plugins/_ml/models/_register
             {
                 "action_type": "predict",
                 "method": "POST",
-                "url": "https://${parameters.endpoint}/v1/completions",
+                "url": "https://${parameters.endpoint}/v1/chat/completions",
                 "headers": {
                     "Authorization": "Bearer ${credential.openAI_key}"
                 },
-                "request_body": "{ \"model\": \"${parameters.model}\", \"prompt\": \"${parameters.prompt}\", \"max_tokens\": ${parameters.max_tokens}, \"temperature\": ${parameters.temperature} }"
+                "request_body": "{ \"model\": \"${parameters.model}\", \"messages\": [{\"role\": \"user\", \"content\": \"${parameters.prompt}\"}], \"max_tokens\": ${parameters.max_tokens}, \"temperature\": ${parameters.temperature} }"
             }
         ]
     }
@@ -322,7 +322,7 @@ The following example uses a regular expression and a set of stopwords to valida
 ```json
 POST /_plugins/_ml/models/_register
 {
-  "name": "openAI-gpt-3.5-turbo",
+  "name": "openAI-gpt-4o-mini",
   "function_name": "remote",
   "model_group_id": "1jriBYsBq7EKuKzZX131",
   "description": "test model",
@@ -388,7 +388,7 @@ For a complete example, see [Validating input/output using a guardrail model]({{
 ```json
 POST /_plugins/_ml/models/_register
 {
-    "name": "openAI-gpt-3.5-turbo",
+    "name": "openAI-gpt-4o-mini",
     "function_name": "remote",
     "description": "test model",
     "connector_id": "A-j7K48BZzNMh1sWVdJu",

@@ -102,18 +102,18 @@ To manually configure conversational search, follow these steps:
 
 ### Step 1: Create a connector for a model
 
-RAG requires an LLM in order to function. To connect to an LLM, create a [connector]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/). The following request creates a connector for the OpenAI GPT 3.5 model:
+RAG requires an LLM in order to function. To connect to an LLM, create a [connector]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/). The following request creates a connector for the OpenAI gpt-4o-mini model:
 
 ```json
 POST /_plugins/_ml/connectors/_create
 {
   "name": "OpenAI Chat Connector",
-  "description": "The connector to public OpenAI model service for GPT 3.5",
+  "description": "The connector to public OpenAI model service for gpt-4o-mini",
   "version": 2,
   "protocol": "http",
   "parameters": {
     "endpoint": "api.openai.com",
-    "model": "gpt-3.5-turbo",
+    "model": "gpt-4o-mini",
     "temperature": 0
   },
   "credential": {
@@ -152,7 +152,7 @@ Register the LLM for which you created a connector in the previous step. To regi
 ```json
 POST /_plugins/_ml/models/_register
 {
-  "name": "openAI-gpt-3.5-turbo",
+  "name": "openAI-gpt-4o-mini",
   "function_name": "remote",
   "description": "test model",
   "connector_id": "u3DEbI0BfUsSoeNTti-1"
@@ -311,7 +311,7 @@ The `generative_qa_parameters` object supports the following parameters.
 Parameter | Required | Description
 :--- | :--- | :---
 `llm_question` | Yes | The question that the LLM must answer. 
-`llm_model` | No | Overrides the original model set in the connection in cases where you want to use a different model (for example, GPT 4 instead of GPT 3.5). This option is required if a default model is not set during pipeline creation.
+`llm_model` | No | Overrides the original model set in the connection in cases where you want to use a different model (for example, `gpt-4o` instead of `gpt-4o-mini`). This option is required if a default model is not set during pipeline creation.
 `memory_id` | No | If you provide a `memory_id`, the pipeline retrieves the 10 most recent messages in the specified memory and adds them to the LLM prompt. If you don't specify a `memory_id`, the prior context is not added to the LLM prompt. 
 `context_size` | No | The number of search results sent to the LLM. This is typically needed in order to meet the token size limit, which can vary by model. Alternatively, you can use the `size` parameter in the Search API to control the number of search results sent to the LLM.
 `message_size` | No | The number of messages sent to the LLM. Similarly to the number of search results, this affects the total number of tokens received by the LLM. When not set, the pipeline uses the default message size of `10`.
@@ -332,7 +332,7 @@ GET /my_rag_test_data/_search
   },
   "ext": {
     "generative_qa_parameters": {
-      "llm_model": "gpt-3.5-turbo",
+      "llm_model": "gpt-4o-mini",
       "llm_question": "What's the population of NYC metro area in 2023",
       "memory_id": "znCqcI0BfUsSoeNTntd7",
       "context_size": 5,
@@ -409,7 +409,7 @@ GET /my_rag_test_data/_search
   },
   "ext": {
     "generative_qa_parameters": {
-      "llm_model": "gpt-3.5-turbo",
+      "llm_model": "gpt-4o-mini",
       "llm_question": "What was it in 2022",
       "memory_id": "znCqcI0BfUsSoeNTntd7",
       "context_size": 5,

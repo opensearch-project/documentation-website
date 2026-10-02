@@ -113,17 +113,17 @@ To register an OpenAI Chat Completion model, send the following request:
 ```json
 POST /_plugins/_ml/models/_register
 {
-    "name": "OpenAI gpt 3.5 turbo",
+    "name": "OpenAI gpt-4o-mini",
     "function_name": "remote",
     "description": "OpenAI model",
     "connector": {
         "name": "OpenAI Chat Connector",
-        "description": "The connector to OpenAI model service for GPT 3.5",
+        "description": "The connector to OpenAI model service for gpt-4o-mini",
         "version": 1,
         "protocol": "http",
         "parameters": {
             "endpoint": "api.openai.com",
-            "model": "gpt-3.5-turbo"
+            "model": "gpt-4o-mini"
         },
         "credential": {
             "openAI_key": "<your_api_key>"
