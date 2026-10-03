@@ -2,7 +2,7 @@
 layout: default
 title: Tarball
 parent: Installing OpenSearch
-nav_order: 10
+nav_order: 30
 redirect_from:
   - /opensearch/install/tar/
 ---
@@ -501,7 +501,7 @@ $ curl https://your.host.address:9200 -u admin:yournewpassword -k
 }
 ```
 
-### Run OpenSearch as a service with `systemd`
+### Run OpenSearch as a service using `systemd`
 
 This section will guide you through creating a service for OpenSearch and registering it with `systemd`. After the service has been defined, you can enable, start, and stop the OpenSearch service using `systemctl` commands. The commands in this section reflect an environment where OpenSearch has been installed to `/opt/opensearch` and should be changed depending on your installation path.
 
@@ -590,8 +590,9 @@ The following configuration is only suitable for testing in a non-production env
    ```
    {% include copy.html %}
 
-## Related links
+## Related documentation
 
+- [Common installation issues]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/#common-issues)
 - [OpenSearch configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/)
 - [Configure Performance Analyzer for Tarball Installation]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/index/#install-performance-analyzer)
 - [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/)

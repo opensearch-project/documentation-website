@@ -2,7 +2,7 @@
 layout: default
 title: Windows
 parent: Installing OpenSearch
-nav_order: 65
+nav_order: 40
 ---
 
 # Installing OpenSearch on Windows
@@ -258,8 +258,9 @@ Before modifying any configuration files, it's always a good idea to save a back
 
 The Performance Analyzer plugin is not available on Windows. All other OpenSearch plugins, including the k-NN plugin, are available. For a complete list of plugins, see [Available plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/#available-plugins).
 
-## Related links
+## Related documentation
 
+- [Common installation issues]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/#common-issues)
 - [OpenSearch configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/)
 - [OpenSearch plugin installation]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/)
 - [About the Security plugin]({{site.url}}{{site.baseurl}}/security/index/)

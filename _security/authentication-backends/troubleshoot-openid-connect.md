@@ -1,7 +1,11 @@
 ---
 layout: default
 title: Troubleshoot OpenID Connect
-nav_order: 30
+parent: OpenID Connect
+grand_parent: Authentication backends
+nav_order: 10
+redirect_from:
+  - /troubleshoot/openid-connect/
 ---
 
 # OpenID Connect troubleshooting

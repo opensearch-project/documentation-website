@@ -15,6 +15,9 @@ OpenSearch supports multiple installation methods: Docker, Debian, Helm, RPM, ta
 
 This guide uses [Docker](https://www.docker.com/) for a quick local setup. For other installation options, see [Installing OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/) and [Installing OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/).
 
+The configurations on this page are intended for local testing. They either disable security or use demo certificates, and they serve OpenSearch Dashboards over HTTP. To set up OpenSearch for production, see [Installing OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/) and [Security configuration]({{site.url}}{{site.baseurl}}/security/configuration/index/).
+{: .note }
+
 There are two ways to get started:
 
 * [Try OpenSearch with a single command](#option-1-try-opensearch-in-one-command) -- Great for quick demos.
@@ -26,10 +29,7 @@ Before you begin, install [Docker](https://docs.docker.com/get-docker/) on your 
 
 ## Option 1: Try OpenSearch in one command
 
-Use this method to quickly spin up OpenSearch and OpenSearch Dashboards on your local machine with minimal setup.
-
-This configuration disables security and should only be used in test environments.
-{: .note }
+Use this method to quickly spin up OpenSearch and OpenSearch Dashboards on your local machine with minimal setup. This configuration disables security.
 
 Start OpenSearch:
 
@@ -80,15 +80,12 @@ To verify that OpenSearch Dashboards has started, go to `http://localhost:5601/`
 
 Use [Docker Compose](https://docs.docker.com/compose/) to run a local multi-node OpenSearch and OpenSearch Dashboards cluster:
 
-- [Set up a cluster without security](#set-up-a-cluster-without-security-for-local-development) -- Best for local development.
-- [Set up a cluster with security](#set-up-a-cluster-with-security-closer-to-a-production-setup) -- Try OpenSearch with security by installing it with default certificates.
+- [Set up a cluster without security](#set-up-a-cluster-without-security) -- Best for local development.
+- [Set up a cluster with security](#set-up-a-cluster-with-security) -- Try OpenSearch with security by installing it with default certificates.
 
-### Set up a cluster without security (for local development)
+### Set up a cluster without security
 
 This setup uses a development Docker Compose file with security disabled.
-
-This configuration disables security and should only be used in test environments.
-{: .note }
 
 1. Create a directory for your OpenSearch cluster (for example, `opensearch-cluster`). Create a `docker-compose.yml` file in this directory and copy the contents of the [Docker Compose file for development]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/#sample-docker-compose-file-for-development) into this file.
 
@@ -126,12 +123,9 @@ This configuration disables security and should only be used in test environment
 
 You can now explore OpenSearch Dashboards by opening `http://localhost:5601/`.
 
-### Set up a cluster with security (closer to a production setup)
+### Set up a cluster with security
 
-This configuration enables security and requires additional system setup.
-
-This configuration uses demo certificates and serves OpenSearch Dashboards over HTTP. Use it only in test environments. Before you use OpenSearch in production, replace the demo certificates and configure TLS for OpenSearch Dashboards. For more information, see [Configure TLS for OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/tls/).
-{: .note }
+This configuration enables security using demo certificates and requires additional system setup.
 
 1. Before running OpenSearch on your machine, you should disable memory paging and swapping performance on the host to improve performance and increase the number of memory maps available to OpenSearch.
     
@@ -224,23 +218,7 @@ You can now explore OpenSearch Dashboards by opening `http://localhost:5601/` in
 
 ## Common issues
 
-Review these common issues and suggested solutions if your containers fail to start or exit unexpectedly.
-
-### Docker commands require elevated permissions
-
-Eliminate the need for running your Docker commands with `sudo` by adding your user to the `docker` user group. See Docker's [Post-installation steps for Linux](https://docs.docker.com/engine/install/linux-postinstall/) for more information.
-```bash
-sudo usermod -aG docker $USER
-```
-
-### Error message: "max virtual memory areas vm.max_map_count [65530] is too low"
-
-OpenSearch will fail to start if your host's `vm.max_map_count` is too low. Review the [important system settings]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/#important-settings) if you see the following errors in the service log, and set `vm.max_map_count` appropriately.
-```bash
-opensearch-node1         | ERROR: [1] bootstrap checks failed
-opensearch-node1         | [1]: max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]
-opensearch-node1         | ERROR: OpenSearch did not exit normally - check the logs at /usr/share/opensearch/logs/opensearch-cluster.log
-```
+If your containers fail to start or exit unexpectedly, see [Common issues]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/#common-issues) in the Docker installation guide.
 
 ## Stop the cluster
 

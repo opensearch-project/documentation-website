@@ -7,7 +7,15 @@ redirect_from:
   - /dashboards/install/tar/
 ---
 
-# Run OpenSearch Dashboards using the tarball
+# Installing OpenSearch Dashboards from a tarball
+
+## Prerequisites
+
+Install OpenSearch. For more information, see [Installing OpenSearch from a tarball]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/tar/).
+
+## Install OpenSearch Dashboards from a tarball
+
+To install OpenSearch Dashboards from a tarball, follow these steps:
 
 1. Download the tarball from the [OpenSearch downloads page](https://opensearch.org/downloads.html){:target='\_blank'}.
 
@@ -24,8 +32,10 @@ redirect_from:
 
 1. If desired, modify `config/opensearch_dashboards.yml`.
 
-1. Run OpenSearch Dashboards:
+1. Start OpenSearch Dashboards:
 
    ```bash
    ./bin/opensearch-dashboards
    ```
+
+1. In a web browser, go to `http://localhost:5601` and log in as the `admin` user using the custom admin password that you set when you installed OpenSearch. For more information, see [Accessing OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/#accessing-opensearch-dashboards).

@@ -18,7 +18,7 @@ The `ip2geo` processor adds information about the geographical location of an IP
 
 ## Getting started
 
-To get started with the `ip2geo` processor, the `opensearch-geospatial` plugin must be installed. See [Installing plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/) to learn more.
+To get started with the `ip2geo` processor, the `opensearch-geospatial` plugin must be installed. See [Managing OpenSearch plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/) to learn more.
 
 ## Cluster settings
 

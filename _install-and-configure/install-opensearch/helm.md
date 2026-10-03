@@ -2,12 +2,12 @@
 layout: default
 title: Helm
 parent: Installing OpenSearch
-nav_order: 6
+nav_order: 15
 redirect_from:
   - /opensearch/install/helm/
 ---
 
-# Installing OpenSearch with Helm
+# Installing OpenSearch using Helm
 
 Helm is a package manager that allows you to easily install and manage OpenSearch in a Kubernetes cluster. You can define your OpenSearch configurations in a YAML file and use Helm to deploy your applications in a version-controlled and reproducible way.
 
@@ -124,7 +124,7 @@ You can also build the `opensearch-<VERSION>.tgz` file manually:
    The output shows you the specifications instantiated from the install.
 
 
-#### Sample output
+#### Example output
 
   ```yaml
   NAME: opensearch-3-1754992026
@@ -238,4 +238,22 @@ helm delete opensearch-3-1754992026
 ```
 {% include copy.html %}
 
-For instructions to install OpenSearch Dashboards, see [Helm to install OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/install/helm/).
+For instructions to install OpenSearch Dashboards, see [Installing OpenSearch Dashboards using Helm]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/helm/).
+
+## Common issues
+
+Review these common issues and suggested solutions if your pods fail to start.
+
+For issues that can occur with any installation method, such as HTTP requests to an HTTPS endpoint or a rejected admin password, see [Common issues]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/#common-issues).
+
+### The admin password in `values.yaml` has no effect
+
+If `values.yaml` contains more than one `extraEnvs` key, Helm uses only the last one. A second `extraEnvs` key silently replaces the list that sets `OPENSEARCH_INITIAL_ADMIN_PASSWORD`, so `helm install` or `helm upgrade` succeeds, but the pods restart repeatedly. Define all environment variables in a single `extraEnvs` list:
+
+```yaml
+extraEnvs:
+  - name: OPENSEARCH_INITIAL_ADMIN_PASSWORD
+    value: <custom-admin-password>
+  - name: <another-variable>
+    value: <value>
+```

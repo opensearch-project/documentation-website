@@ -3,6 +3,8 @@ layout: default
 title: Applying changes to configuration files
 parent: Configuration
 nav_order: 25
+has_children: true
+has_toc: false
 redirect_from:
   - /security-plugin/configuration/security-admin/
 ---
@@ -334,3 +336,7 @@ For example, to load your initial configuration (all YAML files), use the follow
   -cert ..\..\..\config\kirk.pem ^
   -key ..\..\..\config\kirk-key.pem
 ```
+
+## Troubleshooting
+
+For solutions to common `securityadmin.sh` configuration issues, see [Troubleshoot securityadmin.sh]({{site.url}}{{site.baseurl}}/security/configuration/troubleshoot-security-admin/).

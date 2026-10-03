@@ -50,7 +50,7 @@ Follow these steps to use the **Discover** application:
 
     The resulting view is shown in the following image.
 
-    ![Discover output showing filtered flight data]({{site.url}}{{site.baseurl}}/images/dashboards/opensearch-dashboards-discover.png){: width="700" }
+    ![Discover output showing filtered flight data]({{site.url}}{{site.baseurl}}/images/dashboards/opensearch-dashboards-discover.png)
 
 ## Further reading
 

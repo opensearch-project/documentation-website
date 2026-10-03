@@ -2,17 +2,21 @@
 layout: default
 title: Docker
 parent: Installing OpenSearch Dashboards
-nav_order: 1
+nav_order: 5
 redirect_from: 
   - /dashboards/install/docker/
   - /opensearch/install/docker-security/
 ---
 
-# Run OpenSearch Dashboards using Docker and Docker Compose
+# Installing OpenSearch Dashboards using Docker
 
 You can use either Docker or Docker Compose to run OpenSearch Dashboards. The Docker Compose method is easier because you can define the entire configuration in a single file.
 
-## Run OpenSearch Dashboards using Docker
+## Prerequisites
+
+Install OpenSearch using Docker. For more information, see [Installing OpenSearch using Docker]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/).
+
+## Install OpenSearch Dashboards using Docker
 
 If you have defined your network using `docker network create os-net` and started OpenSearch using the following command:
 
@@ -47,7 +51,7 @@ Then you can start OpenSearch Dashboards using the following steps:
     ```
     {% include copy.html %}
 
-2. Execute the following command to start OpenSearch Dashboards:
+1. Execute the following command to start OpenSearch Dashboards:
 
     ```bash
     docker run -d --name osd \
@@ -58,14 +62,11 @@ Then you can start OpenSearch Dashboards using the following steps:
     ```
     {% include copy.html %}
 
-## Run OpenSearch Dashboards using Docker Compose
+1. In a web browser, go to `http://localhost:5601` and log in as the `admin` user using the custom admin password that you set when you installed OpenSearch. For more information, see [Accessing OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/#accessing-opensearch-dashboards).
 
-Use the following steps to run OpenSearch Dashboards using Docker Compose:
+## Install OpenSearch Dashboards using Docker Compose
 
-1. Create a [`docker-compose.yml`](https://docs.docker.com/compose/compose-file/) file appropriate for your environment. A sample file that includes OpenSearch Dashboards is available on the OpenSearch [Docker installation page]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/#sample-docker-composeyml).
-
-   You can pass a custom `opensearch_dashboards.yml` file to the container in the Docker Compose file. For more information, see [Complete Docker Compose example with custom configuration]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/#complete-docker-compose-example-with-custom-configuration).
-   {: .tip }
+The [sample `docker-compose.yml`]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/#sample-docker-composeyml) file on the OpenSearch Docker installation page already includes an `opensearch-dashboards` service. To install OpenSearch Dashboards using a custom configuration, follow these steps:
 
 1. Create an `opensearch_dashboards.yml` file:
   
@@ -99,8 +100,11 @@ Use the following steps to run OpenSearch Dashboards using Docker Compose:
         - ./opensearch_dashboards.yml:/usr/share/opensearch-dashboards/config/opensearch_dashboards.yml
     ```
 
-1. Run `docker compose up -d`.
+1. Start the containers:
 
-   Wait for the containers to start. Then see the [OpenSearch Dashboards documentation]({{site.url}}{{site.baseurl}}/dashboards/index/).
+    ```bash
+    docker compose up -d
+    ```
+    {% include copy.html %}
 
-1. When finished, run `docker compose down`.
+1. In a web browser, go to `http://localhost:5601` and log in as the `admin` user using the custom admin password that you set when you installed OpenSearch. For more information, see [Accessing OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/#accessing-opensearch-dashboards).

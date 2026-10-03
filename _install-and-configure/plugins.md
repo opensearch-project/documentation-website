@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Installing plugins
+title: Managing OpenSearch plugins
 nav_order: 90
 has_children: true
 redirect_from:
@@ -8,7 +8,7 @@ redirect_from:
    - /install-and-configure/install-opensearch/plugins/
 ---
 
-# Installing plugins
+# Managing OpenSearch plugins
 
 OpenSearch includes a number of plugins that add features and capabilities to the core platform. The plugins available to you are dependent on how OpenSearch was installed and which plugins were subsequently added or removed. For example, the minimal distribution of OpenSearch enables only core functionality, such as indexing and search. Using the minimal distribution of OpenSearch is beneficial when you are working in a testing environment, have custom plugins, or are intending to integrate OpenSearch with other services.
 
@@ -16,23 +16,51 @@ The standard distribution of OpenSearch includes many more plugins offering much
 
 For a list of the available plugins, see [Available plugins](#available-plugins).
 
+To manage OpenSearch Dashboards plugins, see [Managing OpenSearch Dashboards plugins]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/plugins/).
+
 For a plugin to work properly with OpenSearch, it may request certain permissions as part of the installation process. Review the requested permissions and proceed accordingly. It is important that you understand a plugin's functionality before installation. When opting for a community-provided plugin, ensure that the source is trustworthy and reliable.
 {: .warning}
 
-## Managing plugins
+## Listing installed plugins using the CAT API
+
+You can also list installed plugins by using the [CAT API]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-plugins/).
+
+#### Usage
+
+```json
+GET _cat/plugins
+```
+{% include copy-curl.html %}
+
+#### Example response
+
+```bash
+opensearch-node1 opensearch-alerting                  2.0.1.0
+opensearch-node1 opensearch-anomaly-detection         2.0.1.0
+opensearch-node1 opensearch-asynchronous-search       2.0.1.0
+opensearch-node1 opensearch-cross-cluster-replication 2.0.1.0
+opensearch-node1 opensearch-index-management          2.0.1.0
+opensearch-node1 opensearch-job-scheduler             2.0.1.0
+opensearch-node1 opensearch-knn                       2.0.1.0
+opensearch-node1 opensearch-ml                        2.0.1.0
+opensearch-node1 opensearch-notifications             2.0.1.0
+opensearch-node1 opensearch-notifications-core        2.0.1.0
+```
+
+## Using the `opensearch-plugin` tool
 
 To manage plugins in OpenSearch, you can use a command line tool called `opensearch-plugin`. This tool allows you to perform the following actions:
 
-- [List](#list) installed plugins.
-- [Install](#install) plugins.
-- [Remove](#remove) an installed plugin.
+- [List](#list-installed-plugins) installed plugins.
+- [Install](#install-plugins) plugins.
+- [Remove](#remove-plugins) an installed plugin.
 
 You can print help text by passing `-h` or `--help`. Depending on your host configuration, you might also need to run the command with `sudo` privileges.
 
 If you're running OpenSearch in a Docker container, plugins must be installed, removed, and configured by modifying the Docker image. For more information, see [Working with plugins]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker#working-with-plugins).
 {: .note}
 
-## List
+### List installed plugins
 
 Use `list` to see a list of plugins that have already been installed.
 
@@ -40,8 +68,9 @@ Use `list` to see a list of plugins that have already been installed.
 ```bash
 bin/opensearch-plugin list
 ```
+{% include copy.html %}
 
-#### Example
+#### Example response
 ```bash
 $ ./opensearch-plugin list
 opensearch-alerting
@@ -62,31 +91,7 @@ opensearch-security
 opensearch-sql
 ```
 
-## List (with CAT API)
-You can also list installed plugins by using the [CAT API]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-plugins/).
-
-#### Usage
-
-```bash
-GET _cat/plugins
-```
-
-#### Example response
-
-```bash
-opensearch-node1 opensearch-alerting                  2.0.1.0
-opensearch-node1 opensearch-anomaly-detection         2.0.1.0
-opensearch-node1 opensearch-asynchronous-search       2.0.1.0
-opensearch-node1 opensearch-cross-cluster-replication 2.0.1.0
-opensearch-node1 opensearch-index-management          2.0.1.0
-opensearch-node1 opensearch-job-scheduler             2.0.1.0
-opensearch-node1 opensearch-knn                       2.0.1.0
-opensearch-node1 opensearch-ml                        2.0.1.0
-opensearch-node1 opensearch-notifications             2.0.1.0
-opensearch-node1 opensearch-notifications-core        2.0.1.0
-```
-
-## Install
+### Install plugins
 
 There are three ways to install plugins using the `opensearch-plugin` tool:
 
@@ -94,16 +99,17 @@ There are three ways to install plugins using the `opensearch-plugin` tool:
 - [Install a plugin from a zip file](#install-a-plugin-from-a-zip-file).
 - [Install a plugin using Maven coordinates](#install-a-plugin-using-maven-coordinates).
 
-### Install a plugin by name
+#### Install a plugin by name
 
 You can install plugins that aren't already preinstalled in your installation by using the plugin name. For a list of plugins that may not be preinstalled, see [Additional plugins](#additional-plugins).
 
-#### Usage
+##### Usage
 ```bash
 bin/opensearch-plugin install <plugin-name>
 ```
+{% include copy.html %}
 
-#### Example
+##### Example response
 ```bash
 $ sudo ./opensearch-plugin install analysis-icu
 -> Installing analysis-icu
@@ -112,16 +118,17 @@ $ sudo ./opensearch-plugin install analysis-icu
 -> Installed analysis-icu with folder name analysis-icu
 ```
 
-### Install a plugin from a zip file
+#### Install a plugin from a zip file
 
 You can install remote zip files by replacing `<zip-file>` with the URL of the hosted file. The tool supports downloading over HTTP/HTTPS protocols only. For local zip files, replace `<zip-file>` with `file:` followed by the absolute or relative path to the plugin zip file, as shown in the second example that follows.
 
-#### Usage
+##### Usage
 ```bash
 bin/opensearch-plugin install <zip-file>
 ```
+{% include copy.html %}
 
-#### Example
+##### Example response
 <details markdown="block">
   <summary>
     Select to expand the example 
@@ -179,16 +186,17 @@ Continue with installation? [y/N]y
 ```
 </details>
 
-### Install a plugin using Maven coordinates
+#### Install a plugin using Maven coordinates
 
 The `opensearch-plugin install` tool also allows you to specify Maven coordinates for available artifacts and versions hosted on [Maven Central](https://central.sonatype.com/namespace/org.opensearch.plugin). The tool parses the Maven coordinates you provide and constructs a URL. As a result, the host must be able to connect directly to the Maven Central site. The plugin installation fails if you pass coordinates to a proxy or local repository.
 
-#### Usage
+##### Usage
 ```bash
 bin/opensearch-plugin install <groupId>:<artifactId>:<version>
 ```
+{% include copy.html %}
 
-#### Example
+##### Example response
 
 <details markdown="block">
   <summary>
@@ -225,7 +233,7 @@ Continue with installation? [y/N]y
 Restart your OpenSearch node after installing a plugin.
 {: .note}
 
-## Installing multiple plugins
+### Install multiple plugins
 
 Multiple plugins can be installed in a single invocation.
 
@@ -233,13 +241,14 @@ Multiple plugins can be installed in a single invocation.
 ```bash
 bin/opensearch-plugin install <plugin-name> <plugin-name> ... <plugin-name>
 ```
+{% include copy.html %}
 
-#### Example
+#### Example response
 ```console
 $ sudo ./opensearch-plugin install analysis-nori repository-s3
 ```
 
-## Remove
+### Remove plugins
 
 You can remove a plugin that has already been installed with the `remove` option. 
 
@@ -247,8 +256,9 @@ You can remove a plugin that has already been installed with the `remove` option
 ```bash
 bin/opensearch-plugin remove <plugin-name>
 ```
+{% include copy.html %}
 
-#### Example
+#### Example response
 ```console
 $ sudo ./opensearch-plugin remove opensearch-anomaly-detection
 -> removing [opensearch-anomaly-detection]...
@@ -257,7 +267,7 @@ $ sudo ./opensearch-plugin remove opensearch-anomaly-detection
 Restart your OpenSearch node after removing a plugin.
 {: .note}
 
-## Batch mode
+### Install plugins in batch mode
 
 When installing a plugin that requires additional privileges that are not included by default, the plugin will prompt you for confirmation of the required privileges. To grant all requested privileges, use batch mode to skip the confirmation prompt.
 
@@ -265,6 +275,7 @@ To force batch mode when installing plugins, add the `-b` or `--batch` option:
 ```bash
 bin/opensearch-plugin install --batch <plugin-name>
 ```
+{% include copy.html %}
 
 ## Available plugins
 
@@ -360,7 +371,7 @@ You can specify only one of the `opensearch.version` or `dependencies` propertie
 
 Some plugins extend functionality of other plugins. If a plugin has a dependency on another plugin, you must install the required dependency before installing the dependent plugin. For plugin dependencies, see the [manifest file](https://github.com/opensearch-project/opensearch-build/blob/main/manifests/{{site.opensearch_version}}/opensearch-{{site.opensearch_version}}.yml). In this file, each plugin's dependencies are listed in the `depends_on` parameter.
 
-## Related links
+## Related documentation
 
 - [Observability]({{site.url}}{{site.baseurl}}/observability-plugin/index/)
 - [Security Analytics]({{site.url}}{{site.baseurl}}/security-analytics/index/)

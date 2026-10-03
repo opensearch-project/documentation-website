@@ -51,7 +51,21 @@ _<sup>*</sup>`dashboardNotebooks` was merged into the Observability plugin with 
 
 ## Installing a plugin
 
-For information about installing Dashboards plugins, see [Downloading bundled plugins for offline installation]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/#downloading-bundled-plugins-for-offline-installation).
+To install a plugin, provide the URL of the plugin's zip file:
+
+```bash
+sudo bin/opensearch-dashboards-plugin install <plugin-zip-url>
+```
+{% include copy.html %}
+
+To install a plugin from a zip file on the host, provide the file path using the `file://` scheme:
+
+```bash
+sudo bin/opensearch-dashboards-plugin install file:///<path-to-plugin-zip>
+```
+{% include copy.html %}
+
+The plugin version must match your OpenSearch Dashboards version. For more information, see [Plugin compatibility](#plugin-compatibility). After installing the plugin, restart OpenSearch Dashboards.
 
 ## Viewing a list of installed plugins
 

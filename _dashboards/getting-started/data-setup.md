@@ -38,7 +38,11 @@ If you installed sample data, the index patterns are created automatically and y
 
 ### Ingest your own data
 
-Load your data into OpenSearch using the Bulk API, Data Prepper, or other ingestion tools. See [Ingesting data]({{site.url}}{{site.baseurl}}/getting-started/ingest-data/).
+OpenSearch Dashboards reads data from OpenSearch, so you add your own data to OpenSearch. Load your data into OpenSearch using the Bulk API, Data Prepper, or other ingestion tools. For more information, see [Ingest data]({{site.url}}{{site.baseurl}}/getting-started/ingest-data/).
+
+To send API requests, such as Bulk API requests, from OpenSearch Dashboards, use the Dev Tools console. For more information, see [Run queries in the Dev Tools console]({{site.url}}{{site.baseurl}}/dashboards/getting-started/explore-dev-tools/).
+
+After you ingest your data, create an index pattern for it as described in [Step 2](#step-2-create-an-index-pattern).
 
 ## Step 2: Create an index pattern
 

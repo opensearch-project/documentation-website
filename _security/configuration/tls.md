@@ -3,6 +3,8 @@ layout: default
 title: Configuring TLS certificates
 parent: Configuration
 nav_order: 35
+has_children: true
+has_toc: false
 redirect_from:
   - /security-plugin/configuration/tls/
 ---
@@ -344,3 +346,7 @@ Name | Description
 `plugins.security.ssl.aux.secure-transport-grpc.truststore_filepath` | The path to the truststore file, specified as a relative path from the `config` directory. The file must reside within the `config` directory. Required.
 `plugins.security.ssl.aux.secure-transport-grpc.truststore_alias` | The alias of the certificate to use from the provided truststore. Optional. Default is all certificates.
 `plugins.security.ssl.aux.secure-transport-grpc.truststore_password` | The password for the truststore. Default is `changeit`.
+
+## Troubleshooting
+
+For solutions to common TLS configuration issues, see [Troubleshoot TLS]({{site.url}}{{site.baseurl}}/security/configuration/troubleshoot-tls/).

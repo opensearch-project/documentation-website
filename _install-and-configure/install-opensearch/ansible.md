@@ -2,12 +2,12 @@
 layout: default
 title: Ansible playbook
 parent: Installing OpenSearch
-nav_order: 60
+nav_order: 35
 redirect_from:
   - /opensearch/install/ansible/
 ---
 
-# Ansible playbook
+# Installing OpenSearch and OpenSearch Dashboards using Ansible
 
 You can use an Ansible playbook to install and configure a production-ready OpenSearch cluster along with OpenSearch Dashboards.
 
@@ -50,7 +50,7 @@ Make sure you have [Ansible](https://www.ansible.com/) and [Java 8](https://www.
 Make sure you have direct SSH access into the root user of the target node.
 {: .note }
 
-## Run OpenSearch and OpenSearch Dashboards using Ansible playbook
+## Install OpenSearch and OpenSearch Dashboards using the Ansible playbook
 
 1. Run the Ansible playbook with root privileges:
 

@@ -1,7 +1,11 @@
 ---
 layout: default
 title: Troubleshoot SAML
-nav_order: 20
+parent: SAML
+grand_parent: Authentication backends
+nav_order: 10
+redirect_from:
+  - /troubleshoot/saml/
 ---
 
 # SAML troubleshooting

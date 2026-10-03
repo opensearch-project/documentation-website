@@ -25,7 +25,7 @@ Using workload management requires installing the Workload Management plugin. To
 ```
 {% include copy.html %}
 
-Then restart your cluster. For more information, see [Installing plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/).
+Then restart your cluster. For more information, see [Managing OpenSearch plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/).
 
 ## Workload groups
 

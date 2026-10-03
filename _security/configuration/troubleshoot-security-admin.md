@@ -1,7 +1,11 @@
 ---
 layout: default
 title: Troubleshoot securityadmin.sh
+parent: Applying changes to configuration files
+grand_parent: Configuration
 nav_order: 10
+redirect_from:
+  - /troubleshoot/security-admin/
 ---
 
 # securityadmin.sh Troubleshooting

@@ -44,7 +44,7 @@ If you're using a local installation of OpenSearch Dashboards and haven't added 
 
     The resulting view is shown in the following image.
 
-    ![Add panel view]({{site.url}}{{site.baseurl}}/images/dashboards/add-dash-panel.png){: width="700" }
+    ![Add panel view]({{site.url}}{{site.baseurl}}/images/dashboards/add-dash-panel.png)
 
 ### Adding your own visualization
 
@@ -85,7 +85,7 @@ Alternatively, you can use the dashboard toolbar to apply filters:
 
     The resulting view is shown in the following image.
 
-    ![Dashboards tutorial panel view]({{site.url}}{{site.baseurl}}/images/dashboards/filter-data-dash.png){: width="700" }
+    ![Dashboards tutorial panel view]({{site.url}}{{site.baseurl}}/images/dashboards/filter-data-dash.png)
 
 ## Further reading
 

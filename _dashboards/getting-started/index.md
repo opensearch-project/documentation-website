@@ -52,19 +52,12 @@ OpenSearch Dashboards is the web interface for OpenSearch. Use it to explore you
 Before you begin, ensure that you're familiar with basic OpenSearch concepts like documents and indexes. For more information, see [Introduction to OpenSearch]({{site.url}}{{site.baseurl}}/getting-started/intro/).
 {: .note}
 
-## Prerequisites
-
-To use OpenSearch Dashboards, you need access to one of the following:
-
-- The [OpenSearch Playground](https://playground.opensearch.org/app/home#/) (online, read-only---no installation needed).
-- A local installation of OpenSearch and OpenSearch Dashboards. See the [Installation quickstart]({{site.url}}{{site.baseurl}}/dashboards/getting-started/install/) for a quick Docker setup, or [Installing OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/) for other methods.
-
 ## How to use this section
 
-Choose one of the following paths to get familiar with the applications:
+Follow this section using either the OpenSearch Playground or your own installation:
 
-- **Using the OpenSearch Playground** (no installation needed): Start with [Learn about main applications and query languages](#learn-about-main-applications-and-query-languages).
-- **Using a local installation**: Start with [Install OpenSearch Dashboards and add data](#install-opensearch-dashboards-and-add-data), then continue to [Learn about main applications and query languages](#learn-about-main-applications-and-query-languages).
+- To explore OpenSearch Dashboards without installing anything, use the [OpenSearch Playground](https://playground.opensearch.org/app/home#/). The Playground is read-only and already includes the sample flight data that the tutorials use. Start with [Learn about main applications and query languages](#learn-about-main-applications-and-query-languages).
+- To follow the tutorials using your own instance, install OpenSearch and OpenSearch Dashboards and add the sample data. Start with [Install OpenSearch Dashboards and add data](#install-opensearch-dashboards-and-add-data), and then continue to [Learn about main applications and query languages](#learn-about-main-applications-and-query-languages).
 
 For terminology definitions, see [Concepts]({{site.url}}{{site.baseurl}}/dashboards/getting-started/concepts/).
 

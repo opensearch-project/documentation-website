@@ -4,7 +4,7 @@ title: Debian
 parent: Installing OpenSearch
 redirect_from:
 - /opensearch/install/deb/
-nav_order: 55
+nav_order: 20
 ---
 
 {% comment %}
@@ -346,6 +346,8 @@ Before modifying any configuration files, it's always a good idea to save a back
    ```
    {% include copy.html %}
 
+   If you configure a multi-node cluster instead, set `vm.max_map_count` to at least `262144` on the host. Otherwise, the bootstrap checks fail when the service starts. For more information, see [Important settings]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/#important-settings).
+
    If you previously disabled the Security plugin in opensearch.yml, be sure to reenable it. Otherwise you can skip this setting:
    ```yaml
    plugins.security.disabled: false
@@ -642,7 +644,7 @@ You should receive the following response:
 
 OpenSearch instances installed using `dpkg` or `apt-get` can be easily upgraded to a newer version.
 
-### Manual upgrade with DPKG 
+### Upgrade manually using `dpkg`
 
 Download the Debian package for the desired upgrade version directly from the [OpenSearch Project downloads page](https://opensearch.org/downloads.html){:target='\_blank'}.
 
@@ -653,7 +655,7 @@ sudo dpkg -i opensearch-{{site.opensearch_version}}-linux-x64.deb
 ```
 {% include copy.html %}
 
-### APT-GET
+### Upgrade using `apt-get`
 
 To upgrade to the latest version of OpenSearch using `apt-get`:
 
@@ -669,7 +671,7 @@ sudo apt-get upgrade opensearch=<version>
 ```
 {% include copy.html %}
 
-### Automatically restart the service after a package upgrade (2.13.0+)
+### Automatically restart the service after a package upgrade
 
 To automatically restart OpenSearch after a package upgrade, enable the `opensearch.service` through `systemd`:
 
@@ -678,8 +680,9 @@ sudo systemctl enable opensearch.service
 ```
 {% include copy.html %}
 
-## Related links
+## Related documentation
 
+- [Common installation issues]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/#common-issues)
 - [OpenSearch configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/)
 - [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/)
 - [OpenSearch plugin installation]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/)

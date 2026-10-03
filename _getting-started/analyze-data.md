@@ -14,7 +14,7 @@ This tutorial uses a sample dataset provided in OpenSearch Dashboards, so it req
 
 To add the **Sample flight data** dataset, follow these steps:
 
-1. In a web browser, open `http://localhost:5601`. This is the address of a cluster [set up without security]({{site.url}}{{site.baseurl}}/getting-started/quickstart/#set-up-a-cluster-without-security-for-local-development). If you [set up your cluster with security]({{site.url}}{{site.baseurl}}/getting-started/quickstart/#set-up-a-cluster-with-security-closer-to-a-production-setup), open `https://localhost:5601` and sign in as `admin` using the password that you set.
+1. In a web browser, open `http://localhost:5601`. This is the address of a cluster [set up without security]({{site.url}}{{site.baseurl}}/getting-started/quickstart/#set-up-a-cluster-without-security). If you [set up your cluster with security]({{site.url}}{{site.baseurl}}/getting-started/quickstart/#set-up-a-cluster-with-security), open `https://localhost:5601` and sign in as `admin` using the password that you set.
 1. On the OpenSearch Dashboards home page, select **Add sample data**.
 1. In the **Sample flight data** panel, select **Add data**.
 

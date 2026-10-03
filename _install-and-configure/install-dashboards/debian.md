@@ -2,7 +2,7 @@
 layout: default
 title: Debian
 parent: Installing OpenSearch Dashboards
-nav_order: 33
+nav_order: 20
 ---
 
 {% comment %}
@@ -11,17 +11,18 @@ The following liquid syntax declares a variable, major_version_mask, which is tr
 {% assign version_parts = site.opensearch_major_minor_version | split: "." %}
 {% assign major_version_mask = version_parts[0] | append: ".x" %}
 
-# Installing OpenSearch Dashboards (Debian)
+# Installing OpenSearch Dashboards on Debian
 
 Installing OpenSearch Dashboards using the Advanced Packaging Tool (APT) package manager simplifies the process considerably compared to the [Tarball]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/tar/) method. For example, the package manager handles several technical considerations, such as the installation path, location of configuration files, and creation of a service managed by `systemd`.
-
-Before installing OpenSearch Dashboards you must configure an OpenSearch cluster. Refer to the OpenSearch [Debian]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/debian/) installation guide for steps.
-{: .important}
 
 This guide assumes that you are comfortable working from the Linux command line interface (CLI). You should understand how to input commands, navigate between directories, and edit text files. Some example commands reference the `vi` text editor, but you may use any text editor available.
 {:.note}
 
-## Installing OpenSearch Dashboards from a package
+## Prerequisites
+
+Install OpenSearch. For more information, see [Installing OpenSearch on Debian]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/debian/).
+
+## Install OpenSearch Dashboards from a package
 
 1. Download the Debian package for the desired version directly from the [OpenSearch downloads page](https://opensearch.org/downloads.html){:target='\_blank'}. The Debian package can be downloaded for both **x64** and **arm64** architectures.
 1. From the CLI, install using `dpkg`.
@@ -68,6 +69,8 @@ This guide assumes that you are comfortable working from the Linux command line 
     ```
     {% include copy.html %}
 
+1. In a web browser, go to `http://localhost:5601` and log in as the `admin` user using the custom admin password that you set when you installed OpenSearch. For more information, see [Accessing OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/#accessing-opensearch-dashboards).
+
 ### Fingerprint verification
 
 The Debian package is not signed. If you would like to verify the fingerprint, the OpenSearch Project provides a `.sig` file as well as the `.deb` package for use with GNU Privacy Guard (GPG).
@@ -96,7 +99,7 @@ The Debian package is not signed. If you would like to verify the fingerprint, t
    ```
    {% include copy.html %}
 
-## Installing OpenSearch Dashboards from an APT repository
+## Install OpenSearch Dashboards from an APT repository
 
 APT, the primary package management tool for Debian–based operating systems, allows you to download and install the Debian package from the APT repository. 
 
@@ -173,7 +176,9 @@ APT, the primary package management tool for Debian–based operating systems, a
     ```
     {% include copy.html %}
 
-## Exploring OpenSearch Dashboards
+1. In a web browser, go to `http://localhost:5601` and log in as the `admin` user using the custom admin password that you set when you installed OpenSearch. For more information, see [Accessing OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/#accessing-opensearch-dashboards).
+
+## (Optional) Allow access from other hosts
 
 By default, OpenSearch Dashboards, like OpenSearch, binds to `localhost` when you initially install it. As a result, OpenSearch Dashboards is not reachable from a remote host unless the configuration is updated.
 
@@ -195,11 +200,6 @@ By default, OpenSearch Dashboards, like OpenSearch, binds to `localhost` when yo
     sudo systemctl restart opensearch-dashboards
     ```
     {% include copy.html %}
-
-1. From a web browser, navigate to OpenSearch Dashboards. The default port is 5601.
-1. Log in with the default username `admin` and the default password `admin`. (For OpenSearch 2.12 and later, the password should be the custom admin password)
-1. Visit [Getting started with OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/index/) to learn more.
-
 
 ## Upgrade to a newer version
 
@@ -242,7 +242,7 @@ The `opensearch-dashboards` package declares no dependencies on other Debian pac
 
    If `apt-get update` reports that a public key is unavailable, or if the newest version listed is the version that you already have, see [Upgrade across major versions](#upgrade-across-major-versions).
 
-### Manual upgrade with DPKG
+### Upgrade manually using `dpkg`
 
 Download the Debian package for the desired upgrade version directly from the [OpenSearch Project downloads page](https://opensearch.org/downloads.html){:target='\_blank'}.
 
@@ -256,7 +256,7 @@ sudo dpkg -i opensearch-dashboards-{{site.opensearch_dashboards_version}}-linux-
 This method reads the package file directly and does not use an APT repository, so it also upgrades across major versions.
 {: .tip}
 
-### APT-GET
+### Upgrade using `apt-get`
 
 To upgrade to the newest available version of OpenSearch Dashboards, run the following command:
 
@@ -312,7 +312,7 @@ The repository definition that you create during installation is pinned to one m
    ```
    {% include copy.html %}
 
-### Automatically restart the service after a package upgrade (2.13.0+)
+### Automatically restart the service after a package upgrade
 
 To automatically restart OpenSearch Dashboards after a package upgrade, enable the `opensearch-dashboards.service` through `systemd`:
 

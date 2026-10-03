@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Compatible operating systems
-nav_order: 12
+nav_order: 120
 ---
 
 # Compatible operating systems

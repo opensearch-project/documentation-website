@@ -7,7 +7,7 @@ redirect_from:
   - /opensearch/install/docker/
 ---
 
-# Installing OpenSearch with Docker
+# Installing OpenSearch using Docker
 
 [Docker](https://www.docker.com/) greatly simplifies the process of configuring and managing your OpenSearch clusters. You can pull official images from [Docker Hub](https://hub.docker.com/u/opensearchproject) or [Amazon Elastic Container Registry (Amazon ECR)](https://gallery.ecr.aws/opensearchproject/) and quickly deploy a cluster using [Docker Compose](https://github.com/docker/compose) and any of the sample Docker Compose files included in this guide. Experienced OpenSearch users can further customize their deployment by creating a custom Docker Compose file.
 
@@ -695,6 +695,8 @@ COPY --chown=opensearch:opensearch my-root-cas.pem /usr/share/opensearch/config/
 
 Review these common issues and suggested solutions if your containers fail to start or exit unexpectedly.
 
+For issues that can occur with any installation method, such as HTTP requests to an HTTPS endpoint or a rejected admin password, see [Common issues]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/#common-issues).
+
 ### Docker commands require elevated permissions
 
 Eliminate the need for running your Docker commands with `sudo` by adding your user to the `docker` user group. See Docker's [Post-installation steps for Linux](https://docs.docker.com/engine/install/linux-postinstall/) for more information.
@@ -706,15 +708,28 @@ sudo usermod -aG docker $USER
 
 ### Error message: "max virtual memory areas vm.max_map_count [65530] is too low"
 
-OpenSearch fails to start if your host's `vm.max_map_count` is too low. If you see the following errors in the service log, set `vm.max_map_count` as described in [Linux settings](#linux-settings):
+OpenSearch fails to start if the `vm.max_map_count` setting of your host is too low. Set `vm.max_map_count` on the host machine, not in the container, as described in [Linux settings](#linux-settings). For more information, see [Common issues]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/#error-message-max-virtual-memory-areas-vmmax_map_count-65530-is-too-low).
 
-```bash
-opensearch-node1         | ERROR: [1] bootstrap checks failed
-opensearch-node1         | [1]: max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]
-opensearch-node1         | ERROR: OpenSearch did not exit normally - check the logs at /usr/share/opensearch/logs/opensearch-cluster.log
+### Error message: "local node does not have quorum in voting configuration"
+
+The data volumes in the [sample `docker-compose.yml`](#sample-docker-composeyml) file store the state of the two-node cluster. If you change the file to run a single node with `discovery.type: single-node` but keep the existing volumes, OpenSearch fails to start and logs an error similar to the following:
+
+```
+cannot start with [discovery.type] set to [single-node] when local node does not have quorum in voting configuration
 ```
 
-## Related links
+To fix this error, remove the existing volumes and start the cluster again:
+
+```bash
+docker compose down -v
+docker compose up -d
+```
+{% include copy.html %}
+
+The `docker compose down -v` command deletes all data stored in the volumes.
+{: .warning}
+
+## Related documentation
 
 - [OpenSearch configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/)
 - [Performance Analyzer]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/index/)

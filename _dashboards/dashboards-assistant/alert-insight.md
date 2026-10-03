@@ -19,7 +19,7 @@ To configure alert insights, use the following steps.
 
 ### Prerequisite
 
-Before using alert insights, you must have the `alerting` and `alerting-dashboards` plugins installed on your cluster. By default, these plugins are installed as part of standard OpenSearch distributions. For more information, see [Installing plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/).
+Before using alert insights, you must have the `alerting` and `alerting-dashboards` plugins installed on your cluster. By default, these plugins are installed as part of standard OpenSearch distributions. For more information, see [Managing OpenSearch plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/).
 
 ### Step 1: Enable alert insights
 

@@ -315,3 +315,7 @@ Further documentation on the use of Performance Analyzer and RCA can be found at
 - [Root cause analysis]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/pa/rca/index/)
 - [Root cause analysis]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/pa/rca/api/).
 - [RFC: Root cause analysis](https://github.com/opensearch-project/performance-analyzer-rca/blob/main/docs/rfc-rca.pdf)
+
+## Common issues
+
+Performance Analyzer can log an `Illegal reflective access operation` warning. This is a known issue that doesn't affect functionality.

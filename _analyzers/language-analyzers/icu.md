@@ -23,7 +23,7 @@ bin/opensearch-plugin install analysis-icu
 
 After installation, restart your OpenSearch cluster for the plugin to take effect.
 
-For more information about installing plugins, see [Installing plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/).
+For more information about installing plugins, see [Managing OpenSearch plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/).
 
 ## ICU plugin components
 
@@ -278,4 +278,4 @@ PUT /custom-icu-index
 - [ICU transform token filter]({{site.url}}{{site.baseurl}}/analyzers/token-filters/icu-transform/) -- Transliteration and text transformation
 - [ICU collation keyword field]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/icu-collation-keyword/) -- Language-specific sorting
 - [CJK analyzer]({{site.url}}{{site.baseurl}}/analyzers/language-analyzers/cjk/) -- Alternative for CJK text
-- [Installing plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/#install) -- Plugin installation guide
+- [Managing OpenSearch plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/#install-plugins) -- Plugin installation guide

@@ -100,7 +100,7 @@ This dual approach allows OpenSearch Dashboards to balance granular, context-spe
 
 ## Enabling workspaces
 
-In your `opensearch_dashboards.yml` file, set the following option:
+In your `opensearch_dashboards.yml` file, set the following options:
 
 ```yaml
 workspace.enabled: true

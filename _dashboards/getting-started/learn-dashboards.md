@@ -14,7 +14,7 @@ OpenSearch Dashboards provides several applications for working with your data. 
 
 The **Discover** application lets you search, filter, and examine your data interactively. Use it to understand what fields are available, how data is distributed over time, and what patterns exist.
 
-![The Discover application showing flight data filtered by delay]({{site.url}}{{site.baseurl}}/images/dashboards/opensearch-dashboards-discover.png){: width="700" }
+![The Discover application showing flight data filtered by delay]({{site.url}}{{site.baseurl}}/images/dashboards/opensearch-dashboards-discover.png)
 
 For a hands-on tutorial, see [Explore the Discover application]({{site.url}}{{site.baseurl}}/dashboards/getting-started/explore-discover/). For the full reference, see [Exploring data with Discover]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/).
 
@@ -22,7 +22,7 @@ For a hands-on tutorial, see [Explore the Discover application]({{site.url}}{{si
 
 The **Visualize** application lets you create charts, maps, tables, and other visual representations of your data using a point-and-click interface. You select a visualization type, configure metrics and buckets, and adjust display settings.
 
-![A line chart created in the Visualize application]({{site.url}}{{site.baseurl}}/images/dashboards/visualize-app-line-chart-example.png){: width="700" }
+![A line chart created in the Visualize application]({{site.url}}{{site.baseurl}}/images/dashboards/visualize-app-line-chart-example.png)
 
 For a hands-on tutorial, see [Explore the Visualize application]({{site.url}}{{site.baseurl}}/dashboards/getting-started/explore-visualize/). For the full reference, see [Creating visualizations in the Visualize application]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/).
 
@@ -30,7 +30,7 @@ For a hands-on tutorial, see [Explore the Visualize application]({{site.url}}{{s
 
 The **Dashboards** application lets you combine multiple visualizations into a single page for monitoring and analysis. You can add existing visualizations, create new ones, resize and reposition panels, and apply filters that affect all panels simultaneously.
 
-![A dashboard with multiple visualization panels]({{site.url}}{{site.baseurl}}/images/dashboards/add-dash-panel.png){: width="700" }
+![A dashboard with multiple visualization panels]({{site.url}}{{site.baseurl}}/images/dashboards/add-dash-panel.png)
 
 For a hands-on tutorial, see [Explore the Dashboards application]({{site.url}}{{site.baseurl}}/dashboards/getting-started/explore-dashboards/). For the full reference, see [Creating dashboards]({{site.url}}{{site.baseurl}}/dashboards/dashboard/).
 
@@ -38,7 +38,7 @@ For a hands-on tutorial, see [Explore the Dashboards application]({{site.url}}{{
 
 The **Dev Tools** console lets you run OpenSearch API queries directly using [Query DSL]({{site.url}}{{site.baseurl}}/query-dsl/). Use it to test queries, manage indexes, and perform cluster operations without leaving the browser.
 
-![The Dev Tools console showing a query and response]({{site.url}}{{site.baseurl}}/images/dev-tools/dev-tools-response.png){: width="700" }
+![The Dev Tools console showing a query and response]({{site.url}}{{site.baseurl}}/images/dev-tools/dev-tools-response.png)
 
 For a hands-on tutorial, see [Run queries in the Dev Tools console]({{site.url}}{{site.baseurl}}/dashboards/getting-started/explore-dev-tools/). For the full reference, see [Dev Tools]({{site.url}}{{site.baseurl}}/dashboards/dev-tools/index/).
 
