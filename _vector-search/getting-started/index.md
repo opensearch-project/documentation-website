@@ -61,7 +61,7 @@ You should get a response that looks like this:
 }
 ```
 
-For more information, see [Installation quickstart]({{site.url}}{{site.baseurl}}/getting-started/quickstart/) and [Install and upgrade OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/).
+For more information, see [Installation quickstart]({{site.url}}{{site.baseurl}}/getting-started/quickstart/) and [Install and configure OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/).
 
 </details>
 

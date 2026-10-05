@@ -2,7 +2,7 @@
 layout: default
 title: Community ID
 parent: Ingest processors
-nav_order: 55
+nav_order: 25
 ---
 
 # Community ID processor

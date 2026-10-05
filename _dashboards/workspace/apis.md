@@ -11,6 +11,8 @@ nav_order: 10
 
 Use the Workspace APIs to manage workspaces in OpenSearch Dashboards.
 
+These endpoints are served by OpenSearch Dashboards, so send requests to the OpenSearch Dashboards host and port (`5601` by default). Requests that use `POST`, `PUT`, or `DELETE` require the `osd-xsrf: true` header. Scripts written for Kibana OSS send the `kbn-xsrf: true` header instead, and OpenSearch Dashboards rejects these requests with the error `Request must contain a osd-xsrf header`. To fix this error, replace `kbn-xsrf` with `osd-xsrf` in your scripts.
+
 ## List workspaces
 
 You can use the following endpoint to retrieve a list of workspaces:

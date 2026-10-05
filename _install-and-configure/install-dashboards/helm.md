@@ -2,12 +2,12 @@
 layout: default
 title: Helm
 parent: Installing OpenSearch Dashboards
-nav_order: 35
+nav_order: 15
 redirect_from: 
   - /dashboards/install/helm/
 ---
 
-# Run OpenSearch Dashboards using Helm
+# Installing OpenSearch Dashboards using Helm
 
 Helm is a package manager that allows you to easily install and manage OpenSearch Dashboards in a Kubernetes cluster. You can define your OpenSearch configurations in a YAML file and use Helm to deploy your applications in a version-controlled and reproducible way.
 
@@ -29,7 +29,7 @@ The instructions here assume you have a Kubernetes cluster with Helm preinstalle
 
 ## Prerequisites
 
-Before you get started, you must first use [Helm to install OpenSearch]({{site.url}}{{site.baseurl}}/opensearch/install/helm/).
+Install OpenSearch. For more information, see [Installing OpenSearch using Helm]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/helm/).
 
 Make sure that you can send requests to your OpenSearch pod:
 
@@ -92,7 +92,7 @@ $ curl -XGET https://localhost:9200 -u 'admin:<custom-admin-password>' --insecur
    ```
    {% include copy.html %}
 
-#### Sample output
+#### Example output
 
 ```yaml
 NAME: opensearch-dashboards-1-1629223356
@@ -109,31 +109,33 @@ NOTES:
   kubectl --namespace default port-forward $POD_NAME 8080:$CONTAINER_PORT
 ```
 
-To make sure your OpenSearch Dashboards pod is up and running, run the following command:
+After the deployment completes, follow these steps to access OpenSearch Dashboards:
 
-```bash
-$ kubectl get pods
-```
-{% include copy.html %}
+1. To make sure that your OpenSearch Dashboards pod is running, run the following command:
 
-The running containers are listed in the response:
+   ```bash
+   kubectl get pods
+   ```
+   {% include copy.html %}
 
-```bash
-NAME                                                  READY   STATUS    RESTARTS   AGE
-opensearch-cluster-master-0                           1/1     Running   0          4m35s
-opensearch-cluster-master-1                           1/1     Running   0          4m35s
-opensearch-cluster-master-2                           1/1     Running   0          4m35s
-opensearch-dashboards-1-1629223356-758bd8747f-8www5   1/1     Running   0          66s
-```
+   The running containers are listed in the response:
 
-To set up port forwarding to access OpenSearch Dashboards, exit the OpenSearch shell and run the following command:
+   ```bash
+   NAME                                                  READY   STATUS    RESTARTS   AGE
+   opensearch-cluster-master-0                           1/1     Running   0          4m35s
+   opensearch-cluster-master-1                           1/1     Running   0          4m35s
+   opensearch-cluster-master-2                           1/1     Running   0          4m35s
+   opensearch-dashboards-1-1629223356-758bd8747f-8www5   1/1     Running   0          66s
+   ```
 
-```bash
-$ k port-forward opensearch-dashboards-1-1629223356-758bd8747f-8www5 5601
-```
-{% include copy.html %}
+1. Forward port 5601 from your local machine to the OpenSearch Dashboards pod, replacing the pod name with the name from the previous step:
 
-You can now access OpenSearch Dashboards from your browser at: http://localhost:5601.
+   ```bash
+   kubectl port-forward opensearch-dashboards-1-1629223356-758bd8747f-8www5 5601
+   ```
+   {% include copy.html %}
+
+1. In a web browser, go to `http://localhost:5601` and log in as the `admin` user using the custom admin password that you set when you installed OpenSearch. For more information, see [Accessing OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/#accessing-opensearch-dashboards).
 
 
 ## Uninstall using Helm
@@ -159,3 +161,7 @@ To delete or uninstall a deployment, run the following command:
 helm delete opensearch-dashboards-1-1629223356
 ```
 {% include copy.html %}
+
+## Related documentation
+
+- [Preparing OpenSearch Dashboards for production]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/#preparing-opensearch-dashboards-for-production)

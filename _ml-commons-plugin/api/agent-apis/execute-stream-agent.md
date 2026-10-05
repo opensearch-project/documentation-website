@@ -49,7 +49,7 @@ bin/opensearch-plugin install transport-reactor-netty4
 bin/opensearch-plugin install arrow-flight-rpc
 ```
 
-For more information, see [Installing plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/).
+For more information, see [Managing OpenSearch plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/).
 
 #### Step 2: Configure OpenSearch settings
 

@@ -48,10 +48,9 @@ When you change a variable's value in a dashboard, all visualizations referencin
 
 ## Enabling dashboard variables
 
-In your `opensearch_dashboards.yml` file, configure the following settings:
+In addition to [enabling workspaces]({{site.url}}{{site.baseurl}}/dashboards/workspace/workspace/#enabling-workspaces), add the following setting to your `opensearch_dashboards.yml` file:
 
 ```yaml
-workspace.enabled: true
 explore.enabled: true
 ```
 {% include copy.html %}

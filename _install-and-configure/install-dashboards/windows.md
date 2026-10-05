@@ -2,19 +2,25 @@
 layout: default
 title: Windows
 parent: Installing OpenSearch Dashboards
-nav_order: 37
+nav_order: 40
 redirect_from: 
   - /dashboards/install/windows/
 ---
 
 <!-- vale off -->
-# Run OpenSearch Dashboards on Windows
+# Installing OpenSearch Dashboards on Windows
 <!-- vale on -->
 
-Perform the following steps to install OpenSearch Dashboards on Windows.
+## Prerequisites
 
-Make sure you have a zip utility installed.
-{: .note }
+Before you install OpenSearch Dashboards, complete the following tasks:
+
+- Install OpenSearch. For more information, see [Installing OpenSearch on Windows]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/windows/).
+- Install a zip utility.
+
+## Install OpenSearch Dashboards on Windows
+
+To install OpenSearch Dashboards on Windows, follow these steps:
 
 1. Download the [`opensearch-dashboards-{{site.opensearch_dashboards_version}}-windows-x64.zip`](https://artifacts.opensearch.org/releases/bundle/opensearch-dashboards/{{site.opensearch_dashboards_version}}/opensearch-dashboards-{{site.opensearch_dashboards_version}}-windows-x64.zip){:target='\_blank'} archive.
 
@@ -92,5 +98,11 @@ Make sure you have a zip utility installed.
          .\bin\opensearch-dashboards.bat
          ```
 
-To stop OpenSearch Dashboards, press `Ctrl+C` in Command Prompt or Powershell, or simply close the Command Prompt or Powershell window.
-{: .tip} 
+1. In a web browser, go to `http://localhost:5601` and log in as the `admin` user using the custom admin password that you set when you installed OpenSearch. If OpenSearch Dashboards runs on a remote host, replace `localhost` with the IP address or DNS name of that host. For more information, see [Accessing OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/#accessing-opensearch-dashboards).
+
+To stop OpenSearch Dashboards, press `Ctrl+C` in Command Prompt or Powershell, or close the Command Prompt or Powershell window.
+{: .tip}
+
+## Related documentation
+
+- [Preparing OpenSearch Dashboards for production]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/#preparing-opensearch-dashboards-for-production)

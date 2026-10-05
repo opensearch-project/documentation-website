@@ -1,13 +1,13 @@
 ---
 layout: default
-title: Configure TLS
+title: Configuring TLS
 parent: Installing OpenSearch Dashboards
-nav_order: 40
+nav_order: 50
 redirect_from:
   - /dashboards/install/tls/
 ---
 
-# Configure TLS for OpenSearch Dashboards
+# Configuring TLS for OpenSearch Dashboards
 
 By default, for ease of testing and getting started, OpenSearch Dashboards runs over HTTP. To enable TLS for HTTPS, update the following settings in `opensearch_dashboards.yml`.
 
