@@ -260,6 +260,7 @@ The Performance Analyzer plugin is not available on Windows. All other OpenSearc
 
 ## Related documentation
 
+- [Preparing a cluster for production]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/#preparing-a-cluster-for-production)
 - [Common installation issues]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/#common-issues)
 - [OpenSearch configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/)
 - [OpenSearch plugin installation]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/)

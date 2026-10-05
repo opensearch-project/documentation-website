@@ -616,6 +616,7 @@ The OpenSearch RPM package does not currently support automatically restarting t
 
 ## Related documentation
 
+- [Preparing a cluster for production]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/#preparing-a-cluster-for-production)
 - [Common installation issues]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/#common-issues)
 - [OpenSearch configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/)
 - [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/)

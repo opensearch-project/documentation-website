@@ -102,3 +102,7 @@ To install OpenSearch Dashboards on Windows, follow these steps:
 
 To stop OpenSearch Dashboards, press `Ctrl+C` in Command Prompt or Powershell, or close the Command Prompt or Powershell window.
 {: .tip}
+
+## Related documentation
+
+- [Preparing OpenSearch Dashboards for production]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/#preparing-opensearch-dashboards-for-production)

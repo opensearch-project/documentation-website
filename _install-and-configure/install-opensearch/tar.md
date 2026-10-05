@@ -592,6 +592,7 @@ The following configuration is only suitable for testing in a non-production env
 
 ## Related documentation
 
+- [Preparing a cluster for production]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/#preparing-a-cluster-for-production)
 - [Common installation issues]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/#common-issues)
 - [OpenSearch configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/)
 - [Configure Performance Analyzer for Tarball Installation]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/index/#install-performance-analyzer)

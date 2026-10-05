@@ -161,3 +161,7 @@ To delete or uninstall a deployment, run the following command:
 helm delete opensearch-dashboards-1-1629223356
 ```
 {% include copy.html %}
+
+## Related documentation
+
+- [Preparing OpenSearch Dashboards for production]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/#preparing-opensearch-dashboards-for-production)

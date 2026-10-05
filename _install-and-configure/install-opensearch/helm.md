@@ -257,3 +257,7 @@ extraEnvs:
   - name: <another-variable>
     value: <value>
 ```
+
+## Related documentation
+
+- [Preparing a cluster for production]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/#preparing-a-cluster-for-production)

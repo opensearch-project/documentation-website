@@ -172,6 +172,8 @@ Note the following about operator releases:
 
 ## Next steps
 
+- Before you use the cluster in production, see [Preparing a cluster for production]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/#preparing-a-cluster-for-production) and [Preparing OpenSearch Dashboards for production]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/#preparing-opensearch-dashboards-for-production).
+
 - For more information about customizing your OpenSearch cluster on Kubernetes, including data persistence, authentication methods, and scaling, see the [OpenSearch Kubernetes Operator User Guide](https://github.com/opensearch-project/opensearch-k8s-operator/blob/main/docs/userguide/main.md).
 
 - To contribute to the development of the OpenSearch Kubernetes Operator, see the repository [design documents](https://github.com/opensearch-project/opensearch-k8s-operator/blob/main/docs/designs/high-level.md).

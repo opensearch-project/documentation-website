@@ -320,3 +320,7 @@ To automatically restart OpenSearch Dashboards after a package upgrade, enable t
 sudo systemctl enable opensearch-dashboards.service
 ```
 {% include copy.html %}
+
+## Related documentation
+
+- [Preparing OpenSearch Dashboards for production]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/#preparing-opensearch-dashboards-for-production)
