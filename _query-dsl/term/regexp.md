@@ -32,6 +32,91 @@ Note the following important considerations:
 - `regexp` queries can be expensive operations and require the [`search.allow_expensive_queries`]({{site.url}}{{site.baseurl}}/query-dsl/#expensive-queries) setting to be set to `true`. Before making frequent `regexp` queries, test their impact on cluster performance and examine alternative queries that may achieve similar results.
 - The [wildcard field type]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/wildcard/) builds an index that is specially designed to be very efficient for wildcard and regular expression queries.
 
+## Matching terms instead of field values
+
+A `regexp` query is not analyzed, but the field it searches might be. When a `text` field is indexed, the standard analyzer splits its value into lowercase terms, and the regular expression must match one of those terms. As a result, a pattern containing uppercase letters or spaces returns no results for a `text` field.
+
+To try this, index a document into an index that uses dynamic mapping. The `title` field is mapped as `text` and has a `title.keyword` subfield:
+
+```json
+PUT my-index/_doc/1?refresh=true
+{
+  "title": "Henry IV"
+}
+```
+{% include copy-curl.html %}
+
+The `title` field contains the terms `henry` and `iv`, so the following query returns no results:
+
+```json
+GET my-index/_search
+{
+  "query": {
+    "regexp": {
+      "title": "Henry.*"
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+To match the original field value, including its capitalization and spaces, search the `keyword` subfield:
+
+```json
+GET my-index/_search
+{
+  "query": {
+    "regexp": {
+      "title.keyword": "Henry I.*"
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+<details markdown="block">
+  <summary>
+    Response
+  </summary>
+  {: .text-delta}
+
+```json
+{
+  "took": 2,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 1,
+      "relation": "eq"
+    },
+    "max_score": 1.0,
+    "hits": [
+      {
+        "_index": "my-index",
+        "_id": "1",
+        "_score": 1.0,
+        "_source": {
+          "title": "Henry IV"
+        }
+      }
+    ]
+  }
+}
+```
+</details>
+
+If a `regexp` query returns no results, also check the following:
+
+- The pattern must match the entire term. For example, `hen` does not match the term `henry`, but `hen.*` does.
+- The `^` and `$` anchors are not supported. For example, `^Henry.*` does not match `Henry IV` in a `keyword` field. For more information, see [Unsupported features]({{site.url}}{{site.baseurl}}/query-dsl/regex-syntax/#unsupported-features).
+- Matching is case sensitive by default. To match terms regardless of case, set `case_insensitive` to `true`. For example, `henry iv` matches `Henry IV` in the `title.keyword` field when `case_insensitive` is `true`.
+
 ## Parameters
 
 The query accepts the name of the field (`<field>`) as a top-level parameter:
