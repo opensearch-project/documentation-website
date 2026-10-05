@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Dashboards management
-nav_order: 120
+nav_order: 130
 has_children: true
 has_toc: false
 ---

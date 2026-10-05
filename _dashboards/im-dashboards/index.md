@@ -1,7 +1,7 @@
 ---
 layout: default
-title: Index Management
-nav_order: 30
+title: Index management
+nav_order: 80
 has_children: false
 redirect_from:
   - /dashboards/im-dashboards/

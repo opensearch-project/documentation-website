@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Installation quickstart
+title: Install OpenSearch Dashboards
 parent: Getting started
 nav_order: 10
 ---
 
-# OpenSearch Dashboards installation quickstart
+# Install OpenSearch Dashboards
 
 OpenSearch Dashboards is the user interface for OpenSearch. To follow the tutorials using your own instance, install OpenSearch and OpenSearch Dashboards by following these steps.
 

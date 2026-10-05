@@ -11,6 +11,9 @@ has_toc: false
 
 You can use the **Discover** application in **OpenSearch Dashboards** to explore and visualize your data in OpenSearch.
 
+If you're new to the Discover application, see [Explore the Discover application]({{site.url}}{{site.baseurl}}/dashboards/getting-started/explore-discover/) for a hands-on introduction using sample data.
+{: .tip}
+
 ## Prerequisites
 
 The examples on this page use the [**Sample flight data**](https://playground.opensearch.org/app/home#/tutorial_directory) dataset that is already installed in [OpenSearch Playground](https://playground.opensearch.org/app/home#/).

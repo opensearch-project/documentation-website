@@ -49,4 +49,4 @@ If workspaces are enabled, first create and select a workspace. For more informa
 
 ## Next steps
 
-- To learn what each application does, see [Learn about main applications and query languages]({{site.url}}{{site.baseurl}}/dashboards/getting-started/learn-dashboards/).
+- To learn what each application does, see [Learn about main applications]({{site.url}}{{site.baseurl}}/dashboards/getting-started/learn-dashboards/).

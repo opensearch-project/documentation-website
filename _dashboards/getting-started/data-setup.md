@@ -66,4 +66,4 @@ For more information, see [Index patterns]({{site.url}}{{site.baseurl}}/dashboar
 
 ## Next steps
 
-- Learn about each application in [Learn about main applications and query languages]({{site.url}}{{site.baseurl}}/dashboards/getting-started/learn-dashboards/).
+- Learn about each application in [Learn about main applications]({{site.url}}{{site.baseurl}}/dashboards/getting-started/learn-dashboards/).

@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Dashboards Query Language (DQL)
-nav_order: 70
+nav_order: 50
 redirect_from:
   - /dashboards/discover/dql/
 ---
