@@ -37,7 +37,7 @@ keytool -importcert -file <path-to-root-ca-cert> -alias <alias> -keystore <trust
 
 You can now point your Java client to the truststore and set basic authentication credentials that can access a secure cluster (refer to the sample following code on how to do so).
 
-If you run into issues when configuring security, see [Troubleshoot TLS]({{site.url}}{{site.baseurl}}/security/configuration/troubleshoot-tls/).
+If you run into issues when configuring security, see [Troubleshooting TLS]({{site.url}}{{site.baseurl}}/security/configuration/troubleshoot-tls/).
 
 ## Sample program
 

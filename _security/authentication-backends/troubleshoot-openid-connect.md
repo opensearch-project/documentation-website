@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Troubleshoot OpenID Connect
+title: Troubleshooting OpenID Connect
 parent: OpenID Connect
 grand_parent: Authentication backends
 nav_order: 10
@@ -8,7 +8,7 @@ redirect_from:
   - /troubleshoot/openid-connect/
 ---
 
-# OpenID Connect troubleshooting
+# Troubleshooting OpenID Connect
 
 Use the following troubleshooting steps to resolve issues with using OpenID Connect for OpenSearch authentication with the Security plugin.
 

@@ -484,4 +484,4 @@ After logging in, the `testuser` receives the backend role `admin` from Keycloak
 
 ## Troubleshooting
 
-For solutions to common OpenID Connect configuration issues, see [Troubleshoot OpenID Connect]({{site.url}}{{site.baseurl}}/security/authentication-backends/troubleshoot-openid-connect/).
+- For solutions to common OpenID Connect configuration issues, see [Troubleshooting OpenID Connect]({{site.url}}{{site.baseurl}}/security/authentication-backends/troubleshoot-openid-connect/).

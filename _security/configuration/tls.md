@@ -349,4 +349,4 @@ Name | Description
 
 ## Troubleshooting
 
-For solutions to common TLS configuration issues, see [Troubleshoot TLS]({{site.url}}{{site.baseurl}}/security/configuration/troubleshoot-tls/).
+- For solutions to common TLS configuration issues, see [Troubleshooting TLS]({{site.url}}{{site.baseurl}}/security/configuration/troubleshoot-tls/).

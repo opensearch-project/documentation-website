@@ -339,4 +339,4 @@ For example, to load your initial configuration (all YAML files), use the follow
 
 ## Troubleshooting
 
-For solutions to common `securityadmin.sh` configuration issues, see [Troubleshoot securityadmin.sh]({{site.url}}{{site.baseurl}}/security/configuration/troubleshoot-security-admin/).
+- For solutions to common `securityadmin.sh` configuration issues, see [Troubleshooting securityadmin.sh]({{site.url}}{{site.baseurl}}/security/configuration/troubleshoot-security-admin/).

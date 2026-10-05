@@ -406,4 +406,4 @@ server.xsrf.allowlist: ["/_opendistro/_security/saml/acs/idpinitiated", "/_opend
 
 ## Troubleshooting
 
-For solutions to common SAML configuration issues, see [Troubleshoot SAML]({{site.url}}{{site.baseurl}}/security/authentication-backends/troubleshoot-saml/).
+- For solutions to common SAML configuration issues, see [Troubleshooting SAML]({{site.url}}{{site.baseurl}}/security/authentication-backends/troubleshoot-saml/).

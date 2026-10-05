@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Troubleshoot TLS
+title: Troubleshooting TLS
 parent: Configuring TLS certificates
 grand_parent: Configuration
 nav_order: 10
@@ -8,7 +8,7 @@ redirect_from:
   - /troubleshoot/tls/
 ---
 
-# TLS troubleshooting
+# Troubleshooting TLS
 
 Use the following troubleshooting steps to resolve issues with configuring TLS certificates with the Security plugin.
 

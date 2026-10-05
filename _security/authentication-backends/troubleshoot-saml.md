@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Troubleshoot SAML
+title: Troubleshooting SAML
 parent: SAML
 grand_parent: Authentication backends
 nav_order: 10
@@ -8,7 +8,7 @@ redirect_from:
   - /troubleshoot/saml/
 ---
 
-# SAML troubleshooting
+# Troubleshooting SAML
 
 Use the following troubleshooting steps to resolve issues with using SAML for OpenSearch Dashboards authentication.
 
