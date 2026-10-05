@@ -39,6 +39,7 @@ curl -XPOST -k -H 'Content-Type: application/json' -u 'admin:<custom-admin-passw
    }
 }'
 ```
+{% include copy.html %}
 
 If the Security plugin is disabled, you can leave out the `use_roles` parameter. If it's enabled, however, you need to specify the leader and follower cluster roles that OpenSearch uses to authenticate requests. This example uses `all_access` for simplicity, but we recommend creating a replication user on each cluster and [mapping it accordingly]({{site.url}}{{site.baseurl}}/replication-plugin/permissions/#map-the-leader-and-follower-cluster-roles).
 {: .tip }
@@ -48,12 +49,14 @@ To test the rule, create a matching index on the leader cluster:
 ```bash
 curl -XPUT -k -H 'Content-Type: application/json' -u 'admin:<custom-admin-password>' 'https://localhost:9201/movies-0001?pretty'
 ```
+{% include copy.html %}
 
 And confirm its replica shows up on the follower cluster:
 
 ```bash
 curl -XGET -u 'admin:<custom-admin-password>' -k 'https://localhost:9200/_cat/indices?v'
 ```
+{% include copy.html %}
 
 It might take several seconds for the index to appear.
 
@@ -83,6 +86,7 @@ curl -XPOST -k -H 'Content-Type: application/json' -u 'admin:<custom-admin-passw
    }
 }'
 ```
+{% include copy.html %}
 
 Using this rule, OpenSearch replicates a leader index named `movies-2025` to a follower index named `movies-2025-replica`.
 
@@ -92,7 +96,12 @@ To retrieve a list of existing replication rules that are configured on a cluste
 
 ```bash
 curl -XGET -u 'admin:<custom-admin-password>' -k 'https://localhost:9200/_plugins/_replication/autofollow_stats'
+```
+{% include copy.html %}
 
+The response contains the replication rules and their statistics:
+
+```json
 {
    "num_success_start_replication": 1,
    "num_failed_start_replication": 0,
@@ -126,5 +135,6 @@ curl -XDELETE -k -H 'Content-Type: application/json' -u 'admin:<custom-admin-pas
    "name": "my-replication-rule"
 }'
 ```
+{% include copy.html %}
 
 When you delete a replication rule, OpenSearch stops replicating *new* indexes that match the pattern, but existing indexes that the rule previously created remain read-only and continue to replicate. If you need to stop existing replication activity and open the indexes up for writes, use the [stop replication API operation]({{site.url}}{{site.baseurl}}/replication-plugin/api/#stop-replication).
