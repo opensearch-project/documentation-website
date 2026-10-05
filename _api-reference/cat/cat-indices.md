@@ -37,7 +37,7 @@ The following table lists the available query parameters. All query parameters a
 | :--- | :--- | :--- | :--- |
 | `bytes` | String | The units used to display byte values. <br> Valid values are: `b`, `kb`, `k`, `mb`, `m`, `gb`, `g`, `tb`, `t`, `pb`, and `p`. | N/A |
 | `cluster_manager_timeout` | String | The amount of time allowed to establish a connection to the cluster manager node. | N/A |
-| `expand_wildcards` | List or String | Specifies the type of index that wildcard expressions can match. Supports comma-separated values. <br> Valid values are: <br> - `all`: Match any index, including hidden ones. <br> - `closed`: Match closed, non-hidden indexes. <br> - `hidden`: Match hidden indexes. Must be combined with `open`, `closed`, or both. <br> - `none`: Wildcard expressions are not accepted. <br> - `open`: Match open, non-hidden indexes <br> When `system` is `true`, the default also includes hidden indexes. | `open,closed` |
+| `expand_wildcards` | List or String | Specifies the type of index that wildcard expressions can match. Supports comma-separated values. <br> Valid values are: <br> - `all`: Match any index, including hidden ones. <br> - `closed`: Match closed, non-hidden indexes. <br> - `hidden`: Match hidden indexes. Must be combined with `open`, `closed`, or both. <br> - `none`: Wildcard expressions are not accepted. <br> - `open`: Match open, non-hidden indexes. <br> When `system` is `true`, the default also includes hidden indexes. | `open,closed` |
 | `format` | String | A short version of the `Accept` header, such as `json` or `yaml`. | N/A |
 | `h` | List | A comma-separated list of column names to display. | N/A |
 | `health` | String | Limits indexes based on their health status. Supported values are `green`, `yellow`, and `red`. <br> Valid values are: `green`, `GREEN`, `yellow`, `YELLOW`, `red`, and `RED`. | N/A |
@@ -176,30 +176,24 @@ The following table lists the index statistics columns. These columns report val
 | Column | Aliases | Description |
 | :--- | :--- | :--- |
 | `completion.size` | `cs`, `completionSize` | The size of the completion data. |
-| `fielddata.memory_size` | `fm`, `fielddataMemory` | The memory used by the field data cache. |
 | `fielddata.evictions` | `fe`, `fielddataEvictions` | The number of field data cache evictions. |
-| `query_cache.memory_size` | `qcm`, `queryCacheMemory` | The memory used by the query cache. |
-| `query_cache.evictions` | `qce`, `queryCacheEvictions` | The number of query cache evictions. |
-| `request_cache.memory_size` | `rcm`, `requestCacheMemory` | The memory used by the request cache. |
-| `request_cache.evictions` | `rce`, `requestCacheEvictions` | The number of request cache evictions. |
-| `request_cache.hit_count` | `rchc`, `requestCacheHitCount` | The number of request cache hits. |
-| `request_cache.miss_count` | `rcmc`, `requestCacheMissCount` | The number of request cache misses. |
+| `fielddata.memory_size` | `fm`, `fielddataMemory` | The memory used by the field data cache. |
 | `flush.total` | `ft`, `flushTotal` | The number of flush operations. |
 | `flush.total_time` | `ftt`, `flushTotalTime` | The time spent in flush operations. |
 | `get.current` | `gc`, `getCurrent` | The number of current get operations. |
-| `get.time` | `gti`, `getTime` | The time spent in get operations. |
-| `get.total` | `gto`, `getTotal` | The number of get operations. |
 | `get.exists_time` | `geti`, `getExistsTime` | The time spent in successful get operations. |
 | `get.exists_total` | `geto`, `getExistsTotal` | The number of successful get operations. |
 | `get.missing_time` | `gmti`, `getMissingTime` | The time spent in failed get operations. |
 | `get.missing_total` | `gmto`, `getMissingTotal` | The number of failed get operations. |
+| `get.time` | `gti`, `getTime` | The time spent in get operations. |
+| `get.total` | `gto`, `getTotal` | The number of get operations. |
 | `indexing.delete_current` | `idc`, `indexingDeleteCurrent` | The number of current delete operations. |
 | `indexing.delete_time` | `idti`, `indexingDeleteTime` | The time spent in delete operations. |
 | `indexing.delete_total` | `idto`, `indexingDeleteTotal` | The number of delete operations. |
 | `indexing.index_current` | `iic`, `indexingIndexCurrent` | The number of current indexing operations. |
+| `indexing.index_failed` | `iif`, `indexingIndexFailed` | The number of failed indexing operations. |
 | `indexing.index_time` | `iiti`, `indexingIndexTime` | The time spent in indexing operations. |
 | `indexing.index_total` | `iito`, `indexingIndexTotal` | The number of indexing operations. |
-| `indexing.index_failed` | `iif`, `indexingIndexFailed` | The number of failed indexing operations. |
 | `memory.total` | `tm`, `memoryTotal` | The total memory used. |
 | `merges.current` | `mc`, `mergesCurrent` | The number of current merge operations. |
 | `merges.current_docs` | `mcd`, `mergesCurrentDocs` | The number of documents in current merge operations. |
@@ -208,46 +202,52 @@ The following table lists the index statistics columns. These columns report val
 | `merges.total_docs` | `mtd`, `mergesTotalDocs` | The number of merged documents. |
 | `merges.total_size` | `mts`, `mergesTotalSize` | The total size of merged data. |
 | `merges.total_time` | `mtt`, `mergesTotalTime` | The time spent in merge operations. |
-| `merges.warmer.total_invocations` | `mswti`, `mergedSegmentWarmerTotalInvocations` | The total number of merged segment warmer invocations. |
-| `merges.warmer.total_time` | `mswtt`, `mergedSegmentWarmerTotalTime` | The total wall-clock time spent in merged segment warming operations. |
 | `merges.warmer.ongoing_count` | `mswoc`, `mergedSegmentWarmerOngoingCount` | The number of merged segment warming operations currently in progress. |
 | `merges.warmer.total_bytes_received` | `mswtbr`, `mergedSegmentWarmerTotalBytesReceived` | The total number of bytes received by replica shards during merged segment warming. |
 | `merges.warmer.total_bytes_sent` | `mswtbs`, `mergedSegmentWarmerTotalBytesSent` | The total number of bytes sent by primary shards during merged segment warming. |
-| `merges.warmer.total_receive_time` | `mswtrt`, `mergedSegmentWarmerTotalReceiveTime` | The total wall-clock time replica shards spent receiving merged segments. |
 | `merges.warmer.total_failure_count` | `mswtfc`, `mergedSegmentWarmerTotalFailureCount` | The total number of merged segment warmer failures. |
+| `merges.warmer.total_invocations` | `mswti`, `mergedSegmentWarmerTotalInvocations` | The total number of merged segment warmer invocations. |
+| `merges.warmer.total_receive_time` | `mswtrt`, `mergedSegmentWarmerTotalReceiveTime` | The total wall-clock time replica shards spent receiving merged segments. |
 | `merges.warmer.total_send_time` | `mswtst`, `mergedSegmentWarmerTotalSendTime` | The total wall-clock time primary shards spent sending merged segments. |
-| `refresh.total` | N/A | The total number of refresh operations. |
-| `refresh.time` | N/A | The time spent in refresh operations. |
-| `refresh.external_total` | `rto`, `refreshTotal` | The total number of external refresh operations. |
+| `merges.warmer.total_time` | `mswtt`, `mergedSegmentWarmerTotalTime` | The total wall-clock time spent in merged segment warming operations. |
+| `query_cache.evictions` | `qce`, `queryCacheEvictions` | The number of query cache evictions. |
+| `query_cache.memory_size` | `qcm`, `queryCacheMemory` | The memory used by the query cache. |
 | `refresh.external_time` | `rti`, `refreshTime` | The time spent in external refresh operations. |
+| `refresh.external_total` | `rto`, `refreshTotal` | The total number of external refresh operations. |
 | `refresh.listeners` | `rli`, `refreshListeners` | The number of pending refresh listeners. |
+| `refresh.time` | N/A | The time spent in refresh operations. The help output lists the `rti` and `refreshTime` aliases for this column, but they select `refresh.external_time`. |
+| `refresh.total` | N/A | The total number of refresh operations. The help output lists the `rto` and `refreshTotal` aliases for this column, but they select `refresh.external_total`. |
+| `request_cache.evictions` | `rce`, `requestCacheEvictions` | The number of request cache evictions. |
+| `request_cache.hit_count` | `rchc`, `requestCacheHitCount` | The number of request cache hits. |
+| `request_cache.memory_size` | `rcm`, `requestCacheMemory` | The memory used by the request cache. |
+| `request_cache.miss_count` | `rcmc`, `requestCacheMissCount` | The number of request cache misses. |
+| `search.concurrent_avg_slice_count` | `casc`, `searchConcurrentAvgSliceCount` | The average slice count for concurrent segment search. |
+| `search.concurrent_query_current` | `scqc`, `searchConcurrentQueryCurrent` | The number of current concurrent query phase operations. |
+| `search.concurrent_query_time` | `scqti`, `searchConcurrentQueryTime` | The time spent in the concurrent query phase. |
+| `search.concurrent_query_total` | `scqto`, `searchConcurrentQueryTotal` | The number of concurrent query phase operations. |
 | `search.fetch_current` | `sfc`, `searchFetchCurrent` | The number of current fetch phase operations. |
 | `search.fetch_time` | `sfti`, `searchFetchTime` | The time spent in the fetch phase. |
 | `search.fetch_total` | `sfto`, `searchFetchTotal` | The number of fetch phase operations. |
 | `search.open_contexts` | `so`, `searchOpenContexts` | The number of open search contexts. |
-| `search.query_current` | `sqc`, `searchQueryCurrent` | The number of current query phase operations. |
-| `search.query_time` | `sqti`, `searchQueryTime` | The time spent in the query phase. |
-| `search.query_total` | `sqto`, `searchQueryTotal` | The number of query phase operations. |
-| `search.query_failed` | `sqf`, `searchQueryFailed` | The number of failed query phase operations. |
-| `search.concurrent_query_current` | `scqc`, `searchConcurrentQueryCurrent` | The number of current concurrent query phase operations. |
-| `search.concurrent_query_time` | `scqti`, `searchConcurrentQueryTime` | The time spent in the concurrent query phase. |
-| `search.concurrent_query_total` | `scqto`, `searchConcurrentQueryTotal` | The number of concurrent query phase operations. |
-| `search.concurrent_avg_slice_count` | `casc`, `searchConcurrentAvgSliceCount` | The average slice count for concurrent segment search. |
-| `search.startree_query_current` | `stqc` | The number of current star-tree query operations. |
-| `search.startree_query_time` | `stqti`, `startreeQueryTime` | The time spent in star-tree queries. |
-| `search.startree_query_failed` | `stqf`, `startreeQueryFailed` | The number of failed star-tree query operations. |
-| `search.startree_query_total` | `stqto`, `startreeQueryCurrent` | The number of queries resolved using a star-tree index. |
-| `search.scroll_current` | `searchScrollCurrent` | The number of open scroll contexts. |
-| `search.scroll_time` | `searchScrollTime` | The time that scroll contexts were held open. |
-| `search.scroll_total` | `searchScrollTotal` | The number of completed scroll contexts. |
 | `search.point_in_time_current` | `scc`, `searchPointInTimeCurrent` | The number of open point-in-time contexts. |
 | `search.point_in_time_time` | `scti`, `searchPointInTimeTime` | The time that point-in-time contexts were held open. |
 | `search.point_in_time_total` | `scto`, `searchPointInTimeTotal` | The number of completed point-in-time contexts. |
+| `search.query_current` | `sqc`, `searchQueryCurrent` | The number of current query phase operations. |
+| `search.query_failed` | `sqf`, `searchQueryFailed` | The number of failed query phase operations. |
+| `search.query_time` | `sqti`, `searchQueryTime` | The time spent in the query phase. |
+| `search.query_total` | `sqto`, `searchQueryTotal` | The number of query phase operations. |
+| `search.scroll_current` | `searchScrollCurrent` | The number of open scroll contexts. |
+| `search.scroll_time` | `searchScrollTime` | The time that scroll contexts were held open. |
+| `search.scroll_total` | `searchScrollTotal` | The number of completed scroll contexts. |
+| `search.startree_query_current` | `stqc` | The number of current star-tree query operations. |
+| `search.startree_query_failed` | `stqf`, `startreeQueryFailed` | The number of failed star-tree query operations. |
+| `search.startree_query_time` | `stqti`, `startreeQueryTime` | The time spent in star-tree queries. |
+| `search.startree_query_total` | `stqto`, `startreeQueryCurrent` | The number of queries resolved using a star-tree index. |
 | `segments.count` | `sc`, `segmentsCount` | The number of segments. |
-| `segments.memory` | `sm`, `segmentsMemory` | The memory used by segments. |
-| `segments.index_writer_memory` | `siwm`, `segmentsIndexWriterMemory` | The memory used by the index writer. |
-| `segments.version_map_memory` | `svmm`, `segmentsVersionMapMemory` | The memory used by the version map. |
 | `segments.fixed_bitset_memory` | `sfbm`, `fixedBitsetMemory` | The memory used by fixed bit sets for nested object field types and type filters. |
+| `segments.index_writer_memory` | `siwm`, `segmentsIndexWriterMemory` | The memory used by the index writer. |
+| `segments.memory` | `sm`, `segmentsMemory` | The memory used by segments. |
+| `segments.version_map_memory` | `svmm`, `segmentsVersionMapMemory` | The memory used by the version map. |
 | `suggest.current` | `suc`, `suggestCurrent` | The number of current suggest operations. |
 | `suggest.time` | `suti`, `suggestTime` | The time spent in suggest operations. |
 | `suggest.total` | `suto`, `suggestTotal` | The number of suggest operations. |
@@ -279,6 +279,7 @@ For example, to list system indexes and their descriptions, including hidden ind
 ```json
 GET /_cat/indices?system=true&h=index,system,system.description&format=json
 ```
+{% include copy-curl.html %}
 
 The following example response is for a cluster containing a task result index:
 
@@ -297,6 +298,7 @@ To display both system and non-system indexes, including open, closed, and hidde
 ```json
 GET /_cat/indices?expand_wildcards=all&h=index,system,system.description&format=json
 ```
+{% include copy-curl.html %}
 
 ## Limiting the response size
 
