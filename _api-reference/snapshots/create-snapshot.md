@@ -87,7 +87,7 @@ component: example_code
 rest: PUT /_snapshot/my-s3-repository/2
 body: |
 {
-  "indices": "opensearch-dashboards*,my-index*,-my-index-2016",
+  "indices": "opensearch_dashboards*,my-index*,-my-index-2016",
   "ignore_unavailable": true,
   "include_global_state": false,
   "partial": false
@@ -96,7 +96,7 @@ body: |
 {% capture step1_rest %}
 PUT /_snapshot/my-s3-repository/2
 {
-  "indices": "opensearch-dashboards*,my-index*,-my-index-2016",
+  "indices": "opensearch_dashboards*,my-index*,-my-index-2016",
   "ignore_unavailable": true,
   "include_global_state": false,
   "partial": false
@@ -110,7 +110,7 @@ response = client.snapshot.create(
   repository = "my-s3-repository",
   snapshot = "2",
   body =   {
-    "indices": "opensearch-dashboards*,my-index*,-my-index-2016",
+    "indices": "opensearch_dashboards*,my-index*,-my-index-2016",
     "ignore_unavailable": true,
     "include_global_state": false,
     "partial": false
