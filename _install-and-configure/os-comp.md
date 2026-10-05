@@ -10,7 +10,7 @@ OpenSearch and OpenSearch Dashboards are compatible with Red Hat Enterprise Linu
 
 ## Supported operating systems
 
-The following table lists the operating system versions that we are currently testing:
+The following table lists the operating system versions that we test for OpenSearch and OpenSearch Dashboards {{site.opensearch_major_minor_version}}. To view the operating systems tested for a different OpenSearch version, select that version in the documentation version selector.
 
 Operating system | Version
 :---------- | :-------- 
@@ -24,8 +24,6 @@ Windows Server | 2019
 ## Change log 
 
 The following table lists changes made to operating system compatibility. 
-
-<div class="table-styler"></div>
 
 | Date       | Issue | PR | Details |
 |:-----------|:-------|:-------|:--------------------------|
