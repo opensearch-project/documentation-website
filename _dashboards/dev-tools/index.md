@@ -18,6 +18,9 @@ redirect_from:
 
 The **Dev Tools** application in OpenSearch Dashboards provides tools for querying your cluster and testing queries and ingest patterns. 
 
+If you're new to the Dev Tools application, see [Run queries in the Dev Tools console]({{site.url}}{{site.baseurl}}/dashboards/getting-started/explore-dev-tools/) for a hands-on introduction.
+{: .tip}
+
 ## Navigating to Dev Tools
 
 To open Dev Tools, select **Dev Tools** on the main OpenSearch Dashboards page, as shown in the following image.

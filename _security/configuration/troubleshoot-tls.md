@@ -1,10 +1,14 @@
 ---
 layout: default
-title: Troubleshoot TLS
-nav_order: 15
+title: Troubleshooting TLS
+parent: Configuring TLS certificates
+grand_parent: Configuration
+nav_order: 10
+redirect_from:
+  - /troubleshoot/tls/
 ---
 
-# TLS troubleshooting
+# Troubleshooting TLS
 
 Use the following troubleshooting steps to resolve issues with configuring TLS certificates with the Security plugin.
 
@@ -222,3 +226,19 @@ The Security plugin still works and falls back to weaker cipher suites. The plug
 JDK with ciphers [TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256, TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256, TLS_DHE_RSA_WITH_AES_128_CBC_SHA256,
 TLS_DHE_DSS_WITH_AES_128_CBC_SHA256, ...]
 ```
+
+## Expired certificates
+
+If your certificates have expired, you might receive the following error or something similar:
+
+```
+ERROR org.opensearch.security.ssl.transport.SecuritySSLNettyTransport - Exception during establishing a SSL connection: javax.net.ssl.SSLHandshakeException: PKIX path validation failed: java.security.cert.CertPathValidatorException: validity check failed
+Caused by: java.security.cert.CertificateExpiredException: NotAfter: Thu Sep 16 11:27:55 PDT 2021
+```
+
+To check the expiration date for a certificate, run the following command:
+
+```bash
+openssl x509 -enddate -noout -in <certificate>
+```
+{% include copy.html %}

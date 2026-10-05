@@ -2,7 +2,7 @@
 layout: default
 title: Sparse encoding
 parent: Ingest processors
-nav_order: 240
+nav_order: 252
 redirect_from:
    - /api-reference/ingest-apis/processors/sparse-encoding/
 ---

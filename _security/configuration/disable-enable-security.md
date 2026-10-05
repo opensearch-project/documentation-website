@@ -66,7 +66,7 @@ To perform these steps on the Docker image, see [Working with plugins]({{site.ur
 
 ### Removing the Security plugin from OpenSearch Dashboards 
 
-If you disable the Security plugin in `opensearch.yml` and still want to use OpenSearch Dashboards, you must remove the corresponding OpenSearch Dashboards Security plugin. For more information, see [Remove plugins]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/plugins/#removing-a-plugin).
+If you disable the Security plugin in `opensearch.yml` and still want to use OpenSearch Dashboards, you must remove the corresponding OpenSearch Dashboards Security plugin. For more information, see [Remove plugins]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/plugins/#removing-plugins).
 
 Refer to the following installation types to remove the OpenSearch Dashboards plugin.
 
@@ -165,7 +165,7 @@ Use the following steps to reinstall the plugin:
     ```
     {% include copy.html %}
  
-2. Install the Security plugin on all nodes in your cluster using one of the [installation methods]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/#install):
+2. Install the Security plugin on all nodes in your cluster using one of the [installation methods]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/#installing-plugins):
 
     ```bash
     bin/opensearch-plugin install opensearch-security
