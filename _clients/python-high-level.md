@@ -1,13 +1,13 @@
 ---
 layout: default
-title: High-level Python client
-nav_order: 5
+title: High-level Python client (deprecated)
+nav_order: 200
 ---
 
-The OpenSearch high-level Python client (`opensearch-dsl-py`) will be deprecated after version 2.1.0. We recommend switching to the [Python client (`opensearch-py`)]({{site.url}}{{site.baseurl}}/clients/python-low-level/), which now includes the functionality of `opensearch-dsl-py`.
-{: .warning}
-
 # High-level Python client
+
+The OpenSearch high-level Python client (`opensearch-dsl-py`) is deprecated, and its repository is archived. We recommend switching to the [Python client (`opensearch-py`)]({{site.url}}{{site.baseurl}}/clients/python-low-level/), which now includes the functionality of `opensearch-dsl-py`.
+{: .warning}
 
 The OpenSearch high-level Python client (`opensearch-dsl-py`) provides wrapper classes for common OpenSearch entities, like documents, so you can work with them as Python objects. Additionally, the high-level client simplifies writing queries and supplies convenient Python methods for common OpenSearch operations. The high-level Python client supports creating and indexing documents, searching with and without filters, and updating documents using queries.
 
@@ -26,18 +26,18 @@ After installing the client, you can import it like any other module:
 
 ```python
 from opensearchpy import OpenSearch
-from opensearch_dsl import Search
+from opensearch_dsl import Search, Document, Text, Keyword
 ```
 {% include copy.html %}
 
 ## Connecting to OpenSearch
 
-To connect to the default OpenSearch host, create a client object with SSL enabled if you are using the Security plugin. You can use the default credentials for testing purposes:
+To connect to the default OpenSearch host, create a client object with SSL enabled if you are using the Security plugin. Replace `<custom-admin-password>` with the admin password that you set when you installed OpenSearch:
 
 ```python
 host = 'localhost'
 port = 9200
-auth = ('admin', 'admin') # For testing only. Don't store credentials in code.
+auth = ('admin', '<custom-admin-password>') # For testing only. Don't store credentials in code.
 ca_certs_path = '/full/path/to/root-ca.pem' # Provide a CA bundle if you use intermediate CAs with your root CA.
 
 # Create the client with SSL/TLS enabled, but hostname verification disabled.
@@ -59,7 +59,7 @@ If you have your own client certificates, specify them in the `client_cert_path`
 ```python
 host = 'localhost'
 port = 9200
-auth = ('admin', 'admin') # For testing only. Don't store credentials in code.
+auth = ('admin', '<custom-admin-password>') # For testing only. Don't store credentials in code.
 ca_certs_path = '/full/path/to/root-ca.pem' # Provide a CA bundle if you use intermediate CAs with your root CA.
 
 # Optional client certificates if you don't want to use HTTP basic authentication.
@@ -114,7 +114,7 @@ index_body = {
   }
 }
 
-response = client.indices.create(index_name, body=index_body)
+response = client.indices.create(index=index_name, body=index_body)
 ```
 {% include copy.html %}
 
@@ -153,7 +153,7 @@ You can perform several operations at the same time by using the `bulk()` method
 ```python
 movies = '{ "index" : { "_index" : "my-dsl-index", "_id" : "2" } } \n { "title" : "Interstellar", "director" : "Christopher Nolan", "year" : "2014"} \n { "create" : { "_index" : "my-dsl-index", "_id" : "3" } } \n { "title" : "Star Trek Beyond", "director" : "Justin Lin", "year" : "2015"} \n { "update" : {"_id" : "3", "_index" : "my-dsl-index" } } \n { "doc" : {"year" : "2016"} }'
 
-client.bulk(movies)
+client.bulk(body=movies)
 ```
 {% include copy.html %}
 
@@ -226,7 +226,7 @@ from opensearch_dsl import Search, Document, Text, Keyword
 host = 'localhost'
 port = 9200
 
-auth = ('admin', 'admin')  # For testing only. Don't store credentials in code.
+auth = ('admin', '<custom-admin-password>')  # For testing only. Don't store credentials in code.
 ca_certs_path = 'root-ca.pem'
 
 # Create the client with SSL/TLS enabled, but hostname verification disabled.
@@ -250,7 +250,7 @@ index_body = {
   }
 }
 
-response = client.indices.create(index_name, index_body)
+response = client.indices.create(index=index_name, body=index_body)
 print('\nCreating index:')
 print(response)
 
@@ -278,7 +278,7 @@ print(response)
 
 movies = '{ "index" : { "_index" : "my-dsl-index", "_id" : "2" } } \n { "title" : "Interstellar", "director" : "Christopher Nolan", "year" : "2014"} \n { "create" : { "_index" : "my-dsl-index", "_id" : "3" } } \n { "title" : "Star Trek Beyond", "director" : "Justin Lin", "year" : "2015"} \n { "update" : {"_id" : "3", "_index" : "my-dsl-index" } } \n { "doc" : {"year" : "2016"} }'
 
-client.bulk(movies)
+client.bulk(body=movies)
 
 # Search for the document.
 s = Search(using=client, index=index_name) \

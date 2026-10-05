@@ -1,7 +1,7 @@
 ---
 layout: default
-title: Java high-level REST client
-nav_order: 20
+title: Java high-level REST client (deprecated)
+nav_order: 190
 ---
 
 # Java high-level REST client
@@ -23,7 +23,7 @@ To start using the OpenSearch Java high-level REST client, ensure that you have 
 </dependency>
 ```
 
-You can now start your OpenSearch cluster. The OpenSearch 1.x high-level REST client works with the 1.x versions of OpenSearch.
+You can now start your OpenSearch cluster. Use the version of the high-level REST client that matches your OpenSearch version.
 
 ## Security
 
@@ -32,7 +32,7 @@ Before using the REST client in your Java application, you must configure the ap
 If you're using certificates from a trusted Certificate Authority (CA), you don't need to configure the truststore.
 
 ```bash
-keytool -import <path-to-cert> -alias <alias-to-call-cert> -keystore <truststore-name>
+keytool -importcert -file <path-to-root-ca-cert> -alias <alias> -keystore <truststore-name>
 ```
 
 You can now point your Java client to the truststore and set basic authentication credentials that can access a secure cluster (refer to the sample following code on how to do so).
@@ -41,15 +41,14 @@ If you run into issues when configuring security, see [Troubleshoot TLS]({{site.
 
 ## Sample program
 
-This code example uses basic credentials that come with the default OpenSearch configuration. If you’re using the OpenSearch Java high-level REST client with your own OpenSearch cluster, be sure to change the code to use your own credentials.
+This code example uses the `admin` user. Replace `<custom-admin-password>` with the admin password that you set when you installed OpenSearch. Replace `/full/path/to/keystore` with the path to your truststore and `password-to-keystore` with the truststore password.
 
 ```java
-import org.apache.http.HttpHost;
-import org.apache.http.auth.AuthScope;
-import org.apache.http.auth.UsernamePasswordCredentials;
-import org.apache.http.client.CredentialsProvider;
-import org.apache.http.impl.client.BasicCredentialsProvider;
-import org.apache.http.impl.nio.client.HttpAsyncClientBuilder;
+import org.apache.hc.client5.http.auth.AuthScope;
+import org.apache.hc.client5.http.auth.UsernamePasswordCredentials;
+import org.apache.hc.client5.http.impl.async.HttpAsyncClientBuilder;
+import org.apache.hc.client5.http.impl.auth.BasicCredentialsProvider;
+import org.apache.hc.core5.http.HttpHost;
 import org.opensearch.action.admin.indices.delete.DeleteIndexRequest;
 import org.opensearch.action.delete.DeleteRequest;
 import org.opensearch.action.delete.DeleteResponse;
@@ -57,7 +56,7 @@ import org.opensearch.action.get.GetRequest;
 import org.opensearch.action.get.GetResponse;
 import org.opensearch.action.index.IndexRequest;
 import org.opensearch.action.index.IndexResponse;
-import org.opensearch.action.support.master.AcknowledgedResponse;
+import org.opensearch.action.support.clustermanager.AcknowledgedResponse;
 import org.opensearch.client.RequestOptions;
 import org.opensearch.client.RestClient;
 import org.opensearch.client.RestClientBuilder;
@@ -79,13 +78,14 @@ public class RESTClientSample {
 
     //Establish credentials to use basic authentication.
     //Only for demo purposes. Don't specify your credentials in code.
-    final CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
+    final HttpHost host = new HttpHost("https", "localhost", 9200);
+    final BasicCredentialsProvider credentialsProvider = new BasicCredentialsProvider();
 
-    credentialsProvider.setCredentials(AuthScope.ANY,
-      new UsernamePasswordCredentials("admin", "admin"));
+    credentialsProvider.setCredentials(new AuthScope(host),
+      new UsernamePasswordCredentials("admin", "<custom-admin-password>".toCharArray()));
 
     //Create a client.
-    RestClientBuilder builder = RestClient.builder(new HttpHost("localhost", 9200, "https"))
+    RestClientBuilder builder = RestClient.builder(host)
       .setHttpClientConfigCallback(new RestClientBuilder.HttpClientConfigCallback() {
         @Override
         public HttpAsyncClientBuilder customizeHttpClient(HttpAsyncClientBuilder httpClientBuilder) {
