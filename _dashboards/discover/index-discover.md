@@ -144,24 +144,24 @@ For example, select **Dest**, **FlightDelayMin**, and **FlightDelayType** in the
 
 To expand a single document and see a detailed view in the **Results** table, follow these steps:
 
-1. From a row in the **Results** table's left column, select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/arrow-right-icon.png" class="inline-icon" alt="expand icon"/>{:/} (expand) icon to open the **Document Details** window.
+1. From a row in the **Results** table's left column, select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/arrow-right-icon.png" class="inline-icon" alt="expand icon"/>{:/} (expand) icon. The expanded document is displayed below the row in the **Expanded document** area.
 
-1. (Optional) To display the document in JSON format, select the **JSON** tab under the **Expanded document** label.
+1. (Optional) To display the document in JSON format, select the **JSON** tab.
 
 1. To return to the (default) tabular view, select the **Table** tab.
 
 1. (Optional) To view documents preceding or following the current document, select **View surrounding documents**.
 
-   The document, along with the five documents before and after by default, are displayed in a new browser window.
+   The document, along with the five documents before and after by default, is displayed in a new browser tab or window.
 
    The number of surrounding documents is fewer if there are fewer documents immediately before or after.
    {: .note}
 
 1. (Optional) To view the expanded document in isolation, select **View single document**.
 
-   The expanded document is displayed in a new browser window.
+   The expanded document is displayed in a new browser tab or window.
 
-1. To close the **Expanded document** window, select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/arrow-down-icon.png" class="inline-icon" alt="collapse icon"/>{:/} (down arrow) icon.
+1. To collapse the expanded document, select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/arrow-down-icon.png" class="inline-icon" alt="collapse icon"/>{:/} (down arrow) icon.
 
 
 ## Visualizing data fields
