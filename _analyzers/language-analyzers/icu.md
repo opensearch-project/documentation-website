@@ -278,4 +278,4 @@ PUT /custom-icu-index
 - [ICU transform token filter]({{site.url}}{{site.baseurl}}/analyzers/token-filters/icu-transform/) -- Transliteration and text transformation
 - [ICU collation keyword field]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/icu-collation-keyword/) -- Language-specific sorting
 - [CJK analyzer]({{site.url}}{{site.baseurl}}/analyzers/language-analyzers/cjk/) -- Alternative for CJK text
-- [Managing OpenSearch plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/#install-plugins) -- Plugin installation guide
+- [Managing OpenSearch plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/#installing-plugins) -- Plugin installation guide

@@ -23,7 +23,7 @@ For a plugin to work properly with OpenSearch, it may request certain permission
 
 ## Listing installed plugins using the CAT API
 
-You can also list installed plugins by using the [CAT API]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-plugins/).
+You can list installed plugins by using the [CAT API]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-plugins/).
 
 #### Usage
 
@@ -51,16 +51,16 @@ opensearch-node1 opensearch-notifications-core        2.0.1.0
 
 To manage plugins in OpenSearch, you can use a command line tool called `opensearch-plugin`. This tool allows you to perform the following actions:
 
-- [List](#list-installed-plugins) installed plugins.
-- [Install](#install-plugins) plugins.
-- [Remove](#remove-plugins) an installed plugin.
+- [List](#listing-installed-plugins) installed plugins.
+- [Install](#installing-plugins) plugins.
+- [Remove](#removing-plugins) an installed plugin.
 
 You can print help text by passing `-h` or `--help`. Depending on your host configuration, you might also need to run the command with `sudo` privileges.
 
 If you're running OpenSearch in a Docker container, plugins must be installed, removed, and configured by modifying the Docker image. For more information, see [Working with plugins]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker#working-with-plugins).
 {: .note}
 
-### List installed plugins
+### Listing installed plugins
 
 Use `list` to see a list of plugins that have already been installed.
 
@@ -91,15 +91,15 @@ opensearch-security
 opensearch-sql
 ```
 
-### Install plugins
+### Installing plugins
 
 There are three ways to install plugins using the `opensearch-plugin` tool:
 
-- [Install a plugin by name](#install-a-plugin-by-name).
-- [Install a plugin from a zip file](#install-a-plugin-from-a-zip-file).
-- [Install a plugin using Maven coordinates](#install-a-plugin-using-maven-coordinates).
+- [Install a plugin by name](#installing-a-plugin-by-name).
+- [Install a plugin from a zip file](#installing-a-plugin-from-a-zip-file).
+- [Install a plugin using Maven coordinates](#installing-a-plugin-using-maven-coordinates).
 
-#### Install a plugin by name
+#### Installing a plugin by name
 
 You can install plugins that aren't already preinstalled in your installation by using the plugin name. For a list of plugins that may not be preinstalled, see [Additional plugins](#additional-plugins).
 
@@ -118,7 +118,7 @@ $ sudo ./opensearch-plugin install analysis-icu
 -> Installed analysis-icu with folder name analysis-icu
 ```
 
-#### Install a plugin from a zip file
+#### Installing a plugin from a zip file
 
 You can install remote zip files by replacing `<zip-file>` with the URL of the hosted file. The tool supports downloading over HTTP/HTTPS protocols only. For local zip files, replace `<zip-file>` with `file:` followed by the absolute or relative path to the plugin zip file, as shown in the second example that follows.
 
@@ -186,7 +186,7 @@ Continue with installation? [y/N]y
 ```
 </details>
 
-#### Install a plugin using Maven coordinates
+#### Installing a plugin using Maven coordinates
 
 The `opensearch-plugin install` tool also allows you to specify Maven coordinates for available artifacts and versions hosted on [Maven Central](https://central.sonatype.com/namespace/org.opensearch.plugin). The tool parses the Maven coordinates you provide and constructs a URL. As a result, the host must be able to connect directly to the Maven Central site. The plugin installation fails if you pass coordinates to a proxy or local repository.
 
@@ -233,7 +233,7 @@ Continue with installation? [y/N]y
 Restart your OpenSearch node after installing a plugin.
 {: .note}
 
-### Install multiple plugins
+### Installing multiple plugins
 
 Multiple plugins can be installed in a single invocation.
 
@@ -248,7 +248,18 @@ bin/opensearch-plugin install <plugin-name> <plugin-name> ... <plugin-name>
 $ sudo ./opensearch-plugin install analysis-nori repository-s3
 ```
 
-### Remove plugins
+### Installing plugins in batch mode
+
+When installing a plugin that requires additional privileges that are not included by default, the plugin will prompt you for confirmation of the required privileges. To grant all requested privileges, use batch mode to skip the confirmation prompt.
+
+To force batch mode when installing plugins, add the `-b` or `--batch` option:
+```bash
+bin/opensearch-plugin install --batch <plugin-name>
+```
+{% include copy.html %}
+
+
+### Removing plugins
 
 You can remove a plugin that has already been installed with the `remove` option. 
 
@@ -267,15 +278,6 @@ $ sudo ./opensearch-plugin remove opensearch-anomaly-detection
 Restart your OpenSearch node after removing a plugin.
 {: .note}
 
-### Install plugins in batch mode
-
-When installing a plugin that requires additional privileges that are not included by default, the plugin will prompt you for confirmation of the required privileges. To grant all requested privileges, use batch mode to skip the confirmation prompt.
-
-To force batch mode when installing plugins, add the `-b` or `--batch` option:
-```bash
-bin/opensearch-plugin install --batch <plugin-name>
-```
-{% include copy.html %}
 
 ## Available plugins
 
@@ -322,7 +324,7 @@ _<sup>2</sup>Performance Analyzer is not available on Windows._
 
 #### Downloading bundled plugins for offline installation
 
-Each bundled plugin can be downloaded and installed offline from a [zip file](#install-a-plugin-from-a-zip-file).
+Each bundled plugin can be downloaded and installed offline from a [zip file](#installing-a-plugin-from-a-zip-file).
 
 The URL for the corresponding plugin can be found in the `manifest.yml` file located in the root directory of the extracted bundle.
 
@@ -333,7 +335,7 @@ A _core_ (or _native_) plugin in OpenSearch is a plugin that resides in the [Ope
 
 #### Downloading core plugins for offline installation
 
-Each core plugins in [this list](https://github.com/opensearch-project/OpenSearch/tree/main/plugins) can be downloaded and installed offline from a [zip file](#install-a-plugin-from-a-zip-file) using the official `plugins` repository URL template:
+Each core plugins in [this list](https://github.com/opensearch-project/OpenSearch/tree/main/plugins) can be downloaded and installed offline from a [zip file](#installing-a-plugin-from-a-zip-file) using the official `plugins` repository URL template:
 
 ```html
 https://artifacts.opensearch.org/releases/plugins/<plugin-name>/<version>/<plugin-name>-<version>.zip

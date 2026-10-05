@@ -39,7 +39,7 @@ Index context requires two settings, both of which are applied at node startup. 
 Do not set `cluster.application_templates.enabled` using the [Cluster settings API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/). The API accepts the update and returns `200`, but the node then fails to apply the resulting cluster state, logging an error that the feature flag is not enabled. The node repeatedly gives up its cluster manager role, and every request that changes the cluster state, such as creating an index, stops responding until you restart the node. If you set the value as a persistent setting, it is reapplied after the restart.
 {: .warning}
 
-The `opensearch-system-templates` plugin supplies the component templates that back each context. It is bundled with all OpenSearch distributions except the minimal distribution. If you use the minimal distribution, install it using one of the [installation methods]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/#install-plugins).
+The `opensearch-system-templates` plugin supplies the component templates that back each context. It is bundled with all OpenSearch distributions except the minimal distribution. If you use the minimal distribution, install it using one of the [installation methods]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/#installing-plugins).
 
 ## Using the `context` setting
 

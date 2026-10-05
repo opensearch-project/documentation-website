@@ -78,7 +78,7 @@ Repeat the following steps on every node in the cluster:
 
 1. Start OpenSearch on the node.
 
-For a full list of available plugin versions, see the [`opensearch-jvector-plugin` directory](https://repo1.maven.org/maven2/org/opensearch/plugin/opensearch-jvector-plugin/) in Maven Central. To skip the prompt that requests confirmation of the plugin's additional permissions, add the `--batch` option to the `install` command. For more information, see [Managing OpenSearch plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/#install-a-plugin-using-maven-coordinates).
+For a full list of available plugin versions, see the [`opensearch-jvector-plugin` directory](https://repo1.maven.org/maven2/org/opensearch/plugin/opensearch-jvector-plugin/) in Maven Central. To skip the prompt that requests confirmation of the plugin's additional permissions, add the `--batch` option to the `install` command. For more information, see [Managing OpenSearch plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/#installing-a-plugin-using-maven-coordinates).
 
 To confirm that the plugin is installed, use the [CAT Plugins API]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-plugins/):
 
