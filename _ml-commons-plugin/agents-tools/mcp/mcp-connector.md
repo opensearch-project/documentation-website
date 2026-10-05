@@ -124,11 +124,11 @@ For example, to register an OpenAI chat model, send the following request:
 ```json
 POST /_plugins/_ml/models/_register
 {
-  "name": "My OpenAI model: gpt-4",
+  "name": "My OpenAI model: gpt-4o-mini",
   "function_name": "remote",
   "description": "Test model registration (this example uses OpenAI, but you can register any model)",
   "connector": {
-    "name": "My OpenAI Connector: gpt-4",
+    "name": "My OpenAI Connector: gpt-4o-mini",
     "description": "Connector for the OpenAI chat model",
     "version": 1,
     "protocol": "http",
