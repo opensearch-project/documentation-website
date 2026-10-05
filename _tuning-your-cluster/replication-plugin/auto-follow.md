@@ -51,7 +51,7 @@ curl -XPUT -k -H 'Content-Type: application/json' -u 'admin:<custom-admin-passwo
 ```
 {% include copy.html %}
 
-And confirm its replica shows up on the follower cluster:
+Confirm that the replica appears on the follower cluster:
 
 ```bash
 curl -XGET -u 'admin:<custom-admin-password>' -k 'https://localhost:9200/_cat/indices?v'
