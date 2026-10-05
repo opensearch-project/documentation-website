@@ -58,7 +58,7 @@ Choose one of the following options.
 
 ### Option 1: Use the OpenSearch Playground
 
-Open the [OpenSearch Playground](https://playground.opensearch.org/app/home#/) in your browser. The Playground is read only and already includes the sample flight data, so you can start learning about the OpenSearch Dashboards applications in [Step 2](#step-2-learn-the-main-applications).
+Open the [OpenSearch Playground](https://playground.opensearch.org/app/home#/) in your browser. The Playground is read only and already includes the sample flight data, so you can start learning about the OpenSearch Dashboards applications in [Step 2](#step-2-explore-opensearch-dashboards-applications).
 
 ### Option 2: Use your own installation
 
