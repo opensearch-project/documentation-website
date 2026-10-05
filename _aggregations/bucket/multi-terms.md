@@ -21,21 +21,24 @@ The `multi_terms` aggregation takes the following parameters.
 
 | Parameter | Required/Optional | Data type | Description |
 | :--- | :--- | :--- | :--- |
-| `terms` | Required | Array | An array of terms. See [term object](#term-object). |
+| `terms` | Required | Array | An array of objects, each specifying a field or script that provides one part of the composite key. |
 | `size` | Optional | Integer | The number of composite buckets to return. Default is `10`. |
 | `shard_size` | Optional | Integer | The number of candidate buckets collected from each shard. Higher values improve accuracy at the cost of memory. Must be greater than or equal to `size`. Default is higher than `size` to improve accuracy. |
 | `min_doc_count` | Optional | Integer | The minimum document count required for a bucket to appear in the response. Default is `1`. |
 | `order` | Optional | Object | Controls how buckets are sorted. Accepts `_count`, `_key`, or the name of a subaggregation metric. Default is `{"_count": "desc"}`. |
 | `show_term_doc_count_error` | Optional | Boolean | When `true`, includes an error estimate for each term's document count. Default is `false`. |
 
-#### Term object
+Each object in the `terms` array supports the following parameters.
 
-| Field | Data type | Description
-| :--- | :--- | :---
+| Parameter | Data type | Description |
+| :--- | :--- | :--- |
 | `field` | String | The field to aggregate on. Must be a `keyword`, `numeric`, `ip`, `boolean`, or `date` field. Either `field` or `script` is required. |
-| `script` | Object | A script that generates values to aggregate on. Either `field` or `script` is required. When used with `field`, the script acts as a value script and receives the field value as `_value`. |
-| `missing` | String or Number | The value to use for documents missing the target field. By default, missing documents are ignored. |
-
+| `script` | Object | A script that generates the values to aggregate on. Either `field` or `script` is required. When used with `field`, the script acts as a value script and receives the field value as `_value`. |
+| `missing` | String or number | The value to use for documents that do not contain the field. By default, documents that do not contain the field are excluded from the aggregation. |
+| `exclude` | String or array of strings | The values to exclude from the aggregation. Specify an array of exact values or a regular expression. |
+| `format` | String | The format of the term in `key_as_string`, such as a date format for a `date` field. |
+| `time_zone` | String | The time zone used to format `date` values, such as `+05:00` or `America/New_York`. Default is `UTC`. |
+| `value_type` | String | The data type of the values produced by a `script`, such as `long` or `string`. |
 
 ## Example: Grouping by multiple fields
 
@@ -194,54 +197,50 @@ The response ranks buckets by the `avg_price` subaggregation rather than documen
 }
 ```
 
-## Example: Missing fields
+## Example: Handling documents with missing fields
 
-The following example uses documents that are missing different fields:
+By default, a document that does not contain one of the `terms` fields is excluded from the aggregation. To include these documents, specify a `missing` value for the field.
 
-```json
-GET /baz/_search?filter_path=hits.hits._source
-```
-{% include copy-curl.html %}
-
-There are two fields `foo` and `bar`. These field presences are mixed and matched:
+Create an index containing two `keyword` fields:
 
 ```json
+PUT /products
 {
-  "hits": {
-    "hits": [
-      {
-        "_source": {
-          "foo": "foo",
-          "bar": "bar"
-        }
-      },
-      {
-        "_source": {
-          "foo": "foo"
-        }
-      },
-      {
-        "_source": {
-          "bar": "bar"
-        }
-      }
-    ]
+  "mappings": {
+    "properties": {
+      "brand": { "type": "keyword" },
+      "color": { "type": "keyword" }
+    }
   }
 }
 ```
+{% include copy-curl.html %}
 
-This query contrasts the effects of using the `missing` field of the [term object](#term-object):
+Index three documents. The second document does not contain a `color` field, and the third document does not contain a `brand` field:
 
 ```json
-GET /baz/_search
+POST /products/_bulk?refresh=true
+{ "index": {} }
+{ "brand": "Acme", "color": "red" }
+{ "index": {} }
+{ "brand": "Acme" }
+{ "index": {} }
+{ "color": "blue" }
+```
+{% include copy-curl.html %}
+
+The following request groups products by brand and color, assigning the value `unknown` to documents that do not contain a `color` field:
+
+```json
+GET /products/_search
 {
   "size": 0,
   "aggs": {
-    "foo_bar": {
+    "brand_color": {
       "multi_terms": {
         "terms": [
-          { "field": "foo" },
-          { "field": "bar", "missing": "MISSING" }
+          { "field": "brand" },
+          { "field": "color", "missing": "unknown" }
         ]
       }
     }
@@ -250,26 +249,30 @@ GET /baz/_search
 ```
 {% include copy-curl.html %}
 
-The response includes a bucket for documents missing the `bar` field
-(substituting "MISSING" as a key value).
-The response excludes documents missing the `foo` field from the aggregation.
+The response contains a bucket for the document without a `color` field, using `unknown` as its color. The document without a `brand` field does not appear in any bucket because no `missing` value is specified for `brand`:
 
 ```json
 {
   ...
   "aggregations": {
-    "foo_bar": {
+    "brand_color": {
       "doc_count_error_upper_bound": 0,
       "sum_other_doc_count": 0,
       "buckets": [
         {
-          "key": [ "foo", "MISSING" ],
-          "key_as_string": "foo|MISSING",
+          "key": [
+            "Acme",
+            "red"
+          ],
+          "key_as_string": "Acme|red",
           "doc_count": 1
         },
         {
-          "key": [ "foo", "bar" ],
-          "key_as_string": "foo|bar",
+          "key": [
+            "Acme",
+            "unknown"
+          ],
+          "key_as_string": "Acme|unknown",
           "doc_count": 1
         }
       ]
@@ -277,7 +280,6 @@ The response excludes documents missing the `foo` field from the aggregation.
   }
 }
 ```
-
 
 ## Response body fields
 
