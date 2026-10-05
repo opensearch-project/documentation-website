@@ -169,7 +169,7 @@ You can specify a custom file location and name when invoking `docker-compose` w
 docker compose -f /path/to/your-file.yml up
 ```
 
-If this is your first time launching an OpenSearch cluster using Docker Compose, use the following example `docker-compose.yml` file. Save it in the home directory of your host and name it `docker-compose.yml`. This file creates a cluster that contains three containers: two containers running the OpenSearch service and a single container running OpenSearch Dashboards. These containers communicate over a bridge network called `opensearch-net` and use two volumes, one for each OpenSearch node. Because this file does not explicitly disable the demo security configuration, self-signed TLS certificates are installed and internal users with default names and passwords are created.
+If this is your first time launching an OpenSearch cluster using Docker Compose, use the [sample `docker-compose.yml` file](#sample-docker-composeyml). This file creates a cluster that contains three containers: two containers running the OpenSearch service and a single container running OpenSearch Dashboards. These containers communicate over a bridge network called `opensearch-net` and use two volumes, one for each OpenSearch node. Because this file does not explicitly disable the demo security configuration, self-signed TLS certificates are installed and internal users with default names and passwords are created.
 
 ### Setting a custom admin password
 
@@ -189,75 +189,23 @@ The password you set in `OPENSEARCH_INITIAL_ADMIN_PASSWORD` must meet a minimum 
 
 ### Sample `docker-compose.yml`
 
-```yml
-services:
-  opensearch-node1: # This is also the hostname of the container within the Docker network (i.e. https://opensearch-node1/)
-    image: opensearchproject/opensearch:latest # Specifying the latest available image - modify if you want a specific version
-    container_name: opensearch-node1
-    environment:
-      - cluster.name=opensearch-cluster # Name the cluster
-      - node.name=opensearch-node1 # Name the node that will run in this container
-      - discovery.seed_hosts=opensearch-node1,opensearch-node2 # Nodes to look for when discovering the cluster
-      - cluster.initial_cluster_manager_nodes=opensearch-node1,opensearch-node2 # Nodes eligible to serve as cluster manager
-      - bootstrap.memory_lock=true # Disable JVM heap memory swapping
-      - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m" # Set min and max JVM heap sizes to at least 50% of system RAM
-      - OPENSEARCH_INITIAL_ADMIN_PASSWORD=${OPENSEARCH_INITIAL_ADMIN_PASSWORD}    # Sets the demo admin user password when using demo configuration, required for OpenSearch 2.12 and later
-    ulimits:
-      memlock:
-        soft: -1 # Set memlock to unlimited (no soft or hard limit)
-        hard: -1
-      nofile:
-        soft: 65536 # Maximum number of open files for the opensearch user - set to at least 65536
-        hard: 65536
-    volumes:
-      - opensearch-data1:/usr/share/opensearch/data # Creates volume called opensearch-data1 and mounts it to the container
-    ports:
-      - 9200:9200 # REST API
-      - 9600:9600 # Performance Analyzer
-    networks:
-      - opensearch-net # All of the containers will join the same Docker bridge network
-  opensearch-node2:
-    image: opensearchproject/opensearch:latest # This should be the same image used for opensearch-node1 to avoid issues
-    container_name: opensearch-node2
-    environment:
-      - cluster.name=opensearch-cluster
-      - node.name=opensearch-node2
-      - discovery.seed_hosts=opensearch-node1,opensearch-node2
-      - cluster.initial_cluster_manager_nodes=opensearch-node1,opensearch-node2
-      - bootstrap.memory_lock=true
-      - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m"
-      - OPENSEARCH_INITIAL_ADMIN_PASSWORD=${OPENSEARCH_INITIAL_ADMIN_PASSWORD}
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-      nofile:
-        soft: 65536
-        hard: 65536
-    volumes:
-      - opensearch-data2:/usr/share/opensearch/data
-    networks:
-      - opensearch-net
-  opensearch-dashboards:
-    image: opensearchproject/opensearch-dashboards:latest # Make sure the version of opensearch-dashboards matches the version of opensearch installed on other nodes
-    container_name: opensearch-dashboards
-    ports:
-      - 5601:5601 # Map host port 5601 to container port 5601
-    expose:
-      - "5601" # Expose port 5601 for web access to OpenSearch Dashboards
-    environment:
-      OPENSEARCH_HOSTS: '["https://opensearch-node1:9200","https://opensearch-node2:9200"]' # Define the OpenSearch nodes that OpenSearch Dashboards will query
-    networks:
-      - opensearch-net
+Download the sample Docker Compose file to the home directory of your host. You can download the file using command line utilities like `curl` and `wget`, or you can manually copy [`docker-compose.yml`](https://github.com/opensearch-project/documentation-website/blob/{{site.opensearch_major_minor_version}}/assets/examples/docker-compose.yml) from the OpenSearch Project `documentation-website` repository using a web browser.
 
-volumes:
-  opensearch-data1:
-  opensearch-data2:
+To use cURL, send the following request:
 
-networks:
-  opensearch-net:
+```bash
+curl -O https://raw.githubusercontent.com/opensearch-project/documentation-website/{{site.opensearch_major_minor_version}}/assets/examples/docker-compose.yml
 ```
 {% include copy.html %}
+
+To use wget, send the following request:
+
+```bash
+wget https://raw.githubusercontent.com/opensearch-project/documentation-website/{{site.opensearch_major_minor_version}}/assets/examples/docker-compose.yml
+```
+{% include copy.html %}
+
+This file is based on the Docker Compose files maintained in the [`opensearch-build` repository](https://github.com/opensearch-project/opensearch-build/tree/main/docker/release/dockercomposefiles).
 
 If you override `opensearch_dashboards.yml` settings using environment variables in your compose file, use all uppercase letters and replace periods with underscores (for example, for `opensearch.hosts`, use `OPENSEARCH_HOSTS`). This behavior is inconsistent with overriding `opensearch.yml` settings, where the conversion is just a change to the assignment operator (for example, `discovery.type: single-node` in `opensearch.yml` is defined as `discovery.type=single-node` in `docker-compose.yml`).
 {: .note}

@@ -10,7 +10,7 @@ redirect_from:
 
 # Installing OpenSearch Dashboards using Docker
 
-You can use either Docker or Docker Compose to run OpenSearch Dashboards. The Docker Compose method is easier because you can define the entire configuration in a single file.
+You can use either Docker or Docker Compose to run OpenSearch Dashboards. The Docker Compose method is easier because the sample Compose file starts OpenSearch and OpenSearch Dashboards together.
 
 ## Prerequisites
 
@@ -27,87 +27,39 @@ docker run -d --name opensearch-node -p 9200:9200 -p 9600:9600 --network os-net 
 
 Then you can start OpenSearch Dashboards using the following steps:
 
-1. Create an `opensearch_dashboards.yml` configuration file:
-
-    ```yaml
-    server.name: opensearch_dashboards
-    server.host: "0.0.0.0"
-    server.customResponseHeaders : { "Access-Control-Allow-Credentials" : "true" }
-    
-    # Disabling HTTPS on OpenSearch Dashboards
-    server.ssl.enabled: false
-    
-    opensearch.hosts: ["https://opensearch-node:9200"] # Using the opensearch container name
-    
-    opensearch.ssl.verificationMode: none
-    opensearch.username: kibanaserver
-    opensearch.password: kibanaserver
-    opensearch.requestHeadersWhitelist: ["securitytenant","Authorization"]
-    
-    # Multitenancy
-    opensearch_security.multitenancy.enabled: true
-    opensearch_security.multitenancy.tenants.preferred: ["Private", "Global"]
-    opensearch_security.readonly_mode.roles: ["kibana_read_only"]
-    ```
-    {% include copy.html %}
-
-1. Execute the following command to start OpenSearch Dashboards:
+1. Start OpenSearch Dashboards, specifying the OpenSearch container name in the `OPENSEARCH_HOSTS` environment variable:
 
     ```bash
     docker run -d --name osd \
       --network os-net \
       -p 5601:5601 \
-      -v ./opensearch_dashboards.yml:/usr/share/opensearch-dashboards/config/opensearch_dashboards.yml \
+      -e 'OPENSEARCH_HOSTS=["https://opensearch-node:9200"]' \
       opensearchproject/opensearch-dashboards:latest
     ```
     {% include copy.html %}
 
-1. In a web browser, go to `http://localhost:5601` and log in as the `admin` user using the custom admin password that you set when you installed OpenSearch. For more information, see [Accessing OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/#accessing-opensearch-dashboards).
+1. In a web browser, go to `http://localhost:5601` and log in as the `admin` user using the custom admin password that you set when you installed OpenSearch. If OpenSearch Dashboards runs on a remote host, replace `localhost` with the IP address or DNS name of that host. For more information, see [Accessing OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/#accessing-opensearch-dashboards).
 
 ## Install OpenSearch Dashboards using Docker Compose
 
-The [sample `docker-compose.yml`]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/#sample-docker-composeyml) file on the OpenSearch Docker installation page already includes an `opensearch-dashboards` service. To install OpenSearch Dashboards using a custom configuration, follow these steps:
+The [sample `docker-compose.yml`]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/#sample-docker-composeyml) file includes an `opensearch-dashboards` service, so OpenSearch Dashboards starts together with OpenSearch. When you [deploy the cluster using Docker Compose]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/#deploy-an-opensearch-cluster-using-docker-compose), no additional steps are required to install OpenSearch Dashboards.
 
-1. Create an `opensearch_dashboards.yml` file:
-  
-    ```yaml
-    server.name: opensearch_dashboards
-    server.host: "0.0.0.0"
-    server.customResponseHeaders : { "Access-Control-Allow-Credentials" : "true" }
-       
-    # Disabling HTTPS on OpenSearch Dashboards
-    server.ssl.enabled: false
-       
-    opensearch.ssl.verificationMode: none
-    opensearch.username: kibanaserver
-    opensearch.password: kibanaserver
-    opensearch.requestHeadersWhitelist: ["securitytenant","Authorization"]
-       
-    # Multitenancy
-    opensearch_security.multitenancy.enabled: true
-    opensearch_security.multitenancy.tenants.preferred: ["Private", "Global"]
-    opensearch_security.readonly_mode.roles: ["kibana_read_only"]
-    ```
+In a web browser, go to `http://localhost:5601` and log in as the `admin` user using the custom admin password that you set when you installed OpenSearch. If OpenSearch Dashboards runs on a remote host, replace `localhost` with the IP address or DNS name of that host. For more information, see [Accessing OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/#accessing-opensearch-dashboards).
 
-    The `opensearch.hosts` setting must be configured if you are not passing it as an environment variable. For an example of how to configure this setting, see [Complete Docker Compose example with custom configuration]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/#complete-docker-compose-example-with-custom-configuration).
-    {: .note}
+## Customizing the OpenSearch Dashboards configuration
 
-1. Mount the `opensearch_dashboards.yml` file in the `opensearch-dashboards` service of your `docker-compose.yml` file:
+The OpenSearch Dashboards image includes a default `opensearch_dashboards.yml` file that works with the demo security configuration, so most deployments don't need to change it. To change a setting, pass it as an environment variable. The variable name is the setting name in uppercase, with dots replaced by underscores. For example, `OPENSEARCH_HOSTS` sets `opensearch.hosts`, and `OPENSEARCH_REQUESTTIMEOUT` sets `opensearch.requestTimeout`.
 
-    ```yaml
-    opensearch-dashboards:
-      volumes:
-        - ./opensearch_dashboards.yml:/usr/share/opensearch-dashboards/config/opensearch_dashboards.yml
-    ```
+When using `docker run`, pass the variables with the `-e` option. When using Docker Compose, add the variables to the `environment` section of the `opensearch-dashboards` service:
 
-1. Start the containers:
+```yaml
+opensearch-dashboards:
+  environment:
+    OPENSEARCH_HOSTS: '["https://opensearch-node1:9200","https://opensearch-node2:9200"]'
+    OPENSEARCH_REQUESTTIMEOUT: 60000
+```
 
-    ```bash
-    docker compose up -d
-    ```
-    {% include copy.html %}
-
-1. In a web browser, go to `http://localhost:5601` and log in as the `admin` user using the custom admin password that you set when you installed OpenSearch. For more information, see [Accessing OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/#accessing-opensearch-dashboards).
+Not every setting can be passed as an environment variable. To use settings that aren't supported as environment variables, create your own `opensearch_dashboards.yml` file and mount it in the container, replacing the default file. Because the mounted file replaces the default file entirely, it must contain every setting that OpenSearch Dashboards needs, including `opensearch.hosts` and the connection credentials. For an example, see [Complete Docker Compose example with custom configuration]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/#complete-docker-compose-example-with-custom-configuration).
 
 ## Related documentation
 
