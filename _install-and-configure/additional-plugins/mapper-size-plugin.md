@@ -2,7 +2,7 @@
 layout: default
 title: Mapper-size plugin
 parent: Managing OpenSearch plugins
-nav_order: 20
+nav_order: 25
 
 ---
 

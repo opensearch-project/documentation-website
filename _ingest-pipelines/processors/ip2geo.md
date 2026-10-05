@@ -2,7 +2,7 @@
 layout: default
 title: IP2Geo
 parent: Ingest processors
-nav_order: 130
+nav_order: 150
 redirect_from:
    - /api-reference/ingest-apis/processors/ip2geo/
 ---

@@ -144,7 +144,7 @@ GET testindex1/_search
 
 However, this query still incorrectly returns document 100. This is because the relation between age and smoking was lost when arrays of values for individual fields were created.
 
-## Nested field type 
+## Mapping objects as nested
 
 Nested objects are stored as separate documents, and the parent object has references to its children. To mark objects as nested, create a mapping with a nested field type.
 

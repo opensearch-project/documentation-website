@@ -99,7 +99,7 @@ The `wlm.workload_group.mode` cluster-level setting controls whether workload ma
 
 - `enabled`: Workload management is enabled and cancels and rejects queries once the configured thresholds are reached.
 
-To change the operating mode, update the [`wlm.workload_group.mode` setting](#mode), as described in the next section.
+To change the operating mode, update the [`wlm.workload_group.mode` setting](#workload-management-settings), as described in the next section.
 
 Additionally, each workload group defines its own `resiliency_mode`. The `resiliency_mode` defines enforcement behavior but only takes effect when `wlm.workload_group.mode` is `enabled`. For more information about `resiliency_mode`, see [Workload group parameters]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/workload-management/workload-groups/#parameters).
 
