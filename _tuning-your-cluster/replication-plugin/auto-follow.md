@@ -43,32 +43,6 @@ curl -XPOST -k -H 'Content-Type: application/json' -u 'admin:<custom-admin-passw
 If the Security plugin is disabled, you can leave out the `use_roles` parameter. If it's enabled, however, you need to specify the leader and follower cluster roles that OpenSearch uses to authenticate requests. This example uses `all_access` for simplicity, but we recommend creating a replication user on each cluster and [mapping it accordingly]({{site.url}}{{site.baseurl}}/replication-plugin/permissions/#map-the-leader-and-follower-cluster-roles).
 {: .tip }
 
-## Customize follower index names with follower_index_pattern
-
-By default, auto-follow creates follower indexes with the same name as the matching leader index. You can override this behavior using the `follower_index_pattern` parameter to apply a custom naming convention to all follower indexes created by a replication rule.
-
-The `follower_index_pattern` parameter accepts a string that can include the `{{leader_index}}` placeholder, which is replaced at replication time with the name of the matched leader index. This lets you add prefixes, suffixes, or any static text around the leader index name. This is useful for avoiding name collisions when a same-named local index already exists on the follower cluster or when replicating from multiple leader clusters.
-
-The following example creates a replication rule that appends a `-replica` suffix to all replicated index names:
-
-```bash
-curl -XPOST -k -H 'Content-Type: application/json' -u 'admin:<custom-admin-password>' 'https://localhost:9200/_plugins/_replication/_autofollow?pretty' -d '
-{
-   "leader_alias" : "my-connection-alias",
-   "name": "my-replication-rule",
-   "pattern": "movies*",
-   "follower_index_pattern": "{{leader_index}}-replica",
-   "use_roles":{
-      "leader_cluster_role": "all_access",
-      "follower_cluster_role": "all_access"
-   }
-}'
-```
-
-With this rule, a leader index named `movies-2025` is automatically replicated to a follower index named `movies-2025-replica`.
-
-If `follower_index_pattern` is omitted, the follower index is given the same name as the leader index.
-
 To test the rule, create a matching index on the leader cluster:
 
 ```bash
@@ -87,6 +61,30 @@ It might take several seconds for the index to appear.
 health status index        uuid                     pri rep docs.count docs.deleted store.size pri.store.size
 yellow open   movies-0001  kHOxYYHxRMeszLjTD9rvSQ     1   1          0            0       208b           208b
 ```
+
+## Customize follower index names
+
+By default, auto-follow gives each follower index the same name as its leader index. To apply a different naming convention to all follower indexes that a replication rule creates, specify the `follower_index_pattern` parameter. Custom names prevent name collisions when the follower cluster already contains a local index with the same name as a leader index or when you replicate indexes from multiple leader clusters.
+
+The `follower_index_pattern` value can contain static text and the {% raw %}`{{leader_index}}`{% endraw %} placeholder. At replication time, OpenSearch replaces the placeholder with the name of the matched leader index, so you can add a prefix, a suffix, or both.
+
+The following request creates a replication rule that appends a `-replica` suffix to each follower index name:
+
+```bash
+curl -XPOST -k -H 'Content-Type: application/json' -u 'admin:<custom-admin-password>' 'https://localhost:9200/_plugins/_replication/_autofollow?pretty' -d '
+{
+   "leader_alias" : "my-connection-alias",
+   "name": "my-replication-rule",
+   "pattern": "movies*",
+   "follower_index_pattern": "{% raw %}{{leader_index}}{% endraw %}-replica",
+   "use_roles":{
+      "leader_cluster_role": "all_access",
+      "follower_cluster_role": "all_access"
+   }
+}'
+```
+
+Using this rule, OpenSearch replicates a leader index named `movies-2025` to a follower index named `movies-2025-replica`.
 
 ## Retrieve replication rules
 
