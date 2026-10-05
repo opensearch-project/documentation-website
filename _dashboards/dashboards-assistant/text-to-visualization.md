@@ -2,7 +2,7 @@
 layout: default
 title: Text to visualization
 parent: OpenSearch Assistant for OpenSearch Dashboards
-nav_order: 1
+nav_order: 40
 has_children: false
 ---
 

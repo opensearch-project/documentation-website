@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Getting started
-nav_order: 5
+nav_order: 10
 has_children: true
 has_toc: false
 redirect_from:
@@ -11,18 +11,15 @@ redirect_from:
   - /dashboards/browser-compatibility/
   - /dashboards/quickstart/
 install_items:
-  - heading: "Installation quickstart"
-    description: "Install OpenSearch and OpenSearch Dashboards."
+  - heading: "Install OpenSearch Dashboards"
     link: "/dashboards/getting-started/install/"
   - heading: "Access OpenSearch Dashboards"
-    description: "Open the UI, learn to navigate, and explore each application."
     link: "/dashboards/getting-started/access/"
   - heading: "Prepare your data"
-    description: "Add sample data or ingest your own data and create an index pattern."
     link: "/dashboards/getting-started/data-setup/"
 learn_items:
-  - heading: "Learn about main applications and query languages"
-    description: "Discover what each application does and when to use it."
+  - heading: "Learn about the main applications"
+    description: "Explore what each application does and when to use it."
     link: "/dashboards/getting-started/learn-dashboards/"
   - heading: "Explore the Discover application"
     description: "Search and filter data."
@@ -33,6 +30,9 @@ learn_items:
   - heading: "Explore the Dashboards application"
     description: "View and filter a dashboard."
     link: "/dashboards/getting-started/explore-dashboards/"
+  - heading: "Run queries in the Dev Tools console"
+    description: "Send OpenSearch API requests using Query DSL."
+    link: "/dashboards/getting-started/explore-dev-tools/"
 workflow_items:
   - heading: "Explore data with Discover"
     description: "Search, filter, and examine your data interactively. Understand what fields are available, how data is distributed over time, and what patterns exist."
@@ -52,35 +52,25 @@ OpenSearch Dashboards is the web interface for OpenSearch. Use it to explore you
 Before you begin, ensure that you're familiar with basic OpenSearch concepts like documents and indexes. For more information, see [Introduction to OpenSearch]({{site.url}}{{site.baseurl}}/getting-started/intro/).
 {: .note}
 
-## Prerequisites
+## Step 1: Set up OpenSearch Dashboards
 
-To use OpenSearch Dashboards, you need access to one of the following:
+Choose one of the following options.
 
-- The [OpenSearch Playground](https://playground.opensearch.org/app/home#/) (online, read-only---no installation needed).
-- A local installation of OpenSearch and OpenSearch Dashboards. See the [Installation quickstart]({{site.url}}{{site.baseurl}}/dashboards/getting-started/install/) for a quick Docker setup, or [Installing OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/) for other methods.
+### Option 1: Use the OpenSearch Playground
 
-## How to use this section
+Open the [OpenSearch Playground](https://playground.opensearch.org/app/home#/) in your browser. The Playground is read only and already includes the sample flight data, so you can start learning about the OpenSearch Dashboards applications in [Step 2](#step-2-explore-opensearch-dashboards-applications).
 
-Choose one of the following paths to get familiar with the applications:
+### Option 2: Use your own installation
 
-- **Using the OpenSearch Playground** (no installation needed): Start with [Learn about main applications and query languages](#learn-about-main-applications-and-query-languages).
-- **Using a local installation**: Start with [Install OpenSearch Dashboards and add data](#install-opensearch-dashboards-and-add-data), then continue to [Learn about main applications and query languages](#learn-about-main-applications-and-query-languages).
-
-For terminology definitions, see [Concepts]({{site.url}}{{site.baseurl}}/dashboards/getting-started/concepts/).
-
-### Install OpenSearch Dashboards and add data
+To install OpenSearch Dashboards and add the sample data, follow these steps:
 
 {% include list.html list_items=page.install_items %}
 
-### Learn about main applications and query languages
+## Step 2: Explore OpenSearch Dashboards applications
 
 {% include list.html list_items=page.learn_items %}
 
-### Run queries in OpenSearch Dashboards
-
-The Dev Tools console lets you run OpenSearch API queries written in [Query DSL]({{site.url}}{{site.baseurl}}/query-dsl/) directly in a simplified syntax instead of using cURL. For more information, see [Running queries in the Dev Tools console]({{site.url}}{{site.baseurl}}/dashboards/getting-started/explore-dev-tools/).
-
-## The typical workflow
+## Next steps
 
 Once you're familiar with the applications, the standard approach to building dashboards follows three steps: explore your data, build individual visualizations, then assemble those visualizations into a dashboard. To learn about each step in detail, use the following links to explore the full documentation.
 

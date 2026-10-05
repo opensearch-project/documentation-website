@@ -183,7 +183,7 @@ public class OpenSearchClientExample {
 ```
 {% include copy.html %}
 
-If you run into issues when configuring security, see [common issues]({{site.url}}{{site.baseurl}}/troubleshoot/index/) and [troubleshoot TLS]({{site.url}}{{site.baseurl}}/troubleshoot/tls/).
+If you run into issues when configuring security, see [Troubleshooting TLS]({{site.url}}{{site.baseurl}}/security/configuration/troubleshoot-tls/).
 
 ### Using RestClient Transport (deprecated)
 

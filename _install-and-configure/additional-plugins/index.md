@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Additional plugins
-parent: Installing plugins
+parent: Managing OpenSearch plugins
 nav_order: 10
 redirect_from:
   - /install-and-configure/additional-plugins/
@@ -44,7 +44,7 @@ The following table lists commonly used additional plugins and the earliest Open
 
 ## Related documentation
 
-- [Installing plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/)
+- [Managing OpenSearch plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/)
 - [`ingest-attachment` plugin]({{site.url}}{{site.baseurl}}/install-and-configure/additional-plugins/ingest-attachment-plugin/)
 - [`mapper-size` plugin]({{site.url}}{{site.baseurl}}/install-and-configure/additional-plugins/mapper-size-plugin/)
 - [`opensearch-jvector` plugin]({{site.url}}{{site.baseurl}}/install-and-configure/additional-plugins/opensearch-jvector/)

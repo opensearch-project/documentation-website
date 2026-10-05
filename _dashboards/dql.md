@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Dashboards Query Language (DQL)
-nav_order: 70
+nav_order: 50
 redirect_from:
   - /dashboards/discover/dql/
 ---
@@ -326,7 +326,7 @@ patient.name: john
 
 To refer to a nested object, list the JSON path of the field. 
 
-To index a document containing an object, follow the steps in the [nested field type example]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/nested/#nested-field-type-1).
+To index a document containing an object, follow the steps in the [nested field type example]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/nested/#mapping-objects-as-nested).
 
 To search the `name` field of the `patients` object, use the following syntax:
 
