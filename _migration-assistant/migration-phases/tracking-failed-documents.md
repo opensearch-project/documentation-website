@@ -119,6 +119,7 @@ The `SnapshotMigration` resource also records the backfill outcome. It reports `
 kubectl get snapshotmigrations -n ma -o jsonpath='{.items[*].status.documentBackfill.phase}'
 ```
 {% include copy.html %}
+A count greater than `0` means that documents failed. `workflow status` can report the backfill as completed even when documents failed, so check the count rather than relying on the workflow status alone.
 
 {: .note }
 > If the stream is configured but cannot be read, for example, because of missing S3 permissions, the console command fails rather than reporting no failures.
