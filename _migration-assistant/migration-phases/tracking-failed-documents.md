@@ -105,6 +105,8 @@ After the backfill finishes, run the following commands from a Migration Console
 workflow status
 ```
 {% include copy.html %}
+
+```bash
 console failed-document-stream count
 ```
 {% include copy.html %}
