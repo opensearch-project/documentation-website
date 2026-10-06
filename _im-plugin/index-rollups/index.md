@@ -3,6 +3,7 @@ layout: default
 title: Index rollups
 nav_order: 50
 has_children: true
+has_toc: false
 redirect_from: 
   - /im-plugin/index-rollups/
 ---
@@ -1333,5 +1334,6 @@ A rollup job needs a source index that contains a timestamp field. If your clust
 ## Related documentation
 
 - [Index rollups API]({{site.url}}{{site.baseurl}}/im-plugin/index-rollups/rollup-api/)
+- [Index rollup settings]({{site.url}}{{site.baseurl}}/im-plugin/index-rollups/settings/)
 - [Index transforms]({{site.url}}{{site.baseurl}}/im-plugin/index-transforms/index/)
 - [Index State Management]({{site.url}}{{site.baseurl}}/im-plugin/ism/index/)
