@@ -112,7 +112,7 @@ The metrics framework feature supports the following metric types:
 **Introduced 3.10**
 {: .label .label-purple }
 
-By default, the `telemetry-otel` plugin exports histograms as OpenTelemetry exponential histograms (`ExponentialHistogram` in OTLP). Some metric receivers do not accept exponential histograms. To export histograms with explicit bucket boundaries (`Histogram` in OTLP) instead, configure the `telemetry.otel.metrics.histogram.aggregation.default` static setting in the `opensearch.yml` file:
+By default, the `telemetry-otel` plugin exports histograms as OpenTelemetry exponential histograms (`ExponentialHistogram` in OTLP). Some metric receivers do not accept exponential histograms. To export histograms with explicit bucket boundaries (`Histogram` in OTLP), configure the `telemetry.otel.metrics.histogram.aggregation.default` static setting in the `opensearch.yml` file:
 
 ```yaml
 telemetry.otel.metrics.histogram.aggregation.default: explicit_bucket_histogram
@@ -124,7 +124,7 @@ The setting accepts the following case-insensitive values:
 - `base2_exponential_bucket_histogram`: Exports histograms as exponential histograms.
 - `explicit_bucket_histogram`: Exports histograms with explicit bucket boundaries, using the default boundaries of the OpenTelemetry SDK.
 
-The default value is `base2_exponential_bucket_histogram`, which matches the behavior of earlier versions. The setting applies to all histograms, regardless of the configured exporter. Because this is a static setting, it is applied when the node starts and cannot be updated on a running cluster. If the value is not one of the allowed values, the node fails to start. Changing the setting changes the metric type that receivers get, so you might need to update dashboards and queries built on the previous type.
+The default value is `base2_exponential_bucket_histogram`, which preserves the behavior of earlier versions. The setting applies to all histograms, regardless of the configured exporter. Because this is a static setting, OpenSearch applies it when the node starts, and you cannot change it on a running cluster. If the value is not one of the allowed values, the node fails to start. Changing the setting changes the metric type sent to receivers, so you might need to update dashboards and queries that use the previous metric type.
 
 ## Monitoring machine learning workflows
 Introduced 3.1
