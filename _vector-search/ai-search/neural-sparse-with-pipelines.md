@@ -673,7 +673,7 @@ To simplify the query further, you can define the `semantic_field_search_analyze
 
 To learn more about improving retrieval time for neural sparse search, see [Accelerating neural sparse search]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/#accelerating-neural-sparse-search).
 
-If you're using `semantic` fields with a `neural` query, query acceleration is currently **not supported**. You can achieve acceleration by running a `neural_sparse` query directly against the underlying `rank_features` field.
+If you're using `semantic` fields with a `neural` query, query acceleration is not supported. You can achieve acceleration by running a `neural_sparse` query directly against the underlying `rank_features` field.
 {: .note}
 
 ## Troubleshooting

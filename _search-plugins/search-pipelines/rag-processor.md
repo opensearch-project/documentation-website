@@ -13,7 +13,7 @@ Introduced 2.12
 
 The `retrieval_augmented_generation` processor is a search results processor that you can use in [conversational search]({{site.url}}{{site.baseurl}}/search-plugins/conversational-search/) for retrieval-augmented generation (RAG). The processor intercepts query results, retrieves previous messages from the conversation from the conversational memory, and sends a prompt to a large language model (LLM). After the processor receives a response from the LLM, it saves the response in conversational memory and returns both the original OpenSearch query results and the LLM response.
 
-As of OpenSearch 2.12, the `retrieval_augmented_generation` processor supports only OpenAI and Amazon Bedrock models.
+The `retrieval_augmented_generation` processor supports OpenAI, Amazon Bedrock, and Cohere models. To use an Amazon Bedrock or Cohere model, prefix the `llm_model` value with `bedrock/`, `bedrock-converse/`, or `cohere/`. A value without a prefix is treated as an OpenAI model. To use another model, set the `llm_response_field` parameter. For more information, see [Step 6: Use the pipeline for RAG]({{site.url}}{{site.baseurl}}/vector-search/ai-search/conversational-search/#step-6-use-the-pipeline-for-rag).
 {: .note}
 
 ## Request body fields

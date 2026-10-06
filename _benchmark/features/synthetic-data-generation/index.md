@@ -28,14 +28,14 @@ tip_cards:
 **Introduced 2.0**
 {: .label .label-purple }
 
-OpenSearch Benchmark provides a built-in synthetic data generator that can create datasets for any use case at any scale. It currently supports two generation methods: 
+OpenSearch Benchmark provides a built-in synthetic data generator that can create datasets for any use case at any scale. It supports two generation methods: 
 
 * **Random data generation** produces fields with randomized values. This is useful for stress testing and evaluating system performance under load.
 * **Rule-based data generation** creates data according to user-defined rules. This is helpful for testing specific scenarios, benchmarking query behavior, or simulating domain-specific patterns.
 
 ## Data generation methods
 
-OpenSearch Benchmark currently supports the following data generation methods.
+OpenSearch Benchmark supports the following data generation methods.
 
 {% include cards.html cards=page.cards %}
 
