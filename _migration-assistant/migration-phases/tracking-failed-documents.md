@@ -150,7 +150,7 @@ The following table lists the fields included in each record.
 | `timestamp` | The time when the failure was recorded. |
 | `sessionId` | The session the record belongs to. This matches the `SnapshotMigration` UID in the stream location. |
 | `workerId` and `workItemId` | The RFS worker and the shard work item that produced the failure. |
-| `requestItem` | The captured bulk request item. When the original source document is available, that source content is stored under `document` so you can diagnose or resubmit without going back to the source cluster. |
+| `requestItem` | The captured bulk request item. When the original source document is available, the source content is stored under `document` so you can diagnose the problem or resubmit the request without retrieving the document from the source cluster. |
 | `responseItem` | The OpenSearch bulk response item, including the error type and reason. |
 
 A document can appear in the stream more than once, so the console deduplicates records on read by `targetIndex` and `documentId`. Counts therefore reflect the number of distinct failed documents.
