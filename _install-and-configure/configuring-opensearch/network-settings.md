@@ -159,7 +159,7 @@ OpenSearch supports the following experimental HTTP settings:
     < content-length: 572
     ```
 
-    The following platforms/architectures are currently supported:
+    The following platforms and architectures are supported:
     - Linux/Aarch64
     - Linux/x86_64
     - OSX/Aarch64

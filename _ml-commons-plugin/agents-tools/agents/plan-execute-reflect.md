@@ -24,7 +24,7 @@ Similarly to a conversational agent, the plan-execute-reflect agent stores the i
 
 The agent automatically selects the most appropriate tool for each step based on the tool descriptions and current context.
 
-The agent currently supports re-evaluation only after each step. This allows the agent to dynamically adapt the plan based on intermediate results before proceeding to the next step.
+The agent supports re-evaluation only after each step. This allows the agent to dynamically adapt the plan based on intermediate results before proceeding to the next step.
 
 ## Creating a plan-execute-reflect agent
 

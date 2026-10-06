@@ -178,7 +178,7 @@ The agent is configured with the following information:
 - Meta information: `name`, `type`, `description`.
 - LLM information: The agent uses an LLM to reason and select the next step, including choosing an appropriate tool and preparing the tool input.
 - Tools: A tool is a function that can be executed by the agent. Each tool can define its own `name`, `description`, and `parameters`.
-- Memory: Stores chat messages. Currently, OpenSearch only supports one memory type: `conversation_index`.
+- Memory: Stores chat messages. OpenSearch supports one memory type: `conversation_index`.
 
 The agent contains the following parameters:
 
@@ -189,7 +189,7 @@ The agent contains the following parameters:
    - `"response_filter": "$.completion"`: Needed to retrieve the LLM answer from the Bedrock Claude model response.
    - `"message_history_limit": 5`: The agent retrieves a maximum of the five most recent historical messages and adds them to the LLM context. Set this parameter to `0` to omit message history in the context.
    - `disable_trace`: If `true`, then the agent does not store trace data in memory. Trace data is included in each message and provides a detailed recount of steps performed while generating the message.
-- `memory`: Defines how to store messages. Currently, OpenSearch only supports the `conversation_index` memory, which stores messages in a memory index.
+- `memory`: Defines how to store messages. OpenSearch only supports the `conversation_index` memory, which stores messages in a memory index.
 - Tools: 
    - An LLM will reason to decide which tool to run and will prepare the tool's input. 
    - To include the tool's output in the response, specify `"include_output_in_agent_response": true`. In this tutorial, you will include the `PPLTool` output in the response (see the example response in [Test the agent](#test-the-agent)). 

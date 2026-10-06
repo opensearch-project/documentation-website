@@ -34,7 +34,7 @@ The main **Log types** UI features and actions are shown in the following image.
 
 ## Standard log types
 
-As of OpenSearch 2.11, all standard log types are grouped by the following categories:
+All standard log types are grouped by the following categories:
 
 - **Access Management** includes [AD/LDAP]({{site.url}}{{site.baseurl}}/security-analytics/log-types-reference/ad-ldap/), [Apache Access]({{site.url}}{{site.baseurl}}/security-analytics/log-types-reference/apache-access/), and [Okta]({{site.url}}{{site.baseurl}}/security-analytics/log-types-reference/okta/).
 - **Applications** includes [GitHub]({{site.url}}{{site.baseurl}}/security-analytics/log-types-reference/github/), [Google Workspace]({{site.url}}{{site.baseurl}}/security-analytics/log-types-reference/gworkspace/), and [Microsoft 365]({{site.url}}{{site.baseurl}}/security-analytics/log-types-reference/m365/).

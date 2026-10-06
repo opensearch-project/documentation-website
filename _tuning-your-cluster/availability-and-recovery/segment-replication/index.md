@@ -32,7 +32,7 @@ Segment replication can be applied in a variety of scenarios, including:
 
 ## Remote-backed storage
 
-As of OpenSearch 2.10, you can use two methods for segment replication:
+You can use two methods for segment replication:
 
 - **Remote-backed storage**, a persistent storage solution: The primary shard sends segment files to the remote-backed storage, and the replica shards source the copy from the same store. For more information about using remote-backed storage, see [Remote-backed storage]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/index/).
 - Node-to-node communication: The primary shard sends segment files directly to the replica shards using node-to-node communication.
@@ -121,8 +121,8 @@ When using segment replication, consider the following:
 1. Enabling segment replication for an existing index requires [reindexing](https://github.com/opensearch-project/OpenSearch/issues/3685).
 1. [Cross-cluster replication](https://github.com/opensearch-project/OpenSearch/issues/4090) does not currently use segment replication to copy between clusters.
 1. Segment replication leads to increased network congestion on primary shards using node-to-node replication because replica shards fetch updates from the primary shard. With remote-backed storage, the primary shard can upload segments to, and the replicas can fetch updates from, the remote-backed storage. This helps offload responsibilities from the primary shard to the remote-backed storage.
-1. Read-after-write guarantees: Segment replication does not currently support setting the refresh policy to `wait_for` or `true`. If you set the `refresh` query parameter to `wait_for` or `true` and then ingest documents, you'll get a response only after the primary node has refreshed and made those documents searchable. Replica shards will respond only after having written to their local translog. If real-time reads are needed, consider using the [`get`]({{site.url}}{{site.baseurl}}/api-reference/document-apis/get-documents/) or [`mget`]({{site.url}}{{site.baseurl}}/api-reference/document-apis/multi-get/) API operations. 
-1. As of OpenSearch 2.10, system indexes support segment replication. 
+1. Read-after-write guarantees: Segment replication does not support setting the refresh policy to `wait_for` or `true`. If you set the `refresh` query parameter to `wait_for` or `true` and then ingest documents, you'll get a response only after the primary node has refreshed and made those documents searchable. Replica shards will respond only after having written to their local translog. If real-time reads are needed, consider using the [`get`]({{site.url}}{{site.baseurl}}/api-reference/document-apis/get-documents/) or [`mget`]({{site.url}}{{site.baseurl}}/api-reference/document-apis/multi-get/) API operations. 
+1. System indexes support segment replication. 
 1. Get, MultiGet, TermVector, and MultiTermVector requests serve strong reads by routing requests to the primary shards. Routing more requests to the primary shards may degrade performance as compared to distributing requests across primary and replica shards. To improve performance in read-heavy clusters, we recommend setting the `realtime` parameter in these requests to `false`. For more information, see [Issue #8700](https://github.com/opensearch-project/OpenSearch/issues/8700).
 
 ## Benchmarks

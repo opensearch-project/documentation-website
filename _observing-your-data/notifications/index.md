@@ -43,7 +43,7 @@ This information is stored in plain text in the OpenSearch cluster. We will impr
 
 OpenSearch supports Amazon SNS for notifications. This integration with Amazon SNS means that, in addition to the other channel types, the Notifications plugin can send email messages, text messages, and even run AWS Lambda functions using SNS topics. For more information about Amazon SNS, see the [Amazon Simple Notification Service Developer Guide](https://docs.aws.amazon.com/sns/latest/dg/welcome.html).
 
-The Notifications plugin currently supports two ways to authenticate users:
+The Notifications plugin supports two ways to authenticate users:
 
 1. Provide the user with full access to Amazon SNS.
 2. Let the user assume an AWS Identity and Access Management (IAM) role that has permissions to access Amazon SNS. Once you configure the notification channel to use the right Amazon SNS permissions, select the OpenSearch plugins that can trigger notifications.

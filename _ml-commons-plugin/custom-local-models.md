@@ -14,13 +14,12 @@ To use a custom model locally, you can upload it to the OpenSearch cluster.
 
 ## Model support
 
-As of OpenSearch 2.6, OpenSearch supports local text embedding models.
+OpenSearch supports the following types of local models:
 
-As of OpenSearch 2.11, OpenSearch supports local sparse encoding models.
-
-As of OpenSearch 2.12, OpenSearch supports local cross-encoder models.
-
-As of OpenSearch 2.13, OpenSearch supports local question answering models.
+- Text embedding models
+- Sparse encoding models
+- Cross-encoder models
+- Question answering models
 
 Running local models on the CentOS 7 operating system is not supported. Moreover, not all local models can run on all hardware and operating systems.
 {: .important}
@@ -35,7 +34,7 @@ If you fine-tune a sparse model on your own dataset, you may also want to use yo
 
 ### Model format
 
-To use a model in OpenSearch, you'll need to export the model into a portable format. As of Version 2.5, OpenSearch only supports the [TorchScript](https://pytorch.org/docs/stable/jit.html) and [ONNX](https://onnx.ai/) formats.
+To use a model in OpenSearch, you must export the model into a portable format. OpenSearch supports only the [TorchScript](https://pytorch.org/docs/stable/jit.html) and [ONNX](https://onnx.ai/) formats.
 
 You must save the model file as zip before uploading it to OpenSearch. To ensure that ML Commons can upload your model, compress your TorchScript file before uploading. For an example, download a TorchScript [model file](https://github.com/opensearch-project/ml-commons/blob/2.x/ml-algorithms/src/test/resources/org/opensearch/ml/engine/algorithms/text_embedding/all-MiniLM-L6-v2_torchscript_sentence-transformer.zip).
 
