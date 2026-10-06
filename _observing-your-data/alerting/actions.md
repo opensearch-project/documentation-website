@@ -34,7 +34,7 @@ To add an action:
 
 1. Choose **Create**.
 
-After an action sends a message, the content of that message has left the purview of the [Security Analytics]({{site.url}}{{site.baseurl}}/security-analytics/index/) plugin. Securing access to the message (for example, access to the Slack channel) is your responsibility.
+After an action sends a message, the content of that message has left the purview of the Alerting plugin. Securing access to the message (for example, access to the Slack channel) is your responsibility.
 
 #### Example message
 
@@ -52,7 +52,7 @@ To use the `ctx.results` variable in a message, use `{% raw %}{{ctx.results.0}}{
 #### Actions variables
 
 Variable | Data type | Description
-:--- | :--- | : ---
+:--- | :--- | :---
 `ctx.trigger.actions.id` | String | The action ID.
 `ctx.trigger.actions.name` | String | The action name.
 `ctx.trigger.actions.message_template.source` | String | The message to send in the alert.

@@ -56,8 +56,8 @@ POST _plugins/_query/_datasources
         "prometheus.uri" : "http://localhost:8080",
         "prometheus.auth.type" : "awssigv4",
         "prometheus.auth.region" : "us-east-1",
-        "prometheus.auth.access_key" : "{{accessKey}}"
-        "prometheus.auth.secret_key" : "{{secretKey}}"
+        "prometheus.auth.access_key" : "<access_key>",
+        "prometheus.auth.secret_key" : "<secret_key>"
     }
 }
 ```
@@ -109,7 +109,7 @@ To visualize OTel metric data in OpenSearch, follow these steps:
           processors: [batch]
           exporters: [otlp/logs,  opensearch/logs, debug]
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
     
 4. Configure the [Data Prepper pipeline](https://github.com/opensearch-project/opentelemetry-demo/blob/main/src/dataprepper/README.md) to emit the collected metric signals into the OpenSearch metrics index.
 
@@ -144,7 +144,7 @@ To visualize OTel metric data in OpenSearch, follow these steps:
             index: ss4o_metrics-otel-%{yyyy.MM.dd}
             bulk_size: 4
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 5. Ingest metric data into OpenSearch. As the demo starts generating data, the metric signals will be added to the OpenSearch index that supports the OpenTelemetry Metrics schema format.
 6. On the **Metrics** page, choose `Otel-Index` from the **Data sources** dropdown menu and `Simple Schema for Observability Index` from the **OTel index** dropdown menu. A visualization is displayed, as shown in the following image.
@@ -187,7 +187,7 @@ You can define [Piped Processing Language (PPL)]({{site.url}}{{site.baseurl}}/se
 ```
 source = my_prometheus.prometheus_http_requests_total | stats avg(@value) by span(@timestamp,15s), handler, code
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 ### Creating a custom visualization based on the PPL query
 
@@ -196,7 +196,7 @@ To create a custom visualization based on the PPL query, follow these steps:
 1. From the **Logs** page, select > **Event Explorer**.
 2. On the **Explorer** page, enter your PPL query and select **Run**. Then select **Save**.
 3. When prompted to choose a **Custom Operational Dashboards/Application**, select one of the listed options. Optionally, you can edit the predefined name values in the **Metric Name** fields and can choose to save the visualization as a metric.
-5. Select **Save** to save your custom visualization. 
+4. Select **Save** to save your custom visualization. 
 
 Only queries that include a time-series visualization and statistics or span information can be saved as a metric, as shown in the following image.
 
