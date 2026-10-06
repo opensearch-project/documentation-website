@@ -25,7 +25,7 @@ Terminal document failures are recorded in two places:
 
 Setting an S3 bucket in the migration's `documentBackfillConfig` enables the stream. There is no separate enable flag, and the stream does not fall back to the deployment's default bucket, so you must name a bucket explicitly. Complete these steps from a Migration Console shell before you start the backfill:
 
-1. Choose a bucket. On Amazon EKS, you can use the deployment's default bucket, `migrations-default-<ACCOUNT_ID>-<STAGE>-<REGION>`, which Migration Assistant can already write to. The following command lists the default bucket for every Migration Assistant deployment in the account, so choose the one that matches your stage and Region:
+1. Choose a bucket. On Amazon EKS, you can use the deployment's default bucket, `migrations-default-<ACCOUNT_ID>-<STAGE>-<REGION>`, to which Migration Assistant can write. The following command lists the default bucket for every Migration Assistant deployment in the account, so choose the one that matches your stage and Region:
 
    ```bash
    aws s3 ls | grep migrations-default
