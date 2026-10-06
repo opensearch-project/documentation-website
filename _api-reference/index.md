@@ -14,7 +14,7 @@ redirect_from:
 
 # API reference
 
-You can use [REST APIs](#rest-apis) for every API operation in OpenSearch. Starting with OpenSearch 3.0, you can call a subset of these operations using the experimental [gRPC APIs](#grpc-apis) instead.
+You can use [REST APIs](#rest-apis) for every API operation in OpenSearch. You can call a subset of these operations using the experimental [gRPC APIs](#grpc-apis) instead.
 
 This page lists API families rather than individual operations. To find a specific operation, open the family that owns it and use the list of APIs on its page.
 
@@ -133,7 +133,7 @@ The following APIs manage OpenSearch Dashboards saved objects and workspaces and
 **Introduced 3.0**
 {: .label .label-purple }
 
-Starting with OpenSearch 3.0, you can use gRPC APIs---a high-performance alternative to traditional REST interfaces. These APIs use the gRPC protocol to provide more efficient communication with OpenSearch clusters. For more information and supported APIs, see [gRPC APIs]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/).
+You can use gRPC APIs as an alternative to REST interfaces. These APIs use the gRPC protocol to provide more efficient communication with OpenSearch clusters. For more information and supported APIs, see [gRPC APIs]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/).
 
 ## Reference
 

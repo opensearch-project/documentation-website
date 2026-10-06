@@ -14,7 +14,7 @@ The operator automates common management tasks during the cluster lifecycle, inc
 
 The operator automatically handles common failure scenarios and restarts crashed pods. Normally, the operator restarts pods one by one to maintain quorum and cluster stability.
 
-If the operator detects multiple crashed or missing pods for a node pool at the same time, it switches into a special recovery mode that starts all pods at once and allows the cluster to form a new quorum. This parallel recovery mode is currently experimental and only works with PVC-based storage, as it uses the number of existing PVCs to determine the number of missing pods.
+If the operator detects multiple crashed or missing pods for a node pool at the same time, it switches into a special recovery mode that starts all pods at once and allows the cluster to form a new quorum. This parallel recovery mode is experimental and only works with PVC-based storage, as it uses the number of existing PVCs to determine the number of missing pods.
 
 The recovery is done by temporarily changing the `StatefulSet` underlying each node pool and setting the `podManagementPolicy` to `Parallel`. If you encounter problems, disable parallel recovery by redeploying the operator and adding `manager.parallelRecoveryEnabled: false` to your `values.yaml`. Report any issues by opening a GitHub issue in the operator project.
 

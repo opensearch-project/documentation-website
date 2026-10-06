@@ -12,7 +12,7 @@ grand_parent: Agents and tools
 **Introduced 2.13**
 {: .label .label-purple }
 
-A conversational agent uses a large language model (LLM) and a set of supplementary tools to reason iteratively and provide a response. The agent selects the best tool for each question using the Chain-of-Thought (CoT) process and stores conversation history so that users can ask follow-up questions. Starting with OpenSearch 3.0, conversational agents use [function calling]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/register-agent/#request-body-fields) to invoke tools, replacing the earlier ReAct prompt-based approach. 
+A conversational agent uses a large language model (LLM) and a set of supplementary tools to reason iteratively and provide a response. The agent selects the best tool for each question using the Chain-of-Thought (CoT) process and stores conversation history so that users can ask follow-up questions. Conversational agents use [function calling]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/register-agent/#request-body-fields) to invoke tools. 
 
 OpenSearch provides two types of conversational agents:
 

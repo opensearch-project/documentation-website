@@ -18,7 +18,7 @@ The Predict Stream API provides the same functionality as the [Predict API]({{si
 Alternatively, you can stream predictions over gRPC. For more information, see [gRPC Predict Model Stream API]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/predict-model-stream/).
 {: .note}
 
-This API currently supports the following remote model types:
+This API supports the following remote model types:
 - [OpenAI Chat Completion](https://platform.openai.com/docs/api-reference/completions)
 - [Amazon Bedrock Converse Stream](https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_ConverseStream.html)
 

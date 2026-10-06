@@ -40,7 +40,7 @@ mount -o remount /dev/shm
 
 ### Security 
 
-Performance Analyzer supports encryption in transit for requests. It currently does *not* support client or server authentication for requests. To enable encryption in transit, edit `performance-analyzer.properties` in your `$OPENSEARCH_HOME` directory:
+Performance Analyzer supports encryption in transit for requests. It does *not* support client or server authentication for requests. To enable encryption in transit, edit `performance-analyzer.properties` in your `$OPENSEARCH_HOME` directory:
 
 ```properties
 vi $OPENSEARCH_HOME/config/opensearch-performance-analyzer/performance-analyzer.properties

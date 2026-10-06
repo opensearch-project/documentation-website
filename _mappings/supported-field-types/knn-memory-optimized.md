@@ -65,7 +65,7 @@ For example, if a `compression_level` of `32x` is passed for a `float32` index o
 If you set the `compression_level` parameter, then you cannot specify an `encoder` in the `method` mapping. The `compression_level` parameter is supported only for `float` and [`half_float`](#half-float-vectors) vectors. For `half_float` vectors, the compression level is measured against their 16-bit baseline.
 {: .note}
 
-Starting with OpenSearch 3.1, enabling `on_disk` mode with a `1x` compression level activates [memory-optimized search]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/memory-optimized-search/). In this mode, the engine loads data on demand during search instead of loading all data into memory at once.
+Enabling `on_disk` mode with a `1x` compression level activates [memory-optimized search]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/memory-optimized-search/). In this mode, the engine loads data on demand during search instead of loading all data into memory at once.
 {: .important}
 
 The following table lists the default `compression_level` values for the available workload modes. For both data types, the `on_disk` default applies 1-bit quantization; the level differs because the compression factor is measured against the data type's storage size.

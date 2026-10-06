@@ -14,9 +14,6 @@ Updates specified fields in the audit configuration. This method requires an ope
 
 Using the `PATCH` method also requires a user to have a security configuration that includes admin certificates for encryption. To find out more about these certificates, see [Configuring admin certificates]({{site.url}}{{site.baseurl}}/security/configuration/tls/#configuring-admin-certificates).
 
-OpenSearch Dashboards Dev Tools do not currently support the `PATCH` method. You can use [cURL](https://curl.se/), [Postman](https://www.postman.com/), or another alternative process to update the configuration using this method. To follow the GitHub issue for support of the `PATCH` method in Dashboards, see [issue #2343](https://github.com/opensearch-project/OpenSearch-Dashboards/issues/2343).
-{: .note}
-
 <!-- spec_insert_start
 api: security.patch_audit_configuration
 component: endpoints

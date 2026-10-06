@@ -18,7 +18,7 @@ The Execute Agent Stream API provides the same functionality as the [Execute Age
 Alternatively, you can stream agent execution over gRPC. For more information, see [gRPC Execute Agent Stream API]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/execute-agent-stream/).
 {: .note}
 
-This API currently supports the following agent types:
+This API supports the following agent types:
 
 - **Conversational agents** with the following externally hosted model types:
     - [OpenAI Chat Completion](https://platform.openai.com/docs/api-reference/completions)

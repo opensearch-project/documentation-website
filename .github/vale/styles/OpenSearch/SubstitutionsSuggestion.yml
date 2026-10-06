@@ -164,6 +164,7 @@ swap:
   'splitting up': dividing or partitioning
   'spot': detect or identify
   'start here': getting started
+  'starting (?:with|in)(?= (?:OpenSearch|version))': remove the version unless the change is breaking
   'stays put': is preserved or remains unchanged
   'stay put': are preserved or remain unchanged
   'stitching together': chaining or combining

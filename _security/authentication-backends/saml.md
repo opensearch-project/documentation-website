@@ -225,7 +225,7 @@ Name | Description
 :--- | :---
 `sp.forceAuthn` | Force a re-login even if the user has an active session with the IdP.
 
-Currently, the Security plugin supports only the `HTTP-Redirect` logout binding. Make sure this is configured correctly in your IdP.
+The Security plugin supports only the `HTTP-Redirect` logout binding. Make sure this is configured correctly in your IdP.
 
 
 ## Exchange key settings

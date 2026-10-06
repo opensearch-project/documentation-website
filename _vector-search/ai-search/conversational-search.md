@@ -26,8 +26,8 @@ Conversation history consists of a simple CRUD-like API comprising two resources
 
 RAG retrieves data from the index and history and sends all the information as context to the LLM. The LLM then supplements its static knowledge base with the dynamically retrieved data. In OpenSearch, RAG is implemented through a search pipeline containing a [retrieval-augmented generation processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rag-processor/). The processor intercepts OpenSearch query results, retrieves previous messages in the conversation from the conversation memory, and sends a prompt to the LLM. After the processor receives a response from the LLM, it saves the response in conversation memory and returns both the original OpenSearch query results and the LLM response. 
 
-As of OpenSearch 2.11, the RAG technique has only been tested with OpenAI models and the Anthropic Claude model on Amazon Bedrock.
-{: .warning}
+The RAG technique supports OpenAI, Amazon Bedrock, and Cohere models. To use another model, set the `llm_response_field` parameter. For more information, see [Step 6: Use the pipeline for RAG](#step-6-use-the-pipeline-for-rag).
+{: .note}
 
 When the Security plugin is enabled, all memories exist in a `private` security mode. Only the user who created a memory can interact with that memory. No user can see another user's memory.
 {: .note}
@@ -274,8 +274,8 @@ POST _bulk
 
 RAG is a technique that retrieves documents from an index, passes them through a seq2seq model, such as an LLM, and then supplements the static LLM information with the dynamically retrieved data in context.
 
-As of OpenSearch 2.12, the RAG technique has only been tested with OpenAI models, the Anthropic Claude model on Amazon Bedrock, and Cohere Command models. 
-{: .warning}
+The RAG technique supports OpenAI, Amazon Bedrock, and Cohere models. To use another model, set the `llm_response_field` parameter. For more information, see [Step 6: Use the pipeline for RAG](#step-6-use-the-pipeline-for-rag).
+{: .note}
 
 Configuring the Cohere Command model to enable RAG requires using a post-processing function to transform the model output. For more information, see the [Cohere RAG Tutorial](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/tutorials/conversational_search/conversational_search_with_Cohere_Command.md).
 
@@ -310,8 +310,12 @@ The `generative_qa_parameters` object supports the following parameters.
 
 Parameter | Required | Description
 :--- | :--- | :---
-`llm_question` | Yes | The question that the LLM must answer. 
-`llm_model` | No | Overrides the original model set in the connection in cases where you want to use a different model (for example, GPT 4 instead of GPT 3.5). This option is required if a default model is not set during pipeline creation.
+`llm_question` | Conditional | The question that the LLM must answer. Required if `llm_messages` is not provided.
+`llm_model` | No | Overrides the original model set in the connection in cases where you want to use a different model (for example, GPT 4 instead of GPT 3.5). This option is required if a default model is not set during pipeline creation. The value prefix determines the request and response format that the processor uses: `bedrock/` for Amazon Bedrock models, `bedrock-converse/` for the Amazon Bedrock Converse API, `cohere/` for Cohere models, and no prefix for OpenAI models.
+`llm_response_field` | No | The name of the top-level field in the model response that contains the LLM answer. Use this parameter for models whose request and response format is not covered by the `llm_model` prefixes. When this parameter is set, the processor ignores the `llm_model` prefix and sends the prompt as a single string in the `inputs` connector parameter, so the connector request body must reference `${parameters.inputs}`.
+`llm_messages` | Conditional | An array of messages to send to the LLM after the search results and conversation history. Each message is an object containing a `role` and a `content` array. Each `content` element contains one of the following objects: `text` (a string), `image` (an object containing a `format` and either `data` or `url`), or `document` (an object containing a `format`, `name`, and `data`). Supported only for OpenAI models and models using the Amazon Bedrock Converse API (`bedrock-converse/` prefix). Required if `llm_question` is not provided.
+`system_prompt` | No | The system prompt sent to the LLM for this request. Overrides the `system_prompt` set in the processor.
+`user_instructions` | No | The user instructions sent to the LLM for this request. Overrides the `user_instructions` set in the processor.
 `memory_id` | No | If you provide a `memory_id`, the pipeline retrieves the 10 most recent messages in the specified memory and adds them to the LLM prompt. If you don't specify a `memory_id`, the prior context is not added to the LLM prompt. 
 `context_size` | No | The number of search results sent to the LLM. This is typically needed in order to meet the token size limit, which can vary by model. Alternatively, you can use the `size` parameter in the Search API to control the number of search results sent to the LLM.
 `message_size` | No | The number of messages sent to the LLM. Similarly to the number of search results, this affects the total number of tokens received by the LLM. When not set, the pipeline uses the default message size of `10`.

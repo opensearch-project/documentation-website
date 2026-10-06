@@ -167,5 +167,5 @@ You can also upgrade to a specific OpenSearch Dashboards version by providing th
 
 ### Automatically restart the service after a package upgrade
 
-The OpenSearch Dashboards RPM package does not currently support automatically restarting the service after a package upgrade.
+The OpenSearch Dashboards RPM package does not support automatically restarting the service after a package upgrade.
 
