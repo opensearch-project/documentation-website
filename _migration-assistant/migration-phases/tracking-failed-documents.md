@@ -182,7 +182,7 @@ The `console --json failed-document-stream list` output contains each failed doc
 
 ## Deleting failed document records
 
-The Migration Console doesn't provide a command to delete failed document records. To delete the current session's records, remove the session location reported by `console failed-document-stream location`. This deletion is irreversible:
+The Migration Console doesn't provide a command to delete failed document records. To delete the current session's records, remove the session location returned by the `console failed-document-stream location` command. This deletion is irreversible:
 
 ```bash
 aws s3 rm --recursive s3://<BUCKET>/<PREFIX>session=<SnapshotMigration-UID>/
