@@ -149,7 +149,8 @@ The following table lists the fields included in each record.
 | `failureType` | The OpenSearch error type, for example `mapper_parsing_exception`. |
 | `timestamp` | The time when the failure was recorded. |
 | `sessionId` | The session the record belongs to. This matches the `SnapshotMigration` UID in the stream location. |
-| `workerId` and `workItemId` | The RFS worker and the shard work item that produced the failure. |
+| `workerId` | The RFS worker that produced the failure. |
+| `workItemId` | The shard work item that produced the failure. |
 | `requestItem` | The captured bulk request item. When the original source document is available, the source content is stored under `document` so you can diagnose the problem or resubmit the request without retrieving the document from the source cluster. |
 | `responseItem` | The OpenSearch bulk response item, including the error type and reason. |
 
