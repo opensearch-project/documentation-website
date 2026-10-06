@@ -123,7 +123,7 @@ The static collector job captures the following metrics about different types of
 The following is an example of captured model metrics:
 
 ```
-{is_hidden=false, service_provider=openai, model=gpt-3.5-turbo, type=llm, deployment=remote, algorithm=REMOTE}
+{is_hidden=false, service_provider=openai, model=gpt-4o-mini, type=llm, deployment=remote, algorithm=REMOTE}
 ```
 
 The following is an example of captured agent metrics:

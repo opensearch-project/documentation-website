@@ -2,7 +2,7 @@
 layout: default
 title: OpenSearch Kubernetes Operator
 parent: Installing OpenSearch
-nav_order: 55
+nav_order: 10
 has_children: true
 redirect_from:
   - /clients/k8s-operator/
@@ -171,6 +171,8 @@ Note the following about operator releases:
 - Feature requests are tracked as GitHub issues. If you would like a feature implemented and find a corresponding issue, note that an issue closed as completed means that the feature has been implemented in the development version. It may still take time before the feature is included in an official release. If you're unsure, review the project's release list on GitHub to see whether the feature appears in the release notes.
 
 ## Next steps
+
+- Before you use the cluster in production, see [Preparing a cluster for production]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/#preparing-a-cluster-for-production) and [Preparing OpenSearch Dashboards for production]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/#preparing-opensearch-dashboards-for-production).
 
 - For more information about customizing your OpenSearch cluster on Kubernetes, including data persistence, authentication methods, and scaling, see the [OpenSearch Kubernetes Operator User Guide](https://github.com/opensearch-project/opensearch-k8s-operator/blob/main/docs/userguide/main.md).
 

@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Dashboards management
-nav_order: 120
+nav_order: 130
 has_children: true
+has_toc: false
 ---
 
 # Dashboards management
@@ -15,6 +16,8 @@ OpenSearch and OpenSearch Dashboards permissions govern access to individual fea
 {: .warning}
 
 ## Applications
+
+To open **Dashboards Management**, in classic navigation, select **Management** > **Dashboards Management**. In workspaces navigation, the applications are available in the **Settings and setup** menu.
 
 You can access the following applications in **Dashboards Management**:
 

@@ -15,7 +15,7 @@ The Notifications plugin provides a central location for all of your notificatio
 
 ## Installation
 
-The Notifications plugin is bundled with all standard OpenSearch distributions and does not require separate installation. If you're using the minimal distribution of OpenSearch, you can install the plugin manually. For more information about managing plugins, see [Installing plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/).
+The Notifications plugin is bundled with all standard OpenSearch distributions and does not require separate installation. If you're using the minimal distribution of OpenSearch, you can install the plugin manually. For more information about managing plugins, see [Managing OpenSearch plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/).
 
 ## Configuring notifications
 

@@ -115,7 +115,7 @@ The `enrich()` function adds GenAI semantic attributes to the active span:
 from opentelemetry_genai_sdk import enrich
 
 enrich(
-    model="gpt-4",
+    model="gpt-4o-mini",
     provider="openai",
     input_tokens=150,
     output_tokens=50,

@@ -127,12 +127,12 @@ The Connectors Create API, `/_plugins/_ml/connectors/_create`, creates connector
 POST /_plugins/_ml/connectors/_create
 {
     "name": "OpenAI Chat Connector",
-    "description": "The connector to public OpenAI model service for GPT 3.5",
+    "description": "The connector to public OpenAI model service for gpt-4o-mini",
     "version": 1,
     "protocol": "http",
     "parameters": {
         "endpoint": "api.openai.com",
-        "model": "gpt-3.5-turbo"
+        "model": "gpt-4o-mini"
     },
     "credential": {
         "openAI_key": "..."
@@ -167,7 +167,7 @@ To register an externally hosted model to the model group created in step 1, pro
 ```json
 POST /_plugins/_ml/models/_register
 {
-    "name": "openAI-gpt-3.5-turbo",
+    "name": "openAI-gpt-4o-mini",
     "function_name": "remote",
     "model_group_id": "1jriBYsBq7EKuKzZX131",
     "description": "test model",
@@ -302,7 +302,7 @@ The response contains the inference results provided by the OpenAI model:
             "id": "chatcmpl-7e6s5DYEutmM677UZokF9eH40dIY7",
             "object": "chat.completion",
             "created": 1689793889,
-            "model": "gpt-3.5-turbo-0613",
+            "model": "gpt-4o-mini",
             "choices": [
               {
                 "index": 0,

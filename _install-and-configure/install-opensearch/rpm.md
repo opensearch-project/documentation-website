@@ -4,7 +4,7 @@ title: RPM
 parent: Installing OpenSearch
 redirect_from:
 - /opensearch/install/rpm/
-nav_order: 51
+nav_order: 25
 ---
 
 {% comment %}
@@ -15,7 +15,7 @@ The following liquid syntax declares a variable, major_version_mask, which is tr
 
 # Installing OpenSearch using RPM
 
-Installing OpenSearch using RPM Package Manager (RPM) simplifies the process considerably compared to the [Tarball]({{site.url}}{{site.baseurl}}/opensearch/install/tar/) method. Several technical considerations, such as the installation path, location of configuration files, and creation of a service managed by `systemd`, as examples, are handled automatically by the package manager.
+Installing OpenSearch using RPM Package Manager (RPM) simplifies the process considerably compared to the [Tarball]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/tar/) method. Several technical considerations, such as the installation path, location of configuration files, and creation of a service managed by `systemd`, as examples, are handled automatically by the package manager.
 
 Generally speaking, installing OpenSearch from the RPM distribution can be broken down into a few steps:
 
@@ -309,6 +309,8 @@ Before modifying any configuration files, it's always a good idea to save a back
    ```
    {% include copy.html %}
 
+   If you configure a multi-node cluster instead, set `vm.max_map_count` to at least `262144` on the host. Otherwise, the bootstrap checks fail when the service starts. For more information, see [Important settings]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/#important-settings).
+
    If you previously disabled the Security plugin in opensearch.yml, be sure to reenable it. Otherwise you can skip this setting:
    ```yaml
    plugins.security.disabled: false
@@ -584,7 +586,7 @@ $ curl https://your.host.address:9200 -u admin:yournewpassword -k
 OpenSearch instances installed using RPM or YUM can be easily upgraded to a newer version. We recommend updating with YUM, but you can also upgrade using RPM.
 
 
-### Manual upgrade with RPM 
+### Upgrade manually using RPM
 
 Download the RPM package for the desired upgrade version directly from the [OpenSearch Project downloads page](https://opensearch.org/downloads.html){:target='\_blank'}.
 
@@ -594,7 +596,7 @@ rpm -Uvh opensearch-{{site.opensearch_version}}-linux-x64.rpm
 ```
 {% include copy.html %}
 
-### YUM
+### Upgrade using YUM
 
 To upgrade to the latest version of OpenSearch using YUM:
 ```bash
@@ -612,9 +614,11 @@ sudo yum update opensearch
 
 The OpenSearch RPM package does not support automatically restarting the service after a package upgrade.
 
-## Related links
+## Related documentation
 
+- [Preparing a cluster for production]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/#preparing-a-cluster-for-production)
+- [Common installation issues]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/#common-issues)
 - [OpenSearch configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/)
 - [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/)
-- [OpenSearch plugin installation]({{site.url}}{{site.baseurl}}/opensearch/install/plugins/)
+- [OpenSearch plugin installation]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/)
 - [About the Security plugin]({{site.url}}{{site.baseurl}}/security/index/)

@@ -49,7 +49,7 @@ The following table lists the updatable fields. For more information about all c
 ```json
 PUT /_plugins/_ml/connectors/u3DEbI0BfUsSoeNTti-1
 {
-  "description": "The connector to public OpenAI model service for GPT 3.5"
+  "description": "The connector to public OpenAI model service for gpt-4o-mini"
 }
 ```
 {% include copy-curl.html %}

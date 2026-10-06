@@ -16,14 +16,13 @@ The _visualization editor_ lets you create visualizations by writing [Piped Proc
 
 ## Prerequisites
 
-Before using the visualization editor, complete the following setup steps.
+Before using the visualization editor, an OpenSearch Dashboards administrator must complete the following setup steps.
 
 ### Step 1: Enable required settings
 
-Add the following settings to your `opensearch_dashboards.yml` file:
+In addition to [enabling workspaces]({{site.url}}{{site.baseurl}}/dashboards/workspace/workspace/#enabling-workspaces), add the following setting to your `opensearch_dashboards.yml` file:
 
 ```yaml
-workspace.enabled: true
 explore.enabled: true
 ```
 {% include copy.html %}
@@ -32,7 +31,9 @@ After updating the configuration file, restart OpenSearch Dashboards for the cha
 
 ### Step 2: Create a workspace
 
-The visualization editor requires a workspace. To create a workspace, follow these steps:
+The visualization editor requires a workspace. If saved object permissions are enabled, only dashboard administrators can create workspaces, and other users must be added to an existing workspace by its owner. For more information, see [Configuring dashboard administrators]({{site.url}}{{site.baseurl}}/dashboards/workspace/workspace-acl/#configuring-dashboard-administrators).
+
+To create a workspace, follow these steps:
 
 1. Navigate to the OpenSearch Dashboards home page.
 1. Select **Create workspace**.

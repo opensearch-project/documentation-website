@@ -102,18 +102,18 @@ To manually configure conversational search, follow these steps:
 
 ### Step 1: Create a connector for a model
 
-RAG requires an LLM in order to function. To connect to an LLM, create a [connector]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/). The following request creates a connector for the OpenAI GPT 3.5 model:
+RAG requires an LLM in order to function. To connect to an LLM, create a [connector]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/). The following request creates a connector for the OpenAI gpt-4o-mini model:
 
 ```json
 POST /_plugins/_ml/connectors/_create
 {
   "name": "OpenAI Chat Connector",
-  "description": "The connector to public OpenAI model service for GPT 3.5",
+  "description": "The connector to public OpenAI model service for gpt-4o-mini",
   "version": 2,
   "protocol": "http",
   "parameters": {
     "endpoint": "api.openai.com",
-    "model": "gpt-3.5-turbo",
+    "model": "gpt-4o-mini",
     "temperature": 0
   },
   "credential": {
@@ -152,7 +152,7 @@ Register the LLM for which you created a connector in the previous step. To regi
 ```json
 POST /_plugins/_ml/models/_register
 {
-  "name": "openAI-gpt-3.5-turbo",
+  "name": "openAI-gpt-4o-mini",
   "function_name": "remote",
   "description": "test model",
   "connector_id": "u3DEbI0BfUsSoeNTti-1"
@@ -311,7 +311,7 @@ The `generative_qa_parameters` object supports the following parameters.
 Parameter | Required | Description
 :--- | :--- | :---
 `llm_question` | Conditional | The question that the LLM must answer. Required if `llm_messages` is not provided.
-`llm_model` | No | Overrides the original model set in the connection in cases where you want to use a different model (for example, GPT 4 instead of GPT 3.5). This option is required if a default model is not set during pipeline creation. The value prefix determines the request and response format that the processor uses: `bedrock/` for Amazon Bedrock models, `bedrock-converse/` for the Amazon Bedrock Converse API, `cohere/` for Cohere models, and no prefix for OpenAI models.
+`llm_model` | No | Overrides the original model set in the connection in cases where you want to use a different model (for example, `gpt-4o` instead of `gpt-4o-mini`). This option is required if a default model is not set during pipeline creation.5). This option is required if a default model is not set during pipeline creation. The value prefix determines the request and response format that the processor uses: `bedrock/` for Amazon Bedrock models, `bedrock-converse/` for the Amazon Bedrock Converse API, `cohere/` for Cohere models, and no prefix for OpenAI models.
 `llm_response_field` | No | The name of the top-level field in the model response that contains the LLM answer. Use this parameter for models whose request and response format is not covered by the `llm_model` prefixes. When this parameter is set, the processor ignores the `llm_model` prefix and sends the prompt as a single string in the `inputs` connector parameter, so the connector request body must reference `${parameters.inputs}`.
 `llm_messages` | Conditional | An array of messages to send to the LLM after the search results and conversation history. Each message is an object containing a `role` and a `content` array. Each `content` element contains one of the following objects: `text` (a string), `image` (an object containing a `format` and either `data` or `url`), or `document` (an object containing a `format`, `name`, and `data`). Supported only for OpenAI models and models using the Amazon Bedrock Converse API (`bedrock-converse/` prefix). Required if `llm_question` is not provided.
 `system_prompt` | No | The system prompt sent to the LLM for this request. Overrides the `system_prompt` set in the processor.
@@ -336,7 +336,7 @@ GET /my_rag_test_data/_search
   },
   "ext": {
     "generative_qa_parameters": {
-      "llm_model": "gpt-3.5-turbo",
+      "llm_model": "gpt-4o-mini",
       "llm_question": "What's the population of NYC metro area in 2023",
       "memory_id": "znCqcI0BfUsSoeNTntd7",
       "context_size": 5,
@@ -413,7 +413,7 @@ GET /my_rag_test_data/_search
   },
   "ext": {
     "generative_qa_parameters": {
-      "llm_model": "gpt-3.5-turbo",
+      "llm_model": "gpt-4o-mini",
       "llm_question": "What was it in 2022",
       "memory_id": "znCqcI0BfUsSoeNTntd7",
       "context_size": 5,

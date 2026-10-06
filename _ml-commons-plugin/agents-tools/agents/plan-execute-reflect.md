@@ -163,7 +163,7 @@ To create a connector for an OpenAI GPT-4o model, use the following request:
 ```json
 POST /_plugins/_ml/connectors/_create
 {
-    "name": "My openai connector: gpt-4",
+    "name": "My openai connector: gpt-4o-mini",
     "description": "The connector to openai chat model",
     "version": 1,
     "protocol": "http",
