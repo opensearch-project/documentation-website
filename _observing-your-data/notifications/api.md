@@ -114,7 +114,7 @@ GET _plugins/_notifications/configs
         "config_type" : "slack",
         "is_enabled" : true,
         "slack" : {
-          "url" : "https://sample-slack-webhook"
+          "url" : "https://hooks.slack.com/services/<webhook-path>"
         }
       }
     },
@@ -128,7 +128,7 @@ GET _plugins/_notifications/configs
         "config_type" : "chime",
         "is_enabled" : true,
         "chime" : {
-          "url" : "https://sample-chime-webhook"
+          "url" : "https://hooks.chime.aws/incomingwebhooks/<webhook-id>?token=<token>"
         }
       }
     }
@@ -157,8 +157,8 @@ description	| The channel description.
 `email.recipient_list` | The channel recipient list.
 `email_group.recipient_list` | The channel list of email recipient groups.
 `smtp_account.method` | The email encryption method.
-`slack.url`	| The Slack channel URL.
-`chime.url`	| The Amazon Chime connection URL.
+`slack.url`	| The Slack incoming webhook URL. Must contain `hooks.slack.com/services/` or `hooks.gov-slack.com/services/`.
+`chime.url`	| The Amazon Chime incoming webhook URL. Must contain `hooks.chime.aws/incomingwebhooks/` and a `?token=` parameter.
 `webhook.url`	| The webhook URL.
 `smtp_account.host`	| The domain of the SMTP account.
 `smtp_account.from_address`	| The email account's sender address.
@@ -168,7 +168,7 @@ description	| The channel description.
 `ses_account.region` | The Amazon Simple Email Service (SES) account's AWS Region.
 `ses_account.role_arn` | The Amazon SES account's role ARN.
 `ses_account.from_address` | The Amazon SES account's sender email address.
-`microsoft_teams.url` | The Microsoft Teams webhook URL.
+`microsoft_teams.url` | The Microsoft Teams webhook URL. The URL's domain must be `webhook.office.com`, `powerplatform.com`, or `logic.azure.com`.
 
 ## Create channel configuration
 
@@ -190,7 +190,7 @@ POST /_plugins/_notifications/configs/
     "config_type": "slack",
     "is_enabled": true,
     "slack": {
-      "url": "https://sample-slack-webhook"
+      "url": "https://hooks.slack.com/services/<webhook-path>"
     }
   }
 }
@@ -215,16 +215,16 @@ The create channel operation accepts multiple `config_types` as possible notific
   "role_arn": "<arn>" //optional
 }
 "slack": {
-  "url": "https://sample-slack-webhook"
+  "url": "https://hooks.slack.com/services/<webhook-path>"
 }
 "chime": {
-  "url": "https://sample-amazon-chime-webhook"
+  "url": "https://hooks.chime.aws/incomingwebhooks/<webhook-id>?token=<token>"
 }
 "webhook": {
   "url": "https://custom-webhook-test-url.com:8888/test-path?params1=value1&params2=value2"
 }
 "microsoft_teams": {
-  "url": "https://sample-teams-webhook"
+  "url": "https://example.webhook.office.com/<webhook-path>"
 }
 "smtp_account": {
   "host": "test-host.com",
@@ -263,7 +263,7 @@ The following example demonstrates how to create a channel using email as a `con
 ```json
 POST /_plugins/_notifications/configs/
 {
-  "id": "sample-email-id",
+  "config_id": "sample-email-id",
   "name": "sample-name",
   "config": {
     "name": "Sample Email Channel",
@@ -273,7 +273,9 @@ POST /_plugins/_notifications/configs/
     "email": {
       "email_account_id": "<email_account_id>",
       "recipient_list": [
-        "sample@email.com"
+        {
+          "recipient": "sample@email.com"
+        }
       ]
     }
   }
@@ -317,7 +319,7 @@ GET _plugins/_notifications/configs/{config_id}
         "config_type" : "slack",
         "is_enabled" : true,
         "slack" : {
-          "url" : "https://sample-slack-webhook"
+          "url" : "https://hooks.slack.com/services/<webhook-path>"
         }
       }
     }
@@ -344,7 +346,7 @@ PUT _plugins/_notifications/configs/{config_id}
     "config_type": "slack",
     "is_enabled": true,
     "slack": {
-      "url": "https://hooks.slack.com/sample-url"
+      "url": "https://hooks.slack.com/services/<webhook-path>"
     }
   }
 }
@@ -402,12 +404,12 @@ DELETE /_plugins/_notifications/configs/?config_id_list={config_id1},{config_id2
 
 ## Send test notification
 
-To send a test notification, send a GET request to `/feature/test/` and specify the channel configuration's `config_id` as a path parameter.
+To send a test notification, send a POST request to `/feature/test/` and specify the channel configuration's `config_id` as a path parameter.
 
 #### Example request
 
 ```json
-GET _plugins/_notifications/feature/test/{config_id}
+POST _plugins/_notifications/feature/test/{config_id}
 ```
 
 #### Example response
