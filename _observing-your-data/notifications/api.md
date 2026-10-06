@@ -404,12 +404,12 @@ DELETE /_plugins/_notifications/configs/?config_id_list={config_id1},{config_id2
 
 ## Send test notification
 
-To send a test notification, send a GET request to `/feature/test/` and specify the channel configuration's `config_id` as a path parameter.
+To send a test notification, send a POST request to `/feature/test/` and specify the channel configuration's `config_id` as a path parameter.
 
 #### Example request
 
 ```json
-GET _plugins/_notifications/feature/test/{config_id}
+POST _plugins/_notifications/feature/test/{config_id}
 ```
 
 #### Example response
