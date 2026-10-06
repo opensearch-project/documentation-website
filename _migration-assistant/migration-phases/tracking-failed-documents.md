@@ -46,7 +46,7 @@ Setting an S3 bucket in the migration's `documentBackfillConfig` enables the str
    ```
    {% include copy.html %}
 
-1. Add the bucket to each migration's `documentBackfillConfig`, and then save:
+1. Add the bucket to each migration's `documentBackfillConfig` and then save:
 
    ```yaml
    snapshotMigrationConfigs:
