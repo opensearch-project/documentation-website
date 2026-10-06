@@ -111,7 +111,7 @@ console failed-document-stream count
 ```
 {% include copy.html %}
 
-A count greater than `0` means that documents failed. `workflow status` reports `Succeeded` even when documents failed, so check the count rather than relying on the workflow status alone.
+A count greater than `0` indicates that one or more documents failed. The `workflow status` command returns a `Succeeded` status even when document failures occur, so use the count to determine whether any documents failed rather than relying on the workflow status alone.
 
 The `SnapshotMigration` resource also records the backfill outcome. It reports `CompletedWithErrors` when terminal failures occurred:
 
