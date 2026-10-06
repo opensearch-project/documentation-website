@@ -72,7 +72,8 @@ Setting an S3 bucket in the migration's `documentBackfillConfig` enables the str
    ```
    {% include copy.html %}
 
-> For a bucket in another AWS account or encrypted with a customer managed AWS KMS key, also grant the Migration Assistant pod role access in the bucket policy or key policy. On Amazon EKS, uninstalling Migration Assistant empties and deletes the default bucket by default, so copy any records that you want to keep first.
+To use a bucket in another AWS account or a bucket encrypted with a KMS key that you manage, also grant the Migration Assistant pod role access in the bucket policy or KMS key policy. On Amazon EKS, uninstalling Migration Assistant empties and deletes the default bucket by default. Copy any records that you want to keep before uninstalling Migration Assistant.
+{: .note }
 
 The following table lists the options that configure the failed document stream.
 
