@@ -147,7 +147,7 @@ The following table lists the fields included in each record.
 | `documentId` | The document's ID. |
 | `failureClass` | How the document reached the stream: `NON_RETRYABLE` for errors that are never retried, or `RETRYABLE_EXHAUSTED` when retries were exhausted. |
 | `failureType` | The OpenSearch error type, for example `mapper_parsing_exception`. |
-| `timestamp` | When the failure was recorded. |
+| `timestamp` | The time when the failure was recorded. |
 | `sessionId` | The session the record belongs to. This matches the `SnapshotMigration` UID in the stream location. |
 | `workerId` and `workItemId` | The RFS worker and the shard work item that produced the failure. |
 | `requestItem` | The captured bulk request item. When the original source document is available, that source content is stored under `document` so you can diagnose or resubmit without going back to the source cluster. |
