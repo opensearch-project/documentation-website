@@ -124,9 +124,20 @@ For `zstd`, `zstd_no_dict`, `qat_lz4`, `qat_deflate`, and `qat_zstd`, you can sp
 
 - `index.load_fixed_bitset_filters_eagerly` (Static, Boolean): Whether OpenSearch should preload cached filters. Available options are `true` and `false`. Default is `true`.
 
+- `index.queries.cache.enabled` (Static, Boolean): Enables or disables the query cache for the index. The query cache stores the results of frequently used filters on each data node. To configure the size of the query cache, use the node-level [`indices.queries.cache.size`]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/cluster-settings-for-indexes/) setting. Default is `true`.
+
 - `index.query.parse.allow_unmapped_fields` (Static, Boolean): Allows unmapped fields in query parsing. Default is `true`.
 
 - `index.query_string.lenient` (Static, Boolean): Enables lenient parsing for query strings. Default is `false`.
+
+- `index.store.type` (Static, string): The file system implementation that OpenSearch uses to store and read the index's shard data on disk. Valid values are:
+
+    - `fs`: OpenSearch selects the implementation for the operating environment. It uses `hybridfs` on 64-bit systems when memory mapping is allowed and `niofs` otherwise.
+    - `hybridfs`: Reads most index files using memory mapping and reads the file types listed in the [`index.store.hybrid.nio.extensions`]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/cluster-settings-for-indexes/) setting using Java NIO.
+    - `mmapfs`: Reads all index files using memory mapping. Memory mapping uses virtual address space in proportion to the size of the files, so make sure that the operating system allows enough memory map areas.
+    - `niofs`: Reads all index files using Java NIO, without memory mapping.
+
+    If memory mapping is disabled using the [`node.store.allow_mmap`]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/configuration-system/) setting, OpenSearch rejects the `hybridfs` and `mmapfs` values. Default is `fs`.
 
 - `index.store.stats_refresh_interval` (Static, time unit): The refresh interval for index store statistics. Default is `10s`.
 
@@ -220,6 +231,8 @@ OpenSearch supports the following dynamic index settings:
 - `index.routing.allocation.enable` (Dynamic, string): Specifies options for the index’s shard allocation. Available options are `all` (allow allocation for all shards), `primaries` (allow allocation only for primary shards), `new_primaries` (allow allocation only for new primary shards), and `none` (do not allow allocation). Default is `all`.
 
 - `index.unassigned.node_left.delayed_timeout` (Dynamic, time unit): Sets the amount of time OpenSearch waits before allocating a replica shard that became unassigned because a node left the cluster. This setting overrides the cluster-level `cluster.routing.allocation.unassigned.node_left.delayed_timeout` setting. If neither setting is configured, the default is `1m`. Set to `0` to disable delayed allocation for the index.
+
+- `index.priority` (Dynamic, integer): The priority of the index when OpenSearch allocates unassigned shards, for example, after a cluster restart. OpenSearch allocates shards of system indexes first and then allocates shards of indexes with a higher `index.priority` before shards of indexes with a lower one. Indexes with the same priority are allocated in order of creation date, newest first, and then by index name. Must be `0` or greater. Default is `1`.
 
 - `index.routing.rebalance.enable` (Dynamic, string): Enables shard rebalancing for the index. Available options are `all` (allow rebalancing for all shards), `primaries` (allow rebalancing only for primary shards), `replicas` (allow rebalancing only for replicas), and `none` (do not allow rebalancing). Default is `all`.
 
