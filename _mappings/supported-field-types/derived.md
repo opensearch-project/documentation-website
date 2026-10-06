@@ -32,7 +32,7 @@ Despite the potential performance impact of query-time computations, the flexibi
 Currently, derived fields have the following limitations:
 
 - **Scoring and sorting**: Not yet supported.
-- **Aggregations**: Starting with OpenSearch 2.17, derived fields support most aggregation types. The following aggregations are not supported: geographic (geodistance, geohash grid, geohex grid, geotile grid, geobounds, geocentroid), significant terms, significant text, and scripted metric.
+- **Aggregations**: Derived fields support most aggregation types. The following aggregations are not supported: geographic (geodistance, geohash grid, geohex grid, geotile grid, geobounds, geocentroid), significant terms, significant text, and scripted metric.
 - **Dashboard support**: These fields are not displayed in the list of available fields in OpenSearch Dashboards. However, you can still use them for filtering if you know the derived field name.
 - **Chained derived fields**: One derived field cannot be used to define another derived field.
 - **Join field type**: Derived fields are not supported for the [join field type]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/join/).
@@ -546,7 +546,7 @@ The response specifies highlighting in the `url` field:
 
 ## Aggregations
 
-Starting with OpenSearch 2.17, derived fields support most aggregation types. 
+Derived fields support most aggregation types. 
 
 Geographic, significant terms, significant text, and scripted metric aggregations are not supported.
 {: .note}

@@ -39,7 +39,7 @@ After you select the **Alert triggers** tab, you also have the option to add add
 
 A threat intelligence feed is a real-time, continuous data stream that gathers information related to risks or threats. A piece of information in the tactical threat intelligence feed suggesting that your cluster may have been compromised, such as a login from an unknown user or location or anomalous activity like an increase in read volume, is called an *indicator of compromise (IOC)*. These IOCs can be used by investigators to help isolate security incidents. 
 
-As of OpenSearch 2.12, you can enable threat intelligence for Sigma rules related to malicious IP addresses. 
+You can enable threat intelligence for Sigma rules related to malicious IP addresses. 
 
 To enable threat intelligence feeds, select the **Enable threat intelligence-based detection** option. 
 

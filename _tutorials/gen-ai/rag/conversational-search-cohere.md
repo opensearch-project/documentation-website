@@ -82,7 +82,7 @@ POST _plugins/_ml/connectors/_create
 ```
 {% include copy-curl.html %}
 
-Starting in OpenSearch 2.12, you can use the default `escape` function directly in the `post_process_function`:
+You can use the default `escape` function directly in the `post_process_function`:
 
 ```json
 "post_process_function": "    \n    def name = 'response';\n    def result = params.text;\n    def json = '{ \"name\": \"' + name + '\",' +\n                 '\"dataAsMap\": { \"completion\":  \"' + escape(result) +\n               '\"}}';\n    return json;"

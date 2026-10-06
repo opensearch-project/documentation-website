@@ -10,9 +10,9 @@ nav_order: 20
 **Introduced 2.13**
 {: .label .label-purple }
 
-When an agent is executed, it runs the tools with which it is configured. Starting with OpenSearch version 3.0, you can execute an agent asynchronously by setting the `async` query parameter to `true`.
+When an agent is executed, it runs the tools with which it is configured. You can execute an agent asynchronously by setting the `async` query parameter to `true`.
 
-Starting with OpenSearch 3.5, agents created using the [unified registration method]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/#unified-registration-method) support a standardized `input` field that accepts plain text, multimodal content, or message-based conversations. This requires the `plugins.ml_commons.unified_agent_api_enabled` cluster setting to be enabled.
+Agents created using the [unified registration method]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/#unified-registration-method) support a standardized `input` field that accepts plain text, multimodal content, or message-based conversations. This requires the `plugins.ml_commons.unified_agent_api_enabled` cluster setting to be enabled.
 {: .note}
 
 ## Endpoints

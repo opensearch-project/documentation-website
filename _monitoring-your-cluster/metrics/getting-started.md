@@ -20,7 +20,7 @@ The metrics framework feature adds comprehensive metrics support to effectively 
 
 ## Getting started
 
-The metrics framework feature is experimental as of OpenSearch 2.11. To begin using the metrics framework feature, you need to first enable the `telemetry feature` by using the `opensearch.experimental.feature.telemetry.enabled` feature flag and subsequently by using the metrics framework feature flag. 
+The metrics framework feature is experimental. To begin using the metrics framework feature, you need to first enable the `telemetry feature` by using the `opensearch.experimental.feature.telemetry.enabled` feature flag and subsequently by using the metrics framework feature flag. 
 
 Enabling this feature can consume system resources. Before enabling the metrics framework feature, determine whether you have sufficient cluster resources to allocate.
 {: .warning}

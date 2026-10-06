@@ -108,7 +108,7 @@ Service Accounts tokens are the second form of authentication token supported by
 
 Service Accounts are a new authC/authZ path where extensions can run requests without assuming the role(s) of the active user. Service Accounts are a special type of principal associated with each extension and have a set of permissions. The permissions assigned to Service Accounts grant the associated extension the authorization to run any of the mapped operations without needing to assume the roles of the active user or stash the user’s role(s) in the ephemeral user context. 
 
-Currently, service accounts only permit operations on system indexes associated with the mapped extension.
+Service accounts only permit operations on system indexes associated with the mapped extension.
 {: .important}
 
 ### Background

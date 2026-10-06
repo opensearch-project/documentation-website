@@ -13,12 +13,13 @@ OpenSearch supports building vector indexes using a GPU-accelerated remote index
 
 ## Supported configurations
 
-The remote index build service supports [Faiss]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-methods-engines/#faiss-engine) indexes with the `hnsw` method and the default 32-bit floating-point (`FP32`) vectors.
+The remote index build service supports [Faiss]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-methods-engines/#faiss-engine) indexes that use the `hnsw` method. For these indexes, the service supports the following vector types:
 
-As of OpenSearch 3.2, the `hnsw` method with [Faiss]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-methods-engines/#faiss-engine) supports 16-bit floating-point (`FP16`), byte, and binary vectors. Vectors quantized using the [`bf16` encoder type]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/faiss-scalar-quantization/#the-bf16-encoder) are not supported, and indexes using that encoder are always built locally.
-With the `hnsw` method and the [Faiss]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-methods-engines/#faiss-engine) engine, all compression levels (`2x`, `8x`, `16x`, and `32x`) are supported for remote indexes.
+- The default 32-bit floating-point (`FP32`) vectors
+- 16-bit floating-point (`FP16`), byte, and binary vectors, at all compression levels (`2x`, `8x`, `16x`, and `32x`)
+- [`half_float` vectors]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-memory-optimized/#half-float-vectors), at the `1x` and `16x` compression levels
 
-As of OpenSearch 3.9, the `hnsw` method with [Faiss]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-methods-engines/#faiss-engine) also supports [`half_float` vectors]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-memory-optimized/#half-float-vectors) at the `1x` and `16x` compression levels.
+Vectors quantized using the [`bf16` encoder type]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/faiss-scalar-quantization/#the-bf16-encoder) are not supported, and indexes using that encoder are always built locally.
 
 ## Prerequisites
 
@@ -46,7 +47,7 @@ The remote vector repository acts as an intermediate object store between the Op
 
 To create and register the repository, follow the steps in [Register repository]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/#register-repository). Then set the `knn.remote_index_build.repository` dynamic setting to the name of the registered repository.
 
-The remote build service currently only supports Amazon Simple Storage Service (Amazon S3) repositories.
+The remote build service only supports Amazon Simple Storage Service (Amazon S3) repositories.
 {: .note}
 
 ### Step 3: Set up a remote vector index builder
