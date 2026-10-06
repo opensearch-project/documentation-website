@@ -88,13 +88,13 @@ The following table lists the options that configure the failed document stream.
 The console reports the session root:
 
 ```
-s3://<bucket>/<prefix>session=<SnapshotMigration-UID>/
+s3://<bucket>/<prefix>session=<migration-UID>/
 ```
 
 The individual gzip-compressed NDJSON objects are stored beneath that root:
 
 ```
-s3://<bucket>/<prefix>session=<SnapshotMigration-UID>/index=<targetIndex>/worker=<workerId>/failed-document-stream-<timestamp>-<sequence>.ndjson.gz
+s3://<bucket>/<prefix>session=<migration-UID>/index=<targetIndex>/worker=<workerId>/failed-document-stream-<timestamp>-<sequence>.ndjson.gz
 ```
 
 ## Checking whether any documents failed
@@ -111,14 +111,6 @@ console failed-document-stream count
 ```
 {% include copy.html %}
 
-A count greater than `0` indicates that one or more documents failed. The `workflow status` command returns a `Succeeded` status even when document failures occur, so use the count to determine whether any documents failed rather than relying on the workflow status alone.
-
-The `SnapshotMigration` resource also records the backfill outcome. It reports `CompletedWithErrors` when terminal failures occurred:
-
-```bash
-kubectl get snapshotmigrations -n ma -o jsonpath='{.items[*].status.documentBackfill.phase}'
-```
-{% include copy.html %}
 A count greater than `0` means that documents failed. `workflow status` can report the backfill as completed even when documents failed, so check the count rather than relying on the workflow status alone.
 
 {: .note }
@@ -126,7 +118,7 @@ A count greater than `0` means that documents failed. `workflow status` can repo
 
 ## Inspecting failed documents
 
-Run the following commands from a Migration Console shell. When more than one `SnapshotMigration` exists, add `--migration <name>` to select one:
+Run the following commands from a Migration Console shell. When more than one migration exists, add `--migration <name>` to select one:
 
 ```bash
 # S3 location for the current session
@@ -153,7 +145,7 @@ The following table lists the fields included in each record.
 | `failureClass` | How the document reached the stream: `NON_RETRYABLE` for errors that are never retried, or `RETRYABLE_EXHAUSTED` when retries were exhausted. |
 | `failureType` | The OpenSearch error type, for example `mapper_parsing_exception`. |
 | `timestamp` | The time when the failure was recorded. |
-| `sessionId` | The session the record belongs to. This matches the `SnapshotMigration` UID in the stream location. |
+| `sessionId` | The session the record belongs to. This matches the migration UID in the stream location. |
 | `workerId` | The RFS worker that produced the failure. |
 | `workItemId` | The shard work item that produced the failure. |
 | `requestItem` | The captured bulk request item. When the original source document is available, the source content is stored under `document` so you can diagnose the problem or resubmit the request without retrieving the document from the source cluster. |
@@ -191,7 +183,7 @@ The `console --json failed-document-stream list` output contains each failed doc
 The Migration Console doesn't provide a command to delete failed document records. To delete the current session's records, remove the session location returned by the `console failed-document-stream location` command. This deletion is irreversible:
 
 ```bash
-aws s3 rm --recursive s3://<BUCKET>/<PREFIX>session=<SnapshotMigration-UID>/
+aws s3 rm --recursive s3://<BUCKET>/<PREFIX>session=<migration-UID>/
 ```
 {% include copy.html %}
 
