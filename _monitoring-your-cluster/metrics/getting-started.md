@@ -105,8 +105,26 @@ The metrics framework feature supports the following metric types:
 
 1. **Counters:** Counters are continuous and synchronous meters used to track the frequency of events over time. Counters can only be incremented with positive values, making them ideal for measuring the number of monitoring occurrences such as errors, processed or received bytes, and total requests.
 2. **UpDown counters:** UpDown counters can be incremented with positive values or decremented with negative values. UpDown counters are well suited for tracking metrics like open connections, active requests, and other fluctuating quantities.
-3. **Histograms:** Histograms are valuable tools for visualizing the distribution of continuous data. Histograms offer insight into the central tendency, spread, skewness, and potential outliers that might exist in your metrics. Patterns such as normal distribution, skewed distribution, or bimodal distribution can be readily identified, making histograms ideal for analyzing latency metrics and assessing percentiles.
+3. **Histograms:** Histograms are valuable tools for visualizing the distribution of continuous data. Histograms offer insight into the central tendency, spread, skewness, and potential outliers that might exist in your metrics. Patterns such as normal distribution, skewed distribution, or bimodal distribution can be readily identified, making histograms ideal for analyzing latency metrics and assessing percentiles. To choose how histograms are exported, see [Histogram aggregation](#histogram-aggregation).
 4. **Asynchronous Gauges:** Asynchronous gauges capture the current value at the moment a metric is read. These metrics are non-additive and are commonly used to measure CPU utilization on a per-minute basis, memory utilization, and other real-time values.
+
+### Histogram aggregation
+**Introduced 3.10**
+{: .label .label-purple }
+
+By default, the `telemetry-otel` plugin exports histograms as OpenTelemetry exponential histograms (`ExponentialHistogram` in OTLP). Some metric receivers do not accept exponential histograms. To export histograms with explicit bucket boundaries (`Histogram` in OTLP), configure the `telemetry.otel.metrics.histogram.aggregation.default` static setting in the `opensearch.yml` file:
+
+```yaml
+telemetry.otel.metrics.histogram.aggregation.default: explicit_bucket_histogram
+```
+{% include copy.html %}
+
+The setting accepts the following case-insensitive values:
+
+- `base2_exponential_bucket_histogram`: Exports histograms as exponential histograms.
+- `explicit_bucket_histogram`: Exports histograms with explicit bucket boundaries, using the default boundaries of the OpenTelemetry SDK.
+
+The default value is `base2_exponential_bucket_histogram`, which preserves the behavior of earlier versions. The setting applies to all histograms, regardless of the configured exporter. Because this is a static setting, OpenSearch applies it when the node starts, and you cannot change it on a running cluster. If the value is not one of the allowed values, the node fails to start. Changing the setting changes the metric type sent to receivers, so you might need to update dashboards and queries that use the previous metric type.
 
 ## Monitoring machine learning workflows
 Introduced 3.1
