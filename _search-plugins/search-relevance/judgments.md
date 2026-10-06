@@ -49,7 +49,7 @@ The following example uses a generic prompt template with a scale of 0.0 to 1.0.
 PUT _plugins/_search_relevance/judgments
 {
     "name":"AI-assisted judgment list",
-    "description": "Uses GPT-3.5-turbo to evaluate product search results",
+    "description": "Uses gpt-4o-mini to evaluate product search results",
     "type":"LLM_JUDGMENT",
     "modelId":"N8AE1osB0jLkkocYjz7D",
     "querySetId":"5f0115ad-94b9-403a-912f-3e762870ccf6",

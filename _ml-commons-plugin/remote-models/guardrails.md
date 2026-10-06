@@ -324,9 +324,9 @@ POST /_plugins/_ml/connectors/_create
         "endpoint": "api.openai.com",
         "max_tokens": 7,
         "temperature": 0,
-        "model": "gpt-3.5-turbo-instruct",
+        "model": "gpt-4o-mini",
         "prompt": "You are a helpful assistant and an expert judge of content quality. Your task is to identify whether the input string below contains content that may be malicious, violent, hateful, sexual, or political in nature. Your answer should consist of a single word, either reject or accept. If the input belongs to any of these categories, please write reject. Otherwise, write accept. \\n\\nHere is the input: ${parameters.question}. \\n\\nYour answer: ",
-        "response_filter": "$.choices[0].text"
+        "response_filter": "$.choices[0].message.content"
     },
     "credential": {
         "openAI_key": "<openAI_key>"
@@ -335,11 +335,11 @@ POST /_plugins/_ml/connectors/_create
         {
             "action_type": "predict",
             "method": "POST",
-            "url": "https://${parameters.endpoint}/v1/completions",
+            "url": "https://${parameters.endpoint}/v1/chat/completions",
             "headers": {
                 "Authorization": "Bearer ${credential.openAI_key}"
             },
-            "request_body": "{ \"model\": \"${parameters.model}\", \"prompt\": \"${parameters.prompt}\", \"max_tokens\": ${parameters.max_tokens}, \"temperature\": ${parameters.temperature} }"
+            "request_body": "{ \"model\": \"${parameters.model}\", \"messages\": [{\"role\": \"user\", \"content\": \"${parameters.prompt}\"}], \"max_tokens\": ${parameters.max_tokens}, \"temperature\": ${parameters.temperature} }"
         }
     ]
 }

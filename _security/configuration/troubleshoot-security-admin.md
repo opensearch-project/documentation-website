@@ -1,10 +1,14 @@
 ---
 layout: default
-title: Troubleshoot securityadmin.sh
+title: Troubleshooting securityadmin.sh
+parent: Applying changes to configuration files
+grand_parent: Configuration
 nav_order: 10
+redirect_from:
+  - /troubleshoot/security-admin/
 ---
 
-# securityadmin.sh Troubleshooting
+# Troubleshooting securityadmin.sh
 
 Use the following troubleshooting steps to resolve issues with the `securityadmin.sh` script, located at `/plugins/opensearch-security/tools/securityadmin.sh`. For more information about using this tool, see [Applying changes to configuration files]({{site.url}}{{site.baseurl}}/security/configuration/security-admin/).
 

@@ -107,9 +107,6 @@ collections:
   api-reference:
     permalink: /:collection/:path/
     output: true  
-  troubleshoot:
-    permalink: /:collection/:path/
-    output: true
   developer-documentation:
     permalink: /:collection/:path/
     output: true
@@ -215,9 +212,6 @@ opensearch_collection:
       nav_fold: true
     api-reference:
       name: API reference
-      nav_fold: true
-    troubleshoot:
-      name: Troubleshooting
       nav_fold: true
     developer-documentation:
       name: Developer documentation

@@ -3,6 +3,8 @@ layout: default
 title: SAML
 parent: Authentication backends
 nav_order: 55
+has_children: true
+has_toc: false
 redirect_from:
   - /security/configuration/saml/
   - /security-plugin/configuration/saml/
@@ -401,3 +403,7 @@ Then add this endpoint to `server.xsrf.allowlist` in `opensearch_dashboards.yml`
 ```yml
 server.xsrf.allowlist: ["/_opendistro/_security/saml/acs/idpinitiated", "/_opendistro/_security/saml/acs", "/_opendistro/_security/saml/logout"]
 ```
+
+## Troubleshooting
+
+- For solutions to common SAML configuration issues, see [Troubleshooting SAML]({{site.url}}{{site.baseurl}}/security/authentication-backends/troubleshoot-saml/).

@@ -2,7 +2,7 @@
 layout: default
 title: RPM
 parent: Installing OpenSearch Dashboards
-nav_order: 31
+nav_order: 25
 redirect_from: 
   - /dashboards/install/rpm/
 ---
@@ -13,9 +13,13 @@ The following liquid syntax declares a variable, major_version_mask, which is tr
 {% assign version_parts = site.opensearch_major_minor_version | split: "." %}
 {% assign major_version_mask = version_parts[0] | append: ".x" %}
 
-# Run OpenSearch Dashboards using RPM
+# Installing OpenSearch Dashboards using RPM
 
 OpenSearch Dashboards is the default visualization tool for data in OpenSearch. It also serves as a user interface for many of the OpenSearch plugins, including security, alerting, Index State Management, SQL, and more.
+
+## Prerequisites
+
+Install OpenSearch. For more information, see [Installing OpenSearch using RPM]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/rpm/).
 
 ## Install OpenSearch Dashboards from a package
 
@@ -79,6 +83,8 @@ OpenSearch Dashboards is the default visualization tool for data in OpenSearch. 
     ```
     {% include copy.html %}
 
+1. In a web browser, go to `http://localhost:5601` and log in as the `admin` user using the custom admin password that you set when you installed OpenSearch. If OpenSearch Dashboards runs on a remote host, replace `localhost` with the IP address or DNS name of that host. For more information, see [Accessing OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/#accessing-opensearch-dashboards).
+
 ## Install OpenSearch Dashboards from a local YUM repository
 
 YUM, the primary package management tool for Red Hat-based operating systems, allows you to download and install the RPM package from the YUM repository library. 
@@ -127,18 +133,20 @@ YUM, the primary package management tool for Red Hat-based operating systems, al
    {% include copy.html %}
 
     - If correct, enter `yes` or `y`. The OpenSearch installation continues.
-1. Once complete, you can run OpenSearch Dashboards:
+1. Start OpenSearch Dashboards:
     ```bash
     sudo systemctl start opensearch-dashboards
     ```
     {% include copy.html %}
+
+1. In a web browser, go to `http://localhost:5601` and log in as the `admin` user using the custom admin password that you set when you installed OpenSearch. If OpenSearch Dashboards runs on a remote host, replace `localhost` with the IP address or DNS name of that host. For more information, see [Accessing OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/#accessing-opensearch-dashboards).
 
 ## Upgrade to a newer version
 
 OpenSearch Dashboards instances installed using RPM or YUM can be easily upgraded to a newer version. We recommend using YUM, but you can also choose RPM.
 
 
-### Manual upgrade with RPM
+### Upgrade manually using RPM
 
 Download the RPM package for the desired upgrade version directly from the [OpenSearch Project downloads page](https://opensearch.org/downloads.html){:target='\_blank'}.
 
@@ -149,7 +157,7 @@ rpm -Uvh opensearch-dashboards-{{site.opensearch_dashboards_version}}-linux-x64.
 ```
 {% include copy.html %}
 
-### YUM
+### Upgrade using YUM
 
 To upgrade to the latest version of OpenSearch Dashboards using YUM, run the following command:
 
@@ -169,3 +177,6 @@ You can also upgrade to a specific OpenSearch Dashboards version by providing th
 
 The OpenSearch Dashboards RPM package does not currently support automatically restarting the service after a package upgrade.
 
+## Related documentation
+
+- [Preparing OpenSearch Dashboards for production]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/#preparing-opensearch-dashboards-for-production)
