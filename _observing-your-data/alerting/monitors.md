@@ -52,7 +52,7 @@ Variable | Data type | Description
 The following table lists other variables you can use with your monitors.
 
 Variable | Data type | Description
-:--- | :--- : :---
+:--- | :--- | :---
 `ctx.results` | Array | An array with one element, for example,  `ctx.results[0]`. Contains the query results. This variable is empty if the trigger was unable to retrieve results. See `ctx.error`.
 `ctx.last_update_time` | Milliseconds | Unix epoch time of when the monitor was last updated.
 `ctx.periodStart` | String | Unix timestamp for the beginning of the period during which the alert triggered. For example, if a monitor runs every 10 minutes, a period might begin at 10:40 and end at 10:50.
