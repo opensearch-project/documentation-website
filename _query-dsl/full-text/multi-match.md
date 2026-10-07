@@ -7,9 +7,16 @@ nav_order: 50
 
 # Multi-match queries
 
-A multi-match operation functions similarly to the [match]({{site.url}}{{site.baseurl}}/query-dsl/full-text/match/) operation. You can use a `multi_match` query to search multiple fields. 
+A `multi_match` query runs a [`match`]({{site.url}}{{site.baseurl}}/query-dsl/full-text/match/) query against several fields at once and combines the per-field results into one score. The `type` parameter controls how the fields are combined.
 
-The `^` "boosts" certain fields. Boosts are multipliers that weigh matches in one field more heavily than matches in other fields. In the following example, a match for "wind" in the title field influences `_score` four times as much as a match in the plot field:
+Use a `multi_match` query in the following scenarios:
+
+- Searching a title and a body field, where a match in the title should count for more.
+- Searching the same text indexed using several analyzers, such as a stemmed and an unstemmed subfield.
+- Searching structured data in which one concept is split across fields, such as a first name and a last name.
+- Building search-as-you-type experiences across several fields by using the `phrase_prefix` or `bool_prefix` type.
+
+Use the `^` operator to boost certain fields. Boosts are multipliers that weigh matches in one field more heavily than matches in other fields. In the following example, a match for "wind" in the title field influences `_score` four times as much as a match in the plot field:
 
 ```json
 GET _search
@@ -26,7 +33,7 @@ GET _search
 
 The result is that films like *The Wind Rises* and *Gone with the Wind* are near the top of the search results, and films like *Twister*, which presumably have "wind" in their plot summaries, are near the bottom.
 
-You can use wildcards in the field name. For example, the following query will search the `speaker` field and all fields that start with `play_`, for example, `play_name` or `play_title`:
+You can use wildcards in the field name. For example, the following query searches the `speaker` field and all fields that start with `play_`, for example, `play_name` or `play_title`:
 
 ```json
 GET _search
@@ -41,9 +48,9 @@ GET _search
 ```
 {% include copy-curl.html %}
 
-If you don't provide the `fields` parameter, `multi_match` query searches the fields specified in the `index.query. Default_field` setting, which defaults to `*`. The default behavior is to extract all fields in the mapping that are eligible for [term-level queries]({{site.url}}{{site.baseurl}}/query-dsl/term/index/), filter the metadata fields, and combine all extracted fields to build a query.
+If you don't provide the `fields` parameter, the `multi_match` query searches the fields specified in the `index.query.default_field` setting, which defaults to `*`. The `*` value selects all fields in the mapping that are eligible for [term-level queries]({{site.url}}{{site.baseurl}}/query-dsl/term/index/), excluding metadata fields, and the query searches all of them.
 
-The maximum number of clauses in a query is defined in the `indices.query.bool.max_clause_count` setting, which defaults to 1,024. 
+Each field adds at least one clause to the query, and the total number of clauses is limited by the `indices.query.bool.max_clause_count` setting, which defaults to 1,024. Searching many fields, either explicitly or by using a wildcard pattern such as `*`, can exceed this limit.
 {: .note}
 
 ## Multi-match query types
@@ -51,15 +58,17 @@ The maximum number of clauses in a query is defined in the `indices.query.bool.m
 OpenSearch supports the following multi-match query types, which differ in the way the query is executed internally:
 
 - [`best_fields`](#best-fields) (default): Returns documents that match any field. Uses the `_score` of the best-matching field. 
-- [`most_fields`](#most-fields): Returns documents that match any field. Uses a combined score of each matching field.
-- [`cross_fields`](#cross-fields): Treats all fields as if they were one field. Processes fields with the same `analyzer` and matches words in any field. 
+- [`most_fields`](#most-fields): Returns documents that match any field. Uses the sum of the scores of all matching fields.
+- [`cross_fields`](#cross-fields): Treats fields that have the same analyzer as one field and searches for each term in any of them.
 - [`phrase`](#phrase): Runs a `match_phrase` query on each field. Uses the `_score` of the best-matching field.
 - [`phrase_prefix`](#phrase-prefix): Runs a `match_phrase_prefix` query on each field. Uses the `_score` of the best-matching field.
-- [`bool_prefix`](#boolean-prefix): Runs a `match_bool_prefix` query on each field. Uses a combined score of each matched field.
+- [`bool_prefix`](#boolean-prefix): Runs a `match_bool_prefix` query on each field. Uses the sum of the scores of all matching fields.
+
+The `best_fields` and `most_fields` types are field centric: they build one query for each field and then combine the per-field scores. The `cross_fields` type is term centric: it looks up each query term across all fields together. Not every parameter applies to every type. For more information, see [Parameter support by type](#parameter-support-by-type).
 
 ## Best fields 
 
-If you're searching for two words that specify a concept, you want the results where the two words are next to each other to score higher. 
+Use the `best_fields` type when the query terms are most meaningful if they appear together in the same field. For example, `northern lights` in a single field is a stronger match than `northern` in one field and `lights` in another.
 
 For example, consider an index that contains the following scientific articles:
 
@@ -119,7 +128,7 @@ The results contain both documents, but document 1 is scored higher because both
 
 ```json
 {
-  "took": 30,
+  "took": 5,
   "timed_out": false,
   "_shards": {
     "total": 1,
@@ -132,12 +141,12 @@ The results contain both documents, but document 1 is scored higher because both
       "value": 2,
       "relation": "eq"
     },
-    "max_score": 0.84407747,
+    "max_score": 0.38367155,
     "hits": [
       {
         "_index": "articles",
         "_id": "1",
-        "_score": 0.84407747,
+        "_score": 0.38367155,
         "_source": {
           "title": "Aurora borealis",
           "description": "Northern lights, or aurora borealis, explained"
@@ -146,7 +155,7 @@ The results contain both documents, but document 1 is scored higher because both
       {
         "_index": "articles",
         "_id": "2",
-        "_score": 0.6322521,
+        "_score": 0.2873873,
         "_source": {
           "title": "Sun deprivation in the Northern countries",
           "description": "Using fluorescent lights for therapy"
@@ -163,10 +172,12 @@ Take the score of the best-matching field and add (`tie_breaker` * `_score`) for
 
 ## Most fields 
 
-Use the `most_fields` query for multiple fields that contain the same text that is analyzed in different ways. For example, the original field may contain text analyzed with the `standard` analyzer and another field may contain the same text analyzed with the `english` analyzer, which performs stemming:
+Use the `most_fields` query for multiple fields that contain the same text that is analyzed in different ways. For example, the original field may contain text analyzed with the `standard` analyzer and another field may contain the same text analyzed with the `english` analyzer, which performs stemming. The stemmed field matches the most documents, and the unstemmed field moves the closest matches to the top of the results.
+
+The following request creates a `recipes` index in which the `title` field has an `english` subfield:
 
 ```json
-PUT /articles
+PUT /recipes
 {
   "mappings": {
     "properties": {
@@ -185,10 +196,10 @@ PUT /articles
 ```
 {% include copy-curl.html %}
 
-Consider the following two documents that are indexed in the `articles` index:
+Consider the following two documents that are indexed in the `recipes` index:
 
 ```json
-PUT /articles/_doc/1
+PUT /recipes/_doc/1
 {
   "title": "Buttered toasts"
 }
@@ -196,19 +207,19 @@ PUT /articles/_doc/1
 {% include copy-curl.html %}
 
 ```json
-PUT /articles/_doc/2
+PUT /recipes/_doc/2
 {
   "title": "Buttering a toast"
 }
 ```
 {% include copy-curl.html %}
 
-The `standard` analyzer analyzes the title `Buttered toast` into [`buttered`, `toasts`] and the title `Buttering a toast` into [`buttering`, `a`, `toast`]. On the other hand, the `english` analyzer produces the same token list [`butter`, `toast`] for both titles because of stemming.
+The `standard` analyzer analyzes the title `Buttered toasts` into [`buttered`, `toasts`] and the title `Buttering a toast` into [`buttering`, `a`, `toast`]. On the other hand, the `english` analyzer produces the same token list [`butter`, `toast`] for both titles because it applies stemming and removes the stopword `a`.
 
-You can use the `most_fields` query in order to return as many documents as possible:
+The following `most_fields` query searches both the `title` field and its `english` subfield:
 
 ```json
-GET /articles/_search
+GET /recipes/_search
 {
   "query": {
     "multi_match": {
@@ -227,26 +238,26 @@ GET /articles/_search
 The preceding query is executed as the following Boolean query:
 
 ```json
-GET articles/_search
+GET recipes/_search
 {
   "query": {
     "bool": {
       "should": [
-        { "match": { "title": "buttered toasts" }},
-        { "match": { "title.english": "buttered toasts" }}
+        { "match": { "title": "buttered toast" }},
+        { "match": { "title.english": "buttered toast" }}
       ]
     }
   }
 }
 ```
 
-To calculate the relevance score, a document's scores for all `match` clauses are added together and then the result is divided by the number of `match` clauses.
+To calculate the relevance score, OpenSearch adds together the scores of all `match` clauses that match the document.
 
-Including the `title.english` field retrieves the second document that matches the stemmed tokens:
+Both documents match the `title.english` field equally because their stemmed tokens are identical. In the `title` field, document 1 matches the term `buttered` and document 2 matches the term `toast`. Each term appears in only one document, but the `title` field of document 1 contains fewer tokens, so its match scores higher. Without the `title.english` field, documents that use a different form of a word, such as `buttering`, would match only on the remaining terms:
 
 ```json
 {
-  "took": 9,
+  "took": 2,
   "timed_out": false,
   "_shards": {
     "total": 1,
@@ -259,20 +270,20 @@ Including the `title.english` field retrieves the second document that matches t
       "value": 2,
       "relation": "eq"
     },
-    "max_score": 1.4418206,
+    "max_score": 0.508889,
     "hits": [
       {
-        "_index": "articles",
+        "_index": "recipes",
         "_id": "1",
-        "_score": 1.4418206,
+        "_score": 0.508889,
         "_source": {
           "title": "Buttered toasts"
         }
       },
       {
-        "_index": "articles",
+        "_index": "recipes",
         "_id": "2",
-        "_score": 0.09304003,
+        "_score": 0.4569852,
         "_source": {
           "title": "Buttering a toast"
         }
@@ -282,7 +293,7 @@ Including the `title.english` field retrieves the second document that matches t
 }
 ```
 
-Because both `title` and `title.english` fields match for the first document, it has a higher relevance score.
+Document 1 scores `0.34314215` for the `title` field and `0.16574687` for the `title.english` field, and its final score is the sum of the two, `0.508889`.
 
 ## Operator and minimum should match
 
@@ -311,7 +322,7 @@ PUT customers/_doc/2
 If you're searching for `John Doe` in the `customers` index, you might construct the following query:
 
 ```json
-GET customers/_validate/query?explain
+GET customers/_search
 {
   "query": {
     "multi_match" : {
@@ -325,7 +336,7 @@ GET customers/_validate/query?explain
 ```
 {% include copy-curl.html %}
 
-The intent of the `and` operator in this query is to find a document that matches `John` and `Doe`. However, the query does not return any results. You can learn how the query is executed by running the Validate API:
+The intent of the `and` operator in this query is to find a document that matches `John` and `Doe`. However, the query does not return any results. You can learn how the query is executed by running the [Validate Query API]({{site.url}}{{site.baseurl}}/api-reference/search-apis/validate/):
 
 ```json
 GET customers/_validate/query?explain
@@ -356,7 +367,7 @@ From the response, you can see that the query is trying to match both `John` and
     {
       "index": "customers",
       "valid": true,
-      "explanation": "((+first_name:john +first_name:doe) | (+last_name:john +last_name:doe))"
+      "explanation": "((+last_name:john +last_name:doe) | (+first_name:john +first_name:doe))"
     }
   ]
 }
@@ -364,7 +375,7 @@ From the response, you can see that the query is trying to match both `John` and
 
 Because neither field contains both words, no results are returned. 
 
-A better alternative for searching across fields is to use the [`cross_fields`](#cross-fields) query. Unlike the field-centric `best_fields` and `most_fields` queries, `cross_fields` query is term-centric.
+A better alternative for searching across fields is to use the [`cross_fields`](#cross-fields) query. Unlike the field-centric `best_fields` and `most_fields` queries, the `cross_fields` query is term centric.
 
 ## Cross fields 
 
@@ -374,6 +385,8 @@ The `most_fields` query does not work in this case because of the following prob
 
 - The [`operator` and `minimum_should_match`](#operator-and-minimum-should-match) parameters are applied on a field basis instead of on a term basis.
 - Term frequencies in the `first_name` and `last_name` fields can lead to unexpected results. For example, if someone's first name happens to be `Doe`, a document with this name will be presumed a better match because this first name will not appear in any other documents.
+
+One way to avoid both problems is to copy the values of `first_name` and `last_name` into a single `full_name` field at index time by using the [`copy_to`]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/copy-to/) mapping parameter and then search that field. The `cross_fields` query solves the same problems at query time, without changes to the mapping.
 
 The `cross_fields` query analyzes the query string into individual terms and then searches for each of the terms in any of the fields, as if they were one field.
 
@@ -398,7 +411,7 @@ The response contains the only document in which both `John` and `Doe` are prese
 
 ```json
 {
-  "took": 19,
+  "took": 1,
   "timed_out": false,
   "_shards": {
     "total": 1,
@@ -411,12 +424,12 @@ The response contains the only document in which both `John` and `Doe` are prese
       "value": 1,
       "relation": "eq"
     },
-    "max_score": 0.8754687,
+    "max_score": 0.3979403,
     "hits": [
       {
         "_index": "customers",
         "_id": "1",
-        "_score": 0.8754687,
+        "_score": 0.3979403,
         "_source": {
           "first_name": "John",
           "last_name": "Doe"
@@ -427,7 +440,7 @@ The response contains the only document in which both `John` and `Doe` are prese
 }
 ```
 
-You can use the validate API operation to gain insight into how the preceding query is executed:
+Use the Validate Query API to see how the preceding query is executed:
 
 ```json
 GET /customers/_validate/query?explain
@@ -444,7 +457,7 @@ GET /customers/_validate/query?explain
 ```
 {% include copy-curl.html %}
 
-From the response, you can see that the query is searching for all terms in at least one field:
+From the response, you can see that each term must be present in at least one of the fields:
 
 ```json
 {
@@ -464,29 +477,22 @@ From the response, you can see that the query is searching for all terms in at l
 }
 ```
 
-Thus, blending the term frequencies for all fields solves the problem of differing term frequencies by correcting for the differences.
+Each `blended` clause scores a term as if all of its fields were one field. To do this, OpenSearch adjusts the document frequency of the term in each field. The field in which the term is most common keeps its document frequency, and every other field receives that frequency plus one. For example, if `doe` appears in the `last_name` field of 3 documents and in the `first_name` field of 1 document, the [Explain API]({{site.url}}{{site.baseurl}}/api-reference/search-apis/explain/) reports a document frequency of 3 for `last_name:doe` and 4 for `first_name:doe`. As a result, a rare occurrence of `doe` in the `first_name` field no longer outscores the common occurrence in the `last_name` field, and matches in `last_name`, the field most likely to contain `doe`, score slightly higher.
 
 The `cross_fields` query is usually only useful on short string fields with a `boost` of 1. In other cases, the score does not produce a meaningful blend of term statistics because of the way boosts, term frequencies, and length normalization contribute to the score.
 {: .note}
 
-The `fuzziness` parameter is not supported for `cross_fields` queries.
+The `fuzziness` parameter is not supported for `cross_fields` queries. For more information, see [Parameter support by type](#parameter-support-by-type).
 {: .note}
 
 ### Analysis
 
-The `cross_fields` query only works as a term-centric query on fields with the same analyzer. Fields with the same analyzer are grouped together and these groups are combined with a Boolean query. 
+The `cross_fields` query blends terms only across fields that use the same search analyzer, because only those fields produce the same terms from the query string. OpenSearch groups the fields by analyzer, builds one set of `blended` clauses for each group, and then combines the groups in a [`dis_max`]({{site.url}}{{site.baseurl}}/query-dsl/compound/disjunction-max/) query. The best-scoring group determines the score, and the `tie_breaker` parameter controls how much the other groups contribute.
 
-For example, consider an index where the `first_name` and `last_name` fields are analyzed with the default `standard`
- analyzer and their `.edge` subfields are analyzed with an edge n-gram analyzer:
-
-<details markdown="block">
-  <summary>
-    Response
-  </summary>
-  {: .text-delta}
+For example, the following request creates a `customer_names` index in which the `first_name` and `last_name` fields use the default `standard` analyzer and their `edge` subfields use an edge n-gram analyzer:
 
 ```json
-PUT customers
+PUT customer_names
 {
   "settings": {
     "analysis": {
@@ -530,23 +536,21 @@ PUT customers
 ```
 {% include copy-curl.html %}
 
-</details>
-
-You index one document in the `customers` index:
+Index one document into the `customer_names` index:
 
 ```json
-PUT /customers/_doc/1
+PUT /customer_names/_doc/1
 {
-  "first": "John",
-  "last": "Doe"
+  "first_name": "John",
+  "last_name": "Doe"
 }
 ```
 {% include copy-curl.html %}
 
-You can use a `cross_fields` query to search across the fields for `John Doe`:
+The following `cross_fields` query searches for `John` in all four fields:
 
 ```json
-GET /customers/_search
+GET /customer_names/_search
 {
   "query": {
     "multi_match" : {
@@ -562,10 +566,10 @@ GET /customers/_search
 ```
 {% include copy-curl.html %}
 
-To see how the query is executed, you can run the Validate API:
+To see how the query is executed, run the Validate Query API:
 
 ```json
-GET /customers/_validate/query?explain
+GET /customer_names/_validate/query?explain
 {
   "query": {
     "multi_match" : {
@@ -581,7 +585,7 @@ GET /customers/_validate/query?explain
 ```
 {% include copy-curl.html %}
 
-The response shows that the `last_name` and `first_name` fields are grouped together and treated as a single field. Similarly, the `last_name.edge` and `first_name.edge` fields are grouped together and treated as a single field:
+The response shows two groups separated by the `|` (`dis_max`) operator. The `last_name` and `first_name` fields form one group, and the `last_name.edge` and `first_name.edge` fields form another. Within the second group, the edge n-gram analyzer splits `John` into the terms `Jo`, `Joh`, and `John`. Because the custom analyzer has no `lowercase` filter, these terms keep their original case:
 
 ```json
 {
@@ -593,7 +597,7 @@ The response shows that the `last_name` and `first_name` fields are grouped toge
   "valid": true,
   "explanations": [
     {
-      "index": "customers",
+      "index": "customer_names",
       "valid": true,
       "explanation": "(blended(terms:[last_name:john, first_name:john]) | (blended(terms:[last_name.edge:Jo, first_name.edge:Jo]) blended(terms:[last_name.edge:Joh, first_name.edge:Joh]) blended(terms:[last_name.edge:John, first_name.edge:John])))"
     }
@@ -601,10 +605,14 @@ The response shows that the `last_name` and `first_name` fields are grouped toge
 }
 ```
 
-Using the `operator` or `minimum_should_match` parameters with multiple field groups like the preceding ones can lead to the problem described in the [previous section](#operator-and-minimum-should-match). To avoid it, you can rewrite the previous query as two `cross_fields` subqueries combined with a Boolean query and apply the `minimum_should_match` to one of the subqueries:
+#### Combining field groups with operator and minimum should match
+
+The `operator` and `minimum_should_match` parameters apply to each field group separately. When groups produce different numbers of terms, this can lead to the problem described in [`operator` and `minimum_should_match`](#operator-and-minimum-should-match). For example, with `"operator": "and"`, the query `John Doe` requires the `edge` group to match every n-gram of `John Doe`, including `John D` and `John Do`, which never occur in the index. The document can then match only through the `standard` group.
+
+To control each group independently, rewrite the query as two `cross_fields` subqueries combined in a `bool` query, and apply `minimum_should_match` to only one of the subqueries:
 
 ```json
-GET /customers/_search
+GET /customer_names/_search
 {
   "query": {
     "bool": {
@@ -637,10 +645,12 @@ GET /customers/_search
 ```
 {% include copy-curl.html %}
 
-To create one group for all fields, specify an analyzer in your query:
+#### Forcing all fields into one group
+
+To place all fields in one group, specify an `analyzer` in the query. OpenSearch then analyzes the query string once using that analyzer and searches for the resulting terms in every field:
 
 ```json
-GET customers/_search
+GET customer_names/_search
 {
   "query": {
    "multi_match" : {
@@ -654,7 +664,7 @@ GET customers/_search
 ```
 {% include copy-curl.html %}
 
-Running the Validate API on the previous query shows how the query is executed:
+Running the Validate Query API on the preceding query shows one `blended` clause for each term, covering all four fields:
 
 ```json
 {
@@ -666,13 +676,16 @@ Running the Validate API on the previous query shows how the query is executed:
   "valid": true,
   "explanations": [
     {
-      "index": "customers",
+      "index": "customer_names",
       "valid": true,
       "explanation": "blended(terms:[last_name.edge:john, last_name:john, first_name:john, first_name.edge:john]) blended(terms:[last_name.edge:doe, last_name:doe, first_name:doe, first_name.edge:doe])"
     }
   ]
 }
 ```
+
+When you override the analyzer, the query terms no longer match the way the subfields were indexed. In this example, the `standard` analyzer produces the lowercase term `jo` for the query `Jo`, but the `edge` subfields contain only `Jo`. As a result, a search for `Jo` using `"analyzer": "standard"` returns no documents, while the same search without the `analyzer` parameter matches document 1 through the `edge` subfields. Override the analyzer only when all grouped fields can match the terms it produces.
+{: .important}
 
 ## Phrase 
 
@@ -710,7 +723,7 @@ GET articles/_search
 }
 ```
 
-Because by default a `phrase` query matches text only when the terms appear in the same order, only document 1 is returned in the results:
+By default, a `phrase` query matches only when the terms appear next to each other in the same order. Document 2 contains both terms but not as a phrase, so only document 1 is returned in the results:
 
 <details markdown="block">
   <summary>
@@ -720,7 +733,7 @@ Because by default a `phrase` query matches text only when the terms appear in t
 
 ```json
 {
-  "took": 3,
+  "took": 1,
   "timed_out": false,
   "_shards": {
     "total": 1,
@@ -733,12 +746,12 @@ Because by default a `phrase` query matches text only when the terms appear in t
       "value": 1,
       "relation": "eq"
     },
-    "max_score": 0.84407747,
+    "max_score": 0.38367155,
     "hits": [
       {
         "_index": "articles",
         "_id": "1",
-        "_score": 0.84407747,
+        "_score": 0.38367155,
         "_source": {
           "title": "Aurora borealis",
           "description": "Northern lights, or aurora borealis, explained"
@@ -750,7 +763,7 @@ Because by default a `phrase` query matches text only when the terms appear in t
 ```
 </details>
 
-You can use the `slop` parameter to allow other words between words in query phrase. For example, the following query accepts text as a match if up to two words are between `flourescent` and `therapy`:
+Use the `slop` parameter to allow other words between the words in the query phrase. For example, the following query accepts text as a match if up to two words are between `fluorescent` and `therapy`:
 
 ```json
 GET articles/_search
@@ -777,7 +790,7 @@ The response contains document 2:
 
 ```json
 {
-  "took": 3,
+  "took": 1,
   "timed_out": false,
   "_shards": {
     "total": 1,
@@ -790,12 +803,12 @@ The response contains document 2:
       "value": 1,
       "relation": "eq"
     },
-    "max_score": 0.7003825,
+    "max_score": 0.31835568,
     "hits": [
       {
         "_index": "articles",
         "_id": "2",
-        "_score": 0.7003825,
+        "_score": 0.31835568,
         "_source": {
           "title": "Sun deprivation in the Northern countries",
           "description": "Using fluorescent lights for therapy"
@@ -809,7 +822,7 @@ The response contains document 2:
 
 For `slop` values less than 2, no documents are returned.
 
-The `fuzziness` parameter is not supported for `phrase` queries.
+The `fuzziness` parameter is not supported for `phrase` queries. For more information, see [Parameter support by type](#parameter-support-by-type).
 {: .note}
 
 ## Phrase prefix 
@@ -848,14 +861,14 @@ GET articles/_search
 }
 ```
 
-You can use the `slop` parameter to allow other words between words in query phrase.
+The `phrase_prefix` type accepts the `slop` parameter, which works the same way as for the `phrase` type. It also accepts the `max_expansions` parameter, which limits the number of terms to which the last term in the query is expanded. Default is `50`.
 
-The `fuzziness` parameter is not supported for `phrase_prefix` queries.
+The `fuzziness` parameter is not supported for `phrase_prefix` queries. For more information, see [Parameter support by type](#parameter-support-by-type).
 {: .note}
 
 ## Boolean prefix 
 
-The `bool_prefix` query scores documents similarly to the [`most_fields`](#most-fields) query but uses a [`match_bool_prefix`]({{site.url}}{{site.baseurl}}/query-dsl/full-text/match-bool-prefix/) query instead of a `match` query.
+The `bool_prefix` query scores documents similarly to the [`most_fields`](#most-fields) query but uses a [`match_bool_prefix`]({{site.url}}{{site.baseurl}}/query-dsl/full-text/match-bool-prefix/) query instead of a `match` query. The `match_bool_prefix` query matches every term except the last one exactly and treats the last term as a prefix, which makes it useful for search-as-you-type experiences.
 
 The following is an example `bool_prefix` query for the index described in the [`best_fields`](#best-fields) section:
 
@@ -864,7 +877,7 @@ GET articles/_search
 {
   "query": {
     "multi_match" : {
-      "query": "li northern",
+      "query": "northern li",
       "type": "bool_prefix",
       "fields": [ "title", "description" ]
     }
@@ -873,23 +886,72 @@ GET articles/_search
 ```
 {% include copy-curl.html %}
 
-The preceding query is executed as the following [`dis_max`]({{site.url}}{{site.baseurl}}/query-dsl/compound/disjunction-max/) query with a `match_bool_prefix` query for each field:
+The preceding query is executed as the following Boolean query with a `match_bool_prefix` query for each field. The scores of all matching clauses are added together:
 
 ```json
 GET articles/_search
 {
   "query": {
-    "dis_max": {
-      "queries": [
-        { "match_bool_prefix": { "title": "li northern" }},
-        { "match_bool_prefix": { "description": "li northern" }}
+    "bool": {
+      "should": [
+        { "match_bool_prefix": { "title": "northern li" }},
+        { "match_bool_prefix": { "description": "northern li" }}
       ]
     }
   }
 }
 ```
 
-The `fuzziness`, `prefix_length`, `max_expansions`, `fuzzy_rewrite`, and `fuzzy_transpositions` parameters are supported for the terms that are used to construct term queries, but they do not have an effect on the prefix query constructed from the final term.
+Both documents are returned. Document 1 matches `northern` and the prefix `li` (`lights`) in the `description` field. Document 2 matches `northern` in the `title` field and the prefix `li` in the `description` field:
+
+<details markdown="block">
+  <summary>
+    Response
+  </summary>
+  {: .text-delta}
+
+```json
+{
+  "took": 2,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 2,
+      "relation": "eq"
+    },
+    "max_score": 1.3037697,
+    "hits": [
+      {
+        "_index": "articles",
+        "_id": "1",
+        "_score": 1.3037697,
+        "_source": {
+          "title": "Aurora borealis",
+          "description": "Northern lights, or aurora borealis, explained"
+        }
+      },
+      {
+        "_index": "articles",
+        "_id": "2",
+        "_score": 1.261565,
+        "_source": {
+          "title": "Sun deprivation in the Northern countries",
+          "description": "Using fluorescent lights for therapy"
+        }
+      }
+    ]
+  }
+}
+```
+</details>
+
+The `fuzziness`, `prefix_length`, `max_expansions`, `fuzzy_rewrite`, and `fuzzy_transpositions` parameters are supported for the terms that are used to construct term queries, but they do not have an effect on the prefix query constructed from the final term. The `slop` parameter is not supported for `bool_prefix` queries.
 {: .note}
 
 ## Parameters
@@ -912,19 +974,35 @@ Parameter | Data type | Description
 `operator` | String | If the query string contains multiple search terms, whether all terms need to match (`AND`) or only one term needs to match (`OR`) for a document to be considered a match. Valid values are:<br>- `OR`: The string `to be` is interpreted as `to OR be`<br>- `AND`: The string `to be` is interpreted as `to AND be`<br> Default is `OR`.
 `prefix_length` | Non-negative integer | The number of leading characters that are not considered in fuzziness. Default is `0`.
 `slop` | `0` (default) or a positive integer | Controls the degree to which words in a query can be misordered and still be considered a match. From the [Lucene documentation](https://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/search/PhraseQuery.html#getSlop--): "The number of other words permitted between words in query phrase. For example, to switch the order of two words requires two moves (the first move places the words atop one another), so to permit reorderings of phrases, the slop must be at least two. A value of zero requires an exact match." Supported for `phrase` and `phrase_prefix` query types.
-`tie_breaker` | Floating-point | A factor between 0 and 1.0 that is used to give more weight to documents that match multiple query clauses. For more information, see [The `tie_breaker` parameter`](#the-tie_breaker-parameter).
+`tie_breaker` | Floating-point | A factor between 0 and 1.0 that is used to give more weight to documents that match multiple query clauses. For more information, see [The `tie_breaker` parameter](#the-tie_breaker-parameter).
 `type` | String | The multi-match query type. Valid values are `best_fields`, `most_fields`, `cross_fields`, `phrase`, `phrase_prefix`, `bool_prefix`. Default is `best_fields`.
 `zero_terms_query` | String | In some cases, the analyzer removes all terms from a query string. For example, the `stop` analyzer removes all terms from the string `an but this`. In those cases, `zero_terms_query` specifies whether to match no documents (`none`) or all documents (`all`). Valid values are `none` and `all`. Default is `none`.
 
-The `fuzziness` parameter is not supported for `phrase`, `phrase_prefix`, and `cross_fields` queries.
-{: .note}
+### Parameter support by type
 
-The `slop` parameter is only supported for `phrase` and `phrase_prefix` queries.
-{: .note}
+Not every parameter applies to every query type. OpenSearch rejects the following combinations with a `400` error.
 
-### The `tie_breaker` parameter
+Parameter | Query types | Error
+:--- | :--- | :---
+`fuzziness` | `cross_fields`, `phrase`, `phrase_prefix` | `Fuzziness not allowed for type [<type>]`
+`slop` | `bool_prefix` | `[slop] not allowed for type [bool_prefix]`
 
-Each term-level blended query calculates the document score as the best score returned by any field in a group. The scores from all blended queries are added together to produce the final score. You can change the way the score is calculated by using the `tie_breaker` parameter. The `tie_breaker` parameter accepts the following values:
+Other parameters that a query type does not use are ignored without an error. For example, the `slop` parameter has no effect on `best_fields` or `most_fields` queries. The following table lists the parameters that have an effect for each query type, in addition to `query`, `fields`, `type`, `analyzer`, `boost`, `lenient`, and `zero_terms_query`, which apply to all types.
+
+Query type | Additional supported parameters
+:--- | :---
+`best_fields` | `auto_generate_synonyms_phrase_query`, `fuzziness`, `fuzzy_rewrite`, `fuzzy_transpositions`, `max_expansions`, `minimum_should_match`, `operator`, `prefix_length`, `tie_breaker`
+`most_fields` | `auto_generate_synonyms_phrase_query`, `fuzziness`, `fuzzy_rewrite`, `fuzzy_transpositions`, `max_expansions`, `minimum_should_match`, `operator`, `prefix_length`, `tie_breaker`
+`cross_fields` | `auto_generate_synonyms_phrase_query`, `minimum_should_match`, `operator`, `tie_breaker`
+`phrase` | `slop`, `tie_breaker`
+`phrase_prefix` | `max_expansions`, `slop`, `tie_breaker`
+`bool_prefix` | `auto_generate_synonyms_phrase_query`, `fuzziness`, `fuzzy_rewrite`, `fuzzy_transpositions`, `max_expansions`, `minimum_should_match`, `operator`, `prefix_length`, `tie_breaker`
+
+For the `bool_prefix` type, the fuzzy parameters apply to every term except the last one, which is always matched as a prefix.
+
+### The tie_breaker parameter
+
+The `tie_breaker` parameter determines how the scores of matching fields are combined. For the `cross_fields` type, it also determines how the scores of the fields within each `blended` clause and of the field groups are combined. The `tie_breaker` parameter accepts the following values:
 
 - 0.0 (default for `best_fields`, `cross_fields`, `phrase`, and `phrase_prefix` queries): Take the single best score returned by any field in a group.
 - 1.0 (default for `most_fields` and `bool_prefix` queries): Add the scores for all fields in a group.
