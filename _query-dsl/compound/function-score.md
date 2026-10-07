@@ -187,10 +187,10 @@ The `field_value_factor` function supports the following options:
     
     Modifier | Formula | Description
     :--- | :--- | :---
-    `log`| $$\log v$$ | Take the base-10 logarithm of the value. Taking a logarithm of a non-positive number is an illegal operation and will result in an error. For values between 0 (exclusive) and 1 (inclusive), this function returns non-negative values that will result in an error. We recommend using `log1p` or `log2p` instead of `log`.
+    `log`| $$\log v$$ | Take the base-10 logarithm of the value. Taking a logarithm of a non-positive number is an illegal operation and will result in an error. For values between 0 (exclusive) and 1 (exclusive), this function returns negative values that result in an error. A value of 1 produces a score of 0, which, with the default `boost_mode` of `multiply`, sets the document's final score to 0. We recommend using `log1p` or `log2p` instead of `log`.
     `log1p`| $$\log (1 + v)$$ | Take the base-10 logarithm of the sum of 1 and the value.
     `log2p`| $$\log (2 + v)$$ | Take the base-10 logarithm of the sum of 2 and the value.
-    `ln`| $$\ln v$$ | Take the natural logarithm of the value. Taking a logarithm of a non-positive number is an illegal operation and will result in an error. For values between 0 (exclusive) and 1 (inclusive), this function returns non-negative values that will result in an error. We recommend using `ln1p` or `ln2p` instead of `ln`.
+    `ln`| $$\ln v$$ | Take the natural logarithm of the value. Taking a logarithm of a non-positive number is an illegal operation and will result in an error. For values between 0 and 1 (both exclusive), this function returns negative values that will result in an error. A value of 1 produces a score of 0, which, with the default `boost_mode` of `multiply`, sets the document's final score to 0. We recommend using `ln1p` or `ln2p` instead of `ln`.
     `ln1p`| $$\ln (1 + v)$$ | Take the natural logarithm of the sum of 1 and the value.
     `ln2p`| $$\ln (2 + v)$$ | Take the natural logarithm of the sum of 2 and the value.
     `reciprocal`| $$\frac {1}{v}$$ | Take the reciprocal of the value.
@@ -416,9 +416,9 @@ The following table lists all parameters supported by the `gauss`, `exp`, and `l
 
 Parameter | Description
 :--- | :---
-`origin` | The point from which to calculate the distance. Must be provided as a number for numeric fields, a date for date fields, or a geopoint for geopoint fields. Required for geopoint and numeric fields. Optional for date fields (defaults to `now`). For date fields, date math is supported (for example, `now-2d`).
+`origin` | The point from which to calculate the distance. Must be provided as a number for numeric fields, a date for date fields, or a geopoint for geopoint fields. Required for geopoint and numeric fields. Optional for date fields (defaults to `now`). For date fields, the `origin` must use the date `format` defined in the field mapping, and date math is supported (for example, `now-2d`).
 `offset` | Defines the distance from the origin within which documents are given a score of 1. Optional. Default is 0.
-`scale` | Documents at the distance of `scale` + `offset` from the `origin` are assigned a score of `decay`. Required. <br>For numeric fields, `scale` can be any number. <br>For date fields, `scale` can be defined as a number with [units]({{site.url}}{{site.baseurl}}/api-reference/units/) (`5h`, `1d`). If units are not provided, `scale` defaults to milliseconds. <br>For geopoint fields, `scale` can be defined as a number with [units]({{site.url}}{{site.baseurl}}/api-reference/units/) (`1mi`, `5km`). If units are not provided, `scale` defaults to meters.
+`scale` | Documents at the distance of `scale` + `offset` from the `origin` are assigned a score of `decay`. Required. <br>For numeric fields, `scale` can be any number. <br>For date fields, `scale` must be defined as a number with [units]({{site.url}}{{site.baseurl}}/api-reference/units/) (for example, `5h`, `1d`, or `1000ms`). <br>For geopoint fields, `scale` can be defined as a number with [units]({{site.url}}{{site.baseurl}}/api-reference/units/) (for example, `1mi` or `5km`). If units are not provided, `scale` defaults to meters.
 `decay` | Defines the score of a document at the distance of `scale` + `offset` from the `origin`. Optional. Default is 0.5.
 
 For fields that are missing from the document, decay functions return a score of 1.
@@ -738,11 +738,13 @@ $$\lambda = \frac {\ln(\text{decay})} {\text{scale}} $$
 
 **Linear**
 
-$$ \text{score} = \max \left(\frac {s - \max(0, \lvert v - \text{origin} \rvert - \text{offset})} {s} \right), $$
+$$ \text{score} = \max \left(0, \frac {s - \max(0, \lvert v - \text{origin} \rvert - \text{offset})} {s} \right), $$
 
 where $$s$$ is calculated to ensure that the score is equal to `decay` at the distance `offset` + `scale` from the `origin`:
 
 $$s = \frac {\text{scale}} {1 - \text{decay}}$$
+
+The linear function assigns a score of 0 to documents whose distance from the `origin` is at least `offset` + $$s$$. With the default `decay` of 0.5, $$s$$ equals twice the `scale`.
 
 ## Using multiple scoring functions
 
@@ -750,7 +752,7 @@ You can specify multiple scoring functions in a function score query by listing 
 
 ### Combining scores from multiple functions
 
-Different functions can use different scales for scoring. For example, the `random_score` function provides a score between 0 and 1, but the `field_value_factor` does not have a specific scale for the score. Additionally, you may want to weigh scores given by different functions differently. To adjust scores for different functions, you can specify the `weight` parameter for each function. The score given by each function is then multiplied by the `weight` to produce the final score for that function. The `weight` parameter must be provided in the `functions` array in order to differentiate it from the [weight function](#the-weight-function), 
+Different functions can use different scales for scoring. For example, the `random_score` function provides a score between 0 and 1, but the `field_value_factor` does not have a specific scale for the score. Additionally, you may want to weigh scores given by different functions differently. To adjust scores for different functions, you can specify the `weight` parameter for each function. The score given by each function is then multiplied by the `weight` to produce the final score for that function. The `weight` parameter must be provided in the `functions` array in order to differentiate it from the [weight function](#the-weight-function).
 
 The scores given by each function are combined using the `score_mode` parameter, which takes one of the following values:
 
@@ -790,6 +792,8 @@ With the default `boost_mode` of `multiply` and an implicit `match_all` query, a
 ### Filtering documents that don't meet a threshold
 
 Changing the relevance score does not change the list of matching documents. To exclude some documents that don't meet a threshold, specify the threshold value in the `min_score` parameter. All documents returned by the query are then scored and filtered using the threshold value.
+
+To apply `min_score`, OpenSearch must first calculate the final score of every document that matches the query and then remove the low-scoring documents one by one. A `min_score` threshold reduces the number of results but not the scoring work, so it does not make a query that matches many documents faster.
 
 Because `min_score` is applied after scoring, it doesn't exclude documents based on the function filters they matched. In the [preceding example](#applying-a-scoring-function-to-a-subset-of-documents), setting `min_score` to `0.9` excludes document 2, which matched the `views` filter and scored `0.5`, but retains documents 3 and 4, which matched no filters and scored `1`.
 {: .note}
