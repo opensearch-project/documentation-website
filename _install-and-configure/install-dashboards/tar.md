@@ -17,26 +17,44 @@ Install OpenSearch. For more information, see [Installing OpenSearch from a tarb
 
 To install OpenSearch Dashboards from a tarball, follow these steps:
 
-1. Download the tarball from the [OpenSearch downloads page](https://opensearch.org/downloads.html){:target='\_blank'} or by using the command line (such as with `wget`):
+1. Download the tarball from the [OpenSearch downloads page](https://opensearch.org/downloads.html){:target='\_blank'} or by using the command line, for example, using `wget`.
+
+   For an x64 host, use the following command:
 
    ```bash
-   # x64
    wget https://artifacts.opensearch.org/releases/bundle/opensearch-dashboards/{{site.opensearch_dashboards_version}}/opensearch-dashboards-{{site.opensearch_dashboards_version}}-linux-x64.tar.gz
+   ```
+   {% include copy.html %}
 
-   # ARM64
+   For an ARM64 host, use the following command:
+
+   ```bash
    wget https://artifacts.opensearch.org/releases/bundle/opensearch-dashboards/{{site.opensearch_dashboards_version}}/opensearch-dashboards-{{site.opensearch_dashboards_version}}-linux-arm64.tar.gz
    ```
+   {% include copy.html %}
 
-1. Extract the TAR file to a directory and change to that directory:
+1. Extract the TAR file to a directory.
+
+   For an x64 host, use the following command:
 
    ```bash
-   # x64
    tar -zxf opensearch-dashboards-{{site.opensearch_dashboards_version}}-linux-x64.tar.gz
-   cd opensearch-dashboards-{{site.opensearch_dashboards_version}}
-   # ARM64
+   ```
+   {% include copy.html %}
+
+   For an ARM64 host, use the following command:
+
+   ```bash
    tar -zxf opensearch-dashboards-{{site.opensearch_dashboards_version}}-linux-arm64.tar.gz
+   ```
+   {% include copy.html %}
+
+   Then change to the extracted directory:
+
+   ```bash
    cd opensearch-dashboards-{{site.opensearch_dashboards_version}}
    ```
+   {% include copy.html %}
 
 1. If desired, modify `config/opensearch_dashboards.yml`. By default, OpenSearch Dashboards connects to OpenSearch at `https://localhost:9200` as the `kibanaserver` user and binds to `localhost`, so it cannot be reached from other hosts. To make OpenSearch Dashboards reachable from other hosts, set `server.host` to `0.0.0.0` or to an IP address of the host:
 
