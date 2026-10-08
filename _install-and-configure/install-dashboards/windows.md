@@ -38,6 +38,7 @@ To install OpenSearch Dashboards on Windows, follow these steps:
       ```powershell
       Set-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem LongPathsEnabled -Type DWORD -Value 1 -Force
       ```
+      {% include copy.html %}
    1. Restart your computer.
 
 1. Configure OpenSearch Dashboards.
@@ -72,12 +73,14 @@ To install OpenSearch Dashboards on Windows, follow these steps:
         ```bat
         \path\to\opensearch-dashboards-{{site.opensearch_dashboards_version}}\bin\opensearch-dashboards-plugin.bat remove securityDashboards
         ```
+        {% include copy.html %}
         
         Then replace the contents of the `opensearch_dashboards.yml` file with the following setting:
         
         ```yaml
         opensearch.hosts: [http://localhost:9200]
         ```
+        {% include copy.html %}
 
         After you remove the Security plugin, OpenSearch Dashboards fails to start with an `Unknown configuration key(s)` error if `opensearch_dashboards.yml` still contains `opensearch_security` settings. Make sure to remove all of the packaged settings.
         {: .note}
@@ -101,10 +104,12 @@ To install OpenSearch Dashboards on Windows, follow these steps:
          ```bat
          cd \path\to\opensearch-dashboards-{{site.opensearch_dashboards_version}}
          ```
+         {% include copy.html %}
       1. Run the batch script to start OpenSearch Dashboards.
          ```bat
          .\bin\opensearch-dashboards.bat
          ```
+         {% include copy.html %}
 
 1. In a web browser, go to `http://localhost:5601`. OpenSearch Dashboards can take about 2 minutes to start. If you configured OpenSearch Dashboards with security enabled, log in as the `admin` user using the custom admin password that you set when you installed OpenSearch. If OpenSearch Dashboards runs on a remote host, replace `localhost` with the IP address or DNS name of that host. For more information, see [Accessing OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/#accessing-opensearch-dashboards).
 
