@@ -84,6 +84,7 @@ opensearch_security.multitenancy.tenants.preferred: ["Private", "Global"]
 opensearch_security.readonly_mode.roles: ["kibana_read_only"]
 opensearch_security.cookie.secure: true
 ```
+{% include copy.html %}
 
 If you use the Docker install option, you can pass a custom `opensearch_dashboards.yml` file to the container. To learn more, see the [Docker installation page]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/docker/).
 
