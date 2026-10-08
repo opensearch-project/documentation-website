@@ -86,6 +86,7 @@ Before launching OpenSearch you should review some [important system settings]({
    # Verify that the change was applied by checking the value
    cat /proc/sys/vm/max_map_count
    ```
+   {% include copy.html %}
 
 ## Step 3: (Optional) Test OpenSearch
 
@@ -356,6 +357,7 @@ TLS certificates provide additional security for your cluster by allowing client
    # replace the arguments passed to -subj so they reflect your specific host.
    openssl req -new -x509 -sha256 -key root-ca-key.pem -subj "/C=CA/ST=ONTARIO/L=TORONTO/O=ORG/OU=UNIT/CN=ROOT" -out root-ca.pem -days 730
    ```
+   {% include copy.html %}
 1. Next, create the admin certificate. This certificate is used to gain elevated rights for performing administrative tasks relating to the Security plugin.
    ```bash
    # Create a private key for the admin certificate.
@@ -371,6 +373,7 @@ TLS certificates provide additional security for your cluster by allowing client
    # Sign the admin certificate with the root certificate and private key you created earlier.
    openssl x509 -req -in admin.csr -CA root-ca.pem -CAkey root-ca-key.pem -CAcreateserial -sha256 -out admin.pem -days 730
    ```
+   {% include copy.html %}
 1. Create a certificate for the node being configured.
    ```bash
    # Create a private key for the node certificate.
@@ -390,6 +393,7 @@ TLS certificates provide additional security for your cluster by allowing client
    # Sign the node certificate with the root certificate and private key that you created earlier.
    openssl x509 -req -in node1.csr -CA root-ca.pem -CAkey root-ca-key.pem -CAcreateserial -sha256 -out node1.pem -days 730 -extfile node1.ext
    ```
+   {% include copy.html %}
 1. Remove temporary files that are no longer required.
    ```bash
    rm *temp.pem *csr *ext
@@ -431,6 +435,7 @@ TLS certificates provide additional security for your cluster by allowing client
    # Add trust
    sudo update-ca-trust
    ```
+   {% include copy.html %}
 
 ### Configure a user
 
@@ -503,16 +508,19 @@ Now that TLS certificates are installed and demo users were removed or assigned 
    # Run the service in the foreground
    ./opensearch
    ```
+   {% include copy.html %}
 1. Open a separate terminal session with the host and navigate to the directory containing `securityadmin.sh`.
    ```bash
    # Change to the correct directory
    cd /path/to/opensearch-{{site.opensearch_version}}/plugins/opensearch-security/tools
    ```
+   {% include copy.html %}
 1. Invoke the script. See [Apply changes using securityadmin.sh]({{site.url}}{{site.baseurl}}/security/configuration/security-admin/) for definitions of the arguments you must pass.
    ```bash
    # You can omit the environment variable if you declared this in your $PATH.
    OPENSEARCH_JAVA_HOME=/path/to/opensearch-{{site.opensearch_version}}/jdk ./securityadmin.sh -cd /path/to/opensearch-{{site.opensearch_version}}/config/opensearch-security/ -cacert /path/to/opensearch-{{site.opensearch_version}}/config/root-ca.pem -cert /path/to/opensearch-{{site.opensearch_version}}/config/admin.pem -key /path/to/opensearch-{{site.opensearch_version}}/config/admin-key.pem -icl -nhnv
    ```
+   {% include copy.html %}
 1. Stop and restart the running OpenSearch process to apply the changes.
 
 ### Verify that the service is running
