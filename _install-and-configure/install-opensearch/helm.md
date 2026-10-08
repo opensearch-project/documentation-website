@@ -263,6 +263,7 @@ extraEnvs:
   - name: <another-variable>
     value: <value>
 ```
+{% include copy.html %}
 
 ## Related documentation
 
