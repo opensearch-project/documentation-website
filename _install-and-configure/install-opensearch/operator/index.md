@@ -154,7 +154,7 @@ Follow these steps to deploy the cluster, verify that it is running, access it, 
         ```
         {% include copy.html %}
 
-        Then go to [http://localhost:5601](http://localhost:5601) in your browser and log in as the `admin` user using the password that you retrieved in the previous step.
+        Then go to [`http://localhost:5601`](http://localhost:5601) in your browser and log in as the `admin` user using the password that you retrieved in the previous step.
 
     - To use the OpenSearch REST API, start port forwarding by running the following command:
 
