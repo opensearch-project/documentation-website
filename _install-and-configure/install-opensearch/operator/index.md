@@ -20,11 +20,13 @@ The operator Helm chart installs a validation webhook whose certificate is issue
 
 To install the operator using Helm, follow these steps:
 
-1. Install cert-manager:
+1. Install `cert-manager`:
 
    ```bash
    helm repo add jetstack https://charts.jetstack.io
-   helm install cert-manager jetstack/cert-manager --namespace cert-manager --create-namespace --set crds.enabled=true
+   
+   
+   
    ```
    {% include copy.html %}
 
