@@ -7,7 +7,7 @@ nav_order: 10
 
 # Match query
 
-Use the `match` query for full-text search on a specific document field. If you run a `match` query on a [`text`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/text/) field, the `match` query [analyzes]({{site.url}}{{site.baseurl}}/analyzers/index/) the provided search string and returns documents that match any of the string's terms. If you run a `match` query on an exact-value field, it returns documents that match the exact value. The preferred way to search exact-value fields is to use a filter because, unlike a query, a filter is cached.
+Use the `match` query for full-text search on a specific document field. If you run a `match` query on a [`text`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/text/) field, the `match` query [analyzes]({{site.url}}{{site.baseurl}}/analyzers/index/) the provided search string and returns documents that match any of the string's terms. If you run a `match` query on an exact-value field, it returns documents that match the exact value. To search exact-value fields, use a [`term`]({{site.url}}{{site.baseurl}}/query-dsl/term/term/) query in a filter context, which does not calculate relevance scores. For more information, see [Query and filter context]({{site.url}}{{site.baseurl}}/query-dsl/query-filter-context/).
 
 The following example shows a basic `match` query for the word `wind` in the `title`:
 
@@ -98,7 +98,7 @@ The query is constructed as `wind AND rise` and returns document 1 as the matchi
 
 ```json
 {
-  "took": 17,
+  "took": 1,
   "timed_out": false,
   "_shards": {
     "total": 1,
@@ -111,12 +111,12 @@ The query is constructed as `wind AND rise` and returns document 1 as the matchi
       "value": 1,
       "relation": "eq"
     },
-    "max_score": 1.2667098,
+    "max_score": 0.41195536,
     "hits": [
       {
         "_index": "testindex",
         "_id": "1",
-        "_score": 1.2667098,
+        "_score": 0.41195536,
         "_source": {
           "title": "Let the wind rise"
         }
@@ -158,7 +158,7 @@ Now documents are required to match both terms, so only document 1 is returned (
 
 ```json
 {
-  "took": 23,
+  "took": 1,
   "timed_out": false,
   "_shards": {
     "total": 1,
@@ -171,12 +171,12 @@ Now documents are required to match both terms, so only document 1 is returned (
       "value": 1,
       "relation": "eq"
     },
-    "max_score": 1.2667098,
+    "max_score": 0.41195536,
     "hits": [
       {
         "_index": "testindex",
         "_id": "1",
-        "_score": 1.2667098,
+        "_score": 0.41195536,
         "_source": {
           "title": "Let the wind rise"
         }
@@ -189,7 +189,7 @@ Now documents are required to match both terms, so only document 1 is returned (
 
 ## Analyzer
 
-Because in this example you didn't explicitly specify the analyzer, the default `standard` analyzer is used. The default analyzer does not perform stemming, so if you run a query `the wind rises`, you receive no results because the token `rises` does not match the token `rise`. To change the search analyzer, specify it in the `analyzer` field. For example, the following query uses the `english` analyzer:
+Because in this example you didn't explicitly specify the analyzer, the default `standard` analyzer is used. The default analyzer does not perform stemming, so with the `and` operator, the query `the wind rises` returns no results because the token `rises` does not match the token `rise`. To change the search analyzer, specify it in the `analyzer` field. For example, the following query uses the `english` analyzer:
 
 ```json
 GET testindex/_search
@@ -207,7 +207,7 @@ GET testindex/_search
 ```
 {% include copy-curl.html %}
 
-The `english` analyzer removes the stopword `the` and performs stemming, producing the tokens `wind` and `rise`. The latter token matches document 1, which is returned in the results:
+The `english` analyzer removes the stopword `the` and performs stemming, producing the tokens `wind` and `rise`. Both tokens are in document 1, so it is returned in the results:
 
 <details markdown="block">
   <summary>
@@ -217,7 +217,7 @@ The `english` analyzer removes the stopword `the` and performs stemming, produci
 
 ```json
 {
-  "took": 19,
+  "took": 1,
   "timed_out": false,
   "_shards": {
     "total": 1,
@@ -230,12 +230,12 @@ The `english` analyzer removes the stopword `the` and performs stemming, produci
       "value": 1,
       "relation": "eq"
     },
-    "max_score": 1.2667098,
+    "max_score": 0.41195536,
     "hits": [
       {
         "_index": "testindex",
         "_id": "1",
-        "_score": 1.2667098,
+        "_score": 0.41195536,
         "_source": {
           "title": "Let the wind rise"
         }
@@ -322,7 +322,7 @@ The token `wnid` matches `wind` and the query returns documents 1 and 2:
 
 ```json
 {
-  "took": 31,
+  "took": 2,
   "timed_out": false,
   "_shards": {
     "total": 1,
@@ -335,12 +335,12 @@ The token `wnid` matches `wind` and the query returns documents 1 and 2:
       "value": 2,
       "relation": "eq"
     },
-    "max_score": 0.47501624,
+    "max_score": 0.15448327,
     "hits": [
       {
         "_index": "testindex",
         "_id": "1",
-        "_score": 0.47501624,
+        "_score": 0.15448327,
         "_source": {
           "title": "Let the wind rise"
         }
@@ -348,7 +348,7 @@ The token `wnid` matches `wind` and the query returns documents 1 and 2:
       {
         "_index": "testindex",
         "_id": "2",
-        "_score": 0.47501624,
+        "_score": 0.15448327,
         "_source": {
           "title": "Gone with the wind"
         }
@@ -403,19 +403,76 @@ GET testindex/_search
 
 Now the query returns no results.
 
+### Fuzziness and synonyms
+
+Fuzzy matching is not applied to query terms that have synonyms or to any other terms for which the analyzer produces several tokens at the same position. OpenSearch combines these tokens into a synonym query, which blends their term frequencies and does not support fuzzy expansion. For an example, see [Synonyms](#synonyms).
+
 ## Synonyms
 
-If you use a `synonym_graph` filter and `auto_generate_synonyms_phrase_query` is set to `true` (default), OpenSearch parses the query into terms and then combines the terms to generate a [phrase query](https://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/search/PhraseQuery.html) for multi-term synonyms. For example, if you specify `ba,batting average` as synonyms and search for `ba`, OpenSearch searches for `ba OR "batting average"`.
+If the search analyzer of a field contains a [`synonym_graph`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/synonym-graph/) token filter, the `match` query expands query terms into their synonyms. For multi-term synonyms, the `auto_generate_synonyms_phrase_query` parameter determines whether the terms of the synonym must appear together as a phrase.
 
-To match multi-term synonyms with conjunctions, set `auto_generate_synonyms_phrase_query` to `false`:
+The following request creates a `furniture` index whose `name` field uses a search analyzer containing two synonym rules: `sofa, couch` and the multi-term synonym `sleeper, sofa bed`:
 
 ```json
-GET /testindex/_search
+PUT furniture
+{
+  "settings": {
+    "analysis": {
+      "filter": {
+        "furniture_synonyms": {
+          "type": "synonym_graph",
+          "synonyms": [
+            "sofa, couch",
+            "sleeper, sofa bed"
+          ]
+        }
+      },
+      "analyzer": {
+        "synonym_search": {
+          "tokenizer": "standard",
+          "filter": [ "lowercase", "furniture_synonyms" ]
+        }
+      }
+    }
+  },
+  "mappings": {
+    "properties": {
+      "name": {
+        "type": "text",
+        "search_analyzer": "synonym_search"
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+Index the following documents:
+
+```json
+POST furniture/_bulk?refresh
+{ "index": { "_id": "1" } }
+{ "name": "Leather sofas" }
+{ "index": { "_id": "2" } }
+{ "name": "Velvet couch" }
+{ "index": { "_id": "3" } }
+{ "name": "Convertible sofa bed" }
+{ "index": { "_id": "4" } }
+{ "name": "Bed frame" }
+{ "index": { "_id": "5" } }
+{ "name": "Bed with sofa cushions" }
+```
+{% include copy-curl.html %}
+
+By default, `auto_generate_synonyms_phrase_query` is `true`, so a search for `sleeper` matches `sleeper` or the phrase `"sofa bed"` and returns only document 3. To match the terms of a multi-term synonym in any position, set `auto_generate_synonyms_phrase_query` to `false`:
+
+```json
+GET furniture/_search
 {
   "query": {
     "match": {
-      "text": {
-        "query": "good ba",
+      "name": {
+        "query": "sleeper",
         "auto_generate_synonyms_phrase_query": false
       }
     }
@@ -424,7 +481,46 @@ GET /testindex/_search
 ```
 {% include copy-curl.html %}
 
-The query produced is `ba OR (batting AND average)`.
+The query is rewritten as `sleeper OR (sofa AND bed)`, so it returns document 3 and document 5, which contains both `sofa` and `bed` but not as a phrase. To see how OpenSearch rewrites a query, use the [Validate Query API]({{site.url}}{{site.baseurl}}/api-reference/search-apis/validate/) with the `explain` parameter. For the preceding query, the explanation is `((+name:sofa +name:bed) name:sleeper)`.
+
+Because `sofa` has a synonym, a fuzzy search for `sofa` does not match the plural `sofas` in document 1, even though `sofas` is within one edit of `sofa`:
+
+```json
+GET furniture/_validate/query?explain
+{
+  "query": {
+    "match": {
+      "name": {
+        "query": "sofa",
+        "fuzziness": "AUTO"
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+The explanation shows a synonym query for `sofa` and `couch` with no fuzzy expansion:
+
+```json
+{
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "failed": 0
+  },
+  "valid": true,
+  "explanations": [
+    {
+      "index": "furniture",
+      "valid": true,
+      "explanation": "Synonym(name:couch name:sofa)"
+    }
+  ]
+}
+```
+
+Fuzziness still applies to the other terms in the query. For example, in the query `leathr sofa`, the term `leathr` is expanded to `leathr~2`, while `sofa` is expanded only to its synonyms.
 
 ## Parameters
 
@@ -443,7 +539,6 @@ GET _search
   }
 }
 ```
-{% include copy-curl.html %}
 
 The `<field>` accepts the following parameters. All parameters except `query` are optional.
 
@@ -451,11 +546,11 @@ Parameter | Data type | Description
 :--- | :--- | :---
 `query` | String | The query string to use for search. Required.
 `auto_generate_synonyms_phrase_query` | Boolean | Specifies whether to create a [match phrase query]({{site.url}}{{site.baseurl}}/query-dsl/full-text/match-phrase/) automatically for multi-term synonyms. For example, if you specify `ba,batting average` as synonyms and search for `ba`, OpenSearch searches for `ba OR "batting average"` (if this option is `true`) or `ba OR (batting AND average)` (if this option is `false`). Default is `true`.
-`analyzer` | String | The [analyzer]({{site.url}}{{site.baseurl}}/analyzers/index/) used to tokenize the query string text. Default is the index-time analyzer specified for the `default_field`. If no analyzer is specified for the `default_field`, the `analyzer` is the default analyzer for the index. For more information about `index.query.default_field`, see [Dynamic index settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/#dynamic-index-settings).
+`analyzer` | String | The [analyzer]({{site.url}}{{site.baseurl}}/analyzers/index/) used to tokenize the query string text. Default is the search analyzer mapped for the `<field>`. If no analyzer is mapped for the `<field>`, the default analyzer for the index is used.
 `boost` | Floating-point | Boosts the clause by the given multiplier. Useful for weighing clauses in compound queries. Values in the [0, 1) range decrease relevance, and values greater than 1 increase relevance. Default is `1`.
 `enable_position_increments` | Boolean | When `true`, resulting queries are aware of position increments. This setting is useful when the removal of stop words leaves an unwanted "gap" between terms. Default is `true`.
 `fuzziness` | String | The number of character edits (insertions, deletions, substitutions, or transpositions) that it takes to change one word to another when determining whether a term matched a value. For example, the distance between `wined` and `wind` is 1. Valid values are non-negative integers or `AUTO`. The default, `AUTO`, dynamically selects the edit distance based on the search term's length. You can customize the thresholds using the syntax `AUTO:[low],[high]`, where `low` and `high` define the character length boundaries. When omitted, OpenSearch uses `AUTO:3,6` as the default, which applies the following rules: <br>- Terms containing 0--2 characters: Requires an exact match (0 edits). <br>- Terms containing 3--5 characters: Allows a maximum of 1 edit. <br>- Terms containing 6 or more characters: Allows a maximum of 2 edits. <br>For example, `AUTO:4,7` requires exact matches for terms containing 0--3 characters, allows a maximum of 1 edit for terms containing 4--6 characters, and allows a maximum of 2 edits for terms containing 7 or more characters. Using `AUTO` is recommended for most scenarios.
-`fuzzy_rewrite` | String | Determines how OpenSearch rewrites the query. Valid values are `constant_score`, `scoring_boolean`, `constant_score_boolean`, `top_terms_N`, `top_terms_boost_N`, and `top_terms_blended_freqs_N`. If the `fuzziness` parameter is not `0`, the query uses a `fuzzy_rewrite` method of `top_terms_blended_freqs_${max_expansions}` by default. Default is `constant_score`. 
+`fuzzy_rewrite` | String | Determines how OpenSearch rewrites the query. Valid values are `constant_score`, `scoring_boolean`, `constant_score_boolean`, `top_terms_N`, `top_terms_boost_N`, and `top_terms_blended_freqs_N`. If the `fuzziness` parameter is not `0`, the query uses a `fuzzy_rewrite` method of `top_terms_blended_freqs_${max_expansions}` by default.
 `fuzzy_transpositions` | Boolean | Setting `fuzzy_transpositions` to `true` (default) adds swaps of adjacent characters to the insert, delete, and substitute operations of the `fuzziness` option. For example, the distance between `wind` and `wnid` is 1 if `fuzzy_transpositions` is true (swap "n" and "i") and 2 if it is false (delete "n", insert "n"). If `fuzzy_transpositions` is false, `rewind` and `wnid` have the same distance (2) from `wind`, despite the more human-centric opinion that `wnid` is an obvious typo. The default is a good choice for most use cases.
 `lenient` | Boolean | Setting `lenient` to `true` ignores data type mismatches between the query and the document field. For example, a query string of `"8.2"` could match a field of type `float`. Default is `false`.
 `max_expansions` | Positive integer |  The maximum number of terms to which the query can expand. Fuzzy queries “expand to” a number of matching terms that are within the distance specified in `fuzziness`. Then OpenSearch tries to match those terms. Default is `50`.
