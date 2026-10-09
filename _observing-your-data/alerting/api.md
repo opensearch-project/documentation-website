@@ -745,6 +745,8 @@ If you run a document-level query while the index is getting reindexed, the API 
 
 When updating a monitor, you can optionally include the `if_seq_no` and `if_primary_term` query parameters, for example, `?if_seq_no=3&if_primary_term=1`. If these numbers do not match the existing monitor or the monitor does not exist, the Alerting plugin throws an error. OpenSearch increments the version number and the sequence number automatically (see the example response).
 
+Updating a monitor does not change its `created_by` value. Any `created_by` value in the request body is ignored. For more information, see [Monitor creator](#monitor-creator).
+
 #### Example request
 ```json
 PUT _plugins/_alerting/monitors/{monitor_id}
@@ -945,13 +947,28 @@ GET _plugins/_alerting/monitors/{monitor_id}
         }
       }]
     }],
-    "last_update_time": 1551466639295
+    "last_update_time": 1551466639295,
+    "created_by": "admin"
   }
 }
 ```
 {% include copy-curl.html %}
 
 </details>
+
+### Monitor creator
+**Introduced 3.10**
+{: .label .label-purple }
+
+Monitor responses include a `created_by` field that contains the name of the user who created the monitor. OpenSearch sets this field when the monitor is created and never changes it:
+
+- The value is taken from the authenticated user. Any `created_by` value provided in a create or update request is ignored.
+- Updating the monitor, including updates by other users, does not change the value.
+- The field is omitted when the Security plugin is disabled, for monitors created before OpenSearch 3.10, and for monitors created by other plugins, such as Security Analytics, that create monitors without a user context.
+- Composite monitors (workflows) do not have a `created_by` field.
+
+Unlike the `user` field, which reflects the user who last updated the monitor and is not returned in API responses, `created_by` is returned by the Get monitor and Search monitors APIs. Users who can read a monitor can see its creator. The `created_by` field is not available as a monitor variable in trigger conditions or action message templates.
+{: .note}
 
 ---
 
@@ -1204,6 +1221,23 @@ GET _plugins/_alerting/monitors/_search
       "monitor.name": "my-monitor-name"
     }
   }
+}
+```
+{% include copy-curl.html %}
+
+Starting with OpenSearch 3.10, you can also search, filter, and sort monitors by the user who created them using the `monitor.created_by` field. For example, the following request returns the monitors created by `admin`, sorted by name:
+
+```json
+GET _plugins/_alerting/monitors/_search
+{
+  "query": {
+    "term": {
+      "monitor.created_by": "admin"
+    }
+  },
+  "sort": [
+    { "monitor.name.keyword": "asc" }
+  ]
 }
 ```
 {% include copy-curl.html %}
