@@ -169,7 +169,7 @@ To improve performance, OpenSearch caches frequently used filters.
 
 A query clause in a query context asks the question "_How well_ does the document match the query clause?", which does not have a binary answer. A query context is suitable for a full-text search, where you not only want to receive matching documents but also to determine the relevance of each document. For example, you might use a query context to find blog posts about vector search.
 
-With a query context, every matching document contains a relevance score in the `_score` field, which you can use to [sort]({{site.url}}{{site.baseurl}}/opensearch/search/sort/) documents by relevance.
+With a query context, every matching document contains a relevance score in the `_score` field, which you can use to [sort]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/sort/) documents by relevance.
 
 To run a query clause in a query context, pass it to a `query` parameter. For example, the following query searches for posts whose content matches the words `vector search`:
 
@@ -361,3 +361,11 @@ The response contains the same three documents as the filter context example, so
 }
 ```
 </details>
+
+## Related documentation
+
+- [Boolean query]({{site.url}}{{site.baseurl}}/query-dsl/compound/bool/)
+- [Constant score query]({{site.url}}{{site.baseurl}}/query-dsl/compound/constant-score/)
+- [Term-level queries]({{site.url}}{{site.baseurl}}/query-dsl/term/index/)
+- [Full-text queries]({{site.url}}{{site.baseurl}}/query-dsl/full-text/index/)
+- [Sort results]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/sort/)
