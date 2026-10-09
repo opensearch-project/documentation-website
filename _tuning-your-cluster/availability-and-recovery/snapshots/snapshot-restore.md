@@ -17,6 +17,8 @@ redirect_from:
 
 Snapshots aren't instantaneous. They take time to complete and do not represent perfect point-in-time views of the cluster. While a snapshot is in progress, you can still index documents and send other requests to the cluster, but new documents and updates to existing documents generally aren't included in the snapshot. The snapshot includes primary shards as they existed when OpenSearch initiated the snapshot. Depending on the size of your snapshot thread pool, different shards might be included in the snapshot at slightly different times.
 
+Before snapshotting a shard, OpenSearch [flushes]({{site.url}}{{site.baseurl}}/api-reference/index-apis/flush/) it and then copies the files of the resulting Lucene commit. A shard's snapshot therefore contains all operations indexed to that shard before the flush, including documents that have not yet been refreshed and are not yet searchable.
+
 OpenSearch snapshots are incremental, meaning that they only store data that has changed since the last successful snapshot. The difference in disk usage between frequent and infrequent snapshots is often minimal.
 
 In other words, taking hourly snapshots for a week (for a total of 168 snapshots) might not use much more disk space than taking a single snapshot at the end of the week. Also, the more frequently you take snapshots, the less time they take to complete. Some OpenSearch users take snapshots as often as every 30 minutes.
@@ -526,6 +528,19 @@ GET /_snapshot/_status
 ```
 {% include copy-curl.html %}
 
+### Cluster global state
+
+When `include_global_state` is `true` (the default when taking a snapshot), the snapshot stores the cluster global state. The global state contains the following cluster metadata:
+
+- Persistent cluster settings. Transient cluster settings are not included.
+- Index templates, composable index templates, and component templates.
+- Ingest pipelines and search pipelines.
+- Stored scripts.
+- Persistent tasks.
+
+The global state does not include snapshot repository registrations. Data stream definitions are stored for the data streams included in the snapshot, regardless of the `include_global_state` value.
+
+The global state does not contain any indexes. The `indices` parameter determines which indexes are included in a snapshot, and system and hidden indexes are treated like any other index. If you omit `indices`, the snapshot includes all open indexes, including system and hidden indexes. Plugin configuration stored in system indexes, such as Index State Management (ISM) policies in the `.opendistro-ism-config` index, is backed up only if those indexes are included in the snapshot.
 
 ## Restore snapshots
 
@@ -573,6 +588,8 @@ POST /_snapshot/my-repository/snapshot-2/_restore
 {% include copy-curl.html %}
 
 For more information, see [Restore Snapshot API]({{site.url}}{{site.baseurl}}/api-reference/snapshots/restore-snapshot/).
+
+When restoring a snapshot, `include_global_state` defaults to `false`. If you set it to `true`, the persistent cluster settings, composable index templates, component templates, ingest pipelines, search pipelines, and stored scripts in the snapshot replace the corresponding metadata in the cluster. Index templates in the snapshot are added to the cluster and overwrite existing index templates that have the same name. For a list of the metadata included in the global state, see [Cluster global state](#cluster-global-state).
 
 ### Restoring snapshots across remote-backed clusters
 
