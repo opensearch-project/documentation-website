@@ -18,6 +18,8 @@ OpenSearch Dashboards provides a command line tool called `opensearch-dashboards
 
 ## Using the `opensearch-dashboards-plugin` tool
 
+Run `opensearch-dashboards-plugin` from the OpenSearch Dashboards installation directory, for example, `/usr/share/opensearch-dashboards` for RPM and Debian installations. The tool refuses to run as the `root` user and returns an `OpenSearch Dashboards should not be run as root` error. The RPM and Debian packages install the `plugins` directory with `root` ownership, so for these installations, run the tool with `sudo` and add the `--allow-root` option, as shown in the examples on this page. For tarball and Windows installations, run the tool as the user that owns the installation directory, without `sudo` or `--allow-root`.
+
 Use the `opensearch-dashboards-plugin` tool to perform the following actions:
 
 - [List](#listing-installed-plugins) installed plugins.
@@ -29,27 +31,29 @@ Use the `opensearch-dashboards-plugin` tool to perform the following actions:
 To view the list of installed plugins from the command line, use the following command:
 
 ```bash
-sudo bin/opensearch-dashboards-plugin list
+sudo bin/opensearch-dashboards-plugin list --allow-root
 ```
 {% include copy.html %}
 
 The command returns the list of installed plugins and their versions:
 
-```bash
-alertingDashboards@3.1.0.0
-anomalyDetectionDashboards@3.1.0.0
-assistantDashboards@3.1.0.0
-customImportMapDashboards@3.1.0.0
-flowFrameworkDashboards@3.1.0.0
-indexManagementDashboards@3.1.0.0
-mlCommonsDashboards@3.1.0.0
-notificationsDashboards@3.1.0.0
-observabilityDashboards@3.1.0.0
-queryInsightsDashboards@3.1.0.0
-queryWorkbenchDashboards@3.1.0.0
-reportsDashboards@3.1.0.0
-searchRelevanceDashboards@3.1.0.0
-securityAnalyticsDashboards@3.1.0.0
+```text
+alertingDashboards@{{site.opensearch_dashboards_version}}.0
+anomalyDetectionDashboards@{{site.opensearch_dashboards_version}}.0
+assistantDashboards@{{site.opensearch_dashboards_version}}.0
+customImportMapDashboards@{{site.opensearch_dashboards_version}}.0
+flowFrameworkDashboards@{{site.opensearch_dashboards_version}}.0
+indexManagementDashboards@{{site.opensearch_dashboards_version}}.0
+investigationDashboards@{{site.opensearch_dashboards_version}}.0
+mlCommonsDashboards@{{site.opensearch_dashboards_version}}.0
+notificationsDashboards@{{site.opensearch_dashboards_version}}.0
+observabilityDashboards@{{site.opensearch_dashboards_version}}.0
+queryInsightsDashboards@{{site.opensearch_dashboards_version}}.0
+queryWorkbenchDashboards@{{site.opensearch_dashboards_version}}.0
+reportsDashboards@{{site.opensearch_dashboards_version}}.0
+searchRelevanceDashboards@{{site.opensearch_dashboards_version}}.0
+securityAnalyticsDashboards@{{site.opensearch_dashboards_version}}.0
+securityDashboards@{{site.opensearch_dashboards_version}}.0
 ```
 
 ### Installing plugins
@@ -57,25 +61,27 @@ securityAnalyticsDashboards@3.1.0.0
 To install a plugin, provide the URL of the plugin's zip file:
 
 ```bash
-sudo bin/opensearch-dashboards-plugin install <plugin-zip-url>
+sudo bin/opensearch-dashboards-plugin install <plugin-zip-url> --allow-root
 ```
 {% include copy.html %}
 
 To install a plugin from a zip file on the host, provide the file path using the `file://` scheme:
 
 ```bash
-sudo bin/opensearch-dashboards-plugin install file:///<path-to-plugin-zip>
+sudo bin/opensearch-dashboards-plugin install file:///<path-to-plugin-zip> --allow-root
 ```
 {% include copy.html %}
 
 The plugin version must match your OpenSearch Dashboards version. For more information, see [Plugin compatibility](#plugin-compatibility). After installing the plugin, restart OpenSearch Dashboards.
+
+The download URLs of the bundled plugins are listed in the `manifest.yml` file located in the root of the OpenSearch Dashboards installation directory. For more information, see [Downloading bundled plugins for offline installation]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/#downloading-bundled-plugins-for-offline-installation).
 
 ### Removing plugins
 
 To remove a plugin, use the following command:
 
 ```bash
-sudo bin/opensearch-dashboards-plugin remove alertingDashboards
+sudo bin/opensearch-dashboards-plugin remove alertingDashboards --allow-root
 ```
 {% include copy.html %}
 
@@ -97,6 +103,7 @@ The following table lists available OpenSearch Dashboards plugins. All listed pl
 | `customImportMapDashboards` | [dashboards-maps](https://github.com/opensearch-project/dashboards-maps) | 2.2.0 |
 | `flowFrameworkDashboards` | [dashboards-flow-framework](https://github.com/opensearch-project/dashboards-flow-framework) | 2.19.0 |
 | `indexManagementDashboards` | [index-management-dashboards-plugin](https://github.com/opensearch-project/index-management-dashboards-plugin) | 1.0.0 |
+| `investigationDashboards` | [dashboards-investigation](https://github.com/opensearch-project/dashboards-investigation) | 3.8.0 |
 | `mlCommonsDashboards` | [ml-commons-dashboards](https://github.com/opensearch-project/ml-commons-dashboards) | 2.6.0 |
 | `notificationsDashboards` | [dashboards-notifications](https://github.com/opensearch-project/dashboards-notifications) | 2.0.0 |
 | `observabilityDashboards` | [dashboards-observability](https://github.com/opensearch-project/dashboards-observability) | 2.0.0 |
