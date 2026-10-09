@@ -22,29 +22,44 @@ Generally speaking, the installation of OpenSearch from a tarball can be broken 
 1. **Configure OpenSearch for your environment.**
    -  Apply basic settings to OpenSearch and start using it in your environment.
 
-The tarball is a self-contained directory with everything needed to run OpenSearch, including an integrated Java Development Kit (JDK). This installation method is compatible with most Linux distributions, including CentOS 7, Amazon Linux 2, and Ubuntu 18.04. If you have your own Java installation and set the environment variable `JAVA_HOME` in the terminal, macOS works as well.
+The tarball is a self-contained directory with everything needed to run OpenSearch, including an integrated Java Development Kit (JDK). This installation method is compatible with most Linux distributions. For the operating systems that OpenSearch is tested on, see [Compatible operating systems]({{site.url}}{{site.baseurl}}/install-and-configure/os-comp/). If you have your own Java installation and set the environment variable `JAVA_HOME` in the terminal, macOS works as well.
 
 This guide assumes that you are comfortable working from the Linux command line interface (CLI). You should understand how to input commands, navigate between directories, and edit text files. Some example commands reference the `vi` text editor, but you may use any text editor available.
 {:.note}
 
 ## Step 1: Download and unpack OpenSearch
 
-1. Download the appropriate tar.gz archive from the [OpenSearch downloads page](https://opensearch.org/downloads.html){:target='\_blank'} or by using the command line (such as with `wget`).
-   ```bash
-   # x64
-   wget https://artifacts.opensearch.org/releases/bundle/opensearch/{{site.opensearch_version}}/opensearch-{{site.opensearch_version}}-linux-x64.tar.gz
+1. Download the appropriate tar.gz archive from the [OpenSearch downloads page](https://opensearch.org/downloads.html){:target='\_blank'} or by using the command line, for example, using `wget`.
 
-   # ARM64
+   For an x64 host, use the following command:
+
+   ```bash
+   wget https://artifacts.opensearch.org/releases/bundle/opensearch/{{site.opensearch_version}}/opensearch-{{site.opensearch_version}}-linux-x64.tar.gz
+   ```
+   {% include copy.html %}
+
+   For an ARM64 host, use the following command:
+
+   ```bash
    wget https://artifacts.opensearch.org/releases/bundle/opensearch/{{site.opensearch_version}}/opensearch-{{site.opensearch_version}}-linux-arm64.tar.gz
    ```
+   {% include copy.html %}
+
 1. Extract the contents of the tarball.
+
+   For an x64 host, use the following command:
+
    ```bash
-   # x64
    tar -xvf opensearch-{{site.opensearch_version}}-linux-x64.tar.gz
-   
-   # ARM64
+   ```
+   {% include copy.html %}
+
+   For an ARM64 host, use the following command:
+
+   ```bash
    tar -xvf opensearch-{{site.opensearch_version}}-linux-arm64.tar.gz
    ```
+   {% include copy.html %}
 
 ## Step 2: Configure important system settings
 
@@ -71,6 +86,7 @@ Before launching OpenSearch you should review some [important system settings]({
    # Verify that the change was applied by checking the value
    cat /proc/sys/vm/max_map_count
    ```
+   {% include copy.html %}
 
 ## Step 3: (Optional) Test OpenSearch
 
@@ -94,15 +110,15 @@ An OpenSearch node configured by the demo security script is not suitable for a 
    ```
    {% include copy.html %}
 
-1. Run the OpenSearch startup script with the security demo configuration.
+1. For OpenSearch 2.12 or later, set a custom admin password, following the [admin password requirements]({{site.url}}{{site.baseurl}}/security/configuration/demo-configuration/#admin-password-requirements). If you do not set a password, the startup script exits without starting OpenSearch:
    ```bash
-   ./opensearch-tar-install.sh
+   export OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password>
    ```
    {% include copy.html %}
 
-   For OpenSearch 2.12 or later, set a new custom admin password before installation using the following command, following the [admin password requirements]({{site.url}}{{site.baseurl}}/security/configuration/demo-configuration/#admin-password-requirements):
+1. Run the OpenSearch startup script with the security demo configuration.
    ```bash
-   $ export OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password>
+   ./opensearch-tar-install.sh
    ```
    {% include copy.html %}
 
@@ -146,17 +162,28 @@ An OpenSearch node configured by the demo security script is not suitable for a 
       hostname opensearch-anomaly-detection         {{site.opensearch_version}}
       hostname opensearch-asynchronous-search       {{site.opensearch_version}}
       hostname opensearch-cross-cluster-replication {{site.opensearch_version}}
+      hostname opensearch-custom-codecs             {{site.opensearch_version}}
+      hostname opensearch-flow-framework            {{site.opensearch_version}}
+      hostname opensearch-geospatial                {{site.opensearch_version}}
       hostname opensearch-index-management          {{site.opensearch_version}}
       hostname opensearch-job-scheduler             {{site.opensearch_version}}
       hostname opensearch-knn                       {{site.opensearch_version}}
+      hostname opensearch-ltr                       {{site.opensearch_version}}
       hostname opensearch-ml                        {{site.opensearch_version}}
+      hostname opensearch-neural-search             {{site.opensearch_version}}
       hostname opensearch-notifications             {{site.opensearch_version}}
       hostname opensearch-notifications-core        {{site.opensearch_version}}
       hostname opensearch-observability             {{site.opensearch_version}}
       hostname opensearch-performance-analyzer      {{site.opensearch_version}}
       hostname opensearch-reports-scheduler         {{site.opensearch_version}}
+      hostname opensearch-search-relevance          {{site.opensearch_version}}
       hostname opensearch-security                  {{site.opensearch_version}}
+      hostname opensearch-security-analytics        {{site.opensearch_version}}
+      hostname opensearch-skills                    {{site.opensearch_version}}
       hostname opensearch-sql                       {{site.opensearch_version}}
+      hostname opensearch-system-templates          {{site.opensearch_version}}
+      hostname opensearch-ubi                       {{site.opensearch_version}}
+      hostname query-insights                       {{site.opensearch_version}}
       ```
 1. Return to the original terminal session and stop the process by pressing `CTRL + C`.
 
@@ -169,12 +196,19 @@ An OpenSearch node configured by the demo security script is not suitable for a 
    {% include copy.html %}
 
 1. Add the following line to disable the Security plugin:
-   ```bash
+   ```yaml
    plugins.security.disabled: true
    ```
    {% include copy.html %}
 
 1. Save the change and close the file.
+1. Change to the top directory of your OpenSearch installation and start OpenSearch:
+   ```bash
+   cd /path/to/opensearch-{{site.opensearch_version}}
+   ./bin/opensearch
+   ```
+   {% include copy.html %}
+
 1. Open another terminal session and send requests to the server to verify that OpenSearch is running. Because the Security plugin has been disabled, you will be sending commands using `HTTP` rather than `HTTPS`.
    - Send a request to port 9200.
       ```bash
@@ -215,17 +249,28 @@ An OpenSearch node configured by the demo security script is not suitable for a 
       hostname opensearch-anomaly-detection         {{site.opensearch_version}}
       hostname opensearch-asynchronous-search       {{site.opensearch_version}}
       hostname opensearch-cross-cluster-replication {{site.opensearch_version}}
+      hostname opensearch-custom-codecs             {{site.opensearch_version}}
+      hostname opensearch-flow-framework            {{site.opensearch_version}}
+      hostname opensearch-geospatial                {{site.opensearch_version}}
       hostname opensearch-index-management          {{site.opensearch_version}}
       hostname opensearch-job-scheduler             {{site.opensearch_version}}
       hostname opensearch-knn                       {{site.opensearch_version}}
+      hostname opensearch-ltr                       {{site.opensearch_version}}
       hostname opensearch-ml                        {{site.opensearch_version}}
+      hostname opensearch-neural-search             {{site.opensearch_version}}
       hostname opensearch-notifications             {{site.opensearch_version}}
       hostname opensearch-notifications-core        {{site.opensearch_version}}
       hostname opensearch-observability             {{site.opensearch_version}}
       hostname opensearch-performance-analyzer      {{site.opensearch_version}}
       hostname opensearch-reports-scheduler         {{site.opensearch_version}}
+      hostname opensearch-search-relevance          {{site.opensearch_version}}
       hostname opensearch-security                  {{site.opensearch_version}}
+      hostname opensearch-security-analytics        {{site.opensearch_version}}
+      hostname opensearch-skills                    {{site.opensearch_version}}
       hostname opensearch-sql                       {{site.opensearch_version}}
+      hostname opensearch-system-templates          {{site.opensearch_version}}
+      hostname opensearch-ubi                       {{site.opensearch_version}}
+      hostname query-insights                       {{site.opensearch_version}}
       ```
 
 ## Step 4: Set up OpenSearch in your environment
@@ -240,7 +285,7 @@ The following recommended settings will allow you to:
 - Configure your own TLS certificates - no third-party certificate authority (CA) is required.
 - Create an admin user with a custom password.
 
-If you ran the security demo script, then you will need to manually reconfigure settings that were modified. Refer to [Security configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/) for guidance before proceeding.
+OpenSearch fails to start with a `Duplicate Object property` error if `opensearch.yml` contains the same setting more than once. If you tested OpenSearch using Option 1 or Option 2, either start from a freshly extracted tarball or remove the settings that the following steps add from `opensearch.yml`, including `plugins.security.disabled` and the `plugins.security` settings added by the security demo script. Refer to [Security configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/) for guidance before proceeding.
 {:.note}
 
 Before modifying any configuration files, it's always a good idea to save a backup copy before making changes. The backup file can be used to revert any issues caused by a bad configuration.
@@ -253,7 +298,7 @@ Before modifying any configuration files, it's always a good idea to save a back
    {% include copy.html %}
 
 1. Add the following lines.
-   ```bash
+   ```yaml
    # Bind OpenSearch to the correct network interface. Use 0.0.0.0
    # to include all available interfaces or specify an IP address
    # assigned to a specific interface.
@@ -312,6 +357,7 @@ TLS certificates provide additional security for your cluster by allowing client
    # replace the arguments passed to -subj so they reflect your specific host.
    openssl req -new -x509 -sha256 -key root-ca-key.pem -subj "/C=CA/ST=ONTARIO/L=TORONTO/O=ORG/OU=UNIT/CN=ROOT" -out root-ca.pem -days 730
    ```
+   {% include copy.html %}
 1. Next, create the admin certificate. This certificate is used to gain elevated rights for performing administrative tasks relating to the Security plugin.
    ```bash
    # Create a private key for the admin certificate.
@@ -327,6 +373,7 @@ TLS certificates provide additional security for your cluster by allowing client
    # Sign the admin certificate with the root certificate and private key you created earlier.
    openssl x509 -req -in admin.csr -CA root-ca.pem -CAkey root-ca-key.pem -CAcreateserial -sha256 -out admin.pem -days 730
    ```
+   {% include copy.html %}
 1. Create a certificate for the node being configured.
    ```bash
    # Create a private key for the node certificate.
@@ -346,6 +393,7 @@ TLS certificates provide additional security for your cluster by allowing client
    # Sign the node certificate with the root certificate and private key that you created earlier.
    openssl x509 -req -in node1.csr -CA root-ca.pem -CAkey root-ca-key.pem -CAcreateserial -sha256 -out node1.pem -days 730 -extfile node1.ext
    ```
+   {% include copy.html %}
 1. Remove temporary files that are no longer required.
    ```bash
    rm *temp.pem *csr *ext
@@ -387,6 +435,7 @@ TLS certificates provide additional security for your cluster by allowing client
    # Add trust
    sudo update-ca-trust
    ```
+   {% include copy.html %}
 
 ### Configure a user
 
@@ -459,16 +508,19 @@ Now that TLS certificates are installed and demo users were removed or assigned 
    # Run the service in the foreground
    ./opensearch
    ```
+   {% include copy.html %}
 1. Open a separate terminal session with the host and navigate to the directory containing `securityadmin.sh`.
    ```bash
    # Change to the correct directory
    cd /path/to/opensearch-{{site.opensearch_version}}/plugins/opensearch-security/tools
    ```
+   {% include copy.html %}
 1. Invoke the script. See [Apply changes using securityadmin.sh]({{site.url}}{{site.baseurl}}/security/configuration/security-admin/) for definitions of the arguments you must pass.
    ```bash
    # You can omit the environment variable if you declared this in your $PATH.
    OPENSEARCH_JAVA_HOME=/path/to/opensearch-{{site.opensearch_version}}/jdk ./securityadmin.sh -cd /path/to/opensearch-{{site.opensearch_version}}/config/opensearch-security/ -cacert /path/to/opensearch-{{site.opensearch_version}}/config/root-ca.pem -cert /path/to/opensearch-{{site.opensearch_version}}/config/admin.pem -key /path/to/opensearch-{{site.opensearch_version}}/config/admin-key.pem -icl -nhnv
    ```
+   {% include copy.html %}
 1. Stop and restart the running OpenSearch process to apply the changes.
 
 ### Verify that the service is running
@@ -481,21 +533,27 @@ You should add trust for the root certificate to your client before sending requ
 {:.tip}
 
 ```bash
-$ curl https://your.host.address:9200 -u admin:yournewpassword -k
+curl https://your.host.address:9200 -u admin:yournewpassword -k
+```
+{% include copy.html %}
+
+You should receive the following response:
+
+```json
 {
   "name" : "hostname-here",
   "cluster_name" : "opensearch",
   "cluster_uuid" : "efC0ANNMQlGQ5TbhNflVPg",
   "version" : {
     "distribution" : "opensearch",
-    "number" : "2.1.0",
+    "number" : "{{site.opensearch_version}}",
     "build_type" : "tar",
-    "build_hash" : "388c80ad94529b1d9aad0a735c4740dce2932a32",
-    "build_date" : "2022-06-30T21:31:04.823801692Z",
+    "build_hash" : <build-hash>,
+    "build_date" : <build-date>,
     "build_snapshot" : false,
-    "lucene_version" : "9.2.0",
-    "minimum_wire_compatibility_version" : "7.10.0",
-    "minimum_index_compatibility_version" : "7.0.0"
+    "lucene_version" : <lucene-version>,
+    "minimum_wire_compatibility_version" : "2.19.0",
+    "minimum_index_compatibility_version" : "2.0.0"
   },
   "tagline" : "The OpenSearch Project: https://opensearch.org/"
 }
