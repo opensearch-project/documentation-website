@@ -29,7 +29,12 @@ Make sure you have a zip utility installed.
 Perform the following steps to install OpenSearch on Windows.
 
 1. Download the [`opensearch-{{site.opensearch_version}}-windows-x64.zip`](https://artifacts.opensearch.org/releases/bundle/opensearch/{{site.opensearch_version}}/opensearch-{{site.opensearch_version}}-windows-x64.zip){:target='\_blank'} archive.
-1. To extract the archive contents, right-click to select **Extract All**.
+1. To extract the archive contents, right-click to select **Extract All**. Alternatively, extract the archive from Command Prompt or PowerShell using the `tar` command included with Windows, which is faster for large archives:
+
+   ```bat
+   tar -xf opensearch-{{site.opensearch_version}}-windows-x64.zip
+   ```
+   {% include copy.html %}
 
 Ensure there are no spaces in the extraction path, as this will prevent OpenSearch from starting.
 {: .warning}
@@ -60,11 +65,24 @@ An OpenSearch node in its default configuration (with demo certificates and user
          {% include copy.html %}
 
       1. Run the batch script.
-         For OpenSearch 2.12 or later, use the following command to specify a custom admin password, following the [admin password requirements]({{site.url}}{{site.baseurl}}/security/configuration/demo-configuration/#admin-password-requirements):
+         For OpenSearch 2.12 or later, specify a custom admin password, following the [admin password requirements]({{site.url}}{{site.baseurl}}/security/configuration/demo-configuration/#admin-password-requirements). If you do not set a password, the batch script exits without starting OpenSearch.
+
+         In Command Prompt, use the following command:
          ```bat
-         > set OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password>
+         set OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password>
          ```
          {% include copy.html %}
+
+         In PowerShell, use the following command:
+         ```powershell
+         $env:OPENSEARCH_INITIAL_ADMIN_PASSWORD="<custom-admin-password>"
+         ```
+         {% include copy.html %}
+
+         The Command Prompt `set` command does not set an environment variable in PowerShell, so make sure to use the command for your shell.
+         {: .note}
+
+         Then run the batch script:
          ```bat
          .\opensearch-windows-install.bat
          ```
@@ -78,7 +96,7 @@ An OpenSearch node in its default configuration (with demo certificates and user
       {% include copy.html %}
 
       You should get a response that looks like this:
-      ```bat
+      ```json
       {
          "name" : "hostname-here",
          "cluster_name" : "opensearch",
@@ -104,24 +122,33 @@ An OpenSearch node in its default configuration (with demo certificates and user
       {% include copy.html %}
 
       The response should look like this:
-      ```bat
+      ```text
+      name     component                            version
       hostname opensearch-alerting                  {{site.opensearch_version}}
       hostname opensearch-anomaly-detection         {{site.opensearch_version}}
       hostname opensearch-asynchronous-search       {{site.opensearch_version}}
       hostname opensearch-cross-cluster-replication {{site.opensearch_version}}
+      hostname opensearch-custom-codecs             {{site.opensearch_version}}
+      hostname opensearch-flow-framework            {{site.opensearch_version}}
       hostname opensearch-geospatial                {{site.opensearch_version}}
       hostname opensearch-index-management          {{site.opensearch_version}}
       hostname opensearch-job-scheduler             {{site.opensearch_version}}
       hostname opensearch-knn                       {{site.opensearch_version}}
+      hostname opensearch-ltr                       {{site.opensearch_version}}
       hostname opensearch-ml                        {{site.opensearch_version}}
       hostname opensearch-neural-search             {{site.opensearch_version}}
       hostname opensearch-notifications             {{site.opensearch_version}}
       hostname opensearch-notifications-core        {{site.opensearch_version}}
       hostname opensearch-observability             {{site.opensearch_version}}
       hostname opensearch-reports-scheduler         {{site.opensearch_version}}
+      hostname opensearch-search-relevance          {{site.opensearch_version}}
       hostname opensearch-security                  {{site.opensearch_version}}
       hostname opensearch-security-analytics        {{site.opensearch_version}}
+      hostname opensearch-skills                    {{site.opensearch_version}}
       hostname opensearch-sql                       {{site.opensearch_version}}
+      hostname opensearch-system-templates          {{site.opensearch_version}}
+      hostname opensearch-ubi                       {{site.opensearch_version}}
+      hostname query-insights                       {{site.opensearch_version}}
       ```
 
 ### Option 2: Test your OpenSearch settings with security disabled
@@ -145,21 +172,21 @@ An OpenSearch node in its default configuration (with demo certificates and user
       {% include copy.html %}
 
       You should get a response that looks like this:
-      ```bat
+      ```json
       {
          "name" : "hostname-here",
          "cluster_name" : "opensearch",
          "cluster_uuid" : "7Nqtr0LrQTOveFcBb7Kufw",
          "version" : {
             "distribution" : "opensearch",
-            "number" : "2.4.0",
+            "number" : "{{site.opensearch_version}}",
             "build_type" : "zip",
-            "build_hash" : "77ef9e304dd6ee95a600720a387a9735bbcf7bc9",
-            "build_date" : "2022-11-05T05:50:15.404072800Z",
+            "build_hash" : <build-hash>,
+            "build_date" : <build-date>,
             "build_snapshot" : false,
-            "lucene_version" : "9.4.1",
-            "minimum_wire_compatibility_version" : "7.10.0",
-            "minimum_index_compatibility_version" : "7.0.0"
+            "lucene_version" : <lucene-version>,
+            "minimum_wire_compatibility_version" : "2.19.0",
+            "minimum_index_compatibility_version" : "2.0.0"
          },
          "tagline" : "The OpenSearch Project: https://opensearch.org/"
       }
@@ -171,24 +198,33 @@ An OpenSearch node in its default configuration (with demo certificates and user
       {% include copy.html %}
 
       The response should look like this:
-      ```bat
+      ```text
+      name     component                            version
       hostname opensearch-alerting                  {{site.opensearch_version}}
       hostname opensearch-anomaly-detection         {{site.opensearch_version}}
       hostname opensearch-asynchronous-search       {{site.opensearch_version}}
       hostname opensearch-cross-cluster-replication {{site.opensearch_version}}
+      hostname opensearch-custom-codecs             {{site.opensearch_version}}
+      hostname opensearch-flow-framework            {{site.opensearch_version}}
       hostname opensearch-geospatial                {{site.opensearch_version}}
       hostname opensearch-index-management          {{site.opensearch_version}}
       hostname opensearch-job-scheduler             {{site.opensearch_version}}
       hostname opensearch-knn                       {{site.opensearch_version}}
+      hostname opensearch-ltr                       {{site.opensearch_version}}
       hostname opensearch-ml                        {{site.opensearch_version}}
       hostname opensearch-neural-search             {{site.opensearch_version}}
       hostname opensearch-notifications             {{site.opensearch_version}}
       hostname opensearch-notifications-core        {{site.opensearch_version}}
       hostname opensearch-observability             {{site.opensearch_version}}
       hostname opensearch-reports-scheduler         {{site.opensearch_version}}
+      hostname opensearch-search-relevance          {{site.opensearch_version}}
       hostname opensearch-security                  {{site.opensearch_version}}
       hostname opensearch-security-analytics        {{site.opensearch_version}}
+      hostname opensearch-skills                    {{site.opensearch_version}}
       hostname opensearch-sql                       {{site.opensearch_version}}
+      hostname opensearch-system-templates          {{site.opensearch_version}}
+      hostname opensearch-ubi                       {{site.opensearch_version}}
+      hostname query-insights                       {{site.opensearch_version}}
       ```
 
 To stop OpenSearch, press `Ctrl+C` in Command Prompt or Powershell, or simply close the Command Prompt or Powershell window.
@@ -204,7 +240,7 @@ The following recommended settings will allow you to:
 - Set initial and maximum JVM heap sizes.
 - Define an environment variable that points to the bundled JDK.
 
-If you ran the security demo script, then you will need to manually reconfigure settings that were modified. Refer to [Security configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/) for guidance before proceeding.
+The following steps assume that you ran the security demo script in [Option 1](#option-1-test-your-opensearch-settings-with-security-enabled), which configures the TLS certificates that the Security plugin requires. If you start OpenSearch with the Security plugin enabled and no TLS configuration, OpenSearch fails to start. If you tested OpenSearch using [Option 2](#option-2-test-your-opensearch-settings-with-security-disabled), remove the `plugins.security.disabled: true` line from `opensearch.yml` instead of adding `plugins.security.disabled: false`. OpenSearch fails to start with a `Duplicate Object property` error if `opensearch.yml` contains the same setting more than once. Refer to [Security configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/) for guidance before proceeding.
 {:.note}
 
 Before modifying any configuration files, it's always a good idea to save a backup copy before making changes. The backup file can be used to revert any issues caused by a bad configuration.
@@ -213,7 +249,7 @@ Before modifying any configuration files, it's always a good idea to save a back
 1. Open the `opensearch-{{site.opensearch_version}}\config` folder.
 1. Open the `opensearch.yml` file with a text editor.
 1. Add the following lines:
-   ```bash
+   ```yaml
    # Bind OpenSearch to the correct network interface. Use 0.0.0.0
    # to include all available interfaces or specify an IP address
    # assigned to a specific interface.
