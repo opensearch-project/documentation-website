@@ -95,7 +95,7 @@ The `opensearch-dashboards-plugin` tool does not update plugins. To update a plu
 
 The following table lists available OpenSearch Dashboards plugins. All listed plugins are included in the default OpenSearch distributions.
 
-| Plugin name | Repository | Earliest available version |
+| Plugin name | Repository | Introduced in |
 | :--- | :--- | :--- |
 | `alertingDashboards` | [alerting-dashboards-plugin](https://github.com/opensearch-project/alerting-dashboards-plugin) | 1.0.0 |
 | `anomalyDetectionDashboards` | [anomaly-detection-dashboards-plugin](https://github.com/opensearch-project/anomaly-detection-dashboards-plugin) | 1.0.0 |
