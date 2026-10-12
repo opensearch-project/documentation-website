@@ -264,7 +264,7 @@ GET my-logs/_search
 ```
 {% include copy-curl.html %}
 
-Documents 1–5 were recorded between 08:00 on March 31 and 08:00 on April 1, so they are all counted in the reporting day that starts on March 31:
+Documents 1--5 were recorded between 08:00 on March 31 and 08:00 on April 1, so they are all counted in the reporting day that starts on March 31:
 
 ```json
 {
