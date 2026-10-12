@@ -5,7 +5,7 @@ parent: Snapshot APIs
 nav_order: 45
 ---
 
-# Clean up Snapshot Repository API
+# Clean Up Snapshot Repository API
 **Introduced 1.0**
 {: .label .label-purple }
 
