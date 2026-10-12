@@ -330,7 +330,7 @@ Unlike `tdigest`, which returns exact values for this small dataset, HDR rounds 
 }
 ```
 
-The HDR histogram supports only non-negative values. If the field contains a negative value, the request fails. Also avoid HDR when the range of values is unknown, because a wide range can require a large amount of memory.
+The HDR histogram supports only non-negative values. Avoid HDR when the range of values is unknown, because a wide range can require a large amount of memory.
 {: .note}
 
 ## Percentile accuracy
