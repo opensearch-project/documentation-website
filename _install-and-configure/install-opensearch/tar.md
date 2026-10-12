@@ -29,19 +29,19 @@ This guide assumes that you are comfortable working from the Linux command line 
 
 ## Step 1: Download and unpack OpenSearch
 
-1. Download the appropriate tar.gz archive from the [OpenSearch downloads page](https://opensearch.org/downloads.html){:target='\_blank'} or by using the command line, for example, using `wget`.
+1. Download the appropriate tar.gz archive from the [OpenSearch downloads page](https://opensearch.org/downloads.html){:target='\_blank'} or by using the command line, for example, using `curl`.
 
    For an x64 host, use the following command:
 
    ```bash
-   wget https://artifacts.opensearch.org/releases/bundle/opensearch/{{site.opensearch_version}}/opensearch-{{site.opensearch_version}}-linux-x64.tar.gz
+   curl -fsSLO https://artifacts.opensearch.org/releases/bundle/opensearch/{{site.opensearch_version}}/opensearch-{{site.opensearch_version}}-linux-x64.tar.gz
    ```
    {% include copy.html %}
 
    For an ARM64 host, use the following command:
 
    ```bash
-   wget https://artifacts.opensearch.org/releases/bundle/opensearch/{{site.opensearch_version}}/opensearch-{{site.opensearch_version}}-linux-arm64.tar.gz
+   curl -fsSLO https://artifacts.opensearch.org/releases/bundle/opensearch/{{site.opensearch_version}}/opensearch-{{site.opensearch_version}}-linux-arm64.tar.gz
    ```
    {% include copy.html %}
 

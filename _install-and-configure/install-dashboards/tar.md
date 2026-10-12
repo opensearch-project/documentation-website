@@ -17,19 +17,19 @@ Install OpenSearch. For more information, see [Installing OpenSearch from a tarb
 
 To install OpenSearch Dashboards from a tarball, follow these steps:
 
-1. Download the tarball from the [OpenSearch downloads page](https://opensearch.org/downloads.html){:target='\_blank'} or by using the command line, for example, using `wget`.
+1. Download the tarball from the [OpenSearch downloads page](https://opensearch.org/downloads.html){:target='\_blank'} or by using the command line, for example, using `curl`.
 
    For an x64 host, use the following command:
 
    ```bash
-   wget https://artifacts.opensearch.org/releases/bundle/opensearch-dashboards/{{site.opensearch_dashboards_version}}/opensearch-dashboards-{{site.opensearch_dashboards_version}}-linux-x64.tar.gz
+   curl -fsSLO https://artifacts.opensearch.org/releases/bundle/opensearch-dashboards/{{site.opensearch_dashboards_version}}/opensearch-dashboards-{{site.opensearch_dashboards_version}}-linux-x64.tar.gz
    ```
    {% include copy.html %}
 
    For an ARM64 host, use the following command:
 
    ```bash
-   wget https://artifacts.opensearch.org/releases/bundle/opensearch-dashboards/{{site.opensearch_dashboards_version}}/opensearch-dashboards-{{site.opensearch_dashboards_version}}-linux-arm64.tar.gz
+   curl -fsSLO https://artifacts.opensearch.org/releases/bundle/opensearch-dashboards/{{site.opensearch_dashboards_version}}/opensearch-dashboards-{{site.opensearch_dashboards_version}}-linux-arm64.tar.gz
    ```
    {% include copy.html %}
 
