@@ -64,7 +64,7 @@ The following example configures TLS for OpenSearch Dashboards running on the sa
 If a certificate or key file specified in `opensearch_dashboards.yml` does not exist, OpenSearch Dashboards fails to start with an `ENOENT: no such file or directory` error.
 {: .note}
 
-The demo node certificate includes `localhost` as a subject alternative name, so the `full` verification mode succeeds when `opensearch.hosts` uses `localhost`. If your OpenSearch certificates are signed by an intermediate CA, add the intermediate CA certificate to `opensearch.ssl.certificateAuthorities`.
+The demo node certificate includes `localhost` as a subject alternative name, so the `full` verification mode succeeds when `opensearch.hosts` uses `localhost`.
 
 Add the following settings to `opensearch_dashboards.yml`:
 
@@ -83,6 +83,13 @@ opensearch_security.multitenancy.enabled: true
 opensearch_security.multitenancy.tenants.preferred: ["Private", "Global"]
 opensearch_security.readonly_mode.roles: ["kibana_read_only"]
 opensearch_security.cookie.secure: true
+```
+{% include copy.html %}
+
+If your OpenSearch certificates are signed by an intermediate CA, add the intermediate CA certificate to `opensearch.ssl.certificateAuthorities` in `opensearch_dashboards.yml`:
+
+```yml
+opensearch.ssl.certificateAuthorities: [ "/usr/share/opensearch-dashboards/config/root-ca.pem", "/usr/share/opensearch-dashboards/config/intermediate-ca.pem" ]
 ```
 {% include copy.html %}
 
