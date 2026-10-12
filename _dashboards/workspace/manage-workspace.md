@@ -52,6 +52,23 @@ The **Workspace details** page features the following buttons in the upper-right
 
 Access the **Sample data** in the navigation menu on the left. Select the appropriate dataset to install it in your cluster and OpenSearch Dashboards.
 
+## Migrating unassigned assets into a workspace
+
+Saved objects created before workspaces were enabled do not belong to any workspace. Because every workspace view filters by the `workspaces` field, these assets are hidden from inside any workspace even though they still exist in the cluster. A [dashboard admin]({{site.url}}{{site.baseurl}}/dashboards/workspace/workspace-acl/#configuring-dashboard-administrators) can move these assets into a new workspace using the migration wizard.
+
+When unassigned assets exist, the workspaces landing page shows a **Migrate existing assets (N)** button, where `N` is the number of unassigned assets. A one-time guided tour points to this button. Select the button to open the migration wizard.
+
+The migration wizard is available only to dashboard admins, and the button appears only when unassigned assets exist.
+{: .note}
+
+The wizard guides you through three steps:
+
+1. **Review**: Explains why the assets are hidden, lets you enter a name for the new target workspace, and lists every unassigned asset. You can search the list and filter it by asset type, but the whole set is always migrated regardless of the search term or filter.
+1. **Running**: Creates the new workspace and then migrates the assets into it. You cannot close the wizard while it runs. All data sources and data connections are connected to the new workspace at creation time, so migrated dashboards keep rendering.
+1. **Result**: Shows a summary callout with the number of migrated assets, failed assets, and connected data sources, along with a per-asset outcome table. Select **Go to \<workspace\>** to open the new workspace and view the migrated assets.
+
+If some assets fail to migrate, they remain unassigned and are listed with the reason they failed. Select **Continue migrating** to retry. The retry reuses the workspace that was already created instead of creating a second one.
+
 ## Copying assets between workspaces
 
 Data sources and configuration copying are not supported.
