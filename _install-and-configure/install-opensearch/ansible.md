@@ -7,6 +7,9 @@ redirect_from:
   - /opensearch/install/ansible/
 ---
 
+{% assign os_major = site.opensearch_major_minor_version | split: "." | first %}
+{% assign os_previous_major = os_major | minus: 1 %}
+
 # Installing OpenSearch and OpenSearch Dashboards using Ansible
 
 You can use an Ansible playbook to install and configure a production-ready OpenSearch cluster along with OpenSearch Dashboards.
@@ -39,7 +42,7 @@ The control node must have direct SSH access to the `root` user on each target h
    ```
    {% include copy.html %}
 
-   The `main` branch installs the latest OpenSearch 3.x version. To install OpenSearch 2.x, check out the `2.x` branch.
+   The `main` branch installs the latest OpenSearch {{os_major}}.x version. To install OpenSearch {{os_previous_major}}.x, check out the `{{os_previous_major}}.x` branch.
 
 1. Configure the target hosts in the `inventories/opensearch/hosts` file. The default file defines a cluster of five OpenSearch nodes and one OpenSearch Dashboards node. Each line specifies a host name and the following variables:
 
