@@ -56,13 +56,6 @@ To install OpenSearch Dashboards from a tarball, follow these steps:
    ```
    {% include copy.html %}
 
-1. If desired, modify `config/opensearch_dashboards.yml`. By default, OpenSearch Dashboards connects to OpenSearch at `https://localhost:9200` as the `kibanaserver` user and binds to `localhost`, so it cannot be reached from other hosts. To make OpenSearch Dashboards reachable from other hosts, set `server.host` to `0.0.0.0` or to an IP address of the host:
-
-   ```yaml
-   server.host: 0.0.0.0
-   ```
-   {% include copy.html %}
-
 1. Start OpenSearch Dashboards:
 
    ```bash
@@ -71,6 +64,9 @@ To install OpenSearch Dashboards from a tarball, follow these steps:
    {% include copy.html %}
 
 1. In a web browser, go to `http://localhost:5601` and log in as the `admin` user using the custom admin password that you set when you installed OpenSearch. If OpenSearch Dashboards runs on a remote host, replace `localhost` with the IP address or DNS name of that host. OpenSearch Dashboards can take about 1 minute to start. For more information, see [Accessing OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/#accessing-opensearch-dashboards).
+
+By default, OpenSearch Dashboards connects to OpenSearch at `https://localhost:9200` as the `kibanaserver` user and accepts connections only from the host on which it runs. To change these settings, edit `config/opensearch_dashboards.yml`. For more information, see [Configuring OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-dashboards/).
+{: .note}
 
 ## Related documentation
 
