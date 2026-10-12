@@ -75,22 +75,18 @@ class ExampleCodePython < BaseMustacheRenderer
     end
 
     body = rest.body
-    if expects_body?(http_verb)
-      if body
-        raw_body = @args.raw['body']
-        begin
-          parsed = JSON.parse(raw_body)
-          pretty = JSON.pretty_generate(parsed).gsub(/^/, '  ')
-          args << "body = #{pretty}"
-        rescue JSON::ParserError
-          if raw_body.include?("\n")
-            args << "body = '''\n#{raw_body.rstrip}\n'''"
-          else
-            args << "body = #{JSON.dump(raw_body)}"
-          end
+    if body && expects_body?(http_verb)
+      raw_body = @args.raw['body']
+      begin
+        parsed = JSON.parse(raw_body)
+        pretty = JSON.pretty_generate(parsed).gsub(/^/, '  ')
+        args << "body = #{pretty}"
+      rescue JSON::ParserError
+        if raw_body.include?("\n")
+          args << "body = '''\n#{raw_body.rstrip}\n'''"
+        else
+          args << "body = #{JSON.dump(raw_body)}"
         end
-      else
-        args << 'body = { "Insert body here" }'
       end
     end
 
