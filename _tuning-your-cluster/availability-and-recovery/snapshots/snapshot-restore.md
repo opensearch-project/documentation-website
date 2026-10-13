@@ -531,7 +531,7 @@ PUT /_snapshot/my-repository/snapshot-2
 
 For more information, see [Create Snapshot API]({{site.url}}{{site.baseurl}}/api-reference/snapshots/create-snapshot/).
 
-To include the date in a snapshot name, use [date math]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/date/#date-math) in the name and URL-encode it. For example, the following request creates a snapshot named `nightly-` followed by the current date, such as `nightly-2026.10.12`. The unencoded name is `<nightly-{now/d}>`:
+To include the date in a snapshot name, use [date math]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/date/#date-math) in the name and URL-encode it. For example, the following request creates a snapshot named `nightly-` followed by the current date, such as `nightly-2026.10.12`. The non-encoded name is `<nightly-{now/d}>`:
 
 ```json
 PUT /_snapshot/my-repository/%3Cnightly-%7Bnow%2Fd%7D%3E
