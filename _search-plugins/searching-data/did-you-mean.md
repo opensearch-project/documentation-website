@@ -215,6 +215,56 @@ field | The field from which to source suggestions. Required. Can be set for eac
 `max_term_freq` | The maximum number of documents in which a suggestion should appear in order for it to be returned. Valid values are integers that represent the document frequency or floats in the [0, 1] range that represent the percentage of documents. Default is 0.01. Excluding high-frequency terms improves spellcheck performance because high-frequency terms are usually spelled correctly. Uses shard-level document frequencies.
 `string_distance` | The edit distance algorithm to use to determine similarity. Valid values are:<br>- `internal`: The default algorithm that is based on the [Damerau-Levenshtein algorithm](https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance) but is highly optimized for comparing edit distances for terms in the index.<br> - `damerau_levenshtein`: The edit distance algorithm based on the [Damerau-Levenshtein algorithm](https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance). <br>- `levenshtein`: The edit distance algorithm based on the [Levenshtein edit distance algorithm](https://en.wikipedia.org/wiki/Levenshtein_distance).<br> - `jaro_winkler`: The edit distance algorithm based on the [Jaro-Winkler algorithm](https://en.wikipedia.org/wiki/Jaro%E2%80%93Winkler_distance).<br> - `ngram`: The edit distance algorithm based on character n-grams.
 
+### Requesting term suggestions using query parameters
+
+You can also request term suggestions using query parameters instead of a `suggest` object in the request body. Specify the field in `suggest_field`, the input text in `suggest_text`, and the suggest mode in `suggest_mode`. In this form, `suggest_mode` has no default value, so you must specify it. If you omit `suggest_text`, OpenSearch uses the value of the `q` parameter. For the full list of parameters, see [Search API query parameters]({{site.url}}{{site.baseurl}}/api-reference/search-apis/search/#query-parameters).
+
+The following request returns suggestions for the misspelled term `patern` from the `title` field of the `books` index:
+
+```json
+GET /books/_search?suggest_field=title&suggest_text=patern&suggest_mode=missing&size=0
+```
+{% include copy-curl.html %}
+
+The response contains the suggestions in a `suggest` object named after the field:
+
+```json
+{
+  "took": 2,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 0,
+      "relation": "eq"
+    },
+    "max_score": null,
+    "hits": []
+  },
+  "suggest": {
+    "title": [
+      {
+        "text": "patern",
+        "offset": 0,
+        "length": 6,
+        "options": [
+          {
+            "text": "patterns",
+            "score": 0.6666666,
+            "freq": 2
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
 ## Phrase suggester
 
 To implement `did-you-mean`, use a phrase suggester.
