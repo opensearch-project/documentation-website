@@ -146,7 +146,7 @@ response = client.snapshot.create(
 
 ### Request using date math in the snapshot name
 
-The following request creates a snapshot whose name contains the current date, such as `nightly-2026.10.12`. The unencoded snapshot name is `<nightly-{now/d}>`. The `<`, `{`, `/`, `}`, and `>` characters must be URL-encoded in the request path:
+The following request creates a snapshot whose name contains the current date, such as `nightly-2026.10.12`. The non-encoded snapshot name is `<nightly-{now/d}>`. The `<`, `{`, `/`, `}`, and `>` characters must be URL-encoded in the request path:
 
 ```json
 PUT /_snapshot/my-s3-repository/%3Cnightly-%7Bnow%2Fd%7D%3E
