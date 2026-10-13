@@ -20,7 +20,7 @@ The Terraform module prepares GCP infrastructure around the workflow engine, inc
 
 - A GKE Standard cluster deployed into a new or existing virtual private cloud (VPC).
 - Private nodes with Cloud NAT for outbound access.
-- Workload Identity so migration pods can authenticate to GCP services without long-lived keys.
+- Workload Identity Federation for GKE so migration pods can authenticate to GCP services without long-lived keys.
 - A Cloud Storage bucket for snapshots, with the node service account granted access to it.
 - Secondary IP ranges for GKE pods and services, and configurable control-plane access.
 

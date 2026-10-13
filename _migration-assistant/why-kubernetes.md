@@ -62,7 +62,7 @@ For details, see [Deploy on Amazon EKS]({{site.url}}{{site.baseurl}}/migration-a
 On Google Cloud Platform (GCP), a Terraform module for the GKE path provides:
 
 - **Cluster provisioning**: Deploy a GKE Standard cluster into a new VPC or an existing VPC.
-- **GCP identity configuration**: Workload Identity is configured for the service accounts that need GCP access, so pods authenticate without long-lived keys.
+- **GCP identity configuration**: Workload Identity Federation for GKE is configured for the service accounts that need GCP access, so pods authenticate without long-lived keys.
 - **Private networking options**: The source, target, snapshot, and control-plane legs can each be made private with Private Service Connect, VPC peering, and Private Google Access.
 - **Snapshot helpers**: The module provisions a Cloud Storage bucket and the access bindings that snapshots need.
 - **Secure defaults**: Private nodes with Cloud NAT for outbound access, and configurable control-plane authorized ranges.

@@ -71,7 +71,7 @@ The following table lists supported source and target platforms.
 Migration Assistant runs on Kubernetes and can be deployed to:
 
 - **Amazon EKS** for the recommended AWS production path, with bootstrap automation, pod identity, image mirroring, snapshot helpers, and Amazon CloudWatch integration.
-- **Google Kubernetes Engine (GKE)** for the recommended GCP production path, with a Terraform module for the cluster, VPC networking, Cloud Storage snapshots, and Workload Identity.
+- **Google Kubernetes Engine (GKE)** for the recommended GCP production path, with a Terraform module for the cluster, VPC networking, Cloud Storage snapshots, and Workload Identity Federation for GKE.
 - **Any other Kubernetes cluster** when you self-manage your own platform (on any cloud) or you are evaluating locally.
 
 The migration engine is the same in every case. The difference is how much of the surrounding platform is prepared for you.
