@@ -15,7 +15,9 @@ redirect_from:
 **Introduced 1.0**
 {: .label .label-purple }
 
-A keyword field type contains a string that is not analyzed. It allows only exact, case-sensitive matches.
+A keyword field type contains a string that is not analyzed. OpenSearch indexes the entire value as a single term, so a query matches the field only if it contains the exact value. Matching is case sensitive unless you configure a [normalizer]({{site.url}}{{site.baseurl}}/analyzers/normalizers/), for example, one that converts values to lowercase.
+
+Use keyword fields for structured values that you filter, sort, or aggregate on, such as identifiers, email addresses, hostnames, status codes, ZIP codes, and tags. For example, a keyword field lets you find all orders whose status is `shipped` or count orders per status.
 
 By default, keyword fields are both indexed (because `index` is enabled) and stored on disk (because `doc_values` is enabled). To reduce disk space, you can specify not to index keyword fields by setting `index` to `false`.
 
@@ -24,7 +26,7 @@ If you need to use a field for full-text search, map it as [`text`]({{site.url}}
 
 ## Example
 
-The following query creates a mapping with a keyword field. Setting `index` to `false` specifies to store the `genre` field on disk and to retrieve it using `doc_values`:
+The following request creates a mapping containing a keyword field. Setting `index` to `false` saves disk space by not building the search index for the `genre` field. The field values are still stored in doc values, so you can sort and aggregate on `genre`:
 
 ```json
 PUT movies
@@ -41,6 +43,12 @@ PUT movies
 ```
 {% include copy-curl.html %}
 
+## Mapping numeric identifiers
+
+Numeric identifiers, such as store numbers, ISBNs, or product IDs, are often better mapped as `keyword` than as a [numeric]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/numeric/) type. Numeric field types are optimized for `range` queries, while keyword fields are optimized for `term` and other [term-level queries]({{site.url}}{{site.baseurl}}/query-dsl/term/index/), which are the usual way to look up identifiers.
+
+Map a numeric identifier as `keyword` if you look it up by exact value and do not run range queries on it. Range queries on keyword fields compare values alphabetically as strings. For example, a range query for values greater than or equal to `"50"` matches `"9"` but not `"100"`. If you need both exact lookups and numeric ranges, use [`fields`]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/fields/) to map the value as both a `keyword` and a numeric field.
+
 ## Parameters
 
 The following table lists the parameters accepted by keyword field types. All parameters are optional.
@@ -55,9 +63,9 @@ The following table lists the parameters accepted by keyword field types. All pa
 | `index` | A Boolean value that specifies whether the field should be searchable. To reduce disk space, set `index` to `false`. For more information, see [Index]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/index-parameter/). | `true` | No |
 | `index_options` | Information to be stored in the index that will be considered when calculating relevance scores. Can be set to `freqs` for term frequency. For more information, see [Index options]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/index-options/). | `docs` | No |
 | `meta` | Accepts metadata for this field. For more information, see [Meta]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/meta/). | None | Yes |
-| [`normalizer`]({{site.url}}{{site.baseurl}}/analyzers/normalizers/) | Specifies how to preprocess this field before indexing (for example, make it lowercase). | `null` (no preprocessing) | No |
+| `normalizer` | Specifies how to preprocess this field before indexing (for example, make it lowercase). For more information, see [Normalizer]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/normalizer/). | `null` (no preprocessing) | No |
 | `norms` | A Boolean value that specifies whether the field length should be used when calculating relevance scores. For more information, see [Norms]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/norms/). | `false` | Yes |
-| [`null_value`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/index#null-value) | A value to be used in place of `null`. Must be of the same type as the field. If this parameter is not specified, the field is treated as missing when its value is `null`. | `null` | No |
+| `null_value` | A value to be used in place of `null`. Must be of the same type as the field. If this parameter is not specified, the field is treated as missing when its value is `null`. For more information, see [Null value]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/null-value/). | `null` | No |
 | `similarity` | The ranking algorithm for calculating relevance scores. For more information, see [Similarity]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/similarity/). | The index's `similarity` setting (by default, `BM25`) | No |
 | `use_similarity` | Determines whether to calculate relevance scores. Default is `false`, which uses `constant_score` for faster queries. Setting this parameter to `true` enables scoring but may increase search latency. See [The use_similarity parameter ](#the-use_similarity-parameter). | `false` | Yes |
 | `split_queries_on_whitespace` | A Boolean value that specifies whether full-text queries should be split on white space. | `false` | Yes |
@@ -178,7 +186,7 @@ When you run the same term query on the configured index, the query takes longer
 
 ## Derived source
 
-When an index uses [derived source]({{site.url}}{{site.baseurl}}/field-types/metadata-fields/source/#derived-source), OpenSearch may sort keyword values and remove duplicates in multi-value keyword fields during source reconstruction.
+When an index uses [derived source]({{site.url}}{{site.baseurl}}/mappings/metadata-fields/source/#derived-source), OpenSearch may sort keyword values and remove duplicates in multi-value keyword fields during source reconstruction.
 
 Create an index that enables derived source and configures a `name` field:
 
@@ -219,7 +227,7 @@ After OpenSearch reconstructs `_source`, the derived `_source` removes duplicate
 }
 ```
 
-If the field mapping defines a [`null_value`]({{site.url}}{{site.baseurl}}/field-types/mapping-parameters/null-value/), any ingested null values are replaced with that value during reconstruction. The following example demonstrates how `null_value` affects derived source output.
+If the field mapping defines a [`null_value`]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/null-value/), any ingested null values are replaced with that value during reconstruction. The following example demonstrates how `null_value` affects derived source output.
 
 Create an index that enables derived source and configures a `null_value` for the `name` field:
 
