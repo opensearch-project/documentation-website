@@ -2,7 +2,7 @@
 layout: default
 title: Get snapshot status
 parent: Snapshot APIs
-nav_order: 8
+nav_order: 80
 ---
 
 # Get Snapshot Status API
@@ -24,7 +24,7 @@ GET _snapshot/{repository}/{snapshot}/_status
 
 ## Path parameters
 
-Path parameters are optional. 
+The following table lists the available path parameters. All path parameters are optional.
 
 | Parameter | Data type | Description | 
 :--- | :--- | :---
@@ -51,6 +51,8 @@ Using the API to return the state of snapshots that are not currently running ca
 {: .warning}
 
 ## Request body fields
+
+The following table lists the available request body fields. All request body fields are optional.
 
 | Field | Data type | Description | 
 :--- | :--- | :---
@@ -408,6 +410,8 @@ The `GET _snapshot/my-opensearch-repo/my-first-snapshot/_status` request returns
 
 ## Response body fields
 
+The following table lists all response body fields.
+
 | Field | Data type | Description | 
 :--- | :--- | :---
 | `repository` | String | Name of repository that contains the snapshot. |
@@ -421,6 +425,8 @@ The `GET _snapshot/my-opensearch-repo/my-first-snapshot/_status` request returns
 
 ### Snapshot states
 
+The following table lists the snapshot states.
+
 | State | Description | 
 :--- | :--- |
 | `FAILED` | The snapshot terminated in an error and no data was stored. |
@@ -430,7 +436,7 @@ The `GET _snapshot/my-opensearch-repo/my-first-snapshot/_status` request returns
 
 ### Shard stats
 
-All property values are integers.
+The following table lists the shard stats properties. All property values are integers.
 
 | Property | Description | 
 :--- | :--- |
@@ -443,6 +449,8 @@ All property values are integers.
 
 ### Snapshot file stats
 
+The following table lists the snapshot file stats properties.
+
 | Property | Type | Description | 
 :--- | :--- | :--- |
 | `incremental` | Object | Number and size of files that still need to be copied during snapshot creation. For completed snapshots, `incremental` provides the number and size of files that were not already in the repository and were copied as part of the incremental snapshot. |
@@ -452,6 +460,8 @@ All property values are integers.
 | `time_in_millis` | Long | Total time (in milliseconds) that the snapshot took to complete. |
 
 ### Index objects
+
+The following table lists the index object properties.
 
 | Property | Type | Description | 
 :--- | :--- | :--- |
