@@ -526,9 +526,9 @@ If delivery fails, the request returns the error status of the channel. A muted 
 
 #### Permissions
 
-If you use the Security plugin, the caller needs the `cluster:admin/opensearch/notifications/feature/send` permission, which is granted by the `notifications_send_access` and `notifications_full_access` roles. The caller must also have access to the channel:
+If you use the Security plugin, the caller needs the `cluster:admin/opensearch/notifications/channel/send` permission, which is granted by the `notifications_send_access` and `notifications_full_access` roles. The caller must also have access to the channel:
 
-- When [resource sharing]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/notification-access-control/) is enabled, the channel must be shared with the caller at an access level that includes `cluster:admin/opensearch/notifications/feature/send`. If it is not, the request is rejected with `403`.
+- When [resource sharing]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/notification-access-control/) is enabled, the channel must be shared with the caller at an access level that includes `cluster:admin/opensearch/notifications/channel/send`, such as `notifications_read_write` or `notifications_full_access`. For an email channel, the caller also needs the same access to the channel's sender account and recipient groups. If it does not, the request is rejected with `403`.
 - When filtering by backend roles is enabled, the caller's backend roles must match the channel's backend roles.
 
 The message is sent on behalf of the authenticated caller, so the request body cannot specify a user context.
