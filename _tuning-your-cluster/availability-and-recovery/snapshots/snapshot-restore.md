@@ -536,7 +536,7 @@ When `include_global_state` is `true` (the default when taking a snapshot), the 
 - Index templates, composable index templates, and component templates.
 - Ingest pipelines and search pipelines.
 - Stored scripts.
-- Persistent tasks.
+- Persistent tasks. Plugins use persistent tasks for long-running work that must continue after a node restarts, such as cross-cluster replication tasks.
 
 The global state does not include snapshot repository registrations. Data stream definitions are stored for the data streams included in the snapshot, regardless of the `include_global_state` value.
 
@@ -589,7 +589,7 @@ POST /_snapshot/my-repository/snapshot-2/_restore
 
 For more information, see [Restore Snapshot API]({{site.url}}{{site.baseurl}}/api-reference/snapshots/restore-snapshot/).
 
-When restoring a snapshot, `include_global_state` defaults to `false`. If you set it to `true`, the persistent cluster settings, composable index templates, component templates, ingest pipelines, search pipelines, and stored scripts in the snapshot replace the corresponding metadata in the cluster. Index templates in the snapshot are added to the cluster and overwrite existing index templates that have the same name. For a list of the metadata included in the global state, see [Global cluster state](#global-cluster-state).
+When restoring a snapshot, `include_global_state` defaults to `false`. If you set it to `true`, the persistent cluster settings, composable index templates, component templates, ingest pipelines, search pipelines, stored scripts, and persistent tasks in the snapshot replace the corresponding metadata in the cluster. For example, persistent tasks that exist in the cluster but not in the snapshot are removed. Index templates in the snapshot are added to the cluster and overwrite existing index templates that have the same name. For a list of the metadata included in the global state, see [Global cluster state](#global-cluster-state).
 
 ### Restoring snapshots across remote-backed clusters
 
