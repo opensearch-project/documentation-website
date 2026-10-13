@@ -2,7 +2,7 @@
 layout: default
 title: Clone snapshot
 parent: Snapshot APIs
-nav_order: 10
+nav_order: 100
 ---
 
 # Clone Snapshot API
