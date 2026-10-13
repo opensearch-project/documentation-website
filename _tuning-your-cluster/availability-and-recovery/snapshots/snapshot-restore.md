@@ -528,9 +528,9 @@ GET /_snapshot/_status
 ```
 {% include copy-curl.html %}
 
-### Cluster global state
+### Global cluster state
 
-When `include_global_state` is `true` (the default when taking a snapshot), the snapshot stores the cluster global state. The global state contains the following cluster metadata:
+When `include_global_state` is `true` (the default when taking a snapshot), the snapshot stores the global cluster state. The global state contains the following cluster metadata:
 
 - Persistent cluster settings. Transient cluster settings are not included.
 - Index templates, composable index templates, and component templates.
@@ -589,7 +589,7 @@ POST /_snapshot/my-repository/snapshot-2/_restore
 
 For more information, see [Restore Snapshot API]({{site.url}}{{site.baseurl}}/api-reference/snapshots/restore-snapshot/).
 
-When restoring a snapshot, `include_global_state` defaults to `false`. If you set it to `true`, the persistent cluster settings, composable index templates, component templates, ingest pipelines, search pipelines, and stored scripts in the snapshot replace the corresponding metadata in the cluster. Index templates in the snapshot are added to the cluster and overwrite existing index templates that have the same name. For a list of the metadata included in the global state, see [Cluster global state](#cluster-global-state).
+When restoring a snapshot, `include_global_state` defaults to `false`. If you set it to `true`, the persistent cluster settings, composable index templates, component templates, ingest pipelines, search pipelines, and stored scripts in the snapshot replace the corresponding metadata in the cluster. Index templates in the snapshot are added to the cluster and overwrite existing index templates that have the same name. For a list of the metadata included in the global state, see [Global cluster state](#global-cluster-state).
 
 ### Restoring snapshots across remote-backed clusters
 
