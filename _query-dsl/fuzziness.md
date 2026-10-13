@@ -39,14 +39,14 @@ Value | Description
 
 ## Related parameters
 
-The following parameters control how fuzzy matching is applied. Queries that support fuzziness accept some or all of them; parameter names can vary by query.
+The following parameters control how fuzzy matching is applied. Some queries use different names for the same parameter. The following table lists all names for each parameter.
 
 Parameter | Description
 :--- | :---
-`fuzzy_transpositions` | Whether a swap of two adjacent characters counts as one edit. If `false`, a transposition counts as two edits, and the distance is the [Levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance), which does not include transpositions. Default is `true`. In the `fuzzy` query and the `intervals` query, this parameter is named `transpositions`.
-`prefix_length` | The number of leading characters that must match exactly. Edits are allowed only after this prefix. For example, with `prefix_length` set to `1`, `xent` does not match `tent`. Increasing `prefix_length` reduces the number of candidate terms and speeds up the query. Default is `0`.
-`max_expansions` | The maximum number of candidate terms that the query expands to. Default is `50`. Lower values make the query faster but may skip matching terms. In the `query_string` and `simple_query_string` queries, this parameter is named `fuzzy_max_expansions`.
-`fuzzy_rewrite` | The method used to rewrite the expanded query. For more information, see [Rewrite]({{site.url}}{{site.baseurl}}/query-dsl/rewrite-parameter/).
+`fuzzy_transpositions`, `transpositions` | Whether a swap of two adjacent characters counts as one edit. If `false`, a transposition counts as two edits, and the distance is the [Levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance), which does not include transpositions. Default is `true`.
+`fuzzy_prefix_length`, `prefix_length` | The number of leading characters that must match exactly. Edits are allowed only after this prefix. For example, with `prefix_length` set to `1`, `xent` does not match `tent`. Increasing `prefix_length` reduces the number of candidate terms and speeds up the query. Default is `0`.
+`fuzzy_max_expansions`, `max_expansions` | The maximum number of candidate terms that the query expands to. Default is `50`. Lower values make the query faster but may skip matching terms.
+`fuzzy_rewrite`, `rewrite` | Determines how OpenSearch converts the candidate terms into a query, which affects how matching documents are scored. Accepts the same values as the `rewrite` parameter of other multi-term queries, such as `constant_score` or `top_terms_N`. For a description of each value, see [Rewrite]({{site.url}}{{site.baseurl}}/query-dsl/rewrite-parameter/). By default, fuzzy matches are scored based on the frequency of the matching terms (`top_terms_blended_freqs_N`, where `N` is the `max_expansions` value). Setting `fuzzy_rewrite` to `constant_score` gives all matching documents a score of `1.0`.
 
 ## Example: Matching a misspelled term
 
@@ -60,7 +60,7 @@ PUT /fuzzy-test/_doc/1?refresh=true
 ```
 {% include copy-curl.html %}
 
-Search for the misspelled term `lantrn` using `AUTO` fuzziness. Because the term contains 6 characters, `AUTO` allows 2 edits, and `lantrn` is 1 edit (a missing `e`) from `lantern`:
+Search for the misspelled term `lamtrn` using `AUTO` fuzziness. The term is 2 edits from `lantern`: `m` replaces `n`, and `e` is missing. Because the term contains 6 characters, `AUTO` allows 2 edits:
 
 ```json
 GET /fuzzy-test/_search
@@ -68,7 +68,7 @@ GET /fuzzy-test/_search
   "query": {
     "match": {
       "product": {
-        "query": "lantrn",
+        "query": "lamtrn",
         "fuzziness": "AUTO"
       }
     }
@@ -77,7 +77,39 @@ GET /fuzzy-test/_search
 ```
 {% include copy-curl.html %}
 
-The response contains the `lantern` document.
+The response contains the matching document:
+
+```json
+{
+  "took": 4,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 1,
+      "relation": "eq"
+    },
+    "max_score": 0.08717638,
+    "hits": [
+      {
+        "_index": "fuzzy-test",
+        "_id": "1",
+        "_score": 0.08717638,
+        "_source": {
+          "product": "lantern"
+        }
+      }
+    ]
+  }
+}
+```
+
+With `fuzziness` set to `1`, the same query returns no results.
 
 ## Example: Matching swapped characters
 
@@ -98,7 +130,7 @@ GET /fuzzy-test/_search
 ```
 {% include copy-curl.html %}
 
-The response contains the `lantern` document because the transposition counts as 1 edit:
+The response contains the matching document because the transposition counts as 1 edit:
 
 ```json
 {
@@ -151,4 +183,34 @@ GET /fuzzy-test/_search
 ```
 {% include copy-curl.html %}
 
-The response contains the `lantern` document.
+The response contains the matching document:
+
+```json
+{
+  "took": 1,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 1,
+      "relation": "eq"
+    },
+    "max_score": 0.07845875,
+    "hits": [
+      {
+        "_index": "fuzzy-test",
+        "_id": "1",
+        "_score": 0.07845875,
+        "_source": {
+          "product": "lantern"
+        }
+      }
+    ]
+  }
+}
+```
