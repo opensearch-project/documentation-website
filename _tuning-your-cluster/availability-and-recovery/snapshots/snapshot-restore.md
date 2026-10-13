@@ -620,21 +620,21 @@ The global state does not contain any indexes. The `indices` parameter determine
 
 ## Restore snapshots
 
-The first step in restoring a snapshot is retrieving existing snapshots. To see all snapshot repositories:
+The first step in restoring a snapshot is retrieving existing snapshots. To view all snapshot repositories, send the following request:
 
 ```json
 GET /_snapshot/_all
 ```
 {% include copy-curl.html %}
 
-To see all snapshots in a repository:
+To view all snapshots in a repository, send the following request:
 
 ```json
 GET /_snapshot/my-repository/_all
 ```
 {% include copy-curl.html %}
 
-Then restore a snapshot:
+Then restore a snapshot, send the following request:
 
 ```json
 POST /_snapshot/my-repository/snapshot-2/_restore
