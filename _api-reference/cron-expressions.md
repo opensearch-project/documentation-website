@@ -49,3 +49,9 @@ Two fields specify the day: `day_of_month` and `day_of_week`. If you use a non-w
 | `45 13 1-31/2 * *` | 1:45 PM UTC every other day |
 | `0/10 * * * 6-7` | Every 10 minutes on Saturday and Sunday |
 | `0 0-23/3 1 1-12/2 *` | Every 3 hours on the first day of every other month |
+
+## Related documentation
+
+- [Common REST parameters]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/)
+- [Index name syntax]({{site.url}}{{site.baseurl}}/api-reference/index-name-syntax/)
+- [Supported units]({{site.url}}{{site.baseurl}}/api-reference/units/)

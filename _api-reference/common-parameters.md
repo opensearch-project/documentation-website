@@ -8,7 +8,7 @@ redirect_from:
 
 # Common REST parameters
 
-This page describes the query parameters, request body conventions, and headers that are shared by OpenSearch REST APIs. For information about specifying indexes in a request path, see [Index name syntax]({{site.url}}{{site.baseurl}}/api-reference/index-name-syntax/). For the cron syntax used to schedule jobs, see [Cron expressions]({{site.url}}{{site.baseurl}}/api-reference/cron-expressions/).
+OpenSearch REST APIs share the following query parameters, request body conventions, and headers.
 
 Boolean parameters accept only `true` and `false`. OpenSearch rejects other values, such as `yes` or `1`. Numeric parameters accept either a JSON number or a string containing a number, so `"size": 10` and `"size": "10"` are equivalent. For the units accepted by time, byte size, and distance parameters, see [Supported units]({{site.url}}{{site.baseurl}}/api-reference/units/).
 
@@ -260,8 +260,8 @@ curl -X GET "http://localhost:9200/_search" \
 
 ## Related documentation
 
-- [Supported units]({{site.url}}{{site.baseurl}}/api-reference/units/)
 - [Index name syntax]({{site.url}}{{site.baseurl}}/api-reference/index-name-syntax/)
+- [Supported units]({{site.url}}{{site.baseurl}}/api-reference/units/)
 - [Cron expressions]({{site.url}}{{site.baseurl}}/api-reference/cron-expressions/)
 - [Date math in range queries]({{site.url}}{{site.baseurl}}/query-dsl/term/range/)
-- [Fuzziness in the fuzzy query]({{site.url}}{{site.baseurl}}/query-dsl/term/fuzzy/)
+- [Fuzziness]({{site.url}}{{site.baseurl}}/query-dsl/fuzziness/)

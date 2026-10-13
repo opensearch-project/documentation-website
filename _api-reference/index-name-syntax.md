@@ -6,7 +6,7 @@ nav_order: 155
 
 # Index name syntax
 
-Many OpenSearch REST APIs accept one or more index names in the request path. This page describes how to target several indexes in one request, how to select indexes by date using date math, and how to prevent requests from specifying indexes in the request body.
+Many OpenSearch REST APIs accept one or more index names in the request path. You can target several indexes in one request, select indexes by date using date math, and prevent requests from specifying indexes in the request body.
 
 ## Targeting multiple indexes
 
@@ -122,3 +122,4 @@ POST /orders/_bulk
 
 - [Common REST parameters]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/)
 - [Supported units]({{site.url}}{{site.baseurl}}/api-reference/units/)
+- [Cron expressions]({{site.url}}{{site.baseurl}}/api-reference/cron-expressions/)
