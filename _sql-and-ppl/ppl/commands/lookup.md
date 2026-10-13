@@ -12,7 +12,7 @@ nav_order: 27
 
 <!-- vale on -->
 
-The `lookup` command enriches search results with fields from a second index, called a _lookup index_ or _dimension table_. For each row in the search results, the `lookup` command finds the matching row in the lookup index and copies fields from that row into the result.
+The `lookup` command enriches search results with fields from a second index, referred to as a _lookup index_ or _dimension table_. For each row in the search results, the `lookup` command finds the matching row in the lookup index and copies fields from that row into the result.
 
 The `lookup` command functions like a left join: every row in the search results is kept, and matched fields from the lookup index are added or overwritten. If a row has no match, `replace` sets the copied fields to `null`, and `append` keeps any existing values. Compared with the `join` command, `lookup` is simpler and better suited for adding static reference data, such as region names, user departments, or product categories, to search results.
 
