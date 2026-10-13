@@ -41,11 +41,11 @@ Each Forecasting API route maps to a specific cluster-level permission, as shown
 | `PUT /_plugins/_forecast/forecasters/{id}` | `cluster:admin/plugin/forecast/forecaster/write` |
 | `POST /_plugins/_forecast/forecasters/_validate` | `cluster:admin/plugin/forecast/forecaster/validate` |
 | `POST /_plugins/_forecast/forecasters/_suggest/{types}` | `cluster:admin/plugin/forecast/forecaster/suggest` |
-| `GET /_plugins/_forecast/forecasters/{id}` <br>`GET /_plugins/_forecast/forecasters/{id}?task=true` | `cluster:admin/plugin/forecast/forecaster/get` |
+| `GET /_plugins/_forecast/forecasters/{id}` <br>`GET /_plugins/_forecast/forecasters/{id}?task=true` | `cluster:admin/plugin/forecast/forecasters/get` |
 | `DELETE /_plugins/_forecast/forecasters/{id}` | `cluster:admin/plugin/forecast/forecaster/delete` |
 | `POST /_plugins/_forecast/forecasters/{id}/_start` <br>`POST /_plugins/_forecast/forecasters/{id}/_stop` | `cluster:admin/plugin/forecast/forecaster/jobmanagement` |
 | `POST /_plugins/_forecast/forecasters/{id}/_run_once` | `cluster:admin/plugin/forecast/forecaster/runOnce` |
-| `POST /_plugins/_forecast/forecasters/_search` <br>`GET /_plugins/_forecast/forecasters/_search` | `cluster:admin/plugin/forecast/forecaster/search` |
+| `POST /_plugins/_forecast/forecasters/_search` <br>`GET /_plugins/_forecast/forecasters/_search` | `cluster:admin/plugin/forecast/forecasters/search` |
 | `GET /_plugins/_forecast/forecasters/tasks/_search` | `cluster:admin/plugin/forecast/tasks/search` |
 | `POST /_plugins/_forecast/forecasters/{id}/results/_topForecasts` | `cluster:admin/plugin/forecast/result/topForecasts` |
 | `GET /_plugins/_forecast/forecasters/{id}/_profile` | `cluster:admin/plugin/forecast/forecasters/profile` |
@@ -93,7 +93,7 @@ forecast_read_access:
     - 'cluster:admin/plugin/forecast/forecaster/suggest'
     - 'cluster:admin/plugin/forecast/forecaster/validate'
     - 'cluster:admin/plugin/forecast/forecasters/get'
-    - 'cluster:admin/plugin/forecast/forecasters/info'
+    - 'cluster:admin/plugin/forecast/forecaster/info'
     - 'cluster:admin/plugin/forecast/forecasters/search'
     - 'cluster:admin/plugin/forecast/result/topForecasts'
     - 'cluster:admin/plugin/forecast/tasks/search'

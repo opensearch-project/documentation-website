@@ -109,7 +109,7 @@ Enabling all-active mode allows both primary and replica shards to independently
 
 ![Pull-based ingestion all active mode]({{site.url}}{{site.baseurl}}/images/pull-based-ingestion/pull-based-all-active-mode.png){: width="50%" }
 
-There is no replication or coordination between the shards, although replica shards may fetch segment files from the primary shard during bootstrapping if a local copy is unavailable. This mode is currently not supported with segment replication.
+There is no replication or coordination between the shards, although replica shards may fetch segment files from the primary shard during bootstrapping if a local copy is unavailable. This mode is not supported with segment replication.
 
 ### Stream position
 
@@ -205,7 +205,7 @@ Alternatively, pull-based ingestion supports indexing raw payloads in append-onl
 
 ## Pull-based ingestion metrics
 
-Pull-based ingestion provides metrics that can be used to monitor the ingestion process. The `polling_ingest_stats` metric is currently supported and is available at the shard level.
+Pull-based ingestion provides metrics that can be used to monitor the ingestion process. The `polling_ingest_stats` metric is available at the shard level.
 
 The following table lists the available `polling_ingest_stats` metrics.
 

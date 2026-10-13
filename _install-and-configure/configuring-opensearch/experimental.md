@@ -2,7 +2,7 @@
 layout: default
 title: Experimental feature flags
 parent: Configuring OpenSearch
-nav_order: 120
+nav_order: 180
 ---
 
 # Experimental feature flags

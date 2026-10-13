@@ -144,7 +144,7 @@ POST _plugins/_reports/definition
 ```
 {% include copy-curl.html %}
 
-For more information about cron expressions, see [Cron expression reference]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/cron/).
+For more information about cron expressions, see [Cron expressions]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#cron-expressions).
 
 ## List report definitions API
 

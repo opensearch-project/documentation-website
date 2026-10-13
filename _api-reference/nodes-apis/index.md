@@ -3,7 +3,7 @@ layout: default
 title: Nodes APIs
 has_children: true
 has_toc: false
-nav_order: 50
+nav_order: 80
 redirect_from:
   - /api-reference/nodes-apis/
 ---

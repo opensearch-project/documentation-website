@@ -19,7 +19,7 @@ To open a dashboard for editing, you can do one of the following:
 
 To create a new dashboard, follow these steps:
 
-1. In the [navigation panel]({{site.url}}{{site.baseurl}}/dashboards/navigating-ui/#using-the-navigation-panel), select **OpenSearch Dashboards** > **Dashboards**.
+1. In the [navigation panel]({{site.url}}{{site.baseurl}}/dashboards/navigating-ui/#the-left-navigation-panel), select **OpenSearch Dashboards** > **Dashboards**.
 
 1. From the **Dashboards** application panel, choose **Create**.
 
@@ -32,7 +32,7 @@ To create a new dashboard, follow these steps:
 
 To clone a dashboard, follow these steps:
 
-1. In the [navigation panel]({{site.url}}{{site.baseurl}}/dashboards/navigating-ui/#navigating-opensearch-dashboards), select **OpenSearch Dashboards** > **Dashboards**.
+1. In the [navigation panel]({{site.url}}{{site.baseurl}}/dashboards/navigating-ui/#the-left-navigation-panel), select **OpenSearch Dashboards** > **Dashboards**.
 
 1. From the list in the **Dashboards** table, select a dashboard by choosing its title from the table.
 
@@ -47,7 +47,7 @@ To clone a dashboard, follow these steps:
 
 To edit an existing dashboard, follow these steps:
 
-1. In the [navigation panel]({{site.url}}{{site.baseurl}}/dashboards/navigating-ui/#navigating-opensearch-dashboards), select **OpenSearch Dashboards** > **Dashboards**.
+1. In the [navigation panel]({{site.url}}{{site.baseurl}}/dashboards/navigating-ui/#the-left-navigation-panel), select **OpenSearch Dashboards** > **Dashboards**.
 
 1. From the list in the **Dashboards** table, select a dashboard by choosing its title from the table.
 

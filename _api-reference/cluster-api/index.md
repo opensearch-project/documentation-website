@@ -3,7 +3,7 @@ layout: default
 title: Cluster APIs
 has_children: true
 has_toc: false
-nav_order: 15
+nav_order: 30
 redirect_from:
   - /opensearch/api-reference/cluster-api/
   - /api-reference/cluster-api/

@@ -75,4 +75,4 @@ To prevent accidental deletion of models in active use by agents, search pipelin
 - Identify any components using the model and either delete them or update them so that they use other models.
 - Once all dependencies are cleared, delete the model.
 
-For information about enabling this feature, see [Safely delete models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/cluster-settings/#safely-delete-models).
+For information about enabling this feature, see [Feature settings]({{site.url}}{{site.baseurl}}/ml-commons-plugin/cluster-settings/#feature-settings).

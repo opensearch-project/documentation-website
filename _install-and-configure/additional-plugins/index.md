@@ -1,8 +1,10 @@
 ---
 layout: default
 title: Additional plugins
-parent: Installing plugins
+parent: Managing OpenSearch plugins
 nav_order: 10
+has_children: true
+has_toc: false
 redirect_from:
   - /install-and-configure/additional-plugins/
 ---
@@ -33,7 +35,6 @@ The following table lists commonly used additional plugins and the earliest Open
 | `mapper-murmur3`                                                                                                         | 1.0.0                      |
 | [`mapper-size`]({{site.url}}{{site.baseurl}}/install-and-configure/additional-plugins/mapper-size-plugin/)             | 1.0.0                      |
 | [`opensearch-jvector`]({{site.url}}{{site.baseurl}}/install-and-configure/additional-plugins/opensearch-jvector/)       | 3.5.0                      |
-| `query-insights`                                                                                                         | 2.12.0                     |
 | `repository-azure`                                                                                                       | 1.0.0                      |
 | `repository-gcs`                                                                                                         | 1.0.0                      |
 | `repository-hdfs`                                                                                                        | 1.0.0                      |
@@ -44,7 +45,7 @@ The following table lists commonly used additional plugins and the earliest Open
 
 ## Related documentation
 
-- [Installing plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/)
+- [Managing OpenSearch plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/)
 - [`ingest-attachment` plugin]({{site.url}}{{site.baseurl}}/install-and-configure/additional-plugins/ingest-attachment-plugin/)
 - [`mapper-size` plugin]({{site.url}}{{site.baseurl}}/install-and-configure/additional-plugins/mapper-size-plugin/)
 - [`opensearch-jvector` plugin]({{site.url}}{{site.baseurl}}/install-and-configure/additional-plugins/opensearch-jvector/)

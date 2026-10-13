@@ -11,7 +11,7 @@ grand_parent: SQL and PPL API
 This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).    
 {: .warning}
 
-Creates or modifies resources in an external data source. Currently supports creating alert silences in Prometheus Alertmanager.
+Creates or modifies resources in an external data source. Supports creating alert silences in Prometheus Alertmanager.
 
 Before using this API, you must configure a data source. For information about configuring data sources, see [Data sources]({{site.url}}{{site.baseurl}}/dashboards/management/data-sources/).
 {: .note}
@@ -29,7 +29,7 @@ The following table lists the available path parameters.
 Parameter | Data type | Description
 :--- | :--- | :---
 `dataSource` | String | The name of the configured data source. Required.
-`resourceType` | String | The type of resource to create. Currently, only `silences` is supported. Required.
+`resourceType` | String | The type of resource to create. The only supported value is `silences`. Required.
 
 ## Alertmanager silence request body fields
 

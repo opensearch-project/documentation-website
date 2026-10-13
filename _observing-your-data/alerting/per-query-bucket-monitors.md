@@ -101,6 +101,6 @@ To avoid this issue, make sure the alerting monitor is at least twice the detect
 
 Whenever you update a detector’s interval, make sure to update the associated monitor interval, as the Anomaly Detection plugin does not do this automatically.
 
-**Step 2.** Choose the frequency to run the monitor, for example, either by time intervals (minutes, hours, days) or on a schedule. If you run it by time interval or on a [custom cron expression]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/cron/), then you must provide the time zone.
+**Step 2.** Choose the frequency to run the monitor, for example, either by time intervals (minutes, hours, days) or on a schedule. If you run it by time interval or on a [custom cron expression]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#cron-expressions), then you must provide the time zone.
 
 **Step 3.** Add a trigger to the monitor.

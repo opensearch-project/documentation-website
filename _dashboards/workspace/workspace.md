@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Workspaces
-nav_order: 90
+nav_order: 120
 has_children: true
 ---
 
@@ -100,7 +100,7 @@ This dual approach allows OpenSearch Dashboards to balance granular, context-spe
 
 ## Enabling workspaces
 
-In your `opensearch_dashboards.yml` file, set the following option:
+In your `opensearch_dashboards.yml` file, set the following options:
 
 ```yaml
 workspace.enabled: true

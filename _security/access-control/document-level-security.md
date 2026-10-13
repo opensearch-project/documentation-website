@@ -302,3 +302,7 @@ In this example, two roles are defined, one with DLS and another without DLS, gr
 When a user has both Role A and Role B permissions, the query results are filtered based on Role A's DLS, even though Role B doesn't use DLS. The DLS settings are retained, and the returned access is appropriately restricted. 
 
 When a user is assigned both Role A and Role B and the `plugins.security.dfm_empty_overrides_all` setting is enabled, Role B's permissions Role B's permissions will override Role A's restrictions, allowing that user to access all documents. This ensures that the role without DLS takes precedence in the search query response.
+
+## Updating documents using scripts
+
+The Security plugin blocks the update by script operation (`POST <index>/_update/<id>`) when field-level security, document-level security, or field masking is active. To update documents, use the index operation (`PUT <index>/_doc/<id>`).

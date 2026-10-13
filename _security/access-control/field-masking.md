@@ -9,7 +9,7 @@ redirect_from:
 
 # Field masking
 
-If you don't want to remove fields from a document using [field-level security]({{site.url}}{{site.baseurl}}/security/access-control/field-level-security/), you can mask their values. Currently, field masking is only available for string-based fields and replaces the field's value with a cryptographic hash.
+If you don't want to remove fields from a document using [field-level security]({{site.url}}{{site.baseurl}}/security/access-control/field-level-security/), you can mask their values. Field masking is only available for string-based fields and replaces the field's value with a cryptographic hash.
 
 Field masking works alongside field-level security on the same per-role, per-index basis. You can allow certain roles to see sensitive fields in plain text and mask them for others.
 
@@ -156,3 +156,7 @@ The `title` statement changes each character in the field to `*`, so you can sti
 ## Effect on audit logging
 
 The read history feature lets you track read access to sensitive fields in your documents. For example, you might track access to the email field of your customer records. Access to masked fields are excluded from read history, because the user only saw the hash value, not the clear text value of the field.
+
+## Updating documents using scripts
+
+The Security plugin blocks the update by script operation (`POST <index>/_update/<id>`) when field-level security, document-level security, or field masking is active. To update documents, use the index operation (`PUT <index>/_doc/<id>`).

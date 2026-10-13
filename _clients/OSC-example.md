@@ -8,16 +8,22 @@ parent: .NET clients
 
 # More advanced features of the high-level .NET client (OpenSearch.Client)
 
-The following example illustrates more advanced features of OpenSearch.Client. For a simple example, see the [Getting started guide]({{site.url}}{{site.baseurl}}/clients/OSC-dot-net/). This example uses the following Student class.
+The following example illustrates more advanced features of OpenSearch.Client. For a simple example, see the [Getting started guide]({{site.url}}{{site.baseurl}}/clients/OSC-dot-net/). This example uses the following `Student` class, which is the same class used in the [Getting started guide]({{site.url}}{{site.baseurl}}/clients/OSC-dot-net/). OpenSearch.Client converts its property names to the `firstName`, `lastName`, `gpa`, and `gradDate` field names. The `ToString` method formats a `Student` for console output:
 
 ```cs
+using System.Globalization;
+
 public class Student
 {
-    public int Id { get; init; }
-    public string FirstName { get; init; }
-    public string LastName { get; init; }
-    public int GradYear { get; init; }
-    public double Gpa { get; init; }
+    public string FirstName { get; set; } = string.Empty;
+    public string LastName { get; set; } = string.Empty;
+    public double Gpa { get; set; }
+    public string GradDate { get; set; } = string.Empty;
+
+    public override string ToString() =>
+        string.Format(CultureInfo.InvariantCulture,
+            "{% raw %}Student{{firstName='{0}', lastName='{1}', gpa={2}, gradDate={3}}}{% endraw %}",
+            FirstName, LastName, Gpa, GradDate);
 }
 ```
 {% include copy.html %}
@@ -34,7 +40,7 @@ var createResponse = await osClient.Indices.CreateAsync("students",
 ```
 {% include copy.html %}
 
-If you use auto mapping, `Id` and `GradYear` are mapped as integers, `Gpa` is mapped as a double, and `FirstName` and `LastName` are mapped as text with a keyword subfield. If you want to search for `FirstName` and `LastName` and allow only case-sensitive full matches, you can suppress analyzing by mapping these fields as keyword only. In Query DSL, you can accomplish this using the following query:
+If you use auto mapping, `Gpa` is mapped as a double, and `FirstName`, `LastName`, and `GradDate` are string properties, so they are mapped as text with a keyword subfield. To search date ranges on `GradDate`, map it as a `date` in the `yyyy-MM-dd` format. If you want to search for `FirstName` and `LastName` and allow only case-sensitive full matches, you can suppress analyzing by mapping these fields as keyword only. In Query DSL, you can accomplish this using the following query:
 
 ```json
 PUT students
@@ -46,20 +52,25 @@ PUT students
       },
       "lastName" : {
         "type" : "keyword"
+      },
+      "gradDate" : {
+        "type" : "date",
+        "format" : "yyyy-MM-dd"
       }
     }
   }
 }
 ```
 
-In OpenSearch.Client, you can use fluid lambda syntax to mark these fields as keywords:
+In OpenSearch.Client, you can use fluid lambda syntax to map these fields:
 
 ```cs
 var createResponse = await osClient.Indices.CreateAsync(index,
                 c => c.Map(m => m.AutoMap<Student>()
                 .Properties<Student>(p => p
                 .Keyword(k => k.Name(f => f.FirstName))
-                .Keyword(k => k.Name(f => f.LastName)))));
+                .Keyword(k => k.Name(f => f.LastName))
+                .Date(d => d.Name(f => f.GradDate).Format("yyyy-MM-dd")))));
 ```
 {% include copy.html %}
 
@@ -77,6 +88,10 @@ PUT students
       },
       "lastName" : {
         "type" : "keyword"
+      },
+      "gradDate" : {
+        "type" : "date",
+        "format" : "yyyy-MM-dd"
       }
     }
   }, 
@@ -94,7 +109,8 @@ var createResponse = await osClient.Indices.CreateAsync(index,
                             c => c.Map(m => m.AutoMap<Student>()
                             .Properties<Student>(p => p
                             .Keyword(k => k.Name(f => f.FirstName))
-                            .Keyword(k => k.Name(f => f.LastName))))
+                            .Keyword(k => k.Name(f => f.LastName))
+                            .Date(d => d.Name(f => f.GradDate).Format("yyyy-MM-dd"))))
                             .Settings(s => s.NumberOfShards(1).NumberOfReplicas(2)));
 ```
 {% include copy.html %}
@@ -122,7 +138,7 @@ var bulkAll = osClient.BulkAll(ReadData(), r => r
 
 ## Searching with Boolean query
 
-OpenSearch.Client exposes full OpenSearch query capability. In addition to simple searches that use the match query, you can create a more complex Boolean query to search for students who graduated in 2022 and sort them by last name. In the following example, search is limited to 10 documents, and the scroll API is used to control the pagination of results.
+OpenSearch.Client exposes full OpenSearch query capability. In addition to simple searches that use the match query, you can create a more complex Boolean query that filters on a `gradDate` range to search for students who graduated in 2022 and sort them by last name. In the following example, search is limited to 10 documents, and the scroll API is used to control the pagination of results.
 
 ```cs
 var gradResponse = await osClient.SearchAsync<Student>(s => s
@@ -133,7 +149,10 @@ var gradResponse = await osClient.SearchAsync<Student>(s => s
                         .Query(q => q
                         .Bool(b => b
                         .Filter(f => f
-                        .Term(t => t.Field(fld => fld.GradYear).Value(2022)))))
+                        .DateRange(r => r
+                            .Field(fld => fld.GradDate)
+                            .GreaterThanOrEquals("2022-01-01")
+                            .LessThanOrEquals("2022-12-31")))))
                         .Sort(srt => srt.Ascending(f => f.LastName)));
 ```
 {% include copy.html %}
@@ -159,9 +178,19 @@ var aggResponse = await osClient.SearchAsync<Student>(s => s
 
 ## Sample program for creating an index and indexing data
 
-The following program creates an index, reads a stream of student records from a comma-separated file and indexes this data into OpenSearch.
+The sample program in this section reads student records from a `students.csv` file located in the directory from which you run the program. Create the file with one student record per line in the `FirstName,LastName,Gpa,GradDate` format, specifying the graduation date in the `yyyy-MM-dd` format. Do not include a header row. For example:
+
+```text
+John,Doe,3.89,2022-05-15
+Wei,Zhang,3.65,2022-05-15
+Zhang,Li,3.72,2022-06-10
+```
+{% include copy.html %}
+
+The following program deletes the `students` index if it exists, creates the index, reads the student records from the file, and indexes them into OpenSearch:
 
 ```cs
+using System.Globalization;
 using OpenSearch.Client;
 
 namespace NetClientProgram;
@@ -174,50 +203,58 @@ internal class Program
 
     public static async Task Main(string[] args)
     {
-        // Check if the index with the name "students" exists
+        // Delete the "students" index if it exists so that the index is created with the following mappings
         var existResponse = await osClient.Indices.ExistsAsync(index);
 
-        if (!existResponse.Exists)  // There is no index with this name
+        if (existResponse.Exists)
         {
-            // Create an index "students"
-            // Map FirstName and LastName as keyword
-            var createResponse = await osClient.Indices.CreateAsync(index,
-                c => c.Map(m => m.AutoMap<Student>()
-                .Properties<Student>(p => p
-                .Keyword(k => k.Name(f => f.FirstName)) 
-                .Keyword(k => k.Name(f => f.LastName))))
-                .Settings(s => s.NumberOfShards(1).NumberOfReplicas(1)));
-
-            if (!createResponse.IsValid && !createResponse.Acknowledged)
-            {
-                throw new Exception("Create response is invalid.");
-            }
-
-            // Take a stream of data and send it to OpenSearch
-            var bulkAll = osClient.BulkAll(ReadData(), r => r
-            .Index(index)
-            .BackOffRetries(2)
-            .BackOffTime("20s")
-            .MaxDegreeOfParallelism(4)
-            .Size(10));
-
-            // Wait until the data upload is complete.
-            // FromMinutes specifies a timeout.
-            // r is a response object that is returned as the data is indexed.
-            bulkAll.Wait(TimeSpan.FromMinutes(10), r => 
-                Console.WriteLine("Data chunk indexed"));
+            await osClient.Indices.DeleteAsync(index);
         }
+
+        // Create an index "students"
+        // Map FirstName and LastName as keyword and GradDate as date
+        var createResponse = await osClient.Indices.CreateAsync(index,
+            c => c.Map(m => m.AutoMap<Student>()
+            .Properties<Student>(p => p
+            .Keyword(k => k.Name(f => f.FirstName))
+            .Keyword(k => k.Name(f => f.LastName))
+            .Date(d => d.Name(f => f.GradDate).Format("yyyy-MM-dd"))))
+            .Settings(s => s.NumberOfShards(1).NumberOfReplicas(1)));
+
+        if (!createResponse.IsValid || !createResponse.Acknowledged)
+        {
+            throw new Exception("Create response is invalid.");
+        }
+
+        // Take a stream of data and send it to OpenSearch
+        var bulkAll = osClient.BulkAll(ReadData(), r => r
+        .Index(index)
+        .BackOffRetries(2)
+        .BackOffTime("20s")
+        .MaxDegreeOfParallelism(4)
+        .Size(10)
+        .RefreshOnCompleted());
+
+        // Wait until the data upload is complete.
+        // FromMinutes specifies a timeout.
+        // r is a response object that is returned as the data is indexed.
+        bulkAll.Wait(TimeSpan.FromMinutes(10), r =>
+            Console.WriteLine("Data chunk indexed"));
     }
 
-    // Reads student data in the form "Id,FirsName,LastName,GradYear,Gpa"
+    // Reads student data in the form "FirstName,LastName,Gpa,GradDate"
     public static IEnumerable<Student> ReadData()
     {
-        var file = new StreamReader("C:\\search\\students.csv");
-
-        string s;
-        while ((s = file.ReadLine()) is not null)
+        foreach (var line in File.ReadLines("students.csv"))
         {
-            yield return new Student(s);
+            var fields = line.Split(',');
+            yield return new Student
+            {
+                FirstName = fields[0],
+                LastName = fields[1],
+                Gpa = double.Parse(fields[2], CultureInfo.InvariantCulture),
+                GradDate = fields[3]
+            };
         }
     }
 }
@@ -226,7 +263,7 @@ internal class Program
 
 ## Sample program for search
 
-The following program searches students by name and graduation date and calculates the average GPA.
+The following program searches students by name and graduation date, calculates the average GPA, and then deletes the index.
 
 ```cs
 using OpenSearch.Client;
@@ -246,6 +283,11 @@ internal class Program
         await SearchByGradDate();
 
         await CalculateAverageGpa();
+
+        // Delete the index
+        Console.WriteLine("Deleting the index......");
+        var deleteIndexResponse = await osClient.Indices.DeleteAsync(index);
+        Console.WriteLine("Acknowledged: " + deleteIndexResponse.Acknowledged.ToString().ToLowerInvariant());
     }
 
     private static async Task SearchByName()
@@ -261,13 +303,12 @@ internal class Program
 
         if (!nameResponse.IsValid)
         {
-            throw new Exception("Aggregation query response is not valid.");
+            throw new Exception("Name query response is not valid.");
         }
 
         foreach (var s in nameResponse.Documents)
         {
-            Console.WriteLine($"{s.Id} {s.LastName} " +
-                $"{s.FirstName} {s.Gpa} {s.GradYear}");
+            Console.WriteLine("  " + s);
         }
     }
 
@@ -279,14 +320,16 @@ internal class Program
         var gradResponse = await osClient.SearchAsync<Student>(s => s
                                 .Index(index)
                                 .From(0)
-                                .Size(2)
+                                .Size(10)
                                 .Scroll("1m")
                                 .Query(q => q
                                 .Bool(b => b
                                 .Filter(f => f
-                                .Term(t => t.Field(fld => fld.GradYear).Value(2022)))))
-                                .Sort(srt => srt.Ascending(f => f.LastName))
-                                .Size(10));
+                                .DateRange(r => r
+                                    .Field(fld => fld.GradDate)
+                                    .GreaterThanOrEquals("2022-01-01")
+                                    .LessThanOrEquals("2022-12-31")))))
+                                .Sort(srt => srt.Ascending(f => f.LastName)));
 
 
         if (!gradResponse.IsValid)
@@ -298,11 +341,13 @@ internal class Program
         {
             foreach (var data in gradResponse.Documents)
             {
-                Console.WriteLine($"{data.Id} {data.LastName} {data.FirstName} " +
-                    $"{data.Gpa} {data.GradYear}");
+                Console.WriteLine("  " + data);
             }
-            gradResponse = osClient.Scroll<Student>("1m", gradResponse.ScrollId);
+            gradResponse = await osClient.ScrollAsync<Student>("1m", gradResponse.ScrollId);
         }
+
+        // Release the resources held by the scroll context
+        await osClient.ClearScrollAsync(c => c.ScrollId(gradResponse.ScrollId));
     }
 
     public static async Task CalculateAverageGpa()
@@ -315,9 +360,9 @@ internal class Program
                                 .Index(index)
                                 .Size(0)
                                 .Aggregations(a => a
-                                .Average("average gpa", 
+                                .Average("average gpa",
                                             avg => avg.Field(fld => fld.Gpa))));
-       
+
         if (!aggResponse.IsValid) throw new Exception("Aggregation response not valid");
 
         var avg = aggResponse.Aggregations.Average("average gpa").Value;
@@ -326,3 +371,9 @@ internal class Program
 }
 ```
 {% include copy.html %}
+
+## Related documentation
+
+- For more examples of using the client, see the [`opensearch-net` user guide](https://github.com/opensearch-project/opensearch-net/blob/main/USER_GUIDE.md).
+- For guides to specific tasks, such as bulk indexing and searching, see the [`opensearch-net` guides](https://github.com/opensearch-project/opensearch-net/tree/main/guides).
+- For complete sample applications, see the [`opensearch-net` samples](https://github.com/opensearch-project/opensearch-net/tree/main/samples).

@@ -21,7 +21,7 @@ bin/opensearch-plugin install analysis-kuromoji
 ```
 {% include copy.html %}
 
-For more information about installing plugins, see [Installing plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/).
+For more information about installing plugins, see [Managing OpenSearch plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/).
 
 ## Kuromoji plugin components
 

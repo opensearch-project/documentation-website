@@ -2,7 +2,7 @@
 layout: default
 title: Data summary
 parent: OpenSearch Assistant for OpenSearch Dashboards
-nav_order: 1
+nav_order: 30
 has_children: false
 ---
 

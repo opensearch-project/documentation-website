@@ -11,8 +11,6 @@ nav_order: 20
 
 Monitoring the [top N queries]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/top-n-queries/) can help you to identify the most resource-intensive queries based on latency, CPU, and memory usage in a specified time window. However, if a single computationally expensive query is executed multiple times, it can occupy all top N query slots, potentially preventing other expensive queries from appearing in the list. To address this issue, you can group similar queries, gaining insight into various high-impact query groups.
 
-Starting with OpenSearch version 2.17, the top N queries can be grouped by `similarity`, with additional grouping options planned for future version releases. 
-
 ## Grouping queries by similarity
 
 Grouping queries by `similarity` organizes them based on the query structure, removing everything except the core query operations.
@@ -183,7 +181,7 @@ PUT _cluster/settings
 ```
 {% include copy-curl.html %}
 
-The default value for the `group_by` setting is `none`, which disables grouping. As of OpenSearch 2.17, the supported values for `group_by` are `similarity` and `none`.
+The default value for the `group_by` setting is `none`, which disables grouping. The supported values for `group_by` are `similarity` and `none`.
 
 ### Step 3 (Optional): Limit the number of monitored query groups
 

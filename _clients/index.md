@@ -11,19 +11,15 @@ redirect_from:
 
 # ![Clients icon]({{site.url}}{{site.baseurl}}/images/icons/OpenSearch-Clients-Icon.avif){: .heading-icon} OpenSearch language clients
 
-OpenSearch provides clients in JavaScript, Python, Ruby, Java, PHP, .NET, Go, Hadoop, and Rust.
-
-The OpenSearch Java high-level REST client will be deprecated starting with OpenSearch 3.0.0 and will be removed in a future release. Switching to the [Java client]({{site.url}}{{site.baseurl}}/clients/java/) is recommended.
-{: .warning}
+OpenSearch clients let you work with OpenSearch from your application code. A client connects to your cluster, sends requests, and returns the responses as objects in your programming language, so you can create indexes, add documents, and search without building HTTP requests and parsing JSON yourself.
 
 ## OpenSearch clients
 
 OpenSearch provides clients for the following programming languages and platforms: 
 
 * **Python**
-  * [OpenSearch high-level Python client]({{site.url}}{{site.baseurl}}/clients/python-high-level/)
-  * [OpenSearch low-level Python client]({{site.url}}{{site.baseurl}}/clients/python-low-level/)
-  * [`opensearch-py-ml` client]({{site.url}}{{site.baseurl}}/clients/opensearch-py-ml/)
+  * [OpenSearch Python client]({{site.url}}{{site.baseurl}}/clients/python-low-level/)
+  * [OpenSearch Python ML client]({{site.url}}{{site.baseurl}}/clients/opensearch-py-ml/): Analyze data in OpenSearch indexes using DataFrames and upload machine learning (ML) models to OpenSearch.
 * **Java**
   * [OpenSearch Java client]({{site.url}}{{site.baseurl}}/clients/java/)
 * **JavaScript**
@@ -40,6 +36,13 @@ OpenSearch provides clients for the following programming languages and platform
   * [OpenSearch Rust client]({{site.url}}{{site.baseurl}}/clients/rust/)
 * **Hadoop**
   * [Hadoop connector (Apache Spark, Apache Hive, and Hadoop MapReduce)]({{site.url}}{{site.baseurl}}/clients/hadoop/)
+
+## Deprecated clients
+
+The following clients have been deprecated:
+
+* [OpenSearch high-level Python client]({{site.url}}{{site.baseurl}}/clients/python-high-level/): Use the [OpenSearch Python client]({{site.url}}{{site.baseurl}}/clients/python-low-level/) instead.
+* [OpenSearch Java high-level REST client]({{site.url}}{{site.baseurl}}/clients/java-rest-high-level/): Use the [OpenSearch Java client]({{site.url}}{{site.baseurl}}/clients/java/) instead.
 
 
 ## Legacy clients
@@ -60,64 +63,3 @@ Client | Recommended version
 [Elasticsearch Ruby client](https://rubygems.org/gems/elasticsearch/versions/7.13.0) | 7.13.0
 
 If you test a legacy client and verify that it works, [submit a PR](https://github.com/opensearch-project/documentation-website/pulls) and add it to this table.
-
-
-{% comment %}
-## Python 3 test code
-
-This code indexes a single document and is equivalent to `PUT /python-test-index1/_doc/1`.
-
-```python
-from elasticsearch import Elasticsearch
-
-host = 'localhost'
-port = 9200
-# For testing only. Do not store credentials in code.
-auth = ('admin', 'admin')
-
-es = Elasticsearch(
-  hosts = [{'host': host, 'port': port}],
-  http_auth = auth,
-  use_ssl = True,
-  verify_certs = False
-)
-
-document = {
-  "title": "Moneyball",
-  "director": "Bennett Miller",
-  "year": "2011"
-}
-
-response = es.index(index='python-test-index1', id='1', body=document, refresh=True)
-
-print(response)
-```
-
-
-## Node.js test code
-
-This code is equivalent to `GET /`.
-
-```js
-const { Client } = require('@elastic/elasticsearch')
-const client = new Client({
-  node: 'https://localhost:9200',
-  auth: {
-    // For testing only. Don't store credentials in code.
-    username: 'admin',
-    password: 'admin'
-  },
-  ssl: {
-    // ca: fs.readFileSync('./cacert.pem'),
-    rejectUnauthorized: false
-  }
-})
-
-async function run () {
-  const { body } = await client.info();
-  console.log(body);
-}
-
-run().catch(console.log)
-```
-{% endcomment %}

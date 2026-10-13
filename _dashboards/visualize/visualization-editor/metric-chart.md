@@ -9,7 +9,7 @@ nav_order: 45
 
 # Metric charts in the visualization editor
 
-A metric chart displays a single numeric value prominently, making it ideal for showing key performance indicators (KPIs) or summary statistics at a glance.
+A metric chart displays a single numeric value prominently. Use a metric chart to show key performance indicators (KPIs) or summary statistics.
 
 ## Creating a metric chart
 
@@ -54,7 +54,7 @@ In the **Split by** dropdown list, select a field to split the chart into separa
 | --- | --- |
 | **Text display** | Controls what text is shown alongside the value. Supported values: **Value only**, **Name only**, **Value and Name**, **None**. |
 | **Color mode** | Controls how threshold colors are applied to the metric. Supported values: **None** (no color), **Value** (colors the value text), **Background gradient** (applies a gradient background), **Background solid** (applies a solid background color). |
-| **Show percentage** | When enabled, displays the value as a percentage of the max value. |
+| **Show percentage** | When enabled, displays the value as a percentage of the maximum value. |
 | **Use threshold colors** | When enabled, applies threshold colors to the metric based on the current value. |
 
 ### Value options
@@ -69,11 +69,7 @@ For information about configuring thresholds, see [Thresholds]({{site.url}}{{sit
 
 ### Standard options
 
-| Setting | Description |
-| --- | --- |
-| **Min** | The lower bound of the metric scale (used for percentage calculations). |
-| **Max** | The upper bound of the metric scale (used for percentage calculations). |
-| **Units** | An optional unit label applied to the displayed value. |
+For information about configuring units, unit suffixes, and decimal precision, see [Standard options]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/configuring-visualizations/standard-options/).
 
 ### Text size
 
@@ -82,4 +78,3 @@ For information about configuring thresholds, see [Thresholds]({{site.url}}{{sit
 | **Value size** | Controls the font size of the displayed value. |
 | **Title size** | Controls the font size of the metric title. |
 | **Percentage size** | Controls the font size of the percentage display (when **Show percentage** is enabled). |
-

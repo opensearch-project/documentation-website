@@ -49,7 +49,7 @@ Definitions let you generate reports on a periodic schedule.
 1. (Optional) Add a header or footer to the report. Headers and footers are only available for dashboard, visualization, and notebook reports.
 1. Under **Report trigger**, choose either **On demand** or **Schedule**.
 
-   For scheduled reports, select either **Recurring** or **Cron based**. You can receive reports daily or at some other time interval, and Cron expressions give you more flexibility. See [Cron expression reference]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/cron/) for more information.
+   For scheduled reports, select either **Recurring** or **Cron based**. You can receive reports daily or at some other time interval, and Cron expressions give you more flexibility. See [Cron expressions]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#cron-expressions) for more information.
 
 2. Choose **Create**.
 

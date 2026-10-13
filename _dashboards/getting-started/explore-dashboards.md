@@ -44,18 +44,21 @@ If you're using a local installation of OpenSearch Dashboards and haven't added 
 
     The resulting view is shown in the following image.
 
-    ![Add panel view]({{site.url}}{{site.baseurl}}/images/dashboards/add-dash-panel.png){: width="700" }
+    ![Add panel view]({{site.url}}{{site.baseurl}}/images/dashboards/add-dash-panel.png)
 
 ### Adding your own visualization
 
-If you completed the [Explore the Visualize application]({{site.url}}{{site.baseurl}}/dashboards/getting-started/explore-visualize/) tutorial and saved the `Flight count over time` visualization, you can add it to this dashboard:
+If you're using a local installation and saved the `Flight count over time` visualization in [Explore the Visualize application]({{site.url}}{{site.baseurl}}/dashboards/getting-started/explore-visualize/), you can add it to this dashboard. Saving visualizations is not available in the OpenSearch Playground because it is read-only.
+
+To add the visualization, follow these steps:
 
 1. Select **Add** from the toolbar.
 1. In the search toolbar, enter `Flight count over time`.
 1. Select the visualization from the list.
 
-This step requires a local installation. Saving visualizations is not available in the OpenSearch Playground.
-{: .note}
+    The visualization is added as the last panel on the dashboard, as shown in the following image.
+
+    ![Flight count over time panel added to the end of the dashboard]({{site.url}}{{site.baseurl}}/images/dashboards/add-flight-count-panel.png)
 
 ## Filtering data in the Dashboards application
 
@@ -63,29 +66,23 @@ You can interact with visualizations to filter data.
 
 Using the **[Flights] Global Flight Dashboard** dashboard, follow these steps to filter the sample flight data:
 
-1. On the **[Flights] Airline Carrier** panel, select **OpenSearch-Air**.
+1. On the **[Flights] Airline Carrier** panel, select the **Toggle legend** icon in the lower-left corner. Then select **OpenSearch-Air** and then select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/plus-icon.png" class="inline-icon" alt="plus icon"/>{:/} (plus) icon.
 
     The dashboard updates automatically, adding the filter `Carrier: OpenSearch-Air` to the upper-left filter bar, as shown in the following image.
 
-    ![Filter data demo]({{site.url}}{{site.baseurl}}/images/dashboards/airline-carrier.gif)
+    ![Dashboard filtered by the OpenSearch-Air carrier]({{site.url}}{{site.baseurl}}/images/dashboards/airline-carrier-filter.png)
 
 1. Select **Save** to save the dashboard.
 
 Alternatively, you can use the dashboard toolbar to apply filters:
 
-1. Select {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/cross-icon.png" class="inline-icon" alt="cross icon"/>{:/} (cross) in the `Carrier: OpenSearch-Air` filter in the filter bar to remove the filter.
+1. If you've added a filter using the preceding instructions, first select {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/cross-icon.png" class="inline-icon" alt="cross icon"/>{:/} (cross) in the `Carrier: OpenSearch-Air` filter in the filter bar to remove the filter.
 
-1. In the dashboard toolbar, select {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/plus-icon.png" class="inline-icon" alt="plus icon"/>{:/} (plus) **Add filter**.
+1. In the dashboard toolbar, select **+ Add filter**.
 
 1. From the **Field**, **Operator**, and **Value** dropdown lists, select **Carrier**, **is**, and **OpenSearch-Air**, respectively.
 
 1. Select **Save**.
-
-    The dashboard updates automatically.
-
-    The resulting view is shown in the following image.
-
-    ![Dashboards tutorial panel view]({{site.url}}{{site.baseurl}}/images/dashboards/filter-data-dash.png){: width="700" }
 
 ## Further reading
 

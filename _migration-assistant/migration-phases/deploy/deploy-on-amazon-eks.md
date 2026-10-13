@@ -57,7 +57,7 @@ For sources or targets authenticated using AWS Signature Version 4, the EKS stac
 - The Migration Console pod (`migration-console-0`), which runs under the `migration-console-access-role` service account.
 - The Argo workflow executor pods, which run under the `argo-workflow-executor` service account.
 
-This means the console and the migration jobs can authenticate to Amazon OpenSearch Service and other AWS services without you manually distributing long-lived AWS credentials.
+The console and the migration jobs authenticate to Amazon OpenSearch Service and other AWS services without requiring you to distribute long-lived AWS credentials.
 
 This is one of the main reasons EKS is the recommended AWS production path.
 

@@ -14,15 +14,15 @@ has_math: true
 
 OpenSearch supports the `flat` quantization method, which performs scalar quantization on 32-bit floating-point vectors. Unlike HNSW scalar quantization for the [Faiss]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/faiss-scalar-quantization/) and [Lucene]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/lucene-scalar-quantization/) engines, which builds a navigable graph for approximate nearest neighbor search, the `flat` method performs exact (brute-force) k-NN search on quantized vectors. This provides perfect recall at the cost of higher search latency for large datasets.
 
-The `flat` method quantizes vectors to 1 bit per dimension and does not support any encoder or method parameters.
-{: .note}
+The `flat` method is engine-agnostic and does not accept the `engine` parameter. Specifying `engine` at either the method level or the field level for a `flat` method causes index creation to fail. Indexes created in OpenSearch 3.8 or earlier are unaffected. The `flat` method also accepts no encoder or method parameters.
+{: .important}
 
-The `flat` method is best suited for smaller datasets or use cases with restrictive filters where exact search results are required. For larger datasets where approximate results are acceptable, consider using HNSW scalar quantization for [Faiss]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/faiss-scalar-quantization/) or [Lucene]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/lucene-scalar-quantization/) engines.
+The `flat` method is best suited for smaller datasets or use cases with restrictive filters where exact search results are required. For larger datasets where approximate results are acceptable, consider using HNSW scalar quantization for the [Faiss]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/faiss-scalar-quantization/) or [Lucene]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/lucene-scalar-quantization/) engines.
 {: .tip}
 
 ## Running an exact search using scalar quantization
 
-To perform an exact search using scalar quantization, set the k-NN vector field's `method.name` to `flat` when creating a vector index:
+To perform an exact search using scalar quantization, set the k-NN vector field's `method.name` to `flat` when creating a vector index. Optionally, set `compression_level` to select the number of bits per dimension. For `float` fields, valid values are `32x` (1-bit), `16x` (2-bit), and `8x` (4-bit); for `half_float` fields, valid values are `16x` (1-bit) and `1x` (no quantization). If `compression_level` is not specified, `flat` defaults to 1-bit quantization: `32x` for `float` fields and `16x` for `half_float` fields, because the compression factor is measured against the data type's storage size (32 or 16 bits per dimension):
 
 ```json
 PUT /test-index
@@ -38,6 +38,7 @@ PUT /test-index
         "type": "knn_vector",
         "dimension": 4,
         "space_type": "l2",
+        "compression_level": "16x",
         "method": {
           "name": "flat"
         }
@@ -48,12 +49,12 @@ PUT /test-index
 ```
 {% include copy-curl.html %}
 
-Scalar quantization is applied only to `float` vectors. If you change the default value of the `data_type` parameter from `float` to `byte` or any other type when mapping a [k-NN vector]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-vector/), then the request is rejected.
+Scalar quantization is applied only to `float` and `half_float` vectors. For `half_float` fields, a `compression_level` of `16x` (the default) applies 1-bit quantization, and `1x` runs an exact search on unquantized 16-bit floating-point (FP16) vectors. If you change the `data_type` parameter to `byte` or any other unsupported type when mapping a [k-NN vector]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-vector/), then the request is rejected.
 {: .warning}
 
 ## Search
 
-Because the `flat` method uses 1-bit quantized vectors, rescoring is enabled by default to preserve search recall. The search runs in two phases: the quantized index is searched first, and then the results are rescored using full-precision vectors. The default `oversample_factor` is `2.0`.
+The `flat` method searches over quantized vectors, so rescoring is enabled by default to preserve search recall. The search runs in two phases: the quantized index is searched first, and then the results are rescored using full-precision vectors. The default `oversample_factor` depends on the `compression_level`. For more information, see [Rescoring quantized results to full precision]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-memory-optimized/#rescoring-quantized-results-to-full-precision).
 
 To search a flat-quantized index, send the following request:
 

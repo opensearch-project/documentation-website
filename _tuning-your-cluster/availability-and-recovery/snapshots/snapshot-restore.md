@@ -434,9 +434,9 @@ Use the following setting when accessing Azure with a shared access signature (S
 
 #### Azure token credential 
 
-Starting in OpenSearch 2.15, you have the option to configure a token credential authentication flow in `opensearch.yml`. This method is distinct from connection string authentication, which requires a SAS or an account key.
+You can configure a token credential authentication flow in `opensearch.yml`. This method is distinct from connection string authentication, which requires a SAS or an account key.
 
-If you choose to use token credential authentication, you will need to choose a token credential type. Although Azure offers multiple token credential types, as of OpenSearch version 2.15, only [managed identity](https://learn.microsoft.com/en-us/entra/identity/managed-identities-azure-resources/overview) is supported.
+If you choose to use token credential authentication, you must choose a token credential type. Although Azure offers multiple token credential types, only [managed identity](https://learn.microsoft.com/en-us/entra/identity/managed-identities-azure-resources/overview) is supported.
 
 To use managed identity, add your token credential type to `opensearch.yml` using either the `managed` or `managed_identity` value. This indicates that managed identity is being used to perform token credential authentication:
 
@@ -468,7 +468,7 @@ You can also add a request body to include or exclude certain indexes or specify
 ```json
 PUT /_snapshot/my-repository/snapshot-2
 {
-  "indices": "opensearch-dashboards*,my-index*,-my-index-2016",
+  "indices": "opensearch_dashboards*,my-index*,-my-index-2016",
   "ignore_unavailable": true,
   "include_global_state": false,
   "partial": false
@@ -492,7 +492,7 @@ GET /_snapshot/my-repository/snapshot-2
       "opensearch_dashboards_sample_data_logs",
       "opensearch_dashboards_sample_data_flights"
     ],
-    "include_global_state": true,
+    "include_global_state": false,
     "state": "IN_PROGRESS",
     ...
   }]
@@ -555,13 +555,13 @@ As when taking a snapshot, you can add a request body to include or exclude cert
 ```json
 POST /_snapshot/my-repository/snapshot-2/_restore
 {
-  "indices": "opensearch-dashboards*,my-index*",
+  "indices": "opensearch_dashboards*,my-index*",
   "ignore_unavailable": true,
   "include_global_state": false,
   "include_aliases": false,
   "partial": false,
-  "rename_pattern": "opensearch-dashboards(.+)",
-  "rename_replacement": "restored-opensearch-dashboards$1",
+  "rename_pattern": "opensearch_dashboards(.+)",
+  "rename_replacement": "restored_opensearch_dashboards$1",
   "index_settings": {
     "index.blocks.read_only": false
   },

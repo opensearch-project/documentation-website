@@ -48,12 +48,12 @@ nodes:
   type: create_connector
   user_inputs:
     name: OpenAI Chat Connector
-    description: The connector to public OpenAI model service for GPT 3.5
+    description: The connector to public OpenAI model service for gpt-4o-mini
     version: '1'
     protocol: http
     parameters:
       endpoint: api.openai.com
-      model: gpt-3.5-turbo
+      model: gpt-4o-mini
     credential:
       openAI_key: '12345'
     actions:
@@ -76,7 +76,7 @@ When registering a model, the `previous_node_inputs` field tells OpenSearch to o
   previous_node_inputs:
     create_connector_1: connector_id
   user_inputs:
-    name: openAI-gpt-3.5-turbo
+    name: openAI-gpt-4o-mini
     function_name: remote
     description: test model
 ```
@@ -295,12 +295,12 @@ workflows:
       type: create_connector
       user_inputs:
         name: OpenAI Chat Connector
-        description: The connector to public OpenAI model service for GPT 3.5
+        description: The connector to public OpenAI model service for gpt-4o-mini
         version: '1'
         protocol: http
         parameters:
           endpoint: api.openai.com
-          model: gpt-3.5-turbo
+          model: gpt-4o-mini
         credential:
           openAI_key: '12345'
         actions:
@@ -313,7 +313,7 @@ workflows:
         create_connector_1: connector_id
       user_inputs:
         # deploy: true could be added here instead of the deploy step below
-        name: openAI-gpt-3.5-turbo
+        name: openAI-gpt-4o-mini
         description: test model
     - id: deploy_model_3
       type: deploy_model
@@ -441,12 +441,12 @@ The following is the same template in JSON format:
           "type": "create_connector",
           "user_inputs": {
             "name": "OpenAI Chat Connector",
-            "description": "The connector to public OpenAI model service for GPT 3.5",
+            "description": "The connector to public OpenAI model service for gpt-4o-mini",
             "version": "1",
             "protocol": "http",
             "parameters": {
               "endpoint": "api.openai.com",
-              "model": "gpt-3.5-turbo"
+              "model": "gpt-4o-mini"
             },
             "credential": {
               "openAI_key": "12345"
@@ -467,7 +467,7 @@ The following is the same template in JSON format:
             "create_connector_1": "connector_id"
           },
           "user_inputs": {
-            "name": "openAI-gpt-3.5-turbo",
+            "name": "openAI-gpt-4o-mini",
             "description": "test model"
           }
         },

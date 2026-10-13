@@ -2,12 +2,14 @@
 layout: default
 title: Plugin settings
 parent: Configuring OpenSearch
-nav_order: 110
+nav_order: 140
 ---
 
 # Plugin settings
 
 The following settings are related to OpenSearch plugins.
+
+To learn how to apply these settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
 
 ## Alerting plugin settings
 

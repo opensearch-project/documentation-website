@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Analyze API
-nav_order: 7
+nav_order: 5
 redirect_from:
   - /api-reference/analyze-apis/perform-text-analysis/
   - /opensearch/rest-api/analyze-apis/
@@ -1016,7 +1016,7 @@ PUT /books2
 ````
 {% include copy-curl.html %}
 
-The preceding request is an index API rather than an analyze API. See [Dynamic index-level index settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/#dynamic-index-level-index-settings) for additional details.
+The preceding request is an index API rather than an analyze API. See [Dynamic index settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/#dynamic-index-settings) for additional details.
 {: .note}
 
 ## Response body fields
@@ -1053,3 +1053,11 @@ See [token object](#token-object) for token field descriptions.
 ## Required permissions
 
 If you use the Security plugin, make sure you have the appropriate permissions: `indices:admin/analyze`.
+
+## Related documentation
+
+- [Text analysis]({{site.url}}{{site.baseurl}}/analyzers/)
+- [Analyzers]({{site.url}}{{site.baseurl}}/analyzers/supported-analyzers/index/)
+- [Tokenizers]({{site.url}}{{site.baseurl}}/analyzers/tokenizers/index/)
+- [Token filters]({{site.url}}{{site.baseurl}}/analyzers/token-filters/index/)
+- [Normalizers]({{site.url}}{{site.baseurl}}/analyzers/normalizers/)

@@ -250,6 +250,7 @@ tera
 [Uu]ndeploy
 [Uu]ndock(ed|ing)?
 [Uu]nescaped
+[Uu]ngroup(s|ed|ing)?
 [Uu]nhid(e|ing)
 [Uu]nicast
 [Uu]nigram

@@ -2,7 +2,7 @@
 layout: default
 title: Anomaly detector suggestions
 parent: OpenSearch Assistant for OpenSearch Dashboards
-nav_order: 1
+nav_order: 20
 has_children: false
 ---
 

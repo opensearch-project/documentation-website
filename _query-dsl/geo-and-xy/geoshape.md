@@ -29,7 +29,7 @@ You can define the shape to filter documents in a geoshape query either by [prov
 
 ## Using a new shape definition
 
-To provide a new shape to a geoshape query, define it in the `geo_shape` field. You must define the geoshape in [GeoJSON format](https://geojson.org/). 
+To provide a new shape to a geoshape query, define it in the `geo_shape` field. You can define the geoshape in [GeoJSON format](https://geojson.org/) or [Well-Known Text (WKT) format](https://docs.opengeospatial.org/is/12-063r5/12-063r5.html). 
 
 The following example illustrates searching for documents containing geoshapes that match a geoshape defined at query time.
 

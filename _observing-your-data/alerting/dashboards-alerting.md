@@ -37,7 +37,7 @@ Alerting visualizations are displayed as time-series charts that give you a snap
 
 Keep in mind the following requirements when setting up or creating alerting visualizations. The visualization:
 
-- Must be a [Vizlib line chart](https://docs-vizlib.insightsoftware.com/hc/en-us/articles/39676102755341-Line-Chart-Overview)
+- Must be a [line chart]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/line-charts/) in which every series is displayed as a line
 - Must contain at least a Y-axis metric aggregation
 - Must not have non-Y-axis metric aggregation types
 - Must use the date histogram aggregation type for the X-axis bucket
@@ -47,7 +47,7 @@ Keep in mind the following requirements when setting up or creating alerting vis
 
 ## Creating alerting monitors
 
-By default, when you begin to create the alert monitor workflow using the Dashboard interface, you are presented with a menu-driven interface. This interface provides a range of options that are displayed in full screen, in pop-ups, in pull-downs, or in dropdowns. They allow you to define the metrics that can be monitored, set thresholds, customize triggers that automate workflows, and generate actions when conditions are met. Currently, you can only create [per query monitors]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/monitors/).
+By default, when you begin to create the alert monitor workflow using the Dashboard interface, you are presented with a menu-driven interface. This interface provides a range of options that are displayed in full screen, in pop-ups, in pull-downs, or in dropdowns. They allow you to define the metrics that can be monitored, set thresholds, customize triggers that automate workflows, and generate actions when conditions are met. You can only create [per query monitors]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/monitors/).
 
 To create an alerting monitor: 
 

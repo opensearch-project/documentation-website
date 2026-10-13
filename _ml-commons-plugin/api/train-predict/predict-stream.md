@@ -18,7 +18,7 @@ The Predict Stream API provides the same functionality as the [Predict API]({{si
 Alternatively, you can stream predictions over gRPC. For more information, see [gRPC Predict Model Stream API]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/predict-model-stream/).
 {: .note}
 
-This API currently supports the following remote model types:
+This API supports the following remote model types:
 - [OpenAI Chat Completion](https://platform.openai.com/docs/api-reference/completions)
 - [Amazon Bedrock Converse Stream](https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_ConverseStream.html)
 
@@ -42,10 +42,11 @@ The Predict Stream API depends on the following plugins, which are included in t
 
 ```bash
 bin/opensearch-plugin install transport-reactor-netty4
+bin/opensearch-plugin install arrow-base
 bin/opensearch-plugin install arrow-flight-rpc
 ```
 
-For more information, see [Installing plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/).
+For more information, see [Managing OpenSearch plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/).
 
 #### Step 2: Configure OpenSearch settings
 
@@ -113,17 +114,17 @@ To register an OpenAI Chat Completion model, send the following request:
 ```json
 POST /_plugins/_ml/models/_register
 {
-    "name": "OpenAI gpt 3.5 turbo",
+    "name": "OpenAI gpt-4o-mini",
     "function_name": "remote",
     "description": "OpenAI model",
     "connector": {
         "name": "OpenAI Chat Connector",
-        "description": "The connector to OpenAI model service for GPT 3.5",
+        "description": "The connector to OpenAI model service for gpt-4o-mini",
         "version": 1,
         "protocol": "http",
         "parameters": {
             "endpoint": "api.openai.com",
-            "model": "gpt-3.5-turbo"
+            "model": "gpt-4o-mini"
         },
         "credential": {
             "openAI_key": "<your_api_key>"

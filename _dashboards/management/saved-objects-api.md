@@ -10,7 +10,7 @@ nav_order: 15
 
 Use the Saved Objects APIs to list, retrieve, create, update, export, and import saved objects, for example to copy a set of visualizations between clusters or to inventory the visualizations that a cluster contains.
 
-These endpoints are served by OpenSearch Dashboards rather than by OpenSearch, so send them to the OpenSearch Dashboards host and port (`5601` by default) instead of the OpenSearch REST port. Requests that use `POST`, `PUT`, or `DELETE` require the `osd-xsrf: true` header.
+These endpoints are served by OpenSearch Dashboards rather than by OpenSearch, so send them to the OpenSearch Dashboards host and port (`5601` by default) instead of the OpenSearch REST port. Requests that use `POST`, `PUT`, or `DELETE` require the `osd-xsrf: true` header. Scripts written for Kibana OSS send the `kbn-xsrf: true` header instead, and OpenSearch Dashboards rejects these requests with the error `Request must contain a osd-xsrf header`. To fix this error, replace `kbn-xsrf` with `osd-xsrf` in your scripts.
 
 Send these requests using `curl`, as shown in the examples on this page. To run a `GET` endpoint without `curl`, enter its full URL in the address bar of a browser in which you are signed in to OpenSearch Dashboards.
 

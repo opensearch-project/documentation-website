@@ -2,14 +2,14 @@
 layout: default
 title: Monitoring settings
 parent: Configuring OpenSearch
-nav_order: 75
+nav_order: 90
 ---
 
 # Monitoring settings
 
 OpenSearch provides settings to monitor various aspects of cluster health and performance, including file system operations, JVM garbage collection, operating system metrics, and process statistics.
 
-To learn more about static and dynamic settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
+To learn how to apply these settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
 
 ## File system health monitoring settings
 

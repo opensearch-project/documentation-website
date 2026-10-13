@@ -16,7 +16,7 @@ Search Relevance Workbench helps you systematically find the ideal set of parame
 ## Requirements
 
 Internally, optimizing hybrid search involves running multiple search quality evaluation experiments. For these experiments, you need a query set, judgments, and a search configuration.
-Search Relevance Workbench currently supports hybrid search optimization with exactly two query clauses. While hybrid search typically combines vector and lexical queries, you can run hybrid search optimization with two lexical query clauses:
+Search Relevance Workbench supports hybrid search optimization with exactly two query clauses. While hybrid search typically combines vector and lexical queries, you can run hybrid search optimization with two lexical query clauses:
 
 ```json
 PUT _plugins/_search_relevance/search_configurations

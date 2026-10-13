@@ -1,14 +1,14 @@
 ---
 layout: default
 title: Patch configuration
-parent: Configuration APIs
+parent: Security configuration APIs
 grand_parent: Security APIs
 nav_order: 20
 redirect_from:
   - /api-reference/security/configuration/patch-configuration/
 ---
 
-# Patch Configuration API
+# Patch Security Configuration API
 **Introduced 2.10**
 {: .label .label-purple }
 

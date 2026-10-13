@@ -71,7 +71,7 @@ For a step-by-step tutorial, see [Agents and tools tutorial]({{site.url}}{{site.
 **Introduced 3.8**
 {: .label .label-purple }
 
-Starting in OpenSearch 3.8, conversational flow agents can call external MCP server tools in a fixed pipeline alongside OpenSearch tools such as `MLModelTool`. Configure `parameters.mcp_connectors` and declare each MCP tool explicitly in the `tools` array using `McpStreamableHttpTool` or `McpSseTool`. For setup steps and examples, see [Using MCP tools with flow agents and conversational flow agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/mcp/mcp-connector/#flow-agents-and-conversational-flow-agents).
+Conversational flow agents can call external MCP server tools in a fixed pipeline alongside OpenSearch tools such as `MLModelTool`. Configure `parameters.mcp_connectors` and declare each MCP tool explicitly in the `tools` array using `McpStreamableHttpTool` or `McpSseTool`. For setup steps and examples, see [Using MCP tools with flow agents and conversational flow agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/mcp/mcp-connector/#flow-agents-and-conversational-flow-agents).
 
 ## Next steps
 

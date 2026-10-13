@@ -2,7 +2,7 @@
 layout: default
 title: Text chunking
 parent: Ingest processors
-nav_order: 250
+nav_order: 258
 ---
 
 # Text chunking processor

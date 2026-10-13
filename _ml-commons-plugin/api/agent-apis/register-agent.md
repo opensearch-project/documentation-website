@@ -332,7 +332,7 @@ The following table lists the available request fields for unified agent registr
 | `agent_id` | String | Optional | A unique identifier for the agent. If omitted, OpenSearch generates one automatically. |
 | `description` | String | Optional | A description of the agent. |
 | `model` | Object | Required | Configuration for the LLM model using the unified registration method. Replaces the regular `llm` object and automatically creates model resources. |
-| `model.model_id` | String | Required | The provider's model identifier. For Amazon Bedrock, use the full model ID (for example, `us.anthropic.claude-3-7-sonnet-20250219-v1:0`). For Google Gemini, use the model name (for example, `gemini-2.5-pro`). For OpenAI, use model names like `gpt-4`. |
+| `model.model_id` | String | Required | The provider's model identifier. For Amazon Bedrock, use the full model ID (for example, `us.anthropic.claude-3-7-sonnet-20250219-v1:0`). For Google Gemini, use the model name (for example, `gemini-2.5-pro`). For OpenAI, use model names like `gpt-4o-mini`. |
 | `model.model_provider` | String | Required | The model provider type. Valid values: `bedrock/converse`, `gemini/v1beta/generatecontent`, `openai/v1/chat/completions`. |
 | `model.credential` | Object | Required | Credentials for the model provider. Structure depends on the provider. |
 | `model.credential.access_key` | String | Required (Amazon Bedrock) | AWS access key for Amazon Bedrock models. |
@@ -457,7 +457,7 @@ POST /_plugins/_ml/agents/_register
   "type": "conversational",
   "description": "An agent using GPT for customer service tasks",
   "model": {
-    "model_id": "gpt-4",
+    "model_id": "gpt-4o-mini",
     "model_provider": "openai/v1/chat/completions",
     "credential": {
       "openai_api_key": "YOUR_OPENAI_API_KEY"

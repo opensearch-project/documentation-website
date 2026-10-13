@@ -9,7 +9,7 @@ nav_order: 25
 
 # Gauge charts in the visualization editor
 
-A gauge chart displays a single numeric value on a semicircular arc, making it ideal for showing how a metric compares against defined thresholds or a target range.
+A gauge chart displays a single numeric value on a semicircular arc. Use a gauge chart to show how a metric compares against defined thresholds or a target range.
 
 ## Creating a gauge chart
 
@@ -93,10 +93,4 @@ For information about configuring thresholds, see [Thresholds]({{site.url}}{{sit
 
 ### Standard options
 
-The **Min** and **Max** controls define the scale boundaries and interact with thresholds. When left empty, they are calculated automatically.
-
-| Setting | Description |
-| --- | --- |
-| **Min** | The lower bound of the gauge scale. When the **Min** value falls within a threshold range, it acts as a cutoff---only the portion of the range above the **Min** applies. If **Min** is below all thresholds, the base color creates a base threshold starting at the **Min** value. |
-| **Max** | The upper bound of the gauge scale. Thresholds above this value are not applied. |
-| **Unit** | An optional unit label applied to the displayed value. |
+For information about configuring units, unit suffixes, decimal precision, and minimum and maximum values, see [Standard options]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/configuring-visualizations/standard-options/).

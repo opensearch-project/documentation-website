@@ -146,11 +146,13 @@ The `explain` output is complicated, because a `JOIN` clause is associated with 
 
 The query returns the following results:
 
-<!-- vale off-->
-| a.account_number | a.firstname | a.lastname | e.id | e.name
-:--- | :--- | :--- | :--- | :---
-6 | Hattie | Bond | 6 | Jane Smith
-<!-- vale on-->
+<!-- vale off -->
+
+| a.account_number | a.firstname | a.lastname | e.id | e.name |
+| :--- | :--- | :--- | :--- | :--- |
+| 6 | Hattie | Bond | 6 | Jane Smith |
+
+<!-- vale on -->
 
 ### Example 2: Cross join
 
@@ -175,22 +177,24 @@ JOIN employees_nested e
 
 The query returns the following results:
 
-<!-- vale off-->
-| a.account_number | a.firstname | a.lastname | e.id | e.name
-:--- | :--- | :--- | :--- | :---
-1 | Amber | Duke | 3 | Bob Smith
-1 | Amber | Duke | 4 | Susan Smith
-1 | Amber | Duke | 6 | Jane Smith
-6 | Hattie | Bond | 3 | Bob Smith
-6 | Hattie | Bond | 4 | Susan Smith
-6 | Hattie | Bond | 6 | Jane Smith
-13 | Nanette | Bates | 3 | Bob Smith
-13 | Nanette | Bates | 4 | Susan Smith
-13 | Nanette | Bates | 6 | Jane Smith
-18 | Dale | Adams | 3 | Bob Smith
-18 | Dale | Adams | 4 | Susan Smith
-18 | Dale | Adams | 6 | Jane Smith
-<!-- vale on-->
+<!-- vale off -->
+
+| a.account_number | a.firstname | a.lastname | e.id | e.name |
+| :--- | :--- | :--- | :--- | :--- |
+| 1 | Amber | Duke | 3 | Bob Smith |
+| 1 | Amber | Duke | 4 | Susan Smith |
+| 1 | Amber | Duke | 6 | Jane Smith |
+| 6 | Hattie | Bond | 3 | Bob Smith |
+| 6 | Hattie | Bond | 4 | Susan Smith |
+| 6 | Hattie | Bond | 6 | Jane Smith |
+| 13 | Nanette | Bates | 3 | Bob Smith |
+| 13 | Nanette | Bates | 4 | Susan Smith |
+| 13 | Nanette | Bates | 6 | Jane Smith |
+| 18 | Dale | Adams | 3 | Bob Smith |
+| 18 | Dale | Adams | 4 | Susan Smith |
+| 18 | Dale | Adams | 6 | Jane Smith |
+
+<!-- vale on -->
 
 ### Example 3: Left outer join
 
@@ -211,14 +215,16 @@ LEFT JOIN employees_nested e
 
 The query returns the following results:
 
-<!-- vale off-->
-| a.account_number | a.firstname | a.lastname | e.id | e.name
-:--- | :--- | :--- | :--- | :---
-1 | Amber | Duke | null | null
-6 | Hattie | Bond | 6 | Jane Smith
-13 | Nanette | Bates | null | null
-18 | Dale | Adams | null | null
-<!-- vale on-->
+<!-- vale off -->
+
+| a.account_number | a.firstname | a.lastname | e.id | e.name |
+| :--- | :--- | :--- | :--- | :--- |
+| 1 | Amber | Duke | null | null |
+| 6 | Hattie | Bond | 6 | Jane Smith |
+| 13 | Nanette | Bates | null | null |
+| 18 | Dale | Adams | null | null |
+
+<!-- vale on -->
 
 ## Subquery
 
@@ -366,12 +372,14 @@ Explain:
 
 The query returns the following results:
 
-<!-- vale off-->
-| a1.firstname | a1.lastname | a1.balance
-:--- | :--- | :---
-Amber | Duke | 39225
-Nanette | Bates | 32838
-<!-- vale on-->
+<!-- vale off -->
+
+| a1.firstname | a1.lastname | a1.balance |
+| :--- | :--- | :--- |
+| Amber | Duke | 39225 |
+| Nanette | Bates | 32838 |
+
+<!-- vale on -->
 
 ### Example 2: From subquery
 
@@ -434,10 +442,12 @@ Explain:
 
 The query returns the following results:
 
-<!-- vale off-->
-| f | l | a
-:--- | :--- | :---
-Amber | Duke | 32
-Dale | Adams | 33
-Hattie | Bond | 36
-<!-- vale on-->
+<!-- vale off -->
+
+| f | l | a |
+| :--- | :--- | :--- |
+| Amber | Duke | 32 |
+| Dale | Adams | 33 |
+| Hattie | Bond | 36 |
+
+<!-- vale on -->

@@ -10,7 +10,7 @@ nav_order: 30
 {: .label .label-purple }
 
 
-The gRPC k-NN API is generally available starting with OpenSearch 3.2. However, expect updates to the protobuf structure as the feature matures in upcoming versions.
+The gRPC k-NN API is generally available. However, expect updates to the protobuf structure as the feature matures in upcoming versions.
 
 The gRPC k-NN API provides an efficient, binary-encoded interface for performing k-nearest neighbor searches using protocol buffers over gRPC. The k-NN plugin offers a specific search query type for vector similarity searches. This API offers superior performance compared to the traditional HTTP-based approach, making it ideal for large-scale machine learning and vector database applications.
 

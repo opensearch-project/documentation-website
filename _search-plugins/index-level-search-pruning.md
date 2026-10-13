@@ -47,7 +47,7 @@ For more information about pruning settings, see [Search settings]({{site.url}}{
 
 ### Publishing field domains
 
-Each index that you want OpenSearch to prune must have a field domain for the field that your queries filter on, and that field must be listed in `search.index_pruning.fields`. To publish one, add the Index State Management (ISM) [`publish_field_domains`]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies/#publish-field-domains) action to a policy state, after a `read_only` action. ISM then computes the field's minimum and maximum values for that index and stores them.
+Each index that you want OpenSearch to prune must have a field domain for the field that your queries filter on, and that field must be listed in `search.index_pruning.fields`. To publish one, add the Index State Management (ISM) [`publish_field_domains`]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies-operations/#publish-field-domains) action to a policy state, after a `read_only` action. ISM then computes the field's minimum and maximum values for that index and stores them.
 
 Publish field domains only for indexes that remain write blocked.
 {: .important}

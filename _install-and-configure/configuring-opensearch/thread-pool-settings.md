@@ -2,14 +2,14 @@
 layout: default
 title: Thread pool settings
 parent: Configuring OpenSearch
-nav_order: 90
+nav_order: 110
 ---
 
 # Thread pool settings
 
 OpenSearch uses several thread pools to manage memory consumption and handle different types of operations efficiently. Thread pools can be configured to optimize performance based on your cluster's workload patterns.
 
-To learn more about static and dynamic settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
+To learn how to apply these settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
 
 ## Node processor settings
 
@@ -129,7 +129,18 @@ OpenSearch supports cluster-level dynamic settings that allow you to override th
 
 - `cluster.thread_pool.snapshot.max` (Dynamic, integer): Sets the maximum size of the snapshot thread pool across all nodes in the cluster. This overrides the default thread pool configuration for snapshot operations. The snapshot thread pool handles snapshot creation and restoration operations. Use this setting to adjust snapshot concurrency during high-load periods.
 
+- `cluster.thread_pool.<fixed-threadpool>.size` (Dynamic, integer): Controls the sizes of both the fixed and resizable queue thread pools. Overrides the defaults provided in `opensearch.yml`.
+
+- `cluster.thread_pool.<scaling-threadpool>.max` (Dynamic, integer): Sets the maximum size of the scaling thread pool. Overrides the default provided in `opensearch.yml`.
+
+- `cluster.thread_pool.<scaling-threadpool>.core` (Dynamic, integer): Specifies the core size of the scaling thread pool. Overrides the default provided in `opensearch.yml`.
+
+Before tuning thread pool settings dynamically, note that these are expert-level settings that can potentially destabilize your cluster. Modifying thread pool settings applies the same thread pool size to all nodes, so it's not recommended for clusters with different hardware for the same roles. Similarly, avoid tuning thread pools shared by both data nodes and cluster manager nodes. After making these changes, we recommend monitoring your cluster to ensure that it remains stable and performs as expected.
+{: .warning}
+
 ## Best practices
+
+When updating thread pool settings, follow these best practices:
 
 - Monitor thread pool usage: Use the [Nodes Stats API]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-stats/) to monitor thread pool metrics.
 - Avoid over-provisioning: Setting thread pool sizes too high can lead to memory pressure and context switching overhead.

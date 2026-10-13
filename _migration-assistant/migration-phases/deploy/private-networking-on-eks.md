@@ -121,7 +121,7 @@ If you provision with CloudFormation instead, the bootstrap script mirrors image
 ```
 {% include copy.html %}
 
-The mirroring step runs from your machine (which has internet), copies the release images and Helm charts to Amazon ECR, then the EKS cluster pulls everything through VPC endpoints. The endpoints created are Amazon S3, Amazon ECR API, Amazon ECR Docker, CloudWatch Logs, and Amazon Elastic File System (Amazon EFS).
+The mirroring step runs from your machine, which must have internet access, and copies the release images and Helm charts to Amazon ECR. The EKS cluster then pulls everything through VPC endpoints. The script creates endpoints for Amazon S3, Amazon ECR API, Amazon ECR Docker, CloudWatch Logs, and Amazon Elastic File System (Amazon EFS).
 
 Some deployments also need endpoints for AWS Security Token Service (AWS STS) or EKS Authentication, for example when pods take an AWS identity through AWS Identity and Access Management (IAM) Roles for Service Accounts (IRSA) or EKS Pod Identity. Create those separately before running the bootstrap script.
 

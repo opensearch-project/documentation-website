@@ -17,7 +17,7 @@ If you are ingesting multiple documents and generating embeddings by invoking an
 
 When using the [Bulk API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/) to ingest documents, processors that support batch ingestion will split documents into batches and send each batch of documents to an externally hosted model in a single request.
 
-The [`text_embedding`]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/text-embedding/) and [`sparse_encoding`]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/sparse-encoding/) processors currently support batch ingestion.
+The [`text_embedding`]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/text-embedding/) and [`sparse_encoding`]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/sparse-encoding/) processors support batch ingestion.
 
 
 ## Step 1: Register a model group
@@ -59,12 +59,12 @@ The Connectors Create API, `/_plugins/_ml/connectors/_create`, creates connector
 POST /_plugins/_ml/connectors/_create
 {
     "name": "OpenAI Chat Connector",
-    "description": "The connector to public OpenAI model service for GPT 3.5",
+    "description": "The connector to public OpenAI model service for gpt-4o-mini",
     "version": 1,
     "protocol": "http",
     "parameters": {
         "endpoint": "api.openai.com",
-        "model": "gpt-3.5-turbo",
+        "model": "gpt-4o-mini",
         "input_docs_processed_step_size": 100
     },
     "credential": {
@@ -102,7 +102,7 @@ To register an externally hosted model to the model group created in step 1, pro
 ```json
 POST /_plugins/_ml/models/_register
 {
-    "name": "openAI-gpt-3.5-turbo",
+    "name": "openAI-gpt-4o-mini",
     "function_name": "remote",
     "model_group_id": "wlcnb4kBJ1eYAeTMHlV6",
     "description": "test model",
@@ -148,7 +148,7 @@ Take note of the returned `model_id` because you’ll need it to deploy the mode
 
 ## Step 4: Deploy the model
 
-Starting in OpenSearch version 2.13, externally hosted models are deployed automatically when you send a Predict API request for the first time. To disable automatic deployment for an externally hosted model, set `plugins.ml_commons.model_auto_deploy.enable` to `false`:
+Externally hosted models are deployed automatically when you send a Predict API request for the first time. To disable automatic deployment for an externally hosted model, set `plugins.ml_commons.model_auto_deploy.enable` to `false`:
 
 ```json
 PUT _cluster/settings

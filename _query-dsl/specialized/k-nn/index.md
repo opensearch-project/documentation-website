@@ -138,7 +138,7 @@ GET /my-vector-index/_search
 
 ## Specifying method parameters in the query
 
-Starting with version 2.16, you can provide `method_parameters` in a search request:
+You can provide `method_parameters` in a search request:
 
 ```json
 GET /my-vector-index/_search

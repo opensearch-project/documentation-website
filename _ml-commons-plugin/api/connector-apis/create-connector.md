@@ -28,12 +28,12 @@ To create a standalone connector, send a request to the `connectors/_create` end
 POST /_plugins/_ml/connectors/_create
 {
     "name": "OpenAI Chat Connector",
-    "description": "The connector to public OpenAI model service for GPT 3.5",
+    "description": "The connector to public OpenAI model service for gpt-4o-mini",
     "version": 1,
     "protocol": "http",
     "parameters": {
         "endpoint": "api.openai.com",
-        "model": "gpt-3.5-turbo"
+        "model": "gpt-4o-mini"
     },
     "credential": {
         "openAI_key": "..."

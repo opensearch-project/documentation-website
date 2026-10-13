@@ -76,7 +76,7 @@ The `forecast_read_only` read-only access level grants users the ability to view
 - 'cluster:admin/plugin/forecast/forecaster/suggest'
 - 'cluster:admin/plugin/forecast/forecaster/validate'
 - 'cluster:admin/plugin/forecast/forecasters/get'
-- 'cluster:admin/plugin/forecast/forecasters/info'
+- 'cluster:admin/plugin/forecast/forecaster/info'
 - 'cluster:admin/plugin/forecast/result/topForecasts'
 ```
 {% include copy.html %}

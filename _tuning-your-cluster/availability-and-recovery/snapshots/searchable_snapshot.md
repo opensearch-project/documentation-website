@@ -16,7 +16,7 @@ The searchable snapshot feature incorporates techniques like caching frequently 
 
 ## Configuring a node to use searchable snapshots
 
-As of OpenSearch 3.0, nodes that use the searchable snapshots feature must have the `warm` node role instead of the `search` role.
+Nodes that use the searchable snapshots feature must have the `warm` node role. In OpenSearch 2.x, these nodes used the `search` role.
 {: .important}
 
 To configure the searchable snapshots feature, create a node in your `opensearch.yml` file and define the node role as `warm`. Optionally, you can also configure the `cache.size` property for the node.
@@ -25,7 +25,7 @@ A `warm` node reserves storage for the cache to perform searchable snapshot quer
 
 Parameter | Type | Description
 :--- | :--- | :---
-`node.search.cache.size` | String | Specifies the cache size as either an absolute byte size (for example, `7kb` or `6gb`) or a percentage of the total disk space (for example, `10%`). For more information about byte size units, see [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/).
+`node.search.cache.size` | String | Specifies the cache size as either an absolute byte size (for example, `7kb` or `6gb`) or a percentage of the total disk space (for example, `10%`). For more information about byte size units, see [Supported units]({{site.url}}{{site.baseurl}}/api-reference/units/).
 
 ## Searchable snapshot index settings
 
@@ -60,7 +60,7 @@ services:
       - node.search.cache.size=50gb
 ```
 
-- Starting with version 2.18, k-NN indexes support searchable snapshots for the NMSLIB and Faiss engines.
+- k-NN indexes support searchable snapshots for the NMSLIB and Faiss engines.
 
 ## Create a searchable snapshot index
 

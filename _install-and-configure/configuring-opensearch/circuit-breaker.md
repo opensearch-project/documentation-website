@@ -2,14 +2,14 @@
 layout: default
 title: Circuit breaker settings
 parent: Configuring OpenSearch
-nav_order: 100
+nav_order: 120
 ---
 
 # Circuit breaker settings
 
 Circuit breakers prevent OpenSearch from causing a Java OutOfMemoryError. The parent circuit breaker specifies the total available amount of memory for all child circuit breakers. The child circuit breakers specify the total available amount of memory for themselves.
 
-To learn more about static and dynamic settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
+To learn how to apply these settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
 
 ## Parent circuit breaker settings
 

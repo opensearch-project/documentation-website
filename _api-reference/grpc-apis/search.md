@@ -25,7 +25,7 @@ gRPC Document APIs reside in the [`SearchService`](https://github.com/opensearch
 
 You can submit search requests by invoking the [`Search`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.7.0/protos/services/search_service.proto#L23) gRPC method within the `SearchService`. The method takes a [`SearchRequest`](#searchrequest-fields) and returns a [`SearchResponse`](#searchresponse-fields).
 
-See [Supported Queries](#supported-queries) for currently supported search queries. Additional query types will be supported in future versions.
+See [Supported Queries](#supported-queries) for supported search queries. Additional query types will be supported in future versions.
 {: .note}
 
 ## Request fields
@@ -627,7 +627,7 @@ A hybrid query combines relevance scores from multiple queries into one score fo
 
 `AggregationContainer` defines the aggregation to run. Specify exactly one of the following fields in each `AggregationContainer` message.
 
-Currently, the gRPC Search API supports only the following aggregation types: `max`, `min`, and `terms`.
+The gRPC Search API supports only the following aggregation types: `max`, `min`, and `terms`.
 {: .note}
 
 The [`AggregationContainer`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.7.0/protos/schemas/common.proto#L3026) message wraps a single aggregation definition and accepts the following fields.

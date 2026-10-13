@@ -40,7 +40,7 @@ You can provision connectors in two ways:
 
 2. [Create a connector for a specific externally hosted model](#creating-a-connector-for-a-specific-model): Alternatively, you can create a connector that can only be used with the model for which it was created. To access such a connector, you only need access to the model itself because the connection is established inside the model. These connectors are saved in the model index.
 
-If you need to connect to a different external model (for example, switching from `gpt-3.5-turbo` to `gpt-4`), we recommend creating a separate standalone connector. Alternatively, advanced users can override connector `parameters` at predict time if the connector blueprint uses placeholders. For more information, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/).
+If you need to connect to a different external model (for example, switching from `gpt-4o-mini` to `gpt-4o`), we recommend creating a separate standalone connector. Alternatively, advanced users can override connector `parameters` at predict time if the connector blueprint uses placeholders. For more information, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/).
 {: .note}
 
 If using Python, you can create connectors using the [`opensearch-py-ml`](https://github.com/opensearch-project/opensearch-py-ml) client CLI. The CLI automates many configuration steps, making setup faster and reducing the chance of errors. For more information about using the CLI, see the [CLI documentation](https://opensearch-project.github.io/opensearch-py-ml/cli/index.html#).
@@ -54,12 +54,12 @@ To create a standalone connector, send a request to the `connectors/_create` end
 POST /_plugins/_ml/connectors/_create
 {
     "name": "OpenAI Chat Connector",
-    "description": "The connector to public OpenAI model service for GPT 3.5",
+    "description": "The connector to public OpenAI model service for gpt-4o-mini",
     "version": 1,
     "protocol": "http",
     "parameters": {
         "endpoint": "api.openai.com",
-        "model": "gpt-3.5-turbo"
+        "model": "gpt-4o-mini"
     },
     "credential": {
         "openAI_key": "<openai_key>"
@@ -86,20 +86,20 @@ To create a connector for a specific model, provide all of the parameters descri
 ```json
 POST /_plugins/_ml/models/_register
 {
-    "name": "openAI-GPT-3.5 model with a connector",
+    "name": "openAI-gpt-4o-mini model with a connector",
     "function_name": "remote",
     "model_group_id": "lEFGL4kB4ubqQRzegPo2",
     "description": "test model",
     "connector": {
         "name": "OpenAI Connector",
-        "description": "The connector to public OpenAI model service for GPT 3.5",
+        "description": "The connector to public OpenAI model service for gpt-4o-mini",
         "version": 1,
         "protocol": "http",
         "parameters": {
             "endpoint": "api.openai.com",
             "max_tokens": 7,
             "temperature": 0,
-            "model": "text-davinci-003"
+            "model": "gpt-4o-mini"
         },
         "credential": {
             "openAI_key": "<openai_key>"
@@ -108,11 +108,11 @@ POST /_plugins/_ml/models/_register
             {
                 "action_type": "predict",
                 "method": "POST",
-                "url": "https://${parameters.endpoint}/v1/completions",
+                "url": "https://${parameters.endpoint}/v1/chat/completions",
                 "headers": {
                     "Authorization": "Bearer ${credential.openAI_key}"
                 },
-                "request_body": "{ \"model\": \"${parameters.model}\", \"prompt\": \"${parameters.prompt}\", \"max_tokens\": ${parameters.max_tokens}, \"temperature\": ${parameters.temperature} }"
+                "request_body": "{ \"model\": \"${parameters.model}\", \"messages\": [{\"role\": \"user\", \"content\": \"${parameters.prompt}\"}], \"max_tokens\": ${parameters.max_tokens}, \"temperature\": ${parameters.temperature} }"
             }
         ]
     }

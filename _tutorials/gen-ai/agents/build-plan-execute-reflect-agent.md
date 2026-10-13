@@ -107,7 +107,7 @@ Create a `plan_execute_and_reflect` agent configured with the following informat
 - Meta information: `name`, `type`, `description`.
 - LLM information: The agent uses an LLM to reason, devise a plan for completing the task, execute the steps in the plan using appropriate tools, and reflect on the intermediate results in order to optimize the plan.
 - Tools: A tool is a function that can be executed by the agent. Each tool can define its own `name`, `description`, `parameters` and `attributes`.
-- Memory: Stores chat messages. OpenSearch currently only supports one memory type: `conversation_index`.
+- Memory: Stores chat messages. OpenSearch supports one memory type: `conversation_index`.
 
 For more information about all request fields, see [Register Agent API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/register-agent/#request-body-fields).
 

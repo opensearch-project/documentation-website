@@ -7,572 +7,126 @@ nav_order: 120
 
 # ML cluster settings
 
-To enhance and customize your OpenSearch cluster for machine learning (ML), you can add and modify several configuration settings for the ML Commons plugin in your `opensearch.yml` file. 
+The following settings configure the ML Commons plugin. You can specify them in your `opensearch.yml` file or update them using the [Cluster Settings API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/). All ML Commons settings on this page are dynamic.
 
 To learn more about static and dynamic settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
 
 ## ML node
 
-By default, ML tasks and models only run on ML nodes. When configured without the `data` node role, ML nodes do not store any shards and instead calculate resource requirements at runtime. To use an ML node, create a node in your `opensearch.yml` file. Give your node a custom name and define the node role as `ml`:
+By default, ML tasks and local models run only on ML nodes. When configured without the `data` node role, ML nodes do not store any shards and instead calculate resource requirements at runtime. To use an ML node, create a node in your `opensearch.yml` file. Give your node a custom name and define the node role as `ml`:
 
 ```yml
 node.roles: [ ml ]
 ```
 {% include copy.html %}
 
-### Setting up a cluster with a dedicated ML node
+For an example of a cluster with a dedicated ML node, see the example [Docker Compose file](https://github.com/opensearch-project/ml-commons/blob/main/docs/docker/docker-compose.yml).
 
-To set up a cluster with a dedicated ML node, see the sample [Docker compose file](https://github.com/opensearch-project/ml-commons/blob/main/docs/docker/docker-compose.yml).
+## Node selection settings
 
-## Run tasks and models on ML nodes only
+ML Commons supports the following settings for selecting the nodes on which ML tasks and models run:
 
-If `true`, ML Commons tasks and models run ML tasks on ML nodes only. If `false`, tasks and models run on ML nodes first. If no ML nodes exist, tasks and models run on data nodes. 
+- `plugins.ml_commons.only_run_on_ml_node` (Dynamic, Boolean): When `true`, local models run only on ML nodes. When `false`, local models run on nodes whose roles are listed in `plugins.ml_commons.task_dispatcher.eligible_node_role.local_model`. To test models on a data node, set it to `false`. Default is `true`.
 
-We suggest running ML workloads on a dedicated ML node rather than on data nodes. Starting with OpenSearch 2.5, ML tasks run on ML nodes only by default. To test models on a data node, set `plugins.ml_commons.only_run_on_ml_node` to `false`.
+- `plugins.ml_commons.task_dispatcher.eligible_node_role.local_model` (Dynamic, list): The node roles on which local models can run. This setting applies only when `plugins.ml_commons.only_run_on_ml_node` is `false`. Default is `["data", "ml"]`.
 
-We recommend setting `plugins.ml_commons.only_run_on_ml_node` to `true` on production clusters. 
+- `plugins.ml_commons.task_dispatcher.eligible_node_role.remote_model` (Dynamic, list): The node roles on which externally hosted models can run. For example, set it to `["ml"]` to run externally hosted models only on ML nodes. Default is `["data", "ml"]`.
+
+- `plugins.ml_commons.task_dispatch_policy` (Dynamic, string): The policy for dispatching ML tasks to ML nodes. Valid values are `round_robin`, which dispatches tasks using round-robin routing, and `least_load`, which collects runtime information, such as JVM heap memory usage and running tasks, from all ML nodes and dispatches tasks to the node with the lowest load. Default is `round_robin`.
+
+- `plugins.ml_commons.exclude_nodes._name` (Dynamic, string): A node name or a comma-separated list of node names, such as `node1, node2`, on which ML tasks don't run.
+
+- `plugins.ml_commons.allow_custom_deployment_plan` (Dynamic, Boolean): When `true`, users can deploy models to specific ML nodes according to their permissions. Default is `false`.
+
+We recommend setting `plugins.ml_commons.only_run_on_ml_node` to `true` on production clusters.
 {: .tip}
 
+## Task and model limit settings
 
-### Setting
+ML Commons supports the following settings for limiting the number and duration of ML tasks and models on each node:
 
-```yaml
-plugins.ml_commons.only_run_on_ml_node: true
-```
-{% include copy.html %}
+- `plugins.ml_commons.max_ml_task_per_node` (Dynamic, integer): The maximum number of ML tasks that can run on each ML node. When set to `0`, no ML tasks run on any node. Valid values are 0--10,000. Default is `10`.
 
-### Values
+- `plugins.ml_commons.max_model_on_node` (Dynamic, integer): The maximum number of models that can be deployed to each ML node. When set to `0`, no models can be deployed to any node. Valid values are 0--10,000. Default is `10`.
 
-- Default value: `true`
-- Value range: `true` or `false`
+- `plugins.ml_commons.max_register_model_tasks_per_node` (Dynamic, integer): The maximum number of model registration tasks that can run in parallel on one node. When set to `0`, no models can be registered on any node. Valid values are 0--10. Default is `10`.
 
-## Dispatch tasks to ML node 
+- `plugins.ml_commons.max_deploy_model_tasks_per_node` (Dynamic, integer): The maximum number of model deployment tasks that can run in parallel on one node. When set to `0`, no models can be deployed to any node. Valid values are 0--10. Default is `10`.
 
-`round_robin` dispatches ML tasks to ML nodes using round robin routing. `least_load` gathers runtime information from all ML nodes, like JVM heap memory usage and running tasks, and then dispatches the tasks to the ML node with the lowest load.
+- `plugins.ml_commons.ml_task_timeout_in_seconds` (Dynamic, integer): The amount of time, in seconds, that an ML task can run. After the timeout, the task fails. Valid values are 1--86,400. Default is `600`.
 
+- `plugins.ml_commons.sync_up_job_interval_in_seconds` (Dynamic, integer): The interval, in seconds, at which ML Commons runs a job that syncs newly deployed or undeployed models on each node. This job keeps the runtime information returned by the [Profile API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/profile/) up to date. When set to `0`, ML Commons stops the sync job. Valid values are 0--86,400. Default is `10`.
 
-### Setting
+- `plugins.ml_commons.monitoring_request_count` (Dynamic, long): The number of prediction requests monitored on each node. When set to `0`, OpenSearch clears all monitored prediction requests from the cache and stops monitoring new prediction requests. Valid values are 0--10,000,000. Default is `100`.
 
-```yaml
-plugins.ml_commons.task_dispatch_policy: round_robin
-```
-{% include copy.html %}
+## Model registration settings
 
+By default, ML Commons allows registration only of [pretrained models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/) from the OpenSearch model repository. ML Commons supports the following settings for registering models from other sources:
 
-### Values
+- `plugins.ml_commons.allow_registering_model_via_url` (Dynamic, Boolean): When `true`, users can register models using a URL. Default is `false`.
 
-- Default value: `round_robin`
-- Value range: `round_robin` or `least_load`
+- `plugins.ml_commons.allow_registering_model_via_local_file` (Dynamic, Boolean): When `true`, users can register models using a local file. Default is `false`.
 
-## Set number of ML tasks per node
-
-Sets the number of ML tasks that can run on each ML node. When set to `0`, no ML tasks run on any nodes.
-
-### Setting
-
-```yaml
-plugins.ml_commons.max_ml_task_per_node: 10
-```
-{% include copy.html %}
-
-### Values
-
-- Default value: `10`
-- Value range: [0, 10,000]
-
-## Set number of ML models per node
-
-Sets the number of ML models that can be deployed to each ML node. When set to `0`, no ML models can deploy on any node.
-
-### Setting
-
-```yaml
-plugins.ml_commons.max_model_on_node: 10
-```
-{% include copy.html %}
-
-### Values
-
-- Default value: `10`
-- Value range: [0, 10,000]
-
-## Set sync job intervals 
-
-When returning runtime information with the [Profile API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/profile/), ML Commons will run a regular job to sync newly deployed or undeployed models on each node. When set to `0`, ML Commons immediately stops sync-up jobs.
-
-
-### Setting
-
-```yaml
-plugins.ml_commons.sync_up_job_interval_in_seconds: 3
-```
-{% include copy.html %}
-
-### Values
-
-- Default value: `3`
-- Value range: [0, 86,400]
-
-## Monitoring predict requests
-
-Controls how many predict requests are monitored on one node. If set to `0`, OpenSearch clears all monitoring predict requests in cache and does not monitor for new predict requests.
-
-### Setting
-
-```yaml
-plugins.ml_commons.monitoring_request_count: 100
-```
-{% include copy.html %}
-
-### Value range
-
-- Default value: `100`
-- Value range: [0, 10,000,000]
-
-## Register model tasks per node
-
-Controls how many register model tasks can run in parallel on one node. If set to `0`, you cannot run register model tasks on any node.
-
-### Setting
-
-```yaml
-plugins.ml_commons.max_register_model_tasks_per_node: 10
-```
-{% include copy.html %}
-
-
-### Values 
-
-- Default value: `10`
-- Value range: [0, 10]
-
-
-## Deploy model tasks per node
-
-Controls how many deploy model tasks can run in parallel on one node. If set to 0, you cannot deploy models to any node.
-
-### Setting
-
-```yaml
-plugins.ml_commons.max_deploy_model_tasks_per_node: 10
-```
-{% include copy.html %}
-
-### Values 
-
-- Default value: `10`
-- Value range: [0, 10]
-
-## Register models using URLs
-
-This setting gives you the ability to register models using a URL. By default, ML Commons only allows registration of [pretrained]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/) models from the OpenSearch model repository.
+- `plugins.ml_commons.trusted_url_regex` (Dynamic, string): A Java regular expression that a model URL must match for the model to be registered. The default value allows registering a model file from any HTTP, HTTPS, FTP, or local file URL. Default is `"^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]"`.
 
 When registering a model from a URL, make sure the source is trusted. Loading models from untrusted sources can pose security risks. For more information, see [PyTorch security guidelines for untrusted models](https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models).
 {: .warning}
 
-### Setting
-
-```yaml
-plugins.ml_commons.allow_registering_model_via_url: false
-```
-{% include copy.html %}
-
-### Values
-
-- Default value: false
-- Valid values: `false`, `true`
-
-## Register models using local files
-
-This setting gives you the ability to register a model using a local file. By default, ML Commons only allows registration of [pretrained]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/) models from the OpenSearch model repository.
-
-### Setting
-
-```yaml
-plugins.ml_commons.allow_registering_model_via_local_file: false
-```
-{% include copy.html %}
-
-### Values
-
-- Default value: false
-- Valid values: `false`, `true`
-
-## Add trusted URL
-
-The default value allows you to register a model file from any http/https/ftp/local file. You can change this value to restrict trusted model URLs.
-
-
-### Setting
-
-The default URL value for this trusted URL setting is not secure. For security, use you own regex string to the trusted repository that contains your models, for example `https://github.com/opensearch-project/ml-commons/blob/2.x/ml-algorithms/src/test/resources/org/opensearch/ml/engine/algorithms/text_embedding/*`.
+The default value of `plugins.ml_commons.trusted_url_regex` is not secure. For security, set it to a regular expression that matches only the trusted repository containing your models, for example, `https://github.com/opensearch-project/ml-commons/blob/2.x/ml-algorithms/src/test/resources/org/opensearch/ml/engine/algorithms/text_embedding/*`.
 {: .warning }
 
+## Circuit breaker settings
 
-```yaml
-plugins.ml_commons.trusted_url_regex: <model-repository-url>
-```
-{% include copy.html %}
+Before running an ML task, ML Commons checks memory and disk usage. If usage exceeds a threshold, OpenSearch triggers a circuit breaker, throws an exception, and doesn't run the task. ML Commons supports the following circuit breaker settings:
 
-### Values
+- `plugins.ml_commons.native_memory_threshold` (Dynamic, integer): The maximum native memory usage, as a percentage of the total system memory, at which ML tasks can run. This circuit breaker prevents out-of-memory errors when too many models are loaded. When set to `0`, no ML tasks run. When set to `100`, the circuit breaker is disabled. Valid values are 0--100. Default is `90`.
 
-- Default value: `"^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]"`
-- Value range: Java regular expression (regex) string
+- `plugins.ml_commons.jvm_heap_memory_threshold` (Dynamic, integer): The maximum JVM heap memory usage, as a percentage of the total JVM heap, at which ML tasks can run. When set to `0`, no ML tasks run. When set to `100`, the circuit breaker is disabled. Valid values are 0--100. Default is `85`.
 
-## Assign task timeout
+- `plugins.ml_commons.disk_free_space_threshold` (Dynamic, byte size): The minimum amount of free disk space required to run an ML task. If the free disk space falls below this value, the circuit breaker is triggered. To disable the circuit breaker, set this value to `-1`. Default is `5gb`.
 
-Assigns how long in seconds an ML task will live. After the timeout, the task will fail.
+## Model deployment settings
 
-### Setting
+ML Commons supports the following settings for automatically deploying and redeploying models:
 
-```yaml
-plugins.ml_commons.ml_task_timeout_in_seconds: 600
-```
-{% include copy.html %}
+- `plugins.ml_commons.model_auto_deploy.enable` (Dynamic, Boolean): When `true`, OpenSearch automatically deploys an externally hosted model when it receives a prediction request for that model and the model is not yet deployed. Default is `true`.
 
-### Values
+- `plugins.ml_commons.model_auto_redeploy.enable` (Dynamic, Boolean): When `true`, OpenSearch automatically redeploys deployed or partially deployed models after a cluster failure. If all ML nodes in a cluster fail, the model enters the `DEPLOY_FAILED` state and must be deployed manually. Default is `true`.
 
-- Default value: 600
-- Value range: [1, 86,400]
+- `plugins.ml_commons.model_auto_redeploy.lifetime_retry_times` (Dynamic, integer): The maximum number of times that OpenSearch attempts to redeploy a deployed or partially deployed model when ML nodes in a cluster fail or new ML nodes join the cluster. When set to `0` or a negative value, OpenSearch doesn't automatically redeploy models. Default is `3`.
 
-## Set native memory threshold 
+- `plugins.ml_commons.model_auto_redeploy_success_ratio` (Dynamic, float): The minimum fraction of available ML nodes on which a model must be redeployed for automatic redeployment to succeed. For example, if the ratio is `0.7` and the model is redeployed on 70% of the available ML nodes, the redeployment succeeds. If the model is redeployed on fewer than 70% of the available ML nodes, OpenSearch retries the redeployment until it succeeds or reaches the `plugins.ml_commons.model_auto_redeploy.lifetime_retry_times` limit. Valid values are 0--1. Default is `0.8`.
 
-Sets a circuit breaker that checks all system memory usage before running an ML task. If the native memory exceeds the threshold, OpenSearch throws an exception and stops running any ML task. 
+## Dynamic batching memory settings
 
-Values are based on the percentage of memory available. When set to `0`, no ML tasks will run. When set to `100`, the circuit breaker closes and no threshold exists.
+All models on a node share the memory available for [dynamic batching]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/batching-requests/#dynamically-batching-small-prediction-requests). When this memory is exhausted, OpenSearch rejects new queue entries. Retry rejected requests using backoff, or adjust the memory settings for the workload. ML Commons supports the following settings for controlling the amount of this memory:
 
-Starting with OpenSearch 2.5, ML Commons runs a native memory circuit breaker to avoid an out-of-memory error when loading too many models. By default, the native memory threshold is 90%. If memory usage exceeds the threshold, ML Commons returns an error. For testing purposes, you can disable the circuit breaker by setting `plugins.ml_commons.native_memory_threshold` to 100.
+- `plugins.ml_commons.dynamic_batching.memory.fraction` (Dynamic, double): The fraction of the maximum JVM heap used to calculate the amount of memory available for dynamic batching on each node. The calculated value is bounded by `plugins.ml_commons.dynamic_batching.memory.min` and `plugins.ml_commons.dynamic_batching.memory.max`. Valid values are 0.0--0.1. Default is `0.01`.
 
-### Setting
+- `plugins.ml_commons.dynamic_batching.memory.min` (Dynamic, byte size): The minimum amount of memory available for dynamic batching on each node. Default is `64mb`.
 
-```yaml
-plugins.ml_commons.native_memory_threshold: 90
-```
-{% include copy.html %}
+- `plugins.ml_commons.dynamic_batching.memory.max` (Dynamic, byte size): The maximum amount of memory available for dynamic batching on each node. This value must be greater than or equal to `plugins.ml_commons.dynamic_batching.memory.min`. Default is `512mb`.
 
-### Values
+## Feature settings
 
-- Default value: 90
-- Value range: [0, 100]
+ML Commons supports the following settings for enabling and disabling features:
 
-## Set JVM heap memory threshold
+- `plugins.ml_commons.remote_inference.enabled` (Dynamic, Boolean): When `false`, users can't create connectors or register, deploy, or run predictions using externally hosted models. Default is `true`.
 
-Sets a circuit breaker that checks JVM heap memory usage before running an ML task. If the heap usage exceeds the threshold, OpenSearch triggers a circuit breaker and throws an exception to maintain optimal performance.
+- `plugins.ml_commons.local_model.enabled` (Dynamic, Boolean): When `false`, users can't register, deploy, or run predictions using local models. Default is `true`.
 
-Values are based on the percentage of JVM heap memory available. When set to `0`, no ML tasks will run. When set to `100`, the circuit breaker closes and no threshold exists.
+- `plugins.ml_commons.connector_access_control_enabled` (Dynamic, Boolean): When `true`, admins can control access to the Connector APIs using `backend_roles`. Default is `false`.
 
-### Setting
+- `plugins.ml_commons.connector.vertexai_enabled` (Dynamic, Boolean): When `true`, users can create connectors that use the `google_cloud` protocol. For more information, see [Google Cloud authentication]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/google-cloud/). Default is `false`.
 
-```yaml
-plugins.ml_commons.jvm_heap_memory_threshold: 85
-```
-{% include copy.html %}
+- `plugins.ml_commons.safe_delete_model` (Dynamic, Boolean): When `true`, OpenSearch checks for downstream dependencies before deleting a model. If the model is in use by agents, search pipelines, ingest pipelines, or other downstream tasks, OpenSearch returns an error and doesn't delete the model. Default is `false`.
 
-### Values
+- `plugins.ml_commons.enable_inhouse_python_model` (Dynamic, Boolean): When `true`, users can run Python-based models supported by OpenSearch, such as [metrics correlation]({{site.url}}{{site.baseurl}}/ml-commons-plugin/algorithms/#metrics-correlation). Default is `false`.
 
-- Default value: 85
-- Value range: [0, 100]
+- `plugins.ml_commons.agent_framework_enabled` (Dynamic, Boolean): When `true`, enables the agent framework, including agents and tools, and allows users to register, execute, delete, retrieve, and search agents. Default is `true`.
 
-## Set a disk free space threshold
+- `plugins.ml_commons.memory_feature_enabled` (Dynamic, Boolean): When `true`, enables conversational memory, which stores all messages from a conversation for conversational search. Default is `true`.
 
-Sets a disk circuit breaker that checks disk usage before running an ML task. If the amount of disk free space exceeds the threshold, then OpenSearch triggers a circuit breaker and throws an exception to maintain optimal performance.
+- `plugins.ml_commons.agentic_memory_enabled` (Dynamic, Boolean): When `true`, enables [agentic memory]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agentic-memory/), which provides memory management for AI agents, including session memory, working memory, long-term memory, and memory history organized by namespace. Default is `true`.
 
-Valid values are in byte units. To disable the circuit breaker, set this value to -1.
-
-### Setting
-
-```yaml
-plugins.ml_commons.disk_free_space_threshold: 5G
-```
-{% include copy.html %}
-
-### Values
-
-- Default value: 5G
-- Value range: [-1, Long.MAX_VALUE]
-
-## Exclude node names
-
-Use this setting to specify the names of nodes on which you don't want to run ML tasks. The value should be a valid node name or a comma-separated node name list.
-
-### Setting
-
-```yaml
-plugins.ml_commons.exclude_nodes._name: node1, node2
-```
-{% include copy.html %}
-
-## Allow custom deployment plans
-
-When enabled, this setting grants users the ability to deploy models to specific ML nodes according to that user's permissions.
-
-### Setting
-
-```yaml
-plugins.ml_commons.allow_custom_deployment_plan: false
-```
-{% include copy.html %}
-
-### Values
-
-- Default value: false
-- Valid values: `false`, `true`
-
-## Enable auto deploy
-
-This setting is applicable when you send a prediction request for an externally hosted model that has not been deployed. When set to `true`, this setting automatically deploys the model to the cluster if the model has not been deployed already. 
-
-### Setting
-
-```yaml
-plugins.ml_commons.model_auto_deploy.enable: false
-```
-{% include copy.html %}
-
-### Values
-
-- Default value: `true`
-- Valid values: `false`, `true`
-
-## Enable auto redeploy
-
-This setting automatically redeploys deployed or partially deployed models upon cluster failure. If all ML nodes inside a cluster crash, the model switches to the `DEPLOYED_FAILED` state, and the model must be deployed manually.
-
-### Setting
-
-```yaml
-plugins.ml_commons.model_auto_redeploy.enable: true
-```
-{% include copy.html %}
-
-### Values
-
-- Default value: `true`
-- Valid values: `false`, `true`
-
-## Set retires for auto redeploy
-
-This setting sets the limit for the number of times a deployed or partially deployed model will try and redeploy when ML nodes in a cluster fail or new ML nodes join the cluster.
-
-### Setting
-
-```yaml
-plugins.ml_commons.model_auto_redeploy.lifetime_retry_times: 3
-```
-{% include copy.html %}
-
-### Values
-
-- Default value: 3
-- Value range: [0, 100]
-
-## Set auto redeploy success ratio
-
-This setting sets the ratio of success for the auto-redeployment of a model based on the available ML nodes in a cluster. For example, if ML nodes crash inside a cluster, the auto redeploy protocol adds another node or retires a crashed node. If the ratio is `0.7` and 70% of all ML nodes successfully redeploy the model on auto-redeploy activation, the redeployment is a success. If the model redeploys on fewer than 70% of available ML nodes, the auto-redeploy retries until the redeployment succeeds or OpenSearch reaches [the maximum number of retries](#set-retires-for-auto-redeploy).
-
-### Setting
-
-```yaml
-plugins.ml_commons.model_auto_redeploy_success_ratio: 0.8
-```
-{% include copy.html %}
-
-### Values
-
-- Default value: 0.8
-- Value range: [0, 1]
-
-## Run Python-based models
-
-When set to `true`, this setting enables the ability to run Python-based models supported by OpenSearch, such as [Metrics correlation]({{site.url}}{{site.baseurl}}/ml-commons-plugin/algorithms/#metrics-correlation).
-
-### Setting
-
-```yaml
-plugins.ml_commons.enable_inhouse_python_model: false
-```
-{% include copy.html %}
-
-
-### Values
-
-- Default value: `false`
-- Valid values: `false`, `true`
-
-## Safely delete models
-Introduced 2.19
-{: .label .label-purple }
-
-When set to `true`, this setting enables a safety feature that checks for downstream dependencies before deleting a model. This helps prevent accidental deletion of models in active use by agents, search pipelines, ingest pipelines, and other downstream tasks. If this setting is enabled and you attempt to delete a model that has active downstream dependencies, you'll receive an error message and the model will not be deleted.
-
-### Setting
-
-```yaml
-plugins.ml_commons.safe_delete_model: true
-```
-{% include copy.html %}
-
-### Values
-
-- Default value: `false`
-- Valid values: `false`, `true`
-
-
-## Enable access control for connectors
-
-When set to `true`, the setting allows admins to control access and permissions to the connector API using `backend_roles`.
-
-### Setting
-
-```yaml
-plugins.ml_commons.connector_access_control_enabled: true
-```
-{% include copy.html %}
-
-### Values
-
-- Default value: `false`
-- Valid values: `false`, `true`
-
-## Enable the Google Cloud Vertex AI connector
-
-When set to `true`, this setting allows users to create connectors that use the `google_cloud` protocol. For more information, see [Google Cloud authentication]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/google-cloud/).
-
-### Setting
-
-```yaml
-plugins.ml_commons.connector.vertexai_enabled: true
-```
-{% include copy.html %}
-
-### Values
-
-- Default value: `false`
-- Valid values: `false`, `true`
-
-## Enable a local model
-
-This setting allows a cluster admin to enable running local models on the cluster. When this setting is `false`, users will not be able to run register, deploy, or predict operations on any local model.
-
-### Setting
-
-```yaml
-plugins.ml_commons.local_model.enabled: true
-```
-{% include copy.html %}
-
-### Values
-
-- Default value: `true`
-- Valid values: `false`, `true`
-
-## Node roles that can run externally hosted models
-
-This setting allows a cluster admin to control the types of nodes on which externally hosted models can run.  
-
-### Setting
-
-```yaml
-plugins.ml_commons.task_dispatcher.eligible_node_role.remote_model: ["ml"]
-```
-{% include copy.html %}
-
-### Values
-
-- Default value: `["data", "ml"]`, which allows externally hosted models to run on data nodes and ML nodes.
-
-
-## Node roles that can run local models
-
-This setting allows a cluster admin to control the types of nodes on which local models can run. The `plugins.ml_commons.only_run_on_ml_node` setting only allows the model to run on ML nodes. For a local model, if `plugins.ml_commons.only_run_on_ml_node` is set to `true`, then the model will always run on ML nodes. If `plugins.ml_commons.only_run_on_ml_node` is set to `false`, then the model will run on nodes defined in the `plugins.ml_commons.task_dispatcher.eligible_node_role.local_model` setting.
-
-### Setting
-
-```yaml
-plugins.ml_commons.task_dispatcher.eligible_node_role.remote_model: ["ml"]
-```
-{% include copy.html %}
-
-### Values
-
-- Default value: `["data", "ml"]`
-
-## Enable remote inference
-
-This setting allows a cluster admin to enable remote inference on the cluster. If this setting is `false`, users will not be able to run register, deploy, or predict operations on any externally hosted model or create a connector for remote inference.
-
-### Setting
-
-```yaml
-plugins.ml_commons.remote_inference.enabled: true
-```
-{% include copy.html %}
-
-### Values
-
-- Default value: `true`
-- Valid values: `false`, `true`
-
-## Enable agent framework
-
-When set to `true`, this setting enables the agent framework (including agents and tools) on the cluster and allows users to run register, execute, delete, get, and search operations on an agent.
-
-### Setting
-
-```yaml
-plugins.ml_commons.agent_framework_enabled: true
-```
-{% include copy.html %}
-
-### Values
-
-- Default value: `true`
-- Valid values: `false`, `true`
-
-## Enable memory
-
-When set to `true`, this setting enables conversational memory, which stores all messages from a conversation for conversational search.
-
-### Setting
-
-```yaml
-plugins.ml_commons.memory_feature_enabled: true
-```
-{% include copy.html %}
-
-### Values
-
-- Default value: `true`
-- Valid values: `false`, `true`
-
-## Enable agentic memory
-
-When set to `true`, this setting enables [agentic memory]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agentic-memory/), which provides advanced memory management for AI agents, including session memory, working memory, long-term memory, and memory history with namespace-based organization.
-
-### Setting
-
-```yaml
-plugins.ml_commons.agentic_memory_enabled: true
-```
-{% include copy.html %}
-
-### Values
-
-- Default value: `true`
-- Valid values: `false`, `true`
-
-## Enable RAG pipeline
-
-When set to `true`, this setting enables the search processors for retrieval-augmented generation (RAG). RAG enhances query results by generating responses using relevant information from memory and previous conversations.
-
-### Setting
-
-```yaml
-plugins.ml_commons.rag_pipeline_feature_enabled: true
-```
-{% include copy.html %}
-
-### Values
-
-- Default value: `true`
-- Valid values: `false`, `true`
+- `plugins.ml_commons.rag_pipeline_feature_enabled` (Dynamic, Boolean): When `true`, enables the search processors for retrieval-augmented generation (RAG). RAG enhances query results by generating responses using relevant information from memory and previous conversations. Default is `true`.

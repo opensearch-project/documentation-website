@@ -277,7 +277,7 @@ To view historical query data, the exporter type must be set to `local_index`. F
 
 ## Exporting top N query data
 
-You can configure your desired exporter to export top N query data to different sinks, allowing for better monitoring and analysis of your OpenSearch queries. Currently, the following exporters are supported:
+You can configure your desired exporter to export top N query data to different sinks, allowing for better monitoring and analysis of your OpenSearch queries. The following exporters are supported:
 - [Debug exporter](#configuring-a-debug-exporter)
 - [Local index exporter](#configuring-a-local-index-exporter)
 - [Remote repository exporter](#configuring-a-remote-repository-exporter)

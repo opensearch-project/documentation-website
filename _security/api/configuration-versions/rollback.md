@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Roll back security configuration
+title: Roll back configuration
 parent: Security configuration version APIs
 grand_parent: Security APIs
 nav_order: 20

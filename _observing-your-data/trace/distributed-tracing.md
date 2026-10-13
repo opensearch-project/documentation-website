@@ -6,6 +6,7 @@ nav_order: 65
 ---
 
 # Distributed tracing
+
 This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/6750).    
 {: .warning}
 
@@ -36,7 +37,7 @@ OpenSearch provides a `trace-analytics` plugin for visualizing trace data in rea
 
 ## Get started
 
-The distributed tracing feature is experimental as of OpenSearch 2.10. To begin using the distributed tracing feature, you need to first enable it using the `opensearch.experimental.feature.telemetry.enabled` feature flag and subsequently activate the tracer, using the dynamic setting `telemetry.tracer.enabled`. It's important to exercise caution when enabling this feature because it can consume system resources. Detailed information on enabling and configuring distributed tracing, including on-demand troubleshooting and request sampling, is described in the following sections.
+The distributed tracing feature is experimental. To begin using the distributed tracing feature, you need to first enable it using the `opensearch.experimental.feature.telemetry.enabled` feature flag and subsequently activate the tracer, using the dynamic setting `telemetry.tracer.enabled`. It's important to exercise caution when enabling this feature because it can consume system resources. Detailed information on enabling and configuring distributed tracing, including on-demand troubleshooting and request sampling, is described in the following sections.
 
 ### Enabling the flag on a node using tarball
 
@@ -46,17 +47,17 @@ The enable flag is toggled using a new Java Virtual Machine (JVM) parameter that
 
 1. Change to the top directory of your OpenSearch installation:
 
-```bash
-cd \path\to\opensearch
-```
+   ```bash
+   cd \path\to\opensearch
+   ```
 
 2. Open your OpenSearch configuration folder, and then open the `opensearch.yml` file with a text editor.
 3. Add the following line:
 
-```bash
-opensearch.experimental.feature.telemetry.enabled=true
-```
-{% include copy.html %}
+   ```yaml
+   opensearch.experimental.feature.telemetry.enabled: true
+   ```
+   {% include copy.html %}
 
 4. Save your changes and close the file.
 
@@ -83,7 +84,7 @@ As an alternative to directly modifying `config/jvm.options`, you can define the
 To add these flags inline when starting OpenSearch, run the following command:
 
 ```bash
-OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.telemetry.enabled=true" ./opensearch-2.9.0/bin/opensearch
+OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.telemetry.enabled=true" ./bin/opensearch
 ```
 {% include copy.html %}
 
@@ -126,19 +127,24 @@ testClusters {
 
 Once you've enabled the feature flag, do the following:
 
-1. Enable the tracing framework feature by adding the following setting in the `opensearch.yaml` file:
+1. Enable the tracing framework feature by adding the following setting in the `opensearch.yml` file:
 
-```bash
-telemetry.feature.tracer.enabled=true
-```
-{% include copy.html %}
+   ```yaml
+   telemetry.feature.tracer.enabled: true
+   ```
+   {% include copy.html %}
 
-2. Enable the tracer in the running cluster by adding the following dynamic setting:
+2. Enable the tracer in the running cluster by updating the dynamic `telemetry.tracer.enabled` setting:
 
-```bash
-telemetry.tracer.enabled=true
-```
-{% include copy.html %}
+   ```json
+   PUT _cluster/settings
+   {
+     "persistent": {
+       "telemetry.tracer.enabled": true
+     }
+   }
+   ```
+   {% include copy-curl.html %}
 
 ## Install the OpenSearch OpenTelemetry plugin
 
@@ -155,6 +161,21 @@ Currently, the distributed tracing feature generates traces and spans for HTTP r
 2. **Exporters:** Exporters are responsible for persisting the data. OpenTelemetry provides several out-of-the-box exporters, and OpenSearch supports the following:
     - `LoggingSpanExporter`: Exports spans to a log file, generating a separate file in the logs directory `_otel_traces.log`. Default is `telemetry.otel.tracer.span.exporter.class=io.opentelemetry.exporter.logging.LoggingSpanExporter`.
     - `OtlpGrpcSpanExporter`: Exports spans through gRPC. To use this exporter, you need to install the `otel-collector` on the node. By default, it writes to the http://localhost:4317/ endpoint. To use this exporter, set the following static setting: `telemetry.otel.tracer.span.exporter.class=io.opentelemetry.exporter.otlp.trace.OtlpGrpcSpanExporter`.
+
+### Identifying traces from a specific cluster
+**Introduced 3.10**
+{: .label .label-purple }
+
+Spans include the OpenTelemetry resource attribute `service.name`, which most tracing backends use as the primary dimension for grouping and filtering traces. By default, `service.name` is set to `OpenSearch`, so when several clusters export to the same backend, their traces cannot be distinguished from one another.
+
+To identify traces from a specific cluster, configure the `telemetry.otel.service.name` static setting in the `opensearch.yml` file:
+
+```yaml
+telemetry.otel.service.name: my-service
+```
+{% include copy.html %}
+
+Because this is a static setting, it is applied when the node starts and cannot be updated on a running cluster. If the setting is not configured, spans continue to be exported with `service.name` set to `OpenSearch`.
 
 ### Sampling
 

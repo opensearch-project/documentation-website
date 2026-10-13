@@ -3,6 +3,8 @@ layout: default
 title: OpenID Connect
 parent: Authentication backends
 nav_order: 50
+has_children: true
+has_toc: false
 redirect_from:
   - /security-plugin/configuration/openid-connect/
 ---
@@ -479,3 +481,7 @@ The following steps use Docker and [Keycloak IdP](https://www.keycloak.org/) to 
 6. Access OpenSearch Dashboards at `http://localhost:5601` and log in with username `testuser` and password `testpassword` configured in the `new-realm.json` file. 
 
 After logging in, the `testuser` receives the backend role `admin` from Keycloak, which is mapped to the `all_access` OpenSearch role. These backend roles can be managed using the Keycloak Administrative Console at http://localhost:8080, using username `admin` and password `admin`.
+
+## Troubleshooting
+
+- For solutions to common OpenID Connect configuration issues, see [Troubleshooting OpenID Connect]({{site.url}}{{site.baseurl}}/security/authentication-backends/troubleshoot-openid-connect/).

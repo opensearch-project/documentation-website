@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Connecting data sources
-nav_order: 80
+nav_order: 30
 has_children: true
 ---
 

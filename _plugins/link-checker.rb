@@ -82,6 +82,7 @@ module Jekyll::LinkChecker
     'opensearch.slack.com', # 403s on bots
     'www.ibm.com', # 403s on bots
     'www.iso.org', # 403s on bots
+    'wikitravel.org', # 403s on bots
     'elastic.co', # 406s on bots
     'www.elastic.co', # 406s on bots
     'example.issue.link', # a fake example link from the template

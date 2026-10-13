@@ -85,7 +85,7 @@ This feature requires the Reporting plugin. See [Reporting using OpenSearch Dash
 
 To delete one or more dashboards, follow these steps:
 
-1. In the [navigation panel]({{site.url}}{{site.baseurl}}/dashboards/navigating-ui/#navigating-opensearch-dashboards), select **OpenSearch Dashboards** > **Dashboards**.
+1. In the [navigation panel]({{site.url}}{{site.baseurl}}/dashboards/navigating-ui/#the-left-navigation-panel), select **OpenSearch Dashboards** > **Dashboards**.
 
 1. From the list in the **Dashboards** table, select the checkbox next to all the dashboards you want to delete.
 

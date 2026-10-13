@@ -4,7 +4,7 @@ title: RPM
 parent: Installing OpenSearch
 redirect_from:
 - /opensearch/install/rpm/
-nav_order: 51
+nav_order: 25
 ---
 
 {% comment %}
@@ -15,7 +15,7 @@ The following liquid syntax declares a variable, major_version_mask, which is tr
 
 # Installing OpenSearch using RPM
 
-Installing OpenSearch using RPM Package Manager (RPM) simplifies the process considerably compared to the [Tarball]({{site.url}}{{site.baseurl}}/opensearch/install/tar/) method. Several technical considerations, such as the installation path, location of configuration files, and creation of a service managed by `systemd`, as examples, are handled automatically by the package manager.
+Installing OpenSearch using RPM Package Manager (RPM) simplifies the process considerably compared to the [Tarball]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/tar/) method. Several technical considerations, such as the installation path, location of configuration files, and creation of a service managed by `systemd`, as examples, are handled automatically by the package manager.
 
 Generally speaking, installing OpenSearch from the RPM distribution can be broken down into a few steps:
 
@@ -190,11 +190,10 @@ YUM, the primary package management tool for Red Hat–based operating systems, 
    ```
    {% include copy.html %}
 
-1. During installation, the installer will present you with the GPG key fingerprint. Verify that the information matches the following:
-   ```bash
+1. The first time YUM downloads the repository metadata (for example, when you list the available versions) and again during installation, YUM prompts you to import the GPG key and presents the key fingerprint. Verify that the information matches the following:
+   ```text
    Fingerprint: A8B2 D9E0 4CD5 1FEF 6AA2 DB53 BA81 D999 8119 1457
    ```
-   {% include copy.html %}
 
     - If correct, enter `yes` or `y`. The OpenSearch installation continues.
 1. Once complete, you can run OpenSearch.
@@ -258,17 +257,28 @@ An OpenSearch node in its default configuration (with demo certificates and user
       hostname opensearch-anomaly-detection         {{site.opensearch_version}}
       hostname opensearch-asynchronous-search       {{site.opensearch_version}}
       hostname opensearch-cross-cluster-replication {{site.opensearch_version}}
+      hostname opensearch-custom-codecs             {{site.opensearch_version}}
+      hostname opensearch-flow-framework            {{site.opensearch_version}}
+      hostname opensearch-geospatial                {{site.opensearch_version}}
       hostname opensearch-index-management          {{site.opensearch_version}}
       hostname opensearch-job-scheduler             {{site.opensearch_version}}
       hostname opensearch-knn                       {{site.opensearch_version}}
+      hostname opensearch-ltr                       {{site.opensearch_version}}
       hostname opensearch-ml                        {{site.opensearch_version}}
+      hostname opensearch-neural-search             {{site.opensearch_version}}
       hostname opensearch-notifications             {{site.opensearch_version}}
       hostname opensearch-notifications-core        {{site.opensearch_version}}
       hostname opensearch-observability             {{site.opensearch_version}}
       hostname opensearch-performance-analyzer      {{site.opensearch_version}}
       hostname opensearch-reports-scheduler         {{site.opensearch_version}}
+      hostname opensearch-search-relevance          {{site.opensearch_version}}
       hostname opensearch-security                  {{site.opensearch_version}}
+      hostname opensearch-security-analytics        {{site.opensearch_version}}
+      hostname opensearch-skills                    {{site.opensearch_version}}
       hostname opensearch-sql                       {{site.opensearch_version}}
+      hostname opensearch-system-templates          {{site.opensearch_version}}
+      hostname opensearch-ubi                       {{site.opensearch_version}}
+      hostname query-insights                       {{site.opensearch_version}}
       ```
 
 ## Step 3: Set up OpenSearch in your environment
@@ -298,7 +308,7 @@ Before modifying any configuration files, it's always a good idea to save a back
 1. Add the following lines.
 
    Bind OpenSearch to the correct network interface. Use 0.0.0.0 to include all available interfaces or specify an IP address assigned to a specific interface:
-   ```bash
+   ```yaml
    network.host: 0.0.0.0
    ```
    {% include copy.html %}
@@ -308,6 +318,8 @@ Before modifying any configuration files, it's always a good idea to save a back
    discovery.type: single-node
    ```
    {% include copy.html %}
+
+   If you configure a multi-node cluster instead, set `vm.max_map_count` to at least `262144` on the host. Otherwise, the bootstrap checks fail when the service starts. For more information, see [Important settings]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/#important-settings).
 
    If you previously disabled the Security plugin in opensearch.yml, be sure to reenable it. Otherwise you can skip this setting:
    ```yaml
@@ -319,7 +331,7 @@ Before modifying any configuration files, it's always a good idea to save a back
 1. Specify initial and maximum JVM heap sizes.
    1.  Open `jvm.options`.
          ```bash
-         vi /etc/opensearch/jvm.options
+         sudo vi /etc/opensearch/jvm.options
          ```
          {% include copy.html %}
 
@@ -559,7 +571,13 @@ You should add trust for the root certificate to your client before sending requ
 {:.tip}
 
 ```bash
-$ curl https://your.host.address:9200 -u admin:yournewpassword -k
+curl https://your.host.address:9200 -u admin:yournewpassword -k
+```
+{% include copy.html %}
+
+You should receive the following response:
+
+```json
 {
   "name" : "hostname-here",
   "cluster_name" : "opensearch",
@@ -584,17 +602,17 @@ $ curl https://your.host.address:9200 -u admin:yournewpassword -k
 OpenSearch instances installed using RPM or YUM can be easily upgraded to a newer version. We recommend updating with YUM, but you can also upgrade using RPM.
 
 
-### Manual upgrade with RPM 
+### Upgrade manually using RPM
 
 Download the RPM package for the desired upgrade version directly from the [OpenSearch Project downloads page](https://opensearch.org/downloads.html){:target='\_blank'}.
 
 Navigate to the directory containing the distribution and run the following command:
 ```bash
-rpm -Uvh opensearch-{{site.opensearch_version}}-linux-x64.rpm
+sudo rpm -Uvh opensearch-{{site.opensearch_version}}-linux-x64.rpm
 ```
 {% include copy.html %}
 
-### YUM
+### Upgrade using YUM
 
 To upgrade to the latest version of OpenSearch using YUM:
 ```bash
@@ -610,11 +628,18 @@ sudo yum update opensearch
 
 ### Automatically restart the service after a package upgrade
 
-The OpenSearch RPM package does not currently support automatically restarting the service after a package upgrade.
+The OpenSearch RPM package does not support automatically restarting the service after a package upgrade. The upgrade stops OpenSearch, so start the service after the upgrade completes:
 
-## Related links
+```bash
+sudo systemctl start opensearch
+```
+{% include copy.html %}
 
+## Related documentation
+
+- [Preparing a cluster for production]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/#preparing-a-cluster-for-production)
+- [Common installation issues]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/#common-issues)
 - [OpenSearch configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/)
 - [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/)
-- [OpenSearch plugin installation]({{site.url}}{{site.baseurl}}/opensearch/install/plugins/)
+- [OpenSearch plugin installation]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/)
 - [About the Security plugin]({{site.url}}{{site.baseurl}}/security/index/)

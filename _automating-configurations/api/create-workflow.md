@@ -134,7 +134,7 @@ The following table lists the available request fields.
 |`description`	|String	|Optional	|A description of the workflow.	|
 |`use_case`	|String	|Optional	| A user-provided use case, which can be used with the [Search Workflow API]({{site.url}}{{site.baseurl}}/automating-configurations/api/search-workflow/) to find related workflows. You can use this field to specify custom values. This is distinct from the `use_case` query parameter. |
 |`version`	|Object	|Optional	| A key-value map with two fields: `template`, which identifies the template version, and `compatibility`, which identifies a list of minimum required OpenSearch versions.	|
-|`workflows`	|Object	|Optional	|A map of workflows. Presently, only the `provision` key is supported. The value for the workflow key is a key-value map that includes fields for `user_params` and lists of `nodes` and `edges`.	|
+|`workflows`	|Object	|Optional	|A map of workflows. Only the `provision` key is supported. The value for the workflow key is a key-value map that includes fields for `user_params` and lists of `nodes` and `edges`.	|
 
 ## Example request: Register and deploy an externally hosted model in YAML
 
@@ -176,12 +176,12 @@ workflows:
       # These inputs match the Create Connector API body
       user_inputs:
         name: OpenAI Chat Connector
-        description: The connector to public OpenAI model service for GPT 3.5
+        description: The connector to public OpenAI model service for gpt-4o-mini
         version: '1'
         protocol: http
         parameters:
           endpoint: api.openai.com
-          model: gpt-3.5-turbo
+          model: gpt-4o-mini
         credential:
           openAI_key: '12345'
         actions:
@@ -196,7 +196,7 @@ workflows:
         create_connector_1: connector_id
       # These inputs match the Register Model API body
       user_inputs:
-        name: openAI-gpt-3.5-turbo
+        name: openAI-gpt-4o-mini
         function_name: remote
         description: test model
     # This ID must be unique to this workflow
@@ -245,12 +245,12 @@ The following JSON template is equivalent to the YAML template provided in the p
           "type": "create_connector",
           "user_inputs": {
             "name": "OpenAI Chat Connector",
-            "description": "The connector to public OpenAI model service for GPT 3.5",
+            "description": "The connector to public OpenAI model service for gpt-4o-mini",
             "version": "1",
             "protocol": "http",
             "parameters": {
               "endpoint": "api.openai.com",
-              "model": "gpt-3.5-turbo"
+              "model": "gpt-4o-mini"
             },
             "credential": {
               "openAI_key": "12345"
@@ -271,7 +271,7 @@ The following JSON template is equivalent to the YAML template provided in the p
             "create_connector_1": "connector_id"
           },
           "user_inputs": {
-            "name": "openAI-gpt-3.5-turbo",
+            "name": "openAI-gpt-4o-mini",
             "function_name": "remote",
             "description": "test model"
           }

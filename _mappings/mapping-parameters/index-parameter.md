@@ -13,7 +13,7 @@ has_toc: false
 
 The `index` mapping parameter controls whether a field is included in the inverted index. When set to `true`, the field is indexed and available for queries. When set to `false`, the field is stored in the document but not indexed, making it non-searchable when [`doc_values`]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/doc-values/) are not enabled. If you do not need to search a particular field, disabling indexing and `doc_values` for that field can reduce index size and improve indexing performance. For example, you can disable indexing on large text fields or metadata that is only used for display.
 
-By default, all field types are indexed.
+By default, all field types are indexed. For indexes that use a pluggable data format, `index` defaults to `false` for the field types whose values are stored in doc values. For more information, see [Pluggable data format indexes](#pluggable-data-format-indexes).
 
 ##  The index and doc values parameters compared
 
@@ -243,3 +243,24 @@ The following response confirms that the search query succeeded because the `nam
   }
 }
 ```
+
+## Pluggable data format indexes
+**Introduced 3.9**
+{: .label .label-purple }
+
+This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).    
+{: .warning}
+
+For indexes that use a pluggable data format, fields of the following types are not indexed by default:
+
+- Numeric types, including `scaled_float`
+- `date`
+- `date_nanos`
+- `ip`
+- `boolean`
+
+Fields of these types remain searchable because OpenSearch serves `range`, `term`, and `terms` queries on them from doc values. Fields of all other types are indexed by default. For information about enabling and disabling experimental features, see [Enabling experimental features]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/experimental/).
+
+Setting `index` to `true` for these fields is not supported.
+
+Because the default value is not stored in the mapping, the `index` parameter does not appear in the response to a `GET _mapping` request for these fields, and the Field Capabilities API reports them as `"searchable": false`.

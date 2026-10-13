@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Ingest-attachment plugin
-parent: Installing plugins
+parent: Additional plugins
+grand_parent: Managing OpenSearch plugins
 nav_order: 20
 
 ---

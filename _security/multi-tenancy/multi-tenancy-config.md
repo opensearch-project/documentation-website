@@ -241,3 +241,7 @@ The following list includes the permissions assigned to this role:
   }
 }
 ```
+
+## Testing tenants with multiple users
+
+If you test multiple users in the same browser and the selected tenant changes unexpectedly, sign in as each user in a separate private browsing window, such as an Incognito window in Google Chrome or a Private window in Firefox.

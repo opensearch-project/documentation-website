@@ -3,7 +3,7 @@ layout: default
 title: Document APIs
 has_children: true
 has_toc: false
-nav_order: 25
+nav_order: 50
 redirect_from:
   - /opensearch/rest-api/document-apis/index/
   - /api-reference/document-apis/
