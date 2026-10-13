@@ -2,7 +2,7 @@
 layout: default
 title: Get snapshot
 parent: Snapshot APIs
-nav_order: 6
+nav_order: 60
 ---
 
 # Get Snapshot API
@@ -19,12 +19,16 @@ GET _snapshot/{repository}/{snapshot}/
 
 ## Path parameters
 
+The following table lists the available path parameters.
+
 | Parameter | Data type | Description |
 | :--- | :--- | :--- |
 | `repository` | String | The repository that contains the snapshot to retrieve. |
 | `snapshot` | String | Snapshot to retrieve.
 
 ## Query parameters
+
+The following table lists the available query parameters. All query parameters are optional.
 
 | Parameter | Data type | Description | 
 :--- | :--- | :---
@@ -97,7 +101,10 @@ Upon success, the response returns snapshot information:
   ]
 }
 ````
+
 ## Response body fields
+
+The following table lists all response body fields.
 
 | Field | Data type | Description |
 | :--- | :--- | :--- | 

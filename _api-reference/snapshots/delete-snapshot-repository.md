@@ -2,18 +2,14 @@
 layout: default
 title: Delete snapshot repository
 parent: Snapshot APIs
-nav_order: 3
+nav_order: 30
 ---
 
-# Delete Snapshot Repository Configuration API
+# Delete Snapshot Repository API
 **Introduced 1.0**
 {: .label .label-purple }
 
-Deletes a snapshot repository configuration.  
- 
-A repository in OpenSearch is simply a configuration that maps a repository name to a type (file system or s3 repository) along with other information depending on the type. The configuration is backed by a file system location or an s3 bucket. When you invoke the API, the physical file system or s3 bucket itself is not deleted. Only the configuration is deleted.
-
-To learn more about repositories, see [Register or update snapshot repository]({{site.url}}{{site.baseurl}}/api-reference/snapshots/create-repository/).
+Deletes a snapshot repository registration from the cluster. The storage location and the snapshots in it are not deleted. To use the snapshots again, register the repository again using the [Create or Update Snapshot Repository API]({{site.url}}{{site.baseurl}}/api-reference/snapshots/create-repository/).
 
 ## Endpoints
 
@@ -22,6 +18,8 @@ DELETE _snapshot/{repository}
 ```
 
 ## Path parameters
+
+The following table lists the available path parameters.
 
 Parameter | Data type | Description
 :--- | :--- | :---
