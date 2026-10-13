@@ -34,34 +34,55 @@ Before installing OpenSearch using Docker, configure the following settings. The
 ### Linux settings
 For a Linux environment, run the following commands:
 
-1. Disable memory paging and swapping performance on the host to improve performance.
+1. Disable memory paging and swapping performance on the host to improve performance:
+
    ```bash
    sudo swapoff -a
    ```
-1. Increase the number of memory maps available to OpenSearch.
+   {% include copy.html %}
+
+1. Increase the number of memory maps available to OpenSearch. Open the `sysctl` configuration file:
+
    ```bash
-   # Edit the sysctl config file
    sudo vi /etc/sysctl.conf
+   ```
+   {% include copy.html %}
 
-   # Add a line to define the desired value
-   # or change the value if the key exists,
-   # and then save your changes.
+   Add the following line, or change the value if the setting already exists, and then save your changes:
+
+   ```bash
    vm.max_map_count=262144
+   ```
+   {% include copy.html %}
 
-   # Reload the kernel parameters using sysctl
+   Reload the kernel parameters:
+
+   ```bash
    sudo sysctl -p
+   ```
+   {% include copy.html %}
 
-   # Verify that the change was applied by checking the value
+   Verify that the change was applied by checking the value:
+
+   ```bash
    cat /proc/sys/vm/max_map_count
    ```
+   {% include copy.html %}
 
 ### Windows settings
-For Windows workloads using WSL through Docker Desktop, run the following commands in a terminal to set the `vm.max_map_count`:
+For Windows workloads using WSL through Docker Desktop, set `vm.max_map_count` in the Docker Desktop WSL distribution. First, open a shell in the distribution:
 
 ```bash
 wsl -d docker-desktop
+```
+{% include copy.html %}
+
+Then set the value:
+
+```bash
 sysctl -w vm.max_map_count=262144
-```   
+```
+{% include copy.html %}
 
 ## Run OpenSearch in a Docker container
 
@@ -666,16 +687,22 @@ The data volumes in the [sample `docker-compose.yml`](#sample-docker-composeyml)
 cannot start with [discovery.type] set to [single-node] when local node does not have quorum in voting configuration
 ```
 
-To fix this error, remove the existing volumes and start the cluster again:
+To fix this error, remove the existing volumes:
 
 ```bash
 docker compose down -v
-docker compose up -d
 ```
 {% include copy.html %}
 
 The `docker compose down -v` command deletes all data stored in the volumes.
 {: .warning}
+
+Then start the cluster again:
+
+```bash
+docker compose up -d
+```
+{% include copy.html %}
 
 ## Related documentation
 
