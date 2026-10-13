@@ -347,7 +347,9 @@ The following table lists the accepted values for `track_total_hits`.
 | `false` | Disables hit counting. The response contains no `hits.total` object. |
 | Integer | Counts matching documents accurately up to the specified number. When more documents match, `hits.total.value` reports the threshold and `hits.total.relation` is `gte`. |
 
-Counting every match slows down searches that match many documents. Increase the threshold only when your application requires an exact count.
+Counting every match slows down searches that match many documents. Once the count reaches the threshold, OpenSearch can skip documents that cannot enter the top results, which makes searches sorted by relevance faster. Increase the threshold only when your application requires an exact count, and set `track_total_hits` to `false` when you do not display a count at all.
+
+The `rest_total_hits_as_int` query parameter requires an exact count. OpenSearch rejects a request that sets `rest_total_hits_as_int` to `true` and sets `track_total_hits` to an integer.
 
 ### Example: Default hit counting
 
@@ -406,6 +408,95 @@ Because `relation` is `eq`, `value` is the exact number of matching documents:
     },
     "max_score": null,
     "hits": []
+  }
+}
+```
+
+### Example: Counting up to a custom threshold
+
+An integer threshold returns an exact count when fewer documents match and a lower bound otherwise. In the `logs` index, 35 documents have the `level` value `error`, and the remaining documents have the value `info`. The following request counts `error` documents up to a threshold of 50:
+
+```json
+GET /logs/_search
+{
+  "size": 0,
+  "track_total_hits": 50,
+  "query": {
+    "term": {
+      "level": "error"
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+Fewer than 50 documents match, so the count is exact:
+
+```json
+{
+  "hits": {
+    "total": {
+      "value": 35,
+      "relation": "eq"
+    },
+    "max_score": null,
+    "hits": []
+  }
+}
+```
+
+If you run the same request with `"level": "info"`, more than 50 documents match. OpenSearch stops counting at the threshold and returns a lower bound:
+
+```json
+{
+  "hits": {
+    "total": {
+      "value": 50,
+      "relation": "gte"
+    },
+    "max_score": null,
+    "hits": []
+  }
+}
+```
+
+### Example: Disabling hit counting
+
+If your application does not display the number of matches, set `track_total_hits` to `false`:
+
+```json
+GET /logs/_search
+{
+  "size": 2,
+  "_source": false,
+  "track_total_hits": false,
+  "query": {
+    "term": {
+      "level": "error"
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+The `hits` object contains the matching documents but no `total` object:
+
+```json
+{
+  "hits": {
+    "max_score": 1.0,
+    "hits": [
+      {
+        "_index": "logs",
+        "_id": "1",
+        "_score": 1.0
+      },
+      {
+        "_index": "logs",
+        "_id": "301",
+        "_score": 1.0
+      }
+    ]
   }
 }
 ```
