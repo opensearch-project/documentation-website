@@ -47,21 +47,21 @@ The following table lists the parameters accepted by keyword field types. All pa
 
 | Parameter | Description | Default value | Dynamically updatable |
 | :--- | :--- | :--- | :--- |
-| `boost` | A floating-point value that specifies the weight of this field toward the relevance score. Values above `1.0` increase the field's relevance. Values between `0.0` and `1.0` decrease the field's relevance. | `1.0` | Yes |
-| `doc_values` | A Boolean value that specifies whether the field should be stored on disk so that it can be used for aggregations, sorting, or scripting. | `true` | No | 
-| `eager_global_ordinals` | Specifies whether global ordinals should be loaded eagerly on refresh. If the field is often used for aggregations, this parameter should be set to `true`. | `false` | Yes |
-| `fields` | To index the same string in several ways (for example, as a keyword and text), provide the fields parameter. You can specify one version of the field to be used for search and another to be used for sorting and aggregations. | None | No |
-| `ignore_above` | Any string longer than this integer value should not be indexed. Default dynamic mapping creates a keyword subfield for which `ignore_above` is set to `256`. | `2147483647` | Yes |
-| `index` | A Boolean value that specifies whether the field should be searchable. To reduce disk space, set `index` to `false`. | `true` | No |
-| `index_options` | Information to be stored in the index that will be considered when calculating relevance scores. Can be set to `freqs` for term frequency. | `docs` | No |
-| `meta` | Accepts metadata for this field. | None | Yes |
+| `boost` | A floating-point value that specifies the weight of this field toward the relevance score. Values above `1.0` increase the field's relevance. Values between `0.0` and `1.0` decrease the field's relevance. For more information, see [Boost]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/boost/). | `1.0` | Yes |
+| `doc_values` | A Boolean value that specifies whether the field should be stored on disk so that it can be used for aggregations, sorting, or scripting. For more information, see [Doc values]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/doc-values/). | `true` | No |
+| `eager_global_ordinals` | Specifies whether global ordinals should be loaded eagerly on refresh. If the field is often used for aggregations, this parameter should be set to `true`. For more information, see [Eager global ordinals]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/eager_global_ordinals/). | `false` | Yes |
+| `fields` | To index the same string in several ways (for example, as a keyword and text), provide the fields parameter. You can specify one version of the field to be used for search and another to be used for sorting and aggregations. For more information, see [Fields]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/fields/). | None | No |
+| `ignore_above` | An integer value that specifies a maximum string length. Longer strings are neither indexed nor written to doc values, so they do not match any query and do not appear in aggregations. The value remains in `_source`. Default dynamic mapping creates a keyword subfield for which `ignore_above` is set to `256`. For more information, see [Ignore above]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/ignore-above/). | `2147483647` | Yes |
+| `index` | A Boolean value that specifies whether the field should be searchable. To reduce disk space, set `index` to `false`. For more information, see [Index]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/index-parameter/). | `true` | No |
+| `index_options` | Information to be stored in the index that will be considered when calculating relevance scores. Can be set to `freqs` for term frequency. For more information, see [Index options]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/index-options/). | `docs` | No |
+| `meta` | Accepts metadata for this field. For more information, see [Meta]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/meta/). | None | Yes |
 | [`normalizer`]({{site.url}}{{site.baseurl}}/analyzers/normalizers/) | Specifies how to preprocess this field before indexing (for example, make it lowercase). | `null` (no preprocessing) | No |
-| `norms` | A Boolean value that specifies whether the field length should be used when calculating relevance scores. | `false` | Yes |
+| `norms` | A Boolean value that specifies whether the field length should be used when calculating relevance scores. For more information, see [Norms]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/norms/). | `false` | Yes |
 | [`null_value`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/index#null-value) | A value to be used in place of `null`. Must be of the same type as the field. If this parameter is not specified, the field is treated as missing when its value is `null`. | `null` | No |
-| `similarity` | The ranking algorithm for calculating relevance scores. | The index's `similarity` setting (by default, `BM25`) | No |
+| `similarity` | The ranking algorithm for calculating relevance scores. For more information, see [Similarity]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/similarity/). | The index's `similarity` setting (by default, `BM25`) | No |
 | `use_similarity` | Determines whether to calculate relevance scores. Default is `false`, which uses `constant_score` for faster queries. Setting this parameter to `true` enables scoring but may increase search latency. See [The use_similarity parameter ](#the-use_similarity-parameter). | `false` | Yes |
 | `split_queries_on_whitespace` | A Boolean value that specifies whether full-text queries should be split on white space. | `false` | Yes |
-| `store` | A Boolean value that specifies whether the field value should be stored and can be retrieved separately from the `_source` field. | `false` | No |
+| `store` | A Boolean value that specifies whether the field value should be stored and can be retrieved separately from the `_source` field. For more information, see [Store]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/store/). | `false` | No |
 
 ## The use_similarity parameter 
 
