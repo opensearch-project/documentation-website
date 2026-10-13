@@ -77,7 +77,7 @@ Parameter | Type | Description
 `timeout` | Time | How long the operation should wait for a response from active shards. Default is `1m` (1 minute). Example: `GET test-index/_search?timeout=10ms`. |
 `track_scores` | Boolean | Whether to return document scores. Default is `false`. Use with `sort`. Example: `GET test-index/_search?sort=views:desc&track_scores=true&size=3`. For more information, see [Tracking scores]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/sort/#tracking-scores). |
 `track_total_hits` | Boolean or Integer | How many matching documents to count. Default is `10000`. Example: `GET test-index/_search?track_total_hits=2`. For more information, see [Track total hits](#track-total-hits). |
-`typed_keys` | Boolean | Whether returned aggregations and suggested terms should include their types in the response. Default is `true`. Only applicable for aggregations or suggesters. Example: `POST test-index/_search?typed_keys=true {"size":0,"aggs":{"a":{"terms":{"field":"views"}}}}`. |
+`typed_keys` | Boolean | Whether returned aggregations and suggested terms should include their types in the response. Default is `false`. Only applicable for aggregations or suggesters. Example: `POST test-index/_search?typed_keys=true {"size":0,"aggs":{"a":{"terms":{"field":"views"}}}}`. For more information, see [Including suggester types in the response]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/did-you-mean/#including-suggester-types-in-the-response). |
 `version` | Boolean | Whether to include the document version as a match. Example: `GET test-index/_search?version=true&size=1&q=title:test`. |
 
 ### The `preference` query parameter
