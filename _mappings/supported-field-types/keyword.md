@@ -24,7 +24,7 @@ By default, keyword fields are both indexed (because `index` is enabled) and sto
 If you need to use a field for full-text search, map it as [`text`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/text/) instead.
 {: .note }
 
-## Example
+## Example: Disabling indexing on a keyword field
 
 The following request creates a mapping containing a keyword field. Setting `index` to `false` saves disk space by not building the search index for the `genre` field. The field values are still stored in doc values, so you can sort and aggregate on `genre`:
 
@@ -75,16 +75,45 @@ The following table lists the parameters accepted by keyword field types. All pa
 
 The `use_similarity` parameter controls whether OpenSearch calculates relevance scores when querying a `keyword` field. By default, it is set to `false`, which improves performance by using `constant_score`. Setting it to `true` enables scoring based on the configured similarity algorithm (typically, BM25) but may increase query latency.
 
-Run a term query on the index for which `use_similarity` is disabled (default):
+Create an index containing a `brand` keyword field:
 
 ```json
-GET /big5/_search
+PUT /products
 {
-  "size": 3,
-  "explain": false,
+  "mappings": {
+    "properties": {
+      "brand": {
+        "type": "keyword"
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+Index four documents. Two of them have the same `brand` value:
+
+```json
+POST /products/_bulk?refresh=true
+{ "index": { "_id": "1" } }
+{ "brand": "Acme" }
+{ "index": { "_id": "2" } }
+{ "brand": "Acme" }
+{ "index": { "_id": "3" } }
+{ "brand": "Globex" }
+{ "index": { "_id": "4" } }
+{ "brand": "Initech" }
+```
+{% include copy-curl.html %}
+
+Run a `term` query on the `brand` field, for which `use_similarity` is disabled (default):
+
+```json
+GET /products/_search
+{
   "query": {
     "term": {
-      "process.name": "kernel"
+      "brand": "Acme"
     }
   },
   "_source": false
@@ -92,38 +121,26 @@ GET /big5/_search
 ```
 {% include copy-curl.html %}
 
-The query returns results quickly (10 ms), and all documents receive a constant relevance score of 1.0:
+All matching documents receive a constant relevance score of `1`:
 
 ```json
 {
-  "took": 10,
-  "timed_out": false,
-  "_shards": {
-    "total": 1,
-    "successful": 1,
-    "skipped": 0,
-    "failed": 0
-  },
+  ...
   "hits": {
     "total": {
-      "value": 10000,
-      "relation": "gte"
+      "value": 2,
+      "relation": "eq"
     },
     "max_score": 1,
     "hits": [
       {
-        "_index": "big5",
-        "_id": "xDoCtJQBE3c7bAfikzbk",
+        "_index": "products",
+        "_id": "1",
         "_score": 1
       },
       {
-        "_index": "big5",
-        "_id": "xzoCtJQBE3c7bAfikzbk",
-        "_score": 1
-      },
-      {
-        "_index": "big5",
-        "_id": "yDoCtJQBE3c7bAfikzbk",
+        "_index": "products",
+        "_id": "2",
         "_score": 1
       }
     ]
@@ -131,53 +148,42 @@ The query returns results quickly (10 ms), and all documents receive a constan
 }
 ```
 
-To enable scoring using the default BM25 algorithm for the `process.name` field, provide the `use_similarity` parameter in the index mappings:
+To enable scoring using the default BM25 algorithm for the `brand` field, set the `use_similarity` parameter in the index mappings. Because `use_similarity` is dynamically updatable, you can change it on an existing index:
 
 ```json
-PUT /big5/_mapping
+PUT /products/_mapping
 {
   "properties": {
-    "process.name": {
+    "brand": {
       "type": "keyword",
       "use_similarity": true
     }
   }
 }
 ```
+{% include copy-curl.html %}
 
-When you run the same term query on the configured index, the query takes longer to run (200 ms), and the returned documents have varying relevance scores based on term frequency and other BM25 factors:
+When you run the same `term` query again, the documents receive BM25 relevance scores instead of a constant score. Because a keyword field contains a single term, all documents that match the same value receive the same score. :
 
 ```json
 {
-  "took" : 200,
-  "timed_out" : false,
-  "_shards" : {
-    "total" : 1,
-    "successful" : 1,
-    "skipped" : 0,
-    "failed" : 0
-  },
-  "hits" : {
-    "total" : {
-      "value" : 10000,
-      "relation" : "gte"
+  ...
+  "hits": {
+    "total": {
+      "value": 2,
+      "relation": "eq"
     },
-    "max_score" : 0.8844931,
-    "hits" : [
+    "max_score": 0.31506687,
+    "hits": [
       {
-        "_index" : "big5",
-        "_id" : "xDoCtJQBE3c7bAfikzbk",
-        "_score" : 0.8844931
+        "_index": "products",
+        "_id": "1",
+        "_score": 0.31506687
       },
       {
-        "_index" : "big5",
-        "_id" : "xzoCtJQBE3c7bAfikzbk",
-        "_score" : 0.8844931
-      },
-      {
-        "_index" : "big5",
-        "_id" : "yDoCtJQBE3c7bAfikzbk",
-        "_score" : 0.8844931
+        "_index": "products",
+        "_id": "2",
+        "_score": 0.31506687
       }
     ]
   }
@@ -188,10 +194,10 @@ When you run the same term query on the configured index, the query takes longer
 
 When an index uses [derived source]({{site.url}}{{site.baseurl}}/mappings/metadata-fields/source/#derived-source), OpenSearch may sort keyword values and remove duplicates in multi-value keyword fields during source reconstruction.
 
-Create an index that enables derived source and configures a `name` field:
+Create an index that enables derived source and configures a `tags` field:
 
 ```json
-PUT sample-index1
+PUT tagged-products
 {
   "settings": {
     "index": {
@@ -202,37 +208,39 @@ PUT sample-index1
   },
   "mappings": {
     "properties": {
-      "name": {
+      "tags": {
         "type": "keyword"
       }
     }
   }
 }
 ```
+{% include copy-curl.html %}
 
 Index a document with multiple keyword values, including duplicates, into the index:
 
 ```json
-PUT sample-index1/_doc/1
+PUT tagged-products/_doc/1
 {
-  "name": ["ba", "ab", "ac", "ba"]
+  "tags": ["sale", "clearance", "new-arrival", "sale"]
 }
 ```
+{% include copy-curl.html %}
 
 After OpenSearch reconstructs `_source`, the derived `_source` removes duplicates and sorts the values alphabetically:
 
 ```json
 {
-  "name": ["ab", "ac", "ba"]
+  "tags": ["clearance", "new-arrival", "sale"]
 }
 ```
 
 If the field mapping defines a [`null_value`]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/null-value/), any ingested null values are replaced with that value during reconstruction. The following example demonstrates how `null_value` affects derived source output.
 
-Create an index that enables derived source and configures a `null_value` for the `name` field:
+Create an index that enables derived source and configures a `null_value` for the `tags` field:
 
 ```json
-PUT sample-index2
+PUT tagged-products-null
 {
   "settings": {
     "index": {
@@ -243,28 +251,30 @@ PUT sample-index2
   },
   "mappings": {
     "properties": {
-      "name": {
+      "tags": {
         "type": "keyword",
-        "null_value": "foo"
+        "null_value": "untagged"
       }
     }
   }
 }
 ```
+{% include copy-curl.html %}
 
 Index a document with null values into the index:
 
 ```json
-PUT sample-index2/_doc/1
+PUT tagged-products-null/_doc/1
 {
-  "name": [null, "ba", "ab"]
+  "tags": [null, "sale", "clearance"]
 }
 ```
+{% include copy-curl.html %}
 
 After OpenSearch reconstructs `_source`, the derived `_source` replaces null values and sorts the values alphabetically:
 
 ```json
 {
-  "name": ["ab", "ba", "foo"]
+  "tags": ["clearance", "sale", "untagged"]
 }
 ```
