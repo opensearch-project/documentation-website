@@ -159,51 +159,6 @@ Users that have the permission [`restapi:admin/roles`]({{site.url}}{{site.baseur
 Keep in mind that enabling this feature and mapping system index permissions to normal users gives those users access to indexes that may contain sensitive information and configurations essential to a cluster's health. We also recommend caution when mapping users to `restapi:admin/roles` because this permission gives a user not only the ability to assign the system index permission to another user but also the ability to self-assign access to any system index.
 {: .warning }
 
-### `do_not_fail_on_forbidden`
-
-If a user attempts to query multiple indexes, some of which they lack permissions for, by default they get an `error` in OpenSearch Dashboards or an `exception` when using `cURL` or an API. If you instead want the user to receive the search results for any of the indexes for which they _do_ have permissions, you can set the option `do_not_fail_on_forbidden` to `true` in `config.yml`. See the following example:
-
-```
-_meta:
-  type: "config"
-  config_version: 2
-config:
-  dynamic:
-    http:
-      anonymous_auth_enabled: false
-      xff:
-        enabled: false
-        internalProxies: "192\\.168\\.0\\.10|192\\.168\\.0\\.11"
-    do_not_fail_on_forbidden: true
-    authc:
-      basic_internal_auth_domain:
-      ...
-```
-It is important to remember that if this option is set to `true`, then the user is served the data as if it is the complete dataset. There is no indication that some data may be omitted.
-{: .warning }
-
-### `do_not_fail_on_forbidden_empty`
-
-When a user attempts to view a visualization for which they lack index permissions, they will see `error` in place of the visualization. To change this behavior to display `No results displayed because all values equal 0.`, you can set `do_not_fail_on_forbidden_empty` to `true` in `config.yml`. This option is only valid if `do_not_fail_on_forbidden` is also set to `true`. See the following example:
-
-```
-_meta:
-  type: "config"
-  config_version: 2
-config:
-  dynamic:
-    http:
-      anonymous_auth_enabled: false
-      xff:
-        enabled: false
-        internalProxies: "192\\.168\\.0\\.10|192\\.168\\.0\\.11"
-    do_not_fail_on_forbidden: true
-    do_not_fail_on_forbidden_empty: true
-    authc:
-      basic_internal_auth_domain:
-      ...
-```
-
 ## Cluster permissions
 
 These permissions are for the cluster and can't be applied granularly. For example, you either have permissions to take snapshots (`cluster:admin/snapshot/create`) or you don't. The cluster permission, therefore, cannot grant a user privileges to take snapshots of a select set of indexes while preventing the user from taking snapshots of others.

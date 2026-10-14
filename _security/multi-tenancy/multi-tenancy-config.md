@@ -19,7 +19,6 @@ config:
       default_tenant: global tenant
       server_username: kibanaserver
       index: '.kibana'
-    do_not_fail_on_forbidden: false
 ```
 
 | Setting | Description |
@@ -29,7 +28,6 @@ config:
 | `default_tenant` | Use to set the tenant that is available when users log in. |
 | `server_username` | Must match the name of the OpenSearch Dashboards server user in `opensearch_dashboards.yml`. Default is `kibanaserver`. If a different user is configured, then make sure that user is mapped to the `kibana_server` role through the `role_mappings.yml` file in order to give them the appropriate permissions listed in [kibana_server role details]({{site.url}}{{site.baseurl}}/security/multi-tenancy/multi-tenancy-config/#kibana_server-role-details). |
 | `index` | Must match the name of the OpenSearch Dashboards index from `opensearch_dashboards.yml`. Default is `.kibana`. |
-| `do_not_fail_on_forbidden` | When `true`, the Security plugin removes any content that a user is not allowed to see from the search results. When `false`, the plugin returns a security exception. Default is `false`. |
 
 The `opensearch_dashboards.yml` file includes additional settings:
 
