@@ -54,13 +54,13 @@ The following table lists all parameters available for `wildcard` fields.
 
 | Parameter | Description | Default value | Dynamically updatable |
 | :--- | :--- | :--- | :--- |
-| `copy_to` | The name of one or more other fields into which to copy this field's value at index time. | None | Yes |
-| `doc_values` | A Boolean value that specifies whether the field should be stored on disk so that it can be used for aggregations, sorting, or scripting. | `true` | No |
-| `fields` | One or more subfields that index the same value using a different field type. Use a subfield to support operations that the `wildcard` type does not, such as range queries on a `keyword` subfield. | None | Yes |
-| `ignore_above` | An integer value that specifies a maximum string length. Longer strings are neither indexed nor written to doc values, so they do not match any query and do not appear in aggregations. The value remains in `_source`. | `2147483647` | Yes |
-| `meta` | Metadata about the field. OpenSearch stores this metadata and returns it in the mapping but does not use it. | None | Yes |
+| `copy_to` | The name of one or more other fields into which to copy this field's value at index time. For more information, see [Copy to]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/copy-to/). | None | Yes |
+| `doc_values` | A Boolean value that specifies whether the field should be stored on disk so that it can be used for aggregations, sorting, or scripting. For more information, see [Doc values]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/doc-values/). | `true` | No |
+| `fields` | One or more subfields that index the same value using a different field type. Use a subfield to support operations that the `wildcard` type does not, such as range queries on a `keyword` subfield. For more information, see [Fields]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/fields/). | None | Yes |
+| `ignore_above` | An integer value that specifies a maximum string length. Longer strings are neither indexed nor written to doc values, so they do not match any query and do not appear in aggregations. The value remains in `_source`. For more information, see [Ignore above]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/ignore-above/). | `2147483647` | Yes |
+| `meta` | Metadata about the field. OpenSearch stores this metadata and returns it in the mapping but does not use it. For more information, see [Meta]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/meta/). | None | Yes |
 | [`normalizer`]({{site.url}}{{site.baseurl}}/analyzers/normalizers/) | The normalizer used to preprocess values for indexing and search. OpenSearch applies it to both the indexed value and the query, and doc values store the normalized form, while `_source` keeps the original. Use the `lowercase` normalizer to perform case-insensitive matching on the field. | `default` (no normalization) | No |
-| `null_value` | A value to index in place of `null`. Specify it as a string; other JSON types are converted to their string form. If this parameter is not specified, a `null` value is treated as missing and an `exists` query does not match the document. | `null` | No |
+| `null_value` | A value to index in place of `null`. Specify it as a string; other JSON types are converted to their string form. If this parameter is not specified, a `null` value is treated as missing and an `exists` query does not match the document. For more information, see [Null value]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/null-value/). | `null` | No |
 
 ## Storage requirements
 
