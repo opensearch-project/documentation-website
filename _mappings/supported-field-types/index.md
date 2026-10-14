@@ -109,7 +109,7 @@ You can specify data types for your fields when creating a mapping. The followin
 | [`rank_features`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/rank/)                    | Boosts or decreases the relevance score of documents. Used when the list of features is sparse.                                          |
 | [`percolator`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/percolator/)                 | A field that acts as a stored query for reverse search operations.                                                                        |
 | [`star_tree`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/star-tree/)                   | Precomputes aggregations for faster performance using a [star-tree index](https://docs.pinot.apache.org/basics/indexing/star-tree-index). |
-| [`derived`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/derived/)                       | A dynamically generated field computed from other fields using a script.                                                                  |
+| [Derived]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/derived/)                         | A dynamically generated field computed from other fields using a script. Defined in the `derived` object of the mapping or search request, not by a `type` value. |
 
 
 ## Arrays
