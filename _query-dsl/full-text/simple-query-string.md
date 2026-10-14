@@ -41,7 +41,7 @@ Operator | Description
 `*` | When used at the end of a term, signifies a prefix query.
 `"` | Wraps several terms into a phrase (for example, `"wind rises"`).
 `(`, `)` | Wrap a clause for precedence (for example, `wind + (rises | rising)`).
-`~n` | When used after a term (for example, `wnid~3`), sets `fuzziness`. When used after a phrase, sets `slop`. 
+`~n` | When used after a term (for example, `wnid~2`), sets `fuzziness`. For more information, see [Fuzziness]({{site.url}}{{site.baseurl}}/query-dsl/fuzziness/). When used after a phrase, sets `slop`. 
 `-` | Negates the term.
 
 All of the preceding operators are reserved characters. To refer to them as raw characters and not operators, escape any of them with a backslash. When sending a JSON request, use `\\` to escape reserved characters (because the backslash character is itself reserved, you must escape the backslash with another backslash).
