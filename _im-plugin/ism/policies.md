@@ -132,7 +132,7 @@ Parameter | Description | Type | Required
 `min_size` | The minimum size of the total primary shard storage (not counting replicas) required to transition. For example, if you set `min_size` to 100 GiB and your index has 5 primary shards and 5 replica shards of 20 GiB each, the total size of all primary shards is 100 GiB, so your index is transitioned to the next state. | String | No
 `no_alias` | Controls transition based on alias presence. If `true`, transition occurs only when the index has **no aliases**. If `false`, transition occurs only when at least **one alias exists**. | Boolean | No
 `cron` | The `cron` job that triggers the transition if no other transition happens first. | Object | No
-`cron.cron.expression` | The `cron` expression that triggers the transition. For the syntax, see [Cron expressions]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#cron-expressions). | String | Yes
+`cron.cron.expression` | The `cron` expression that triggers the transition. For the syntax, see [Cron expressions]({{site.url}}{{site.baseurl}}/api-reference/cron-expressions/). | String | Yes
 `cron.cron.timezone` | The time zone for the triggering `cron` expression triggers the transition. | String | Yes
 
 All time-based values (`min_index_age`, `min_rollover_age`, `min_state_age`) use [standard OpenSearch time units]({{site.url}}{{site.baseurl}}/api-reference/units/#time-units).
@@ -176,7 +176,7 @@ Note that this condition does not execute at exactly 5:00 PM; the job still exec
 
 A window of an hour, which this example uses, is generally sufficient, but you might increase it to 2 or 3 hours to avoid missing the window and having to wait a week for the transition to occur. Alternately, you could use a broader expression such as `* * * * SAT,SUN` to have the transition occur at any time during the weekend.
 
-For information about writing cron expressions, see [Cron expressions]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#cron-expressions).
+For information about writing cron expressions, see [Cron expressions]({{site.url}}{{site.baseurl}}/api-reference/cron-expressions/).
 
 
 ## Error notifications

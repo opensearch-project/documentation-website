@@ -650,7 +650,7 @@ The [`Fuzziness`](https://github.com/opensearch-project/opensearch-protobufs/blo
 | Field | Protobuf type | Description |
 | :---- | :---- | :---- |
 | `string` | `string` | `AUTO` generates an edit distance based on the length of the term. You can optionally provide `AUTO:[low],[high]`. |
-| `int32` | `int32` | `0`, `1`, or `2`: The maximum allowed [Levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance). |
+| `int32` | `int32` | `0`, `1`, or `2`: The maximum allowed [Damerau–Levenshtein distance](https://en.wikipedia.org/wiki/Damerau–Levenshtein_distance). For more information, see [Fuzziness]({{site.url}}{{site.baseurl}}/query-dsl/fuzziness/). |
 
 #### Rewrite parameter values
 
