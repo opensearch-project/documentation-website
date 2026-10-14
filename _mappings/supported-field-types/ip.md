@@ -50,7 +50,7 @@ PUT testindex/_doc/1
 Query an index for a specific IP address:
 
 ```json
-GET testindex/_doc/1 
+GET testindex/_search
 {
   "query": {
     "term": {
@@ -63,9 +63,9 @@ GET testindex/_doc/1
 
 ## Searching for an IP address and its associated network mask
 
-You can query an index for an IP address in [Classless Inter-Domain Routing (CIDR) notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation). Using CIDR notation, specify the IP address and the prefix length (0–32), separated by `/`. For example, the prefix length of 24 will match all IP addresses with the same initial 24 bits.
+You can query an index for an IP address in [Classless Inter-Domain Routing (CIDR) notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation). Using CIDR notation, specify the IP address and the prefix length, separated by `/`. The prefix length must be between 0 and 32 for IPv4 addresses and between 0 and 128 for IPv6 addresses. For example, a prefix length of 24 matches all IP addresses that share the same first 24 bits.
 
-#### Example query in IPv4 format
+### Example query in IPv4 format
 
 ```json
 GET testindex/_search 
@@ -79,7 +79,7 @@ GET testindex/_search
 ```
 {% include copy-curl.html %}
 
-#### Example query in IPv6 format
+### Example query in IPv6 format
 
 ```json
 GET testindex/_search 
@@ -113,12 +113,12 @@ The following table lists the parameters accepted by `ip` field types. All param
 
 Parameter | Description 
 :--- | :--- 
-`boost` | A floating-point value that specifies the weight of this field toward the relevance score. Values above 1.0 increase the field's relevance. Values between 0.0 and 1.0 decrease the field's relevance. Default is 1.0. Dynamically updatable.
-`doc_values` | A Boolean value that specifies if the field should be stored on disk so that it can be used for aggregations, sorting, or scripting. Default is `true`.
-`ignore_malformed` | A Boolean value that specifies to ignore malformed values and not to throw an exception. Default is `false`. Dynamically updatable.
+`boost` | A floating-point value that specifies the weight of this field toward the relevance score. Values above 1.0 increase the field's relevance. Values between 0.0 and 1.0 decrease the field's relevance. Default is 1.0. Dynamically updatable. For more information, see [Boost]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/boost/).
+`doc_values` | A Boolean value that specifies if the field should be stored on disk so that it can be used for aggregations, sorting, or scripting. Default is `true`. For more information, see [Doc values]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/doc-values/).
+`ignore_malformed` | A Boolean value that specifies to ignore malformed values and not to throw an exception. Default is `false`. Dynamically updatable. For more information, see [Ignore malformed]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/ignore-malformed/).
 `index` | A Boolean value that specifies whether the field should be searchable. Default is `true`. For indexes that use a pluggable data format, the default is `false`, and `true` is not supported. For more information, see [Pluggable data format indexes]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/index-parameter/#pluggable-data-format-indexes).
-[`null_value`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/index#null-value) | A value to be used in place of `null`. Must be of the same type as the field. If this parameter is not specified, the field is treated as missing when its value is `null`. Default is `null`.
-`store` | A Boolean value that specifies whether the field value should be stored and can be retrieved separately from the `_source` field. Default is `false`. 
+[`null_value`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/index#null-value) | A value to be used in place of `null`. Must be an IPv4 or IPv6 address. If this parameter is not specified, the field is treated as missing when its value is `null`. Default is `null`.
+`store` | A Boolean value that specifies whether the field value should be stored and can be retrieved separately from the `_source` field. Default is `false`. For more information, see [Store]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/store/).
 
 ## Derived source
 

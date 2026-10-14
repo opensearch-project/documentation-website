@@ -44,11 +44,11 @@ Parameter | Data type | Description
 `numeric` | Boolean | Whether to sort numeric substrings by numeric value. For example, `item-9` sorts before `item-21`. Default is `false`. Optional.
 `variable_top` | String | Specifies which characters are considered variable for the `alternate` option. Optional.
 `hiragana_quaternary_mode` | Boolean | Whether to distinguish between Katakana and Hiragana at `quaternary` strength. Optional.
-`doc_values` | Boolean | Whether the field should be stored on disk for sorting and aggregations. Default is `true`. Optional.
-`index` | Boolean | Whether the field should be searchable. Default is `true`. Optional.
-`null_value` | String | A string value to substitute for explicit `null` values. Default is `null` (field treated as missing). Optional.
-`store` | Boolean | Whether to store the field value separately from `_source`. Default is `false`. Optional.
-`fields` | Object | Multi-field mappings for indexing the same value in different ways. Optional.
+`doc_values` | Boolean | Whether the field should be stored on disk for sorting and aggregations. Default is `true`. Optional. For more information, see [Doc values]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/doc-values/).
+`index` | Boolean | Whether the field should be searchable. Default is `true`. Optional. For more information, see [Index]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/index-parameter/).
+`null_value` | String | A string value to substitute for explicit `null` values. Default is `null` (field treated as missing). Optional. For more information, see [Null value]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/null-value/).
+`store` | Boolean | Whether to store the field value separately from `_source`. Default is `false`. Optional. For more information, see [Store]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/store/).
+`fields` | Object | Multi-field mappings for indexing the same value in different ways. Optional. For more information, see [Fields]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/fields/).
 
 ## Example: German phone book sorting
 

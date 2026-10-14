@@ -53,5 +53,5 @@ The following table lists the parameters accepted by binary field types. All par
 
 Parameter | Description 
 :--- | :--- 
-`doc_values` | A Boolean value that specifies whether the field should be stored on disk so that it can be used for aggregations, sorting, or scripting. Optional. Default is `false`.
-`store` | A Boolean value that specifies whether the field value should be stored and can be retrieved separately from the `_source` field. Optional. Default is `false`.
+`doc_values` | A Boolean value that specifies whether the field should be stored on disk so that it can be used for aggregations, sorting, or scripting. Optional. Default is `false`. For more information, see [Doc values]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/doc-values/).
+`store` | A Boolean value that specifies whether the field value should be stored and can be retrieved separately from the `_source` field. Optional. Default is `false`. For more information, see [Store]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/store/).
