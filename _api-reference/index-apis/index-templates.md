@@ -11,6 +11,8 @@ has_toc: false
 
 Index template APIs allow you to create and manage templates that automatically apply settings, mappings, and aliases to new indexes that match specific patterns. Templates provide a powerful way to ensure consistency across your indexes.
 
+You can add comments to template request bodies, for example, to explain why a setting is used. For more information, see [Comments in request bodies]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#comments-in-request-bodies).
+
 ## Available APIs
 
 OpenSearch supports the following index template APIs.

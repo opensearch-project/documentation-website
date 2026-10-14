@@ -141,4 +141,6 @@ The following pages provide additional API reference information:
 
 - [Common REST parameters]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/)
 - [Supported units]({{site.url}}{{site.baseurl}}/api-reference/units/)
+- [Index name syntax]({{site.url}}{{site.baseurl}}/api-reference/index-name-syntax/)
+- [Cron expressions]({{site.url}}{{site.baseurl}}/api-reference/cron-expressions/)
 - [Popular APIs]({{site.url}}{{site.baseurl}}/api-reference/popular-api/)
