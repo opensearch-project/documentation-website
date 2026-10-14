@@ -414,9 +414,9 @@ GET /_plugins/_ltr/{nodeId}/stats/{stat}
 Experimental
 {: .label .label-red }
 
-The `TermStatQuery` is in an experimental stage, and the Domain-Specific Language (DSL) may change as the code advances. For stable term-statistic access, see [ExplorerQuery]{.title-ref}.
+The `TermStatQuery` is in an experimental stage, and the Domain-Specific Language (DSL) may change as the code advances. For stable term-statistic access, see [`ExplorerQuery`]({{site.url}}{{site.baseurl}}/search-plugins/ltr/feature-engineering/#getting-raw-term-statistics).
 
-The `TermStatQuery` is a redesigned version of the legacy `ExplorerQuery`. It provides a clearer way to specify terms and offers more flexibility for experimentation. This query surfaces the same data as the [ExplorerQuery]{.title-ref}, but it allows you to specify a custom Lucene expression to retrieve the desired data, such as in the following example:
+The `TermStatQuery` is a redesigned version of the legacy `ExplorerQuery`. It provides a clearer way to specify terms and offers more flexibility for experimentation. This query returns the same data as the `ExplorerQuery` but allows you to specify a custom Lucene expression to retrieve the desired data, such as in the following example:
 
 ```json
 POST tmdb/_search
@@ -460,7 +460,7 @@ Type | Description
 
 Script injection provides the ability to inject term statistics into a scripting context. When working with `ScriptFeatures`, you can pass a `term_stat` object with the `terms`, `fields`, and `analyzer` parameters. An injected variable named `termStats` then provides access to the raw values in your custom script. This enables advanced feature engineering by giving you access to all the underlying data.
 
-To access the count of matched tokens, use [`params.matchCount.get`]{.title-ref}. To access the unique token count, use [`params.uniqueTerms`]{.title-ref}.
+To access the count of matched tokens, use `params.matchCount.get`. To access the unique token count, use `params.uniqueTerms`.
 
 You can either hardcode the `term_stat` parameter in your script definition or pass the parameter to be set at query time. For example, the following example query defines a feature set with a script feature that uses hardcoded `term_stat` parameters:
 
