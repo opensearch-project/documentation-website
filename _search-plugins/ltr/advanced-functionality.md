@@ -416,7 +416,7 @@ Experimental
 
 The `TermStatQuery` is in an experimental stage, and the Domain-Specific Language (DSL) may change as the code advances. For stable term-statistic access, see [`ExplorerQuery`]({{site.url}}{{site.baseurl}}/search-plugins/ltr/feature-engineering/#getting-raw-term-statistics).
 
-The `TermStatQuery` is a redesigned version of the legacy `ExplorerQuery`. It provides a clearer way to specify terms and offers more flexibility for experimentation. This query surfaces the same data as the `ExplorerQuery`, but it allows you to specify a custom Lucene expression to retrieve the desired data, such as in the following example:
+The `TermStatQuery` is a redesigned version of the legacy `ExplorerQuery`. It provides a clearer way to specify terms and offers more flexibility for experimentation. This query returns the same data as the `ExplorerQuery` but allows you to specify a custom Lucene expression to retrieve the desired data, such as in the following example:
 
 ```json
 POST tmdb/_search
