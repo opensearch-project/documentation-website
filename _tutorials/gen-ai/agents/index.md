@@ -20,7 +20,7 @@ flows:
     description: "Learn how to build a powerful <i>plan-execute-reflect</i> agent for solving complex problems"
     list: 
       - "<b>Platform:</b> OpenSearch"
-      - "<b>Model:</b> Anthropic Claude 3.7 Sonnet"  
+      - "<b>Model:</b> Anthropic Claude Sonnet 4.6"  
       - "<b>Deployment:</b> Amazon Bedrock"
 ---
 

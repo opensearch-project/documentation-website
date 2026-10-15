@@ -255,7 +255,7 @@ Register the model, providing its connector ID:
 ```json
 POST /_plugins/_ml/models/_register?deploy=true
 {
-    "name": "Cohere embedding model for INT8 with search_document input type",
+    "name": "Cohere embedding model for INT8 with search_query input type",
     "function_name": "remote",
     "description": "test model",
     "connector_id": "your_connector_id"

@@ -132,7 +132,7 @@ You'll use the `your_iam_user_arn` IAM user to assume the role in Step 4.
         {
             "Effect": "Allow",
             "Action": "es:ESHttpPost",
-            "Resource": "your_opensearch_domain_arn_created"
+            "Resource": "your_opensearch_domain_arn_created/*"
         }
     ]
 }
@@ -150,7 +150,7 @@ Follow these steps to map a backend role:
 3. On the **ml_full_access** role details page, select **Mapped users**, and then select **Manage mapping**. 
 4. Enter the IAM role ARN created in Step 3.1 in the **Backend roles** field, as shown in the following image.
     ![Mapping a backend role]({{site.url}}{{site.baseurl}}/images/vector-search-tutorials/mapping_iam_role_arn.png)
-4. Select **Map**. 
+5. Select **Map**. 
 
 The IAM role is now successfully configured in your OpenSearch cluster.
 
@@ -329,7 +329,8 @@ Log in to OpenSearch Dashboards, open the DevTools console, and run the followin
               "data": [
                 0.02279663,
                 0.014976501,
-                -0.04058838,]
+                -0.04058838,
+                ...]
             }
           ],
           "status_code": 200
@@ -373,7 +374,6 @@ PUT my_index
 {
   "settings": {
     "index": {
-      "knn.space_type": "cosinesimil",
       "default_pipeline": "my_cohere_embedding_pipeline",
       "knn": "true"
     }
@@ -382,7 +382,8 @@ PUT my_index
     "properties": {
       "text_knn": {
         "type": "knn_vector",
-        "dimension": 1024
+        "dimension": 1024,
+        "space_type": "cosinesimil"
       }
     }
   }

@@ -123,7 +123,7 @@ You'll use the `your_iam_user_arn` IAM user to assume the role in Step 3.
         {
             "Effect": "Allow",
             "Action": "es:ESHttpPost",
-            "Resource": "your_opensearch_domain_arn"
+            "Resource": "your_opensearch_domain_arn/*"
         }
     ]
 }
@@ -207,7 +207,7 @@ print(r.text)
 ```
 {% include copy.html %}
 
-For more information, see the [Cohere blueprint](https://github.com/opensearch-project/ml-commons/blob/main/docs/remote_inference_blueprints/cohere_connector_embedding_blueprint.md).
+For more information, see the [Cohere Embed on Amazon Bedrock blueprint](https://github.com/opensearch-project/ml-commons/blob/main/docs/remote_inference_blueprints/bedrock_connector_cohere_cohere.embed-english-v3_blueprint.md).
 
 The script outputs a connector ID:
 
@@ -326,7 +326,7 @@ Follow these steps to configure semantic search.
 
 ### Step 5.1: Create an ingest pipeline
 
-First, create an [ingest pipeline]({{site.url}}{{site.baseurl}}/ingest-pipelines/) that uses the model in Amazon SageMaker to create embeddings from the input text:
+First, create an [ingest pipeline]({{site.url}}{{site.baseurl}}/ingest-pipelines/) that uses the model on Amazon Bedrock to create embeddings from the input text:
 
 ```json
 PUT /_ingest/pipeline/my_bedrock_cohere_embedding_pipeline
@@ -355,7 +355,6 @@ PUT my_index
 {
   "settings": {
     "index": {
-      "knn.space_type": "cosinesimil",
       "default_pipeline": "my_bedrock_cohere_embedding_pipeline",
       "knn": "true"
     }
@@ -364,7 +363,8 @@ PUT my_index
     "properties": {
       "text_knn": {
         "type": "knn_vector",
-        "dimension": 1024
+        "dimension": 1024,
+        "space_type": "cosinesimil"
       }
     }
   }

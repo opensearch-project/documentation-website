@@ -218,7 +218,7 @@ You'll use the `your_iam_user_arn` IAM user to assume the role in Step 3.
         {
             "Effect": "Allow",
             "Action": "es:ESHttpPost",
-            "Resource": "your_opensearch_domain_arn"
+            "Resource": "your_opensearch_domain_arn/*"
         }
     ]
 }
@@ -458,7 +458,6 @@ PUT my_index
 {
   "settings": {
     "index": {
-      "knn.space_type": "cosinesimil",
       "default_pipeline": "my_sagemaker_embedding_pipeline",
       "knn": "true"
     }
@@ -467,7 +466,8 @@ PUT my_index
     "properties": {
       "text_knn": {
         "type": "knn_vector",
-        "dimension": your_sagemake_model_embedding_dimension
+        "dimension": your_sagemaker_model_embedding_dimension,
+        "space_type": "cosinesimil"
       }
     }
   }

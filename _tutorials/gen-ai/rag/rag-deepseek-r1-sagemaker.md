@@ -127,7 +127,7 @@ You'll use the `your_iam_user_arn` IAM user to assume the role in Step 3.
     {
       "Effect": "Allow",
       "Action": "es:ESHttpPost",
-      "Resource": "your_opensearch_domain_arn"
+      "Resource": "your_opensearch_domain_arn/*"
     }
   ]
 }
@@ -308,15 +308,7 @@ Log in to OpenSearch Dashboards, open the DevTools console, and run the followin
             {
               "name": "response",
               "dataAsMap": {
-                "response": [
-                  {
-                    "generated_text": """hello<think>
-
-    </think>
-
-    Hello! How can I assist you today? 😊"""
-                  }
-                ]
+                "completion": "hello<think>\n\n</think>\n\nHello! How can I assist you today? 😊"
               }
             }
           ],
@@ -357,7 +349,56 @@ PUT /_search/pipeline/my-conversation-search-pipeline-deepseek
 
 ### Step 5.2: Create a vector database
 
-Follow steps 1 and 2 of [this tutorial]({{site.url}}{{site.baseurl}}/search-plugins/neural-search-tutorial/) to create an embedding model and a vector index. Then ingest sample data into the index:
+Amazon OpenSearch Service doesn't support local models, so use an externally hosted embedding model. To create one, follow Steps 1--4 of [Semantic search using Amazon Bedrock Titan]({{site.url}}{{site.baseurl}}/tutorials/vector-search/semantic-search/semantic-search-bedrock-titan/).
+
+Create an ingest pipeline that uses the embedding model to generate embeddings from the `text` field:
+
+```json
+PUT /_ingest/pipeline/my-nlp-ingest-pipeline
+{
+  "description": "text embedding pipeline",
+  "processors": [
+    {
+      "text_embedding": {
+        "model_id": "your_embedding_model_id",
+        "field_map": {
+          "text": "passage_embedding"
+        }
+      }
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+Create a vector index that uses the pipeline. The `dimension` must match the embedding model's output dimension, which is 1,536 for the Amazon Bedrock Titan Text Embeddings model:
+
+```json
+PUT /my-nlp-index
+{
+  "settings": {
+    "index": {
+      "default_pipeline": "my-nlp-ingest-pipeline",
+      "knn": "true"
+    }
+  },
+  "mappings": {
+    "properties": {
+      "passage_embedding": {
+        "type": "knn_vector",
+        "dimension": 1536,
+        "space_type": "cosinesimil"
+      },
+      "text": {
+        "type": "text"
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+Ingest sample data into the index:
 
 ```json
 POST _bulk
