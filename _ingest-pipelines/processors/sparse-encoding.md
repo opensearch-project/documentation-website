@@ -42,8 +42,11 @@ The following table lists the required and optional parameters for the `sparse_e
 `field_map.<input_field>` | String | Required | The name of the field from which to obtain text for generating vector embeddings.
 `field_map.<vector_field>`  | String | Required | The name of the vector field in which to store the generated vector embeddings.
 `description`  | String | Optional  | A brief description of the processor.  |
-`tag` | String | Optional | An identifier tag for the processor. Useful for debugging to distinguish between processors of the same type. |
-`batch_size` | Integer | Optional | Specifies the number of documents to be batched and processed each time. Default is `1`. |
+`tag` | String | Optional | An identifier tag for the processor. Useful for debugging to distinguish between processors of the same type. For more information, see [Using processor tags for monitoring and debugging]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#using-processor-tags-for-monitoring-and-debugging). |
+`if` | String containing a Boolean expression | Optional | A condition for running the processor. |
+`ignore_failure` | Boolean | Optional | Specifies whether the processor continues execution even if it encounters an error. If set to `true`, the processor failure is ignored. Default is `false`. |
+`on_failure` | List | Optional | A list of processors to run if the processor fails. |
+`batch_size` | Integer | Optional | Specifies the number of documents to be batched and processed each time. Default is `1`. If you specify `if`, the processor doesn't batch documents and processes them one at a time. |
 `skip_existing` | Boolean | Optional | When `true`, the processor does not make inference calls for fields that already contain embeddings, leaving existing embeddings unchanged. Default is `false`.|
 
 ### Pruning sparse vectors

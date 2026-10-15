@@ -18,6 +18,8 @@ You can use [REST APIs](#rest-apis) for every API operation in OpenSearch. You c
 
 This page lists API families rather than individual operations. To find a specific operation, open the family that owns it and use the list of APIs on its page.
 
+The request examples on API pages omit the host and credentials, so you can paste them into Dev Tools. To learn how to send the same requests using cURL, including the host URL and authentication, see [Communicate with OpenSearch]({{site.url}}{{site.baseurl}}/getting-started/communicate/).
+
 ## REST APIs
 **Introduced 1.0**
 {: .label .label-purple }
