@@ -277,7 +277,7 @@ RAG is a technique that retrieves documents from an index, passes them through a
 The RAG technique supports OpenAI, Amazon Bedrock, and Cohere models. To use another model, set the `llm_response_field` parameter. For more information, see [Step 6: Use the pipeline for RAG](#step-6-use-the-pipeline-for-rag).
 {: .note}
 
-Configuring the Cohere Command model to enable RAG requires using a post-processing function to transform the model output. For more information, see the [Cohere RAG Tutorial](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/tutorials/conversational_search/conversational_search_with_Cohere_Command.md).
+Configuring the Cohere Command model to enable RAG requires using a post-processing function to transform the model output. For more information, see [Conversational search using Cohere Command]({{site.url}}{{site.baseurl}}/tutorials/gen-ai/rag/conversational-search-cohere/).
 
 ### Step 5: Create a conversation memory
 

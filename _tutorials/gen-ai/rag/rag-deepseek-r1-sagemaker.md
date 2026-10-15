@@ -13,6 +13,8 @@ redirect_from:
 
 This tutorial shows you how to implement retrieval-augmented generation (RAG) using [Amazon OpenSearch Service](https://docs.aws.amazon.com/opensearch-service/) and the [DeepSeek-R1 model](https://huggingface.co/deepseek-ai/DeepSeek-R1).
 
+To run the steps in this tutorial from a Jupyter notebook, use [the DeepSeek RAG demo notebook](https://github.com/opensearch-project/ml-commons/blob/main/docs/tutorials/aws/DeepSeek_demo_notebook_for_RAG.ipynb).
+
 If you are using self-managed OpenSearch instead of Amazon OpenSearch Service, create a connector to the DeepSeek-R1 model using [the blueprint](https://github.com/opensearch-project/ml-commons/blob/main/docs/remote_inference_blueprints/deepseek_connector_chat_blueprint.md). For more information about creating a connector, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/). Then go directly to [Step 4](#step-4-create-and-test-the-model).
 
 Replace the placeholders beginning with the prefix `your_` with your own values.

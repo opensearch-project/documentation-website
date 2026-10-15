@@ -17,7 +17,7 @@ If using Python, you can create an OpenAI connector and test the model using the
 
 If using self-managed OpenSearch instead of Amazon OpenSearch Service, create a connector to the OpenAI model using [the blueprint](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/openai_connector_embedding_blueprint.md).
 
-Alternatively, you can set up an embedding model using [the AIConnectorHelper notebook](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/tutorials/aws/AIConnectorHelper.ipynb).
+Alternatively, you can set up an embedding model using [the AIConnectorHelper notebook](https://github.com/opensearch-project/ml-commons/blob/main/docs/tutorials/aws/AIConnectorHelper.ipynb).
 {: .tip}
 
 Replace the placeholders beginning with the prefix `your_` with your own values.
