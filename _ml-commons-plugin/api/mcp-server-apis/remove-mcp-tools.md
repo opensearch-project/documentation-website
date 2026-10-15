@@ -23,7 +23,7 @@ POST /_plugins/_ml/mcp/tools/_remove
 ```json
 POST /_plugins/_ml/mcp/tools/_remove
 [
- "WebSearchTool", "ListIndexTool"
+ "GoogleSearchTool", "ListIndexTool"
 ]
 ```
 {% include copy-curl.html %}

@@ -54,7 +54,7 @@ POST /_plugins/_ml/models/_search
 ```
 {% include copy-curl.html %}
 
-#### Example: Excluding model chunks
+## Example request: Excluding model chunks
 
 ```json
 GET /_plugins/_ml/models/_search
@@ -79,9 +79,9 @@ GET /_plugins/_ml/models/_search
 ```
 {% include copy-curl.html %}
 
-#### Example: Searching for all model chunks
+## Example request: Searching for all model chunks
 
-The following query searches for all chunks of the model with the ID `979y9YwBjWKCe6KgNGTm` and sorts the chunks in ascending order:
+The following query searches for all chunks of the model with the ID `9r9w9YwBjWKCe6KgyGST` and sorts the chunks in ascending order:
 
 ```json
 GET /_plugins/_ml/models/_search
@@ -108,7 +108,7 @@ GET /_plugins/_ml/models/_search
 ```
 {% include copy-curl.html %}
 
-#### Example: Searching for a model by description
+## Example request: Searching for a model by description
 
 ```json
 GET _plugins/_ml/models/_search
@@ -161,9 +161,9 @@ GET _plugins/_ml/models/_search
           "_primary_term" : 15,
           "_score" : 2.4159138,
           "_source" : {
+            "model_version" : "1.0.0",
             "name" : "FIT_RCF",
-            "version" : 1,
-            "content" : "xxx",
+            "model_state" : "TRAINED",
             "algorithm" : "FIT_RCF"
           }
         },
@@ -175,9 +175,9 @@ GET _plugins/_ml/models/_search
           "_primary_term" : 8,
           "_score" : 2.4159138,
           "_source" : {
+            "model_version" : "1.0.0",
             "name" : "FIT_RCF",
-            "version" : 1,
-            "content" : "xxx",
+            "model_state" : "TRAINED",
             "algorithm" : "FIT_RCF"
           }
         }

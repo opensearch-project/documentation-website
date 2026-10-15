@@ -78,11 +78,11 @@ Use the following query parameters to customize your results. All query paramete
 Parameter | Data type | Description
 :--- | :--- | :---
 `max_results` | Integer | The maximum number of results to return. If there are fewer memories than the number set in `max_results`, the response returns only the number of memories that exist. Default is `10`.
-`next_token` | Integer | The index of the first memory in the sorted list of memories to return. Memories are ordered by `create_time`. For example, if memories A, B, and C exist, `next_token=1` returns memories B and C. Default is `0` (return all memories).
+`next_token` | Integer | The index of the first memory in the sorted list of memories to return. Memories are ordered by `updated_time`, starting with the most recently updated memory. For example, if memories A, B, and C exist, `next_token=1` returns memories B and C. Default is `0` (return all memories).
 
 ### Paginating results
 
-The `next_token` parameter provides the ordered position of the first memory within the sorted list of memories to return in the results. When a memory is added between subsequent GET Memory calls, one of the listed memories will be duplicated in the results. For example, suppose the current ordered list of memories is `BCDEF`, where `B` is the memory created most recently. When you call the Get Memory API with `next_token=0` and `max_results=3`, the API returns `BCD`. Suppose you then create another memory A. The memory list now appears as `ABCDEF`. The next time you call the Get Memory API with `next_token=3` and `max_results=3`, you'll receive `DEF` in the results. Notice that `D` will be returned in the first and second batches of results. The following diagram illustrates the duplication.
+The `next_token` parameter provides the ordered position of the first memory within the sorted list of memories to return in the results. When a memory is added between subsequent GET Memory calls, one of the listed memories will be duplicated in the results. For example, suppose the current ordered list of memories is `BCDEF`, where `B` is the memory updated most recently. When you call the Get Memory API with `next_token=0` and `max_results=3`, the API returns `BCD`. Suppose you then create another memory A. The memory list now appears as `ABCDEF`. The next time you call the Get Memory API with `next_token=3` and `max_results=3`, you'll receive `DEF` in the results. Notice that `D` will be returned in the first and second batches of results. The following diagram illustrates the duplication.
 
 Request | List of memories (returned memories are enclosed in brackets) | Results returned in the response
 :--- | :--- | :---
@@ -103,6 +103,7 @@ GET /_plugins/_ml/memory/
 ```json
 GET /_plugins/_ml/memory?max_results=2&next_token=1
 ```
+{% include copy-curl.html %}
 
 ## Example response
 
@@ -116,7 +117,8 @@ GET /_plugins/_ml/memory?max_results=2&next_token=1
       "name": "Conversation for a RAG pipeline",
       "user": "admin"
     }
-  ]
+  ],
+  "next_token": 3
 }
 ```
 
@@ -130,4 +132,6 @@ The following table lists the available response fields.
 | `create_time` | String | The time at which the memory was created. |
 | `updated_time` | String | The time at which the memory was last updated. |
 | `name` | String | The memory name. |
-| `user` | String | The username of the user who created the memory. |
+| `user` | String | The username of the user who created the memory. Present only when the Security plugin is enabled. |
+| `additional_info` | Object | Additional information about the memory. Present only if specified when the memory was created or updated. |
+| `next_token` | Integer | The index of the first memory to return in the next page of results. Present in the Get All Memories response only if more results may exist. |

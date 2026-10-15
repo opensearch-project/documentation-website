@@ -24,7 +24,7 @@ The following table lists the available query parameters.
 
 Parameter | Data type | Required/Optional | Description
 :--- | :--- | :--- | :---
-`size` | Integer | Optional | The maximum number of results to return. Default is `10`.
+`size` | Integer | Optional | The maximum number of results to return. Valid values are 1--1000. Default is `10`.
 `from` | Integer | Optional | The starting index for pagination. Default is `0`.
 
 ## Example request
@@ -46,30 +46,24 @@ GET /_plugins/_ml/context_management?size=20&from=0
 ```json
 {
   "total": 1,
-  "context_management": [
+  "templates": [
     {
       "name": "sliding_window_max_40000_tokens_managers",
       "description": "Context management for truncating tool outputs to prevent input length issues",
       "hooks": {
-        "pre_llm": [
+        "PRE_LLM": [
           {
             "type": "SlidingWindowManager",
             "config": {
-              "max_messages": 8,
-              "activation": {
-                "rule_type": "always"
-              }
+              "max_messages": 8
             }
           }
         ],
-        "post_tool": [
+        "POST_TOOL": [
           {
             "type": "ToolsOutputTruncateManager",
             "config": {
-              "max_output_length": 40000,
-              "activation": {
-                "rule_type": "always"
-              }
+              "max_output_length": 40000
             }
           }
         ]
@@ -80,6 +74,15 @@ GET /_plugins/_ml/context_management?size=20&from=0
   ]
 }
 ```
+
+## Response body fields
+
+The following table lists all response body fields.
+
+Field | Data type | Description
+:--- | :--- | :---
+`total` | Integer | The number of context management configurations returned in this response.
+`templates` | Array | A list of context management configurations. For field descriptions, see [Get Context Management API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/context-management-apis/get-context-management/#response-body-fields).
 
 ## Related documentation
 

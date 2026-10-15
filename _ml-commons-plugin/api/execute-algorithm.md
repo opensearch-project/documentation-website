@@ -12,8 +12,20 @@ Some algorithms, such as [Localization]({{site.url}}{{site.baseurl}}/ml-commons-
 ## Endpoints
 
 ```json
-POST _plugins/_ml/_execute/{algorithm_name}
+POST /_plugins/_ml/_execute/{algorithm_name}
 ```
+
+## Path parameters
+
+The following table lists the available path parameters.
+
+| Parameter | Data type | Description |
+| :--- | :--- | :--- |
+| `algorithm_name` | String | The name of the algorithm to run, for example, `anomaly_localization` or `metrics_correlation`. Required. |
+
+## Request body fields
+
+The request body fields depend on the algorithm. For the fields of each algorithm, see [Localization]({{site.url}}{{site.baseurl}}/ml-commons-plugin/algorithms#localization) and [Metrics correlation]({{site.url}}{{site.baseurl}}/ml-commons-plugin/algorithms#metrics-correlation).
 
 ## Example request: Execute localization 
 

@@ -32,11 +32,11 @@ The response format depends on the task state. Different ML operations (for exam
 
 ### Task in progress
 
-While a task is still running, the response includes task details but excludes the `model_id`:
+While a model registration task is still running, the response includes task details but excludes the `model_id`:
 
 ```json
 {
-  "task_type": "DEPLOY_MODEL",
+  "task_type": "REGISTER_MODEL",
   "function_name": "TEXT_EMBEDDING",
   "state": "CREATED",
   "worker_node": ["KfEEGG7_SsKZVFqI4ko2FA"],
@@ -93,7 +93,9 @@ When a task completes successfully, the response includes the `model_id` and ful
   "function_name" : "KMEANS",
   "state" : "COMPLETED",
   "input_type" : "SEARCH_QUERY",
-  "worker_node" : "54xOe0w8Qjyze00UuLDfdA",
+  "worker_node" : [
+    "54xOe0w8Qjyze00UuLDfdA"
+  ],
   "create_time" : 1647545342556,
   "last_update_time" : 1647545342587,
   "is_async" : true
@@ -115,3 +117,6 @@ The following table lists all response body fields.
 | `last_update_time` | Long | The timestamp of the last status update, in milliseconds since epoch. |
 | `is_async` | Boolean | Whether the task runs asynchronously. Usually `true` for ML tasks. |
 | `input_type` | String | The input type for training tasks (for example, `SEARCH_QUERY`). |
+| `error` | String | The error message. Returned only if the task failed or completed with errors. |
+| `remote_job` | Object | The details of the remote job, such as the job ID and status, returned by the external service. Returned only for batch prediction tasks. |
+| `response` | Object | The agent execution result. Returned only for asynchronous agent execution tasks. |

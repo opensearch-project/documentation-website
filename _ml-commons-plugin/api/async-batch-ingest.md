@@ -23,16 +23,17 @@ Use the Asynchronous Batch Ingestion API to ingest data into your OpenSearch clu
 POST /_plugins/_ml/_batch_ingestion
 ```
 
-#### Request body fields
+## Request body fields
 
 The following table lists the available request fields.
 
 Field | Data type | Required/Optional | Description
-:---  | :--- | :--- 
+:---  | :--- | :--- | :---
 `index_name`| String | Required | The index name. 
 `field_map` | Object | Required | Maps fields from the source file to specific fields in an OpenSearch index for ingestion. 
 `ingest_fields` | Array | Optional | Lists fields from the source file that should be ingested directly into the OpenSearch index without any additional mapping. 
-`credential` | Object | Required | Contains the authentication information for accessing external data sources, such as Amazon S3 or OpenAI.
+`credential` | Object | Optional | Contains the authentication information for accessing external data sources, such as Amazon S3 or OpenAI. Required if `connector_id` is not provided.
+`connector_id` | String | Optional | The ID of a connector whose credentials are used to access the external data source. Used if `credential` is not provided.
 `data_source` | Object | Required | Specifies the type and location of the external file(s) from which the data is ingested.
 `data_source.type` | String | Required | Specifies the type of the external data source. Valid values are `s3` and `openAI`.
 `data_source.source` | Array | Required | Specifies one or more file locations from which the data is ingested. For `s3`, specify the file path to the Amazon S3 bucket (for example, `["s3://offlinebatch/output/sagemaker_batch.json.out"]`). For `openAI`, specify the file IDs for input or output files (for example, `["file-<your output file id>", "file-<your input file id>", "file-<your other file>"]`).

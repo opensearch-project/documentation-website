@@ -65,7 +65,7 @@ While not required for normal usage, you can manually invoke the MCP server usin
 
 #### Step 1 (Optional): Register custom tools
 
-Before connecting to the MCP server, you can register custom tools using the [Register MCP Tools API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/mcp-server-apis/register-mcp-tools/). For example, to register a [List Index tool]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/list-index-tool/), send the following request :
+Before connecting to the MCP server, you can register custom tools using the [Register MCP Tools API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/mcp-server-apis/register-mcp-tools/). For example, to register a [List Index tool]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/list-index-tool/), send the following request:
 
 ```json
 POST /_plugins/_ml/mcp/tools/_register
@@ -75,18 +75,20 @@ POST /_plugins/_ml/mcp/tools/_register
             "name": "ListIndexTool",
             "type": "ListIndexTool",
             "description": "This tool returns information about indices in the OpenSearch cluster along with the index `health`, `status`, `index`, `uuid`, `pri`, `rep`, `docs.count`, `docs.deleted`, `store.size`, `pri.store. size `, `pri.store.size`, `pri.store`. Optional arguments: 1. `indices`, a comma-delimited list of one or more indices to get information from (default is an empty list meaning all indices). Use only valid index names. 2. `local`, whether to return information from the local node only instead of the cluster manager node (Default is false)",
-            "inputSchema": {
-                "type": "object",
-                "properties": {
-                    "indices": {
-                        "type": "array",
-                        "items": {
-                            "type": "string"
-                        },
-                        "description": "OpenSearch index name list, separated by comma. for example: [\"index1\", \"index2\"], use empty array [] to list all indices in the cluster"
-                    }
-                },
-                "additionalProperties": false
+            "attributes": {
+                "input_schema": {
+                    "type": "object",
+                    "properties": {
+                        "indices": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "description": "OpenSearch index name list, separated by comma. for example: [\"index1\", \"index2\"], use empty array [] to list all indices in the cluster"
+                        }
+                    },
+                    "additionalProperties": false
+                }
             }
         }
     ]
@@ -94,12 +96,13 @@ POST /_plugins/_ml/mcp/tools/_register
 ```
 {% include copy-curl.html %}
 
-The server responds with confirmation that the tool was registered:
+For each node, the server responds with the node ID and the registration status:
 
 ```json
-200 OK
 {
-  "message": "Tool 'ListIndexTool' registered successfully"
+  "IxxyJFJkQwabO38--1PrZA": {
+    "created": true
+  }
 }
 ```
 
@@ -263,7 +266,8 @@ The server executes the tool and returns the result in the `content` array. The 
         "text": "row,health,status,index,uuid,pri(number of primary shards),rep(number of replica shards),docs.count(number of available documents),docs.deleted(number of deleted documents),store.size(store size of primary and replica shards),pri.store.size(store size of primary shards)\n1,green,open,.plugins-ml-config,nKyzDAupTGCwuybs9S_iBA,1,0,1,0,3.9kb,3.9kb\n2,green,open,.plugins-ml-mcp-tools,k1QwQKmXSeqRexmB2JDJiw,1,0,1,0,5kb,5kb\n"
       }
     ],
-    "isError": false
+    "isError": false,
+    "_meta": {}
   }
 }
 ```

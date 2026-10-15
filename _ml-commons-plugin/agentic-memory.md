@@ -54,6 +54,7 @@ POST /_plugins/_ml/memory_containers/_create
   "configuration": {
     "embedding_model_type": "TEXT_EMBEDDING",
     "embedding_model_id": "your-embedding-model-id",
+    "embedding_dimension": 1024,
     "llm_id": "your-llm-model-id",
     "strategies": [
       {

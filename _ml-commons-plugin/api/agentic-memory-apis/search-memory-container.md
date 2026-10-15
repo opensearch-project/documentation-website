@@ -55,28 +55,39 @@ GET /_plugins/_ml/memory_containers/_search
     "max_score": 1.0,
     "hits": [
       {
-        "_index": ".plugins-ml-memory-meta",
+        "_index": ".plugins-ml-am-memory-container",
         "_id": "HudqiJkB1SltqOcZusVU",
+        "_version": 1,
+        "_seq_no": 0,
+        "_primary_term": 1,
         "_score": 1.0,
         "_source": {
-          "name": "agentic memory test",
-          "description": "Store conversations with semantic search and summarization",
+          "created_time": 1757956737699,
+          "last_updated_time": 1757956737699,
           "configuration": {
-            "embedding_model_type": "TEXT_EMBEDDING",
             "embedding_model_id": "uXZAtJkBvHNmcp1JAROh",
-            "embedding_dimension": 1024,
-            "llm_id": "aFouy5kBrfmzAZ6R6wo-",
             "strategies": [
               {
+                "namespace": ["user_id"],
+                "id": "semantic_53d1751c",
                 "type": "SEMANTIC",
-                "namespace": ["user_id"]
+                "enabled": true
               }
-            ]
+            ],
+            "max_infer_size": 5,
+            "embedding_dimension": 1024,
+            "index_prefix": "default",
+            "use_system_index": true,
+            "llm_id": "aFouy5kBrfmzAZ6R6wo-",
+            "disable_history": false,
+            "embedding_model_type": "TEXT_EMBEDDING",
+            "disable_session": false
           },
-          "created_time": 1757956737699,
-          "last_updated_time": 1757956737699
+          "name": "agentic memory test",
+          "description": "Store conversations with semantic search and summarization"
         }
-      }
+      },
+      ...
     ]
   }
 }
@@ -84,7 +95,7 @@ GET /_plugins/_ml/memory_containers/_search
 
 ## Response fields
 
-The following table lists all response body fields.
+The response uses the standard OpenSearch search response format. The following table lists the fields in the `_source` object of each element of the `hits` array.
 
 | Field | Data type | Description |
 | :--- | :--- | :--- |
@@ -93,3 +104,4 @@ The following table lists all response body fields.
 | `configuration` | Object | The memory container configuration, including models and strategies. |
 | `created_time` | Long | The timestamp of when the container was created. |
 | `last_updated_time` | Long | The timestamp of when the container was last updated. |
+| `backend_roles` | Array | The backend roles that have access to the container. Present only if backend roles are configured. |

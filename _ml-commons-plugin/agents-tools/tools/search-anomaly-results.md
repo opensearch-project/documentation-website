@@ -26,9 +26,6 @@ POST /_plugins/_ml/agents/_register
   "name": "Test_Agent_For_Search_Anomaly_Results_Tool",
   "type": "flow",
   "description": "this is a test agent for the SearchAnomalyResultsTool",
-  "memory": {
-    "type": "demo"
-  },
   "tools": [
     {
       "type": "SearchAnomalyResultsTool",
@@ -106,10 +103,10 @@ Parameter	| Type | Description
 :--- | :--- | :---
 `detectorId`	| String	| The ID of the detector from which to return results.
 `realTime`	| Boolean | Whether to return real-time anomaly detector results. Set this parameter to `false` to return only historical analysis results.
-`anomalyGradeThreshold` | Float	| The minimum anomaly grade for the returned anomaly detector results. Anomaly grade is a number between 0 and 1 that indicates how anomalous a data point is.
+`anomalyGradeThreshold` | Float	| The minimum anomaly grade for the returned anomaly detector results. Anomaly grade is a number between 0 and 1 that indicates how anomalous a data point is. The tool returns only results whose anomaly grade is greater than this value. Default is `0`.
 `dataStartTime` | Long	| The earliest time for which to return anomaly detector results, in epoch milliseconds.
 `dataEndTime` | Long |	The latest time for which to return anomaly detector results, in epoch milliseconds.
-`sortOrder`	|String | The sort order for the results. Valid values are `asc` (ascending) and `desc` (descending). Default is `desc`. 
+`sortOrder`	|String | The sort order for the results. Valid values are `asc` (ascending) and `desc` (descending). Default is `asc`. 
 `sortString`| String |	Specifies the detector field by which to sort the results. Default is `data_start_time`.
 `size`	| Integer |	The number of results to return. Default is `20`.
 `startIndex`| Integer |	The paginated index of the result to start from. Default is `0`.
