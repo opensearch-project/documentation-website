@@ -27,7 +27,7 @@ When configuring Amazon settings, only change the values mentioned in this tutor
 
 ### Deploy DeepSeek-R1 to Amazon SageMaker
 
-Follow the instructions in [this blog post](https://community.aws/content/2sG84dNUCFzA9z4HdfqTI0tcvKP/deploying-deepseek-r1-on-amazon-sagemaker) to deploy the DeepSeek-R1 model to Amazon SageMaker.
+Follow the instructions in [this blog post](https://builder.aws.com/content/2sG84dNUCFzA9z4HdfqTI0tcvKP/deploying-deepseek-r1-on-amazon-sagemaker) to deploy the DeepSeek-R1-Distill-Qwen-14B model to Amazon SageMaker.
 
 Note the Amazon SageMaker DeepSeek-R1 model Amazon Resource Name (ARN) and URL; you'll use them in the following steps.
 
@@ -428,7 +428,7 @@ GET /my-nlp-index/_search?search_pipeline=my-conversation-search-pipeline-deepse
     "neural": {
       "passage_embedding": {
         "query_text": "What's the population increase of New York City from 2021 to 2023? How is the trending comparing with Miami?",
-        "model_id": "USkHsZQBts7fa6bybx3G",
+        "model_id": "your_embedding_model_id",
         "k": 5
       }
     }
