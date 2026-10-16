@@ -75,8 +75,7 @@ POST /_snapshot/my-s3-repository/my-first-snapshot
 
 response = client.snapshot.create(
   repository = "my-s3-repository",
-  snapshot = "my-first-snapshot",
-  body = { "Insert body here" }
+  snapshot = "my-first-snapshot"
 )
 
 {% endcapture %}
