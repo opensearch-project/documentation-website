@@ -82,8 +82,7 @@ PUT /products-2024/_alias/current-products
 
 response = client.indices.put_alias(
   name = "current-products",
-  index = "products-2024",
-  body = { "Insert body here" }
+  index = "products-2024"
 )
 
 {% endcapture %}
@@ -110,8 +109,7 @@ PUT /sales-q1-2024/_alias/quarterly-2024
 
 response = client.indices.put_alias(
   name = "quarterly-2024",
-  index = "sales-q1-2024",
-  body = { "Insert body here" }
+  index = "sales-q1-2024"
 )
 
 {% endcapture %}

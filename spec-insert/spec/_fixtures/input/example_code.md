@@ -32,6 +32,12 @@ body: |
 
 <!-- spec_insert_start
 component: example_code
+rest: PUT /_settings?expand_wildcards=all
+-->
+<!-- spec_insert_end -->
+
+<!-- spec_insert_start
+component: example_code
 rest: POST /_bulk?expand_wildcards=all
 body: |
 {"index":{"_index":"test","_id":"1"}}

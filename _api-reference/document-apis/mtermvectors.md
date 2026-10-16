@@ -277,8 +277,7 @@ GET /my-index/_mtermvectors?ids=1,2&fields=text
 
 response = client.mtermvectors(
   index = "my-index",
-  params = { "ids": "1,2", "fields": "text" },
-  body = { "Insert body here" }
+  params = { "ids": "1,2", "fields": "text" }
 )
 
 {% endcapture %}
