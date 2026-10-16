@@ -42,7 +42,10 @@ The following table lists the required and optional parameters for the `text_chu
 | `algorithm.<parameters>`	   | Object	   | Optional	 | The parameters for the chunking algorithm. By default, contains the default parameters of the `fixed_token_length` algorithm.	                                                       |
 | `ignore_missing`	           | Boolean	  | Optional	 | If `true`, empty fields are excluded from the output. If `false`, the output will contain an empty list for every empty field. Default is `false`.	                                                        |
 | `description`	              | String	   | Optional	 | A brief description of the processor.                                                                                                                                                |
-| `tag`	                      | String	   | Optional	 | An identifier tag for the processor. Useful when debugging in order to distinguish between processors of the same type.	                                                             |
+| `tag`	                      | String	   | Optional	 | An identifier tag for the processor. Useful when debugging in order to distinguish between processors of the same type. For more information, see [Using processor tags for monitoring and debugging]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#using-processor-tags-for-monitoring-and-debugging).	                                                             |
+| `if` | String containing a Boolean expression | Optional | A condition for running the processor. |
+| `ignore_failure` | Boolean | Optional | Specifies whether the processor continues execution even if it encounters an error. If set to `true`, the processor failure is ignored. Default is `false`. |
+| `on_failure` | List | Optional | A list of processors to run if the processor fails. |
 
 To perform chunking on nested fields, specify `input_field` and `output_field` values as JSON objects. Dot paths of nested fields are not supported. For example, use `"field_map": { "foo": { "bar": "bar_chunk"} }` instead of `"field_map": { "foo.bar": "foo.bar_chunk"}`.
 {: .note}

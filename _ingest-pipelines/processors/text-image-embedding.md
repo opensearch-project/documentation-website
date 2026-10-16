@@ -45,7 +45,10 @@ The following table lists the required and optional parameters for the `text_ima
 `field_map.text` | String | Optional | The name of the field from which to obtain text for generating vector embeddings. You must specify at least one `text` or `image`.
 `field_map.image`  | String | Optional | The name of the field from which to obtain the image for generating vector embeddings. You must specify at least one `text` or `image`.
 `description`  | String | Optional  | A brief description of the processor.  |
-`tag` | String | Optional | An identifier tag for the processor. Useful for debugging to distinguish between processors of the same type. |
+`tag` | String | Optional | An identifier tag for the processor. Useful for debugging to distinguish between processors of the same type. For more information, see [Using processor tags for monitoring and debugging]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#using-processor-tags-for-monitoring-and-debugging). |
+`if` | String containing a Boolean expression | Optional | A condition for running the processor. |
+`ignore_failure` | Boolean | Optional | Specifies whether the processor continues execution even if it encounters an error. If set to `true`, the processor failure is ignored. Default is `false`. |
+`on_failure` | List | Optional | A list of processors to run if the processor fails. |
 `skip_existing` | Boolean | Optional | When `true`, the processor does not make inference calls for fields that already contain embeddings, leaving existing embeddings unchanged. Default is `false`.|
 
 ## Using the processor
