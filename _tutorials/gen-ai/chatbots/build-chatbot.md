@@ -962,3 +962,10 @@ Restart OpenSearch Dashboards and then select the chat icon in the upper-right c
 You can now chat in OpenSearch Dashboards, as shown in the following image.
 
 ![OpenSearch Assistant chat]({{site.url}}{{site.baseurl}}/images/dashboards/os-assistant-chat.png)
+
+## Related documentation
+
+- [OpenSearch Assistant for OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/dashboards-assistant/)
+- [Conversational agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/conversational/)
+- [Register Agent API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/register-agent/)
+- [Vector DB tool]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/vector-db-tool/)

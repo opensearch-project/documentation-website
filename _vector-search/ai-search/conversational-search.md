@@ -487,4 +487,6 @@ The response contains both messages:
 
 ## Next steps
 
-- Explore our [tutorials]({{site.url}}{{site.baseurl}}/vector-search/tutorials/) to learn how to build AI search applications. 
+- Explore our [tutorials]({{site.url}}{{site.baseurl}}/vector-search/tutorials/) to learn how to build AI search applications.
+- For tutorials that configure conversational search using specific models, see [Conversational search using OpenAI]({{site.url}}{{site.baseurl}}/tutorials/gen-ai/rag/conversational-search-openai/), [Conversational search using Anthropic Claude on Amazon Bedrock]({{site.url}}{{site.baseurl}}/tutorials/gen-ai/rag/conversational-search-claude-bedrock/), and [Conversational search using Ollama]({{site.url}}{{site.baseurl}}/tutorials/gen-ai/rag/conversational-search-ollama/).
+- For tutorials that configure RAG using DeepSeek models, see [RAG using the DeepSeek Chat API]({{site.url}}{{site.baseurl}}/tutorials/gen-ai/rag/rag-deepseek-chat/), [RAG using DeepSeek-R1 on Amazon Bedrock]({{site.url}}{{site.baseurl}}/tutorials/gen-ai/rag/rag-deepseek-r1-bedrock/), and [RAG using DeepSeek-R1 in Amazon SageMaker]({{site.url}}{{site.baseurl}}/tutorials/gen-ai/rag/rag-deepseek-r1-sagemaker/).

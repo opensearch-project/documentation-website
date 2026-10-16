@@ -593,4 +593,4 @@ GET _plugins/_search_relevance/judgments/_search
 
 ## Related documentation
 
-- [Automate search relevance evaluation using LLMs]({{site.url}}{{site.baseurl}}/tutorials/llm-as-a-judge-tutorial/)
+- [Using LLM-as-a-Judge for search relevance]({{site.url}}{{site.baseurl}}/tutorials/llm-as-a-judge-tutorial/)

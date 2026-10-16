@@ -296,3 +296,10 @@ POST _bulk
 { "books" : [{"title": "third book", "description": "This is third book"}, {"description": "This is fourth book"}] }
 ```
 {% include copy-curl.html %}
+
+## Related documentation
+
+- [Generating embeddings automatically]({{site.url}}{{site.baseurl}}/vector-search/getting-started/auto-generated-embeddings/)
+- [Text embedding processor]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/text-embedding/)
+- [Nested field type]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/nested/)
+- [Connectors for third-party ML platforms]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/)

@@ -805,3 +805,11 @@ PUT _search/pipeline/ml_inference_pipeline_cohere_search_binary2
 {% include copy-curl.html %}
 
 Then you can use the search pipeline to run a vector search, as described in [Step 4](#step-4-search-the-index).
+
+## Related documentation
+
+- [Memory-optimized vectors]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-memory-optimized/)
+- [Connectors for third-party ML platforms]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/)
+- [ML inference processor]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/ml-inference/)
+- [ML inference search request processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/ml-inference-search-request/)
+- [k-NN query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/k-nn/)

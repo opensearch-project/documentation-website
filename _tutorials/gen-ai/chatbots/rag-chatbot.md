@@ -720,3 +720,10 @@ GET /_plugins/_ml/memory/message/srx5hZkBc62yu84LcN1v/traces
 {% include copy-curl.html %}
 
 The response contains a `traces` array, which lists the steps in the order in which the agent performed them. For steps in which the agent calls the LLM, the `origin` field is `LLM`. For tool calls, the `origin` field contains the tool name, the `input` field contains the tool input that the LLM provided, and the `response` field contains the tool output.
+
+## Related documentation
+
+- [Conversational agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/conversational/)
+- [Execute Agent API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/execute-agent/)
+- [Vector DB tool]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/vector-db-tool/)
+- [Text embedding processor]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/text-embedding/)

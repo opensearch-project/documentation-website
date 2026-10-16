@@ -159,3 +159,10 @@ POST /my_index/_search
 }
 ```
 {% include copy-curl.html %}
+
+## Related documentation
+
+- [Semantic search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/semantic-search/)
+- [Connecting to externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/)
+- [Text embedding processor]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/text-embedding/)
+- [Neural query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/neural/)

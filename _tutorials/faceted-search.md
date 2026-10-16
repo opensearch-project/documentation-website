@@ -1967,7 +1967,7 @@ Similarly, you can aggregate the `Clothing>Shirts` category by specifying `"cate
 
 ## Related documentation
 
-- [Mappings and field types]({{site.url}}{{site.baseurl}}/mappings/)
+- [Mappings]({{site.url}}{{site.baseurl}}/mappings/)
 - [Supported field types]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/)
 - [Query DSL]({{site.url}}{{site.baseurl}}/query-dsl/)
 - [Query and filter context]({{site.url}}{{site.baseurl}}/query-dsl/query-filter-context/)

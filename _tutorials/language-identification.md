@@ -552,3 +552,10 @@ The query matches the Spanish document because the `name_es` field is analyzed u
   }
 }
 ```
+
+## Related documentation
+
+- [ML inference processor]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/ml-inference/)
+- [Language analyzers]({{site.url}}{{site.baseurl}}/analyzers/language-analyzers/)
+- [Multi-match queries]({{site.url}}{{site.baseurl}}/query-dsl/full-text/multi-match/)
+- [Connectors for third-party ML platforms]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/)

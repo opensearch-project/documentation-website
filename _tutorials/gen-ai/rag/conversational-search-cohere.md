@@ -230,3 +230,10 @@ The response contains the model's answer:
   }
 }
 ```
+
+## Related documentation
+
+- [Conversational search with RAG]({{site.url}}{{site.baseurl}}/vector-search/ai-search/conversational-search/)
+- [Retrieval-augmented generation processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rag-processor/)
+- [Connectors for third-party ML platforms]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/)
+- [Memory APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/memory-apis/)

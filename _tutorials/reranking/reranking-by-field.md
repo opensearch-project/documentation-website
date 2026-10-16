@@ -537,3 +537,10 @@ The response contains the hits sorted by relevance score. The `Broadway` documen
   }
 }
 ```
+
+## Related documentation
+
+- [Reranking search results by a field]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/rerank-by-field/)
+- [Rerank processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rerank-processor/)
+- [ML inference search response processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/ml-inference-search-response/)
+- [Connectors for third-party ML platforms]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/)

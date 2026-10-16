@@ -847,3 +847,10 @@ For more information, obtain trace data by calling the [Get Message Traces API](
 GET _plugins/_ml/memory/message/s6IioI0BJhBwrVXYeYOW/traces
 ```
 {% include copy-curl.html %}
+
+## Related documentation
+
+- [Conversational flow agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/conversational-flow/)
+- [Register Agent API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/register-agent/)
+- [Vector DB tool]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/vector-db-tool/)
+- [ML Model tool]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/ml-model-tool/)

@@ -552,3 +552,11 @@ The response includes both the relevant documents retrieved from the vector sear
   }
 }
 ```
+
+## Related documentation
+
+- [Conversational search with RAG]({{site.url}}{{site.baseurl}}/vector-search/ai-search/conversational-search/)
+- [Connectors for third-party ML platforms]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/)
+- [Retrieval-augmented generation processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rag-processor/)
+- [Text embedding processor]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/text-embedding/)
+- [Neural query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/neural/)

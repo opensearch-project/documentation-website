@@ -279,3 +279,10 @@ For improved performance when highlighting multiple documents in production envi
 ## Next steps
 
 For more information about semantic highlighting options and configuration, see [Using the semantic highlighter]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/highlight#the-semantic-highlighter).
+
+## Related documentation
+
+- [Semantic search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/semantic-search/)
+- [Neural query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/neural/)
+- [Text embedding processor]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/text-embedding/)
+- [OpenSearch-provided pretrained models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/)

@@ -602,3 +602,11 @@ payload = {
 {% include copy.html %}
 
 Then register and deploy the model as described in [Step 1.2](#step-12-register-and-deploy-the-model).
+
+## Related documentation
+
+- [Multimodal search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/multimodal-search/)
+- [ML inference processor]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/ml-inference/)
+- [ML inference search request processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/ml-inference-search-request/)
+- [k-NN query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/k-nn/)
+- [Connectors for third-party ML platforms]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/)

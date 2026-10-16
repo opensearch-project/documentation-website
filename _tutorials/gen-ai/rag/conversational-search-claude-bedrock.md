@@ -558,3 +558,10 @@ The response is similar to the one in [Step 1.2](#step-12-configure-rag).
 ### Step 2.3: Configure conversational search
 
 Continue to [Step 1.3](#step-13-configure-conversational-search) to configure conversational search.
+
+## Related documentation
+
+- [Conversational search with RAG]({{site.url}}{{site.baseurl}}/vector-search/ai-search/conversational-search/)
+- [Retrieval-augmented generation processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rag-processor/)
+- [Connectors for third-party ML platforms]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/)
+- [Memory APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/memory-apis/)

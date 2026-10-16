@@ -400,3 +400,9 @@ The response shows that the inappropriate input was blocked:
   "status": 500
 }
 ```
+
+## Related documentation
+
+- [Configuring model guardrails]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/guardrails/)
+- [Connectors for third-party ML platforms]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/)
+- [Create Connector API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/connector-apis/create-connector/)

@@ -501,3 +501,10 @@ description	Optional	String	A description of the ingest pipeline.
   }
 }
 ```
+
+## Related documentation
+
+- [Text chunking]({{site.url}}{{site.baseurl}}/vector-search/ingesting-data/text-chunking/)
+- [Text chunking processor]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/text-chunking/)
+- [ML inference processor]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/ml-inference/)
+- [ML inference search request processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/ml-inference-search-request/)

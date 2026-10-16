@@ -394,3 +394,9 @@ The response contains the top three matching documents:
 ## References
 
 - Wang, Liang, et al. (2024). *Multilingual E5 Text Embeddings: A Technical Report*. arXiv preprint arXiv:2402.05672. [Link](https://arxiv.org/abs/2402.05672)
+
+## Related documentation
+
+- [Semantic search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/semantic-search/)
+- [Neural query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/neural/)
+- [Custom local models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/custom-local-models/)
