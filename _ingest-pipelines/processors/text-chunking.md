@@ -80,6 +80,9 @@ The following table lists the optional parameters for the `fixed_char_length` al
 The default `char_limit` is calculated as `512 (tokens) * 4 (chars) = 2048` because 512 tokens is a common limit for text embedding models. According to [OpenAI](https://platform.openai.com/docs/concepts#tokens), 1 token equals approximately 4 characters of English text.
 {: .note}
 
+The 4-characters-per-token estimate does not apply to Chinese, Japanese, or Korean text, in which 1 token typically covers only 1--2 characters. For example, a 2,048-character chunk of Chinese text contains about 2,000 tokens for the `bert-base-multilingual-uncased` tokenizer and about 1,200 tokens for the XLM-RoBERTa tokenizer. Text embedding models ignore text beyond their token limit without returning an error, so most of such a chunk is not represented in its embedding. For Chinese, Japanese, or Korean text, set `char_limit` to approximately the model's token limit (for example, `500` for a model with a 512-token limit).
+{: .warning}
+
 You can set the `overlap_rate` to a decimal percentage value in the 0--0.5 range, inclusive. As suggested by [Amazon Bedrock](https://aws.amazon.com/blogs/aws/knowledge-bases-now-delivers-fully-managed-rag-experience-in-amazon-bedrock/), we recommend setting this parameter to a value of 0–0.2 to improve accuracy.
 {: .note}
 
