@@ -249,6 +249,7 @@ Select the arrow to view the example response.
           "query_total": 194,
           "query_time_in_millis": 467,
           "query_current": 0,
+          "query_failed": 0,
           "fetch_total": 194,
           "fetch_time_in_millis": 143,
           "fetch_current": 0,
@@ -414,6 +415,18 @@ Select the arrow to view the example response.
           "current_as_source" : 0,
           "current_as_target" : 0,
           "throttle_time_in_millis" : 0
+        },
+        "status_counter" : {
+          "doc_status" : {
+            "success" : 204,
+            "user_error" : 0,
+            "system_failure" : 0
+          },
+          "search_response_status" : {
+            "success" : 92,
+            "user_error" : 3,
+            "system_failure" : 0
+          }
         }
       },
       "os" : {
@@ -1079,9 +1092,18 @@ Field | Field type | Description
 `request_cache.hit_count` | Integer | The number of request cache hits.
 `request_cache.miss_count` | Integer | The number of request cache misses.
 `recovery` | Object | Statistics about recovery operations for the node.
-`recovery.current_as_source` | Integer | The number of recovery operations that have used an index shard as a source.
-`recovery.current_as_target` | Integer | The number of recovery operations that have used an index shard as a target.
-`recovery.throttle_time_in_millis` | Integer | The delay of recovery operations due to throttling, in milliseconds.
+`recovery.current_as_source` | Integer | The number of recovery operations that used an index shard as the source. |
+`recovery.current_as_target` | Integer | The number of recovery operations that used an index shard as the target.
+`recovery.throttle_time_in_millis` | Integer | The total delay of recovery operations due to throttling, in milliseconds.
+`status_counter` | Object | Counts of document write and search responses returned by requests coordinated by this node, grouped by HTTP status class. Counts are kept in memory and reset when the node restarts.
+`status_counter.doc_status` | Object | Counts of document write operations (index, create, update, and delete, including bulk items), grouped by HTTP status class.
+`status_counter.doc_status.success` | Integer | The number of document write operations that returned a `1xx`, `2xx`, or `3xx` status.
+`status_counter.doc_status.user_error` | Integer | The number of document write operations that returned a `4xx` status.
+`status_counter.doc_status.system_failure` | Integer | The number of document write operations that returned a `5xx` status.
+`status_counter.search_response_status` | Object | Counts of search requests, grouped by the HTTP status class of the response.
+`status_counter.search_response_status.success` | Integer | The number of search requests that returned a `1xx`, `2xx`, or `3xx` status. Includes requests that returned partial results because some shards failed.
+`status_counter.search_response_status.user_error` | Integer | The number of search requests that returned a `4xx` status, such as a request for a missing index or a rejected request.
+`status_counter.search_response_status.system_failure` | Integer | The number of search requests that returned a `5xx` status.
 
 ### `os`
 
