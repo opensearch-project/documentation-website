@@ -8,7 +8,7 @@ has_math: true
 
 # Neural sparse ANN search performance tuning
 
-[Neural sparse ANN search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/) offers several parameters that allow you to balance the trade-off between query recall (accuracy) and query efficiency (latency). Query parameters, which you supply in the `method_parameters` object of a query, take effect immediately. Mapping parameters, which you supply in the `method` object of a `sparse_vector` field, are fixed when the field is created.To change `engine` or any value in `method.parameters`, create a new index with the intended mapping and reindex your data.
+[Neural sparse ANN search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/) offers several parameters that allow you to balance the trade-off between query recall (accuracy) and query efficiency (latency). Query parameters, which you supply in the `method_parameters` object of a query, take effect immediately. Mapping parameters, which you supply in the `method` object of a `sparse_vector` field, are fixed when the field is created. To change `engine` or any value in `method.parameters`, create a new index with the intended mapping and reindex your data.
 
 ## Choosing an engine
 **Introduced 3.9**
@@ -32,15 +32,15 @@ These parameters control index construction and memory usage:
 
 - `n_postings`: The maximum number of documents to retain in each posting list.
 
-    A smaller `n_postings` value applies more aggressive pruning, meaning fewer document identifiers are kept in each posting list. Lower values speed up index building and query execution but reduce recall and memory consumption. If not specified, the algorithm calculates the value as $$0.0005 \times \text{document count}$$ at the segment level.
+    A smaller `n_postings` value applies more aggressive pruning, meaning fewer document identifiers are kept in each posting list. Lower values speed up index building and query execution but reduce recall and memory consumption. If not specified, the algorithm calculates the value at the segment level as $$0.0005 \times \text{document count}$$ or `160`, whichever is greater.
 
 - `cluster_ratio`: The fraction of documents in each posting list used to determine the cluster count.
 
-    After pruning, each posting list contains `cluster_ratio × posting_document_count`. Increasing `cluster_ratio` results in more clusters, which improves recall but increases index build time, query latency, and memory usage.
+    After pruning, the documents in each posting list are grouped into `cluster_ratio × posting_document_count` clusters. Increasing `cluster_ratio` results in more clusters, which improves recall but increases index build time, query latency, and memory usage.
 
-- `summary_prune_ratio`: The fraction of tokens to keep in cluster summary vectors for approximate matching.
+- `summary_prune_ratio`: The fraction of the total token weight to keep in cluster summary vectors for approximate matching.
 
-    This parameter controls how many tokens are retained in the `summary` of each cluster. The `summary` helps determine whether to examine a cluster during a query. If embeddings vary widely in token counts, adjust this parameter accordingly. Higher values retain more tokens in the `summary`.
+    This parameter controls how many tokens are retained in the `summary` of each cluster. The highest-weighted tokens are kept until their combined weight reaches this fraction of the summary's total weight. The `summary` helps determine whether to examine a cluster during a query. If embeddings vary widely in token counts, adjust this parameter accordingly. Higher values retain more tokens in the `summary`.
 
 - `approximate_threshold`: The minimum number of documents in a segment required to activate neural sparse ANN search.
 

@@ -65,7 +65,7 @@ The Lucene `sq` encoder supports the following parameters.
 
 Parameter name | Required | Default | Description
 :--- | :--- | :--- | :---
-`bits` | Yes | 1 | The number of bits used to quantize each vector dimension. Valid values are `1`, `2`, `4`, and `7`.
+`bits` | Yes | N/A | The number of bits used to quantize each vector dimension. Valid values are `1`, `2`, `4`, and `7`.
 `confidence_interval` | No | Computed based on vector dimension | The quantile interval used to compute the minimum and maximum values for quantization. Supported for 7-bit quantization only. For more information, see [Confidence interval](#confidence-interval).
 
 The `confidence_interval` parameter is only supported for 7-bit quantization. If you set `bits` to any other value and specify a `confidence_interval`, the request is rejected.

@@ -18,7 +18,9 @@ The k-NN plugin supports the following settings.
 
 The following k-NN plugin settings apply at the cluster level:
 
-- `knn.algo_param.index_thread_qty` (Dynamic, integer): The number of threads used for native library and Lucene library (for OpenSearch version 2.19 and later) index creation. Keeping this value low reduces the CPU impact of the k-NN plugin but also reduces indexing performance. Default is `1` for systems with fewer than 32 CPU cores and `4` for systems with 32 or more cores.
+- `knn.algo_param.index_thread_qty` (Dynamic, integer): The number of threads used for native library and Lucene library (for OpenSearch version 2.19 and later) index creation. Keeping this value low reduces the CPU impact of the k-NN plugin but also reduces indexing performance. Valid values are 1--32. Default is `1` for systems with fewer than 32 CPU cores and `4` for systems with 32 or more cores.
+
+- `knn.vector_streaming_memory.limit` (Dynamic, percentage or byte unit): The maximum amount of memory used for each batch of vectors transferred from the JVM heap to native memory when building native library indexes. The number of vectors in a batch is this limit divided by the size of one vector, with a minimum of one vector. Default is `1%` of the JVM heap.
 
 - `knn.cache.item.expiry.enabled` (Dynamic, Boolean): Whether to remove native library indexes that have not been accessed for a specified period of time from memory. Default is `false`.
 
@@ -37,6 +39,10 @@ The following k-NN plugin settings apply at the cluster level:
 - `knn.model.index.number_of_replicas` (Dynamic, integer): The number of replica shards to use for the model system index. In a multi-node cluster, set this value to at least `1` to increase stability. Default is `1`.
 
 - `knn.model.cache.size.limit` (Dynamic, percentage): The model cache limit, which cannot exceed 25% of the JVM heap. Default is `10%`.
+
+- `knn.quantization.cache.size.limit` (Dynamic, percentage or byte unit): The maximum size of the cache that holds the quantization state of [binary quantized]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/binary-quantization/) fields, which OpenSearch reads from each segment to quantize query vectors. When the cache is full, the least recently used entries are removed. Cannot exceed 10% of the JVM heap. Changing this setting clears the cache. Default is `5%`.
+
+- `knn.quantization.cache.expiry.minutes` (Dynamic, time unit): The amount of time after which an entry that has not been accessed is removed from the quantization state cache. Changing this setting clears the cache. Default is `60m`.
 
 - `knn.faiss.avx2.disabled` (Static, Boolean): Whether to disable the SIMD-based `libopensearchknn_faiss_avx2.so` library and load the non-optimized `libopensearchknn_faiss.so` library for the Faiss engine on machines with x64 architecture. Default is `false`. For more information, see [Single Instruction Multiple Data (SIMD) optimization]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-methods-engines/#simd-optimization).
 
@@ -61,6 +67,8 @@ The following k-NN plugin settings apply at the index level. For information abo
 - `index.knn.advanced.filtered_exact_search_threshold` (Dynamic, integer): The filtered ID threshold at which OpenSearch switches to exact search during filtered ANN search. If the number of filtered IDs in a segment is lower than this value, then exact search is performed on the filtered IDs. Default is `-1`, which applies no threshold.
 
 - `index.knn.faiss.efficient_filter.disable_exact_search` (Dynamic, Boolean): When `true`, disables the exact search fallback that occurs when a Faiss efficient-filtered approximate nearest neighbor (ANN) search returns fewer than `k` results. Default is `false`. For more information, see [Disabling the exact search fallback]({{site.url}}{{site.baseurl}}/vector-search/filter-search-knn/efficient-knn-filtering/#disabling-the-exact-search-fallback).
+
+- `index.knn.disk.vector.shard_level_rescoring_disabled` (Dynamic, Boolean): Applies to searches that [rescore quantized results]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-memory-optimized/#rescoring-quantized-results-to-full-precision), such as searches on [disk-based vector]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/disk-based-vector-search/) indexes. By default, OpenSearch combines the first-pass results from all segments in a shard, keeps only the top results for the shard, and rescores those results. The number of results kept is based on `k` and the oversample factor. When `true`, OpenSearch rescores the top first-pass results from each segment without first reducing them across the shard, which rescores more results. Default is `false`.
 
 - `index.knn.derived_source.enabled` (Static, Boolean): Prevents vectors from being stored in `_source`, reducing disk usage for vector indexes. Default is `true` for an index created with `index.knn` set to `true` and `false` for all other indexes.
 
@@ -125,6 +133,8 @@ The following Neural Search plugin settings apply at the cluster level. Dynamic 
 - `plugins.neural_search.sparse.algo_param.index_thread_qty` (Dynamic, Integer): The number of threads used for building indexes for [neural sparse ANN search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/). Increasing this value allocates more CPUs to the index build job and boosts indexing performance. Valid values are in the range from `1` to `1024`. This setting applies to both the Lucene engine and the native engine. Default is `1`. For more information, see [Thread pool configuration]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/#thread-pool-configuration).
 - `plugins.neural_search.sparse.native_engine_feature_enabled` (Static, Boolean): Whether the [native engine]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/#native-engine) for neural sparse ANN search is available. Because this setting is static, configure it in `opensearch.yml` on each node; changing it requires a node restart. Default is `true`.
 - `plugins.neural_search.sparse.native_engine_enabled` (Dynamic, Boolean): Whether the [native engine]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/#native-engine) for neural sparse ANN search is enabled at runtime. Both this setting and `plugins.neural_search.sparse.native_engine_feature_enabled` must be `true` before a field can use the native engine. Default is `false`. For more information, see [Enabling the native engine]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/#enabling-the-native-engine).
+- `plugins.neural_search.reranker_max_document_fields` (Static, integer): The maximum number of fields that the `context.document_fields` list of a [`rerank` processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rerank-processor/) can contain. A request to create a search pipeline whose `rerank` processor lists more fields is rejected. Default is `50`.
+- `plugins.neural_search.model_selection.model_id.<model_type>.<language_option>` (Dynamic, string): The ID of the deployed model used for a [`semantic` field]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/semantic/#example-selecting-a-model-using-a-cluster-setting) that specifies `model_selection` in place of `model_id`. Replace `<model_type>` with `sparse` or `dense` and `<language_option>` with `english` or `multilingual`, in lowercase, to match the `model_type` and `language_option` values in the field's `model_selection`. For example, `plugins.neural_search.model_selection.model_id.sparse.english` sets the model for fields that use `"model_selection": {"model_type": "sparse", "language_option": "english"}`. If `model_type` or `language_option` is omitted, it defaults to `sparse` or `english`, respectively. OpenSearch reads this setting when you create or update the mapping and stores the resulting `model_id` in the field mapping, so changing the setting later does not affect existing fields. If no model ID is configured for the combination, or if the model's type does not match `model_type`, then the mapping request is rejected. No default value.
 
 No setting bounds the amount of memory that a native engine index uses. The native engine reads its index from a memory-mapped file, so to size a node for the native engine, leave enough RAM for the operating system page cache, the same as for any other memory-mapped Lucene data.
 {: .note}
@@ -133,7 +143,7 @@ No setting bounds the amount of memory that a native engine index uses. The nati
 
 The following Neural Search plugin settings apply at the index level:
 
-- `index.neural_search.semantic_ingest_batch_size` (Dynamic, integer): Specifies the number of documents batched together when generating embeddings for `semantic` fields during ingestion. Default is `10`. 
+- `index.neural_search.semantic_ingest_batch_size` (Dynamic, integer): Specifies the number of documents batched together when generating embeddings for `semantic` fields during ingestion. Valid values are 1--100. Default is `10`. 
 
 - `index.neural_search.hybrid_collapse_distinct_groups_enabled` (Dynamic, Boolean): When `true`, a hybrid query that includes a `collapse` parameter returns the top `size` distinct groups. When `false`, scores match those returned by the same hybrid query when the `collapse` parameter is not provided, but the response can contain fewer than `size` groups. Default is `false`. For more information, see [Returning distinct groups]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/collapse/#returning-distinct-groups).
 

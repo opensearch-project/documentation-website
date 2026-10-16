@@ -9,9 +9,9 @@ nav_order: 20
 
 You can achieve post-filtering with a [Boolean filter](#boolean-filter-with-ann-search) or by providing [the `post_filter` parameter](#the-post_filter-parameter).
 
-### Boolean filter with ANN search
+## Boolean filter with ANN search
 
-A Boolean filter consists of a Boolean query that contains a k-NN query and a filter. For example, the following query searches for hotels that are closest to the specified `location` and then filters the results to return hotels with a rating between 8 and 10, inclusive, that provide parking:
+A Boolean filter consists of a Boolean query that contains a k-NN query and a filter. The following example uses the `hotels-index` created in [Using a Lucene k-NN filter]({{site.url}}{{site.baseurl}}/vector-search/filter-search-knn/efficient-knn-filtering/#using-a-lucene-k-nn-filter). The following query searches for hotels that are closest to the specified `location` and then filters the results to return hotels with a rating between 8 and 10, inclusive, that provide parking:
 
 ```json
 POST /hotels-index/_search
@@ -120,9 +120,9 @@ The response includes documents containing the matching hotels:
 }
 ```
 
-### The post_filter parameter
+## The post_filter parameter
 
-If you use the `knn` query alongside filters or other clauses (for example, `bool`, `must`, `match`), you might receive fewer than `k` results. In this example, `post_filter` reduces the number of results from 2 to 1:
+If you use the `knn` query alongside filters or other clauses (for example, `bool`, `must`, `match`), you might receive fewer than `k` results. The following example uses the `my-knn-index-1` index created in [Approximate k-NN search]({{site.url}}{{site.baseurl}}/vector-search/vector-search-techniques/approximate-knn/). In this example, `post_filter` reduces the number of results from 2 to 1:
 
 ```json
 GET my-knn-index-1/_search

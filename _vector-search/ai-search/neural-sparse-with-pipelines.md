@@ -26,7 +26,7 @@ Neural sparse search works as follows:
     - **Bi-encoder mode**: A sparse encoding model generates sparse vector embeddings from both documents and query text. This approach provides better search relevance at the cost of an increase in latency. 
 
 We recommend using the default doc-only mode with a DL analyzer because it provides the best balance of performance and relevance for most use cases. 
-{: tip} 
+{: .tip}
 
 The default doc-only mode with an analyzer works as follows:
 
@@ -122,7 +122,7 @@ The following example request creates an ingest pipeline where the text from `pa
 ```json
 PUT /_ingest/pipeline/nlp-ingest-pipeline-sparse
 {
-  "description": "An sparse encoding ingest pipeline",
+  "description": "A sparse encoding ingest pipeline",
   "processors": [
     {
       "sparse_encoding": {
@@ -269,7 +269,7 @@ The response contains the matching documents:
 
 ```json
 {
-  "took" : 688,
+  "took" : 105,
   "timed_out" : false,
   "_shards" : {
     "total" : 1,
@@ -282,39 +282,25 @@ The response contains the matching documents:
       "value" : 2,
       "relation" : "eq"
     },
-    "max_score" : 30.0029,
+    "max_score" : 6.437132,
     "hits" : [
       {
         "_index" : "my-nlp-index",
         "_id" : "1",
-        "_score" : 30.0029,
+        "_score" : 6.437132,
         "_source" : {
           "passage_text" : "Hello world",
           "passage_embedding" : {
-            "!" : 0.8708904,
-            "door" : 0.8587369,
-            "hi" : 2.3929274,
-            "worlds" : 2.7839446,
-            "yes" : 0.75845814,
-            "##world" : 2.5432441,
-            "born" : 0.2682308,
-            "nothing" : 0.8625516,
-            "goodbye" : 0.17146169,
-            "greeting" : 0.96817183,
-            "birth" : 1.2788506,
-            "come" : 0.1623208,
-            "global" : 0.4371151,
-            "it" : 0.42951578,
-            "life" : 1.5750692,
-            "thanks" : 0.26481047,
-            "world" : 4.7300377,
-            "tiny" : 0.5462298,
-            "earth" : 2.6555297,
-            "universe" : 2.0308156,
-            "worldwide" : 1.3903781,
-            "hello" : 6.696973,
-            "so" : 0.20279501,
-            "?" : 0.67785245
+            "hi" : 0.5843912,
+            "worlds" : 0.57605296,
+            "##world" : 0.48402736,
+            "greeting" : 0.43309903,
+            "world" : 0.9972398,
+            "hey" : 0.5850294,
+            "welcome" : 0.4868787,
+            "earth" : 0.5179636,
+            "hello" : 0.86150604,
+            ...
           },
           "id" : "s1"
         }
@@ -322,16 +308,20 @@ The response contains the matching documents:
       {
         "_index" : "my-nlp-index",
         "_id" : "2",
-        "_score" : 16.480486,
+        "_score" : 5.063226,
         "_source" : {
           "passage_text" : "Hi planet",
           "passage_embedding" : {
-            "hi" : 4.338913,
-            "planets" : 2.7755864,
-            "planet" : 5.0969057,
-            "mars" : 1.7405145,
-            "earth" : 2.6087382,
-            "hello" : 3.3210192
+            "hi" : 0.80576324,
+            "jupiter" : 0.35613275,
+            "world" : 0.26026982,
+            "planets" : 0.727188,
+            "hey" : 0.51329255,
+            "planet" : 0.91059506,
+            "planetary" : 0.4176535,
+            "earth" : 0.30087247,
+            "hello" : 0.58877665,
+            ...
           },
           "id" : "s2"
         }
@@ -435,9 +425,9 @@ Using a `semantic` field simplifies neural sparse search configuration. To use a
 
 ### Step 1: Register and deploy a sparse encoding model
 
-First, register and deploy a sparse encoding model as described in [Step 1](#step-1-register-and-deploy-a-sparse-encoding-model).
+First, register and deploy a sparse encoding model as described in [Step 1](#step-1-configure-a-sparse-encoding-model-for-ingestion).
 
-## Step 2: Create an index with a semantic field for ingestion
+### Step 2: Create an index with a semantic field for ingestion
 
 The sparse encoding model configured in the previous step is used at ingestion time to generate sparse vector embeddings. When using a `semantic` field, set the `model_id` to the ID of the model used for ingestion. For doc-only mode, you can additionally specify the model to be used at query time by providing its ID in the `search_model_id` field.
 
@@ -467,6 +457,12 @@ After creating the index, you can retrieve its mapping to verify that the embedd
 
 ```json
 GET /my-nlp-index/_mapping
+```
+{% include copy-curl.html %}
+
+The response contains the automatically created fields:
+
+```json
 {
    "my-nlp-index": {
       "mappings": {
@@ -517,7 +513,6 @@ GET /my-nlp-index/_mapping
    }
 }
 ```
-{% include copy-curl.html %}
 
 An object field named `passage_text_semantic_info` is automatically created. It includes a `rank_features` subfield for storing the embedding, along with additional text fields for capturing model metadata.
 
@@ -543,10 +538,16 @@ PUT /my-nlp-index/_doc/2
 ```
 {% include copy-curl.html %}
 
-Before a document is ingested into the index, OpenSearch automatically chunks the text and generates sparse vector embeddings for each chunk. To verify that the embedding is generated properly, you can run a search request to retrieve the document:
+Before a document is ingested into the index, OpenSearch automatically chunks the text and generates sparse vector embeddings for each chunk. To verify that the embedding is generated properly, retrieve the document:
 
 ```json
 GET /my-nlp-index/_doc/1
+```
+{% include copy-curl.html %}
+
+The response contains the generated embedding:
+
+```json
 {
    "_index": "my-nlp-index",
    "_id": "1",
@@ -561,7 +562,7 @@ GET /my-nlp-index/_doc/1
             {
                "text": "Hello world",
                "embedding": {
-                  "hi": 0.5843902,
+                  "hi": 0.5843912,
                   ...
                }
             }
@@ -576,9 +577,8 @@ GET /my-nlp-index/_doc/1
    }
 }
 ```
-{% include copy-curl.html %}
 
-## Step 3: Search the data
+### Step 4: Search the data
 
 To search the embeddings of the semantic field, use the `neural` query clause in [Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index/) queries.
 
