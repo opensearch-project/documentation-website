@@ -132,7 +132,7 @@ The following example uses a sparse encoding processor to perform text chunking.
 
 ### Step 1: Create a pipeline
 
-The following example request creates an ingest pipeline that converts the text in the `passage_text` field into chunked passages, which will be stored in the `passage_chunk` field. The text in the `passage_chunk` field is then converted into text embeddings, and the embeddings are stored in the `passage_chunk_embedding` field:
+The following example request creates an ingest pipeline that converts the text in the `passage_text` field into chunked passages, which will be stored in the `passage_chunk` field. The text in the `passage_chunk` field is then converted into sparse embeddings, and the embeddings are stored in the `passage_chunk_embedding` field:
 
 ```json
 PUT _ingest/pipeline/text-chunking-embedding-ingest-pipeline
@@ -204,7 +204,7 @@ PUT /testindex
   },
   "mappings": {
     "properties": {
-      "text": {
+      "passage_text": {
         "type": "text"
       },
       "passage_chunk_embedding": {

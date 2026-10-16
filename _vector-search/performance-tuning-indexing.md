@@ -54,7 +54,21 @@ During indexing, vector search builds a specialized data structure for a `knn_ve
     PUT /test-index/
     {
       "settings": {
+        "index.knn": true,
         "index.knn.advanced.approximate_threshold": "-1"
+      },
+      "mappings": {
+        "properties": {
+          "my_vector1": {
+            "type": "knn_vector",
+            "dimension": 2,
+            "method": {
+              "name": "hnsw",
+              "space_type": "l2",
+              "engine": "faiss"
+            }
+          }
+        }
       }
     }
     ```
@@ -104,3 +118,6 @@ During indexing, vector search builds a specialized data structure for a `knn_ve
     {% include copy-curl.html %}
 
     After the force merge, new search requests will execute approximate k-NN search using the newly created data structures.
+
+    A force merge does not rewrite a shard that already contains a single segment, so vector data structures are not built for that segment. In this case, reindex the data after setting `index.knn.advanced.approximate_threshold` to `0`.
+    {: .note}

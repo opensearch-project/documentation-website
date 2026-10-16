@@ -122,25 +122,25 @@ Even though all three vectors nearest to the query vector are in document 1, the
           "nested_field": [
             {
               "my_vector": [
-                1,
-                1,
-                1
+                1.0,
+                1.0,
+                1.0
               ],
               "color": "blue"
             },
             {
               "my_vector": [
-                2,
-                2,
-                2
+                2.0,
+                2.0,
+                2.0
               ],
               "color": "yellow"
             },
             {
               "my_vector": [
-                3,
-                3,
-                3
+                3.0,
+                3.0,
+                3.0
               ],
               "color": "white"
             }
@@ -155,25 +155,25 @@ Even though all three vectors nearest to the query vector are in document 1, the
           "nested_field": [
             {
               "my_vector": [
-                10,
-                10,
-                10
+                10.0,
+                10.0,
+                10.0
               ],
               "color": "red"
             },
             {
               "my_vector": [
-                20,
-                20,
-                20
+                20.0,
+                20.0,
+                20.0
               ],
               "color": "green"
             },
             {
               "my_vector": [
-                30,
-                30,
-                30
+                30.0,
+                30.0,
+                30.0
               ],
               "color": "black"
             }
@@ -389,7 +389,7 @@ The response contains all matching documents:
                   "_score": 0.25,
                   "fields": {
                     "nested_field.color": [
-                      "blue"
+                      "yellow"
                     ]
                   }
                 },
@@ -435,7 +435,7 @@ The response contains all matching documents:
                   "_score": 0.0040983604,
                   "fields": {
                     "nested_field.color": [
-                      "blue"
+                      "red"
                     ]
                   }
                 },
@@ -449,7 +449,7 @@ The response contains all matching documents:
                   "_score": 9.2250924E-4,
                   "fields": {
                     "nested_field.color": [
-                      "yellow"
+                      "green"
                     ]
                   }
                 },
@@ -463,7 +463,7 @@ The response contains all matching documents:
                   "_score": 3.9619653E-4,
                   "fields": {
                     "nested_field.color": [
-                      "white"
+                      "black"
                     ]
                   }
                 }
@@ -486,7 +486,7 @@ The following example applies a filter to a top-level field.
 First, create a vector index with a nested field:
 
 ```json
-PUT my-knn-index-1
+PUT my-knn-index-2
 {
   "settings": {
     "index": {
@@ -523,11 +523,11 @@ After you create the index, add some data to it:
 
 ```json
 PUT _bulk?refresh=true
-{ "index": { "_index": "my-knn-index-1", "_id": "1" } }
+{ "index": { "_index": "my-knn-index-2", "_id": "1" } }
 {"parking": false, "nested_field":[{"my_vector":[1,1,1]},{"my_vector":[2,2,2]},{"my_vector":[3,3,3]}]}
-{ "index": { "_index": "my-knn-index-1", "_id": "2" } }
+{ "index": { "_index": "my-knn-index-2", "_id": "2" } }
 {"parking": true, "nested_field":[{"my_vector":[10,10,10]},{"my_vector":[20,20,20]},{"my_vector":[30,30,30]}]}
-{ "index": { "_index": "my-knn-index-1", "_id": "3" } }
+{ "index": { "_index": "my-knn-index-2", "_id": "3" } }
 {"parking": true, "nested_field":[{"my_vector":[100,100,100]},{"my_vector":[200,200,200]},{"my_vector":[300,300,300]}]}
 ```
 {% include copy-curl.html %}
@@ -535,7 +535,7 @@ PUT _bulk?refresh=true
 Then run a vector search on the data using the `knn` query type with a filter. The following query returns documents whose `parking` field is set to `true`:
 
 ```json
-GET my-knn-index-1/_search
+GET my-knn-index-2/_search
 {
   "query": {
     "nested": {
@@ -583,7 +583,7 @@ Even though all three vectors nearest to the query vector are in document 1, the
     "max_score": 0.0040983604,
     "hits": [
       {
-        "_index": "my-knn-index-1",
+        "_index": "my-knn-index-2",
         "_id": "2",
         "_score": 0.0040983604,
         "_source": {
@@ -591,30 +591,30 @@ Even though all three vectors nearest to the query vector are in document 1, the
           "nested_field": [
             {
               "my_vector": [
-                10,
-                10,
-                10
+                10.0,
+                10.0,
+                10.0
               ]
             },
             {
               "my_vector": [
-                20,
-                20,
-                20
+                20.0,
+                20.0,
+                20.0
               ]
             },
             {
               "my_vector": [
-                30,
-                30,
-                30
+                30.0,
+                30.0,
+                30.0
               ]
             }
           ]
         }
       },
       {
-        "_index": "my-knn-index-1",
+        "_index": "my-knn-index-2",
         "_id": "3",
         "_score": 3.400898E-5,
         "_source": {
@@ -622,23 +622,23 @@ Even though all three vectors nearest to the query vector are in document 1, the
           "nested_field": [
             {
               "my_vector": [
-                100,
-                100,
-                100
+                100.0,
+                100.0,
+                100.0
               ]
             },
             {
               "my_vector": [
-                200,
-                200,
-                200
+                200.0,
+                200.0,
+                200.0
               ]
             },
             {
               "my_vector": [
-                300,
-                300,
-                300
+                300.0,
+                300.0,
+                300.0
               ]
             }
           ]

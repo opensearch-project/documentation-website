@@ -19,7 +19,7 @@ Because the scoring script approach executes a brute force search, it doesn't sc
 
 Similarly to approximate nearest neighbor (ANN) search, in order to use the scoring script on a body of vectors, you must first create an index with one or more `knn_vector` fields.
 
-If you intend to only use the scoring script approach (and not the approximate approach), you can set `index.knn` to `false` and not set `index.knn.space_type`. You can choose the space type during search. For the spaces that the k-NN scoring script supports, see [Spaces]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-spaces/).
+If you intend to only use the scoring script approach (and not the approximate approach), you can set `index.knn` to `false`. You can choose the space type during search. For the spaces that the k-NN scoring script supports, see [Spaces]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-spaces/).
 
 This example creates an index with two `knn_vector` fields:
 
