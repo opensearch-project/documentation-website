@@ -230,6 +230,7 @@ For more information, see pull request [#9813](https://github.com/opensearch-pro
 ### ML Commons plugin
 
 - The `CatIndexTool` is removed in favor of the `ListIndexTool`.
+- The Asynchronous Batch Ingestion API (`POST /_plugins/_ml/_batch_ingestion`) is removed. For similar functionality, use [OpenSearch Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/). For more information, see pull request [#3688](https://github.com/opensearch-project/ml-commons/pull/3688).
 
 ### Romanian analysis
 
