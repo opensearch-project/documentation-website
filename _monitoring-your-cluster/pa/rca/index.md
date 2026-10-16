@@ -11,6 +11,9 @@ redirect_from:
 
 # Root cause analysis
 
+The Performance Analyzer root cause analysis (RCA) agent has been removed. The agent served the Performance Analyzer API on port 9600, so the metrics, batch metrics, and RCA APIs and PerfTop dashboards described in this section are not available. To collect cluster performance metrics, use the [metrics framework]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/metrics/getting-started/). For more information, see [Breaking changes]({{site.url}}{{site.baseurl}}/breaking-changes/#performance-analyzer-plugin).
+{: .warning}
+
 The OpenSearch Performance Analyzer plugin (PA) captures OpenSearch and JVM activity, plus their lower-level resource usage (e.g. disk, network, CPU, and memory). Based on this instrumentation, Performance Analyzer computes and exposes diagnostic metrics so that administrators can measure and understand the bottlenecks in their OpenSearch clusters.
 
 The Root Cause Analysis framework (RCA) uses the information from PA to alert administrators about the root cause of performance and availability issues that their clusters might be experiencing.

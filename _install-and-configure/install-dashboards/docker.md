@@ -21,7 +21,7 @@ Install OpenSearch using Docker. For more information, see [Installing OpenSearc
 If you have defined your network using `docker network create os-net` and started OpenSearch using the following command:
 
 ```bash
-docker run -d --name opensearch-node -p 9200:9200 -p 9600:9600 --network os-net -e "discovery.type=single-node" -e "OPENSEARCH_INITIAL_ADMIN_PASSWORD=<admin_password>" opensearchproject/opensearch:latest
+docker run -d --name opensearch-node -p 9200:9200 --network os-net -e "discovery.type=single-node" -e "OPENSEARCH_INITIAL_ADMIN_PASSWORD=<admin_password>" opensearchproject/opensearch:latest
 ```
 {% include copy.html %}
 

@@ -11,6 +11,9 @@ redirect_from:
 
 # Performance Analyzer
 
+The Performance Analyzer root cause analysis (RCA) agent has been removed. The agent served the Performance Analyzer API on port 9600, so the metrics, batch metrics, and RCA APIs and PerfTop dashboards described in this section are not available. To collect cluster performance metrics, use the [metrics framework]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/metrics/getting-started/). For more information, see [Breaking changes]({{site.url}}{{site.baseurl}}/breaking-changes/#performance-analyzer-plugin).
+{: .warning}
+
 Performance Analyzer is a plugin that contains an agent and REST API that allow you to query numerous cluster performance metrics, including aggregations of those metrics. 
 
 The Performance Analyzer plugin is installed by default in OpenSearch versions 2.0 and later. If you want to use OpenSearch 2.0 or later with Performance Analyzer disabled, see [Disable Performance Analyzer](#disable-performance-analyzer).
