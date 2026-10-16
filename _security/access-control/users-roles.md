@@ -225,6 +225,7 @@ The following table lists the demo roles that are created by default if the `rol
 | `ml_read_access` | Grants permissions to view ML configuration, stats, models, and tasks without modifying them. |
 | `notifications_full_access`| Grants full permissions to perform all Notifications actions. |
 | `notifications_read_access`| Grants permissions to view Notifications configuration/channels and features but not modify them. |
+| `notifications_send_access`| Grants permissions to send messages through existing Notifications channels and to view channels and features, but not to create, modify, or delete channels. |
 | `point_in_time_full_access`| Grants full permissions to perform all Point-in-Time operations.|
 | `reports_instances_read_access`| Grants permissions to generate on-demand reports and download existing report instances but not to view/create report definitions. |
 | `security_analytics_ack_alerts`| Grants permissions to view and acknowledge Security Analytics alerts. |
