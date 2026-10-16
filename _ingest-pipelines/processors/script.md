@@ -13,13 +13,11 @@ The following is the syntax for the `script` processor:
 
 ```json
 {
-  "processor": {
-    "script": {
-      "source": "<script_source>",
-      "lang": "<script_language>",
-      "params": {
-        "<param_name>": "<param_value>"
-      }
+  "script": {
+    "source": "<script_source>",
+    "lang": "<script_language>",
+    "params": {
+      "<param_name>": "<param_value>"
     }
   }
 }
@@ -40,7 +38,7 @@ The following table lists the required and optional parameters for the `script` 
 `if` | Optional | Specifies to conditionally execute the processor.
 `ignore_failure` | Optional | Specifies to ignore processor failures. See [Handling pipeline failures]({{site.url}}{{site.baseurl}}/ingest-pipelines/pipeline-failures/).
 `on_failure` | Optional | Specifies a list of processors to run if the processor fails during execution. These processors are executed in the order they are specified. See [Handling pipeline failures]({{site.url}}{{site.baseurl}}/ingest-pipelines/pipeline-failures/).
-`tag` | Optional | An identifier tag for the processor. Useful for debugging in order to distinguish between processors of the same type.
+`tag` | Optional | An identifier tag for the processor. Useful for debugging in order to distinguish between processors of the same type. For more information, see [Using processor tags for monitoring and debugging]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#using-processor-tags-for-monitoring-and-debugging).
 
 ## Using the processor
 
@@ -110,14 +108,13 @@ The following example response confirms that the pipeline is working as expected
   ]
 }
 ```
-{% include copy-curl.html %}
 
 ### Step 3: Ingest a document 
 
 The following query ingests a document into an index named `testindex1`:
 
 ```json
-POST testindex1/_doc?pipeline=my-script-pipeline
+PUT testindex1/_doc/1?pipeline=my-script-pipeline
 {
   "message": "hello, world!"
 }
@@ -143,7 +140,6 @@ The response confirms that the document has been indexed into `testindex1` and h
   "_primary_term": 2
 }
 ```
-{% include copy-curl.html %}
 
 ### Step 4 (Optional): Retrieve the document
 
@@ -153,3 +149,61 @@ To retrieve the document, run the following query:
 GET testindex1/_doc/1
 ```
 {% include copy-curl.html %}
+
+## Using parameters and modifying metadata
+
+In the script, the `ctx` variable provides access to the document fields and metadata fields, such as `_index`. Parameters passed in `params` are available in the script as `params.<name>`. When values are passed as parameters, the script source stays the same as the values change, so OpenSearch can reuse the compiled script. For more information, see [How to use scripts]({{site.url}}{{site.baseurl}}/scripting/using-scripts/).
+
+The following request calculates a total price using a discount passed as a parameter and changes the target index of the document:
+
+```json
+POST _ingest/pipeline/_simulate
+{
+  "pipeline": {
+    "processors": [
+      {
+        "script": {
+          "source": "ctx.total_price = ctx.unit_price * ctx.quantity * (1 - params.discount); ctx._index = params.target_index;",
+          "params": {
+            "discount": 0.1,
+            "target_index": "orders-processed"
+          }
+        }
+      }
+    ]
+  },
+  "docs": [
+    {
+      "_index": "orders-raw",
+      "_source": {
+        "unit_price": 20.0,
+        "quantity": 3
+      }
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+The response shows the calculated `total_price` and the changed `_index`:
+
+```json
+{
+  "docs": [
+    {
+      "doc": {
+        "_index": "orders-processed",
+        "_id": "_id",
+        "_source": {
+          "quantity": 3,
+          "unit_price": 20.0,
+          "total_price": 54.0
+        },
+        "_ingest": {
+          "timestamp": "2026-10-14T20:10:38.9908023Z"
+        }
+      }
+    }
+  ]
+}
+```
