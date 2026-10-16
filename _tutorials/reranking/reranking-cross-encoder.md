@@ -21,6 +21,8 @@ Replace the placeholders beginning with the prefix `your_` with your own values.
 
 Before you start, deploy the model on Amazon SageMaker. For better performance, use a GPU.
 
+The deployment code uses version 2.x of the SageMaker Python SDK. To install it, run `pip install "sagemaker<3"`. The `sagemaker.get_execution_role()` call works only in a SageMaker notebook. If you run the code elsewhere, replace it with the Amazon Resource Name (ARN) of your SageMaker execution role.
+
 Run the following code to deploy the model on [Amazon SageMaker](https://aws.amazon.com/pm/sagemaker):
 
 ```python
@@ -69,7 +71,7 @@ POST /_plugins/_ml/connectors/_create
     "session_token": "your_session_token"
   },
   "parameters": {
-    "region": "your_sagemkaer_model_region_like_us-west-2",
+    "region": "your_sagemaker_model_region_like_us-west-2",
     "service_name": "sagemaker"
   },
   "actions": [
@@ -94,7 +96,7 @@ If you are using Amazon OpenSearch service, you can provide an AWS Identity and 
 ```json
 POST /_plugins/_ml/connectors/_create
 {
-  "name": "Sagemakre cross-encoder model",
+  "name": "Sagemaker cross-encoder model",
   "description": "Test connector for Sagemaker cross-encoder model",
   "version": 1,
   "protocol": "aws_sigv4",
@@ -102,7 +104,7 @@ POST /_plugins/_ml/connectors/_create
     "roleArn": "your_role_arn_which_allows_access_to_sagemaker_model_inference_endpoint"
   },
   "parameters": {
-    "region": "your_sagemkaer_model_region_like_us-west-2",
+    "region": "your_sagemaker_model_region_like_us-west-2",
     "service_name": "sagemaker"
   },
   "actions": [
@@ -122,7 +124,7 @@ POST /_plugins/_ml/connectors/_create
 ```
 {% include copy-curl.html %}
 
-For more information, see the [AWS documentation](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/ml-amazon-connector.html), [this tutorial]({{site.url}}{{site.baseurl}}/vector-search/tutorials/semantic-search/semantic-search-sagemaker/), and [the AIConnectorHelper notebook](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/tutorials/aws/AIConnectorHelper.ipynb).
+For more information, see the [AWS documentation](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/ml-amazon-connector.html), [this tutorial]({{site.url}}{{site.baseurl}}/vector-search/tutorials/semantic-search/semantic-search-sagemaker/), and [the AIConnectorHelper notebook](https://github.com/opensearch-project/ml-commons/blob/main/docs/tutorials/aws/AIConnectorHelper.ipynb).
 
 Use the connector ID from the response to register and deploy the model:
 
@@ -160,7 +162,7 @@ POST _plugins/_ml/models/your_model_id/_predict
 ```
 {% include copy-curl.html %}
 
-Each item in the `inputs` array comprises a `query_text` and a `text_docs` string, separated by a ` . `
+Each object in the `inputs` array contains the query in the `text` field and a document in the `text_pair` field.
 
 Alternatively, you can test the model as follows:
 
@@ -181,16 +183,16 @@ By default, the SageMaker model output is in the following format:
 [
   {
     "label": "LABEL_0",
-    "score": 0.054037678986787796
+    "score": 0.05403755232691765
   },
   {
     "label": "LABEL_0",
-    "score": 0.5877784490585327
+    "score": 0.5877783298492432
   }
 ]
 ```
 
-The connector `pre_process_function` transforms the model output into the following format that can be interpreted by the [rerank processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rerank-processor/):
+The connector `post_process_function` transforms the model output into the following format that can be interpreted by the [rerank processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rerank-processor/):
 
 ```json
 {
@@ -204,7 +206,7 @@ The connector `pre_process_function` transforms the model output into the follow
             1
           ],
           "data": [
-            0.054037678986787796
+            0.05403755232691765
           ]
         },
         {
@@ -214,7 +216,7 @@ The connector `pre_process_function` transforms the model output into the follow
             1
           ],
           "data": [
-            0.5877784490585327
+            0.5877783298492432
           ]
         }
       ],
@@ -326,7 +328,7 @@ The response contains the four most relevant documents:
       {
         "_index": "my-test-data",
         "_id": "VExye5AB9ZeWZdmDjWZn",
-        "_score": 0.55655104,
+        "_score": 0.5565504,
         "_source": {
           "passage_text": "Capital punishment (the death penalty) has existed in the United States since beforethe United States was a country. As of 2017, capital punishment is legal in 30 of the 50 states."
         }
@@ -334,7 +336,7 @@ The response contains the four most relevant documents:
       {
         "_index": "my-test-data",
         "_id": "UUxye5AB9ZeWZdmDjWZn",
-        "_score": 0.115356825,
+        "_score": 0.115356795,
         "_source": {
           "passage_text": "Carson City is the capital city of the American state of Nevada."
         }
@@ -342,7 +344,7 @@ The response contains the four most relevant documents:
       {
         "_index": "my-test-data",
         "_id": "Ukxye5AB9ZeWZdmDjWZn",
-        "_score": 0.00021142483,
+        "_score": 0.00021142441,
         "_source": {
           "passage_text": "The Commonwealth of the Northern Mariana Islands is a group of islands in the Pacific Ocean. Its capital is Saipan."
         }
@@ -429,3 +431,9 @@ The first document in the response pertains to Carson City, which is not the cap
   }
 }
 ```
+
+## Related documentation
+
+- [Reranking search results]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/reranking-search-results/)
+- [Reranking search results using a cross-encoder model]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/rerank-cross-encoder/)
+- [Rerank processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rerank-processor/)

@@ -336,3 +336,4 @@ Because aggregators are processed using the `double` data type for all values, `
 - Learn about [bucket aggregations]({{site.url}}{{site.baseurl}}/aggregations/bucket/) to group and analyze data by categories, ranges, or time intervals.
 - Discover [pipeline aggregations]({{site.url}}{{site.baseurl}}/aggregations/pipeline/) for advanced analysis using the output of other aggregations.
 - Create [visualizations in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/) using aggregations.
+- For a tutorial that uses aggregations and post filters to build faceted search, see [Implementing faceted search in OpenSearch]({{site.url}}{{site.baseurl}}/tutorials/faceted-search/).

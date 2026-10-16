@@ -134,7 +134,7 @@ POST /_plugins/_ml/connectors/_create
     {
       "action_type": "PREDICT",
       "method": "POST",
-      "url": "https://${parameters. endpoint}.${parameters.region}.amazonaws.com/model/${parameters.model_name}/invoke",
+      "url": "https://${parameters.endpoint}.${parameters.region}.amazonaws.com/model/${parameters.model_name}/invoke",
       "headers": {
         "x-amz-content-sha256": "required",
         "content-type": "application/json"
@@ -214,7 +214,7 @@ POST /_plugins/_ml/connectors/_create
     {
       "action_type": "PREDICT",
       "method": "POST",
-      "url": "https://${parameters. endpoint}.${parameters.region}.amazonaws.com/model/${parameters.model_name}/invoke",
+      "url": "https://${parameters.endpoint}.${parameters.region}.amazonaws.com/model/${parameters.model_name}/invoke",
       "headers": {
         "x-amz-content-sha256": "required",
         "content-type": "application/json"
@@ -269,6 +269,7 @@ POST /_plugins/_ml/connectors/_create
   ]
 }
 ```
+{% include copy-curl.html %}
 
 For more information, see the [AWS documentation](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/ml-amazon-connector.html).
 
@@ -323,7 +324,7 @@ POST _plugins/_ml/_predict/text_similarity/your_model_id
 
 The connector `pre_process_function` transforms the input into the format required by the previously shown parameters.
 
-By default, the Amazon Bedrock Rerank API output has the following format:
+By default, the Cohere Rerank model output has the following format:
 
 ```json
 [
@@ -400,7 +401,7 @@ The connector `post_process_function` transforms the model's output into a forma
 }
 ```
 
-The response contains four `similarity` objects. For each `similarity` object, the `data` array contains a relevance score for each document with respect to the query. The `similarity` objects are provided in the order of the input documents---the first object pertains to the first document. This differs from the default output of the Cohere Rerank model, which orders documents by relevance score. The document order is changed in the `connector.post_process.cohere.rerank` post-processing function so that the output is compatible with a reranking pipeline.
+The response contains four `similarity` objects. For each `similarity` object, the `data` array contains a relevance score for each document with respect to the query. The `similarity` objects are provided in the order of the input documents---the first object pertains to the first document. This differs from the default output of the Cohere Rerank model, which orders documents by relevance score. The connector `post_process_function` changes the document order so that the output is compatible with a reranking pipeline.
 
 ## Step 2: Configure a reranking pipeline
 
@@ -709,3 +710,9 @@ POST my-test-data/_search?search_pipeline=rerank_pipeline_bedrock
 }
 ```
 {% include copy-curl.html %}
+
+## Related documentation
+
+- [Reranking search results]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/reranking-search-results/)
+- [Rerank processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rerank-processor/)
+- [Connectors for third-party ML platforms]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/)

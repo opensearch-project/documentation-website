@@ -21,7 +21,7 @@ Before using the `semantic` field type, you must configure either a local ML mod
 
 ## Example: Dense embedding model
 
-The `semantic` field type supports both symmetric and asymmetric embedding models. Symmetric models use the same embedding representation for both documents and queries. Asymmetric models (such as E5) encode document content as passages during ingestion and encode query text as queries at search time.
+The `semantic` field type supports both symmetric and asymmetric embedding models. Symmetric models use the same embedding representation for both documents and queries. Asymmetric models (such as E5) encode document content as passages during ingestion and encode query text as queries at search time. For a complete example, see [Semantic search using an asymmetric embedding model]({{site.url}}{{site.baseurl}}/tutorials/vector-search/semantic-search/semantic-search-asymmetric/).
 {: .note}
 
 Once you configure a model, you can use it to create an index with a `semantic` field. This example assumes that you have configured a dense embedding model with the ID `n17yX5cBsaYnPfyOzmQU` in your cluster:

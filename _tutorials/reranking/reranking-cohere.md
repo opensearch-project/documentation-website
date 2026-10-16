@@ -25,14 +25,14 @@ Create a connector for the Cohere Rerank model:
 POST /_plugins/_ml/connectors/_create
 {
     "name": "cohere-rerank",
-    "description": "The connector to Cohere reanker model",
+    "description": "The connector to Cohere reranker model",
     "version": "1",
     "protocol": "http",
     "credential": {
         "cohere_key": "your_cohere_api_key"
     },
     "parameters": {
-        "model": "rerank-english-v2.0"
+        "model": "rerank-v3.5"
     },
     "actions": [
         {
@@ -83,6 +83,7 @@ POST _plugins/_ml/models/your_model_id/_predict
   }
 }
 ```
+{% include copy-curl.html %}
 
 To ensure compatibility with the rerank pipeline, the `top_n` value must be the same as the length of the `documents` list. 
 {: .important}
@@ -192,7 +193,7 @@ PUT /_search/pipeline/rerank_pipeline_cohere
 
 ### Step 2.3: Test the reranking
 
-To limit the number of returned results, you can specify the `size` parameter. For example, set `"size": 2` to return the top two documents:
+To limit the number of returned results, you can specify the `size` parameter. The reranking processor reranks only the documents that the query returns. For example, with `"size": 2`, the processor reranks only the first two documents that the `match_all` query returns. Send the following request to rerank all four documents:
 
 ```json
 GET my-test-data/_search?search_pipeline=rerank_pipeline_cohere
@@ -212,7 +213,7 @@ GET my-test-data/_search?search_pipeline=rerank_pipeline_cohere
 ```
 {% include copy-curl.html %}
 
-The response contains the two most relevant documents:
+The response contains the four documents, ordered by relevance score:
 
 ```json
 {
@@ -345,3 +346,9 @@ The first document in the response pertains to Carson City, which is not the cap
   }
 }
 ```
+
+## Related documentation
+
+- [Reranking search results]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/reranking-search-results/)
+- [Rerank processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rerank-processor/)
+- [Connectors for third-party ML platforms]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/)

@@ -166,3 +166,4 @@ If you specify the full path (`obj.passage_embedding`) as the vector field, the 
 - To learn more about semantic search, see [Semantic search]({{site.url}}{{site.baseurl}}/search-plugins/semantic-search/).
 - To learn more about using models in OpenSearch, see [Choosing a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/#choosing-a-model).
 - For a comprehensive example, see [Getting started with semantic and hybrid search]({{site.url}}{{site.baseurl}}/search-plugins/neural-search-tutorial/).
+- For an example that generates embeddings for arrays of objects, see [Generating embeddings from arrays of objects]({{site.url}}{{site.baseurl}}/tutorials/vector-search/vector-operations/generate-embeddings/).
