@@ -20,6 +20,8 @@ This page lists API families rather than individual operations. To find a specif
 
 The request examples on API pages omit the host and credentials, so you can paste them into Dev Tools. To learn how to send the same requests using cURL, including the host URL and authentication, see [Communicate with OpenSearch]({{site.url}}{{site.baseurl}}/getting-started/communicate/).
 
+OpenSearch publishes a reference generated from the OpenSearch API specification that lists every REST endpoint with its parameters and schemas. For more information, see [OpenSearch API specification](https://api-spec.opensearch.org).
+
 ## REST APIs
 **Introduced 1.0**
 {: .label .label-purple }
