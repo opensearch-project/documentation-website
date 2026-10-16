@@ -74,7 +74,7 @@ POST /_plugins/_ml/agents/_register
   "type": "conversational_v2",
   "description": "A multimodal conversational agent",
   "model": {
-    "model_id": "us.anthropic.claude-3-7-sonnet-20250219-v1:0",
+    "model_id": "us.anthropic.claude-sonnet-4-6",
     "model_provider": "bedrock/converse",
     "credential": {
       "access_key": "<YOUR_AWS_ACCESS_KEY>",
@@ -161,34 +161,23 @@ The `conversational_v2` agent returns a standardized response format:
 
 ```json
 {
-  "inference_results": [
-    {
-      "output": [
-        {
-          "name": "response",
-          "dataAsMap": {
-            "stop_reason": "end_turn",
-            "message": {
-              "role": "assistant",
-              "content": [
-                {
-                  "text": "Based on your cluster, I found the following indexes..."
-                }
-              ]
-            },
-            "memory_id": "test_memory_id",
-            "metrics": {
-              "total_usage": {
-                "inputTokens": 1234,
-                "outputTokens": 567,
-                "totalTokens": 1801
-              }
-            }
-          }
-        }
-      ]
+  "stop_reason": "end_turn",
+  "message": {
+    "role": "assistant",
+    "content": [
+      {
+        "text": "Based on your cluster, I found the following indexes..."
+      }
+    ]
+  },
+  "memory_id": "test_memory_id",
+  "metrics": {
+    "total_usage": {
+      "inputTokens": 1234,
+      "outputTokens": 567,
+      "totalTokens": 1801
     }
-  ]
+  }
 }
 ```
 
@@ -225,7 +214,7 @@ POST /_plugins/_ml/agents/_register
   "type": "conversational",
   "description": "A conversational agent using unified registration",
   "model": {
-    "model_id": "us.anthropic.claude-3-7-sonnet-20250219-v1:0",
+    "model_id": "us.anthropic.claude-sonnet-4-6",
     "model_provider": "bedrock/converse",
     "credential": {
       "access_key": "<YOUR_AWS_ACCESS_KEY>",
@@ -252,7 +241,7 @@ The following example registers a `conversational` agent using the regular regis
 ```json
 POST /_plugins/_ml/agents/_register
 {
-  "name": "Test_Agent_For_ReAct_ClaudeV2",
+  "name": "Test_Agent_For_ReAct_Claude",
   "type": "conversational",
   "description": "This is a test agent",
   "llm": {
@@ -260,7 +249,7 @@ POST /_plugins/_ml/agents/_register
     "parameters": {
       "max_iteration": 5,
       "stop_when_no_tool_found": true,
-      "response_filter": "$.completion"
+      "response_filter": "$.content[0].text"
     }
   },
   "memory": {

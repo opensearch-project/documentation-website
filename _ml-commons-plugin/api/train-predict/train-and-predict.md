@@ -8,11 +8,39 @@ nav_order: 75
 
 # Train and Predict API
 
-Use to train and then immediately predict against the same training dataset. Can only be used with unsupervised learning models and the following algorithms:
+Use to train and then immediately predict against the same training dataset. Can only be used with unsupervised learning models. The following table lists the supported algorithms and the value to specify in the `algorithm` path parameter.
 
-- `BATCH_RCF`
-- `FIT_RCF`
-- `k-means`
+| Algorithm | `algorithm` value |
+| :--- | :--- |
+| [Batch RCF]({{site.url}}{{site.baseurl}}/ml-commons-plugin/algorithms/#batch-rcf) | `batch_rcf` |
+| [Fixed in time (FIT) RCF]({{site.url}}{{site.baseurl}}/ml-commons-plugin/algorithms/#fit-rcf) | `fit_rcf` |
+| [k-means]({{site.url}}{{site.baseurl}}/ml-commons-plugin/algorithms/#k-means) | `kmeans` |
+| [RCF Summarize]({{site.url}}{{site.baseurl}}/ml-commons-plugin/algorithms/#rcf-summarize) | `rcf_summarize` |
+
+## Endpoints
+
+```json
+POST /_plugins/_ml/_train_predict/{algorithm}
+```
+
+## Path parameters
+
+The following table lists the available path parameters.
+
+| Parameter | Data type | Description |
+| :--- | :--- | :--- |
+| `algorithm` | String | The name of the algorithm, for example, `kmeans`. The name is not case sensitive. Required. |
+
+## Request body fields
+
+The following table lists the available request body fields. Provide the data using either `input_index` and `input_query` or `input_data`.
+
+| Field | Data type | Description |
+| :--- | :--- | :--- |
+| `parameters` | Object | The algorithm hyperparameters. The available parameters depend on the algorithm. For the parameters of each algorithm, see [Supported algorithms]({{site.url}}{{site.baseurl}}/ml-commons-plugin/algorithms/). Optional. |
+| `input_index` | Array | A list of indexes containing the data. |
+| `input_query` | Object | A search query that selects the documents from `input_index`. |
+| `input_data` | Object | The data provided directly as a data frame, containing `column_metas` and `rows`. |
 
 ## Example request: Train and predict with indexed data
 

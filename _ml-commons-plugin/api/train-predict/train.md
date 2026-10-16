@@ -10,6 +10,39 @@ nav_order: 50
 
 The train API operation trains a model based on a selected algorithm. Training can occur both synchronously and asynchronously.
 
+## Endpoints
+
+```json
+POST /_plugins/_ml/_train/{algorithm}
+```
+
+## Path parameters
+
+The following table lists the available path parameters.
+
+| Parameter | Data type | Description |
+| :--- | :--- | :--- |
+| `algorithm` | String | The name of the algorithm to train, for example, `kmeans`. The name is not case sensitive. For a list of algorithms, see [Supported algorithms]({{site.url}}{{site.baseurl}}/ml-commons-plugin/algorithms/). Required. |
+
+## Query parameters
+
+The following table lists the available query parameters. All query parameters are optional.
+
+| Parameter | Data type | Description |
+| :--- | :--- | :--- |
+| `async` | Boolean | If `true`, the request runs asynchronously and returns a task ID. If `false`, the request returns a model ID after training completes. Default is `false`. |
+
+## Request body fields
+
+The following table lists the available request body fields. Provide the training data using either `input_index` and `input_query` or `input_data`.
+
+| Field | Data type | Description |
+| :--- | :--- | :--- |
+| `parameters` | Object | The algorithm hyperparameters. The available parameters depend on the algorithm. For the parameters of each algorithm, see [Supported algorithms]({{site.url}}{{site.baseurl}}/ml-commons-plugin/algorithms/). Optional. |
+| `input_index` | Array | A list of indexes containing the training data. |
+| `input_query` | Object | A search query that selects the training documents from `input_index`. |
+| `input_data` | Object | The training data provided directly as a data frame, containing `column_metas` and `rows`. |
+
 ## Example request 
 
 The following examples use the k-means algorithm to train index data.

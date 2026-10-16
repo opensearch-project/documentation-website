@@ -26,9 +26,6 @@ POST /_plugins/_ml/agents/_register
   "name": "Test_Agent_For_Search_Monitors_Tool",
   "type": "flow",
   "description": "this is a test agent for the SearchMonitorsTool",
-  "memory": {
-    "type": "demo"
-  },
   "tools": [
     {
       "type": "SearchMonitorsTool",
@@ -111,7 +108,7 @@ Parameter	| Type | Description
 `hasTriggers` |	Boolean	| Whether to return information about monitors that have triggers enabled. Leave this parameter unset (or set it to `null`) to return information about monitors that have triggers enabled and disabled. Set this parameter to `true` to return only information about monitors with triggers enabled. Set this parameter to `false` to return only information about monitors with triggers disabled. Default is `null`.
 `indices` | String	| The index name or index pattern of the indexes tracked by the returned monitors.
 `sortOrder`| String | The sort order of the results. Valid values are `asc` (ascending) and `desc` (descending). Default is `asc`. 
-`sortString`| String |	Specifies the monitor field by which to sort the results. Default is `name.keyword`.
+`sortString`| String |	Specifies the monitor field by which to sort the results. Default is `monitor.name.keyword`.
 `size`	| Integer |	The number of results to return. Default is `20`.
 `startIndex`| Integer |	The paginated index of the monitor to start from. Default is `0`.
 

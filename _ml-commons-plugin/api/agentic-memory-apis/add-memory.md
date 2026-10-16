@@ -37,12 +37,19 @@ Field | Data type | Required/Optional | Description
 :--- | :--- | :--- | :---
 `messages` | Array | Conditional | A list of messages for a `conversational` payload. Each message must include a `content` field specified as an array of objects. Each object must contain the `type` (for example, `text`) and the corresponding content. Each message may include a `role` (commonly, `user` or `assistant`) when `infer` is set to `true`. Required when `payload_type` is `conversational`.
 `structured_data` | Object | Conditional | Structured data content for data memory. Required when `payload_type` is `data`.
+`structured_data_blob` | Object | Optional | Structured data that is stored with the memory but not indexed, so it cannot be searched.
 `binary_data` | String | Optional | Binary data content encoded as a Base64 string for binary payloads.
-`payload_type` | String | Required | The type of payload. Valid values are `conversational` or `data`. See [Payload types]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agentic-memory/#payload-types).
-`namespace` | Object | Optional | The [namespace]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agentic-memory/#namespaces) context for organizing memories (for example, `user_id`, `session_id`, or `agent_id`). If `session_id` is not specified in the `namespace` field and `disable_session` is `false` (the default), a new session with a new session ID is created.
+`payload_type` | String | Optional | The type of payload. Valid values are `conversational` or `data`. Default is `conversational`. See [Payload types]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agentic-memory/#payload-types).
+`namespace` | Object | Optional | The [namespace]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agentic-memory/#namespaces) context for organizing memories (for example, `user_id`, `session_id`, or `agent_id`). If `session_id` is not specified in the `namespace` field, the `payload_type` is `conversational`, the memory container has an `llm_id`, and `disable_session` is `false` (the default), a new session with a new session ID is created. The LLM generates the session summary from the messages.
 `metadata` | Object | Optional | Additional metadata for the memory (for example, `status`, `branch`, or custom fields).
 `tags` | Object | Optional | Tags for categorizing and organizing memories.
-`infer` | Boolean | Optional | Whether to use a large language model (LLM) to extract key information from messages. Default is `false`. When `true`, the LLM extracts key information from the original text and stores it as a memory. See [Inference mode]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agentic-memory/#inference-mode).
+`message_id` | Integer | Optional | The sequence number of the message in a conversation. Agents use this field to order conversation messages.
+`checkpoint_id` | String | Optional | A checkpoint identifier to store with the memory.
+`parameters` | Object | Optional | Parameters that override the memory container's [`parameters`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/create-memory-container/#the-parameters-object) for this request only.
+`infer` | Boolean | Optional | Whether to use a large language model (LLM) to extract key information from messages. Default is `false`. When `true`, the LLM extracts key information from the original text and stores it as a memory. Requires the memory container to have an `llm_id`. See [Inference mode]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agentic-memory/#inference-mode).
+
+This API creates `working` memories, which cannot be pinned, so the request rejects the `pinned` field. To exclude a conversation from a retention policy, pin its session after you add the memory. For more information, see [Pinning memories]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agentic-memory-retention/#pinning-memories).
+{: .note}
 
 ## Example request: Conversational payload
 
@@ -88,7 +95,7 @@ POST /_plugins/_ml/memory_containers/SdjmmpgBOh0h20Y9kWuN/memories
 ```
 {% include copy-curl.html %}
 
-## Example response: Conversation payload
+## Example response: Conversational payload
 
 ```json
 {
@@ -180,6 +187,7 @@ POST /_plugins/_ml/memory_containers/SdjmmpgBOh0h20Y9kWuN/memories
 
 ```json
 {
+  "session_id": "123",
   "working_memory_id": "Z8xeTpkBvwXRq366l0iA"
 }
 ```
@@ -190,5 +198,5 @@ The following table lists all response body fields.
 
 | Field           | Data type | Description                                                                                       |
 | :-------------- | :-------- | :------------------------------------------------------------------------------------------------ |
-| `session_id`    | String    | The session ID associated with the memory (returned for `conversation` memory when a session is created or used). |
+| `session_id`    | String    | The session ID associated with the memory. Returned when a session is created or when the `namespace` contains a `session_id`. |
 | `working_memory_id` | String | The unique identifier for the created working memory entry. |

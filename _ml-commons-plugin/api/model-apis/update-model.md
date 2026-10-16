@@ -10,7 +10,7 @@ nav_order: 40
 **Introduced 2.12**
 {: .label .label-purple }
 
-Updates a model based on the `model_ID`.
+Updates a model based on the model ID.
 
 For information about user access for this API, see [Model access control considerations]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/index/#model-access-control-considerations).
 
@@ -29,6 +29,7 @@ Field | Data type |  Description
 `batch_inference_config` | Object | Configures batch inference for an externally hosted model. For more information, see [The `batch_inference_config` parameter]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/register-model/#the-batch_inference_config-parameter).
 `connector` | Object | Contains specifications for a connector for a model hosted on a third-party platform. For more information, see [Creating a connector for a specific model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/#creating-a-connector-for-a-specific-model). For information about the updatable fields within a connector, see [Update Connector API request fields]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/connector-apis/update-connector/#request-body-fields).
 `connector_id` | String | The connector ID of a standalone connector for a model hosted on a third-party platform. For more information, see [Standalone connector]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/#creating-a-standalone-connector). To update a standalone connector, you must undeploy the model, update the connector, and then redeploy the model.
+`deploy_setting` | Object | The deployment settings for the model, containing `model_ttl_minutes` and `is_auto_deploy_enabled`. For more information, see [Access control and deployment fields]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/register-model/#access-control-and-deployment-fields).
 `description` | String | The model description. 
 `is_enabled`| Boolean | Specifies whether the model is enabled. Disabling the model makes it unavailable for Predict API requests, regardless of the model's deployment status. Default is `true`.
 `model_config` | Object | The model's configuration, including the `model_type`, `embedding_dimension`, and `framework_type`. `all_config` is an optional JSON string that contains all model configurations. For more information, see [The `model_config` object]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/register-model#the-model_config-object). |
@@ -121,6 +122,7 @@ PUT /_plugins/_ml/models/9uGdCJABjaMXYrp14YRj
   "_id": "MzcIJX8BA7mbufL6DOwl",
   "_version": 10,
   "result": "updated",
+  "forced_refresh": true,
   "_shards": {
     "total": 1,
     "successful": 1,
@@ -171,9 +173,10 @@ PUT /_plugins/_ml/models/IMcNB5UB7judm8f45nXo
   "_id": "IMcNB5UB7judm8f45nXo",
   "_version": 2,
   "result": "updated",
+  "forced_refresh": true,
   "_shards": {
-    "total": 2,
-    "successful": 2,
+    "total": 1,
+    "successful": 1,
     "failed": 0
   },
   "_seq_no": 379,

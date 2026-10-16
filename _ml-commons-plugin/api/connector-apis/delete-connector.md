@@ -10,6 +10,9 @@ nav_order: 30
 
 Deletes a standalone connector. For more information, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/).
 
+You cannot delete a connector that is used by a model. Delete the models that use the connector or update them to use a different connector, and then delete the connector.
+{: .important}
+
 ## Endpoints
 
 ```json
@@ -31,9 +34,10 @@ DELETE /_plugins/_ml/connectors/KsAo1YsB0jLkkocY6j4U
   "_id" : "KsAo1YsB0jLkkocY6j4U",
   "_version" : 1,
   "result" : "deleted",
+  "forced_refresh" : true,
   "_shards" : {
-    "total" : 2,
-    "successful" : 2,
+    "total" : 1,
+    "successful" : 1,
     "failed" : 0
   },
   "_seq_no" : 27,

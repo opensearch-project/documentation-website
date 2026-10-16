@@ -37,17 +37,10 @@ GET /_plugins/_ml/context_management/token-aware-truncation
 
 ```json
 {
+  "name": "token-aware-truncation",
   "description": "Context management that truncates tool outputs longer than 100,000 characters and applies sliding window to keep last 6 messages when tokens exceed 200,000",
   "hooks": {
-    "post_tool": [
-      {
-        "type": "ToolsOutputTruncateManager",
-        "config": {
-          "max_output_length": 100000
-        }
-      }
-    ],
-    "pre_llm": [
+    "PRE_LLM": [
       {
         "type": "SlidingWindowManager",
         "config": {
@@ -57,6 +50,14 @@ GET /_plugins/_ml/context_management/token-aware-truncation
           }
         }
       }
+    ],
+    "POST_TOOL": [
+      {
+        "type": "ToolsOutputTruncateManager",
+        "config": {
+          "max_output_length": 100000
+        }
+      }
     ]
   },
   "created_time": 1754943902286,
@@ -64,6 +65,19 @@ GET /_plugins/_ml/context_management/token-aware-truncation
   "created_by": "admin"
 }
 ```
+
+## Response body fields
+
+The following table lists all response body fields.
+
+Field | Data type | Description
+:--- | :--- | :---
+`name` | String | The name of the context management.
+`description` | String | The description of the context management.
+`hooks` | Object | A map of hook names to lists of context manager configurations. For more information, see [The `hooks` object]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/context-management-apis/create-context-management/#the-hooks-object).
+`created_time` | Long | The time when the context management was created, in epoch milliseconds.
+`last_modified` | Long | The time when the context management was last updated, in epoch milliseconds.
+`created_by` | String | The user who created the context management. Present only when the Security plugin is enabled.
 
 ## Related documentation
 

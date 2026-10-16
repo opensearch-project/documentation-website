@@ -53,7 +53,7 @@ To register a pretrained text embedding model, the only required parameters are 
 The following table lists the available request fields.
 
 Field | Data type | Required/Optional | Description
-:---  | :--- | :--- 
+:---  | :--- | :--- | :---
 `name`| String | Required | The model name. |
 `model_id` | String | Optional | A unique identifier for the model. If omitted, OpenSearch generates one automatically. |
 `version` | String | Required | The model version. |
@@ -69,7 +69,7 @@ To register a pretrained sparse encoding model, you must set the function name t
 The following table lists the available request fields.
 
 Field | Data type | Required/Optional | Description
-:---  | :--- | :--- 
+:---  | :--- | :--- | :---
 `name`| String | Required | The model name. |
 `model_id` | String | Optional | A unique identifier for the model. If omitted, OpenSearch generates one automatically. |
 `version` | String | Required | The model version. |
@@ -88,7 +88,7 @@ To use a custom model locally within the OpenSearch cluster, you need to provide
 The following table lists the available request fields.
 
 Field | Data type | Required/Optional | Description
-:---  | :--- | :--- 
+:---  | :--- | :--- | :---
 `name`| String | Required | The model name. |
 `model_id` | String | Optional | A unique identifier for the model. If omitted, OpenSearch generates one automatically. |
 `version` | String | Required | The model version. |
@@ -128,7 +128,7 @@ To register a model hosted on a third-party platform, you can either first creat
 The following table lists the available request fields.
 
 Field | Data type | Required/Optional | Description
-:---  | :--- | :--- 
+:---  | :--- | :--- | :---
 `name`| String | Required | The model name. |
 `function_name` | String | Required | Set this parameter to `remote`.
 `connector_id` | String | Required | The connector ID of a standalone connector for a model hosted on a third-party platform. For more information, see [Standalone connector]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/#creating-a-standalone-connector). You must provide either `connector_id` or `connector`.
@@ -142,6 +142,18 @@ Field | Data type | Required/Optional | Description
 `interface`| Object | Optional | The interface for the model. For more information, see [Interface](#the-interface-parameter).|
 `batch_inference_config` | Object | Optional | Configures batch inference for an externally hosted model. For more information, see [The `batch_inference_config` parameter](#the-batch_inference_config-parameter). |
 `provisioned_by` | String | Optional | An optional attribution tag identifying the plugin or client that registered the model (for example, `flow-framework`). Included in ML statistics metrics.
+
+### Access control and deployment fields
+
+The following optional fields apply to all model types.
+
+Field | Data type | Required/Optional | Description
+:---  | :--- | :--- | :---
+`access_mode` | String | Optional | The access mode of the model group created for this model. Valid values are `public`, `private`, and `restricted`. Applies only when you register the first version of a model without providing a `model_group_id`. For more information, see [Register Model Group API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-group-apis/register-model-group/).
+`backend_roles` | Array | Optional | A list of the model owner's backend roles to add to the model group created for this model. Applies only when `model_group_id` is not provided. Cannot be specified at the same time as `add_all_backend_roles`.
+`add_all_backend_roles` | Boolean | Optional | If `true`, all backend roles of the model owner are added to the model group created for this model. Applies only when `model_group_id` is not provided. Cannot be specified at the same time as `backend_roles`. Admin users cannot set this parameter to `true`.
+`deploy_setting` | Object | Optional | The deployment settings for the model. Supports the `model_ttl_minutes` field (Long), which specifies the number of minutes after which the deployed model is automatically undeployed (default is `-1`, meaning that the model is not automatically undeployed), and the `is_auto_deploy_enabled` field (Boolean), which specifies whether an undeployed model is automatically deployed when it receives a Predict API request (default is `true`).
+`model_node_ids` | Array | Optional | A list of node IDs on which to deploy the model when the model is deployed after registration (`deploy=true`).
 
 ### The `guardrails` parameter
 
@@ -361,10 +373,10 @@ The following example uses a guardrail model to validate the LLM response:
 ```json
 POST /_plugins/_ml/models/_register?deploy=true
 {
-    "name": "Bedrock Claude V2 model with guardrails model",
+    "name": "Bedrock Claude Sonnet 4.6 model with guardrails model",
     "function_name": "remote",
     "model_group_id": "ppSmpo8Bi-GZ0tf1i7cD",
-    "description": "Bedrock Claude V2 model with guardrails model",
+    "description": "Bedrock Claude Sonnet 4.6 model with guardrails model",
     "connector_id": "xnJjDZABNFJeYR3IPvTO",
     "guardrails": {
         "input_guardrail": {
@@ -469,7 +481,7 @@ POST /_plugins/_ml/models/_register
 
 ## Example response
 
-OpenSearch responds with the `task_id`, task `status`, and `model_id`:
+OpenSearch responds with the `task_id` and task `status`. For externally hosted models, the response also contains the `model_id`. For local models, the model ID is returned in the task after registration completes:
 
 ```json
 {
@@ -493,7 +505,7 @@ The response contains the model ID of the model version:
 ```json
 {
   "model_id": "Qr1YbogBYOqeeqR7sI9L",
-  "task_type": "DEPLOY_MODEL",
+  "task_type": "REGISTER_MODEL",
   "function_name": "TEXT_EMBEDDING",
   "state": "COMPLETED",
   "worker_node": [

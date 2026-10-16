@@ -57,7 +57,9 @@ POST /_plugins/_ml/connectors/_search
         "_primary_term" : 1,
         "_score" : 1.0,
         "_source" : {
+          "created_time" : 1792088563675,
           "protocol" : "aws_sigv4",
+          "last_updated_time" : 1792088563675,
           "name" : "BedRock claude Connector",
           "description" : "The connector to BedRock service for claude model",
           "version" : "1",
@@ -65,10 +67,10 @@ POST /_plugins/_ml/connectors/_search
             "endpoint" : "bedrock.us-east-1.amazonaws.com",
             "content_type" : "application/json",
             "auth" : "Sig_V4",
-            "max_tokens_to_sample" : "8000",
+            "max_tokens" : "8000",
             "service_name" : "bedrock",
             "temperature" : "1.0E-4",
-            "response_filter" : "$.completion",
+            "response_filter" : "$.content[0].text",
             "region" : "us-east-1",
             "anthropic_version" : "bedrock-2023-05-31"
           },
@@ -79,9 +81,9 @@ POST /_plugins/_ml/connectors/_search
                 "content-type" : "application/json"
               },
               "method" : "POST",
-              "request_body" : "{\"prompt\":\"${parameters.prompt}\", \"max_tokens_to_sample\":${parameters.max_tokens_to_sample}, \"temperature\":${parameters.temperature},  \"anthropic_version\":\"${parameters.anthropic_version}\" }",
+              "request_body" : "{\"messages\":[{\"role\":\"user\",\"content\":\"${parameters.prompt}\"}], \"max_tokens\":${parameters.max_tokens}, \"temperature\":${parameters.temperature}, \"anthropic_version\":\"${parameters.anthropic_version}\" }",
               "action_type" : "PREDICT",
-              "url" : "https://bedrock.us-east-1.amazonaws.com/model/anthropic.claude-v2/invoke"
+              "url" : "https://bedrock-runtime.us-east-1.amazonaws.com/model/us.anthropic.claude-sonnet-4-6/invoke"
             }
           ]
         }
@@ -94,7 +96,9 @@ POST /_plugins/_ml/connectors/_search
         "_primary_term" : 1,
         "_score" : 1.0,
         "_source" : {
+          "created_time" : 1792088569179,
           "protocol" : "aws_sigv4",
+          "last_updated_time" : 1792088569179,
           "name" : "BedRock claude Connector",
           "description" : "The connector to BedRock service for claude model",
           "version" : "1",
@@ -102,10 +106,10 @@ POST /_plugins/_ml/connectors/_search
             "endpoint" : "bedrock.us-east-1.amazonaws.com",
             "content_type" : "application/json",
             "auth" : "Sig_V4",
-            "max_tokens_to_sample" : "8000",
+            "max_tokens" : "8000",
             "service_name" : "bedrock",
             "temperature" : "1.0E-4",
-            "response_filter" : "$.completion",
+            "response_filter" : "$.content[0].text",
             "region" : "us-east-1",
             "anthropic_version" : "bedrock-2023-05-31"
           },
@@ -116,9 +120,9 @@ POST /_plugins/_ml/connectors/_search
                 "content-type" : "application/json"
               },
               "method" : "POST",
-              "request_body" : "{\"prompt\":\"${parameters.prompt}\", \"max_tokens_to_sample\":${parameters.max_tokens_to_sample}, \"temperature\":${parameters.temperature},  \"anthropic_version\":\"${parameters.anthropic_version}\" }",
+              "request_body" : "{\"messages\":[{\"role\":\"user\",\"content\":\"${parameters.prompt}\"}], \"max_tokens\":${parameters.max_tokens}, \"temperature\":${parameters.temperature}, \"anthropic_version\":\"${parameters.anthropic_version}\" }",
               "action_type" : "PREDICT",
-              "url" : "https://bedrock.us-east-1.amazonaws.com/model/anthropic.claude-v2/invoke"
+              "url" : "https://bedrock-runtime.us-east-1.amazonaws.com/model/us.anthropic.claude-sonnet-4-6/invoke"
             }
           ]
         }
@@ -131,9 +135,11 @@ POST /_plugins/_ml/connectors/_search
         "_primary_term" : 1,
         "_score" : 1.0,
         "_source" : {
+          "created_time" : 1792088573796,
           "protocol" : "aws_sigv4",
-          "name" : "BedRock Claude-Instant v1",
-          "description" : "Bedrock connector for Claude Instant testing",
+          "last_updated_time" : 1792088573796,
+          "name" : "BedRock Claude Sonnet 4.6",
+          "description" : "Bedrock connector for Claude Sonnet 4.6 testing",
           "version" : "1",
           "parameters" : {
             "endpoint" : "bedrock.us-east-1.amazonaws.com",
@@ -150,9 +156,9 @@ POST /_plugins/_ml/connectors/_search
                 "content-type" : "application/json"
               },
               "method" : "POST",
-              "request_body" : "{\"prompt\":\"${parameters.prompt}\", \"max_tokens_to_sample\":${parameters.max_tokens_to_sample}, \"temperature\":${parameters.temperature},  \"anthropic_version\":\"${parameters.anthropic_version}\" }",
+              "request_body" : "{\"messages\":[{\"role\":\"user\",\"content\":\"${parameters.prompt}\"}], \"max_tokens\":${parameters.max_tokens}, \"temperature\":${parameters.temperature}, \"anthropic_version\":\"${parameters.anthropic_version}\" }",
               "action_type" : "PREDICT",
-              "url" : "https://bedrock-runtime.us-east-1.amazonaws.com/model/anthropic.claude-instant-v1/invoke"
+              "url" : "https://bedrock-runtime.us-east-1.amazonaws.com/model/us.anthropic.claude-sonnet-4-6/invoke"
             }
           ]
         }

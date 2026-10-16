@@ -26,9 +26,6 @@ POST /_plugins/_ml/agents/_register
   "name": "Test_Agent_For_Search_Index_Tool",
   "type": "flow",
   "description": "this is a test for search index tool",
-  "memory": {
-    "type": "demo"
-  },
   "tools": [
     {
       "type": "SearchIndexTool"
@@ -113,11 +110,14 @@ OpenSearch returns the query results:
 
 ## Execute parameters
 
-The following table lists all tool parameters that are available when registering an agent. 
+The following table lists all tool parameters that are available when running the agent.
 
 Parameter | Type | Description
 :--- | :--- | :---
-`input`| String | The index name and the query to use for search, in JSON format. The `index` parameter contains the name of the index, and the `query` parameter contains the query formatted in Query DSL. For example, `"{\"index\": \"opensearch_dashboards_sample_data_ecommerce\", \"query\": {\"size\": 22,  \"_source\": \"category\"}}"`. The `input` parameter and the `index` and `query` parameters it contains are required.
+`input`| String | The index name and the query to use for search, in JSON format. The `index` parameter contains the name of the index, and the `query` parameter contains the query formatted in Query DSL. For example, `"{\"index\": \"opensearch_dashboards_sample_data_ecommerce\", \"query\": {\"size\": 22,  \"_source\": \"category\"}}"`. The `input` parameter and the `index` and `query` parameters it contains are required unless you provide the top-level `index` and `query` parameters.
+`index` | String | The name of the index to search. Used together with `query` when `input` is not provided.
+`query` | String | The search query in Query DSL format, as a JSON string (for example, `"{\"size\": 1, \"_source\": \"email\"}"`). Used together with `index` when `input` is not provided.
+`return_raw_response` | Boolean | If `true`, the tool returns the full search response as a JSON object instead of one line per hit. Default is `false`.
 
 ## Testing the tool
 

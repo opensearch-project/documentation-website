@@ -116,33 +116,37 @@ POST /_plugins/_ml/memory_containers/HudqiJkB1SltqOcZusVU/memories/long-term/_se
     "max_score": 0.87,
     "hits": [
       {
-        "_index": "test-memory-long-term",
+        "_index": ".plugins-ml-am-default-memory-long-term",
         "_id": "abc123",
         "_score": 0.87,
         "_source": {
+          "created_time": 1700000000000,
           "memory": "Client plans to retire in five years with a gradual rebalancing strategy",
-          "strategy_type": "SEMANTIC",
+          "last_updated_time": 1700000000000,
+          "namespace_size": 1,
           "namespace": {
             "user_id": "bob"
           },
-          "memory_container_id": "HudqiJkB1SltqOcZusVU",
-          "created_time": 1700000000000,
-          "last_updated_time": 1700000000000
+          "strategy_id": "semantic_53d1751c",
+          "strategy_type": "SEMANTIC",
+          "memory_container_id": "HudqiJkB1SltqOcZusVU"
         }
       },
       {
-        "_index": "test-memory-long-term",
+        "_index": ".plugins-ml-am-default-memory-long-term",
         "_id": "def456",
         "_score": 0.82,
         "_source": {
+          "created_time": 1700000000000,
           "memory": "Client prefers conservative investments and wants to shift away from equities",
-          "strategy_type": "USER_PREFERENCE",
+          "last_updated_time": 1700000000000,
+          "namespace_size": 1,
           "namespace": {
             "user_id": "bob"
           },
-          "memory_container_id": "HudqiJkB1SltqOcZusVU",
-          "created_time": 1700000000000,
-          "last_updated_time": 1700000000000
+          "strategy_id": "user_preference_0771b88e",
+          "strategy_type": "USER_PREFERENCE",
+          "memory_container_id": "HudqiJkB1SltqOcZusVU"
         }
       }
     ]
@@ -159,6 +163,9 @@ The response uses the standard OpenSearch search response format. Each hit in th
 | `memory` | String | The extracted memory text. |
 | `strategy_type` | String | The strategy that produced this memory (`SEMANTIC`, `USER_PREFERENCE`, or `SUMMARY`). |
 | `namespace` | Object | The namespace fields associated with this memory. |
+| `namespace_size` | Integer | The number of namespace fields. |
+| `strategy_id` | String | The ID of the strategy that produced this memory. |
+| `tags` | Object | The tags associated with this memory. Present only if the memory has tags. |
 | `memory_container_id` | String | The ID of the memory container. |
 | `created_time` | Long | The timestamp when the memory was created. |
 | `last_updated_time` | Long | The timestamp when the memory was last updated. |
