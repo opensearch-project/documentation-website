@@ -22,6 +22,13 @@ flows:
       - "<b>Platform:</b> OpenSearch"
       - "<b>Model:</b> Anthropic Claude Sonnet 4.6"  
       - "<b>Deployment:</b> Amazon Bedrock"
+  - heading: "Using agentic memory with Strands Agents"
+    link: /tutorials/gen-ai/agents/agentic-memory-strands/
+    description: "Learn how to give a Strands Agents agent long-term memory using OpenSearch agentic memory"
+    list: 
+      - "<b>Platform:</b> OpenSearch, Strands Agents"
+      - "<b>Model:</b> Anthropic Claude Sonnet 4.6, Amazon Titan Text Embeddings V2"  
+      - "<b>Deployment:</b> Amazon Bedrock"
 ---
 
 # Agentic AI tutorials
