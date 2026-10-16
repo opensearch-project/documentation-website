@@ -122,7 +122,7 @@ To update the date source, run the following query:
 ```json
 PUT /_plugins/geospatial/ip2geo/datasource/my-datasource/_settings
 {
-    "endpoint": https://geoip.maps.opensearch.org/v1/geolite2-city/manifest.json,
+    "endpoint": "https://geoip.maps.opensearch.org/v1/geolite2-city/manifest.json",
     "update_interval_in_days": 10
 }
 ```
@@ -155,7 +155,6 @@ The following is the syntax for the `ip2geo` processor:
   }
 }
 ```
-{% include copy-curl.html %}
 
 ## Configuration parameters
 
@@ -172,7 +171,7 @@ The following table lists the required and optional parameters for the `ip2geo` 
 | `if` | Optional | A condition for running the processor. |
 | `ignore_failure` | Optional | Specifies whether the processor continues execution even if it encounters errors. If set to `true`, failures are ignored. Default is `false`. |
 | `on_failure` | Optional | A list of processors to run if the processor fails. |
-| `tag` | Optional | An identifier tag for the processor. Useful for debugging in order to distinguish between processors of the same type. |
+| `tag` | Optional | An identifier tag for the processor. Useful for debugging in order to distinguish between processors of the same type. For more information, see [Using processor tags for monitoring and debugging]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#using-processor-tags-for-monitoring-and-debugging). |
 
 ## Using the processor
 
@@ -247,7 +246,6 @@ The following response confirms that the pipeline is working as expected:
   ]
 }
 ```
-{% include copy-curl.html %}
 
 **Step 3: Ingest a document**
 

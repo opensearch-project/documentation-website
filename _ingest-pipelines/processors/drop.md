@@ -5,7 +5,7 @@ parent: Ingest processors
 nav_order: 70
 ---
 
-This documentation describes using the `drop` processor in OpenSearch ingest pipelines. Consider using the [Data Prepper `drop_events` processor]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/drop-events/), which runs on the OpenSearch cluster, if your use case involves large or complex datasets.
+This documentation describes using the `drop` processor in OpenSearch ingest pipelines. Consider using the [Data Prepper `drop_events` processor]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/drop-events/), which runs outside the OpenSearch cluster, if your use case involves large or complex datasets.
 {: .note}
 
 # Drop processor
@@ -37,7 +37,7 @@ Parameter | Required | Description |
 `if` | Optional | A condition for running the processor. |
 `ignore_failure` | Optional | If set to `true`, failures are ignored. Default is `false`. See [Handling pipeline failures]({{site.url}}{{site.baseurl}}/ingest-pipelines/pipeline-failures/) for more information. |
 `on_failure` | Optional | A list of processors to run if the processor fails. See [Handling pipeline failures]({{site.url}}{{site.baseurl}}/ingest-pipelines/pipeline-failures/) for more information. |
-`tag` | Optional | An identifier tag for the processor. Useful for distinguishing between processors of the same type when debugging. |
+`tag` | Optional | An identifier tag for the processor. Useful for distinguishing between processors of the same type when debugging. For more information, see [Using processor tags for monitoring and debugging]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#using-processor-tags-for-monitoring-and-debugging). |
 
 ## Using the processor
 
@@ -96,7 +96,6 @@ The following example response confirms that the pipeline is working as expected
   ]
 }
 ```
-{% include copy-curl.html %}
 
 **Step 3: Ingest a document**
 

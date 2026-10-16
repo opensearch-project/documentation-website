@@ -7,7 +7,7 @@ redirect_from:
    - /api-reference/ingest-apis/processors/copy/
 ---
 
-This documentation describes using the `copy` processor in OpenSearch ingest pipelines. Consider using the [Data Prepper `copy_values` processor]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/copy-values/), which runs on the OpenSearch cluster, if your use case involves large or complex datasets.
+This documentation describes using the `copy` processor in OpenSearch ingest pipelines. Consider using the [Data Prepper `copy_values` processor]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/copy-values/), which runs outside the OpenSearch cluster, if your use case involves large or complex datasets.
 {: .note}
 
 # Copy processor
@@ -46,7 +46,7 @@ The following table lists the required and optional parameters for the `copy` pr
 `if` | Optional | A condition for running the processor. |
 `ignore_failure` | Optional | Specifies whether the processor continues execution even if it encounters an error. If set to `true`, the failure is ignored. Default is `false`. |
 `on_failure` | Optional | A list of processors to run if the processor fails. |
-`tag` | Optional | An identifier tag for the processor. Useful for debugging in order to distinguish between processors of the same type. |
+`tag` | Optional | An identifier tag for the processor. Useful for debugging in order to distinguish between processors of the same type. For more information, see [Using processor tags for monitoring and debugging]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#using-processor-tags-for-monitoring-and-debugging). |
 
 ## Using the processor
 

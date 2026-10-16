@@ -31,15 +31,15 @@ The following table lists the required and optional parameters for the `rename` 
 
 Parameter  | Required/Optional  | Description  |
 ---|---|---|
-`field`  | Required  | The field name containing the data to be removed. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets). |
+`field`  | Required  | The name of the field to be renamed. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets). |
 `target_field`  | Required  | The new name of the field. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets). |
-`ignore_missing`  | Optional  | Specifies whether the processor should ignore documents that do not contain the specified `field`. If set to `true`, the processor does not modify the document if the `field` does not exist. Default is `false`. |
-`override_target`  | Optional  | Determines what happens when `target_field` exists in the document. If set to `true`, the processor overwrites the existing `target_field` value with the new value. If set to `false`, the existing value remains and the processor does not overwrite it. Default is `false`. |
+`ignore_missing`  | Optional  | Specifies whether the processor should ignore documents that do not contain the specified `field`. If set to `true`, the processor does not modify the document if the `field` does not exist. If set to `false`, the processor fails if the `field` does not exist. Default is `false`. |
+`override_target`  | Optional  | Determines what happens when `target_field` exists in the document. If set to `true`, the processor overwrites the existing `target_field` value with the new value. If set to `false` and `target_field` exists, the processor fails. Default is `false`. |
 `description`  | Optional  | A brief description of the processor.  |
 `if` | Optional | A condition for running the processor. |
 `ignore_failure` | Optional | Specifies whether the processor continues execution even if it encounters an error. If set to `true`, failures are ignored. Default is `false`. |
 `on_failure` | Optional | A list of processors to run if the processor fails. |
-`tag` | Optional | An identifier tag for the processor. Useful for debugging in order to distinguish between processors of the same type. |
+`tag` | Optional | An identifier tag for the processor. Useful for debugging in order to distinguish between processors of the same type. For more information, see [Using processor tags for monitoring and debugging]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#using-processor-tags-for-monitoring-and-debugging). |
 
 ## Using the processor
 
@@ -104,9 +104,9 @@ The following example response confirms that the pipeline is working as expected
         "_id": "1",
         "_source": {
           "message": {
-            "type": "nginx",
+            "type": "nginx"
           },
-          "content": """192.168.1.10 - - [03/Nov/2023:15:20:45 +0000] "POST /login HTTP/1.1" 200 3456"""
+          "content": "192.168.1.10 - - [03/Nov/2023:15:20:45 +0000] \"POST /login HTTP/1.1\" 200 3456"
         },
         "_ingest": {
           "timestamp": "2024-04-15T07:54:16.010447Z"

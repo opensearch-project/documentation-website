@@ -24,19 +24,33 @@ The following is the syntax for the `remove` processor:
 ```
 {% include copy.html %}
 
+To remove multiple fields, specify an array of field names:
+
+```json
+{
+    "remove": {
+        "field": ["field_name_1", "field_name_2"]
+    }
+}
+```
+{% include copy.html %}
+
+The `exclude_field` parameter also accepts an array of field names to retain.
+
 ## Configuration parameters
 
 The following table lists the required and optional parameters for the `remove` processor.
 
 | Parameter  | Required/Optional  | Description  |
 |---|---|---|
-`field`  | Optional  | The field name containing the data to be removed. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets). The metadata fields `_index`, `_version`, `_version_type`, and `_id` cannot be removed. If `version` is specified, `_id` cannot be removed from the ingested document. |
-`exclude_field`  | Optional  | The field name to be retained. All other fields, except metadata fields, will be removed. The `exclude_field` and `field` options are mutually exclusive. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets).  |
+`field`  | Optional  | The field name containing the data to be removed. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets). The metadata fields `_index`, `_version`, and `_version_type` cannot be removed. The `_id` field cannot be removed if the request specifies an external version type. Either `field` or `exclude_field` must be specified. |
+`exclude_field`  | Optional  | The field name to be retained. All other fields, except metadata fields, will be removed. The `exclude_field` and `field` options are mutually exclusive. Only top-level field names are supported. If you specify a nested field such as `user.name`, it doesn't match any top-level field, so the processor removes all fields, including the entire `user` object. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets).  |
+`ignore_missing`  | Optional  | Specifies whether the processor should ignore documents that do not contain the specified field. If set to `true`, the processor does not modify the document if the field does not exist. Default is `false`. |
 `description`  | Optional  | A brief description of the processor.  |
 `if` | Optional | A condition for running the processor. |
 `ignore_failure` | Optional | Specifies whether the processor continues execution even if it encounters errors. If set to `true`, failures are ignored. Default is `false`. |
 `on_failure` | Optional | A list of processors to run if the processor fails. |
-`tag` | Optional | An identifier tag for the processor. Useful for debugging in order to distinguish between processors of the same type. |
+`tag` | Optional | An identifier tag for the processor. Useful for debugging in order to distinguish between processors of the same type. For more information, see [Using processor tags for monitoring and debugging]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#using-processor-tags-for-monitoring-and-debugging). |
 
 ## Using the processor
 
@@ -129,3 +143,55 @@ To retrieve the document, run the following query:
 GET testindex1/_doc/1
 ```
 {% include copy-curl.html %}
+
+## Removing multiple fields
+
+The following request removes the `internal_sku` and `warehouse_code` fields from a document:
+
+```json
+POST _ingest/pipeline/_simulate
+{
+  "pipeline": {
+    "processors": [
+      {
+        "remove": {
+          "field": ["internal_sku", "warehouse_code"]
+        }
+      }
+    ]
+  },
+  "docs": [
+    {
+      "_source": {
+        "product": "Wireless mouse",
+        "internal_sku": "WM-4471",
+        "warehouse_code": "SEA-02",
+        "price": 24.99
+      }
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+The response shows that both fields were removed:
+
+```json
+{
+  "docs": [
+    {
+      "doc": {
+        "_index": "_index",
+        "_id": "_id",
+        "_source": {
+          "product": "Wireless mouse",
+          "price": 24.99
+        },
+        "_ingest": {
+          "timestamp": "2026-10-14T19:44:03.195795881Z"
+        }
+      }
+    }
+  ]
+}
+```
