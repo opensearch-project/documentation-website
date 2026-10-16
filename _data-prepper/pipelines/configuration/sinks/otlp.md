@@ -11,11 +11,13 @@ nav_order: 52
 This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the [`otlp` sink plugin](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/otlp-sink) in the OpenSearch Data Prepper repository.
 {: .warning}
 
-The `otlp` sink exports traces, metrics, and logs to an endpoint that accepts [OpenTelemetry Protocol (OTLP)](https://opentelemetry.io/docs/specs/otlp/) requests over HTTP. It encodes each batch as Protobuf, compresses it with `gzip`, and signs the request with AWS Signature Version 4 (SigV4). The default signing service is `xray`, so the sink works with the AWS X-Ray OTLP endpoint without additional configuration. To send data to another AWS OTLP endpoint, set `service_name` to that endpoint's signing name.
+The `otlp` sink exports traces, metrics, and logs to an endpoint that accepts [OpenTelemetry Protocol (OTLP)](https://opentelemetry.io/docs/specs/otlp/) requests over HTTP. It encodes each batch as Protobuf, compresses it with `gzip`, and signs the request with AWS Signature Version 4 (SigV4). The default signing service is `xray`, so the sink works with the AWS X-Ray OTLP endpoint without additional configuration. To send data to another endpoint that accepts SigV4-signed requests, set `service_name` to that endpoint's signing name. Because the sink signs every request and requires AWS credentials, it is designed for endpoints that use AWS authentication.
 
-The sink determines the signal type from each event: spans are sent as traces, metrics as metrics, and logs as logs. It maintains a separate buffer for each signal type so that each signal is batched independently. Events that are not spans, metrics, or logs are dropped and counted in the `failedRecordsCount` metric.
+The sink determines the signal type of each event from the event's type: span events are exported as OTLP trace data, metric events as metric data, and log events as log data. The sink accepts only span, metric, and log events, such as the events produced by the [`otlp` source]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/otlp-source/). Any other event is dropped and counted in the `failedRecordsCount` metric.
 
-Each sink sends all signals to the single URL configured in `endpoint`. Because OTLP endpoints use a different path for each signal (`/v1/traces`, `/v1/metrics`, and `/v1/logs`), configure one `otlp` sink per signal and use [conditional routing]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines#conditional-routing) when a pipeline carries more than one signal type. For an example, see [Routing mixed signal types](#routing-mixed-signal-types).
+The sink maintains a separate buffer for each signal type, so each signal type is batched independently. Each request contains a batch of events of a single signal type, assembled according to the [threshold configuration](#threshold-configuration). A batch can contain spans from many traces, and the spans of a single trace can be sent in different requests.
+
+Each sink sends all signals to the single URL configured in `endpoint`. Because OTLP/HTTP endpoints use a different path for each signal (`/v1/traces`, `/v1/metrics`, and `/v1/logs`), configure one `otlp` sink per signal and use [conditional routing]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines#conditional-routing) when a pipeline carries more than one signal type. For an example, see [Routing mixed signal types](#routing-mixed-signal-types).
 
 ## Prerequisites
 
@@ -50,9 +52,9 @@ trace-pipeline:
 ```
 {% include copy.html %}
 
-### Sending logs to another OTLP endpoint
+### Configuring custom signing values and headers
 
-The following pipeline sends logs to a non-X-Ray endpoint. It sets `service_name` to the endpoint's Signature Version 4 signing name, sets `aws.region` explicitly because the endpoint host does not contain a Region, and adds a custom header to every request:
+The following pipeline sends logs to an endpoint that accepts SigV4-signed requests but is not AWS X-Ray. It sets `service_name` to the endpoint's Signature Version 4 signing name, sets `aws.region` explicitly because the endpoint host does not contain a Region, and adds a custom header to every request:
 
 ```yaml
 log-pipeline:
@@ -142,10 +144,10 @@ Option | Required | Type | Description
 `max_batch_size` | No | String | The maximum size of the uncompressed batch payload. Default is `1mb`.
 `flush_timeout` | No | Duration | The maximum amount of time to wait before flushing a batch. Must be at least `1ms`. Default is `200ms`.
 
-The `flush_timeout` value also determines the HTTP response timeout, which is `flush_timeout` multiplied by 2, limited to a minimum of 3 seconds and a maximum of 10 seconds.
+The sink sets the HTTP response timeout to twice the `flush_timeout` value, within a range of 3 to 10 seconds. For a `flush_timeout` of 1.5 seconds or less, the response timeout is 3 seconds. For a `flush_timeout` between 1.5 and 5 seconds, the response timeout is twice the `flush_timeout`. For a `flush_timeout` of 5 seconds or more, the response timeout is 10 seconds.
 {: .note}
 
-Each signal type uses its own queue, whose capacity is `max_events` multiplied by 10, or 2,000 events, whichever is larger. When a queue is full, the sink applies backpressure to the pipeline instead of dropping events.
+Each signal type uses its own queue of events waiting to be batched. The queue capacity is 10 times `max_events`, with a minimum of 2,000 events, so the queue grows when you increase `max_events`. When a queue is full, the sink applies backpressure to the pipeline and does not drop events.
 
 ## AWS configuration
 
@@ -163,7 +165,7 @@ The `otlp` sink has the following limitations:
 
 - Traces can be sent only to AWS X-Ray-compatible endpoints (`https://xray.<region>.amazonaws.com/v1/traces`). Metrics and logs can be sent to any OTLP endpoint that accepts SigV4-signed Protobuf requests.
 - Only OTLP over HTTP is supported. OTLP over gRPC is not supported.
-- Delivery is at-most-once. When the retries configured in `max_retries` are exhausted, the batch is dropped and the failure is logged and counted. Dead-letter queue (DLQ) delivery is not supported.
+- When the retries configured in `max_retries` are exhausted, the batch is dropped and the failure is logged and counted. Because the sink retries a batch after a retryable status code, the endpoint can receive the same batch more than once. Dead-letter queue (DLQ) delivery is not supported.
 
 ## Metrics
 
