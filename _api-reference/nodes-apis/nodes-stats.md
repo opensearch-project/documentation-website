@@ -336,8 +336,7 @@ Select the arrow to view the example response.
         },
         "fielddata" : {
           "memory_size_in_bytes" : 356,
-          "evictions" : 0,
-          "item_count": 1
+          "evictions" : 0
         },
         "completion" : {
           "size_in_bytes" : 0,
@@ -944,7 +943,7 @@ Field | Field type | Description
 `get.missing_time_in_millis` | `Integer` | The total time for all failed get operations, in milliseconds.
 `get.current` | `Integer` | The number of get operations that are currently running.
 `search` | `Object` | Statistics about the search operations for the node.
-`search.concurrent_avg_slice_count` | `Integer` | The average slice count of all search requests. This is computed as the total slice count divided by the total number of concurrent search requests.
+`search.concurrent_avg_slice_count` | `Float` | The average slice count of all search requests. This is computed as the total slice count divided by the total number of concurrent search requests.
 `search.concurrent_query_total` | `Integer` | The total number of query operations that use concurrent segment search.
 `search.concurrent_query_time_in_millis` | `Integer` | The total amount of time taken by all query operations that use concurrent segment search, in milliseconds.
 `search.concurrent_query_current` | `Integer` | The number of currently running query operations that use concurrent segment search.
@@ -1017,7 +1016,7 @@ Field | Field type | Description
 `warmer.current` | `Integer` | The number of current index warming operations.
 `warmer.total` | `Integer` | The total number of index warming operations.
 `warmer.total_time_in_millis` | `Integer` | The total time for all index warming operations, in milliseconds.
-`query_cache` | Statistics about query cache operations for the node.
+`query_cache` | Object | Statistics about query cache operations for the node.
 `query_cache.memory_size_in_bytes` | Integer | The amount of memory used for the query cache for all shards in the node.
 `query_cache.total_count` | Integer | The total number of hits and misses in the query cache.
 `query_cache.hit_count` | Integer | The total number of hits in the query cache.
@@ -1028,7 +1027,6 @@ Field | Field type | Description
 `fielddata` | Object | Statistics about the field data cache for all shards in the node.
 `fielddata.memory_size_in_bytes` | Integer | The total amount of memory used for the field data cache for all shards in the node.
 `fielddata.evictions` | Integer | The number of evictions in the field data cache.
-`fielddata.item_count` | Integer | The number of items in the field data cache.
 `fielddata.fields` | Object | Contains all field data fields.
 `completion` | Object | Statistics about completions for all shards in the node.
 `completion.size_in_bytes` | Integer | The total amount of memory used for completion for all shards in the node, in bytes.
@@ -1069,7 +1067,7 @@ Field | Field type | Description
 `segments.remote_store.download.total_download_size.succeeded_bytes` | Integer | The number of bytes successfully downloaded from the remote segment store.
 `segments.remote_store.download.total_download_size.failed_bytes` | Integer | The number of bytes that failed to download from the remote segment store.
 `segments.remote_store.download.total_time_spent_in_millis` | Integer | The total duration, in milliseconds, spent on downloads from the remote segment store.
-`segments.file_sizes` | Integer | Statistics about the size of the segment files.
+`segments.file_sizes` | Object | Statistics about the size of the segment files, keyed by Lucene file extension. Each entry contains the `size_in_bytes` and `description` fields. Empty unless `include_segment_file_sizes` is `true`.
 `translog` | Object | Statistics about transaction log operations for the node.
 `translog.operations` | Integer | The number of translog operations.
 `translog.size_in_bytes` | Integer | The size of the translog, in bytes.

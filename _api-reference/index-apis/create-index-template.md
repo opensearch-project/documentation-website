@@ -10,7 +10,7 @@ nav_order: 10
 **Introduced 1.0**
 {: .label .label-purple }
 
-You can use the Create or Update Index Template API to create indexes with predefined mappings and settings as well as update existing index templates.
+Use the Create or Update Index Template API to create indexes with predefined mappings and settings as well as update existing index templates.
 
 ## Endpoints
 
@@ -32,6 +32,7 @@ The following optional query parameters are supported.
 Parameter | Data type | Description
 :--- | :--- | :---
 `create` | Boolean | When true, the API cannot replace or update any existing index templates. Default is `false`.
+`cause` | String | The reason for creating or updating the index template. Default is `api`.
 `cluster_manager_timeout` | Time | The amount of time to wait for a connection to the cluster manager node. Default is `30s`.
 
 ## Request body fields
@@ -41,22 +42,22 @@ The following options can be used in the request body to customize the index tem
 
 Parameter | Type | Description
 :--- | :--- | :---
-`index_patterns` | String array | An array of wildcard expressions that match the names of data streams and indexes created during template creation. Required.
+`index_patterns` | String array | An array of wildcard expressions used to match the names of data streams and indexes when they are created. Required.
 `composed_of` | String array | An ordered list of component template names. These templates are merged using the specified order. For more information, see [Using multiple component templates](#using-multiple-component-templates). Optional.
-`data_stream` | Object | When used, the request creates data streams and any backing indexes based on the template. This setting requires a matching index template. It can also be used with the `hidden` setting, which, when set to `true`, hides the data stream backing indexes. Optional.
+`data_stream` | Object | When specified, the index template becomes a data stream template, and data streams with matching names can be created using it. The data stream backing indexes are always hidden. The object can contain a `timestamp_field` object, whose `name` field specifies the timestamp field for the data stream. Default `name` is `@timestamp`. Optional.
 `_meta` | Object | Optional metadata that provides details about the index template. Optional.
-`priority` | Integer | A number that determines which index templates take precedence during the creation of a new index or data stream. OpenSearch chooses the template with the highest priority. When no priority is given, the template is assigned a `0`, signifying the lowest priority. Optional.
+`priority` | Long | A number that determines which index templates take precedence during the creation of a new index or data stream. OpenSearch chooses the template with the highest priority. When no priority is given, the template is assigned a `0`, signifying the lowest priority. Must be `0` or greater. Index templates with overlapping index patterns cannot have the same priority. Optional.
 `template` | Object | The template that includes the `aliases`, `mappings`, or `settings` for the index. For more information, see [Template](#template). Optional.
-`version` | Integer | The version number used to manage index templates. Version numbers are not automatically set by OpenSearch. Optional.
-`context` | Object | (Experimental) The `context` parameter provides use-case-specific predefined templates that can be applied to an index. Among all settings and mappings declared for a template, context templates hold the highest priority. For more information, see [index-context]({{site.url}}{{site.baseurl}}/im-plugin/index-context/).
+`version` | Long | The version number used to manage index templates. Version numbers are not automatically set by OpenSearch. Optional.
+`context` | Object | (Experimental) The `context` parameter provides use-case-specific predefined templates that can be applied to an index. Among all settings and mappings declared for a template, context templates hold the highest priority. Requires the `cluster.application_templates.enabled` setting to be `true`. The object contains the `name` (String, required) of the context, the context template `version` (String, default `_latest`), and optional `params` (Object). For more information, see [Index context]({{site.url}}{{site.baseurl}}/im-plugin/index-context/). Optional.
 
 ### Template
 
 You can use the following objects with the `template` option in the request body.
 
-#### `alias`
+#### `aliases`
 
-The name of the alias to associate with the template as a key. Required when the `template` option exists in the request body. This option supports multiple aliases.
+The name of the alias to associate with the template as a key. This option supports multiple aliases. The alias name can include `{index}`, which is replaced with the name of the index when the index is created.
 
 The object body contains the following optional alias parameters.
 
@@ -67,7 +68,7 @@ Parameter | Data type | Description
 `is_hidden` | Boolean | When `true`, the alias is hidden. Default is `false`. All alias indexes must have matching values for this setting.
 `is_write_index` | Boolean | When `true`, the index is the write index for the alias. Default is `false`.
 `routing` | String | The value used to route index and search operations to a specific shard.
-`search_routing` | String | The value used to write specific search operations to a specific shard. When specified, this option overwrites the `routing` value for search operations.
+`search_routing` | String | The value used to route search operations to a specific shard. When specified, this option overwrites the `routing` value for search operations.
 
 #### `mappings`
 
@@ -284,7 +285,7 @@ response = client.indices.put_index_template(
 
 ### Adding template metadata
 
-The following example request uses the `meta` parameter to add metadata to the index template. All metadata is stored in the cluster state:
+The following example request uses the `_meta` parameter to add metadata to the index template. All metadata is stored in the cluster state:
 
 <!-- spec_insert_start
 component: example_code
@@ -405,7 +406,7 @@ response = client.indices.put_index_template(
 
 ## Using multiple component templates
 
-When using multiple component templates with the `composed_of` field, the component templates are merged in the specified order. Next, all mappings, settings, and aliases from the parent index template of the component are merged. Lastly, any configuration options added to the index requests are merged.
+When using multiple component templates with the `composed_of` field, the component templates are merged in the specified order. The settings, mappings, and aliases in the index template's own `template` object are merged after the component templates and override them. Settings specified in the create index request override both.
 
 In the following example, an index matching `my-index-*` has two merged primary shards. If the order in the `composed_of` array were reversed, then the index would have one primary shard.
 

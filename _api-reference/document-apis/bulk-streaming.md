@@ -41,12 +41,11 @@ Parameter | Data type | Description
 `pipeline` | String | The pipeline ID for preprocessing documents.
 `refresh` | Enum | Whether to refresh the affected shards after performing the indexing operations. Default is `false`. `true` causes the changes show up in search results immediately but degrades cluster performance. `wait_for` waits for a refresh. Requests take longer to return, but cluster performance isn't degraded.
 `require_alias` | Boolean | Set to `true` to require that all actions target an index alias rather than an index. Default is `false`.
-`routing` | String | Routes the request to the specified shard.
+`routing` | String | The default routing value for operations that don't specify their own routing.
 `timeout` | Time | How long to wait for the request to return. Default is `1m`.
-`type` | String | (Deprecated) The default document type for documents that don't specify a type. Default is `_doc`. We highly recommend ignoring this parameter and using the `_doc` type for all indexes.
 `wait_for_active_shards` | String | Specifies the number of active shards that must be available before OpenSearch processes the bulk request. Default is `1` (only the primary shard). Set to `all` or a positive integer. Values greater than 1 require replicas. For example, if you specify a value of 3, the index must have 2 replicas distributed across 2 additional nodes in order for the request to succeed.
-`batch_interval` | Time | Specifies for how long bulk operations should be accumulated into a batch before sending the batch to data nodes.
-`batch_size` | Time | Specifies how many bulk operations should be accumulated into a batch before sending the batch to data nodes. Default is `1`.
+`batch_interval` | Time | Specifies for how long bulk operations should be accumulated into a batch before sending the batch to data nodes. Must be greater than 0. If not specified, operations are not batched by time.
+`batch_size` | Integer | Specifies how many bulk operations should be accumulated into a batch before sending the batch to data nodes. Must be greater than 0. Default is `1`.
 {% comment %}_source | List | asdf
 `_source_excludes` | List | asdf
 `_source_includes` | List | asdf{% endcomment %}
@@ -72,10 +71,13 @@ curl -X POST "http://localhost:9200/_bulk/stream" -H "Transfer-Encoding: chunked
 
 ## Example response
 
-Depending on the batch settings, each streamed response chunk may report the results of one or many (batch) bulk operations. For example, for the preceding request with no batching (default), the streaming response may appear as follows:
+Depending on the batch settings, each streamed response chunk may report the results of one or many (batch) bulk operations. OpenSearch returns results for each HTTP chunk it receives, so the number of response chunks also depends on how the client splits the request stream.
+
+The following response assumes that the document with the ID `tt1392214` already exists in the `movies` index, so the `create` operation results in a version conflict. The documents with the IDs `tt2229499` and `tt0816711` do not exist, so the `delete` operation returns `not_found` and the `update` operation fails. For the preceding request with no batching (default), the streaming response may appear as follows:
 
 ```json
-{"took": 11, "errors": false, "items": [ { "index": {"_index": "movies", "_id": "tt1979320", "_version": 1, "result": "created", "_shards": { "total": 2 "successful": 1, "failed": 0 }, "_seq_no": 1, "_primary_term": 1, "status": 201 } } ] }
+{"took": 4, "errors": false, "items": [ { "delete": { "_index": "movies", "_id": "tt2229499", "_version": 1, "result": "not_found", "_shards": { "total": 2, "successful": 1, "failed": 0 }, "_seq_no": 1, "_primary_term": 1, "status": 404 } } ] }
+{"took": 11, "errors": false, "items": [ { "index": { "_index": "movies", "_id": "tt1979320", "_version": 1, "result": "created", "_shards": { "total": 2, "successful": 1, "failed": 0 }, "_seq_no": 2, "_primary_term": 1, "status": 201 } } ] }
 {"took": 2, "errors": true, "items": [ { "create": { "_index": "movies", "_id": "tt1392214", "status": 409, "error": { "type": "version_conflict_engine_exception", "reason": "[tt1392214]: version conflict, document already exists (current version [1])", "index": "movies", "shard": "0", "index_uuid": "yhizhusbSWmP0G7OJnmcLg" } } } ] }
-{"took": 4, "errors": true, "items": [ { "update": { "_index": "movies", "_id": "tt0816711", "status": 404, "error": { "type": "document_missing_exception", "reason": "[_doc][tt0816711]: document missing", "index": "movies", "shard": "0", "index_uuid": "yhizhusbSWmP0G7OJnmcLg" } } } ] }
+{"took": 4, "errors": true, "items": [ { "update": { "_index": "movies", "_id": "tt0816711", "status": 404, "error": { "type": "document_missing_exception", "reason": "[tt0816711]: document missing", "index": "movies", "shard": "0", "index_uuid": "yhizhusbSWmP0G7OJnmcLg" } } } ] }
 ```
