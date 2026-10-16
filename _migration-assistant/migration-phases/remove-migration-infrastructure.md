@@ -21,7 +21,7 @@ Before proceeding with removal, confirm the following:
 - You no longer need replay or comparison checks.
 - Any snapshot artifacts you want to keep have been retained intentionally.
 
-## Generic Kubernetes removal
+## Other Kubernetes removal
 
 To remove the Helm deployment and persistent volumes, run the following commands:
 
@@ -46,9 +46,24 @@ aws cloudformation wait stack-delete-complete --stack-name <STACK_NAME>
 
 This removes the EKS platform resources created by the solution stack.
 
+## Google Kubernetes Engine (GKE) removal
+
+If you used the GKE Terraform path, uninstall the Helm release and then destroy the Terraform-managed infrastructure:
+
+```bash
+helm uninstall migration-assistant -n ma
+kubectl -n ma delete pvc --all
+terraform destroy \
+  -var="project=<your-gcp-project>" \
+  -var="region=<your-gcp-region>"
+```
+{% include copy.html %}
+
+This removes the GKE cluster, networking, and snapshot resources that Terraform created.
+
 ## Snapshot and artifact retention
 
-Be deliberate about S3 removal. The default migrations bucket is often still useful for:
+Be deliberate about removing the snapshot bucket in object storage, such as Amazon S3 or Google Cloud Storage. The default migrations bucket is often still useful for:
 
 - Audit and rollback investigation
 - Preserving snapshots

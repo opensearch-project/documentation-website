@@ -20,7 +20,7 @@ Migration Assistant is workflow-driven. You choose a migration pattern, configur
 Most migrations follow the same lifecycle:
 
 1. **Assess** compatibility, unsupported components, and downtime needs.
-2. **Deploy** Migration Assistant on Kubernetes or Amazon EKS.
+2. **Deploy** Migration Assistant on your Kubernetes platform.
 3. **Configure** the workflow from the sample for your installed version.
 4. **Run a pilot** on a small allow list.
 5. **Submit the full workflow** and monitor it through the Workflow CLI.
@@ -59,13 +59,12 @@ The following table describes each phase of the migration workflow.
 | Phase | Description | Guide |
 |:------|:------------|:------|
 | [Assessment]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/assessment/) | Review breaking changes and plan your migration | Version-agnostic |
-| [Choose your deployment]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/) | Deploy Migration Assistant on Kubernetes or EKS | [Kubernetes]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-kubernetes/) / [EKS]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-eks/) |
 | [Reroute client traffic to capture proxy]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/reroute-source-to-proxy/) | Route traffic through the capture proxy to record writes | Capture and Replay only |
 | [Migrate metadata]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/) | Transfer index settings, mappings, templates, and aliases | Workflow CLI |
 | [Backfill]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/backfill/) | Migrate documents using snapshot-based reindexing (RFS) | Workflow CLI |
 | [Replay captured traffic]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/replay-captured-traffic/) | Replay recorded traffic to catch the target up to real-time | Capture and Replay only |
 | [Switch traffic to the target]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/switch-traffic-to-target/) | Redirect clients from capture proxy to the target cluster | Capture and Replay only |
-| [Remove infrastructure]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/remove-migration-infrastructure/) | Remove Migration Assistant resources | Helm/CloudFormation |
+| [Remove infrastructure]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/remove-migration-infrastructure/) | Remove Migration Assistant resources | Helm, CloudFormation, or Terraform |
 
 ## Components not migrated automatically
 
