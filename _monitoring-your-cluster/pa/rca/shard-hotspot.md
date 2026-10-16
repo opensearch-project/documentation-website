@@ -8,6 +8,9 @@ nav_order: 30
 
 # Hot shard identification
 
+The Performance Analyzer root cause analysis (RCA) agent has been removed. The agent served the Performance Analyzer API on port 9600, so the metrics, batch metrics, and RCA APIs and PerfTop dashboards described in this section are not available. To collect cluster performance metrics, use the [metrics framework]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/metrics/getting-started/). For more information, see [Breaking changes]({{site.url}}{{site.baseurl}}/breaking-changes/#performance-analyzer-plugin).
+{: .warning}
+
 Hot shard identification root cause analysis (RCA) lets you identify a hot shard within an index. A hot shard is an outlier that consumes more resources than other shards and may lead to poor indexing and search performance. The hot shard identification RCA monitors the following metrics:
 
 - CPU utilization
