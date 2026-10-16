@@ -7,7 +7,7 @@ nav_order: 30
 
 # Scoring script filter
 
-A scoring script filter first filters the documents and then uses a brute-force exact k-NN search on the results. For example, the following query searches for hotels with a rating between 8 and 10, inclusive, that provide parking and then performs a k-NN search to return the 3 hotels that are closest to the specified `location`:
+A scoring script filter first filters the documents and then uses a brute-force exact k-NN search on the results. The following example uses the `hotels-index` created in [Using a Lucene k-NN filter]({{site.url}}{{site.baseurl}}/vector-search/filter-search-knn/efficient-knn-filtering/#using-a-lucene-k-nn-filter). The following query searches for hotels with a rating between 8 and 10, inclusive, that provide parking and then performs a k-NN search to return the 3 hotels that are closest to the specified `location`:
 
 ```json
 POST /hotels-index/_search

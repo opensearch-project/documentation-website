@@ -93,7 +93,8 @@ PUT my-vector-index
         "data_type": "float",
         "mode": "on_disk",
         "method": {
-          "params": {
+          "name": "hnsw",
+          "parameters": {
             "ef_construction": 512
           }
         }
@@ -176,7 +177,7 @@ GET my-vector-index/_search
 ```
 {% include copy-curl.html %}
 
-[Radial search]({{site.url}}{{site.baseurl}}/search-plugins/knn/radial-search-knn/) does not support disk-based vector search.
+[Radial search]({{site.url}}{{site.baseurl}}/search-plugins/knn/radial-search-knn/) does not support disk-based vector search with `4x` compression.
 {: .note}
 
 ## Model-based indexes
