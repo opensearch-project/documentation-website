@@ -133,7 +133,7 @@ You can either use a custom Dockerfile to build a Logstash image or use the stan
 1. Start OpenSearch with this network:
 
     ```
-    docker run -p 9200:9200 -p 9600:9600 --name opensearch --net test -e "discovery.type=single-node" opensearchproject/opensearch:1.2.0
+    docker run -p 9200:9200 --name opensearch --net test -e "discovery.type=single-node" opensearchproject/opensearch:1.2.0
     ```
     {% include copy.html %}
 

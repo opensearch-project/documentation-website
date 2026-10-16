@@ -9,6 +9,9 @@ redirect_from:
 
 # PerfTop dashboards
 
+The Performance Analyzer root cause analysis (RCA) agent has been removed. The agent served the Performance Analyzer API on port 9600, so the metrics, batch metrics, and RCA APIs and PerfTop dashboards described in this section are not available. To collect cluster performance metrics, use the [metrics framework]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/metrics/getting-started/). For more information, see [Breaking changes]({{site.url}}{{site.baseurl}}/breaking-changes/#performance-analyzer-plugin).
+{: .warning}
+
 You can view metrics derived from Performance Analyzer in a PerfTop dashboard. A PerfTop dashboard is a command line interface (CLI) for displaying the metrics. A PerfTop dashboard consists of three main elements: tables, line graphs, and bar graphs. Using JSON, you define a grid of rows and columns and then place elements within that grid, with each element spanning as many rows and columns as you specify.
 
 The best way to get started with building custom dashboards is to duplicate and modify one of the existing JSON files in the `dashboards` directory.
