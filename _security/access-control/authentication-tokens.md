@@ -24,7 +24,125 @@ An extension can use an OBO token to interact with an OpenSearch cluster, using 
 
 ### Configuration
 
-In the [`config/opensearch-security/config.yml` file]({{site.url}}{{site.baseurl}}/security/configuration/configuration/), the OBO configuration is located in the `config.dynamic` section. It contains the `signing_key` for the token signature and an optional `encryption_key` for encrypting the `roles` claims in the token payload:
+OBO authentication is configured in the `config.dynamic.on_behalf_of` section of the [`config/opensearch-security/config.yml` file]({{site.url}}{{site.baseurl}}/security/configuration/configuration/). It uses two keys:
+
+- `signing_key`: Required. The JWT is signed using HMAC SHA-512.
+- `encryption_key`: Optional. When it is provided, the `roles` claim is encrypted. When it is omitted, roles and backend roles are stored as plain text in the token claims. Cluster administrators can choose whether to encrypt role information based on their security requirements.
+
+You can provide each key in one of the following ways:
+
+- [In the OpenSearch keystore](#keys-in-the-opensearch-keystore) on each node. The key is stored directly in the OpenSearch keystore and requires a single setting.
+- [From a keystore file](#keys-from-a-keystore-file) on each node. Use this option if your processes are already built around Java keystore files, or if the key must be generated inside a keystore and never exist in plain text outside of it.
+- [Inline in `config.yml`](#keys-in-configyml) as Base64-encoded strings. The keys are stored in the security index.
+
+When you use the OpenSearch keystore or a keystore file, only enable OBO authentication in `config.yml`:
+
+```yaml
+config:
+  dynamic:
+    on_behalf_of:
+      enabled: true
+...
+```
+
+The keys must meet the following requirements:
+
+- `signing_key`: At least 512 bits (64 bytes). With a shorter key, OBO tokens can be neither issued nor used until the key is replaced, and the node logs the reason.
+- `encryption_key`: The roles are encrypted using AES-256-GCM with a key derived from `encryption_key` using HKDF-SHA256. Use 32 random bytes. In [FIPS mode]({{site.url}}{{site.baseurl}}/security/configuration/fips/), keys shorter than 32 bytes are rejected.
+
+#### Keys in the OpenSearch keystore
+
+**Introduced 3.10**
+{: .label .label-purple }
+
+Each key is stored as a file setting in the [OpenSearch keystore]({{site.url}}{{site.baseurl}}/security/configuration/opensearch-keystore/) on every node.
+
+The setting for each key is `plugins.security.on_behalf_of.<key>.secure_file`, where `<key>` is `signing_key` or `encryption_key`. The file must contain the raw key bytes, not a Base64-encoded string.
+
+The following example generates both keys and adds them to the OpenSearch keystore:
+
+```bash
+openssl rand 64 > signing.key
+openssl rand 32 > encryption.key
+./bin/opensearch-keystore add-file \
+  plugins.security.on_behalf_of.signing_key.secure_file signing.key \
+  plugins.security.on_behalf_of.encryption_key.secure_file encryption.key
+shred -u signing.key encryption.key
+```
+{% include copy.html %}
+
+Note the following behavior:
+
+- The keys are loaded once when the node starts. If a configured key cannot be loaded, for example, because the file is empty, the node does not start. To change a key, update the OpenSearch keystore and restart the node.
+- All nodes in the cluster must use the same keys. A token issued by one node must be verifiable by every other node.
+
+#### Keys from a keystore file
+
+**Introduced 3.10**
+{: .label .label-purple }
+
+Each key is loaded from a keystore file on every node. The keystore location is configured in `opensearch.yml`, and the passwords that protect the keystore are stored in the [OpenSearch keystore]({{site.url}}{{site.baseurl}}/security/configuration/opensearch-keystore/).
+
+The following settings are available for each key. Each setting name starts with `plugins.security.on_behalf_of.<key>.`, where `<key>` is `signing_key` or `encryption_key`, for example, `plugins.security.on_behalf_of.signing_key.keystore_filepath`.
+
+Setting | Description
+:--- | :---
+`keystore_filepath` | The path to the keystore file. A relative path is resolved against the `config` directory. Required.
+`keystore_type` | The keystore type, `PKCS12` or `BCFKS`. Optional. If not set, the type is detected from the file.
+`keystore_alias` | The alias of the secret key entry in the keystore. Required.
+`keystore_password` | The keystore password. Secure setting: must be stored in the OpenSearch keystore, not in `opensearch.yml`.
+`keystore_keypassword` | The password of the key entry. Secure setting. Optional. If not set, `keystore_password` is used.
+
+Note the following behavior:
+
+- The keys are loaded once when the node starts. If a configured key cannot be loaded, the node does not start. To change a key, update the keystore and restart the node.
+- All nodes in the cluster must use the same keys. A token issued by one node must be verifiable by every other node.
+- The keystore must be able to hold secret keys. `JKS` keystores cannot, and `PKCS11` tokens are not supported for these keys. In FIPS mode, use `BCFKS`.
+
+The following example creates a PKCS#12 keystore containing both keys:
+
+```bash
+keytool -genseckey \
+  -alias obo-signing \
+  -keyalg HmacSHA512 \
+  -keysize 512 \
+  -storetype PKCS12 \
+  -keystore config/keystore.p12 \
+  -storepass <password> \
+  -keypass <password>
+
+keytool -genseckey \
+  -alias obo-enc \
+  -keyalg AES \
+  -keysize 256 \
+  -storetype PKCS12 \
+  -keystore config/keystore.p12 \
+  -storepass <password> \
+  -keypass <password>
+```
+{% include copy.html %}
+
+Reference the keystore in `opensearch.yml`:
+
+```yaml
+plugins.security.on_behalf_of.signing_key.keystore_filepath: keystore.p12
+plugins.security.on_behalf_of.signing_key.keystore_alias: obo-signing
+plugins.security.on_behalf_of.encryption_key.keystore_filepath: keystore.p12
+plugins.security.on_behalf_of.encryption_key.keystore_alias: obo-enc
+```
+{% include copy.html %}
+
+Add the keystore password to the OpenSearch keystore. Each command prompts for the value:
+
+```bash
+./bin/opensearch-keystore add plugins.security.on_behalf_of.signing_key.keystore_password
+./bin/opensearch-keystore add plugins.security.on_behalf_of.encryption_key.keystore_password
+```
+{% include copy.html %}
+
+#### Keys in config.yml
+
+The keys are Base64-encoded strings in the `config.dynamic.on_behalf_of` section:
 
 ```yaml
 config:
@@ -36,9 +154,29 @@ config:
 ...
 ```
 
-The default encoding algorithm for signing the JWT is HMAC SHA512. Keys are Base64-encoded strings in the [`config/opensearch-security/config.yml` file]({{site.url}}{{site.baseurl}}/security/configuration/configuration/). After the configuration is applied using the `securityadmin.sh -cd <configuration directory>` command, the values are stored in the security system index and used cluster-wide.
+You can generate suitable keys using the following commands:
 
-When `encryption_key` is omitted, roles and backend roles are stored as plain text in the token claims. When it is provided, the `roles` claim is encrypted. Cluster administrators can choose whether to encrypt role information based on their security requirements.
+```bash
+openssl rand -base64 64   # signing_key
+openssl rand -base64 32   # encryption_key
+```
+{% include copy.html %}
+
+After the configuration is applied using the `securityadmin.sh -cd <configuration directory>` command, the values are stored in the security system index and used cluster-wide.
+
+#### Rolling upgrades
+
+Starting with version 3.10, the `encrypted_roles` claim is encrypted using AES-256-GCM. Earlier versions used AES in ECB mode. During a rolling upgrade from an earlier version, OBO tokens remain valid in both directions:
+
+- While at least one node in the cluster runs an earlier version, upgraded nodes continue to issue tokens in the previous format so that every node can read them.
+- Upgraded nodes read both formats. Tokens in the previous format are accepted for one maximum token lifetime (10 minutes) after the last node running an earlier version leaves the cluster.
+- After all nodes are upgraded, new tokens use AES-256-GCM. No restart or configuration change is required.
+
+In FIPS mode, upgraded nodes never issue tokens in the previous format because AES in ECB mode is not approved for encrypting data. Until all nodes are upgraded, nodes running an earlier version reject tokens issued by upgraded nodes with a `401` response. Tokens issued by nodes running an earlier version remain valid on all nodes. To avoid the `401` responses during the upgrade, request OBO tokens from nodes that have not been upgraded yet, or send requests that use tokens from upgraded nodes only to upgraded nodes.
+{: .important}
+
+Upgraded nodes identify each other using the node attribute `security.internal.obo_roles_aes_gcm`, which the Security plugin sets automatically. Do not set `node.attr.security.internal.obo_roles_aes_gcm` in `opensearch.yml`. A node with this attribute configured does not start.
+{: .note}
 
 ### Token structure
 
@@ -62,7 +200,7 @@ The OBO token contains the following claims:
 	* For the REST API use case, the API parameter service enables the specifying of the target service(s) using this token. The default value is set to `self-issued`.
 * Roles: Security privilege evaluation
 	* When `encryption_key` is configured, the mapped roles are encrypted in the token payload:
-		* Encrypted mapped roles (`encrypted_roles`)
+		* Encrypted mapped roles (`encrypted_roles`), encrypted using AES-256-GCM
 	* When `encryption_key` is not configured, roles are stored as plain text:
 		* Mapped roles (`roles`)
 		* Backend roles (`backend_roles`)
