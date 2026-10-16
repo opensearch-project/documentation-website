@@ -17,7 +17,7 @@ The `collapse` parameter is compatible with other hybrid query search options, s
 
 When using `collapse` in a hybrid query, note the following considerations:
 
-- The [`index.neural_search.hybrid_collapse_docs_per_group_per_subquery`]({{site.url}}{{site.baseurl}}/vector-search/settings/#hybrid-collapse-docs-per-group) setting is deprecated and has no effect. If this setting exists in your index configuration, you can safely remove it. Search results are entirely controlled by the `size` parameter in the search request.
+- The `index.neural_search.hybrid_collapse_docs_per_group_per_subquery` setting is deprecated and has no effect. If this setting exists in your index configuration, you can safely remove it. Search results are entirely controlled by the `size` parameter in the search request.
 - By default, when a hybrid query includes a `collapse` parameter, OpenSearch deduplicates the top `size` documents. As a result, the response can contain fewer than `size` groups if multiple top-scoring documents belong to the same group. To return up to `size` distinct groups, enable the `index.neural_search.hybrid_collapse_distinct_groups_enabled` setting. For more information, see [Returning distinct groups](#returning-distinct-groups).
 - Aggregations run on pre-collapsed results, not the final output.
 - Pagination behavior changes: Because `collapse` reduces the total number of results, it can affect how results are distributed across pages. To retrieve more results, consider increasing the pagination depth.
