@@ -18,7 +18,7 @@ A _resource_ is a document stored in a plugin's system index. Resource sharing i
 
 Resource sharing requires coordination between plugin developers, administrators, and users. Plugin developers must first implement resource sharing support in their plugins and define the resource types that can be shared (such as `ml-model-group` or `anomaly-detector`). Once plugins with resource sharing support are installed, administrators enable the feature cluster-wide and configure the resource types that use resource-level authorization. Finally, users can create and share resources through the UI or APIs, provided they have the necessary cluster permissions.
 
-This documentation is intended for **users** and **administrators** who want to configure and use resource sharing. If you are a **plugin developer** implementing resource sharing support for your plugin, see the [developer documentation](https://github.com/opensearch-project/security/blob/main/RESOURCE_SHARING_AND_ACCESS_CONTROL.md).
+This documentation is intended for **users** and **administrators** who want to configure and use resource sharing. If you are a **plugin developer** implementing resource sharing support for your plugin, see the [developer documentation](https://github.com/opensearch-project/security/blob/main/docs/RESOURCE_SHARING_AND_ACCESS_CONTROL.md).
 
 Resource sharing enables the following operations:
 
@@ -31,7 +31,7 @@ Resource sharing enables the following operations:
 
 Resource sharing is disabled by default. To configure resource sharing, follow these steps.
 
-Before configuring resource sharing, ensure that the plugins you want to use with resource sharing have implemented resource sharing support. If you need to add resource sharing support to a plugin, see the [developer documentation](https://github.com/opensearch-project/security/blob/main/RESOURCE_SHARING_AND_ACCESS_CONTROL.md).
+Before configuring resource sharing, ensure that the plugins you want to use with resource sharing have implemented resource sharing support. If you need to add resource sharing support to a plugin, see the [developer documentation](https://github.com/opensearch-project/security/blob/main/docs/RESOURCE_SHARING_AND_ACCESS_CONTROL.md).
 {: .note}
 
 ### Step 1: Enable resource sharing
@@ -51,7 +51,7 @@ PUT _cluster/settings
 {
   "transient": {
     "plugins.security.resource_sharing.enabled": true,
-    "plugins.security.resource_sharing.protected_types": ["sample-resource"]
+    "plugins.security.resource_sharing.protected_types": ["sample-resource", "sample-resource-group", "workspace"]
   }
 }
 ```
@@ -62,7 +62,7 @@ PUT _cluster/settings
 Specify the resource types that use resource-level authorization by listing them in the protected types configuration. This setting determines the plugin-defined resources that use the sharing and access control framework:
 
 ```yaml
-plugins.security.resource_sharing.protected_types: ["sample-resource", "ml-model"]
+plugins.security.resource_sharing.protected_types: ["sample-resource", "sample-resource-group", "workspace"]
 ```
 {% include copy.html %}
 
@@ -71,6 +71,21 @@ The resource types you specify must exactly match the resource types supported b
 1. **Enable resource sharing** with an empty `protected_types` configuration initially.
 2. **Use the [List resource types API]({{site.url}}{{site.baseurl}}/security/access-control/resource-sharing-api/#list-resource-types)** to discover all available resource types for your installed plugins.
 3. **Update your `protected_types` configuration** with the resource types you want to enable.
+
+### Resource types that share an index
+
+Starting with OpenSearch 3.10, `plugins.security.resource_sharing.protected_types` must include either all or none of the registered resource types that share the same resource index. Types stored in different indexes can be configured independently. This rule applies even when `plugins.security.resource_sharing.enabled` is `false`.
+
+For example, the sample resource plugin registers `sample-resource`, `sample-resource-group`, and `workspace` for the `.sample_resource` index. To protect that index's registered resource types, include all three, as shown in the preceding examples. Specifying only `sample-resource` is invalid. To stop protecting those types, remove all three from the list.
+
+The Security plugin validates this configuration at startup and when you update it through the Cluster Settings API. A partial list prevents startup or causes the settings update to be rejected. The error identifies the resource index and the missing types. Rejected updates leave the existing configuration unchanged.
+
+Both persistent and transient settings must satisfy this rule. An invalid persistent value is rejected even if a transient value would override it. When updating the list, retain any other resource types you still want to protect because the new list replaces the previous value.
+
+Before upgrading to OpenSearch 3.10 or later, check `opensearch.yml` and your persistent and transient cluster settings for partial lists. Add the missing types for each index you want to keep protected. If a plugin upgrade registers another resource type for an already protected index, add that type to the list as part of the upgrade.
+{: .warning}
+
+The validation groups resource types by the resource index name declared by their registered providers. It does not resolve index aliases or include unregistered document types. Resource provider registrations must be consistent across nodes, including cluster manager nodes. Consult the plugin documentation for the types that share an index.
 
 ## Resource types by plugin
 
@@ -217,4 +232,4 @@ When managing resource sharing, administrators should follow these best practice
 - [Resource sharing APIs]({{site.url}}{{site.baseurl}}/security/access-control/resource-sharing-api/) -- REST API reference for programmatic management
 - [Resource access management]({{site.url}}{{site.baseurl}}/dashboards/management/resource-sharing/) -- UI workflows and user guidance
 - [Resource types by plugin](#resource-types-by-plugin) -- Per-plugin access levels and migration steps
-- [Developer documentation](https://github.com/opensearch-project/security/blob/main/RESOURCE_SHARING_AND_ACCESS_CONTROL.md) -- Detailed technical documentation for plugin developers, users, and administrators
+- [Developer documentation](https://github.com/opensearch-project/security/blob/main/docs/RESOURCE_SHARING_AND_ACCESS_CONTROL.md) -- Detailed technical documentation for plugin developers, users, and administrators
