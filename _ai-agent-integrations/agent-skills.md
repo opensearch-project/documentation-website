@@ -187,4 +187,3 @@ The `opensearch-launchpad` skill's `SKILL.md` includes an optional MCP server co
 - [`opensearch-agent-skills`](https://github.com/opensearch-project/opensearch-agent-skills) -- Agent skills repository on GitHub.
 - [Agent Skills specification](https://agentskills.io/specification) -- Specification documentation.
 - [OpenSearch MCP Server]({{site.url}}{{site.baseurl}}/ai-agent-integrations/mcp-server/) -- Direct API access from an AI client.
-- [Using MCP tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/mcp/) -- External MCP server integration from OpenSearch agents.

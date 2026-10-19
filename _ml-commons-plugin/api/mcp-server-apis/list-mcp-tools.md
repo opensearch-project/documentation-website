@@ -65,3 +65,7 @@ OpenSearch responds with the MCP tool list:
     ]
 }
 ```
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `cluster:admin/opensearch/ml/mcp_tools/list`.

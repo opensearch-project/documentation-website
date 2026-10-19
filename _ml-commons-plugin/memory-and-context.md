@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Memory and context
-nav_order: 40
+nav_order: 30
 has_children: true
 has_toc: false
 ---

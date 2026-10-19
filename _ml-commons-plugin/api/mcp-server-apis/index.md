@@ -15,12 +15,14 @@ redirect_from:
 **Introduced 3.0**
 {: .label .label-purple }
 
-[Model Context Protocol (MCP)](https://modelcontextprotocol.io/introduction) defines how an agent can discover and execute tools. The MCP server in OpenSearch allows agents to connect and use available [tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/).
+Use these APIs to manage the in-cluster [Model Context Protocol (MCP)](https://modelcontextprotocol.io/introduction) server, which lets external MCP clients discover and call [tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/) registered in your cluster.
 
-The MCP server in ML Commons uses the Streamable HTTP transport protocol to communicate with the clients. For details about the transport, see the [official MCP documentation](https://modelcontextprotocol.io/specification/2025-03-26/basic/transports).
+The in-cluster MCP server uses the Streamable HTTP transport protocol to communicate with the clients. For details about the transport, see the [official MCP documentation](https://modelcontextprotocol.io/specification/2025-03-26/basic/transports).
 {: .note }
 
-ML Commons supports the following MCP APIs:
+For instructions on setting up the MCP server and connecting a client, see [Using the in-cluster MCP server]({{site.url}}{{site.baseurl}}/ml-commons-plugin/mcp/in-cluster-mcp-server/).
+
+The in-cluster MCP server supports the following APIs:
 
 - [Register MCP tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/mcp-server-apis/register-mcp-tools/)
 - [Update MCP tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/mcp-server-apis/update-mcp-tools/)

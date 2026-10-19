@@ -360,5 +360,5 @@ The following list describes common connection and configuration issues:
 ## Next steps
 
 - For information about Kubernetes deployment, structured logging, tool filtering, and tool customization, see the [`opensearch-mcp-server-py` repository](https://github.com/opensearch-project/opensearch-mcp-server-py/blob/main/USER_GUIDE.md).
-- To integrate MCP tools into an OpenSearch agent (instead of exposing OpenSearch to an external agent), see [Using MCP tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/mcp/).
+- To let MCP clients call tools registered in your cluster without running a separate server, see [Using the in-cluster MCP server]({{site.url}}{{site.baseurl}}/ml-commons-plugin/mcp/in-cluster-mcp-server/).
 - For structured workflows that guide AI assistants through OpenSearch tasks, see [Agent skills]({{site.url}}{{site.baseurl}}/ai-agent-integrations/agent-skills/).

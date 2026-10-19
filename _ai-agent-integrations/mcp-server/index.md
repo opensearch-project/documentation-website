@@ -12,7 +12,7 @@ redirect_from:
 
 The [OpenSearch MCP Server](https://github.com/opensearch-project/opensearch-mcp-server-py) is an open-source [Model Context Protocol (MCP)](https://modelcontextprotocol.io/introduction) server that exposes OpenSearch to AI assistants such as Claude Desktop, Cursor, Kiro, or any other MCP-compatible client. Once connected, an AI assistant can search indexes, read mappings, inspect cluster health, and run other operations by calling OpenSearch APIs using MCP tools instead of generating raw REST requests.
 
-OpenSearch also provides an in-cluster MCP connector that lets an OpenSearch agent call tools hosted on an external MCP server. For more information, see [Using MCP tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/mcp/).
+OpenSearch also supports MCP inside the cluster: an MCP connector lets OpenSearch agents call tools hosted on external MCP servers, and an in-cluster MCP server lets external MCP clients call tools registered in your cluster. For more information, see [MCP servers and clients]({{site.url}}{{site.baseurl}}/ml-commons-plugin/mcp/).
 {: .note}
 
 Use the OpenSearch MCP Server when you want to:
@@ -26,7 +26,7 @@ The OpenSearch MCP Server provides the following capabilities:
 
 - MCP interface: Supports any MCP-compatible client, including Claude Desktop, Cursor, and Kiro.
 - Tools: Includes tools for listing indexes, retrieving mappings, running search queries, checking cluster health, and counting documents. Additional tool categories (search relevance and skills-based analysis) can be enabled as needed.
-- Transport options: Supports standard input/output (`stdio`) for local desktop clients and streaming transport (Server-Sent Events and HTTP streaming) for remote deployments.
+- Transport options: Supports standard input/output (`stdio`) for local desktop clients and a streaming transport for remote deployments. The streaming transport supports Streamable HTTP and the legacy Server-Sent Events (SSE) transport.
 - Authentication: Supports basic authentication, AWS IAM roles, AWS profile credentials, header-based authentication, mutual TLS (mTLS), and anonymous access.
 - Cluster configuration: Supports single-cluster mode using environment variables or multi-cluster mode using a YAML configuration file.
 - Service compatibility: Works with self-managed OpenSearch, Amazon OpenSearch Service, and Amazon OpenSearch Serverless collections.

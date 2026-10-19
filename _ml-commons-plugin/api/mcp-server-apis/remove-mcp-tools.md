@@ -42,3 +42,7 @@ OpenSearch responds with the node ID and the status of tool deletion for each no
     }
 }
 ```
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `cluster:admin/opensearch/ml/mcp_tools/remove`.
