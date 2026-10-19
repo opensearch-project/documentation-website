@@ -52,14 +52,52 @@ The following table provide optional configuration values for `source_coordinati
 | Value | Type | Description |
 | :--- | :--- | :--- |
 | `partition_prefix` | String | A prefix to the `sourceIdentifier` used to differentiate between Data Prepper clusters that share the same distributed store. |
-| `store` | Object  | The object that comprises the configuration for the store to be used, where the key is the name of the store, such as `in_memory` or `dynamodb`, and the value is any configuration available on that store type. |
+| `store` | Object  | The object that comprises the configuration for the store to be used, where the key is the name of the store, such as `in_memory`, `dynamodb`, or `jdbc`, and the value is any configuration available on that store type. |
 
 ### Supported stores
-As of Data Prepper 2.4, only `in_memory` and `dynamodb` stores are supported:
 
-- The `in_memory` store is the
-default when no `source_coordination` settings are configured in the `data-prepper-config.yaml` file and should only be used for single-node configurations.
-- The `dynamodb` store is used for multi-node Data Prepper environments. The `dynamodb` store can be shared between one or more Data Prepper clusters that need to utilize source coordination.
+Data Prepper supports the following source coordination stores:
+
+- The `in_memory` store is the default when no `source_coordination` settings are configured in the `data-prepper-config.yaml` file and should only be used for single-node configurations.
+- The `dynamodb` store supports multi-node Data Prepper environments. The store can be shared by multiple Data Prepper clusters that use source coordination.
+- The `jdbc` store supports multi-node Data Prepper environments by storing coordination data in PostgreSQL or MySQL.
+
+#### JDBC store
+
+The `jdbc` store uses a relational database to coordinate work across Data Prepper nodes. Data Prepper includes JDBC drivers for PostgreSQL and MySQL.
+
+By default, Data Prepper creates the coordination table and its index when the store starts. The database user must be able to create the table and index, and to select, insert, update, and delete rows. Set `skip_table_creation` to `true` when the required table and index already exist.
+
+You can configure `ttl` to periodically remove expired partition records. Data Prepper extends the expiration time whenever it updates a record. Some sources use these records to prevent duplicate processing, so configure a `ttl` that exceeds the expected pipeline duration.
+
+The `jdbc` store supports the following options:
+
+| Option | Required | Type | Description |
+| :--- | :--- | :--- | :--- |
+| `url` | Yes | String | The JDBC connection URL. |
+| `username` | Yes | String | The database username. |
+| `password` | Yes | String | The database password. |
+| `table_name` | No | String | The table used for source coordination. You can specify an unqualified name or a schema-qualified name, such as `schema.table`. Default is `source_coordination`. |
+| `skip_table_creation` | No | Boolean | When set to `true`, Data Prepper does not create the coordination table or its index. Default is `false`. |
+| `max_pool_size` | No | Integer | The maximum number of connections in the JDBC connection pool. Minimum is `1`. Default is `5`. |
+| `ttl` | No | Duration | The duration used to set the expiration time for partition records. Use ISO 8601 duration format, such as `P7D`. Data Prepper extends the expiration time when it updates a record. By default, records do not expire. |
+| `connection_properties` | No | Map | JDBC driver properties to pass to each database connection. |
+
+The following example configures a PostgreSQL database as the source coordination store:
+
+```yaml
+source_coordination:
+  store:
+    jdbc:
+      url: "jdbc:postgresql://db:5432/dataprepper"
+      username: "dp_user"
+      password: {% raw %}"${{aws_secrets:db-secrets:password}}"{% endraw %}
+      table_name: "source_coordination"
+      max_pool_size: 5
+      ttl: "P7D"
+      connection_properties:
+        ssl: "true"
+```
 
 #### DynamoDB store
 
