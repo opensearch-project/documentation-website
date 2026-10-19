@@ -113,9 +113,6 @@ collections:
   about:
     permalink: /:collection/:path/
     output: true
-  automating-configurations:
-    permalink: /:collection/:path/
-    output: true
   getting-started:
     permalink: /:collection/:path/
     output: true
@@ -188,9 +185,6 @@ opensearch_collection:
       nav_fold: true
     ai-agent-integrations:
       name: AI agent integrations
-      nav_fold: true
-    automating-configurations:
-      name: Automating configurations
       nav_fold: true
     dashboards:
       name: OpenSearch Dashboards

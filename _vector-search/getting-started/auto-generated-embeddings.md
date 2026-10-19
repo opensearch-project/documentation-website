@@ -257,13 +257,13 @@ The response contains the matching documents:
 
 ## Using automated workflows
 
-You can quickly set up automatic embedding generation using [_automated workflows_]({{site.url}}{{site.baseurl}}/automating-configurations/). This approach automatically creates and provisions all necessary resources. For more information, see [Workflow templates]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-templates/).
+You can quickly set up automatic embedding generation using [_automated workflows_]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/). This approach automatically creates and provisions all necessary resources. For more information, see [Workflow templates]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/workflow-templates/).
 
 You can use automated workflows to create and deploy externally hosted models and create resources for various AI search types. In this example, you'll create the same search you've already created following manual steps.
 
 ### Step 1: Register and deploy the model
 
-To register and deploy a model, select the built-in workflow template for the model provider. For more information, see [Supported workflow templates]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-templates/#supported-workflow-templates). Alternatively, to configure a custom model, use [Step 1 of the manual setup](#step-1-register-and-deploy-the-model). Note the model ID; you'll use it in the next step.
+To register and deploy a model, select the built-in workflow template for the model provider. For more information, see [Supported workflow templates]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/workflow-templates/#supported-workflow-templates). Alternatively, to configure a custom model, use [Step 1 of the manual setup](#step-1-register-and-deploy-the-model). Note the model ID; you'll use it in the next step.
 
 ### Step 2: Configure a workflow
 

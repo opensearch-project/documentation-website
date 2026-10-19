@@ -2,13 +2,16 @@
 layout: default
 title: Configuring AI search types
 parent: Building AI search workflows in OpenSearch Dashboards
-grand_parent: AI search
+grand_parent: AI search workflows
+great_grand_parent: AI search
 nav_order: 10
+redirect_from:
+  - /vector-search/ai-search/building-flows/
 ---
 
 # Configuring AI search types
 
-This page provides example configurations for different AI search workflow types. Each example shows how to tailor the setup to a specific use case, such as semantic search or hybrid retrieval. To build a workflow from start to finish, follow the steps in [Building AI search workflows in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflow-builder/), applying your use case configuration to the appropriate parts of the setup. 
+This page provides example configurations for different AI search workflow types. Each example shows how to tailor the setup to a specific use case, such as semantic search or hybrid retrieval. To build a workflow from start to finish, follow the steps in [Building AI search workflows in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/workflow-builder/), applying your use case configuration to the appropriate parts of the setup. 
 
 ## Prerequisite: Provision ML resources
 
@@ -490,3 +493,7 @@ Configure a single ML inference search request processor. Map the query field co
 }
 ```
 {% include copy.html %}
+
+## Next steps
+
+To configure agents for agentic search, see [Configuring agentic search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/building-agentic-search-flows/).
