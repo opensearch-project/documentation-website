@@ -2,30 +2,26 @@
 layout: default
 title: Delete snapshot
 parent: Snapshot APIs
-nav_order: 7
+nav_order: 70
 ---
 
 # Delete Snapshot API
 **Introduced 1.0**
 {: .label .label-purple }
 
-Deletes a snapshot from a repository.
+Deletes a snapshot from a repository. To view a list of your repositories, use the [CAT Repositories API]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-repositories/). To view a list of your snapshots, use the [CAT Snapshots API]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-snapshots/).
 
 Deleting a snapshot that is in progress stops the snapshot operation and deletes the partially created snapshot.
 
-* To learn more about snapshots, see [Snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/index/).
-
-* To view a list of your repositories, see [cat repositories]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-repositories/).
-
-* To view a list of your snapshots, see [cat snapshots]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-snapshots/).
-
-## Path and HTTP method
+## Endpoints
 
 ```json
 DELETE _snapshot/{repository}/{snapshot}
 ```
 
 ## Path parameters
+
+The following table lists the available path parameters.
 
 Parameter | Data type | Description
 :--- | :--- | :---

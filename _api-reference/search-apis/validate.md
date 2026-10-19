@@ -107,8 +107,7 @@ GET /hamlet/_validate/query?q=user.id:hamlet
 
 response = client.indices.validate_query(
   index = "hamlet",
-  params = { "q": "user.id:hamlet" },
-  body = { "Insert body here" }
+  params = { "q": "user.id:hamlet" }
 )
 
 {% endcapture %}

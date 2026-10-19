@@ -41,7 +41,7 @@ During the index alias rollover process, if you don't specify a custom name and 
 
 ## Using date math with index rollovers
 
-When using an index alias for time-series data, you can use [date math]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/date/) in the index name to track the rollover date. For example, you can create an alias pointing to `my-index-{now/d}-000001`. If you create an alias on June 11, 2029, then the index name would be `my-index-2029.06.11-000001`. For a rollover on June 12, 2029, the new index would be named `my-index-2029.06.12-000002`. See [Roll over an index alias with a write index](#rolling-over-an-index-alias-with-a-write-index) for a practical example.
+When using an index alias for time-series data, you can use [date math]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/date/) in the index name to track the rollover date. For example, you can create an alias pointing to `my-index-{now/d}-000001`. If you create an alias on June 11, 2029, then the index name would be `my-index-2029.06.11-000001`. For a rollover on June 12, 2029, the new index would be named `my-index-2029.06.12-000002`. See [Roll over an index alias with a write index](#rolling-over-an-index-alias-with-a-write-index) for a practical example. For the full date math index name syntax and the characters you must encode in request URLs, see [Date math in index names]({{site.url}}{{site.baseurl}}/api-reference/index-name-syntax/#date-math-in-index-names).
 
 ## Path parameters
 
@@ -54,11 +54,12 @@ Parameter | Data type | Description
 
 ## Query parameters
 
-The following table lists the available query parameters.
+The following table lists the available query parameters. All query parameters are optional.
 
 Parameter | Data type | Description 
 :--- | :--- | :--- 
 `cluster_manager_timeout` | Time | The amount of time to wait for a connection to the cluster manager node. Default is `30s`.
+`dry_run` | Boolean | If `true`, OpenSearch checks whether the current index meets the rollover conditions and returns the name of the index that would be created, but does not perform the rollover. Default is `false`.
 `timeout` | Time | The amount of time to wait for a response. Default is `30s`.
 `wait_for_active_shards` | String | The number of active shards that must be available before OpenSearch processes the request. Default is `1` (only the primary shard). You can also set to `all` or a positive integer. Values greater than `1` require replicas. For example, if you specify a value of `3`, then the index must have two replicas distributed across two additional nodes in order for the operation to succeed.
 
@@ -92,7 +93,7 @@ The object body supports the following parameters.
 
 Parameter | Data type | Description 
 :--- | :--- | :--- 
-`max_age` | Time units | Triggers a rollover after the maximum elapsed time since index creation is reached. The elapsed time is always calculated since the index creation time, even if the index origination date is configured to a custom date, such as when using the `index.lifecycle.parse_origination_date` or `index.lifecycle.origination_date` settings. Optional. |
+`max_age` | Time units | Triggers a rollover after the maximum elapsed time since index creation is reached. Optional. |
 `max_docs` | Integer | Triggers a rollover after the specified maximum number of documents, excluding documents added since the last refresh and documents in replica shards. Optional. 
 `max_size` | Byte units  | Triggers a rollover when the index reaches a specified size, calculated as the total size of all primary shards. Replicas are not counted. Use the `_cat indices` API and check the `pri.store.size` value to see the current index size. Optional.
 

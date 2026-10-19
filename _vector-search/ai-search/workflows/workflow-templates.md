@@ -1,18 +1,22 @@
 ---
 layout: default
 title: Workflow templates
-nav_order: 25
+parent: AI search workflows
+grand_parent: AI search
+nav_order: 20
+redirect_from:
+  - /automating-configurations/workflow-templates/
 ---
 
 # Workflow templates
 
 OpenSearch provides several workflow templates for some common machine learning (ML) use cases. Using a template simplifies complex setups and provides many default values for use cases like semantic or conversational search. 
 
-You can specify a workflow template when you call the [Create Workflow API]({{site.url}}{{site.baseurl}}/automating-configurations/api/create-workflow/):
+You can specify a workflow template when you call the [Create Workflow API]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/api/create-workflow/):
 
 - To use an OpenSearch-provided workflow template, specify the template use case as the `use_case` query parameter (see the [Example](#example)). For a list of OpenSearch-provided templates, see [Supported workflow templates](#supported-workflow-templates).
 
-- To use a custom workflow template, provide the complete template in the request body. For an example of a custom template, see [an example JSON template]({{site.url}}{{site.baseurl}}/automating-configurations/api/create-workflow/#example-request-register-and-deploy-a-remote-model-json) or [an example YAML template]({{site.url}}{{site.baseurl}}/automating-configurations/api/create-workflow/#example-request-register-and-deploy-an-externally-hosted-model-in-yaml). 
+- To use a custom workflow template, provide the complete template in the request body. For an example of a custom template, see [an example JSON template]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/api/create-workflow/#example-request-register-and-deploy-a-remote-model-json) or [an example YAML template]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/api/create-workflow/#example-request-register-and-deploy-an-externally-hosted-model-in-yaml). 
 
 To provision the workflow, specify `provision=true` as a query parameter. 
 
@@ -111,7 +115,7 @@ POST /_plugins/_flow_framework/workflow?use_case=semantic_search_with_cohere_emb
 
 ## Viewing workflow resources
 
-The workflow you created provisioned all the necessary resources for semantic search. To view the provisioned resources, call the [Get Workflow Status API]({{site.url}}{{site.baseurl}}/automating-configurations/api/get-workflow-status/) and provide the `workflowID` for your workflow:
+The workflow you created provisioned all the necessary resources for semantic search. To view the provisioned resources, call the [Get Workflow Status API]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/api/get-workflow-status/) and provide the `workflowID` for your workflow:
 
 ```json
 GET /_plugins/_flow_framework/workflow/8xL8bowB8y25Tqfenm50/_status
@@ -247,11 +251,23 @@ This workflow configures [semantic search]({{site.url}}{{site.baseurl}}/search-p
 
 - **Use case**: `semantic_search`
 - **Created components**: 
-  - An ingest pipeline with a `text_embedding` processor
-  - A vector index configured with the pipeline
+  - An ingest pipeline named `nlp-ingest-pipeline` with a `text_embedding` processor
+  - A vector index named `my-nlp-index` configured with the pipeline
 - **Required parameters**: 
   - `create_ingest_pipeline.model_id`: The model ID of the text embedding model to be used
 - [Defaults](https://github.com/opensearch-project/flow-framework/blob/main/src/main/resources/defaults/semantic-search-defaults.json)
+
+The default vector dimension is `1024`. If your model produces embeddings of a different dimension, specify it in the `text_embedding.field_map.output.dimension` parameter. To change the document field from which the text is read (by default, `passage_text`), specify the field in the `text_embedding.field_map.input` parameter. The following request creates a workflow for a model that produces 768-dimensional embeddings and reads text from the `passage` field:
+
+```json
+POST /_plugins/_flow_framework/workflow?use_case=semantic_search&provision=true
+{
+  "create_ingest_pipeline.model_id": "aVeif4oB5Vm0Tdw8zYO2",
+  "text_embedding.field_map.output.dimension": "768",
+  "text_embedding.field_map.input": "passage"
+}
+```
+{% include copy-curl.html %}
 
 ### Semantic search with a query enricher
 
@@ -354,11 +370,22 @@ This workflow configures [multimodal search]({{site.url}}{{site.baseurl}}/search
 
 - **Use case**: `multimodal_search`
 - **Created components**: 
-  - An ingest pipeline with a `text_image_embedding` processor
-  - A vector index configured with the pipeline
+  - An ingest pipeline named `nlp-multimodal-ingest-pipeline` with a `text_image_embedding` processor
+  - A vector index named `my-multimodal-nlp-index` configured with the pipeline
 - **Required parameters**: 
   - `create_ingest_pipeline.model_id`: The model ID of the multimodal embedding model to be used
 - [Defaults](https://github.com/opensearch-project/flow-framework/blob/main/src/main/resources/defaults/multi-modal-search-defaults.json)
+
+The default vector dimension is `1024`. If your model produces embeddings of a different dimension, specify it in the `text_image_embedding.field_map.output.dimension` parameter. The dimension must match the size of the embeddings that your model produces. The following request creates a workflow for a model that produces 384-dimensional embeddings:
+
+```json
+POST /_plugins/_flow_framework/workflow?use_case=multimodal_search&provision=true
+{
+  "create_ingest_pipeline.model_id": "-fYQAosBQkdnhhBsK593",
+  "text_image_embedding.field_map.output.dimension": "384"
+}
+```
+{% include copy-curl.html %}
 
 ### Multimodal search using Amazon Bedrock Titan
 
@@ -387,12 +414,23 @@ This workflow configures [hybrid search]({{site.url}}{{site.baseurl}}/search-plu
 
 - **Use case**: `hybrid_search`
 - **Created components**: 
-  - An ingest pipeline
-  - A vector index configured with the pipeline
-  - A search pipeline with a `normalization_processor`
+  - An ingest pipeline named `nlp-ingest-pipeline` with a `text_embedding` processor
+  - A vector index named `my-nlp-index` configured with the pipeline
+  - A search pipeline named `nlp-search-pipeline` with a `normalization_processor`
 - **Required parameters**: 
   - `create_ingest_pipeline.model_id`: The model ID of the text embedding model to be used
 - [Defaults](https://github.com/opensearch-project/flow-framework/blob/main/src/main/resources/defaults/hybrid-search-defaults.json)
+
+The default vector dimension is `1024`. If your model produces embeddings of a different dimension, specify it in the `text_embedding.field_map.output.dimension` parameter. The following request creates a workflow for a model that produces 768-dimensional embeddings:
+
+```json
+POST /_plugins/_flow_framework/workflow?use_case=hybrid_search&provision=true
+{
+  "create_ingest_pipeline.model_id": "bQ1J8ooBpBj3wT4HVUsb",
+  "text_embedding.field_map.output.dimension": "768"
+}
+```
+{% include copy-curl.html %}
 
 ### Hybrid search using a local model
 
@@ -466,3 +504,7 @@ This workflow deploys an Amazon Bedrock chat model and configures an agentic sea
 - [Defaults](https://github.com/opensearch-project/flow-framework/blob/main/src/main/resources/defaults/agentic-search-with-conversational-agent-defaults.json)
 
 **Note**: Requires AWS credentials and access to Amazon Bedrock.
+
+## Next steps
+
+For an example of a custom template that sets up an agent, see [Workflow tutorial]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/workflow-tutorial/).

@@ -123,45 +123,7 @@ These are the only field types that are automatically detected. All other field 
 
 ### Dynamic templates
 
-Dynamic templates are used to define custom mappings for dynamically added fields based on the data type, field name, or field path. They allow you to define a flexible schema for your data that can automatically adapt to changes in the structure or format of the input data.
-
-You can use the following syntax to define a dynamic mapping template:
-
-```json
-PUT index
-{
-  "mappings": {
-    "dynamic_templates": [
-        {
-          "fields": {
-            "mapping": {
-              "type": "short"
-            },
-            "match_mapping_type": "string",
-            "path_match": "status*"
-          }
-        }
-    ]
-  }
-}
-```
-{% include copy-curl.html %}
-
-This mapping configuration dynamically maps any field with a name starting with `status` (for example, `status_code`) to the `short` data type if the initial value provided during indexing is a string.
-
-### Dynamic mapping parameters
-
-The `dynamic_templates` support the following parameters for matching conditions and mapping rules. The default value is `null`.
-
-Parameter | Description |
-----------|-------------|
-`match_mapping_type` | Specifies the JSON data type (for example, string, long, double, object, binary, Boolean, date) that triggers the mapping.
-`match` | A regular expression used to match field names and apply the mapping.
-`unmatch` | A regular expression used to exclude field names from the mapping.
-`match_pattern` | Determines the pattern matching behavior, either `regex` or `simple`. Default is `simple`.
-`path_match` | Allows you to match nested field paths using a regular expression.
-`path_unmatch` | Excludes nested field paths from the mapping using a regular expression.
-`mapping` | The mapping configuration to apply.
+Dynamic templates define custom mappings for fields that OpenSearch adds dynamically. A template selects fields by their detected data type, name, or path and applies the mapping you specify. For more information, see [Dynamic templates]({{site.url}}{{site.baseurl}}/mappings/dynamic-templates/).
 
 ### Dynamic mapping settings
 

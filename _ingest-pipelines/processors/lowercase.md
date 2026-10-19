@@ -7,12 +7,12 @@ redirect_from:
    - /api-reference/ingest-apis/processors/lowercase/
 ---
 
-This documentation describes using the `lowercase` processor in OpenSearch ingest pipelines. Consider using the [Data Prepper `lowercase_string` processor]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/lowercase-string/), which runs on the OpenSearch cluster, if your use case involves large or complex datasets.
+This documentation describes using the `lowercase` processor in OpenSearch ingest pipelines. Consider using the [Data Prepper `lowercase_string` processor]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/lowercase-string/), which runs outside the OpenSearch cluster, if your use case involves large or complex datasets.
 {: .note}
 
 # Lowercase processor
 
-The `lowercase` processor converts all the text in a specific field to lowercase letters. 
+The `lowercase` processor converts all the text in a specific field to lowercase letters. For array fields, the processor converts each string element.
 
 ## Syntax
 
@@ -33,13 +33,13 @@ The following table lists the required and optional parameters for the `lowercas
 
 | Parameter  | Required  | Description  |
 |---|---|---|
-`field`  | Required  | The name of the field containing the data to be converted. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets). |
+`field`  | Required  | The name of the field containing the data to be converted. |
 `description`  | Optional  | A brief description of the processor.  |
 `if` | Optional | A condition for running the processor. |
 `ignore_failure` | Optional |  Specifies whether the processor continues execution even if it encounters errors. If set to `true`, failures are ignored. Default is `false`. |
 `on_failure` | Optional | A list of processors to run if the processor fails. |
 `ignore_missing`  | Optional  | Specifies whether the processor should ignore documents that do not contain the specified field. If set to `true`, the processor does not modify the document if the field does not exist or is `null`. Default is `false`.  |
-`tag` | Optional | An identifier tag for the processor. Useful for debugging in order to distinguish between processors of the same type. |
+`tag` | Optional | An identifier tag for the processor. Useful for debugging in order to distinguish between processors of the same type. For more information, see [Using processor tags for monitoring and debugging]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#using-processor-tags-for-monitoring-and-debugging). |
 `target_field`  | Optional  | The name of the field in which to store the parsed data. Default is `field`. By default, `field` is updated in place. |
 
 ## Using the processor

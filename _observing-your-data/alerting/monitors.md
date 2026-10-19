@@ -28,7 +28,7 @@ The maximum number of monitors you can create is 1,000. You can change the defau
 
 ## Monitor schedules
 
-A monitor runs either at a fixed interval, such as every hour or every day, or on a schedule that you define with a cron expression. Use a cron expression when the interval does not describe when you need the monitor to run, such as every weekday at 11:30 AM. For the syntax, see [Cron expressions]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#cron-expressions).
+A monitor runs either at a fixed interval, such as every hour or every day, or on a schedule that you define with a cron expression. Use a cron expression when the interval does not describe when you need the monitor to run, such as every weekday at 11:30 AM. For the syntax, see [Cron expressions]({{site.url}}{{site.baseurl}}/api-reference/cron-expressions/).
 
 For a monitor that uses a cron expression, see [Create a query-level monitor]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/api/#example-request-2).
 

@@ -120,9 +120,10 @@ module Api
 
     def self.path_template_matches?(template, actual)
       # "/{index}/_doc/{id}" => "^/[^/]+/_doc/[^/]+$"
-      regex = Regexp.new("^" + template.gsub(/\{[^\/]+\}/, '[^/]+') + "$")
+      regex = Regexp.new("^#{template.gsub(%r{\{[^/]+\}}, '[^/]+')}$")
       regex.match?(actual)
     end
+
     # @return [String] API reference
     def api_reference; @operation.external_docs.url; end
   end

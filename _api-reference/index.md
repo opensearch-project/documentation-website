@@ -18,6 +18,10 @@ You can use [REST APIs](#rest-apis) for every API operation in OpenSearch. You c
 
 This page lists API families rather than individual operations. To find a specific operation, open the family that owns it and use the list of APIs on its page.
 
+The request examples on API pages omit the host and credentials, so you can paste them into Dev Tools. To learn how to send the same requests using cURL, including the host URL and authentication, see [Communicate with OpenSearch]({{site.url}}{{site.baseurl}}/getting-started/communicate/).
+
+OpenSearch publishes a reference generated from the OpenSearch API specification that lists REST endpoints with their parameters and schemas. The specification is not yet complete, so some APIs might not appear in the generated reference. For more information, see the [OpenSearch API specification](https://api-spec.opensearch.org/). 
+
 ## REST APIs
 **Introduced 1.0**
 {: .label .label-purple }
@@ -65,7 +69,7 @@ The following APIs manage the models, agents, and workflows that support vector 
 | :--- | :--- |
 | [ML Commons API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/) | Register, deploy, and run machine learning models, agents, and connectors. |
 | [Vector Search API]({{site.url}}{{site.baseurl}}/vector-search/api/) | Manage the models and read the statistics that support vector search. |
-| [Workflow APIs]({{site.url}}{{site.baseurl}}/automating-configurations/api/) | Create, provision, and manage the workflow templates that automate complex setup tasks. |
+| [Workflow APIs]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/api/) | Create, provision, and manage the workflow templates that automate complex setup tasks. |
 
 ### Index management APIs
 
@@ -141,4 +145,6 @@ The following pages provide additional API reference information:
 
 - [Common REST parameters]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/)
 - [Supported units]({{site.url}}{{site.baseurl}}/api-reference/units/)
+- [Index name syntax]({{site.url}}{{site.baseurl}}/api-reference/index-name-syntax/)
+- [Cron expressions]({{site.url}}{{site.baseurl}}/api-reference/cron-expressions/)
 - [Popular APIs]({{site.url}}{{site.baseurl}}/api-reference/popular-api/)

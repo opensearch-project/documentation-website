@@ -2,12 +2,16 @@
 layout: default
 title: Get a workflow status
 parent: Workflow APIs
+grand_parent: AI search workflows
+great_grand_parent: AI search
 nav_order: 40
+redirect_from:
+  - /automating-configurations/api/get-workflow-status/
 ---
 
 # Get Workflow Status API
 
-[Provisioning a workflow]({{site.url}}{{site.baseurl}}/automating-configurations/api/provision-workflow/) may take a significant amount of time, particularly when the action is associated with OpenSearch indexing operations. The Get Workflow State API permits monitoring of the provisioning deployment status until it is complete.
+[Provisioning a workflow]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/api/provision-workflow/) may take a significant amount of time, particularly when the action is associated with OpenSearch indexing operations. The Get Workflow State API permits monitoring of the provisioning deployment status until it is complete.
 
 ## Endpoints
 

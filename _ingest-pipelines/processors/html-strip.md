@@ -7,7 +7,7 @@ nav_order: 140
 
 # HTML strip processor
 
-The `html_strip` processor removes HTML tags from string fields in incoming documents. This processor is useful when indexing data from webpages or other sources that may contain HTML markup. HTML tags are replaced with newline characters (`\n`).
+The `html_strip` processor removes HTML tags from string fields in incoming documents. This processor is useful when indexing data from webpages or other sources that may contain HTML markup. Block-level tags, such as `<p>`, `<div>`, `<br>`, and `<li>`, are replaced with newline characters (`\n`). Inline tags, such as `<b>`, `<span>`, and `<a>`, are removed. For example, `<p>Hello <b>world</b></p>` becomes `\nHello world\n`. For array fields, the processor strips the tags from each string element.
 
 The following is the syntax for the `html_strip` processor:
 
@@ -28,12 +28,12 @@ Parameter | Required/Optional | Description |
 |-----------|-----------|-----------|
 `field` | Required | The string field from which to remove HTML tags.
 `target_field` | Optional | The field that receives the plain text version after stripping HTML tags. If not specified, then the field is updated in-place.
-`ignore_missing` | Optional | Specifies whether the processor should ignore documents that do not contain the specified field. Default is `false`.
+`ignore_missing` | Optional | Specifies whether the processor should ignore documents that do not contain the specified field or in which the field is `null`. Default is `false`.
 `description` | Optional | A description of the processor's purpose or configuration.
 `if` | Optional | Specifies to conditionally execute the processor.
 `ignore_failure` | Optional | Specifies to ignore processor failures. See [Handling pipeline failures]({{site.url}}{{site.baseurl}}/ingest-pipelines/pipeline-failures/).
 `on_failure` | Optional | Specifies a list of processors to run if the processor fails during execution. These processors are executed in the order they are specified. See [Handling pipeline failures]({{site.url}}{{site.baseurl}}/ingest-pipelines/pipeline-failures/).
-`tag` | Optional | An identifier tag for the processor. Useful for debugging in order to distinguish between processors of the same type.
+`tag` | Optional | An identifier tag for the processor. Useful for debugging in order to distinguish between processors of the same type. For more information, see [Using processor tags for monitoring and debugging]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#using-processor-tags-for-monitoring-and-debugging).
 
 ## Using the processor
 
@@ -103,7 +103,6 @@ The following example response confirms that the pipeline is working as expected
   ]
 }
 ```
-{% include copy-curl.html %}
 
 ### Step 3: Ingest a document 
 
@@ -137,7 +136,6 @@ The response shows that the request has indexed the document into the index `pro
   "_primary_term": 1
 }
 ```
-{% include copy-curl.html %}
 
 ### Step 4 (Optional): Retrieve the document
 

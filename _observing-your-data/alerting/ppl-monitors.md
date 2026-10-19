@@ -50,7 +50,7 @@ To create a PPL monitor, follow these steps:
 
 1. Select **Alerting** > **Monitors** > **Create monitor**.
 2. Select the **PPL monitor** option.
-3. Enter a name for the monitor and configure the schedule (by time interval or custom cron expression). For more information about cron expressions, see [Cron expressions]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#cron-expressions).
+3. Enter a name for the monitor and configure the schedule (by time interval or custom cron expression). For more information about cron expressions, see [Cron expressions]({{site.url}}{{site.baseurl}}/api-reference/cron-expressions/).
 4. In the **Query** section, enter your PPL query, for example:
 
    ```sql

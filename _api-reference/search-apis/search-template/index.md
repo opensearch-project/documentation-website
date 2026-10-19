@@ -102,8 +102,7 @@ GET /shakespeare/_search/template
 
 
 response = client.search_template(
-  index = "shakespeare",
-  body = { "Insert body here" }
+  index = "shakespeare"
 )
 
 {% endcapture %}

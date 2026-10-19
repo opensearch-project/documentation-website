@@ -120,8 +120,7 @@ POST /my-index/ingestion/_resume
 
 
 response = client.ingestion.resume(
-  index = "my-index",
-  body = { "Insert body here" }
+  index = "my-index"
 )
 
 {% endcapture %}

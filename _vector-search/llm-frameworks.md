@@ -9,7 +9,7 @@ nav_order: 75
 Several popular large language model (LLM) frameworks integrate with OpenSearch as a vector store, enabling you to build production-ready generative AI applications. These frameworks provide high-level abstractions and tools for working with LLMs, and their OpenSearch integrations allow you to use OpenSearch for efficient vector storage, retrieval, and similarity search:
 
 - LangChain 
-    - [Semantic cache](https://python.langchain.com/docs/integrations/llm_caching/#opensearch-semantic-cache)
+    - [Semantic cache](https://github.com/langchain-ai/langchain-community/blob/main/libs/community/langchain_community/cache.py)
     - [Vector store support](https://pypi.org/project/langchain-opensearch/)
  
 - LlamaIndex

@@ -7,7 +7,7 @@ redirect_from:
    - /api-reference/ingest-apis/processors/append/
 ---
 
-This documentation describes using the `append` processor in OpenSearch ingest pipelines. Consider using the [Data Prepper `add_entries` processor]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/add-entries/), which runs on the OpenSearch cluster, if your use case involves large or complex datasets.
+This documentation describes using the `append` processor in OpenSearch ingest pipelines. Consider using the [Data Prepper `add_entries` processor]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/add-entries/), which runs outside the OpenSearch cluster, if your use case involves large or complex datasets.
 {: .note}
 
 # Append processor
@@ -45,7 +45,7 @@ Parameter | Required/Optional | Description |
 `ignore_failure` | Optional | Specifies whether the processor continues execution even if it encounters errors. If set to `true`, failures are ignored. Default is `false`. |
 `allow_duplicates` | Optional | Specifies whether to append the values already contained in the field. If `true`, duplicate values are appended. Otherwise, they are skipped. |
 `on_failure` | Optional | A list of processors to run if the processor fails. |
-`tag` | Optional | An identifier tag for the processor. Useful for debugging in order to distinguish between processors of the same type. |
+`tag` | Optional | An identifier tag for the processor. Useful for debugging in order to distinguish between processors of the same type. For more information, see [Using processor tags for monitoring and debugging]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#using-processor-tags-for-monitoring-and-debugging). |
 
 ## Using the processor
 

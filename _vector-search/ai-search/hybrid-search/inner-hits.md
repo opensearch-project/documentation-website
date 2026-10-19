@@ -162,18 +162,18 @@ The response includes the matched parent documents along with the relevant neste
     {
       "_index": "my-nlp-index",
       "_id": "1",
-      "_score": 1.0,
+      "_score": 0.5005,
       "inner_hits": {
         "location": {
           "hits": {
-            "max_score": 0.44583148,
+            "max_score": 0.74366313,
             "hits": [
               {
                 "_nested": {
                   "field": "location",
                   "offset": 1
                 },
-                "_score": 0.44583148,
+                "_score": 0.74366313,
                 "_source": {
                   "city": "Udaipur",
                   "state": "Rajasthan"
@@ -184,14 +184,14 @@ The response includes the matched parent documents along with the relevant neste
         },
         "user": {
           "hits": {
-            "max_score": 0.4394061,
+            "max_score": 0.39226836,
             "hits": [
               {
                 "_nested": {
                   "field": "user",
                   "offset": 0
                 },
-                "_score": 0.4394061,
+                "_score": 0.39226836,
                 "_source": {
                   "name": "John Alder",
                   "age": 35
@@ -206,18 +206,18 @@ The response includes the matched parent documents along with the relevant neste
     {
       "_index": "my-nlp-index",
       "_id": "2",
-      "_score": 5.0E-4,
+      "_score": 0.5,
       "inner_hits": {
         "user": {
           "hits": {
-            "max_score": 0.31506687,
+            "max_score": 0.39226836,
             "hits": [
               {
                 "_nested": {
                   "field": "user",
                   "offset": 0
                 },
-                "_score": 0.31506687,
+                "_score": 0.39226836,
                 "_source": {
                   "name": "John Wick",
                   "age": 46
@@ -228,7 +228,7 @@ The response includes the matched parent documents along with the relevant neste
                   "field": "user",
                   "offset": 1
                 },
-                "_score": 0.31506687,
+                "_score": 0.39226836,
                 "_source": {
                   "name": "John Snow",
                   "age": 40
@@ -326,38 +326,38 @@ The response includes an `_explanation` object containing detailed scoring infor
 {
   ...
   "_explanation": {
-    "value": 1.0,
+    "value": 0.5005,
     "description": "arithmetic_mean combination of:",
     "details": [
+      {
+        "value": 0.001,
+        "description": "min_max normalization of:",
+        "details": [
+          {
+            "value": 0.39226836,
+            "description": "Score based on 1 child docs in range from 0 to 6, using score mode Total",
+            "details": [
+              {
+                "value": 0.39226836,
+                "description": "weight(user.name:john in 0) [PerFieldSimilarity], result of:"
+                // Additional details omitted for brevity
+              }
+            ]
+          }
+        ]
+      },
       {
         "value": 1.0,
         "description": "min_max normalization of:",
         "details": [
           {
-            "value": 0.4458314776420593,
-            "description": "combined score of:",
+            "value": 0.74366313,
+            "description": "Score based on 1 child docs in range from 0 to 6, using score mode Avg",
             "details": [
               {
-                "value": 0.4394061,
-                "description": "Score based on 1 child docs in range from 0 to 6, using score mode Avg",
-                "details": [
-                  {
-                    "value": 0.4394061,
-                    "description": "weight(user.name:john in 0) [PerFieldSimilarity], result of:"
-                    // Additional details omitted for brevity
-                  }
-                ]
-              },
-              {
-                "value": 0.44583148,
-                "description": "Score based on 1 child docs in range from 0 to 6, using score mode Avg",
-                "details": [
-                  {
-                    "value": 0.44583148,
-                    "description": "weight(location.city:udaipur in 5) [PerFieldSimilarity], result of:"
-                    // Additional details omitted for brevity
-                  }
-                ]
+                "value": 0.74366313,
+                "description": "weight(location.city:udaipur in 5) [PerFieldSimilarity], result of:"
+                // Additional details omitted for brevity
               }
             ]
           }
@@ -567,9 +567,7 @@ GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
             "query": {
               "match_all": {}
             },
-            "inner_hits": {
-              "name": "coordinates"
-            }
+            "inner_hits": {}
           }
         },
         {
@@ -580,7 +578,9 @@ GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
                 "location.city": "Udaipur"
               }
             },
-            "inner_hits": {}
+            "inner_hits": {
+              "name": "coordinates"
+            }
           }
         }
       ]
@@ -590,12 +590,36 @@ GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
 ```
 {% include copy-curl.html %}
 
-In the response, inner hits for the `user` field appear under the custom name `coordinates`:
+In the response, inner hits for the `location` field appear under the custom name `coordinates`:
 
 ```json
 ...
 "inner_hits": {
   "coordinates": {
+    "hits": {
+      "total": {
+        "value": 1,
+        "relation": "eq"
+      },
+      "max_score": 0.74366313,
+      "hits": [
+        {
+          "_index": "my-nlp-index",
+          "_id": "1",
+          "_nested": {
+            "field": "location",
+            "offset": 1
+          },
+          "_score": 0.74366313,
+          "_source": {
+            "city": "Udaipur",
+            "state": "Rajasthan"
+          }
+        }
+      ]
+    }
+  },
+  "user": {
     "hits": {
       "total": {
         "value": 4,
@@ -615,31 +639,8 @@ In the response, inner hits for the `user` field appear under the custom name `c
             "name": "John Alder",
             "age": 35
           }
-        }
-      ]
-    }
-  },
-  "location": {
-    "hits": {
-      "total": {
-        "value": 1,
-        "relation": "eq"
-      },
-      "max_score": 0.44583148,
-      "hits": [
-        {
-          "_index": "my-nlp-index",
-          "_id": "1",
-          "_nested": {
-            "field": "location",
-            "offset": 1
-          },
-          "_score": 0.44583148,
-          "_source": {
-            "city": "Udaipur",
-            "state": "Rajasthan"
-          }
-        }
+        },
+        ...
       ]
     }
   }
