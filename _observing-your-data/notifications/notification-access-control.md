@@ -8,7 +8,7 @@ has_children: false
 
 # Notification access control
 
-Notifications integrates with the Security plugin's resource sharing and access control framework to provide document-level authorization for notification configurations. A notification configuration is the underlying document for a channel, so sharing a configuration controls access to the corresponding channel. This replaces the legacy `opensearch.notifications.general.filter_by_backend_roles` setting with a more flexible sharing system that allows resource owners to grant specific access levels to users, roles, or backend roles.
+Notifications integrates with the Security plugin's resource sharing and access control framework to provide document-level authorization for notification configurations. A notification configuration is the underlying document for a channel, so sharing a configuration controls access to the corresponding channel. Resource sharing replaces the legacy `opensearch.notifications.general.filter_by_backend_roles` setting and lets resource owners grant specific access levels to users, roles, or backend roles.
 
 For the end-to-end framework concepts and APIs, see [Resource sharing and access control]({{site.url}}{{site.baseurl}}/security/access-control/resources/).
 {: .note}
@@ -21,15 +21,15 @@ The following table describes the notification configuration resource.
 | :--- | :--- |
 | Resource type | `notification_config` |
 | System index | `.opensearch-notifications-config` |
-| Onboarded version | OpenSearch 3.8 |
+| Onboarded version | OpenSearch 3.9 |
 
-When resource-level authorization is enabled, each notification configuration's visibility is governed by a central sharing record. Resource owners and users with sharing capabilities can grant or revoke access permissions for specific users, roles, or backend roles.
+When resource-level authorization is enabled, each notification configuration's visibility is governed by a central sharing record. Resource owners and users with sharing capabilities can grant or revoke access permissions for specific users, roles, or backend roles. When a user lists notification configurations or channels, the response contains only the configurations that the user owns or that are shared with the user.
 
 ## Enable notification resource sharing
 
 To enable resource sharing for notifications, add the notification configuration resource type to the protected types list and enable resource sharing cluster-wide.
 
-Admin-only: These settings can be configured only by cluster administrators with superadmin privileges.
+Admin-only: These settings can be configured only by cluster administrators who have permission to update cluster settings.
 {: .important }
 
 ### Configuration using opensearch.yml
@@ -44,9 +44,11 @@ plugins.security.resource_sharing.protected_types:
 ```
 {% include copy.html %}
 
+Settings added to `opensearch.yml` take effect after a cluster restart.
+
 ### Configuration using the Cluster Settings API
 
-Alternatively, you can enable resource sharing dynamically using the Cluster Settings API:
+To enable resource sharing without restarting the cluster, use the Cluster Settings API:
 
 ```json
 PUT _cluster/settings
@@ -59,12 +61,14 @@ PUT _cluster/settings
 ```
 {% include copy-curl.html %}
 
+The `plugins.security.system_indices.enabled` setting cannot be updated using the Cluster Settings API, so set it in `opensearch.yml`.
+
 When adding the notification configuration resource type to an existing configuration, include all previously configured resource types in the `protected_types` array.
 {: .note}
 
 ## Notification access levels
 
-Notifications provides three predefined access levels for notification configuration documents. These access levels determine the specific permissions granted to users who have been granted access to a notification configuration resource.
+Notifications provides three predefined access levels for notification configuration documents. Each access level determines the operations that a user can perform on a notification configuration shared with them.
 
 ### notifications_read_only
 
@@ -109,12 +113,12 @@ These access levels are predefined and cannot be modified. To request additional
 
 ## Migrating from the legacy framework
 
-After enabling resource sharing and marking the notification configuration resource type as protected, cluster administrators must run the migration API to transfer existing notification sharing information from the legacy framework to the new resource sharing system.
+After enabling resource sharing and marking the notification configuration resource type as protected, cluster administrators must run the migration API to transfer existing notification sharing information from the legacy framework to the new resource sharing system. Until you run the migration, existing notification configurations have no sharing record, so they are inaccessible to all users, including the users who created them.
 
 Admin-only: The Migrate API can only be executed by cluster administrators with superadmin or REST admin privileges.
 {: .important }
 
-Notification configuration documents track their authorized backend roles under `metadata.access` and do not store a per-user owner. Set `backend_roles_path` to `/metadata/access`. The `username_path` parameter is required and must be a non-empty path (an empty value is rejected), so point it at a field that notification documents do not contain, such as `/metadata/owner`. The path resolves to no value, and ownership falls back to `default_owner`.
+Notification configuration documents track their authorized backend roles under `metadata.access` and do not store a per-user owner. Set `backend_roles_path` to `/metadata/access`. The `username_path` parameter is required and cannot be empty, so point it to a field that notification documents do not contain, such as `/metadata/owner`. The path resolves to no value, so ownership falls back to `default_owner`.
 
 Use the following API call to migrate legacy notification sharing data to the resource sharing framework:
 
@@ -132,10 +136,12 @@ POST _plugins/_security/api/resources/migrate
 ```
 {% include copy-curl.html %}
 
-Replace `<replace-with-existing-user>` with the username of an existing user who should own notification configurations. Because notification documents do not carry an owner name, every migrated configuration is attributed to this user. Replace `<select-appropriate-access-level>` with one of the available notification access levels: `notifications_read_only`, `notifications_read_write`, or `notifications_full_access`.
+Replace `<replace-with-existing-user>` with the username of an existing user who should own notification configurations. Because notification documents do not carry an owner name, every migrated configuration is attributed to this user. Replace `<select-appropriate-access-level>` with one of the available notification access levels: `notifications_read_only`, `notifications_read_write`, or `notifications_full_access`. The migration shares each configuration with the backend roles stored in its `metadata.access` field at this access level. If you omit `default_access_level`, the migration uses `notifications_read_only`. Configurations that have no backend roles are migrated without sharing, so only the default owner can access them.
 
 ## Related documentation
 
-- [Resource sharing and access control]({{site.url}}{{site.baseurl}}/security/access-control/resources/) -- Backend concepts, configuration, and setup
-- [Resource sharing APIs]({{site.url}}{{site.baseurl}}/security/access-control/resource-sharing-api/) -- REST API reference for programmatic management
-- [Resource access management]({{site.url}}{{site.baseurl}}/dashboards/management/resource-sharing/) -- UI workflows and user guidance
+The following pages provide more information about resource sharing:
+
+- [Resource sharing and access control]({{site.url}}{{site.baseurl}}/security/access-control/resources/)
+- [Resource sharing APIs]({{site.url}}{{site.baseurl}}/security/access-control/resource-sharing-api/)
+- [Resource access management]({{site.url}}{{site.baseurl}}/dashboards/management/resource-sharing/)
