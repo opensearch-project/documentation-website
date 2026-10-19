@@ -81,8 +81,8 @@ The following table describes the resource types registered by the plugins that 
 | Alerting | `monitor`, `alerting-workflow` | [Alerting resource access control]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/alerting-access-control/) |
 | Anomaly Detection | `anomaly-detector` | [Anomaly detector access control]({{site.url}}{{site.baseurl}}/observing-your-data/ad/detector-access-control/) |
 | Anomaly Detection | `forecaster` | [Forecaster access control]({{site.url}}{{site.baseurl}}/observing-your-data/forecast/forecaster-access-control/) |
-| Flow Framework | `workflow` | [Workflow access control]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-access-control/) |
-| Flow Framework | `workflow-state` | [Workflow state access control]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-state-access-control/) |
+| Flow Framework | `workflow` | [Workflow access control]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/workflow-access-control/) |
+| Flow Framework | `workflow-state` | [Workflow state access control]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/workflow-state-access-control/) |
 | ML Commons | `ml-model-group` | [Model access control through resource sharing]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-sharing-access-control/) |
 | Notifications | `notification_config` | [Notification access control]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/notification-access-control/) |
 | Reporting | `report-definition` | [Report definition access control]({{site.url}}{{site.baseurl}}/reporting/report-definition-access-control/) |

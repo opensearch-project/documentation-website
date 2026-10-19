@@ -207,7 +207,7 @@ The response contains the matching document:
 }
 ```
 
-To create the ingest pipeline and index in one step, you can use the [semantic search workflow template]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-templates/#semantic-search).
+To create the ingest pipeline and index in one step, you can use the [semantic search workflow template]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/workflow-templates/#semantic-search).
 {: .tip}
 
 ### Setting a default model on an index or field
