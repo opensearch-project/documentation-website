@@ -1,25 +1,27 @@
 ---
 layout: default
 title: Building AI search workflows in OpenSearch Dashboards
-parent: AI search
+parent: AI search workflows
+grand_parent: AI search
 has_children: true
 has_toc: false
-nav_order: 80
+nav_order: 40
 redirect_from:
   - /automating-configurations/workflow-builder/
   - /tutorials/ai-search-flows/building-flows/
   - /tutorials/gen-ai/ai-search-flows/building-flows/
+  - /vector-search/ai-search/workflow-builder/
 ---
 
 # Building AI search workflows in OpenSearch Dashboards
 
 In OpenSearch Dashboards, you can iteratively build and test workflows containing ingest and search pipelines using AI Search Flows. Using a UI editor to build workflows simplifies the creation of artificial intelligence and machine learning (AI/ML) use cases that include ML inference processors, such as vector search and retrieval-augmented generation (RAG). 
 
-For example configurations of available AI search types (including semantic search, hybrid search, RAG, and multimodal search), see [Configuring AI search types]({{site.url}}{{site.baseurl}}/vector-search/ai-search/building-flows/). 
+For example configurations of available AI search types (including semantic search, hybrid search, RAG, and multimodal search), see [Configuring AI search types]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/building-flows/). 
 
-For examples of configuring agentic search flows, see [Configuring agentic search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/building-agentic-search-flows/).
+For examples of configuring agentic search flows, see [Configuring agentic search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/building-agentic-search-flows/).
 
-Once your workflow is finalized, you can export it as a [workflow template]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-templates/) to recreate identical resources across multiple clusters.
+Once your workflow is finalized, you can export it as a [workflow template]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/workflow-templates/) to recreate identical resources across multiple clusters.
 
 ## Prerequisite knowledge
 
@@ -120,7 +122,7 @@ We strongly recommend using models with full model interfaces. For a list of exa
 - Modify existing processors under **Transform query** or **Transform results**.
 - Add or remove processors under **Transform query** or **Transform results**.
 
-14. To export your workflow, select **Export** in the header. The displayed data represents the [Workflow template]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-templates/), which contains the full configuration for the OpenSearch resources you've created, including the ingest pipeline, index, and search pipeline. You can download the template in JSON or YAML format by selecting the button on the right. To build identical resources in other OpenSearch clusters, use the [Provision Workflow API]({{site.url}}{{site.baseurl}}/automating-configurations/api/provision-workflow/).
+14. To export your workflow, select **Export** in the header. The displayed data represents the [Workflow template]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/workflow-templates/), which contains the full configuration for the OpenSearch resources you've created, including the ingest pipeline, index, and search pipeline. You can download the template in JSON or YAML format by selecting the button on the right. To build identical resources in other OpenSearch clusters, use the [Provision Workflow API]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/api/provision-workflow/).
 
 ## Advanced data transformations
 
@@ -143,6 +145,6 @@ In **Outputs**, you can configure the values passed _from_ the model. There are 
 
 - For models and model interfaces recommended for use with AI Search Flows, see [Models](https://github.com/opensearch-project/dashboards-flow-framework/blob/main/documentation/models.md).
 
-- For example configurations for different AI/ML use cases, see [Configuring AI search types]({{site.url}}{{site.baseurl}}/tutorials/ai-search-flows/building-flows/).
+- For example configurations for different AI/ML use cases, see [Configuring AI search types]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/building-flows/).
 
-- For examples of configuring agentic search flows, see [Configuring agentic search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/building-agentic-search-flows/).
+- For examples of configuring agentic search flows, see [Configuring agentic search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/building-agentic-search-flows/).

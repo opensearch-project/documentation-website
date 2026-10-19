@@ -153,7 +153,7 @@ For this example, use the templates to create the following agents:
 
 ### Step 3: Create the root agents
 
-Next, create [root agents]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-tutorial/#root_agent) for agents created in the previous step.
+Next, create [root agents]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/workflow-tutorial/#root_agent) for agents created in the previous step.
 
 Create a root agent for the alert summary agent:
 

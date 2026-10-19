@@ -69,7 +69,7 @@ The following APIs manage the models, agents, and workflows that support vector 
 | :--- | :--- |
 | [ML Commons API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/) | Register, deploy, and run machine learning models, agents, and connectors. |
 | [Vector Search API]({{site.url}}{{site.baseurl}}/vector-search/api/) | Manage the models and read the statistics that support vector search. |
-| [Workflow APIs]({{site.url}}{{site.baseurl}}/automating-configurations/api/) | Create, provision, and manage the workflow templates that automate complex setup tasks. |
+| [Workflow APIs]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/api/) | Create, provision, and manage the workflow templates that automate complex setup tasks. |
 
 ### Index management APIs
 

@@ -15,7 +15,7 @@ redirect_from:
 
 Agentic search lets you ask questions in natural language and have OpenSearch plan and execute the retrieval automatically. A preconfigured agent reads the question, plans the search, and returns relevant results.
 
-You can configure agentic search using the API or OpenSearch Dashboards. This guide describes configuring agentic search using the API. To learn how to configure it in OpenSearch Dashboards, see [Building Agentic Search Flows]({{site.url}}{{site.baseurl}}/vector-search/ai-search/building-agentic-search-flows/).
+You can configure agentic search using the API or OpenSearch Dashboards. This guide describes configuring agentic search using the API. To learn how to configure it in OpenSearch Dashboards, see [Building Agentic Search Flows]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/building-agentic-search-flows/).
 
 ## Agent types
 
@@ -289,7 +289,7 @@ After setting up basic agentic search, you can enhance your implementation with 
 
 - [Connect external MCP servers]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/mcp-server/) -- Extend agentic search with external tools and data sources through Model Context Protocol (MCP) servers for enhanced functionality and real-time information access.
 
-- [Build agentic search flows]({{site.url}}{{site.baseurl}}/vector-search/ai-search/building-agentic-search-flows/) -- Configure agents and execute agentic search using AI search flows in OpenSearch Dashboards. 
+- [Build agentic search flows]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/building-agentic-search-flows/) -- Configure agents and execute agentic search using AI search flows in OpenSearch Dashboards. 
 
 - [Rerank agentic search results]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/rerank-agentic-search-results/) -- Add a rerank search response processor to your agentic search pipeline to further rerank search results.
 
