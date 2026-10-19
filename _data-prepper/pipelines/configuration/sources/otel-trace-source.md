@@ -79,7 +79,7 @@ otel-traces-https:
         hosts: ["https://opensearch:9200"]
         index: otel-traces-https
         username: admin
-        password: admin_pass
+        password: "<custom-admin-password>"
         insecure: true
 ```
 {% include copy.html %}

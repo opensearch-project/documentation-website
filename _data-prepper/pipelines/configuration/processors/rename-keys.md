@@ -53,7 +53,7 @@ rename-keys-nested-pipeline:
         hosts: ["https://opensearch:9200"]
         insecure: true
         username: admin
-        password: admin_password
+        password: "<custom-admin-password>"
         index_type: custom
         index: rename-%{yyyy.MM.dd}
 ```

@@ -134,7 +134,7 @@ otel-telemetry:
         hosts: [ "https://opensearch:9200" ]
         index: logs-%{yyyy.MM.dd}
         username: admin
-        password: yourStrongPassword123!
+        password: "<custom-admin-password>"
         insecure: true
     - pipeline:
         name: traces-raw
@@ -156,7 +156,7 @@ traces-raw:
         hosts: [ "https://opensearch:9200" ]
         index_type: trace-analytics-raw
         username: admin
-        password: yourStrongPassword123!
+        password: "<custom-admin-password>"
         insecure: true
 
 otel-metrics:
@@ -174,7 +174,7 @@ otel-metrics:
         hosts: [ "https://opensearch:9200" ]
         index: metrics-otel-%{yyyy.MM.dd}
         username: admin
-        password: yourStrongPassword123!
+        password: "<custom-admin-password>"
         insecure: true
 ```
 {% include copy.html %}

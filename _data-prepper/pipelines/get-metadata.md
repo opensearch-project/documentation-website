@@ -44,7 +44,7 @@ metadata-pass-demo:
         hosts: ["https://opensearch:9200"]
         insecure: true
         username: admin
-        password: admin_password
+        password: "<custom-admin-password>"
         index_type: custom
         # Use metadata inside sink format strings
         index: demo-%{yyyy.MM.dd}-${getMetadata("tenant")}

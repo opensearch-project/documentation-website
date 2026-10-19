@@ -87,7 +87,7 @@ otel-logs-otel-output:
         hosts: ["https://opensearch:9200"]
         index: otel-logs-otel-output
         username: admin
-        password: admin_pass
+        password: "<custom-admin-password>"
         insecure: true
 ```
 {% include copy.html %}

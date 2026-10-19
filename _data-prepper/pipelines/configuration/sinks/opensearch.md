@@ -55,7 +55,7 @@ Option | Required | Type | Description
 `hosts` | Yes | List | A list of OpenSearch hosts to write to, such as `["https://localhost:9200", "https://remote-cluster:9200"]`.
 `cert` | No | String | The path to the security certificate. For example, `"config/root-ca.pem"` if the cluster uses the OpenSearch Security plugin.
 `username` | No | String  | The username for HTTP basic authentication.
-`password` | No | String | The password for HTTP basic authentication.
+`password` | No | String | The password for HTTP basic authentication. Many Data Prepper examples authenticate as the `admin` user and use the `<custom-admin-password>` placeholder for its [password]({{site.url}}{{site.baseurl}}/security/configuration/passwords/#admin-password). You can also authenticate as a user that has only the permissions that the sink requires. For more information, see [OpenSearch cluster security](#opensearch-cluster-security).
 `aws` | No | AWS  | The [AWS](#aws) configuration. 
 [max_retries](#configure-max_retries) | No | Integer | The maximum number of times that the `opensearch` sink should try to push data to the OpenSearch server before considering it to be a failure. Defaults to `Integer.MAX_VALUE`. When not provided, the sink will try to push data to the OpenSearch server indefinitely and exponential backoff will increase the waiting time before a retry.
 `aws_sigv4` | No | Boolean | **Deprecated in Data Prepper 2.7.** Default is `false`. Whether to use AWS Identity and Access Management (IAM) signing to connect to an Amazon OpenSearch Service domain. For your access key, secret key, and optional session token, OpenSearch Data Prepper uses the default credential chain (environment variables, Java system properties, `~/.aws/credential`). 
@@ -230,7 +230,7 @@ In order to send data to an OpenSearch cluster using the `opensearch` sink plugi
 sink:
   - opensearch:
       username: "admin"
-      password: "admin"
+      password: "<custom-admin-password>"
       ...
 ```
 

@@ -13,17 +13,26 @@ You can configure logging using Log4j in OpenSearch Data Prepper.
 
 Data Prepper uses [SLF4J](https://www.slf4j.org/) with a [Log4j 2 binding](https://logging.apache.org/log4j/2.x/log4j-slf4j-impl.html).
 
-For Data Prepper versions 2.0 and later, the Log4j 2 configuration file can be found and edited in `config/log4j2.properties` in the application's home directory. The default properties for Log4j 2 can be found in `log4j2-rolling.properties` in the *shared-config* directory.
+Data Prepper reads its Log4j 2 configuration from the `config/log4j2-rolling.properties` file in the Data Prepper home directory. To customize logging, edit or replace this file. In Docker, the file path is `/usr/share/data-prepper/config/log4j2-rolling.properties`.
 
-For Data Prepper versions before 2.0, the Log4j 2 configuration file can be overridden by setting the `log4j.configurationFile` system property when running Data Prepper. The default properties for Log4j 2 can be found in `log4j2.properties` in the *shared-config* directory. 
+To use a configuration file in a different location, set the `log4j.configurationFile` system property in the `JAVA_OPTS` environment variable before starting Data Prepper:
 
-### Example
-
-When running Data Prepper, the following command can be overridden by setting the system property `-Dlog4j.configurationFile={property_value}`, where `{property_value}` is a path to the Log4j 2 configuration file:
-
+```bash
+export JAVA_OPTS="-Dlog4j.configurationFile=/path/to/log4j2.properties"
+bin/data-prepper
 ```
-java "-Dlog4j.configurationFile=config/custom-log4j2.properties" -jar data-prepper-core-$VERSION.jar pipelines.yaml data-prepper-config.yaml
+{% include copy.html %}
+
+In Docker, pass the environment variable using the `-e` option and mount the configuration file into the container:
+
+```bash
+docker run --name data-prepper \
+  -e JAVA_OPTS="-Dlog4j.configurationFile=/usr/share/data-prepper/custom/log4j2.properties" \
+  -v ${PWD}/log4j2.properties:/usr/share/data-prepper/custom/log4j2.properties \
+  -v ${PWD}/pipelines.yaml:/usr/share/data-prepper/pipelines/pipelines.yaml \
+  opensearchproject/data-prepper:latest
 ```
+{% include copy.html %}
 
 See the [Log4j 2 configuration documentation](https://logging.apache.org/log4j/2.x/manual/configuration.html) for more information about Log4j 2 configuration.
 

@@ -66,7 +66,7 @@ log-pipeline:
         hosts: [ "https://localhost:9200" ]
         # Change to your credentials
         username: "admin"
-        password: "admin"
+        password: "<custom-admin-password>"
         # Add a certificate file if you are accessing an OpenSearch cluster with a self-signed certificate
         #cert: /path/to/cert
         # If you are connecting to an Amazon OpenSearch Service domain without

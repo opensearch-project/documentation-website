@@ -112,7 +112,7 @@ date-ingestion-pipeline:
         hosts: ["https://opensearch:9200"]
         insecure: true
         username: admin
-        password: admin_pass
+        password: "<custom-admin-password>"
         index_type: custom
         index: date-ingestion-%{yyyy.MM.dd}
 ```
@@ -251,7 +251,7 @@ date-multi-format-pipeline:
         hosts: ["https://opensearch:9200"]
         insecure: true
         username: admin
-        password: admin_pass
+        password: "<custom-admin-password>"
         index_type: custom
         index: date-multi-format-%{yyyy.MM.dd}
 ```
@@ -370,7 +370,7 @@ date-syslog-pipeline:
         hosts: ["https://opensearch:9200"]
         insecure: true
         username: admin
-        password: admin_password
+        password: "<custom-admin-password>"
         index_type: custom
         index: date-syslog-%{yyyy.MM.dd}
 ```

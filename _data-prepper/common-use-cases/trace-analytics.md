@@ -146,7 +146,7 @@ raw-trace-pipeline:
         hosts: ["https://localhost:9200"]
         insecure: true
         username: admin
-        password: admin_password
+        password: "<custom-admin-password>"
         index_type: trace-analytics-raw
 service-map-pipeline:
   delay: "100"
@@ -164,7 +164,7 @@ service-map-pipeline:
         hosts: ["https://localhost:9200"]
         insecure: true
         username: admin
-        password: admin_password
+        password: "<custom-admin-password>"
         index_type: trace-analytics-service-map
 ```
 {% include copy.html %}
@@ -251,7 +251,7 @@ raw-trace-pipeline:
         hosts: [ "https://opensearch:9200" ]
         # Change to your credentials
         username: admin
-        password: admin_password
+        password: "<custom-admin-password>"
         # Add a certificate file if you are accessing an OpenSearch cluster with a self-signed certificate  
         #cert: /path/to/cert
         # If you are connecting to an Amazon OpenSearch Service domain without
@@ -265,7 +265,7 @@ raw-trace-pipeline:
         index_type: trace-analytics-raw
         # Change to your credentials
         username: admin
-        password: admin_password
+        password: "<custom-admin-password>"
         # Add a certificate file if you are accessing an OpenSearch cluster with a self-signed certificate  
         #cert: /path/to/cert
         # If you are connecting to an Amazon OpenSearch Service domain without
@@ -303,7 +303,7 @@ service-map-pipeline:
         index_type: trace-analytics-service-map
         # Change to your credentials
         username: admin
-        password: admin_password
+        password: "<custom-admin-password>"
         # Add a certificate file if you are accessing an OpenSearch cluster with a self-signed certificate  
         #cert: /path/to/cert
         # If you are connecting to an Amazon OpenSearch Service domain without
@@ -456,7 +456,7 @@ raw-trace-pipeline:
         hosts: ["https://opensearch:9200"]
         insecure: true
         username: admin
-        password: <strong_password>
+        password: "<custom-admin-password>"
         index_type: trace-analytics-raw
 
 service-map-pipeline:
@@ -470,7 +470,7 @@ service-map-pipeline:
         hosts: ["https://opensearch:9200"]
         insecure: true
         username: admin
-        password: <strong_password>
+        password: "<custom-admin-password>"
         index_type: trace-analytics-service-map
 ```
 {% include copy.html %}
