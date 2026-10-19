@@ -306,4 +306,4 @@ The `search_only` action requires segment replication to be enabled for the inde
 
 ## No search replicas configured
 
-The `search_only` action requires at least one search replica. For more information about configuring search replicas, see [Separate index and search workloads]({{site.url}}{{site.baseurl}}/tuning-your-cluster/separate-index-and-search-workloads/).
+The `search_only` action requires at least one search replica. For more information about configuring search replicas, see [Separating index and search workloads]({{site.url}}{{site.baseurl}}/tuning-your-cluster/performance-tuning/separate-index-and-search-workloads/).

@@ -1,13 +1,15 @@
 ---
 layout: default
-title: Separate index and search workloads
-nav_order: 42
+title: Separating index and search workloads
+nav_order: 20
+parent: Performance tuning
 has_children: false
 redirect_from: 
    - /tuning-your-cluster/seperate-index-and-search-workloads/
+   - /tuning-your-cluster/separate-index-and-search-workloads/
 ---
 
-# Separate index and search workloads
+# Separating index and search workloads
 
 In a remote-store-enabled cluster with a segment-replication-enabled index, you can segregate indexing and search workloads across different hardware by using the specialized `search` node role and provisioning corresponding search replicas in the index.
 

@@ -51,7 +51,7 @@ For information about Amazon S3 repository settings, see [Amazon S3]({{site.url}
 
 ## Cluster manager task throttling settings
 
-For information about cluster manager task throttling settings, see [Setting throttling limits]({{site.url}}{{site.baseurl}}/tuning-your-cluster/cluster-manager-task-throttling/#setting-throttling-limits).
+For information about cluster manager task throttling settings, see [Setting throttling limits]({{site.url}}{{site.baseurl}}/tuning-your-cluster/load-protection/cluster-manager-task-throttling/#setting-throttling-limits).
 
 ## Remote-backed storage settings
 
@@ -67,15 +67,15 @@ For remote segment warmer settings, see [Remote segment warmer settings]({{site.
 
 ## Search backpressure settings
 
-Search backpressure is a mechanism used to identify resource-intensive search requests and cancel them when the node is under duress. For more information, see [Search backpressure settings]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/search-backpressure/#search-backpressure-settings).
+Search backpressure is a mechanism used to identify resource-intensive search requests and cancel them when the node is under duress. For more information, see [Search backpressure settings]({{site.url}}{{site.baseurl}}/tuning-your-cluster/load-protection/search-backpressure/#search-backpressure-settings).
 
 ## Concurrency limit settings
 
-Concurrency limits adaptively restrict the number of active requests for any transport action. For more information, see [Concurrency limit settings]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/concurrency-limits/#concurrency-limit-settings).
+Concurrency limits adaptively restrict the number of active requests for any transport action. For more information, see [Concurrency limit settings]({{site.url}}{{site.baseurl}}/tuning-your-cluster/load-protection/concurrency-limits/#concurrency-limit-settings).
 
 ## Shard indexing backpressure settings
 
-Shard indexing backpressure is a smart rejection mechanism at a per-shard level that dynamically rejects indexing requests when your cluster is under strain. For more information, see shard indexing backpressure [settings]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/shard-indexing-settings/).
+Shard indexing backpressure is a smart rejection mechanism at a per-shard level that dynamically rejects indexing requests when your cluster is under strain. For more information, see shard indexing backpressure [settings]({{site.url}}{{site.baseurl}}/tuning-your-cluster/load-protection/shard-indexing-settings/).
 
 ## Segment replication settings
 

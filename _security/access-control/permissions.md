@@ -378,7 +378,7 @@ See [Snapshot APIs]({{site.url}}{{site.baseurl}}/api-reference/snapshots/index/)
 
 ### Reroute
 
-See [Cluster manager task throttling]({{site.url}}{{site.baseurl}}/tuning-your-cluster/cluster-manager-task-throttling/).
+See [Cluster manager task throttling]({{site.url}}{{site.baseurl}}/tuning-your-cluster/load-protection/cluster-manager-task-throttling/).
 
 - `cluster:admin/reroute`
 
