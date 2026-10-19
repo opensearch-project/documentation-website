@@ -149,7 +149,7 @@ For sample agent templates, see [Flow Framework sample templates](https://github
 
 ### Step 3: Create a root agent
 
-Next, create a [root agent]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-tutorial/#root_agent) for the data summary agent created in the previous step:
+Next, create a [root agent]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/workflow-tutorial/#root_agent) for the data summary agent created in the previous step:
 
 ```json
 POST /.plugins-ml-config/_doc/os_data2summary

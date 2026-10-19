@@ -2,7 +2,11 @@
 layout: default
 title: Search for a workflow
 parent: Workflow APIs
+grand_parent: AI search workflows
+great_grand_parent: AI search
 nav_order: 60
+redirect_from:
+  - /automating-configurations/api/search-workflow/
 ---
 
 # Search Workflow API

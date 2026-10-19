@@ -2,14 +2,18 @@
 layout: default
 title: Provision a workflow
 parent: Workflow APIs
+grand_parent: AI search workflows
+great_grand_parent: AI search
 nav_order: 30
+redirect_from:
+  - /automating-configurations/api/provision-workflow/
 ---
 
 # Provision Workflow API
 
 Provisioning a workflow is a one-time setup process usually performed by a cluster administrator to create resources that will be used by end users.  
 
-The `workflows` template field may contain multiple workflows. The workflow with the `provision` key can be executed with this API. This API is also executed when the [Create or Update Workflow API]({{site.url}}{{site.baseurl}}/automating-configurations/api/create-workflow/) is called with the `provision` parameter set to `true`.
+The `workflows` template field may contain multiple workflows. The workflow with the `provision` key can be executed with this API. This API is also executed when the [Create or Update Workflow API]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/api/create-workflow/) is called with the `provision` parameter set to `true`.
 
 You can only provision a workflow if it has not yet been provisioned. Deprovision the workflow if you need to repeat provisioning.
 {: .note}
@@ -82,7 +86,7 @@ OpenSearch responds with the same `workflow_id` that was used in the request:
 }
 ```
 
-To obtain the provisioning status, call the [Get Workflow State API]({{site.url}}{{site.baseurl}}/automating-configurations/api/get-workflow-status/).
+To obtain the provisioning status, call the [Get Workflow State API]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/api/get-workflow-status/).
 
 ## Example response with wait_for_completion_timeout enabled
 

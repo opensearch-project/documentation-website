@@ -1,7 +1,11 @@
 ---
 layout: default
 title: Workflow settings
-nav_order: 30
+parent: AI search workflows
+grand_parent: AI search
+nav_order: 90
+redirect_from:
+  - /automating-configurations/workflow-settings/
 ---
 
 # Workflow settings

@@ -2,7 +2,11 @@
 layout: default
 title: Get workflow steps
 parent: Workflow APIs
+grand_parent: AI search workflows
+great_grand_parent: AI search
 nav_order: 50
+redirect_from:
+  - /automating-configurations/api/get-workflow-steps/
 ---
 
 # Get Workflow Steps API

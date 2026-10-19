@@ -2,8 +2,11 @@
 layout: default
 title: Configuring agentic search
 parent: Building AI search workflows in OpenSearch Dashboards
-grand_parent: AI search
+grand_parent: AI search workflows
+great_grand_parent: AI search
 nav_order: 20
+redirect_from:
+  - /vector-search/ai-search/building-agentic-search-flows/
 ---
 
 # Configuring agentic search

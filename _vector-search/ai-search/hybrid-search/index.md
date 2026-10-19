@@ -316,7 +316,7 @@ The response contains the matching documents:
 }
 ```
 
-To create the ingest pipeline, index, and search pipeline in one step, you can use the [hybrid search workflow template]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-templates/#hybrid-search).
+To create the ingest pipeline, index, and search pipeline in one step, you can use the [hybrid search workflow template]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/workflow-templates/#hybrid-search).
 {: .tip}
 
 ## Filtering data

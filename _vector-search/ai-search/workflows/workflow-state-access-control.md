@@ -1,7 +1,12 @@
 ---
 layout: default
 title: Workflow state access control
-nav_order: 35
+parent: Workflow template security
+grand_parent: AI search workflows
+great_grand_parent: AI search
+nav_order: 20
+redirect_from:
+  - /automating-configurations/workflow-state-access-control/
 ---
 
 # Workflow state access control
@@ -128,4 +133,4 @@ Replace `<replace-with-existing-user>` with the username of an existing user who
 - [Resource sharing and access control]({{site.url}}{{site.baseurl}}/security/access-control/resources/) -- Backend concepts, configuration, and setup
 - [Resource sharing APIs]({{site.url}}{{site.baseurl}}/security/access-control/resource-sharing-api/) -- REST API reference for programmatic management
 - [Resource access management]({{site.url}}{{site.baseurl}}/dashboards/management/resource-sharing/) -- UI workflows and user guidance
-- [Workflow access control]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-access-control/) -- Access control for workflow templates
+- [Workflow access control]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/workflow-access-control/) -- Access control for workflow templates

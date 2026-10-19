@@ -76,7 +76,7 @@ The following table lists the resources that support access management from thei
 |---|---|
 | Alerting | [Monitors and workflows]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/alerting-access-control/) |
 | Anomaly Detection | [Detectors]({{site.url}}{{site.baseurl}}/observing-your-data/ad/detector-access-control/) and [forecasters]({{site.url}}{{site.baseurl}}/observing-your-data/forecast/forecaster-access-control/) |
-| Flow Framework | [Workflows]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-access-control/) |
+| Flow Framework | [Workflows]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/workflow-access-control/) |
 | ML Commons | [Model groups]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-sharing-access-control/) |
 | Notifications | [Channels]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/notification-access-control/) |
 | Reporting | [Report definitions]({{site.url}}{{site.baseurl}}/reporting/report-definition-access-control/) and [reports]({{site.url}}{{site.baseurl}}/reporting/report-instance-access-control/) |

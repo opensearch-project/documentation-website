@@ -139,7 +139,7 @@ GET /my-nlp-index/_search
 
 To eliminate passing the model ID with each neural query request, you can set a default model on a vector index or a field. To learn more, see [Setting a default model on an index or field]({{site.url}}{{site.baseurl}}/search-plugins/neural-text-search/#setting-a-default-model-on-an-index-or-field).
 
-To create the ingest pipeline and index in one step, you can use the [multimodal search workflow template]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-templates/#multimodal-search).
+To create the ingest pipeline and index in one step, you can use the [multimodal search workflow template]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/workflow-templates/#multimodal-search).
 {: .tip}
 
 ## Next steps

@@ -246,7 +246,7 @@ The response contains the matching documents:
 }
 ```
 
-To deploy an externally hosted model in one step, you can use a [model deployment workflow template]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-templates/#model-deployment-templates). To create the ingest pipeline and index in one step, you can use the [semantic search workflow template]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-templates/#semantic-search).
+To deploy an externally hosted model in one step, you can use a [model deployment workflow template]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/workflow-templates/#model-deployment-templates). To create the ingest pipeline and index in one step, you can use the [semantic search workflow template]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/workflow-templates/#semantic-search).
 {: .tip}
 
 ## Next steps

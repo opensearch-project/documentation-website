@@ -40,7 +40,7 @@ oa-toolkit:
     list:
       - Agents for task orchestration
       - Tools for specific operations
-      - Configuration automation
+      - AI search workflows
 algorithms:
   - heading: "Supported algorithms"
     link: "/ml-commons-plugin/algorithms/"

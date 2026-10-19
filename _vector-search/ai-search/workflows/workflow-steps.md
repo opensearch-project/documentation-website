@@ -1,7 +1,11 @@
 ---
 layout: default
 title: Workflow steps
+parent: AI search workflows
+grand_parent: AI search
 nav_order: 10
+redirect_from:
+  - /automating-configurations/workflow-steps/
 ---
 
 # Workflow steps
@@ -10,14 +14,14 @@ _Workflow steps_ form basic "building blocks" for process automation. Most steps
 
 ## Workflow step fields
 
-Workflow steps are actively being developed to expand automation capabilities. Workflow step (graph node) configuration includes the following fields.
+Workflow step (graph node) configuration includes the following fields.
 
 |Field	|Data type	|Required/Optional	|Description	|
 |:---	|:---	|:---	|:---	|
 |`id`	|String	|Required	| A user-provided ID for the step. The ID must be unique within a given workflow and is useful for identifying resources created by the step. For example, a `register_agent` step may return an `agent_id` that has been registered. Using this ID, you can determine which step produced which resource.	|
 |`type`	|String	|Required	|The type of action to take, such as `deploy_model`, which corresponds to the API for which the step is used. Multiple steps may share the same type but must each have their own unique ID. For a list of supported types, see [Workflow step types](#workflow-step-types).	|
 |`previous_node_inputs`	|Object	|Optional	| A key-value map specifying user inputs that are produced by a previous step in the workflow. For each key-value pair, the key is the previous step's `id` and the value is an API body field name (such as `model_id`) that will be produced as an output of a previous step in the workflow. For example, `register_remote_model` (key) may produce a `model_id` (value) that is required for a subsequent `deploy_model` step. <br> A graph edge is automatically added to the workflow connecting the previous step's key as the source and the current node as the destination. <br>In some cases, you can include [additional inputs](#additional-fields) in this field.	|
-|`user_inputs`	|Object	|Optional	| A key-value map of inputs supported by the corresponding API for this specific step. Some inputs are required for an API, while others are optional. Required inputs may be specified here, if known, or in the `previous_node_inputs` field. The [Get Workflow Steps API]({{site.url}}{{site.baseurl}}/automating-configurations/api/get-workflow-steps/) identifies required inputs and step outputs. <br> Substitutions are supported in string values, lists of strings, and maps with string values. The pattern `{% raw %}${{previous_step_id.output_key}}{% endraw %}` will be replaced by the value in the previous step's output with the given key.  For example, if a parameter map in the user inputs includes a key `embedding_model_id` with a value `{% raw %}${{deploy_embedding_model.model_id}}{% endraw %}`, then the `model_id` output of the `deploy_embedding_model` step will be substituted here. This performs a similar function to the `previous_node_input` map but is not validated and does not automatically infer edges. <br>In some cases, you can include [additional inputs](#additional-fields) in this field.	|
+|`user_inputs`	|Object	|Optional	| A key-value map of inputs supported by the corresponding API for this specific step. Some inputs are required for an API, while others are optional. Required inputs may be specified here, if known, or in the `previous_node_inputs` field. The [Get Workflow Steps API]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/api/get-workflow-steps/) identifies required inputs and step outputs. <br> Substitutions are supported in string values, lists of strings, and maps with string values. The pattern `{% raw %}${{previous_step_id.output_key}}{% endraw %}` will be replaced by the value in the previous step's output with the given key.  For example, if a parameter map in the user inputs includes a key `embedding_model_id` with a value `{% raw %}${{deploy_embedding_model.model_id}}{% endraw %}`, then the `model_id` output of the `deploy_embedding_model` step will be substituted here. This performs a similar function to the `previous_node_input` map but is not validated and does not automatically infer edges. <br>In some cases, you can include [additional inputs](#additional-fields) in this field.	|
 
 ## Workflow step types
 
@@ -36,8 +40,8 @@ The following table lists the workflow step types. The `user_inputs` fields for 
 |`delete_model`	|[Delete Model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/delete-model/)	|Unregisters and deletes a model.	|
 |`deploy_model`	|[Deploy Model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/deploy-model/)	|Deploys a registered model into memory.	|
 |`undeploy_model`	|[Undeploy Model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/undeploy-model/)	|Undeploys a deployed model from memory.	|
-|`register_agent`	|[Register Agent API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/)	|Registers an agent as part of the ML Commons Agent Framework.	|
-|`delete_agent`	|[Delete Agent API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/)	|Deletes an agent.	|
+|`register_agent`	|[Register Agent API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/register-agent/)	|Registers an agent as part of the ML Commons Agent Framework.	|
+|`delete_agent`	|[Delete Agent API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/delete-agent/)	|Deletes an agent.	|
 |`create_tool`	|No API	| A special-case non-API step encapsulating the specification of a tool for an agent in the ML Commons Agent Framework. These will be listed as `previous_node_inputs` for the appropriate register agent step, with the value set to `tools`.	|
 |`create_index`|[Create Index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/)     | Creates a new OpenSearch index. The inputs include `index_name`, which should be the name of the index to be created, and `configurations`, which contains the payload body of a regular REST request for creating an index.
 |`create_ingest_pipeline`|[Create Ingest Pipeline]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/) | Creates or updates an ingest pipeline. The inputs include `pipeline_id`, which should be the ID of the pipeline, and `configurations`, which contains the payload body of a regular REST request for creating an ingest pipeline.
@@ -83,4 +87,8 @@ You can include the following additional fields in the `previous_node_inputs` fi
 
 ## Example workflow steps
 
-For example workflow step implementations, see the [Workflow tutorial]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-tutorial/).
+For example workflow step implementations, see the [Workflow tutorial]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/workflow-tutorial/).
+
+## Next steps
+
+To set up common use cases using templates provided by OpenSearch, see [Workflow templates]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/workflow-templates/).

@@ -1,7 +1,12 @@
 ---
 layout: default
 title: Workflow template security
+parent: AI search workflows
+grand_parent: AI search
+has_children: true
 nav_order: 50
+redirect_from:
+  - /automating-configurations/workflow-security/
 ---
 
 # Workflow template security
@@ -14,7 +19,7 @@ Security for Flow Framework is set up similarly to [security for anomaly detecti
 
 ## Basic permissions
 
-As an admin user, you can use the Security plugin to assign specific permissions to users based on the APIs they need to access. For a list of supported Flow Framework APIs, see [Workflow APIs]({{site.url}}{{site.baseurl}}/automating-configurations/api/index/).
+As an admin user, you can use the Security plugin to assign specific permissions to users based on the APIs they need to access. For a list of supported Flow Framework APIs, see [Workflow APIs]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/api/index/).
 
 The Security plugin has two built-in roles that cover most Flow Framework use cases: `flow_framework_full_access` and `flow_framework_read_access`. For descriptions of each, see [Predefined roles]({{site.url}}{{site.baseurl}}/security/access-control/users-roles#predefined-roles).
 
@@ -91,3 +96,7 @@ Because they have different backend roles, `alice` and `bob` cannot view each ot
 Users without backend roles can still view other users' workflow results if they have `flow_framework_read_access`. This also applies to users who have `flow_framework_full_access` because this permission includes all of the permissions of `flow_framework_read_access`. 
 
 Administrators should inform users that the `flow_framework_read_access` permission allows them to view the results of any workflow in a cluster, including data not directly accessible to them. To limit access to the results of a specific workflow, administrators should apply backend role filters when creating the workflow. This ensures that only users with matching backend roles can access that workflow's results.
+
+## Next steps
+
+To grant specific users, roles, or backend roles access to individual workflows, see [Workflow access control]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/workflow-access-control/).

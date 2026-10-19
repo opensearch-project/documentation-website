@@ -773,58 +773,6 @@ You can now experiment with different weights, normalization techniques, and com
 
 You can parameterize the search by using search templates. Search templates hide implementation details, reducing the number of nested levels and thus the query complexity. For more information, see [search templates]({{site.url}}{{site.baseurl}}/search-plugins/search-template/).
 
-## Using automated workflows
-
-You can quickly set up semantic or hybrid search using [_automated workflows_]({{site.url}}{{site.baseurl}}/automating-configurations/). This approach automatically creates and provisions all necessary resources. For more information, see [Workflow templates]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-templates/).
-
-### Automated semantic search setup
-
-OpenSearch provides a [workflow template]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-templates/) that automatically registers and deploys a default local model (`huggingface/sentence-transformers/paraphrase-MiniLM-L3-v2`) and creates an ingest pipeline and a vector index. By default, the ingest pipeline generates embeddings from a field named `passage_text`. The documents in this tutorial store their text in the `text` field, so specify `text` as the input field in the request body:
-
-```json
-POST /_plugins/_flow_framework/workflow?use_case=semantic_search_with_local_model&provision=true
-{
-  "text_embedding.field_map.input": "text"
-}
-```
-{% include copy-curl.html %}
-
-Review the semantic search workflow template [defaults](https://github.com/opensearch-project/flow-framework/blob/main/src/main/resources/defaults/semantic-search-with-local-model-defaults.json) to determine whether you need to update any other parameters. For example, to use the model from this tutorial, specify the model name and version. The index dimension must match the model's embedding dimension, so also set the dimension to `768`:
-
-```json
-POST /_plugins/_flow_framework/workflow?use_case=semantic_search_with_local_model&provision=true
-{
-  "register_local_pretrained_model.name": "huggingface/sentence-transformers/msmarco-distilbert-base-tas-b",
-  "register_local_pretrained_model.version": "1.0.3",
-  "text_embedding.field_map.input": "text",
-  "text_embedding.field_map.output.dimension": "768"
-}
-```
-{% include copy-curl.html %}
-
-OpenSearch responds with a workflow ID for the created workflow:
-
-```json
-{
-  "workflow_id" : "U_nMXJUBq_4FYQzMOS4B"
-}
-```
-
-To check the workflow status, send the following request:
-
-```json
-GET /_plugins/_flow_framework/workflow/U_nMXJUBq_4FYQzMOS4B/_status
-```
-{% include copy-curl.html %}
-
-Once the workflow completes, the `state` changes to `COMPLETED`. The workflow runs the following steps:
-
-1. [Step 2](#step-2-register-and-deploy-the-model) to register and deploy the model.
-1. [Step 3(a)](#step-3a-create-an-ingest-pipeline) to create an ingest pipeline.
-1. [Step 3(b)](#step-3b-create-a-vector-index) to create a vector index.
-
-You can now continue with [Step 3(c)](#step-3c-ingest-documents-into-the-index) to ingest documents into the index and [Step 4](#step-4-search-the-data) to search your data.
-
 ## Clean up
 
 After you're done, delete the components you've created in this tutorial from the cluster:
@@ -869,3 +817,4 @@ DELETE /_plugins/_ml/model_groups/Z1eQf4oB5Vm0Tdw8EIP2
 ## Next steps
 
 - Explore [AI search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/index/) in OpenSearch.
+- To create the model, ingest pipeline, and vector index in a single request, use a workflow template. For more information, see [Workflow templates]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/workflow-templates/#semantic-search-using-a-local-model).

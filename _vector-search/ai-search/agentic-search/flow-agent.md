@@ -27,7 +27,7 @@ There are two ways to configure agentic search with a flow agent:
 
 ## Automated workflow
 
-OpenSearch provides a [workflow template]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-templates#agentic-search-with-a-flow-agent) that automatically creates an Amazon Bedrock connector, a remote chat model, a `QueryPlanningTool`, a flow agent, and a search pipeline. Review the workflow template [defaults](https://github.com/opensearch-project/flow-framework/blob/main/src/main/resources/defaults/agentic-search-with-flow-agent-defaults.json) to determine whether you need to update any of the parameters. To create the default agentic search workflow with a flow agent, send the following request:
+OpenSearch provides a [workflow template]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/workflow-templates#agentic-search-with-a-flow-agent) that automatically creates an Amazon Bedrock connector, a remote chat model, a `QueryPlanningTool`, a flow agent, and a search pipeline. Review the workflow template [defaults](https://github.com/opensearch-project/flow-framework/blob/main/src/main/resources/defaults/agentic-search-with-flow-agent-defaults.json) to determine whether you need to update any of the parameters. To create the default agentic search workflow with a flow agent, send the following request:
 
 ```json
 POST /_plugins/_flow_framework/workflow?use_case=agentic_search_with_flow_agent&provision=true
