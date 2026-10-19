@@ -71,7 +71,7 @@ Option | Required | Type | Description
 
 `template_type` | No | String | Defines what type of OpenSearch template to use. Available options are `v1` and `index-template`. The default value is `v1`, which uses the original OpenSearch templates available at the `_template` API endpoints. The `index-template` option uses composable [index templates]({{site.url}}{{site.baseurl}}/opensearch/index-templates/), which are available through the OpenSearch `_index_template` API. Composable index types offer more flexibility than the default and are necessary when an OpenSearch cluster contains existing index templates. Composable templates are available for all versions of OpenSearch and some later versions of Elasticsearch. When `distribution_version` is set to `es6`, Data Prepper enforces the `template_type` as `v1`.
 `template_file` | No | String | The path to a JSON [index template]({{site.url}}{{site.baseurl}}/opensearch/index-templates/) file, such as `/your/local/template-file.json`, when `index_type` is set to `custom`. For an example template file, see [otel-v1-apm-span-index-template.json](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/opensearch/src/main/resources/otel-v1-apm-span-index-template.json). If you supply a template file, then it must match the template format specified by the `template_type` parameter.
-`template_content` | No | JSON | Contains all the inline JSON found inside of the index  [index template]({{site.url}}{{site.baseurl}}/opensearch/index-templates/). For an example of template content, see [the example template content](#example_template_content).
+`template_content` | No | JSON | Contains all the inline JSON found inside of the index  [index template]({{site.url}}{{site.baseurl}}/opensearch/index-templates/). For an example of template content, see [the example template content](#example-with-template_content-and-actions).
 `document_id_field` | No | String | **Deprecated in Data Prepper 2.7 in favor of `document_id`.** The field from the source data to use for the OpenSearch document ID (for example, `"my-field"`) if `index_type` is `custom`.
 `document_id` | No | String | A format string to use as the `_id` in OpenSearch documents. To specify a single field in an event, use `${/my_field}`. You can also use Data Prepper expressions to construct the `document_id`, for example, `${getMetadata(\"some_metadata_key\")}`. These options can be combined into more complex formats, such as `${/my_field}-test-${getMetadata(\"some_metadata_key\")}`. 
 `document_version` | No | String  |  A format string to use as the `_version` in OpenSearch documents. To specify a single field in an event, use `${/my_field}`. You can also use Data Prepper expressions to construct the `document_version`, for example, `${getMetadata(\"some_metadata_key\")}`. These options can be combined into more complex versions, such as `${/my_field}${getMetadata(\"some_metadata_key\")}`. The `document_version` format must evaluate to a long type and can only be used when `document_version_type` is set to either `external` or `external_gte`.
@@ -430,7 +430,7 @@ log-pipeline:
           region: "us-east-1"
 ```
 
-### Example with template_content and actions <a id="example_template_content"></a>
+### Example with template_content and actions
 
 The following example pipeline contains both `template_content` and a list of conditional `actions`:
 

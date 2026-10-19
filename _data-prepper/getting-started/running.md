@@ -101,7 +101,7 @@ Data Prepper responds with `200 OK`, and the `stdout` sink prints the event to t
 
 ## Step 4: List the running pipelines
 
-To list the running pipelines, send a request to the core APIs. The request depends on the [default server configuration]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/configuring-pipelines/#server-configuration) of your installation.
+To list the running pipelines, send a request to the core APIs. The request depends on the [default server configuration]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/installing/#server-configuration) of your installation.
 
 For the Docker image, use `https` and the default credentials. The `-k` option skips certificate verification because the image uses a self-signed certificate:
 
