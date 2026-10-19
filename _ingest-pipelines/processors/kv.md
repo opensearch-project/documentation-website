@@ -5,12 +5,15 @@ parent: Ingest processors
 nav_order: 200
 ---
 
-This documentation describes using the `kv` processor in OpenSearch ingest pipelines. Consider using the [Data Prepper `key_value` processor]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/key-value/), which runs on the OpenSearch cluster, if your use case involves large or complex datasets.
+This documentation describes using the `kv` processor in OpenSearch ingest pipelines. Consider using the [Data Prepper `key_value` processor]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/key-value/), which runs outside the OpenSearch cluster, if your use case involves large or complex datasets.
 {: .note}
 
 # KV processor
 
-The `kv` processor automatically extracts specific event fields or messages that are in a `key=value` format. This structured format organizes your data by grouping it together based on keys and values. It's helpful for analyzing, visualizing, and using data, such as user behavior analytics, performance optimizations, or security investigations. 
+The `kv` processor automatically extracts specific event fields or messages that are in a `key=value` format. This structured format organizes your data by grouping it together based on keys and values. It's helpful for analyzing, visualizing, and using data, such as user behavior analytics, performance optimizations, or security investigations.
+
+The `kv` processor creates a field for each key that it extracts, so the keys in your data determine the field names in your index. If the keys vary widely, the number of fields in the mapping can grow quickly. To store all extracted keys in a single field, set `target_field` and map that field as a [`flat_object`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/flat-object/).
+{: .tip} 
 
 ## Example
 
@@ -21,7 +24,7 @@ The following is the syntax for the `kv` processor:
   "kv": {
     "field": "message",
     "field_split": " ",
-    "value_split": " "
+    "value_split": "="
   }
 }
 ```
@@ -32,22 +35,23 @@ The following is the syntax for the `kv` processor:
 The following table lists the required and optional parameters for the `kv` processor.
 
 | Parameter  | Required/Optional  | Description  |
-`field`  | Required  | The name of the field containing the data to be parsed. |
+|-----------|-----------|-----------|
+`field`  | Required  | The name of the field containing the data to be parsed. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets). |
 `field_split` | Required | The regex pattern for key-value pair splitting. |
 `value_split` | Required | The regex pattern for splitting the key from the value within a key-value pair, for example, equal sign `=` or colon `:`.
-`exclude_keys` | Optional | The keys to exclude from the document. Default is `null`. |
-`include_keys` | Optional | The keys for filtering and inserting. Default is to include all keys. |
+`exclude_keys` | Optional | A list of keys to exclude from the document. Default is `null`. |
+`include_keys` | Optional | A list of keys to extract. Other keys are ignored. Default is to include all keys. |
 `prefix` | Optional | The prefix to add to the extracted keys. Default is `null`. |
 `strip_brackets` | Optional | If set to `true`, strips brackets (`()`, `<>,` or `[]`) and quotes (`'` or `"`) from extracted values. Default is `false`.
 `trim_key` | Optional | The string of characters to trim from the extracted keys. | 
-`trim value` | Optional | The string of characters to trim from the extracted values. |
+`trim_value` | Optional | The string of characters to trim from the extracted values. |
 `description`  | Optional  | A brief description of the processor.  |
 `if` | Optional | A condition for running the processor. |
 `ignore_failure` | Optional | If set to `true`, failures are ignored. Default is `false`. |
 `on_failure` | Optional | A list of processors to run if the processor fails. |
-`ignore_missing`  | Optional  | Specifies whether the processor should ignore documents that do not contain the specified field. Default is `false`.  |
-`tag` | Optional | An identifier tag for the processor. Useful for debugging in order to distinguish between processors of the same type. |
-`target_field`  | Optional  | The name of the field in which to insert the extracted keys. Default is `null`. |
+`ignore_missing`  | Optional  | Specifies whether the processor should ignore documents that do not contain the specified field or in which the field is `null`. Default is `false`.  |
+`tag` | Optional | An identifier tag for the processor. Useful for debugging in order to distinguish between processors of the same type. For more information, see [Using processor tags for monitoring and debugging]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#using-processor-tags-for-monitoring-and-debugging). |
+`target_field`  | Optional  | The name of the field in which to insert the extracted keys. If not specified, the keys are added to the root of the document. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets). |
 
 ## Using the processor
 

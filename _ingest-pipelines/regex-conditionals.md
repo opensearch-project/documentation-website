@@ -9,6 +9,8 @@ nav_order: 70
 
 Ingest pipelines support conditional logic using regular expressions (regex) with the Painless scripting language. For more information, see [Painless scripting language]({{site.url}}{{site.baseurl}}/scripting/painless/). This allows fine-grained control over which documents get processed based on the structure and contents of text fields. Regex can be used within the `if` parameter to evaluate string patterns. This is especially useful for matching IP formats, validating email addresses, identifying UUIDs, or processing logs with specific keywords.
 
+Regular expressions can be expensive to evaluate. To limit their CPU consumption, OpenSearch limits the number of characters that a Painless regular expression can read, based on the `script.painless.regex.enabled` and `script.painless.regex.limit-factor` settings. For more information, see [Controlling regular expressions]({{site.url}}{{site.baseurl}}/scripting/painless/#controlling-regular-expressions).
+
 ## Example: Email domain filtering
 
 The following pipeline uses regex to identify users from the `@example.com` email domain and tag those documents accordingly:
@@ -21,7 +23,7 @@ PUT _ingest/pipeline/tag_example_com_users
       "set": {
         "field": "user_domain",
         "value": "example.com",
-        "if": "ctx.email != null && ctx.email =~ /@example.com$/"
+        "if": "ctx.email != null && ctx.email =~ /@example\\.com$/"
       }
     }
   ]
@@ -179,3 +181,25 @@ The first document is tagged with a new `valid_uuid` field:
   ]
 }
 ```
+
+## Using string methods for simple matches
+
+String methods are less expensive to evaluate than regular expressions. When a string method can perform the same match, use the string method. For example, the following condition is equivalent to the [email domain example](#example-email-domain-filtering) but uses the `endsWith` method:
+
+```json
+PUT _ingest/pipeline/tag_example_com_users
+{
+  "processors": [
+    {
+      "set": {
+        "field": "user_domain",
+        "value": "example.com",
+        "if": "ctx.email != null && ctx.email.endsWith('@example.com')"
+      }
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+Other string methods that can replace common regular expressions include `startsWith` and `contains`.

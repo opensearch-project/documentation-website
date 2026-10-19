@@ -11,6 +11,8 @@ redirect_from:
 
 The `bytes` processor converts a human-readable byte value to its equivalent value in bytes. The field can be a scalar or an array. If the field is a scalar, the value is converted and stored in the field. If the field is an array, all values of the array are converted.
 
+The processor supports the `b`, `kb`, `mb`, `gb`, `tb`, and `pb` units, which are case insensitive. Each unit is 1,024 times the preceding unit, so `1kb` is converted to `1024`. The value must be a whole number, for example, `1536b` instead of `1.5kb`. The value must be a string that includes a unit; for example, `10` without a unit fails. The processor also fails if the value isn't in a supported format or if the result exceeds 2<sup>63</sup> − 1 bytes.
+
 ### Syntax
 
 The following is the syntax for the `bytes` processor: 
@@ -30,13 +32,13 @@ The following table lists the required and optional parameters for the `bytes` p
 
 Parameter | Required/Optional | Description |
 |-----------|-----------|-----------|
-`field`  | Required  | The name of the field containing the data to be converted. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets). |
+`field`  | Required  | The name of the field containing the data to be converted. |
 `description`  | Optional  | A brief description of the processor.  |
 `if` | Optional | A condition for running the processor. |
 `ignore_failure` | Optional | Specifies whether the processor continues execution even if it encounters errors. If set to `true`, failures are ignored. Default is `false`. |
 `ignore_missing`  | Optional  | Specifies whether the processor should ignore documents that do not contain the specified field. If set to `true`, the processor does not modify the document if the field does not exist or is `null`. Default is `false`. |
 `on_failure` | Optional | A list of processors to run if the processor fails. |
-`tag` | Optional | An identifier tag for the processor. Useful for debugging in order to distinguish between processors of the same type. |
+`tag` | Optional | An identifier tag for the processor. Useful for debugging in order to distinguish between processors of the same type. For more information, see [Using processor tags for monitoring and debugging]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#using-processor-tags-for-monitoring-and-debugging). |
 `target_field`  | Optional  | The name of the field in which to store the parsed data. If not specified, the value will be stored in place in the `field` field. Default is `field`.  |
 
 ## Using the processor
@@ -78,9 +80,7 @@ POST _ingest/pipeline/file_upload/_simulate
       "_index": "testindex1",
       "_id": "1",
       "_source": {
-        "file_size_bytes": "10485760",
-        "file_size":
-          "10MB"
+        "file_size": "10MB"
       }
     }
   ]
@@ -100,10 +100,7 @@ The following response confirms that the pipeline is working as expected:
         "_index": "testindex1",
         "_id": "1",
         "_source": {
-          "event_types": [
-            "event_type"
-          ],
-          "file_size_bytes": "10485760",
+          "file_size_bytes": 10485760,
           "file_size": "10MB"
         },
         "_ingest": {

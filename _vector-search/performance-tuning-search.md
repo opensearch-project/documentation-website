@@ -29,15 +29,20 @@ To avoid this latency penalty during your first queries, you can use the warmup 
 
 ```json
 GET /_plugins/_knn/warmup/index1,index2,index3?pretty
+```
+{% include copy-curl.html %}
+
+The response contains the shard counts for the operation:
+
+```json
 {
-    "_shards" : {
+  "_shards" : {
     "total" : 6,
     "successful" : 6,
     "failed" : 0
-    }
+  }
 }
 ```
-{% include copy-curl.html %}
 
 The warmup API operation loads all native library indexes for all shards (primaries and replicas) for the specified indexes into the cache, so there's no penalty for loading native library indexes during initial searches.
 

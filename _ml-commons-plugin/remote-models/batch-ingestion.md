@@ -1,11 +1,14 @@
 ---
 layout: default
 title: Batch ingestion
-has_children: true
+has_children: false
 has_toc: false
 nav_order: 80
 parent: Connecting to externally hosted models 
 grand_parent: Integrating ML models
+redirect_from:
+  - /ml-commons-plugin/remote-models/async-batch-ingestion/
+  - /ml-commons-plugin/api/async-batch-ingest/
 ---
 
 # Using externally hosted ML models for batch ingestion

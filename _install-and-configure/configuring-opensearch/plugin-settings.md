@@ -29,7 +29,7 @@ For information about cross-cluster replication settings, see [Replication setti
 
 ## Flow Framework plugin settings
 
-For information about automatic workflow settings, see [Workflow settings]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-settings/).
+For information about automatic workflow settings, see [Workflow settings]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/workflow-settings/).
 
 ## Geospatial plugin settings
 

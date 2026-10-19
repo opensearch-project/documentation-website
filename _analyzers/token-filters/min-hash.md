@@ -9,6 +9,16 @@ nav_order: 270
 
 The `min_hash` token filter is used to generate hashes for tokens based on a [MinHash](https://en.wikipedia.org/wiki/MinHash) approximation algorithm, which is useful for detecting similarity between documents. The `min_hash` token filter generates hashes for a set of tokens (typically from an analyzed field).
 
+Finding similar documents by comparing a document to every other document in an index does not scale to large indexes. Locality-sensitive hashing (LSH) reduces the number of comparisons by hashing documents so that similar documents are likely to produce the same hash values and dissimilar documents are not. MinHash is an LSH technique for [Jaccard similarity](https://en.wikipedia.org/wiki/Jaccard_index), which measures the overlap between two sets of tokens: the number of tokens the sets share divided by the number of distinct tokens in both sets.
+
+MinHash applies a hash function to every token in a document and keeps only the smallest result. Two documents produce the same minimum hash with a probability equal to their Jaccard similarity, so the more minimum hashes two documents share, the more similar they are likely to be. The `min_hash` filter processes a token stream as follows:
+
+1. Hashes each token using `hash_count` hash functions.
+1. Distributes the hashes among `bucket_count` buckets.
+1. Emits the `hash_set_size` smallest hashes from each bucket as tokens.
+
+The emitted tokens form the document's signature. If you index the signature in a field, a full-text query on that field returns the documents that share signature tokens with the query text, which are candidates for near-duplicates.
+
 ## Parameters
 
 The `min_hash` token filter can be configured with the following parameters.
@@ -19,6 +29,15 @@ Parameter | Required/Optional | Data type | Description
 `bucket_count` | Optional | Integer | The number of hash buckets to use. This affects the granularity of the hashing. A larger number of buckets provides finer granularity and reduces hash collisions but requires more memory. Default is `512`.
 `hash_set_size` | Optional | Integer | The number of hashes to retain in each bucket. This can influence the hashing quality. Larger set sizes may lead to better similarity detection but consume more memory. Default is `1`.
 `with_rotation` | Optional | Boolean | When set to `true`, the filter populates empty buckets with the value from the first non-empty bucket found to its circular right, provided that the `hash_set_size` is `1`. If the `bucket_count` argument exceeds `1`, this setting automatically defaults to `true`; otherwise, it defaults to `false`.
+
+## Tuning the min_hash filter
+
+Consider the following guidelines when configuring the `min_hash` filter:
+
+- Use word shingles, produced by the [`shingle`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/shingle/) filter, as input to the `min_hash` filter. Comparing sequences of words detects shared passages, while comparing single words only detects shared vocabulary. Choose a shingle size large enough that most shingles are rare across your documents but small enough that the possible shingles can be hashed into 128 bits with few collisions.
+- Experiment with the parameter values using your own data. Increasing `bucket_count` or `hash_set_size` keeps more hashes for each document, which makes it less likely that dissimilar documents share tokens and improves precision. Increasing `hash_count` hashes each token in several ways, which produces more candidate matches and improves recall.
+- Account for the increase in index size. Each token encodes a 128-bit hash. When `with_rotation` is `true` and `hash_set_size` is `1`, the filter emits `bucket_count` × `hash_count` tokens for every document, regardless of the document's length, so the default settings produce 512 tokens for each document.
+- The `min_hash` filter measures whether a token is present, not how often it occurs. A document containing a word once and a document containing the same word many times produce the same hashes.
 
 ## Example
 

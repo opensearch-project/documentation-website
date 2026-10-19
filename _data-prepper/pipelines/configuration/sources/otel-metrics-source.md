@@ -1,6 +1,6 @@
 ---
 layout: default
-title: OTel metrics source
+title: OTel metrics
 parent: Sources
 grand_parent: Pipelines
 nav_order: 70

@@ -5,7 +5,7 @@ parent: Ingest processors
 nav_order: 60
 ---
 
-This documentation describes using the `dissect` processor in OpenSearch ingest pipelines. Consider using the [Data Prepper `dissect` processor]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/dissect/), which runs on the OpenSearch cluster, if your use case involves large or complex datasets.
+This documentation describes using the `dissect` processor in OpenSearch ingest pipelines. Consider using the [Data Prepper `dissect` processor]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/dissect/), which runs outside the OpenSearch cluster, if your use case involves large or complex datasets.
 {: .note}
 
 # Dissect
@@ -41,7 +41,7 @@ Parameter | Required/Optional | Description |
 `ignore_failure` | Optional | Specifies whether the processor continues execution even if it encounters an error. If set to `true`, the processor failure is ignored. Default is `false`. |
 `ignore_missing`  | Optional  | Specifies whether the processor should ignore documents that do not contain the specified field. If set to `true`, the processor does not modify the document if the field does not exist or is `null`. Default is `false`. |
 `on_failure` | Optional | A list of processors to run if the processor fails. |
-`tag` | Optional | An identifier tag for the processor. Useful for debugging to distinguish between processors of the same type. |
+`tag` | Optional | An identifier tag for the processor. Useful for debugging to distinguish between processors of the same type. For more information, see [Using processor tags for monitoring and debugging]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#using-processor-tags-for-monitoring-and-debugging). |
 
 ## Using the processor
 
@@ -106,7 +106,7 @@ The following example response confirms that the pipeline is working as expected
           "http_method": "POST",
           "http_version": "HTTP/1.1",
           "client_ip": "192.168.1.10",
-          "message": """192.168.1.10 - - [03/Nov/2023:15:20:45 +0000] "POST /login HTTP/1.1" 200 3456""",
+          "message": "192.168.1.10 - - [03/Nov/2023:15:20:45 +0000] \"POST /login HTTP/1.1\" 200 3456",
           "url": "/login",
           "response_size": "3456",
           "timestamp": "03/Nov/2023:15:20:45 +0000"
@@ -261,7 +261,6 @@ Your response should appear similar to the following:
   ]
 }
 ```
-{% include copy-curl.html %}
 
 ### Append modifier (`+`)
 
@@ -327,7 +326,6 @@ The substrings are appended to the `address` field, as shown in the following re
   ]
 }
 ```
-{% include copy-curl.html %}
 
 ### Append with order modifier (`+` and `/n`)
 
@@ -393,7 +391,6 @@ The substrings are appended to the `address` field in reverse order, as shown in
   ]
 }
 ```
-{% include copy-curl.html %}
 
 ### Named skip key modifier
 
@@ -459,7 +456,6 @@ Your response should appear similar to the following:
   ]
 }
 ```
-{% include copy-curl.html %}
 
 ### Reference keys (`*` and `&`)
 
@@ -526,4 +522,3 @@ The two key-value pairs were extracted into fields, as shown in the following re
   ]
 }
 ```
-{% include copy-curl.html %}

@@ -2,7 +2,11 @@
 layout: default
 title: Delete a workflow
 parent: Workflow APIs
+grand_parent: AI search workflows
+great_grand_parent: AI search
 nav_order: 80
+redirect_from:
+  - /automating-configurations/api/delete-workflow/
 ---
 
 # Delete Workflow API
@@ -11,7 +15,7 @@ When you no longer need a workflow template, you can delete it by calling the De
 
 Note that deleting a workflow only deletes the stored template---it does not deprovision its resources.
 
-When a workflow is deleted, its corresponding status (returned by the [Workflow State API]({{site.url}}{{site.baseurl}}/automating-configurations/api/get-workflow-status/)) is also deleted unless either the provisioning status is `IN_PROGRESS` or resources have been provisioned.
+When a workflow is deleted, its corresponding status (returned by the [Workflow State API]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/api/get-workflow-status/)) is also deleted unless either the provisioning status is `IN_PROGRESS` or resources have been provisioned.
 
 ## Endpoints
 

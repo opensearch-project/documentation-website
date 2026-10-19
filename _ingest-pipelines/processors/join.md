@@ -34,7 +34,7 @@ Parameter | Required/Optional | Description |
 `if` | Optional | Specifies to conditionally execute the processor.
 `ignore_failure` | Optional | Specifies to ignore failures for the processor. See [Handling pipeline failures]({{site.url}}{{site.baseurl}}/ingest-pipelines/pipeline-failures/).
 `on_failure` | Optional | Specifies to handle failures for the processor. See [Handling pipeline failures]({{site.url}}{{site.baseurl}}/ingest-pipelines/pipeline-failures/).
-`tag` | Optional | An identifier for the processor. Useful for debugging and metrics.
+`tag` | Optional | An identifier for the processor. Useful for debugging and metrics. For more information, see [Using processor tags for monitoring and debugging]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#using-processor-tags-for-monitoring-and-debugging).
 
 ## Using the processor
 
@@ -107,7 +107,6 @@ The following example response confirms that the pipeline is working as expected
   ]  
 }  
 ```
-{% include copy-curl.html %}
 
 ### Step 3: Ingest a document 
 

@@ -9,6 +9,8 @@ nav_order: 160
 
 The `hunspell` token filter is used for stemming and morphological analysis of words in a specific language. This filter applies Hunspell dictionaries, which are widely used in spell checkers. It works by breaking down words into their root forms (stemming).
 
+If an algorithmic stemmer, such as the [`stemmer`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/stemmer/) or [`porter_stem`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/porter-stem/) filter, is available for your language, try it before using `hunspell`. Algorithmic stemmers are faster, use less memory, and require no dictionary files, and they often produce comparable or better search results. For more information, see [Stemming]({{site.url}}{{site.baseurl}}/analyzers/stemming/).
+
 The Hunspell dictionary files are automatically loaded at startup from the `<OS_PATH_CONF>/hunspell/<locale>` directory. For example, the `en_GB` locale must have at least one `.aff` file and one or more `.dic` files in the `<OS_PATH_CONF>/hunspell/en_GB/` directory. 
 
 Alternatively, you can load dictionaries from a custom directory by using the `ref_path` parameter to maintain multiple independent dictionary sets for the same locale. For more information, see [Custom dictionary loading with ref_path](#custom-dictionary-loading).
@@ -62,6 +64,18 @@ PUT /my_index
 }
 ```
 {% include copy-curl.html %}
+
+## Hunspell node settings
+
+The following table lists the static node settings that control how OpenSearch loads Hunspell dictionaries from the default `<OS_PATH_CONF>/hunspell/` directory. Configure them in `opensearch.yml`.
+
+Setting | Data type | Description
+:--- | :--- | :---
+`indices.analysis.hunspell.dictionary.lazy` | Boolean | If `false`, OpenSearch loads every dictionary in the `hunspell` directory when the node starts and logs an error for any dictionary that fails to load. If `true`, OpenSearch loads each dictionary the first time a `hunspell` filter uses it, so dictionary errors appear only when an index or analysis request references the locale. Default is `false`.
+`indices.analysis.hunspell.dictionary.ignore_case` | Boolean | If `true`, words are matched to dictionary entries regardless of case. For example, if the dictionary contains `Jump` with an `-ing` suffix rule, the text `jumping` is stemmed to `jump` only when `ignore_case` is `true`. This setting applies to all locales. Default is `false`.
+`indices.analysis.hunspell.dictionary.<locale>.ignore_case` | Boolean | Sets `ignore_case` for one locale, for example, `indices.analysis.hunspell.dictionary.en_US.ignore_case`. Overrides the global `ignore_case` setting.
+
+You can also set `ignore_case` for a single dictionary by adding a `settings.yml` file to the locale directory, for example, `<OS_PATH_CONF>/hunspell/en_US/settings.yml` containing `ignore_case: true`. If both the file and the locale-specific node setting specify `ignore_case`, the node setting takes precedence.
 
 ## Custom dictionary loading
 

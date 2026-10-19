@@ -203,8 +203,7 @@ GET /my-index/_termvectors/1?fields=text&term_statistics=true
 response = client.termvectors(
   index = "my-index",
   id = "1",
-  params = { "fields": "text", "term_statistics": "true" },
-  body = { "Insert body here" }
+  params = { "fields": "text", "term_statistics": "true" }
 )
 
 {% endcapture %}

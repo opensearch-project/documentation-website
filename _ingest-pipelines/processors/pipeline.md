@@ -26,12 +26,12 @@ The following table lists the required and optional parameters for the `pipeline
 
 Parameter | Required/Optional | Description |
 |-----------|-----------|-----------|
-`name` | Required	| The name of the pipeline to execute.
+`name` | Required	| The name of the pipeline to execute. Supports [template snippets](#selecting-a-pipeline-dynamically).
 `description` | Optional | A description of the processor's purpose or configuration.
 `if` | Optional | Specifies to conditionally execute the processor.
 `ignore_failure` | Optional | Specifies to ignore processor failures. See [Handling pipeline failures]({{site.url}}{{site.baseurl}}/ingest-pipelines/pipeline-failures/).
 `on_failure` | Optional | Specifies to handle processor failures. See [Handling pipeline failures]({{site.url}}{{site.baseurl}}/ingest-pipelines/pipeline-failures/).
-`tag` | Optional | An identifier for the processor. Useful for debugging and metrics.
+`tag` | Optional | An identifier for the processor. Useful for debugging and metrics. For more information, see [Using processor tags for monitoring and debugging]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#using-processor-tags-for-monitoring-and-debugging).
 
 ## Using the processor
 
@@ -42,14 +42,16 @@ Follow these steps to use the processor in a pipeline.
 The following query creates a general pipeline named `general-pipeline` and then creates a new pipeline named `outer-pipeline`, which references the `general-pipeline`: 
 
 ```json
-PUT _ingest/pipeline/general_pipeline  
+PUT _ingest/pipeline/general-pipeline  
 {  
   "description": "a general pipeline",  
   "processors": [  
     {  
       "uppercase": {  
         "field": "protocol"  
-      },  
+      }  
+    },  
+    {  
       "remove": {  
         "field": "name"  
       }  
@@ -118,7 +120,6 @@ The following example response confirms that the pipeline is working as expected
   ]  
 }
 ```
-{% include copy-curl.html %}
 
 ### Step 3: Ingest a document 
 
@@ -135,7 +136,7 @@ POST testindex1/_doc/1?pipeline=outer-pipeline
 
 #### Response
 
-The request indexes the document with the `protocol` field converted to uppercase and the field name removed from the index `testindex1`, as shown in the following response:
+The request indexes the document into the `testindex1` index with the `protocol` field converted to uppercase and the `name` field removed, as shown in the following response:
 
 ```json
 {  
@@ -152,7 +153,6 @@ The request indexes the document with the `protocol` field converted to uppercas
   "_primary_term": 1  
 }  
 ```
-{% include copy-curl.html %}
 
 ### Step 4 (Optional): Retrieve the document
 
@@ -165,7 +165,7 @@ GET testindex1/_doc/1
 
 #### Response
 
-The response shows the document with the `protocol` field converted to uppercase and the field name removed:
+The response shows the document with the `protocol` field converted to uppercase and the `name` field removed:
 
 ```json
 {  
@@ -181,3 +181,87 @@ The response shows the document with the `protocol` field converted to uppercase
 }  
 ```
 
+
+## Selecting a pipeline dynamically
+
+The `name` parameter supports template snippets, so you can select the pipeline to run based on a field value in the document. The following request creates a pipeline that parses NGINX logs:
+
+```json
+PUT _ingest/pipeline/logs-nginx
+{
+  "processors": [
+    {
+      "set": {
+        "field": "parsed_by",
+        "value": "{% raw %}{{_ingest.pipeline}}{% endraw %}"
+      }
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+The following request creates a pipeline that runs the pipeline named `logs-` followed by the value of the document's `service` field:
+
+```json
+PUT _ingest/pipeline/logs-router
+{
+  "processors": [
+    {
+      "set": {
+        "field": "routed_by",
+        "value": "{% raw %}{{_ingest.pipeline}}{% endraw %}"
+      }
+    },
+    {
+      "pipeline": {
+        "name": "logs-{% raw %}{{service}}{% endraw %}"
+      }
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+Index a document whose `service` field is `nginx`:
+
+```json
+PUT logs/_doc/1?pipeline=logs-router
+{
+  "service": "nginx",
+  "message": "GET /index.html 200"
+}
+```
+{% include copy-curl.html %}
+
+Retrieve the document:
+
+```json
+GET logs/_doc/1
+```
+{% include copy-curl.html %}
+
+The response shows that the `logs-router` pipeline ran the `logs-nginx` pipeline:
+
+```json
+{
+  "_index": "logs",
+  "_id": "1",
+  "_version": 1,
+  "_seq_no": 0,
+  "_primary_term": 1,
+  "found": true,
+  "_source": {
+    "parsed_by": "logs-nginx",
+    "service": "nginx",
+    "message": "GET /index.html 200",
+    "routed_by": "logs-router"
+  }
+}
+```
+
+If the resolved pipeline doesn't exist, or if running it would create a cycle in which a pipeline runs itself, the `pipeline` processor fails.
+
+## Accessing the current pipeline name
+
+The `_ingest.pipeline` ingest metadata field contains the ID of the pipeline that is currently running. In the preceding example, the `routed_by` field contains `logs-router` and the `parsed_by` field contains `logs-nginx` because each `set` processor ran in a different pipeline. After the inner pipeline completes, `_ingest.pipeline` again contains the ID of the outer pipeline.

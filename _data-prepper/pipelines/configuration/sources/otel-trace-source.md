@@ -1,6 +1,6 @@
 ---
 layout: default
-title: OTel trace source
+title: OTel trace
 parent: Sources
 grand_parent: Pipelines
 nav_order: 80

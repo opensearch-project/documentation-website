@@ -7,7 +7,7 @@ redirect_from:
    - /api-reference/ingest-apis/processors/convert/
 ---
 
-This documentation describes using the `convert` processor in OpenSearch ingest pipelines. Consider using the [Data Prepper `convert_entry_type` processor]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/convert-entry-type/), which runs on the OpenSearch cluster, if your use case involves large or complex datasets.
+This documentation describes using the `convert` processor in OpenSearch ingest pipelines. Consider using the [Data Prepper `convert_entry_type` processor]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/convert-entry-type/), which runs outside the OpenSearch cluster, if your use case involves large or complex datasets.
 {: .note}
 
 # Convert processor
@@ -34,14 +34,14 @@ The following table lists the required and optional parameters for the `convert`
 
 Parameter | Required/Optional | Description |
 |-----------|-----------|-----------|
-`field`  | Required  | The name of the field containing the data to be converted. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets). |
-`type`  | Required  | The type to convert the field value to. The supported types are `integer`, `long`, `float`, `double`, `string`, `boolean`, `ip`, and `auto`. If the `type` is `boolean`, then the value is set to `true` if the field value is a string `true` (ignoring case) and to `false` if  the field value is a string `false` (ignoring case). If the type is set to `ip`, then this processor validates whether the field value adheres to the correct format for IPv4 or IPv6 addresses; if the value is invalid, an error is raised. If the value is not one of the allowed values, an error will occur.  |
+`field`  | Required  | The name of the field containing the data to be converted. |
+`type`  | Required  | The type to convert the field value to. The supported types are `integer`, `long`, `float`, `double`, `string`, `boolean`, `ip`, and `auto`. If the `type` is `boolean`, then the value is set to `true` if the field value is a string `true` (ignoring case) and to `false` if  the field value is a string `false` (ignoring case). Any other string value causes the processor to fail. If the type is set to `ip`, then this processor validates whether the field value adheres to the correct format for IPv4 or IPv6 addresses; if the value is invalid, an error is raised. If the type is set to `auto`, then the processor converts a string value to the first matching type in the following order: `boolean`, `integer`, `long`, `float`, and `double`. Because `float` is tried before `double`, a decimal string is always converted to a `float`, which can reduce precision. If the string doesn't match any of these types, or the value isn't a string, then the value isn't changed. If `target_field` is specified, the unchanged value is still copied to `target_field`. If `type` isn't one of the supported types, the pipeline is rejected.  |
 `description`  | Optional  | A brief description of the processor.  |
 `if` | Optional | A condition for running the processor. |
 `ignore_failure` | Optional | Specifies whether the processor continues execution even if it encounters errors. If set to `true`, failures are ignored. Default is `false`. |
 `ignore_missing`  | Optional  | Specifies whether the processor should ignore documents that do not contain the specified field. If set to `true`, the processor does not modify the document if the field does not exist or is `null`. Default is `false`. |
 `on_failure` | Optional | A list of processors to run if the processor fails. |
-`tag` | Optional | An identifier tag for the processor. Useful for debugging in order to distinguish between processors of the same type. |
+`tag` | Optional | An identifier tag for the processor. Useful for debugging in order to distinguish between processors of the same type. For more information, see [Using processor tags for monitoring and debugging]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#using-processor-tags-for-monitoring-and-debugging). |
 `target_field`  | Optional  | The name of the field in which to store the parsed data. If not specified, the value will be stored in the `field` field. Default is `field`.  |
 
 ## Using the processor
@@ -143,3 +143,56 @@ To retrieve the document, run the following query:
 GET testindex1/_doc/1
 ```
 {% include copy-curl.html %}
+
+## Converting values automatically
+
+The following request uses the `auto` type to convert several string fields:
+
+```json
+POST _ingest/pipeline/_simulate
+{
+  "pipeline": {
+    "processors": [
+      { "convert": { "field": "in_stock", "type": "auto" } },
+      { "convert": { "field": "quantity", "type": "auto" } },
+      { "convert": { "field": "weight_kg", "type": "auto" } },
+      { "convert": { "field": "color", "type": "auto" } }
+    ]
+  },
+  "docs": [
+    {
+      "_source": {
+        "in_stock": "TRUE",
+        "quantity": "42",
+        "weight_kg": "1.23456789",
+        "color": "dark gray"
+      }
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+The response shows that `in_stock` was converted to a Boolean and `quantity` was converted to an integer. The `weight_kg` value was converted to a `float`, so its precision was reduced. The `color` value doesn't match any type, so it remains a string:
+
+```json
+{
+  "docs": [
+    {
+      "doc": {
+        "_index": "_index",
+        "_id": "_id",
+        "_source": {
+          "in_stock": true,
+          "quantity": 42,
+          "weight_kg": 1.2345679,
+          "color": "dark gray"
+        },
+        "_ingest": {
+          "timestamp": "2026-10-14T19:42:37.458135758Z"
+        }
+      }
+    }
+  ]
+}
+```

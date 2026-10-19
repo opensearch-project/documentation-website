@@ -8,22 +8,49 @@ redirect_from:
   - /api-reference/ingest-apis/create-update-ingest/
 ---
 
-# Create or update pipeline
+# Create or Update Pipeline API
 **Introduced 1.0**
 {: .label .label-purple }
 
-Use the create pipeline API operation to create or update pipelines in OpenSearch. Note that the pipeline requires you to define at least one processor that specifies how to change the documents. 
+The Create or Update Pipeline API creates an ingest pipeline or replaces the definition of an existing pipeline. The request body must contain the `processors` field. When you update an existing pipeline, the new definition replaces the old one and applies to indexing requests immediately.
 
-## Path and HTTP method
-
-Replace `<pipeline-id>` with your pipeline ID:
+## Endpoints
 
 ```json
-PUT _ingest/pipeline/{pipeline-id}
+PUT /_ingest/pipeline/{pipeline-id}
 ```
-#### Example request
 
-Here is an example in JSON format that creates an ingest pipeline with two `set` processors and an `uppercase` processor. The first `set` processor sets the `grad_year` to `2023`, and the second `set` processor sets `graduated` to `true`. The `uppercase` processor converts the `name` field to uppercase.
+## Path parameters
+
+The following table lists the available path parameters.
+
+Parameter | Required | Data type | Description
+:--- | :--- | :--- | :---
+`pipeline-id` | Required | String | The ID of the pipeline to create or update. Can be at most 512 bytes long when UTF-8 encoded.
+
+## Query parameters
+
+The following table lists the available query parameters. All query parameters are optional.
+
+Parameter | Data type | Description
+:--- | :--- | :---
+`cluster_manager_timeout` | Time | The amount of time to wait for a connection to the cluster manager node. Default is `30s`.
+`timeout` | Time | The amount of time to wait for a response. Default is `30s`.
+
+## Request body fields
+
+The following table lists the available request body fields.
+
+Field | Data type | Description
+:--- | :--- | :---
+`processors` | Array of objects | The processors that transform documents, in the order in which they run. For a list of processors, see [Ingest processors]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/index-processors/). Required.
+`description` | String | A description of the pipeline. Optional.
+`on_failure` | Array of objects | Processors to run if a processor in the pipeline fails. For more information, see [Handling failures at the pipeline level]({{site.url}}{{site.baseurl}}/ingest-pipelines/pipeline-failures/#handling-failures-at-the-pipeline-level). Optional.
+`version` | Integer | A version number for the pipeline. OpenSearch doesn't use the version. External systems can use it to manage pipelines. For more information, see [Pipeline versioning](#pipeline-versioning). Optional.
+
+## Example request
+
+The following request creates a pipeline with two `set` processors and an `uppercase` processor. The first `set` processor sets `grad_year` to `2023`, the second `set` processor sets `graduated` to `true`, and the `uppercase` processor converts the `name` field to uppercase:
 
 ```json
 PUT _ingest/pipeline/my-pipeline
@@ -53,6 +80,16 @@ PUT _ingest/pipeline/my-pipeline
 }
 ```
 {% include copy-curl.html %}
+
+## Example response
+
+```json
+{
+  "acknowledged": true
+}
+```
+
+## Using the pipeline
 
 To index a document through the pipeline, specify the pipeline name in the `pipeline` query parameter:
 
@@ -89,29 +126,46 @@ The response shows that the pipeline set `grad_year` and `graduated` and convert
 }
 ```
 
-To learn more about error handling, see [Handling pipeline failures]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/pipeline-failures/).
+For more information about handling processor errors, see [Handling pipeline failures]({{site.url}}{{site.baseurl}}/ingest-pipelines/pipeline-failures/).
 
-## Request body fields
+## Pipeline versioning
 
-The following table lists the request body fields used to create or update a pipeline. 
+If you manage pipelines using deployment scripts or configuration management tools, you can record which revision of a pipeline is installed on a cluster. For example, a deployment tool can compare the installed version with the version in source control and update the pipeline only if they differ. To record the revision, specify an integer in the `version` field when you create or update the pipeline:
 
-Parameter | Required | Type | Description
-:--- | :--- | :--- | :---
-`processors` | Required | Array of processor objects | An array of processors, each of which transforms documents. Processors are run sequentially in the order specified.
-`description` | Optional | String | A description of your ingest pipeline. 
+```json
+PUT _ingest/pipeline/students-pipeline
+{
+  "description": "Processes student data",
+  "version": 2,
+  "processors": [
+    {
+      "uppercase": {
+        "field": "name"
+      }
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
 
-## Path parameters
+To check the current version of the pipeline, filter the [Get Pipeline API]({{site.url}}{{site.baseurl}}/ingest-pipelines/get-ingest/) response by the `version` field:
 
-Parameter | Required | Type | Description
-:--- | :--- | :--- | :---
-`pipeline-id` | Required | String | The unique identifier, or pipeline ID, assigned to the ingest pipeline. 
+```json
+GET _ingest/pipeline/students-pipeline?filter_path=*.version
+```
+{% include copy-curl.html %}
 
-## Query parameters
+The response contains the pipeline version:
 
-Parameter | Required | Type | Description
-:--- | :--- | :--- | :---
-`cluster_manager_timeout` | Optional | Time | Period to wait for a connection to the cluster manager node. Defaults to 30 seconds.
-`timeout` | Optional | Time | Period to wait for a response. Defaults to 30 seconds. 
+```json
+{
+  "students-pipeline": {
+    "version": 2
+  }
+}
+```
+
+Updating a pipeline replaces its entire definition. To remove the version number, update the pipeline without specifying the `version` field.
 
 ## Template snippets
 
@@ -174,7 +228,7 @@ The response shows that the pipeline dynamically created a `computer_science` fi
 }
 ```
 
-## Processor tags for monitoring and debugging
+## Using processor tags for monitoring and debugging
 
 When monitoring ingest pipeline performance using the `GET /_nodes/stats/ingest` API, processors without tags appear with generic names in the statistics output. This makes it difficult to identify which specific processor stage might be causing performance bottlenecks in complex pipelines. All ingest processors support an optional `tag` parameter that assigns a meaningful identifier to each processor. This parameter is useful for monitoring pipeline performance and debugging issues in production environments.
 
@@ -359,3 +413,7 @@ The pipeline with tags contains descriptive processor names:
   ]
 }
 ```
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `cluster:admin/ingest/pipeline/put`.

@@ -2,7 +2,11 @@
 layout: default
 title: Create or update a workflow
 parent: Workflow APIs
+grand_parent: AI search workflows
+great_grand_parent: AI search
 nav_order: 10
+redirect_from:
+  - /automating-configurations/api/create-workflow/
 ---
 
 # Create or Update Workflow API
@@ -14,9 +18,9 @@ Creating a workflow adds the content of a workflow template to the flow framewor
 * Workflow step fields with invalid values.
 * Workflow graph (node/edge) configurations containing cycles or with duplicate IDs.
 
-To obtain the validation template for workflow steps, call the [Get Workflow Steps API]({{site.url}}{{site.baseurl}}/automating-configurations/api/get-workflow-steps/).
+To obtain the validation template for workflow steps, call the [Get Workflow Steps API]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/api/get-workflow-steps/).
 
-You can include placeholder expressions in the value of workflow step fields. For example, you can specify a credential field in a template as {% raw %}`openAI_key: '${{ openai_key }}'`{% endraw %}. The expression will be substituted with the user-provided value during provisioning, using the format {% raw %}`${{ <value> }}`{% endraw %}. You can pass the actual key as a parameter by using the [Provision Workflow API]({{site.url}}{{site.baseurl}}/automating-configurations/api/provision-workflow/) or by using this API with the `provision` parameter set to `true`.
+You can include placeholder expressions in the value of workflow step fields. For example, you can specify a credential field in a template as {% raw %}`openAI_key: '${{ openai_key }}'`{% endraw %}. The expression will be substituted with the user-provided value during provisioning, using the format {% raw %}`${{ <value> }}`{% endraw %}. You can pass the actual key as a parameter by using the [Provision Workflow API]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/api/provision-workflow/) or by using this API with the `provision` parameter set to `true`.
 
 Once a workflow is created, provide its `workflow_id` to other APIs.
 
@@ -49,7 +53,7 @@ POST /_plugins/_flow_framework/workflow?provision=true
 ```
 {% include copy-curl.html %}
 
-When set to `true`, the [Provision Workflow API]({{site.url}}{{site.baseurl}}/automating-configurations/api/provision-workflow/) is executed immediately following creation. 
+When set to `true`, the [Provision Workflow API]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/api/provision-workflow/) is executed immediately following creation. 
 
 By default, workflows are validated when they are created to ensure that the syntax is valid and that the graph does not contain cycles. This behavior can be controlled with the `validation` query parameter. If `validation` is set to `all`, OpenSearch performs a complete template validation. Any other value of the `validation` parameter suppresses validation, allowing an incomplete/work-in-progress template to be saved. To disable template validation, set `validation` to `none`:
 
@@ -102,7 +106,7 @@ The `wait_for_completion_timeout` parameter can only be used when either `provis
 {: .note}
 
 For example, the following request provisions a workflow and waits for up to 2 seconds for completion:
-You can create and provision a workflow using a [workflow template]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-templates/) as follows:
+You can create and provision a workflow using a [workflow template]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/workflow-templates/) as follows:
 
 ```json
 POST /_plugins/_flow_framework/workflow?use_case={use_case}&provision=true
@@ -120,9 +124,9 @@ The following table lists the available query parameters. All query parameters a
 | `update_fields`                        | Boolean   | Whether to update only the fields included in the request body. Default is `false`.                                                                                                                                                                                                                                                       |
 | `reprovision`                          | Boolean   | Whether to reprovision the entire template if it has already been provisioned. A complete template must be provided in the request body. Default is `false`.                                                                                                                                                                              |
 | `validation`                           | String    | Whether to validate the workflow. Valid values are `all` (validate the template) and `none` (do not validate the template). Default is `all`.                                                                                                                                                                                             |
-| `use_case`                             | String    | The name of the [workflow template]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-templates/#supported-workflow-templates) to use when creating the workflow.                                                                                                                                                           |
+| `use_case`                             | String    | The name of the [workflow template]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/workflow-templates/#supported-workflow-templates) to use when creating the workflow.                                                                                                                                                           |
 | `wait_for_completion_timeout`          | Time value | Specifies the maximum wait time for synchronous provisioning or reprovisioning. If the timeout is exceeded, the request returns the current workflow status while execution continues asynchronously.|
-| User-provided substitution expressions | String    | Parameters matching substitution expressions in the template. Only allowed if `provision` is set to `true`. Optional. If `provision` is set to `false`, you can pass these parameters in the [Provision Workflow API query parameters]({{site.url}}{{site.baseurl}}/automating-configurations/api/provision-workflow/#query-parameters).  |
+| User-provided substitution expressions | String    | Parameters matching substitution expressions in the template. Only allowed if `provision` is set to `true`. Optional. If `provision` is set to `false`, you can pass these parameters in the [Provision Workflow API query parameters]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/api/provision-workflow/#query-parameters).  |
 
 ## Request body fields
 
@@ -132,7 +136,7 @@ The following table lists the available request fields.
 |:---	|:---	|:---	|:---	|
 |`name`	|String	|Required	|The name of the workflow.	|
 |`description`	|String	|Optional	|A description of the workflow.	|
-|`use_case`	|String	|Optional	| A user-provided use case, which can be used with the [Search Workflow API]({{site.url}}{{site.baseurl}}/automating-configurations/api/search-workflow/) to find related workflows. You can use this field to specify custom values. This is distinct from the `use_case` query parameter. |
+|`use_case`	|String	|Optional	| A user-provided use case, which can be used with the [Search Workflow API]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/api/search-workflow/) to find related workflows. You can use this field to specify custom values. This is distinct from the `use_case` query parameter. |
 |`version`	|Object	|Optional	| A key-value map with two fields: `template`, which identifies the template version, and `compatibility`, which identifies a list of minimum required OpenSearch versions.	|
 |`workflows`	|Object	|Optional	|A map of workflows. Only the `provision` key is supported. The value for the workflow key is a key-value map that includes fields for `user_params` and lists of `nodes` and `edges`.	|
 

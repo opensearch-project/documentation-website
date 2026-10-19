@@ -7,7 +7,7 @@ nav_order: 55
 
 # Date index name processor
 
-The `date_index_name` processor is used to point documents to the correct time-based index based on the date or timestamp field within the document. The processor sets the `_index` metadata field to a [date math]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/date/#date-math) index name expression. Then the processor fetches the date or timestamp from the `field` field in the document being processed and formats it into a date math index name expression. The extracted date, `index_name_prefix` value, and `date_rounding` value are then combined to create the date math index expression. For example, if the `field` field contains the value `2023-10-30T12:43:29.000Z` and `index_name_prefix` is set to `week_index-` and `date_rounding` is set to `w`, then the date math index name expression is `week_index-2023-10-30`. You can use the `date_formats` field to specify how the date in the date math index expression should be formatted.
+The `date_index_name` processor is used to point documents to the correct time-based index based on the date or timestamp field within the document. The processor sets the `_index` metadata field to a [date math]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/date/#date-math) index name expression. Then the processor fetches the date or timestamp from the `field` field in the document being processed and formats it into a date math index name expression. The extracted date, `index_name_prefix` value, and `date_rounding` value are then combined to create the date math index expression. For example, if the `field` field contains the value `2023-10-30T12:43:29.000Z` and `index_name_prefix` is set to `week_index-` and `date_rounding` is set to `w`, then the date math index name expression is `<week_index-{2023-10-30||/w{yyyy-MM-dd|UTC}}>`, which resolves to the `week_index-2023-10-30` index. Use the `date_formats` parameter to specify how to parse the date in the document, and use the `index_name_format` parameter to specify how to format the date in the index name.
 
 The following is the syntax for the `date_index_name` processor:
 
@@ -27,18 +27,18 @@ The following table lists the required and optional parameters for the `date_ind
 
 Parameter | Required/Optional | Description |
 |-----------|-----------|-----------|
-`field`  | Required  | The date or timestamp field in the incoming document. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets). |
-`date_rounding`  | Required | The rounded date format within the index name . Valid values are `y` (year), `M` (month), `w` (week), `d` (day), `h` (hour), `m` (minute), and `s` (second). |
+`field`  | Required  | The date or timestamp field in the incoming document. |
+`date_rounding`  | Required | The time unit to which the date is rounded in the index name. Valid values are `y` (year), `M` (month), `w` (week), `d` (day), `h` (hour), `m` (minute), and `s` (second). Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets). |
 `date_formats` | Optional | An array of date formats used to parse the date or timestamp field. Valid options include a Java time pattern or one of the following formats: ISO8601, UNIX, UNIX_MS, or TAI64N. Default is `yyyy-MM-dd'T'HH:mm:ss.SSSXX`. |
-`index_name_format` | Optional | The date format. Default is `yyyy-MM-dd`. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets). |
-`index_name_prefix` | Optional | The index name prefix to append before the date. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets).
+`index_name_format` | Optional | The format of the date in the index name. Default is `yyyy-MM-dd`. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets). |
+`index_name_prefix` | Optional | The prefix to add before the date in the index name. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets).
 `description`  | Optional  | A brief description of the processor.  |
 `if` | Optional | A condition for running this processor. |
 `ignore_failure` | Optional | If set to `true`, failures are ignored. Default is `false`. |
-`locale` | `locale`  | Optional  | The locale to use when parsing the month name and week day of the date. Default is `ENGLISH`. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets).  |
+`locale`  | Optional  | The locale to use when parsing the month name and week day of the date. Default is `ENGLISH`.  |
 `on_failure` | Optional | A list of processors to run if the processor fails. |
-`tag` | Optional | An identifier tag for the processor. Useful for debugging to distinguish between processors of the same type. |
-`timezone`  | Optional  | The time zone to use when parsing the date. Default is `UTC`. |
+`tag` | Optional | An identifier tag for the processor. Useful for debugging to distinguish between processors of the same type. For more information, see [Using processor tags for monitoring and debugging]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#using-processor-tags-for-monitoring-and-debugging). |
+`timezone`  | Optional  | The time zone used to parse the date and to compute the concrete index name from the date math expression. Default is `UTC`. |
 
 ## Using the processor
 
@@ -46,7 +46,7 @@ Follow these steps to use the processor in a pipeline.
 
 **Step 1: Create a pipeline.**
 
-The following query creates a pipeline, named `date-index-name1`, that uses the `date_index_name` processor to index logs into monthly indexes: 
+The following query creates a pipeline, named `date-index-name1`, that uses the `date_index_name` processor to index logs into weekly indexes: 
 
 ```json
 PUT /_ingest/pipeline/date-index-name1
@@ -58,7 +58,7 @@ PUT /_ingest/pipeline/date-index-name1
         "field": "date_field",
         "index_name_prefix": "week_index-",
         "date_rounding": "w",
-        "date_formats": ["YYYY-MM-DD"]
+        "date_formats": ["yyyy-MM-dd"]
       }
     }
   ]
@@ -98,7 +98,7 @@ The following example response confirms that the pipeline is working as expected
   "docs": [
     {
       "doc": {
-        "_index": "<week_index-{2023-10-01||/w{yyyy-MM-dd|UTC}}>",
+        "_index": "<week_index-{2023-10-30||/w{yyyy-MM-dd|UTC}}>",
         "_id": "1",
         "_source": {
           "date_field": "2023-10-30"
@@ -126,7 +126,7 @@ PUT testindex1/_doc/1?pipeline=date-index-name1
 
 #### Response
 
-The request indexes the document into the index `week_index-2023-10-23` and will index all documents with a timestamp within that week into the same index because the pipeline rounds by week.
+The request indexes the document into the index `week_index-2023-10-30` and will index all documents with a timestamp within that week into the same index because the pipeline rounds by week.
 
 ```json
 {

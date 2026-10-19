@@ -33,7 +33,7 @@ where:
 
 By adjusting $$\lambda$$, you can control the trade-off between highly relevant results and more diverse coverage in the result set.
 
-# Prerequisites
+## Prerequisites
 
 To use MMR, you must enable [system-generated search processor factories]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/system-generated-search-processors/). Set the `cluster.search.enabled_system_generated_factories` setting (by default, an empty list) to `*` (all factories) or explicitly include the required factories:
 
@@ -50,7 +50,7 @@ PUT _cluster/settings
 ```
 {% include copy-curl.html %}
 
-# Parameters
+## Parameters
 
 The `mmr` object is provided in the `ext` object of the Search API request body and supports the following parameters.
 
@@ -64,7 +64,7 @@ The `mmr` object is provided in the `ext` object of the Search API request body 
 | `explain`                 | Boolean   | Optional                               | When `true`, adds an `mmr_explain` object to each selected hit's `_source` containing per-hit MMR scoring details. Default is `false`. See [Explain MMR scoring](#explain-mmr-scoring). |
 
 
-# Example request
+## Example request
 
 The following example shows how to use the `mmr` parameter in a `knn` query:
 
@@ -117,7 +117,7 @@ POST /my-index/_search
 When querying multiple indexes, all vector fields must have matching data types and space types. These settings determine the similarity function used for document comparisons.
 {: .note}
 
-# Explain MMR scoring
+## Explain MMR scoring
 **Introduced 3.7**
 {: .label .label-purple }
 
@@ -195,7 +195,7 @@ The response includes an `mmr_explain` object in each hit's `_source`:
 }
 ```
 
-# Limitations
+## Limitations
 
 The following limitations apply to vector search with MMR reranking:
 

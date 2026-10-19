@@ -28,49 +28,7 @@ To follow this example, you must set up a text embedding model. For more informa
 
 ## Configuring hybrid search
 
-There are two ways to configure hybrid search:
-
-- [**Automated workflow**](#automated-workflow) (Recommended for quick setup): Automatically create an ingest pipeline, an index, and a search pipeline with minimal configuration.
-- [**Manual setup**](#manual-setup) (Recommended for custom configurations): Manually configure each component for greater flexibility and control.
-
-## Automated workflow
-
-OpenSearch provides a [workflow template]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-templates/#hybrid-search) that automatically creates an ingest pipeline, an index, and a search pipeline. You must provide the model ID for the configured model when creating a workflow. Review the hybrid search workflow template [defaults](https://github.com/opensearch-project/flow-framework/blob/main/src/main/resources/defaults/hybrid-search-defaults.json) to determine whether you need to update any of the parameters. For example, if the model dimensionality is different from the default (`1024`), specify the dimensionality of your model in the `output_dimension` parameter. To create the default hybrid search workflow, send the following request:
-
-```json
-POST /_plugins/_flow_framework/workflow?use_case=hybrid_search&provision=true
-{
-"create_ingest_pipeline.model_id": "mBGzipQB2gmRjlv_dOoB"
-}
-```
-{% include copy-curl.html %}
-
-OpenSearch responds with a workflow ID for the created workflow:
-
-```json
-{
-  "workflow_id" : "U_nMXJUBq_4FYQzMOS4B"
-}
-```
-
-To check the workflow status, send the following request:
-
-```json
-GET /_plugins/_flow_framework/workflow/U_nMXJUBq_4FYQzMOS4B/_status
-```
-{% include copy-curl.html %}
-
-Once the workflow completes, the `state` changes to `COMPLETED`. The workflow creates the following components:
-
-- An ingest pipeline named `nlp-ingest-pipeline`
-- An index named `my-nlp-index` 
-- A search pipeline named `nlp-search-pipeline`
-
-You can now continue with [steps 4 and 5](#step-4-ingest-documents-into-the-index) to ingest documents into the index and search the index.
-
-## Manual setup
-
-To manually configure hybrid search, follow these steps:
+To configure hybrid search, follow these steps:
 
 1. [Create an ingest pipeline](#step-1-create-an-ingest-pipeline).
 1. [Create an index for ingestion](#step-2-create-an-index-for-ingestion).
@@ -226,7 +184,7 @@ GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
           "neural": {
             "passage_embedding": {
               "query_text": "Hi world",
-              "model_id": "aVeif4oB5Vm0Tdw8zYO2",
+              "model_id": "bQ1J8ooBpBj3wT4HVUsb",
               "k": 5
             }
           }
@@ -240,11 +198,11 @@ GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
 
 Alternatively, you can set a default search pipeline for the `my-nlp-index` index. For more information, see [Default search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/using-search-pipeline/#default-search-pipeline).
 
-The response contains the matching document:
+The response contains the matching documents:
 
 ```json
 {
-  "took" : 36,
+  "took" : 32,
   "timed_out" : false,
   "_shards" : {
     "total" : 1,
@@ -254,15 +212,24 @@ The response contains the matching document:
   },
   "hits" : {
     "total" : {
-      "value" : 1,
+      "value" : 2,
       "relation" : "eq"
     },
-    "max_score" : 1.2251667,
+    "max_score" : 1.0,
     "hits" : [
       {
         "_index" : "my-nlp-index",
+        "_id" : "2",
+        "_score" : 1.0,
+        "_source" : {
+          "passage_text" : "Hi planet",
+          "id" : "s2"
+        }
+      },
+      {
+        "_index" : "my-nlp-index",
         "_id" : "1",
-        "_score" : 1.2251667,
+        "_score" : 0.3007,
         "_source" : {
           "passage_text" : "Hello world",
           "id" : "s1"
@@ -272,7 +239,6 @@ The response contains the matching document:
   }
 }
 ```
-{% include copy-curl.html %}
 
 #### Example: Combining a match query and a term query
 
@@ -312,11 +278,11 @@ The response contains the matching documents:
 
 ```json
 {
-    "took": 11,
+    "took": 3,
     "timed_out": false,
     "_shards": {
-        "total": 2,
-        "successful": 2,
+        "total": 1,
+        "successful": 1,
         "skipped": 0,
         "failed": 0
     },
@@ -349,7 +315,9 @@ The response contains the matching documents:
     }
 }
 ```
-{% include copy-curl.html %}
+
+To create the ingest pipeline, index, and search pipeline in one step, you can use the [hybrid search workflow template]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/workflow-templates/#hybrid-search).
+{: .tip}
 
 ## Filtering data
 
