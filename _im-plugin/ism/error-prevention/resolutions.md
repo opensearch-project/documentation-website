@@ -224,7 +224,9 @@ PUT {index}/_settings
 ```
 {% include copy-curl.html %}
 
-Increase the disk watermarks by running the following request. The `read-only-allow-delete` block is applied when disk usage exceeds the `flood_stage` watermark, so raising only the `low` watermark does not remove it. Set the `low`, `high`, and `flood_stage` watermarks together and specify all three either as percentages or as byte values; otherwise, OpenSearch rejects the request:
+The `read-only-allow-delete` block is applied when disk usage exceeds the `flood_stage` watermark, so raising only the `low` watermark does not remove it. Set the `low`, `high`, and `flood_stage` watermarks together, specifying all three as percentages or all three as byte values. 
+
+Percentages set the maximum disk usage, so the `low` watermark must be the smallest value. To increase the watermarks using percentages, send the following request:
 
 ```json
 PUT _cluster/settings
@@ -238,6 +240,30 @@ PUT _cluster/settings
               "low": "90%",
               "high": "95%",
               "flood_stage": "97%"
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+Byte values set the minimum free disk space, so the `low` watermark must be the largest value. Use whole numbers because OpenSearch rejects fractional byte values. To set the watermarks using byte values, send the following request:
+
+```json
+PUT _cluster/settings
+{
+  "transient": {
+    "cluster": {
+      "routing": {
+        "allocation": {
+          "disk": {
+            "watermark": {
+              "low": "50gb",
+              "high": "25gb",
+              "flood_stage": "10gb"
             }
           }
         }
