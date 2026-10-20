@@ -64,7 +64,7 @@ POST /_plugins/_flow_framework/workflow?provision=true
           "previous_node_inputs": {},
           "user_inputs": {
             "version": "1",
-            "name": "Claude instant runtime Connector",
+            "name": "Claude Sonnet 4.6 runtime Connector",
             "protocol": "aws_sigv4",
             "description": "The connector to BedRock service for Claude model",
             "actions": [
@@ -74,9 +74,9 @@ POST /_plugins/_flow_framework/workflow?provision=true
                   "content-type": "application/json"
                 },
                 "method": "POST",
-                "request_body": "{\"prompt\":\"${parameters.prompt}\", \"max_tokens_to_sample\":${parameters.max_tokens_to_sample}, \"temperature\":${parameters.temperature},  \"anthropic_version\":\"${parameters.anthropic_version}\" }",
+                "request_body": "{\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"${parameters.prompt}\"}]}],\"anthropic_version\":\"${parameters.anthropic_version}\",\"max_tokens\":${parameters.max_tokens},\"temperature\":${parameters.temperature}}",
                 "action_type": "predict",
-                "url": "https://bedrock-runtime.us-west-2.amazonaws.com/model/anthropic.claude-instant-v1/invoke"
+                "url": "https://bedrock-runtime.us-west-2.amazonaws.com/model/us.anthropic.claude-sonnet-4-6/invoke"
               }
             ],
             "credential": {
@@ -89,10 +89,10 @@ POST /_plugins/_flow_framework/workflow?provision=true
               "endpoint": "bedrock-runtime.us-west-2.amazonaws.com",
               "content_type": "application/json",
               "auth": "Sig_V4",
-              "max_tokens_to_sample": "8000",
+              "max_tokens": "8000",
               "service_name": "bedrock",
               "temperature": "0.0001",
-              "response_filter": "$.completion",
+              "response_filter": "$.content[0].text",
               "anthropic_version": "bedrock-2023-05-31"
             }
           }
@@ -106,7 +106,7 @@ POST /_plugins/_flow_framework/workflow?provision=true
           "user_inputs": {
             "description": "Claude model",
             "deploy": true,
-            "name": "claude-instant"
+            "name": "claude-sonnet-4-6"
           }
         },
         {
@@ -117,7 +117,7 @@ POST /_plugins/_flow_framework/workflow?provision=true
           },
           "user_inputs": {
             "parameters": {
-              "prompt": "Human: You are an assistant that helps to summarize the data and provide data insights.\nThe data are queried from OpenSearch index through user's question which was translated into PPL query.\nHere is a sample PPL query: `source=<index> | where <field> = <value>`.\nNow you are given ${parameters.sample_count} sample data out of ${parameters.total_count} total data.\nThe user's question is `${parameters.question}`, the translated PPL query is `${parameters.ppl}` and sample data are:\n```\n${parameters.sample_data}\n```\nCould you help provide a summary of the sample data and provide some useful insights with precise wording and in plain text format, do not use markdown format.\nYou don't need to echo my requirements in response.\n\nAssistant:"
+              "prompt": "You are an assistant that helps to summarize the data and provide data insights.\nThe data are queried from OpenSearch index through user's question which was translated into PPL query.\nHere is a sample PPL query: `source=<index> | where <field> = <value>`.\nNow you are given ${parameters.sample_count} sample data out of ${parameters.total_count} total data.\nThe user's question is `${parameters.question}`, the translated PPL query is `${parameters.ppl}` and sample data are:\n```\n${parameters.sample_data}\n```\nCould you help provide a summary of the sample data and provide some useful insights with precise wording and in plain text format, do not use markdown format.\nYou don't need to echo my requirements in response."
             },
             "name": "MLModelTool",
             "type": "MLModelTool"
