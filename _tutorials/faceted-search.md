@@ -1451,6 +1451,8 @@ The response contains a flat structure with separate aggregation results. The ca
 
 </details>
 
+A `terms` aggregation returns the top 10 buckets by default. The sample data contains 11 distinct `category_hierarchy` values, so the `full_hierarchy` aggregation omits `Footwear>Casual>Sneakers` and counts its document in `sum_other_doc_count`. To return all values, set `size` in the `terms` aggregation to a value greater than the number of distinct values.
+
 The results appear as follows.
 
 ![Faceted search results with hierarchical flat categories]({{site.url}}{{site.baseurl}}/images/faceted-search/faceted-search-hierarchical-flat.png)
