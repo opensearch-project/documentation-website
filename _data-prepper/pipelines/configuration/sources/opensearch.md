@@ -239,7 +239,7 @@ In order to pull data from an OpenSearch cluster using the `opensearch` source p
 source:
   opensearch:
     username: "admin"
-    password: "admin"
+    password: "<custom-admin-password>"
   ...
 ```
 
