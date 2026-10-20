@@ -531,3 +531,9 @@ The response confirms that the processor ran a k-NN query, which returned docume
   }
 }
 ```
+
+## Next steps
+
+- For a complete example of searching by text and image, see [Multimodal search using ML inference processors]({{site.url}}{{site.baseurl}}/tutorials/vector-search/semantic-search/multimodal-search-ml-inference/).
+- For a complete example of rewriting a query into a vector search, see [Semantic search using text chunking]({{site.url}}{{site.baseurl}}/tutorials/vector-search/semantic-search/long-document/).
+- For a complete example that uses compressed embeddings at search time, see [Optimizing vector search using Cohere compressed embeddings]({{site.url}}{{site.baseurl}}/tutorials/vector-search/vector-operations/optimize-compression/).

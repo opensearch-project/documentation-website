@@ -108,6 +108,52 @@ OpenSearch returns the query results:
 }
 ```
 
+## Using the tool in a conversational agent
+
+In a `conversational` agent that uses function calling, the LLM provides the tool input according to the tool's input schema. By default, the input schema requires the LLM to provide the `index` and `query` parameters. To have the LLM provide only a question, specify the index and a query in the tool parameters and define a custom input schema in `attributes.input_schema`.
+
+The following tool definition runs a `neural` query on the `test_population_data` index. The LLM provides a `question`, which the tool uses as the `query_text`:
+
+```json
+{
+  "type": "SearchIndexTool",
+  "name": "retrieve_population_data",
+  "description": "This tool provides population data of US cities.",
+  "parameters": {
+    "input": "{\"index\": \"${parameters.index}\", \"query\": ${parameters.query} }",
+    "index": "test_population_data",
+    "query": {
+      "query": {
+        "neural": {
+          "population_description_embedding": {
+            "query_text": "${parameters.question}",
+            "model_id": "your_text_embedding_model_id"
+          }
+        }
+      },
+      "size": 2,
+      "_source": "population_description"
+    }
+  },
+  "attributes": {
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "question": {
+          "type": "string",
+          "description": "Natural language question"
+        }
+      },
+      "required": [ "question" ],
+      "additionalProperties": false
+    },
+    "strict": false
+  }
+}
+```
+
+For a complete example, see [Using the Search Index tool with a neural query]({{site.url}}{{site.baseurl}}/tutorials/gen-ai/chatbots/rag-chatbot/#using-the-search-index-tool-with-a-neural-query).
+
 ## Execute parameters
 
 The following table lists all tool parameters that are available when running the agent.

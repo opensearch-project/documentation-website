@@ -120,3 +120,8 @@ Alternatively, you can provide the full path to the field containing the context
 
 - Learn more about the [`rerank` processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rerank-processor/).
 - See a comprehensive example of [reranking by a field using an externally hosted cross-encoder model]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/rerank-by-field-cross-encoder/).
+- For a tutorial that uses a cross-encoder model hosted in Amazon SageMaker, see [Reranking search results using a cross-encoder in Amazon SageMaker]({{site.url}}{{site.baseurl}}/tutorials/reranking/reranking-cross-encoder/).
+- For a tutorial that uses a reranker model hosted in Amazon SageMaker, see [Reranking search results using a reranker in Amazon SageMaker]({{site.url}}{{site.baseurl}}/tutorials/reranking/reranking-sagemaker/).
+- For a tutorial that uses reranking models hosted on Amazon Bedrock, see [Reranking search results using Amazon Bedrock models]({{site.url}}{{site.baseurl}}/tutorials/reranking/reranking-bedrock/).
+- For a tutorial that uses Cohere Rerank on Amazon Bedrock, see [Reranking search results using Cohere Rerank on Amazon Bedrock]({{site.url}}{{site.baseurl}}/tutorials/reranking/reranking-cohere-bedrock/).
+- For a tutorial that uses the Cohere Rerank API, see [Reranking search results using Cohere Rerank]({{site.url}}{{site.baseurl}}/tutorials/reranking/reranking-cohere/).
