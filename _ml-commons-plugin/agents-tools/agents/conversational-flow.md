@@ -76,3 +76,4 @@ Conversational flow agents can call external MCP server tools in a fixed pipelin
 - For a step-by-step tutorial, see [Agents and tools tutorial]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents-tools-tutorial/).
 - For supported APIs, see [Agent APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/).
 - To create agents and tools using a workflow template, see [AI search workflows]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/index/).
+- For a tutorial that uses a conversational flow agent to build a RAG chatbot, see [RAG chatbot with a conversational flow agent]({{site.url}}{{site.baseurl}}/tutorials/gen-ai/chatbots/rag-conversational-agent/).

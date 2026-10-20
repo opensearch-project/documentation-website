@@ -287,3 +287,4 @@ PUT _ingest/pipeline/recursively-text-chunking-cascade-ingest-pipeline
 - To learn more about semantic search, see [Semantic search]({{site.url}}{{site.baseurl}}/search-plugins/semantic-search/).
 - To learn more about sparse search, see [Neural sparse search]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/).
 - To learn more about using models in OpenSearch, see [Choosing a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/#choosing-a-model).
+- For a tutorial that chunks long documents and generates embeddings using an externally hosted model, see [Semantic search using text chunking]({{site.url}}{{site.baseurl}}/tutorials/vector-search/semantic-search/long-document/).

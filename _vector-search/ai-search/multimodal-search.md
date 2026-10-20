@@ -145,3 +145,4 @@ To create the ingest pipeline and index in one step, you can use the [multimodal
 ## Next steps
 
 - Explore our [tutorials]({{site.url}}{{site.baseurl}}/vector-search/tutorials/) to learn how to build AI search applications. 
+- To configure multimodal search using ML inference processors, see [Multimodal search using ML inference processors]({{site.url}}{{site.baseurl}}/tutorials/vector-search/semantic-search/multimodal-search-ml-inference/).

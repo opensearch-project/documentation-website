@@ -269,3 +269,4 @@ GET /_plugins/_ml/memory_containers/{memory_container_id}/memories/working/_sear
 - Learn about [agentic memory retention]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agentic-memory-retention/).
 - Explore [memory container configuration]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/create-memory-container/) options.
 - Review the complete [Agentic Memory API reference]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/).
+- For a tutorial that uses agentic memory as the long-term memory of an agent built using Strands Agents, see [Using agentic memory with Strands Agents]({{site.url}}{{site.baseurl}}/tutorials/gen-ai/agents/agentic-memory-strands/).

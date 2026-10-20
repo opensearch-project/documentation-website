@@ -266,4 +266,5 @@ GET /testindex/_search
 
 ## Next steps
 
-- Explore our [tutorials]({{site.url}}{{site.baseurl}}/vector-search/tutorials/) to learn how to build AI search applications. 
+- Explore our [tutorials]({{site.url}}{{site.baseurl}}/vector-search/tutorials/) to learn how to build AI search applications.
+- For a tutorial that chunks long documents and generates embeddings using an externally hosted model, see [Semantic search using text chunking]({{site.url}}{{site.baseurl}}/tutorials/vector-search/semantic-search/long-document/).

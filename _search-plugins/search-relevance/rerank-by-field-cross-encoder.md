@@ -277,4 +277,7 @@ In the response, the `original_query_score` field contains the document's BM25 s
   }
 }
 ```
- 
+
+## Next steps
+
+- For a tutorial that reranks results by a field using Cohere Rerank, see [Reranking search results by a field using Cohere Rerank]({{site.url}}{{site.baseurl}}/tutorials/reranking/reranking-by-field/).
