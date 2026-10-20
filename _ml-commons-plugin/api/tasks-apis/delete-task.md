@@ -13,7 +13,7 @@ Deletes a machine learning (ML) task based on the `task_id`.
 ML Commons does not check the task status when running the delete request. There is a risk that a currently running task could be deleted before the task completes. To check the status of a task, run `GET /_plugins/_ml/tasks/<task_id>` before task deletion.
 {: .note}
 
-### Endpoints
+## Endpoints
 
 ```json
 DELETE /_plugins/_ml/tasks/{task_id}
@@ -34,9 +34,10 @@ DELETE /_plugins/_ml/tasks/xQRYLX8BydmmU1x6nuD3
   "_id" : "xQRYLX8BydmmU1x6nuD3",
   "_version" : 4,
   "result" : "deleted",
+  "forced_refresh" : true,
   "_shards" : {
-    "total" : 2,
-    "successful" : 2,
+    "total" : 1,
+    "successful" : 1,
     "failed" : 0
   },
   "_seq_no" : 42,

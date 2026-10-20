@@ -181,7 +181,7 @@ opensearch_collection:
       name: Vector search
       nav_fold: true
     ml-commons-plugin:
-      name: Machine learning
+      name: AI and machine learning
       nav_fold: true
     ai-agent-integrations:
       name: AI agent integrations

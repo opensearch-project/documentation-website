@@ -40,9 +40,6 @@ POST /_plugins/_ml/agents/_register
   "name": "Test_Agent_For_Log_Pattern_Analysis_Tool",
   "type": "flow",
   "description": "this is a test agent for the LogPatternAnalysisTool",
-  "memory": {
-    "type": "demo"
-  },
   "tools": [
     {
       "type": "LogPatternAnalysisTool",
@@ -66,6 +63,40 @@ OpenSearch responds with an agent ID:
 ## Step 2: Run the agent
 
 Run the agent to perform various analysis types.
+
+The examples use fixed time ranges. To run an example on your own data, set `index` to your log index and set the time range parameters to times within the range of timestamps in that index. To find the earliest and latest timestamps, run a `min` and `max` aggregation on the time field:
+
+```json
+GET /opensearch_dashboards_sample_data_logs/_search
+{
+  "size": 0,
+  "aggs": {
+    "earliest": { "min": { "field": "@timestamp" } },
+    "latest": { "max": { "field": "@timestamp" } }
+  }
+}
+```
+{% include copy-curl.html %}
+
+The `value_as_string` fields contain the earliest and latest timestamps:
+
+```json
+{
+  ...
+  "aggregations": {
+    "earliest": {
+      "value": 1.791074342912E12,
+      "value_as_string": "2026-10-04T00:39:02.912Z"
+    },
+    "latest": {
+      "value": 1.796334326749E12,
+      "value_as_string": "2026-12-03T21:45:26.749Z"
+    }
+  }
+}
+```
+
+Provide the time range parameters in the `yyyy-MM-dd HH:mm:ss` format, for example, `2026-10-04 00:00:00`.
 
 ### Log sequence analysis 
 
@@ -107,6 +138,8 @@ OpenSearch returns exceptional trace sequences that differ significantly from ba
 
 ### Log pattern difference analysis
 
+The following example uses the OpenSearch Dashboards sample web logs. To add the sample web logs, see [Adding sample data]({{site.url}}{{site.baseurl}}/dashboards/getting-started/data-setup/#add-sample-data). When you add sample data, OpenSearch Dashboards shifts its timestamps relative to the date you add it, so your copy doesn't contain the 2018 dates used in this example. Replace `2018-07-22` with the date of the earliest timestamp returned by the preceding aggregation.
+
 To perform a pattern comparison analysis, provide a `baseTimeRangeStart` and `baseTimeRangeEnd`:
 
 ```json
@@ -125,7 +158,7 @@ POST /_plugins/_ml/agents/OQutgJYBAc35E4_KvI1q/_execute
 ```
 {% include copy-curl.html %}
 
-OpenSearch returns patterns with significant frequency changes between time periods:
+OpenSearch returns patterns with significant frequency changes between time periods. The `base` and `selection` fields contain the fraction of logs that match the pattern in the baseline and selection time ranges, and `lift` is the ratio of the larger fraction to the smaller one. The tool returns patterns whose `lift` is greater than 3 and patterns that appear only in the selection time range. A pattern that appears only in the selection time range has a `base` of `0.0` and a `lift` of `null`, as in the following response:
 
 ```json
 {
@@ -134,7 +167,7 @@ OpenSearch returns patterns with significant frequency changes between time peri
       "output": [
         {
           "name": "response",
-          "result": "{\"patternMapDifference\": [{\"pattern\": \"<*> ERROR <*> Connection timeout\", \"base\": 0.02, \"selection\": 0.15, \"lift\": 7.5}]}"
+          "result": "{\"patternMapDifference\":[{\"pattern\":\"<*IP*> - - [<*DATETIME*>] \\\"GET <*> HTTP/<*>\\\" <*> 0 \\\"-\\\" \\\"Mozilla/<*> (<*>; Linux <*>_<*>; rv:<*>) Gecko/<*> Firefox/<*>\\\"\",\"base\":0.0,\"selection\":0.4224137931034483,\"lift\":null},{\"pattern\":\"<*IP*> - - [<*DATETIME*>] \\\"GET <*> HTTP/<*>\\\" 200 <*> \\\"-\\\" \\\"Mozilla/<*> (compatible; MSIE 6<*>; Windows NT 5<*>; <*>; .NET CLR 1<*>)\\\"\",\"base\":0.0,\"selection\":0.27586206896551724,\"lift\":null}]}"
         }
       ]
     }
@@ -169,7 +202,7 @@ OpenSearch returns error patterns with sample logs:
       "output": [
         {
           "name": "response",
-          "result": "{\"logInsights\": [{\"pattern\": \"<*> ERROR User <*> authentication failed\", \"count\": 23, \"sampleLogs\": [\"2025-01-15 10:30:15 ERROR User user123 authentication failed\", \"2025-01-15 10:32:08 ERROR User admin456 authentication failed\"]}]}"
+          "result": "{\"logInsights\":[{\"pattern\":\"<*DATETIME*> ERROR User <*> authentication failed\",\"count\":23.0,\"sampleLogs\":[\"2025-01-15 10:30:15 ERROR User user123 authentication failed\",\"2025-01-15 10:32:08 ERROR User admin456 authentication failed\",\"2025-01-15 10:35:42 ERROR User user789 authentication failed\"]}]}"
         }
       ]
     }
@@ -184,13 +217,14 @@ The following table lists the available tool parameters for running the agent.
 | Parameter | Type | Required/Optional | Description |
 |:----------|:-----|:------------------|:------------|
 | `index` | String | Required | The name of the OpenSearch index containing log data (for example, `ss4o_logs-otel-2025.06.24`). |
-| `timeField` | String | Required | A date/time field in the index mapping used for time-based filtering. |
-| `logFieldName` | String | Required | The field containing raw log messages to analyze (for example, `body`, `message`, or `log`). |
+| `timeField` | String | Optional | A date/time field in the index mapping used for time-based filtering. Default is `@timestamp`. |
+| `logFieldName` | String | Optional | The field containing raw log messages to analyze (for example, `body`, `message`, or `log`). Default is `message`. |
 | `traceFieldName` | String | Optional | The field containing a trace ID or correlation ID to enable sequence analysis (for example, `traceId` or `correlationId`). Required for the log sequence analysis mode. |
 | `baseTimeRangeStart` | String | Optional | The start time for the baseline comparison period, in UTC date string format (for example, `2025-06-24 07:33:05`). Required for the sequence and pattern difference analysis modes. |
 | `baseTimeRangeEnd` | String | Optional | The end time for the baseline comparison period, in UTC date string format (for example, `2025-06-24 07:51:27`). Required for the sequence and pattern difference analysis modes. |
 | `selectionTimeRangeStart` | String | Required | The start time for the analysis target period, in UTC date string format (for example, `2025-06-24 07:50:26`). |
 | `selectionTimeRangeEnd` | String | Required | The end time for the analysis target period, in UTC date string format (for example, `2025-06-24 07:55:56`). |
+| `filter` | String | Optional | A PPL Boolean expression that filters the logs before analysis (for example, `severity='ERROR'`). The tool applies it as an additional `where` clause. Not applied in the log sequence analysis mode, which requires all logs in a trace. |
 
 ## Testing the tool
 
@@ -202,5 +236,5 @@ The Log Pattern Analysis tool has the following limitations:
 
 - **Log volume**: The tool processes logs through PPL queries with a maximum limit of 10,000 documents per query. For optimal performance, limit analysis to specific time ranges.
 - **Result limits**:
-  - Pattern difference analysis: Returns the top 10 significant patterns.
-  - Log insights analysis: Returns the top 5 error patterns, with up to 2 sample logs each.
+  - Pattern difference analysis: Returns up to 10 patterns with the highest `lift` and up to 10 patterns that appear only in the selection time range.
+  - Log insights analysis: Returns the top 5 error patterns, with up to 5 sample logs each.

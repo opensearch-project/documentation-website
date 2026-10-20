@@ -10,8 +10,10 @@ nav_order: 47
 
 Deletes a model based on the `model_id`.
 
-When you delete the last model version in a model group, that model group is automatically deleted from the index.
+You cannot delete a model that is deployed or being deployed. To delete a deployed model, first [undeploy]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/undeploy-model/) it.
 {: .important}
+
+Deleting the last model version in a model group does not delete the model group. To delete the model group, use the [Delete Model Group API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-group-apis/delete-model-group/).
 
 For information about user access for this API, see [Model access control considerations]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/index/#model-access-control-considerations).
 
@@ -36,9 +38,10 @@ DELETE /_plugins/_ml/models/MzcIJX8BA7mbufL6DOwl
   "_id" : "MzcIJX8BA7mbufL6DOwl",
   "_version" : 2,
   "result" : "deleted",
+  "forced_refresh" : true,
   "_shards" : {
-    "total" : 2,
-    "successful" : 2,
+    "total" : 1,
+    "successful" : 1,
     "failed" : 0
   },
   "_seq_no" : 27,

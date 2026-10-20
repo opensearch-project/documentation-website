@@ -41,6 +41,10 @@ The following table lists the available request fields.
 Field | Data type | Required/Optional | Description
 :--- | :--- | :--- | :---
 `name` | String | Optional | The name of the memory.
+`additional_info` | Object | Optional | Additional information about the memory, provided as string key-value pairs. When creating a memory, this field is ignored unless `name` is also specified.
+`application_type` | String | Optional | The type of application that uses the memory. Applies only to the POST method and is ignored unless `name` is also specified.
+
+The PUT method updates only the `name` and `additional_info` fields. Other fields in a PUT request are ignored.
 
 ## Example request
 
@@ -57,5 +61,37 @@ POST /_plugins/_ml/memory/
 ```json
 {
   "memory_id": "gW8Aa40BfUsSoeNTvOKI"
+}
+```
+
+## Example request: Update a memory
+
+```json
+PUT /_plugins/_ml/memory/gW8Aa40BfUsSoeNTvOKI
+{
+  "name": "Renamed conversation",
+  "additional_info": {
+    "topic": "population growth"
+  }
+}
+```
+{% include copy-curl.html %}
+
+## Example response: Update a memory
+
+```json
+{
+  "_index": ".plugins-ml-memory-meta",
+  "_id": "gW8Aa40BfUsSoeNTvOKI",
+  "_version": 2,
+  "result": "updated",
+  "forced_refresh": true,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "failed": 0
+  },
+  "_seq_no": 3,
+  "_primary_term": 1
 }
 ```

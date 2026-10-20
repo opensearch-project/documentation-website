@@ -16,7 +16,7 @@ grand_parent: Agents and tools
 
 The `VectorDBTool` performs dense vector retrieval. For more information about OpenSearch vector database capabilities, see [neural search]({{site.url}}{{site.baseurl}}/search-plugins/neural-search/).
 
-## Step 1: Register and deploy a sparse encoding model
+## Step 1: Register and deploy a text embedding model
 
 OpenSearch supports several pretrained models. You can use one of those models, use your own custom model, or create a connector for an externally hosted model. For a list of supported pretrained models, see [OpenSearch-provided pretrained models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/). For more information about custom models, see [Custom local models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/custom-local-models/). For information about integrating an externally hosted model, see [Connecting to externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/). 
 
@@ -67,7 +67,7 @@ Once the model is registered and deployed, the task `state` changes to `COMPLETE
 
 ## Step 2: Ingest data into an index
 
-First, you'll set up an ingest pipeline to encode documents using the sparse encoding model set up in the previous step:
+First, you'll set up an ingest pipeline to encode documents using the text embedding model set up in the previous step:
 
 ```json
 PUT /_ingest/pipeline/test-pipeline-local-model
@@ -99,13 +99,13 @@ PUT my_test_data
       },
       "embedding": {
         "type": "knn_vector",
-        "dimension": 384
+        "dimension": 384,
+        "space_type": "cosinesimil"
       }
     }
   },
   "settings": {
     "index": {
-      "knn.space_type": "cosinesimil",
       "default_pipeline": "test-pipeline-local-model",
       "knn": "true"
     }
@@ -171,9 +171,7 @@ OpenSearch responds with an agent ID:
 
 ## Step 4: Run the agent
 
-Before you run the agent, make sure that you add the sample OpenSearch Dashboards `Sample web logs` dataset. To learn more, see [Adding sample data]({{site.url}}{{site.baseurl}}/dashboards/getting-started/data-setup/#add-sample-data).
-
-Then, run the agent by sending the following request:
+Run the agent by sending the following request:
 
 ```json
 POST /_plugins/_ml/agents/9X7xWI0Bpc3sThaJdY9i/_execute

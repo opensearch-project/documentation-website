@@ -109,7 +109,7 @@ POST /_plugins/_ml/models/_register
     "description": "test model",
     "connector": {
         "name": "Amazon Bedrock Connector: Chat",
-        "description": "The connector to bedrock Claude 3.7 sonnet model",
+        "description": "The connector to bedrock Claude Sonnet 4.6 model",
         "version": 1,
         "protocol": "aws_sigv4",
         "parameters": {
@@ -117,8 +117,7 @@ POST /_plugins/_ml/models/_register
             "service_name": "bedrock",
             "max_tokens": 8000,
             "temperature": 1,
-            "anthropic_version": "bedrock-2023-05-31",
-            "model": "us.anthropic.claude-3-7-sonnet-20250219-v1:0"
+            "model": "us.anthropic.claude-sonnet-4-6"
         },
         "credential": {
             "access_key": "...",
@@ -133,7 +132,7 @@ POST /_plugins/_ml/models/_register
                 "content-type": "application/json"
             },
             "url": "https://bedrock-runtime.${parameters.region}.amazonaws.com/model/${parameters.model}/converse",
-            "request_body": "{  \"anthropic_version\": \"${parameters.anthropic_version}\", \"max_tokens\": ${parameters.max_tokens}, \"temperature\": ${parameters.temperature}, \"system\": [{\"text\": \"${parameters.system_prompt}\"}], \"messages\": [ { \"role\": \"user\", \"content\": [ {\"text\": \"${parameters.user_prompt}\" }] }]}"
+            "request_body": "{ \"inferenceConfig\": { \"maxTokens\": ${parameters.max_tokens}, \"temperature\": ${parameters.temperature} }, \"system\": [{\"text\": \"${parameters.system_prompt}\"}], \"messages\": [ { \"role\": \"user\", \"content\": [ {\"text\": \"${parameters.user_prompt}\" }] }]}"
             }
         ]
     }
@@ -175,17 +174,21 @@ Field | Data type | Required/Optional | Description
 `embedding_dimension` | Integer | Optional | The dimension of the embedding model. Required if `embedding_model_type` is `TEXT_EMBEDDING`. Not allowed if `embedding_model_type` is `SPARSE_ENCODING`.
 `llm_id` | String | Optional | The LLM model ID for processing and inference.
 `index_prefix` | String | Optional | A custom prefix for memory indexes. If not specified, a default prefix is used: `default` when `use_system_index` is `true`, or an 8-character random UUID when `use_system_index` is `false`.
-`use_system_index` | Boolean | Optional | Whether to use system indexes (hidden indexes prefixed with `.plugins-ml-agentic-memory-`). Default is `true`.
+`use_system_index` | Boolean | Optional | Whether to use system indexes (hidden indexes prefixed with `.plugins-ml-am-`). Default is `true`.
 `disable_history`  | Boolean | Optional | Whether to disable the history audit trail index. Default is `false`. This setting only takes effect when strategies are configured, because the history index records changes to long-term memory. Without strategies, no long-term memory or history index is created regardless of this setting.
 `disable_session`  | Boolean | Optional | Whether to disable the session tracking index. Default is `false` (sessions are enabled by default). Set to `true` to disable session tracking.
 `max_infer_size`   | Integer | Optional | The maximum number of similar existing memories retrieved during memory consolidation to make ADD/UPDATE/DELETE decisions. Default is `5`. Maximum is `10`.
 `index_settings`   | Object | Optional | Custom OpenSearch index settings for the memory storage indexes that will be created for this container. Each memory type (`sessions`, `working`, `long_term`, and `history`) uses its own index. See [The `index_settings` object](#the-index_settings-object).
 `strategies` | Array | Optional | An array of [memory processing strategies]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agentic-memory/#memory-processing-strategies). When strategies are provided, both `llm_id` and embedding model fields (`embedding_model_id`, `embedding_model_type`) are required. See [The `strategies` array](#the-strategies-array).
 `parameters` | Object | Optional | Global parameters for the memory container. See [The `parameters` object](#the-parameters-object).
+`retention_policy` | Object | Optional | The retention limits for each memory type. Requires `plugins.ml_commons.memory.retention_enabled` to be `true`. For more information, see [Agentic memory retention]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agentic-memory-retention/).
 
 ### The index_settings object
 
 You can customize the OpenSearch index settings for the storage indexes that will be created to store memory data. Each memory type uses a dedicated index, and you can configure settings like the number of shards and replicas for performance optimization.
+
+Index settings are applied only when the indexes are created. If another memory container already uses the same `index_prefix`, the existing indexes are reused and the specified settings are ignored.
+{: .note}
 
 The following example shows you how to specify custom index settings in the `configuration` object:
 
@@ -194,7 +197,9 @@ POST /_plugins/_ml/memory_containers/_create
 {
   "name": "my-memory-container",
   "configuration": {
+    "embedding_model_type": "TEXT_EMBEDDING",
     "embedding_model_id": "your-model-id",
+    "embedding_dimension": 1024,
     "index_settings": {
       "session_index": {
         "index": {
@@ -244,16 +249,28 @@ The `strategies.configuration` object supports the following fields.
 Field | Data type | Required/Optional | Description
 :--- | :--- | :--- | :---
 `llm_result_path` | String | Optional | A JSONPath expression for extracting LLM results from responses. Default is the Amazon Bedrock Converse API response path (`"$.output.message.content[0].text"`).
-`system_prompt` | String | Optional | A custom system prompt used to override the default strategy prompt.
+`system_prompt` | String | Optional | A custom system prompt used to override the default strategy prompt. The prompt must contain the word `JSON` and the quoted key `"facts"`, and it must instruct the LLM to return a JSON object containing a `facts` array of strings. Otherwise, fact extraction fails and an error is recorded in the history index.
 `llm_id` | String | Optional | The LLM model ID for this strategy. Overrides the global LLM setting.
 
 ### The parameters object
 
-The `parameters` object supports the following field.
+The `parameters` object supports the following fields.
 
 Field | Data type | Required/Optional | Description
 :--- | :--- | :--- | :---
 `llm_result_path` | String | Optional | A global JSONPath expression for extracting LLM results from responses. Default is the Amazon Bedrock Converse API response path (`"$.output.message.content[0].text"`).
+`session` | Object | Optional | Parameters for the session summary that the LLM generates when a conversational memory is added without a `session_id`. See [The `session` object](#the-session-object).
+
+### The session object
+
+The `session` object supports the following fields.
+
+Field | Data type | Required/Optional | Description
+:--- | :--- | :--- | :---
+`max_summary_size` | Integer | Optional | The maximum number of words in the session summary. Default is `10`.
+`system_prompt` | String | Optional | A custom system prompt that replaces the default session summary prompt.
+
+OpenSearch passes any other field in the `session` object to the LLM as a connector parameter for the summary request. For example, if the connector's request body uses `${parameters.max_tokens}`, setting `max_tokens` in the `session` object limits the length of the LLM response for session summaries.
 
 ## Example request: Minimal memory container
 
@@ -267,7 +284,7 @@ POST /_plugins/_ml/memory_containers/_create
 ```
 {% include copy-curl.html %}
 
-This request creates a container with a single working memory index. Messages can be stored and retrieved by ID, but semantic search and long-term memory features are not available.
+This request creates a container with working memory and session indexes. Messages can be stored and retrieved by ID, but semantic search and long-term memory features are not available.
 
 ## Example request: Basic memory container with a strategy
 
@@ -278,9 +295,9 @@ POST /_plugins/_ml/memory_containers/_create
   "description": "Store conversations with semantic search and summarization",
   "configuration": {
     "embedding_model_type": "TEXT_EMBEDDING",
-    "embedding_model_id": "{{embedding_model_id}}",
+    "embedding_model_id": "<embedding_model_id>",
     "embedding_dimension": 1024,
-    "llm_id": "{{llm_id}}",
+    "llm_id": "<llm_id>",
     "strategies": [
       {
         "type": "SEMANTIC",
@@ -292,7 +309,7 @@ POST /_plugins/_ml/memory_containers/_create
 ```
 {% include copy-curl.html %}
 
-This request creates a container with working memory, long-term memory, and history indexes. The `SEMANTIC` strategy uses the LLM to extract facts from messages and the embedding model to enable vector-based semantic search over those facts.
+This request creates a container with working memory, session, long-term memory, and history indexes. The `SEMANTIC` strategy uses the LLM to extract facts from messages and the embedding model to enable vector-based semantic search over those facts.
 
 ## Example request: Advanced memory container with multiple strategies
 
@@ -303,9 +320,9 @@ POST /_plugins/_ml/memory_containers/_create
   "description": "Store conversations with semantic search and summarization",
   "configuration": {
     "embedding_model_type": "TEXT_EMBEDDING",
-    "embedding_model_id": "{{embedding_model_id}}",
+    "embedding_model_id": "<embedding_model_id>",
     "embedding_dimension": 1024,
-    "llm_id": "{{llm_id}}",
+    "llm_id": "<llm_id>",
     "index_prefix": "my_custom_prefix",
     "use_system_index": false,
     "strategies": [
@@ -314,8 +331,8 @@ POST /_plugins/_ml/memory_containers/_create
         "namespace": ["agent_id"],
         "configuration": {
           "llm_result_path": "$.output.message.content[0].text",
-          "system_prompt": "Extract semantic information from user conversations",
-          "llm_id": "{{custom_llm_id}}"
+          "system_prompt": "Extract semantic information from user conversations. Return only a JSON object in the format {\"facts\": [\"<fact>\"]}.",
+          "llm_id": "<custom_llm_id>"
         }
       },
       {

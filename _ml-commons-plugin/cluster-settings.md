@@ -43,7 +43,7 @@ We recommend setting `plugins.ml_commons.only_run_on_ml_node` to `true` on produ
 
 ## Task and model limit settings
 
-ML Commons supports the following settings for limiting the number and duration of ML tasks and models on each node:
+ML Commons supports the following settings for limiting ML tasks and models:
 
 - `plugins.ml_commons.max_ml_task_per_node` (Dynamic, integer): The maximum number of ML tasks that can run on each ML node. When set to `0`, no ML tasks run on any node. Valid values are 0--10,000. Default is `10`.
 
@@ -58,6 +58,10 @@ ML Commons supports the following settings for limiting the number and duration 
 - `plugins.ml_commons.sync_up_job_interval_in_seconds` (Dynamic, integer): The interval, in seconds, at which ML Commons runs a job that syncs newly deployed or undeployed models on each node. This job keeps the runtime information returned by the [Profile API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/profile/) up to date. When set to `0`, ML Commons stops the sync job. Valid values are 0--86,400. Default is `10`.
 
 - `plugins.ml_commons.monitoring_request_count` (Dynamic, long): The number of prediction requests monitored on each node. When set to `0`, OpenSearch clears all monitored prediction requests from the cache and stops monitoring new prediction requests. Valid values are 0--10,000,000. Default is `100`.
+
+- `plugins.ml_commons.max_batch_inference_tasks` (Dynamic, integer): The maximum number of [batch inference]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/batch-predict/) tasks in the cluster that can be in the `CREATED` or `RUNNING` state. When this limit is reached, OpenSearch rejects new batch inference requests. When set to `0`, no batch inference tasks can run. Valid values are 0--10,000. Default is `100`.
+
+- `plugins.ml_commons.max_json_size` (Dynamic, integer): The maximum size, in bytes, of a JSON string that ML Commons parses, such as a response from an externally hosted model. If a JSON string exceeds this size, the request fails. To remove the limit, set this value to `-1`. Default is `100000000` (100 MB).
 
 ## Model registration settings
 
@@ -74,6 +78,16 @@ When registering a model from a URL, make sure the source is trusted. Loading mo
 
 The default value of `plugins.ml_commons.trusted_url_regex` is not secure. For security, set it to a regular expression that matches only the trusted repository containing your models, for example, `https://github.com/opensearch-project/ml-commons/blob/2.x/ml-algorithms/src/test/resources/org/opensearch/ml/engine/algorithms/text_embedding/*`.
 {: .warning }
+
+## Connector endpoint settings
+
+ML Commons supports the following settings for controlling the endpoints to which connectors send requests:
+
+- `plugins.ml_commons.trusted_connector_endpoints_regex` (Dynamic, list): A list of Java regular expressions. OpenSearch accepts a connector only if its endpoint URL matches one of these expressions. The value you provide replaces the entire default list. For the default list, see [Adding trusted endpoints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/#adding-trusted-endpoints).
+
+- `plugins.ml_commons.connector.private_ip_enabled` (Dynamic, Boolean): When `true`, connectors can send requests to hosts that resolve to a private, link-local, or loopback IP address, such as `10.0.0.1` or `127.0.0.1`. When `false`, OpenSearch rejects prediction requests for models whose connector endpoint resolves to such an address. To apply a change to a deployed model, redeploy the model. Default is `false`.
+
+- `plugins.ml_commons.trusted_connector_private_endpoints_regex` (Dynamic, list): A list of Java regular expressions that limits the private endpoints to which connectors can send requests. This setting applies only when `plugins.ml_commons.connector.private_ip_enabled` is `true`. If the list contains expressions, a connector URL whose host resolves to a private IP address must match one of them. If the list is empty, connectors can send requests to any private endpoint. To apply a change to a deployed model, redeploy the model. Default is `[]`.
 
 ## Circuit breaker settings
 
@@ -115,15 +129,31 @@ ML Commons supports the following settings for enabling and disabling features:
 
 - `plugins.ml_commons.local_model.enabled` (Dynamic, Boolean): When `false`, users can't register, deploy, or run predictions using local models. Default is `true`.
 
+- `plugins.ml_commons.offline_batch_inference_enabled` (Dynamic, Boolean): When `false`, users can't run [batch inference]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/batch-predict/) or get or cancel batch inference tasks. Default is `true`.
+
+- `plugins.ml_commons.controller_enabled` (Dynamic, Boolean): When `false`, users can't create, update, get, or delete model controllers using the [Controller APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/controller-apis/index/). Default is `true`.
+
+- `plugins.ml_commons.model_access_control_enabled` (Dynamic, Boolean): When `true` and the Security plugin is enabled, admins can control access to models using model groups. For more information, see [Model access control]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control/). Default is `false`.
+
 - `plugins.ml_commons.connector_access_control_enabled` (Dynamic, Boolean): When `true`, admins can control access to the Connector APIs using `backend_roles`. Default is `false`.
 
 - `plugins.ml_commons.connector.vertexai_enabled` (Dynamic, Boolean): When `true`, users can create connectors that use the `google_cloud` protocol. For more information, see [Google Cloud authentication]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/google-cloud/). Default is `false`.
+
+- `plugins.ml_commons.connector.mutual_tls_enabled` (Dynamic, Boolean): When `true`, users can create connectors that set `mutual_tls_enabled` to `true` in `client_config` to authenticate using a client certificate. For more information, see [Client certificate authentication]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/http-authentication/#client-certificate-authentication). Default is `false`.
+
+- `plugins.ml_commons.mcp_connector_enabled` (Dynamic, Boolean): When `true`, users can create connectors that use the `mcp_sse` or `mcp_streamable_http` protocol and register agents that use MCP connectors. For more information, see [Connecting to an external MCP server]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/mcp/mcp-connector/). Default is `false`.
 
 - `plugins.ml_commons.safe_delete_model` (Dynamic, Boolean): When `true`, OpenSearch checks for downstream dependencies before deleting a model. If the model is in use by agents, search pipelines, ingest pipelines, or other downstream tasks, OpenSearch returns an error and doesn't delete the model. Default is `false`.
 
 - `plugins.ml_commons.enable_inhouse_python_model` (Dynamic, Boolean): When `true`, users can run Python-based models supported by OpenSearch, such as [metrics correlation]({{site.url}}{{site.baseurl}}/ml-commons-plugin/algorithms/#metrics-correlation). Default is `false`.
 
 - `plugins.ml_commons.agent_framework_enabled` (Dynamic, Boolean): When `true`, enables the agent framework, including agents and tools, and allows users to register, execute, delete, retrieve, and search agents. Default is `true`.
+
+- `plugins.ml_commons.unified_agent_api_enabled` (Dynamic, Boolean): When `false`, users can't register agents using the [unified registration method]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/#unified-registration-method) or execute agents using the standardized `input` field. Default is `true`.
+
+- `plugins.ml_commons.execute_tools_enabled` (Dynamic, Boolean): When `false`, users can't run tools using the [Execute Tool API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/execute-tool/). Default is `true`.
+
+- `plugins.ml_commons.mcp_server_enabled` (Dynamic, Boolean): When `true`, enables the [MCP server APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/mcp-server-apis/index/), which allow agents to connect to OpenSearch using Model Context Protocol (MCP) and use its tools. Default is `false`.
 
 - `plugins.ml_commons.memory_feature_enabled` (Dynamic, Boolean): When `true`, enables conversational memory, which stores all messages from a conversation for conversational search. Default is `true`.
 

@@ -65,7 +65,7 @@ The following models are supported:
 
 #### Prerequisites
 
-The Unified Agent API is disabled by default. To enable it, update the following cluster setting:
+The Unified Agent API is enabled by default. If the API was disabled, enable it by updating the following cluster setting:
 
 ```json
 PUT /_cluster/settings
@@ -107,7 +107,7 @@ POST /_plugins/_ml/agents/_register
     "credential": {
       "openai_api_key": "sk-your-api-key"
     },
-    "parameters": {
+    "model_parameters": {
       "max_tokens": 1000,
       "temperature": 0.7
     }
@@ -183,7 +183,7 @@ curl -k --cert ./kirk.pem --key ./kirk-key.pem -X POST 'https://localhost:9200/_
       "description": "A general tool to answer any question",
       "parameters": {
         "model_id": "NWR9YIsBUysqmzBdifVJ",
-        "prompt": "\n\nHuman:You are a professional data analyst. You will always answer question based on the given context first. If the answer is not directly shown in the context, you will analyze the data and find the answer. If you don't know the answer, just say don't know. \n\n Context:\n${parameters.vector_tool.output}\n\nHuman:${parameters.question}\n\nAssistant:"
+        "prompt": "You are a professional data analyst. You will always answer question based on the given context first. If the answer is not directly shown in the context, you will analyze the data and find the answer. If you don't know the answer, just say don't know. \n\nContext:\n${parameters.vector_tool.output}\n\nQuestion: ${parameters.question}"
       }
     }
   ]

@@ -46,22 +46,24 @@ Field | Data type | Required/Optional | Agent type | Description
 `memory.type` | String | Optional | `conversational_flow`, `conversational`, `plan_execute_and_reflect` | Specifies where to store the conversational memory. Supported values are `conversation_index` (store memory in conversation indexes) and `agentic_memory` (store memory in a memory container).
 `memory.memory_container_id` | String | Optional | `conversational_flow`, `conversational`, `plan_execute_and_reflect` | The default memory container ID for `agentic_memory`. If omitted, you must provide a `parameters.memory_container_id` when executing the agent. If neither is provided, the request fails.
 `llm.model_id` | String | Required | `conversational` | The model ID of the LLM to which to send questions.
-`llm.parameters.response_filter` | String | Required | `conversational` | The pattern for parsing the LLM response. For each LLM, you need to provide the field where the response is located. For example, for the Anthropic Claude model, the response is located in the `completion` field, so the pattern is `$.completion`. For OpenAI models, the pattern is `$.choices[0].message.content`.
+`llm.parameters.response_filter` | String | Required | `conversational` | The pattern for parsing the LLM response. For each LLM, you need to provide the field where the response is located. For example, for an Anthropic Claude model that uses the Messages API, the response is located in the `content[0].text` field, so the pattern is `$.content[0].text`. For OpenAI models, the pattern is `$.choices[0].message.content`.
 `llm.parameters.max_iteration` | Integer | Optional | `conversational` | The maximum number of messages to send to the LLM. Default is `10`.
 `parameters` | Object | Optional | All | Agent parameters, which may be used to control the `max_steps` executed by the agent, modify default prompts, and so on.
-`parameters.executor_agent_id`| Integer | Optional | `plan_execute_and_reflect` | The `plan_execute_and_reflect` agent internally uses a `conversational` agent to execute each step. By default, this executor agent uses the same model as the planning model specified in the `llm` configuration. To use a different model for executing steps, create a `conversational` agent using another model and pass the agent ID in this field. This can be useful if you want to use different models for planning and execution.
+`parameters.executor_agent_id`| String | Optional | `plan_execute_and_reflect` | The `plan_execute_and_reflect` agent internally uses a `conversational` agent to execute each step. By default, this executor agent uses the same model as the planning model specified in the `llm` configuration. To use a different model for executing steps, create a `conversational` agent using another model and pass the agent ID in this field. This can be useful if you want to use different models for planning and execution.
 `parameters.max_steps` | Integer | Optional | `plan_execute_and_reflect` | The maximum number of steps executed by the LLM. Default is `20`.
 `parameters.executor_max_iterations` | Integer | Optional | `plan_execute_and_reflect` | The maximum number of messages sent to the LLM by the executor agent. Default is `20`.
 `parameters.message_history_limit` | Integer | Optional | `plan_execute_and_reflect` | The number of recent messages from conversation memory to include as context for the planner. Default is `10`. 
 `parameters.executor_message_history_limit` | Integer | Optional | `plan_execute_and_reflect` | The number of recent messages from conversation memory to include as context for the executor. Default is `10`.
 `parameters._llm_interface` | String | Required | `plan_execute_and_reflect`, `conversational` | Specifies how to parse the LLM output when using function calling. Valid values are: <br> - `bedrock/converse/claude`: Anthropic Claude conversational models hosted on Amazon Bedrock  <br> - `bedrock/converse/deepseek_r1`: DeepSeek-R1 models hosted on Amazon Bedrock <br> - `openai/v1/chat/completions`: OpenAI chat completion models hosted on OpenAI. Each interface defines a default response schema and function call parser.
-`inject_datetime` | Boolean | Optional | `conversational`, `plan_execute_and_reflect` | Whether to automatically inject the current date into the system prompt. Default is `false`.
-`datetime_format` | String | Optional | `conversational`, `plan_execute_and_reflect` | A format string for dates used when `inject_datetime` is enabled. Default is `"yyyy-MM-dd'T'HH:mm:ss'Z'"` (ISO format).
-`model` | Object | Optional | `conversational`, `plan_execute_and_reflect` | **Unified registration method only (3.5+)**: Model configuration that automatically creates a connector and model. See [Unified registration method]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/#unified-registration-method).
-`model.model_id` | String | Required (if using `model`) | `conversational`, `plan_execute_and_reflect` | The model identifier (for example, `us.anthropic.claude-3-7-sonnet-20250219-v1:0` for Amazon Bedrock or `gemini-2.5-pro` for Google Gemini).
-`model.model_provider` | String | Required (if using `model`) | `conversational`, `plan_execute_and_reflect` | The model provider. Supported values: `bedrock/converse`, `gemini/v1beta/generatecontent`, `openai/v1/chat/completions`.
-`model.credential` | Object | Required (if using `model`) | `conversational`, `plan_execute_and_reflect` | Credentials for accessing the model. Accepts any credential format supported by connectors. For details, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints#request-body-fields).
-`model.model_parameters` | Object | Optional (if using `model`) | `conversational`, `plan_execute_and_reflect` | Model-specific parameters such as system prompts and other configuration options.
+`parameters.inject_datetime` | Boolean | Optional | `conversational`, `plan_execute_and_reflect` | Whether to automatically inject the current date into the system prompt. Default is `false`.
+`parameters.datetime_format` | String | Optional | `conversational`, `plan_execute_and_reflect` | A format string for dates used when `inject_datetime` is enabled. Default is `"yyyy-MM-dd'T'HH:mm:ss'Z'"` (ISO format).
+`model` | Object | Optional | `conversational`, `conversational_v2`, `plan_execute_and_reflect`, `ag_ui` | **Unified registration method only (3.5+)**: Model configuration that automatically creates a connector and model. See [Unified registration method]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/#unified-registration-method).
+`model.model_id` | String | Required (if using `model`) | `conversational`, `conversational_v2`, `plan_execute_and_reflect`, `ag_ui` | The model identifier (for example, `us.anthropic.claude-sonnet-4-6` for Amazon Bedrock or `gemini-2.5-pro` for Google Gemini).
+`model.model_provider` | String | Required (if using `model`) | `conversational`, `conversational_v2`, `plan_execute_and_reflect`, `ag_ui` | The model provider. Supported values: `bedrock/converse`, `gemini/v1beta/generatecontent`, `openai/v1/chat/completions`.
+`model.credential` | Object | Required (if using `model`) | `conversational`, `conversational_v2`, `plan_execute_and_reflect`, `ag_ui` | Credentials for accessing the model. Accepts any credential format supported by connectors. For details, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints#request-body-fields).
+`model.model_parameters` | Object | Optional (if using `model`) | `conversational`, `conversational_v2`, `plan_execute_and_reflect`, `ag_ui` | Model-specific parameters such as system prompts and other configuration options.
+`context_management_name` | String | Optional | `conversational`, `plan_execute_and_reflect` | The name of a context management configuration to apply to the agent. Cannot be specified together with `context_management`. For more information, see [Context management]({{site.url}}{{site.baseurl}}/ml-commons-plugin/context-management/).
+`context_management` | Object | Optional | `conversational`, `plan_execute_and_reflect` | An inline context management configuration containing a `name` and a `hooks` object that maps hook names to lists of context managers. The `name` is required. Inline hook names must be uppercase: `PRE_LLM`, `POST_LLM`, `PRE_TOOL`, `POST_TOOL`, or `POST_MEMORY`. Cannot be specified together with `context_management_name`. For more information, see [Context management]({{site.url}}{{site.baseurl}}/ml-commons-plugin/context-management/).
 `provisioned_by` | String | Optional | All | An optional attribution tag identifying the plugin or client that registered the agent (for example, `flow-framework`). Included in ML statistics metrics.
 
 ### Using agentic memory
@@ -83,7 +85,7 @@ For agents configured with `agentic_memory`, see [Inspecting memory data]({{site
 The `tools` array contains a list of tools for the agent. Each tool contains the following fields.
 
 Field | Data type | Required/Optional | Description
-:---  | :--- | :---
+:---  | :--- | :--- | :---
 `type` | String | Required | The tool type. For a list of supported tools, see [Tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/).
 `name`| String | Optional | The tool name. The tool name defaults to the `type` parameter value. If you need to include multiple tools of the same type in an agent, specify different names for the tools. |
 `description`| String | Optional | The tool description. Defaults to a built-in description for the specified type. | 
@@ -91,6 +93,8 @@ Field | Data type | Required/Optional | Description
 `parameters.output_processors` | Array | Optional | A list of processors used to transform the tool's output. For more information, see [Processor chain]({{site.url}}{{site.baseurl}}/ml-commons-plugin/processor-chain/).
 `attributes.input_schema` | Object | Optional | The expected input format for this tool defined as a [JSON schema](https://json-schema.org/). Used to define the structure the LLM should follow when calling the tool.
 `attributes.strict` | Boolean | Optional | Whether function calling reliably adheres to the input schema or not.
+`include_output_in_agent_response` | Boolean | Optional | Whether to include the tool output in the agent response. By default, a flow or conversational flow agent returns only the output of the last tool. Default is `false`.
+`config` | Object | Optional | Applies to `conversational` and `plan_execute_and_reflect` agents. Tool parameters that are applied when the LLM calls the tool. Values in `config` override the values in `parameters`. If `config` contains an `input` key, the agent uses its value as the tool input in place of the input generated by the LLM. The value can contain placeholders, for example, `"input": "${parameters.question}"`.
 
 ## Example request: Flow agent
 
@@ -119,7 +123,7 @@ POST /_plugins/_ml/agents/_register
       "description": "A general tool to answer any question",
       "parameters": {
         "model_id": "NWR9YIsBUysqmzBdifVJ",
-        "prompt": "\n\nHuman:You are a professional data analyst. You will always answer question based on the given context first. If the answer is not directly shown in the context, you will analyze the data and find the answer. If you don't know the answer, just say don't know. \n\n Context:\n${parameters.vector_tool.output}\n\nHuman:${parameters.question}\n\nAssistant:"
+        "prompt": "You are a professional data analyst. You will always answer question based on the given context first. If the answer is not directly shown in the context, you will analyze the data and find the answer. If you don't know the answer, just say don't know. \n\nContext:\n${parameters.vector_tool.output}\n\nQuestion: ${parameters.question}"
       }
     }
   ]
@@ -159,18 +163,14 @@ POST /_plugins/_ml/agents/_register
       "description": "A general tool to answer any question",
       "parameters": {
         "model_id": "your_LLM_model_id",
-        "prompt": """
-
-Human:You are a professional data analysist. You will always answer question based on the given context first. If the answer is not directly shown in the context, you will analyze the data and find the answer. If you don't know the answer, just say don't know. 
+        "prompt": """You are a professional data analyst. You will always answer question based on the given context first. If the answer is not directly shown in the context, you will analyze the data and find the answer. If you don't know the answer, just say don't know. 
 
 Context:
 ${parameters.population_knowledge_base.output:-}
 
 ${parameters.chat_history:-}
 
-Human:${parameters.question}
-
-Assistant:"""
+Question: ${parameters.question}"""
       }
     }
   ]
@@ -183,7 +183,7 @@ Assistant:"""
 ```json
 POST /_plugins/_ml/agents/_register
 {
-  "name": "Test_Agent_For_ReAct_ClaudeV2",
+  "name": "Test_Agent_For_ReAct_Claude",
   "type": "conversational",
   "description": "this is a test agent",
   "app_type": "my chatbot",
@@ -192,7 +192,7 @@ POST /_plugins/_ml/agents/_register
     "parameters": {
       "max_iteration": 5,
       "stop_when_no_tool_found": true,
-      "response_filter": "$.completion"
+      "response_filter": "$.content[0].text"
     }
   },
   "memory": {
@@ -332,7 +332,7 @@ The following table lists the available request fields for unified agent registr
 | `agent_id` | String | Optional | A unique identifier for the agent. If omitted, OpenSearch generates one automatically. |
 | `description` | String | Optional | A description of the agent. |
 | `model` | Object | Required | Configuration for the LLM model using the unified registration method. Replaces the regular `llm` object and automatically creates model resources. |
-| `model.model_id` | String | Required | The provider's model identifier. For Amazon Bedrock, use the full model ID (for example, `us.anthropic.claude-3-7-sonnet-20250219-v1:0`). For Google Gemini, use the model name (for example, `gemini-2.5-pro`). For OpenAI, use model names like `gpt-4o-mini`. |
+| `model.model_id` | String | Required | The provider's model identifier. For Amazon Bedrock, use the full model ID (for example, `us.anthropic.claude-sonnet-4-6`). For Google Gemini, use the model name (for example, `gemini-2.5-pro`). For OpenAI, use model names like `gpt-4o-mini`. |
 | `model.model_provider` | String | Required | The model provider type. Valid values: `bedrock/converse`, `gemini/v1beta/generatecontent`, `openai/v1/chat/completions`. |
 | `model.credential` | Object | Required | Credentials for the model provider. Structure depends on the provider. |
 | `model.credential.access_key` | String | Required (Amazon Bedrock) | AWS access key for Amazon Bedrock models. |
@@ -376,7 +376,7 @@ POST /_plugins/_ml/agents/_register
   "type": "conversational",
   "description": "An agent using Claude for research tasks",
   "model": {
-    "model_id": "us.anthropic.claude-3-7-sonnet-20250219-v1:0",
+    "model_id": "us.anthropic.claude-sonnet-4-6",
     "model_provider": "bedrock/converse",
     "credential": {
       "access_key": "YOUR_AWS_ACCESS_KEY",
@@ -497,7 +497,7 @@ POST /_plugins/_ml/agents/_register
   "type": "plan_execute_and_reflect",
   "description": "An agent that can plan and execute complex research tasks",
   "model": {
-    "model_id": "us.anthropic.claude-3-7-sonnet-20250219-v1:0",
+    "model_id": "us.anthropic.claude-sonnet-4-6",
     "model_provider": "bedrock/converse",
     "credential": {
       "access_key": "YOUR_AWS_ACCESS_KEY",
