@@ -121,7 +121,7 @@ POST /_plugins/_ml/models/_register?deploy=true
 The following example registers and deploys the OpenAI GPT 5 model:
 
 ```json
-POST /_plugins/_ml/models/_register
+POST /_plugins/_ml/models/_register?deploy=true
 {
     "name": "My OpenAI model: gpt-5",
     "function_name": "remote",
@@ -181,7 +181,8 @@ POST /_plugins/_ml/agents/_register
     {
       "type": "QueryPlanningTool",
       "parameters": {
-        "model_id": "ANiSxJgBOh0h20Y9XYXl"
+        "model_id": "ANiSxJgBOh0h20Y9XYXl",
+        "response_filter": "$.output.message.content[0].text"
       }
     }
   ]
@@ -189,7 +190,9 @@ POST /_plugins/_ml/agents/_register
 ```
 {% include copy-curl.html %}
 
-When registering the agent, you can override parameters that you specified during model registration, such as `system_prompt` and `user_prompt`.
+The `response_filter` parameter extracts the generated query from the model response. Without it, the tool returns the full model response, which a search pipeline can't use as a query. This example uses the filter for Anthropic Claude models called through the Amazon Bedrock Converse API. For an OpenAI model, use `$.choices[0].message.content`. For more information, see [Response filter configuration](#response-filter-configuration).
+
+The tool sets the `system_prompt` and `user_prompt` parameters itself, so values for these parameters provided during agent registration are not used. To customize the prompts, specify `query_planner_system_prompt` and `query_planner_user_prompt`. For more information, see [Customizing the prompts](#customizing-the-prompts).
 
 ### Using search templates
 
@@ -252,6 +255,7 @@ POST /_plugins/_ml/agents/_register
       "description": "A general tool to answer any question",
       "parameters": {
         "model_id": "ANiSxJgBOh0h20Y9XYXl",
+        "response_filter": "$.output.message.content[0].text",
         "generation_type": "user_templates",
         "search_templates": [
           {
@@ -306,7 +310,7 @@ OpenSearch returns the inference results, which include the generated query DSL:
       "output": [
         {
           "name": "response",
-          "result": "{'query':{'term':{'species':'setosa'}}}"
+          "result": "{\"size\":0,\"query\":{\"term\":{\"species.keyword\":\"setosa\"}},\"aggs\":{\"count_setosa\":{\"value_count\":{\"field\":\"species.keyword\"}}}}"
         }
       ]
     }
@@ -321,11 +325,13 @@ The following table lists all tool parameters that are available when registerin
 Parameter	| Type | Required/Optional | Description	
 :--- | :--- | :--- | :---
 `model_id` | String | Required | The model ID of the LLM used to generate the query DSL. When used within a `conversational` agent, if this value is not provided, the agent's own `llm.model_id` is used by default.
-`response_filter` | String | Optional | A JSONPath expression used to extract the generated query from the LLM response.
+`response_filter` | String | Optional | A JSONPath expression used to extract the generated query from the LLM response. If not specified, the tool returns the full LLM response. Specify this parameter when running the tool in a `flow` agent. See [Response filter configuration](#response-filter-configuration).
 `generation_type` | String | Optional | Determines how queries are generated. Use `llmGenerated` to rely solely on the LLM built-in knowledge or `user_templates` to provide predefined search templates that guide query generation for consistent results. Default is `llmGenerated`.
 `query_planner_system_prompt` | String | Optional | A system prompt that provides high-level instructions to the LLM.
 `query_planner_user_prompt` | String | Optional | A user prompt template that defines how the natural language question and context are presented to the LLM for query generation.
 `search_templates` | Array | Optional | Applicable only when `generation_type` is `user_templates`. A list of search templates that provide the LLM with predefined query patterns for generating query DSL. Each template must include a `template_id` (unique identifier) and `template_description` (explains the template's purpose and use case to help the LLM choose appropriately).
+`template_selection_system_prompt` | String | Optional | Applicable only when `generation_type` is `user_templates`. A system prompt that instructs the LLM how to choose a search template from `search_templates`. If not specified, the tool uses a default template selection prompt.
+`template_selection_user_prompt` | String | Optional | Applicable only when `generation_type` is `user_templates`. A user prompt that presents the question and the available search templates to the LLM for template selection. If not specified, the tool uses a default template selection prompt.
 `fallback_query` | String | Optional | An OpenSearch query DSL query used if the LLM fails to generate a valid DSL query for the given query text. See [Fallback behavior](#fallback-behavior).
 
 All parameters that were configured either in the connector or in the agent registration can be overridden during agent execution.
@@ -358,6 +364,7 @@ Parameter | Type | Required/Optional | Description
 `question` | String | Required | A complete natural language query with all necessary context to generate OpenSearch DSL. Include the question, any specific requirements, filters, or constraints. Examples: `Find all products with price greater than 100 dollars`, `Show me documents about machine learning published in 2023`, `Search for users with status active and age between 25 and 35`.
 `index_name` | String | Required | The name of the index for which the query needs to be generated.
 `embedding_model_id` | String | Optional | The model ID used to perform semantic search.
+`query_fields` | String | Optional | The fields that the LLM should prioritize when generating the query. Passed to the LLM through the `${parameters.query_fields}` placeholder in the default user prompt.
 
 ## Customizing the prompts
 
@@ -556,7 +563,7 @@ The following example demonstrates how the fallback query operates.
 
 To follow this example, first complete Steps 1--3 from the [Agentic search tutorial]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/index/): create an index, ingest data, and register a model.
 
-Next, register an agent using the model ID from Step 3. Include a custom `fallback_query` parameter to demonstrate the fallback behavior: 
+Next, register an agent using the model ID from Step 3. Include a custom `fallback_query` parameter to demonstrate the fallback behavior, and set `response_filter` for your model type (see [Response filter configuration](#response-filter-configuration)):
 
 ```json
 POST _plugins/_ml/agents/_register
@@ -568,6 +575,7 @@ POST _plugins/_ml/agents/_register
       "type": "QueryPlanningTool",
       "parameters": {
         "model_id": "<your-model-id>",
+        "response_filter": "<response-filter-based-on-model-type>",
         "fallback_query": "{\"size\":10,\"query\":{\"bool\":{\"should\":[{\"match\":{\"species\":{\"query\":\"${parameters.question}\",\"fuzziness\":\"AUTO\"}}},{\"match_all\":{\"boost\":0.1}}],\"minimum_should_match\":1}}}"
       }
     }

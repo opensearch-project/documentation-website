@@ -75,14 +75,14 @@ POST /_plugins/_flow_framework/workflow
               "anthropic_version": "bedrock-2023-05-31"
             },
             "version": "1",
-            "name": "Claude haiku runtime Connector",
+            "name": "Claude Sonnet 4.6 runtime Connector",
             "protocol": "aws_sigv4",
             "description": "The connector to BedRock service for claude model",
             "actions": [
               {
                 "action_type": "predict",
                 "method": "POST",
-                "url": "https://bedrock-runtime.us-east-1.amazonaws.com/model/anthropic.claude-3-haiku-20240307-v1:0/invoke",
+                "url": "https://bedrock-runtime.us-east-1.amazonaws.com/model/us.anthropic.claude-sonnet-4-6/invoke",
                 "headers": {
                   "content-type": "application/json",
                   "x-amz-content-sha256": "required"
@@ -99,7 +99,7 @@ POST /_plugins/_flow_framework/workflow
             "create_claude_connector": "connector_id"
           },
           "user_inputs": {
-            "name": "claude-haiku",
+            "name": "claude-sonnet-4-6",
             "description": "Claude model",
             "deploy": true
           }

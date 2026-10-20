@@ -129,7 +129,7 @@ The following is an example of captured model metrics:
 The following is an example of captured agent metrics:
 
 ```
-{_llm_interface=bedrock/converse/claude, model_deployment=remote, is_hidden=false, model_service_provider=bedrock, model_type=llm, memory_type=conversation_index, model=us.anthropic.claude-3-7-sonnet-20250219-v1:0, type=CONVERSATIONAL}
+{_llm_interface=bedrock/converse/claude, model_deployment=remote, is_hidden=false, model_service_provider=bedrock, model_type=llm, memory_type=conversation_index, model=us.anthropic.claude-sonnet-4-6, type=CONVERSATIONAL}
 ```
 
 To enable ML observability, specify the following settings in `opensearch.yml`:

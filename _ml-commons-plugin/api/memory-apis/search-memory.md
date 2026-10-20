@@ -122,12 +122,13 @@ POST /_plugins/_ml/memory/_search
 
 ## Response body fields
 
-The following table lists all response fields.
+The response uses the standard OpenSearch search response format. The `_id` of each hit is the memory ID. The following table lists the fields in the `_source` object of each element in the `hits` array.
 
 | Field | Data type | Description |
 | :--- | :--- | :--- |
-| `memory_id` | String | The memory ID. |
 | `create_time` | String | The time at which the memory was created. |
 | `updated_time` | String | The time at which the memory was last updated. |
 | `name` | String | The memory name. |
-| `user` | String | The username of the user who created the memory. |
+| `application_type` | String | The type of application that uses the memory. |
+| `additional_info` | Object | Additional information about the memory. Present only if specified. |
+| `user` | String | The username of the user who created the memory. Present only when the Security plugin is enabled. |

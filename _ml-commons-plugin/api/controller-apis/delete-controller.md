@@ -41,6 +41,7 @@ DELETE /_plugins/_ml/controllers/MzcIJX8BA7mbufL6DOwl
   "_id" : "MzcIJX8BA7mbufL6DOwl",
   "_version" : 2,
   "result" : "deleted",
+  "forced_refresh" : true,
   "_shards" : {
     "total" : 2,
     "successful" : 2,
@@ -53,7 +54,7 @@ DELETE /_plugins/_ml/controllers/MzcIJX8BA7mbufL6DOwl
 
 ## Error responses
 
-If you attempt to delete a controller when the controller index doesn't exist, OpenSearch returns a 404 Not Found error:
+If you attempt to delete a controller that doesn't exist, OpenSearch returns a 404 Not Found error. The following error is returned when the controller index doesn't exist:
 
 ```json
 {
