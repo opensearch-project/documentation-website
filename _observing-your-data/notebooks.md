@@ -16,7 +16,7 @@ Notebooks let you interactively explore data by running different visualizations
 
 A notebook is a document composed of two elements: code blocks (Markdown/SQL/Piped Processing Language (PPL)) and visualizations. Choose multiple timelines to compare and contrast visualizations.
 
-You can also generate [reports]({{site.url}}{{site.baseurl}}/dashboards/reporting/) directly from your notebooks.
+You can also generate [reports]({{site.url}}{{site.baseurl}}/dashboards/reporting/report-dashboard-index/) directly from your notebooks.
 
 Common use cases include creating postmortem reports, designing runbooks, building live infrastructure reports, and writing documentation.
 

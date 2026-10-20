@@ -322,7 +322,7 @@ See [Index rollups API]({{site.url}}{{site.baseurl}}/im-plugin/index-rollups/rol
 
 ### Reporting permissions
 
-See [Creating reports with the Dashboards interface]({{site.url}}{{site.baseurl}}/dashboards/reporting/).
+See [Creating reports with the Dashboards interface]({{site.url}}{{site.baseurl}}/dashboards/reporting/report-dashboard-index/).
 
 - `cluster:admin/opendistro/reports/definition/create`
 - `cluster:admin/opendistro/reports/definition/update`
