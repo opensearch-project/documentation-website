@@ -28,9 +28,9 @@ OpenSearch Data Prepper is a server-side data collector that receives data from 
 
 ## Pipelines and events
 
-Data Prepper runs _pipelines_. Each pipeline reads data from a _source_, transforms it using one or more _processors_, and writes the result to one or more _sinks_. Between the source and the processors, events wait in a _buffer_. For example, a pipeline can receive log lines over HTTP, parse each line into fields, and write the result to an OpenSearch index. A single Data Prepper instance can run multiple pipelines.
+Data Prepper runs _pipelines_. Each pipeline reads data from a _source_, transforms or drops events using one or more _processors_, and writes the result to one or more _sinks_. Between the source and the processors, events wait in a _buffer_. For example, a pipeline can receive log lines over HTTP, parse each line into fields, and write the result to an OpenSearch index. A single Data Prepper instance can run multiple pipelines.
 
-Data Prepper converts each record that it receives into an _event_---a JSON object consisting of key-value pairs called _fields_. Processors read and modify the fields of each event before the event reaches a sink.
+An _event_ is a single data item, such as a log line, that moves through a pipeline. Each event consists of key-value pairs called _fields_, similar to a JSON object. When a pipeline writes to OpenSearch, each event becomes a document. Other sinks, such as Amazon S3, serialize events into files. Processors read and modify the fields of each event before the event reaches a sink.
 
 ## Configuration files
 

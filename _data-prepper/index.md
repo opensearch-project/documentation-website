@@ -21,7 +21,7 @@ With Data Prepper you can build custom pipelines to improve the operational view
 
 ## Key concepts
 
-Data Prepper ingests data through [pipelines]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines/). Each pipeline reads data from a [source]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/sources/), transforms it using [processors]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/processors/), and writes the result to one or more [sinks]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sinks/sinks/). For more information, see [Getting started with OpenSearch Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/).
+Data Prepper ingests data through [pipelines]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines/), which process data as _events_. An event is a single data item, such as a log line or a trace span. When a pipeline writes to OpenSearch, each event becomes a document. Each pipeline reads events from a [source]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/sources/), transforms or drops them using [processors]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/processors/), and writes the result to one or more [sinks]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sinks/sinks/). For more information, see [Getting started with OpenSearch Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/).
 
 <span class="centering-container">
 [Get started]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/){: .btn-dark-blue}
