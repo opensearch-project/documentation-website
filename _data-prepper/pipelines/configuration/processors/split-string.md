@@ -65,7 +65,7 @@ split-string-all-configs-pipeline:
         hosts: ["https://opensearch:9200"]
         insecure: true
         username: admin
-        password: admin_pass
+        password: "<custom-admin-password>"
         index_type: custom
         index: split-string-demo-%{yyyy.MM.dd}
 

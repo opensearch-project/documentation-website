@@ -36,7 +36,7 @@ file-to-opensearch:
         hosts: ["https://opensearch:9200"]
         index: file-demo
         username: admin
-        password: admin_pass
+        password: "<custom-admin-password>"
         insecure: true
 ```
 {% include copy.html %}
@@ -62,7 +62,7 @@ plain-file-to-opensearch:
         hosts: ["https://opensearch:9200"]
         index: plain-file-demo
         username: admin
-        password: admin_pass
+        password: "<custom-admin-password>"
         insecure: true
 ```
 {% include copy.html %}
@@ -86,7 +86,7 @@ csv-file-to-opensearch:
         hosts: ["https://opensearch:9200"]
         index: csv-demo
         username: admin
-        password: admin_pass
+        password: "<custom-admin-password>"
         insecure: true
 ```
 {% include copy.html %}

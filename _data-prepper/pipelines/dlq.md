@@ -21,7 +21,7 @@ sink:
       hosts: ["https://opensearch:9200"]
       index: my-index
       username: admin
-      password: admin-password
+      password: "<custom-admin-password>"
       insecure: true
 
       dlq:
