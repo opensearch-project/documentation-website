@@ -94,13 +94,9 @@ PUT my_books
 
 ### Step 2.2: Create an ingest pipeline
 
-Then create an inner ingest pipeline to generate an embedding for one array element.
+Then create an ingest pipeline containing a `text_embedding` processor. The `books.title` key in the `field_map` refers to the `title` field of each object in the `books` array, so the processor generates an embedding for each object that contains a `title` and stores it in that object's `title_embedding` field.
 
-This pipeline contains three processors:
-
-- `text_embedding` processor: Converts the value of the temporary field to an embedding.
-
-To create such a pipeline, send the following request:
+To create the pipeline, send the following request:
 
 ```json
 PUT _ingest/pipeline/bedrock_embedding_pipeline
@@ -172,7 +168,6 @@ The response contains generated embeddings for both objects in their `title_embe
           ]
         },
         "_ingest": {
-          "_value": null,
           "timestamp": "2024-05-28T16:16:50.538929413Z"
         }
       }
@@ -184,7 +179,7 @@ The response contains generated embeddings for both objects in their `title_embe
 Next, you'll test the pipeline on an array that contains two book objects, one with a `title` field and one without:
 
 ```json
-POST _ingest/pipeline/bedrock_embedding_foreach_pipeline/_simulate
+POST _ingest/pipeline/bedrock_embedding_pipeline/_simulate
 {
   "docs": [
     {
@@ -229,7 +224,6 @@ The response contains generated embeddings for the object that contains the `tit
           ]
         },
         "_ingest": {
-          "_value": null,
           "timestamp": "2024-05-28T16:19:03.942644042Z"
         }
       }
@@ -302,3 +296,10 @@ POST _bulk
 { "books" : [{"title": "third book", "description": "This is third book"}, {"description": "This is fourth book"}] }
 ```
 {% include copy-curl.html %}
+
+## Related documentation
+
+- [Generating embeddings automatically]({{site.url}}{{site.baseurl}}/vector-search/getting-started/auto-generated-embeddings/)
+- [Text embedding processor]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/text-embedding/)
+- [Nested field type]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/nested/)
+- [Connectors for third-party ML platforms]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/)

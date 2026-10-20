@@ -456,3 +456,9 @@ The response confirms that the processor has generated text embeddings in the `c
 
 Once you have created an ingest pipeline, you need to create an index for ingestion and ingest documents into the index.
 {: .note}
+
+## Next steps
+
+- For a complete example of generating text and image embeddings during ingestion, see [Multimodal search using ML inference processors]({{site.url}}{{site.baseurl}}/tutorials/vector-search/semantic-search/multimodal-search-ml-inference/).
+- For a complete example of detecting document language during ingestion, see [Identifying document language for multilingual search]({{site.url}}{{site.baseurl}}/tutorials/language-identification/).
+- For a complete example of generating embeddings for text chunks, see [Semantic search using text chunking]({{site.url}}{{site.baseurl}}/tutorials/vector-search/semantic-search/long-document/).

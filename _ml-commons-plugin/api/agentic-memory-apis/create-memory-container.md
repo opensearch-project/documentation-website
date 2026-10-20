@@ -144,6 +144,8 @@ POST /_plugins/_ml/models/_register
 The `system_prompt` parameter is required for Claude models.
 {: .note}
 
+To make the LLM return extracted facts in a fixed JSON schema, set `supports_structured_output` to `true` in the connector's `predict` action. For more information, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/#request-body-fields).
+
 For more information about using externally hosted models, see [Connecting to externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/).
 
 ## Endpoints

@@ -13,6 +13,8 @@ redirect_from:
 
 This tutorial shows you how to implement retrieval-augmented generation (RAG) using [Amazon OpenSearch Service](https://docs.aws.amazon.com/opensearch-service/) and the [DeepSeek chat model](https://api-docs.deepseek.com/api/create-chat-completion).
 
+To run the steps in this tutorial from a Jupyter notebook, use [the DeepSeek RAG demo notebook](https://github.com/opensearch-project/ml-commons/blob/main/docs/tutorials/aws/DeepSeek_demo_notebook_for_RAG.ipynb).
+
 If you are using self-managed OpenSearch instead of Amazon OpenSearch Service, obtain a DeepSeek API key and create a connector to the DeepSeek chat model using [the blueprint](https://github.com/opensearch-project/ml-commons/blob/main/docs/remote_inference_blueprints/deepseek_connector_chat_blueprint.md). For more information about creating a connector, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/). Then go directly to [Step 5](#step-5-create-and-test-the-model).
 
 Replace the placeholders beginning with the prefix `your_` with your own values.
@@ -136,7 +138,7 @@ You'll use the `your_iam_user_arn` IAM user to assume the role in Step 4.
     {
       "Effect": "Allow",
       "Action": "es:ESHttpPost",
-      "Resource": "your_opensearch_domain_arn"
+      "Resource": "your_opensearch_domain_arn/*"
     }
   ]
 }
@@ -162,21 +164,7 @@ The IAM role is now successfully configured in your OpenSearch cluster.
 
 Follow these steps to create a connector for the DeepSeek chat model. For more information about creating a connector, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/).
 
-- Add the DeepSeek API endpoint to the trusted URL list:
-
-```json
-PUT /_cluster/settings
-{
-  "persistent": {
-    "plugins.ml_commons.trusted_connector_endpoints_regex": [
-      """^https://api\.deepseek\.com/.*$"""
-    ]
-  }
-}
-```
-{% include copy-curl.html %}
-
-- Run the following Python code with the temporary credentials fetched from AWS.
+Run the following Python code with the temporary credentials fetched from AWS.
  
 ```python
 import boto3
@@ -204,7 +192,7 @@ payload = {
   "protocol": "http",
   "parameters": {
     "endpoint": "api.deepseek.com",
-    "model": "deepseek-chat"
+    "model": "deepseek-flash"
   },
   "credential": {
     "secretArn": "your_secret_arn_created_in_step1",
@@ -214,7 +202,7 @@ payload = {
     {
       "action_type": "predict",
       "method": "POST",
-      "url": "https://${parameters.endpoint}/v1/chat/completions",
+      "url": "https://${parameters.endpoint}/chat/completions",
       "headers": {
         "Content-Type": "application/json",
         "Authorization": "Bearer ${credential.secretArn.my_deepseek_key}"
@@ -339,7 +327,7 @@ Log in to OpenSearch Dashboards, open the DevTools console, and run the followin
                 "id": "a351252c-7393-4c5d-9abe-1c47693ad336",
                 "object": "chat.completion",
                 "created": 1738141298,
-                "model": "deepseek-chat",
+                "model": "deepseek-flash",
                 "choices": [
                   {
                     "index": 0,
@@ -402,7 +390,56 @@ PUT /_search/pipeline/my-conversation-search-pipeline-deepseek-chat
 
 ### Step 6.2: Create a vector database
 
-Follow steps 1 and 2 of [this tutorial]({{site.url}}{{site.baseurl}}/search-plugins/neural-search-tutorial/) to create an embedding model and a vector index. Then ingest sample data into the index:
+First, create an embedding model. Amazon OpenSearch Service doesn't support local models, so use an externally hosted embedding model: follow Steps 1--4 of [Semantic search using Amazon Bedrock Titan]({{site.url}}{{site.baseurl}}/tutorials/vector-search/semantic-search/semantic-search-bedrock-titan/). In self-managed OpenSearch, you can instead use a local model, as described in [Getting started with semantic and hybrid search]({{site.url}}{{site.baseurl}}/tutorials/vector-search/neural-search-tutorial/).
+
+Create an ingest pipeline that uses the embedding model to generate embeddings from the `text` field:
+
+```json
+PUT /_ingest/pipeline/my-nlp-ingest-pipeline
+{
+  "description": "text embedding pipeline",
+  "processors": [
+    {
+      "text_embedding": {
+        "model_id": "your_embedding_model_id",
+        "field_map": {
+          "text": "passage_embedding"
+        }
+      }
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+Create a vector index that uses the pipeline. The `dimension` must match the embedding model's output dimension, which is 1,536 for the Amazon Bedrock Titan Text Embeddings model:
+
+```json
+PUT /my-nlp-index
+{
+  "settings": {
+    "index": {
+      "default_pipeline": "my-nlp-ingest-pipeline",
+      "knn": "true"
+    }
+  },
+  "mappings": {
+    "properties": {
+      "passage_embedding": {
+        "type": "knn_vector",
+        "dimension": 1536,
+        "space_type": "cosinesimil"
+      },
+      "text": {
+        "type": "text"
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+Ingest sample data into the index:
 
 ```json
 POST _bulk
@@ -432,7 +469,7 @@ GET /my-nlp-index/_search?search_pipeline=my-conversation-search-pipeline-deepse
     "neural": {
       "passage_embedding": {
         "query_text": "What's the population increase of New York City from 2021 to 2023? How is the trending comparing with Miami?",
-        "model_id": "USkHsZQBts7fa6bybx3G",
+        "model_id": "your_embedding_model_id",
         "k": 5
       }
     }
@@ -442,8 +479,8 @@ GET /my-nlp-index/_search?search_pipeline=my-conversation-search-pipeline-deepse
     "text"
   ],
   "ext": {
-    "generative_qa_parameters": {      
-      "llm_model": "deepseek-chat",
+    "generative_qa_parameters": {
+      "llm_model": "deepseek-flash",
       "llm_question": "What's the population increase of New York City from 2021 to 2023? How is the trending comparing with Miami?",
       "context_size": 5,
       "timeout": 15
@@ -452,6 +489,8 @@ GET /my-nlp-index/_search?search_pipeline=my-conversation-search-pipeline-deepse
 }
 ```
 {% include copy-curl.html %}
+
+The RAG processor sends the `llm_model` value to the DeepSeek API as the `model` in the request, so set it to a current DeepSeek model name.
 
 The response includes both the relevant documents retrieved from the vector search (in the `hits` array) and the generated answer from the DeepSeek model (in the `ext.retrieval_augmented_generation` object):
 
@@ -470,38 +509,38 @@ The response includes both the relevant documents retrieved from the vector sear
       "value": 6,
       "relation": "eq"
     },
-    "max_score": 0.05248103,
+    "max_score": 0.85223955,
     "hits": [
       {
         "_index": "my-nlp-index",
         "_id": "2",
-        "_score": 0.05248103,
+        "_score": 0.85223955,
         "_source": {
-          "text": """Chart and table of population level and growth rate for the New York City metro area from 1950 to 2023. United Nations population projections are also included through the year 2035.\nThe current metro area population of New York City in 2023 is 18,937,000, a 0.37% increase from 2022.\nThe metro area population of New York City in 2022 was 18,867,000, a 0.23% increase from 2021.\nThe metro area population of New York City in 2021 was 18,823,000, a 0.1% increase from 2020.\nThe metro area population of New York City in 2020 was 18,804,000, a 0.01% decline from 2019."""
+          "text": "Chart and table of population level and growth rate for the New York City metro area from 1950 to 2023. United Nations population projections are also included through the year 2035.\\nThe current metro area population of New York City in 2023 is 18,937,000, a 0.37% increase from 2022.\\nThe metro area population of New York City in 2022 was 18,867,000, a 0.23% increase from 2021.\\nThe metro area population of New York City in 2021 was 18,823,000, a 0.1% increase from 2020.\\nThe metro area population of New York City in 2020 was 18,804,000, a 0.01% decline from 2019."
         }
       },
       {
         "_index": "my-nlp-index",
         "_id": "4",
-        "_score": 0.029023321,
+        "_score": 0.7766204,
         "_source": {
-          "text": """Chart and table of population level and growth rate for the Miami metro area from 1950 to 2023. United Nations population projections are also included through the year 2035.\nThe current metro area population of Miami in 2023 is 6,265,000, a 0.8% increase from 2022.\nThe metro area population of Miami in 2022 was 6,215,000, a 0.78% increase from 2021.\nThe metro area population of Miami in 2021 was 6,167,000, a 0.74% increase from 2020.\nThe metro area population of Miami in 2020 was 6,122,000, a 0.71% increase from 2019."""
+          "text": "Chart and table of population level and growth rate for the Miami metro area from 1950 to 2023. United Nations population projections are also included through the year 2035.\\nThe current metro area population of Miami in 2023 is 6,265,000, a 0.8% increase from 2022.\\nThe metro area population of Miami in 2022 was 6,215,000, a 0.78% increase from 2021.\\nThe metro area population of Miami in 2021 was 6,167,000, a 0.74% increase from 2020.\\nThe metro area population of Miami in 2020 was 6,122,000, a 0.71% increase from 2019."
         }
       },
       {
         "_index": "my-nlp-index",
         "_id": "3",
-        "_score": 0.028097045,
+        "_score": 0.73853546,
         "_source": {
-          "text": """Chart and table of population level and growth rate for the Chicago metro area from 1950 to 2023. United Nations population projections are also included through the year 2035.\nThe current metro area population of Chicago in 2023 is 8,937,000, a 0.4% increase from 2022.\nThe metro area population of Chicago in 2022 was 8,901,000, a 0.27% increase from 2021.\nThe metro area population of Chicago in 2021 was 8,877,000, a 0.14% increase from 2020.\nThe metro area population of Chicago in 2020 was 8,865,000, a 0.03% increase from 2019."""
+          "text": "Chart and table of population level and growth rate for the Chicago metro area from 1950 to 2023. United Nations population projections are also included through the year 2035.\\nThe current metro area population of Chicago in 2023 is 8,937,000, a 0.4% increase from 2022.\\nThe metro area population of Chicago in 2022 was 8,901,000, a 0.27% increase from 2021.\\nThe metro area population of Chicago in 2021 was 8,877,000, a 0.14% increase from 2020.\\nThe metro area population of Chicago in 2020 was 8,865,000, a 0.03% increase from 2019."
         }
       },
       {
         "_index": "my-nlp-index",
-        "_id": "6",
-        "_score": 0.026973149,
+        "_id": "5",
+        "_score": 0.71319944,
         "_source": {
-          "text": """Chart and table of population level and growth rate for the Seattle metro area from 1950 to 2023. United Nations population projections are also included through the year 2035.\nThe current metro area population of Seattle in 2023 is 3,519,000, a 0.86% increase from 2022.\nThe metro area population of Seattle in 2022 was 3,489,000, a 0.81% increase from 2021.\nThe metro area population of Seattle in 2021 was 3,461,000, a 0.82% increase from 2020.\nThe metro area population of Seattle in 2020 was 3,433,000, a 0.79% increase from 2019."""
+          "text": "Chart and table of population level and growth rate for the Austin metro area from 1950 to 2023. United Nations population projections are also included through the year 2035.\\nThe current metro area population of Austin in 2023 is 2,228,000, a 2.39% increase from 2022.\\nThe metro area population of Austin in 2022 was 2,176,000, a 2.79% increase from 2021.\\nThe metro area population of Austin in 2021 was 2,117,000, a 3.12% increase from 2020.\\nThe metro area population of Austin in 2020 was 2,053,000, a 3.43% increase from 2019."
         }
       }
     ]
@@ -513,3 +552,11 @@ The response includes both the relevant documents retrieved from the vector sear
   }
 }
 ```
+
+## Related documentation
+
+- [Conversational search with RAG]({{site.url}}{{site.baseurl}}/vector-search/ai-search/conversational-search/)
+- [Connectors for third-party ML platforms]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/)
+- [Retrieval-augmented generation processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rag-processor/)
+- [Text embedding processor]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/text-embedding/)
+- [Neural query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/neural/)

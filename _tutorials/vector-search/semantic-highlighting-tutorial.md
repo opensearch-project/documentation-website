@@ -11,7 +11,7 @@ Semantic highlighting enhances search results by identifying and emphasizing the
 
 This tutorial guides you through setting up and using semantic highlighting with a neural search query.
 
-Replace the placeholders beginning with the prefix `your_` with your own values.
+Replace the placeholders beginning with the prefix `your-` with your own values.
 {: .note}
 
 ## Prerequisites
@@ -117,9 +117,9 @@ Monitor the deployment status using the [Get ML Task API]({{site.url}}{{site.bas
 For production environments, consider using an externally hosted model instead of a locally deployed model. Externally hosted models offer better scalability, resource isolation, and support for advanced features like batch inference. For information about deploying externally hosted models, see [Connecting to externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/).
 {: .tip}
 
-## Step 3 (Optional): Configure an ingest pipeline 
+## Step 3: Configure an ingest pipeline
 
-To automatically generate embeddings during indexing, create an [ingest pipeline]({{site.url}}{{site.baseurl}}/ingest-pipelines/):
+To generate embeddings during indexing, create an [ingest pipeline]({{site.url}}{{site.baseurl}}/ingest-pipelines/):
 
 ```json
 PUT /_ingest/pipeline/nlp-ingest-pipeline
@@ -128,7 +128,7 @@ PUT /_ingest/pipeline/nlp-ingest-pipeline
   "processors": [
     {
       "text_embedding": {
-        "model_id": "your-text-embedding-model-id",
+        "model_id": "<your-text-embedding-model-id>",
         "field_map": {
           "text": "text_embedding"
         }
@@ -151,7 +151,7 @@ PUT /neural-search-index/_settings
 
 ## Step 4: Index data
 
-Now, index some sample documents. If you configured the ingest pipeline, embeddings will be generated automatically:
+Now, index some sample documents. The ingest pipeline generates the embeddings automatically:
 
 ```json
 POST /neural-search-index/_doc/1
@@ -188,7 +188,7 @@ Combine a neural search query with the semantic highlighter:
 5.  Add a global `highlight.options` object.
 6.  In `options`, provide the `model_id` of your deployed sentence highlighting model.
 
-Use the following request to retrieve the top five matching documents (specified in the `k` parameter). Replace the placeholder model IDs (`TEXT_EMBEDDING_MODEL_ID` and `SEMANTIC_HIGHLIGHTING_MODEL_ID`) with the model IDs obtained after successful deployment in Step 2:
+Use the following request to retrieve the top two matching documents (specified in the `k` parameter). Replace the placeholder model IDs (`<your-text-embedding-model-id>` and `<your-semantic-highlighting-model-id>`) with the model IDs obtained after successful deployment in Step 2:
 
 ```json
 POST /neural-search-index/_search
@@ -279,3 +279,10 @@ For improved performance when highlighting multiple documents in production envi
 ## Next steps
 
 For more information about semantic highlighting options and configuration, see [Using the semantic highlighter]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/highlight#the-semantic-highlighter).
+
+## Related documentation
+
+- [Semantic search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/semantic-search/)
+- [Neural query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/neural/)
+- [Text embedding processor]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/text-embedding/)
+- [OpenSearch-provided pretrained models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/)

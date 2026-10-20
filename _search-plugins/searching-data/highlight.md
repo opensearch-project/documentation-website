@@ -331,7 +331,7 @@ The response includes a `highlight` object for each hit, indicating the most sem
 }
 ```
 
-For a step-by-step guide, see the [semantic highlighting tutorial]({{site.url}}{{site.baseurl}}/tutorials/vector-search/semantic-highlighting-tutorial/).
+For a step-by-step guide, see [Using semantic highlighting]({{site.url}}{{site.baseurl}}/tutorials/vector-search/semantic-highlighting-tutorial/).
 
 #### Batch inference mode
 **Introduced 3.3**

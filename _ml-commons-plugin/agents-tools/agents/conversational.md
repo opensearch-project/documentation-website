@@ -305,3 +305,5 @@ To enable token usage tracking, set the `include_token_usage` parameter to `true
 - For a step-by-step tutorial, see [Agents and tools tutorial]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents-tools-tutorial/).
 - For supported APIs, see [Agent APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/).
 - To create agents and tools using a workflow template, see [AI search workflows]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/index/).
+- For a tutorial that uses a conversational agent to build a RAG chatbot, see [RAG chatbot]({{site.url}}{{site.baseurl}}/tutorials/gen-ai/chatbots/rag-chatbot/).
+- For a tutorial that uses conversational agents to build a chatbot for OpenSearch Dashboards, see [Build your own chatbot]({{site.url}}{{site.baseurl}}/tutorials/gen-ai/chatbots/build-chatbot/).
