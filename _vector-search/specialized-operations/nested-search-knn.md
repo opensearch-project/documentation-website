@@ -479,7 +479,7 @@ The response contains all matching documents:
 
 ## Vector search with filtering on nested fields
 
-You can apply a filter to a vector search with nested fields. A filter can be applied to either a top-level field or a field inside a nested field.
+You can apply a filter to a vector search with nested fields. A filter can be applied to either a top-level field or a field inside a nested field. The filter is evaluated on top-level documents, so a filter on a field inside a nested field must be wrapped in a `nested` query. For an example, see [Filtering on a field inside a nested field](#filtering-on-a-field-inside-a-nested-field).
 
 The following example applies a filter to a top-level field. 
 
@@ -640,6 +640,155 @@ Even though all three vectors nearest to the query vector are in document 1, the
                 300.0,
                 300.0
               ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
+```
+
+### Filtering on a field inside a nested field
+
+To filter on a field inside a nested field, wrap the filter clause in a `nested` query whose `path` is the nested field. Only the nested objects that match the filter are considered in the vector search.
+
+Starting with OpenSearch 3.5, if you specify a field inside a nested field directly in the filter, without a `nested` query, the filter matches no top-level documents and the search returns no results.
+{: .important}
+
+First, create a vector index in which each nested object contains a vector and a `color` field:
+
+```json
+PUT my-knn-index-3
+{
+  "settings": {
+    "index": {
+      "knn": true
+    }
+  },
+  "mappings": {
+    "properties": {
+      "nested_field": {
+        "type": "nested",
+        "properties": {
+          "my_vector": {
+            "type": "knn_vector",
+            "dimension": 3,
+            "space_type": "l2",
+            "method": {
+              "name": "hnsw",
+              "engine": "lucene",
+              "parameters": {
+                "ef_construction": 100,
+                "m": 16
+              }
+            }
+          },
+          "color": {
+            "type": "keyword"
+          }
+        }
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+Add some data to the index:
+
+```json
+PUT _bulk?refresh=true
+{ "index": { "_index": "my-knn-index-3", "_id": "1" } }
+{"nested_field":[{"my_vector":[1,1,1],"color":"red"},{"my_vector":[2,2,2],"color":"blue"}]}
+{ "index": { "_index": "my-knn-index-3", "_id": "2" } }
+{"nested_field":[{"my_vector":[10,10,10],"color":"blue"}]}
+{ "index": { "_index": "my-knn-index-3", "_id": "3" } }
+{"nested_field":[{"my_vector":[100,100,100],"color":"red"}]}
+```
+{% include copy-curl.html %}
+
+The following query searches only the nested objects whose `color` is `blue`:
+
+```json
+GET my-knn-index-3/_search
+{
+  "query": {
+    "nested": {
+      "path": "nested_field",
+      "query": {
+        "knn": {
+          "nested_field.my_vector": {
+            "vector": [
+              1,
+              1,
+              1
+            ],
+            "k": 3,
+            "filter": {
+              "nested": {
+                "path": "nested_field",
+                "query": {
+                  "term": {
+                    "nested_field.color": "blue"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+Document 1 is scored by its `blue` vector `[2, 2, 2]` instead of its `red` vector `[1, 1, 1]`, which matches the query vector exactly. Document 3 is not returned because it contains no `blue` nested objects:
+
+```json
+{
+  "took": 44,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 2,
+      "relation": "eq"
+    },
+    "max_score": 0.25,
+    "hits": [
+      {
+        "_index": "my-knn-index-3",
+        "_id": "1",
+        "_score": 0.25,
+        "_source": {
+          "nested_field": [
+            {
+              "my_vector": [1.0, 1.0, 1.0],
+              "color": "red"
+            },
+            {
+              "my_vector": [2.0, 2.0, 2.0],
+              "color": "blue"
+            }
+          ]
+        }
+      },
+      {
+        "_index": "my-knn-index-3",
+        "_id": "2",
+        "_score": 0.0040983604,
+        "_source": {
+          "nested_field": [
+            {
+              "my_vector": [10.0, 10.0, 10.0],
+              "color": "blue"
             }
           ]
         }
