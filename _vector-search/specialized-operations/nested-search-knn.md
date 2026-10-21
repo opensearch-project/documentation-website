@@ -479,7 +479,7 @@ The response contains all matching documents:
 
 ## Vector search with filtering on nested fields
 
-You can apply a filter to a vector search with nested fields. A filter can be applied to either a top-level field or a field inside a nested field. The filter is evaluated on top-level documents, so a filter on a field inside a nested field must be wrapped in a `nested` query. For an example, see [Filtering on a field inside a nested field](#filtering-on-a-field-inside-a-nested-field).
+You can apply a filter to a vector search with nested fields. A filter can be applied to either a top-level field or a field inside a nested field. The filter is evaluated against top-level documents, so a filter on a field inside a nested field must be wrapped in a `nested` query. For an example, see [Filtering on a field inside a nested field](#filtering-on-a-field-inside-a-nested-field).
 
 The following example applies a filter to a top-level field. 
 
@@ -651,10 +651,7 @@ Even though all three vectors nearest to the query vector are in document 1, the
 
 ### Filtering on a field inside a nested field
 
-To filter on a field inside a nested field, wrap the filter clause in a `nested` query whose `path` is the nested field. Only the nested objects that match the filter are considered in the vector search.
-
-Starting with OpenSearch 3.5, if you specify a field inside a nested field directly in the filter, without a `nested` query, the filter matches no top-level documents and the search returns no results.
-{: .important}
+To filter nested objects by one of their fields, wrap the filter clause in a `nested` query and set the query `path` to the nested field. Only the nested objects that match the filter are considered in the vector search. If you specify a field inside a nested field directly in the filter, without a `nested` query, the filter matches no top-level documents and the search returns no results.
 
 First, create a vector index in which each nested object contains a vector and a `color` field:
 
@@ -708,7 +705,7 @@ PUT _bulk?refresh=true
 ```
 {% include copy-curl.html %}
 
-The following query searches only the nested objects whose `color` is `blue`:
+The following query searches only the nested objects in which the `color` field is `blue`:
 
 ```json
 GET my-knn-index-3/_search
@@ -744,7 +741,7 @@ GET my-knn-index-3/_search
 ```
 {% include copy-curl.html %}
 
-Document 1 is scored by its `blue` vector `[2, 2, 2]` instead of its `red` vector `[1, 1, 1]`, which matches the query vector exactly. Document 3 is not returned because it contains no `blue` nested objects:
+Only the nested objects in which `color` is `blue` are searched. As a result, document 1 is scored using its `[2, 2, 2]` vector, even though its `[1, 1, 1]` vector matches the query vector exactly. Document 3 is not returned because its only nested object's `color` is `red`:
 
 ```json
 {
