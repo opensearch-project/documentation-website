@@ -762,8 +762,6 @@ Field | Data type | Description
 
 To send a message to an existing channel, send a POST request to the `feature/send` resource and specify the channel's `config_id` as a path parameter. Delivery uses the channel's configuration, so the message is formatted and sent the same way as an alert notification. To send to several channels, send one request per channel.
 
-If delivery fails, the request returns the error status of the channel. A muted channel returns `423`.
-
 ### Endpoints
 
 ```json
@@ -784,7 +782,7 @@ The following table lists the available request body fields.
 
 Field | Data type | Description
 :--- | :--- | :---
-`event_source` | Object | The source of the message. Required.
+`event_source` | Object | The message source. Required.
 `channel_message` | Object | The message content. Required.
 
 The `event_source` object contains the following fields.
@@ -792,9 +790,9 @@ The `event_source` object contains the following fields.
 Field | Data type | Description
 :--- | :--- | :---
 `title` | String | The message title. Required.
-`reference_id` | String | An identifier for the event that the message reports, such as a job ID. Required.
+`reference_id` | String | An identifier of the event that the message reports, such as a job ID. Required.
 `severity` | String | The message severity. Valid values are `critical`, `high`, `info`, and `none`. Optional. Default is `info`.
-`tags` | Array of strings | Tags for the message. Optional.
+`tags` | Array of strings | The tags for the message. Optional.
 
 The `channel_message` object contains the following fields.
 
@@ -802,6 +800,8 @@ Field | Data type | Description
 :--- | :--- | :---
 `text_description` | String | The message body. Required.
 `html_description` | String | An HTML message body, used by email channels. Optional.
+
+The message is always sent on behalf of the authenticated user. You cannot specify another user in the request.
 
 ### Example request
 
@@ -848,6 +848,8 @@ The response contains the channel's delivery status:
 }
 ```
 
+If delivery fails, the request returns the error status of the channel. A muted channel returns `423`.
+
 ### Response body fields
 
 The response contains the same fields as the [Send test notification](#send-test-notification) response.
@@ -859,6 +861,5 @@ If you use the Security plugin, the caller needs the `cluster:admin/opensearch/n
 - When [resource sharing]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/notification-access-control/) is enabled, the channel must be shared with the caller at an access level that includes `cluster:admin/opensearch/notifications/channel/send`, such as `notifications_read_write` or `notifications_full_access`. For an email channel, the caller also needs the same access to the channel's sender account and recipient groups. If it does not, the request is rejected with `403`.
 - When filtering by backend roles is enabled, the caller's backend roles must match the channel's backend roles.
 
-The message is sent on behalf of the authenticated caller, so the request body cannot specify a user context.
-
-If you do not use the Security plugin, these checks do not run and any caller that can reach the cluster can send through any channel on it.
+If you don't use the Security plugin, any user that can reach the cluster can send messages through any channel.
+{: .warning}
