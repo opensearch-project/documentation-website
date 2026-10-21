@@ -9,7 +9,7 @@ redirect_from:
 
 # Notifications API
 
-Use the Notifications REST API to programmatically create, retrieve, update, and delete notification configurations and to send test messages. Defining channels through the API lets you version and reuse your channel definitions.
+Use the Notifications REST API to programmatically create, retrieve, update, and delete notification configurations, to send test messages, and to send messages to existing channels. Defining channels through the API lets you version and reuse your channel definitions.
 
 A notification configuration is one of the following types:
 
@@ -755,3 +755,111 @@ Field | Data type | Description
 :--- | :--- | :---
 `status_code` | String | The status code that the destination returned.
 `status_text` | String | The response text that the destination returned.
+
+## Send notification
+**Introduced 3.10**
+{: .label .label-purple }
+
+To send a message to an existing channel, send a POST request to the `feature/send` resource and specify the channel's `config_id` as a path parameter. Delivery uses the channel's configuration, so the message is formatted and sent the same way as an alert notification. To send to several channels, send one request per channel.
+
+### Endpoints
+
+```json
+POST /_plugins/_notifications/feature/send/{config_id}
+```
+
+### Path parameters
+
+The following table lists the available path parameters.
+
+Parameter | Data type | Description
+:--- | :--- | :---
+`config_id` | String | The ID of the channel to send the message to. Required.
+
+### Request body fields
+
+The following table lists the available request body fields.
+
+Field | Data type | Description
+:--- | :--- | :---
+`event_source` | Object | The message source. Required.
+`channel_message` | Object | The message content. Required.
+
+The `event_source` object contains the following fields.
+
+Field | Data type | Description
+:--- | :--- | :---
+`title` | String | The message title. Required.
+`reference_id` | String | An identifier of the event that the message reports, such as a job ID. Required.
+`severity` | String | The message severity. Valid values are `critical`, `high`, `info`, and `none`. Optional. Default is `info`.
+`tags` | Array of strings | The tags for the message. Optional.
+
+The `channel_message` object contains the following fields.
+
+Field | Data type | Description
+:--- | :--- | :---
+`text_description` | String | The message body. Required.
+`html_description` | String | An HTML message body, used by email channels. Optional.
+
+The message is always sent on behalf of the authenticated user. You cannot specify another user in the request.
+
+### Example request
+
+```json
+POST /_plugins/_notifications/feature/send/sample-id
+{
+  "event_source": {
+    "title": "Weekly sales report",
+    "reference_id": "report-123",
+    "severity": "info",
+    "tags": ["scheduled-report"]
+  },
+  "channel_message": {
+    "text_description": "Your report is ready: https://dashboards.example.com/reports/abc"
+  }
+}
+```
+{% include copy-curl.html %}
+
+### Example response
+
+The response contains the channel's delivery status:
+
+```json
+{
+  "event_source": {
+    "title": "Weekly sales report",
+    "reference_id": "report-123",
+    "severity": "info",
+    "tags": ["scheduled-report"]
+  },
+  "status_list": [
+    {
+      "config_id": "sample-id",
+      "config_type": "slack",
+      "config_name": "Sample Slack Channel",
+      "email_recipient_status": [],
+      "delivery_status": {
+        "status_code": "200",
+        "status_text": "ok"
+      }
+    }
+  ]
+}
+```
+
+If delivery fails, the request returns the error status of the channel. A muted channel returns `423`.
+
+### Response body fields
+
+The response contains the same fields as the [Send test notification](#send-test-notification) response.
+
+### Permissions
+
+If you use the Security plugin, the caller needs the `cluster:admin/opensearch/notifications/channel/send` permission, which is granted by the `notifications_send_access` and `notifications_full_access` roles. The caller must also have access to the channel:
+
+- When [resource sharing]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/notification-access-control/) is enabled, the channel must be shared with the caller at an access level that includes `cluster:admin/opensearch/notifications/channel/send`, such as `notifications_read_write` or `notifications_full_access`. For an email channel, the caller also needs the same access to the channel's sender account and recipient groups. If it does not, the request is rejected with `403`.
+- When filtering by backend roles is enabled, the caller's backend roles must match the channel's backend roles.
+
+If you don't use the Security plugin, any user that can reach the cluster can send messages through any channel.
+{: .warning}
