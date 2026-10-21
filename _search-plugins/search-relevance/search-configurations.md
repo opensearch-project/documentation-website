@@ -29,7 +29,7 @@ Field | Data type |  Description
 :---  | :--- | :---
 `name` | String | The name of the search configuration.
 `description` | String | Description of the search configuration.
-`query` | Object | Defines the query in OpenSearch query DSL, provided as a JSON string with the inner quotation marks escaped (for example, `"query": "{\"query\":{\"multi_match\":{...}}}"`). Use the `%SearchText%` placeholder or [Mustache](https://mustache.github.io/) template variables (such as {% raw %}`{{queryText}}`{% endraw %}) to substitute query set values at runtime. For more information, see [Using Mustache templates](#using-mustache-templates).
+`query` | Object | Defines the query in OpenSearch query DSL, provided as a JSON string with the inner quotation marks escaped (for example, `"query": "{\"query\":{\"multi_match\":{...}}}"`). Use the `%queryText%` placeholder or [Mustache](https://mustache.github.io/) template variables (such as {% raw %}`{{queryText}}`{% endraw %}) to substitute query set values at runtime. For more information, see [Using Mustache templates](#using-mustache-templates).
 `index` | String | The target index queried by this search configuration.
 `searchPipeline` | String | Specifies an existing search pipeline. Optional.
 
@@ -39,7 +39,7 @@ Field | Data type |  Description
 PUT _plugins/_search_relevance/search_configurations
 {
   "name": "baseline",
-  "query": "{\"query\":{\"multi_match\":{\"query\":\"%SearchText%\",\"fields\":[\"id\",\"title\",\"category\",\"bullets\",\"description\",\"attrs.Brand\",\"attrs.Color\"]}}}",
+  "query": "{\"query\":{\"multi_match\":{\"query\":\"%queryText%\",\"fields\":[\"id\",\"title\",\"category\",\"bullets\",\"description\",\"attrs.Brand\",\"attrs.Color\"]}}}",
   "description": "Current production algorithm",
   "index": "ecommerce"
 }
@@ -47,7 +47,7 @@ PUT _plugins/_search_relevance/search_configurations
 
 ### Using Mustache templates
 
-Instead of the `%SearchText%` placeholder, you can use [Mustache](https://mustache.github.io/) template variables in a query. If the `query` parameter contains double curly braces ({% raw %}`{{}}`{% endraw %}), OpenSearch renders the `query` as a Mustache template; otherwise, OpenSearch substitutes the `%SearchText%` placeholder. Existing `%SearchText%` configurations continue to work unchanged.
+Instead of the `%queryText%` placeholder, you can use [Mustache](https://mustache.github.io/) template variables in a query. If the `query` parameter contains double curly braces ({% raw %}`{{}}`{% endraw %}), OpenSearch renders the `query` as a Mustache template; otherwise, OpenSearch substitutes the `%queryText%` placeholder. Existing `%queryText%` configurations continue to work unchanged.
 
 When OpenSearch renders a template, the following variables are available:
 
@@ -116,7 +116,7 @@ GET _plugins/_search_relevance/search_configurations/{search_configuration_id}
           "description": "Current production algorithm",
           "timestamp": "2025-06-12T08:23:03.305Z",
           "index": "ecommerce",
-          "query": """{"query":{"multi_match":{"query":"%SearchText%","fields":["id","title","category","bullets","description","attrs.Brand","attrs.Color"]}}}""",
+          "query": """{"query":{"multi_match":{"query":"%queryText%","fields":["id","title","category","bullets","description","attrs.Brand","attrs.Color"]}}}""",
           "searchPipeline": ""
         },
         "sort": [
@@ -270,7 +270,7 @@ GET _plugins/_search_relevance/search_configurations/_search
           "description": "Current production algorithm",
           "timestamp": "2026-01-26T12:11:47.657Z",
           "index": "ecommerce",
-          "query": """{"query":{"multi_match":{"query":"%SearchText%","fields":["asin","title","category","bullet_points","description","brand","color"]}}}""",
+          "query": """{"query":{"multi_match":{"query":"%queryText%","fields":["asin","title","category","bullet_points","description","brand","color"]}}}""",
           "searchPipeline": ""
         }
       },
@@ -283,7 +283,7 @@ GET _plugins/_search_relevance/search_configurations/_search
           "name": "baseline with title weight",
           "timestamp": "2026-01-26T12:11:48.199Z",
           "index": "ecommerce",
-          "query": """{"query":{"multi_match":{"query":"%SearchText%","fields":["asin","title^25","category","bullet_points","description","brand","color"]}}}""",
+          "query": """{"query":{"multi_match":{"query":"%queryText%","fields":["asin","title^25","category","bullet_points","description","brand","color"]}}}""",
           "searchPipeline": ""
         }
       }

@@ -128,13 +128,13 @@ POST /products/_bulk
 
 ## Step 3: Create a search configuration
 
-A _search configuration_ defines a search strategy to evaluate. The `%SearchText%` placeholder is replaced with each query from the query set during evaluation:
+A _search configuration_ defines a search strategy to evaluate. The `%queryText%` placeholder is replaced with each query from the query set during evaluation:
 
 ```json
 PUT /_plugins/_search_relevance/search_configurations
 {
   "name": "baseline",
-  "query": "{\"query\":{\"multi_match\":{\"query\":\"%SearchText%\",\"fields\":[\"title\",\"description\",\"category\",\"brand\"]}}}",
+  "query": "{\"query\":{\"multi_match\":{\"query\":\"%queryText%\",\"fields\":[\"title\",\"description\",\"category\",\"brand\"]}}}",
   "index": "products"
 }
 ```
