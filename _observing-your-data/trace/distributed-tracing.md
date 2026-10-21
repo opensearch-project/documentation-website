@@ -37,7 +37,7 @@ OpenSearch provides a `trace-analytics` plugin for visualizing trace data in rea
 
 ## Get started
 
-The distributed tracing feature is experimental as of OpenSearch 2.10. To begin using the distributed tracing feature, you need to first enable it using the `opensearch.experimental.feature.telemetry.enabled` feature flag and subsequently activate the tracer, using the dynamic setting `telemetry.tracer.enabled`. It's important to exercise caution when enabling this feature because it can consume system resources. Detailed information on enabling and configuring distributed tracing, including on-demand troubleshooting and request sampling, is described in the following sections.
+The distributed tracing feature is experimental. To begin using the distributed tracing feature, you need to first enable it using the `opensearch.experimental.feature.telemetry.enabled` feature flag and subsequently activate the tracer, using the dynamic setting `telemetry.tracer.enabled`. It's important to exercise caution when enabling this feature because it can consume system resources. Detailed information on enabling and configuring distributed tracing, including on-demand troubleshooting and request sampling, is described in the following sections.
 
 ### Enabling the flag on a node using tarball
 
@@ -47,17 +47,17 @@ The enable flag is toggled using a new Java Virtual Machine (JVM) parameter that
 
 1. Change to the top directory of your OpenSearch installation:
 
-```bash
-cd \path\to\opensearch
-```
+   ```bash
+   cd \path\to\opensearch
+   ```
 
 2. Open your OpenSearch configuration folder, and then open the `opensearch.yml` file with a text editor.
 3. Add the following line:
 
-```bash
-opensearch.experimental.feature.telemetry.enabled=true
-```
-{% include copy.html %}
+   ```yaml
+   opensearch.experimental.feature.telemetry.enabled: true
+   ```
+   {% include copy.html %}
 
 4. Save your changes and close the file.
 
@@ -84,7 +84,7 @@ As an alternative to directly modifying `config/jvm.options`, you can define the
 To add these flags inline when starting OpenSearch, run the following command:
 
 ```bash
-OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.telemetry.enabled=true" ./opensearch-2.9.0/bin/opensearch
+OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.telemetry.enabled=true" ./bin/opensearch
 ```
 {% include copy.html %}
 
@@ -129,17 +129,22 @@ Once you've enabled the feature flag, do the following:
 
 1. Enable the tracing framework feature by adding the following setting in the `opensearch.yml` file:
 
-```bash
-telemetry.feature.tracer.enabled=true
-```
-{% include copy.html %}
+   ```yaml
+   telemetry.feature.tracer.enabled: true
+   ```
+   {% include copy.html %}
 
-2. Enable the tracer in the running cluster by adding the following dynamic setting:
+2. Enable the tracer in the running cluster by updating the dynamic `telemetry.tracer.enabled` setting:
 
-```bash
-telemetry.tracer.enabled=true
-```
-{% include copy.html %}
+   ```json
+   PUT _cluster/settings
+   {
+     "persistent": {
+       "telemetry.tracer.enabled": true
+     }
+   }
+   ```
+   {% include copy-curl.html %}
 
 ## Install the OpenSearch OpenTelemetry plugin
 

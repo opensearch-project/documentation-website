@@ -26,48 +26,7 @@ Use multimodal search to search text and image data using multimodal embedding m
 
 ## Configuring multimodal search
 
-There are two ways to configure multimodal search:
-
-- [**Automated workflow**](#automated-workflow) (Recommended for quick setup): Automatically create an ingest pipeline and index with minimal configuration.
-- [**Manual setup**](#manual-setup) (Recommended for custom configurations): Manually configure each component for greater flexibility and control.
-
-## Automated workflow
-
-OpenSearch provides a [workflow template]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-templates/#multimodal-search) that automatically creates both an ingest pipeline and an index. You must provide the model ID for the configured model when creating a workflow. Review the multimodal search workflow template [defaults](https://github.com/opensearch-project/flow-framework/blob/main/src/main/resources/defaults/multi-modal-search-defaults.json) to determine whether you need to update any of the parameters. For example, if the model dimensionality is different from the default (`1024`), specify the dimensionality of your model in the `output_dimension` parameter. To create the default multimodal search workflow, send the following request:
-
-```json
-POST /_plugins/_flow_framework/workflow?use_case=multimodal_search&provision=true
-{
-"create_ingest_pipeline.model_id": "mBGzipQB2gmRjlv_dOoB"
-}
-```
-{% include copy-curl.html %}
-
-OpenSearch responds with a workflow ID for the created workflow:
-
-```json
-{
-  "workflow_id" : "U_nMXJUBq_4FYQzMOS4B"
-}
-```
-
-To check the workflow status, send the following request:
-
-```json
-GET /_plugins/_flow_framework/workflow/U_nMXJUBq_4FYQzMOS4B/_status
-```
-{% include copy-curl.html %}
-
-Once the workflow completes, the `state` changes to `COMPLETED`. The workflow creates the following components:
-
-- An ingest pipeline named `nlp-ingest-pipeline`
-- An index named `my-nlp-index` 
-
-You can now continue with [steps 3 and 4](#step-3-ingest-documents-into-the-index) to ingest documents into the index and search the index.
-
-## Manual setup
-
-To manually configure multimodal search with text and image embeddings, follow these steps:
+To configure multimodal search with text and image embeddings, follow these steps:
 
 1. [Create an ingest pipeline](#step-1-create-an-ingest-pipeline).
 1. [Create an index for ingestion](#step-2-create-an-index-for-ingestion).
@@ -144,7 +103,7 @@ For more information about creating a vector index and its supported methods, se
 To ingest documents into the index created in the previous step, send the following request:
 
 ```json
-PUT /nlp-index/_doc/1
+PUT /my-nlp-index/_doc/1
 {
  "image_description": "Orange table",
  "image_binary": "iVBORw0KGgoAAAANSUI..."
@@ -180,6 +139,10 @@ GET /my-nlp-index/_search
 
 To eliminate passing the model ID with each neural query request, you can set a default model on a vector index or a field. To learn more, see [Setting a default model on an index or field]({{site.url}}{{site.baseurl}}/search-plugins/neural-text-search/#setting-a-default-model-on-an-index-or-field).
 
+To create the ingest pipeline and index in one step, you can use the [multimodal search workflow template]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/workflow-templates/#multimodal-search).
+{: .tip}
+
 ## Next steps
 
 - Explore our [tutorials]({{site.url}}{{site.baseurl}}/vector-search/tutorials/) to learn how to build AI search applications. 
+- To configure multimodal search using ML inference processors, see [Multimodal search using ML inference processors]({{site.url}}{{site.baseurl}}/tutorials/vector-search/semantic-search/multimodal-search-ml-inference/).

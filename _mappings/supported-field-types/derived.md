@@ -32,7 +32,7 @@ Despite the potential performance impact of query-time computations, the flexibi
 Currently, derived fields have the following limitations:
 
 - **Scoring and sorting**: Not yet supported.
-- **Aggregations**: Starting with OpenSearch 2.17, derived fields support most aggregation types. The following aggregations are not supported: geographic (geodistance, geohash grid, geohex grid, geotile grid, geobounds, geocentroid), significant terms, significant text, and scripted metric.
+- **Aggregations**: Derived fields support most aggregation types. The following aggregations are not supported: geographic (geodistance, geohash grid, geohex grid, geotile grid, geobounds, geocentroid), significant terms, significant text, and scripted metric.
 - **Dashboard support**: These fields are not displayed in the list of available fields in OpenSearch Dashboards. However, you can still use them for filtering if you know the derived field name.
 - **Chained derived fields**: One derived field cannot be used to define another derived field.
 - **Join field type**: Derived fields are not supported for the [join field type]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/join/).
@@ -146,8 +146,8 @@ The following table lists the parameters accepted by `derived` field types. All 
 | :--- | :--- | :--- |
 | `type` | Required | The type of the derived field. Supported types are `boolean`, `date`, `geo_point`, `ip`, `keyword`, `text`, `long`, `double`, `float`, and `object`. |
 | `script` | Required | The script associated with the derived field. Any value emitted from the script must be emitted using `emit()`. The type of the emitted value must match the `type` of the derived field. Scripts have access to both the `doc_values` and `_source` fields if those are enabled. The doc value of a field can be accessed using `doc['field_name'].value`, and the source can be accessed using `params._source["field_name"]`. |
-| `format` | Optional | The format used for parsing dates. Only applicable to `date` fields. Valid values are `strict_date_time_no_millis`, `strict_date_optional_time`, and `epoch_millis`. For more information, see [Formats]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/date/#formats).|
-| `ignore_malformed`| Optional | A Boolean value that specifies whether to ignore malformed values when running a query on a derived field. Default value is `false` (throw an exception when encountering malformed values). |
+| `format` | Optional | The format used for parsing dates. Only applicable to `date` fields. Valid values are `strict_date_time_no_millis`, `strict_date_optional_time`, and `epoch_millis`. For more information, see [Formats]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/date/#formats). For more information, see [Format]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/format/).|
+| `ignore_malformed`| Optional | A Boolean value that specifies whether to ignore malformed values when running a query on a derived field. Default value is `false` (throw an exception when encountering malformed values). For more information, see [Ignore malformed]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/ignore-malformed/). |
 | `prefilter_field` | Optional | An indexed text field provided to boost the performance of derived fields. Specifies an existing indexed field on which to filter prior to filtering on the derived field. For more information, see [Prefilter field](#prefilter-field). |
 
 ## Emitting values in scripts
@@ -546,7 +546,7 @@ The response specifies highlighting in the `url` field:
 
 ## Aggregations
 
-Starting with OpenSearch 2.17, derived fields support most aggregation types. 
+Derived fields support most aggregation types. 
 
 Geographic, significant terms, significant text, and scripted metric aggregations are not supported.
 {: .note}

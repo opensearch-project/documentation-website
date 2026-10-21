@@ -252,7 +252,7 @@ POST _plugins/_alerting/monitors
 </details>
 
 
-To specify a time zone, you can do so by including a [cron expression]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#cron-expressions) with a time zone name in the `schedule` section of your request. The following example creates a monitor that runs at 12:10 PM Pacific Time on the first day of each month.
+To specify a time zone, you can do so by including a [cron expression]({{site.url}}{{site.baseurl}}/api-reference/cron-expressions/) with a time zone name in the `schedule` section of your request. The following example creates a monitor that runs at 12:10 PM Pacific Time on the first day of each month.
 
 #### Example request
 ```json
@@ -627,7 +627,7 @@ The response returns the number of individual finding entries in the `total_find
 To get more specific results in a findings search, you can use any of the optional path parameters defined in the following table.
 
 Path parameter | Description | Usage
-:--- | :--- : :---
+:--- | :--- | :---
 `findingId` | The identifier for the finding entry. | The finding ID is returned in the initial query response.
 `sortString` | This field specifies which string the Alerting plugin uses to sort the findings. | The default value is `id`.
 `sortOrder` | The order to sort the list of findings, either ascending or descending. | Use `sortOrder=asc` to indicate ascending, or `sortOrder=desc` for descending sort order.
@@ -642,7 +642,7 @@ You can create a document-level monitor with a POST request that provides the mo
 The following table provides the syntax to use for each trigger option.
 
 Trigger options | Definition | Syntax
-:--- | :--- : :---
+:--- | :--- | :---
 Tag | Creates alerts for documents that match a multiple query with this tag applied. If you group multiple queries by a single tag, then you can set it to trigger an alert if the results are returned by this tag name.| `query[tag=<tag-name>]`
 Query by name | Creates alerts for documents matched or returned by the named query.  | `query[name=<query-name>]`
 Query by ID | Creates alerts for documents that were returned by the identified query. | `query[id=<query-id>]`

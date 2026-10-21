@@ -10,7 +10,7 @@ nav_order: 20
 
 The deploy model operation reads the model's chunks from the model index and then creates an instance of the model to cache in memory. This operation requires the `model_id`. 
 
-Starting with OpenSearch version 2.13, [externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/) are deployed automatically by default when you send a Predict API request for the first time. To disable automatic deployment for an externally hosted model, set `plugins.ml_commons.model_auto_deploy.enable` to `false`:
+[Externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/) are deployed automatically by default when you send a Predict API request for the first time. To disable automatic deployment for an externally hosted model, set `plugins.ml_commons.model_auto_deploy.enable` to `false`:
 
 ```json
 PUT _cluster/settings
@@ -30,6 +30,22 @@ For information about user access for this API, see [Model access control consid
 POST /_plugins/_ml/models/{model_id}/_deploy
 ```
 
+## Path parameters
+
+The following table lists the available path parameters.
+
+| Parameter | Data type | Description |
+| :--- | :--- | :--- |
+| `model_id` | String | The ID of the model to deploy. Required. |
+
+## Request body fields
+
+The following table lists the available request body fields. The request body is optional.
+
+| Field | Data type | Description |
+| :--- | :--- | :--- |
+| `node_ids` | Array | A list of node IDs on which to deploy the model. If omitted, the model is deployed to all eligible ML nodes. Requires `plugins.ml_commons.allow_custom_deployment_plan` to be set to `true`. For more information, see [ML Commons cluster settings]({{site.url}}{{site.baseurl}}/ml-commons-plugin/cluster-settings/). |
+
 ## Example request: Deploying to all available ML nodes
 
 In this example request, OpenSearch deploys the model to any available OpenSearch ML node:
@@ -41,7 +57,7 @@ POST /_plugins/_ml/models/WWQI44MBbzI2oUKAvNUt/_deploy
 
 ## Example request: Deploying to a specific node
 
-If you want to reserve the memory of other ML nodes within your cluster, you can deploy your model to a specific node(s) by specifying the `node_ids` in the request body:
+If you want to reserve the memory of other ML nodes within your cluster, you can deploy your model to specific nodes by specifying the `node_ids` in the request body. This option requires the `plugins.ml_commons.allow_custom_deployment_plan` setting to be `true`:
 
 ```json
 POST /_plugins/_ml/models/WWQI44MBbzI2oUKAvNUt/_deploy

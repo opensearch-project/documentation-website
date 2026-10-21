@@ -86,12 +86,12 @@ The query returns the matching document:
       "value": 1,
       "relation": "eq"
     },
-    "max_score": 0.2876821,
+    "max_score": 0.13076457,
     "hits": [
       {
         "_index": "testindex",
         "_id": "1",
-        "_score": 0.2876821,
+        "_score": 0.13076457,
         "_source": {
           "patient": {
             "name": "John Doe",
@@ -145,12 +145,12 @@ By default, the `_source` of the hit objects within `inner_hits` is returned rel
       "value": 1,
       "relation": "eq"
     },
-    "max_score": 0.2876821,
+    "max_score": 0.13076457,
     "hits": [
       {
         "_index": "testindex",
         "_id": "1",
-        "_score": 0.2876821,
+        "_score": 0.13076457,
         "_source": {
           "patient": {
             "name": "John Doe",
@@ -164,7 +164,7 @@ By default, the `_source` of the hit objects within `inner_hits` is returned rel
                 "value": 1,
                 "relation": "eq"
               },
-              "max_score": 0.2876821,
+              "max_score": 0.13076457,
               "hits": [
                 {
                   "_index": "testindex",
@@ -173,7 +173,7 @@ By default, the `_source` of the hit objects within `inner_hits` is returned rel
                     "field": "patient",
                     "offset": 0
                   },
-                  "_score": 0.2876821,
+                  "_score": 0.13076457,
                   "_source": {
                     "name": "John Doe",
                     "age": 56
@@ -233,7 +233,7 @@ PUT /patients
 ```
 {% include copy-curl.html %}
 
-Next, index a document into the example index:
+Next, index two documents into the example index:
 
 ```json
 PUT /patients/_doc/1
@@ -250,6 +250,28 @@ PUT /patients/_doc/1
         "name": "Joe Doe",
         "relationship": "father",
         "phone": "5552222"
+      }
+    ]
+  }
+}
+```
+{% include copy-curl.html %}
+
+```json
+PUT /patients/_doc/2?refresh
+{
+  "patient": {
+    "name": "Mary Major",
+    "contacts": [
+      {
+        "name": "Jane Major",
+        "relationship": "sister",
+        "phone": "5553333"
+      },
+      {
+        "name": "Paula Major",
+        "relationship": "mother",
+        "phone": "5554444"
       }
     ]
   }
@@ -284,11 +306,13 @@ GET /patients/_search
 ```
 {% include copy-curl.html %}
 
+Both conditions in the inner `bool` query must match the same contact object. Document 2 has a contact named `Jane` and a contact whose relationship is `mother`, but they are different contacts, so only document 1 is returned. If `contacts` were mapped as an `object` field instead of `nested`, the contact values would be flattened into arrays, and the same conditions would match both documents.
+
 The query returns the patient who has a contact entry matching these details:
 
 ```json
 {
-  "took": 14,
+  "took": 9,
   "timed_out": false,
   "_shards": {
     "total": 1,
@@ -301,12 +325,12 @@ The query returns the patient who has a contact entry matching these details:
       "value": 1,
       "relation": "eq"
     },
-    "max_score": 1.3862942,
+    "max_score": 0.63013375,
     "hits": [
       {
         "_index": "patients",
         "_id": "1",
-        "_score": 1.3862942,
+        "_score": 0.63013375,
         "_source": {
           "patient": {
             "name": "John Doe",

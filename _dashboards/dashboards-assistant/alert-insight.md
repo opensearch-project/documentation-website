@@ -60,7 +60,7 @@ POST /_plugins/_flow_framework/workflow?provision=true
           "previous_node_inputs": {},
           "user_inputs": {
             "version": "1",
-            "name": "Claude instant runtime Connector",
+            "name": "Claude Sonnet 4.6 runtime Connector",
             "protocol": "aws_sigv4",
             "description": "The connector to BedRock service for Claude model",
             "actions": [
@@ -70,9 +70,9 @@ POST /_plugins/_flow_framework/workflow?provision=true
                   "content-type": "application/json"
                 },
                 "method": "POST",
-                "request_body": "{\"prompt\":\"\\n\\nHuman: ${parameters.prompt}\\n\\nAssistant:\", \"max_tokens_to_sample\":${parameters.max_tokens_to_sample}, \"temperature\":${parameters.temperature},  \"anthropic_version\":\"${parameters.anthropic_version}\" }",
+                "request_body": "{\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"${parameters.prompt}\"}]}],\"anthropic_version\":\"${parameters.anthropic_version}\",\"max_tokens\":${parameters.max_tokens},\"temperature\":${parameters.temperature}}",
                 "action_type": "predict",
-                "url": "https://bedrock-runtime.us-west-2.amazonaws.com/model/anthropic.claude-instant-v1/invoke"
+                "url": "https://bedrock-runtime.us-west-2.amazonaws.com/model/us.anthropic.claude-sonnet-4-6/invoke"
               }
             ],
             "credential": {
@@ -85,10 +85,10 @@ POST /_plugins/_flow_framework/workflow?provision=true
               "endpoint": "bedrock-runtime.us-west-2.amazonaws.com",
               "content_type": "application/json",
               "auth": "Sig_V4",
-              "max_tokens_to_sample": "8000",
+              "max_tokens": "8000",
               "service_name": "bedrock",
               "temperature": "0.0001",
-              "response_filter": "$.completion",
+              "response_filter": "$.content[0].text",
               "anthropic_version": "bedrock-2023-05-31"
             }
           }
@@ -102,7 +102,7 @@ POST /_plugins/_flow_framework/workflow?provision=true
           "user_inputs": {
             "description": "Claude model",
             "deploy": true,
-            "name": "claude-instant"
+            "name": "claude-sonnet-4-6"
           }
         },
         {
@@ -153,7 +153,7 @@ For this example, use the templates to create the following agents:
 
 ### Step 3: Create the root agents
 
-Next, create [root agents]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-tutorial/#root_agent) for agents created in the previous step.
+Next, create [root agents]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/workflow-tutorial/#root_agent) for agents created in the previous step.
 
 Create a root agent for the alert summary agent:
 
@@ -211,7 +211,7 @@ POST /_plugins/_ml/agents/{SUMMARY_AGENT_ID}/_execute
 { 
   "parameters": {
     "question": "Please summarize this alert, do not use any tool.",
-    "context": "\n            Here is the detail information about alert Error log over 100\n            ### Monitor definition\n {\"type\":\"monitor\",\"schema_version\":8,\"name\":\"loghub-apache-error-log\",\"monitor_type\":\"query_level_monitor\",\"enabled\":false,\"enabled_time\":null,\"schedule\":{\"period\":{\"interval\":1,\"unit\":\"MINUTES\"}},\"inputs\":[{\"search\":{\"indices\":[\"loghub-apache-new\"],\"query\":{\"size\":0,\"query\":{\"bool\":{\"filter\":[{\"range\":{\"Time\":{\"from\":\"10/12/24 11:21 am CST||-1000000h\",\"to\":\"10/12/24 11:21 am CST\",\"include_lower\":true,\"include_upper\":true,\"boost\":1}}},{\"term\":{\"Level\":{\"value\":\"error\",\"boost\":1}}}],\"adjust_pure_negative\":true,\"boost\":1}}}}}],\"triggers\":[{\"query_level_trigger\":{\"id\":\"NAq7fpIBRJyww-JMjwP_\",\"name\":\"Error log over 100\",\"severity\":\"1\",\"condition\":{\"script\":{\"source\":\"ctx.results[0].hits.total.value > 100\",\"lang\":\"painless\"}},\"actions\":[]}}],\"last_update_time\":1728714554388,\"owner\":\"alerting\",\"associated_workflows\":[],\"associatedCompositeMonitorCnt\":0,\"item_type\":\"query_level_monitor\",\"id\":\"NQq7fpIBRJyww-JMkAMC\",\"version\":3}\n\n            ### Active Alert\n {\"ACTIVE\":1,\"ACKNOWLEDGED\":0,\"ERROR\":0,\"total\":1,\"alerts\":[{\"id\":\"Wgq8fpIBRJyww-JMegNr\",\"monitor_id\":\"NQq7fpIBRJyww-JMkAMC\",\"workflow_id\":\"\",\"workflow_name\":\"\",\"associated_alert_ids\":[],\"schema_version\":5,\"monitor_version\":1,\"monitor_name\":\"loghub-apache-error-log\",\"execution_id\":\"NQq7fpIBRJyww-JMkAMC_2024-10-12T03:18:54.311214115_22d189ce-5e93-4927-b8bb-bcf61b7537e3\",\"trigger_id\":\"NAq7fpIBRJyww-JMjwP_\",\"trigger_name\":\"Error log over 100\",\"finding_ids\":[],\"related_doc_ids\":[],\"state\":\"ACTIVE\",\"error_message\":null,\"alert_history\":[],\"severity\":\"1\",\"action_execution_results\":[],\"start_time\":\"10/12/24 11:18 am CST\",\"last_notification_time\":\"10/12/24 11:21 am CST\",\"end_time\":null,\"acknowledged_time\":null,\"alert_source\":\"monitor\"}],\"trigger_name\":\"Error log over 100\",\"severity\":\"1\",\"start_time\":\"10/12/24 11:18 am CST\",\"last_notification_time\":\"10/12/24 11:21 am CST\",\"monitor_name\":\"loghub-apache-error-log\",\"monitor_id\":\"NQq7fpIBRJyww-JMkAMC\",\"alert_source\":\"monitor\",\"triggerID\":\"NAq7fpIBRJyww-JMjwP_\"}\n\n            ### Value triggers this alert\n 595\n\n            ### Alert query DSL {\"query\":{\"bool\":{\"filter\":[{\"range\":{\"Time\":{\"from\":\"2024-10-12T03:21:54+00:00||-1000000h\",\"to\":\"2024-10-12T03:21:54+00:00\",\"include_lower\":true,\"include_upper\":true,\"boost\":1}}},{\"term\":{\"Level\":{\"value\":\"error\",\"boost\":1}}}],\"adjust_pure_negative\":true,\"boost\":1}}} \n",
+    "context": "\n            Here is the detail information about alert Error log over 100\n            ### Monitor definition\n {\"type\":\"monitor\",\"schema_version\":8,\"name\":\"loghub-apache-error-log\",\"monitor_type\":\"query_level_monitor\",\"enabled\":false,\"enabled_time\":null,\"schedule\":{\"period\":{\"interval\":1,\"unit\":\"MINUTES\"}},\"inputs\":[{\"search\":{\"indices\":[\"loghub-apache-new\"],\"query\":{\"size\":0,\"query\":{\"bool\":{\"filter\":[{\"range\":{\"Time\":{\"from\":\"10/12/24 11:21 am CST||-1000000h\",\"to\":\"10/12/24 11:21 am CST\",\"include_lower\":true,\"include_upper\":true,\"boost\":1}}},{\"term\":{\"Level\":{\"value\":\"error\",\"boost\":1}}}],\"adjust_pure_negative\":true,\"boost\":1}}}}}],\"triggers\":[{\"query_level_trigger\":{\"id\":\"NAq7fpIBRJyww-JMjwP_\",\"name\":\"Error log over 100\",\"severity\":\"1\",\"condition\":{\"script\":{\"source\":\"ctx.results[0].hits.total.value > 100\",\"lang\":\"painless\"}},\"actions\":[]}}],\"last_update_time\":1728714554388,\"owner\":\"alerting\",\"associated_workflows\":[],\"associatedCompositeMonitorCnt\":0,\"item_type\":\"query_level_monitor\",\"id\":\"NQq7fpIBRJyww-JMkAMC\",\"version\":3}\n\n            ### Active Alert\n {\"ACTIVE\":1,\"ACKNOWLEDGED\":0,\"ERROR\":0,\"total\":1,\"alerts\":[{\"id\":\"Wgq8fpIBRJyww-JMegNr\",\"monitor_id\":\"NQq7fpIBRJyww-JMkAMC\",\"workflow_id\":\"\",\"workflow_name\":\"\",\"associated_alert_ids\":[],\"schema_version\":5,\"monitor_version\":1,\"monitor_name\":\"loghub-apache-error-log\",\"execution_id\":\"NQq7fpIBRJyww-JMkAMC_2024-10-12T03:18:54.311214115_22d189ce-5e93-4927-b8bb-bcf61b7537e3\",\"trigger_id\":\"NAq7fpIBRJyww-JMjwP_\",\"trigger_name\":\"Error log over 100\",\"finding_ids\":[],\"related_doc_ids\":[],\"state\":\"ACTIVE\",\"error_message\":null,\"alert_history\":[],\"severity\":\"1\",\"action_execution_results\":[],\"start_time\":\"10/12/24 11:18 am CST\",\"last_notification_time\":\"10/12/24 11:21 am CST\",\"end_time\":null,\"acknowledged_time\":null,\"alert_source\":\"monitor\"}],\"trigger_name\":\"Error log over 100\",\"severity\":\"1\",\"start_time\":\"10/12/24 11:18 am CST\",\"last_notification_time\":\"10/12/24 11:21 am CST\",\"monitor_name\":\"loghub-apache-error-log\",\"monitor_id\":\"NQq7fpIBRJyww-JMkAMC\",\"alert_source\":\"monitor\",\"triggerID\":\"NAq7fpIBRJyww-JMjwP_\"}\n\n            ### Value triggers this alert\n 595\n\n            ### Alert query DSL {\"query\":{\"bool\":{\"filter\":[{\"range\":{\"Time\":{\"from\":\"2024-10-12T03:21:54+00:00||-1000000h\",\"to\":\"2024-10-12T03:21:54+00:00\",\"include_lower\":true,\"include_upper\":true,\"boost\":1}}},{\"term\":{\"Level\":{\"value\":\"error\",\"boost\":1}}}],\"adjust_pure_negative\":true,\"boost\":1}}} \n"
   }
 }
 ```
@@ -239,7 +239,7 @@ POST /_plugins/_ml/agents/{ALERT_INSIGHTS_AGENT_ID}/_execute
   "parameters": {
     "question": "Please provide your insight on this alerts.",
     "context": "\n            Here is the detail information about alert Error log over 100\n            ### Monitor definition\n {\"type\":\"monitor\",\"schema_version\":8,\"name\":\"loghub-apache-error-log\",\"monitor_type\":\"query_level_monitor\",\"enabled\":false,\"enabled_time\":null,\"schedule\":{\"period\":{\"interval\":1,\"unit\":\"MINUTES\"}},\"inputs\":[{\"search\":{\"indices\":[\"loghub-apache-new\"],\"query\":{\"size\":0,\"query\":{\"bool\":{\"filter\":[{\"range\":{\"Time\":{\"from\":\"10/12/24 11:21 am CST||-1000000h\",\"to\":\"10/12/24 11:21 am CST\",\"include_lower\":true,\"include_upper\":true,\"boost\":1}}},{\"term\":{\"Level\":{\"value\":\"error\",\"boost\":1}}}],\"adjust_pure_negative\":true,\"boost\":1}}}}}],\"triggers\":[{\"query_level_trigger\":{\"id\":\"NAq7fpIBRJyww-JMjwP_\",\"name\":\"Error log over 100\",\"severity\":\"1\",\"condition\":{\"script\":{\"source\":\"ctx.results[0].hits.total.value > 100\",\"lang\":\"painless\"}},\"actions\":[]}}],\"last_update_time\":1728714554388,\"owner\":\"alerting\",\"associated_workflows\":[],\"associatedCompositeMonitorCnt\":0,\"item_type\":\"query_level_monitor\",\"id\":\"NQq7fpIBRJyww-JMkAMC\",\"version\":3}\n\n            ### Active Alert\n {\"ACTIVE\":1,\"ACKNOWLEDGED\":0,\"ERROR\":0,\"total\":1,\"alerts\":[{\"id\":\"Wgq8fpIBRJyww-JMegNr\",\"monitor_id\":\"NQq7fpIBRJyww-JMkAMC\",\"workflow_id\":\"\",\"workflow_name\":\"\",\"associated_alert_ids\":[],\"schema_version\":5,\"monitor_version\":1,\"monitor_name\":\"loghub-apache-error-log\",\"execution_id\":\"NQq7fpIBRJyww-JMkAMC_2024-10-12T03:18:54.311214115_22d189ce-5e93-4927-b8bb-bcf61b7537e3\",\"trigger_id\":\"NAq7fpIBRJyww-JMjwP_\",\"trigger_name\":\"Error log over 100\",\"finding_ids\":[],\"related_doc_ids\":[],\"state\":\"ACTIVE\",\"error_message\":null,\"alert_history\":[],\"severity\":\"1\",\"action_execution_results\":[],\"start_time\":\"10/12/24 11:18 am CST\",\"last_notification_time\":\"10/12/24 11:21 am CST\",\"end_time\":null,\"acknowledged_time\":null,\"alert_source\":\"monitor\"}],\"trigger_name\":\"Error log over 100\",\"severity\":\"1\",\"start_time\":\"10/12/24 11:18 am CST\",\"last_notification_time\":\"10/12/24 11:21 am CST\",\"monitor_name\":\"loghub-apache-error-log\",\"monitor_id\":\"NQq7fpIBRJyww-JMkAMC\",\"alert_source\":\"monitor\",\"triggerID\":\"NAq7fpIBRJyww-JMjwP_\"}\n\n            ### Value triggers this alert\n 595\n\n            ### Alert query DSL {\"query\":{\"bool\":{\"filter\":[{\"range\":{\"Time\":{\"from\":\"2024-10-12T03:21:54+00:00||-1000000h\",\"to\":\"2024-10-12T03:21:54+00:00\",\"include_lower\":true,\"include_upper\":true,\"boost\":1}}},{\"term\":{\"Level\":{\"value\":\"error\",\"boost\":1}}}],\"adjust_pure_negative\":true,\"boost\":1}}} \n",
-    "summary": <OUTPUT FROM ALERT SUMMARY AGENT>
+    "summary": "<OUTPUT FROM ALERT SUMMARY AGENT>"
   }
 }
 ```

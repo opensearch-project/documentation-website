@@ -147,7 +147,7 @@ Follow these steps to deploy the cluster, verify that it is running, access it, 
     ```
     {% include copy.html %}
 
-Single-node clusters are currently not supported. Your cluster must have at least 3 nodes with the `master` or `cluster_manager` role configured.
+Single-node clusters are not supported. Your cluster must have at least 3 nodes with the `master` or `cluster_manager` role configured.
 {: .note}
 
 ## Configuration and management

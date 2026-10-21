@@ -12,7 +12,7 @@ grand_parent: Agents and tools
 **Introduced 2.13**
 {: .label .label-purple }
 
-A conversational agent uses a large language model (LLM) and a set of supplementary tools to reason iteratively and provide a response. The agent selects the best tool for each question using the Chain-of-Thought (CoT) process and stores conversation history so that users can ask follow-up questions. Starting with OpenSearch 3.0, conversational agents use [function calling]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/register-agent/#request-body-fields) to invoke tools, replacing the earlier ReAct prompt-based approach. 
+A conversational agent uses a large language model (LLM) and a set of supplementary tools to reason iteratively and provide a response. The agent selects the best tool for each question using the Chain-of-Thought (CoT) process and stores conversation history so that users can ask follow-up questions. Conversational agents use [function calling]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/register-agent/#request-body-fields) to invoke tools. 
 
 OpenSearch provides two types of conversational agents:
 
@@ -74,7 +74,7 @@ POST /_plugins/_ml/agents/_register
   "type": "conversational_v2",
   "description": "A multimodal conversational agent",
   "model": {
-    "model_id": "us.anthropic.claude-3-7-sonnet-20250219-v1:0",
+    "model_id": "us.anthropic.claude-sonnet-4-6",
     "model_provider": "bedrock/converse",
     "credential": {
       "access_key": "<YOUR_AWS_ACCESS_KEY>",
@@ -161,34 +161,23 @@ The `conversational_v2` agent returns a standardized response format:
 
 ```json
 {
-  "inference_results": [
-    {
-      "output": [
-        {
-          "name": "response",
-          "dataAsMap": {
-            "stop_reason": "end_turn",
-            "message": {
-              "role": "assistant",
-              "content": [
-                {
-                  "text": "Based on your cluster, I found the following indexes..."
-                }
-              ]
-            },
-            "memory_id": "test_memory_id",
-            "metrics": {
-              "total_usage": {
-                "inputTokens": 1234,
-                "outputTokens": 567,
-                "totalTokens": 1801
-              }
-            }
-          }
-        }
-      ]
+  "stop_reason": "end_turn",
+  "message": {
+    "role": "assistant",
+    "content": [
+      {
+        "text": "Based on your cluster, I found the following indexes..."
+      }
+    ]
+  },
+  "memory_id": "test_memory_id",
+  "metrics": {
+    "total_usage": {
+      "inputTokens": 1234,
+      "outputTokens": 567,
+      "totalTokens": 1801
     }
-  ]
+  }
 }
 ```
 
@@ -225,7 +214,7 @@ POST /_plugins/_ml/agents/_register
   "type": "conversational",
   "description": "A conversational agent using unified registration",
   "model": {
-    "model_id": "us.anthropic.claude-3-7-sonnet-20250219-v1:0",
+    "model_id": "us.anthropic.claude-sonnet-4-6",
     "model_provider": "bedrock/converse",
     "credential": {
       "access_key": "<YOUR_AWS_ACCESS_KEY>",
@@ -252,7 +241,7 @@ The following example registers a `conversational` agent using the regular regis
 ```json
 POST /_plugins/_ml/agents/_register
 {
-  "name": "Test_Agent_For_ReAct_ClaudeV2",
+  "name": "Test_Agent_For_ReAct_Claude",
   "type": "conversational",
   "description": "This is a test agent",
   "llm": {
@@ -260,7 +249,7 @@ POST /_plugins/_ml/agents/_register
     "parameters": {
       "max_iteration": 5,
       "stop_when_no_tool_found": true,
-      "response_filter": "$.completion"
+      "response_filter": "$.content[0].text"
     }
   },
   "memory": {
@@ -304,4 +293,6 @@ To enable token usage tracking, set the `include_token_usage` parameter to `true
 - For a list of supported tools, see [Tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/).
 - For a step-by-step tutorial, see [Agents and tools tutorial]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents-tools-tutorial/).
 - For supported APIs, see [Agent APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/).
-- To use agents and tools in configuration automation, see [Automating configurations]({{site.url}}{{site.baseurl}}/automating-configurations/index/).
+- To create agents and tools using a workflow template, see [AI search workflows]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/index/).
+- For a tutorial that uses a conversational agent to build a RAG chatbot, see [RAG chatbot]({{site.url}}{{site.baseurl}}/tutorials/gen-ai/chatbots/rag-chatbot/).
+- For a tutorial that uses conversational agents to build a chatbot for OpenSearch Dashboards, see [Build your own chatbot]({{site.url}}{{site.baseurl}}/tutorials/gen-ai/chatbots/build-chatbot/).

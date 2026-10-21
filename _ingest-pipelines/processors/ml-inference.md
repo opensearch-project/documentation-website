@@ -17,7 +17,7 @@ Before using the `ml_inference` processor, you must have either a local ML model
 
 ## Syntax
 
-The following is the syntax for the `ml-inference` processor:
+The following is the syntax for the `ml_inference` processor:
 
 ```json
 {
@@ -47,7 +47,7 @@ The following is the syntax for the `ml-inference` processor:
 
 ## Configuration parameters
 
-The following table lists the required and optional parameters for the `ml-inference` processor.
+The following table lists the required and optional parameters for the `ml_inference` processor.
 
 | Parameter | Data type | Required/Optional | Description |
 |:--- | :--- | :--- | :--- |
@@ -67,7 +67,9 @@ The following table lists the required and optional parameters for the `ml-infer
 | `override` | Boolean   | Optional   | Relevant if an ingested document already contains a field with the name specified in `<new_document_field>`. If `override` is `false`, then the input field is skipped. If `true`, then the existing field value is overridden by the new model output. Default is `false`. |
 | `max_prediction_tasks`  | Integer   | Optional  | The maximum number of concurrent model invocations that can run during document ingestion. Default is `10`. |
 | `description` | String    | Optional  | A brief description of the processor. |
-| `tag` | String    | Optional | An identifier tag for the processor. Useful for debugging to distinguish between processors of the same type. |
+| `if` | String containing a Boolean expression | Optional | A condition for running the processor. |
+| `on_failure` | List | Optional | A list of processors to run if the processor fails. |
+| `tag` | String    | Optional | An identifier tag for the processor. Useful for debugging to distinguish between processors of the same type. For more information, see [Using processor tags for monitoring and debugging]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#using-processor-tags-for-monitoring-and-debugging). |
 
 The `input_map` and `output_map` mappings support standard [JSON path](https://github.com/json-path/JsonPath) notation for specifying complex data structures. 
 {: .note}
@@ -454,3 +456,9 @@ The response confirms that the processor has generated text embeddings in the `c
 
 Once you have created an ingest pipeline, you need to create an index for ingestion and ingest documents into the index.
 {: .note}
+
+## Next steps
+
+- For a complete example of generating text and image embeddings during ingestion, see [Multimodal search using ML inference processors]({{site.url}}{{site.baseurl}}/tutorials/vector-search/semantic-search/multimodal-search-ml-inference/).
+- For a complete example of detecting document language during ingestion, see [Identifying document language for multilingual search]({{site.url}}{{site.baseurl}}/tutorials/language-identification/).
+- For a complete example of generating embeddings for text chunks, see [Semantic search using text chunking]({{site.url}}{{site.baseurl}}/tutorials/vector-search/semantic-search/long-document/).

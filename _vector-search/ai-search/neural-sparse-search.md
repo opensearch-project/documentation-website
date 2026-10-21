@@ -26,7 +26,7 @@ To learn more about splitting long text into passages for neural sparse search, 
 
 ## Accelerating neural sparse search
 
-Starting with OpenSearch version 2.15, you can significantly accelerate the search process by creating a search pipeline with a `neural_sparse_two_phase_processor`. 
+You can significantly accelerate the search process by creating a search pipeline with a `neural_sparse_two_phase_processor`. 
 
 To create a search pipeline with a two-phase processor for neural sparse search, use the following request: 
 

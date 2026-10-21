@@ -21,7 +21,7 @@ Before using the `semantic` field type, you must configure either a local ML mod
 
 ## Example: Dense embedding model
 
-The `semantic` field type supports both symmetric and asymmetric embedding models. Symmetric models use the same embedding representation for both documents and queries. Asymmetric models (such as E5) encode document content as passages during ingestion and encode query text as queries at search time.
+The `semantic` field type supports both symmetric and asymmetric embedding models. Symmetric models use the same embedding representation for both documents and queries. Asymmetric models (such as E5) encode document content as passages during ingestion and encode query text as queries at search time. For a complete example, see [Semantic search using an asymmetric embedding model]({{site.url}}{{site.baseurl}}/tutorials/vector-search/semantic-search/semantic-search-asymmetric/).
 {: .note}
 
 Once you configure a model, you can use it to create an index with a `semantic` field. This example assumes that you have configured a dense embedding model with the ID `n17yX5cBsaYnPfyOzmQU` in your cluster:
@@ -163,6 +163,103 @@ GET /my-nlp-index/_mapping
 ```
 {% include copy-curl.html %}
 
+## Example: Selecting a model using a cluster setting
+
+A cluster administrator can store a model ID in a cluster setting so that `semantic` fields refer to the model using the `model_selection` parameter and do not need a `model_id`. The setting name is `plugins.neural_search.model_selection.model_id.<model_type>.<language_option>`, where `<model_type>` and `<language_option>` match the values in `model_selection`, in lowercase. For more information, see [Neural Search plugin settings]({{site.url}}{{site.baseurl}}/vector-search/settings/#neural-search-plugin-settings).
+
+This example assumes that you have deployed a sparse encoding model with the ID `nF7yX5cBsaYnPfyOq2SG` in your cluster. First, set the model ID for English sparse models:
+
+```json
+PUT /_cluster/settings
+{
+  "persistent": {
+    "plugins.neural_search.model_selection.model_id.sparse.english": "nF7yX5cBsaYnPfyOq2SG"
+  }
+}
+```
+{% include copy-curl.html %}
+
+Then create an index containing a `semantic` field that specifies `model_selection` in place of `model_id`:
+
+```json
+PUT /my-nlp-index
+{
+  "mappings": {
+    "properties": {
+      "passage": {
+        "type": "semantic",
+        "model_selection": {
+          "model_type": "sparse",
+          "language_option": "english"
+        }
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+When you create the mapping, OpenSearch resolves the model ID from the cluster setting and stores it in the field mapping. To verify the resolved `model_id`, retrieve the mapping:
+
+```json
+GET /my-nlp-index/_mapping
+```
+{% include copy-curl.html %}
+
+The response contains the resolved `model_id`. The `model_selection` values are returned in uppercase:
+
+<details markdown="block">
+  <summary>
+    Response
+  </summary>
+  {: .text-delta}
+
+```json
+{
+  "my-nlp-index": {
+    "mappings": {
+      "properties": {
+        "passage": {
+          "type": "semantic",
+          "model_id": "nF7yX5cBsaYnPfyOq2SG",
+          "raw_field_type": "text",
+          "model_selection": {
+            "language_option": "ENGLISH",
+            "model_type": "SPARSE"
+          }
+        },
+        "passage_semantic_info": {
+          "properties": {
+            "embedding": {
+              "type": "rank_features"
+            },
+            "model": {
+              "properties": {
+                "id": {
+                  "type": "text",
+                  "index": false
+                },
+                "name": {
+                  "type": "text",
+                  "index": false
+                },
+                "type": {
+                  "type": "text",
+                  "index": false
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+</details>
+
+Because the model ID is stored in the mapping, changing the cluster setting later does not affect existing fields. It applies only to mappings created or updated afterward.
+
 ## Parameters
 
 The `semantic` field type supports the following parameters.
@@ -171,7 +268,8 @@ The `semantic` field type supports the following parameters.
 |----------------------------------|--------------------------|-----------|-------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `type`                           | String                   | No        | Required          | Must be set to `semantic`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 | `raw_field_type`                 | String                   | No        | Optional          | The underlying field type wrapped by the `semantic` field. The raw input is stored as this type at the path of the `semantic` field, allowing it to behave like a standard field of that type. Valid values are `text`, `keyword`, `match_only_text`, `wildcard`, `token_count`, and `binary`. Default is `text`. You can use any parameters supported by the underlying field type; those parameters function as expected.                                                                                                                                                              |
-| `model_id`                       | String                   | Yes       | Required          | The ID of the ML model used to generate embeddings from field values during indexing and from query input during search.                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| `model_id`                       | String                   | Yes       | Required unless `model_selection` is specified | The ID of the ML model used to generate embeddings from field values during indexing and from query input during search. If you specify both `model_id` and `model_selection`, the `model_id` must match the model ID resolved from `model_selection`.                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| `model_selection`                | Map                      | Yes       | Optional          | Selects the model using a cluster setting in place of `model_id`. Contains the `model_type` (`sparse` or `dense`, default `sparse`) and `language_option` (`english` or `multilingual`, default `english`) fields. Values are case insensitive. OpenSearch resolves the model ID from the `plugins.neural_search.model_selection.model_id.<model_type>.<language_option>` [cluster setting]({{site.url}}{{site.baseurl}}/vector-search/settings/#neural-search-plugin-settings) when you create or update the mapping and stores it as the field's `model_id`. The request is rejected if the setting is not configured or if the model's type does not match `model_type`. You can specify `search_model_id` together with `model_selection`; it is used as provided. See [Example: Selecting a model using a cluster setting](#example-selecting-a-model-using-a-cluster-setting). |
 | `search_model_id`                | String                   | Yes       | Optional          | The ID of the ML model used specifically for query-time embedding generation. If not specified, the `model_id` is used. Cannot be specified together with `semantic_field_search_analyzer`.                                                                                                                                                                                                                                                                                                                                                                                            |
 | `semantic_info_field_name`       | String                   | No        | Optional          | A custom name for the internal metadata field that stores the embedding and model information. By default, this field name is derived by appending `_semantic_info` to the `semantic` field name.                                                                                                                                                                                                                                                                                                                                                                                      |
 | `chunking`                       | Boolean or Array of maps | No        | Optional          | Enables chunking of long-form text during ingestion. Set to `Yes` to use a default fixed token-length strategy, or specify a list of strategy objects to apply multiple chunking algorithms in sequence. See [Text chunking](#text-chunking).                                                                                                                                                                                                                                                                                                                                          |

@@ -23,13 +23,57 @@ Terminal document failures are recorded in two places:
 
 ## Enabling the failed document stream
 
-Setting an S3 bucket in the migration's `documentBackfillConfig` enables the stream. There is no separate enable flag and no default bucket:
+Setting an S3 bucket in the migration's `documentBackfillConfig` enables the stream. There is no separate enable flag, and the stream does not fall back to the deployment's default bucket, so you must name a bucket explicitly. Complete these steps from a Migration Console shell before you start the backfill:
 
-```yaml
-documentBackfillConfig:
-  failedDocumentStreamS3Bucket: my-failed-documents-bucket
-```
-{% include copy.html %}
+1. Choose a bucket. On Amazon EKS, you can use the deployment's default bucket, `migrations-default-<ACCOUNT_ID>-<STAGE>-<REGION>`, to which Migration Assistant can write. The following command lists the default bucket for every Migration Assistant deployment in the account, so choose the one that matches your stage and Region:
+
+   ```bash
+   aws s3 ls | grep migrations-default
+   ```
+   {% include copy.html %}
+
+   Alternatively, create a bucket in the same AWS account:
+
+   ```bash
+   aws s3 mb s3://<BUCKET_NAME> --region <REGION>
+   ```
+   {% include copy.html %}
+
+1. Open the workflow configuration:
+
+   ```bash
+   workflow configure edit
+   ```
+   {% include copy.html %}
+
+1. Add the bucket to each migration's `documentBackfillConfig` and then save:
+
+   ```yaml
+   snapshotMigrationConfigs:
+     - ...
+       perSnapshotConfig:
+         snap1:
+           - documentBackfillConfig:
+               failedDocumentStreamS3Bucket: <BUCKET_NAME>
+   ```
+   {% include copy.html %}
+
+1. Submit the workflow:
+
+   ```bash
+   workflow submit
+   ```
+   {% include copy.html %}
+
+1. After the backfill starts, confirm the stream location:
+
+   ```bash
+   console failed-document-stream location
+   ```
+   {% include copy.html %}
+
+To use a bucket in another AWS account or a bucket encrypted with a KMS key that you manage, also grant the Migration Assistant pod role access in the bucket policy or KMS key policy. On Amazon EKS, uninstalling Migration Assistant empties and deletes the default bucket by default. Copy any records that you want to keep before uninstalling Migration Assistant.
+{: .note }
 
 The following table lists the options that configure the failed document stream.
 
@@ -44,47 +88,37 @@ The following table lists the options that configure the failed document stream.
 The console reports the session root:
 
 ```
-s3://<bucket>/<prefix>session=<SnapshotMigration-UID>/
+s3://<bucket>/<prefix>session=<migration-UID>/
 ```
 
 The individual gzip-compressed NDJSON objects are stored beneath that root:
 
 ```
-s3://<bucket>/<prefix>session=<SnapshotMigration-UID>/index=<targetIndex>/worker=<workerId>/failed-document-stream-<timestamp>-<sequence>.ndjson.gz
+s3://<bucket>/<prefix>session=<migration-UID>/index=<targetIndex>/worker=<workerId>/failed-document-stream-<timestamp>-<sequence>.ndjson.gz
 ```
 
 ## Checking whether any documents failed
 
-Run a deep status check from a Migration Console shell:
+After the backfill finishes, run the following commands from a Migration Console shell:
 
 ```bash
-console backfill status --deep-check
+workflow status
 ```
 {% include copy.html %}
 
-The output reports the failed document stream location and indicates whether any failures are present:
-
-```
-...
-failed document stream location: s3://my-bucket/rfs-failed-document-stream/session=abc-123/
-Failed documents present: yes
-```
-
-The status command reports whether failures exist but not how many. Counting requires reading every failed document record, which is unbounded work on a large failure set. To retrieve the number of failed documents, use `console failed-document-stream count`, described in [Inspecting failed documents](#inspecting-failed-documents).
-
-In JSON mode, the same check adds the `failed_document_stream_location` and `failed_documents_present` fields:
-
 ```bash
-console --json backfill status --deep-check
+console failed-document-stream count
 ```
 {% include copy.html %}
+
+A count greater than `0` means that documents failed. `workflow status` can report the backfill as completed even when documents failed, so check the count rather than relying on the workflow status alone.
 
 {: .note }
 > If the stream is configured but cannot be read, for example, because of missing S3 permissions, the console command fails rather than reporting no failures.
 
 ## Inspecting failed documents
 
-Run the following commands from a Migration Console shell. When more than one `SnapshotMigration` exists, add `--migration <name>` to select one:
+Run the following commands from a Migration Console shell. When more than one migration exists, add `--migration <name>` to select one:
 
 ```bash
 # S3 location for the current session
@@ -93,7 +127,8 @@ console failed-document-stream location
 # Count of distinct failed documents
 console failed-document-stream count
 
-# List failures (columns: timestamp, targetIndex, documentId, failureClass, failureType)
+# List failures as tab-separated rows without a header
+# (columns: timestamp, targetIndex, documentId, failureClass, failureType)
 console failed-document-stream list --limit 100
 
 # Full records as JSON, including the captured request item and the OpenSearch response
@@ -107,9 +142,14 @@ The following table lists the fields included in each record.
 | :-- | :-- |
 | `targetIndex` | The index the document was being written to. |
 | `documentId` | The document's ID. |
-| `failureClass` | How the document reached the stream (for example, non-retryable, or `retryable` retries exhausted). |
+| `failureClass` | How the document reached the stream: `NON_RETRYABLE` for errors that are never retried, or `RETRYABLE_EXHAUSTED` when retries were exhausted. |
 | `failureType` | The OpenSearch error type, for example `mapper_parsing_exception`. |
-| `requestItem` | The captured bulk request item. When the original source document is available, that source content is stored here so you can diagnose or resubmit without going back to the source cluster. |
+| `timestamp` | The time when the failure was recorded. |
+| `sessionId` | The session the record belongs to. This matches the migration UID in the stream location. |
+| `workerId` | The RFS worker that produced the failure. |
+| `workItemId` | The shard work item that produced the failure. |
+| `requestItem` | The captured bulk request item. When the original source document is available, the source content is stored under `document` so you can diagnose the problem or resubmit the request without retrieving the document from the source cluster. |
+| `responseItem` | The OpenSearch bulk response item, including the error type and reason. |
 
 A document can appear in the stream more than once, so the console deduplicates records on read by `targetIndex` and `documentId`. Counts therefore reflect the number of distinct failed documents.
 
@@ -140,10 +180,10 @@ The `console --json failed-document-stream list` output contains each failed doc
 
 ## Deleting failed document records
 
-The `backfill reset` command archives working state and preserves the failed document stream by default. To also delete the current session's records, add `--include-failed-document-stream`. This deletion is irreversible:
+The Migration Console doesn't provide a command to delete failed document records. To delete the current session's records, remove the session location returned by the `console failed-document-stream location` command. This deletion is irreversible:
 
 ```bash
-console backfill reset --include-failed-document-stream
+aws s3 rm --recursive s3://<BUCKET>/<PREFIX>session=<migration-UID>/
 ```
 {% include copy.html %}
 

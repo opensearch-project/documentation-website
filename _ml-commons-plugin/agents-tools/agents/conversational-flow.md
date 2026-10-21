@@ -44,18 +44,14 @@ POST /_plugins/_ml/agents/_register
       "description": "A general tool to answer any question",
       "parameters": {
         "model_id": "YOUR_LLM_MODEL_ID",
-        "prompt": """
-
-Human:You are a professional data analyst. You will always answer question based on the given context first. If the answer is not directly shown in the context, you will analyze the data and find the answer. If you don't know the answer, just say don't know. 
+        "prompt": """You are a professional data analyst. You will always answer question based on the given context first. If the answer is not directly shown in the context, you will analyze the data and find the answer. If you don't know the answer, just say don't know. 
 
 Context:
 ${parameters.population_knowledge_base.output:-}
 
 ${parameters.chat_history:-}
 
-Human:${parameters.question}
-
-Assistant:"""
+Question: ${parameters.question}"""
       }
     }
   ]
@@ -71,7 +67,7 @@ For a step-by-step tutorial, see [Agents and tools tutorial]({{site.url}}{{site.
 **Introduced 3.8**
 {: .label .label-purple }
 
-Starting in OpenSearch 3.8, conversational flow agents can call external MCP server tools in a fixed pipeline alongside OpenSearch tools such as `MLModelTool`. Configure `parameters.mcp_connectors` and declare each MCP tool explicitly in the `tools` array using `McpStreamableHttpTool` or `McpSseTool`. For setup steps and examples, see [Using MCP tools with flow agents and conversational flow agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/mcp/mcp-connector/#flow-agents-and-conversational-flow-agents).
+Conversational flow agents can call external MCP server tools in a fixed pipeline alongside OpenSearch tools such as `MLModelTool`. Configure `parameters.mcp_connectors` and declare each MCP tool explicitly in the `tools` array using `McpStreamableHttpTool` or `McpSseTool`. For setup steps and examples, see [Using MCP tools with flow agents and conversational flow agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/mcp/mcp-connector/#flow-agents-and-conversational-flow-agents).
 
 ## Next steps
 
@@ -79,4 +75,5 @@ Starting in OpenSearch 3.8, conversational flow agents can call external MCP ser
 - For a list of supported tools, see [Tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/).
 - For a step-by-step tutorial, see [Agents and tools tutorial]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents-tools-tutorial/).
 - For supported APIs, see [Agent APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/).
-- To use agents and tools in configuration automation, see [Automating configurations]({{site.url}}{{site.baseurl}}/automating-configurations/index/).
+- To create agents and tools using a workflow template, see [AI search workflows]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/index/).
+- For a tutorial that uses a conversational flow agent to build a RAG chatbot, see [RAG chatbot with a conversational flow agent]({{site.url}}{{site.baseurl}}/tutorials/gen-ai/chatbots/rag-conversational-agent/).

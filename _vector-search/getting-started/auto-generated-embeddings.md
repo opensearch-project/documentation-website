@@ -9,11 +9,6 @@ nav_order: 30
 
 You can generate embeddings dynamically during ingestion within OpenSearch. This method provides a simplified workflow by converting data to vectors automatically.
 
-OpenSearch can automatically generate embeddings from your text data using two approaches:
-
-- [**Manual setup**](#manual-setup) (Recommended for custom configurations): Configure each component individually for full control over the implementation.
-- [**Automated workflow**](#using-automated-workflows) (Recommended for quick setup): Use defaults and workflows for quick implementation with minimal configuration.
-
 ## Prerequisites
 
 For this simple setup, you'll use an OpenSearch-provided machine learning (ML) model and a cluster with no dedicated ML nodes. To ensure that this basic local setup works, send the following request to update ML-related cluster settings:
@@ -49,11 +44,7 @@ Take note of the dimensionality of the model because you'll need it when you set
 **Token limits and truncation**: Text embedding models have maximum token limits (typically 512 tokens for BERT-based models). When a document exceeds this limit, the model automatically truncates the text, and the truncated content is not represented in the embeddings. This can significantly impact search relevance because documents may not be returned in search results if the relevant content was truncated. To avoid this issue, split long documents into smaller chunks before generating embeddings. 
 {: .warning}
 
-## Manual setup
-
-For more control over the configuration, you can set up each component manually using the following steps.
-
-### Step 1: Register and deploy the model 
+## Step 1: Register and deploy the model 
 
 To register and deploy the model, send the following request:
 
@@ -102,7 +93,7 @@ Once the task is complete, the task state will change to `COMPLETED` and the ML 
 
 You'll need the model ID in order to use this model for several of the following steps.
 
-### Step 2: Create an ingest pipeline
+## Step 2: Create an ingest pipeline
 
 First, you need to create an [ingest pipeline]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/) that contains one processor: a task that transforms document fields before documents are ingested into an index. You'll set up a `text_embedding` processor that creates vector embeddings from text. You'll need the `model_id` of the model you set up in the previous section and a `field_map`, which specifies the name of the field from which to take the text (`passage`) and the name of the field in which to record embeddings (`passage_embedding`):
 
@@ -124,9 +115,9 @@ PUT /_ingest/pipeline/nlp-ingest-pipeline
 ```
 {% include copy-curl.html %}
 
-### Step 3: Create a vector index
+## Step 3: Create a vector index
 
-Now you'll create a vector index by setting `index.knn` to `true`. In the index, the field named `passage` contains an image description, and a [`knn_vector`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-vector/) field named `passage_embedding` contains the vector embedding of the text. The vector field `dimension` must match the dimensionality of the model you configured in Step 2. Additionally, set the default ingest pipeline to the `nlp-ingest-pipeline` you created in the previous step:
+Now you'll create a vector index by setting `index.knn` to `true`. In the index, the field named `passage` contains an image description, and a [`knn_vector`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-vector/) field named `passage_embedding` contains the vector embedding of the text. The vector field `dimension` must match the dimensionality of the model you configured in Step 1. Additionally, set the default ingest pipeline to the `nlp-ingest-pipeline` you created in the previous step:
 
 
 ```json
@@ -154,9 +145,9 @@ PUT /my-nlp-index
 
 Setting up a vector index allows you to later perform a vector search on the `passage_embedding` field.
 
-### Step 4: Ingest documents into the index
+## Step 4: Ingest documents into the index
 
-In this step, you'll ingest several sample documents into the index. The sample data is taken from the [Flickr image dataset](https://www.kaggle.com/datasets/hsankesara/flickr-image-dataset). Each document contains a `passage` field corresponding to the image description and an `id` field corresponding to the image ID:
+In this step, you'll ingest several sample documents into the index. The sample data is taken from the [Flickr image dataset](https://www.kaggle.com/datasets/hsankesara/flickr-image-dataset). Each document contains a `passage` field corresponding to the image description:
 
 ```json
 PUT /my-nlp-index/_doc/1
@@ -182,7 +173,7 @@ PUT /my-nlp-index/_doc/3
 ```
 {% include copy-curl.html %}
 
-### Step 5: Search the data
+## Step 5: Search the data
 
 Now you'll search the index using semantic search. To automatically generate vector embeddings from query text, use a `neural` query and provide the model ID of the model you set up earlier so that vector embeddings for the query text are generated with the model used at ingestion time:
 
@@ -255,69 +246,8 @@ The response contains the matching documents:
 }
 ```
 
-## Using automated workflows
-
-You can quickly set up automatic embedding generation using [_automated workflows_]({{site.url}}{{site.baseurl}}/automating-configurations/). This approach automatically creates and provisions all necessary resources. For more information, see [Workflow templates]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-templates/).
-
-You can use automated workflows to create and deploy externally hosted models and create resources for various AI search types. In this example, you'll create the same search you've already created following manual steps.
-
-### Step 1: Register and deploy the model
-
-To register and deploy a model, select the built-in workflow template for the model provider. For more information, see [Supported workflow templates]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-templates/#supported-workflow-templates). Alternatively, to configure a custom model, use [Step 1 of the manual setup](#step-1-register-and-deploy-the-model). Note the model ID; you'll use it in the next step.
-
-### Step 2: Configure a workflow
-
-Create and provision a semantic search workflow. You must provide the model ID for the model deployed in the previous step. Review your selected workflow template [defaults](https://github.com/opensearch-project/flow-framework/blob/2.13/src/main/resources/defaults/semantic-search-defaults.json) to determine whether you need to update any of the parameters. For example, if the model dimensionality is different from the default (`1024`), specify the dimensionality of your model in the `output_dimension` parameter. Change the workflow template default text field from `passage_text` to `passage` in order to match the manual example:
-
-```json
-POST /_plugins/_flow_framework/workflow?use_case=semantic_search&provision=true
-{
-    "create_ingest_pipeline.model_id" : "aVeif4oB5Vm0Tdw8zYO2",
-    "text_embedding.field_map.output.dimension": "768",
-    "text_embedding.field_map.input": "passage"
-}
-```
-{% include copy-curl.html %}
-
-OpenSearch responds with a workflow ID for the created workflow:
-
-```json
-{
-  "workflow_id" : "U_nMXJUBq_4FYQzMOS4B"
-}
-```
-
-To check the workflow status, send the following request:
-
-```json
-GET /_plugins/_flow_framework/workflow/U_nMXJUBq_4FYQzMOS4B/_status
-```
-{% include copy-curl.html %}
-
-Once the workflow completes, the `state` changes to `COMPLETED`. The workflow has created an ingest pipeline and an index called `my-nlp-index`:
-
-```json
-{
-  "workflow_id": "U_nMXJUBq_4FYQzMOS4B",
-  "state": "COMPLETED",
-  "resources_created": [
-    {
-      "workflow_step_id": "create_ingest_pipeline",
-      "workflow_step_name": "create_ingest_pipeline",
-      "resource_id": "nlp-ingest-pipeline",
-      "resource_type": "pipeline_id"
-    },
-    {
-      "workflow_step_name": "create_index",
-      "workflow_step_id": "create_index",
-      "resource_id": "my-nlp-index",
-      "resource_type": "index_name"
-    }
-  ]
-}
-```
-
-You can now continue with [steps 4 and 5](#step-4-ingest-documents-into-the-index) to ingest documents into the index and search the index.
+To deploy an externally hosted model in one step, you can use a [model deployment workflow template]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/workflow-templates/#model-deployment-templates). To create the ingest pipeline and index in one step, you can use the [semantic search workflow template]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/workflow-templates/#semantic-search).
+{: .tip}
 
 ## Next steps
 

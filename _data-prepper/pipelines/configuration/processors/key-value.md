@@ -59,7 +59,7 @@ kv-basic-pipeline:
         hosts: ["https://opensearch:9200"]
         insecure: true
         username: admin
-        password: admin_password
+        password: "<custom-admin-password>"
         index_type: custom
         index: kv-basic-%{yyyy.MM.dd}
 ```
@@ -150,7 +150,7 @@ kv-grouping-pipeline:
         hosts: ["https://opensearch:9200"]
         insecure: true
         username: admin
-        password: "admin_pass"
+        password: "<custom-admin-password>"
         index_type: custom
         index: "kv-regex-%{yyyy.MM.dd}"
 ```
@@ -257,7 +257,7 @@ kv-conditional-recursive-pipeline:
         hosts: ["https://opensearch:9200"]
         insecure: true
         username: admin
-        password: "admin_pass"
+        password: "<custom-admin-password>"
         index_type: custom
         index: "kv-recursive-%{yyyy.MM.dd}"
 ```

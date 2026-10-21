@@ -205,7 +205,7 @@ If you plan to run ANN search on dynamically mapped vector fields, set `index.kn
 
 ### Dynamic templates
 
-You can reference `knn_vector` as the `match_mapping_type` in a [dynamic template]({{site.url}}{{site.baseurl}}/mappings/#dynamic-mapping). When OpenSearch first encounters a matching field, it maps the field as a `knn_vector` using the mapping block you provide:
+You can reference `knn_vector` as the `match_mapping_type` in a [dynamic template]({{site.url}}{{site.baseurl}}/mappings/dynamic-templates/). When OpenSearch first encounters a matching field, it maps the field as a `knn_vector` using the mapping block you provide:
 
 ```json
 PUT /knn-dyn-template

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Getting Started
+title: Getting started
 parent: Trace analytics
 nav_order: 1
 redirect_from:

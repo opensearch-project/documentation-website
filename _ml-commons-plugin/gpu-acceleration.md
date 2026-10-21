@@ -13,7 +13,7 @@ When running a natural language processing (NLP) model in your OpenSearch cluste
 
 ## Supported GPUs
 
-Currently, ML nodes support the following GPU instances:
+ML nodes support the following GPU instances:
 
 - [NVIDIA instances with CUDA 11.6](https://aws.amazon.com/nvidia/)
 - [AWS Inferentia](https://aws.amazon.com/machine-learning/inferentia/)
@@ -26,7 +26,7 @@ You can use GPU acceleration with both [Docker images](https://gitlab.com/nvidia
 
 ## PyTorch
 
-GPU-accelerated ML nodes require [PyTorch](https://pytorch.org/docs/stable/index.html) 1.12.1 work with ML models.
+GPU-accelerated ML nodes require [PyTorch](https://pytorch.org/docs/stable/index.html) 1.12.1 to work with ML models.
 
 ## Setting up a GPU-accelerated ML node
 
@@ -279,7 +279,7 @@ If the previous two scripts do not provision your GPU-accelerated node properly,
    ```
 
 
-5. To make sure you have enough memory to upload a model, increase the JVM stack size to `>+2MB`:
+5. To make sure you have enough memory to upload a model, increase the JVM stack size to at least 2 MB:
 
    ```bash
    echo "-Xss2m" | sudo tee -a $OPENSEARCH_HOME/config/jvm.options
@@ -302,7 +302,7 @@ To troubleshoot the max file descriptors error, run the following command:
 echo "$(whoami) - nofile 65535" | sudo tee -a /etc/security/limits.conf
 ```
 
-To fix the `vm.max_map_count` error, run this command to increase the count to `262114`:
+To fix the `vm.max_map_count` error, run this command to increase the count to `262144`:
 
 ```bash
 sudo sysctl -w vm.max_map_count=262144

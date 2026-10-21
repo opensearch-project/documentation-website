@@ -10,9 +10,9 @@ nav_order: 20
 **Introduced 2.13**
 {: .label .label-purple }
 
-When an agent is executed, it runs the tools with which it is configured. Starting with OpenSearch version 3.0, you can execute an agent asynchronously by setting the `async` query parameter to `true`.
+When an agent is executed, it runs the tools with which it is configured. You can execute an agent asynchronously by setting the `async` query parameter to `true`.
 
-Starting with OpenSearch 3.5, agents created using the [unified registration method]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/#unified-registration-method) support a standardized `input` field that accepts plain text, multimodal content, or message-based conversations. This requires the `plugins.ml_commons.unified_agent_api_enabled` cluster setting to be enabled.
+Agents created using the [unified registration method]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/#unified-registration-method) support a standardized `input` field that accepts plain text, multimodal content, or message-based conversations. This requires the `plugins.ml_commons.unified_agent_api_enabled` cluster setting to be enabled.
 {: .note}
 
 ## Endpoints
@@ -26,7 +26,7 @@ POST /_plugins/_ml/agents/{agent_id}/_execute
 The following table lists the available query parameters.
 
 Parameter | Data type | Required/Optional | Description
-:---  | :--- | :--- 
+:---  | :--- | :--- | :---
 `async` | Boolean | Optional | If `true`, executes the agent asynchronously and returns a `task_id` to track execution. To check the status of the task, use the [Get ML Task API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/). Default is `false`.
 
 ## Request body fields
@@ -70,6 +70,7 @@ POST /_plugins/_ml/agents/879v9YwBjWKCe6Kg12Tx/_execute
     {
       "output": [
         {
+          "name": "MLModelTool",
           "result": """ Based on the given context, the key information is:
 
 The metro area population of Seattle in 2021 was 3,461,000.
@@ -96,8 +97,8 @@ The following table lists the base response fields for agent execution.
 | `inference_results` | Array | Contains the agent's execution results. |
 | `inference_results.output` | Array | Contains output objects with name-value pairs. |
 | `inference_results.output.name` | String | The output field name. Common values: `response`, `memory_id`, `parent_interaction_id`, `token_usage`. |
-| `inference_results.output.result` | String | The output value for simple string results (present when `name` is `response`, `memory_id`, or `parent_interaction_id`). |
-| `inference_results.output.dataAsMap` | Object | The output value for structured results. See [Token usage response fields](#token-usage-response-fields) and [The `conversational_v2` agent response format](#the-conversational_v2-agent-response-format). |
+| `inference_results.output.result` | String | The output value for simple string results (present when `name` is `memory_id` or `parent_interaction_id`, or the name of a tool whose output a flow agent returns). |
+| `inference_results.output.dataAsMap` | Object | The output value for structured results. For a `response` output of a conversational agent, contains the `response` text and an `additional_info` object. For a `token_usage` output, see [Token usage response fields](#token-usage-response-fields). |
 
 ## Unified agent execution
 **Introduced 3.5**
@@ -128,7 +129,15 @@ POST /_plugins/_ml/agents/{agent_id}/_execute
     {
       "output": [
         {
-          "result": "I have access to the following tools:\n\n1. ListIndexTool - Lists all indices in the cluster\n2. SearchIndexTool - Searches within OpenSearch indices\n3. IndexMappingTool - Retrieves index mapping information"
+          "name": "memory_id",
+          "result": "iEgpJZwBZx9B0F4spD5v"
+        },
+        {
+          "name": "response",
+          "dataAsMap": {
+            "response": "I have access to the following tools:\n\n1. ListIndexTool - Lists all indices in the cluster\n2. SearchIndexTool - Searches within OpenSearch indices\n3. IndexMappingTool - Retrieves index mapping information",
+            "additional_info": {}
+          }
         }
       ]
     }
@@ -171,9 +180,11 @@ The following table lists the supported content types.
 | Content type | Description | Fields |
 | :--- | :--- | :--- |
 | `text` | Plain text content | `text`: The text string.|
-| `image` | Image data | `image.type`: The source type. Valid value is `base64`. <br>`image.format`: The image format (for example, `jpeg`, `png`, `gif`, or `webp`).<br>`image.data`: Base64-encoded image data. |
-| `video` | Video data | `video.type`: The source type. Valid value is `base64`. <br>`video.format`: The video format (for example, `mp4`, `mov`, or `avi`).<br>`video.data`: Base64-encoded video data. |
-| `document` | Document data | `document.type`: The source type. Valid value is `base64`. <br>`document.format`: The document format (for example, `pdf`, `docx`, or `txt`).<br>`document.data`: Base64-encoded document data. |
+| `image` | Image data | `source.type`: The source type. Valid value is `base64`. <br>`source.format`: The image format (for example, `jpeg`, `png`, `gif`, or `webp`).<br>`source.data`: Base64-encoded image data. |
+| `video` | Video data | `source.type`: The source type. Valid value is `base64`. <br>`source.format`: The video format (for example, `mp4`, `mov`, or `avi`).<br>`source.data`: Base64-encoded video data. |
+| `document` | Document data | `source.type`: The source type. Valid value is `base64`. <br>`source.format`: The document format (for example, `pdf`, `docx`, or `txt`).<br>`source.data`: Base64-encoded document data. |
+
+Content type support depends on the model provider. OpenAI models do not accept `video` or `document` content.
 
 ### Message-based conversations
 
@@ -223,8 +234,10 @@ The following table lists the supported message fields.
 
 | Field | Data type | Required/Optional | Description |
 | :--- | :--- | :--- | :--- |
-| `role` | String | Required | The message role. Valid values: `user`, `assistant`. |
+| `role` | String | Required | The message role. Valid values: `user`, `assistant`, `system`, and `tool`. |
 | `content` | Array | Required | An array of content blocks (text, image, and so on). |
+| `toolCalls` | Array | Optional | For `assistant` messages, the tool calls requested by the assistant. Each tool call contains an `id`, a `type` (default is `function`), and a `function` object containing the tool `name` and its `arguments` as a JSON-encoded string. |
+| `toolCallId` | String | Optional | For `tool` messages, the ID of the tool call whose result the message contains. |
 
 #### Example response: Message-based conversation
 
@@ -232,61 +245,49 @@ The agent remembers context from previous messages:
 
 ```json
 {
-  "inference_results": [
-    {
-      "output": [
-        {
-          "name": "memory_id",
-          "result": "iEgpJZwBZx9B0F4spD5v"
-        },
-        {
-          "name": "parent_interaction_id",
-          "result": "ikgpJZwBZx9B0F4spT61"
-        },
-        {
-          "name": "response",
-          "result": "You like the color red, which you mentioned earlier in our conversation."
-        }
-      ]
+  "stop_reason": "end_turn",
+  "message": {
+    "role": "assistant",
+    "content": [
+      {
+        "text": "You like the color red, which you mentioned earlier in our conversation."
+      }
+    ]
+  },
+  "memory_id": "iEgpJZwBZx9B0F4spD5v",
+  "metrics": {
+    "total_usage": {
+      "inputTokens": 764,
+      "outputTokens": 18,
+      "totalTokens": 782
     }
-  ]
+  }
 }
 ```
 
 ### The `conversational_v2` agent response format
 
-The `conversational_v2` agents return the following standardized response format:
+The `conversational_v2` agents return the following standardized response format. The fields are at the top level of the response body:
 
 ```json
 {
-  "inference_results": [
-    {
-      "output": [
-        {
-          "name": "response",
-          "dataAsMap": {
-            "stop_reason": "end_turn",
-            "message": {
-              "role": "assistant",
-              "content": [
-                {
-                  "text": "Here is what I found..."
-                }
-              ]
-            },
-            "memory_id": "abc123xyz",
-            "metrics": {
-              "total_usage": {
-                "inputTokens": 1234,
-                "outputTokens": 567,
-                "totalTokens": 1801
-              }
-            }
-          }
-        }
-      ]
+  "stop_reason": "end_turn",
+  "message": {
+    "role": "assistant",
+    "content": [
+      {
+        "text": "Here is what I found..."
+      }
+    ]
+  },
+  "memory_id": "abc123xyz",
+  "metrics": {
+    "total_usage": {
+      "inputTokens": 1234,
+      "outputTokens": 567,
+      "totalTokens": 1801
     }
-  ]
+  }
 }
 ```
 
@@ -294,7 +295,7 @@ The following table lists the `conversational_v2` agent response fields.
 
 | Field | Data type | Description |
 | :--- | :--- | :--- |
-| `stop_reason` | String | The reason the agent stopped generating a response. Valid values are `end_turn` (normal completion), `max_iterations` (iteration limit reached), and `tool_use` (stopped while invoking a tool). |
+| `stop_reason` | String | The reason the agent stopped generating a response. Valid values are `end_turn` (normal completion) and `max_iterations` (iteration limit reached). |
 | `message` | Object | The assistant's final response message. |
 | `message.role` | String | Always `assistant`. |
 | `message.content` | Array | An array of content blocks containing the response text or other content. |
@@ -360,8 +361,17 @@ POST /_plugins/_ml/agents/{agent_id}/_execute
     {
       "output": [
         {
+          "name": "memory_id",
+          "result": "lD3rP6EBrGbhC91R6B01"
+        },
+        {
+          "name": "parent_interaction_id",
+          "result": "lT3rP6EBrGbhC91R6B1D"
+        },
+        {
           "name": "response",
-          "result": """ Based on the given context, the key information is:
+          "dataAsMap": {
+            "response": """ Based on the given context, the key information is:
 
 The metro area population of Seattle in 2021 was 3,461,000.
 The metro area population of Seattle in 2023 is 3,519,000.
@@ -370,7 +380,9 @@ To calculate the population increase from 2021 to 2023:
 
 Population in 2023 (3,519,000) - Population in 2021 (3,461,000) = 58,000
 
-Therefore, the population increase of Seattle from 2021 to 2023 is 58,000."""
+Therefore, the population increase of Seattle from 2021 to 2023 is 58,000.""",
+            "additional_info": {}
+          }
         },
         {
           "name": "token_usage",

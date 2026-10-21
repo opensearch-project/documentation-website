@@ -107,7 +107,7 @@ For information about choosing a model, see [Further reading](#further-reading).
 
 ### Step 2: Register and deploy the model 
 
-To register and deploy the model, provide the model group ID in the register request:
+To register and deploy the model, send the following request:
 
 ```json
 POST /_plugins/_ml/models/_register?deploy=true
@@ -165,58 +165,6 @@ For detailed information about all possible response formats during different de
   </summary>
   {: .text-delta}
 
-Search for the newly created model by providing its ID in the request:
-
-```json
-GET /_plugins/_ml/models/aVeif4oB5Vm0Tdw8zYO2
-```
-{% include copy-curl.html %}
-
-The response contains the model:
-
-```json
-{
-  "name": "huggingface/sentence-transformers/msmarco-distilbert-base-tas-b",
-  "model_group_id": "Z1eQf4oB5Vm0Tdw8EIP2",
-  "algorithm": "TEXT_EMBEDDING",
-  "model_version": "1",
-  "model_format": "TORCH_SCRIPT",
-  "model_state": "REGISTERED",
-  "model_content_size_in_bytes": 266352827,
-  "model_content_hash_value": "acdc81b652b83121f914c5912ae27c0fca8fabf270e6f191ace6979a19830413",
-  "model_config": {
-    "model_type": "distilbert",
-    "embedding_dimension": 768,
-    "framework_type": "SENTENCE_TRANSFORMERS",
-    "all_config": """{"_name_or_path":"old_models/msmarco-distilbert-base-tas-b/0_Transformer","activation":"gelu","architectures":["DistilBertModel"],"attention_dropout":0.1,"dim":768,"dropout":0.1,"hidden_dim":3072,"initializer_range":0.02,"max_position_embeddings":512,"model_type":"distilbert","n_heads":12,"n_layers":6,"pad_token_id":0,"qa_dropout":0.1,"seq_classif_dropout":0.2,"sinusoidal_pos_embds":false,"tie_weights_":true,"transformers_version":"4.7.0","vocab_size":30522}"""
-  },
-  "created_time": 1694482261832,
-  "last_updated_time": 1694482324282,
-  "last_registered_time": 1694482270216,
-  "last_deployed_time": 1694482324282,
-  "total_chunks": 27,
-  "planning_worker_node_count": 1,
-  "current_worker_node_count": 1,
-  "planning_worker_nodes": [
-    "4p6FVOmJRtu3wehDD74hzQ"
-  ],
-  "deploy_to_all_nodes": true
-}
-```
-
-The response contains the model information. You can see that the `model_state` is `REGISTERED`. Additionally, the model was split into 27 chunks, as shown in the `total_chunks` field.
-</details>
-
-#### Advanced: Registering a custom model
-
-To register a custom model, you must provide a model configuration in the register request. For more information, see [Using ML models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/using-ml-models/).
-
-<details markdown="block">
-  <summary>
-    Test it
-  </summary>
-  {: .text-delta}
-
 Search for the deployed model by providing its ID in the request:
 
 ```json
@@ -224,7 +172,7 @@ GET /_plugins/_ml/models/aVeif4oB5Vm0Tdw8zYO2
 ```
 {% include copy-curl.html %}
 
-The response shows the model state as `DEPLOYED`:
+The response contains the model information. The `model_state` is `DEPLOYED`, and the `total_chunks` field shows that the model was split into 27 chunks. The `model_group_id` field contains the ID of the model group that OpenSearch created for the model when you registered it:
 
 ```json
 {
@@ -234,34 +182,45 @@ The response shows the model state as `DEPLOYED`:
   "model_version": "1",
   "model_format": "TORCH_SCRIPT",
   "model_state": "DEPLOYED",
-  "model_content_size_in_bytes": 266352827,
-  "model_content_hash_value": "acdc81b652b83121f914c5912ae27c0fca8fabf270e6f191ace6979a19830413",
+  "model_content_size_in_bytes": 266357253,
+  "model_content_hash_value": "2fcc51bd52df9bd55f0d46007b80663dc6014687a321d23c00508a08d9c86d86",
   "model_config": {
     "model_type": "distilbert",
     "embedding_dimension": 768,
     "framework_type": "SENTENCE_TRANSFORMERS",
-    "all_config": """{"_name_or_path":"old_models/msmarco-distilbert-base-tas-b/0_Transformer","activation":"gelu","architectures":["DistilBertModel"],"attention_dropout":0.1,"dim":768,"dropout":0.1,"hidden_dim":3072,"initializer_range":0.02,"max_position_embeddings":512,"model_type":"distilbert","n_heads":12,"n_layers":6,"pad_token_id":0,"qa_dropout":0.1,"seq_classif_dropout":0.2,"sinusoidal_pos_embds":false,"tie_weights_":true,"transformers_version":"4.7.0","vocab_size":30522}"""
+    "all_config": """{"_name_or_path": "sentence-transformers/msmarco-distilbert-base-tas-b", "activation": "gelu", "architectures": ["DistilBertModel"], "attention_dropout": 0.1, "dim": 768, "dropout": 0.1, "hidden_dim": 3072, "initializer_range": 0.02, "max_position_embeddings": 512, "model_type": "distilbert", "n_heads": 12, "n_layers": 6, "pad_token_id": 0, "qa_dropout": 0.1, "seq_classif_dropout": 0.2, "sinusoidal_pos_embds": false, "tie_weights_": true, "torch_dtype": "float32", "transformers_version": "4.49.0", "vocab_size": 30522}""",
+    "additional_config": {
+      "space_type": "innerproduct"
+    },
+    "pooling_mode": "CLS"
   },
   "created_time": 1694482261832,
   "last_updated_time": 1694482324282,
   "last_registered_time": 1694482270216,
   "last_deployed_time": 1694482324282,
+  "auto_redeploy_retry_times": 0,
   "total_chunks": 27,
   "planning_worker_node_count": 1,
   "current_worker_node_count": 1,
   "planning_worker_nodes": [
     "4p6FVOmJRtu3wehDD74hzQ"
   ],
-  "deploy_to_all_nodes": true
+  "deploy_to_all_nodes": true,
+  "is_hidden": false
 }
 ```
 
-You can also receive statistics for all deployed models in your cluster by sending a [Models Profile API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/profile/) request:
+To get statistics for all deployed models in your cluster, send a [Models Profile API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/profile/) request:
 
 ```json
 GET /_plugins/_ml/profile/models
 ```
+{% include copy-curl.html %}
 </details>
+
+#### Advanced: Registering a custom model
+
+To register a custom model, you must provide a model configuration in the register request. For more information, see [Using ML models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/using-ml-models/).
 
 ### Step 3: Ingest data
 
@@ -326,7 +285,6 @@ The response contains the ingest pipeline:
 #### Step 3(b): Create a vector index
 
 Now you'll create a vector index with a field named `text`, which contains an image description, and a [`knn_vector`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-vector/) field named `passage_embedding`, which contains the vector embedding of the text. Additionally, set the default ingest pipeline to the `nlp-ingest-pipeline` you created in the previous step:
-
 
 ```json
 PUT /my-nlp-index
@@ -506,12 +464,12 @@ Document 3 is not returned because it does not contain the specified keywords. D
       "value": 4,
       "relation": "eq"
     },
-    "max_score": 1.7878418,
+    "max_score": 0.8126553,
     "hits": [
       {
         "_index": "my-nlp-index",
         "_id": "1",
-        "_score": 1.7878418,
+        "_score": 0.8126553,
         "_source": {
           "text": "A West Virginia university women 's basketball team , officials , and a small gathering of fans are in a West Virginia arena .",
           "id": "4319130149.jpg"
@@ -520,7 +478,7 @@ Document 3 is not returned because it does not contain the specified keywords. D
       {
         "_index": "my-nlp-index",
         "_id": "2",
-        "_score": 0.58093566,
+        "_score": 0.2640617,
         "_source": {
           "text": "A wild animal races across an uncut field with a minimal amount of trees .",
           "id": "1775029934.jpg"
@@ -529,7 +487,7 @@ Document 3 is not returned because it does not contain the specified keywords. D
       {
         "_index": "my-nlp-index",
         "_id": "5",
-        "_score": 0.55228686,
+        "_score": 0.25103948,
         "_source": {
           "text": "A rodeo cowboy , wearing a cowboy hat , is being thrown off of a wild white horse .",
           "id": "2691147709.jpg"
@@ -538,7 +496,7 @@ Document 3 is not returned because it does not contain the specified keywords. D
       {
         "_index": "my-nlp-index",
         "_id": "4",
-        "_score": 0.53899646,
+        "_score": 0.2449984,
         "_source": {
           "text": "A man who is riding a wild horse in the rodeo is very near to falling off .",
           "id": "4427058951.jpg"
@@ -614,7 +572,7 @@ This time, the response not only contains all five documents, but the document o
         "_id": "2",
         "_score": 0.015748845,
         "_source": {
-          "text": "A wild animal races across an uncut field with a minimal amount of trees.",
+          "text": "A wild animal races across an uncut field with a minimal amount of trees .",
           "id": "1775029934.jpg"
         }
       },
@@ -693,7 +651,7 @@ You'll use the [`hybrid` query]({{site.url}}{{site.baseurl}}/query-dsl/compound/
 GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
 {
   "_source": {
-    "exclude": [
+    "excludes": [
       "passage_embedding"
     ]
   },
@@ -771,7 +729,7 @@ Not only does OpenSearch return documents that match the semantic meaning of `wi
         "_id": "2",
         "_score": 0.6839765,
         "_source": {
-          "text": "A wild animal races across an uncut field with a minimal amount of trees.",
+          "text": "A wild animal races across an uncut field with a minimal amount of trees .",
           "id": "1775029934.jpg"
         }
       },
@@ -815,52 +773,6 @@ You can now experiment with different weights, normalization techniques, and com
 
 You can parameterize the search by using search templates. Search templates hide implementation details, reducing the number of nested levels and thus the query complexity. For more information, see [search templates]({{site.url}}{{site.baseurl}}/search-plugins/search-template/).
 
-## Using automated workflows
-
-You can quickly set up semantic or hybrid search using [_automated workflows_]({{site.url}}{{site.baseurl}}/automating-configurations/). This approach automatically creates and provisions all necessary resources. For more information, see [Workflow templates]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-templates/).
-
-### Automated semantic search setup
-
-OpenSearch provides a [workflow template]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-templates/) that automatically registers and deploys a default local model (`huggingface/sentence-transformers/paraphrase-MiniLM-L3-v2`) and creates an ingest pipeline and a vector index: 
-
-```json
-POST /_plugins/_flow_framework/workflow?use_case=semantic_search_with_local_model&provision=true
-```
-{% include copy-curl.html %}
-
-Review the semantic search workflow template [defaults](https://github.com/opensearch-project/flow-framework/blob/main/src/main/resources/defaults/semantic-search-with-local-model-defaults.json) to determine whether you need to update any of the parameters. For example, if you want to use a different model, specify the model name in the request body:
-
-```json
-POST /_plugins/_flow_framework/workflow?use_case=semantic_search_with_local_model&provision=true
-{
-  "register_local_pretrained_model.name": "huggingface/sentence-transformers/msmarco-distilbert-base-tas-b"
-}
-```
-{% include copy-curl.html %}
-
-OpenSearch responds with a workflow ID for the created workflow:
-
-```json
-{
-  "workflow_id" : "U_nMXJUBq_4FYQzMOS4B"
-}
-```
-
-To check the workflow status, send the following request:
-
-```json
-GET /_plugins/_flow_framework/workflow/U_nMXJUBq_4FYQzMOS4B/_status
-```
-{% include copy-curl.html %}
-
-Once the workflow completes, the `state` changes to `COMPLETED`. The workflow runs the following steps:
-
-1. [Step 2](#step-2-register-and-deploy-the-model) to register and deploy the model.
-1. [Step 3(a)](#step-3a-create-an-ingest-pipeline) to create an ingest pipeline.
-1. [Step 3(b)](#step-3b-create-a-vector-index) to create a vector index.
-
-You can now continue with [Step 3(c)](#step-3c-ingest-documents-into-the-index) to ingest documents into the index and [Step 4](#step-4-search-the-data) to search your data.
-
 ## Clean up
 
 After you're done, delete the components you've created in this tutorial from the cluster:
@@ -890,6 +802,8 @@ DELETE /_plugins/_ml/models/aVeif4oB5Vm0Tdw8zYO2
 ```
 {% include copy-curl.html %}
 
+To delete the model group, provide the `model_group_id` returned when you retrieved the model in [Step 2](#step-2-register-and-deploy-the-model):
+
 ```json
 DELETE /_plugins/_ml/model_groups/Z1eQf4oB5Vm0Tdw8EIP2
 ```
@@ -903,3 +817,4 @@ DELETE /_plugins/_ml/model_groups/Z1eQf4oB5Vm0Tdw8EIP2
 ## Next steps
 
 - Explore [AI search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/index/) in OpenSearch.
+- To create the model, ingest pipeline, and vector index in a single request, use a workflow template. For more information, see [Workflow templates]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/workflow-templates/#semantic-search-using-a-local-model).

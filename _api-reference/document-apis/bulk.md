@@ -15,7 +15,7 @@ The Bulk API performs multiple indexing, update, or delete operations in a singl
 
 The Bulk API uses a newline-delimited JSON (NDJSON) structure for the request body. Each action is specified on one line, and if the action requires source data (such as for `index`, `create`, or `update` operations), the source data is provided on the following line. This format enables OpenSearch to quickly parse and process actions without reading the entire request body into memory.
 
-Beginning in OpenSearch 2.9, when indexing documents using the bulk operation, the document `_id` must be 512 bytes or less in size.
+When indexing documents using the bulk operation, the document `_id` must be 512 bytes or less in size.
 {: .note}
 
 Use the Bulk API for the following purposes:

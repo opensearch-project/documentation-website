@@ -115,19 +115,19 @@ if (score > 99) {
 #### Trigger variables
 
 Variable | Data type | Description
-:--- | :--- | : ---
+:--- | :--- | :---
 `ctx.trigger.id` | String | The trigger ID.
 `ctx.trigger.name` | String | The trigger name.
 `ctx.trigger.severity` | String | The trigger severity.
 `ctx.trigger.condition`| Object | Contains the Painless script used when the monitor was created.
-`ctx.trigger.condition.script.source` | String | The language used to define the script. Must be Painless.
-`ctx.trigger.condition.script.lang` | String | The script used to define the trigger.
+`ctx.trigger.condition.script.source` | String | The script used to define the trigger.
+`ctx.trigger.condition.script.lang` | String | The language used to define the script. Must be Painless.
 `ctx.trigger.actions`| Array | An array with one element that contains information about the action the monitor needs to trigger.
 
 #### Other variables
 
 Variable | Data type | Description
-:--- | :--- | : ---
+:--- | :--- | :---
 `ctx.results` | Array | An array with one element (`ctx.results.0`). Contains the query results. This variable is empty if the trigger is unable to retrieve results. See `ctx.error`.
 `ctx.last_update_time` | Milliseconds | Unix epoch time of when the monitor was last updated.
 `ctx.periodStart` | String | Unix timestamp for the beginning of the period during which the alert was triggered. For example, if a monitor runs every 10 minutes, a period might begin at 10:40 and end at 10:50.
@@ -153,7 +153,7 @@ An alerting monitor uses the permissions of the user that created it. Be mindful
 #### Sample document variables
 
 Variable | Data type | Description
-:--- | :--- | : ---
+:--- | :--- | :---
 `_index` | String | The index containing the sample document.
 `_id` | String | The sample document ID.
 `_score` | Float | A positive 32-bit floating-point number illustrating the relevance of the returned document.
@@ -179,7 +179,7 @@ Alerts:
 #### Associated query variables
 
 Variable | Data type | Description
-:--- | :--- | : ---
+:--- | :--- | :---
 `id` | String | The ID of the document-level query.
 `name` | String | The name of the document-level query.
 `tags` | Array | An array of tags (each of type String) configured for the document-level query.

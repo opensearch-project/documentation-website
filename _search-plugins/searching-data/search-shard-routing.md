@@ -18,6 +18,8 @@ In order to improve latency, search requests are routed using _adaptive replica 
 - The latency between the coordinating node and the selected node.
 - The queue size of the node's search thread pool.
 
+OpenSearch uses adaptive replica selection only for searches that do not specify a [`preference`](#node-and-shard-selection-during-searches) value. Adaptive replica selection is also not used if weighted shard routing is configured or if shard allocation awareness attributes are set and the `cluster.search.ignore_awareness_attributes` setting is `false`. In these cases, OpenSearch routes searches based on the routing weights or awareness attributes. For more information, see [Cluster-level search settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/cluster-settings/#cluster-level-search-settings).
+
 If you have permissions to call the OpenSearch REST APIs, you can turn off search shard routing. For more information about REST API user access, see [REST management API settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/security-settings/#rest-management-api-settings). To disable search shard routing, update the cluster settings as follows:
 
 ```json
@@ -40,6 +42,8 @@ OpenSearch uses all nodes to choose the best routing for search requests. Howeve
 - Using cached previous searches.
 - Dedicating specific hardware to searches.
 - Using only local nodes for searches.
+
+Routing searches to specific shard copies can create hotspots because the search load is no longer distributed evenly across the cluster. Use the `preference` parameter only when the benefits, such as better cache use, outweigh this cost.
 
 You can use the `preference` parameter in the search query to indicate the search destination. The following is a complete list of available options:
 
@@ -71,7 +75,7 @@ You can use the `preference` parameter in the search query to indicate the searc
     ```
     {% include copy-curl.html %}
 
-5. `_only_nodes:<node-id>,<node-id>`: Limits the search to execute only on specific nodes according to their IDs.
+5. `_only_nodes:<node-id>,<node-id>`: Limits the search to execute only on specific nodes. You can specify nodes using any [node specification]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/index/#node-filters), such as node IDs, node names, wildcard patterns like `data-node-*`, or node attributes like `zone:us-east-1a`. If none of the specified nodes contain a copy of a shard, the search fails.
 
     ```json
     GET /my-index/_search?preference=_only_nodes:node-1,node-2
@@ -85,7 +89,7 @@ You can use the `preference` parameter in the search query to indicate the searc
     ```
     {% include copy-curl.html %}
 
-7. `_shards:<shard-id>,<shard-id>`: Limits the search to specific shards.
+7. `_shards:<shard-id>,<shard-id>`: Limits the search to specific shards. You can combine `_shards` with another preference value by separating them with a pipe character (`|`), for example, `_shards:0,1|_local`. The `_shards` value must come first.
 
     ```json
     GET /my-index/_search?preference=_shards:0,1
@@ -99,18 +103,36 @@ You can use the `preference` parameter in the search query to indicate the searc
     ```
     {% include copy-curl.html %}
 
-9. Custom string: You can use any custom string as the preference value. This custom string ensures that requests containing the same string are routed to the same shards consistently, which can be useful for caching.
+9. `_only_local`: Executes the search only on shard copies allocated to the local node.
+
+    ```json
+    GET /my-index/_search?preference=_only_local
+    ```
+    {% include copy-curl.html %}
+
+10. `_search_replica`: Executes the search only on [search replicas]({{site.url}}{{site.baseurl}}/tuning-your-cluster/separate-index-and-search-workloads/), which are hosted on nodes with the `search` role. If the index has no search replicas, the search fails.
+
+    ```json
+    GET /my-index/_search?preference=_search_replica
+    ```
+    {% include copy-curl.html %}
+
+11. Custom string: You can use any custom string as the preference value. OpenSearch routes requests that contain the same string to the same shard copies, which can be useful for caching. The string must not start with an underscore (`_`). A session ID or user name is a good choice so that each user's searches use the same shard copies. The routing stays consistent only while the cluster state doesn't change: if shards are relocated or a node fails, the same string can be routed to different shard copies.
 
     ```json
     GET /my-index/_search?preference=custom_string
     ```
     {% include copy-curl.html %}
 
+The `_only_local` value guarantees that the search uses only the shard copies on the local node, which makes it useful for troubleshooting a specific node. Other `preference` values do not fully guarantee which shard copies serve the search. Because shard copies can be in different refresh states, repeating a search on an index that is being updated can return different results if the search is served by different copies.
+{: .note}
+
 ## Custom routing during index and search
 
 You can specify routing during both indexing and search operations.
 
 ### Routing during indexing
+
 When you index a document, OpenSearch calculates a hash of the routing value and uses this hash to determine the shard on which the document will be stored. If you don't specify a routing value, OpenSearch uses the document ID to calculate the hash.
 
 The following is an example index operation with a routing value:
@@ -156,7 +178,7 @@ Caution needs to be exercised when using custom routing in order to prevent hot 
 
 Hitting a large number of shards simultaneously during a search can significantly impact CPU and memory consumption. By default, OpenSearch does not reject these requests. However, there are a number of methods that you can use to mitigate this risk. The following sections describe these methods.
 
-### Limit the number of shards that can be queried concurrently
+### Limiting the number of shards that can be queried concurrently
 
 You can use the `max_concurrent_shard_requests` parameter in the search request to limit the number of shards that can be queried concurrently. For example, the following request limits the number of concurrent shard requests to `12`:
 
@@ -171,7 +193,7 @@ GET /index1/_search?max_concurrent_shard_requests=12
 {% include copy-curl.html %}
 
 
-### Define a search shard count limit
+### Defining a search shard count limit
 
 You can define the dynamic `action.search.shard_count.limit` setting either in your `opensearch.yml` file or by using the REST API. Any search request that exceeds this limit will be rejected and throw an error. This helps to prevent a single search request from consuming too many resources, which can degrade the performance of the entire cluster. The following example request updates this cluster setting using the API:
 
@@ -185,20 +207,22 @@ PUT /_cluster/settings
 ```
 {% include copy-curl.html %}
 
-### Search thread pool
+### Configuring the search thread pool
 
 OpenSearch uses thread pools to manage the execution of various tasks, including search operations. The search thread pool is specifically used for search requests. You can adjust the size and queue capacity of the search thread pool by adding the following settings to `opensearch.yml`:
-```
+
+```yaml
 thread_pool.search.size: 100
 thread_pool.search.queue_size: 1000
 ```
+
 This setting is static. For more information about how to configure dynamic and static settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
 
 #### Thread pool states
 
 The following three states describe thread pool operations:
 
- - _Thread Assignment_: If there are available threads in the search thread pool, then the request is immediately assigned to a thread and begins processing.
+ - _Thread assignment_: If there are available threads in the search thread pool, then the request is immediately assigned to a thread and begins processing.
 
  - _Queueing_: If all threads in the search thread pool are busy, then the request is placed in the queue.
 

@@ -167,7 +167,7 @@ PUT /_search/pipeline/my-conversation-search-pipeline-openai
     {
       "retrieval_augmented_generation": {
         "tag": "Demo pipeline",
-        "description": "Demo pipeline Using Cohere",
+        "description": "Demo pipeline Using OpenAI",
         "model_id": "your_model_id_created_in_step1",
         "context_field_list": [
           "text"
@@ -224,12 +224,12 @@ The response contains the model answer and related document:
       "value": 6,
       "relation": "eq"
     },
-    "max_score": 9.042081,
+    "max_score": 4.110037,
     "hits": [
       {
         "_index": "qa_demo",
         "_id": "2",
-        "_score": 9.042081,
+        "_score": 4.110037,
         "_source": {
           "text": "Chart and table of population level and growth rate for the New York City metro area from 1950 to 2023. United Nations population projections are also included through the year 2035.\\nThe current metro area population of New York City in 2023 is 18,937,000, a 0.37% increase from 2022.\\nThe metro area population of New York City in 2022 was 18,867,000, a 0.23% increase from 2021.\\nThe metro area population of New York City in 2021 was 18,823,000, a 0.1% increase from 2020.\\nThe metro area population of New York City in 2020 was 18,804,000, a 0.01% decline from 2019."
         }
@@ -243,7 +243,6 @@ The response contains the model answer and related document:
   }
 }
 ```
-{% include copy-curl.html %}
 
 ## Step 3: Configure conversational search
 
@@ -311,12 +310,12 @@ Follow these steps to configure conversational search by storing conversation hi
         "value": 6,
         "relation": "eq"
         },
-        "max_score": 9.042081,
+        "max_score": 4.110037,
         "hits": [
         {
             "_index": "qa_demo",
             "_id": "2",
-            "_score": 9.042081,
+            "_score": 4.110037,
             "_source": {
             "text": "Chart and table of population level and growth rate for the New York City metro area from 1950 to 2023. United Nations population projections are also included through the year 2035.\\nThe current metro area population of New York City in 2023 is 18,937,000, a 0.37% increase from 2022.\\nThe metro area population of New York City in 2022 was 18,867,000, a 0.23% increase from 2021.\\nThe metro area population of New York City in 2021 was 18,823,000, a 0.1% increase from 2020.\\nThe metro area population of New York City in 2020 was 18,804,000, a 0.01% decline from 2019."
             }
@@ -376,12 +375,12 @@ Follow these steps to configure conversational search by storing conversation hi
         "value": 6,
         "relation": "eq"
         },
-        "max_score": 3.6660428,
+        "max_score": 1.666383,
         "hits": [
         {
             "_index": "qa_demo",
             "_id": "4",
-            "_score": 3.6660428,
+            "_score": 1.666383,
             "_source": {
             "text": "Chart and table of population level and growth rate for the Miami metro area from 1950 to 2023. United Nations population projections are also included through the year 2035.\\nThe current metro area population of Miami in 2023 is 6,265,000, a 0.8% increase from 2022.\\nThe metro area population of Miami in 2022 was 6,215,000, a 0.78% increase from 2021.\\nThe metro area population of Miami in 2021 was 6,167,000, a 0.74% increase from 2020.\\nThe metro area population of Miami in 2020 was 6,122,000, a 0.71% increase from 2019."
             }
@@ -396,3 +395,10 @@ Follow these steps to configure conversational search by storing conversation hi
     }
     }
     ```
+
+## Related documentation
+
+- [Conversational search with RAG]({{site.url}}{{site.baseurl}}/vector-search/ai-search/conversational-search/)
+- [Retrieval-augmented generation processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rag-processor/)
+- [Connectors for third-party ML platforms]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/)
+- [Memory APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/memory-apis/)

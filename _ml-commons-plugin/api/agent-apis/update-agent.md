@@ -36,10 +36,11 @@ Field | Data type | Agent type | Description
 `description` | String | All | A description of the agent. 
 `tools` | Array | All | A list of tools for the agent to execute. 
 `app_type` | String | All | Specifies an optional agent category.
-`memory.type` | String | `conversational_flow`, `conversational` | Specifies where to store the conversational memory. Currently, the only supported type is `conversation_index` (store the memory in a conversational system index).
+`memory.type` | String | `conversational_flow`, `conversational` | Specifies where to store the conversational memory. The only supported type is `conversation_index` (store the memory in a conversational system index).
 `llm.model_id` | String | `conversational` | The model ID of the large language model (LLM) to send questions to.
 `llm.parameters.response_filter` | String | `conversational` | The pattern for parsing the LLM response.
 `llm.parameters.max_iteration` | Integer | `conversational` | The maximum number of messages to send to the LLM.
+`parameters` | Object | All | Agent parameters. The parameters you provide are merged with the existing agent parameters, overwriting parameters that have the same name.
 
 ## Example request: Update tool prompt
 
@@ -70,6 +71,7 @@ PUT /_plugins/_ml/agents/N8AE1osB0jLkkocYjz7D
     "_id": "ryN5jpcBfY4uTYhorKvh",
     "_version": 2,
     "result": "updated",
+    "forced_refresh": true,
     "_shards": {
         "total": 1,
         "successful": 1,

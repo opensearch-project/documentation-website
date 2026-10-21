@@ -18,10 +18,13 @@ If model access control is disabled on your cluster, users with the `delete mode
 Admin users can delete any model group.
 {: .note}
 
-When you delete the last model version in a model group, that model group is automatically deleted from the index.
-{: .important}
-
 For more information, see [Model access control]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control/).
+
+## Endpoints
+
+```json
+DELETE /_plugins/_ml/model_groups/{model_group_id}
+```
 
 ## Example request
 
@@ -38,8 +41,9 @@ DELETE _plugins/_ml/model_groups/{model_group_id}
   "_id": "l8nnQogByXnLJ-QNpEk2",
   "_version": 5,
   "result": "deleted",
+  "forced_refresh": true,
   "_shards": {
-    "total": 2,
+    "total": 1,
     "successful": 1,
     "failed": 0
   },

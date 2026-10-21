@@ -218,8 +218,7 @@ GET /products/_explain/1?q=name:laptop
 response = client.explain(
   id = "1",
   index = "products",
-  params = { "q": "name:laptop" },
-  body = { "Insert body here" }
+  params = { "q": "name:laptop" }
 )
 
 {% endcapture %}

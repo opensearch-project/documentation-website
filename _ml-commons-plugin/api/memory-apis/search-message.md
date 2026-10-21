@@ -32,12 +32,11 @@ Parameter | Data type | Description
 
 ## Response body fields
 
-The following table lists the available response fields.
+The response uses the standard OpenSearch search response format. The `_id` of each hit is the message ID. The following table lists the fields in the `_source` object of each element in the `hits` array.
 
 | Field | Data type | Description |
 | :--- | :--- | :--- |
 | `memory_id` | String | The memory ID. |
-| `message_id` | String | The message ID. |
 | `create_time` | String | The time at which the message was created. |
 | `updated_time` | String | The time at which the message was last updated. |
 | `input` | String | The question in the message (human input). |

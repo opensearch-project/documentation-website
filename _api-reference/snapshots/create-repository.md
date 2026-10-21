@@ -1,46 +1,63 @@
 ---
 layout: default
-title: Register snapshot repository
+title: Create or update snapshot repository
 parent: Snapshot APIs
-nav_order: 1
+nav_order: 10
 ---
 
-# Registering Or Updating A Snapshot Repository API
+# Create or Update Snapshot Repository API
 **Introduced 1.0**
 {: .label .label-purple }
 
-
-You can register a new repository in which to store snapshots or update information for an existing repository by using the snapshots API.
+Registers a new snapshot repository or updates an existing one.
 
 Snapshot repositories can be of the following types:
 
-* File system (`fs`): For instructions on creating an `fs` repository, see [Register repository shared file system]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/#shared-file-system).
+* File system (`fs`): For more information about creating an `fs` repository, see [Register repository shared file system]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/#shared-file-system).
 
-* Amazon Simple Storage Service (Amazon S3) bucket (`s3`): For instructions on creating an `s3` repository, see [Register repository Amazon S3]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/#amazon-s3).
+* Amazon Simple Storage Service (Amazon S3) bucket (`s3`): For more information about creating an `s3` repository, see [Register repository Amazon S3]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/#amazon-s3).
 
-* Hadoop Distributed File System (HDFS) (`hdfs`): For instructions on creating an `hdfs` repository, see [Register an HDFS repository]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/#hdfs).
+* Hadoop Distributed File System (HDFS) (`hdfs`): For more information about creating an `hdfs` repository, see [Register an HDFS repository]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/#hdfs).
 
-For instructions on creating a repository, see [Register repository]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore/#register-repository).
+For more information about creating a repository, see [Register repository]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/#register-repository).
+
+To update an existing repository, send a request containing the repository's full definition. The new settings replace all existing settings, so any setting that you don't include in the request is reset to its default value.
+
+Because the snapshot format can change between major versions, we recommend registering a separate repository for each major version of OpenSearch. For more information, see [Sharing a repository between clusters]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/#sharing-a-repository-between-clusters).
 
 ## Endpoints
 
 ```json
-POST /_snapshot/{repository}/ 
-PUT /_snapshot/{repository}/
+POST /_snapshot/{repository}
+PUT /_snapshot/{repository}
 ```
 
 ## Path parameters
 
+The following table lists the available path parameters.
+
 Parameter | Data type | Description
 :--- | :--- | :---
-`repository` | String | Repository name |
+`repository` | String | The repository name.
 
-## Request parameters
+## Query parameters
 
-Request parameters depend on the type of repository:
-  - `fs`
-  - `s3`
-  - `hdfs`
+The following table lists the available query parameters. All query parameters are optional.
+
+Parameter | Data type | Description
+:--- | :--- | :---
+`cluster_manager_timeout` | Time | The amount of time to wait for a response from the cluster manager node. Default is `30s`.
+`timeout` | Time | The amount of time to wait for a response. Default is `30s`.
+`verify` | Boolean | Whether to verify that the repository is accessible from all cluster manager and data nodes before registering it. If `false`, OpenSearch registers the repository without checking it. To verify the repository later, use the [Verify Snapshot Repository API]({{site.url}}{{site.baseurl}}/api-reference/snapshots/verify-snapshot-repository/). Default is `true`.
+
+## Request body fields
+
+The following table lists the available request body fields.
+
+Field | Data type | Description
+:--- | :--- | :---
+`type` | String | The repository type. Valid values are `fs`, `s3`, `hdfs`, `azure`, and `url`. The `s3`, `hdfs`, and `azure` types require the corresponding repository plugin. For information about `azure` repositories, see [Microsoft Azure]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/#set-up-microsoft-azure-blob-storage). Required.
+`settings` | Object | The repository settings. The valid settings depend on the repository type and are listed in the following sections. Required.
 
 ### Common parameters
 
@@ -65,48 +82,51 @@ The following values are supported in the `shard_path_type` setting:
 ### fs repository
 <!-- vale on -->
 
+The following table lists the request fields for `fs` repositories.
+
 Request field | Description
 :--- | :---
-`location` | The file system directory for snapshots, such as a mounted directory from a file server or a Samba share. Must be accessible by all nodes. Required.
-`chunk_size` | Breaks large files into chunks during snapshot operations (e.g. `64mb`, `1gb`), which is important for cloud storage providers and far less important for shared file systems. Default is `null` (unlimited). Optional.
+`location` | The file system directory for snapshots, such as a mounted directory from a file server or a Samba share. The file system must be mounted at the same path on all cluster manager and data nodes, and the location must be listed in the `path.repo` setting. A relative path is resolved against the first `path.repo` directory. Required.
+`chunk_size` | Breaks large files into chunks during snapshot operations (for example, `64mb` or `1gb`), which is important for cloud storage providers and far less important for shared file systems. Default is `null` (unlimited). Optional.
 `compress` | Whether to compress metadata files. This setting does not affect data files, which might already be compressed, depending on your index settings. Default is `false`. Optional.
-`max_restore_bytes_per_sec` | The maximum rate at which snapshots are restored. Default is `0` (unlimited). The restore rate is also subject to `indices.recovery.max_bytes_per_sec` (by default, `40mb`). Optional.
-`max_snapshot_bytes_per_sec` | The maximum rate at which snapshots are taken. Default is 40 MB per second (`40mb`). Optional.
-`remote_store_index_shallow_copy` | Determines whether the snapshot of the remote store indexes are captured as a shallow copy. Default is `false`.
+`max_restore_bytes_per_sec` | The maximum rate per node at which snapshots are restored. Default is `0` (unlimited). The restore rate is also subject to `indices.recovery.max_bytes_per_sec` (by default, `40mb`). Optional.
+`max_snapshot_bytes_per_sec` | The maximum rate per node at which snapshots are taken. Default is 40 MB per second (`40mb`). Optional.
+`remote_store_index_shallow_copy` | Determines whether the snapshots of the remote store indexes are captured as shallow copies. Default is `false`.
 `shallow_snapshot_v2` | Determines whether the snapshots of the remote store indexes are captured as a [shallow copy v2]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/snapshot-interoperability/#shallow-snapshot-v2). Default is `false`.
-`readonly` | Whether the repository is read-only. Useful when migrating from one cluster (`"readonly": false` when registering) to another cluster (`"readonly": true` when registering). Optional.
-
+`readonly` | Whether the repository is read-only. A read-only repository can list and restore snapshots but can't create them. If you register the same repository on multiple clusters, only one cluster should write to it, and all other clusters should register it with `readonly` set to `true`. For more information, see [Sharing a repository between clusters]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/#sharing-a-repository-between-clusters). Default is `false`. Optional.
 
 <!-- vale off -->
 ### s3 repository
 <!-- vale on -->
 
-| Request field                               | Description                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-|:--------------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+The following table lists the request fields for `s3` repositories.
+
+| Request field | Description |
+| :--- | :--- |
 | `base_path` | The path within the bucket in which you want to store snapshots (for example, `my/snapshot/directory`). Do not include the `s3://` prefix. Optional. If not specified, snapshots are stored in the S3 bucket root. |
 | `bucket` | The name of the S3 bucket, without the `s3://` prefix. Required. |
 | `region` | The AWS Region in which the S3 bucket is located. Optional. If missing, values of `s3.client.default.region` from `opensearch.yml` are used. |
-| `endpoint` | The S3 bucket endpoint. Optional. Required if `region` is set for OpenSearch 2.9 and later. For example, for `us-west-2`, use `https://s3.us-west-2.amazonaws.com`. If missing, values of `s3.client.default.endpoint` from `opensearch.yml` are used. |
+| `endpoint` | The S3 bucket endpoint. If not specified, the value of `s3.client.default.endpoint` from `opensearch.yml` is used. If neither is set, the endpoint is determined from the `region`. Set this field when you use an S3-compatible storage service or need a specific endpoint, for example, `https://s3.us-west-2.amazonaws.com` for `us-west-2`. Optional. |
 | `buffer_size` | The threshold beyond which chunks (of `chunk_size`) should be broken into pieces (of `buffer_size`) and sent to S3 using a different API. Default is the smaller of two values: 100 MB or 5% of the Java heap. Valid values are between `5mb` and `5gb`. We don't recommend changing this option. |
 | `canned_acl` | S3 has several [canned ACLs](https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl) that the `repository-s3` plugin can add to objects as it creates them in S3. Default is `private`. Optional. |
 | `chunk_size` | Breaks files into chunks during snapshot operations (for example, `64mb`, `1gb`), which is important for cloud storage providers and far less important for shared file systems. Default is `1gb`. Optional. |
 | `client` | When specifying client settings (for example, `s3.client.default.access_key`), you can use a string other than `default` (for example, `s3.client.backup-role.access_key`). If you used an alternate name, change this value to match. Default and recommended value is `default`. Optional. |
 | `compress` | Whether to compress metadata files. This setting does not affect data files, which might already be compressed, depending on your index settings. Default is `false`. Optional. |
 | `disable_chunked_encoding` | Disables chunked encoding for compatibility with some storage services. Default is `false`. Optional. |
-| `max_restore_bytes_per_sec` | The maximum rate at which snapshots are restored. Default is `0` (unlimited). The restore rate is also subject to `indices.recovery.max_bytes_per_sec` (by default, `40mb`). Optional. |
-| `max_snapshot_bytes_per_sec` | The maximum rate at which snapshots are taken. Default is 40 MB per second (`40mb`). Optional. |
-| `readonly` | Whether the repository is read-only. Useful when migrating from one cluster (`"readonly": false` when registering) to another cluster (`"readonly": true` when registering). Optional. |
-| `remote_store_index_shallow_copy` | Determines whether the snapshot of the remote store indexes is captured as a shallow copy. Default is `false`.
+| `max_restore_bytes_per_sec` | The maximum rate per node at which snapshots are restored. Default is `0` (unlimited). The restore rate is also subject to `indices.recovery.max_bytes_per_sec` (by default, `40mb`). Optional. |
+| `max_snapshot_bytes_per_sec` | The maximum rate per node at which snapshots are taken. Default is 40 MB per second (`40mb`). Optional. |
+| `readonly` | Whether the repository is read-only. A read-only repository can list and restore snapshots but can't create them. If you register the same repository on multiple clusters, only one cluster should write to it, and all other clusters should register it with `readonly` set to `true`. For more information, see [Sharing a repository between clusters]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/#sharing-a-repository-between-clusters). Default is `false`. Optional. |
+| `remote_store_index_shallow_copy` | Determines whether the snapshots of the remote store indexes are captured as shallow copies. Default is `false`.
 | `s3_async_client_type` | The asynchronous HTTP client that the `repository-s3` plugin uses when it uploads data to this repository. Valid values are `crt` (the AWS Common Runtime client) and `netty` (the Netty NIO client). For more information, see [s3_async_client_type](#s3_async_client_type). Default is `crt`. Optional. |
 | `shallow_snapshot_v2` | Determines whether the snapshots of the remote store indexes are captured as a [shallow copy v2]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/snapshot-interoperability/#shallow-snapshot-v2). Default is `false`.
-| `storage_class` | Specifies the [S3 storage class](https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html) for the snapshot files. Default is `standard`. Do not use the `glacier` and `deep_archive` storage classes. Optional.                                                                                                                                                                                                                  |
+| `storage_class` | Specifies the [S3 storage class](https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html) for the snapshot files. Default is `standard`. Do not use the `glacier` and `deep_archive` storage classes. Optional. |
 | `server_side_encryption_type` | Specifies the S3 server-side encryption types. Supported values are `AES256` ([SSE-S3](https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingServerSideEncryption.html)), `aws:kms` ([SSE-AWS Key Management Service (KMS)](https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingKMSEncryption.html)), and `bucket_default` ([bucket default encryption](https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucket-encryption.html)). Default is `bucket_default`. |
-| `server_side_encryption_kms_key_id` | Specifies the AWS KMS key to be used if [S3 SSE-KMS](https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingKMSEncryption.html) is selected by setting the `aws:kms` encryption type. Required if `aws:kms` is set as the `server_side_encryption_type`.                                                                                                                                                                                               |
-| `server_side_encryption_bucket_key_enabled` | Specifies whether [S3 Bucket Keys](https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucket-key.html) should be used when using [S3 SSE-KMS](https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingKMSEncryption.html). Optional.                                                                                                                                                                                                              |
-| `server_side_encryption_encryption_context` | Specifies any additional [encryption context](https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingKMSEncryption.html#encryption-context) that should be used when using [S3 SSE-KMS](https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingKMSEncryption.html). This setting value must be formatted as a JSON object. Optional.                                                                                                            |
-| `expected_bucket_owner` | Specifies the AWS account ID of the expected S3 bucket owner. This setting can be used for [verifying bucket ownership](https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucket-owner-condition.html). Optional.                                                                                                                                                                                                                              |
+| `server_side_encryption_kms_key_id` | Specifies the AWS KMS key to be used if [S3 SSE-KMS](https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingKMSEncryption.html) is selected by setting the `aws:kms` encryption type. Required if `aws:kms` is set as the `server_side_encryption_type`. |
+| `server_side_encryption_bucket_key_enabled` | Specifies whether [S3 Bucket Keys](https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucket-key.html) should be used when using [S3 SSE-KMS](https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingKMSEncryption.html). Optional. |
+| `server_side_encryption_encryption_context` | Specifies any additional [encryption context](https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingKMSEncryption.html#encryption-context) that should be used when using [S3 SSE-KMS](https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingKMSEncryption.html). This setting value must be formatted as a JSON object. Optional. |
+| `expected_bucket_owner` | Specifies the AWS account ID of the expected S3 bucket owner. This setting can be used for [verifying bucket ownership](https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucket-owner-condition.html). Optional. |
 
-The `server_side_encryption` setting is removed as of OpenSearch 3.1.0. S3 applies server-side encryption as the base level of encryption for all S3 buckets. Because this cannot be disabled, this value repository setting had no effect. For more information, see [Protecting data with server-side encryption](https://docs.aws.amazon.com/AmazonS3/latest/userguide/serv-side-encryption.html).
+The `server_side_encryption` setting was removed in OpenSearch 3.1.0. S3 applies server-side encryption as the base level of encryption for all S3 buckets. Because this encryption cannot be disabled, the repository setting had no effect. For more information, see [Protecting data with server-side encryption](https://docs.aws.amazon.com/AmazonS3/latest/userguide/serv-side-encryption.html).
 {: .note}
 
 <!-- vale off -->
@@ -123,20 +143,34 @@ To confirm which client a repository uses, enable `DEBUG` logging for the `org.o
 ### hdfs repository
 <!-- vale on -->
 
-| Request field        | Description                                                                                                 |
-|:---------------------|:------------------------------------------------------------------------------------------------------------|
-| `uri` | The HDFS URI of the `hdfs://<HOST>:<PORT>/path/to/backup` format. Required. |
+The following table lists the request fields for `hdfs` repositories.
+
+| Request field | Description |
+| :--- | :--- |
+| `uri` | The HDFS URI in the `hdfs://<HOST>:<PORT>/` format. The URI must not contain a path. Specify the path in the `path` field. Required. |
 | `path` | The path within HDFS where you want to store snapshots (for example, `/my/snapshot/directory`). Required. |
 | `security.principal` | The Kerberos principal to use when connecting to HDFS. Optional. |
 | `conf.<key>` | Additional HDFS client configuration settings (for example, `core-site.xml` or `hdfs-site.xml`). Optional. |
 
+<!-- vale off -->
+### url repository
+<!-- vale on -->
 
+A `url` repository is read-only: you can list and restore snapshots from it, but you can't create snapshots in it. Use a `url` repository to give a cluster read-only access to snapshots that another cluster writes to a shared file system repository.
+
+The following table lists the request fields for `url` repositories.
+
+Request field | Description
+:--- | :---
+`url` | The URL of the root of the repository. To give read-only access to a shared file system repository, the URL must point to that repository's `location`, not to a parent directory. Supported protocols are `file`, `ftp`, `http`, `https`, and `jar`. A `file` URL must point to a location listed in the `path.repo` setting on all cluster manager and data nodes. An `ftp`, `http`, or `https` URL must match an entry in the `repositories.url.allowed_urls` setting. For more information, see [Node-level repository settings]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/#node-level-repository-settings). Required.
 
 ## Example requests
 
 The following examples demonstrate how to register different repository types.
 
-### `fs`
+<!-- vale off -->
+### fs
+<!-- vale on -->
 
 The following example registers an `fs` repository using the local directory `/mnt/snapshots` as `location`:
 
@@ -181,10 +215,11 @@ response = client.snapshot.create_repository(
     python=step1_python %}
 <!-- spec_insert_end -->
 
-### `s3`
+<!-- vale off -->
+### s3
+<!-- vale on -->
 
-
-The following request registers a new S3 repository called `my-opensearch-repo` in an existing bucket called `my-open-search-bucket`. By default, all snapshots are stored in the `my/snapshot/directory`:
+The following request registers a new S3 repository called `my-opensearch-repo` in an existing bucket called `my-open-search-bucket`. Because the request sets `base_path`, snapshots are stored in the `my/snapshot/directory` path within the bucket:
 
 <!-- spec_insert_start
 component: example_code
@@ -230,8 +265,7 @@ response = client.snapshot.create_repository(
     python=step1_python %}
 <!-- spec_insert_end -->
 
-
-The following request registers a new S3 repository called `my-opensearch-repo` in an existing bucket called `my-open-search-bucket`. By default, all snapshots are stored in the `my/snapshot/directory`. Additionally, this repository is configured to use [SSE-KMS](https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingKMSEncryption.html#encryption-context), and the expected bucket owner AWS account ID is `123456789000`.
+The following request registers a new S3 repository called `my-opensearch-repo` in an existing bucket called `my-open-search-bucket`. Because the request sets `base_path`, snapshots are stored in the `my/snapshot/directory` path within the bucket. Additionally, this repository is configured to use [SSE-KMS](https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingKMSEncryption.html#encryption-context), and the expected bucket owner AWS account ID is `123456789000`:
 
 <!-- spec_insert_start
 component: example_code
@@ -245,7 +279,7 @@ body: |
     "server_side_encryption_type": "aws:kms",
     "server_side_encryption_kms_key_id": "arn:aws:kms:us-east-1:123456789000:key/kms-key-id",
     "server_side_encryption_encryption_context": "{\"additional-enc-ctx\": \"sample-context\"}",
-    "expected_bucket_owner": "123456789000",
+    "expected_bucket_owner": "123456789000"
   }
 }
 -->
@@ -259,7 +293,7 @@ PUT /_snapshot/my-opensearch-repo
     "server_side_encryption_type": "aws:kms",
     "server_side_encryption_kms_key_id": "arn:aws:kms:us-east-1:123456789000:key/kms-key-id",
     "server_side_encryption_encryption_context": "{\"additional-enc-ctx\": \"sample-context\"}",
-    "expected_bucket_owner": "123456789000",
+    "expected_bucket_owner": "123456789000"
   }
 }
 {% endcapture %}
@@ -269,19 +303,17 @@ PUT /_snapshot/my-opensearch-repo
 
 response = client.snapshot.create_repository(
   repository = "my-opensearch-repo",
-  body = '''
-{
-  "type": "s3",
-  "settings": {
-    "bucket": "my-open-search-bucket",
-    "base_path": "my/snapshot/directory",
-    "server_side_encryption_type": "aws:kms",
-    "server_side_encryption_kms_key_id": "arn:aws:kms:us-east-1:123456789000:key/kms-key-id",
-    "server_side_encryption_encryption_context": "{\"additional-enc-ctx\": \"sample-context\"}",
-    "expected_bucket_owner": "123456789000",
+  body =   {
+    "type": "s3",
+    "settings": {
+      "bucket": "my-open-search-bucket",
+      "base_path": "my/snapshot/directory",
+      "server_side_encryption_type": "aws:kms",
+      "server_side_encryption_kms_key_id": "arn:aws:kms:us-east-1:123456789000:key/kms-key-id",
+      "server_side_encryption_encryption_context": "{\"additional-enc-ctx\": \"sample-context\"}",
+      "expected_bucket_owner": "123456789000"
+    }
   }
-}
-'''
 )
 
 {% endcapture %}
@@ -291,9 +323,12 @@ response = client.snapshot.create_repository(
     python=step1_python %}
 <!-- spec_insert_end -->
 
-### `hdfs`
+<!-- vale off -->
+### hdfs
+<!-- vale on -->
 
-The following request registers a new HDFS repository using the HDFS URI `hdfs://namenode:8020` and the HDFS filesystem path `/opensearch/snapshots`:
+The following request registers a new HDFS repository using the HDFS URI `hdfs://namenode:8020` and the HDFS file system path `/opensearch/snapshots`:
+
 <!-- spec_insert_start
 component: example_code
 rest: PUT /_snapshot/my-hdfs-repository
@@ -338,6 +373,53 @@ response = client.snapshot.create_repository(
     python=step1_python %}
 <!-- spec_insert_end -->
 
+<!-- vale off -->
+### url
+<!-- vale on -->
+
+The following request registers a read-only `url` repository for the shared file system location `/mnt/snapshots`:
+
+<!-- spec_insert_start
+component: example_code
+rest: PUT /_snapshot/my-url-repository
+body: |
+{
+  "type": "url",
+  "settings": {
+    "url": "file:/mnt/snapshots"
+  }
+}
+-->
+{% capture step1_rest %}
+PUT /_snapshot/my-url-repository
+{
+  "type": "url",
+  "settings": {
+    "url": "file:/mnt/snapshots"
+  }
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.snapshot.create_repository(
+  repository = "my-url-repository",
+  body =   {
+    "type": "url",
+    "settings": {
+      "url": "file:/mnt/snapshots"
+    }
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
+
 ## Example response
 
 Upon success, the following JSON object is returned:
@@ -348,7 +430,7 @@ Upon success, the following JSON object is returned:
 }
 ```
 
-To verify that the repository was registered, use the [Get snapshot repository]({{site.url}}{{site.baseurl}}/api-reference/snapshots/get-snapshot-repository/) API, passing the repository name as the `repository` path parameter.
+To verify that the repository was registered, use the [Get Snapshot Repository API]({{site.url}}{{site.baseurl}}/api-reference/snapshots/get-snapshot-repository/), passing the repository name as the `repository` path parameter.
 {: .note}
 
 ## Required permissions

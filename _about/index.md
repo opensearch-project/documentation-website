@@ -54,7 +54,7 @@ features:
   - heading: "Vector search"
     description: "Use vector and AI-powered search to build modern search applications"
     link: "/vector-search/"
-  - heading: "Machine learning"
+  - heading: "AI and machine learning"
     description: "Deploy models, connect to AI platforms, and build AI agents and assistants"
     link: "/ml-commons-plugin/"
 getting_started:

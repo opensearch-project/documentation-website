@@ -148,4 +148,4 @@ POST /_plugins/_ml/model_groups/_register
 
 ## Registering a model group in a cluster where model access control is disabled
 
-If model access control is disabled on your cluster (one of the [prerequisites](ml-commons-plugin/model-access-control/#model-access-control-prerequisites) is not met), you can register a model group with a `name` and `description` but cannot specify any of the access parameters (`model_access_name`, `backend_roles`, or `add_backend_roles`). By default, in such a cluster, all model groups are public.
+If model access control is disabled on your cluster (one of the [prerequisites]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control/#model-access-control-prerequisites) is not met), you can register a model group with a `name` and `description` but cannot specify any of the access parameters (`access_mode`, `backend_roles`, or `add_all_backend_roles`). By default, in such a cluster, all model groups are public.

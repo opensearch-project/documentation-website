@@ -53,7 +53,7 @@ To register a pretrained text embedding model, the only required parameters are 
 The following table lists the available request fields.
 
 Field | Data type | Required/Optional | Description
-:---  | :--- | :--- 
+:---  | :--- | :--- | :---
 `name`| String | Required | The model name. |
 `model_id` | String | Optional | A unique identifier for the model. If omitted, OpenSearch generates one automatically. |
 `version` | String | Required | The model version. |
@@ -69,7 +69,7 @@ To register a pretrained sparse encoding model, you must set the function name t
 The following table lists the available request fields.
 
 Field | Data type | Required/Optional | Description
-:---  | :--- | :--- 
+:---  | :--- | :--- | :---
 `name`| String | Required | The model name. |
 `model_id` | String | Optional | A unique identifier for the model. If omitted, OpenSearch generates one automatically. |
 `version` | String | Required | The model version. |
@@ -88,7 +88,7 @@ To use a custom model locally within the OpenSearch cluster, you need to provide
 The following table lists the available request fields.
 
 Field | Data type | Required/Optional | Description
-:---  | :--- | :--- 
+:---  | :--- | :--- | :---
 `name`| String | Required | The model name. |
 `model_id` | String | Optional | A unique identifier for the model. If omitted, OpenSearch generates one automatically. |
 `version` | String | Required | The model version. |
@@ -110,7 +110,7 @@ Field | Data type | Required/Optional | Description
 | :--- | :--- | :--- 
 | `model_type` | String | The model type, such as `bert`. For a Hugging Face model, the model type is specified in `config.json`. For an example, see the [`all-MiniLM-L6-v2` Hugging Face model `config.json`](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/blob/main/config.json#L15). Required. |
 | `embedding_dimension` | Integer | The dimension of the model-generated dense vector. For a Hugging Face model, the dimension is specified in the model card. For example, in the [`all-MiniLM-L6-v2` Hugging Face model card](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2), the statement `384 dimensional dense vector space` specifies 384 as the embedding dimension. Required. |
-| `framework_type` | String  | The framework the model is using. Currently, OpenSearch supports `sentence_transformers` and `huggingface_transformers` frameworks. The `sentence_transformers` model outputs text embeddings directly, so ML Commons does not perform any post processing. For `huggingface_transformers`, ML Commons performs post processing by applying mean pooling to get text embeddings. See the example [`all-MiniLM-L6-v2` Hugging Face model](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2) for more details. Required. |
+| `framework_type` | String  | The framework the model is using. OpenSearch supports `sentence_transformers` and `huggingface_transformers` frameworks. The `sentence_transformers` model outputs text embeddings directly, so ML Commons does not perform any post processing. For `huggingface_transformers`, ML Commons performs post processing by applying mean pooling to get text embeddings. See the example [`all-MiniLM-L6-v2` Hugging Face model](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2) for more details. Required. |
 | `all_config` | String | This field is used for reference purposes. You can specify all model configurations in this field. For example, if you are using a Hugging Face model, you can minify the `config.json` file to one line and save its contents in the `all_config` field. Once the model is uploaded, you can use the get model API operation to get all model configurations stored in this field. Optional. |
 | `additional_config` | Object | Additional model configurations. Contains the `space_type`, which specifies the distance metric for k-NN search. For OpenSearch-provided pretrained models, this value is automatically set to the corresponding metric (for example, `l2` for `huggingface/sentence-transformers/all-distilroberta-v1`). For custom models, specify your preferred space type. Optional. See [Space types]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-spaces/#distance-calculation). |
 
@@ -128,7 +128,7 @@ To register a model hosted on a third-party platform, you can either first creat
 The following table lists the available request fields.
 
 Field | Data type | Required/Optional | Description
-:---  | :--- | :--- 
+:---  | :--- | :--- | :---
 `name`| String | Required | The model name. |
 `function_name` | String | Required | Set this parameter to `remote`.
 `connector_id` | String | Required | The connector ID of a standalone connector for a model hosted on a third-party platform. For more information, see [Standalone connector]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/#creating-a-standalone-connector). You must provide either `connector_id` or `connector`.
@@ -142,6 +142,18 @@ Field | Data type | Required/Optional | Description
 `interface`| Object | Optional | The interface for the model. For more information, see [Interface](#the-interface-parameter).|
 `batch_inference_config` | Object | Optional | Configures batch inference for an externally hosted model. For more information, see [The `batch_inference_config` parameter](#the-batch_inference_config-parameter). |
 `provisioned_by` | String | Optional | An optional attribution tag identifying the plugin or client that registered the model (for example, `flow-framework`). Included in ML statistics metrics.
+
+### Access control and deployment fields
+
+The following optional fields apply to all model types.
+
+Field | Data type | Required/Optional | Description
+:---  | :--- | :--- | :---
+`access_mode` | String | Optional | The access mode of the model group created for this model. Valid values are `public`, `private`, and `restricted`. Applies only when you register the first version of a model without providing a `model_group_id`. For more information, see [Register Model Group API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-group-apis/register-model-group/).
+`backend_roles` | Array | Optional | A list of the model owner's backend roles to add to the model group created for this model. Applies only when `model_group_id` is not provided. Cannot be specified at the same time as `add_all_backend_roles`.
+`add_all_backend_roles` | Boolean | Optional | If `true`, all backend roles of the model owner are added to the model group created for this model. Applies only when `model_group_id` is not provided. Cannot be specified at the same time as `backend_roles`. Admin users cannot set this parameter to `true`.
+`deploy_setting` | Object | Optional | The deployment settings for the model. Supports the `model_ttl_minutes` field (Long), which specifies the number of minutes after which the deployed model is automatically undeployed (default is `-1`, meaning that the model is not automatically undeployed), and the `is_auto_deploy_enabled` field (Boolean), which specifies whether an undeployed model is automatically deployed when it receives a Predict API request (default is `true`).
+`model_node_ids` | Array | Optional | A list of node IDs on which to deploy the model when the model is deployed after registration (`deploy=true`).
 
 ### The `guardrails` parameter
 
@@ -179,10 +191,10 @@ The input and output fields are evaluated against the provided JSON schema. You 
 
 To simplify your workflow, you can register an externally hosted model using a connector in one of the [connector blueprint]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/) formats. If you do so, a predefined model interface for this connector is generated automatically during model registration. The predefined model interface is generated based on the connector blueprint and the model's metadata, so you must strictly follow the blueprint when creating the connector in order to avoid errors.
 
-The following connector blueprints currently support creating predefined model interfaces:
+The following connector blueprints support creating predefined model interfaces:
 
 - [Amazon Comprehend](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/amazon_comprehend_connector_blueprint.md)
-- [Amazon Textract](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/amazon_textract_connector_blueprint.md) (Note that a predefined model interface is only available for the `DetectDocumentText` API; the `DetectEnities` API is not currently supported).
+- [Amazon Textract](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/amazon_textract_connector_blueprint.md) (Note that a predefined model interface is only available for the `DetectDocumentText` API; the `DetectEnities` API is not supported).
 - [Amazon Bedrock AI21 Labs Jurassic](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/bedrock_connector_ai21labs_jurassic_blueprint.md)
 - [Amazon Bedrock Anthropic Claude 3](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/bedrock_connector_anthropic_claude3_blueprint.md)
 - [Amazon Bedrock Anthropic Claude](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/bedrock_connector_anthropic_claude_blueprint.md)
@@ -361,10 +373,10 @@ The following example uses a guardrail model to validate the LLM response:
 ```json
 POST /_plugins/_ml/models/_register?deploy=true
 {
-    "name": "Bedrock Claude V2 model with guardrails model",
+    "name": "Bedrock Claude Sonnet 4.6 model with guardrails model",
     "function_name": "remote",
     "model_group_id": "ppSmpo8Bi-GZ0tf1i7cD",
-    "description": "Bedrock Claude V2 model with guardrails model",
+    "description": "Bedrock Claude Sonnet 4.6 model with guardrails model",
     "connector_id": "xnJjDZABNFJeYR3IPvTO",
     "guardrails": {
         "input_guardrail": {
@@ -469,7 +481,7 @@ POST /_plugins/_ml/models/_register
 
 ## Example response
 
-OpenSearch responds with the `task_id`, task `status`, and `model_id`:
+OpenSearch responds with the `task_id` and task `status`. For externally hosted models, the response also contains the `model_id`. For local models, the model ID is returned in the task after registration completes:
 
 ```json
 {
@@ -493,7 +505,7 @@ The response contains the model ID of the model version:
 ```json
 {
   "model_id": "Qr1YbogBYOqeeqR7sI9L",
-  "task_type": "DEPLOY_MODEL",
+  "task_type": "REGISTER_MODEL",
   "function_name": "TEXT_EMBEDDING",
   "state": "COMPLETED",
   "worker_node": [

@@ -16,13 +16,13 @@ Search Relevance Workbench helps you systematically find the ideal set of parame
 ## Requirements
 
 Internally, optimizing hybrid search involves running multiple search quality evaluation experiments. For these experiments, you need a query set, judgments, and a search configuration.
-Search Relevance Workbench currently supports hybrid search optimization with exactly two query clauses. While hybrid search typically combines vector and lexical queries, you can run hybrid search optimization with two lexical query clauses:
+Search Relevance Workbench supports hybrid search optimization with exactly two query clauses. While hybrid search typically combines vector and lexical queries, you can run hybrid search optimization with two lexical query clauses:
 
 ```json
 PUT _plugins/_search_relevance/search_configurations
 {
   "name": "hybrid_query_lexical",
-  "query": "{\"query\":{\"hybrid\":{\"queries\":[{\"match\":{\"title\":\"%SearchText%\"}},{\"match\":{\"category\":\"%SearchText%\"}}]}}}",
+  "query": "{\"query\":{\"hybrid\":{\"queries\":[{\"match\":{\"title\":\"%queryText%\"}},{\"match\":{\"category\":\"%queryText%\"}}]}}}",
   "index": "ecommerce"
 }
 ```
@@ -34,7 +34,7 @@ Hybrid search optimization is most valuable when combining lexical and vector-ba
 PUT _plugins/_search_relevance/search_configurations
 {
   "name": "hybrid_query_text",
-  "query": "{\"query\":{\"hybrid\":{\"queries\":[{\"multi_match\":{\"query\":\"%SearchText%\",\"fields\":[\"id\",\"title\",\"category\",\"bullets\",\"description\",\"attrs.Brand\\\",\"attrs.Color\"]}},{\"neural\":{\"title_embedding\":{\"query_text\":\"%SearchText%\",\"k\":100,\"model_id\":\"lRFFb5cBHkapxdNcFFkP\"}}}]}},\"size\":10}",
+  "query": "{\"query\":{\"hybrid\":{\"queries\":[{\"multi_match\":{\"query\":\"%queryText%\",\"fields\":[\"id\",\"title\",\"category\",\"bullets\",\"description\",\"attrs.Brand\\\",\"attrs.Color\"]}},{\"neural\":{\"title_embedding\":{\"query_text\":\"%queryText%\",\"k\":100,\"model_id\":\"lRFFb5cBHkapxdNcFFkP\"}}}]}},\"size\":10}",
   "index": "ecommerce"
 }
 ```

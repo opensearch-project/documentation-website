@@ -11,7 +11,7 @@ redirect_from:
 
 Auto-follow lets you automatically replicate indexes created on the leader cluster based on matching patterns. When you create an index on the leader cluster with a name that matches a specified pattern (for example, `index-01*`), a corresponding follower index is automatically created on the follower cluster. 
 
-You can configure multiple replication rules for a single cluster. The patterns currently only support wildcard matching. 
+You can configure multiple replication rules for a single cluster. The patterns only support wildcard matching. 
 
 ## Prerequisites
 

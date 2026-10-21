@@ -38,7 +38,7 @@ In this case, the result contains only raw Lucene-level scoring information, for
 
 The Explain API has the following limitations when used with hybrid queries:
 
-- The `_explain` endpoint does not support the `search_pipeline` query parameter, either inline or as a query parameter. Providing a `search_pipeline` parameter results in a `parsing_exception` error. This limitation applies to all query types, not only hybrid queries.
+- The `_explain` endpoint does not support the `search_pipeline` parameter in either the request body or the URL, and it rejects requests that contain this parameter. This limitation applies to all query types, not only hybrid queries.
 - Score normalization techniques (such as `min_max`, `l2`, or `z_score`) and combination techniques (such as `arithmetic_mean`) require scores from all matching documents to compute statistics. Because the Explain API operates on a single document, it cannot provide normalization context. The `hybrid_score_explanation` response processor is not invoked and no normalized scoring details are returned.
 
 To get a full hybrid query explanation with normalization and combination details for a specific document, use the Search API with `explain=true` and filter the query for the desired document ID:
@@ -60,7 +60,7 @@ GET {index}/_search?search_pipeline={search_pipeline}&explain=true
 ```
 {% include copy-curl.html %}
 
-To see the `explain` output for all results, set the parameter to `true` either in the URL or in the request body:
+To see the `explain` output for all results, set the parameter to `true` either in the URL or in the request body. The following example uses the index and model from [Getting started with semantic and hybrid search]({{site.url}}{{site.baseurl}}/tutorials/vector-search/neural-search-tutorial/) and a search pipeline named `my_pipeline` that contains a `normalization-processor` and a `hybrid_score_explanation` processor:
 
 ```json
 POST my-nlp-index/_search?search_pipeline=my_pipeline&explain=true
@@ -109,8 +109,8 @@ The response contains scoring information:
     "took": 54,
     "timed_out": false,
     "_shards": {
-        "total": 2,
-        "successful": 2,
+        "total": 1,
+        "successful": 1,
         "skipped": 0,
         "failed": 0
     },
@@ -119,20 +119,20 @@ The response contains scoring information:
             "value": 5,
             "relation": "eq"
         },
-        "max_score": 0.9251075,
+        "max_score": 0.92510754,
         "hits": [
             {
                 "_shard": "[my-nlp-index][0]",
                 "_node": "IsuzeVYdSqKUfy0qfqil2w",
                 "_index": "my-nlp-index",
                 "_id": "5",
-                "_score": 0.9251075,
+                "_score": 0.92510754,
                 "_source": {
                     "text": "A rodeo cowboy , wearing a cowboy hat , is being thrown off of a wild white horse .",
                     "id": "2691147709.jpg"
                 },
                 "_explanation": {
-                    "value": 0.9251075,
+                    "value": 0.92510754,
                     "description": "arithmetic_mean combination of:",
                     "details": [
                         {
@@ -140,29 +140,24 @@ The response contains scoring information:
                             "description": "min_max normalization of:",
                             "details": [
                                 {
-                                    "value": 1.2336599,
+                                    "value": 0.40775257,
                                     "description": "weight(text:horse in 0) [PerFieldSimilarity], result of:",
                                     "details": [
                                         {
-                                            "value": 1.2336599,
+                                            "value": 0.40775257,
                                             "description": "score(freq=1.0), computed as boost * idf * tf from:",
                                             "details": [
                                                 {
-                                                    "value": 2.2,
-                                                    "description": "boost",
-                                                    "details": []
-                                                },
-                                                {
-                                                    "value": 1.2039728,
+                                                    "value": 0.87546873,
                                                     "description": "idf, computed as log(1 + (N - n + 0.5) / (n + 0.5)) from:",
                                                     "details": [
                                                         {
-                                                            "value": 1,
+                                                            "value": 2,
                                                             "description": "n, number of documents containing term",
                                                             "details": []
                                                         },
                                                         {
-                                                            "value": 4,
+                                                            "value": 5,
                                                             "description": "N, total number of documents with field",
                                                             "details": []
                                                         }
@@ -206,13 +201,25 @@ The response contains scoring information:
                             ]
                         },
                         {
-                            "value": 0.8503647,
+                            "value": 0.85036486,
                             "description": "min_max normalization of:",
                             "details": [
                                 {
-                                    "value": 0.015177966,
-                                    "description": "within top 5",
-                                    "details": []
+                                    "value": 0.015177963,
+                                    "description": "the type of knn search executed was Approximate-NN",
+                                    "details": [
+                                        {
+                                            "value": 0.015177963,
+                                            "description": "the type of knn search executed at leaf was Approximate-NN with vectorDataType = FLOAT, spaceType = l2 where score is computed as `1 / (1 + rawScore)` from:",
+                                            "details": [
+                                                {
+                                                    "value": 64.884995,
+                                                    "description": "rawScore, returned from FAISS library",
+                                                    "details": []
+                                                }
+                                            ]
+                                        }
+                                    ]
                                 }
                             ]
                         }

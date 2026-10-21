@@ -9,7 +9,7 @@ nav_order: 10
 
 The vector search workload benchmarks OpenSearch's vector engine capabilities for both indexing and search operations. It tests various vector search algorithms, quantization methods, and index configurations to measure performance metrics like throughput, latency, and recall accuracy. The workload supports different datasets and can evaluate both trained and untrained vector search methods.
 
-This workload currently supports datasets in either the `HDF5` or `BIG-ANN` formats. To download the datasets, use [this link](http://corpus-texmex.irisa.fr/).
+This workload supports datasets in either the `HDF5` or `BIG-ANN` formats. To download the datasets, use [this link](http://corpus-texmex.irisa.fr/).
 
 ## Supported workload parameters
 

@@ -68,7 +68,7 @@ POST /_plugins/_ml/memory_containers/HudqiJkB1SltqOcZusVU/memories/long-term/_hy
 
 ## Example request: Custom weights
 
-You can adjust the balance between keyword and semantic search for each request. Increasing `neural_weight` prioritizes semantic similarity, while increasing `bm25_weight` higher prioritizes exact keyword matches:
+You can adjust the balance between keyword and semantic search for each request. Increasing `neural_weight` prioritizes semantic similarity, while increasing `bm25_weight` prioritizes exact keyword matches:
 
 ```json
 POST /_plugins/_ml/memory_containers/HudqiJkB1SltqOcZusVU/memories/long-term/_hybrid_search
@@ -122,33 +122,43 @@ POST /_plugins/_ml/memory_containers/HudqiJkB1SltqOcZusVU/memories/long-term/_hy
     "max_score": 1.0,
     "hits": [
       {
-        "_index": "test-memory-long-term",
+        "_index": ".plugins-ml-am-default-memory-long-term",
         "_id": "abc123",
         "_score": 1.0,
         "_source": {
+          "created_time": 1700000000000,
           "memory": "Caroline attended an LGBTQ+ counseling workshop focused on therapeutic methods",
-          "strategy_type": "SEMANTIC",
+          "last_updated_time": 1700000000000,
+          "namespace_size": 1,
           "namespace": {
             "user_id": "caroline"
           },
+          "strategy_id": "semantic_53d1751c",
+          "strategy_type": "SEMANTIC",
           "memory_container_id": "HudqiJkB1SltqOcZusVU",
-          "created_time": 1700000000000,
-          "last_updated_time": 1700000000000
+          "tags": {
+            "topic": "wellness"
+          }
         }
       },
       {
-        "_index": "test-memory-long-term",
+        "_index": ".plugins-ml-am-default-memory-long-term",
         "_id": "def456",
         "_score": 0.52,
         "_source": {
+          "created_time": 1700000000000,
           "memory": "Caroline attended an LGBTQ conference on community building",
-          "strategy_type": "SEMANTIC",
+          "last_updated_time": 1700000000000,
+          "namespace_size": 1,
           "namespace": {
             "user_id": "caroline"
           },
+          "strategy_id": "semantic_53d1751c",
+          "strategy_type": "SEMANTIC",
           "memory_container_id": "HudqiJkB1SltqOcZusVU",
-          "created_time": 1700000000000,
-          "last_updated_time": 1700000000000
+          "tags": {
+            "topic": "wellness"
+          }
         }
       }
     ]

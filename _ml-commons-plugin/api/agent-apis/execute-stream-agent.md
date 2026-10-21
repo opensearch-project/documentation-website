@@ -18,7 +18,7 @@ The Execute Agent Stream API provides the same functionality as the [Execute Age
 Alternatively, you can stream agent execution over gRPC. For more information, see [gRPC Execute Agent Stream API]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/execute-agent-stream/).
 {: .note}
 
-This API currently supports the following agent types:
+This API supports the following agent types:
 
 - **Conversational agents** with the following externally hosted model types:
     - [OpenAI Chat Completion](https://platform.openai.com/docs/api-reference/completions)
@@ -101,7 +101,7 @@ Configure the API using the following steps.
 To enable the streaming feature flag, update the cluster settings as follows:
 
 ```json
-PUT _cluster/settings
+PUT /_cluster/settings
 {
   "persistent" : {
     "plugins.ml_commons.stream_enabled": true
@@ -169,7 +169,7 @@ POST /_plugins/_ml/models/_register
         "parameters": {
             "region": "<your_aws_region>",
             "service_name": "bedrock",
-            "model": "us.anthropic.claude-3-7-sonnet-20250219-v1:0"
+            "model": "us.anthropic.claude-sonnet-4-6"
         },
         "actions": [
             {

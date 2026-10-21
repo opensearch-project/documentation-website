@@ -26,6 +26,20 @@ The following table lists the possible returned intervals for each time unit.
 
 If an aggregation returns too many buckets (for example, daily buckets), OpenSearch will automatically reduce the number of buckets to ensure a manageable result. Instead of returning the exact number of requested daily buckets, it will reduce them by a factor of about 1/7. For example, if you ask for 70 buckets but the data contains too many daily intervals, OpenSearch might return only 10 buckets, grouping the data into larger intervals (such as weeks) to avoid an overwhelming number of results. This helps optimize the aggregation and prevent excessive detail when too much data is available.
 
+## Parameters
+
+Auto-interval date histogram aggregations accept the following parameters.
+
+Parameter | Data type | Description
+:--- | :--- | :--- 
+`field` | String | The field on which to aggregate. The field must contain the date or timestamp values. Either `field` or `script` is required.
+`buckets` | Integer | The desired number of buckets. The returned number of buckets is less than or equal to the desired number. Optional. Default is `10`.
+`minimum_interval` | String | The minimum interval to be used. Specifying a minimum interval can make the aggregation process more efficient. Valid values are `year`, `month`, `day`, `hour`, `minute`, and `second`. Optional.
+`time_zone` | String | Specifies to use a time zone other than the default (UTC) for bucketing and rounding. You can specify the `time_zone` parameter as a [UTC offset](https://en.wikipedia.org/wiki/UTC_offset), such as `-04:00`, or an [IANA time zone ID](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones), such as `America/New_York`. Optional. Default is `UTC`. For more information, see [Time zone](#time-zone).
+`format` | String | The format for returning dates representing bucket keys. Optional. Default is the format specified in the field mapping. For more information, see [Date format](#date-format).
+`script` | String | A document-level or value-level script for aggregating values into buckets. Either `field` or `script` is required.
+`missing` | String | Specifies how to handle documents in which the field value is missing. By default, such documents are ignored. If you specify a date value in the `missing` parameter, all documents in which the field value is missing are collected into the bucket with the specified date.
+
 ## Example
 
 In the following example, you'll search an index containing blog posts. 
@@ -159,20 +173,6 @@ Each bucket contains the following information:
 ```
 
 In OpenSearch, dates are internally stored as 64-bit integers representing timestamps in milliseconds since the epoch. In the aggregation response, each bucket `key` is returned as such a timestamp. The `key_as_string` value shows the same timestamp but formatted as a date string based on the [`format`](#date-format) parameter. The `doc_count` field contains the number of documents in the bucket.
-
-## Parameters
-
-Auto-interval date histogram aggregations accept the following parameters.
-
-Parameter | Data type | Description
-:--- | :--- | :--- 
-`field` | String | The field on which to aggregate. The field must contain the date or timestamp values. Either `field` or `script` is required.
-`buckets` | Integer | The desired number of buckets. The returned number of buckets is less than or equal to the desired number. Optional. Default is `10`.
-`minimum_interval` | String | The minimum interval to be used. Specifying a minimum interval can make the aggregation process more efficient. Valid values are `year`, `month`, `day`, `hour`, `minute`, and `second`. Optional.
-`time_zone` | String | Specifies to use a time zone other than the default (UTC) for bucketing and rounding. You can specify the `time_zone` parameter as a [UTC offset](https://en.wikipedia.org/wiki/UTC_offset), such as `-04:00`, or an [IANA time zone ID](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones), such as `America/New_York`. Optional. Default is `UTC`. For more information, see [Time zone](#time-zone).
-`format` | String | The format for returning dates representing bucket keys. Optional. Default is the format specified in the field mapping. For more information, see [Date format](#date-format).
-`script` | String | A document-level or value-level script for aggregating values into buckets. Either `field` or `script` is required.
-`missing` | String | Specifies how to handle documents in which the field value is missing. By default, such documents are ignored. If you specify a date value in the `missing` parameter, all documents in which the field value is missing are collected into the bucket with the specified date.
 
 ## Date format
 

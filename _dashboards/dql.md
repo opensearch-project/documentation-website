@@ -10,7 +10,7 @@ redirect_from:
 # Dashboards Query Language (DQL)
 <!-- vale on -->
 
-Dashboards Query Language (DQL) is a simple text-based query language used to filter data in OpenSearch Dashboards. 
+Dashboards Query Language (DQL) is a simple text-based language for filtering documents in OpenSearch Dashboards. DQL is available in the Discover and Dashboards applications. Each DQL query compares field values with the values that you specify and returns the matching documents.
 
 DQL and [query string query]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/) (Lucene) language are the two search bar language options in Discover and Dashboards. This page provides a reference for the DQL syntax. For the Lucene syntax, see [Query string query]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/). For a syntax comparison, see the [Command quick reference](#dql-and-query-string-query-quick-reference).
 
@@ -89,7 +89,8 @@ PUT /testindex/_doc/3
   "title": "Chicago: the historical windy city",
   "media_type": "article",
   "date": "2023-07-29",
-  "page_views": 300
+  "page_views": 300,
+  "author": "Lena Ruiz-Ortega"
 }
 ```
 {% include copy-curl.html %}
@@ -99,7 +100,8 @@ PUT /testindex/_doc/4
 {
   "article title": "Wind turbines",
   "media_type": "article",
-  "format": "2*3"
+  "format": "2*3",
+  "author": ""
 }
 ```
 {% include copy-curl.html %}
@@ -135,6 +137,9 @@ The following table provides a quick reference for both query language commands.
 | Exact phrase search | `"wind rises"` | `"wind rises"` |
 | Field-specific search | `title: wind` | `title:wind` |
 | Existence of a field | `description:*` | `_exists_:description` |
+| Missing field | `not description:*` | `NOT _exists_:description` |
+| Empty string | `author.keyword: ""` | `author.keyword:""` |
+| Term containing a hyphen | `author: "Ruiz-Ortega"` | `author:"Ruiz-Ortega"` |
 | Multiple terms in field | `title: (wind OR rises)` <br><br> | `title:(wind OR rises)` |
 | Field containing spaces | `article*title: wind` | `article\ title:wind` |
 | Escaping special characters | `format: 2\*3` | `format:2\*3` |
@@ -172,8 +177,14 @@ To search for a phrase (an ordered sequence of words), surround your text with q
 ```
 {% include copy.html %}
 
-Hyphens are reserved characters in Lucene, so if your search term contains hyphens, DQL might prompt you to switch to Lucene syntax. To avoid this, surround your search term with quotation marks in a phrase search or omit the hyphen in a regular search.
-{: .tip}
+To search for a term that contains a hyphen, such as `Ruiz-Ortega`, surround the term with quotation marks:
+
+```python
+author: "Ruiz-Ortega"
+```
+{% include copy.html %}
+
+Without quotation marks, the query returns the same results, but Dashboards displays a warning that the query looks like Lucene syntax, because the hyphen is a reserved character in Lucene.
 
 ## Reserved characters
 
@@ -219,6 +230,29 @@ Query | Criterion for a document to match | Matching documents from the `testind
 `article*title: wind` | The field that starts with `article` and ends with `title` contains the word `wind`. Matches the field `article title`. | 4
 `description:*` | Documents in which the field `description` exists. | 1, 2
 
+## Missing and empty values
+
+To find documents in which a field is missing, negate the [field existence query](#field-names). The following query returns documents 3 and 4, which don't contain a `description` field:
+
+```python
+not description:*
+```
+{% include copy.html %}
+
+A field that contains an empty string (`""`) exists, so the preceding query doesn't return it. To find documents in which a field contains an empty string, search the field's `keyword` subfield for `""`. A `text` field doesn't index any tokens for an empty string, so `author: ""` matches no documents. The following query returns document 4:
+
+```python
+author.keyword: ""
+```
+{% include copy.html %}
+
+To find documents in which a field exists and isn't empty, combine both conditions. The following query returns document 3:
+
+```python
+author:* and not author.keyword: ""
+```
+{% include copy.html %}
+
 ## Wildcards
 
 DQL supports wildcards (`*` only) in both search terms and field names, for example:
@@ -241,6 +275,13 @@ You can use the range operators on dates. For example, the following query searc
 
 ```python
 date >= "2013-01-01" and date < "2024-01-01"
+```
+{% include copy.html %}
+
+Specify dates in the format defined in the field mapping. In `testindex`, the `date` field uses the `yyyy-MM-dd` format, so `date >= "1939"` returns a search error. You can also specify relative dates using [date math]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/date/#date-math). For example, the following query searches for documents dated within the last 20 years:
+
+```python
+date > "now-20y"
 ```
 {% include copy.html %}
 
@@ -405,3 +446,32 @@ To search the `name` field of the `patients` object, use the following syntax:
 patients.names: {name: john}
 ```
 {% include copy.html %}
+
+## Comparing two fields
+
+DQL compares each field with a value that you specify, so it can't compare two fields in the same document. To compare fields in Discover, add a filter that contains a [script query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/script/):
+
+1. Below the search bar, select **Add filter**.
+1. Select **Edit as Query DSL**.
+1. Enter a script query. For example, the following query matches documents in which the `likes` field is greater than the `page_views` field:
+
+    ```json
+    {
+      "script": {
+        "script": {
+          "source": "doc['likes'].value > doc['page_views'].value"
+        }
+      }
+    }
+    ```
+    {% include copy.html %}
+
+1. Select **Save**.
+
+You can also compare fields using the PPL [`where`]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/commands/where/) command, for example, `source=my-index | where likes > page_views`.
+
+## Related documentation
+
+- To use regular expressions, fuzzy matching, proximity searches, or boosting, see [Query string query]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/).
+- To filter and explore data in Discover, see [Exploring data with Discover]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/).
+- To group or summarize matching documents, see [Building data visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/index/) or [PPL]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/index/).

@@ -12,7 +12,7 @@ redirect_from:
 **Introduced 2.17**
 {: .label .label-purple}
 
-For low-memory environments, OpenSearch provides _disk-based vector search_, which significantly reduces the operational costs for vector workloads. Disk-based vector search supports [scalar quantization]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/faiss-scalar-quantization/) (the default quantization type starting with OpenSearch 3.6) and [binary quantization]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/binary-quantization/) to compress vectors and reduce memory requirements. This memory optimization provides large memory savings at the cost of slightly increased search latency while still maintaining strong recall.
+For low-memory environments, OpenSearch provides _disk-based vector search_, which significantly reduces the operational costs for vector workloads. Disk-based vector search supports [scalar quantization]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/faiss-scalar-quantization/) (the default quantization type) and [binary quantization]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/binary-quantization/) to compress vectors and reduce memory requirements. This memory optimization provides large memory savings at the cost of slightly increased search latency while still maintaining strong recall.
 
 To use disk-based vector search, set the [`mode`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-memory-optimized/#vector-workload-modes) parameter to `on_disk` for your vector field type. This parameter will configure your index to use secondary storage. For more information about disk-based search parameters, see [Memory-optimized vectors]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-memory-optimized/).
 
@@ -93,7 +93,8 @@ PUT my-vector-index
         "data_type": "float",
         "mode": "on_disk",
         "method": {
-          "params": {
+          "name": "hnsw",
+          "parameters": {
             "ef_construction": 512
           }
         }
@@ -176,7 +177,7 @@ GET my-vector-index/_search
 ```
 {% include copy-curl.html %}
 
-[Radial search]({{site.url}}{{site.baseurl}}/search-plugins/knn/radial-search-knn/) does not support disk-based vector search.
+[Radial search]({{site.url}}{{site.baseurl}}/search-plugins/knn/radial-search-knn/) does not support disk-based vector search with `4x` compression.
 {: .note}
 
 ## Model-based indexes

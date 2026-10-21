@@ -127,7 +127,7 @@ GET my-knn-index-1/_search
 
 In the preceding query, `k` represents the number of neighbors returned by the search of each graph. You must also include the `size` parameter, indicating the final number of results that you want the query to return.  
 
-For the NMSLIB and Faiss engines, `k` represents the maximum number of documents returned for all segments of a shard. For the Lucene engine, `k` represents the number of documents returned for a shard. The maximum value of `k` is 10,000.
+For the NMSLIB and Faiss engines, `k` represents the maximum number of documents returned for each segment of a shard. For the Lucene engine, `k` represents the number of documents returned for a shard. The maximum value of `k` is 10,000.
 
 For any engine, each shard returns `size` results to the coordinating node. Thus, the total number of results that the coordinating node receives is `size * number of shards`. After the coordinating node consolidates the results received from all nodes, the query returns the top `size` results.
 
@@ -141,7 +141,7 @@ The following table provides examples of the number of results returned by vario
 
 The number of results returned by Faiss/NMSLIB differs from the number of results returned by Lucene only when `k` is smaller than `size`. If `k` and `size` are equal, all engines return the same number of results. 
 
-Starting in OpenSearch 2.14, you can use `k`, `min_score`, or `max_distance` for [radial search]({{site.url}}{{site.baseurl}}/search-plugins/knn/radial-search-knn/).
+You can use `k`, `min_score`, or `max_distance` for [radial search]({{site.url}}{{site.baseurl}}/search-plugins/knn/radial-search-knn/).
 
 ## Building a vector index from a model
 
@@ -216,12 +216,17 @@ For more information about the method parameters, see [IVF training requirements
 The Train API returns as soon as the training job is started. To check the job status, use the Get Model API:
 
 ```json
-GET /_plugins/_knn/models/my-model?filter_path=state&pretty
+GET /_plugins/_knn/models/my-model?filter_path=state
+```
+{% include copy-curl.html %}
+
+While the model is being trained, the response contains the `training` state:
+
+```json
 {
   "state": "training"
 }
 ```
-{% include copy-curl.html %}
 
 Once the model enters the `created` state, you can create an index that will use this model to initialize its native library indexes:
 

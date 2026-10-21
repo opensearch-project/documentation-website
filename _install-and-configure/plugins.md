@@ -296,7 +296,7 @@ The following plugins are bundled with all OpenSearch distributions except for t
 | Custom Codecs | [`opensearch-custom-codecs`](https://github.com/opensearch-project/custom-codecs) | 2.10.0 |
 | Flow Framework | [`flow-framework`](https://github.com/opensearch-project/flow-framework) | 2.12.0 |
 | Notebooks<sup>1</sup> | [`opensearch-notebooks`](https://github.com/opensearch-project/dashboards-notebooks) | 1.0.0 to 1.1.0 |
-| Notifications | [`notifications`](https://github.com/opensearch-project/notifications) | 2.0.0
+| Notifications | [`notifications`](https://github.com/opensearch-project/notifications) | 2.0.0 |
 | Reports Scheduler | [`opensearch-reports-scheduler`](https://github.com/opensearch-project/dashboards-reports) | 1.0.0 |
 | Geospatial | [`opensearch-geospatial`](https://github.com/opensearch-project/geospatial) | 2.2.0 |
 | Index Management | [`opensearch-index-management`](https://github.com/opensearch-project/index-management) | 1.0.0 |
@@ -311,7 +311,6 @@ The following plugins are bundled with all OpenSearch distributions except for t
 | Security | [`opensearch-security`](https://github.com/opensearch-project/security) | 1.0.0 |
 | Security Analytics | [`opensearch-security-analytics`](https://github.com/opensearch-project/security-analytics) | 2.4.0 |
 | SQL | [`opensearch-sql`](https://github.com/opensearch-project/sql) | 1.0.0 |
-| Learning to Rank Base | [`opensearch-learning-to-rank-base`](https://github.com/opensearch-project/opensearch-learning-to-rank-base) | 2.19.0 |
 | Remote Metadata SDK | [`opensearch-remote-metadata-sdk`](https://github.com/opensearch-project/opensearch-remote-metadata-sdk) | 2.19.0 |
 | Query Insights | [`query-insights`](https://github.com/opensearch-project/query-insights) | 2.16.0 |
 | System Templates | [`opensearch-system-templates`](https://github.com/opensearch-project/opensearch-system-templates) | 2.17.0 |
@@ -373,21 +372,3 @@ You can specify only one of the `opensearch.version` or `dependencies` propertie
 
 Some plugins extend functionality of other plugins. If a plugin has a dependency on another plugin, you must install the required dependency before installing the dependent plugin. For plugin dependencies, see the [manifest file](https://github.com/opensearch-project/opensearch-build/blob/main/manifests/{{site.opensearch_version}}/opensearch-{{site.opensearch_version}}.yml). In this file, each plugin's dependencies are listed in the `depends_on` parameter.
 
-## Related documentation
-
-- [Observability]({{site.url}}{{site.baseurl}}/observability-plugin/index/)
-- [Security Analytics]({{site.url}}{{site.baseurl}}/security-analytics/index/)
-- [Security]({{site.url}}{{site.baseurl}}/security/index/)
-- [Alerting]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/index/)
-- [Anomaly detection]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/index/)
-- [Asynchronous search]({{site.url}}{{site.baseurl}}/search-plugins/async/index/)
-- [Cross-cluster replication]({{site.url}}{{site.baseurl}}/replication-plugin/index/)
-- [Index State Management]({{site.url}}{{site.baseurl}}/im-plugin/ism/index/)
-- [k-NN search]({{site.url}}{{site.baseurl}}/search-plugins/knn/index/)
-- [Learning to Rank]({{site.url}}{{site.baseurl}}/search-plugins/ltr/index/)
-- [ML Commons]({{site.url}}{{site.baseurl}}/ml-commons-plugin/index/)
-- [Neural search]({{site.url}}{{site.baseurl}}/neural-search-plugin/index/)
-- [Notifications]({{site.url}}{{site.baseurl}}/notifications-plugin/index/)
-- [OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/index/)
-- [Performance Analyzer]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/index/)
-- [SQL]({{site.url}}{{site.baseurl}}/search-plugins/sql/index/)

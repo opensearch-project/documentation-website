@@ -16,15 +16,15 @@ OpenSearch provides support for four codecs that can be used for compressing the
 * `default` -- This codec employs the [`LZ4` algorithm](https://en.wikipedia.org/wiki/LZ4_(compression_algorithm)) with a preset dictionary, which prioritizes performance over compression ratio. It offers faster indexing and search operations when compared with `best_compression` but may result in larger index/shard sizes. If no codec is provided in the index settings, then `LZ4` is used as the default algorithm for compression.
 * `best_compression` -- This codec uses [`zlib`](https://en.wikipedia.org/wiki/Zlib) as an underlying algorithm for compression. It achieves high compression ratios that result in smaller index sizes. However, this may incur additional CPU usage during index operations and may subsequently result in high indexing and search latencies. 
 
-As of OpenSearch 2.9, two new codecs based on the [Zstandard compression algorithm](https://github.com/facebook/zstd) are available. This algorithm provides a good balance between compression ratio and speed.
+OpenSearch also provides two codecs based on the [Zstandard compression algorithm](https://github.com/facebook/zstd) are available. This algorithm provides a good balance between compression ratio and speed.
 
 It may be challenging to change the codec setting of an existing index (see [Changing an index codec](#changing-an-index-codec)), so it is important to test a representative workload in a non-production environment before using a new codec setting.
 {: .important}
 
-* `zstd` (OpenSearch 2.9 and later) -- This codec provides significant compression comparable to the `best_compression` codec with reasonable CPU usage and improved indexing and search performance compared to the `default` codec.
-* `zstd_no_dict` (OpenSearch 2.9 and later) -- This codec is similar to `zstd` but excludes the dictionary compression feature. It provides faster indexing and search operations compared to `zstd` at the expense of a slightly larger index size.
+* `zstd` -- This codec provides significant compression comparable to the `best_compression` codec with reasonable CPU usage and improved indexing and search performance compared to the `default` codec.
+* `zstd_no_dict` -- This codec is similar to `zstd` but excludes the dictionary compression feature. It provides faster indexing and search operations compared to `zstd` at the expense of a slightly larger index size.
 
-As of OpenSearch 2.10, the `zstd` and `zstd_no_dict` compression codecs cannot be used for [k-NN]({{site.url}}{{site.baseurl}}/search-plugins/knn/index/) or [Security Analytics]({{site.url}}{{site.baseurl}}/security-analytics/index/) indexes.
+The `zstd` and `zstd_no_dict` compression codecs cannot be used for [k-NN]({{site.url}}{{site.baseurl}}/search-plugins/knn/index/) or [Security Analytics]({{site.url}}{{site.baseurl}}/security-analytics/index/) indexes.
 {: .warning}
 
 For the `zstd` and `zstd_no_dict` codecs, you can optionally specify a compression level in the `index.codec.compression_level` setting. This setting takes integers in the [1, 6] range. A higher compression level results in a higher compression ratio (smaller storage size) with a trade-off in speed (slower compression and decompression speeds lead to greater indexing and search latencies). 
@@ -32,12 +32,12 @@ For the `zstd` and `zstd_no_dict` codecs, you can optionally specify a compressi
 When an index segment is created, it uses the current index codec for compression. If you update the index codec, any segment created after the update will use the new compression algorithm. For specific operation considerations, see [Index codec considerations for index operations](#index-codec-considerations-for-index-operations).
 {: .note}
 
-As of OpenSearch 2.15, hardware-accelerated compression codecs for the `DEFLATE` and `LZ4` compression algorithms are available. These hardware-accelerated codecs are available on the latest 4th and 5th Gen Intel®️ Xeon®️ processors running Linux kernel 3.10 and later. For all other systems and platforms, the codecs use that platform's corresponding software implementations. 
+Hardware-accelerated compression codecs for the `DEFLATE` and `LZ4` compression algorithms are available. These hardware-accelerated codecs are available on the latest 4th and 5th Gen Intel®️ Xeon®️ processors running Linux kernel 3.10 and later. For all other systems and platforms, the codecs use that platform's corresponding software implementations. 
 
-The new hardware-accelerated codecs can be used by setting one of the following `index.codec` values:
-* `qat_lz4` (OpenSearch 2.15 and later): Hardware-accelerated `LZ4`
-* `qat_deflate` (OpenSearch 2.15 and later): Hardware-accelerated `DEFLATE`
-* `qat_zstd` (OpenSearch 2.19.3 and later): Hardware-accelerated `ZSTD`
+The hardware-accelerated codecs can be used by setting one of the following `index.codec` values:
+* `qat_lz4`: Hardware-accelerated `LZ4`
+* `qat_deflate`: Hardware-accelerated `DEFLATE`
+* `qat_zstd`: Hardware-accelerated `ZSTD`
 
 The `qat_deflate` codec offers a much better compression ratio than `qat_lz4`, with a modest drop in compression and decompression speed. The `qat_zstd` codec uses hardware acceleration for compression but relies on software-based decompression.
 {: .note}

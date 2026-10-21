@@ -43,12 +43,12 @@ The following table lists the required and optional parameters for the `text_emb
 `field_map.<input_field>` | String | Required | The name of the field from which to obtain text for generating text embeddings.
 `field_map.<vector_field>`  | String | Required | The name of the vector field in which to store the generated text embeddings. For a nested input field, specify only the field name and not the full path. For more information, see [Embedding a nested field](#embedding-a-nested-field).
 `description`  | String | Optional  | A brief description of the processor.  |
-`tag` | String | Optional | An identifier tag for the processor. Useful for debugging to distinguish between processors of the same type. |
-`batch_size` | Integer | Optional | Specifies the number of documents to be batched and processed each time. Default is `1`. |
-`if` | String containing a Boolean expression | Optional | A condition for running the processor.|
-`ignore_failure` | Boolean | Optional | Specifies whether the processor continues execution even if it encounters an error. If set to `true`, the processor failure is ignored. Default is `false`.|
+`tag` | String | Optional | An identifier tag for the processor. Useful for debugging to distinguish between processors of the same type. For more information, see [Using processor tags for monitoring and debugging]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#using-processor-tags-for-monitoring-and-debugging). |
+`batch_size` | Integer | Optional | Specifies the number of documents to be batched and processed each time. Default is `1`. If you specify `if`, the processor doesn't batch documents and processes them one at a time. |
+`if` | String containing a Boolean expression | Optional | A condition for running the processor. |
+`ignore_failure` | Boolean | Optional | Specifies whether the processor continues execution even if it encounters an error. If set to `true`, the processor failure is ignored. Default is `false`. |
 `on_failure` | List | Optional | A list of processors to run if the processor fails. |
-`skip_existing` | Boolean | Optional | When `true`, the processor compares the incoming document with the document already indexed under the same document ID. If the input text is unchanged and the indexed document already contains embeddings, the processor makes no inference call and copies the existing embeddings. Because the comparison requires an indexed document, this parameter has no effect in `_simulate` requests. Default is `false`.|
+`skip_existing` | Boolean | Optional | When `true`, the processor compares the incoming document with the document already indexed under the same document ID. If the input text is unchanged and the indexed document already contains embeddings, the processor makes no inference call and copies the existing embeddings. Because the comparison requires an indexed document, this parameter has no effect in `_simulate` requests. Default is `false`. |
 
 ## Using the processor
 
@@ -166,3 +166,4 @@ If you specify the full path (`obj.passage_embedding`) as the vector field, the 
 - To learn more about semantic search, see [Semantic search]({{site.url}}{{site.baseurl}}/search-plugins/semantic-search/).
 - To learn more about using models in OpenSearch, see [Choosing a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/#choosing-a-model).
 - For a comprehensive example, see [Getting started with semantic and hybrid search]({{site.url}}{{site.baseurl}}/search-plugins/neural-search-tutorial/).
+- For an example that generates embeddings for arrays of objects, see [Generating embeddings from arrays of objects]({{site.url}}{{site.baseurl}}/tutorials/vector-search/vector-operations/generate-embeddings/).

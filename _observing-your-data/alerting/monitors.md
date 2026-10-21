@@ -28,7 +28,7 @@ The maximum number of monitors you can create is 1,000. You can change the defau
 
 ## Monitor schedules
 
-A monitor runs either at a fixed interval, such as every hour or every day, or on a schedule that you define with a cron expression. Use a cron expression when the interval does not describe when you need the monitor to run, such as every weekday at 11:30 AM. For the syntax, see [Cron expressions]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#cron-expressions).
+A monitor runs either at a fixed interval, such as every hour or every day, or on a schedule that you define with a cron expression. Use a cron expression when the interval does not describe when you need the monitor to run, such as every weekday at 11:30 AM. For the syntax, see [Cron expressions]({{site.url}}{{site.baseurl}}/api-reference/cron-expressions/).
 
 For a monitor that uses a cron expression, see [Create a query-level monitor]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/api/#example-request-2).
 
@@ -52,7 +52,7 @@ Variable | Data type | Description
 The following table lists other variables you can use with your monitors.
 
 Variable | Data type | Description
-:--- | :--- : :---
+:--- | :--- | :---
 `ctx.results` | Array | An array with one element, for example,  `ctx.results[0]`. Contains the query results. This variable is empty if the trigger was unable to retrieve results. See `ctx.error`.
 `ctx.last_update_time` | Milliseconds | Unix epoch time of when the monitor was last updated.
 `ctx.periodStart` | String | Unix timestamp for the beginning of the period during which the alert triggered. For example, if a monitor runs every 10 minutes, a period might begin at 10:40 and end at 10:50.

@@ -129,7 +129,7 @@ The following index-level settings provide fine-grained control over star-tree i
 | `index.composite_index.star_tree.field.max_base_metrics`  | `100`   | `4` to `100` | Controls the maximum number of base metrics that can be configured for star-tree fields. More metrics provide more aggregation options but increase index size. |
 | `index.composite_index.star_tree.field.max_dimensions`    | `10`    | `2` to `10`  | Sets the maximum number of dimensions that can be part of a star-tree index field. Affects star-tree index size and query performance. |
 | `index.composite_index.star_tree.field.max_date_intervals` | `3`     | `1` to `3`   | Specifies the maximum number of date intervals that can be configured for star-tree date fields. Controls temporal granularity options. |
-| `index.composite_index.star_tree.max_fields`              | `1`     | `1` to `1`   | Controls the maximum number star-tree fields per index. Currently, only one star-tree field per index is supported.            |
+| `index.composite_index.star_tree.max_fields`              | `1`     | `1` to `1`   | Controls the maximum number star-tree fields per index. Only one star-tree field per index is supported.            |
 
 
 To create an index that uses a star-tree index, send the following request:

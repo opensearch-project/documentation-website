@@ -123,9 +123,9 @@ An index created in OpenSearch version 2.11 or earlier will still use the previo
 
 #### Flat parameters
 
-The `flat` method does not support any method-level parameters. To select the scalar quantization applied to the vectors, set the `compression_level` field on the `knn_vector` mapping. Starting with OpenSearch 3.9, `flat` supports `32x`, `16x`, and `8x` compression levels, corresponding to 1-bit, 2-bit, and 4-bit scalar quantization, respectively. In earlier versions, `flat` only supports `32x`. If `compression_level` is not specified, `flat` defaults to `32x`.
+The `flat` method does not support any method-level parameters. To select the scalar quantization applied to the vectors, set the `compression_level` field on the `knn_vector` mapping. The `flat` method supports the `32x`, `16x`, and `8x` compression levels, corresponding to 1-bit, 2-bit, and 4-bit scalar quantization, respectively. If `compression_level` is not specified, `flat` defaults to `32x`.
 
-Starting with OpenSearch 3.9, `method: flat` is engine-agnostic and does not accept the `engine` parameter. Specifying `engine` at either the method level or the field level for a `flat` method causes index creation to fail. Indexes created before 3.9 are unaffected.
+The `flat` method is engine-agnostic and does not accept the `engine` parameter. Specifying `engine` at either the method level or the field level for a `flat` method causes index creation to fail. Indexes created in OpenSearch 3.8 or earlier are unaffected.
 {: .important}
 
 For more information, see [Exact search using scalar quantization]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/exact-search-scalar-quantization/).
@@ -188,13 +188,13 @@ The IVF algorithm requires a training step. To create an index that uses IVF, yo
 
 You can use encoders to reduce the memory footprint of a vector index at the expense of search accuracy. 
 
-OpenSearch currently supports the following encoders in the Faiss library.
+OpenSearch supports the following encoders in the Faiss library.
 
 Encoder name | Requires training | Description
 :--- | :--- | :---
 `flat` (Default) | No | Encode vectors as floating-point arrays. This encoding does not reduce memory footprint.
 [`pq`](#pq-parameters) | Yes | An abbreviation for _product quantization_, PQ is a lossy compression technique that uses clustering to encode a vector into a fixed byte size, with the goal of minimizing the drop in k-NN search accuracy. At a high level, vectors are separated into `m` subvectors, and then each subvector is represented by a `code_size` code obtained from a code book produced during training. For more information about product quantization, see [this blog post](https://medium.com/dotstar/understanding-faiss-part-2-79d90b1e5388).
-[`sq`](#sq-parameters) | No | An abbreviation for _scalar quantization_. Starting with OpenSearch version 2.13, you can use the `sq` encoder to quantize 32-bit floating-point vectors into 16-bit floats. In version 2.13, the built-in `sq` encoder is the SQFP16 Faiss encoder. The encoder reduces memory footprint with a minimal loss of precision and improves performance by using SIMD optimization (using AVX2 on x86 architecture or Neon on ARM64 architecture). Starting with version 3.9, the `sq` encoder also supports the `bf16` type, which quantizes 32-bit floating-point vectors into bfloat16 values. For more information, see [Faiss scalar quantization]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/faiss-scalar-quantization/).
+[`sq`](#sq-parameters) | No | An abbreviation for _scalar quantization_. Use the `sq` encoder to quantize 32-bit floating-point vectors into lower-bit representations. For 16-bit quantization, the `fp16` type quantizes vectors into 16-bit floats using the SQFP16 Faiss encoder, and the `bf16` type quantizes them into bfloat16 values. The encoder reduces the memory footprint with a minimal loss of precision and improves performance by using SIMD optimization (using AVX2 on x86 architecture or Neon on ARM64 architecture). For more information, see [Faiss scalar quantization]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/faiss-scalar-quantization/).
 
 #### PQ parameters
 
@@ -222,7 +222,11 @@ For more information and examples, see [Using Faiss scalar quantization]({{site.
 
 ### SIMD optimization 
 
-Starting with version 2.13, OpenSearch supports [Single Instruction Multiple Data (SIMD)](https://en.wikipedia.org/wiki/Single_instruction,_multiple_data) processing if the underlying hardware supports SIMD instructions (AVX2 on x64 architecture and Neon on ARM64 architecture). SIMD is supported by default on Linux machines only for the Faiss engine. SIMD architecture helps boost overall performance by improving indexing throughput and reducing search latency. Starting with version 2.18, OpenSearch supports AVX-512 SIMD instructions on x64 architecture. Starting with version 2.19, OpenSearch supports advanced AVX-512 SIMD instructions on x64 architecture for Intel Sapphire Rapids or a newer-generation processor, improving the performance of Hamming distance computation. Starting with version 3.9, OpenSearch uses AVX-512 BF16 instructions on these processors to accelerate inner product computation for vectors quantized using the [`bf16` encoder type]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/faiss-scalar-quantization/#the-bf16-encoder) and AVX-512 FP16 instructions to accelerate cosine similarity computation for vectors quantized using the [`fp16` encoder type]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/faiss-scalar-quantization/#the-fp16-encoder).
+OpenSearch supports [Single Instruction Multiple Data (SIMD)](https://en.wikipedia.org/wiki/Single_instruction,_multiple_data) processing if the underlying hardware supports SIMD instructions. SIMD is supported by default on Linux machines only for the Faiss engine. SIMD architecture helps boost overall performance by improving indexing throughput and reducing search latency. OpenSearch uses the following instruction sets:
+
+- Neon on ARM64 architecture.
+- AVX2 and AVX-512 on x64 architecture.
+- Advanced AVX-512 instructions on Intel Sapphire Rapids or newer-generation processors, which improve the performance of Hamming distance computation. On these processors, OpenSearch also uses AVX-512 BF16 instructions to accelerate inner product computation for vectors quantized using the [`bf16` encoder type]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/faiss-scalar-quantization/#the-bf16-encoder) and AVX-512 FP16 instructions to accelerate cosine similarity computation for vectors quantized using the [`fp16` encoder type]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/faiss-scalar-quantization/#the-fp16-encoder).
 
 SIMD optimization is applicable only if the vector dimension is a multiple of 8.
 {: .note}

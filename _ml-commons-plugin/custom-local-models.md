@@ -14,13 +14,12 @@ To use a custom model locally, you can upload it to the OpenSearch cluster.
 
 ## Model support
 
-As of OpenSearch 2.6, OpenSearch supports local text embedding models.
+OpenSearch supports the following types of local models:
 
-As of OpenSearch 2.11, OpenSearch supports local sparse encoding models.
-
-As of OpenSearch 2.12, OpenSearch supports local cross-encoder models.
-
-As of OpenSearch 2.13, OpenSearch supports local question answering models.
+- Text embedding models
+- Sparse encoding models
+- Cross-encoder models
+- Question answering models
 
 Running local models on the CentOS 7 operating system is not supported. Moreover, not all local models can run on all hardware and operating systems.
 {: .important}
@@ -35,7 +34,7 @@ If you fine-tune a sparse model on your own dataset, you may also want to use yo
 
 ### Model format
 
-To use a model in OpenSearch, you'll need to export the model into a portable format. As of Version 2.5, OpenSearch only supports the [TorchScript](https://pytorch.org/docs/stable/jit.html) and [ONNX](https://onnx.ai/) formats.
+To use a model in OpenSearch, you must export the model into a portable format. OpenSearch supports only the [TorchScript](https://pytorch.org/docs/stable/jit.html) and [ONNX](https://onnx.ai/) formats.
 
 You must save the model file as zip before uploading it to OpenSearch. To ensure that ML Commons can upload your model, compress your TorchScript file before uploading. For an example, download a TorchScript [model file](https://github.com/opensearch-project/ml-commons/blob/2.x/ml-algorithms/src/test/resources/org/opensearch/ml/engine/algorithms/text_embedding/all-MiniLM-L6-v2_torchscript_sentence-transformer.zip).
 
@@ -173,7 +172,7 @@ OpenSearch returns the task ID of the register operation:
 
 To check the status of the operation, provide the task ID to the [Get task]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/):
 
-```bash
+```json
 GET /_plugins/_ml/tasks/cVeMb4kBJ1eYAeTMFFgj
 ```
 {% include copy-curl.html %}
@@ -191,7 +190,7 @@ When the operation is complete, the state changes to `COMPLETED`:
   ],
   "create_time": 1689793598499,
   "last_update_time": 1689793598530,
-  "is_async": false
+  "is_async": true
 }
 ```
 
@@ -201,9 +200,9 @@ Take note of the returned `model_id` because you’ll need it to deploy the mode
 
 The deploy operation reads the model's chunks from the model index and then creates an instance of the model to load into memory. The bigger the model, the more chunks the model is split into and longer it takes for the model to load into memory.
 
-To deploy the registered model, provide its model ID from step 3 in the following request:
+To deploy the registered model, provide its model ID from step 2 in the following request:
 
-```bash
+```json
 POST /_plugins/_ml/models/cleMb4kBJ1eYAeTMFFg4/_deploy
 ```
 {% include copy-curl.html %}
@@ -213,13 +212,14 @@ The response contains the task ID that you can use to check the status of the de
 ```json
 {
   "task_id": "vVePb4kBJ1eYAeTM7ljG",
+  "task_type": "DEPLOY_MODEL",
   "status": "CREATED"
 }
 ```
 
 As in the previous step, check the status of the operation by calling the [Get ML Task API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/):
 
-```bash
+```json
 GET /_plugins/_ml/tasks/vVePb4kBJ1eYAeTM7ljG
 ```
 {% include copy-curl.html %}
@@ -315,9 +315,12 @@ The response contains the tokens and weights:
                 "bright": 0.1756877,
                 ...
               }
+            ]
           }
         }
+      ]
     }
+  ]
 }
 ```
 
@@ -362,7 +365,7 @@ To test a question answering model, send the following request. It requires a `q
 ```json
 POST /_plugins/_ml/_predict/question_answering/{model_id}
 {
-  "question": "Where do I live?"
+  "question": "Where do I live?",
   "context": "My name is John. I live in New York"
 }
 ```
@@ -376,8 +379,10 @@ The response provides the answer based on the context:
     {
       "output": [
         {
-          "result": "New York"
+          "result": "new york"
         }
+      ]
     }
+  ]
 }
 ```

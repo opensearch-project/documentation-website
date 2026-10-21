@@ -224,7 +224,9 @@ PUT {index}/_settings
 ```
 {% include copy-curl.html %}
 
-Increase the low disk watermarks by running the following request:
+The `read-only-allow-delete` block is applied when disk usage exceeds the `flood_stage` watermark, so raising only the `low` watermark does not remove it. Set the `low`, `high`, and `flood_stage` watermarks together, specifying all three as percentages or all three as byte values. 
+
+Percentages set the maximum disk usage, so the `low` watermark must be the smallest value. To increase the watermarks using percentages, send the following request:
 
 ```json
 PUT _cluster/settings
@@ -235,7 +237,9 @@ PUT _cluster/settings
         "allocation": {
           "disk": {
             "watermark": {
-              "low": "25.0gb"
+              "low": "90%",
+              "high": "95%",
+              "flood_stage": "97%"
             }
           }
         }
@@ -245,6 +249,32 @@ PUT _cluster/settings
 }
 ```
 {% include copy-curl.html %}
+
+Byte values set the minimum free disk space, so the `low` watermark must be the largest value. Use whole numbers because OpenSearch rejects fractional byte values. To set the watermarks using byte values, send the following request:
+
+```json
+PUT _cluster/settings
+{
+  "transient": {
+    "cluster": {
+      "routing": {
+        "allocation": {
+          "disk": {
+            "watermark": {
+              "low": "50gb",
+              "high": "25gb",
+              "flood_stage": "10gb"
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+When disk usage on the node falls below the `high` watermark, OpenSearch removes the `read-only-allow-delete` block automatically. After you free up disk space, reset the watermarks to their default values by setting them to `null`.
 
 Disable the disk allocation threshold by running the following request:
 

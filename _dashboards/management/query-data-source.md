@@ -35,7 +35,7 @@ To get started, follow these steps:
 To create visualizations, follow these steps:
 
 1. On the **Explorer** page, select the **Visualizations** tab. 
-2. Select **Index data to visualize**. This option currently only creates [acceleration indexes]({{site.url}}{{site.baseurl}}/dashboards/management/accelerate-external-data/), which give you views of the data visualizations from the **Visualizations** tab. To create a visualization of your Amazon S3 data, go to **Discover**. See the [Discover documentation]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/) for information and a tutorial.
+2. Select **Index data to visualize**. This option only creates [acceleration indexes]({{site.url}}{{site.baseurl}}/dashboards/management/accelerate-external-data/), which give you views of the data visualizations from the **Visualizations** tab. To create a visualization of your Amazon S3 data, go to **Discover**. See the [Discover documentation]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/) for information and a tutorial.
 
 ## Use Query Workbench with your Amazon S3 data source
 

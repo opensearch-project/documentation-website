@@ -1,3 +1,7 @@
+---
+has_children: true
+---
+
 # Test file
 
 This sentence tests AP. AP should be defined before using.
@@ -95,3 +99,7 @@ This sentence tests v1.2 not spelled out.
 This sentence tests terms by using security plugin.
 
 This sentence tests using the word repo. 
+
+## Related documentation
+
+This sentence tests a manual Related documentation section on a page that has children.

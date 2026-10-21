@@ -1,15 +1,15 @@
 ---
 layout: default
-title: Cleanup snapshot repository
+title: Clean up snapshot repository
 parent: Snapshot APIs
-nav_order: 11
+nav_order: 45
 ---
 
-# Cleanup Snapshot Repository API
+# Clean Up Snapshot Repository API
 **Introduced 1.0**
 {: .label .label-purple }
 
-The Cleanup Snapshot Repository API clears a snapshot repository of data no longer referenced by any existing snapshot.
+The Clean Up Snapshot Repository API clears a snapshot repository of data no longer referenced by any existing snapshot.
 
 ## Endpoints
 
@@ -19,6 +19,8 @@ POST /_snapshot/{repository}/_cleanup
 
 
 ## Path parameters
+
+The following table lists the available path parameters.
 
 | Parameter | Data type | Description |
 | :--- | :--- | :--- |
@@ -72,6 +74,8 @@ response = client.snapshot.cleanup_repository(
 ```
 
 ## Response body fields
+
+The following table lists all response body fields.
 
 | Field | Data type | Description |
 | :--- | :--- | :--- |
