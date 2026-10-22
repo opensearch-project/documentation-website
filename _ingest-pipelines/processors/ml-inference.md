@@ -9,10 +9,10 @@ redirect_from:
 
 # ML inference processor
 
-The `ml_inference` processor is used to invoke machine learning (ML) models registered in the [OpenSearch ML Commons plugin]({{site.url}}{{site.baseurl}}/ml-commons-plugin/). The model outputs are added as new fields to the ingested documents.
+The `ml_inference` processor invokes [machine learning (ML) models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/) registered in OpenSearch. The model outputs are added as new fields to the ingested documents.
 
 **PREREQUISITE**<br>
-Before using the `ml_inference` processor, you must have either a local ML model hosted on your OpenSearch cluster or an externally hosted model connected to your OpenSearch cluster through the ML Commons plugin. For more information about local models, see [Using ML models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/using-ml-models/). For more information about externally hosted models, see [Connecting to externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/). 
+Before using the `ml_inference` processor, you must have either a local ML model hosted on your OpenSearch cluster or an externally hosted model connected to your OpenSearch cluster. For more information about local models, see [Using ML models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/using-ml-models/). For more information about externally hosted models, see [Connecting to externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/). 
 {: .note}
 
 ## Syntax

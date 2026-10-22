@@ -53,7 +53,7 @@ Processor type | Description
 `json` | Converts a JSON string into a structured JSON object. 
 `kv` | Automatically parses key-value pairs in a field.
 `lowercase` | Converts text in a specific field to lowercase letters.
-`ml_inference` | Runs a machine learning model registered in ML Commons and adds the model outputs to the document.
+`ml_inference` | Runs a machine learning model registered in OpenSearch and adds the model outputs to the document.
 `pipeline` | Runs an inner pipeline.
 `remove` | Removes fields from a document.
 `remove_by_pattern` | Removes fields from a document by field pattern.
