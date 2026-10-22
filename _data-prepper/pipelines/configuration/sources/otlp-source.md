@@ -26,12 +26,14 @@ You can configure the `otlp` source with the following options.
 | `request_timeout` | Duration | The request timeout duration. Default is `10s`. |
 | `retry_info` | Object | Configures retry behavior. Supports `min_delay` (default `100ms`) and `max_delay` (default `2s`) parameters to control exponential backoff. See [Retry information](#retry-information).|
 | `health_check_service` | Boolean | Enables a gRPC health check service under `grpc.health.v1.Health/Check`. When `unframed_requests` is `true`, enables HTTP health check at `/health`. Default is `false`. |
+| `unauthenticated_health_check` | Boolean | Determines whether or not authentication is required on the HTTP health check endpoint. OpenSearch Data Prepper ignores this option if no authentication is defined. Default is `false`. |
 | `proto_reflection_service` | Boolean | Enables a reflection service for Protobuf services (see [ProtoReflectionService](https://grpc.github.io/grpc-java/javadoc/io/grpc/protobuf/services/ProtoReflectionService.html) and [gRPC reflection](https://github.com/grpc/grpc-java/blob/master/documentation/server-reflection-tutorial.md)). Default is `false`. |
 | `unframed_requests` | Boolean | Enables requests not framed using the gRPC wire protocol. Default is `false`. |
 | `thread_count` | Integer | The number of threads to keep in the scheduled thread pool. Default is `200`. |
 | `max_connection_count` | Integer | The maximum allowed number of open connections. Default is `500`. |
 | `max_request_length` | String | The maximum number of bytes allowed in the payload of a single gRPC or HTTP request. Default is `10mb`. |
 | `compression` | String | The compression type applied to the client request payload. Valid values are `none` (no compression) or `gzip` (apply `gzip` decompression). Default is `none`. |
+| `authentication` | Object | The authentication configuration. By default, the source runs without authentication. See [Authentication configuration](#authentication-configuration). |
 | `output_format` | String | Specifies the decoded output format for all signals (logs, metrics, and traces) if individual output format options are not set. Valid values are `otel` (OpenTelemetry format) and `opensearch` (OpenSearch format). Default is `otel`. |
 | `logs_output_format` | String | Specifies the decoded output format specifically for logs. Takes precedence over `output_format` for logs. Valid values are `otel` and `opensearch`. Default is `otel`. |
 | `metrics_output_format` | String | Specifies the decoded output format specifically for metrics. Takes precedence over `output_format` for metrics. Valid values are `otel` and `opensearch`. Default is `otel`. |
@@ -49,10 +51,11 @@ You can configure SSL/TLS in the `otlp` source with the following options.
 | `ssl` | Boolean | Enables SSL/TLS. Default is `true`. |
 | `ssl_certificate_file` | String | The SSL certificate chain file path or Amazon Simple Storage Service (Amazon S3) path (for example, `s3://<bucketName>/<path>`). Required if `ssl` is set to `true`. |
 | `ssl_key_file` | String | The SSL key file path or Amazon S3 path (for example, `s3://<bucketName>/<path>`). Required if `ssl` is set to `true`. |
-| `use_acm_cert_for_ssl` | Boolean | Enables SSL/TLS using a certificate and private key from AWS Certificate Manager (ACM). Default is `false`. |
-| `acm_certificate_arn` | String | The ACM certificate Amazon Resource Name (ARN). ACM certificates take precedence over Amazon S3 or local file system certificates. Required if `use_acm_cert_for_ssl` is set to `true`. |
-| `acm_private_key_password` | String | The ACM private key password that decrypts the private key. If not provided, OpenSearch Data Prepper uses the private key without encryption. |
-| `aws_region` | String | The AWS Region used by ACM or Amazon S3. Required if `use_acm_cert_for_ssl` is set to `true` or if `ssl_certificate_file` and `ssl_key_file` are Amazon S3 paths. |
+| `use_acm_certificate_for_ssl` | Boolean | Enables SSL/TLS using a certificate and private key from AWS Certificate Manager (ACM). Default is `false`. |
+| `acm_certificate_arn` | String | The ACM certificate Amazon Resource Name (ARN). ACM certificates take precedence over Amazon S3 or local file system certificates. Required if `use_acm_certificate_for_ssl` is set to `true`. |
+| `acm_private_key_password` | String | The ACM private key password that decrypts the private key. If not provided, OpenSearch Data Prepper generates a random password. |
+| `acm_certificate_timeout` | Duration | The maximum amount of time that Data Prepper waits to retrieve the certificate from ACM. Must be between `5s` and `3600s`. Default is `120s`. |
+| `aws_region` | String | The AWS Region used by ACM or Amazon S3. Required if `use_acm_certificate_for_ssl` is set to `true` or if `ssl_certificate_file` and `ssl_key_file` are Amazon S3 paths. |
 
 ### Authentication configuration
 
@@ -220,7 +223,7 @@ To use the ACM, specify the following settings:
 source:
   otlp:
     ssl: true
-    use_acm_cert_for_ssl: true
+    use_acm_certificate_for_ssl: true
     acm_certificate_arn: "arn:aws:acm:us-east-1:123456789012:certificate/12345678-1234-1234-1234-123456789012"
     aws_region: "us-east-1"
 ```

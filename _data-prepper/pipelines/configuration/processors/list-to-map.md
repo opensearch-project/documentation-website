@@ -23,7 +23,9 @@ Option | Required | Type | Description
 `value_key` | No | String | When specified, values given a `value_key` in objects contained in the source list will be extracted and converted into the value specified by this option based on the generated map. When not specified, objects contained in the source list retain their original value when mapped.
 `extract_value` | No | Boolean | When `true`, object values from the source list will be extracted and added to the generated map. When `false`, object values from the source list are added to the generated map as they appear in the source list. Default is `false`
 `flatten` | No | Boolean | When `true`, values in the generated map output flatten into single items based on the `flattened_element`. Otherwise, objects mapped to values from the generated map appear as lists.
-`flattened_element` | Conditionally | String | The element to keep, either `first` or `last`, when `flatten` is set to `true`.
+`flattened_element` | Conditionally | String | The element to keep, either `first` or `last`, when `flatten` is set to `true`. Default is `first`.
+`list_to_map_when` | No | String | A [`conditional expression`]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/expression-syntax/), such as `/some-key == "test"`, that is evaluated to determine whether the processor runs on the event. By default, the processor runs on all events.
+`tags_on_failure` | No | List | A list of tags to add to the event metadata when the processor fails to convert the list, for example, when the `source` field does not contain a list.
 
 ## Usage
 

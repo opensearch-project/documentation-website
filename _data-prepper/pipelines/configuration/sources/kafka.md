@@ -42,6 +42,7 @@ Option | Required | Type | Description
 `encryption` | No | JSON object | The encryption configuration. For more information, see [Encryption](#encryption).
 `aws` | No | JSON object | The AWS configuration. For more information, see [aws](#aws).
 `acknowledgments` | No | Boolean | If `true`, enables the `kafka` source to receive [end-to-end acknowledgments]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines/#end-to-end-acknowledgments) when events are received by OpenSearch sinks. Default is `false`.
+`acknowledgments_timeout` | No | Duration | The maximum amount of time to wait for end-to-end acknowledgments of the records read from Kafka. Applies only when `acknowledgments` is `true`. If the records are not acknowledged within this time, their offsets are not committed. By default, acknowledgments effectively never time out.
 `client_dns_lookup` | Yes, when a DNS alias is used. | String | Sets Kafka's `client.dns.lookup` option. Default is `default`.
 
 ### Topics
@@ -52,21 +53,24 @@ Option | Required | Type | Description
 :--- | :--- | :--- | :---
 `name` | Yes | String | The name of each Kafka topic.
 `group_id` | Yes | String | Sets Kafka's `group.id` option.
+`client_id` | No | String | Sets Kafka's `client.id` option for the topic's consumers. Must be between 1 and 255 characters long.
 `workers` | No | Integer | The number of multithreaded consumers associated with each topic. Default is `2`. The maximum value is `200`.
 `serde_format` | No | String | Indicates the serialization and deserialization format of the messages in the topic. Default is `plaintext`.
 `auto_commit` | No | Boolean | When `false`, the consumer's offset will not be periodically committed to Kafka in the background. Default is `false`.
-`commit_interval` | No | Integer | When `auto_commit` is set to `true`, sets how frequently, in seconds, the consumer offsets are auto-committed to Kafka through Kafka's `auto.commit.interval.ms` option. Default is `5s`.
-`session_timeout` | No | Integer | The amount of time during which the source detects client failures when using Kafka's group management features, which can be used to balance the data stream. Default is `45s`.
+`commit_interval` | No | Duration | When `auto_commit` is set to `true`, sets how frequently the consumer offsets are auto-committed to Kafka through Kafka's `auto.commit.interval.ms` option. Default is `5s`.
+`session_timeout` | No | Duration | The amount of time during which the source detects client failures when using Kafka's group management features, which can be used to balance the data stream. Default is `45s`.
 `auto_offset_reset` | No | String | Automatically resets the offset to an earlier or the latest offset through Kafka's `auto.offset.reset` option. Default is `earliest`.
-`thread_waiting_time` | No | Integer | The amount of time that threads wait for the preceding thread to complete its task and to signal the next thread. The Kafka consumer API poll timeout value is set to half of this setting. Default is `5s`.
-`max_partition_fetch_bytes` | No | Integer | Sets the maximum limit in megabytes for max data returns from each partition through Kafka's `max.partition.fetch.bytes` setting. Default is `1mb`.
-`heart_beat_interval` | No | Integer | The expected amount of time between heartbeats to the consumer coordinator when using Kafka's group management facilities through Kafka's `heartbeat.interval.ms` setting. Default is `5s`.
-`fetch_max_wait` | No | Integer | The maximum amount of time during which the server blocks a fetch request when there isn't sufficient data to satisfy the `fetch_min_bytes` requirement through Kafka's `fetch.max.wait.ms` setting. Default is `500ms`.
-`fetch_max_bytes` | No | Integer | The maximum record size accepted by the broker through Kafka's `fetch.max.bytes` setting. Default is `50mb`.
-`fetch_min_bytes` | No | Integer | The minimum amount of data the server returns during a fetch request through Kafka's `retry.backoff.ms` setting. Default is `1b`.
-`retry_backoff` | No | Integer | The amount of time to wait before attempting to retry a failed request to a given topic partition. Default is `10s`.
-`max_poll_interval` | No | Integer | The maximum delay between invocations of a `poll()` when using group management through Kafka's `max.poll.interval.ms` option. Default is `300s`.
+`thread_waiting_time` | No | Duration | The amount of time that threads wait for the preceding thread to complete its task and to signal the next thread. The Kafka consumer API poll timeout value is set to half of this setting. Default is `5s`.
+`max_partition_fetch_bytes` | No | String | Sets the maximum amount of data returned from each partition through Kafka's `max.partition.fetch.bytes` setting. Default is `1mb`.
+`heart_beat_interval` | No | Duration | The expected amount of time between heartbeats to the consumer coordinator when using Kafka's group management facilities through Kafka's `heartbeat.interval.ms` setting. Default is `5s`.
+`fetch_max_wait` | No | Integer | The maximum amount of time, in milliseconds, during which the server blocks a fetch request when there isn't sufficient data to satisfy the `fetch_min_bytes` requirement through Kafka's `fetch.max.wait.ms` setting. Default is `500`.
+`fetch_max_bytes` | No | String | The maximum amount of data the server returns for a fetch request through Kafka's `fetch.max.bytes` setting. The maximum value is `50mb`. Default is `50mb`.
+`fetch_min_bytes` | No | String | The minimum amount of data the server returns during a fetch request through Kafka's `fetch.min.bytes` setting. Default is `1b`.
+`retry_backoff` | No | Duration | The amount of time to wait before attempting to retry a failed request to a given topic partition. Default is `10s`.
+`reconnect_backoff` | No | Duration | The amount of time to wait before attempting to reconnect to a broker through Kafka's `reconnect.backoff.ms` setting. Default is `10s`.
+`max_poll_interval` | No | Duration | The maximum delay between invocations of a `poll()` when using group management through Kafka's `max.poll.interval.ms` option. Default is `300s`.
 `consumer_max_poll_records` | No | Integer | The maximum number of records returned in a single `poll()` call through Kafka's `max.poll.records` setting. Default is `500`.
+`isolation_level` | No | String | Controls how the consumer reads messages written transactionally, through Kafka's `isolation.level` setting. Valid values are `read_uncommitted`, which returns all messages, and `read_committed`, which returns only messages from committed transactions. Default is `read_uncommitted`.
 `key_mode` | No | String | Indicates how the key field of the Kafka message should be handled. The default setting is `include_as_field`, which includes the key in the `kafka_key` event. The `include_as_metadata` setting includes the key in the event's metadata. The `discard` setting discards the key.
 
 ### Schema
@@ -76,6 +80,7 @@ The `schema` configuration has the following options.
 Option | Type | Required | Description
 :--- | :--- | :--- | :---
 `type` | String | Yes | Sets the type of schema based on your registry. Valid values are `aws_glue` (AWS Glue schema registry) and `confluent` (Confluent schema registry) . When using the `aws_glue` registry, set any [AWS](#aws) configuration options.
+`override_endpoint` | Boolean | No | When `true` and `type` is `aws_glue`, the `kafka` source uses the `registry_url` as the AWS Glue Schema Registry endpoint. Default is `false`.
 `basic_auth_credentials_source` | String | No | Where schema registry credentials come from. Use `USER_INFO` when providing `api_key/api_secret`. Other valid values are `URL` and `SASL_INHERIT`. Default typically aligns with the underlying client.
 
 The following configuration options are only required when using a `confluent` registry.
@@ -83,7 +88,7 @@ The following configuration options are only required when using a `confluent` r
 Option | Type | Description
 :--- | :--- | :---
 `registry_url` | String | The base URL of the schema registry (for example, `http://schema-registry:8081` or `https://sr.example.com`).
-`version` | String | The schema version to use per subject. Use an integer or `latest`.
+`version` | Integer | The schema version to use per subject. If not specified, the latest version is used.
 `api_key` | String | The schema registry API key.
 `api_secret` | String | The schema registry API secret.
 
@@ -95,7 +100,6 @@ schema:
   registry_url: "http://schema-registry:8081"
   api_key: "<optional if using basic/key auth>"
   api_secret: "<optional if using basic/key auth>"
-  version: "latest"
 ```
 {% include copy.html %}
 
@@ -151,7 +155,8 @@ Use one of the following options when configuring SASL authentication.
 Option | Type | Description
 :--- | :--- | :---
 `plaintext` | JSON object | The plaintext authentication configuration. The alias `plain` is also supported for backward compatibility. For more information, see [SASL plaintext](#sasl-plaintext).
-`aws_msk_iam` | String | The Amazon MSK AWS Identity and Access Management (IAM) configuration. If set to `role`, the `sts_role_arm` set in the `aws` configuration is used. Default is `default`.
+`scram` | JSON object | The Salted Challenge Response Authentication Mechanism (SCRAM) authentication configuration. For more information, see [SASL SCRAM](#sasl-scram).
+`aws_msk_iam` | String | The Amazon MSK AWS Identity and Access Management (IAM) configuration. If set to `role`, the `sts_role_arn` set in the `aws` configuration is used. Default is `default`.
 
 ##### SASL plaintext
 
@@ -161,6 +166,16 @@ The following options are required when using the [SASL.plain](https://kafka.apa
 |:---|:---|:---|
 | `username` | String | The SASL/PLAIN username. |
 | `password` | String | The SASL/PLAIN password. |
+
+##### SASL SCRAM
+
+The following options are required when using SCRAM authentication.
+
+| Option | Type | Description |
+|:---|:---|:---|
+| `username` | String | The SCRAM username. |
+| `password` | String | The SCRAM password. |
+| `mechanism` | String | The SCRAM mechanism to use, for example, `SCRAM-SHA-256` or `SCRAM-SHA-512`. The value is passed to Kafka's `sasl.mechanism` setting. |
 
 ### Encryption
 
@@ -193,6 +208,8 @@ Option | Required | Type | Description
 `region` | No | String | The AWS Region to use for credentials. Defaults to [standard SDK behavior to determine the Region](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/region-selection.html).
 `sts_role_arn` | No | String | The AWS Security Token Service (AWS STS) role to assume for requests to Amazon Simple Queue Service (Amazon SQS) and Amazon Simple Storage Service (Amazon S3). Default is `null`, which will use the [standard SDK behavior for credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html).
 `msk` | No | JSON object | The [MSK](#msk) configuration settings.
+`sts_header_overrides` | No | Map | A map of headers to add to the AWS STS `AssumeRole` request. You can specify up to 5 headers.
+`role_session_name` | No | String | The role session name to use when authenticating to Amazon MSK using the role specified in `sts_role_arn`. Applies only when `aws_msk_iam` is set to `role`.
 
 #### MSK
 
@@ -201,7 +218,7 @@ Use the following options inside the `msk` object.
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
 `arn` | Yes | String | The [MSK ARN](https://docs.aws.amazon.com/msk/1.0/apireference/configurations-arn.html) to use.
-`broker_connection_type` | No | String | The type of connector to use with the MSK broker. Valid values are `public`, `single_vpc`, and `multip_vpc`. Default is `single_vpc`.
+`broker_connection_type` | No | String | The type of connector to use with the MSK broker. Valid values are `public`, `single_vpc`, and `multi_vpc`. Default is `single_vpc`.
 
 ## Configuration examples
 
@@ -297,7 +314,7 @@ msk-pipeline:
       topics:
         - name: my-msk-topic
           group_id: msk-consumer-group
-      auto_offset_reset: earliest
+          auto_offset_reset: earliest
       aws:
         region: us-east-1
         sts_role_arn: arn:aws:iam::123456789012:role/data-prepper-role
@@ -305,7 +322,6 @@ msk-pipeline:
           arn: arn:aws:kafka:us-east-1:123456789012:cluster/my-cluster-name/uuid
       schema:
         type: aws_glue
-        registry_name: my-glue-registry
   processor:
     - date:
         match:
@@ -336,7 +352,7 @@ confluent-pipeline:
       topics:
         - name: confluent-topic
           group_id: confluent-group
-      auto_offset_reset: earliest
+          auto_offset_reset: earliest
       encryption:
         type: ssl
       authentication:

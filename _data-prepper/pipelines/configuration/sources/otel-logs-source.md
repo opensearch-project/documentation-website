@@ -11,7 +11,7 @@ nav_order: 60
 
 The `otel_logs_source` source is an OpenTelemetry source that follows the [OpenTelemetry Protocol Specification](https://github.com/open-telemetry/oteps/blob/master/text/0035-opentelemetry-protocol.md) and receives logs from the OTel Collector in the form of `ExportLogsServiceRequest` records.
 
-This source supports the `OTLP/gRPC` protocol.
+This source supports the `OTLP/gRPC` protocol. To also accept `OTLP/HTTP` requests, configure the `http_path` option.
 {: .note}
 
 ## Configuration
@@ -21,15 +21,18 @@ You can configure the `otel_logs_source` source with the following options.
 | Option | Type | Description |
 | :--- | :--- | :--- |
 | port | Integer | Represents the port that the `otel_logs_source` source is running on. Default value is `21892`. |
-| path | String | Represents the path for sending unframed HTTP requests. You can use this option to support an unframed gRPC request with an HTTP idiomatic path to a configurable path. The path should start with `/`, and its length should be at least 1. The `/opentelemetry.proto.collector.logs.v1.LogsService/Export` endpoInteger is disabled for both gRPC and HTTP requests if the path is configured. The path can contain a `${pipelineName}` placeholder, which is replaced with the pipeline name. If the value is empty and `unframed_requests` is `true`, then the source provides the path `/opentelemetry.proto.collector.logs.v1.LogsService/Export`. |
+| path | String | Represents the path for sending unframed HTTP requests. Use this option to support an unframed gRPC request with an HTTP idiomatic path to a configurable path. The path should start with `/`, and its length should be at least 1. The `/opentelemetry.proto.collector.logs.v1.LogsService/Export` endpoint is disabled for both gRPC and HTTP requests if the path is configured. The path can contain a `${pipelineName}` placeholder, which is replaced with the pipeline name. If the value is empty and `unframed_requests` is `true`, then the source provides the path `/opentelemetry.proto.collector.logs.v1.LogsService/Export`. |
+| http_path | String | The path for an `OTLP/HTTP` endpoint that accepts JSON and Protobuf requests, for example, `/v1/logs`. The path can contain a `${pipelineName}` placeholder, which is replaced with the pipeline name. If not set, the source does not provide an `OTLP/HTTP` endpoint. When `http_path` is set and `health_check_service` is `true`, the source also provides an HTTP health check at `/health`. |
 | max_request_length | String | The maximum number of bytes allowed in the payload of a single gRPC or HTTP request. Default value is `10mb`. |
 | request_timeout | Integer | Represents the request timeout duration in milliseconds. Default value is `10000`. |
 | health_check_service | Boolean | Enables the gRPC health check service under `grpc.health.v1/Health/Check`. Default value is `false`. |
 | proto_reflection_service | Boolean | Enables a reflection service for Protobuf services (see [ProtoReflectionService](https://grpc.github.io/grpc-java/javadoc/io/grpc/protobuf/services/ProtoReflectionService.html) and [gRPC reflection](https://github.com/grpc/grpc-java/blob/master/documentation/server-reflection-tutorial.md)). Default value is `false`. |
 | unframed_requests | Boolean | Enables requests that are not framed using the gRPC wire protocol. Default value is `false`. |
-| thread_count  | Integer | The number of threads to keep in the `ScheduledThreadPool`. Default value is `500`. |
+| thread_count  | Integer | The number of threads to keep in the `ScheduledThreadPool`. Default value is `200`. |
 | max_connection_count | Integer | The maximum number of open connections allowed. Default value is `500`. |
 | compression | String | The compression type applied to the client request payload. Valid values are `none` or `gzip`. Use `gzip` to apply gzip decompression to the incoming request. Default is `none` (no compression). |
+| authentication | Object | An authentication configuration. By default, an unauthenticated server is created for the pipeline. To use basic authentication, define the `http_basic` plugin with a `username` and `password`. Authentication applies to gRPC requests, `OTLP/HTTP` requests, and the health check. To provide custom authentication, use or create a plugin that implements [GrpcAuthenticationProvider](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/armeria-common/src/main/java/org/opensearch/dataprepper/armeria/authentication/GrpcAuthenticationProvider.java). |
+| retry_info | Object | Configures the retry delay that the source returns to clients in `RESOURCE_EXHAUSTED` responses, for example, when the buffer is full or a request times out. Supports the `min_delay` (default `100ms`) and `max_delay` (default `2s`) options. The suggested delay starts at `min_delay` and doubles with each consecutive rejection, up to `max_delay`. |
 | output_format | String | Specifies the output format of the generated events. Valid values are `otel` or `opensearch`. Default is `opensearch`. |
 
 ### SSL
@@ -43,6 +46,8 @@ You can configure SSL in the `otel_logs_source` source with the following option
 | `sslKeyFile` | String | Represents the SSL key file path or Amazon S3 path. For example, see the Amazon S3 path `s3://<bucketName>/<path>`. Required if `ssl` is set to `true`.  |
 | `useAcmCertForSSL` | Boolean | Enables TLS/SSL using a certificate and private key from AWS Certificate Manager (ACM). Default value is `false`. |
 | `acmCertificateArn` | String | Represents the ACM certificate Amazon Resource Name (ARN). ACM certificates take precedence over Amazon S3 or local file system certificates. Required if `useAcmCertForSSL` is set to `true`. |
+| `acmPrivateKeyPassword` | String | The password used to decrypt the private key exported from ACM. If not provided, Data Prepper generates a random password. |
+| `acmCertIssueTimeOutMillis` | Integer | The maximum amount of time, in milliseconds, that Data Prepper waits to retrieve the certificate from ACM. Default value is `120000`. |
 | `awsRegion` | String | Represents the AWS Region used by ACM or Amazon S3. Required if `useAcmCertForSSL` is set to `true` or `sslKeyCertChainFile` or `sslKeyFile` is the Amazon S3 path. |
 
 ## Usage

@@ -12,8 +12,8 @@ The `bounded_blocking` buffer is the default buffer and is memory based. The fol
 
 | Option | Required | Type | Description |
 | --- | --- | --- | --- |
-| buffer_size | No | Integer | The maximum number of records the buffer accepts. Default value is `12800`. |
-| batch_size | No | Integer | The maximum number of records the buffer drains after each read. Default value is `200`. |
+| `buffer_size` | No | Integer | The maximum number of records the buffer accepts. Default value is `12800`. |
+| `batch_size` | No | Integer | The maximum number of records the buffer drains after each read. Default value is `200`. |
 
 <!--- ## Configuration
 

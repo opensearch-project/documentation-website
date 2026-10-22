@@ -44,9 +44,9 @@ The following tables describe the configuration options for the `dynamodb` sourc
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
 `aws` | Yes | AWS | The AWS configuration. See [`aws`](#aws) for more information.
-`acknowledgments` | No | Boolean  | When `true`, enables `s3` sources to receive [end-to-end acknowledgments]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines#end-to-end-acknowledgments) when events are received by OpenSearch sinks.
-`shared_acknowledgement_timeout` | No | Duration | The amount of time that elapses before the data read from a DynamoDB stream expires when used with acknowledgements. Default is 10 minutes.
-`s3_data_file_acknowledgment_timeout` | No | Duration | The amount of time that elapses before the data read from a DynamoDB export expires when used with acknowledgments. Default is 5 minutes.
+`acknowledgments` | No | Boolean  | When `true`, enables the `dynamodb` source to receive [end-to-end acknowledgments]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines#end-to-end-acknowledgments) when events are received by OpenSearch sinks. Default is `false`.
+`shard_acknowledgment_timeout` | No | Duration | The amount of time that elapses before the data read from a DynamoDB stream expires when used with acknowledgments. Default is 30 minutes.
+`s3_data_file_acknowledgment_timeout` | No | Duration | The amount of time that elapses before the data read from a DynamoDB export expires when used with acknowledgments. Default is 15 minutes.
 `tables` | Yes | List | The configuration for the DynamoDB table. See [tables](#tables) for more information.
 
 <!-- vale off -->
@@ -59,7 +59,8 @@ Option | Required | Type | Description
 :--- | :--- | :--- | :---
 `region` | No | String | The AWS Region to use for credentials. Defaults to [standard SDK behavior to determine the Region](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/region-selection.html).
 `sts_role_arn` | No | String | The AWS Security Token Service (AWS STS) role to assume for requests to Amazon Simple Queue Service (Amazon SQS) and Amazon Simple Storage Service (Amazon S3). Defaults to `null`, which will use the [standard SDK behavior for credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html).
-`aws_sts_header_overrides` | No | Map | A map of header overrides that the AWS Identity and Access Management (IAM) role assumes for the sink plugin.
+`sts_external_id` | No | String | The external ID to use when assuming the STS role. Must be between 2 and 1,224 characters.
+`sts_header_overrides` | No | Map | A map of header overrides that the AWS Identity and Access Management (IAM) role assumes for the source plugin. Maximum of 5 headers.
 
 
 <!-- vale off -->
@@ -87,12 +88,13 @@ Option | Required | Type | Description
 
 #### Stream option
 
-The following option lets you customize how the pipeline reads events from the DynamoDB table.
+The following options let you customize how the pipeline reads events from the DynamoDB table.
 
 Option | Required | Type   | Description
 :--- | :--- | :--- | :---
 `start_position` | No | String | The position from where the source starts reading stream events when the DynamoDB stream option is enabled. `LATEST` starts reading events from the most recent stream record. 
 `view_on_remove` | No | Enum | The [stream record view](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Streams.html) to use for REMOVE events from DynamoDB streams. Must be either `NEW_IMAGE` or `OLD_IMAGE` . Defaults to `NEW_IMAGE`. If the `OLD_IMAGE` option is used and the old image can not be found, the source will find the `NEW_IMAGE`.
+`disable_checkpointing` | No | Boolean | When `true`, the source does not resume reading a shard from its saved checkpoint. Each time the source starts reading a shard, it reads from the oldest available record in the shard. Default is `false`.
 
 ## Exposed metadata attributes
 

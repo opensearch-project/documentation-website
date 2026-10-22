@@ -8,11 +8,26 @@ nav_order: 59
 
 # Prometheus sink
 
+This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the [`prometheus` sink plugin](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/prometheus-sink) in the OpenSearch Data Prepper repository.
+{: .warning}
+
 The Prometheus sink buffers OpenTelemetry metrics and exports them in Prometheus time series format using the Remote Write API. It supports both open-source Prometheus and Amazon Managed Service for Prometheus (AMP).
 
 The `prometheus` sink processes only metric data. All other data types are sent to the [DLQ pipeline]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/dlq/), if it is configured.
 
 To ensure compatibility, the Prometheus sink sorts metrics by timestamp within each batch before sending them to the server. It also supports an out-of-order window, which allows ingestion of metrics with older timestamps.
+
+## Prerequisites
+
+To use the `prometheus` sink, enable the experimental `prometheus` plugin in `data-prepper-config.yaml`:
+
+```yaml
+experimental:
+  enabled_plugins:
+    sink:
+      - prometheus
+```
+{% include copy.html %}
 
 ## Usage
 
@@ -105,9 +120,9 @@ Option | Required | Type | Description
 `content_type` | No | String | The MIME type of the body. Only `application/x-protobuf` is supported.
 `out_of_order_time_window` | No | Duration | The time window allowed for late-arriving data points. Data older than this window relative to the latest point will be dropped. Default is `10s`.
 `sanitize_names` | No | Boolean | Determines whether metric and label names are sanitized in order to comply with Prometheus naming conventions. Default is `true`.
-`connection_timeout` | No | Duration | The maximum amount of time allowed to establish an HTTP connection. Default is `60s`.
-`idle_timeout` | No | Duration | The maximum amount of time an idle HTTP connection remains open before being closed. Default is `60s`.
-`request_timeout` | No | Duration | The maximum amount of time allowed for a full end-to-end HTTP request to complete. Default is `60s`.
+`connection_timeout` | No | Duration | The maximum amount of time allowed to establish an HTTP connection. Must be between 1 and 600 seconds. Default is `60s`.
+`idle_timeout` | No | Duration | The maximum amount of time an idle HTTP connection remains open before being closed. Must be between 1 and 600 seconds. Default is `60s`.
+`request_timeout` | No | Duration | The maximum amount of time allowed for a full end-to-end HTTP request to complete. Must be between 1 and 600 seconds. Default is `60s`.
 `threshold` | No | [Threshold configuration](#threshold-configuration) | Configuration for batching and flushing time-series data.
 `max_retries` | No | Integer | The maximum number of attempts for failed ingestion requests. Uses exponential backoff with jitter on `retryable` status codes (`429`, `502`, `503`, or `504`). Default is `5`.
 `aws` | No | [AWS configuration](#aws-configuration) | AWS configuration for AWS Signature Version 4 signing. When present, requests are signed with AWS credentials. Cannot be used with `authentication`.
@@ -131,8 +146,8 @@ Option | Required | Type | Description
 :--- | :--- | :--- | :---
 `region` | No | String | The AWS Region to use for credentials. Defaults to [standard SDK behavior to determine the region](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/region-selection.html).
 `sts_role_arn` | No | String | The STS role to assume for requests to AWS. Defaults to `null`, which uses [standard SDK credential behavior](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html).
-`sts_header_overrides` | No | Map | A map of header overrides to make when assuming the IAM role.
-`sts_external_id` | No | String | An optional external ID to use when assuming the IAM role.
+`sts_header_overrides` | No | Map | A map of header overrides to make when assuming the IAM role. Maximum of 5 headers.
+`sts_external_id` | No | String | An optional external ID to use when assuming the IAM role. Must be between 2 and 1,224 characters.
 
 ## Authentication configuration
 

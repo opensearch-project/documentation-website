@@ -56,8 +56,10 @@ Option | Required | Type | Description
 `cert` | No | String | The path to the security certificate. For example, `"config/root-ca.pem"` if the cluster uses the OpenSearch Security plugin.
 `username` | No | String  | The username for HTTP basic authentication.
 `password` | No | String | The password for HTTP basic authentication. Many Data Prepper examples authenticate as the `admin` user and use the `<custom-admin-password>` placeholder for its [password]({{site.url}}{{site.baseurl}}/security/configuration/passwords/#admin-password). You can also authenticate as a user that has only the permissions that the sink requires. For more information, see [OpenSearch cluster security](#opensearch-cluster-security).
+`authentication` | No | Object | The authentication configuration for connecting to OpenSearch. Use this object to configure HTTP basic authentication or client certificate authentication. Cannot be used together with the top-level `username` and `password` options. For more information, see [Authentication](#authentication).
+`api_token` | No | String | A token that the sink sends as a bearer token in the `Authorization` header of each request to OpenSearch. Ignored when `authentication` is configured.
 `aws` | No | AWS  | The [AWS](#aws) configuration. 
-[max_retries](#configure-max_retries) | No | Integer | The maximum number of times that the `opensearch` sink should try to push data to the OpenSearch server before considering it to be a failure. Defaults to `Integer.MAX_VALUE`. When not provided, the sink will try to push data to the OpenSearch server indefinitely and exponential backoff will increase the waiting time before a retry.
+[`max_retries`](#configure-max_retries) | No | Integer | The maximum number of times that the `opensearch` sink should try to push data to the OpenSearch server before considering it to be a failure. Defaults to `Integer.MAX_VALUE`. When not provided, the sink will try to push data to the OpenSearch server indefinitely and exponential backoff will increase the waiting time before a retry.
 `aws_sigv4` | No | Boolean | **Deprecated in Data Prepper 2.7.** Default is `false`. Whether to use AWS Identity and Access Management (IAM) signing to connect to an Amazon OpenSearch Service domain. For your access key, secret key, and optional session token, OpenSearch Data Prepper uses the default credential chain (environment variables, Java system properties, `~/.aws/credential`). 
 `aws_region` | No | String | **Deprecated in Data Prepper 2.7.** The AWS Region (for example, `"us-east-1"`) for the domain when you are connecting to Amazon OpenSearch Service.
 `aws_sts_role_arn` | No | String | **Deprecated in Data Prepper 2.7.** The IAM role that the plugin uses to sign requests sent to Amazon OpenSearch Service. If this information is not provided, then the plugin uses the default credentials.
@@ -65,8 +67,9 @@ Option | Required | Type | Description
 `connect_timeout` | No | Integer| The timeout value, in milliseconds, when requesting a connection from the connection manager. A timeout value of `0` is interpreted as an infinite timeout. If this timeout value is negative or not set, the underlying Apache HttpClient will rely on operating system settings to manage connection timeouts.
 `insecure` | No | Boolean  | Whether or not to verify SSL certificates. If set to `true`, then certificate authority (CA) certificate verification is disabled and insecure HTTP requests are sent instead. Default is `false`.
 `proxy` | No | String | The address of the [forward HTTP proxy server](https://en.wikipedia.org/wiki/Proxy_server). The format is `"&lt;hostname or IP&gt;:&lt;port&gt;"` (for example, `"example.com:8100"`, `"http://example.com:8100"`, `"112.112.112.112:8100"`). The port number cannot be omitted.
+`path_prefix` | No | String | A path prefix that the sink adds to the path of every request sent to OpenSearch, for example, `/opensearch`. Use this option when OpenSearch is accessible under a subpath, such as behind a reverse proxy.
 `index` | Conditionally | String | The name of the export index. Only required when the `index_type` is `custom`. The index can be a plain string, such as `my-index-name`, contain [Java date-time patterns](https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html), such as `my-index-%{yyyy.MM.dd}` or `my-%{yyyy-MM-dd-HH}-index`, be formatted using field values, such as `my-index-${/my_field}`, or use [Data Prepper expressions]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/expression-syntax/), such as `my-index-${getMetadata(\"my_metadata_field\"}`. All formatting options can be combined to provide flexibility when creating static, dynamic, and rolling indexes. 
-`index_type` | No | String | Specifies the type of data the sink plugin handles. Valid values include `custom`, `trace-analytics-raw`, `trace-analytics-plain-raw`, `trace-analytics-service-map`, `log-analytics`, `log-analytics-plain`, `metric-analytics`, `metric-analytics-plain`, and `management-disabled`. <br><br>To produce Amazon Security Lake–compliant data from the `otel_logs_source` with `output_format: otel`, set `index_type` to `log-analytics-plain`. <br>For `otel_metrics_source` with `output_format: otel`, set `index_type` to `metric-analytics-plain`. <br>For `otel_trace_source` with `output_format: otel`, set `index_type` to `trace-analytics-plain-raw`. <br><br>Default is `custom`.
+`index_type` | No | String | Specifies the type of data the sink plugin handles. Valid values include `custom`, `trace-analytics-raw`, `trace-analytics-plain-raw`, `trace-analytics-service-map`, `otel-v2-apm-service-map`, `log-analytics`, `log-analytics-plain`, `metric-analytics`, `metric-analytics-plain`, `tsdb`, and `management_disabled`. <br><br>To produce Amazon Security Lake–compliant data from the `otel_logs_source` with `output_format: otel`, set `index_type` to `log-analytics-plain`. <br>For `otel_metrics_source` with `output_format: otel`, set `index_type` to `metric-analytics-plain`. <br>For `otel_trace_source` with `output_format: otel`, set `index_type` to `trace-analytics-plain-raw`. <br><br>Default is `custom`.
 
 
 `template_type` | No | String | Defines what type of OpenSearch template to use. Available options are `v1` and `index-template`. The default value is `v1`, which uses the original OpenSearch templates available at the `_template` API endpoints. The `index-template` option uses composable [index templates]({{site.url}}{{site.baseurl}}/opensearch/index-templates/), which are available through the OpenSearch `_index_template` API. Composable index types offer more flexibility than the default and are necessary when an OpenSearch cluster contains existing index templates. Composable templates are available for all versions of OpenSearch and some later versions of Elasticsearch. When `distribution_version` is set to `es6`, Data Prepper enforces the `template_type` as `v1`.
@@ -79,6 +82,8 @@ Option | Required | Type | Description
 `dlq_file` | No | String | The path to your preferred dead letter queue file (such as `/your/local/dlq-file`). Data Prepper writes to this file when it fails to index a document on the OpenSearch cluster.
 `dlq` | No | N/A | [DLQ configurations]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/dlq/). 
 `bulk_size` | No | Integer (long) | The maximum size (in MiB) of bulk requests sent to the OpenSearch cluster. Values below `0` indicate an unlimited size. If a single document exceeds the maximum bulk request size, then Data Prepper sends each request individually. Default value is `5`.
+`estimate_bulk_size_using_compression` | No | Boolean | Whether to estimate the size of a bulk request using its compressed size when determining whether the request has reached `bulk_size`. The sink compresses the partially filled request locally to calculate an approximate size. Ignored when request compression is disabled (see `enable_request_compression`). Default is `false`.
+`max_local_compressions_for_estimation` | No | Integer | The maximum number of times that the sink compresses a partially filled bulk request to estimate its size. Higher values improve the accuracy of the estimate but reduce performance. Applies only when `estimate_bulk_size_using_compression` is `true`. Default is `2`.
 `ism_policy_file` | No | String | The absolute file path for an Index State Management (ISM) policy JSON file. This policy file is effective only when there is no built-in policy file for the index type. For example, the `custom` index type is currently the only type without a built-in policy file, so it will use this policy file if it is provided through this parameter. For more information about the policy JSON file, see [ISM policies]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies/).
 `number_of_shards` | No | Integer  | The number of primary shards that an index should have on the destination OpenSearch server. This parameter is effective only when `template_file` is either explicitly provided in the sink configuration or built in. If this parameter is set, then it will override the value in the index template file. For more information, see [Create index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/).
 `number_of_replicas` | No | Integer | The number of replica shards that each primary shard should have on the destination OpenSearch server. For example, if you have 4 primary shards and set `number_of_replicas` to `3`, then the index has 12 replica shards. This parameter is effective only when `template_file` is either explicitly provided in the sink configuration or built in. If this parameter is set, then it will override the value in the index template file. For more information, see [Create index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/).
@@ -86,6 +91,7 @@ Option | Required | Type | Description
 `enable_request_compression` | No | Boolean | Whether to enable compression when sending requests to OpenSearch. When `distribution_version` is set to `es6`, default is `false`. For all other distribution versions, default is `true`.
 `action` | No | String | The OpenSearch bulk action to use for documents. Must be one of `create`, `index`, `update`, `upsert`, or `delete`. Default is `index`.
 `actions` | No | List | A [list of actions](#actions) that can be used as an alternative to `action`, which reads as a switch case statement that conditionally determines the bulk action to take for an event. 
+`script` | No | Object | A [Painless]({{site.url}}{{site.baseurl}}/scripting/painless/) script that OpenSearch runs to update documents. Can be used only when `action` is set to `update`, `upsert`, or an expression. For more information, see [Script](#script).
 `flush_timeout` | No | Long | A long class that contains the amount of time, in milliseconds, to try packing a bulk request up to the `bulk_size` before flushing the request. If this timeout expires before a bulk request has reached the `bulk_size`, the request will be flushed. Set to `-1` to disable the flush timeout and instead flush whatever is present at the end of each batch. Default is `60,000`, or 1 minute.
 `normalize_index` | No | Boolean | If true, then the OpenSearch sink will try to create dynamic index names. Index names with format options specified in `${})` are valid according to the [index naming restrictions]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/#index-naming-restrictions). Any invalid characters will be removed. Default value is `false`.
 `routing` | No | String | A string used as a hash for generating the `shard_id` for a document when it is stored in OpenSearch. Each incoming record is searched. When present, the string is used as the routing field for the document. When not present, the default routing mechanism (`document_id`) is used by OpenSearch when storing the document. Supports formatting with fields in events and [Data Prepper expressions]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/expression-syntax/), such as `${/my_field}-test-${getMetadata(\"some_metadata_key\")}`.
@@ -93,7 +99,35 @@ Option | Required | Type | Description
 `serverless` | No | Boolean | **Deprecated in Data Prepper 2.7. Use this option with the `aws` configuration instead.** Determines whether the OpenSearch backend is Amazon OpenSearch Serverless. Set this value to `true` when the destination for the `opensearch` sink is an Amazon OpenSearch Serverless collection. Default is `false`.
 `serverless_options` | No | Object | **Deprecated in Data Prepper 2.7. Use this option with the `aws` configuration instead.** The network configuration options available when the backend of the `opensearch` sink is set to Amazon OpenSearch Serverless. For more information, see [Serverless options](#serverless-options).
 `query_lookup` | No | Object | Configuration for querying existing documents before indexing to prevent duplicates. For more information, see [Query lookup](#query-lookup).
+`pull_indexing` | No | Object | Configures the sink to write documents to a streaming platform from which an OpenSearch index ingests them using pull-based ingestion. When this option is set, the sink does not send bulk requests to OpenSearch. This is an experimental feature. For more information, see [Pull-based indexing](#pull-based-indexing).
 
+
+## Authentication
+
+The `authentication` object supports the following options.
+
+Option | Required | Type | Description
+:--- | :--- | :--- | :---
+`username` | No | String | The username for HTTP basic authentication.
+`password` | No | String | The password for HTTP basic authentication.
+`client_certificate` | Conditionally | String | The client certificate used for TLS client certificate authentication, in PEM format. Specify either the path to a PEM file or the PEM content, starting with `-----BEGIN`. Required if `client_key` is set.
+`client_key` | Conditionally | String | The unencrypted private key for the client certificate, in PEM format. Specify either the path to a PEM file or the PEM content, starting with `-----BEGIN`. Required if `client_certificate` is set.
+
+The following example configures client certificate authentication:
+
+```yaml
+pipeline:
+  ...
+  sink:
+    - opensearch:
+        hosts: ["https://localhost:9200"]
+        cert: path/to/root-ca.pem
+        index: my-index
+        authentication:
+          client_certificate: path/to/client.pem
+          client_key: path/to/client-key.pem
+```
+{% include copy.html %}
 
 ## Query lookup
 
@@ -108,10 +142,10 @@ The `query_lookup` object supports the following options.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
-`query_when` | No | String | A [Data Prepper expression]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/expression-syntax/) that determines which documents qualify for querying before indexing. For example, `getMetadata("potential_duplicate") == true` will only query documents with that metadata field set to `true`.
+`query_when` | Yes | String | A [Data Prepper expression]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/expression-syntax/) that determines which documents qualify for querying before indexing. For example, `getMetadata("potential_duplicate") == true` will only query documents with that metadata field set to `true`.
 `query_term` | Yes | String | The unique field of the document that will be used to query for existing documents in OpenSearch. This is typically an ID field.
 `query_on_bulk_errors` | No | Boolean | When set to `true`, documents that encounter recoverable bulk operation errors (such as socket timeouts or 500 errors) will be queried rather than immediately retried. This helps prevent duplicates when the initial indexing request may have partially succeeded. Default is `false`.
-`query_duration` | No | Duration | The amount of time to query for a given document before indexing it. Use ISO 8601 duration format, such as `PT5M` for 5 minutes. Default is `PT5M`.
+`query_duration` | No | Duration | The amount of time to query for a given document before indexing it. Use ISO 8601 duration format, such as `PT5M` for 5 minutes. Default is `PT3M`.
 `async_limit` | No | Integer | The maximum number of documents that can be queried concurrently before blocking the processor worker threads. Default is `5000`.
 
 ### Query lookup example
@@ -156,6 +190,47 @@ Option | Required | Type | Description
 `sts_external_id` | No | String | The external ID to attach to AssumeRole requests from AWS STS.
 `serverless` | No | Boolean | Determines whether the OpenSearch backend is Amazon OpenSearch Serverless. Set this value to `true` when the destination for the `opensearch` sink is an Amazon OpenSearch Serverless collection. Default is `false`.
 `serverless_options` | No | Object | The network configuration options available when the backend of the `opensearch` sink is set to Amazon OpenSearch Serverless. For more information, see [Serverless options](#serverless-options).
+`resource_name` | No | String | The name of the Amazon OpenSearch Service domain or the ID of the Amazon OpenSearch Serverless collection in which the sink creates the index when `semantic_enrichment` is configured. If not set, the sink derives the domain name or collection ID from the first host in `hosts`.
+`semantic_enrichment` | No | Object | The fields for which the sink enables semantic enrichment when it creates the index. For more information, see [Semantic enrichment](#semantic-enrichment).
+
+### Semantic enrichment
+
+When `aws.semantic_enrichment` is configured, the sink creates the index specified in `index` before writing documents to it. The sink creates the index using the Amazon OpenSearch Service or Amazon OpenSearch Serverless `CreateIndex` API and maps each listed field as a `text` field that has semantic enrichment enabled. If the index already exists, the sink does not modify it. Semantic enrichment is available only for Amazon OpenSearch Service domains and Amazon OpenSearch Serverless collections.
+
+The `semantic_enrichment` object supports the following option.
+
+Option | Required | Type | Description
+:--- | :--- | :--- | :---
+`fields` | Yes | List | The fields for which to enable semantic enrichment.
+
+Each object in the `fields` list supports the following options.
+
+Option | Required | Type | Description
+:--- | :--- | :--- | :---
+`name` | Yes | String | The name of the field.
+`language` | Yes | String | The language of the field content. Valid values are `english` and `multilingual`.
+
+The following example creates an index in which the `title` and `description` fields have semantic enrichment enabled:
+
+```yaml
+pipeline:
+  ...
+  sink:
+    - opensearch:
+        hosts: ["https://search-my-domain-abc123.us-east-1.es.amazonaws.com"]
+        index: my-index
+        aws:
+          region: us-east-1
+          sts_role_arn: arn:aws:iam::123456789012:role/PipelineRole
+          resource_name: my-domain
+          semantic_enrichment:
+            fields:
+              - name: title
+                language: english
+              - name: description
+                language: multilingual
+```
+{% include copy.html %}
 
 <!-- vale off -->
 ## actions
@@ -168,6 +243,99 @@ Option | Required | Type | Description
 `type` | Yes | String | The type of bulk action to use if the `when` condition evaluates to true. Must be either `create`, `index`, `update`, `upsert`, or `delete`.
 `when` | No | String | A [Data Prepper expression]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/expression-syntax/) that conditionally evaluates whether an event will be sent to OpenSearch using the bulk action configured in `type`. When empty, the bulk action will be chosen automatically when the event is sent to OpenSearch.
 
+
+## Script
+
+The `script` object configures a [Painless]({{site.url}}{{site.baseurl}}/scripting/painless/) script that OpenSearch runs for each update operation. The script receives the event as the `params.doc` parameter. When `action` is `update`, the script runs on the existing document. When `action` is `upsert`, the sink sends a scripted upsert, so the script also runs when the document does not exist. In this case, the event is used as the initial document.
+
+The `script` object supports the following options.
+
+Option | Required | Type | Description
+:--- | :--- | :--- | :---
+`source` | Yes | String | The Painless script. Lines that start with `//` are removed before the script is sent to OpenSearch.
+`params` | No | Map | The parameters to pass to the script, which can access them as `params.<parameter_name>`. String values can contain format expressions, such as `${/my_field}`, which are evaluated for each event. Do not name a parameter `doc` because it replaces the event in `params.doc`.
+
+The following example adds the value of the `inc` parameter to the `counter` field of an existing document and records the `source` value of the latest event:
+
+```yaml
+pipeline:
+  ...
+  sink:
+    - opensearch:
+        hosts: ["https://localhost:9200"]
+        index: my-index
+        document_id: "${/id}"
+        action: upsert
+        script:
+          source: |
+            if (ctx._source.counter == null) { ctx._source.counter = params.doc.counter; }
+            else { ctx._source.counter += params.inc; }
+            ctx._source.last_source = params.source_name;
+          params:
+            inc: 5
+            source_name: "${/source}"
+```
+{% include copy.html %}
+
+## Pull-based indexing
+
+This is an experimental feature and is not recommended for use in a production environment.
+{: .warning}
+
+When `pull_indexing` is configured, the sink writes documents to a streaming platform, such as Apache Kafka, and the OpenSearch index ingests them using [pull-based ingestion]({{site.url}}{{site.baseurl}}/api-reference/document-apis/pull-based-ingestion/). When the sink starts, it reads the number of shards and the `ingestion_source.param.topic` setting of the index and creates the topic if it does not exist. The topic contains one partition for each shard. The sink writes each document to the partition that corresponds to the shard to which OpenSearch routes the document, based on `routing` or the document ID.
+
+### Prerequisites
+
+Before you configure pull-based indexing, complete the following steps:
+
+1. Create the index specified in `index` and configure it for pull-based ingestion. The sink does not create the index.
+1. Enable experimental features in `data-prepper-config.yaml`:
+
+    ```yaml
+    experimental:
+      enable_all: true
+    ```
+    {% include copy.html %}
+
+### Configuration
+
+Pull-based indexing has the following requirements:
+
+- The `index` option must contain a static index name.
+- The `action` option and the `type` of each entry in `actions` must be `index`, `create`, or `delete`.
+- The `document_id` and `document_version` options must be set. Events for which the sink cannot determine a document ID or version are not written.
+
+The `pull_indexing` object supports the following option.
+
+Option | Required | Type | Description
+:--- | :--- | :--- | :---
+`engine` | Yes | Object | The streaming platform to which the sink writes documents. The only supported engine is `kafka`.
+
+The `kafka` engine supports the following option.
+
+Option | Required | Type | Description
+:--- | :--- | :--- | :---
+`bootstrap_servers` | Yes | List | The host and port pairs of the Kafka brokers, for example, `["kafka-broker:9092"]`.
+
+The following example writes documents to the Kafka topic configured for the `my-pull-index` index:
+
+```yaml
+pipeline:
+  ...
+  sink:
+    - opensearch:
+        hosts: ["https://localhost:9200"]
+        index: my-pull-index
+        document_id: "${/id}"
+        document_version: "${/version}"
+        document_version_type: external
+        action: index
+        pull_indexing:
+          engine:
+            kafka:
+              bootstrap_servers: ["kafka-broker:9092"]
+```
+{% include copy.html %}
 
 ## Serverless options
 

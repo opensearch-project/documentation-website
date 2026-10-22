@@ -28,6 +28,7 @@ Option | Required | Type | Description
 `truncate_when` | No | Conditional expression | A condition that, when met, determines when the truncate operation is performed. 
 `start_at` | No | Integer | Where in the string value to start truncation. Default is `0`, which specifies to start truncation at the beginning of each key's value.
 `length` | No | Integer| The length of the string after truncation. When not specified, the processor will measure the length based on where the string ends.
+`recursive` | No | Boolean | If `true` and the value of a source key is an object, the processor truncates the string values of all fields in the object, including fields in nested objects. If `false`, object values are not truncated. Default is `false`.
 
 Either the `start_at` or `length` options must be present in the configuration in order for the `truncate` processor to run. You can define both values in the configuration in order to further customize where truncation occurs in the string.
 

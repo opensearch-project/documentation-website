@@ -57,8 +57,8 @@ atlassian-jira-pipeline:
             include:
               # This is not project name.
               # It is an alphanumeric project key that you can find under project details in jira
-              - "project1"
-              - "project2"
+              - "PROJECT1"
+              - "PROJECT2"
               # exclude:
               # - "<<project key>>"
               # - "<<project key>>"
@@ -85,7 +85,7 @@ The `jira` source supports the following configuration options.
 
 | Option            | Required | Type                              | Description                                                                                                                                                                                                                   |
 |:------------------|:---------|:----------------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `hosts`           | Yes      | List                              | The Atlassian Confluence hostname. Currently, only one host is supported, so this list is expected to be of size 1.                                                                                                                        |
+| `hosts`           | Yes      | List                              | The Atlassian Jira hostname. Currently, only one host is supported, so this list is expected to be of size 1.                                                                                                                        |
 | `acknowledgments` | No       | Boolean                           | When set to `true`, enables the `jira` source to receive [end-to-end acknowledgments]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines#end-to-end-acknowledgments) when events are received by OpenSearch sinks. |
 | `authentication`  | Yes      | [authentication](#Authentication) | Configures the authentication method used to access `jira` source records from the specified host.                                                                                                                                         |
 | `filter`          | No       | [filter](#Filter)                 | Applies specific filter criteria while extracting Jira tickets.                                                                                                                                                     |
@@ -125,9 +125,11 @@ Optionally, you can specify filters to select specific content. If no filters ar
 
 | Option       | Required | Type   | Description                                    |
 |:-------------|:---------|:-------|:-----------------------------------------------|
-| `project`    | No       | String | A list of project keys to include or exclude.        |
-| `issue_type` | No       | String | A list of issue type filters to include or exclude. |
-| `status`     | No       | String | A list of status filters to include or exclude.     |
+| `project`    | No       | Object | Filters issues by project. Contains the `key` object, which accepts `include` and `exclude` lists of project keys. Each project key must be 2--100 characters long and contain only uppercase letters and digits. A project key cannot appear in both lists. |
+| `issue_type` | No       | Object | Filters issues by issue type. Accepts `include` and `exclude` lists of issue type names, for example, `Story` or `Bug`. |
+| `status`     | No       | Object | Filters issues by status. Accepts `include` and `exclude` lists of status names, for example, `In Progress` or `Done`. |
+
+The source validates project keys when it starts crawling. If a project filter contains an invalid key, the source logs an error and does not ingest issues.
 
 ### AWS secrets
 

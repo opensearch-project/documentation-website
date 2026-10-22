@@ -55,6 +55,10 @@ Option | Required | Type | Description
 `key_path_prefix` | No | String | The `key_prefix` used in the Amazon Simple Storage Service (Amazon S3) bucket. Defaults to `""`. Supports time value pattern variables, such as `/%{yyyy}/%{MM}/%{dd}`, including any variables listed in the [Java DateTimeFormatter](https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html). For example, when using the `/%{yyyy}/%{MM}/%{dd}` pattern, you can set `key_prefix` as `/2023/01/24`.
 `region` | No | String | The AWS Region of the S3 bucket. Defaults to `us-east-1`.
 `sts_role_arn` | No | String | The STS role the DLQ assumes in order to write to an AWS S3 bucket. Default is `null`, which uses the standard SDK behavior for credentials. To use this option, the S3 bucket must have the `s3:PutObject` permission configured.
+`sts_external_id` | No | String | The external ID to use when assuming the STS role. Must be between 2 and 1,224 characters.
+`sts_header_overrides` | No | Map | A map of headers to add to the AWS STS `AssumeRole` request.
+`force_path_style` | No | Boolean | When `true`, the DLQ addresses the S3 bucket using path-style URLs (`https://s3.<region>.amazonaws.com/<bucket>/<key>`) rather than virtual-hosted-style URLs. Default is `false`.
+`legacy_md5_checksum` | No | Boolean | When `true`, the DLQ sends a `Content-MD5` header with each request and calculates checksums only when the S3 operation requires them. Use this setting for S3-compatible storage that does not support the newer AWS SDK checksum algorithms. Default is `false`.
 `bucket_owner` | No | String | The AWS account ID of the S3 bucket owner. When set, Data Prepper passes this value to S3 as `expectedBucketOwner`, and S3 rejects writes if it does not match the actual bucket owner. Default is `null`, which performs no explicit bucket owner check.
 
 When using DLQ with an OpenSearch sink, you can configure the [`max_retries`]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sinks/opensearch/#configure-max_retries) option to send failed records to the DLQ after the sink reaches the maximum number of retry attempts.
