@@ -84,8 +84,8 @@ The `actions` object supports the following fields.
 | `method`  | String | Required. Defines the HTTP method for the API call. Supports `POST` and `GET`. |
 | `url` | String      | Required. Specifies the connection endpoint at which the action occurs. This must match the regex expression for the connection used when [adding trusted endpoints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index#adding-trusted-endpoints).|
 | `request_body` | String | Optional. The request body template that OpenSearch sends to the model endpoint for the action. Use `${parameters.<parameter_name>}` placeholders to insert parameter values, for example, `${parameters.inputText}`. |
-| `pre_process_function`  | String | Optional. A built-in or custom Painless script used to preprocess the input data. For more information, see [Painless scripting language]({{site.url}}{{site.baseurl}}/scripting/painless/). OpenSearch provides the following built-in preprocess functions that you can call directly:<br> - `connector.pre_process.cohere.embedding` for [Cohere](https://cohere.com/) embedding models<br> - `connector.pre_process.openai.embedding` for [OpenAI](https://platform.openai.com/docs/guides/embeddings) embedding models <br> - `connector.pre_process.default.embedding`, which you can use to preprocess documents in neural search requests so that they are in the format that OpenSearch can process with the default preprocessor (OpenSearch 2.11 or later). For more information, see [Built-in functions](#built-in-pre--and-post-processing-functions). |
-| `post_process_function` | String   | Optional. A built-in or custom Painless script used to post-process the model output data. OpenSearch provides the following built-in post-process functions that you can call directly:<br> - `connector.post_process.cohere.embedding` for [Cohere text embedding models](https://docs.cohere.com/reference/embed)<br> - `connector.post_process.openai.embedding` for [OpenAI text embedding models](https://platform.openai.com/docs/api-reference/embeddings) <br> - `connector.post_process.default.embedding`, which you can use to post-process documents in the model response so that they are in the format that neural search expects (OpenSearch 2.11 or later). For more information, see [Built-in functions](#built-in-pre--and-post-processing-functions). |
+| `pre_process_function`  | String | Optional. A built-in or custom Painless script used to preprocess the input data. For more information, see [Painless scripting language]({{site.url}}{{site.baseurl}}/scripting/painless/). OpenSearch provides the following built-in preprocess functions that you can call directly:<br> - `connector.pre_process.cohere.embedding` for [Cohere](https://cohere.com/) embedding models<br> - `connector.pre_process.openai.embedding` for [OpenAI](https://platform.openai.com/docs/guides/embeddings) embedding models <br> - `connector.pre_process.default.embedding` for other text embedding models that accept a list of strings as input (OpenSearch 2.11 or later). For more information, see [Built-in functions](#built-in-pre--and-post-processing-functions). |
+| `post_process_function` | String   | Optional. A built-in or custom Painless script used to post-process the model output data. OpenSearch provides the following built-in post-process functions that you can call directly:<br> - `connector.post_process.cohere.embedding` for [Cohere text embedding models](https://docs.cohere.com/reference/embed)<br> - `connector.post_process.openai.embedding` for [OpenAI text embedding models](https://platform.openai.com/docs/api-reference/embeddings) <br> - `connector.post_process.default.embedding` for other text embedding models that return a two-dimensional float array (OpenSearch 2.11 or later). For more information, see [Built-in functions](#built-in-pre--and-post-processing-functions). |
 | `headers` | JSON object | Specifies the headers used in the request or response body. Default is `ContentType: application/json`. If your third-party ML tool requires access control, define the required `credential` parameters in the `headers` parameter. |
 | `supports_structured_output` | Boolean | Optional. Applies only to `predict` actions of LLM connectors used for [agentic memory]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agentic-memory/) fact extraction. If `true`, OpenSearch adds a structured output field to the request body during fact extraction so that the model returns the extracted facts in a fixed JSON schema (constrained decoding). OpenSearch selects the field based on the provider in the action `url`: `toolConfig` for the Amazon Bedrock Converse API, `generationConfig` for Google Gemini, and `response_format` for OpenAI, Azure OpenAI, DeepSeek, the Cohere v2 Chat API, and other endpoints whose path contains `/v1/chat/completions`. The field is added only if the `request_body` is a JSON object. If `false`, or if OpenSearch does not recognize the provider, OpenSearch adds format instructions to the fact extraction prompt. Default is `false`. |
 
@@ -115,11 +115,11 @@ OpenSearch provides the following pre- and post-processing functions:
 
 - OpenAI: `connector.pre_process.openai.embedding` and `connector.post_process.openai.embedding`
 - Cohere: `connector.pre_process.cohere.embedding` and `connector.post_process.cohere.embedding`
-- [Amazon SageMaker default functions for neural search](#amazon-sagemaker-default-pre--and-post-processing-functions-for-neural-search): `connector.pre_process.default.embedding` and `connector.post_process.default.embedding`
+- [Amazon SageMaker default functions for semantic search](#amazon-sagemaker-default-pre--and-post-processing-functions-for-semantic-search): `connector.pre_process.default.embedding` and `connector.post_process.default.embedding`
 
-### Amazon SageMaker default pre- and post-processing functions for neural search
+### Amazon SageMaker default pre- and post-processing functions for semantic search
 
-When you perform vector search using [neural search]({{site.url}}{{site.baseurl}}/search-plugins/neural-search/), OpenSearch routes the neural search request to the model. [Pretrained models provided by OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/) parse the request and return the response in the format that OpenSearch expects. However, a model hosted on an external platform may expect a different format. The default pre- and post-processing functions translate between the format that the model expects and the format that neural search expects. 
+When you use [semantic search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/semantic-search/), OpenSearch sends text to the model and expects embeddings in return. [Pretrained models provided by OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/) accept and return these formats. However, a model hosted on an external platform may expect a different format. The default pre- and post-processing functions translate between the two formats.
 
 For the default functions to be applied, the model input and output must be in the format described in the following sections.
 
@@ -164,7 +164,7 @@ The `request_body` template must be `${parameters.input}`.
 
 ### Preprocessing function 
 
-The `connector.pre_process.default.embedding` default preprocessing function parses the neural search request and transforms it into the format that the model expects as input.
+The `connector.pre_process.default.embedding` default preprocessing function parses the text input from OpenSearch and transforms it into the format that the model expects as input.
 
 The [Predict API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/predict/) provides parameters in the following format:
 
@@ -184,7 +184,7 @@ The default preprocessing function sends the `input` field contents to the model
 
 ### Post-processing function 
 
-The `connector.post_process.default.embedding` default post-processing function parses the model response and transforms it into the format that neural search expects as input.
+The `connector.post_process.default.embedding` default post-processing function parses the model response and transforms it into the embedding format that OpenSearch expects.
 
 The remote text embedding model output must be a two-dimensional float array, each element of which represents an embedding of a string from the input list. For example, the following two-dimensional array corresponds to the embedding of the list `["hello", "world"]`:
 

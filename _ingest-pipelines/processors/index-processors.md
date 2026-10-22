@@ -65,7 +65,7 @@ Processor type | Description
 `split` | Splits a field into an array using a separator character.
 `text_chunking` | Splits long documents into smaller chunks.
 `text_embedding` | Generates vector embeddings from text fields for semantic search.
-`text_image_embedding` | Generates combined vector embeddings from text and image fields for multimodal neural search.
+`text_image_embedding` | Generates combined vector embeddings from text and image fields for multimodal search.
 `trim` | Removes leading and trailing white space from a string field.
 `uppercase` | Converts text in a specific field to uppercase letters.
 `urldecode` | Decodes a string from URL-encoded format.
