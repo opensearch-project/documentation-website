@@ -12,140 +12,163 @@ redirect_from:
 
 # Logstash
 
-Logstash is a real-time event processing engine. It's part of the OpenSearch stack which includes OpenSearch, Beats, and OpenSearch Dashboards.
+Logstash is an open-source, real-time event processing engine that receives events from one or more sources, processes them, and sends them to one or more destinations. For example, you can send access logs from a web server to Logstash, extract fields from each log line, and send the resulting events to OpenSearch.
 
-You can send events to Logstash from many different sources. Logstash processes the events and sends it one or more destinations. For example, you can send access logs from a web server to Logstash. Logstash extracts useful information from each log and sends it to a destination like OpenSearch.
+Sending events to Logstash decouples event processing from your application. Your application only needs to send events to Logstash and doesn't need to know what happens to them afterward.
 
-Sending events to Logstash lets you decouple event processing from your app. Your app only needs to send events to Logstash and doesn’t need to know anything about what happens to the events afterwards.
+Logstash was originally built to process log data, but it can process any type of event, including events in XML or JSON format.
 
-The open-source community originally built Logstash for processing log data but now you can process any type of events, including events in XML or JSON format.
+To send events to OpenSearch, install the [OpenSearch output plugin](https://github.com/opensearch-project/logstash-output-opensearch). To read data from OpenSearch into Logstash, install the [OpenSearch input plugin](https://github.com/opensearch-project/logstash-input-opensearch).
 
-## Structure of a pipeline
+## Pipeline structure
 
-The way that Logstash works is that you configure a pipeline that has three phases⁠---inputs, filters, and outputs.
+A Logstash pipeline has three stages: inputs, filters, and outputs. Each stage uses one or more plugins. Logstash includes over 200 plugins, and you can install plugins from the community or write your own.
 
-Each phase uses one or more plugins. Logstash has over 200 built-in plugins so chances are that you’ll find what you need. Apart from the built-in plugins, you can use plugins from the community or even write your own.
+A pipeline configuration has the following structure:
 
-The structure of a pipeline is as follows:
-
-```yml
+```ruby
 input {
-  input_plugin => {}
+  <input-plugin> {
+    <setting> => <value>
+  }
 }
 
 filter {
-  filter_plugin => {}
+  <filter-plugin> {
+    <setting> => <value>
+  }
 }
 
 output {
-  output_plugin => {}
+  <output-plugin> {
+    <setting> => <value>
+  }
 }
 ```
 
-where:
+The stages perform the following tasks:
 
-* `input` receives events like logs from multiple sources simultaneously. Logstash supports a number of input plugins for TCP/UDP, files, syslog, Microsoft Windows EventLogs, `stdin`, HTTP, and so on. You can also use an open source collection of input tools called Beats to gather events. The input plugin sends the events to a filter.
-* `filter` parses and enriches the events in one way or the other. Logstash has a large collection of filter plugins that modify events and pass them on to an output. For example, a `grok` filter parses unstructured events into fields and a `mutate` filter changes fields. Filters are executed sequentially.
-* `output` ships the filtered events to one or more destinations. Logstash supports a wide range of output plugins for destinations like OpenSearch, TCP/UDP, emails, files, `stdout`, HTTP, Nagios, and so on.
+- `input`: Receives events, such as logs, from one or more sources. Input plugins include `tcp`, `udp`, `file`, `syslog`, `stdin`, and `http`. You can also use Beats agents to collect events and send them to Logstash.
+- `filter`: Parses and enriches events. For example, the `grok` filter parses unstructured text into fields, and the `mutate` filter modifies fields. Filters run in the order in which they appear in the configuration.
+- `output`: Sends the processed events to one or more destinations, such as OpenSearch, a file, `stdout`, an HTTP endpoint, a TCP or UDP socket, an email address, or Nagios.
 
-Both the input and output phases support codecs to process events as they enter or exit the pipeline.
-Some of the popular codecs are `json` and `multiline`. The `json` codec processes data that’s in JSON format and the `multiline` codec merges multiple line events into a single line.
+Inputs and outputs can use codecs to decode or encode events as they enter or leave the pipeline. For example, the `json` codec parses JSON-formatted input, and the `multiline` codec combines multiple lines into a single event.
 
-You can also write conditional statements within pipeline configurations to perform certain actions, if a certain criteria is met.
+To apply plugins only to events that meet a condition, use conditional statements. For more information, see [Conditional statements]({{site.url}}{{site.baseurl}}/tools/logstash/advanced-config/#conditional-statements).
 
-## Install Logstash
+## Installing Logstash
 
-To install Logstash on OpenSearch, first install Logstash on your cluster, then the OpenSearch Logstash plugin, as described in the following steps.
+To install Logstash, install a Logstash distribution and then install the OpenSearch plugins. The following instructions use the open-source (OSS) distribution of Logstash.
+
+### Prerequisite
+
+Before you install Logstash, review the [Compatibility matrix for Logstash]({{site.url}}{{site.baseurl}}/tools/#compatibility-matrix-for-logstash) and select a Logstash version that is compatible with your OpenSearch version.
 
 ### Tarball
 
-Make sure you have [Java Development Kit (JDK)](https://www.oracle.com/java/technologies/javase-downloads.html) version 8 or 11 installed.
+Logstash includes a bundled JDK, so you don't need to install Java separately.
 
-1. Download the Logstash tarball from [Logstash downloads](https://www.elastic.co/downloads/logstash).
+To install Logstash from a tarball, follow these steps:
 
-2. Navigate to the downloaded folder in the terminal and extract the files. Make sure that your version of Logstash and platform matches the one downloaded:
+1. Download the Logstash OSS tarball for your platform. In this example, the version is 8.19.23:
 
-     ```bash
-     tar -zxvf logstash-8.8.2-linux-x86_64.tar.gz
-     ```
-     {% include copy.html %}
+    ```bash
+    curl -O https://artifacts.elastic.co/downloads/logstash/logstash-oss-8.19.23-linux-x86_64.tar.gz
+    ```
+    {% include copy.html %}
 
-3. Navigate to the `logstash-8.8.2` directory.
+    For other platforms, see [Download Logstash OSS](https://www.elastic.co/downloads/logstash-oss).
 
-4. Use the following command to install the plugin:
+1. Extract the files:
 
-     ```bash
-     bin/logstash-plugin install logstash-output-opensearch
-     ```
-     {% include copy.html %}
-  
-   You should receive the following output:
+    ```bash
+    tar -zxvf logstash-oss-8.19.23-linux-x86_64.tar.gz
+    ```
+    {% include copy.html %}
 
-     ```
-     Validating logstash-output-opensearch
-     Resolving mixin dependencies
-     Updating mixin dependencies logstash-mixin-ecs_compatibility_support
-     Bundler attempted to update logstash-mixin-ecs_compatibility_support but its version stayed the same
-     Installing logstash-output-opensearch
-     Installation successful
-     ```
+1. Navigate to the Logstash directory:
 
-You can add your pipeline configurations to the `config` directory. Logstash saves any data from the plugins in the `data` directory. The `bin` directory contains the binaries for starting Logstash and managing plugins.
+    ```bash
+    cd logstash-8.19.23
+    ```
+    {% include copy.html %}
+
+1. Install the OpenSearch output plugin:
+
+    ```bash
+    bin/logstash-plugin install logstash-output-opensearch
+    ```
+    {% include copy.html %}
+
+    The command returns the following output:
+
+    ```
+    Validating logstash-output-opensearch
+    Resolving mixin dependencies
+    Updating mixin dependencies logstash-mixin-ecs_compatibility_support
+    Bundler attempted to update logstash-mixin-ecs_compatibility_support but its version stayed the same
+    Installing logstash-output-opensearch
+    Installation successful
+    ```
+
+1. If you plan to read data from OpenSearch, install the OpenSearch input plugin:
+
+    ```bash
+    bin/logstash-plugin install logstash-input-opensearch
+    ```
+    {% include copy.html %}
+
+The Logstash directory contains the following subdirectories:
+
+- `bin`: Contains the binaries for starting Logstash and managing plugins.
+- `config`: Contains the Logstash settings. You can store your pipeline configuration files in this directory.
+- `data`: Contains data that Logstash and its plugins store between runs.
 
 ### Docker
 
-You can either use a custom Dockerfile to build a Logstash image or use the standard Logstash image.
+The OpenSearch plugins are not included in the Logstash Docker images, so you need to build an image that contains them.
 
-#### Option 1: Using a custom Dockerfile (recommended)
+To run Logstash and OpenSearch in Docker, follow these steps:
 
-1. Create a custom Dockerfile to build a Logstash image with the required OpenSearch plugins:
+1. Create a file named `Dockerfile` with the following content. In this example, the version is 8.19.23:
 
     ```
-    FROM logstash:<LATEST_VERSION>
+    FROM docker.elastic.co/logstash/logstash-oss:8.19.23
     RUN bin/logstash-plugin install logstash-output-opensearch
     RUN bin/logstash-plugin install logstash-input-opensearch
     ```
     {% include copy.html %}
 
-1. Build the image:
+1. In the directory containing the `Dockerfile`, build the image:
 
-    ```
+    ```bash
     docker build -t logstash-with-opensearch-plugins .
     ```
     {% include copy.html %}
 
-#### Option 2: Using the standard Logstash image
+1. Create a Docker network so that the Logstash container can connect to the OpenSearch container:
 
-1. Pull the latest Logstash image as stated in the [Logstash downloads](https://www.elastic.co/downloads/logstash).
-
-    ```
-    docker pull docker.elastic.co/logstash/logstash:8.8.2
+    ```bash
+    docker network create opensearch-net
     ```
     {% include copy.html %}
 
-1. Create a Docker network:
+1. Start OpenSearch on this network. Replace `<admin-password>` with a strong password for the `admin` user:
 
-    ```
-    docker network create test
-    ```
-    {% include copy.html %}
-
-1. Start OpenSearch with this network:
-
-    ```
-    docker run -p 9200:9200 -p 9600:9600 --name opensearch --net test -e "discovery.type=single-node" opensearchproject/opensearch:1.2.0
+    ```bash
+    docker run -d -p 9200:9200 --name opensearch --net opensearch-net -e "discovery.type=single-node" -e "OPENSEARCH_INITIAL_ADMIN_PASSWORD=<admin-password>" opensearchproject/opensearch:latest
     ```
     {% include copy.html %}
 
-1. Start Logstash:
+1. Start Logstash on the same network. The following pipeline reads events from the terminal and sends them to OpenSearch:
 
-    ```
-    docker run -it --rm --name logstash --net test opensearchproject/logstash-oss-with-opensearch-output-plugin:7.16.2 -e 'input { stdin { } } output {
+    ```bash
+    docker run -it --rm --name logstash --net opensearch-net logstash-with-opensearch-plugins -e 'input { stdin { } } output {
       opensearch {
         hosts => ["https://opensearch:9200"]
         index => "opensearch-logstash-docker-%{+YYYY.MM.dd}"
         user => "admin"
-        password => "admin"
+        password => "<admin-password>"
         ssl => true
         ssl_certificate_verification => false
       }
@@ -153,62 +176,89 @@ You can either use a custom Dockerfile to build a Logstash image or use the stan
     ```
     {% include copy.html %}
 
-## Process text from the terminal
+    The OpenSearch demo configuration uses self-signed certificates, so this example disables certificate verification. In production, provide the certificate authority file in the `cacert` setting instead. For more information, see [Configuring the OpenSearch output plugin]({{site.url}}{{site.baseurl}}/tools/logstash/ship-to-opensearch/#configuring-the-opensearch-output-plugin).
+    {: .warning }
 
-You can define a pipeline that listens for events on `stdin` and outputs events on `stdout`. `stdin` and `stdout` refer to the terminal in which you’re running Logstash.
+1. When Logstash logs `Pipeline started`, enter some text in the terminal, such as `hello world`. Then press `Ctrl+C` to stop Logstash.
 
-To enter some text in the terminal and see the event data in the output:
+1. Verify that Logstash created the index:
 
-1. Use the `-e` argument to pass a pipeline configuration directly to the Logstash binary. In this case, `stdin` is the input plugin and `stdout` is the output plugin:
+    ```bash
+    curl -k -u 'admin:<admin-password>' "https://localhost:9200/_cat/indices/opensearch-logstash-docker-*?v"
+    ```
+    {% include copy.html %}
+
+    The response lists the index and its document count:
+
+    ```bash
+    health status index                                 uuid                   pri rep docs.count docs.deleted store.size pri.store.size
+    yellow open   opensearch-logstash-docker-2026.10.16 6WKKD-CuTiqV7vIu8puyaA   1   1          1            0      6.9kb          6.9kb
+    ```
+
+## Processing text from the terminal
+
+The examples in the following sections use a tarball installation and run from the Logstash directory. The `stdin` input reads events from the terminal in which Logstash is running, and the `stdout` output prints events to the same terminal.
+
+To process text from the terminal, follow these steps:
+
+1. Pass a pipeline configuration to Logstash using the `-e` argument. In this pipeline, `stdin` is the input plugin and `stdout` is the output plugin:
 
     ```bash
     bin/logstash -e "input { stdin { } } output { stdout { } }"
     ```
     {% include copy.html %}
 
-    Add the `—debug` flag to see a more detailed output.
+    For more detailed logs, add the `--log.level=debug` argument.
 
-2. Enter "hello world" in your terminal. Logstash processes the text and outputs it back to the terminal:
+1. When Logstash logs `Pipeline started`, enter `hello world` in the terminal. Logstash processes the text and prints the resulting event:
 
-    ```yml
+    ```
     {
-     "message" => "hello world",
-     "host" => "a483e711a548.ant.amazon.com",
-     "@timestamp" => 2021-05-30T05:15:56.816Z,
-     "@version" => "1"
+             "event" => {
+            "original" => "hello world"
+        },
+           "message" => "hello world",
+          "@version" => "1",
+        "@timestamp" => 2026-10-16T17:55:22.401258801Z,
+              "host" => {
+            "hostname" => "my-host"
+        }
     }
     ```
 
-    The `message` field contains your raw input. The `host` field is an IP address when you don’t run Logstash locally. `@timestamp` shows the date and time for when the event is processed. Logstash uses the `@version` field for internal processing.
+    The event contains the following fields:
 
-3. Press `Ctrl + C` to shut down Logstash.
+    - `message`: The text that you entered.
+    - `event.original`: The original, unmodified input.
+    - `host.hostname`: The name of the host on which Logstash is running.
+    - `@timestamp`: The time at which Logstash processed the event.
+    - `@version`: The event format version, which Logstash uses internally.
+
+1. Press `Ctrl+C` to stop Logstash.
 
 ### Troubleshooting
 
-If you already have a Logstash process running, you’ll get an error. To fix this issue:
+Logstash locks its `data` directory while it's running. If another Logstash process is already using the directory, Logstash fails to start and logs the following message:
 
-1. Delete the `.lock` file from the `data` directory:
+```
+Logstash could not be started because there is already another instance using the configured data directory.
+```
 
-    ```bash
-    cd data
-    rm -rf .lock
-    ```
-    {% include copy.html %}
+To resolve this issue, stop the other Logstash process. To run two Logstash processes at the same time, start the second process with a different data directory using the `--path.data` argument.
 
-2. Restart Logstash.
+## Processing JSON input and writing it to a file
 
-## Process JSON or HTTP input and output it to a file
+To define a pipeline that processes JSON input, follow these steps:
 
-To define a pipeline that handles JSON requests:
+1. Create a file named `config/pipeline.conf` with the following configuration. The `json` codec parses each input line as JSON, and the `file` output writes the processed events to the `output.txt` file:
 
-1. Open the `config/pipeline.conf` file in any text editor you like. You can create a pipeline configuration file with any extension, the `.conf` extension is a Logstash convention. Add the `json` codec to accept JSON as the input and the `file` plugin to output the processed events to a `.txt` file:
-
-    ```json
+    ```ruby
     input {
       stdin {
         codec => json
       }
     }
+
     output {
       file {
         path => "output.txt"
@@ -217,59 +267,57 @@ To define a pipeline that handles JSON requests:
     ```
     {% include copy.html %}
 
-    To process inputs from a file, add an input file to the `events-data` directory and then pass its path to the `file` plugin at the input:
+    You can give a pipeline configuration file any name and extension. By convention, pipeline configuration files use the `.conf` extension.
 
-    ```json
-    input {
-      file {
-        path => "events-data/input_data.log"
-      }
-    }
-    ```
-    {% include copy.html %}
-
-2. Start Logstash:
+1. Start Logstash:
 
     ```bash
     bin/logstash -f config/pipeline.conf
     ```
     {% include copy.html %}
 
-    `config/pipeline.conf` is a relative path to the `pipeline.conf` file. You can use an absolute path as well.
+    The `config/pipeline.conf` path is relative to the Logstash directory. You can also provide an absolute path.
 
-3. Add a JSON object in the terminal:
+1. Enter a JSON object on a single line in the terminal:
 
     ```json
-    { "amount": 10, "quantity": 2}
+    { "amount": 10, "quantity": 2 }
     ```
     {% include copy.html %}
 
-    The pipeline only handles a single line of input. If you paste some JSON that spans multiple lines, you’ll get an error.
+    The `json` codec parses each line separately. If you enter invalid JSON, for example, a JSON object that spans multiple lines, Logstash can't parse it and adds the `_jsonparsefailure` tag to the event. Logstash doesn't discard events that fail to parse, so you can process them separately, for example, by sending an email or a notification to a Slack channel.
 
-4. Check that the fields from the JSON object are added to the `output.txt` file:
+1. In another terminal, view the `output.txt` file in the Logstash directory:
 
     ```bash
     cat output.txt
     ```
     {% include copy.html %}
 
+    The file contains the event, including the parsed `amount` and `quantity` fields:
+
     ```json
-    {
-      "@version": "1",
-      "@timestamp": "2021-05-30T05:52:52.421Z",
-      "host": "a483e711a548.ant.amazon.com",
-      "amount": 10,
-      "quantity": 2
-    }
+    {"host":{"hostname":"my-host"},"@version":"1","amount":10,"quantity":2,"@timestamp":"2026-10-16T17:56:05.320077410Z","event":{"original":"{ \"amount\": 10, \"quantity\": 2 }\n"}}
     ```
 
-    If you type in some invalid JSON as the input, you'll see a JSON parsing error. Logstash doesn't discard the invalid JSON because you still might want to do something with it. For example, you can trigger an email or send a notification to a Slack channel.
+To read events from a file instead of the terminal, use the `file` input plugin. The `file` input requires an absolute path:
 
-To define a pipeline that handles HTTP requests:
+```ruby
+input {
+  file {
+    path => "/path/to/logstash/events-data/input_data.log"
+  }
+}
+```
+{% include copy.html %}
 
-1. Use the `http` plugin to send events to Logstash through HTTP:
+## Processing HTTP input
 
-    ```json
+To define a pipeline that receives events over HTTP, follow these steps:
+
+1. Replace the contents of `config/pipeline.conf` with the following configuration. The `http` input listens for HTTP requests on port 8080:
+
+    ```ruby
     input {
       http {
         host => "127.0.0.1"
@@ -285,139 +333,119 @@ To define a pipeline that handles HTTP requests:
     ```
     {% include copy.html %}
 
-    If you don’t specify any options, the `http` plugin binds to `localhost` and listens on port 8080.
+    If you don't specify the `host` and `port` settings, the `http` input listens on all network interfaces (`0.0.0.0`) on port 8080.
 
-2. Start Logstash:
+1. Start Logstash:
 
     ```bash
     bin/logstash -f config/pipeline.conf
     ```
     {% include copy.html %}
 
-3. Use Postman to send an HTTP request. Set `Content-Type` to an HTTP header with a value of `application/json`:
-
-    ```json
-    PUT 127.0.0.1:8080
-    {
-      "amount": 10,
-      "quantity": 2
-    }
-    ```
-    {% include copy.html %}
-
-    Or, you can use the `curl` command:
+1. In another terminal, send an HTTP request containing a JSON body:
 
     ```bash
-    curl -XPUT -H "Content-Type: application/json" -d ' {"amount": 7, "quantity": 3 }' http://localhost:8080 (http://localhost:8080/)
+    curl -XPUT -H "Content-Type: application/json" -d '{"amount": 7, "quantity": 3}' http://localhost:8080
     ```
     {% include copy.html %}
 
-    Even though we haven't added the `json` plugin to the input, the pipeline configuration still works because the HTTP plugin automatically applies the appropriate codec based on the `Content-Type` header.
-    If you specify a value of `applications/json`, Logstash parses the request body as JSON.
+    Logstash returns `ok`.
 
-    The `headers` field contains the HTTP headers that Logstash receives:
+The `http` input selects a codec based on the `Content-Type` header. Because the request has a `Content-Type` of `application/json`, Logstash parses the request body as JSON even though the pipeline doesn't specify the `json` codec. If the `Content-Type` is not `application/json`, Logstash stores the request body as text in the `message` field.
 
-    ```json
-    {
-      "host": "127.0.0.1",
-      "quantity": "3",
-      "amount": 10,
-      "@timestamp": "2021-05-30T06:05:48.135Z",
-      "headers": {
-        "http_version": "HTTP/1.1",
-        "request_method": "PUT",
-        "http_user_agent": "PostmanRuntime/7.26.8",
-        "connection": "keep-alive",
-        "postman_token": "c6cd29cf-1b37-4420-8db3-9faec66b9e7e",
-        "http_host": "127.0.0.1:8080",
-        "cache_control": "no-cache",
-        "request_path": "/",
-        "content_type": "application/json",
-        "http_accept": "*/*",
-        "content_length": "41",
-        "accept_encoding": "gzip, deflate, br"
-      },
-    "@version": "1"
-    }
-    ```
+Logstash adds information about the request to the event. The following event shows this information in the format that the `stdout` output prints:
 
+```
+{
+      "@version" => "1",
+    "@timestamp" => 2026-10-16T17:57:09.851542204Z,
+         "event" => {
+        "original" => "{\"amount\": 7, \"quantity\": 3}"
+    },
+          "host" => {
+        "ip" => "127.0.0.1"
+    },
+    "user_agent" => {
+        "original" => "curl/8.7.1"
+    },
+          "http" => {
+        "request" => {
+                 "body" => {
+                "bytes" => "28"
+            },
+            "mime_type" => "application/json"
+        },
+        "version" => "HTTP/1.1",
+         "method" => "PUT"
+    },
+           "url" => {
+          "port" => 8080,
+          "path" => "/",
+        "domain" => "localhost"
+    },
+        "amount" => 7,
+      "quantity" => 3
+}
+```
 
-## Automatically reload the pipeline configuration
+## Reloading the pipeline configuration automatically
 
-You can configure Logstash to detect any changes to the pipeline configuration file or the input log file and automatically reload the configuration.
+Logstash can detect changes to the pipeline configuration file and reload the pipeline without restarting.
 
-The `stdin` plugin doesn’t supporting automatic reloading.
+The `stdin` input doesn't support automatic reloading.
 {: .note }
 
-1. Add an option named `start_position` with a value of `beginning` to the input plugin:
+To configure automatic reloading for a pipeline that reads from a file, follow these steps:
 
-    ```json
+1. Create an input file named `events-data/input_file.log` in the Logstash directory and add a line of text to it.
+
+1. Replace the contents of `config/pipeline.conf` with the following configuration. Replace `<path-to-logstash>` with the absolute path to your Logstash directory:
+
+    ```ruby
     input {
       file {
-        path => "/Users/<user>/Desktop/logstash7-12.1/events-data/input_file.log"
+        path => "<path-to-logstash>/events-data/input_file.log"
         start_position => "beginning"
       }
     }
+
+    output {
+      stdout { }
+    }
     ```
     {% include copy.html %}
 
-    Logstash only processes any new events added to the input file and ignores the ones that it has already processed to avoid processing the same event more than once on restart.
+    By default, the `file` input reads only lines added to the file after Logstash starts. Setting `start_position` to `beginning` makes Logstash read the file from the beginning the first time it processes the file.
 
-    Logstash records its progress in a file that's referred to as a `sinceDB` file. Logstash creates a `sinceDB` file for each file that it watches for changes.
-
-2. Open the `sinceDB` file to check how much of the input files are processed:
-
-    ```bash
-    cd data/plugins/inputs/file/
-    ls -al
-
-    -rw-r--r--  1 user  staff   0 Jun 13 10:50 .sincedb_9e484f2a9e6c0d1bdfe6f23ac107ffc5
-
-    cat .sincedb_9e484f2a9e6c0d1bdfe6f23ac107ffc5
-
-    51575938 1 4 7727
-    ```
-    {% include copy.html %}
-
-    The last number in the `sinceDB` file (7727) is the byte offset of the last known event processed.
-
-5. To process the input file from the beginning, delete the `sinceDB` file:
-
-    ```bash
-    rm .sincedb_*
-    ```
-    {% include copy.html %}
-
-2. Start Logstash with a `—-config.reload.automatic` argument:
+1. Start Logstash using the `--config.reload.automatic` argument:
 
     ```bash
     bin/logstash -f config/pipeline.conf --config.reload.automatic
     ```
     {% include copy.html %}
 
-    The `reload` option only reloads if you add a new line at the end of the pipeline configuration file.
+    Logstash prints an event for each line in the input file.
 
-    Sample output:
+1. Add a new line to the input file. Logstash detects the change and processes the new line as an event.
 
-    ```json
-    {
-       "message" => "216.243.171.38 - - [20/Sep/2017:19:11:52 +0200] \"GET /products/view/123 HTTP/1.1\" 200 12798 \"https://codingexplained.com/products\" \"Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots)\"",
-       "@version" => "1",
-          "host" => "a483e711a548.ant.amazon.com",
-          "path" => "/Users/kumarjao/Desktop/odfe1/logstash-7.12.1/events-data/input_file.log",
-       "@timestamp" => 2021-06-13T18:03:30.423Z
-    }
-    {
-       "message" => "91.59.108.75 - - [20/Sep/2017:20:11:43 +0200] \"GET /js/main.js HTTP/1.1\" 200 588 \"https://codingexplained.com/products/view/863\" \"Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0\"",
-      "@version" => "1",
-          "host" => "a483e711a548.ant.amazon.com",
-          "path" => "/Users/kumarjao/Desktop/odfe1/logstash-7.12.1/events-data/input_file.log",
-    "@timestamp" => 2021-06-13T18:03:30.424Z
-    }
-    ```
+1. Change the `config/pipeline.conf` file, for example, by adding `codec => rubydebug` to the `stdout` output. Logstash detects the change, logs `Reloading pipeline`, and applies the new configuration.
 
-7. Add a new line to the input file.
-    - Logstash immediately detects the change and processes the new line as an event.
+To avoid processing the same lines more than once, the `file` input records its position in each file that it reads in a `sincedb` file. Logstash stores `sincedb` files in the `data/plugins/inputs/file` directory:
 
-8. Make a change to the `pipeline.conf` file.
-    - Logstash immediately detects the change and reloads the modified pipeline.
+```bash
+cat data/plugins/inputs/file/.sincedb_*
+```
+{% include copy.html %}
+
+Each line in a `sincedb` file corresponds to one input file and contains the file's inode number, major and minor device numbers, the byte offset up to which Logstash has read the file, the time of the last update, and the file path:
+
+```
+51956745 0 66305 29 1792174306.332788 /opt/logstash/events-data/input_file.log
+```
+
+To process the input file from the beginning again, stop Logstash, delete the `sincedb` file, and then restart Logstash:
+
+```bash
+rm data/plugins/inputs/file/.sincedb_*
+```
+{% include copy.html %}
