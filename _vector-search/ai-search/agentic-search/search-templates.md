@@ -17,6 +17,9 @@ This approach allows you to solve complex use cases that would otherwise be chal
 - Handles complex use cases in which the LLM struggles to generate correct queries.
 - Ensures predictable query structure and naming conventions.
 
+With this approach, the LLM still writes the full query. To have the LLM fill only the template parameters while OpenSearch renders the query, see [Filling search templates in agentic search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agentic-search-templates/).
+{: .tip}
+
 ## Best practices
 
 When creating search templates for agentic search, follow these guidelines:

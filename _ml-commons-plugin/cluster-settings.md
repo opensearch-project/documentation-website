@@ -159,4 +159,6 @@ ML Commons supports the following settings for enabling and disabling features:
 
 - `plugins.ml_commons.agentic_memory_enabled` (Dynamic, Boolean): When `true`, enables [agentic memory]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agentic-memory/), which provides memory management for AI agents, including session memory, working memory, long-term memory, and memory history organized by namespace. Default is `true`.
 
+- `plugins.ml_commons.agentic_search_template_enabled` (Dynamic, Boolean): When `true`, enables the agentic search template APIs and the `SearchTemplateFillTool`. For more information, see [Filling search templates in agentic search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agentic-search-templates/). Has no effect when multi-tenancy is enabled. Default is `false`.
+
 - `plugins.ml_commons.rag_pipeline_feature_enabled` (Dynamic, Boolean): When `true`, enables the search processors for retrieval-augmented generation (RAG). RAG enhances query results by generating responses using relevant information from memory and previous conversations. Default is `true`.
