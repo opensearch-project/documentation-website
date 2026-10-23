@@ -60,7 +60,7 @@ PUT /{index}/_settings
 ```
 {% include copy-curl.html %}
 
-In this example, the flush threshold size is set to 1024 MB, which is 25% of a 4 GB Java heap.
+In this example, the flush threshold size is set to 1024 MB, which is 25% of a 4-GB Java heap.
 
 Choose the appropriate threshold size for your cluster.
 {: .note}
