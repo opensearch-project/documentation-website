@@ -184,13 +184,13 @@ To filter a visualization by a variable value, follow these steps:
    1. In your Observability workspace, select **Dashboards** in the left navigation.
    1. Open an existing dashboard or select **Create** > **Dashboard** to create a new dashboard. If creating a new dashboard, save it first by entering a title and selecting **Save**.
    1. At the top of the dashboard, select **Add variable**.
-   1. In the **Name**, enter `machine_os`. In the **Type**, select **Query**. In the **Options Query**, select `opensearch_dashboards_sample_data_logs`. In the query box, enter the following query:
+   1. In **Name**, enter `machine_os`, and set **Type** to **Query**. Under **Query options**, select **Open variable editor**, choose `opensearch_dashboards_sample_data_logs` as the dataset, keep the language set to **PPL**, and enter the following query:
    
       ```sql
       | FIELDS `machine.os`
       ```
       {% include copy.html %}
-   1. Select **Preview** and make sure that you see values such as `win 8`, `ios`, and `win xp` in the **Preview of values**. Then select **Add variable** to save.
+   1. Select **Preview** and make sure that you see values such as `win 8`, `ios`, and `win xp` in the **Preview of values**. Select **Apply** to save the query, and then select **Add variable** to save.
 
 
 1. Filter by a variable value:

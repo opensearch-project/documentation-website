@@ -29,11 +29,13 @@ Use dashboard variables to:
 
 ## Variable types
 
-OpenSearch Dashboards supports two types of variables:
+OpenSearch Dashboards supports three types of variables:
 
-- **Query variables**: Options are dynamically fetched from a data source using a Piped Processing Language (PPL) or Prometheus Query Language (PromQL) query. Use query variables when values change over time or depend on underlying data, such as service names from logs or available regions from metrics.
+- **Query variables**: Options are dynamically fetched from a data source using a Piped Processing Language (PPL) or Prometheus Query Language (PromQL) query. Use query variables when values change over time or depend on underlying data, such as service names from logs or available regions from metrics. For a Prometheus data connection, you can build the query from PromQL query types (label names, label values, metrics, or series) instead of writing a raw query. For more information, see [Using a PromQL query variable]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/dashboard-variables/managing-variables/#using-a-promql-query-variable).
 
 - **Custom variables**: Options are manually defined as a static list. Use custom variables for predefined categories like environment types (`dev`, `staging`, `prod`) or fixed status codes.
+
+- **Text variables**: A single free-form value that you type directly in the variables bar, with no option list. Use text variables for ad hoc values, such as a search term or a threshold, that you want to change without opening the variable editor.
 
 ## Variable syntax
 
@@ -88,18 +90,19 @@ For more information, see [Create a workspace]({{site.url}}{{site.baseurl}}/dash
 1. Select **Create** > **Dashboard**.
 1. Save the dashboard by entering a title (for example, `Log Analysis`) and selecting **Save**.
 1. At the top of the dashboard, select **Add variable**.
-1. Configure the following settings:
-   - **Name**: `extension`
-   - **Type**: **Query**
-   - **Dataset**: Select `opensearch_dashboards_sample_data_logs`
-   - **Options Query**:
+1. In **Name**, enter `extension`, and set **Type** to **Query**.
+1. Under **Query options**, select **Open variable editor** to open the query editor.
+1. Keep the query language set to **PPL**, select **Select dataset** and choose `opensearch_dashboards_sample_data_logs`.
+1. Enter the following query:
 
-     ```sql
-     source=opensearch_dashboards_sample_data_logs | stats count() by extension | fields extension
-     ```
-     {% include copy.html %}
+   ```sql
+   source=opensearch_dashboards_sample_data_logs | stats count() by extension | fields extension
+   ```
+   {% include copy.html %}
 
-1. Select **Preview** to verify the results. The preview should display values: `css`, `deb`, `gz`, `rpm`, and `zip`.
+1. In **Value field**, select `extension`.
+1. Select **Preview** to verify the results. The preview should display `css`, `deb`, `gz`, `rpm`, and `zip`, along with an empty value for documents that have no file extension.
+1. Select **Apply** to save the query and close the editor.
 1. Select **Add variable** to save.
 
 The `extension` variable now appears at the top of the dashboard with a dropdown.
