@@ -26,7 +26,7 @@ For a complete example, including how to store and register templates, see [Fill
 Before using the tool, complete the following steps:
 
 1. Set `plugins.ml_commons.agentic_search_template_enabled` to `true`. If this setting is `false`, agents that use the tool can't be registered or updated, and existing agents return an error when the tool runs. The tool isn't available when multi-tenancy is enabled.
-1. Store one or more search templates and register each one using the Register Agentic Search Template API. For more information, see [Managing agentic search templates]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agentic-search-templates/#managing-agentic-search-templates).
+1. Store one or more search templates and register each one using the Register Agentic Search Template API. For more information, see [Register Agentic Search Template API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-search-template-apis/register-agentic-search-template/).
 1. Register a remote model whose connector `request_body` includes `${parameters.tool_configs:-}`, `${parameters.system_prompt}`, and either `${parameters.user_prompt}` or `${parameters.prompt}`.
 
 ## Step 1: Register a flow agent
@@ -103,7 +103,7 @@ The following table lists the fields that you can set in the tool's `config`. Ex
 
 Field | Type | Required/Optional | Description
 :--- | :--- | :--- | :---
-`template_ids` | String | Required | The agentic search templates that the agent may fill, as a JSON array of template IDs, for example, `"[\"product_search\"]"`, or as a single template ID. Templates are offered in the listed order. Only templates that are bound to the searched index and whose stored script the user can read are used, and at most eight templates are offered.
+`template_ids` | String | Required | The agentic search templates that the agent may fill, as a JSON array of template IDs, for example, `"[\"product_search\"]"`, or as a single template ID. Templates are offered in the listed order. Only templates that are bound to the searched index, have a non-empty parameter schema, and have a stored script that the user can read are used, and at most eight templates are offered.
 `fallback_enabled` | String | Optional | Whether the tool falls back to the `QueryPlanningTool` when it can't fill a template. Valid values are `true` and `false`. If `false`, the tool returns an error instead. Default is `true`.
 
 ## Execute parameters
@@ -119,12 +119,12 @@ Parameter | Type | Required/Optional | Description
 
 The tool falls back to the `QueryPlanningTool` in the following cases:
 
-- No template in `template_ids` is usable for the index.
+- No template in `template_ids` is usable for the index, for example, because no template is bound to the index or every template's parameter schema is empty.
 - The LLM sets `cannot_express` to indicate that no template can express the question or chooses no template.
 - The LLM response contains no tool call, a value that doesn't match the parameter schema, or a template that isn't a candidate.
 - The rendered template isn't a single JSON object.
 
-If the template lookup or the LLM call fails, the tool returns the error without falling back.
+If reading the registered templates or the LLM call fails, the tool returns the error without falling back.
 
 ## Permissions
 
@@ -133,5 +133,6 @@ When the Security plugin is enabled, the tool reads and renders each stored scri
 ## Related documentation
 
 - [Filling search templates in agentic search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agentic-search-templates/)
+- [Agentic search template APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-search-template-apis/index/)
 - [Query Planning tool]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/query-planning-tool/)
 - [Agentic search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/index/)
