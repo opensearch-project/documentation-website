@@ -108,7 +108,7 @@ For information about settings related to SQL and PPL, see [SQL settings]({{site
 
 ## Workload Management plugin settings
 
-For information about workload management settings, see [Workload management settings]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/workload-management/wlm-feature-overview/#workload-management-settings).
+For information about workload management settings, see [Workload management settings]({{site.url}}{{site.baseurl}}/tuning-your-cluster/workload-management/wlm-feature-overview/#workload-management-settings).
 
 ## General plugin settings
 

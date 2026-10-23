@@ -276,4 +276,4 @@ After this request, the `_version` increments to `2`.
 ## Next steps
 
 - For more information about zone commissioning, see [Cluster decommission]({{site.url}}{{site.baseurl}}/api-reference/cluster-decommission/).
-- For more information about allocation awareness, see [Cluster formation]({{site.url}}{{site.baseurl}}/opensearch/cluster/#advanced-step-6-configure-shard-allocation-awareness-or-forced-awareness).
+- For more information about allocation awareness, see [Cluster formation]({{site.url}}{{site.baseurl}}/tuning-your-cluster/creating-a-cluster/#advanced-step-6-configure-shard-allocation-awareness-or-forced-awareness).

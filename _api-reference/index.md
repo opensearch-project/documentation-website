@@ -91,10 +91,10 @@ The following APIs protect cluster availability and control how a cluster uses i
 | :--- | :--- |
 | [Cross-Cluster Replication (CCR) API]({{site.url}}{{site.baseurl}}/tuning-your-cluster/replication-plugin/api/) | Replicate indexes from a leader cluster to a follower cluster. |
 | [Remote Store Stats API]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/remote-store-stats-api/) | Read upload and download statistics for remote-backed storage. |
-| [Rules API]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/rule-based-autotagging/rule-lifecycle-api/) | Create and manage the auto-tagging rules that assign incoming requests to a workload group. |
-| [Shard Indexing Backpressure Stats API]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/stats-api/) | Monitor shard indexing backpressure. |
+| [Rules API]({{site.url}}{{site.baseurl}}/tuning-your-cluster/workload-management/rule-based-autotagging/rule-lifecycle-api/) | Create and manage the auto-tagging rules that assign incoming requests to a workload group. |
+| [Shard Indexing Backpressure Stats API]({{site.url}}{{site.baseurl}}/tuning-your-cluster/load-protection/stats-api/) | Monitor shard indexing backpressure. |
 | [Snapshot Management API]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/sm-api/) | Take and delete snapshots on a schedule. |
-| [Workload Management APIs]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/workload-management/workload-groups/) | Create the workload groups that limit resource usage and read their statistics. |
+| [Workload Management APIs]({{site.url}}{{site.baseurl}}/tuning-your-cluster/workload-management/workload-groups/) | Create the workload groups that limit resource usage and read their statistics. |
 
 ### Observability and monitoring APIs
 
