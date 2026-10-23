@@ -138,17 +138,8 @@ function copyCode(button) {
 
 function copyAsCurl(button) {
     const codeBlock = button.closest('.code-container').querySelector('pre');
-    const code = codeBlock.textContent.trim(); 
-    
-    const lines = code.split('\n');
-    const [method, path] = lines[0].trim().split(' ');
-    const body = lines.slice(1).join('\n');
-    
-    const formattedPath = path.startsWith('/') ? path : '/' + path;
-    const curlCommand = body 
-        ? `curl -X ${method} "localhost:9200${formattedPath}" -H "Content-Type: application/json" -d '\n${body}\n'`
-        : `curl -X ${method} "localhost:9200${formattedPath}"`;
-        
+    const code = codeBlock.textContent.trim();
+    const curlCommand = window.CopyUtils.convertToCurl(code, false);
     window.navigator.clipboard.writeText(curlCommand);
 }
 
