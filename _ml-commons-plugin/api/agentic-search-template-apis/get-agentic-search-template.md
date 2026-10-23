@@ -69,3 +69,7 @@ Field | Data type | Description
 `created_time` | Long | The time at which the template was registered, in epoch milliseconds.
 `last_updated_time` | Long | The time at which the template was last updated, in epoch milliseconds.
 `created_by` | String | The user who registered the template. Present only when the Security plugin is enabled.
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `cluster:admin/opensearch/ml/agentic_search_templates/get`.

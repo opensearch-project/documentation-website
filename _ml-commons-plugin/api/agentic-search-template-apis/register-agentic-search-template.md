@@ -41,6 +41,7 @@ Field | Data type | Required/Optional | Description
 `required` | Boolean | Optional | Whether the LLM must provide the parameter. Default is `false`.
 `enum` | Array | Optional | The allowed values. Each value must match `type`: a number for `number`, a Boolean for `boolean`, and a string otherwise. For a parameter named `field` or `sort_by`, or one whose name ends in `_field`, derived schemas take the allowed values from the index mapping's field names.
 `description` | String | Optional | Describes the parameter to the LLM.
+`source` | String | Optional | Set to `mapping` in derived schemas when `enum` contains field names from the index mapping. Informational only.
 
 ## Example request: Derive the parameter schema
 
@@ -86,7 +87,7 @@ If an agentic search template with the same ID is already registered, the API re
 
 ## Required permissions
 
-When the Security plugin is enabled, the user registering a template must be able to read the stored script (`cluster:admin/script/get`) and the index (`indices:admin/get`).
+If you use the Security plugin, make sure you have the appropriate permissions: `cluster:admin/opensearch/ml/agentic_search_templates/register`. Because OpenSearch reads the stored script and the index as the calling user, you also need `cluster:admin/script/get` and `indices:admin/get` on the bound index.
 
 ## Related documentation
 

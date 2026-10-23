@@ -28,7 +28,7 @@ Parameter | Data type | Required/Optional | Description
 
 ## Request body fields
 
-The following table lists the available request body fields. Other fields, including `index`, can't be updated.
+The following table lists the available request body fields. Other fields, including `index`, are ignored.
 
 Field | Data type | Required/Optional | Description
 :--- | :--- | :--- | :---
@@ -74,3 +74,7 @@ If the template isn't registered, the API returns a `404` error. If the merged s
 
 The OpenSearch Agent Server caches each template's parameter schema for 60 seconds, so an update can take up to 60 seconds to reach the agent server.
 {: .note}
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `cluster:admin/opensearch/ml/agentic_search_templates/update`.

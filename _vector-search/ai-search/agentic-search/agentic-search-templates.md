@@ -301,7 +301,7 @@ POST _plugins/_ml/agentic_search_templates
 ```
 {% include copy-curl.html %}
 
-Then set `"template_ids": "[\"product_search\",\"similar_search\"]"` in the tool's `config`. For a question such as `shoes similar to 10 trail runners`, the LLM can choose `similar_search`, which runs a fuzzy match on the product title and always returns up to 10 results.
+Then set `"template_ids": "[\"product_search\",\"similar_search\"]"` in the tool's `config`. For a question such as `products similar to trail runers`, the LLM can choose `similar_search`, which runs a fuzzy match on the product title. Its size is fixed at 10.
 
 ### ML Commons fallback behavior
 
@@ -359,11 +359,11 @@ The agent server makes all of its calls to the cluster using the bearer token fr
 
 - Read access to the `.plugins-ml-agentic-search-templates` system index, which stores the parameter schemas. Because this is a system index, the user's role must also grant `system:admin/system_index` on it, and `plugins.security.system_indices.permission.enabled` must be `true`. For more information, see [System index permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/#system-index-permissions).
 - Permission to render search templates (`indices:data/read/search/template/render`).
-- Permission to read the mapping of the searched index, which the agent uses when it falls back to writing the query DSL.
+- Permission to read the mapping of the searched index (`indices:admin/mappings/get`), which the agent uses when it falls back to writing the query DSL.
 
 If the agent can't read a template's parameter schema or render it, it falls back to writing the query DSL without returning an error, so check these permissions if the agent never fills a template.
 
-To let the agent choose among several templates, replace `template_id` in the `context` object of `request_body` with a `template_ids` array, for example, `\"template_ids\": [\"product_search\", \"similar_search\"]`. When the request names two or more templates, the agent skips templates whose bound index name isn't exactly `index_name` (aliases and index patterns don't match) and uses at most eight candidates. When the request names a single template, the agent doesn't check the template's bound index.
+To let the agent choose among several templates, replace `template_id` in the `context` object of `request_body` with a `template_ids` array, for example, `\"template_ids\": [\"product_search\", \"similar_search\"]`. When the request names two or more distinct template IDs (across `template_id` and `template_ids`), the agent skips templates whose bound index name isn't exactly `index_name` (aliases and index patterns don't match) and uses at most eight candidates. When the request names a single template, the agent doesn't check the template's bound index.
 
 If the agent server or the cluster is on a private IP address, set `plugins.ml_commons.connector.private_ip_enabled` to `true`. If the endpoint doesn't match `plugins.ml_commons.trusted_connector_endpoints_regex`, add it to that setting. For more information, see [ML Commons cluster settings]({{site.url}}{{site.baseurl}}/ml-commons-plugin/cluster-settings/).
 {: .note}

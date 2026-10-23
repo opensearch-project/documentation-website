@@ -43,3 +43,7 @@ DELETE /_plugins/_ml/agentic_search_templates/similar_search
 ```
 
 If the template isn't registered, the API returns a `404` error.
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `cluster:admin/opensearch/ml/agentic_search_templates/delete`.

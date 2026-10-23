@@ -68,3 +68,7 @@ Field | Data type | Description
 :--- | :--- | :---
 `total` | Long | The total number of registered templates.
 `templates` | Array | The templates on the requested page. Each template contains the fields described in [Get Agentic Search Template API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-search-template-apis/get-agentic-search-template/#response-body-fields).
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `cluster:admin/opensearch/ml/agentic_search_templates/list`.
