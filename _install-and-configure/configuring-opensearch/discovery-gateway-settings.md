@@ -33,7 +33,7 @@ The local gateway stores on-disk cluster state and shard data that is used when 
   - **Recommendation**: Set this to the actual number of data nodes in your cluster so that recovery can start immediately once all data nodes are running.
 
 - `gateway.recover_after_time` (Static, time unit): The maximum amount of time to wait until recovery if the expected data node count hasn't been reached. After this time, recovery proceeds.
-  - **Default**: `5m` if `expected_data_nodes` or `recover_after_nodes` is set. Otherwise disabled.
+  - **Default**: `5m` if `expected_data_nodes` or `recover_after_data_nodes` is set. Otherwise disabled.
   - **Recommendation**: Set slightly above your typical node join time; larger clusters often need longer to recover and are tuned based on observed startup behavior.
 
 - `gateway.write_dangling_indices_info` (Static, Boolean): Controls whether OpenSearch writes information about dangling indexes to disk during cluster state persistence. When enabled, the system maintains metadata about indexes that exist on disk but are not part of the current cluster state, which can help with recovery and troubleshooting scenarios. Default is `true`.

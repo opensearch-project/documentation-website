@@ -29,7 +29,7 @@ curl -X GET "http://localhost:9200/_cluster/health"
 ```
 {% include copy.html %}
 
-If you're using the Security plugin, provide the username and password in the request. The default username is `admin`, and the password is set in your `docker-compose.yml` file in the `OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password>` setting:
+If you're using the Security plugin, provide the username and password in the request. The default username is `admin`, and the password is the `OPENSEARCH_INITIAL_ADMIN_PASSWORD` value set in your `.env` file:
 
 ```bash
 curl -X GET "https://localhost:9200/_cluster/health" -ku admin:<custom-admin-password>
@@ -65,7 +65,7 @@ curl -X GET "http://localhost:9200/_search?pretty" -H 'Content-Type: application
 
 The Dev Tools console in OpenSearch Dashboards uses a simpler syntax to format REST requests as compared to the cURL command. To send requests in Dev Tools, use the following steps:
 
-1. Access OpenSearch Dashboards by opening `http://localhost:5601/` in a web browser on the same host that is running your OpenSearch cluster. If you're using the Security plugin, access OpenSearch Dashboards by opening `https://localhost:5601/`. The default username is `admin`, and the password is set in your `docker-compose.yml` file in the `OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password>` setting.
+1. Access OpenSearch Dashboards by opening `http://localhost:5601/` in a web browser on the same host that is running your OpenSearch cluster. OpenSearch Dashboards uses HTTP unless you have configured TLS for it, even when the Security plugin is enabled. If you're using the Security plugin, the default username is `admin`, and the password is the `OPENSEARCH_INITIAL_ADMIN_PASSWORD` value set in your `.env` file.
 1. On the top menu bar, go to **Management > Dev Tools**.
 1. In the left pane of the console, enter the following request:
     ```json

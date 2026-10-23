@@ -89,7 +89,7 @@ PUT test-index
         "method": {
           "name": "hnsw",
           "space_type": "l2",
-          "engine": "nmslib",
+          "engine": "faiss",
           "parameters": {
             "ef_construction": 128,
             "m": 24

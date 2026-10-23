@@ -38,8 +38,9 @@ If your cluster uses [cross-cluster replication]({{site.url}}{{site.baseurl}}/tu
 
 1. Verify the health of your OpenSearch cluster before you begin. You should resolve any index or shard allocation issues prior to upgrading to ensure that your data is preserved. A status of **green** indicates that all primary and replica shards are allocated. See [Cluster health]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-health/) for more information. The following command queries the `_cluster/health` API endpoint:
    ```json
-   GET "/_cluster/health?pretty"
+   GET /_cluster/health
    ```
+   {% include copy-curl.html %}
    The response should look similar to the following example:
    ```json
    {
@@ -62,13 +63,14 @@ If your cluster uses [cross-cluster replication]({{site.url}}{{site.baseurl}}/tu
    ```
 1. Disable shard replication to prevent shard replicas from being created while nodes are being taken offline. This stops the movement of Lucene index segments on nodes in your cluster. You can disable shard replication by querying the `_cluster/settings` API endpoint:
    ```json
-   PUT "/_cluster/settings?pretty"
+   PUT /_cluster/settings
    {
        "persistent": {
            "cluster.routing.allocation.enable": "primaries"
        }
    }
    ```
+   {% include copy-curl.html %}
    The response should look similar to the following example:
    ```json
    {
@@ -88,8 +90,9 @@ If your cluster uses [cross-cluster replication]({{site.url}}{{site.baseurl}}/tu
 
 1. Perform a flush operation on the cluster to commit transaction log entries to the Lucene index:
    ```json
-   POST "/_flush?pretty"
+   POST /_flush
    ```
+   {% include copy-curl.html %}
    The response should look similar to the following example:
    ```json
    {
@@ -110,9 +113,10 @@ If your cluster uses [cross-cluster replication]({{site.url}}{{site.baseurl}}/tu
     {: .important}
 
 1. Query the `_cat/nodes` endpoint to identify which node was promoted to cluster manager. The following command includes additional query parameters that request only the name, version, node.role, and master headers. Note that OpenSearch 1.x versions use the term "master," which has been deprecated and replaced by "cluster_manager" in OpenSearch 2.x and later.
-   ```bash
-   GET "/_cat/nodes?v&h=name,version,node.role,master" | column -t
+   ```json
+   GET /_cat/nodes?v&h=name,version,node.role,master
    ```
+   {% include copy-curl.html %}
    The response should look similar to the following example:
    ```bash
    name        version  node.role  master
@@ -123,9 +127,10 @@ If your cluster uses [cross-cluster replication]({{site.url}}{{site.baseurl}}/tu
    ```
 1. Stop the node you are upgrading. If running this in Docker, do not delete the volume associated with the container when you delete the container. The new OpenSearch container will use the existing volume. **Deleting the volume will result in data loss**.
 1. Confirm that the associated node has been dismissed from the cluster by querying the `_cat/nodes` API endpoint:
-   ```bash
-   GET "/_cat/nodes?v&h=name,version,node.role,master" | column -t
+   ```json
+   GET /_cat/nodes?v&h=name,version,node.role,master
    ```
+   {% include copy-curl.html %}
    The response should look similar to the following example:
    ```bash
    name        version  node.role  master
@@ -146,9 +151,10 @@ If your cluster uses [cross-cluster replication]({{site.url}}{{site.baseurl}}/tu
         - Copy the TLS certificates listed in the `opensearch.yml` file to the `./config/` directory.
         - Start OpenSearch.
 1. Query the `_cat/nodes` endpoint after OpenSearch is running on the new node to confirm that it has joined the cluster:
-   ```bash
-   GET "/_cat/nodes?v&h=name,version,node.role,master" | column -t
+   ```json
+   GET /_cat/nodes?v&h=name,version,node.role,master
    ```
+   {% include copy-curl.html %}
    The response should look similar to the following example:
    ```bash
    name        version  node.role  master
@@ -158,22 +164,31 @@ If your cluster uses [cross-cluster replication]({{site.url}}{{site.baseurl}}/tu
    os-node-03  7.10.2   dimr       -
    ```
    In the example output, the new OpenSearch node reports a running version of `7.10.2` to the cluster. This is the result of `compatibility.override_main_response_version`, which is used when connecting to a cluster with legacy clients that check for a version. You can manually confirm the version of the node by calling the `/_nodes` API endpoint, as in the following command. Replace `<nodeName>` with the name of your node. See [Nodes API]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/index/) to learn more.
-   ```bash
-   GET "/_nodes/{nodeName}?pretty=true" | jq -r '.nodes | .[] | "\(.name) v\(.version)"'
+   ```json
+   GET /_nodes/<nodeName>?filter_path=nodes.*.name,nodes.*.version
    ```
+   {% include copy-curl.html %}
    The response should look similar to the following example:
-   ```bash
-   os-node-01 v1.3.7
+   ```json
+   {
+     "nodes" : {
+       "WbhwdqH3T8ShpE7AhXNfqw" : {
+         "name" : "os-node-01",
+         "version" : "1.3.7"
+       }
+     }
+   }
    ```
 1. Reenable shard replication:
    ```json
-   PUT "/_cluster/settings?pretty"
+   PUT /_cluster/settings
    {
        "persistent": {
            "cluster.routing.allocation.enable": "all"
        }
    }
    ```
+   {% include copy-curl.html %}
    The response should look similar to the following example:
    ```json
    {
@@ -191,9 +206,10 @@ If your cluster uses [cross-cluster replication]({{site.url}}{{site.baseurl}}/tu
    }
    ```
 1. Confirm that the cluster is healthy:
-   ```bash
-   GET "/_cluster/health?pretty"
+   ```json
+   GET /_cluster/health
    ```
+   {% include copy-curl.html %}
    The response should look similar to the following example:
    ```json
    {
@@ -216,9 +232,10 @@ If your cluster uses [cross-cluster replication]({{site.url}}{{site.baseurl}}/tu
    }
    ```
 1. Repeat steps 2 through 11 for each node in your cluster. Remember to upgrade an eligible cluster manager node last. After replacing the last node, query the `_cat/nodes` endpoint to confirm that all nodes have joined the cluster. The cluster is now bootstrapped to the new version of OpenSearch. You can verify the cluster version by querying the `_cat/nodes` API endpoint:
-   ```bash
-   GET "/_cat/nodes?v&h=name,version,node.role,master" | column -t
+   ```json
+   GET /_cat/nodes?v&h=name,version,node.role,master
    ```
+   {% include copy-curl.html %}
    The response should look similar to the following example:
    ```bash
    name        version  node.role  master
