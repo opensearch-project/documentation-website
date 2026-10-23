@@ -29,10 +29,10 @@ Wildcard expressions and requests that don't specify an index can match indexes 
 
 Failing the entire request is not suitable for OpenSearch Dashboards users who can access only some indexes. OpenSearch Dashboards commonly sends broad index requests to discover data and populate visualizations, and by default these requests fail if they match any index that the user cannot access. To return results from the indexes that a user can access, use one of the following approaches:
 
-- [Remove unauthorized indexes from requests](#removing-unauthorized-indexes-from-requests) by setting `do_not_fail_on_forbidden` to `true`.
+- [Remove unauthorized indexes from requests](#the-do_not_fail_on_forbidden-setting) by setting `do_not_fail_on_forbidden` to `true`.
 - [Enable the `v4` authorization mode](#the-v4-authorization-mode), which resolves wildcard expressions only to indexes that the user is authorized to access.
 
-## Removing unauthorized indexes from requests
+## The `do_not_fail_on_forbidden` setting
 
 To remove unauthorized indexes from requests for all users and client applications in the cluster, set the `do_not_fail_on_forbidden` setting to `true` under `config.dynamic` in `config/opensearch-security/config.yml`:
 
@@ -72,7 +72,7 @@ Use `do_not_fail_on_forbidden` only when partial results are acceptable for all 
 **Introduced 3.7**
 {: .label .label-purple }
 
-The `v4` authorization mode simplifies the configuration of OpenSearch index authorization. By default, this mode is disabled. To enable it, set `privileges_evaluation_type` to `v4` under `config.dynamic` in `config/opensearch-security/config.yml`:
+The `v4` authorization mode simplifies the configuration of OpenSearch index authorization. By default, this mode is disabled. The `v4` mode is intended to replace the default authorization mode in a future release. To enable it, set `privileges_evaluation_type` to `v4` under `config.dynamic` in `config/opensearch-security/config.yml`:
 
 ```yml
 _meta:
@@ -92,7 +92,7 @@ In the `v4` mode, the result of a request depends on how the request specifies i
 - A request that names an index that the user is not authorized to access fails, unless the request sets the `ignore_unavailable` parameter to `true`.
 - Aliases and data streams are authorized by name, so filtered aliases continue to apply.
 
-These rules also apply to requests from third-party plugins that use replaceable index requests. For more information, see [Wildcards and query parameters](#wildcards-and-query-parameters) and [Alias handling in the `v4` mode](#alias-handling-in-the-v4-mode).
+For more information, see [Wildcards and query parameters](#wildcards-and-query-parameters) and [Alias handling in the `v4` mode](#alias-handling-in-the-v4-mode).
 
 ### Wildcards and query parameters
 
@@ -116,6 +116,10 @@ In the `v4` mode, aliases and data streams are authorized by name. To access an 
 
 For alias administration, the user must also have the `indices:admin/aliases` permission for every alias to which an action applies. The same requirement applies to actions that create an alias implicitly, such as a Create Index request that defines aliases in the `aliases` field.
 
+### Analyze API requests that don't specify an index
+
+In the `v4` mode, an [Analyze API]({{site.url}}{{site.baseurl}}/api-reference/analyze-apis/) request that doesn't specify an index requires the `indices:admin/analyze` permission for at least one index. The default mode requires the permission for all indexes, so roles that work in the default mode also work in the `v4` mode.
+
 ### Settings not used in the `v4` mode
 
 The `v4` mode uses its own index resolution and ignores the following settings:
@@ -124,11 +128,11 @@ The `v4` mode uses its own index resolution and ignores the following settings:
 - `config.dynamic.do_not_fail_on_forbidden_empty`: The `v4` mode uses `allow_no_indices` to determine whether a request with no authorized matches is empty or fails. For more information, see [Wildcards and query parameters](#wildcards-and-query-parameters).
 - `config.dynamic.filtered_alias_mode`: The `v4` mode always applies the filter of a filtered alias. For more information, see [Alias handling in the `v4` mode](#alias-handling-in-the-v4-mode).
 - `config.dynamic.respect_request_indices_options`: The `v4` mode always applies the `ignore_unavailable` and `allow_no_indices` query parameters. For more information, see [Wildcards and query parameters](#wildcards-and-query-parameters).
-- `plugins.security.filter_securityindex_from_all_requests`: The `v4` mode always filters the Security plugin configuration index. It also automatically filters other unauthorized indexes.
-- `plugins.security.system_indices.enabled`: The `v4` mode always enables system-index handling. For more information, see [System indexes]({{site.url}}{{site.baseurl}}/security/configuration/system-indices/).
+- `plugins.security.filter_securityindex_from_all_requests`: The `v4` mode handles the Security plugin configuration index in the same way as any other index that the user is not authorized to access. The index is excluded from wildcard matches and from requests that set the `ignore_unavailable` parameter to `true`. Other requests that name the index fail.
+- `plugins.security.system_indices.enabled`: The `v4` mode always protects system indexes. Regular users cannot access system indexes unless their role includes the `system:admin/system_index` permission. For more information, see [System indexes]({{site.url}}{{site.baseurl}}/security/configuration/system-indices/).
 - `plugins.security.system_indices.permission.enabled`: The `v4` mode always enables the `system:admin/system_index` permission for roles. When `privileges_evaluation_type` is not set to `v4`, this setting is `false` by default. A role must include both the system-index permission and the required index action permissions. For more information, see [Enabling user access to system indexes]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#enabling-user-access-to-system-indexes).
 - `plugins.security.unsupported.restore.securityindex.enabled`: The `v4` mode always protects the Security plugin configuration index during restore operations. For more information, see [Security plugin protection]({{site.url}}{{site.baseurl}}/security/configuration/system-indices/#security-plugin-protection).
-- `plugins.security.enable_snapshot_restore_privilege`: The `v4` mode allows regular users to restore snapshots when they have the required privileges. This is also the default when `privileges_evaluation_type` is not set to `v4`. To deny snapshot restore actions to all regular users, use the expert-level `plugins.security.privileges_evaluation.actions.universally_denied_actions` setting. For more information, see [Security settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/security-settings/#expert-level-settings).
+- `plugins.security.enable_snapshot_restore_privilege`: The `v4` mode allows regular users to restore snapshots when they have the required privileges. When `privileges_evaluation_type` is not set to `v4`, regular users can restore snapshots only if this setting is `true`, which is its default. To deny snapshot restore actions to all regular users, use the expert-level `plugins.security.privileges_evaluation.actions.universally_denied_actions` setting. For more information, see [Security settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/security-settings/#expert-level-settings).
 - `plugins.security.check_snapshot_restore_write_privileges`: The `v4` mode always checks write privileges for restore operations. This is also the default when `privileges_evaluation_type` is not set to `v4`. For more information, see [Security settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/security-settings/#expert-level-settings).
 
 ## Migrating to the `v4` mode
@@ -141,7 +145,7 @@ Update each role that matches one of the following cases. Make these changes bef
 
 #### Roles that access aliases or data streams by name
 
-If users access an alias or data stream by name, add that name to the role's `index_patterns`. In the `v4` mode, permissions for only the backing indexes are not sufficient.
+If users access an alias or data stream by name, add that name to the role's `index_patterns`. In the `v4` mode, permissions for only the backing indexes are not sufficient. The default mode also accepts data stream names in `index_patterns`, so the updated role in the following example works in both modes.
 
 The following role grants access to the backing indexes of the `reports` data stream:
 
@@ -193,23 +197,9 @@ report_manager:
 ```
 {% include copy.html %}
 
-#### Roles that use the Analyze API without specifying an index
-
-An [Analyze API]({{site.url}}{{site.baseurl}}/api-reference/analyze-apis/) request that doesn't specify an index requires `indices:admin/analyze` on at least one index. The following role grants this permission:
-
-```yml
-diagnostics:
-  index_permissions:
-    - index_patterns:
-        - diagnostics-*
-      allowed_actions:
-        - indices:admin/analyze
-```
-{% include copy.html %}
-
 #### Roles that list all PITs
 
-The [List all PITs API]({{site.url}}{{site.baseurl}}/api-reference/search-apis/point-in-time-api/#list-all-pits) requires the dedicated `indices:data/read/point_in_time/readall` cluster permission. The [CAT PIT segments API]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-pit-segments/) with the `_all` path requires `cluster:monitor/point_in_time/segments/_all`. Grant the permission for each operation that you use, as shown in the following roles:
+In the `v4` mode, the [List all PITs API]({{site.url}}{{site.baseurl}}/api-reference/search-apis/point-in-time-api/#list-all-pits) requires the dedicated `indices:data/read/point_in_time/readall` cluster permission. The [CAT PIT segments API]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-pit-segments/) with the `_all` path requires `cluster:monitor/point_in_time/segments/_all`. Grant the permission for each operation that you use, as shown in the following roles:
 
 ```yml
 pit_read_all:
@@ -263,7 +253,7 @@ In `opensearch.yml`, remove the settings listed in [Settings not used in the `v4
 
 The `v4` mode provides the following advanced settings for compatibility and troubleshooting. They are not required for normal operation. We don't recommend using them because they override the standard authorization of the `v4` mode:
 
-- `config.dynamic.privileges_evaluation_ignore_unauthorized_indices` (in `config.yml`): Controls automatic filtering of unauthorized indexes. When it is `false`, requests that resolve to any unauthorized index, including a system index, fail. When it is `true`, the request runs against the authorized indexes only.
+- `config.dynamic.privileges_evaluation_ignore_unauthorized_indices` (in `config.yml`): Controls automatic filtering of unauthorized indexes. When it is `false`, requests that resolve to any unauthorized index, including a system index, fail. When it is `true`, the request runs against the authorized indexes only. Default is `true`.
 - `plugins.security.privileges_evaluation.actions.force_as_cluster_actions` (in `opensearch.yml`): Treats the listed actions as cluster privileges even when they are normally index privileges.
 - `plugins.security.privileges_evaluation.actions.universally_denied_actions` (in `opensearch.yml`): Denies the listed actions to all regular users, regardless of their roles. Only super admin users can perform these actions.
 - `plugins.security.privileges_evaluation.actions.map_action_names` (in `opensearch.yml`): Maps an action name to a different privilege name before evaluating authorization. Specify each mapping as `action_name>privilege_name`.
