@@ -36,6 +36,44 @@ The `index` setting uses the `%{+YYYY.MM.dd}` date pattern, so Logstash writes e
 If you're testing against a cluster that uses the demo security configuration, which uses self-signed certificates, you can replace the `cacert` setting with `ssl_certificate_verification => false`. Don't disable certificate verification in production.
 {: .warning }
 
+## Configuring TLS
+
+When `hosts` contains an `https://` URL, the plugin connects to OpenSearch over TLS and verifies the OpenSearch node certificates. Provide the certificate authority (CA) that signed the node certificates in one of the following ways:
+
+- Set `cacert` to the path of the CA certificate in PEM format, as shown in the preceding example.
+- Set `truststore` to the path of a Java KeyStore (JKS) file that contains the CA certificate, and set `truststore_password` to the truststore password.
+
+You can't specify both `cacert` and `truststore`.
+
+### Authenticating using a client certificate
+
+If OpenSearch is configured for [client certificate authentication]({{site.url}}{{site.baseurl}}/security/authentication-backends/client-auth/), Logstash can present a client certificate to OpenSearch. Set `tls_certificate` to the path of the client certificate in PEM format and `tls_key` to the path of its private key. You must specify both settings:
+
+```ruby
+output {
+  opensearch {
+    hosts           => ["https://localhost:9200"]
+    index           => "logstash-logs-%{+YYYY.MM.dd}"
+    ssl             => true
+    cacert          => "<path-to-root-ca>"
+    tls_certificate => "<path-to-client-cert>"
+    tls_key         => "<path-to-client-key>"
+  }
+}
+```
+{% include copy.html %}
+
+The private key must be an unencrypted PEM file in PKCS #8 format, which begins with `-----BEGIN PRIVATE KEY-----`. A key in the PKCS #1 format, which begins with `-----BEGIN RSA PRIVATE KEY-----`, is rejected. To convert a PKCS #1 key, run the following command:
+
+```bash
+openssl pkcs8 -topk8 -nocrypt -in <client-key> -out <client-key-pkcs8>
+```
+{% include copy.html %}
+
+Alternatively, store the client certificate and private key in a keystore. Set `keystore` to the path of a JKS or PKCS #12 (`.p12`) file and `keystore_password` to the keystore password.
+
+The Security plugin maps the client certificate to a user based on the certificate's distinguished name (DN). This example omits the `user` and `password` settings, so OpenSearch authenticates Logstash using only the certificate.
+
 ## Example: Send JSON events to OpenSearch
 
 To send events that you enter in the terminal to OpenSearch, follow these steps:
@@ -175,6 +213,12 @@ Setting | Data type | Description
 :--- | :--- | :---
 `cacert` | String | The path to the certificate authority file used to verify the OpenSearch node certificates.
 `ssl_certificate_verification` | Boolean | Whether to verify the OpenSearch node certificates. Default is `true`.
+`truststore` | String | The path to a JKS truststore that contains the certificate authority used to verify the OpenSearch node certificates. Can't be used together with `cacert`.
+`truststore_password` | String | The truststore password.
+`tls_certificate` | String | The path to the client certificate in PEM format. Requires `tls_key`. See [Authenticating using a client certificate](#authenticating-using-a-client-certificate).
+`tls_key` | String | The path to the private key of the client certificate, as an unencrypted PEM file in PKCS #8 format. Requires `tls_certificate`.
+`keystore` | String | The path to a JKS or PKCS #12 keystore that contains the client certificate and its private key.
+`keystore_password` | String | The keystore password.
 `template` | String | The path to a custom index template file. If not specified, the plugin uses its default template.
 `template_name` | String | The name of the index template in OpenSearch.
 `legacy_template` | Boolean | Whether to install the index template using the legacy `_template` API. If `false`, the plugin uses the `_index_template` API. Default is `true`.
