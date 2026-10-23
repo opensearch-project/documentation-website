@@ -32,14 +32,14 @@ To monitor trace analytics in Data Prepper, we provide three pipelines: `entry-p
 
 ### OpenTelemetry trace source
  
-The [OpenTelemetry source]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/otel-traces/) accepts trace data from the OpenTelemetry Collector. The source follows the [OpenTelemetry Protocol](https://github.com/open-telemetry/opentelemetry-specification/tree/master/specification/protocol) and officially supports transport over gRPC and the use of industry-standard encryption (TLS/HTTPS).
+The [OpenTelemetry trace source]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/otel-trace-source/) accepts trace data from the OpenTelemetry Collector. The source follows the [OpenTelemetry Protocol](https://github.com/open-telemetry/opentelemetry-specification/tree/master/specification/protocol) and officially supports transport over gRPC and the use of industry-standard encryption (TLS/HTTPS).
 
 ### Processor
 
 There are three processors for the trace analytics feature:
 
 * `otel_traces` -- The `otel_traces` processor receives a collection of [span](https://github.com/opensearch-project/data-prepper/blob/fa65e9efb3f8d6a404a1ab1875f21ce85e5c5a6d/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/trace/Span.java) records from [`otel-trace-source`]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/otel-trace-source/), and performs stateful processing, extraction, and completion of trace-group-related fields.
-* `otel_traces_group` -- The `otel_traces_group` processor fills in the missing trace-group-related fields in the collection of [span](https://github.com/opensearch-project/data-prepper/blob/298e7931aa3b26130048ac3bde260e066857df54/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/trace/Span.java) records by looking up the OpenSearch backend.
+* `otel_trace_group` -- The `otel_trace_group` processor fills in the missing trace-group-related fields in the collection of [span](https://github.com/opensearch-project/data-prepper/blob/298e7931aa3b26130048ac3bde260e066857df54/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/trace/Span.java) records by looking up the OpenSearch backend.
 * `service_map` -- The `service_map` processor performs the required preprocessing for trace data and builds metadata to display the `service-map` dashboards.
 
 
@@ -64,11 +64,11 @@ Use the following recommended configurations to scale Data Prepper. We recommend
 
 #### Buffer
 
-The total number of trace requests processed by Data Prepper is equal to the sum of the `buffer_size` values in `otel-trace-pipeline` and `raw-trace-pipeline`. The total number of trace requests sent to OpenSearch is equal to the product of `batch_size` and `workers` in `raw-trace-pipeline`. For more information about `raw-trace-pipeline`, see [Trace analytics pipeline]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines).
+The total number of trace requests processed by Data Prepper is equal to the sum of the `buffer_size` values in `entry-pipeline` and `raw-trace-pipeline`. The total number of trace requests sent to OpenSearch is equal to the product of `batch_size` and `workers` in `raw-trace-pipeline`. For more information about `raw-trace-pipeline`, see [Trace analytics pipeline]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines).
 
 
 We recommend the following when making changes to buffer settings:
- * The `buffer_size` value in `otel-trace-pipeline` and `raw-trace-pipeline` should be the same.
+ * The `buffer_size` value in `entry-pipeline` and `raw-trace-pipeline` should be the same.
  * The `buffer_size` should be greater than or equal to `workers` * `batch_size` in the `raw-trace-pipeline`.
  
 
@@ -191,10 +191,10 @@ source:
 
 #### Example: pipeline.yaml
 
-The following is an example `pipeline.yaml` file without SSL and basic authentication enabled for the `otel-trace-pipeline` pipeline:
+The following is an example `pipeline.yaml` file without SSL and basic authentication enabled for the `entry-pipeline` pipeline:
 
 ```yaml
-otel-trace-pipeline:
+entry-pipeline:
   # workers is the number of threads processing data in each pipeline.
   # We recommend same value for all pipelines.
   # default value is 1, set a value based on the machine you are running Data Prepper
@@ -224,16 +224,16 @@ otel-trace-pipeline:
     - pipeline:
         name: raw-trace-pipeline
     - pipeline:
-        name: entry-pipeline
+        name: service-map-pipeline
 
 raw-trace-pipeline:
-  # Configure same as the otel-trace-pipeline
+  # Configure same as the entry-pipeline
   workers: 8
   # We recommend using the default value for the raw-trace-pipeline.
   delay: 3000
   source:
     pipeline: 
-      name: otel-trace-pipeline
+      name: entry-pipeline
   buffer:
     bounded_blocking:
       # Configure the same value as in entry-pipeline
@@ -247,7 +247,7 @@ raw-trace-pipeline:
   processor:
     - otel_traces:
     # Optional: only if you want the group-filler stage.
-    - otel_traces_group:
+    - otel_trace_group:
         hosts: [ "https://opensearch:9200" ]
         # Change to your credentials
         username: admin
@@ -279,7 +279,7 @@ service-map-pipeline:
   delay: 100
   source:
     pipeline: 
-      name: otel-trace-pipeline
+      name: entry-pipeline
   processor:
     - service_map:
         # The window duration is the maximum length of time the data prepper stores the most recent trace data to evaluvate service-map relationships.
@@ -597,7 +597,7 @@ Starting with Data Prepper version 1.4, trace processing uses Data Prepper's eve
 
 * `otel_trace_source` has an optional `record_type` parameter that can be set to `event`. When configured, it will output event objects.
 * `otel_traces` replaces `otel_traces_prepper` for event-based spans.
-* `otel_traces_group` replaces `otel_traces_group_prepper` for event-based spans.
+* `otel_trace_group` replaces `otel_trace_group_prepper` for event-based spans.
 
-In Data Prepper version 2.0, `otel_trace_source` will only output events. Data Prepper version 2.0 also removes `otel_traces_prepper` and `otel_traces_group_prepper` entirely. To migrate to Data Prepper version 2.0, you can configure your trace pipeline using the event model.
+In Data Prepper version 2.0, `otel_trace_source` will only output events. Data Prepper version 2.0 also removes `otel_traces_prepper` and `otel_trace_group_prepper` entirely. To migrate to Data Prepper version 2.0, you can configure your trace pipeline using the event model.
  
