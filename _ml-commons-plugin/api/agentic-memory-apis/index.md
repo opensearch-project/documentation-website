@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Agentic memory APIs
-parent: ML Commons APIs
+parent: ML APIs
 has_children: true
 has_toc: false
 nav_order: 35

@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Context management APIs
-parent: ML Commons APIs
+parent: ML APIs
 has_children: true
 has_toc: false
 nav_order: 45

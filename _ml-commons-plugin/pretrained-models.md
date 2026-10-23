@@ -47,7 +47,7 @@ The following table provides a list of sentence transformer models and artifact 
 **Introduced 2.11**
 {: .label .label-purple }
 
-Sparse encoding models transfer text into a sparse vector and convert the vector to a list of `<token: weight>` pairs representing the text entry and its corresponding weight in the sparse vector. You can use these models for use cases such as clustering or sparse neural search.
+Sparse encoding models transfer text into a sparse vector and convert the vector to a list of `<token: weight>` pairs representing the text entry and its corresponding weight in the sparse vector. You can use these models for use cases such as clustering or neural sparse search.
 
 We recommend the following combinations for optimal performance:
 

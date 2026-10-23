@@ -171,7 +171,7 @@ version:
 # One Or More Workflows Can Be Included, Presently Only Provision Is Supported API
 workflows:
   provision:
-    # These nodes are the workflow steps corresponding to ML Commons APIs
+    # These nodes are the workflow steps corresponding to ML APIs
     nodes:
     # This ID must be unique to this workflow
     - id: create_connector_1

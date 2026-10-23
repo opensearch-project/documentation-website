@@ -2,7 +2,7 @@
 layout: default
 title: List connector MCP tools
 parent: MCP client APIs
-grand_parent: ML Commons APIs
+grand_parent: ML APIs
 nav_order: 10
 ---
 

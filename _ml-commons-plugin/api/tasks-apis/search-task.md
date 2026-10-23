@@ -2,7 +2,7 @@
 layout: default
 title: Search ML tasks
 parent: ML Tasks APIs
-grand_parent: ML Commons APIs
+grand_parent: ML APIs
 nav_order: 15
 ---
 
