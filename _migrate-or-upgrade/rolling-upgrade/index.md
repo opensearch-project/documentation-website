@@ -18,6 +18,8 @@ Rolling upgrades, sometimes referred to as "node replacement upgrades," can be p
 
 This document serves as a high-level, platform-agnostic overview of the rolling upgrade procedure. For specific examples of commands, scripts, and configuration files, refer to the [Rolling upgrade lab]({{site.url}}{{site.baseurl}}/migrate-or-upgrade/rolling-upgrade/rolling-upgrade-lab/).
 
+If you installed your cluster using the Ansible playbook, see [Upgrading a cluster installed using the playbook]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/ansible/#upgrading-a-cluster-installed-using-the-playbook).
+
 ## Preparing to upgrade
 Before making any changes to your OpenSearch cluster, is it highly recommended to back up your configuration files and create a [snapshot]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/) of the cluster state and indexes.
 
