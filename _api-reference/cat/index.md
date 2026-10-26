@@ -225,7 +225,7 @@ To sort the output by a header, use the `s` parameter:
 GET _cat/{operation_name}?s={header_name_1},{header_name_2}
 ```
 
-For example, to sort aliases by alias and then index, send the following request:
+For example, to sort aliases by index and then alias, send the following request:
 
 <!-- spec_insert_start
 component: example_code
