@@ -82,6 +82,7 @@ swap:
   'in place': configured (keep "in place" only for an operation that modifies data without copying it)
   'is worth': we recommend (reword the sentence)
   'it is recommended': we recommend
+  '(?<=k-NN (?:and|or) )neural (?:search|query|queries)': vector search (replace the whole phrase, including "k-NN and" or "k-NN or")
   'keep up': maintain throughput or match demand
   'keeps up': maintains throughput or matches demand
   'keeping up': maintaining throughput or matching demand
@@ -113,7 +114,9 @@ swap:
   'narrows down': filters or limits
   'narrowing down': filtering or limiting
   'navigate in': navigate to
-  'one-off': single-use or ad-hoc
+  'neural search (?:query|queries|request|requests)': "`neural` query, semantic search, or AI search (choose by context)"
+  '(?<!k-NN (?:and|or) )neural search(?! plugin| stats| api| quer| request)': semantic search, vector search, or AI search (choose by context)
+  'one-off': single-use
   'opt-in': optional or disabled by default
   'out of the box': by default, natively, or is built-in
   'out-of-the-box': default, native, or built-in
@@ -169,6 +172,7 @@ swap:
   'shutting down': stopping or terminating
   'slow down': delay, reduce throughput, or increase latency
   'slows down': delays or reduces throughput
+  'sparse neural search': neural sparse search
   'slowing down': delaying or reducing throughput
   'speed up': accelerate
   'speeds up': accelerates

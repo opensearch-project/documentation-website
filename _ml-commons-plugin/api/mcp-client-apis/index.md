@@ -1,7 +1,7 @@
 ---
 layout: default
 title: MCP client APIs
-parent: ML Commons APIs
+parent: ML APIs
 has_children: true
 has_toc: false
 nav_order: 41
@@ -17,6 +17,6 @@ When OpenSearch connects to an external [Model Context Protocol (MCP)](https://m
 
 This differs from [MCP server APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/mcp-server-apis/), where OpenSearch exposes its own tools to external MCP clients. For conceptual information about using external MCP servers with agents, see [Connecting to an external MCP server]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/mcp/mcp-connector/).
 
-ML Commons supports the following MCP client APIs:
+OpenSearch supports the following MCP client APIs:
 
 - [List connector MCP tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/mcp-client-apis/list-connector-mcp-tools/)

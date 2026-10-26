@@ -13,7 +13,7 @@ redirect_from:
 **Introduced 3.1**
 {: .label .label-purple }
 
-The `semantic` field type is a high-level abstraction that simplifies neural search setup in OpenSearch. It can wrap a variety of field types, including all string and binary fields. The `semantic` field type automatically enables semantic indexing and querying based on the configured machine learning (ML) model.
+The `semantic` field type is a high-level abstraction that simplifies setting up semantic and neural sparse search in OpenSearch. It can wrap a variety of field types, including all string and binary fields. The `semantic` field type automatically enables semantic indexing and querying based on the configured machine learning (ML) model.
 
 **PREREQUISITE**<br>
 Before using the `semantic` field type, you must configure either a local ML model hosted on your OpenSearch cluster or an externally hosted model connected to your OpenSearch cluster. For more information about local models, see [Using ML models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/using-ml-models/). For more information about externally hosted models, see [Connecting to externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/).

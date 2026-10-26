@@ -40,7 +40,7 @@ PUT _plugins/_search_relevance/search_configurations
 ```
 {% include copy-curl.html %}
 
-The model ID specified in the `query` must be a valid model ID for a model deployed in OpenSearch. The target index must contain the field used for neural search embeddings (in this example, `title_embedding`).
+The model ID specified in the `query` must be a valid model ID for a model deployed in OpenSearch. The target index must contain the field that stores the embeddings (in this example, `title_embedding`).
 
 For an end-to-end example, see the [`search-relevance` repository](https://github.com/opensearch-project/search-relevance).
 
@@ -84,7 +84,7 @@ The hybrid search optimization experiment evaluates all combinations of the foll
 - Score-based variants:
   - Normalization techniques: `l2`, `min_max`, and `z_score`. The `z_score` technique can be combined only with `arithmetic_mean` because of a [normalization processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/normalization-processor/#request-body-fields) restriction.
   - Combination techniques: `arithmetic_mean`, `harmonic_mean`, and `geometric_mean`.
-  - Lexical and neural search weights ranging from `0.0` to `1.0`, in `0.1` increments.
+  - Lexical and vector search weights ranging from `0.0` to `1.0`, in `0.1` increments.
 
 - Rank-based variants:
   - The `rrf` ([Reciprocal Rank Fusion (RRF)]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/score-ranker-processor/)) combination technique, evaluated using `rank_constant` values of `1`, `5`, `10`, `20`, and `60`. RRF variants use equal weights in all subqueries.
