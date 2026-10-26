@@ -47,7 +47,7 @@ The Bulk API works well for loading a dataset once. For data that arrives contin
 | Objects in Amazon S3 | The Data Prepper S3 source. For more information, see [S3 source]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/s3/). |
 | Databases and applications such as Atlassian Confluence or Jira | A Data Prepper source for that system. For more information, see [Sources]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/sources/). |
 
-After ingesting data from a common source, such as NGINX or Amazon VPC flow logs, you can install an OpenSearch Dashboards integration that provides mappings and visualizations for that source. For more information, see [Integrations]({{site.url}}{{site.baseurl}}/dashboards/integrations/index/).
+After ingesting data from a common source, such as NGINX or Amazon VPC Flow logs, you can install an OpenSearch Dashboards integration that provides mappings and visualizations for that source. For more information, see [Integrations]({{site.url}}{{site.baseurl}}/dashboards/integrations/index/).
 
 ## Transforming data during ingestion
 
