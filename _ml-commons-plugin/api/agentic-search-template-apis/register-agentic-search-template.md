@@ -7,7 +7,7 @@ nav_order: 10
 ---
 
 # Register Agentic Search Template API
-**Introduced 3.9**
+**Introduced 3.10**
 {: .label .label-purple }
 
 Use this API to register a stored search template for agentic search. Before registering, store the template using the [Create or Update Stored Script API]({{site.url}}{{site.baseurl}}/api-reference/script-apis/create-stored-script/).

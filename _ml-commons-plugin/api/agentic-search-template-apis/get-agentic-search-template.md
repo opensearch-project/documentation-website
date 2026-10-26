@@ -7,7 +7,7 @@ nav_order: 20
 ---
 
 # Get Agentic Search Template API
-**Introduced 3.9**
+**Introduced 3.10**
 {: .label .label-purple }
 
 Use this API to retrieve a registered agentic search template, including its parameter schema.

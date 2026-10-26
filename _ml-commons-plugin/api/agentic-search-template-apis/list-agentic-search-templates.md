@@ -7,7 +7,7 @@ nav_order: 30
 ---
 
 # List Agentic Search Templates API
-**Introduced 3.9**
+**Introduced 3.10**
 {: .label .label-purple }
 
 Use this API to list registered agentic search templates.

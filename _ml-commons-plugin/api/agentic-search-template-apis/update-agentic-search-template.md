@@ -7,7 +7,7 @@ nav_order: 40
 ---
 
 # Update Agentic Search Template API
-**Introduced 3.9**
+**Introduced 3.10**
 {: .label .label-purple }
 
 Use this API to update the description or parameter schema of a registered agentic search template. To change the query itself, update the stored script.

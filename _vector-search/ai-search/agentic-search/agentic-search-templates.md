@@ -9,7 +9,7 @@ has_children: false
 
 <!-- vale off -->
 # Filling search templates in agentic search
-**Introduced 3.9**
+**Introduced 3.10**
 {: .label .label-purple }
 <!-- vale on -->
 
@@ -31,7 +31,7 @@ You can run template filling in either of the following ways:
 - [In ML Commons](#filling-templates-in-ml-commons): Register a flow agent with the [`SearchTemplateFillTool`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/search-template-fill-tool/). The LLM call and rendering run in the cluster.
 - [In the OpenSearch Agent Server](#filling-templates-in-the-agent-server): Register a flow agent with a `ConnectorTool` that calls the `agentic_search` agent of the [OpenSearch Agent Server](https://github.com/opensearch-project/opensearch-agent-server). The agent server calls its own LLM and renders the template using the cluster's [Render Template API]({{site.url}}{{site.baseurl}}/api-reference/search-apis/search-template/render-template/).
 
-Both approaches use the same registered templates and the same search pipeline. The [agentic search template APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-search-template-apis/index/) were introduced in OpenSearch 3.9, and the `SearchTemplateFillTool` was introduced in OpenSearch 3.10. The agent server approach requires only the template APIs, so it works with OpenSearch 3.9.
+Both approaches use the same registered templates and the same search pipeline.
 
 ## Prerequisites
 

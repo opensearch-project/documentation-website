@@ -7,7 +7,7 @@ nav_order: 50
 ---
 
 # Delete Agentic Search Template API
-**Introduced 3.9**
+**Introduced 3.10**
 {: .label .label-purple }
 
 Use this API to delete a registered agentic search template. Deleting an agentic search template doesn't delete the stored script.
