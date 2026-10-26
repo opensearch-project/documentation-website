@@ -5,6 +5,7 @@ nav_order: 30
 parent: Reporting using the CLI
 grand_parent: Reporting
 redirect_from:
+  - /reporting/rep-cli-lambda/
   - /dashboards/reporting-cli/rep-cli-lambda/
 ---
 
@@ -12,9 +13,9 @@ redirect_from:
 # Scheduling reports with AWS Lambda
 <!-- vale on -->
 
-You can use AWS Lambda with the Reporting CLI tool to specify an AWS Lambda function to trigger the report generation.
+Use AWS Lambda to run the Reporting CLI in response to a trigger, such as a schedule. The Lambda function runs the Reporting CLI from a container image, so the OpenSearch Dashboards URL that you report on must be reachable from the Lambda function.
 
-This requires that you use an AMD64 system and Docker.
+The container image installs Google Chrome dependencies that are available only for the x86-64 architecture. To build the image, you need Docker. On a computer with a different architecture, such as a Mac with Apple silicon, build the image using the `--platform linux/amd64` option.
 
 ### Prerequisites
 
@@ -34,7 +35,7 @@ Copy the following sample configurations into a Dockerfile:
 ARG FUNCTION_DIR="/function"
 
 # Base image of the docker container
-FROM node:lts-slim as build-image
+FROM node:lts-slim AS build-image
 
 # Include global arg in this stage of the build
 ARG FUNCTION_DIR
@@ -88,9 +89,10 @@ CMD [ "/function/node_modules/@opensearch-project/reporting-cli/src/index.handle
 
 Next, run the following build command within the same directory that contains the Dockerfile:
 
+```bash
+docker build --platform linux/amd64 -t opensearch-reporting-cli .
 ```
-docker build -t opensearch-reporting-cli .
-```
+{% include copy.html %}
 
 ## Step 2: Create a private repository with Amazon ECR
 
@@ -123,32 +125,32 @@ Now that you have a container image created for the Reporting CLI, you need to c
 1. Go to **Lambda** > **functions** and choose the function you created.
 1. Choose **Configuration > General configuration > Edit timeout** and set the timeout in Lambda to 5 minutes to allow the Reporting CLI to generate the report.
 1. Change the **Ephemeral storage** setting to at least 1024 MB. The default setting is not a sufficient storage amount to support report generation.
+1. Test the function by providing values either in a JSON test event or as Lambda environment variables.
 
-1. Next, test the function either by providing values JSON format or by providing AWS Lambda environment variables.
+To provide values that are the same for every run, such as the email addresses, set the corresponding environment variables, such as `OPENSEARCH_FROM` and `OPENSEARCH_TO`, in the Lambda function configuration. To provide values in the test event or trigger payload, use the long option names without the leading dashes as JSON keys, for example, `url`, `format`, `transport`, `from`, and `to`. For the `credentials` key, specify the value in the `<username>:<password>` format. For a list of options and environment variables, see [Reporting CLI options]({{site.url}}{{site.baseurl}}/dashboards/reporting/rep-cli-options/).
 
-- If the function contains fixed values, such as email address you do not need a JSON file. You can specify an environment variable in AWS Lambda.
-- If the function takes a variable key-value pair, then you need to specify the values in the JSON with the same naming convention as command options, for example the `--credentials` option requires the username and password.
-{: .note }
-
- The following example shows fixed values provided for the sender and recipient email addresses:
+The following example event specifies the URL, the email transport, the sender and recipient email addresses, and the email subject:
 
 ```json
 {
   "url": "https://playground.opensearch.org/app/dashboards#/view/084aed50-6f48-11ed-a3d5-1ddbf0afc873",
   "transport": "ses",
-  "from": "sender@amazon.com", 
-  "to": "recipient@amazon.com", 
+  "from": "sender@example.com",
+  "to": "recipient@example.com",
   "subject": "Test lambda docker image"
 }
 ```
 
+The Lambda function saves the report in the `/tmp` directory of the function, so specify an email transport to receive the report.
+
 To learn more about AWS Lambda functions, see [Deploying Lambda functions as container images](https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-images.html) in the AWS Lambda documentation.
+
 ## Step 5: Add the trigger to start the AWS Lambda function
 
-Set the trigger to start running the report. AWS Lambda can use any AWS service as a trigger, such as SNS, S3, or an AWS CloudWatch EventBridge.
+Set the trigger that starts the report. AWS Lambda can use other AWS services as triggers, such as Amazon Simple Notification Service (Amazon SNS), Amazon S3, or Amazon EventBridge.
 
 1. In the **Triggers** section, choose **Add trigger**.
-1. Select a trigger from the list. For example, you can set an AWS CloudWatch Event. To learn more about Amazon ECR events you can schedule, see [Sample events from Amazon ECR](https://docs.aws.amazon.com/AmazonECR/latest/userguide/ecr-eventbridge.html#ecr-eventbridge-bus).
+1. Select a trigger from the list. To generate reports on a schedule, use an Amazon EventBridge schedule. For more information, see [Invoke a Lambda function on a schedule](https://docs.aws.amazon.com/lambda/latest/dg/with-eventbridge-scheduler.html) in the AWS Lambda documentation.
 1. Choose **Test** to initiate the function.
 
 ## (Optional) Step 6: Add the role permission for Amazon SES
@@ -169,7 +171,7 @@ The following example provides the resource ARN for the send email action:
       "ses:SendEmail",
       "ses:SendRawEmail"
             ],
-"Resource": "arn:aws:ses:us-west-2:555555511111:identity/username@amazon.com"
+"Resource": "arn:aws:ses:us-west-2:555555511111:identity/sender@example.com"
 }
 ```
 
