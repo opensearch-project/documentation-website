@@ -39,7 +39,7 @@ Field | Data type | Required/Optional | Description
 :--- | :--- | :--- | :---
 `type` | String | Required | The parameter type. Derived schemas use `string`, `number`, `boolean`, or `array`. An `array` parameter is passed as a raw JSON string and must be rendered using triple braces (`{% raw %}{{{param}}}{% endraw %}`).
 `required` | Boolean | Optional | Whether the LLM must provide the parameter. Default is `false`.
-`enum` | Array | Optional | The allowed values. Each value must match `type`: a number for `number`, a Boolean for `boolean`, and a string otherwise. For a parameter named `field` or `sort_by`, or one whose name ends in `_field`, derived schemas take the allowed values from the index mapping's field names.
+`enum` | Array | Optional | The allowed values. Each value must match `type`: a number for `number`, a Boolean for `boolean`, and a string otherwise. For a parameter named `field` or `sort_by`, or one whose name ends in `_field`, derived schemas take the allowed values from the index mapping's field names. When the parameter sets the sort field, only sortable fields are listed; for example, a `text` field is omitted but its `keyword` subfield is included. A parameter that renders in a value position gets no `enum`.
 `description` | String | Optional | Describes the parameter to the LLM.
 `source` | String | Optional | Set to `mapping` in derived schemas when `enum` contains field names from the index mapping. Informational only.
 

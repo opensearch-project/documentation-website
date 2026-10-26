@@ -320,6 +320,9 @@ The [OpenSearch Agent Server](https://github.com/opensearch-project/opensearch-a
 
 Before you start, complete the [Prerequisites](#prerequisites) and [Steps 1--3](#step-1-create-an-index), and run the agent server with access to your cluster and an LLM. For setup instructions, see the [OpenSearch Agent Server repository](https://github.com/opensearch-project/opensearch-agent-server).
 
+The agent server fills templates using a forced tool call, which it currently supports only for Amazon Bedrock models. With another model provider, every request falls back to writing the query DSL.
+{: .note}
+
 ### Step 4: Create a connector to the agent server
 
 Create a connector that calls the agent server's `/invoke` endpoint. The request body names the `agentic_search` agent and passes the index name and the template ID in `context`. Setting `response_format` to `inference_results` and `post_process_function` to `connector.post_process.mlcommons.passthrough` returns the generated query in the format the flow agent requires:
@@ -359,7 +362,7 @@ The agent server makes all of its calls to the cluster using the bearer token fr
 
 - The `indices:data/read/search/template/render` permission, which renders search templates. Grant it as a cluster permission in `cluster_permissions`. Granting it as an index permission, even on the `*` index pattern, doesn't allow rendering.
 - The `read` permission on the `.plugins-ml-agentic-search-templates` system index, which stores the parameter schemas. Because this is a system index, the role must also grant `system:admin/system_index` on it, and `plugins.security.system_indices.permission.enabled` must be `true`. For more information, see [System index permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/#system-index-permissions).
-- The `indices:admin/mappings/get` and `read` permissions on the searched index. When the agent falls back to writing the query DSL, it reads the index mapping and searches the index for sample documents. Without `read`, the fallback writes the query without sample documents.
+- The `indices:admin/mappings/get` and `read` permissions on the searched index. When the agent falls back to writing the query DSL, it reads the index mapping and searches the index for a sample document. Without `read`, the fallback writes the query without a sample document.
 
 If the agent can't read a template's parameter schema or render it, it falls back to writing the query DSL without returning an error, so check these permissions if the agent never fills a template.
 
@@ -399,6 +402,8 @@ Create a search pipeline that uses the agent and run an agentic search as descri
 ### Agent server fallback behavior
 
 The agent writes the query DSL using its own LLM whenever filling a template fails for any reason, including when the template isn't registered or can't be read, the LLM call fails, the LLM declines to fill the template, the filled values fail validation, or the template doesn't render a valid query. Unlike the `SearchTemplateFillTool`, which returns an error when reading templates or calling the LLM fails, the agent server doesn't return these errors, and it has no setting equivalent to `fallback_enabled`. If query generation fails entirely, the agent returns `{"size":10,"query":{"match_all":{}}}`.
+
+The agent server may decline some questions that the `SearchTemplateFillTool` fills and write the query DSL instead. LLM output varies between runs, so the same question can be filled in one request and declined in another.
 
 The agent server caches each template's parameter schema for 60 seconds, so a schema update can take up to 60 seconds to take effect.
 
