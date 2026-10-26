@@ -26,7 +26,7 @@ curl -k -u admin:<password> "https://localhost:5601/api/saved_objects/_find?type
 
 If OpenSearch Dashboards is served from a base path, such as when it runs behind a proxy or on a managed service, include that base path in the request, for example, `https://<host>/_dashboards/api/saved_objects/_find`.
 
-These APIs return the definition of a visualization, such as its aggregations and its index pattern reference. They do not run the visualization or return the data it displays. To export the underlying rows of a saved search as a CSV or Excel file, see [Reporting API]({{site.url}}{{site.baseurl}}/reporting/api/).
+These APIs return the definition of a visualization, such as its aggregations and its index pattern reference. They do not run the visualization or return the data it displays. To export the underlying rows of a saved search as a CSV or Excel file, see [Reporting API]({{site.url}}{{site.baseurl}}/dashboards/reporting/api/).
 {: .note}
 
 To export and import the same objects from OpenSearch Dashboards instead, see [Exporting and importing saved objects]({{site.url}}{{site.baseurl}}/dashboards/management/saved-objects/).
@@ -614,6 +614,6 @@ Document "test-viz" has property "visualization" which belongs to a more recent 
 ## Related documentation
 
 - [Exporting and importing saved objects]({{site.url}}{{site.baseurl}}/dashboards/management/saved-objects/)
-- [Reporting API]({{site.url}}{{site.baseurl}}/reporting/api/)
+- [Reporting API]({{site.url}}{{site.baseurl}}/dashboards/reporting/api/)
 - [Access control lists for saved objects]({{site.url}}{{site.baseurl}}/dashboards/management/acl/)
 - [Index patterns]({{site.url}}{{site.baseurl}}/dashboards/management/index-patterns/)
