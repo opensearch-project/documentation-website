@@ -124,7 +124,7 @@ GET /_search
 
 Each request returns one slice. To request the second slice, send the same request with `slice.id` set to `1`.
 
-Each slice is paginated like any other search. Paging through a slice using `from` and `size` is limited by the `index.max_result_window` index setting (default `10000`): the sum of `from` and `size` cannot exceed this value. To read more documents from a slice, add a `sort` to the request and paginate using `search_after`, as described in [Pagination with PIT and search_after](#pagination-with-pit-and-search_after). For more information about index settings, see [Index settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/).
+Each slice is paginated like any other search. Paging through a slice using `from` and `size` is limited by the `index.max_result_window` index setting (default `10000`): the sum of `from` and `size` cannot exceed this value. To read more documents from a slice, add a `sort` to the request and paginate using `search_after`, as described in [Pagination with PIT and `search_after`](#pagination-with-pit-and-search_after). For more information about index settings, see [Index settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/).
 
 
 ## API
