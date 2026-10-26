@@ -310,7 +310,7 @@ The `SearchTemplateFillTool` writes the query DSL using the [`QueryPlanningTool`
 - No template in `template_ids` is usable for the searched index.
 - The LLM declines because no template can express the question, for example, when the question requires an aggregation.
 - The LLM response contains no tool call, a value that doesn't match the parameter schema, or a template choice that isn't a candidate.
-- The rendered template is not a single JSON object.
+- The template doesn't render to a single JSON object.
 
 If reading the registered templates or the LLM call itself fails, for example, because of throttling or an unreachable connector, the tool returns the error instead of falling back. A template whose stored script the user can't read is skipped, which can leave no usable template. To disable the fallback so that the tool returns an error in the preceding cases, set `"fallback_enabled": "false"` in the tool's `config`.
 
