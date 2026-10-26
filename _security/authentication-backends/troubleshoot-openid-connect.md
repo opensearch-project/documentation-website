@@ -27,8 +27,8 @@ Use the following troubleshooting steps to resolve issues with using OpenID Conn
 To help troubleshoot OpenID Connect, set the log level to `debug` on OpenSearch. Add the following lines in `config/log4j2.properties` and restart the node:
 
 ```
-logger.securityjwt.name = com.amazon.dlic.auth.http.jwt
-logger.securityjwt.level = trace
+logger.securityjwt.name = org.opensearch.security.auth.http.jwt
+logger.securityjwt.level = debug
 ```
 
 This setting prints a lot of helpful information to your log file. If this information isn't sufficient, you can also set the log level to `trace`.
@@ -39,7 +39,7 @@ This setting prints a lot of helpful information to your log file. If this infor
 This error indicates that the Security plugin can't reach the metadata endpoint of your IdP. In `opensearch_dashboards.yml`, check the following setting:
 
 ```
-plugins.security.openid.connect_url: "http://keycloak.example.com:8080/auth/realms/master/.well-known/openid-configuration"
+opensearch_security.openid.connect_url: "http://keycloak.example.com:8080/auth/realms/master/.well-known/openid-configuration"
 ```
 
 If this error occurs on OpenSearch, check the following setting in `config.yml`:
@@ -65,9 +65,9 @@ This indicates that one or more of the OpenSearch Dashboards configuration setti
 Check `opensearch_dashboards.yml` and make sure you have set the following minimal configuration:
 
 ```yml
-plugins.security.openid.connect_url: "..."
-plugins.security.openid.client_id: "..."
-plugins.security.openid.client_secret: "..."
+opensearch_security.openid.connect_url: "..."
+opensearch_security.openid.client_id: "..."
+opensearch_security.openid.client_secret: "..."
 ```
 
 
@@ -88,7 +88,7 @@ Delete all cached browser data, or try again in a private browser window.
 To trade the access token for an identity token, most IdPs require you to provide a client secret. Check if the client secret in `opensearch_dashboards.yml` matches the client secret of your IdP configuration:
 
 ```
-plugins.security.openid.client_secret: "..."
+opensearch_security.openid.client_secret: "..."
 ```
 
 
