@@ -2,7 +2,7 @@
 layout: default
 title: Get agent
 parent: Agent APIs
-grand_parent: ML Commons APIs
+grand_parent: ML APIs
 nav_order: 30
 ---
 

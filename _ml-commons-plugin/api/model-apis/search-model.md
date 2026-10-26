@@ -2,7 +2,7 @@
 layout: default
 title: Search model
 parent: Model APIs
-grand_parent: ML Commons APIs
+grand_parent: ML APIs
 nav_order: 35
 ---
 

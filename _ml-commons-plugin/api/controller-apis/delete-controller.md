@@ -2,7 +2,7 @@
 layout: default
 title: Delete controller
 parent: Controller APIs
-grand_parent: ML Commons APIs
+grand_parent: ML APIs
 nav_order: 50
 ---
 

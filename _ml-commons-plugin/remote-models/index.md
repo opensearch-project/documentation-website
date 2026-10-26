@@ -99,7 +99,7 @@ When both the [Security plugin]({{site.url}}{{site.baseurl}}/security/index/) an
 To register a model, you have the following options:
 
 - You can use `model_group_id` to register a model version to an existing model group.
-- If you do not use `model_group_id`, ML Commons creates a model with a new model group.
+- If you do not use `model_group_id`, OpenSearch creates a model with a new model group.
 
 To register a model group, send the following request:
 
@@ -130,7 +130,7 @@ You can create a standalone connector that can be reused by multiple model regis
 If you're using Amazon OpenSearch Service, the process for creating connectors differs. For more information, see [Creating connectors in Amazon OpenSearch Service](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/ml-amazon-connector.html).
 {: .note}
 
-The Connectors Create API, `/_plugins/_ml/connectors/_create`, creates connectors that facilitate registering and deploying external models in OpenSearch. Using the `endpoint` parameter, you can connect ML Commons to any supported ML tool by using its specific API endpoint. For example, you can connect to a ChatGPT model by using the `api.openai.com` endpoint:
+The Connectors Create API, `/_plugins/_ml/connectors/_create`, creates connectors that facilitate registering and deploying external models in OpenSearch. Using the `endpoint` parameter, you can connect OpenSearch to any supported ML tool by using its specific API endpoint. For example, you can connect to a ChatGPT model by using the `api.openai.com` endpoint:
 
 ```json
 POST /_plugins/_ml/connectors/_create
