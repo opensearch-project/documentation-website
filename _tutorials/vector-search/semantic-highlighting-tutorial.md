@@ -9,7 +9,7 @@ nav_order: 60
 
 Semantic highlighting enhances search results by identifying and emphasizing the most semantically relevant sentences or passages within documents, based on the query's meaning. Unlike traditional highlighters that rely on exact keyword matches, semantic highlighting uses machine learning (ML) models to understand the context and relevance of text segments. This allows you to pinpoint the most pertinent information within a document, even if the exact search terms aren't present in the highlighted passage. For more information, see [Using the `semantic` highlighter]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/highlight#the-semantic-highlighter).
 
-This tutorial guides you through setting up and using semantic highlighting with a neural search query.
+This tutorial guides you through setting up semantic search and using semantic highlighting on the search results.
 
 Replace the placeholders beginning with the prefix `your-` with your own values.
 {: .note}
@@ -179,7 +179,7 @@ POST /neural-search-index/_doc/3
 
 ## Step 5: Perform semantic highlighting
 
-Combine a neural search query with the semantic highlighter:
+Run a semantic search using the semantic highlighter:
 
 1.  Use a `neural` query to find documents semantically similar to your query text using the text embedding model.
 2.  Add a `highlight` section.

@@ -19,7 +19,11 @@ This page defines key terms and techniques related to vector search in OpenSearc
 
 ## Vector search fundamentals  
 
-- [**_Vector search_**]({{site.url}}{{site.baseurl}}/vector-search/getting-started/vector-search-basics/), also known as _similarity search_ or _nearest neighbor search_, is a technique for finding items that are most similar to a given input vector. It is widely used in applications such as recommendation systems, image retrieval, and natural language processing.  
+- [**_Vector search_**]({{site.url}}{{site.baseurl}}/vector-search/getting-started/vector-search-basics/), also known as _similarity search_ or _nearest neighbor search_, is a technique for finding items that are most similar to a given input vector. It is widely used in applications such as recommendation systems, image retrieval, and natural language processing. Vector search includes both raw vector search and AI search.  
+
+- [**_Raw vector search_**]({{site.url}}{{site.baseurl}}/vector-search/searching-data/#searching-raw-vectors) searches vector embeddings that you generate outside of OpenSearch. You provide the vectors when you index documents and when you search, using a k-NN query.  
+
+- [**_AI search_**]({{site.url}}{{site.baseurl}}/vector-search/ai-search/index/) uses a machine learning (ML) model to generate vector embeddings automatically, both when you index documents and when you search. Semantic search, neural sparse search, hybrid search, multimodal search, conversational search, and agentic search are AI search methods.  
 
 - A [**_space_**]({{site.url}}{{site.baseurl}}/vector-search/getting-started/vector-search-basics/#calculating-similarity) defines how similarity or distance between two vectors is measured. Different spaces use different distance metrics, such as Euclidean distance or cosine similarity, to determine how closely vectors resemble each other.  
 

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: ML Commons APIs
+title: ML APIs
 nav_order: 110
 has_children: true
 has_toc: false
@@ -28,7 +28,7 @@ OpenSearch supports the following machine learning (ML) APIs:
 - [MCP Server APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/mcp-server-apis/)
 - [MCP Client APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/mcp-client-apis/)
 
-## Memory APIs comparison
+## Memory API comparison
 
 OpenSearch provides two different memory systems:
 

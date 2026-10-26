@@ -2,7 +2,7 @@
 layout: default
 title: Execute agent stream
 parent: Agent APIs
-grand_parent: ML Commons APIs
+grand_parent: ML APIs
 nav_order: 25
 ---
 
