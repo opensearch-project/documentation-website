@@ -22,7 +22,7 @@ Search Relevance Workbench supports hybrid search optimization with exactly two 
 PUT _plugins/_search_relevance/search_configurations
 {
   "name": "hybrid_query_lexical",
-  "query": "{\"query\":{\"hybrid\":{\"queries\":[{\"match\":{\"title\":\"%SearchText%\"}},{\"match\":{\"category\":\"%SearchText%\"}}]}}}",
+  "query": "{\"query\":{\"hybrid\":{\"queries\":[{\"match\":{\"title\":\"%queryText%\"}},{\"match\":{\"category\":\"%queryText%\"}}]}}}",
   "index": "ecommerce"
 }
 ```
@@ -34,7 +34,7 @@ Hybrid search optimization is most valuable when combining lexical and vector-ba
 PUT _plugins/_search_relevance/search_configurations
 {
   "name": "hybrid_query_text",
-  "query": "{\"query\":{\"hybrid\":{\"queries\":[{\"multi_match\":{\"query\":\"%SearchText%\",\"fields\":[\"id\",\"title\",\"category\",\"bullets\",\"description\",\"attrs.Brand\\\",\"attrs.Color\"]}},{\"neural\":{\"title_embedding\":{\"query_text\":\"%SearchText%\",\"k\":100,\"model_id\":\"lRFFb5cBHkapxdNcFFkP\"}}}]}},\"size\":10}",
+  "query": "{\"query\":{\"hybrid\":{\"queries\":[{\"multi_match\":{\"query\":\"%queryText%\",\"fields\":[\"id\",\"title\",\"category\",\"bullets\",\"description\",\"attrs.Brand\\\",\"attrs.Color\"]}},{\"neural\":{\"title_embedding\":{\"query_text\":\"%queryText%\",\"k\":100,\"model_id\":\"lRFFb5cBHkapxdNcFFkP\"}}}]}},\"size\":10}",
   "index": "ecommerce"
 }
 ```

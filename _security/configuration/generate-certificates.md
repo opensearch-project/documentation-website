@@ -217,7 +217,7 @@ echo "Enter password for keystore.jks"
 keytool -importkeystore -srckeystore admin-cert.p12 -srcstoretype pkcs12 -destkeystore keystore.jks
 
 # Import certificates to truststore
-keytool -importcert -keystore truststore.jks -file root-ca.cer -storepass changeit -trustcacerts -deststoretype pkcs12
+keytool -importcert -keystore truststore.jks -file root-ca.pem -storepass changeit -trustcacerts -deststoretype pkcs12
 
 # Cleanup
 rm combined-admin.pem

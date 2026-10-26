@@ -24,7 +24,7 @@ The following table lists the available path parameters.
 
 Parameter | Data type | Required/Optional | Description
 :--- | :--- | :--- | :---
-`context_management_name` | String | Required | The unique name for the context management.
+`context_management_name` | String | Required | The unique name for the context management. Must be 1--49 characters long and contain only lowercase letters, numbers, hyphens (`-`), and underscores (`_`).
 
 ## Request body fields
 
@@ -33,23 +33,23 @@ The following table lists the available request body fields.
 Field | Data type | Required/Optional | Description
 :--- | :--- | :--- | :---
 `description` | String | Optional | A human-readable description of what this context management does.
-`hooks` | Object | Required | A map of hook names to lists of context manager configurations. See [The `hooks` object](#the-hooks-object).
+`hooks` | Object | Required | A map of hook names to lists of context manager configurations. Must contain at least one hook. See [The `hooks` object](#the-hooks-object).
 
 ### The hooks object
 
-The `hooks` object maps hook names to arrays of context manager configurations. The following hooks are supported.
+The `hooks` object maps hook names to arrays of context manager configurations. Hook names are case sensitive and must be uppercase. The API accepts other hook names, but context managers configured under them never run. The following hooks are supported.
 
 Hook | Description
 :--- | :---
-`pre_llm` | Executes before sending requests to the large language model (LLM).
-`post_tool` | Executes after tool execution completes.
+`PRE_LLM` | Executes before sending requests to the large language model (LLM).
+`POST_TOOL` | Executes after tool execution completes.
 
 Each hook contains an array of context manager configurations with the following fields.
 
 Field | Data type | Required/Optional | Description
 :--- | :--- | :--- | :---
 `type` | String | Required | The context manager type. Valid values are `SlidingWindowManager`, `SummarizationManager`, and `ToolsOutputTruncateManager`.
-`config` | Object | Required | Configuration specific to the context manager type. See [Context manager configurations](#context-manager-configurations).
+`config` | Object | Optional | Configuration specific to the context manager type. If omitted, the default values are used. See [Context manager configurations](#context-manager-configurations).
 
 ### Context manager configurations
 
@@ -91,7 +91,6 @@ Activation rules determine when a context manager should execute. If omitted, th
 
 Field | Data type | Required/Optional | Description
 :--- | :--- | :--- | :---
-`rule_type` | String | Optional | Set to `always` to always activate the manager.
 `message_count_exceed` | Integer | Optional | Activates when the message count exceeds this threshold.
 `tokens_exceed` | Integer | Optional | Activates when the token count exceeds this threshold.
 
@@ -102,7 +101,7 @@ POST /_plugins/_ml/context_management/basic-sliding-window
 {
   "description": "Basic sliding window context management",
   "hooks": {
-    "pre_llm": [
+    "PRE_LLM": [
       {
         "type": "SlidingWindowManager",
         "config": {

@@ -56,6 +56,7 @@ POST /_plugins/_ml/agents/_register
   "app_type": "os_chat"
 }
 ```
+{% include copy-curl.html %}
 
 It is important to provide thorough descriptions of the tools so that the LLM can decide in which situations to use those tools.
 {: .tip}
@@ -66,7 +67,7 @@ For more information about the Register Agent API request fields, see [Request b
 
 The plan-execute-reflect agent provides built-in function calling interfaces for the following LLMs:
 
-- [Anthropic Claude 3.7 model hosted on Amazon Bedrock](https://aws.amazon.com/bedrock/claude/)
+- [Anthropic Claude Sonnet 4.6 model hosted on Amazon Bedrock](https://aws.amazon.com/bedrock/claude/)
 - OpenAI GPT-4o model
 - DeepSeek-R1 model hosted on Amazon Bedrock
 
@@ -88,19 +89,19 @@ The following examples provide the connector and agent creation requests for the
 
 ### Anthropic Claude on Amazon Bedrock
 
-To create a connector for the Anthropic Claude 3.7 Sonnet model hosted on Amazon Bedrock, use the following request:
+To create a connector for the Anthropic Claude Sonnet 4.6 model hosted on Amazon Bedrock, use the following request:
 
 ```json
 POST /_plugins/_ml/connectors/_create
 {
-    "name": "Amazon Bedrock Claude 3.7-sonnet connector",
+    "name": "Amazon Bedrock Claude Sonnet 4.6 connector",
     "description": "Connector to Amazon Bedrock service for the Claude model",
     "version": 1,
     "protocol": "aws_sigv4",
     "parameters": {
       "region": "your_aws_region",
       "service_name": "bedrock",
-      "model": "us.anthropic.claude-3-7-sonnet-20250219-v1:0"
+      "model": "us.anthropic.claude-sonnet-4-6"
     },
     "credential": {
       "access_key": "your_aws_access_key",
@@ -122,12 +123,12 @@ POST /_plugins/_ml/connectors/_create
 ```
 {% include copy-curl.html %}
 
-To create a plan-execute-reflect agent with the Anthropic Claude 3.7 Sonnet model, use the following request:
+To create a plan-execute-reflect agent with the Anthropic Claude Sonnet 4.6 model, use the following request:
 
 ```json
-POST _plugins/_ml/agents/_register
+POST /_plugins/_ml/agents/_register
 {
-  "name": "My Plan Execute and Reflect agent with Claude 3.7",
+  "name": "My Plan Execute and Reflect agent with Claude Sonnet 4.6",
   "type": "plan_execute_and_reflect",
   "description": "this is a test agent",
   "llm": {
@@ -255,7 +256,7 @@ The plan-execute-reflect agent uses the following predefined prompts. You can cu
 To create a custom planner prompt template, modify the `planner_prompt_template` parameter. The following template is used to ask the LLM to devise a plan for the given task:
 
 ```json
-${parameters.tools_prompt} \n${parameters.planner_prompt} \nObjective: ${parameters.user_prompt} \n\nRemember: Respond only in JSON format following the required schema.
+${parameters.tools_prompt} \n${parameters.planner_prompt} \nObjective: ```${parameters.user_prompt}``` \n\nRemember: Respond only in JSON format following the required schema.
 ```
 
 To create a custom planner prompt, modify the `planner_prompt` parameter.
@@ -278,7 +279,7 @@ ${parameters.tools_prompt} \n${parameters.planner_prompt} \nObjective: ```${para
 To create a custom reflection prompt template, modify the `reflect_prompt_template` parameter. The following template is used to ask the LLM to rethink the original plan based on completed steps:
 
 ```json
-${parameters.tools_prompt} \n${parameters.planner_prompt} \n\nObjective: ```${parameters.user_prompt}```\n\nOriginal plan:\n[${parameters.steps}] \n\nYou have currently executed the following steps from the original plan: \n[${parameters.completed_steps}] \n\n${parameters.reflect_prompt} \n\n.Remember: Respond only in JSON format following the required schema.
+${parameters.tools_prompt} \n${parameters.planner_prompt} \n\nObjective: ```${parameters.user_prompt}```\n\nPrevious plan:\n[${parameters.steps}] \n\nYou have currently executed the following steps: \n[${parameters.completed_steps}] \n\n${parameters.reflect_prompt} \n\n.Remember: Respond only in JSON format following the required schema.
 ```
 
 To create a custom reflection prompt, modify the `reflect_prompt` parameter.
@@ -292,50 +293,62 @@ Update your plan based on the latest step results. If the task is complete, retu
 
 To create a custom planner system prompt, modify the `system_prompt` parameter. The following is the planner system prompt:
 
-```
+````
+# Investigation Planner Agent
+
 You are a thoughtful and analytical planner agent in a plan-execute-reflect framework. Your job is to design a clear, step-by-step plan for a given objective.
 
-Instructions:
-- Break the objective into an ordered list of atomic, self-contained Steps that, if executed, will lead to the final result or complete the objective.
-- Each Step must state what to do, where, and which tool/parameters would be used. You do not execute tools, only reference them for planning.
-- Use only the provided tools; do not invent or assume tools. If no suitable tool applies, use reasoning or observations instead.
-- Base your plan only on the data and information explicitly provided; do not rely on unstated knowledge or external facts.
-- If there is insufficient information to create a complete plan, summarize what is known so far and clearly state what additional information is required to proceed.
-- Stop and summarize if the task is complete or further progress is unlikely.
-- Avoid vague instructions; be specific about data sources, indexes, or parameters.
-- Never make assumptions or rely on implicit knowledge.
-- Respond only in JSON format.
+# Instructions
 
-Step examples:
-Good example: "Use Tool to sample documents from index: 'my-index'"
-Bad example: "Use Tool to sample documents from each index"
-Bad example: "Use Tool to sample documents from all indices"
-Response Instructions: 
-Only respond in JSON format. Always follow the given response instructions. Do not return any content that does not follow the response instructions. Do not add anything before or after the expected JSON. 
+## Core Planning Rules
+- Break the objective into an ordered list of atomic, self-contained Steps that, if executed, will lead to the final result or complete the objective
+- Each Step must state what to do, where, and which tool/parameters would be used. You do not execute tools, only reference them for planning
+- Use only the provided tools; do not invent or assume tools. If no suitable tool applies, use reasoning or observations instead
+- Base your plan only on the data and information explicitly provided; do not rely on unstated knowledge or external facts
+- If there is insufficient information to create a complete plan, summarize what is known so far and clearly state what additional information is required to proceed
+- Stop and summarize if the task is complete or further progress is unlikely
+- Avoid vague instructions; be specific about data sources, indexes, or parameters
+- Never make assumptions or rely on implicit knowledge
+- Respond only in JSON format
+## Step Examples
+**Good example:** "Use Tool to sample documents from index: 'my-index'"
+
+**Bad example:** "Use Tool to sample documents from each index"
+
+**Bad example:** "Use Tool to sample documents from all indices"
+
+# Response Format
+
+## JSON Response Requirements
+Only respond in JSON format. Always follow the given response instructions. Do not return any content that does not follow the response instructions. Do not add anything before or after the expected JSON
+
 Always respond with a valid JSON object that strictly follows the below schema:
+```json
 {
-	"steps": array[string], 
-	"result": string 
+  "steps": array[string],
+  "result": string
 }
-Use "steps" to return an array of strings where each string is a step to complete the objective, leave it empty if you know the final result. Please wrap each step in quotes and escape any special characters within the string. 
-Use "result" return the final response when you have enough information, leave it empty if you want to execute more steps. Please escape any special characters within the result. 
+```
+
+- Use "steps" to return an array of strings where each string is a step to complete the objective, leave it empty if you know the final result. Please wrap each step in quotes and escape any special characters within the string
+- Use "result" to return the final response when you have enough information, leave it empty if you want to execute more steps. 
 Here are examples of valid responses following the required JSON schema:
 
 Example 1 - When you need to execute steps:
 {
-	"steps": ["This is an example step", "this is another example step"],
-	"result": ""
+  "steps": ["This is an example step", "this is another example step"],
+  "result": ""
 }
 
 Example 2 - When you have the final result:
 {
-	"steps": [],
-	"result": "This is an example result\n with escaped special characters"
+  "steps": [],
+  "result": "This is an example result\n with escaped special characters"
 }
-Important rules for the response:
-1. Do not use commas within individual steps 
-2. Do not add any content before or after the JSON 
-3. Only respond with a pure JSON object 
+## Critical Rules
+1. Do not use commas within individual steps
+2. Do not add any content before or after the JSON
+3. Only respond with a pure JSON object
 
 When you deliver your final result, include a comprehensive report. This report must:
 1. List every analysis or step you performed.
@@ -344,10 +357,37 @@ When you deliver your final result, include a comprehensive report. This report 
 4. Clearly explain how the steps led to your final conclusion. Only mention the completed steps.
 5. Return the full analysis and conclusion in the 'result' field, even if some of this was mentioned earlier. Ensure that special characters are escaped in the 'result' field.
 6. The final response should be fully self-contained and detailed, allowing a user to understand the full investigation without needing to reference prior messages and steps.
-```
+````
 
 We do not recommend modifying the response format instructions. If you intend to modify any prompts, you can inject the response format instructions by using the `${parameters.plan_execute_reflect_response_format}` parameter.
 {: .tip}
+
+### Customizing parts of the planner system prompt
+
+To change parts of the planner system prompt while keeping the core planning rules and the response format, use the following parameters:
+
+Parameter | Data type | Description
+:--- | :--- | :---
+`planner_system_prompt_prefix` | String | Replaces the beginning of the planner system prompt, which consists of the `# Investigation Planner Agent` heading and the paragraph that follows it. Default is that heading and paragraph.
+`result_expand_and_override` | String | Text appended to the instruction for the `result` field in the response format. When this parameter is set, the prompt omits the example responses (the text starting with `Here are examples of valid responses`). Default is empty.
+`important_rules_expand` | String | Text appended to the `## Critical Rules` list in the response format, for example, an additional numbered rule. Default is empty.
+
+When you set any of these parameters, the agent builds the planner system prompt from the prefix, the core planning rules, and the response format, using the defaults for any of the three parameters that you don't set. The resulting prompt replaces the `system_prompt` value and doesn't include the final result report instructions (the text starting with `When you deliver your final result`).
+
+The following request sets all three parameters during agent execution:
+
+```json
+POST /_plugins/_ml/agents/your_agent_id/_execute?async=true
+{
+  "parameters": {
+    "question": "How many indexes in this cluster have names that start with .plugins-ml-am?",
+    "planner_system_prompt_prefix": "# Index Planner\n\nYou are a planner agent. Write every step in the plan in all uppercase letters.\n",
+    "result_expand_and_override": "The result field must start with a one-sentence answer.",
+    "important_rules_expand": "4. Every step string must start with the name of the tool to use"
+  }
+}
+```
+{% include copy-curl.html %}
 
 ### Executor system prompt
 
@@ -357,14 +397,16 @@ To create a custom executor system prompt, modify the `executor_system_prompt` p
 You are a precise and reliable executor agent in a plan-execute-reflect framework. Your job is to execute the given instruction provided by the planner and return a complete, actionable result.
 
 Instructions:
-- Fully execute the given Step using the most relevant tools or reasoning.
+- Fully execute the given Step using the most relevant tool or reasoning. If executing the Step requires multiple tool invocations, invoke at most one tool per response and perform remaining tool invocations in subsequent responses.
 - Include all relevant raw tool outputs (e.g., full documents from searches) so the planner has complete information; do not summarize unless explicitly instructed.
 - Base your execution and conclusions only on the data and tool outputs available; do not rely on unstated knowledge or external facts.
 - If the available data is insufficient to complete the Step, summarize what was obtained so far and clearly state the additional information or access required to proceed (do not guess).
 - If unable to complete the Step, clearly explain what went wrong and what is needed to proceed.
 - Avoid making assumptions and relying on implicit knowledge.
+- Before generating any PPL or DSL query, always retrieve the index mapping first to ensure correct field names. Do not guess field names.
 - Your response must be self-contained and ready for the planner to use without modification. Never end with a question.
 - Break complex searches into simpler queries when appropriate.
+- Never invoke more than one tool in a single response. Returning multiple tool calls in one response is invalid.
 ```
 
 ## Modifying default prompts
@@ -372,9 +414,9 @@ Instructions:
 To modify the prompts, provide them during agent registration:
 
 ```json
-POST _plugins/_ml/agents/_register
+POST /_plugins/_ml/agents/_register
 {
-  "name": "My Plan Execute and Reflect agent with Claude 3.7",
+  "name": "My Plan Execute and Reflect agent with Claude Sonnet 4.6",
   "type": "plan_execute_and_reflect",
   "description": "this is a test agent",
   "llm": {
@@ -405,7 +447,7 @@ POST _plugins/_ml/agents/_register
     {
       "type": "IndexMappingTool"
     }
-  ],
+  ]
 }
 ```
 {% include copy-curl.html %}
@@ -413,7 +455,7 @@ POST _plugins/_ml/agents/_register
 You can also modify the prompts during agent execution:
 
 ```json
-POST _plugins/_ml/agents/your_agent_id/_execute?async=true
+POST /_plugins/_ml/agents/your_agent_id/_execute?async=true
 {
   "parameters": {
     "question": "How many flights from Beijing to Seattle?",

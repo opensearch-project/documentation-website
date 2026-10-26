@@ -10,7 +10,7 @@ redirect_from:
 ---
 
 # Cluster Routing And Awareness API
-**Introduced 1.0**
+**Introduced 2.4**
 {: .label .label-purple }
 
 To control how search traffic is routed across zones, you can assign weights to awareness attribute values. This is useful for zonal deployments, heterogeneous clusters, or routing traffic away from unhealthy zones.

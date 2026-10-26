@@ -129,13 +129,13 @@ Parameter | Description | Type | Required
 `min_rollover_age` | The minimum age required after a rollover has occurred to transition to the next state. | String | No
 `min_state_age` | The minimum amount of time the index must spend in the current state before transitioning. | String | No
 `min_doc_count` | The minimum document count of the index required to transition. | Integer | No
-`min_size` | The minimum size of the total primary shard storage (not counting replicas) required to transition. For example, if you set `min_size` to 100 GiB and your index has 5 primary shards and 5 replica shards of 20 GiB each, the total size of all primary shards is 100 GiB, so your index is transitioned to the next state. | String | No
+`min_size` | The minimum size of the total primary shard storage (not counting replicas) required to transition. For example, if you set `min_size` to 100 GiB and your index has 5 primary shards and 5 replica shards of 20 GiB each, the total size of all primary shards is 100 GiB, so your index is transitioned to the next state. Specify the value as a byte size containing a unit, for example, `50gb`. | String | No
 `no_alias` | Controls transition based on alias presence. If `true`, transition occurs only when the index has **no aliases**. If `false`, transition occurs only when at least **one alias exists**. | Boolean | No
 `cron` | The `cron` job that triggers the transition if no other transition happens first. | Object | No
 `cron.cron.expression` | The `cron` expression that triggers the transition. For the syntax, see [Cron expressions]({{site.url}}{{site.baseurl}}/api-reference/cron-expressions/). | String | Yes
 `cron.cron.timezone` | The time zone for the triggering `cron` expression triggers the transition. | String | Yes
 
-All time-based values (`min_index_age`, `min_rollover_age`, `min_state_age`) use [standard OpenSearch time units]({{site.url}}{{site.baseurl}}/api-reference/units/#time-units).
+All time-based values (`min_index_age`, `min_rollover_age`, `min_state_age`) use [standard OpenSearch time units]({{site.url}}{{site.baseurl}}/api-reference/units/#time-units). The `min_size` value uses [byte size units]({{site.url}}{{site.baseurl}}/api-reference/units/#byte-size-units) and must be a whole number that includes the unit. Values without a unit, such as `"50"`, and fractional values, such as `"1.5gb"`, are rejected.
 {: .note}
 
 
@@ -147,6 +147,19 @@ The following example transitions the index to a `cold` state after a period of 
     "state_name": "cold",
     "conditions": {
       "min_index_age": "30d"
+    }
+  }
+]
+```
+
+The following example transitions the index to a `warm` state when its primary shards reach a total size of 50 GB:
+
+```json
+"transitions": [
+  {
+    "state_name": "warm",
+    "conditions": {
+      "min_size": "50gb"
     }
   }
 ]

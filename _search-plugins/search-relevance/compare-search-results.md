@@ -38,7 +38,7 @@ To compare search results in OpenSearch Dashboards, perform the following steps.
 
 **Step 2:** Enter the search text in the search bar.
 
-**Step 3:** Select an index for **Query 1** and enter a query (request body only) in [OpenSearch Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/). The `GET` HTTP method and the `_search` endpoint are implicit. Use the `%SearchText%` variable to refer to the text in the search bar.
+**Step 3:** Select an index for **Query 1** and enter a query (request body only) in [OpenSearch Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/). The `GET` HTTP method and the `_search` endpoint are implicit. Use the `%queryText%` variable to refer to the text in the search bar.
 
 The following is an example query:
 
@@ -46,7 +46,7 @@ The following is an example query:
 {
   "query": {
     "multi_match": {
-      "query": "%SearchText%",
+      "query": "%queryText%",
       "fields": [ "description", "item_name" ]
     }
   }
@@ -61,7 +61,7 @@ The following example query boosts the `title` field in the search results:
 {
   "query": {
     "multi_match": {
-      "query": "%SearchText%",
+      "query": "%queryText%",
       "fields": [ "description", "item_name^3" ]
     }
   }
@@ -85,7 +85,7 @@ By default, OpenSearch returns the top 10 results. To change the number of retur
   "size": 15,
   "query": {
     "multi_match": {
-      "query": "%SearchText%",
+      "query": "%queryText%",
       "fields": [ "title^3", "text" ]
     }
   }
@@ -149,7 +149,7 @@ The following example demonstrates searching for the text "snacking nuts" in the
     {
       "query": {
         "match": {
-          "bullet_point": "%SearchText%"
+          "bullet_point": "%queryText%"
         }
       },
       "size": 25
@@ -161,7 +161,7 @@ The following example demonstrates searching for the text "snacking nuts" in the
     {
       "query" : {
         "match" : {
-          "bullet_point": "%SearchText%"
+          "bullet_point": "%queryText%"
         }
       },
       "size": 25,

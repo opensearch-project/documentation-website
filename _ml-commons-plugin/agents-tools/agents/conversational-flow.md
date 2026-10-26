@@ -44,18 +44,14 @@ POST /_plugins/_ml/agents/_register
       "description": "A general tool to answer any question",
       "parameters": {
         "model_id": "YOUR_LLM_MODEL_ID",
-        "prompt": """
-
-Human:You are a professional data analyst. You will always answer question based on the given context first. If the answer is not directly shown in the context, you will analyze the data and find the answer. If you don't know the answer, just say don't know. 
+        "prompt": """You are a professional data analyst. You will always answer question based on the given context first. If the answer is not directly shown in the context, you will analyze the data and find the answer. If you don't know the answer, just say don't know. 
 
 Context:
 ${parameters.population_knowledge_base.output:-}
 
 ${parameters.chat_history:-}
 
-Human:${parameters.question}
-
-Assistant:"""
+Question: ${parameters.question}"""
       }
     }
   ]
@@ -80,3 +76,4 @@ Conversational flow agents can call external MCP server tools in a fixed pipelin
 - For a step-by-step tutorial, see [Agents and tools tutorial]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents-tools-tutorial/).
 - For supported APIs, see [Agent APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/).
 - To create agents and tools using a workflow template, see [AI search workflows]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/index/).
+- For a tutorial that uses a conversational flow agent to build a RAG chatbot, see [RAG chatbot with a conversational flow agent]({{site.url}}{{site.baseurl}}/tutorials/gen-ai/chatbots/rag-conversational-agent/).

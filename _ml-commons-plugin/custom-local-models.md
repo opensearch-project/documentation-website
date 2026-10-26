@@ -172,7 +172,7 @@ OpenSearch returns the task ID of the register operation:
 
 To check the status of the operation, provide the task ID to the [Get task]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/):
 
-```bash
+```json
 GET /_plugins/_ml/tasks/cVeMb4kBJ1eYAeTMFFgj
 ```
 {% include copy-curl.html %}
@@ -190,7 +190,7 @@ When the operation is complete, the state changes to `COMPLETED`:
   ],
   "create_time": 1689793598499,
   "last_update_time": 1689793598530,
-  "is_async": false
+  "is_async": true
 }
 ```
 
@@ -200,9 +200,9 @@ Take note of the returned `model_id` because you’ll need it to deploy the mode
 
 The deploy operation reads the model's chunks from the model index and then creates an instance of the model to load into memory. The bigger the model, the more chunks the model is split into and longer it takes for the model to load into memory.
 
-To deploy the registered model, provide its model ID from step 3 in the following request:
+To deploy the registered model, provide its model ID from step 2 in the following request:
 
-```bash
+```json
 POST /_plugins/_ml/models/cleMb4kBJ1eYAeTMFFg4/_deploy
 ```
 {% include copy-curl.html %}
@@ -212,13 +212,14 @@ The response contains the task ID that you can use to check the status of the de
 ```json
 {
   "task_id": "vVePb4kBJ1eYAeTM7ljG",
+  "task_type": "DEPLOY_MODEL",
   "status": "CREATED"
 }
 ```
 
 As in the previous step, check the status of the operation by calling the [Get ML Task API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/):
 
-```bash
+```json
 GET /_plugins/_ml/tasks/vVePb4kBJ1eYAeTM7ljG
 ```
 {% include copy-curl.html %}
@@ -314,9 +315,12 @@ The response contains the tokens and weights:
                 "bright": 0.1756877,
                 ...
               }
+            ]
           }
         }
+      ]
     }
+  ]
 }
 ```
 
@@ -361,7 +365,7 @@ To test a question answering model, send the following request. It requires a `q
 ```json
 POST /_plugins/_ml/_predict/question_answering/{model_id}
 {
-  "question": "Where do I live?"
+  "question": "Where do I live?",
   "context": "My name is John. I live in New York"
 }
 ```
@@ -375,8 +379,10 @@ The response provides the answer based on the context:
     {
       "output": [
         {
-          "result": "New York"
+          "result": "new york"
         }
+      ]
     }
+  ]
 }
 ```

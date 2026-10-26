@@ -1,7 +1,10 @@
 ---
 layout: default
 title: Reporting API
-nav_order: 8
+nav_order: 30
+parent: Reporting
+redirect_from:
+  - /reporting/api/
 ---
 
 # Reporting API
@@ -10,7 +13,7 @@ Use the Reporting API to create and manage report definitions and to generate re
 
 Report definitions and report instances are managed through OpenSearch, but the file itself is rendered by OpenSearch Dashboards. Creating a definition and listing instances use the OpenSearch endpoint on port 9200, and downloading the report content uses the OpenSearch Dashboards endpoint on port 5601. For more information, see [Downloading report content](#downloading-report-content).
 
-For the OpenSearch Dashboards interface equivalent of these operations, see [Reporting using OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/reporting/report-dashboard-index/).
+For the OpenSearch Dashboards interface equivalent of these operations, see [Reporting using OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/reporting/report-dashboard-index/).
 
 ## Report source types and file formats
 
@@ -531,7 +534,7 @@ CSV reports have a non-configurable 10,000-row limit in OpenSearch version 2.16 
 
 ## Related documentation
 
-- [Reporting using OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/reporting/report-dashboard-index/)
+- [Reporting using OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/reporting/report-dashboard-index/)
 - [Saved Objects APIs]({{site.url}}{{site.baseurl}}/dashboards/management/saved-objects-api/)
-- [Report definition access control]({{site.url}}{{site.baseurl}}/reporting/report-definition-access-control/)
-- [Report instance access control]({{site.url}}{{site.baseurl}}/reporting/report-instance-access-control/)
+- [Report definition access control]({{site.url}}{{site.baseurl}}/dashboards/reporting/report-definition-access-control/)
+- [Report instance access control]({{site.url}}{{site.baseurl}}/dashboards/reporting/report-instance-access-control/)

@@ -675,7 +675,7 @@ In this configuration, you've provided the following parameters:
 
 - The `model_id` parameter specifies the unique identifier of the text similarity model.
 - The `function_name` parameter is set to `REMOTE`, indicating that the model is hosted externally.
-- The `input_map` parameter maps the `diary` field from each document to the `text` input of the model as well as the search query term to the `text_pair` input.
+- The `input_map` parameter maps the `diary` field from each document to the `text` input of the model and the search query term to the `text_pair` input. The `$._request` prefix makes the JSON path read from the search request instead of the document, so `$._request.query.term.diary.value` resolves to the `value` of the `term` query on the `diary` field. For the search request in Step 3, this value is `today`.
 - The `output_map` parameter maps the model's score to a field named `rank_score` in each document.
 - The `model_input` parameter formats the input for the model, ensuring that it matches the structure expected by the Predict API.
 - The `one_to_one` parameter is set to `true`, ensuring that the model processes each document individually rather than batching multiple documents together.
@@ -693,7 +693,7 @@ GET /demo-index-0/_search?search_pipeline=my_rerank_pipeline
 {
   "query": {
     "term": {
-      "dairy": {
+      "diary": {
         "value": "today"
       }
     }
@@ -756,3 +756,4 @@ The response includes the original documents and their reranked scores:
 ## Next steps
 
 - See a comprehensive example of [reranking by a field using an externally hosted cross-encoder model]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/rerank-by-field-cross-encoder/).
+- For a tutorial that reranks results by a field using Cohere Rerank, see [Reranking search results by a field using Cohere Rerank]({{site.url}}{{site.baseurl}}/tutorials/reranking/reranking-by-field/).

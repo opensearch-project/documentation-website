@@ -109,7 +109,7 @@ The following APIs report the cluster state and notify you when it changes.
 | [Notifications API]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/api/) | Define the channels that deliver notifications and the sources that send them. |
 | [Performance Analyzer API]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/pa/api/) | Retrieve performance metrics for a node or a cluster. |
 | [Query Insights APIs]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/) | Read top N queries, live queries, and query insights health statistics, and change query insights settings. |
-| [Reporting API]({{site.url}}{{site.baseurl}}/reporting/api/) | Define reports and generate them from dashboards, visualizations, saved searches, and notebooks. Downloading the rendered content uses the OpenSearch Dashboards endpoint. |
+| [Reporting API]({{site.url}}{{site.baseurl}}/dashboards/reporting/api/) | Define reports and generate them from dashboards, visualizations, saved searches, and notebooks. Downloading the rendered content uses the OpenSearch Dashboards endpoint. |
 | [Root Cause Analysis API]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/pa/rca/api/) | Retrieve root cause analysis results for a cluster. |
 
 ### Security and security analytics APIs

@@ -131,7 +131,7 @@ To update credentials for a connector linked to a specific model, provide the ne
 ```json
 PUT /_plugins/_ml/models/{model_id}
 {
-  "connectors": {
+  "connector": {
     "credential": {
       "openAI_key": "<new_openai_key>"
     }

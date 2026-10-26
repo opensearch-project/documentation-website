@@ -85,8 +85,8 @@ The following table describes the resource types registered by the plugins that 
 | Flow Framework | `workflow-state` | [Workflow state access control]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/workflow-state-access-control/) |
 | ML Commons | `ml-model-group` | [Model access control through resource sharing]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-sharing-access-control/) |
 | Notifications | `notification_config` | [Notification access control]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/notification-access-control/) |
-| Reporting | `report-definition` | [Report definition access control]({{site.url}}{{site.baseurl}}/reporting/report-definition-access-control/) |
-| Reporting | `report-instance` | [Report instance access control]({{site.url}}{{site.baseurl}}/reporting/report-instance-access-control/) |
+| Reporting | `report-definition` | [Report definition access control]({{site.url}}{{site.baseurl}}/dashboards/reporting/report-definition-access-control/) |
+| Reporting | `report-instance` | [Report instance access control]({{site.url}}{{site.baseurl}}/dashboards/reporting/report-instance-access-control/) |
 | Security Analytics | `detector`, `correlation-rule` | [Security Analytics resource access control]({{site.url}}{{site.baseurl}}/security-analytics/resource-access-control/) |
 
 The Security Analytics `detector` resource type is distinct from the Anomaly Detection `anomaly-detector` resource type, and the Alerting `alerting-workflow` resource type is distinct from the Flow Framework `workflow` resource type.

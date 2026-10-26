@@ -12,7 +12,7 @@ nav_order: 40
 
 Use this API to delete a context management configuration. Once deleted, the context management can no longer be used by agents.
 
-Deleting a context management configuration does not affect the agents currently using it. However, new agent registrations or executions will not be able to reference the deleted context management.
+Agents store the name of the context management configuration, not a copy of it. After you delete a configuration, executing an agent registered with its name fails with a 404 error, and registering a new agent with its name fails with a 400 error. To run such an agent, recreate the configuration with the same name or specify a different configuration in the `context_management_name` parameter when executing the agent.
 {: .note}
 
 ## Endpoints
