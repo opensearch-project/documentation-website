@@ -52,56 +52,5 @@ function createButton(textToCopy, buttonText, buttonAriaLabel, curl, security) {
 }
 
 function addCurl(textToCopy, security) {
-    const firstSpaceIndex = textToCopy.indexOf(" ");
-    const httpMethod = textToCopy.substring(0, firstSpaceIndex);
-
-    // The body starts at the first "{" or "[" after the request line. Both have to be
-    // checked so that a JSON array body keeps its opening "[" out of the path.
-    const bodyIndex = findBodyIndex(textToCopy);
-    let body;
-    let path;
-    if (bodyIndex == -1) {
-        body = "";
-        path = textToCopy.substring(firstSpaceIndex + 1);
-    }
-    else {
-        body = textToCopy.substring(bodyIndex);
-        path = textToCopy.substring(firstSpaceIndex + 1, bodyIndex).trim();
-    }
-
-    // A cluster running the Security plugin uses TLS, so the request needs https, the
-    // admin credentials, and -k to accept the self-signed demo certificate.
-    var result = "curl";
-    if (security) {
-        result += " -k -u 'admin:<custom-admin-password>'";
-    }
-    result += " -X" + httpMethod + " \"" + (security ? "https" : "http") + "://localhost:9200";
-    if (!(path.startsWith("/"))) {
-        result += "/"; 
-    }
-    result += path + "\"";
-
-    if (body.length > 0) {
-        result += " -H 'Content-Type: application/json' -d'\n" + body + "\n'";
-    }
-
-    return result;
-}
-
-function findBodyIndex(textToCopy) {
-    const requestLineEnd = textToCopy.indexOf("\n");
-    if (requestLineEnd == -1) {
-        return -1;
-    }
-
-    const curlyIndex = textToCopy.indexOf("{", requestLineEnd);
-    const bracketIndex = textToCopy.indexOf("[", requestLineEnd);
-    if (curlyIndex == -1) {
-        return bracketIndex;
-    }
-    if (bracketIndex == -1) {
-        return curlyIndex;
-    }
-
-    return Math.min(curlyIndex, bracketIndex);
+    return window.CopyUtils.convertToCurl(textToCopy, security);
 }
