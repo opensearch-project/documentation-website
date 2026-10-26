@@ -184,7 +184,7 @@ POST /_plugins/_ml/agents/<agent_id>/_execute
 ```
 {% include copy-curl.html %}
 
-The response contains the rendered query. The LLM filled `query_text`, `category`, `sort_by`, and `size`:
+The response contains the rendered query. In this example, the LLM filled `query_text`, `sort_by`, and `size`. It omitted the optional `category` parameter and included `footwear` in `query_text`, so the query has no category filter. LLM output can vary between runs:
 
 ```json
 {
@@ -193,7 +193,7 @@ The response contains the rendered query. The LLM filled `query_text`, `category
       "output": [
         {
           "name": "response",
-          "result": "{\"query\":{\"bool\":{\"must\":[{\"match\":{\"title\":\"shoes\"}}],\"filter\":[{\"term\":{\"category\":\"footwear\"}}]}},\"sort\":[{\"price\":\"desc\"}],\"size\":2}"
+          "result": "{\"query\":{\"bool\":{\"must\":[{\"match\":{\"title\":\"footwear shoes\"}}],\"filter\":[]}},\"sort\":[{\"price\":\"desc\"}],\"size\":2}"
         }
       ]
     }
@@ -235,7 +235,7 @@ POST /products/_search?search_pipeline=template_fill_pipeline
 ```
 {% include copy-curl.html %}
 
-The response contains the two most expensive footwear products, sorted by price:
+The response contains the two most expensive matching products, sorted by price:
 
 ```json
 {
@@ -357,9 +357,9 @@ POST /_plugins/_ml/connectors/_create
 
 The agent server makes all of its calls to the cluster using the bearer token from the `Authorization` header, so they run as the token's user. When the Security plugin is enabled, that user needs the following permissions:
 
-- Read access to the `.plugins-ml-agentic-search-templates` system index, which stores the parameter schemas. Because this is a system index, the user's role must also grant `system:admin/system_index` on it, and `plugins.security.system_indices.permission.enabled` must be `true`. For more information, see [System index permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/#system-index-permissions).
-- Permission to render search templates (`indices:data/read/search/template/render`).
-- Permission to read the mapping of the searched index (`indices:admin/mappings/get`), which the agent uses when it falls back to writing the query DSL.
+- The `indices:data/read/search/template/render` permission, which renders search templates. Grant it as a cluster permission in `cluster_permissions`. Granting it as an index permission, even on the `*` index pattern, doesn't allow rendering.
+- The `read` permission on the `.plugins-ml-agentic-search-templates` system index, which stores the parameter schemas. Because this is a system index, the role must also grant `system:admin/system_index` on it, and `plugins.security.system_indices.permission.enabled` must be `true`. For more information, see [System index permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/#system-index-permissions).
+- The `indices:admin/mappings/get` and `read` permissions on the searched index. When the agent falls back to writing the query DSL, it reads the index mapping and searches the index for sample documents. Without `read`, the fallback writes the query without sample documents.
 
 If the agent can't read a template's parameter schema or render it, it falls back to writing the query DSL without returning an error, so check these permissions if the agent never fills a template.
 
