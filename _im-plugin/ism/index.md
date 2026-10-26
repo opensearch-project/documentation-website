@@ -70,6 +70,7 @@ The `opendistro.index_state_management.policy_id` index setting, which attached 
 | [ISM API]({{site.url}}{{site.baseurl}}/im-plugin/ism/api/) | Create policies, attach and detach them, and explain the state of a managed index. |
 | [ISM error prevention]({{site.url}}{{site.baseurl}}/im-plugin/ism/error-prevention/index/) | Validate actions before they run and resolve the validation messages. |
 | [Settings]({{site.url}}{{site.baseurl}}/im-plugin/ism/settings/) | Cluster settings that control the job interval, history, and validation. |
+| [Restoring ISM from a snapshot]({{site.url}}{{site.baseurl}}/im-plugin/ism/restore/) | Restore the ISM configuration index so that each index continues its policy. |
 
 ## Related documentation
 
