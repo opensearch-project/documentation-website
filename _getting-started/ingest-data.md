@@ -33,13 +33,25 @@ Each document takes two lines: an action line naming the index and document ID, 
 
 To index your own data from a file, send the file to the `_bulk` endpoint. For more information, see [Submitting bulk requests using cURL]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/#submitting-bulk-requests-using-curl).
 
-## Other ways to ingest data
+## Choosing an ingestion method
 
-Along with the Bulk API, you can ingest data into OpenSearch in the following ways:
+The Bulk API works well for loading a dataset once. For data that arrives continuously or comes from another system, choose a method based on where your data is. The following table lists the ingestion methods for common data sources.
 
-- Collect, transform, and route data from your sources using OpenSearch Data Prepper, a server-side data collector that can enrich data for downstream analysis and visualization. For more information, see [Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/).
-- Index data from your application using an OpenSearch language client, which sends requests for you in the language you're already writing in. For more information, see [Language clients]({{site.url}}{{site.baseurl}}/clients/).
-- Send data using a log agent or data collection tool that you already run. OpenSearch supports a range of third-party agents and ingestion tools. For more information, see [Agents and ingestion tools]({{site.url}}{{site.baseurl}}/tools/#agents-and-ingestion-tools).
+| Data source | Ingestion method |
+| :--- | :--- |
+| Your application | An OpenSearch language client, which sends requests in the language that your application is written in. For more information, see [Language clients]({{site.url}}{{site.baseurl}}/clients/). |
+| Log files on your hosts | A log collector such as Fluent Bit that forwards logs to [OpenSearch Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/), a server-side data collector. For more information, see [Log ingestion]({{site.url}}{{site.baseurl}}/observing-your-data/log-ingestion/). |
+| Applications instrumented using OpenTelemetry | The Data Prepper OTLP source, which receives logs, metrics, and traces. For more information, see [OTLP source]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/otlp-source/). To monitor service performance using this data, see [Application Performance Monitoring]({{site.url}}{{site.baseurl}}/observing-your-data/apm/configuring-telemetry-ingestion/). |
+| A collector that you already run, such as Jaeger, Logstash, or Beats | Configure Jaeger to use OpenSearch as its storage backend, install the OpenSearch output plugin for Logstash, or use a compatible version of Beats. For more information, see [Analyzing Jaeger trace data]({{site.url}}{{site.baseurl}}/observing-your-data/trace/trace-analytics-jaeger/), [Logstash]({{site.url}}{{site.baseurl}}/tools/logstash/), and [Agents and ingestion tools]({{site.url}}{{site.baseurl}}/tools/#agents-and-ingestion-tools). |
+| Streams in Apache Kafka or Amazon Kinesis | Pull-based ingestion, in which OpenSearch reads directly from the stream. For more information, see [Pull-based ingestion]({{site.url}}{{site.baseurl}}/api-reference/document-apis/pull-based-ingestion/). |
+| Objects in Amazon S3 | The Data Prepper S3 source. For more information, see [S3 source]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/s3/). |
+| Databases and applications such as Atlassian Confluence or Jira | A Data Prepper source for that system. For more information, see [Sources]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/sources/). |
+
+After ingesting data from a common source, such as NGINX or Amazon VPC Flow logs, you can install an OpenSearch Dashboards integration that provides mappings and visualizations for that source. For more information, see [Integrations]({{site.url}}{{site.baseurl}}/dashboards/integrations/index/).
+
+## Transforming data during ingestion
+
+To parse, transform, or enrich documents during ingestion, use an [ingest pipeline]({{site.url}}{{site.baseurl}}/ingest-pipelines/) or [Data Prepper processors]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/processors/). For more information, see [Ingest pipelines compared to Data Prepper]({{site.url}}{{site.baseurl}}/ingest-pipelines/#ingest-pipelines-compared-to-data-prepper).
 
 ## Next steps
 

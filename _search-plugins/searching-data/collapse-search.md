@@ -109,7 +109,7 @@ GET /bakery-items/_search
   },
   "hits": {
     "total": {
-      "value": 4,
+      "value": 3,
       "relation": "eq"
     },
     "max_score": null,
@@ -122,8 +122,7 @@ GET /bakery-items/_search
           "item": "Vanilla Cake",
           "category": "cakes",
           "price": 12,
-          "baked_date": "2023-07-02T00:00:00Z",
-          "baker": "Baker A"
+          "baked_date": "2023-07-02T00:00:00Z"
         },
         "fields": {
           "item": [
@@ -142,8 +141,7 @@ GET /bakery-items/_search
           "item": "Chocolate Cake",
           "category": "cakes",
           "price": 15,
-          "baked_date": "2023-07-01T00:00:00Z",
-          "baker": "Baker A"
+          "baked_date": "2023-07-01T00:00:00Z"
         },
         "fields": {
           "item": [
