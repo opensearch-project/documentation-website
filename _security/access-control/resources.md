@@ -18,7 +18,7 @@ A _resource_ is a document stored in a plugin's system index. Resource sharing i
 
 Resource sharing requires coordination between plugin developers, administrators, and users. Plugin developers must first implement resource sharing support in their plugins and define the resource types that can be shared (such as `ml-model-group` or `anomaly-detector`). Once plugins with resource sharing support are installed, administrators enable the feature cluster-wide and configure the resource types that use resource-level authorization. Finally, users can create and share resources through the UI or APIs, provided they have the necessary cluster permissions.
 
-This documentation is intended for **users** and **administrators** who want to configure and use resource sharing. If you are a **plugin developer** implementing resource sharing support for your plugin, see the [developer documentation](https://github.com/opensearch-project/security/blob/main/RESOURCE_SHARING_AND_ACCESS_CONTROL.md).
+This documentation is intended for **users** and **administrators** who want to configure and use resource sharing. If you are a **plugin developer** implementing resource sharing support for your plugin, see the [developer documentation](https://github.com/opensearch-project/security/blob/main/docs/RESOURCE_SHARING_AND_ACCESS_CONTROL.md).
 
 Resource sharing enables the following operations:
 
@@ -31,7 +31,7 @@ Resource sharing enables the following operations:
 
 Resource sharing is disabled by default. To configure resource sharing, follow these steps.
 
-Before configuring resource sharing, ensure that the plugins you want to use with resource sharing have implemented resource sharing support. If you need to add resource sharing support to a plugin, see the [developer documentation](https://github.com/opensearch-project/security/blob/main/RESOURCE_SHARING_AND_ACCESS_CONTROL.md).
+Before configuring resource sharing, ensure that the plugins you want to use with resource sharing have implemented resource sharing support. If you need to add resource sharing support to a plugin, see the [developer documentation](https://github.com/opensearch-project/security/blob/main/docs/RESOURCE_SHARING_AND_ACCESS_CONTROL.md).
 {: .note}
 
 ### Step 1: Enable resource sharing
@@ -85,8 +85,8 @@ The following table describes the resource types registered by the plugins that 
 | Flow Framework | `workflow-state` | [Workflow state access control]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/workflow-state-access-control/) |
 | ML Commons | `ml-model-group` | [Model access control through resource sharing]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-sharing-access-control/) |
 | Notifications | `notification_config` | [Notification access control]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/notification-access-control/) |
-| Reporting | `report-definition` | [Report definition access control]({{site.url}}{{site.baseurl}}/reporting/report-definition-access-control/) |
-| Reporting | `report-instance` | [Report instance access control]({{site.url}}{{site.baseurl}}/reporting/report-instance-access-control/) |
+| Reporting | `report-definition` | [Report definition access control]({{site.url}}{{site.baseurl}}/dashboards/reporting/report-definition-access-control/) |
+| Reporting | `report-instance` | [Report instance access control]({{site.url}}{{site.baseurl}}/dashboards/reporting/report-instance-access-control/) |
 | Security Analytics | `detector`, `correlation-rule` | [Security Analytics resource access control]({{site.url}}{{site.baseurl}}/security-analytics/resource-access-control/) |
 
 The Security Analytics `detector` resource type is distinct from the Anomaly Detection `anomaly-detector` resource type, and the Alerting `alerting-workflow` resource type is distinct from the Flow Framework `workflow` resource type.
@@ -217,4 +217,4 @@ When managing resource sharing, administrators should follow these best practice
 - [Resource sharing APIs]({{site.url}}{{site.baseurl}}/security/access-control/resource-sharing-api/) -- REST API reference for programmatic management
 - [Resource access management]({{site.url}}{{site.baseurl}}/dashboards/management/resource-sharing/) -- UI workflows and user guidance
 - [Resource types by plugin](#resource-types-by-plugin) -- Per-plugin access levels and migration steps
-- [Developer documentation](https://github.com/opensearch-project/security/blob/main/RESOURCE_SHARING_AND_ACCESS_CONTROL.md) -- Detailed technical documentation for plugin developers, users, and administrators
+- [Developer documentation](https://github.com/opensearch-project/security/blob/main/docs/RESOURCE_SHARING_AND_ACCESS_CONTROL.md) -- Detailed technical documentation for plugin developers, users, and administrators

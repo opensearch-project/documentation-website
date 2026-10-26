@@ -2,7 +2,7 @@
 layout: default
 title: Create connector
 parent: Connector APIs
-grand_parent: ML Commons APIs
+grand_parent: ML APIs
 nav_order: 10
 ---
 

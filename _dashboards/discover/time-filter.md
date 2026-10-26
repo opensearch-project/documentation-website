@@ -24,6 +24,16 @@ While most applications (data logs, for example), deal with past dates and times
 The default time range is a relative interval of **Last 15 minutes**. You can change the default at [**Dashboards Management** > **Advanced Settings** > **Time filter defaults**]({{site.url}}{{site.baseurl}}/dashboards/management/advanced-settings/#general-settings), or select a time range at the application level as described in [Selecting a time range](#selecting-a-time-range).
 {: .note}
 
+## Time field used by the time filter
+
+The time filter applies to one date field: the time field that you select when you [create the index pattern]({{site.url}}{{site.baseurl}}/dashboards/management/index-patterns/#step-2-configure-the-settings), for example, `@timestamp`. If your documents contain several date fields, the time filter uses only the time field and ignores the other date fields. On the index pattern's page in **Dashboards Management** > **Index patterns**, the time field is marked with a clock icon.
+
+Visualizations and dashboard panels use the time field of the index pattern that they are built on. A dashboard can contain panels built on different index patterns, and each panel applies the time range to its own index pattern's time field.
+
+If you create an index pattern without a time field (by selecting **I don't want to use the time filter**), the data is not filtered by time. **Discover** doesn't display the time filter for that index pattern, and **Visualize** displays only the refresh interval control. On a dashboard, panels that use such an index pattern ignore the time range.
+
+You can't change the time field of an existing index pattern. To filter by a different date field, or to add time filtering to an index pattern created without a time field, create a new index pattern and select the field in the **Time field** list.
+
 ## Navigating the time filter
 
 ![Time filter interface]({{site.url}}{{site.baseurl}}/images/dashboards/time-filter-callouts.png)

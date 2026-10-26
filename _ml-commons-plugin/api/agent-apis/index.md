@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Agent APIs
-parent: ML Commons APIs
+parent: ML APIs
 has_children: true
 has_toc: false
 nav_order: 30
@@ -15,7 +15,7 @@ redirect_from:
 
 You can automate machine learning (ML) tasks using agents and tools. An _agent_ orchestrates and runs ML models and tools. For more information, see [Agents and tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/index/).
 
-ML Commons supports the following agent-level APIs:
+OpenSearch supports the following agent APIs:
 
 - [Register agent]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/register-agent/)
 - [Update agent]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/update-agent/)

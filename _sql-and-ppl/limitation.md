@@ -4,6 +4,9 @@ title: Limitations
 nav_order: 99
 redirect_from:
   - /search-plugins/sql/limitation/
+  - /sql-and-ppl/sql/delete/
+  - /search-plugins/sql/delete/
+  - /search-plugins/sql/sql/delete/
 ---
 
 # SQL and PPL limitations
@@ -29,6 +32,10 @@ FROM (
 
 
 But, if the outer query has `GROUP BY` or `ORDER BY`, then it's not supported.
+
+## DELETE statement is not supported
+
+SQL does not support the `DELETE` statement. To delete the documents that match a query, use the [Delete by Query API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/delete-by-query/).
 
 ## JOIN queries
 
@@ -135,7 +142,6 @@ The `V2` query engine handles most modern SQL query patterns. However, it has ce
 
 * The [cursor feature](#pagination-only-supports-basic-queries) is supported by the `V1` engine only.
   * For support of `cursor`/`pagination` in the `V2` engine, track [GitHub issue #656](https://github.com/opensearch-project/sql/issues/656).
-* `json` formatted output is supported in `V1` engine only. 
 * The `V2` engine does not track query execution time, so slow queries are not reported.
 * The `V2` query engine not only runs queries in the OpenSearch engine but also supports post-processing for complex queries. Accordingly, the `explain` output is no longer OpenSearch domain-specific language (DSL) but also includes query plan information from the `V2` query engine.
 * The `V2` query engine does not support aggregation queries such as `histogram`, `date_histogram`, `percentiles`, `topHits`, `stats`, `extended_stats`, `terms`, or `range`.

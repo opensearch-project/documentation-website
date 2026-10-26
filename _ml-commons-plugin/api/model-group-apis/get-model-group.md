@@ -2,7 +2,7 @@
 layout: default
 title: Get model group
 parent: Model group APIs
-grand_parent: ML Commons APIs
+grand_parent: ML APIs
 nav_order: 30
 ---
 

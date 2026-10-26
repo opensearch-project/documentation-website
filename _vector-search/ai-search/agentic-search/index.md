@@ -149,7 +149,7 @@ POST /_plugins/_ml/agents/_register
     "model_id": <Model ID from Step 3>,
     "parameters": {
       "max_iteration": 15,
-      "embedding_model_id": "<Provide if you want to do neural search>"
+      "embedding_model_id": "<Provide if you want to use semantic search>"
     }
   },
   "memory": {
@@ -182,7 +182,7 @@ POST /_plugins/_ml/agents/_register
     "model_id": <Model ID from Step 3>,
     "parameters": {
       "max_iteration": 15,
-      "embedding_model_id": "<Provide if you want to do neural search>"
+      "embedding_model_id": "<Provide if you want to use semantic search>"
     }
   },
   "memory": {

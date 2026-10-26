@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Model APIs
-parent: ML Commons APIs
+parent: ML APIs
 has_children: true
 nav_order: 10
 has_toc: false
@@ -11,7 +11,7 @@ redirect_from:
 
 # Model APIs
 
-ML Commons supports the following model-level CRUD APIs:
+OpenSearch supports the following model APIs:
 
 - [Register Model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/register-model/)
 - [Deploy Model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/deploy-model/)
@@ -23,7 +23,7 @@ ML Commons supports the following model-level CRUD APIs:
 
 # Predict APIs
 
-Predict APIs are used to invoke machine learning (ML) models. ML Commons supports the following Predict APIs:
+Predict APIs invoke machine learning (ML) models. OpenSearch supports the following Predict APIs:
 
 - [Predict]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/predict/) 
 - [Predict Stream]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/predict-stream/) 
@@ -31,7 +31,7 @@ Predict APIs are used to invoke machine learning (ML) models. ML Commons support
 
 # Train API
 
-The ML Commons Train API lets you train ML algorithms synchronously and asynchronously:
+Use the Train API to train ML algorithms synchronously or asynchronously:
 
 - [Train]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/train/)
 

@@ -2,7 +2,7 @@
 layout: default
 title: Create or update message
 parent: Memory APIs
-grand_parent: ML Commons APIs
+grand_parent: ML APIs
 nav_order: 40
 ---
 
