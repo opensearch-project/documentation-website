@@ -15,6 +15,8 @@ The `collapse` parameter lets you group results by a field, returning only the h
 
 The `collapse` parameter is compatible with other hybrid query search options, such as sort, explain, and pagination, using their standard syntax.
 
+Collapsing is also supported when the hybrid query runs in [fusion mode]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/fusion-mode/), where it applies to the fused results. Collapsing with `inner_hits` requires additional processing in that mode; for more information, see [Performance considerations]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/fusion-mode/#performance-considerations).
+
 When using `collapse` in a hybrid query, note the following considerations:
 
 - The `index.neural_search.hybrid_collapse_docs_per_group_per_subquery` setting is deprecated and has no effect. If this setting exists in your index configuration, you can safely remove it. Search results are entirely controlled by the `size` parameter in the search request.

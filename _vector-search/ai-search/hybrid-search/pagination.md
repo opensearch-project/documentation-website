@@ -15,6 +15,8 @@ You can apply pagination to hybrid query results by using the `pagination_depth`
 
 A hybrid query with a `from` value greater than `0` must specify `pagination_depth`. The `pagination_depth` value cannot exceed the `index.max_result_window` index setting.
 
+When the hybrid query runs in [fusion mode]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/fusion-mode/), `pagination_depth` is optional even if `from` is greater than `0`. If you specify it, it raises the number of results that each subquery contributes to fusion, unless the query also sets `fusion.window_size`. A page that starts past the last fused result is empty. For more information, see [Candidate window size]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/fusion-mode/#candidate-window-size).
+
 To navigate through the results, use the `from` and `size` parameters:
 
 - `from`: Specifies the document number from which you want to start showing the results. Default is `0`.

@@ -613,6 +613,9 @@ This time, the response not only contains all five documents, but the document o
 
 Hybrid search combines keyword and semantic search to improve search relevance. To implement hybrid search, you need to set up a [search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/) that runs at search time. The search pipeline you'll configure intercepts search results at an intermediate stage and applies the [`normalization-processor`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/normalization-processor/) to them. The `normalization-processor` normalizes and combines the document scores from multiple query clauses, rescoring the documents according to the chosen normalization and combination techniques. 
 
+In OpenSearch 3.10 and later, you can skip the search pipeline and configure the normalization and combination directly in the query by using [fusion mode]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/fusion-mode/). This tutorial uses the search pipeline approach.
+{: .tip}
+
 #### Step 1: Configure a search pipeline
 
 To configure a search pipeline with a `normalization-processor`, use the following request. The normalization technique in the processor is set to `min_max`, and the combination technique is set to `arithmetic_mean`. The `weights` array specifies the weights assigned to each query clause as decimal percentages:
