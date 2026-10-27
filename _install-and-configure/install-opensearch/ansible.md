@@ -108,6 +108,28 @@ The control node must have direct SSH access to the `root` user on each target h
 
 1. To access OpenSearch Dashboards, go to `http://<ip-address>:5601` in your browser. OpenSearch Dashboards can take about 1 minute to start after the playbook finishes.
 
+## Rerunning the playbook
+
+The playbook restarts OpenSearch on all target hosts at the same time every time it runs, so the cluster is unavailable while the nodes restart. Plan reruns, for example, to apply configuration changes, for a maintenance window.
+
+By default, the playbook generates the TLS certificates on the control node in the `/tmp/opensearch-nodecerts` directory. When you rerun the playbook, it reuses the certificates and does not copy the security configuration to the target hosts again if this directory exists. If the directory doesn't exist, for example, because the control node was restarted and `/tmp` was cleared, the playbook generates a new root certificate authority (CA) and new node and admin certificates and copies them to all target hosts. Clients that verify the cluster's certificates then need the new `root-ca.pem` file.
+
+To manage an existing cluster using repeated playbook runs, set `iac_enable` to `true` in the `inventories/opensearch/group_vars/all/all.yml` file. In this mode, the playbook updates the configuration files on every run but copies new certificates only if at least one certificate is missing on at least one host, for example, when you add a host to the cluster. In that case, it replaces the certificates on all hosts.
+
+### Rotating certificates
+
+The generated certificates are valid for the number of days set in the `cert_valid_days` variable (default `730`). To replace them with new certificates, delete the `/tmp/opensearch-nodecerts` directory on the control node, make sure that `iac_enable` is `false`, and rerun the playbook. All nodes restart using the new certificates at the same time.
+
+## Upgrading a cluster installed using the playbook
+
+The playbook installs OpenSearch but doesn't upgrade it. Changing `os_version` and rerunning the playbook isn't a supported upgrade method for the following reasons:
+
+- The playbook downloads the OpenSearch archive to `/tmp/opensearch.tar.gz` on each target host and skips the download if that file exists. Unless `iac_enable` is `true`, the new version is not installed on hosts that still have the archive from the previous run.
+- When the new version is installed, the playbook extracts it over the existing installation in `/usr/share/opensearch`, so files from the previous version that are not part of the new version remain in the installation directory.
+- The playbook restarts all nodes at the same time instead of one node at a time.
+
+To upgrade a cluster installed using the playbook, upgrade the nodes one at a time by following the [rolling upgrade]({{site.url}}{{site.baseurl}}/migrate-or-upgrade/rolling-upgrade/) procedure. The playbook installs OpenSearch in `/usr/share/opensearch` and stores the configuration, certificates, and Security plugin configuration in `/usr/share/opensearch/config`. Preserve these files when you install the new version on each node. After you upgrade all nodes, update `os_version` and `os_dashboards_version` in `inventories/opensearch/group_vars/all/all.yml` to match the installed version.
+
 ## Related documentation
 
 - [Preparing a cluster for production]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/#preparing-a-cluster-for-production)
