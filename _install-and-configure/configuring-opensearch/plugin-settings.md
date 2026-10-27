@@ -47,7 +47,7 @@ For information about index rollup settings, see [Index rollup settings]({{site.
 
 ## Job Scheduler plugin settings
 
-For information about the Job Scheduler plugin settings, see [Job Scheduler cluster settings]({{site.url}}{{site.baseurl}}/developer-documentation/job-scheduler/index/#job-scheduler-cluster-settings).
+For information about the Job Scheduler plugin settings, see [Scheduled job settings]({{site.url}}{{site.baseurl}}/tuning-your-cluster/scheduled-jobs/index/#scheduled-job-settings).
 
 ## k-NN plugin settings
 

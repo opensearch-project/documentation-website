@@ -105,7 +105,7 @@ The following APIs report the cluster state and notify you when it changes.
 | [Alerting API]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/api/) | Create and manage monitors, triggers, and alerts. |
 | [Anomaly Detection API]({{site.url}}{{site.baseurl}}/observing-your-data/ad/api/) | Create and manage anomaly detectors and read the anomalies they find. |
 | [Forecasting API]({{site.url}}{{site.baseurl}}/observing-your-data/forecast/api/) | Create and manage forecasters and read the forecasts they produce. |
-| [Job Scheduler APIs]({{site.url}}{{site.baseurl}}/developer-documentation/job-scheduler/index/#job-scheduler-apis) | Monitor the scheduled jobs and locks on a cluster. |
+| [Job Scheduler APIs]({{site.url}}{{site.baseurl}}/tuning-your-cluster/scheduled-jobs/index/#monitoring-scheduled-jobs) | Monitor the scheduled jobs and locks on a cluster. |
 | [Notifications API]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/api/) | Define the channels that deliver notifications and the sources that send them. |
 | [Query Insights APIs]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/) | Read top N queries, live queries, and query insights health statistics, and change query insights settings. |
 | [Reporting API]({{site.url}}{{site.baseurl}}/dashboards/reporting/api/) | Define reports and generate them from dashboards, visualizations, saved searches, and notebooks. Downloading the rendered content uses the OpenSearch Dashboards endpoint. |
