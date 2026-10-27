@@ -2,8 +2,9 @@
 title: Managing workloads in OpenSearch Dashboards
 layout: default
 parent: Workload management
-grand_parent: Availability and recovery
 nav_order: 60
+redirect_from:
+  - /tuning-your-cluster/availability-and-recovery/workload-management/workload-management-dashboard/
 ---
 
 # Managing workloads in OpenSearch Dashboards
@@ -17,7 +18,7 @@ You can monitor and control resource usage across your cluster in OpenSearch Das
 
 ## Prerequisites
 
-Before you start, install the Workload Management plugin. For more information, see [Installing workload management]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/workload-management/wlm-feature-overview#installing-workload-management).
+Before you start, install the Workload Management plugin. For more information, see [Installing workload management]({{site.url}}{{site.baseurl}}/tuning-your-cluster/workload-management/wlm-feature-overview#installing-workload-management).
 
 ## Monitoring workload usage
 
@@ -94,5 +95,5 @@ The `DEFAULT_WORKLOAD_GROUP` cannot be edited. Its CPU and memory limits are alw
 
 ## Related documentation
 
-- [Workload groups]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/workload-management/workload-groups/)
-- [Workload group rules]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/workload-management/workload-group-rules/)
+- [Workload groups]({{site.url}}{{site.baseurl}}/tuning-your-cluster/workload-management/workload-groups/)
+- [Workload group rules]({{site.url}}{{site.baseurl}}/tuning-your-cluster/workload-management/workload-group-rules/)

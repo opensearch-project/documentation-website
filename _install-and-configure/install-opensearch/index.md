@@ -41,7 +41,7 @@ The [Installation quickstart]({{site.url}}{{site.baseurl}}/getting-started/quick
 - Map users or the backend roles provided by your identity provider to roles that grant access to the cluster. For more information, see [Defining users and roles]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/).
 - Replace the default passwords of the demo internal users, or remove the users that you don't need. For more information, see [Demo configuration passwords]({{site.url}}{{site.baseurl}}/security/configuration/passwords/#demo-configuration-passwords).
 - Configure the [important settings](#important-settings) on every host.
-- Run multiple nodes, including dedicated cluster manager nodes, so that the cluster remains available when a node fails. For more information, see [Creating a cluster]({{site.url}}{{site.baseurl}}/tuning-your-cluster/).
+- Run multiple nodes, including dedicated cluster manager nodes, so that the cluster remains available when a node fails. For more information, see [Creating a cluster]({{site.url}}{{site.baseurl}}/tuning-your-cluster/creating-a-cluster/).
 - Back up your data using snapshots. For more information, see [Snapshots]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/index/).
 
 For more security recommendations, see [Best practices for OpenSearch security]({{site.url}}{{site.baseurl}}/security/configuration/best-practices/).
@@ -211,4 +211,4 @@ ERROR: [1] bootstrap checks failed
 To fix this error, configure discovery in `opensearch.yml`:
 
 - For a single-node cluster, set `discovery.type: single-node`.
-- For a multi-node cluster, set `discovery.seed_hosts` and `cluster.initial_cluster_manager_nodes`. For more information, see [Creating a cluster]({{site.url}}{{site.baseurl}}/tuning-your-cluster/).
+- For a multi-node cluster, set `discovery.seed_hosts` and `cluster.initial_cluster_manager_nodes`. For more information, see [Creating a cluster]({{site.url}}{{site.baseurl}}/tuning-your-cluster/creating-a-cluster/).

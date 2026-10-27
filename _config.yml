@@ -142,7 +142,7 @@ opensearch_collection:
       name: Migrate or upgrade
       nav_fold: true
     tuning-your-cluster:
-      name: Creating and tuning your cluster
+      name: Managing your cluster
       nav_fold: true
     security:
       name: Security

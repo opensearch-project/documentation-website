@@ -49,7 +49,7 @@ The control node must have direct SSH access to the `root` user on each target h
    - `ansible_host`: The IP address that Ansible uses to connect to the target host.
    - `ansible_user`: The user that Ansible uses to connect to the target host.
    - `ip`: The IP address that OpenSearch and OpenSearch Dashboards bind to. Specify the private IP address of the target host or `0.0.0.0`.
-   - `roles`: The [node roles]({{site.url}}{{site.baseurl}}/tuning-your-cluster/) of the OpenSearch node.
+   - `roles`: The [node roles]({{site.url}}{{site.baseurl}}/tuning-your-cluster/creating-a-cluster/#nodes) of the OpenSearch node.
 
    Each host must also be listed in the groups at the end of the file: `os-cluster` for OpenSearch nodes, `master` for cluster manager-eligible nodes, and `dashboards` for the OpenSearch Dashboards node. Hosts that are not listed in a group are not installed. Replace the IP addresses in the default file with the addresses of your hosts.
 

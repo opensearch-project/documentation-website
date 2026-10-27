@@ -100,7 +100,7 @@ OpenSearch supports the following cluster-level routing and shard allocation set
 
 - `cluster.routing.weighted.strict` (Dynamic, Boolean): When enabled, enforces strict weighted routing where requests are only routed to nodes with appropriate weights. Default is `true`.
 
-- `cluster.routing.allocation.awareness.attributes` (Dynamic, list): See [Shard allocation awareness]({{site.url}}{{site.baseurl}}/tuning-your-cluster/index#shard-allocation-awareness).
+- `cluster.routing.allocation.awareness.attributes` (Dynamic, list): See [Shard allocation awareness]({{site.url}}{{site.baseurl}}/tuning-your-cluster/creating-a-cluster/#shard-allocation-awareness).
 
 - `cluster.routing.allocation.include.<attribute>` (Dynamic, enum): Allocates shards to a node whose `attribute` contains at least one of the included comma-separated values. 
 
@@ -117,7 +117,7 @@ OpenSearch supports the following cluster-level routing and shard allocation set
     - `_id` – Match nodes by node ID. 
     - `_tier` – Match nodes by data tier role.
 
-- `cluster.routing.allocation.awareness.force.<attribute>.values` (Dynamic, list): See [Forced awareness]({{site.url}}{{site.baseurl}}/tuning-your-cluster/index#forced-awareness).   
+- `cluster.routing.allocation.awareness.force.<attribute>.values` (Dynamic, list): See [Forced awareness]({{site.url}}{{site.baseurl}}/tuning-your-cluster/creating-a-cluster/#forced-awareness).   
 
 - `cluster.routing.allocation.shard_movement_strategy` (Dynamic, enum): Determines the order in which shards are relocated from outgoing to incoming nodes. 
 

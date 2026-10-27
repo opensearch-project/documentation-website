@@ -1,9 +1,11 @@
 ---
 layout: default
 title: Concurrency limits
-nav_order: 65
+nav_order: 30
 has_children: false
-parent: Availability and recovery
+parent: Load protection
+redirect_from:
+  - /tuning-your-cluster/availability-and-recovery/concurrency-limits/
 ---
 
 # Concurrency limits
