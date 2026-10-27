@@ -313,7 +313,7 @@ Bits | Estimate | Result
 `1` | `1.1 * (256 * 1 / 8 + 8 * 16) * 1,000,000` | ~0.176 GB
 `2` | `1.1 * (256 * 2 / 8 + 8 * 16) * 1,000,000` | ~0.211 GB
 `4` | `1.1 * (256 * 4 / 8 + 8 * 16) * 1,000,000` | ~0.282 GB
-`16` | `1.1 * (256 * 16 / 8 + 8 * 16) * 1,000,000` | ~0.656 GB
+`16` | `1.1 * (256 * 16 / 8 + 8 * 16) * 1,000,000` | ~0.704 GB
 
 ### IVF memory estimation
 
@@ -327,7 +327,7 @@ IVF is only supported for 16-bit Faiss scalar quantization. 1-bit, 2-bit, and 4-
 For 16-bit quantization, the memory requirement can be estimated as follows:
 
 ```r
-1.1 * (((2 * 256) * 1,000,000) + (4 * 128 * 256))  ~= 0.525 GB
+1.1 * (((2 * 256) * 1,000,000) + (4 * 128 * 256))  ~= 0.563 GB
 ```
 
 ## Next steps

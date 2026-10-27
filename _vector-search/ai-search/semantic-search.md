@@ -19,45 +19,7 @@ Before using semantic search, you must set up a text embedding model. For more i
 
 ## Configuring semantic search
 
-There are two ways to configure semantic search:
-
-- [**Automated workflow**](#automated-workflow) (Recommended for quick setup): Automatically create an ingest pipeline and index with minimal configuration.
-- [**Manual setup**](#manual-setup) (Recommended for custom configurations): Manually configure each component for greater flexibility and control.
-- [**Using a semantic field**](#using-a-semantic-field) (Recommended for quick setup with optional customization): Manually configure the index using `semantic` fields to simplify the setup process while still allowing for some level of configuration.
-
-## Automated workflow
-
-OpenSearch provides a [workflow template]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/workflow-templates/#semantic-search) that automatically creates both an ingest pipeline and an index. You must provide the model ID for the configured model when creating a workflow. Review the semantic search workflow template [defaults](https://github.com/opensearch-project/flow-framework/blob/main/src/main/resources/defaults/semantic-search-defaults.json) to determine whether you need to update any of the parameters. For example, if the model dimensionality is different from the default (`1024`), specify the dimensionality of your model in the `output_dimension` parameter. To create the default semantic search workflow, send the following request:
-
-```json
-POST /_plugins/_flow_framework/workflow?use_case=semantic_search&provision=true
-{
-  "create_ingest_pipeline.model_id": "mBGzipQB2gmRjlv_dOoB"
-}
-```
-{% include copy-curl.html %}
-
-OpenSearch responds with a workflow ID for the created workflow:
-
-```json
-{
-  "workflow_id" : "U_nMXJUBq_4FYQzMOS4B"
-}
-```
-
-To check the workflow status, send the following request:
-
-```json
-GET /_plugins/_flow_framework/workflow/U_nMXJUBq_4FYQzMOS4B/_status
-```
-{% include copy-curl.html %}
-
-Once the workflow completes, the `state` changes to `COMPLETED`. The workflow creates the following components:
-
-- An ingest pipeline named `nlp-ingest-pipeline`
-- An index named `my-nlp-index` 
-
-You can now continue with [steps 3 and 4](#step-3-ingest-documents-into-the-index) to ingest documents into the index and search the index.
+You can configure semantic search in one of two ways. In the [manual setup](#manual-setup), you configure the ingest pipeline and the index yourself, which gives you control over each component. Alternatively, you can [use a semantic field](#using-a-semantic-field), which simplifies the setup and still lets you customize some of the configuration.
 
 ## Manual setup
 
@@ -251,6 +213,9 @@ The response contains both documents, sorted by the combined score of the two cl
 }
 ```
 
+To create the ingest pipeline and index in one step, you can use the [semantic search workflow template]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/workflow-templates/#semantic-search).
+{: .tip}
+
 ### Setting a default model on an index or field
 
 A [`neural`]({{site.url}}{{site.baseurl}}/query-dsl/specialized/neural/) query requires a model ID for generating vector embeddings. To eliminate passing the model ID with each neural query request, you can set a default model on a vector index or a field. 
@@ -382,6 +347,12 @@ After creating the index, you can retrieve its mapping to verify that the embedd
 
 ```json
 GET /my-nlp-index/_mapping
+```
+{% include copy-curl.html %}
+
+The response shows the automatically created `passage_text_semantic_info` field:
+
+```json
 {
   "my-nlp-index": {
     "mappings": {
@@ -429,7 +400,6 @@ GET /my-nlp-index/_mapping
   }
 }
 ```
-{% include copy-curl.html %}
 
 ### Step 2: Ingest documents into the index
 
@@ -444,10 +414,16 @@ PUT /my-nlp-index/_doc/1
 ```
 {% include copy-curl.html %}
 
-Before the document is ingested into the index, OpenSearch runs a built-in ingest pipeline that generates embeddings and stores them in the `passage_text_semantic_info.embedding` field. To verify that the embedding is generated properly, you can run a search request to retrieve the document:
+Before the document is ingested into the index, OpenSearch runs a built-in ingest pipeline that generates embeddings and stores them in the `passage_text_semantic_info.embedding` field. To verify that the embedding is generated properly, retrieve the document:
 
 ```json
 GET /my-nlp-index/_doc/1
+```
+{% include copy-curl.html %}
+
+The response contains the generated embedding in the `passage_text_semantic_info` field:
+
+```json
 {
   "_index": "my-nlp-index",
   "_id": "1",
@@ -472,7 +448,6 @@ GET /my-nlp-index/_doc/1
   }
 }
 ```
-{% include copy-curl.html %}
 
 ### Step 3: Search the index
 

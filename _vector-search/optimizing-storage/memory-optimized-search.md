@@ -6,12 +6,12 @@ nav_order: 30
 ---
 
 # Memory-optimized search
-Introduced 3.1
+**Introduced 3.1**
 {: .label .label-purple }
 
 Memory-optimized search allows the Faiss engine to run efficiently without loading the entire vector index into off-heap memory. Without this optimization, Faiss typically loads the full index into memory, which can become unsustainable if the index size exceeds available physical memory. With memory-optimized search, the engine memory-maps the index file and relies on the operating system's file cache to serve search requests. This approach avoids unnecessary I/O and allows repeated reads to be served directly from the system cache.
 
-Memory-optimized search affects only search operations. Indexing behavior remains unchanged.
+Memory-optimized search affects only search operations. Indexing is unchanged.
 {: .note }
 
 ## Limitations

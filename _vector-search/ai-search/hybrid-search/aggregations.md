@@ -63,7 +63,9 @@ POST /_bulk
 ```
 {% include copy-curl.html %}
 
-Now you can combine a hybrid query clause with a `min` aggregation:
+The following search uses a search pipeline named `nlp-search-pipeline` that contains a `normalization-processor` with the `min_max` normalization technique and the `arithmetic_mean` combination technique. For more information, see [Configure a search pipeline]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/#step-3-configure-a-search-pipeline).
+
+Now you can combine a hybrid query clause with a `sum` aggregation and a `terms` aggregation:
 
 ```json
 GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
@@ -178,9 +180,9 @@ The response contains the matching documents and the aggregation results:
   },
   "aggregations": {
     "total_price": {
-      "value": 680
+      "value": 680.0
     },
-    "doc_keywords": {
+    "keywords": {
       "doc_count_error_upper_bound": 0,
       "sum_other_doc_count": 0,
       "buckets": [
