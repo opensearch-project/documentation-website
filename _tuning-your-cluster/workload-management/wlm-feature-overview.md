@@ -1,9 +1,10 @@
 ---
 layout: default
 title: Workload management
-nav_order: 90
+nav_order: 40
 has_children: true
-parent: Availability and recovery
+redirect_from:
+  - /tuning-your-cluster/availability-and-recovery/workload-management/wlm-feature-overview/
 ---
 
 # Workload management
@@ -29,7 +30,7 @@ Then restart your cluster. For more information, see [Managing OpenSearch plugin
 
 ## Workload groups
 
-A _workload group_ is a logical grouping of tasks with defined resource limits. System administrators can dynamically manage workload groups using the Workload Management APIs. These workload groups can be used to create search requests with resource limits. You can also define group-specific settings that are applied automatically to every request routed to the group. For more information, see [Workload groups]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/workload-management/workload-groups/) and [Workload group settings]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/workload-management/workload-group-settings/).
+A _workload group_ is a logical grouping of tasks with defined resource limits. System administrators can dynamically manage workload groups using the Workload Management APIs. These workload groups can be used to create search requests with resource limits. You can also define group-specific settings that are applied automatically to every request routed to the group. For more information, see [Workload groups]({{site.url}}{{site.baseurl}}/tuning-your-cluster/workload-management/workload-groups/) and [Workload group settings]({{site.url}}{{site.baseurl}}/tuning-your-cluster/workload-management/workload-group-settings/).
 
 The following example request adds a workload group named `analytics`:
 
@@ -87,7 +88,7 @@ curl -X GET "http://localhost:9200/testindex/_search?pretty" \
 ```
 {% include copy.html %}
 
-To avoid passing the ID in every query, you can create rules to apply the ID automatically. For more information, see [Workload group rules]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/workload-management/workload-group-rules/).
+To avoid passing the ID in every query, you can create rules to apply the ID automatically. For more information, see [Workload group rules]({{site.url}}{{site.baseurl}}/tuning-your-cluster/workload-management/workload-group-rules/).
 
 ## Operating modes
 
@@ -101,7 +102,7 @@ The `wlm.workload_group.mode` cluster-level setting controls whether workload ma
 
 To change the operating mode, update the [`wlm.workload_group.mode` setting](#workload-management-settings), as described in the next section.
 
-Additionally, each workload group defines its own `resiliency_mode`. The `resiliency_mode` defines enforcement behavior but only takes effect when `wlm.workload_group.mode` is `enabled`. For more information about `resiliency_mode`, see [Workload group parameters]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/workload-management/workload-groups/#parameters).
+Additionally, each workload group defines its own `resiliency_mode`. The `resiliency_mode` defines enforcement behavior but only takes effect when `wlm.workload_group.mode` is `enabled`. For more information about `resiliency_mode`, see [Workload group parameters]({{site.url}}{{site.baseurl}}/tuning-your-cluster/workload-management/workload-groups/#parameters).
 
 ## Workload management settings
 

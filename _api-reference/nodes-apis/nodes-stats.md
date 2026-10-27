@@ -1435,14 +1435,14 @@ Field | Field type | Description
 
 ### `concurrency_limiters`
 
-The `concurrency_limiters` object contains one entry per configured [concurrency limiter]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/concurrency-limits/), keyed by limiter name. It is returned when you request the `concurrency_limiter` metric. Each entry has the following properties.
+The `concurrency_limiters` object contains one entry per configured [concurrency limiter]({{site.url}}{{site.baseurl}}/tuning-your-cluster/load-protection/concurrency-limits/), keyed by limiter name. It is returned when you request the `concurrency_limiter` metric. Each entry has the following properties.
 
 Field | Field type | Description
 :--- | :--- | :---
 `action_name` | `String` | The transport action that the limiter applies to.
-`mode` | `String` | The [mode]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/concurrency-limits/#modes) of the limiter. Valid values are `disabled`, `monitor_only`, and `enforced`.
-`algorithm` | `String` | The [algorithm]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/concurrency-limits/#algorithms) used to adapt the limit. Valid values are `vegas`, `gradient2`, and `aimd`.
-`current_limit` | `Integer` | The current adaptive concurrency limit, not including [burst capacity]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/concurrency-limits/#burst-capacity).
+`mode` | `String` | The [mode]({{site.url}}{{site.baseurl}}/tuning-your-cluster/load-protection/concurrency-limits/#modes) of the limiter. Valid values are `disabled`, `monitor_only`, and `enforced`.
+`algorithm` | `String` | The [algorithm]({{site.url}}{{site.baseurl}}/tuning-your-cluster/load-protection/concurrency-limits/#algorithms) used to adapt the limit. Valid values are `vegas`, `gradient2`, and `aimd`.
+`current_limit` | `Integer` | The current adaptive concurrency limit, not including [burst capacity]({{site.url}}{{site.baseurl}}/tuning-your-cluster/load-protection/concurrency-limits/#burst-capacity).
 `in_flight` | `Integer` | The number of requests currently being processed.
 `total_rejected` | `Integer` | The cumulative number of rejected requests. In `monitor_only` mode, this counts the requests that would have been rejected.
 `last_rtt_millis` | `Integer` | The most recently observed round-trip time, in milliseconds. Omitted until the limiter has recorded a completed request.

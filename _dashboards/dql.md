@@ -157,7 +157,7 @@ The following table provides a quick reference for both query language commands.
 | Fuzzy search | Not supported | `title:wind~2` |
 | Proximity search | Not supported | `"wind rises"~2` |
 | Boosting terms | Not supported | `title:wind^2` |
-| Reserved characters | `\ ( ) : < > " *` | `+ - = && || > < ! ( ) { } [ ] ^ " ~ * ? : \ /` |
+| Reserved characters | `\ ( ) : < > " * { }` | `+ - = && || > < ! ( ) { } [ ] ^ " ~ * ? : \ /` |
 
 ## Search for terms
 
@@ -190,12 +190,26 @@ Without quotation marks, the query returns the same results, but Dashboards disp
 
 The following is a list of reserved characters in DQL:
 
-`\`, `(`, `)`, `:`, `<`, `>`, `"`, `*`
+`\`, `(`, `)`, `:`, `<`, `>`, `"`, `*`, `{`, `}`
 
 Use a backslash (`\`) to escape reserved characters. For example, to search for an expression `2*3`, specify the query as `2\*3`:
 
 ```plaintext
 2\*3
+```
+{% include copy.html %}
+
+The words `or`, `and`, and `not` are Boolean operators. To search for one of these words as a term, escape it with a backslash. For example, the following query searches for the word `and` in the `title` field:
+
+```plaintext
+title: \and
+```
+{% include copy.html %}
+
+Inside a quoted phrase, only the quotation mark (`"`) and the backslash (`\`) need to be escaped. Other reserved characters are treated as regular characters. For example, the following query searches for the phrase `2*3 (approx.)`:
+
+```plaintext
+"2*3 (approx.)"
 ```
 {% include copy.html %}
 

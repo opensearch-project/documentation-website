@@ -3,7 +3,8 @@ layout: default
 title: Workload group settings
 nav_order: 30
 parent: Workload management
-grand_parent: Availability and recovery
+redirect_from:
+  - /tuning-your-cluster/availability-and-recovery/workload-management/workload-group-settings/
 ---
 
 # Workload group settings
@@ -12,7 +13,7 @@ grand_parent: Availability and recovery
 
 OpenSearch operation is normally controlled by cluster-wide defaults and per-request parameters. In a multi-tenant cluster, you may need to apply different limits to different tenants.
 
-Workload group settings address this need by letting you attach group-specific configuration directly to a [workload group]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/workload-management/workload-groups/). When a request is routed to a group, the group's settings are applied automatically. This approach provides the following benefits:
+Workload group settings address this need by letting you attach group-specific configuration directly to a [workload group]({{site.url}}{{site.baseurl}}/tuning-your-cluster/workload-management/workload-groups/). When a request is routed to a group, the group's settings are applied automatically. This approach provides the following benefits:
 
 - You can apply stricter limits to resource-intensive or unverified tenants while keeping generous defaults for others, all without modifying cluster settings.
 - Limits are bound to the workload group, so they apply to every request routed to the group regardless of which client sent it. No client-side configuration is required.
@@ -112,7 +113,7 @@ PUT _wlm/workload_group/analytics
 
 ## Retrieving workload group settings
 
-To retrieve workload group settings, use the [Workload Group API]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/workload-management/workload-groups/#retrieving-a-workload-group):
+To retrieve workload group settings, use the [Workload Group API]({{site.url}}{{site.baseurl}}/tuning-your-cluster/workload-management/workload-groups/#retrieving-a-workload-group):
 
 ```json
 GET _wlm/workload_group/analytics

@@ -38,13 +38,13 @@ Then you can start OpenSearch Dashboards using the following steps:
     ```
     {% include copy.html %}
 
-1. In a web browser, go to `http://localhost:5601` and log in as the `admin` user using the custom admin password that you set when you installed OpenSearch. If OpenSearch Dashboards runs on a remote host, replace `localhost` with the IP address or DNS name of that host. For more information, see [Accessing OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/#accessing-opensearch-dashboards).
+1. In a web browser, go to `http://localhost:5601` and log in as the `admin` user using the [custom admin password]({{site.url}}{{site.baseurl}}/security/configuration/passwords/#setting-the-initial-admin-password) that you set when you installed OpenSearch. If OpenSearch Dashboards runs on a remote host, replace `localhost` with the IP address or DNS name of that host. For more information, see [Accessing OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/#accessing-opensearch-dashboards).
 
 ## Install OpenSearch Dashboards using Docker Compose
 
 The [sample `docker-compose.yml`]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/#sample-docker-composeyml) file includes an `opensearch-dashboards` service, so OpenSearch Dashboards starts together with OpenSearch. When you [deploy the cluster using Docker Compose]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/#deploy-an-opensearch-cluster-using-docker-compose), no additional steps are required to install OpenSearch Dashboards.
 
-In a web browser, go to `http://localhost:5601` and log in as the `admin` user using the custom admin password that you set when you installed OpenSearch. If OpenSearch Dashboards runs on a remote host, replace `localhost` with the IP address or DNS name of that host. For more information, see [Accessing OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/#accessing-opensearch-dashboards).
+In a web browser, go to `http://localhost:5601` and log in as the `admin` user using the [custom admin password]({{site.url}}{{site.baseurl}}/security/configuration/passwords/#setting-the-initial-admin-password) that you set when you installed OpenSearch. If OpenSearch Dashboards runs on a remote host, replace `localhost` with the IP address or DNS name of that host. For more information, see [Accessing OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/#accessing-opensearch-dashboards).
 
 ## Customizing the OpenSearch Dashboards configuration
 
