@@ -110,7 +110,7 @@ An OpenSearch node configured by the demo security script is not suitable for a 
    ```
    {% include copy.html %}
 
-1. For OpenSearch 2.12 or later, set a custom admin password, following the [admin password requirements]({{site.url}}{{site.baseurl}}/security/configuration/demo-configuration/#admin-password-requirements). If you do not set a password, the startup script exits without starting OpenSearch:
+1. For OpenSearch 2.12 or later, set a custom admin password, following the [admin password requirements]({{site.url}}{{site.baseurl}}/security/configuration/demo-configuration/#admin-password-requirements). If you do not set a password, the startup script exits without starting OpenSearch. OpenSearch uses this password only when it sets up the demo security configuration. To change the admin password later, see [Changing the admin password]({{site.url}}{{site.baseurl}}/security/configuration/passwords/#changing-the-admin-password). To set the password, run the following command:
    ```bash
    export OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password>
    ```

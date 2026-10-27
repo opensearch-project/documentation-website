@@ -111,7 +111,7 @@ To install OpenSearch Dashboards on Windows, follow these steps:
          ```
          {% include copy.html %}
 
-1. In a web browser, go to `http://localhost:5601`. OpenSearch Dashboards can take about 2 minutes to start. If you configured OpenSearch Dashboards with security enabled, log in as the `admin` user using the custom admin password that you set when you installed OpenSearch. If OpenSearch Dashboards runs on a remote host, replace `localhost` with the IP address or DNS name of that host. For more information, see [Accessing OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/#accessing-opensearch-dashboards).
+1. In a web browser, go to `http://localhost:5601`. OpenSearch Dashboards can take about 2 minutes to start. If you configured OpenSearch Dashboards with security enabled, log in as the `admin` user using the [custom admin password]({{site.url}}{{site.baseurl}}/security/configuration/passwords/#setting-the-initial-admin-password) that you set when you installed OpenSearch. If OpenSearch Dashboards runs on a remote host, replace `localhost` with the IP address or DNS name of that host. For more information, see [Accessing OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/#accessing-opensearch-dashboards).
 
 To stop OpenSearch Dashboards, press `Ctrl+C` in Command Prompt or Powershell, or close the Command Prompt or Powershell window.
 {: .tip}
