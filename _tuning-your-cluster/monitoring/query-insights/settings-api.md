@@ -2,7 +2,10 @@
 layout: default
 title: Query Insights Settings API
 parent: Query insights
-nav_order: 25
+grand_parent: Monitoring your cluster
+nav_order: 60
+redirect_from:
+  - /observing-your-data/query-insights/settings-api/
 ---
 
 # Query Insights Settings API
@@ -135,11 +138,11 @@ The following table lists the available request body fields.
 | `exporter.type` | String | The exporter type for top N query data. Valid values are `local_index` and `debug`. Optional. Default is `local_index`. |
 | `exporter.delete_after_days` | Integer | The number of days to retain local index data (1–180). Applies only when `type` is `local_index`. Optional. Default is `7`. |
 
-For more information about metric settings, see [Top N queries]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/top-n-queries/#configuring-top-n-query-monitoring).
+For more information about metric settings, see [Top N queries]({{site.url}}{{site.baseurl}}/tuning-your-cluster/monitoring/query-insights/top-n-queries/#configuring-top-n-query-monitoring).
 
-For more information about query grouping, see [Grouping top N queries]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/grouping-top-n-queries/).
+For more information about query grouping, see [Grouping top N queries]({{site.url}}{{site.baseurl}}/tuning-your-cluster/monitoring/query-insights/grouping-top-n-queries/).
 
-For more information about exporters, see [Exporting top N query data]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/top-n-queries/#exporting-top-n-query-data).
+For more information about exporters, see [Exporting top N query data]({{site.url}}{{site.baseurl}}/tuning-your-cluster/monitoring/query-insights/top-n-queries/#exporting-top-n-query-data).
 
 ### Example request: Updating latency settings
 
@@ -215,7 +218,7 @@ For production deployments, consider creating a dedicated role with access only 
 
 ## Related documentation
 
-- [Top N queries]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/top-n-queries/)
-- [Grouping top N queries]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/grouping-top-n-queries/)
-- [Query Insights dashboard]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/query-insights-dashboard/)
+- [Top N queries]({{site.url}}{{site.baseurl}}/tuning-your-cluster/monitoring/query-insights/top-n-queries/)
+- [Grouping top N queries]({{site.url}}{{site.baseurl}}/tuning-your-cluster/monitoring/query-insights/grouping-top-n-queries/)
+- [Query Insights dashboard]({{site.url}}{{site.baseurl}}/tuning-your-cluster/monitoring/query-insights/query-insights-dashboard/)
 - [Cluster settings API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/)

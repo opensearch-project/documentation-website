@@ -77,11 +77,7 @@ For specialized application monitoring, OpenSearch provides two focused solution
 
 ## Query performance
 
-Use [Query Insights]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/) to monitor and optimize the performance of queries running in your cluster. Identify slow queries, analyze query patterns, and improve cluster efficiency.
-
-<span class="centering-container">
-[Get started with Query Insights]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/){: .btn-dark-blue}
-</span>
+To monitor the performance of the queries running in your cluster, see [Query insights]({{site.url}}{{site.baseurl}}/tuning-your-cluster/monitoring/query-insights/index/).
 
 ---
 

@@ -2,7 +2,10 @@
 layout: default
 title: Query metrics
 parent: Query insights
-nav_order: 30
+grand_parent: Monitoring your cluster
+nav_order: 50
+redirect_from:
+  - /observing-your-data/query-insights/query-metrics/
 ---
 
 # Query metrics
