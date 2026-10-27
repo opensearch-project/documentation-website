@@ -675,6 +675,16 @@ sudo usermod -aG docker $USER
 ```
 {% include copy.html %}
 
+### Error message: "Authentication finally failed for admin"
+
+If requests that use the admin password return a `401` status code and the OpenSearch log contains `Authentication finally failed for admin`, the password that you're using doesn't match the stored admin password.
+
+OpenSearch applies `OPENSEARCH_INITIAL_ADMIN_PASSWORD` only when it starts for the first time with empty data volumes. If you change the value later and restart the containers, the admin password doesn't change and the previous password still works. To change the admin password, see [Changing the admin password]({{site.url}}{{site.baseurl}}/security/configuration/passwords/#changing-the-admin-password). To start over with the new password, remove the volumes by running `docker compose down -v`, which deletes all data stored in the volumes, and then start the cluster again.
+
+If the password contains a dollar sign (`$`), Docker Compose reads the characters that follow it in an `.env` file as a variable name, so an unquoted or double-quoted value loses characters. For example, `Zz$Strong9Pass!` becomes `Zz!`. Enclose the value in single quotation marks, for example, `OPENSEARCH_INITIAL_ADMIN_PASSWORD='<custom-admin-password>'`, or write each `$` as `$$`.
+
+When you pass the credentials to `curl`, enclose them in single quotation marks so that the shell doesn't change special characters, for example, `curl https://localhost:9200 -ku 'admin:<custom-admin-password>'`.
+
 ### Error message: "max virtual memory areas vm.max_map_count [65530] is too low"
 
 OpenSearch fails to start if the `vm.max_map_count` setting of your host is too low. Set `vm.max_map_count` on the host machine, not in the container, as described in [Linux settings](#linux-settings). For more information, see [Common issues]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/#error-message-max-virtual-memory-areas-vmmax_map_count-65530-is-too-low).

@@ -51,7 +51,7 @@ You can install OpenSearch from a package or an APT repository.
    ```
    {% include copy.html %}
 
-   For new installations of OpenSearch 2.12 and later, you must define a custom admin password in order to set up a demo security configuration. Use one of the following commands to define a custom admin password:
+   For new installations of OpenSearch 2.12 and later, you must define a custom admin password in order to set up a demo security configuration. OpenSearch uses this password only when it sets up the demo security configuration. To change the admin password later, see [Changing the admin password]({{site.url}}{{site.baseurl}}/security/configuration/passwords/#changing-the-admin-password). Use one of the following commands to define a custom admin password:
 
    x64:
    ```bash
