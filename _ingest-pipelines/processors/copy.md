@@ -31,7 +31,7 @@ The following is the syntax for the `copy` processor:
 ```
 {% include copy.html %}
 
-## Configuration parameters
+## Parameters
 
 The following table lists the required and optional parameters for the `copy` processor.
 
@@ -52,7 +52,7 @@ The following table lists the required and optional parameters for the `copy` pr
 
 Follow these steps to use the processor in a pipeline.
 
-**Step 1: Create a pipeline** 
+### Step 1: Create a pipeline
 
 The following query creates a pipeline named `copy_object` that copies a nested object from one field to the root level: 
 
@@ -75,7 +75,7 @@ PUT /_ingest/pipeline/copy_object
 ```
 {% include copy-curl.html %}
 
-**Step 2 (Optional): Test the pipeline**
+### Step 2 (Optional): Test the pipeline
 
 It is recommended that you test your pipeline before you ingest documents.
 {: .tip}
@@ -103,8 +103,6 @@ POST _ingest/pipeline/copy_object/_simulate
 ```
 {% include copy-curl.html %}
 
-**Response**
-
 The following example response confirms that the pipeline is working as expected:
 
 ```json
@@ -115,6 +113,7 @@ The following example response confirms that the pipeline is working as expected
         "_index": "testindex1",
         "_id": "1",
         "_source": {
+          "message": {},
           "content": {
             "foo": "bar",
             "zoo": [1, 2, 3]
@@ -129,22 +128,24 @@ The following example response confirms that the pipeline is working as expected
 }
 ```
 
-**Step 3: Ingest a document**
+### Step 3: Ingest a document
 
 The following query ingests a document into an index named `testindex1`:
 
 ```json
 PUT testindex1/_doc/1?pipeline=copy_object
 {
-  "content": {
-    "foo": "bar",
-    "zoo": [1, 2, 3]
+  "message": {
+    "content": {
+      "foo": "bar",
+      "zoo": [1, 2, 3]
+    }
   }
 }
 ```
 {% include copy-curl.html %}
 
-**Step 4 (Optional): Retrieve the document**
+### Step 4 (Optional): Retrieve the document
 
 To retrieve the document, run the following query:
 
@@ -152,3 +153,5 @@ To retrieve the document, run the following query:
 GET testindex1/_doc/1
 ```
 {% include copy-curl.html %}
+
+The response contains the ingested document, transformed as shown in the response in Step 2.

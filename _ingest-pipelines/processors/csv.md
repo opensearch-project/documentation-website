@@ -28,7 +28,7 @@ The following is the syntax for the `csv` processor:
 ```
 {% include copy.html %}
 
-## Configuration parameters
+## Parameters
 
 The following table lists the required and optional parameters for the `csv` processor.
 
@@ -51,7 +51,7 @@ Parameter | Required/Optional | Description |
 
 Follow these steps to use the processor in a pipeline.
 
-**Step 1: Create a pipeline**
+### Step 1: Create a pipeline
 
 The following query creates a pipeline, named `csv-processor`, that splits `resource_usage` into three new fields named `cpu_usage`, `memory_usage`, and `disk_usage`:
 
@@ -72,7 +72,7 @@ PUT _ingest/pipeline/csv-processor
 ```
 {% include copy-curl.html %}
 
-**Step 2 (Optional): Test the pipeline**
+### Step 2 (Optional): Test the pipeline
 
 It is recommended that you test your pipeline before you ingest documents.
 {: .tip}
@@ -87,18 +87,13 @@ POST _ingest/pipeline/csv-processor/_simulate
       "_index": "testindex1",
       "_id": "1",
       "_source": {
-        "resource_usage": "25,4096,10",
-        "memory_usage": "4096",
-        "disk_usage": "10",
-        "cpu_usage": "25"
+        "resource_usage": "25,4096,10"
       }
     }
   ]
 }
 ```
 {% include copy-curl.html %}
-
-**Response**
 
 The following example response confirms that the pipeline is working as expected:
 
@@ -124,7 +119,7 @@ The following example response confirms that the pipeline is working as expected
 }
 ```
 
-**Step 3: Ingest a document**
+### Step 3: Ingest a document
 
 The following query ingests a document into an index named `testindex1`:
 
@@ -136,7 +131,7 @@ PUT testindex1/_doc/1?pipeline=csv-processor
 ```
 {% include copy-curl.html %}
 
-**Step 4 (Optional): Retrieve the document**
+### Step 4 (Optional): Retrieve the document
 
 To retrieve the document, run the following query:
 
@@ -144,3 +139,5 @@ To retrieve the document, run the following query:
 GET testindex1/_doc/1
 ```
 {% include copy-curl.html %}
+
+The response contains the ingested document, transformed as shown in the response in Step 2.

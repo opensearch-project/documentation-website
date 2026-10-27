@@ -29,7 +29,7 @@ The following is the syntax for the `sparse_encoding` processor:
 ```
 {% include copy.html %}
 
-## Configuration parameters
+## Parameters
 
 The following table lists the required and optional parameters for the `sparse_encoding` processor.
 
@@ -69,7 +69,7 @@ Among all pruning options, specifying `max_ratio` as equal to `0.1` demonstrates
 
 Follow these steps to use the processor in a pipeline. You must provide a model ID when creating the processor. For more information, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/using-ml-models/). 
 
-**Step 1: Create a pipeline.** 
+### Step 1: Create a pipeline
 
 The following example request creates an ingest pipeline where the text from `passage_text` will be converted into text embeddings and the embeddings will be stored in `passage_embedding`:
 
@@ -93,7 +93,7 @@ PUT /_ingest/pipeline/nlp-ingest-pipeline
 ```
 {% include copy-curl.html %}
 
-**Step 2 (Optional): Test the pipeline.**
+### Step 2 (Optional): Test the pipeline
 
 It is recommended that you test your pipeline before you ingest documents.
 {: .tip}
@@ -115,8 +115,6 @@ POST _ingest/pipeline/nlp-ingest-pipeline/_simulate
 }
 ```
 {% include copy-curl.html %}
-
-#### Response
 
 The response confirms that in addition to the `passage_text` field, the processor has generated text embeddings in the `passage_embedding` field:
 

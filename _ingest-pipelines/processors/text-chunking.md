@@ -28,7 +28,7 @@ The following is the syntax for the `text_chunking` processor:
 }
 ```
 
-## Configuration parameters
+## Parameters
 
 The following table lists the required and optional parameters for the `text_chunking` processor.
 
@@ -87,7 +87,7 @@ The following table lists the optional parameters for the `delimiter` algorithm.
 
 Follow these steps to use the processor in a pipeline. You can specify the chunking algorithm when creating the processor. If you don't provide an algorithm name, the chunking processor will use the default `fixed_token_length` algorithm along with all its default parameters.
 
-**Step 1: Create a pipeline**
+### Step 1: Create a pipeline
 
 The following example request creates an ingest pipeline that converts the text in the `passage_text` field into chunked passages, which will be stored in the `passage_chunk` field:
 
@@ -115,7 +115,7 @@ PUT _ingest/pipeline/text-chunking-ingest-pipeline
 ```
 {% include copy-curl.html %}
 
-**Step 2 (Optional): Test the pipeline**
+### Step 2 (Optional): Test the pipeline
 
 It is recommended that you test your pipeline before ingesting documents.
 {: .tip}
@@ -137,8 +137,6 @@ POST _ingest/pipeline/text-chunking-ingest-pipeline/_simulate
 }
 ```
 {% include copy-curl.html %}
-
-#### Response
 
 The response confirms that, in addition to the `passage_text` field, the processor has generated chunking results in the `passage_chunk` field. The processor split the paragraph into 10-word chunks. Because of the `overlap` setting of 0.2, the last 2 words of a chunk are duplicated in the following chunk:
 
