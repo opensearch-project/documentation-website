@@ -70,3 +70,7 @@ Feature | Effect
 ## Tune performance
 
 To increase indexing throughput, see [Tuning for indexing speed]({{site.url}}{{site.baseurl}}/tuning-your-cluster/performance-tuning/indexing-speed/). To run indexing and search on different nodes, see [Separating index and search workloads]({{site.url}}{{site.baseurl}}/tuning-your-cluster/performance-tuning/separate-index-and-search-workloads/).
+
+## Monitor your cluster
+
+OpenSearch can generate metrics and traces about its own operation and export them using OpenTelemetry. For more information, see [Telemetry]({{site.url}}{{site.baseurl}}/tuning-your-cluster/telemetry/index/).

@@ -7,7 +7,7 @@ nav_order: 120
 
 # ML Stats API
 
-The Stats API returns basic machine learning (ML) statistics, such as the number of running tasks. To monitor machine learning workflows using more detailed time-series metrics, see [Monitoring machine learning workflows]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/metrics/getting-started/#monitoring-machine-learning-workflows).
+The Stats API returns basic machine learning (ML) statistics, such as the number of running tasks. To monitor machine learning workflows using more detailed time-series metrics, see [Monitoring machine learning workflows]({{site.url}}{{site.baseurl}}/tuning-your-cluster/telemetry/metrics/#monitoring-machine-learning-workflows).
 {: .note }
 
 The response contains cluster-level statistics, such as the ML index status and the number of models, and node-level statistics, such as the number of requests, broken down by algorithm and model.

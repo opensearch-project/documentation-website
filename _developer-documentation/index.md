@@ -23,4 +23,5 @@ We welcome your contributions to the OpenSearch Project. Here are some helpful l
 ## In this section
 
 - [Plugin as a service]({{site.url}}{{site.baseurl}}/developer-documentation/plugin-as-a-service/): Enables stateless OpenSearch plugins using external data stores, such as a remote OpenSearch cluster or cloud storage services.
-- [Extensions]({{site.url}}{{site.baseurl}}/developer-documentation/extensions/): An easier-to-develop and more secure alternative to plugins that simplifies creating custom functionality for OpenSearch. 
+- [Extensions]({{site.url}}{{site.baseurl}}/developer-documentation/extensions/): An easier-to-develop and more secure alternative to plugins that simplifies creating custom functionality for OpenSearch.
+- [Job Scheduler]({{site.url}}{{site.baseurl}}/developer-documentation/job-scheduler/index/): A framework for building plugins that run scheduled jobs on the cluster, along with APIs for monitoring the jobs and locks.

@@ -3,6 +3,8 @@ layout: default
 title: Locks API
 parent: Job Scheduler
 nav_order: 20
+redirect_from:
+  - /monitoring-your-cluster/job-scheduler/locks/
 ---
 
 # Job Scheduler Locks API 

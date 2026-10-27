@@ -5,6 +5,7 @@ parent: Job Scheduler
 nav_order: 10
 redirect_from:
     - /monitoring-plugins/job-scheduler/api/
+    - /monitoring-your-cluster/job-scheduler/jobs/
 ---
 
 # Job Scheduler Jobs API 

@@ -168,7 +168,7 @@ For more information, see pull request [#2564](https://github.com/opensearch-pro
 
 ### Performance Analyzer plugin
 
-The `performance-analyzer-rca` agent has been removed. We recommend transitioning to the [Telemetry plugin](https://github.com/opensearch-project/performance-analyzer/issues/585) for performance monitoring and analysis. The Telemetry plugin, using the OpenTelemetry framework, allows for seamless integration with lightweight open-source agents in order to publish performance metrics to observability stores. For more information, see issue [#591](https://github.com/opensearch-project/performance-analyzer-rca/issues/591).
+The `performance-analyzer-rca` agent has been removed. The agent served the Performance Analyzer API on port 9600, so the metrics, batch metrics, and root cause analysis (RCA) APIs and the PerfTop dashboards are no longer available. The Performance Analyzer plugin remains installed by default and can publish its metrics using the [metrics framework]({{site.url}}{{site.baseurl}}/tuning-your-cluster/telemetry/metrics/), which exports them using OpenTelemetry. For more information, see [Performance Analyzer]({{site.url}}{{site.baseurl}}/tuning-your-cluster/telemetry/performance-analyzer/) and issue [#591](https://github.com/opensearch-project/performance-analyzer-rca/issues/591).
 
 ### SQL plugin
 

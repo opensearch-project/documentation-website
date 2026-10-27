@@ -1,12 +1,14 @@
 ---
 layout: default
 title: Job Scheduler
-nav_order: 1
+nav_order: 30
 has_children: true
 has_toc: false
 redirect_from:
   - /job-scheduler-plugin/index/
   - /monitoring-your-cluster/job-scheduler/
+  - /monitoring-your-cluster/job-scheduler/index/
+  - /developer-documentation/job-scheduler/
 ---
 
 # Job Scheduler
@@ -136,8 +138,8 @@ For more information, see the Job Scheduler [sample extension](https://github.co
 
 The Job Scheduler plugin supports the following APIs used to monitor the jobs running on the cluster:
 
-- [Jobs API]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/job-scheduler/jobs/)
-- [Locks API]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/job-scheduler/locks/)
+- [Jobs API]({{site.url}}{{site.baseurl}}/developer-documentation/job-scheduler/jobs/)
+- [Locks API]({{site.url}}{{site.baseurl}}/developer-documentation/job-scheduler/locks/)
 
 ## Job Scheduler cluster settings
 
