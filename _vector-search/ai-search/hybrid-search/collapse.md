@@ -17,7 +17,7 @@ The `collapse` parameter is compatible with other hybrid query search options, s
 
 When using `collapse` in a hybrid query, note the following considerations:
 
-- The [`index.neural_search.hybrid_collapse_docs_per_group_per_subquery`]({{site.url}}{{site.baseurl}}/vector-search/settings/#hybrid-collapse-docs-per-group) setting is deprecated and has no effect. If this setting exists in your index configuration, you can safely remove it. Search results are entirely controlled by the `size` parameter in the search request.
+- The `index.neural_search.hybrid_collapse_docs_per_group_per_subquery` setting is deprecated and has no effect. If this setting exists in your index configuration, you can safely remove it. Search results are entirely controlled by the `size` parameter in the search request.
 - Aggregations run on pre-collapsed results, not the final output.
 - Pagination behavior changes: Because `collapse` reduces the total number of results, it can affect how results are distributed across pages. To retrieve more results, consider increasing the pagination depth.
 - Results may differ from those returned by the [`collapse` response processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/collapse-processor/), which applies collapse logic after the query is executed.
@@ -151,7 +151,7 @@ The response returns the collapsed search results:
       {
         "_index": "bakery-items",
         "_id": "whRPZZcB49c_2-1rYmO7",
-        "_score": 0.5005,
+        "_score": 0.5,
         "_source": {
           "item": "Vanilla Cake",
           "category": "cakes",
@@ -340,7 +340,7 @@ The response contains detailed information about the scoring process for each se
                 "_node": "Jlu8P9EaQCy3C1BxaFMa_g",
                 "_index": "bakery-items",
                 "_id": "35ILepcBheX09_dPt8TD",
-                "_score": 0.5005,
+                "_score": 0.5,
                 "_source": {
                     "item": "Vanilla Cake",
                     "category": "cakes",
@@ -432,9 +432,9 @@ POST /bakery-items-pagination/_bulk
 { "index": {} }
 { "item": "Red Velvet Cake", "category": "cakes", "price": 29, "baked_date": "2023-07-30T00:00:00Z" }
 { "index": {} }
-{ "item": "Cheesecake", "category": "cakes", "price": 27. "baked_date": "2023-07-09T00:00:00Z" }
+{ "item": "Cheesecake", "category": "cakes", "price": 27, "baked_date": "2023-07-09T00:00:00Z" }
 { "index": {} }
-{ "item": "Cheesecake", "category": "cakes", "price": 34. "baked_date": "2023-07-21T00:00:00Z" }
+{ "item": "Cheesecake", "category": "cakes", "price": 34, "baked_date": "2023-07-21T00:00:00Z" }
 { "index": {} }
 { "item": "Coffee Cake", "category": "cakes", "price": 42, "baked_date": "2023-07-09T00:00:00Z" }
 { "index": {} }
@@ -443,7 +443,6 @@ POST /bakery-items-pagination/_bulk
 { "item": "Cocunut Cake", "category": "cakes", "price": 23, "baked_date": "2023-07-09T00:00:00Z" }
 { "index": {} }
 { "item": "Cocunut Cake", "category": "cakes", "price": 32, "baked_date": "2023-07-12T00:00:00Z" }
-// Additional documents omitted for brevity
 ```
 {% include copy-curl.html %}
 
@@ -482,12 +481,12 @@ GET /bakery-items-pagination/_search?search_pipeline=norm-pipeline
 ```
 {% include copy-curl.html %}
 
-
+The response contains the sixth and seventh groups of the collapsed results:
 
 ```json
 "hits": {
         "total": {
-            "value": 70,
+            "value": 16,
             "relation": "eq"
         },
         "max_score": 1.0,
@@ -495,32 +494,32 @@ GET /bakery-items-pagination/_search?search_pipeline=norm-pipeline
             {
                 "_index": "bakery-items-pagination",
                 "_id": "gDayepcBIkxlgFKYda0p",
-                "_score": 0.5005,
+                "_score": 0.5,
                 "_source": {
-                    "item": "Red Velvet Cake",
+                    "item": "Carrot Cake",
                     "category": "cakes",
-                    "price": 29,
-                    "baked_date": "2023-07-30T00:00:00Z"
+                    "price": 26,
+                    "baked_date": "2023-07-21T00:00:00Z"
                 },
                 "fields": {
                     "item": [
-                        "Red Velvet Cake"
+                        "Carrot Cake"
                     ]
                 }
             },
             {
                 "_index": "bakery-items-pagination",
                 "_id": "aTayepcBIkxlgFKYca15",
-                "_score": 0.5005,
+                "_score": 0.5,
                 "_source": {
-                    "item": "Vanilla Cake",
+                    "item": "Cheesecake",
                     "category": "cakes",
-                    "price": 12,
-                    "baked_date": "2023-07-02T00:00:00Z"
+                    "price": 27,
+                    "baked_date": "2023-07-09T00:00:00Z"
                 },
                 "fields": {
                     "item": [
-                        "Vanilla Cake"
+                        "Cheesecake"
                     ]
                 }
             }
@@ -626,7 +625,7 @@ In the response, the main `hits` contain the top-scoring document from each coll
                     "baked_date": "2023-07-01T00:00:00Z"
                   },
                   "sort": [
-                    15
+                    15.0
                   ]
                 },
                 {
@@ -640,7 +639,7 @@ In the response, the main `hits` contain the top-scoring document from each coll
                     "baked_date": "2023-07-04T00:00:00Z"
                   },
                   "sort": [
-                    18
+                    18.0
                   ]
                 }
               ]
@@ -651,7 +650,7 @@ In the response, the main `hits` contain the top-scoring document from each coll
       {
         "_index": "bakery-items",
         "_id": "boe6e5gBAB5HT6ixTd4F",
-        "_score": 0.5005,
+        "_score": 0.5,
         "_source": {
           "item": "Vanilla Cake",
           "category": "cakes",
@@ -683,7 +682,7 @@ In the response, the main `hits` contain the top-scoring document from each coll
                     "baked_date": "2023-07-02T00:00:00Z"
                   },
                   "sort": [
-                    12
+                    12.0
                   ]
                 },
                 {
@@ -697,7 +696,7 @@ In the response, the main `hits` contain the top-scoring document from each coll
                     "baked_date": "2023-07-03T00:00:00Z"
                   },
                   "sort": [
-                    16
+                    16.0
                   ]
                 }
               ]
