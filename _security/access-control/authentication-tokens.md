@@ -24,21 +24,21 @@ An extension can use an OBO token to interact with an OpenSearch cluster, using 
 
 ### Configuration
 
-In the [`config/opensearch-security/config.yml` file]({{site.url}}{{site.baseurl}}/security/configuration/configuration/), the OBO configuration is located in the `config.dynamic` section. It contains the `signing_key` for the token signature and an optional `encryption_key` for encrypting the `roles` claims in the token payload:
+In the [`config/opensearch-security/config.yml` file]({{site.url}}{{site.baseurl}}/security/configuration/configuration/), the OBO configuration is located in the `config.dynamic` section. Configure a `signing_key` to enable OBO authentication. You can optionally configure an `encryption_key` to encrypt the `roles` claim in issued tokens:
 
 ```yaml
 config:
   dynamic:
     on_behalf_of:
-      enabled: #'true'/non-specified will be consider as 'enabled'
-      signing_key: #encoded signing key here
-      encryption_key: #(optional) encoded encryption key here
+      enabled: true # Optional; defaults to true.
+      signing_key: # Required Base64-encoded signing key.
+      encryption_key: # Optional Base64-encoded encryption key.
 ...
 ```
 
 The default encoding algorithm for signing the JWT is HMAC SHA512. Keys are Base64-encoded strings in the [`config/opensearch-security/config.yml` file]({{site.url}}{{site.baseurl}}/security/configuration/configuration/). After the configuration is applied using the `securityadmin.sh -cd <configuration directory>` command, the values are stored in the security system index and used cluster-wide.
 
-When `encryption_key` is omitted, roles and backend roles are stored as plain text in the token claims. When it is provided, the `roles` claim is encrypted. Cluster administrators can choose whether to encrypt role information based on their security requirements.
+When `encryption_key` is omitted, mapped roles are stored as plain text in the token's `roles` claim. When it is provided, mapped roles are stored in the encrypted `encrypted_roles` claim. Cluster administrators can choose whether to encrypt role information based on their security requirements.
 
 ### Token structure
 
@@ -63,17 +63,18 @@ The OBO token contains the following claims:
 * Roles: Security privilege evaluation
 	* When `encryption_key` is configured, the mapped roles are encrypted in the token payload:
 		* Encrypted mapped roles (`encrypted_roles`)
-	* When `encryption_key` is not configured, roles are stored as plain text:
+	* When `encryption_key` is not configured, mapped roles are stored as plain text:
 		* Mapped roles (`roles`)
-		* Backend roles (`backend_roles`)
 
-The OpenSearch Security plugin handles the encryption and decryption processes. This approach ensures the protection of user information, even when traversing the trust boundary between OpenSearch and any third-party services.
+Newly issued OBO tokens do not include backend roles. The Security plugin handles the encryption and decryption processes. This approach ensures the protection of user information, even when traversing the trust boundary between OpenSearch and any third-party services.
 
 ### API endpoint
 
-You can access the `POST /_plugins/_security/api/generateonbehalfoftoken` API endpoint on the Security plugin in order to create a short-lived, self-issued OBO token to perform certain actions on the user's behalf.
+Use the `POST /_plugins/_security/api/obo/token` endpoint to create a short-lived, self-issued OBO token that performs actions on the user's behalf. This endpoint is available in OpenSearch 3.6 and later.
 
-To access this API endpoint, the request body should contain three API parameters:
+The legacy `POST /_plugins/_security/api/generateonbehalfoftoken` endpoint remains supported for compatibility but is deprecated. Use `/obo/token` for new integrations.
+
+To access the API endpoint, the request body should contain three parameters:
 
 * `description`: This parameter allows the user to articulate the purpose for requesting this token, providing clarity and transparency.
 * `service` (optional): This parameter is directed to the audience claim of the OBO token. It offers users the opportunity to designate the target service for which they intend to use the token. Although this is an optional parameter, if not specified, the default value is set to `self-issued`.
@@ -81,7 +82,7 @@ To access this API endpoint, the request body should contain three API parameter
 The following is an example of requesting an OBO token with a lifespan of 3 minutes for the user “admin” for testing purposes:
 
 ```json
-POST /_plugins/_security/api/generateonbehalfoftoken
+POST /_plugins/_security/api/obo/token
 { 
    "description":"Testing",
    "service":"Testing Service",
