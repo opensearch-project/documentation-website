@@ -584,7 +584,7 @@ The following example sets the index priority to `50`:
 
 ## Allocation
 
-Allocate the index to a node with a specific attribute set [like this]({{site.url}}{{site.baseurl}}/opensearch/cluster/#advanced-step-7-set-up-a-hot-warm-architecture).
+Allocate the index to a node with a specific attribute set [like this]({{site.url}}{{site.baseurl}}/tuning-your-cluster/creating-a-cluster/#advanced-step-7-set-up-a-hot-warm-architecture).
 For example, setting `require` to `warm` moves your data only to "warm" nodes.
 
 The `allocation` operation has the following parameters. At least one of `require`, `include`, or `exclude` must be specified.
@@ -723,7 +723,7 @@ When an index enters `search_only` mode, OpenSearch removes its primary and regu
 > - Segment replication must be enabled on the index.
 > - Search replicas must be configured on the index.
 >
-> For more information about search-only mode and reader/writer separation, see [Separate index and search workloads]({{site.url}}{{site.baseurl}}/tuning-your-cluster/separate-index-and-search-workloads/).
+> For more information about search-only mode and reader/writer separation, see [Separating index and search workloads]({{site.url}}{{site.baseurl}}/tuning-your-cluster/performance-tuning/separate-index-and-search-workloads/).
 {: .note}
 
 Set an index to search-only mode using the following action:

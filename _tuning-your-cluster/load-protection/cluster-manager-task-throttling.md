@@ -1,8 +1,11 @@
 ---
 layout: default
 title: Cluster manager task throttling
-nav_order: 10
+nav_order: 40
+parent: Load protection
 has_children: false
+redirect_from:
+  - /tuning-your-cluster/cluster-manager-task-throttling/
 ---
 
 # Cluster manager task throttling

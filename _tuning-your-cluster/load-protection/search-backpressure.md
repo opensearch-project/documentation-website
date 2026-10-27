@@ -1,11 +1,12 @@
 ---
 layout: default
 title: Search backpressure
-nav_order: 60
+nav_order: 10
 has_children: false
-parent: Availability and recovery
+parent: Load protection
 redirect_from: 
   - /opensearch/search-backpressure/
+  - /tuning-your-cluster/availability-and-recovery/search-backpressure/
 ---
 
 # Search backpressure

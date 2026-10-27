@@ -3,9 +3,10 @@ layout: default
 title: Settings
 parent: Shard indexing backpressure
 nav_order: 50
-grand_parent: Availability and recovery
+grand_parent: Load protection
 redirect_from: 
   - /opensearch/shard-indexing-settings/
+  - /tuning-your-cluster/availability-and-recovery/shard-indexing-settings/
 ---
 
 # Shard indexing backpressure settings

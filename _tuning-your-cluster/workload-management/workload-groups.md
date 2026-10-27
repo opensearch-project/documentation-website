@@ -3,10 +3,10 @@ layout: default
 title: Workload groups
 nav_order: 20
 parent: Workload management
-grand_parent: Availability and recovery
 redirect_from:
   - /tuning-your-cluster/availability-and-recovery/workload-management/workload-group-lifecycle-api/
   - /tuning-your-cluster/availability-and-recovery/workload-management/query-group-lifecycle-api/
+  - /tuning-your-cluster/availability-and-recovery/workload-management/workload-groups/
 ---
 
 # Workload groups
@@ -47,7 +47,7 @@ OpenSearch returns a response containing a workload group ID, which can be used 
 }
 ```
 
-For more information, see [Using the workload group ID]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/workload-management/wlm-feature-overview/#using-the-workload-group-id).
+For more information, see [Using the workload group ID]({{site.url}}{{site.baseurl}}/tuning-your-cluster/workload-management/wlm-feature-overview/#using-the-workload-group-id).
 
 ## Parameters
 
@@ -56,9 +56,9 @@ When creating or updating a workload group, you can specify the following parame
 | Parameter | Operation | Description	 |
 | :--- | :--- | :--- |
 | `name`  | Create | The name of the workload group. |
-| `resiliency_mode`  | Create or update | The resiliency mode of the workload group. Valid values are:<br>- `enforced` (queries are rejected if thresholds are exceeded). <br>- `soft` (queries can exceed thresholds if resources are available). <br>- `monitor` (queries are monitored but not canceled or rejected). <br> **Note**: These settings take effect only if the cluster-level `wlm.workload_group.mode` setting is `enabled`. See [Operating modes]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/workload-management/wlm-feature-overview/#operating-modes). |
+| `resiliency_mode`  | Create or update | The resiliency mode of the workload group. Valid values are:<br>- `enforced` (queries are rejected if thresholds are exceeded). <br>- `soft` (queries can exceed thresholds if resources are available). <br>- `monitor` (queries are monitored but not canceled or rejected). <br> **Note**: These settings take effect only if the cluster-level `wlm.workload_group.mode` setting is `enabled`. See [Operating modes]({{site.url}}{{site.baseurl}}/tuning-your-cluster/workload-management/wlm-feature-overview/#operating-modes). |
 | `resource_limits` | Create or update | The resource limits for query requests in the workload group. Valid resources are `cpu` and `memory`. When creating a workload group, make sure that the sum of the resource limits for a single resource, either `cpu` or `memory`, does not exceed 1. |
-| `settings` | Create or update | Group-specific settings that are applied automatically to requests routed to the workload group. For supported settings and update behavior, see [Workload group settings]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/workload-management/workload-group-settings/). |
+| `settings` | Create or update | Group-specific settings that are applied automatically to requests routed to the workload group. For supported settings and update behavior, see [Workload group settings]({{site.url}}{{site.baseurl}}/tuning-your-cluster/workload-management/workload-group-settings/). |
 
 ## Updating a workload group
 
@@ -79,7 +79,7 @@ PUT _wlm/workload_group/analytics
 ```
 {% include copy-curl.html %}
 
-For more information about the `settings` field, including supported settings and update behavior, see [Workload group settings]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/workload-management/workload-group-settings/).
+For more information about the `settings` field, including supported settings and update behavior, see [Workload group settings]({{site.url}}{{site.baseurl}}/tuning-your-cluster/workload-management/workload-group-settings/).
 
 ## Retrieving a workload group
 

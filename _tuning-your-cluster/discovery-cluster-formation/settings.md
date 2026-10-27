@@ -212,5 +212,5 @@ cluster.join.timeout: 120s
 ## Related documentation
 
 - [Node discovery and seed hosts]({{site.url}}{{site.baseurl}}/tuning-your-cluster/discovery-cluster-formation/discovery/): Provides information about discovery mechanisms and seed host providers
-- [Creating a cluster]({{site.url}}{{site.baseurl}}/tuning-your-cluster/): Step-by-step cluster setup guide
+- [Creating a cluster]({{site.url}}{{site.baseurl}}/tuning-your-cluster/creating-a-cluster/): Step-by-step cluster setup guide
 - [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/): General configuration guidance

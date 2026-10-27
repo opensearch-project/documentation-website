@@ -219,4 +219,4 @@ After starting your cluster, verify successful bootstrapping using the [monitori
 
 - [Voting configuration management]({{site.url}}{{site.baseurl}}/tuning-your-cluster/discovery-cluster-formation/voting-configuration/): How OpenSearch manages voting after bootstrapping
 - [Discovery and cluster formation settings]({{site.url}}{{site.baseurl}}/tuning-your-cluster/discovery-cluster-formation/settings/): Complete settings reference
-- [Creating a cluster]({{site.url}}{{site.baseurl}}/tuning-your-cluster/): Step-by-step cluster setup guide
+- [Creating a cluster]({{site.url}}{{site.baseurl}}/tuning-your-cluster/creating-a-cluster/): Step-by-step cluster setup guide
