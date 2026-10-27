@@ -159,9 +159,9 @@ Before the document is ingested into the index, the ingest pipeline runs the `te
 
 ### Step 4: Search the index
 
-To perform a vector search on your index, use the `neural` query clause either in the [Search for a Model API]({{site.url}}{{site.baseurl}}/vector-search/api/knn/#search-for-a-model) or [Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index/) queries. You can refine the results by using a [vector search filter]({{site.url}}{{site.baseurl}}/search-plugins/knn/filter-search-knn/).
+To perform a vector search on your index, use the `neural` query clause in a [Query DSL]({{site.url}}{{site.baseurl}}/query-dsl/) query. To limit the search to documents that match a condition, use a [vector search filter]({{site.url}}{{site.baseurl}}/vector-search/filter-search-knn/index/).
 
-The following example request uses a Boolean query to combine a filter clause and two query clauses---a neural query and a `match` query. The `script_score` query assigns custom weights to the query clauses:
+The following example request uses a Boolean query to combine two query clauses---a neural query and a `match` query. The `script_score` query assigns custom weights to the query clauses:
 
 ```json
 GET /my-nlp-index/_search
@@ -173,9 +173,6 @@ GET /my-nlp-index/_search
   },
   "query": {
     "bool": {
-      "filter": {
-         "wildcard":  { "id": "*1" }
-      },
       "should": [
         {
           "script_score": {
@@ -212,32 +209,41 @@ GET /my-nlp-index/_search
 ```
 {% include copy-curl.html %}
 
-The response contains the matching document:
+The response contains both documents, sorted by the combined score of the two clauses:
 
 ```json
 {
-  "took" : 36,
-  "timed_out" : false,
-  "_shards" : {
-    "total" : 1,
-    "successful" : 1,
-    "skipped" : 0,
-    "failed" : 0
+  "took": 211,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
   },
-  "hits" : {
-    "total" : {
-      "value" : 1,
-      "relation" : "eq"
+  "hits": {
+    "total": {
+      "value": 2,
+      "relation": "eq"
     },
-    "max_score" : 1.2251667,
-    "hits" : [
+    "max_score": 0.5848836,
+    "hits": [
       {
-        "_index" : "my-nlp-index",
-        "_id" : "1",
-        "_score" : 1.2251667,
-        "_source" : {
-          "passage_text" : "Hello world",
-          "id" : "s1"
+        "_index": "my-nlp-index",
+        "_id": "2",
+        "_score": 0.5848836,
+        "_source": {
+          "passage_text": "Hi planet",
+          "id": "s2"
+        }
+      },
+      {
+        "_index": "my-nlp-index",
+        "_id": "1",
+        "_score": 0.5824303,
+        "_source": {
+          "passage_text": "Hello world",
+          "id": "s1"
         }
       }
     ]
@@ -526,4 +532,5 @@ The response contains the matching document:
 
 ## Next steps
 
-- Explore our [semantic search tutorials]({{site.url}}{{site.baseurl}}/vector-search/tutorials/semantic-search/) to learn how to build AI search applications. 
+- To limit search results to documents that match a condition, see [Filtering vector search results]({{site.url}}{{site.baseurl}}/vector-search/filter-search-knn/index/).
+- To learn how to build AI search applications, explore our [semantic search tutorials]({{site.url}}{{site.baseurl}}/vector-search/tutorials/semantic-search/).

@@ -65,7 +65,7 @@ An OpenSearch node in its default configuration (with demo certificates and user
          {% include copy.html %}
 
       1. Run the batch script.
-         For OpenSearch 2.12 or later, specify a custom admin password, following the [admin password requirements]({{site.url}}{{site.baseurl}}/security/configuration/demo-configuration/#admin-password-requirements). If you do not set a password, the batch script exits without starting OpenSearch.
+         For OpenSearch 2.12 or later, specify a custom admin password, following the [admin password requirements]({{site.url}}{{site.baseurl}}/security/configuration/demo-configuration/#admin-password-requirements). If you do not set a password, the batch script exits without starting OpenSearch. OpenSearch uses this password only when it sets up the demo security configuration. To change the admin password later, see [Changing the admin password]({{site.url}}{{site.baseurl}}/security/configuration/passwords/#changing-the-admin-password).
 
          In Command Prompt, use the following command:
          ```bat

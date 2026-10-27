@@ -121,7 +121,7 @@ After the deployment completes, follow these steps to access OpenSearch Dashboar
    ```
    {% include copy.html %}
 
-1. In a web browser, go to `http://localhost:5601` and log in as the `admin` user using the custom admin password that you set when you installed OpenSearch. For more information, see [Accessing OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/#accessing-opensearch-dashboards).
+1. In a web browser, go to `http://localhost:5601` and log in as the `admin` user using the [custom admin password]({{site.url}}{{site.baseurl}}/security/configuration/passwords/#setting-the-initial-admin-password) that you set when you installed OpenSearch. For more information, see [Accessing OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/#accessing-opensearch-dashboards).
 
    OpenSearch Dashboards can take about 1 minute after the pod is ready to finish starting. Until then, requests return a `503` error. If you receive this error, wait and then reload the page.
    {: .note}
