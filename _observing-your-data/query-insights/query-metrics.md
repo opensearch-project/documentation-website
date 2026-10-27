@@ -9,7 +9,7 @@ nav_order: 30
 **Introduced 2.16**
 {: .label .label-purple }
 
-Key query [metrics](#metrics), such as aggregation types, query types, latency, and resource usage per query type, are captured along the search path by using the OpenTelemetry (OTel) instrumentation framework. The telemetry data can be consumed using OTel metrics [exporters]({{site.url}}{{site.baseurl}}/tuning-your-cluster/telemetry/metrics/#configuring-metrics-export).
+Key query [metrics](#metrics), such as aggregation types, query types, latency, and resource usage per query type, are captured along the search path by using the OpenTelemetry (OTel) instrumentation framework. The telemetry data can be consumed using OTel metrics [exporters]({{site.url}}{{site.baseurl}}/tuning-your-cluster/monitoring/telemetry/metrics/#configuring-metrics-export).
 
 ## Configuring query metric generation
 
@@ -17,7 +17,7 @@ To configure query metric generation, use the following steps.
 
 ### Step 1: Install the OpenTelemetry plugin
 
-For information about enabling telemetry and installing the OpenTelemetry plugin, see [Enabling telemetry]({{site.url}}{{site.baseurl}}/tuning-your-cluster/telemetry/index/#enabling-telemetry).
+For information about enabling telemetry and installing the OpenTelemetry plugin, see [Enabling telemetry]({{site.url}}{{site.baseurl}}/tuning-your-cluster/monitoring/telemetry/index/#enabling-telemetry).
 
 ### Step 2: Enable query metrics
 
@@ -55,7 +55,7 @@ PUT _cluster/settings
 ```
 {% include copy-curl.html %}
 
-Configure the export of metrics and traces using a gRPC exporter. For more information, see [Configuring metrics export]({{site.url}}{{site.baseurl}}/tuning-your-cluster/telemetry/metrics/#configuring-metrics-export) and [Configuring trace export]({{site.url}}{{site.baseurl}}/tuning-your-cluster/telemetry/distributed-tracing/#configuring-trace-export). You can skip this step if you use the [default logging exporter](#default-logging-exporter):
+Configure the export of metrics and traces using a gRPC exporter. For more information, see [Configuring metrics export]({{site.url}}{{site.baseurl}}/tuning-your-cluster/monitoring/telemetry/metrics/#configuring-metrics-export) and [Configuring trace export]({{site.url}}{{site.baseurl}}/tuning-your-cluster/monitoring/telemetry/distributed-tracing/#configuring-trace-export). You can skip this step if you use the [default logging exporter](#default-logging-exporter):
 
 ```yaml
 telemetry.otel.tracer.span.exporter.class: io.opentelemetry.exporter.otlp.trace.OtlpGrpcSpanExporter

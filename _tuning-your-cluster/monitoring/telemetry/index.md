@@ -1,13 +1,12 @@
 ---
 layout: default
 title: Telemetry
-nav_order: 70
+parent: Monitoring your cluster
+nav_order: 10
 has_children: true
 has_toc: false
 redirect_from:
-  - /tuning-your-cluster/telemetry/
-  - /monitoring-your-cluster/
-  - /monitoring-your-cluster/index/
+  - /tuning-your-cluster/monitoring/telemetry/
 ---
 
 # Telemetry
@@ -22,9 +21,9 @@ Enabling telemetry can consume system resources. Before enabling telemetry, dete
 
 OpenSearch provides the following telemetry features:
 
-- [Metrics]({{site.url}}{{site.baseurl}}/tuning-your-cluster/telemetry/metrics/) are counters, histograms, and gauges that OpenSearch records for cluster operations.
-- [Distributed tracing]({{site.url}}{{site.baseurl}}/tuning-your-cluster/telemetry/distributed-tracing/) records spans for HTTP requests and a subset of transport requests as they move through the cluster.
-- [Performance Analyzer]({{site.url}}{{site.baseurl}}/tuning-your-cluster/telemetry/performance-analyzer/) adds JVM, disk, thread pool, cache, and per-shard operation metrics to the metrics that OpenSearch records.
+- [Metrics]({{site.url}}{{site.baseurl}}/tuning-your-cluster/monitoring/telemetry/metrics/) are counters, histograms, and gauges that OpenSearch records for cluster operations.
+- [Distributed tracing]({{site.url}}{{site.baseurl}}/tuning-your-cluster/monitoring/telemetry/distributed-tracing/) records spans for HTTP requests and a subset of transport requests as they move through the cluster.
+- [Performance Analyzer]({{site.url}}{{site.baseurl}}/tuning-your-cluster/monitoring/telemetry/performance-analyzer/) adds JVM, disk, thread pool, cache, and per-shard operation metrics to the metrics that OpenSearch records.
 
 ## Enabling telemetry
 
@@ -60,7 +59,7 @@ telemetry.feature.tracer.enabled: true
 ```
 {% include copy.html %}
 
-Then restart each node. For the settings that each feature supports, see [Metrics]({{site.url}}{{site.baseurl}}/tuning-your-cluster/telemetry/metrics/) and [Distributed tracing]({{site.url}}{{site.baseurl}}/tuning-your-cluster/telemetry/distributed-tracing/).
+Then restart each node. For the settings that each feature supports, see [Metrics]({{site.url}}{{site.baseurl}}/tuning-your-cluster/monitoring/telemetry/metrics/) and [Distributed tracing]({{site.url}}{{site.baseurl}}/tuning-your-cluster/monitoring/telemetry/distributed-tracing/).
 
 ## Related documentation
 

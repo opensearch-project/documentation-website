@@ -2,6 +2,7 @@
 layout: default
 title: Distributed tracing
 parent: Telemetry
+grand_parent: Monitoring your cluster
 nav_order: 20
 redirect_from:
   - /observing-your-data/trace/distributed-tracing/
@@ -18,7 +19,7 @@ Distributed tracing traces requests that OpenSearch processes. To analyze traces
 
 ## Enabling distributed tracing
 
-To enable distributed tracing, first enable the telemetry feature flag and install the `telemetry-otel` plugin. For more information, see [Enabling telemetry]({{site.url}}{{site.baseurl}}/tuning-your-cluster/telemetry/index/#enabling-telemetry).
+To enable distributed tracing, first enable the telemetry feature flag and install the `telemetry-otel` plugin. For more information, see [Enabling telemetry]({{site.url}}{{site.baseurl}}/tuning-your-cluster/monitoring/telemetry/index/#enabling-telemetry).
 
 Then enable tracing:
 

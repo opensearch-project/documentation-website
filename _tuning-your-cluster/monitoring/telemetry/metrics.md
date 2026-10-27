@@ -2,6 +2,7 @@
 layout: default
 title: Metrics
 parent: Telemetry
+grand_parent: Monitoring your cluster
 nav_order: 10
 redirect_from:
   - /monitoring-your-cluster/metrics/
@@ -17,7 +18,7 @@ The metrics framework records counters, histograms, and gauges for cluster opera
 
 ## Enabling metrics
 
-To enable metrics, first enable the telemetry feature flag and install the `telemetry-otel` plugin. For more information, see [Enabling telemetry]({{site.url}}{{site.baseurl}}/tuning-your-cluster/telemetry/index/#enabling-telemetry).
+To enable metrics, first enable the telemetry feature flag and install the `telemetry-otel` plugin. For more information, see [Enabling telemetry]({{site.url}}{{site.baseurl}}/tuning-your-cluster/monitoring/telemetry/index/#enabling-telemetry).
 
 Then add the following setting to `opensearch.yml` on each node and restart the node:
 

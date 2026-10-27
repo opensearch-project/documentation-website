@@ -23,7 +23,7 @@ Trace analytics can help you visualize this flow of events and identify performa
 
 ![Detailed trace view]({{site.url}}{{site.baseurl}}/images/ta-trace.png)
 
-Trace analytics analyzes traces from your applications. OpenSearch can also generate traces for the requests that it processes. For more information, see [Distributed tracing]({{site.url}}{{site.baseurl}}/tuning-your-cluster/telemetry/distributed-tracing/).
+Trace analytics analyzes traces from your applications. OpenSearch can also generate traces for the requests that it processes. For more information, see [Distributed tracing]({{site.url}}{{site.baseurl}}/tuning-your-cluster/monitoring/telemetry/distributed-tracing/).
 
 ## Trace analytics with Jaeger data
 

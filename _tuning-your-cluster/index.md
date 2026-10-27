@@ -77,4 +77,4 @@ OpenSearch plugins such as Index State Management, snapshot management, and anom
 
 ## Monitor your cluster
 
-OpenSearch can generate metrics and traces about its own operation and export them using OpenTelemetry. For more information, see [Telemetry]({{site.url}}{{site.baseurl}}/tuning-your-cluster/telemetry/index/).
+OpenSearch can generate metrics and traces about its own operation and export them using OpenTelemetry. For more information, see [Monitoring your cluster]({{site.url}}{{site.baseurl}}/tuning-your-cluster/monitoring/index/).

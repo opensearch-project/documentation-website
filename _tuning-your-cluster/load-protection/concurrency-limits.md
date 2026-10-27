@@ -235,7 +235,7 @@ The Cluster Stats API does not include concurrency limiter statistics.
 
 ## Metrics
 
-The [metrics framework]({{site.url}}{{site.baseurl}}/tuning-your-cluster/telemetry/metrics/) is an experimental feature that exports OpenSearch telemetry to an external monitoring backend. When it is enabled, each active limiter publishes the following gauges, which report the same values as the corresponding statistics.
+The [metrics framework]({{site.url}}{{site.baseurl}}/tuning-your-cluster/monitoring/telemetry/metrics/) is an experimental feature that exports OpenSearch telemetry to an external monitoring backend. When it is enabled, each active limiter publishes the following gauges, which report the same values as the corresponding statistics.
 
 Gauge | Corresponding statistic
 :--- | :---
