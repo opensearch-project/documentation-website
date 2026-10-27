@@ -31,6 +31,9 @@ Not every method/engine combination supports each of the spaces. For a list of s
 | `hamming` (supported for binary vectors in OpenSearch version 2.16 and later) | Approximate, exact | $$ d(\mathbf{x}, \mathbf{y}) = \text{countSetBits}(\mathbf{x} \oplus \mathbf{y})$$ | $$ score = {1 \over 1 + d } $$ |
 | `hammingbit` (supported for binary and long vectors) | Exact | $$ d(\mathbf{x}, \mathbf{y}) = \text{countSetBits}(\mathbf{x} \oplus \mathbf{y})$$ | $$ score = {1 \over 1 + d } $$ |
 
+The `l2` space uses the squared Euclidean distance, without the square root. For example, the distance between the vectors `[0, 0]` and `[3, 4]` is `25`, so the score is 1 / (1 + 25) ≈ `0.0385`. Because the square root doesn't change the order of the results, nearest-neighbor rankings are the same as with Euclidean distance.
+{: .note }
+
 The cosine similarity formula does not include the `1 -` prefix. However, because similarity search libraries equate lower scores with closer results, they return `1 - cosineSimilarity` for the cosine similarity space---this is why `1 -` is included in the distance function.
 {: .note }
 

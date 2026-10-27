@@ -33,7 +33,7 @@ The default Helm chart deploys a three-node cluster. We recommend that you have 
 
 OpenSearch requires the `vm.max_map_count` kernel setting on each Kubernetes node to be at least `262144`. If the value is lower, the OpenSearch pods fail the bootstrap checks and enter the `CrashLoopBackOff` status. The `values.yaml` file in the following steps sets `sysctlInit.enabled` to `true`, which runs a privileged init container that sets `vm.max_map_count` on the node. If your nodes are already configured or your cluster does not allow privileged containers, remove this setting and configure `vm.max_map_count` on the nodes instead. For more information, see [Important settings]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/#important-settings).
 
-For OpenSearch 2.12 or later, you must provide `OPENSEARCH_INITIAL_ADMIN_PASSWORD` to start the cluster. Set the admin password in `values.yaml` under `extraEnvs`, following the [admin password requirements]({{site.url}}{{site.baseurl}}/security/configuration/demo-configuration/#admin-password-requirements).
+For OpenSearch 2.12 or later, you must provide `OPENSEARCH_INITIAL_ADMIN_PASSWORD` to start the cluster. Set the admin password in `values.yaml` under `extraEnvs`, following the [admin password requirements]({{site.url}}{{site.baseurl}}/security/configuration/demo-configuration/#admin-password-requirements). OpenSearch uses this password only when it sets up the demo security configuration. To change the admin password later, see [Changing the admin password]({{site.url}}{{site.baseurl}}/security/configuration/passwords/#changing-the-admin-password).
 
 ## Install OpenSearch using Helm
 

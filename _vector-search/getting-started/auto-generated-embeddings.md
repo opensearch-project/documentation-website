@@ -93,6 +93,15 @@ Once the task is complete, the task state will change to `COMPLETED` and the ML 
 
 You'll need the model ID in order to use this model for several of the following steps.
 
+The register task completes before the model finishes deploying. Before you continue, check the model state using the [Get Model API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/get-model/):
+
+```json
+GET /_plugins/_ml/models/aVeif4oB5Vm0Tdw8zYO2
+```
+{% include copy-curl.html %}
+
+Continue to the next step after the `model_state` in the response changes from `DEPLOYING` to `DEPLOYED`. If you ingest documents before the model is deployed, the ingest request fails.
+
 ## Step 2: Create an ingest pipeline
 
 First, you need to create an [ingest pipeline]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/) that contains one processor: a task that transforms document fields before documents are ingested into an index. You'll set up a `text_embedding` processor that creates vector embeddings from text. You'll need the `model_id` of the model you set up in the previous section and a `field_map`, which specifies the name of the field from which to take the text (`passage`) and the name of the field in which to record embeddings (`passage_embedding`):
