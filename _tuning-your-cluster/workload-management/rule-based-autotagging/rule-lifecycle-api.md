@@ -3,7 +3,9 @@ layout: default
 title: Rules API
 nav_order: 20
 parent: Rule-based auto-tagging
-grand_parent: Availability and recovery
+grand_parent: Workload management
+redirect_from:
+  - /tuning-your-cluster/availability-and-recovery/rule-based-autotagging/rule-lifecycle-api/
 ---
 
 # Rules API

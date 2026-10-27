@@ -3,7 +3,8 @@ layout: default
 title: Discovery and cluster formation
 nav_order: 5
 has_children: true
-permalink: /tuning-your-cluster/discovery-cluster-formation/
+redirect_from:
+  - /tuning-your-cluster/discovery-cluster-formation/
 ---
 
 # Discovery and cluster formation
@@ -94,4 +95,4 @@ Returns the current voting configuration, showing which nodes participate in clu
 
 - Start with [Node discovery and seed hosts]({{site.url}}{{site.baseurl}}/tuning-your-cluster/discovery-cluster-formation/discovery/) to understand the foundation of cluster formation.
 - Review [Discovery and cluster formation settings]({{site.url}}{{site.baseurl}}/tuning-your-cluster/discovery-cluster-formation/settings/) for configuration options.
-- See [Creating a cluster]({{site.url}}{{site.baseurl}}/tuning-your-cluster/) for hands-on cluster setup guidance.
+- See [Creating a cluster]({{site.url}}{{site.baseurl}}/tuning-your-cluster/creating-a-cluster/) for hands-on cluster setup guidance.

@@ -1,11 +1,12 @@
 ---
 layout: default
 title: Shard indexing backpressure
-nav_order: 62
+nav_order: 20
 has_children: true
-parent: Availability and recovery
+parent: Load protection
 redirect_from: 
   - /opensearch/shard-indexing-backpressure/
+  - /tuning-your-cluster/availability-and-recovery/shard-indexing-backpressure/
 ---
 
 # Shard indexing backpressure

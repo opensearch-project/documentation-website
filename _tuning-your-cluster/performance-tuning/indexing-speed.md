@@ -1,8 +1,11 @@
 ---
 layout: default
 title: Tuning for indexing speed
-nav_order: 41
+nav_order: 10
+parent: Performance tuning
 has_children: false
+redirect_from:
+  - /tuning-your-cluster/performance/
 ---
 
 # Tuning your cluster for indexing speed

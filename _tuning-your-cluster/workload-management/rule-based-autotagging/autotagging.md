@@ -2,8 +2,10 @@
 layout: default
 title: Rule-based auto-tagging
 nav_order: 80
-parent: Availability and recovery
+parent: Workload management
 has_children: true
+redirect_from:
+  - /tuning-your-cluster/availability-and-recovery/rule-based-autotagging/autotagging/
 ---
 
 # Rule-based auto-tagging
@@ -57,7 +59,7 @@ The following rule schema includes matching attributes and a feature-specific va
 
 ### Managing rules
 
-Use the [Rules API]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/rule-based-autotagging/rule-lifecycle-api/) to manage rules.
+Use the [Rules API]({{site.url}}{{site.baseurl}}/tuning-your-cluster/workload-management/rule-based-autotagging/rule-lifecycle-api/) to manage rules.
 
 ## Attribute matching
 
@@ -212,6 +214,6 @@ When creating rules, the following issues can occur:
 
 You can resolve both issues by validating your configuration using one of the following techniques:
 
-- **Test rules with sample requests**: First, create a rule using the REST API, and then send a request that matches the rule's attributes. For example, for a rule with `"index_pattern": ["logs*", "events*"]`, you can send a request to a `logs` or `events` index. Then verify the workload management statistics by querying the [Workload Management Stats API]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/workload-management/wlm-feature-overview/#workload-management-stats-api).
+- **Test rules with sample requests**: First, create a rule using the REST API, and then send a request that matches the rule's attributes. For example, for a rule with `"index_pattern": ["logs*", "events*"]`, you can send a request to a `logs` or `events` index. Then verify the workload management statistics by querying the [Workload Management Stats API]({{site.url}}{{site.baseurl}}/tuning-your-cluster/workload-management/wlm-feature-overview/#workload-management-stats-api).
 
-- **Use the [Get Rule API]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/rule-based-autotagging/rule-lifecycle-api/#get-a-rule)** to confirm rule definitions.
+- **Use the [Get Rule API]({{site.url}}{{site.baseurl}}/tuning-your-cluster/workload-management/rule-based-autotagging/rule-lifecycle-api/#get-a-rule)** to confirm rule definitions.
