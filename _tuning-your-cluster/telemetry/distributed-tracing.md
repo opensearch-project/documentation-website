@@ -43,16 +43,21 @@ Then enable tracing:
 
 ## Configuring trace export
 
+OpenSearch generates traces for HTTP requests and a subset of transport requests. OpenSearch keeps completed spans in memory and sends them to an exporter in batches. To configure the export, specify the following static settings in `opensearch.yml`.
 
-Currently, the distributed tracing feature generates traces and spans for HTTP requests and a subset of transport requests. These traces and spans are initially kept in memory using the OpenTelemetry `BatchSpanProcessor` and are then sent to an exporter based on configured settings. The following are the key components:
+Setting | Description
+:--- | :---
+`telemetry.otel.tracer.exporter.max_queue_size` | The maximum number of spans kept in memory. When the queue is full, OpenSearch drops new spans. Default is `2048`.
+`telemetry.otel.tracer.exporter.batch_size` | The maximum number of spans sent to the exporter in a single batch. Must be less than `telemetry.otel.tracer.exporter.max_queue_size`. Default is `512`.
+`telemetry.otel.tracer.exporter.delay` | The interval at which OpenSearch sends spans to the exporter, even if the batch is not full. Default is `2s`.
+`telemetry.otel.tracer.span.exporter.class` | The exporter that persists the spans. Valid values are `io.opentelemetry.exporter.logging.LoggingSpanExporter`, which writes spans to the `<cluster-name>_otel_traces.log` file in the logs directory, and `io.opentelemetry.exporter.otlp.trace.OtlpGrpcSpanExporter`, which sends spans to an OpenTelemetry Collector using gRPC. Default is `io.opentelemetry.exporter.logging.LoggingSpanExporter`.
 
-1. **Span processors:** As spans conclude on the request path, OpenTelemetry provides them to the `SpanProcessor` for processing and exporting. The OpenSearch distributed tracing framework uses the `BatchSpanProcessor`, which batches spans for specific configurable intervals and then sends them to the exporter. The following configurations are available for the `BatchSpanProcessor`:
-    - `telemetry.otel.tracer.exporter.max_queue_size`: Defines the maximum queue size. When the queue reaches this value, it will be written to the exporter. Default is `2048`. 
-    - `telemetry.otel.tracer.exporter.delay`: Defines the delay---a time period after which spans in the queue will be flushed, even if there are not enough spans to fill the `max_queue_size`. Default is `2 seconds`.
-    - `telemetry.otel.tracer.exporter.batch_size`: Configures the maximum batch size for each export to reduce input/output. This value should always be less than the `max_queue_size`. Default is `512`.
-2. **Exporters:** Exporters are responsible for persisting the data. OpenTelemetry provides several out-of-the-box exporters, and OpenSearch supports the following:
-    - `LoggingSpanExporter`: Exports spans to a log file, generating a separate file in the logs directory `_otel_traces.log`. Default is `telemetry.otel.tracer.span.exporter.class=io.opentelemetry.exporter.logging.LoggingSpanExporter`.
-    - `OtlpGrpcSpanExporter`: Exports spans through gRPC. To use this exporter, you need to install the `otel-collector` on the node. By default, it writes to the http://localhost:4317/ endpoint. To use this exporter, set the following static setting: `telemetry.otel.tracer.span.exporter.class=io.opentelemetry.exporter.otlp.trace.OtlpGrpcSpanExporter`.
+To send spans to an OpenTelemetry Collector, run the collector on each node and add the following setting to `opensearch.yml`. By default, the exporter sends spans to the `http://localhost:4317/` endpoint. From the collector, you can send spans to a tracing backend, such as Jaeger or OpenSearch:
+
+```yaml
+telemetry.otel.tracer.span.exporter.class: io.opentelemetry.exporter.otlp.trace.OtlpGrpcSpanExporter
+```
+{% include copy.html %}
 
 ## Identifying traces from a specific cluster
 **Introduced 3.10**
@@ -71,13 +76,28 @@ Because this is a static setting, it is applied when the node starts and cannot 
 
 ## Sampling
 
-Distributed tracing can generate numerous spans, consuming system resources unnecessarily. To reduce the number of traces, also called _samples_, you can configure different sampling thresholds. By default, sampling is configured to include only 1% of all HTTP requests. Sampling has the following types:
+Tracing every request consumes system resources. To reduce the number of traces that OpenSearch records, OpenSearch samples requests. Spans that belong to an existing trace follow the sampling decision made for the first span in the trace. For a request that starts a new trace, OpenSearch makes the sampling decision before creating the first span, in the following order:
 
-1. **Head sampling:** Sampling decisions are made before initiating the root span of a request. OpenSearch supports two head sampling methods:
-    - **Probabilistic:** A blanket limit on incoming requests, dynamically adjustable with the `telemetry.tracer.sampler.probability` setting. This setting ranges between 0 and 1. Default is 0.01, which indicates that 1% of incoming requests are sampled.
-    - **On-Demand:** For debugging specific requests, you can send the `trace=true` attribute as part of the HTTP headers, causing those requests to be sampled regardless of the probabilistic sampling setting.
-2. **Tail sampling:** To configure tail sampling, follow the instructions in [OpenTelemetry tail sampling documentation](https://opentelemetry.io/docs/concepts/sampling/#tail-sampling). Configuration depends on the type of collector you choose.
+1. If the request contains the `trace` HTTP header, OpenSearch uses its value. A value of `true` records the trace, and a value of `false` drops it, regardless of the sampling probability.
+1. Otherwise, OpenSearch records the trace with the probability configured in the dynamic `telemetry.tracer.sampler.probability` setting. The setting accepts values from 0 to 1. Default is `0.01`, which samples 1% of requests. Transport requests that start a new trace, such as internal requests between nodes, are sampled at a lower rate.
 
-## Collection of spans
+For example, the following request samples 5% of requests:
 
-The `SpanProcessor` writes spans to the exporter, and the choice of exporter defines the endpoint, which can be logs or gRPC. To collect spans by using gRPC, you need to configure the collector as a sidecar process running on each OpenSearch node. From the collectors, these spans can be written to the sink of your choice, such as Jaeger, Prometheus, Grafana, or FileStore, for further analysis.
+```json
+PUT _cluster/settings
+{
+  "persistent": {
+    "telemetry.tracer.sampler.probability": 0.05
+  }
+}
+```
+{% include copy-curl.html %}
+
+To debug a specific request, send it with the `trace` header set to `true`:
+
+```bash
+curl -H "trace: true" "http://localhost:9200/_search"
+```
+{% include copy.html %}
+
+OpenSearch does not support tail sampling, in which the sampling decision is made after a trace is complete. To use tail sampling, export all spans to an OpenTelemetry Collector and configure tail sampling in the collector. For more information, see the [OpenTelemetry sampling documentation](https://opentelemetry.io/docs/concepts/sampling/#tail-sampling).
