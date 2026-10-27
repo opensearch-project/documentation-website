@@ -29,7 +29,7 @@ redirect_from:
 This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/6750).
 {: .warning}
 
-The Performance Analyzer plugin collects JVM, disk, thread pool, cache, and per-shard operation metrics on each node and publishes them as OpenSearch [metrics]({{site.url}}{{site.baseurl}}/tuning-your-cluster/telemetry/metrics/). OpenSearch exports the metrics to a log file or to an OpenTelemetry collector.
+The Performance Analyzer plugin collects JVM, disk, thread pool, cache, and per-shard operation metrics on each node and publishes them as OpenSearch [metrics]({{site.url}}{{site.baseurl}}/tuning-your-cluster/telemetry/metrics/). OpenSearch exports the metrics to a log file or to an OpenTelemetry Collector.
 
 Starting with OpenSearch 3.0, the Performance Analyzer root cause analysis (RCA) agent has been removed. The agent served the Performance Analyzer API on port 9600, so the metrics, batch metrics, and RCA APIs and the PerfTop dashboards are not available. For more information, see [Breaking changes]({{site.url}}{{site.baseurl}}/breaking-changes/#performance-analyzer-plugin).
 {: .note}
@@ -128,4 +128,4 @@ Metric | Description
 
 ## Common issues
 
-When a node starts, Performance Analyzer logs errors about the missing `performance-analyzer.properties` and `plugin-stats-metadata` files in the `config/opensearch-performance-analyzer/` directory. Performance Analyzer uses its default configuration in place of these files, so the errors do not prevent it from publishing metrics.
+When a node starts, Performance Analyzer logs errors about the missing `performance-analyzer.properties` and `plugin-stats-metadata` files in the `config/opensearch-performance-analyzer/` directory. When these files are missing, Performance Analyzer uses its default configuration, so the errors do not prevent it from publishing metrics.
