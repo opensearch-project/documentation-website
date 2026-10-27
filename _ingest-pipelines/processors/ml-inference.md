@@ -288,7 +288,7 @@ The model generates embeddings in the `$.inference_results.*.output.*.data` fiel
 ]
 ```
 
-To configure an `ml_inference` processor with a local model, specify the `function_name` explicitly. In this example, `function_name` is `text_embedding`. For information about valid `function_name` values, see [Configuration parameters](#configuration-parameters).
+To configure an `ml_inference` processor with a local model, specify the `function_name` explicitly. In this example, `function_name` is `text_embedding`. For information about valid `function_name` values, see [Parameters](#parameters).
 
 In this example, the final configuration of the `ml_inference` processor with the local model is as follows:
 
