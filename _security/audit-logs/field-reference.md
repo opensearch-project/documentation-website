@@ -42,6 +42,11 @@ Name | Description
 `audit_request_initiating_user` | The user that initiated the request. Only logged if it differs from the effective user.
 `audit_request_body` | The HTTP request body, if any (and if request body logging is enabled).
 `audit_rest_request_method` | The HTTP request method.
+`audit_request_attempted_user` | The principal presented by a credential that an authenticator rejected before authentication, for example, a JWT subject that uses a reserved prefix. Only logged for these rejections. The attempted principal is never used as `audit_request_effective_user`, which is `<NONE>` unless another authentication domain already identified a user. Values longer than 256 characters are truncated.
+`audit_authentication_failure_reason` | The reason the credential was rejected. Valid values are `RESERVED_SUBJECT_PREFIX` (the subject uses a prefix reserved for internal identities, such as `plugin:` or `token:`) and `FORBIDDEN_SUBJECT` (the subject is listed in the JWT `forbidden_subjects` setting). Only logged together with `audit_request_attempted_user`.
+
+`audit_request_attempted_user` contains the subject from a JWT whose signature was verified or the value of a proxy user header. It never contains a token, password, or other credential. To stop recording these events, disable the `FAILED_LOGIN` category using `disabled_categories`.
+{: .note}
 
 
 ## REST AUTHENTICATED attributes
