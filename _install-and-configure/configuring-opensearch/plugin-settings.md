@@ -47,7 +47,7 @@ For information about index rollup settings, see [Index rollup settings]({{site.
 
 ## Job Scheduler plugin settings
 
-For information about the Job Scheduler plugin settings, see [Job Scheduler cluster settings]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/job-scheduler/index/#job-scheduler-cluster-settings).
+For information about the Job Scheduler plugin settings, see [Scheduled job settings]({{site.url}}{{site.baseurl}}/tuning-your-cluster/scheduled-jobs/index/#scheduled-job-settings).
 
 ## k-NN plugin settings
 
@@ -92,7 +92,7 @@ The Notifications plugin supports the following settings. All settings in this l
 
 ## Query Insights plugin settings
 
-For information about Query Insights plugin settings, see [Query Insights features and settings]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/index#query-insights-features-and-settings).
+For information about Query Insights plugin settings, see [Query Insights features and settings]({{site.url}}{{site.baseurl}}/tuning-your-cluster/monitoring/query-insights/index#query-insights-features-and-settings).
 
 ## Security plugin settings
 

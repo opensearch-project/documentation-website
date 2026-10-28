@@ -2,7 +2,10 @@
 layout: default
 title: Live queries
 parent: Query insights
-nav_order: 20
+grand_parent: Monitoring your cluster
+nav_order: 30
+redirect_from:
+  - /observing-your-data/query-insights/live-queries/
 ---
 
 # Live queries
@@ -183,7 +186,7 @@ When `use_finished_cache=true` is specified, the response also includes a `finis
 }
 ```
 
-The `id` field in a completed query record uses the same `nodeId:taskId` format as the live query `id` (for example, `troGHNGUShqDj3wK_K5ZIw:512`). This lets you correlate a completed query with the live query it originated from. The `top_n_id` is a separate UUID that links the completed query to its corresponding record in the [top N queries]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/top-n-queries/) store. If the query did not qualify as a top N query, `top_n_id` is `null`.
+The `id` field in a completed query record uses the same `nodeId:taskId` format as the live query `id` (for example, `troGHNGUShqDj3wK_K5ZIw:512`). This lets you correlate a completed query with the live query it originated from. The `top_n_id` is a separate UUID that links the completed query to its corresponding record in the [top N queries]({{site.url}}{{site.baseurl}}/tuning-your-cluster/monitoring/query-insights/top-n-queries/) store. If the query did not qualify as a top N query, `top_n_id` is `null`.
 
 ## Response fields
 

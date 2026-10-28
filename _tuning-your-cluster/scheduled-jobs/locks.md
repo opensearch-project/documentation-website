@@ -1,12 +1,14 @@
 ---
 layout: default
 title: Locks API
-parent: Job Scheduler
+parent: Scheduled jobs
 nav_order: 20
+redirect_from:
+  - /monitoring-your-cluster/job-scheduler/locks/
 ---
 
 # Job Scheduler Locks API 
-Introduced 3.2
+**Introduced 3.2**
 {: .label .label-purple }
 
 The Job Scheduler uses a distributed locking mechanism to ensure that only one instance of a job runs at a time across the cluster. The Locks API returns information about all active job locks managed by the Job Scheduler.
