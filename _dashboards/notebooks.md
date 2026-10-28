@@ -1,10 +1,10 @@
 ---
 layout: default
 title: Notebooks
-nav_order: 90
+nav_order: 74
 redirect_from:
-  - /dashboards/notebooks/
   - /observability-plugin/notebooks/
+  - /observing-your-data/notebooks/
 has_children: false
 ---
 

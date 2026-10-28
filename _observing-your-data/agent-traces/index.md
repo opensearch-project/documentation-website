@@ -1,18 +1,19 @@
 ---
 layout: default
-title: Agent traces
-nav_order: 70
+title: Agent monitoring
+parent: Observability workspace apps
+nav_order: 60
 has_children: true
 has_toc: false
 redirect_from:
   - /observing-your-data/agent-traces/
 ---
 
-# Agent traces
+# Agent monitoring
 **Introduced 3.6**
 {: .label .label-purple }
 
-Agent traces provide observability for generative AI applications and large language model (LLM) agents. Unlike general application monitoring, agent traces specialize in tracking LLM calls, token usage, tool invocations, and agent reasoning flows using [generative AI semantic conventions](https://opentelemetry.io/docs/specs/semconv/gen-ai/).
+Agent monitoring provides observability for generative AI applications and large language model (LLM) agents. It uses agent traces, which record LLM calls, token usage, tool invocations, and agent reasoning flows following the OpenTelemetry [generative AI semantic conventions](https://opentelemetry.io/docs/specs/semconv/gen-ai/).
 
 ## Prerequisites
 

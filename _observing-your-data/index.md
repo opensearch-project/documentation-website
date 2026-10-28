@@ -13,40 +13,39 @@ redirect_from:
 
 # Observability
 
-OpenSearch provides observability capabilities for monitoring applications, infrastructure, and AI agents. Choose the path that matches your use case.
+OpenSearch provides observability capabilities for monitoring applications, infrastructure, and AI agents. You can ingest logs, traces, and metrics, explore and visualize them in OpenSearch Dashboards, and alert on the results.
 
 ---
 
-## Ingesting observability data
+## Getting started
 
-Before exploring your data, you need to ingest it into OpenSearch. Use [OpenSearch Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/) to transform unstructured log data into structured data for improved querying and filtering.
+To send logs to OpenSearch and visualize them, follow the [Getting started]({{site.url}}{{site.baseurl}}/observing-your-data/log-ingestion/) tutorial. To learn how logs, traces, and metrics reach OpenSearch, see [Ingesting observability data]({{site.url}}{{site.baseurl}}/observing-your-data/ingesting-observability-data/).
 
 <span class="centering-container">
-[Get started with log ingestion]({{site.url}}{{site.baseurl}}/observing-your-data/log-ingestion/){: .btn-dark-blue}
+[Get started]({{site.url}}{{site.baseurl}}/observing-your-data/log-ingestion/){: .btn-dark-blue}
 </span>
 
 ---
 
 ## Exploring and analyzing observability data
 
-OpenSearch provides the following tools for exploring and analyzing observability data:
+OpenSearch Dashboards provides two sets of observability apps:
 
-- [Event analytics]({{site.url}}{{site.baseurl}}/observing-your-data/event-analytics/) -- Turn data-driven events into visualizations using [Piped Processing Language (PPL)]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/).
-- [Application analytics]({{site.url}}{{site.baseurl}}/observing-your-data/app-analytics/) -- Create custom observability applications to view system availability status.
-- [Trace analytics]({{site.url}}{{site.baseurl}}/observing-your-data/trace/index/) -- Visualize and analyze distributed traces from your applications.
-- [Metric analytics]({{site.url}}{{site.baseurl}}/observing-your-data/prometheusmetrics/) -- Query and visualize Prometheus metrics data.
-- [Using Discover for observability]({{site.url}}{{site.baseurl}}/observing-your-data/exploring-observability-data/) -- Analyze logs, metrics, and traces using specialized interfaces within observability workspaces.
+- [Observability workspace apps]({{site.url}}{{site.baseurl}}/observing-your-data/exploring-observability-data/) -- Explore logs, traces, and metrics in Discover and use application performance monitoring (APM), service-level objectives (SLOs), and agent monitoring in an Observability workspace.
+- [Classic observability apps]({{site.url}}{{site.baseurl}}/observing-your-data/classic-observability-apps/) -- Use Event analytics, Trace analytics, Metric analytics, Application analytics, and Operational panels from the **Observability** menu in classic navigation.
+
+To find the app for your task in each set, see [Exploring observability data]({{site.url}}{{site.baseurl}}/observing-your-data/exploring-data/).
 
 ---
 
 ## Monitoring applications
 
-For specialized application monitoring, OpenSearch provides two focused solutions: Application Performance Monitoring (APM) for traditional microservices and agent traces for AI/LLM applications.
+OpenSearch provides two ways to monitor applications: application performance monitoring (APM) for microservices and web applications, and agent monitoring for generative AI applications.
 
-|  | APM | Agent traces |
+|  | APM | Agent monitoring |
 |---------|-----|--------------|
 | **Purpose** | Monitor microservices and web applications | Monitor AI agents and large language models (LLMs) |
-| **Metrics** | RED metrics (Rate, Errors, Duration) | Token usage, model calls, agent steps |
+| **Metrics** | Rate, error, and duration (RED) metrics | Token usage, model calls, agent steps |
 | **Visualization** | Service maps, latency charts, error tracking | Execution graphs (DAGs), trace trees, timelines |
 | **Conventions** | OpenTelemetry standard conventions | OpenTelemetry generative AI semantic conventions |
 | **Best for** | APIs, microservices, web services | Chatbots, AI agents, LLM applications |
@@ -55,22 +54,23 @@ For specialized application monitoring, OpenSearch provides two focused solution
 
 [APM]({{site.url}}{{site.baseurl}}/observing-your-data/apm/) monitors distributed applications using service topology, RED metrics, and performance tracking. APM requires the following components:
 
-- An OpenSearch cluster and [OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/) with [workspaces]({{site.url}}{{site.baseurl}}/dashboards/workspace/) enabled.
+- An OpenSearch cluster and OpenSearch Dashboards with an Observability workspace and the APM settings enabled. For more information, see [Observability workspace apps]({{site.url}}{{site.baseurl}}/observing-your-data/exploring-observability-data/).
 - An OpenTelemetry Collector.
 - [OpenSearch Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/).
 - Prometheus for metrics storage.
 - Applications instrumented using OpenTelemetry.
 
-### Agent traces
+### Agent monitoring
 
-[Agent traces]({{site.url}}{{site.baseurl}}/observing-your-data/agent-traces/) observe generative AI applications and LLM agents using specialized tracing for AI workloads. Agent traces require the following components:
+[Agent monitoring]({{site.url}}{{site.baseurl}}/observing-your-data/agent-traces/) traces LLM calls, tool invocations, and token usage in generative AI applications. Agent monitoring requires the following components:
 
-- An OpenSearch cluster with [OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/).
+- An OpenSearch cluster and OpenSearch Dashboards with an Observability workspace and the `explore.enabled` and `explore.agentTraces.enabled` settings set to `true`. For more information, see [Observability workspace apps]({{site.url}}{{site.baseurl}}/observing-your-data/exploring-observability-data/).
+- An OpenTelemetry Collector.
 - [OpenSearch Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/) for trace processing.
-- Applications instrumented with OpenTelemetry generative AI semantic conventions.
+- Applications instrumented using the OpenTelemetry generative AI semantic conventions.
 
 <span class="centering-container">
-[Get started with agent traces]({{site.url}}{{site.baseurl}}/observing-your-data/agent-traces/){: .btn-dark-blue}
+[Get started with agent monitoring]({{site.url}}{{site.baseurl}}/observing-your-data/agent-traces/){: .btn-dark-blue}
 </span>
 
 ---
@@ -89,7 +89,7 @@ Use [Query Insights]({{site.url}}{{site.baseurl}}/observing-your-data/query-insi
 
 After creating visualizations, organize them into dashboards and reports for sharing with your team:
 
-- [Notebooks]({{site.url}}{{site.baseurl}}/observing-your-data/notebooks/) -- Combine visualizations, code blocks, and narrative text to create reports, runbooks, and documentation.
+- [Notebooks]({{site.url}}{{site.baseurl}}/dashboards/notebooks/) -- Combine visualizations, code blocks, and narrative text to create reports, runbooks, and documentation.
 - [Operational panels]({{site.url}}{{site.baseurl}}/observing-your-data/operational-panels/) -- Organize PPL visualizations into dashboards for monitoring and analysis.
 
 ---

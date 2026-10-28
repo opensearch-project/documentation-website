@@ -2,6 +2,7 @@
 layout: default
 title: Distributed tracing 
 parent: Trace analytics
+grand_parent: Classic observability apps
 nav_order: 65
 ---
 

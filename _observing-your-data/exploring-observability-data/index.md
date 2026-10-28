@@ -1,51 +1,53 @@
 ---
 layout: default
-title: Using Discover for observability
-nav_order: 60
+title: Observability workspace apps
+nav_order: 50
 has_children: true
 has_toc: false
-description: "Learn how to explore your observability data using specialized interfaces for logs, metrics, and traces within observability workspaces. These enhanced data exploration capabilities provide tools for querying, analyzing, and correlating different types of telemetry data."
+description: "Set up an Observability workspace to explore logs, traces, and metrics in Discover and to use application performance monitoring, service-level objectives, and agent monitoring."
 redirect_from:
   - /observing-your-data/exploring-observability-data/
 ---
 
-# Using Discover for observability
+# Observability workspace apps
 **Introduced 3.5**
 {: .label .label-purple }
 
-OpenSearch provides interfaces that work together with datasets and correlations to provide a comprehensive observability experience, enabling you to quickly identify issues, understand system behavior, and troubleshoot problems across your distributed applications.
+In an Observability [workspace]({{site.url}}{{site.baseurl}}/dashboards/workspace/index/), OpenSearch Dashboards provides apps for exploring logs, traces, and metrics in Discover, monitoring application performance, tracking service-level objectives (SLOs), and monitoring generative AI agents. Each app is enabled by a setting in `opensearch_dashboards.yml`, which is listed on the app's page.
 
-Specialized interfaces are available for exploring the three pillars of observability data:
+## Configuring an Observability workspace
 
-- **Logs**: Query and analyze log data using Piped Processing Language (PPL).
-- **Metrics**: Explore time-series metric data using PromQL queries.
-- **Traces**: Investigate distributed traces and span relationships.
-
-## Prerequisites
-
-To use these data exploration features, you need to:
-
-- **Create an observability workspace**: These features are only available within Observability workspaces. To learn how to enable and create workspaces, see [Workspace for OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/workspace/workspace/).
-- **Enable feature flags**: Configure the required settings in your `opensearch_dashboards.yml` file. Each feature page provides the specific configuration needed.
-- **Configure data sources**: Set up appropriate data sources for your logs, metrics, and traces. For configuration guidance, see [Data sources]({{site.url}}{{site.baseurl}}/dashboards/management/data-sources/).
-
-### Creating an observability workspace
-
-To create an observability workspace, follow these steps:
+To set up an Observability workspace, follow these steps:
 
 1. Enable workspaces. For more information, see [Enabling workspaces]({{site.url}}{{site.baseurl}}/dashboards/workspace/workspace/#enabling-workspaces).
-2. On the OpenSearch Dashboards home page, select **Create Workspace** and choose **Observability**. Alternatively, select the plus sign on the **Observability** card to create a new observability workspace.
-3. In **Workspace details**, enter a **Name** and optional **Description** for your workspace.
-4. Select **Observability** as the use case and then select **Create workspace**.
+1. Enable the settings for the apps that you plan to use, and then restart OpenSearch Dashboards. Each app's page lists the settings that it requires.
+1. On the OpenSearch Dashboards home page, in **My workspaces**, select **Create workspace** on the **Observability** card.
+1. In **Workspace details**, enter a **Name** and, optionally, a **Description**.
+1. In **Use case and features**, confirm that **Observability** is selected.
+1. If you use multiple data sources, select the data sources to associate with the workspace.
+1. Select **Create workspace**.
 
-For detailed instructions, see [Create workspace]({{site.url}}{{site.baseurl}}/dashboards/workspace/create-workspace/).
+For more information, see [Create a workspace]({{site.url}}{{site.baseurl}}/dashboards/workspace/create-workspace/).
 
-## Getting started
+## Exploring and monitoring your data
 
-After creating an observability workspace, follow these steps to get started:
+After you create the workspace, use the apps as follows:
 
-1. **[Datasets]({{site.url}}{{site.baseurl}}/observing-your-data/exploring-observability-data/datasets/)** -- Learn how to organize your observability data into manageable datasets.
-1. **[Discover logs]({{site.url}}{{site.baseurl}}/observing-your-data/exploring-observability-data/discover-logs/)** -- Explore log data using PPL queries and visualizations.
-1. **[Discover traces]({{site.url}}{{site.baseurl}}/observing-your-data/exploring-observability-data/discover-traces/)** -- Analyze distributed traces and span relationships.
-1. **[Discover metrics]({{site.url}}{{site.baseurl}}/observing-your-data/exploring-observability-data/discover-metrics/)** -- Query and visualize time-series metrics using PromQL.
-1. **[Correlations]({{site.url}}{{site.baseurl}}/observing-your-data/exploring-observability-data/correlations/)** -- Understand how to link trace and log datasets for unified analysis.
+1. Connect your data:
+   - Create [datasets]({{site.url}}{{site.baseurl}}/observing-your-data/exploring-observability-data/datasets/) for your log and trace indexes. The Logs and Traces pages, Correlations, and APM use datasets to find your data.
+   - To use Metrics, APM, or SLOs, connect a [Prometheus data source]({{site.url}}{{site.baseurl}}/dashboards/management/connect-prometheus/).
+1. Explore your data:
+   - Use [Logs]({{site.url}}{{site.baseurl}}/observing-your-data/exploring-observability-data/discover-logs/) to search, filter, and visualize log data using Piped Processing Language (PPL).
+   - Use [Traces]({{site.url}}{{site.baseurl}}/observing-your-data/exploring-observability-data/discover-traces/) to search and filter spans and view a single trace as a timeline of its spans.
+   - Use [Metrics]({{site.url}}{{site.baseurl}}/observing-your-data/exploring-observability-data/discover-metrics/) to query and visualize Prometheus metrics using PromQL.
+   - Use [Correlations]({{site.url}}{{site.baseurl}}/observing-your-data/exploring-observability-data/correlations/) to link a trace dataset to logs datasets so that you can view the log entries related to a trace.
+1. Monitor your applications:
+   - Use [application performance monitoring (APM)]({{site.url}}{{site.baseurl}}/observing-your-data/apm/) to view rate, error, and duration (RED) metrics for each service and a topology map of service dependencies.
+   - Use [SLOs]({{site.url}}{{site.baseurl}}/observing-your-data/slo/) to define availability and latency targets for your services and track their error budgets.
+1. Monitor your AI agents:
+   - Use [Agent monitoring]({{site.url}}{{site.baseurl}}/observing-your-data/agent-traces/) to view the LLM calls, tool invocations, and token usage of generative AI agents.
+
+## Related documentation
+
+- To learn how logs, traces, and metrics reach OpenSearch, see [Ingesting observability data]({{site.url}}{{site.baseurl}}/observing-your-data/ingesting-observability-data/).
+- To choose between the apps that display trace data, see [Choosing a trace tool]({{site.url}}{{site.baseurl}}/observing-your-data/exploring-data/#choosing-a-trace-tool).
