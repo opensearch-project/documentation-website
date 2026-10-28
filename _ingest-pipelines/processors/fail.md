@@ -19,7 +19,7 @@ The following is the syntax for the `fail` processor:
 ```
 {% include copy.html %}
 
-## Configuration parameters
+## Parameters
 
 The following table lists the required and optional parameters for the `fail` processor.
 
@@ -77,8 +77,6 @@ POST _ingest/pipeline/fail-log-pipeline/_simulate
 ```
 {% include copy-curl.html %}
 
-#### Response
-
 The following example response confirms that the pipeline is working as expected:
 
 ```json
@@ -100,7 +98,7 @@ The following example response confirms that the pipeline is working as expected
 }
 ```
 
-### Step 3: Ingest a document 
+### Step 3: Ingest a document
 
 The following query ingests a document into an index named `testindex1`:
 
@@ -111,8 +109,6 @@ PUT testindex1/_doc/1?pipeline=fail-log-pipeline
 } 
 ```
 {% include copy-curl.html %}
-
-#### Response
 
 The request fails to index the log event into the index `testindex1` due to the string `credit card` being present in `user_info`. The following response includes the custom error message specified in the fail processor:
 
@@ -134,14 +130,14 @@ The request fails to index the log event into the index `testindex1` due to the 
 
 ### Step 4 (Optional): Retrieve the document
 
-Because the log event was not indexed due to the pipeline failure, attempting to retrieve it results in the document not found error `"found": false`:
+To retrieve the document, run the following query:
 
 ```json
 GET testindex1/_doc/1
 ```
 {% include copy-curl.html %}
 
-#### Document error example
+Because the pipeline failed, the document was not indexed, so the response contains `"found": false`:
 
 ```json
 {  
