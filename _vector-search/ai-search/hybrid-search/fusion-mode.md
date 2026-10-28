@@ -13,14 +13,22 @@ Introduced 3.10
 
 In fusion mode, also called in-query fusion, a [hybrid query]({{site.url}}{{site.baseurl}}/query-dsl/compound/hybrid/) normalizes and combines its subquery scores on the coordinating node. You configure the normalization and combination techniques in a `fusion` object inside the query itself, so a hybrid query that runs in fusion mode does not require a search pipeline.
 
-Fusion mode is another way to run the same hybrid query. The subqueries, the normalization techniques, and the combination techniques are the same ones the [normalization processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/normalization-processor/) and [score ranker processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/score-ranker-processor/) support, and the response has the same shape. The two approaches select the candidate documents differently: with a search pipeline, each subquery contributes its top results from each shard, whereas in fusion mode each subquery contributes its top `window_size` results across all shards. For more information, see [Candidate window size](#candidate-window-size). Both approaches remain supported, and you can continue to use a search pipeline.
+Fusion mode is another way to run the same hybrid query. The subqueries, the normalization techniques, and the combination techniques are the same ones the [normalization processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/normalization-processor/) and [score ranker processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/score-ranker-processor/) support, and the response has the same shape. Both approaches remain supported, and you can continue to use a search pipeline.
+
+Consider using fusion mode in the following cases:
+
+- You want to run hybrid search without creating and maintaining a search pipeline. The normalization and combination configuration is part of each request, so different requests to the same index can use different techniques or weights. A request that reads its configuration from a pipeline is rejected if the pipeline contains no normalization processor or score ranker processor, rather than returning scores that were never normalized.
+- You want candidate selection that does not depend on the number of shards. With a search pipeline, each subquery contributes its top results from each shard, so the set of candidates grows with the number of shards. In fusion mode, each subquery contributes its top `window_size` results across all shards, so the set of candidates is the same regardless of how the documents are distributed. For more information, see [Candidate window size](#candidate-window-size).
+- You need to nest the hybrid query inside another query, such as a `bool` or `dis_max` query, or apply a `rescore` to the combined results. For more information, see [Limitations](#limitations) and [Rescoring](#rescoring).
+
+Keep using a search pipeline if you need the `lower_bounds` and `upper_bounds` normalization parameters, `scroll`, cross-cluster search, or paging deeper than the [window size limits](#window-size-limits) allow. For a complete list, see [Limitations](#limitations).
 
 All nodes in the cluster must run OpenSearch 3.10 or later. If any node runs an earlier version, a hybrid query that contains a `fusion` object is rejected.
 {: .note}
 
 ## Example
 
-The following example runs a hybrid query in fusion mode. The `fusion` object is empty, so OpenSearch applies the default techniques, and the request specifies no search pipeline:
+The following example runs a hybrid query in fusion mode. The `fusion` object is empty, so OpenSearch applies the default techniques, and the request specifies no search pipeline. The `neural` clause sets `k` to `100`, which matches the default window size, so that the clause can contribute a full window of results:
 
 ```json
 GET /my-nlp-index/_search
@@ -46,7 +54,7 @@ GET /my-nlp-index/_search
             "passage_embedding": {
               "query_text": "Hi world",
               "model_id": "bQ1J8ooBpBj3wT4HVUsb",
-              "k": 5
+              "k": 100
             }
           }
         }
@@ -57,7 +65,7 @@ GET /my-nlp-index/_search
 ```
 {% include copy-curl.html %}
 
-The following equivalent example states every option explicitly. It normalizes with `min_max`, combines with `arithmetic_mean`, weights the keyword clause at `0.3` and the semantic clause at `0.7`, and fuses the top 100 results from each subquery:
+The following equivalent example states every option explicitly. It normalizes with `min_max`, combines with `arithmetic_mean`, weights the keyword clause at `0.3` and the semantic clause at `0.7`, and fuses up to the top 100 results from each subquery:
 
 ```json
 GET /my-nlp-index/_search
@@ -97,7 +105,7 @@ GET /my-nlp-index/_search
             "passage_embedding": {
               "query_text": "Hi world",
               "model_id": "bQ1J8ooBpBj3wT4HVUsb",
-              "k": 5
+              "k": 100
             }
           }
         }
@@ -118,7 +126,7 @@ Parameter | Data type | Description
 :--- | :--- | :---
 `normalization` | Object | The score normalization configuration. Must be an object; a string value is rejected. Contains a `technique` and, for `rrf`, a `parameters` object. Optional. Default technique is `min_max`.
 `combination` | Object | The score combination configuration. Must be an object; a string value is rejected. Contains a `technique` and an optional `parameters` object that may specify `weights`. Optional. Default technique is `arithmetic_mean`.
-`window_size` | Integer | The number of results that each subquery contributes to fusion. Must be greater than `0`. Optional. Default is `100`. For more information, see [Candidate window size](#candidate-window-size).
+`window_size` | Integer | The number of results that each subquery contributes to fusion. Must be greater than `0`. Optional. Default is `100`. A `knn` or `neural` subquery contributes at most `k` results from each shard, regardless of `window_size`. For more information, see [Candidate window size](#candidate-window-size).
 `source` | String | Set to `pipeline` to read the normalization and combination configuration from the search pipeline that applies to the request instead of from the query. Cannot be combined with `normalization` or `combination`. Optional. For more information, see [Reading the configuration from a search pipeline](#reading-the-configuration-from-a-search-pipeline).
 
 An empty `fusion` object runs the query in fusion mode with the default techniques. Providing only some of the parameters is also valid: for example, `"fusion": {"window_size": 50}` changes the window size and leaves both techniques at their defaults.
@@ -187,7 +195,7 @@ GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
 ```
 {% include copy-curl.html %}
 
-OpenSearch reads the normalization and combination techniques, and any `weights`, from the processor in the resolved search pipeline and then fuses the results on the coordinating node. The pipeline must be specified by name, either in the `search_pipeline` query parameter or in the `index.search.default_pipeline` index setting. A pipeline defined inline in the request body cannot be used as the source. You can also write `"fusion": "pipeline"` as a shorthand for `"fusion": {"source": "pipeline"}`. A string other than `pipeline` is rejected.
+OpenSearch reads the normalization and combination techniques, and any `weights`, from the processor in the resolved search pipeline and then fuses the results on the coordinating node. If the resolved pipeline contains no normalization processor or score ranker processor, the request is rejected. The pipeline must be specified by name, either in the `search_pipeline` query parameter or in the `index.search.default_pipeline` index setting. A pipeline defined inline in the request body cannot be used as the source. You can also write `"fusion": "pipeline"` as a shorthand for `"fusion": {"source": "pipeline"}`. A string other than `pipeline` is rejected.
 
 Because the configuration comes from the pipeline, `source` cannot be combined with an inline `normalization` or `combination` object. A request that specifies both is rejected. If the pipeline's normalization processor specifies the `lower_bounds` or `upper_bounds` parameters, the request is also rejected; see [Unsupported normalization parameters](#unsupported-normalization-parameters).
 {: .note}
@@ -225,6 +233,8 @@ The `window_size` parameter controls how many results each subquery contributes 
 
 A larger window gives fusion a deeper pool of candidates, which can improve the fused ranking, but it also increases the amount of work the coordinating node performs for each request and the number of results each subquery must return.
 
+The window does not change the subqueries themselves. In particular, a `knn` or `neural` subquery returns at most `k` results from each shard (or from each segment, depending on the engine; see [The number of returned results]({{site.url}}{{site.baseurl}}/vector-search/vector-search-techniques/approximate-knn/#the-number-of-returned-results)), regardless of `window_size`. A `neural` subquery that does not specify `k` uses the default of `10`. To let such a subquery fill the window, set `k` to at least `window_size`. This is the same behavior as with a search pipeline.
+
 When results are ordered by `_score`, which is the default, a hybrid query in fusion mode returns at most as many documents as the window holds. A page that extends past the last ranked document contains fewer than `size` results, and a page that starts past it is empty. Both responses return HTTP status `200`. To page deeper, increase `window_size` or set `pagination_depth`.
 
 ### Paginating fused results
@@ -250,7 +260,40 @@ If you set `window_size` explicitly and the value exceeds either limit, the requ
 If you do not set `window_size` and a limit reduces the default window to less than `100`, OpenSearch returns the results and adds a `Warning` header that names the setting responsible. For example, if a request targets `logs-*` and one of the matching indexes sets `index.max_result_window` to `10`, the window becomes `10` for the entire request. To choose the window yourself rather than accept the lowered one, set `window_size`.
 {: .note}
 
-## Rescoring
+## Limitations
+
+A hybrid query in fusion mode does not support the following search request features. A request that combines any of them with a `fusion` object is rejected:
+
+Feature | Notes
+:--- | :---
+`scroll` | A scroll request is rejected. To page through a large result set, use [Point in Time]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/point-in-time/) instead.
+`terminate_after` | Not supported in fusion mode.
+`indices_boost` | Not supported in fusion mode. To weight subqueries, see [Weighting subqueries](#weighting-subqueries).
+`stored_fields` set to `_none_` | Not supported in fusion mode because every fused result must carry an `_id`. To omit the stored fields, specify an empty array (`"stored_fields": []`) instead.
+[Derived fields]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/derived/) defined in the search request | A request that defines derived fields in its body by using the `derived` parameter is rejected in fusion mode.
+Cross-cluster search | A hybrid query in fusion mode cannot search remote clusters.
+
+The following rules also apply:
+
+- **All nodes must run OpenSearch 3.10 or later.** In a mixed-version cluster that contains an earlier node, a hybrid query that specifies `fusion` is rejected.
+- **The hybrid query must be part of the request's `query`.** A hybrid query that specifies `fusion` in another position, such as a `post_filter`, an aggregation filter, a `sort`, a `rescore` query, or a highlight query, is rejected, as is one wrapped in a `wrapper` or `template` query. To filter or highlight by the same clauses, use a `bool` query with the subqueries as `should` clauses in that position. If the request also contains a `rescore`, the hybrid query must be the top-level `query` itself. For more information, see [Rescoring](#rescoring).
+- **A hybrid query in fusion mode can be nested.** Unlike a hybrid query that uses a search pipeline, which must be the top-level query, a hybrid query that specifies `fusion` can be nested inside a `bool` query, a `dis_max` query, or another hybrid query that specifies `fusion`. When it is nested in a `bool` query, OpenSearch selects the fused window before applying the enclosing `bool` query's other clauses. To restrict the documents that the subqueries retrieve, use the hybrid query's own `filter` parameter instead.
+- **Nested hybrid queries must use the same mode.** A `hybrid` query without a `fusion` object cannot be nested inside a `hybrid` query that has one, or the reverse. Specify `fusion` on both.
+
+### Unsupported normalization parameters
+
+The `min_max` normalization technique supports the `lower_bounds` and `upper_bounds` parameters when you configure it in a [normalization processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/normalization-processor/#request-body-fields). **Fusion mode does not support these parameters.** A request is rejected, rather than silently ignoring the bounds, if its `fusion` object specifies them or if it sets `source` to `pipeline` and the resolved pipeline's normalization processor specifies them.
+
+To use score bounds, configure the normalization in a search pipeline and run the hybrid query without a `fusion` object.
+{: .note}
+
+The only normalization parameter that fusion mode reads is `rank_constant`, and only when the normalization technique is `rrf`.
+
+## Advanced topics
+
+The following sections describe rescoring, the request features that add processing to a fusion mode query, and how to disable fusion mode for a cluster. You do not need them to run your first query.
+
+### Rescoring
 
 You can use the [`rescore`]({{site.url}}{{site.baseurl}}/query-dsl/rescore/) parameter with a hybrid query in fusion mode. Rescoring then works the way it does for a standard query: after the subquery scores are normalized and combined, each shard applies the rescore query to the top `rescore.window_size` documents of the fused ranking, and the coordinating node merges the rescored results. The rescore query is not applied to the individual subqueries.
 
@@ -304,47 +347,28 @@ When using rescoring in fusion mode, note the following considerations:
 - As with any rescore, results can be ordered only by `_score`.
 - The same rules apply to a rescore inside a `top_hits` aggregation.
 
-## Limitations
+### Performance considerations
 
-A hybrid query in fusion mode does not support the following search request features. A request that combines any of them with a `fusion` object is rejected:
+To return results, a hybrid query in fusion mode runs each subquery once, fuses the top `window_size` results of each subquery, and retrieves the requested page. The following features are fully supported, but each of them requires OpenSearch to evaluate the subqueries a second time on every shard, as a non-scoring filter over all matching documents, in addition to fusing the window:
 
-Feature | Notes
-:--- | :---
-`scroll` | A scroll request is rejected. To page through a large result set, use [Point in Time]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/point-in-time/) instead.
-`terminate_after` | Not supported in fusion mode.
-`indices_boost` | Not supported in fusion mode. To weight subqueries, see [Weighting subqueries](#weighting-subqueries).
-`stored_fields` set to `_none_` | Not supported in fusion mode because every fused result must carry an `_id`. To omit the stored fields, specify an empty array (`"stored_fields": []`) instead.
-[Derived fields]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/derived/) defined in the search request | A request that defines derived fields in its body by using the `derived` parameter is rejected in fusion mode.
-Cross-cluster search | A hybrid query in fusion mode cannot search remote clusters.
-
-The following rules also apply:
-
-- **All nodes must run OpenSearch 3.10 or later.** In a mixed-version cluster that contains an earlier node, a hybrid query that specifies `fusion` is rejected.
-- **The hybrid query must be part of the request's `query`.** A hybrid query that specifies `fusion` in another position, such as a `post_filter`, an aggregation filter, a `sort`, a `rescore` query, or a highlight query, is rejected, as is one wrapped in a `wrapper` or `template` query. To filter or highlight by the same clauses, use a `bool` query with the subqueries as `should` clauses in that position. If the request also contains a `rescore`, the hybrid query must be the top-level `query` itself. For more information, see [Rescoring](#rescoring).
-- **A hybrid query in fusion mode can be nested.** Unlike a hybrid query that uses a search pipeline, which must be the top-level query, a hybrid query that specifies `fusion` can be nested inside a `bool` query, a `dis_max` query, or another hybrid query that specifies `fusion`. When it is nested in a `bool` query, OpenSearch selects the fused window before applying the enclosing `bool` query's other clauses. To restrict the documents that the subqueries retrieve, use the hybrid query's own `filter` parameter instead.
-- **Nested hybrid queries must use the same mode.** A `hybrid` query without a `fusion` object cannot be nested inside a `hybrid` query that has one, or the reverse. Specify `fusion` on both.
-
-### Unsupported normalization parameters
-
-The `min_max` normalization technique supports the `lower_bounds` and `upper_bounds` parameters when you configure it in a [normalization processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/normalization-processor/#request-body-fields). **Fusion mode does not support these parameters.** A request is rejected, rather than silently ignoring the bounds, if its `fusion` object specifies them or if it sets `source` to `pipeline` and the resolved pipeline's normalization processor specifies them.
-
-To use score bounds, configure the normalization in a search pipeline and run the hybrid query without a `fusion` object.
-{: .note}
-
-The only normalization parameter that fusion mode reads is `rank_constant`, and only when the normalization technique is `rrf`.
-
-## Performance considerations
-
-The following features are fully supported in fusion mode. They are listed here because each one can require OpenSearch to evaluate the subqueries over all matching documents on the shards, in addition to fusing the window, which can increase latency:
-
-- Tracking the total number of hits beyond the window. By default, OpenSearch counts the matching documents up to the `track_total_hits` threshold (`10000` by default), and `"track_total_hits": true` counts all of them. If you do not need the total number of hits, set `track_total_hits` to `false`.
+- Counting the total number of hits beyond the window. By default, OpenSearch counts matching documents up to the `track_total_hits` threshold (`10000` by default). For a top-level hybrid query, if any single subquery matches at least that many documents and the requested page lies within the window, the count is taken from the subquery results and no second evaluation is needed. Otherwise, OpenSearch evaluates the subqueries again to count the matching documents. Setting `track_total_hits` to `true` always requires the second evaluation.
 - Sorting by any sort key other than `_score`, including a field that acts as a tiebreaker after `_score`. For more information, see [Using sorting with a hybrid query]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/sorting/).
-- [Collapsing results]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/collapse/) with `inner_hits`, which expands each collapsed group. Collapsing without `inner_hits` applies to the fused results and does not require additional processing.
+- [Collapsing results]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/collapse/) with `inner_hits`, which expands each collapsed group. Collapsing without `inner_hits` applies to the fused results and does not require a second evaluation.
 - [Aggregations]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/aggregations/), which are computed over all matching documents rather than only the fused window, and highlighting, which requires the subqueries to be present on the shards.
+
+The added latency is roughly the cost of running the subqueries once more without scoring. For keyword subqueries it is usually small. For a `knn` or `neural` subquery that filled the window, it is an additional approximate k-NN search on every shard, and for a `neural` subquery it can also include a second model inference for the query text. The added latency is therefore most noticeable when a vector subquery dominates the request time.
+
+To reduce the added latency:
+
+- If you do not need the total number of hits, set `track_total_hits` to `false`.
+- If you only need to know whether more results exist than the page shows, set `track_total_hits` to a value no greater than `window_size`. When the fused window contains at least that many documents, the count is taken from the window and no second evaluation is needed.
+- Request sorting, collapsing with `inner_hits`, aggregations, and highlighting only when you need them.
+
+To check whether a request performed the second evaluation, run it with `"profile": true`. In addition to the shard entries, the `profile` section of the response contains one entry for the coordinating node, whose `query` list holds a single node of type `FusedHybridQuery`. The `debug` section of that node reports `tail_built`, which is `true` when the subqueries were evaluated a second time, and `legs`, which lists the time each subquery took.
 
 Requesting an explanation with `explain` or a profile with `profile` is also supported and does not change the results.
 
-## Disabling fusion mode
+### Disabling fusion mode
 
 Fusion mode is enabled by default. To turn it off for a cluster, set `plugins.neural_search.hybrid.fusion.enabled` to `false`. The setting is dynamic, so you can change it without restarting nodes.
 
