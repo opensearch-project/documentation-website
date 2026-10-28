@@ -10,7 +10,9 @@ redirect_from:
 
 # Scheduled jobs
 
-OpenSearch plugins that run tasks on a schedule use the Job Scheduler plugin to run them. For example, Index State Management uses scheduled jobs to apply policies to indexes, snapshot management uses them to create and delete snapshots, anomaly detection uses them to run detectors, and reporting uses them to generate scheduled reports.
+Most OpenSearch plugins that run tasks on a schedule use the Job Scheduler plugin to run them. For example, Index State Management uses scheduled jobs to apply policies to indexes, snapshot management uses them to create and delete snapshots, anomaly detection uses them to run detectors, and reporting uses them to generate scheduled reports.
+
+Alerting monitors do not use Job Scheduler. The Alerting plugin runs monitors using its own scheduler, which is configured using the `plugins.scheduled_jobs.*` settings. For more information, see [Alerting settings]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/settings/).
 
 Job Scheduler stores each job in the job index of the plugin that created it. A background sweep periodically searches these indexes for jobs to schedule. To ensure that only one instance of a job runs at a time across the cluster, Job Scheduler acquires a lock before running the job.
 
