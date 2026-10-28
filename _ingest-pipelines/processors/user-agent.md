@@ -21,7 +21,7 @@ The following is the syntax for the `user_agent` processor:
 ```
 {% include copy.html %}
 
-## Configuration parameters
+## Parameters
 
 The following table lists the required and optional parameters for the `user_agent` processor.
 
@@ -83,8 +83,6 @@ POST _ingest/pipeline/user_agent_pipeline/_simulate
 ```
 {% include copy-curl.html %}
 
-#### Response
-
 The following example response confirms that the pipeline is working as expected:
 
 ```json
@@ -119,19 +117,17 @@ The following example response confirms that the pipeline is working as expected
 }
 ```
 
-### Step 3: Ingest a document 
+### Step 3: Ingest a document
 
 The following query ingests a document into an index named `testindex1`:
 
 ```json
 PUT testindex1/_doc/1?pipeline=user_agent_pipeline
 {
-  "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36"
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3"
 }
 ```
 {% include copy-curl.html %}
-
-#### Response
 
 The preceding request parses the `user_agent` string into its components and indexes the document, including the parsed components, into the `testindex1` index, as shown in the following response:
 
@@ -160,36 +156,7 @@ GET testindex1/_doc/1
 ```
 {% include copy-curl.html %}
 
-#### Response
-
-The response includes the original `user_agent` field and the parsed `user_agent_info` field containing the device, operating system, and browser information: 
-
-```json
-{
-  "_index": "testindex1",
-  "_id": "1",
-  "_version": 66,
-  "_seq_no": 65,
-  "_primary_term": 47,
-  "found": true,
-  "_source": {
-    "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36",
-    "user_agent_info": {
-      "original": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36",
-      "os": {
-        "name": "Mac OS X",
-        "version": "10.15.7",
-        "full": "Mac OS X 10.15.7"
-      },
-      "name": "Chrome",
-      "device": {
-        "name": "Mac"
-      },
-      "version": "90.0.4430.212"
-    }
-  }
-}
-```
+The response contains the ingested document, transformed as shown in the response in Step 2.
 
 ## Using a custom regex file
 

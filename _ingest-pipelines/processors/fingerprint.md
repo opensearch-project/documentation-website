@@ -26,7 +26,7 @@ The following is the syntax for the `fingerprint` processor:
 ```
 {% include copy.html %}
 
-## Configuration parameters
+## Parameters
 
 The following table lists the required and optional parameters for the `fingerprint` processor.
 
@@ -47,7 +47,7 @@ Parameter | Required/Optional | Description |
 
 Follow these steps to use the processor in a pipeline.
 
-**Step 1: Create a pipeline**
+### Step 1: Create a pipeline
 
 The following query creates a pipeline named `fingerprint_pipeline` that uses the `fingerprint` processor to generate a hash value for specified fields in the document: 
 
@@ -66,7 +66,7 @@ PUT /_ingest/pipeline/fingerprint_pipeline
 ```
 {% include copy-curl.html %}
 
-**Step 2 (Optional): Test the pipeline**
+### Step 2 (Optional): Test the pipeline
 
 It is recommended that you test your pipeline before ingesting documents.
 {: .tip}
@@ -89,8 +89,6 @@ POST _ingest/pipeline/fingerprint_pipeline/_simulate
 }
 ```
 {% include copy-curl.html %}
-
-#### Response
 
 The following example response confirms that the pipeline is working as expected:
 
@@ -115,7 +113,7 @@ The following example response confirms that the pipeline is working as expected
 }
 ```
 
-**Step 3: Ingest a document**
+### Step 3: Ingest a document
 
 The following query ingests a document into an index named `testindex1`:
 
@@ -127,8 +125,6 @@ PUT testindex1/_doc/1?pipeline=fingerprint_pipeline
 }
 ```
 {% include copy-curl.html %}
-
-#### Response
 
 The request indexes the document into the `testindex1` index:
 
@@ -148,7 +144,7 @@ The request indexes the document into the `testindex1` index:
 }
 ```
 
-**Step 4 (Optional): Retrieve the document**
+### Step 4 (Optional): Retrieve the document
 
 To retrieve the document, run the following query:
 
@@ -156,3 +152,5 @@ To retrieve the document, run the following query:
 GET testindex1/_doc/1
 ```
 {% include copy-curl.html %}
+
+The response contains the ingested document, transformed as shown in the response in Step 2.
