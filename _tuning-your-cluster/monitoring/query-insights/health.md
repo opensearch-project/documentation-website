@@ -1,8 +1,11 @@
 ---
 layout: default
-title: Query Insights plugin health
+title: Query Insights health
 parent: Query insights
-nav_order: 50
+grand_parent: Monitoring your cluster
+nav_order: 70
+redirect_from:
+  - /observing-your-data/query-insights/health/
 ---
 
 # Query Insights plugin health
@@ -123,7 +126,7 @@ Field | Data type        | Description
 
 The Query Insights plugin integrates with OpenTelemetry to provide real-time error metrics counters. These counters help to identify specific operational failures in the plugin and improve reliability. Each metric provides targeted insights into potential error sources in the plugin workflow, allowing for more focused debugging and maintenance. 
 
-To collect these metrics, you must configure and collect query metrics. For more information, see [Query metrics]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/query-metrics/).
+To collect these metrics, you must configure and collect query metrics. For more information, see [Query metrics]({{site.url}}{{site.baseurl}}/tuning-your-cluster/monitoring/query-insights/query-metrics/).
 
 The following table lists all available metrics.
 

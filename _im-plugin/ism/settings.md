@@ -15,6 +15,8 @@ All settings are available using the OpenSearch `_cluster/settings` operation. N
 
 Because ISM settings are cluster settings, persistent ISM settings are part of the global cluster state and are included in a snapshot taken with `include_global_state` set to `true`. Transient settings are not included. ISM policies are stored in the `.opendistro-ism-config` index, not in the cluster state, so a snapshot includes them only if it includes that index. For more information, see [Global cluster state]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/#global-cluster-state).
 
+These settings apply only to ISM jobs. The Job Scheduler plugin, which runs ISM jobs, has separate settings that apply to the scheduled jobs of all plugins. For more information, see [Scheduled job settings]({{site.url}}{{site.baseurl}}/tuning-your-cluster/scheduled-jobs/index/#scheduled-job-settings).
+
 Setting | Default | Description
 :--- | :--- | :---
 `plugins.index_state_management.enabled` | True | Specifies whether ISM is enabled or not.

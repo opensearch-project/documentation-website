@@ -60,10 +60,10 @@ If you use a caption-style example, use a heading with "Example" followed by a c
 
 Sometimes, you might not want to break up the flow of the text with a new heading. In these cases, you can use an example with no heading:
 
-> The following command maps ports 9200 and 9600, sets the discovery type to single-node, and requests the newest image of OpenSearch:
+> The following command maps port 9200, sets the discovery type to single-node, and requests the newest image of OpenSearch:
 >
 > ```bash
-> docker run -d -p 9200:9200 -p 9600:9600 -e "discovery.type=single-node" opensearchproject/opensearch:latest
+> docker run -d -p 9200:9200 -e "discovery.type=single-node" opensearchproject/opensearch:latest
 > ```
 
 ### Lead-in sentences

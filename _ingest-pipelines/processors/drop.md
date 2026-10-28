@@ -14,7 +14,7 @@ The `drop` processor is used to discard documents without indexing them. This ca
 
 The `drop` processor does not raise any errors when it discards documents, making it useful for preventing indexing problems without cluttering your OpenSearch logs with error messages.
 
-## Syntax example
+## Syntax
 
 The following is the syntax for the `drop` processor:
 
@@ -27,7 +27,7 @@ The following is the syntax for the `drop` processor:
 ```
 {% include copy.html %}
 
-## Configuration parameters
+## Parameters
 
 The following table lists the required and optional parameters for the `drop` processor.
 
@@ -43,7 +43,7 @@ Parameter | Required | Description |
 
 Follow these steps to use the processor in a pipeline.
 
-**Step 1: Create a pipeline**
+### Step 1: Create a pipeline
 
 The following query creates a pipeline, named `drop-pii`, that uses the `drop` processor to prevent a document containing personally identifiable information (PII) from being indexed:
 
@@ -62,7 +62,7 @@ PUT /_ingest/pipeline/drop-pii
 ```
 {% include copy-curl.html %}
 
-**Step 2 (Optional): Test the pipeline**
+### Step 2 (Optional): Test the pipeline
 
 It is recommended that you test your pipeline before ingesting documents.
 {: .tip}
@@ -85,8 +85,6 @@ POST _ingest/pipeline/drop-pii/_simulate
 ```
 {% include copy-curl.html %}
 
-#### Response
-
 The following example response confirms that the pipeline is working as expected (the document has been dropped):
 
 ```json
@@ -97,7 +95,7 @@ The following example response confirms that the pipeline is working as expected
 }
 ```
 
-**Step 3: Ingest a document**
+### Step 3: Ingest a document
 
 The following query ingests a document into an index named `testindex1`:
 

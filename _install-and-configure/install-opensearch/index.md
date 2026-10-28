@@ -81,7 +81,6 @@ Port number | OpenSearch component
 5601 | OpenSearch Dashboards
 9200 | OpenSearch REST API
 9300 | Node communication and transport (internal), cross cluster search
-9600 | Performance Analyzer
 
 No UDP ports are used.
 {: .note}
@@ -143,10 +142,6 @@ The [sample `docker-compose.yml`]({{site.url}}{{site.baseurl}}/install-and-confi
 - `nofile 65536`
 
   Sets a limit of 65536 open files for the OpenSearch user.
-
-- `port 9600`
-
-  Allows you to access Performance Analyzer on port 9600.
 
 Do not declare the same JVM options in multiple locations because it can result in unexpected behavior or a failure of the OpenSearch service to start. If you declare JVM options using an environment variable, such as `OPENSEARCH_JAVA_OPTS=-Xms3g -Xmx3g`, then you should comment out any references to that JVM option in `config/jvm.options`. Conversely, if you define JVM options in `config/jvm.options`, then you should not define those JVM options using environment variables.
 {: .note}

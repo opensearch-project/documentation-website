@@ -1,8 +1,11 @@
 ---
 title: Query insights dashboards
-layout: default
 parent: Query insights
-nav_order: 60
+grand_parent: Monitoring your cluster
+nav_order: 40
+layout: default
+redirect_from:
+  - /observing-your-data/query-insights/query-insights-dashboard/
 ---
 
 # Query insights dashboards
@@ -210,7 +213,7 @@ The **Query insights - Configuration** page is designed to gives you control ove
 
 On the configuration page, you can configure the settings described in the following sections.
 
-**For production deployments**: When the Dashboard application runs on separate nodes with network access restrictions, consider using the [Query Insights Settings API]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/settings-api/) to enable a secure configuration. The Query Insights Settings API provides fine-grained access control, allowing you to safely use an allow list in a query insights configuration without granting broad cluster settings permissions.
+**For production deployments**: When the Dashboard application runs on separate nodes with network access restrictions, consider using the [Query Insights Settings API]({{site.url}}{{site.baseurl}}/tuning-your-cluster/monitoring/query-insights/settings-api/) to enable a secure configuration. The Query Insights Settings API provides fine-grained access control, allowing you to safely use an allow list in a query insights configuration without granting broad cluster settings permissions.
 {: .tip}
 
 ### Top N queries monitoring
