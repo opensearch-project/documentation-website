@@ -2,14 +2,17 @@
 layout: default
 title: Grouping top N queries
 parent: Query insights
+grand_parent: Monitoring your cluster
 nav_order: 20
+redirect_from:
+  - /observing-your-data/query-insights/grouping-top-n-queries/
 ---
 
 # Grouping top N queries
 **Introduced 2.17**
 {: .label .label-purple }
 
-Monitoring the [top N queries]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/top-n-queries/) can help you to identify the most resource-intensive queries based on latency, CPU, and memory usage in a specified time window. However, if a single computationally expensive query is executed multiple times, it can occupy all top N query slots, potentially preventing other expensive queries from appearing in the list. To address this issue, you can group similar queries, gaining insight into various high-impact query groups.
+Monitoring the [top N queries]({{site.url}}{{site.baseurl}}/tuning-your-cluster/monitoring/query-insights/top-n-queries/) can help you to identify the most resource-intensive queries based on latency, CPU, and memory usage in a specified time window. However, if a single computationally expensive query is executed multiple times, it can occupy all top N query slots, potentially preventing other expensive queries from appearing in the list. To address this issue, you can group similar queries, gaining insight into various high-impact query groups.
 
 ## Grouping queries by similarity
 
@@ -148,12 +151,12 @@ The response also includes one example query from the query group.
 
 To configure grouping for top N queries, use the following steps.
 
-The examples on this page use the Cluster Settings API. For production deployments requiring fine-grained API access control, you can use the [Query Insights Settings API]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/settings-api/) instead, which provides equivalent functionality with enhanced security.
+The examples on this page use the Cluster Settings API. For production deployments requiring fine-grained API access control, you can use the [Query Insights Settings API]({{site.url}}{{site.baseurl}}/tuning-your-cluster/monitoring/query-insights/settings-api/) instead, which provides equivalent functionality with enhanced security.
 {: .tip}
 
 ### Step 1: Enable top N query monitoring 
 
-Ensure that top N query monitoring is enabled for at least one of the metrics: latency, CPU, or memory. For more information, see [Configuring top N query monitoring]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/top-n-queries/#configuring-top-n-query-monitoring).
+Ensure that top N query monitoring is enabled for at least one of the metrics: latency, CPU, or memory. For more information, see [Configuring top N query monitoring]({{site.url}}{{site.baseurl}}/tuning-your-cluster/monitoring/query-insights/top-n-queries/#configuring-top-n-query-monitoring).
 
 For example, to enable top N query monitoring by latency with the default settings, send the following request:
 
@@ -311,7 +314,7 @@ Field | Data type        | Description
 `top_queries.node_id` | String           | The node ID of the node that coordinated the execution of the first query in the query group.
 `top_queries.labels` | Object           | Used to label the top query.
 `top_queries.search_type` | String           | The search request execution type. Valid values are `query_then_fetch` and `dfs_query_then_fetch`. See the `search_type` parameter in the [Search API documentation]({{site.url}}{{site.baseurl}}/api-reference/search/#query-parameters).
-`top_queries.source_truncated` | Boolean          | Whether the source field was truncated for the first query in the query group. For more information, see [Configuring source truncation]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/top-n-queries/#configuring-source-truncation).
+`top_queries.source_truncated` | Boolean          | Whether the source field was truncated for the first query in the query group. For more information, see [Configuring source truncation]({{site.url}}{{site.baseurl}}/tuning-your-cluster/monitoring/query-insights/top-n-queries/#configuring-source-truncation).
 `top_queries.phase_latency_map` | Object           | The coordinator phase latency map for the first query in the query group. The map includes the amount of time, in milliseconds, that the query spent in the `expand`, `query`, and `fetch` phases.
 `top_queries.source` | Object           | The source of the first query in the query group.
 `top_queries.indices` | Array            | The indexes specified in the first query in the query group.

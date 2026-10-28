@@ -118,12 +118,12 @@ Before continuing, you should verify that Docker is working correctly by deployi
 1. Start OpenSearch in Docker.
     OpenSearch 2.12 or later requires that you set a custom admin password when starting. For more information, see [Setting a custom admin password](#setting-a-custom-admin-password). If the password is insufficiently strong, an error is reported in the log and OpenSearch quits:
     ```bash
-    docker run -d -p 9200:9200 -p 9600:9600 -e "discovery.type=single-node" -e "OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password>" opensearchproject/opensearch:latest
+    docker run -d -p 9200:9200 -e "discovery.type=single-node" -e "OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password>" opensearchproject/opensearch:latest
     ```
     Older versions do not include a password when starting:
     ```bash
-    # This command maps ports 9200 and 9600, sets the discovery type to "single-node" and requests the newest image of OpenSearch
-    docker run -d -p 9200:9200 -p 9600:9600 -e "discovery.type=single-node" opensearchproject/opensearch:latest
+    # This command maps port 9200, sets the discovery type to "single-node" and requests the newest image of OpenSearch
+    docker run -d -p 9200:9200 -e "discovery.type=single-node" opensearchproject/opensearch:latest
     ```
 1. After waiting a few minutes for OpenSearch to start, send a request to port `9200`. For versions earlier than 2.12, the default username and password are `admin`.
     ```bash
@@ -161,7 +161,7 @@ Before continuing, you should verify that Docker is working correctly by deployi
 
     ```bash
     CONTAINER ID   IMAGE                                 COMMAND                  CREATED          STATUS          PORTS                                                                NAMES
-    a937e018cee5   opensearchproject/opensearch:latest   "./opensearch-docker…"   19 minutes ago   Up 19 minutes   0.0.0.0:9200->9200/tcp, 9300/tcp, 0.0.0.0:9600->9600/tcp, 9650/tcp   wonderful_boyd
+    a937e018cee5   opensearchproject/opensearch:latest   "./opensearch-docker…"   19 minutes ago   Up 19 minutes   0.0.0.0:9200->9200/tcp, 9300/tcp, 9600/tcp, 9650/tcp   wonderful_boyd
     ```
 1. Stop the running container by passing the container ID to `docker stop`.
     ```bash
@@ -273,7 +273,7 @@ Unlike the RPM distribution of OpenSearch, which requires a large amount of post
 For example, take a look at the following command:
 ```bash
 docker run \
-  -p 9200:9200 -p 9600:9600 \
+  -p 9200:9200 \
   -e "discovery.type=single-node" \
   -v /path/to/custom-opensearch.yml:/usr/share/opensearch/config/opensearch.yml \
   opensearchproject/opensearch:latest
@@ -281,7 +281,7 @@ docker run \
 {% include copy.html %}
 
 By reviewing each part of the command, you can see that it:
-- Maps ports `9200` and `9600` (`HOST_PORT`:`CONTAINER_PORT`).
+- Maps port `9200` (`HOST_PORT`:`CONTAINER_PORT`).
 - Sets `discovery.type` to `single-node` so that bootstrap checks don't fail for this single-node deployment.
 - Uses the [-v flag](https://docs.docker.com/engine/reference/commandline/run#mount-volume--v---read-only) to pass a local file called `custom-opensearch.yml` to the container, replacing the `opensearch.yml` file included with the image.
 - Requests the `opensearchproject/opensearch:latest` image from Docker Hub.
@@ -335,7 +335,6 @@ services:
       - opensearch-data1:/usr/share/opensearch/data # Creates volume called opensearch-data1 and mounts it to the container
     ports:
       - 9200:9200 # REST API
-      - 9600:9600 # Performance Analyzer
     networks:
       - opensearch-net # All of the containers will join the same Docker bridge network
   opensearch-node2:
@@ -512,7 +511,6 @@ services:
       - ./tenants.yml:/usr/share/opensearch/config/opensearch-security/tenants.yml
     ports:
       - 9201:9200
-      - 9600:9600
     networks:
       - opensearch-net
 
@@ -640,7 +638,7 @@ Then run the following commands:
 # Build an image from a Dockerfile
 docker build --tag=opensearch-custom-plugin .
 # Start the container from the custom image
-docker run -p 9200:9200 -p 9600:9600 -e "discovery.type=single-node" -e "OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password>" -v /usr/share/opensearch/data opensearch-custom-plugin
+docker run -p 9200:9200 -e "discovery.type=single-node" -e "OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password>" -v /usr/share/opensearch/data opensearch-custom-plugin
 ```
 
 Alternatively, you might want to remove a plugin from an image before deploying it. This example Dockerfile removes the Security plugin:
@@ -718,6 +716,6 @@ docker compose up -d
 
 - [Preparing a cluster for production]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/#preparing-a-cluster-for-production)
 - [OpenSearch configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/)
-- [Performance Analyzer]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/index/)
+- [Performance Analyzer]({{site.url}}{{site.baseurl}}/tuning-your-cluster/monitoring/telemetry/performance-analyzer/)
 - [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/)
 - [About Security in OpenSearch]({{site.url}}{{site.baseurl}}/security/index/)

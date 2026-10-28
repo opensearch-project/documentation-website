@@ -1,12 +1,13 @@
 ---
 layout: default
 title: Job Scheduler
-nav_order: 1
-has_children: true
+nav_order: 30
 has_toc: false
 redirect_from:
   - /job-scheduler-plugin/index/
   - /monitoring-your-cluster/job-scheduler/
+  - /monitoring-your-cluster/job-scheduler/index/
+  - /developer-documentation/job-scheduler/
 ---
 
 # Job Scheduler
@@ -132,22 +133,6 @@ The logic used by your job should be defined by a class extended from `Scheduled
 
 For more information, see the Job Scheduler [sample extension](https://github.com/opensearch-project/job-scheduler/blob/main/sample-extension-plugin/src/main/java/org/opensearch/jobscheduler/sampleextension/SampleJobParameter.java) directory in the [Job Scheduler GitHub repo](https://github.com/opensearch-project/job-scheduler).
 
-## Job Scheduler APIs
+## Monitoring and configuring scheduled jobs
 
-The Job Scheduler plugin supports the following APIs used to monitor the jobs running on the cluster:
-
-- [Jobs API]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/job-scheduler/jobs/)
-- [Locks API]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/job-scheduler/locks/)
-
-## Job Scheduler cluster settings
-
-The Job Scheduler plugin supports the following cluster settings. All settings are dynamic. To learn more about static and dynamic settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
-
-| Setting | Data type | Description |
-:--- | :--- | :---
-| `plugins.jobscheduler.jitter_limit` | Double | Defines the maximum delay multiplier for job execution time. Too many jobs starting at the same time can cause high resource consumption. To balance the load, you can add a random jitter delay to the start time. For example, if the time interval is 10 minutes and the jitter is 0.6, the next job run will be randomly delayed by a time period between 0 and 6 minutes. |
-| `plugins.jobscheduler.request_timeout` | Time unit | The background sweep search timeout. Background sweep refers to the automatic scheduling and execution of registered jobs. It occurs on an interval and iterates through each extending plugin's registered job index, searching for jobs to be executed. |
-| `plugins.jobscheduler.retry_count` | Integer | Used to define the retry count of an exponential backoff policy. Backoff policies determine how long bulk processors will wait before the bulk operation is retried. It is used whenever bulk indexing requests are impacted or rejected because of resource constraints at the time of a request. For the Job Scheduler plugin, this impacts searching registered job indexes. |
-| `plugins.jobscheduler.sweeper.backoff_millis` | Time unit | Used to define the initial wait period of an exponential backoff policy, in milliseconds. Backoff policies determine how long bulk processors will wait before the bulk operation is retried. It is used whenever bulk indexing requests are impacted or rejected because of resource constraints at the time of a request. For the Job Scheduler plugin, this impacts searching registered job indexes. |
-| `plugins.jobscheduler.sweeper.page_size` | Integer | Configures the search request used to find job documents within a registered job index. Defines the number of search hits to return. |
-| `plugins.jobscheduler.sweeper.period` | Time unit | Defines the initial delay period before a background sweep is executed. |
+To view the jobs and locks on a cluster and to configure Job Scheduler settings, see [Scheduled jobs]({{site.url}}{{site.baseurl}}/tuning-your-cluster/scheduled-jobs/index/).
