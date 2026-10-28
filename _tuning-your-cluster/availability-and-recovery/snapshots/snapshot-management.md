@@ -32,7 +32,7 @@ An SM configuration includes the indexes and repository for the snapshots and su
 
 One snapshot can contain as many indexes as there are in the cluster. We expect at most dozens of SM policies in one cluster, but a snapshot repository can safely scale to thousands of snapshots. However, to manage its metadata, a large repository requires more memory on the cluster manager node.
 
-Snapshot Management depends on the Job Scheduler plugin to schedule a job that is run periodically. Each SM policy corresponds to one SM-scheduled job. The scheduled job is lightweight, so the burden of SM depends on the snapshot creation frequency and the burden of running the snapshot operation itself.
+Snapshot Management depends on the Job Scheduler plugin to schedule a job that is run periodically. For more information, see [Scheduled jobs]({{site.url}}{{site.baseurl}}/tuning-your-cluster/scheduled-jobs/index/). Each SM policy corresponds to one SM-scheduled job. The scheduled job is lightweight, so the burden of SM depends on the snapshot creation frequency and the burden of running the snapshot operation itself.
 
 ### Repository data caching
 **Introduced 2.19**

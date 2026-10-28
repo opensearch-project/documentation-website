@@ -1,14 +1,15 @@
 ---
 layout: default
 title: Jobs API
-parent: Job Scheduler
+parent: Scheduled jobs
 nav_order: 10
 redirect_from:
     - /monitoring-plugins/job-scheduler/api/
+    - /monitoring-your-cluster/job-scheduler/jobs/
 ---
 
 # Job Scheduler Jobs API 
-Introduced 3.2
+**Introduced 3.2**
 {: .label .label-purple }
 
 The Jobs API allows you to view all Job Scheduler jobs.

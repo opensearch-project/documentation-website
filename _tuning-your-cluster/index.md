@@ -70,3 +70,11 @@ Feature | Effect
 ## Tune performance
 
 To increase indexing throughput, see [Tuning for indexing speed]({{site.url}}{{site.baseurl}}/tuning-your-cluster/performance-tuning/indexing-speed/). To run indexing and search on different nodes, see [Separating index and search workloads]({{site.url}}{{site.baseurl}}/tuning-your-cluster/performance-tuning/separate-index-and-search-workloads/).
+
+## Manage scheduled jobs
+
+OpenSearch plugins such as Index State Management, snapshot management, and anomaly detection run tasks on a schedule. To view the state of these tasks and tune how they are scheduled, see [Scheduled jobs]({{site.url}}{{site.baseurl}}/tuning-your-cluster/scheduled-jobs/index/).
+
+## Monitor your cluster
+
+OpenSearch can generate metrics and traces about its own operation and export them using OpenTelemetry, and it can report the slowest and most resource-intensive queries running in your cluster. For more information, see [Monitoring your cluster]({{site.url}}{{site.baseurl}}/tuning-your-cluster/monitoring/index/).
