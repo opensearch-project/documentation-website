@@ -1,12 +1,12 @@
 ---
 layout: default
-title: Getting started
+title: Getting started with log analytics
 nav_order: 10
 redirect_from:
   - /observability-plugin/log-analytics/
 ---
 
-# Getting started with observability
+# Getting started with log analytics
 
 In this tutorial, you'll send Apache access logs to OpenSearch, query them using Piped Processing Language (PPL), and add a visualization of the results to a dashboard.
 

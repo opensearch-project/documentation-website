@@ -397,3 +397,8 @@ curl -k -XPUT -H 'Content-Type: application/json' -u 'admin:<custom-admin-passwo
 ```
 
 Note the previously configured port `8300` in the [Proxy configuration]({{site.url}}{{site.baseurl}}/search-plugins/cross-cluster-search/#proxy-configuration) section.
+
+## Related documentation
+
+- To query remote clusters using PPL in Event analytics or in an Observability workspace, see [Using observability apps for cross-cluster search]({{site.url}}{{site.baseurl}}/observing-your-data/cross-cluster-search/).
+- To obtain information about the remote clusters connected to a cluster, see [Remote cluster information]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/remote-info/).

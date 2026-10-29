@@ -26,7 +26,7 @@ Tenants in OpenSearch Dashboards are spaces for saving notebooks and other OpenS
 
 ## Get started with notebooks
 
-To get started, choose **Notebooks** within OpenSearch Dashboards.
+To open notebooks, on the top menu, go to **Observability** > **Notebooks**. In a workspace, Notebooks is in the **Visualize and report** menu category. In an Observability workspace that uses the icon side navigation, Notebooks is in the **More** menu.
 
 
 ### Step 1: Create a notebook

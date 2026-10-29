@@ -9,32 +9,60 @@ permalink: /observing-your-data/
 redirect_from:
   - /observability-plugin/index/
   - /observing-your-data/index/
+steps:
+  - heading: "Ingest or connect your data"
+    description: "Send logs and traces to OpenSearch or connect a Prometheus data source for metrics."
+    link: "/observing-your-data/ingesting-observability-data/"
+  - heading: "Choose your observability apps"
+    description: "Use the classic apps in the **Observability** menu or the apps in an Observability workspace and find the app for each task."
+    link: "/observing-your-data/exploring-data/"
+  - heading: "Configure alerts"
+    description: "To automatically detect anomalies, create monitors that notify you when your data meets a condition."
+    link: "/observing-your-data/alerting/index/"
+detection_cards:
+  - heading: "Alerting"
+    description: "Create monitors that query your data on a schedule, define triggers for alert conditions, and perform actions when alerts fire."
+    link: "/observing-your-data/alerting/index/"
+  - heading: "Anomaly detection"
+    description: "Detect anomalies in your time-series data using machine learning with the Random Cut Forest (RCF) algorithm."
+    link: "/observing-your-data/ad/index/"
+  - heading: "Forecasting"
+    description: "Predict future values in your time-series data using the RCF model to anticipate threshold breaches before they occur."
+    link: "/observing-your-data/forecast/index/"
+  - heading: "Notifications"
+    description: "Configure channels for sending alerts through Slack, email, Amazon SNS, webhooks, and other communication services."
+    link: "/observing-your-data/notifications/index/"
+getting_started_cards:
+  - heading: "Get started with log analytics"
+    description: "Send web logs to OpenSearch using Fluent Bit and Data Prepper, and then query and visualize them in OpenSearch Dashboards."
+    link: "/observing-your-data/log-ingestion/"
+  - heading: "Get started with trace analytics"
+    description: "Run a sample application that generates traces, send the traces to OpenSearch using Data Prepper, and view them in Trace analytics."
+    link: "/observing-your-data/trace/getting-started/"
+  - heading: "Get started with metric analytics"
+    description: "Connect OpenSearch to a Prometheus data source, and then query and visualize metrics using PPL in Metric analytics."
+    link: "/observing-your-data/prometheusmetrics/"
 ---
 
 # Observability
 
-OpenSearch provides observability capabilities for monitoring applications, infrastructure, and AI agents. You can ingest logs, traces, and metrics, explore and visualize them in OpenSearch Dashboards, and alert on the results.
+OpenSearch provides observability capabilities for monitoring applications, infrastructure, and AI agents. You can ingest logs, traces, and metrics, explore and visualize them in OpenSearch Dashboards, and set up alerts that notify you of issues.
 
 ---
 
 ## Getting started
 
-To send logs to OpenSearch and visualize them, follow the [Getting started]({{site.url}}{{site.baseurl}}/observing-your-data/log-ingestion/) tutorial. To learn how logs, traces, and metrics reach OpenSearch, see [Ingesting observability data]({{site.url}}{{site.baseurl}}/observing-your-data/ingesting-observability-data/).
+To get started, choose the type of data that you want to explore. The log and trace analytics tutorials ingest sample data into OpenSearch and explore it in OpenSearch Dashboards.
 
-<span class="centering-container">
-[Get started]({{site.url}}{{site.baseurl}}/observing-your-data/log-ingestion/){: .btn-dark-blue}
-</span>
+{% include cards.html cards=page.getting_started_cards %}
 
 ---
 
-## Exploring and analyzing observability data
+## Configuring observability
 
-OpenSearch Dashboards provides two sets of observability apps:
+To configure observability for your applications, follow these steps. If your data is already in OpenSearch, start at step 2.
 
-- [Observability workspace apps]({{site.url}}{{site.baseurl}}/observing-your-data/exploring-observability-data/) -- Explore logs, traces, and metrics in Discover and use application performance monitoring (APM), service-level objectives (SLOs), and agent monitoring in an Observability workspace.
-- [Classic observability apps]({{site.url}}{{site.baseurl}}/observing-your-data/classic-observability-apps/) -- Use Event analytics, Trace analytics, Metric analytics, Application analytics, and Operational panels from the **Observability** menu in classic navigation.
-
-To find the app for your task in each set, see [Exploring observability data]({{site.url}}{{site.baseurl}}/observing-your-data/exploring-data/).
+{% include list.html list_items=page.steps %}
 
 ---
 
@@ -52,66 +80,38 @@ OpenSearch provides two ways to monitor applications: application performance mo
 
 ### APM
 
-[APM]({{site.url}}{{site.baseurl}}/observing-your-data/apm/) monitors distributed applications using service topology, RED metrics, and performance tracking. APM requires the following components:
+[APM]({{site.url}}{{site.baseurl}}/observing-your-data/apm/) monitors distributed applications using service topology, RED metrics, and performance tracking. APM requires an Observability workspace, an OpenTelemetry Collector, Data Prepper, and Prometheus.
 
-- An OpenSearch cluster and OpenSearch Dashboards with an Observability workspace and the APM settings enabled. For more information, see [Observability workspace apps]({{site.url}}{{site.baseurl}}/observing-your-data/exploring-observability-data/).
-- An OpenTelemetry Collector.
-- [OpenSearch Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/).
-- Prometheus for metrics storage.
-- Applications instrumented using OpenTelemetry.
+APM also includes [service-level objectives (SLOs)]({{site.url}}{{site.baseurl}}/observing-your-data/slo/) that let you define availability and latency targets for your services and track their error budgets.
 
 ### Agent monitoring
 
-[Agent monitoring]({{site.url}}{{site.baseurl}}/observing-your-data/agent-traces/) traces LLM calls, tool invocations, and token usage in generative AI applications. Agent monitoring requires the following components:
-
-- An OpenSearch cluster and OpenSearch Dashboards with an Observability workspace and the `explore.enabled` and `explore.agentTraces.enabled` settings set to `true`. For more information, see [Observability workspace apps]({{site.url}}{{site.baseurl}}/observing-your-data/exploring-observability-data/).
-- An OpenTelemetry Collector.
-- [OpenSearch Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/) for trace processing.
-- Applications instrumented using the OpenTelemetry generative AI semantic conventions.
-
-<span class="centering-container">
-[Get started with agent monitoring]({{site.url}}{{site.baseurl}}/observing-your-data/agent-traces/){: .btn-dark-blue}
-</span>
-
----
-
-## Query performance
-
-To monitor the performance of the queries running in your cluster, see [Query insights]({{site.url}}{{site.baseurl}}/tuning-your-cluster/monitoring/query-insights/index/).
-
----
-
-## Organizing visualizations
-
-After creating visualizations, organize them into dashboards and reports for sharing with your team:
-
-- [Notebooks]({{site.url}}{{site.baseurl}}/dashboards/notebooks/) -- Combine visualizations, code blocks, and narrative text to create reports, runbooks, and documentation.
-- [Operational panels]({{site.url}}{{site.baseurl}}/observing-your-data/operational-panels/) -- Organize PPL visualizations into dashboards for monitoring and analysis.
+[Agent monitoring]({{site.url}}{{site.baseurl}}/observing-your-data/agent-traces/) traces LLM calls, tool invocations, and token usage in generative AI applications. Agent monitoring requires an Observability workspace, an OpenTelemetry Collector, Data Prepper, and an application instrumented using the OpenTelemetry generative AI semantic conventions.
 
 ---
 
 ## Alerting and detection
 
-OpenSearch provides tools for detecting issues and sending notifications:
+OpenSearch provides the following tools for detecting issues and sending notifications. They work with any index in OpenSearch, including observability data.
 
-- [Alerting]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/) -- Create monitors that query your data on a schedule, define triggers for alert conditions, and execute actions when alerts fire.
-- [Anomaly detection]({{site.url}}{{site.baseurl}}/observing-your-data/ad/) -- Automatically detect anomalies in your time-series data using machine learning with the Random Cut Forest (RCF) algorithm.
-- [Forecasting]({{site.url}}{{site.baseurl}}/observing-your-data/forecast/) -- Predict future values in your time-series data using the RCF model to anticipate threshold breaches before they occur.
-- [Service-level objectives]({{site.url}}{{site.baseurl}}/observing-your-data/slo/) (Experimental) -- Define availability and latency targets for your services and track error budgets and consumption rates against a Prometheus-compatible ruler.
-- [Notifications]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/) -- Configure channels for sending alerts through Slack, email, Amazon SNS, webhooks, and other communication services.
+{% include cards.html cards=page.detection_cards %}
+
 
 ---
 
 ## OpenSearch Observability Stack
 
-The OpenSearch Observability Stack provides a complete, preconfigured observability platform that you can run locally using Docker Compose. The Observability Stack includes:
+The [OpenSearch Observability Stack](https://observability.opensearch.org/) provides a complete, preconfigured observability platform that you can run locally using Docker Compose. The Observability Stack includes:
 
 - All APM and agent trace capabilities.
 - A GenAI SDK for Python or TypeScript instrumentation.
 - An Agent Health tool for local debugging and evaluation.
 - A Docker Compose setup with example applications.
-- A preconfigured OpenTelemetry Collector, [OpenSearch Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/), and Prometheus.
+- A preconfigured OpenTelemetry Collector, OpenSearch Data Prepper, and Prometheus.
 
-<span class="centering-container">
-[Learn more about Observability Stack](https://observability.opensearch.org/){: .btn-dark-blue}
-</span>
+---
+
+## Reference
+
+- [Observability security]({{site.url}}{{site.baseurl}}/observing-your-data/observability-security/) -- Control which users can view and modify observability objects, such as notebooks and visualizations.
+- [Simple Schema for Observability]({{site.url}}{{site.baseurl}}/observing-your-data/ss4o/) -- The index naming conventions and field mappings that some classic observability apps require.

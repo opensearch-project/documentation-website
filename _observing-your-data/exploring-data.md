@@ -9,7 +9,7 @@ nav_order: 30
 OpenSearch Dashboards provides two sets of observability apps. Which set you use depends on how OpenSearch Dashboards is configured:
 
 - [Classic observability apps]({{site.url}}{{site.baseurl}}/observing-your-data/classic-observability-apps/) are available in the **Observability** menu in classic navigation and require no additional setup.
-- [Observability workspace apps]({{site.url}}{{site.baseurl}}/observing-your-data/exploring-observability-data/) are available in an Observability workspace. To use them, you enable workspaces and the required settings in `opensearch_dashboards.yml` and then create an Observability workspace. Application performance monitoring (APM), service-level objectives (SLOs), and agent monitoring are available only in workspaces.
+- [Observability workspace apps]({{site.url}}{{site.baseurl}}/observing-your-data/exploring-observability-data/) are available in an Observability workspace. To use them, enable workspaces and the observability settings in `opensearch_dashboards.yml`, and then create an Observability workspace. For the required settings, see [Prerequisites]({{site.url}}{{site.baseurl}}/observing-your-data/exploring-observability-data/index/#prerequisites). Application performance monitoring (APM), service-level objectives (SLOs), and agent monitoring are available only in workspaces.
 
 The following table lists the app that you use for each task in each set.
 
@@ -20,8 +20,6 @@ The following table lists the app that you use for each task in each set.
 | Explore metrics | [Metric analytics]({{site.url}}{{site.baseurl}}/observing-your-data/prometheusmetrics/) | [Metrics]({{site.url}}{{site.baseurl}}/observing-your-data/exploring-observability-data/discover-metrics/) |
 | Monitor applications | [Application analytics]({{site.url}}{{site.baseurl}}/observing-your-data/app-analytics/) | [Application performance monitoring]({{site.url}}{{site.baseurl}}/observing-your-data/apm/), including [Services]({{site.url}}{{site.baseurl}}/observing-your-data/apm/services/), [Topology map]({{site.url}}{{site.baseurl}}/observing-your-data/apm/application-map/), and [SLOs]({{site.url}}{{site.baseurl}}/observing-your-data/slo/) |
 | Build dashboards | [Operational panels]({{site.url}}{{site.baseurl}}/observing-your-data/operational-panels/) | [Dashboards]({{site.url}}{{site.baseurl}}/dashboards/dashboard/index/) |
-
-To combine queries, visualizations, and text in a single document, use [Notebooks]({{site.url}}{{site.baseurl}}/dashboards/notebooks/), which are available in both classic navigation and workspaces.
 
 ## Choosing a trace tool
 
@@ -37,3 +35,7 @@ Several apps display trace data. The following table describes each app and wher
 In an Observability workspace, APM replaces Trace analytics when APM and Discover Traces are both enabled. For the settings that enable each app, see [Observability workspace apps]({{site.url}}{{site.baseurl}}/observing-your-data/exploring-observability-data/).
 
 For traces that OpenSearch generates for the requests it processes, see [Distributed tracing]({{site.url}}{{site.baseurl}}/tuning-your-cluster/monitoring/telemetry/distributed-tracing/).
+
+## Visualizing your data
+
+To share visualizations with your team, add them to a dashboard. In classic navigation, use [operational panels]({{site.url}}{{site.baseurl}}/observing-your-data/operational-panels/), and in an Observability workspace, add them to [dashboards]({{site.url}}{{site.baseurl}}/observing-your-data/exploring-observability-data/discover-logs/#adding-visualizations-to-dashboards) from the Logs page. To combine visualizations, queries, and text into reports and runbooks, use [Notebooks]({{site.url}}{{site.baseurl}}/dashboards/notebooks/), which are available in both classic navigation and Observability workspaces.

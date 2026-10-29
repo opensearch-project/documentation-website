@@ -15,6 +15,16 @@ redirect_from:
 
 Application Performance Monitoring (APM) provides real-time monitoring of your distributed applications by combining service topology data with Rate, Errors, Duration (RED) metrics. APM provides a unified view of service health, enabling you to quickly identify performance bottlenecks and failures across your microservices architecture.
 
+## Prerequisites
+
+APM requires the following components:
+
+- An OpenSearch cluster and OpenSearch Dashboards with an Observability workspace and the APM settings enabled. For more information, see [Observability workspace apps]({{site.url}}{{site.baseurl}}/observing-your-data/exploring-observability-data/).
+- An [OpenTelemetry Collector](https://opentelemetry.io/docs/collector/).
+- [OpenSearch Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/).
+- [Prometheus](https://prometheus.io/) for metrics storage, connected to OpenSearch as a [Prometheus data source]({{site.url}}{{site.baseurl}}/dashboards/management/connect-prometheus/).
+- Applications instrumented using [OpenTelemetry](https://opentelemetry.io/docs/instrumentation/).
+
 ## APM architecture
 
 The following image shows the APM architecture.

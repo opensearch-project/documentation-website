@@ -13,10 +13,9 @@ redirect_from:
 
 # Trace analytics
 
-Trace analytics is a [classic observability app]({{site.url}}{{site.baseurl}}/observing-your-data/classic-observability-apps/). When the new home page is enabled, Trace analytics is not available if both APM and Discover Traces are enabled. For a monitoring experience in Observability workspaces that combines service topology, RED metrics, and in-context correlations, see [Application performance monitoring]({{site.url}}{{site.baseurl}}/observing-your-data/apm/index/).
-{: .note}
-
 Trace analytics provides a way to ingest and visualize [OpenTelemetry](https://opentelemetry.io/) data in OpenSearch. This data can help you find and fix performance problems in distributed applications.
+
+Trace analytics is a [classic observability app]({{site.url}}{{site.baseurl}}/observing-your-data/classic-observability-apps/). In an Observability workspace, Trace analytics is not available when both APM and Discover Traces are enabled. To analyze traces in an Observability workspace, see [Traces]({{site.url}}{{site.baseurl}}/observing-your-data/exploring-observability-data/discover-traces/) and [Application performance monitoring]({{site.url}}{{site.baseurl}}/observing-your-data/apm/index/).
 
 A single operation, such as a user choosing a button, can trigger an extended series of events. The frontend might call a backend service, which calls another service, which queries a database, processes the data, and sends it to the original service, which sends a confirmation to the frontend.
 

@@ -19,3 +19,4 @@ The following table describes the apps and lists whether each app is available w
 | [Metric analytics]({{site.url}}{{site.baseurl}}/observing-your-data/prometheusmetrics/) | Query and visualize metrics stored in Prometheus or in OpenTelemetry metrics indexes in OpenSearch. | Yes | Yes |
 | [Application analytics]({{site.url}}{{site.baseurl}}/observing-your-data/app-analytics/) | Combine the logs, traces, and metrics of an application into a single view of its health. | Yes | No |
 | [Operational panels]({{site.url}}{{site.baseurl}}/observing-your-data/operational-panels/) | Organize PPL visualizations into dashboards. | Yes | No |
+| [Notebooks]({{site.url}}{{site.baseurl}}/dashboards/notebooks/) | Combine Markdown text, SQL and PPL queries, and visualizations into reports and runbooks. | Yes | Yes |
