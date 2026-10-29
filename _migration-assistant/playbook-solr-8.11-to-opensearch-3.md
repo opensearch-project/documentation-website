@@ -1,7 +1,7 @@
 ---
 layout: default
 title: "Apache Solr 8.x and 9.x → OpenSearch 3"
-nav_order: 3
+nav_order: 4
 parent: Playbooks
 permalink: /migration-assistant/playbook-solr-8.11-to-opensearch-3/
 redirect_from:
