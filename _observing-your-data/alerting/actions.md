@@ -34,7 +34,7 @@ To add an action:
 
 1. Choose **Create**.
 
-After an action sends a message, the content of that message has left the purview of the Alerting plugin. Securing access to the message (for example, access to the Slack channel) is your responsibility.
+After an action sends a message, the content of that message is outside the control of OpenSearch. Securing access to the message (for example, access to the Slack channel) is your responsibility.
 
 #### Example message
 

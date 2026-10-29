@@ -1,7 +1,9 @@
 ---
 layout: default
 title: SLOs
-nav_order: 125
+parent: Application performance monitoring
+grand_parent: Observability workspace apps
+nav_order: 60
 has_children: false
 redirect_from:
   - /observing-your-data/slo/
@@ -84,7 +86,7 @@ The SLI definition determines what data the ruler must be able to query:
 
 ## Accessing SLOs
 
-To access SLOs, select your Observability workspace from the home page, or create one if you don't have one (see [Observability workspace](#observability-workspace)). Then navigate to **Application Performance** > **SLOs**.
+To access SLOs, select your Observability workspace from the home page, or create one if you don't have one (see [Observability workspace](#observability-workspace)). Then, in the left navigation, select **Application performance** > **SLOs**.
 
 
 ## Creating an SLO

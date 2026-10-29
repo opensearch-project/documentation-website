@@ -2,7 +2,7 @@
 layout: default
 title: Alerting dashboards and visualizations
 parent: Alerting
-nav_order: 50
+nav_order: 20
 has_children: true
 ---
 
@@ -21,11 +21,6 @@ The following image gives you a snapshot of the Dashboard interface.
 ![Example alerting visualization]({{site.url}}{{site.baseurl}}/images/dashboards/alerting-dashboard.png){: width="800" height="800" }
 
 ## Getting started 
-
-Before getting started, you must have:
-
-- Installed OpenSearch and OpenSearch Dashboards version 2.9 or later. See [Installing OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/).
-- Installed the Alerting and Notifications Dashboards plugins. See [Managing OpenSearch Dashboards plugins]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/plugins/) to get started.
 
 ## Configuring admin settings
 
@@ -65,14 +60,14 @@ An example of these steps is shown in the following screenshot.
 
 ## Associating monitors
 
-You can associate certain monitor types with a visualization using the Dashboard interface instead of the plugin page, giving you a single interface through which to add, view, and edit monitor data.
+You can associate certain monitor types with a visualization using the Dashboard interface instead of the Alerting page, giving you a single interface through which to add, view, and edit monitor data.
 
 Continuing with the alerting visualization and dashboard created in the preceding section, associate an existing monitor with a visualization by following these steps: 
 
 1. From the visualization panel, choose the ellipsis icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/ellipsis-icon.png" class="inline-icon" alt="ellipsis icon"/>{:/}).
 2. Select **Associated monitors**.
 3. From the **Select monitor to associate** dropdown menu, select the monitor. Only eligible monitors are listed in the dropdown menu. 
-4. View the monitor's basic information. To view comprehensive details, select **View monitor page** to open the Alerting plugin page.
+4. View the monitor's basic information. To view comprehensive details, select **View monitor page** to open the monitor in Alerting.
 5. Select **Associate monitor**. An existing monitor is associated with the visualization.
 
 ## Exploring alerting monitor details
