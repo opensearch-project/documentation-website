@@ -53,9 +53,9 @@ Field | Data type | Description
 `attributes` | Array of Strings | An array of token attributes to include in the `detail` output. Applies only when `explain` is `true`.
 `char_filter` | Array of strings or objects | An array of character filters for preprocessing characters before the `tokenizer` field. Each array element is either the name of a character filter or an inline character filter definition. Optional. See [Character filters]({{site.url}}{{site.baseurl}}/analyzers/character-filters/index/).
 `explain` | Boolean | If `true`, causes the response to include token attributes and additional details. Optional. Default is `false`.
-`field` | String | The field for deriving the analyzer. <br /><br /> If you specify `field`, you must also specify the `index` path parameter. <br /><br /> If you specify the `analyzer` field, it overrides the value of `field`. <br /><br /> If the field is not mapped, the Analyze API uses the default analyzer for the index. Optional.
+`field` | String | The field for deriving the analyzer. <br /><br /> If you specify `field`, you must also specify an index in the `index` path or query parameter. <br /><br /> If you specify the `analyzer` field, it overrides the value of `field`. <br /><br /> If the field is not mapped, the Analyze API uses the default analyzer for the index. Optional.
 `filter` | Array of strings or objects | Array of token filters to apply after the `tokenizer` field. Each array element is either the name of a token filter or an inline token filter definition. Optional. See [Token filters]({{site.url}}{{site.baseurl}}/analyzers/token-filters/index/).
-`normalizer` | String | A normalizer for converting text into a single token. If you specify `normalizer`, you must also specify the `index` path parameter. Optional. See [Normalizers]({{site.url}}{{site.baseurl}}/analyzers/normalizers/). 
+`normalizer` | String | A normalizer for converting text into a single token. If you specify `normalizer`, you must also specify an index in the `index` path or query parameter. Optional. See [Normalizers]({{site.url}}{{site.baseurl}}/analyzers/normalizers/). 
 `tokenizer` | String or Object | A tokenizer for converting the `text` field into tokens. Specify either the name of a tokenizer or an inline tokenizer definition. Optional. See [Tokenizers]({{site.url}}{{site.baseurl}}/analyzers/tokenizers/index/).
 
 The `analyzer`, `normalizer`, and `field` fields cannot be combined with the `tokenizer`, `filter`, or `char_filter` fields. The `analyzer` and `normalizer` fields cannot be combined with each other. If you specify `filter` or `char_filter` without `tokenizer`, the Analyze API builds a custom normalizer from the filters, so you can only use filters that are supported in normalizers.
@@ -1052,7 +1052,7 @@ The previous request returns the following fields:
 
 ### Set a token limit
 
-Use the `index.analyze.max_token_count` setting to limit the number of tokens that an analyze request can produce for an index. Default is `10000`. The limit applies only to requests that specify an index.
+Use the `index.analyze.max_token_count` setting to limit the number of tokens that an analyze request can produce for an index. Default is `10000`. Requests that don't specify an index are limited to the default value.
 
 The following request limits the tokens produced for the `books2` index to four:
 
@@ -1103,7 +1103,7 @@ Field | Data type | Description
 Field | Data type | Description
 :--- | :--- | :---
 `custom_analyzer` | Boolean | Whether the analyzer applied to the text is custom or built in.
-`analyzer` | Object | Name of the analyzer applied to the text and a list of tokens<sup>*</sup> produced by the analyzer. Returned when the request specifies an analyzer or a field (`custom_analyzer` is `false`).
+`analyzer` | Object | The name of the analyzer applied to the text and a list of tokens<sup>*</sup> produced by the analyzer. Returned when `custom_analyzer` is `false`, that is, when the text is analyzed using a built-in analyzer, including the index default analyzer.
 `charfilters` | Array | List of character filters applied to the text. Returned when `custom_analyzer` is `true`.
 `tokenizer` | Object | Name of the tokenizer applied to the text and a list of tokens<sup>*</sup> with content before the token filters were applied. Returned when `custom_analyzer` is `true`.
 `tokenfilters` | Array | List of token filters applied to the text. Each token filter includes the filter's name and a list of tokens<sup>*</sup> with content after the filters were applied. Token filters are listed in the order they are specified in the request. Returned when `custom_analyzer` is `true`.

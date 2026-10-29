@@ -221,7 +221,7 @@ The following table lists all response body fields.
 | :--- | :--- | :--- |
 | `completed` | Boolean | Whether the task has finished. |
 | `task` | Object | Information about the task. See [The `task` object](#the-task-object). |
-| `response` | Object | The result of the operation. Returned only for a task that finished successfully and whose result was stored. The object contents depend on the operation. For example, a reindex task returns the same fields as the [Reindex API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/reindex/) response. |
+| `response` | Object | The result of the operation. Returned only for a task that completed or was canceled and whose result was stored. The object contents depend on the operation. For example, a reindex task returns the same fields as the [Reindex API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/reindex/) response. For a canceled task, the object also contains a `canceled` field that specifies the reason for cancellation. |
 | `error` | Object | The error that caused the task to fail. Returned only for a task that failed and whose result was stored. |
 
 ### The `task` object

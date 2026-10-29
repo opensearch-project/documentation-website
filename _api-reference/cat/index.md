@@ -91,7 +91,7 @@ Parameter | Description
 `bytes` | The units used to display byte values. Valid values are `b`, `kb`, `mb`, `gb`, `tb`, and `pb`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/api-reference/units/).
 `time` | The units used to display time values. Valid values are `nanos`, `micros`, `ms`, `s`, `m`, `h`, and `d`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/api-reference/units/).
 `ts` | Boolean. Whether to include timestamp columns in operations that provide them, such as `_cat/health`. Default is `true`.
-`pri` | Boolean. Whether to add columns containing primary shard statistics in operations that provide them, such as `_cat/indices`.
+`pri` | Boolean. Whether to add primary shard statistics in operations that provide them, such as `_cat/indices`. For each column specified in the `h` parameter that has a primary shard counterpart, adds a `pri.` column. For example, `h=i,ss` with `pri` returns the `i`, `ss`, and `pri.ss` columns.
 
 Specify these query parameters in any CAT operation to obtain more specific results. The following examples use the CAT aliases operation.
 

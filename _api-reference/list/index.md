@@ -24,7 +24,7 @@ All List API operations support the following optional query parameters.
 
 Parameter | Description
 :--- | :--- |
-`v` |  Provides verbose output by adding headers to the columns. It also adds some formatting to help align each of the columns.
+`v` |  Provides verbose output by adding headers to the columns.
 `help` | Lists the default and other available headers for a given operation.
 `h`  |  Limits the output to specific headers.
 `format` |  The format in which to return the result. Valid values are `json`, `yaml`, `cbor`, and `smile`.

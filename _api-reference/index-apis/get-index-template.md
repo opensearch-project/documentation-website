@@ -184,9 +184,9 @@ Field | Data type | Description
 :--- | :--- | :---
 `index_patterns` | Array of strings | The index name patterns to which the template applies.
 `template` | Object | The settings, mappings, and aliases applied to matching indexes. Contains the `settings`, `mappings`, and `aliases` objects. Only the objects defined in the template are returned. Returned only if set.
-`composed_of` | Array of strings | The names of the component templates used to compose this index template. Returned only if set. May be empty.
-`priority` | Integer | The priority of the template. When multiple templates match an index, the template with the highest priority is applied. Returned only if set.
-`version` | Integer | The version number of the template. Returned only if set.
+`composed_of` | Array of strings | The names of the component templates used to compose this index template. Returned if set or if the index template contains a `template` object. In the latter case, it can be an empty array.
+`priority` | Long | The priority of the template. When multiple templates match an index, the template with the highest priority is applied. Returned only if set.
+`version` | Long | The version number of the template. Returned only if set.
 `_meta` | Object | Custom metadata stored with the template. Returned only if set.
 `data_stream` | Object | The data stream configuration, such as the `timestamp_field`. Returned only if the template creates data streams.
 `context` | Object | The context used to apply additional settings to matching indexes. Returned only if set.
