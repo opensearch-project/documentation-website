@@ -2,7 +2,7 @@
 layout: default
 title: Restoring ISM from a snapshot
 parent: Index State Management
-nav_order: 60
+nav_order: 25
 ---
 
 # Restoring ISM from a snapshot
