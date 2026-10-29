@@ -23,6 +23,9 @@ Option | Required | Type | Description
 `max_connection_count` | No | Integer | The maximum allowed number of open connections. Default value is `500`.
 `max_pending_requests` | No | Integer | The maximum allowed number of tasks in the `ScheduledThreadPool` work queue. Default value is `1024`.
 `max_request_length` | No | ByteCount | The maximum number of bytes allowed in the payload of a single HTTP request. Default value is `10mb`.
+`metadata_headers` | No | List | A list of HTTP request header names. The source adds the values of these headers to the metadata of each event created from the request. Header names are case insensitive. The source stores the values in the `headers` metadata attribute as a map keyed by the lowercase header name. A header that appears multiple times in a request is stored as a list of values. For security, the source never extracts the `Authorization`, `Proxy-Authorization`, `Cookie`, `Set-Cookie`, `WWW-Authenticate`, `Proxy-Authenticate`, `X-Api-Key`, `X-Csrf-Token`, `X-Xsrf-Token`, `X-Auth-Token`, `X-Amz-Security-Token`, and `X-Amz-Credential` headers. Headers are not added when the pipeline uses a buffer that stores raw bytes, such as the `kafka` buffer. For an example, see [Adding request headers to event metadata](#adding-request-headers-to-event-metadata).
+`compression` | No | String | The compression type applied to the client request payload. Valid values are `none` and `gzip`. Use `gzip` to apply gzip decompression to incoming requests that contain the `Content-Encoding: gzip` header. Default is `none`.
+`codec` | No | Object | The codec used to parse the request body, for example, `ndjson` or `csv`. When `codec` is set, the source creates one event for each record parsed by the codec. If not set, the request body must be a JSON array. Not applied when the pipeline uses a buffer that stores raw bytes, such as the `kafka` buffer. For codec settings, see [codec]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/s3/#codec).
 `authentication` | No | Object | An authentication configuration. By default, this creates an unauthenticated server for the pipeline. This uses pluggable authentication for HTTPS. To use basic authentication define the `http_basic` plugin with a `username` and `password`. To provide customer authentication, use or create a plugin that implements [ArmeriaHttpAuthenticationProvider](https://github.com/opensearch-project/data-prepper/blob/1.2.0/data-prepper-plugins/armeria-common/src/main/java/com/amazon/dataprepper/armeria/authentication/ArmeriaHttpAuthenticationProvider.java).
 `ssl` | No | Boolean | Enables TLS/SSL. Default value is `false`.
 `ssl_certificate_file` | Conditionally | String | The SSL certificate chain file path or Amazon Simple Storage Service (Amazon S3) path (for example, `s3://<bucketName>/<path>`). Required if `ssl` is set to `true` and `use_acm_certificate_for_ssl` is set to `false`.
@@ -41,7 +44,7 @@ Content will be added to this section.--->
 
 Clients should send HTTP `POST` requests to the endpoint `/log/ingest`.
 
-The `http` protocol only supports the JSON UTF-8 codec for incoming requests, for example, `[{"key1": "value1"}, {"key2": "value2"}]`.
+By default, the `http` source accepts JSON UTF-8 request bodies containing an array of objects, for example, `[{"key1": "value1"}, {"key2": "value2"}]`. To accept other formats, configure a `codec`.
 
 ## Example
 
@@ -145,6 +148,41 @@ curl -s -u ingest:s3cr3t "http://localhost:2023/ingest" \
   --data '[{"service":"web","status":"ok"}]'
 ```
 {% include copy.html %}
+
+### Adding request headers to event metadata
+
+The following example adds the `X-Tenant-Id` request header to the metadata of each event and then copies the header value into the `tenant` field using the `add_entries` processor. To read a single header, use the `headers/<lowercase-header-name>` metadata key:
+
+```yaml
+tenant-pipeline:
+  source:
+    http:
+      metadata_headers: ["X-Tenant-Id"]
+  processor:
+    - add_entries:
+        entries:
+          - key: tenant
+            value_expression: 'getMetadata("headers/x-tenant-id")'
+  sink:
+    - stdout: {}
+```
+{% include copy.html %}
+
+You can test this pipeline using the following command:
+
+```bash
+curl -s "http://localhost:2021/log/ingest" \
+  -H "Content-Type: application/json" \
+  -H "X-Tenant-Id: store-eu" \
+  --data '[{"order":"1001"}]'
+```
+{% include copy.html %}
+
+You should see the following output in the Data Prepper logs:
+
+```
+{"order":"1001","tenant":"store-eu"}
+```
 
 ## Metrics
 

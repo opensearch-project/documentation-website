@@ -32,7 +32,7 @@ documentdb-pipeline:
       s3_bucket: my-bucket
       s3_region: us-west-2
       collections:
-        - collection: my-collection
+        - collection: my-database.my-collection
           export: true
           stream: true
       acknowledgments: true
@@ -60,7 +60,7 @@ Option | Required | Type | Description
 `read_preference` | No | String  | Determines how to read from Amazon DocumentDB. See [Read Preference Modes](https://www.mongodb.com/docs/v3.6/reference/read-preference/#read-preference-modes) for more information. Defaults to `primaryPreferred`.
 `disable_s3_read_for_leader` | No | Boolean  | When `true`, the current leader node does not read from Amazon S3. It only reads the stream. Defaults to `false`.
 `partition_acknowledgment_timeout` | No | Duration  | Configures the amount of time during which the node holds a partition. Defaults to `2h`.
-`acknowledgments` | No | Boolean  | When set to `true`, enables [end-to-end acknowledgments]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines#end-to-end-acknowledgments) on the source after events are sent to the sinks.
+`acknowledgments` | No | Boolean  | When set to `true`, enables [end-to-end acknowledgments]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines#end-to-end-acknowledgments) on the source after events are sent to the sinks. Defaults to `false`.
 `insecure` | No | Boolean | Disables TLS. Defaults to `false`. Do not use this value in production.
 `ssl_insecure_disable_verification` | No | Boolean | Disables TLS hostname verification. Defaults to `false`. Do not enable this flag in production. Instead, use the `trust_store_file_path` to verify the hostname.
 
@@ -79,7 +79,7 @@ The following parameters enable you to configure `collection` to read from the A
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
-`collection` | Yes | String | The name of the collection.
+`collection` | Yes | String | The name of the collection, in the `<database>.<collection>` format.
 `export` | No | Boolean | Whether to include an export or a full load. Defaults to `true`.
 `stream` | No | Boolean | Whether to enable a stream. Defaults to `true`.
 `partition_count` | No | Integer | Defines the number of partitions to create in Amazon S3. Defaults to `100`.
@@ -93,5 +93,5 @@ The following parameters enable you to configure your access to Amazon DocumentD
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
 `sts_role_arn` | No | String | The AWS Security Token Service (AWS STS) role to assume for requests to Amazon Simple Queue Service (Amazon SQS) and Amazon S3. Defaults to `null`, which uses the [standard SDK behavior for credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html).
-`aws_sts_header_overrides` | No | Map | A map of header overrides that the AWS Identity and Access Management (IAM) role assumes for the sink plugin.
+`sts_header_overrides` | No | Map | A map of header overrides that the AWS Identity and Access Management (IAM) role assumes for the source plugin. Maximum of 5 headers.
 `sts_external_id` | No | String | An external STS ID used when Data Prepper assumes the STS role. See `ExternalID` in the [STS AssumeRole](https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRole.html) API reference documentation.

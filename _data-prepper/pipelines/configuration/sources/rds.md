@@ -70,6 +70,7 @@ Option | Required | Type | Description
 `stream` | No | Boolean | Whether to enable streaming of database change events. Default is `false`.
 `tls` | No | Object | The TLS configuration for database connections. See [`tls`](#tls-options) for more information.
 `disable_s3_read_for_leader` | No | Boolean | Whether to disable S3 read operations for the leader node. Default is `false`.
+`joins` | No | Object | The configuration for combining rows from related tables into a single OpenSearch document. See [joins](#joins) for more information.
 
 <!-- vale off -->
 ### aws
@@ -126,6 +127,61 @@ The following options let you configure TLS for database connections.
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
 `insecure` | No | Boolean | Whether to disable TLS encryption for database connections. Default is `false` (TLS enabled).
+
+<!-- vale off -->
+### joins
+<!-- vale on -->
+
+Use the `joins` configuration to combine each parent table row and its related child table rows into one OpenSearch document. When `joins` is configured, Data Prepper updates the `opensearch` sink to use the `upsert` action with a script that merges events from the parent and child tables. The document ID is the value of the parent key. Parent and child table names are specified without the database name.
+
+Changes to a parent row update the fields of its document, and deleting a parent row deletes the document. Child rows are added to the document as follows:
+
+- For `one_to_many` relations, each child row is stored as an object in an array field named after the child table.
+- For `one_to_one` relations, the child row's fields are added to the root of the document.
+
+The following options are available in the `joins` configuration.
+
+Option | Required | Type | Description
+:--- | :--- | :--- | :---
+`relations` | No | List | A list of parent-child table relations. See [relations](#relations) for more information.
+`version_field` | No | String | The name of the document field that stores the latest version applied to the document from each table. Data Prepper uses this field to skip events that are older than the stored version. Default is `__versions`.
+
+<!-- vale off -->
+#### relations
+<!-- vale on -->
+
+Use the following options in each entry of the `relations` list.
+
+Option | Required | Type | Description
+:--- | :--- | :--- | :---
+`parent` | Yes | String | The name of the parent table.
+`child` | Yes | String | The name of the child table.
+`parent_key` | Yes | String or list | The column or columns in the parent table that identify the parent row. The parent key value is used as the document ID. For composite keys, values are concatenated using a `\|` separator.
+`child_key` | Yes | String or list | The column or columns in the child table that reference the parent row. Must contain the same number of columns as `parent_key`.
+`child_primary_key` | Yes | String or list | The primary key column or columns of the child table. Used to identify each child row in the document.
+`join_type` | No | String | The type of relation between the parent and child tables. Valid values are `one_to_many` and `one_to_one`. Default is `one_to_many`.
+`max_child_records` | No | Integer | The maximum number of child rows stored in the array of a `one_to_many` relation. When a new child row exceeds this limit, the oldest child row is removed from the array. Default is `1000`.
+
+The following example combines rows from the `order_items` table into the `orders` documents:
+
+```yaml
+rds-pipeline:
+  source:
+    rds:
+      db_identifier: "my-rds-instance"
+      engine: "aurora-mysql"
+      database: "mydb"
+      ...
+      joins:
+        relations:
+          - parent: "orders"
+            child: "order_items"
+            parent_key: "order_id"
+            child_key: "order_id"
+            child_primary_key: "item_id"
+            join_type: "one_to_many"
+            max_child_records: 500
+```
 
 ## Exposed metadata attributes
 

@@ -16,6 +16,7 @@ Set up Confluence project access credentials by choosing one of the following op
 
 - **Basic authentication** (API key authentication): Follow [these instructions](https://support.atlassian.com/atlassian-account/docs/manage-api-tokens-for-your-atlassian-account/).
 - **OAuth 2.0 authentication**: Follow [these instructions](https://developer.atlassian.com/cloud/jira/platform/oauth-2-3lo-apps/#faq-rrt-config).
+- **Bearer token authentication**: Provide a token that the source sends in the `Authorization: Bearer` header of each request.
 
 As an additional optional step, store the credentials in AWS Secrets Manager. If you don't store the credentials in AWS Secrets Manager, then you must provide plain-text credentials directly in the pipeline configuration.
 
@@ -37,7 +38,7 @@ atlassian-confluence-pipeline:
       acknowledgments: true
       preserve_formatting: true
       authentication:
-        # Provide one of the authentication method to use. Supported methods are 'basic' and 'oauth2'.
+        # Provide one of the authentication method to use. Supported methods are 'basic', 'oauth2', and 'bearer_token'.
         # For basic authentication, password is the API key that you generate using your confluence account
         basic:
           username: {% raw %} ${{aws_secrets:confluence-account-credentials:username}} {% endraw %} 
@@ -82,21 +83,23 @@ The `confluence` source supports the following configuration options.
 | `hosts`           | Yes      | List                              | The Atlassian Confluence hostname. Currently, only one host is supported, so this list is expected to be of size 1.                                                                                                                 |
 | `acknowledgments` | No       | Boolean                           | When set to `true`, enables the `confluence` source to receive [end-to-end acknowledgments]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines#end-to-end-acknowledgments) when events are received by OpenSearch sinks. |
 | `preserve_formatting` | No       | Boolean                           | When set to `true`, Confluence content formatting markup tags are kept as is. Default is `false` (remove markup tags and convert to plain text).                                                                 |
+| `allow_internal_address` | No | Boolean | When set to `true`, allows the host specified in `hosts` to resolve to a private, loopback, or link-local IP address. When set to `false`, the source rejects hosts that resolve to these addresses. Default is `false`. |
 | `authentication`  | Yes      | [authentication](#Authentication) | Configures the authentication method used to access `confluence` source records from the specified host.                                                                                                                            |
 | `filter`          | No       | [filter](#Filter)                 | Applies specific filter criteria while extracting Confluence content.                                                                                                                                                               |
 
 ### Authentication
 
-You can use one of the following authentication methods to access a Confluence host. You must provide one of the following parameters.
+Use one of the following authentication methods to access a Confluence host. You must provide exactly one of the following parameters.
 
 | Option   | Required | Type              | Description                                                  |
 |:---------|:---------|:------------------|:-------------------------------------------------------------|
 | `basic`  | Yes      | [Basic](#basic-authentication)  | Basic authentication credentials used to access a Confluence host.  |
 | `oauth2` | Yes      | [OAuth 2.0](#oauth-20-authentication) | OAuth 2.0 authentication credentials used to access a Confluence host. |
+| `bearer_token` | Yes | String | A bearer token or reference to the secret key storing the bearer token. The source sends the token in the `Authorization: Bearer` header of each request. If the token is stored in AWS Secrets Manager, the source reloads the secret value when the host returns a `401` response. |
 
 #### Basic authentication
 
-Either basic or OAuth 2.0 credentials are required to access the Confluence site. If you use `basic` authentication, the following fields are required.
+If you use `basic` authentication, the following fields are required.
 
 | Option     | Required | Type   | Description                                                                                     |
 |:-----------|:---------|:-------|:------------------------------------------------------------------------------------------------|
@@ -105,7 +108,7 @@ Either basic or OAuth 2.0 credentials are required to access the Confluence site
 
 #### OAuth 2.0 authentication
 
-Either basic or OAuth 2.0 credentials are required to access the Confluence site. If you use OAuth 2.0, the following fields are required.
+If you use OAuth 2.0, the following fields are required.
 
 | Option          | Required | Type   | Description                                                                                     |
 |:----------------|:---------|:-------|:------------------------------------------------------------------------------------------------|
@@ -120,8 +123,10 @@ Optionally, you can specify filters to select specific content, shown in the fol
 
 | Option      | Required | Type   | Description                                   |
 |:------------|:---------|:-------|:----------------------------------------------|
-| `space`     | No       | String | A list of space keys to include or exclude.         |
-| `page_type` | No       | String | A list of page type filters to include or exclude. |
+| `space`     | No       | Object | Filters content by space. Contains the `key` object, which accepts `include` and `exclude` lists of space keys. Use the space key, not the space name. Each space key must be 2--100 characters long and contain only letters and digits. A space key cannot appear in both lists. |
+| `page_type` | No       | Object | Filters content by type. Accepts `include` and `exclude` lists of content types. Valid values are `page`, `blogpost`, `comment`, and `attachment`. A content type cannot appear in both lists. |
+
+The source validates filter values when it starts crawling. If a filter contains an invalid value, the source logs an error and does not ingest content.
 
 ### AWS secrets
 

@@ -20,6 +20,8 @@ Field             | Type    | Required | Description
 `invocation_type`   | String  | No       | Specifies the invocation type. Default is `event`.             
 `aws.region`        | String  | Yes      | The AWS Region in which the Lambda function is located.                         
 `aws.sts_role_arn`  | String  | No       | The Amazon Resource Name (ARN) of the role to assume before invoking the Lambda function.               
+`aws.sts_external_id` | String | No | The external ID to use when assuming the role specified in `aws.sts_role_arn`. Must be between 2 and 1,224 characters.
+`aws.sts_header_overrides` | Map | No | A map of header overrides to apply to the request that assumes the role specified in `aws.sts_role_arn`. Maximum of 5 headers.
 `max_retries`       | Integer | No       | The maximum number of sink-level retries if the Lambda invocation fails. This controls Data Prepper's retry logic. Default is `3`.
 `client.max_retries` | Integer | No | The maximum number of AWS SDK client-level retries for individual API calls. This controls the underlying SDK retry mechanism for network or service errors. Default is `3`.             
 `client.api_call_timeout` | Duration | No | The total timeout for the entire API call including all retries. Default is `60s`.

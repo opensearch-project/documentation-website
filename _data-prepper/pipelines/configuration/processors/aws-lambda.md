@@ -40,6 +40,10 @@ Field                | Type    | Required | Description
 `tags_on_failure`    | List    | Optional |  A list of tags to add to events when the Lambda function fails or encounters an exception.
 `response_events_match` | Boolean | Optional | Specifies how Data Prepper interprets and processes Lambda function responses. Default is `false`.
 `response_mode`      | String  | Optional | The response handling mode, either `replace` or `merge`. Default is `replace`.
+`invocation_type`    | String  | Optional | The Lambda invocation type. Valid values are `request-response`, `event`, and `streaming-response`. Default is `request-response`. See [Usage](#usage).
+`streaming`          | Object  | Optional | The response streaming configuration. Response streaming is used only when `invocation_type` is `streaming-response` and `streaming.enabled` is `true`. When `streaming` is specified, `batch.threshold.event_count` must be `1`. See [Response streaming](#response-streaming).
+`streaming.enabled`  | Boolean | Optional | Whether to invoke the Lambda function using response streaming. Default is `false`.
+`streaming.response_handling` | String | Optional | Specifies how the streamed response is converted into events. The only valid value is `reconstruct-document`, which merges all parsed chunks of the streamed response into the original event. Default is `reconstruct-document`.
 `keys`               | List    | Optional | Keys to send to the Lambda function.
 `cache`              | Object  | Optional | The cache configuration. Only valid when `response_mode` is `merge` and `keys` are specified.
 `cache.ttl`          | Long    | Optional | The cache time-to-live.
@@ -50,7 +54,7 @@ Field                | Type    | Required | Description
 The following is an example configuration:
 
 ```yaml
-processors:
+processor:
   - aws_lambda:
       function_name: my-lambda-function
       response_events_match: false
@@ -101,6 +105,32 @@ The processor supports the following invocation types:
 
 - `request-response`: The processor waits for Lambda function completion before proceeding.
 - `event`: The function is triggered asynchronously without waiting for a response.
+- `streaming-response`: The processor invokes the function using Lambda response streaming and waits for the complete streamed response. Requires `streaming.enabled` to be `true`. See [Response streaming](#response-streaming).
+
+The `cache` setting is valid only when `invocation_type` is `request-response`.
+
+### Response streaming
+
+Use response streaming for Lambda functions that return large responses in multiple chunks. The processor collects all chunks of the streamed response, parses them using the `response_codec`, and merges the resulting data into the original event. Because each response is merged into a single original event, `batch.threshold.event_count` must be set to `1`.
+
+The following example configures response streaming:
+
+```yaml
+processor:
+  - aws_lambda:
+      function_name: my-streaming-function
+      invocation_type: streaming-response
+      streaming:
+        enabled: true
+        response_handling: reconstruct-document
+      batch:
+        threshold:
+          event_count: 1
+      aws:
+        region: us-east-1
+        sts_role_arn: arn:aws:iam::123456789012:role/my-lambda-role
+```
+{% include copy.html %}
 
 ### Batch processing
 

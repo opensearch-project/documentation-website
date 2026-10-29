@@ -90,8 +90,8 @@ You can use the following options to configure the `translate` processor.
 
 | Parameter | Required | Type | Description |
 | :--- | :---  | :--- | :--- |
-| mappings | No | List | Defines inline mappings. For more information, see [mappings](#mappings). |
-| file | No | Map | Points to the file that contains mapping configurations. For more information, see [file](#file). |
+| `mappings` | No | List | Defines inline mappings. For more information, see [mappings](#mappings). |
+| `file` | No | Map | Points to the file that contains mapping configurations. For more information, see [file](#file). |
 
 <!-- vale off -->
 ### mappings
@@ -101,19 +101,19 @@ Each item in the `mappings` configuration contains the following options.
 
 | Parameter | Required | Type | Description |
 | :--- | :--- | :--- | :--- |
-| source | Yes | String or list | The source field to translate. Can be a string or a list of strings. |
-| targets | Yes | List |  A list of target field configurations, such as the target field key or translation maps. |
+| `source` | Yes | String or list | The source field to translate. Can be a string or a list of strings. |
+| `targets` | Yes | List |  A list of target field configurations, such as the target field key or translation maps. |
 
 Each item in the `targets` configuration contains the following options.
 
 | Parameter | Required | Type | Description |
 | :--- | :---  | :--- | :--- |
-| target | Yes | String | The key that specifies the field in the output in which the translated value will be placed. |
-| map | No | Map | A list of key-value pairs that define the translations. Each key represents a possible value in the source field, and the corresponding value represents what it should be translated to. For examples, see [map option](#map-option). At least one of `map` and `regex` should be configured. |
-| regex | No | Map | A map of keys that defines the translation map. For more options, see [regex option](#regex-option). At least one of `map` and `regex` should be configured. |
-| default | No | String | The default value to use when no match is found during translation. |
-| type | No | String | Specifies the data type for the target value. |
-| translate_when | No | String | Uses a [Data Prepper expression]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/expression-syntax/) to specify a condition for performing the translation. When specified, the expression will only translate when the condition is met. |
+| `target` | Yes | String | The key that specifies the field in the output in which the translated value will be placed. |
+| `map` | No | Map | A list of key-value pairs that define the translations. Each key represents a possible value in the source field, and the corresponding value represents what it should be translated to. For examples, see [map option](#map-option). At least one of `map` and `regex` should be configured. |
+| `regex` | No | Map | A map of keys that defines the translation map. For more options, see [regex option](#regex-option). At least one of `map` and `regex` should be configured. |
+| `default` | No | String | The default value to use when no match is found during translation. |
+| `type` | No | String | Specifies the data type for the target value. Valid values are `integer`, `long`, `double`, `big_decimal`, `string`, and `boolean`. Default is `string`. |
+| `translate_when` | No | String | Uses a [Data Prepper expression]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/expression-syntax/) to specify a condition for performing the translation. When specified, the expression will only translate when the condition is met. |
 
 <!-- vale off -->
 #### map option
@@ -150,8 +150,8 @@ You can use the following options with the `regex` option.
 
 | Parameter | Required | Type | Description |
 | :--- | :---  | :--- | :--- |
-| patterns | Yes | Map | A map of key-value pairs defining the regex patterns of keys and the value to translate to for each pattern. |
-| exact | No | Boolean | Whether to use full string match or partial string match on the regex pattern. If `true`, the pattern is considered a match only when the entire key matches the pattern. Otherwise, the pattern is considered a match when a sub-string of the key matches the pattern. |
+| `patterns` | Yes | Map | A map of key-value pairs defining the regex patterns of keys and the value to translate to for each pattern. |
+| `exact` | No | Boolean | Whether to use full string match or partial string match on the regex pattern. If `true`, the pattern is considered a match only when the entire key matches the pattern. Otherwise, the pattern is considered a match when a sub-string of the key matches the pattern. Default is `true`. |
 
 <!-- vale off -->
 ### file
@@ -172,7 +172,7 @@ You can use the following options in the `file` configuration.
 
 | Parameter | Required | Type | Description |
 | :--- | :---  | :--- | :--- |
-| name | Yes | String | The full path to a local file or key name for an S3 object. |
+| `name` | Yes | String | The full path to a local file or key name for an S3 object. |
 | `aws` | No | Map | The AWS configuration when the file is an S3 object. See the following table for more information. |
 
 You can use the following options with the `aws` configuration.
