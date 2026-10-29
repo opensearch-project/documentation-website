@@ -44,7 +44,7 @@ All query parameters are optional.
 
 If none of the `fielddata`, `query`, `request`, or `fields` parameters is specified, all caches are cleared. Setting `fielddata` or `query` to `true` clears only that cache. If `request` is the only cache parameter set to `true` and `fields` is not specified, all caches are cleared.
 
-Fielddata entries are removed during the next cache cleanup, which runs at the interval specified by the `indices.cache.cleanup_interval` setting (default `1m`). Until then, fielddata statistics can show the size before the cache was cleared.
+Field data entries are removed during the next cache cleanup, which runs at the interval specified by the `indices.cache.cleanup_interval` setting (default `1m`). Until then, fielddata statistics can show the size before the cache was cleared.
 {: .note}
 
 ## Example requests
