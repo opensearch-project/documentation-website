@@ -29,11 +29,13 @@ Use dashboard variables to:
 
 ## Variable types
 
-OpenSearch Dashboards supports two types of variables:
+OpenSearch Dashboards supports the following variable types:
 
-- **Query variables**: Options are dynamically fetched from a data source using a Piped Processing Language (PPL) or Prometheus Query Language (PromQL) query. Use query variables when values change over time or depend on underlying data, such as service names from logs or available regions from metrics.
+- **Query variables**: Options are dynamically fetched from a data source using a Piped Processing Language (PPL) or Prometheus Query Language (PromQL) query. Use query variables when values change over time or depend on underlying data, such as service names from logs or available regions from metrics. For a Prometheus data connection, you can build the query from PromQL query types (label names, label values, metrics, or series) instead of writing a raw query. For more information, see [Using a PromQL query variable]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/dashboard-variables/managing-variables/#using-a-promql-query-variable).
 
 - **Custom variables**: Options are manually defined as a static list. Use custom variables for predefined categories like environment types (`dev`, `staging`, `prod`) or fixed status codes.
+
+- **Text variables**: A single value that you type in the variables bar. Use text variables for values that you can't list in advance, such as a search term or a threshold.
 
 ## Variable syntax
 
@@ -66,40 +68,36 @@ The following tutorial uses the OpenSearch Dashboards sample web logs dataset to
 1. Navigate to the OpenSearch Dashboards home page.
 1. Select **Create workspace**.
 1. Enter a workspace name (for example, `My Observability`).
-1. Under **Use case**, select **Observability**.
+1. In the **Use case and features** section, keep **Observability** selected.
 1. Select **Create workspace**.
 
 For more information, see [Create a workspace]({{site.url}}{{site.baseurl}}/dashboards/workspace/create-workspace/).
 
 ### Step 2: Set up sample data
 
-1. In the workspace, navigate to **Manage workspace** > **Sample data** and select **Add data** for the web logs dataset.
-1. Create an index pattern for the sample data:
-   1. Navigate to **Manage workspace** > **Index patterns**.
-   1. Select **Create index pattern**.
-   1. In the **Index pattern name** field, enter `opensearch_dashboards_sample_data_logs`.
-   1. Select **Next step**.
-   1. In the **Time field** dropdown, select `timestamp`.
-   1. Select **Create index pattern**.
+In the workspace, navigate to **Manage workspace** > **Sample data** and select **Add data** for the web logs dataset. Adding the sample data also creates the `opensearch_dashboards_sample_data_logs` index pattern.
 
 ### Step 3: Create a variable
 
 1. Select **Dashboards** in the left navigation.
-1. Select **Create** > **Dashboard**.
-1. Save the dashboard by entering a title (for example, `Log Analysis`) and selecting **Save**.
+1. Select **Create Dashboard**.
+1. Save the dashboard by entering a title (for example, `Log Analysis`) and selecting **Save**. Saving switches the dashboard to view mode.
+1. Turn on the **Edit** toggle.
 1. At the top of the dashboard, select **Add variable**.
-1. Configure the following settings:
-   - **Name**: `extension`
-   - **Type**: **Query**
-   - **Dataset**: Select `opensearch_dashboards_sample_data_logs`
-   - **Options Query**:
+1. In the **Name** field, enter `extension`.
+1. In the **Type** dropdown, keep **Query** selected.
+1. In the **Query options** section, select **Open variable editor**.
+1. Keep the query language set to **PPL**. Verify that the selected dataset is `opensearch_dashboards_sample_data_logs`. To choose a different dataset, select the dataset name.
+1. Enter the following query:
 
-     ```sql
-     source=opensearch_dashboards_sample_data_logs | stats count() by extension | fields extension
-     ```
-     {% include copy.html %}
+   ```sql
+   source=opensearch_dashboards_sample_data_logs | stats count() by extension | fields extension
+   ```
+   {% include copy.html %}
 
-1. Select **Preview** to verify the results. The preview should display values: `css`, `deb`, `gz`, `rpm`, and `zip`.
+1. To verify the results, select **Preview**. The preview displays `css`, `deb`, `gz`, `rpm`, `zip`, and an empty value for documents that have no file extension.
+1. In the **Value field** dropdown, verify that `extension` is selected. The preview fills in this field automatically.
+1. Select **Apply** to save the query and close the editor.
 1. Select **Add variable** to save.
 
 The `extension` variable now appears at the top of the dashboard with a dropdown.
