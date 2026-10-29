@@ -13,7 +13,7 @@ nav_order: 60
 
 Querqy for OpenSearch is a community plugin for query rewriting that improves search relevance. It makes OpenSearch more precise in matching and scoring by applying rules for boosting, burying, filtering, and redirecting search results, among other capabilities.
 
-Querqy supports OpenSearch versions up to 2.19.2.
+Querqy supports OpenSearch versions up to 3.8.0. For a list of supported OpenSearch versions, see [Querqy for OpenSearch releases](https://github.com/querqy/querqy-opensearch/releases).
 {: .warning }
 
 For more information, see the [Querqy documentation](https://docs.querqy.org/querqy/index.html).
