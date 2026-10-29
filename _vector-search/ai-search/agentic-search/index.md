@@ -287,6 +287,8 @@ After setting up basic agentic search, you can enhance your implementation with 
 
 - [Add search templates]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/search-templates/) -- Add predefined search templates to handle complex query patterns that would be challenging for LLMs to generate consistently, ensuring predictable query structure and improved reliability.
 
+- [Fill search templates]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agentic-search-templates/) -- Have the LLM fill the parameters of registered search templates instead of writing the full query, using either ML Commons or the OpenSearch Agent Server.
+
 - [Connect external MCP servers]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/mcp-server/) -- Extend agentic search with external tools and data sources through Model Context Protocol (MCP) servers for enhanced functionality and real-time information access.
 
 - [Build agentic search flows]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/building-agentic-search-flows/) -- Configure agents and execute agentic search using AI search flows in OpenSearch Dashboards. 
