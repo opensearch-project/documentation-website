@@ -51,7 +51,7 @@ PUT _cluster/settings
 {
   "transient": {
     "plugins.security.resource_sharing.enabled": true,
-    "plugins.security.resource_sharing.protected_types": ["sample-resource", "sample-resource-group", "workspace"]
+    "plugins.security.resource_sharing.protected_types": ["monitor", "alerting-workflow"]
   }
 }
 ```
@@ -62,7 +62,7 @@ PUT _cluster/settings
 Specify the resource types that use resource-level authorization by listing them in the protected types configuration. This setting determines the plugin-defined resources that use the sharing and access control framework:
 
 ```yaml
-plugins.security.resource_sharing.protected_types: ["sample-resource", "sample-resource-group", "workspace"]
+plugins.security.resource_sharing.protected_types: ["monitor", "alerting-workflow"]
 ```
 {% include copy.html %}
 
@@ -76,7 +76,7 @@ The resource types you specify must exactly match the resource types supported b
 
 Starting with OpenSearch 3.10, the `plugins.security.resource_sharing.protected_types` setting must include either all or none of the registered resource types that share the same resource index. Types stored in different indexes can be configured independently. This rule applies even when `plugins.security.resource_sharing.enabled` is `false`.
 
-For example, the sample resource plugin registers `sample-resource`, `sample-resource-group`, and `workspace` for the `.sample_resource` index. To protect the resource types registered for that index, include all three, as shown in the preceding examples. Specifying only `sample-resource` is invalid. To stop protecting those types, remove all three from the list.
+For example, Alerting registers `monitor` and `alerting-workflow` for the `.opendistro-alerting-config` index. To protect Alerting resources, include both types. Specifying only `monitor` or only `alerting-workflow` is invalid. To stop protecting Alerting resources, remove both types from the list.
 
 The Security plugin validates this configuration at startup and when you update it through the Cluster Settings API. If `opensearch.yml` contains a partial list, the node does not start. If a Cluster Settings API request contains a partial list, the request is rejected. The error identifies the resource index and the missing types. Rejected updates leave the existing configuration unchanged.
 
@@ -85,7 +85,7 @@ Both persistent and transient settings must satisfy this rule. An invalid persis
 Before upgrading to OpenSearch 3.10 or later, check `opensearch.yml` and your persistent and transient cluster settings for partial lists. Add the missing types for each index you want to keep protected. If a plugin upgrade registers another resource type for an already protected index, add that type to the list as part of the upgrade.
 {: .warning}
 
-Resource types are grouped by the index that each plugin declares for them. Index aliases are not resolved, and document types that no plugin registers are not included. Install the same plugins on all nodes, including cluster manager nodes. For the resource types that share an index, see the plugin documentation.
+Resource types are grouped by the index that each installed plugin declares for them. Index aliases are not resolved, and documents in a resource index that are not associated with a resource type registered by an installed plugin are not included. Install the same plugins on all nodes, including cluster manager nodes. For the resource types that share an index, see the plugin documentation.
 
 ## Resource types by plugin
 
@@ -106,6 +106,16 @@ The following table describes the resource types registered by the plugins that 
 
 The Security Analytics `detector` resource type is distinct from the Anomaly Detection `anomaly-detector` resource type, and the Alerting `alerting-workflow` resource type is distinct from the Flow Framework `workflow` resource type.
 {: .note}
+
+### Production resource types that share an index
+
+The following production resource types share an index and must be protected together:
+
+| Index | Resource types |
+| :--- | :--- |
+| `.opendistro-alerting-config` | Alerting `monitor`, `alerting-workflow` |
+
+Installed plugin versions determine the resource registrations in a cluster. Use the [List resource types API]({{site.url}}{{site.baseurl}}/security/access-control/resource-sharing-api/#list-resource-types) to verify the current resource types before changing `protected_types`.
 
 The following is an example configuration that protects the ML Commons and Anomaly Detection resource types:
 
