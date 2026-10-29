@@ -12,9 +12,9 @@ redirect_from:
 This page contains descriptions for all audit log fields.
 
 
-## Common attributes
+## Common fields
 
-The following attributes are logged for all event categories, independent of the layer.
+The following fields are logged for all event categories, independent of the layer.
 
 Name | Description
 :--- | :---
@@ -29,9 +29,9 @@ Name | Description
 `audit_request_effective_user_is_admin` | True if the request was made with a TLS admin certificate, otherwise false.
 
 
-## REST FAILED_LOGIN attributes
+## REST FAILED_LOGIN fields
 
-The following attributes are logged for the REST layer failed login events.
+The following fields are logged for the REST layer failed login events.
 
 Name | Description
 :--- | :---
@@ -42,16 +42,16 @@ Name | Description
 `audit_request_initiating_user` | The user that initiated the request. Only logged if it differs from the effective user.
 `audit_request_body` | The HTTP request body, if any (and if request body logging is enabled).
 `audit_rest_request_method` | The HTTP request method.
-`audit_request_attempted_user` | The principal presented by a credential that an authenticator rejected before authentication, for example, a JWT subject that uses a reserved prefix. Only logged for these rejections. The attempted principal is never used as `audit_request_effective_user`, which is `<NONE>` unless another authentication domain already identified a user. Values longer than 256 characters are truncated.
-`audit_authentication_failure_reason` | The reason the credential was rejected. Valid values are `RESERVED_SUBJECT_PREFIX` (the subject uses a prefix reserved for internal identities, such as `plugin:` or `token:`) and `FORBIDDEN_SUBJECT` (the subject is listed in the JWT `forbidden_subjects` setting). Only logged together with `audit_request_attempted_user`.
+`audit_request_attempted_user` | The principal presented by a credential that an authenticator rejected before authentication, such as a JWT subject with a reserved prefix. This field is logged only for these rejections. The attempted principal is never used as `audit_request_effective_user`, which is `<NONE>` unless another authentication domain has already identified a user. Values longer than 256 characters are truncated.
+`audit_authentication_failure_reason` | The reason the credential was rejected. Valid values are `RESERVED_SUBJECT_PREFIX` (the subject uses a prefix reserved for internal identities, such as `plugin:` or `token:`) and `FORBIDDEN_SUBJECT` (the subject is listed in the JWT `forbidden_subjects` setting). This field is logged only with `audit_request_attempted_user`.
 
-`audit_request_attempted_user` contains the subject from a JWT whose signature was verified or the value of a proxy user header. It never contains a token, password, or other credential. To stop recording these events, disable the `FAILED_LOGIN` category using `disabled_categories`.
+The `audit_request_attempted_user` field contains the subject from a JWT for which the signature was verified or the value of a proxy user header. It never contains a token, password, or other credential. To stop recording these events, disable the `FAILED_LOGIN` category using `disabled_categories`.
 {: .note}
 
 
-## REST AUTHENTICATED attributes
+## REST AUTHENTICATED fields
 
-The following attributes are logged for the REST layer successful authentication events.
+The following fields are logged for the REST layer successful authentication events.
 
 Name | Description
 :--- | :---
@@ -64,18 +64,18 @@ Name | Description
 `audit_rest_request_method` | The HTTP request method.
 
 
-## REST SSL_EXCEPTION attributes
+## REST SSL_EXCEPTION fields
 
-The following attributes are logged for the REST layer SSL exception events.
+The following fields are logged for the REST layer SSL exception events.
 
 Name | Description
 :--- | :---
 `audit_request_exception_stacktrace` | The stack trace of the SSL exception.
 
 
-## REST BAD_HEADERS attributes
+## REST BAD_HEADERS fields
 
-The following attributes are logged for the REST layer bad headers events.
+The following fields are logged for the REST layer bad headers events.
 
 Name | Description
 :--- | :---
@@ -85,26 +85,9 @@ Name | Description
 `audit_request_body` | The HTTP request body, if any (and if request body logging is enabled).
 
 
-## Transport FAILED_LOGIN attributes
+## Transport FAILED_LOGIN fields
 
-The following attributes are logged for the transport layer failed login events.
-
-Name | Description
-:--- | :---
-`audit_trace_task_id` | The ID of the request.
-`audit_transport_headers` | The headers of the request, if any.
-`audit_request_effective_user` | The username that failed to authenticate.
-`audit_request_initiating_user` | The user that initiated the request. Only logged if it differs from the effective user.
-`audit_transport_request_type` | The request type (for example, `IndexRequest`).
-`audit_request_body` | The HTTP request body, if any (and if request body logging is enabled).
-`audit_trace_indices` | The index name(s) included in the request. Can contain wildcards, date patterns, and aliases. Only logged if `resolve_indices` is true.
-`audit_trace_resolved_indices` | The resolved index name(s) affected by the request. Only logged if `resolve_indices` is true.
-`audit_trace_doc_types` | The document types affected by the request. Only logged if `resolve_indices` is true.
-
-
-## Transport AUTHENTICATED attributes
-
-The following attributes are logged for the transport layer successful authentication events.
+The following fields are logged for the transport layer failed login events.
 
 Name | Description
 :--- | :---
@@ -119,28 +102,26 @@ Name | Description
 `audit_trace_doc_types` | The document types affected by the request. Only logged if `resolve_indices` is true.
 
 
-## Transport MISSING_PRIVILEGES attributes
+## Transport AUTHENTICATED fields
 
-The following attributes are logged for the transport layer missing privileges events.
+The following fields are logged for the transport layer successful authentication events.
 
 Name | Description
 :--- | :---
 `audit_trace_task_id` | The ID of the request.
-`audit_trace_task_parent_id` | The parent ID of this request, if any.
 `audit_transport_headers` | The headers of the request, if any.
 `audit_request_effective_user` | The username that failed to authenticate.
 `audit_request_initiating_user` | The user that initiated the request. Only logged if it differs from the effective user.
 `audit_transport_request_type` | The request type (for example, `IndexRequest`).
-`audit_request_privilege` | The required privilege of the request (for example, `indices:data/read/search`).
 `audit_request_body` | The HTTP request body, if any (and if request body logging is enabled).
 `audit_trace_indices` | The index name(s) included in the request. Can contain wildcards, date patterns, and aliases. Only logged if `resolve_indices` is true.
 `audit_trace_resolved_indices` | The resolved index name(s) affected by the request. Only logged if `resolve_indices` is true.
 `audit_trace_doc_types` | The document types affected by the request. Only logged if `resolve_indices` is true.
 
 
-## Transport GRANTED_PRIVILEGES attributes
+## Transport MISSING_PRIVILEGES fields
 
-The following attributes are logged for the transport layer granted privileges events.
+The following fields are logged for the transport layer missing privileges events.
 
 Name | Description
 :--- | :---
@@ -157,18 +138,37 @@ Name | Description
 `audit_trace_doc_types` | The document types affected by the request. Only logged if `resolve_indices` is true.
 
 
-## Transport SSL_EXCEPTION attributes
+## Transport GRANTED_PRIVILEGES fields
 
-The following attributes are logged for the transport layer SSL exception events.
+The following fields are logged for the transport layer granted privileges events.
+
+Name | Description
+:--- | :---
+`audit_trace_task_id` | The ID of the request.
+`audit_trace_task_parent_id` | The parent ID of this request, if any.
+`audit_transport_headers` | The headers of the request, if any.
+`audit_request_effective_user` | The username that failed to authenticate.
+`audit_request_initiating_user` | The user that initiated the request. Only logged if it differs from the effective user.
+`audit_transport_request_type` | The request type (for example, `IndexRequest`).
+`audit_request_privilege` | The required privilege of the request (for example, `indices:data/read/search`).
+`audit_request_body` | The HTTP request body, if any (and if request body logging is enabled).
+`audit_trace_indices` | The index name(s) included in the request. Can contain wildcards, date patterns, and aliases. Only logged if `resolve_indices` is true.
+`audit_trace_resolved_indices` | The resolved index name(s) affected by the request. Only logged if `resolve_indices` is true.
+`audit_trace_doc_types` | The document types affected by the request. Only logged if `resolve_indices` is true.
+
+
+## Transport SSL_EXCEPTION fields
+
+The following fields are logged for the transport layer SSL exception events.
 
 Name | Description
 :--- | :---
 `audit_request_exception_stacktrace` | The stack trace of the SSL exception.
 
 
-## Transport BAD_HEADERS attributes
+## Transport BAD_HEADERS fields
 
-The following attributes are logged for the transport layer bad headers events.
+The following fields are logged for the transport layer bad headers events.
 
 Name | Description
 :--- | :---
@@ -184,9 +184,9 @@ Name | Description
 `audit_trace_doc_types` | The document types affected by the request. Only logged if `resolve_indices` is true.
 
 
-## Transport opensearch_SECURITY_INDEX_ATTEMPT attributes
+## Transport opensearch_SECURITY_INDEX_ATTEMPT fields
 
-The following attributes are logged when a request attempts to access the OpenSearch security index.
+The following fields are logged when a request attempts to access the OpenSearch security index.
 
 Name | Description
 :--- | :---
@@ -201,9 +201,9 @@ Name | Description
 `audit_trace_doc_types` | The document types affected by the request. Only logged if `resolve_indices` is true.
 
 
-## Transport CLUSTER_SETTINGS_CHANGED attributes
+## Transport CLUSTER_SETTINGS_CHANGED fields
 
-The following attributes are logged when cluster settings are changed.
+The following fields are logged when cluster settings are changed.
 
 Name | Description
 :--- | :---
@@ -223,9 +223,9 @@ Name | Description
 `scope` | Either `persistent` (survives restarts) or `transient` (lost on restart).
 
 
-## Transport INDEX_SETTINGS_CHANGED attributes
+## Transport INDEX_SETTINGS_CHANGED fields
 
-The following attributes are logged when index settings are changed.
+The following fields are logged when index settings are changed.
 
 Name | Description
 :--- | :---
