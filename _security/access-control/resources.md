@@ -85,7 +85,15 @@ Both persistent and transient settings must satisfy this rule. An invalid persis
 Before upgrading to OpenSearch 3.10 or later, check `opensearch.yml` and your persistent and transient cluster settings for partial lists. Add the missing types for each index you want to keep protected. If a plugin upgrade registers another resource type for an already protected index, add that type to the list as part of the upgrade.
 {: .warning}
 
-Resource types are grouped by the index that each installed plugin declares for them. Index aliases are not resolved, and documents in a resource index that are not associated with a resource type registered by an installed plugin are not included. Install the same plugins on all nodes, including cluster manager nodes. For the resource types that share an index, see the plugin documentation.
+Resource types are grouped by the index that each installed plugin declares for them. Index aliases are not resolved, and documents in a resource index that are not associated with a resource type registered by an installed plugin are not included. Install the same plugins on all nodes, including cluster manager nodes.
+
+The following resource types listed in [Resource types by plugin](#resource-types-by-plugin) share an index and must be protected together.
+
+| Plugin | Index | Resource types |
+| :--- | :--- | :--- |
+| Alerting | `.opendistro-alerting-config` | `monitor`, `alerting-workflow` |
+
+The installed plugin versions determine which resource types are registered in a cluster. Before changing `protected_types`, use the [List resource types API]({{site.url}}{{site.baseurl}}/security/access-control/resource-sharing-api/#list-resource-types) to verify the resource types in your cluster.
 
 ## Resource types by plugin
 
@@ -106,16 +114,6 @@ The following table describes the resource types registered by the plugins that 
 
 The Security Analytics `detector` resource type is distinct from the Anomaly Detection `anomaly-detector` resource type, and the Alerting `alerting-workflow` resource type is distinct from the Flow Framework `workflow` resource type.
 {: .note}
-
-### Production resource types that share an index
-
-The following production resource types share an index and must be protected together:
-
-| Index | Resource types |
-| :--- | :--- |
-| `.opendistro-alerting-config` | Alerting `monitor`, `alerting-workflow` |
-
-Installed plugin versions determine the resource registrations in a cluster. Use the [List resource types API]({{site.url}}{{site.baseurl}}/security/access-control/resource-sharing-api/#list-resource-types) to verify the current resource types before changing `protected_types`.
 
 The following is an example configuration that protects the ML Commons and Anomaly Detection resource types:
 
