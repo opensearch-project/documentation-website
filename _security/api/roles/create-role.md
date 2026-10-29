@@ -12,7 +12,7 @@ nav_order: 10
 
 Creates or replaces the specified role.
 
-To create or replace multiple roles in one request, use the [Create or Update Roles API]({{site.url}}{{site.baseurl}}/security/api/roles/create-roles/), introduced in OpenSearch 3.10.
+To create or replace multiple roles in one request, use the [Create or Update Roles API]({{site.url}}{{site.baseurl}}/security/api/roles/create-roles/).
 
 <!-- spec_insert_start
 api: security.create_role
