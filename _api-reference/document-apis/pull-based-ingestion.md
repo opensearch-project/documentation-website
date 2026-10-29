@@ -19,6 +19,7 @@ Before using pull-based ingestion, ensure that the following prerequisites are m
 * Install an ingestion plugin for your streaming source using the command `bin/opensearch-plugin install <plugin-name>`. For more information, see [Additional plugins]({{site.url}}{{site.baseurl}}/install-and-configure/additional-plugins/index/). OpenSearch supports the following ingestion plugins: 
   - `ingestion-kafka`
   - `ingestion-kinesis` (experimental)
+  - `ingestion-object-store`, which reads NDJSON files from object storage. See [Object store source]({{site.url}}{{site.baseurl}}/api-reference/document-apis/pull-based-ingestion-object-store/).
 * Configure pull-based ingestion during [index creation](#creating-an-index-for-pull-based-ingestion). You cannot convert an existing push-based index to a pull-based one.
 
 ## Creating an index for pull-based ingestion
@@ -66,7 +67,7 @@ Dynamic settings can be updated using the [Update Settings API]({{site.url}}{{si
 
 | Setting | Dynamic | Description |
 | :--- | :--- | :--- |
-| `type` | No | The streaming source type. Required. Valid values are `kafka` or `kinesis`. |
+| `type` | No | The streaming source type. Required. Valid values are `kafka`, `kinesis`, or `object_store`. |
 | `pointer.init.reset` | No | Determines the stream location from which to start reading. Optional. Valid values are `earliest`, `latest`, `reset_by_offset`, `reset_by_timestamp`, or `none`. See [Stream position](#stream-position). |
 | `pointer.init.reset.value` | No | Required only for `reset_by_offset` or `reset_by_timestamp`. Specifies the offset value or timestamp in milliseconds. See [Stream position](#stream-position). |
 | `error_strategy` | Yes | How to handle failed messages. Optional. Valid values are `DROP` (failed messages are skipped and ingestion continues) and `BLOCK` (when a message fails, ingestion stops). Default is `DROP`. |
@@ -79,7 +80,7 @@ Dynamic settings can be updated using the [Update Settings API]({{site.url}}{{si
 | `warmup.timeout` | Yes | The maximum amount of time to wait for the shard to catch up with the streaming source during the warmup phase after node restart or shard relocation. Shards will not serve queries until warmup completes or times out. Accepts time units. Optional. Default is `-1` (disabled). |
 | `warmup.lag_threshold` | Yes | The acceptable pointer-based lag threshold for warmup completion. Warmup completes when the lag is at or below this value. A value of `0` means that the shard is synchronized with the source. Optional. Default is `100`. |
 | `mapper_type` | No | Defines the mapper for the input message format. Valid values are `default` and `raw_payload`. See [Message format](#message-format). |
-| `param` | Yes | Source-specific configuration parameters. Required. <br>&ensp;&#x2022; The `ingest-kafka` plugin requires:<br>&ensp;&ensp;- `topic`: The Kafka topic to consume from<br>&ensp;&ensp;- `bootstrap_servers`: The Kafka server addresses<br>&ensp;&ensp;Optionally, you can provide additional standard Kafka consumer parameters (such as `fetch.min.bytes`). These parameters are passed directly to the Kafka consumer. <br>&ensp;&#x2022; The `ingest-kinesis` plugin requires:<br>&ensp;&ensp;- `stream`: The Kinesis stream name<br>&ensp;&ensp;- `region`: The AWS Region<br>&ensp;&ensp;- `access_key`: The AWS access key<br>&ensp;&ensp;- `secret_key`: The AWS secret key<br>&ensp;&ensp;Optionally, you can provide an `endpoint_override`. | 
+| `param` | Yes | Source-specific configuration parameters. Required. <br>&ensp;&#x2022; The `ingest-kafka` plugin requires:<br>&ensp;&ensp;- `topic`: The Kafka topic to consume from<br>&ensp;&ensp;- `bootstrap_servers`: The Kafka server addresses<br>&ensp;&ensp;Optionally, you can provide additional standard Kafka consumer parameters (such as `fetch.min.bytes`). These parameters are passed directly to the Kafka consumer. <br>&ensp;&#x2022; The `ingest-kinesis` plugin requires:<br>&ensp;&ensp;- `stream`: The Kinesis stream name<br>&ensp;&ensp;- `region`: The AWS Region<br>&ensp;&ensp;- `access_key`: The AWS access key<br>&ensp;&ensp;- `secret_key`: The AWS secret key<br>&ensp;&ensp;Optionally, you can provide an `endpoint_override`. <br>&ensp;&#x2022; For the `ingestion-object-store` plugin parameters, see [Object store source]({{site.url}}{{site.baseurl}}/api-reference/document-apis/pull-based-ingestion-object-store/). | 
 
 
 ### Other settings
@@ -222,7 +223,7 @@ The following table lists the available `polling_ingest_stats` metrics.
 | `consumer_stats.total_poller_message_failure_count` | The total number of failed messages on the poller. |
 | `consumer_stats.total_poller_message_dropped_count` | The total number of failed messages on the poller that were dropped. |
 | `consumer_stats.lag_in_millis` | Lag in milliseconds, computed as the time elapsed since the last processed message timestamp. |
-| `consumer_stats.pointer_based_lag` | The Apache Kafka offset-based lag, calculated as the difference between the latest available offset and the current message offset. This metric applies only when Apache Kafka is used as the streaming source. |
+| `consumer_stats.pointer_based_lag` | The Apache Kafka offset-based lag, calculated as the difference between the latest available offset and the current message offset. This metric applies only when Apache Kafka is used as the streaming source. For the [object store source]({{site.url}}{{site.baseurl}}/api-reference/document-apis/pull-based-ingestion-object-store/), it is the number of bytes the shard still has to read. |
 
 To retrieve shard-level pull-based ingestion metrics, use the [Nodes Stats API]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-stats/):
 
