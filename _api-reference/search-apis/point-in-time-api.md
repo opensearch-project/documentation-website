@@ -12,7 +12,7 @@ redirect_from:
 
 # Point in Time API
 
-Use the [Point in Time (PIT)]({{site.url}}{{site.baseurl}}/opensearch/point-in-time/) APIs to manage PITs. 
+Use the [Point in Time (PIT)]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/point-in-time/) APIs to manage PITs. 
 
 ---
 
@@ -28,10 +28,12 @@ Use the [Point in Time (PIT)]({{site.url}}{{site.baseurl}}/opensearch/point-in-t
 
 Creates a PIT. The `keep_alive` query parameter is required; it specifies how long to keep a PIT.
 
+Each node can hold a limited number of open PITs, set by the `search.max_open_pit_context` setting (default `300`). For more information, see [PIT settings]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/point-in-time/#pit-settings).
+
 ### Endpoints
 
 ```json
-POST /{target_indexes}/_search/point_in_time?keep_alive=1h&routing=&expand_wildcards=&preference= 
+POST /{target_indexes}/_search/point_in_time
 ```
 
 ### Path parameters
@@ -44,11 +46,12 @@ Parameter | Data type | Description
 
 Parameter | Data type | Description
 :--- | :--- | :---
-`keep_alive` | Time |  The amount of time to keep the PIT. Every time you access a PIT by using the Search API, the PIT lifetime is extended by the amount of time equal to the `keep_alive` parameter. Required.
-`preference` | String | The node or shard used to perform the search. Optional. Default is `random`.
-`routing` | String | Specifies to route search requests to a specific shard. Optional. Default is the document's `_id`. 
-`expand_wildcards` | String | The type of index that can match the wildcard pattern. Supports comma-separated values. Valid values are the following:<br>- `all`: Match any index or data stream, including hidden ones. <br>- `open`: Match open, non-hidden indexes or non-hidden data streams. <br>- `closed`: Match closed, non-hidden indexes or non-hidden data streams. <br>- `hidden`: Match hidden indexes or data streams. Must be combined with `open`, `closed` or both `open` and `closed`.<br>- `none`: No wildcard patterns are accepted.<br> Optional. Default is `open`.
-`allow_partial_pit_creation` | Boolean | Specifies whether to create a PIT with partial failures. Optional. Default is `true`.
+`keep_alive` | Time | The amount of time to keep the PIT. The countdown restarts each time a search uses the PIT. If the search specifies a `keep_alive` value, the PIT's keep-alive becomes the larger of the current value and the new value, so a shorter value does not shorten it. The maximum value is set by the `point_in_time.max_keep_alive` cluster setting (default `24h`). Required.
+`preference` | String | The node or shard used to perform the search. Optional.
+`routing` | String | Routes the PIT to the shards for the specified routing value. Optional. By default, all shards are used.
+`expand_wildcards` | String | The type of index that can match the wildcard pattern. Supports comma-separated values. Valid values are the following:<br>- `all`: Match any index or data stream, including hidden ones. <br>- `open`: Match open, non-hidden indexes or non-hidden data streams. <br>- `hidden`: Match hidden indexes or data streams. Must be combined with `open`.<br>- `none`: No wildcard patterns are accepted.<br>Closed indexes cannot be PIT targets, so the `closed` value is not supported. Optional. Default is `open`.
+`ignore_unavailable` | Boolean | Whether to ignore missing or closed indexes when creating the PIT. If `false`, the request fails if any target index is missing or closed. Optional. Default is `false`.
+`allow_partial_pit_creation` | Boolean | Specifies whether to create a PIT with partial failures. If `false`, the request fails when any shard is unavailable. Optional. Default is `true`.
 
 #### Example request
 
@@ -95,9 +98,21 @@ response = client.create_pit(
 Field | Data type | Description 
 :--- | :--- | :---  
 `pit_id` | [Base64-encoded binary]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/binary/) | The PIT ID.
+`_shards` | Object | Information about the shards on which the PIT was created.
 `creation_time` | `long` | The time at which the PIT was created, in milliseconds since the epoch. 
 
+The `_shards` object contains the following fields.
+
+Field | Data type | Description
+:--- | :--- | :---
+`total` | Integer | The total number of shards targeted by the PIT.
+`successful` | Integer | The number of shards on which the PIT was created successfully.
+`skipped` | Integer | The number of skipped shards.
+`failed` | Integer | The number of shards on which the PIT could not be created.
+
 ## Extend a PIT time
+
+To search using a PIT, provide the PIT ID in the `pit` object of a search request. Do not specify an index in the request path because the PIT already determines the target indexes; a search that specifies both an index and a PIT is rejected. For more information, see [Pagination with PIT and search_after]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/point-in-time/#pagination-with-pit-and-search_after).
 
 You can extend a PIT time by providing a `keep_alive` parameter in the `pit` object when you perform a search:
 
@@ -123,7 +138,7 @@ GET /_search
 }
 ```
 
-The `keep_alive` parameter in a search request is optional. It specifies the amount by which to extend the time to keep a PIT.
+The `keep_alive` parameter in a search request is optional. Each search that uses the PIT restarts the keep-alive countdown. If you specify `keep_alive`, the PIT's keep-alive becomes the larger of the current value and the new value.
 {: .note}
 
 ## List all PITs
@@ -202,6 +217,9 @@ The Delete PITs by ID API fully supports deleting cross-cluster PITs.
 The Delete All PITs API deletes only local PITs or mixed PITs (PITs created in both local and remote clusters). It does not delete fully remote PITs. 
 
 #### Example request: Delete all PITs
+
+The Delete All PITs API deletes every PIT in the cluster, including PITs created by other users and applications. Searches that use the deleted PITs fail.
+{: .warning}
 
 <!-- spec_insert_start
 component: example_code
@@ -320,15 +338,5 @@ For aliases, users must have either index **or** alias permissions for any PIT o
 ### Data stream permissions
 
 For data streams, users must have both the data stream **and** the data stream's backing index permissions for any PIT operation. For example, the user must have permissions for the `data-stream-11` data stream and for its backing index `.ds-my-data-stream11-000001`.
-
-If users have the data stream permissions only, they will be able to create a PIT, but they will not be able to use the PIT ID for other operations, such as search, without the backing index permissions.
-
-## Required permissions
-
-If you use the Security plugin, make sure you have the appropriate permissions. The following permissions are required for this API:
-
-- `indices:data/read/point_in_time/create`: Required for creating a PIT
-- `indices:data/read/point_in_time/delete`: Required for deleting a PIT
-- `indices:data/read/search`: Required for searching with a PIT
 
 If users have the data stream permissions only, they will be able to create a PIT, but they will not be able to use the PIT ID for other operations, such as search, without the backing index permissions.

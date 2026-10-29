@@ -43,10 +43,10 @@ All parameters are optional.
 | Parameter | Data type | Description |
 | :--- | :--- | :--- |
 | `allow_no_indices` | Boolean | When `false`, the request returns an error if any wildcard expression or index alias targets any closed or missing indexes. Default is `true`. |
-| `expand_wildcards` | String | Specifies the types of indexes to which wildcard expressions can expand. Supports comma-separated values. Valid values are: <br> - `all`: Expand to all open and closed indexes, including hidden indexes. <br> - `open`: Expand to open indexes. <br> - `closed`: Expand to closed indexes. <br> - `hidden`: Include hidden indexes when expanding. Must be combined with `open`, `closed`, or both. <br> - `none`: Do not accept wildcard expressions. <br> Default is `open`. |
-| `force` | Boolean | When `true`, forces a flush to occur even when no changes to the index exist in-memory. Default is `true`. |
-| `ignore_unavailable` | Boolean | When `true`, OpenSearch ignores missing or closed indexes. If `false`, OpenSearch returns an error if the force merge operation encounters missing or closed indexes. Default is `false`. |
-| `wait_if_ongoing` | Boolean | When `true`, the Flush API does not run while another flush request is active. When `false`, OpenSearch returns an error if another flush request is active. Default is `true`. |
+| `expand_wildcards` | String | Specifies the types of indexes to which wildcard expressions can expand. Supports comma-separated values. Valid values are: <br> - `all`: Expand to all open and closed indexes, including hidden indexes. <br> - `open`: Expand to open indexes. <br> - `closed`: Expand to closed indexes. <br> - `hidden`: Include hidden indexes when expanding. Must be combined with `open`, `closed`, or both. <br> - `none`: Do not accept wildcard expressions. <br> Default is `open`. <br> The Flush API cannot flush closed indexes. If a wildcard expression expands to a closed index, the request fails unless `ignore_unavailable` is `true`, in which case closed indexes are skipped. |
+| `force` | Boolean | When `true`, forces a flush to occur even when no changes to the index exist in-memory. If `true`, `wait_if_ongoing` must also be `true`; otherwise, the request is rejected. Default is `false`. |
+| `ignore_unavailable` | Boolean | When `true`, OpenSearch ignores missing or closed indexes. If `false`, OpenSearch returns an error if the flush operation encounters missing or closed indexes. Default is `false`. |
+| `wait_if_ongoing` | Boolean | When `true`, if another flush is in progress, OpenSearch waits for it to finish and then performs the flush. When `false`, if another flush is already running on a shard, that shard skips the flush without returning an error. Default is `true`. |
 
 ## Example request: Flushing a specific index
 
@@ -103,9 +103,9 @@ response = client.indices.flush()
 
 ## Example response
 
-OpenSearch responds with the number of shards that acknowledged the flush request, the number of shards that completed the request, and the number of shards that failed:
+OpenSearch responds with the number of shard copies targeted by the flush request (including unassigned replicas), the number of shard copies that completed the request, and the number of shard copies that failed:
 
-```
+```json
 {
   "_shards": {
     "total": 10,

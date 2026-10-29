@@ -10,7 +10,7 @@ nav_order: 70
 **Introduced 1.0**
 {: .label .label-purple }
 
-The roll over index API operation creates a new index for a data stream or index alias based on the `wait_for_active_shards` setting.
+The Roll Over Index API creates a new index for a data stream or index alias, either unconditionally or when the current write index meets the specified conditions.
 
 ## Endpoints
 
@@ -25,7 +25,7 @@ You can roll over a data stream, an index alias with one index, or an index alia
 
 ### Data stream
 
-When you perform a rollover operation on a data stream, the API generates a fresh write index for that stream. Simultaneously, the stream's preceding write index transforms into a regular backing index. Additionally, the rollover process increments the generation count of the data stream. Data stream rollovers do not support specifying index settings in the request body.
+When you perform a rollover operation on a data stream, the API generates a fresh write index for that stream. Simultaneously, the stream's preceding write index transforms into a regular backing index. Additionally, the rollover process increments the generation count of the data stream. Data stream rollovers do not support the `target-index` path parameter or the `aliases`, `mappings`, and `settings` request body fields because the data stream names its backing indexes and its index template configures them.
 
 ### Index alias with one index
 
@@ -33,7 +33,7 @@ When initiating a rollover on an index alias associated with a single index, the
 
 ### Index alias with a write index
 
-When an index alias references multiple indexes, one index must be designated as the write index. During a rollover, the API creates a new write index with its `is_write_index` property set to `true` while updating the previous write index by setting its `is_write_index property` to `false.`
+When an index alias references multiple indexes, one index must be designated as the write index. During a rollover, the API creates a new write index with its `is_write_index` property set to `true` while updating the previous write index by setting its `is_write_index` property to `false`.
 
 ## Incrementing index names for an alias
 
@@ -61,15 +61,15 @@ Parameter | Data type | Description
 `cluster_manager_timeout` | Time | The amount of time to wait for a connection to the cluster manager node. Default is `30s`.
 `dry_run` | Boolean | If `true`, OpenSearch checks whether the current index meets the rollover conditions and returns the name of the index that would be created, but does not perform the rollover. Default is `false`.
 `timeout` | Time | The amount of time to wait for a response. Default is `30s`.
-`wait_for_active_shards` | String | The number of active shards that must be available before OpenSearch processes the request. Default is `1` (only the primary shard). You can also set to `all` or a positive integer. Values greater than `1` require replicas. For example, if you specify a value of `3`, then the index must have two replicas distributed across two additional nodes in order for the operation to succeed.
+`wait_for_active_shards` | String | The number of shard copies of the new index that must be active before OpenSearch returns a response. Default is `1` (only the primary shard). You can also set to `all` or a positive integer. Values greater than `1` require replicas. For example, if you specify a value of `3`, then the new index must have two replicas distributed across two additional nodes. The rollover is performed regardless of this setting. If the required shards are not active within the `cluster_manager_timeout` period, then the response contains `"shards_acknowledged": false`.
 
 ## Request body fields
 
 The following request body fields are supported.
 
-### `alias`
+### `aliases`
 
-The `alias` parameter specifies the alias name as the key. It is required when the `template` option exists in the request body. The object body contains the following optional parameters.
+The `aliases` parameter specifies the aliases to add to the new index. It is optional. The `aliases` object is keyed by alias name. Each alias object supports the following optional parameters.
 
 
 Parameter | Type | Description
@@ -111,11 +111,31 @@ The following examples illustrate using the Rollover Index API. A rollover occur
 
 ### Rolling over a data stream
 
+To create a data stream, first create an index template that enables data streams for indexes matching the `my-data-stream*` pattern:
+
+```json
+PUT _index_template/my-data-stream-template
+{
+  "index_patterns": ["my-data-stream*"],
+  "data_stream": {}
+}
+```
+{% include copy-curl.html %}
+
+Then create the data stream:
+
+```json
+PUT _data_stream/my-data-stream
+```
+{% include copy-curl.html %}
+
+For more information, see [Data streams]({{site.url}}{{site.baseurl}}/im-plugin/data-streams/).
+
 The following request rolls over the data stream if the current write index meets any of the specified conditions:
 
 <!-- spec_insert_start
 component: example_code
-rest: POST /my-alias/_rollover
+rest: POST /my-data-stream/_rollover
 body: |
 {
   "conditions": {
@@ -126,7 +146,7 @@ body: |
 }
 -->
 {% capture step1_rest %}
-POST /my-alias/_rollover
+POST /my-data-stream/_rollover
 {
   "conditions": {
     "max_age": "5d",
@@ -140,7 +160,7 @@ POST /my-alias/_rollover
 
 
 response = client.indices.rollover(
-  alias = "my-alias",
+  alias = "my-data-stream",
   body =   {
     "conditions": {
       "max_age": "5d",
@@ -177,7 +197,7 @@ The next request performs a rollover using the alias:
 
 <!-- spec_insert_start
 component: example_code
-rest: POST /my-data-stream/_rollover
+rest: POST /my-alias/_rollover
 body: |
 {
   "conditions": {
@@ -188,7 +208,7 @@ body: |
 }
 -->
 {% capture step1_rest %}
-POST /my-data-stream/_rollover
+POST /my-alias/_rollover
 {
   "conditions": {
     "max_age": "5d",
@@ -202,7 +222,7 @@ POST /my-data-stream/_rollover
 
 
 response = client.indices.rollover(
-  alias = "my-data-stream",
+  alias = "my-alias",
   body =   {
     "conditions": {
       "max_age": "5d",
@@ -264,14 +284,14 @@ response = client.indices.rollover(
 
 ## Example response
 
-OpenSearch returns the following response confirming that all conditions except `max_size` were met:
+The following example response for the data stream rollover shows that all conditions except `max_size` were met. If the write index is newly created and meets none of the conditions, then the response contains `"rolled_over": false` and OpenSearch does not create the new index:
 
 ```json
 {
   "acknowledged": true,
   "shards_acknowledged": true,
-  "old_index": ".ds-my-data-stream-2029.06.11-000001",
-  "new_index": ".ds-my-data-stream-2029.06.12-000002",
+  "old_index": ".ds-my-data-stream-000001",
+  "new_index": ".ds-my-data-stream-000002",
   "rolled_over": true,
   "dry_run": false,
   "conditions": {
