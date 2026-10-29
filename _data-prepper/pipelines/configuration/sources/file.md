@@ -13,7 +13,9 @@ The `file` plugin reads events from one or more local files. By default, the sou
 The source reads files in one of the following ways, depending on its configuration:
 
 - If you specify `path` and none of the `paths`, `exclude_paths`, `codec`, or `tail` settings, the source reads the file once, line by line, and creates events according to the `format` and `record_type` settings.
-- If you specify `paths`, `exclude_paths`, `codec`, or `tail`, the source ignores the `format` and `record_type` settings. It parses each file using the configured `codec` or, if no `codec` is configured, creates one event for each line. For the structure of these events, see [Event structure](#event-structure).
+- If you specify `paths`, `exclude_paths`, `codec`, or `tail`, the source ignores the `format` setting. When `codec` is configured, `record_type` must be set to `event`. It parses each file using the configured `codec` or, if no `codec` is configured, creates one event for each line. For the structure of these events, see [Event structure](#event-structure).
+
+We recommend setting `record_type` to `event` and configuring a `codec`. The `format` setting and the `string` record type are legacy settings.
 
 ## Configuration
 
@@ -24,9 +26,9 @@ Option | Required | Type | Description
 `path` | Conditionally | String | An absolute path to the input file inside the Data Prepper container, for example, `/usr/share/data-prepper/data/input.jsonl`. Either `path` or `paths` is required.
 `paths` | Conditionally | List | A list of absolute file paths or glob patterns that specify the files to read, for example, `/var/log/app/*.log` or `/var/log/**/*.log`. Either `path` or `paths` is required.
 `exclude_paths` | No | List | A list of absolute file paths or glob patterns that specify files to skip among the files matched by `paths`.
-`format` | No | String | Specifies how to interpret the file content. Valid values are `json` and `plain`. Use `json` when your file has one JSON object per line or a JSON array. Use `plain` for raw text lines. Applies only when `path` is used without `paths`, `exclude_paths`, `codec`, or `tail`. Default is `plain`.
-`record_type` | No | String | The type of output record produced by the source. Valid values are `event` and `string`. Use `event` to produce structured events expected by downstream processors and the OpenSearch sink. Applies only when `path` is used without `paths`, `exclude_paths`, `codec`, or `tail`. Default is `string`.
-`codec` | No | Object | The codec used to parse the file content, for example, `ndjson`, `json`, `csv`, or `newline`. When `codec` is set, the source creates one event for each record parsed by the codec. For codec settings, see [codec]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/s3/#codec).
+`format` | No | String | Specifies how to interpret the file content. Valid values are `json` and `plain`. Use `json` when your file has one JSON object per line or a JSON array. Use `plain` for raw text lines. Applies only when `path` is used without `paths`, `exclude_paths`, `codec`, or `tail`. This is a legacy setting; use `codec` for new configurations. Default is `plain`.
+`record_type` | No | String | The type of output record produced by the source. Valid values are `event` and `string`. Use `event` to produce structured events expected by downstream processors and the OpenSearch sink. Must be set to `event` when `codec` is configured. The `string` value is a legacy setting. Default is `string`.
+`codec` | No | Object | The codec used to parse the file content, for example, `ndjson`, `json`, `csv`, or `newline`. When `codec` is set, the source creates one event for each record parsed by the codec, and `record_type` must be set to `event`. For codec settings, see [codec]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/s3/#codec).
 `compression` | No | String | The compression algorithm used to decompress the files. Valid values are `none`, `gzip`, `snappy`, and `zstd`. Applies only when `path` is used without `paths`, `exclude_paths`, `codec`, or `tail`, or when `codec` is set and `tail` is `false`. Default is `none`.
 `encoding` | No | String | The character encoding of the files, for example, `UTF-8` or `ISO-8859-1`. Not applied when `codec` is set. Default is `UTF-8`.
 `tail` | No | Boolean | When `true`, the source continuously monitors the files matched by `paths` and `path`, reads lines appended to them, and detects new, rotated, and removed files. When `false`, the source reads each file once. For more settings, see [Tail settings](#tail-settings). Default is `false`.

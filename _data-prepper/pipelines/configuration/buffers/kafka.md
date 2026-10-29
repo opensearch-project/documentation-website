@@ -45,6 +45,8 @@ Option | Required | Type | Description
 `authentication` | No | [Authentication](#authentication) | Sets the authentication options for both the pipeline and Kafka. For more information, see [Authentication](#authentication).
 `aws` | No | [AWS](#aws) | The AWS configuration. For more information, see [`aws`](#aws).
 `bootstrap_servers` | Yes | String list | The host and port for the initial connection to the Kafka cluster. You can configure multiple Kafka brokers by using the IP address or the port number for each broker. When using [Amazon Managed Streaming for Apache Kafka (Amazon MSK)](https://aws.amazon.com/msk/) as your Kafka cluster, the bootstrap server information is obtained from Amazon MSK using the Amazon Resource Name (ARN) provided in the configuration.
+`bounded_batch_size` | No | Integer | The maximum number of records drained from the in-memory buffer after each read. The Kafka buffer consumes records from the topic into this in-memory buffer, from which processors read them. Default is `250000`.
+`bounded_buffer_size` | No | Integer | The maximum number of records that the in-memory buffer accepts after consuming them from the Kafka topic. Default is `1000000`.
 `custom_metric_prefix` | No | String | A custom prefix for the buffer metrics. The prefix replaces the plugin name in the metric names. For example, setting this option to `mybuffer` produces metrics such as `mybufferRead_recordsConsumedRate`. If not specified, the plugin name `kafka` is used.
 `drain_timeout` | No | Duration | The maximum amount of time to wait for the buffer to drain when the pipeline shuts down. Default is `30s`.
 `encryption` | No | [Encryption](#encryption) | The encryption configuration for encryption in transit. For more information, see [Encryption](#encryption).
@@ -207,7 +209,6 @@ Option | Required | Type | Description
 `sts_role_arn` | No | String | The AWS STS role to assume for requests to Amazon Simple Queue Service (Amazon SQS) and Amazon Simple Storage Service (Amazon S3). Default is `null`, which will use the [standard SDK behavior for credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html).
 `msk` | No | JSON object | The [Amazon MSK](#msk) configuration settings.
 `sts_header_overrides` | No | Map | A map of headers to add to the AWS STS `AssumeRole` request. You can specify up to 5 headers.
-`role_session_name` | No | String | The role session name to use when authenticating to Amazon MSK using the role specified in `sts_role_arn`. Applies only when `aws_msk_iam` is set to `role`.
 
 <!-- vale off -->
 #### msk

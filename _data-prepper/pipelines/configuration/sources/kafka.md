@@ -209,7 +209,6 @@ Option | Required | Type | Description
 `sts_role_arn` | No | String | The AWS Security Token Service (AWS STS) role to assume for requests to Amazon Simple Queue Service (Amazon SQS) and Amazon Simple Storage Service (Amazon S3). Default is `null`, which will use the [standard SDK behavior for credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html).
 `msk` | No | JSON object | The [MSK](#msk) configuration settings.
 `sts_header_overrides` | No | Map | A map of headers to add to the AWS STS `AssumeRole` request. You can specify up to 5 headers.
-`role_session_name` | No | String | The role session name to use when authenticating to Amazon MSK using the role specified in `sts_role_arn`. Applies only when `aws_msk_iam` is set to `role`.
 
 #### MSK
 

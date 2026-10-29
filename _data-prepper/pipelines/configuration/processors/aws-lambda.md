@@ -54,7 +54,7 @@ Field                | Type    | Required | Description
 The following is an example configuration:
 
 ```yaml
-processors:
+processor:
   - aws_lambda:
       function_name: my-lambda-function
       response_events_match: false
@@ -116,7 +116,7 @@ Use response streaming for Lambda functions that return large responses in multi
 The following example configures response streaming:
 
 ```yaml
-processors:
+processor:
   - aws_lambda:
       function_name: my-streaming-function
       invocation_type: streaming-response
