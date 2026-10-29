@@ -1,13 +1,13 @@
 ---
 layout: default
-title: Management
+title: Alerting settings
 parent: Alerting
-nav_order: 5
+nav_order: 70
 redirect_from:
   - /monitoring-plugins/alerting/settings/
 ---
 
-# Alerting management
+# Alerting settings
 
 The following sections describe alerting indexes and settings.
 
@@ -29,7 +29,7 @@ GET _cat/indices?expand_wildcards=open,hidden
 ```
 {% include copy-curl.html %}
 
-## Alerting settings
+## Settings
 
 We don't recommend changing these settings; the defaults should work well for most use cases.
 

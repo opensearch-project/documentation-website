@@ -78,6 +78,16 @@ getting_started:
     link: "/security/getting-started/"
     image: "/images/icons/OpenSearch-Security.png"
     image_alt: "OpenSearch Security icon"
+  - heading: "Get started with observability"
+    description: "Send logs to OpenSearch and visualize them in OpenSearch Dashboards"
+    link: "/observing-your-data/log-ingestion/"
+    image: "/images/icons/OpenSearch-Observability.png"
+    image_alt: "OpenSearch Observability icon"
+  - heading: "Explore tutorials"
+    description: "Follow step-by-step tutorials for search, vector search, and generative AI applications"
+    link: "/tutorials/"
+    image: "/images/icons/Workflow-Icon.avif"
+    image_alt: "Workflow icon"
 ---
 
 {%- comment -%}The `/docs/opensearch/` redirect is specifically to support the UI links in OpenSearch Dashboards 1.0.0.{%- endcomment -%}
