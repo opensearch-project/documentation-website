@@ -24,7 +24,7 @@ An extension can use an OBO token to interact with an OpenSearch cluster, using 
 
 ### Configuration
 
-In the [`config/opensearch-security/config.yml` file]({{site.url}}{{site.baseurl}}/security/configuration/configuration/), the OBO configuration is located in the `config.dynamic` section. Configure a `signing_key` to enable OBO authentication. You can optionally configure an `encryption_key` to encrypt the `roles` claim in issued tokens:
+In the [`config/opensearch-security/config.yml` file]({{site.url}}{{site.baseurl}}/security/configuration/configuration/), the OBO configuration is located in the `config.dynamic` section. Configure a `signing_key` to enable OBO authentication. Optionally, configure an `encryption_key` to encrypt the `roles` claim in issued tokens:
 
 ```yaml
 config:
@@ -38,7 +38,7 @@ config:
 
 The default encoding algorithm for signing the JWT is HMAC SHA512. Keys are Base64-encoded strings in the [`config/opensearch-security/config.yml` file]({{site.url}}{{site.baseurl}}/security/configuration/configuration/). After the configuration is applied using the `securityadmin.sh -cd <configuration directory>` command, the values are stored in the security system index and used cluster-wide.
 
-When `encryption_key` is omitted, mapped roles are stored as plain text in the token's `roles` claim. When it is provided, mapped roles are stored in the encrypted `encrypted_roles` claim. Cluster administrators can choose whether to encrypt role information based on their security requirements.
+When `encryption_key` is omitted, mapped roles are stored as plain text in the token's `roles` claim. When `encryption_key` is provided, mapped roles are stored in the encrypted `encrypted_roles` claim. Cluster administrators can choose whether to encrypt role information based on their security requirements.
 
 ### Token structure
 
