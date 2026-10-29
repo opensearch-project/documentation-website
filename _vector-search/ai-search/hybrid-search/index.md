@@ -13,9 +13,12 @@ redirect_from:
 Introduced 2.11
 {: .label .label-purple }
 
-Hybrid search combines keyword and semantic search to improve search relevance. To implement hybrid search, you need to set up a [search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/) that runs at search time. The search pipeline intercepts search results at an intermediate stage and applies processing to normalize and combine document scores.  
+Hybrid search combines keyword and semantic search to improve search relevance. OpenSearch normalizes the results of each query clause, by score or by rank, and then combines them into a single ranking. You can configure the normalization and combination in either of two places:
 
-Two search phase results processors are available for hybrid search, and they differ in what they combine:
+- A [search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/) that runs at search time. The search pipeline intercepts search results at an intermediate stage and applies processing to normalize and combine document scores.
+- The query itself, by adding a `fusion` object to the [`hybrid` query]({{site.url}}{{site.baseurl}}/query-dsl/compound/hybrid/). OpenSearch then normalizes and combines the scores on the coordinating node, and no search pipeline is required. This approach, called fusion mode, is available in OpenSearch 3.10 and later and supports the same techniques. For more information, see [Fusion mode]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/fusion-mode/).
+
+The rest of this page describes the search pipeline approach. Two search phase results processors are available, and they differ in what they combine:
 
 - The [normalization processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/normalization-processor/) is score based. It converts the scores from each query clause to a common scale and then combines them, preserving the margins between documents. Choose it when the difference between two documents' scores contains information that the final ranking must reflect, or when you need fine-grained control through normalization techniques, combination techniques, and score bounds.
 - The [score ranker processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/score-ranker-processor/) is rank based. It uses reciprocal rank fusion (RRF) to combine documents according to their position in each query clause's results, ignoring the scores themselves. Choose it when you want a configuration that works without first measuring how your query clauses score documents. For more information, see [Reciprocal rank fusion]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/rrf/).
@@ -35,6 +38,9 @@ To configure hybrid search, follow these steps:
 1. [Configure a search pipeline](#step-3-configure-a-search-pipeline).
 1. [Ingest documents into the index](#step-4-ingest-documents-into-the-index).
 1. [Search the index using hybrid search](#step-5-search-the-index-using-hybrid-search).
+
+To run the same search in [fusion mode]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/fusion-mode/) instead, skip Step 3, add a `fusion` object to the `hybrid` query in Step 5, and remove the `search_pipeline` query parameter from the request.
+{: .tip}
 
 ## Step 1: Create an ingest pipeline
 

@@ -15,6 +15,8 @@ You can perform post-filtering on hybrid search results by providing the `post_f
 
 The `post_filter` clause is applied after the search results have been retrieved. Post-filtering is useful for applying additional filters to the search results. Because the normalization processor runs on the filtered results, their scores are normalized again. For more information, see [How post-filtering affects search results and scoring](#how-post-filtering-affects-search-results-and-scoring).
 
+Post-filtering behaves the same way when the hybrid query runs in [fusion mode]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/fusion-mode/), where normalization likewise runs over the post-filtered results.
+
 Post-filtering does not impact aggregation results.
 {: .note}
 

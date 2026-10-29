@@ -9,9 +9,11 @@ nav_order: 70
 
 You can use a hybrid query to combine relevance scores from multiple queries into one score for a given document. A hybrid query contains a list of one or more queries and independently calculates document scores at the shard level for each subquery. The subquery rewriting is performed at the coordinating node level in order to avoid duplicate computations.
 
+To normalize and combine the subquery scores, either attach a [search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/) to the request or, in OpenSearch 3.10 and later, add a `fusion` parameter to the query. For more information, see [Fusion mode]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/fusion-mode/).
+
 ## Example
 
-Learn how to use the `hybrid` query by following the steps in [Hybrid search]({{site.url}}{{site.baseurl}}/search-plugins/hybrid-search/).
+Learn how to use the `hybrid` query by following the steps in [Hybrid search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/index/).
 
 For a comprehensive example, follow the [Getting started with semantic and hybrid search]({{site.url}}{{site.baseurl}}/ml-commons-plugin/semantic-search#tutorial).
 
@@ -21,26 +23,27 @@ The following table lists all top-level parameters supported by `hybrid` queries
 
 Parameter | Description
 :--- | :---
-`queries` | An array of one or more query clauses that are used to match documents. A document must match at least one query clause in order to be returned in the results. The documents' relevance scores from all query clauses are combined into one score by applying a [search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/). The maximum number of query clauses is 5. Required.
+`queries` | An array of one or more query clauses that are used to match documents. A document must match at least one query clause in order to be returned in the results. The documents' relevance scores from all query clauses are combined into one score, either by applying a [search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/) or by specifying the `fusion` parameter. The maximum number of query clauses is 5. Required.
 `filter` | A filter to apply to all the subqueries of the hybrid query. The filter must be a single query object. To apply multiple filter conditions, combine them in a [Boolean query]({{site.url}}{{site.baseurl}}/query-dsl/compound/bool/). For more information, see [Hybrid search with pre-filtering]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/pre-filtering/).
-`pagination_depth` | The maximum number of search results that each subquery returns from each shard. This bounds the set of documents that the search pipeline normalizes and combines, so it affects both the depth to which you can paginate and the resulting order. Valid values are integers from `1` to the value of [`index.max_result_window`]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/) (10000 by default). Required if `from` is greater than `0`; otherwise optional. If not provided, each subquery returns up to `size` results from each shard. For more information, see [Paginating hybrid query results]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/pagination/).
+`pagination_depth` | The maximum number of search results that each subquery returns from each shard. This bounds the set of documents that the search pipeline normalizes and combines, so it affects both the depth to which you can paginate and the resulting order. Valid values are integers from `1` to the value of [`index.max_result_window`]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/) (10000 by default). Required if `from` is greater than `0`; otherwise optional. If not provided, each subquery returns up to `size` results from each shard. For more information, see [Paginating hybrid query results]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/pagination/). In fusion mode, this parameter is optional regardless of `from`; if specified without `fusion.window_size`, it raises the number of results that each subquery contributes to fusion. For more information, see [Candidate window size]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/fusion-mode/#candidate-window-size).
+`fusion` | Runs the query in fusion mode, in which OpenSearch normalizes and combines the subquery scores on the coordinating node instead of in a search pipeline. Contains the `normalization`, `combination`, `window_size`, and `source` parameters. A hybrid query that specifies `fusion` does not require a search pipeline. Available in OpenSearch 3.10 and later. Optional. For more information, see [Fusion mode]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/fusion-mode/).
 
 ### Rescoring hybrid queries
 Introduced 2.18
 {: .label .label-purple }
 
-You can use the [`rescore`]({{site.url}}{{site.baseurl}}/query-dsl/rescore/) parameter with hybrid queries. However, rescoring behaves differently with hybrid queries compared to standard queries.
+You can use the [`rescore`]({{site.url}}{{site.baseurl}}/query-dsl/rescore/) parameter with hybrid queries. How rescoring interacts with a hybrid query depends on whether the query uses a search pipeline or runs in fusion mode.
 
-With standard queries, rescoring is applied on the **coordinating node** after results from all shards are merged. With hybrid queries, rescoring is applied at the **shard level** to each subquery's results **independently**, before the normalization and combination pipeline runs.
+With standard queries, each shard applies the rescore query to its top results after the query runs, and the coordinating node merges the rescored results. With hybrid queries that use a search pipeline, rescoring is applied at the **shard level** to each subquery's results **independently**, before the normalization and combination pipeline runs. With hybrid queries in [fusion mode]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/fusion-mode/#rescoring), rescoring is applied to the combined ranking after normalization and combination, as it is for standard queries.
 
-The processing order for hybrid queries with rescoring is as follows:
+The processing order for hybrid queries that use a search pipeline with rescoring is as follows:
 
 1. Each subquery in the hybrid query executes on the shard, producing separate result sets.
 2. The rescore query is applied to each subquery's results independently.
 3. The rescored results are sent to the coordinating node.
 4. The search pipeline (normalization processor or score ranker processor) normalizes and combines the rescored subquery scores.
 
-When using rescoring with hybrid queries, note the following considerations:
+When using rescoring with hybrid queries that use a search pipeline, note the following considerations:
 
 - The `window_size` applies to each subquery's results individually, not to the combined result.
 - You cannot use explicit sorting with rescoring. If you attempt to combine sorting with a rescore query in a hybrid search, OpenSearch returns an error.
@@ -151,7 +154,7 @@ Starting with OpenSearch 3.5, you can use hybrid queries on indexes with more th
 
 ## Limitations
 
-Hybrid query is designed to be a top-level query in a search request. It cannot be nested inside other compound or wrapper queries such as `function_score`, `constant_score`, `script_score`, or `boosting`. This restriction also applies to multilevel nesting, for example, a `bool` query containing a `function_score` query that itself contains a `hybrid` query. Nesting a hybrid query inside these wrapper queries may produce a runtime error or silently bypass the normalization pipeline.
+Hybrid query is designed to be a top-level query in a search request. It cannot be nested inside other compound or wrapper queries such as `function_score`, `constant_score`, `script_score`, or `boosting`. This restriction also applies to multilevel nesting, for example, a `bool` query containing a `function_score` query that itself contains a `hybrid` query. Nesting a hybrid query inside these wrapper queries may produce a runtime error or silently bypass the normalization pipeline. In [fusion mode]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/fusion-mode/#limitations), a hybrid query can be nested inside a `bool` query, a `dis_max` query, or another hybrid query in fusion mode.
 
 Hybrid query uses a specialized scoring mechanism that is incompatible with wrapper queries. Wrapper queries use a different internal scorer that bypasses the hybrid query's per-subquery score collection, which is required for the normalization and combination pipeline to function correctly.
 

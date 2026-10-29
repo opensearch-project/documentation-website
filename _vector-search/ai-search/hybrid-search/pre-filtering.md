@@ -15,6 +15,8 @@ You can perform pre-filtering on hybrid search results by providing a top-level 
 
 The `filter` is applied during query execution to each subquery, so only documents that match the filter are scored. Pre-filtering is useful for applying the same filter to all subqueries without duplicating it in each one.
 
+Pre-filtering works the same way when the hybrid query runs in [fusion mode]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/fusion-mode/): the `filter` applies to every subquery before the scores are normalized and combined.
+
 The `filter` must be a single query object.
 {: .note}
 

@@ -13,6 +13,8 @@ Introduced 2.19
 
 The `score-ranker-processor` is a rank-based search phase results processor that runs between the query and fetch phases of search execution. It intercepts the query phase results and then uses the reciprocal rank fusion (RRF) algorithm to combine the query clauses of a [`hybrid` query]({{site.url}}{{site.baseurl}}/query-dsl/compound/hybrid/) into a final ranked list of search results. RRF scores each document based on the reciprocal of its rank in each query clause's results and then adds these scores together, so the relevance scores of the individual query clauses never need to be on comparable scales. For more information, see [Reciprocal rank fusion]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/rrf/).
 
+In OpenSearch 3.10 and later, you can combine query clauses using RRF without a search pipeline by running the `hybrid` query in [fusion mode]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/fusion-mode/) and setting both the normalization and combination techniques to `rrf`.
+
 ## Request body fields
 
 The following table lists all available request fields.

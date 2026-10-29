@@ -15,6 +15,8 @@ You can enhance search results by combining a hybrid query clause with any aggre
 
 Most aggregations are performed on the subset of documents that is returned by a hybrid query. The only aggregation that operates on all documents is the [`global`]({{site.url}}{{site.baseurl}}/aggregations/bucket/global/) aggregation.
 
+Aggregations are also supported when the hybrid query runs in [fusion mode]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/fusion-mode/). They require additional processing in that mode; for more information, see [Performance considerations]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/fusion-mode/#performance-considerations).
+
 To use aggregations with a hybrid query, first create an index. Aggregations are typically used on fields of special types, like `keyword` or `integer`. The following example creates an index with several such fields:
 
 ```json
