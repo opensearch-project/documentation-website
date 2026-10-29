@@ -13,7 +13,7 @@ To learn how to apply these settings, see [Configuring OpenSearch]({{site.url}}{
 
 ## Alerting plugin settings
 
-For information about alerting settings, see [Alerting settings]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/settings/#alerting-settings).
+For information about alerting settings, see [Alerting settings]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/settings/).
 
 ## Anomaly Detection plugin settings
 

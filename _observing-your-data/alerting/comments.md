@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Adding comments
-nav_order: 35
+nav_order: 30
 parent: Alerting
 has_children: false
 redirect_from:

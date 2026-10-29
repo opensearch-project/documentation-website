@@ -10,6 +10,8 @@ has_children: false
 
 The forecaster resource integrates with the Security plugin's resource sharing and access control framework to provide document-level authorization for forecaster resources. This replaces the legacy `plugins.forecast.filter_by_backend_roles` setting with a more flexible sharing system that allows resource owners to grant specific access levels to users, roles, or backend roles.
 
+For the predefined forecasting roles and permissions, see [Forecasting security]({{site.url}}{{site.baseurl}}/observing-your-data/forecast/security/).
+
 For the end-to-end framework concepts and APIs, see [Resource sharing and access control]({{site.url}}{{site.baseurl}}/security/access-control/resources/).
 {: .note}
 
@@ -64,7 +66,7 @@ When adding the forecaster resource type to an existing configuration, include a
 
 ## Forecaster access levels
 
-The forecaster plugin provides three predefined access levels for forecaster documents. These access levels determine the specific permissions granted to users who have been granted access to a forecaster resource.
+Forecasting provides three predefined access levels for forecaster documents. These access levels determine the specific permissions granted to users who have been granted access to a forecaster resource.
 
 ### forecast_read_only
 

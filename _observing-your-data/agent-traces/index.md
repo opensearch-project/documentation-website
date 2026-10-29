@@ -1,26 +1,29 @@
 ---
 layout: default
-title: Agent traces
-nav_order: 70
+title: Agent monitoring
+parent: Observability workspace apps
+nav_order: 60
 has_children: true
 has_toc: false
 redirect_from:
   - /observing-your-data/agent-traces/
 ---
 
-# Agent traces
+# Agent monitoring
 **Introduced 3.6**
 {: .label .label-purple }
 
-Agent traces provide observability for generative AI applications and large language model (LLM) agents. Unlike general application monitoring, agent traces specialize in tracking LLM calls, token usage, tool invocations, and agent reasoning flows using [generative AI semantic conventions](https://opentelemetry.io/docs/specs/semconv/gen-ai/).
+Agent monitoring provides observability for generative AI applications and large language model (LLM) agents. It uses agent traces, which record LLM calls, token usage, tool invocations, and agent reasoning flows following the OpenTelemetry [generative AI semantic conventions](https://opentelemetry.io/docs/specs/semconv/gen-ai/).
 
 ## Prerequisites
 
-To use agent traces, you need the following:
+Agent monitoring requires the following components:
 
-- **An OpenSearch cluster** -- Stores trace data in `otel-v1-apm-span-*` indexes.
-- **[OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/)** -- Provides the **Agent Traces** panel for visualization.
-- **[OpenSearch Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/)** -- Processes and stores trace data in OpenSearch.
+- An OpenSearch cluster, which stores trace data in `otel-v1-apm-span-*` indexes.
+- OpenSearch Dashboards with an Observability workspace and the `explore.enabled` and `explore.agentTraces.enabled` settings set to `true`. For more information, see [Observability workspace apps]({{site.url}}{{site.baseurl}}/observing-your-data/exploring-observability-data/).
+- An [OpenTelemetry Collector](https://opentelemetry.io/docs/collector/).
+- [OpenSearch Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/), which processes trace data and writes it to OpenSearch.
+- Applications instrumented using the OpenTelemetry [generative AI semantic conventions](https://opentelemetry.io/docs/specs/semconv/gen-ai/). For more information, see [Instrumenting your application]({{site.url}}{{site.baseurl}}/observing-your-data/agent-traces/instrument/).
 
 ## The agent traces workflow
 
