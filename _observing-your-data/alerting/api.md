@@ -1,15 +1,15 @@
 ---
 layout: default
-title: API
+title: Alerting API
 parent: Alerting
-nav_order: 15
+nav_order: 60
 redirect_from:
   - /monitoring-plugins/alerting/api/
 ---
 
 # Alerting API
 
-Use the Alerting API to programmatically create, update, and manage monitors and alerts. For APIs that support the composite monitor specifically, see [Managing composite monitors with the API]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/composite-monitors/#managing-composite-monitors-with-the-api). 
+Use the Alerting API to programmatically create, update, and manage monitors and alerts. For APIs that support the composite monitor specifically, see [Composite Monitor API]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/composite-monitors-api/). 
 
 ## Create a query-level monitor
 
@@ -319,7 +319,7 @@ To specify a time zone, you can do so by including a [cron expression]({{site.ur
 {% include copy-curl.html %}
 
 
-For a full list of time zone names, see [List of `tz` database time zones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones). The Alerting plugin uses the Java [`TimeZone`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/TimeZone.html) class to convert a [`ZoneId`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/time/ZoneId.html) to a valid time zone.
+For a full list of time zone names, see [List of `tz` database time zones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones). Alerting uses the Java [`TimeZone`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/TimeZone.html) class to convert a [`ZoneId`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/time/ZoneId.html) to a valid time zone.
 
 ---
 
@@ -629,7 +629,7 @@ To get more specific results in a findings search, you can use any of the option
 Path parameter | Description | Usage
 :--- | :--- | :---
 `findingId` | The identifier for the finding entry. | The finding ID is returned in the initial query response.
-`sortString` | This field specifies which string the Alerting plugin uses to sort the findings. | The default value is `id`.
+`sortString` | This field specifies which string Alerting uses to sort the findings. | The default value is `id`.
 `sortOrder` | The order to sort the list of findings, either ascending or descending. | Use `sortOrder=asc` to indicate ascending, or `sortOrder=desc` for descending sort order.
 `size` | An optional limit for the maximum number of results returned in the response. | There is no minimum or maximum values.
 `startIndex` | The pagination indicator. | Default is `0`.
@@ -743,7 +743,7 @@ If you run a document-level query while the index is getting reindexed, the API 
 
 ## Update monitor
 
-When updating a monitor, you can optionally include the `if_seq_no` and `if_primary_term` query parameters, for example, `?if_seq_no=3&if_primary_term=1`. If these numbers do not match the existing monitor or the monitor does not exist, the Alerting plugin throws an error. OpenSearch increments the version number and the sequence number automatically (see the example response).
+When updating a monitor, you can optionally include the `if_seq_no` and `if_primary_term` query parameters, for example, `?if_seq_no=3&if_primary_term=1`. If these numbers do not match the existing monitor or the monitor does not exist, OpenSearch returns an error. OpenSearch increments the version number and the sequence number automatically (see the example response).
 
 #### Example request
 ```json

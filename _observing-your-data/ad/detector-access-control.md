@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Anomaly detector access control
-nav_order: 40
+nav_order: 50
 parent: Anomaly detection
 has_children: false
 redirect_from:
@@ -11,6 +11,8 @@ redirect_from:
 # Anomaly detector access control
 
 Anomaly Detection integrates with the Security plugin's resource sharing and access control framework to provide document-level authorization for anomaly detector resources. This replaces the legacy `plugins.anomaly_detection.filter_by_backend_roles` setting with a more flexible sharing system that allows resource owners to grant specific access levels to users, roles, or backend roles.
+
+For the predefined anomaly detection roles and permissions, see [Anomaly detection security]({{site.url}}{{site.baseurl}}/observing-your-data/ad/security/).
 
 For the end-to-end framework concepts and APIs, see [Resource sharing and access control]({{site.url}}{{site.baseurl}}/security/access-control/resources/).
 {: .note}

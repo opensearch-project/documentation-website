@@ -2,7 +2,7 @@
 layout: default
 title: Datasets
 nav_order: 10
-parent: Using Discover for observability
+parent: Observability workspace apps
 redirect_from:
   - /observability-plugin/datasets/
 ---
@@ -37,12 +37,15 @@ Before using datasets, ensure that you have fulfilled the following prerequisite
 
    ```yaml
    workspace.enabled: true
-   data_source.enabled: true
    explore.enabled: true
    explore.discoverTraces.enabled: true
    datasetManagement.enabled: true
+   # Required to create datasets from indexes in other OpenSearch clusters
+   data_source.enabled: true
    ```
    {% include copy.html %}
+
+   The `data_source.enabled` setting enables multiple data sources. For more information, see [Configuring and using multiple data sources]({{site.url}}{{site.baseurl}}/dashboards/management/multi-data-sources/). Some classic observability apps are not available when multiple data sources are enabled. For more information, see [Classic observability apps]({{site.url}}{{site.baseurl}}/observing-your-data/classic-observability-apps/).
 
    After updating the configuration file, restart OpenSearch Dashboards for the changes to take effect.
 
@@ -121,7 +124,7 @@ Datasets integrate with the Discover interface for exploring your data.
 
 To analyze logs datasets, follow these steps:
 
-1. Navigate to **Discover** > **Logs**.
+1. In the left navigation, select **Logs**.
 2. From the dataset selector, select your logs dataset.
 3. Use Piped Processing Language (PPL) queries to explore and analyze your log data.
 
@@ -129,7 +132,7 @@ To analyze logs datasets, follow these steps:
 
 To analyze traces datasets, follow these steps:
 
-1. Navigate to **Discover** > **Traces**.
+1. In the left navigation, select **Application performance** > **Traces**.
 2. Select your traces dataset from the dataset selector.
 3. Explore span data and trace flows.
 

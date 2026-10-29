@@ -135,7 +135,7 @@ Variable | Data type | Description
 `ctx.error` | String | The error message displayed if the trigger was unable to retrieve results or could not be evaluated, typically due to a compile error or null pointer exception. Null otherwise.
 `ctx.alert` | Object | The current, active alert (if it exists). Includes `ctx.alert.id`, `ctx.alert.version`, and `ctx.alert.isAcknowledged`. Null if no alert is active. Only available with query-level monitors.
 `ctx.alerts` | Array | Newly created alerts. Includes the `ctx.alerts.0.finding_ids` that triggered the alert and the `ctx.alerts.0.related_doc_ids` associated with the findings. Only available with document-level monitors.
-`ctx.dedupedAlerts` | Array | Triggered alerts. OpenSearch keeps the existing alert to prevent the plugin from perpetually creating the same alert. Only available with bucket-level monitors.
+`ctx.dedupedAlerts` | Array | Triggered alerts. OpenSearch keeps the existing alert to prevent the monitor from repeatedly creating the same alert. Only available with bucket-level monitors.
 `ctx.newAlerts` | Array | Newly created alerts. Only available with bucket-level monitors.
 `ctx.completedAlerts` | Array | Completed or expired alerts. Only available with bucket-level monitors.
 `bucket_keys` | String | A comma-separated list of the monitor's bucket key values. Available only for `ctx.dedupedAlerts`, `ctx.newAlerts`, and `ctx.completedAlerts`. Accessed through the `ctx.dedupedAlerts.0.bucket_keys` variable.
@@ -147,7 +147,7 @@ Variable | Data type | Description
 
 Per bucket and per document monitors support printing sample documents in notification messages. Per document monitors support printing the list of queries that triggered the creation of the finding associated with the alert. When the monitor runs, it adds each new alert to the `ctx` variables, for example, `newAlerts` for per bucket monitors and `alerts` for per document monitors. Each alert has its own list of `sample_documents`, and each per document monitor alert has its own list of `associated_queries`. The message template can be formatted to iterate through the list of alerts, the list of `associated_queries`, and the `sample_documents` for each alert.
 
-An alerting monitor uses the permissions of the user that created it. Be mindful of the Notifications plugin channel to which alert messages are sent and the content of the message mustache template. To learn more about security in the Alerting plugin, see [Alerting security]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/security/).
+An alerting monitor uses the permissions of the user that created it. Be mindful of the Notifications channel to which alert messages are sent and the content of the message mustache template. To learn more about alerting security, see [Alerting security]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/security/).
 {: .note}
 
 #### Sample document variables

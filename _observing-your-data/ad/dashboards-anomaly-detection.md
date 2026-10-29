@@ -2,7 +2,7 @@
 layout: default
 title: Anomaly detection visualizations and dashboards
 parent: Anomaly detection
-nav_order: 50
+nav_order: 10
 ---
 
 # Anomaly detection dashboards and visualizations
@@ -14,12 +14,6 @@ OpenSearch provides an automated means of detecting harmful outliers and protect
 You can connect data visualizations to OpenSearch datasets and then create, run, and view real-time anomaly results from visualizations in the **Dashboard** interface. With only a couple of steps, you can bring together traces, metrics, and logs to make your applications and infrastructure fully observable.
 
 ## Getting started 
-
-Before getting started, you must have:
-
-- Installed OpenSearch and OpenSearch Dashboards version 2.9 or later. See [Installing OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/).
-- Installed the Anomaly Detection plugin version 2.9 or later. See [Installing OpenSearch plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/).
-- Installed the Anomaly Detection Dashboards plugin version 2.9 or later. See [Managing OpenSearch Dashboards plugins]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/plugins/) to get started.
 
 ## General requirements for anomaly detection visualizations
 
@@ -62,7 +56,7 @@ Use a single interface to add, view, and edit anomaly detectors that you want to
 1. Select the ellipsis icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/ellipsis-icon.png" class="inline-icon" alt="ellipsis icon"/>{:/}) from the visualization panel, then select **Anomaly Detection**.
 2. Select **Associate a detector**.
 3. From the **Select detector to associate** dropdown menu, select the detector. Only eligible detectors are listed in the dropdown menu.
-4. View basic information about the detectors. To view comprehensive details, select **View detector page** to open the Anomaly Detection plugin page.
+4. View basic information about the detectors. To view comprehensive details, select **View detector page** to open the detector in Anomaly Detection.
 5. Select **Associate detector**. An existing detector is now associated to the visualization, as shown in the following image.
 
 ![Interface and confirmation message of associating a detector]({{site.url}}{{site.baseurl}}/images/dashboards/anomaly-detect-dashboard.png){: width="800" height="800" }
