@@ -30,16 +30,17 @@ The following example uses the OpenSearch Dashboards sample web logs data. If yo
 To create a query variable, follow these steps:
 
 1. In your Observability workspace, select **Dashboards** in the left navigation.
-1. Open an existing dashboard or select **Create** > **Dashboard** to create a new dashboard. If you create a new dashboard, save it first by entering a title and selecting **Save**.
+1. Open an existing dashboard or select **Create Dashboard** to create a new dashboard. If you create a new dashboard, save it first by entering a title and selecting **Save**.
+1. If the dashboard is in view mode, turn on the **Edit** toggle.
 1. At the top of the dashboard, select **Add variable**.
 1. Configure the following general settings:
    - **Name**: Enter `extension`. This is the identifier used to reference the variable in queries, for example, `$extension` or `${extension}`.
    - **Label**: Enter `Extension`. This is the display name shown at the top of the dashboard.
    - **Description**: Optionally, enter a description, such as `Filters visualizations by file extension`.
-   - **Type**: Select **Query**.
-1. Under **Query options**, select **Open variable editor** to open the query editor. The query editor opens in a modal with a pinned **Preview** panel.
+   - **Type**: Keep **Query** selected.
+1. In the **Query options** section, select **Open variable editor**. The query editor opens in a modal with a pinned **Preview of values** panel.
 1. Keep the query language set to **PPL**. To build the query from Prometheus metadata instead, see [Using a PromQL query variable](#using-a-promql-query-variable).
-1. Select **Select dataset** and choose `opensearch_dashboards_sample_data_logs`.
+1. Verify that the selected dataset is `opensearch_dashboards_sample_data_logs`. To choose a different dataset, select the dataset name.
 1. Enter the following query:
 
    ```sql
@@ -47,15 +48,15 @@ To create a query variable, follow these steps:
    ```
    {% include copy.html %}
 
-1. In **Value field**, select `extension`. The value field provides the value inserted into queries when you use `$extension` or `${extension}`.
-1. In **Label field**, keep **None**. Select a label field only when the query returns a separate field to display in the dropdown list in place of the stored value.
-1. Optional: In **Regex**, enter a regular expression to filter the available options or to extract values and labels from the query results. For example, `^(css|gz|zip)$` displays only the `css`, `gz`, and `zip` options. For more information, see [Filtering and extracting options with a regular expression](#filtering-and-extracting-options-with-a-regular-expression).
 1. Select **Preview**. The preview runs the query and displays the first 100 variable options in the **Preview of values** panel. You must successfully preview a query variable before you can apply it.
+1. In the **Value field** dropdown, verify that `extension` is selected. The preview fills in this field automatically. The value field provides the value inserted into queries when you use `$extension` or `${extension}`.
+1. In the **Label field** dropdown, keep **None**. Select a label field only when the query returns a separate field to display in the dropdown list in place of the stored value.
+1. Optional: In **Regex**, enter a regular expression to filter the available options or to extract values and labels from the query results. For example, `^(css|gz|zip)$` displays only the `css`, `gz`, and `zip` options. The preview updates to show the filtered options. For more information, see [Filtering and extracting options with a regular expression](#filtering-and-extracting-options-with-a-regular-expression).
 1. Select **Apply** to save the query and close the editor.
-1. Back in the variable editor, in **Refresh**, choose when OpenSearch Dashboards updates the variable options:
-   - **On dashboard load**: Refreshes options when the dashboard loads.
+1. Back in the variable editor, in the **Query options** section, select a **Refresh** option to choose when OpenSearch Dashboards updates the variable options:
+   - **On dashboard load** (default): Refreshes options when the dashboard loads.
    - **On time range change**: Refreshes options when the dashboard time range changes. Use this option when the available values depend on the selected time range.
-1. Configure the shared option settings. For more information, see [Configuring variable option settings](#configuring-variable-option-settings).
+1. Configure the settings in the **Selection options** section. For more information, see [Configuring variable option settings](#configuring-variable-option-settings).
 1. Select **Add variable**.
 
 The variable appears at the top of the dashboard. The following image shows the query editor for an `extension` query variable configured using the sample web logs data.
@@ -87,9 +88,9 @@ When a query variable uses a dataset backed by a Prometheus data connection, you
 To create a PromQL query variable, follow these steps:
 
 1. At the top of the dashboard, select **Add variable**, and set **Type** to **Query**.
-1. Under **Query options**, select **Open variable editor** to open the query editor.
+1. In the **Query options** section, select **Open variable editor**.
 1. Set the query language to **PromQL**.
-1. Select **Select dataset** and choose a dataset backed by a Prometheus data connection.
+1. Select the dataset name and choose a dataset backed by a Prometheus data connection.
 1. In **Query type**, select a query type (for example, **Label values**) and complete its fields. For **Label values**, select the label and, optionally, a metric and one or more label matchers.
 1. Select **Preview** to load the options, then select **Apply** to save the query and close the editor.
 1. Configure refresh behavior, and then select **Add variable**.
@@ -131,7 +132,8 @@ Use a custom variable when the list of available values is fixed and does not ne
 To create a custom variable, follow these steps:
 
 1. In your Observability workspace, select **Dashboards** in the left navigation.
-1. Open an existing dashboard or select **Create** > **Dashboard** to create a new dashboard. If you create a new dashboard, save it first by entering a title and selecting **Save**.
+1. Open an existing dashboard or select **Create Dashboard** to create a new dashboard. If you create a new dashboard, save it first by entering a title and selecting **Save**.
+1. If the dashboard is in view mode, turn on the **Edit** toggle.
 1. At the top of the dashboard, select **Add variable**.
 1. Configure the following general settings:
    - **Name**: Enter `environment`. This is the identifier used to reference the variable in queries, for example, `$environment` or `${environment}`.
@@ -159,7 +161,8 @@ Use a text variable when you want to type a single free-form value directly, wit
 To create a text variable, follow these steps:
 
 1. In your Observability workspace, select **Dashboards** in the left navigation.
-1. Open an existing dashboard or select **Create** > **Dashboard** to create a new dashboard. If you create a new dashboard, save it first by entering a title and selecting **Save**.
+1. Open an existing dashboard or select **Create Dashboard** to create a new dashboard. If you create a new dashboard, save it first by entering a title and selecting **Save**.
+1. If the dashboard is in view mode, turn on the **Edit** toggle.
 1. At the top of the dashboard, select **Add variable**.
 1. Configure the following general settings:
    - **Name**: Enter `search_term`. This is the identifier used to reference the variable in queries, for example, `$search_term` or `${search_term}`.

@@ -182,9 +182,10 @@ To filter a visualization by a variable value, follow these steps:
 
 1. Create a `machine_os` variable:
    1. In your Observability workspace, select **Dashboards** in the left navigation.
-   1. Open an existing dashboard or select **Create** > **Dashboard** to create a new dashboard. If creating a new dashboard, save it first by entering a title and selecting **Save**.
+   1. Open an existing dashboard or select **Create Dashboard** to create a new dashboard. If creating a new dashboard, save it first by entering a title and selecting **Save**.
+   1. If the dashboard is in view mode, turn on the **Edit** toggle.
    1. At the top of the dashboard, select **Add variable**.
-   1. In **Name**, enter `machine_os`, and set **Type** to **Query**. Under **Query options**, select **Open variable editor**, choose `opensearch_dashboards_sample_data_logs` as the dataset, keep the language set to **PPL**, and enter the following query:
+   1. In the **Name** field, enter `machine_os`, and keep **Type** set to **Query**. In the **Query options** section, select **Open variable editor**. Keep the language set to **PPL**, verify that the selected dataset is `opensearch_dashboards_sample_data_logs`, and enter the following query:
    
       ```sql
       | FIELDS `machine.os`
@@ -215,7 +216,8 @@ To select a metric dynamically, follow these steps:
 
 1. Create a `log_metric` variable:
    1. In your Observability workspace, select **Dashboards** in the left navigation.
-   1. Open an existing dashboard or select **Create** > **Dashboard** to create a new dashboard. If creating a new dashboard, save it first by entering a title and selecting **Save**.
+   1. Open an existing dashboard or select **Create Dashboard** to create a new dashboard. If creating a new dashboard, save it first by entering a title and selecting **Save**.
+   1. If the dashboard is in view mode, turn on the **Edit** toggle.
    1. At the top of the dashboard, select **Add variable**.
    1. In the **Name**, enter `log_metric`. In the **Type**, select **Custom**. In the **Custom options**, enter `memory` and press **Enter** to add. Then enter `bytes` and press **Enter** to add. 
    1. Select **Add variable** to save.
@@ -243,7 +245,8 @@ To change time intervals dynamically, follow these steps:
 
 1. Create an `interval` variable:
    1. In your Observability workspace, select **Dashboards** in the left navigation.
-   1. Open an existing dashboard or select **Create** > **Dashboard** to create a new dashboard. If creating a new dashboard, save it first by entering a title and selecting **Save**.
+   1. Open an existing dashboard or select **Create Dashboard** to create a new dashboard. If creating a new dashboard, save it first by entering a title and selecting **Save**.
+   1. If the dashboard is in view mode, turn on the **Edit** toggle.
    1. At the top of the dashboard, select **Add variable**.
    1. In the **Name**, enter `interval`. In the **Type**, select **Custom**. In the **Custom options**, enter `1d` and press **Enter** to add. Repeat for `12h`, `6h`, and `1h`.
    1. Select **Add variable** to save.
@@ -270,7 +273,8 @@ To change aggregation functions dynamically, follow these steps:
 
 1. Create a `function` variable:
    1. In your Observability workspace, select **Dashboards** in the left navigation.
-   1. Open an existing dashboard or select **Create** > **Dashboard** to create a new dashboard. If creating a new dashboard, save it first by entering a title and selecting **Save**.
+   1. Open an existing dashboard or select **Create Dashboard** to create a new dashboard. If creating a new dashboard, save it first by entering a title and selecting **Save**.
+   1. If the dashboard is in view mode, turn on the **Edit** toggle.
    1. At the top of the dashboard, select **Add variable**.
    1. In the **Name**, enter `function`. In the **Type**, select **Custom**. In the **Custom options**, enter `avg` and press **Enter** to add. Repeat for `max` and `min`.
    1. Select **Add variable** to save.

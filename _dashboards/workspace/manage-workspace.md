@@ -54,20 +54,20 @@ Access the **Sample data** in the navigation menu on the left. Select the approp
 
 ## Migrating unassigned assets into a workspace
 
-Saved objects created before workspaces were enabled do not belong to any workspace. Because every workspace view filters by the `workspaces` field, these assets are hidden from inside any workspace even though they still exist in the cluster. A [dashboard admin]({{site.url}}{{site.baseurl}}/dashboards/workspace/workspace-acl/#configuring-dashboard-administrators) can move these assets into a new workspace using the migration wizard.
+Saved objects created before workspaces were enabled don't belong to any workspace. A workspace displays only the assets assigned to it, so these assets aren't visible in any workspace even though they still exist in the cluster. A [dashboard admin]({{site.url}}{{site.baseurl}}/dashboards/workspace/workspace-acl/#configuring-dashboard-administrators) can move all unassigned assets into a new workspace using the migration wizard.
 
-When unassigned assets exist, the workspaces landing page shows a **Migrate existing assets (N)** button, where `N` is the number of unassigned assets. A one-time guided tour points to this button. Select the button to open the migration wizard.
+When unassigned assets exist, the workspaces landing page displays a **Migrate existing assets (N)** button to dashboard admins, where N is the number of unassigned assets.
 
-The migration wizard is available only to dashboard admins, and the button appears only when unassigned assets exist.
-{: .note}
+To migrate unassigned assets into a new workspace, follow these steps:
 
-The wizard guides you through three steps:
+1. On the workspaces landing page, select **Migrate existing assets (N)**.
+1. In the **Workspace name** field, enter a name for the new workspace.
+1. Review the list of unassigned assets. You can search the list and filter it by asset type. The wizard migrates all unassigned assets, regardless of the search term or filter.
+1. Select **Create workspace and migrate**. OpenSearch Dashboards creates the workspace, connects all data sources and data connections to it so that migrated dashboards continue to display data, and then migrates the assets. You can't close the wizard while the migration is running.
+1. Review the summary, which shows the number of migrated assets, failed assets, and connected data sources.
+1. Select **Go to \<workspace name\>** to open the new workspace.
 
-1. **Review**: Explains why the assets are hidden, lets you enter a name for the new target workspace, and lists every unassigned asset. You can search the list and filter it by asset type, but the whole set is always migrated regardless of the search term or filter.
-1. **Running**: Creates the new workspace and then migrates the assets into it. You cannot close the wizard while it runs. All data sources and data connections are connected to the new workspace at creation time, so migrated dashboards keep rendering.
-1. **Result**: Shows a summary callout with the number of migrated assets, failed assets, and connected data sources, along with a per-asset outcome table. Select **Go to \<workspace\>** to open the new workspace and view the migrated assets.
-
-If some assets fail to migrate, they remain unassigned and are listed with the reason they failed. Select **Continue migrating** to retry. The retry reuses the workspace that was already created instead of creating a second one.
+Assets that fail to migrate remain unassigned, and the summary lists each one with the reason it failed. To migrate them into the same workspace, select **Retry failed assets**. If the migration stops before it finishes, select **Continue migrating** to migrate the remaining assets into the same workspace.
 
 ## Copying assets between workspaces
 
