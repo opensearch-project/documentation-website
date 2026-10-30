@@ -538,6 +538,7 @@ The following is the default user prompt:
 
 ```json
 Question: ${parameters.question}
+Index: ${parameters.index_name}
 Mapping: ${parameters.index_mapping:-}
 Query Fields: ${parameters.query_fields:-}
 Sample Document from index: ${parameters.sample_document:-}
