@@ -134,6 +134,34 @@ plugins | 0   |   p    | STARTED |   0  |  208b | 172.18.0.4 | odfe-node1
 plugins | 0   |   r    | STARTED |   0  |  208b | 172.18.0.3 |  odfe-node2          
 ```
 
+## Including closed or hidden indexes
+**Introduced 3.10**
+{: .label .label-purple }
+
+By default, wildcard expressions in the index path match only open, non-hidden indexes. To match other indexes, use the `expand_wildcards` query parameter. It accepts the following values, which can be combined in a comma-separated list:
+
+- `open`: Match open, non-hidden indexes.
+- `closed`: Match closed, non-hidden indexes.
+- `hidden`: Match hidden indexes. Must be combined with `open`, `closed`, or both.
+- `all`: Match any index, including hidden ones.
+- `none`: Wildcard expressions are not accepted.
+
+The following request returns the shards of all indexes whose names start with `logs-`, including closed and hidden indexes:
+
+```json
+GET /_cat/shards/logs-*?v&expand_wildcards=all
+```
+{% include copy-curl.html %}
+
+Closed indexes have no shard statistics, so statistics columns such as `docs` and `store` are empty for their shards.
+
+If you specify `expand_wildcards` without an index name, the option applies to all indexes. For example, the following request returns only the shards of closed indexes:
+
+```json
+GET /_cat/shards?v&expand_wildcards=closed
+```
+{% include copy-curl.html %}
+
 ## Limiting the response size
 
 To limit the number of shards returned, configure the `cat.shards.response.limit.number_of_shards` setting. For more information, see [Cluster-level CAT response limit settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/cluster-settings/#cluster-level-cat-response-limit-settings).
