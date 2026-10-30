@@ -296,6 +296,92 @@ By default, queries use data from the local cluster. You can assign individual `
 ```
 {% include copy.html %}
 
+## Querying Prometheus data with PromQL
+Introduced 3.10
+{: .label .label-purple }
+
+You can use a Vega or Vega-Lite specification to query a Prometheus data connection using [PromQL](https://prometheus.io/docs/prometheus/latest/querying/basics/). The query is executed server-side and the results are injected into the visualization as inline `values`, so no external HTTP calls are made from the browser.
+
+Before proceeding, ensure that you have configured a Prometheus data connection in OpenSearch Dashboards. For details, see [Connecting Prometheus to OpenSearch]({{site.url}}{{site.baseurl}}/dashboards/management/connect-prometheus/).
+{: .note}
+
+### Spec syntax
+
+Add a `data.url` object with `"%type%": "prometheus"` to identify the data source type. The following fields are supported:
+
+| Field | Required | Description |
+|-------|----------|-------------|
+| `"%type%"` | Yes | Must be set to `"prometheus"`. |
+| `"%datasource%"` | Yes | The name of the Prometheus data connection as configured in OpenSearch Dashboards. |
+| `"%context%"` | Yes | Must be set to `true`. Forwards the dashboard time range picker into the PromQL query. |
+| `body.query` | Yes | The PromQL expression to evaluate, for example, `"rate(http_requests_total[5m])"`. To run multiple expressions in one request, separate them with a semicolon (`;`). |
+| `"%maxdatapoints%"` | No | An upper bound on the number of data points per series. The server derives an appropriate step interval to stay within this limit. Useful for keeping charts responsive over long time ranges. |
+| `"%step%"` | No | An explicit step interval in seconds, for example, `60`. Takes precedence over `%maxdatapoints%` when both are provided. |
+
+### Response fields
+
+The server returns one record per data point. Each record contains the following fields, which you can reference in Vega encodings:
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `Time` | Number | The timestamp of the data point, in milliseconds since the Unix epoch. |
+| `Series` | String | The full label set of the time series, formatted as a Prometheus metric string, for example, `up{job="node"}`. |
+| `Labels` | Object | The individual labels of the series as key-value pairs, for example, `{"job": "node", "instance": "localhost:9100"}`. |
+| `Value` | Number | The sample value at this timestamp. |
+
+### Example
+
+The following Vega-Lite specification creates a line chart that plots the per-second rate of HTTP requests over the dashboard time range:
+
+```json
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {
+    "url": {
+      "%type%": "prometheus",
+      "%datasource%": "my_prometheus_connection",
+      "%context%": true,
+      "%maxdatapoints%": 500,
+      "body": {
+        "query": "rate(http_requests_total[5m])"
+      }
+    }
+  },
+  "mark": "line",
+  "encoding": {
+    "x": {
+      "field": "Time",
+      "type": "temporal",
+      "axis": { "title": "Time" }
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "axis": { "title": "Requests / second" }
+    },
+    "color": {
+      "field": "Series",
+      "type": "nominal"
+    },
+    "tooltip": [
+      { "field": "Time", "type": "temporal" },
+      { "field": "Series", "type": "nominal" },
+      { "field": "Value", "type": "quantitative" }
+    ]
+  }
+}
+```
+{% include copy.html %}
+
+Replace `my_prometheus_connection` with the name of your configured Prometheus data connection.
+{: .note}
+
+### Limitations
+
+- Prometheus data connections reach the local OpenSearch cluster's direct-query Prometheus endpoint. Remote multi-data-source (MDS) connections are not supported.
+- If a query exceeds the server-side series limit, OpenSearch Dashboards displays a warning and truncates the result. Narrow the PromQL query to reduce the number of series returned.
+- OpenSearch Dashboards limits a PromQL result to 30,000 data points and truncates it at a series boundary. If a result exceeds this client-side limit, OpenSearch Dashboards displays a warning. Use `%maxdatapoints%` or `%step%` to reduce the number of data points returned.
+
 ## Additional resources
 
 The following resources provide additional information about Vega visualizations in OpenSearch Dashboards:
