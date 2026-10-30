@@ -335,38 +335,38 @@ The following Vega-Lite specification creates a line chart that plots the per-se
 
 ```json
 {
-  $schema: https://vega.github.io/schema/vega-lite/v5.json
-  data: {
-    url: {
-      "%type%": prometheus
-      "%datasource%": my_prometheus_connection
-      "%context%": true
-      "%maxdatapoints%": 500
-      body: {
-        query: "rate(http_requests_total[5m])"
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {
+    "url": {
+      "%type%": "prometheus",
+      "%datasource%": "my_prometheus_connection",
+      "%context%": true,
+      "%maxdatapoints%": 500,
+      "body": {
+        "query": "rate(http_requests_total[5m])"
       }
     }
-  }
-  mark: line
-  encoding: {
-    x: {
-      field: Time
-      type: temporal
-      axis: { title: Time }
-    }
-    y: {
-      field: Value
-      type: quantitative
-      axis: { title: "Requests / second" }
-    }
-    color: {
-      field: Series
-      type: nominal
-    }
-    tooltip: [
-      { field: Time, type: temporal }
-      { field: Series, type: nominal }
-      { field: Value, type: quantitative }
+  },
+  "mark": "line",
+  "encoding": {
+    "x": {
+      "field": "Time",
+      "type": "temporal",
+      "axis": { "title": "Time" }
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "axis": { "title": "Requests / second" }
+    },
+    "color": {
+      "field": "Series",
+      "type": "nominal"
+    },
+    "tooltip": [
+      { "field": "Time", "type": "temporal" },
+      { "field": "Series", "type": "nominal" },
+      { "field": "Value", "type": "quantitative" }
     ]
   }
 }
